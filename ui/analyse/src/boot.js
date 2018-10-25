@@ -108,7 +108,7 @@ module.exports = function(element, cfg) {
     var $panel = $panels.filter('.computer_analysis');
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
-    lichess.loadScript('/assets/javascripts/chart/acpl.js').then(function() {
+    lichess.loadScript('javascripts/chart/acpl.js').then(function() {
       lichess.advantageChart(data, cfg.trans, $("#adv_chart")[0]);
     });
   };
@@ -120,7 +120,7 @@ module.exports = function(element, cfg) {
     $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel === 'move_times' && !lichess.movetimeChart) try {
-      lichess.loadScript('/assets/javascripts/chart/movetime.js').then(function() {
+      lichess.loadScript('javascripts/chart/movetime.js').then(function() {
         lichess.movetimeChart(data, cfg.trans);
       });
     } catch (e) {}
@@ -179,4 +179,14 @@ module.exports = function(element, cfg) {
     ));
   });
   lichess.topMenuIntent();
+  $('button.cheat_list').on('click', function() {
+    $.post({
+      url: $(this).data('src') + '?v=' + !$(this).hasClass('active')
+    });
+    $(this).toggleClass('active');
+  });
+  if (lichess.isMS) setTimeout(function() {
+    var prop = 'backgroundImage';
+    $('.cg-board').css(prop, $('.cg-board').css(prop).replace(')','?1)'));
+  }, 1000);
 };

@@ -25,9 +25,9 @@ case class FilterConfig(
   )
 
   def nonEmpty = copy(
-    variant = variant.isEmpty.fold(FilterConfig.default.variant, variant),
-    mode = mode.isEmpty.fold(FilterConfig.default.mode, mode),
-    speed = speed.isEmpty.fold(FilterConfig.default.speed, speed)
+    variant = if (variant.isEmpty) FilterConfig.default.variant else variant,
+    mode = if (mode.isEmpty) FilterConfig.default.mode else mode,
+    speed = if (speed.isEmpty) FilterConfig.default.speed else speed
   )
 }
 

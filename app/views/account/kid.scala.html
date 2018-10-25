@@ -1,6 +1,6 @@
 @(u: User)(implicit ctx: Context)
 
-@title = @{ s"${u.username} - ${trans.kidMode()}" }
+@title = @{ s"${u.username} - ${trans.kidMode.txt()}" }
 
 @account.layout(title = title, active = "kid") {
 <div class="content_box small_box high">

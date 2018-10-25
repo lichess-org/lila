@@ -91,17 +91,17 @@ piece {
 }
 .cg-512 piece {
   will-change: transform, opacity;
-  transform: opacity .1s;
+  transition: opacity .1s;
   transition-timing-function: linear;
 }
 .mini_board piece {
   z-index: initial;
 }
-.lichess_board.blindfold piece,
-.other_games.blindfold piece {
+.blindfold .lichess_board piece,
+.blindfold .other_games piece {
   opacity: 0;
 }
-.lichess_board.blindfold square.check {
+.blindfold .lichess_board square.check {
   background: none;
 }
 piece.dragging {
@@ -500,6 +500,9 @@ body.piece_letter .lichess_ground .replay move {
 .pocket.usable piece.premove:hover {
   background-color: #666;
 }
+.blindfold .pocket:not(.usable) {
+  opacity: 0;
+}
 .pocket piece[data-nb='0'] {
   cursor: auto;
   opacity: 0.1;
@@ -883,7 +886,7 @@ div.control .button.disabled {
   top: 0;
   right: -25px;
   width: 25px;
-  height: 80px;
+  height: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -897,7 +900,7 @@ div.control .button.disabled {
 .lichess_ground .rematch-decline:hover {
   background: #dc322f;
   color: #fff;
-  right: -35px;
+  right: -36px;
   width: 35px;
 }
 .lichess_ground .follow_up .fbt.strong {
@@ -1122,17 +1125,20 @@ body.playing.zen #chat,
 body.playing.zen .underboard .center .crosstable,
 body.playing.zen #now_playing,
 body.playing.zen .clock .moretime,
-body.playing.zen #top > *,
-body.playing.zen #site_title,
-#zentog {
+body.playing.zen #topmenu,
+body.playing.zen #ham-plate,
+body.playing.zen .dasher,
+body.playing.zen .site_notifications,
+body.playing.zen .challenge_notifications,
+body.playing.zen .reports,
+body.playing.zen #clinput,
+body.playing.zen #site_title {
   display: none;
 }
-body.playing.zen .table_wrap .replay .buttons,
-body.playing.zen.offline #reconnecting {
+body.playing.zen .table_wrap .replay .buttons {
   opacity: 0!important;
 }
-body.playing.zen .table_wrap:hover .replay .buttons,
-body.playing.zen.offline #reconnecting {
+body.playing.zen .table_wrap:hover .replay .buttons {
   opacity: 1!important;
 }
 #zentog {
@@ -1141,6 +1147,8 @@ body.playing.zen.offline #reconnecting {
   left: 0;
   padding: 10px 15px;
   opacity: 0.5;
+  z-index: 3;
+  display: none;
 }
 body.playing.zen #zentog {
   display: block;

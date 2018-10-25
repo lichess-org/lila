@@ -1,4 +1,4 @@
-@(form: Form[_], config: lila.tournament.DataForm, me: User)(implicit ctx: Context)
+@(form: Form[_], config: lila.tournament.DataForm, me: User, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context)
 
 @import config._
 @import lila.tournament.DataForm._
@@ -14,7 +14,7 @@
 }
 
 @tournament.layout(
-title = s"${trans.newTournament()}",
+title = trans.newTournament.txt(),
 moreCss = moreCss,
 moreJs = moreJs) {
 <div id="tournament">
@@ -86,7 +86,7 @@ moreJs = moreJs) {
           <a class="show blue">@trans.showAdvancedSettings()</a>
         </p>
         <div class="material form">
-          @tournament.conditionForm(form, auto = true)
+          @tournament.conditionForm(form, auto = true, teams = teams)
           @base.form.group(form("startDate"), Html("Custom start date"), help = Html("""This overrides the "Time before tournament starts" setting""").some) { field =>
           @base.form.flatpickr(field)
           }

@@ -1,8 +1,9 @@
 package lila.security
 
-object Spam {
+final class Spam(spamKeywords: () => List[String]) {
 
-  def detect(text: String) = fullBlacklist exists text.contains
+  def detect(text: String) = staticBlacklist.exists(text.contains) ||
+    spamKeywords().exists(text.contains)
 
   private def referBlacklist = List(
     /* While links to other chess websites are welcome,
@@ -12,13 +13,9 @@ object Spam {
     "chess.com/register?refId="
   )
 
-  private val youtubeIds = List(
-    "7UpltimWY_E"
-  )
+  private val youtubeIds = List("7UpltimWY_E", "J_bzfjZZnjU", "xRiQe_tq7h0", "8IlVvluRbwk", "P3o0hPjrxgo", "d8TSD4f89i8")
 
-  private lazy val fullBlacklist = List(
-    "chess-bot.com"
-  ) ::: youtubeIds ::: referBlacklist
+  private lazy val staticBlacklist = List("chess-bot.com") ::: youtubeIds ::: referBlacklist
 
   def replace(text: String) = replacements.foldLeft(text) {
     case (t, (regex, rep)) => regex.replaceAllIn(t, rep)

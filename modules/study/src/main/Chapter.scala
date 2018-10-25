@@ -57,6 +57,9 @@ case class Chapter(
   def setClock(clock: Option[Centis], path: Path): Option[Chapter] =
     updateRoot(_.setClockAt(clock, path))
 
+  def forceVariation(force: Boolean, path: Path): Option[Chapter] =
+    updateRoot(_.forceVariationAt(force, path))
+
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
     else FullOpeningDB searchInFens root.mainline.map(_.fen)
@@ -152,8 +155,8 @@ object Chapter {
 
   def defaultName(order: Int) = Name(s"Chapter $order")
 
-  private val defaultNamePattern = """^Chapter \d+$""".r.pattern
-  def isDefaultName(n: Name) = n.value.isEmpty || defaultNamePattern.matcher(n.value).matches
+  private val defaultNameRegex = """Chapter \d+""".r
+  def isDefaultName(n: Name) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: Name) = Name(n.value.trim take 80)
 

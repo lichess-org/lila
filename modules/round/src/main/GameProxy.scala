@@ -25,11 +25,11 @@ private final class GameProxy(id: Game.ID) {
 
   // convenience helpers
 
-  def pov(color: Color) = game.map {
+  def pov(color: Color) = game.dmap {
     _ map { Pov(_, color) }
   }
 
-  def playerPov(playerId: String) = game.map {
+  def playerPov(playerId: String) = game.dmap {
     _ flatMap { Pov(_, playerId) }
   }
 
@@ -37,9 +37,9 @@ private final class GameProxy(id: Game.ID) {
 
   // internals
 
-  private var cache: Fu[Option[Game]] = fetch
+  private[this] var cache: Fu[Option[Game]] = fetch
 
-  private def fetch = GameRepo game id
+  private[this] def fetch = GameRepo game id
 }
 
 object GameProxy {

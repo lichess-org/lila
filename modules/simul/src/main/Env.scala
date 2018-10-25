@@ -6,9 +6,9 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
-import lila.socket.actorApi.GetVersion
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.History
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 import makeTimeout.short
 
 final class Env(
@@ -106,14 +106,15 @@ final class Env(
     expireAfter = _.ExpireAfterWrite(CreatedCacheTtl)
   )
 
-  def version(tourId: String): Fu[Int] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+  def version(simulId: String): Fu[SocketVersion] =
+    socketHub ? Ask(simulId, GetVersion) mapTo manifest[SocketVersion]
 
   private[simul] val simulColl = db(CollectionSimul)
 
-  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some, logger = logger)
-  }))
+  private val sequencerMap = new DuctMap(
+    mkDuct = _ => Duct.extra.lazyFu,
+    accessTimeout = SequencerTimeout
+  )
 
   private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
 

@@ -1,5 +1,7 @@
 package lila.common
 
+import scala.concurrent.duration.FiniteDuration
+
 object Chronometer {
 
   case class Lap[A](result: A, nanos: Long) {
@@ -21,6 +23,9 @@ object Chronometer {
       println(s"chrono $msg - $showDuration")
       result
     }
+    def ppIfGt(msg: String, duration: FiniteDuration): A =
+      if (nanos > duration.toNanos) pp(msg)
+      else result
 
     def showDuration: String = if (millis >= 1) f"$millis%.2f ms" else s"$micros micros"
   }
@@ -40,8 +45,8 @@ object Chronometer {
     }
 
     def pp: Fu[A] = lap dmap (_.pp)
-
     def pp(msg: String): Fu[A] = lap dmap (_ pp msg)
+    def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap dmap (_.ppIfGt(msg, duration))
 
     def result = lap.dmap(_.result)
   }

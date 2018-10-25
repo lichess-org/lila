@@ -1,13 +1,9 @@
 @(questions: Paginator[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
 
-@side = {
-@popularBox(popular)
-}
-
 @layout(
 title = trans.questionsAndAnswers.txt(),
-moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
-side = side.some,
+moreJs = infiniteScrollTag,
+side = popularBox(popular).some,
 openGraph = lila.app.ui.OpenGraph(
 title = trans.questionsAndAnswers.txt(),
 url = s"$netBaseUrl${routes.QaQuestion.index().url}",

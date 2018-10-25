@@ -436,7 +436,7 @@ body.dark #tournament .delay button {
 }
 #tournament form.plain td {
   padding: 0.6em;
-  white-space: nowrap;
+  white-space: wrap;
 }
 #tournament form.plain label {
   margin-right: 10px;

@@ -12,7 +12,6 @@ import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.user.User
 
 final class BotPlayer(
-    roundMap: ActorSelection,
     chatActor: ActorSelection
 )(implicit system: ActorSystem) {
 
@@ -23,7 +22,10 @@ final class BotPlayer(
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]
-          roundMap ! Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
+          system.lilaBus.publish(
+            Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
+            'roundMapTell
+          )
           promise.future
         }
       }
@@ -48,9 +50,12 @@ final class BotPlayer(
     GameRepo game id map {
       _.flatMap(Pov(_, me)).filter(_.opponent.isOfferingRematch) ?? { pov =>
         // delay so it feels more natural
-        lila.common.Future.delay(accept.fold(100, 2000) millis) {
+        lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
-            roundMap ! Tell(pov.gameId, accept.fold(RematchYes, RematchNo)(pov.playerId))
+            system.lilaBus.publish(
+              Tell(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId)),
+              'roundMapTell
+            )
           }
         }(system)
         true
@@ -59,10 +64,20 @@ final class BotPlayer(
 
   def abort(pov: Pov): Funit =
     if (!pov.game.abortable) fufail("This game can no longer be aborted")
-    else fuccess { roundMap ! Tell(pov.gameId, Abort(pov.playerId)) }
+    else fuccess {
+      system.lilaBus.publish(
+        Tell(pov.gameId, Abort(pov.playerId)),
+        'roundMapTell
+      )
+    }
 
   def resign(pov: Pov): Funit =
     if (pov.game.abortable) abort(pov)
-    else if (pov.game.resignable) fuccess { roundMap ! Tell(pov.gameId, Resign(pov.playerId)) }
+    else if (pov.game.resignable) fuccess {
+      system.lilaBus.publish(
+        Tell(pov.gameId, Resign(pov.playerId)),
+        'roundMapTell
+      )
+    }
     else fufail("This game cannot be resigned")
 }

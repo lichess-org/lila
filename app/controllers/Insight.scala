@@ -62,7 +62,8 @@ object Insight extends LilaController {
     lila.user.UserRepo named username flatMap {
       _.fold(notFound) { u =>
         env.share.grant(u, ctx.me) flatMap {
-          _.fold(f(u), fuccess(Forbidden(html.insight.forbidden(u))))
+          case true => f(u)
+          case _ => fuccess(Forbidden(html.insight.forbidden(u)))
         }
       }
     }

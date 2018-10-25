@@ -187,3 +187,11 @@ export interface MoveMetadata {
 }
 
 export type Position = 'top' | 'bottom';
+
+export interface MaterialDiffSide {
+  [role: string]: number;
+}
+export interface MaterialDiff {
+  white: MaterialDiffSide;
+  black: MaterialDiffSide;
+}

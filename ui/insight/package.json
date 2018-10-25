@@ -25,7 +25,7 @@
     "gulp-streamify": "^1",
     "gulp-uglify": "^3",
     "gulp-util": "^3",
-    "uglify-js": "^2",
+    "uglify-js": "^3",
     "vinyl-source-stream": "^1",
     "watchify": "^3"
   },

@@ -40,7 +40,7 @@ object Tv extends LilaController {
     OptionFuResult(Env.tv.tv getGameAndHistory channel) {
       case (game, history) =>
         val flip = getBool("flip")
-        val pov = flip.fold(Pov second game, Pov first game)
+        val pov = if (flip) Pov second game else Pov first game
         val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = {
@@ -96,8 +96,7 @@ object Tv extends LilaController {
       case Some(game) => Ok(views.html.tv.embed(
         Pov first game,
         get("bg", req) | "light",
-        lila.pref.Theme(~get("theme", req)).cssClass,
-        assetVersion = getAssetVersion
+        lila.pref.Theme(~get("theme", req)).cssClass
       ))
     }
   }

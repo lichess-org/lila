@@ -4,7 +4,7 @@ import lila.db.dsl._
 
 object TopicRepo extends TopicRepo(false) {
 
-  def apply(troll: Boolean): TopicRepo = troll.fold(TopicRepoTroll, TopicRepo)
+  def apply(troll: Boolean): TopicRepo = if (troll) TopicRepoTroll else TopicRepo
 }
 
 object TopicRepoTroll extends TopicRepo(true)
@@ -16,7 +16,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
   // dirty
   private val coll = Env.current.topicColl
 
-  private val trollFilter = troll.fold($empty, $doc("troll" -> false))
+  private val trollFilter = !troll ?? $doc("troll" -> false)
   private val notStickyQuery = $doc("sticky" $ne true)
   private val stickyQuery = $doc("sticky" -> true)
 
@@ -47,11 +47,9 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
-    TopicRepoTroll.byTree(categ.slug, slug) flatMap {
-      _.isDefined.fold(
-        nextSlug(categ, name, it + 1),
-        fuccess(slug)
-      )
+    TopicRepoTroll.byTree(categ.slug, slug) flatMap { found =>
+      if (found.isDefined) nextSlug(categ, name, it + 1)
+      else fuccess(slug)
     }
   }
 

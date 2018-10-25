@@ -7,6 +7,14 @@ import { povChances } from './winningChances';
 
 const li = window.lichess;
 
+function sanIrreversible(variant: VariantKey, san: string): boolean {
+  if (san.indexOf('O-O') === 0) return true;
+  if (variant === 'crazyhouse') return false;
+  if (san.indexOf('x') > 0) return true; // capture
+  if (san.toLowerCase() === san) return true; // pawn move
+  return variant === 'threeCheck' && san.indexOf('+') > 0;
+}
+
 export default function(opts: CevalOpts): CevalCtrl {
 
   const storageKey = function(k: string): string {
@@ -30,7 +38,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const sfPath = '/assets/vendor/stockfish/stockfish';
+  const sfPath = 'vendor/stockfish/stockfish';
   const pool = new Pool({
     asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
     pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),
@@ -130,7 +138,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       // send fen after latest castling move and the following moves
       for (let i = 1; i < steps.length; i++) {
         let s = steps[i];
-        if (s.san!.indexOf('O-O') === 0) {
+        if (sanIrreversible(opts.variant.key, s.san!)) {
           work.moves = [];
           work.initialFen = s.fen;
         } else work.moves.push(s.uci!);

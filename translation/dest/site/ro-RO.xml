@@ -324,6 +324,8 @@
   <string name="yourPerfRatingIsTooLow">Scorul tău la %1$s (%2$s) este prea mic</string>
   <string name="ratedMoreThanInPerf">Evaluat ≥ %1$s în %2$s</string>
   <string name="ratedLessThanInPerf">Evaluat ≤ %1$s în %2$s</string>
+  <string name="mustBeInTeam">Trebuie să fii in echipa %s</string>
+  <string name="youAreNotInTeam">Nu sunteți în echipa %s</string>
   <string name="backToGame">Înapoi la joacă</string>
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="teams">Echipe</string>
@@ -534,6 +536,7 @@
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
   <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorlui. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
+  <string name="error.provideOneCheatedGameLink">Vă rugăm să furnizați cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
   <string name="theming">Teme</string>

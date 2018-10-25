@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # Starts a dev console to compile and run lichess.
 # To edit this file, copy it to bin/dev: it's not indexed by Git.

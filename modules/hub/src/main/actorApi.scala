@@ -45,12 +45,11 @@ package report {
   case class Cheater(userId: String, text: String)
   case class Shutup(userId: String, text: String)
   case class Booster(winnerId: String, loserId: String)
-  case class Created(userId: String, reason: String, reporterId: String)
-  case class Processed(userId: String, reason: String)
 }
 
 package security {
   case class GarbageCollect(userId: String, ipBan: Boolean)
+  case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
 }
 

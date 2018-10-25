@@ -45,7 +45,7 @@ object Coach extends LilaController {
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
           err => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
-            if (data.score < 4) Env.report.api.create(lila.report.Report.Candidate(
+            if (data.score < 4 && !me.reportban) Env.report.api.create(lila.report.Report.Candidate(
               reporter = lila.report.Reporter(me),
               suspect = lila.report.Suspect(c.user),
               reason = lila.report.Reason.Other,

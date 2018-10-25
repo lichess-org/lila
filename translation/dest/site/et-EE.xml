@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
   <string name="ratedMoreThanInPerf">Reiting ≥ %1$s %2$s</string>
   <string name="ratedLessThanInPerf">Reiting ≤ %1$s %2$s</string>
+  <string name="mustBeInTeam">Sa pead olema %s tiimis</string>
+  <string name="youAreNotInTeam">Sa ei ole %s tiimi liige</string>
   <string name="backToGame">Tagasi mängule</string>
   <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
@@ -390,7 +392,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentCalendar">Turniiride kalender</string>
   <string name="conditionOfEntry">Sisenemise tingimus:</string>
   <string name="advancedSettings">Täpsemad seaded</string>
+  <string name="safeTournamentName">Vali turniirile väga turvaline nimi.</string>
   <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
+  <string name="emptyTournamentName">Jäta tühjaks, et nimetada turniir juhusliku suurmeistri järgi.</string>
   <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
   <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
   <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
@@ -506,6 +510,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="troll">Troll</string>
   <string name="other">Muu</string>
   <string name="reportDescriptionHelp">Kleebi link mängust ja selgita, mis on valesti selle kasutaja käitumises.</string>
+  <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>
   <string name="by">Postitas %s</string>
   <string name="thisTopicIsNowClosed">See teema on nüüd lõpetatud.</string>
   <string name="theming">Teemad</string>
@@ -643,6 +648,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="videoLibrary">Videod</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>
+  <string name="about">Rakenduse info</string>
   <string name="contribute">Panustada</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Kasutajatingimused</string>
@@ -684,6 +690,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentMayHaveBeenCanceled">Turniir võidi katkestada, kuna kõik registreerijad lahkusid enne turniiri algust</string>
   <string name="returnToTournamentsHomepage">Tagasi avalehele</string>
   <string name="weeklyPerfTypeRatingDistribution">%s reitingu jaotus sellel kuul</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s mängija sellel nädalal.</item>
+    <item quantity="other">%1$s %2$s mängija sellel nädalal.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled %1$s %2$s mängijatest parem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel väljakujunenud %s reitingut.</string>
@@ -828,6 +838,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga suure vahega võrreldes mängijaga %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ei saa väljakutset esitada ajutise %s reitingu tõttu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s aktsepteerib väljakutseid ainult oma sõpradelt.</string>
+  <string name="conditionalPremoves">Tingimuslikud eelkäigud</string>
   <string name="addCurrentVariation">Lisa praegune varient</string>
+  <string name="playVariationToCreateConditionalPremoves">Tingimuslike eelkäikude loomiseks mängi variatsioon</string>
+  <string name="noConditionalPremoves">Tingimuslikud eelkäigud puuduvad</string>
   <string name="playX">Mängi %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ja salvesta %s ettekäigu variendid</item>
+    <item quantity="other">ja salvesta %s ettekäigu variendid</item>
+  </plurals>
 </resources>

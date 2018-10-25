@@ -1,7 +1,7 @@
 @(scheduled: List[Tournament], finished: Paginator[Tournament], winners: lila.tournament.AllWinners, json: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreJs = {
-@jsTag("vendor/jquery.infinitescroll.min.js")
+@infiniteScrollTag
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
 @embedJs {
 var app = LichessTournamentSchedule.app(document.getElementById('tournament_schedule'), {
@@ -51,8 +51,8 @@ moreJs = moreJs,
 side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 url = s"$netBaseUrl${routes.Tournament.home().url}",
-title = s"${trans.tournamentHomeTitle()}",
-description = s"${trans.tournamentHomeDescription()}").some) {
+title = trans.tournamentHomeTitle.txt(),
+description = trans.tournamentHomeDescription.txt()).some) {
 <div class="content_box tournament_box no_padding">
   <div class="create_tournament">
     <a href="/tournament/calendar" class="blue">@trans.tournamentCalendar()</a>

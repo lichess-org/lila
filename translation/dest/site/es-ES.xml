@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es demasiado baja</string>
   <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
+  <string name="mustBeInTeam">Debes ser del equipo %s</string>
+  <string name="youAreNotInTeam">No estás en el equipo %s</string>
   <string name="backToGame">Volver a la partida</string>
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="teams">Equipos</string>
@@ -507,6 +509,7 @@
   <string name="troll">Acoso</string>
   <string name="other">Otro</string>
   <string name="reportDescriptionHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\"; explícanos cómo has llegado a esta conclusión. Tu informe será procesado más rápido si está escrito en inglés.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está cerrado.</string>
   <string name="theming">Apariencia</string>
@@ -645,6 +648,9 @@
   <string name="mobileApp">Aplicación para móviles</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Acerca de</string>
+  <string name="aboutX">Acerca de %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un gratis (%2$s), libre, sin anuncios, servidor de ajedrez de código abierto.</string>
+  <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contacto</string>
   <string name="termsOfService">Condiciones de servicio</string>
@@ -832,12 +838,12 @@
   <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu elo provisional de %s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu puntuación temporal de %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear movimientos condicionales</string>
-  <string name="noConditionalPremoves">Sin movimientos condicionales</string>
+  <string name="playVariationToCreateConditionalPremoves">Juega una variante para crear movimientos condicionales</string>
+  <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">y ahorra %s línea de premovimiento</item>

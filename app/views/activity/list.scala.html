@@ -102,8 +102,8 @@ case (pt, score) => {
       @povs.map { pov =>
       <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         @pov.game.wonBy(pov.color) match {
-        case Some(true) => {Victory}
-        case Some(false) => {Defeat}
+        case Some(true) => {@trans.victory()}
+        case Some(false) => {@trans.defeat()}
         case _ => {Draw}
         }</a>
       vs @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />

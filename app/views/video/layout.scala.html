@@ -25,14 +25,10 @@
 </div>
 }
 
-@evenMoreJs = {
-@jsTag("vendor/jquery.infinitescroll.min.js")
-}
-
 @base.layout(
 title = title,
 moreCss = cssTag("video.css"),
-moreJs = evenMoreJs,
+moreJs = infiniteScrollTag,
 side = sideSection.some,
 openGraph = openGraph) {
 <div id="video" class="content_box no_padding">

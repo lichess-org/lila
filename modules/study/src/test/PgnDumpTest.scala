@@ -18,7 +18,8 @@ class PgnDumpTest extends Specification {
     check = false,
     clock = None,
     crazyData = None,
-    children = children
+    children = children,
+    forceVariation = false
   )
 
   def children(nodes: Node*) = Children(nodes.toVector)

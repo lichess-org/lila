@@ -10,11 +10,11 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, IpAddress, EmailAddress }
+import lila.common.{ ApiVersion, IpAddress, EmailAddress, HTTPRequest }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 import lila.oauth.OAuthServer
+import lila.user.{ User, UserRepo }
 import User.LoginCandidate
 
 final class SecurityApi(
@@ -120,7 +120,16 @@ final class SecurityApi(
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
     reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
-  def reqSessionId(req: RequestHeader) = req.session get "sessionId"
+  private val sessionIdKey = "sessionId"
+
+  private def isMobileAppWS(req: RequestHeader) =
+    HTTPRequest.isSocket(req) && HTTPRequest.origin(req).fold(true)("file://" ==)
+
+  def reqSessionId(req: RequestHeader): Option[String] =
+    req.session.get(sessionIdKey) orElse
+      req.headers.get(sessionIdKey) orElse {
+        isMobileAppWS(req) ?? req.queryString.get(sessionIdKey).flatMap(_.headOption)
+      }
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
@@ -128,7 +137,7 @@ final class SecurityApi(
 
   def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = Store recentByPrintExists fp
 
-  private def userIdsSharingField(field: String)(userId: String): Fu[List[User.ID]] =
+  private def userIdsSharingField(field: String)(userId: User.ID): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[User.ID, List](
       field,
       $doc("user" -> userId, field $exists true).some,

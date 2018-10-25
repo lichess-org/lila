@@ -14,7 +14,7 @@ object ModId {
 }
 
 case class Suspect(user: User) extends AnyVal {
-  def id = user.id
+  def id = SuspectId(user.id)
   def set(f: User => User) = copy(user = f(user))
 }
 case class SuspectId(value: User.ID) extends AnyVal

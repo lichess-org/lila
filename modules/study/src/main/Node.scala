@@ -39,7 +39,8 @@ case class Node(
     score: Option[Score] = None,
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data],
-    children: Node.Children
+    children: Node.Children,
+    forceVariation: Boolean
 ) extends RootOrNode {
 
   import Node.Children
@@ -54,6 +55,7 @@ case class Node(
   def addChild(child: Node) = copy(children = children addNode child)
 
   def withClock(centis: Option[Centis]) = copy(clock = centis)
+  def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
   def isCommented = comments.value.nonEmpty
 
@@ -91,7 +93,8 @@ case class Node(
     crazyData = n.crazyData orElse crazyData,
     children = n.children.nodes.foldLeft(children) {
       case (cs, c) => children addNode c
-    }
+    },
+    forceVariation = n.forceVariation || forceVariation
   )
 
   override def toString = s"$ply.${move.san} ${children.nodes}"
@@ -106,10 +109,17 @@ object Node {
     def first = nodes.headOption
     def variations = nodes drop 1
 
-    def nodeAt(path: Path): Option[Node] = path.split match {
-      case None => none
-      case Some((head, tail)) if tail.isEmpty => get(head)
-      case Some((head, tail)) => get(head) flatMap (_.children nodeAt tail)
+    def nodeAt(path: Path): Option[Node] = path.split flatMap {
+      case (head, tail) if tail.isEmpty => get(head)
+      case (head, tail) => get(head) flatMap (_.children nodeAt tail)
+    }
+
+    def nodesOn(path: Path): List[(Node, Path)] = path.split ?? {
+      case (head, tail) => get(head) ?? { first =>
+        (first, Path(List(head))) :: first.children.nodesOn(tail).map {
+          case (n, p) => (n, p prepend head)
+        }
+      }
     }
 
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
@@ -121,11 +131,10 @@ object Node {
       Children(nodes.filterNot(_.id == node.id) :+ prev.merge(node))
     }
 
-    def deleteNodeAt(path: Path): Option[Children] = path.split match {
-      case None => none
-      case Some((head, Path(Nil))) if has(head) => Children(nodes.filterNot(_.id == head)).some
-      case Some((_, Path(Nil))) => none
-      case Some((head, tail)) => updateChildren(head, _.deleteNodeAt(tail))
+    def deleteNodeAt(path: Path): Option[Children] = path.split flatMap {
+      case (head, Path(Nil)) if has(head) => Children(nodes.filterNot(_.id == head)).some
+      case (_, Path(Nil)) => none
+      case (head, tail) => updateChildren(head, _.deleteNodeAt(tail))
     }
 
     def promoteToMainlineAt(path: Path): Option[Children] = path.split match {
@@ -152,10 +161,9 @@ object Node {
       }
     }
 
-    def updateAt(path: Path, f: Node => Node): Option[Children] = path.split match {
-      case None => none
-      case Some((head, Path(Nil))) => updateWith(head, n => Some(f(n)))
-      case Some((head, tail)) => updateChildren(head, _.updateAt(tail, f))
+    def updateAt(path: Path, f: Node => Node): Option[Children] = path.split flatMap {
+      case (head, Path(Nil)) => updateWith(head, n => Some(f(n)))
+      case (head, tail) => updateChildren(head, _.updateAt(tail, f))
     }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
@@ -257,6 +265,10 @@ object Node {
       if (path.isEmpty) copy(clock = clock).some
       else updateChildrenAt(path, _ withClock clock)
 
+    def forceVariationAt(force: Boolean, path: Path): Option[Root] =
+      if (path.isEmpty) copy(clock = clock).some
+      else updateChildrenAt(path, _ withForceVariation force)
+
     private def updateChildrenAt(path: Path, f: Node => Node): Option[Root] =
       withChildren(_.updateAt(path, f))
 
@@ -308,6 +320,7 @@ object Node {
     check = b.check,
     crazyData = b.crazyData,
     clock = b.clock,
-    children = Children(b.children.map(fromBranch)(scala.collection.breakOut))
+    children = Children(b.children.map(fromBranch)(scala.collection.breakOut)),
+    forceVariation = false
   )
 }

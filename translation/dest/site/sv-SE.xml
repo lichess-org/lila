@@ -12,7 +12,7 @@
   <string name="level">Nivå</string>
   <string name="toggleTheChat">Dölj/visa chattrutan</string>
   <string name="toggleSound">Ljud av/på</string>
-  <string name="chat">Chatt</string>
+  <string name="chat">Chatta</string>
   <string name="resign">Ge upp</string>
   <string name="checkmate">Schackmatt</string>
   <string name="stalemate">Patt</string>
@@ -56,9 +56,9 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
-  <string name="promoteVariation">Höj upp variant</string>
-  <string name="makeMainLine">Gör till huvudvariant</string>
-  <string name="deleteFromHere">Radera från här</string>
+  <string name="promoteVariation">Höj upp variation</string>
+  <string name="makeMainLine">Gör till huvudvariation</string>
+  <string name="deleteFromHere">Radera härifrån</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -77,23 +77,23 @@
   <string name="topGames">Toppartier</string>
   <string name="masterDbExplanation">Två miljoner schackpartier spelade av %1$s+ elorankade spelare (>2200) från %2$s till %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matt i %s halvdrag</item>
-    <item quantity="other">Matt i %s halvdrag</item>
+    <item quantity="one">Matt på %s halvdrag</item>
+    <item quantity="other">Matt på %s halvdrag</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
     <item quantity="other">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">För att söka bland fler partier, gå till Inställningar?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
-  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
-  <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-drags regeln</string>
+  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
+  <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
   <string name="allSet">OK</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
-  <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
+  <string name="deleteThisImportedGame">Ta bort detta importerade parti?</string>
   <string name="replayMode">Uppspelningsläge</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
@@ -105,8 +105,8 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
-  <string name="removesTheDepthLimit">Tar bort sökdjup-begränsningen, och håller datorn varm</string>
-  <string name="blunder">Tabbe</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen, och håller datorn varm</string>
+  <string name="blunder">Blunder</string>
   <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
   <string name="mistakes">Misstag</string>
@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Detta parti är rankat</string>
   <string name="rematch">Returmatch</string>
   <string name="rematchOfferSent">Förslag om returmatch skickat</string>
+  <string name="rematchOfferSentWhite">Vit erbjuder returmatch</string>
+  <string name="rematchOfferSentBlack">Svart erbjuder returmatch</string>
   <string name="rematchOfferAccepted">Förslag om returmatch accepterat</string>
   <string name="rematchOfferCanceled">Anbud om returmatch upphävt</string>
   <string name="rematchOfferDeclined">Anbud om returmatch avböjt</string>
@@ -296,12 +298,14 @@
     <item quantity="one">Du behöver spela ytterligare %s rankat parti</item>
     <item quantity="other">Du behöver spela ytterligare %s rankade partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %s rating är provisorisk</string>
+  <string name="yourPerfRatingIsProvisional">Din %srating är provisorisk</string>
   <string name="yourPerfRatingIsTooHigh">Din rating i %1$s är för hög (%2$s)</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din topprating denna vecka i %1$s är för hög (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">Din rating i %1$s är för låg (%2$s)</string>
   <string name="ratedMoreThanInPerf">Rankad ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rankad ≤ %1$s i %2$s</string>
+  <string name="mustBeInTeam">Du måste vara medlem i %s</string>
+  <string name="youAreNotInTeam">Du är inte medlem i %s</string>
   <string name="backToGame">Tillbaka till partiet</string>
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="teams">Lag</string>
@@ -384,6 +388,15 @@
   <string name="winner">Vinnare</string>
   <string name="standing">Ställning</string>
   <string name="createANewTournament">Skapa en ny turnering</string>
+  <string name="tournamentCalendar">Turneringskalender</string>
+  <string name="conditionOfEntry">Inträdesvillkor:</string>
+  <string name="advancedSettings">Avancerade inställningar</string>
+  <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
+  <string name="inappropriateNameWarning">Någonting bara lite olämpligt skulle kunna få ditt konto att stängas.</string>
+  <string name="emptyTournamentName">Lämna tom för att namnge turneringen efter en slumpmässig stormästare.</string>
+  <string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
+  <string name="fewerPlayers">Anger du inträdesvillkor kommer din turnering att ha färre spelare.</string>
+  <string name="showAdvancedSettings">Visa avancerade inställningar</string>
   <string name="join">Delta</string>
   <string name="withdraw">Lämna</string>
   <string name="points">Poäng</string>
@@ -417,7 +430,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
   <string name="profileCompletion">Profil fulländning: %s</string>
-  <string name="xRating">%s rating</string>
+  <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
   <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
@@ -496,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Övrigt</string>
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
+  <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>
   <string name="theming">Teman</string>
@@ -513,6 +527,7 @@
   <string name="thisAccountIsClosed">Det här kontot är avslutat</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Inkorrekt lösenord</string>
+  <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
   <string name="emailMeALink">Maila mig en länk</string>
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
@@ -633,6 +648,8 @@
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
   <string name="about">Om Lichess</string>
+  <string name="aboutX">Om %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en fri (%2$s), libre, inga annonser, öppen källkod schackserver.</string>
   <string name="contribute">Hjälp till</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Användarvillkor</string>
@@ -673,14 +690,14 @@
   <string name="tournamentDoesNotExist">Denna turnering finns inte.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blivit inställd om alla spelare lämnade den innan start.</string>
   <string name="returnToTournamentsHomepage">Återgå till turneringens hemsida</string>
-  <string name="weeklyPerfTypeRatingDistribution">Veckans %s ratingfördelning</string>
+  <string name="weeklyPerfTypeRatingDistribution">Veckans %sratingfördelning</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s spelare denna vecka.</item>
     <item quantity="other">%1$s %2$s spelare denna vecka.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Din %1$s rating är %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %s rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
@@ -820,8 +837,8 @@
   <string name="registerToSendChallenges">Vänligen registrera ett konto för att skicka utmaningar.</string>
   <string name="youCannotChallengeX">Du kan inte utmana %s.</string>
   <string name="xDoesNotAcceptChallenges">%s accepterar inte utmaningar.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating är för långt från %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ingen utmaning eftersom det bara finns en temporär %s värdering.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$srating är för långt från %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan inte utmana på grund av provisorisk %srating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar utmaningar endast från vänner.</string>
   <string name="conditionalPremoves">Villkorade förhandsdrag</string>
   <string name="addCurrentVariation">Addera aktuell variant</string>

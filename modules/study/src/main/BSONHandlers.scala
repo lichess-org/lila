@@ -169,7 +169,8 @@ object BSONHandlers {
       score = r.getO[Score]("e"),
       crazyData = r.getO[Crazyhouse.Data]("z"),
       clock = r.getO[Centis]("l"),
-      children = r.get[Node.Children]("n")
+      children = r.get[Node.Children]("n"),
+      forceVariation = r boolD "fv"
     )
     def writes(w: Writer, s: Node) = $doc(
       "i" -> s.id,
@@ -185,7 +186,8 @@ object BSONHandlers {
       "e" -> s.score,
       "l" -> s.clock,
       "z" -> s.crazyData,
-      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
+      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren),
+      "fv" -> w.boolO(s.forceVariation)
     )
   }
   import Node.Root

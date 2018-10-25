@@ -6,7 +6,7 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="benko"
+  REMOTE="keres"
   REMOTE_DIR="/home/lichess-deploy"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
@@ -19,7 +19,7 @@ fi
 lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 
 # if [ $2 != "skip" ]; then
-  bin/prod/compile-client
+  ./ui/build prod
 # fi
 
 lilalog "Rsync scripts"
@@ -27,4 +27,4 @@ rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
 
 lilalog "Deploy complete"
 
-xdg-open https://lichess.org/dev/settings
+xdg-open https://lichess.org/dev/cli

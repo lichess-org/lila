@@ -64,11 +64,9 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
     if (preps.size < 50) preps.map { prep =>
-      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
+      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) flatMap prep.toPairing
     }.sequenceFu
-    else fuccess {
-      preps.map(_ toPairing Random.nextBoolean)
-    }
+    else preps.map(_ toPairing Random.nextBoolean).sequenceFu
 
   private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {

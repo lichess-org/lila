@@ -6,10 +6,10 @@ lichess.StrongSocket = function(url, version, settings) {
   var now = Date.now;
 
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
-  var url = url;
-  var version = version;
   var versioned = version !== false;
   var options = settings.options;
+  var origVersion;
+  var reloadTriggered = false;
   var ws;
   var pingSchedule;
   var connectSchedule;
@@ -25,7 +25,10 @@ lichess.StrongSocket = function(url, version, settings) {
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
+    var params = $.param(settings.params);
+    if (versioned) params += (params ? '&' : '') + 'v=' + version;
+    origVersion = version;
+    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -106,11 +109,11 @@ lichess.StrongSocket = function(url, version, settings) {
     pingSchedule = setTimeout(pingNow, delay);
   };
 
-  var pingNow = function() {
+  var pingNow = function(forceVersion) {
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
     try {
-      ws.send(pingData());
+      ws.send(pingData(forceVersion));
       lastPingTime = now();
     } catch (e) {
       debug(e, true);
@@ -135,24 +138,29 @@ lichess.StrongSocket = function(url, version, settings) {
     lichess.pubsub.emit('socket.lag')(averageLag);
   };
 
-  var pingData = function() {
+  var pingData = function(forceVersion) {
     if (!versioned) return '{"t":"p"}';
     var data = {
-      t: "p",
-      v: version
+      t: "p"
     };
+    if (forceVersion) data.v = version;
     if (pongCount % 8 === 2) data.l = Math.round(0.1 * averageLag);
     return JSON.stringify(data);
   };
 
-  var handle = function(m) {
+  var handle = function(m, idx) {
     if (m.v) {
       if (m.v <= version) {
         debug("already has event " + m.v);
         return;
       }
       if (m.v > version + 1) {
-        debug("event gap detected from " + version + " to " + m.v);
+        if (!idx && !reloadTriggered) {
+          // This is not expected. Recover with a versioned ping.
+          $.post('/nlog/socket7/eventGap/' + idx + ';' + nbConnects + ';' + origVersion + ';' + version + ';' + m.v);
+          debug("event gap detected from " + version + " to " + m.v);
+          pingNow(true);
+        }
         return;
       }
       version = m.v;
@@ -161,6 +169,7 @@ lichess.StrongSocket = function(url, version, settings) {
       case false:
         break;
       case 'resync':
+        reloadTriggered = true;
         lichess.reload();
         break;
       case 'ack':
@@ -263,7 +272,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 };
 lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
-lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
+
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {

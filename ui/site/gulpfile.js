@@ -2,6 +2,7 @@ const source = require('vinyl-source-stream');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const browserify = require('browserify');
+const tsify = require('tsify');
 const uglify = require('gulp-uglify');
 const streamify = require('gulp-streamify');
 const concat = require('gulp-concat');
@@ -65,18 +66,20 @@ gulp.task('stockfish.js', function(cb) {
 });
 
 gulp.task('prod-source', function() {
-  return browserify('./src/index.js', {
+  return browserify('src/index.ts', {
     standalone: standalone
-  }).bundle()
+  }).plugin(tsify)
+    .bundle()
     .pipe(source('lichess.site.source.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('dev-source', function() {
-  return browserify('./src/index.js', {
+  return browserify('src/index.ts', {
     standalone: standalone
-  }).bundle()
+  }).plugin(tsify)
+    .bundle()
     .pipe(source('lichess.site.source.js'))
     .pipe(gulp.dest('./dist'));
 });
@@ -113,8 +116,12 @@ gulp.task('git-sha', function(cb) {
 
 gulp.task('standalones', function() {
   return gulp.src([
-    './src/util.js',
-    './src/trans.js'
+    'src/standalones/util.js',
+    'src/standalones/trans.js',
+    'src/standalones/tv.js',
+    'src/standalones/puzzle.js',
+    'src/standalones/user.js',
+    'src/standalones/coordinate.js'
   ])
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
@@ -131,7 +138,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones'];
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
     tasks.push('stockfish.pexe');

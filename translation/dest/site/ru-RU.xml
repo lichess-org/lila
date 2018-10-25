@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
+  <string name="mustBeInTeam">Вы должны быть членом клуба %s</string>
+  <string name="youAreNotInTeam">Вы не член клуба %s</string>
   <string name="backToGame">Вернуться к игре</string>
   <string name="siteDescription">Свободный и бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Клубы</string>
@@ -561,6 +563,7 @@
   <string name="troll">Троллинг</string>
   <string name="other">Другое</string>
   <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
+  <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
   <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Эта тема закрыта.</string>
   <string name="theming">Настройка темы</string>
@@ -705,6 +708,9 @@
   <string name="mobileApp">Мобильное приложение</string>
   <string name="webmasters">Разработчикам</string>
   <string name="about">О сайте</string>
+  <string name="aboutX">О %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — свободный (%2$s) шахматный сервер с открытым исходным кодом, бесплатный и без рекламы.</string>
+  <string name="really">действительно</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="contact">Контакты</string>
   <string name="termsOfService">Пользовательское соглашение</string>

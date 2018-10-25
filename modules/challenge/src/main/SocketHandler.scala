@@ -6,7 +6,7 @@ import akka.pattern.ask
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -20,10 +20,11 @@ private[challenge] final class SocketHandler(
     challengeId: Challenge.ID,
     uid: Uid,
     userId: Option[User.ID],
-    owner: Boolean
+    owner: Boolean,
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
-    join = Socket.Join(uid, userId = userId, owner = owner)
+    join = Socket.Join(uid, userId, owner, version)
     handler ← Handler(hub, socket, uid, join) {
       case Socket.Connected(enum, member) =>
         (controller(socket, challengeId, uid, member), enum, member)

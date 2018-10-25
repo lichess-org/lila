@@ -16,6 +16,6 @@
 Voici votre page de profil : %1$s, que vous pouvez personnaliser ici : %2$s
 
 Bonnes parties sur lichess.org et vos pièces trouveront toujours leur chemin vers le roi adverse !</string>
-  <string name="common_orPaste">(cliquer ne fonctionne pas ? Essayez de coller l\'url dans votre navigateur!)</string>
+  <string name="common_orPaste">(Cliquer ne fonctionne pas ? Essayez de coller l\'url dans votre navigateur!)</string>
   <string name="common_note">Cet email automatique provient de l\'utilisation de %s.</string>
 </resources>

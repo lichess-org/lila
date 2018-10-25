@@ -1,9 +1,9 @@
 @(field: play.api.data.Field)
 
-<input 
-type="checkbox" 
-id="@field.id" 
-name="@field.name" 
-value="true" 
-@((field.value == Some("true")).fold("checked", ""))
+<input
+type="checkbox"
+id="@field.id"
+name="@field.name"
+value="true"
+@if(field.value.has("true")){"checked"}
 />

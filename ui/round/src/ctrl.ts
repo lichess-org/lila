@@ -111,11 +111,12 @@ export default class RoundController {
 
     li.pubsub.on('sound_set', set => {
       if (!this.music && set === 'music')
-        li.loadScript('/assets/javascripts/music/play.js').then(() => {
+        li.loadScript('javascripts/music/play.js').then(() => {
           this.music = window.lichessPlayMusic();
         });
         if (this.music && set !== 'music') this.music = undefined;
     });
+    if (li.ab && this.isPlaying()) li.ab.init(this);
 
   }
 
@@ -126,7 +127,7 @@ export default class RoundController {
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab(this, meta);
+    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
     if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
@@ -662,7 +663,7 @@ export default class RoundController {
   toggleZen = () => {
     if (this.isPlaying()) {
       const zen = !$('body').hasClass('zen');
-      $('body').toggleClass('zen', zen)
+      $('body').toggleClass('zen', zen);
       $.post('/pref/zen', { zen: zen ? 1 : 0 });
     }
   }

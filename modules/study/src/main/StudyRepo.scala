@@ -136,11 +136,14 @@ final class StudyRepo(private[study] val coll: Coll) {
   def isContributor(studyId: Study.Id, userId: User.ID) =
     coll.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w"))
 
+  def isMember(studyId: Study.Id, userId: User.ID) =
+    coll.exists($id(studyId) ++ (s"members.$userId" $exists true))
+
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
       case Some((prevLikes, createdAt)) =>
-        val likes = Study.Likes(prevLikes.value + v.fold(1, -1))
+        val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
         coll.update(
           $id(studyId),
           $set(

@@ -50,7 +50,7 @@ final class PgnDump(
       // merge analysis & eval comments
       // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
       // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
-      s"$pgn\n\n\n".replace("] } { [", "] [")
+      s"$pgn\n\n\n".replaceIf("] } { [", "] [")
     }
 
   // def exportGamesFromIds(ids: List[String]): Enumerator[String] =

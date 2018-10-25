@@ -45,7 +45,13 @@
   <string name="viewTheComputerAnalysis">Seall anailis a’ choimpiutair</string>
   <string name="requestAComputerAnalysis">Iarr anailis air a’ choimpiutair</string>
   <string name="computerAnalysis">Anailis a’ choimpiutair</string>
+  <string name="computerAnalysisAvailable">Mion-sgrùdadh coimpiutair ri làimh</string>
   <string name="analysis">Bòrd sgrùdaidh</string>
+  <string name="depthX">Doimhneachd %s</string>
+  <string name="usingServerAnalysis">A\' cleachdadh mion-sgrùdadh an fhrithealaiche</string>
+  <string name="loadingEngine">A\' luchdachadh an einnsean ...</string>
+  <string name="goDeeper">Rach nas doimhne</string>
+  <string name="showThreat">Seall an cunnart</string>
   <string name="blunders">Tuislidhean</string>
   <string name="mistakes">Mearachdan</string>
   <string name="inaccuracies">Neo-eagnaidhean</string>

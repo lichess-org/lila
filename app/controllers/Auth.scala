@@ -20,39 +20,40 @@ object Auth extends LilaController {
   private def api = env.api
   private def forms = env.forms
 
-  private def mobileUserOk(u: UserModel): Fu[Result] =
+  private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
     lila.game.GameRepo urgentGames u map { povs =>
       Ok {
         Env.user.jsonView(u) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying)
+          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+          "sessionId" -> sessionId
         )
       }
     }
 
+  private val refRegex = """[\w@/-]++""".r
+
   private def goodReferrer(referrer: String): Boolean = {
     referrer.nonEmpty &&
       referrer.stripPrefix("/") != "mobile" && {
-        """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer) ||
+        (!referrer.contains("//") && refRegex.matches(referrer)) ||
           referrer.startsWith(Env.oAuth.baseUrl)
       }
   }
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
-    u.ipBan.fold(
-      fuccess(Redirect(routes.Lobby.home)),
-      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
-        negotiate(
-          html = fuccess {
-            val redirectTo = get("referrer").filter(goodReferrer) orElse
-              req.session.get(api.AccessUri) getOrElse
-              routes.Lobby.home.url
-            result.fold(Redirect(redirectTo))(_(redirectTo))
-          },
-          api = _ => mobileUserOk(u)
-        ) map authenticateCookie(sessionId)
-      } recoverWith authRecovery
-    )
+    if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
+    else api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
+      negotiate(
+        html = fuccess {
+          val redirectTo = get("referrer").filter(goodReferrer) orElse
+            req.session.get(api.AccessUri) getOrElse
+            routes.Lobby.home.url
+          result.fold(Redirect(redirectTo))(_(redirectTo))
+        },
+        api = _ => mobileUserOk(u, sessionId)
+      ) map authenticateCookie(sessionId)
+    } recoverWith authRecovery
   }
 
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
@@ -80,7 +81,7 @@ object Auth extends LilaController {
       api.usernameForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-          api = _ => Unauthorized(errorsAsJson(err)).fuccess
+          api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
         ),
         username => HasherRateLimit(username, ctx.req) { chargeIpLimiter =>
           api.loadLoginForm(username) flatMap { loginForm =>
@@ -94,7 +95,7 @@ object Auth extends LilaController {
                       case _ => Unauthorized(html.auth.login(err, referrer))
                     }
                   },
-                  api = _ => Unauthorized(errorsAsJson(err)).fuccess
+                  api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
                 )
               },
               result => result.toOption match {
@@ -158,7 +159,10 @@ object Auth extends LilaController {
         else print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
           api.recentByPrintExists(fp) flatMap { printFound =>
             if (printFound) fuccess(YesBecausePrintExists)
-            else Env.security.ipTrust.isSuspicious(ip).map { _.fold(YesBecauseIpSusp, Nope) }
+            else Env.security.ipTrust.isSuspicious(ip).map {
+              case true => YesBecauseIpSusp
+              case _ => Nope
+            }
           }
         }
       }
@@ -183,10 +187,10 @@ object Auth extends LilaController {
                 BadRequest(html.auth.signup(forms.signup.website fill data, env.recaptchaPublicConfig)).fuccess
               case true => HasherRateLimit(data.username, ctx.req) { _ =>
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
-                  authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+                  authLog(data.username, s"$email fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirm.value)
@@ -210,7 +214,7 @@ object Auth extends LilaController {
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
-              fuccess(BadRequest(jsonError(errorsAsJson(err))))
+              jsonFormError(err)
             },
             data => HasherRateLimit(data.username, ctx.req) { _ =>
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
@@ -243,7 +247,7 @@ object Auth extends LilaController {
   }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
-    Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
+    Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
     fuccess(Account.renderCheckYourEmail)
@@ -297,7 +301,7 @@ object Auth extends LilaController {
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
-        api = _ => mobileUserOk(user)
+        api = _ => mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
   }
@@ -315,7 +319,7 @@ object Auth extends LilaController {
           }
         }
       }
-    } inject Ok
+    } inject NoContent
   }
 
   def passwordReset = Open { implicit ctx =>

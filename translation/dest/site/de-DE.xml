@@ -53,7 +53,7 @@
   <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Drohungen zeigen</string>
+  <string name="showThreat">Bedrohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
-  <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
+  <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
   <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">Du musst in Team %s sein</string>
+  <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
   <string name="backToGame">Zurück zum Spiel</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="teams">Teams</string>
@@ -507,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
   <string name="reportDescriptionHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
+  <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
   <string name="by">von %s</string>
   <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
   <string name="theming">Design</string>
@@ -645,6 +648,9 @@
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>
+  <string name="aboutX">Über %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, open-source Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
+  <string name="really">wirklich</string>
   <string name="contribute">Mitmachen</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">AGB</string>
@@ -785,7 +791,7 @@
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
-    <item quantity="other">%s Sekunden, um den ersten Zug zu spielen</item>
+    <item quantity="other">%s Sekunden, um den ersten Zug zu machen</item>
   </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>

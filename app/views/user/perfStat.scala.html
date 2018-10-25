@@ -1,6 +1,11 @@
-@(u: User, rankMap: lila.rating.UserRankMap, perfType: lila.rating.PerfType, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(u: User, rankMap: lila.rating.UserRankMap, perfType: lila.rating.PerfType, data: play.api.libs.json.JsObject, ratingChart: Option[String])(implicit ctx: Context)
 
 @moreJs = {
+@ratingChart.map { rc => 
+  @jsTag("chart/ratingHistory.js")
+  @embedJsUnsafe(s"lichess.ratingHistoryChart($rc,'${perfType.name}');")
+}
+
 @jsAt(s"compiled/lichess.perfStat${isProd??(".min")}.js")
 @embedJs {
 $(function() {
@@ -35,6 +40,11 @@ evenMoreCss = moreCss) {
       </a>
     </h1>
   </div>
+  @if(ratingChart.isDefined){
+  <div class="rating_history">
+    @base.spinner()
+  </div>
+  }
   <div class="content_box_content" id="perfStatContent"></div>
 </div>
 }

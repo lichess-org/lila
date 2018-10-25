@@ -62,10 +62,8 @@ private[timeline] final class Push(
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)
     entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, 1000) flatMap { entries =>
-      entries.exists(_ similarTo entry) fold (
-        fufail[Entry]("[timeline] a similar entry already exists"),
-        entryApi insert Entry.ForUsers(entry, users) inject entry
-      )
+      if (entries.exists(_ similarTo entry)) fufail[Entry]("[timeline] a similar entry already exists")
+      else entryApi insert Entry.ForUsers(entry, users) inject entry
     }
   }
 }

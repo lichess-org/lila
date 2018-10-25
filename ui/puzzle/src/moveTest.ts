@@ -18,14 +18,18 @@ export default function(vm, puzzle) {
     var playedByColor = vm.node.ply % 2 === 1 ? 'white' : 'black';
     if (playedByColor !== puzzle.color) return;
 
-    var ucis = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(function(node) {
-      return node.uci;
+    var nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(function(node) {
+      return {
+        uci: node.uci,
+        castle: node.san.indexOf('O-O') === 0
+      };
     });
 
     var progress = puzzle.lines;
-    for (var i in ucis) {
-      progress = progress[ucis[i]] || progress[altCastles[ucis[i]]];
-      if (!progress) progress = 'fail';
+    for (var i in nodes) {
+      if (progress[nodes[i].uci]) progress = progress[nodes[i].uci];
+      else if (nodes[i].castle) progress = progress[altCastles[nodes[i].uci]] || 'fail';
+      else progress = 'fail';
       if (typeof progress === 'string') break;
     }
     if (typeof progress === 'string') {

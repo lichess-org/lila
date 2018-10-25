@@ -9,13 +9,15 @@
 @mod.menu("forum")
 }
 
+@title = @{ s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}" }
+
 @forum.layout(
-title = s"${categ.name} / ${topic.name} page ${posts.currentPage}",
+title = title,
 menu = modMenu.some.ifTrue(categ.isStaff),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
-title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
-url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
+title = topic.name,
+url = title,
 description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some) {
 <div class="topic">
   @categ.team.map { team =>
@@ -88,15 +90,15 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
 
   @if(isGranted(_.ModerateForum)) {
   <form class="mod" method="post" action="@routes.ForumTopic.hide(categ.slug, topic.slug)">
-    <button class="button">@topic.hidden.fold("Feature", "Un-feature")</button>
+    <button class="button">@if(topic.hidden){Feature}else{Un-feature}</button>
   </form>
   }
   @if(canModCateg) {
   <form class="mod" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
-    <button class="button">@topic.closed.fold("Reopen", "Close")</button>
+    <button class="button">@if(topic.closed){Reopen}else{Close}</button>
   </form>
   <form class="mod" method="post" action="@routes.ForumTopic.sticky(categ.slug, topic.slug)">
-    <button class="button">@topic.isSticky.fold("Un-sticky", "Sticky")</button>
+    <button class="button">@if(topic.isSticky){Un-sticky}else{Sticky}</button>
   </form>
   }
 

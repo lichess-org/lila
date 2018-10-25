@@ -429,6 +429,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.tree.setClockAt(d.c, position.path);
       redraw();
     },
+    forceVariation(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      ctrl.tree.forceVariationAt(position.path, d.force);
+      redraw();
+    },
     conceal(d) {
       if (wrongChapter(d)) return;
       data.chapter.conceal = d.ply;
@@ -503,6 +511,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     promote(path, toMainline) {
       makeChange("promote", addChapterId({
         toMainline,
+        path
+      }));
+    },
+    forceVariation(path, force) {
+      makeChange("forceVariation", addChapterId({
+        force,
         path
       }));
     },

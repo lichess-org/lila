@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "dragscroll": "^0.0.8",
-    "snabbdom": "ornicar/snabbdom#lichess"
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }

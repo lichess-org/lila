@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
   <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
   <string name="ratedLessThanInPerf">Pontuação ≤ %1$s em %2$s</string>
+  <string name="mustBeInTeam">Precisa estar na equipe %s</string>
+  <string name="youAreNotInTeam">Você não está na equipe %s</string>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="teams">Equipes</string>
@@ -446,7 +448,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="activeToday">Ativos hoje</string>
   <string name="activePlayers">Jogadores ativos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos, mas não há controle de tempo!</string>
-  <string name="training">Treino</string>
+  <string name="training">Quebra-cabeças</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
@@ -508,6 +510,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\"; informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo onde cheat tenha sido utilizado.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>

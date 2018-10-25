@@ -197,8 +197,6 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
-    def proxyGameWatcherCount(result: String) = inc(s"round.proxy_game.watcher.$result")
-    val proxyGameWatcherTime = rec("round.proxy_game.watcher.time")
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")
@@ -296,10 +294,6 @@ object mon {
       val mark = inc("mod.report.irwin.mark")
       def ownerReport(name: String) = inc(s"mod.irwin.owner_report.$name")
       def streamEventType(name: String) = inc(s"mod.irwin.streama.event_type.$name") // yes there's a typo
-      object assessment {
-        val count = inc("mod.irwin.assessment.count")
-        val time = rec("mod.irwin.assessment.time")
-      }
     }
   }
   object relay {
@@ -472,6 +466,7 @@ object mon {
         val decode = new Protocol("huffman.decode")
       }
     }
+    val idCollision = inc("game.id_collision")
   }
   object chat {
     val message = inc("chat.message")
@@ -649,8 +644,6 @@ object mon {
 
   trait Trace {
 
-    def finishFirstSegment(): Unit
-
     def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
 
     def segmentSync[A](name: String, categ: String)(f: => A): A
@@ -659,11 +652,8 @@ object mon {
   }
 
   private final class KamonTrace(
-      context: TraceContext,
-      firstSegment: Segment
+      context: TraceContext
   ) extends Trace {
-
-    def finishFirstSegment() = firstSegment.finish()
 
     def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
       context.withNewAsyncSegment(name, categ, "mon")(code)
@@ -683,13 +673,12 @@ object mon {
       status = Status.Open,
       isLocal = false
     )
-    val firstSegment = context.startSegment(firstName, "logic", "mon")
-    new KamonTrace(context, firstSegment)
+    new KamonTrace(context)
   }
 
   private val stripVersionRegex = """[^\w\.\-]""".r
   private def stripVersion(v: String) = stripVersionRegex.replaceAllIn(v, "")
-  private def nodots(s: String) = s.replace(".", "_")
+  private def nodots(s: String) = s.replace('.', '_')
   private val makeVersion = nodots _ compose stripVersion _
 
   private val logger = lila.log("monitor")

@@ -1,5 +1,6 @@
 package lila.security
 
+import lila.common.EmailAddress
 import lila.oauth.OAuthServer
 
 import akka.actor._
@@ -20,35 +21,33 @@ final class Env(
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
-  private val settings = new {
-    val MailgunApiUrl = config getString "mailgun.api.url"
-    val MailgunApiKey = config getString "mailgun.api.key"
-    val MailgunSender = config getString "mailgun.sender"
-    val MailgunReplyTo = config getString "mailgun.reply_to"
-    val CollectionSecurity = config getString "collection.security"
-    val FirewallEnabled = config getBoolean "firewall.enabled"
-    val FirewallCookieName = config getString "firewall.cookie.name"
-    val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
-    val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
-    val FloodDuration = config duration "flood.duration"
-    val GeoIPFile = config getString "geoip.file"
-    val GeoIPCacheTtl = config duration "geoip.cache_ttl"
-    val EmailConfirmSecret = config getString "email_confirm.secret"
-    val EmailConfirmEnabled = config getBoolean "email_confirm.enabled"
-    val PasswordResetSecret = config getString "password_reset.secret"
-    val EmailChangeSecret = config getString "email_change.secret"
-    val LoginTokenSecret = config getString "login_token.secret"
-    val TorProviderUrl = config getString "tor.provider_url"
-    val TorRefreshDelay = config duration "tor.refresh_delay"
-    val DisposableEmailProviderUrl = config getString "disposable_email.provider_url"
-    val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
-    val RecaptchaPrivateKey = config getString "recaptcha.private_key"
-    val RecaptchaEndpoint = config getString "recaptcha.endpoint"
-    val NetBaseUrl = config getString "net.base_url"
-    val NetDomain = config getString "net.domain"
-    val NetEmail = config getString "net.email"
-  }
-  import settings._
+  private val MailgunApiUrl = config getString "mailgun.api.url"
+  private val MailgunApiKey = config getString "mailgun.api.key"
+  private val MailgunSender = config getString "mailgun.sender"
+  private val MailgunReplyTo = config getString "mailgun.reply_to"
+  private val CollectionSecurity = config getString "collection.security"
+  private val FirewallEnabled = config getBoolean "firewall.enabled"
+  private val FirewallCookieName = config getString "firewall.cookie.name"
+  private val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
+  private val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
+  private val FloodDuration = config duration "flood.duration"
+  private val GeoIPFile = config getString "geoip.file"
+  private val GeoIPCacheTtl = config duration "geoip.cache_ttl"
+  private val EmailConfirmSecret = config getString "email_confirm.secret"
+  private val EmailConfirmEnabled = config getBoolean "email_confirm.enabled"
+  private val PasswordResetSecret = config getString "password_reset.secret"
+  private val EmailChangeSecret = config getString "email_change.secret"
+  private val LoginTokenSecret = config getString "login_token.secret"
+  private val TorProviderUrl = config getString "tor.provider_url"
+  private val TorRefreshDelay = config duration "tor.refresh_delay"
+  private val DisposableEmailProviderUrl = config getString "disposable_email.provider_url"
+  private val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
+  private val RecaptchaPrivateKey = config getString "recaptcha.private_key"
+  private val RecaptchaEndpoint = config getString "recaptcha.endpoint"
+  private val NetBaseUrl = config getString "net.base_url"
+  private val NetDomain = config getString "net.domain"
+  private val NetEmail = config getString "net.email"
+  private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
@@ -88,7 +87,7 @@ final class Env(
 
   def store = Store
 
-  lazy val ipIntel = new IpIntel(asyncCache, NetEmail)
+  lazy val ipIntel = new IpIntel(asyncCache, IpIntelEmail)
 
   lazy val ugcArmedSetting = settingStore[Boolean](
     "ugcArmed",
@@ -160,6 +159,21 @@ final class Env(
     busOption = system.lilaBus.some
   )
 
+  import reactivemongo.bson._
+
+  lazy val spamKeywordsSetting = {
+    val stringListIso = lila.common.Iso.stringList(",")
+    implicit val stringListBsonHandler = lila.db.dsl.isoHandler(stringListIso)
+    implicit val stringListReader = lila.memo.SettingStore.StringReader.fromIso(stringListIso)
+    settingStore[List[String]](
+      "spamKeywords",
+      default = Nil,
+      text = "Spam keywords separated by a comma".some
+    )
+  }
+
+  lazy val spam = new Spam(spamKeywordsSetting.get)
+
   scheduler.once(15 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
@@ -175,12 +189,9 @@ final class Env(
 
   def cli = new Cli
 
-  // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
-    }
-  })), 'fishnet)
+  system.lilaBus.subscribeFun('fishnet) {
+    case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+  }
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)

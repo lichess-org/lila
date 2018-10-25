@@ -51,5 +51,13 @@
     <item quantity="one">Tävlat i %s turnering</item>
     <item quantity="other">Tävlat i %s turneringar</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Rankad #%1$s (topp %2$s%) med %3$s partier i %4$s</item>
+    <item quantity="other">Rankad #%1$s (topp %2$s%) med %3$s partier i %4$s</item>
+  </plurals>
   <string name="signedUp">Registrerade på lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Gick med i %s lag</item>
+    <item quantity="other">Gick med i %s lag</item>
+  </plurals>
 </resources>

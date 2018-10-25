@@ -70,7 +70,7 @@
   <string name="losing">Perdedores</string>
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecidos</string>
-  <string name="database">Base de Dados</string>
+  <string name="database">Base de dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Negras</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
@@ -94,7 +94,7 @@
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Eliminar</string>
   <string name="deleteThisImportedGame">Eliminar este jogo importado?</string>
-  <string name="replayMode">Modo Repetição</string>
+  <string name="replayMode">Modo repetição</string>
   <string name="realtimeReplay">Tempo Real</string>
   <string name="byCPL">Por CPP</string>
   <string name="openStudy">Abrir estudo</string>
@@ -106,11 +106,11 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o seu computador quente</string>
-  <string name="blunder">Erro de distração</string>
-  <string name="blunders">Erro Grave</string>
+  <string name="blunder">Erro grave</string>
+  <string name="blunders">Erros graves</string>
   <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
-  <string name="inaccuracy">Inexatidão</string>
+  <string name="inaccuracy">Imprecisão</string>
   <string name="inaccuracies">Imprecisões</string>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
@@ -119,7 +119,7 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogadores conectados</item>
+    <item quantity="one">%s jogadores ligados</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
   <string name="currentGames">Partidas atuais</string>
@@ -141,7 +141,7 @@
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
-  <string name="latestForumPosts">Últimas entradas do forum</string>
+  <string name="latestForumPosts">Últimas entradas do fórum</string>
   <string name="players">Jogadores</string>
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">A tua pontuação em %1$s (%2$s) é demasiado baixa</string>
   <string name="ratedMoreThanInPerf">Qualificação ≥ %1$s em %2$s</string>
   <string name="ratedLessThanInPerf">Qualificação ≤ %1$s em %2$s</string>
+  <string name="mustBeInTeam">Deves pertencer à equipa %s</string>
+  <string name="youAreNotInTeam">Tu não estás na equipa %s</string>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipas</string>
@@ -507,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele faz batota\"; informe-nos como chegou a esta conclusão. A sua denúncia será processada mais rapidamente se for escrita em inglês.</string>
+  <string name="error.provideOneCheatedGameLink">Pf. de-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>
@@ -524,6 +527,7 @@
   <string name="thisAccountIsClosed">Esta conta foi encerrada</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Contrassenha incorreta</string>
+  <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
   <string name="emailMeALink">Envie-me um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
@@ -644,6 +648,9 @@
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Acerca</string>
+  <string name="aboutX">Sobre %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor grátis de xadrez (%2$s), sem publicidade e open source.</string>
+  <string name="really">a sério</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contato</string>
   <string name="termsOfService">Condições de uso</string>
@@ -787,10 +794,10 @@
     <item quantity="other">%s segundos para jogar o primeiro movimento</item>
   </plurals>
   <string name="practiceWithComputer">Pratica com o computador</string>
-  <string name="anotherWasX">Outro era %s</string>
+  <string name="anotherWasX">Outro seria %s</string>
   <string name="bestWasX">O melhor era %s</string>
-  <string name="youBrowsedAway">Saístes</string>
-  <string name="resumePractice">Continuar a prática</string>
+  <string name="youBrowsedAway">Saíste</string>
+  <string name="resumePractice">Continuar o treino</string>
   <string name="theGameIsADraw">O jogo é empate.</string>
   <string name="computerThinking">Computador pensando...</string>
   <string name="seeBestMove">Ver o melhor movimento</string>

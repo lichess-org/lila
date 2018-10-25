@@ -33,3 +33,6 @@ div.side h2 {
   margin: 100px auto;
   text-align: center;
 }
+#myShop #sprd-main {
+  z-index: auto;
+}

@@ -13,7 +13,7 @@ function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id))
   return h('canvas#confetti', {
     hook: {
-      insert: _ => window.lichess.loadScript('/assets/javascripts/confetti.js')
+      insert: _ => window.lichess.loadScript('javascripts/confetti.js')
     }
   });
 }

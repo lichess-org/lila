@@ -15,7 +15,7 @@
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
   <string name="checkmate">将死</string>
-  <string name="stalemate">僵持</string>
+  <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
   <string name="randomColor">随机选色</string>
@@ -64,7 +64,7 @@
   <string name="variantWin">因变体规则赢棋</string>
   <string name="insufficientMaterial">因棋子不够和棋</string>
   <string name="pawnMove">走兵</string>
-  <string name="capture">吃棋</string>
+  <string name="capture">吃子</string>
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
@@ -88,10 +88,10 @@
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">本棋局本应取胜，但由于50回合规则导致和棋。</string>
   <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
-  <string name="allSet">好了！</string>
+  <string name="allSet">一切就绪！</string>
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
-  <string name="deleteThisImportedGame">删打开的盘？</string>
+  <string name="deleteThisImportedGame">删除此导入的棋局？</string>
   <string name="replayMode">重放模式</string>
   <string name="realtimeReplay">实时重放</string>
   <string name="byCPL">按错误严重度</string>
@@ -127,7 +127,7 @@
     <item quantity="other">书签里有%s盘棋</item>
   </plurals>
   <string name="viewInFullSize">在整个网页里观看棋局</string>
-  <string name="logOut">登出</string>
+  <string name="logOut">退出</string>
   <string name="signIn">登录</string>
   <string name="newToLichess">新访客？</string>
   <string name="youNeedAnAccountToDoThat">请注册以完成该操作</string>
@@ -202,6 +202,8 @@
   <string name="thisGameIsRated">这盘棋是有积分的</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
+  <string name="rematchOfferSentWhite">白方请求重赛</string>
+  <string name="rematchOfferSentBlack">黑方请求重赛</string>
   <string name="rematchOfferAccepted">重赛请求被接受</string>
   <string name="rematchOfferCanceled">重赛请求被取消</string>
   <string name="rematchOfferDeclined">重赛请求被拒绝</string>
@@ -282,6 +284,8 @@
   <string name="yourPerfRatingIsTooLow">您的 %1$s 积分 (%2$s) 过低</string>
   <string name="ratedMoreThanInPerf">%2$s积分必须至少是%1$s</string>
   <string name="ratedLessThanInPerf">%2$s积分不得超过%1$s</string>
+  <string name="mustBeInTeam">您必须在队伍 %s 中</string>
+  <string name="youAreNotInTeam">您不在队伍 %s 中</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面清新的免费在线国际象棋平台。不用注册，没有广告，无需插件。快來与电脑、朋友和陌生人一起对战吧！</string>
   <string name="teams">团队</string>
@@ -359,6 +363,15 @@
   <string name="winner">胜利者</string>
   <string name="standing">名次</string>
   <string name="createANewTournament">建立新的锦标赛</string>
+  <string name="tournamentCalendar">锦标赛日程表</string>
+  <string name="conditionOfEntry">参赛条件：</string>
+  <string name="advancedSettings">高级设置</string>
+  <string name="safeTournamentName">为锦标赛选择一个非常安全的名字。</string>
+  <string name="inappropriateNameWarning">即使是稍微违规的内容都可能导致您的账号被封禁。</string>
+  <string name="emptyTournamentName">如果这一栏留空，我们会用一个随机的大师的名字命名这个锦标赛。</string>
+  <string name="recommendNotTouching">我们建议您不要碰这些设置。</string>
+  <string name="fewerPlayers">如果您设置参赛条件，您的锦标赛的玩家将会更少。</string>
+  <string name="showAdvancedSettings">显示高级设置</string>
   <string name="join">参与锦标赛</string>
   <string name="withdraw">离开锦标赛</string>
   <string name="points">分数</string>
@@ -469,6 +482,7 @@
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
+  <string name="error.provideOneCheatedGameLink">请至少提供至少一局作弊的游戏的链接。</string>
   <string name="by">来自%s</string>
   <string name="thisTopicIsNowClosed">本主题已关闭。</string>
   <string name="theming">主题</string>
@@ -486,6 +500,7 @@
   <string name="thisAccountIsClosed">此帐户已被关闭。</string>
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">旧密码错误</string>
+  <string name="invalidAuthenticationCode">无效的验证码</string>
   <string name="emailMeALink">通过电子邮件给我发送链接</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
@@ -602,6 +617,7 @@
   <string name="videoLibrary">视频库</string>
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
+  <string name="about">关于</string>
   <string name="contribute">协助我们</string>
   <string name="contact">联系我们</string>
   <string name="termsOfService">服务条款</string>
@@ -653,7 +669,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">您一注册我们就假定您同意尊重我们的使用规则（%s）。</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表您同意我们的 %s 。</string>
   <string name="networkLagBetweenYouAndLichess">您和lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess 服务器上处理一步的时间</string>
   <string name="downloadAnnotated">下载有注释的PGN</string>
@@ -719,6 +735,9 @@
   <string name="pieceSet">棋子风格</string>
   <string name="embedInYourWebsite">嵌入到您的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
+  <string name="usernamePrefixInvalid">用户名必须以字母开头。</string>
+  <string name="usernameSuffixInvalid">用户名必须以字母或数字结尾。</string>
+  <string name="usernameCharsInvalid">用户名必须只包含字母、数字、下划线和连字符。</string>
   <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">向我们捐款</string>
   <string name="playChessInStyle">有型地下棋</string>

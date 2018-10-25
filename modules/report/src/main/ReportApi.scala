@@ -14,7 +14,6 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    bus: lila.common.Bus,
     scoreThreshold: () => Int
 ) {
 
@@ -34,8 +33,7 @@ final class ReportApi(
             val report = Report.make(scored, existing)
             lila.mon.mod.report.create(report.reason.key)()
             coll.update($id(report.id), report, upsert = true).void >>
-              autoAnalysis(candidate) >>-
-              bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
+              autoAnalysis(candidate)
           } >>- monitorOpen
       }
     }
@@ -123,9 +121,6 @@ final class ReportApi(
         case _ => funit
       }
 
-  private def publishProcessed(sus: Suspect, reason: Reason) =
-    bus.publish(lila.hub.actorApi.report.Processed(sus.user.id, reason.key), 'report)
-
   def process(mod: Mod, reportId: Report.ID): Funit = for {
     report <- coll.byId[Report](reportId) flatten s"no such report $reportId"
     suspect <- getSuspect(report.user) flatten s"No such suspect $report"
@@ -147,7 +142,6 @@ final class ReportApi(
         doProcessReport(reportSelector, mod.id).void >>- {
           monitorOpen
           lila.mon.mod.report.close()
-          rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
         }
     }
 
@@ -187,7 +181,7 @@ final class ReportApi(
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
 
   def recent(suspect: Suspect, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
-    coll.find($doc("user" -> suspect.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)
+    coll.find($doc("user" -> suspect.id.value)).sort(sortLastAtomAt).list[Report](nb, readPreference)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
     coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)
@@ -296,13 +290,6 @@ final class ReportApi(
         }.toMap)
       }
   }
-
-  def currentlyReportedForCheat: Fu[Set[User.ID]] =
-    coll.distinctWithReadPreference[User.ID, Set](
-      "user",
-      Some($doc("reason" -> Reason.Cheat.key) ++ openSelect),
-      ReadPreference.secondaryPreferred
-    )
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
     coll.find(selector).sort(sortLastAtomAt).list[Report](nb)

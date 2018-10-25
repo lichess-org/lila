@@ -149,7 +149,10 @@ object BSONHandlers {
         status = chess.Status(r int "s") err "tournament pairing status",
         user1 = user1,
         user2 = user2,
-        winner = r boolO "w" map (_.fold(user1, user2)),
+        winner = r boolO "w" map {
+          case true => user1
+          case _ => user2
+        },
         turns = r intO "t",
         berserk1 = r.intO("b1").fold(r.boolD("b1"))(1 ==), // it used to be int = 0/1
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)

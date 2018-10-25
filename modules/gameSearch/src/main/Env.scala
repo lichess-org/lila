@@ -3,6 +3,7 @@ package lila.gameSearch
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.game.actorApi.{ InsertGame, FinishGame }
 import lila.search._
 
 final class Env(
@@ -31,13 +32,10 @@ final class Env(
     paginator = paginator
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.game.actorApi.{ InsertGame, FinishGame }
-    def receive = {
-      case FinishGame(game, _, _) if !game.aborted => self ! InsertGame(game)
-      case InsertGame(game) => api store game
-    }
-  }), name = ActorName), 'finishGame)
+  system.lilaBus.subscribeFun('finishGame) {
+    case FinishGame(game, _, _) if !game.aborted => api store game
+    case InsertGame(game) => api store game
+  }
 }
 
 object Env {

@@ -61,27 +61,27 @@ private[tournament] final class Socket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       sender ! waitingUsers
 
-    case Ping(uid, Some(v), lt) => {
+    case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion => sender ! history.version
+    case lila.socket.Socket.GetVersion => sender ! history.version
 
-    case Join(uid, user) =>
+    case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
-      sender ! Connected(enumerator, member)
+      sender ! Connected(
+        prependEventsSince(version, enumerator, member),
+        member
+      )
 
     case Quit(uid) =>
       quit(uid)
@@ -101,21 +101,19 @@ private[tournament] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit = {
+  def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(1000 millis, self, NotifyCrowd)
     }
-  }
 
-  def notifyReload: Unit = {
+  def notifyReload: Unit =
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
       context.system.scheduler.scheduleOnce(700 millis, self, NotifyReload)
     }
-  }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll

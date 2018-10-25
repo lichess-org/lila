@@ -12,7 +12,8 @@ import lila.game.{ Game, LightGame, GameRepo, Pov, LightPov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-import lila.hub.Sequencer
+import lila.hub.{ Duct, DuctMap }
+import lila.hub.tournamentTeam._
 import lila.round.actorApi.round.{ GoBerserk, AbortForce }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
@@ -22,7 +23,7 @@ final class TournamentApi(
     cached: Cached,
     scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
-    sequencers: ActorRef,
+    sequencers: DuctMap[_],
     autoPairing: AutoPairing,
     clearJsonViewCache: Tournament.ID => Unit,
     clearWinnersCache: Tournament => Unit,
@@ -32,7 +33,7 @@ final class TournamentApi(
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
-    roundMap: ActorRef,
+    roundMap: lila.hub.DuctMap[_],
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
@@ -44,7 +45,7 @@ final class TournamentApi(
 
   private val bus = system.lilaBus
 
-  def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
+  def createTournament(setup: TournamentSetup, me: User, myTeams: List[(String, String)], getUserTeamIds: User => Fu[TeamIdList]): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
       name = DataForm.canPickName(me) ?? setup.name,
@@ -61,7 +62,7 @@ final class TournamentApi(
       berserkable = setup.berserkable | true
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
-          tour.copy(conditions = setup.conditions convert perfType)
+          tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
         }
       }
     if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name)) {
@@ -70,12 +71,10 @@ final class TournamentApi(
       bus.publish(lila.hub.actorApi.slack.Warning(msg), 'slack)
     }
     logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds) inject tour
   }
 
-  private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
-    val minutes = Schedule durationFor plan.schedule
-    val tournament = plan build Tournament.schedule(plan.schedule, minutes)
+  private[tournament] def create(tournament: Tournament): Funit = {
     logger.info(s"Create $tournament")
     TournamentRepo.insert(tournament).void
   }
@@ -193,15 +192,15 @@ final class TournamentApi(
       }
     }
 
-  def verdicts(tour: Tournament, me: Option[User]): Fu[Condition.All.WithVerdicts] = me match {
+  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[TeamIdList]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
-    case Some(user) => verify(tour.conditions, user)
+    case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
 
-  def join(tourId: Tournament.ID, me: User, p: Option[String]): Unit = {
+  def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       if (tour.password == p) {
-        verdicts(tour, me.some) flatMap {
+        verdicts(tour, me.some, getUserTeamIds) flatMap {
           _.accepted ?? {
             pause.canJoin(me.id, tour) ?? {
               PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
@@ -216,8 +215,8 @@ final class TournamentApi(
     }
   }
 
-  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String]): Fu[Boolean] = {
-    join(tourId, me, p)
+  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Fu[Boolean] = {
+    join(tourId, me, p, getUserTeamIds)
     // atrocious hack, because joining is fire and forget
     akka.pattern.after(500 millis, system.scheduler) {
       PlayerRepo.find(tourId, me.id) map { _ ?? (_.active) }
@@ -281,7 +280,7 @@ final class TournamentApi(
                 GameRepo pov povRef flatMap {
                   _.filter(_.game.berserkable) ?? { pov =>
                     PairingRepo.setBerserk(pairing, userId) >>- {
-                      roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+                      roundMap.tell(povRef.gameId, GoBerserk(povRef.color))
                     }
                   }
                 }
@@ -367,7 +366,7 @@ final class TournamentApi(
         if (tour.isStarted)
           PairingRepo.findPlaying(tour.id, userId).map {
             _ foreach { currentPairing =>
-              roundMap ! Tell(currentPairing.gameId, AbortForce)
+              roundMap.tell(currentPairing.gameId, AbortForce)
             }
           } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
@@ -448,18 +447,16 @@ final class TournamentApi(
       }
     }
 
-  private def sequence(tourId: Tournament.ID)(work: => Funit): Unit = {
-    sequencers ! Tell(tourId, Sequencer work work)
-  }
-
-  private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit = {
-    sequence(tourId) {
+  private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit =
+    doSequence(tourId) {
       fetch(tourId) flatMap {
         case Some(t) => run(t)
         case None => fufail(s"Can't run sequenced operation on missing tournament $tourId")
       }
     }
-  }
+
+  private def doSequence(tourId: Tournament.ID)(fu: => Funit): Unit =
+    sequencers.tell(tourId, Duct.extra.LazyFu(() => fu))
 
   private def socketReload(tourId: Tournament.ID): Unit = sendTo(tourId, Reload)
 

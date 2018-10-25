@@ -2,7 +2,7 @@ lichess.highchartsPromise;
 lichess.chartCommon = function(type) {
   if (lichess.highchartsPromise) return lichess.highchartsPromise;
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  return lichess.highchartsPromise = lichess.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
+  return lichess.highchartsPromise = lichess.loadScript('vendor/highcharts-4.2.5/' + file, { noVersion: true }).done(function() {
     Highcharts.makeFont = function(size) {
       return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
     };

@@ -18,6 +18,10 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
     case "uptime" :: Nil => fuccess(lila.common.PlayApp.uptime.toStandardSeconds.getSeconds.toString)
     case "deploy" :: "pre" :: Nil => remindDeploy(lila.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
+    case "change" :: ("asset" | "assets") :: "version" :: Nil =>
+      import lila.common.AssetVersion
+      AssetVersion.change
+      fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
       lila.user.UserRepo named username flatMap {
         case None => fuccess("No such user.")

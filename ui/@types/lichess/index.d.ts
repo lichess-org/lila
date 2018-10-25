@@ -52,6 +52,7 @@ interface Lichess {
   }
   dispatchEvent(el: HTMLElement, eventName: string): void;
   isTrident: boolean;
+  isMS: boolean;
 }
 
 interface Cookie {
@@ -211,11 +212,12 @@ declare namespace Tree {
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
-    tbhit?: TablebaseHit;
+    tbhit: TablebaseHit | undefined | null;
     opening?: Opening;
     glyphs?: Glyph[];
     clock?: Clock;
     parentClock?: Clock;
+    forceVariation: boolean;
     shapes?: Shape[];
     comp?: boolean;
     san?: string;

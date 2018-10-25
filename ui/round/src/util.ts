@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
 import { opposite } from 'chessground/util';
-import { Redraw, EncodedDests, DecodedDests } from './interfaces';
+import { Redraw, EncodedDests, DecodedDests, MaterialDiff } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -46,8 +46,8 @@ export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
 }
 
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
-export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
-  const diff: cg.MaterialDiff = {
+export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
+  const diff: MaterialDiff = {
     white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
     black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };

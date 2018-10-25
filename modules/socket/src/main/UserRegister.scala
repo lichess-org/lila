@@ -18,9 +18,6 @@ private final class UserRegister extends Actor {
     context.system.lilaBus.unsubscribe(self)
   }
 
-  type UID = String
-  type UserId = String
-
   val users = new MemberGroup[SocketMember](_.userId)
 
   def receive = {

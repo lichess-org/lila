@@ -14,14 +14,15 @@ private final class ReportScore(
       impl.baseScore +
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
-        impl.textScore(candidate.reason, candidate.text)
-    } map impl.fixedAutoCommScore(candidate) map { score =>
+        impl.autoScore(candidate)
+    } map impl.fixedAutoCommPrintScore(candidate) map { score =>
       candidate scored Report.Score(score atLeast 5 atMost 100)
     }
 
   private object impl {
 
     val baseScore = 30
+    val baseScoreAboveThreshold = 50
 
     def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
       (accuracy.value - 50) * 0.7d
@@ -36,16 +37,15 @@ private final class ReportScore(
     def flagScore(user: User) =
       (user.lameOrTroll) ?? -30d
 
-    private val gamePattern = """lichess.org/(\w{8,12})""".r.pattern
-
-    def textScore(reason: Reason, text: String) = {
-      (reason == Reason.Cheat || reason == Reason.Boost) &&
-        gamePattern.matcher(text).find
-    } ?? 20
+    def autoScore(candidate: Report.Candidate) =
+      candidate.isAutomatic ?? 20d
 
     // https://github.com/ornicar/lila/issues/4093
-    def fixedAutoCommScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isAutoComm) baseScore else score
+    // https://github.com/ornicar/lila/issues/4587
+    def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoComm) baseScore
+      else if (c.isPrint || c.isCoachReview) baseScoreAboveThreshold
+      else score
   }
 
   private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {

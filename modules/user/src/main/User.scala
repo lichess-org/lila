@@ -88,7 +88,7 @@ case class User(
 
   private def bestOf(perfTypes: List[PerfType], nb: Int) =
     perfTypes.sortBy { pt =>
-      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.centis))
+      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.roundSeconds))
     } take nb
 
   private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
@@ -151,8 +151,6 @@ object User {
   val anonymous = "Anonymous"
   val lichessId = "lichess"
 
-  val idPattern = """^[\w-]{3,20}$""".r.pattern
-
   case class GDPRErase(user: User) extends AnyVal
   case class Erased(value: Boolean) extends AnyVal
 
@@ -178,9 +176,9 @@ object User {
   implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
 
   // what existing usernames are like
-  val historicalUsernameRegex = """(?i)[a-z0-9][\w-]*[a-z0-9]""".r
+  val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
   // what new usernames should be like -- now split into further parts for clearer error messages
-  val newUsernameRegex = """(?i)[a-z][\w-]*[a-z0-9]""".r
+  val newUsernameRegex = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
 
   val newUsernamePrefix = """(?i)[a-z].*""".r
 
@@ -188,7 +186,7 @@ object User {
 
   val newUsernameChars = """(?i)[\w-]*""".r
 
-  def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches && str.size < 30
+  def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
 
   def normalize(username: String) = username.toLowerCase
 

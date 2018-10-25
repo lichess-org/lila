@@ -40,10 +40,8 @@ object Team extends LilaController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
-      text.trim.isEmpty.fold(
-        paginator popularTeams page map { html.team.all(_) },
-        Env.teamSearch(text, page) map { html.team.search(text, _) }
-      )
+      if (text.trim.isEmpty) paginator popularTeams page map { html.team.all(_) }
+      else Env.teamSearch(text, page) map { html.team.search(text, _) }
     }
   }
 
@@ -90,7 +88,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.kick(team, userIds.filterNot(me.id ==).toList.sorted)
+          html.team.kick(team, userIds - me.id)
         }
       }
     }
@@ -100,12 +98,31 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.kick.bindFromRequest.value ?? { api.kick(team, _) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
       }
     }
   }
 
-  def close(id: String) = Secure(_.CloseTeam) { implicit ctx => me =>
+  def changeOwnerForm(id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(api team id) { team =>
+      Owner(team) {
+        MemberRepo userIdsByTeam team.id map { userIds =>
+          html.team.changeOwner(team, userIds - team.createdBy)
+        }
+      }
+    }
+  }
+
+  def changeOwner(id: String) = AuthBody { implicit ctx => me =>
+    OptionFuResult(api team id) { team =>
+      Owner(team) {
+        implicit val req = ctx.body
+        forms.selectMember.bindFromRequest.value ?? { api.changeOwner(team, _, me) } inject Redirect(routes.Team.show(team.id))
+      }
+    }
+  }
+
+  def close(id: String) = Secure(_.ManageTeam) { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       (api delete team) >>
         Env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
@@ -144,10 +161,8 @@ object Team extends LilaController {
   def joinPage(id: String) = Auth { implicit ctx => me =>
     NotForKids {
       OptionResult(api.requestable(id, me)) { team =>
-        team.open.fold(
-          Ok(html.team.join(team)),
-          Redirect(routes.Team.requestForm(team.id))
-        )
+        if (team.open) Ok(html.team.join(team))
+        else Redirect(routes.Team.requestForm(team.id))
       }
     }
   }
@@ -208,13 +223,11 @@ object Team extends LilaController {
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
-      (did && !Granter.superAdmin(me)) fold (
-        Forbidden(views.html.team.createLimit()).fuccess,
-        a
-      )
+      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.team.createLimit()).fuccess
+      else a
     }
 
-  private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    ctx.me.??(me => team.isCreator(me.id) || Granter.superAdmin(me))
-  }.fold(a, renderTeam(team) map { Forbidden(_) })
+  private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    if (ctx.me.??(me => team.isCreator(me.id) || isGranted(_.ManageTeam))) a
+    else renderTeam(team) map { Forbidden(_) }
 }

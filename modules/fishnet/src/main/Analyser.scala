@@ -2,8 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.FEN
-import chess.format.Uci
+import chess.format.{ FEN, Forsyth, Uci }
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -57,7 +56,7 @@ final class Analyser(
       case true => fuFalse
       case _ => {
         import req._
-        val sender = Work.Sender(req.userId, none, false, system = req.userId == "lichess")
+        val sender = Work.Sender(req.userId, none, false, system = req.userId.has("lichess"))
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
           if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {
@@ -69,7 +68,8 @@ final class Analyser(
                 variant = variant,
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
-              startPly = 0,
+              // if black moves first, use 1 as startPly so the analysis doesn't get reversed
+              startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
               sender = sender
             )
             sequencer {

@@ -37,7 +37,7 @@
     "chess": "1.0.0",
     "chessground": "^7.3",
     "common": "1.0.0",
-    "snabbdom": "ornicar/snabbdom#lichess",
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "tree": "1.0.0"
   }
 }

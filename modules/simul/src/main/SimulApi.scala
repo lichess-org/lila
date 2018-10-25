@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import chess.variant.Variant
 import lila.common.Debouncer
 import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.hub.{ Duct, DuctMap }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
@@ -17,7 +18,7 @@ import makeTimeout.short
 
 final class SimulApi(
     system: ActorSystem,
-    sequencers: ActorRef,
+    sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
     socketHub: ActorRef,
     site: ActorSelection,
@@ -199,8 +200,8 @@ final class SimulApi(
       pgnImport = None
     )
     game2 = game1
-      .withSimulId(simul.id)
       .withId(pairing.gameId)
+      .withSimulId(simul.id)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
@@ -221,9 +222,8 @@ final class SimulApi(
     }
   }
 
-  private def Sequence(simulId: Simul.ID)(work: => Funit): Unit = {
-    sequencers ! Tell(simulId, lila.hub.Sequencer work work)
-  }
+  private def Sequence(simulId: Simul.ID)(fu: => Funit): Unit =
+    sequencers.tell(simulId, Duct.extra.LazyFu(() => fu))
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))

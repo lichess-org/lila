@@ -48,18 +48,24 @@ trans.giveMoreTime,
 trans.gameOver,
 trans.analysis,
 trans.yourOpponentWantsToPlayANewGameWithYou
-) ++ g.isCorrespondence.fold(i18nJsObject(
+) ++ {
+if (g.isCorrespondence) i18nJsObject(
 trans.oneDay,
 trans.nbDays,
 trans.nbHours
-), i18nJsObject(
+) else i18nJsObject(
 trans.nbSecondsToPlayTheFirstMove
-)) ++ g.variant.exotic.fold(i18nJsObject(
+)
+} ++ {
+if (g.variant.exotic) i18nJsObject(
 trans.kingInTheCenter,
 trans.threeChecks,
 trans.variantEnding
-), Json.obj()) ++ g.isTournament.fold(i18nJsObject(
+) else Json.obj()
+} ++ {
+if (g.isTournament) i18nJsObject(
 trans.backToTournament,
 trans.viewTournament,
 trans.standing
-), Json.obj()))
+) else Json.obj()
+})

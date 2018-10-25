@@ -8,7 +8,6 @@ import lila.hub.{ actorApi => hubApi }
 import makeTimeout.short
 
 private final class MoveDB(
-    roundMap: ActorSelection,
     system: ActorSystem
 ) {
 
@@ -89,7 +88,10 @@ private final class MoveDB(
             case Some(uci) =>
               coll -= move.id
               Monitor.move(move, client)
-              roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
+              system.lilaBus.publish(
+                hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen)),
+                'roundMapTell
+              )
             case _ =>
               updateOrGiveUp(move.invalid)
               Monitor.failure(move, client)

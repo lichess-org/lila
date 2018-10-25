@@ -36,7 +36,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   override def postStop(): Unit = {
     super.postStop()
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
-    members foreachKey eject
+    members foreachKey ejectUidString
   }
 
   // to be defined in subclassing actor
@@ -80,10 +80,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid): Unit = {
-    withMember(uid.value)(_ push makeMessage(t, data))
+    withMember(uid)(_ push makeMessage(t, data))
   }
 
-  def ping(uid: String, lagCentis: Option[Centis]): Unit = {
+  def ping(uid: Socket.Uid, lagCentis: Option[Centis]): Unit = {
     setAlive(uid)
     withMember(uid) { member =>
       member push pong
@@ -94,43 +94,27 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  private val monitoredTimeout = Set("jannlee", "yasser-seirawan", "isaacly", "thibault")
-
-  def broom: Unit = {
+  def broom: Unit =
     members.keys foreach { uid =>
-      if (!aliveUids.get(uid)) {
-        for { // Does people time out here?
-          member <- members get uid
-          userId <- member.userId
-          if monitoredTimeout(userId)
-        } {
-          lila.mon.socket.eject(userId)
-          lila.mon.socket.ejectAll()
-        }
-        eject(uid)
-      }
+      if (!aliveUids.get(uid)) ejectUidString(uid)
     }
+
+  protected def ejectUidString(uid: String): Unit = eject(Socket.Uid(uid))
+
+  def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
+    member.end
+    quit(uid)
   }
 
-  def eject(uid: String): Unit = {
-    withMember(uid) { member =>
-      member.end
-      quit(uid)
-    }
+  def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
+    members -= uid.value
+    lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
   }
 
-  def quit(uid: String): Unit = {
-    members get uid foreach { member =>
-      members -= uid
-      lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
-    }
-  }
-
-  def onDeploy(d: Deploy): Unit = {
+  def onDeploy(d: Deploy): Unit =
     notifyAll(makeMessage(d.key))
-  }
 
-  private val resyncMessage = makeMessage("resync")
+  protected val resyncMessage = makeMessage("resync")
 
   protected def resync(member: M): Unit = {
     import scala.concurrent.duration._
@@ -139,22 +123,20 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  protected def resync(uid: String): Unit = {
+  protected def resync(uid: Socket.Uid): Unit =
     withMember(uid)(resync)
-  }
 
-  protected def resyncNow(member: M): Unit = {
+  protected def resyncNow(member: M): Unit =
     member push resyncMessage
-  }
 
-  def addMember(uid: String, member: M): Unit = {
+  def addMember(uid: Socket.Uid, member: M): Unit = {
     eject(uid)
-    members += (uid -> member)
+    members += (uid.value -> member)
     setAlive(uid)
     lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
-  def setAlive(uid: String): Unit = { aliveUids put uid }
+  def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value
 
   def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member
@@ -188,7 +170,5 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  def withMember(uid: String)(f: M => Unit): Unit = {
-    members get uid foreach f
-  }
+  def withMember(uid: Socket.Uid)(f: M => Unit): Unit = members get uid.value foreach f
 }

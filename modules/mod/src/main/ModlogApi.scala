@@ -76,19 +76,19 @@ final class ModlogApi(coll: Coll) {
   }
 
   def toggleCloseTopic(mod: String, categ: String, topic: String, closed: Boolean) = add {
-    Modlog(mod, none, closed ? Modlog.closeTopic | Modlog.openTopic, details = Some(
+    Modlog(mod, none, if (closed) Modlog.closeTopic else Modlog.openTopic, details = Some(
       categ + " / " + topic
     ))
   }
 
   def toggleHideTopic(mod: String, categ: String, topic: String, hidden: Boolean) = add {
-    Modlog(mod, none, hidden ? Modlog.hideTopic | Modlog.showTopic, details = Some(
+    Modlog(mod, none, if (hidden) Modlog.hideTopic else Modlog.showTopic, details = Some(
       categ + " / " + topic
     ))
   }
 
   def toggleStickyTopic(mod: String, categ: String, topic: String, sticky: Boolean) = add {
-    Modlog(mod, none, sticky ? Modlog.stickyTopic | Modlog.unstickyTopic, details = Some(
+    Modlog(mod, none, if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic, details = Some(
       categ + " / " + topic
     ))
   }
@@ -147,6 +147,18 @@ final class ModlogApi(coll: Coll) {
 
   def rankban(mod: Mod, sus: Suspect, v: Boolean) = add {
     Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
+  }
+
+  def teamKick(mod: String, user: String, teamName: String) = add {
+    Modlog(mod, user.some, Modlog.teamKick, details = Some(teamName take 140))
+  }
+
+  def teamEdit(mod: String, teamOwner: String, teamName: String) = add {
+    Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
+  }
+
+  def teamMadeOwner(mod: String, user: String, teamName: String) = add {
+    Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
   }
 
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)

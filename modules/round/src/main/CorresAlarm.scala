@@ -18,7 +18,6 @@ private final class CorresAlarm(
     roundSocketHub: ActorSelection
 ) extends Actor {
 
-  object Schedule
   object Run
 
   case class Alarm(

@@ -65,7 +65,7 @@ final class JsonView(
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id" -> playerId,
-                "version" -> socket.version
+                "version" -> socket.version.value
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
@@ -83,7 +83,7 @@ final class JsonView(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
               "replay" -> pref.replay,
-              "autoQueen" -> (pov.game.variant == chess.variant.Antichess).fold(Pref.AutoQueen.NEVER, pref.autoQueen),
+              "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER else pref.autoQueen),
               "clockTenths" -> pref.clockTenths,
               "moveEvent" -> pref.moveEvent
             ).add("is3d" -> pref.is3d)
@@ -158,7 +158,7 @@ final class JsonView(
             "correspondence" -> game.correspondenceClock,
             "player" -> {
               commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
-                "version" -> socket.version,
+                "version" -> socket.version.value,
                 "spectator" -> true
               )
             },
@@ -276,10 +276,10 @@ final class JsonView(
   }
 
   private def animationDuration(pov: Pov, pref: Pref) = math.round {
-    animationFactor(pref) * baseAnimationDuration.toMillis * pov.game.finished.fold(
-      1,
-      math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
-    )
+    animationFactor(pref) * baseAnimationDuration.toMillis * {
+      if (pov.game.finished) 1
+      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+    }
   }
 }
 

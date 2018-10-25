@@ -1,4 +1,4 @@
-@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine], stream: Option[lila.streamer.Stream])(implicit ctx: Context)
+@(sim: lila.simul.Simul, socketVersion: lila.socket.Socket.SocketVersion, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine], stream: Option[lila.streamer.Stream])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers hidden">
@@ -12,7 +12,7 @@
 lichess.simul = {
 data: @safeJson(data),
 i18n: @jsI18n(),
-socketVersion: @socketVersion,
+socketVersion: @socketVersion.value,
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)

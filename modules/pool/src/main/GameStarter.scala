@@ -4,49 +4,44 @@ import akka.actor._
 import scala.concurrent.Promise
 
 import lila.game.{ Game, Player, GameRepo }
-import lila.hub.Sequencer
+import lila.hub.FutureSequencer
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
 private final class GameStarter(
     bus: lila.common.Bus,
     onStart: Game.ID => Unit,
-    sequencer: ActorRef
+    sequencer: FutureSequencer
 ) {
 
-  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = {
-    val promise = Promise[Unit]()
-    sequencer ! Sequencer.work(all(pool, couples), promise.some)
-    promise.future
-  }
-
-  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.nonEmpty ?? {
+  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
+    sequencer {
       val userIds = couples.flatMap(_.userIds)
       UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
         couples.map(one(pool, perfs)).sequenceFu.void
       }
     }
+  }
 
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Funit = {
     import couple._
     (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
       case (perf1, perf2) => for {
         p1White <- UserRepo.firstGetsWhite(p1.userId, p2.userId)
-        (whitePerf, blackPerf) = p1White.fold(perf1 -> perf2, perf2 -> perf1)
-        (whiteMember, blackMember) = p1White.fold(p1 -> p2, p2 -> p1)
-        game = makeGame(
+        (whitePerf, blackPerf) = if (p1White) perf1 -> perf2 else perf2 -> perf1
+        (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
+        game <- makeGame(
           pool,
           whiteMember.userId -> whitePerf,
           blackMember.userId -> blackPerf
-        ).start
+        ).start.withUniqueId
         _ <- GameRepo insertDenormalized game
       } yield {
 
         bus.publish(PoolApi.Pairing(
           game,
-          whiteUid = whiteMember.socketId,
-          blackUid = blackMember.socketId
+          whiteUid = whiteMember.uid,
+          blackUid = blackMember.uid
         ), 'poolGame)
 
         onStart(game.id)

@@ -124,8 +124,8 @@ object UserRepo {
         doc.getAs[User.ID]("_id") contains u1
       }
     }.addEffect { v =>
-      incColor(u1, v.fold(1, -1))
-      incColor(u2, v.fold(-1, 1))
+      incColor(u1, if (v) 1 else -1)
+      incColor(u2, if (v) -1 else 1)
     }
 
   def firstGetsWhite(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
@@ -183,9 +183,9 @@ object UserRepo {
     coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
 
   val enabledSelect = $doc(F.enabled -> true)
-  def engineSelect(v: Boolean) = $doc(F.engine -> v.fold[BSONValue]($boolean(true), $ne(true)))
-  def trollSelect(v: Boolean) = $doc(F.troll -> v.fold[BSONValue]($boolean(true), $ne(true)))
-  def boosterSelect(v: Boolean) = $doc(F.booster -> v.fold[BSONValue]($boolean(true), $ne(true)))
+  def engineSelect(v: Boolean) = $doc(F.engine -> (if (v) $boolean(true) else $ne(true)))
+  def trollSelect(v: Boolean) = $doc(F.troll -> (if (v) $boolean(true) else $ne(true)))
+  def boosterSelect(v: Boolean) = $doc(F.booster -> (if (v) $boolean(true) else $ne(true)))
   def stablePerfSelect(perf: String) = $doc(
     s"perfs.$perf.nb" -> $gte(30),
     s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation)
@@ -344,6 +344,12 @@ object UserRepo {
     if (v) $doc(F.title -> User.botTitle)
     else $doc(F.title -> $ne(User.botTitle))
 
+  private[user] def botIds = coll.distinctWithReadPreference[String, Set](
+    "_id",
+    some(botSelect(true) ++ enabledSelect),
+    ReadPreference.secondaryPreferred
+  )
+
   def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
 
   def setPlan(user: User, plan: Plan): Funit = {
@@ -394,13 +400,6 @@ object UserRepo {
     ).map {
         _ flatMap { _.getAs[Int](F.toints) }
       }.map(~_)
-
-  def filterByEngine(userIds: Iterable[User.ID]): Fu[Set[User.ID]] =
-    coll.distinctWithReadPreference[String, Set](
-      F.id,
-      Some($inIds(userIds) ++ engineSelect(true)),
-      ReadPreference.secondaryPreferred
-    )
 
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))

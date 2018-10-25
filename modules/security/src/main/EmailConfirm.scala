@@ -73,7 +73,7 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
     _ ?? { userId =>
       UserRepo.mustConfirmEmail(userId) flatMap {
         _ ?? {
-          (UserRepo setEmailConfirmed userId) >> (UserRepo byId userId)
+          (UserRepo setEmailConfirmed userId) >> (UserRepo enabledById userId)
         }
       }
     }

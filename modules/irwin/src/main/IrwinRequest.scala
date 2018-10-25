@@ -1,14 +1,14 @@
 package lila.irwin
 
-import org.joda.time.DateTime
-
-import lila.report.{ SuspectId, ReporterId }
+import lila.report.Suspect
 import lila.user.User
+import lila.game.Game
+import lila.analyse.Analysis
 
 case class IrwinRequest(
-    suspect: SuspectId,
+    suspect: Suspect,
     origin: IrwinRequest.Origin,
-    date: DateTime
+    games: List[(Game, Option[Analysis])]
 )
 
 object IrwinRequest {

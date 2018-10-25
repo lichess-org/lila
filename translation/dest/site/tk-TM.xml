@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s reýtingiňiz (%2$s) aşa pes</string>
   <string name="ratedMoreThanInPerf">%2$s reýtingi ≥ %1$s bolmaly</string>
   <string name="ratedLessThanInPerf">%2$s reýtingi ≤ %1$s bolmaly</string>
+  <string name="mustBeInTeam">%s toparyna degişli bolmaly</string>
+  <string name="youAreNotInTeam">%s toparynda dälsiňiz</string>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
   <string name="teams">Toparlar</string>
@@ -508,6 +510,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="troll">Trol</string>
   <string name="other">Başga</string>
   <string name="reportDescriptionHelp">Oýnyň çelgisini üpjün ediň we bu ulanyjynyň özüni alyp barşynda näme ýerliksizlik bardygyny hem düşündiriň. Diňe bir \"ol kezzaplyk edýär\" diýmek bilen çäklenmäň, nädip beýle netijä gelendigiňizem aýdyň. Iňlis dilinde ýazylan bolsa reportyňyz has çalt ýola goýular.</string>
+  <string name="error.provideOneCheatedGameLink">Iň az 1 kezzapçylykly oýna salgy beriň.</string>
   <string name="by">%s tarapyndan</string>
   <string name="thisTopicIsNowClosed">Bu mowzuk häzir ýapyk.</string>
   <string name="theming">Tema sazlama</string>

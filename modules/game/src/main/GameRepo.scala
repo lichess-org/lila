@@ -6,12 +6,13 @@ import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
+import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.ByteArray
 import lila.db.dsl._
+import lila.db.{ ByteArray, isDuplicateKey }
 import lila.user.User
 
 object GameRepo {
@@ -175,6 +176,10 @@ object GameRepo {
       .uno
       .map { _ flatMap { Pov(_, user) } }
 
+  def allPlaying(userId: User.ID): Fu[List[Pov]] =
+    coll.find(Query nowPlaying userId).list[Game]()
+      .map { _ flatMap { Pov.ofUserId(_, userId) } }
+
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.find(Query user user.id)
       .sort($sort desc F.createdAt)
@@ -284,7 +289,9 @@ object GameRepo {
       F.checkAt -> checkInHours.map(DateTime.now.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
-    coll insert bson void
+    coll insert bson addFailureEffect {
+      case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision()
+    } void
   } >>- {
     lila.mon.game.create.variant(g.variant.key)()
     lila.mon.game.create.source(g.source.fold("unknown")(_.name))()

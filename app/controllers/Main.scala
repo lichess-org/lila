@@ -48,7 +48,7 @@ object Main extends LilaController {
 
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
-      case valid: Boolean => Ok(valid fold (1, 0))
+      case valid: Boolean => Ok(if (valid) 1 else 0)
     }
   }
 
@@ -130,9 +130,9 @@ object Main extends LilaController {
     }
   }
 
-  val robots = Action {
+  val robots = Action { req =>
     Ok {
-      if (Env.api.Net.Crawlable) """User-agent: *
+      if (Env.api.Net.Crawlable && req.domain == Env.api.Net.Domain) """User-agent: *
 Allow: /
 Disallow: /game/export
 Disallow: /games/export
@@ -156,4 +156,6 @@ Disallow: /games/export
   def getFishnet = Open { implicit ctx =>
     Ok(html.site.getFishnet()).fuccess
   }
+
+  def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)
 }

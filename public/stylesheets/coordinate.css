@@ -64,7 +64,7 @@ form.color .color_1 i {
   background-image: url(../piece/cburnett/wK.svg);
 }
 form.color .color_2 i {
-  background-image: url(../piece/cburnett/wbK.svg);
+  background-image: url(../images/wbK.svg);
 }
 form.color .color_3 i {
   background-image: url(../piece/cburnett/bK.svg);
@@ -91,6 +91,9 @@ form.color .color_3 i {
   margin: 10px 0 10px 0;
   width: 514px;
   height: 10px;
+}
+.is3d #trainer .progress_bar_container {
+  margin-top: 20px;
 }
 #trainer .progress_bar {
   width: 100%;

@@ -34,6 +34,7 @@ export interface StudyCtrl {
   setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
+  forceVariation(path: Tree.Path, force: boolean): void;
   setChapter(id: string, force?: boolean): void;
   toggleSticky(): void;
   toggleWrite(): void;

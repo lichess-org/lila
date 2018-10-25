@@ -5,19 +5,25 @@ case class ContentSecurityPolicy(
     connectSrc: List[String],
     styleSrc: List[String],
     fontSrc: List[String],
-    childSrc: List[String],
+    frameSrc: List[String],
+    workerSrc: List[String],
     imgSrc: List[String],
-    scriptSrc: List[String]
+    scriptSrc: List[String],
+    baseUri: List[String]
 ) {
 
   private def withScriptSrc(source: String) = copy(scriptSrc = source :: scriptSrc)
 
-  def withNonce(nonce: Nonce) = withScriptSrc(nonce.scriptSrc)
+  def withNonce(nonce: Nonce) = copy(
+    // Nonces are not supported by Safari but 'unsafe-inline' is ignored by
+    // better browsers if there are also nonces.
+    scriptSrc = nonce.scriptSrc :: "'unsafe-inline'" :: scriptSrc
+  )
 
   def withStripe = copy(
     connectSrc = "https://*.stripe.com" :: connectSrc,
     scriptSrc = "https://*.stripe.com" :: scriptSrc,
-    childSrc = "https://*.stripe.com" :: childSrc
+    frameSrc = "https://*.stripe.com" :: frameSrc
   )
 
   def withSpreadshirt = copy(
@@ -25,7 +31,8 @@ case class ContentSecurityPolicy(
     connectSrc = "https://shop.spreadshirt.com" :: "https://api.spreadshirt.com" :: connectSrc,
     styleSrc = Nil,
     fontSrc = Nil,
-    childSrc = Nil,
+    frameSrc = Nil,
+    workerSrc = Nil,
     imgSrc = Nil,
     scriptSrc = Nil
   )
@@ -35,19 +42,20 @@ case class ContentSecurityPolicy(
     connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
     styleSrc = Nil,
     fontSrc = Nil,
-    childSrc = Nil,
+    frameSrc = Nil,
+    workerSrc = Nil,
     imgSrc = Nil,
     scriptSrc = Nil
   )
 
   def withTwitter = copy(
     scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
-    childSrc = "https://platform.twitter.com" :: childSrc,
+    frameSrc = "https://platform.twitter.com" :: frameSrc,
     styleSrc = "https://platform.twitter.com" :: styleSrc
   )
 
   def withGoogleForm = copy(
-    childSrc = "https://docs.google.com" :: childSrc
+    frameSrc = "https://docs.google.com" :: frameSrc
   )
 
   override def toString: String =
@@ -56,9 +64,11 @@ case class ContentSecurityPolicy(
       "connect-src " -> connectSrc,
       "style-src " -> styleSrc,
       "font-src " -> fontSrc,
-      "child-src " -> childSrc,
+      "frame-src " -> frameSrc,
+      "worker-src " -> workerSrc,
       "img-src " -> imgSrc,
-      "script-src " -> scriptSrc
+      "script-src " -> scriptSrc,
+      "base-uri " -> baseUri
     ) collect {
         case (directive, sources) if sources.nonEmpty =>
           sources.mkString(directive, " ", ";")

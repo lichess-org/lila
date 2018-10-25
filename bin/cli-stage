@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 COMMAND=$*
 PASSWORD=$LILA_CLI_PASSWORD

@@ -118,6 +118,9 @@ object PlayerRepo {
       }
     }
 
+  def computeRankOf(player: Player): Fu[Int] =
+    coll.countSel(selectTour(player.tourId) ++ $doc("m" $gt player.magicScore))
+
   // expensive, cache it
   private[tournament] def averageRating(tourId: String): Fu[Int] =
     coll.aggregateOne(Match(selectTour(tourId)), List(

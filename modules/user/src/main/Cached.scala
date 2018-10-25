@@ -96,13 +96,17 @@ final class Cached(
   def getTop50Online = top50Online.get.nevermind
 
   object ranking {
-
     def getAll(userId: User.ID): Fu[Map[Perf.Key, Int]] =
       rankingApi.weeklyStableRanking of userId
   }
 
   object ratingDistribution {
-
     def apply(perf: PerfType) = rankingApi.weeklyRatingDistribution(perf)
   }
+
+  val botIds = asyncCache.single[Set[User.ID]](
+    name = "user.botIds",
+    f = UserRepo.botIds,
+    expireAfter = _.ExpireAfterWrite(10 minutes)
+  )
 }

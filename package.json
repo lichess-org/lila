@@ -2,9 +2,6 @@
   "name": "lila",
   "version": "1.0.0",
   "description": "lichess.org: the forever free, adless and open source chess server",
-  "devDependencies": {
-    "svgo": "^0.7"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila.git"

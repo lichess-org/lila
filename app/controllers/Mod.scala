@@ -1,11 +1,13 @@
 package controllers
 
-import lila.api.Context
+import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress }
 import lila.report.{ Suspect, Mod => AsMod, SuspectId }
+import lila.security.Permission
 import lila.user.{ UserRepo, User => UserModel }
+import ornicar.scalalib.Zero
 import views._
 
 import play.api.data._
@@ -19,15 +21,16 @@ object Mod extends LilaController {
   private def modLogApi = Env.mod.logApi
   private def assessApi = Env.mod.assessApi
 
-  def engine(username: String, v: Boolean) = SecureBody(_.MarkEngine) { implicit ctx => me =>
+  def engine(username: String, v: Boolean) = OAuthModBody(_.MarkEngine) { me =>
     withSuspect(username) { sus =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
         _ <- modApi.setEngine(AsMod(me), sus, v)
-        res <- Report.onInquiryClose(inquiry, me, sus.some)
-      } yield res
+      } yield (inquiry, sus).some
     }
-  }
+  }(ctx => me => {
+    case (inquiry, suspect) => Report.onInquiryClose(inquiry, me, suspect.some)(ctx)
+  })
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx => _ =>
     Env.mod.publicChat.all map {
@@ -36,81 +39,83 @@ object Mod extends LilaController {
     }
   }
 
-  def booster(username: String, v: Boolean) = SecureBody(_.MarkBooster) { implicit ctx => me =>
+  def booster(username: String, v: Boolean) = OAuthModBody(_.MarkBooster) { me =>
     withSuspect(username) { prev =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
         suspect <- modApi.setBooster(AsMod(me), prev, v)
-        res <- Report.onInquiryClose(inquiry, me, suspect.some)
-      } yield res
+      } yield (inquiry, suspect).some
     }
-  }
+  }(ctx => me => {
+    case (inquiry, suspect) => Report.onInquiryClose(inquiry, me, suspect.some)(ctx)
+  })
 
-  def troll(username: String, v: Boolean) = SecureBody(_.MarkTroll) { implicit ctx => me =>
+  def troll(username: String, v: Boolean) = OAuthModBody(_.MarkTroll) { me =>
     withSuspect(username) { prev =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
         suspect <- modApi.setTroll(AsMod(me), prev, v)
-        res <- Report.onInquiryClose(inquiry, me, suspect.some)
-      } yield res
+      } yield (inquiry, suspect).some
     }
-  }
+  }(ctx => me => {
+    case (inquiry, suspect) => Report.onInquiryClose(inquiry, me, suspect.some)(ctx)
+  })
 
-  def warn(username: String, subject: String) = SecureBody(_.ModMessage) { implicit ctx => me =>
-    lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
+  def warn(username: String, subject: String) = OAuthModBody(_.ModMessage) { me =>
+    lila.message.ModPreset.bySubject(subject) ?? { preset =>
       withSuspect(username) { prev =>
         for {
           inquiry <- Env.report.api.inquiries ofModId me.id
           suspect <- modApi.setTroll(AsMod(me), prev, prev.user.troll)
           thread <- Env.message.api.sendPreset(me, suspect.user, preset)
           _ <- Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
-          res <- Report.onInquiryClose(inquiry, me, suspect.some)
-        } yield res
+        } yield (inquiry, suspect).some
       }
     }
-  }
+  }(ctx => me => {
+    case (inquiry, suspect) => Report.onInquiryClose(inquiry, me, suspect.some)(ctx)
+  })
 
-  def ban(username: String, v: Boolean) = Secure(_.IpBan) { implicit ctx => me =>
+  def ban(username: String, v: Boolean) = OAuthMod(_.IpBan) { _ => me =>
     withSuspect(username) { sus =>
-      modApi.setBan(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+      modApi.setBan(AsMod(me), sus, v) map some
     }
-  }
+  }(oauthModRedirect(username))
 
-  def deletePmsAndChats(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
+  def deletePmsAndChats(username: String) = OAuthMod(_.MarkTroll) { _ => me =>
     withSuspect(username) { sus =>
       Env.mod.publicChat.delete(sus) >>
-        Env.message.api.deleteThreadsBy(sus.user) >>
-        User.modZoneOrRedirect(username, me)
+        Env.message.api.deleteThreadsBy(sus.user) map some
     }
-  }
+  }(oauthModRedirect(username))
 
   def disableTwoFactor(username: String) = Secure(_.DisableTwoFactor) { implicit ctx => me =>
     modApi.disableTwoFactor(me.id, username) >> User.modZoneOrRedirect(username, me)
   }
 
-  def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
+  def closeAccount(username: String) = OAuthMod(_.CloseAccount) { _ => me =>
     modApi.closeAccount(me.id, username).flatMap {
       _.?? { user =>
-        Env.current.closeAccount(user.id, self = false)
-      } >> User.modZoneOrRedirect(username, me)
+        Env.current.closeAccount(user.id, self = false) map some
+      }
     }
-  }
+  }(oauthModRedirect(username))
 
-  def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx => me =>
-    modApi.reopenAccount(me.id, username) >> User.modZoneOrRedirect(username, me)
-  }
+  def reopenAccount(username: String) = OAuthMod(_.ReopenAccount) { _ => me =>
+    modApi.reopenAccount(me.id, username) map some
+  }(oauthModRedirect(username))
 
-  def reportban(username: String, v: Boolean) = Secure(_.ReportBan) { implicit ctx => me =>
+  def reportban(username: String, v: Boolean) = OAuthMod(_.ReportBan) { _ => me =>
     withSuspect(username) { sus =>
-      modApi.setReportban(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+      modApi.setReportban(AsMod(me), sus, v) map some
     }
-  }
+  }(oauthModRedirect(username))
 
-  def rankban(username: String, v: Boolean) = Secure(_.RemoveRanking) { implicit ctx => me =>
+  def rankban(username: String, v: Boolean) = OAuthMod(_.RemoveRanking) { _ => me =>
     withSuspect(username) { sus =>
-      modApi.setRankban(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+      modApi.setRankban(AsMod(me), sus, v) map some
     }
-  }
+  }(oauthModRedirect(username))
 
   def impersonate(username: String) = Auth { implicit ctx => me =>
     if (username == "-" && lila.mod.Impersonate.isImpersonated(me)) fuccess {
@@ -148,11 +153,11 @@ object Mod extends LilaController {
     }
   }
 
-  def notifySlack(username: String) = Auth { implicit ctx => me =>
-    OptionFuResult(UserRepo named username) { user =>
-      Env.slack.api.userMod(user = user, mod = me) >> User.modZoneOrRedirect(username, me)
+  def notifySlack(username: String) = OAuthMod(_.ModNote) { _ => me =>
+    withSuspect(username) { sus =>
+      Env.slack.api.userMod(user = sus.user, mod = me) map some
     }
-  }
+  }(oauthModRedirect(username))
 
   def log = Secure(_.ModLog) { implicit ctx => me =>
     modLogApi.recent map { html.mod.log(_) }
@@ -202,9 +207,11 @@ object Mod extends LilaController {
     Redirect(routes.User.show(username).url + mod.??("?mod"))
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
-    assessApi.refreshAssessByUsername(username) >>
-      Env.irwin.api.requests.fromMod(SuspectId normalize username, me) >>
-      User.modZoneOrRedirect(username, me)
+    OptionFuResult(UserRepo named username) { user =>
+      assessApi.refreshAssessByUsername(username) >>
+        Env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
+        User.modZoneOrRedirect(username, me)
+    }
   }
 
   def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>
@@ -297,16 +304,45 @@ object Mod extends LilaController {
     Ok(html.mod.chatPanic(Env.chat.panic.get)).fuccess
   }
 
-  def chatPanicPost = SecureBody(_.MarkTroll) { implicit ctx => me =>
-    implicit val req = ctx.body
-    val v = getBool("v")
+  def chatPanicPost = OAuthMod(_.MarkTroll) { req => me =>
+    val v = getBool("v", req)
     Env.chat.panic.set(v)
     Env.slack.api.chatPanic(me, v)
-    Redirect(routes.Mod.chatPanic).fuccess
+    fuccess(().some)
+  }(ctx => me => _ => Redirect(routes.Mod.chatPanic).fuccess)
+
+  def cheatList(gameId: String) = SecureBody(_.Hunter) { implicit ctx => me =>
+    OptionFuOk(lila.game.GameRepo game gameId) { game =>
+      Env.mod.cheatList.set(game, getBool("v"), lila.report.Mod(me))
+    }
   }
 
-  private def withSuspect(username: String)(f: Suspect => Fu[Result])(implicit ctx: Context) =
+  def eventStream = OAuthSecure(_.Admin) { req => me =>
+    Ok.chunked(Env.mod.stream.enumerator).fuccess
+  }
+
+  private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
     Env.report.api getSuspect username flatMap {
-      _.fold(notFound)(f)
+      _ ?? f
     }
+
+  private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => UserModel => Fu[Option[A]])(
+    secure: Context => UserModel => A => Fu[Result]
+  ): Action[Unit] = SecureOrScoped(perm)(
+    secure = ctx => me => f(ctx.req)(me) flatMap { _ ?? secure(ctx)(me) },
+    scoped = req => me => f(req)(me) flatMap { res =>
+      res.isDefined ?? fuccess(jsonOkResult)
+    }
+  )
+  private def OAuthModBody[A](perm: Permission.Selector)(f: UserModel => Fu[Option[A]])(
+    secure: BodyContext[_] => UserModel => A => Fu[Result]
+  ): Action[AnyContent] = SecureOrScopedBody(perm)(
+    secure = ctx => me => f(me) flatMap { _ ?? secure(ctx)(me) },
+    scoped = _ => me => f(me) flatMap { res =>
+      res.isDefined ?? fuccess(jsonOkResult)
+    }
+  )
+
+  private def oauthModRedirect(username: String)(ctx: Context)(me: UserModel)(res: Any) =
+    User.modZoneOrRedirect(username, me)(ctx)
 }

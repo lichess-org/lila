@@ -139,8 +139,7 @@
   margin-right: 3px;
   opacity: 0.5;
 }
-#dasher_app .zen:hover a::before,
-#dasher_app .zen.active a::before {
+#dasher_app .zen:hover a::before{
   opacity: 1;
 }
 #dasher_app .sound .content {
@@ -363,46 +362,6 @@
 }
 #dasher_app .theme.d3 .Woodi {
   background-image: url(../images/board/3d/woodi.thumbnail.png);
-}
-
-#dasher_app piece.cburnett {
-  background-image: url(../piece-src/cburnett/wN.svg);
-}
-#dasher_app piece.merida {
-  background-image: url(../piece/merida/wN.svg);
-}
-#dasher_app piece.chess7 {
-  background-image: url(../piece/chess7/wN.svg);
-}
-#dasher_app piece.spatial {
-  background-image: url(../piece/spatial/wN.svg);
-}
-#dasher_app piece.alpha {
-  background-image: url(../piece/alpha/wN.svg);
-}
-#dasher_app piece.pirouetti {
-  background-image: url(../piece-src/pirouetti/wN.svg);
-}
-#dasher_app piece.reillycraig {
-  background-image: url(../piece/reillycraig/wN.svg);
-}
-#dasher_app piece.fantasy {
-  background-image: url(../piece/fantasy/wN.svg);
-}
-#dasher_app piece.shapes {
-  background-image: url(../piece/shapes/wN.svg);
-}
-#dasher_app piece.letter {
-  background-image: url(../piece/letter/wN.svg);
-}
-#dasher_app piece.chessnut {
-  background-image: url(../piece/chessnut/wN.svg);
-}
-#dasher_app piece.companion {
-  background-image: url(../piece/companion/wN.svg);
-}
-#dasher_app piece.riohacha {
-  background-image: url(../piece/riohacha/wN.svg);
 }
 
 body.dark #dasher_app .subs,

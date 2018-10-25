@@ -1,10 +1,13 @@
 package lila.irwin
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
+import lila.analyse.Analysis.Analyzed
+import lila.analyse.AnalysisRepo
 import lila.db.dsl._
-import lila.game.{ Pov, GameRepo }
+import lila.game.{ Game, Pov, GameRepo, Query }
 import lila.report.{ Report, Mod, Suspect, Reporter, SuspectId, ModId }
 import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ User, UserRepo }
@@ -76,32 +79,60 @@ final class IrwinApi(
 
     import IrwinRequest.Origin
 
-    def fromMod(suspectId: SuspectId, mod: User) = {
-      notification.add(suspectId, ModId(mod.id))
-      insert(suspectId, _.Moderator)
+    def fromMod(suspect: Suspect, mod: Mod) = {
+      notification.add(suspect.id, mod.id)
+      insert(suspect, _.Moderator)
     }
 
-    private[irwin] def insert(suspectId: SuspectId, origin: Origin.type => Origin): Funit = fuccess {
-      bus.publish(IrwinRequest(
-        suspect = suspectId,
-        origin = origin(Origin),
-        date = DateTime.now
-      ), 'irwin)
-    }
+    private[irwin] def insert(suspect: Suspect, origin: Origin.type => Origin): Funit = for {
+      analyzed <- getAnalyzedGames(suspect, 15)
+      more <- getMoreGames(suspect, 20 - analyzed.size)
+      all = analyzed.map { a => a.game -> a.analysis.some } ::: more.map(_ -> none)
+    } yield bus.publish(IrwinRequest(
+      suspect = suspect,
+      origin = origin(Origin),
+      games = all
+    ), 'irwin)
 
     private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
       lila.common.Future.applySequentially(leaders.toList) {
         case (tour, top) =>
-          val userIds = top.value.zipWithIndex.filter(_._2 <= tour.nbPlayers * 2 / 100).map(_._1.userId)
-          lila.common.Future.applySequentially(userIds) { userId =>
-            insert(SuspectId(userId), _.Tournament)
-          }
+          UserRepo byIds top.value.zipWithIndex
+            .filter(_._2 <= tour.nbPlayers * 2 / 100)
+            .map(_._1.userId)
+            .take(20) flatMap { users =>
+              lila.common.Future.applySequentially(users) { user =>
+                insert(Suspect(user), _.Tournament)
+              }
+            }
       }
 
     private[irwin] def fromLeaderboard(leaders: List[User]): Funit =
       lila.common.Future.applySequentially(leaders) { user =>
-        insert(SuspectId(user.id), _.Leaderboard)
+        insert(Suspect(user), _.Leaderboard)
       }
+
+    import lila.game.BSONHandlers._
+
+    private def baseQuery(suspect: Suspect) =
+      Query.finished ++
+        Query.variantStandard ++
+        Query.rated ++
+        Query.user(suspect.id.value) ++
+        Query.turnsGt(20) ++
+        Query.createdSince(DateTime.now minusMonths 6)
+
+    private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[Analyzed]] =
+      GameRepo.coll.find(baseQuery(suspect) ++ Query.analysed(true))
+        .sort(Query.sortCreated)
+        .cursor[Game](ReadPreference.secondaryPreferred)
+        .list(nb)
+        .flatMap(AnalysisRepo.associateToGames)
+
+    private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] = (nb > 0) ??
+      GameRepo.coll.find(baseQuery(suspect) ++ Query.analysed(false))
+      .sort(Query.sortCreated).cursor[Game](ReadPreference.secondaryPreferred)
+      .list(nb)
   }
 
   object notification {

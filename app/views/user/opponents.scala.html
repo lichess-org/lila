@@ -1,6 +1,6 @@
 @(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context)
 
-@user.layout(title = "%s - %s".format(u.username, trans.favoriteOpponents())) {
+@user.layout(title = "%s - %s".format(u.username, trans.favoriteOpponents.txt())) {
 <div class="content_box no_padding">
   <h1>@userLink(u, withOnline = false) @trans.favoriteOpponents()</h1>
   @user.relatedTable(u, sugs)

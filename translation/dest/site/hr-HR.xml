@@ -324,6 +324,8 @@
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Rangirano %1$s u %2$s</string>
+  <string name="mustBeInTeam">Moraš biti u timu %s</string>
+  <string name="youAreNotInTeam">Nisi u timu %s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Ekipe</string>
@@ -535,6 +537,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
   <string name="reportDescriptionHelp">Zalijepi poveznicu na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
+  <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link igre u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>
   <string name="theming">Izgled</string>
@@ -746,7 +749,7 @@ u %3$s</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
   <string name="castleByMovingTwoSquares">Pomicanjem kralja za dva polja</string>
   <string name="castleByMovingOntoTheRook">Pomicanjem kralja na topa</string>
-  <string name="shareYourInsightsData">dijeli vaše osobne podatke</string>
+  <string name="shareYourInsightsData">Dijeli vaše osobne podatke</string>
   <string name="withNobody">Ni sa kime</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
@@ -858,7 +861,7 @@ u %3$s</string>
   <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekundi</item>
-    <item quantity="few">%s sekunda</item>
+    <item quantity="few">%s sekundi</item>
     <item quantity="other">%s sekundi</item>
   </plurals>
   <string name="opening">Otvaranje</string>
@@ -872,7 +875,7 @@ u %3$s</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uvjetni predpotezi</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
-  <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš predpotez</string>
+  <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš uvjetni predpotez</string>
   <string name="noConditionalPremoves">Nema uvjetnih predpoteza</string>
   <string name="playX">Igraj %s</string>
   <plurals name="andSaveNbPremoveLines">

@@ -1,20 +1,22 @@
 package lila.relay
 
 import akka.actor._
+import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.bson._
 
 import lila.db.dsl._
+import lila.security.Granter
 import lila.study.{ StudyApi, Study, StudyMaker, Settings }
 import lila.user.User
-import lila.security.Granter
 
 final class RelayApi(
     repo: RelayRepo,
     studyApi: StudyApi,
     withStudy: RelayWithStudy,
+    clearFormatCache: Url => Unit,
     system: ActorSystem
 ) {
 
@@ -25,7 +27,7 @@ final class RelayApi(
 
   def byIdAndContributor(id: Relay.Id, me: User) = byIdWithStudy(id) map {
     _ collect {
-      case Relay.WithStudy(relay, study) if study.canContribute(me.id) || Granter(_.Beta)(me) => relay
+      case Relay.WithStudy(relay, study) if study.canContribute(me.id) => relay
     }
   }
 
@@ -64,13 +66,16 @@ final class RelayApi(
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
+    clearFormatCache(Url parse relay.sync.upstream.url)
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void
   }
 
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
-    val relay = f(from)
+    val relay = f(from) |> { r =>
+      if (r.sync.upstream.url != from.sync.upstream.url) r.withSync(_.clearLog) else r
+    }
     if (relay == from) fuccess(relay)
     else repo.coll.update($id(relay.id), relay).void >> {
       (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
@@ -133,9 +138,7 @@ final class RelayApi(
     import makeTimeout.short
     import akka.pattern.ask
     import lila.study.Socket.{ GetNbMembers, NbMembers }
-    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) recover {
-      case _: Exception => 0
-    }
+    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) nevermind
   }
 
   private def studySocketActor(id: Relay.Id) = system actorSelection s"/user/study-socket/${id.value}"

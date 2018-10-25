@@ -92,7 +92,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
   ];
 
   return h('div.gamebook_wrap', {
-    hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.edit.css') }
+    hook: { insert: _ => window.lichess.loadCss('stylesheets/gamebook.edit.css') }
   }, [
     h('div.gamebook', content)
   ]);

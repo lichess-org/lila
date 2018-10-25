@@ -56,7 +56,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
-  <string name="promoteVariation">Προώθηση παραλλαγής</string>
+  <string name="promoteVariation">Προαγωγή βαριάντας</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="move">Κίνηση</string>
@@ -119,7 +119,7 @@
   <string name="offerDraw">Προσφορά ισοπαλίας</string>
   <string name="draw">Ισοπαλία</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s συνδεδεμένοι παίκτες</item>
+    <item quantity="one">%s συνδεδεμένος παίκτης</item>
     <item quantity="other">%s συνδεδεμένοι παίκτες</item>
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
@@ -137,7 +137,7 @@
   <string name="newToLichess">Νέοι στο Lichess;</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
-  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνoυμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
+  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
   <string name="games">Παιχνίδια</string>
   <string name="forum">Φόρουμ</string>
   <string name="xPostedInForumY">Ο χρήστης %1$s έγραψε στη συζήτηση %2$s</string>
@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Το παιχνίδι βαθμολογείται</string>
   <string name="rematch">Ξαναπαίξτε</string>
   <string name="rematchOfferSent">Πρόταση επανάληψης εστάλη</string>
+  <string name="rematchOfferSentWhite">Ο Λευκός προσφέρει ρεβάνς</string>
+  <string name="rematchOfferSentBlack">Ο Μαύρος προσφέρει ρεβάνς</string>
   <string name="rematchOfferAccepted">Πρόταση επανάληψης αποδεκτή</string>
   <string name="rematchOfferCanceled">Πρόταση επανάληψης ακυρώθηκε</string>
   <string name="rematchOfferDeclined">Πρόταση επανάληψης απερρίφθη</string>
@@ -302,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
   <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s στο %2$s</string>
   <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s στο %2$s</string>
+  <string name="mustBeInTeam">Πρέπει να είναι στην ομάδα %s</string>
+  <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
@@ -385,6 +389,15 @@
   <string name="winner">Νικητής</string>
   <string name="standing">Κατάταξη</string>
   <string name="createANewTournament">Δημιουργήστε νέο πρωτάθλημα</string>
+  <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
+  <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>
+  <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
+  <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
+  <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
+  <string name="emptyTournamentName">Αφήστε το κενό για να ονομαστεί το τουρνουά ως κάποιον τυχαίο Γκραν Μετρ.</string>
+  <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
+  <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
+  <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
   <string name="points">Πόντοι</string>
@@ -497,6 +510,7 @@
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλο</string>
   <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
   <string name="by">από τον %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
   <string name="theming">Εμφάνιση</string>
@@ -514,6 +528,7 @@
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
   <string name="incorrectPassword">Εσφαλμένος κωδικός</string>
+  <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
@@ -635,6 +650,8 @@
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
+  <string name="aboutX">Σχετικά με %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s είναι δωρεάν (%2$s), ελεύθερο, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -751,7 +768,7 @@
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
-  <string name="pieceSet">Επιλογή πιονιών</string>
+  <string name="pieceSet">Επιλογή κομματιών</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernamePrefixInvalid">Το όνομα χρήστη πρέπει να αρχίζει με ένα γράμμα.</string>

@@ -32,7 +32,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
     val decodedFen: Option[FEN] = lila.common.String.decodeUriPath(urlFen)
-      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
+      .map(_.replace('_', ' ').trim).filter(_.nonEmpty)
       .orElse(get("fen")) map FEN.apply
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
@@ -58,7 +58,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
       mode = chess.Mode.Casual,
       source = lila.game.Source.Api,
       pgnImport = None
-    ).copy(id = "synthetic"),
+    ).withId("synthetic"),
     from.situation.color
   )
 
@@ -105,7 +105,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
   def pgn = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     Env.importer.forms.importForm.bindFromRequest.fold(
-      failure => BadRequest(errorsAsJson(failure)).fuccess,
+      jsonFormError,
       data => Env.importer.importer.inMemory(data).fold(
         err => BadRequest(jsonError(err.shows)).fuccess, {
           case (game, fen) =>

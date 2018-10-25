@@ -42,7 +42,7 @@ case class AnaMove(
           opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
             FullOpeningDB findByFen fen
           },
-          drops = movable.fold(game.situation.drops, Some(Nil)),
+          drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
       }
@@ -60,13 +60,12 @@ object AnaMove {
     d ← o obj "d"
     orig ← d str "orig" flatMap chess.Pos.posAt
     dest ← d str "dest" flatMap chess.Pos.posAt
-    variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
   } yield AnaMove(
     orig = orig,
     dest = dest,
-    variant = variant,
+    variant = chess.variant.Variant orDefault ~d.str("variant"),
     fen = fen,
     path = path,
     chapterId = d str "ch",

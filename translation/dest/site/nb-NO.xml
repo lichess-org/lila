@@ -88,7 +88,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker</string>
   <string name="xOpeningExplorer">Utforsk åpning %s</string>
-  <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekkregelen</string>
+  <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="allSet">Alt klart!</string>
   <string name="importPgn">Importér PGN-fil</string>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
+  <string name="mustBeInTeam">Du må være med i team %s</string>
+  <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="teams">Lag</string>
@@ -508,6 +510,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="troll">Troll</string>
   <string name="other">Annet</string>
   <string name="reportDescriptionHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel.</string>
+  <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er nå lukket.</string>
   <string name="theming">Utseende</string>
@@ -531,7 +534,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="newPassword">Nytt passord</string>
   <string name="newPasswordAgain">Nytt passord (igjen)</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>
-  <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og fortrekk)</string>
+  <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og forhåndstrekk)</string>
   <string name="boardCoordinates">Brettkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notasjonsliste mens du spiller</string>
   <string name="pgnPieceNotation">Notasjon</string>
@@ -548,7 +551,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="clickTwoSquares">Klikk to felt</string>
   <string name="dragPiece">Dra brikke</string>
   <string name="bothClicksAndDrag">Begge</string>
-  <string name="premovesPlayingDuringOpponentTurn">Førtrekk (gjør trekk når det er motstanders trekk)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Forhåndstrekk (gjør trekk når det er motstanders trekk)</string>
   <string name="takebacksWithOpponentApproval">Angre trekk (med motstanders godkjennelse)</string>
   <string name="promoteToQueenAutomatically">Forvandle til dronning automatisk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>

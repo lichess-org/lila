@@ -4,22 +4,20 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    scheduler: akka.actor.Scheduler,
-    roundMap: akka.actor.ActorRef
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val Delay = config duration "delay"
 
   lazy val forms = new DataForm
 
-  lazy val importer = new Importer(roundMap, Delay, scheduler)
+  lazy val importer = new Importer(Delay, scheduler)
 }
 
 object Env {
 
   lazy val current = "importer" boot new Env(
     config = lila.common.PlayApp loadConfig "importer",
-    scheduler = lila.common.PlayApp.system.scheduler,
-    roundMap = lila.round.Env.current.roundMap
+    scheduler = lila.common.PlayApp.system.scheduler
   )
 }

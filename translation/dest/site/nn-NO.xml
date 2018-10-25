@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
+  <string name="mustBeInTeam">Du må væra medlem av lag %s</string>
+  <string name="youAreNotInTeam">Du er ikkje med i lag %s</string>
   <string name="backToGame">Tilbake til partiet</string>
   <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="teams">Lag</string>
@@ -508,6 +510,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="troll">Troll</string>
   <string name="other">Anna</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
+  <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
   <string name="theming">Tema</string>

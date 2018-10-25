@@ -14,17 +14,18 @@ import actorApi._, round._
 import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, Game }
+import lila.hub.DuctMap
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
 private[round] final class SocketHandler(
-    roundMap: ActorRef,
+    roundMap: DuctMap[Round],
     socketHub: ActorRef,
     hub: lila.hub.Env,
     messenger: Messenger,
@@ -46,7 +47,7 @@ private[round] final class SocketHandler(
     me: Option[User]
   ): Handler.Controller = {
 
-    def send(msg: Any): Unit = { roundMap ! Tell(gameId, msg) }
+    def send(msg: Any): Unit = roundMap.tell(gameId, msg)
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => socket ! Ping(uid, o)
@@ -66,7 +67,7 @@ private[round] final class SocketHandler(
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
+              case _: Exception => socket ! Resync(uid)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
             member.push(ackMessage(ackId))
@@ -75,7 +76,7 @@ private[round] final class SocketHandler(
           case (drop, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
+              case _: Exception => socket ! Resync(uid)
             }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member.push(ackMessage(ackId))
@@ -124,16 +125,18 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[User.ID]
-  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv)
+    userTv: Option[User.ID],
+    version: Option[SocketVersion]
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv, version)
 
   def player(
     pov: Pov,
     uid: Uid,
     user: Option[User],
-    ip: IpAddress
+    ip: IpAddress,
+    version: Option[SocketVersion]
   ): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, user, ip, userTv = none)
+    join(pov, Some(pov.playerId), uid, user, ip, none, version)
 
   private def join(
     pov: Pov,
@@ -141,7 +144,8 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[User.ID]
+    userTv: Option[User.ID],
+    version: Option[SocketVersion]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
@@ -149,7 +153,8 @@ private[round] final class SocketHandler(
       color = pov.color,
       playerId = playerId,
       ip = ip,
-      userTv = userTv
+      userTv = userTv,
+      version = version
     )
     // non-game chat, for tournament or simul games; only for players
     val chatSetup = playerId.isDefined ?? {

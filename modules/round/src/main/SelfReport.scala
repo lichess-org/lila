@@ -1,11 +1,10 @@
 package lila.round
 
-import akka.actor._
-
 import lila.common.IpAddress
 import lila.user.{ User, UserRepo }
+import lila.hub.DuctMap
 
-final class SelfReport(roundMap: ActorRef) {
+final class SelfReport(roundMap: DuctMap[Round]) {
 
   def apply(
     userId: Option[User.ID],
@@ -26,7 +25,7 @@ final class SelfReport(roundMap: ActorRef) {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
-            roundMap ! lila.hub.actorApi.map.Tell(
+            roundMap.tell(
               pov.gameId,
               lila.round.actorApi.round.Cheat(pov.color)
             )

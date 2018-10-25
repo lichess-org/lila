@@ -5,7 +5,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#lichess"
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   },
   "devDependencies": {
     "@types/jquery": "^2.0",
@@ -18,7 +18,7 @@
     "tsify": "^3",
     "@types/lichess": "1.0.0",
     "typescript": "^2",
-    "uglify-js": "^2",
+    "uglify-js": "^3",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
     "watchify": "^3"

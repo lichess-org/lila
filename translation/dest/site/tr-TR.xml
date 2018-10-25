@@ -66,8 +66,8 @@
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
   <string name="close">Kapat</string>
-  <string name="winning">Kazanç</string>
-  <string name="losing">Kayıp</string>
+  <string name="winning">Kazanıyor</string>
+  <string name="losing">Kaybediyor</string>
   <string name="drawn">Berabere</string>
   <string name="unknown">Belirsiz</string>
   <string name="database">Veritabanı</string>
@@ -231,7 +231,7 @@
   <string name="send">Gönder</string>
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
-  <string name="spectators">İzleyici:</string>
+  <string name="spectators">İzleyiciler:</string>
   <plurals name="nbRated">
     <item quantity="one">%s puanlı</item>
     <item quantity="other">%s puanlı</item>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
+  <string name="mustBeInTeam">Takımda olmalısın %s</string>
+  <string name="youAreNotInTeam">Takımda değilsin %s</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava çevrimiçi Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayda gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarınla veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
@@ -371,7 +373,7 @@
   </plurals>
   <string name="more">Daha fazla</string>
   <string name="memberSince">Üyelik tarihi</string>
-  <string name="lastSeenActive">Son Oturum %s</string>
+  <string name="lastSeenActive">Aktif %s</string>
   <string name="challengeToPlay">Oyun teklif et</string>
   <string name="player">Oyuncu</string>
   <string name="list">Liste</string>
@@ -385,7 +387,7 @@
   <string name="duration">Süre</string>
   <string name="winner">Kazanan</string>
   <string name="standing">Sıralama</string>
-  <string name="createANewTournament">Yeni turnuva oluştur</string>
+  <string name="createANewTournament">Yeni bir turnuva oluştur</string>
   <string name="tournamentCalendar">Turnuva takvimi</string>
   <string name="conditionOfEntry">Ön koşul:</string>
   <string name="advancedSettings">Diğer ayarlar</string>
@@ -407,7 +409,7 @@
   <string name="standByX">Bekle %s, oyuncular eşleştiriliyor, hazır ol!</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
-  <string name="berserkRate">Berserk oranı</string>
+  <string name="berserkRate">Divane oranı</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnuva sona erdi</string>
   <string name="movesPlayed">Toplam hamle sayısı</string>
@@ -507,6 +509,7 @@
   <string name="troll">Trol</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Oyunun (veya oyunların) linkini yapıştırın ve kullanıcı hakkındaki şikayetinizi açıklayın.</string>
+  <string name="error.provideOneCheatedGameLink">Hileli oyun için en az bir bağlantı veriniz.</string>
   <string name="by">%s yazdı</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="theming">Ortam</string>
@@ -638,7 +641,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Toplam oynama süresi: %s</string>
   <string name="watchGames">Oyunları izle</string>
-  <string name="tpTimeSpentOnTV">TV\'de izlenilme süresi: %s</string>
+  <string name="tpTimeSpentOnTV">TV\'de izlenme süresi: %s</string>
   <string name="watch">İzle</string>
   <string name="internationalEvents">Uluslararası karşılaşmalar</string>
   <string name="videoLibrary">Video kütüphanesi</string>

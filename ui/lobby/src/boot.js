@@ -31,7 +31,7 @@ module.exports = function(cfg, element) {
       return l.slice(0, 2).toLowerCase();
     });
     langs.push($('html').attr('lang'));
-    $('#streams_on_air').find('a').each(function() {
+    $('#streams_on_air a, .event_spotlight').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
       if (match && langs.indexOf(match[1].toLowerCase()) === -1) $(this).hide();
     });
@@ -39,7 +39,7 @@ module.exports = function(cfg, element) {
   filterStreams();
   lichess.socket = lichess.StrongSocket(
     '/lobby/socket/v2',
-    cfg.data.version, {
+    false, {
       receive: function(t, d) {
         lobby.socketReceive(t, d);
       },
@@ -429,7 +429,7 @@ module.exports = function(cfg, element) {
   }
 
   $startButtons.find('a').not('.disabled').on('mousedown', function() {
-    lichess.loadCss('/assets/stylesheets/setup.css');
+    lichess.loadCss('stylesheets/setup.css');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),

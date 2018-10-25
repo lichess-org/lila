@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
   <string name="ratedMoreThanInPerf">Ranking ≥ %1$s (%2$s)</string>
   <string name="ratedLessThanInPerf">Ranking ≤ %1$s (%2$s)</string>
+  <string name="mustBeInTeam">Musisz należeć do klubu %s</string>
+  <string name="youAreNotInTeam">Nie należysz do klubu %s</string>
   <string name="backToGame">Wróć do partii</string>
   <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez instalowania wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="teams">Kluby</string>
@@ -373,7 +375,7 @@
   <string name="filterGames">Filtruj partie</string>
   <string name="reset">Przywróć domyślne</string>
   <string name="apply">Zastosuj</string>
-  <string name="leaderboard">Najlepsi gracze</string>
+  <string name="leaderboard">Tablica wyników</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
@@ -555,12 +557,13 @@
   <string name="reportAUser">Zgłoś użytkownika</string>
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
-  <string name="whatIsIheMatter">Co się stało?</string>
+  <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
   <string name="cheat">Oszust</string>
-  <string name="insult">Wyzwiska</string>
+  <string name="insult">Znieważenie</string>
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej link do gry i wyjaśnij, dlaczego zachowanie użytkownika jest nieprawidłowe. Nie wystarczy napisać \"oszukuje\", powiedz nam na jakiej podstawie doszedłeś do takiego wniosku. Twoje zgłoszenie będzie zweryfikowane szybciej jeżeli napiszesz je w języku angielskim.</string>
+  <string name="error.provideOneCheatedGameLink">Proszę podać przynajmniej jeden link do podejrzanej o oszustwo gry.</string>
   <string name="by">autor %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
   <string name="theming">Wygląd</string>
@@ -705,6 +708,9 @@
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
+  <string name="aboutX">Informacje o %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), bez reklam, o otwartym kodzie źródłowym serwerem szachowym.</string>
+  <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Zasady</string>

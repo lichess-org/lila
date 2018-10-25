@@ -154,7 +154,7 @@ export default class AnalyseCtrl {
 
     li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('/assets/javascripts/music/replay.js').then(() => {
+        li.loadScript('javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
         if (this.music && set !== 'music') this.music = null;
@@ -442,7 +442,9 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    this.sound[capture ? 'capture' : 'move']();
+    const piece = this.chessground.state.pieces[dest];
+    const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
+    this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
   }
 
@@ -516,6 +518,12 @@ export default class AnalyseCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
+  }
+
+  forceVariation(path: Tree.Path, force: boolean): void {
+    this.tree.forceVariationAt(path, force);
+    this.jump(path);
+    if (this.study) this.study.forceVariation(path, force);
   }
 
   reset(): void {

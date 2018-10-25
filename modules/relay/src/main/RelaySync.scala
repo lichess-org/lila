@@ -16,16 +16,19 @@ private final class RelaySync(
   def apply(relay: Relay, games: RelayGames): Fu[SyncResult.Ok] =
     studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
-        lila.common.Future.traverseSequentially(games) { game =>
-          findCorrespondingChapter(game, chapters, games.size) match {
-            case Some(chapter) => updateChapter(study, chapter, game)
-            case None => createChapter(study, game) flatMap { chapter =>
-              chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketUid)
-              } inject chapter.root.mainline.size
+        RelayInputSanity(chapters, games) match {
+          case Some(fail) => fufail(fail.msg)
+          case None => lila.common.Future.traverseSequentially(games) { game =>
+            findCorrespondingChapter(game, chapters, games.size) match {
+              case Some(chapter) => updateChapter(study, chapter, game)
+              case None => createChapter(study, game) flatMap { chapter =>
+                chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                  studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketUid)
+                } inject chapter.root.mainline.size
+              }
             }
-          }
-        } map { _.foldLeft(0)(_ + _) } map { SyncResult.Ok(_, games) }
+          } map { _.foldLeft(0)(_ + _) } map { SyncResult.Ok(_, games) }
+        }
       }
     }
 
@@ -36,7 +39,7 @@ private final class RelaySync(
    * lichess will create a new chapter when the game player tags differ.
    */
   private def findCorrespondingChapter(game: RelayGame, chapters: List[Chapter], nbGames: Int): Option[Chapter] =
-    if (nbGames == 1) chapters.find(c => game staticTagsMatch c.tags)
+    if (nbGames == 1) chapters find game.staticTagsMatch
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
@@ -64,13 +67,14 @@ private final class RelaySync(
     } match {
       case (path, newNode) =>
         !Path.isMainline(chapter.root, path) ?? {
+          logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             userId = chapter.ownerId,
             studyId = study.id,
             position = Position(chapter, path).ref,
             toMainline = true,
             uid = socketUid
-          )
+          ) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
           lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
             case (position, n) => studyApi.addNode(
@@ -106,6 +110,8 @@ private final class RelaySync(
       case (chapterTags, tag) => PgnTags(chapterTags + tag)
     }
     (chapterNewTags != chapter.tags) ?? {
+      if (vs(chapterNewTags) != vs(chapter.tags))
+        logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       studyApi.setTags(
         userId = chapter.ownerId,
         studyId = study.id,
@@ -166,6 +172,11 @@ private final class RelaySync(
   )
 
   private val socketUid = Uid("")
+
+  private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
+
+  private def showSC(study: Study, chapter: Chapter) =
+    s"#${study.id} chapter[${chapter.relay.fold("?")(_.index.toString)}]"
 }
 
 sealed trait SyncResult {

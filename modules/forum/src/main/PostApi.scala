@@ -16,6 +16,7 @@ final class PostApi(
     indexer: ActorSelection,
     maxPerPage: lila.common.MaxPerPage,
     modLog: ModlogApi,
+    spam: lila.security.Spam,
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
@@ -37,7 +38,7 @@ final class PostApi(
           author = none,
           userId = ctx.me map (_.id),
           ip = ctx.req.remoteAddress.some,
-          text = lila.security.Spam.replace(data.text),
+          text = spam.replace(data.text),
           number = number + 1,
           lang = lang map (_.language),
           troll = ctx.troll,
@@ -56,17 +57,16 @@ final class PostApi(
               (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
               (!categ.quiet ?? env.recent.invalidate) >>-
               ctx.userId.?? { userId =>
-                shutup ! post.isTeam.fold(
-                  lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
-                  lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
-                )
+                shutup ! {
+                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
+                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
+                }
               } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-                    post.isStaff.fold(
-                      prop toStaffFriendsOf userId,
-                      prop toFollowersOf userId toUsers topicUserIds exceptUser userId
-                    ))
+                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
+                    if (post.isStaff) prop toStaffFriendsOf userId
+                    else prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                  }
                 }
                 lila.mon.forum.post.create()
                 mentionNotifier.notifyMentionedUsers(post, topic)
@@ -75,24 +75,18 @@ final class PostApi(
         }
     }
 
-  def editPost(postId: String, newText: String, user: User): Fu[Post] = {
-
+  def editPost(postId: String, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
-      val now = DateTime.now
-
-      post match {
-        case Some((_, post)) if !post.canBeEditedBy(user.id) =>
+      post.fold[Fu[Post]](fufail("Post no longer exists.")) {
+        case (_, post) if !post.canBeEditedBy(user.id) =>
           fufail("You are not authorized to modify this post.")
-        case Some((_, post)) if !post.canStillBeEdited =>
+        case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
-        case Some((_, post)) =>
-          val spamEscapedTest = lila.security.Spam.replace(newText)
-          val newPost = post.editPost(now, spamEscapedTest)
+        case (_, post) =>
+          val newPost = post.editPost(DateTime.now, spam replace newText)
           env.postColl.update($id(post.id), newPost) inject newPost
-        case None => fufail("Post no longer exists.")
       }
     }
-  }
 
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
 
@@ -187,14 +181,12 @@ final class PostApi(
     view ← optionT(view(post))
     _ ← optionT(for {
       first ← PostRepo.isFirstPost(view.topic.id, view.post.id)
-      _ ← first.fold(
-        env.topicApi.delete(view.categ, view.topic),
-        env.postColl.remove(view.post) >>
-          (env.topicApi denormalize view.topic) >>
-          (env.categApi denormalize view.categ) >>-
-          env.recent.invalidate >>-
-          (indexer ! RemovePost(post.id))
-      )
+      _ ← if (first) env.topicApi.delete(view.categ, view.topic)
+      else env.postColl.remove(view.post) >>
+        (env.topicApi denormalize view.topic) >>
+        (env.categApi denormalize view.categ) >>-
+        env.recent.invalidate >>-
+        (indexer ! RemovePost(post.id))
       _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)

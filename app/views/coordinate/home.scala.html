@@ -8,7 +8,7 @@
 
 @moreJs = {
 @jsTag("vendor/sparkline.min.js")
-@jsTagCompiled("coordinate.js")
+@jsAt("compiled/coordinate.js")
 }
 
 @base.layout(
@@ -62,9 +62,8 @@ zoomable = true) {
     </form>
   </div>
   <div class="board_and_ground">
-    <div class="boards">
-      <div class="white board cg-512"></div>
-      <div class="black board cg-512"></div>
+    <div class="boards cg-512">
+      <div class="cg-board-wrap"></div>
     </div>
     <div class="right">
       <div class="explanation">

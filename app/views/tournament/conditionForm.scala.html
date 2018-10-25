@@ -1,4 +1,4 @@
-@(form: Form[_], auto: Boolean)(implicit ctx: Context)
+@(form: Form[_], auto: Boolean, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context)
 
 @import lila.tournament.Condition
 
@@ -44,3 +44,10 @@
 @base.form.select(field, booleanChoices)
 }
 </div>
+@if(auto && teams.size > 0) {
+<div>
+  @base.form.group(form("conditions.teamMember.teamId"), Html("Only members of team"), half = false) { field =>
+    @base.form.select(field, List(("", "No Restriction")) ::: teams)
+  }
+</div>
+}

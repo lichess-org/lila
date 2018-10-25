@@ -92,7 +92,14 @@ module.exports = function(cfg) {
     window.location = editor.makeUrl(this.data.baseUrl, fen);
   }.bind(this);
 
+  this.changeVariant = function(variant) {
+    this.data.variant = variant;
+    m.redraw();
+  }.bind(this);
+
   this.positionLooksLegit = function() {
+    var variant = this.data.variant;
+    if (variant === "antichess") return true;
     var pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
     var kings = {
       white: 0,
@@ -101,7 +108,7 @@ module.exports = function(cfg) {
     for (var pos in pieces) {
       if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
     }
-    return kings.white === 1 && kings.black === 1;
+    return kings.white === (variant !== "horde" ? 1 : 0) && kings.black === 1;
   }.bind(this);
 
   this.setOrientation = function(o) {

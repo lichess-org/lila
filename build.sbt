@@ -208,7 +208,7 @@ lazy val round = module("round", Seq(
   i18n, fishnet, pref, chat, history, playban
 )).settings(
   libraryDependencies ++= provided(play.api, hasher, kamon.core,
-    reactivemongo.driver, reactivemongo.iteratees)
+    reactivemongo.driver, reactivemongo.iteratees, stm)
 )
 
 lazy val pool = module("pool", Seq(common, game, user, playban)).settings(
@@ -290,7 +290,7 @@ lazy val study = module("study", Seq(
 )
 
 lazy val relay = module("relay", Seq(common, study)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= Seq(scalaUri) ++ provided(play.api, reactivemongo.driver)
 )
 
 lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).settings(
@@ -329,7 +329,7 @@ lazy val plan = module("plan", Seq(common, user, notifyModule)).settings(
 )
 
 lazy val relation = module("relation", Seq(common, db, memo, hub, user, game, pref)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val pref = module("pref", Seq(common, db, user)).settings(
@@ -408,5 +408,5 @@ lazy val socket = module("socket", Seq(common, hub, memo, tree)).settings(
 )
 
 lazy val hub = module("hub", Seq(common)).settings(
-  libraryDependencies ++= provided(play.api)
+  libraryDependencies ++= Seq(scaffeine) ++ provided(play.api)
 )

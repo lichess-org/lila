@@ -50,6 +50,7 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 # User
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
+POST  /note/delete/:id                 controllers.User.deleteNote(id: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/studyTv             controllers.User.studyTv(username: String)
@@ -239,7 +240,7 @@ GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 
 # Tournament CRUD
-GET   /tournament/manager                     controllers.TournamentCrud.index
+GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
@@ -278,6 +279,8 @@ GET   /team/:id/edit                          controllers.Team.edit(id: String)
 POST  /team/:id/edit                          controllers.Team.update(id: String)
 GET   /team/:id/kick                          controllers.Team.kickForm(id: String)
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
+GET   /team/:id/changeOwner                   controllers.Team.changeOwnerForm(id: String)
+POST  /team/:id/changeOwner                   controllers.Team.changeOwner(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
 GET   /team/:id/users                         controllers.Team.users(id: String)
 
@@ -388,13 +391,14 @@ GET   /mod/public-chat                 controllers.Mod.publicChat
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
+POST  /mod/cheat-list/$gameId<\w{8}>   controllers.Mod.cheatList(gameId: String)
+GET   /mod/chat-panic                  controllers.Mod.chatPanic
+GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin
-GET   /irwin                               controllers.Irwin.dashboard
-GET   /irwin/stream                        controllers.Irwin.eventStream
-POST  /irwin/report                        controllers.Irwin.saveReport
-GET   /irwin/:username/assessment          controllers.Irwin.assessment(username: String)
-GET   /irwin/users-mark-and-current-report controllers.Irwin.usersMarkAndCurrentReport(ids: String)
+GET   /irwin                           controllers.Irwin.dashboard
+POST  /irwin/report                    controllers.Irwin.saveReport
+GET   /api/stream/irwin                controllers.Irwin.eventStream
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
@@ -491,10 +495,14 @@ GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
+GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
+GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
+POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
+GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
@@ -510,6 +518,8 @@ POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
+
+GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 
 # Mobile API only
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
@@ -602,6 +612,7 @@ POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
 # Assets
+GET   /assets/$version<_\w{6}>/*file      controllers.Main.versionedAsset(version: String, file: String)
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)
 
 GET   /robots.txt                      controllers.Main.robots

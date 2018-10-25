@@ -4,15 +4,26 @@
 @cssTag("mod-communication.css")
 }
 
+@moreJs = {
+@embedJs {
+$(function() {
+  $('button.clear').on('click', function() {
+    $('#permissions option:selected').prop('selected', false);
+  });
+});
+}
+}
+
 @base.layout(
 title = u.username + " permissions",
-moreCss = moreCss) {
+moreCss = moreCss,
+moreJs = moreJs) {
 
 <div id="permissions" class="content_box small_box">
   <h1>@userLink(u) permissions</h1>
   <form action="@routes.Mod.permissions(u.username)" method="post">
     <select name="permissions[]" multiple>
-      @lila.security.Permission.allButSuperAdmin.map { p =>
+      @lila.security.Permission.allButSuperAdmin.sortBy(_.name).map { p =>
       <option
       value="@p.name"@if(u.roles.contains(p.name)){ selected}
       title="@p.children.mkString(", ")"
@@ -20,7 +31,7 @@ moreCss = moreCss) {
       }
     </select>
     <div>
-      <button class="button clear" onclick="$('#permissions option:selected').removeAttr('selected');">Clear</button>
+      <button class="button clear" type="button">Clear</button>
       <button type="submit" class="button">Save</button>
     </div>
   </form>

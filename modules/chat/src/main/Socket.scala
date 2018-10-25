@@ -4,6 +4,7 @@ import akka.actor._
 import play.api.libs.json._
 
 import lila.socket.{ Handler, SocketMember }
+import lila.user.User
 import lila.hub.actorApi.shutup.PublicSource
 
 object Socket {
@@ -14,7 +15,7 @@ object Socket {
     socket: ActorRef,
     chat: ActorSelection,
     publicSource: Option[PublicSource],
-    canTimeout: Option[() => Fu[Boolean]] = None
+    canTimeout: Option[User.ID => Fu[Boolean]] = None
   ): Handler.Controller = {
 
     case ("talk", o) => for {
@@ -27,7 +28,7 @@ object Socket {
       modId <- member.userId
       userId <- data.str("userId") map lila.user.User.normalize
       reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
-    } canTimeout.??(ct => ct()) foreach { localTimeout =>
+    } canTimeout.??(_(userId)) foreach { localTimeout =>
       chat ! actorApi.Timeout(chatId, modId, userId, reason, local = localTimeout)
     }
   }

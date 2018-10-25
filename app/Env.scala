@@ -11,8 +11,6 @@ final class Env(
     appPath: String
 ) {
 
-  val CliUsername = config getString "cli.username"
-
   private val RendererName = config getString "app.renderer.name"
 
   lazy val preloader = new mashup.Preload(
@@ -22,7 +20,7 @@ final class Env(
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
     liveStreams = () => Env.streamer.liveStreamApi.all,
-    countRounds = Env.round.count,
+    countRounds = () => Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUserApi = Env.user.lightUserApi

@@ -43,7 +43,7 @@ moreCss = cssTag("report.css")) {
     <tbody>
       @reports.map {
       case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
-      <tr class="@r.open.fold("new", "")">
+      <tr@if(r.open){ class="new"}>
         <td>
           @reportScore(r.score)
           <strong>@r.reason.name.capitalize</strong><br />
@@ -54,7 +54,7 @@ moreCss = cssTag("report.css")) {
         <td class="atoms">
           @r.bestAtoms(3).map { atom =>
           <div class="atom">
-            <span class="head">@reportScore(atom.score) @userIdLink(atom.by.value.some), @momentFromNowOnce(r.recentAtom.at)</span>
+            <span class="head">@reportScore(atom.score) @userIdLink(atom.by.value.some), @momentFromNowOnce(atom.at)</span>
             <p class="text@if(atom.text.size > 100 || atom.text.lines.size > 3){ large}">
               @shorten(atom.text, 200)
             </p>

@@ -1,8 +1,11 @@
-@(tours: List[lila.tournament.Tournament])(implicit ctx: Context)
+@(tours: Paginator[lila.tournament.Tournament])(implicit ctx: Context)
 
 @title = {Tournament manager}
 
-@layout(title = title.body) {
+@layout(
+  title = title.body,
+  evenMoreJs = infiniteScrollTag
+) {
 <div class="tour_crud content_box no_padding">
   <h1 class="lichess_title">
     <a href="@routes.TournamentCrud.form" data-icon="O" class="new"></a>
@@ -19,9 +22,15 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
-      @tours.map { tour =>
-      <tr>
+    <tbody class="infinitescroll">
+      @tours.nextPage.map { n =>
+        <tr><th class="pager none">
+          <a rel="next" href="@routes.TournamentCrud.index(n)">Next</a>
+        </th></tr>
+        <tr></tr>
+      }
+      @tours.currentPageResults.map { tour =>
+      <tr class="paginated_element">
         <td><a href="@routes.TournamentCrud.edit(tour.id)">@tour.fullName</a></td>
         <td>@tour.variant.name</td>
         <td>@tour.clock</td>

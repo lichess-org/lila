@@ -72,48 +72,55 @@ final class SlackApi(
     channel = "commlog"
   ))
 
-  def chatPanicLink = "<https://lichess.org/mod/chat-panic|Chat Panic>"
+  private val chatPanicLink = "<https://lichess.org/mod/chat-panic|Chat Panic>"
 
   def chatPanic(mod: User, v: Boolean): Funit = client(SlackMessage(
     username = mod.username,
     icon = if (v) "anger" else "information_source",
     text = s"${if (v) "Enabled" else "Disabled"} $chatPanicLink",
-    channel = "tavern"
+    channel = rooms.tavern
   ))
 
   def garbageCollector(message: String): Funit = client(SlackMessage(
     username = "lichess",
     icon = "put_litter_in_its_place",
     text = linkifyUsers(message),
-    channel = "tavern"
+    channel = rooms.tavernBots
+  ))
+
+  def broadcastError(id: String, name: String): Funit = client(SlackMessage(
+    username = "lichess error",
+    icon = "lightning",
+    text = s"${broadcastLink(id, name)} is failing",
+    channel = rooms.broadcast
   ))
 
   def publishError(msg: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",
     text = linkifyUsers(msg),
-    channel = "general"
+    channel = rooms.general
   ))
 
   def publishWarning(msg: String): Funit = client(SlackMessage(
     username = "lichess warning",
     icon = "thinking_face",
     text = linkifyUsers(msg),
-    channel = "general"
+    channel = rooms.general
   ))
 
   def publishVictory(msg: String): Funit = client(SlackMessage(
     username = "lichess victory",
     icon = "tada",
     text = linkifyUsers(msg),
-    channel = "general"
+    channel = rooms.general
   ))
 
   def publishInfo(msg: String): Funit = client(SlackMessage(
     username = "lichess info",
     icon = "monkey",
     text = linkifyUsers(msg),
-    channel = "general"
+    channel = rooms.general
   ))
 
   def publishRestart =
@@ -122,11 +129,12 @@ final class SlackApi(
       username = stage.name,
       icon = stage.icon,
       text = "stage has restarted.",
-      channel = "general"
+      channel = rooms.general
     ))
 
   private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
   private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
+  private def broadcastLink(id: String, name: String) = s"<https://lichess.org/broadcast/-/$id|$name>"
 
   val userRegex = lila.common.String.atUsernameRegex.pattern
 
@@ -137,7 +145,7 @@ final class SlackApi(
     username = mod.username,
     icon = "eyes",
     text = s"Let's have a look at _*${userLink(user.username)}*_",
-    channel = "tavern"
+    channel = rooms.tavern
   ))
 
   def userModNote(modName: String, username: String, note: String): Funit =
@@ -146,7 +154,7 @@ final class SlackApi(
       icon = "spiral_note_pad",
       text = (s"_*${userLink(username)}*_ (${userNotesLink(username)}):\n" +
         linkifyUsers(note take 2000)),
-      channel = "tavern"
+      channel = rooms.tavern
     ))
 
   def deployPre: Funit =
@@ -154,13 +162,13 @@ final class SlackApi(
       username = "deployment",
       icon = "rocket",
       text = "Lichess will be updated in a minute! Fasten your seatbelts.",
-      channel = "general"
+      channel = rooms.general
     ))
     else client(SlackMessage(
       username = stage.name,
       icon = stage.icon,
       text = "stage will be updated in a minute.",
-      channel = "general"
+      channel = rooms.general
     ))
 
   def deployPost: Funit =
@@ -168,17 +176,24 @@ final class SlackApi(
       username = "deployment",
       icon = "rocket",
       text = "Lichess is being updated! Brace for impact.",
-      channel = "general"
+      channel = rooms.general
     ))
     else client(SlackMessage(
       username = "stage.lichess.org",
       icon = "volcano",
       text = "stage has been updated!",
-      channel = "general"
+      channel = rooms.general
     ))
 }
 
 private object SlackApi {
+
+  object rooms {
+    val general = "team"
+    val tavern = "tavern"
+    val tavernBots = "tavern-bots"
+    val broadcast = "broadcast"
+  }
 
   object stage {
     val name = "stage.lichess.org"

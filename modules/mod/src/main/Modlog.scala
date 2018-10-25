@@ -58,6 +58,9 @@ case class Modlog(
     case Modlog.streamerUnlist => "unlist streamer"
     case Modlog.streamerFeature => "feature streamer"
     case Modlog.streamerUnfeature => "unfeature streamer"
+    case Modlog.teamKick => "kick from team"
+    case Modlog.teamEdit => "edited team"
+    case Modlog.teamMadeOwner => "made team owner"
     case a => a
   }
 
@@ -119,4 +122,7 @@ object Modlog {
   val streamerUnlist = "streamerunlist"
   val streamerFeature = "streamerFeature"
   val streamerUnfeature = "streamerUnfeature"
+  val teamKick = "teamKick"
+  val teamEdit = "teamEdit"
+  val teamMadeOwner = "teamMadeOwner"
 }

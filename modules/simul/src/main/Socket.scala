@@ -64,29 +64,29 @@ private[simul] final class Socket(
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
-    case Ping(uid, Some(v), c) => {
+    case Ping(uid, vOpt, c) =>
       ping(uid, c)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion => sender ! history.version
+    case lila.socket.Socket.GetVersion => sender ! history.version
 
     case Socket.GetUserIds => sender ! members.values.flatMap(_.userId)
 
-    case Join(uid, user) =>
+    case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
-      sender ! Connected(enumerator, member)
+      sender ! Connected(
+        prependEventsSince(version, enumerator, member),
+        member
+      )
 
     case Quit(uid) =>
       quit(uid)

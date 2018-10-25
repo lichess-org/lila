@@ -5,16 +5,13 @@ import lila.user.{ User, UserContext }
 
 trait Granter {
 
-  private val TeamSlugPattern = """^team-([\w-]+)$""".r
+  private val TeamSlugPattern = """team-([\w-]++)""".r
 
   protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean]
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean]
 
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Boolean =
-    (categSlug == Categ.staffId).fold(
-      ctx.me exists Master(Permission.StaffForum),
-      true
-    )
+    categSlug != Categ.staffId || ctx.me.exists(Master(Permission.StaffForum))
 
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     ctx.me.filter(isOldEnoughToForum) ?? { me =>

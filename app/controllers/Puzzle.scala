@@ -54,7 +54,7 @@ object Puzzle extends LilaController {
   def home = Open { implicit ctx =>
     NoBot {
       env.selector(ctx.me) flatMap { puzzle =>
-        renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+        renderShow(puzzle, if (ctx.isAuth) "play" else "try") map { Ok(_) }
       }
     }
   }
@@ -77,7 +77,7 @@ object Puzzle extends LilaController {
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
     env userInfos ctx.me flatMap { infos =>
-      renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)
+      renderJson(puzzle, infos, if (ctx.isAuth) "play" else "try", voted = none)
     }
 
   // XHR load next play puzzle
@@ -98,13 +98,13 @@ object Puzzle extends LilaController {
       if (puzzle.mate) lila.mon.puzzle.round.mate()
       else lila.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         resultInt => {
           val result = Result(resultInt == 1)
           ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(puzzle, me, result, mobile = true)
-              me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
+              me2 <- if (mode.rated) UserRepo byId me.id map (_ | me) else fuccess(me)
               infos <- env userInfos me2
               voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
               data <- renderJson(puzzle, infos.some, "view", voted = voted, result = result.some, round = round.some)
@@ -134,7 +134,7 @@ object Puzzle extends LilaController {
         if (puzzle.mate) lila.mon.puzzle.round.mate()
         else lila.mon.puzzle.round.material()
         env.forms.round.bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
+          jsonFormError,
           resultInt => ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(
@@ -143,7 +143,7 @@ object Puzzle extends LilaController {
                 result = Result(resultInt == 1),
                 mobile = lila.api.Mobile.Api.requested(ctx.req)
               )
-              me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
+              me2 <- if (mode.rated) UserRepo byId me.id map (_ | me) else fuccess(me)
               infos <- env userInfos me2
               voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
             } yield {
@@ -168,7 +168,7 @@ object Puzzle extends LilaController {
     NoBot {
       implicit val req = ctx.body
       env.forms.vote.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         vote => env.api.vote.find(id, me) flatMap {
           v => env.api.vote.update(id, me, v, vote == 1)
         } map {

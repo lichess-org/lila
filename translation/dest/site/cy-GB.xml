@@ -46,13 +46,16 @@
   <string name="viewTheComputerAnalysis">Gweld y dadansoddiad cyfrifiadurol</string>
   <string name="requestAComputerAnalysis">Gofyn am ddadansoddiad cyfrifiadurol</string>
   <string name="computerAnalysis">Dadansoddiad cyfrifiadurol</string>
+  <string name="computerAnalysisAvailable">Dadansoddiad cyfrifiadurol ar gael</string>
   <string name="analysis">Bwrdd dadansoddi</string>
   <string name="depthX">Dyfnder%s</string>
   <string name="goDeeper">Mynd yn ddyfnach</string>
   <string name="move">Symudiad</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
+  <string name="mistake">Gamgymeriad</string>
   <string name="mistakes">o gamgymeriadau</string>
+  <string name="inaccuracy">Wallusrwydd</string>
   <string name="inaccuracies">o wallusrwyddau</string>
   <string name="moveTimes">Amser symudiadau</string>
   <string name="flipBoard">Troi\'r bwrdd</string>
@@ -95,6 +98,7 @@
   <string name="forgotPassword">Wedi anghofio\'r cyfrinair?</string>
   <string name="rank">Graddfa</string>
   <string name="rankX">Sefyllfa: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Mae sefyllfa yn gael ei ddiweddaru pob %s munud</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
   <string name="cancel">Canslo</string>
   <string name="timeOut">Amser wedi dod i\'w ben</string>
@@ -110,6 +114,7 @@
   <string name="accept">Derbyn</string>
   <string name="decline">Gwrthod</string>
   <string name="playingRightNow">Ar ei hanner</string>
+  <string name="eventInProgress">Chwarae ar hyn o bryd</string>
   <string name="finished">Wedi dod i ben.</string>
   <string name="abortGame">Erthylu gêm</string>
   <string name="gameAborted">Gêm wedi\'i herthylu</string>
@@ -129,6 +134,7 @@
   <string name="play">Chwarae</string>
   <string name="inbox">Mewnflwch</string>
   <string name="chatRoom">Ystafell sgwrs</string>
+  <string name="loginToChat">Mewngofnodi i sgwrsio</string>
   <string name="spectatorRoom">Ystafell ymwelwyr</string>
   <string name="composeMessage">Creu neges</string>
   <string name="noNewMessages">Dim neges newydd</string>

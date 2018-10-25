@@ -54,6 +54,11 @@ object Game extends LilaController {
     scoped = req => me => handleExport(username, me.some, req, oauth = true)
   )
 
+  def apiExportByUser(username: String) = AnonOrScoped()(
+    anon = req => handleExport(username, none, req, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, oauth = true)
+  )
+
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     lila.user.UserRepo named username flatMap {
       _ ?? { user =>
@@ -65,13 +70,14 @@ object Game extends LilaController {
                 user = user,
                 format = format,
                 vs = vs,
-                since = getLong("since", req) map { ts => new DateTime(ts) },
-                until = getLong("until", req) map { ts => new DateTime(ts) },
+                since = getLong("since", req) map { new DateTime(_) },
+                until = getLong("until", req) map { new DateTime(_) },
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap chess.Color.apply,
                 analysed = getBoolOpt("analysed", req),
+                ongoing = getBool("ongoing", req),
                 flags = requestPgnFlags(req, extended = false).copy(
                   literate = false
                 ),
@@ -116,7 +122,7 @@ object Game extends LilaController {
       }
     }
 
-  private def requestPgnFlags(req: RequestHeader, extended: Boolean) =
+  private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
@@ -126,7 +132,7 @@ object Game extends LilaController {
       literate = getBoolOpt("literate", req) | false
     )
 
-  private def gameContentType(config: GameApiV2.Config) = config.format match {
+  private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PGN => pgnContentType
     case GameApiV2.Format.JSON => config match {
       case _: GameApiV2.OneConfig => JSON

@@ -5,9 +5,10 @@ import akka.actor.ActorSelection
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
+import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
-import reactivemongo.api.Cursor
+import reactivemongo.api.{ Cursor, ReadPreference }
 
 final class TeamApi(
     coll: Colls,
@@ -15,7 +16,8 @@ final class TeamApi(
     notifier: Notifier,
     bus: lila.common.Bus,
     indexer: ActorSelection,
-    timeline: ActorSelection
+    timeline: ActorSelection,
+    modLog: ModlogApi
 ) {
 
   import BSONHandlers._
@@ -52,7 +54,11 @@ final class TeamApi(
       description = e.description,
       open = e.isOpen
     ) |> { team =>
-      coll.team.update($id(team.id), team).void >>- (indexer ! InsertTeam(team))
+      coll.team.update($id(team.id), team).void >>
+        !team.isCreator(me.id) ?? {
+          modLog.teamEdit(me.id, team.createdBy, team.name)
+        } >>-
+        (indexer ! InsertTeam(team))
     }
   }
 
@@ -151,7 +157,20 @@ final class TeamApi(
 
   def quitAll(userId: String): Funit = MemberRepo.removeByUser(userId)
 
-  def kick(team: Team, userId: String): Funit = doQuit(team, userId)
+  def kick(team: Team, userId: String, me: User): Funit =
+    doQuit(team, userId) >>
+      !team.isCreator(me.id) ?? {
+        modLog.teamKick(me.id, userId, team.name)
+      }
+
+  def changeOwner(team: Team, userId: String, me: User): Funit =
+    MemberRepo.exists(team.id, userId) flatMap { e =>
+      e ?? {
+        TeamRepo.changeOwner(team.id, userId) >>
+          modLog.teamMadeOwner(me.id, userId, team.name) >>-
+          notifier.madeOwner(team, userId)
+      }
+    }
 
   def enable(team: Team): Funit =
     TeamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
@@ -179,7 +198,7 @@ final class TeamApi(
   def nbRequests(teamId: String) = cached.nbRequests get teamId
 
   def recomputeNbMembers =
-    coll.team.find($empty).cursor[Team]().foldWhileM({}) { (_, team) =>
+    coll.team.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>
       for {
         nb <- MemberRepo.countByTeam(team.id)
         _ <- coll.team.updateField($id(team.id), "nbMembers", nb)

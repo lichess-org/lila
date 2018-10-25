@@ -29,7 +29,7 @@ object PgnImport {
 
   def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case prep @ Preprocessed(game, replay, result, initialFen, parsedPgn) =>
+      case prep @ Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match {
           case (shapes, _, comments) =>
@@ -51,17 +51,13 @@ object PgnImport {
                 ).fold(variations)(_ :: variations).toVector
               }
             )
-            val end: Option[End] = {
-              (if (game.finished) game.status else result.status).some
-                .filter(chess.Status.Aborted <=).map { status =>
-                  val winner = game.winnerColor orElse result.winner
-                  End(
-                    status = status,
-                    winner = winner,
-                    resultText = chess.Color.showResult(winner),
-                    statusText = lila.game.StatusText(status, winner, game.variant)
-                  )
-                }
+            val end: Option[End] = (game.finished option game.status).map { status =>
+              End(
+                status = status,
+                winner = game.winnerColor,
+                resultText = chess.Color.showResult(game.winnerColor),
+                statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+              )
             }
             val commented =
               if (root.mainline.lastOption.??(_.isCommented)) root
@@ -141,7 +137,8 @@ object PgnImport {
                 Node.Children {
                   makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
                 }
-              }
+              },
+              forceVariation = false
             ).some
           }
         }

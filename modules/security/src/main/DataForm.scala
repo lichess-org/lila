@@ -26,14 +26,16 @@ final class DataForm(
 
   def emptyWithCaptcha = withCaptcha(empty)
 
-  private val anyEmail = nonEmptyText.verifying(Constraints.emailAddress)
+  private val anyEmail = trimField(nonEmptyText).verifying(Constraints.emailAddress)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
     acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
 
+  private def trimField(m: Mapping[String]) = m.transform[String](_.trim, identity)
+
   object signup {
 
-    private val username = nonEmptyText.verifying(
+    private val username = trimField(nonEmptyText).verifying(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(

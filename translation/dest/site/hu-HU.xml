@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">A %1$s pontszámod (%2$s) túl alacsony</string>
   <string name="ratedMoreThanInPerf">%2$s pontszám ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s pontszám ≤ %1$s</string>
+  <string name="mustBeInTeam">Csak %s tagoknak</string>
+  <string name="youAreNotInTeam">Nem vagy a %s csapatban</string>
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="teams">Csapatok</string>

@@ -51,10 +51,10 @@ private final class GameJson(
             "color" -> p.color.name
           )
         }),
-        "treeParts" -> onlyLast.fold(
-          tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes),
-          partitionTreeJsonWriter.writes(tree).some
-        )
+        "treeParts" -> {
+          if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
+          else partitionTreeJsonWriter.writes(tree).some
+        }
       ).add("clock", game.clock.map(_.config.show))
     }
 }

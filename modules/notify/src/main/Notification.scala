@@ -97,6 +97,16 @@ object TeamJoined {
   case class Name(value: String) extends AnyVal with StringValue
 }
 
+case class TeamMadeOwner(
+    id: TeamMadeOwner.Id,
+    name: TeamMadeOwner.Name
+) extends NotificationContent("teamMadeOwner")
+
+object TeamMadeOwner {
+  case class Id(value: String) extends AnyVal with StringValue
+  case class Name(value: String) extends AnyVal with StringValue
+}
+
 case object LimitedTournamentInvitation extends NotificationContent("u")
 
 case class TitledTournamentInvitation(

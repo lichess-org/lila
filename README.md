@@ -25,12 +25,12 @@ and relies on [Play 2.4](https://www.playframework.com/) for the routing, templa
 Pure chess logic is contained in [scalachess](https://github.com/ornicar/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
-It uses [MongoDB 3.4](https://mongodb.org) to store more than 600 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
-HTTP requests and websocket connections are proxied by [nginx 1.9](http://nginx.org).
+It uses [MongoDB](https://mongodb.org) to store more than 800 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+HTTP requests and websocket connections are proxied by [nginx](http://nginx.org).
 The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated standard games are published in a [free PGN database](https://database.lichess.org).
-Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
+Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
 Please help us [translate lichess with Crowdin](https://crowdin.com/project/lichess).
 
 [Join us on discord](https://discord.gg/hy5jqSs) or in the #lichess freenode IRC channel for more info.

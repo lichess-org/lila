@@ -127,6 +127,7 @@ object Report {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic = reporter.id == ReporterId.lichess
     def isAutoComm = isAutomatic && isTrollOrInsult
+    def isCoachReview = isOther && text.contains("COACH REVIEW")
   }
 
   object Candidate {
@@ -157,6 +158,6 @@ object Report {
       )
   }
 
-  private val farmWithRegex = s""".+ points from @(${User.historicalUsernameRegex.pattern}) .*""".r
-  private val sandbagWithRegex = s""".+ winning player @(${User.historicalUsernameRegex.pattern}) .*""".r
+  private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
+  private val sandbagWithRegex = s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
 }

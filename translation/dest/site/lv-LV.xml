@@ -324,6 +324,8 @@
   <string name="yourPerfRatingIsTooLow">Tavs %1$s reitings (%2$s) ir pārāk zems</string>
   <string name="ratedMoreThanInPerf">%2$s reitings ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s reitings ≤ %1$s</string>
+  <string name="mustBeInTeam">Jābūt komandas %s dalībniekam</string>
+  <string name="youAreNotInTeam">Tu neesi komandas %s dalībnieks</string>
   <string name="backToGame">Atpakaļ pie spēles</string>
   <string name="siteDescription">Bezmaksas Šahs tiešsaistē. Spēlē Šahu tīrā saskarnē. Bez reģistrācijas, bez reklāmām, bez papildus programmatūras. Spēlē Šahu pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="teams">Komandas</string>
@@ -534,6 +536,7 @@
   <string name="troll">Troļļošana</string>
   <string name="other">Cits</string>
   <string name="reportDescriptionHelp">Iekopē saiti uz spēli un paskaidro, kas nav kārtībā ar lietotāja uzvedību.</string>
+  <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
   <string name="by">No %s</string>
   <string name="thisTopicIsNowClosed">Šis temats tagad ir slēgts.</string>
   <string name="theming">Tēmas</string>

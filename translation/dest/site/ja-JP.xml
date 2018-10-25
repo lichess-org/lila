@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューターの解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター分析</string>
-  <string name="computerAnalysisAvailable">コンピュータ解析が可能です</string>
+  <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用</string>
@@ -284,6 +284,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
   <string name="ratedMoreThanInPerf">%2$s のレーティング %1$s 以上</string>
   <string name="ratedLessThanInPerf">%2$s レーティング %1$s 以下</string>
+  <string name="mustBeInTeam">チーム %s のメンバー限定</string>
+  <string name="youAreNotInTeam">チーム %s に入っていません</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="teams">チーム</string>
@@ -481,6 +483,7 @@
   <string name="troll">荒らし</string>
   <string name="other">その他</string>
   <string name="reportDescriptionHelp">問題のゲームへのリンクを貼って、相手ユーザーの問題点を説明してください。ただ「イカサマだ」と言うのではなく、なぜそう思うか理由を書いてください。英語で書くと対応が早くできます。</string>
+  <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
   <string name="thisTopicIsNowClosed">このトピックは閉鎖されました。</string>
   <string name="theming">デザインテーマ</string>
@@ -617,6 +620,9 @@
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>
   <string name="about">Lichess概要</string>
+  <string name="aboutX">%s について</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
+  <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="contact">連絡先</string>
   <string name="termsOfService">利用規約</string>

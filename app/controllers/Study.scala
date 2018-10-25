@@ -221,7 +221,8 @@ object Study extends LilaController {
           env.socketHandler.join(
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
-            user = ctx.me
+            user = ctx.me,
+            getSocketVersion
           )
         }
       }
@@ -271,7 +272,7 @@ object Study extends LilaController {
   def importPgn(id: String) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lila.study.DataForm.importPgn.form.bindFromRequest.fold(
-      err => BadRequest(errorsAsJson(err)).fuccess,
+      jsonFormError,
       data => env.api.importPgns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
     )
   }

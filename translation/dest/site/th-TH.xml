@@ -284,6 +284,8 @@
   <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
   <string name="ratedMoreThanInPerf">ระดับคะแนน ≥ %1$s สำหรับ %2$s</string>
   <string name="ratedLessThanInPerf">ระดับคะแนน ≤ %1$s สำหรับ %2$s</string>
+  <string name="mustBeInTeam">ต้องอยู่ในทีม %s</string>
+  <string name="youAreNotInTeam">คุณไม่ได้อยู่ในทีม %s</string>
   <string name="backToGame">กลับสู่เกม</string>
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="teams">ทีม</string>
@@ -480,6 +482,7 @@
   <string name="troll">ป่วน</string>
   <string name="other">อื่นๆ</string>
   <string name="reportDescriptionHelp">วางลิงค์ที่ไปสู่เกม และอธิบายว่าผู้ใช้นี้มีพฤติกรรมที่ผิดอะไร อย่าบอกเพียงว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณสรุปแบบนี้เพราะอะไร การรายงานของคุณจะเร็วขึ้นถ้าเขียนด้วยภาษาอังกฤษ</string>
+  <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="thisTopicIsNowClosed">หัวข้อนี้ถูกปิดแล้ว</string>
   <string name="theming">รูปลักษณ์</string>
@@ -616,6 +619,9 @@
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>
   <string name="about">เกี่ยวกับ</string>
+  <string name="aboutX">เกี่ยวกับ %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s เป็นเซิร์ฟเวอร์หมากรุกระบบเปิด ซึ่งอิสระ ไม่มีโฆษณา และฟรี (%2$s)</string>
+  <string name="really">จริง ๆ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="contact">ติดต่อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>

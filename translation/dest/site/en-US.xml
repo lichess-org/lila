@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">No game found</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
-  <string name="openingExplorer">Opening explorer &amp; tablebase</string>
+  <string name="openingExplorer">Opening explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
@@ -287,8 +287,8 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rated game</item>
-    <item quantity="other">≥ %1$s %2%s rated games</item>
+    <item quantity="one">≥ %1$s %2$s rated game</item>
+    <item quantity="other">≥ %1$s %2$s rated games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">You need to play %1$s more %2$s rated game</item>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
   <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">Must be in team %s</string>
+  <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
   <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
@@ -508,6 +510,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="troll">Troll</string>
   <string name="other">Other</string>
   <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user behavior. Don\'t just say \"they cheat\", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
+  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
   <string name="by">by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
   <string name="theming">Theming</string>
@@ -647,6 +650,9 @@ in %3$s</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">About</string>
+  <string name="aboutX">About %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
+  <string name="really">really</string>
   <string name="contribute">Contribute</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Terms of Service</string>

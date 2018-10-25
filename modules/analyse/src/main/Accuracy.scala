@@ -26,25 +26,22 @@ object Accuracy {
     startedAtTurn = pov.game.chess.startedAtTurn
   )
 
-  def diffsList(pov: PovLike, analysis: Analysis): List[Int] =
-    (pov.color == pov.startColor).fold(
-      Info.start(pov.startedAtTurn) :: analysis.infos,
-      analysis.infos
-    ).grouped(2).foldLeft(List[Int]()) {
-        case (list, List(i1, i2)) =>
-          makeDiff.lift(i1.cp, i1.mate, i2.cp, i2.mate).fold(list) { diff =>
-            (if (pov.color.white) -diff else diff).max(0) :: list
-          }
-        case (list, _) => list
-      }.reverse
+  def diffsList(pov: PovLike, analysis: Analysis): List[Int] = {
+    if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
+    else analysis.infos
+  }.grouped(2).foldLeft(List[Int]()) {
+    case (list, List(i1, i2)) =>
+      makeDiff.lift(i1.cp, i1.mate, i2.cp, i2.mate).fold(list) { diff =>
+        (if (pov.color.white) -diff else diff).max(0) :: list
+      }
+    case (list, _) => list
+  }.reverse
 
   def prevColorInfos(pov: PovLike, analysis: Analysis): List[Info] = {
-    (pov.color == pov.startColor).fold(
-      Info.start(pov.startedAtTurn) :: analysis.infos,
-      analysis.infos
-    ).zipWithIndex.collect {
-        case (e, i) if (i % 2) == 0 => e
-      }
+    if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
+    else analysis.infos
+  }.zipWithIndex.collect {
+    case (e, i) if (i % 2) == 0 => e
   }
 
   def mean(pov: PovLike, analysis: Analysis): Option[Int] = {

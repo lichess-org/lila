@@ -6,9 +6,9 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
-import lila.socket.actorApi.GetVersion
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.History
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -20,7 +20,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
-    roundMap: ActorRef,
+    roundMap: DuctMap[_],
     roundSocketHub: ActorSelection,
     lightUserApi: lila.user.LightUserApi,
     isOnline: String => Boolean,
@@ -155,13 +155,10 @@ final class Env(
     }), name = SocketName
   )
 
-  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(
-      receiveTimeout = SequencerTimeout.some,
-      executionTimeout = 5.seconds.some,
-      logger = logger
-    )
-  }))
+  private val sequencerMap = new DuctMap(
+    mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
+    accessTimeout = SequencerTimeout
+  )
 
   system.lilaBus.subscribe(
     system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),
@@ -186,8 +183,8 @@ final class Env(
 
   TournamentInviter.start(system, api, notifyApi)
 
-  def version(tourId: Tournament.ID): Fu[Int] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+  def version(tourId: Tournament.ID): Fu[SocketVersion] =
+    socketHub ? Ask(tourId, GetVersion) mapTo manifest[SocketVersion]
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)

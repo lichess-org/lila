@@ -82,8 +82,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   }
 
   def addEffectAnyway(inAnyCase: => Unit): Fu[A] = {
-    fua onComplete {
-      case _ => inAnyCase
+    fua onComplete { _ =>
+      inAnyCase
     }
     fua
   }
@@ -141,6 +141,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def chronometer = lila.common.Chronometer(fua)
 
   def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
+  def logTime(name: String) = chronometer pp name
+  def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
 
   def nevermind(implicit z: Zero[A]): Fu[A] = fua recover {
     case e: LilaException => z.zero

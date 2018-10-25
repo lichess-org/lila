@@ -34,7 +34,7 @@ case class AnaDrop(
           opening = Variant.openingSensibleVariants(variant) ?? {
             FullOpeningDB findByFen fen
           },
-          drops = movable.fold(game.situation.drops, Some(Nil)),
+          drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
       }
@@ -55,7 +55,6 @@ object AnaDrop {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-    chapterId = d str "ch"
   } yield AnaDrop(
     role = role,
     pos = pos,

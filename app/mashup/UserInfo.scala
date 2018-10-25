@@ -36,20 +36,23 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
-  def isPublicMod = lila.security.Granter(_.PublicMod)(user)
-  def isDeveloper = lila.security.Granter(_.Developer)(user)
-
   lazy val allTrophies = List(
-    isPublicMod option Trophy(
+    Granter(_.PublicMod)(user) option Trophy(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Moderator,
       date = org.joda.time.DateTime.now
     ),
-    isDeveloper option Trophy(
+    Granter(_.Developer)(user) option Trophy(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Developer,
+      date = org.joda.time.DateTime.now
+    ),
+    Granter(_.Verified)(user) option Trophy(
+      _id = "",
+      user = user.id,
+      kind = Trophy.Kind.Verified,
       date = org.joda.time.DateTime.now
     )
   ).flatten ::: trophies

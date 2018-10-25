@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je příliš nízký</string>
   <string name="ratedMoreThanInPerf">Rating ≥ %1$s v %2$s variantě</string>
   <string name="ratedLessThanInPerf">Rating ≤ %1$s v %2$s variantě</string>
+  <string name="mustBeInTeam">Musíte být členem týmu %s</string>
+  <string name="youAreNotInTeam">Nejste členem týmu %s</string>
   <string name="backToGame">Zpět do hry</string>
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
   <string name="teams">Týmy</string>
@@ -561,6 +563,7 @@
   <string name="troll">Troll</string>
   <string name="other">Jiné</string>
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
+  <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Toto téma je již uzavřeno.</string>
   <string name="theming">Témata</string>
@@ -706,6 +709,9 @@ v %3$s</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
   <string name="about">O</string>
+  <string name="aboutX">O %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je bezplatný (%2$s), svobodný open source šachový server bez reklam.</string>
+  <string name="really">opravdu</string>
   <string name="contribute">Přispějte</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Podmínky používání</string>

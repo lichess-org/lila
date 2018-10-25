@@ -26,7 +26,8 @@ object Round extends LilaController with TheftPrevention {
             uid = uid,
             user = ctx.me,
             ip = ctx.ip,
-            userTv = get("userTv")
+            userTv = get("userTv"),
+            version = getSocketVersion
           ) map some
         }
       }
@@ -40,7 +41,7 @@ object Round extends LilaController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))
@@ -50,30 +51,28 @@ object Round extends LilaController with TheftPrevention {
   private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
 
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
-    html = pov.game.started.fold(
-      PreventTheft(pov) {
-        myTour(pov.game.tournamentId, true) flatMap { tour =>
-          Game.preloadUsers(pov.game) zip
-            (pov.game.simulId ?? Env.simul.repo.find) zip
-            getPlayerChat(pov.game, tour.map(_.tour)) zip
-            Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
-            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
-            Env.bookmark.api.exists(pov.game, ctx.me) zip
-            Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {
-              case _ ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
-                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                Ok(html.round.player(pov, data,
-                  tour = tour,
-                  simul = simul.filter(_ isHost ctx.me),
-                  cross = crosstable,
-                  playing = playing,
-                  chatOption = chatOption,
-                  bookmarked = bookmarked))
-            }
-        }
-      }.mon(_.http.response.player.website),
-      notFound
-    ),
+    html = if (!pov.game.started) notFound
+    else PreventTheft(pov) {
+      myTour(pov.game.tournamentId, true) flatMap { tour =>
+        Game.preloadUsers(pov.game) zip
+          (pov.game.simulId ?? Env.simul.repo.find) zip
+          getPlayerChat(pov.game, tour.map(_.tour)) zip
+          Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
+          (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+          Env.bookmark.api.exists(pov.game, ctx.me) zip
+          Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {
+            case _ ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+              simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+              Ok(html.round.player(pov, data,
+                tour = tour,
+                simul = simul.filter(_ isHost ctx.me),
+                cross = crosstable,
+                playing = playing,
+                chatOption = chatOption,
+                bookmarked = bookmarked))
+          }
+      }
+    }.mon(_.http.response.player.website),
     api = apiVersion => {
       if (isTheft(pov)) fuccess(theftResponse)
       else Game.preloadUsers(pov.game) zip

@@ -2,8 +2,9 @@ package lila.user
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
-import lila.common.EmailAddress
+import lila.hub.actorApi.WithUserIds
 
 final class Env(
     config: Config,
@@ -27,11 +28,15 @@ final class Env(
   }
   import settings._
 
-  lazy val userColl = db(CollectionUser)
+  val userColl = db(CollectionUser)
 
-  lazy val lightUserApi = new LightUserApi(userColl)(system)
+  val lightUserApi = new LightUserApi(userColl)(system)
 
-  lazy val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
+  val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
+
+  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
+
+  val jsonView = new JsonView(isOnline)
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
 
@@ -39,39 +44,28 @@ final class Env(
 
   lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
 
-  lazy val jsonView = new JsonView(isOnline)
-
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
-  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
+  system.lilaBus.subscribeFun('adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase) {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      rankingApi remove userId
+      UserRepo.setRoles(userId, Nil)
+    case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    case User.Active(user) =>
+      if (!user.seenRecently) UserRepo setSeenAt user.id
+      onlineUserIdMemo put user.id
+    case User.GDPRErase(user) =>
+      UserRepo erase user
+      noteApi erase user
+  }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-        rankingApi remove userId
-        UserRepo.setRoles(userId, Nil)
-      case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-      case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
-      case User.Active(user) =>
-        if (!user.seenRecently) UserRepo setSeenAt user.id
-        onlineUserIdMemo put user.id
-      case User.GDPRErase(user) =>
-        UserRepo erase user
-        noteApi erase user
-    }
-  })), 'adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase)
-
-  {
-    import scala.concurrent.duration._
-    import lila.hub.actorApi.WithUserIds
-
-    scheduler.effect(3 seconds, "refresh online user ids") {
-      system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
-      onlineUserIdMemo put "lichess"
-    }
+  scheduler.effect(3 seconds, "refresh online user ids") {
+    system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+    onlineUserIdMemo put "lichess"
   }
 
   lazy val cached = new Cached(

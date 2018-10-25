@@ -19,15 +19,12 @@ help = Html("Feature on /broadcast - for admins only").some) { field =>
 @base.form.group(form("syncUrl"), Html("Source URL")) { field =>
 @base.form.input(field, typ = "url", required = true)
 }
-@base.form.group(form("syncType"), Html("Source format")) { field =>
-@base.form.select(field, lila.relay.RelayForm.syncTypes)
-}
 <div>
   @base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some, half = true) { field =>
 @base.form.flatpickr(field)
 }
 @if(isGranted(_.Relay)) {
-@base.form.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Max 60s.").some, half = true) { field =>
+@base.form.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true) { field =>
 @base.form.input(field, typ = "number")
 }
 }
