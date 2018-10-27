@@ -725,7 +725,7 @@
   <string name="returnToSimulHomepage">Späť na Simultánku</string>
   <string name="aboutSimul">Simultánky sú hry jedného hráča proti viacerým oponentom súčasne.</string>
   <string name="aboutSimulImage">Z celkovo 50 hráčov, Fisher vyhral 47 hier, 2 remízoval a 1 prehral.</string>
-  <string name="aboutSimulRealLife">Koncept je prebraný zo skutočných svetových podujatí. V tomto prípade sa hostiteľ simultánky pohybuje do stola k stolu aby zahral jeden ťah.</string>
+  <string name="aboutSimulRealLife">Koncept je prebraný zo skutočných svetových podujatí. V tomto prípade sa hostiteľ simultánky pohybuje od stola k stolu aby zahral jeden ťah.</string>
   <string name="aboutSimulRules">Keď simultánka začne, každý hráč hrá s hostiteľom, ktorý má biele figúrky. Simultánka končí, keď sa dohrajú všetky partie.</string>
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
