@@ -367,8 +367,8 @@
   <string name="teamLeader">Vedúci tímu</string>
   <string name="teamBestPlayers">Najlepší hráči</string>
   <string name="teamRecentMembers">Noví členovia tímu</string>
-  <string name="xJoinedTeamY">%1$s sa pripojil/la k tímu %2$s</string>
-  <string name="xCreatedTeamY">%1$s vytvoril/la tím %2$s</string>
+  <string name="xJoinedTeamY">%1$s sa pripojil/a k tímu %2$s</string>
+  <string name="xCreatedTeamY">%1$s vytvoril/a tím %2$s</string>
   <string name="averageElo">Priemerný rating</string>
   <string name="location">Poloha</string>
   <string name="settings">Nastavenia</string>
@@ -377,7 +377,7 @@
   <string name="apply">Odoslať</string>
   <string name="leaderboard">Rebríček</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
-  <string name="pasteThePgnStringHere">Sem vložte PNG reťazec</string>
+  <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
   <string name="importGame">Importovať partiu</string>
@@ -467,7 +467,7 @@
   <string name="blackWins">Výhry ako čierny</string>
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
-  <string name="viewMoreTournaments">Zobraz ďalšie turnaje</string>
+  <string name="viewMoreTournaments">Zobraziť ďalšie turnaje</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
@@ -480,7 +480,7 @@
   <string name="isPrivate">Súkromný</string>
   <string name="reportXToModerators">Nahlásiť %s moderátorom</string>
   <string name="profileCompletion">Úplnosť profilu: %s</string>
-  <string name="xRating">%s rating</string>
+  <string name="xRating">%s hodnotenie</string>
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
   <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
