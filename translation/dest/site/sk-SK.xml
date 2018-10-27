@@ -746,7 +746,7 @@
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachový turnaj ponúka rôzne časové nastavenia partie a rôzne varianty</string>
-  <string name="tournamentHomeDescription">Hraj šachové turnaje s rýchlym tempom! Pridaj sa k oficiálnym plánovaným turnajom, alebo si vytvor vlastný. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, a viac možností na výber pre nekonečnú šachovú zábavu.</string>
+  <string name="tournamentHomeDescription">Hrajte šachové turnaje s rýchlym tempom! Pridajte sa k oficiálnym plánovaným turnajom, alebo si vytvorte vlastný turnaj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, a viac možností na výber pre nekonečnú šachovú zábavu.</string>
   <string name="tournamentNotFound">Turnaj nenájdený</string>
   <string name="tournamentDoesNotExist">Zvolený turnaj neexistuje</string>
   <string name="tournamentMayHaveBeenCanceled">Turnaj mohol byť zrušený, ak všetci hráči opustili turnaj pred jeho začatím.</string>
@@ -802,7 +802,7 @@
   <string name="zeroAdvertisement">Bez reklám</string>
   <string name="fullFeatured">Plne vybavený</string>
   <string name="phoneAndTablet">Mobil a tablet</string>
-  <string name="bulletBlitzClassical">Ultrarychlá hra, blesková hra, klasická hra</string>
+  <string name="bulletBlitzClassical">Ultrarýchla hra, blesková hra, klasická hra</string>
   <string name="correspondenceChess">Korespondenčné šachy</string>
   <string name="onlineAndOfflinePlay">Hra online i offline</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
@@ -824,9 +824,9 @@
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="background">Pozadie</string>
-  <string name="light">Svetlá</string>
-  <string name="dark">Tmavá</string>
-  <string name="transparent">Priehľadná</string>
+  <string name="light">Svetlé</string>
+  <string name="dark">Tmavé</string>
+  <string name="transparent">Priehľadné</string>
   <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
   <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhľad šachovnice</string>
@@ -869,7 +869,7 @@
   <string name="seeBestMove">Ukázať najlepší ťah</string>
   <string name="hideBestMove">Skryť najlepší ťah</string>
   <string name="getAHint">Získať nápovedu</string>
-  <string name="evaluatingYourMove">Hodnotím tvoj ťah...</string>
+  <string name="evaluatingYourMove">Hodnotím Váš ťah...</string>
   <string name="whiteWinsGame">Biely vyhral</string>
   <string name="blackWinsGame">Čierny vyhral</string>
   <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
@@ -881,8 +881,8 @@
   <string name="findBetterMoveForBlack">Nájdite lepší ťah čierneho</string>
   <string name="resumeLearning">Pokračovať v učení</string>
   <string name="youCanDoBetter">Dá sa to aj lepšie</string>
-  <string name="tryAnotherMoveForWhite">Skús ako biely potiahnuť niečo iné</string>
-  <string name="tryAnotherMoveForBlack">Skús ako čierny potiahnuť niečo iné</string>
+  <string name="tryAnotherMoveForWhite">Skúste ako biely potiahnuť niečo iné</string>
+  <string name="tryAnotherMoveForBlack">Skúste ako čierny potiahnuť niečo iné</string>
   <string name="solution">Riešenie</string>
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
@@ -902,11 +902,11 @@
   <string name="opening">Otvorenie</string>
   <string name="middlegame">Stredná hra</string>
   <string name="endgame">Koncovka</string>
-  <string name="registerToSendChallenges">Pre odoslanie výzvy sa zaregistruj!</string>
-  <string name="youCannotChallengeX">Nemôžeš vyzvať %s.</string>
+  <string name="registerToSendChallenges">Pre odoslanie výzvy sa zaregistrujte!</string>
+  <string name="youCannotChallengeX">Nemôžete vyzvať %s.</string>
   <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Medzi tvojim %1$s ratingom a ratingom hráča %2$s je príliš veľký rozdiel.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemôžeš odoslať výzvu kvôli provizórnemu %s ratingu.</string>
+  <string name="yourXRatingIsTooFarFromY">Medzi Vaším %1$s hodnotením a hodnotením hráča %2$s je príliš veľký rozdiel.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nemôžete odoslať výzvu kvôli provizórnemu %s hodnoteniu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy iba od priateľov.</string>
   <string name="conditionalPremoves">Podmienené predťahy</string>
   <string name="addCurrentVariation">Pridaj aktuálny variant</string>
