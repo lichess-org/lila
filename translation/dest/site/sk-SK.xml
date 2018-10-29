@@ -327,9 +327,9 @@
     <item quantity="other">≥ %1$s %2$s hodnotených hier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Potrebuješ odohrať ešte %1$s %2$s hodnotenú partiu</item>
-    <item quantity="few">Potrebuješ odohrať ešte %1$s %2$s hodnotené partie</item>
-    <item quantity="many">Potrebuješ odohrať ešte %1$s %2$s hodnotených partií</item>
+    <item quantity="one">Potrebujete odohrať ešte %1$s %2$s hodnotenú partiu</item>
+    <item quantity="few">Potrebujete odohrať ešte %1$s %2$s hodnotené partie</item>
+    <item quantity="many">Potrebujete odohrať ešte %1$s %2$s hodnotených partií</item>
     <item quantity="other">Potrebujete odohrať ešte %1$s %2$s hodnotených partií</item>
   </plurals>
   <plurals name="needNbMoreGames">
