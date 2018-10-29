@@ -197,7 +197,7 @@
   <string name="gamesPlayed">Odohraných partií</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s hra s Vami</item>
-    <item quantity="few">%s hier s Vami</item>
+    <item quantity="few">%s hry s Vami</item>
     <item quantity="many">%s hier s Vami</item>
     <item quantity="other">%s hier s Vami</item>
   </plurals>
