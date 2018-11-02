@@ -644,6 +644,8 @@
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
+  <string name="aboutX">درباره %s</string>
+  <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
   <string name="termsOfService">قوانین</string>

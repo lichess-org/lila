@@ -648,6 +648,9 @@
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>
   <string name="about">Hakkında</string>
+  <string name="aboutX">%s hakkında</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; bedava (%2$s), özgür, reklamsız, açık kaynaklı bir satranç sitesidir.</string>
+  <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="contact">İletişim</string>
   <string name="termsOfService">Hizmet koşulları</string>
