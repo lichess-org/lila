@@ -59,6 +59,9 @@ object Environment
   def isChatPanicEnabled =
     lila.chat.Env.current.panic.enabled
 
+  def reportNbOpen: Int =
+    lila.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
+
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
     if (ctx.kid) emptyHtml else f
 
