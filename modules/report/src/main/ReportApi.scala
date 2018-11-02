@@ -40,7 +40,7 @@ final class ReportApi(
   }
 
   private def monitorOpen =
-    coll.countSel(openAvailableSelect ++ roomSelect(none) ++ scoreThresholdSelect) foreach {
+    coll.countSel(selectOpenAvailableInRoom(none)) foreach {
       lila.mon.mod.report.unprocessed(_)
     }
 
@@ -171,14 +171,15 @@ final class ReportApi(
     $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
   ).void
 
-  private val openSelect: Bdoc = $doc("open" -> true)
   private val closedSelect: Bdoc = $doc("open" -> false)
-  private val openAvailableSelect: Bdoc = openSelect ++ $doc("inquiry" $exists false)
   private def scoreThresholdSelect = $doc("score" $gte scoreThreshold())
   private val sortLastAtomAt = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
+
+  private def selectOpenAvailableInRoom(room: Option[Room]) =
+    $doc("open" -> true, "inquiry" $exists false) ++ roomSelect(room) ++ scoreThresholdSelect
 
   def recent(suspect: Suspect, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
     coll.find($doc("user" -> suspect.id.value)).sort(sortLastAtomAt).list[Report](nb, readPreference)
@@ -218,7 +219,7 @@ final class ReportApi(
     ) map (_ filterNot ReporterId.lichess.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] = for {
-    opens <- findBest(nb, openAvailableSelect ++ roomSelect(room) ++ scoreThresholdSelect)
+    opens <- findBest(nb, selectOpenAvailableInRoom(room))
     nbClosed = nb - opens.size
     closed <- if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
     else findRecent(nbClosed, closedSelect ++ roomSelect(room))
@@ -226,7 +227,7 @@ final class ReportApi(
   } yield withNotes
 
   def next(room: Room): Fu[Option[Report]] =
-    findBest(1, openAvailableSelect ++ roomSelect(room.some) ++ scoreThresholdSelect).map(_.headOption)
+    findBest(1, selectOpenAvailableInRoom(room.some)).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     UserRepo byIdsSecondary (reports.map(_.user).distinct) map { users =>
@@ -277,7 +278,7 @@ final class ReportApi(
   def countOpenByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(
-      Match(openAvailableSelect ++ scoreThresholdSelect ++ roomSelect(none)),
+      Match(selectOpenAvailableInRoom(none)),
       List(
         GroupField("room")("nb" -> SumValue(1))
       ),
