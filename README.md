@@ -29,7 +29,7 @@ It uses [MongoDB](https://mongodb.org) to store more than 800 million games, whi
 HTTP requests and websocket connections are proxied by [nginx](http://nginx.org).
 The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
-All rated standard games are published in a [free PGN database](https://database.lichess.org).
+All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
 Please help us [translate lichess with Crowdin](https://crowdin.com/project/lichess).
 
