@@ -490,7 +490,7 @@
   <string name="butYouCanKeepTrying">Али можете још покушавати.</string>
   <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
-  <string name="pleaseVotePuzzle">Помози да се lichess побољша гласајући , користећи стрелице горе/доле</string>
+  <string name="pleaseVotePuzzle">Помози да се личес побољша гласајући, користећи стрелице горе/доле:</string>
   <string name="thankYou">Хвала!</string>
   <string name="ratingX">Рејтинг %s</string>
   <plurals name="playedXTimes">
@@ -545,7 +545,7 @@
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Питања и Одговори</string>
   <string name="notes">Белешке</string>
-  <string name="typePrivateNotesHere">Упиши приватне забелешке овде</string>
+  <string name="typePrivateNotesHere">Упишите приватне забелешке овде</string>
   <string name="gameDisplay">Приказ игре</string>
   <string name="pieceAnimation">Анимација фигура</string>
   <string name="materialDifference">Прикажи поједене фигуре</string>
@@ -680,6 +680,7 @@
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
+  <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
   <string name="contact">Уговор</string>
   <string name="termsOfService">ТоS</string>
