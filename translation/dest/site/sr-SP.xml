@@ -716,8 +716,8 @@
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Šahovski turnir koji objedinjuje različita vremenska ograničenja i varijante</string>
   <string name="tournamentHomeDescription">Igraj brzo-potezne šahovske turnire! Priključi se oficijalnom organizovanom turniru, ili kreiraj svoj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, i druge opcije su dostupne za neograničenu šahovsku zabavu.</string>
-  <string name="tournamentNotFound">Turnir nije pronađen</string>
-  <string name="tournamentDoesNotExist">Turnir ne postoji</string>
+  <string name="tournamentNotFound">Турнир није пронађен</string>
+  <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
   <string name="tournamentMayHaveBeenCanceled">Možda je otkazan, jer su igrači napustili turnir pre njegovog početka</string>
   <string name="returnToTournamentsHomepage">Vratite se na \"tournaments\" početnu stranu</string>
   <string name="weeklyPerfTypeRatingDistribution">Месечна %s дитрибуција рејтинга</string>
@@ -769,7 +769,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Svi dobijaju sve funkcije besplatno</string>
   <string name="zeroAdvertisement">Bez reklama</string>
   <string name="fullFeatured">Potpuno opremljen</string>
-  <string name="phoneAndTablet">Telefon ili Tablet</string>
+  <string name="phoneAndTablet">Телефон или таблет</string>
   <string name="bulletBlitzClassical">Bulit, Blic, Klasičan</string>
   <string name="correspondenceChess">Dopisni šah</string>
   <string name="onlineAndOfflinePlay">Igra na mreži i van mreže</string>
@@ -777,7 +777,7 @@
   <string name="viewTheSolution">Погледај решење</string>
   <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Доступно у %s језику!</item>
+    <item quantity="one">Доступно у %s језика!</item>
     <item quantity="few">Доступно у %s језика!</item>
     <item quantity="other">Доступно у %s језика!</item>
   </plurals>
