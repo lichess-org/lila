@@ -330,6 +330,10 @@ Thank you all, you rock!"""
                 )
               }
           }
+      }.map {
+        // No berserk for rating-limited tournaments
+        // Because berserking lowers the player rating
+        _ map { _.copy(noBerserk = true) }
       },
 
       // hourly crazyhouse tournaments!

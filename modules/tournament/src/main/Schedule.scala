@@ -69,6 +69,10 @@ object Schedule {
       val t = Tournament.schedule(addCondition(schedule), durationFor(schedule))
       buildFunc.foldRight(t) { _(_) }
     }
+
+    def map(f: Tournament => Tournament) = copy(
+      buildFunc = buildFunc.fold(f)(f.compose).some
+    )
   }
 
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
