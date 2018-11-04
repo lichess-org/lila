@@ -1,9 +1,22 @@
 .mod_zone {
+  display: flex;
+  flex-flow: column;
   margin: 1em 20px;
 }
+.mod_zone .actions { order: 1; }
+.mod_zone .mod_roles { order: 2; }
+.mod_zone .preferences { order: 3; }
+.mod_zone .irwin { order: 4; }
+.mod_zone .assessments { order: 5; }
+.mod_zone .plan { order: 6; }
+.mod_zone .mod_log { order: 7; }
+.mod_zone .reports { order: 8; }
+.mod_zone .others { order: 9; }
+.mod_zone .identification { order: 10; }
+
 .mod_zone .actions {
-  width: 100%;
   text-align: center;
+  padding: 10px 0;
 }
 .mod_zone .actions .inquiry {
   border-radius: 3px;
@@ -23,10 +36,9 @@
   background-position: 50% 50%;
 }
 .mod_zone .second_mod_button_row {
-  margin-top: 5px;
+  margin: 5px 0 10px 0;
 }
-.mod_zone .neural,
-.mod_zone .mod_roles {
+.mod_zone > * {
   padding: 10px 0;
 }
 .mod_zone .neural strong {
@@ -53,10 +65,10 @@ body.dark .mod_zone .slist {
 .mod_zone form {
   display: inline;
 }
-.mod_zone .listings {
+.mod_zone .identification {
   border: 1px solid #ccc;
 }
-.mod_zone .listings > div {
+.mod_zone .identification > div {
   max-height: 20em;
   overflow: auto;
 }
@@ -85,7 +97,7 @@ body.dark .mod_zone .slist {
 .mod_zone .spy_fps li {
   font-family: monospace;
 }
-.mod_zone .listings .blocked {
+.mod_zone .identification .blocked {
   color: red;
   font-weight: bold;
 }
@@ -99,7 +111,7 @@ body.dark .mod_zone .slist {
 .mod_zone strong.inline {
   display: inline;
 }
-.mod_zone .plan_charges ul {
+.mod_zone .plan ul {
   max-height: 100px;
   overflow: auto;
 }
