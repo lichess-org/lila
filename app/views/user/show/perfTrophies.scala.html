@@ -1,9 +1,9 @@
-@(u: User, rankMap: lila.rating.UserRankMap)(implicit ctx: Context)
+@(u: User, rankMap: Option[lila.rating.UserRankMap])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
-@if(!u.lame) {
-@rankMap.toList.sortBy(_._2).map {
+@rankMap.ifFalse(u.lame).map { ranks =>
+@ranks.toList.sortBy(_._2).map {
 case (perf, rank) if rank == 1 => {
 <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Champion!">
   <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />

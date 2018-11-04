@@ -75,7 +75,7 @@ final class Env(
     mongoCache = mongoCache,
     asyncCache = asyncCache,
     rankingApi = rankingApi
-  )
+  )(system)
 
   lazy val authenticator = new Authenticator(
     passHasher = new PasswordHasher(

@@ -13,7 +13,7 @@ import lila.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
-    ranks: lila.rating.UserRankMap,
+    ranks: Option[lila.rating.UserRankMap],
     hasSimul: Boolean,
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
@@ -57,7 +57,7 @@ case class UserInfo(
     )
   ).flatten ::: trophies
 
-  def countTrophiesAndPerfCups = allTrophies.size + ranks.count(_._2 <= 100)
+  def countTrophiesAndPerfCups = allTrophies.size + ranks.??(_.count(_._2 <= 100))
 }
 
 object UserInfo {
@@ -130,7 +130,7 @@ object UserInfo {
     postApi: PostApi,
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
-    getRanks: User.ID => Fu[Map[String, Int]],
+    getRanks: User.ID => Fu[Option[lila.rating.UserRankMap]],
     isHostingSimul: User.ID => Fu[Boolean],
     fetchIsStreamer: User => Fu[Boolean],
     fetchTeamIds: User.ID => Fu[List[String]],
