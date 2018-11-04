@@ -18,7 +18,8 @@ private final class SlackClient(url: String, defaultChannel: String) {
   )
 
   def apply(msg: SlackMessage): Funit = limiter(msg) {
-    url.nonEmpty ?? WS.url(url)
+    if (url.isEmpty) fuccess(lila.log("slack").info(msg.toString))
+    else WS.url(url)
       .post(Json.obj(
         "username" -> msg.username,
         "text" -> msg.text,

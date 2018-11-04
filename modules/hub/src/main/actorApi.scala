@@ -103,6 +103,7 @@ package slack {
   case class Warning(msg: String) extends Event
   case class Info(msg: String) extends Event
   case class Victory(msg: String) extends Event
+  case class TournamentName(userName: String, tourId: String, tourName: String) extends Event
 }
 
 package timeline {

@@ -65,11 +65,8 @@ final class TournamentApi(
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
         }
       }
-    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name)) {
-      val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lichess.org/tournament/${tour.id}"""
-      logger warn msg
-      bus.publish(lila.hub.actorApi.slack.Warning(msg), 'slack)
-    }
+    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
+      bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), 'slack)
     logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds) inject tour
   }
