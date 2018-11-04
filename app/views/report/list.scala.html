@@ -49,7 +49,7 @@ moreCss = cssTag("report.css")) {
           <strong>@r.reason.name.capitalize</strong><br />
           @userLink(sus.user, params = "?mod")<br />
           <p class="perfs">@showBestPerfs(sus.user, 2)</p>
-          @user.userMarks(sus.user, none)
+          @user.mod.userMarks(sus.user, none)
         </td>
         <td class="atoms">
           @r.bestAtoms(3).map { atom =>
