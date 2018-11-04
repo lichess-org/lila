@@ -48,7 +48,7 @@ GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
 
 # User
-GET   /@/:username/mod                 controllers.User.mod(username: String)
+GET   /api/stream/:username/mod        controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
 POST  /note/delete/:id                 controllers.User.deleteNote(id: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)

@@ -3,7 +3,7 @@ package controllers
 import lidraughts.api.{ Context, BodyContext }
 import lidraughts.app._
 import lidraughts.chat.Chat
-import lidraughts.common.{ IpAddress, EmailAddress }
+import lidraughts.common.{ IpAddress, EmailAddress, HTTPRequest }
 import lidraughts.report.{ Suspect, Mod => AsMod }
 import lidraughts.security.Permission
 import lidraughts.user.{ UserRepo, User => UserModel }
@@ -80,14 +80,14 @@ object Mod extends LidraughtsController {
     withSuspect(username) { sus =>
       modApi.setBan(AsMod(me), sus, v) map some
     }
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def deletePmsAndChats(username: String) = OAuthMod(_.MarkTroll) { _ => me =>
     withSuspect(username) { sus =>
       Env.mod.publicChat.delete(sus) >>
         Env.message.api.deleteThreadsBy(sus.user) map some
     }
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def disableTwoFactor(username: String) = Secure(_.DisableTwoFactor) { implicit ctx => me =>
     modApi.disableTwoFactor(me.id, username) >> User.modZoneOrRedirect(username, me)
@@ -99,23 +99,23 @@ object Mod extends LidraughtsController {
         Env.current.closeAccount(user.id, self = false) map some
       }
     }
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def reopenAccount(username: String) = OAuthMod(_.ReopenAccount) { _ => me =>
     modApi.reopenAccount(me.id, username) map some
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def reportban(username: String, v: Boolean) = OAuthMod(_.ReportBan) { _ => me =>
     withSuspect(username) { sus =>
       modApi.setReportban(AsMod(me), sus, v) map some
     }
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def rankban(username: String, v: Boolean) = OAuthMod(_.RemoveRanking) { _ => me =>
     withSuspect(username) { sus =>
       modApi.setRankban(AsMod(me), sus, v) map some
     }
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def impersonate(username: String) = Auth { implicit ctx => me =>
     if (username == "-" && lidraughts.mod.Impersonate.isImpersonated(me)) fuccess {
@@ -157,7 +157,7 @@ object Mod extends LidraughtsController {
     withSuspect(username) { sus =>
       Env.slack.api.userMod(user = sus.user, mod = me) map some
     }
-  }(oauthModRedirect(username))
+  }(actionResult(username))
 
   def log = Secure(_.ModLog) { implicit ctx => me =>
     modLogApi.recent map { html.mod.log(_) }
@@ -209,7 +209,7 @@ object Mod extends LidraughtsController {
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
     assessApi.refreshAssessByUsername(username) >>
       //Env.irwin.api.requests.fromMod(SuspectId normalize username, me) >>
-      User.modZoneOrRedirect(username, me)
+      User.renderModZoneActions(username)
   }
 
   def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>
@@ -341,6 +341,7 @@ object Mod extends LidraughtsController {
     }
   )
 
-  private def oauthModRedirect(username: String)(ctx: Context)(me: UserModel)(res: Any) =
-    User.modZoneOrRedirect(username, me)(ctx)
+  private def actionResult(username: String)(ctx: Context)(me: UserModel)(res: Any) =
+    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
+    else User.renderModZoneActions(username)(ctx)
 }

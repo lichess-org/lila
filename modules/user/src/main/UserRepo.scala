@@ -330,12 +330,17 @@ object UserRepo {
 
   def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)
 
-  def emails(id: ID): Fu[User.Emails] =
-    coll.find($id(id), $doc(F.email -> true, F.prevEmail -> true)).uno[Bdoc].map { doc =>
-      User.Emails(
-        current = doc.flatMap(_.getAs[EmailAddress](F.email)),
-        previous = doc.flatMap(_.getAs[EmailAddress](F.prevEmail))
-      )
+  def withEmails(name: String): Fu[Option[User.WithEmails]] =
+    coll.find($id(normalize(name))).uno[Bdoc].map {
+      _ ?? { doc =>
+        User.WithEmails(
+          userBSONHandler read doc,
+          User.Emails(
+            current = doc.getAs[EmailAddress](F.email),
+            previous = doc.getAs[EmailAddress](F.prevEmail)
+          )
+        ).some
+      }
     }
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
@@ -425,11 +430,15 @@ object UserRepo {
 
   def erase(user: User): Funit = coll.update(
     $id(user.id),
-    $unset(F.profile) ++ $set("erasedAt" -> DateTime.now)
+    $unset(F.profile) ++ $set(
+      "enabled" -> false,
+      "erasedAt" -> DateTime.now
+    )
   ).void
 
-  def isErased(user: User): Fu[User.Erased] =
-    coll.exists($id(user.id) ++ $doc("erasedAt" $exists true)) map User.Erased.apply
+  def isErased(user: User): Fu[User.Erased] = user.disabled ?? {
+    coll.exists($id(user.id) ++ $doc("erasedAt" $exists true))
+  } map User.Erased.apply
 
   private def newUser(
     username: String,

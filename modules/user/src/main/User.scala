@@ -160,6 +160,7 @@ object User {
   case class Active(user: User)
 
   case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+  case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
     override def toString = "ClearPassword(****)"

@@ -1,6 +1,6 @@
 @(u: User, spy: lidraughts.security.UserSpy)(implicit ctx: Context)
 
-<div class="listings clearfix">
+<div class="identification">
   <div class="spy_ips">
     <strong>@spy.ips.size IP addresses</strong> <ul>@spy.ipsByLocations.map {
       case (location, ips) => {

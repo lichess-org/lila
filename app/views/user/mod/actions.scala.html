@@ -1,6 +1,6 @@
 @(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context)
 
-<div class="actions clearfix">
+<div class="actions">
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" data-hint="Start an inquiry" class="hint--bottom">
     <button class="button inquiry" type="submit"><i></i></button>
@@ -37,7 +37,7 @@
   }
   }
   @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left xhr">
+  <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" data-hint="Bans all IPs under this account from logging into this site." class="hint--bottom-left xhr">
     <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban" />
   </form>
   }
@@ -81,8 +81,6 @@
     }
   </div>
   @if(isGranted(_.SetTitle)) {
-  <br />
-  <br />
   <form class="fmjd_title" method="post" action="@routes.Mod.setTitle(u.username)">
     @base.form.select(lidraughts.user.DataForm.title.fill(u.title)("title"), lidraughts.user.User.titles, "No title".some)
   </form>

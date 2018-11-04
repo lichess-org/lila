@@ -1,8 +1,6 @@
 @(u: User, pref: lidraughts.pref.Pref)(implicit ctx: Context)
 
-@import lidraughts.pref.Pref
-
 <div class="preferences">
   <strong class="text inline" data-icon="%">Notable preferences:</strong>
-  @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
+  @if(pref.keyboardMove != lidraughts.pref.Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
 </div>
