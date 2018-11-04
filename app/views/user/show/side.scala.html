@@ -1,4 +1,4 @@
-@(u: User, rankMap: lidraughts.rating.UserRankMap, active: Option[lidraughts.rating.PerfType])(implicit ctx: Context)
+@(u: User, rankMap: Option[lidraughts.rating.UserRankMap], active: Option[lidraughts.rating.PerfType])(implicit ctx: Context)
 
 @import lidraughts.rating.PerfType
 
@@ -17,11 +17,15 @@
     <span>@if(perfType.key == "puzzle" || perfType.key == "puzzlefrisian") {@trans.nbPuzzles(perf.nb, perf.nb.localize)} else {@trans.nbGames(perf.nb, perf.nb.localize)}</span>
     @showProgress(perf.progress, withTitle = false)
   </span>
+  @rankMap.map { ranks =>
+  @ranks.get(perfType.key).map { rank =>
   <span class="rank" title="@trans.rankIsUpdatedEveryXMinutes(15)">
-    @rankMap.get(perfType.key).map { rank =>
     @trans.rankX(rank.localize)
-    }
   </span>
+  }
+  }.getOrElse {
+  <span class="rank shy">Rank unavailable, try again soon</span>
+  }
   @if(lidraughts.rating.PerfType.isGame(perfType)) {
   <i data-icon="G"></i>
   }
@@ -29,7 +33,7 @@
 }
 
 @showNonEmptyPerf(perf: lidraughts.rating.Perf, perfType: PerfType) = {
-  @if(perf.nonEmpty) {@showPerf(perf, perfType)}
+@if(perf.nonEmpty) {@showPerf(perf, perfType)}
 }
 
 <div class="side sub_ratings">
