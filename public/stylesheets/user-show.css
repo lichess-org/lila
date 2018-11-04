@@ -238,6 +238,11 @@ div.sub_ratings > a:hover > i {
 div.sub_ratings > a.active > i {
   display: none;
 }
+div.sub_ratings > a .shy {
+  font-size: 0.8em;
+  opacity: 0.6;
+  line-height: 1em;
+}
 div.sub_ratings h3 {
   font-weight: 100;
   font-size: 1em;
