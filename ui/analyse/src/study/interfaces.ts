@@ -2,12 +2,14 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
+import { StudyChaptersCtrl } from './studyChapters';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
+import { MultiBoardCtrl } from './multiBoard';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -15,9 +17,10 @@ export interface StudyCtrl {
   socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
   relay?: RelayCtrl;
+  multiBoard: MultiBoardCtrl;
   form: any;
   members: any;
-  chapters: any;
+  chapters: StudyChaptersCtrl;
   notif: NotifCtrl;
   commentForm: any;
   glyphForm: GlyphCtrl;

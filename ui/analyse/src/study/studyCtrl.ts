@@ -19,6 +19,7 @@ import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
+import { MultiBoardCtrl } from './multiBoard';
 
 const li = window.lidraughts;
 
@@ -85,6 +86,8 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
   function isChapterOwner() {
     return ctrl.opts.userId === data.chapter.ownerId;
   };
+
+  const multiBoard = new MultiBoardCtrl(chapters.list);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
@@ -464,6 +467,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     desc,
     vm,
     relay,
+    multiBoard,
     isUpdatedRecently() {
       return Date.now() - vm.updatedAt < 300 * 1000;
     },

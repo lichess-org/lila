@@ -7,7 +7,19 @@ import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray } from './interfaces';
 
-export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl) {
+export interface StudyChaptersCtrl {
+  newForm: any;
+  editForm: any;
+  list: Prop<StudyChapterMeta[]>;
+  get(id: string): StudyChapterMeta | undefined;
+  size(): number;
+  sort(ids: string[]): void;
+  firstChapterId(): string;
+  toggleNewForm(): void;
+  localPaths: LocalPaths;
+}
+
+export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl): StudyChaptersCtrl {
 
   const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
@@ -21,9 +33,7 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
     editForm,
     list,
     get(id) {
-      return list().find(function(c) {
-        return c.id === id;
-      });
+      return list().find(c => c.id === id);
     },
     size() {
       return list().length;
@@ -134,16 +144,18 @@ export function view(ctrl: StudyCtrl): VNode {
       attrs: { 'data-id': chapter.id },
       class: { active, editing, loading }
     }, [
-      h('span.status', loading ? h('span.ddloader', i + 1) : i + 1),
+      h('span.status', loading ? h('span.ddloader') : ['' + (i + 1)]),
       h('h3', chapter.name),
       configButton
     ]);
-  }).concat([
-    ctrl.members.canContribute() ? h('div.elem.chapter.add', {
-      hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
-    }, [
-      h('span.status', iconTag('O')),
-      h('h3.add_text', 'Add a new chapter')
-    ]) : null
-  ]));
+  }).concat(
+    ctrl.members.canContribute() ? [
+      h('div.elem.chapter.add', {
+        hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
+      }, [
+        h('span.status', iconTag('O')),
+        h('h3.add_text', 'Add a new chapter')
+      ])
+    ] : []
+  ));
 }
