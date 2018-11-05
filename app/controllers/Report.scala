@@ -26,7 +26,7 @@ object Report extends LidraughtsController {
   }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(20, Room(room)) zip
+    api.openAndRecentWithFilter(12, Room(room)) zip
       api.countOpenByRooms zip
       Env.streamer.api.approval.countRequests flatMap {
         case reports ~ counts ~ streamers =>
