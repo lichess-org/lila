@@ -49,8 +49,8 @@ export default function(opts: CevalOpts): CevalCtrl {
   }, {
     minDepth,
     variant: opts.variant.key,
-    threads: pnaclSupported && threads,
-    hashSize: pnaclSupported && hashSize
+    threads: (pnaclSupported || wasmThreadsSupported) && threads,
+    hashSize: (pnaclSupported && !wasmThreadsSupported) && hashSize
   });
 
   // adjusts maxDepth based on nodes per second
