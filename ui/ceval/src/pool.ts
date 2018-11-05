@@ -120,6 +120,28 @@ class PNaClWorker extends AbstractWorker {
   }
 }
 
+class ThreadedWasmWorker extends AbstractWorker {
+  private module?: any;
+
+  boot(): Promise<Protocol> {
+    return window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
+      this.module = window['Module'];
+      const protocol = new Protocol(this.send.bind(this), this.workerOpts);
+      this.module.addMessageListener(protocol.received.bind(protocol));
+      return protocol;
+    });
+  }
+
+  destroy() {
+    if (this.module) this.module.postMessage('quit');
+    this.module = undefined;
+  }
+
+  send(cmd: string) {
+    if (this.module) this.module.postMessage(cmd);
+  }
+}
+
 export default class Pool {
   private workers: AbstractWorker[] = [];
   private token = 0;
@@ -150,7 +172,9 @@ export default class Pool {
   warmup() {
     if (this.workers.length) return;
 
-    if (this.poolOpts.pnacl)
+    if (this.poolOpts.wasmThreaded)
+      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmThreaded, this.poolOpts, this.protocolOpts));
+    else if (this.poolOpts.pnacl)
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts));
     else
       for (var i = 1; i <= 2; i++)

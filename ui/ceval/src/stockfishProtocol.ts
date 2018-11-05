@@ -115,8 +115,8 @@ export default class Protocol {
     this.curEval = null;
     this.stopped = null;
     this.expectedPvs = 1;
-    if (this.opts.threads) this.send('setoption name Threads value ' + this.opts.threads());
-    if (this.opts.hashSize) this.send('setoption name Hash value ' + this.opts.hashSize());
+    //if (this.opts.threads) this.send('setoption name Threads value ' + this.opts.threads());
+    //if (this.opts.hashSize) this.send('setoption name Hash value ' + this.opts.hashSize());
     this.send('setoption name MultiPV value ' + this.work.multiPv);
     this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
     if (this.work.maxDepth >= 99) this.send('go depth 99');

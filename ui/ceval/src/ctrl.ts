@@ -23,6 +23,7 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   const pnaclSupported: boolean = !opts.failsafe && 'application/x-pnacl' in navigator.mimeTypes;
   const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+  const wasmThreadsSupported = wasmSupported && new WebAssembly!.Memory({shared: true, initial: 8, maximum: 8}).buffer instanceof SharedArrayBuffer;
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
@@ -43,6 +44,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
     pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),
     wasm: wasmSupported && li.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
+    wasmThreaded: wasmThreadsSupported && 'vendor/stockfish.wasm/stockfish.js',
     onCrash: opts.onCrash
   }, {
     minDepth,
@@ -181,6 +183,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   return {
     pnaclSupported,
     wasmSupported,
+    wasmThreadsSupported,
     start,
     stop,
     allowed,

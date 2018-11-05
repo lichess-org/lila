@@ -22,7 +22,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
   <head>
     <meta charset="utf-8">
     @if(cspEnabled()) {
-    <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)">
+    <!-- <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)"> -->
     }
     @if(isProd) {
     <title>@fullTitle.getOrElse{@title • lichess.org}</title>
