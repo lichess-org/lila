@@ -253,9 +253,8 @@ object User extends LidraughtsController {
   }
 
   protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
-    else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
-    else renderModZone(username, me).logTime(s"$username renderModZone")
+    if (HTTPRequest isEventSource ctx.req) renderModZone(username, me)
+    else fuccess(Mod.redirect(username))
 
   private def futureToEnumerator[A](fu: Fu[Option[A]]): Enumerator[A] = Enumerator flatten fu.map {
     _.fold(Enumerator.empty[A]) { Enumerator(_) }
@@ -292,14 +291,17 @@ object User extends LidraughtsController {
             Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
           }
         }
+        import play.api.libs.EventSource
+        implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
         Ok.chunked {
-          Enumerator(html.user.mod.menu(user)) interleave
+          (Enumerator(html.user.mod.menu(user)) interleave
             futureToEnumerator(parts.logTimeIfGt(s"$username parts", 100 millis)) interleave
             futureToEnumerator(actions.logTimeIfGt(s"$username actions", 100 millis)) interleave
             futureToEnumerator(others.logTimeIfGt(s"$username others", 100 millis)) interleave
             futureToEnumerator(identification.logTimeIfGt(s"$username identification", 100 millis)) interleave
-            futureToEnumerator(assess.logTimeIfGt(s"$username assess", 100 millis))
-        }.withHeaders(CONTENT_TYPE -> HTML)
+            futureToEnumerator(assess.logTimeIfGt(s"$username assess", 100 millis))) &>
+            EventSource()
+        }.as("text/event-stream")
     }
   }
 

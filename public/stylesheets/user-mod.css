@@ -96,9 +96,6 @@ body.dark .mod_zone .slist {
 .mod_zone form {
   display: inline;
 }
-#mz_identification {
-  border: 1px solid #ccc;
-}
 #mz_identification > div {
   max-height: 20em;
   overflow: auto;

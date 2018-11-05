@@ -1,31 +1,19 @@
 var tablesort = require('tablesort');
 
-function validHTML(html) {
-  html = html
-    .replace(/<[^>]*\/\s?>/g, '')       // Remove all self closing tags
-    .replace(/<(br|hr|img).*?>/g, '');  // Remove all <br>, <hr>, and <img> tags
-  var openingTags = html.match(/<[^\/].*?>/g) || [],        // Get remaining opening tags
-    closingTags = html.match(/<\/.+?>/g) || [];           // Get remaining closing tags
-
-  return openingTags.length === closingTags.length;
-}
-
 function streamLoad(opts) {
-  var xhr = new XMLHttpRequest(), bytes = 0;
-  xhr.open('GET', opts.url);
-  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-  xhr.onreadystatechange = function() {
-    if(xhr.readyState > 2) {
-      var newHtml = xhr.responseText.substr(bytes);
-      if (!newHtml) return;
-      if (!bytes) opts.node.innerHTML = '';
-      if (validHTML(newHtml)) opts.node.innerHTML += newHtml;
-      else opts.node.innerHTML = xhr.responseText;
-      bytes = xhr.responseText.length;
-      opts.callback();
+  var source = new EventSource(opts.url), first = true;
+  source.addEventListener('message', function(e) {
+    var newHtml = e.data;
+    if (!newHtml) return;
+    if (first) {
+      first = false;
+      opts.node.innerHTML = newHtml;
+    } else {
+      opts.node.innerHTML += newHtml;
     }
-  };
-  xhr.send();
+    opts.callback();
+  });
+  source.onerror = function() { source.close(); };
 }
 
 var $toggle = $('div.user_show .mod_zone_toggle');
@@ -53,8 +41,7 @@ function userMod($zone) {
 
   lidraughts.pubsub.emit('content_loaded')();
 
-  var $menu = $('#mz_menu');
-  $menu.find('.mz_plan').toggleClass('disabled', !$('#mz_plan').length);
+  $('#mz_menu .mz_plan').toggleClass('disabled', !$('#mz_plan').length);
 
   $zone.find('form.xhr').submit(function() {
     $(this).find('input').attr('disabled', true);
@@ -62,7 +49,7 @@ function userMod($zone) {
       url: $(this).attr('action'),
       method: $(this).attr('method'),
       success: function(html) {
-        $zone.find('.actions').replaceWith(html);
+        $('#mz_actions').replaceWith(html);
         userMod($zone);
       }
     })
@@ -73,7 +60,7 @@ function userMod($zone) {
     $(this).parent('form').submit();
   });
 
-  var $modLog = $zone.find('.mod_log ul').children();
+  var $modLog = $zone.find('#mz_mod_log ul').children();
 
   if ($modLog.length > 20) {
     var list = $modLog.slice(20);
@@ -124,7 +111,7 @@ function userMod($zone) {
     });
   }());
 
-  $zone.find('table.others').each(function() {
+  $zone.find('#mz_others table').each(function() {
     tablesort(this);
   });
 }
