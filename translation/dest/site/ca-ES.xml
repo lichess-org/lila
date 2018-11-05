@@ -278,6 +278,10 @@
     <item quantity="one">≥ %1$s %2$s partida puntuada</item>
     <item quantity="other">≥ %1$s %2$s partides puntuades</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Necessites jugar %1$s partida més de %2$s</item>
+    <item quantity="other">Necessites jugar %1$s partides més de %2$s</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Heu de jugar %s partida puntuada més</item>
     <item quantity="other">Heu de jugar %s partides puntuades més</item>
@@ -286,6 +290,8 @@
   <string name="yourPerfRatingIsTooHigh">La vostra puntuació de %1$s (%2$s) és massa alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La vostra puntuació setmanal de %1$s (%2$s) és massa alta</string>
   <string name="yourPerfRatingIsTooLow">La vostra qualificació de %1$s (%2$s) és massa baixa</string>
+  <string name="ratedMoreThanInPerf">Puntuació ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Puntuació ≤ %1$s en %2$s</string>
   <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
   <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
@@ -321,6 +327,7 @@
   <string name="fromPosition">Des de la posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="importGame">Importa una partida</string>
+  <string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
@@ -335,6 +342,7 @@
   <string name="onlineFriends">Amics connectats</string>
   <string name="noFriendsOnline">No hi ha amics connectats</string>
   <string name="findFriends">Cerca amics</string>
+  <string name="favoriteOpponents">Adversaris favorits</string>
   <string name="follow">Segueix</string>
   <string name="following">Seguint</string>
   <string name="unfollow">Deixa de seguir</string>
@@ -368,6 +376,7 @@
   <string name="winner">Guanyador</string>
   <string name="standing">Resultats</string>
   <string name="createANewTournament">Crea un nou torneig</string>
+  <string name="tournamentCalendar">Calendari de tornejos</string>
   <string name="advancedSettings">Configuració avançada</string>
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="join">Inscriu-t\'hi</string>
