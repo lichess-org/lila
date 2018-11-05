@@ -86,7 +86,7 @@ trait AssetHelper { self: I18nHelper =>
       frameSrc = List("'self'", assets, "https://www.youtube.com"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assets),
+      scriptSrc = List("'self'", "'unsafe-eval'", assets),
       baseUri = List("'none'")
     )
   }
