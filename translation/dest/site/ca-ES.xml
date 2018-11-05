@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar avaluació local</string>
   <string name="promoteVariation">Promoure variant</string>
+  <string name="makeMainLine">Convertir en línia principal</string>
+  <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -195,6 +197,7 @@
   <string name="accept">Accepta</string>
   <string name="decline">Rebutja</string>
   <string name="playingRightNow">Jugant-se ara</string>
+  <string name="eventInProgress">Jugant-se ara</string>
   <string name="finished">Acabat</string>
   <string name="abortGame">Avorta la partida</string>
   <string name="gameAborted">Partida avortada</string>
@@ -204,9 +207,12 @@
   <string name="casual">Amistós</string>
   <string name="rated">Puntuat</string>
   <string name="casualTournament">Amistós</string>
+  <string name="ratedTournament">Puntuat</string>
   <string name="thisGameIsRated">Aquesta partida és puntuada</string>
   <string name="rematch">Revenja</string>
   <string name="rematchOfferSent">La petició de revenja s\'ha enviat</string>
+  <string name="rematchOfferSentWhite">Blanques ofereixen jugar de nou</string>
+  <string name="rematchOfferSentBlack">Negres ofereixen jugar de nou</string>
   <string name="rematchOfferAccepted">La petició de revenja s\'ha acceptat</string>
   <string name="rematchOfferCanceled">La petició de revenja s\'ha cancel·lat</string>
   <string name="rematchOfferDeclined">La petició de revenja s\'ha rebutjat</string>
@@ -268,6 +274,10 @@
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s partida puntuada</item>
+    <item quantity="other">≥ %1$s %2$s partides puntuades</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Heu de jugar %s partida puntuada més</item>
     <item quantity="other">Heu de jugar %s partides puntuades més</item>
