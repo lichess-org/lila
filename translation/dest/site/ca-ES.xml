@@ -56,6 +56,7 @@
   <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar avaluació local</string>
+  <string name="promoteVariation">Promoure variant</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
