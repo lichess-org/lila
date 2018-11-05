@@ -5,7 +5,7 @@ const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
   + /score (cp|mate) ([-\d]+) /.source
   + /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source
-  + /(?:hashfull \d+ )?tbhits \d+ time (\S+) /.source
+  + /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source
   + /pv (.+)/.source);
 
 export default class Protocol {
