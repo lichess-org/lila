@@ -6,8 +6,8 @@
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
 @embedJsUnsafe(s"lidraughts.ratingHistoryChart($ratingChart);")
-@if(isGranted(_.UserSpy)) { @jsAt("compiled/user-mod.js") }
 }
+@if(isGranted(_.UserSpy)) { @jsAt("compiled/user-mod.js") }
 }
 
 @evenMoreCss = {

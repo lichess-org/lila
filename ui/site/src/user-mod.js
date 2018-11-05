@@ -26,7 +26,7 @@ function loadZone() {
     url: $toggle.attr('href'),
     callback: lidraughts.fp.debounce(function() {
       userMod($zone);
-    }, 300, true)
+    }, 300)
   });
 }
 
