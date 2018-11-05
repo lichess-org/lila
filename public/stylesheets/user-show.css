@@ -180,7 +180,7 @@
 .user_show .relation_actions {
   display: inline;
 }
-.user_show div.meat {
+#us_profile {
   height: 325px;
   position: relative;
 }
@@ -412,12 +412,6 @@ div.sub_ratings h3 {
   padding-left: 30px;
   width: 775px;
   border: 1px solid #ccc;
-}
-.mod_zone {
-  display: none;
-}
-.mod_zone .spinner {
-  margin: 100px auto;
 }
 div.crosstable {
   margin: 25px 10px 15px 10px;

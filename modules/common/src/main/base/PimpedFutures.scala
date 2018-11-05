@@ -138,6 +138,9 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     )
   }
 
+  def delay(duration: FiniteDuration)(implicit system: akka.actor.ActorSystem) =
+    lidraughts.common.Future.delay(duration)(fua)
+
   def chronometer = lidraughts.common.Chronometer(fua)
 
   def mon(path: lidraughts.mon.RecPath) = chronometer.mon(path).result

@@ -264,7 +264,7 @@ object User extends LidraughtsController {
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] = {
     UserRepo withEmails username flatten s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
-        val show =
+        val parts =
           Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 100 millis) zip
             Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 100 millis) zip
             Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 100 millis) zip
@@ -293,7 +293,8 @@ object User extends LidraughtsController {
           }
         }
         Ok.chunked {
-          futureToEnumerator(show.logTimeIfGt(s"$username show", 100 millis)) interleave
+          Enumerator(html.user.mod.menu(user)) interleave
+            futureToEnumerator(parts.logTimeIfGt(s"$username parts", 100 millis)) interleave
             futureToEnumerator(actions.logTimeIfGt(s"$username actions", 100 millis)) interleave
             futureToEnumerator(others.logTimeIfGt(s"$username others", 100 millis)) interleave
             futureToEnumerator(identification.logTimeIfGt(s"$username identification", 100 millis)) interleave

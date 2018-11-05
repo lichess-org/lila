@@ -1,7 +1,7 @@
 @(u: User, charges: List[lidraughts.plan.Charge])(implicit ctx: Context)
 
 @charges.headOption.map { firstCharge =>
-<div class="plan">
+<div id="mz_plan">
   <strong class="text" data-icon="@patronIconChar">
     Patron payments
     @if(isGranted(_.PayPal)) {
@@ -15,6 +15,6 @@
     <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date)</li>
     }
   </ul>
-  <br />
+  <br>
 </div>
 }

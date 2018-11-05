@@ -2,7 +2,7 @@
 
 @import lidraughts.evaluation.Display
 
-<div class="assessments evaluation">
+<div id="mz_assessments">
   @pag.pag.sfAvgBlurs.map { blursYes =>
   <p class="text" data-icon="j">ACPL in games with blurs is <strong>@blursYes</strong>
     @pag.pag.sfAvgNoBlurs.map { blursNo =>
@@ -31,11 +31,11 @@
         <th>Game</th>
         <th>
           Centi-Piece
-          <br />(Avg ± SD)
+          <br>(Avg ± SD)
         </th>
         <th>
           Move Times
-          <br />(Avg ± SD)
+          <br>(Avg ± SD)
         </th>
         <th><span data-hint="The frequency of which the user leaves the game page." class="hint--top-left">Blurs</span></th>
         <th><span data-hint="Bot detection using grid click analysis." class="hint--top-left">Bot</span></th>
