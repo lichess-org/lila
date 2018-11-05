@@ -1,6 +1,7 @@
 var source = require('vinyl-source-stream');
 var gulp = require('gulp');
-var gutil = require('gulp-util');
+var colors = require('ansi-colors');
+var logger = require('fancy-log');
 var watchify = require('watchify');
 var browserify = require('browserify');
 var uglify = require('gulp-uglify');
@@ -9,7 +10,7 @@ var streamify = require('gulp-streamify');
 var sources = ['./src/main.js'];
 var destination = '../../public/compiled/';
 var onError = function(error) {
-  gutil.log(gutil.colors.red(error.message));
+  logger(colors.red(error.message));
 };
 var standalone = 'LidraughtsSimul';
 
@@ -37,7 +38,7 @@ gulp.task('watch', function() {
 
   var bundleStream = watchify(browserify(sources, opts))
     .on('update', rebundle)
-    .on('log', gutil.log);
+    .on('log', logger.log);
 
   function rebundle() {
     return bundleStream.bundle()
