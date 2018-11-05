@@ -1,6 +1,6 @@
 @(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context)
 
-<div class="actions">
+<div id="mz_actions">
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" data-hint="Start an inquiry" class="hint--bottom">
     <button class="button inquiry" type="submit"><i></i></button>
