@@ -70,7 +70,7 @@
   margin: 5px 0 10px 0;
 }
 .mod_zone > * {
-  padding: 10px 0;
+  padding: 20px 0 0 0;
 }
 .mod_zone .neural strong {
   display: inline;
@@ -100,29 +100,30 @@ body.dark .mod_zone .slist {
   max-height: 20em;
   overflow: auto;
 }
-.mod_zone .spy_ips {
+#mz_identification .spy_ips {
   float: left;
   margin-left: 1%;
   width: 31%;
 }
-.mod_zone .spy_ips > ul > li {
+#mz_identification .spy_ips > ul > li {
   list-style: inside disc;
 }
-.mod_zone .spy_ips ul p {
+#mz_identification .spy_ips ul p {
   font-weight: bold;
   display: inline;
 }
-.mod_zone .spy_ips li li {
+#mz_identification .spy_ips li li {
   margin-left: 1em;
   font-family: monospace;
 }
-.mod_zone .spy_uas {
+#mz_identification .spy_uas {
   margin-left: 34%;
 }
-.mod_zone .spy_fps {
+#mz_identification .spy_fps {
   margin-left: 34%;
+  max-height: 8em;
 }
-.mod_zone .spy_fps li {
+#mz_identification .spy_fps li {
   font-family: monospace;
 }
 #mz_identification .blocked {
