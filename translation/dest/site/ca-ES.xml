@@ -377,8 +377,11 @@
   <string name="standing">Resultats</string>
   <string name="createANewTournament">Crea un nou torneig</string>
   <string name="tournamentCalendar">Calendari de tornejos</string>
+  <string name="conditionOfEntry">Requisit d\'entrada:</string>
   <string name="advancedSettings">Configuració avançada</string>
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
+  <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
+  <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
