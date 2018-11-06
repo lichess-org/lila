@@ -50,7 +50,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot(): Promise<Protocol> {
-    this.worker = new Worker(this.url);
+    this.worker = new Worker(window.lichess.assetUrl(this.url, {sameDomain: true}));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
@@ -96,7 +96,7 @@ class PNaClWorker extends AbstractWorker {
         this.worker = document.createElement('object');
         this.worker.width = '0';
         this.worker.height = '0';
-        this.worker.data = this.url;
+        this.worker.data = window.lichess.assetUrl(this.url);
         this.worker.type = 'application/x-pnacl';
         this.listener.appendChild(this.worker);
       } catch (err) {

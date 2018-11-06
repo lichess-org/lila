@@ -43,11 +43,10 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const sfPath = 'vendor/stockfish/stockfish';
   const pool = new Pool({
-    asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
-    pnacl: pnaclSupported && li.assetUrl('vendor/stockfish.pexe/stockfish.nmf'),
-    wasm: wasmSupported && li.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
+    asmjs: 'vendor/stockfish.js/stockfish.js',
+    pnacl: pnaclSupported && 'vendor/stockfish.pexe/stockfish.nmf',
+    wasm: wasmSupported && 'vendor/stockfish.js/stockfish.wasm.js',
     wasmThreaded: wasmThreadsSupported && (officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js'),
     onCrash: opts.onCrash
   }, {

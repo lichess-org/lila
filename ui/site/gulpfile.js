@@ -6,8 +6,6 @@ const tsify = require('tsify');
 const uglify = require('gulp-uglify');
 const streamify = require('gulp-streamify');
 const concat = require('gulp-concat');
-const request = require('request');
-const download = require('gulp-download-stream');
 const exec = require('child_process').exec;
 const fs = require('fs');
 
@@ -33,30 +31,6 @@ gulp.task('ab', function() {
   }
 });
 
-function downloadGithubRelease(repo, dest, cb) {
-  const headers = {'User-Agent': 'lila/gulpfile.js'};
-  if (process.env.GITHUB_API_TOKEN) {
-    headers['Authorization'] = 'token ' + process.env.GITHUB_API_TOKEN;
-  }
-
-  request({
-    url: 'https://api.github.com/repos/' + repo + '/releases/latest',
-    headers: headers
-  }, function(err, res, body) {
-    if (err) throw err;
-    const release = JSON.parse(body);
-
-    download(release.assets.filter(function(asset) {
-      const path = dest + asset.name;
-      if (!fs.existsSync(path)) return true;
-      const stat = fs.statSync(path);
-      return stat.mtime < new Date(asset.updated_at) || stat.size != asset.size;
-    }).map(function (asset) {
-      return asset.browser_download_url;
-    })).pipe(gulp.dest(dest)).on('end', cb);
-  });
-}
-
 gulp.task('stockfish.pexe', function() {
   gulp.src([
     require.resolve('stockfish.pexe/stockfish.nmf'),
@@ -66,7 +40,11 @@ gulp.task('stockfish.pexe', function() {
 });
 
 gulp.task('stockfish.js', function(cb) {
-  downloadGithubRelease('niklasf/stockfish.js', '../../public/vendor/stockfish/', cb);
+  gulp.src([
+    require.resolve('stockfish.js/stockfish.wasm.js'),
+    require.resolve('stockfish.js/stockfish.wasm'),
+    require.resolve('stockfish.js/stockfish.js')
+  ]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
 });
 
 gulp.task('stockfish.wasm', function() {
@@ -160,12 +138,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm', 'stockfish-mv.wasm', 'stockfish.pexe'];
-if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
-  if (!process.env.NO_SF) { // to skip SF download
-    tasks.push('stockfish.js');
-  }
-}
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm', 'stockfish-mv.wasm', 'stockfish.pexe', 'stockfish.js'];
 
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
