@@ -65,6 +65,15 @@ gulp.task('stockfish.js', function(cb) {
   downloadGithubRelease('niklasf/stockfish.js', '../../public/vendor/stockfish/', cb);
 });
 
+gulp.task('stockfish.wasm', function() {
+  gulp.src([
+    require.resolve('stockfish.wasm/stockfish.js'),
+    require.resolve('stockfish.wasm/stockfish.js.mem'),
+    require.resolve('stockfish.wasm/stockfish.wasm'),
+    require.resolve('stockfish.wasm/pthread-main.js')
+  ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
+});
+
 gulp.task('prod-source', function() {
   return browserify('src/index.ts', {
     standalone: standalone
@@ -138,7 +147,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod'];
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
     tasks.push('stockfish.pexe');

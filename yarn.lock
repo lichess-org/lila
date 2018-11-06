@@ -4425,6 +4425,11 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
+stockfish.wasm@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.2.0.tgz#f92ee6a35c0ca3dacbd704adfec2df5101116503"
+  integrity sha512-aj+eomHWnNtn7s6tfrIfdJm42ibCkpBX/q5VBClzlF467FV4S7WZPwX7nvlOBiIlkN+45y5cOwMFhkccS608Xw==
+
 stream-browserify@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.1.tgz#66266ee5f9bdb9940a4e4514cafb43bb71e5c9db"

@@ -22,6 +22,7 @@
     "vinyl-source-stream": "^1"
   },
   "dependencies": {
+    "stockfish.wasm": "^0.2.0",
     "tablesort": "^5.0.0"
   }
 }
