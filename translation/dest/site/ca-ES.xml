@@ -56,6 +56,9 @@
   <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar avaluació local</string>
+  <string name="promoteVariation">Promoure variant</string>
+  <string name="makeMainLine">Convertir en línia principal</string>
+  <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -194,6 +197,7 @@
   <string name="accept">Accepta</string>
   <string name="decline">Rebutja</string>
   <string name="playingRightNow">Jugant-se ara</string>
+  <string name="eventInProgress">Jugant-se ara</string>
   <string name="finished">Acabat</string>
   <string name="abortGame">Avorta la partida</string>
   <string name="gameAborted">Partida avortada</string>
@@ -203,9 +207,12 @@
   <string name="casual">Amistós</string>
   <string name="rated">Puntuat</string>
   <string name="casualTournament">Amistós</string>
+  <string name="ratedTournament">Puntuat</string>
   <string name="thisGameIsRated">Aquesta partida és puntuada</string>
   <string name="rematch">Revenja</string>
   <string name="rematchOfferSent">La petició de revenja s\'ha enviat</string>
+  <string name="rematchOfferSentWhite">Blanques ofereixen jugar de nou</string>
+  <string name="rematchOfferSentBlack">Negres ofereixen jugar de nou</string>
   <string name="rematchOfferAccepted">La petició de revenja s\'ha acceptat</string>
   <string name="rematchOfferCanceled">La petició de revenja s\'ha cancel·lat</string>
   <string name="rematchOfferDeclined">La petició de revenja s\'ha rebutjat</string>
@@ -267,6 +274,14 @@
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s partida puntuada</item>
+    <item quantity="other">≥ %1$s %2$s partides puntuades</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Necessites jugar %1$s partida més de %2$s</item>
+    <item quantity="other">Necessites jugar %1$s partides més de %2$s</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Heu de jugar %s partida puntuada més</item>
     <item quantity="other">Heu de jugar %s partides puntuades més</item>
@@ -275,6 +290,8 @@
   <string name="yourPerfRatingIsTooHigh">La vostra puntuació de %1$s (%2$s) és massa alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La vostra puntuació setmanal de %1$s (%2$s) és massa alta</string>
   <string name="yourPerfRatingIsTooLow">La vostra qualificació de %1$s (%2$s) és massa baixa</string>
+  <string name="ratedMoreThanInPerf">Puntuació ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Puntuació ≤ %1$s en %2$s</string>
   <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
   <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
@@ -310,6 +327,7 @@
   <string name="fromPosition">Des de la posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="importGame">Importa una partida</string>
+  <string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
@@ -324,6 +342,7 @@
   <string name="onlineFriends">Amics connectats</string>
   <string name="noFriendsOnline">No hi ha amics connectats</string>
   <string name="findFriends">Cerca amics</string>
+  <string name="favoriteOpponents">Adversaris favorits</string>
   <string name="follow">Segueix</string>
   <string name="following">Seguint</string>
   <string name="unfollow">Deixa de seguir</string>
@@ -357,8 +376,12 @@
   <string name="winner">Guanyador</string>
   <string name="standing">Resultats</string>
   <string name="createANewTournament">Crea un nou torneig</string>
+  <string name="tournamentCalendar">Calendari de tornejos</string>
+  <string name="conditionOfEntry">Requisit d\'entrada:</string>
   <string name="advancedSettings">Configuració avançada</string>
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
+  <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
+  <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
