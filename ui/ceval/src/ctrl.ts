@@ -1,6 +1,6 @@
 import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
 
-import Pool from './pool';
+import { Pool, makeWatchdog } from './pool';
 import { median } from './math';
 import { prop, storedProp, throttle } from 'common';
 import { povChances } from './winningChances';
@@ -25,9 +25,10 @@ export default function(opts: CevalOpts): CevalCtrl {
     return opts.storageKeyPrefix ? opts.storageKeyPrefix + '.' + k : k;
   };
 
-  const pnaclSupported: boolean = !opts.failsafe && 'application/x-pnacl' in navigator.mimeTypes;
-  const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
-  const wasmThreadsSupported = wasmSupported && typeof SharedArrayBuffer === 'function' && new WebAssembly!.Memory({shared: true, initial: 8, maximum: 8}).buffer instanceof SharedArrayBuffer;
+  const pnaclSupported = makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes;
+  const wasmSupported = makeWatchdog('wasm').good() && typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+  const wasmThreadsSupported = makeWatchdog('wasmx').good() && wasmSupported && typeof SharedArrayBuffer === 'function' && new WebAssembly!.Memory({shared: true, initial: 8, maximum: 8}).buffer instanceof SharedArrayBuffer;
+
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
@@ -48,7 +49,6 @@ export default function(opts: CevalOpts): CevalCtrl {
     pnacl: pnaclSupported && 'vendor/stockfish.pexe/stockfish.nmf',
     wasm: wasmSupported && 'vendor/stockfish.js/stockfish.wasm.js',
     wasmThreaded: wasmThreadsSupported && (officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js'),
-    onCrash: opts.onCrash
   }, {
     minDepth,
     variant: opts.variant.key,
@@ -227,7 +227,9 @@ export default function(opts: CevalOpts): CevalCtrl {
     engineName() {
       return pool.engineName();
     },
-    destroy() { pool.destroy() },
+    destroy() {
+      pool.destroy();
+    },
     redraw: opts.redraw
   };
 };

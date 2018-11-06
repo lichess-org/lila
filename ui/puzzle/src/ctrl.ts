@@ -246,7 +246,7 @@ export default function(opts, redraw: () => void): Controller {
     withGround(function(g) { g.playPremove(); });
   };
 
-  function instanciateCeval(failsafe: boolean = false) {
+  function instanciateCeval() {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
       redraw,
@@ -272,15 +272,6 @@ export default function(opts, redraw: () => void): Controller {
         });
       },
       setAutoShapes: setAutoShapes,
-      failsafe: failsafe,
-      onCrash: function(e) {
-        console.log('Local eval failed!', e);
-        if (ceval.pnaclSupported) {
-          console.log('Retrying in failsafe mode');
-          instanciateCeval(true);
-          startCeval();
-        }
-      }
     });
   };
 
