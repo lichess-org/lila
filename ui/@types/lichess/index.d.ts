@@ -10,7 +10,7 @@ interface Lichess {
   storage: LichessStorageHelper
   reload(): void;
   redirect(o: string | { url: string, cookie: Cookie }): void;
-  loadScript(url: string): any
+  loadScript(url: string, opts?: AssetUrlOpts): any
   keyboardMove: any
   slider(): any
   reloadOtherTabs(): void
@@ -139,9 +139,11 @@ interface Math {
 
 interface WebAssemblyStatic {
   validate(bufferSource: ArrayBuffer | Uint8Array): boolean
+  Memory: any
 }
 
 declare var WebAssembly: WebAssemblyStatic | undefined;
+declare var SharedArrayBuffer: any | undefined;
 
 declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse'
 

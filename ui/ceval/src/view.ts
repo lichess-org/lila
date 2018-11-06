@@ -77,7 +77,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h('span', version ? {
       attrs: { title: version }
     } : {}, window.lichess.engineName),
-    ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs'))
+    ctrl.wasmThreadsSupported ? h('span.native', 'wasmx') : (ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs')))
   ];
 }
 

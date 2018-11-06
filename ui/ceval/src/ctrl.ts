@@ -15,6 +15,10 @@ function sanIrreversible(variant: VariantKey, san: string): boolean {
   return variant === 'threeCheck' && san.indexOf('+') > 0;
 }
 
+function officialStockfish(variant: VariantKey): boolean {
+  return variant === 'standard' || variant === 'chess960' || variant === 'fromPosition';
+}
+
 export default function(opts: CevalOpts): CevalCtrl {
 
   const storageKey = function(k: string): string {
@@ -23,10 +27,11 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   const pnaclSupported: boolean = !opts.failsafe && 'application/x-pnacl' in navigator.mimeTypes;
   const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+  const wasmThreadsSupported = officialStockfish(opts.variant.key) && wasmSupported && typeof SharedArrayBuffer === 'function' && new WebAssembly!.Memory({shared: true, initial: 8, maximum: 8}).buffer instanceof SharedArrayBuffer;
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
-  const threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
+  const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 2), 8));
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
@@ -43,12 +48,13 @@ export default function(opts: CevalOpts): CevalCtrl {
     asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
     pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),
     wasm: wasmSupported && li.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
+    wasmThreaded: wasmThreadsSupported && 'vendor/stockfish.wasm/stockfish.js',
     onCrash: opts.onCrash
   }, {
     minDepth,
     variant: opts.variant.key,
-    threads: pnaclSupported && threads,
-    hashSize: pnaclSupported && hashSize
+    threads: (pnaclSupported || wasmThreadsSupported) && threads,
+    hashSize: (pnaclSupported && !wasmThreadsSupported) && hashSize
   });
 
   // adjusts maxDepth based on nodes per second
@@ -181,6 +187,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   return {
     pnaclSupported,
     wasmSupported,
+    wasmThreadsSupported,
     start,
     stop,
     allowed,

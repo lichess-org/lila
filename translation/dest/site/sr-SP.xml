@@ -490,7 +490,7 @@
   <string name="butYouCanKeepTrying">Али можете још покушавати.</string>
   <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
-  <string name="pleaseVotePuzzle">Помози да се lichess побољша гласајући , користећи стрелице горе/доле</string>
+  <string name="pleaseVotePuzzle">Помози да се личес побољша гласајући, користећи стрелице горе/доле:</string>
   <string name="thankYou">Хвала!</string>
   <string name="ratingX">Рејтинг %s</string>
   <plurals name="playedXTimes">
@@ -545,7 +545,7 @@
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Питања и Одговори</string>
   <string name="notes">Белешке</string>
-  <string name="typePrivateNotesHere">Упиши приватне забелешке овде</string>
+  <string name="typePrivateNotesHere">Упишите приватне забелешке овде</string>
   <string name="gameDisplay">Приказ игре</string>
   <string name="pieceAnimation">Анимација фигура</string>
   <string name="materialDifference">Прикажи поједене фигуре</string>
@@ -680,6 +680,7 @@
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
+  <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
   <string name="contact">Уговор</string>
   <string name="termsOfService">ТоS</string>
@@ -696,12 +697,12 @@
   <string name="aboutSimulImage">ОД 50 противника, Фишер је победио 47, ремизирао са 2, а изгубио од једног</string>
   <string name="aboutSimulRealLife">Идеја је преузета из стварног живота. Један играч игра против више играча тако што се креће од табле до табле у сваки пут повуче по потез.</string>
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. симултанка завршава када су и све партије завршене.</string>
-  <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогучено.</string>
+  <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
   <string name="create">Креирај</string>
   <string name="whenCreateSimul">Када креираш симултанку, играш против више играча истовремено.</string>
   <string name="simulVariantsHint">Ако изабереш неколико варијанти, сваки играч је у могућности да изабере коју ће играти.</string>
   <string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
-  <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да вам помогне савладати симултанку.</string>
+  <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>
   <string name="simulHostExtraTime">Додатно време домаћина</string>
   <string name="lichessTournaments">Личес турнири</string>
   <string name="tournamentFAQ">Најчешће постављена питања за арена турнире</string>
@@ -716,8 +717,8 @@
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Šahovski turnir koji objedinjuje različita vremenska ograničenja i varijante</string>
   <string name="tournamentHomeDescription">Igraj brzo-potezne šahovske turnire! Priključi se oficijalnom organizovanom turniru, ili kreiraj svoj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, i druge opcije su dostupne za neograničenu šahovsku zabavu.</string>
-  <string name="tournamentNotFound">Turnir nije pronađen</string>
-  <string name="tournamentDoesNotExist">Turnir ne postoji</string>
+  <string name="tournamentNotFound">Турнир није пронађен</string>
+  <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
   <string name="tournamentMayHaveBeenCanceled">Možda je otkazan, jer su igrači napustili turnir pre njegovog početka</string>
   <string name="returnToTournamentsHomepage">Vratite se na \"tournaments\" početnu stranu</string>
   <string name="weeklyPerfTypeRatingDistribution">Месечна %s дитрибуција рејтинга</string>
@@ -769,7 +770,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Svi dobijaju sve funkcije besplatno</string>
   <string name="zeroAdvertisement">Bez reklama</string>
   <string name="fullFeatured">Potpuno opremljen</string>
-  <string name="phoneAndTablet">Telefon ili Tablet</string>
+  <string name="phoneAndTablet">Телефон или таблет</string>
   <string name="bulletBlitzClassical">Bulit, Blic, Klasičan</string>
   <string name="correspondenceChess">Dopisni šah</string>
   <string name="onlineAndOfflinePlay">Igra na mreži i van mreže</string>
@@ -777,7 +778,7 @@
   <string name="viewTheSolution">Погледај решење</string>
   <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Доступно у %s језику!</item>
+    <item quantity="one">Доступно у %s језика!</item>
     <item quantity="few">Доступно у %s језика!</item>
     <item quantity="other">Доступно у %s језика!</item>
   </plurals>
