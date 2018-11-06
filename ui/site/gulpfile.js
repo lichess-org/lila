@@ -74,6 +74,15 @@ gulp.task('stockfish.wasm', function() {
   ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
 });
 
+gulp.task('stockfish-mv.wasm', function() {
+  gulp.src([
+    require.resolve('stockfish-mv.wasm/stockfish.js'),
+    require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
+    require.resolve('stockfish-mv.wasm/stockfish.wasm'),
+    require.resolve('stockfish-mv.wasm/pthread-main.js')
+  ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
+});
+
 gulp.task('prod-source', function() {
   return browserify('src/index.ts', {
     standalone: standalone
@@ -147,7 +156,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm'];
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm', 'stockfish-mv.wasm'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
     tasks.push('stockfish.pexe');

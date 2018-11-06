@@ -4425,6 +4425,11 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
+stockfish-mv.wasm@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.2.0.tgz#b402050ccca5455ed4419ffe2ad96d52a19c5f34"
+  integrity sha512-a2E/J0kBJIfoKdC8KPNy+xGQ4hvT/E10THMxjqmy1aHCgoV0pvOY+lgcLqvm6Q4c5IyFX5iDiY59ZrrtHedbEg==
+
 stockfish.wasm@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.2.0.tgz#f92ee6a35c0ca3dacbd704adfec2df5101116503"
