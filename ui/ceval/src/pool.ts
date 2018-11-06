@@ -9,10 +9,12 @@ export function makeWatchdog(name: string): Watchdog {
   return {
     arm() {
       prop(new Date().getTime());
+      console.log('watchdog armed: ' + name);
     },
     disarm() {
       if (!failed && !disarmed) prop(0);
       disarmed = true;
+      console.log('watchdog disarmed: ' + name);
     },
     good() {
       const lastArmed = parseInt(prop(), 10);
@@ -157,7 +159,7 @@ class ThreadedWasmWorker extends AbstractWorker {
       this.module = window['Module'];
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
       this.module.addMessageListener(protocol.received.bind(protocol));
-      this.watchdog.disarm();
+      setTimeout(() => this.watchdog.disarm(), 4000);
       return protocol;
     });
   }
