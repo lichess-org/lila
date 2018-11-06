@@ -57,8 +57,12 @@ function downloadGithubRelease(repo, dest, cb) {
   });
 }
 
-gulp.task('stockfish.pexe', function(cb) {
-  downloadGithubRelease('niklasf/stockfish.pexe', '../../public/vendor/stockfish/', cb);
+gulp.task('stockfish.pexe', function() {
+  gulp.src([
+    require.resolve('stockfish.pexe/stockfish.nmf'),
+    require.resolve('stockfish.pexe/stockfish.pexe'),
+    require.resolve('stockfish.pexe/stockfish.bc')
+  ]).pipe(gulp.dest('../../public/vendor/stockfish.pexe'));
 });
 
 gulp.task('stockfish.js', function(cb) {
@@ -156,10 +160,9 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm', 'stockfish-mv.wasm'];
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm', 'stockfish-mv.wasm', 'stockfish.pexe'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
-    tasks.push('stockfish.pexe');
     tasks.push('stockfish.js');
   }
 }

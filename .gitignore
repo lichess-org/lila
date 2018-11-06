@@ -9,6 +9,7 @@ public/compiled
 public/vendor/stockfish
 public/vendor/stockfish.wasm
 public/vendor/stockfish-mv.wasm
+public/vendor/stockfish.pexe
 target
 bin/.translate_version
 data/

@@ -46,7 +46,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const sfPath = 'vendor/stockfish/stockfish';
   const pool = new Pool({
     asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
-    pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),
+    pnacl: pnaclSupported && li.assetUrl('vendor/stockfish.pexe/stockfish.nmf'),
     wasm: wasmSupported && li.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
     wasmThreaded: wasmThreadsSupported && (officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js'),
     onCrash: opts.onCrash

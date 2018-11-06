@@ -4430,6 +4430,11 @@ stockfish-mv.wasm@^0.2.0:
   resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.2.0.tgz#b402050ccca5455ed4419ffe2ad96d52a19c5f34"
   integrity sha512-a2E/J0kBJIfoKdC8KPNy+xGQ4hvT/E10THMxjqmy1aHCgoV0pvOY+lgcLqvm6Q4c5IyFX5iDiY59ZrrtHedbEg==
 
+stockfish.pexe@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-9.0.0.tgz#8b444f0487e05e3c8d12ad59a7245489da34c602"
+  integrity sha512-UrRdnDQi7VZ3f8ZPqGmT70fN9ymcdhZ430j+cJX2atGfBtRsKEnF0A5+LhZzdzN8ElmbDUXx2PwRvjzecBiIrA==
+
 stockfish.wasm@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.2.0.tgz#f92ee6a35c0ca3dacbd704adfec2df5101116503"
