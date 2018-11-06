@@ -47,7 +47,9 @@
   <string name="requestAComputerAnalysis">Компйутӑр тишкервне ыйт</string>
   <string name="computerAnalysis">Компйутӑр тишкерӗвӗ</string>
   <string name="analysis">Тишкерӳ хӑми</string>
+  <string name="close">Хуп</string>
   <string name="blunders">Тӳрккес йӑнӑшсем</string>
+  <string name="mistake">Йӑнӑш</string>
   <string name="mistakes">Йӑнӑшсем</string>
   <string name="inaccuracies">Кӳрӗнмелле йӑнӑшсем</string>
   <string name="moveTimes">Шутланӑ вӑхӑт хушшисем</string>
@@ -543,5 +545,13 @@
   <string name="pieceSet">Кӗлетке пуххи</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
+  <string name="error.unknown">Йӑнӑш</string>
   <string name="challenges">Чӗнтерӳ</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">Пӗрремӗш хускану тумашкӑн %s ҫеккунт йулчӗ</item>
+  </plurals>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s ҫеккунт</item>
+  </plurals>
+  <string name="endgame">Ендшпил</string>
 </resources>
