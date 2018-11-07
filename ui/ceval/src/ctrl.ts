@@ -26,7 +26,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   };
 
   const pnaclSupported = makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes;
-  const wasmSupported = makeWatchdog('wasm').good() && typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+  const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
   const wasmThreadsSupported = makeWatchdog('wasmx').good() && wasmSupported && typeof SharedArrayBuffer === 'function' && typeof Atomics === 'object' && new WebAssembly!.Memory({shared: true, initial: 8, maximum: 8}).buffer instanceof SharedArrayBuffer;
 
   const minDepth = 6;

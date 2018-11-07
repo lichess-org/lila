@@ -3,7 +3,7 @@ import { Watchdog, PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
 export function makeWatchdog(name: string): Watchdog {
-  const prop = storedProp<number>('ceval.watchdog.' + name, 0);
+  const prop = storedProp<number>('ceval.watchdog2.' + name, 0);
   let failed = false;
   let disarmed = false;
   return {
@@ -12,7 +12,8 @@ export function makeWatchdog(name: string): Watchdog {
       console.log('watchdog armed: ' + name);
     },
     disarm() {
-      if (!failed && !disarmed) prop(0);
+      if (failed || disarmed) return;
+      prop(0);
       disarmed = true;
       console.log('watchdog disarmed: ' + name);
     },
@@ -204,22 +205,26 @@ export class Pool {
   warmup() {
     if (this.workers.length) return;
 
+    let watchdog: Watchdog;
+
     if (this.poolOpts.wasmThreaded) {
-      const watchdog = makeWatchdog('wasmx');
+      watchdog = makeWatchdog('wasmx');
       watchdog.arm();
       this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmThreaded, this.poolOpts, this.protocolOpts, watchdog));
     }
     else if (this.poolOpts.pnacl) {
-      const watchdog = makeWatchdog('pnacl');
+      watchdog = makeWatchdog('pnacl');
       watchdog.arm();
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts, watchdog));
     }
     else {
-      const watchdog = makeWatchdog(this.poolOpts.wasm ? 'wasm' : 'asmjs');
+      watchdog = makeWatchdog(this.poolOpts.wasm ? 'wasm' : 'asmjs');
       watchdog.arm();
       for (var i = 1; i <= 2; i++)
         this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts, watchdog));
     }
+
+    window.addEventListener('unload', () => watchdog.disarm(), false);
   }
 
   stop() {
