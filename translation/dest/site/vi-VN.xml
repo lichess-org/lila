@@ -769,4 +769,8 @@ trong %3$s</string>
   <string name="tryAnotherMoveForBlack">Tìm nước đi khách cho đen</string>
   <string name="solution">Lời giải</string>
   <string name="waitingForAnalysis">Chờ phân tích</string>
+  <string name="opening">Khai cuộc</string>
+  <string name="middlegame">Trung cuộc</string>
+  <string name="endgame">Tàn cuộc</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
 </resources>
