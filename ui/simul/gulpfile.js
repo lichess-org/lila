@@ -1,44 +1,40 @@
-var source = require('vinyl-source-stream');
-var gulp = require('gulp');
-var colors = require('ansi-colors');
-var logger = require('fancy-log');
-var watchify = require('watchify');
-var browserify = require('browserify');
-var uglify = require('gulp-uglify');
-var streamify = require('gulp-streamify');
+const source = require('vinyl-source-stream');
+const gulp = require('gulp');
+const colors = require('ansi-colors');
+const logger = require('fancy-log');
+const watchify = require('watchify');
+const browserify = require('browserify');
+const uglify = require('gulp-uglify');
+const streamify = require('gulp-streamify');
 
-var sources = ['./src/main.js'];
-var destination = '../../public/compiled/';
-var onError = function(error) {
-  logger(colors.red(error.message));
+const sources = ['./src/main.js'];
+const destination = '../../public/compiled/';
+const onError = function(error) {
+  logger.error(colors.red(error.message));
 };
-var standalone = 'LidraughtsSimul';
+const standalone = 'LidraughtsSimul';
 
-gulp.task('prod', function() {
-  return browserify('./src/main.js', {
+function prod() {
+  return browserify(sources, {
     standalone: standalone
   }).bundle()
     .pipe(source('lidraughts.simul.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
-});
+}
 
-gulp.task('dev', function() {
-  return browserify('./src/main.js', {
+function dev() {
+  return browserify(sources, {
     standalone: standalone
   }).bundle()
     .pipe(source('lidraughts.simul.js'))
     .pipe(gulp.dest(destination));
-});
+}
 
-gulp.task('watch', function() {
-  var opts = watchify.args;
+function watch() {
+  const opts = watchify.args;
   opts.debug = true;
   opts.standalone = standalone;
-
-  var bundleStream = watchify(browserify(sources, opts))
-    .on('update', rebundle)
-    .on('log', logger.log);
 
   function rebundle() {
     return bundleStream.bundle()
@@ -47,7 +43,15 @@ gulp.task('watch', function() {
       .pipe(gulp.dest(destination));
   }
 
-  return rebundle();
-});
+  const bundleStream = watchify(browserify(sources, opts))
+    .on('update', rebundle)
+    .on('log', logger.info);
 
-gulp.task('default', ['watch']);
+  return rebundle();
+}
+
+gulp.task('prod', prod);
+gulp.task('dev', dev);
+gulp.task('watch', watch);
+
+gulp.task('default', watch);
