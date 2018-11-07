@@ -11,7 +11,7 @@ import lila.memo.RateLimit
 private final class SlackClient(url: String, defaultChannel: String) {
 
   private val limiter = new RateLimit[SlackMessage](
-    credits = 2,
+    credits = 1,
     duration = 15 minutes,
     name = "slack client",
     key = "slack.client"

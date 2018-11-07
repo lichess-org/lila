@@ -92,10 +92,10 @@ final class SlackApi(
     channel = rooms.tavernBots
   ))
 
-  def broadcastError(id: String, name: String): Funit = client(SlackMessage(
+  def broadcastError(id: String, name: String, error: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",
-    text = s"${broadcastLink(id, name)} is failing",
+    text = s"${broadcastLink(id, name)}: $error",
     channel = rooms.broadcast
   ))
 
