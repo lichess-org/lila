@@ -137,13 +137,41 @@ object Trophy {
       order = 1
     )
 
+    object AtomicWC16 extends Kind(
+      key = "atomicwc16",
+      name = "Atomic World Champion 2016",
+      icon = none,
+      url = "//lichess.org/forum/team-atomic-wc/championship-final".some,
+      klass = none,
+      order = 1
+    )
+
+    object AtomicWC17 extends Kind(
+      key = "atomicwc17",
+      name = "Atomic World Champion 2017",
+      icon = none,
+      url = "//lichess.org/forum/team-atomic-wc/awc-2017-its-final-time".some,
+      klass = none,
+      order = 1
+    )
+
+    object AtomicWC18 extends Kind(
+      key = "atomicwc18",
+      name = "Atomic World Champion 2018",
+      icon = none,
+      url = "//lichess.org/forum/team-atomic-wc/announcement-awc-2018".some,
+      klass = none,
+      order = 1
+    )
+
     val all = List(
       Developer, Moderator, Verified,
       MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
       ZugMiracle, ZHWC,
       WayOfBerserk,
       MarathonSurvivor,
-      BongcloudWarrior
+      BongcloudWarrior,
+      AtomicWC16, AtomicWC17, AtomicWC18
     )
     val byKey: Map[String, Kind] = all.map { k => k.key -> k }(scala.collection.breakOut)
   }
