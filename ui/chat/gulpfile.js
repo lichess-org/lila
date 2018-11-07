@@ -1,3 +1,3 @@
-const lilaGulp = require('../gulp/tsProject.js');
+const lidraughtsGulp = require('../gulp/tsProject.js');
 
-lilaGulp('LidraughtsChat', 'lidraughts.chat', __dirname);
+lidraughtsGulp('LidraughtsChat', 'lidraughts.chat', __dirname);

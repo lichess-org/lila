@@ -141,7 +141,7 @@ interface WebAssemblyStatic {
   validate(bufferSource: ArrayBuffer | Uint8Array): boolean
 }
 
-declare var WebAssembly: WebAssemblyStatic | undefined;
+//declare var WebAssembly: WebAssemblyStatic | undefined;
 
 declare type VariantKey = 'standard' | 'antidraughts' | 'breakthrough' | 'fromPosition' | 'frisian' | 'frysk' | 'atomic'
 

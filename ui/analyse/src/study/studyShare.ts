@@ -124,7 +124,8 @@ export function view(ctrl): VNode {
       h('div.fen', {
         attrs: { title: 'FEN - click to select' },
         hook: bind('click', e => {
-          window.getSelection().selectAllChildren((e.target as HTMLElement))
+          const sel = window.getSelection();
+          if (sel) sel.selectAllChildren((e.target as HTMLElement))
         })
       }, ctrl.currentNode().fen)
     ])

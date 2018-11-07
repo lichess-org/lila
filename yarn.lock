@@ -2378,12 +2378,6 @@ gulp-sourcemaps@^2:
     strip-bom-string "1.X"
     through2 "2.X"
 
-gulp-streamify@^1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gulp-streamify/-/gulp-streamify-1.0.2.tgz#00d6b3814d486c088f78738ed0766abc16389e4d"
-  dependencies:
-    plexer "1.0.1"
-
 gulp-typescript@^3:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/gulp-typescript/-/gulp-typescript-3.2.4.tgz#17c6b941078b02c0522974ed6c963ab190920a47"
@@ -2428,9 +2422,10 @@ gulp-util@^3, gulp-util@^3.0.0, gulp-util@^3.0.7, gulp-util@~3.0.7:
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
-gulp@^3, gulp@^3.9.1:
+gulp@^3:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/gulp/-/gulp-3.9.1.tgz#571ce45928dd40af6514fc4011866016c13845b4"
+  integrity sha1-VxzkWSjdQK9lFPxAEYZgFsE4RbQ=
   dependencies:
     archy "^1.0.0"
     chalk "^1.0.0"
@@ -3002,7 +2997,7 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
 
-isstream@^0.1.2, isstream@~0.1.2:
+isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
@@ -4223,13 +4218,6 @@ pkg-dir@^1.0.0:
   dependencies:
     find-up "^1.0.0"
 
-plexer@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/plexer/-/plexer-1.0.1.tgz#a801b652bf8145739795ea4d3bf0af946c30c0dd"
-  dependencies:
-    isstream "^0.1.2"
-    readable-stream "^2.0.2"
-
 plugin-error@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/plugin-error/-/plugin-error-0.1.2.tgz#3b9bb3335ccf00f425e07437e19276967da47ace"
@@ -4806,10 +4794,6 @@ slide@^1.1.5:
 snabbdom@ornicar/snabbdom#0.7.1-lichess:
   version "0.7.1-lichess"
   resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/54ddd16a12c376510635412acc58f6d90e6461dc"
-
-snabbdom@ornicar/snabbdom#lichess:
-  version "0.7.0-lichess"
-  resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/83fb6f55fc4e449a8e81c140bfd65fc3303eeb91"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -5418,7 +5402,7 @@ tsify@^3:
     through2 "^2.0.0"
     tsconfig "^5.0.3"
 
-tsify@^4, tsify@^4.0.0:
+tsify@^4:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/tsify/-/tsify-4.0.1.tgz#b19b0ddf7f184368dbf65839293d2c5a6d48453d"
   integrity sha512-ClznEI+pmwY5wmD0J7HCSVERwkD+l71ch3Dqyod2JuQLEsFaiNDI+vPjaGadsuVFVvmzgoI7HghrBtWsSmCDHQ==
@@ -5466,7 +5450,7 @@ typescript@2.6:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
-typescript@^2, typescript@^2.6:
+typescript@^2.6:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
 
