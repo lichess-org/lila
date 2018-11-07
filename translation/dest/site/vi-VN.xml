@@ -769,8 +769,20 @@ trong %3$s</string>
   <string name="tryAnotherMoveForBlack">Tìm nước đi khách cho đen</string>
   <string name="solution">Lời giải</string>
   <string name="waitingForAnalysis">Chờ phân tích</string>
+  <string name="advantage">Lợi thế</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s giây</item>
+  </plurals>
   <string name="opening">Khai cuộc</string>
   <string name="middlegame">Trung cuộc</string>
   <string name="endgame">Tàn cuộc</string>
+  <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
+  <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s không chấp nhận những lời thách đấu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
+  <string name="conditionalPremoves">Nước đi trước có điều kiện</string>
+  <string name="addCurrentVariation">Thêm biến thể hiện tại</string>
+  <string name="playVariationToCreateConditionalPremoves">Chơi một biến thể để tạo ra nước đi trước có điều kiện</string>
+  <string name="noConditionalPremoves">Không có nước đi trước có điều kiện nào</string>
+  <string name="playX">Chơi %s</string>
 </resources>
