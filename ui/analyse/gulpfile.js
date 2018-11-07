@@ -1,53 +1,50 @@
 const gulp = require('gulp');
-const gutil = require('gulp-util');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const colors = require('ansi-colors');
+const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
 const uglify = require('gulp-uglify');
-const source = require('vinyl-source-stream');
-const buffer = require('vinyl-buffer');
+const size = require('gulp-size');
 const tsify = require('tsify');
 
-const destination = '../../public/compiled/';
-
-function onError(error) {
-  gutil.log(gutil.colors.red(error.message));
-}
-
-function build() {
-  return browserify('src/main.ts', {
-      standalone: 'LidraughtsAnalyse',
-      debug: true
-    })
-    .plugin(tsify);
-}
-
-const watchedBrowserify = watchify(build());
-
-function bundle() {
-  return watchedBrowserify
-    .bundle()
-    .on('error', onError)
-    .pipe(source('lidraughts.analyse.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(destination));
-}
-
-gulp.task('default', bundle);
-watchedBrowserify.on('update', bundle);
-watchedBrowserify.on('log', gutil.log);
-
-gulp.task('dev', function() {
-  return build()
-    .bundle()
-    .pipe(source('lidraughts.analyse.js'))
-    .pipe(gulp.dest(destination));
+const browserifyOpts = (debug) => ({
+  entries: ['./src/main.ts'],
+  standalone: 'LidraughtsAnalyse',
+  debug: debug
 });
+const destination = () => gulp.dest('../../public/compiled/');
 
-gulp.task('prod', function() {
-  return build()
+const prod = () => browserify(browserifyOpts(false))
+    .plugin(tsify)
     .bundle()
     .pipe(source('lidraughts.analyse.min.js'))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest(destination));
-});
+    .pipe(size())
+    .pipe(destination());
+
+const dev = () => browserify(browserifyOpts(true))
+    .plugin(tsify)
+    .bundle()
+    .pipe(source('lidraughts.analyse.js'))
+    .pipe(destination());
+
+const watch = () => {
+
+  const bundle = () => bundler.bundle()
+    .on('error', error => logger.error(colors.red(error.message)))
+    .pipe(source('lidraughts.analyse.js'))
+    .pipe(destination());
+
+  const bundler = watchify(
+    browserify(browserifyOpts(true)).plugin(tsify)
+  ).on('update', bundle).on('log', logger.info);
+
+  return bundle();
+};
+
+gulp.task('prod', prod);
+gulp.task('dev', dev);
+gulp.task('default', watch);
