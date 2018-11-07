@@ -1,53 +1,51 @@
-const gulp = require("gulp");
-const browserify = require("browserify");
+const gulp = require('gulp');
 const source = require('vinyl-source-stream');
-const tsify = require("tsify");
-const watchify = require("watchify");
-const gutil = require("gulp-util");
-const uglify = require('gulp-uglify');
 const buffer = require('vinyl-buffer');
+const colors = require('ansi-colors');
+const logger = require('fancy-log');
+const watchify = require('watchify');
+const browserify = require('browserify');
+const uglify = require('gulp-uglify');
+const size = require('gulp-size');
+const tsify = require('tsify');
 
-const destination = '../../public/compiled/';
-
-function onError(error) {
-  return gutil.log(gutil.colors.red(error.message));
-}
-
-function build(debug) {
-  return browserify('src/main.ts', {
-      standalone: 'LidraughtsChat',
-      debug: debug
-    })
-    .plugin(tsify);
-}
-
-const watchedBrowserify = watchify(build(true));
-
-function bundle() {
-  return watchedBrowserify
-    .bundle()
-    .on('error', onError)
-    .pipe(source('lidraughts.chat.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(destination));
-}
-
-gulp.task("default", [], bundle);
-watchedBrowserify.on("update", bundle);
-watchedBrowserify.on("log", gutil.log);
-
-gulp.task('dev', function() {
-  return build(true)
-    .bundle()
-    .pipe(source('lidraughts.chat.js'))
-    .pipe(gulp.dest(destination));
+const browserifyOpts = (debug) => ({
+  entries: ['./src/main.ts'],
+  standalone: 'LidraughtsChat',
+  debug: debug
 });
+const baseFileName = "lidraughts.chat";
+const destination = () => gulp.dest('../../public/compiled/');
 
-gulp.task("prod", [], function() {
-  return build(false)
+const prod = () => browserify(browserifyOpts(false))
+    .plugin(tsify)
     .bundle()
-    .pipe(source('lidraughts.chat.min.js'))
+    .pipe(source(`${baseFileName}.min.js`))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest(destination));
-});
+    .pipe(size())
+    .pipe(destination());
+
+const dev = () => browserify(browserifyOpts(true))
+    .plugin(tsify)
+    .bundle()
+    .pipe(source(`${baseFileName}.js`))
+    .pipe(destination());
+
+const watch = () => {
+
+  const bundle = () => bundler.bundle()
+    .on('error', error => logger.error(colors.red(error.message)))
+    .pipe(source(`${baseFileName}.js`))
+    .pipe(destination());
+
+  const bundler = watchify(
+    browserify(browserifyOpts(true)).plugin(tsify)
+  ).on('update', bundle).on('log', logger.info);
+
+  return bundle();
+};
+
+gulp.task('prod', prod);
+gulp.task('dev', dev);
+gulp.task('default', watch);

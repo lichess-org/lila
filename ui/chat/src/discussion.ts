@@ -16,7 +16,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
         const autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
         if (autoScroll) {
           el.scrollTop = 999999;
-          setTimeout(_ => el.scrollTop = 999999, 300)
+          setTimeout((_: any) => el.scrollTop = 999999, 300)
         }
       }
   },
