@@ -1,91 +1,85 @@
-const source = require('vinyl-source-stream');
 const gulp = require('gulp');
-const gutil = require('gulp-util');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const colors = require('ansi-colors');
+const logger = require('fancy-log');
+const watchify = require('watchify');
 const browserify = require('browserify');
-const tsify = require('tsify');
 const uglify = require('gulp-uglify');
-const streamify = require('gulp-streamify');
+const size = require('gulp-size');
+const tsify = require('tsify');
 const concat = require('gulp-concat');
 const exec = require('child_process').exec;
 const fs = require('fs');
 
-const destination = '../../public/compiled/';
-const standalone = 'Lichess';
+const browserifyOpts = (entries, debug) => ({
+  entries: entries,
+  standalone: 'Lichess',
+  debug: debug
+});
+const destination = () => gulp.dest('../../public/compiled/');
+const fileBaseName = 'lichess.site';
 
 const abFile = process.env.LILA_AB_FILE;
 
-gulp.task('jquery-fill', function() {
-  return gulp.src('src/jquery.fill.js')
-    .pipe(streamify(uglify()))
+const jqueryFill = () => gulp.src('src/jquery.fill.js')
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist'));
+
+const ab = () => {
+  if (abFile) return gulp.src(abFile)
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest('./dist'));
-});
+    else {
+      logger.info(colors.yellow('Building without AB file'));
+      return gulp.src('.');
+    }
+};
 
-gulp.task('ab', function() {
-  if (abFile) {
-    return gulp.src(abFile)
-      .pipe(streamify(uglify()))
-      .pipe(gulp.dest('./dist'));
-  } else {
-    gutil.log(gutil.colors.yellow('Building without AB file'));
-    return gulp.src('.').pipe(gutil.noop());
-  }
-});
-
-gulp.task('stockfish.pexe', function() {
-  gulp.src([
+const stockfishPexe = () => gulp.src([
     require.resolve('stockfish.pexe/stockfish.nmf'),
     require.resolve('stockfish.pexe/stockfish.pexe'),
     require.resolve('stockfish.pexe/stockfish.bc')
   ]).pipe(gulp.dest('../../public/vendor/stockfish.pexe'));
-});
 
-gulp.task('stockfish.js', function(cb) {
-  gulp.src([
+const stockfishJs = () => gulp.src([
     require.resolve('stockfish.js/stockfish.wasm.js'),
     require.resolve('stockfish.js/stockfish.wasm'),
     require.resolve('stockfish.js/stockfish.js')
   ]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
-});
 
-gulp.task('stockfish.wasm', function() {
-  gulp.src([
+const stockfishWasm = () => gulp.src([
     require.resolve('stockfish.wasm/stockfish.js'),
     require.resolve('stockfish.wasm/stockfish.js.mem'),
     require.resolve('stockfish.wasm/stockfish.wasm'),
     require.resolve('stockfish.wasm/pthread-main.js')
   ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
-});
 
-gulp.task('stockfish-mv.wasm', function() {
-  gulp.src([
+const stockfishMvWasm = () => gulp.src([
     require.resolve('stockfish-mv.wasm/stockfish.js'),
     require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
     require.resolve('stockfish-mv.wasm/stockfish.wasm'),
     require.resolve('stockfish-mv.wasm/pthread-main.js')
   ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
-});
 
-gulp.task('prod-source', function() {
-  return browserify('src/index.ts', {
-    standalone: standalone
-  }).plugin(tsify)
-    .bundle()
-    .pipe(source('lichess.site.source.min.js'))
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest('./dist'));
-});
+const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
+  .plugin(tsify)
+  .bundle()
+  .pipe(source(`${fileBaseName}.source.min.js`))
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist'));
 
-gulp.task('dev-source', function() {
-  return browserify('src/index.ts', {
-    standalone: standalone
-  }).plugin(tsify)
-    .bundle()
-    .pipe(source('lichess.site.source.js'))
-    .pipe(gulp.dest('./dist'));
-});
+const devSource = () => browserify(browserifyOpts('src/index.ts', true))
+  .plugin(tsify)
+  .bundle()
+  .pipe(source(`${fileBaseName}.source.js`))
+  .pipe(gulp.dest('./dist'));
 
 function makeBundle(filename) {
-  return function() {
+  return function bundleItAll() {
     return gulp.src([
       '../../public/javascripts/vendor/jquery.min.js',
       './dist/jquery.fill.js',
@@ -98,54 +92,45 @@ function makeBundle(filename) {
       './dist/consolemsg.js'
     ])
       .pipe(concat(filename.replace('source.', '')))
-      .pipe(gulp.dest(destination));
+      .pipe(destination());
   };
 }
 
-gulp.task('git-sha', function(cb) {
-  exec("git rev-parse -q --short HEAD", function (err, stdout) {
-    if (err) throw err;
-    if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
-    var date = new Date().toISOString().split('.')[0];
-    fs.writeFileSync('./dist/consolemsg.js',
-      'console.info("Lichess is open source! https://github.com/ornicar/lila");' +
-      `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`);
-    cb();
-  });
+const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdout) {
+  if (err) throw err;
+  if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
+  var date = new Date().toISOString().split('.')[0];
+  fs.writeFileSync('./dist/consolemsg.js',
+    'console.info("Lichess is open source! https://github.com/ornicar/lila");' +
+    `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`);
+  cb();
 });
 
-gulp.task('standalones', function() {
-  return gulp.src([
-    'src/standalones/util.js',
-    'src/standalones/trans.js',
-    'src/standalones/tv.js',
-    'src/standalones/puzzle.js',
-    'src/standalones/user.js',
-    'src/standalones/coordinate.js'
-  ])
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest(destination));
-});
+const standaloneFiles = [
+  'src/standalones/util.js',
+  'src/standalones/trans.js',
+  'src/standalones/tv.js',
+  'src/standalones/puzzle.js',
+  'src/standalones/user.js',
+  'src/standalones/coordinate.js'
+];
 
-gulp.task('user-mod', function() {
-  return browserify([
-    './src/user-mod.js'
-  ], {
-    standalone: standalone
-  }).bundle()
-    .pipe(source('user-mod.js'))
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest(destination));
-});
+const standalones = () => gulp.src(standaloneFiles)
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(destination());
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'stockfish.wasm', 'stockfish-mv.wasm', 'stockfish.pexe', 'stockfish.js'];
+const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
+  .bundle()
+  .pipe(source('user-mod.js'))
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(destination());
 
-gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
-gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
+const tasks = [gitSha, jqueryFill, ab, standalones, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs];
 
-gulp.task('watch', ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'dev-source'],
-  makeBundle('lichess.site.source.js'));
+const dev = gulp.series(tasks.concat([devSource, makeBundle(`${fileBaseName}.source.js`)]));
 
-gulp.task('default', ['watch'], function() {
-  return gulp.watch('src/*.js', ['watch']);
-});
+gulp.task('prod', gulp.series(tasks.concat([prodSource, makeBundle(`${fileBaseName}.source.min.js`)])));
+gulp.task('dev', dev);
+gulp.task('default', gulp.series(dev, () => gulp.watch('src/*.js', dev)));

@@ -23,7 +23,7 @@
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "@types/lichess": "1.0.0",
-    "typescript": "^2.2.2"
+    "typescript": "^3"
   },
   "dependencies": {}
 }
