@@ -33,6 +33,7 @@
     "typescript": "^3",
     "uglify-js": "^3",
     "vinyl-source-stream": "^2",
+    "vinyl-buffer": "^1",
     "watchify": "^3"
   },
   "dependencies": {
