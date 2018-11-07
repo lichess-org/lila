@@ -1,57 +1,51 @@
-const source = require('vinyl-source-stream');
 const gulp = require('gulp');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 const colors = require('ansi-colors');
 const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
 const uglify = require('gulp-uglify');
-const streamify = require('gulp-streamify');
+const size = require('gulp-size');
 
-const sources = ['./src/main.js'];
-const destination = '../../public/compiled/';
-const onError = function(error) {
-  logger.error(colors.red(error.message));
+const browserifyOpts = {
+  entries: ['./src/main.js'],
+  standalone: 'LidraughtsSimul'
 };
-const standalone = 'LidraughtsSimul';
+const destination = gulp.dest('../../public/compiled/');
 
 function prod() {
-  return browserify(sources, {
-    standalone: standalone
-  }).bundle()
+  return browserify(browserifyOpts).bundle()
     .pipe(source('lidraughts.simul.min.js'))
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest(destination));
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(size())
+    .pipe(destination);
 }
 
 function dev() {
-  return browserify(sources, {
-    standalone: standalone
-  }).bundle()
+  return browserify(browserifyOpts).bundle()
     .pipe(source('lidraughts.simul.js'))
-    .pipe(gulp.dest(destination));
+    .pipe(destination);
 }
 
 function watch() {
-  const opts = watchify.args;
-  opts.debug = true;
-  opts.standalone = standalone;
 
-  function rebundle() {
-    return bundleStream.bundle()
-      .on('error', onError)
-      .pipe(source('lidraughts.simul.js'))
-      .pipe(gulp.dest(destination));
-  }
+  const bundle = () => bundler.bundle()
+    .on('error', error => logger.error(colors.red(error.message)))
+    .pipe(source('lidraughts.simul.js'))
+    .pipe(destination);
 
-  const bundleStream = watchify(browserify(sources, opts))
-    .on('update', rebundle)
-    .on('log', logger.info);
+  const bundler = watchify(
+    browserify(Object.assign({}, watchify.args, browserifyOpts, {
+      debug: true
+    }))
+  ).on('update', bundle).on('log', logger.info);
 
-  return rebundle();
+  return bundle();
 }
 
 gulp.task('prod', prod);
 gulp.task('dev', dev);
 gulp.task('watch', watch);
-
 gulp.task('default', watch);
