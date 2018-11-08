@@ -4,4 +4,5 @@
   <string name="learnChess">Học cờ vua</string>
   <string name="byPlaying">bằng cách chơi!</string>
   <string name="menu">Trình đơn</string>
+  <string name="progressX">Tiến trình %s</string>
 </resources>
