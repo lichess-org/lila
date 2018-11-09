@@ -11,4 +11,8 @@
   <string name="chessPieces">Các quân cờ</string>
   <string name="theRook">Quân xe</string>
   <string name="itMovesInStraightLines">Nó đi theo các đường thẳng</string>
+  <string name="rookIntro">Quân xe là một quân cờ mạnh. Bạn đã sẵn sàng điều khiển nó chưa?</string>
+  <string name="rookGoal">Bấm vào quân xe để đưa nó đến ngôi sao!</string>
+  <string name="grabAllTheStars">Lấy tất cả các ngôi sao!</string>
+  <string name="theFewerMoves">Bạn đi càng ít nước đi thì bạn sẽ càng được nhiều điểm!</string>
 </resources>
