@@ -140,6 +140,7 @@ interface Math {
 interface WebAssemblyStatic {
   validate(bufferSource: ArrayBuffer | Uint8Array): boolean
   Memory: any
+  Module: any
 }
 
 declare var WebAssembly: WebAssemblyStatic | undefined;

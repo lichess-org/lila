@@ -27,7 +27,7 @@ export interface Work {
 export interface PoolOpts {
   pnacl: string | false;
   wasm: string | false;
-  wasmThreaded: string | false;
+  wasmx: string | false;
   asmjs: string;
 }
 
@@ -58,7 +58,7 @@ export interface CevalCtrl {
   effectiveMaxDepth(): number;
   pnaclSupported: boolean;
   wasmSupported: boolean;
-  wasmThreadsSupported: boolean;
+  wasmxSupported: boolean;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;

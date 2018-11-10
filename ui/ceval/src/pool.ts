@@ -207,10 +207,10 @@ export class Pool {
 
     let watchdog: Watchdog;
 
-    if (this.poolOpts.wasmThreaded) {
+    if (this.poolOpts.wasmx) {
       watchdog = makeWatchdog('wasmx');
       watchdog.arm();
-      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmThreaded, this.poolOpts, this.protocolOpts, watchdog));
+      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts, watchdog));
     }
     else if (this.poolOpts.pnacl) {
       watchdog = makeWatchdog('pnacl');
