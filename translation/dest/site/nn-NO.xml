@@ -120,7 +120,7 @@
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">Spelarar: %s</item>
-    <item quantity="other">Spelarar: %s</item>
+    <item quantity="other">%s spelarar</item>
   </plurals>
   <string name="currentGames">Parti som blir spelt nett no</string>
   <plurals name="nbGames">
