@@ -116,6 +116,7 @@ export interface Step {
 export interface Watchdog {
   arm(): void;
   disarm(): void;
+  disarmSoon(): void;
   fail(): void;
   good(): boolean;
 }

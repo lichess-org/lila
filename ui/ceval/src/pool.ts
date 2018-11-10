@@ -5,16 +5,25 @@ import Protocol from './stockfishProtocol';
 export function makeWatchdog(name: string): Watchdog {
   const prop = storedProp<number>('ceval.watchdog2.' + name, 0);
   let failed = false;
-  let disarmed = false;
+  let disarming = false;
   return {
     arm() {
       prop(new Date().getTime());
       console.log('watchdog armed: ' + name);
     },
+    disarmSoon() {
+      if (failed || disarming) return;
+      disarming = true;
+      setTimeout(() => {
+        // delayed to survive potential tab crash
+        prop(0);
+        console.log('watchdog disarmed (delayed): ' + name);
+      }, 4000);
+    },
     disarm() {
-      if (failed || disarmed) return;
+      if (failed || disarming) return;
+      disarming = true;
       prop(0);
-      disarmed = true;
       console.log('watchdog disarmed: ' + name);
     },
     good() {
@@ -82,7 +91,7 @@ class WebWorker extends AbstractWorker {
     this.worker = new Worker(window.lichess.assetUrl(this.url, {sameDomain: true}));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
-      this.watchdog.disarm();
+      this.watchdog.disarmSoon();
       protocol.received(e.data);
     }, true);
     return Promise.resolve(protocol);
@@ -115,7 +124,7 @@ class PNaClWorker extends AbstractWorker {
           reject(e);
         }, true);
         this.listener.addEventListener('message', e => {
-          this.watchdog.disarm();
+          this.watchdog.disarmSoon();
           if (this.protocol.sync) this.protocol.sync.received((e as any).data);
         }, true);
         this.listener.addEventListener('crash', e => {
@@ -159,8 +168,10 @@ class ThreadedWasmWorker extends AbstractWorker {
     return window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
       this.module = window['Module'];
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
-      this.module.addMessageListener(protocol.received.bind(protocol));
-      setTimeout(() => this.watchdog.disarm(), 4000);
+      this.module.addMessageListener((line: string) => {
+        this.watchdog.disarmSoon();
+        protocol.received(line);
+      });
       return protocol;
     });
   }
@@ -242,9 +253,7 @@ export class Pool {
       worker.start(work);
     }).catch(function(error) {
       console.log(error);
-      setTimeout(function() {
-        window.lichess.reload();
-      }, 10000);
+      setTimeout(() => window.lichess.reload(), 10000);
     });
   }
 
