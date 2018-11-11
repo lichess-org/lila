@@ -64,6 +64,12 @@ final class Env(
     text = "Enable CSP for everyone.".some
   )
 
+  val wasmxEnabledSetting = settingStore[Boolean](
+    "wasmxEnabled",
+    default = false,
+    text = "Enable WASMX for everyone.".some
+  )
+
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"

@@ -56,6 +56,8 @@ object Environment
 
   def cspEnabled = apiEnv.cspEnabledSetting.get _
 
+  def wasmxEnabled = apiEnv.wasmxEnabledSetting.get _
+
   def isChatPanicEnabled =
     lila.chat.Env.current.panic.enabled
 

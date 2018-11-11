@@ -17,7 +17,8 @@ object Dev extends LilaController {
     Env.irwin.irwinModeSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
-    Env.api.cspEnabledSetting
+    Env.api.cspEnabledSetting,
+    Env.api.wasmxEnabledSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

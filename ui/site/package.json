@@ -9,19 +9,25 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "browserify": "^14",
-    "gulp": "^3",
-    "gulp-concat": "^2.6",
-    "gulp-download-stream": "^0.0",
-    "gulp-streamify": "^1",
+    "browserify": "^16",
+    "gulp": "^4",
     "gulp-uglify": "^3",
-    "gulp-util": "^3",
-    "request": "^2",
+    "gulp-size": "^3",
+    "gulp-concat": "^2.6",
+    "fancy-log": "^1",
     "tsify": "^4.0.0",
     "uglify-js": "^3",
-    "vinyl-source-stream": "^1"
+    "vinyl-source-stream": "^2",
+    "vinyl-buffer": "^1",
+    "watchify": "^3",
+    "request": "^2",
+    "gulp-download-stream": "^0.0"
   },
   "dependencies": {
+    "stockfish-mv.wasm": "^0.2.0",
+    "stockfish.js": "^9.0.0",
+    "stockfish.pexe": "^9.0.0",
+    "stockfish.wasm": "^0.2.1",
     "tablesort": "^5.0.0"
-  }
+ }
 }

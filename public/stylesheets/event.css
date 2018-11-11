@@ -32,3 +32,18 @@
 #event .desc {
   margin-top: 4em;
 }
+#event .countdown {
+  text-align: center;
+}
+#event .countdown li {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1.5em;
+  text-transform: uppercase;
+}
+
+#event .countdown li span {
+  display: block;
+  font-size: 4.5rem;
+}

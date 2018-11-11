@@ -573,7 +573,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  private instanciateCeval(failsafe: boolean = false): void {
+  private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
     const cfg: CevalOpts = {
       variant: this.data.game.variant,
@@ -584,21 +584,6 @@ export default class AnalyseCtrl {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
-      failsafe,
-      onCrash: lastError => {
-        const ceval = this.node.ceval;
-        console.log('Local eval failed after depth ' + (ceval && ceval.depth), lastError);
-        if (this.ceval.pnaclSupported) {
-          if (ceval && ceval.depth >= 20 && !ceval.retried) {
-            console.log('Remain on native Stockfish for now');
-            ceval.retried = true;
-          } else {
-            console.log('Fallback to WASM/ASMJS now');
-            this.instanciateCeval(true);
-            this.startCeval();
-          }
-        }
-      },
       redraw: this.redraw
     };
     if (this.opts.study && this.opts.practice) {

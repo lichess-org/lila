@@ -27,17 +27,15 @@ export interface Work {
 export interface PoolOpts {
   pnacl: string | false;
   wasm: string | false;
+  wasmx: string | false;
   asmjs: string;
-  onCrash: (err: any) => void;
 }
 
 export interface CevalOpts {
   storageKeyPrefix?: string;
-  failsafe: boolean;
   multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
-  onCrash: (err: any) => void;
   emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
   redraw(): void;
@@ -60,6 +58,7 @@ export interface CevalCtrl {
   effectiveMaxDepth(): number;
   pnaclSupported: boolean;
   wasmSupported: boolean;
+  wasmxSupported: boolean;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;
@@ -112,4 +111,12 @@ export interface Step {
   uci?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
+}
+
+export interface Watchdog {
+  arm(): void;
+  disarm(): void;
+  disarmSoon(): void;
+  fail(): void;
+  good(): boolean;
 }

@@ -161,7 +161,7 @@
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
-  <string name="ratingStats">Rating statistik</string>
+  <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
   <string name="usernameOrEmail">Användarnamn eller email</string>
   <string name="password">Lösenord</string>
@@ -823,8 +823,7 @@
   <string name="doneReviewingWhiteMistakes">Färdig med utvärderingen av vits misstag</string>
   <string name="doneReviewingBlackMistakes">Färdig med utvärderingen av svarts misstag</string>
   <string name="doItAgain">Gör det igen</string>
-  <string name="reviewWhiteMistakes">Granska vits misstag
-</string>
+  <string name="reviewWhiteMistakes">Granska vits misstag</string>
   <string name="reviewBlackMistakes">Granska svarts misstag</string>
   <string name="advantage">Fördel</string>
   <plurals name="nbSeconds">

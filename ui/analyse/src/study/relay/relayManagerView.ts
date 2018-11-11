@@ -81,9 +81,8 @@ function stateOff(ctrl: RelayCtrl) {
 let cachedDateFormatter: (date: Date) => string;
 
 function getDateFormatter(): (date: Date) => string {
-  if (!cachedDateFormatter)
-  cachedDateFormatter = (window.Intl && Intl.DateTimeFormat) ?
-    new Intl.DateTimeFormat(document.documentElement.lang, {
+  if (!cachedDateFormatter) cachedDateFormatter = (window.Intl && Intl.DateTimeFormat) ?
+    new Intl.DateTimeFormat(document.documentElement!.lang, {
       month: 'short',
       day: 'numeric',
       hour: 'numeric',

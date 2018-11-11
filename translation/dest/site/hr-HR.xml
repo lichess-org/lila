@@ -680,6 +680,9 @@ u %3$s</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">O</string>
+  <string name="aboutX">Više o %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je besplatni (%2$s) šah poslužitelj otvorenog koda i bez oglasa.</string>
+  <string name="really">više</string>
   <string name="contribute">Doprinesi</string>
   <string name="contact">Kontaktiraj</string>
   <string name="termsOfService">Uvjeti pružanja usluge</string>
