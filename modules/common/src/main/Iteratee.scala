@@ -1,8 +1,8 @@
 package lidraughts.common
 
-import scala.concurrent.duration._
 import akka.actor.ActorSystem
 import play.api.libs.iteratee._
+import scala.concurrent.duration._
 
 object Iteratee {
 
@@ -15,4 +15,10 @@ object Iteratee {
   def prepend[A](elements: Seq[A], enumerator: Enumerator[A]): Enumerator[A] =
     if (elements.isEmpty) enumerator
     else Enumerator(elements: _*) >>> enumerator
+
+  // Avoid running `andThen` on empty elements, just for perf
+  def prependFu[A](elements: Fu[Seq[A]], enumerator: Enumerator[A]): Enumerator[A] =
+    Enumerator flatten {
+      elements map { prepend(_, enumerator) }
+    }
 }

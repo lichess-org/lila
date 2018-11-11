@@ -187,11 +187,13 @@ object GameRepo {
 
   // gets last recently played move game in progress
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
-    coll.find(Query recentlyPlaying user.id)
+    lastPlayedPlaying(user.id).map { _ flatMap { Pov(_, user) } }
+
+  def lastPlayedPlaying(userId: User.ID): Fu[Option[Game]] =
+    coll.find(Query recentlyPlaying userId)
       .sort(Query.sortMovedAtNoIndex)
       .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
       .uno
-      .map { _ flatMap { Pov(_, user) } }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
     coll.find(Query nowPlaying userId).list[Game]()
