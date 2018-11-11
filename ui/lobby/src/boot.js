@@ -174,28 +174,14 @@ module.exports = function(cfg, element) {
   }
 
   function hookToPoolMember(color, data, $ratings) {
-    var find = function(key) {
-      for (var i in data)
-        if (data[i].name === key) return data[i].value;
-    };
-    var valid = color == 'random' &&
-      find('variant') == 1 &&
-      find('mode') == 1 &&
-      find('timeMode') == 1;
-    if (!valid) return false;
-    var id = parseFloat(find('time')) + '+' + parseInt(find('increment'));
-    var exists = pools.filter(function(p) {
-      return p.id === id;
-    }).length;
-    if (!exists) return;
-    var rating = parseInt($ratings.find('strong:visible').text());
-    var range = find('ratingRange').split('-');
-    var ratingMin = parseInt(range[0]),
-      ratingMax = parseInt(range[1]);
-    var keepRange = (rating - ratingMin) < 300 || (ratingMax - rating) < 300;
-    return {
+    var hash = {};
+    for (var i in data) hash[data[i].name] = data[i].value;
+    var valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1;
+    var id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
+    var exists = pools.find(function(p) { return p.id === id; });
+    if (valid && exists) return {
       id: id,
-      range: keepRange ? range.join('-') : null
+      range: hash.ratingRange
     };
   }
 
