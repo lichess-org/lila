@@ -209,6 +209,7 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
+      case (Daily, Antidraughts, SuperBlitz) => TC(3 * 60, 2)
       case (Weekly, Frisian, Blitz) => TC(5 * 60, 2)
       case (Hourly, Standard, Bullet) if bulletInc(s) => TC(60, 1)
       case (Hourly, Standard, SuperBlitz) if standardInc(s) => TC(3 * 60, 2)
