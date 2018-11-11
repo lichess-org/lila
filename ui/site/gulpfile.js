@@ -64,8 +64,8 @@ function makeBundle(filename) {
       './dep/mousetrap.min.js',
       './dep/hoverintent.min.js',
       './dist/' + filename,
-      './dist/ab.js',
-      './dist/consolemsg.js'
+      ...(abFile ? ['./dist/ab.js'] : []),
+      './dist/consolemsg.js',
     ])
       .pipe(concat(filename.replace('source.', '')))
       .pipe(destination());
