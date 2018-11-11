@@ -928,6 +928,9 @@ lichess.topMenuIntent = function() {
 
     lichess.requestIdleCallback(function() {
       lichess.parseFen();
+      if (document.getElementById('event')) {
+        lichess.loadScript('javascripts/event-countdown.js');
+      }
       $('div.checkmateCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
