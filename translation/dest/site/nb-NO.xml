@@ -539,7 +539,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="moveListWhilePlaying">Notasjonsliste mens du spiller</string>
   <string name="pgnPieceNotation">Notasjon</string>
   <string name="chessPieceSymbol">Brikkesymbol</string>
-  <string name="pgnLetter">Bokstav (K, D, T, L, S)</string>
+  <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
   <string name="never">Aldri</string>
