@@ -27,6 +27,9 @@
   width: 744px;
   height: 417px;
 }
+#lidraughts_blog twitter-widget {
+  margin: 30px auto!important;
+}
 #lidraughts_blog .post.no-icon .illustration {
   display: none;
 }
