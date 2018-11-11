@@ -86,7 +86,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val birthday = new DateTime(2018, 8, 13, 12, 0, 0)
 
       // schedule daily and longer CET, others UTC
-      val offsetCET = birthday.withZone(DateTimeZone.forID("Europe/Amsterdam")).getHourOfDay - birthday.getHourOfDay
+      val zoneCET = DateTimeZone.forID("Europe/Amsterdam")
+      def offsetCET(day: DateTime) = day.withTime(12, 0, 0, 0).withZone(zoneCET).getHourOfDay - 12
+      val todayCET = offsetCET(today)
 
       val nextPlans: List[Schedule.Plan] = List(
 
@@ -125,7 +127,7 @@ Thank you all, you rock!"""
           secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard
         ).flatMap {
             case ((day, speed), variant) =>
-              at(day, 17) filter farFuture.isAfter map { date =>
+              at(day, 17 - offsetCET(day)) filter farFuture.isAfter map { date =>
                 Schedule(Yearly, speed, variant, std, date).plan
               }
           },
@@ -140,7 +142,7 @@ Thank you all, you rock!"""
               month.lastWeek.withDayOfWeek(FRIDAY) -> Blitz,
               month.lastWeek.withDayOfWeek(SATURDAY) -> Rapid
             ).flatMap {
-                case (day, speed) => at(day, 17 - offsetCET) map { date =>
+                case (day, speed) => at(day, 17 - offsetCET(day)) map { date =>
                   Schedule(Monthly, speed, Standard, std, date).plan
                 }
               },
@@ -149,7 +151,7 @@ Thank you all, you rock!"""
               month.firstWeek.withDayOfWeek(SATURDAY) -> Antidraughts,
               month.firstWeek.withDayOfWeek(SUNDAY) -> Frisian
             ).flatMap {
-                case (day, variant) => at(day, 18 - offsetCET) map { date =>
+                case (day, variant) => at(day, 18 - offsetCET(day)) map { date =>
                   Schedule(Monthly, Blitz, variant, std, date).plan
                 }
               }
@@ -165,7 +167,7 @@ Thank you all, you rock!"""
           nextFriday -> Rapid,
           nextSaturday -> HyperBullet
         ).flatMap {
-            case (day, speed) => at(day, 17 - offsetCET) map { date =>
+            case (day, speed) => at(day, 17 - offsetCET(day)) map { date =>
               Schedule(Weekly, speed, Standard, std, date |> orNextWeek).plan
             }
           },
@@ -174,24 +176,24 @@ Thank you all, you rock!"""
           nextSaturday -> Antidraughts,
           nextSunday -> Frisian
         ).flatMap {
-            case (day, variant) => at(day, 20 - offsetCET) map { date =>
+            case (day, variant) => at(day, 20 - offsetCET(day)) map { date =>
               Schedule(Weekly, Blitz, variant, std, date |> orNextWeek).plan
             }
           },
 
         List( // daily tournaments!
-          at(today, 17 - offsetCET) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan },
-          at(today, 18 - offsetCET) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan }
+          at(today, 17 - todayCET) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan },
+          at(today, 18 - todayCET) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
         List( // daily variant tournaments!
-          at(today, 20 - offsetCET) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
-          at(today, 21 - offsetCET) map { date => Schedule(Daily, SuperBlitz, Antidraughts, std, date |> orTomorrow).plan }
+          at(today, 20 - todayCET) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
+          at(today, 21 - todayCET) map { date => Schedule(Daily, SuperBlitz, Antidraughts, std, date |> orTomorrow).plan }
         ).flatten,
 
         List( // eastern tournaments!
-          at(today, 5 - offsetCET) map { date => Schedule(Eastern, Bullet, Standard, std, date |> orTomorrow).plan },
-          at(today, 6 - offsetCET) map { date => Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan }
+          at(today, 5 - todayCET) map { date => Schedule(Eastern, Bullet, Standard, std, date |> orTomorrow).plan },
+          at(today, 6 - todayCET) map { date => Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
         // hourly standard tournaments!
