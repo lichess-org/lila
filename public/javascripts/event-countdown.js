@@ -1,4 +1,8 @@
-function cooldown(node, dateTarget) {
+$('#event .countdown').each(function() {
+
+  var $el = $(this);
+  var seconds = parseInt($(this).data('seconds')) - 1;
+  var target = new Date().getTime() + seconds * 1000;
 
   var second = 1000,
     minute = second * 60,
@@ -7,13 +11,13 @@ function cooldown(node, dateTarget) {
 
   var redraw = function() {
 
-    var now = new Date().getTime(), distance = dateTarget - now;
+    var distance = target - new Date().getTime();
 
     if (distance > 0) {
-      node.querySelector('.days').innerText = Math.floor(distance / (day)),
-      node.querySelector('.hours').innerText = Math.floor((distance % (day)) / (hour)),
-      node.querySelector('.minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-      node.querySelector('.seconds').innerText = Math.floor((distance % (minute)) / second);
+      $el.find('.days').text(Math.floor(distance / (day))),
+      $el.find('.hours').text(Math.floor((distance % (day)) / (hour))),
+      $el.find('.minutes').text(Math.floor((distance % (hour)) / (minute))),
+      $el.find('.seconds').text(Math.floor((distance % (minute)) / second));
     } else {
       clearInterval(interval);
       lidraughts.reload();
@@ -23,13 +27,4 @@ function cooldown(node, dateTarget) {
   var interval = setInterval(redraw, second);
 
   redraw();
-}
-
-$('#event p.when').each(function() {
-  var dateTarget = new Date($(this).find('time').attr('datetime'));
-  $(this).replaceWith($(
-    '<ul class="countdown"><li><span class="days"></span>days</li><li><span class="hours"></span>Hours</li><li><span class="minutes"></span>Minutes</li><li><span class="seconds"></span>Seconds</li></ul>'
-  ));
-  cooldown($('#event .countdown')[0], dateTarget);
-  lidraughts.loadCss('stylesheets/event-countdown.css');
-})
+});

@@ -928,9 +928,6 @@ lidraughts.topMenuIntent = function() {
 
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
-      if (document.getElementById('event')) {
-        lidraughts.loadScript('javascripts/event-countdown.js');
-      }
       $('div.captureCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
