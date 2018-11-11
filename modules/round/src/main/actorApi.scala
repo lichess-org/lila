@@ -7,13 +7,12 @@ import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
 import lila.common.IpAddress
-import lila.game.Event
 import lila.socket.Socket.Uid
 import lila.socket.SocketMember
 import lila.user.User
 import lila.socket.Socket.SocketVersion
 
-case class EventList(events: List[Event])
+case class EventList(events: List[lila.game.Event])
 
 sealed trait Member extends SocketMember {
 
@@ -77,9 +76,10 @@ case class Join(
     color: Color,
     playerId: Option[String],
     ip: IpAddress,
-    userTv: Option[User.ID],
+    userTv: Option[UserTv],
     version: Option[SocketVersion]
 )
+case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
