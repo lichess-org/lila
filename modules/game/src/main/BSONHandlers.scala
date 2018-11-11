@@ -36,9 +36,8 @@ object BSONHandlers {
 
       val gameVariant = Variant(r intD F.variant) | draughts.variant.Standard
       val startedAtTurn = r intD F.startedAtTurn
-      var plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
+      val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
       val playedPlies = plies - startedAtTurn
-      val turnColor = Color.fromPly(plies)
 
       val decoded = r.bytesO(F.huffmanPdn).map { PdnStorage.Huffman.decode(_, playedPlies) } | {
         PdnStorage.Decoded(
@@ -64,21 +63,14 @@ object BSONHandlers {
         variant = gameVariant
       )
 
-      val initialSituation = draughts.Situation(
+      val midCapture = decoded.pdnMoves.lastOption.fold(false)(_.indexOf('x') != -1) && decodedBoard.ghosts != 0
+      val currentPly = midCapture.fold(plies - 1, plies)
+      val turnColor = Color.fromPly(currentPly)
+
+      val decodedSituation = draughts.Situation(
         board = decodedBoard,
         color = turnColor
       )
-
-      val lastMove: String = decoded.pdnMoves.lastOption.getOrElse("")
-
-      val decodedSituation = draughts.Pos.posAt(lastMove.substring(lastMove.lastIndexOf('x') + 1)) match {
-        case Some(pos) =>
-          if (initialSituation.ghosts != 0) {
-            plies = plies - 1
-            draughts.Situation(board = decodedBoard, color = !turnColor)
-          } else initialSituation
-        case _ => initialSituation
-      }
 
       val winC = r boolO F.winnerColor map Color.apply
       val uids = ~r.getO[List[String]](F.playerUids)
@@ -103,7 +95,7 @@ object BSONHandlers {
         clock = r.getO[Color => Clock](F.clock) {
           clockBSONReader(createdAt, wPlayer.berserk, bPlayer.berserk)
         } map (_(decodedSituation.color)),
-        turns = plies,
+        turns = currentPly,
         startedAtTurn = startedAtTurn
       )
 

@@ -39,7 +39,7 @@ case class Board(
     Color.Map(w, b)
   }
 
-  lazy val ghosts = roleCount(GhostKing) + roleCount(GhostMan)
+  lazy val ghosts = pieces.values.count(p => p.role == GhostKing || p.role == GhostMan)
 
   def roleCount(r: Role): Int = pieces.values.count(_.role == r)
 
