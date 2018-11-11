@@ -41,12 +41,11 @@ object BSONHandlers {
       val turnColor = Color.fromPly(plies)
 
       val decoded = r.bytesO(F.huffmanPdn).map { PdnStorage.Huffman.decode(_, playedPlies) } | {
-        val lm = r strD F.historyLastMove
         PdnStorage.Decoded(
           pdnMoves = PdnStorage.OldBin.decode(r bytesD F.oldPdn, playedPlies),
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[draughts.PositionHash](F.positionHashes) | Array.empty,
-          lastMove = if (lm.nonEmpty) Uci.apply(lm) else None,
+          lastMove = r strO F.historyLastMove flatMap Uci.apply,
           format = PdnStorage.OldBin
         )
       }
@@ -84,11 +83,13 @@ object BSONHandlers {
       val winC = r boolO F.winnerColor map Color.apply
       val uids = ~r.getO[List[String]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
+
       def makePlayer(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
         val win = winC map (_ == color)
         builder(color)(id)(uid)(win)
       }
+
       val (whiteId, blackId) = r str F.playerIds splitAt 4
       val wPlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid)
       val bPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid)
@@ -169,7 +170,7 @@ object BSONHandlers {
             F.oldPdn -> f.encode(o.pdnMoves take Game.maxPlies),
             F.binaryPieces -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes,
-            F.historyLastMove -> o.history.lastMove.fold(none[String])(_.uci.some),
+            F.historyLastMove -> o.history.lastMove.map(_.uci),
             // since variants are always OldBin
             F.kingMoves -> o.history.kingMoves.nonEmpty.option(o.history.kingMoves)
           )
