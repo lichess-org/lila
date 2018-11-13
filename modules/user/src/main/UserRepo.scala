@@ -343,11 +343,11 @@ object UserRepo {
 
   def setBot(user: User): Funit =
     if (user.count.game > 0) fufail("You already have games played. Make a new account.")
-    else coll.updateField($id(user.id), F.title, User.botTitle).void
+    else coll.updateField($id(user.id), F.title, Title.bot).void
 
   private def botSelect(v: Boolean) =
-    if (v) $doc(F.title -> User.botTitle)
-    else $doc(F.title -> $ne(User.botTitle))
+    if (v) $doc(F.title -> Title.bot)
+    else $doc(F.title -> $ne(Title.bot))
 
   private[user] def botIds = coll.distinctWithReadPreference[String, Set](
     "_id",

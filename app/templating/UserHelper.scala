@@ -10,7 +10,7 @@ import lila.api.Context
 import lila.common.LightUser
 import lila.i18n.I18nKeys
 import lila.rating.{ PerfType, Perf }
-import lila.user.{ User, UserContext }
+import lila.user.{ User, Title, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
@@ -140,7 +140,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def titleTag(title: Option[String]) = Html {
     title.fold("") { t =>
-      s"""<span class="title" data-title="$t" title="${User titleName t}">$t</span>&nbsp;"""
+      s"""<span class="title" data-title="$t" title="${Title titleName t}">$t</span>&nbsp;"""
     }
   }
 
