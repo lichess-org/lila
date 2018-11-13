@@ -10,7 +10,7 @@ import lidraughts.api.Context
 import lidraughts.common.LightUser
 import lidraughts.i18n.I18nKeys
 import lidraughts.rating.{ PerfType, Perf }
-import lidraughts.user.{ User, UserContext }
+import lidraughts.user.{ User, Title, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
 
@@ -137,7 +137,7 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
 
   def titleTag(title: Option[String]) = Html {
     title.fold("") { t =>
-      s"""<span class="title" data-title="$t" title="${User titleName t}">$t</span>&nbsp;"""
+      s"""<span class="title" data-title="$t" title="${Title titleName t}">$t</span>&nbsp;"""
     }
   }
 

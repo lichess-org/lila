@@ -110,7 +110,7 @@ case class User(
 
   def is(name: String) = id == User.normalize(name)
 
-  def isBot = title has User.botTitle
+  def isBot = title has Title.bot
   def noBot = !isBot
 
   def rankable = noBot && !rankban
@@ -170,6 +170,8 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
+  case class Title(value: String) extends AnyVal with StringValue
+
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
     def totalPeriod = new Period(total * 1000l)
@@ -192,28 +194,6 @@ object User {
   def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
 
   def normalize(username: String) = username.toLowerCase
-
-  val titles = Seq(
-    "GMI" -> "International Grandmaster",
-    "MI" -> "International Master",
-    "MF" -> "FMJD Master",
-    "GMN" -> "National Grandmaster",
-    "MN" -> "National Master",
-    "cMN" -> "Candidate National Master",
-    "GMIF" -> "Woman International Grandmaster",
-    "MIF" -> "Woman International Master",
-    "MFF" -> "Woman FMJD Master",
-    "MNF" -> "Woman National Master",
-    "cMNF" -> "Woman Candidate National Master",
-    "LM" -> "Lidraughts Master",
-    "BOT" -> "Chess Robot"
-  )
-
-  val botTitle = LightUser.botTitle
-
-  val titlesMap = titles.toMap
-
-  def titleName(title: String) = titlesMap get title getOrElse title
 
   object BSONFields {
     val id = "_id"

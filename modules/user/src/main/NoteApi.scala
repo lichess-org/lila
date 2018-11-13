@@ -22,7 +22,8 @@ case class UserNotes(user: User, notes: List[Note])
 final class NoteApi(
     coll: Coll,
     timeline: akka.actor.ActorSelection,
-    bus: lidraughts.common.Bus
+    bus: lidraughts.common.Bus,
+    titleUrl: TitleUrl
 ) {
 
   import reactivemongo.bson._
@@ -77,6 +78,10 @@ final class NoteApi(
         text = note.text,
         mod = modOnly
       ), 'userNote)
+    }
+  } >> {
+    modOnly ?? titleUrl(text) flatMap {
+      _ ?? { UserRepo.addTitle(to.id, _) }
     }
   }
 

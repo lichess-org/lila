@@ -6,6 +6,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.game.{ Game, Pov, Player }
+import lidraughts.user.Title
 
 import controllers.routes
 
@@ -78,7 +79,7 @@ object bits {
 
   private def playerTitle(player: Player) =
     lightUser(player.userId).flatMap(_.title) map { t =>
-      span(cls := "title", dataTitle := t, title := lidraughts.user.User titleName t)(t)
+      span(cls := "title", dataTitle := t, title := Title titleName t)(t)
     }
 
   def vstext(pov: Pov)(ctxOption: Option[Context]) =

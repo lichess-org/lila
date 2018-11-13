@@ -82,7 +82,7 @@
   </div>
   @if(isGranted(_.SetTitle)) {
   <form class="fmjd_title" method="post" action="@routes.Mod.setTitle(u.username)">
-    @base.form.select(lidraughts.user.DataForm.title.fill(u.title)("title"), lidraughts.user.User.titles, "No title".some)
+    @base.form.select(lidraughts.user.DataForm.title.fill(u.title)("title"), lidraughts.user.Title.all, "No title".some)
   </form>
   }
   @if(isGranted(_.SetEmail)) {

@@ -4,7 +4,7 @@ import lidraughts.common.{ IpAddress, EmailAddress }
 import lidraughts.report.{ Mod, ModId, Suspect, SuspectId, Room }
 import lidraughts.security.Permission
 import lidraughts.security.{ Firewall, UserSpy, Store => SecurityStore }
-import lidraughts.user.{ User, UserRepo, LightUserApi }
+import lidraughts.user.{ User, UserRepo, Title, LightUserApi }
 
 final class ModApi(
     logApi: ModlogApi,
@@ -119,7 +119,7 @@ final class ModApi(
           logApi.removeTitle(mod, user.id) >>-
           lightUserApi.invalidate(user.id)
       }
-      case Some(t) => User.titlesMap.get(t) ?? { tFull =>
+      case Some(t) => Title.names.get(t) ?? { tFull =>
         UserRepo.addTitle(user.id, t) >>-
           logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
           lightUserApi.invalidate(user.id)

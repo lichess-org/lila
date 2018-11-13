@@ -136,7 +136,7 @@ case _ => {
     </div>
     }
     } else {
-    @u.title.flatMap(lidraughts.user.User.titlesMap.get).map { title =>
+    @u.title.flatMap(lidraughts.user.Title.names.get).map { title =>
     <p data-icon="E" class="honorific title text">@title</p>
     }
     }
