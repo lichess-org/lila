@@ -38,9 +38,7 @@ final class Env(
 
   val jsonView = new JsonView(isOnline)
 
-  private lazy val titleUrl = new TitleUrl
-
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lidraughtsBus, titleUrl)
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lidraughtsBus)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 
