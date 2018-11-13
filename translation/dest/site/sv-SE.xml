@@ -697,7 +697,7 @@
     <item quantity="other">%1$s %2$s spelare denna vecka.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$sspelarna.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
