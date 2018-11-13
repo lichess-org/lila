@@ -29,23 +29,23 @@ object Title {
   lazy val fromNames = all.map(_.swap).toMap
 
   def titleName(title: String) = names get title getOrElse title
-}
 
-final class TitleUrl {
+  object fromUrl {
 
-  // https://ratings.fide.com/card.phtml?event=740411
-  private val FideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
-  // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
-  private val FideProfileTitleRegex = """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
+    // https://ratings.fide.com/card.phtml?event=740411
+    private val FideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
+    // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
+    private val FideProfileTitleRegex = """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
 
-  def apply(url: String): Fu[Option[String]] = url.trim match {
-    case FideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
-    case _ => fuccess(none)
-  }
+    def apply(url: String): Fu[Option[String]] = url.trim match {
+      case FideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
+      case _ => fuccess(none)
+    }
 
-  private def fromFideProfile(id: Int): Fu[Option[String]] = {
-    WS.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().map(_.body) map {
-      case FideProfileTitleRegex(name) => Title.fromNames get name
+    private def fromFideProfile(id: Int): Fu[Option[String]] = {
+      WS.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().map(_.body) map {
+        case FideProfileTitleRegex(name) => Title.fromNames get name
+      }
     }
   }
 }
