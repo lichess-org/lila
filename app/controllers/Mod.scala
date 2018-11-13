@@ -6,7 +6,7 @@ import lidraughts.chat.Chat
 import lidraughts.common.{ IpAddress, EmailAddress, HTTPRequest }
 import lidraughts.report.{ Suspect, Mod => AsMod }
 import lidraughts.security.Permission
-import lidraughts.user.{ UserRepo, User => UserModel }
+import lidraughts.user.{ UserRepo, User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._
 
@@ -133,7 +133,7 @@ object Mod extends LidraughtsController {
     implicit def req = ctx.body
     lidraughts.user.DataForm.title.bindFromRequest.fold(
       err => fuccess(redirect(username, mod = true)),
-      title => modApi.setTitle(me.id, username, title) >>
+      title => modApi.setTitle(me.id, username, title map Title.apply) >>
         Env.security.automaticEmail.onTitleSet(username) >>-
         Env.user.uncacheLightUser(UserModel normalize username) inject
         redirect(username, mod = false)

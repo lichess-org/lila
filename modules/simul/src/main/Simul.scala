@@ -1,7 +1,7 @@
 package lidraughts.simul
 
 import draughts.variant.Variant
-import lidraughts.user.User
+import lidraughts.user.{ User, Title }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
@@ -17,7 +17,7 @@ case class Simul(
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
-    hostTitle: Option[String],
+    hostTitle: Option[Title],
     hostOfficialRating: Option[Int],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],

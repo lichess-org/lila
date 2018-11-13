@@ -3,7 +3,7 @@ package lidraughts.report
 import reactivemongo.bson._
 
 import lidraughts.db.dsl._
-import lidraughts.user.{ User, UserRepo }
+import lidraughts.user.{ User, UserRepo, Title }
 
 private final class ReportScore(
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
@@ -31,7 +31,7 @@ private final class ReportScore(
     def reporterScore(r: Reporter) =
       titleScore(r.user.title) + flagScore(r.user)
 
-    def titleScore(title: Option[String]) =
+    def titleScore(title: Option[Title]) =
       (title.isDefined) ?? 30d
 
     def flagScore(user: User) =

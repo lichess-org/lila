@@ -112,7 +112,7 @@ final class ModApi(
     }
   }
 
-  def setTitle(mod: String, username: String, title: Option[String]): Funit = withUser(username) { user =>
+  def setTitle(mod: String, username: String, title: Option[Title]): Funit = withUser(username) { user =>
     title match {
       case None => {
         UserRepo.removeTitle(user.id) >>-

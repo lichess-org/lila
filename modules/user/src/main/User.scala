@@ -21,7 +21,7 @@ case class User(
     booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[String] = None,
+    title: Option[Title] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
@@ -40,7 +40,7 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
+  def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
@@ -170,8 +170,6 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
-  case class Title(value: String) extends AnyVal with StringValue
-
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
     def totalPeriod = new Period(total * 1000l)
@@ -241,6 +239,7 @@ object User {
     private implicit def perfsHandler = Perfs.perfsBSONHandler
     private implicit def planHandler = Plan.planBSONHandler
     private implicit def totpSecretHandler = TotpSecret.totpSecretBSONHandler
+    import Title.titleBsonHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -260,7 +259,7 @@ object User {
       seenAt = r dateO seenAt,
       kid = r boolD kid,
       lang = r strO lang,
-      title = r strO title,
+      title = r.getO[Title](title),
       plan = r.getO[Plan](plan) | Plan.empty,
       reportban = r boolD reportban,
       rankban = r boolD rankban,

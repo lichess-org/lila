@@ -17,6 +17,7 @@ object UserRepo {
 
   import User.ID
   import User.{ BSONFields => F }
+  import Title.titleBsonHandler
 
   // dirty
   private[user] val coll = Env.current.userColl
@@ -174,7 +175,7 @@ object UserRepo {
       $set(F.profile -> Profile.profileBSONHandler.write(profile))
     ).void
 
-  def addTitle(id: ID, title: String): Funit =
+  def addTitle(id: ID, title: Title): Funit =
     coll.updateField($id(id), F.title, title).void
 
   def removeTitle(id: ID): Funit =
@@ -357,7 +358,7 @@ object UserRepo {
     if (v) $doc(F.title -> Title.bot)
     else $doc(F.title -> $ne(Title.bot))
 
-  def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
+  def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
 
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONValueWriter[Plan] = Plan.planBSONHandler

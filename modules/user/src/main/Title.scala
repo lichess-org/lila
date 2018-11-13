@@ -7,29 +7,33 @@ case class Title(value: String) extends AnyVal with StringValue
 
 object Title {
 
+  implicit val titleIso = lidraughts.common.Iso.string[Title](Title.apply, _.value)
+  implicit val titleBsonHandler = lidraughts.db.dsl.stringIsoHandler(Title.titleIso)
+  implicit val titleJsonWrites = lidraughts.common.PimpedJson.stringIsoWriter(Title.titleIso)
+
   // important: abbreviations are as stated on fmjd profile pages
   val all = Seq(
-    "GMI" -> "International Grandmaster",
-    "MI" -> "International Master",
-    "MF" -> "FMJD Master",
-    "GMN" -> "National Grandmaster",
-    "MN" -> "National Master",
-    "cMN" -> "Candidate National Master",
-    "GMIF" -> "Woman International Grandmaster",
-    "MIF" -> "Woman International Master",
-    "MFF" -> "Woman FMJD Master",
-    "MNF" -> "Woman National Master",
-    "cMNF" -> "Woman Candidate National Master",
-    "LM" -> "Lidraughts Master",
-    "BOT" -> "Draughts Robot"
+    Title("GMI") -> "International Grandmaster",
+    Title("MI") -> "International Master",
+    Title("MF") -> "FMJD Master",
+    Title("GMN") -> "National Grandmaster",
+    Title("MN") -> "National Master",
+    Title("cMN") -> "Candidate National Master",
+    Title("GMIF") -> "Woman International Grandmaster",
+    Title("MIF") -> "Woman International Master",
+    Title("MFF") -> "Woman FMJD Master",
+    Title("MNF") -> "Woman National Master",
+    Title("cMNF") -> "Woman Candidate National Master",
+    Title("LM") -> "Lidraughts Master",
+    Title("BOT") -> "Draughts Robot"
   )
 
-  val bot = lidraughts.common.LightUser.botTitle
+  val bot = Title("BOT")
 
   val names = all.toMap
   lazy val fromNames = all.map(_.swap).toMap
 
-  def titleName(title: String) = names get title getOrElse title
+  def titleName(title: Title): String = names.getOrElse(title, title.value)
 
   object fromUrl {
 
@@ -38,14 +42,20 @@ object Title {
     //<tr>\n<td>TITLE<\/td>\n<td>RATING\s(POSITION)<td>\n<\/tr><tr>
     private val FmjdProfileTitleRegex = """<tr>\s*<td>(\w{2,4})</td>\s*<td>\d{1,4}\s+\(\d+\)<td>\s*</tr>\s*<tr>""".r.unanchored
 
-    def apply(url: String): Fu[Option[String]] = url.trim match {
+    def apply(url: String): Fu[Option[Title]] = url.trim match {
       case FmjdProfileUrlRegex(id) => parseIntOption(id) ?? fromFmjdProfile
       case _ => fuccess(none)
     }
 
-    private def fromFmjdProfile(id: Int): Fu[Option[String]] = {
-      WS.url(s"""https://www.fmjd.org/?p=pcard&id=$id""").get().map(_.body) map {
-        case FmjdProfileTitleRegex(title) => Title.names.contains(title) option title
+    private def fromFmjdProfile(id: Int): Fu[Option[Title]] = {
+      val url = s"""https://www.fmjd.org/?p=pcard&id=$id"""
+      WS.url(url).get().map(_.body) map {
+        case FmjdProfileTitleRegex(titleStr) =>
+          val title = Title(titleStr)
+          Title.names.contains(title) option title
+        case _ =>
+          logger.info(s"No title found on $url")
+          none
       }
     }
   }

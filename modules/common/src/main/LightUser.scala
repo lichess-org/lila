@@ -11,12 +11,10 @@ case class LightUser(
 
   def titleName = title.fold(name)(_ + " " + name)
 
-  def isBot = title has LightUser.botTitle
+  def isBot = title has "BOT"
 }
 
 object LightUser {
-
-  val botTitle = "BOT"
 
   implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj(
