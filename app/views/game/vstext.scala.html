@@ -3,14 +3,14 @@
 <div class="left user_link">
 @playerUsername(pov.player, withRating = false, withTitle = false)
 <br />
-@titleTag(lightUser(pov.player.userId).flatMap(_.title))
+@lightUser(pov.player.userId).??(titleTag)
 @pov.player.rating@if(pov.player.provisional){?}
 </div>
 <div class="right user_link">
 @playerUsername(pov.opponent, withRating = false, withTitle = false)
 <br />
 @pov.opponent.rating@if(pov.opponent.provisional){?}
-@titleTag(lightUser(pov.opponent.userId).flatMap(_.title))
+@lightUser(pov.opponent.userId).??(titleTag)
 </div>
 @pov.game.clock.map { c =>
 <div class="center"><span data-icon="p"> @shortClockName(c.config)</span></div>

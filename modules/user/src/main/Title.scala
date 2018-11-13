@@ -7,28 +7,32 @@ case class Title(value: String) extends AnyVal with StringValue
 
 object Title {
 
+  implicit val titleIso = lila.common.Iso.string[Title](Title.apply, _.value)
+  implicit val titleBsonHandler = lila.db.dsl.stringIsoHandler(Title.titleIso)
+  implicit val titleJsonWrites = lila.common.PimpedJson.stringIsoWriter(Title.titleIso)
+
   // important: names are as stated on FIDE profile pages
   val all = Seq(
-    "GM" -> "Grandmaster",
-    "WGM" -> "Woman Grandmaster",
-    "IM" -> "International Master",
-    "WIM" -> "Woman Intl. Master",
-    "FM" -> "FIDE Master",
-    "WFM" -> "Woman FIDE Master",
-    "NM" -> "National Master",
-    "CM" -> "Candidate Master",
-    "WCM" -> "Woman Candidate Master",
-    "WNM" -> "Woman National Master",
-    "LM" -> "Lichess Master",
-    "BOT" -> "Chess Robot"
+    Title("GM") -> "Grandmaster",
+    Title("WGM") -> "Woman Grandmaster",
+    Title("IM") -> "International Master",
+    Title("WIM") -> "Woman Intl. Master",
+    Title("FM") -> "FIDE Master",
+    Title("WFM") -> "Woman FIDE Master",
+    Title("NM") -> "National Master",
+    Title("CM") -> "Candidate Master",
+    Title("WCM") -> "Woman Candidate Master",
+    Title("WNM") -> "Woman National Master",
+    Title("LM") -> "Lichess Master",
+    Title("BOT") -> "Chess Robot"
   )
 
-  val bot = lila.common.LightUser.botTitle
+  val bot = Title("BOT")
 
   val names = all.toMap
   lazy val fromNames = all.map(_.swap).toMap
 
-  def titleName(title: String) = names get title getOrElse title
+  def titleName(title: Title): String = names.getOrElse(title, title.value)
 
   object fromUrl {
 
@@ -37,12 +41,12 @@ object Title {
     // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
     private val FideProfileTitleRegex = """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
 
-    def apply(url: String): Fu[Option[String]] = url.trim match {
+    def apply(url: String): Fu[Option[Title]] = url.trim match {
       case FideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
       case _ => fuccess(none)
     }
 
-    private def fromFideProfile(id: Int): Fu[Option[String]] = {
+    private def fromFideProfile(id: Int): Fu[Option[Title]] = {
       WS.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().map(_.body) map {
         case FideProfileTitleRegex(name) => Title.fromNames get name
       }
