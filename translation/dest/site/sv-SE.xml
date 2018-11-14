@@ -432,7 +432,7 @@
   <string name="profileCompletion">Profil fulländning: %s</string>
   <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
-  <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
+  <string name="gameCompletionRate">Partislutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
