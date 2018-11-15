@@ -19,7 +19,18 @@ function officialStockfish(variant: VariantKey): boolean {
   return variant === 'standard' || variant === 'chess960';
 }
 
+function is64Bit(): boolean {
+  const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
+  for (const substr of x64) if (navigator.userAgent.indexOf(substr) >= 0) return true;
+  return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
+}
+
 function wasmThreadsSupported() {
+  // In theory 32 bit should be supported just the same, but some 32 bit
+  // browser builds seem to crash when running WASMX. So for now detect and
+  // require a 64 bit platform.
+  if (!is64Bit()) return false;
+
   // WebAssembly 1.0
   const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
   if (typeof WebAssembly !== 'object' || !WebAssembly.validate(source)) return false;
