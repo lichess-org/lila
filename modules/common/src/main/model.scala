@@ -48,3 +48,5 @@ object EmailAddress {
 
   private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
+
+case class Strings(value: List[String]) extends AnyVal

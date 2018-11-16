@@ -3,7 +3,7 @@ package lidraughts.memo
 import lidraughts.db.dsl._
 import play.api.data._, Forms._
 
-final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private (
+final class SettingStore[A: BSONValueHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
     val id: String,
     val default: A,
@@ -23,7 +23,7 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
     persist ?? coll.update(dbId, $set(dbField -> v), upsert = true).void
   }
 
-  def form: Option[Form[_]] = SettingStore formOf this
+  def form: Form[_] = implicitly[SettingStore.Formable[A]] form value
 
   def setString(str: String): Funit = (implicitly[SettingStore.StringReader[A]] read str) ?? set
 
@@ -44,7 +44,7 @@ object SettingStore {
   type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
   final class Builder(coll: Coll) {
-    def apply[A: BSONValueHandler: StringReader](
+    def apply[A: BSONValueHandler: StringReader: Formable](
       id: String,
       default: A,
       text: Option[String] = None,
@@ -65,11 +65,19 @@ object SettingStore {
     def fromIso[A](iso: lidraughts.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
   }
 
-  def formOf(s: SettingStore[_]): Option[Form[_]] = s.value match {
-    case v: Boolean => Form(single("v" -> boolean)) fill v some
-    case v: Int => Form(single("v" -> number)) fill v some
-    case v: String => Form(single("v" -> text)) fill v some
-    case _ => none
+  object Strings {
+    val stringsIso = lidraughts.common.Iso.strings(",")
+    implicit val stringsBsonHandler = lidraughts.db.dsl.isoHandler(stringsIso)
+    implicit val stringsReader = StringReader.fromIso(stringsIso)
+  }
+
+  final class Formable[A](val form: A => Form[_])
+  object Formable {
+    implicit val booleanFormable = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
+    implicit val intFormable = new Formable[Int](v => Form(single("v" -> number)) fill v)
+    implicit val stringFormable = new Formable[String](v => Form(single("v" -> text)) fill v)
+    implicit val stringsFormable = new Formable[lidraughts.common.Strings](v =>
+      Form(single("v" -> text)) fill Strings.stringsIso.to(v))
   }
 
   private val dbField = "setting"

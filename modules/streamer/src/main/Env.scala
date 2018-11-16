@@ -3,6 +3,8 @@ package lidraughts.streamer
 import akka.actor._
 import com.typesafe.config.Config
 
+import lidraughts.common.Strings
+
 final class Env(
     config: Config,
     system: ActorSystem,
@@ -29,13 +31,11 @@ final class Env(
   private lazy val photographer = new lidraughts.db.Photographer(imageColl, "streamer")
 
   lazy val alwaysFeaturedSetting = {
-    val stringListIso = lidraughts.common.Iso.stringList(",")
-    implicit val stringListBsonHandler = lidraughts.db.dsl.isoHandler(stringListIso)
-    implicit val stringListReader = lidraughts.memo.SettingStore.StringReader.fromIso(stringListIso)
-    settingStore[List[lidraughts.user.User.ID]](
+    import lidraughts.memo.SettingStore.Strings._
+    settingStore[Strings](
       "streamerAlwaysFeatured",
-      default = Nil,
-      text = "Twitch streamers who get featured without the keyword".some
+      default = Strings(Nil),
+      text = "Twitch streamers who get featured without the keyword - lidraughts usernames separated by a comma".some
     )
   }
 
