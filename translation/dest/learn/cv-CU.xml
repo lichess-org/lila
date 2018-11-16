@@ -4,6 +4,9 @@
   <string name="learnChess">Шахматла выльаса</string>
   <string name="byPlaying">шахмата вӗрен!</string>
   <string name="menu">Менӳ</string>
+  <string name="progressX">Ӳсӗм: %s</string>
+  <string name="resetMyProgress">Ҫитнӗ ӳсӗме силле</string>
+  <string name="youWillLoseAllYourProgress">Ҫитнӗ ӳсӗмӗве пӗтӗмпех ҫухатӑн!</string>
   <string name="chessPieces">Шахмат кӗлеткисем</string>
   <string name="theRook">Пашне</string>
   <string name="itMovesInStraightLines">Вӑл тӳрӗ линипе ҫӳрет</string>
