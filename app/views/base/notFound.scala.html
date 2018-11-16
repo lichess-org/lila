@@ -3,7 +3,8 @@
 @base.layout(
 title = "Page not found",
 moreJs = prismicJs,
-moreCss = cssTag("notFound.css")) {
+moreCss = cssTag("notFound.css"),
+csp = defaultCsp.withPrismic(isGranted(_.Prismic)).some) {
 
 <div class="content_box small_box">
   <header>
