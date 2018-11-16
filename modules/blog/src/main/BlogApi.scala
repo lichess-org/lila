@@ -35,7 +35,7 @@ final class BlogApi(
         req.cookies.get(Prismic.previewCookie).map(_.value)
           .orElse(req.queryString get "ref" flatMap (_.headOption) filter (_.nonEmpty))
       }
-      BlogApi.Context(api, ref.pp | api.master.ref, linkResolver(api, ref))
+      BlogApi.Context(api, ref | api.master.ref, linkResolver(api, ref))
     }
   }
 
