@@ -34,6 +34,10 @@
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
   <string name="takeTheBlackPieces">Хура кӗлеткисене ил!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
+  <string name="protection">Хӳтӗленӳ</string>
+  <string name="keepYourPiecesSafe">Кӗлеткӳсене сыхласа тӑр</string>
+  <string name="escape">Сана тапӑнаҫҫӗ! 
+Хӑратӑва сир!</string>
   <string name="attackTheOpponentsKing">Тӑшман патшине тапӑн</string>
   <string name="defendYourKing">Патшуна хӳтеле</string>
   <string name="defeatTheOpponentsKing">Тӑшман патшине ҫапса аркат</string>
@@ -49,6 +53,7 @@ She goes on her own colour.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
   <string name="theSpecialPawnMove">Салтакӑн уйрӑм хусканӑвӗ</string>
+  <string name="playMachine">Машинпа выльа</string>
   <string name="letsGo">Малалла!</string>
   <string name="stageX">%s сыпӑк</string>
   <string name="greatJob">Чаплӑ ӗҫ!</string>
