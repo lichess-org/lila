@@ -56,6 +56,7 @@ object Permission {
   case object Settings extends Permission("ROLE_SETTINGS")
   case object Streamers extends Permission("ROLE_STREAMERS")
   case object Verified extends Permission("ROLE_VERIFIED")
+  case object Prismic extends Permission("ROLE_PRISMIC")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -68,7 +69,7 @@ object Permission {
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
     PracticeConfig, RemoveRanking, ReportBan, DisapproveCoachReview,
-    Relay, Streamers, DisableTwoFactor
+    Relay, Streamers, DisableTwoFactor, Prismic
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
@@ -80,7 +81,7 @@ object Permission {
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
     PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan,
-    Relay, Cli, Settings, Streamers, DisableTwoFactor, Verified
+    Relay, Cli, Settings, Streamers, DisableTwoFactor, Verified, Prismic
   )
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin

@@ -10,10 +10,10 @@ private[blog] final class Notifier(
     timelineApi: EntryApi
 ) {
 
-  def apply(prismicId: String): Funit =
+  def apply(id: String): Funit =
     blogApi.prismicApi flatMap { prismicApi =>
-      blogApi.one(prismicApi, none, prismicId) flatten
-        s"No such document: $prismicId" flatMap doSend
+      blogApi.one(prismicApi, none, id) flatten
+        s"No such document: $id" flatMap doSend
     }
 
   private def doSend(post: Document): Funit = post.getText("blog.title") ?? { title =>
