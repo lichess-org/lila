@@ -45,7 +45,8 @@ object RelayForm {
       description = description,
       official = official && Granter(_.Relay)(user),
       sync = makeSync,
-      startsAt = startsAt
+      startsAt = startsAt,
+      finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
     )
 
     def makeSync = Relay.Sync(
