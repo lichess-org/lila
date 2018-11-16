@@ -643,6 +643,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.bookmark(name = "help")
 GET   /help/master                     controllers.Page.bookmark(name = "master")
 
+GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
