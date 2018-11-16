@@ -24,6 +24,8 @@
   <string name="thePawn">Салтак</string>
   <string name="itMovesForwardOnly">Вӑл малалла кӑна ҫӳрет</string>
   <string name="pawnsMoveOneSquareOnly">Салтак пӗр кӗлеткепе кӑна ҫӳрет. But when they reach the other side of the board, they become a stronger piece!</string>
+  <string name="pawnsMoveForward">Салтак тӳрӗ ҫӳрет, 
+илсен диагональпе илет!</string>
   <string name="fundamentals">Никӗсӗсем</string>
   <string name="capture">Илӳ</string>
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
