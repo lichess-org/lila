@@ -15,6 +15,7 @@
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
   <string name="theQueen">Ҫарпуҫ</string>
   <string name="queenCombinesRookAndBishop">Ҫарпуҫ = пашне + пил</string>
+  <string name="queenIntro">Чи вӑйлӑ шахмат кӗлетки кӗрет. Ҫарпуҫа куҫ хыв!</string>
   <string name="theKing">Патша</string>
   <string name="theMostImportantPiece">Чи паха кӗлетке</string>
   <string name="theKingIsSlow">Патша вӑл вӑрахскер.</string>
