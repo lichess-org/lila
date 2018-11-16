@@ -18,6 +18,7 @@
   <string name="queenIntro">Чи вӑйлӑ шахмат кӗлетки кӗрет. Ҫарпуҫа куҫ хыв!</string>
   <string name="theKing">Патша</string>
   <string name="theMostImportantPiece">Чи паха кӗлетке</string>
+  <string name="kingIntro">Есӗ патша. Ҫапӑҫура пуҫ хурсан, вӑййине выльаса йанӑ.</string>
   <string name="theKingIsSlow">Патша вӑл вӑрахскер.</string>
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
@@ -32,6 +33,9 @@
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
   <string name="takeTheBlackPieces">Хура кӗлеткисене ил!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
+  <string name="attackTheOpponentsKing">Тӑшман патшине тапӑн</string>
+  <string name="defendYourKing">Патшуна хӳтеле</string>
+  <string name="defeatTheOpponentsKing">Тӑшман патшине ҫапса аркат</string>
   <string name="thisIsTheInitialPosition">Ку вӑл кашни шахмат вӑййин пуҫламӑш лартӑмӗ. Make any move to continue.</string>
   <string name="firstPlaceTheRooks">Малтан икӗ пашне ларт! Вӗсем кӗтесре тӑмалла.</string>
   <string name="thenPlaceTheKnights">Унтан икӗ лаша ларт! Вӗсем пашне патӗнче тӑмалла.</string>
