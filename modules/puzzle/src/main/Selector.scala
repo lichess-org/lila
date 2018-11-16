@@ -38,7 +38,7 @@ private[puzzle] final class Selector(
     }
   }.mon(_.puzzle.selector.time) flatten s"No ${variant.key} puzzle available" addEffect { puzzle =>
     if (puzzle.vote.sum < -1000)
-      logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle(variant).intRating.toString)})")
+      logger.info(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle(variant).intRating.toString)})")
     else
       lidraughts.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
