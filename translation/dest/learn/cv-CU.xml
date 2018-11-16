@@ -36,10 +36,14 @@
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
   <string name="protection">Хӳтӗленӳ</string>
   <string name="keepYourPiecesSafe">Кӗлеткӳсене сыхласа тӑр</string>
+  <string name="protectionComplete">Саламлатпӑр! Выльаса йаман кӗлетки выльаса илнӗ кӗлетке пулать вӑл!</string>
   <string name="escape">Сана тапӑнаҫҫӗ! 
 Хӑратӑва сир!</string>
   <string name="attackTheOpponentsKing">Тӑшман патшине тапӑн</string>
+  <string name="outOfCheck">Шахран тухни</string>
   <string name="defendYourKing">Патшуна хӳтеле</string>
+  <string name="outOfCheckIntro">Сана шах панӑ! Тара памалла йе тапӑнава сирмелле.</string>
+  <string name="mateInOne">Пӗр хусканури мат</string>
   <string name="defeatTheOpponentsKing">Тӑшман патшине ҫапса аркат</string>
   <string name="thisIsTheInitialPosition">Ку вӑл кашни шахмат вӑййин пуҫламӑш лартӑмӗ. Make any move to continue.</string>
   <string name="firstPlaceTheRooks">Малтан икӗ пашне ларт! Вӗсем кӗтесре тӑмалла.</string>
