@@ -16,7 +16,7 @@ private final class Streaming(
     isOnline: User.ID => Boolean,
     timeline: ActorSelection,
     keyword: Stream.Keyword,
-    alwaysFeatured: () => List[User.ID],
+    alwaysFeatured: () => lila.common.Strings,
     googleApiKey: String,
     twitchClientId: String,
     lightUserApi: lila.user.LightUserApi
@@ -110,7 +110,7 @@ private final class Streaming(
           case JsSuccess(data, _) => data.streams(
             keyword,
             streamers,
-            alwaysFeatured().map(_.toLowerCase)
+            alwaysFeatured().value.map(_.toLowerCase)
           )
           case JsError(err) =>
             logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")

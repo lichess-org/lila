@@ -1,6 +1,8 @@
 package lila.security
 
-import lila.common.EmailAddress
+import lila.common.{ EmailAddress, Strings, Iso }
+import lila.memo.SettingStore.Formable.stringsFormable
+import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 
 import akka.actor._
@@ -147,10 +149,10 @@ final class Env(
 
   lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
 
-  lazy val emailBlacklistSetting = settingStore[String](
+  lazy val emailBlacklistSetting = settingStore[Strings](
     "emailBlacklist",
-    default = "",
-    text = "Blacklisted email domains separated by a space".some
+    default = Strings(Nil),
+    text = "Blacklisted email domains separated by a comma".some
   )
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
@@ -161,16 +163,12 @@ final class Env(
 
   import reactivemongo.bson._
 
-  lazy val spamKeywordsSetting = {
-    val stringListIso = lila.common.Iso.stringList(",")
-    implicit val stringListBsonHandler = lila.db.dsl.isoHandler(stringListIso)
-    implicit val stringListReader = lila.memo.SettingStore.StringReader.fromIso(stringListIso)
-    settingStore[List[String]](
+  lazy val spamKeywordsSetting =
+    settingStore[Strings](
       "spamKeywords",
-      default = Nil,
+      default = Strings(Nil),
       text = "Spam keywords separated by a comma".some
     )
-  }
 
   lazy val spam = new Spam(spamKeywordsSetting.get)
 

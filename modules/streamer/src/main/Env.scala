@@ -3,6 +3,8 @@ package lila.streamer
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.common.Strings
+
 final class Env(
     config: Config,
     system: ActorSystem,
@@ -29,13 +31,11 @@ final class Env(
   private lazy val photographer = new lila.db.Photographer(imageColl, "streamer")
 
   lazy val alwaysFeaturedSetting = {
-    val stringListIso = lila.common.Iso.stringList(",")
-    implicit val stringListBsonHandler = lila.db.dsl.isoHandler(stringListIso)
-    implicit val stringListReader = lila.memo.SettingStore.StringReader.fromIso(stringListIso)
-    settingStore[List[lila.user.User.ID]](
+    import lila.memo.SettingStore.Strings._
+    settingStore[Strings](
       "streamerAlwaysFeatured",
-      default = Nil,
-      text = "Twitch streamers who get featured without the keyword".some
+      default = Strings(Nil),
+      text = "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
     )
   }
 
