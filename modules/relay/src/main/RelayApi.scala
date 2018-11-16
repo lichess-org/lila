@@ -107,9 +107,9 @@ final class RelayApi(
       "sync.until" $exists false,
       "finished" -> false,
       "startedAt" $lt DateTime.now.minusHours(3),
-      "startsAt" -> $or(
-        $exists(false),
-        $lt(DateTime.now)
+      $or(
+        "startsAt" $exists false,
+        "startsAt" $lt DateTime.now
       )
     )).list[Relay]() flatMap {
       _.map { relay =>
