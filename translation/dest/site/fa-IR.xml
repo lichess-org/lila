@@ -645,6 +645,7 @@
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s یک سایت شطرنج (کاملا) رایگان، بدون تبلیغات و منبع باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
@@ -774,8 +775,7 @@
   <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
-  <string name="invalidFen">
-پوزیشن وارد شده نامعتبر است</string>
+  <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
   <string name="error.minLength">حداقل تعداد حروف وارد شده %s است</string>
   <string name="error.maxLength">حداکثر تعداد حروف وارد شده %s است</string>
   <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>

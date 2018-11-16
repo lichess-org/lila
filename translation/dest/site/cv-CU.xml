@@ -47,7 +47,17 @@
   <string name="requestAComputerAnalysis">Компйутӑр тишкервне ыйт</string>
   <string name="computerAnalysis">Компйутӑр тишкерӗвӗ</string>
   <string name="analysis">Тишкерӳ хӑми</string>
+  <string name="deleteFromHere">Кунтан пуҫласа катерт</string>
+  <string name="close">Хуп</string>
+  <string name="database">Пӗлӗм пуххи</string>
+  <string name="whiteDrawBlack">Шуррисем / Пармапар / Хурисем</string>
+  <string name="averageRatingX">Вӑтамри рейтинг: %s</string>
+  <string name="recentGames">Паҫӑрхи вӑйӑсем</string>
+  <string name="noGameFound">Пӗр вӑйӑ та тупӑнман</string>
+  <string name="delete">Катерт</string>
+  <string name="enable">Пултар</string>
   <string name="blunders">Тӳрккес йӑнӑшсем</string>
+  <string name="mistake">Йӑнӑш</string>
   <string name="mistakes">Йӑнӑшсем</string>
   <string name="inaccuracies">Кӳрӗнмелле йӑнӑшсем</string>
   <string name="moveTimes">Шутланӑ вӑхӑт хушшисем</string>
@@ -104,6 +114,8 @@
   <string name="passwordReset">Кӗме сӑмах улӑштарасси</string>
   <string name="forgotPassword">Кӗме сӑмаха мансан</string>
   <string name="rank">Хаклав</string>
+  <string name="rankX">Рейтинг: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Рейтинг %s минут сиктерсе ҫӗнелет</string>
   <string name="gamesPlayed">вӑйӑ выљанӑ</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
@@ -543,5 +555,13 @@
   <string name="pieceSet">Кӗлетке пуххи</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
+  <string name="error.unknown">Йӑнӑш</string>
   <string name="challenges">Чӗнтерӳ</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">Пӗрремӗш хускану тумашкӑн %s ҫеккунт йулчӗ</item>
+  </plurals>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s ҫеккунт</item>
+  </plurals>
+  <string name="endgame">Ендшпил</string>
 </resources>

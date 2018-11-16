@@ -536,9 +536,9 @@
   <string name="pieceDestinations">Taşın gidebileceği kareler (kurallara uygun hamleler)</string>
   <string name="boardCoordinates">Tahta kordinatları</string>
   <string name="moveListWhilePlaying">Oyun sırasında hamle listesi</string>
-  <string name="pgnPieceNotation">PGN taş notasyonu</string>
+  <string name="pgnPieceNotation">Hamle notasyonu</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
-  <string name="pgnLetter">PGN harfi (Ş, V, K, A, F)</string>
+  <string name="pgnLetter">Harf (Ş, V, K, A, F)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="never">Asla</string>
