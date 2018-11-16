@@ -23,6 +23,7 @@
   <string name="knightsCanJumpOverObstacles">Лаша чӑрмав урлӑ сикме пултарать! Вырӑнтан сиксе тухса ҫӑлтӑрсене парӑнтарса тух!</string>
   <string name="thePawn">Салтак</string>
   <string name="itMovesForwardOnly">Вӑл малалла кӑна ҫӳрет</string>
+  <string name="pawnsMoveOneSquareOnly">Салтак пӗр кӗлеткепе кӑна ҫӳрет. But when they reach the other side of the board, they become a stronger piece!</string>
   <string name="fundamentals">Никӗсӗсем</string>
   <string name="capture">Илӳ</string>
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
@@ -43,7 +44,7 @@
   <string name="outstanding">Питӗ лайӑх!</string>
   <string name="yesYesYes">Йӑлт тӗрӗс!</string>
   <string name="rightOn">Тӗрӗсех!</string>
-  <string name="next">Малалла</string>
+  <string name="next">Тепри</string>
   <string name="backToMenu">Менӳ патне таврӑн</string>
   <string name="retry">Тепӗр хут</string>
 </resources>
