@@ -10,6 +10,7 @@
   <string name="chessPieces">Шахмат кӗлеткисем</string>
   <string name="theRook">Пашне</string>
   <string name="itMovesInStraightLines">Вӑл тӳрӗ линипе ҫӳрет</string>
+  <string name="rookIntro">Пашне вӑйлӑ кӗлетке. Есӗ ӑна тытса пыма хатӗр-и?</string>
   <string name="grabAllTheStars">Мӗнпур ҫӑлтӑрсем пуҫтар!</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
@@ -40,6 +41,10 @@
   <string name="firstPlaceTheRooks">Малтан икӗ пашне ларт! Вӗсем кӗтесре тӑмалла.</string>
   <string name="thenPlaceTheKnights">Унтан икӗ лаша ларт! Вӗсем пашне патӗнче тӑмалла.</string>
   <string name="placeTheBishops">Икӗ пил ларт! Вӗсем лаша патӗнче тӑмалла.</string>
+  <string name="placeTheQueen">Ҫарпуҫа вырнаҫтар! 
+She goes on her own colour.</string>
+  <string name="placeTheKing">Патшана вырнаҫтар! 
+Унӑн ҫарпуҫӗ патӗнчех.</string>
   <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелеҫҫӗ.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
