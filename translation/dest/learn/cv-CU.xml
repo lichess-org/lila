@@ -24,7 +24,7 @@
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
   <string name="takeTheBlackPieces">Хура кӗлеткисене ил!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
-  <string name="thisIsTheInitialPosition">Ку вӑл кашни шахмат вӑййин пуҫламӑш поҫитсийӗ. Make any move to continue.</string>
+  <string name="thisIsTheInitialPosition">Ку вӑл кашни шахмат вӑййин пуҫламӑш лартӑмӗ. Make any move to continue.</string>
   <string name="firstPlaceTheRooks">Малтан икӗ пашне ларт! Вӗсем кӗтесре тӑмалла.</string>
   <string name="thenPlaceTheKnights">Унтан икӗ лаша ларт! Вӗсем пашне патӗнче тӑмалла.</string>
   <string name="placeTheBishops">Икӗ пил ларт! Вӗсем лаша патӗнче тӑмалла.</string>
