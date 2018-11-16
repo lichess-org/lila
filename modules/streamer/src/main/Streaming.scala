@@ -16,6 +16,7 @@ private final class Streaming(
     isOnline: User.ID => Boolean,
     timeline: ActorSelection,
     keyword: Stream.Keyword,
+    alwaysFeatured: () => List[User.ID],
     googleApiKey: String,
     twitchClientId: String,
     lightUserApi: lidraughts.user.LightUserApi
@@ -101,7 +102,11 @@ private final class Streaming(
       )
       .get().map { res =>
         res.json.validate[Twitch.Result](twitchResultReads) match {
-          case JsSuccess(data, _) => data.streams(keyword, streamers)
+          case JsSuccess(data, _) => data.streams(
+            keyword,
+            streamers,
+            alwaysFeatured().map(_.toLowerCase)
+          )
           case JsError(err) =>
             logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
             Nil

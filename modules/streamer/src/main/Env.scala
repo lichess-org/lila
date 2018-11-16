@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     system: ActorSystem,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     renderer: ActorSelection,
     isOnline: lidraughts.user.User.ID => Boolean,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
@@ -27,6 +28,17 @@ final class Env(
 
   private lazy val photographer = new lidraughts.db.Photographer(imageColl, "streamer")
 
+  lazy val alwaysFeaturedSetting = {
+    val stringListIso = lidraughts.common.Iso.stringList(",")
+    implicit val stringListBsonHandler = lidraughts.db.dsl.isoHandler(stringListIso)
+    implicit val stringListReader = lidraughts.memo.SettingStore.StringReader.fromIso(stringListIso)
+    settingStore[List[lidraughts.user.User.ID]](
+      "streamerAlwaysFeatured",
+      default = Nil,
+      text = "Twitch streamers who get featured without the keyword".some
+    )
+  }
+
   lazy val api = new StreamerApi(
     coll = streamerColl,
     asyncCache = asyncCache,
@@ -45,6 +57,7 @@ final class Env(
     isOnline = isOnline,
     timeline = hub.actor.timeline,
     keyword = Stream.Keyword(Keyword),
+    alwaysFeatured = alwaysFeaturedSetting.get,
     googleApiKey = GoogleApiKey,
     twitchClientId = TwitchClientId,
     lightUserApi = lightUserApi
@@ -63,6 +76,7 @@ object Env {
   lazy val current: Env = "streamer" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "streamer",
     system = lidraughts.common.PlayApp.system,
+    settingStore = lidraughts.memo.Env.current.settingStore,
     renderer = lidraughts.hub.Env.current.actor.renderer,
     isOnline = lidraughts.user.Env.current.isOnline,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
