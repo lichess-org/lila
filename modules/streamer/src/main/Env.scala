@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     system: ActorSystem,
+    settingStore: lila.memo.SettingStore.Builder,
     renderer: ActorSelection,
     isOnline: lila.user.User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -27,6 +28,17 @@ final class Env(
 
   private lazy val photographer = new lila.db.Photographer(imageColl, "streamer")
 
+  lazy val alwaysFeaturedSetting = {
+    val stringListIso = lila.common.Iso.stringList(",")
+    implicit val stringListBsonHandler = lila.db.dsl.isoHandler(stringListIso)
+    implicit val stringListReader = lila.memo.SettingStore.StringReader.fromIso(stringListIso)
+    settingStore[List[lila.user.User.ID]](
+      "streamerAlwaysFeatured",
+      default = Nil,
+      text = "Twitch streamers who get featured without the keyword".some
+    )
+  }
+
   lazy val api = new StreamerApi(
     coll = streamerColl,
     asyncCache = asyncCache,
@@ -45,6 +57,7 @@ final class Env(
     isOnline = isOnline,
     timeline = hub.actor.timeline,
     keyword = Stream.Keyword(Keyword),
+    alwaysFeatured = alwaysFeaturedSetting.get,
     googleApiKey = GoogleApiKey,
     twitchClientId = TwitchClientId,
     lightUserApi = lightUserApi
@@ -63,6 +76,7 @@ object Env {
   lazy val current: Env = "streamer" boot new Env(
     config = lila.common.PlayApp loadConfig "streamer",
     system = lila.common.PlayApp.system,
+    settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.actor.renderer,
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,

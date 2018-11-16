@@ -27,9 +27,14 @@ object Stream {
     }
     case class Result(streams: Option[List[TwitchStream]]) {
       def liveStreams = (~streams).filter(_.isLive)
-      def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] = liveStreams.map(_.channel).collect {
-        case Channel(name, Some(status)) if status.toLowerCase contains keyword.toLowerCase =>
-          streamers.find(s => s.twitch.exists(_.userId.toLowerCase == name.toLowerCase)) map { Stream(name, status, _) }
+      def streams(keyword: Keyword, streamers: List[Streamer], alwaysFeatured: List[User.ID]): List[Stream] = liveStreams.map(_.channel).collect {
+        case Channel(name, Some(status)) =>
+          streamers.find { s =>
+            s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
+              status.toLowerCase.contains(keyword.toLowerCase) ||
+                alwaysFeatured.contains(s.userId)
+            }
+          } map { Stream(name, status, _) }
       }.flatten
     }
     case class Stream(userId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {
