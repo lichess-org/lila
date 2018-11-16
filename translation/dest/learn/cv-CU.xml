@@ -17,6 +17,7 @@
   <string name="itMovesForwardOnly">Вӑл малалла кӑна ҫӳрет</string>
   <string name="fundamentals">Никӗсӗсем</string>
   <string name="capture">Илӳ</string>
+  <string name="thisIsTheInitialPosition">Ку вӑл кашни шахмат вӑййин пуҫламӑш поҫитсийӗ. Make any move to continue.</string>
   <string name="castling">Ылмашу</string>
   <string name="letsGo">Малалла!</string>
   <string name="stageX">%s сыпӑк</string>
