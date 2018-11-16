@@ -51,7 +51,12 @@ moreCss = moreCss,
 moreJs = moreJs,
 robots = s.isPublic,
 draughtsground = false,
-zoomable = true) {
+zoomable = true,
+openGraph = lidraughts.app.ui.OpenGraph(
+title = s.name.value,
+url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
+description = s"A draughts study by ${usernameOrId(s.ownerId)}").some
+) {
 <div class="analyse cg-512">
   @board.domPreload(none)
 </div>
