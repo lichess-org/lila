@@ -81,7 +81,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def prismicJs(implicit ctx: Context) = Html {
     isGranted(_.Prismic) ?? {
-      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").body ++
+      embedJsUnsafe("""window.prismic={endpoint:'https://lidraughts.prismic.io/api/v2'}""").body ++
         """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
     }
   }
