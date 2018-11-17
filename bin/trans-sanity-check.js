@@ -5,50 +5,51 @@ const baseDir = 'translation/source';
 const destDir = 'translation/dest';
 const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates'];
 
-function printTransError(r, orig, tran, prefix, e, filename) {
-  if (r.test(orig) && !r.test(tran)) {
-    console.log(`${prefix}${e['$'].name} contains <${orig.match(r)[0]}> in the source but not in ${filename}`);
-  }
+function printError(level, file, error) {
+    console.log(`${level.toUpperCase()} ${file} ${error}`);
 }
 
-function checkAgainstRegexes(orig, tran, prefix, e, filename) {
+function printTransError(level, r, orig, tran, db, e, filename) {
+  if (r.test(orig) && !r.test(tran))
+    printError(level, `${db}/${filename}`, `${e['$'].name} lacks <${orig.match(r)[0]}>: ${e['_']}`);
+}
+
+function checkAgainstRegexes(orig, tran, db, e, filename) {
   const warnings = [/lichess/i, /lichess\.org/i, /O-O/, /O-O-O/];
   const errors = [/%s/, /%\d\$s/];
-  warnings.forEach(r => printTransError(r, orig, tran, `WARNING: ${prefix}`, e, filename));
-  errors.forEach(r => printTransError(r, orig, tran, `ERROR: ${prefix}`, e, filename));
+  warnings.forEach(r => printTransError('warning', r, orig, tran, db, e, filename));
+  errors.forEach(r => printTransError('error', r, orig, tran, db, e, filename));
 }
 
-function checkPlaceholders(str, prefix, e, file) {
-  const filename = file == 'src' ? '' : ` (${file})`;
+function checkPlaceholders(str, db, e, filename) {
   if (/%\d\$s/.test(str)) {
     placeholderNums = str.match(/%\d\$s/g).map(x => parseInt(x[1])).sort();
     for (i = 1; i <= placeholderNums.length; i++) {
       if (placeholderNums[i-1] !== i) {
-        console.log(`ERROR: Bad placeholder in ${prefix}${e['$'].name}${filename}: ${str}`);
+        printError('error', `${db}/${filename}`, `${e['$'].name} bad placeholder: ${str}`);
       }
     }
   }
 }
 
-function compareDestToSource(src, name) {
-  fs.readdir(`${destDir}/${name}`, { encoding: 'utf8' }).then(filenames => {
+function compareDestToSource(src, db) {
+  fs.readdir(`${destDir}/${db}`, { encoding: 'utf8' }).then(filenames => {
     Promise.all(filenames.map((filename, index, resolve, reject) =>  {
-      fs.readFile(`${destDir}/${name}/${filename}`, { encoding: 'utf8' }).then(txt => {
+      fs.readFile(`${destDir}/${db}/${filename}`, { encoding: 'utf8' }).then(txt => {
         return new Promise((resolve, reject) => parseString(txt, (_, xml) => {
           const strings = (xml.resources.string || []);
-          const prefix = name === 'site' ? '' : `${name}:`
           strings.forEach(e => {
             orig = src[e['$'].name];
             tran = e['_'];
-            checkAgainstRegexes(orig, tran, prefix, e, filename);
-            checkPlaceholders(tran, prefix, e, filename);
+            checkAgainstRegexes(orig, tran, db, e, filename);
+            checkPlaceholders(tran, db, e, filename);
           });
           const plurals = (xml.resources.plurals || []);
           plurals.forEach(e => {
             orig = src[e['$'].name];
             tran = e.item[0]['_'];
-            checkAgainstRegexes(orig, tran, prefix, e, filename);
-            checkPlaceholders(tran, prefix, e, filename);
+            checkAgainstRegexes(orig, tran, db, e, filename);
+            checkPlaceholders(tran, db, e, filename);
           });
         }));
       });
@@ -56,24 +57,24 @@ function compareDestToSource(src, name) {
   })
 }
 
-function VerifyTranslations(name) {
-  return fs.readFile(`${baseDir}/${name}.xml`, { encoding: 'utf8' }).then(txt => {
+function VerifyTranslations(db) {
+  return fs.readFile(`${baseDir}/${db}.xml`, { encoding: 'utf8' }).then(txt => {
     return new Promise((resolve, reject) => parseString(txt, (_, xml) => {
-      const prefix = name === 'site' ? '' : `${name}:`
+      const prefix = db === 'site' ? '' : `${db}:`
       const strings = (xml.resources.string || []);
       let source_strings = {};
       strings.forEach(e => {
         source_strings[e['$'].name] = e['_'];
-        checkPlaceholders(e['_'], prefix, e, 'src');
+        checkPlaceholders(e['_'], db, e, 'src');
       });
       const plurals = (xml.resources.plurals || []);
       plurals.forEach(e => {
         source_strings[e['$'].name] = e.item[0]['_'];
-        checkPlaceholders(e.item[0]['_'], prefix, e, 'src');
+        checkPlaceholders(e.item[0]['_'], db, e, 'src');
       });
       resolve(source_strings);
     })).then(src => {
-      compareDestToSource(src, name)
+      compareDestToSource(src, db)
     });
   });
 }
