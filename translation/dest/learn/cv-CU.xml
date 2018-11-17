@@ -67,7 +67,15 @@ She goes on her own colour.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
   <string name="theSpecialPawnMove">Салтакӑн уйрӑм хусканӑвӗ</string>
+  <string name="stalemate">Пат</string>
   <string name="pieceValue">Кӗлетке хакӗ</string>
+  <string name="pieceValueComplete">Саламлатпӑр! Есӗ кӗлетке хакӗсене вӗрентӗн! 
+Ҫарпуҫ = 9
+Пашне = 5
+Пил = 3
+Лаша = 3
+Салтак = 1</string>
+  <string name="checkInTwo">Икӗ хусканури шах</string>
   <string name="playMachine">Машинпа выльа</string>
   <string name="letsGo">Малалла!</string>
   <string name="stageX">%s сыпӑк</string>
