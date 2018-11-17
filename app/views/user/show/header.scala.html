@@ -124,7 +124,7 @@ case _ => {
       @trans.thisPlayerUsesDraughtsComputerAssistance()
     </div>
     }
-    @if(u.booster) {
+    @if(u.booster && u.count.game > 0) {
     <div class="warning engine_warning">
       <span data-icon="j" class"is4"></span>
       @trans.thisPlayerArtificiallyIncreasesTheirRating()
