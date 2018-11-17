@@ -7,14 +7,16 @@
   <string name="progressX">Ӳсӗм: %s</string>
   <string name="resetMyProgress">Ҫитнӗ ӳсӗме силле</string>
   <string name="youWillLoseAllYourProgress">Ҫитнӗ ӳсӗмӗве пӗтӗмпех ҫухатӑн!</string>
+  <string name="play">выльас!</string>
   <string name="chessPieces">Шахмат кӗлеткисем</string>
   <string name="theRook">Пашне</string>
   <string name="itMovesInStraightLines">Вӑл тӳрӗ линипе ҫӳрет</string>
-  <string name="rookIntro">Пашне вӑйлӑ кӗлетке. Есӗ ӑна тытса пыма хатӗр-и?</string>
+  <string name="rookIntro">Пашне вӑйлӑ кӗлетке вӑл. Есӗ ӑна тытса пыма хатӗр-и?</string>
   <string name="grabAllTheStars">Мӗнпур ҫӑлтӑрсем пуҫтар!</string>
   <string name="rookComplete">Саламлатпӑр! Есӗ пашнене ӑнӑҫлӑ пӗлсе ҫитрӗн.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
+  <string name="bishopComplete">Саламлатпӑр! Есӗ пиле тытса пыма вӗрентӗн.</string>
   <string name="theQueen">Ҫарпуҫ</string>
   <string name="queenCombinesRookAndBishop">Ҫарпуҫ = пашне + пил</string>
   <string name="queenIntro">Чи вӑйлӑ шахмат кӗлетки кӗрет. Ҫарпуҫа куҫ хыв!</string>
@@ -22,6 +24,7 @@
   <string name="theMostImportantPiece">Чи паха кӗлетке</string>
   <string name="kingIntro">Есӗ патша. Ҫапӑҫура пуҫ хурсан, вӑййине выльаса йанӑ.</string>
   <string name="theKingIsSlow">Патша вӑл вӑрахскер.</string>
+  <string name="kingComplete">Халӗ есӗ пуҫлӑхне тытса пыма пӗлетӗн!</string>
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
   <string name="knightsCanJumpOverObstacles">Лаша чӑрмав урлӑ сикме пултарать! Вырӑнтан сиксе тухса ҫӑлтӑрсене парӑнтарса тух!</string>
@@ -43,6 +46,9 @@
   <string name="protectionComplete">Саламлатпӑр! Выльаса йаман кӗлетки выльаса илнӗ кӗлетке пулать вӑл!</string>
   <string name="escape">Сана тапӑнаҫҫӗ! 
 Хӑратӑва сир!</string>
+  <string name="combat">Тытӑҫу</string>
+  <string name="captureAndDefendPieces">Кӗлеткене илни тата хӳтӗлени</string>
+  <string name="checkInOne">Пӗр хусканури шах</string>
   <string name="attackTheOpponentsKing">Тӑшман патшине тапӑн</string>
   <string name="outOfCheck">Шахран тухни</string>
   <string name="defendYourKing">Патшуна хӳтеле</string>
@@ -73,6 +79,7 @@ She goes on her own colour.</string>
   <string name="youreGoodAtThis">Маттур!</string>
   <string name="nailedIt">Йӑлт тӗрӗс.</string>
   <string name="rightOn">Тӗрӗсех!</string>
+  <string name="stageXComplete">%s сыпӑка тултарнӑ</string>
   <string name="next">Тепри</string>
   <string name="backToMenu">Менӳ патне таврӑн</string>
   <string name="retry">Тепӗр хут</string>
