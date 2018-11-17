@@ -12,6 +12,7 @@
   <string name="itMovesInStraightLines">Вӑл тӳрӗ линипе ҫӳрет</string>
   <string name="rookIntro">Пашне вӑйлӑ кӗлетке. Есӗ ӑна тытса пыма хатӗр-и?</string>
   <string name="grabAllTheStars">Мӗнпур ҫӑлтӑрсем пуҫтар!</string>
+  <string name="rookComplete">Саламлатпӑр! Есӗ пашнене ӑнӑҫлӑ пӗлсе ҫитрӗн.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
   <string name="theQueen">Ҫарпуҫ</string>
@@ -24,8 +25,10 @@
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
   <string name="knightsCanJumpOverObstacles">Лаша чӑрмав урлӑ сикме пултарать! Вырӑнтан сиксе тухса ҫӑлтӑрсене парӑнтарса тух!</string>
+  <string name="knightComplete">Саламлатпӑр! Есӗ лашана пӗлсе ҫитрӗн.</string>
   <string name="thePawn">Салтак</string>
   <string name="itMovesForwardOnly">Вӑл малалла кӑна ҫӳрет</string>
+  <string name="pawnIntro">Салтак начар кӗлетке вӑл, анчах потентсиалӗ нумай унӑн.</string>
   <string name="pawnsMoveOneSquareOnly">Салтак пӗр кӗлеткепе кӑна ҫӳрет. But when they reach the other side of the board, they become a stronger piece!</string>
   <string name="pawnsMoveForward">Салтак тӳрӗ ҫӳрет, 
 илсен диагональпе илет!</string>
@@ -34,6 +37,7 @@
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
   <string name="takeTheBlackPieces">Хура кӗлеткисене ил!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
+  <string name="captureComplete">Саламлатпӑр! Шахмат кӗлеткисемпе мӗнле ҫапӑҫнине пӗлетӗн есӗ!</string>
   <string name="protection">Хӳтӗленӳ</string>
   <string name="keepYourPiecesSafe">Кӗлеткӳсене сыхласа тӑр</string>
   <string name="protectionComplete">Саламлатпӑр! Выльаса йаман кӗлетки выльаса илнӗ кӗлетке пулать вӑл!</string>
