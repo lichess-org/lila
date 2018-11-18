@@ -6,7 +6,7 @@ export function hasTeamUrl(txt: string) {
 }
 export function report(txt: string) {
   if (analyse(txt)) {
-    $.post('/jslog/____________?n=spam');
+    $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
     window.lichess.storage.set('chat-spam', '1');
   }
 }
@@ -35,10 +35,8 @@ const spamRegex = new RegExp([
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));
 
-const suspRegex = /\? Find me here http/;
-
 function analyse(txt: string) {
-  return !!txt.match(spamRegex) || !!txt.match(suspRegex);
+  return !!txt.match(spamRegex);
 }
 
 const teamUrlRegex = /lichess\.org\/team\//
