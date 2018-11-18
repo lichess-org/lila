@@ -124,10 +124,15 @@ case _ => {
       @trans.thisPlayerUsesDraughtsComputerAssistance()
     </div>
     }
-    @if(u.booster && u.count.game > 0) {
+    @if(u.booster && (u.count.game > 0 || isGranted(_.Hunter))) {
     <div class="warning engine_warning">
       <span data-icon="j" class"is4"></span>
       @trans.thisPlayerArtificiallyIncreasesTheirRating()
+      @if(u.count.game == 0) {
+      Only visible to mods. A booster mark without any games is a way to
+      prevent a player from ever playing (except against boosters/cheaters).
+      It's useful against spambots. These marks are not visible to the public.
+      }
     </div>
     }
     } else {
