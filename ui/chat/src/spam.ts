@@ -9,13 +9,33 @@ export function report(txt: string) {
 }
 
 const spamRegex = new RegExp([
-  'chess-bot'
+  'xcamweb.com',
+  'chess-bot',
+  'coolteenbitch',
+  'goo.gl/',
+  'letcafa.webcam',
+  'tinyurl.com/',
+  'wooga.info/',
+  'bit.ly/',
+  'wbt.link/',
+  'eb.by/',
+  '001.rs/',
+  'shr.name/',
+  'u.to/',
+  '.3-a.net',
+  '.ssl443.org',
+  '.ns02.us',
+  '.myftp.info',
+  '.flinkup.com',
+  '.serveusers.com'
 ].map(url => {
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));
 
+const suspRegex = /\? Find me here http/;
+
 function analyse(txt: string) {
-  return !!txt.match(spamRegex);
+  return !!txt.match(spamRegex) || !!txt.match(suspRegex);
 }
 
 const teamUrlRegex = /lichess\.org\/team\//
