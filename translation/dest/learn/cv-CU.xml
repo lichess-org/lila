@@ -102,6 +102,8 @@ She goes on her own colour.</string>
 Лаша = 3
 Салтак = 1</string>
   <string name="checkInTwo">Икӗ хусканури шах</string>
+  <string name="videos">Курмасем</string>
+  <string name="playPeople">Халӑхпа выльа</string>
   <string name="playMachine">Машинпа выльа</string>
   <string name="letsGo">Малалла!</string>
   <string name="stageX">%s сыпӑк</string>
@@ -110,6 +112,7 @@ She goes on her own colour.</string>
   <string name="greatJob">Чаплӑ ӗҫ!</string>
   <string name="perfect">Тӗп-тӗрӗс!</string>
   <string name="outstanding">Питӗ лайӑх!</string>
+  <string name="yesYesYes">Ҫаплах çав!</string>
   <string name="youreGoodAtThis">Маттур!</string>
   <string name="nailedIt">Йӑлт тӗрӗс.</string>
   <string name="rightOn">Тӗрӗсех!</string>
