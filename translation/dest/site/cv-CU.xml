@@ -559,7 +559,7 @@
   <string name="error.unknown">Йӑнӑш</string>
   <string name="challenges">Чӗнтерӳ</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">Пӗрремӗш хускану тумашкӑн %s ҫеккунт йулчӗ</item>
+    <item quantity="other">1-мӗш хускану тумашкӑн %s ҫек йулчӗ</item>
   </plurals>
   <plurals name="nbSeconds">
     <item quantity="other">%s ҫеккунт</item>
