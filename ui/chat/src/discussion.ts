@@ -1,6 +1,7 @@
 import { h, thunk } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import { Ctrl, Line } from './interfaces'
+import * as spam from './spam'
 import enhance from './enhance';
 import { presetView } from './preset';
 import { lineAction } from './moderation';
@@ -69,7 +70,8 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
         else {
-          if (pub && hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+          spam.report(txt);
+          if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
           if (!pub) el.classList.remove('whisper');
@@ -83,11 +85,6 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   });
 }
 
-function hasTeamUrl(txt: string) {
-  return !!txt.match(teamUrlRegex);
-}
-const teamUrlRegex = /lidraughts\.org\/team\//
-
 function sameLines(l1: Line, l2: Line) {
   return l1.d && l2.d && l1.u === l2.u;
 }
@@ -97,7 +94,8 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   ctrl.data.lines.forEach(line => {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || ctrl.opts.kobold)
+      (!line.r || ctrl.opts.kobold) &&
+      !spam.skip(line.t)
     ) ls.push(line);
     prev = line;
   });
