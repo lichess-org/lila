@@ -5,7 +5,10 @@ export function hasTeamUrl(txt: string) {
   return !!txt.match(teamUrlRegex);
 }
 export function report(txt: string) {
-  if (analyse(txt)) window.lichess.storage.set('chat-spam', '1');
+  if (analyse(txt)) {
+    $.post('/jslog/____________?n=spam');
+    window.lichess.storage.set('chat-spam', '1');
+  }
 }
 
 const spamRegex = new RegExp([
