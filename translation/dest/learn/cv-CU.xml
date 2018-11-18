@@ -98,6 +98,11 @@ She goes on her own colour.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Парма-пар вӑйӑ</string>
   <string name="pieceValue">Кӗлетке хакӗ</string>
+  <string name="queenOverBishop">Чи хаклӑскер 
+кӗлеткене тытса ил! 
+Ҫарпуҫ &gt; Пил</string>
+  <string name="takeThePieceWithTheHighestValue">Чи хаклӑскер 
+кӗлеткене тытса ил!</string>
   <string name="pieceValueComplete">Саламлатпӑр! Есӗ кӗлетке хакӗсене вӗрентӗн! 
 Ҫарпуҫ = 9
 Пашне = 5
@@ -105,6 +110,11 @@ She goes on her own colour.</string>
 Лаша = 3
 Салтак = 1</string>
   <string name="checkInTwo">Икӗ хусканури шах</string>
+  <string name="whatNext">Малалли</string>
+  <string name="register">Регистратсилесси</string>
+  <string name="getAFreeLichessAccount">Тӳлвесӗр Lichess аккаунта илесси</string>
+  <string name="practice">Практика</string>
+  <string name="puzzles">Лартӑмсем</string>
   <string name="videos">Курмасем</string>
   <string name="playPeople">Халӑхпа выльа</string>
   <string name="playMachine">Машинпа выльа</string>
