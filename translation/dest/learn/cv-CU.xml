@@ -103,6 +103,7 @@ She goes on her own colour.</string>
   <string name="theSpecialPawnMove">Салтакӑн уйрӑм хусканӑвӗ</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Парма-пар вӑйӑ</string>
+  <string name="stalemateComplete">Саламлатпӑр! Пата лектерттерни мат ларттарнинчен аванрах!</string>
   <string name="pieceValue">Кӗлетке хакӗ</string>
   <string name="queenOverBishop">Чи хаклӑскер 
 кӗлеткене тытса ил! 
@@ -131,6 +132,7 @@ She goes on her own colour.</string>
   <string name="greatJob">Чаплӑ ӗҫ!</string>
   <string name="perfect">Тӗп-тӗрӗс!</string>
   <string name="outstanding">Питӗ лайӑх!</string>
+  <string name="wayToGo">Пултаран!</string>
   <string name="yesYesYes">Ҫаплах çав!</string>
   <string name="youreGoodAtThis">Маттур!</string>
   <string name="nailedIt">Йӑлт тӗрӗс.</string>
