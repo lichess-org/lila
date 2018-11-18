@@ -146,6 +146,8 @@
   <string name="thisGameIsRated">Ку хаклавшӑн вӑййи</string>
   <string name="rematch">Рематч сӗн</string>
   <string name="rematchOfferSent">Рематч сӗнни йанӑ</string>
+  <string name="rematchOfferSentWhite">Шуррисем тепре выльасшӑн</string>
+  <string name="rematchOfferSentBlack">Хурисем тепре выльасшӑн</string>
   <string name="rematchOfferAccepted">Рематч сӗннине йышӑннӑ</string>
   <string name="rematchOfferCanceled">Рематч сӗннине пӑрахӑҫланӑ</string>
   <string name="rematchOfferDeclined">Рематч сӗннине сирнӗ</string>
@@ -278,6 +280,9 @@
   <string name="createdBy">Йӗркелӳҫӗ</string>
   <string name="tournamentIsStarting">Турнир кӗҫех пуҫланать</string>
   <string name="berserkRate">Берҫерк хаклавӗ</string>
+  <string name="whiteWins">Шуррисем ҫӗнтерни</string>
+  <string name="blackWins">Хурисем ҫӗнтерни</string>
+  <string name="draws">Парма-пар</string>
   <string name="membersOnly">Регистратсиленӗ вӑйӑҫсемшӗн</string>
   <string name="boardEditor">Хӑма хайласси</string>
   <string name="startPosition">Пуҫламӑш поҫитси</string>
