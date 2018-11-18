@@ -106,6 +106,9 @@ She goes on her own colour.</string>
 май туп!</string>
   <string name="castlingComplete">Саламлатпӑр! Вӑйӑра ылмашу йалан пекрех тума сӗннӗ.</string>
   <string name="theSpecialPawnMove">Салтакӑн уйрӑм хусканӑвӗ</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Хурисем салтакне 
+икӗ клеткӑна куҫарнӑ тинех! 
+Take it en passant.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Парма-пар вӑйӑ</string>
   <string name="stalemateGoal">Хурисене пата лекттерес: 
