@@ -1,13 +1,13 @@
 export function skip(txt: string) {
-  return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
+  return analyse(txt) && window.lidraughts.storage.get('chat-spam') != '1';
 }
 export function hasTeamUrl(txt: string) {
   return !!txt.match(teamUrlRegex);
 }
 export function report(txt: string) {
   if (analyse(txt)) {
-    $.post('/jslog/____________?n=spam');
-    window.lichess.storage.set('chat-spam', '1');
+    $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
+    window.lidraughts.storage.set('chat-spam', '1');
   }
 }
 
@@ -35,10 +35,8 @@ const spamRegex = new RegExp([
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));
 
-const suspRegex = /\? Find me here http/;
-
 function analyse(txt: string) {
-  return !!txt.match(spamRegex) || !!txt.match(suspRegex);
+  return !!txt.match(spamRegex);
 }
 
-const teamUrlRegex = /lichess\.org\/team\//
+const teamUrlRegex = /lidraughts\.org\/team\//
