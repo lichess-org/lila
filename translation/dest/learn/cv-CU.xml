@@ -45,6 +45,8 @@
 Анчах та хӑмин хирӗҫ йенне ҫитсессӗн, хӑватлӑрах кӗлетке пулса кайать вӑл!</string>
   <string name="pawnsMoveForward">Салтак тӳрӗ ҫӳрет, 
 илсен диагональпе илет!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Салтаку хӑмин вӗҫне ҫитрӗ!</string>
+  <string name="selectThePieceYouWant">Кирлӗ кӗлетке суйла!</string>
   <string name="fundamentals">Никӗсӗсем</string>
   <string name="capture">Тытса илӳ</string>
   <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
