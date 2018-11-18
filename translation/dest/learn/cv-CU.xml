@@ -77,6 +77,10 @@ She goes on her own colour.</string>
   <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелеҫҫӗ.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
+  <string name="castleKingSide">Кӗске ылмашу тӑвас тесе 
+патшуна икӗ клеткӑна куҫар!</string>
+  <string name="castleQueenSide">Вӑрӑм ылмашу тӑвас тесе 
+патшуна икӗ клеткӑна куҫар!</string>
   <string name="theKnightIsInTheWay">Лаша чӑрмантарса тӑрать! 
 Лашана куҫар, унтан кӗске ылмашу ту.</string>
   <string name="castleKingSideMovePiecesFirst">Кӗске ылмашу ту! 
