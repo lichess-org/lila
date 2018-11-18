@@ -67,6 +67,7 @@
   <string name="mateInOne">Пӗр хусканури мат</string>
   <string name="defeatTheOpponentsKing">Тӑшман патшине ҫапса аркат</string>
   <string name="boardSetup">Тӑратса тухни</string>
+  <string name="howTheGameStarts">Парти мӗнле пуҫлани</string>
   <string name="boardSetupIntro">Ҫапӑҫма хатӗр икӗ ҫар хире-хирӗҫ тӑраҫҫӗ.</string>
   <string name="thisIsTheInitialPosition">Ку вӑл кашни шахмат вӑййин пуҫламӑш лартӑмӗ. Make any move to continue.</string>
   <string name="firstPlaceTheRooks">Малтан икӗ пашне ларт! Вӗсем кӗтесре тӑмалла.</string>
@@ -103,8 +104,12 @@ She goes on her own colour.</string>
   <string name="theSpecialPawnMove">Салтакӑн уйрӑм хусканӑвӗ</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Парма-пар вӑйӑ</string>
+  <string name="stalemateGoal">Хурисене пата лекттерес: 
+- Хурисем валли пӗр хускану та ҫук 
+- Шах ҫук тата.</string>
   <string name="stalemateComplete">Саламлатпӑр! Пата лектерттерни мат ларттарнинчен аванрах!</string>
   <string name="pieceValue">Кӗлетке хакӗ</string>
+  <string name="evaluatePieceStrength">Кӗлетке хӑватне хакла</string>
   <string name="queenOverBishop">Чи хаклӑскер 
 кӗлеткене тытса ил! 
 Ҫарпуҫ &gt; Пил</string>
