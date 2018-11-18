@@ -31,6 +31,8 @@
   <string name="kingComplete">Халӗ есӗ пуҫлӑхне тытса пыма пӗлетӗн!</string>
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
+  <string name="knightsHaveAFancyWay">Лаша тӗлӗнтермӗш майпа 
+йӗри-тавра сиккелет!</string>
   <string name="knightsCanJumpOverObstacles">Лаша чӑрмав урлӑ сикме пултарать! Вырӑнтан сиксе тухса ҫӑлтӑрсене парӑнтарса тух!</string>
   <string name="knightComplete">Саламлатпӑр! Есӗ лашана пӗлсе ҫитрӗн.</string>
   <string name="thePawn">Салтак</string>
