@@ -12,7 +12,11 @@
   <string name="theRook">Пашне</string>
   <string name="itMovesInStraightLines">Вӑл тӳрӗ линипе ҫӳрет</string>
   <string name="rookIntro">Пашне вӑйлӑ кӗлетке вӑл. Есӗ ӑна тытса пыма хатӗр-и?</string>
+  <string name="rookGoal">Пашнене ҫӑлтӑр патне куҫарас тесен 
+пашне ҫине чӑкӑлт!</string>
   <string name="grabAllTheStars">Мӗнпур ҫӑлтӑрсем пуҫтар!</string>
+  <string name="useTwoRooks">Ӗҫӳсене хӑвӑртлатас тесен 
+икӗ пашнепе усӑ кур!</string>
   <string name="rookComplete">Саламлатпӑр! Есӗ пашнене ӑнӑҫлӑ пӗлсе ҫитрӗн.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
@@ -46,8 +50,11 @@
   <string name="protectionComplete">Саламлатпӑр! Выльаса йаман кӗлетки выльаса илнӗ кӗлетке пулать вӑл!</string>
   <string name="escape">Сана тапӑнаҫҫӗ! 
 Хӑратӑва сир!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Пӗр хӳтӗленмен кӗлеткене те 
+партарас ҫук!</string>
   <string name="combat">Тытӑҫу</string>
   <string name="captureAndDefendPieces">Кӗлеткене илни тата хӳтӗлени</string>
+  <string name="combatIntro">Чаплӑ ҫар ҫынни тапӑнма та, хӳтӗленме те пӗлет!</string>
   <string name="checkInOne">Пӗр хусканури шах</string>
   <string name="attackTheOpponentsKing">Тӑшман патшине тапӑн</string>
   <string name="outOfCheck">Шахран тухни</string>
