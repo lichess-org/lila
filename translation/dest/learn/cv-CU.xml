@@ -59,6 +59,8 @@
   <string name="combatIntro">Чаплӑ ҫар ҫынни тапӑнма та, хӳтӗленме те пӗлет!</string>
   <string name="checkInOne">Пӗр хусканури шах</string>
   <string name="attackTheOpponentsKing">Тӑшман патшине тапӑн</string>
+  <string name="checkInOneGoal">Пӗрре ҫӳресе 
+тӑшман патшине тӗлле!</string>
   <string name="outOfCheck">Шахран тухни</string>
   <string name="defendYourKing">Патшуна хӳтеле</string>
   <string name="outOfCheckIntro">Сана шах панӑ! Тара памалла йе тапӑнава сирмелле.</string>
