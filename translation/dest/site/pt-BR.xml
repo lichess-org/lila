@@ -106,7 +106,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade, o que aquece seu computador</string>
-  <string name="blunder">Erro Grave</string>
+  <string name="blunder">Capivarada</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
@@ -146,7 +146,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
-  <string name="timeControl">Controle de Tempo</string>
+  <string name="timeControl">Ritmo</string>
   <string name="realTime">Tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por lance</string>
@@ -176,7 +176,7 @@
   <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
-    <item quantity="other">%s quebra-cabeças</item>
+    <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
   <plurals name="nbGamesWithYou">
@@ -193,7 +193,7 @@
   <string name="blackOffersDraw">Pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
-  <string name="yourOpponentOffersADraw">Seu adversário propõe empate</string>
+  <string name="yourOpponentOffersADraw">Seu adversário oferece empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
@@ -287,7 +287,7 @@
     <item quantity="other">≥ %s jogos valendo pontos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partidas valendo pontos</item>
+    <item quantity="one">≥ %1$s partida %2%s valendo pontos</item>
     <item quantity="other">≥ %1$s %2%s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
