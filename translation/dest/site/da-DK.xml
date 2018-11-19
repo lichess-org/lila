@@ -325,7 +325,7 @@
   <string name="teamLeader">Holdleder</string>
   <string name="teamBestPlayers">De bedste spillere på holdet</string>
   <string name="teamRecentMembers">Nye holdmedlemmer</string>
-  <string name="xJoinedTeamY">%1$s er medlem af holdet %2$s</string>
+  <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
