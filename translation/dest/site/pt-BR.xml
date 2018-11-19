@@ -36,11 +36,11 @@
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, seja gentil no chat!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que acessar esta URL jogará contra você.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que acessar esta URL jogará contigo.</string>
   <string name="whiteResigned">Brancas desistiram</string>
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
-  <string name="blackLeftTheGame">Pretas deixaram a partida</string>
+  <string name="blackLeftTheGame">Negras deixaram a partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Compartilhe esta URL para convidar espectadores</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
@@ -300,7 +300,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sua pontuação %s é provisória</string>
   <string name="yourPerfRatingIsTooHigh">Sua %1$s pontuação (%2$s) é muito alta</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sua melhor pontuação da semana %1$s (%2$s) é muito alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Seu melhor rating %1$s da semana (%2$s) é muito alto</string>
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
   <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
   <string name="ratedLessThanInPerf">Pontuação ≤ %1$s em %2$s</string>
@@ -310,7 +310,7 @@
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="teams">Equipes</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membros</item>
+    <item quantity="one">%s membro</item>
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Todas as equipes</string>
@@ -422,7 +422,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="averageOpponent">Pontuação média adversários</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
-  <string name="setTheBoard">Arranje o tabuleiro</string>
+  <string name="setTheBoard">Defina a posição</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
