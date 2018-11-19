@@ -570,6 +570,7 @@
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">1-мӗш хускану тумашкӑн %s ҫек йулчӗ</item>
   </plurals>
+  <string name="practiceWithComputer">Машинпа практикӑла</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s ҫеккунт</item>
   </plurals>
