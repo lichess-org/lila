@@ -51,6 +51,7 @@
   <string name="depthX">Dyfnder%s</string>
   <string name="goDeeper">Mynd yn ddyfnach</string>
   <string name="move">Symudiad</string>
+  <string name="close">Cau</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Gamgymeriad</string>
@@ -266,6 +267,7 @@
   <string name="keepGoing">Dalia ati ...</string>
   <string name="puzzleFailed">Wedi methu</string>
   <string name="butYouCanKeepTrying">Ond gelli ddal ati a thrio eto</string>
+  <string name="success">Llwyddiant</string>
   <string name="wasThisPuzzleAnyGood">Oedd y pos ma yn dda?</string>
   <string name="pleaseVotePuzzle">Helpwch wellhau lichess wrth bleidleisio a defnyddio saeth i fyny neu i lawr:</string>
   <string name="thankYou">Diolch yn fawr!</string>
