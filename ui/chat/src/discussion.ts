@@ -128,11 +128,11 @@ function renderLine(ctrl: Ctrl, line: Line) {
   if (line.u === 'lidraughts') return h('li.system', textNode);
 
   if (line.c) return h('li', [
-    h('span', '[' + line.c + ']'),
+    h('span.color', '[' + line.c + ']'),
     textNode
   ]);
 
-  const userNode = thunk('a', line.u, userLink, [line.u]);
+  const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
 
   return h('li', {
   }, ctrl.moderation() ? [

@@ -62,7 +62,7 @@ final class GameStateStream(
 
           def receive = {
             case g: Game if g.id == id => pushState(g)
-            case lidraughts.chat.actorApi.ChatLine(chatId, UserLine(username, text, false, false)) =>
+            case lidraughts.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver

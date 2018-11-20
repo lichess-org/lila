@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-export function userLink(u: string) {
-  const split = u.split(' ');
+export function userLink(u: string, title?: string) {
+  const spaced = u.substring(0, 14) + ' ';
   return h('a', {
     // can't be inlined because of thunks
     class: {
@@ -10,9 +10,9 @@ export function userLink(u: string) {
       ulpt: true
     },
     attrs: {
-      href: '/@/' + split[split.length === 1 ? 0 : 1]
+      href: '/@/' + u
     }
-  }, u.substring(0, 14) + " ");
+  }, title ? [h('span.title', title), spaced] : [spaced]);
 }
 
 export function spinner() {

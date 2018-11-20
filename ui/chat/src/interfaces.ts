@@ -41,6 +41,7 @@ export interface Line {
   d: boolean // deleted
   c?: string // color
   r?: boolean // troll
+  title?: string
 }
 
 export interface Permissions {

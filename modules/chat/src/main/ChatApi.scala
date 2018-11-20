@@ -92,14 +92,14 @@ final class ChatApi(
     def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
     def system(chatId: Chat.Id, text: String): Funit = {
-      val line = UserLine(systemUserId, text, troll = false, deleted = false)
+      val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
         lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
     }
 
     // like system, but not persisted.
     def volatile(chatId: Chat.Id, text: String): Unit = {
-      val line = UserLine(systemUserId, text, troll = false, deleted = false)
+      val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
     }
 
@@ -119,6 +119,7 @@ final class ChatApi(
     private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {
       val line = UserLine(
         username = systemUserId,
+        title = None,
         text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
         troll = false, deleted = false
       )
@@ -150,10 +151,10 @@ final class ChatApi(
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
-      UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) dmap {
-        case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
-          (user.isBot || flood.allowMessage(user.id, t2)) option
-            UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
+      UserRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
+        case (Some(user), false) if user.enabled => Writer cut t1 flatMap { t2 =>
+          (user.isBot || flood.allowMessage(userId, t2)) option
+            UserLine(user.username, user.title.map(_.value), Writer preprocessUserInput t2, troll = user.troll, deleted = false)
         }
         case _ => none
       }
