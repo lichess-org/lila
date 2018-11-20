@@ -65,6 +65,8 @@ final class GameApiV2(
 
     val games = config.max.fold(infiniteGames) { max =>
       // I couldn't figure out how to do it properly :( :( :(
+      // the nb can't be set as bulkEnumerator(nb)
+      // because games are further filtered after being fetched
       var nb = 0
       infiniteGames &> Enumeratee.mapInput { in =>
         nb = nb + 1
