@@ -424,6 +424,11 @@ object UserRepo {
 
   def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
+  def speaker(id: User.ID): Fu[Option[User.Speaker]] = {
+    import User.speakerHandler
+    coll.uno[User.Speaker]($id(id))
+  }
+
   def erase(user: User): Funit = coll.update(
     $id(user.id),
     $unset(F.profile) ++ $set(

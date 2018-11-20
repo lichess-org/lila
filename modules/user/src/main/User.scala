@@ -168,6 +168,10 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
+  case class Speaker(username: String, title: Option[Title], enabled: Boolean, troll: Boolean) {
+    def isBot = title has Title.bot
+  }
+
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
     def totalPeriod = new Period(total * 1000l)
@@ -227,6 +231,7 @@ object User {
 
   import lila.db.BSON
   import lila.db.dsl._
+  import Title.titleBsonHandler
 
   implicit val userBSONHandler = new BSON[User] {
 
@@ -237,7 +242,6 @@ object User {
     private implicit def perfsHandler = Perfs.perfsBSONHandler
     private implicit def planHandler = Plan.planBSONHandler
     private implicit def totpSecretHandler = TotpSecret.totpSecretBSONHandler
-    import Title.titleBsonHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -289,4 +293,6 @@ object User {
       totpSecret -> o.totpSecret
     )
   }
+
+  implicit val speakerHandler = reactivemongo.bson.Macros.handler[Speaker]
 }
