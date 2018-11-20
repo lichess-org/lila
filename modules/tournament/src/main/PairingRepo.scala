@@ -28,7 +28,7 @@ object PairingRepo {
   def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.find($id(id)).uno[Pairing]
 
   def recentByTour(tourId: Tournament.ID, nb: Int): Fu[Pairings] =
-    coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().gather[List](nb)
+    coll.find(selectTour(tourId)).sort(recentSort).list[Pairing](nb)
 
   def lastOpponents(tourId: Tournament.ID, userIds: Iterable[User.ID], nb: Int): Fu[Pairing.LastOpponents] = coll.find(
     selectTour(tourId) ++ $doc("u" $in userIds),
@@ -44,7 +44,7 @@ object PairingRepo {
   def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] = coll.find(
     selectTourUser(tourId, userId),
     $doc("_id" -> false, "u" -> true)
-  ).cursor[Bdoc]().gather[List]().map {
+  ).list[Bdoc]().map {
       _.flatMap { doc =>
         ~doc.getAs[List[User.ID]]("u").find(userId!=)
       }(breakOut)
@@ -53,7 +53,7 @@ object PairingRepo {
   def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[Tournament.ID]] = coll.find(
     selectTourUser(tourId, userId),
     $doc("_id" -> true)
-  ).sort(recentSort).cursor[Bdoc]().gather[List](nb).map {
+  ).sort(recentSort).list[Bdoc](nb).map {
       _.flatMap(_.getAs[Game.ID]("_id"))
     }
 
@@ -100,7 +100,7 @@ object PairingRepo {
   def removePlaying(tourId: Tournament.ID) = coll.remove(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: Tournament.ID): Fu[Pairings] =
-    coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().gather[List]()
+    coll.find(selectTour(tourId) ++ selectPlaying).list[Pairing]()
 
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).uno[Pairing]

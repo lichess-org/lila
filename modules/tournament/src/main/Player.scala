@@ -2,6 +2,7 @@ package lidraughts.tournament
 
 import lidraughts.rating.Perf
 import lidraughts.user.{ User, Perfs }
+import lidraughts.common.LightUser
 
 import ornicar.scalalib.Random
 
@@ -39,6 +40,8 @@ private[tournament] object Player {
   type ID = String
 
   case class WithUser(player: Player, user: User)
+
+  case class Result(player: Player, lightUser: LightUser, rank: Int)
 
   private[tournament] def make(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf): Player = new Player(
     _id = Random.nextString(8),

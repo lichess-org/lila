@@ -366,6 +366,16 @@ object JsonView {
     }
   }
 
+  val playerResultWrites: OWrites[Player.Result] = OWrites[Player.Result] {
+    case Player.Result(player, user, rank) => Json.obj(
+      "rank" -> rank,
+      "score" -> player.score,
+      "rating" -> player.rating,
+      "username" -> user.name
+    ).add("title" -> user.title)
+      .add("performance" -> player.performanceOption)
+  }
+
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
   private[tournament] def scheduleJson(s: Schedule) = Json.obj(

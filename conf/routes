@@ -537,6 +537,7 @@ GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: Strin
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
+GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
