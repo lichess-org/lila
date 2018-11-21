@@ -5,16 +5,13 @@ import { StudyChapterMeta } from './interfaces';
 
 export class MultiBoardCtrl {
 
-  open: boolean = false;
-  toggle = () => this.open = !this.open;
-
   constructor(readonly chapters: Prop<StudyChapterMeta[]>) {
   }
 }
 
 export function view(ctrl: MultiBoardCtrl): VNode | undefined {
 
-  if (!ctrl.open) return;
+  console.log(ctrl.chapters());
 
   return h('div.multiboard', 'multiboard!');
 }

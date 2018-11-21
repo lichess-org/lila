@@ -383,3 +383,6 @@
 .icon-share-alt:before {
   content: "\24";
 }
+.icon-th-large:before {
+  content: "\e008";
+}
