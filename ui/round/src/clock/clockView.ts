@@ -100,7 +100,7 @@ function goBerserk(ctrl: RoundController) {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
   return h('button.fbt.berserk.hint--bottom-left', {
-    attrs: { 'data-hint': "GO BERSERK! Half the time, bonus point" },
+    attrs: { 'data-hint': "GO BERSERK! Half the time, no increment, bonus point" },
     hook: bind('click', ctrl.goBerserk)
   }, [
     h('span', justIcon('`'))
