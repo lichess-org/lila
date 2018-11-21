@@ -383,3 +383,9 @@
 .icon-arrow-frisian-target:before {
   content: "\24";
 }
+.icon-share-alt:before {
+  content: "\e011";
+}
+.icon-th-large:before {
+  content: "\e008";
+}
