@@ -17,6 +17,7 @@ object UserRepo {
 
   import User.ID
   import User.{ BSONFields => F }
+  import Title.titleBsonHandler
 
   // dirty
   private[user] val coll = Env.current.userColl
@@ -170,7 +171,7 @@ object UserRepo {
       $set(F.profile -> Profile.profileBSONHandler.write(profile))
     ).void
 
-  def addTitle(id: ID, title: String): Funit =
+  def addTitle(id: ID, title: Title): Funit =
     coll.updateField($id(id), F.title, title).void
 
   def removeTitle(id: ID): Funit =
@@ -343,11 +344,11 @@ object UserRepo {
 
   def setBot(user: User): Funit =
     if (user.count.game > 0) fufail("You already have games played. Make a new account.")
-    else coll.updateField($id(user.id), F.title, User.botTitle).void
+    else coll.updateField($id(user.id), F.title, Title.bot).void
 
   private def botSelect(v: Boolean) =
-    if (v) $doc(F.title -> User.botTitle)
-    else $doc(F.title -> $ne(User.botTitle))
+    if (v) $doc(F.title -> Title.bot)
+    else $doc(F.title -> $ne(Title.bot))
 
   private[user] def botIds = coll.distinctWithReadPreference[String, Set](
     "_id",
@@ -355,7 +356,7 @@ object UserRepo {
     ReadPreference.secondaryPreferred
   )
 
-  def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
+  def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
 
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONValueWriter[Plan] = Plan.planBSONHandler
@@ -422,6 +423,11 @@ object UserRepo {
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
   def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
+
+  def speaker(id: User.ID): Fu[Option[User.Speaker]] = {
+    import User.speakerHandler
+    coll.uno[User.Speaker]($id(id))
+  }
 
   def erase(user: User): Funit = coll.update(
     $id(user.id),

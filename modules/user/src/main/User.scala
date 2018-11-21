@@ -21,7 +21,7 @@ case class User(
     booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[String] = None,
+    title: Option[Title] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
@@ -40,7 +40,7 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
+  def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
@@ -110,7 +110,7 @@ case class User(
 
   def is(name: String) = id == User.normalize(name)
 
-  def isBot = title has User.botTitle
+  def isBot = title has Title.bot
   def noBot = !isBot
 
   def rankable = noBot && !rankban
@@ -168,6 +168,10 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
+  case class Speaker(username: String, title: Option[Title], enabled: Boolean, troll: Boolean) {
+    def isBot = title has Title.bot
+  }
+
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
     def totalPeriod = new Period(total * 1000l)
@@ -190,27 +194,6 @@ object User {
   def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
 
   def normalize(username: String) = username.toLowerCase
-
-  val titles = Seq(
-    "GM" -> "Grandmaster",
-    "WGM" -> "Woman Grandmaster",
-    "IM" -> "International Master",
-    "WIM" -> "Woman Intl. Master",
-    "FM" -> "FIDE Master",
-    "WFM" -> "Woman FIDE Master",
-    "NM" -> "National Master",
-    "CM" -> "Candidate Master",
-    "WCM" -> "Woman Candidate Master",
-    "WNM" -> "Woman National Master",
-    "LM" -> "Lichess Master",
-    "BOT" -> "Chess Robot"
-  )
-
-  val botTitle = LightUser.botTitle
-
-  val titlesMap = titles.toMap
-
-  def titleName(title: String) = titlesMap get title getOrElse title
 
   object BSONFields {
     val id = "_id"
@@ -248,6 +231,7 @@ object User {
 
   import lila.db.BSON
   import lila.db.dsl._
+  import Title.titleBsonHandler
 
   implicit val userBSONHandler = new BSON[User] {
 
@@ -277,7 +261,7 @@ object User {
       seenAt = r dateO seenAt,
       kid = r boolD kid,
       lang = r strO lang,
-      title = r strO title,
+      title = r.getO[Title](title),
       plan = r.getO[Plan](plan) | Plan.empty,
       reportban = r boolD reportban,
       rankban = r boolD rankban,
@@ -309,4 +293,6 @@ object User {
       totpSecret -> o.totpSecret
     )
   }
+
+  implicit val speakerHandler = reactivemongo.bson.Macros.handler[Speaker]
 }

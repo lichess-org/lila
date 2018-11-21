@@ -8,7 +8,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.common.{ AssetVersion, ContentSecurityPolicy }
 
-trait AssetHelper { self: I18nHelper =>
+trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
 
@@ -74,6 +74,13 @@ trait AssetHelper { self: I18nHelper =>
   }
 
   val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+
+  def prismicJs(implicit ctx: Context) = Html {
+    isGranted(_.Prismic) ?? {
+      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").body ++
+        """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+    }
+  }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) "https://" + assetDomain else assetDomain

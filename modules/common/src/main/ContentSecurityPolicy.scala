@@ -58,6 +58,15 @@ case class ContentSecurityPolicy(
     frameSrc = "https://docs.google.com" :: frameSrc
   )
 
+  def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(
+    scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
+    frameSrc = "https://lichess.prismic.io" :: frameSrc,
+    connectSrc = "https://lichess.prismic.io" :: connectSrc
+  )
+  else this
+
+  def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,

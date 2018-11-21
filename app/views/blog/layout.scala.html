@@ -3,6 +3,7 @@
 @pageJs = {
 @moreJs
 @jsTag("embed-analyse.js")
+@prismicJs
 }
 
 @base.layout(
@@ -11,7 +12,7 @@ moreCss = cssTag("blog.css"),
 moreJs = pageJs,
 side = side,
 openGraph = openGraph,
-csp = defaultCsp.withTwitter.some) {
+csp = defaultCsp.withPrismicEditor(isGranted(_.Prismic)).some) {
 <div id="lichess_blog" class="content_box">
   @body
 </div>

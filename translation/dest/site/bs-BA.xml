@@ -282,7 +282,7 @@
   <string name="advancedSearch">Napredna pretraga</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turniri</string>
-  <string name="tournamentPoints">Bodovi na turniru</string>
+  <string name="tournamentPoints">Turnirski bodovi</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s turnirskih bodova</item>
     <item quantity="few">%s turnirskih bodova</item>

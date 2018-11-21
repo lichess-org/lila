@@ -26,7 +26,7 @@ object Prismic {
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
-      case (DocumentLink(id, _, _, slug, false), _) => routes.Blog.show(id, slug, ref).url
+      case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
       case _ => routes.Lobby.home.url
     }
 

@@ -71,7 +71,7 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces, color: Color, ori
     const top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {
       attrs: {
-        style: 'top: ' + top + '%;left: ' + left + '%'
+        style: 'top:' + top + '%;left:' + left + '%'
       },
       hook: bind('click', e => {
         e.stopPropagation();

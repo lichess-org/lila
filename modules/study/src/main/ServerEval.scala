@@ -2,8 +2,8 @@ package lila.study
 
 import play.api.libs.json._
 
-import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import chess.format.pgn.Glyphs
+import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
@@ -19,7 +19,7 @@ object ServerEval {
       chapterRepo: ChapterRepo
   ) {
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
+    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
       chapterRepo.startServerEval(chapter) >>- {
         fishnetActor ! StudyChapterRequest(
           studyId = study.id.value,
@@ -34,6 +34,7 @@ object ServerEval {
           userId = userId.some
         )
       }
+    }
   }
 
   final class Merger(

@@ -10,8 +10,7 @@ const F = [
 ].map(function(path, i) {
   return function() {
     if (curFaviconIdx !== i) {
-      const favicon = document.getElementById('favicon') as HTMLAnchorElement;
-      favicon.href = path;
+      (document.getElementById('favicon') as HTMLAnchorElement).href = path;
       curFaviconIdx = i;
     }
   };

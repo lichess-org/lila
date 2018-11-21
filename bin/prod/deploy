@@ -109,7 +109,7 @@ FS_WARMUP="cat $REMOTE_DIR/lib/* > /dev/null && cat $REMOTE_DIR/bin/lila > /dev/
 
 # start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
 START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.92"
-STOP_DROPPING="sleep 9 && $REMOTE_DIR/bin/prod/iptables-drop 0.7 && sleep 4 && $REMOTE_DIR/bin/prod/iptables-drop 0"
+STOP_DROPPING="sleep 9 && $REMOTE_DIR/bin/prod/iptables-drop 0.7 && sleep 5 && $REMOTE_DIR/bin/prod/iptables-drop 0"
 # STOP_DROPPING="echo \"not resuming traffic\""
 
 if [ $mode = "main" ]; then
@@ -121,7 +121,7 @@ if [ $mode = "main" ]; then
 fi
 if [ $mode = "stage" ]; then
   lilalog "Restart lichess-stage"
-  SSH_COMMAND="$START_DROPPING && chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && systemctl restart lichess-stage && $STOP_DROPPING"
+  SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && systemctl restart lichess-stage"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
 fi

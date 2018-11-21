@@ -199,14 +199,14 @@ object Tournament extends LilaController {
   }
 
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 8,
+    credits = 12,
     duration = 24 hour,
     name = "tournament per user",
     key = "tournament.user"
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 12,
+    credits = 16,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
@@ -227,8 +227,8 @@ object Tournament extends LilaController {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
                 isGranted(_.ManageTournament)) 1 else 4
-              CreateLimitPerUser(me.id, cost = 1) {
-                CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
+              CreateLimitPerUser(me.id, cost = cost) {
+                CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
                   env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
                     fuccess(Redirect(routes.Tournament.show(tour.id)))
                   }

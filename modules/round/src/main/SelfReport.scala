@@ -21,7 +21,8 @@ final class SelfReport(roundMap: DuctMap[Round]) {
       def doLog = lila.log("cheat").branch("jslog").info(
         s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
       )
-      lila.game.GameRepo pov fullId map {
+      if (fullId == "________") fuccess(doLog)
+      else lila.game.GameRepo pov fullId map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {

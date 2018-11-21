@@ -6,7 +6,7 @@ import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress, HTTPRequest }
 import lila.report.{ Suspect, Mod => AsMod, SuspectId }
 import lila.security.Permission
-import lila.user.{ UserRepo, User => UserModel }
+import lila.user.{ UserRepo, User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._
 
@@ -133,7 +133,7 @@ object Mod extends LilaController {
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
       err => fuccess(redirect(username, mod = true)),
-      title => modApi.setTitle(me.id, username, title) >>
+      title => modApi.setTitle(me.id, username, title map Title.apply) >>
         Env.security.automaticEmail.onTitleSet(username) >>-
         Env.user.uncacheLightUser(UserModel normalize username) inject
         redirect(username, mod = false)

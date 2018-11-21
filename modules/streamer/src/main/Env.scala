@@ -3,9 +3,12 @@ package lila.streamer
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.common.Strings
+
 final class Env(
     config: Config,
     system: ActorSystem,
+    settingStore: lila.memo.SettingStore.Builder,
     renderer: ActorSelection,
     isOnline: lila.user.User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -27,6 +30,15 @@ final class Env(
 
   private lazy val photographer = new lila.db.Photographer(imageColl, "streamer")
 
+  lazy val alwaysFeaturedSetting = {
+    import lila.memo.SettingStore.Strings._
+    settingStore[Strings](
+      "streamerAlwaysFeatured",
+      default = Strings(Nil),
+      text = "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+    )
+  }
+
   lazy val api = new StreamerApi(
     coll = streamerColl,
     asyncCache = asyncCache,
@@ -45,6 +57,7 @@ final class Env(
     isOnline = isOnline,
     timeline = hub.actor.timeline,
     keyword = Stream.Keyword(Keyword),
+    alwaysFeatured = alwaysFeaturedSetting.get,
     googleApiKey = GoogleApiKey,
     twitchClientId = TwitchClientId,
     lightUserApi = lightUserApi
@@ -63,6 +76,7 @@ object Env {
   lazy val current: Env = "streamer" boot new Env(
     config = lila.common.PlayApp loadConfig "streamer",
     system = lila.common.PlayApp.system,
+    settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.actor.renderer,
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,

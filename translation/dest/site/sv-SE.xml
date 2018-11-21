@@ -432,7 +432,7 @@
   <string name="profileCompletion">Profil fulländning: %s</string>
   <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
-  <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
+  <string name="gameCompletionRate">Partislutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -650,6 +650,7 @@
   <string name="about">Om Lichess</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en fri (%2$s), libre, inga annonser, öppen källkod schackserver.</string>
+  <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Användarvillkor</string>
@@ -696,7 +697,7 @@
     <item quantity="other">%1$s %2$s spelare denna vecka.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$sspelarna.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>

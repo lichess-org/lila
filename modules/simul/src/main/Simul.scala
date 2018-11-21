@@ -1,7 +1,7 @@
 package lila.simul
 
 import chess.variant.Variant
-import lila.user.User
+import lila.user.{ User, Title }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
@@ -16,7 +16,7 @@ case class Simul(
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
-    hostTitle: Option[String],
+    hostTitle: Option[Title],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],

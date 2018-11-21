@@ -1,6 +1,7 @@
 package lila.blog
 
 import io.prismic._
+import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
 import lila.common.MaxPerPage
@@ -13,30 +14,36 @@ final class BlogApi(
 ) {
 
   def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
-    api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
+    api.forms(collection).ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value).page(page).submit().fold(_ => none, some _) map2 { (res: Response) =>
         PrismicPaginator(res, page, maxPerPage)
       }
+  def recent(prismic: BlogApi.Context, page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
+    recent(prismic.api, prismic.ref.some, page, maxPerPage)
 
-  def one(api: Api, ref: Option[String], id: String) =
+  def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
     api.forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(resolveRef(api)(ref) | api.master.ref).submit() map (_.results.headOption)
+      .ref(ref | api.master.ref).submit() map (_.results.headOption)
 
-  // -- Build a Prismic context
-  def context(refName: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
+  def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
+
+  def context(req: RequestHeader)(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) = {
     prismicApi map { api =>
-      val ref = resolveRef(api)(refName)
+      val ref = resolveRef(api) {
+        req.cookies.get(Prismic.previewCookie).map(_.value)
+          .orElse(req.queryString get "ref" flatMap (_.headOption) filter (_.nonEmpty))
+      }
       BlogApi.Context(api, ref | api.master.ref, linkResolver(api, ref))
     }
+  }
 
   private def resolveRef(api: Api)(ref: Option[String]) =
-    ref.map(_.trim).filterNot(_.isEmpty).flatMap { reqRef =>
+    ref.map(_.trim).filterNot(_.isEmpty) map { reqRef =>
       api.refs.values.collectFirst {
         case r if r.label == reqRef => r.ref
-        case r if r.ref == reqRef => r.ref
-      }
+      } getOrElse reqRef
     }
 
   private val cache = BuiltInCache(200)

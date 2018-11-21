@@ -120,7 +120,7 @@
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">Spelarar: %s</item>
-    <item quantity="other">Spelarar: %s</item>
+    <item quantity="other">%s spelarar</item>
   </plurals>
   <string name="currentGames">Parti som blir spelt nett no</string>
   <plurals name="nbGames">
@@ -698,7 +698,7 @@ i %3$s</string>
     <item quantity="one">%1$s %2$s spelar denne veka.</item>
     <item quantity="other">%1$s %2$s spelarar denne veka.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Di rating i %1$s er %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Ratinga di i %1$s er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
@@ -721,7 +721,7 @@ i %3$s</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metode for å rokere</string>
   <string name="castleByMovingTwoSquares">Flytt kongen to felt</string>
   <string name="castleByMovingOntoTheRook">Sett kongen på tårnet, eller to felt</string>
-  <string name="shareYourInsightsData">Del din personlege spelarstatistikk</string>
+  <string name="shareYourInsightsData">Del den personlege spelarstatistikken din</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vener</string>
   <string name="withEverybody">Med alle</string>
