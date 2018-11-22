@@ -389,10 +389,10 @@ object Study extends LilaController {
     }
   }
 
-  def multiBoard(id: String) = Open { implicit ctx =>
+  def multiBoard(id: String, page: Int) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { study =>
       CanViewResult(study) {
-        env.multiBoard.json(study) map { json =>
+        env.multiBoard.json(study, page, getBool("playing")) map { json =>
           Ok(json) as JSON
         }
       }

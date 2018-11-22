@@ -10,20 +10,33 @@ import chess.format.{ FEN, Uci }
 import BSONHandlers._
 import JsonView._
 import lila.db.dsl._
+import lila.common.MaxPerPage
+import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.db.paginator.Adapter
 
 final class StudyMultiBoard(
-    chapterColl: Coll
+    chapterColl: Coll,
+    maxPerPage: MaxPerPage
 ) {
-
-  val max = 9
 
   import StudyMultiBoard._
 
-  def json(study: Study): Fu[JsObject] = get(study) map { previews =>
-    Json.obj(
-      "previews" -> previews
-    )
+  def json(study: Study, page: Int, playing: Boolean): Fu[JsObject] = get(study, page, playing) map { p =>
+    PaginatorJson(p)
   }
+
+  private def get(study: Study, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = Paginator(
+    adapter = new Adapter[ChapterPreview](
+      collection = chapterColl,
+      selector = $doc("studyId" -> study.id) ++ playing.??(playingSelector),
+      projection = projection,
+      sort = $sort asc "order"
+    ),
+    currentPage = page,
+    maxPerPage = maxPerPage
+  )
+
+  private val playingSelector = $doc("tags" -> "Result:*")
 
   private val projection = $doc(
     "name" -> true,
@@ -61,11 +74,6 @@ final class StudyMultiBoard(
   }
 
   private implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
-
-  private def get(study: Study): Fu[List[ChapterPreview]] = chapterColl
-    .find($doc("studyId" -> study.id), projection)
-    .sort($sort asc "order")
-    .list[ChapterPreview](max)
 }
 
 object StudyMultiBoard {
