@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tag, Tags }
+import chess.format.FEN
 import chess.variant.Variant
 import chess.{ Color, Centis }
 import org.joda.time.DateTime
@@ -142,9 +143,9 @@ object Chapter {
   }
 
   case class Metadata(
-      _id: Chapter.Id,
-      name: Chapter.Name,
-      setup: Chapter.Setup
+      _id: Id,
+      name: Name,
+      setup: Setup
   ) extends Like
 
   case class IdName(id: Id, name: Name)

@@ -420,7 +420,7 @@ div.underboard .notif.error {
   display: flex;
   justify-content: space-between;
   border: 1px solid #ccc;
-  border-bottom: none;
+  border-bottom: 2px solid rgba(99,155,36,0.75) !important;
 }
 .study_buttons .member_buttons {
   display: flex;
@@ -573,14 +573,6 @@ body.base .study_buttons .fbt.active {
 }
 .server_eval .request {
   margin-top: 2em;
-}
-
-.server_eval,
-.study_glyph_form,
-.study_comment_form,
-.study_metadata,
-.study_share {
-  border-top: 2px solid rgba(99,155,36,0.75) !important;
 }
 
 div.advice_summary {

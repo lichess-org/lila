@@ -191,7 +191,7 @@ object BSONHandlers {
     )
   }
   import Node.Root
-  private implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
+  private[study] implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
     def reads(r: Reader) = Root(
       ply = r int "p",
       fen = r.get[FEN]("f"),
