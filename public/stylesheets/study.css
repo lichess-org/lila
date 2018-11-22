@@ -576,8 +576,7 @@ body.base .study_buttons .fbt.active {
 }
 
 #now_playing {
-  padding-left: 1px;
-  white-space: nowrap;
+  padding: 0 0 0 1px;
 }
 #now_playing .spinner {
   margin: 50px auto;
@@ -594,13 +593,22 @@ body.base .study_buttons .fbt.active {
 #now_playing > a:hover {
   background: rgba(191, 231, 255, 0.7);
 }
-#now_playing a.active {
+#now_playing a.active,
+#now_playing a:active {
   background: rgba(99,155,36,0.8);
   color: #fff;
 }
 #now_playing .player {
+  height: 1.5em;
+  white-space: nowrap;
   display: flex;
   justify-content: space-between;
+}
+#now_playing .name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3em;
 }
 
 div.advice_summary {
