@@ -206,15 +206,11 @@ export default class LobbyController {
   };
 
   private startWatching() {
-    const newIds = this.data.nowPlaying.map(function(p) {
-      return p.gameId;
-    }).filter((id: string) => {
-      return this.alreadyWatching.indexOf(id) === -1;
-    });
+    const newIds = this.data.nowPlaying
+      .map(p => p.gameId)
+      .filter(id => this.alreadyWatching.indexOf(id) === -1);
     if (newIds.length) {
-      setTimeout(() => {
-        this.socket.send("startWatching", newIds.join(' '));
-      }, 2000);
+      setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
       newIds.forEach(id => this.alreadyWatching.push(id));
     }
   };
