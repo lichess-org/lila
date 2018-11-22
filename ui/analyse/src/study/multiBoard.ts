@@ -9,16 +9,24 @@ import { bind, spinner } from '../util';
 
 export class MultiBoardCtrl {
 
-  loading: boolean = true;
+  loading: boolean = false;
   page: number = 1;
   pager?: Paginator<ChapterPreview>;
   playing: boolean = false;
 
-  constructor(readonly studyId: string, readonly redraw: () => void) {
+  constructor(readonly studyId: string, readonly redraw: () => void) {}
+
+  addNode(pos, node) {
+    const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
+    if (cp && cp.playing) {
+      cp.fen = node.fen;
+      cp.lastMove = node.uci;
+      this.redraw();
+    }
   }
 
-  reload() {
-    if (!this.loading) {
+  reload(onInsert?: boolean) {
+    if (this.pager && !onInsert) {
       this.loading = true;
       this.redraw();
     }
@@ -54,7 +62,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
   return h('div.multi_board', {
     class: { loading: ctrl.loading },
     hook: {
-      insert() { ctrl.reload(); }
+      insert() { ctrl.reload(true); }
     }
   }, ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()]);
 }
@@ -120,7 +128,7 @@ function makePreview(study: StudyCtrl) {
     ];
     return h('a.mini_board.' + preview.id, {
       attrs: { title: preview.name },
-      class: { active: study.vm.chapterId == preview.id },
+      class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id },
       hook: bind('mousedown', _ => study.setChapter(preview.id))
     }, contents);
   };
@@ -133,21 +141,35 @@ function makePlayer(player: ChapterPreviewPlayer): VNode {
   ]);
 }
 
+function uciToLastMove(lm?: string): Key[] | undefined {
+  return lm ? ([lm[0] + lm[1], lm[2] + lm[3]] as Key[]) : undefined;
+}
+
 function makeCg(preview: ChapterPreview): VNode {
   return h('div.cg-board-wrap', {
     hook: {
       insert(vnode) {
-        const lm = preview.lastMove;
-        Chessground(vnode.elm as HTMLElement, {
+        const cg = Chessground(vnode.elm as HTMLElement, {
           coordinates: false,
           drawable: { enabled: false, visible: false },
           resizable: false,
           viewOnly: true,
           orientation: preview.orientation,
           fen: preview.fen,
-          lastMove: lm ? ([lm[0] + lm[1], lm[2] + lm[3]] as Key[]) : undefined
+          lastMove: uciToLastMove(preview.lastMove)
         });
+        vnode.data!.cp = { cg, fen: preview.fen };
+      },
+      postpatch(old, vnode) {
+        if (old.data!.cp.fen !== preview.fen) {
+          old.data!.cp.cg.set({
+            fen: preview.fen,
+            lastMove: uciToLastMove(preview.lastMove)
+          });
+          old.data!.cp.fen = preview.fen;
+        }
+        vnode.data!.cp = old.data!.cp;
       }
     }
-  }, [ h('div.cg-board') ])
+  }, [h('div.cg-board')])
 }

@@ -47,7 +47,8 @@ final class StudyMultiBoard(
 
   private implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
     def read(doc: BSONDocument) = {
-      val players = doc.getAs[Tags]("tags") flatMap ChapterPreview.players
+      val tags = doc.getAs[Tags]("tags")
+      val players = tags flatMap ChapterPreview.players
       val root = doc.getAs[Node.Root]("root").err("Preview missing root")
       val node =
         if (players.isDefined) root.lastMainlineNode
@@ -60,13 +61,16 @@ final class StudyMultiBoard(
           setup.getAs[Color]("orientation")
         } getOrElse Color.White,
         fen = node.fen,
-        lastMove = node.moveOption.map(_.uci)
+        lastMove = node.moveOption.map(_.uci),
+        playing = tags.flatMap(_(_.Result)) has "*"
       )
     }
   }
 
   private implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
-    Json.obj("name" -> p.name).add("title" -> p.title).add("rating" -> p.rating)
+    Json.obj("name" -> p.name)
+      .add("title" -> p.title)
+      .add("rating" -> p.rating)
   }
 
   private implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] { players =>
@@ -84,7 +88,8 @@ object StudyMultiBoard {
       players: Option[ChapterPreview.Players],
       orientation: Color,
       fen: FEN,
-      lastMove: Option[Uci]
+      lastMove: Option[Uci],
+      playing: Boolean
   )
 
   object ChapterPreview {

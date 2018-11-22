@@ -185,6 +185,7 @@ export interface ChapterPreview {
   orientation: Color
   fen: string
   lastMove?: string
+  playing: boolean
 }
 
 export interface ChapterPreviewPlayer {
