@@ -19,6 +19,7 @@ import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
+import { MultiBoardCtrl } from './multiBoard';
 
 const li = window.lichess;
 
@@ -85,6 +86,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function isChapterOwner() {
     return ctrl.opts.userId === data.chapter.ownerId;
   };
+
+  const multiBoard = new MultiBoardCtrl(data.id, redraw);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
@@ -294,6 +297,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       who = d.w,
       sticky = d.s;
       setMemberActive(who);
+      if (vm.toolTab() == 'multiBoard') multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
@@ -472,6 +476,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     desc,
     vm,
     relay,
+    multiBoard,
     isUpdatedRecently() {
       return Date.now() - vm.updatedAt < 300 * 1000;
     },
@@ -533,11 +538,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       vm.justSetChapterId = id;
       redraw();
     },
-    toggleSticky: function() {
+    toggleSticky() {
       vm.mode.sticky = !vm.mode.sticky && data.features.sticky;
       xhrReload();
     },
-    toggleWrite: function() {
+    toggleWrite() {
       vm.mode.write = !vm.mode.write && members.canContribute();
       xhrReload();
     },

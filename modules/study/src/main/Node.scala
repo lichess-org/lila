@@ -24,6 +24,7 @@ sealed trait RootOrNode {
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
   def color = chess.Color(ply % 2 == 0)
+  def moveOption: Option[Uci.WithSan]
 }
 
 case class Node(
@@ -96,6 +97,8 @@ case class Node(
     },
     forceVariation = n.forceVariation || forceVariation
   )
+
+  def moveOption = move.some
 
   override def toString = s"$ply.${move.san} ${children.nodes}"
 }
@@ -210,6 +213,10 @@ object Node {
     def countRecursive: Int = nodes.foldLeft(nodes.size) {
       case (count, n) => count + n.children.countRecursive
     }
+
+    def lastMainlineNode: Option[Node] = nodes.headOption map { first =>
+      first.children.lastMainlineNode | first
+    }
   }
   val emptyChildren = Children(Vector.empty)
 
@@ -289,6 +296,10 @@ object Node {
     }
 
     def mainlinePath = Path(mainline.map(_.id))
+
+    def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
+
+    def moveOption = none
   }
 
   object Root {
