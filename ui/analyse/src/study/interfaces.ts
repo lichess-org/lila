@@ -181,7 +181,9 @@ export interface ChapterPreview {
     white: ChapterPreviewPlayer
     black: ChapterPreviewPlayer
   }
+  orientation: Color
   fen: string
+  lastMove?: string
 }
 
 export interface ChapterPreviewPlayer {
