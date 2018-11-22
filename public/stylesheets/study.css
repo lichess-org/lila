@@ -575,6 +575,9 @@ body.base .study_buttons .fbt.active {
   margin-top: 2em;
 }
 
+.multi_board .spinner {
+  margin: 50px auto;
+}
 .multi_board.loading {
   opacity: 0.7;
 }
@@ -596,28 +599,30 @@ body.base .study_buttons .fbt.active {
 #now_playing {
   padding: 0 0 0 1px;
 }
-#now_playing .spinner {
-  margin: 50px auto;
-}
 #now_playing > a {
   flex: 0 0 160px;
   overflow: hidden;
   padding: 5px;
-  transition: background 0.13s;
+  transition: none;
 }
 #now_playing a:nth-child(even) {
   background: rgba(128, 128, 128, 0.2);
 }
-body.dark #now_playing a:nth-child(even) {
-  background: #222;
+body.dark #now_playing a {
+  background: #000;
 }
-#now_playing > a:hover {
-  background: rgba(191, 231, 255, 0.7);
+body.dark #now_playing a:nth-child(even) {
+  background: #333;
+  color: #aaa;
+}
+body.base #now_playing > a:hover {
+  background: rgba(56, 147, 232, 0.7);
+  color: #fff;
 }
 #now_playing a.active,
 #now_playing a:active {
   background: rgba(99,155,36,0.8)!important;
-  color: #fff;
+  color: #fff!important;
 }
 #now_playing .player {
   height: 1.5em;
