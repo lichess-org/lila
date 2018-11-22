@@ -34,11 +34,15 @@ final class StudyMultiBoard(
 
   private implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
     def read(doc: BSONDocument) = {
-      val node = doc.getAs[Node.Root]("root").err("Preview missing root").lastMainlineNode
+      val players = doc.getAs[Tags]("tags") flatMap ChapterPreview.players
+      val root = doc.getAs[Node.Root]("root").err("Preview missing root")
+      val node =
+        if (players.isDefined) root.lastMainlineNode
+        else root
       ChapterPreview(
         id = doc.getAs[Chapter.Id]("_id") err "Preview missing id",
         name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
-        players = doc.getAs[Tags]("tags") flatMap ChapterPreview.players,
+        players = players,
         orientation = doc.getAs[Bdoc]("setup") flatMap { setup =>
           setup.getAs[Color]("orientation")
         } getOrElse Color.White,

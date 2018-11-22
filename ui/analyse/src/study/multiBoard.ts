@@ -41,8 +41,12 @@ function makePreview(study: StudyCtrl) {
       makePlayer(preview.players[opposite(preview.orientation)]),
       makeCg(preview),
       makePlayer(preview.players[preview.orientation])
-    ] : [makeCg(preview)];
+    ] : [
+      h('div.name', preview.name),
+      makeCg(preview)
+    ];
     return h('a.mini_board', {
+      attrs: { title: preview.name },
       class: { active: study.vm.chapterId == preview.id },
       hook: bind('mousedown', _ => study.setChapter(preview.id))
     }, contents);
