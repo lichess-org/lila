@@ -25,13 +25,21 @@ final class StudyMultiBoard(
     )
   }
 
-  private val projection = $doc("name" -> true, "tags" -> true, "root" -> true)
+  private val projection = $doc(
+    "name" -> true,
+    "tags" -> true,
+    "root" -> true,
+    "setup.orientation" -> true
+  )
 
   private implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
     def read(doc: BSONDocument) = ChapterPreview(
       id = doc.getAs[Chapter.Id]("_id") err "Preview missing id",
       name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
       players = doc.getAs[Tags]("tags") flatMap ChapterPreview.players,
+      orientation = doc.getAs[Bdoc]("setup") flatMap { setup =>
+        setup.getAs[Color]("orientation")
+      } getOrElse Color.White,
       fen = doc.getAs[Node.Root]("root").err("Preview missing root").lastMainlineNode.fen
     )
   }
@@ -58,6 +66,7 @@ object StudyMultiBoard {
       id: Chapter.Id,
       name: Chapter.Name,
       players: Option[ChapterPreview.Players],
+      orientation: Color,
       fen: FEN
   )
 

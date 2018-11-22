@@ -575,6 +575,27 @@ body.base .study_buttons .fbt.active {
   margin-top: 2em;
 }
 
+.multi_board {
+  padding: 4px 0 0 4px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.multi_board .spinner {
+  margin: 50px auto;
+}
+.multi_board > a {
+  padding: 4px;
+  transition: background 0.13s;
+  background: rgba(255, 255, 255, 0.6);
+}
+.multi_board > a:hover {
+  background: rgba(191, 231, 255, 0.7);
+}
+.multi_board .cg-board-wrap {
+  width: 160px;
+  height: 160px;
+}
+
 div.advice_summary {
   margin-top: 42px;
 }
