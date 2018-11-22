@@ -243,7 +243,8 @@ final class PlanApi(
       "lastLevelUp" -> DateTime.now,
       "lifetime" -> true,
       "free" -> Patron.Free(DateTime.now)
-    )
+    ),
+    upsert = true
   ).void >>- lightUserApi.invalidate(user.id)
 
   def giveMonth(user: User): Funit = UserRepo.setPlan(user, lidraughts.user.Plan(
@@ -257,7 +258,8 @@ final class PlanApi(
       "lifetime" -> false,
       "free" -> Patron.Free(DateTime.now),
       "expiresAt" -> DateTime.now.plusMonths(1).plusDays(1)
-    )
+    ),
+    upsert = true
   ).void >>- lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 50
