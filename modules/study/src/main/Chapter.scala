@@ -2,6 +2,7 @@ package lidraughts.study
 
 import draughts.format.Forsyth
 import draughts.format.pdn.{ Glyph, Tag, Tags }
+import draughts.format.FEN
 import draughts.variant.Variant
 import draughts.{ Color, Centis }
 import org.joda.time.DateTime
@@ -182,9 +183,9 @@ object Chapter {
   }
 
   case class Metadata(
-      _id: Chapter.Id,
-      name: Chapter.Name,
-      setup: Chapter.Setup
+      _id: Id,
+      name: Name,
+      setup: Setup
   ) extends Like
 
   case class IdName(id: Id, name: Name)

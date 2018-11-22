@@ -234,6 +234,9 @@ object Node {
       case (count, n) => count + n.children.countRecursive
     }
 
+    def lastMainlineNode: Option[Node] = nodes.headOption map { first =>
+      first.children.lastMainlineNode | first
+    }
   }
   val emptyChildren = Children(Vector.empty)
 
@@ -310,6 +313,8 @@ object Node {
     }
 
     def mainlinePath = Path(mainline.map(_.id))
+
+    def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
   }
 
   object Root {

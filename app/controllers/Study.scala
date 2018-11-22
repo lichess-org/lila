@@ -396,6 +396,16 @@ object Study extends LidraughtsController {
     }
   }
 
+  def multiBoard(id: String) = Open { implicit ctx =>
+    OptionFuResult(env.api byId id) { study =>
+      CanViewResult(study) {
+        env.multiBoard.json(study) map { json =>
+          Ok(json) as JSON
+        }
+      }
+    }
+  }
+
   private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lidraughts.api.Context) =
     if (canView(study)) f
     else negotiate(

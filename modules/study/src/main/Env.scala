@@ -5,9 +5,9 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.hub.actorApi.HasUserId
 import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
@@ -74,8 +74,10 @@ final class Env(
     evalCacheHandler = evalCacheHandler
   )
 
+  private lazy val chapterColl = db(CollectionChapter)
+
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
-  lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
+  lazy val chapterRepo = new ChapterRepo(coll = chapterColl)
 
   lazy val jsonView = new JsonView(
     studyRepo,
@@ -160,6 +162,10 @@ final class Env(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     maxPerPage = lidraughts.common.MaxPerPage(MaxPerPage)
+  )
+
+  lazy val multiBoard = new StudyMultiBoard(
+    chapterColl = chapterColl
   )
 
   lazy val pdnDump = new PdnDump(

@@ -29,7 +29,7 @@ export function glyphs() {
 
 export function chapterConfig(studyId: string, chapterId: string) {
   return $.ajax({
-    url: ['/study', studyId, chapterId, 'meta'].join('/'),
+    url: `/study/${studyId}/${chapterId}/meta`,
     headers
   });
 }
@@ -37,7 +37,7 @@ export function chapterConfig(studyId: string, chapterId: string) {
 export function practiceComplete(chapterId: string, nbMoves: number) {
   return $.ajax({
     method: 'POST',
-    url: ['/practice/complete', chapterId, nbMoves].join('/'),
+    url: `/practice/complete/${chapterId}/${nbMoves}`,
     headers
   });
 }
@@ -47,6 +47,13 @@ export function importPdn(studyId: string, data: any) {
     method: 'POST',
     url: `/study/${studyId}/import-pdn`,
     data: data,
+    headers
+  });
+}
+
+export function multiBoard(studyId: string) {
+  return $.ajax({
+    url: `/study/${studyId}/multi-board`,
     headers
   });
 }

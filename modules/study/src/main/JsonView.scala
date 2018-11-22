@@ -135,7 +135,7 @@ object JsonView {
   private implicit val colorWriter: Writes[draughts.Color] = Writes[draughts.Color] { c =>
     JsString(c.name)
   }
-  private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+  private[study] implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
   }
   private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>

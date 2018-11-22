@@ -173,3 +173,19 @@ export type TagArray = [string, string];
 export interface LocalPaths {
   [chapterId: string]: Tree.Path;
 }
+
+export interface ChapterPreview {
+  id: string
+  name: string
+  players?: {
+    white: ChapterPreviewPlayer
+    black: ChapterPreviewPlayer
+  }
+  fen: string
+}
+
+export interface ChapterPreviewPlayer {
+  name: string
+  title?: string
+  rating?: number
+}

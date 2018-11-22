@@ -45,8 +45,7 @@ final class ChapterRepo(coll: Coll) {
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
     coll.find($studyId(studyId))
       .sort($sort asc "order")
-      .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
-      .gather[List]()
+      .list[Chapter](none, readPreference = ReadPreference.secondaryPreferred)
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll.find($studyId(studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
