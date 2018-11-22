@@ -575,6 +575,21 @@ body.base .study_buttons .fbt.active {
   margin-top: 2em;
 }
 
+.multi_board.loading {
+  opacity: 0.7;
+}
+.multi_board .top {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.multi_board .playing {
+  cursor: pointer;
+}
+.multi_board .playing input {
+  vertical-align: middle;
+  margin-right: 3px;
+}
 #now_playing {
   padding: 0 0 0 1px;
 }
@@ -609,6 +624,9 @@ body.base .study_buttons .fbt.active {
   align-items: center;
   justify-content: center;
   height: 3em;
+}
+#now_playing .pager .page {
+  margin: 0 3px;
 }
 
 div.advice_summary {

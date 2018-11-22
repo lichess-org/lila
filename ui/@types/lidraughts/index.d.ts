@@ -112,16 +112,6 @@ interface Window {
   [key: string]: any; // TODO
 }
 
-interface Paginator<T> {
-  currentPage: number
-  maxPerPage: number
-  currentPageResults: Array<T>
-  nbResults: number
-  previousPage: number
-  nextPage: number
-  nbPages: number
-}
-
 interface LightUser {
   id: string
   name: string
@@ -163,6 +153,16 @@ interface Variant {
   short: string
   title?: string
   gameType?: string
+}
+
+interface Paginator<A> {
+  currentPage: number
+  maxPerPage: number
+  currentPageResults: [A]
+  nbResults: number
+  previousPage?: number
+  nextPage?: number
+  nbPages: number
 }
 
 declare namespace Tree {

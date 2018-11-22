@@ -51,9 +51,9 @@ export function importPdn(studyId: string, data: any) {
   });
 }
 
-export function multiBoard(studyId: string) {
+export function multiBoard(studyId: string, page: number, playing: boolean) {
   return $.ajax({
-    url: `/study/${studyId}/multi-board`,
+    url: `/study/${studyId}/multi-board?page=${page}&playing=${playing}`,
     headers
   });
 }
