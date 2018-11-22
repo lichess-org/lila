@@ -36,7 +36,6 @@ module.exports = (standalone, fileBaseName, dir) => {
   const watch = () => {
 
     const bundle = () => bundler
-      .plugin(tsify)
       .bundle()
       .on('error', error => logger.error(colors.red(error.message)))
       .pipe(source(`${fileBaseName}.js`))
@@ -44,6 +43,7 @@ module.exports = (standalone, fileBaseName, dir) => {
 
     const bundler = watchify(
       browserify(Object.assign({}, watchify.args, browserifyOpts(true)))
+        .plugin(tsify)
     ).on('update', bundle).on('log', logger.info);
 
     return bundle();
