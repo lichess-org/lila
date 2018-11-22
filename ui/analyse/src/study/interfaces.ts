@@ -182,10 +182,16 @@ export interface ChapterPreview {
     white: ChapterPreviewPlayer
     black: ChapterPreviewPlayer
   }
+  node: ChapterPreviewNode
+  parentClock?: Tree.Clock
   orientation: Color
-  fen: string
-  lastMove?: string
   playing: boolean
+}
+
+export interface ChapterPreviewNode {
+  fen: Fen
+  move?: Uci
+  clock?: Tree.Clock
 }
 
 export interface ChapterPreviewPlayer {

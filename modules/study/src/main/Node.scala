@@ -297,8 +297,6 @@ object Node {
 
     def mainlinePath = Path(mainline.map(_.id))
 
-    def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
-
     def moveOption = none
   }
 

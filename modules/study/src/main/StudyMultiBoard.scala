@@ -3,7 +3,7 @@ package lila.study
 import play.api.libs.json._
 import reactivemongo.bson._
 
-import chess.Color
+import chess.{ Color, Centis }
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.{ FEN, Uci }
 
@@ -49,10 +49,12 @@ final class StudyMultiBoard(
     def read(doc: BSONDocument) = {
       val tags = doc.getAs[Tags]("tags")
       val players = tags flatMap ChapterPreview.players
-      val root = doc.getAs[Node.Root]("root").err("Preview missing root")
-      val node =
-        if (players.isDefined) root.lastMainlineNode
-        else root
+      val playing = tags.flatMap(_(_.Result)) has "*"
+      val root = doc.getAs[Node.Root]("root") err "Preview missing root"
+      val node = (players.isDefined ?? root.mainline.lastOption) getOrElse root
+      val parentClock = node.moveOption.isDefined ?? {
+        root.mainline.lift(root.mainline.size - 2).flatMap(_.clock)
+      }
       ChapterPreview(
         id = doc.getAs[Chapter.Id]("_id") err "Preview missing id",
         name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
@@ -60,9 +62,9 @@ final class StudyMultiBoard(
         orientation = doc.getAs[Bdoc]("setup") flatMap { setup =>
           setup.getAs[Color]("orientation")
         } getOrElse Color.White,
-        fen = node.fen,
-        lastMove = node.moveOption.map(_.uci),
-        playing = tags.flatMap(_(_.Result)) has "*"
+        node = node,
+        parentClock = parentClock,
+        playing = playing
       )
     }
   }
@@ -77,6 +79,12 @@ final class StudyMultiBoard(
     Json.obj("white" -> players.white, "black" -> players.black)
   }
 
+  import lila.tree.Node.clockWrites
+
+  private implicit val nodeWriter: Writes[RootOrNode] = Writes[RootOrNode] { n =>
+    Json.obj("fen" -> n.fen).add("move" -> n.moveOption.map(_.uci)).add("clock" -> n.clock)
+  }
+
   private implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
 }
 
@@ -87,8 +95,8 @@ object StudyMultiBoard {
       name: Chapter.Name,
       players: Option[ChapterPreview.Players],
       orientation: Color,
-      fen: FEN,
-      lastMove: Option[Uci],
+      node: RootOrNode,
+      parentClock: Option[Centis],
       playing: Boolean
   )
 
