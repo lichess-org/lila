@@ -524,11 +524,11 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
       vm.justSetChapterId = id;
       redraw();
     },
-    toggleSticky: function () {
+    toggleSticky() {
       vm.mode.sticky = !vm.mode.sticky && data.features.sticky;
       xhrReload();
     },
-    toggleWrite: function () {
+    toggleWrite() {
       vm.mode.write = !vm.mode.write && members.canContribute();
       xhrReload();
     },

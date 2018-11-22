@@ -120,7 +120,7 @@ object JsonView {
   implicit val chapterIdWrites: Writes[Chapter.Id] = stringIsoWriter(Chapter.idIso)
   implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
 
-  private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
+  private[study] implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
   }
   private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>

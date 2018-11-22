@@ -1,15 +1,15 @@
-package lila.study
+package lidraughts.study
 
 import play.api.libs.json._
 import reactivemongo.bson._
 
-import chess.Color
-import chess.format.FEN
-import chess.format.pgn.{ Tag, Tags }
+import draughts.Color
+import draughts.format.pdn.{ Tag, Tags }
+import draughts.format.{ FEN, Uci }
 
 import BSONHandlers._
 import JsonView._
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 final class StudyMultiBoard(
     chapterColl: Coll
@@ -33,15 +33,19 @@ final class StudyMultiBoard(
   )
 
   private implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
-    def read(doc: BSONDocument) = ChapterPreview(
-      id = doc.getAs[Chapter.Id]("_id") err "Preview missing id",
-      name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
-      players = doc.getAs[Tags]("tags") flatMap ChapterPreview.players,
-      orientation = doc.getAs[Bdoc]("setup") flatMap { setup =>
-        setup.getAs[Color]("orientation")
-      } getOrElse Color.White,
-      fen = doc.getAs[Node.Root]("root").err("Preview missing root").lastMainlineNode.fen
-    )
+    def read(doc: BSONDocument) = {
+      val node = doc.getAs[Node.Root]("root").err("Preview missing root").lastMainlineNode
+      ChapterPreview(
+        id = doc.getAs[Chapter.Id]("_id") err "Preview missing id",
+        name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
+        players = doc.getAs[Tags]("tags") flatMap ChapterPreview.players,
+        orientation = doc.getAs[Bdoc]("setup") flatMap { setup =>
+          setup.getAs[Color]("orientation")
+        } getOrElse Color.White,
+        fen = node.fen,
+        lastMove = node.moveOption.map(_.uci)
+      )
+    }
   }
 
   private implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
@@ -67,7 +71,8 @@ object StudyMultiBoard {
       name: Chapter.Name,
       players: Option[ChapterPreview.Players],
       orientation: Color,
-      fen: FEN
+      fen: FEN,
+      lastMove: Option[Uci]
   )
 
   object ChapterPreview {

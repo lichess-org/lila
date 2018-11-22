@@ -21,6 +21,7 @@ sealed trait RootOrNode {
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
   def color = draughts.Color(ply % 2 == 0)
+  def moveOption: Option[Uci.WithSan]
 }
 
 case class Node(
@@ -118,6 +119,8 @@ case class Node(
       case (cs, c) => children addNode c
     }
   )
+
+  def moveOption = move.some
 
   override def toString = s"$ply.${move.san} ${children.nodes}"
 }
@@ -315,6 +318,8 @@ object Node {
     def mainlinePath = Path(mainline.map(_.id))
 
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
+
+    def moveOption = none
   }
 
   object Root {

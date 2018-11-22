@@ -230,7 +230,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       panel = studyShareView(study.share);
       break;
     case 'multiBoard':
-      panel = multiBoardView(study.multiBoard);
+      panel = multiBoardView(study.multiBoard, study);
       break;
   }
   return [

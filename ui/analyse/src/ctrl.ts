@@ -243,11 +243,8 @@ export default class AnalyseCtrl {
   }
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
-    if (!uci)
-      return;
-    else
-      return draughtsUtil.decomposeUci(uci);
-
+    if (!uci) return;
+    else return draughtsUtil.decomposeUci(uci);
   };
 
   private showGround(noCaptSequences: boolean = false): void {
