@@ -59,6 +59,7 @@
   <string name="blunders">Тӳрккес йӑнӑшсем</string>
   <string name="mistake">Йӑнӑш</string>
   <string name="mistakes">Йӑнӑшсем</string>
+  <string name="inaccuracy">Кӳрӗнмелле йӑнӑш</string>
   <string name="inaccuracies">Кӳрӗнмелле йӑнӑшсем</string>
   <string name="moveTimes">Шутланӑ вӑхӑт хушшисем</string>
   <string name="flipBoard">Хӑмана валтӑрт</string>
@@ -145,6 +146,8 @@
   <string name="thisGameIsRated">Ку хаклавшӑн вӑййи</string>
   <string name="rematch">Рематч сӗн</string>
   <string name="rematchOfferSent">Рематч сӗнни йанӑ</string>
+  <string name="rematchOfferSentWhite">Шуррисем тепре выльасшӑн</string>
+  <string name="rematchOfferSentBlack">Хурисем тепре выльасшӑн</string>
   <string name="rematchOfferAccepted">Рематч сӗннине йышӑннӑ</string>
   <string name="rematchOfferCanceled">Рематч сӗннине пӑрахӑҫланӑ</string>
   <string name="rematchOfferDeclined">Рематч сӗннине сирнӗ</string>
@@ -267,6 +270,7 @@
   <string name="winner">Ҫӗнтерӳҫӗ</string>
   <string name="standing">Лару-тӑру</string>
   <string name="createANewTournament">Ҫӗнӗ турнир йӗркеле</string>
+  <string name="tournamentCalendar">Турнир календарӗ</string>
   <string name="join">Хутшӑнас</string>
   <string name="withdraw">Тухасси</string>
   <string name="points">Пӑнчӑ шучӗ</string>
@@ -275,6 +279,10 @@
   <string name="winStreak">Ҫӗнтерӳ йарӑмӗ</string>
   <string name="createdBy">Йӗркелӳҫӗ</string>
   <string name="tournamentIsStarting">Турнир кӗҫех пуҫланать</string>
+  <string name="berserkRate">Берҫерк хаклавӗ</string>
+  <string name="whiteWins">Шуррисем ҫӗнтерни</string>
+  <string name="blackWins">Хурисем ҫӗнтерни</string>
+  <string name="draws">Парма-пар</string>
   <string name="membersOnly">Регистратсиленӗ вӑйӑҫсемшӗн</string>
   <string name="boardEditor">Хӑма хайласси</string>
   <string name="startPosition">Пуҫламӑш поҫитси</string>
@@ -369,6 +377,7 @@
   <string name="closeAccountExplanation">Есӗ хӑвӑн аккаунтна чӑн та хупасшӑн-и? Аккаунт хупассине пӑрахӑҫлама май ҫук. Сайта кӗме тата профӗле кӗме май пулмӗ.</string>
   <string name="thisAccountIsClosed">Ку аккаунт хупӑ.</string>
   <string name="invalidUsernameOrPassword">Тӗрӗс мар йатлӑх йе кӗме сӑмах</string>
+  <string name="incorrectPassword">Тӗрӗс мар кӗме сӑмах</string>
   <string name="emailMeALink">Пуштӑм ҫине каҫӑ йартар</string>
   <string name="currentPassword">Хальхи кӗме сӑмах</string>
   <string name="newPassword">Ҫӗнӗ кӗме сӑмах</string>
@@ -377,6 +386,7 @@
   <string name="pieceDestinations">Кӗлетке сукмакӗ (тӗрӗс утни тата умӗн утни)</string>
   <string name="boardCoordinates">Хӑма координачӗсем (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Куҫӑмсене ҫырса хурасси</string>
+  <string name="pgnLetter">Саспалли (K, Q, R, B, N)</string>
   <string name="chessClock">Шахмат сехечӗ</string>
   <string name="tenthsOfSeconds">Ҫеккунтӑн вуннӑмӗшӗсем</string>
   <string name="never">Нихӑҫан</string>
@@ -558,8 +568,9 @@
   <string name="error.unknown">Йӑнӑш</string>
   <string name="challenges">Чӗнтерӳ</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">Пӗрремӗш хускану тумашкӑн %s ҫеккунт йулчӗ</item>
+    <item quantity="other">1-мӗш хускану тумашкӑн %s ҫек йулчӗ</item>
   </plurals>
+  <string name="practiceWithComputer">Машинпа практикӑла</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s ҫеккунт</item>
   </plurals>

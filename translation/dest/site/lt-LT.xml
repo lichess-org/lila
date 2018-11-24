@@ -530,6 +530,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="mobileApp">Mobilioji programėlė</string>
   <string name="webmasters">Svetainių kūrėjams</string>
   <string name="about">Apie</string>
+  <string name="aboutX">Apie %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s yra nemokamas (%2$s), laisvas, neturintis reklamų, atviro kodo šachmatų serveris.</string>
+  <string name="really">tikrai</string>
   <string name="contribute">Prisidėkite</string>
   <string name="contact">Susisiekite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>

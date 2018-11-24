@@ -36,11 +36,11 @@
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, seja gentil no chat!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que acessar esta URL jogará contra você.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que acessar esta URL jogará contigo.</string>
   <string name="whiteResigned">Brancas desistiram</string>
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
-  <string name="blackLeftTheGame">Pretas deixaram a partida</string>
+  <string name="blackLeftTheGame">Negras deixaram a partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Compartilhe esta URL para convidar espectadores</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
@@ -106,7 +106,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade, o que aquece seu computador</string>
-  <string name="blunder">Erro Grave</string>
+  <string name="blunder">Capivarada</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
@@ -146,7 +146,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
-  <string name="timeControl">Controle de Tempo</string>
+  <string name="timeControl">Ritmo</string>
   <string name="realTime">Tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por lance</string>
@@ -176,7 +176,7 @@
   <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
-    <item quantity="other">%s quebra-cabeças</item>
+    <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
   <plurals name="nbGamesWithYou">
@@ -193,7 +193,7 @@
   <string name="blackOffersDraw">Pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
-  <string name="yourOpponentOffersADraw">Seu adversário propõe empate</string>
+  <string name="yourOpponentOffersADraw">Seu adversário oferece empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
@@ -287,7 +287,7 @@
     <item quantity="other">≥ %s jogos valendo pontos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partidas valendo pontos</item>
+    <item quantity="one">≥ %1$s partida %2%s valendo pontos</item>
     <item quantity="other">≥ %1$s %2%s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
@@ -300,7 +300,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sua pontuação %s é provisória</string>
   <string name="yourPerfRatingIsTooHigh">Sua %1$s pontuação (%2$s) é muito alta</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sua melhor pontuação da semana %1$s (%2$s) é muito alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Seu melhor rating %1$s da semana (%2$s) é muito alto</string>
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
   <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
   <string name="ratedLessThanInPerf">Pontuação ≤ %1$s em %2$s</string>
@@ -310,7 +310,7 @@
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="teams">Equipes</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membros</item>
+    <item quantity="one">%s membro</item>
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Todas as equipes</string>
@@ -422,7 +422,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="averageOpponent">Pontuação média adversários</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
-  <string name="setTheBoard">Arranje o tabuleiro</string>
+  <string name="setTheBoard">Defina a posição</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
@@ -650,6 +650,9 @@ em %3$s</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
+  <string name="aboutX">Sobre</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">lichess.org é gratuito é realmente livre, sem anúncios, servidor de xadrez de código aberto.</string>
+  <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contato</string>
   <string name="termsOfService">Condições de uso</string>
