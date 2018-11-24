@@ -85,19 +85,18 @@ private final class MoveDB(
       case PostResult(moveId, client, data, measurement) =>
         coll get moveId match {
           case None => Monitor.notFound(moveId, client)
-          case Some(move) if move isAcquiredBy client =>
-            data.move.uci match {
-              case Some(uci) =>
-                coll -= move.id
-                Monitor.move(move, client)
-                system.lidraughtsBus.publish(
-                  Tell(move.game.id, DraughtsnetPlay(uci, data.move.taken, move.currentFen)),
-                  'roundMapTell
-                )
-              case _ =>
-                updateOrGiveUp(move.invalid)
-                Monitor.failure(move, client)
-            }
+          case Some(move) if move isAcquiredBy client => data.move.uci match {
+            case Some(uci) =>
+              coll -= move.id
+              Monitor.move(move, client)
+              system.lidraughtsBus.publish(
+                Tell(move.game.id, DraughtsnetPlay(uci, data.move.taken, move.currentFen)),
+                'roundMapTell
+              )
+            case _ =>
+              updateOrGiveUp(move.invalid)
+              Monitor.failure(move, client, lidraughts.base.LidraughtsException("Missing move"))
+          }
           case Some(move) => Monitor.notAcquired(move, client)
         }
         measurement.finish()
