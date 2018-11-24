@@ -150,6 +150,8 @@ object User {
 
   val anonymous = "Anonymous"
   val lichessId = "lichess"
+  val broadcasterId = "broadcaster"
+  def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
 
   case class GDPRErase(user: User) extends AnyVal
   case class Erased(value: Boolean) extends AnyVal

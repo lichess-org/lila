@@ -19,7 +19,7 @@ object Analyse extends LilaController {
       Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
         userId = me.id.some,
         ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-        mod = isGranted(_.Hunter),
+        mod = isGranted(_.Hunter) || isGranted(_.Relay),
         system = false
       )) map {
         case true => NoContent

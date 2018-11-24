@@ -10,10 +10,10 @@ import reactivemongo.bson._
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import lila.game.BSONHandlers.FENBSONHandler
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
-import lila.game.BSONHandlers.FENBSONHandler
 
 import lila.common.Iso
 import lila.common.Iso._
@@ -89,7 +89,7 @@ object BSONHandlers {
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
     def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
-      case BSONString("lichess") => Comment.Author.Lichess
+      case BSONString(lila.user.User.lichessId) => Comment.Author.Lichess
       case BSONString(name) => Comment.Author.External(name)
       case doc: Bdoc => {
         for {

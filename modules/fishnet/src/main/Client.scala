@@ -22,7 +22,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == "lichess"
+  def lichess = userId.value == lila.user.User.lichessId
 
   def offline = key == Client.offline.key
 

@@ -215,7 +215,7 @@ package fishnet {
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
       moves: List[Uci],
-      userId: Option[String]
+      userId: String
   )
 }
 

@@ -31,7 +31,7 @@ object ServerEval {
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant
           ).toOption.map(_.map(chess.format.Uci.apply).flatten) | List.empty,
-          userId = userId.some
+          userId = userId
         )
       }
     }
