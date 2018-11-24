@@ -56,7 +56,7 @@ final class Analyser(
       case true => fuFalse
       case _ => {
         import req._
-        val sender = Work.Sender(req.userId, none, false, system = req.userId.has("lidraughts"))
+        val sender = Work.Sender(req.userId.some, none, false, system = lidraughts.user.User isOfficial req.userId)
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
           if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {

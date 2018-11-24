@@ -10,10 +10,10 @@ import reactivemongo.bson._
 import lidraughts.db.BSON
 import lidraughts.db.BSON.{ Reader, Writer }
 import lidraughts.db.dsl._
+import lidraughts.game.BSONHandlers.FENBSONHandler
 import lidraughts.tree.Eval
 import lidraughts.tree.Eval.Score
 import lidraughts.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
-import lidraughts.game.BSONHandlers.FENBSONHandler
 
 import lidraughts.common.Iso
 import lidraughts.common.Iso._
@@ -89,7 +89,7 @@ object BSONHandlers {
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
     def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
-      case BSONString("lidraughts") => Comment.Author.Lidraughts
+      case BSONString(lidraughts.user.User.lidraughtsId) => Comment.Author.Lidraughts
       case BSONString(name) => Comment.Author.External(name)
       case doc: Bdoc => {
         for {

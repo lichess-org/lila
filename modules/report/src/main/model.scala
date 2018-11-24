@@ -8,7 +8,7 @@ case class Mod(user: User) extends AnyVal {
 
 case class ModId(value: User.ID) extends AnyVal
 object ModId {
-  def Lidraughts = ModId("lidraughts")
+  def Lidraughts = ModId(lidraughts.user.User.lidraughtsId)
   def Irwin = ModId("irwin")
   def normalize(username: String) = ModId(User normalize username)
 }
@@ -30,7 +30,7 @@ case class Reporter(user: User) extends AnyVal {
 case class ReporterId(value: User.ID) extends AnyVal
 
 object ReporterId {
-  def Lidraughts = ReporterId("lidraughts")
+  def Lidraughts = ReporterId(lidraughts.user.User.lidraughtsId)
   def Irwin = ReporterId("irwin")
   implicit val reporterIdIso = lidraughts.common.Iso.string[ReporterId](ReporterId.apply, _.value)
 }

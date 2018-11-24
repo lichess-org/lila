@@ -213,7 +213,7 @@ package draughtsnet {
       initialFen: Option[draughts.format.FEN],
       variant: draughts.variant.Variant,
       moves: List[Uci],
-      userId: Option[String]
+      userId: String
   )
   case class CommentaryEvent(
       gameId: String,

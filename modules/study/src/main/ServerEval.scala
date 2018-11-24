@@ -33,7 +33,7 @@ object ServerEval {
             variant = chapter.setup.variant,
             finalSquare = true
           ).toOption.map(_.map(draughts.format.Uci.apply).flatten) | List.empty,
-          userId = userId.some
+          userId = userId
         )
       }
     }

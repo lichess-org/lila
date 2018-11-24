@@ -101,7 +101,7 @@ private[forum] final class TopicApi(
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = "lidraughts".some,
+      userId = lidraughts.user.User.lidraughtsId.some,
       ip = none,
       troll = false,
       hidden = false,

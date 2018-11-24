@@ -19,7 +19,7 @@ object Analyse extends LidraughtsController {
       Env.draughtsnet.analyser(game, lidraughts.draughtsnet.Work.Sender(
         userId = me.id.some,
         ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-        mod = isGranted(_.Hunter),
+        mod = isGranted(_.Hunter) || isGranted(_.Relay),
         system = false
       )) map {
         case true => NoContent

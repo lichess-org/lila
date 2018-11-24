@@ -22,7 +22,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def Lidraughts = userId.value == "lidraughts"
+  def Lidraughts = userId.value == lidraughts.user.User.lidraughtsId
 
   def offline = key == Client.offline.key
 
