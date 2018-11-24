@@ -95,7 +95,7 @@ private final class RelayFetch(
   }
 
   def continueRelay(r: Relay): Fu[Relay] = {
-    if (r.sync.log.alwaysFails) fuccess(60)
+    if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) fuccess(60)
     else r.sync.delay match {
       case Some(delay) => fuccess(delay)
       case None => api.getNbViewers(r) map { nb =>
