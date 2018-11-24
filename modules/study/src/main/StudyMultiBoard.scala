@@ -16,6 +16,7 @@ import lila.db.paginator.Adapter
 
 final class StudyMultiBoard(
     chapterColl: Coll,
+    asyncCache: lila.memo.AsyncCache.Builder,
     maxPerPage: MaxPerPage
 ) {
 
@@ -34,6 +35,12 @@ final class StudyMultiBoard(
     ),
     currentPage = page,
     maxPerPage = maxPerPage
+  )
+
+  private val cache = asyncCache.multi[Chapter.Id, Json](
+    name = "study.multiBoard",
+    f = compute,
+    expireAfter = _.ExpireAfterWrite(1 minute)
   )
 
   private val playingSelector = $doc("tags" -> "Result:*")
