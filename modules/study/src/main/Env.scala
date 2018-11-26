@@ -165,6 +165,7 @@ final class Env(
   )
 
   lazy val multiBoard = new StudyMultiBoard(
+    runCommand = db.runCommand,
     chapterColl = chapterColl,
     maxPerPage = lila.common.MaxPerPage(9)
   )
