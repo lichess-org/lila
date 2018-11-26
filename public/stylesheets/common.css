@@ -1426,11 +1426,13 @@ div.lidraughts_overboard .target {
 .undertable_top {
   border: 1px solid #ccc;
   padding: 3px 5px;
+  display: flex;
+  justify-content: space-between;
 }
 .undertable_top a.more {
-  float: right;
   padding-right: 2px;
   font-weight: normal;
+  order:2;
 }
 .undertable_top span.title {
   font-weight: bold;
