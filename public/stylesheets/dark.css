@@ -1,6 +1,6 @@
 body.dark {
-  background-color: #1a1a1a;
-  background-image: linear-gradient(to bottom, #2c2c2c, #1a1a1a 116px);
+  background-color: #181818;
+  background-image: linear-gradient(to bottom, #2c2c2c, #181818 116px);
   color: #929292;
 }
 body.dark a,
@@ -18,15 +18,15 @@ body.dark input,
 body.dark textarea,
 body.dark div.analysis_menu > a.active,
 body.dark div.mchat .chat_tabs .tab {
-  background: #1a1a1a;
+  background: #181818;
   color: #8f8f8f;
 }
 body.dark div.analysis_menu > a.active {
-  border-top-color: #1a1a1a;
+  border-top-color: #181818;
 }
 body.dark .crosstable td {
   background: #2a2a2a;
-  border-color: #1a1a1a;
+  border-color: #181818;
 }
 body.dark #video_side .tag_list a.full:hover {
   background: #222;
