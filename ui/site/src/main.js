@@ -97,7 +97,7 @@ lidraughts.topMenuIntent = function() {
             '</div>');
           setTimeout(function() {
             $('#deploy_done').fadeOut(1000).remove();
-          }, $('body').hasClass('playing') ? 8000 : 13000);
+          }, $('body').hasClass('playing') ? 9000 : 15000);
         });
       },
       tournamentReminder: function(data) {
