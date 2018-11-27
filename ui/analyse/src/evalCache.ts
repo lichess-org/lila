@@ -1,9 +1,10 @@
-import { throttle, defined } from 'common';
+import { throttle, defined, prop, Prop } from 'common';
 
 export interface EvalCache {
   onCeval(): void
   fetch(path: Tree.Path, multiPv: number): void
   onCloudEval(serverEval): void
+  upgradable: Prop<boolean>
 }
 
 const evalPutMinDepth = 20;
@@ -63,6 +64,7 @@ export function make(opts): EvalCache {
   function hasFetched(node): boolean {
     return fenFetched.indexOf(node.fen) !== -1;
   };
+  let upgradable = prop(false);
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
@@ -81,10 +83,12 @@ export function make(opts): EvalCache {
       };
       if (opts.variant !== 'standard') obj.variant = opts.variant;
       if (multiPv > 1) obj.mpv = multiPv;
+      if (upgradable()) obj.up = true;
       opts.send("evalGet", obj);
     },
     onCloudEval(serverEval): void {
       opts.receive(toCeval(serverEval), serverEval.path);
-    }
+    },
+    upgradable
   };
 };

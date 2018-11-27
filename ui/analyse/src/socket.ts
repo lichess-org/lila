@@ -110,6 +110,9 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     },
     evalHit(e) {
       ctrl.evalCache.onCloudEval(e);
+    },
+	crowd(d) {
+      ctrl.evalCache.upgradable(d.nb > 2);
     }
   };
 
