@@ -40,6 +40,7 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
     members foreach {
       case (uid, member) => if (!aliveUids.get(uid) && !member.isApi) ejectUidString(uid)
     }
+    lidraughts.mon.socket.count.site(members.size)
   }
 
   override def quit(uid: Socket.Uid): Unit = {

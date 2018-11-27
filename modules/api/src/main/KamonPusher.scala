@@ -26,7 +26,7 @@ private final class KamonPusher(
   def receive = {
 
     case NbMembers(nb) =>
-      lidraughts.mon.socket.member(nb)
+      lidraughts.mon.socket.count.all(nb)
 
     case NbRounds(nb) =>
       lidraughts.mon.round.actor.count(nb)

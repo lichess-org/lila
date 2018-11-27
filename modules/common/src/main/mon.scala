@@ -272,11 +272,14 @@ object mon {
     }
   }
   object socket {
-    val member = rec("socket.count")
     val open = inc("socket.open")
     val close = inc("socket.close")
     def eject(userId: String) = inc(s"socket.eject.user.$userId")
     val ejectAll = inc(s"socket.eject.all")
+    object count {
+      val all = rec("socket.count")
+      val site = rec("socket.count.site")
+    }
   }
   object mod {
     object report {
