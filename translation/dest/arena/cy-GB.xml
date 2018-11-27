@@ -5,7 +5,13 @@
   <string name="willBeNotified">Cewch eich hysbysu pan fydd y talwrn yn dechrau, felly mae\'n saff i chwarae mewn tab arall tra\'n aros.</string>
   <string name="isRated">Mae\'r talwrn yma yn un swyddogol ac mi fydd yn effeithio\'ch gradd.</string>
   <string name="isNotRated">Nid yw\'r talwrn yn un swyddogol, ni fydd yn effeithio eich gradd.</string>
+  <string name="someRated">Fydd talyrnau swyddogol yn effeithio ar eich gradd.</string>
   <string name="howAreScoresCalculated">Sut mae\'r sgôr yn cael ei gyfri?</string>
   <string name="howIsTheWinnerDecided">Sut mae dewis enillydd?</string>
+  <string name="howDoesPairingWork">Sut mae\'ch gwrthwynebwr yn cael ei ddewis?</string>
+  <string name="howDoesPairingWorkAnswer">Ar ddechrau\'r talwrn caiff eich gwrthwynebydd ei ddethol ar sail gradd. Wrth i chi orffen gem, ewch yn ol i\'r lobi ac fe gewch gwrthwynebydd newydd ar sail eich safle. Mae hyn yn sicrhau fod llai o amser aros. Mae\'n bosib na gewch chi chwarae pob chwaraewr. Chwaraewch yn gyflym a dychwelwch i\'r cyntedd i chwarae mwy ac i enill mwy o bwyntiau.</string>
+  <string name="howDoesItEnd">Sut y daw i ben?</string>
+  <string name="otherRules">Rheolau pwysig eraill</string>
   <string name="thisIsPrivate">Mae hwn yn dalwrn preifat</string>
+  <string name="shareUrl">Rhannu URL hwn i wahodd pobl: %s</string>
 </resources>
