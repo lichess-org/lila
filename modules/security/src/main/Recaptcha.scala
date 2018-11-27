@@ -47,7 +47,7 @@ final class RecaptchaGoogle(
       case res => fufail(s"${res.status} ${res.body}")
     } recover {
       case e: Exception =>
-        logger.warn(s"recaptcha ${e.getMessage}")
+        logger.info(s"recaptcha ${e.getMessage}")
         true
     }
   }
