@@ -7,10 +7,12 @@ import scala.concurrent.duration._
 import chess.format.{ FEN, Forsyth }
 import chess.variant.Variant
 import lila.db.dsl._
+import lila.socket.Socket
 
 final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
+    upgrade: EvalCacheUpgrade,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -21,15 +23,15 @@ final class EvalCacheApi(
     id = Id(variant, SmallFen.make(variant, fen)),
     multiPv = multiPv
   ) map {
-      _.map { lila.evalCache.JsonHandlers.writeEval(_, fen) }
+      _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Forsyth getPly fen.value foreach { ply =>
         lila.mon.evalCache.register(ply, res.isDefined)
       }
     }
 
-  def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
-    candidate.input ?? { put(trustedUser, _) }
+  def put(trustedUser: TrustedUser, candidate: Input.Candidate, uid: Socket.Uid): Funit =
+    candidate.input ?? { put(trustedUser, _, uid) }
 
   def shouldPut = truster shouldPut _
 
@@ -60,7 +62,7 @@ final class EvalCacheApi(
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 
-  private def put(trustedUser: TrustedUser, input: Input): Funit = Validator(input) match {
+  private def put(trustedUser: TrustedUser, input: Input, uid: Socket.Uid): Funit = Validator(input) match {
     case Some(error) =>
       logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
       funit
@@ -73,12 +75,14 @@ final class EvalCacheApi(
           usedAt = DateTime.now
         )
         coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
-          cache.put(input.id, entry.some)
+          cache.put(input.id, entry.some) >>-
+          upgrade.onEval(input, uid)
       case Some(oldEntry) =>
         val entry = oldEntry add input.eval
         !(entry similarTo oldEntry) ?? {
-          coll.update($id(entry.fen), entry, upsert = true).void >>-
-            cache.put(input.id, entry.some)
+          coll.update($id(entry.id), entry, upsert = true).void >>-
+            cache.put(input.id, entry.some) >>-
+            upgrade.onEval(input, uid)
         }
 
     }

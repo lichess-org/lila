@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
 import lila.tree.Eval.Score
+import lila.user.User
 
 case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
@@ -16,7 +17,7 @@ case class EvalCacheEntry(
 
   import EvalCacheEntry._
 
-  def fen = _id
+  def id = _id
 
   def add(eval: Eval) = copy(
     evals = EvalCacheSelector(eval :: evals),
@@ -31,7 +32,7 @@ case class EvalCacheEntry(
       .map(_ takePvs multiPv)
 
   def similarTo(other: EvalCacheEntry) =
-    fen == other.fen && evals == other.evals
+    id == other.id && evals == other.evals
 }
 
 object EvalCacheEntry {
@@ -46,7 +47,7 @@ object EvalCacheEntry {
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
       depth: Int,
-      by: lila.user.User.ID,
+      by: User.ID,
       trust: Trust
   ) {
 
@@ -98,13 +99,13 @@ object EvalCacheEntry {
     def isTooLow = value <= 0
   }
 
-  case class TrustedUser(trust: Trust, user: lila.user.User)
+  case class TrustedUser(trust: Trust, user: User)
 
   final class SmallFen private (val value: String) extends AnyVal with StringValue
 
   object SmallFen {
     private[evalCache] def raw(str: String) = new SmallFen(str)
-    def make(variant: Variant, fen: FEN) = {
+    def make(variant: Variant, fen: FEN): SmallFen = {
       val base = fen.value.split(' ').take(4).mkString("").filter { c =>
         c != '/' && c != '-' && c != 'w'
       }

@@ -247,7 +247,7 @@ final class SocketHandler(
       chapterId <- o.get[Chapter.Id]("d")
     } api.analysisRequest(studyId, chapterId, byUserId)
 
-  }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse evalCacheHandler(uid, member, user) orElse lila.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
     socket = socket,
