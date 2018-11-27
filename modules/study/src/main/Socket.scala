@@ -19,7 +19,7 @@ private final class Socket(
     jsonView: JsonView,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
-    lightUser: lidraughts.common.LightUser.Getter,
+    lightUserApi: lidraughts.user.LightUserApi,
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
     socketTimeout: Duration,
@@ -221,8 +221,8 @@ private final class Socket(
     case NotifyCrowd =>
       delayedCrowdNotification = false
       val json =
-        if (members.size <= maxSpectatorUsers) showSpectators(lightUser)(members.values)
-        else studyRepo.uids(studyId) flatMap { showSpectatorsAndMembers(_, members.values) }
+        if (members.size <= maxSpectatorUsers) showSpectators(lightUserApi.async)(members.values)
+        else studyRepo uids studyId map showSpectatorsAndMembers
       json foreach { notifyAll("crowd", _) }
 
     case Broadcast(t, msg) => notifyAll(t, msg)
@@ -249,35 +249,19 @@ private final class Socket(
     }
   }
 
-  override val maxSpectatorUsers = 15
-
   // always show study members
   // since that's how the client knows if they're online
-  def showSpectatorsAndMembers(memberIds: Set[User.ID], watchers: Iterable[Member]): Fu[JsValue] = {
-
-    val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
-      case ((total, anons, userIds), member) => member.userId match {
-        case Some(userId) if !userIds(userId) && (memberIds(userId) || userIds.size < maxSpectatorUsers) => (total + 1, anons, userIds + userId)
-        case Some(_) => (total + 1, anons, userIds)
-        case _ => (total + 1, anons + 1, userIds)
+  // WCC has thousands of spectators. mutable implementation.
+  def showSpectatorsAndMembers(studyMemberIds: Set[User.ID]): JsValue = {
+    var nb = 0
+    var titleNames = List.empty[String]
+    members foreachValue { w =>
+      nb = nb + 1
+      w.userId.filter(studyMemberIds.contains) foreach { userId =>
+        titleNames = lightUserApi.sync(userId).fold(userId)(_.titleName) :: titleNames
       }
     }
-
-    if (total == 0) fuccess(JsNull)
-    else {
-      val selectedUids =
-        if (userIds.size >= maxSpectatorUsers) userIds.partition(memberIds.contains) match {
-          case (members, others) => members ++ others.take(maxSpectatorUsers - members.size)
-        }
-        else userIds
-      selectedUids.map(lightUser).sequenceFu map { users =>
-        Json.obj(
-          "nb" -> total,
-          "users" -> users.flatten.map(_.titleName),
-          "anons" -> anons
-        )
-      }
-    }
+    Json.obj("nb" -> nb, "users" -> titleNames)
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

@@ -51,7 +51,7 @@ final class Env(
         jsonView = jsonView,
         studyRepo = studyRepo,
         chapterRepo = chapterRepo,
-        lightUser = lightUserApi.async,
+        lightUserApi = lightUserApi,
         history = new lidraughts.socket.History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
