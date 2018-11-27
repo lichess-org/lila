@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bydd y person cyntaf sy\'n dod at y cyfeiriad hwn yn chwarae efo chi</string>
   <string name="whiteResigned">Ildiodd Gwyn</string>
   <string name="blackResigned">Ildiodd Du</string>
-  <string name="whiteLeftTheGame">Gadaelodd Gwyn y gêm</string>
-  <string name="blackLeftTheGame">Gadaelodd Du\'r gêm</string>
+  <string name="whiteLeftTheGame">Gadawodd gwyn y gêm</string>
+  <string name="blackLeftTheGame">Gadawodd du y gêm</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Rhannu\'r cyfeiriad hwn i adael ymwelwyr i weld y gêm</string>
   <string name="theComputerAnalysisHasFailed">Methodd y cyfrifiadur ddadansoddi.</string>
   <string name="viewTheComputerAnalysis">Gweld y dadansoddiad cyfrifiadurol</string>
@@ -519,6 +519,17 @@
   <string name="viewTheSolution">Gweld yr ateb</string>
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
+  <string name="language">Iaith</string>
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
+  <string name="boardTheme">Thema\'r bwrdd</string>
+  <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
+  <string name="xWasPlayed">Chwaraewyd %s</string>
+  <string name="findBetterMoveForWhite">Chwilia am ddewis gwell i gwyn</string>
+  <string name="findBetterMoveForBlack">Chwilia am ddewis gwell i du</string>
+  <string name="waitingForAnalysis">Aros am farn gyfrifiadurol</string>
+  <string name="doItAgain">Ailwneud</string>
+  <string name="opening">Agoriad</string>
+  <string name="middlegame">Y gem ganol</string>
+  <string name="endgame">Diweddglo</string>
 </resources>
