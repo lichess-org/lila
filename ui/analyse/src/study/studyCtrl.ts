@@ -273,6 +273,8 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     return obj;
   }
 
+  const likeToggler = window.lichess.fp.debounce(() => send("like", { liked: data.liked }), 1000);
+
   const socketHandlers = {
     path(d) {
       const position = d.p,
@@ -452,7 +454,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     error(msg) {
       alert(msg);
     }
-  }
+  };
 
   return {
     data,
@@ -473,9 +475,9 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
       return Date.now() - vm.updatedAt < 300 * 1000;
     },
     toggleLike() {
-      send("like", {
-        liked: !data.liked
-      });
+      data.liked = !data.liked;
+      redraw();
+      likeToggler();
     },
     position() {
       return data.position;
