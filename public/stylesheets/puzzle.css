@@ -226,6 +226,12 @@ body.dark #puzzle .timeline > * {
 .mselect .button {
   border: 1px solid #ccc;
 }
+@media (max-width: 1070px) {
+  .mselect {
+    width: 194px!important;
+	margin-left: 0px!important;
+  }
+}
 
 .puzzle_side .game_infos {
   margin-top: 14px!important;
@@ -270,4 +276,9 @@ body.dark #puzzle .timeline > * {
 }
 .puzzle_side .rating span.rp.down {
   color: #ac524f;
+}
+@media (max-width: 1070px) {
+  .side_box.rating canvas {
+    width: 194px!important;
+  }
 }
