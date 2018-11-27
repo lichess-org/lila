@@ -53,6 +53,9 @@
   <string name="goDeeper">Mynd yn ddyfnach</string>
   <string name="move">Symudiad</string>
   <string name="close">Cau</string>
+  <string name="winning">Enill</string>
+  <string name="losing">Colli</string>
+  <string name="drawn">Cyfartal</string>
   <string name="database">Bas data</string>
   <string name="whiteDrawBlack">Gwyn / Cyfartal / Du</string>
   <string name="averageRatingX">Cyfartaledd gradd: %s</string>
@@ -131,9 +134,13 @@
   <string name="mode">Modd</string>
   <string name="casual">Achlysurol</string>
   <string name="rated">Swyddogol</string>
+  <string name="casualTournament">Achlysurol</string>
+  <string name="ratedTournament">Swyddogol</string>
   <string name="thisGameIsRated">Mae\'r gêm hon yn gêm swyddogol</string>
   <string name="rematch">Chwarae eto</string>
   <string name="rematchOfferSent">Cynnig chwarae eto wedi cael ei anfon</string>
+  <string name="rematchOfferSentWhite">Mae Gwyn yn cynnig chwarae eto</string>
+  <string name="rematchOfferSentBlack">Mae du yn cynnig chwarae eto</string>
   <string name="rematchOfferAccepted">Cynnig chwarae eto wedi cael ei dderbyn</string>
   <string name="rematchOfferCanceled">Cynnig gêm newydd wedi\'i ganslo</string>
   <string name="rematchOfferDeclined">Cynnig gêm newydd wedi\'i wrthod</string>
@@ -200,6 +207,7 @@
   <string name="fromPosition">O safle</string>
   <string name="continueFromHere">Parhau o fan ma</string>
   <string name="importGame">Mewnforio gêm</string>
+  <string name="importGameExplanation">Wedi postio PGN fyddwch yn gallu chwarae drwy\'r gem, cewch dadansoddiad gyfrifiadurol, cyfle i drafod y gem ac URL i\'w rannu.</string>
   <string name="thisIsAChessCaptcha">CAPTCHA gwyddbwyll ydy hwnnw.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliciwch ar y bwrdd i symud a dangos eich bod yn ddynol.</string>
   <string name="notACheckmate">Dim siachmat</string>
@@ -230,6 +238,7 @@
   <string name="winner">Ennillydd</string>
   <string name="standing">Safle</string>
   <string name="createANewTournament">Creu cystadleuaeth newydd</string>
+  <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
   <string name="points">o bwyntiau</string>
@@ -238,8 +247,16 @@
   <string name="winStreak">Gêmau wedi\'u hennill heb golli</string>
   <string name="createdBy">greuwyd gan</string>
   <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
+  <string name="winRate">Cyfradd enill</string>
+  <string name="berserkRate">Cyfradd myllio</string>
+  <string name="performance">Perfformiad</string>
+  <string name="tournamentComplete">Talwrn wedi ei chwblhau</string>
+  <string name="whiteWins">Enill fel gwyn</string>
+  <string name="blackWins">Enill fel du</string>
+  <string name="draws">Yn gyfartal</string>
   <string name="membersOnly">Dim ond aelodau</string>
   <string name="boardEditor">Golygydd bwrdd</string>
+  <string name="popularOpenings">Agoriadau poblogaidd</string>
   <string name="startPosition">Safle cychwyn</string>
   <string name="clearBoard">Clirio\'r bwrdd</string>
   <string name="savePosition">Cadw\'r safle</string>
