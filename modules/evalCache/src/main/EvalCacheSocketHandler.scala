@@ -39,7 +39,8 @@ final class EvalCacheSocketHandler(
           member push Socket.makeMessage("evalHit", json + ("path" -> JsString(path)))
         }
       }
-      upgrade.register(uid, member, variant, fen, multiPv, path)
+      if (d.value contains "up")
+        upgrade.register(uid, member, variant, fen, multiPv, path)
     }
   }
 }
