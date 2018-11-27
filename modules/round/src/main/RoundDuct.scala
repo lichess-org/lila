@@ -182,7 +182,7 @@ private[round] final class Round(
 
     case DeployPost => handle { game =>
       game.playable ?? {
-        val freeTime = 15.seconds
+        val freeTime = 20.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
         val progress = giveMoretime(game, Color.all, freeTime)
         proxy save progress inject progress.events
