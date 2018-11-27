@@ -228,4 +228,5 @@ object Env {
   def streamer = lila.streamer.Env.current
   def oAuth = lila.oauth.Env.current
   def bot = lila.bot.Env.current
+  def evalCache = lila.evalCache.Env.current
 }

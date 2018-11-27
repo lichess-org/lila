@@ -4,6 +4,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Env,
     system: akka.actor.ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -14,7 +15,14 @@ final class Env(
   private lazy val truster = new EvalCacheTruster
 
   private lazy val upgrade = new EvalCacheUpgrade(
-    asyncCache = asyncCache
+    asyncCache = asyncCache,
+    enabled = upgradeEnabledSetting.get
+  )
+
+  val upgradeEnabledSetting = settingStore[Boolean](
+    "cloudUpgradeEnabled",
+    default = true,
+    text = "Enable cloud eval upgrade for everyone.".some
   )
 
   lazy val api = new EvalCacheApi(
@@ -46,6 +54,7 @@ object Env {
 
   lazy val current: Env = "evalCache" boot new Env(
     config = lila.common.PlayApp loadConfig "evalCache",
+    settingStore = lila.memo.Env.current.settingStore,
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache
