@@ -39,6 +39,9 @@ private final class EvalCacheUpgrade(
         wms foreach { wm =>
           wm.member push Socket.makeMessage("evalHit", json + ("path" -> JsString(wm.path)))
         }
+        lidraughts.mon.evalCache.upgrade.hit(wms.size)
+        lidraughts.mon.evalCache.upgrade.members(members.size)
+        lidraughts.mon.evalCache.upgrade.evals(evals.size)
       }
     }
   }
