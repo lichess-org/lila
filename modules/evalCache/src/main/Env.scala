@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lidraughts.db.Env,
+    system: akka.actor.ActorSystem,
     asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
@@ -12,16 +13,26 @@ final class Env(
 
   private lazy val truster = new EvalCacheTruster
 
+  private lazy val upgrade = new EvalCacheUpgrade(
+    asyncCache = asyncCache
+  )
+
   lazy val api = new EvalCacheApi(
     coll = db(CollectionEvalCache),
     truster = truster,
+    upgrade = upgrade,
     asyncCache = asyncCache
   )
 
   lazy val socketHandler = new EvalCacheSocketHandler(
     api = api,
-    truster = truster
+    truster = truster,
+    upgrade = upgrade
   )
+
+  system.lidraughtsBus.subscribeFun('socketDoor) {
+    case lidraughts.socket.actorApi.SocketLeave(uid, _) => upgrade unregister uid
+  }
 
   def cli = new lidraughts.common.Cli {
     def process = {
@@ -36,6 +47,7 @@ object Env {
   lazy val current: Env = "evalCache" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "evalCache",
     db = lidraughts.db.Env.current,
+    system = lidraughts.common.PlayApp.system,
     asyncCache = lidraughts.memo.Env.current.asyncCache
   )
 }

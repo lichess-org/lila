@@ -37,7 +37,7 @@ private final class DraughtsnetEvalCache(
           )
         )
         candidate.foreach { c =>
-          evalCacheApi.put(c.eval.by, c)
+          evalCacheApi.put(c.eval.by, c, none)
         }
         candidate.map(_.eval)
       }

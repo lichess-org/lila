@@ -236,7 +236,7 @@ final class SocketHandler(
       chapterId <- o.get[Chapter.Id]("d")
     } api.analysisRequest(studyId, chapterId, byUserId)
 
-  }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lidraughts.chat.Socket.in(
+  }: Handler.Controller) orElse evalCacheHandler(uid, member, user) orElse lidraughts.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
     socket = socket,

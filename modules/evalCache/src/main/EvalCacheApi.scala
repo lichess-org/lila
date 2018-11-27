@@ -7,10 +7,12 @@ import scala.concurrent.duration._
 import draughts.format.{ FEN, Forsyth }
 import draughts.variant.Variant
 import lidraughts.db.dsl._
+import lidraughts.socket.Socket
 
 final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
+    upgrade: EvalCacheUpgrade,
     asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
@@ -21,18 +23,18 @@ final class EvalCacheApi(
     id = Id(variant, SmallFen.make(variant, fen)),
     multiPv = multiPv
   ) map {
-      _.map { lidraughts.evalCache.JsonHandlers.writeEval(_, fen) }
+      _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Forsyth getPly fen.value foreach { ply =>
         lidraughts.mon.evalCache.register(ply, res.isDefined)
       }
     }
 
-  def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
-    candidate.input ?? { put(trustedUser.user.id, _) }
+  def put(trustedUser: TrustedUser, candidate: Input.Candidate, uid: Socket.Uid): Funit =
+    candidate.input ?? { put(trustedUser.user.id, _, uid.some) }
 
-  def put(trustedUserId: String, candidate: Input.Candidate): Funit =
-    candidate.input ?? { put(trustedUserId, _) }
+  def put(trustedUserId: String, candidate: Input.Candidate, uid: Option[Socket.Uid]): Funit =
+    candidate.input ?? { put(trustedUserId, _, uid) }
 
   def shouldPut = truster shouldPut _
 
@@ -63,7 +65,7 @@ final class EvalCacheApi(
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 
-  private def put(trustedUserId: String, input: Input): Funit = Validator(input) match {
+  private def put(trustedUserId: String, input: Input, uid: Option[Socket.Uid]): Funit = Validator(input) match {
     case Some(error) =>
       logger.info(s"Invalid ${input.id.variant.key} from $trustedUserId $error ${input.fen} ${input.eval}")
       funit
@@ -76,12 +78,14 @@ final class EvalCacheApi(
           usedAt = DateTime.now
         )
         coll.insert(entry).recover(lidraughts.db.recoverDuplicateKey(_ => ())) >>-
-          cache.put(input.id, entry.some)
+          cache.put(input.id, entry.some) >>-
+          uid ?? { upgrade.onEval(input, _) }
       case Some(oldEntry) =>
         val entry = oldEntry add input.eval
         !(entry similarTo oldEntry) ?? {
-          coll.update($id(entry.fen), entry, upsert = true).void >>-
-            cache.put(input.id, entry.some)
+          coll.update($id(entry.id), entry, upsert = true).void >>-
+            cache.put(input.id, entry.some) >>-
+            uid ?? { upgrade.onEval(input, _) }
         }
 
     }
