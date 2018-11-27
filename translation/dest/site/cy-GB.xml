@@ -56,6 +56,7 @@
   <string name="showThreat">Dangos bygythiad</string>
   <string name="inLocalBrowser">mewn porwr lleol</string>
   <string name="move">Symudiad</string>
+  <string name="pawnMove">Symudiad gwerinwr</string>
   <string name="close">Cau</string>
   <string name="winning">Enill</string>
   <string name="losing">Colli</string>
@@ -69,6 +70,7 @@
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="importPgn">Mewnlwytho PGN</string>
   <string name="delete">Dileu</string>
+  <string name="replayMode">Cyflymder ailchwarae</string>
   <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Gamgymeriad</string>
