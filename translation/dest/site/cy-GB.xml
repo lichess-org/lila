@@ -238,6 +238,7 @@
   <string name="winner">Ennillydd</string>
   <string name="standing">Safle</string>
   <string name="createANewTournament">Creu cystadleuaeth newydd</string>
+  <string name="advancedSettings">Gosodiadau uwch</string>
   <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
