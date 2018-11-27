@@ -187,6 +187,7 @@
   <string name="tournamentPoints">Pwyntiau wedi\'u ennill mewn cystadleuaethau</string>
   <string name="viewTournament">Gwylio cystadleuaeth</string>
   <string name="backToTournament">Nôl at y cystadleuaeth</string>
+  <string name="thematic">Ar thema</string>
   <string name="backToGame">Nôl at y gêm</string>
   <string name="siteDescription">Gweinydd gwyddbwyll ar-lein am ddim.  Chwaraewch wyddbwyll nawr mewn rhyngwyneb glan.  Dim cofrestru, hysbysebion, dim angen ategyn.  Chwaraewch wyddbwyll yn erbyn y cyfrifiadur, efo ffrindiau neu berson ar hap.</string>
   <string name="teams">Tîmau</string>
@@ -219,6 +220,7 @@
   <string name="importGameExplanation">Wedi postio PGN fyddwch yn gallu chwarae drwy\'r gem, cewch dadansoddiad gyfrifiadurol, cyfle i drafod y gem ac URL i\'w rannu.</string>
   <string name="thisIsAChessCaptcha">CAPTCHA gwyddbwyll ydy hwnnw.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliciwch ar y bwrdd i symud a dangos eich bod yn ddynol.</string>
+  <string name="captcha.fail">Datryswch y captcha os gwelwch yn dda.</string>
   <string name="notACheckmate">Dim siachmat</string>
   <string name="colorPlaysCheckmateInOne">Tro %s; siachmat mewn un symudiad</string>
   <string name="retry">Triwch eto</string>
@@ -226,6 +228,7 @@
   <string name="onlineFriends">o ffrindiau ar-lein</string>
   <string name="noFriendsOnline">Dim ffrindiau ar-lein</string>
   <string name="findFriends">Chwilio am ffrindiau</string>
+  <string name="favoriteOpponents">Hoff wrthwynebyddion</string>
   <string name="follow">Dilyn</string>
   <string name="following">Yn dilyn</string>
   <string name="unfollow">Peidio â dilyn</string>
@@ -515,6 +518,7 @@
   <string name="withEverybody">Gyda pawb</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Cyfeiriad wedi\'i cofrestru yn barod: %s</string>
   <string name="kidMode">Dull plentyn</string>
+  <string name="security">Diogelwch</string>
   <string name="playChessEverywhere">Chwarae gwyddbwyll ym mhobman</string>
   <string name="asFreeAsLichess">Yn ddi-dâl fel lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Wedi\'i wneud am gariad gwyddbwyll, nid arian</string>
@@ -533,6 +537,8 @@
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
   <string name="boardTheme">Thema\'r bwrdd</string>
+  <string name="invalidPgn">PGN anilys</string>
+  <string name="invalidFen">FEN anilys</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="xWasPlayed">Chwaraewyd %s</string>
   <string name="findBetterMoveForWhite">Chwilia am ddewis gwell i gwyn</string>
