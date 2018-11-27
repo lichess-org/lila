@@ -27,9 +27,6 @@ private final class EvalCacheUpgrade(
     val setupId = makeSetupId(variant, fen, multiPv)
     members += (uid.value -> WatchingMember(member, setupId, path))
     evals += (setupId -> (~evals.get(setupId) + uid.value))
-    println("---------------------------------")
-    println(members, "members")
-    println(evals, "evals")
   }
 
   def onEval(input: EvalCacheEntry.Input, uid: Socket.Uid): Unit = if (enabled()) {
