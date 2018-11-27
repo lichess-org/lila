@@ -223,4 +223,5 @@ object Env {
   def streamer = lidraughts.streamer.Env.current
   def oAuth = lidraughts.oauth.Env.current
   def bot = lidraughts.bot.Env.current
+  def evalCache = lidraughts.evalCache.Env.current
 }

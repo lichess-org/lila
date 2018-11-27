@@ -4,6 +4,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     db: lidraughts.db.Env,
     system: akka.actor.ActorSystem,
     asyncCache: lidraughts.memo.AsyncCache.Builder
@@ -14,7 +15,14 @@ final class Env(
   private lazy val truster = new EvalCacheTruster
 
   private lazy val upgrade = new EvalCacheUpgrade(
-    asyncCache = asyncCache
+    asyncCache = asyncCache,
+    enabled = upgradeEnabledSetting.get
+  )
+
+  val upgradeEnabledSetting = settingStore[Boolean](
+    "cloudUpgradeEnabled",
+    default = true,
+    text = "Enable cloud eval upgrade for everyone.".some
   )
 
   lazy val api = new EvalCacheApi(
@@ -46,6 +54,7 @@ object Env {
 
   lazy val current: Env = "evalCache" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "evalCache",
+    settingStore = lidraughts.memo.Env.current.settingStore,
     db = lidraughts.db.Env.current,
     system = lidraughts.common.PlayApp.system,
     asyncCache = lidraughts.memo.Env.current.asyncCache
