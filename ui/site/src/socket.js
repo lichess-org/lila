@@ -293,9 +293,9 @@ lichess.StrongSocket.defaults = {
   options: {
     name: "unnamed",
     idle: false,
-    pingMaxLag: 8000, // time to wait for pong before reseting the connection
-    pingDelay: 2000, // time between pong and ping
-    autoReconnectDelay: 3000,
+    pingMaxLag: 9000, // time to wait for pong before reseting the connection
+    pingDelay: 2500, // time between pong and ping
+    autoReconnectDelay: 3500,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(d) {
       return [d].concat((d === 'socket.lichess.org' ? [5, 6, 7, 8, 9] : []).map(function(port) {
