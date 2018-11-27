@@ -49,10 +49,14 @@
   <string name="computerAnalysisAvailable">Dadansoddiad cyfrifiadurol ar gael</string>
   <string name="analysis">Bwrdd dadansoddi</string>
   <string name="depthX">Dyfnder%s</string>
+  <string name="loadingEngine">Llwytho\'r injan...</string>
   <string name="goDeeper">Mynd yn ddyfnach</string>
   <string name="move">Symudiad</string>
   <string name="close">Cau</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
+  <string name="importPgn">Mewnlwytho PGN</string>
+  <string name="delete">Dileu</string>
+  <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Gamgymeriad</string>
   <string name="mistakes">o gamgymeriadau</string>
@@ -330,6 +334,7 @@
   <string name="pieceDestinations">Cyrchfanau darnau (symudiadau dilys a symudiadau o flaen)</string>
   <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
+  <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
   <string name="never">Byth</string>
