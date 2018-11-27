@@ -96,6 +96,11 @@ object mon {
       hitIf(isHit)()
       if (ply <= 10) byPly.hitIf(ply, isHit)()
     }
+    object upgrade {
+      val hit = incX("eval_Cache.upgrade.hit")
+      val members = rec("eval_Cache.upgrade.hit")
+      val evals = rec("eval_Cache.upgrade.hit")
+    }
   }
   object lobby {
     object hook {
