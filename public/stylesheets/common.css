@@ -1191,41 +1191,6 @@ body.base .fbt.active {
   border-color: #aaa !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
-div.captureCaptcha {
-  display: flex;
-  margin-bottom: 2em;
-}
-div.captureFen {
-  width: 250px;
-  margin-left: 110px;
-  cursor: pointer;
-}
-div.captureSection {
-  font-size: 0.9em;
-}
-div.captureSection label {
-  display: block;
-  width: 310px;
-}
-div.captureSection div.result {
-  display: none;
-  height: 48px;
-  line-height: 48px;
-  vertical-align: middle;
-  font-weight: bold;
-}
-div.captureSection div.success {
-  color: #759900;
-}
-div.captureSection div.failure {
-  color: #ac524f;
-}
-div.captureCaptcha.success div.success {
-  display: block;
-}
-div.captureCaptcha.failure div.failure {
-  display: block;
-}
 /* gamelist.css */
 
 div.game_row {

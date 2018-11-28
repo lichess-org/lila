@@ -1,9 +1,11 @@
 @(text: Field, topic: Option[lidraughts.forum.Topic])(implicit ctx: Context)
 <label>
   <span class="required">@trans.message()</span>
-  @topic match {
+  <div>
+    @topic match {
     case Some(topic) => { <textarea class="post-text-area" name="@text.name" data-topic="@topic.id">@text.value</textarea> }
     case None => { <textarea class="post-text-area" name="@text.name">@text.value</textarea> }
-  }
-  @errMsg(text)
+    }
+    @errMsg(text)
+  </div>
 </label>

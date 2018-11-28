@@ -1,7 +1,8 @@
-@(title: String, currentTab: Option[String] = None, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, currentTab: Option[String] = None, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
 
-@moreCss = {
+@allCss = {
 @cssTag("team.css")
+@if(formCss) { @cssTag("form3.css") }
 }
 
 @side = {
@@ -31,7 +32,7 @@
 
 @base.layout(
 title = title,
-moreCss = moreCss,
+moreCss = allCss,
 moreJs = infiniteScrollTag,
 openGraph = openGraph,
 side = side.some) {

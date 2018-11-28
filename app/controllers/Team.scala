@@ -145,7 +145,7 @@ object Team extends LidraughtsController {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
         err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.form(err, captcha))
+          BadRequest(html.team.form(err.pp, captcha))
         },
         data => api.create(data, me) ?? {
           _ map { team => Redirect(routes.Team.show(team.id)): Result }

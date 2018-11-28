@@ -18,7 +18,7 @@
         <span></span>
         <p class="info">Your join request will be reviewed by the team leader.</p>
       </label>
-      @base.captcha(form("move"), form("gameId"), captcha)
+      @base.captcha(form, captcha)
       @errMsg(form)
       <button class="submit button" type="submit" data-icon="E"> @trans.joinTeam()</button>
       <a href="@routes.Team.home(1)" style="margin-left:20px">@trans.cancel()</a>

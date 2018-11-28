@@ -3,13 +3,18 @@ package lidraughts.common
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
-import play.api.data.{ Mapping, FormError }
+import play.api.data.{ Mapping, FormError, Field }
 import play.api.data.Forms._
 import scala.util.Try
 
 object Form {
 
   type Options[A] = Iterable[(A, String)]
+
+  type FormLike = {
+    def apply(key: String): Field
+    def errors: Seq[FormError]
+  }
 
   def options(it: Iterable[Int], pattern: String): Options[Int] = it map { d =>
     d -> (pluralize(pattern, d) format d)

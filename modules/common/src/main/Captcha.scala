@@ -1,7 +1,6 @@
 package lidraughts.common
 
-// import scalaz.NonEmptyList
-import scalaz._
+import scalaz.NonEmptyList
 
 case class Captcha(
     gameId: String,
@@ -25,4 +24,11 @@ object Captcha {
     solutions = NonEmptyList("40 29"),
     moves = Map("40" -> "29")
   )
+
+  val failMessage = "captcha.fail"
+
+  def isFailed(form: Form.FormLike) =
+    form.errors.exists { e =>
+      e.key == "" && e.messages.has(failMessage)
+    }
 }

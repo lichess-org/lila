@@ -108,7 +108,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
     <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @forum.post.formFields(form("text"), topic.some)
-      @base.captcha(form("move"), form("gameId"), captcha)
+      @base.captcha(form, captcha)
       @globalError(form)
       <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>
       @if(isGranted(_.PublicMod)){

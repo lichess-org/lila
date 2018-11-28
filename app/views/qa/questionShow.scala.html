@@ -75,7 +75,7 @@ description = shorten(q.body, 152)).some) {
       <form class="wide" action="@routes.QaAnswer.create(q.id).url#your-answer" method="post">
         <textarea class="answer-body" name="@form("body").name">@form("body").value</textarea>
         @errMsg(form("body"))
-        @base.captcha(form("move"), form("gameId"), captcha)
+        @base.captcha(form, captcha)
         @errMsg(form(""))
         <button class="pure submit button" type="submit">Post your answer</button>
         @if(isGranted(_.PublicMod)){

@@ -9,13 +9,15 @@
 #report form.create .actions a, #report div.answer div.actions a {
   margin-left: 1em;
 }
-#report form.create >div >label {
-  float: left;
+#report form.create label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+}
+#report form.create label span {
   width: 100px;
   text-align: right;
   margin-right: 10px;
-  vertical-align: middle;
-  margin-top: 3px;
 }
 #report .field_to input, #report .field_reason input {
   width: 450px;
@@ -35,9 +37,6 @@
 }
 #report .help {
   margin-left: 110px;
-}
-#report .captureCaptcha {
-  margin-top: 2em;
 }
 
 #report_list .header {

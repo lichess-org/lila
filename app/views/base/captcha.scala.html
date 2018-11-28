@@ -1,22 +1,20 @@
-@(move: Field, gameId: Field, captcha: lidraughts.common.Captcha)(implicit ctx: Context)
+@(form: lidraughts.common.Form.FormLike, captcha: lidraughts.common.Captcha)(implicit ctx: Context)
 
 @import play.api.libs.json.Json
 
-<input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
+@form3.hidden(form("gameId"), captcha.gameId.some)
 @if(ctx.blindMode) {
-<input type="hidden" name="@move.name" id="@move.id" value="@captcha.solutions.head" />
+@form3.hidden(form("move"), captcha.solutions.head.some)
 } else {
-<div class="captureCaptcha" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
-  <div class="captureFen">
-    <div
-      class="mini_board parse_fen is2d"
-      data-playable="1"
-      data-x="@encodeFen(safeJsonValue(Json.toJson(captcha.moves)))"
-      data-y="@encodeFen(if(captcha.white){"white"}else{"black"})"
-      data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
-  </div>
-  <div class="captureSection">
-    <strong>@trans.colorPlaysCapture((if (captcha.white) trans.white else trans.black)())</strong><br />
+<div class="captcha form-group@if(lidraughts.common.Captcha.isFailed(form)){ is-invalid}" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
+  <div
+    class="mini_board parse_fen is2d"
+    data-playable="1"
+    data-x="@encodeFen(safeJsonValue(Json.toJson(captcha.moves)))"
+    data-y="@encodeFen(if(captcha.white){"white"}else{"black"})"
+    data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
+  <div class="explanation">
+    <label>@trans.colorPlaysCapture((if (captcha.white) trans.white else trans.black)())</label><br />
     <br />
     @trans.thisIsADraughtsCaptcha()<br />
     @trans.clickOnTheBoardToMakeYourMove()
@@ -26,7 +24,7 @@
     }
     <div class="result success text" data-icon="E">@trans.success()</div>
     <div class="result failure text" data-icon="k">@trans.notACapture()</div>
-    <input type="hidden" name="@move.name" id="@move.id" value="" />
+    @form3.hidden(form("move"))
   </div>
 </div>
 }

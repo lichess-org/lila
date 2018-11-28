@@ -928,7 +928,7 @@ lidraughts.topMenuIntent = function() {
 
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
-      $('div.captureCaptcha').each(function() {
+      $('div.captcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
         var $input = $captcha.find('input').val('');

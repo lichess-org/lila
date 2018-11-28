@@ -240,14 +240,13 @@ div.category .description {
 }
 #lidraughts_forum form.wide label {
   display: flex;
-  align-items: center;
   margin-bottom: 2em;
 }
 
 #lidraughts_forum form.wide label span {
   width: 100px;
   text-align: right;
-  margin-right: 10px;
+  margin: 8px 10px 0 0;
 }
 #lidraughts_forum form.wide label span.required:after {
   content: "*";
@@ -270,8 +269,6 @@ div.category .description {
 }
 
 #lidraughts_forum form.wide p.error {
-  margin-left: 110px;
-  margin-bottom: 10px;
   color: red;
 }
 
