@@ -928,7 +928,7 @@ lichess.topMenuIntent = function() {
 
     lichess.requestIdleCallback(function() {
       lichess.parseFen();
-      $('div.checkmateCaptcha').each(function() {
+      $('div.captcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
         var $input = $captcha.find('input').val('');
