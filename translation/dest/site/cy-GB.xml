@@ -270,6 +270,7 @@
   <string name="winner">Ennillydd</string>
   <string name="standing">Safle</string>
   <string name="createANewTournament">Creu cystadleuaeth newydd</string>
+  <string name="tournamentCalendar">Calendr talyrnau</string>
   <string name="advancedSettings">Gosodiadau uwch</string>
   <string name="safeTournamentName">Dewisia enw saff i\'r talwrn.</string>
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
@@ -283,6 +284,7 @@
   <string name="winStreak">Gêmau wedi\'u hennill heb golli</string>
   <string name="createdBy">greuwyd gan</string>
   <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
+  <string name="youArePlaying">Rwyt ti\'n chwarae!</string>
   <string name="winRate">Cyfradd enill</string>
   <string name="berserkRate">Cyfradd myllio</string>
   <string name="performance">Perfformiad</string>
@@ -290,6 +292,7 @@
   <string name="whiteWins">Enill fel gwyn</string>
   <string name="blackWins">Enill fel du</string>
   <string name="draws">Yn gyfartal</string>
+  <string name="averageOpponent">Gradd cyfartalog y gwrthwynebwyr</string>
   <string name="membersOnly">Dim ond aelodau</string>
   <string name="boardEditor">Golygydd bwrdd</string>
   <string name="setTheBoard">Gosod y bwrdd</string>
