@@ -1,11 +1,4 @@
 @(text: Field, topic: Option[lidraughts.forum.Topic])(implicit ctx: Context)
-<label>
-  <span class="required">@trans.message()</span>
-  <div>
-    @topic match {
-    case Some(topic) => { <textarea class="post-text-area" name="@text.name" data-topic="@topic.id">@text.value</textarea> }
-    case None => { <textarea class="post-text-area" name="@text.name">@text.value</textarea> }
-    }
-    @errMsg(text)
-  </div>
-</label>
+@form3.group(text, trans.message()) { f =>
+@form3.textarea(f, klass = "post-text-area", rows = 10.some, required = true, attrs = topic.??(t => s"""data-topic="${t.id}""""))
+}

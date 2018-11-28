@@ -1,10 +1,10 @@
-@(title: String, searchText: String = "", side: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = emptyHtml, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, searchText: String = "", side: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = emptyHtml, formCss: Boolean = false, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
 side = side,
 menu = menu,
-moreCss = cssTag("forum.css"),
+moreCss = cssTags(Map("forum.css" -> true, "form3.css" -> formCss)),
 moreJs = moreJs,
 openGraph = openGraph) {
 <div id="lidraughts_forum" class="content_box no_padding">

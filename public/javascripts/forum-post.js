@@ -23,9 +23,9 @@ $(function() {
 
   $('.post-text-area').one('focus', function() {
 
-    var textarea = this;
+    var textarea = this, topicId = $(this).attr('data-topic');
 
-    lidraughts.loadScript('vendor/textcomplete.min.js').then(function() {
+    if (topicId) lidraughts.loadScript('vendor/textcomplete.min.js').then(function() {
 
       var searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
@@ -37,7 +37,7 @@ $(function() {
       // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
       // is focused.
       var threadParticipants = $.ajax({
-        url: "/forum/participants/" + $('.post-text-area').attr('data-topic')
+        url: "/forum/participants/" + topicId
       });
 
       var textcomplete = new Textcomplete(new Textcomplete.editors.Textarea(textarea));
