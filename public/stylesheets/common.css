@@ -1180,14 +1180,16 @@ body.base .fbt.active {
   border-color: #aaa !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
+div.checkmateCaptcha {
+  display: flex;
+  margin-bottom: 2em;
+}
 div.checkmateFen {
-  float: left;
   width: 250px;
   margin-left: 110px;
   cursor: pointer;
 }
 div.checkmateSection {
-  float: left;
   font-size: 0.9em;
 }
 div.checkmateSection label {

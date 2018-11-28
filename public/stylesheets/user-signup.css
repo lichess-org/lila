@@ -64,17 +64,6 @@ form .error {
   color: red;
 }
 
-div.checkmateCaptcha {
-  margin-top: 2em;
-}
-div.checkmateCaptcha div.checkmateFen {
-  margin-left: 0;
-}
-div.checkmateCaptcha label {
-  width: 250px;
-  text-align: left;
-}
-
 .email_confirm p {
   margin: 1em 0;
 }
