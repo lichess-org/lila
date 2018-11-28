@@ -141,7 +141,7 @@
   <string name="signIn">Ierakstīties</string>
   <string name="newToLichess">Jauns Lichess lietotājs?</string>
   <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
-  <string name="signUp">Izveidod kontu</string>
+  <string name="signUp">Reģistrēties</string>
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
   <string name="games">Spēles</string>
   <string name="forum">Forums</string>
@@ -678,6 +678,9 @@
   <string name="mobileApp">Mobilā aplikācija</string>
   <string name="webmasters">Tīmekļa pārziņi</string>
   <string name="about">Par</string>
+  <string name="aboutX">Par %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ir bezmaksas (%2$s), bez reklāmu, atvērta koda šaha serveris.</string>
+  <string name="really">patiešām</string>
   <string name="contribute">Dot ieguldījumu</string>
   <string name="contact">Kontakti</string>
   <string name="termsOfService">Noteikumi</string>
