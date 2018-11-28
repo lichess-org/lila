@@ -2,7 +2,8 @@
 
 @layout(
 title = "Ask a new question" ,
-side = popularBox(popular).some) {
+side = popularBox(popular).some,
+formCss = true) {
 
 <div class="content_box_top">
   <h1 class="lidraughts_title">
@@ -17,10 +18,12 @@ side = popularBox(popular).some) {
 </div>
 
 <div class="content_box_content">
-  <form class="wide question" action="@routes.QaQuestion.ask()" method="post">
+  <form class="form3 question" action="@routes.QaQuestion.ask()" method="post">
     @questionForm(form, tags, captcha)
-    <button type="submit" class="pure submit button" data-icon="E"> Post your question</button>
-    <a href="@routes.QaQuestion.index()" style="margin-left:20px">@trans.cancel()</a>
+    @form3.actions {
+    <a href="@routes.QaQuestion.index()">@trans.cancel()</a>
+    @form3.submit(Html("Post your question"))
+    }
   </form>
 </div>
 }

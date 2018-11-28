@@ -4,7 +4,8 @@
 
 @layout(
 title = title,
-side = popularBox(popular).some) {
+side = popularBox(popular).some,
+formCss = true) {
 
 <div class="content_box_top">
   <h1 class="lidraughts_title">
@@ -18,10 +19,12 @@ side = popularBox(popular).some) {
 </div>
 
 <div class="content_box_content">
-  <form class="wide question" action="@routes.QaQuestion.doEdit(q.id)" method="post">
+  <form class="form3" action="@routes.QaQuestion.doEdit(q.id)" method="post">
     @questionForm(form, tags, captcha)
-    <button type="submit" class="pure submit button" data-icon="E"> Update your question</button>
-    <a href="@routes.QaQuestion.show(q.id, q.slug)" style="margin-left:20px">@trans.cancel()</a>
+    @form3.actions {
+    <a href="@routes.QaQuestion.show(q.id, q.slug)">@trans.cancel()</a>
+    @form3.submit(Html("Update your question"))
+    }
   </form>
 </div>
 }
