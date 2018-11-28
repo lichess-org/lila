@@ -47,6 +47,7 @@
 Анчах та хӑмин хирӗҫ йенне ҫитсессӗн, хӑватлӑрах кӗлетке пулса кайать вӑл!</string>
   <string name="pawnsMoveForward">Салтак тӳрӗ ҫӳрет, 
 илсен диагональпе илет!</string>
+  <string name="aPawnOnTheSecondRank">Иккӗмӗш ретри салтак пӗрре ҫӳресех 2 клетка куҫма пултарать!</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Салтаку хӑмин вӗҫне ҫитрӗ!</string>
   <string name="selectThePieceYouWant">Кирлӗ кӗлетке суйла!</string>
   <string name="fundamentals">Никӗсӗсем</string>
@@ -134,6 +135,7 @@ Take it en passant.</string>
 Салтак = 1</string>
   <string name="checkInTwo">Икӗ хусканури шах</string>
   <string name="whatNext">Малалли</string>
+  <string name="youKnowHowToPlayChess">Саламлатпӑр, есӗ шахмат никӗсӗсене вӗренсе ҫитрӗн! Вӑйлӑрах вӑйӑҫ пулма кӑмӑл пур-и-ха?</string>
   <string name="register">Регистратсилесси</string>
   <string name="getAFreeLichessAccount">Тӳлвесӗр Lichess аккаунта илесси</string>
   <string name="practice">Практика</string>
