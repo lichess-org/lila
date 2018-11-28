@@ -15,11 +15,12 @@
   <string name="rookGoal">Пашнене ҫӑлтӑр патне куҫарас тесен 
 пашне ҫине чӑкӑлт!</string>
   <string name="grabAllTheStars">Мӗнпур ҫӑлтӑрсем пуҫтар!</string>
-  <string name="useTwoRooks">Ӗҫӳсене хӑвӑртлатас тесен 
+  <string name="useTwoRooks">Ӗҫӳне хӑвӑртлатас тесен 
 икӗ пашнепе усӑ кур!</string>
   <string name="rookComplete">Саламлатпӑр! Есӗ пашнене ӑнӑҫлӑ пӗлсе ҫитрӗн.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
+  <string name="bishopIntro">Пиле мӗнле тытса пымаллине вӗренер!</string>
   <string name="youNeedBothBishops">Пӗр пуҫ ҫутӑ-тӗслӗ пил, 
 Пӗр пуҫ тӗксӗм-тӗслӗ пил. 
 Иккӗшӗ те кирлӗ сана!</string>
