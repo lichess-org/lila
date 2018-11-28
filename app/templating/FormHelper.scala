@@ -69,18 +69,29 @@ trait FormHelper { self: I18nHelper =>
       s"""<select id="${id(field)}" name="${field.name}" class="form-control">$defaultH$optionsH</select>"""
     }
 
-    def textarea(field: Field, required: Boolean = false, rows: Option[Int] = None) = Html {
+    def textarea(
+      field: Field,
+      klass: String = "",
+      required: Boolean = false,
+      rows: Option[Int] = None,
+      attrs: String = ""
+    ) = Html {
       val rowsH = rows ?? { r => s""" rows=$r""" }
-      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control"$rowsH${required ?? " required"}>${~field.value}</textarea>"""
+      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control $klass"$rowsH${required ?? " required"}$attrs>${~field.value}</textarea>"""
     }
 
     def actions(html: Html) = Html {
       s"""<div class="form-actions">$html</div>"""
     }
 
-    def submit(name: Html, icon: Option[String] = Some("E")) = Html {
+    def submit(
+      content: Html,
+      icon: Option[String] = Some("E"),
+      nameValue: Option[(String, String)] = None
+    ) = Html {
       val iconH = icon ?? { i => s""" data-icon="$i"""" }
-      s"""<button class="submit button${icon.isDefined ?? " text"} type="submit"$iconH>$name</button>"""
+      val nameH = nameValue ?? { case (n, v) => s""" name="$n" value="$v"""" }
+      s"""<button class="submit button${icon.isDefined ?? " text"} type="submit"$iconH$nameH>$content</button>"""
     }
 
     def hidden(field: Field, value: Option[String] = None) = Html {
@@ -96,10 +107,11 @@ trait FormHelper { self: I18nHelper =>
       minLength: Int = 0,
       maxLength: Int = 0,
       autocomplete: Boolean = true,
+      autofocus: Boolean = false,
       pattern: Option[String] = None,
       attrs: String = ""
     ) = Html {
-      val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${pattern ?? { p => s""" pattern="$p"""" }} $attrs"""
+      val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${autofocus ?? " autofocus"}${pattern ?? { p => s""" pattern="$p"""" }} $attrs"""
       s"""<input type="typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass"/>"""
     }
   }

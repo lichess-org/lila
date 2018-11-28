@@ -28,7 +28,5 @@ object Captcha {
   val failMessage = "captcha.fail"
 
   def isFailed(form: Form.FormLike) =
-    form.errors.exists { e =>
-      e.key == "" && e.messages.has(failMessage)
-    }
+    form.errors.exists { _.messages has failMessage }
 }
