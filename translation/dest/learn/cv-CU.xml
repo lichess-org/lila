@@ -31,6 +31,7 @@
   <string name="theMostImportantPiece">Чи паха кӗлетке</string>
   <string name="kingIntro">Есӗ патша. Ҫапӑҫура пуҫ хурсан, вӑййине выльаса йанӑ.</string>
   <string name="theKingIsSlow">Патша вӑл вӑрахскер.</string>
+  <string name="lastOne">Пӗр тепри!</string>
   <string name="kingComplete">Халӗ есӗ пуҫлӑхне тытса пыма пӗлетӗн!</string>
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
@@ -49,8 +50,8 @@
   <string name="selectThePieceYouWant">Кирлӗ кӗлетке суйла!</string>
   <string name="fundamentals">Никӗсӗсем</string>
   <string name="capture">Тытса илӳ</string>
-  <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
-  <string name="takeTheBlackPieces">Хура кӗлеткисене ил!</string>
+  <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене тытса ил</string>
+  <string name="takeTheBlackPieces">Хура кӗлеткесене ил!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
   <string name="captureComplete">Саламлатпӑр! Шахмат кӗлеткисемпе мӗнле ҫапӑҫнине пӗлетӗн есӗ!</string>
   <string name="protection">Хӳтӗленӳ</string>
@@ -80,10 +81,10 @@
   <string name="thenPlaceTheKnights">Унтан икӗ лаша ларт! Вӗсем пашне патӗнче тӑмалла.</string>
   <string name="placeTheBishops">Икӗ пил ларт! Вӗсем лаша патӗнче тӑмалла.</string>
   <string name="placeTheQueen">Ҫарпуҫа вырнаҫтар! 
-She goes on her own colour.</string>
+Ӑна хӑйӗн тӗсӗх ҫине лартмалла.</string>
   <string name="placeTheKing">Патшана вырнаҫтар! 
 Унӑн ҫарпуҫӗ патӗнчех.</string>
-  <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелеҫҫӗ.</string>
+  <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелесе тӑраҫҫӗ.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
   <string name="castleKingSide">Кӗске ылмашу тӑвас тесе 
@@ -155,5 +156,6 @@ Take it en passant.</string>
   <string name="yourScore">Пӑнчӑ шучӗ</string>
   <string name="next">Тепри</string>
   <string name="backToMenu">Менӳ патне таврӑн</string>
+  <string name="puzzleFailed">Лартӑма выльаса йанӑ!</string>
   <string name="retry">Тепӗр хут</string>
 </resources>
