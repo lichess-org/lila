@@ -1,9 +1,11 @@
 package lidraughts.common
 
-import org.joda.time.DateTimeZone
+import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
+import play.api.data.{ Mapping, FormError }
 import play.api.data.Forms._
+import scala.util.Try
 
 object Form {
 
@@ -63,6 +65,11 @@ object Form {
     }
   }
 
+  def inTheFuture(m: Mapping[DateTime]) = m.verifying(
+    "The date must be set in the future",
+    DateTime.now.isBefore(_)
+  )
+
   object UTCDate {
     val dateTimePattern = "yyyy-MM-dd HH:mm"
     val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
@@ -70,7 +77,29 @@ object Form {
   }
   object ISODate {
     val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val formatter = jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
     val isoDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+  }
+  object Timestamp {
+    import lidraughts.base.PimpedTry
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        stringFormat.bind(key, data).right.flatMap { str =>
+          Try(java.lang.Long.parseLong(str)).toEither.right.flatMap { long =>
+            Try(new DateTime(long)).toEither
+          }
+        }.left.map(e => Seq(FormError(key, "Invalid timestamp", Nil)))
+      def unbind(key: String, value: org.joda.time.DateTime) = Map(key -> value.getMillis.toString)
+    }
+    val timestamp = of[org.joda.time.DateTime](formatter)
+  }
+  object ISODateOrTimestamp {
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
+      def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
+    }
+    val isoDateOrTimestamp = of[org.joda.time.DateTime](formatter)
   }
 }
