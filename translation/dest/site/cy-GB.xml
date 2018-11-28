@@ -473,6 +473,7 @@
   <string name="webmasters">Gwefeistrau</string>
   <string name="about">Amdan</string>
   <string name="aboutX">Amdan %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Mae %1$s yn weinydd gwyddbwyll rhad ac am ddim (%2$s), ffynhonell agored, heb hysbysebion.</string>
   <string name="contribute">Cyfrannu</string>
   <string name="contact">Cysylltu</string>
   <string name="termsOfService">Telerau gwasanaeth</string>
