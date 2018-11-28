@@ -2,7 +2,9 @@ package lidraughts.db
 
 import com.typesafe.config.Config
 import dsl.Coll
-import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver }
+import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver, FailoverStrategy, ReadPreference }
+import reactivemongo.api.commands.Command
+import reactivemongo.api.BSONSerializationPack
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success }
@@ -42,6 +44,11 @@ final class Env(
 
   def apply(name: String)(implicit ec: ExecutionContext): Coll =
     db(ec).apply(name)
+
+  val runCommand: RunCommand = (command, readPreference) => {
+    val runner = Command.run(BSONSerializationPack, FailoverStrategy.strict)
+    runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
+  }
 
   object image {
     private lazy val imageColl = apply(config getString "image.collection")

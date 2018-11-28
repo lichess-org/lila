@@ -1,6 +1,7 @@
 package lidraughts.study
 
 import play.api.libs.json._
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
 import draughts.Color
@@ -9,12 +10,14 @@ import draughts.format.{ FEN, Uci }
 
 import BSONHandlers._
 import JsonView._
-import lidraughts.db.dsl._
 import lidraughts.common.MaxPerPage
 import lidraughts.common.paginator.{ Paginator, PaginatorJson }
-import lidraughts.db.paginator.Adapter
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.{ Adapter, MapReduceAdapter }
+import lidraughts.game.BSONHandlers.FENBSONHandler
 
 final class StudyMultiBoard(
+    runCommand: lidraughts.db.RunCommand,
     chapterColl: Coll,
     maxPerPage: MaxPerPage
 ) {
@@ -25,43 +28,54 @@ final class StudyMultiBoard(
     PaginatorJson(p)
   }
 
-  private def get(study: Study, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = Paginator(
-    adapter = new Adapter[ChapterPreview](
-      collection = chapterColl,
-      selector = $doc("studyId" -> study.id) ++ playing.??(playingSelector),
-      projection = projection,
-      sort = $sort asc "order"
-    ),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  private def get(study: Study, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = {
+
+    val selector = $doc("studyId" -> study.id) ++ playing.??(playingSelector)
+
+    /* If players are found in the tags,
+     * return the last mainline node.
+     * Else, return the root node without its children.
+     */
+    val command: MapReduceAdapter.Command = offset => $doc(
+      "mapreduce" -> chapterColl.name,
+      "map" -> """var node = this.root, child, result = {name:this.name,orientation:this.setup.orientation,tags:this.tags};
+if (this.tags.filter(t => t.indexOf('White:') === 0 || t.indexOf('Black:') === 0).length === 2) {
+  while(child = node.n[0]) { node = child };
+}
+result.fen = node.f;
+result.uci = node.u;
+emit(this._id, result)""",
+      "reduce" -> """function(key, values) { return key; }""",
+      "out" -> $doc("inline" -> true),
+      "query" -> selector,
+      "sort" -> $sort.asc("order"),
+      "jsMode" -> true
+    )
+    Paginator(
+      adapter = new MapReduceAdapter[ChapterPreview](
+        collection = chapterColl,
+        selector = selector,
+        runCommand = runCommand,
+        command = command
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+  }
 
   private val playingSelector = $doc("tags" -> "Result:*")
 
-  private val projection = $doc(
-    "name" -> true,
-    "tags" -> true,
-    "root" -> true,
-    "setup.orientation" -> true
-  )
-
   private implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
-    def read(doc: BSONDocument) = {
+    def read(result: BSONDocument) = {
+      val doc = result.getAs[List[Bdoc]]("value").flatMap(_.headOption) err "No mapReduce value?!"
       val tags = doc.getAs[Tags]("tags")
-      val players = tags flatMap ChapterPreview.players
-      val root = doc.getAs[Node.Root]("root").err("Preview missing root")
-      val node =
-        if (players.isDefined) root.lastMainlineNode
-        else root
       ChapterPreview(
-        id = doc.getAs[Chapter.Id]("_id") err "Preview missing id",
+        id = result.getAs[Chapter.Id]("_id") err "Preview missing id",
         name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
-        players = players,
-        orientation = doc.getAs[Bdoc]("setup") flatMap { setup =>
-          setup.getAs[Color]("orientation")
-        } getOrElse Color.White,
-        fen = node.fen,
-        lastMove = node.moveOption.map(_.uci),
+        players = tags flatMap ChapterPreview.players,
+        orientation = doc.getAs[Color]("orientation") getOrElse Color.White,
+        fen = doc.getAs[FEN]("fen") err "Preview missing FEN",
+        lastMove = doc.getAs[Uci]("uci"),
         playing = tags.flatMap(_(_.Result)) has "*"
       )
     }
