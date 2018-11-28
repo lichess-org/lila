@@ -28,6 +28,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def cssTag(name: String): Html = cssAt("stylesheets/" + name)
 
+  def cssTags(names: String*): Html = Html {
+    names.map { name =>
+      cssTag(name).body
+    } mkString ""
+  }
+
   def cssVendorTag(name: String) = cssAt("vendor/" + name)
 
   def cssAt(path: String): Html = Html {

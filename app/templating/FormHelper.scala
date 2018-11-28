@@ -69,9 +69,9 @@ trait FormHelper { self: I18nHelper =>
       s"""<select id="${id(field)}" name="${field.name}" class="form-control">$defaultH$optionsH</select>"""
     }
 
-    def textarea(field: Field, rows: Option[Int] = None) = Html {
+    def textarea(field: Field, required: Boolean = false, rows: Option[Int] = None) = Html {
       val rowsH = rows ?? { r => s""" rows=$r""" }
-      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control"$rowsH>${~field.value}</textarea>"""
+      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control"$rowsH${required ?? " required"}>${~field.value}</textarea>"""
     }
 
     def actions(html: Html) = Html {
@@ -90,15 +90,17 @@ trait FormHelper { self: I18nHelper =>
     def input(
       field: Field,
       typ: String = "text",
+      klass: String = "",
       placeholder: Option[String] = None,
       required: Boolean = false,
       minLength: Int = 0,
       maxLength: Int = 0,
       autocomplete: Boolean = true,
-      pattern: Option[String] = None
+      pattern: Option[String] = None,
+      attrs: String = ""
     ) = Html {
-      val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${pattern ?? { p => s""" pattern="$p"""" }}"""
-      s"""<input type="typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control"/>"""
+      val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${pattern ?? { p => s""" pattern="$p"""" }} $attrs"""
+      s"""<input type="typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass"/>"""
     }
   }
 }
