@@ -68,10 +68,14 @@
   <string name="recentGames">Gemau diweddar</string>
   <string name="topGames">Gemau cryfaf</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
+  <string name="allSet">Barod!</string>
   <string name="importPgn">Mewnlwytho PGN</string>
   <string name="delete">Dileu</string>
+  <string name="deleteThisImportedGame">Dileu y gem hon?</string>
   <string name="replayMode">Cyflymder ailchwarae</string>
   <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
+  <string name="evaluationGauge">Mesurydd gwerthusiad</string>
+  <string name="blunder">Camgymeriad difrifol</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Gamgymeriad</string>
   <string name="mistakes">o gamgymeriadau</string>
@@ -159,6 +163,7 @@
   <string name="inbox">Mewnflwch</string>
   <string name="chatRoom">Ystafell sgwrs</string>
   <string name="loginToChat">Mewngofnodi i sgwrsio</string>
+  <string name="youHaveBeenTimedOut">Dech chi wedi eich tewi.</string>
   <string name="spectatorRoom">Ystafell ymwelwyr</string>
   <string name="composeMessage">Creu neges</string>
   <string name="noNewMessages">Dim neges newydd</string>
