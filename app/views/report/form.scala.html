@@ -4,53 +4,27 @@
 
 @title = @{ trans.reportAUser.txt() }
 
-@base.layout(title = title, moreCss = cssTag("report.css")) {
-<div class="content_box" id="report">
+@base.layout(title = title, moreCss = cssTags("report.css", "form3.css")) {
+<div class="content_box small_box" id="report">
   <h1>@title</h1>
-  <form class="create" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
-    <label class="field_to">
-      <span>@trans.user()</span>
-      @reqUser.map { user =>
-      @userLink(user)
-      <input
-      type="hidden"
-      name="@form("username").name"
-      value="@user.id">
-      }.getOrElse {
-      <input
-      type="text"
-      class="user-autocomplete"
-      required="required"
-      name="@form("username").name"
-      id="@form("username").id"
-      value="@form("username").value">
-      @errMsg(form("username"))
-      }
-    </label>
-    <label class="field_reason">
-      <span>@trans.reason()</span>
-      @base.form.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.txt().some)
-      @errMsg(form("reason"))
-    </label>
-    <label class="field_body">
-      <span>@trans.description()</span>
-      <div>
-        <textarea
-          name="@form("text").name"
-          required="required"
-          id="@form("text").id">@form("text").value</textarea>
-        <p class="help">
-          @trans.reportDescriptionHelp()
-        </p>
-        @errMsg(form("text"))
-      </div>
-    </label>
+  <form class="create form3" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
+    @form3.group(form("username"), trans.user(), klass = "field_to") { f =>
+    @reqUser.map { user =>
+    @userLink(user)
+    @form3.hidden(f, user.id.some)
+    }.getOrElse {
+    <div>@form3.input(f, klass = "user-autocomplete", required = true, attrs = """data-tag="span"""")</div>
+    }
+    }
+    @form3.group(form("reason"), trans.reason()) { f =>
+    @form3.select(f, translatedReasonChoices, trans.whatIsIheMatter.txt().some)
+    }
+    @form3.group(form("text"), trans.description(), help = trans.reportDescriptionHelp().some)(form3.textarea(_, rows = 8.some, required = true))
     @base.captcha(form, captcha)
-    @globalError(form)
-    <div class="actions">
-      <input class="send button" type="submit" value="@trans.send()" />
-      <a class="cancel" href="@routes.Lobby.home()">@trans.cancel()</a>
-    </div>
+    @form3.actions {
+    <a class="cancel" href="@routes.Lobby.home()">@trans.cancel()</a>
+    @form3.submit(trans.send())
+    }
   </form>
 </div>
 }

@@ -62,6 +62,7 @@ body.dark .form3 .form-control {
 
 .form3 .captcha {
   display: flex;
+  margin-top: 2em;
 }
 .form3 .captcha.is-invalid:not(.success) {
   border: 1px solid #dc3545;
@@ -100,4 +101,7 @@ body.dark .form3 .form-control {
 }
 .form3 .captcha.failure .failure {
   display: block;
+}
+.form3 .twitter-typeahead {
+  width: 100%;
 }
