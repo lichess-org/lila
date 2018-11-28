@@ -1,6 +1,10 @@
 #team .form3 {
   margin-top: 2em;
 }
+#team form.search {
+  float: right;
+  margin: 20px;
+}
 #team table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;

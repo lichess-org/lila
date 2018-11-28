@@ -145,7 +145,7 @@ object Team extends LidraughtsController {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
         err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.form(err.pp, captcha))
+          BadRequest(html.team.form(err, captcha))
         },
         data => api.create(data, me) ?? {
           _ map { team => Redirect(routes.Team.show(team.id)): Result }
@@ -156,15 +156,6 @@ object Team extends LidraughtsController {
 
   def mine = Auth { implicit ctx => me =>
     api mine me map { html.team.mine(_) }
-  }
-
-  def joinPage(id: String) = Auth { implicit ctx => me =>
-    NotForKids {
-      OptionResult(api.requestable(id, me)) { team =>
-        if (team.open) Ok(html.team.join(team))
-        else Redirect(routes.Team.requestForm(team.id))
-      }
-    }
   }
 
   def join(id: String) = Auth { implicit ctx => implicit me =>
