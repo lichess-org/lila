@@ -64,17 +64,6 @@ form .error {
   color: red;
 }
 
-div.captureCaptcha {
-  margin-top: 2em;
-}
-div.captureCaptcha div.captureFen {
-  margin-left: 0;
-}
-div.captureCaptcha label {
-  width: 250px;
-  text-align: left;
-}
-
 .email_confirm p {
   margin: 1em 0;
 }

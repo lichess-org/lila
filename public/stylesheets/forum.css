@@ -239,17 +239,15 @@ div.category .description {
   font-size: 1.3em;
 }
 #lidraughts_forum form.wide label {
-  display: block;
+  display: flex;
+  align-items: center;
   margin-bottom: 2em;
 }
 
 #lidraughts_forum form.wide label span {
-  float: left;
-  display: block;
   width: 100px;
   text-align: right;
   margin-right: 10px;
-  margin-top: 3px;
 }
 #lidraughts_forum form.wide label span.required:after {
   content: "*";
