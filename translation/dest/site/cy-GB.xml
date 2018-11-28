@@ -55,8 +55,11 @@
   <string name="goDeeper">Mynd yn ddyfnach</string>
   <string name="showThreat">Dangos bygythiad</string>
   <string name="inLocalBrowser">mewn porwr lleol</string>
+  <string name="makeMainLine">Gwneud yn brif linell</string>
+  <string name="deleteFromHere">Dileu o fama ymlaen</string>
   <string name="move">Symudiad</string>
   <string name="pawnMove">Symudiad gwerinwr</string>
+  <string name="capture">Cipio</string>
   <string name="close">Cau</string>
   <string name="winning">Enill</string>
   <string name="losing">Colli</string>
@@ -73,6 +76,7 @@
   <string name="delete">Dileu</string>
   <string name="deleteThisImportedGame">Dileu y gem hon?</string>
   <string name="replayMode">Cyflymder ailchwarae</string>
+  <string name="byCPL">Mewn CG</string>
   <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
   <string name="evaluationGauge">Mesurydd gwerthusiad</string>
   <string name="blunder">Camgymeriad difrifol</string>
@@ -364,6 +368,8 @@
   <string name="closeAccountExplanation">Ydych yn siwr eich bod am gau eich gyfrif? Mae\'n ddewis parhaol. Ni ellwch fewngofnodi, a ni fydd eich proffil yn gyrraeddadwy..</string>
   <string name="thisAccountIsClosed">Mae\'r cyfrif ma wedi\'i gau.</string>
   <string name="invalidUsernameOrPassword">Enw defnyddiwr neu gyfrinair annilys</string>
+  <string name="incorrectPassword">Cyfrinair anghywir</string>
+  <string name="invalidAuthenticationCode">Cod dilysu annilys</string>
   <string name="emailMeALink">Anfonwch ddolen ataf</string>
   <string name="currentPassword">Cyfrinair ar hyn o bryd</string>
   <string name="newPassword">Cyfrinair newydd</string>
@@ -538,6 +544,7 @@
   <string name="viewTheSolution">Gweld yr ateb</string>
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
+  <string name="lobby">Cyntedd</string>
   <string name="language">Iaith</string>
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
@@ -545,9 +552,14 @@
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
+  <string name="next">Nesaf</string>
   <string name="xWasPlayed">Chwaraewyd %s</string>
   <string name="findBetterMoveForWhite">Chwilia am ddewis gwell i gwyn</string>
   <string name="findBetterMoveForBlack">Chwilia am ddewis gwell i du</string>
+  <string name="youCanDoBetter">Gelli di neud yn well</string>
+  <string name="tryAnotherMoveForWhite">Chwilia am ddewis gwell i gwyn</string>
+  <string name="tryAnotherMoveForBlack">Chwilia am ddewis gwell i du</string>
+  <string name="solution">Ateb</string>
   <string name="waitingForAnalysis">Aros am farn gyfrifiadurol</string>
   <string name="doItAgain">Ailwneud</string>
   <string name="opening">Agoriad</string>
