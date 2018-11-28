@@ -14,12 +14,8 @@
       @form3.group(form("open"), trans.joiningPolicy()) { f =>
       @form3.select(f, Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
       }
-      @form3.group(form("location"), trans.location()) { f =>
-      @form3.input(f)
-      }
-      @form3.group(form("description"), trans.description()) { f =>
-      @form3.textarea(f, rows = 10.some)
-      }
+      @form3.group(form("location"), trans.location())(form3.input(_))
+      @form3.group(form("description"), trans.description())(form3.textarea(_, rows = 10.some))
       @form3.actions {
       <a href="@routes.Team.show(t.id)" style="margin-left:20px">@trans.cancel()</a>
       @form3.submit(trans.apply())
