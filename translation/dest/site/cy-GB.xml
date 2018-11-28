@@ -79,6 +79,7 @@
   <string name="byCPL">Mewn CG</string>
   <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
   <string name="evaluationGauge">Mesurydd gwerthusiad</string>
+  <string name="cpus">Nifer o CPU\'s</string>
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Gamgymeriad</string>
@@ -279,6 +280,7 @@
   <string name="draws">Yn gyfartal</string>
   <string name="membersOnly">Dim ond aelodau</string>
   <string name="boardEditor">Golygydd bwrdd</string>
+  <string name="setTheBoard">Gosod y bwrdd</string>
   <string name="popularOpenings">Agoriadau poblogaidd</string>
   <string name="startPosition">Safle cychwyn</string>
   <string name="clearBoard">Clirio\'r bwrdd</string>
@@ -387,6 +389,9 @@
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>
   <string name="soundWhenTimeGetsCritical">Sain cyn redeg allan o amser</string>
   <string name="gameBehavior">Dewisiadau gêm</string>
+  <string name="clickTwoSquares">Clicio dwy sgwar</string>
+  <string name="dragPiece">Llusgo darn</string>
+  <string name="bothClicksAndDrag">Y ddwy</string>
   <string name="premovesPlayingDuringOpponentTurn">Symudiadau o flaen (symud yn ystod tro y gwrthwynebydd)</string>
   <string name="takebacksWithOpponentApproval">Cymryd yn ôl (gyda chaniatád y gwrthwynebydd)</string>
   <string name="promoteToQueenAutomatically">Troi yn Frenhines yn awtomatig</string>
@@ -466,6 +471,8 @@
   <string name="videoLibrary">Llyfrgell fideo</string>
   <string name="mobileApp">Rhaglen symudol</string>
   <string name="webmasters">Gwefeistrau</string>
+  <string name="about">Amdan</string>
+  <string name="aboutX">Amdan %s</string>
   <string name="contribute">Cyfrannu</string>
   <string name="contact">Cysylltu</string>
   <string name="termsOfService">Telerau gwasanaeth</string>
