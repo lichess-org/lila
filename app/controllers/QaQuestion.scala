@@ -80,10 +80,11 @@ object QaQuestion extends QaController {
     WithOwnQuestion(id) { q =>
       implicit val req = ctx.body
       forms.question.bindFromRequest.fold(
-        err => renderEdit(err, q, Results.BadRequest),
+        err => renderEdit(err.pp, q, Results.BadRequest),
         data => api.question.edit(data, q.id) map {
-          case None => NotFound
-          case Some(q2) => Redirect(routes.QaQuestion.show(q2.id, q2.slug))
+          _ ?? { q2 =>
+            Redirect(routes.QaQuestion.show(q2.id, q2.slug))
+          }
         }
       )
     }
@@ -99,8 +100,9 @@ object QaQuestion extends QaController {
     forms.vote.bindFromRequest.fold(
       err => fuccess(BadRequest),
       v => api.question.vote(id, me, v == 1) map {
-        case Some(vote) => Ok(html.qa.vote(routes.QaQuestion.vote(id).url, vote))
-        case None => NotFound
+        _ ?? { vote =>
+          Ok(html.qa.vote(routes.QaQuestion.vote(id).url, vote))
+        }
       }
     )
   }
