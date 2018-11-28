@@ -35,6 +35,7 @@
   <string name="kingComplete">Халӗ есӗ пуҫлӑхне тытса пыма пӗлетӗн!</string>
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
+  <string name="knightIntro">Саншӑн пӗр чӗнни пур акӑ. Лаша... йӗтӗс кӗлетке вӑл.</string>
   <string name="knightsHaveAFancyWay">Лаша тӗлӗнтермӗш майпа 
 йӗри-тавра сиккелет!</string>
   <string name="knightsCanJumpOverObstacles">Лаша чӑрмав урлӑ сикме пултарать! Вырӑнтан сиксе тухса ҫӑлтӑрсене парӑнтарса тух!</string>
@@ -81,9 +82,9 @@
   <string name="thenPlaceTheKnights">Унтан икӗ лаша ларт! Вӗсем пашне патӗнче тӑмалла.</string>
   <string name="placeTheBishops">Икӗ пил ларт! Вӗсем лаша патӗнче тӑмалла.</string>
   <string name="placeTheQueen">Ҫарпуҫа вырнаҫтар! 
-Ӑна хӑйӗн тӗсӗх ҫине лартмалла.</string>
+Ӑна хӑйӗн тӗсӗх ҫине тӑратмалла.</string>
   <string name="placeTheKing">Патшана вырнаҫтар! 
-Унӑн ҫарпуҫӗ патӗнчех.</string>
+Хайхин ҫарпуҫӗпе йунашарах.</string>
   <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелесе тӑраҫҫӗ.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
@@ -139,6 +140,7 @@ Take it en passant.</string>
   <string name="puzzles">Лартӑмсем</string>
   <string name="videos">Курмасем</string>
   <string name="playPeople">Халӑхпа выльа</string>
+  <string name="opponentsFromAroundTheWorld">Пӗтӗм тӗнчерен пухӑннӑ ӑмӑртуҫӑсем</string>
   <string name="playMachine">Машинпа выльа</string>
   <string name="letsGo">Малалла!</string>
   <string name="stageX">%s сыпӑк</string>
