@@ -408,8 +408,8 @@
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="youArePlaying">Du spelar!</string>
-  <string name="winRate">Vinst frekvens</string>
-  <string name="berserkRate">Berserk frekvens</string>
+  <string name="winRate">Vinstfrekvens</string>
+  <string name="berserkRate">Berserkfrekvens</string>
   <string name="performance">Prestation</string>
   <string name="tournamentComplete">Turneringen avslutad</string>
   <string name="movesPlayed">Drag spelade</string>
