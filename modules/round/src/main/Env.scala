@@ -33,7 +33,8 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
-    isBotSync: lila.common.LightUser.IsBotSync
+    isBotSync: lila.common.LightUser.IsBotSync,
+    slackApi: lila.slack.SlackApi
 ) {
 
   private val settings = new {
@@ -147,7 +148,7 @@ final class Env(
     actor
   }
 
-  lazy val selfReport = new SelfReport(roundMap)
+  lazy val selfReport = new SelfReport(roundMap, slackApi)
 
   lazy val recentTvGames = new {
     val fast = new lila.memo.ExpireSetMemo(7 minutes)
@@ -299,6 +300,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
-    isBotSync = lila.user.Env.current.lightUserApi.isBotSync
+    isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
+    slackApi = lila.slack.Env.current.api
   )
 }

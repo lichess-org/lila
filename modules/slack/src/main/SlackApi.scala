@@ -2,7 +2,7 @@ package lila.slack
 
 import org.joda.time.DateTime
 
-import lila.common.LightUser
+import lila.common.{ LightUser, IpAddress }
 import lila.hub.actorApi.slack._
 import lila.user.User
 
@@ -86,9 +86,16 @@ final class SlackApi(
   ))
 
   def garbageCollector(message: String): Funit = client(SlackMessage(
-    username = "lichess",
+    username = "Garbage Collector",
     icon = "put_litter_in_its_place",
     text = linkifyUsers(message),
+    channel = rooms.tavernBots
+  ))
+
+  def selfReport(typ: String, path: String, user: Option[User], ip: IpAddress): Funit = client(SlackMessage(
+    username = "Self Report",
+    icon = "kms",
+    text = s"[*$typ*] ${user.fold("Anon")(userLink)}@$ip ${gameLink(path)}",
     channel = rooms.tavernBots
   ))
 
@@ -133,13 +140,15 @@ final class SlackApi(
       username = stage.name,
       icon = stage.icon,
       text = "stage has restarted.",
-      channel = rooms.general
+      channel = rooms.devNoise
     ))
 
   private def link(url: String, name: String) = s"<$url|$name>"
-  private def userLink(name: String) = link(s"https://lichess.org/@/$name?mod", name)
+  private def userLink(name: String): String = link(s"https://lichess.org/@/$name?mod", name)
+  private def userLink(user: User): String = userLink(user.username)
   private def userNotesLink(name: String) = link(s"https://lichess.org/@/$name?notes", "notes")
   private def broadcastLink(id: String, name: String) = link(s"https://lichess.org/broadcast/-/$id", name)
+  private def gameLink(path: String) = link(s"https://lichess.org/$path", path)
   private val chatPanicLink = link("https://lichess.org/mod/chat-panic", "Chat Panic")
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
@@ -189,7 +198,7 @@ final class SlackApi(
       username = "stage.lichess.org",
       icon = "volcano",
       text = "stage has been updated!",
-      channel = rooms.general
+      channel = rooms.devNoise
     ))
 }
 
@@ -200,6 +209,7 @@ private object SlackApi {
     val tavern = "tavern"
     val tavernBots = "tavern-bots"
     val broadcast = "broadcast"
+    val devNoise = "dev-noise"
   }
 
   object stage {
