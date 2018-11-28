@@ -12,7 +12,7 @@
   <string name="level">Safon</string>
   <string name="toggleTheChat">Toglo sgwrs</string>
   <string name="toggleSound">Toglo sain</string>
-  <string name="chat">Sgwrs</string>
+  <string name="chat">Sgwrsio</string>
   <string name="resign">Ildio</string>
   <string name="checkmate">Siachmat</string>
   <string name="stalemate">Methmat</string>
@@ -554,7 +554,7 @@
   <string name="fullFeatured">Pob nodwedd</string>
   <string name="phoneAndTablet">Ffôn a thabled</string>
   <string name="bulletBlitzClassical">Bwled, blits a chlasyrol</string>
-  <string name="correspondenceChess">Gwyddbwydd gohebol</string>
+  <string name="correspondenceChess">Gêmau drwy\'r post</string>
   <string name="onlineAndOfflinePlay">Chwarae ar-lein ac all-lein</string>
   <string name="correspondenceAndUnlimited">Gohebol ac anghyfyngedig</string>
   <string name="viewTheSolution">Gweld yr ateb</string>
