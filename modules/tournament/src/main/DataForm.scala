@@ -46,7 +46,7 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-    "startDate" -> optional(isoDate),
+    "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
     "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
