@@ -19,7 +19,7 @@ formCss = true) {
 </div>
 
 <div class="content_box_content">
-  <form class="form3" action="@routes.QaQuestion.doEdit(q.id)" method="post">
+  <form class="question form3" action="@routes.QaQuestion.doEdit(q.id)" method="post">
     @questionForm(form, tags, captcha)
     @form3.actions {
     <a href="@routes.QaQuestion.show(q.id, q.slug)">@trans.cancel()</a>
