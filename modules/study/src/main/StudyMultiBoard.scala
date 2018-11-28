@@ -43,14 +43,12 @@ final class StudyMultiBoard(
         sort = $sort asc "order",
         runCommand = runCommand,
         command = $doc(
-          "map" -> """var node = this.root, child, result = {name:this.name,orientation:this.setup.orientation,tags:this.tags};
-if (this.tags.filter(t => t.indexOf('White:') === 0 || t.indexOf('Black:') === 0).length === 2) {
-  while(child = node.n[0]) { node = child };
-}
+          "map" -> """var node = this.root, child, tagPrefixes = ['White','Black','Result'], result = {name:this.name,orientation:this.setup.orientation,tags:this.tags.filter(t => tagPrefixes.find(p => t.indexOf(p) === 0))};
+if (result.tags.length > 1) { while(child = node.n[0]) { node = child }; }
 result.fen = node.f;
 result.uci = node.u;
 emit(this._id, result)""",
-          "reduce" -> """function(key, values) { return key; }""",
+          "reduce" -> """function() {}""",
           "jsMode" -> true
         )
       ),
