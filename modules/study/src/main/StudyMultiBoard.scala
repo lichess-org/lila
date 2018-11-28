@@ -36,27 +36,23 @@ final class StudyMultiBoard(
      * return the last mainline node.
      * Else, return the root node without its children.
      */
-    val command: MapReduceAdapter.Command = offset => $doc(
-      "mapreduce" -> chapterColl.name,
-      "map" -> """var node = this.root, child, result = {name:this.name,orientation:this.setup.orientation,tags:this.tags};
+    Paginator(
+      adapter = new MapReduceAdapter[ChapterPreview](
+        collection = chapterColl,
+        selector = selector,
+        sort = $sort asc "order",
+        runCommand = runCommand,
+        command = $doc(
+          "map" -> """var node = this.root, child, result = {name:this.name,orientation:this.setup.orientation,tags:this.tags};
 if (this.tags.filter(t => t.indexOf('White:') === 0 || t.indexOf('Black:') === 0).length === 2) {
   while(child = node.n[0]) { node = child };
 }
 result.fen = node.f;
 result.uci = node.u;
 emit(this._id, result)""",
-      "reduce" -> """function(key, values) { return key; }""",
-      "out" -> $doc("inline" -> true),
-      "query" -> selector,
-      "sort" -> $sort.asc("order"),
-      "jsMode" -> true
-    )
-    Paginator(
-      adapter = new MapReduceAdapter[ChapterPreview](
-        collection = chapterColl,
-        selector = selector,
-        runCommand = runCommand,
-        command = command
+          "reduce" -> """function(key, values) { return key; }""",
+          "jsMode" -> true
+        )
       ),
       currentPage = page,
       maxPerPage = maxPerPage
