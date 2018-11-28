@@ -287,7 +287,7 @@
     <item quantity="other">≥ %s rankade partier</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rankat parti</item>
+    <item quantity="one">≥ %1$s rankade %2$spartier</item>
     <item quantity="other">≥ %1$s %2%s rankade partier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
