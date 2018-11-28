@@ -24,6 +24,11 @@
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+body.dark .form3 .form-control {
+  background-color: #000;
+  color: #999;
+  border-color: #404040;
+}
 .form3 textarea.form-control {
   overflow: auto;
   resize: vertical;
@@ -46,6 +51,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.form3 hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .form3 .captcha {

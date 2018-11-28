@@ -69,8 +69,9 @@ trait FormHelper { self: I18nHelper =>
       s"""<select id="${id(field)}" name="${field.name}" class="form-control">$defaultH$optionsH</select>"""
     }
 
-    def textarea(field: Field) = Html {
-      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control">${~field.value}</textarea>"""
+    def textarea(field: Field, rows: Option[Int] = None) = Html {
+      val rowsH = rows ?? { r => s""" rows=$r""" }
+      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control"$rowsH>${~field.value}</textarea>"""
     }
 
     def actions(html: Html) = Html {
