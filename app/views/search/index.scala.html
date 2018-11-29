@@ -32,8 +32,8 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label>@trans.players() <span class="help" title="@trans.searchPlayersHelp()">(?)</span></label>
         </th>
         <td class="usernames">
-          <div class="half">@base.form.input(form("players")("a"))</div>
-          <div class="half">@base.form.input(form("players")("b"))</div>
+          <div class="half">@form3.input(form("players")("a"))</div>
+          <div class="half">@form3.input(form("players")("b"))</div>
         </td>
       </tr>
       @draughts.Color.all.map { color =>

@@ -58,7 +58,7 @@ title = trans.hostANewSimul.txt()) {
         <tr>
           <th><label for="@form("targetPct").id">@trans.winningPercentage()</label></th>
           <td>
-            @base.form.input(form("targetPct"), trans.targetPercentage.txt().some, "number", maxLength = 3)
+            @form3.input(form("targetPct"), placeholder = trans.targetPercentage.txt().some, typ = "number", maxLength = 3)
             @errMsg(form("targetPct"))
           </td>
         </tr>
