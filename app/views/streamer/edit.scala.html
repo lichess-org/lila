@@ -3,15 +3,9 @@
 @import play.api.data.Field
 
 @textarea(field: Field, name: Html, help: Option[Html] = None) = {
-@base.form.group(field, name, half = false, help = help) { _ =>
+@form3.group(field, name, half = false, help = help) { _ =>
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
-}
-
-@moreCss = {
-@cssTag("material.form.css")
-@cssTag("streamer.show.css")
-@cssTag("streamer.form.css")
 }
 
 @moreJs = {
@@ -19,8 +13,10 @@
 @jsTag("streamer.form.js")
 }
 
+@modsOnly = @{ Html("Moderators only").some }
+
 @base.layout(title = s"${s.user.titleUsername} streamer page",
-moreCss = moreCss,
+moreCss = cssTags("form3.css", "streamer.show.css", "streamer.form.css"),
 moreJs = moreJs,
 menu = menu("edit", s.withoutStream.some).some) {
 <div class="streamer edit content_box no_padding">
@@ -97,54 +93,38 @@ menu = menu("edit", s.withoutStream.some).some) {
   </div>
   }
   }
-  <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
-    @errMsgMaterial(form.errors)
+  <form class="content_box_content form3" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @if(isGranted(_.Streamers)) {
     <div class="mod">
-      @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) { field =>
-      @base.form.select(field, booleanChoices)
+      @form3.split {
+      @form3.checkbox(form("approval.granted"), Html("Publish on the streamers list"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.requested"), Html("Active approval request"), help = modsOnly, half = true)
       }
-      @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) { field =>
-      @base.form.select(field, booleanChoices)
-      }
-      @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) { field =>
-      @base.form.select(field, booleanChoices)
-      }
+      @form3.split {
+      @form3.checkbox(form("approval.chat"), Html("Embed stream chat too"), help = modsOnly, half = true)
       @if(granted) {
-      @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) { field =>
-      @base.form.select(field, booleanChoices)
-      }
+      @form3.checkbox(form("approval.featured"), Html("Feature on lichess homepage"), help = modsOnly, half = true)
       } else {
-      @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) { field =>
-      @base.form.select(field, booleanChoices)
+      @form3.checkbox(form("approval.ignored"), Html("Ignore further approval requests"), help = modsOnly, half = true)
       }
       }
-      @base.form.submit()
+      @form3.action(form3.submit(trans.apply()))
     </div>
     }
-    <div>
-      @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) { field =>
-      @base.form.input(field)
-      }
-      @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) { field =>
-      @base.form.input(field)
-      }
-    </div>
-    <div>
-      @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true) { field =>
-      @base.form.input(field, maxLength = 20)
-      }
-      @base.form.group(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true) { field =>
-      @base.form.select(field, booleanChoices)
-      }
-    </div>
-    @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) { field =>
-    @base.form.input(field, maxLength = 300)
+    @form3.split {
+    @form3.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
+    @form3.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
     }
-    @base.form.group(form("description"), Html("Long description")) { field =>
-    <textarea name="description" id="description" maxlength="50000">@field.value</textarea>
+    @form3.split {
+    @form3.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_, required = true, maxLength = 20))
+    @form3.checkbox(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true)
     }
-    @base.form.submit()
+    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_, required = true, maxLength = 300))
+    @form3.group(form("description"), Html("Long description"))(form3.textarea(_, rows = 10.some, maxLength = 50000))
+    @form3.actions {
+    <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
+    @form3.submit(trans.apply())
+    }
   </form>
   }
 </div>
