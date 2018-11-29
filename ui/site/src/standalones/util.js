@@ -1,6 +1,6 @@
 var lichess = window.lichess = window.lichess || {};
 
-lichess.engineName = 'Stockfish 9+';
+lichess.engineName = 'Stockfish 10+';
 
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
