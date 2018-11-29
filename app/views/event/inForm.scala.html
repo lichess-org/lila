@@ -1,33 +1,17 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
-@base.form.flatpickr(field)
+@form3.split {
+@form3.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+@form3.group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
 }
-@base.form.group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true) { field =>
-@base.form.flatpickr(field)
+@form3.group(form("title"), Html("Short title"))(form3.input(_, required = true))
+@form3.group(form("headline"), Html("Short headline"))(form3.input(_, required = true))
+@form3.group(form("description"), Html("Possibly long description"))(form3.textarea(_))
+@form3.group(form("url"), Html("External URL"))(form3.input(_, required = true))
+@form3.group(form("lang"), Html("Language"))(form3.select(_, lila.i18n.LangList.choices))
+@form3.split {
+@form3.checkbox(form("enabled"), Html("Enabled"), help = Html("Display the event").some, half = true)
+@form3.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_))
 }
-@base.form.group(form("title"), Html("Short title")) { field =>
-@base.form.input(field)
-}
-@base.form.group(form("headline"), Html("Short headline")) { field =>
-@base.form.input(field)
-}
-@base.form.group(form("description"), Html("Possibly long description")) { field =>
-<textarea name="@field.name" id="@field.id">@field.value</textarea>
-}
-@base.form.group(form("url"), Html("External URL")) { field =>
-@base.form.input(field)
-}
-@base.form.group(form("lang"), Html("Language")) { field =>
-@base.form.select(field, lila.i18n.LangList.choices)
-}
-<div>
-  @base.form.group(form("enabled"), Html("Enabled"), half = true) { field =>
-  @base.form.select(field, booleanChoices)
-  }
-  @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) { field =>
-  @base.form.input(field, "Ask first!".some)
-  }
-</div>
 
-@base.form.submit()
+@form3.action(form3.submit(trans.apply()))
