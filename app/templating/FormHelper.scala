@@ -64,10 +64,12 @@ trait FormHelper { self: I18nHelper =>
     def checkbox(
       field: Field,
       name: Html,
+      half: Boolean = false,
       help: Option[Html] = None
     ) = Html {
-      val open = """<div class="form-check form-group">"""
-      val input = s"""<input class="form-check-input" type="checkbox" value="" id="${id(field)}">"""
+      val checked = field.value has "true"
+      val open = s"""<div class="form-check form-group${half ?? " form-half"}">"""
+      val input = s"""<input class="form-check-input" type="checkbox" name="${field.name}" value="true"${checked ?? " checked"} id="${id(field)}">"""
       val label = s"""<label class="form-check-label" for="${id(field)}">$name</label>"""
       val helper = help ?? { h => s"""<br><small class="form-help">$h</small>""" }
       s"""$open$input$label$helper</div>"""
