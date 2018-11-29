@@ -1,11 +1,5 @@
 @(title: String)(body: Html)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("flatpickr.css")
-@cssTag("material.form.css")
-@cssTag("relay.css")
-}
-
 @moreJs = {
 @flatpickrTag
 @embedJs {
@@ -15,6 +9,6 @@ $(function() { $(".flatpickr").flatpickr(); });
 
 @base.layout(
 title = title,
-moreCss = moreCss,
+moreCss = cssTags("flatpickr.css", "form3.css", "relay.css"),
 moreJs = moreJs
 )(body)

@@ -1,33 +1,19 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@base.form.group(form("name"), Html("Event name")) { field =>
-@base.form.input(field, required = true)
-}
-@base.form.group(form("description"), Html("Event description")) { field =>
-<textarea class="description" name="@field.name" id="@field.id" style="height: 7em" required>@field.value</textarea>
-}
+@form3.group(form("name"), Html("Event name"))(form3.input(_, required = true))
+@form3.group(form("description"), Html("Event description"))(form3.textarea(_, rows = 6.some, required = true))
 
 @if(isGranted(_.Relay)) {
-@base.form.group(
-form("official"),
-Html("Official lichess broadcast"),
-klass = "checkbox",
-help = Html("Feature on /broadcast - for admins only").some) { field =>
-<input type="checkbox" name="@field.name" @if(field.value){checked} value="true" />
-}
-} else { <input type="hidden" name="@form("official").name" value="false" /> }
-@base.form.group(form("syncUrl"), Html("Source URL")) { field =>
-@base.form.input(field, typ = "url", required = true)
-}
-<div>
-  @base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some, half = true) { field =>
-@base.form.flatpickr(field)
-}
+@form3.checkbox(form("official"), Html("Official lichess broadcast"), help = Html("Feature on /broadcast - for admins only").some)
+} else { @form3.hidden(form("official")) }
+@form3.group(form("syncUrl"), Html("Source URL"))(form3.input(_, typ = "url", required = true))
+@form3.split {
+@form3.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_))
 @if(isGranted(_.Relay)) {
-@base.form.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true) { field =>
-@base.form.input(field, typ = "number")
+@form3.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
 }
 }
-</div>
-
-@base.form.submit()
+@form3.actions {
+<a href="@routes.Relay.index(1)">@trans.cancel()</a>
+@form3.submit(trans.apply())
+}
