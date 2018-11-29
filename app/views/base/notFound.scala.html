@@ -4,8 +4,7 @@
 title = "Page not found",
 moreJs = prismicJs,
 moreCss = cssTag("notFound.css"),
-csp = defaultCsp.withPrismic(isGranted(_.Prismic)).some) {
-
+csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)) {
 <div class="content_box small_box">
   <header>
     <h1>404</h1>
