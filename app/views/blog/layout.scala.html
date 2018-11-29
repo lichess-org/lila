@@ -11,7 +11,7 @@ moreCss = cssTag("blog.css"),
 moreJs = pageJs,
 side = side,
 openGraph = openGraph,
-csp = defaultCsp.withPrismicEditor(isGranted(_.Prismic)).some) {
+csp = defaultCsp.withPrismic(isGranted(_.Prismic)).some) {
 <div id="lidraughts_blog" class="content_box">
   @body
 </div>
