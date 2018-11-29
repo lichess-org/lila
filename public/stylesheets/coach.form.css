@@ -41,6 +41,8 @@
 }
 .coach_edit .overview .todo h3 {
   margin: 0;
+  color: #dc3545;
+  font-weight: bold;
 }
 .coach_edit .overview .todo li {
   list-style: disc inside;
@@ -77,7 +79,7 @@ body.dark .coach_edit .top a {
 .coach_edit .tabs {
   display: flex;
   cursor: pointer;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   text-transform: uppercase;
 }
 .coach_edit .tabs > div {

@@ -122,7 +122,7 @@ menu = menu("edit", s.withoutStream.some).some) {
     @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_, required = true, maxLength = 300))
     @form3.group(form("description"), Html("Long description"))(form3.textarea(_, rows = 10.some, maxLength = 50000))
     @form3.actions {
-    <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
+    @*<a href="@routes.Streamer.show(s.user.username)">Cancel</a>*@
     @form3.submit(trans.apply())
     }
   </form>

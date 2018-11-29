@@ -21,20 +21,8 @@ trait FormHelper { self: I18nHelper =>
     errors map errMsg mkString
   }
 
-  def errMsgMaterial(errors: Seq[FormError])(implicit ctx: Context): Option[Html] = errors.nonEmpty option Html {
-    val msgs = errors.map { error =>
-      s"""<p class="error">${transKey(error.message, I18nDb.Site, error.args)}</p>"""
-    } mkString ""
-    s"""<div class="form-group has-error">$msgs</div>"""
-  }
-
   def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
     form.globalError map errMsg
-
-  def globalErrorMaterial(form: Form[_])(implicit ctx: Context): Option[Html] =
-    form.globalError map { msg =>
-      Html(s"""<div class="form-group has-error">${errMsg(msg)}</div>""")
-    }
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
