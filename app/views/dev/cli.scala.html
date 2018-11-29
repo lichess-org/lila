@@ -41,9 +41,7 @@
   <h2>Result:</h2>
   <pre>@r</pre>
   }
-  <form action="@routes.Dev.cliPost" method="POST">
-    @base.form.input(form("command"))
-  </form>
+  <form action="@routes.Dev.cliPost" method="POST">@form3.input(form("command"))</form>
   <h2>Command examples:</h2>
   <pre>change asset version
 puzzle disable 70000
