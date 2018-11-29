@@ -45,7 +45,7 @@ trait FormHelper { self: I18nHelper =>
     def id(field: Field) = s"$idPrefix-${field.id}"
 
     def split(html: Html) = Html {
-      s"""<div class="form-group form-split">$html</div>"""
+      s"""<div class="form-split">$html</div>"""
     }
 
     def group(

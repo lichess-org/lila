@@ -20,8 +20,8 @@ object CrudForm {
   lazy val apply = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 40),
     "homepageHours" -> number(min = 0, max = maxHomepageHours),
-    "clockTime" -> numberInDouble(clockTimePrivateChoices),
-    "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
+    "clockTime" -> numberInDouble(clockTimeChoices),
+    "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> number(min = 20, max = 1440),
     "variant" -> number.verifying(Variant exists _),
     "position" -> nonEmptyText.verifying(DataForm.positions contains _),

@@ -57,7 +57,6 @@ final class CrudApi {
     variant = draughts.variant.Standard,
     position = draughts.StartingPosition.initial,
     mode = draughts.Mode.Rated,
-    `private` = false,
     password = None,
     waitMinutes = 0,
     startDate = none,

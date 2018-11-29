@@ -50,7 +50,7 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
     "status" -> tour.status.id,
     "perf" -> tour.perfType.map(perfJson)
   ).add("hasMaxRating", tour.conditions.maxRating.isDefined)
-    .add("private", tour.`private`)
+    .add("private", tour.isPrivate)
     .add("position", tour.position.some.filterNot(_.initial) map positionJson)
     .add("schedule", tour.schedule map scheduleJson)
 
