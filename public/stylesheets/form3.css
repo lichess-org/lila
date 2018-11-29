@@ -52,6 +52,12 @@ body.dark .form3 .form-control {
   justify-content: space-between;
   align-items: center;
 }
+.form3 .form-actions a {
+  color: #3893E8!important;
+}
+.form3 .form-actions.single {
+  justify-content: flex-end;
+}
 
 .form3 hr {
   margin-top: 1rem;
@@ -60,6 +66,7 @@ body.dark .form3 .form-control {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* CAPTCHA */
 .form3 .captcha {
   display: flex;
   margin-top: 2em;
@@ -67,41 +74,41 @@ body.dark .form3 .form-control {
 .form3 .captcha.is-invalid:not(.success) {
   border: 1px solid #dc3545;
 }
-.form3 .mini_board {
+.form3 .captcha .mini_board {
   width: 250px;
   cursor: pointer;
 }
-.form3 .explanation {
+.form3 .captcha .captcha-explanation {
   font-size: 0.9em;
   margin-left: 1rem;
   overflow: hidden;
 }
-.form3 .captcha.is-invalid .explanation {
+.form3 .captcha.is-invalid .captcha-explanation {
   padding: 1em;
 }
-.form3 .explanation label {
+.form3 .captcha .captcha-explanation label {
   display: block;
   width: 310px;
 }
-.form3 .explanation .result {
+.form3 .captcha .captcha-explanation .result {
   display: none;
   height: 48px;
   line-height: 48px;
   vertical-align: middle;
   font-weight: bold;
 }
-.form3 .explanation .success {
+.form3 .captcha .success {
   color: #759900;
 }
-.form3 .explanation .failure {
+.form3 .captcha .failure {
   color: #dc3545;
 }
-.form3 .captcha.success .success {
-  display: block;
-}
+.form3 .captcha.success .success,
 .form3 .captcha.failure .failure {
   display: block;
 }
+
+/* VENDORS */
 .form3 .twitter-typeahead {
   width: 100%;
 }

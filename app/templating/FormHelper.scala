@@ -83,19 +83,32 @@ trait FormHelper { self: I18nHelper =>
     def actions(html: Html) = Html {
       s"""<div class="form-actions">$html</div>"""
     }
+    def action(html: Html) = Html {
+      s"""<div class="form-actions single">$html</div>"""
+    }
 
     def submit(
       content: Html,
       icon: Option[String] = Some("E"),
-      nameValue: Option[(String, String)] = None
+      nameValue: Option[(String, String)] = None,
+      klass: String = ""
     ) = Html {
       val iconH = icon ?? { i => s""" data-icon="$i"""" }
       val nameH = nameValue ?? { case (n, v) => s""" name="$n" value="$v"""" }
-      s"""<button class="submit button${icon.isDefined ?? " text"} type="submit"$iconH$nameH>$content</button>"""
+      s"""<button class="submit button${icon.isDefined ?? " text"} $klass" type="submit"$iconH$nameH>$content</button>"""
     }
 
     def hidden(field: Field, value: Option[String] = None) = Html {
       s"""<input type="hidden" name="${field.name}" id="${id(field)}" value="${value | ~field.value}"/>"""
+    }
+
+    def password(field: Field, content: Html)(implicit ctx: Context) =
+      group(field, content)(input(_, typ = "password", required = true))
+
+    def globalError(form: Form[_])(implicit ctx: Context): Option[Html] = {
+      form.globalError map { msg =>
+        Html(s"""<div class="form-group is-invalid">${errMsg(msg)}</div>""")
+      }
     }
 
     def input(
@@ -112,7 +125,7 @@ trait FormHelper { self: I18nHelper =>
       attrs: String = ""
     ) = Html {
       val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${autofocus ?? " autofocus"}${pattern ?? { p => s""" pattern="$p"""" }} $attrs"""
-      s"""<input type="typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass"/>"""
+      s"""<input type="$typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass"/>"""
     }
   }
 }
