@@ -4322,20 +4322,20 @@ stockfish-mv.wasm@^0.2.0:
   resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.2.0.tgz#b402050ccca5455ed4419ffe2ad96d52a19c5f34"
   integrity sha512-a2E/J0kBJIfoKdC8KPNy+xGQ4hvT/E10THMxjqmy1aHCgoV0pvOY+lgcLqvm6Q4c5IyFX5iDiY59ZrrtHedbEg==
 
-stockfish.js@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/stockfish.js/-/stockfish.js-9.0.0.tgz#8464f95ea1fe943aeff7dc1334760cca92b28361"
-  integrity sha512-AzoOLzicGbZrASv3HWniCqpMV806MHWTK2s9AgjFk5MvFX+G6FuJ/G1DbqZfSY6+LuZTdAvGV3h8ZqBlNv5Hvg==
+stockfish.js@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/stockfish.js/-/stockfish.js-10.0.0.tgz#eb1938f5483c3879c75907f450c41e53637de657"
+  integrity sha512-ZriphsLIOBfY9p7Hik2Fbxl5Fyf21MjZ8j7XEQ7r+hdyOAelhcx52dRTjkmRloBpDkZo51fCG4ujg1XCaWasgg==
 
-stockfish.pexe@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-9.0.0.tgz#8b444f0487e05e3c8d12ad59a7245489da34c602"
-  integrity sha512-UrRdnDQi7VZ3f8ZPqGmT70fN9ymcdhZ430j+cJX2atGfBtRsKEnF0A5+LhZzdzN8ElmbDUXx2PwRvjzecBiIrA==
+stockfish.pexe@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-10.0.0.tgz#07ebee26779954ed20e658352c55eeacd8d8aa0e"
+  integrity sha512-nGnezLQgLEtlBIxqMywzcBPMoVvBUY67l/kabnStosaSK2WU3IEkO80B0IywePpjVqWHv3cFBcmN5E8t1O4xjQ==
 
-stockfish.wasm@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.2.1.tgz#e0544f7c6d8ec6392e73762326d6fdba03927974"
-  integrity sha512-WNKEn4V4k28QpbberIs9/G0Q86Wd6v16DD+cB2eHXZ1hnp4+Ej9hdL+lhjmxETN8xxAdS7nZg1EtSBtNuW9Cdw==
+stockfish.wasm@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.3.1.tgz#f87659415d97b6db26bd9c706b57372bc981692a"
+  integrity sha512-XEtPyH6gE8K30gGgi2e5FeZCt/zR3ELFv+mCiOfzNIXfJ5s4GGmJUtSPx2B1lsQqu2d3iu/DYAPG3K6GKalylw==
 
 stream-browserify@^2.0.0:
   version "2.0.1"

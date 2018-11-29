@@ -3,7 +3,7 @@ import { Watchdog, PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
 export function makeWatchdog(name: string): Watchdog {
-  const prop = storedProp<number>('ceval.watchdog2.' + name, 0);
+  const prop = storedProp<number>('ceval.watchdog3.' + name, 0);
   let failed = false;
   let disarming = false;
   return {
