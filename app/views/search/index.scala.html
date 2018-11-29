@@ -195,7 +195,9 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label for="analysed">@trans.computerAnalysis() <span class="help" title="@trans.searchAnalysisHelp()">(?)</span></label>
         </th>
         <td class="single">
-          @base.form.checkbox(form("analysed"), "", 1)
+          @defining(form("analysed")) { field =>
+          <input type="checkbox" id="@field.id" name="@field.name" value="1" @if(field.value.has("1")){checked} />
+          }
         </td>
       </tr>
       <tr>

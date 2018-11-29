@@ -179,7 +179,9 @@
         <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
       </th>
       <td class="single">
-        @base.form.checkbox(form("analysed"), "", 1)
+        @defining(form("analysed")) { field =>
+        <input type="checkbox" id="@field.id" name="@field.name" value="1" @if(field.value.has("1")){checked} />
+        }
       </td>
     </tr>
   </table>

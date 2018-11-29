@@ -6,7 +6,7 @@
 
 <div>
   @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
-  @base.form.flatpickr(field)
+  <input class="flatpickr has-value" data-enable-time="true" data-time_24hr="true" value="@field.value" name="@field.name" />
   }
   @base.form.group(form("name"), Html("Name"), half = true) { field =>
   @base.form.input(field)
