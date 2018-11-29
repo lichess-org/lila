@@ -44,6 +44,10 @@ trait FormHelper { self: I18nHelper =>
 
     def id(field: Field) = s"$idPrefix-${field.id}"
 
+    def split(html: Html) = Html {
+      s"""<div class="form-group form-split">$html</div>"""
+    }
+
     def group(
       field: Field,
       name: Html,
@@ -51,10 +55,22 @@ trait FormHelper { self: I18nHelper =>
       half: Boolean = false,
       help: Option[Html] = None
     )(html: Field => Html)(implicit ctx: Context) = Html {
-      val classes = s"""form-group${field.hasErrors ?? " is-invalid"}${half ?? " half"} $klass"""
+      val classes = s"""form-group${field.hasErrors ?? " is-invalid"}${half ?? " form-half"} $klass"""
       val label = s"""<label for="${id(field)}">$name</label>"""
       val helper = help ?? { h => s"""<small class="form-help">$h</small>""" }
       s"""<div class="$classes">$label${html(field)}${errMsg(field)}$helper</div>"""
+    }
+
+    def checkbox(
+      field: Field,
+      name: Html,
+      help: Option[Html] = None
+    ) = Html {
+      val open = """<div class="form-check form-group">"""
+      val input = s"""<input class="form-check-input" type="checkbox" value="" id="${id(field)}">"""
+      val label = s"""<label class="form-check-label" for="${id(field)}">$name</label>"""
+      val helper = help ?? { h => s"""<br><small class="form-help">$h</small>""" }
+      s"""$open$input$label$helper</div>"""
     }
 
     def select(
@@ -111,6 +127,10 @@ trait FormHelper { self: I18nHelper =>
       }
     }
 
+    def flatpickr(field: Field, withTime: Boolean = true) = Html {
+      s"""<input class="flatpickr form-control" data-enable-time="$withTime" data-time_24hr="$withTime" value="${~field.value}" name="${field.name}" id="${id(field)}">"""
+    }
+
     def input(
       field: Field,
       typ: String = "text",
@@ -125,7 +145,7 @@ trait FormHelper { self: I18nHelper =>
       attrs: String = ""
     ) = Html {
       val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${autofocus ?? " autofocus"}${pattern ?? { p => s""" pattern="$p"""" }} $attrs"""
-      s"""<input type="$typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass"/>"""
+      s"""<input type="$typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass">"""
     }
   }
 }

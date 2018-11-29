@@ -5,6 +5,14 @@
 .form3 .form-group {
   margin-bottom: 1rem;
 }
+.form3 .form-split {
+  display: flex;
+  justify-content: space-between;
+}
+.form3 .form-split .form-half {
+  flex: 0 0 48%;
+}
+
 .form3 label {
   font-weight: bold;
   display: inline-block;
@@ -25,7 +33,7 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 body.dark .form3 .form-control {
-  background-color: #000;
+  background-color: #181818;
   color: #999;
   border-color: #404040;
 }
@@ -42,6 +50,28 @@ body.dark .form3 .form-control {
   margin-top: 0.25rem;
   font-size: 80%;
   color: #dc3545;
+}
+
+.form3 .form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+}
+
+.form3 .form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
+  cursor: pointer;
+}
+
+.form3 .form-check-input:disabled ~ .form-check-label {
+  color: #6c757d;
+}
+
+.form3 .form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
 }
 
 .form3 .form-actions {
