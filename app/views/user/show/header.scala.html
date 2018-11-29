@@ -68,7 +68,7 @@
 @NotForKids {
 @if(!(ctx is u)) {
 <div class="note_zone">
-  <form class="wide" action="@routes.User.writeNote(u.username)?note" method="post">
+  <form action="@routes.User.writeNote(u.username)?note" method="post">
     <textarea name="text" placeholder="Write a note about this user only you and your friends can read"></textarea>
     <button type="submit" class="button">@trans.send()</button>
     @if(isGranted(_.ModNote)) {

@@ -387,7 +387,8 @@ div.sub_ratings h3 {
 .user_show .note_zone textarea {
   width: 98%;
   margin-bottom: 5px;
-  height: 2em;
+  padding: 5px 8px;
+  height: 5em;
   resize: vertical;
 }
 .user_show .note_zone div {
