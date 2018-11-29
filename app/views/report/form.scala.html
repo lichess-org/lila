@@ -22,7 +22,7 @@
     @form3.group(form("text"), trans.description(), help = trans.reportDescriptionHelp().some)(form3.textarea(_, rows = 8.some, required = true))
     @base.captcha(form, captcha)
     @form3.actions {
-    <a class="cancel" href="@routes.Lobby.home()">@trans.cancel()</a>
+    <a href="@routes.Lobby.home()">@trans.cancel()</a>
     @form3.submit(trans.send())
     }
   </form>

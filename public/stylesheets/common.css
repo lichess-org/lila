@@ -961,11 +961,6 @@ div.side form.search input {
   padding-left: 3px;
 }
 
-form.wide input[type="text"],
-form.wide textarea {
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
-}
 span.progress > .positive {
   color: #759900;
 }
