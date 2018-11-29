@@ -1,44 +1,42 @@
 @(form: Form[_], me: User)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("material.form.css")
-}
-
 @title = @{ "New personal API access token" }
 
 @account.layout(
 title = title,
 active = "oauth.token",
-evenMoreCss = moreCss
+evenMoreCss = cssTag("form3.css")
 ) {
-<div class="oauth_form content_box no_padding oauth security">
-  <div class="top">
-    <h1>@title</h1>
-  </div>
-  <p class="explanation">
-    New personal access token
-    Personal access tokens function like ordinary lichess OAuth access tokens.
-    They can be used to authenticate to the API over Basic Authentication.
-  </p>
-  <form class="material form" action="@routes.OAuthToken.create" method="POST">
+<div class="oauth_form content_box oauth security">
+  <h1>@title</h1>
+  <form class="form3" action="@routes.OAuthToken.create" method="POST">
 
-    @base.form.group(form("description"), Html("Token description")) { field =>
-    @base.form.input(field, required = true)
-    }
+    <br><br>
+    <div class="form-group">
+      Personal access tokens function like ordinary lichess OAuth access tokens.
+      They can be used to authenticate to the API over Basic Authentication.
+    </div>
 
+    @form3.group(form("description"), Html("Token description"), help = Html("For you to remember what this token is for").some)(form3.input(_, required = true))
+
+    <br><br>
     <h2>Scopes define the access for personal tokens:</h2>
 
     <div class="scopes">
       @lila.oauth.OAuthScope.all.map { scope =>
-      <label>
-        <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"
-        @if(me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled title="You already have played games!" } />
+      @defining(me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled =>
+      <label@if(disabled) { title="You already have played games!"}>
+        <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"@if(disabled){ disabled }>
         @scope.name
       </label>
       }
+      }
     </div>
 
-    @base.form.submit()
+    @form3.actions {
+    <a href="@routes.OAuthToken.index">Cancel</a>
+    @form3.submit(trans.apply())
+    }
   </form>
 </div>
 }

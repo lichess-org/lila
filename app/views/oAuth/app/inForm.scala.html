@@ -1,19 +1,12 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@base.form.group(form("name"), Html("App name")) { field =>
-@base.form.input(field, required = true)
+@form3.group(form("name"), Html("App name"))(form3.input(_, required = true))
+@form3.group(form("description"), Html("App description"))(form3.textarea(_))
+@form3.split {
+@form3.group(form("homepageUri"), Html("Homepage URL"), half = true)(form3.input(_, typ = "url", required = true))
+@form3.group(form("redirectUri"), Html("Callback URL"), half = true)(form3.input(_, typ = "url", required = true))
 }
-
-@base.form.group(form("description"), Html("App description")) { field =>
-<textarea name="@field.name" id="@field.id">@field.value</textarea>
+@form3.actions {
+<a href="@routes.OAuthApp.index">Cancel</a>
+@form3.submit(trans.apply())
 }
-<div>
-  @base.form.group(form("homepageUri"), Html("Homepage URL"), half = true) { field =>
-  @base.form.input(field, required = true)
-  }
-  @base.form.group(form("redirectUri"), Html("Callback URL"), half = true) { field =>
-  @base.form.input(field, required = true)
-  }
-</div>
-
-@base.form.submit()

@@ -57,7 +57,7 @@ form.material.form {
 
 .oauth .codes {
   display: block;
-  margin: 10px 20px 20px 20px;
+  margin: 10px 0 20px 0;
   padding: 10px 20px;
   background: rgba(128,128,128,0.1);
 }
