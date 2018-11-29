@@ -12,6 +12,9 @@
 .form3 .form-split .form-half {
   flex: 0 0 48%;
 }
+.form3 .form-split .form-third {
+  flex: 0 0 31%;
+}
 
 .form3 label {
   font-weight: bold;

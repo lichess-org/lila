@@ -92,10 +92,11 @@ trait FormHelper { self: I18nHelper =>
       klass: String = "",
       required: Boolean = false,
       rows: Option[Int] = None,
+      maxLength: Int = 0,
       attrs: String = ""
     ) = Html {
       val rowsH = rows ?? { r => s""" rows=$r""" }
-      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control $klass"$rowsH${required ?? " required"}$attrs>${~field.value}</textarea>"""
+      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control $klass"$rowsH${required ?? " required"}${(maxLength > 0) ?? s"maxlength=$maxLength"}$attrs>${~field.value}</textarea>"""
     }
 
     def actions(html: Html) = Html {

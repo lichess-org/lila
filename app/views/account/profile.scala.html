@@ -2,54 +2,45 @@
 
 @title = @{ s"${u.username} - ${trans.editProfile.txt()}" }
 
+@linksHelp = {
+Such as Twitter, Facebook, GitHub, Chess.com, ...<br />
+One URL per line.
+}
+
 @account.layout(
 title = title,
 active = "editProfile",
-evenMoreCss =cssTag("material.form.css")) {
+evenMoreCss = cssTag("form3.css")) {
 <div class="content_box small_box">
-  <div class="signup_box">
-    <h1 class="lichess_title text" data-icon="*">@trans.editProfile()</h1>
-    <form class="material form" action="@routes.Account.profileApply" method="POST">
-      <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
-      <div>
-        @base.form.group(form("country"), trans.country(), klass = "half") { field =>
-        @base.form.select(field, lila.user.Countries.allPairs, default = "".some)
-        }
-        @base.form.group(form("location"), trans.location(), klass = "half") { field =>
-        @base.form.input(field)
-        }
-      </div>
-      @NotForKids {
-      @base.form.group(form("bio"), Html(s"${trans.biography.txt()}")) { field =>
-      <textarea name="@field.name" id="@field.id" rows=5 maxlength=600>@field.value</textarea>
-      <p class="form-help">@trans.biographyDescription()</p>
-      }
-      <div>
-        @base.form.group(form("firstName"), trans.firstName(), klass = "half") { field =>
-        @base.form.input(field)
-        }
-        @base.form.group(form("lastName"), trans.lastName(), klass = "half") { field =>
-        @base.form.input(field)
-        }
-      </div>
-      }
-      <div>
-        @List("fide", "uscf", "ecf").map { rn =>
-        @base.form.group(form(s"${rn}Rating"), trans.xRating(rn.toUpperCase), help=trans.ifNoneLeaveEmpty().some, klass = "third") { field =>
-        @base.form.input(field, typ="number")
-        }
-        }
-      </div>
-      @base.form.group(form("links"), Html("Social media links ")) { field =>
-      <textarea name="@field.name" id="@field.id" rows=5 maxlength=600>@field.value</textarea>
-      <p class="form-help">
-        Such as Twitter, Facebook, GitHub, Chess.com, ...<br />
-        One URL per line.
-      </p>
-      }
-      @errMsg(form)
-      @base.form.submit()
-    </form>
-  </div>
+  <h1 class="lichess_title text" data-icon="*">@trans.editProfile()</h1>
+  <form class="form3" action="@routes.Account.profileApply" method="POST">
+    <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
+    @form3.split {
+    @form3.group(form("country"), trans.country(), half = true) { f =>
+    @form3.select(f, lila.user.Countries.allPairs, default = "".some)
+    }
+    @form3.group(form("location"), trans.location(), half = true)(form3.input(_))
+    }
+    @NotForKids {
+    @form3.group(form("bio"), Html(s"${trans.biography.txt()}"), help = trans.biographyDescription().some) { f =>
+    @form3.textarea(f, rows = 5.some, maxLength = 600)
+    }
+    }
+    @form3.split {
+    @form3.group(form("firstName"), trans.firstName(), half = true)(form3.input(_))
+    @form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))
+    }
+    @form3.split {
+    @List("fide", "uscf", "ecf").map { rn =>
+    @form3.group(form(s"${rn}Rating"), trans.xRating(rn.toUpperCase), help = trans.ifNoneLeaveEmpty().some, klass = "form-third") { f =>
+    @form3.input(f, typ="number")
+    }
+    }
+    }
+    @form3.group(form("links"), Html("Social media links "), help = linksHelp.some) { f =>
+    @form3.textarea(f, rows = 5.some, maxLength = 800)
+    }
+    @form3.action(form3.submit(trans.apply()))
+  </form>
 </div>
 }
