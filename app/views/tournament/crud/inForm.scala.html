@@ -4,47 +4,30 @@
 @import lila.tournament.crud.CrudForm._
 @import lila.rating.PerfType
 
-<div>
-  @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
-  @base.form.flatpickr(field)
-  }
-  @base.form.group(form("name"), Html("Name"), half = true) { field =>
-  @base.form.input(field)
-  }
-</div>
-<div>
-  @base.form.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true) { field =>
-  @base.form.input(field, "Ask first!".some)
-  }
-  @base.form.group(form("image"), Html("Custom icon"), half = true) { field =>
-  @base.form.select(field, imageChoices)
-  }
-</div>
-@base.form.group(form("headline"), Html("Homepage headline")) { field =>
-@base.form.input(field)
+@form3.split {
+@form3.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+@form3.group(form("name"), Html("Name"), half = true)(form3.input(_))
 }
-@base.form.group(form("description"), Html("Full description | Link: [text](url)")) { field =>
-<textarea name="@field.name" id="@field.id">@field.value</textarea>
+@form3.split {
+@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_, typ = "number", required = true))
+@form3.group(form("image"), Html("Custom icon"), half = true)(form3.select(_, imageChoices))
 }
-<div>
-  @base.form.group(form("variant"), Html("Variant"), half = true) { field =>
-  @base.form.select(field, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
-  }
-  @base.form.group(form("minutes"), Html("Duration in minutes"), half = true) { field =>
-  @base.form.input(field)
-  }
-</div>
-<div>
-  @base.form.group(form("clockTime"), Html("Clock time"), half = true) { field =>
-  @base.form.select(field, clockTimePrivateChoices)
-  }
-  @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) { field =>
-  @base.form.select(field, clockIncrementPrivateChoices)
-  }
-</div>
-@base.form.group(form("position"), trans.startPosition()) { field =>
-@tournament.startingPosition(field)
+@form3.group(form("headline"), Html("Homepage headline"))(form3.input(_, required = true))
+@form3.group(form("description"), Html("Full description | Link: [text](url)"))(form3.textarea(_, rows = 6.some))
+
+@form3.split {
+@form3.group(form("variant"), Html("Variant"), half = true) { f =>
+@form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
 }
+@form3.group(form("minutes"), Html("Duration in minutes"), half = true)(form3.input(_, typ = "number", required = true))
+}
+@form3.split {
+@form3.group(form("clockTime"), Html("Clock time"), half = true)(form3.select(_, clockTimeChoices))
+@form3.group(form("clockIncrement"), Html("Clock increment"), half = true)(form3.select(_, clockIncrementChoices))
+}
+@form3.group(form("position"), trans.startPosition())(tournament.startingPosition(_))
+
+<hr>
 <h2>Conditions of entry</h2>
 @tournament.conditionForm(form, auto = false, Nil)
-@base.form.submit()
+@form3.action(form3.submit(trans.apply()))

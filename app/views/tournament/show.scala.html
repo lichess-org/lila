@@ -55,7 +55,7 @@ s"${usernameOrId(winnerId)} takes the prize home!"
 </div>
 @if(tour.isCreated) {
 <div id="tournament_faq" class="none">
-  @faq(tour.mode.rated.some, tour.system.some, tour.`private`.option(tour.id))
+  @faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
 </div>
 }
 }

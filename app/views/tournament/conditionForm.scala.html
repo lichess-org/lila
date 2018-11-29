@@ -3,51 +3,31 @@
 @import lila.tournament.Condition
 
 @autoField(fieldName: String)(visible: Field => Html) = {
-@if(auto) { @base.form.hidden(form(fieldName)) } else { @visible(form(fieldName)) }
+@if(auto) { @form3.hidden(form(fieldName)) } else { @visible(form(fieldName)) }
 }
 
-<div>
-  @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = !auto) { field =>
-  @base.form.select(field, Condition.DataForm.nbRatedGameChoices)
-  }
-  @autoField("conditions.nbRatedGame.perf") { field =>
-  @base.form.group(field, Html("In variant"), half = true) { field =>
-  @base.form.select(field, ("", "Any") :: Condition.DataForm.perfChoices)
-  }
-  }
-</div>
-<div>
-  @base.form.group(form("conditions.minRating.rating"), Html("Minimum rating"), half = !auto) { field =>
-  @base.form.select(field, Condition.DataForm.minRatingChoices)
-  }
-  @autoField("conditions.minRating.perf") { field =>
-  @base.form.group(field, Html("In variant"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.perfChoices)
-  }
-  }
-</div>
-<div>
-  @base.form.group(form("conditions.maxRating.rating"), Html("Maximum weekly rating"), half = !auto) { field =>
-  @base.form.select(field, Condition.DataForm.maxRatingChoices)
-  }
-  @autoField("conditions.maxRating.perf") { field =>
-  @base.form.group(field, Html("In variant"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.perfChoices)
-  }
-  }
-</div>
-<div>
-@base.form.group(form("conditions.titled"), Html("Only titled players"), half = true) { field =>
-@base.form.select(field, booleanChoices)
+@form3.split {
+@form3.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices))
+@autoField("conditions.nbRatedGame.perf") { field =>
+@form3.group(field, Html("In variant"), half = true)(form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices))
 }
-@base.form.group(form("berserkable"), Html("Allow Berserk"), half = true) { field =>
-@base.form.select(field, booleanChoices)
 }
-</div>
+@form3.split {
+@form3.group(form("conditions.minRating.rating"), Html("Minimum rating"), half = true)(form3.select(_, Condition.DataForm.minRatingChoices))
+@autoField("conditions.minRating.perf") { field =>
+@form3.group(field, Html("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+}
+}
+@form3.split {
+@form3.group(form("conditions.maxRating.rating"), Html("Maximum weekly rating"), half = true)(form3.select(_, Condition.DataForm.maxRatingChoices))
+@autoField("conditions.maxRating.perf") { field =>
+@form3.group(field, Html("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+}
+}
+@form3.split {
+@form3.checkbox(form("conditions.titled"), Html("Only titled players"), help = Html("Require an official title to join the tournament").some, half = true)
+@form3.checkbox(form("berserkable"), Html("Allow Berserk"), help = Html("Let players halve their clock time to gain an extra point").some, half = true)
+}
 @if(auto && teams.size > 0) {
-<div>
-  @base.form.group(form("conditions.teamMember.teamId"), Html("Only members of team"), half = false) { field =>
-    @base.form.select(field, List(("", "No Restriction")) ::: teams)
-  }
-</div>
+@form3.group(form("conditions.teamMember.teamId"), Html("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
 }

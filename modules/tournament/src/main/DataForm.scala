@@ -24,9 +24,9 @@ final class DataForm {
     startDate = none,
     variant = chess.variant.Standard.key.some,
     position = StartingPosition.initial.fen.some,
-    `private` = false,
     password = None,
-    mode = Mode.Rated.id.some,
+    mode = none,
+    rated = true.some,
     conditionsOption = Condition.DataForm.AllSetup.default.some,
     berserkable = true.some
   )
@@ -42,24 +42,22 @@ final class DataForm {
 
   private lazy val create = Form(mapping(
     "name" -> optional(nameType),
-    "clockTime" -> numberInDouble(clockTimePrivateChoices),
-    "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
-    "minutes" -> numberIn(minutePrivateChoices),
+    "clockTime" -> numberInDouble(clockTimeChoices),
+    "clockIncrement" -> numberIn(clockIncrementChoices),
+    "minutes" -> numberIn(minuteChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
     "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
     "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
-    "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
-    "private" -> tolerantBoolean,
+    "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
+    "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
     "conditions" -> optional(Condition.DataForm.all),
     "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
-    .verifying("These settings will only work for private tournaments", _.validPublic) // very rare, do not translate
-  )
+    .verifying("Increase tournament duration, or decrease game clock", _.validTiming))
 }
 
 object DataForm {
@@ -70,27 +68,21 @@ object DataForm {
 
   import chess.variant._
 
-  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d)
-  val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d) ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
     chess.Clock.Config(l * 60 toInt, 0).limitString + {
       if (l <= 1) " minute" else " minutes"
     }
   val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
-  val clockTimePrivateChoices = optionsDouble(clockTimesPrivate, formatLimit)
 
-  val clockIncrements = 0 to 2 by 1
-  val clockIncrementsPrivate = clockIncrements ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  val clockIncrements = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
-  val clockIncrementPrivateChoices = options(clockIncrementsPrivate, "%d second{s}")
 
-  val minutes = (20 to 60 by 5) ++ (70 to 120 by 10)
-  val minutesPrivate = minutes ++ (150 to 360 by 30)
+  val minutes = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30)
   val minuteDefault = 45
   val minuteChoices = options(minutes, "%d minute{s}")
-  val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
 
   val waitMinutes = Seq(1, 2, 3, 5, 10, 15, 20, 30, 45, 60)
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
@@ -121,8 +113,8 @@ private[tournament] case class TournamentSetup(
     startDate: Option[DateTime],
     variant: Option[String],
     position: Option[String],
-    mode: Option[Int],
-    `private`: Boolean,
+    mode: Option[Int], // deprecated, use rated
+    rated: Option[Boolean],
     password: Option[String],
     conditionsOption: Option[Condition.DataForm.AllSetup],
     berserkable: Option[Boolean]
@@ -134,13 +126,7 @@ private[tournament] case class TournamentSetup(
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
 
-  def validPublic = `private` || {
-    DataForm.clockTimes.contains(clockTime) &&
-      DataForm.clockIncrements.contains(clockIncrement) &&
-      DataForm.minutes.contains(minutes)
-  }
-
-  def realMode = mode.fold(Mode.default)(Mode.orDefault)
+  def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
 

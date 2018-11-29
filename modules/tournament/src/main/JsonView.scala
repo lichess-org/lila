@@ -84,7 +84,7 @@ final class JsonView(
       Json.obj("name" -> tour.name, "url" -> url)
     }).add("position" -> tour.position.some.filterNot(_.initial).map(positionJson))
     .add("schedule" -> tour.schedule.map(scheduleJson))
-    .add("private" -> tour.`private`)
+    .add("private" -> tour.isPrivate)
     .add("isRecentlyFinished" -> tour.isRecentlyFinished)
     .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
     .add("secondsToStart" -> tour.isCreated.option(tour.secondsToStart))

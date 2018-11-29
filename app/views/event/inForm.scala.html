@@ -11,7 +11,7 @@
 @form3.group(form("lang"), Html("Language"))(form3.select(_, lila.i18n.LangList.choices))
 @form3.split {
 @form3.checkbox(form("enabled"), Html("Enabled"), help = Html("Display the event").some, half = true)
-@form3.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_))
+@form3.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_, typ = "number", required = true))
 }
 
 @form3.action(form3.submit(trans.apply()))

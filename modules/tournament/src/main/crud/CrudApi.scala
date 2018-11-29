@@ -56,7 +56,6 @@ final class CrudApi {
     variant = chess.variant.Standard,
     position = chess.StartingPosition.initial,
     mode = chess.Mode.Rated,
-    `private` = false,
     password = None,
     waitMinutes = 0,
     startDate = none,

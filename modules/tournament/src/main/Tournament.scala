@@ -19,7 +19,6 @@ case class Tournament(
     variant: chess.variant.Variant,
     position: StartingPosition,
     mode: Mode,
-    `private`: Boolean,
     password: Option[String] = None,
     conditions: Condition.All,
     noBerserk: Boolean = false,
@@ -37,7 +36,7 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
-  def isPrivate = `private`
+  def isPrivate = password.isDefined
 
   def fullName = schedule.map(_.freq).fold(s"$name $system") {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
@@ -140,7 +139,6 @@ object Tournament {
     variant: chess.variant.Variant,
     position: StartingPosition,
     mode: Mode,
-    `private`: Boolean,
     password: Option[String],
     waitMinutes: Int,
     startDate: Option[DateTime],
@@ -161,7 +159,6 @@ object Tournament {
     variant = variant,
     position = position,
     mode = mode,
-    `private` = `private`,
     password = password,
     conditions = Condition.All.empty,
     noBerserk = !berserkable,
@@ -184,7 +181,6 @@ object Tournament {
     variant = sched.variant,
     position = sched.position,
     mode = Mode.Rated,
-    `private` = false,
     conditions = sched.conditions,
     schedule = Some(sched),
     startsAt = sched.at

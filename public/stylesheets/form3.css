@@ -52,6 +52,16 @@ body.dark .form3 .form-control {
   color: #dc3545;
 }
 
+.form3 .form-help {
+  font-size: 0.8em;
+  margin-top: .25rem;
+  color: #6c757d;
+  line-height: 1em;
+}
+body.dark .form3 .form-help {
+  color: #8a9299;
+}
+
 .form3 .form-check {
   position: relative;
   display: block;
