@@ -176,6 +176,4 @@ pid(a|o)r
 """)
 
   private def dict(words: String) = words.lines.filter(_.nonEmpty)
-
-  val youtubeIds = List("7UpltimWY_E", "J_bzfjZZnjU", "xRiQe_tq7h0", "8IlVvluRbwk", "P3o0hPjrxgo", "d8TSD4f89i8")
 }
