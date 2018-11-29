@@ -2,17 +2,6 @@
 
 @import play.api.data.Field
 
-@textarea(field: Field, name: Html, help: Option[Html] = None) = {
-@base.form.group(field, name, half = false, help = help) { _ =>
-<textarea name="@field.name" id="@field.id">@field.value</textarea>
-}
-}
-
-@moreCss = {
-@cssTag("material.form.css")
-@cssTag("coach.form.css")
-}
-
 @moreJs = {
 @jsAt("vendor/jquery.form.min.js")
 @jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
@@ -24,7 +13,7 @@
 }
 
 @base.layout(title = s"${c.user.titleUsername} coach page",
-moreCss = moreCss,
+moreCss = cssTags("form3.css", "coach.form.css"),
 moreJs = moreJs,
 side = side.some) {
 <div class="coach_edit content_box no_padding">
@@ -50,7 +39,7 @@ side = side.some) {
       </div>
     </div>
   </div>
-  <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
+  <form class="content_box_content form3" action="@routes.Coach.edit" method="POST">
     <div class="tabs">
       <div data-tab="basics" class="active">Basics</div>
       <div data-tab="texts">Texts</div>
@@ -61,40 +50,28 @@ side = side.some) {
     </div>
     <div class="panels">
       <div class="panel basics active">
-        <div>
-          @base.form.group(form("listed"), Html("Publish on the coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) { field =>
-          @base.form.select(field, booleanChoices)
+        @form3.split {
+          @form3.checkbox(form("listed"), Html("Publish on the coaches list"), help = Html("Enable when your profile is ready").some, half = true)
+          @form3.checkbox(form("available"), Html("Currently available for lessons"), help = Html("Enable to get more students").some, half = true)
           }
-          @base.form.group(form("available"), Html("Currently available for lessons"), help = Html("Set to Yes to get more students").some, half = true) { field =>
-          @base.form.select(field, booleanChoices)
+        @form3.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some)(form3.input(_, maxLength = 170))
+        @form3.split {
+          @form3.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true)(form3.input(_, maxLength = 140))
+          @form3.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true)(form3.input(_, maxLength = 140))
           }
-        </div>
-        @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) { field =>
-        @base.form.input(field, maxLength = 170)
-        }
-        <div>
-          @base.form.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true) { field =>
-          @base.form.input(field, maxLength = 140)
-          }
-          @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) { field =>
-          @base.form.input(field, maxLength = 140)
-          }
-        </div>
       </div>
       <div class="panel texts">
-        @textarea(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)
-        @textarea(form("profile.playingExperience"), Html("Playing experience"), help = Html("Tournaments played, best wins, other achievements").some)
-        @textarea(form("profile.teachingExperience"), Html("Teaching experience"), help = Html("Diplomas, years of practice, best student results").some)
-        @textarea(form("profile.otherExperience"), Html("Other experiences"), help = Html("E.g. as chess commentator, or teaching other domains").some)
-        @textarea(form("profile.skills"), Html("Best skills in chess and teaching"))
-        @textarea(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)
+        @form3.group(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)(form3.textarea(_, rows = 8.some))
+        @form3.group(form("profile.playingExperience"), Html("Playing experience"), help = Html("Tournaments played, best wins, other achievements").some)(form3.textarea(_, rows = 8.some))
+        @form3.group(form("profile.teachingExperience"), Html("Teaching experience"), help = Html("Diplomas, years of practice, best student results").some)(form3.textarea(_, rows = 8.some))
+        @form3.group(form("profile.otherExperience"), Html("Other experiences"), help = Html("E.g. as chess commentator, or teaching other domains").some)(form3.textarea(_, rows = 8.some))
+        @form3.group(form("profile.skills"), Html("Best skills in chess and teaching"))(form3.textarea(_, rows = 8.some))
+        @form3.group(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)(form3.textarea(_, rows = 8.some))
       </div>
       <div class="panel contents">
-        @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)
-        @base.form.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel")) { field =>
-        @base.form.input(field)
-        }
-        @textarea(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)
+        @form3.group(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)(form3.textarea(_))
+        @form3.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel"))(form3.input(_))
+        @form3.group(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)(form3.textarea(_, rows = 6.some))
       </div>
       <div class="panel reviews">
         <p class="help text" data-icon="">Reviews are visible only after you approve them.</p>

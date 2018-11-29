@@ -1,13 +1,8 @@
 @(c: lila.coach.Coach.WithUser, error: Option[String] = None)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("material.form.css")
-@cssTag("coach.form.css")
-}
-
 @base.layout(title = s"${c.user.titleUsername} coach picture",
 moreJs = jsTag("coach.form.js"),
-moreCss = moreCss) {
+moreCss = cssTags("form3.css", "coach.form.css")) {
 <div class="coach_picture content_box small_box no_padding">
   <h1 class="lichess_title">
     @userLink(c.user) coach picture

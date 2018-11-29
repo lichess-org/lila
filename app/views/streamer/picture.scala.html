@@ -1,13 +1,8 @@
 @(s: lila.streamer.Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("material.form.css")
-@cssTag("streamer.form.css")
-}
-
 @base.layout(title = s"${s.user.titleUsername} streamer picture",
 moreJs = jsTag("streamer.form.js"),
-moreCss = moreCss) {
+moreCss = cssTags("form3.css", "streamer.form.css")) {
 <div class="streamer_picture content_box small_box no_padding">
   <h1 class="lichess_title">
     @userLink(s.user) streamer picture
