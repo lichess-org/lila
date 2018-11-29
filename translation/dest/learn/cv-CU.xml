@@ -15,11 +15,12 @@
   <string name="rookGoal">Пашнене ҫӑлтӑр патне куҫарас тесен 
 пашне ҫине чӑкӑлт!</string>
   <string name="grabAllTheStars">Мӗнпур ҫӑлтӑрсем пуҫтар!</string>
-  <string name="useTwoRooks">Ӗҫӳсене хӑвӑртлатас тесен 
+  <string name="useTwoRooks">Ӗҫӳне хӑвӑртлатас тесен 
 икӗ пашнепе усӑ кур!</string>
   <string name="rookComplete">Саламлатпӑр! Есӗ пашнене ӑнӑҫлӑ пӗлсе ҫитрӗн.</string>
   <string name="theBishop">Пил</string>
   <string name="itMovesDiagonally">Вӑл диагональпе ҫӳрет</string>
+  <string name="bishopIntro">Пиле мӗнле тытса пымаллине вӗренер!</string>
   <string name="youNeedBothBishops">Пӗр пуҫ ҫутӑ-тӗслӗ пил, 
 Пӗр пуҫ тӗксӗм-тӗслӗ пил. 
 Иккӗшӗ те кирлӗ сана!</string>
@@ -31,9 +32,11 @@
   <string name="theMostImportantPiece">Чи паха кӗлетке</string>
   <string name="kingIntro">Есӗ патша. Ҫапӑҫура пуҫ хурсан, вӑййине выльаса йанӑ.</string>
   <string name="theKingIsSlow">Патша вӑл вӑрахскер.</string>
+  <string name="lastOne">Пӗр тепри!</string>
   <string name="kingComplete">Халӗ есӗ пуҫлӑхне тытса пыма пӗлетӗн!</string>
   <string name="theKnight">Лаша</string>
   <string name="itMovesInAnLShape">Вӑл Г-саспаллиллепе ҫӳрет</string>
+  <string name="knightIntro">Саншӑн пӗр чӗнни пур акӑ. Лаша... йӗтӗс кӗлетке вӑл.</string>
   <string name="knightsHaveAFancyWay">Лаша тӗлӗнтермӗш майпа 
 йӗри-тавра сиккелет!</string>
   <string name="knightsCanJumpOverObstacles">Лаша чӑрмав урлӑ сикме пултарать! Вырӑнтан сиксе тухса ҫӑлтӑрсене парӑнтарса тух!</string>
@@ -45,12 +48,13 @@
 Анчах та хӑмин хирӗҫ йенне ҫитсессӗн, хӑватлӑрах кӗлетке пулса кайать вӑл!</string>
   <string name="pawnsMoveForward">Салтак тӳрӗ ҫӳрет, 
 илсен диагональпе илет!</string>
+  <string name="aPawnOnTheSecondRank">Иккӗмӗш ретри салтак пӗрре ҫӳресех 2 клетка куҫма пултарать!</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Салтаку хӑмин вӗҫне ҫитрӗ!</string>
   <string name="selectThePieceYouWant">Кирлӗ кӗлетке суйла!</string>
   <string name="fundamentals">Никӗсӗсем</string>
   <string name="capture">Тытса илӳ</string>
-  <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене ил</string>
-  <string name="takeTheBlackPieces">Хура кӗлеткисене ил!</string>
+  <string name="takeTheEnemyPieces">Тӑшман кӗлеткисене тытса ил</string>
+  <string name="takeTheBlackPieces">Хура кӗлеткесене ил!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Хура кӗлеткисене ил! Хӑвӑннисене ҫухатма йурамасть.</string>
   <string name="captureComplete">Саламлатпӑр! Шахмат кӗлеткисемпе мӗнле ҫапӑҫнине пӗлетӗн есӗ!</string>
   <string name="protection">Хӳтӗленӳ</string>
@@ -80,10 +84,10 @@
   <string name="thenPlaceTheKnights">Унтан икӗ лаша ларт! Вӗсем пашне патӗнче тӑмалла.</string>
   <string name="placeTheBishops">Икӗ пил ларт! Вӗсем лаша патӗнче тӑмалла.</string>
   <string name="placeTheQueen">Ҫарпуҫа вырнаҫтар! 
-She goes on her own colour.</string>
+Ӑна хӑйӗн тӗсӗх ҫине тӑратмалла.</string>
   <string name="placeTheKing">Патшана вырнаҫтар! 
-Унӑн ҫарпуҫӗ патӗнчех.</string>
-  <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелеҫҫӗ.</string>
+Хайхин ҫарпуҫӗпе йунашарах.</string>
+  <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелесе тӑраҫҫӗ.</string>
   <string name="castling">Ылмашу</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
   <string name="castleKingSide">Кӗске ылмашу тӑвас тесе 
@@ -132,12 +136,14 @@ Take it en passant.</string>
 Салтак = 1</string>
   <string name="checkInTwo">Икӗ хусканури шах</string>
   <string name="whatNext">Малалли</string>
+  <string name="youKnowHowToPlayChess">Саламлатпӑр, есӗ шахмат никӗсӗсене вӗренсе ҫитрӗн! Вӑйлӑрах вӑйӑҫ пулма кӑмӑл пур-и-ха?</string>
   <string name="register">Регистратсилесси</string>
   <string name="getAFreeLichessAccount">Тӳлвесӗр Lichess аккаунта илесси</string>
   <string name="practice">Практика</string>
   <string name="puzzles">Лартӑмсем</string>
   <string name="videos">Курмасем</string>
   <string name="playPeople">Халӑхпа выльа</string>
+  <string name="opponentsFromAroundTheWorld">Пӗтӗм тӗнчерен пухӑннӑ ӑмӑртуҫӑсем</string>
   <string name="playMachine">Машинпа выльа</string>
   <string name="letsGo">Малалла!</string>
   <string name="stageX">%s сыпӑк</string>
@@ -155,5 +161,6 @@ Take it en passant.</string>
   <string name="yourScore">Пӑнчӑ шучӗ</string>
   <string name="next">Тепри</string>
   <string name="backToMenu">Менӳ патне таврӑн</string>
+  <string name="puzzleFailed">Лартӑма выльаса йанӑ!</string>
   <string name="retry">Тепӗр хут</string>
 </resources>
