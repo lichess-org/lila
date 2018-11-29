@@ -4,7 +4,7 @@ div.content_box {
   position: relative;
 }
 
-div.signup_box p.explanation {
+div.signup_box .explanation {
   font-size: 1.2em;
   margin-bottom: 2em;
 }

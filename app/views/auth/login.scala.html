@@ -1,31 +1,28 @@
 @(form: Form[_], referrer: Option[String])(implicit ctx: Context)
 
+@twoFactorHelp = {
+  <span data-icon="">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</span>
+  }
+
 @auth.layout(
 title = trans.signIn.txt(),
-moreJs = jsTag("login.js")) {
+moreJs = jsTag("login.js"),
+formCss = true) {
 <div class="content_box login">
   <div class="signup_box">
     <h1 class="lidraughts_title">@trans.signIn()</h1>
-    <form class="login" action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
+    <form class="form3 login" action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
       <div class="one-factor">
-        @globalError(form)
-        <ul>
-          @auth.formFields(form("username"), form("password"), none, register = false)
-        </ul>
+        @form3.globalError(form)
+        @auth.formFields(form("username"), form("password"), none, register = false)
+        @form3.action(form3.submit(trans.signIn(), icon = "F".some))
       </div>
       <div class="two-factor none">
+        @form3.group(form("token"), Html("Authentication code"), help = twoFactorHelp.some) { f =>
+        @form3.input(f, required = true, autocomplete = false, pattern = "[0-9]{6}".some)
+        }
         <p class="error none">Invalid code.</p>
-        <ul>
-          @defining(form("token")) { field =>
-          <li class="token">
-            <label for="@field.name">Authentication code</label>
-            <input type="text" id="@field.name" name="@field.name" autocomplete="off" pattern="[0-9]{6}" />
-            <p class="help" data-icon="" style="font-size:0.8em;margin-top:1em">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</p>
-          </li>
-          }
-        </ul>
-      </div>
-      <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
+        @form3.action(form3.submit(trans.signIn(), icon = "F".some))
     </form>
   </div>
   <div class="alternative">

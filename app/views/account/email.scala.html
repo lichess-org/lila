@@ -2,20 +2,19 @@
 
 @title = @{ s"${u.username} - ${trans.changeEmail.txt()}" }
 
-@account.layout(title = title, active = "email", evenMoreCss = cssTag("material.form.css")) {
+@account.layout(title = title, active = "email", evenMoreCss = cssTag("form3.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lidraughts_title">
       @trans.changeEmail()
       @if(ctx.req.queryString.contains("ok")) { <span class="is-green" data-icon="E"></span>}
     </h1>
-    <form class="material form" action="@routes.Account.emailApply" method="POST">
-      @passwdFormField(form("passwd"), trans.password())
-      @base.form.group(form("email"), trans.email()) { field =>
-      @base.form.input(field, typ = "email", required = true)
-      @errMsg(form("email"))
+    <form class="form3" action="@routes.Account.emailApply" method="POST">
+      @form3.password(form("passwd"), trans.password())
+      @form3.group(form("email"), trans.email()) { f =>
+      @form3.input(f, typ = "email", required = true)
       }
-      @base.form.submit()
+      @form3.action(form3.submit(trans.apply()))
     </form>
   </div>
 </div>

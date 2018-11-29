@@ -13,7 +13,7 @@
     data-x="@encodeFen(safeJsonValue(Json.toJson(captcha.moves)))"
     data-y="@encodeFen(if(captcha.white){"white"}else{"black"})"
     data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
-  <div class="explanation">
+  <div class="captcha-explanation">
     <label>@trans.colorPlaysCapture((if (captcha.white) trans.white else trans.black)())</label><br />
     <br />
     @trans.thisIsADraughtsCaptcha()<br />

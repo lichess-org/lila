@@ -95,7 +95,7 @@ final class DataForm(
 
   def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
-      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "passwd" -> passwordMapping(candidate),
       "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
     )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
       passwd = "",
@@ -106,7 +106,7 @@ final class DataForm(
   def setupTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "secret" -> nonEmptyText,
-      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "passwd" -> passwordMapping(candidate),
       "token" -> nonEmptyText
     )(TwoFactor.apply)(TwoFactor.unapply).verifying(
         "invalidAuthenticationCode",
@@ -120,7 +120,7 @@ final class DataForm(
 
   def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
     Form(tuple(
-      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "passwd" -> passwordMapping(candidate),
       "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
     ))
   }
@@ -131,7 +131,12 @@ final class DataForm(
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
-  val closeAccount = Form(single("passwd" -> nonEmptyText))
+  def closeAccount(u: User) = authenticator loginCandidate u map { candidate =>
+    Form(single("passwd" -> passwordMapping(candidate)))
+  }
+
+  private def passwordMapping(candidate: User.LoginCandidate) =
+    nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 }
 
 object DataForm {

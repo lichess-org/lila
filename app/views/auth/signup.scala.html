@@ -15,32 +15,29 @@
 @auth.layout(
 title = trans.signUp.txt(),
 moreJs = moreJs,
-csp = defaultCsp.withRecaptcha.some) {
+csp = defaultCsp.withRecaptcha.some,
+formCss = true) {
 <div class="content_box small_box signup">
   <div class="alternative">
     @trans.haveAnAccount()
-    <a href="@routes.Auth.login()" class="button" data-icon="F"> @trans.signIn()</a>
+    <a href="@routes.Auth.login()" class="text button" data-icon="F">@trans.signIn()</a>
   </div>
   <div class="signup_box">
     <h1 class="lidraughts_title">@trans.signUp()</h1>
-    <form id="signup_form" action="@routes.Auth.signupPost" method="POST">
-      <ul>
-        @auth.formFields(form("username"), form("password"), form("email").some, register = true)
-        <input id="signup-fp-input" name="fp" type="hidden" />
-        <li data-icon="">&nbsp;
-          @trans.computersAreNotAllowedToPlay()<br />
-          <small>
-            @trans.byRegisteringYouAgreeToBeBoundByOur(tosLink)
-          </small>
-        </li>
-        <li>
-          @if(recaptcha.enabled) {
-          <button class="g-recaptcha submit button text" data-icon="F" data-sitekey="@recaptcha.key" data-callback='signupSubmit'>@trans.signUp()</button>
-          } else {
-          <button class="submit button text" data-icon="F">@trans.signUp()</button>
-          }
-        </li>
-      </ul>
+    <form id="signup_form" class="form3" action="@routes.Auth.signupPost" method="POST">
+      @auth.formFields(form("username"), form("password"), form("email").some, register = true)
+      <input id="signup-fp-input" name="fp" type="hidden" />
+      <div class="form-group text" data-icon="">
+        @trans.computersAreNotAllowedToPlay()<br />
+        <small>@trans.byRegisteringYouAgreeToBeBoundByOur(tosLink)</small>
+      </div>
+      @form3.action {
+      @if(recaptcha.enabled) {
+      <button class="g-recaptcha submit button text big" data-icon="F" data-sitekey="@recaptcha.key" data-callback='signupSubmit'>@trans.signUp()</button>
+      } else {
+      @form3.submit(trans.signUp(), icon = "F".some, klass = "big")
+      }
+      }
     </form>
   </div>
 </div>

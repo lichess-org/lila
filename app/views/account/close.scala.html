@@ -2,25 +2,18 @@
 
 @title = @{ s"${u.username} - ${trans.closeAccount.txt()}" }
 
-@account.layout(title = title, active = "close", evenMoreCss = cssTag("material.form.css")) {
-<div class="content_box small_box high">
+@account.layout(title = title, active = "close", evenMoreCss = cssTag("form3.css")) {
+<div class="content_box small_box">
   <div class="signup_box">
-    <h1 class="lidraughts_title">@trans.closeAccount()</h1>
-    <p class="explanation">
-      @trans.closeAccountExplanation()
-    </p>
-    <form class="material form" action="@routes.Account.closeConfirm" method="POST">
-        @passwdFormField(form("passwd"), trans.password())
-        @errMsg(form)
-        <div class="button-container">
-          <button type="submit" class="submit button text">@trans.closeAccount()</button>
-        </div>
+    <h1 data-icon="j" class="lidraughts_title text">@trans.closeAccount()</h1>
+    <form class="form3" action="@routes.Account.closeConfirm" method="POST">
+      <div class="form-group">@trans.closeAccountExplanation()</div>
+      @form3.password(form("passwd"), trans.password())
+      @form3.actions {
+      <a href="@routes.User.show(u.username)">@trans.changedMindDoNotCloseAccount()</a>
+      @form3.submit(trans.closeAccount(), icon = "j".some)
+      }
     </form>
-    <br />
-    <br />
-    <a href="@routes.User.show(u.username)">
-      @trans.changedMindDoNotCloseAccount()
-    </a>
   </div>
 </div>
 }

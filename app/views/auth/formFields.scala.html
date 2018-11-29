@@ -1,35 +1,14 @@
 @(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context)
 
-<li class="username">
-  <label for="@username.id">@if(register){@trans.username()}else{@trans.usernameOrEmail()}</label>
-  <input
-  type="text"
-  required="required"
-  name="@username.name"
-  id="@username.id"
-  value="@username.value"
-  autofocus="true" />
-  @errMsg(username)
-  <p class="error exists none">@trans.usernameAlreadyUsed()</p>
-</li>
-<li class="password">
-  <label for="@password.id">@trans.password()</label>
-  <input
-  type="password"
-  required="required"
-  name="@password.name"
-  id="@password.id" />
-  @errMsg(password)
-</li>
+@form3.group(username, if(register) trans.username() else trans.usernameOrEmail()) { f =>
+@form3.input(f, required = true, autofocus = true)
+<p class="error exists none">@trans.usernameAlreadyUsed()</p>
+}
+@form3.group(password, trans.password()) { f =>
+@form3.input(f, typ = "password", required = true)
+}
 @emailOption.map { email =>
-<li class="email">
-  <label for="@email.id">@trans.email()</label>
-  <input
-  type="email"
-  required="required"
-  name="@email.name"
-  id="@email.id"
-  value="@email.value"/>
-  @errMsg(email)
-</li>
+@form3.group(email, trans.email()) { f =>
+@form3.input(f, typ = "email", required = true)
+}
 }

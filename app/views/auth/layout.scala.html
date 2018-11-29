@@ -1,12 +1,7 @@
 @(title: String, moreJs: Html = emptyHtml, csp: Option[lidraughts.common.ContentSecurityPolicy] = None, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("user-signup.css")
-@if(formCss) { @cssTag("form3.css") }
-}
-
 @base.layout(
 title = title,
-moreCss = moreCss,
+moreCss = cssTags(Map("user-signup.css" -> true, "form3.css" -> formCss)),
 moreJs = moreJs,
 csp = csp)(body)

@@ -27,7 +27,7 @@ form.material.form {
 .twofactor ol li {
   list-style: decimal;
 }
-.twofactor p.explanation {
+.twofactor .explanation {
   margin-bottom: 2em;
 }
 

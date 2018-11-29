@@ -1087,6 +1087,9 @@ table.slist thead {
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
 }
+.button.big {
+  font-size: 1.6em;
+}
 .undertable_top,
 .button,
 a.button,

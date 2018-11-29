@@ -206,23 +206,21 @@ object Account extends LidraughtsController {
   }
 
   def close = Auth { implicit ctx => me =>
-    Ok(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+    Env.security.forms closeAccount me map { form =>
+      Ok(html.account.close(me, form))
+    }
   }
 
   def closeConfirm = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    FormFuResult(Env.security.forms.closeAccount) { err =>
-      fuccess(html.account.close(me, err))
-    } { password =>
-      Env.user.authenticator.authenticateById(
-        me.id,
-        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.currentTotp))
-      ).map(_.isDefined) flatMap {
-          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-          case true => Env.current.closeAccount(me.id, self = true) inject {
-            Redirect(routes.User show me.username) withCookies LidraughtsCookie.newSession
-          }
+    Env.security.forms closeAccount me flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.close(me, err))
+      } { _ =>
+        Env.current.closeAccount(me.id, self = true) inject {
+          Redirect(routes.User show me.username) withCookies LidraughtsCookie.newSession
         }
+      }
     }
   }
 
