@@ -62,6 +62,7 @@ final class MapReduceAdapter[A: BSONDocumentReader](
           $doc(
             "mapreduce" -> collection.name,
             "query" -> $inIds(ids),
+            "sort" -> sort,
             "out" -> $doc("inline" -> true)
           ) ++ command,
           readPreference
