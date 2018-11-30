@@ -298,8 +298,8 @@
     <item quantity="one">Du må spille enda %s ratet parti</item>
     <item quantity="other">Du må spille enda %s ratede partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %s rating er midlertidig</string>
-  <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høy</string>
+  <string name="yourPerfRatingIsProvisional">%s-ratingen din er foreløpig</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s-ratingen din (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
