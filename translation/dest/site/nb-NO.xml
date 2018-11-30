@@ -287,12 +287,12 @@
     <item quantity="other">≥ %s ratede partier</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s ratet parti</item>
-    <item quantity="other">≥ %1$s %2%s ratede partier</item>
+    <item quantity="one">≥ %1$s ratet %2$s-parti</item>
+    <item quantity="other">≥ %1$s ratede %2$s-partier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du må spille enda %1$s %2$s ratet parti</item>
-    <item quantity="other">Du må spille enda %1$s %2$s ratede partier</item>
+    <item quantity="one">Du må spille enda %1$s ratet %2$s-parti</item>
+    <item quantity="other">Du må spille enda %1$s ratede %2$s-partier</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Du må spille enda %s ratet parti</item>
