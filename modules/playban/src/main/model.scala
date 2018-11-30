@@ -1,7 +1,7 @@
 package lila.playban
 
-import play.api.libs.json._
 import org.joda.time.DateTime
+import play.api.libs.json._
 
 case class UserRecord(
     _id: String,
@@ -64,6 +64,7 @@ case class TempBan(
 }
 
 object TempBan {
+
   implicit val tempbanWrites = Json.writes[TempBan]
 
   private def make(minutes: Int) = TempBan(
@@ -71,23 +72,23 @@ object TempBan {
     minutes atMost 48 * 60
   )
 
+  private val baseMinutes = 10
+
   /**
    * Create a playban. First offense: 10 min.
    * Multiplier of repeat offense after X days:
    * - 0 days: 3x
-   * - 0 - 5 days: linear scale from 3x to 1x
-   * - >5 days slow drop off
+   * - 0 - 3 days: linear scale from 3x to 1x
+   * - >3 days quick drop off
    */
-  def make(bans: List[TempBan]): TempBan = make(bans.lastOption.fold(10) { prev =>
-    prev.endsAt.toNow.getStandardHours.truncInt match {
-      case h if h < 120 => prev.mins * (180 - h) / 60
-      case h => {
-        // Scale cooldown period by total number of playbans
-        val t = (Math.sqrt(bans.size) * 20 * 24).toInt
-        (prev.mins * (t + 120 - h) / t)
+  def make(bans: List[TempBan]): TempBan = make {
+    bans.lastOption ?? { prev =>
+      prev.endsAt.toNow.getStandardHours.truncInt match {
+        case h if h < 72 => prev.mins * (132 - h) / 60
+        case h => prev.mins - Math.pow(h / 12, 1.5).toInt
       }
-    }
-  } atLeast (15 * bans.size + 10))
+    } atLeast baseMinutes
+  }
 }
 
 sealed abstract class Outcome(
