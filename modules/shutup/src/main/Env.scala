@@ -11,11 +11,8 @@ final class Env(
     db: lila.db.Env
 ) {
 
-  private val settings = new {
-    val CollectionShutup = config getString "collection.shutup"
-    val ActorName = config getString "actor.name"
-  }
-  import settings._
+  private val CollectionShutup = config getString "collection.shutup"
+  private val ActorName = config getString "actor.name"
 
   lazy val api = new ShutupApi(
     coll = coll,
