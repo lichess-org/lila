@@ -55,11 +55,12 @@ trait FormHelper { self: I18nHelper =>
       field: Field,
       name: Html,
       half: Boolean = false,
-      help: Option[Html] = None
+      help: Option[Html] = None,
+      disabled: Boolean = false
     ) = Html {
       val checked = field.value has "true"
       val open = s"""<div class="form-check form-group${half ?? " form-half"}">"""
-      val input = s"""<input class="cmn-toggle" type="checkbox" name="${field.name}" value="true"${checked ?? " checked"} id="${id(field)}">"""
+      val input = s"""<input class="cmn-toggle" type="checkbox" name="${field.name}" value="true"${checked ?? " checked"}${disabled ?? " disabled"} id="${id(field)}">"""
       val toggle = s"""<label for="${id(field)}"></label>"""
       val helper = help ?? { h => s"""<small class="form-help">$h</small>""" }
       s"""$open<div><span class="form-check-input">$input$toggle</span>${rawLabel(field, name)}</div>$helper</div>"""

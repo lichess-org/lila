@@ -1,9 +1,5 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("import.css")
-}
-
 @moreJs = {
 @embedJs {
 $("#import_game form").submit(function() {
@@ -12,9 +8,13 @@ setTimeout(function() { $(this).html(lichess.spinnerHtml); }.bind(this), 50);
 }
 }
 
+@analyseHelp = {
+  @if(ctx.isAnon) { <a class="blue" href="@routes.Auth.signup">@trans.youNeedAnAccountToDoThat()</a> }
+}
+
 @base.layout(
 title = trans.importGame.txt(),
-moreCss = moreCss,
+moreCss = cssTags("form3.css", "import.css"),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = "Paste PGN chess game",
@@ -23,25 +23,10 @@ description = "When pasting a game PGN, you get a browsable replay, a computer a
 <div id="import_game" class="content_box">
   <h1 data-icon="/" class="title"> @trans.importGame()</h1>
   <p class="explanation">@trans.importGameExplanation()</p>
-  <form class="import" action="@routes.Importer.sendGame()" method="post">
-    <label class="pgn">
-      <span>@trans.pasteThePgnStringHere():</span>
-      @defining(form("pgn")) { field =>
-      <textarea name="@field.name" id="@field.id">@field.value</textarea>
-      @errMsg(field)
-      }
-    </label>
-    <p class="analyse">
-      <span>
-        <input@if(ctx.isAnon){ disabled } name="@form("analyse").name" id="import_analyse" class="cmn-toggle" type="checkbox" />
-        <label for="import_analyse"></label>
-      </span>
-      <label for="import_analyse">
-        @trans.requestAComputerAnalysis()
-        @if(ctx.isAnon) { (<a class="blue" href="@routes.Auth.signup">@trans.youNeedAnAccountToDoThat()</a>) }
-      </label>
-    </p>
-    <button class="submit text button" type="submit" data-icon="G">@trans.importGame()</button>
+  <form class="form3 import" action="@routes.Importer.sendGame()" method="post">
+    @form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_))
+    @form3.checkbox(form("analyse"), trans.requestAComputerAnalysis(), help = analyseHelp.some, disabled = ctx.isAnon)
+    @form3.action(form3.submit(trans.importGame()))
   </form>
 </div>
 }
