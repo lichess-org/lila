@@ -3,11 +3,11 @@ package lila.playban
 import reactivemongo.bson._
 
 import chess.{ Status, Color }
+import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.BSON._
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.user.{ User, UserRepo }
-import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 
 final class PlaybanApi(
     coll: Coll,
@@ -165,24 +165,22 @@ final class PlaybanApi(
     case Some(record) => legiferate(record)
   } logFailure lila.log("playban")
 
-  private def legiferate(record: UserRecord): Funit = {
-    record.bannable ?? { ban =>
-      (!record.banInEffect) ?? {
-        lila.mon.playban.ban.count()
-        lila.mon.playban.ban.mins(ban.mins)
-        bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
-        coll.update(
-          $id(record.userId),
-          $unset("o") ++
-            $push(
-              "b" -> $doc(
-                "$each" -> List(ban),
-                "$slice" -> -30
-              )
+  private def legiferate(record: UserRecord): Funit = record.bannable ?? { ban =>
+    (!record.banInEffect) ?? {
+      lila.mon.playban.ban.count()
+      lila.mon.playban.ban.mins(ban.mins)
+      bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
+      coll.update(
+        $id(record.userId),
+        $unset("o") ++
+          $push(
+            "b" -> $doc(
+              "$each" -> List(ban),
+              "$slice" -> -30
             )
-        ).void
-      }
-
+          )
+      ).void
     }
+
   }
 }
