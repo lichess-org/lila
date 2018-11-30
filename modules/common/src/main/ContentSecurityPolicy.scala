@@ -59,7 +59,7 @@ case class ContentSecurityPolicy(
   )
 
   private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(
-    scriptSrc = "http://static.cdn.prismic.io" :: scriptSrc,
+    scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
     frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,
     connectSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: connectSrc
   )
