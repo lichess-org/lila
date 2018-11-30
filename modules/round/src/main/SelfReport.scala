@@ -25,12 +25,14 @@ final class SelfReport(
         lila.log("cheat").branch("jslog").info(
           s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
         )
-        slackApi.selfReport(
-          typ = name,
-          path = fullId,
-          user = user,
-          ip = ip
-        )
+        user ?? { u =>
+          slackApi.selfReport(
+            typ = name,
+            path = fullId,
+            user = u,
+            ip = ip
+          )
+        }
       }
       if (fullId == "________") fuccess(doLog)
       else lila.game.GameRepo pov fullId map {

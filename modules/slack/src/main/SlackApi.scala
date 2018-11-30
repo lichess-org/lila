@@ -92,10 +92,10 @@ final class SlackApi(
     channel = rooms.tavernBots
   ))
 
-  def selfReport(typ: String, path: String, user: Option[User], ip: IpAddress): Funit = client(SlackMessage(
+  def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit = client(SlackMessage(
     username = "Self Report",
     icon = "kms",
-    text = s"[*$typ*] ${user.fold("Anon")(userLink)}@$ip ${gameLink(path)}",
+    text = s"[*$typ*] ${userLink(user)}@$ip ${gameLink(path)}",
     channel = rooms.tavernBots
   ))
 
