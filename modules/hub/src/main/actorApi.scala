@@ -169,7 +169,6 @@ package timeline {
     case class Users(users: List[String]) extends Propagation
     case class Followers(user: String) extends Propagation
     case class Friends(user: String) extends Propagation
-    case class StaffFriends(user: String) extends Propagation
     case class ExceptUser(user: String) extends Propagation
     case class ModsOnly(value: Boolean) extends Propagation
   }
@@ -181,7 +180,6 @@ package timeline {
     def toUser(id: String) = add(Users(List(id)))
     def toFollowersOf(id: String) = add(Followers(id))
     def toFriendsOf(id: String) = add(Friends(id))
-    def toStaffFriendsOf(id: String) = add(StaffFriends(id))
     def exceptUser(id: String) = add(ExceptUser(id))
     def modsOnly(value: Boolean) = add(ModsOnly(value))
     private def add(p: Propagation) = copy(propagations = p :: propagations)

@@ -11,7 +11,6 @@
 	</thead>
 	<tbody>
 		@categs.map { categ =>
-		@if(!categ.categ.isStaff || isGranted(_.StaffForum)) {
 		<tr>
 			<td class="subject">
 				<a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>
@@ -28,7 +27,6 @@
 			</td>
 		</td>
 	</tr>
-	}
 	}
 </tbody>
 </table>

@@ -5,7 +5,6 @@ private[forumSearch] object Fields {
   val topic = "to"
   val topicId = "ti"
   val author = "au"
-  val staff = "st"
   val troll = "tr"
   val date = "da"
 }

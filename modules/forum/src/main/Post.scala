@@ -37,8 +37,6 @@ case class Post(
 
   def isTeam = categId startsWith teamSlug("")
 
-  def isStaff = categId == Categ.staffId
-
   def updatedOrCreatedAt = updatedAt | createdAt
 
   def canStillBeEdited =

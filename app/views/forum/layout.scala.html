@@ -1,9 +1,8 @@
-@(title: String, searchText: String = "", side: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = emptyHtml, formCss: Boolean = false, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, searchText: String = "", side: Option[Html] = None, moreJs: Html = emptyHtml, formCss: Boolean = false, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
 side = side,
-menu = menu,
 moreCss = cssTags(Map("forum.css" -> true, "form3.css" -> formCss)),
 moreJs = moreJs,
 openGraph = openGraph) {

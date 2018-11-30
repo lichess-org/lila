@@ -47,7 +47,7 @@ final class Env(
     'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy, 'streamStart
   ) {
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
-      case lila.forum.actorApi.CreatePost(post, topic) if !topic.isStaff => write.forumPost(post, topic)
+      case lila.forum.actorApi.CreatePost(post, topic) => write.forumPost(post, topic)
       case res: lila.puzzle.Puzzle.UserResult => write puzzle res
       case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
       case lila.simul.Simul.OnStart(simul) => write simul simul

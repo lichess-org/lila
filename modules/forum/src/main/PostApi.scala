@@ -64,8 +64,7 @@ final class PostApi(
               } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
                   timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
-                    if (post.isStaff) prop toStaffFriendsOf userId
-                    else prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                    prop toFollowersOf userId toUsers topicUserIds exceptUser userId
                   }
                 }
                 lila.mon.forum.post.create()

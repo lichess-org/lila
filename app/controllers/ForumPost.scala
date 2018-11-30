@@ -14,9 +14,7 @@ object ForumPost extends LilaController with ForumController {
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
       if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
-      else Env.forumSearch(text, page, isGranted(_.StaffForum), ctx.troll) map { paginator =>
-        html.forum.search(text, paginator)
-      }
+      else Env.forumSearch(text, page, ctx.troll) map { html.forum.search(text, _) }
     }
   }
 

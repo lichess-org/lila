@@ -36,9 +36,6 @@ private[timeline] final class Push(
       case Users(ids) => fuccess(ids)
       case Followers(id) => getFollowerIds(id)
       case Friends(id) => getFriendIds(id)
-      case StaffFriends(id) => getFriendIds(id) flatMap UserRepo.byIdsSecondary map {
-        _ filter Granter(_.StaffForum) map (_.id)
-      }
       case ExceptUser(_) => fuccess(Nil)
       case ModsOnly(_) => fuccess(Nil)
     }.sequence flatMap { users =>

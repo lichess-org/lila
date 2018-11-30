@@ -42,16 +42,14 @@ object ForumTopic extends LilaController with ForumController {
 
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      CategGrantRead(categSlug) {
-        OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
-          case (categ, topic, posts) => for {
-            unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
-            canWrite <- isGrantedWrite(categSlug)
-            form <- (!posts.hasNextPage && canWrite && topic.open) ?? forms.postWithCaptcha.map(_.some)
-            canModCateg <- isGrantedMod(categ.slug)
-            _ <- Env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
-          } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
-        }
+      OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
+        case (categ, topic, posts) => for {
+          unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
+          canWrite <- isGrantedWrite(categSlug)
+          form <- (!posts.hasNextPage && canWrite && topic.open) ?? forms.postWithCaptcha.map(_.some)
+          canModCateg <- isGrantedMod(categ.slug)
+          _ <- Env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
+        } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
       }
     }
   }

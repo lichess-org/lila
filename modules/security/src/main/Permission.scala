@@ -10,7 +10,6 @@ object Permission {
   type Selector = Permission.type => Permission
 
   case object ViewBlurs extends Permission("ROLE_VIEW_BLURS")
-  case object StaffForum extends Permission("ROLE_STAFF_FORUM")
   case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
 
   case object ModerateQa extends Permission("ROLE_MODERATE_QA")
@@ -59,7 +58,7 @@ object Permission {
   case object Prismic extends Permission("ROLE_PRISMIC")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
-    ViewBlurs, MarkEngine, MarkBooster, StaffForum,
+    ViewBlurs, MarkEngine, MarkBooster,
     UserSpy, UserEvaluate, SeeReport, ModLog, SeeInsight,
     UserSearch, ModNote, RemoveRanking, ModMessage
   ))
@@ -77,7 +76,7 @@ object Permission {
   ))
 
   lazy val allButSuperAdmin: List[Permission] = List(
-    Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
+    Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
     PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan,
