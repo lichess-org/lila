@@ -648,7 +648,7 @@ en %3$s</string>
   <string name="videoLibrary">Vidéothèque</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
-  <string name="about">À propos de</string>
+  <string name="about">À propos</string>
   <string name="aboutX">Environ %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est gratuit (%2$s), libre, sans pubs, serveur d\'échecs avec source ouverte.</string>
   <string name="really">pour de vrai</string>
