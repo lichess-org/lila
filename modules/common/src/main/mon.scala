@@ -98,8 +98,8 @@ object mon {
     }
     object upgrade {
       val hit = incX("eval_Cache.upgrade.hit")
-      val members = rec("eval_Cache.upgrade.hit")
-      val evals = rec("eval_Cache.upgrade.hit")
+      val members = rec("eval_Cache.upgrade.members")
+      val evals = rec("eval_Cache.upgrade.evals")
     }
   }
   object lobby {
