@@ -29,6 +29,8 @@ final class Env(
 
   private val clientVersion = new ClientVersion(ClientMinVersion)
 
+  private val reporter = new ErrorReporter(asyncCache = asyncCache)
+
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,
     clientColl = clientColl,

@@ -115,4 +115,40 @@ ${Mailgun.txt.serviceNote}
 </div>""").some
     )
   }
+
+  def onFishnetError(userId: User.ID, desc: String)(implicit lang: Lang): Funit = for {
+    user <- UserRepo named userId flatten s"No such user $userId"
+    emailOption <- UserRepo email user.id
+  } yield emailOption ?? { email =>
+
+    val body = s"""Hello,
+
+Thank you for contributing to lichess game analysis. Your efforts are appreciated.
+
+Our monitoring detected the following issue:
+
+$desc
+
+If you have any question, you may ask them by replying to this email.
+
+Regards,
+
+The lichess team
+"""
+
+    mailgun send Mailgun.Message(
+      to = email,
+      subject = "We have detected an issue with your fishnet node.",
+      text = s"""
+$body
+
+${Mailgun.txt.serviceNote}
+""",
+      htmlBody = Html(s"""
+<div itemscope itemtype="http://schema.org/EmailMessage">
+  <p itemprop="description">${nl2brUnsafe(body)}</p>
+  ${Mailgun.html.serviceNote}
+</div>""").some
+    )
+  }
 }

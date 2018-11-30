@@ -217,6 +217,7 @@ package fishnet {
       moves: List[Uci],
       userId: String
   )
+  case class FishnetError(userId: String, desc: String)
 }
 
 package user {
