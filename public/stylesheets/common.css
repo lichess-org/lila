@@ -1796,15 +1796,15 @@ div.lichess_overboard .close:hover {
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-input.cmn-toggle-round + label {
+input.cmn-toggle + label {
   padding: 1px;
   width: 34px;
   height: 20px;
   background-color: #aaa;
   border-radius: 20px;
 }
-input.cmn-toggle-round + label::before,
-input.cmn-toggle-round + label::after {
+input.cmn-toggle + label::before,
+input.cmn-toggle + label::after {
   display: block;
   position: absolute;
   top: 1px;
@@ -1812,27 +1812,27 @@ input.cmn-toggle-round + label::after {
   bottom: 1px;
   content: "";
 }
-input.cmn-toggle-round + label::before {
+input.cmn-toggle + label::before {
   right: 1px;
   background-color: #ccc;
   border-radius: 20px;
 }
-input.cmn-toggle-round:hover + label::before {
+input.cmn-toggle:hover + label::before {
   transition: background 0.2s;
 }
-input.cmn-toggle-round + label::after {
+input.cmn-toggle + label::after {
   width: 20px;
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 }
-input.cmn-toggle-round:hover + label::after {
+input.cmn-toggle:hover + label::after {
   transition: margin 0.2s;
 }
-input.cmn-toggle-round:checked + label::before {
+input.cmn-toggle:checked + label::before {
   background-color: rgba(117, 153, 0, 0.4)!important;
 }
-input.cmn-toggle-round:checked + label::after {
+input.cmn-toggle:checked + label::after {
   margin-left: 14px;
 }
 .hopscotch-content a {

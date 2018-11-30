@@ -36,6 +36,9 @@ trait FormHelper { self: I18nHelper =>
       s"""<div class="form-split">$html</div>"""
     }
 
+    private def rawLabel(field: Field, content: Html) =
+      s"""<label class="form-label" for="${id(field)}">$content</label>"""
+
     def group(
       field: Field,
       name: Html,
@@ -44,9 +47,8 @@ trait FormHelper { self: I18nHelper =>
       help: Option[Html] = None
     )(html: Field => Html)(implicit ctx: Context) = Html {
       val classes = s"""form-group${field.hasErrors ?? " is-invalid"}${half ?? " form-half"} $klass"""
-      val label = s"""<label for="${id(field)}">$name</label>"""
       val helper = help ?? { h => s"""<small class="form-help">$h</small>""" }
-      s"""<div class="$classes">$label${html(field)}${errMsg(field)}$helper</div>"""
+      s"""<div class="$classes">${rawLabel(field, name)}${html(field)}${errMsg(field)}$helper</div>"""
     }
 
     def checkbox(
@@ -57,10 +59,10 @@ trait FormHelper { self: I18nHelper =>
     ) = Html {
       val checked = field.value has "true"
       val open = s"""<div class="form-check form-group${half ?? " form-half"}">"""
-      val input = s"""<input class="form-check-input" type="checkbox" name="${field.name}" value="true"${checked ?? " checked"} id="${id(field)}">"""
-      val label = s"""<label class="form-check-label" for="${id(field)}">$name</label>"""
-      val helper = help ?? { h => s"""<br><small class="form-help">$h</small>""" }
-      s"""$open$input$label$helper</div>"""
+      val input = s"""<input class="cmn-toggle" type="checkbox" name="${field.name}" value="true"${checked ?? " checked"} id="${id(field)}">"""
+      val toggle = s"""<label for="${id(field)}"></label>"""
+      val helper = help ?? { h => s"""<small class="form-help">$h</small>""" }
+      s"""$open<div><span class="form-check-input">$input$toggle</span>${rawLabel(field, name)}</div>$helper</div>"""
     }
 
     def select(

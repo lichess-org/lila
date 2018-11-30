@@ -183,7 +183,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
-    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle-round', {
+    h('input#analyse-toggle-ceval.cmn-toggle', {
       attrs: {
         type: 'checkbox',
         checked: enabled

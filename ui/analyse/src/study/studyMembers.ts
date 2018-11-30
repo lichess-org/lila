@@ -208,7 +208,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }, [
       h('div.role', [
         h('div.switch', [
-          h('input.cmn-toggle.cmn-toggle-round', {
+          h('input.cmn-toggle', {
             attrs: {
               id: roleId,
               type: 'checkbox',

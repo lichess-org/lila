@@ -14,7 +14,7 @@
     data-y="@encodeFen(if(captcha.white){"white"}else{"black"})"
     data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
   <div class="captcha-explanation">
-    <label>@trans.colorPlaysCheckmateInOne((if (captcha.white) trans.white else trans.black)())</label><br />
+    <label class="form-label">@trans.colorPlaysCheckmateInOne((if (captcha.white) trans.white else trans.black)())</label><br />
     <br />
     @trans.thisIsAChessCaptcha()<br />
     @trans.clickOnTheBoardToMakeYourMove()
