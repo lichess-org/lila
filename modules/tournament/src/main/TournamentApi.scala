@@ -59,7 +59,7 @@ final class TournamentApi(
       system = System.Arena,
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
-      berserkable = setup.berserkable.pp("berserkable") | true
+      berserkable = setup.berserkable | true
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
