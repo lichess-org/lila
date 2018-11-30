@@ -197,7 +197,7 @@ export default class RoundController {
     userJump = (ply: Ply): void => {
         this.cancelMove();
         this.draughtsground.selectSquare(null);
-        this.jump(ply);
+        if (!this.jump(ply)) this.redraw();
     };
 
     isPlaying = () => game.isPlayerPlaying(this.data);
