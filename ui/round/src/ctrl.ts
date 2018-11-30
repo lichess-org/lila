@@ -246,7 +246,7 @@ export default class RoundController {
           socketOpts.millis = moveMillis;
           if (socketOpts.millis < 3) {
             // instant move, no premove? might be fishy
-            $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+            $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + Math.round(socketOpts.millis));
           }
         }
       }
