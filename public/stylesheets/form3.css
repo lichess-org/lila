@@ -16,7 +16,7 @@
   flex: 0 0 31%;
 }
 
-.form3 label {
+.form3 .form-label {
   font-weight: bold;
   display: inline-block;
   margin-bottom: .5rem;
@@ -65,24 +65,15 @@ body.dark .form3 .form-help {
   color: #8a9299;
 }
 
-.form3 .form-check {
-  position: relative;
-  display: block;
-  padding-left: 1.25rem;
+.form3 .form-check div {
+  display: flex;
 }
 
 .form3 .form-check-input {
-  position: absolute;
-  margin-top: 0.3rem;
-  margin-left: -1.25rem;
-  cursor: pointer;
+  margin-right: 0.5rem;
 }
 
-.form3 .form-check-input:disabled ~ .form-check-label {
-  color: #6c757d;
-}
-
-.form3 .form-check-label {
+.form3 .form-check .form-label {
   margin-bottom: 0;
   cursor: pointer;
 }
@@ -129,7 +120,7 @@ body.dark .form3 .form-help {
 .form3 .captcha.is-invalid .captcha-explanation {
   padding: 1em;
 }
-.form3 .captcha .captcha-explanation label {
+.form3 .captcha .captcha-explanation .form-label {
   display: block;
   width: 310px;
 }

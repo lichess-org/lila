@@ -515,13 +515,13 @@ body.dark div.eval_gauge tick {
 body.dark div.side_box .game_infos .variant-link {
   border-color: #8c8c8c;
 }
-body.dark input.cmn-toggle-round + label {
+body.dark input.cmn-toggle + label {
   background-color: #888;
 }
-body.dark input.cmn-toggle-round + label:before {
+body.dark input.cmn-toggle + label:before {
   background-color: #555;
 }
-body.dark input.cmn-toggle-round + label:after {
+body.dark input.cmn-toggle + label:after {
   background-color: #aaa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }

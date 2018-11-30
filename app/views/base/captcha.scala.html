@@ -14,7 +14,7 @@
     data-y="@encodeFen(if(captcha.white){"white"}else{"black"})"
     data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
   <div class="captcha-explanation">
-    <label>@trans.colorPlaysCapture((if (captcha.white) trans.white else trans.black)())</label><br />
+    <label class="form-label">@trans.colorPlaysCapture((if (captcha.white) trans.white else trans.black)())</label><br />
     <br />
     @trans.thisIsADraughtsCaptcha()<br />
     @trans.clickOnTheBoardToMakeYourMove()

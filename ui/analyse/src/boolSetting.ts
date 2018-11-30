@@ -18,7 +18,7 @@ export function boolSetting(o: BoolSetting, trans: Trans, redraw: Redraw) {
   } : {}, [
     h('label', { attrs: { 'for': fullId } }, trans.noarg(o.name)),
     h('div.switch', [
-      h('input#' + fullId + '.cmn-toggle.cmn-toggle-round', {
+      h('input#' + fullId + '.cmn-toggle', {
         attrs: {
           type: 'checkbox',
           checked: o.checked
