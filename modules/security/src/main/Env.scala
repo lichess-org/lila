@@ -51,7 +51,6 @@ final class Env(
   private val NetEmail = config getString "net.email"
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
   private val CsrfEnabled = config getBoolean "csrf.enabled"
-  private val BannedYoutubeIds = config getString "banned_youtube_ids" split " " toList
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
@@ -172,7 +171,7 @@ final class Env(
       text = "Spam keywords separated by a comma".some
     )
 
-  lazy val spam = new Spam(spamKeywordsSetting.get, BannedYoutubeIds)
+  lazy val spam = new Spam(spamKeywordsSetting.get)
 
   scheduler.once(15 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)

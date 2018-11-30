@@ -1,8 +1,9 @@
 package lidraughts.security
 
+import lila.common.constants.bannedYoutubeIds
+
 final class Spam(
-    spamKeywords: () => lidraughts.common.Strings,
-    bannedYoutubeIds: List[String]
+    spamKeywords: () => lidraughts.common.Strings
 ) {
 
   def detect(text: String) = staticBlacklist.exists(text.contains) ||
