@@ -33,10 +33,13 @@ description = "When pasting a game PGN, you get a browsable replay, a computer a
     </label>
     <p class="analyse">
       <span>
-        <input name="@form("analyse").name" id="import_analyse" class="cmn-toggle cmn-toggle-round" type="checkbox" />
+        <input@if(ctx.isAnon){ disabled } name="@form("analyse").name" id="import_analyse" class="cmn-toggle cmn-toggle-round" type="checkbox" />
         <label for="import_analyse"></label>
       </span>
-      <label for="import_analyse">@trans.requestAComputerAnalysis()</label>
+      <label for="import_analyse">
+        @trans.requestAComputerAnalysis()
+        @if(ctx.isAnon) { (<a class="blue" href="@routes.Auth.signup">@trans.youNeedAnAccountToDoThat()</a>) }
+      </label>
     </p>
     <button class="submit text button" type="submit" data-icon="G">@trans.importGame()</button>
   </form>
