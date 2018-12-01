@@ -113,7 +113,7 @@ final class StudySearchApi(
         Enumeratee.grouped(Iteratee takeUpTo 12) |>>>
         Iteratee.foldM[Seq[Study], Int](0) {
           case (nb, studies) => studies.map { study =>
-            lidraughts.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
+            lidraughts.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)(system)
           }.sequenceFu inject {
             studies.headOption.ifTrue(nb % 100 == 0) foreach { study =>
               logger.info(s"Indexed $nb studies - ${study.createdAt}")
