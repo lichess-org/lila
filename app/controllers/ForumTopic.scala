@@ -31,7 +31,7 @@ object ForumTopic extends LilaController with ForumController {
             BadRequest(html.forum.topic.form(categ, err, captcha))
           },
           data => CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-            topicApi.makeTopic(categ, data.pp) map { topic =>
+            topicApi.makeTopic(categ, data) map { topic =>
               Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
             }
           }
