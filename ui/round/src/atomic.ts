@@ -18,7 +18,7 @@ export function capture(ctrl: RoundController, key: cg.Key) {
       exploding.push(k);
       //const explodes = pieces[k] && (k === key || pieces[k].role !== 'pawn')
       const explodes = pieces[k] && (k === key)
-      if (explodes) diff[k] = null;
+      if (explodes) diff[k] = undefined;
     }
   }
   ctrl.draughtsground.setPieces(diff);

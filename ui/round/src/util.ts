@@ -60,7 +60,7 @@ export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
     black: { king: 0, man: 0 }
   };
   for (let k in pieces) {
-    const p = pieces[k];
+    const p = pieces[k]!;
     if (p.role != "ghostman" && p.role != "ghostking") {
       const them = diff[opposite(p.color)]
       if (them[p.role] > 0) them[p.role]--;
@@ -73,7 +73,7 @@ export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
 export function getScore(pieces: cg.Pieces): number {
   let score = 0, k;
   for (k in pieces) {
-    score += pieceScores[pieces[k].role] * (pieces[k].color === 'white' ? 1 : -1);
+    score += pieceScores[pieces[k]!.role] * (pieces[k]!.color === 'white' ? 1 : -1);
   }
   return score;
 }

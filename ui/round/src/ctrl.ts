@@ -388,7 +388,7 @@ export default class RoundController {
             }
             if (o.enpassant) {
                 const p = o.enpassant, pieces: cg.PiecesDiff = {};
-                pieces[p.key] = null;
+                pieces[p.key] = undefined;
                 this.draughtsground.setPieces(pieces);
                 if (d.game.variant.key === 'atomic') {
                     atomic.enpassant(this, p.key, p.color);
