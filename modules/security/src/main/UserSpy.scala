@@ -1,8 +1,8 @@
 package lila.security
 
-import scala.collection.breakOut
-import reactivemongo.api.ReadPreference
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+import scala.collection.breakOut
 
 import lila.common.IpAddress
 import lila.db.dsl._
@@ -55,6 +55,11 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
     prints = prints,
     usersSharingIp = sharingIp,
     usersSharingFingerprint = sharingFingerprint
+  )
+
+  private[security] def userHasPrint(u: User): Fu[Boolean] = coll.exists(
+    $doc("user" -> u.id, "fp" $exists true),
+    readPreference = ReadPreference.secondaryPreferred
   )
 
   private def exploreSimilar(field: String)(user: User)(implicit coll: Coll): Fu[Set[User]] =

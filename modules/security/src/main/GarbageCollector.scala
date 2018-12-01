@@ -1,8 +1,8 @@
 package lila.security
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 import play.api.mvc.RequestHeader
+import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, IpAddress, HTTPRequest }
 import lila.user.{ User, UserRepo }
@@ -18,41 +18,51 @@ final class GarbageCollector(
 
   private val done = new lila.memo.ExpireSetMemo(10 minutes)
 
+  private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader)
+
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
       val ip = HTTPRequest lastRemoteAddress req
-      debug(email, s"${user.username} $email $ip", "pre")
-      system.scheduler.scheduleOnce(1 minute) {
-        apply(user, ip, email, req)
+      system.scheduler.scheduleOnce(6 seconds) {
+        val applyData = ApplyData(user, ip, email, req)
+        lila.common.Future.retry(
+          () => ensurePrintAvailable(applyData),
+          delay = 10 seconds,
+          retries = 5,
+          logger = none
+        )(system).nevermind >> apply(applyData)
       }
     }
 
-  private def apply(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader): Funit =
-    userSpy(user) flatMap { spy =>
-      system.lilaBus.publish(
-        lila.security.Signup(user, email, req, spy.prints.headOption.map(_.value)),
-        'userSignup
-      )
-      debug(email, spy, s"spy ${user.username}")
-      badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-        debug(email, others.map(_.id), s"others ${user.username}")
-        lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
-          _ ?? {
-            val ipBan = spy.usersSharingIp.forall { u =>
-              isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
-            }
-            if (!done.get(user.id)) {
-              collect(user, email, others, ipBan)
-              done put user.id
+  private def ensurePrintAvailable(data: ApplyData): Funit =
+    userSpy userHasPrint data.user flatMap {
+      case false => fufail("No print available yet")
+      case _ => funit
+    }
+
+  private def apply(data: ApplyData): Funit = data match {
+    case ApplyData(user, ip, email, req) =>
+      userSpy(user) flatMap { spy =>
+        system.lilaBus.publish(
+          lila.security.Signup(user, email, req, spy.prints.headOption.map(_.value)),
+          'userSignup
+        )
+        badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+          lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
+            _ ?? {
+              val ipBan = spy.usersSharingIp.forall { u =>
+                isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
+              }
+              if (!done.get(user.id)) {
+                collect(user, email, others, ipBan)
+                done put user.id
+              }
             }
           }
         }
       }
-    }
-
-  private def debug(email: EmailAddress, stuff: Any, as: String = "-") =
-    if (email.value contains "iralas".reverse) logger.info(s"GC debug $as: $stuff")
+  }
 
   private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
     val others = accounts.toList
