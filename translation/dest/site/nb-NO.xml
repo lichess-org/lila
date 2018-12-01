@@ -222,7 +222,7 @@
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>
   <string name="loginToChat">Logg inn for å chatte</string>
-  <string name="youHaveBeenTimedOut">Tidsavbrudd.</string>
+  <string name="youHaveBeenTimedOut">Du har fått timeout.</string>
   <string name="spectatorRoom">Tilskuerrom</string>
   <string name="composeMessage">Skriv melding</string>
   <string name="noNewMessages">Ingen nye meldinger</string>
