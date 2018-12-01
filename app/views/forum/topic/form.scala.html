@@ -26,7 +26,7 @@
   @form3.actions {
   <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
   @if(isGranted(_.PublicMod)){
-  @form3.submit(Html("Create as mod"), nameValue = ("post.modIcon", "true").some, icon = "".some)
+  @form3.submit(Html("Create as mod"), nameValue = (form("post")("modIcon").name, "true").some, icon = "".some)
   }
   @form3.submit(trans.createTheTopic())
   }
