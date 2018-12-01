@@ -175,7 +175,7 @@
   <string name="rankX">Plassering: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Plassering oppdateres hvert %s minutt</string>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s nøtter</item>
+    <item quantity="one">%s nøtt</item>
     <item quantity="other">%s nøtter</item>
   </plurals>
   <string name="gamesPlayed">partier spilt</string>
