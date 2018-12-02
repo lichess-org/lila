@@ -194,9 +194,24 @@ export function view(ctrl): VNode {
           ]) : null,
           activeTab === 'pdn' ? h('div.form-group.no-label', [
             h('textarea#chapter-pdn', {
-              attrs: { placeholder: 'Paste your PDN(s) here, up to ' + ctrl.multiPdnMax + ' games, each separated by an empty line' }
+              attrs: { placeholder: 'Paste your PDN text, up to ' + ctrl.multiPdnMax + ' games, each separated by an empty line' }
             }),
-            h('i.bar')
+            h('i.bar'),
+            window.FileReader ? h('input#chapter-pdn-file', {
+              attrs: {
+                type: 'file',
+                accept: '.pdn'
+              },
+              hook: bind('change', e => {
+                const file = (e.target as HTMLInputElement).files![0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function() {
+                  (document.getElementById('chapter-pdn') as HTMLTextAreaElement).value = reader.result as string;
+                };
+                reader.readAsText(file);
+              })
+            }) : null
           ]) : null,
           h('div', [
             h('div.form-group.half.little-margin-bottom', [
