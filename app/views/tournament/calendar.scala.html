@@ -5,7 +5,7 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.tournament-calendar${isProd??(".min")}.js")
+@jsAt(s"compiled/lichess.tournamentCalendar${isProd??(".min")}.js")
 @embedJs {
 var app = LichessTournamentCalendar.app(document.getElementById('tournament_calendar'), {
 data: @safeJson(json),

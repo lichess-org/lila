@@ -33,7 +33,7 @@ libraryDependencies ++= Seq(
   scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
-  kamon.core, kamon.influxdb,
+  kamon.core, kamon.influxdb, scalatags,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
 )
 TwirlKeys.templateImports ++= Seq(
