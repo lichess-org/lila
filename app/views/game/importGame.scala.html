@@ -23,7 +23,9 @@ description = "When pasting a game PDN, you get a browsable replay, a computer a
       _ => none
       )
     }
-    @form3.group(form("pdnFile"), Html("Or upload a PDN file"), klass = "upload")(form3.input(_, typ = "file"))
+    @form3.group(form("pdnFile"), Html("Or upload a PDN file"), klass = "upload") { f =>
+    @form3.file.pdn(f.name)
+    }
     @form3.checkbox(form("analyse"), trans.requestAComputerAnalysis(), help = analyseHelp.some, disabled = ctx.isAnon)
     @form3.action(form3.submit(trans.importGame()))
   </form>
