@@ -411,7 +411,7 @@ object Study extends LidraughtsController {
   private[controllers] def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lidraughts.api.Context) =
     if (canView(study)) f
     else negotiate(
-      html = fuccess(Unauthorized(html.study.restricted(study))),
+      html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),
       api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
     )
 

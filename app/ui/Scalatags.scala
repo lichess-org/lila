@@ -5,18 +5,18 @@ import play.twirl.api.Html
 import scalatags.Text.all.{ genericAttr, attr }
 import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue }
 
-object Scalatags {
+object Scalatags extends Scalatags
 
-  type Ttag = TypedTag[String]
+trait Scalatags {
 
   /* Feed frags back to twirl by converting them to rendered Html */
-  implicit def toPlayHtml(frag: Frag): Html = Html(frag.render)
+  implicit def fragToPlayHtml(frag: Frag): Html = Html(frag.render)
+
+  /* Use play Html inside tags without double-encoding */
+  implicit def playHtmlToFrag(html: Html): Frag = RawFrag(html.body)
 
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
-
-  /* Use play Html inside tags without double-encoding */
-  implicit def playHtmlFrag(html: Html): Frag = RawFrag(html.body)
 
   lazy val dataIcon = attr("data-icon")
 

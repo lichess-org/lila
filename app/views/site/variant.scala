@@ -6,7 +6,6 @@ import scalatags.Text.all._
 import controllers.routes
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.app.ui.Scalatags._
 
 object variant {
 
