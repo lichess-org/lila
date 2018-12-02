@@ -16,7 +16,7 @@ moreCss = cssTags("form3.css", "coach.form.css")) {
     }
     @helper.form(action = routes.Coach.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
     <p>Max size: @{lila.db.Photographer.uploadMaxMb}MB.</p>
-    <input type="file" name="picture">
+    @form3.file.image("picture")
     <button type="submit" class="button">Upload profile picture</button>
     }
     @if(c.coach.hasPicture) {

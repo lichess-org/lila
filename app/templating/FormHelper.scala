@@ -125,6 +125,11 @@ trait FormHelper { self: I18nHelper =>
       s"""<input class="flatpickr form-control" data-enable-time="$withTime" data-time_24hr="$withTime" value="${~field.value}" name="${field.name}" id="${id(field)}">"""
     }
 
+    object file {
+      def image(name: String) = Html { s"""<input type="file" name="$name" accept="image/*">""" }
+      def pgn(name: String) = Html { s"""<input type="file" name="$name" accept=".pgn">""" }
+    }
+
     def input(
       field: Field,
       typ: String = "text",

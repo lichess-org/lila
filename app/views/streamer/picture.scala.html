@@ -16,7 +16,7 @@ moreCss = cssTags("form3.css", "streamer.form.css")) {
     }
     @helper.form(action = routes.Streamer.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
     <p>Max size: @{lila.db.Photographer.uploadMaxMb}MB.</p>
-    <input type="file" name="picture">
+    @form3.file.image("picture")
     <button type="submit" class="button">Upload profile picture</button>
     }
     @if(s.streamer.hasPicture) {
