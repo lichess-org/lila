@@ -15,7 +15,7 @@ private[app] final class Renderer extends Actor {
       sender ! V.game.bits.featuredJs(Pov first game)
 
     case lidraughts.tournament.actorApi.TournamentTable(tours) =>
-      sender ! spaceless(V.tournament.enterable(tours))
+      sender ! V.tournament.enterable(tours)
 
     case lidraughts.simul.actorApi.SimulTable(simuls) =>
       sender ! spaceless(V.simul.allCreated(simuls))

@@ -534,12 +534,7 @@ div.blog.undertable time {
 #lidraughts .enterable_list td.name a {
   font-weight: bold;
   white-space: nowrap;
-}
-#lidraughts .enterable_list tr.scheduled td.name a {
   color: #d59120;
-}
-#lidraughts .enterable_list tr:not(.scheduled) td.name a {
-  color: #808080;
 }
 #lidraughts .enterable_list td:last-child {
   width: 20px;
@@ -556,6 +551,9 @@ div.new_posts li {
 div.new_posts li span.extract {
   font-family: 'Roboto';
   font-weight: 300;
+}
+div.new_posts li .user_link {
+  padding: 0 0.25em;
 }
 #daily_puzzle {
   width: 224px;
