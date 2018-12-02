@@ -96,6 +96,7 @@ object Countries {
     C("GA", "Gabon"),
     CC("GB", "United Kingdom", "UK"),
     C("GB-ENG", "England"),
+    C("GB-NIR", "Northern Ireland"),
     C("GB-SCT", "Scotland"),
     C("GB-WLS", "Wales"),
     C("GD", "Grenada"),
