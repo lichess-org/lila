@@ -28,7 +28,8 @@ object Environment
   with AnalysisHelper
   with TournamentHelper
   with SimulHelper
-  with ChessgroundHelper {
+  with ChessgroundHelper
+  with ui.Scalatags {
 
   implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
     (a, b) => Html(a.body + b.body),

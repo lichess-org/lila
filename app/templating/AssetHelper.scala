@@ -115,6 +115,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
     s"""<script$nonce>$js</script>"""
   }
+  def embedJsUnsafe(js: scalatags.Text.RawFrag)(implicit ctx: Context): scalatags.Text.RawFrag = scalatags.Text.all.raw {
+    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
+    s"""<script$nonce>$js</script>"""
+  }
 
   def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
 }

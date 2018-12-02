@@ -16,7 +16,7 @@ object Report extends LilaController {
   private def api = env.api
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
-    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Forbidden(html.mod.streaming()))
+    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Forbidden(html.site.message.streamingMod))
     else renderList(env.modFilters.get(me).fold("all")(_.key))
   }
 

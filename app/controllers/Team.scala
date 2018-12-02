@@ -214,7 +214,7 @@ object Team extends LilaController {
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
-      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.team.createLimit()).fuccess
+      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.site.message.teamCreateLimit).fuccess
       else a
     }
 

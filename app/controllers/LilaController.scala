@@ -216,16 +216,16 @@ private[controllers] trait LilaController
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.noEngine()).fuccess else a
+    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
 
   protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.noBooster()).fuccess else a
+    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.message.noBooster).fuccess else a
 
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.noBot()).fuccess else a
+    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.message.noBot).fuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoLame(NoBot(a))

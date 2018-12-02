@@ -6,7 +6,6 @@ import scalatags.Text.all._
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.app.ui.Scalatags._
 
 object variant {
 
