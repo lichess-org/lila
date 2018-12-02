@@ -585,7 +585,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="xVsYinZ">%1$s mot %2$s 
 i %3$s</string>
   <string name="timeline">Tidslinje</string>
-  <string name="seeAllTournaments">Se alle turneringer</string>
+  <string name="seeAllTournaments">Vis alle turneringer</string>
   <string name="starting">Starter:</string>
   <string name="allInformationIsPublicAndOptional">All informasjon er offentlig og valgfri.</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller sted.</string>
@@ -802,7 +802,7 @@ i %3$s</string>
   <string name="resumePractice">Gjenoppta øving</string>
   <string name="theGameIsADraw">Partiet ender med remis.</string>
   <string name="computerThinking">Maskinen tenker ...</string>
-  <string name="seeBestMove">Se beste trekk</string>
+  <string name="seeBestMove">Vis beste trekk</string>
   <string name="hideBestMove">Skjul beste trekk</string>
   <string name="getAHint">Få et hint</string>
   <string name="evaluatingYourMove">Vurderer trekket ditt...</string>
