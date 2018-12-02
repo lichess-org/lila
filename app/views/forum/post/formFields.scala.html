@@ -1,4 +1,0 @@
-@(text: Field, topic: Option[lila.forum.Topic])(implicit ctx: Context)
-@form3.group(text, trans.message()) { f =>
-@form3.textarea(f, klass = "post-text-area", rows = 10.some, required = true, attrs = topic.??(t => s"""data-topic="${t.id}""""))
-}

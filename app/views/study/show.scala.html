@@ -11,7 +11,7 @@ i18n: @board.userAnalysisI18n(),
 tagTypes: '@lila.study.PgnTags.typesToString',
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(
+chat.json(
 c.chat,
 name = trans.chatRoom.txt(),
 timeout = c.timeout,
@@ -29,12 +29,6 @@ socketVersion: @socketVersion.value
 }
 }
 
-@moreCss = {
-@cssTag("analyse.css")
-@cssTag("study.css")
-@cssTag("chat.css")
-}
-
 @side = {
 <div class="side_box study_box"></div>
 @streams.map { s =>
@@ -45,9 +39,9 @@ socketVersion: @socketVersion.value
 @base.layout(
 title = s.name.value,
 side = side.some,
-chat = chat.dom().some,
-underchat = views.html.game.watchers().some,
-moreCss = moreCss,
+chat = chat.html.some,
+underchat = views.html.game.bits.watchers.some,
+moreCss = cssTags("analyse.css", "study.css", "chat.css"),
 moreJs = moreJs,
 robots = s.isPublic,
 chessground = false,

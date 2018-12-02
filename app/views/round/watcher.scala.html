@@ -11,7 +11,7 @@ LichessRound.boot({
 data: @safeJson(data),
 i18n: @jsI18n(pov.game),
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 })
 }, document.getElementById('lichess'));
 };
@@ -23,7 +23,7 @@ chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeo
 }
 
 @underchat = {
-@views.html.game.watchers()
+@views.html.game.bits.watchers
 @round.blurs(pov.game)
 @round.holdAlerts(pov.game)
 }
@@ -31,7 +31,7 @@ chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeo
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
-chat = chat.dom().some,
+chat = chat.html.some,
 underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),

@@ -15,7 +15,7 @@ i18n: @jsI18n(),
 socketVersion: @socketVersion.value,
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
 })
 };
 }
@@ -30,7 +30,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 title = sim.fullName,
 side = simul.side(sim, stream).some,
 underchat = underchat.some,
-chat = chat.dom().some,
+chat = chat.html.some,
 moreJs = moreJs,
 moreCss = moreCss) {
 <div id="simul"></div>

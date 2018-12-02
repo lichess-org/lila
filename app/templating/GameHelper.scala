@@ -11,7 +11,7 @@ import lila.game.{ Game, Player, Namer, Pov }
 import lila.i18n.{ I18nKeys, enLang }
 import lila.user.{ User, UserContext }
 
-trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
+trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with HtmlHelper with ChessgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -134,7 +134,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val klass = userClass(user.id, cssClass, withOnline)
         val href = s"${routes.User show user.name}${if (mod) "?mod" else ""}"
         val content = playerUsername(player, withRating)
-        val diff = (player.ratingDiff ifTrue withDiff).fold(emptyHtml)(showRatingDiff)
+        val diff = (player.ratingDiff ifTrue withDiff) ?? showRatingDiff
         val mark = engine ?? s"""<span class="engine_mark" title="${I18nKeys.thisPlayerUsesChessComputerAssistance()}"></span>"""
         val icon = withOnline ?? lineIcon(user)
         val space = if (withOnline) "&nbsp;" else ""

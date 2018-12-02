@@ -18,10 +18,10 @@ tour: @toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser)
 }
 chat: @jsOrNull(chatOption.map(_.either).map {
 case Left(c) => {
-chat.ChatJsData.restricted(c, name = trans.chatRoom.txt(), timeout = false, withNote = ctx.isAuth, public = false)
+chat.restrictedJson(c, name = trans.chatRoom.txt(), timeout = false, withNote = ctx.isAuth, public = false)
 }
 case Right(c) => {
-chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
 }
 })
 }, document.getElementById('lichess'));
@@ -34,7 +34,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 }
 
 @underchat = {
-@views.html.game.watchers()
+@views.html.game.bits.watchers
 @round.blurs(pov.game)
 @round.holdAlerts(pov.game)
 }
@@ -42,7 +42,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
-chat = chatOption.isDefined.option(chat.dom()),
+chat = chatOption.map(_ => chat.html),
 underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),

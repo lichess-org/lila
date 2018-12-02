@@ -10,6 +10,7 @@ import lila.api.Env.{ current => apiEnv }
 object Environment
   extends lila.Lilaisms
   with StringHelper
+  with HtmlHelper
   with JsonHelper
   with AssetHelper
   with RequestHelper
@@ -30,11 +31,6 @@ object Environment
   with SimulHelper
   with ChessgroundHelper
   with ui.Scalatags {
-
-  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
-    (a, b) => Html(a.body + b.body),
-    LilaHtmlZero.zero
-  )
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

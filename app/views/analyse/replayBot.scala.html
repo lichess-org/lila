@@ -8,7 +8,7 @@
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false).some,
 chat = none,
-underchat = views.html.game.watchers().some,
+underchat = views.html.game.bits.watchers.some,
 moreCss = cssTag("analyse.css"),
 openGraph = povOpenGraph(pov).some,
 chessground = false) {

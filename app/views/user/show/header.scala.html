@@ -108,7 +108,7 @@ case _ => {
 <div id="us_profile" class="@if(info.insightVisible){ with_insights}">
   @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
   <div class="rating_history">
-    @base.spinner()
+    @spinner
   </div>
   }.getOrElse {
   @if(ctx.is(u)) {

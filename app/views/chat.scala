@@ -1,16 +1,19 @@
-package views.html.chat
+package views.html
 
 import play.api.libs.json.Json
+import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.i18n.I18nKeys
 
-object ChatJsData {
+object chat {
+
+  val html = Html("""<div id="chat" class="side_box"></div>""")
 
   import lila.chat.JsonView.chatIdWrites
 
-  def restricted(
+  def restrictedJson(
     chat: lila.chat.Chat.Restricted,
     name: String,
     timeout: Boolean,

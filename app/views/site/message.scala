@@ -39,26 +39,28 @@ object message {
   }
 
   def noEngine(implicit ctx: Context) = apply("No engine area") {
-    frag("Sorry, engine assisted players are not allowed here.")
+    "Sorry, engine assisted players are not allowed here."
   }
 
   def noBooster(implicit ctx: Context) = apply("No booster area") {
-    frag("Sorry, boosters and sandbaggers are not allowed here.")
+    "Sorry, boosters and sandbaggers are not allowed here."
   }
 
   def privateStudy(ownerId: User.ID)(implicit ctx: Context) = apply(
     title = s"${usernameOrId(ownerId)}' study",
     icon = "4".some
-  )(frag("Sorry! This study is private, you cannot access it."))
+  )("Sorry! This study is private, you cannot access it.")
 
   def streamingMod(implicit ctx: Context) = apply("Disabled while streaming") {
-    frag("This moderation feature is disabled while streaming,", br, "to avoid leaking sensible information.")
+    frag(
+      "This moderation feature is disabled while streaming,", br, "to avoid leaking sensible information."
+    )
   }
 
   def challengeDenied(msg: String)(implicit ctx: Context) = apply(
     title = trans.challengeToPlay.txt(),
     icon = "j".some
-  )(frag(msg))
+  )(msg)
 
   def insightNoGames(u: User)(implicit ctx: Context) = apply(
     title = s"${u.username} has not played a rated game yet!",
@@ -70,6 +72,6 @@ object message {
   ))
 
   def teamCreateLimit(implicit ctx: Context) = apply("Cannot create a team") {
-    frag("You have already created a team this week.")
+    "You have already created a team this week."
   }
 }

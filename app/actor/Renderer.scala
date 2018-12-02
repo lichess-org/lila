@@ -12,7 +12,7 @@ private[app] final class Renderer extends Actor {
   def receive = {
 
     case lila.tv.actorApi.RenderFeaturedJs(game) =>
-      sender ! V.game.featuredJs(Pov first game)
+      sender ! V.game.bits.featuredJs(Pov first game)
 
     case lila.tournament.actorApi.TournamentTable(tours) =>
       sender ! spaceless(V.tournament.enterable(tours))

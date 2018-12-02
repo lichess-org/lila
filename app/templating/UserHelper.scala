@@ -12,7 +12,7 @@ import lila.i18n.I18nKeys
 import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, Title, UserContext }
 
-trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
+trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
 
   def showProgress(progress: Int, withTitle: Boolean = true) = Html {
     val span = progress match {
