@@ -22,7 +22,7 @@ object Page extends LidraughtsController {
     import play.api.libs.json._
     negotiate(
       html = OptionOk(Prismic getBookmark "variant") {
-        case (doc, resolver) => views.html.site.variantHome(doc, resolver)
+        case (doc, resolver) => views.html.site.variant.home(doc, resolver)
       },
       api = _ => Ok(JsArray(draughts.variant.Variant.all.map { v =>
         Json.obj(
@@ -39,7 +39,7 @@ object Page extends LidraughtsController {
       variant <- draughts.variant.Variant.byKey get key
       perfType <- lidraughts.rating.PerfType.byVariant(variant).fold(lidraughts.rating.PerfType.checkStandard(variant))(x => x.some)
     } yield OptionOk(Prismic getVariant variant) {
-      case (doc, resolver) => views.html.site.variant(doc, resolver, variant, perfType)
+      case (doc, resolver) => views.html.site.variant.show(doc, resolver, variant, perfType)
     }) | notFound
   }
 }
