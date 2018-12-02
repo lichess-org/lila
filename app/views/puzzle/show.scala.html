@@ -2,11 +2,6 @@
 
 @import lidraughts.rating.PerfType.iconByVariant
 
-@moreCss = {
-@cssTag("analyse.css")
-@cssTag("puzzle.css")
-}
-
 @moreJs = {
 @jsTag("vendor/sparkline.min.js")
 @jsAt(s"compiled/lidraughts.puzzle${isProd??(".min")}.js")
@@ -15,7 +10,7 @@ lidraughts = lidraughts || {};
 lidraughts.puzzle = {
 data: @toJson(data),
 pref: @toJson(pref),
-i18n: @jsI18n()
+i18n: @bits.jsI18n
 };
 }
 }
@@ -38,7 +33,7 @@ i18n: @jsI18n()
 @base.layout(
 title = trans.training.txt(),
 side = side.some,
-moreCss = moreCss,
+moreCss = cssTags("analyse.css", "puzzle.css"),
 moreJs = moreJs,
 draughtsground = false,
 openGraph = lidraughts.app.ui.OpenGraph(
