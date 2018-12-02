@@ -2,7 +2,7 @@
 
 @moreJs = {
 @infiniteScrollTag
-@jsAt(s"compiled/lidraughts.tournament-schedule${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.tournamentSchedule${isProd??(".min")}.js")
 @embedJs {
 var app = LidraughtsTournamentSchedule.app(document.getElementById('tournament_schedule'), {
 data: @safeJson(json),

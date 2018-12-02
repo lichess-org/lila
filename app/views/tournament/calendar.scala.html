@@ -5,7 +5,7 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lidraughts.tournament-calendar${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.tournamentCalendar${isProd??(".min")}.js")
 @embedJs {
 var app = LidraughtsTournamentCalendar.app(document.getElementById('tournament_calendar'), {
 data: @safeJson(json),

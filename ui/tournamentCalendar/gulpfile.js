@@ -1,3 +1,3 @@
 const lidraughtsGulp = require('../gulp/tsProject.js');
 
-lidraughtsGulp('LidraughtsTournamentCalendar', 'lidraughts.tournament-calendar', __dirname);
+lidraughtsGulp('LidraughtsTournamentCalendar', 'lidraughts.tournamentCalendar', __dirname);

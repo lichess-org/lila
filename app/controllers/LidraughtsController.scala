@@ -5,8 +5,9 @@ import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
+import play.api.mvc.BodyParsers.parse
 import play.twirl.api.Html
-import BodyParsers.parse
+import scalatags.Text.TypedTag
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
@@ -34,6 +35,13 @@ private[controllers] trait LidraughtsController
   }
 
   protected implicit def LidraughtsHtmlToResult(content: Html): Result = Ok(content)
+
+  protected implicit val WriteableScalatags: Writeable[TypedTag[String]] = Writeable(
+    (tags: TypedTag[String]) => Codec.utf_8 encode tags.render,
+    contentType = Some(HTML)
+  )
+
+  protected implicit def LidraughtsScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
 
   protected val jsonOkBody = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
