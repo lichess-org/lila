@@ -139,7 +139,7 @@ men du kan forsvare!</string>
 - svart ikke kan flytt noen av brikkene
 - svart ikke står i sjakk.</string>
   <string name="stalemateComplete">Gratulerar! Det er bedre bli å satt patt enn sjakk matt!</string>
-  <string name="advanced">Viderekommende</string>
+  <string name="advanced">For viderekomne</string>
   <string name="pieceValue">Brikkeverdi</string>
   <string name="evaluatePieceStrength">Vurdering av brikkestyrken</string>
   <string name="pieceValueIntro">Brikker med flest trekkmuligheter har høyest verdi!
