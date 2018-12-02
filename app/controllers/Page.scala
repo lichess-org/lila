@@ -23,7 +23,7 @@ object Page extends LilaController {
     import play.api.libs.json._
     negotiate(
       html = OptionOk(Prismic getBookmark "variant") {
-        case (doc, resolver) => views.html.site.variantHome(doc, resolver)
+        case (doc, resolver) => views.html.site.variant.home(doc, resolver)
       },
       api = _ => Ok(JsArray(chess.variant.Variant.all.map { v =>
         Json.obj(
@@ -40,7 +40,7 @@ object Page extends LilaController {
       variant <- chess.variant.Variant.byKey get key
       perfType <- lila.rating.PerfType byVariant variant
     } yield OptionOk(Prismic getVariant variant) {
-      case (doc, resolver) => views.html.site.variant(doc, resolver, variant, perfType)
+      case (doc, resolver) => views.html.site.variant.show(doc, resolver, variant, perfType)
     }) | notFound
   }
 }
