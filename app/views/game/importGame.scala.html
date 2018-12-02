@@ -1,13 +1,5 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@moreJs = {
-@embedJs {
-$("#import_game form").submit(function() {
-setTimeout(function() { $(this).html(lidraughts.spinnerHtml); }.bind(this), 50);
-});
-}
-}
-
 @analyseHelp = {
   @if(ctx.isAnon) { <a class="blue" href="@routes.Auth.signup">@trans.youNeedAnAccountToDoThat()</a> }
 }
@@ -15,7 +7,7 @@ setTimeout(function() { $(this).html(lidraughts.spinnerHtml); }.bind(this), 50);
 @base.layout(
 title = trans.importGame.txt(),
 moreCss = cssTags("form3.css", "import.css"),
-moreJs = moreJs,
+moreJs = jsTag("importer.js"),
 openGraph = lidraughts.app.ui.OpenGraph(
 title = "Paste PDN draughts game",
 url = s"$netBaseUrl${routes.Importer.importGame.url}",
@@ -31,6 +23,7 @@ description = "When pasting a game PDN, you get a browsable replay, a computer a
       _ => none
       )
     }
+    @form3.group(form("pdnFile"), Html("Or upload a PDN file"), klass = "upload")(form3.input(_, typ = "file"))
     @form3.checkbox(form("analyse"), trans.requestAComputerAnalysis(), help = analyseHelp.some, disabled = ctx.isAnon)
     @form3.action(form3.submit(trans.importGame()))
   </form>
