@@ -1,10 +1,5 @@
 @(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject, pref: play.api.libs.json.JsObject)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("analyse.css")
-@cssTag("puzzle.css")
-}
-
 @moreJs = {
 @jsTag("vendor/sparkline.min.js")
 @jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js")
@@ -13,19 +8,15 @@ lichess = lichess || {};
 lichess.puzzle = {
 data: @toJson(data),
 pref: @toJson(pref),
-i18n: @jsI18n()
+i18n: @bits.jsI18n
 };
 }
 }
 
-@side = {
-<div class="puzzle_side"></div>
-}
-
 @base.layout(
 title = trans.training.txt(),
-side = side.some,
-moreCss = moreCss,
+side = Html("""<div class="puzzle_side"></div>""").some,
+moreCss = cssTags("analyse.css", "puzzle.css"),
 moreJs = moreJs,
 chessground = false,
 openGraph = lila.app.ui.OpenGraph(

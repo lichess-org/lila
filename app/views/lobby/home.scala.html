@@ -106,7 +106,7 @@ asyncJs = true) {
 </div>
 @puzzle.map { p =>
 <div id="daily_puzzle" title="@trans.clickToSolve()">
-  @p.html
+  @Html(p.html)
   <div class="vstext">
     @trans.puzzleOfTheDay()<br />
     @p.color.fold(trans.whitePlays, trans.blackPlays)()
@@ -129,7 +129,7 @@ asyncJs = true) {
     <span class="title text" data-icon="|">@trans.simultaneousExhibitions()</span>
   </div>
   <div id="enterable_simuls" class="enterable_list undertable_inner">
-    @simul.allCreated(simuls)
+    @simul.allCreated(simuls).toHtml
   </div>
 </div>
 <div class="leaderboards undertable">

@@ -20,7 +20,7 @@
     @if(ctx.currentBg == "transp") {"dark transp"} else {@ctx.currentBg} @ctx.currentTheme.cssClass"
     style="width: 224px; height: 264px; overflow: hidden; background: none!important">
     <div id="daily_puzzle" class="is2d highlight merida" title="@trans.clickToSolve()">
-      @daily.html
+      @Html(daily.html)
       <div class="vstext" style="text-align: center">
         @trans.puzzleOfTheDay()<br />
         @daily.color.fold(trans.whitePlays, trans.blackPlays)()

@@ -38,7 +38,7 @@ private[puzzle] final class Daily(
     import makeTimeout.short
     ~puzzle.fenAfterInitialMove.map { fen =>
       renderer ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map {
-        case html: play.twirl.api.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
+        case html: String => DailyPuzzle(html, puzzle.color, puzzle.id).some
       }
     }
   } recover {
@@ -66,6 +66,6 @@ object Daily {
   type Try = () => Fu[Option[DailyPuzzle]]
 }
 
-case class DailyPuzzle(html: play.twirl.api.Html, color: chess.Color, id: Int)
+case class DailyPuzzle(html: String, color: chess.Color, id: Int)
 
 case class RenderDaily(puzzle: Puzzle, fen: String, lastMove: String)
