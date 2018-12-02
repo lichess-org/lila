@@ -120,7 +120,7 @@ asyncJs = true) {
     <span class="title text" data-icon="g">@trans.openTournaments()</span>
   </div>
   <div id="enterable_tournaments" class="enterable_list undertable_inner scroll-shadow-hard">
-    @tournament.enterable(tours)
+    @tournament.enterable(tours).toHtml
   </div>
 </div>
 <div class="undertable @if(simuls.isEmpty){none}">
@@ -185,9 +185,7 @@ asyncJs = true) {
     <span class="title" data-icon="d"> @trans.latestForumPosts()</span>
   </div>
   <div class="undertable_inner scroll-shadow-hard">
-    <div class="content">
-      <ol>@forum.post.recent(forumRecent)</ol>
-    </div>
+    <div class="content">@forum.post.recent(forumRecent).toHtml</div>
   </div>
 </div>
 }

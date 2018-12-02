@@ -28,7 +28,7 @@ chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = tru
 
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
-side = tournament.side(tour, verdicts, streamers, shieldOwner).some,
+side = Some(tournament.side(tour, verdicts, streamers, shieldOwner)),
 chat = chat.html.some,
 underchat = underchat.some,
 moreJs = moreJs,

@@ -534,12 +534,7 @@ div.blog.undertable time {
 #lichess .enterable_list td.name a {
   font-weight: bold;
   white-space: nowrap;
-}
-#lichess .enterable_list tr.scheduled td.name a {
   color: #d59120;
-}
-#lichess .enterable_list tr:not(.scheduled) td.name a {
-  color: #808080;
 }
 #lichess .enterable_list td:last-child {
   width: 20px;

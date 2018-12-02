@@ -145,26 +145,32 @@ object TournamentRepo {
   def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.find(allCreatedSelect(aheadMinutes)).list[Tournament]()
 
-  private def stillWorthEntering: Fu[List[Tournament]] = coll.find(
-    startedSelect ++ $doc("private" $exists false)
+  private def scheduledStillWorthEntering: Fu[List[Tournament]] = coll.find(
+    startedSelect ++ scheduledSelect
   ).sort($doc("startsAt" -> 1)).list[Tournament]() map {
       _.filter(_.isStillWorthEntering)
     }
 
-  private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
-    import Schedule.Freq._
-    tour.schedule.map(_.freq) map {
-      case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60*)
-      case Unique | Yearly | Marathon => 24 * 60
-      case Monthly | Shield => 6 * 60
-      case Weekly | Weekend => 3 * 60
-      case Daily => 1 * 60
-      case _ => 30
-    } getOrElse 30
+  private def scheduledCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
+    allCreatedSelect(aheadMinutes) ++ scheduledSelect
+  ).sort($doc("startsAt" -> 1)).list[Tournament](none)
+
+  private def isPromotable(tour: Tournament): Boolean = tour.schedule ?? { schedule =>
+    tour.startsAt isBefore DateTime.now.plusMinutes {
+      import Schedule.Freq._
+      schedule.freq match {
+        case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60*)
+        case Unique | Yearly | Marathon => 24 * 60
+        case Monthly | Shield => 6 * 60
+        case Weekly | Weekend => 3 * 60
+        case Daily => 1 * 60
+        case _ => 30
+      }
+    }
   }
 
   private[tournament] def promotable: Fu[List[Tournament]] =
-    stillWorthEntering zip publicCreatedSorted(crud.CrudForm.maxHomepageHours * 60) map {
+    scheduledStillWorthEntering zip scheduledCreatedSorted(crud.CrudForm.maxHomepageHours * 60) map {
       case (started, created) => (started ::: created).foldLeft(List.empty[Tournament]) {
         case (acc, tour) if !isPromotable(tour) => acc
         case (acc, tour) if acc.exists(_ similarTo tour) => acc

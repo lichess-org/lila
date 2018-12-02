@@ -25,9 +25,9 @@ case class Tournament(
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
-    createdBy: String,
+    createdBy: User.ID,
     startsAt: DateTime,
-    winnerId: Option[String] = None,
+    winnerId: Option[User.ID] = None,
     featuredId: Option[String] = None,
     spotlight: Option[Spotlight] = None
 ) {

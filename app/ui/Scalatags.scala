@@ -1,8 +1,10 @@
 package lila.app
 package ui
 
+import ornicar.scalalib.Zero
+
 import play.twirl.api.Html
-import scalatags.Text.all.{ genericAttr, attr }
+import scalatags.Text.all.{ genericAttr, attr, UnitFrag }
 import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue }
 
 object Scalatags extends Scalatags
@@ -37,4 +39,13 @@ trait Scalatags {
       if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
     }
   }
+
+  @inline implicit def toPimpedFrag(frag: Frag) = new PimpedFrag(frag)
+
+  val emptyFrag = UnitFrag(())
+  implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
+}
+
+final class PimpedFrag(private val self: Frag) extends AnyVal {
+  def toHtml: Html = Html(self.render)
 }
