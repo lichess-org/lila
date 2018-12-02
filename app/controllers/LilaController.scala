@@ -36,10 +36,13 @@ private[controllers] trait LilaController
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit val WriteableScalatags: Writeable[TypedTag[String]] = Writeable(
-    (tags: TypedTag[String]) => Codec.utf_8 encode tags.render,
-    contentType = Some(HTML)
-  )
+  protected implicit def contentTypeOfTag(implicit codec: Codec): ContentTypeOf[TypedTag[String]] = {
+    ContentTypeOf[TypedTag[String]](Some(ContentTypes.HTML))
+  }
+
+  protected implicit def writeableOfTag(implicit codec: Codec): Writeable[TypedTag[String]] = {
+    Writeable(tag => codec.encode("<!DOCTYPE html>\n" + tag.render))
+  }
 
   protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
 
