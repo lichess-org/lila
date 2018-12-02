@@ -136,9 +136,9 @@ men du kan forsvare!</string>
   <string name="theGameIsADraw">Partiet ender remis</string>
   <string name="stalemateIntro">Når en spiller ikke står i sjakk og ikke har noe lovlig trekk, er det patt. Partiet er remis: ingen vinner, ingen taper.</string>
   <string name="stalemateGoal">Svart blir patt om:
-- svart ikke kan flytt noen av brikkene
+- svart ikke kan flytte noen av brikkene
 - svart ikke står i sjakk.</string>
-  <string name="stalemateComplete">Gratulerar! Det er bedre bli å satt patt enn sjakk matt!</string>
+  <string name="stalemateComplete">Gratulerer! Det er bedre å bli satt patt enn sjakk matt!</string>
   <string name="advanced">For viderekomne</string>
   <string name="pieceValue">Brikkeverdi</string>
   <string name="evaluatePieceStrength">Vurdering av brikkestyrken</string>
