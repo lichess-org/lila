@@ -10,6 +10,7 @@ import lidraughts.api.Env.{ current => apiEnv }
 object Environment
   extends lidraughts.Lidraughtsisms
   with StringHelper
+  with HtmlHelper
   with JsonHelper
   with AssetHelper
   with RequestHelper
@@ -30,11 +31,6 @@ object Environment
   with SimulHelper
   with DraughtsgroundHelper
   with ui.Scalatags {
-
-  implicit val LidraughtsHtmlMonoid = scalaz.Monoid.instance[Html](
-    (a, b) => Html(a.body + b.body),
-    LidraughtsHtmlZero.zero
-  )
 
   type FormWithCaptcha = (play.api.data.Form[_], lidraughts.common.Captcha)
 

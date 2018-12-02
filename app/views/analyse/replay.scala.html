@@ -18,7 +18,7 @@ data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 }),
 explorer: {
 endpoint: "@explorerEndpoint",
@@ -33,7 +33,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 }
 
 @underchat = {
-@views.html.game.watchers()
+@views.html.game.bits.watchers
 @round.blurs(game)
 @round.holdAlerts(game)
 @onCheatList.map { v =>
@@ -44,7 +44,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked).some,
-chat = chat.dom().some,
+chat = chat.html.some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,

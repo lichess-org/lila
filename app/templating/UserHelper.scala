@@ -12,7 +12,7 @@ import lidraughts.i18n.I18nKeys
 import lidraughts.rating.{ PerfType, Perf }
 import lidraughts.user.{ User, UserContext }
 
-trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
+trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
 
   def showProgress(progress: Int, withTitle: Boolean = true) = Html {
     val span = progress match {

@@ -15,7 +15,7 @@ data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
 })
 };
 }
@@ -29,7 +29,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
 side = tournament.side(tour, verdicts, streamers, shieldOwner).some,
-chat = chat.dom().some,
+chat = chat.html.some,
 underchat = underchat.some,
 moreJs = moreJs,
 moreCss = moreCss,
@@ -48,9 +48,7 @@ s"${usernameOrId(winnerId)} takes the prize home!"
   class="scheduled @sched.freq.name @sched.speed.name @sched.variant.key id_@tour.id"
   }>
   <div class="content_box no_padding tournament_box tournament_show">
-    <div class="content_box_content">
-      @base.spinner("init".some)
-    </div>
+    <div class="content_box_content">@spinner</div>
   </div>
 </div>
 @if(tour.isCreated) {

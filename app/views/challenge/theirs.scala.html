@@ -16,7 +16,7 @@ moreJs = js(c, json, false)) {
       @explanation(c)
       @c.initialFen.map { fen =>
       <br />
-      @views.html.game.miniBoard(fen, color = !c.finalColor)
+      @views.html.game.bits.miniBoard(fen, color = !c.finalColor)
       }
       <br />
       @c.status match {

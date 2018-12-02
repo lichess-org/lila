@@ -20,7 +20,7 @@ i18n: @round.jsI18n(p.game)
 @round.layout(
 title = title,
 side = side(channel, champions, "/tv", pov),
-underchat = game.watchers().some,
+underchat = game.bits.watchers.some,
 moreJs = moreJs,
 moreCss = cssTag("tv.css"),
 draughtsground = false,
@@ -43,7 +43,7 @@ robots = true) {
 <div class="game_list playing tv_history">
   <h2>@trans.previouslyOnLidraughtsTV()</h2>
   @history.map { p =>
-  <div>@game.mini(p)</div>
+  <div>@game.bits.mini(p)</div>
   }
 </div>
 }

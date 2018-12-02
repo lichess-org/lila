@@ -1,7 +1,6 @@
 package lidraughts.app
 package templating
 
-import ornicar.scalalib.Zero
 import play.twirl.api.Html
 
 import lidraughts.user.UserContext
@@ -9,9 +8,6 @@ import lidraughts.user.UserContext
 trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
-
-  val emptyHtml = Html("")
-  implicit val LidraughtsHtmlZero: Zero[Html] = Zero.instance(emptyHtml)
 
   val slugify = lidraughts.common.String.slugify _
 

@@ -3,7 +3,7 @@ div.create_tournament {
   top: 26px;
   right: 15px;
 }
-#tournament .init.spinner {
+#tournament .content_box_content.spinner {
   padding-top: 200px;
   margin: 0 auto 0 auto;
 }

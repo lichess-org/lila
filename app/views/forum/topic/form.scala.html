@@ -21,7 +21,7 @@
   @form3.group(form("name"), trans.subject()) { f =>
   @form3.input(f, autofocus = true, required = true, minLength = 3, maxLength = 100)
   }
-  @forum.post.formFields(form("post")("text"), None)
+  @form3.group(form("post")("text"), trans.message())(form3.textarea(_, klass = "post-text-area", rows = 10.some, required = true))
   @base.captcha(form("post"), captcha)
   @form3.actions {
   <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
