@@ -40,7 +40,7 @@
   <string name="whiteResigned">Brancas desistiram</string>
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
-  <string name="blackLeftTheGame">Negras deixaram a partida</string>
+  <string name="blackLeftTheGame">Pretas deixaram a partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Compartilhe esta URL para convidar espectadores</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
@@ -585,7 +585,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xVsYinZ">%1$s contra %2$s
 em %3$s</string>
   <string name="timeline">Linha do tempo</string>
-  <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="yourCityRegionOrDepartment">Sua cidade, região ou divisão territorial.</string>
