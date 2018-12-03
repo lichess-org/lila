@@ -22,7 +22,7 @@ object layout {
     """<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">"""
   ).mkString)
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl("font$fontVersion/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
 
   private val faviconSizes = List(256, 128, 64)
   private val favicons = raw {

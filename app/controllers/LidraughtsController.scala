@@ -43,6 +43,8 @@ private[controllers] trait LidraughtsController
 
   protected implicit def LidraughtsScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
 
+  protected implicit def LidraughtsFragToResult(content: Frag): Result = Ok(content)
+
   protected val jsonOkBody = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
 
