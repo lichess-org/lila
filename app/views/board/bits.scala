@@ -43,10 +43,8 @@ object bits {
 <g fill="#${theme.light}" id="a"><g id="b"><g id="c"><g id="d">
 <rect width="100" height="100" id="e"/>
 <use x="200" xlink:href="#e"/>
-</g><use x="400" xlink:href="#d"/>
-</g><use x="100" y="100" xlink:href="#c"/>
-</g><use y="200" xlink:href="#b"/>
-</g><use y="400" xlink:href="#a"/>
+</g><use x="400" xlink:href="#d"/></g><use x="100" y="100" xlink:href="#c"/>
+</g><use y="200" xlink:href="#b"/></g><use y="400" xlink:href="#a"/>
 </svg>"""),
           pov.fold(miniBoardContent)(chessground)
         )

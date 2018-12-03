@@ -43,6 +43,8 @@ private[controllers] trait LilaController
 
   protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
 
+  protected implicit def LilaFragToResult(content: Frag): Result = Ok(content)
+
   protected val jsonOkBody = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
 
