@@ -43,6 +43,7 @@ object side {
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           systemName(tour.system).capitalize,
+          " ",
           a(cls := "blue help", href := routes.Tournament.help(tour.system.toString.toLowerCase.some), dataIcon := "")
         )
       ),
