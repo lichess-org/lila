@@ -145,30 +145,7 @@ asyncJs = true) {
   </div>
 </div>
 }
-@if(lastPost.nonEmpty) {
-<div class="blog undertable">
-  <div class="undertable_top">
-    <a class="more hint--bottom" data-hint="@trans.blog()" href="@routes.Blog.index()">@trans.more() »</a>
-    <span class="title" data-icon="6"> @trans.latestUpdates()</span>
-  </div>
-  <div class="undertable_inner">
-    @lastPost.map { post =>
-    <div class="post">
-      @defining(routes.Blog.show(post.id, post.slug)) { url =>
-      <a class="image" href="@url">
-        <img src="@post.image" width="60" height="60" />
-      </a>
-      <div class="text">
-        @semanticDate(post.date)
-        <a class="title" href="@url">@post.title</a>
-        <p class="shortlede">@post.shortlede</p>
-      </div>
-      }
-    </div>
-    }
-  </div>
-</div>
-}
+@bits.lastPosts(lastPost).map(_.toHtml)
 <div class="donation undertable">
   <a href="@routes.Plan.index">
     <i data-icon="@patronIconChar"></i>

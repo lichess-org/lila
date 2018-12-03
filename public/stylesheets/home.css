@@ -458,33 +458,31 @@ body.dark #hooks_wrap .pools .active {
 div.undertable {
   width: 512px;
 }
-div.blog.undertable div.undertable_inner {
+.blog.undertable .undertable_inner {
   height: auto;
   padding: 5px 5px 0 5px;
 }
-div.blog.undertable div.undertable_inner:hover {
+.blog.undertable .undertable_inner:hover {
   overflow: hidden;
 }
-div.blog.undertable .post {
+.blog.undertable .post {
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-div.blog.undertable .text {
-  margin-top: 5px;
+.blog.undertable .post .text {
+  flex: 1 1 100%;
 }
-div.blog.undertable .image {
-  display: block;
-  float: left;
-  margin-right: 10px;
-}
-div.blog.undertable .image img {
+.blog.undertable .post img {
   height: 48px;
   width: 48px;
-  margin: 3px;
+  margin: 3px 20px 3px 3px;
 }
-div.blog.undertable .title {
+.blog.undertable .post .title {
   font-weight: bold;
 }
-div.blog.undertable time {
+.blog.undertable time {
   margin-top: 10px;
   float: right;
   font-weight: 100;

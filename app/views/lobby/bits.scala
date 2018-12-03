@@ -51,4 +51,26 @@ object bits {
         )
       )
     )
+
+  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = posts.nonEmpty option
+    div(cls := "blog undertable")(
+      div(
+        div(cls := "undertable_top")(
+          a(cls := "more", href := routes.Blog.index())(trans.more(), " »"),
+          span(cls := "title text", dataIcon := "6")(trans.latestUpdates())
+        ),
+        div(cls := "undertable_inner")(
+          posts map { post =>
+            a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
+              img(src := post.image, width := "60", height := "60"),
+              span(cls := "text")(
+                span(cls := "title")(post.title),
+                p(cls := "shortlede")(post.shortlede)
+              ),
+              semanticDate(post.date)
+            )
+          }
+        )
+      )
+    )
 }
