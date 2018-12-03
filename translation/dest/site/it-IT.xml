@@ -485,7 +485,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="autoSwitch">Cambia automaticamente</string>
   <string name="puzzles">Puzzle</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
-  <string name="tournamentWinners">Vincitori del torneo</string>
+  <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
   <string name="no">No</string>
@@ -494,7 +494,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="createANewTopic">Crea una nuova discussione</string>
   <string name="topics">Discussioni</string>
   <string name="posts">Post</string>
-  <string name="lastPost">Ultimo Post</string>
+  <string name="lastPost">Ultimo post</string>
   <string name="views">Visualizzazioni</string>
   <string name="replies">Risposte</string>
   <string name="replyToThisTopic">Rispondi a questa discussione</string>
@@ -511,7 +511,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="other">Altro</string>
   <string name="reportDescriptionHelp">Incolla il link della partita/e e spiega cosa non va con questo giocatore. Non dire soltanto \"ha imbrogliato\", ma specifica come sei arrivato a questa conclusione. Il tuo report verrà processato più velocemente se scritto in lingua inglese.</string>
   <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un link a una partita in cui un giocatore ha imbrogliato.</string>
-  <string name="by">da %s</string>
+  <string name="by">di %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
   <string name="theming">Temi</string>
   <string name="donate">Dona</string>
@@ -558,7 +558,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
   <string name="letOtherPlayersChallengeYou">Permetti ad altri giocatori di sfidarti</string>
-  <string name="letOtherPlayersInviteYouToStudy">Permetti ad altri giocatori di invitarti allo studio</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permetti ad altri giocatori di invitarti negli studi</string>
   <string name="sound">Suono</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
   <string name="none">Nessuna</string>
