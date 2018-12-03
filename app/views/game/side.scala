@@ -68,7 +68,7 @@ object side {
               "Imported",
               game.pgnImport.flatMap(_.user).map { user =>
                 frag(
-                  "by ",
+                  " by ",
                   userIdLink(user.some, None, false),
                   br
                 )
