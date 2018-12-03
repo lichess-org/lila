@@ -59,10 +59,14 @@
   <string name="losing">Caillteach</string>
   <string name="drawn">Comhscór</string>
   <string name="averageRatingX">Meán-rátáil: %s</string>
+  <string name="delete">Scrios</string>
   <string name="cpus">LAPanna</string>
+  <string name="memory">Cuimhne</string>
+  <string name="blunder">Meancóg</string>
   <string name="blunders">Botúin mhóra</string>
   <string name="mistake">Botún</string>
   <string name="mistakes">Botúin</string>
+  <string name="inaccuracy">Míchruinneas</string>
   <string name="inaccuracies">Bearta míchruinne</string>
   <string name="moveTimes">Amanna na mbeart</string>
   <string name="flipBoard">Cas an bord</string>
@@ -81,6 +85,7 @@
   <string name="games">Cluichí</string>
   <string name="forum">Fóram</string>
   <string name="players">Imreoirí</string>
+  <string name="minutesPerSide">Nóiméid an taobh</string>
   <string name="realTime">Fíor-am</string>
   <string name="oneDay">Lá amháin</string>
   <string name="time">Am</string>
