@@ -111,7 +111,10 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { u =>
       if (u.enabled || isGranted(_.UserSpy)) f(u)
       else negotiate(
-        html = fuccess(NotFound(html.user.disabled(u))),
+        html = UserRepo isErased u flatMap { erased =>
+          if (erased.value) notFound
+          else NotFound(html.user.disabled(u)).fuccess
+        },
         api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
       )
     }
