@@ -47,7 +47,7 @@ object home {
     )),
     side = Some(frag(
       NotForKids { div(id := "streams_on_air")(views.html.streamer liveStreams streams) },
-      events map { views.html.event.homepageSpotlight(_) },
+      events map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
         simuls.find(_.spotlightable) take 2 map { views.html.simul.homepageSpotlight(_) } toList

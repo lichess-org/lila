@@ -119,4 +119,21 @@ object bits {
         "!"
       )
     )
+
+  def spotlight(e: lila.event.Event)(implicit ctx: Context) = a(
+    href := (if (e.isNow) e.url else routes.Event.show(e.id).url),
+    cls := List(
+      s"tour_spotlight event_spotlight id_${e.id}" -> true,
+      "invert" -> e.isNowOrSoon
+    )
+  )(
+      i(cls := "img", dataIcon := ""),
+      span(cls := "content")(
+        span(cls := "name")(e.title),
+        span(cls := "headline")(e.headline),
+        span(cls := "more")(
+          if (e.isNow) trans.eventInProgress() else momentFromNow(e.startsAt)
+        )
+      )
+    )
 }
