@@ -60,8 +60,12 @@
   <string name="drawn">Comhscór</string>
   <string name="averageRatingX">Meán-rátáil: %s</string>
   <string name="delete">Scrios</string>
+  <string name="bestMoveArrow">Saighead don chorraíl is fearr</string>
+  <string name="multipleLines">Línte ar leith</string>
   <string name="cpus">LAPanna</string>
   <string name="memory">Cuimhne</string>
+  <string name="infiniteAnalysis">Anailís neamhtheoranta</string>
+  <string name="removesTheDepthLimit">Faigheann sé réidh leis an teorainn doimhneacht, agus coiníonn sé do ríomhaire teolaí</string>
   <string name="blunder">Meancóg</string>
   <string name="blunders">Botúin mhóra</string>
   <string name="mistake">Botún</string>
@@ -88,6 +92,13 @@
   <string name="minutesPerSide">Nóiméid an taobh</string>
   <string name="realTime">Fíor-am</string>
   <string name="oneDay">Lá amháin</string>
+  <plurals name="nbDays">
+    <item quantity="one">Lá amháin</item>
+    <item quantity="two">Dhá lá</item>
+    <item quantity="few">%s lá</item>
+    <item quantity="many">%s lá</item>
+    <item quantity="other">%s lá</item>
+  </plurals>
   <string name="time">Am</string>
   <string name="rating">Rátáil</string>
   <string name="ratingStats">Staitisticí rátála</string>
@@ -101,6 +112,7 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
+  <string name="rankIsUpdatedEveryXMinutes">Uasdátaítear an rátáil gach %s nóiméid</string>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
   <string name="timeOut">As am</string>
@@ -167,4 +179,5 @@
   <string name="watchGames">Féach ar chluichí</string>
   <string name="watch">Féach</string>
   <string name="create">Cruthaigh</string>
+  <string name="perfRatingX">Rátáil: %s</string>
 </resources>
