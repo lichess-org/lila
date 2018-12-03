@@ -124,8 +124,8 @@
   </plurals>
   <string name="currentGames">Pågående partier</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partier</item>
-    <item quantity="other">%s partier</item>
+    <item quantity="one">%spartier</item>
+    <item quantity="other">%spartier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Bokmärken</item>
@@ -291,8 +291,8 @@
     <item quantity="other">≥ %1$s %2%s rankade partier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du behöver spela ytterligare %1$s %2$s rankat parti</item>
-    <item quantity="other">Du behöver spela ytterligare %1$s rankade partier i %2$s</item>
+    <item quantity="one">Du behöver spela ytterligare %1$s rankat %2$sparti</item>
+    <item quantity="other">Du behöver spela ytterligare %1$s rankade %2$spartier</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Du behöver spela ytterligare %s rankat parti</item>
@@ -664,7 +664,7 @@
   <string name="noSimulExplanation">Denna simultan existerar inte.</string>
   <string name="returnToSimulHomepage">Återvänd till hemsidan för simultan</string>
   <string name="aboutSimul">Simultan går ut på att en spelare möter flera spelare samtidigt.</string>
-  <string name="aboutSimulImage">Av totalt 50 partier vann Fischer 47, spelade 2 remier och förlorade en.</string>
+  <string name="aboutSimulImage">Av totalt 50 partier vann Fischer 47, spelade två remier och förlorade ett.</string>
   <string name="aboutSimulRealLife">Konceptet är taget från verkliga evenemang. I verkligheten involverar det att simultan-värden rör sig från bord till bord för att göra sina drag.</string>
   <string name="aboutSimulRules">När simultanmatchen börjar startar varje spelare ett parti med värden som spelar vit i alla partier.  Simultanmatchen slutar när alla partier är avklarade.</string>
   <string name="aboutSimulSettings">Simultanpartier är alltid orankade. Returmatch, ångerdrag och \"extratid\" är inaktiverat.</string>

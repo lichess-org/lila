@@ -134,12 +134,12 @@ men du kan forsvare!</string>
   <string name="enPassantComplete">Gratulerer! Du kan nå slå en passant.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet ender remis</string>
-  <string name="stalemateIntro">Når en spiller ikke står i sjakk og ikke har noe lovil trekk å gjøre er det patt. Partiet er remis: ingen vinner, ingen taper.</string>
+  <string name="stalemateIntro">Når en spiller ikke står i sjakk og ikke har noe lovlig trekk, er det patt. Partiet er remis: ingen vinner, ingen taper.</string>
   <string name="stalemateGoal">Svart blir patt om:
-- svart ikke kan flytt noen av brikkene
+- svart ikke kan flytte noen av brikkene
 - svart ikke står i sjakk.</string>
-  <string name="stalemateComplete">Gratulerar! Det er bedre bli å satt patt enn sjakk matt!</string>
-  <string name="advanced">Viderekommende</string>
+  <string name="stalemateComplete">Gratulerer! Det er bedre å bli satt patt enn sjakk matt!</string>
+  <string name="advanced">For viderekomne</string>
   <string name="pieceValue">Brikkeverdi</string>
   <string name="evaluatePieceStrength">Vurdering av brikkestyrken</string>
   <string name="pieceValueIntro">Brikker med flest trekkmuligheter har høyest verdi!
@@ -161,7 +161,7 @@ Løper = 3
 Springer = 3 
 Bonde = 1</string>
   <string name="checkInTwo">Sjakk i to trekk</string>
-  <string name="twoMovesToGiveCheck">Sjakk om to trekk</string>
+  <string name="twoMovesToGiveCheck">To trekk for å sette sjakk</string>
   <string name="checkInTwoIntro">Finn den rette to-trekks-kombinasjonen som sjakker motspillerens konge!</string>
   <string name="checkInTwoGoal">Du kan nå true motspillerens konge i to trekk!</string>
   <string name="checkInTwoComplete">Gratulerer! Du satte motspilleren i sjakk og tvang fram et kongeforsvar!</string>
@@ -177,8 +177,8 @@ Bonde = 1</string>
   <string name="watchInstructiveChessVideos">Se instruktive sjakkvideoer</string>
   <string name="playPeople">Spill mot andre</string>
   <string name="opponentsFromAroundTheWorld">Motspillere fra hele verden</string>
-  <string name="playMachine">Spill mot sjakkprogrammet</string>
-  <string name="testYourSkillsWithTheComputer">Test dine kunnskaper mot sjakkprogrammet</string>
+  <string name="playMachine">Spill mot maskinen</string>
+  <string name="testYourSkillsWithTheComputer">Test ferdighetene dine mot maskinen</string>
   <string name="letsGo">Nå starter vi!</string>
   <string name="stageX">Nivå %s</string>
   <string name="awesome">Veldig bra!</string>

@@ -56,7 +56,7 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i nettleser</string>
   <string name="toggleLocalEvaluation">Lokal evaluering</string>
-  <string name="promoteVariation">Forfremmingsvariant</string>
+  <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gjør til hovedlinje</string>
   <string name="deleteFromHere">Slett herfra</string>
   <string name="move">Trekk</string>
@@ -87,7 +87,7 @@
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker</string>
-  <string name="xOpeningExplorer">Utforsk åpning %s</string>
+  <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="allSet">Alt klart!</string>
@@ -175,7 +175,7 @@
   <string name="rankX">Plassering: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Plassering oppdateres hvert %s minutt</string>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s nøtter</item>
+    <item quantity="one">%s nøtt</item>
     <item quantity="other">%s nøtter</item>
   </plurals>
   <string name="gamesPlayed">partier spilt</string>
@@ -206,8 +206,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
-  <string name="casualTournament">Urangert</string>
-  <string name="ratedTournament">Rangert</string>
+  <string name="casualTournament">Uratet</string>
+  <string name="ratedTournament">Ratet</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
@@ -222,7 +222,7 @@
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>
   <string name="loginToChat">Logg inn for å chatte</string>
-  <string name="youHaveBeenTimedOut">Tidsavbrudd.</string>
+  <string name="youHaveBeenTimedOut">Du har fått timeout.</string>
   <string name="spectatorRoom">Tilskuerrom</string>
   <string name="composeMessage">Skriv melding</string>
   <string name="noNewMessages">Ingen nye meldinger</string>
@@ -287,19 +287,19 @@
     <item quantity="other">≥ %s ratede partier</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s ratet parti</item>
-    <item quantity="other">≥ %1$s %2%s ratede partier</item>
+    <item quantity="one">≥ %1$s ratet %2$s-parti</item>
+    <item quantity="other">≥ %1$s ratede %2$s-partier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du må spille enda %1$s %2$s ratet parti</item>
-    <item quantity="other">Du må spille enda %1$s %2$s ratede partier</item>
+    <item quantity="one">Du må spille enda %1$s ratet %2$s-parti</item>
+    <item quantity="other">Du må spille enda %1$s ratede %2$s-partier</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Du må spille enda %s ratet parti</item>
     <item quantity="other">Du må spille enda %s ratede partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %s rating er midlertidig</string>
-  <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høy</string>
+  <string name="yourPerfRatingIsProvisional">%s-ratingen din er foreløpig</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s-ratingen din (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
@@ -320,7 +320,7 @@
   <string name="joinTeam">Bli med på laget</string>
   <string name="quitTeam">Forlat laget</string>
   <string name="anyoneCanJoin">Alle kan bli med</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med i denne klanen</string>
+  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
   <string name="joiningPolicy">Regler for å bli med</string>
   <string name="teamLeader">Lagleder</string>
   <string name="teamBestPlayers">Lagets beste spillere</string>
@@ -585,7 +585,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="xVsYinZ">%1$s mot %2$s 
 i %3$s</string>
   <string name="timeline">Tidslinje</string>
-  <string name="seeAllTournaments">Se alle turneringer</string>
+  <string name="seeAllTournaments">Vis alle turneringer</string>
   <string name="starting">Starter:</string>
   <string name="allInformationIsPublicAndOptional">All informasjon er offentlig og valgfri.</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller sted.</string>
@@ -650,7 +650,7 @@ i %3$s</string>
   <string name="mobileApp">Mobilapplikasjon</string>
   <string name="webmasters">Webadministratorer</string>
   <string name="about">Om</string>
-  <string name="aboutX">Rundt %s</string>
+  <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengelig (%2$s), libre, annonsefri, åpen kildekode sjakk-server.</string>
   <string name="really">virkelig</string>
   <string name="contribute">Bidra</string>
@@ -721,7 +721,7 @@ i %3$s</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metode for å rokere</string>
   <string name="castleByMovingTwoSquares">Flytt kongen to felter</string>
   <string name="castleByMovingOntoTheRook">Sett kongen på tårnet</string>
-  <string name="shareYourInsightsData">Del dine innsikts data</string>
+  <string name="shareYourInsightsData">Del den personlige spillerstatistikken din</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
@@ -732,9 +732,9 @@ i %3$s</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Sikkerhet</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheter du har logget inn på med din konto. Lukk alle sesjoner du ikke gjenkjenner.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheter du har logget inn på med din konto. Lukk alle økter du ikke gjenkjenner.</string>
   <string name="alternativelyYouCanX">Ellers kan du %s.</string>
-  <string name="revokeAllSessions">lukke alle sesjoner</string>
+  <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spill sjakk overalt</string>
   <string name="asFreeAsLichess">Like gratis som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygget for kjærlighet til sjakk, ikke penger</string>
@@ -770,7 +770,7 @@ i %3$s</string>
   <string name="boardTheme">Brettema</string>
   <string name="boardSize">Brettstørrelse</string>
   <string name="pieceSet">Brikkesett</string>
-  <string name="embedInYourWebsite">Embed på nettsiden din</string>
+  <string name="embedInYourWebsite">Bygg inn på nettstedet ditt</string>
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
   <string name="usernamePrefixInvalid">Det første tegnet i brukernavnet må være en bokstav.</string>
   <string name="usernameSuffixInvalid">Det siste tegnet i brukernavnet må være en bokstav eller et tall.</string>
@@ -795,14 +795,14 @@ i %3$s</string>
     <item quantity="one">%s sekund til å ta det første trekket</item>
     <item quantity="other">%s sekunder til å ta det første trekket</item>
   </plurals>
-  <string name="practiceWithComputer">Øv med computer</string>
+  <string name="practiceWithComputer">Øv med maskinen</string>
   <string name="anotherWasX">Et annet var %s</string>
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde vekk</string>
   <string name="resumePractice">Gjenoppta øving</string>
   <string name="theGameIsADraw">Partiet ender med remis.</string>
-  <string name="computerThinking">Computer tenker...</string>
-  <string name="seeBestMove">Se beste trekk</string>
+  <string name="computerThinking">Maskinen tenker ...</string>
+  <string name="seeBestMove">Vis beste trekk</string>
   <string name="hideBestMove">Skjul beste trekk</string>
   <string name="getAHint">Få et hint</string>
   <string name="evaluatingYourMove">Vurderer trekket ditt...</string>

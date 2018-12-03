@@ -389,7 +389,7 @@
   <string name="standing">Classement</string>
   <string name="createANewTournament">Créer un nouveau tournoi</string>
   <string name="tournamentCalendar">Calendrier des tournois</string>
-  <string name="conditionOfEntry">Condition pour être admis:</string>
+  <string name="conditionOfEntry">Condition pour être admis :</string>
   <string name="advancedSettings">Paramètres avancés</string>
   <string name="safeTournamentName">Choisissez un nom très sûr pour le tournoi.</string>
   <string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
@@ -648,8 +648,8 @@ en %3$s</string>
   <string name="videoLibrary">Vidéothèque</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
-  <string name="about">À propos de</string>
-  <string name="aboutX">Environ %s</string>
+  <string name="about">À propos</string>
+  <string name="aboutX">À propos de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est gratuit (%2$s), libre, sans pubs, serveur d\'échecs avec source ouverte.</string>
   <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
