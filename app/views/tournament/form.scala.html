@@ -31,6 +31,7 @@ moreJs = moreJs) {
       }
       @form3.split {
       @form3.checkbox(form("rated"), trans.rated(), help = Html("Games are rated<br>and impact players ratings").some)
+      <input type="hidden" name="@form("rated").name" value="false"> @* hack allow disabling rated *@
       @form3.group(form("variant"), trans.variant(), half = true)(form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2)))
       }
       @form3.group(form("position"), trans.startPosition(), klass = "position")(tournament.startingPosition(_))
