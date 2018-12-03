@@ -558,7 +558,6 @@
   <string name="xVsYinZ">%1$s 対 %2$s
 （%3$s）</string>
   <string name="timeline">タイムライン</string>
-  <string name="seeAllTournaments">全てのトーナメントを見る</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
   <string name="yourCityRegionOrDepartment">居住地の市、地域、または県</string>
