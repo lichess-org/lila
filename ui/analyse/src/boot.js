@@ -179,12 +179,6 @@ module.exports = function(element, cfg) {
     ));
   });
   lichess.topMenuIntent();
-  $('button.cheat_list').on('click', function() {
-    $.post({
-      url: $(this).data('src') + '?v=' + !$(this).hasClass('active')
-    });
-    $(this).toggleClass('active');
-  });
   if (lichess.isMS) setTimeout(function() {
     var prop = 'backgroundImage';
     $('.cg-board').css(prop, $('.cg-board').css(prop).replace(')','?1)'));

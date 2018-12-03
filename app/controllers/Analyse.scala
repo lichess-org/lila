@@ -38,9 +38,8 @@ object Analyse extends LilaController {
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pgnDump(pov.game, initialFen, analysis = none, PgnDump.WithFlags(clocks = false)) zip
-          isGranted(_.Hunter).??(Env.mod.cheatList.get(pov.game).map(some)) flatMap {
-            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn ~ onCheatList =>
+          Env.api.pgnDump(pov.game, initialFen, analysis = none, PgnDump.WithFlags(clocks = false)) flatMap {
+            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lila.round.OnUserTv(u.id) },
                 analysis,
@@ -62,8 +61,7 @@ object Analyse extends LilaController {
                     crosstable,
                     userTv,
                     chat,
-                    bookmarked = bookmarked,
-                    onCheatList = onCheatList
+                    bookmarked = bookmarked
                   ))
                 }
           }

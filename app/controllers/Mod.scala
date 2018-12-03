@@ -311,12 +311,6 @@ object Mod extends LilaController {
     fuccess(().some)
   }(ctx => me => _ => Redirect(routes.Mod.chatPanic).fuccess)
 
-  def cheatList(gameId: String) = SecureBody(_.Hunter) { implicit ctx => me =>
-    OptionFuOk(lila.game.GameRepo game gameId) { game =>
-      Env.mod.cheatList.set(game, getBool("v"), lila.report.Mod(me))
-    }
-  }
-
   def eventStream = OAuthSecure(_.Admin) { req => me =>
     Ok.chunked(Env.mod.stream.enumerator).fuccess
   }
