@@ -14,6 +14,7 @@ object layout {
 
   private val fontVersion = 82
 
+  private val doctype = raw("<!doctype html>")
   private val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
   private val charset = raw("""<meta charset="utf-8">""")
   private val fontStylesheets = raw(List(
@@ -100,7 +101,8 @@ object layout {
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
     csp: Option[lila.common.ContentSecurityPolicy] = None
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Html)(implicit ctx: Context) = frag(
+    doctype,
     html(st.lang := ctx.lang.language)(
       topComment,
       head(
@@ -262,4 +264,5 @@ object layout {
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
         )
     )
+  )
 }

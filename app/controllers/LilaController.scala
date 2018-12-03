@@ -7,7 +7,7 @@ import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
 import play.twirl.api.Html
-import scalatags.Text.TypedTag
+import scalatags.Text.{ TypedTag, Frag }
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
@@ -36,13 +36,10 @@ private[controllers] trait LilaController
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit def contentTypeOfTag(implicit codec: Codec): ContentTypeOf[TypedTag[String]] = {
-    ContentTypeOf[TypedTag[String]](Some(ContentTypes.HTML))
-  }
-
-  protected implicit def writeableOfTag(implicit codec: Codec): Writeable[TypedTag[String]] = {
-    Writeable(tag => codec.encode("<!DOCTYPE html>\n" + tag.render))
-  }
+  protected implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
+    ContentTypeOf[Frag](Some(ContentTypes.HTML))
+  protected implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
+    Writeable(frag => codec.encode(frag.render))
 
   protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
 
