@@ -583,7 +583,6 @@
   <string name="defeat">Başarısız</string>
   <string name="xVsYinZ">%2$s karşısında %3$s türünde %1$s</string>
   <string name="timeline">Zaman çubuğu</string>
-  <string name="seeAllTournaments">Tüm turnuvalar gör</string>
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
   <string name="yourCityRegionOrDepartment">İl, İlçe ya da Bölge</string>
