@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
   <string name="promoteVariation">Promuovi la variante</string>
-  <string name="makeMainLine">Rendi questa linea principale</string>
+  <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Variante perdente</string>
