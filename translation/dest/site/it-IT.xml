@@ -291,12 +291,12 @@
     <item quantity="other">≥ %1$s partite %2$s classificate</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Devi giocare ancora %1$s partita valida per la classifica %2$s</item>
-    <item quantity="other">Devi giocare ancora %1$s partite valide per la classifica %2$s</item>
+    <item quantity="one">Ti manca ancora %1$s partita %2$s classificata</item>
+    <item quantity="other">Ti mancano ancora %1$s partite %2$s classificate</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Devi giocare ancora %s partita valida per la classifica</item>
-    <item quantity="other">Devi giocare ancora %s partite valide per la classifica</item>
+    <item quantity="one">Ti manca ancora %s partita classificata</item>
+    <item quantity="other">Ti mancano ancora %s partite classificate</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
