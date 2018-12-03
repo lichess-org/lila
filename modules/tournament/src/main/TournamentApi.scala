@@ -137,7 +137,7 @@ final class TournamentApi(
   def start(oldTour: Tournament): Unit =
     Sequencing(oldTour.id)(TournamentRepo.createdById) { tour =>
       TournamentRepo.setStatus(tour.id, Status.Started) >>-
-        sendTo(tour.id, Reload) >>-
+        socketReload(tour.id) >>-
         publish()
     }
 
@@ -158,7 +158,7 @@ final class TournamentApi(
           _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.userId))
         } yield {
           clearJsonViewCache(tour.id)
-          sendTo(tour.id, Reload)
+          socketReload(tour.id)
           publish()
           PlayerRepo withPoints tour.id foreach {
             _ foreach { p => UserRepo.incToints(p.userId, p.score) }
