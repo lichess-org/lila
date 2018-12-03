@@ -393,7 +393,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="conditionOfEntry">Condizioni di accesso:</string>
   <string name="advancedSettings">Impostazioni Avanzate</string>
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
-  <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare la chiusura del tuo account.</string>
+  <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
   <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo come un Grande Maestro scelto casualmente.</string>
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
   <string name="fewerPlayers">Se imposti le condizioni di accesso, il torneo avrà un minor numero di giocatori.</string>
@@ -522,10 +522,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="gameDisplay">Schermata di gioco</string>
   <string name="pieceAnimation">Animazione dei pezzi</string>
   <string name="materialDifference">Differenza di materiale</string>
-  <string name="closeAccount">Chiudi account</string>
-  <string name="changedMindDoNotCloseAccount">Ho cambiato idea, non chiudere il mio account</string>
-  <string name="closeAccountExplanation">Sei sicuro di voler chiudere il tuo account? La chiusura del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
-  <string name="thisAccountIsClosed">Questo account è stato chiuso.</string>
+  <string name="closeAccount">Elimina account</string>
+  <string name="changedMindDoNotCloseAccount">Ci ho ripensato, non eliminare il mio account</string>
+  <string name="closeAccountExplanation">Sei sicuro di voler eliminare il tuo account? L\'eliminazione del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
+  <string name="thisAccountIsClosed">Questo account è stato eliminato.</string>
   <string name="invalidUsernameOrPassword">Nome utente o password non validi</string>
   <string name="incorrectPassword">Password errata</string>
   <string name="invalidAuthenticationCode">Codice di autenticazione non valido</string>
