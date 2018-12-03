@@ -2,6 +2,6 @@
 
 @base.layout(
 title = title,
-moreCss = cssTags(Map("user-signup.css" -> true, "form3.css" -> formCss)),
+moreCss = cssTags(List("user-signup.css" -> true, "form3.css" -> formCss)),
 moreJs = moreJs,
 csp = csp)(body).toHtml

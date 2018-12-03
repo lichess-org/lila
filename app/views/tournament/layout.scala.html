@@ -1,18 +1,11 @@
 @(title: String, moreJs: Html = emptyHtml, moreCss: Html = emptyHtml, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, draughtsground: Boolean = true, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
-@evenMoreCss = {
-@cssTag("tournament.css")
-@moreCss
-}
-
 @base.layout(
 title = title,
-moreCss = evenMoreCss,
+moreCss = cssTag("tournament.css") ++ moreCss,
 moreJs = moreJs,
 side = side,
 chat = chat,
 underchat = underchat,
 openGraph = openGraph,
-draughtsground = draughtsground) {
-@body
-}.toHtml
+draughtsground = draughtsground)(body).toHtml

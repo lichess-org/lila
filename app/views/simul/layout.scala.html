@@ -1,14 +1,9 @@
 @(title: String, moreJs: Html = emptyHtml, moreCss: Html = emptyHtml, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, draughtsground: Boolean = true, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
 
-@evenMoreCss = {
-@cssTags(Map("simul.css" -> true, "form3.css" -> formCss))
-@moreCss
-}
-
 @base.layout(
 title = title,
 moreJs = moreJs,
-moreCss = evenMoreCss,
+moreCss = cssTags(List("simul.css" -> true, "form3.css" -> formCss)) ++ moreCss,
 side = side,
 chat = chat,
 underchat = underchat,

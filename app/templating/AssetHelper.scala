@@ -33,8 +33,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       cssTag(name).body
     } mkString ""
   }
-  def cssTags(names: Map[String, Boolean]): Html =
-    cssTags(names.collect { case (k, true) => k }.toList: _*)
+  def cssTags(names: List[(String, Boolean)]): Html =
+    cssTags(names.collect { case (k, true) => k }: _*)
 
   def cssVendorTag(name: String) = cssAt("vendor/" + name)
 
