@@ -53,7 +53,7 @@ object home {
         simuls.find(_.spotlightable) take 2 map { views.html.simul.homepageSpotlight(_) } toList
       ),
       ctx.me map { u =>
-        div(id := "timeline", attr("data-href") := routes.Timeline.home)(
+        div(id := "timeline", dataHref := routes.Timeline.home)(
           views.html.timeline entries userTimeline,
           div(cls := "links")(
             userTimeline.size >= 8 option

@@ -550,9 +550,6 @@ div.new_posts li span.extract {
   font-family: 'Roboto';
   font-weight: 300;
 }
-div.new_posts li .user_link {
-  padding: 0 0.25em;
-}
 #daily_puzzle {
   width: 224px;
   position: absolute;

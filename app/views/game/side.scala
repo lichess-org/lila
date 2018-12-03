@@ -12,6 +12,8 @@ import controllers.routes
 object side {
 
   private val separator = " • "
+  private val dataUserTv = attr("data-user-tv")
+  private val dataTime = attr("data-time")
 
   def apply(
     pov: lidraughts.game.Pov,
@@ -95,7 +97,7 @@ object side {
 
       userTv.map { u =>
         div(cls := "side_box")(
-          h2(cls := "top user_tv text", attr("data-user-tv") := u.id, dataIcon := "1")(u.titleUsername)
+          h2(cls := "top user_tv text", dataUserTv := u.id, dataIcon := "1")(u.titleUsername)
         )
       } orElse {
         lidraughts.common.HTTPRequest.isMobile(ctx.req) option
@@ -108,7 +110,7 @@ object side {
       tour.map { t =>
         div(cls := "game_tournament side_box no_padding scroll-shadow-soft")(
           p(cls := "top text", dataIcon := "g")(a(href := routes.Tournament.show(t.id))(t.fullName)),
-          div(cls := "clock", attr("data-time") := t.secondsToFinish)(
+          div(cls := "clock", dataTime := t.secondsToFinish)(
             div(cls := "time")(t.clockStatus)
           )
         )
