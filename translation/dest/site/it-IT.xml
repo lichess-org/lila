@@ -52,7 +52,7 @@
   <string name="usingServerAnalysis">Analisi del computer in uso</string>
   <string name="loadingEngine">Sto caricando il motore...</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
-  <string name="goDeeper">Andare più a fondo</string>
+  <string name="goDeeper">Aumenta la profondità</string>
   <string name="showThreat">Mostra minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
@@ -650,8 +650,8 @@ in %3$s</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
   <string name="aboutX">Informazioni su %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi a sorgente aperta (%2$s) gratuito, privo di pubblicità e rilasciato sotto licenza libera.</string>
-  <string name="really">veramente</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi (%2$s), open source, privo di pubblicità e rilasciato sotto licenza libera.</string>
+  <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="contact">Contattaci</string>
   <string name="termsOfService">Termini di Servizio</string>
