@@ -6,7 +6,7 @@ import scala.concurrent.duration.Duration
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.i18n.I18nKeys
+import lidraughts.i18n.{ I18nKeys => trans }
 
 object JsData extends lidraughts.Lidraughtsisms {
 
@@ -23,23 +23,24 @@ object JsData extends lidraughts.Lidraughtsisms {
     "animation" -> Json.obj(
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
-    "i18n" -> i18nJsObject(
-      I18nKeys.setTheBoard,
-      I18nKeys.boardEditor,
-      I18nKeys.startPosition,
-      I18nKeys.clearBoard,
-      I18nKeys.flipBoard,
-      I18nKeys.loadPosition,
-      I18nKeys.popularOpenings,
-      I18nKeys.castling,
-      I18nKeys.whitePlays,
-      I18nKeys.blackPlays,
-      I18nKeys.continueFromHere,
-      I18nKeys.playWithTheMachine,
-      I18nKeys.playWithAFriend,
-      I18nKeys.analysis,
-      I18nKeys.study,
-      I18nKeys.variant
-    )
+    "i18n" -> i18nJsObject(translations)
+  )
+
+  private val translations = List(
+    trans.setTheBoard,
+    trans.boardEditor,
+    trans.startPosition,
+    trans.clearBoard,
+    trans.flipBoard,
+    trans.loadPosition,
+    trans.popularOpenings,
+    trans.whitePlays,
+    trans.blackPlays,
+    trans.variant,
+    trans.continueFromHere,
+    trans.playWithTheMachine,
+    trans.playWithAFriend,
+    trans.analysis,
+    trans.study
   )
 }
