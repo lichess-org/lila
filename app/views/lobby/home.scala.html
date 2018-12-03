@@ -6,7 +6,7 @@
 <div id="featured_game">
   @featured.map { g =>
   @gameFen(Pov.first(g), tv = true)
-  @game.vstext(Pov.first(g))(ctx.some)
+  @game.bits.vstext(Pov.first(g))(ctx.some).toHtml
   }
 </div>
 }

@@ -10,7 +10,7 @@
       @playerLink(pov.game.blackPlayer, withRating = false, withOnline = false, withDiff = false)
     </div>
     <br />
-    <span data-icon="p"> @shortClockName(pov.game.clock.map(_.config))</span>, @game.variantLink(pov.game.variant, variantName(pov.game.variant))
+    <span data-icon="p"> @shortClockName(pov.game.clock.map(_.config))</span>, @game.bits.variantLink(pov.game.variant, variantName(pov.game.variant)).toHtml
     @if(pov.game.rated) {
     , @trans.rated()
     }
