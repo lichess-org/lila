@@ -43,6 +43,7 @@ object side {
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           systemName(tour.system).capitalize,
+          " ",
           a(cls := "blue help", href := routes.Tournament.help(tour.system.toString.toLowerCase.some), dataIcon := "")
         )
       ),
@@ -74,8 +75,10 @@ object side {
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
       if (tour.createdBy == "lichess") trans.tournamentOfficial()
       else trans.by(usernameOrId(tour.createdBy)),
-      separator,
-      absClientDateTime(tour.startsAt),
+      !tour.isStarted option frag(
+        br,
+        absClientDateTime(tour.startsAt)
+      ),
       (!tour.position.initial) ?? List(
         br, br,
         a(target := "_blank", href := tour.position.url)(
