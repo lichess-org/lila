@@ -72,11 +72,11 @@ private[tv] final class TvActor(
       )))
       if (channel == Tv.Channel.Best)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
-          case html: play.twirl.api.Html =>
+          case html: String =>
             val event = lidraughts.hub.actorApi.game.ChangeFeatured(
               game.id,
               makeMessage("featured", Json.obj(
-                "html" -> html.toString,
+                "html" -> html,
                 "color" -> game.firstColor.name,
                 "id" -> game.id
               ))
