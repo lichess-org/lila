@@ -96,8 +96,8 @@ object Tournament extends LilaController {
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
         }
       }, api = _ => repo byId id flatMap {
-        case None => NotFound(jsonError("No such tournament")).fuccess
-        case Some(tour) => {
+        _.fold(notFoundJson("No such tournament")) { tour =>
+          lila.mon.tournament.apiShowHit()
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
