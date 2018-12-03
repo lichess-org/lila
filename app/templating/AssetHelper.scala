@@ -54,8 +54,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag =
-    jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
+  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
 
   val highchartsLatestTag = Html {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""

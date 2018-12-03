@@ -6,7 +6,7 @@ import scala.concurrent.duration.Duration
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.i18n.I18nKeys
+import lila.i18n.{ I18nKeys => trans }
 
 object JsData extends lila.Lilaisms {
 
@@ -28,24 +28,26 @@ object JsData extends lila.Lilaisms {
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "is3d" -> ctx.pref.is3d,
-    "i18n" -> i18nJsObject(
-      I18nKeys.setTheBoard,
-      I18nKeys.boardEditor,
-      I18nKeys.startPosition,
-      I18nKeys.clearBoard,
-      I18nKeys.flipBoard,
-      I18nKeys.loadPosition,
-      I18nKeys.popularOpenings,
-      I18nKeys.castling,
-      I18nKeys.whiteCastlingKingside,
-      I18nKeys.blackCastlingKingside,
-      I18nKeys.whitePlays,
-      I18nKeys.blackPlays,
-      I18nKeys.variant,
-      I18nKeys.continueFromHere,
-      I18nKeys.playWithTheMachine,
-      I18nKeys.playWithAFriend,
-      I18nKeys.analysis
-    )
+    "i18n" -> i18nJsObject(translations)
+  )
+
+  private val translations = List(
+    trans.setTheBoard,
+    trans.boardEditor,
+    trans.startPosition,
+    trans.clearBoard,
+    trans.flipBoard,
+    trans.loadPosition,
+    trans.popularOpenings,
+    trans.castling,
+    trans.whiteCastlingKingside,
+    trans.blackCastlingKingside,
+    trans.whitePlays,
+    trans.blackPlays,
+    trans.variant,
+    trans.continueFromHere,
+    trans.playWithTheMachine,
+    trans.playWithAFriend,
+    trans.analysis
   )
 }

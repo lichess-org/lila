@@ -1,6 +1,6 @@
 @(withCeval: Boolean = true, withExplorer: Boolean = true, withForecast: Boolean = false)(implicit ctx: Context)
 @import play.api.libs.json.Json
-@safeJson(i18nJsObject(
+@safeJson(i18nJsObject(Vector(
 trans.analysis,
 trans.flipBoard,
 trans.backToGame,
@@ -74,7 +74,7 @@ trans.evaluatingYourMove,
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
 ) ++ {
-if (withCeval) i18nJsObject(
+withCeval ?? Vector(
 // ceval (also uses gameOver)
 trans.depthX,
 trans.usingServerAnalysis,
@@ -94,9 +94,9 @@ trans.removesTheDepthLimit,
 trans.multipleLines,
 trans.cpus,
 trans.memory
-) else Json.obj()
+)
 } ++ {
-if (withExplorer) i18nJsObject(
+withExplorer ?? Vector(
 // explorer (also uses gameOver, checkmate, stalemate, draw, variantEnding)
 trans.openingExplorerAndTablebase,
 trans.openingExplorer,
@@ -128,9 +128,9 @@ trans.maybeIncludeMoreGamesFromThePreferencesMenu,
 trans.winPreventedBy50MoveRule,
 trans.lossSavedBy50MoveRule,
 trans.allSet
-) else Json.obj()
+)
 } ++ {
-if (withForecast) i18nJsObject(
+withForecast ?? Vector(
 // forecast
 trans.conditionalPremoves,
 trans.addCurrentVariation,
@@ -138,5 +138,5 @@ trans.playVariationToCreateConditionalPremoves,
 trans.noConditionalPremoves,
 trans.playX,
 trans.andSaveNbPremoveLines
-) else Json.obj()
-})
+)
+}))
