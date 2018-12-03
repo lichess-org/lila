@@ -18,6 +18,9 @@ trait I18nHelper {
   def i18nJsObject(keys: I18nKey*)(implicit lang: Lang): JsObject =
     JsDump.keysToObject(keys, I18nDb.Site, lang)
 
+  def i18nJsObject(keys: List[I18nKey])(implicit lang: Lang): JsObject =
+    JsDump.keysToObject(keys, I18nDb.Site, lang)
+
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
     JsDump.keysToObject(keys.flatten, I18nDb.Site, lang)
 

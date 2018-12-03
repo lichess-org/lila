@@ -43,7 +43,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked).some,
+side = Some(views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)),
 chat = chat.html.some,
 underchat = underchat.some,
 moreCss = moreCss,

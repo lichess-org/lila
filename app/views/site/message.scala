@@ -21,7 +21,7 @@ object message {
     views.html.base.layout(title = title, moreCss = ~moreCss) {
       div(cls := "content_box small_box")(
         div(cls := "head")(
-          h1(cls := Map("text" -> icon.isDefined), dataIcon := icon)(title)
+          h1(cls := List("text" -> icon.isDefined), dataIcon := icon)(title)
         ),
         br, br,
         p(message),

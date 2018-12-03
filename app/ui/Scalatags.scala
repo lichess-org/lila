@@ -21,6 +21,7 @@ trait Scalatags {
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
 
   lazy val dataIcon = attr("data-icon")
+  lazy val dataHint = attr("data-hint")
 
   implicit val charAttr = genericAttr[Char]
 
@@ -32,9 +33,9 @@ trait Scalatags {
     }
   }
 
-  /* for class maps such as Map("foo" -> true, "active" -> isActive) */
-  implicit val stringMapAttr = new AttrValue[Map[String, Boolean]] {
-    def apply(t: scalatags.text.Builder, a: Attr, m: Map[String, Boolean]): Unit = {
+  /* for class maps such as List("foo" -> true, "active" -> isActive) */
+  implicit val classesAttr = new AttrValue[List[(String, Boolean)]] {
+    def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
       val cls = m collect { case (s, true) => s } mkString " "
       if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
     }

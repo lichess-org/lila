@@ -50,7 +50,7 @@ object variant {
     menu = Some(frag(
       lidraughts.rating.PerfType.variantsPlus map { pt =>
         a(
-          cls := Map("text" -> true, "active" -> active.has(pt)),
+          cls := List("text" -> true, "active" -> active.has(pt)),
           href := routes.Page.variant(pt.key),
           dataIcon := pt.iconChar
         )(pt.name)
