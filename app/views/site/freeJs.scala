@@ -19,19 +19,31 @@ object freeJs {
     title = "LibreJS Validation Table",
     back = false
   ) {
-    table(id := "jslicense-labels1", cls := "slist")(
-      thead(
-        tr(List("Script File", "License", "Source Code").map(th(_)))
+    frag(
+      p(
+        "Here's the ",
+        a(cls := "blue", href := "https://www.gnu.org/licenses/javascript-labels.en.html")(
+          "JavaScript License Web Labels"
+        ),
+        " table,",
+        br,
+        "where you can find the source code for the website' scripts."
       ),
-      tbody(
-        uiModules map { module =>
-          val file = s"lichess.$module.min.js"
-          tr(
-            td(a(href := assetUrl(s"compiled/$file"), cls := "blue")(file)),
-            td(agpl),
-            td(github(s"ui/$module/src"))
-          )
-        }
+      br, br,
+      table(id := "jslicense-labels1", cls := "slist")(
+        thead(
+          tr(List("Script File", "License", "Source Code").map(th(_)))
+        ),
+        tbody(
+          uiModules map { module =>
+            val file = s"lichess.$module.min.js"
+            tr(
+              td(a(href := assetUrl(s"compiled/$file"), cls := "blue")(file)),
+              td(agpl),
+              td(github(s"ui/$module/src"))
+            )
+          }
+        )
       )
     )
   }
