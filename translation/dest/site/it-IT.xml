@@ -803,7 +803,7 @@ in %3$s</string>
   <string name="computerThinking">Il computer sta pensando...</string>
   <string name="seeBestMove">Scopri la mossa migliore</string>
   <string name="hideBestMove">Nascondi la mossa migliore</string>
-  <string name="getAHint">Ottieni un suggerimento</string>
+  <string name="getAHint">Vuoi un suggerimento?</string>
   <string name="evaluatingYourMove">Valutando la tua mossa...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
