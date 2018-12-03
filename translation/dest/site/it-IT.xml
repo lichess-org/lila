@@ -597,7 +597,7 @@ in %3$s</string>
     <item quantity="one">%s giocatore bloccato</item>
     <item quantity="other">%s giocatori bloccati</item>
   </plurals>
-  <string name="listBlockedPlayers">Lista dei giocatori bloccati da te</string>
+  <string name="listBlockedPlayers">Elenca i giocatori che hai bloccato</string>
   <string name="human">Umano</string>
   <string name="computer">Computer</string>
   <string name="side">Lato</string>
