@@ -132,51 +132,7 @@ asyncJs = true) {
     @simul.allCreated(simuls).toHtml
   </div>
 </div>
-<div class="leaderboards undertable">
-  <div class="leaderboard">
-    <div class="user_top">
-      <div class="undertable_top">
-        <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
-        <span class="title text" data-icon="C">@trans.leaderboard()</span>
-      </div>
-      <div class="undertable_inner scroll-shadow-hard">
-        <table>
-          <tbody>
-            @leaderboard.map { l =>
-            <tr>
-              <td>@lightUserLink(l.user)</td>
-              @lila.rating.PerfType(l.perfKey).map { pt =>
-              <td data-icon="@pt.iconChar" class="text">@l.rating</td>
-              }
-              <td>@showProgress(l.progress, withTitle = false)</td>
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="leaderboard">
-    <div class="user_top">
-      <div class="undertable_top">
-        <a class="more hint--bottom" href="@routes.Tournament.leaderboard">@trans.more() »</a>
-        <span class="title" data-icon="g"> @trans.tournamentWinners()</span>
-      </div>
-      <div class="undertable_inner scroll-shadow-hard">
-        <table>
-          <tbody>
-            @tournamentWinners.take(10).map { w =>
-            <tr>
-              <td>@userIdLink(w.userId.some)</td>
-              <td><a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+@bits.leaderboards(leaderboard, tournamentWinners).toHtml
 }
 @NotForKids {
 <div class="new_posts undertable">

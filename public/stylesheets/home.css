@@ -497,16 +497,16 @@ div.blog.undertable time {
   justify-content: space-between;
   white-space: nowrap;
 }
-.leaderboards .leaderboard {
+.leaderboards > div {
   flex: 0 0 48.5%;
   max-width: 48.5%;
 }
-.leaderboards .leaderboard td:first-child {
+.leaderboards td:first-child {
   max-width: 135px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.leaderboards .leaderboard td:last-child {
+.leaderboards td:last-child {
   text-align: right;
 }
 #lichess .enterable_list {
