@@ -112,7 +112,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(700 millis, self, NotifyReload)
+      context.system.scheduler.scheduleOnce(1 second, self, NotifyReload)
     }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
