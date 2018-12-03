@@ -3,12 +3,11 @@ package views.html.round
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.common.String.html.safeJsonValue
-import lidraughts.game.Game
 import lidraughts.i18n.{ I18nKeys => trans }
 
 object jsI18n {
 
-  def apply(g: Game)(implicit ctx: Context): String = safeJsonValue(i18nJsObject {
+  def apply(g: lidraughts.game.Game)(implicit ctx: Context): String = safeJsonValue(i18nJsObject {
     baseTranslations ++ {
       if (g.isCorrespondence) correspondenceTranslations
       else realtimeTranslations

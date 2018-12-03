@@ -1,6 +1,6 @@
 package views.html.board
 
-import controllers.routes
+import scalatags.Text.all._
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
@@ -8,9 +8,11 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.i18n.{ I18nKeys => trans }
 
-object JsData extends lidraughts.Lidraughtsisms {
+import controllers.routes
 
-  def apply(
+object bits {
+
+  def jsData(
     sit: draughts.Situation,
     fen: String,
     animationDuration: Duration
@@ -25,6 +27,31 @@ object JsData extends lidraughts.Lidraughtsisms {
     ),
     "i18n" -> i18nJsObject(translations)
   )
+
+  def domPreload(pov: Option[lidraughts.game.Pov])(implicit ctx: Context) = {
+    val theme = ctx.currentTheme
+    div(cls := "lidraughts_game")(
+      div(cls := "lidraughts_board_wrap")(
+        div(cls := "lidraughts_board")(
+          raw(s"""<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+<rect width="1000" height="1000" fill="#${theme.dark}"/>
+<g fill="#${theme.light}" id="a"><g id="b">
+<rect width="100" height="100" id="c"/>
+<use x="200" xlink:href="#c"/>
+<use x="400" xlink:href="#c"/>
+<use x="600" xlink:href="#c"/>
+<use x="800" xlink:href="#c"/>
+</g><use x="100" y="100" xlink:href="#b"/></g>
+<use y="200" xlink:href="#a"/>
+<use y="400" xlink:href="#a"/>
+<use y="600" xlink:href="#a"/>
+<use y="800" xlink:href="#a"/>
+</svg>"""),
+          pov.fold(miniBoardContent)(draughtsground)
+        )
+      )
+    )
+  }
 
   private val translations = List(
     trans.setTheBoard,

@@ -12,7 +12,7 @@ import lidraughts.i18n.{ I18nKeys => trans }
 
 import controllers.routes
 
-object player {
+object watcher {
 
   def apply(
     pov: Pov,
@@ -20,20 +20,19 @@ object player {
     tour: Option[lidraughts.tournament.TourMiniView],
     simul: Option[lidraughts.simul.Simul],
     cross: Option[lidraughts.game.Crosstable.WithMatchup],
-    playing: List[Pov],
-    chatOption: Option[lidraughts.chat.Chat.GameOrEvent],
+    userTv: Option[lidraughts.user.User] = None,
+    chatOption: Option[lidraughts.chat.UserChat.Mine],
     bookmarked: Boolean
   )(implicit ctx: Context) = {
 
-    val chatJson = chatOption.map(_.either).map {
-      case Left(c) => chat.restrictedJson(c, name = trans.chatRoom.txt(), timeout = false, withNote = ctx.isAuth, public = false)
-      case Right(c) => chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+    val chatJson = chatOption map { c =>
+      chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
     }
 
     layout(
-      title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)} in ${pov.gameId}",
-      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
-      chat = chatOption.map(_ => chat.html),
+      title = s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}",
+      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
+      chat = chat.html.some,
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundTag,
@@ -42,26 +41,24 @@ window.onload = function() {
 LidraughtsRound.boot({
 data: ${safeJsonValue(data)},
 i18n: ${jsI18n(pov.game)},
-userId: $jsUserId,
-${tour.??(t => s"tour: ${toJson(tour.flatMap(_.top).map(lidraughts.tournament.JsonView.top(_, lightUser)))},")}
 chat: ${jsOrNull(chatJson)}
 }, document.getElementById('lidraughts'));
 }""")
       ),
       moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
-      draughtsground = false,
-      playing = true
+      draughtsground = false
     ) {
         frag(
           div(cls := "round cg-512")(
             board.bits.domPreload(pov.some),
             bits.underboard(pov.game, cross)
           ),
-          (playing.nonEmpty || simul.nonEmpty) option
-            div(id := "now_playing", cls := List("other_games" -> true, "blindfold" -> ctx.pref.isBlindfold))(
-              others(pov, playing, simul)
+          simul.map { s =>
+            div(cls := "other_games", id := "now_playing")(
+              h3()(simulStanding(s))
             )
+          }
         )
       }
   }
