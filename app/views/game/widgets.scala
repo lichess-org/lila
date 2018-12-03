@@ -91,7 +91,7 @@ object widgets {
         } else frag(br, br),
         div(cls := "metadata")(
           g.metadata.analysed option frag(
-            span(cls := "text", dataIcon := "&#xe004;")(trans.computerAnalysisAvailable()),
+            span(cls := "text", dataIcon := "")(trans.computerAnalysisAvailable()),
             br
           ),
           g.pgnImport.flatMap(_.user).map { user =>
