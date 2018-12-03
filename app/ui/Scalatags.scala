@@ -22,6 +22,8 @@ trait Scalatags {
 
   lazy val dataIcon = attr("data-icon")
   lazy val dataHint = attr("data-hint")
+  lazy val dataHref = attr("data-href")
+  lazy val dataCount = attr("data-count")
 
   implicit val charAttr = genericAttr[Char]
 

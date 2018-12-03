@@ -14,6 +14,8 @@ import controllers.routes
 
 object bits {
 
+  private val dataTitle = attr("data-title")
+
   def featuredJs(pov: Pov) = Html {
     s"""${gameFenNoCtx(pov, tv = true)}${vstext(pov)(none)}"""
   }
@@ -75,7 +77,7 @@ object bits {
 
   private def playerTitle(player: Player) =
     lightUser(player.userId).flatMap(_.title) map { t =>
-      span(cls := "title", attr("data-title") := t, title := Title titleName Title(t))(t)
+      span(cls := "title", dataTitle := t, title := Title titleName Title(t))(t)
     }
 
   def vstext(pov: Pov)(ctxOption: Option[Context]) =

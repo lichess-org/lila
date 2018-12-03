@@ -27,10 +27,8 @@ trait I18nHelper {
   def i18nFullDbJsObject(db: I18nDb.Ref)(implicit lang: Lang): JsObject =
     JsDump.dbToObject(db, lang)
 
-  def i18nJsQuantityFunction(implicit lang: Lang): Html = Html(JsQuantity(lang))
-
   private val defaultTimeagoLocale = TimeagoLocales.js.get("en") err "Missing en TimeagoLocales"
-  def timeagoLocaleScript(implicit ctx: lila.api.Context) = Html {
+  def timeagoLocaleScript(implicit ctx: lila.api.Context): String = {
     TimeagoLocales.js.get(ctx.lang.code) orElse
       TimeagoLocales.js.get(ctx.lang.language) getOrElse
       defaultTimeagoLocale

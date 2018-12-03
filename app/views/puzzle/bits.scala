@@ -12,12 +12,16 @@ import controllers.routes
 
 object bits {
 
+  private val dataColor = attr("data-color")
+  private val dataFen = attr("data-fen")
+  private val dataLastmove = attr("data-lastmove")
+
   def daily(p: lila.puzzle.Puzzle, fen: String, lastMove: String) = a(
     href := routes.Puzzle.daily(),
     cls := "mini_board parse_fen is2d",
-    attr("data-color") := p.color.name,
-    attr("data-fen") := fen,
-    attr("data-lastmove") := lastMove
+    dataColor := p.color.name,
+    dataFen := fen,
+    dataLastmove := lastMove
   )(miniBoardContent)
 
   def jsI18n(implicit context: Context) = toJson(i18nJsObject(translations))
