@@ -26,7 +26,7 @@
       }.getOrElse {
       <div class="none"></div>
       }
-      @game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
+      @game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u).toHtml
     </div>
     } else {
     <div class="search_status">
@@ -43,11 +43,11 @@
     @pager.currentPageResults.flatMap{ Pov(_, u) }.map { p =>
     <div class="paginated_element">
       @gameFen(p)
-      @game.vstext(p)(ctx.some)
+      @game.bits.vstext(p)(ctx.some).toHtml
     </div>
     }
     } else {
-    @game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
+    @game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u).toHtml
     }
   </div>
   }

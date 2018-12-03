@@ -102,7 +102,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     Namer.gameVsText(game, withRatings)(lightUser)
 
   val berserkIconSpan = """<span data-icon="`"></span>"""
-  val berserkIconSpanHtml = Html(berserkIconSpan)
   val statusIconSpan = """<span class="status"></span>"""
 
   def playerLink(

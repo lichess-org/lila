@@ -32,27 +32,17 @@ object side {
                 a(cls := "hint--top", href := routes.Importer.importGame, dataHint := trans.importGame.txt())("IMPORT"),
                 separator,
                 if (game.variant.exotic)
-                  variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
                 else
                   game.variant.name.toUpperCase
               )
               else frag(
-                game.clock.map { clock =>
-                  frag(clock.config.show)
-                } getOrElse {
-                  game.daysPerTurn.map { days =>
-                    span(cls := "hint--top", dataHint := trans.correspondence.txt())(
-                      if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
-                    )
-                  }.getOrElse {
-                    span(cls := "hint--top", dataHint := trans.unlimited.txt())("∞")
-                  }
-                },
+                widgets showClock game,
                 separator,
                 if (game.rated) trans.rated.txt() else trans.casual.txt(),
                 separator,
                 if (game.variant.exotic)
-                  variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
                 else
                   game.perfType.map { pt =>
                     span(cls := "hint--top", dataHint := pt.title)(pt.shortName)

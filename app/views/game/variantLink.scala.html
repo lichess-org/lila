@@ -1,9 +1,0 @@
-@(variant: chess.variant.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom", initialFen: Option[chess.format.FEN] = None)
-@url = {
-@variant match {
-case chess.variant.Standard => {https://en.wikipedia.org/wiki/Chess}
-case chess.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.value.replace(' ', '_'))}
-case v => {@routes.Page.variant(v.key)}
-}
-}
-<a href="@url" rel="nofollow" target="_blank" @if(hintAsTitle){title}else{data-hint}="@variant.title" class="@cssClass variant-link">@name</a>

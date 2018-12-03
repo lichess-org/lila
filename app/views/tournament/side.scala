@@ -30,7 +30,7 @@ object side {
             tour.clock.show,
             separator,
             if (tour.variant.exotic) {
-              views.html.game.variantLink(
+              views.html.game.bits.variantLink(
                 tour.variant,
                 if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name,
                 cssClass = "hint--top"

@@ -260,7 +260,7 @@ object Round extends LilaController with TheftPrevention {
         Env.game.crosstableApi.withMatchup(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) map {
           case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
-            Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+            Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
     }
   }

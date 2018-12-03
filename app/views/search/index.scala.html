@@ -225,7 +225,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       }.getOrElse {
       <div class="none"></div>
       }
-      @game.widgets(pager.currentPageResults)
+      @game.widgets(pager.currentPageResults).toHtml
     </div>
     } else {
     <div class="search_status">
