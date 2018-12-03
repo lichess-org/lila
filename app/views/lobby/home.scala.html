@@ -113,27 +113,7 @@ asyncJs = true) {
   </div>
 </div>
 }
-@if(!ctx.isBot) {
-<div class="undertable">
-  <div class="undertable_top">
-    <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home()">@trans.more() »</a>
-    <span class="title text" data-icon="g">@trans.openTournaments()</span>
-  </div>
-  <div id="enterable_tournaments" class="enterable_list undertable_inner scroll-shadow-hard">
-    @tournament.enterable(tours).toHtml
-  </div>
-</div>
-<div class="undertable @if(simuls.isEmpty){none}">
-  <div class="undertable_top">
-    <a class="more" href="@routes.Simul.home">@trans.more() »</a>
-    <span class="title text" data-icon="|">@trans.simultaneousExhibitions()</span>
-  </div>
-  <div id="enterable_simuls" class="enterable_list undertable_inner">
-    @simul.allCreated(simuls).toHtml
-  </div>
-</div>
-@bits.leaderboards(leaderboard, tournamentWinners).toHtml
-}
+@if(!ctx.isBot) {@bits.underboards(tours, simuls, leaderboard, tournamentWinners).toHtml}
 @NotForKids {
 <div class="new_posts undertable">
   <div class="undertable_top">

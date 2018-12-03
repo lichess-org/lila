@@ -10,10 +10,12 @@ import controllers.routes
 
 object bits {
 
-  def leaderboards(
+  def underboards(
+    tours: List[lila.tournament.Tournament],
+    simuls: List[lila.simul.Simul],
     leaderboard: List[lila.user.User.LightPerf],
     tournamentWinners: List[lila.tournament.Winner]
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context) = frag(
     div(cls := "leaderboards undertable")(
       div(
         div(cls := "undertable_top")(
@@ -50,7 +52,26 @@ object bits {
           ))
         )
       )
+    ),
+    div(cls := "undertable")(
+      div(cls := "undertable_top")(
+        a(cls := "more", href := routes.Tournament.home())(frag(trans.more(), " »")),
+        span(cls := "title text", dataIcon := "g")(trans.openTournaments())
+      ),
+      div(id := "enterable_tournaments", cls := "enterable_list undertable_inner scroll-shadow-hard")(
+        views.html.tournament.enterable(tours)
+      )
+    ),
+    div(cls := List("undertable" -> true, "none" -> simuls.isEmpty))(
+      div(cls := "undertable_top")(
+        a(cls := "more", href := routes.Simul.home())(frag(trans.more(), " »")),
+        span(cls := "title text", dataIcon := "|")(trans.simultaneousExhibitions())
+      ),
+      div(id := "enterable_simuls", cls := "enterable_list undertable_inner")(
+        views.html.simul.allCreated(simuls)
+      )
     )
+  )
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = posts.nonEmpty option
     div(cls := "blog undertable")(

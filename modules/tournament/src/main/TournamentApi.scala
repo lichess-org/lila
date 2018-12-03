@@ -483,7 +483,7 @@ final class TournamentApi(
         }
         TournamentRepo.promotable foreach { tours =>
           renderer ? TournamentTable(tours) map {
-            case view: play.twirl.api.Html => ReloadTournaments(view.body)
+            case view: String => ReloadTournaments(view)
           } pipeToSelection lobby
         }
     })))

@@ -232,7 +232,7 @@ final class SimulApi(
         site ! siteMessage
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
-            case view: play.twirl.api.Html => ReloadSimuls(view.body)
+            case view: String => ReloadSimuls(view)
           } pipeToSelection lobby
         }
     })))
