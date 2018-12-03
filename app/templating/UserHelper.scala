@@ -245,20 +245,19 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""
 
+  private def addClass(cls: Option[String]) = cls.fold("")(" " + _)
+
   protected def userClass(
     userId: String,
     cssClass: Option[String],
     withOnline: Boolean,
     withPowerTip: Boolean = true
-  ) = {
-    "user_link" :: List(
-      cssClass,
-      withPowerTip option "ulpt",
-      withOnline option {
-        if (isOnline(userId)) "online" else "offline"
-      }
-    ).flatten
-  }.mkString("class=\"", " ", "\"")
+  ): String = {
+    val online = if (withOnline) {
+      if (isOnline(userId)) " online" else " offline"
+    } else ""
+    s"""class="user_link${addClass(cssClass)}${addClass(withPowerTip option "ulpt")}$online""""
+  }
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext) =
     splitNumber(userGameFilterTitleNoTag(u, nbs, filter))

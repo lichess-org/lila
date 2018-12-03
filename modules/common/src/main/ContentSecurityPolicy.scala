@@ -67,19 +67,18 @@ case class ContentSecurityPolicy(
 
   def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
 
-  override def toString: String =
-    List(
-      "default-src " -> defaultSrc,
-      "connect-src " -> connectSrc,
-      "style-src " -> styleSrc,
-      "font-src " -> fontSrc,
-      "frame-src " -> frameSrc,
-      "worker-src " -> workerSrc,
-      "img-src " -> imgSrc,
-      "script-src " -> scriptSrc,
-      "base-uri " -> baseUri
-    ) collect {
-        case (directive, sources) if sources.nonEmpty =>
-          sources.mkString(directive, " ", ";")
-      } mkString (" ")
+  override def toString: String = List(
+    "default-src " -> defaultSrc,
+    "connect-src " -> connectSrc,
+    "style-src " -> styleSrc,
+    "font-src " -> fontSrc,
+    "frame-src " -> frameSrc,
+    "worker-src " -> workerSrc,
+    "img-src " -> imgSrc,
+    "script-src " -> scriptSrc,
+    "base-uri " -> baseUri
+  ) collect {
+      case (directive, sources) if sources.nonEmpty =>
+        sources.mkString(directive, " ", ";")
+    } mkString " "
 }

@@ -20,7 +20,9 @@ object bits {
     attr("data-lastmove") := lastMove
   )(miniBoardContent)
 
-  def jsI18n(implicit context: Context) = toJson(i18nJsObject(
+  def jsI18n(implicit context: Context) = toJson(i18nJsObject(translations))
+
+  private val translations = List(
     trans.training,
     trans.yourPuzzleRatingX,
     trans.goodMove,
@@ -66,5 +68,5 @@ object bits {
     trans.gameOver,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation
-  ))
+  )
 }

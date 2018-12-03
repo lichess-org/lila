@@ -25,4 +25,13 @@ object bits {
   def watchers(implicit ctx: Context) = Html {
     s"""<div class="watchers hidden"><span class="number">&nbsp;</span> ${trans.spectators.txt().replace(":", "")} <span class="list inline_userlist"></span></div>"""
   }
+
+  def gameIcon(game: lila.game.Game): Char = game.perfType match {
+    case _ if game.fromPosition => '*'
+    case _ if game.imported => '/'
+    case Some(p) if game.variant.exotic => p.iconChar
+    case _ if game.hasAi => 'n'
+    case Some(p) => p.iconChar
+    case _ => '8'
+  }
 }

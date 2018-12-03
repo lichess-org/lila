@@ -31,7 +31,7 @@
   @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
   @gameFen(Pov(g, firstPlayer), ownerLink, withTitle = false)
   <a class="game_link_overlay" href="@gameLink(g, firstPlayer.color, ownerLink)"></a>
-  <div class="infos" data-icon="@gameIcon(g)">
+  <div class="infos" data-icon="@bits.gameIcon(g)">
     <div class="header">
       <strong>
         @if(g.imported) {

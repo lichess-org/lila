@@ -57,14 +57,14 @@ object side {
           }
         )
       },
-      verdicts.relevant option div(dataIcon := "7", cls := Map(
+      verdicts.relevant option div(dataIcon := "7", cls := List(
         "game_infos conditions" -> true,
         "accepted" -> (ctx.isAuth && verdicts.accepted),
         "refused" -> (ctx.isAuth && !verdicts.accepted)
       ))(
         (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
         verdicts.list map { v =>
-          p(cls := Map(
+          p(cls := List(
             "condition text" -> true,
             "accepted" -> v.verdict.accepted,
             "refused" -> !v.verdict.accepted
