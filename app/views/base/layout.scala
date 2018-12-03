@@ -14,6 +14,7 @@ object layout {
 
   private val fontVersion = "04"
 
+  private val doctype = raw("<!doctype html>")
   private val topComment = raw("""<!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->""")
   private val charset = raw("""<meta charset="utf-8">""")
   private val fontStylesheets = raw(List(
@@ -95,7 +96,8 @@ object layout {
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
     csp: Option[lidraughts.common.ContentSecurityPolicy] = None
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Html)(implicit ctx: Context) = frag(
+    doctype,
     html(st.lang := ctx.lang.language)(
       topComment,
       head(
@@ -250,4 +252,5 @@ object layout {
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
         )
     )
+  )
 }

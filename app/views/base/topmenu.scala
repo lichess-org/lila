@@ -24,7 +24,7 @@ object topmenu {
       )
     ),
     section(
-      a(href := "@routes.Puzzle.home")(trans.learnMenu()),
+      a(href := routes.Puzzle.home)(trans.learnMenu()),
       div(
         ctx.noBot option frag(
           //a(href := routes.Learn.index)(trans.draughtsBasics()),
@@ -38,17 +38,17 @@ object topmenu {
       )
     ),
     section(
-      a(href := "@routes.Tv.index")(trans.watch()),
+      a(href := routes.Tv.index)(trans.watch()),
       div(
         a(href := routes.Tv.index)("Lidraughts TV"),
         a(href := routes.Tv.games)(trans.currentGames())
       //a(href := routes.Streamer.index())("Streamers"),
       //a(href := routes.Relay.index())("Broadcasts (beta)"),
-      //ctx.noBot option a(href := routes.Video.index)("@trans.videoLibrary()")
+      //ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
       )
     ),
     section(
-      a(href := "@routes.User.list")(trans.community()),
+      a(href := routes.User.list)(trans.community()),
       div(
         a(href := routes.User.list)(trans.players()),
         NotForKids(frag(
@@ -59,7 +59,7 @@ object topmenu {
       )
     ),
     section(
-      a(href := "@routes.UserAnalysis.index")(trans.tools()),
+      a(href := routes.UserAnalysis.index)(trans.tools()),
       div(
         a(href := routes.UserAnalysis.index)(trans.analysis()),
         isGranted(_.CreatePuzzles) option a(href := routes.UserAnalysis.puzzleEditor)("Puzzle editor"),
