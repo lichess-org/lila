@@ -59,8 +59,9 @@ object Environment
   def isChatPanicEnabled =
     lidraughts.chat.Env.current.panic.enabled
 
-  def NotForKids[Html](f: => Html)(implicit ctx: lidraughts.api.Context) =
-    if (ctx.kid) emptyHtml else f
+  def NotForKids(f: => Html)(implicit ctx: lidraughts.api.Context) = if (ctx.kid) emptyHtml else f
+
+  def NotForKids(f: => scalatags.Text.all.Frag)(implicit ctx: lidraughts.api.Context) = if (ctx.kid) emptyFrag else f
 
   def signalBars(v: Int) = Html {
     val bars = (1 to 4).map { b =>
