@@ -350,15 +350,4 @@ object Round extends LidraughtsController with TheftPrevention {
       html.game.bits.mini(pov)
     }
   }
-
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
-    GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => GameRepo initialFen pov.game flatMap { initialFen =>
-        Env.game.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false, draughtsResult = lidraughts.pref.Pref.default.draughtsResult)) map { pdn =>
-          Ok(views.xml.round.atom(pov, pdn)) as XML
-        }
-      }
-      case _ => NotFound("no such game").fuccess
-    }
-  }
 }
