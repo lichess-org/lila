@@ -10,8 +10,8 @@ moreCss = cssTag("mobile.css")) {
   </div>
   <div class="left-side">
     <h1>@trans.playChessEverywhere()</h1>
-    @googlePlayButton()
-    @appleStoreButton()
+    @bits.googlePlayButton.toHtml
+    @bits.appleStoreButton.toHtml
     <div class="apk" style="margin-top: 20px">
       @Html(~apkDoc.getHtml("doc.content", resolver))
     </div>

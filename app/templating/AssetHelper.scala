@@ -121,4 +121,5 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
+  def embedJs(js: String)(implicit ctx: Context): Html = embedJsUnsafe(js)
 }

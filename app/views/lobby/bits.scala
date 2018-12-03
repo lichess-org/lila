@@ -94,4 +94,29 @@ object bits {
         )
       )
     )
+
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) =
+    div(id := "lobby_current_game")(
+      h2("Hang on!"),
+      p("You have a game in progress with ", strong(current.opponent), "."),
+      br, br,
+      a(cls := "big text button", dataIcon := "G", href := routes.Round.player(current.pov.fullId))("Join the game"),
+      br, br,
+      "or",
+      br, br,
+      form(action := routes.Round.resign(current.pov.fullId), method := "post")(
+        button(cls := "big text button", dataIcon := "L")(
+          if (current.pov.game.abortable) "Abort" else "Resign", " the game"
+        )
+      ),
+      br,
+      p("You can't start a new game until this one is finished."),
+      br, br,
+      p(
+        "If you want to play several games simultaneously,",
+        br,
+        a(href := routes.Simul.home)("create a simultaneous exhibition event"),
+        "!"
+      )
+    )
 }
