@@ -29,7 +29,7 @@ url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
 ).some,
 robots = true) {
 <div class="round cg-512">
-  @board.domPreload(pov.some)
+  @board.bits.domPreload(pov.some).toHtml
   <div class="underboard"><div class="center">
       @cross.map { c =>
       <div class="crosstable">

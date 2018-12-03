@@ -29,6 +29,6 @@ trans.findTheBestMoveForBlack
 ).txt() + s" Played by ${puzzle.attempts} players.").some,
 zoomable = true) {
 <div id="puzzle" class="cg-512">
-  @board.domPreload(none)
+  @board.bits.domPreload(none).toHtml
 </div>
 }.toHtml

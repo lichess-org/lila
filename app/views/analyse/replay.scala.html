@@ -28,26 +28,17 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 }
 }
 
-@underchat = {
-@views.html.game.bits.watchers
-@round.blurs(game)
-@round.holdAlerts(game)
-@onCheatList.map { v =>
-@round.cheatFlag(game, v)
-}
-}
-
 @analyse.layout(
 title = title,
 side = Some(views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)),
 chat = chat.html.some,
-underchat = underchat.some,
+underchat = Some(round.bits underchat pov.game),
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
 chessground = false) {
 <div class="analyse cg-512">
-  @board.domPreload(none)
+  @board.bits.domPreload(none).toHtml
 </div>
 <div class="underboard_content none">
   <div class="analysis_panels">

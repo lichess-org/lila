@@ -59,6 +59,6 @@ url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
 description = shorten(r.description, 152)).some
 ) {
 <div class="analyse cg-512">
-  @board.domPreload(none)
+  @board.bits.domPreload(none).toHtml
 </div>
 }.toHtml

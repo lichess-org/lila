@@ -3,12 +3,11 @@ package views.html.round
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.common.String.html.safeJsonValue
-import lila.game.Game
 import lila.i18n.{ I18nKeys => trans }
 
 object jsI18n {
 
-  def apply(g: Game)(implicit ctx: Context): String = safeJsonValue(i18nJsObject {
+  def apply(g: lila.game.Game)(implicit ctx: Context): String = safeJsonValue(i18nJsObject {
     baseTranslations ++ {
       if (g.isCorrespondence) correspondenceTranslations
       else realtimeTranslations

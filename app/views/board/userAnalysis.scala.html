@@ -54,6 +54,6 @@ url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
 description = "Analyse chess positions and variations on an interactive chess board").some,
 zoomable = true) {
 <div class="analyse cg-512">
-  @board.domPreload(none)
+  @board.bits.domPreload(none).toHtml
 </div>
 }.toHtml

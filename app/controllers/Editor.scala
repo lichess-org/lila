@@ -41,7 +41,7 @@ object Editor extends LilaController {
   def data = Open { implicit ctx =>
     fuccess {
       val situation = readFen(get("fen"))
-      Ok(html.board.JsData(
+      Ok(html.board.bits.jsData(
         sit = situation,
         fen = Forsyth >> situation,
         animationDuration = Env.api.EditorAnimationDuration
