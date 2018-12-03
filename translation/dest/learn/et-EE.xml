@@ -103,8 +103,7 @@ mitte ühtegi kaitseta vigurit!</string>
   <string name="defeatTheOpponentsKing">Alista vastase kuningas</string>
   <string name="mateInOneIntro">Sina võidad kui su vastane ei saa malendi vastu kaitsa.</string>
   <string name="attackYourOpponentsKing">Ründa oma vastase kuningat nii, et seda ei saa kaitsta!</string>
-  <string name="mateInOneComplete">Õnnitlused! Nii võidad sa male mänge!
-</string>
+  <string name="mateInOneComplete">Õnnitlused! Nii võidad sa male mänge!</string>
   <string name="intermediate">Vaheühend</string>
   <string name="boardSetup">Laua ülesehitus</string>
   <string name="howTheGameStarts">Kuidas mäng algab</string>
