@@ -18,10 +18,6 @@ chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNot
 }
 }
 
-@atom = {
-<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
-}
-
 @underchat = {
 @views.html.game.bits.watchers
 @round.blurs(pov.game)
@@ -36,8 +32,7 @@ underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,
-chessground = false,
-atom = atom.some) {
+chessground = false) {
 <div class="round cg-512">
   @board.domPreload(pov.some)
   <div class="underboard"><div class="center">

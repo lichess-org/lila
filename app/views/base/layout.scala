@@ -96,7 +96,6 @@ object layout {
     moreJs: Html = emptyHtml,
     playing: Boolean = false,
     openGraph: Option[lila.app.ui.OpenGraph] = None,
-    atom: Option[Html] = None,
     chessground: Boolean = true,
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
@@ -144,7 +143,7 @@ object layout {
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
         noTranslate,
         openGraph.map(_.frag),
-        atom | link(href := routes.Blog.atom, `type` := "application/atom+xml", rel := "alternate", st.title := trans.blog.txt()),
+        link(href := routes.Blog.atom, `type` := "application/atom+xml", rel := "alternate", st.title := trans.blog.txt()),
         ctx.transpBgImg map { img =>
           raw(s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>""")
         },

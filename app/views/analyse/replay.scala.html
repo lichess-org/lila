@@ -28,10 +28,6 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 }
 }
 
-@atom = {
-<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
-}
-
 @underchat = {
 @views.html.game.bits.watchers
 @round.blurs(game)
@@ -49,8 +45,7 @@ underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
-chessground = false,
-atom = atom.some) {
+chessground = false) {
 <div class="analyse cg-512">
   @board.domPreload(none)
 </div>

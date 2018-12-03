@@ -1,4 +1,4 @@
-@(title: String, side: Html, chat: Option[Html] = None, underchat: Option[Html] = None, moreJs: Html = emptyHtml, openGraph: Option[lila.app.ui.OpenGraph] = None, moreCss: Html = emptyHtml, chessground: Boolean = true, playing: Boolean = false, atom: Option[Html] = None, robots: Boolean = false)(body: Html)(implicit ctx: Context)
+@(title: String, side: Html, chat: Option[Html] = None, underchat: Option[Html] = None, moreJs: Html = emptyHtml, openGraph: Option[lila.app.ui.OpenGraph] = None, moreCss: Html = emptyHtml, chessground: Boolean = true, playing: Boolean = false, robots: Boolean = false)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
@@ -11,6 +11,5 @@ moreCss = moreCss,
 chessground = chessground,
 playing = playing,
 robots = robots,
-atom = atom,
 asyncJs = true,
 zoomable = true)(body).toHtml

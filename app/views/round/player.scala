@@ -60,13 +60,7 @@ chat: ${jsOrNull(chatJson)}
       moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
-      playing = true,
-      atom = Some(link(
-        href := routes.Round.atom(pov.gameId, pov.color.name),
-        `type` := "application/atom+xml",
-        rel := "alternate",
-        title := "Game feed"
-      ))
+      playing = true
     ) {
         frag(
           div(cls := "round cg-512")(

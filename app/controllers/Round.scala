@@ -316,15 +316,4 @@ object Round extends LilaController with TheftPrevention {
       html.game.bits.mini(pov)
     }
   }
-
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
-    GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => GameRepo initialFen pov.game flatMap { initialFen =>
-        Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) map { pgn =>
-          Ok(views.xml.round.atom(pov, pgn)) as XML
-        }
-      }
-      case _ => NotFound("no such game").fuccess
-    }
-  }
 }
