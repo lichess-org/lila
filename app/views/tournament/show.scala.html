@@ -1,11 +1,4 @@
 @(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine], streamers: Set[User.ID], shieldOwner: Option[lila.tournament.TournamentShield.OwnerId])(implicit ctx: Context)
-
-@underchat = {
-<div class="watchers hidden">
-  <span class="list inline_userlist"></span>
-</div>
-}
-
 @moreJs = {
 @jsAt(s"compiled/lichess.tournament${isProd??(".min")}.js")
 @embedJs {
@@ -20,19 +13,13 @@ chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = tru
 };
 }
 }
-
-@moreCss = {
-@cssTag("chat.css")
-@if(tour.isCreated) { @cssTag("quote.css") }
-}
-
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
 side = Some(tournament.side(tour, verdicts, streamers, shieldOwner)),
 chat = chat.html.some,
-underchat = underchat.some,
+underchat = Html("""<div class="watchers hidden"><span class="list inline_userlist"></span></div>""").some,
 moreJs = moreJs,
-moreCss = moreCss,
+moreCss = cssTags(List("chat.css" -> true, "quote.css" -> tour.isCreated)),
 chessground = false,
 openGraph = lila.app.ui.OpenGraph(
 title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
@@ -41,9 +28,7 @@ description = s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.
 s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
 tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
 s"${usernameOrId(winnerId)} takes the prize home!"
-}
-
-).some) {
+}).some) {
 <div id="tournament" @tour.schedule.map { sched =>
   class="scheduled @sched.freq.name @sched.speed.name @sched.variant.key id_@tour.id"
   }>
