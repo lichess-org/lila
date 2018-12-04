@@ -31,7 +31,7 @@ final class DataForm {
     berserkable = true.some
   )
 
-  private val nameType = nonEmptyText.verifying(
+  private val nameType = text.verifying(
     Constraints minLength 2,
     Constraints maxLength 30,
     Constraints.pattern(
@@ -47,7 +47,7 @@ final class DataForm {
     "minutes" -> numberIn(minuteChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
     "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
-    "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
+    "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
     "rated" -> optional(boolean),

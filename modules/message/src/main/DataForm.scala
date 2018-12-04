@@ -11,7 +11,7 @@ private[message] final class DataForm(security: MessageSecurity) {
   import DataForm._
 
   def thread(me: User) = Form(mapping(
-    "username" -> nonEmptyText(maxLength = 20)
+    "username" -> lila.user.DataForm.historicalUsernameField
       .verifying("Unknown username", { fetchUser(_).isDefined })
       .verifying("Sorry, this player doesn't accept new messages", { name =>
         Granter(_.MessageAnyone)(me) || {

@@ -26,7 +26,7 @@ final class DataForm(
 
   def emptyWithCaptcha = withCaptcha(empty)
 
-  private val anyEmail = trimField(nonEmptyText).verifying(Constraints.emailAddress)
+  private val anyEmail = trimField(text).verifying(Constraints.emailAddress)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
     acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
@@ -121,7 +121,7 @@ final class DataForm(
   def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
     Form(tuple(
       "passwd" -> passwordMapping(candidate),
-      "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
+      "token" -> text.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
     ))
   }
 
@@ -136,7 +136,7 @@ final class DataForm(
   }
 
   private def passwordMapping(candidate: User.LoginCandidate) =
-    nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
+    text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 }
 
 object DataForm {

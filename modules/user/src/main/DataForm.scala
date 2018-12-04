@@ -1,6 +1,7 @@
 package lila.user
 
 import play.api.data._
+import play.api.data.validation.Constraints
 import play.api.data.Forms._
 
 import User.ClearPassword
@@ -8,14 +9,14 @@ import User.ClearPassword
 final class DataForm(authenticator: Authenticator) {
 
   val note = Form(mapping(
-    "text" -> nonEmptyText(minLength = 3, maxLength = 2000),
+    "text" -> text(minLength = 3, maxLength = 2000),
     "mod" -> boolean
   )(NoteData.apply)(NoteData.unapply))
 
   case class NoteData(text: String, mod: Boolean)
 
   val profile = Form(mapping(
-    "country" -> optional(nonEmptyText.verifying(Countries.codeSet contains _)),
+    "country" -> optional(text.verifying(Countries.codeSet contains _)),
     "location" -> optional(nonEmptyText(maxLength = 80)),
     "bio" -> optional(nonEmptyText(maxLength = 600)),
     "firstName" -> nameField,
@@ -28,7 +29,7 @@ final class DataForm(authenticator: Authenticator) {
 
   def profileOf(user: User) = profile fill user.profileOrDefault
 
-  private def nameField = optional(nonEmptyText(minLength = 2, maxLength = 20))
+  private def nameField = optional(text(minLength = 2, maxLength = 20))
 
   case class Passwd(
       oldPasswd: String,
@@ -41,8 +42,8 @@ final class DataForm(authenticator: Authenticator) {
   def passwd(u: User) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
-      "newPasswd1" -> nonEmptyText(minLength = 2),
-      "newPasswd2" -> nonEmptyText(minLength = 2)
+      "newPasswd1" -> text(minLength = 2),
+      "newPasswd2" -> text(minLength = 2)
     )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords))
   }
 }

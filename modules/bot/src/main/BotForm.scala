@@ -7,7 +7,7 @@ object BotForm {
 
   val chat = Form(mapping(
     "text" -> nonEmptyText(maxLength = lila.chat.Line.textMaxSize),
-    "room" -> nonEmptyText.verifying(Set("player", "spectator") contains _)
+    "room" -> text.verifying(Set("player", "spectator") contains _)
   )(ChatData.apply)(ChatData.unapply))
 
   case class ChatData(

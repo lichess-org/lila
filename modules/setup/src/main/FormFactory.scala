@@ -83,7 +83,7 @@ private[setup] final class FormFactory {
       "days" -> days,
       "mode" -> mode(ctx.isAuth),
       "ratingRange" -> optional(ratingRange),
-      "color" -> nonEmptyText.verifying(Color.names contains _)
+      "color" -> text.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)

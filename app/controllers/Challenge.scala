@@ -132,7 +132,7 @@ object Challenge extends LilaController {
     implicit def req = ctx.body
     OptionFuResult(env.api byId id) { c =>
       if (isMine(c)) Form(single(
-        "username" -> nonEmptyText
+        "username" -> lila.user.DataForm.historicalUsernameField
       )).bindFromRequest.fold(
         err => funit,
         username => UserRepo named username flatMap {

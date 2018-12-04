@@ -259,7 +259,7 @@ object Mod extends LilaController {
     import lila.security.Permission
     OptionFuResult(UserRepo named username) { user =>
       Form(single(
-        "permissions" -> list(nonEmptyText.verifying { str =>
+        "permissions" -> list(text.verifying { str =>
           Permission.allButSuperAdmin.exists(_.name == str)
         })
       )).bindFromRequest.fold(
