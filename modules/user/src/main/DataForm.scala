@@ -50,4 +50,12 @@ final class DataForm(authenticator: Authenticator) {
 object DataForm {
 
   val title = Form(single("title" -> optional(nonEmptyText)))
+
+  lazy val historicalUsernameConstraints = Seq(
+    Constraints minLength 2,
+    Constraints maxLength 30,
+    Constraints.pattern(regex = User.historicalUsernameRegex)
+  )
+
+  lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints: _*)
 }
