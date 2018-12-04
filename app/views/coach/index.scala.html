@@ -47,7 +47,7 @@ side = side.some) {
   </div>
   <div class="list infinitescroll">
     @pager.currentPageResults.map { c =>
-    <div class="coach paginated_element" data-dedup="@c.coach.id">
+    <div class="coach paginated" data-dedup="@c.coach.id">
       @widget(c)
     </div>
     }

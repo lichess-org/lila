@@ -30,7 +30,7 @@
         <tr></tr>
       }
       @tours.currentPageResults.map { tour =>
-      <tr class="paginated_element">
+      <tr class="paginated">
         <td><a href="@routes.TournamentCrud.edit(tour.id)">@tour.fullName</a></td>
         <td>@tour.variant.name</td>
         <td>@tour.clock</td>

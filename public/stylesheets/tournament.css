@@ -1066,11 +1066,11 @@ body.dark .scheduled_tournaments a:hover {
   font-size: 1.7em;
   display: block;
 }
-#tournament_list .icon span {
+#tournament_list .icon i {
   font-size: 4em;
   opacity: 0.6;
 }
-#tournament_list .scheduled .icon span {
+#tournament_list .scheduled .icon i {
   color: #d59120;
   opacity: 0.8;
 }

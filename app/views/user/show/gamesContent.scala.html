@@ -41,7 +41,7 @@
     }
     @if(filterName == "playing" && pager.nbResults > 2) {
     @pager.currentPageResults.flatMap{ Pov(_, u) }.map { p =>
-    <div class="paginated_element">
+    <div class="paginated">
       @gameFen(p)
       @game.bits.vstext(p)(ctx.some).toHtml
     </div>

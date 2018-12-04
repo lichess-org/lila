@@ -71,7 +71,7 @@
   margin-bottom: 20px;
 }
 #team .userlist > li,
-#team .userlist > div.paginated_element {
+#team .userlist > div.paginated {
   padding: 5px 0 5px 25px;
 }
 #team .actions {

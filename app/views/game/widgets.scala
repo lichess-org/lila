@@ -20,7 +20,7 @@ object widgets {
   )(implicit ctx: Context): Frag = games map { g =>
     val fromPlayer = user flatMap g.player
     val firstPlayer = fromPlayer | g.firstPlayer
-    div(cls := "game_row paginated_element")(
+    div(cls := "game_row paginated")(
       gameFen(Pov(g, firstPlayer), ownerLink, withTitle = false),
       a(cls := "game_link_overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
       div(cls := "infos", dataIcon := bits.gameIcon(g))(

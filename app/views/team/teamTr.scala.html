@@ -1,6 +1,6 @@
 @(t: lila.team.Team)(implicit ctx: Context)
 
-<tr class="paginated_element">
+<tr class="paginated">
   <td class="subject">
     <a class="team-name" href="@routes.Team.show(t.id)">
       <span data-icon="f" class="@{myTeam(t.id).??("is-green")}"></span>

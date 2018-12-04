@@ -60,7 +60,7 @@ menu = menu("index", none).some) {
   }
   <div class="list infinitescroll">
     @pager.currentPageResults.map { s =>
-    <div class="streamer paginated_element" data-dedup="@s.streamer.id">@widget(s, none)</div>
+    <div class="streamer paginated" data-dedup="@s.streamer.id">@widget(s, none)</div>
     }
     @pager.nextPage.map { np =>
     <div class="pager none">
