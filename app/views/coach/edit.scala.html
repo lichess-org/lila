@@ -1,6 +1,7 @@
 @(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context)
 
 @import play.api.data.Field
+@import lila.app.ui.Scalatags.min._
 
 @moreJs = {
 @jsAt("vendor/jquery.form.min.js")
@@ -54,24 +55,24 @@ side = side.some) {
           @form3.checkbox(form("listed"), Html("Publish on the coaches list"), help = Html("Enable when your profile is ready").some, half = true)
           @form3.checkbox(form("available"), Html("Currently available for lessons"), help = Html("Enable to get more students").some, half = true)
           }
-        @form3.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some)(form3.input(_, maxLength = 170))
+        @form3.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some)(form3.input(_)(*.maxlength := 170))
         @form3.split {
-          @form3.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true)(form3.input(_, maxLength = 140))
-          @form3.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true)(form3.input(_, maxLength = 140))
+          @form3.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true)(form3.input(_)(*.maxlength := 140))
+          @form3.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true)(form3.input(_)(*.maxlength := 140))
           }
       </div>
       <div class="panel texts">
-        @form3.group(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)(form3.textarea(_, rows = 8.some))
-        @form3.group(form("profile.playingExperience"), Html("Playing experience"), help = Html("Tournaments played, best wins, other achievements").some)(form3.textarea(_, rows = 8.some))
-        @form3.group(form("profile.teachingExperience"), Html("Teaching experience"), help = Html("Diplomas, years of practice, best student results").some)(form3.textarea(_, rows = 8.some))
-        @form3.group(form("profile.otherExperience"), Html("Other experiences"), help = Html("E.g. as chess commentator, or teaching other domains").some)(form3.textarea(_, rows = 8.some))
-        @form3.group(form("profile.skills"), Html("Best skills in chess and teaching"))(form3.textarea(_, rows = 8.some))
-        @form3.group(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)(form3.textarea(_, rows = 8.some))
+        @form3.group(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)(form3.textarea(_)(*.rows := 8))
+        @form3.group(form("profile.playingExperience"), Html("Playing experience"), help = Html("Tournaments played, best wins, other achievements").some)(form3.textarea(_)(*.rows := 8))
+        @form3.group(form("profile.teachingExperience"), Html("Teaching experience"), help = Html("Diplomas, years of practice, best student results").some)(form3.textarea(_)(*.rows := 8))
+        @form3.group(form("profile.otherExperience"), Html("Other experiences"), help = Html("E.g. as chess commentator, or teaching other domains").some)(form3.textarea(_)(*.rows := 8))
+        @form3.group(form("profile.skills"), Html("Best skills in chess and teaching"))(form3.textarea(_)(*.rows := 8))
+        @form3.group(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)(form3.textarea(_)(*.rows := 8))
       </div>
       <div class="panel contents">
-        @form3.group(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)(form3.textarea(_))
+        @form3.group(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)(form3.textarea(_)())
         @form3.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel"))(form3.input(_))
-        @form3.group(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)(form3.textarea(_, rows = 6.some))
+        @form3.group(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)(form3.textarea(_)(*.rows := 6))
       </div>
       <div class="panel reviews">
         <p class="help text" data-icon="">Reviews are visible only after you approve them.</p>

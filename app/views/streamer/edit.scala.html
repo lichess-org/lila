@@ -1,22 +1,11 @@
 @(s: lila.streamer.Streamer.WithUserAndStream, form: Form[_], modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])])(implicit ctx: Context)
 
-@import play.api.data.Field
-
-@textarea(field: Field, name: Html, help: Option[Html] = None) = {
-@form3.group(field, name, half = false, help = help) { _ =>
-<textarea name="@field.name" id="@field.id">@field.value</textarea>
-}
-}
-
-@moreJs = {
-@jsTag("streamer.form.js")
-}
-
+@import lila.app.ui.Scalatags.min._
 @modsOnly = @{ Html("Moderators only").some }
 
 @base.layout(title = s"${s.user.titleUsername} streamer page",
 moreCss = cssTags("form3.css", "streamer.show.css", "streamer.form.css"),
-moreJs = moreJs,
+moreJs = jsTag("streamer.form.js"),
 menu = menu("edit", s.withoutStream.some).some) {
 <div class="streamer edit content_box no_padding">
   @if(ctx.is(s.user)) {
@@ -115,11 +104,11 @@ menu = menu("edit", s.withoutStream.some).some) {
     @form3.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
     }
     @form3.split {
-    @form3.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_, required = true, maxLength = 20))
+    @form3.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_)(*.required := true, *.maxlength := 20))
     @form3.checkbox(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true)
     }
-    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_, required = true, maxLength = 300))
-    @form3.group(form("description"), Html("Long description"))(form3.textarea(_, rows = 10.some, maxLength = 50000))
+    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_)(*.required := true, *.maxlength := 300))
+    @form3.group(form("description"), Html("Long description"))(form3.textarea(_)(*.rows := 10, *.maxlength := 50000))
     @form3.actions {
     <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
     @form3.submit(trans.apply())

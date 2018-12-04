@@ -3,8 +3,11 @@ package templating
 
 import play.api.data._
 import play.twirl.api.Html
+import scalatags.Text.all._
+import scalatags.Text.{ all => st }
 
 import lila.api.Context
+import lila.app.ui.Scalatags._
 import lila.i18n.I18nDb
 
 trait FormHelper { self: I18nHelper =>
@@ -28,123 +31,153 @@ trait FormHelper { self: I18nHelper =>
 
   object form3 {
 
-    val idPrefix = "form3"
+    private val idPrefix = "form3"
 
-    def id(field: Field) = s"$idPrefix-${field.id}"
+    def id(field: Field): String = s"$idPrefix-${field.id}"
 
-    def split(html: Html) = Html {
-      s"""<div class="form-split">$html</div>"""
-    }
+    private def groupLabel(field: Field) = div(cls := "form-label", `for` := id(field))
+    private val helper = small(cls := "form-help")
 
-    private def rawLabel(field: Field, content: Html) =
-      s"""<label class="form-label" for="${id(field)}">$content</label>"""
+    private def errors(errs: Seq[FormError])(implicit ctx: Context): Frag = errs map error
+    private def errors(field: Field)(implicit ctx: Context): Frag = errors(field.errors)
+    private def error(err: FormError)(implicit ctx: Context): Frag =
+      p(cls := "error")(transKey(err.message, I18nDb.Site, err.args))
+
+    /* All public methods must return HTML
+     * because twirl just calls toString on scalatags frags
+     * and that escapes the content :( */
+
+    def split(html: Html): Html = div(cls := "form-split")(html)
 
     def group(
       field: Field,
-      name: Html,
+      labelContent: Html,
       klass: String = "",
       half: Boolean = false,
       help: Option[Html] = None
-    )(html: Field => Html)(implicit ctx: Context) = Html {
-      val classes = s"""form-group${field.hasErrors ?? " is-invalid"}${half ?? " form-half"} $klass"""
-      val helper = help ?? { h => s"""<small class="form-help">$h</small>""" }
-      s"""<div class="$classes">${rawLabel(field, name)}${html(field)}${errMsg(field)}$helper</div>"""
-    }
+    )(content: Field => Frag)(implicit ctx: Context): Html =
+      div(cls := List(
+        "form-group" -> true,
+        "is-invalid" -> field.hasErrors,
+        "form-half" -> half,
+        klass -> klass.nonEmpty
+      ))(
+        groupLabel(field)(labelContent),
+        content(field),
+        errors(field),
+        help map { helper(_) }
+      )
+
+    def input(field: Field, typ: String = "", klass: String = ""): BaseTagType =
+      st.input(
+        st.id := id(field),
+        name := field.name,
+        value := field.value,
+        `type` := typ.nonEmpty.option(typ),
+        cls := List("form-control" -> true, klass -> klass.nonEmpty)
+      )
+    def inputHtml(field: Field, klass: String = "")(modifiers: Modifier*): Html =
+      input(field, klass)(modifiers)
 
     def checkbox(
       field: Field,
-      name: Html,
+      labelContent: Html,
       half: Boolean = false,
       help: Option[Html] = None,
       disabled: Boolean = false
-    ) = Html {
-      val checked = field.value has "true"
-      val open = s"""<div class="form-check form-group${half ?? " form-half"}">"""
-      val input = s"""<input class="cmn-toggle" type="checkbox" name="${field.name}" value="true"${checked ?? " checked"}${disabled ?? " disabled"} id="${id(field)}">"""
-      val toggle = s"""<label for="${id(field)}"></label>"""
-      val helper = help ?? { h => s"""<small class="form-help">$h</small>""" }
-      s"""$open<div><span class="form-check-input">$input$toggle</span>${rawLabel(field, name)}</div>$helper</div>"""
-    }
+    ): Html =
+      div(cls := List(
+        "form-check form-group" -> true,
+        "form-half" -> half
+      ))(
+        div(
+          span(cls := "form-check-input")(
+            input(field, typ = "checkbox", klass = "cmn-toggle")(
+              value := "true",
+              checked := field.value.has("true"),
+              st.disabled := disabled
+            ),
+            label(`for` := id(field))
+          ),
+          groupLabel(field)(labelContent)
+        ),
+        help map { helper(_) }
+      )
 
     def select(
       field: Field,
       options: Iterable[(Any, String)],
       default: Option[String] = None
-    ) = Html {
-      val defaultH = default ?? { d => s"""<option value="">$d</option>""" }
-      val optionsH = options map { v =>
-        s"""<option value="${v._1}" ${(field.value == Some(v._1.toString)) ?? "selected"}>${v._2}</option>"""
-      } mkString ""
-      s"""<select id="${id(field)}" name="${field.name}" class="form-control">$defaultH$optionsH</select>"""
-    }
+    ): Html =
+      st.select(
+        st.id := id(field),
+        name := field.name,
+        cls := "form-control"
+      )(
+          default map { option(value := "")(_) },
+          options.toSeq map {
+            case (value, name) => option(
+              st.value := value.toString,
+              selected := field.value.has(value.toString)
+            )(name)
+          }
+        )
 
     def textarea(
       field: Field,
-      klass: String = "",
-      required: Boolean = false,
-      rows: Option[Int] = None,
-      maxLength: Int = 0,
-      attrs: String = ""
-    ) = Html {
-      val rowsH = rows ?? { r => s""" rows=$r""" }
-      s"""<textarea id="${id(field)}" name="${field.name}" class="form-control $klass"$rowsH${required ?? " required"}${(maxLength > 0) ?? s"maxlength=$maxLength"}$attrs>${~field.value}</textarea>"""
-    }
+      klass: String = ""
+    )(modifiers: Modifier*): Html =
+      st.textarea(
+        st.id := id(field),
+        name := field.name,
+        cls := List("form-control" -> true, klass -> klass.nonEmpty)
+      )(modifiers)(~field.value)
 
-    def actions(html: Html) = Html {
-      s"""<div class="form-actions">$html</div>"""
-    }
-    def action(html: Html) = Html {
-      s"""<div class="form-actions single">$html</div>"""
-    }
+    def actions(html: Html): Html = div(cls := "form-actions")(html)
+
+    def action(html: Html): Html = div(cls := "form-actions single")(html)
 
     def submit(
       content: Html,
       icon: Option[String] = Some("E"),
       nameValue: Option[(String, String)] = None,
       klass: String = ""
-    ) = Html {
-      val iconH = icon ?? { i => s""" data-icon="$i"""" }
-      val nameH = nameValue ?? { case (n, v) => s""" name="$n" value="$v"""" }
-      s"""<button class="submit button${icon.isDefined ?? " text"} $klass" type="submit"$iconH$nameH>$content</button>"""
-    }
+    ): Html =
+      button(
+        `type` := "submit",
+        dataIcon := icon,
+        name := nameValue.map(_._1),
+        value := nameValue.map(_._2),
+        cls := List(
+          "submit button" -> true,
+          "text" -> icon.isDefined,
+          klass -> klass.nonEmpty
+        )
+      )(content)
 
-    def hidden(field: Field, value: Option[String] = None) = Html {
-      s"""<input type="hidden" name="${field.name}" id="${id(field)}" value="${value | ~field.value}"/>"""
-    }
+    def hidden(field: Field, value: Option[String] = None): Html =
+      input(field, typ = "hidden")(st.value := value.orElse(field.value))
 
-    def password(field: Field, content: Html)(implicit ctx: Context) =
-      group(field, content)(input(_, typ = "password", required = true))
+    def password(field: Field, content: Html)(implicit ctx: Context): Html =
+      group(field, content)(input(_, typ = "password")(required := true))
 
-    def globalError(form: Form[_])(implicit ctx: Context): Option[Html] = {
-      form.globalError map { msg =>
-        Html(s"""<div class="form-group is-invalid">${errMsg(msg)}</div>""")
+    def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
+      form.globalError map { err =>
+        div(cls := "form-group is-invalid")(error(err))
       }
-    }
 
-    def flatpickr(field: Field, withTime: Boolean = true) = Html {
-      s"""<input class="flatpickr form-control" data-enable-time="$withTime" data-time_24hr="$withTime" value="${~field.value}" name="${field.name}" id="${id(field)}">"""
-    }
+    private val dataEnableTime = attr("data-enable-time")
+    private val datatime24h = attr("data-time_24h")
+
+    def flatpickr(field: Field, withTime: Boolean = true): Html =
+      input(field, klass = "flatpickr")(
+        dataEnableTime := withTime,
+        datatime24h := withTime
+      )
 
     object file {
-      def image(name: String) = Html { s"""<input type="file" name="$name" accept="image/*">""" }
-      def pgn(name: String) = Html { s"""<input type="file" name="$name" accept=".pgn">""" }
-    }
-
-    def input(
-      field: Field,
-      typ: String = "text",
-      klass: String = "",
-      placeholder: Option[String] = None,
-      required: Boolean = false,
-      minLength: Int = 0,
-      maxLength: Int = 0,
-      autocomplete: Boolean = true,
-      autofocus: Boolean = false,
-      pattern: Option[String] = None,
-      attrs: String = ""
-    ) = Html {
-      val options = s"""${placeholder ?? { p => s""" placeholder="$p"""" }}${required ?? " required"}${(minLength > 0) ?? s"minlength=$minLength"}${(maxLength > 0) ?? s"maxlength=$maxLength"}${!autocomplete ?? """autocomplete="off""""}${autofocus ?? " autofocus"}${pattern ?? { p => s""" pattern="$p"""" }} $attrs"""
-      s"""<input type="$typ" id="${id(field)}" name="${field.name}" value="${~field.value}"$options class="form-control $klass">"""
+      def image(name: String): Html = st.input(`type` := "file", st.name := name, accept := "image/*")
+      def pgn(name: String): Html = st.input(`type` := "file", st.name := name, accept := ".pgn")
     }
   }
 }

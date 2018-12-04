@@ -1,17 +1,17 @@
 @(u: User, form: Form[_])(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
-@title = @{ s"${u.username} - Two-factor authentication" }
-
-@account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("form3.css")) {
+@account.layout(
+title = s"${u.username} - Two-factor authentication",
+active = "twofactor",
+evenMoreCss = cssTag("form3.css")) {
 <div class="content_box small_box high twofactor">
   <h1 class="lichess_title"><i data-icon="E" class="is-green"></i> Two-factor authentication enabled</h1>
   <p class="explanation">Your account is protected with two-factor authentication.</p>
   <form class="form3" action="@routes.Account.disableTwoFactor" method="POST">
     <p class="explanation">You need your password and an authentication code from your authenticator app to disable two-factor authentication.</p>
     @form3.password(form("passwd"), trans.password())
-    @form3.group(form("token"), Html("Authentication code")) { f =>
-    @form3.input(f, pattern = "[0-9]{6}".some, required = true, autocomplete = false)
-    }
+    @form3.group(form("token"), Html("Authentication code"))(form3.input(_)(*.pattern := "[0-9]{6}", *.required := true, *.autocomplete := "off"))
     @form3.action(form3.submit(Html("Disable two-factor authentication"), icon = None))
   </form>
 </div>

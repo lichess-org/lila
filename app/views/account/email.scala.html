@@ -1,8 +1,7 @@
 @(u: User, form: Form[_])(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
-@title = @{ s"${u.username} - ${trans.changeEmail.txt()}" }
-
-@account.layout(title = title, active = "email", evenMoreCss = cssTag("form3.css")) {
+@account.layout(title = s"${u.username} - ${trans.changeEmail.txt()}", active = "email", evenMoreCss = cssTag("form3.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">
@@ -11,9 +10,7 @@
     </h1>
     <form class="form3" action="@routes.Account.emailApply" method="POST">
       @form3.password(form("passwd"), trans.password())
-      @form3.group(form("email"), trans.email()) { f =>
-      @form3.input(f, typ = "email", required = true)
-      }
+      @form3.group(form("email"), trans.email())(form3.input(_, typ = "email"))(*.required := true)
       @form3.action(form3.submit(trans.apply()))
     </form>
   </div>

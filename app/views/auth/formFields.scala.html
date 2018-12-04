@@ -1,14 +1,11 @@
 @(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
 @form3.group(username, if(register) trans.username() else trans.usernameOrEmail()) { f =>
-@form3.input(f, required = true, autofocus = true)
+@form3.inputHtml(f)(*.required := true, *.autofocus := true)
 <p class="error exists none">@trans.usernameAlreadyUsed()</p>
 }
-@form3.group(password, trans.password()) { f =>
-@form3.input(f, typ = "password", required = true)
-}
+@form3.group(password, trans.password())(form3.input(_, typ = "password")(*.required := true))
 @emailOption.map { email =>
-@form3.group(email, trans.email()) { f =>
-@form3.input(f, typ = "email", required = true)
-}
+@form3.group(email, trans.email())(form3.input(_, typ = "email")(*.required := true))
 }
