@@ -44,14 +44,14 @@ object mini {
       frag(
         (myId != u.id && u.enabled) option div(cls := "actions")(
           a(cls := "button hint--bottom", dataHint := trans.watchGames.txt(), href := routes.User.tv(u.username))(
-            i(dataIcon := "1")
+            iconTag("1")
           ),
           !blocked option frag(
             a(cls := "button hint--bottom", dataHint := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}")(
-              i(dataIcon := "c")
+              iconTag("c")
             ),
             a(cls := "button hint--bottom", dataHint := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=${u.username}#friend")(
-              i(dataIcon := "U")
+              iconTag("U")
             )
           ),
           views.html.relation.mini(u.id, blocked, followable, rel)

@@ -25,9 +25,8 @@ trait ScalatagsSnippets extends Cap {
 
   import scalatags.Text.all._
 
-  def iconTag(c: String) = i(dataIcon := c)
-
-  def NotForKids(f: => Frag)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyFrag else f
+  def iconTag(icon: String) = i(dataIcon := icon)
+  def iconTag(icon: String, text: Frag) = i(dataIcon := icon, cls := "text")(text)
 }
 
 // basic imports from scalatags

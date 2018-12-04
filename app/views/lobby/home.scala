@@ -145,12 +145,12 @@ lichess_lobby = {
         bits.lastPosts(lastPost),
         div(cls := "donation undertable")(
           a(href := routes.Plan.index)(
-            i(dataIcon := patronIconChar),
+            iconTag(patronIconChar),
             strong("Lichess Patron"),
             span(trans.directlySupportLichess())
           ),
           a(href := routes.Page.swag)(
-            i(dataIcon := ""),
+            iconTag(""),
             strong("Swag Store"),
             span(trans.playChessInStyle())
           )

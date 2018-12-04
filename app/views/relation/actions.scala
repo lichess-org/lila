@@ -20,10 +20,10 @@ object actions {
         (myId != userId) ?? frag(
           !blocked option frag(
             a(dataHint := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=$userId#friend", cls := "icon button hint--bottom")(
-              i(dataIcon := "U")
+              iconTag("U")
             ),
             a(dataHint := trans.composeMessage.txt(), href := s"${routes.Message.form()}?user=$userId", cls := "icon button hint--bottom")(
-              i(dataIcon := "c")
+              iconTag("c")
             )
           ),
           relation match {
@@ -32,23 +32,23 @@ object actions {
                 cls := "icon button relation hint--bottom",
                 href := routes.Relation.follow(userId),
                 dataHint := trans.follow.txt()
-              )(i(dataIcon := "h")),
+              )(iconTag("h")),
               a(
                 cls := "icon button relation hint--bottom",
                 href := routes.Relation.block(userId),
                 dataHint := trans.block.txt()
-              )(i(dataIcon := "k"))
+              )(iconTag("k"))
             )
             case None => emptyFrag
             case Some(true) =>
               a(cls := "button relation hover_text", href := routes.Relation.unfollow(userId))(
-                i(dataIcon := "h", cls := "base text")(trans.following()),
-                i(dataIcon := "h", cls := "hover text")(trans.unfollow())
+                iconTag("h", trans.following()),
+                iconTag("h", trans.unfollow())
               )
             case Some(false) =>
               a(cls := "button relation hover_text", href := routes.Relation.unblock(userId))(
-                i(dataIcon := "k", cls := "base text")(trans.blocked()),
-                i(dataIcon := "k", cls := "hover text")(trans.unblock())
+                iconTag("k", trans.blocked()),
+                iconTag("k", trans.unblock())
               )
           }
         )
