@@ -35,7 +35,7 @@ trait FormHelper { self: I18nHelper =>
 
     def id(field: Field): String = s"$idPrefix-${field.id}"
 
-    private def groupLabel(field: Field) = div(cls := "form-label", `for` := id(field))
+    private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
     private val helper = small(cls := "form-help")
 
     private def errors(errs: Seq[FormError])(implicit ctx: Context): Frag = errs map error
@@ -103,10 +103,14 @@ trait FormHelper { self: I18nHelper =>
       ))(
         div(
           span(cls := "form-check-input")(
-            input(field, typ = "checkbox", klass = "cmn-toggle")(
+            st.input(
+              st.id := id(field),
+              name := field.name,
               value := "true",
-              checked := field.value.has("true"),
-              st.disabled := disabled
+              `type` := "checkbox",
+              cls := "form-control cmn-toggle",
+              checked := field.value.has("true").option(true),
+              st.disabled := disabled.option(true)
             ),
             label(`for` := id(field))
           ),
