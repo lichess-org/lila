@@ -105,6 +105,6 @@ case _ => {
     @showPerfRating(s.user, pt)
     }
   </a>
-  @views.html.activity.list(s.user, activities)
+  @views.html.activity(s.user, activities).toHtml
 </div>
 }.toHtml

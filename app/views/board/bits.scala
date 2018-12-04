@@ -1,12 +1,11 @@
 package views.html.board
 
-import scalatags.Text.all._
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 

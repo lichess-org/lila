@@ -1,11 +1,10 @@
 package views.html.base
 
-import scalatags.Text.all._
 import scalatags.Text.tags2.section
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
