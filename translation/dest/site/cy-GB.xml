@@ -85,6 +85,7 @@
   <string name="delete">Dileu</string>
   <string name="deleteThisImportedGame">Dileu y gem hon?</string>
   <string name="replayMode">Cyflymder ailchwarae</string>
+  <string name="realtimeReplay">Amser real</string>
   <string name="byCPL">Mewn CG</string>
   <string name="openStudy">Agor astudiaeth</string>
   <string name="enable">Galluogi</string>
@@ -93,6 +94,7 @@
   <string name="multipleLines">Edefynnau i\'w hystyried</string>
   <string name="cpus">Nifer o CPU\'s</string>
   <string name="memory">Cof</string>
+  <string name="infiniteAnalysis">Dadansoddiad ddiddiwedd</string>
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Camgymeriad</string>
@@ -214,6 +216,8 @@
   <string name="thematic">Ar thema</string>
   <string name="yourPerfRatingIsProvisional">Mae dy raddfa %s yn un dros dro</string>
   <string name="yourPerfRatingIsTooHigh">Mae dy raddfa %1$s (%2$s) yn rhy uchel</string>
+  <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
+  <string name="ratedLessThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
   <string name="backToGame">Nôl at y gêm</string>
   <string name="siteDescription">Gweinydd gwyddbwyll ar-lein am ddim.  Chwaraewch wyddbwyll nawr mewn rhyngwyneb glan.  Dim cofrestru, hysbysebion, dim angen ategyn.  Chwaraewch wyddbwyll yn erbyn y cyfrifiadur, efo ffrindiau neu berson ar hap.</string>
   <string name="teams">Tîmau</string>
