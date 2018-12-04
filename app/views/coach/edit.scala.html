@@ -55,10 +55,10 @@ side = side.some) {
           @form3.checkbox(form("listed"), Html("Publish on the coaches list"), help = Html("Enable when your profile is ready").some, half = true)
           @form3.checkbox(form("available"), Html("Currently available for lessons"), help = Html("Enable to get more students").some, half = true)
           }
-        @form3.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some)(form3.input(_)(*.maxlength := 170))
+        @form3.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some)(form3.input(_))
         @form3.split {
-          @form3.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true)(form3.input(_)(*.maxlength := 140))
-          @form3.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true)(form3.input(_)(*.maxlength := 140))
+          @form3.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true)(form3.input(_))
+          @form3.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true)(form3.input(_))
           }
       </div>
       <div class="panel texts">

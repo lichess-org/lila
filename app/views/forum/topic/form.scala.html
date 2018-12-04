@@ -20,7 +20,7 @@
 </div>
 
 <form class="form3 create-topic" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
-  @form3.group(form("name"), trans.subject())(form3.input(_)(*.autofocus := true, *.minlength := 3, *.maxlength := 100))
+  @form3.group(form("name"), trans.subject())(form3.input(_)(*.autofocus := true))
   @form3.group(form("post")("text"), trans.message())(form3.textarea(_, klass = "post-text-area")(*.rows := 10))
   @base.captcha(form("post"), captcha)
   @form3.actions {

@@ -3,8 +3,9 @@ package lila.common
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
-import play.api.data.{ Mapping, FormError, Field }
+import play.api.data.validation.Constraint
 import play.api.data.Forms._
+import play.api.data.{ Mapping, FormError, Field }
 import scala.util.Try
 
 object Form {
@@ -67,6 +68,16 @@ object Form {
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
+    }
+  }
+
+  object constraint {
+    import play.api.data.{ validation => V }
+    def minLength[A](from: A => String)(length: Int): Constraint[A] = Constraint[A]("constraint.minLength", length) { o =>
+      if (from(o).size >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
+    }
+    def maxLength[A](from: A => String)(length: Int): Constraint[A] = Constraint[A]("constraint.maxLength", length) { o =>
+      if (from(o).size <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
     }
   }
 
