@@ -1,11 +1,10 @@
 package views
 package html.site
 
-import scalatags.Text.all._
-
 import controllers.routes
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
+import lidraughts.app.ui.ScalatagsTemplate._
 
 object variant {
 

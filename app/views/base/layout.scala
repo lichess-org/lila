@@ -1,12 +1,10 @@
 package views.html.base
 
 import play.twirl.api.Html
-import scalatags.Text.all._
-import scalatags.Text.{ all => st }
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
@@ -24,9 +22,8 @@ object layout {
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
   private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
 
-  private val faviconSizes = List(256, 128, 64)
   private val favicons = raw {
-    faviconSizes map { px =>
+    List(256, 128, 64) map { px =>
       s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}"/>"""
     } mkString
   }

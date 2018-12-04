@@ -1,12 +1,10 @@
 package views.html
 package game
 
-import scalatags.Text.all._
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.game.{ Game, Pov, Player }
-import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 

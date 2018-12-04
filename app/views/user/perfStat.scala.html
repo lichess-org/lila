@@ -22,7 +22,7 @@ data: @toJson(data)
 
 @user.layout(
 title = s"${u.username} ${perfType.name} stats",
-side = show.side(u, rankMap.some, perfType.some).some,
+side = Some(show.side(u, rankMap.some, perfType.some)),
 robots = false,
 evenMoreJs = moreJs,
 evenMoreCss = moreCss) {

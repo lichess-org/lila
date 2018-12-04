@@ -2,12 +2,11 @@ package views
 package html.site
 
 import play.twirl.api.Html
-import scalatags.Text.all._
 
 import controllers.routes
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.user.User
 
 object message {

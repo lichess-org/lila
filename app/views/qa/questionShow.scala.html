@@ -1,5 +1,5 @@
 @(q: lidraughts.qa.Question, answers: List[lidraughts.qa.Answer], popular: List[lidraughts.qa.Question], related: List[lidraughts.qa.Question], answerForm: Option[Form[_]], captcha: Option[lidraughts.common.Captcha])(implicit ctx: Context)
-@import lidraughts.app.ui.Scalatags.star._
+@import lidraughts.app.ui.ScalatagsTwirlForm._
 
 @side = {
 @if(!related.isEmpty){@relatedBox(related)}

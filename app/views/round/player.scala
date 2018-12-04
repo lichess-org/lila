@@ -1,14 +1,12 @@
 package views.html
 package round
 
-import scalatags.Text.all._
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
+import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.HTTPRequest
 import lidraughts.common.String.html.{ safeJson, safeJsonValue }
 import lidraughts.game.Pov
-import lidraughts.i18n.{ I18nKeys => trans }
 
 import controllers.routes
 

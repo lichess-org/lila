@@ -30,7 +30,7 @@ object Environment
   with TournamentHelper
   with SimulHelper
   with DraughtsgroundHelper
-  with ui.Scalatags {
+  with ui.ScalatagsTwirl {
 
   type FormWithCaptcha = (play.api.data.Form[_], lidraughts.common.Captcha)
 
@@ -60,6 +60,4 @@ object Environment
     lidraughts.chat.Env.current.panic.enabled
 
   def NotForKids(f: => Html)(implicit ctx: lidraughts.api.Context) = if (ctx.kid) emptyHtml else f
-
-  def NotForKids(f: => scalatags.Text.all.Frag)(implicit ctx: lidraughts.api.Context) = if (ctx.kid) emptyFrag else f
 }

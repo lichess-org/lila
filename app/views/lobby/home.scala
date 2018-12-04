@@ -1,22 +1,21 @@
 package views.html.lobby
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 import play.twirl.api.Html
-import scalatags.Text.all._
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.common.HTTPRequest
 import lidraughts.common.String.html.{ safeJson, safeJsonValue }
 import lidraughts.game.Pov
-import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
 object home {
 
   def apply(
-    data: play.api.libs.json.JsObject,
+    data: JsObject,
     userTimeline: Vector[lidraughts.timeline.Entry],
     forumRecent: List[lidraughts.forum.MiniForumPost],
     tours: List[lidraughts.tournament.Tournament],
@@ -46,7 +45,7 @@ object home {
       }
     )),
     side = Some(frag(
-      NotForKids { div(id := "streams_on_air")(views.html.streamer liveStreams streams) },
+      ctx.noKid option div(id := "streams_on_air")(views.html.streamer liveStreams streams),
       events map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lidraughts.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
@@ -132,8 +131,8 @@ lidraughts_lobby = {
             )
           )
         },
-        !ctx.isBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        NotForKids {
+        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
+        ctx.noKid option frag(
           div(cls := "new_posts undertable")(
             div(cls := "undertable_top")(
               a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more(), " »"),
@@ -143,7 +142,7 @@ lidraughts_lobby = {
               div(cls := "content")(views.html.forum.post recent forumRecent)
             )
           )
-        },
+        ),
         bits.lastPosts(lastPost),
         /*div(cls := "donation undertable")(
           a(href := routes.Plan.index)(

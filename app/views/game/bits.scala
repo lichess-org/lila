@@ -1,13 +1,11 @@
 package views.html.game
 
-import play.api.libs.json.Json
 import play.twirl.api.Html
-import scalatags.Text.all._
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
+import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.game.{ Game, Pov, Player }
-import lidraughts.i18n.{ I18nKeys => trans }
 
 import controllers.routes
 

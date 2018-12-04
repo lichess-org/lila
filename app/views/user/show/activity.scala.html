@@ -17,7 +17,7 @@
 
 @user.layout(
 title =  s"${u.username} : ${trans.activity.activity.txt()}",
-side = side(u, info.ranks, none).some,
+side = Some(side(u, info.ranks, none)),
 evenMoreJs = evenMoreJs,
 evenMoreCss = evenMoreCss) {
 <div data-username="@u.username" class="content_box no_padding user_show">
