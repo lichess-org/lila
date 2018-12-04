@@ -44,7 +44,11 @@ trait FormHelper { self: I18nHelper =>
       p(cls := "error")(transKey(err.message, I18nDb.Site, err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] = field.constraints collect {
-      case ("constraint.required", _) => required := true
+      /* Can't use constraint.required, because it applies to optional fields
+         * such as `optional(nonEmptyText)`.
+         * And we can't tell from the Field whether it's optional or not :(
+         */
+      // case ("constraint.required", _) => required := true
       case ("constraint.minLength", Seq(l: Int)) => minlength := l
       case ("constraint.maxLength", Seq(l: Int)) => maxlength := l
     }
