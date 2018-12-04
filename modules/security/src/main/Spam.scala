@@ -1,6 +1,6 @@
 package lidraughts.security
 
-import lila.common.constants.bannedYoutubeIds
+import lidraughts.common.constants.bannedYoutubeIds
 
 final class Spam(
     spamKeywords: () => lidraughts.common.Strings

@@ -5,9 +5,17 @@ import ornicar.scalalib.Zero
 
 import play.twirl.api.Html
 import scalatags.Text.all.{ genericAttr, attr, UnitFrag }
-import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue }
+import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue, Cap, Aggregate, Attrs }
 
-object Scalatags extends Scalatags
+object Scalatags extends Scalatags {
+
+  // twirl template minimal helpers. Allows `attrs.rows := 5`
+  object min extends Cap with Aggregate {
+    object * extends Cap with Attrs {
+      lazy val minlength = attr("minlength")
+    }
+  }
+}
 
 trait Scalatags {
 
