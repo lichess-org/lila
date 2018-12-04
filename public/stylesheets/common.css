@@ -766,14 +766,14 @@ div.side_box .game_infos::before {
   font-size: 30px;
   opacity: 0.7;
 }
-div.side_box .game_infos .bookmark {
+.side_box .bookmark {
   position: absolute;
   right: 0;
   z-index: 10;
   display: none;
 }
-div.side_box .game_infos:hover .bookmark,
-body.mobile div.side_box .game_infos .bookmark {
+.side_box .bookmark,
+body.mobile .side_box .bookmark {
   display: block;
 }
 .bookmark:not(.bookmarked) .on,

@@ -14,8 +14,9 @@ object bookmark {
       "bookmarked" -> bookmarked,
       "hint--top" -> true
     ), href := routes.Bookmark.toggle(g.id), dataHint := trans.bookmarkThisGame.txt())(
-      span(dataIcon := "t", cls := "on is3")(g.showBookmarks),
-      span(dataIcon := "s", cls := "off is3")(g.showBookmarks)
+      iconTag("t")(cls := "on is3"),
+      iconTag("s")(cls := "off is3"),
+      span(g.showBookmarks)
     )
   } orElse {
     g.hasBookmarks option span(cls := "bookmark")(
