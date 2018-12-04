@@ -8,7 +8,7 @@
   <string name="someRated">Alcuni tornei sono classificati e pertanto influenzeranno il tuo punteggio.</string>
   <string name="howAreScoresCalculated">Come sono calcolati i punteggi del torneo?</string>
   <string name="howAreScoresCalculatedAnswer">Una vittoria ha un punteggio base di 2 punti, una patta 1 punto e una sconfitta 0 punti.
-Se vinci due partite consecutivamente, ogni partita successiva varrà il doppio dei punti rispetto al punteggio base. Ciò sarà indicato con un\'icona a forma di fiamma.
+Se vinci due partite consecutivamente, ogni partita successiva varrà il doppio dei punti rispetto al punteggio base. Ciò sarà indicato dall\'icona di una fiamma.
 Il raddoppio del punteggio significa che una vittoria varrà 4 punti, una patta 2 punti e una sconfitta 0.
 Non appena pareggi o perdi, il punteggio tornerà ad essere quello base.
 
@@ -17,13 +17,13 @@ Per esempio:
 - Due vittorie, una patta e una vittoria valgono 8 punti: 2 + 2 + (2 x 1) + 2
 - Due vittorie, una sconfitta e una patta valgono 5 punti: 2 + 2 + (2 x 0) + 1</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Quando un giocatore clicca sul pulsante Berserk all\'inzio di una partita il tempo a disposizione viene dimezzato, ma la vittoria varrà un punto extra nel torneo.
+  <string name="berserkAnswer">Quando un giocatore clicca sul pulsante Berserk all\'inzio di una partita, il suo tempo a disposizione viene dimezzato, ma la vittoria varrà un punto di torneo in più.
 
-Inoltre, nelle partite che prevedano incremento di tempo dopo ogni mossa, la funzione Berserk elimina l\'incremento. (1+2 è un eccezione, Berserk sarà 1+0)
+Inoltre, se la cadenza di gioco prevede un incremento, la modalità Berserk lo elimina. (1+2 diventa eccezionalmente 1+0 invece di ½+0).
 
-La funzionalità Berserk non è disponibile per le partite senza tempo iniziale (es. 0+1, 0+2).
+La modalità Berserk non è disponibile per le partite senza tempo iniziale (es. 0+1, 0+2).
 
-La funzionalità Berserk varrà un punto extra solo se giocherai almeno 7 mosse.</string>
+Una partita Berserk vinta varrà un punto in più solo se giocherai almeno 7 mosse.</string>
   <string name="howIsTheWinnerDecided">Come viene deciso il vincitore?</string>
   <string name="howIsTheWinnerDecidedAnswer">Il giocatore/i giocatori con più punti alla conclusione del limite di tempo del torneo sarà annunciato vincitore/saranno annunciati vincitori.</string>
   <string name="howDoesPairingWork">Come funziona l\'accoppiamento?</string>
