@@ -64,17 +64,4 @@ object Environment
   def NotForKids(f: => Html)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyHtml else f
 
   def NotForKids(f: => scalatags.Text.all.Frag)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyFrag else f
-
-  def signalBars(v: Int) = Html {
-    val bars = (1 to 4).map { b =>
-      s"""<i${if (v < b) " class=\"off\"" else ""}></i>"""
-    } mkString ""
-    val title = v match {
-      case 1 => "Poor connection"
-      case 2 => "Decent connection"
-      case 3 => "Good connection"
-      case _ => "Excellent connection"
-    }
-    s"""<signal data-hint="$title" class="q$v hint--top">$bars</signal>"""
-  }
 }

@@ -141,7 +141,7 @@ object User extends LilaController {
           }
         )
       } yield res
-      else fuccess(Ok(html.user.miniClosed(user)))
+      else fuccess(Ok(html.user.bits.miniClosed(user)))
     }
   }
 

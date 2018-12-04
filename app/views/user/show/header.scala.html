@@ -53,7 +53,7 @@
     }
     <a class="button hint--top-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="1"></span></a>
     @if(ctx.isAuth && !ctx.is(u)) {
-    @views.html.relation.actions(u.id, relation = relation, followable = followable, blocked = blocked)
+    @views.html.relation.actions(u.id, relation = relation, followable = followable, blocked = blocked).toHtml
     @NotForKids {
     <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--top-left" href="@routes.Report.form?username=@u.username">
       <span data-icon="!"></span>
