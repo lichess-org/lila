@@ -15,11 +15,11 @@ object StreamerForm {
     "name" -> nameField,
     "headline" -> optional(headlineField),
     "description" -> optional(descriptionField),
-    "twitch" -> optional(nonEmptyText.verifying(
+    "twitch" -> optional(text.verifying(
       Constraints.minLength(2),
       Constraints.maxLength(24)
     ).verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
-    "youTube" -> optional(nonEmptyText.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
+    "youTube" -> optional(text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
     "listed" -> boolean,
     "approval" -> optional(mapping(
       "granted" -> boolean,

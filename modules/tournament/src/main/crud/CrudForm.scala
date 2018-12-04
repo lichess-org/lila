@@ -18,17 +18,17 @@ object CrudForm {
   val maxHomepageHours = 72
 
   lazy val apply = Form(mapping(
-    "name" -> nonEmptyText(minLength = 3, maxLength = 40),
+    "name" -> text(minLength = 3, maxLength = 40),
     "homepageHours" -> number(min = 0, max = maxHomepageHours),
     "clockTime" -> numberInDouble(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> number(min = 20, max = 1440),
     "variant" -> number.verifying(Variant exists _),
-    "position" -> nonEmptyText.verifying(DataForm.positions contains _),
+    "position" -> text.verifying(DataForm.positions contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
-    "headline" -> nonEmptyText(minLength = 5, maxLength = 35),
-    "description" -> nonEmptyText(minLength = 10, maxLength = 800),
+    "headline" -> text(minLength = 5, maxLength = 35),
+    "description" -> text(minLength = 10, maxLength = 800),
     "conditions" -> Condition.DataForm.all,
     "password" -> optional(nonEmptyText),
     "berserkable" -> boolean
