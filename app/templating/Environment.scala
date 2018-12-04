@@ -30,7 +30,7 @@ object Environment
   with TournamentHelper
   with SimulHelper
   with ChessgroundHelper
-  with ui.Scalatags {
+  with ui.ScalatagsTwirl {
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
@@ -62,6 +62,4 @@ object Environment
     lila.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
 
   def NotForKids(f: => Html)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyHtml else f
-
-  def NotForKids(f: => scalatags.Text.all.Frag)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyFrag else f
 }

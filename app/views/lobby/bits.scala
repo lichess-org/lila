@@ -1,10 +1,8 @@
 package views.html.lobby
 
-import scalatags.Text.all._
-
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 

@@ -1,13 +1,12 @@
 package views.html
 
-import scalatags.Text.all._
 import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.hub.actorApi.timeline._
-import lila.i18n.{ I18nKeys => trans }
 import lila.common.String.html.escapeHtml
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
@@ -40,7 +39,7 @@ object timeline {
 
   private def entry(e: lila.timeline.Entry)(implicit ctx: Context) = frag(
     e.decode.map[Frag] {
-      case Follow(u1, u2) => trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false))
+      case Follow(u1, u2) => playHtmlToFrag(trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false)))
       case TeamJoin(userId, teamId) => trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
       case TeamCreate(userId, teamId) => trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
       case ForumPost(userId, topicId, topicName, postId) => trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeHtml(topicName), shorten(topicName, 30))))

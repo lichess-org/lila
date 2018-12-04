@@ -1,22 +1,21 @@
 package views.html.lobby
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 import play.twirl.api.Html
-import scalatags.Text.all._
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.common.HTTPRequest
 import lila.common.String.html.{ safeJson, safeJsonValue }
 import lila.game.Pov
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
 object home {
 
   def apply(
-    data: play.api.libs.json.JsObject,
+    data: JsObject,
     userTimeline: Vector[lila.timeline.Entry],
     forumRecent: List[lila.forum.MiniForumPost],
     tours: List[lila.tournament.Tournament],
@@ -46,7 +45,7 @@ object home {
       }
     )),
     side = Some(frag(
-      NotForKids { div(id := "streams_on_air")(views.html.streamer liveStreams streams) },
+      ctx.noKid option div(id := "streams_on_air")(views.html.streamer liveStreams streams),
       events map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
@@ -131,8 +130,8 @@ lichess_lobby = {
             )
           )
         },
-        !ctx.isBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        NotForKids {
+        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
+        ctx.noKid option frag(
           div(cls := "new_posts undertable")(
             div(cls := "undertable_top")(
               a(cls := "more", href := routes.ForumCateg.index)(trans.more(), " »"),
@@ -142,7 +141,7 @@ lichess_lobby = {
               div(cls := "content")(views.html.forum.post recent forumRecent)
             )
           )
-        },
+        ),
         bits.lastPosts(lastPost),
         div(cls := "donation undertable")(
           a(href := routes.Plan.index)(

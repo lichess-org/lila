@@ -1,5 +1,5 @@
 @(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context)
-@import lila.app.ui.Scalatags.star._
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @form3.group(username, if(register) trans.username() else trans.usernameOrEmail()) { f =>
 @form3.inputHtml(f)(*.autofocus := true)

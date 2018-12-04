@@ -1,6 +1,5 @@
 @(s: lila.streamer.Streamer.WithUserAndStream, form: Form[_], modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])])(implicit ctx: Context)
-
-@import lila.app.ui.Scalatags.star._
+@import lila.app.ui.ScalatagsTwirlForm._
 @modsOnly = @{ Html("Moderators only").some }
 
 @base.layout(title = s"${s.user.titleUsername} streamer page",

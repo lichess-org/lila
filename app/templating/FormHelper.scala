@@ -3,11 +3,8 @@ package templating
 
 import play.api.data._
 import play.twirl.api.Html
-import scalatags.Text.all._
-import scalatags.Text.{ all => st }
 
 import lila.api.Context
-import lila.app.ui.Scalatags._
 import lila.i18n.I18nDb
 
 trait FormHelper { self: I18nHelper =>
@@ -29,7 +26,9 @@ trait FormHelper { self: I18nHelper =>
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
-  object form3 {
+  object form3 extends ui.ScalatagsPlay {
+
+    import ui.ScalatagsTemplate._
 
     private val idPrefix = "form3"
 

@@ -1,5 +1,5 @@
 @(field: play.api.data.Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit ctx: Context)
-@import lila.app.ui.Scalatags.star._
+@import lila.app.ui.ScalatagsTwirlForm._
 
 <div class="fen_position optional_config">
   @defining(field.value.fold(routes.Editor.index)(routes.Editor.load).url) { href =>

@@ -16,7 +16,7 @@
 
 @user.layout(
 title =  s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}",
-side = side(u, info.ranks, none).some,
+side = Some(side(u, info.ranks, none)),
 robots = false,
 evenMoreJs = evenMoreJs,
 openGraph = lila.app.ui.OpenGraph(

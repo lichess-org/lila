@@ -1,12 +1,10 @@
 package views.html.base
 
 import play.twirl.api.Html
-import scalatags.Text.all._
-import scalatags.Text.{ all => st }
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
@@ -29,9 +27,8 @@ object layout {
     """<meta name="twitter:site" content="@@lichess" />"""
   ).mkString)
 
-  private val faviconSizes = List(256, 128, 64)
   private val favicons = raw {
-    faviconSizes map { px =>
+    List(256, 128, 64) map { px =>
       s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}"/>"""
     } mkString
   }

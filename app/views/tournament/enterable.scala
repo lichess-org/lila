@@ -1,10 +1,9 @@
 package views
 package html.tournament
 
-import scalatags.Text.all._
-
 import lila.tournament.Tournament
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 

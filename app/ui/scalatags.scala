@@ -4,18 +4,11 @@ package ui
 import ornicar.scalalib.Zero
 
 import play.twirl.api.Html
-import scalatags.Text.all.{ genericAttr, attr, UnitFrag }
-import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue, Cap, Aggregate, Attrs }
+import scalatags.Text.all.{ genericAttr, attr, StringFrag }
+import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Cap, Aggregate, Attrs, Styles }
 
-object Scalatags extends Scalatags {
-
-  // twirl template minimal helpers. Allows `*.rows := 5`
-  object star extends Cap with Aggregate {
-    object * extends Cap with Attrs with LilaAttrs
-  }
-}
-
-trait LilaAttrs {
+// collection of lila attrs
+trait ScalatagsAttrs {
   lazy val minlength = attr("minlength") // missing from scalatags atm
   lazy val dataTag = attr("data-tag")
   lazy val dataIcon = attr("data-icon")
@@ -26,7 +19,55 @@ trait LilaAttrs {
   lazy val datatime24h = attr("data-time_24h")
 }
 
-trait Scalatags extends LilaAttrs {
+// collection of lila snippets
+trait ScalatagsSnippets extends Cap {
+  this: ScalatagsExtensions with ScalatagsAttrs =>
+
+  import scalatags.Text.all._
+
+  def iconTag(c: String) = i(dataIcon := c)
+
+  def NotForKids(f: => Frag)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyFrag else f
+}
+
+// basic imports from scalatags
+trait ScalatagsBundle extends Cap
+  with Attrs
+  with scalatags.text.Tags
+  // with DataConverters
+  with Aggregate
+
+// short prefix
+trait ScalatagsPrefix {
+  object st extends Cap with Attrs with scalatags.text.Tags
+
+}
+
+// what to import in a pure scalatags template
+trait ScalatagsTemplate extends Styles
+  with ScalatagsBundle
+  with ScalatagsAttrs
+  with ScalatagsExtensions
+  with ScalatagsSnippets
+  with ScalatagsPrefix {
+
+  val trans = lila.i18n.I18nKeys
+}
+
+object ScalatagsTemplate extends ScalatagsTemplate
+
+// what to import in all twirl templates
+trait ScalatagsTwirl extends ScalatagsPlay
+
+// what to import in twirl templates containing scalatags forms
+// Allows `*.rows := 5`
+trait ScalatagsTwirlForm extends ScalatagsPlay with Cap with Aggregate {
+  object * extends Cap with Attrs with ScalatagsAttrs
+}
+object ScalatagsTwirlForm extends ScalatagsTwirlForm
+
+// interop with play
+trait ScalatagsPlay {
 
   /* Feed frags back to twirl by converting them to rendered Html */
   implicit def fragToPlayHtml(frag: Frag): Html = Html(frag.render)
@@ -36,6 +77,16 @@ trait Scalatags extends LilaAttrs {
 
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
+
+  @inline implicit def fragToHtml(frag: Frag) = new FragToHtml(frag)
+}
+
+final class FragToHtml(private val self: Frag) extends AnyVal {
+  def toHtml: Html = Html(self.render)
+}
+
+// generic extensions
+trait ScalatagsExtensions {
 
   implicit val charAttr = genericAttr[Char]
 
@@ -60,12 +111,7 @@ trait Scalatags extends LilaAttrs {
     }
   }
 
-  @inline implicit def toPimpedFrag(frag: Frag) = new PimpedFrag(frag)
+  val emptyFrag: Frag = new StringFrag("")
 
-  val emptyFrag: Frag = UnitFrag(())
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
-}
-
-final class PimpedFrag(private val self: Frag) extends AnyVal {
-  def toHtml: Html = Html(self.render)
 }
