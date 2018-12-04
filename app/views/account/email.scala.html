@@ -10,7 +10,7 @@
     </h1>
     <form class="form3" action="@routes.Account.emailApply" method="POST">
       @form3.password(form("passwd"), trans.password())
-      @form3.group(form("email"), trans.email())(form3.input(_, typ = "email"))(*.required := true)
+      @form3.group(form("email"), trans.email())(form3.input(_, typ = "email"))
       @form3.action(form3.submit(trans.apply()))
     </form>
   </div>
