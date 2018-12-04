@@ -171,7 +171,12 @@ trait FormHelper { self: I18nHelper =>
       )(content)
 
     def hidden(field: Field, value: Option[String] = None): Html =
-      input(field, typ = "hidden")(st.value := value.orElse(field.value))
+      st.input(
+        st.id := id(field),
+        name := field.name,
+        st.value := value.orElse(field.value),
+        `type` := "hidden"
+      )
 
     def password(field: Field, content: Html)(implicit ctx: Context): Html =
       group(field, content)(input(_, typ = "password")(required := true))
