@@ -1,12 +1,10 @@
 package views.html
 package round
 
-import scalatags.Text.all._
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.game.{ Game, Pov, Player }
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 

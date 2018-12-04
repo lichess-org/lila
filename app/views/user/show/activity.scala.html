@@ -22,6 +22,6 @@ evenMoreJs = evenMoreJs,
 evenMoreCss = evenMoreCss) {
 <div data-username="@u.username" class="content_box no_padding user_show">
   @header(u, info, Angle.Activity, social)
-  <div class="angle_content">@views.html.activity.list(u, activities)</div>
+  <div class="angle_content">@views.html.activity(u, activities).toHtml</div>
 </div>
 }

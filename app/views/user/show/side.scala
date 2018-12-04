@@ -36,10 +36,12 @@ object side {
             perf.glicko.intRating,
             perf.provisional option "?"
           ),
+          " ",
           span(
             if (perfType.key == "puzzle") trans.nbPuzzles(perf.nb, perf.nb.localize)
             else trans.nbGames(perf.nb, perf.nb.localize)
           ),
+          " ",
           showProgress(perf.progress, withTitle = false)
         ),
         rankMap.fold(rankUnavailable) { ranks =>

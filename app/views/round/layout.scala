@@ -1,10 +1,10 @@
 package views.html.round
 
 import play.twirl.api.Html
-import scalatags.Text.all._
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 
 object layout {
 

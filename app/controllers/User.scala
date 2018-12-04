@@ -71,7 +71,7 @@ object User extends LilaController {
       } yield status(html.user.show.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
     else Env.activity.read.recent(u) map { as =>
-      status(html.activity.list(u, as))
+      status(html.activity(u, as))
     }
 
   def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)

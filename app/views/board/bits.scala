@@ -1,12 +1,11 @@
 package views.html.board
 
-import scalatags.Text.all._
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
