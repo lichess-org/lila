@@ -49,8 +49,10 @@ trait FormHelper { self: I18nHelper =>
          * And we can't tell from the Field whether it's optional or not :(
          */
       // case ("constraint.required", _) => required := true
-      case ("constraint.minLength", Seq(l: Int)) => minlength := l
-      case ("constraint.maxLength", Seq(l: Int)) => maxlength := l
+      case ("constraint.minLength", Seq(m: Int)) => minlength := m
+      case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
+      case ("constraint.min", Seq(m: Int)) => min := m
+      case ("constraint.max", Seq(m: Int)) => max := m
     }
 
     /* All public methods must return HTML

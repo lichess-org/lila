@@ -1,6 +1,6 @@
 @(s: lidraughts.streamer.Streamer.WithUserAndStream, form: Form[_], modData: Option[(List[lidraughts.mod.Modlog], List[lidraughts.user.Note])])(implicit ctx: Context)
 
-@import lidraughts.app.ui.Scalatags.min._
+@import lidraughts.app.ui.Scalatags.star._
 @modsOnly = @{ Html("Moderators only").some }
 
 @base.layout(title = s"${s.user.titleUsername} streamer page",

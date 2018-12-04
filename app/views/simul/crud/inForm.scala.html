@@ -1,6 +1,6 @@
 @(form: Form[lidraughts.simul.crud.CrudForm.Data], running: Boolean = false)(implicit ctx: Context)
 
-@import lidraughts.app.ui.Scalatags.min._
+@import lidraughts.app.ui.Scalatags.star._
 @import lidraughts.simul.DataForm._
 @import lidraughts.simul.crud.CrudForm._
 @import lidraughts.rating.PerfType
@@ -31,8 +31,8 @@
 @form3.group(form("clockExtra"), Html("Host extra time"), half = true)(form3.select(_, clockExtraChoices, disabled = running))
 }
 
-@form3.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)"))(form3.input(_, typ = "number")(*.maxlength := 3))
-@form3.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)"))(form3.input(_, typ = "number")(*.maxlength := 3))
+@form3.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)"))(form3.input(_, typ = "number")(*.min := 50, *.max := 100))
+@form3.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)"))(form3.input(_, typ = "number")(*.min := 0, *.max := 99))
 
 @form3.group(form("chat"), Html("Chat is available for"))(form3.select(_, chatChoices))
 @form3.group(form("fmjd"), Html("Official rating visibility"))(form3.select(_, fmjdChoices))

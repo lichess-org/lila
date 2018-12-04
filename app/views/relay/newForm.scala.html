@@ -1,8 +1,0 @@
-@()(implicit ctx: Context)
-@if(isGranted(_.Relay)) {
-<form class="new_relay" action="@routes.Relay.create" method="post">
-  <button type="submit" class="button frameless hint--top" data-hint="New Broadcast">
-    <i data-icon="O"></i>
-  </button>
-</form>
-}

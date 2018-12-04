@@ -1,5 +1,5 @@
 @(field: play.api.data.Field, strict: Boolean, limitKings: Boolean, validFen: Option[lidraughts.setup.ValidFen])(implicit ctx: Context)
-@import lidraughts.app.ui.Scalatags.min._
+@import lidraughts.app.ui.Scalatags.star._
 
 <div class="fen_position optional_config">
   @defining(field.value.fold(routes.Editor.index)(routes.Editor.parse).url) { href =>
