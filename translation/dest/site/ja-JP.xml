@@ -270,7 +270,7 @@
     <item quantity="other">レート戦 %s 局以上</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">%2%s レート戦 %1$s 局以上</item>
+    <item quantity="other">%2$s レート戦 %1$s 局以上</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">%2$s のレート戦があと %1$s 局必要です</item>
