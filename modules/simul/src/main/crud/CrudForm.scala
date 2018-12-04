@@ -17,14 +17,14 @@ object CrudForm {
   val maxHomepageHours = 336
 
   lazy val apply = Form(mapping(
-    "name" -> nonEmptyText(minLength = 3, maxLength = 40),
+    "name" -> text(minLength = 3, maxLength = 40),
     "homepageHours" -> number(min = 0, max = maxHomepageHours),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
-    "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
-    "description" -> nonEmptyText(minLength = 10, maxLength = 400),
-    "hostName" -> nonEmptyText(minLength = 2, maxLength = 20),
-    "arbiterName" -> text(minLength = 0, maxLength = 20),
+    "headline" -> text(minLength = 5, maxLength = 30),
+    "description" -> text(minLength = 10, maxLength = 400),
+    "hostName" -> lidraughts.user.DataForm.historicalUsernameField,
+    "arbiterName" -> text(minLength = 0, maxLength = 30),
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockExtra" -> numberIn(clockExtraChoices),

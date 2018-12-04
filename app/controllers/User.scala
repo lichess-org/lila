@@ -151,7 +151,7 @@ object User extends LidraughtsController {
           }
         )
       } yield res
-      else fuccess(Ok(html.user.miniClosed(user)))
+      else fuccess(Ok(html.user.bits.miniClosed(user)))
     }
   }
 
