@@ -137,6 +137,7 @@ shemale
 shit(z|e|y|ty|bag|)
 sister
 slag
+slave
 slut
 spastic
 spaz
@@ -148,6 +149,7 @@ spunk
 stfu
 stripper
 stupid
+suicide
 taint
 tart
 terrorist
