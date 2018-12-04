@@ -25,7 +25,7 @@ La modalità Berserk non è disponibile per le partite senza tempo iniziale (es.
 
 Una partita Berserk vinta varrà un punto in più solo se giocherai almeno 7 mosse.</string>
   <string name="howIsTheWinnerDecided">Come viene deciso il vincitore?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Il giocatore/i giocatori con più punti alla conclusione del limite di tempo del torneo sarà annunciato vincitore/saranno annunciati vincitori.</string>
+  <string name="howIsTheWinnerDecidedAnswer">Il vincitore (o i vincitori) sarà il giocatore (o i giocatori) che abbia il maggior numero di punti allo scadere del tempo previsto per il torneo.</string>
   <string name="howDoesPairingWork">Come funziona l\'accoppiamento?</string>
   <string name="howDoesPairingWorkAnswer">All\'inizio del torneo i giocatori sono accoppiati sulla base del loro punteggio individuale.
 Non appena finisci una partita ritorna nella lobby del toreno e attendi, verrai nuovamente accoppiate con un altro giocatore con livello simile al tuo. Questo garantisce un tempo di attesa ridotto, tuttavia potresti quindi non affrontare tutti i giocatori partecipanti al torneo.
