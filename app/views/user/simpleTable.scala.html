@@ -9,7 +9,7 @@
     </th></tr>
     }
     @pager.currentPageResults.map { r =>
-    <tr class="paginated_element">
+    <tr class="paginated">
       <td>@userLink(r.user)</td>
       <td>@showBestPerf(r.user)</td>
       <td>@trans.nbGames.pluralSame(r.user.count.game)</td>

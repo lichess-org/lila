@@ -9,7 +9,7 @@ moreJs = infiniteScrollTag) {
 </h1>
 <div class="list infinitescroll">
   @pager.currentPageResults.map { doc =>
-  <article class="paginated_element">
+  <article class="paginated">
     @doc.getText("blog.title").map { title =>
     <h1 class="blog_title"><a href="@routes.Blog.show(doc.id, doc.slug, prismic.maybeRef)">@title</a></h1>
     }

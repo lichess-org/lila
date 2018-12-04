@@ -17,7 +17,7 @@
     <div class="pager none"><a rel="next" href="@routes.Team.show(t.id, np)">Next</a></div>
     }
     @members.currentPageResults.map { member =>
-    <div class="paginated_element">@userLink(member.user)</div>
+    <div class="paginated">@userLink(member.user)</div>
     }
   </div>
 </div>
