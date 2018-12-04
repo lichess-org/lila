@@ -108,7 +108,7 @@ formCss = formWithCaptcha.isDefined) {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
     <form class="form3 reply" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @form3.group(form("text"), trans.message()) { f =>
-      @form3.textarea(f, klass = "post-text-area")(*.rows := 10, *.attr("data-topic-id") := topic.id)
+      @form3.textarea(f, klass = "post-text-area")(*.rows := 10, *.attr("data-topic") := topic.id)
       }
       @base.captcha(form, captcha)
       @form3.actions {
