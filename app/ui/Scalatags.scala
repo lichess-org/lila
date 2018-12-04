@@ -9,15 +9,24 @@ import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue, Cap, Aggregate
 
 object Scalatags extends Scalatags {
 
-  // twirl template minimal helpers. Allows `attrs.rows := 5`
+  // twirl template minimal helpers. Allows `*.rows := 5`
   object min extends Cap with Aggregate {
-    object * extends Cap with Attrs {
-      lazy val minlength = attr("minlength")
-    }
+    object * extends Cap with Attrs with LilaAttrs
   }
 }
 
-trait Scalatags {
+trait LilaAttrs {
+  lazy val minlength = attr("minlength") // missing from scalatags atm
+  lazy val dataTag = attr("data-tag")
+  lazy val dataIcon = attr("data-icon")
+  lazy val dataHint = attr("data-hint")
+  lazy val dataHref = attr("data-href")
+  lazy val dataCount = attr("data-count")
+  lazy val dataEnableTime = attr("data-enable-time")
+  lazy val datatime24h = attr("data-time_24h")
+}
+
+trait Scalatags extends LilaAttrs {
 
   /* Feed frags back to twirl by converting them to rendered Html */
   implicit def fragToPlayHtml(frag: Frag): Html = Html(frag.render)
@@ -28,11 +37,6 @@ trait Scalatags {
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
 
-  lazy val dataIcon = attr("data-icon")
-  lazy val dataHint = attr("data-hint")
-  lazy val dataHref = attr("data-href")
-  lazy val dataCount = attr("data-count")
-
   implicit val charAttr = genericAttr[Char]
 
   implicit val optionStringAttr = new AttrValue[Option[String]] {
@@ -41,6 +45,11 @@ trait Scalatags {
         t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(s))
       }
     }
+  }
+
+  implicit val optionBooleanAttr = new AttrValue[Option[Boolean]] {
+    def apply(t: scalatags.text.Builder, a: Attr, v: Option[Boolean]): Unit =
+      if (~v) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource("true"))
   }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */

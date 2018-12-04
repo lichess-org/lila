@@ -20,7 +20,7 @@ moreJs = moreJs) {
       @if(lila.tournament.DataForm.canPickName(me)) {
       @form3.group(form("name"), trans.name()) { f =>
       <div>
-        @form3.input(f) Arena<br />
+        @form3.inputHtml(f)() Arena<br />
         <small class="form-help">
           @trans.safeTournamentName()<br />
           @trans.inappropriateNameWarning()<br>

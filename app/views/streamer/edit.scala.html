@@ -104,10 +104,10 @@ menu = menu("edit", s.withoutStream.some).some) {
     @form3.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
     }
     @form3.split {
-    @form3.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_)(*.required := true, *.maxlength := 20))
+    @form3.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_)(*.maxlength := 20))
     @form3.checkbox(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true)
     }
-    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_)(*.required := true, *.maxlength := 300))
+    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_)(*.maxlength := 300))
     @form3.group(form("description"), Html("Long description"))(form3.textarea(_)(*.rows := 10, *.maxlength := 50000))
     @form3.actions {
     <a href="@routes.Streamer.show(s.user.username)">Cancel</a>

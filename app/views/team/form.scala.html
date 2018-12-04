@@ -1,4 +1,5 @@
 @(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
 @team.layout(
 title = trans.newTeam.txt(),
@@ -13,7 +14,7 @@ formCss = true) {
       @form3.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
       }
       @form3.group(form("location"), trans.location())(form3.input(_))
-      @form3.group(form("description"), trans.description())(form3.textarea(_, rows = 10.some))
+      @form3.group(form("description"), trans.description())(form3.textarea(_)(*.rows := 10))
       @base.captcha(form, captcha)
       @form3.actions {
       <a href="@routes.Team.home(1)">@trans.cancel()</a>

@@ -1,4 +1,5 @@
 @(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean], canModCateg: Boolean)(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
 @moreJs = {
 @jsTag("forum-post.js")
@@ -107,7 +108,7 @@ formCss = formWithCaptcha.isDefined) {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
     <form class="form3 reply" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @form3.group(form("text"), trans.message()) { f =>
-      @form3.textarea(f, klass = "post-text-area", rows = 10.some, required = true, attrs = s"""data-topic="${topic.id}"""")
+      @form3.textarea(f, klass = "post-text-area")(*.rows := 10, *.attr("data-topic-id") := topic.id)
       }
       @base.captcha(form, captcha)
       @form3.actions {

@@ -1,8 +1,9 @@
 @(form: Form[_], referrer: Option[String])(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
 @twoFactorHelp = {
-  <span data-icon="">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</span>
-  }
+<span data-icon="">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</span>
+}
 
 @auth.layout(
 title = trans.signIn.txt(),
@@ -18,25 +19,24 @@ formCss = true) {
         @form3.action(form3.submit(trans.signIn(), icon = "F".some))
       </div>
       <div class="two-factor none">
-        @form3.group(form("token"), Html("Authentication code"), help = twoFactorHelp.some) { f =>
-        @form3.input(f, required = true, autocomplete = false, pattern = "[0-9]{6}".some)
-        }
+        @form3.group(form("token"), Html("Authentication code"), help = twoFactorHelp.some)(form3.input(_)(*.autocomplete := "off", *.pattern := "[0-9]{6}"))
         <p class="error none">Invalid code.</p>
         @form3.action(form3.submit(trans.signIn(), icon = "F".some))
-    </form>
-  </div>
-  <div class="alternative">
-    @trans.newToLichess()
-    <br />
-    <br />
-    <a href="@routes.Auth.signup()" class="button" data-icon="F"> @trans.signUp()</a>
-    <br />
-    <br />
-    <br />
-    @trans.forgotPassword()
-    <br />
-    <br />
-    <a href="@routes.Auth.passwordReset()" class="button" data-icon="F"> @trans.passwordReset()</a>
+      </form>
+    </div>
+    <div class="alternative">
+      @trans.newToLichess()
+      <br />
+      <br />
+      <a href="@routes.Auth.signup()" class="button" data-icon="F"> @trans.signUp()</a>
+      <br />
+      <br />
+      <br />
+      @trans.forgotPassword()
+      <br />
+      <br />
+      <a href="@routes.Auth.passwordReset()" class="button" data-icon="F"> @trans.passwordReset()</a>
+    </div>
   </div>
 </div>
 }

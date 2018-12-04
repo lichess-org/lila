@@ -17,7 +17,7 @@ evenMoreCss = cssTag("form3.css")
       They can be used to authenticate to the API over Basic Authentication.
     </div>
 
-    @form3.group(form("description"), Html("Token description"), help = Html("For you to remember what this token is for").some)(form3.input(_, required = true))
+    @form3.group(form("description"), Html("Token description"), help = Html("For you to remember what this token is for").some)(form3.input(_))
 
     <br><br>
     <h2>Scopes define the access for personal tokens:</h2>

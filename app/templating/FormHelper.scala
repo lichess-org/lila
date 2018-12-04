@@ -43,6 +43,12 @@ trait FormHelper { self: I18nHelper =>
     private def error(err: FormError)(implicit ctx: Context): Frag =
       p(cls := "error")(transKey(err.message, I18nDb.Site, err.args))
 
+    private def validationModifiers(field: Field): Seq[Modifier] = field.constraints collect {
+      case ("constraint.required", _) => required := true
+      case ("constraint.minLength", Seq(l: Int)) => minlength := l
+      case ("constraint.maxLength", Seq(l: Int)) => maxlength := l
+    }
+
     /* All public methods must return HTML
      * because twirl just calls toString on scalatags frags
      * and that escapes the content :( */
@@ -75,9 +81,10 @@ trait FormHelper { self: I18nHelper =>
         value := field.value,
         `type` := typ.nonEmpty.option(typ),
         cls := List("form-control" -> true, klass -> klass.nonEmpty)
-      )
-    def inputHtml(field: Field, klass: String = "")(modifiers: Modifier*): Html =
-      input(field, klass)(modifiers)
+      )(validationModifiers(field))
+
+    def inputHtml(field: Field, typ: String = "", klass: String = "")(modifiers: Modifier*): Html =
+      input(field, typ, klass)(modifiers)
 
     def checkbox(
       field: Field,
@@ -113,12 +120,12 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name := field.name,
         cls := "form-control"
-      )(
+      )(validationModifiers(field))(
           default map { option(value := "")(_) },
           options.toSeq map {
             case (value, name) => option(
               st.value := value.toString,
-              selected := field.value.has(value.toString)
+              selected := field.value.has(value.toString).option(true)
             )(name)
           }
         )
@@ -131,7 +138,7 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name := field.name,
         cls := List("form-control" -> true, klass -> klass.nonEmpty)
-      )(modifiers)(~field.value)
+      )(validationModifiers(field))(modifiers)(~field.value)
 
     def actions(html: Html): Html = div(cls := "form-actions")(html)
 
@@ -165,9 +172,6 @@ trait FormHelper { self: I18nHelper =>
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))
       }
-
-    private val dataEnableTime = attr("data-enable-time")
-    private val datatime24h = attr("data-time_24h")
 
     def flatpickr(field: Field, withTime: Boolean = true): Html =
       input(field, klass = "flatpickr")(

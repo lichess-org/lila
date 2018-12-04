@@ -32,8 +32,8 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <label>@trans.players() <span class="help" title="The name(s) of the player(s) you wish to search">(?)</span></label>
         </th>
         <td class="usernames">
-          <div class="half">@form3.input(form("players")("a"))</div>
-          <div class="half">@form3.input(form("players")("b"))</div>
+          <div class="half">@form3.inputHtml(form("players")("a"))()</div>
+          <div class="half">@form3.inputHtml(form("players")("b"))()</div>
         </td>
       </tr>
       @chess.Color.all.map { color =>

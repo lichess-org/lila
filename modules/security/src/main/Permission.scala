@@ -79,7 +79,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan,
+    PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan, Impersonate,
     Relay, Cli, Settings, Streamers, DisableTwoFactor, Verified, Prismic
   )
 

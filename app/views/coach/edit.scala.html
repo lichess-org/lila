@@ -72,6 +72,7 @@ side = side.some) {
       <div class="panel contents">
         @form3.group(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)(form3.textarea(_)())
         @form3.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel"))(form3.input(_))
+
         @form3.group(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)(form3.textarea(_)(*.rows := 6))
       </div>
       <div class="panel reviews">

@@ -1,4 +1,5 @@
 @(field: play.api.data.Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit ctx: Context)
+@import lila.app.ui.Scalatags.min._
 
 <div class="fen_position optional_config">
   @defining(field.value.fold(routes.Editor.index)(routes.Editor.load).url) { href =>
@@ -6,7 +7,7 @@
     <a class="button thin hint--bottom" data-hint="@trans.boardEditor()" href="@href">
       <span data-icon="m"></span>
     </a>
-    @form3.input(field, placeholder=trans.pasteTheFenStringHere.txt().some)
+    @form3.inputHtml(field)(*.placeholder := trans.pasteTheFenStringHere.txt())
   </div>
   <a class="board_editor" href="@href">
     <span class="preview">@validFen.map { vf =>
