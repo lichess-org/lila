@@ -1,5 +1,5 @@
 @(form: Form[_], tags: List[String], captcha: lila.common.Captcha)(implicit ctx: Context)
-@import lila.app.ui.Scalatags.min._
+@import lila.app.ui.Scalatags.star._
 
 @form3.group(form("title"), Html("What's your question?"), help = Html("Please make sure a similar question doesn't exist yet, before posting!").some)(form3.input(_))
 @form3.group(form("body"), Html("Detailed question and relevant details"))(form3.textarea(_)(*.rows := 6))

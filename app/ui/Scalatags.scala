@@ -10,7 +10,7 @@ import scalatags.Text.{ TypedTag, Frag, RawFrag, Attr, AttrValue, Cap, Aggregate
 object Scalatags extends Scalatags {
 
   // twirl template minimal helpers. Allows `*.rows := 5`
-  object min extends Cap with Aggregate {
+  object star extends Cap with Aggregate {
     object * extends Cap with Attrs with LilaAttrs
   }
 }
@@ -62,7 +62,7 @@ trait Scalatags extends LilaAttrs {
 
   @inline implicit def toPimpedFrag(frag: Frag) = new PimpedFrag(frag)
 
-  val emptyFrag = UnitFrag(())
+  val emptyFrag: Frag = UnitFrag(())
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
 }
 

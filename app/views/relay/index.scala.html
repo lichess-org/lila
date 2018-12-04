@@ -24,7 +24,9 @@ moreJs = infiniteScrollTag) {
 <div class="content_box no_padding relays">
   <div class="top">
     <h1>@title</h1>
-    @newForm()
+    <a href="@routes.Relay.form" class="new_relay button frameless hint--top" data-hint="New Broadcast">
+      <i data-icon="O"></i>
+    </a>
   </div>
   @fresh.map { f =>
   @sublist("Ongoing", f.started)

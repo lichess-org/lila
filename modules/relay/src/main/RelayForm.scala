@@ -13,8 +13,8 @@ object RelayForm {
   import lila.common.Form.UTCDate._
 
   val form = Form(mapping(
-    "name" -> nonEmptyText(minLength = 3, maxLength = 80),
-    "description" -> nonEmptyText(minLength = 3, maxLength = 4000),
+    "name" -> text(minLength = 3, maxLength = 80),
+    "description" -> text(minLength = 3, maxLength = 4000),
     "official" -> boolean,
     "syncUrl" -> nonEmptyText,
     "startsAt" -> optional(utcDate),

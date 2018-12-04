@@ -1,5 +1,5 @@
 @(q: lila.qa.Question, answers: List[lila.qa.Answer], popular: List[lila.qa.Question], related: List[lila.qa.Question], answerForm: Option[Form[_]], captcha: Option[lila.common.Captcha])(implicit ctx: Context)
-@import lila.app.ui.Scalatags.min._
+@import lila.app.ui.Scalatags.star._
 
 @side = {
 @if(!related.isEmpty){@relatedBox(related)}
