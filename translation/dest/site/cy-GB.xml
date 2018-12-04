@@ -281,6 +281,7 @@
   <string name="standing">Safle</string>
   <string name="createANewTournament">Creu cystadleuaeth newydd</string>
   <string name="tournamentCalendar">Calendr talyrnau</string>
+  <string name="conditionOfEntry">Telerau mynediad:</string>
   <string name="advancedSettings">Gosodiadau uwch</string>
   <string name="safeTournamentName">Dewisia enw saff i\'r talwrn.</string>
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
@@ -318,6 +319,7 @@
   <string name="reportXToModerators">Adrodd %s i\'r cymedrolwyr</string>
   <string name="profileCompletion">%s o\'ch proffeil wedi ei gwblhau</string>
   <string name="xRating">Gradd %s</string>
+  <string name="gameCompletionRate">Cyfradd gemau a gwblhawyd: %s</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
   <string name="firstName">Enw cyntaf</string>
@@ -561,7 +563,11 @@
   <string name="crosstable">Tabl croes</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Gellwch rholio dros y bwrdd i symud yn y gêm.</string>
   <string name="analysisShapesHowTo">Gwasgwch shift a chliciwch neu dde-gliciwch i dynnu cylchau a saithau ar y bwrdd.</string>
+  <string name="confirmResignationAndDrawOffers">Cadarnhau cynnigion gem cyfartal ac ildio</string>
   <string name="letOtherPlayersMessageYou">Cael negeseuon gan chwaraewyr arall</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Modd castellu</string>
+  <string name="castleByMovingTwoSquares">Symud y Teyrn dau sgwar</string>
+  <string name="castleByMovingOntoTheRook">Gollwng y Teyrn ar ben y Castell</string>
   <string name="shareYourInsightsData">Cyfrannu data mewnwelediadau</string>
   <string name="withNobody">Gyda neb</string>
   <string name="withFriends">Gyda ffrindiau</string>
