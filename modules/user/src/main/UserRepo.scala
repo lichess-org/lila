@@ -313,7 +313,7 @@ object UserRepo {
     coll.update(
       $id(id) ++ $doc(F.email $exists false),
       $doc("$rename" -> $doc(F.prevEmail -> F.email))
-    ).recover(lila.db.recoverDuplicateKey(_ => ()))
+    ).recover(lidraughts.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
