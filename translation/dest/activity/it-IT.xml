@@ -52,12 +52,12 @@
     <item quantity="other">Ha gareggiato in %s tornei</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Classificato #%1$s (top %2$s%%) con %3$s partita in %4$s</item>
-    <item quantity="other">Classificato #%1$s (top %2$s%%) con %3$s partite in %4$s</item>
+    <item quantity="one">Si è classificato %1$s° (nel miglior %2$s%%) con %3$s partita in %4$s</item>
+    <item quantity="other">Si è classificato %1$s° (nel miglior %2$s%%) con %3$s partite in %4$s</item>
   </plurals>
-  <string name="signedUp">Registrato su lichess</string>
+  <string name="signedUp">Si è registrato su lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Partecipante in %s squadra</item>
-    <item quantity="other">Partecipante in %s squadre</item>
+    <item quantity="one">Si è unito in %s squadra</item>
+    <item quantity="other">Si è unito in %s squadre</item>
   </plurals>
 </resources>
