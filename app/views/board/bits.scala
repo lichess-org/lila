@@ -29,7 +29,7 @@ object bits {
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "is3d" -> ctx.pref.is3d,
-    "i18n" -> i18nJsObject(translations)(ctx.lang)
+    "i18n" -> i18nJsObject(translations)
   )
 
   def domPreload(pov: Option[lila.game.Pov])(implicit ctx: Context) = {

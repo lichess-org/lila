@@ -71,7 +71,7 @@ object home {
       embedJs {
         val playbanJs = htmlOrNull(playban)(pb => safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val gameJs = htmlOrNull(currentGame)(cg => safeJson(cg.json))
-        val transJs = safeJsonValue(i18nJsObject(translations)(ctx.lang))
+        val transJs = safeJsonValue(i18nJsObject(translations))
         s"""window.customWS = true; lichess_lobby = { data: ${safeJsonValue(data)}, playban: $playbanJs, currentGame: $gameJs, i18n: $transJs, }"""
       }
     ),
