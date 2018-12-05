@@ -617,6 +617,9 @@
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
+  <string name="aboutX">关于 %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一个免费 (%2$s), 自由，没有广告的国际象棋服务器。</string>
+  <string name="really">真的</string>
   <string name="contribute">协助我们</string>
   <string name="contact">联系我们</string>
   <string name="termsOfService">服务条款</string>
