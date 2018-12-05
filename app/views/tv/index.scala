@@ -24,10 +24,11 @@ object index {
       underchat = views.html.game.bits.watchers.some,
       moreJs = frag(
         roundTag,
-        embedJs(s"""window.customWS = true;
-window.onload = function() {
-${pov ?? { p => bootRoundJs(data, p) }}
-}""")
+        embedJs {
+          def roundJs(p: lidraughts.game.Pov) = s"""LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${views.html.round.jsI18n(p.game)} }, document.getElementById('lidraughts'))"""
+          s"""window.customWS = true;
+window.onload = function() { ${pov ?? roundJs} }"""
+        }
       ),
       moreCss = cssTag("tv.css"),
       draughtsground = false,
@@ -59,10 +60,4 @@ ${pov ?? { p => bootRoundJs(data, p) }}
           )
         )
       }
-
-  private def bootRoundJs(data: play.api.libs.json.JsObject, pov: lidraughts.game.Pov)(implicit ctx: Context) =
-    s"""LidraughtsRound.boot({
-        data: ${safeJsonValue(data)},
-        i18n: ${views.html.round.jsI18n(pov.game)},
-      }, document.getElementById('lidraughts'));"""
 }
