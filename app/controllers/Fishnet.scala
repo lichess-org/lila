@@ -49,10 +49,7 @@ object Fishnet extends LilaController {
   def keyExists(key: String) = Action.async { req =>
     api keyExists lila.fishnet.Client.Key(key) map {
       case true => Ok
-      case false =>
-        val ip = HTTPRequest.lastRemoteAddress(req)
-        logger.info(s"Unauthorized key: $key ip: $ip")
-        NotFound
+      case false => NotFound
     }
   }
 
@@ -68,11 +65,7 @@ object Fishnet extends LilaController {
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
         data => api.authenticateClient(data, HTTPRequest lastRemoteAddress req) flatMap {
-          case Failure(msg) => {
-            val ip = HTTPRequest.lastRemoteAddress(req)
-            logger.info(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip | ${msg.getMessage}")
-            Unauthorized(jsonError(msg.getMessage)).fuccess
-          }
+          case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).fuccess
           case Success(client) => f(data)(client).map {
             case Right(Some(work)) => Accepted(Json toJson work)
             case Right(None) => NoContent
