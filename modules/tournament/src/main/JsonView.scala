@@ -57,13 +57,15 @@ final class JsonView(
     playerInfoJson <- playerInfoExt ?? { pie =>
       playerInfoExtended(pie).map(_.some)
     }
-    verdicts <- me match {
-      case None => fuccess(tour.conditions.accepted)
-      case Some(user) if myInfo.isDefined => fuccess(tour.conditions.accepted)
-      case Some(user) => verify(tour.conditions, user, getUserTeamIds)
+    verdicts <- full ?? {
+      me match {
+        case None => fuccess(tour.conditions.accepted.some)
+        case Some(user) if myInfo.isDefined => fuccess(tour.conditions.accepted.some)
+        case Some(user) => verify(tour.conditions, user, getUserTeamIds) map some
+      }
     }
     stats <- statsApi(tour)
-    shieldOwner <- shieldApi currentOwner tour
+    shieldOwner <- full.?? { shieldApi currentOwner tour }
   } yield Json.obj(
     "nbPlayers" -> tour.nbPlayers,
     "duels" -> data.duels,
@@ -95,7 +97,7 @@ final class JsonView(
       ).add("spotlight" -> tour.spotlight)
         .add("berserkable" -> tour.berserkable)
         .add("position" -> full.option(tour.position).filterNot(_.initial).map(positionJson))
-        .add("verdicts" -> full.option(Condition.JSONHandlers.verdictsFor(verdicts, lang)))
+        .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
         .add("schedule" -> tour.schedule.map(scheduleJson))
         .add("private" -> tour.isPrivate)
         .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)))
