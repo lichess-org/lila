@@ -325,7 +325,7 @@ object User extends LilaController {
 
   def apiWriteNote(username: String) = ScopedBody() { implicit req => me =>
     doWriteNote(username, me)(
-      err = err => _ => jsonFormError(err),
+      err = err => _ => jsonFormErrorDefaultLang(err),
       suc = jsonOkResult
     )
   }

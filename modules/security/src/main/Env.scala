@@ -188,7 +188,8 @@ final class Env(
   def cli = new Cli
 
   system.lilaBus.subscribeFun('fishnet) {
-    case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+    case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
+      automaticEmail.onFishnetKey(userId, key)(lila.i18n.defaultLang)
   }
 
   private[security] lazy val storeColl = db(CollectionSecurity)

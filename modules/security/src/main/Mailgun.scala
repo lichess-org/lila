@@ -3,12 +3,11 @@ package lila.security
 import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
-import play.api.i18n.Lang
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
+import lila.common.{ Lang, EmailAddress }
 import lila.common.String.html.escapeHtml
 import lila.i18n.I18nKeys.{ emails => trans }
 

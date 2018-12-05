@@ -1,6 +1,6 @@
 package lila.i18n
 
-import play.api.i18n.Lang
+import lila.common.Lang
 
 private sealed trait I18nQuantity
 

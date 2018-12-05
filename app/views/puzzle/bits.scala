@@ -23,7 +23,7 @@ object bits {
     dataLastmove := lastMove
   )(miniBoardContent)
 
-  def jsI18n(implicit ctx: Context) = toJson(i18nJsObject(translations)(ctx.lang))
+  def jsI18n(implicit ctx: Context) = toJson(i18nJsObject(translations))
 
   private val translations = List(
     trans.training,

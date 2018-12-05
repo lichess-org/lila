@@ -247,7 +247,7 @@ object Tournament extends LilaController {
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     env.forms(me).bindFromRequest.fold(
-      jsonFormError,
+      jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
         env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
           Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lila.i18n.defaultLang)

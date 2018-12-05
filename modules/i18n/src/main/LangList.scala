@@ -1,6 +1,6 @@
 package lila.i18n
 
-import play.api.i18n.Lang
+import lila.common.Lang
 
 object LangList {
 
@@ -8,11 +8,11 @@ object LangList {
 
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
-  lazy val choices = all.toList.map {
-    case (Lang(language, _), name) => language -> name
+  lazy val choices: List[(String, String)] = all.toList.map {
+    case (l, name) => l.language -> name
   }.sortBy(_._1)
 
-  val all = Map(
+  private[i18n] val all = Map(
     Lang("en", "GB") -> "English",
     Lang("af", "ZA") -> "Afrikaans",
     Lang("ar", "SA") -> "العربية",

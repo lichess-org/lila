@@ -1,7 +1,6 @@
 package lila.tournament
 
-import play.api.i18n.Lang
-
+import lila.common.Lang
 import lila.hub.tournamentTeam._
 import lila.i18n.I18nKeys
 import lila.rating.BSONHandlers.perfTypeKeyHandler
