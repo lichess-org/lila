@@ -22,7 +22,7 @@ object Tv extends LilaController {
         OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
           Env.tv.tv.getChampions zip
             Env.game.crosstableApi.withMatchup(pov.game) map {
-              case (champions, crosstable) => Ok(html.tv.sides(channel, champions, pov, crosstable))
+              case (champions, crosstable) => Ok(html.tv.side.sides(channel, champions, pov, crosstable))
             }
         }
     }

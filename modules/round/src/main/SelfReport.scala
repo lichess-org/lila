@@ -9,12 +9,14 @@ final class SelfReport(
     slackApi: lila.slack.SlackApi
 ) {
 
+  private val whitelist = Set("treehugger")
+
   def apply(
     userId: Option[User.ID],
     ip: IpAddress,
     fullId: String,
     name: String
-  ): Funit =
+  ): Funit = !userId.exists(whitelist.contains) ?? {
     userId.??(UserRepo.named) flatMap { user =>
       val known = user.??(_.engine)
       lila.mon.cheat.cssBot()
@@ -48,4 +50,5 @@ final class SelfReport(
         }
       }
     }
+  }
 }
