@@ -139,7 +139,8 @@ object activity {
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))("Game"),
               " vs ",
-              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
+              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true),
+              br
             )
           }
         )
@@ -164,7 +165,8 @@ object activity {
                 }
               ),
               " vs ",
-              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
+              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true),
+              br
             )
           }
         )
