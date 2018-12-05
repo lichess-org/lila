@@ -10,7 +10,7 @@ window.onload = function() {
 @pov.fold(emptyHtml){ p =>
 LidraughtsRound.boot({
 data: @safeJson(data),
-i18n: @round.jsI18n(p.game)
+i18n: @Html(round.jsI18n(p.game))
 }, document.getElementById('lidraughts'));
 }
 };
