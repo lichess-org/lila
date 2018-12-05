@@ -8,13 +8,9 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="keres"
   REMOTE_DIR="/home/lichess-deploy"
-  CLI="bin/cli-prod"
-elif [ $mode = "keres" ]; then
-  REMOTE="keres"
-  REMOTE_DIR="/home/lichess-deploy"
   ASSETS_REMOTE="greco"
   ASSETS_REMOTE_DIR="/home/lichess-deploy"
-  CLI="bin/cli"
+  CLI="bin/cli-prod"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
