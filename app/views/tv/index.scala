@@ -24,13 +24,11 @@ object index {
       underchat = views.html.game.bits.watchers.some,
       moreJs = frag(
         roundTag,
-        embedJs(s"""window.customWS = true;
-window.onload = function() {
-LichessRound.boot({
-data: ${safeJsonValue(data)},
-i18n: ${views.html.round.jsI18n(pov.game)},
-}, document.getElementById('lichess'));
-}""")
+        embedJs {
+          val transJs = views.html.round.jsI18n(pov.game)
+          s"""window.customWS = true;
+window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: $transJs }, document.getElementById('lichess')) }"""
+        }
       ),
       moreCss = cssTag("tv.css"),
       chessground = false,

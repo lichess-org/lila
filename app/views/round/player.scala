@@ -35,16 +35,10 @@ object player {
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundTag,
-        embedJs(s"""window.customWS = true;
-window.onload = function() {
-LichessRound.boot({
-data: ${safeJsonValue(data)},
-i18n: ${jsI18n(pov.game)},
-userId: $jsUserId,
-${tour.??(t => s"tour: ${toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser)))},")}
-chat: ${jsOrNull(chatJson)}
-}, document.getElementById('lichess'));
-}""")
+        embedJs(s"""window.customWS = true; window.onload = function() {
+LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, userId: $jsUserId, chat: ${jsOrNull(chatJson)},
+${tour.??(t => s"tour: ${toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser)))}")}
+}, document.getElementById('lichess'))}""")
       ),
       moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
