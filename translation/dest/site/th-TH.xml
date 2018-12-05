@@ -557,7 +557,6 @@
   <string name="xVsYinZ">%1$s ต่อ %2$s
 ใน %3$s</string>
   <string name="timeline">ไทม์ไลน์</string>
-  <string name="seeAllTournaments">ดูทัวร์นาเมนต์ทั้งหมด</string>
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
   <string name="yourCityRegionOrDepartment">เมือง, ภูมิภาค, หรือจังหวัดของคุณ</string>

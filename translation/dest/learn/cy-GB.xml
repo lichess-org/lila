@@ -4,11 +4,16 @@
   <string name="learnChess">Dysgwch Gwyddbwyll</string>
   <string name="byPlaying">wrth chwarae!</string>
   <string name="menu">Dewislen</string>
+  <string name="play">chwarae!</string>
   <string name="chessPieces">Darnau Gwyddbwyll</string>
   <string name="theRook">Y castell</string>
   <string name="theBishop">Yr esgob</string>
   <string name="theQueen">Y frenhiness</string>
   <string name="theKing">Y teyrn</string>
+  <string name="theKingIsSlow">Mae\'r Teyrn yn araf.</string>
+  <string name="lastOne">I orffen!</string>
   <string name="theKnight">Y marchog</string>
+  <string name="itMovesInAnLShape">Mae\'n symud mewn siap L</string>
   <string name="thePawn">Y gwerinwr</string>
+  <string name="defendYourKing">Amddiffyna\'r teyrn</string>
 </resources>

@@ -429,7 +429,7 @@
   <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
-  <string name="profileCompletion">Profil fulländning: %s</string>
+  <string name="profileCompletion">Profilfulländning: %s</string>
   <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
   <string name="gameCompletionRate">Partislutförandefrekvens: %s</string>
@@ -523,7 +523,7 @@
   <string name="materialDifference">Materialskillnad</string>
   <string name="closeAccount">Avsluta konto</string>
   <string name="changedMindDoNotCloseAccount">Jag ändrade mig, avsluta inte mitt konto</string>
-  <string name="closeAccountExplanation">Är du säker att du vill avsluta ditt konto? Att avsluta ditt konto är ett permanent beslut. Du kommer inte längre kunna logga in och din profilsida kommer inte längre vara tillgänglig.</string>
+  <string name="closeAccountExplanation">Är du säker på att du vill avsluta ditt konto? Att avsluta ditt konto är ett permanent beslut. Du kommer inte längre kunna logga in och din profilsida kommer inte längre vara tillgänglig.</string>
   <string name="thisAccountIsClosed">Det här kontot är avslutat</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Inkorrekt lösenord</string>
@@ -583,7 +583,6 @@
   <string name="defeat">Förlust</string>
   <string name="xVsYinZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
-  <string name="seeAllTournaments">Se alla turneringar</string>
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>

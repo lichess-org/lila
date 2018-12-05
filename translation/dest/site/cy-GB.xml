@@ -77,11 +77,15 @@
   <string name="topGames">Gemau cryfaf</string>
   <string name="noGameFound">Dim gem wedi\'w ddarganfod</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
+  <string name="xOpeningExplorer">Archwiliwr agoriad %s</string>
+  <string name="winPreventedBy50MoveRule">Cyfartal o dan rhel 50 symudiad</string>
+  <string name="lossSavedBy50MoveRule">Cyfartal o dan rhel 50 symudiad</string>
   <string name="allSet">Barod!</string>
   <string name="importPgn">Mewnlwytho PGN</string>
   <string name="delete">Dileu</string>
   <string name="deleteThisImportedGame">Dileu y gem hon?</string>
   <string name="replayMode">Cyflymder ailchwarae</string>
+  <string name="realtimeReplay">Amser real</string>
   <string name="byCPL">Mewn CG</string>
   <string name="openStudy">Agor astudiaeth</string>
   <string name="enable">Galluogi</string>
@@ -90,6 +94,7 @@
   <string name="multipleLines">Edefynnau i\'w hystyried</string>
   <string name="cpus">Nifer o CPU\'s</string>
   <string name="memory">Cof</string>
+  <string name="infiniteAnalysis">Dadansoddiad ddiddiwedd</string>
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Camgymeriad</string>
@@ -190,6 +195,7 @@
   <string name="spectators">Ymwelwyr</string>
   <string name="exportGames">Allforio</string>
   <string name="ratingRange">Graddfa rhwng</string>
+  <string name="giveMoreTime">Rhoi mwy o amser</string>
   <string name="thisPlayerUsesChessComputerAssistance">Mae\'r chwaraewr hwn yn defnyddio cymorth cyfrifiadurol</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Mae\'r chwaraewr hwn yn cynyddu/lleihau ei raddfa yn ffug</string>
   <string name="takeback">Cymryd yn ôl</string>
@@ -208,6 +214,10 @@
   <string name="viewTournament">Gwylio cystadleuaeth</string>
   <string name="backToTournament">Nôl at y cystadleuaeth</string>
   <string name="thematic">Ar thema</string>
+  <string name="yourPerfRatingIsProvisional">Mae dy raddfa %s yn un dros dro</string>
+  <string name="yourPerfRatingIsTooHigh">Mae dy raddfa %1$s (%2$s) yn rhy uchel</string>
+  <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
+  <string name="ratedLessThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
   <string name="backToGame">Nôl at y gêm</string>
   <string name="siteDescription">Gweinydd gwyddbwyll ar-lein am ddim.  Chwaraewch wyddbwyll nawr mewn rhyngwyneb glan.  Dim cofrestru, hysbysebion, dim angen ategyn.  Chwaraewch wyddbwyll yn erbyn y cyfrifiadur, efo ffrindiau neu berson ar hap.</string>
   <string name="teams">Tîmau</string>
@@ -271,6 +281,7 @@
   <string name="standing">Safle</string>
   <string name="createANewTournament">Creu cystadleuaeth newydd</string>
   <string name="tournamentCalendar">Calendr talyrnau</string>
+  <string name="conditionOfEntry">Telerau mynediad:</string>
   <string name="advancedSettings">Gosodiadau uwch</string>
   <string name="safeTournamentName">Dewisia enw saff i\'r talwrn.</string>
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
@@ -289,9 +300,12 @@
   <string name="berserkRate">Cyfradd myllio</string>
   <string name="performance">Perfformiad</string>
   <string name="tournamentComplete">Talwrn wedi ei chwblhau</string>
+  <string name="movesPlayed">Symudiadau wedi\'w chwarae</string>
   <string name="whiteWins">Enill fel gwyn</string>
   <string name="blackWins">Enill fel du</string>
   <string name="draws">Yn gyfartal</string>
+  <string name="nextXTournament">Talwrn %s nesaf:</string>
+  <string name="viewMoreTournaments">Gweld mwy o dalyrnau</string>
   <string name="averageOpponent">Gradd cyfartalog y gwrthwynebwyr</string>
   <string name="membersOnly">Dim ond aelodau</string>
   <string name="boardEditor">Golygydd bwrdd</string>
@@ -303,7 +317,9 @@
   <string name="loadPosition">Llwytho safle</string>
   <string name="isPrivate">Preifat</string>
   <string name="reportXToModerators">Adrodd %s i\'r cymedrolwyr</string>
+  <string name="profileCompletion">%s o\'ch proffeil wedi ei gwblhau</string>
   <string name="xRating">Gradd %s</string>
+  <string name="gameCompletionRate">Cyfradd gemau a gwblhawyd: %s</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
   <string name="firstName">Enw cyntaf</string>
@@ -438,7 +454,6 @@
   <string name="victory">Buddugoliaeth!</string>
   <string name="defeat">Colled</string>
   <string name="timeline">Llinell amser</string>
-  <string name="seeAllTournaments">Gweld y cystadleuaethau i gyd</string>
   <string name="starting">Cychwyn:</string>
   <string name="allInformationIsPublicAndOptional">Mae pob gwybodaeth yn gyhoeddus ac yn ddewisol.</string>
   <string name="yourCityRegionOrDepartment">Eich dinas, ardal neu dalaith.</string>
@@ -490,6 +505,7 @@
   <string name="about">Amdan</string>
   <string name="aboutX">Amdan %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">Mae %1$s yn weinydd gwyddbwyll rhad ac am ddim (%2$s), ffynhonell agored, heb hysbysebion.</string>
+  <string name="really">go iawn</string>
   <string name="contribute">Cyfrannu</string>
   <string name="contact">Cysylltu</string>
   <string name="termsOfService">Telerau gwasanaeth</string>
@@ -547,7 +563,11 @@
   <string name="crosstable">Tabl croes</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Gellwch rholio dros y bwrdd i symud yn y gêm.</string>
   <string name="analysisShapesHowTo">Gwasgwch shift a chliciwch neu dde-gliciwch i dynnu cylchau a saithau ar y bwrdd.</string>
+  <string name="confirmResignationAndDrawOffers">Cadarnhau cynnigion gem cyfartal ac ildio</string>
   <string name="letOtherPlayersMessageYou">Cael negeseuon gan chwaraewyr arall</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Modd castellu</string>
+  <string name="castleByMovingTwoSquares">Symud y Teyrn dau sgwar</string>
+  <string name="castleByMovingOntoTheRook">Gollwng y Teyrn ar ben y Castell</string>
   <string name="shareYourInsightsData">Cyfrannu data mewnwelediadau</string>
   <string name="withNobody">Gyda neb</string>
   <string name="withFriends">Gyda ffrindiau</string>

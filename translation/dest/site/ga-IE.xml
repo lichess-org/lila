@@ -46,14 +46,31 @@
   <string name="viewTheComputerAnalysis">Féach ar anailís ar ríomhaire</string>
   <string name="requestAComputerAnalysis">Iarr anailís ar ríomhaire</string>
   <string name="computerAnalysis">Anailís ar ríomhaire</string>
+  <string name="computerAnalysisAvailable">Anailís Ríomhaire ar fáil</string>
   <string name="analysis">Bórd anailíse</string>
+  <string name="depthX">Doimhneacht %s</string>
+  <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
+  <string name="loadingEngine">Inneall ag lódáil...</string>
+  <string name="goDeeper">Téigh níos doimhne</string>
   <string name="move">Bog</string>
   <string name="capture">Gabh</string>
   <string name="close">Dún</string>
   <string name="winning">Buach</string>
   <string name="losing">Caillteach</string>
+  <string name="drawn">Comhscór</string>
+  <string name="averageRatingX">Meán-rátáil: %s</string>
+  <string name="delete">Scrios</string>
+  <string name="bestMoveArrow">Saighead don chorraíl is fearr</string>
+  <string name="multipleLines">Línte ar leith</string>
+  <string name="cpus">LAPanna</string>
+  <string name="memory">Cuimhne</string>
+  <string name="infiniteAnalysis">Anailís neamhtheoranta</string>
+  <string name="removesTheDepthLimit">Faigheann sé réidh leis an teorainn doimhneacht, agus coiníonn sé do ríomhaire teolaí</string>
+  <string name="blunder">Meancóg</string>
   <string name="blunders">Botúin mhóra</string>
+  <string name="mistake">Botún</string>
   <string name="mistakes">Botúin</string>
+  <string name="inaccuracy">Míchruinneas</string>
   <string name="inaccuracies">Bearta míchruinne</string>
   <string name="moveTimes">Amanna na mbeart</string>
   <string name="flipBoard">Cas an bord</string>
@@ -72,8 +89,16 @@
   <string name="games">Cluichí</string>
   <string name="forum">Fóram</string>
   <string name="players">Imreoirí</string>
+  <string name="minutesPerSide">Nóiméid an taobh</string>
   <string name="realTime">Fíor-am</string>
   <string name="oneDay">Lá amháin</string>
+  <plurals name="nbDays">
+    <item quantity="one">Lá amháin</item>
+    <item quantity="two">Dhá lá</item>
+    <item quantity="few">%s lá</item>
+    <item quantity="many">%s lá</item>
+    <item quantity="other">%s lá</item>
+  </plurals>
   <string name="time">Am</string>
   <string name="rating">Rátáil</string>
   <string name="ratingStats">Staitisticí rátála</string>
@@ -87,6 +112,7 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
+  <string name="rankIsUpdatedEveryXMinutes">Uasdátaítear an rátáil gach %s nóiméid</string>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
   <string name="timeOut">As am</string>
@@ -153,4 +179,5 @@
   <string name="watchGames">Féach ar chluichí</string>
   <string name="watch">Féach</string>
   <string name="create">Cruthaigh</string>
+  <string name="perfRatingX">Rátáil: %s</string>
 </resources>

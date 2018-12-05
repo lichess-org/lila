@@ -612,7 +612,6 @@
   <string name="xVsYinZ">%1$s против %2$s
 у %3$s</string>
   <string name="timeline">Временска линија</string>
-  <string name="seeAllTournaments">Видите све турнире</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
   <string name="yourCityRegionOrDepartment">Ваш град, регион или провинција.</string>
@@ -638,7 +637,7 @@
   <string name="signedOut">Одјављени сте</string>
   <string name="loginSuccessful">Пријављени сте</string>
   <string name="playOnTheBoardOffline">Играј у двоје</string>
-  <string name="playOfflineComputer">Играј без интернет конекције</string>
+  <string name="playOfflineComputer">Рачунар</string>
   <string name="opponent">Противник</string>
   <string name="learnMenu">учи</string>
   <string name="community">Заједница</string>
@@ -680,6 +679,8 @@
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
+  <string name="aboutX">О %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, без реклама, шаховски сервер са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
   <string name="contact">Уговор</string>

@@ -270,7 +270,7 @@
     <item quantity="other">レート戦 %s 局以上</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">%2%s レート戦 %1$s 局以上</item>
+    <item quantity="other">%2$s レート戦 %1$s 局以上</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">%2$s のレート戦があと %1$s 局必要です</item>
@@ -558,7 +558,6 @@
   <string name="xVsYinZ">%1$s 対 %2$s
 （%3$s）</string>
   <string name="timeline">タイムライン</string>
-  <string name="seeAllTournaments">全てのトーナメントを見る</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
   <string name="yourCityRegionOrDepartment">居住地の市、地域、または県</string>

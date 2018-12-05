@@ -637,7 +637,6 @@
   <string name="defeat">Поражение</string>
   <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
   <string name="timeline">Хронология</string>
-  <string name="seeAllTournaments">Посмотреть все турниры</string>
   <string name="starting">Начинается:</string>
   <string name="allInformationIsPublicAndOptional">Вся указываемая здесь информация будет доступна публично, добавляйте её по своему желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
