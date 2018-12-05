@@ -51,7 +51,8 @@ function reload(ctrl: TournamentController) {
     url: '/tournament/' + ctrl.data.id,
     data: {
       page: ctrl.focusOnMe ? null : ctrl.page,
-      playerInfo: ctrl.playerInfo.id
+      playerInfo: ctrl.playerInfo.id,
+      partial: true
     },
     headers
   }).then(data => {

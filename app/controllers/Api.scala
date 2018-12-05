@@ -231,7 +231,7 @@ object Api extends LilaController {
     lila.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
         val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, lila.i18n.defaultLang) map some
+        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, partial = false, lila.i18n.defaultLang) map some
       }
     } map toApiResult
   }

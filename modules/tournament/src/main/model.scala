@@ -4,7 +4,7 @@ case class TournamentTop(value: List[Player]) extends AnyVal
 
 case class TourMiniView(tour: Tournament, top: Option[TournamentTop])
 
-case class PlayerInfo(rank: Int, withdraw: Boolean) {
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID]) {
   def page = {
     math.floor((rank - 1) / 10) + 1
   }.toInt

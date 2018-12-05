@@ -48,7 +48,7 @@ export default class TournamentController {
   };
 
   reload = (data: TournamentData): void => {
-    this.data = data;
+    this.data = {...this.data, ...data};
     if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
       this.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
@@ -60,8 +60,11 @@ export default class TournamentController {
     this.redirectToMyGame();
   };
 
+  myGameId = () => this.data.me && this.data.me.gameId;
+
   private redirectToMyGame() {
-    if (this.data.myGameId) this.redirectFirst(this.data.myGameId);
+    const gameId = this.myGameId();
+    if (gameId) this.redirectFirst(gameId);
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
