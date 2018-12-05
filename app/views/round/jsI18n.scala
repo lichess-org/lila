@@ -20,7 +20,7 @@ object jsI18n {
     } ++ {
       g.metadata.drawLimit.isDefined ?? drawLimitTranslations
     }
-  })
+  }(ctx.lang))
 
   private val correspondenceTranslations = Vector(
     trans.oneDay,

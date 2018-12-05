@@ -24,7 +24,7 @@ object bits {
     "animation" -> Json.obj(
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
-    "i18n" -> i18nJsObject(translations)
+    "i18n" -> i18nJsObject(translations)(ctx.lang)
   )
 
   def domPreload(pov: Option[lidraughts.game.Pov])(implicit ctx: Context) = {
