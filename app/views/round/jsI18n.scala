@@ -16,7 +16,7 @@ object jsI18n {
     } ++ {
       g.isTournament ?? tournamentTranslations
     }
-  })
+  }(ctx.lang))
 
   private val correspondenceTranslations = Vector(
     trans.oneDay,
