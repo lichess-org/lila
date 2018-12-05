@@ -42,13 +42,13 @@ object actions {
             case None => emptyFrag
             case Some(true) =>
               a(cls := "button relation hover_text", href := routes.Relation.unfollow(userId))(
-                iconTag("h", trans.following()),
-                iconTag("h", trans.unfollow())
+                iconTag("h")(cls := "base text")(trans.following()),
+                iconTag("h")(cls := "hover text")(trans.unfollow())
               )
             case Some(false) =>
               a(cls := "button relation hover_text", href := routes.Relation.unblock(userId))(
-                iconTag("k", trans.blocked()),
-                iconTag("k", trans.unblock())
+                iconTag("k")(cls := "base text")(trans.blocked()),
+                iconTag("k")(cls := "hover text")(trans.unblock())
               )
           }
         )
