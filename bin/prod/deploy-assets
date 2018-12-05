@@ -21,9 +21,7 @@ fi
 
 lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 
-# if [ $2 != "skip" ]; then
-  ./ui/build prod
-# fi
+./ui/build prod
 
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR

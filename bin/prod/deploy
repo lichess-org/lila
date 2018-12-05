@@ -12,6 +12,8 @@ elif [ $mode = "main" ]; then
 elif [ $mode = "keres" ]; then
   REMOTE="keres"
   REMOTE_DIR="/home/lichess-deploy"
+  ASSETS_REMOTE="greco"
+  ASSETS_REMOTE_DIR="/home/lichess-deploy"
   CLI="bin/cli"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
@@ -70,6 +72,7 @@ RSYNC_OPTIONS=" \
   --compress \
   --checksum \
   --verbose \
+  --exclude public \
   --exclude conf/application.conf \
   --exclude RUNNING_PID \
   --exclude '*.psd' \
@@ -77,11 +80,6 @@ RSYNC_OPTIONS=" \
   --exclude '*.cpp' \
   --exclude '.git/' \
   --exclude node_modules"
-
-if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "keres" ]; then
-  RSYNC_OPTIONS="$RSYNC_OPTIONS \
-    --exclude public";
-fi
 
 lilalog "Rsync scripts, binaries and assets"
 stage="target/universal/stage"
@@ -94,6 +92,11 @@ echo "rsync complete"
 if [ $mode == "main" ]; then
   lilalog "Deploy logger configuration"
   rsync -av conf/prod-logger.xml $REMOTE:/etc/lichess.logger.xml
+fi
+
+if [ $ASSETS_REMOTE ] && [ $ASSETS_REMOTE_DIR ]; then
+  lilalog "Deploy assets to $mode frontend server $ASSETS_REMOTE:$ASSETS_REMOTE_DIR"
+  rsync --archive --no-o --no-g --progress public $ASSETS_REMOTE:$ASSETS_REMOTE_DIR
 fi
 
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
@@ -109,7 +112,7 @@ FS_WARMUP="cat $REMOTE_DIR/lib/* > /dev/null && cat $REMOTE_DIR/bin/lila > /dev/
 
 # start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
 START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.92"
-STOP_DROPPING="sleep 9 && $REMOTE_DIR/bin/prod/iptables-drop 0.8 && sleep 7 && $REMOTE_DIR/bin/prod/iptables-drop 0.7 && sleep 7 && $REMOTE_DIR/bin/prod/iptables-drop 0"
+STOP_DROPPING="sleep 9 && $REMOTE_DIR/bin/prod/iptables-drop 0.8 && sleep 6 && $REMOTE_DIR/bin/prod/iptables-drop 0.7 && sleep 6 && $REMOTE_DIR/bin/prod/iptables-drop 0"
 # STOP_DROPPING="echo \"not resuming traffic\""
 
 if [ $mode = "main" ]; then
