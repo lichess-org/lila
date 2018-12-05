@@ -13,18 +13,28 @@ import lila.base.LilaException
  * Has an unbounded (!) Queue of messages.
  * Like Duct, but for synchronous message processors.
  */
-trait Trouper {
+trait Trouper extends lila.common.Tellable {
 
   // implement async behaviour here
   protected val process: Trouper.Receive
 
-  def start(): Unit
-  def stop(): Unit
+  def start(): Unit = {}
+  def stop(): Unit = {
+    alive = false
+  }
+
+  private[this] var alive = true
 
   def !(msg: Any): Unit =
-    if (stateRef.single.getAndTransform { q =>
+    if (alive && stateRef.single.getAndTransform { q =>
       Some(q.fold(Queue.empty[Any])(_ enqueue msg))
-    } isEmpty) run(msg)
+    }.isEmpty) run(msg)
+
+  def ?[A](msg: Any): Fu[A] = {
+    val promise = Promise[A]
+    this ! Trouper.Ask(msg, promise)
+    promise.future
+  }
 
   def queueSize = stateRef.single().??(_.size)
 
@@ -45,6 +55,8 @@ trait Trouper {
         if (q.isEmpty) None else Some(q.tail)
       }
     } flatMap (_.headOption) foreach run
+
+  lazy val uniqueId = Integer.toHexString(hashCode)
 }
 
 object Trouper {

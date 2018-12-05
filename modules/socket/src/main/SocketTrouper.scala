@@ -2,8 +2,8 @@ package lila.socket
 
 import scala.concurrent.duration._
 
+import lila.hub.actorApi.HasUserIdP
 import lila.hub.Trouper
-import lila.hub.actorApi.HasUserId
 
 abstract class SocketTrouper[M <: SocketMember](
     uidTtl: Duration
@@ -19,7 +19,7 @@ abstract class SocketTrouper[M <: SocketMember](
   }
 
   val receiveTrouper: PartialFunction[Any, Unit] = {
-    case Trouper.Ask(HasUserId(userId), promise) => promise success hasUserId(userId)
+    case HasUserIdP(userId, promise) => promise success hasUserId(userId)
   }
 
   val process = receiveSpecific orElse receiveTrouper orElse receiveGeneric

@@ -4,11 +4,12 @@ import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import lila.hub.actorApi.map.Ask
-import lila.hub.{ Duct, DuctMap }
+import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.Socket.{ GetVersionP, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -142,18 +143,30 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(tournamentId: String) = new Socket(
-        tournamentId = tournamentId,
-        history = new History(ttl = HistoryMessageTtl),
-        jsonView = jsonView,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightUser = lightUserApi.async
-      )
-    }), name = SocketName
+  private val socketHub: SocketHub = new TrouperMap[Socket2](
+    mkTrouper = (tournamentId: String) => new Socket2(
+      system = system,
+      tournamentId = tournamentId,
+      history = new History(ttl = HistoryMessageTtl),
+      jsonView = jsonView,
+      lightUser = lightUserApi.async,
+      uidTtl = UidTimeout
+    ),
+    accessTimeout = SocketTimeout
   )
+
+  // private val socketHub = system.actorOf(
+  //   Props(new lila.socket.SocketHubActor.Default[Socket] {
+  //     def mkActor(tournamentId: String) = new Socket(
+  //       tournamentId = tournamentId,
+  //       history = new History(ttl = HistoryMessageTtl),
+  //       jsonView = jsonView,
+  //       uidTimeout = UidTimeout,
+  //       socketTimeout = SocketTimeout,
+  //       lightUser = lightUserApi.async
+  //     )
+  //   }), name = SocketName
+  // )
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
@@ -183,13 +196,18 @@ final class Env(
 
   TournamentInviter.start(system, api, notifyApi)
 
-  def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[SocketVersion]
+  def version(tourId: Tournament.ID): Fu[SocketVersion] = {
+    val promise = Promise[SocketVersion]
+    socketHub.tell(tourId, GetVersionP(promise))
+    promise.future
+  }
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
-    socketHub ? Ask(tourId, lila.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
+    val promise = Promise[Boolean]
+    socketHub.tell(tourId, lila.hub.actorApi.HasUserId(userId))
+    promise.future
   } >>| PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {

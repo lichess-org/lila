@@ -25,12 +25,26 @@ object Handler {
   def AnaRateLimit[A: Zero](uid: Socket.Uid, member: SocketMember)(op: => A) =
     AnaRateLimiter(uid.value, msg = s"user: ${member.userId | "anon"}")(op)
 
-  def apply(
+  trait SocketAdapter extends lila.common.Tellable {
+    def join(j: Any): Fu[Any]
+  }
+  def actorAdapter(ref: akka.actor.ActorRef) = new SocketAdapter {
+    def !(msg: Any) = ref ! msg
+    def join(j: Any) = ref ? j
+  }
+  def trouperAdapter(trouper: lila.hub.Trouper) = new SocketAdapter {
+    def !(msg: Any) = trouper ! msg
+    def join(j: Any) = trouper ? j
+  }
+
+  def apply[S](
     hub: lila.hub.Env,
-    socket: akka.actor.ActorRef,
+    anySocket: S,
     uid: Socket.Uid,
     join: Any
-  )(connecter: Connecter): Fu[JsSocketHandler] = {
+  )(socketAdapter: S => SocketAdapter)(connecter: Connecter): Fu[JsSocketHandler] = {
+
+    val socket = socketAdapter(anySocket)
 
     def baseController(member: SocketMember): Controller = {
       case ("p", o) => socket ! Ping(uid, o)
