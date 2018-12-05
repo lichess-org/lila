@@ -2,7 +2,8 @@ package lila.qa
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.i18n.Lang
+
+import lila.common.Lang
 
 private[qa] final class DataForm(
     val captcher: akka.actor.ActorSelection,
@@ -65,8 +66,10 @@ private[qa] final class DataForm(
 
   private val languageMessage = "I didn't understand that. Is it written in English?"
 
+  private val validLang = Lang("en")
+
   private def validateLanguage(str: String) =
-    detectLanguage(str).awaitSeconds(5).??(_ == Lang("en"))
+    detectLanguage(str).awaitSeconds(5).??(validLang.is)
 }
 
 private[qa] case class QuestionData(
