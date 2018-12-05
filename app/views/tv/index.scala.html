@@ -9,7 +9,7 @@ window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
 data: @safeJson(data),
-i18n: @round.jsI18n(pov.game)
+i18n: @Html(round.jsI18n(pov.game))
 }, document.getElementById('lichess'));
 };
 }
