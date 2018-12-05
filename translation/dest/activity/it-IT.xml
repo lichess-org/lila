@@ -13,27 +13,27 @@
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s partita in %2$s</item>
-    <item quantity="other">%1$s partite in %2$s</item>
+    <item quantity="other">%1$s partite %2$s giocate</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">%1$s messaggio scritto in %2$s</item>
     <item quantity="other">%1$s messaggi scritti in %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">%1$s mosse in %2$s partita per corrispondenza</item>
-    <item quantity="other">%1$s mosse in %2$s partite per corrispondenza</item>
+    <item quantity="one">%1$s mossa giocata in %2$s partita/e per corrispondenza</item>
+    <item quantity="other">%1$s mosse giocate in %2$s partita/e per corrispondenza</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">%s partita per corrispondenza</item>
-    <item quantity="other">%s partite per corrispondenza</item>
+    <item quantity="one">%s partita per corrispondenza conclusa</item>
+    <item quantity="other">%s partite per corrispondenza concluse</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Ha iniziato a seguire %s giocatore</item>
     <item quantity="other">Ha iniziato a seguire %s giocatori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Nuovi followers guadagnati %s</item>
-    <item quantity="other">Nuovi followers guadagnati %s</item>
+    <item quantity="one">%s nuovo follower guadagnato</item>
+    <item quantity="other">%s nuovi follower guadagnati</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Ospitato %s esibizione simultanea</item>
