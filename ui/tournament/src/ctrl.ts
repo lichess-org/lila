@@ -42,6 +42,11 @@ export default class TournamentController {
     if (this.data.featured) this.startWatching(this.data.featured.id);
   }
 
+  askReload = (): void => {
+    if (this.joinSpinner) xhr.reloadNow(this);
+    else xhr.reloadSoon(this);
+  };
+
   reload = (data: TournamentData): void => {
     this.data = data;
     if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)

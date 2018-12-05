@@ -46,7 +46,7 @@ function loadPageOf(ctrl: TournamentController, userId: string): JQueryXHR {
   });
 }
 
-function reloadTournament(ctrl: TournamentController) {
+function reload(ctrl: TournamentController) {
   return $.ajax({
     url: '/tournament/' + ctrl.data.id,
     data: {
@@ -75,6 +75,7 @@ export default {
   withdraw: throttle(1000, withdraw),
   loadPage: throttle(1000, loadPage),
   loadPageOf,
-  reloadTournament: throttle(2000, reloadTournament),
+  reloadSoon: throttle(3000, reload),
+  reloadNow: reload,
   playerInfo
 };
