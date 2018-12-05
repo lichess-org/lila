@@ -1,7 +1,8 @@
 package lidraughts.event
 
 import org.joda.time.DateTime
-import play.api.i18n.Lang
+
+import lidraughts.common.Lang
 
 case class Event(
     _id: String,

@@ -3,12 +3,11 @@ package lidraughts.security
 import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
-import play.api.i18n.Lang
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import play.twirl.api.Html
 
-import lidraughts.common.EmailAddress
+import lidraughts.common.{ Lang, EmailAddress }
 import lidraughts.common.String.html.escapeHtml
 import lidraughts.i18n.I18nKeys.{ emails => trans }
 

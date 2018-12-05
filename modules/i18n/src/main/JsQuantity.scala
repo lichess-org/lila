@@ -1,6 +1,6 @@
 package lidraughts.i18n
 
-import play.api.i18n.Lang
+import lidraughts.common.Lang
 
 object JsQuantity {
   private def body(lang: Lang): String = lang.language match {

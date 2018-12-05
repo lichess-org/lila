@@ -53,8 +53,6 @@ trait ScalatagsTemplate extends Styles
   with ScalatagsPrefix {
 
   val trans = lidraughts.i18n.I18nKeys
-
-  implicit def lang(implicit ctx: lidraughts.user.UserContext) = ctx.lang
 }
 
 object ScalatagsTemplate extends ScalatagsTemplate

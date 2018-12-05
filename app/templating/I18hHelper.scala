@@ -1,16 +1,16 @@
 package lidraughts.app
 package templating
 
-import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
+import lidraughts.common.Lang
 import lidraughts.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump, TimeagoLocales }
 import lidraughts.user.UserContext
 
 trait I18nHelper {
 
-  implicit def lang(implicit ctx: UserContext) = ctx.lang
+  implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang
 
   def transKey(key: String, db: I18nDb.Ref, args: Seq[Any] = Nil)(implicit lang: Lang): Html =
     Translator.html.literal(key, db, args, lang)

@@ -2,11 +2,10 @@ package lidraughts.tournament
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
-import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lidraughts.common.LightUser
+import lidraughts.common.{ Lang, LightUser }
 import lidraughts.game.{ GameRepo, LightPov, Game }
 import lidraughts.hub.tournamentTeam._
 import lidraughts.socket.Socket.SocketVersion

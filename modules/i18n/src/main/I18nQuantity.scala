@@ -1,6 +1,6 @@
 package lidraughts.i18n
 
-import play.api.i18n.Lang
+import lidraughts.common.Lang
 
 private sealed trait I18nQuantity
 

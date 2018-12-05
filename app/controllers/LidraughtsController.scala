@@ -11,7 +11,7 @@ import scalatags.Text.{ TypedTag, Frag }
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
-import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion, Nonce }
+import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion, Nonce, Lang }
 import lidraughts.notify.Notification.Notifies
 import lidraughts.oauth.{ OAuthScope, OAuthServer }
 import lidraughts.security.{ Permission, Granter, FingerprintedUser }
@@ -476,7 +476,7 @@ private[controllers] trait LidraughtsController
     ) andThen (__ \ "").json.prune
   }
 
-  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang): JsObject = {
+  protected def errorsAsJson(form: Form[_])(implicit lang: Lang): JsObject = {
     val json = JsObject(
       form.errors.groupBy(_.key).mapValues { errors =>
         JsArray {
@@ -489,8 +489,11 @@ private[controllers] trait LidraughtsController
     json validate jsonGlobalErrorRenamer getOrElse json
   }
 
-  protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
+  protected def jsonFormError(err: Form[_])(implicit lang: Lang) =
     fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
+
+  protected def jsonFormErrorDefaultLang(err: Form[_]) =
+    jsonFormError(err)(lidraughts.i18n.defaultLang)
 
   protected def pageHit(implicit ctx: lidraughts.api.Context) =
     if (HTTPRequest isHuman ctx.req) lidraughts.mon.http.request.path(ctx.req.path)()
