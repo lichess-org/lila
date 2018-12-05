@@ -5,10 +5,10 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 import lila.common.HTTPRequest
 import lila.common.String.html.{ safeJson, safeJsonValue }
 import lila.game.Pov
-import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
@@ -68,13 +68,12 @@ object home {
     )),
     moreJs = frag(
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", async = true),
-      embedJs(s"""window.customWS = true;
-lichess_lobby = {
-  data: ${safeJsonValue(data)},
-  playban: ${htmlOrNull(playban)(pb => safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))},
-  currentGame: ${htmlOrNull(currentGame)(cg => safeJson(cg.json))},
-  i18n: ${safeJsonValue(i18nJsObject(translations))},
-};""")
+      embedJs {
+        val playbanJs = htmlOrNull(playban)(pb => safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+        val gameJs = htmlOrNull(currentGame)(cg => safeJson(cg.json))
+        val transJs = safeJsonValue(i18nJsObject(translations))
+        s"""window.customWS = true; lichess_lobby = { data: ${safeJsonValue(data)}, playban: $playbanJs, currentGame: $gameJs, i18n: $transJs, }"""
+      }
     ),
     moreCss = cssTag("home.css"),
     underchat = Some(frag(

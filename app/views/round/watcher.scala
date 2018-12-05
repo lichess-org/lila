@@ -34,14 +34,8 @@ object watcher {
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundTag,
-        embedJs(s"""window.customWS = true;
-window.onload = function() {
-LichessRound.boot({
-data: ${safeJsonValue(data)},
-i18n: ${jsI18n(pov.game)},
-chat: ${jsOrNull(chatJson)}
-}, document.getElementById('lichess'));
-}""")
+        embedJs(s"""window.customWS = true; window.onload = function() {
+LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, chat: ${jsOrNull(chatJson)} }, document.getElementById('lichess'))}""")
       ),
       moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
