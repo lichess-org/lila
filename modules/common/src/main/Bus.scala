@@ -8,67 +8,48 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
 
   type Event = Bus.Event
   type Classifier = Symbol
-  type Subscriber = ActorRef
+  type Subscriber = Tellable
 
   def publish(payload: Any, channel: Classifier): Unit = {
     publish(Bus.Event(payload, channel))
   }
 
-  /**
-   * Attempts to register the subscriber to the specified Classifier
-   * @return true if successful and false if not (because it was already subscribed to that Classifier, or otherwise)
-   */
-  def subscribe(subscriber: Subscriber, to: Classifier): Boolean = {
-    // log(s"subscribe $to $subscriber")
-    bus.subscribe(subscriber, to)
-  }
+  def subscribe(subscriber: Tellable, to: Classifier): Boolean = bus.subscribe(subscriber, to)
+  def subscribe(ref: ActorRef, to: Classifier): Boolean = subscribe(Tellable(ref), to)
 
-  def subscribe(subscriber: Subscriber, to: Classifier*): Boolean = {
+  def subscribe(subscriber: Tellable, to: Classifier*): Boolean = {
     to foreach { subscribe(subscriber, _) }
     true
   }
+  def subscribe(ref: ActorRef, to: Classifier*): Boolean = subscribe(Tellable(ref), to: _*)
 
   def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): ActorRef = {
     val actor = system.actorOf(Props(new Actor { val receive = f }))
-    subscribe(actor, to: _*)
+    subscribe(Tellable(actor), to: _*)
     actor
   }
 
-  /**
-   * Attempts to deregister the subscriber from the specified Classifier
-   * @return true if successful and false if not (because it wasn't subscribed to that Classifier, or otherwise)
-   */
-  def unsubscribe(subscriber: Subscriber, from: Classifier): Boolean = {
-    // log(s"[UN]subscribe $from $subscriber")
-    bus.unsubscribe(subscriber, from)
-  }
+  def unsubscribe(subscriber: Tellable, from: Classifier): Boolean = bus.unsubscribe(subscriber, from)
+  def unsubscribe(ref: ActorRef, from: Classifier): Boolean = unsubscribe(Tellable(ref), from)
 
-  /**
-   * Attempts to deregister the subscriber from all Classifiers it may be subscribed to
-   */
-  def unsubscribe(subscriber: Subscriber): Unit = {
-    // log(s"[UN]subscribe ALL $subscriber")
-    bus unsubscribe subscriber
-  }
+  def unsubscribe(subscriber: Tellable): Unit = bus unsubscribe subscriber
+  def unsubscribe(ref: ActorRef): Unit = unsubscribe(Tellable(ref))
 
-  /**
-   * Publishes the specified Event to this bus
-   */
-  def publish(event: Event): Unit = {
-    // log(event.toString)
-    bus publish event
-  }
+  def publish(event: Event): Unit = bus publish event
 
-  private val bus = new ActorEventBus with LookupClassification {
+  private val bus = new EventBus with LookupClassification {
 
     type Event = Bus.Event
     type Classifier = Symbol
+    type Subscriber = Tellable
 
-    override protected val mapSize = 2048
+    override protected val mapSize = 8192
+
+    protected def compareSubscribers(a: Tellable, b: Tellable) = a.uniqueId compareTo b.uniqueId
 
     def classify(event: Event): Symbol = event.channel
 
-    def publish(event: Event, subscriber: ActorRef) =
+    def publish(event: Event, subscriber: Tellable) =
       subscriber ! event.payload
   }
 }

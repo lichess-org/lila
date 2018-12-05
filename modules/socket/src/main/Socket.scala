@@ -1,6 +1,7 @@
 package lidraughts.socket
 
 import play.api.libs.json._
+import scala.concurrent.Promise
 
 object Socket extends Socket {
 
@@ -20,6 +21,7 @@ object Socket extends Socket {
   implicit val socketVersionFormat = lidraughts.common.PimpedJson.intIsoFormat(socketVersionIso)
 
   case object GetVersion
+  case class GetVersionP(promise: Promise[SocketVersion])
 }
 
 private[socket] trait Socket {

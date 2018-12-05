@@ -4,11 +4,12 @@ import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import lidraughts.hub.actorApi.map.Ask
-import lidraughts.hub.{ Duct, DuctMap }
+import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
 import lidraughts.socket.History
-import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
+import lidraughts.socket.Socket.{ GetVersionP, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -142,18 +143,30 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub = system.actorOf(
-    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
-      def mkActor(tournamentId: String) = new Socket(
-        tournamentId = tournamentId,
-        history = new History(ttl = HistoryMessageTtl),
-        jsonView = jsonView,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightUser = lightUserApi.async
-      )
-    }), name = SocketName
+  private val socketHub: SocketHub = new TrouperMap[Socket2](
+    mkTrouper = (tournamentId: String) => new Socket2(
+      system = system,
+      tournamentId = tournamentId,
+      history = new History(ttl = HistoryMessageTtl),
+      jsonView = jsonView,
+      lightUser = lightUserApi.async,
+      uidTtl = UidTimeout
+    ),
+    accessTimeout = SocketTimeout
   )
+
+  // private val socketHub = system.actorOf(
+  //   Props(new lila.socket.SocketHubActor.Default[Socket] {
+  //     def mkActor(tournamentId: String) = new Socket(
+  //       tournamentId = tournamentId,
+  //       history = new History(ttl = HistoryMessageTtl),
+  //       jsonView = jsonView,
+  //       uidTimeout = UidTimeout,
+  //       socketTimeout = SocketTimeout,
+  //       lightUser = lightUserApi.async
+  //     )
+  //   }), name = SocketName
+  // )
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
@@ -183,13 +196,18 @@ final class Env(
 
   TournamentInviter.start(system, api, notifyApi)
 
-  def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[SocketVersion]
+  def version(tourId: Tournament.ID): Fu[SocketVersion] = {
+    val promise = Promise[SocketVersion]
+    socketHub.tell(tourId, GetVersionP(promise))
+    promise.future
+  }
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
-    socketHub ? Ask(tourId, lidraughts.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
+    val promise = Promise[Boolean]
+    socketHub.tell(tourId, lidraughts.hub.actorApi.HasUserId(userId))
+    promise.future
   } >>| PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lidraughts.common.Cli {

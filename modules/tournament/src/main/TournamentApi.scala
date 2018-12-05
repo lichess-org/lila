@@ -32,7 +32,7 @@ final class TournamentApi(
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    socketHub: ActorRef,
+    socketHub: SocketHub,
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: lidraughts.hub.DuctMap[_],

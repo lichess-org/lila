@@ -1,6 +1,7 @@
 package lidraughts.hub
 package actorApi
 
+import scala.concurrent.Promise
 import org.joda.time.DateTime
 import play.api.libs.json._
 import draughts.format.Uci
@@ -36,6 +37,7 @@ package map {
 case class WithUserIds(f: Iterable[String] => Unit)
 
 case class HasUserId(userId: String)
+case class HasUserIdP(userId: String, promise: Promise[Boolean])
 
 package report {
   case class Cheater(userId: String, text: String)
