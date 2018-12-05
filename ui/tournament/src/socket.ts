@@ -1,4 +1,3 @@
-import xhr from './xhr';
 import TournamentController from './ctrl';
 
 export interface TournamentSocket {
@@ -9,9 +8,7 @@ export interface TournamentSocket {
 export default function(send: SocketSend, ctrl: TournamentController) {
 
   const handlers = {
-    reload() {
-      xhr.reloadTournament(ctrl);
-    },
+    reload: ctrl.askReload,
     redirect(fullId) {
       ctrl.redirectFirst(fullId.slice(0, 8), true);
       return true;
