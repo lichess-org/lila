@@ -306,7 +306,11 @@ object UserRepo {
       $set(F.totpSecret -> totp.secret)
     ).void
 
-  def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
+  def reopen(id: ID) = coll.updateField($id(id), F.enabled, true) >>
+    coll.update(
+      $id(id) ++ $doc(F.email $exists false),
+      $doc("$rename" -> $doc(F.prevEmail -> F.email))
+    ).recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
