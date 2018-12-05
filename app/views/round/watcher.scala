@@ -5,7 +5,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.HTTPRequest
-import lidraughts.common.String.html.{ safeJson, safeJsonValue }
+import lidraughts.common.String.html.safeJson
 import lidraughts.game.Pov
 
 import controllers.routes
