@@ -34,7 +34,7 @@ object Tournament extends LilaController {
     negotiate(
       html = Reasonable(page, 20) {
         pageHit
-        val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(30), page = page)
+        val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(15), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
           _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
