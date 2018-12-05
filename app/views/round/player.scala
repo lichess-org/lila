@@ -5,7 +5,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.HTTPRequest
-import lila.common.String.html.{ safeJson, safeJsonValue }
+import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
 import controllers.routes
