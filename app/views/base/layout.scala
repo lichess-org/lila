@@ -33,7 +33,7 @@ object layout {
     } mkString
   }
   private def titleTag(content: String) = raw(s"""<title>$content</title>""")
-  private def blindModeForm(implicit ctx: Context) = raw("""<form id="blind_mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if(ctx.blindMode) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if(ctx.blindMode) "Disable" else "Enable"} blind mode</button></form>""")
+  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind_mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if(ctx.blindMode) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if(ctx.blindMode) "Disable" else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
