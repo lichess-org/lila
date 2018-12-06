@@ -12,7 +12,7 @@ object recent {
   def apply(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) = ol(
     posts map { p =>
       li(
-        a(dataIcon := p.isTeam.option("f"), cls := "post_link", href := routes.ForumPost.redirect(p.postId), title := p.topicName)(
+        a(dataIcon := p.isTeam.option("f"), cls := "post_link text", href := routes.ForumPost.redirect(p.postId), title := p.topicName)(
           shorten(p.topicName, 30)
         ),
         " ",

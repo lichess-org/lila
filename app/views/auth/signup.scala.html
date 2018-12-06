@@ -15,7 +15,8 @@
 @auth.layout(
 title = trans.signUp.txt(),
 moreJs = moreJs,
-formCss = true) {
+formCss = true,
+csp = defaultCsp.withRecaptcha.some) {
 <div class="content_box small_box signup">
   <div class="alternative">
     @trans.haveAnAccount()

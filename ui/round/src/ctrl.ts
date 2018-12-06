@@ -244,10 +244,6 @@ export default class RoundController {
         const moveMillis = this.clock.stopClock();
         if (moveMillis !== undefined && this.shouldSendMoveTime) {
           socketOpts.millis = moveMillis;
-          if (socketOpts.millis < 3) {
-            // instant move, no premove? might be fishy
-            $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + Math.round(socketOpts.millis));
-          }
         }
       }
     }

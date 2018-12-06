@@ -62,6 +62,7 @@ object home {
       } getOrElse {
         div(cls := "about-side")(
           trans.xIsAFreeYLibreOpenSourceChessServer("Lichess", Html(s"""<a class="blue" href="${routes.Plan.features}">${trans.really.txt()}</a>""")),
+          " ",
           a(cls := "blue", href := "/about")(trans.aboutX("lichess.org"), "...")
         )
       }

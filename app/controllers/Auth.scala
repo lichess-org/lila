@@ -64,7 +64,10 @@ object Auth extends LilaController {
     )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lila.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess
+    case lila.security.SecurityApi.MustConfirmEmail(_) => fuccess {
+      if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
+      else BadRequest(Account.renderCheckYourEmail)
+    }
   }
 
   def login = Open { implicit ctx =>
@@ -78,13 +81,13 @@ object Auth extends LilaController {
     Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
-      api.usernameForm.bindFromRequest.fold(
+      api.usernameOrEmailForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
         ),
-        username => HasherRateLimit(username, ctx.req) { chargeIpLimiter =>
-          api.loadLoginForm(username) flatMap { loginForm =>
+        usernameOrEmail => HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
+          api.loadLoginForm(usernameOrEmail) flatMap { loginForm =>
             loginForm.bindFromRequest.fold(
               err => {
                 chargeIpLimiter(1)
@@ -250,7 +253,10 @@ object Auth extends LilaController {
     Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
-    fuccess(Account.renderCheckYourEmail)
+    fuccess {
+      if (ctx.isAuth) Redirect(routes.Lobby.home)
+      else Account.renderCheckYourEmail
+    }
   }
 
   // after signup and before confirmation
@@ -385,6 +391,7 @@ object Auth extends LilaController {
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
+              UserRepo.setEmailConfirmed(user.id) >>
               env.store.disconnect(user.id) >>
               authenticateUser(user) >>-
               lila.mon.user.auth.passwordResetConfirm("success")()
