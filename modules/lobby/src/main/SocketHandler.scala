@@ -96,7 +96,7 @@ private[lobby] final class SocketHandler(
   def apply(uid: Uid, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
       val join = Join(uid, user = user, blocking = blockedUserIds, mobile = mobile)
-      Handler(hub, socket, uid, join) {
+      Handler.forActor(hub, socket, uid, join) {
         case Connected(enum, member) =>
           (controller(socket, member, isBot = user.exists(_.isBot)), enum, member)
       }

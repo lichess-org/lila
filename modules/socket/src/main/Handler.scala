@@ -1,5 +1,6 @@
 package lila.socket
 
+import akka.actor.ActorRef
 import akka.pattern.ask
 import ornicar.scalalib.Zero
 import play.api.libs.iteratee.Iteratee
@@ -7,6 +8,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
+import lila.hub.Trouper
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.socket.Socket.makeMessage
 import makeTimeout.large
@@ -25,19 +27,34 @@ object Handler {
   def AnaRateLimit[A: Zero](uid: Socket.Uid, member: SocketMember)(op: => A) =
     AnaRateLimiter(uid.value, msg = s"user: ${member.userId | "anon"}")(op)
 
-  trait SocketAdapter extends lila.common.Tellable {
-    def join(j: Any): Fu[Any]
+  private trait SocketAdapter {
+    def !(msg: Any): Unit
+    def askJoin(j: Any): Fu[Any]
   }
-  def actorAdapter(ref: akka.actor.ActorRef) = new SocketAdapter {
+  private def actorAdapter(ref: ActorRef) = new SocketAdapter {
     def !(msg: Any) = ref ! msg
-    def join(j: Any) = ref ? j
+    def askJoin(j: Any) = ref ? j
   }
-  def trouperAdapter(trouper: lila.hub.Trouper) = new SocketAdapter {
+  private def trouperAdapter(trouper: lila.hub.Trouper) = new SocketAdapter {
     def !(msg: Any) = trouper ! msg
-    def join(j: Any) = trouper ? j
+    def askJoin(j: Any) = trouper ? j
   }
 
-  def apply[S](
+  def forActor(
+    hub: lila.hub.Env,
+    socket: ActorRef,
+    uid: Socket.Uid,
+    join: Any
+  )(connecter: Connecter) = apply[ActorRef](hub, socket, uid, join)(actorAdapter)(connecter)
+
+  def forTrouper(
+    hub: lila.hub.Env,
+    socket: Trouper,
+    uid: Socket.Uid,
+    join: Any
+  )(connecter: Connecter) = apply[Trouper](hub, socket, uid, join)(trouperAdapter)(connecter)
+
+  private def apply[S](
     hub: lila.hub.Env,
     anySocket: S,
     uid: Socket.Uid,
@@ -110,7 +127,7 @@ object Handler {
         .map(_ => socket ! Quit(uid))
     }
 
-    socket ? join map connecter map {
+    socket askJoin join map connecter map {
       case (controller, enum, member) => iteratee(controller, member) -> enum
     }
   }

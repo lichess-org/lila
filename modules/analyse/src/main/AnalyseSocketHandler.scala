@@ -12,7 +12,7 @@ private[analyse] final class AnalyseSocketHandler(
   import AnalyseSocket._
 
   def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] =
-    Handler(hub, socket, uid, Join(uid, user.map(_.id))) {
+    Handler.forActor(hub, socket, uid, Join(uid, user.map(_.id))) {
       case Connected(enum, member) => (evalCacheHandler(uid, member, user), enum, member)
     }
 }

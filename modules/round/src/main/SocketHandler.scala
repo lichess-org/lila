@@ -57,7 +57,6 @@ private[round] final class SocketHandler(
     }: Handler.Controller) orElse evalCacheHandler(uid, member, me) orElse lila.chat.Socket.in(
       chatId = Chat.Id(s"$gameId/w"),
       member = member,
-      socket = socket,
       chat = messenger.chat,
       publicSource = PublicSource.Watcher(gameId).some
     )) { playerId =>
@@ -114,7 +113,6 @@ private[round] final class SocketHandler(
         chatId = chat.fold(Chat.Id(gameId))(_.id),
         publicSource = chat.map(_.publicSource),
         member = member,
-        socket = socket,
         chat = messenger.chat
       )
     }
@@ -161,7 +159,7 @@ private[round] final class SocketHandler(
       pov.game.tournamentId.map(Chat.tournamentSetup) orElse pov.game.simulId.map(Chat.simulSetup)
     }
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
-      Handler(hub, socket, uid, join) {
+      Handler.forActor(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
           if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
