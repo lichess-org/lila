@@ -39,7 +39,8 @@ final class GameStateStream(
             super.preStart()
             system.lilaBus.subscribe(
               self,
-              Symbol(s"moveGame:$id"), 'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
+              MoveGameEvent makeSymbol id,
+              'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
             )
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream
