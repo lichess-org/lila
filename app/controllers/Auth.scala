@@ -81,13 +81,13 @@ object Auth extends LilaController {
     Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
-      api.usernameForm.bindFromRequest.fold(
+      api.usernameOrEmailForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
         ),
-        username => HasherRateLimit(username, ctx.req) { chargeIpLimiter =>
-          api.loadLoginForm(username) flatMap { loginForm =>
+        usernameOrEmail => HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
+          api.loadLoginForm(usernameOrEmail) flatMap { loginForm =>
             loginForm.bindFromRequest.fold(
               err => {
                 chargeIpLimiter(1)

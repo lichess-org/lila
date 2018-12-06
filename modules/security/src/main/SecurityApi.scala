@@ -28,17 +28,17 @@ final class SecurityApi(
 
   val AccessUri = "access_uri"
 
-  lazy val usernameForm = Form(single(
-    "username" -> lila.user.DataForm.historicalUsernameField
+  lazy val usernameOrEmailForm = Form(single(
+    "username" -> nonEmptyText
   ))
 
   lazy val loginForm = Form(tuple(
-    "username" -> lila.user.DataForm.historicalUsernameField,
+    "username" -> nonEmptyText, // can also be an email
     "password" -> nonEmptyText
   ))
 
   private def loadedLoginForm(candidate: Option[LoginCandidate]) = Form(mapping(
-    "username" -> lila.user.DataForm.historicalUsernameField,
+    "username" -> nonEmptyText, // can also be an email
     "password" -> nonEmptyText,
     "token" -> optional(nonEmptyText)
   )(authenticateCandidate(candidate)) {
