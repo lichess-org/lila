@@ -1,11 +1,11 @@
-package lila.hub
+package lidraughts.hub
 
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
 import scala.concurrent.{ Future, Promise }
 import scala.concurrent.stm._
 
-import lila.base.LilaException
+import lidraughts.base.LidraughtsException
 
 /*
  * Like an actor, but not an actor.
@@ -13,7 +13,7 @@ import lila.base.LilaException
  * Has an unbounded (!) Queue of messages.
  * Like Duct, but for synchronous message processors.
  */
-trait Trouper extends lila.common.Tellable {
+trait Trouper extends lidraughts.common.Tellable {
 
   // implement async behaviour here
   protected val process: Trouper.Receive
@@ -64,6 +64,6 @@ object Trouper {
   type Receive = PartialFunction[Any, Any]
 
   private val fallback = { msg: Any =>
-    lila.log("Trouper").warn(s"unhandled msg: $msg")
+    lidraughts.log("Trouper").warn(s"unhandled msg: $msg")
   }
 }

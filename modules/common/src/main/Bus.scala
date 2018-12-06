@@ -56,8 +56,8 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
 
     import scala.concurrent.duration._
     system.scheduler.schedule(1 minute, 1 minute) {
-      lila.mon.bus.classifiers(subscribers.keys.size)
-      lila.mon.bus.subscribers(subscribers.values.size)
+      lidraughts.mon.bus.classifiers(subscribers.keys.size)
+      lidraughts.mon.bus.subscribers(subscribers.values.size)
     }
   }
 }

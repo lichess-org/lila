@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import scala.concurrent.duration._
 import scala.util.Random
@@ -7,10 +7,10 @@ import akka.actor.ActorSystem
 import play.api.libs.json._
 
 import actorApi._
-import chess.Centis
-import lila.common.LightUser
-import lila.hub.actorApi.Deploy
-import lila.memo.ExpireSetMemo
+import draughts.Centis
+import lidraughts.common.LightUser
+import lidraughts.hub.actorApi.Deploy
+import lidraughts.memo.ExpireSetMemo
 
 trait SocketBase[M <: SocketMember] extends Socket {
 
@@ -21,7 +21,7 @@ trait SocketBase[M <: SocketMember] extends Socket {
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = initialPong
 
-  def lilaBus = system.lilaBus
+  def lidraughtsBus = system.lidraughtsBus
 
   // to be defined in subclassing socket
   def receiveSpecific: PartialFunction[Any, Unit]
@@ -90,7 +90,7 @@ trait SocketBase[M <: SocketMember] extends Socket {
 
   def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
     members -= uid.value
-    lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
+    lidraughtsBus.publish(SocketLeave(uid, member), 'socketDoor)
   }
 
   def onDeploy(d: Deploy): Unit =
@@ -115,7 +115,7 @@ trait SocketBase[M <: SocketMember] extends Socket {
     eject(uid)
     members += (uid.value -> member)
     setAlive(uid)
-    lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
+    lidraughtsBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
   def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value

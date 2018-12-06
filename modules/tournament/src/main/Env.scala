@@ -155,7 +155,7 @@ final class Env(
     accessTimeout = SocketTimeout
   )
   system.scheduler.schedule(1 minute, 1 minute) {
-    lila.mon.tournament.trouperCount(socketHub.size)
+    lidraughts.mon.tournament.trouperCount(socketHub.size)
   }
 
   private val sequencerMap = new DuctMap(
@@ -186,19 +186,14 @@ final class Env(
 
   TournamentInviter.start(system, api, notifyApi)
 
-  def version(tourId: Tournament.ID): Fu[SocketVersion] = {
-    val promise = Promise[SocketVersion]
-    socketHub.tell(tourId, GetVersionP(promise))
-    promise.future
-  }
+  def version(tourId: Tournament.ID): Fu[SocketVersion] =
+    socketHub.ask[SocketVersion](tourId)(GetVersionP.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
-    val promise = Promise[Boolean]
-    socketHub.tell(tourId, lidraughts.hub.actorApi.HasUserId(userId))
-    promise.future
-  } >>| PairingRepo.isPlaying(tourId, userId)
+  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+    socketHub.ask[Boolean](tourId)(lidraughts.hub.actorApi.HasUserIdP(userId, _)) >>|
+      PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lidraughts.common.Cli {
     def process = {

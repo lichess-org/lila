@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import com.github.benmanes.caffeine.cache._
 

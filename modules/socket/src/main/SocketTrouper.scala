@@ -1,9 +1,9 @@
-package lila.socket
+package lidraughts.socket
 
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.HasUserIdP
-import lila.hub.Trouper
+import lidraughts.hub.actorApi.HasUserIdP
+import lidraughts.hub.Trouper
 
 abstract class SocketTrouper[M <: SocketMember](
     uidTtl: Duration
@@ -11,7 +11,7 @@ abstract class SocketTrouper[M <: SocketMember](
 
   override def start() = {
     // #TODO find another way to propaget Deploy event (through the TrouperMap)
-    // lilaBus.publish(lila.socket.SocketHub.Open(this), 'socket)
+    // lidraughtsBus.publish(lidraughts.socket.SocketHub.Open(this), 'socket)
   }
 
   override def stop() = {
