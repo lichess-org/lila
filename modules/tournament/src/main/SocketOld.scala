@@ -30,11 +30,11 @@ private[tournament] final class SocketOld(
 
   private var waitingUsers = WaitingUsers.empty
 
-  override def preStart(): Unit = {
-    super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat:$tournamentId"))
-    TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
-  }
+  // override def preStart(): Unit = {
+  //   super.preStart()
+  //   lilaBus.subscribe(self, Symbol(s"chat:$tournamentId"))
+  //   TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
+  // }
 
   override def postStop(): Unit = {
     super.postStop()
@@ -43,7 +43,7 @@ private[tournament] final class SocketOld(
 
   def receiveSpecific = ({
 
-    case SetTournament(Some(tour)) => clock = tour.clock.some
+    // case SetTournament(Some(tour)) => clock = tour.clock.some
 
     case StartGame(game) =>
       game.players foreach { player =>

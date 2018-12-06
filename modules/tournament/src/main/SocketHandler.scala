@@ -6,8 +6,8 @@ import akka.pattern.ask
 import actorApi._
 import akka.actor.ActorSelection
 import lidraughts.chat.Chat
-import lidraughts.hub.Trouper
 import lidraughts.hub.actorApi.map._
+import lidraughts.hub.Trouper
 import lidraughts.security.Flood
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
@@ -31,11 +31,14 @@ private[tournament] final class SocketHandler(
     TournamentRepo exists tourId flatMap {
       _ ?? {
         val socket = socketHub getOrMake tourId
-        val promise = scala.concurrent.Promise[Connected]
-        val join = JoinP(uid, user, version, promise)
-        Handler.forTrouper(hub, socket, uid, join) {
-          case Connected(enum, member) =>
-            (controller(socket, tourId, uid, member), enum, member)
+        socket.ask[Connected](JoinP(uid, user, version, _)) map {
+          case Connected(enum, member) => Handler.iteratee(
+            hub,
+            controller(socket, tourId, uid, member),
+            member,
+            socket,
+            uid
+          ) -> enum
         } map some
       }
     }

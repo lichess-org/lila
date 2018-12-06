@@ -14,14 +14,14 @@ import lila.memo.ExpireSetMemo
 
 trait SocketBase[M <: SocketMember] extends Socket {
 
-  val uidTtl: Duration
-  val system: ActorSystem
+  def uidTtl: Duration
+  def system: ActorSystem
 
   val members = scala.collection.mutable.AnyRefMap.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = initialPong
 
-  val lilaBus = system.lilaBus
+  def lilaBus = system.lilaBus
 
   // to be defined in subclassing socket
   def receiveSpecific: PartialFunction[Any, Unit]

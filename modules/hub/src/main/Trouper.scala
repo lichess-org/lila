@@ -30,9 +30,9 @@ trait Trouper extends lila.common.Tellable {
       Some(q.fold(Queue.empty[Any])(_ enqueue msg))
     }.isEmpty) run(msg)
 
-  def ?[A](msg: Any): Fu[A] = {
+  def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
-    this ! Trouper.Ask(msg, promise)
+    this ! makeMsg(promise)
     promise.future
   }
 
@@ -66,6 +66,4 @@ object Trouper {
   private val fallback = { msg: Any =>
     lila.log("Trouper").warn(s"unhandled msg: $msg")
   }
-
-  case class Ask[T](msg: Any, res: Promise[T])
 }

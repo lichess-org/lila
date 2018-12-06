@@ -25,7 +25,7 @@ object BSONHandlers {
     def write(x: Schedule.Speed) = BSONString(x.name)
   }
 
-  private implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
+  implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
     def read(doc: BSONDocument) = ClockConfig(
       doc.getAs[Int]("limit").get,
       doc.getAs[Int]("increment").get
