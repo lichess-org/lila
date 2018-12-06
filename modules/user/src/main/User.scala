@@ -110,7 +110,7 @@ case class User(
 
   def is(name: String) = id == User.normalize(name)
 
-  def isBot = title has Title.bot
+  def isBot = title has Title.BOT
   def noBot = !isBot
 
   def rankable = noBot && !rankban
@@ -171,7 +171,7 @@ object User {
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
   case class Speaker(username: String, title: Option[Title], enabled: Boolean, troll: Option[Boolean]) {
-    def isBot = title has Title.bot
+    def isBot = title has Title.BOT
   }
 
   case class PlayTime(total: Int, tv: Int) {
