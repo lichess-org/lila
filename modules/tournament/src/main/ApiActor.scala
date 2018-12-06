@@ -8,7 +8,7 @@ import lidraughts.game.actorApi.FinishGame
 private[tournament] final class ApiActor(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
-    socketHub: SocketHub
+    socketMap: SocketMap
 ) extends Actor {
 
   def receive = {
@@ -26,6 +26,6 @@ private[tournament] final class ApiActor(
 
     case lidraughts.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId)
 
-    case m: lidraughts.hub.actorApi.Deploy => socketHub tellAll m
+    case m: lidraughts.hub.actorApi.Deploy => socketMap tellAll m
   }
 }
