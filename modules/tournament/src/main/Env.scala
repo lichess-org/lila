@@ -154,19 +154,9 @@ final class Env(
     ),
     accessTimeout = SocketTimeout
   )
-
-  // private val socketHub = system.actorOf(
-  //   Props(new lila.socket.SocketHubActor.Default[Socket] {
-  //     def mkActor(tournamentId: String) = new Socket(
-  //       tournamentId = tournamentId,
-  //       history = new History(ttl = HistoryMessageTtl),
-  //       jsonView = jsonView,
-  //       uidTimeout = UidTimeout,
-  //       socketTimeout = SocketTimeout,
-  //       lightUser = lightUserApi.async
-  //     )
-  //   }), name = SocketName
-  // )
+  system.scheduler.schedule(1 minute, 1 minute) {
+    lila.mon.tournament.trouperCount(socketHub.size)
+  }
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),

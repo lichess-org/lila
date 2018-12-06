@@ -396,6 +396,7 @@ object mon {
       val tickTime = rec("tournament.created_organizer.tick_time")
     }
     val apiShowHit = inc("tournament.api.show.hit")
+    val trouperCount = rec("tournament.trouper.count")
   }
   object plan {
     object amount {
@@ -585,10 +586,13 @@ object mon {
     }
     def pdf = inc("export.pdf.game")
   }
-
   object jsmon {
     val socketGap = inc("jsmon.socket_gap")
     val unknown = inc("jsmon.unknown")
+  }
+  object bus {
+    val classifiers = rec("bus.classifiers")
+    val subscribers = rec("bus.subscribers")
   }
 
   def measure[A](path: RecPath)(op: => A): A = measureRec(path(this))(op)
