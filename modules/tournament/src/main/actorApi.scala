@@ -4,8 +4,8 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.SocketMember
 import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.SocketMember
 import lila.user.User
 
 private[tournament] case class Member(
@@ -44,4 +44,4 @@ private[tournament] case object NotifyReload
 
 private[tournament] case class GetWaitingUsersP(promise: Promise[WaitingUsers])
 
-private[tournament] case class SetTournament(tour: Option[Tournament])
+private[tournament] case class SetTournamentClock(clock: chess.Clock.Config)

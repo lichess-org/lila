@@ -20,11 +20,7 @@ final class TrouperMap[T <: Trouper](
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
 
-  def ask[T](id: String)(makeMsg: Promise[T] => Any): Fu[T] = {
-    val promise = Promise[T]
-    tell(id, makeMsg(promise))
-    promise.future
-  }
+  def ask[T](id: String)(makeMsg: Promise[T] => Any): Fu[T] = getOrMake(id).ask(makeMsg)
 
   def exists(id: String): Boolean = troupers.getIfPresent(id) != null
 

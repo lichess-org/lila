@@ -109,6 +109,9 @@ object TournamentRepo {
     maxPerPage = maxPerPage
   )
 
+  def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
+    coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
+
   def setStatus(tourId: String, status: Status) = coll.update(
     $id(tourId),
     $set("status" -> status.id)

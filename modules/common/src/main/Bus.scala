@@ -58,7 +58,7 @@ object Bus extends ExtensionId[Bus] with ExtensionIdProvider {
 
   case class Event(payload: Any, channel: Symbol)
 
-  override def lookup = Bus
+  override def lookup() = Bus
 
   override def createExtension(system: ExtendedActorSystem) = new Bus(system)
 }

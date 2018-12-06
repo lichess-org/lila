@@ -31,8 +31,10 @@ private[tournament] final class Socket(
   override def start(): Unit = {
     super.start()
     lilaBus.subscribe(this, Symbol(s"chat:$tournamentId"))
-    TournamentRepo byId tournamentId foreach { t =>
-      this ! SetTournament(t)
+    TournamentRepo clockById tournamentId foreach {
+      _ foreach { c =>
+        this ! SetTournamentClock(c)
+      }
     }
   }
 
@@ -43,7 +45,7 @@ private[tournament] final class Socket(
 
   def receiveSpecific = ({
 
-    case SetTournament(Some(tour)) => clock = tour.clock.some
+    case SetTournamentClock(c) => clock = c.some
 
     case StartGame(game) =>
       game.players foreach { player =>
