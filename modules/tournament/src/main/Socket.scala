@@ -60,7 +60,8 @@ private[tournament] final class Socket(
     case Reload => notifyReload
 
     case GetWaitingUsersP(promise) =>
-      promise success waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
+      waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
+      promise success waitingUsers
 
     case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
