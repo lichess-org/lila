@@ -244,7 +244,6 @@ final class SocketHandler(
   }: Handler.Controller) orElse evalCacheHandler(uid, member, user) orElse lidraughts.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
-    socket = socket,
     chat = chat,
     canTimeout = Some { suspectId =>
       user.?? { u =>
@@ -298,7 +297,7 @@ final class SocketHandler(
     version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] = {
     val join = Socket.Join(uid, user.map(_.id), user.??(_.troll), version)
-    Handler(hub, socket, uid, join) {
+    Handler.forActor(hub, socket, uid, join) {
       case Socket.Connected(enum, member) => (controller(member), enum, member)
     } map some
   }

@@ -25,7 +25,7 @@ private[challenge] final class SocketHandler(
   ): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
     join = Socket.Join(uid, userId, owner, version)
-    handler ← Handler(hub, socket, uid, join) {
+    handler ← Handler.forActor(hub, socket, uid, join) {
       case Socket.Connected(enum, member) =>
         (controller(socket, challengeId, uid, member), enum, member)
     }

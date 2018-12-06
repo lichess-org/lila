@@ -143,8 +143,8 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub: SocketHub = new TrouperMap[Socket2](
-    mkTrouper = (tournamentId: String) => new Socket2(
+  private val socketHub: SocketHub = new TrouperMap[Socket](
+    mkTrouper = (tournamentId: String) => new Socket(
       system = system,
       tournamentId = tournamentId,
       history = new History(ttl = HistoryMessageTtl),

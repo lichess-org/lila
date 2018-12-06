@@ -538,5 +538,5 @@ final class TournamentApi(
   }
 
   private def sendTo(tourId: Tournament.ID, msg: Any): Unit =
-    socketHub ! Tell(tourId, msg)
+    socketHub.tell(tourId, msg)
 }

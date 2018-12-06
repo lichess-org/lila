@@ -64,9 +64,6 @@ private final class StartedOrganizer(
         api.makePairings(tour, users, startAt)
     }
 
-  private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
-    val promise = Promise[WaitingUsers]
-    socketHub.tell(tour.id, GetWaitingUsersP(promise))
-    promise.future
-  }
+  private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
+    socketHub.ask[WaitingUsers](tour.id)(GetWaitingUsersP.apply)
 }

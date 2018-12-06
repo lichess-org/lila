@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache._
 
 import java.util.concurrent.TimeUnit
 import scala.collection.JavaConverters._
+import scala.concurrent.Promise
 import scala.concurrent.duration.FiniteDuration
 
 final class TrouperMap[T <: Trouper](
@@ -18,6 +19,12 @@ final class TrouperMap[T <: Trouper](
   def tellAll(msg: Any) = troupers.asMap().asScala.foreach(_._2 ! msg)
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
+
+  def ask[T](id: String)(makeMsg: Promise[T] => Any): Fu[T] = {
+    val promise = Promise[T]
+    tell(id, makeMsg(promise))
+    promise.future
+  }
 
   def exists(id: String): Boolean = troupers.getIfPresent(id) != null
 
