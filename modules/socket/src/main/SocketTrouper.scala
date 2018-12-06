@@ -9,12 +9,8 @@ abstract class SocketTrouper[M <: SocketMember](
     uidTtl: Duration
 ) extends SocketBase[M] with Trouper {
 
-  override def start() = {
-    // #TODO find another way to propaget Deploy event (through the TrouperMap)
-    // lilaBus.publish(lila.socket.SocketHub.Open(this), 'socket)
-  }
-
   override def stop() = {
+    super.stop()
     members foreachKey ejectUidString
   }
 
