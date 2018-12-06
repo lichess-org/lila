@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import chess.format.FEN
 
 import lila.chat.UserLine
-import lila.game.actorApi.{ FinishGame, AbortedBy }
+import lila.game.actorApi.{ FinishGame, AbortedBy, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
@@ -39,7 +39,8 @@ final class GameStateStream(
             super.preStart()
             system.lilaBus.subscribe(
               self,
-              Symbol(s"moveGame:$id"), 'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
+              MoveGameEvent makeSymbol id,
+              'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
             )
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream
@@ -61,7 +62,7 @@ final class GameStateStream(
           }
 
           def receive = {
-            case g: Game if g.id == id => pushState(g)
+            case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
             case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver

@@ -7,8 +7,8 @@ import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
+import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, Progress, Pov, UciMemo }
-import lila.hub.Duct
 import lila.hub.actorApi.round.BotPlay
 
 private[round] final class Player(
@@ -141,9 +141,10 @@ private[round] final class Player(
     // publish all moves
     bus.publish(moveEvent, 'moveEvent)
 
-    // for lila.bot.GameStateStream
-    // is this too expensive? #TODO find a better way (like having a Game.metadata.hasBot flag)
-    bus.publish(game, Symbol(s"moveGame:${game.id}"))
+    // I checked and the bus doesn't do much if there's no subscriber for a classifier,
+    // so we should be good here.
+    // also use for targeted TvBroadcast subscription
+    bus.publish(MoveGameEvent makeBusEvent MoveGameEvent(game, moveEvent.fen, moveEvent.move))
 
     // publish correspondence moves
     if (game.isCorrespondence && game.nonAi) bus.publish(
