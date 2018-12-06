@@ -10,8 +10,6 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 
   import ChannelActor._
 
-  implicit def timeout = makeTimeout(50 millis)
-
   // games featured on this channel
   // first entry is the current game
   var history = List.empty[Game.ID]
