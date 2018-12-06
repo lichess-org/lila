@@ -4,7 +4,7 @@
   <string name="learnChess">Impara a giocare a scacchi</string>
   <string name="byPlaying">giocando!</string>
   <string name="menu">Menù</string>
-  <string name="progressX">Avanzamento: %s</string>
+  <string name="progressX">Completato: %s</string>
   <string name="resetMyProgress">Azzera i progressi</string>
   <string name="youWillLoseAllYourProgress">Perderai tutti i tuoi progressi!</string>
   <string name="play">gioca!</string>
@@ -16,7 +16,7 @@
   <string name="grabAllTheStars">Raccogli tutte le stelle!</string>
   <string name="theFewerMoves">Meno mosse fai, più punti vinci!</string>
   <string name="useTwoRooks">Utilizza due torri per accelerare le cose!</string>
-  <string name="rookComplete">Congratulazioni! Hai imparato con successo ad utilizzare la torre.</string>
+  <string name="rookComplete">Congratulazioni! Hai imparato ad utilizzare la torre.</string>
   <string name="theBishop">L\'alfiere</string>
   <string name="itMovesDiagonally">Si muove in diagonale</string>
   <string name="bishopIntro">Ora impareremo come si utilizza l\'alfiere!</string>
@@ -26,7 +26,7 @@ Ti servono entrambi!</string>
   <string name="bishopComplete">Congratulazioni! Hai imparato ad utilizzare l\'alfiere.</string>
   <string name="theQueen">La donna</string>
   <string name="queenCombinesRookAndBishop">Donna = torre + alfiere</string>
-  <string name="queenIntro">Il pezzo più potente negli scacchi: la donna!</string>
+  <string name="queenIntro">Ed ora il pezzo più potente negli scacchi. La donna!</string>
   <string name="queenComplete">Congratulazioni! La donna non ha segreti per te.</string>
   <string name="theKing">Il re</string>
   <string name="theMostImportantPiece">Il pezzo più importante</string>
@@ -37,8 +37,8 @@ Ti servono entrambi!</string>
   <string name="theKnight">Il cavallo</string>
   <string name="itMovesInAnLShape">Si muove a \"L\"</string>
   <string name="knightIntro">Ecco una sfida per te. Il cavallo è... ingannevole.</string>
-  <string name="knightsHaveAFancyWay">I cavalli hanno un modo particolare
-di saltare qui e là!</string>
+  <string name="knightsHaveAFancyWay">I cavalli saltano qua e là
+in un modo tutto loro!</string>
   <string name="knightsCanJumpOverObstacles">I cavalli possono saltare gli ostacoli!
 Fuggi e conquista le stelle!</string>
   <string name="knightComplete">Congratulazioni! Hai ammaestrato il cavallo.</string>

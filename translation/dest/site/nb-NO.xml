@@ -206,7 +206,7 @@
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
-  <string name="casualTournament">Uratet</string>
+  <string name="casualTournament">Uformell</string>
   <string name="ratedTournament">Ratet</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
@@ -569,7 +569,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="outsideTheBoard">Utenfor brettet</string>
   <string name="onSlowGames">På lange partier</string>
   <string name="always">Alltid</string>
-  <string name="inCasualGamesOnly">Bare på urangerte partier</string>
+  <string name="inCasualGamesOnly">Bare for uformelle partier</string>
   <string name="whenPremoving">Ved bruk av førtrekk</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>
   <string name="difficultyEasy">Lett</string>
