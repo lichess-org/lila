@@ -16,14 +16,13 @@ private[tv] final class TvTrouper(
     roundSocket: ActorSelection,
     selectChannel: ActorRef,
     lightUser: LightUser.GetterSync,
-    roundProxyGame: Game.ID => Fu[Option[Game]],
     onSelect: Game => Unit
 ) extends Trouper {
 
   import TvTrouper._
 
   private val channelTroupers: Map[Tv.Channel, Trouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, lightUser, roundProxyGame, onSelect = this.!)
+    c -> new ChannelTrouper(c, lightUser, onSelect = this.!)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
