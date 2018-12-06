@@ -141,8 +141,8 @@ private[round] final class Player(
     // publish all moves
     bus.publish(moveEvent, 'moveEvent)
 
-    // for lila.bot.GameStateStream
-    // is this too expensive? #TODO find a better way (like having a Game.metadata.hasBot flag)
+    // I checked and the bus doesn't do much if there's no subscriber for a classifier,
+    // so we should be good here.
     bus.publish(game, Symbol(s"moveGame:${game.id}"))
 
     // publish correspondence moves
