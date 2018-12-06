@@ -2,6 +2,7 @@ package lidraughts.tv
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lidraughts.db.dsl._
 import lidraughts.game.Game
@@ -15,7 +16,6 @@ final class Env(
     lightUser: lidraughts.common.LightUser.GetterSync,
     roundProxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
-    scheduler: lidraughts.common.Scheduler,
     onSelect: Game => Unit
 ) {
 
@@ -24,18 +24,20 @@ final class Env(
 
   private val selectChannel = system.actorOf(Props(classOf[lidraughts.socket.Channel]), name = ChannelSelect)
 
-  private val tvActor = system.actorOf(
-    Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser, onSelect))
+  private val tvTrouper = new TvTrouper(
+    system,
+    hub.actor.renderer,
+    hub.socket.round,
+    selectChannel,
+    lightUser,
+    roundProxyGame,
+    onSelect
   )
 
-  lazy val tv = new Tv(tvActor, roundProxyGame)
+  lazy val tv = new Tv(tvTrouper, roundProxyGame)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.message(FeaturedSelect) {
-      tvActor -> TvActor.Select
-    }
+  system.scheduler.schedule(10 seconds, FeaturedSelect) {
+    tvTrouper ! TvTrouper.Select
   }
 }
 
@@ -48,7 +50,6 @@ object Env {
     lightUser = lidraughts.user.Env.current.lightUserSync,
     roundProxyGame = lidraughts.round.Env.current.roundProxyGame _,
     system = lidraughts.common.PlayApp.system,
-    scheduler = lidraughts.common.PlayApp.scheduler,
     onSelect = lidraughts.round.Env.current.recentTvGames.put _
   )
 }
