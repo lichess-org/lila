@@ -150,7 +150,6 @@ final class JsonView(
           "id" -> user.id,
           "name" -> user.username,
           "rating" -> player.rating,
-          "ratingDiff" -> 0, // # temp mobile app BC - remove me #TODO
           "score" -> player.score,
           "fire" -> player.fire,
           "nb" -> sheetNbs(user.id, sheet)
