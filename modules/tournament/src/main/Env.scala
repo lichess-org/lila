@@ -1,12 +1,10 @@
 package lila.tournament
 
 import akka.actor._
-import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.hub.actorApi.map.Ask
 import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
 import lila.socket.Socket.{ GetVersionP, SocketVersion }
@@ -157,6 +155,9 @@ final class Env(
   system.scheduler.schedule(1 minute, 1 minute) {
     lila.mon.tournament.trouperCount(socketHub.size)
   }
+  system.scheduler.schedule(10 seconds, 3819 millis) {
+    socketHub tellAll lila.socket.actorApi.Broom
+  }
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
@@ -164,8 +165,8 @@ final class Env(
   )
 
   system.lilaBus.subscribe(
-    system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),
-    'finishGame, 'adjustCheater, 'adjustBooster, 'playban
+    system.actorOf(Props(new ApiActor(api, leaderboardApi, socketHub)), name = ApiActorName),
+    'finishGame, 'adjustCheater, 'adjustBooster, 'playban, 'deploy
   )
 
   system.actorOf(Props(new CreatedOrganizer(
