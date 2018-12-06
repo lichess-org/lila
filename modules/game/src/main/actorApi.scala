@@ -23,3 +23,13 @@ case class CorresAlarmEvent(pov: Pov)
 case class SimulNextGame(hostId: String, game: Game)
 
 private[game] case object NewCaptcha
+
+case class MoveGameEvent(
+    game: Game,
+    fen: String,
+    move: String
+)
+object MoveGameEvent {
+  def makeSymbol(gameId: Game.ID) = Symbol(s"moveEvent:$gameId")
+  def makeBusEvent(event: MoveGameEvent) = lidraughts.common.Bus.Event(event, makeSymbol(event.game.id))
+}

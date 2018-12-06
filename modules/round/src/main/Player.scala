@@ -9,8 +9,8 @@ import draughts.{ Centis, Color, Move, MoveMetrics, Status }
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import akka.actor._
 import lidraughts.common.Future
+import lidraughts.game.actorApi.MoveGameEvent
 import lidraughts.game.{ Game, Pov, Progress, UciMemo }
-import lidraughts.hub.Duct
 import lidraughts.hub.actorApi.round.{ BotPlay, DraughtsnetPlay }
 import ornicar.scalalib.Random.approximatly
 
@@ -164,7 +164,8 @@ private[round] final class Player(
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
-    bus.publish(game, Symbol(s"moveGame:${game.id}"))
+    // also use for targeted TvBroadcast subscription
+    bus.publish(MoveGameEvent makeBusEvent MoveGameEvent(game, moveEvent.fen, moveEvent.move))
 
     // publish correspondence moves
     if (game.isCorrespondence && game.nonAi) bus.publish(

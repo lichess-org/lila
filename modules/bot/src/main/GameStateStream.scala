@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import draughts.format.FEN
 
 import lidraughts.chat.UserLine
-import lidraughts.game.actorApi.{ FinishGame, AbortedBy }
+import lidraughts.game.actorApi.{ FinishGame, AbortedBy, MoveGameEvent }
 import lidraughts.game.{ Game, GameRepo }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.MoveEvent
@@ -61,7 +61,7 @@ final class GameStateStream(
           }
 
           def receive = {
-            case g: Game if g.id == id => pushState(g)
+            case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
             case lidraughts.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver

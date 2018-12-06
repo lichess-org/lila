@@ -253,7 +253,6 @@ final class Env(
   )
 
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
-  bus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
 
   def checkOutoftime(game: Game): Unit = {
     if (game.playable && game.started && !game.isUnlimited)
