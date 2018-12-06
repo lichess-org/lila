@@ -57,7 +57,8 @@ final class DataForm {
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming))
+    .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
+    .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration))
 }
 
 object DataForm {
@@ -124,8 +125,6 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement) > 0
 
-  def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
-
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
@@ -136,5 +135,14 @@ private[tournament] case class TournamentSetup(
     realMode == Mode.Casual ||
       lila.game.Game.allowRated(realVariant, clockConfig.some)
 
-  private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
+  def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
+  def excessiveDuration = estimateNumberOfGamesOneCanPlay <= 80
+
+  private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
+
+  // There are 2 players, and they don't always use all their time (0.8)
+  // add 15 seconds for pairing delay
+  private def estimatedGameSeconds: Double = {
+    (60 * clockTime + 30 * clockIncrement) * 2 * 0.8
+  } + 15
 }
