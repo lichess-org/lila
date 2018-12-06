@@ -8,12 +8,12 @@ import lila.hub.actorApi.HasUserId
 
 abstract class SocketActor[M <: SocketMember](val uidTtl: Duration) extends SocketBase[M] with Actor {
 
-  val system = context.system
+  protected val system = context.system
 
   // this socket is created during application boot
   // and therefore should delay its publication
   // to ensure the listener is ready (sucks, I know)
-  val startsOnApplicationBoot: Boolean = false
+  protected val startsOnApplicationBoot: Boolean = false
 
   override def preStart: Unit = {
     if (startsOnApplicationBoot)
@@ -29,7 +29,7 @@ abstract class SocketActor[M <: SocketMember](val uidTtl: Duration) extends Sock
     members foreachKey ejectUidString
   }
 
-  val receiveActor: PartialFunction[Any, Unit] = {
+  protected val receiveActor: PartialFunction[Any, Unit] = {
     case HasUserId(userId) => sender ! hasUserId(userId)
   }
 

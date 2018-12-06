@@ -18,7 +18,7 @@ abstract class SocketTrouper[M <: SocketMember](
     members foreachKey ejectUidString
   }
 
-  val receiveTrouper: PartialFunction[Any, Unit] = {
+  protected val receiveTrouper: PartialFunction[Any, Unit] = {
     case HasUserIdP(userId, promise) => promise success hasUserId(userId)
   }
 

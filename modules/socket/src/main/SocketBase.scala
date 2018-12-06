@@ -14,20 +14,20 @@ import lila.memo.ExpireSetMemo
 
 trait SocketBase[M <: SocketMember] extends Socket {
 
-  def uidTtl: Duration
-  def system: ActorSystem
+  protected def uidTtl: Duration
+  protected def system: ActorSystem
 
-  val members = scala.collection.mutable.AnyRefMap.empty[String, M]
-  val aliveUids = new ExpireSetMemo(uidTtl)
-  var pong = initialPong
+  protected val members = scala.collection.mutable.AnyRefMap.empty[String, M]
+  protected val aliveUids = new ExpireSetMemo(uidTtl)
+  protected var pong = initialPong
 
-  def lilaBus = system.lilaBus
+  protected def lilaBus = system.lilaBus
 
   // to be defined in subclassing socket
-  def receiveSpecific: PartialFunction[Any, Unit]
+  protected def receiveSpecific: PartialFunction[Any, Unit]
 
   // generic message handler
-  def receiveGeneric: PartialFunction[Any, Unit] = {
+  protected def receiveGeneric: PartialFunction[Any, Unit] = {
 
     case Ping(uid, _, lagCentis) => ping(uid, lagCentis)
 
@@ -41,31 +41,31 @@ trait SocketBase[M <: SocketMember] extends Socket {
     case d: Deploy => onDeploy(d)
   }
 
-  def hasUserId(userId: String) = members.values.exists(_.userId contains userId)
+  protected def hasUserId(userId: String) = members.values.exists(_.userId contains userId)
 
-  def notifyAll[A: Writes](t: String, data: A): Unit =
+  protected def notifyAll[A: Writes](t: String, data: A): Unit =
     notifyAll(makeMessage(t, data))
 
-  def notifyAll(t: String): Unit =
+  protected def notifyAll(t: String): Unit =
     notifyAll(makeMessage(t))
 
-  def notifyAll(msg: JsObject): Unit =
+  protected def notifyAll(msg: JsObject): Unit =
     members.foreachValue(_ push msg)
 
-  def notifyIf(msg: JsObject)(condition: M => Boolean): Unit =
+  protected def notifyIf(msg: JsObject)(condition: M => Boolean): Unit =
     members.foreachValue { member =>
       if (condition(member)) member push msg
     }
 
-  def notifyMember[A: Writes](t: String, data: A)(member: M): Unit = {
+  protected def notifyMember[A: Writes](t: String, data: A)(member: M): Unit = {
     member push makeMessage(t, data)
   }
 
-  def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid): Unit = {
+  protected def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid): Unit = {
     withMember(uid)(_ push makeMessage(t, data))
   }
 
-  def ping(uid: Socket.Uid, lagCentis: Option[Centis]): Unit = {
+  protected def ping(uid: Socket.Uid, lagCentis: Option[Centis]): Unit = {
     setAlive(uid)
     withMember(uid) { member =>
       member push pong
@@ -76,24 +76,24 @@ trait SocketBase[M <: SocketMember] extends Socket {
     }
   }
 
-  def broom: Unit =
+  protected def broom: Unit =
     members.keys foreach { uid =>
       if (!aliveUids.get(uid)) ejectUidString(uid)
     }
 
   protected def ejectUidString(uid: String): Unit = eject(Socket.Uid(uid))
 
-  def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
+  protected def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
     member.end
     quit(uid)
   }
 
-  def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
+  protected def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
     members -= uid.value
     lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
   }
 
-  def onDeploy(d: Deploy): Unit =
+  protected def onDeploy(d: Deploy): Unit =
     notifyAll(makeMessage(d.key))
 
   protected val resyncMessage = makeMessage("resync")
@@ -111,28 +111,28 @@ trait SocketBase[M <: SocketMember] extends Socket {
   protected def resyncNow(member: M): Unit =
     member push resyncMessage
 
-  def addMember(uid: Socket.Uid, member: M): Unit = {
+  protected def addMember(uid: Socket.Uid, member: M): Unit = {
     eject(uid)
     members += (uid.value -> member)
     setAlive(uid)
     lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
-  def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value
+  protected def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value
 
-  def membersByUserId(userId: String): Iterable[M] = members collect {
+  protected def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member
   }
 
-  def firstMemberByUserId(userId: String): Option[M] = members collectFirst {
+  protected def firstMemberByUserId(userId: String): Option[M] = members collectFirst {
     case (_, member) if member.userId.contains(userId) => member
   }
 
-  def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
+  protected def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
 
-  val maxSpectatorUsers = 15
+  protected val maxSpectatorUsers = 15
 
-  def showSpectators(lightUser: LightUser.Getter)(watchers: Iterable[SocketMember]): Fu[JsValue] = watchers.size match {
+  protected def showSpectators(lightUser: LightUser.Getter)(watchers: Iterable[SocketMember]): Fu[JsValue] = watchers.size match {
     case 0 => fuccess(JsNull)
     case s if s > maxSpectatorUsers => fuccess(Json.obj("nb" -> s))
     case s => {
@@ -152,5 +152,5 @@ trait SocketBase[M <: SocketMember] extends Socket {
     }
   }
 
-  def withMember(uid: Socket.Uid)(f: M => Unit): Unit = members get uid.value foreach f
+  protected def withMember(uid: Socket.Uid)(f: M => Unit): Unit = members get uid.value foreach f
 }

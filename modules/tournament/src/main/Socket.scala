@@ -43,7 +43,7 @@ private[tournament] final class Socket(
     lilaBus.unsubscribe(this)
   }
 
-  def receiveSpecific = ({
+  protected def receiveSpecific = ({
 
     case SetTournamentClock(c) => clock = c.some
 
@@ -97,13 +97,13 @@ private[tournament] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit =
+  private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       system.scheduler.scheduleOnce(1 second)(this ! NotifyCrowd)
     }
 
-  def notifyReload: Unit =
+  private def notifyReload: Unit =
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
