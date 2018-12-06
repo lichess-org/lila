@@ -5,7 +5,7 @@ import lidraughts.hub.tournamentTeam._
 import lidraughts.i18n.I18nKeys
 import lidraughts.rating.BSONHandlers.perfTypeKeyHandler
 import lidraughts.rating.PerfType
-import lidraughts.user.User
+import lidraughts.user.{ User, Title }
 
 sealed trait Condition {
 
@@ -32,7 +32,7 @@ object Condition {
   case object Titled extends Condition with FlatCond {
     def name(lang: Lang) = "Only titled players"
     def apply(user: User) =
-      if (user.title.exists(_ != "LM")) Accepted
+      if (user.title.exists(_ != Title.LM)) Accepted
       else Refused(name _)
   }
 

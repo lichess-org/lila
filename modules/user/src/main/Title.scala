@@ -11,6 +11,9 @@ object Title {
   implicit val titleBsonHandler = lidraughts.db.dsl.stringIsoHandler(Title.titleIso)
   implicit val titleJsonWrites = lidraughts.common.PimpedJson.stringIsoWriter(Title.titleIso)
 
+  val LM = Title("LM")
+  val BOT = Title("BOT")
+
   // important: abbreviations are as stated on fmjd profile pages
   val all = Seq(
     Title("GMI") -> "International Grandmaster",
@@ -24,11 +27,9 @@ object Title {
     Title("MFF") -> "Woman FMJD Master",
     Title("MNF") -> "Woman National Master",
     Title("cMNF") -> "Woman Candidate National Master",
-    Title("LM") -> "Lidraughts Master",
-    Title("BOT") -> "Draughts Robot"
+    LM -> "Lidraughts Master",
+    BOT -> "Draughts Robot"
   )
-
-  val bot = Title("BOT")
 
   val names = all.toMap
   lazy val fromNames = all.map(_.swap).toMap
