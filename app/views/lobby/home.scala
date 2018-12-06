@@ -63,6 +63,7 @@ object home {
         div(cls := "about-side")(
           //trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", Html(s"""<a class="blue" href="${routes.Plan.features}">${trans.really.txt()}</a>""")),
           trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", trans.really()),
+          " ",
           a(cls := "blue", href := "/about")(trans.aboutX("lidraughts.org"), "...")
         )
       }
