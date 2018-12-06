@@ -153,7 +153,7 @@ object TournamentRepo {
 
   private def scheduledCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
     allCreatedSelect(aheadMinutes) ++ scheduledSelect
-  ).sort($doc("startsAt" -> 1)).list[Tournament](none)
+  ).sort($doc("startsAt" -> 1)).list[Tournament]()
 
   private def isPromotable(tour: Tournament): Boolean = tour.schedule ?? { schedule =>
     tour.startsAt isBefore DateTime.now.plusMinutes {
