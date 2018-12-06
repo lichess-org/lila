@@ -7,7 +7,8 @@ import lidraughts.game.actorApi.FinishGame
 
 private[tournament] final class ApiActor(
     api: TournamentApi,
-    leaderboard: LeaderboardApi
+    leaderboard: LeaderboardApi,
+    socketHub: SocketHub
 ) extends Actor {
 
   def receive = {
@@ -24,5 +25,7 @@ private[tournament] final class ApiActor(
     case lidraughts.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
 
     case lidraughts.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId)
+
+    case m: lidraughts.hub.actorApi.Deploy => socketHub tellAll m
   }
 }
