@@ -89,7 +89,7 @@ final class TournamentApi(
             pairings.map { pairing =>
               PairingRepo.insert(pairing) >>
                 autoPairing(tour, pairing, users, ranking) addEffect { game =>
-                  sendTo(tour.id, StartGame(game))
+                  socketHub.tell(tour.id, StartGame(game))
                 }
             }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
               lila.mon.tournament.pairing.create(pairings.size)
@@ -473,7 +473,7 @@ final class TournamentApi(
   private def doSequence(tourId: Tournament.ID)(fu: => Funit): Unit =
     sequencers.tell(tourId, Duct.extra.LazyFu(() => fu))
 
-  private def socketReload(tourId: Tournament.ID): Unit = sendTo(tourId, Reload)
+  private def socketReload(tourId: Tournament.ID): Unit = socketHub.tell(tourId, Reload)
 
   private object publish {
     private val debouncer = system.actorOf(Props(new Debouncer(15 seconds, {
@@ -518,7 +518,4 @@ final class TournamentApi(
         cooldown = 15.seconds
       )
   }
-
-  private def sendTo(tourId: Tournament.ID, msg: Any): Unit =
-    socketHub.tell(tourId, msg)
 }
