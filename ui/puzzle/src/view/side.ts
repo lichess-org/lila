@@ -46,7 +46,7 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode[] {
     }, [
       h('div.header', [
         h('p', {
-          hook: innerHTML(ctrl.trans('fromGameLink', '<a href="/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly + '">#' + game.id + '</a>'))
+          hook: innerHTML(ctrl.trans('fromGameLink', ctrl.vm.mode === 'play' ? hidden() : '<a href="/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly + '">#' + game.id + '</a>'))
         }),
         h('p', [
           game.clock, ' • ',
