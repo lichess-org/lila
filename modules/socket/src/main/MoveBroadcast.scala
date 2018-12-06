@@ -27,12 +27,12 @@ private final class MoveBroadcast extends Actor {
 
   def receive = {
 
-    case move: MoveEvent =>
-      games get move.gameId foreach { mIds =>
+    case MoveEvent(gameId, fen, move) =>
+      games get gameId foreach { mIds =>
         val msg = Socket.makeMessage("fen", play.api.libs.json.Json.obj(
-          "id" -> move.gameId,
-          "fen" -> move.fen,
-          "lm" -> move.move
+          "id" -> gameId,
+          "fen" -> fen,
+          "lm" -> move
         ))
         mIds foreach { mId =>
           members get mId foreach (_.member push msg)

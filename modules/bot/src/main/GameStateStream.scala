@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import chess.format.FEN
 
 import lila.chat.UserLine
-import lila.game.actorApi.{ FinishGame, AbortedBy }
+import lila.game.actorApi.{ FinishGame, AbortedBy, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
@@ -61,7 +61,7 @@ final class GameStateStream(
           }
 
           def receive = {
-            case g: Game if g.id == id => pushState(g)
+            case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
             case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
