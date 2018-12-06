@@ -101,7 +101,7 @@ final class Env(
     },
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
-    socketHub = socketHub,
+    socketMap = socketMap,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
@@ -120,7 +120,7 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
+    socketMap = socketMap,
     chat = hub.actor.chat,
     flood = flood
   )
@@ -141,7 +141,7 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub: SocketHub = new TrouperMap[Socket](
+  private val socketMap: SocketMap = new TrouperMap[Socket](
     mkTrouper = (tournamentId: String) => new Socket(
       system = system,
       tournamentId = tournamentId,
@@ -153,10 +153,10 @@ final class Env(
     accessTimeout = SocketTimeout
   )
   system.scheduler.schedule(1 minute, 1 minute) {
-    lila.mon.tournament.trouperCount(socketHub.size)
+    lila.mon.tournament.trouperCount(socketMap.size)
   }
   system.scheduler.schedule(10 seconds, 3819 millis) {
-    socketHub tellAll lila.socket.actorApi.Broom
+    socketMap tellAll lila.socket.actorApi.Broom
   }
 
   private val sequencerMap = new DuctMap(
@@ -165,7 +165,7 @@ final class Env(
   )
 
   system.lilaBus.subscribe(
-    system.actorOf(Props(new ApiActor(api, leaderboardApi, socketHub)), name = ApiActorName),
+    system.actorOf(Props(new ApiActor(api, leaderboardApi, socketMap)), name = ApiActorName),
     'finishGame, 'adjustCheater, 'adjustBooster, 'playban, 'deploy
   )
 
@@ -180,7 +180,7 @@ final class Env(
     api = api,
     reminder = reminder,
     isOnline = isOnline,
-    socketHub = socketHub
+    socketMap = socketMap
   )))
 
   TournamentScheduler.start(system, api)
@@ -188,12 +188,12 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketHub.ask[SocketVersion](tourId)(GetVersionP.apply)
+    socketMap.ask[SocketVersion](tourId)(GetVersionP.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketHub.ask[Boolean](tourId)(lila.hub.actorApi.HasUserIdP(userId, _)) >>|
+    socketMap.ask[Boolean](tourId)(lila.hub.actorApi.HasUserIdP(userId, _)) >>|
       PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {

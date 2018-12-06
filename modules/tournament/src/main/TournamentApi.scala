@@ -31,7 +31,7 @@ final class TournamentApi(
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    socketHub: SocketHub,
+    socketMap: SocketMap,
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: lila.hub.DuctMap[_],
@@ -89,7 +89,7 @@ final class TournamentApi(
             pairings.map { pairing =>
               PairingRepo.insert(pairing) >>
                 autoPairing(tour, pairing, users, ranking) addEffect { game =>
-                  socketHub.tell(tour.id, StartGame(game))
+                  socketMap.tell(tour.id, StartGame(game))
                 }
             }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
               lila.mon.tournament.pairing.create(pairings.size)
@@ -473,7 +473,7 @@ final class TournamentApi(
   private def doSequence(tourId: Tournament.ID)(fu: => Funit): Unit =
     sequencers.tell(tourId, Duct.extra.LazyFu(() => fu))
 
-  private def socketReload(tourId: Tournament.ID): Unit = socketHub.tell(tourId, Reload)
+  private def socketReload(tourId: Tournament.ID): Unit = socketMap.tell(tourId, Reload)
 
   private object publish {
     private val debouncer = system.actorOf(Props(new Debouncer(15 seconds, {

@@ -11,7 +11,7 @@ private final class StartedOrganizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,
-    socketHub: SocketHub
+    socketMap: SocketMap
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -65,5 +65,5 @@ private final class StartedOrganizer(
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    socketHub.ask[WaitingUsers](tour.id)(GetWaitingUsersP.apply)
+    socketMap.ask[WaitingUsers](tour.id)(GetWaitingUsersP.apply)
 }

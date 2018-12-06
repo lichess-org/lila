@@ -5,8 +5,6 @@ import scala.concurrent.duration._
 import scala.concurrent.{ Future, Promise }
 import scala.concurrent.stm._
 
-import lila.base.LilaException
-
 /*
  * Like an actor, but not an actor.
  * Uses an STM backend for sequentiality.

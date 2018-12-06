@@ -17,7 +17,7 @@ import makeTimeout.short
 
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: SocketHub,
+    socketMap: SocketMap,
     chat: ActorSelection,
     flood: Flood
 ) {
@@ -30,7 +30,7 @@ private[tournament] final class SocketHandler(
   ): Fu[Option[JsSocketHandler]] =
     TournamentRepo exists tourId flatMap {
       _ ?? {
-        val socket = socketHub getOrMake tourId
+        val socket = socketMap getOrMake tourId
         socket.ask[Connected](JoinP(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
