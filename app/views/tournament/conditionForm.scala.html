@@ -25,7 +25,9 @@
 }
 }
 @form3.split {
+@if(ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) {
 @form3.checkbox(form("conditions.titled"), Html("Only titled players"), help = Html("Require an official title to join the tournament").some, half = true)
+}
 @form3.checkbox(form("berserkable"), Html("Allow Berserk"), help = Html("Let players halve their clock time to gain an extra point").some, half = true)
 }
 @if(auto && teams.size > 0) {
