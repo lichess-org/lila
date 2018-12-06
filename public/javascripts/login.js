@@ -5,11 +5,6 @@ $(function() {
 function load($f) {
   $f.submit(function() {
     $f.find('.submit').attr('disabled', true);
-    console.log({
-        username: $f.find('#form3-username').val(),
-        password: $f.find('#form3-password').val(),
-        token: $f.find('#form3-token').val()
-      });
     $.ajax({
       url: $f.attr('action'),
       method: $f.attr('method'),

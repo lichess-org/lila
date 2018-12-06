@@ -54,8 +54,11 @@ case class ContentSecurityPolicy(
     styleSrc = "https://platform.twitter.com" :: styleSrc
   )
 
-  def withGoogleForm = copy(
-    frameSrc = "https://docs.google.com" :: frameSrc
+  def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
+
+  def withRecaptcha = copy(
+    scriptSrc = "https://www.google.com" :: scriptSrc,
+    frameSrc = "https://www.google.com" :: frameSrc
   )
 
   private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(

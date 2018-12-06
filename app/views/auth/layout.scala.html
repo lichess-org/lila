@@ -1,6 +1,6 @@
-@(title: String, side: Option[Html] = None, moreJs: Html = emptyHtml, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
-
+@(title: String, moreJs: Html = emptyHtml, formCss: Boolean = false, csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx: Context)
 @base.layout(
 title = title,
 moreCss = cssTags(List("user-signup.css" -> true, "form3.css" -> formCss)),
-moreJs = moreJs)(body).toHtml
+moreJs = moreJs,
+csp = csp)(body).toHtml
