@@ -66,6 +66,7 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
         div(cls := "content_box tournament_box no_padding")(
           div(cls := "create_tournament")(
             a(href := "/tournament/calendar", cls := "blue")(trans.tournamentCalendar()),
+            " ",
             ctx.isAuth option a(href := routes.Tournament.form(), cls := "button")(trans.createANewTournament())
           ),
           h1(trans.tournaments()),
