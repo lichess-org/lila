@@ -30,7 +30,6 @@ final class Env(
     hub.socket.round,
     selectChannel,
     lightUser,
-    roundProxyGame,
     onSelect
   )
 

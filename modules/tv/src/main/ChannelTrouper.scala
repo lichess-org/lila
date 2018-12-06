@@ -4,13 +4,12 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import chess.Color
-import lila.game.Game
+import lila.game.{ Game, GameRepo }
 import lila.hub.Trouper
 
 private[tv] final class ChannelTrouper(
     channel: Tv.Channel,
     lightUser: lila.common.LightUser.GetterSync,
-    roundProxyGame: Game.ID => Fu[Option[Game]],
     onSelect: TvTrouper.Selected => Unit
 ) extends Trouper {
 
@@ -38,7 +37,7 @@ private[tv] final class ChannelTrouper(
       history = game.id :: history.take(2)
 
     case Select(candidates) => if (candidates.nonEmpty) {
-      oneId ?? roundProxyGame map2 Tv.toCandidate(lightUser) foreach {
+      oneId ?? GameRepo.game map2 Tv.toCandidate(lightUser) foreach {
         case Some(current) if channel filter current =>
           wayBetter(current.game, candidates) orElse rematch(current.game) foreach elect
         case Some(current) => rematch(current.game) orElse feature(candidates) foreach elect
@@ -59,7 +58,7 @@ private[tv] final class ChannelTrouper(
 
   private def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.15)
 
-  private def rematch(game: Game) = game.next ?? roundProxyGame
+  private def rematch(game: Game) = game.next ?? GameRepo.game
 
   private def feature(candidates: List[Game]) = fuccess {
     candidates sortBy { -score(_) } headOption
