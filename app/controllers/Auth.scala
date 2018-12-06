@@ -253,7 +253,10 @@ object Auth extends LilaController {
     Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
-    fuccess(Account.renderCheckYourEmail)
+    fuccess {
+      if (ctx.isAuth) Redirect(routes.Lobby.home)
+      else Account.renderCheckYourEmail
+    }
   }
 
   // after signup and before confirmation
