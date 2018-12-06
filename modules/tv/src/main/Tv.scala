@@ -2,51 +2,38 @@ package lila.tv
 
 import scala.concurrent.duration._
 
-import akka.actor._
-import akka.pattern.ask
-
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }
+import lila.hub.Trouper
 
-final class Tv(actor: ActorRef, roundProxyGame: Game.ID => Fu[Option[Game]]) {
+final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
 
   import Tv._
-
-  implicit private def timeout = makeTimeout(200 millis)
+  import ChannelTrouper._
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    (actor ? TvActor.GetGameId(channel) mapTo manifest[Option[String]]) recover {
-      case e: Exception =>
-        logger.warn("Tv.getGame", e)
-        none
-    } flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[Game.ID]](TvTrouper.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    (actor ? TvActor.GetGameIdAndHistory(channel) mapTo manifest[ChannelActor.GameIdAndHistory]).map(some) recover {
-      case e: Exception =>
-        logger.warn("Tv.getGame", e)
-        none
-    } flatMap {
-      _ ?? {
-        case ChannelActor.GameIdAndHistory(gameId, historyIds) => for {
-          game <- gameId ?? roundProxyGame
-          games <- historyIds.map(roundProxyGame).sequenceFu.map(_.flatten)
-          history = games map Pov.first
-        } yield game map (_ -> history)
-      }
+    trouper.ask[GameIdAndHistory](TvTrouper.GetGameIdAndHistory(channel, _)) flatMap {
+      case GameIdAndHistory(gameId, historyIds) => for {
+        game <- gameId ?? roundProxyGame
+        games <- historyIds.map(roundProxyGame).sequenceFu.map(_.flatten)
+        history = games map Pov.first
+      } yield game map (_ -> history)
     }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
-    (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[Game.ID]]) recover {
-      case e: Exception => Nil
-    } flatMap GameRepo.gamesFromPrimary
+    trouper.ask[List[Game.ID]](TvTrouper.GetGameIds(channel, max, _)) flatMap {
+      _.map(roundProxyGame).sequenceFu.map(_.flatten)
+    }
 
   def getBestGame = getGame(Tv.Channel.Best)
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
   def getChampions: Fu[Champions] =
-    actor ? TvActor.GetChampions mapTo manifest[Champions]
+    trouper.ask[Champions](TvTrouper.GetChampions.apply)
 }
 
 object Tv {
@@ -165,7 +152,7 @@ object Tv {
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant) = (c: Candidate) => c.game.variant == variant
   private val standard = variant(V.Standard)
-  private def fresh(seconds: Int) = (c: Candidate) => {
+  private def fresh(seconds: Int) = (c: Candidate) => true || {
     c.game.isBeingPlayed && !c.game.olderThan(seconds)
   } || {
     c.game.finished && !c.game.olderThan(7)

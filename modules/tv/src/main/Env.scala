@@ -2,6 +2,7 @@ package lila.tv
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.game.Game
@@ -15,7 +16,6 @@ final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     roundProxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
     onSelect: Game => Unit
 ) {
 
@@ -24,18 +24,20 @@ final class Env(
 
   private val selectChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelSelect)
 
-  private val tvActor = system.actorOf(
-    Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser, onSelect))
+  private val tvTrouper = new TvTrouper(
+    system,
+    hub.actor.renderer,
+    hub.socket.round,
+    selectChannel,
+    lightUser,
+    roundProxyGame,
+    onSelect
   )
 
-  lazy val tv = new Tv(tvActor, roundProxyGame)
+  lazy val tv = new Tv(tvTrouper, roundProxyGame)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.message(FeaturedSelect) {
-      tvActor -> TvActor.Select
-    }
+  system.scheduler.schedule(10 seconds, FeaturedSelect) {
+    tvTrouper ! TvTrouper.Select
   }
 }
 
@@ -48,7 +50,6 @@ object Env {
     lightUser = lila.user.Env.current.lightUserSync,
     roundProxyGame = lila.round.Env.current.roundProxyGame _,
     system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
     onSelect = lila.round.Env.current.recentTvGames.put _
   )
 }
