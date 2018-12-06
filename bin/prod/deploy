@@ -104,8 +104,8 @@ if [ $mode = "main" ]; then
 fi
 
 # start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
-START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.92"
-STOP_DROPPING="sleep 8 && $REMOTE_DIR/bin/prod/iptables-drop 0.8 && sleep 6 && $REMOTE_DIR/bin/prod/iptables-drop 0"
+START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.9"
+STOP_DROPPING="sleep 7 && $REMOTE_DIR/bin/prod/iptables-drop 0.75 && sleep 6 && $REMOTE_DIR/bin/prod/iptables-drop 0"
 # STOP_DROPPING="echo \"not resuming traffic\""
 
 if [ $mode = "main" ]; then
