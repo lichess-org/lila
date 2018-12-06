@@ -64,7 +64,10 @@ object Auth extends LilaController {
     )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lila.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess
+    case lila.security.SecurityApi.MustConfirmEmail(_) => fuccess {
+      if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
+      else BadRequest(Account.renderCheckYourEmail)
+    }
   }
 
   def login = Open { implicit ctx =>
