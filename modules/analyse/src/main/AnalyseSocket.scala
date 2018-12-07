@@ -13,11 +13,7 @@ private final class AnalyseSocket(
 
   import AnalyseSocket._
 
-  def receiveSpecific: Trouper.Receive = {
-    case AddMember(uid, member, promise) =>
-      addMember(uid, member)
-      promise.success(())
-  }
+  def receiveSpecific = PartialFunction.empty
 }
 
 private object AnalyseSocket {
@@ -28,6 +24,4 @@ private object AnalyseSocket {
   ) extends SocketMember {
     val troll = false
   }
-
-  case class AddMember(uid: Socket.Uid, member: Member, promise: Promise[Unit])
 }
