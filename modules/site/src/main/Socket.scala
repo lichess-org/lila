@@ -14,6 +14,8 @@ private[site] final class Socket(
     uidTtl: Duration
 ) extends SocketTrouper[Member](uidTtl) {
 
+  system.lidraughtsBus.subscribe(this, 'sendToFlag, 'deploy)
+
   private val flags = new lidraughts.socket.MemberGroup[Member](_.flag)
 
   def receiveSpecific = {

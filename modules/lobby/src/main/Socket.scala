@@ -20,19 +20,9 @@ private[lobby] final class Socket(
     uidTtl: FiniteDuration
 ) extends SocketTrouper[Member](uidTtl) {
 
-  private case object Cleanup
-
-  override def start(): Unit = {
-    super.start()
-    system.lidraughtsBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
-    system.scheduler.scheduleOnce(3 seconds)(this ! SendHookRemovals)
-    system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
-  }
-
-  override def stop(): Unit = {
-    super.stop()
-    system.lidraughtsBus.unsubscribe(this)
-  }
+  system.lidraughtsBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame, 'lobbySocket, 'deploy)
+  system.scheduler.scheduleOnce(3 seconds)(this ! SendHookRemovals)
+  system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
 
   private var idleUids = collection.mutable.Set[String]()
 
@@ -180,4 +170,6 @@ private[lobby] final class Socket(
     lazy val reloadSeeks = makeMessage("reload_seeks")
     lazy val reloadTimeline = makeMessage("reload_timeline")
   }
+
+  private case object Cleanup
 }
