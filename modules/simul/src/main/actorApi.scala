@@ -1,6 +1,8 @@
 package lila.simul
 package actorApi
 
+import scala.concurrent.Promise
+
 import lila.game.Game
 import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.socket.SocketMember
@@ -22,7 +24,12 @@ private[simul] object Member {
 
 private[simul] case class Messadata(trollish: Boolean = false)
 
-private[simul] case class Join(uid: Uid, user: Option[User], version: Option[SocketVersion])
+private[simul] case class JoinP(
+    uid: Uid,
+    user: Option[User],
+    version: Option[SocketVersion],
+    promise: Promise[Connected]
+)
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)
@@ -32,5 +39,7 @@ private[simul] case object Aborted
 private[simul] case class Connected(enumerator: JsEnumerator, member: Member)
 
 private[simul] case object NotifyCrowd
+
+private[simul] case class GetUserIdsP(promise: Promise[Iterable[User.ID]])
 
 case class SimulTable(simuls: List[Simul])

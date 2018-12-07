@@ -6,7 +6,7 @@ import lila.hub.actorApi.HasUserIdP
 import lila.hub.Trouper
 
 abstract class SocketTrouper[M <: SocketMember](
-    uidTtl: Duration
+    val uidTtl: Duration
 ) extends SocketBase[M] with Trouper {
 
   override def stop() = {

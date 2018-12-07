@@ -20,7 +20,7 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketHub: ActorRef,
+    socketMap: SocketMap,
     site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -100,7 +100,7 @@ final class SimulApi(
             UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
                 games.headOption foreach {
-                  case (game, _) => sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
+                  case (game, _) => socketMap.tell(simul.id, actorApi.StartSimul(game, simul.hostId))
                 }
                 games.foldLeft(started) {
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
@@ -119,7 +119,7 @@ final class SimulApi(
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
     user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
-      sendTo(simul.id, actorApi.HostIsOn(game.id))
+      socketMap.tell(simul.id, actorApi.HostIsOn(game.id))
     }
   }
 
@@ -127,7 +127,7 @@ final class SimulApi(
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          (repo remove simul) >>- sendTo(simul.id, actorApi.Aborted) >>- publish()
+          (repo remove simul) >>- socketMap.tell(simul.id, actorApi.Aborted) >>- publish()
         }
       }
     }
@@ -205,7 +205,7 @@ final class SimulApi(
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
-      sendTo(simul.id, actorApi.StartGame(game2, simul.hostId))
+      socketMap.tell(simul.id, actorApi.StartGame(game2, simul.hostId))
   } yield game2 -> hostColor
 
   private def update(simul: Simul) =
@@ -239,11 +239,6 @@ final class SimulApi(
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 
-  private def sendTo(simulId: Simul.ID, msg: Any): Unit = {
-    socketHub ! Tell(simulId, msg)
-  }
-
-  private def socketReload(simulId: Simul.ID): Unit = {
-    sendTo(simulId, actorApi.Reload)
-  }
+  private def socketReload(simulId: Simul.ID): Unit =
+    socketMap.tell(simulId, actorApi.Reload)
 }

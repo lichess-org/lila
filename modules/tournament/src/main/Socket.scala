@@ -8,7 +8,7 @@ import scala.collection.breakOut
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.TimeBomb
+import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketTrouper, History, Historical }
 import lila.chat.Chat
@@ -19,7 +19,7 @@ private[tournament] final class Socket(
     val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    val uidTtl: Duration,
+    uidTtl: Duration,
     keepMeAlive: () => Unit
 ) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
 
@@ -97,7 +97,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = false
       notifyAll("reload")
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Trouper.Receive) orElse lila.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 

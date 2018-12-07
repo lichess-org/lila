@@ -59,7 +59,7 @@ trait Trouper extends lila.common.Tellable {
 
 object Trouper {
 
-  type Receive = PartialFunction[Any, Any]
+  type Receive = PartialFunction[Any, Unit]
 
   private val fallback = { msg: Any =>
     lila.log("Trouper").warn(s"unhandled msg: $msg")
