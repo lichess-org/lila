@@ -44,6 +44,7 @@ final class Env(
     ),
     accessTimeout = SocketTimeout
   )
+  system.lilaBus.subscribeFun('deploy) { case m => socketMap tellAll m }
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](challengeId)(GetVersionP)
