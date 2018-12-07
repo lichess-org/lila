@@ -65,5 +65,6 @@ private[tournament] case class WaitingUsers(
 }
 
 private[tournament] object WaitingUsers {
-  def empty = WaitingUsers(Map.empty, none, DateTime.now)
+
+  val empty = WaitingUsers(Map.empty, none, DateTime.now)
 }

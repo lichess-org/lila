@@ -107,7 +107,7 @@ final class Env(
   )
 
   def version(simulId: String): Fu[SocketVersion] =
-    socketMap.ask[SocketVersion](simulId)(GetVersionP.apply)
+    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersionP.apply)
 
   private[simul] val simulColl = db(CollectionSimul)
 

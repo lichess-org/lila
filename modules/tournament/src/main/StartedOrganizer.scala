@@ -65,5 +65,5 @@ private final class StartedOrganizer(
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    socketMap.ask[WaitingUsers](tour.id)(GetWaitingUsersP.apply)
+    socketMap.askIfPresent[WaitingUsers](tour.id)(GetWaitingUsersP.apply) map (_ | WaitingUsers.empty)
 }

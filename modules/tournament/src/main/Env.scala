@@ -189,12 +189,12 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketMap.ask[SocketVersion](tourId)(GetVersionP.apply)
+    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersionP.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketMap.ask[Boolean](tourId)(lila.hub.actorApi.HasUserIdP(userId, _)) >>|
+    socketMap.askIfPresentOrZero[Boolean](tourId)(lila.hub.actorApi.HasUserIdP(userId, _)) >>|
       PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {
