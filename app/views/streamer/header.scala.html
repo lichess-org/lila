@@ -9,18 +9,18 @@
     <div class="services">
       @s.streamer.twitch.map { twitch =>
       <a class="service twitch@if(s.stream.exists(_.twitch)){ live}" href="@twitch.fullUrl">
-        @StreamerSvg.twitch
+        @bits.svg.twitch
         @twitch.minUrl
       </a>
       }
       @s.streamer.youTube.map { youTube =>
       <a class="service youTube@if(s.stream.exists(_.youTube)){ live}" href="@youTube.fullUrl">
-        @StreamerSvg.youTube
+        @bits.svg.youTube
         @youTube.minUrl
       </a>
       }
       <a class="service lidraughts" href="@routes.User.show(s.user.username)">
-        @StreamerSvg.lidraughts
+        @bits.svg.lidraughts
         lidraughts.org/@@/@s.user.username
       </a>
     </div>

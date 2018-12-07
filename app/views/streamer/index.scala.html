@@ -18,13 +18,13 @@
   <div class="services">
     @s.streamer.twitch.map { twitch =>
     <div class="service twitch">
-      @StreamerSvg.twitch
+      @bits.svg.twitch
       @twitch.minUrl
     </div>
     }
     @s.streamer.youTube.map { youTube =>
     <div class="service youTube">
-      @StreamerSvg.youTube
+      @bits.svg.youTube
       @youTube.minUrl
     </div>
     }

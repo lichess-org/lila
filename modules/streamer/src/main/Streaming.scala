@@ -62,8 +62,8 @@ private final class Streaming(
     import akka.pattern.ask
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
-        case html: play.twirl.api.Html =>
-          context.system.lidraughtsBus.publish(lidraughts.hub.actorApi.StreamsOnAir(html.body), 'streams)
+        case html: String =>
+          context.system.lidraughtsBus.publish(lidraughts.hub.actorApi.StreamsOnAir(html), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
