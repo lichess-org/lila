@@ -17,8 +17,6 @@ final class Env(
   private val socket = new Socket(system, SocketUidTtl)
 
   lazy val socketHandler = new SocketHandler(socket, hub)
-
-  system.lilaBus.subscribeFun('sendToFlag, 'deploy) { case m => socket ! m }
 }
 
 object Env {

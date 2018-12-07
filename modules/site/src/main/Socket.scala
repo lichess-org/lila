@@ -14,6 +14,8 @@ private[site] final class Socket(
     uidTtl: Duration
 ) extends SocketTrouper[Member](uidTtl) {
 
+  system.lilaBus.subscribe(this, 'sendToFlag, 'deploy)
+
   private val flags = new lila.socket.MemberGroup[Member](_.flag)
 
   def receiveSpecific = {

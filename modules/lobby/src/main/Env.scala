@@ -33,8 +33,6 @@ final class Env(
 
   private val socket = new Socket(system, SocketUidTtl)
 
-  system.lilaBus.subscribeFun('lobbySocket, 'deploy) { case m => socket ! m }
-
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
     archiveColl = db(CollectionSeekArchive),

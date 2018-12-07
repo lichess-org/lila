@@ -11,7 +11,7 @@ private final class AnalyseSocket(
     uidTtl: FiniteDuration
 ) extends SocketTrouper[AnalyseSocket.Member](uidTtl) {
 
-  import AnalyseSocket._
+  system.lilaBus.subscribe(this, 'deploy)
 
   def receiveSpecific = PartialFunction.empty
 }
