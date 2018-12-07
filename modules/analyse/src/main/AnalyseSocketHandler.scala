@@ -4,7 +4,7 @@ import lidraughts.socket._
 import lidraughts.user.User
 
 private[analyse] final class AnalyseSocketHandler(
-    socket: akka.actor.ActorRef,
+    socket: lidraughts.hub.Trouper,
     hub: lidraughts.hub.Env,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler
 ) {
@@ -12,7 +12,13 @@ private[analyse] final class AnalyseSocketHandler(
   import AnalyseSocket._
 
   def join(uid: Socket.Uid, user: Option[User], apiVersion: Int): Fu[JsSocketHandler] =
-    Handler.forActor(hub, socket, uid, Join(uid, user.map(_.id))) {
-      case Connected(enum, member) => (evalCacheHandler(uid, member, user), enum, member)
+    socket.ask[Connected](JoinP(uid, user.map(_.id), _)) map {
+      case Connected(enum, member) => Handler.iteratee(
+        hub,
+        evalCacheHandler(uid, member, user),
+        member,
+        socket,
+        uid
+      ) -> enum
     }
 }
