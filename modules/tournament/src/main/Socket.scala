@@ -30,9 +30,11 @@ private[tournament] final class Socket(
 
   private var waitingUsers = WaitingUsers.empty
 
+  private def chatClassifier = Chat classify Chat.Id(tournamentId)
+
   override def start(): Unit = {
     super.start()
-    lilaBus.subscribe(this, Chat classify Chat.Id(tournamentId))
+    lilaBus.subscribe(this, chatClassifier)
     TournamentRepo clockById tournamentId foreach {
       _ foreach { c =>
         this ! SetTournamentClock(c)
@@ -42,7 +44,7 @@ private[tournament] final class Socket(
 
   override def stop(): Unit = {
     super.stop()
-    lilaBus.unsubscribe(this)
+    lilaBus.unsubscribe(this, chatClassifier)
   }
 
   protected def receiveSpecific = ({
