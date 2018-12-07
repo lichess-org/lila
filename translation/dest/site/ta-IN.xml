@@ -64,6 +64,14 @@
   <string name="topGames">சிறந்த ஆட்டங்கள்</string>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
+  <string name="allSet">எல்லாம் அமைக்கப்பட்டது!</string>
+  <string name="importPgn">PGN இறக்குமதி</string>
+  <string name="delete">நீக்கு</string>
+  <string name="deleteThisImportedGame">இந்த இறக்குமதி செய்யப்பட்ட விளையாட்டு நீக்க வேண்டுமா?</string>
+  <string name="enable">இயக்கு</string>
+  <string name="cpus">மைய செயலகம்</string>
+  <string name="memory">நினைவகம்</string>
+  <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistakes">பிழைகள்</string>
   <string name="inaccuracies">கச்சிதப்பிழைகள்</string>
