@@ -11,7 +11,6 @@ import lidraughts.game.{ Game, AnonCookie }
 import lidraughts.hub.actorApi.game.ChangeFeatured
 import lidraughts.hub.actorApi.lobby._
 import lidraughts.hub.actorApi.timeline._
-import lidraughts.hub.Trouper
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Socket.{ Uid, Uids }
 import lidraughts.socket.SocketTrouper
