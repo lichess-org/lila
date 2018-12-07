@@ -33,7 +33,6 @@ final class TournamentApi(
     renderer: ActorSelection,
     timeline: ActorSelection,
     socketMap: SocketMap,
-    site: ActorSelection,
     lobby: ActorSelection,
     roundMap: lidraughts.hub.DuctMap[_],
     trophyApi: lidraughts.user.TrophyApi,
@@ -497,7 +496,10 @@ final class TournamentApi(
     private val debouncer = system.actorOf(Props(new Debouncer(15 seconds, {
       (_: Debouncer.Nothing) =>
         fetchVisibleTournaments flatMap scheduleJsonView.apply foreach { json =>
-          site ! SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json))
+          bus.publish(
+            SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
+            'sendToFlag
+          )
         }
         TournamentRepo.promotable foreach { tours =>
           renderer ? TournamentTable(tours) map {

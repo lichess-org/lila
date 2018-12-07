@@ -10,11 +10,11 @@ import lidraughts.analyse.Accuracy
 import lidraughts.common.Debouncer
 import lidraughts.evaluation.{ Analysed, Assessible, PlayerAssessments }
 import lidraughts.game.{ Game, GameRepo, PerfPicker }
-import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.game.actorApi.SimulNextGame
 import lidraughts.hub.actorApi.lobby.ReloadSimuls
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.round.actorApi.round.{ ArbiterDraw, ArbiterResign }
 import lidraughts.socket.actorApi.SendToFlag
 import lidraughts.user.{ User, UserRepo }
@@ -26,7 +26,6 @@ final class SimulApi(
     onGameStart: Game.ID => Unit,
     socketMap: SocketMap,
     roundMap: lidraughts.hub.DuctMap[_],
-    site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
     userRegister: ActorSelection,
@@ -254,7 +253,7 @@ final class SimulApi(
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
-    clock = simul.clock.chessClockOf(hostColor)
+    clock = simul.clock.draughtsClockOf(hostColor)
     perfPicker = lidraughts.game.PerfPicker.mainOrDefault(draughts.Speed(clock.config), pairing.player.variant, none)
     game1 = Game.make(
       draughts = draughts.DraughtsGame(
@@ -298,7 +297,7 @@ final class SimulApi(
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        site ! siteMessage
+        system.lidraughtsBus.publish(siteMessage, 'sendToFlag)
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
             case view: String => ReloadSimuls(view)
