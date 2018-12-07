@@ -153,8 +153,8 @@ final class Env(
     ),
     accessTimeout = SocketTimeout
   )
-  system.scheduler.schedule(1 minute, 1 minute) {
-    lila.mon.tournament.trouperCount(socketMap.size)
+  system.scheduler.schedule(10 seconds, 10 seconds) {
+    socketMap.monitor("tournament.socketMap")
   }
   system.scheduler.schedule(10 seconds, 3819 millis) {
     socketMap tellAll lila.socket.actorApi.Broom

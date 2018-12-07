@@ -2,6 +2,7 @@ package lila
 
 import scala.concurrent.Future
 
+import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import kamon.Kamon.{ metrics, tracer }
 import kamon.trace.{ TraceContext, Segment, Status }
 import kamon.util.RelativeNanoTimestamp
@@ -72,16 +73,19 @@ object mon {
     def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
     def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
   }
-  class Caffeine(name: String) {
-    val hitCount = rec(s"caffeine.count.hit.$name")
-    val hitRate = rate(s"caffeine.rate.hit.$name")
-    val missCount = rec(s"caffeine.count.miss.$name")
-    val loadSuccessCount = rec(s"caffeine.count.load.success.$name")
-    val loadFailureCount = rec(s"caffeine.count.load.failure.$name")
-    val totalLoadTime = rec(s"caffeine.total.load_time.$name") // in millis
-    val averageLoadPenalty = rec(s"caffeine.penalty.load_time.$name")
-    val evictionCount = rec(s"caffeine.count.eviction.$name")
-    val entryCount = rec(s"caffeine.count.entry.$name")
+  def caffeineStats(cache: CaffeineCache[_, _], name: String) {
+    val stats = cache.stats
+    rec(s"caffeine.count.hit.$name")(stats.hitCount)
+    rate(s"caffeine.rate.hit.$name")(stats.hitRate)
+    rec(s"caffeine.count.miss.$name")(stats.missCount)
+    if (stats.totalLoadTime > 0) {
+      rec(s"caffeine.count.load.success.$name")(stats.loadSuccessCount)
+      rec(s"caffeine.count.load.failure.$name")(stats.loadFailureCount)
+      rec(s"caffeine.total.load_time.$name")(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
+      rec(s"caffeine.penalty.load_time.$name")(stats.averageLoadPenalty.toLong)
+    }
+    rec(s"caffeine.count.eviction.$name")(stats.evictionCount)
+    rec(s"caffeine.count.entry.$name")(cache.estimatedSize)
   }
   object evalCache {
     private val hit = inc("eval_Cache.all.hit")

@@ -109,20 +109,8 @@ object AsyncCache {
 
   private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit = {
     logger.info(s"Caffeine cache $name started")
-    val monitor = new lila.mon.Caffeine(name)
     system.scheduler.schedule(1 minute, 1 minute) {
-      val stats = cache.stats
-      monitor hitCount stats.hitCount
-      monitor hitRate stats.hitRate
-      monitor missCount stats.missCount
-      if (stats.totalLoadTime > 0) {
-        monitor loadSuccessCount stats.loadSuccessCount
-        monitor loadFailureCount stats.loadFailureCount
-        monitor totalLoadTime (stats.totalLoadTime / 1000000) // too much nanos for Kamon to handle
-        monitor averageLoadPenalty stats.averageLoadPenalty.toLong
-      }
-      monitor evictionCount stats.evictionCount
-      monitor entryCount cache.estimatedSize
+      lila.mon.caffeineStats(cache, name)
     }
   }
 

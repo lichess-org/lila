@@ -131,7 +131,7 @@ lazy val evaluation = module("evaluation", Seq(
 // )
 
 lazy val common = module("common", Seq()).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags)
+  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags) ++ Seq(scaffeine)
 )
 
 lazy val rating = module("rating", Seq(common, db)).settings(

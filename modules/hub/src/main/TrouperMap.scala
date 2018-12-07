@@ -4,8 +4,8 @@ import com.github.benmanes.caffeine.cache._
 
 import java.util.concurrent.TimeUnit
 import scala.collection.JavaConverters._
-import scala.concurrent.Promise
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.Promise
 
 final class TrouperMap[T <: Trouper](
     mkTrouper: String => T,
@@ -47,4 +47,6 @@ final class TrouperMap[T <: Trouper](
           t
         }
       })
+
+  def monitor(name: String) = lila.mon.caffeineStats(troupers, "tournament.socketMap")
 }
