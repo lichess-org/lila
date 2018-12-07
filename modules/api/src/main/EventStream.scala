@@ -16,15 +16,26 @@ final class EventStream(
     setOnline: User.ID => Unit
 ) {
 
-  import lidraughts.common.HttpStream._
+  private case object SetOnline
 
   def apply(me: User, gamesInProgress: List[Game], challenges: List[Challenge]): Enumerator[Option[JsObject]] = {
 
     var stream: Option[ActorRef] = None
 
+    val classifiers = List(
+      Symbol(s"userStartGame:${me.id}"),
+      Symbol(s"rematchFor:${me.id}"),
+      'challenge
+    )
+
     val enumerator = Concurrent.unicast[Option[JsObject]](
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
+
+          override def postStop() = {
+            super.postStop()
+            system.lidraughtsBus.unsubscribe(self, classifiers)
+          }
 
           self ! SetOnline
 
@@ -50,15 +61,10 @@ final class EventStream(
             }
           }
         }))
-        system.lidraughtsBus.subscribe(
-          actor,
-          Symbol(s"userStartGame:${me.id}"),
-          Symbol(s"rematchFor:${me.id}"),
-          'challenge
-        )
+        system.lidraughtsBus.subscribe(actor, classifiers: _*)
         stream = actor.some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = stream foreach { _ ! PoisonPill }
     )
 
     lidraughts.common.Iteratee.prepend(

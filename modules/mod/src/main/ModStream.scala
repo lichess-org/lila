@@ -9,18 +9,18 @@ import lidraughts.report.ModId
 
 final class ModStream(system: ActorSystem) {
 
-  import lidraughts.common.HttpStream._
-
   private val stringify =
     Enumeratee.map[JsValue].apply[String] { js =>
       Json.stringify(js) + "\n"
     }
 
+  private val classifier = 'userSignup
+
   def enumerator: Enumerator[String] = {
-    var stream: Option[ActorRef] = None
+    var subscriber: Option[lidraughts.common.Tellable] = None
     Concurrent.unicast[JsValue](
       onStart = channel => {
-        stream = system.lidraughtsBus.subscribeFun('userSignup) {
+        subscriber = system.lidraughtsBus.subscribeFun(classifier) {
           case lidraughts.security.Signup(user, email, req, fp) =>
             channel push Json.obj(
               "t" -> "signup",
@@ -32,7 +32,7 @@ final class ModStream(system: ActorSystem) {
             )
         } some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = subscriber foreach { system.lidraughtsBus.unsubscribe(_, classifier) }
     ) &> stringify
   }
 }
