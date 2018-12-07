@@ -1,9 +1,6 @@
 package lila.analyse
 
 import scala.concurrent.duration.FiniteDuration
-
-import play.api.libs.iteratee._
-import play.api.libs.json.JsValue
 import scala.concurrent.Promise
 
 import lila.hub.Trouper
@@ -17,13 +14,9 @@ private final class AnalyseSocket(
   import AnalyseSocket._
 
   def receiveSpecific: Trouper.Receive = {
-
-    case JoinP(uid, userId, promise) => {
-      val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, userId)
+    case AddMember(uid, member, promise) =>
       addMember(uid, member)
-      promise success Connected(enumerator, member)
-    }
+      promise.success(())
   }
 }
 
@@ -36,6 +29,5 @@ private object AnalyseSocket {
     val troll = false
   }
 
-  case class JoinP(uid: Socket.Uid, userId: Option[lila.user.User.ID], promise: Promise[Connected])
-  case class Connected(enumerator: JsEnumerator, member: Member)
+  case class AddMember(uid: Socket.Uid, member: Member, promise: Promise[Unit])
 }
