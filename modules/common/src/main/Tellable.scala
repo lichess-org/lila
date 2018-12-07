@@ -11,6 +11,10 @@ object Tellable {
     lazy val uniqueId = Integer.toHexString(hashCode)
   }
 
+  def apply(f: PartialFunction[Any, Unit]) = new HashCode {
+    def !(msg: Any) = f lift msg
+  }
+
   case class Actor(ref: akka.actor.ActorRef) extends AnyVal with Tellable {
     def !(msg: Any) = ref ! msg
     def uniqueId = ref.path.name

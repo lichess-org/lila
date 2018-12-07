@@ -26,9 +26,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
   def subscribe(ref: ActorRef, to: Classifier*): Boolean = subscribe(Tellable(ref), to: _*)
 
   def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Tellable = {
-    val t = new lidraughts.common.Tellable.HashCode {
-      def !(msg: Any) = f lift msg
-    }
+    val t = lidraughts.common.Tellable(f)
     subscribe(t, to: _*)
     t
   }
