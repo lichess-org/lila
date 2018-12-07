@@ -19,7 +19,8 @@ private[tournament] final class Socket(
     val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    val uidTtl: Duration
+    val uidTtl: Duration,
+    keepMeAlive: () => Unit
 ) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
 
   private var delayedCrowdNotification = false
@@ -97,6 +98,11 @@ private[tournament] final class Socket(
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
+
+  override protected def broom: Unit = {
+    super.broom
+    if (members.nonEmpty) keepMeAlive()
+  }
 
   private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {

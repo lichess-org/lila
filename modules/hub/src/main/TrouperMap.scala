@@ -12,7 +12,7 @@ final class TrouperMap[T <: Trouper](
     accessTimeout: FiniteDuration
 ) {
 
-  def getOrMake(id: String): T = troupers.get(id)
+  def getOrMake(id: String): T = troupers get id
 
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
@@ -28,17 +28,22 @@ final class TrouperMap[T <: Trouper](
 
   def kill(id: String): Unit = troupers invalidate id
 
+  def touch(id: String): Unit = troupers getIfPresent id
+
   private[this] val troupers: LoadingCache[String, T] =
     Caffeine.newBuilder()
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {
-        def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit =
+        def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit = {
+          // println(id, "remove trouper")
           trouper.stop()
+        }
       })
       .build[String, T](new CacheLoader[String, T] {
         def load(id: String): T = {
           val t = mkTrouper(id)
           t.start()
+          // println(id, "start trouper")
           t
         }
       })

@@ -148,7 +148,8 @@ final class Env(
       history = new History(ttl = HistoryMessageTtl),
       jsonView = jsonView,
       lightUser = lightUserApi.async,
-      uidTtl = UidTimeout
+      uidTtl = UidTimeout,
+      keepMeAlive = () => socketMap touch tournamentId
     ),
     accessTimeout = SocketTimeout
   )
