@@ -45,7 +45,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
     type Classifier = Symbol
     type Subscriber = Tellable
 
-    override protected val mapSize = 16384
+    override protected val mapSize = 65536
 
     protected def compareSubscribers(a: Tellable, b: Tellable) = a.uniqueId compareTo b.uniqueId
 
