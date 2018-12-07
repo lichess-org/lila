@@ -42,7 +42,6 @@ final class Env(
     repo = repo,
     system = system,
     socketMap = socketMap,
-    site = hub.socket.site,
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
     userRegister = hub.actor.userRegister,

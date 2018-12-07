@@ -102,7 +102,6 @@ final class Env(
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
     socketMap = socketMap,
-    site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
     verify = verify,

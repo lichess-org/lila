@@ -12,8 +12,6 @@ abstract class SocketTrouper[M <: SocketMember](
     val uidTtl: Duration
 ) extends SocketBase[M] with Trouper {
 
-  case class AddMember(uid: Socket.Uid, member: M, promise: Promise[Unit])
-
   override def stop() = {
     super.stop()
     members foreachKey ejectUidString

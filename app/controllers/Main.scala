@@ -38,12 +38,12 @@ object Main extends LilaController {
 
   def websocket = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      Env.site.socketHandler(uid, ctx.userId, get("flag")) map some
+      Env.site.socketHandler.human(uid, ctx.userId, get("flag")) map some
     }
   }
 
   def apiWebsocket = WebSocket.tryAccept { req =>
-    Env.site.apiSocketHandler.apply map Right.apply
+    Env.site.socketHandler.api map Right.apply
   }
 
   def captchaCheck(id: String) = Open { implicit ctx =>

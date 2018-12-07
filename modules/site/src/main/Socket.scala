@@ -2,7 +2,6 @@ package lila.site
 
 import scala.concurrent.duration.Duration
 
-import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
 
@@ -10,24 +9,21 @@ import actorApi._
 import lila.socket._
 import lila.socket.actorApi.SendToFlag
 
-private[site] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
+private[site] final class Socket(
+    val system: akka.actor.ActorSystem,
+    uidTtl: Duration
+) extends SocketTrouper[Member](uidTtl) {
 
-  override val startsOnApplicationBoot = true
-
-  type UID = String
-  type Flag = String
-
-  val flags = new lila.socket.MemberGroup[Member](_.flag)
+  private val flags = new lila.socket.MemberGroup[Member](_.flag)
 
   def receiveSpecific = {
 
-    case Join(uid, userId, flag) => {
+    case JoinP(uid, userId, flag, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId, flag)
       addMember(uid, member)
       flags.add(uid, member)
-      sender ! Connected(enumerator, member)
-    }
+      promise success Connected(enumerator, member)
 
     case SendToFlag(flag, msg) =>
       flags get flag foreach {

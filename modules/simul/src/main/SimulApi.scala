@@ -8,10 +8,10 @@ import scala.concurrent.duration._
 import chess.variant.Variant
 import lila.common.Debouncer
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.hub.{ Duct, DuctMap }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -21,7 +21,6 @@ final class SimulApi(
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
     socketMap: SocketMap,
-    site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
     userRegister: ActorSelection,
@@ -229,7 +228,7 @@ final class SimulApi(
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        site ! siteMessage
+        system.lilaBus.publish(siteMessage, 'sendToFlag)
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
             case view: String => ReloadSimuls(view)
