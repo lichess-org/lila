@@ -1,7 +1,6 @@
 package lidraughts.simul
 
 import akka.actor._
-import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
@@ -9,7 +8,6 @@ import lidraughts.hub.actorApi.map.Ask
 import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
 import lidraughts.socket.History
 import lidraughts.socket.Socket.{ GetVersionP, SocketVersion }
-import makeTimeout.short
 
 final class Env(
     config: Config,
@@ -132,7 +130,7 @@ final class Env(
   )
 
   def version(simulId: String): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersionP.apply)
+    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersionP)
 
   private[simul] val simulColl = db(CollectionSimul)
 

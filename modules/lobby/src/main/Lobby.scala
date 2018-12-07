@@ -91,7 +91,7 @@ private[lobby] final class Lobby(
     case Lobby.Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
-      socket.ask[Uids](GetUidsP.apply).chronometer
+      socket.ask[Uids](GetUidsP).chronometer
         .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result
