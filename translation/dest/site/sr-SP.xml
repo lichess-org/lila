@@ -488,28 +488,28 @@
   <string name="keepGoing">Наставите…</string>
   <string name="puzzleFailed">Вежба неуспешна</string>
   <string name="butYouCanKeepTrying">Али можете још покушавати.</string>
-  <string name="success">Успех</string>
+  <string name="success">Успешно</string>
   <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
-  <string name="pleaseVotePuzzle">Помози да се личес побољша гласајући, користећи стрелице горе/доле:</string>
+  <string name="pleaseVotePuzzle">Помози да се Личес побољша гласајући, користећи стрелицу нагоре или надоле:</string>
   <string name="thankYou">Хвала!</string>
-  <string name="ratingX">Рејтинг %s</string>
+  <string name="ratingX">Рејтинг: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Играно %s пут</item>
     <item quantity="few">Играно %s пута</item>
     <item quantity="other">Играно %s пута</item>
   </plurals>
   <string name="fromGameLink">Из партије %s</string>
-  <string name="continueTraining">Настави тренинг</string>
-  <string name="retryThisPuzzle">Покушај поново ову вежбу</string>
+  <string name="continueTraining">Наставите тренинг</string>
+  <string name="retryThisPuzzle">Покушајте поново ову вежбу</string>
   <string name="thisPuzzleIsCorrect">Ова вежба је правилна и занимљива</string>
   <string name="thisPuzzleIsWrong">Ова вежба је неправилна или досадна</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партија се игра</item>
-    <item quantity="few">%s партија се игра</item>
+    <item quantity="few">%s партије се играју</item>
     <item quantity="other">%s партија се игра</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу игру после потеза</string>
-  <string name="autoSwitch">Аутопребацивање</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу партију после потеза</string>
+  <string name="autoSwitch">Аутоматско пребацивање</string>
   <string name="puzzles">Загонетке</string>
   <string name="latestUpdates">Последње поруке</string>
   <string name="tournamentWinners">Победници турнира</string>
@@ -779,7 +779,7 @@
   <string name="viewTheSolution">Погледај решење</string>
   <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Доступно у %s језика!</item>
+    <item quantity="one">Доступно у %s језику!</item>
     <item quantity="few">Доступно у %s језика!</item>
     <item quantity="other">Доступно у %s језика!</item>
   </plurals>
