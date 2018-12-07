@@ -12,8 +12,8 @@
     <item quantity="other">Har løst %s sjakknøtter</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Har spilt %1$s %2$s parti</item>
-    <item quantity="other">Har spilt %1$s %2$s-parti</item>
+    <item quantity="one">Har spilt %1$s %2$s-parti</item>
+    <item quantity="other">Har spilt %1$s %2$s-partier</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Har skrevet %1$s innlegg i %2$s</item>
