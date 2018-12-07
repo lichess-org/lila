@@ -14,6 +14,7 @@ trait ScalatagsAttrs {
   lazy val dataIcon = attr("data-icon")
   lazy val dataHint = attr("data-hint")
   lazy val dataHref = attr("data-href")
+  lazy val dataUrl = attr("data-url")
   lazy val dataCount = attr("data-count")
   lazy val dataEnableTime = attr("data-enable-time")
   lazy val datatime24h = attr("data-time_24h")

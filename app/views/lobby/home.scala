@@ -133,7 +133,7 @@ object home {
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option frag(
-          div(cls := "new_posts undertable")(
+          div(cls := "new_posts undertable", dataUrl := routes.ForumPost.recent)(
             div(cls := "undertable_top")(
               a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more(), " »"),
               span(cls := "title text", dataIcon := "d")(trans.latestForumPosts())

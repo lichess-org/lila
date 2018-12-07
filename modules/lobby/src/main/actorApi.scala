@@ -1,9 +1,11 @@
 package lidraughts.lobby
 package actorApi
 
+import scala.concurrent.Promise
+
 import lidraughts.game.Game
 import lidraughts.socket.SocketMember
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, Uids }
 import lidraughts.user.User
 
 private[lobby] case class Member(
@@ -45,7 +47,7 @@ private[lobby] case class BiteHook(hookId: String, uid: Uid, user: Option[LobbyU
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(uid: Uid, hook: Hook, game: Game, creatorColor: draughts.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: draughts.Color)
-private[lobby] case class Join(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean)
+private[lobby] case class JoinP(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean, promise: Promise[Connected])
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 
@@ -54,7 +56,7 @@ private[lobby] case class SetIdle(uid: Uid, value: Boolean)
 private[lobby] case class HookSub(member: Member, value: Boolean)
 private[lobby] case class AllHooksFor(member: Member, hooks: Vector[Hook])
 
-private[lobby] case object GetUids
+private[lobby] case class GetUidsP(promise: Promise[Uids])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)

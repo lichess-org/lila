@@ -5,12 +5,12 @@ import org.joda.time.DateTime
 
 import lidraughts.hub.actorApi.lobby.NewForumPost
 import lidraughts.hub.actorApi.timeline.propagation._
-import lidraughts.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
+import lidraughts.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimelines }
 import lidraughts.security.{ Granter, Permission }
 import lidraughts.user.UserRepo
 
 private[timeline] final class Push(
-    lobbySocket: ActorSelection,
+    bus: lidraughts.common.Bus,
     renderer: ActorSelection,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
@@ -22,16 +22,14 @@ private[timeline] final class Push(
 
     case Propagate(data, propagations) =>
       data match {
-        case _: ForumPost => lobbySocket ! NewForumPost
+        case _: ForumPost => bus.publish(NewForumPost, 'lobbySocket)
         case _ =>
       }
       propagate(propagations) flatMap { users =>
         unsubApi.filterUnsub(data.channel, users)
       } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
-          (users foreach { u =>
-            lobbySocket ! ReloadTimeline(u)
-          })
+          bus.publish(ReloadTimelines(users), 'lobbySocket)
         lidraughts.mon.timeline.notification(users.size)
       }
   }

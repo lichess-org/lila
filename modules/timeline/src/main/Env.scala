@@ -9,7 +9,6 @@ final class Env(
     hub: lidraughts.hub.Env,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
-    lobbySocket: ActorSelection,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     renderer: ActorSelection,
     system: ActorSystem
@@ -27,7 +26,7 @@ final class Env(
   )
 
   system.actorOf(Props(new Push(
-    lobbySocket = lobbySocket,
+    bus = system.lidraughtsBus,
     renderer = renderer,
     getFriendIds = getFriendIds,
     getFollowerIds = getFollowerIds,
@@ -61,7 +60,6 @@ object Env {
     hub = lidraughts.hub.Env.current,
     getFriendIds = lidraughts.relation.Env.current.api.fetchFriends,
     getFollowerIds = lidraughts.relation.Env.current.api.fetchFollowersFromSecondary,
-    lobbySocket = lidraughts.hub.Env.current.socket.lobby,
     renderer = lidraughts.hub.Env.current.actor.renderer,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system
