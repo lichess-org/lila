@@ -151,10 +151,10 @@ final class Env(
     ),
     accessTimeout = SocketTimeout
   )
-  system.scheduler.schedule(10 seconds, 10 seconds) {
+  system.scheduler.schedule(30 seconds, 30 seconds) {
     socketMap.monitor("tournament.socketMap")
   }
-  system.scheduler.schedule(10 seconds, 3819 millis) {
+  system.scheduler.schedule(10 seconds, 3701 millis) {
     socketMap tellAll lila.socket.actorApi.Broom
   }
 

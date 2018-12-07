@@ -45,6 +45,12 @@ final class Env(
     accessTimeout = SocketTimeout
   )
   system.lilaBus.subscribeFun('deploy) { case m => socketMap tellAll m }
+  system.scheduler.schedule(30 seconds, 30 seconds) {
+    socketMap.monitor("challenge.socketMap")
+  }
+  system.scheduler.schedule(10 seconds, 3677 millis) {
+    socketMap tellAll lila.socket.actorApi.Broom
+  }
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](challengeId)(GetVersionP)

@@ -56,6 +56,12 @@ final class Env(
     ),
     accessTimeout = SocketTimeout
   )
+  system.scheduler.schedule(30 seconds, 30 seconds) {
+    socketMap.monitor("study.socketMap")
+  }
+  system.scheduler.schedule(10 seconds, 3697 millis) {
+    socketMap tellAll lila.socket.actorApi.Broom
+  }
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersionP)
