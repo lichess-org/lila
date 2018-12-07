@@ -518,7 +518,7 @@
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="help">Помоћ</string>
-  <string name="createANewTopic">Направи нову тему</string>
+  <string name="createANewTopic">Направиte нову тему</string>
   <string name="topics">Теме</string>
   <string name="posts">Уписи</string>
   <string name="lastPost">Последњи упис</string>
@@ -528,7 +528,7 @@
   <string name="reply">Одговор</string>
   <string name="message">Порука</string>
   <string name="createTheTopic">Направи тему</string>
-  <string name="reportAUser">Пријави корисника</string>
+  <string name="reportAUser">Пријавиte корисника</string>
   <string name="user">Корисник</string>
   <string name="reason">Разлог</string>
   <string name="whatIsIheMatter">Шта је у питању?</string>
