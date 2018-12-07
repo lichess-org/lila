@@ -11,6 +11,9 @@ object Title {
   implicit val titleBsonHandler = lila.db.dsl.stringIsoHandler(Title.titleIso)
   implicit val titleJsonWrites = lila.common.PimpedJson.stringIsoWriter(Title.titleIso)
 
+  val LM = Title("LM")
+  val BOT = Title("BOT")
+
   // important: names are as stated on FIDE profile pages
   val all = Seq(
     Title("GM") -> "Grandmaster",
@@ -23,11 +26,9 @@ object Title {
     Title("CM") -> "Candidate Master",
     Title("WCM") -> "Woman Candidate Master",
     Title("WNM") -> "Woman National Master",
-    Title("LM") -> "Lichess Master",
-    Title("BOT") -> "Chess Robot"
+    LM -> "Lichess Master",
+    BOT -> "Chess Robot"
   )
-
-  val bot = Title("BOT")
 
   val names = all.toMap
   lazy val fromNames = all.map(_.swap).toMap
