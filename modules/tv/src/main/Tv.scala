@@ -152,7 +152,7 @@ object Tv {
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant) = (c: Candidate) => c.game.variant == variant
   private val standard = variant(V.Standard)
-  private def fresh(seconds: Int) = (c: Candidate) => true || {
+  private def fresh(seconds: Int) = (c: Candidate) => {
     c.game.isBeingPlayed && !c.game.olderThan(seconds)
   } || {
     c.game.finished && !c.game.olderThan(7)
