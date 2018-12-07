@@ -33,6 +33,8 @@ final class Env(
 
   private val socket = new AnalyseSocket(system, SocketUidTtl)
 
+  system.lilaBus.subscribeFun('deploy) { case m => socket ! m }
+
   lazy val socketHandler = new AnalyseSocketHandler(socket, hub, evalCacheHandler)
 }
 

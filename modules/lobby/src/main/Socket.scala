@@ -11,7 +11,6 @@ import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Uid, Uids }
 import lila.socket.SocketTrouper
