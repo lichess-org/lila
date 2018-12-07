@@ -38,13 +38,15 @@ private final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Chat classify Chat.Id(studyId.value))
+    lilaBus.subscribe(self, chatClassifier)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lilaBus.unsubscribe(self, chatClassifier)
   }
+
+  private def chatClassifier = Chat classify Chat.Id(studyId.value)
 
   def sendStudyDoor(enters: Boolean)(userId: User.ID) =
     lightStudyCache.get(studyId) foreach {

@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import chess.format.FEN
 
+import lila.chat.Chat
 import lila.chat.UserLine
 import lila.game.actorApi.{ FinishGame, AbortedBy, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
@@ -14,7 +15,6 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.BotConnected
 import lila.user.User
-import lila.chat.Chat
 
 final class GameStateStream(
     system: ActorSystem,
@@ -36,15 +36,16 @@ final class GameStateStream(
 
           var gameOver = false
 
+          private val classifiers = List(
+            MoveGameEvent makeSymbol id,
+            'finishGame, 'abortGame,
+            Chat classify Chat.Id(id),
+            Chat classify Chat.Id(s"$id/w")
+          )
+
           override def preStart(): Unit = {
             super.preStart()
-            system.lilaBus.subscribe(
-              self,
-              MoveGameEvent makeSymbol id,
-              'finishGame, 'abortGame,
-              Chat classify Chat.Id(id),
-              Chat classify Chat.Id(s"$id/w")
-            )
+            system.lilaBus.subscribe(self, classifiers: _*)
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream
               channel push json.some
@@ -56,7 +57,7 @@ final class GameStateStream(
 
           override def postStop(): Unit = {
             super.postStop()
-            system.lilaBus.unsubscribe(self)
+            classifiers foreach { system.lilaBus.unsubscribe(self, _) }
             // hang around if game is over
             // so the opponent has a chance to rematch
             context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {

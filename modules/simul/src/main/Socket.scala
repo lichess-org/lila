@@ -23,13 +23,15 @@ private[simul] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Chat classify Chat.Id(simulId))
+    lilaBus.subscribe(self, chatClassifier)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lilaBus.unsubscribe(self, chatClassifier)
   }
+
+  private def chatClassifier = Chat classify Chat.Id(simulId)
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
