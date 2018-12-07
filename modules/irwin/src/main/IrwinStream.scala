@@ -9,24 +9,24 @@ import lila.report.SuspectId
 
 final class IrwinStream(system: ActorSystem) {
 
-  import lila.common.HttpStream._
-
   private val stringify =
     Enumeratee.map[JsValue].apply[String] { js =>
       Json.stringify(js) + "\n"
     }
 
+  private val classifier = 'irwin
+
   def enumerator: Enumerator[String] = {
-    var stream: Option[ActorRef] = None
+    var subscriber: Option[lila.common.Tellable] = None
     Concurrent.unicast[JsValue](
       onStart = channel => {
-        stream = system.lilaBus.subscribeFun('irwin) {
+        subscriber = system.lilaBus.subscribeFun(classifier) {
           case req: IrwinRequest =>
             lila.mon.mod.irwin.streamEventType("request")()
             channel.push(requestJson(req))
         } some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = subscriber foreach { system.lilaBus.unsubscribe(_, classifier) }
     ) &> stringify
   }
 

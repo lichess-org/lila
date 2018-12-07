@@ -22,7 +22,7 @@ final class GameStateStream(
     roundSocketHub: ActorSelection
 ) {
 
-  import lila.common.HttpStream._
+  private case object SetOnline
 
   def apply(me: User, init: Game.WithInitialFen, as: chess.Color): Enumerator[Option[JsObject]] = {
 
@@ -57,7 +57,7 @@ final class GameStateStream(
 
           override def postStop(): Unit = {
             super.postStop()
-            classifiers foreach { system.lilaBus.unsubscribe(self, _) }
+            system.lilaBus.unsubscribe(self, classifiers)
             // hang around if game is over
             // so the opponent has a chance to rematch
             context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
@@ -92,7 +92,7 @@ final class GameStateStream(
         }))
         stream = actor.some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = stream foreach { _ ! PoisonPill }
     )
   }
 }

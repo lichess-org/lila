@@ -25,14 +25,21 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
   }
   def subscribe(ref: ActorRef, to: Classifier*): Boolean = subscribe(Tellable(ref), to: _*)
 
-  def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): ActorRef = {
-    val actor = system.actorOf(Props(new Actor { val receive = f }))
-    subscribe(Tellable(actor), to: _*)
-    actor
+  def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Tellable = {
+    val t = new lila.common.Tellable.HashCode {
+      def !(msg: Any) = f lift msg
+    }
+    subscribe(t, to: _*)
+    t
   }
 
   def unsubscribe(subscriber: Tellable, from: Classifier): Boolean = bus.unsubscribe(subscriber, from)
   def unsubscribe(ref: ActorRef, from: Classifier): Boolean = unsubscribe(Tellable(ref), from)
+
+  def unsubscribe(subscriber: Tellable, from: Seq[Classifier]): Boolean =
+    from forall { unsubscribe(subscriber, _) }
+  def unsubscribe(ref: ActorRef, from: Seq[Classifier]): Boolean =
+    unsubscribe(Tellable(ref), from)
 
   def unsubscribe(subscriber: Tellable): Unit = bus unsubscribe subscriber
   def unsubscribe(ref: ActorRef): Unit = unsubscribe(Tellable(ref))

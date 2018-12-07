@@ -7,6 +7,10 @@ trait Tellable extends Any {
 
 object Tellable {
 
+  trait HashCode extends Tellable {
+    lazy val uniqueId = Integer.toHexString(hashCode)
+  }
+
   case class Actor(ref: akka.actor.ActorRef) extends AnyVal with Tellable {
     def !(msg: Any) = ref ! msg
     def uniqueId = ref.path.name
