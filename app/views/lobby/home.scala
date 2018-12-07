@@ -45,7 +45,7 @@ object home {
       }
     )),
     side = Some(frag(
-      ctx.noKid option div(id := "streams_on_air")(views.html.streamer liveStreams streams),
+      ctx.noKid option div(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
       events map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
