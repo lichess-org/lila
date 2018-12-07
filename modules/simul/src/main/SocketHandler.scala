@@ -5,6 +5,7 @@ import akka.pattern.ask
 
 import actorApi._
 import lidraughts.hub.actorApi.map._
+import lidraughts.hub.Trouper
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
 import lidraughts.socket.Socket.{ Uid, SocketVersion }
@@ -14,41 +15,43 @@ import makeTimeout.short
 
 private[simul] final class SocketHandler(
     hub: lidraughts.hub.Env,
-    socketHub: ActorRef,
+    socketMap: SocketMap,
     chat: ActorSelection,
     exists: Simul.ID => Fu[Boolean]
 ) {
 
   def join(
-    simId: String,
+    simulId: String,
     uid: Uid,
     user: Option[User],
     version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
-    exists(simId) flatMap {
+    exists(simulId) flatMap {
       _ ?? {
-        for {
-          socket ← socketHub ? Get(simId) mapTo manifest[ActorRef]
-          join = Join(uid = uid, user = user, version = version)
-          handler ← Handler.forActor(hub, socket, uid, join) {
-            case Connected(enum, member) =>
-              (controller(socket, simId, uid, member), enum, member)
-          }
-        } yield handler.some
+        val socket = socketMap getOrMake simulId
+        socket.ask[Connected](JoinP(uid, user, version, _)) map {
+          case Connected(enum, member) => Handler.iteratee(
+            hub,
+            controller(socket, simulId, uid, member),
+            member,
+            socket,
+            uid
+          ) -> enum
+        } map some
       }
     }
 
   private def controller(
-    socket: ActorRef,
-    simId: String,
+    socket: Trouper,
+    simulId: String,
     uid: Uid,
     member: Member
   ): Handler.Controller = ({
     case ("p", o) => socket ! Ping(uid, o)
   }: Handler.Controller) orElse lidraughts.chat.Socket.in(
-    chatId = Chat.Id(simId),
+    chatId = Chat.Id(simulId),
     member = member,
     chat = chat,
-    publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Simul(simId).some
+    publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Simul(simulId).some
   )
 }

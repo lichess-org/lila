@@ -6,9 +6,9 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lidraughts.hub.actorApi.map.Ask
-import lidraughts.hub.{ Duct, DuctMap }
+import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
 import lidraughts.socket.History
-import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
+import lidraughts.socket.Socket.{ GetVersionP, SocketVersion }
 import makeTimeout.short
 
 final class Env(
@@ -34,7 +34,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
     val ActorName = config getString "actor.name"
   }
   import settings._
@@ -46,7 +45,7 @@ final class Env(
   lazy val api = new SimulApi(
     repo = repo,
     system = system,
-    socketHub = socketHub,
+    socketMap = socketMap,
     roundMap = roundMap,
     site = hub.socket.site,
     renderer = hub.actor.renderer,
@@ -66,23 +65,23 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser, isOnline)
 
-  private val socketHub = system.actorOf(
-    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
-      def mkActor(simulId: String) = new Socket(
-        simulId = simulId,
-        history = new History(ttl = HistoryMessageTtl),
-        getSimul = repo.find,
-        jsonView = jsonView,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightUser = lightUser
-      )
-    }), name = SocketName
+  private val socketMap: SocketMap = new TrouperMap[Socket](
+    mkTrouper = (simulId: String) => new Socket(
+      system = system,
+      simulId = simulId,
+      history = new History(ttl = HistoryMessageTtl),
+      getSimul = repo.find,
+      jsonView = jsonView,
+      uidTtl = UidTimeout,
+      lightUser = lightUser,
+      keepMeAlive = () => socketMap touch simulId
+    ),
+    accessTimeout = SocketTimeout
   )
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
+    socketMap = socketMap,
     chat = hub.actor.chat,
     exists = repo.exists
   )
@@ -104,8 +103,9 @@ final class Env(
         }
       case lidraughts.hub.actorApi.draughtsnet.CommentaryEvent(gameId, simulId, json) if simulId.isDefined =>
         api.processCommentary(simulId.get, gameId, json)
+      case m: lidraughts.hub.actorApi.Deploy => socketMap tellAll m
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul, 'draughtsnetComment)
+  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul, 'draughtsnetComment, 'deploy)
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
@@ -134,7 +134,7 @@ final class Env(
   )
 
   def version(simulId: String): Fu[SocketVersion] =
-    socketHub ? Ask(simulId, GetVersion) mapTo manifest[SocketVersion]
+    socketMap.ask[SocketVersion](simulId)(GetVersionP.apply)
 
   private[simul] val simulColl = db(CollectionSimul)
 
@@ -143,7 +143,7 @@ final class Env(
     accessTimeout = SequencerTimeout
   )
 
-  private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
+  private lazy val simulCleaner = new SimulCleaner(repo, api, socketMap)
 
   scheduler.effect(15 seconds, "[simul] cleaner")(simulCleaner.apply)
 }

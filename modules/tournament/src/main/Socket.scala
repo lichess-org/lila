@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lidraughts.chat.Chat
-import lidraughts.hub.TimeBomb
+import lidraughts.hub.Trouper
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketTrouper, History, Historical }
 
@@ -19,7 +19,7 @@ private[tournament] final class Socket(
     val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lidraughts.common.LightUser.Getter,
-    val uidTtl: Duration,
+    uidTtl: Duration,
     keepMeAlive: () => Unit
 ) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
 
@@ -97,7 +97,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = false
       notifyAll("reload")
 
-  }: Actor.Receive) orElse lidraughts.chat.Socket.out(
+  }: Trouper.Receive) orElse lidraughts.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 

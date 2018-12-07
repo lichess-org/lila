@@ -24,7 +24,7 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketHub: ActorRef,
+    socketMap: SocketMap,
     roundMap: lidraughts.hub.DuctMap[_],
     site: ActorSelection,
     renderer: ActorSelection,
@@ -144,7 +144,7 @@ final class SimulApi(
                 case (p, i) => makeGame(started, host)(p, i)
               }.sequenceFu map { games =>
                 games.headOption foreach {
-                  case (game, _) => sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
+                  case (game, _) => socketMap.tell(simul.id, actorApi.StartSimul(game, simul.hostId))
                 }
                 games.foldLeft(started) {
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
@@ -163,7 +163,7 @@ final class SimulApi(
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
     user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
-      sendTo(simul.id, actorApi.HostIsOn(game.id))
+      socketMap.tell(simul.id, actorApi.HostIsOn(game.id))
       bus.publish(
         SimulNextGame(simul.hostId, game),
         Symbol(s"simulNextGame:${simul.hostId}")
@@ -175,7 +175,7 @@ final class SimulApi(
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          (repo remove simul) >>- sendTo(simul.id, actorApi.Aborted) >>- publish()
+          (repo remove simul) >>- socketMap.tell(simul.id, actorApi.Aborted) >>- publish()
         }
       }
     }
@@ -274,7 +274,7 @@ final class SimulApi(
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
-      sendTo(simul.id, actorApi.StartGame(game2, simul.hostId))
+      socketMap.tell(simul.id, actorApi.StartGame(game2, simul.hostId))
   } yield game2 -> hostColor
 
   private def update(simul: Simul) =
@@ -308,16 +308,11 @@ final class SimulApi(
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 
-  private def sendTo(simulId: Simul.ID, msg: Any): Unit = {
-    socketHub ! Tell(simulId, msg)
-  }
-
-  private def socketReload(simulId: Simul.ID): Unit = {
-    sendTo(simulId, actorApi.Reload)
-  }
+  private def socketReload(simulId: Simul.ID): Unit =
+    socketMap.tell(simulId, actorApi.Reload)
 
   def processCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
-    sendTo(simulId, actorApi.ReloadEval(gameId, json))
+    socketMap.tell(simulId, actorApi.ReloadEval(gameId, json))
     assessmentsCache.refresh(gameId)
   }
 

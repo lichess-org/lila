@@ -59,7 +59,7 @@ trait Trouper extends lidraughts.common.Tellable {
 
 object Trouper {
 
-  type Receive = PartialFunction[Any, Any]
+  type Receive = PartialFunction[Any, Unit]
 
   private val fallback = { msg: Any =>
     lidraughts.log("Trouper").warn(s"unhandled msg: $msg")
