@@ -87,35 +87,45 @@ private[round] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    buscriptions.all
+    buscriptions.subAll
     GameRepo game gameId map SetGame.apply pipeTo self
   }
 
   override def postStop(): Unit = {
+    buscriptions.unsubAll
     super.postStop()
-    lilaBus.unsubscribe(self)
   }
 
   private object buscriptions {
 
-    def all = {
+    private var classifiers = collection.mutable.Set.empty[Symbol]
+
+    private def sub(classifier: Symbol) = {
+      lilaBus.subscribe(self, classifier)
+      classifiers += classifier
+    }
+
+    def unsubAll = {
+      classifiers foreach { lilaBus.unsubscribe(self, _) }
+      classifiers.clear
+    }
+
+    def subAll = {
       tv
       chat
       tournament
     }
 
     def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
-      lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
+      sub(Symbol(s"userStartGame:$userId"))
     }
 
-    def chat = lilaBus.subscribe(
-      self,
-      lila.chat.Chat classify chatIds.priv,
-      lila.chat.Chat classify chatIds.pub
-    )
+    def chat = chatIds.all foreach { chatId =>
+      sub(lila.chat.Chat classify chatId)
+    }
 
     def tournament = tournamentId foreach { id =>
-      lilaBus.subscribe(self, Symbol(s"tour-standing-$id"))
+      sub(Symbol(s"tour-standing-$id"))
     }
   }
 
@@ -334,6 +344,7 @@ private[round] final class Socket(
 object Socket {
 
   case class ChatIds(priv: Chat.Id, pub: Chat.Id) {
+    def all = Seq(priv, pub)
     def update(g: Game) =
       g.tournamentId.map { id => copy(priv = Chat.Id(id)) } orElse
         g.simulId.map { id => copy(priv = Chat.Id(id)) } getOrElse
