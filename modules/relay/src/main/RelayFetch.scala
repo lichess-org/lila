@@ -98,7 +98,7 @@ private final class RelayFetch(
     if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) fuccess(60)
     else r.sync.delay match {
       case Some(delay) => fuccess(delay)
-      case None => api.getNbViewers(r) map { nb =>
+      case None => api getNbViewers r map { nb =>
         (18 - nb) atLeast 7
       }
     }

@@ -15,6 +15,7 @@ import lidraughts.user.User
 final class RelayApi(
     repo: RelayRepo,
     studyApi: StudyApi,
+    socketMap: lidraughts.study.SocketMap,
     withStudy: RelayWithStudy,
     jsonView: JsonView,
     clearFormatCache: Url => Unit,
@@ -139,12 +140,6 @@ final class RelayApi(
       }
     }
 
-  private[relay] def getNbViewers(relay: Relay): Fu[Int] = {
-    import makeTimeout.short
-    import akka.pattern.ask
-    import lidraughts.study.Socket.{ GetNbMembers, NbMembers }
-    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) nevermind
-  }
-
-  private def studySocketActor(id: Relay.Id) = system actorSelection s"/user/study-socket/${id.value}"
+  private[relay] def getNbViewers(relay: Relay): Fu[Int] =
+    socketMap.askIfPresentOrZero[Int](relay.id.value)(lidraughts.socket.SocketTrouper.GetNbMembers)
 }

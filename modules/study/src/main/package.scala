@@ -1,8 +1,11 @@
 package lidraughts
 
 import lidraughts.socket.WithSocket
+import lidraughts.hub.TrouperMap
 
 package object study extends PackageObject with WithSocket {
+
+  type SocketMap = TrouperMap[StudySocket]
 
   private[study] val logger = lidraughts.log("study")
 

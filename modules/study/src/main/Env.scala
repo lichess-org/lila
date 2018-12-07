@@ -5,10 +5,10 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lidraughts.hub.actorApi.HasUserId
+import lidraughts.hub.actorApi.HasUserIdP
 import lidraughts.hub.actorApi.map.Ask
-import lidraughts.hub.{ Duct, DuctMap }
-import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
+import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
+import lidraughts.socket.Socket.{ GetVersionP, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -35,7 +35,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
     val ActorName = config getString "actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
@@ -44,31 +43,31 @@ final class Env(
   }
   import settings._
 
-  private val socketHub = system.actorOf(
-    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
-      def mkActor(studyId: String) = new Socket(
-        studyId = Study.Id(studyId),
-        jsonView = jsonView,
-        studyRepo = studyRepo,
-        chapterRepo = chapterRepo,
-        lightUserApi = lightUserApi,
-        history = new lidraughts.socket.History(ttl = HistoryMessageTtl),
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightStudyCache = lightStudyCache
-      )
-    }), name = SocketName
+  val socketMap: SocketMap = new TrouperMap[StudySocket](
+    mkTrouper = (studyId: String) => new StudySocket(
+      system = system,
+      studyId = Study.Id(studyId),
+      jsonView = jsonView,
+      studyRepo = studyRepo,
+      chapterRepo = chapterRepo,
+      lightUserApi = lightUserApi,
+      history = new lidraughts.socket.History(ttl = HistoryMessageTtl),
+      uidTtl = UidTimeout,
+      lightStudyCache = lightStudyCache,
+      keepMeAlive = () => socketMap touch studyId
+    ),
+    accessTimeout = SocketTimeout
   )
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
-    socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[SocketVersion]
+    socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersionP.apply)
 
   def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
-    socketHub ? Ask(studyId.value, HasUserId(userId)) mapTo manifest[Boolean]
+    socketMap.askIfPresentOrZero[Boolean](studyId.value)(HasUserIdP(userId, _))
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
+    socketMap = socketMap,
     chat = hub.actor.chat,
     api = api,
     evalCacheHandler = evalCacheHandler
@@ -128,7 +127,7 @@ final class Env(
     sequencer = sequencer,
     api = api,
     chapterRepo = chapterRepo,
-    socketHub = socketHub,
+    socketMap = socketMap,
     divider = divider
   )
 
@@ -153,7 +152,7 @@ final class Env(
     chat = hub.actor.chat,
     bus = system.lidraughtsBus,
     timeline = hub.actor.timeline,
-    socketHub = socketHub,
+    socketMap = socketMap,
     serverEvalRequester = serverEvalRequester,
     lightStudyCache = lightStudyCache
   )
@@ -189,8 +188,9 @@ final class Env(
     }
   }
 
-  system.lidraughtsBus.subscribeFun('gdprErase) {
+  system.lidraughtsBus.subscribeFun('gdprErase, 'deploy) {
     case lidraughts.user.User.GDPRErase(user) => api erase user
+    case m: lidraughts.hub.actorApi.Deploy => socketMap tellAll m
   }
 }
 
