@@ -9,6 +9,7 @@ import actorApi._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import lila.chat.Chat
 
 private[simul] final class Socket(
     simulId: String,
@@ -22,7 +23,7 @@ private[simul] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat:$simulId"))
+    lilaBus.subscribe(self, Chat classify Chat.Id(simulId))
   }
 
   override def postStop(): Unit = {

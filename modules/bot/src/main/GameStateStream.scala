@@ -14,6 +14,7 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.BotConnected
 import lila.user.User
+import lila.chat.Chat
 
 final class GameStateStream(
     system: ActorSystem,
@@ -40,7 +41,9 @@ final class GameStateStream(
             system.lilaBus.subscribe(
               self,
               MoveGameEvent makeSymbol id,
-              'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
+              'finishGame, 'abortGame,
+              Chat classify Chat.Id(id),
+              Chat classify Chat.Id(s"$id/w")
             )
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream

@@ -11,6 +11,7 @@ import actorApi._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketTrouper, History, Historical }
+import lila.chat.Chat
 
 private[tournament] final class Socket(
     val system: ActorSystem,
@@ -30,7 +31,7 @@ private[tournament] final class Socket(
 
   override def start(): Unit = {
     super.start()
-    lilaBus.subscribe(this, Symbol(s"chat:$tournamentId"))
+    lilaBus.subscribe(this, Chat classify Chat.Id(tournamentId))
     TournamentRepo clockById tournamentId foreach {
       _ foreach { c =>
         this ! SetTournamentClock(c)
