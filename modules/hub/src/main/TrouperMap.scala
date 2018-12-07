@@ -48,5 +48,5 @@ final class TrouperMap[T <: Trouper](
         }
       })
 
-  def monitor(name: String) = lila.mon.caffeineStats(troupers, "tournament.socketMap")
+  def monitor(name: String) = lila.mon.caffeineStats(troupers, name)
 }
