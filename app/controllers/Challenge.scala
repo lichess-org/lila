@@ -169,7 +169,7 @@ object Challenge extends LilaController {
     env.api byId id flatMap {
       _ ?? { c =>
         getSocketUid("sri") ?? { uid =>
-          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion)
+          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion) map some
         }
       }
     }

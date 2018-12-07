@@ -81,7 +81,7 @@ object bits {
         div(cls := "undertable_inner")(
           posts map { post =>
             a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
-              img(src := post.image, width := "60", height := "60"),
+              img(src := post.image),
               span(cls := "text")(
                 span(cls := "title")(post.title),
                 p(cls := "shortlede")(post.shortlede)

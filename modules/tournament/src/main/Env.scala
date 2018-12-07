@@ -187,7 +187,7 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersionP.apply)
+    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersionP)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)

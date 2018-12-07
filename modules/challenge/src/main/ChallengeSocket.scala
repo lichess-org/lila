@@ -4,25 +4,25 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration.Duration
+import scala.concurrent.Promise
 
-import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
+import lila.socket.SocketTrouper
+import lila.socket.Socket.{ Uid, GetVersionP, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical }
 
-private final class Socket(
+private final class ChallengeSocket(
+    val system: ActorSystem,
     challengeId: String,
     val history: History[Unit],
     getChallenge: Challenge.ID => Fu[Option[Challenge]],
-    uidTimeout: Duration,
-    socketTimeout: Duration
-) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
-
-  private val timeBomb = new TimeBomb(socketTimeout)
+    uidTtl: Duration,
+    keepMeAlive: () => Unit
+) extends SocketTrouper[ChallengeSocket.Member](uidTtl) with Historical[ChallengeSocket.Member, Unit] {
 
   def receiveSpecific = {
 
-    case Socket.Reload =>
+    case ChallengeSocket.Reload =>
       getChallenge(challengeId) foreach {
         _ foreach { challenge =>
           notifyVersion("reload", JsNull, ())
@@ -31,21 +31,15 @@ private final class Socket(
 
     case Ping(uid, vOpt, lagCentis) =>
       ping(uid, lagCentis)
-      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case Broom => {
-      broom
-      if (timeBomb.boom) self ! PoisonPill
-    }
+    case GetVersionP(promise) => promise success history.version
 
-    case GetVersion => sender ! history.version
-
-    case Socket.Join(uid, userId, owner, version) =>
+    case ChallengeSocket.JoinP(uid, userId, owner, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, owner)
+      val member = ChallengeSocket.Member(channel, userId, owner)
       addMember(uid, member)
-      sender ! Socket.Connected(
+      promise success ChallengeSocket.Connected(
         prependEventsSince(version, enumerator, member),
         member
       )
@@ -53,10 +47,15 @@ private final class Socket(
     case Quit(uid) => quit(uid)
   }
 
-  protected def shouldSkipMessageFor(message: Message, member: Socket.Member) = false
+  override protected def broom: Unit = {
+    super.broom
+    if (members.nonEmpty) keepMeAlive()
+  }
+
+  protected def shouldSkipMessageFor(message: Message, member: ChallengeSocket.Member) = false
 }
 
-private object Socket {
+private object ChallengeSocket {
 
   case class Member(
       channel: JsChannel,
@@ -66,7 +65,7 @@ private object Socket {
     val troll = false
   }
 
-  case class Join(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion])
+  case class JoinP(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload

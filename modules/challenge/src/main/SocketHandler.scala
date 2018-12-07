@@ -12,9 +12,11 @@ import makeTimeout.short
 
 private[challenge] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: ActorRef,
+    socketMap: SocketMap,
     pingChallenge: Challenge.ID => Funit
 ) {
+
+  import ChallengeSocket._
 
   def join(
     challengeId: Challenge.ID,
@@ -22,20 +24,24 @@ private[challenge] final class SocketHandler(
     userId: Option[User.ID],
     owner: Boolean,
     version: Option[SocketVersion]
-  ): Fu[Option[JsSocketHandler]] = for {
-    socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
-    join = Socket.Join(uid, userId, owner, version)
-    handler ← Handler.forActor(hub, socket, uid, join) {
-      case Socket.Connected(enum, member) =>
-        (controller(socket, challengeId, uid, member), enum, member)
+  ): Fu[JsSocketHandler] = {
+    val socket = socketMap getOrMake challengeId
+    socket.ask[Connected](JoinP(uid, userId, owner, version, _)) map {
+      case Connected(enum, member) => Handler.iteratee(
+        hub,
+        controller(socket, challengeId, uid, member),
+        member,
+        socket,
+        uid
+      ) -> enum
     }
-  } yield handler.some
+  }
 
   private def controller(
-    socket: ActorRef,
+    socket: ChallengeSocket,
     challengeId: Challenge.ID,
     uid: Uid,
-    member: Socket.Member
+    member: Member
   ): Handler.Controller = {
     case ("p", o) => socket ! Ping(uid, o)
     case ("ping", _) if member.owner => pingChallenge(challengeId)
