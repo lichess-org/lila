@@ -12,6 +12,8 @@ abstract class SocketTrouper[M <: SocketMember](
     val uidTtl: Duration
 ) extends SocketBase[M] with Trouper {
 
+  import SocketTrouper._
+
   case class AddMember(uid: Socket.Uid, member: M, promise: Promise[Unit])
 
   override def stop() = {
@@ -26,6 +28,8 @@ abstract class SocketTrouper[M <: SocketMember](
     case AddMember(uid, member, promise) =>
       addMember(uid, member)
       promise.success(())
+
+    case GetNbMembers(promise) => promise success members.size
   }
 
   val process = receiveSpecific orElse receiveTrouper orElse receiveGeneric
@@ -35,4 +39,8 @@ abstract class SocketTrouper[M <: SocketMember](
     val member = make(channel)
     ask[Unit](AddMember(uid, member, _)) inject (member -> enumerator)
   }
+}
+
+object SocketTrouper {
+  case class GetNbMembers(promise: Promise[Int])
 }

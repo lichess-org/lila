@@ -3,7 +3,7 @@ package lila.study
 import akka.actor._
 import akka.pattern.ask
 
-import lila.hub.actorApi.HasUserId
+import lila.hub.actorApi.HasUserIdP
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
@@ -19,7 +19,7 @@ private final class StudyInvite(
 
   private val maxMembers = 30
 
-  def apply(byUserId: User.ID, study: Study, invitedUsername: String, socket: ActorRef): Funit = for {
+  def apply(byUserId: User.ID, study: Study, invitedUsername: String, socket: StudySocket): Funit = for {
     _ <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
     _ <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
     inviter <- UserRepo.named(byUserId) flatten "No such inviter"
@@ -27,7 +27,7 @@ private final class StudyInvite(
     _ <- study.members.contains(invited) ?? fufail[Unit]("Already a member")
     relation <- getRelation(invited.id, byUserId)
     _ <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
-    isPresent <- socket ? HasUserId(invited.id) mapTo manifest[Boolean]
+    isPresent <- socket.ask[Boolean](HasUserIdP(invited.id, _))
     _ <- if (isPresent) funit else getPref(invited).map(_.studyInvite).flatMap {
       case Pref.StudyInvite.ALWAYS => funit
       case Pref.StudyInvite.NEVER => fufail("This user doesn't accept study invitations")

@@ -15,6 +15,7 @@ import lila.user.User
 final class RelayApi(
     repo: RelayRepo,
     studyApi: StudyApi,
+    socketMap: lila.study.SocketMap,
     withStudy: RelayWithStudy,
     clearFormatCache: Url => Unit,
     system: ActorSystem
@@ -138,12 +139,6 @@ final class RelayApi(
       }
     }
 
-  private[relay] def getNbViewers(relay: Relay): Fu[Int] = {
-    import makeTimeout.short
-    import akka.pattern.ask
-    import lila.study.Socket.{ GetNbMembers, NbMembers }
-    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) nevermind
-  }
-
-  private def studySocketActor(id: Relay.Id) = system actorSelection s"/user/study-socket/${id.value}"
+  private[relay] def getNbViewers(relay: Relay): Fu[Int] =
+    socketMap.askIfPresentOrZero[Int](relay.id.value)(lila.socket.SocketTrouper.GetNbMembers)
 }

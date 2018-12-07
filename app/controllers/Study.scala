@@ -223,7 +223,7 @@ object Study extends LilaController {
             uid = lila.socket.Socket.Uid(uid),
             user = ctx.me,
             getSocketVersion
-          )
+          ) map some
         }
       }
     }

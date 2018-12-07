@@ -4,52 +4,52 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import chess.Centis
 import chess.format.pgn.Glyphs
-import lila.hub.TimeBomb
+import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
-import lila.socket.{ SocketActor, History, Historical, AnaDests }
+import lila.socket.Socket.{ Uid, GetVersionP, SocketVersion }
+import lila.socket.{ SocketTrouper, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 import lila.chat.Chat
 
-private final class Socket(
+final class StudySocket(
+    val system: ActorSystem,
     studyId: Study.Id,
     jsonView: JsonView,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
-    val history: History[Socket.Messadata],
-    uidTimeout: Duration,
-    socketTimeout: Duration,
-    lightStudyCache: LightStudyCache
-) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
+    val history: History[StudySocket.Messadata],
+    uidTtl: Duration,
+    lightStudyCache: LightStudyCache,
+    keepMeAlive: () => Unit
+) extends SocketTrouper[StudySocket.Member](uidTtl) with Historical[StudySocket.Member, StudySocket.Messadata] {
 
-  import Socket._
+  import StudySocket._
   import JsonView._
   import jsonView.membersWrites
   import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
 
-  private val timeBomb = new TimeBomb(socketTimeout)
-
   private var delayedCrowdNotification = false
 
-  override def preStart(): Unit = {
-    super.preStart()
-    lilaBus.subscribe(self, chatClassifier)
+  override def start(): Unit = {
+    super.start()
+    lilaBus.subscribe(this, chatClassifier)
   }
 
-  override def postStop(): Unit = {
-    super.postStop()
-    lilaBus.unsubscribe(self, chatClassifier)
+  override def stop(): Unit = {
+    super.stop()
+    lilaBus.unsubscribe(this, chatClassifier)
   }
 
   private def chatClassifier = Chat classify Chat.Id(studyId.value)
 
-  def sendStudyDoor(enters: Boolean)(userId: User.ID) =
-    lightStudyCache.get(studyId) foreach {
+  private def sendStudyDoor(enters: Boolean)(userId: User.ID) =
+    lightStudyCache get studyId foreach {
       _ foreach { study =>
         lilaBus.publish(
           lila.hub.actorApi.study.StudyDoor(
@@ -198,26 +198,20 @@ private final class Socket(
 
     case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
-      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case Broom =>
-      broom
-      if (timeBomb.boom) self ! PoisonPill
+    case GetVersionP(promise) => promise success history.version
 
-    case GetVersion => sender ! history.version
-
-    case Socket.Join(uid, userId, troll, version) =>
+    case JoinP(uid, userId, troll, version, promise) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, troll = troll)
+      val member = Member(channel, userId, troll = troll)
       addMember(uid, member)
       notifyCrowd
-      sender ! Socket.Connected(
+      promise success Connected(
         prependEventsSince(version, enumerator, member),
         member
       )
-
       userId foreach sendStudyDoor(true)
 
     case Quit(uid) => withMember(uid) { member =>
@@ -243,24 +237,25 @@ private final class Socket(
         "tree" -> tree,
         "division" -> division
       ))
-
-    case GetNbMembers => sender ! NbMembers(members.size)
-
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Trouper.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
 
-  def notifyCrowd: Unit = {
+  override protected def broom: Unit = {
+    super.broom
+    if (members.nonEmpty) keepMeAlive()
+  }
+
+  private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
-      context.system.scheduler.scheduleOnce(1 second, self, NotifyCrowd)
+      system.scheduler.scheduleOnce(1 second)(this ! NotifyCrowd)
     }
-  }
 
   // always show study members
   // since that's how the client knows if they're online
   // WCC has thousands of spectators. mutable implementation.
-  def showSpectatorsAndMembers(studyMemberIds: Set[User.ID]): JsValue = {
+  private def showSpectatorsAndMembers(studyMemberIds: Set[User.ID]): JsValue = {
     var nb = 0
     var titleNames = List.empty[String]
     members foreachValue { w =>
@@ -280,7 +275,7 @@ private final class Socket(
   private val noMessadata = Messadata()
 }
 
-object Socket {
+object StudySocket {
 
   case class Member(
       channel: JsChannel,
@@ -292,7 +287,7 @@ object Socket {
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion])
+  case class JoinP(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)
@@ -326,9 +321,6 @@ object Socket {
   case class SetLiking(liking: Study.Liking, uid: Uid)
   case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, uid: Uid)
   case class Broadcast(t: String, msg: JsObject)
-
-  case object GetNbMembers
-  case class NbMembers(value: Int)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd
