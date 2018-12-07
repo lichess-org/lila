@@ -14,6 +14,7 @@ import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.MoveEvent
 import lidraughts.socket.actorApi.BotConnected
 import lidraughts.user.User
+import lidraughts.chat.Chat
 
 final class GameStateStream(
     system: ActorSystem,
@@ -40,7 +41,9 @@ final class GameStateStream(
             system.lidraughtsBus.subscribe(
               self,
               MoveGameEvent makeSymbol id,
-              'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
+              'finishGame, 'abortGame,
+              Chat classify Chat.Id(id),
+              Chat classify Chat.Id(s"$id/w")
             )
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream

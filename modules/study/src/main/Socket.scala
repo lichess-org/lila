@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import draughts.Centis
 import draughts.format.pdn.Glyphs
+import lidraughts.chat.Chat
 import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Socket.{ Uid, GetVersion, SocketVersion }
@@ -37,7 +38,7 @@ private final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lidraughtsBus.subscribe(self, Symbol(s"chat:$studyId"))
+    lidraughtsBus.subscribe(self, Chat classify Chat.Id(studyId.value))
   }
 
   override def postStop(): Unit = {

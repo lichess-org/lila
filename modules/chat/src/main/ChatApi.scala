@@ -21,8 +21,7 @@ final class ChatApi(
     netDomain: String
 ) {
 
-  import Chat.userChatBSONHandler
-  import Chat.chatIdBSONHandler
+  import Chat.{ userChatBSONHandler, chatIdBSONHandler, classify }
 
   object userChat {
 
@@ -84,7 +83,7 @@ final class ChatApi(
                 case _ => RecordPrivateChat(chatId.value, userId, text)
               }
             }
-            lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+            lidraughtsBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
           }
         }
       }
@@ -94,13 +93,13 @@ final class ChatApi(
     def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
-        lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+        lidraughtsBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
     }
 
     // like system, but not persisted.
     def volatile(chatId: Chat.Id, text: String): Unit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
-      lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+      lidraughtsBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
     }
 
     def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
@@ -127,8 +126,8 @@ final class ChatApi(
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
-          lidraughtsBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
-          lidraughtsBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
+          lidraughtsBus.publish(actorApi.OnTimeout(user.username), classify(chat.id))
+          lidraughtsBus.publish(actorApi.ChatLine(chat.id, line), classify(chat.id))
           if (isMod(mod)) modLog ! lidraughts.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
@@ -140,14 +139,17 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        lidraughtsBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
+        lidraughtsBus.publish(actorApi.OnTimeout(user.username), classify(chat.id))
       }
     }
 
     private def isMod(user: User) = lidraughts.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lidraughtsBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat:${r.chat}"))
+      lidraughtsBus.publish(
+        actorApi.OnReinstate(r.user),
+        Chat classify Chat.Id(r.chat)
+      )
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
@@ -181,7 +183,7 @@ final class ChatApi(
     def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>-
-          lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+          lidraughtsBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
       }
 
     private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
@@ -205,8 +207,6 @@ final class ChatApi(
     )),
     upsert = true
   ).void >>- lidraughts.mon.chat.message()
-
-  private def channelOf(id: Chat.Id) = Symbol(s"chat:$id")
 
   private object Writer {
 

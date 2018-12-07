@@ -8,6 +8,7 @@ import scala.collection.breakOut
 import scala.concurrent.duration._
 
 import actorApi._
+import lidraughts.chat.Chat
 import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketTrouper, History, Historical }
@@ -30,7 +31,7 @@ private[tournament] final class Socket(
 
   override def start(): Unit = {
     super.start()
-    lidraughtsBus.subscribe(this, Symbol(s"chat:$tournamentId"))
+    lidraughtsBus.subscribe(this, Chat classify Chat.Id(tournamentId))
     TournamentRepo clockById tournamentId foreach {
       _ foreach { c =>
         this ! SetTournamentClock(c)

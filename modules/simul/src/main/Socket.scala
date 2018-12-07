@@ -6,6 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
+import lidraughts.chat.Chat
 import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketActor, History, Historical }
@@ -22,7 +23,7 @@ private[simul] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lidraughtsBus.subscribe(self, Symbol(s"chat:$simulId"))
+    lidraughtsBus.subscribe(self, Chat classify Chat.Id(simulId))
   }
 
   override def postStop(): Unit = {
