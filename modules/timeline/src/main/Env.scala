@@ -9,7 +9,6 @@ final class Env(
     hub: lila.hub.Env,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
-    lobbySocket: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
     renderer: ActorSelection,
     system: ActorSystem
@@ -27,7 +26,7 @@ final class Env(
   )
 
   system.actorOf(Props(new Push(
-    lobbySocket = lobbySocket,
+    bus = system.lilaBus,
     renderer = renderer,
     getFriendIds = getFriendIds,
     getFollowerIds = getFollowerIds,
@@ -61,7 +60,6 @@ object Env {
     hub = lila.hub.Env.current,
     getFriendIds = lila.relation.Env.current.api.fetchFriends,
     getFollowerIds = lila.relation.Env.current.api.fetchFollowersFromSecondary,
-    lobbySocket = lila.hub.Env.current.socket.lobby,
     renderer = lila.hub.Env.current.actor.renderer,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system

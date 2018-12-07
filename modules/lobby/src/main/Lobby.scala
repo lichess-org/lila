@@ -12,7 +12,7 @@ import lila.game.GameRepo
 import lila.socket.Socket.Uids
 
 private[lobby] final class Lobby(
-    socket: ActorRef,
+    socket: Socket,
     seekApi: SeekApi,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
@@ -91,7 +91,7 @@ private[lobby] final class Lobby(
     case Lobby.Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
-      (socket ? GetUids mapTo manifest[Uids]).chronometer
+      socket.ask[Uids](GetUidsP.apply).chronometer
         .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result

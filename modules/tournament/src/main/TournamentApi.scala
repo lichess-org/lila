@@ -32,7 +32,6 @@ final class TournamentApi(
     renderer: ActorSelection,
     timeline: ActorSelection,
     socketMap: SocketMap,
-    lobby: ActorSelection,
     roundMap: lila.hub.DuctMap[_],
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
@@ -485,8 +484,8 @@ final class TournamentApi(
         }
         TournamentRepo.promotable foreach { tours =>
           renderer ? TournamentTable(tours) map {
-            case view: String => ReloadTournaments(view)
-          } pipeToSelection lobby
+            case view: String => bus.publish(ReloadTournaments(view), 'lobbySocket)
+          }
         }
     })))
     def apply(): Unit = { debouncer ! Debouncer.Nothing }

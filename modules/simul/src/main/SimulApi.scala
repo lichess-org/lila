@@ -24,7 +24,6 @@ final class SimulApi(
     renderer: ActorSelection,
     timeline: ActorSelection,
     userRegister: ActorSelection,
-    lobby: ActorSelection,
     repo: SimulRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
@@ -231,8 +230,8 @@ final class SimulApi(
         system.lilaBus.publish(siteMessage, 'sendToFlag)
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
-            case view: String => ReloadSimuls(view)
-          } pipeToSelection lobby
+            case view: String => system.lilaBus.publish(ReloadSimuls(view), 'lobbySocket)
+          }
         }
     })))
     def apply(): Unit = { debouncer ! Debouncer.Nothing }

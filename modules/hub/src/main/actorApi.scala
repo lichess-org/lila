@@ -109,7 +109,7 @@ package slack {
 }
 
 package timeline {
-  case class ReloadTimeline(user: String)
+  case class ReloadTimelines(userIds: List[String])
 
   sealed abstract class Atom(val channel: String, val okForKid: Boolean) {
     def userIds: List[String]

@@ -19,7 +19,6 @@ final class Env(
 
   private val settings = new {
     val NetDomain = config getString "net.domain"
-    val SocketName = config getString "socket.name"
     val SocketUidTtl = config duration "socket.uid.ttl"
     val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
@@ -32,9 +31,9 @@ final class Env(
   }
   import settings._
 
-  private val socket = system.actorOf(Props(new Socket(
-    uidTtl = SocketUidTtl
-  )), name = SocketName)
+  private val socket = new Socket(system, SocketUidTtl)
+
+  system.lilaBus.subscribeFun('lobbySocket) { case m => socket ! m }
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),

@@ -14,7 +14,7 @@ import ornicar.scalalib.Zero
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
     lobby: ActorRef,
-    socket: ActorRef,
+    socket: Socket,
     poolApi: PoolApi,
     blocking: String => Fu[Set[String]]
 ) {
@@ -33,7 +33,7 @@ private[lobby] final class SocketHandler(
       msg = s"$msg mobile=${member.mobile}"
     )(op)
 
-  private def controller(socket: ActorRef, member: Member, isBot: Boolean): Handler.Controller = {
+  private def controller(socket: Socket, member: Member, isBot: Boolean): Handler.Controller = {
     case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.uid, member.user)
@@ -95,10 +95,14 @@ private[lobby] final class SocketHandler(
 
   def apply(uid: Uid, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid, user = user, blocking = blockedUserIds, mobile = mobile)
-      Handler.forActor(hub, socket, uid, join) {
-        case Connected(enum, member) =>
-          (controller(socket, member, isBot = user.exists(_.isBot)), enum, member)
+      socket.ask[Connected](JoinP(uid, user, blockedUserIds, mobile, _)) map {
+        case Connected(enum, member) => Handler.iteratee(
+          hub,
+          controller(socket, member, user.exists(_.isBot)),
+          member,
+          socket,
+          uid
+        ) -> enum
       }
     }
 }
