@@ -32,10 +32,6 @@ final class Env(
   import settings._
 
   private val socket = new Socket(system, SocketUidTtl)
-  system.scheduler.schedule(10 seconds, 4073 millis) {
-    lidraughts.mon.lobby.socket.queueSize(socket.estimateQueueSize)
-    socket ! lidraughts.socket.actorApi.Broom
-  }
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),

@@ -1,6 +1,7 @@
 package lidraughts.site
 
 import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
@@ -15,6 +16,10 @@ private[site] final class Socket(
 ) extends SocketTrouper[Member](uidTtl) {
 
   system.lidraughtsBus.subscribe(this, 'sendToFlag, 'deploy)
+  system.scheduler.schedule(10 seconds, 4159 millis) {
+    lidraughts.mon.socket.queueSize("site")(estimateQueueSize)
+    this ! lidraughts.socket.actorApi.Broom
+  }
 
   private val flags = new lidraughts.socket.MemberGroup[Member](_.flag)
 
