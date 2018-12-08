@@ -201,7 +201,7 @@ final class SimulApi(
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.refresh
     system.lidraughtsBus.publish(
-      lidraughts.hub.actorApi.SendTo(
+      lidraughts.hub.actorApi.socket.SendTo(
         simul.hostId,
         lidraughts.socket.Socket.makeMessage("simulEnd", Json.obj(
           "id" -> simul.id,

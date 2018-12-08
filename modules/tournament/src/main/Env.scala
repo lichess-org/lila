@@ -7,7 +7,7 @@ import scala.concurrent.Promise
 
 import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
 import lidraughts.socket.History
-import lidraughts.socket.Socket.{ GetVersionP, SocketVersion }
+import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -185,12 +185,12 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersionP)
+    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersion)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketMap.askIfPresentOrZero[Boolean](tourId)(lidraughts.hub.actorApi.HasUserId(userId, _)) >>|
+    socketMap.askIfPresentOrZero[Boolean](tourId)(lidraughts.hub.actorApi.socket.HasUserId(userId, _)) >>|
       PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lidraughts.common.Cli {

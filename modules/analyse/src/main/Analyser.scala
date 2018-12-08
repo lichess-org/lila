@@ -5,7 +5,7 @@ import akka.actor.ActorSelection
 import draughts.format.FEN
 import lidraughts.game.actorApi.InsertGame
 import lidraughts.game.{ GameRepo, Game }
-import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.map.TellIfExists
 
 final class Analyser(
     indexer: ActorSelection,
@@ -44,7 +44,7 @@ final class Analyser(
     case None => GameRepo gameWithInitialFen analysis.id map {
       _ ?? {
         case (game, initialFen) => bus.publish(
-          Tell(analysis.id, actorApi.AnalysisProgress(
+          TellIfExists(analysis.id, actorApi.AnalysisProgress(
             analysis = analysis,
             game = game,
             variant = game.variant,

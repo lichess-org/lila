@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lidraughts.game.{ Game, Pov, GameRepo }
 import lidraughts.hub.actorApi.map.Tell
-import lidraughts.hub.actorApi.SendTo
+import lidraughts.hub.actorApi.socket.SendTo
 import lidraughts.user.{ User, UserRepo }
 
 final class ChallengeApi(

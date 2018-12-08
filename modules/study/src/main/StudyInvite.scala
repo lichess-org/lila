@@ -3,7 +3,7 @@ package lidraughts.study
 import akka.actor._
 import akka.pattern.ask
 
-import lidraughts.hub.actorApi.HasUserId
+import lidraughts.hub.actorApi.socket.HasUserId
 import lidraughts.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lidraughts.pref.Pref
 import lidraughts.relation.{ Block, Follow }

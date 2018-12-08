@@ -24,16 +24,13 @@ import lidraughts.socket.Socket
 import makeTimeout.short
 
 private[round] final class RoundSocket(
-    system: ActorSystem,
+    dependencies: RoundSocket.Dependencies,
     gameId: Game.ID,
     history: History,
-    lightUser: LightUser.Getter,
-    uidTtl: FiniteDuration,
-    disconnectTimeout: FiniteDuration,
-    ragequitTimeout: FiniteDuration,
-    simulActor: ActorSelection,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](system, uidTtl) {
+) extends SocketTrouper[Member](dependencies.system, dependencies.uidTtl) {
+
+  import dependencies._
 
   private var hasAi = false
   private var mightBeSimul = true // until proven false
@@ -365,4 +362,13 @@ object RoundSocket {
         g.simulId.map { id => copy(priv = Chat.Id(id)) } getOrElse
         this
   }
+
+  private[round] case class Dependencies(
+      system: ActorSystem,
+      lightUser: LightUser.Getter,
+      uidTtl: FiniteDuration,
+      disconnectTimeout: FiniteDuration,
+      ragequitTimeout: FiniteDuration,
+      simulActor: ActorSelection
+  )
 }

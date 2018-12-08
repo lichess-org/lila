@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import lidraughts.common.paginator.Paginator
 import lidraughts.db.dsl._
 import lidraughts.db.paginator.Adapter
-import lidraughts.hub.actorApi.SendTo
+import lidraughts.hub.actorApi.socket.SendTo
 import lidraughts.user.UserRepo
 
 final class NotifyApi(

@@ -11,7 +11,7 @@ import draughts.format.pdn.Glyphs
 import lidraughts.chat.Chat
 import lidraughts.hub.Trouper
 import lidraughts.socket.actorApi.{ Connected => _, _ }
-import lidraughts.socket.Socket.{ Uid, GetVersionP, SocketVersion }
+import lidraughts.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lidraughts.socket.{ SocketTrouper, History, Historical, AnaDests }
 import lidraughts.tree.Node.{ Shapes, Comment }
 import lidraughts.user.User
@@ -201,7 +201,7 @@ final class StudySocket(
       ping(uid, lt)
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case GetVersionP(promise) => promise success history.version
+    case GetVersion(promise) => promise success history.version
 
     case Join(uid, userId, troll, version, promise) =>
       import play.api.libs.iteratee.Concurrent

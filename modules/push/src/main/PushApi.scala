@@ -9,7 +9,7 @@ import draughts.format.Forsyth
 import lidraughts.challenge.Challenge
 import lidraughts.common.LightUser
 import lidraughts.game.{ Game, GameRepo, Pov, Namer }
-import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lidraughts.message.{ Thread, Post }
 
@@ -219,17 +219,13 @@ private final class PushApi(
     ) mkString " • "
   }
 
-  private def IfAway(pov: Pov)(f: => Funit): Funit = {
-    val promise = Promise[Boolean]
-    bus.publish(
-      Ask(pov.gameId, IsOnGame(pov.color, promise)),
-      'roundSocket
-    )
-    promise.future flatMap {
+  private def IfAway(pov: Pov)(f: => Funit): Funit =
+    bus.ask[Boolean]('roundSocket) { p =>
+      Tell(pov.gameId, IsOnGame(pov.color, p))
+    } flatMap {
       case true => funit
       case false => f
     }
-  }
 
   private def opponentName(pov: Pov) = Namer playerText pov.opponent
 

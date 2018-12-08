@@ -132,7 +132,7 @@ final class RelayApi(
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {
       _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
-        import lidraughts.hub.actorApi.SendTos
+        import lidraughts.hub.actorApi.socket.SendTos
         import JsonView.idWrites
         import lidraughts.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))

@@ -9,7 +9,7 @@ import actorApi._
 import draughts.Centis
 import lidraughts.common.LightUser
 import lidraughts.hub.actorApi.Deploy
-import lidraughts.hub.actorApi.HasUserId
+import lidraughts.hub.actorApi.socket.HasUserId
 import lidraughts.hub.Trouper
 import lidraughts.memo.ExpireSetMemo
 

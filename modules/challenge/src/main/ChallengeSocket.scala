@@ -9,7 +9,7 @@ import scala.concurrent.Promise
 import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.SocketTrouper
-import lidraughts.socket.Socket.{ Uid, GetVersionP, SocketVersion }
+import lidraughts.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lidraughts.socket.{ History, Historical }
 
 private final class ChallengeSocket(
@@ -34,7 +34,7 @@ private final class ChallengeSocket(
       ping(uid, lagCentis)
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case GetVersionP(promise) => promise success history.version
+    case GetVersion(promise) => promise success history.version
 
     case ChallengeSocket.Join(uid, userId, owner, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

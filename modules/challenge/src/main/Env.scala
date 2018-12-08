@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lidraughts.hub.TrouperMap
-import lidraughts.socket.Socket.{ SocketVersion, GetVersionP }
+import lidraughts.socket.Socket.{ SocketVersion, GetVersion }
 import lidraughts.user.User
 
 final class Env(
@@ -53,7 +53,7 @@ final class Env(
   }
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](challengeId)(GetVersionP)
+    socketMap.askIfPresentOrZero[SocketVersion](challengeId)(GetVersion)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

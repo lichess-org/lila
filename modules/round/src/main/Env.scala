@@ -8,10 +8,10 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lidraughts.game.{ Game, GameRepo, Pov }
-import lidraughts.hub.actorApi.map.{ Ask, Tell, Exists }
+import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ Abort, Resign, DraughtsnetPlay }
-import lidraughts.hub.actorApi.{ HasUserId, DeployPost }
-import lidraughts.hub.TrouperMap
+import lidraughts.hub.actorApi.DeployPost
+import lidraughts.hub.actorApi.socket.HasUserId
 
 final class Env(
     config: Config,
@@ -57,8 +57,6 @@ final class Env(
 
   private val moveTimeChannel = new lidraughts.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
-
-  lazy val eventHistory = History(db(CollectionHistory)) _
 
   private lazy val roundDependencies = Round.Dependencies(
     messenger = messenger,
@@ -112,46 +110,18 @@ final class Env(
     }
   }
 
-  private var historyPersistenceEnabled = false
-  private val socketMap: SocketMap = new TrouperMap[RoundSocket](
-    mkTrouper = (id: Game.ID) => new RoundSocket(
+  val socketMap = SocketMap.make(
+    makeHistory = History(db(CollectionHistory)) _,
+    socketTimeout = SocketTimeout,
+    dependencies = RoundSocket.Dependencies(
       system = system,
-      gameId = id,
-      history = eventHistory(id, historyPersistenceEnabled),
       lightUser = lightUser,
       uidTtl = UidTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout,
-      simulActor = hub.actor.simul,
-      keepMeAlive = () => socketMap touch id
-    ),
-    accessTimeout = SocketTimeout
+      simulActor = hub.actor.simul
+    )
   )
-  system.scheduler.schedule(30 seconds, 30 seconds) {
-    socketMap.monitor("round.socketMap")
-  }
-  system.scheduler.schedule(10 seconds, 4001 millis) {
-    socketMap tellAll lidraughts.socket.actorApi.Broom
-  }
-  bus.subscribeFun('startGame) {
-    case msg: lidraughts.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
-  }
-  bus.subscribeFun('roundSocket) {
-    case Tell(id, msg) => socketMap.tellIfPresent(id, msg)
-    case Ask(id, msg) => socketMap.tell(id, msg)
-    case Exists(id, promise) => promise success socketMap.exists(id)
-  }
-  bus.subscribeFun('deploy) {
-    case m: lidraughts.hub.actorApi.Deploy =>
-      socketMap tellAll m
-      logger.warn("Enable history persistence")
-      historyPersistenceEnabled = true
-      // if the deploy didn't go through, cancel persistence
-      system.scheduler.scheduleOnce(10.minutes) {
-        logger.warn("Disabling round history persistence!")
-        historyPersistenceEnabled = false
-      }
-  }
 
   lazy val selfReport = new SelfReport(roundMap)
 
