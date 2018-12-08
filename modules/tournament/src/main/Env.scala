@@ -182,7 +182,7 @@ final class Env(
 
   TournamentScheduler.start(system, api)
 
-  TournamentInviter.start(system, api, notifyApi)
+  TournamentInviter.start(system.lidraughtsBus, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersion)

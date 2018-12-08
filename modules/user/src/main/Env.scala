@@ -49,19 +49,29 @@ final class Env(
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
-  system.lidraughtsBus.subscribeFun('adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase) {
-    case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) =>
-      rankingApi remove userId
-      UserRepo.setRoles(userId, Nil)
-    case lidraughts.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-    case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
-    case User.Active(user) =>
-      if (!user.seenRecently) UserRepo setSeenAt user.id
-      onlineUserIdMemo put user.id
-    case User.GDPRErase(user) =>
-      UserRepo erase user
-      noteApi erase user
-  }
+  system.lidraughtsBus.subscribeFuns(
+    'adjustCheater -> {
+      case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) =>
+        rankingApi remove userId
+        UserRepo.setRoles(userId, Nil)
+    },
+    'adjustBooster -> {
+      case lidraughts.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    },
+    'userActive -> {
+      case User.Active(user) =>
+        if (!user.seenRecently) UserRepo setSeenAt user.id
+        onlineUserIdMemo put user.id
+    },
+    'kickFromRankings -> {
+      case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    },
+    'gdprErase -> {
+      case User.GDPRErase(user) =>
+        UserRepo erase user
+        noteApi erase user
+    }
+  )
 
   scheduler.effect(3 seconds, "refresh online user ids") {
     system.lidraughtsBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'socketUsers)
