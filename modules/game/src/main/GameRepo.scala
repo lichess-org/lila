@@ -354,7 +354,7 @@ object GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = coll.list[Game](
     Query.playable ++ Query.clock(true) ++ $doc(
-      F.createdAt $gt (DateTime.now minusMinutes 5),
+      F.createdAt $gt (DateTime.now minusMinutes 4),
       F.movedAt $gt (DateTime.now minusSeconds 40)
     ) ++ $or(
         s"${F.whitePlayer}.${Player.BSONFields.rating}" $gt 1200,
