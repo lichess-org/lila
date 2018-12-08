@@ -32,14 +32,10 @@ private[tournament] final class Socket(
 
   private def chatClassifier = Chat classify Chat.Id(tournamentId)
 
-  override def start(): Unit = {
-    super.start()
-    lidraughtsBus.subscribe(this, chatClassifier)
-    TournamentRepo clockById tournamentId foreach {
-      _ foreach { c =>
-        this ! SetTournamentClock(c)
-      }
-    }
+  lidraughtsBus.subscribe(this, chatClassifier)
+
+  TournamentRepo clockById tournamentId foreach {
+    _ foreach { c => this ! SetTournamentClock(c) }
   }
 
   override def stop(): Unit = {

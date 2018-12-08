@@ -24,7 +24,7 @@ private[tv] final class ChannelTrouper(
   // the list of candidates by descending rating order
   private var manyIds = List.empty[Game.ID]
 
-  val process: Trouper.Receive = {
+  protected val process: Trouper.Receive = {
 
     case GetGameId(promise) => promise success oneId
 
