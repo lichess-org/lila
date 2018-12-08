@@ -86,6 +86,15 @@ case class Pref(
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
   def isZen = zen == Zen.YES
+
+  // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+  def botCompatible =
+    theme == "brown" &&
+      pieceSet == "cburnett" &&
+      !is3d &&
+      animation == Animation.NONE &&
+      highlight &&
+      coords == Coords.OUTSIDE
 }
 
 object Pref {

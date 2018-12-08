@@ -2,5 +2,14 @@
 
 <div id="mz_preferences">
   <strong class="text inline" data-icon="%">Notable preferences:</strong>
-  @if(pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
+  <ul>
+    @if(pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) { <li>keyboard moves</li> }
+    @if(pref.botCompatible) {
+    <li>
+      <strong>
+        <a class="blue text" data-icon="j" href="@lila.common.String.base64.decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")">BOT-COMPATIBLE SETTINGS</a>
+      </strong>
+    </li>
+    }
+  </ul>
 </div>
