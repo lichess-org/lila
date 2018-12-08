@@ -13,20 +13,19 @@ import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Uid, Uids }
-import lila.socket.SocketTrouper
+import lila.socket.{ SocketTrouper, LoneSocket }
 
 private[lobby] final class Socket(
     val system: ActorSystem,
     uidTtl: FiniteDuration
-) extends SocketTrouper[Member](uidTtl) {
+) extends SocketTrouper[Member](uidTtl) with LoneSocket {
 
-  system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame, 'lobbySocket, 'deploy)
+  def monitoringName = "lobby"
+  def broomFrequency = 4073 millis
+
+  system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame, 'lobbySocket)
   system.scheduler.scheduleOnce(5 seconds)(this ! SendHookRemovals)
   system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
-  system.scheduler.schedule(10 seconds, 4073 millis) {
-    lila.mon.socket.queueSize("lobby")(estimateQueueSize)
-    this ! lila.socket.actorApi.Broom
-  }
 
   private var idleUids = collection.mutable.Set[String]()
 

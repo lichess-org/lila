@@ -13,13 +13,12 @@ import lila.socket.actorApi.SendToFlag
 private[site] final class Socket(
     val system: akka.actor.ActorSystem,
     uidTtl: Duration
-) extends SocketTrouper[Member](uidTtl) {
+) extends SocketTrouper[Member](uidTtl) with LoneSocket {
 
-  system.lilaBus.subscribe(this, 'sendToFlag, 'deploy)
-  system.scheduler.schedule(10 seconds, 4159 millis) {
-    lila.mon.socket.queueSize("site")(estimateQueueSize)
-    this ! lila.socket.actorApi.Broom
-  }
+  def monitoringName = "site"
+  def broomFrequency = 4159 millis
+
+  system.lilaBus.subscribe(this, 'sendToFlag)
 
   private val flags = new lila.socket.MemberGroup[Member](_.flag)
 
