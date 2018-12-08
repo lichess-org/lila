@@ -57,7 +57,7 @@ final class Env(
 
   private val bus = system.lilaBus
 
-  private val moveTimeChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelMoveTime)
+  private val moveTimeChannel = system.actorOf(Props(new lila.socket.Channel), name = ChannelMoveTime)
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
