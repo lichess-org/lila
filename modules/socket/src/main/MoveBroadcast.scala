@@ -9,7 +9,7 @@ import lidraughts.hub.actorApi.round.MoveEvent
 private final class MoveBroadcast extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lidraughtsBus.subscribe(self, 'moveEvent, 'socketDoor)
+    context.system.lidraughtsBus.subscribe(self, 'moveEvent, 'socketLeave)
   }
 
   override def postStop(): Unit = {

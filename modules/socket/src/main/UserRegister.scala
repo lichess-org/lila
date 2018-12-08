@@ -10,7 +10,7 @@ import lidraughts.hub.actorApi.security.CloseAccount
 private final class UserRegister extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lidraughtsBus.subscribe(self, 'users, 'socketDoor, 'accountClose)
+    context.system.lidraughtsBus.subscribe(self, 'users, 'socketEnter, 'socketLeave, 'accountClose)
   }
 
   override def postStop(): Unit = {

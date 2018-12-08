@@ -38,7 +38,7 @@ final class Env(
     upgrade = upgrade
   )
 
-  system.lidraughtsBus.subscribeFun('socketDoor) {
+  system.lidraughtsBus.subscribeFun('socketLeave) {
     case lidraughts.socket.actorApi.SocketLeave(uid, _) => upgrade unregister uid
   }
 

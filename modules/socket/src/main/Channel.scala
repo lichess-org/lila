@@ -8,7 +8,7 @@ import lidraughts.hub.Trouper
 
 final class Channel(system: ActorSystem) extends Trouper {
 
-  system.lidraughtsBus.subscribe(this, 'socketDoor)
+  system.lidraughtsBus.subscribe(this, 'socketLeave)
 
   import Channel._
 
@@ -16,11 +16,11 @@ final class Channel(system: ActorSystem) extends Trouper {
 
   val process: Trouper.Receive = {
 
+    case SocketLeave(_, member) => members -= member
+
     case Sub(member) => members += member
 
     case UnSub(member) => members -= member
-
-    case SocketLeave(_, member) => members -= member
 
     case Publish(msg) => members.foreach(_ push msg)
   }
