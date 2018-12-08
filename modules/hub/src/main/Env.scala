@@ -28,14 +28,11 @@ final class Env(config: Config, system: ActorSystem) {
     val study = select("actor.study")
   }
 
-  object channel {
-    val roundMoveTime = select("channel.round.move_time")
-    val tvSelect = select("channel.tv.select")
-  }
-
   object socket {
     val round = select("socket.round")
   }
+
+  val bus = system.lilaBus
 
   private def select(name: String) =
     system actorSelection ("/user/" + config.getString(name))

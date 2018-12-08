@@ -69,9 +69,10 @@ object Handler {
     case ("startWatching", o) => o str "d" foreach { ids =>
       hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
     }
-    case ("moveLat", o) => hub.channel.roundMoveTime ! {
-      if (~(o boolean "d")) Channel.Sub(member) else Channel.UnSub(member)
-    }
+    case ("moveLat", o) => hub.bus.publish(
+      if (~(o boolean "d")) Channel.Sub(member) else Channel.UnSub(member),
+      'roundMoveTimeChannel
+    )
     case ("anaMove", o) => AnaRateLimit(uid, member) {
       AnaMove parse o foreach { anaMove =>
         member push {

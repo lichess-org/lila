@@ -3,7 +3,7 @@ package lila.tv
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ Game, Pov }
 import lila.hub.Trouper
 
 final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {

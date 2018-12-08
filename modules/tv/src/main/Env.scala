@@ -20,9 +20,9 @@ final class Env(
 ) {
 
   private val FeaturedSelect = config duration "featured.select"
-  private val ChannelSelect = config getString "channel.select.name "
 
-  private val selectChannel = system.actorOf(Props(new lila.socket.Channel), name = ChannelSelect)
+  private val selectChannel = new lila.socket.Channel(system)
+  system.lilaBus.subscribe(selectChannel, 'tvSelectChannel)
 
   private val tvTrouper = new TvTrouper(
     system,

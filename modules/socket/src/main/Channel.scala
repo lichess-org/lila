@@ -1,25 +1,20 @@
 package lila.socket
 
 import actorApi.SocketLeave
-import akka.actor._
+import akka.actor.ActorSystem
 import play.api.libs.json.JsValue
 
-final class Channel extends Actor {
+import lila.hub.Trouper
 
-  override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'socketDoor)
-  }
+final class Channel(system: ActorSystem) extends Trouper {
 
-  override def postStop(): Unit = {
-    super.postStop()
-    context.system.lilaBus.unsubscribe(self)
-  }
+  system.lilaBus.subscribe(this, 'socketDoor)
 
   import Channel._
 
-  val members = scala.collection.mutable.Set.empty[SocketMember]
+  private val members = scala.collection.mutable.Set.empty[SocketMember]
 
-  def receive = {
+  val process: Trouper.Receive = {
 
     case Sub(member) => members += member
 

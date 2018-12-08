@@ -14,10 +14,10 @@ import actorApi._, round._
 import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, Game }
-import lila.hub.DuctMap
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.shutup.PublicSource
+import lila.hub.DuctMap
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.{ Uid, SocketVersion }
@@ -162,7 +162,10 @@ private[round] final class SocketHandler(
       Handler.forActor(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+          if (playerId.isEmpty && isRecentTv(pov.gameId)) bus.publish(
+            lila.socket.Channel.Sub(member),
+            'tvSelectChannel
+          )
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }
