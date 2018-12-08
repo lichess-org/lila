@@ -8,9 +8,9 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
+import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
-import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.socket.HasUserId
 
 final class Env(
@@ -82,15 +82,21 @@ final class Env(
     accessTimeout = ActiveTtl
   )
 
-  bus.subscribeFun('roundMapTell) { case Tell(id, msg) => roundMap.tell(id, msg) }
-  bus.subscribeFun('deploy) { case DeployPost => roundMap.tellAll(DeployPost) }
-  bus.subscribeFun('accountClose) {
-    case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
-      _ foreach { pov =>
-        roundMap.tell(pov.gameId, Resign(pov.playerId))
+  bus.subscribeFuns(
+    'roundMapTell -> {
+      case Tell(id, msg) => roundMap.tell(id, msg)
+    },
+    'deploy -> {
+      case DeployPost => roundMap.tellAll(DeployPost)
+    },
+    'accountClose -> {
+      case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
+        _ foreach { pov =>
+          roundMap.tell(pov.gameId, Resign(pov.playerId))
+        }
       }
     }
-  }
+  )
 
   private var nbRounds = 0
   def count = nbRounds

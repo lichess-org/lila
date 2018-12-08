@@ -33,6 +33,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
     subscribe(t, to: _*)
     t
   }
+
   def subscribeFuns(subscriptions: (Classifier, PartialFunction[Any, Unit])*): Unit =
     subscriptions foreach {
       case (classifier, subscriber) => subscribeFun(classifier)(subscriber)

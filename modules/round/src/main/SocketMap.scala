@@ -34,25 +34,27 @@ private object SocketMap {
     system.scheduler.schedule(10 seconds, 4001 millis) {
       socketMap tellAll lila.socket.actorApi.Broom
     }
-    bus.subscribeFun('startGame) {
-      case msg: lila.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
-    }
-    bus.subscribeFun('roundSocket) {
-      case TellIfExists(id, msg) => socketMap.tellIfPresent(id, msg)
-      case Tell(id, msg) => socketMap.tell(id, msg)
-      case Exists(id, promise) => promise success socketMap.exists(id)
-    }
-    bus.subscribeFun('deploy) {
-      case m: lila.hub.actorApi.Deploy =>
-        socketMap tellAll m
-        logger.warn("Enable history persistence")
-        historyPersistenceEnabled = true
-        // if the deploy didn't go through, cancel persistence
-        system.scheduler.scheduleOnce(10.minutes) {
-          logger.warn("Disabling round history persistence!")
-          historyPersistenceEnabled = false
-        }
-    }
+    bus.subscribeFuns(
+      'startGame -> {
+        case msg: lila.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
+      },
+      'roundSocket -> {
+        case TellIfExists(id, msg) => socketMap.tellIfPresent(id, msg)
+        case Tell(id, msg) => socketMap.tell(id, msg)
+        case Exists(id, promise) => promise success socketMap.exists(id)
+      },
+      'deploy -> {
+        case m: lila.hub.actorApi.Deploy =>
+          socketMap tellAll m
+          logger.warn("Enable history persistence")
+          historyPersistenceEnabled = true
+          // if the deploy didn't go through, cancel persistence
+          system.scheduler.scheduleOnce(10.minutes) {
+            logger.warn("Disabling round history persistence!")
+            historyPersistenceEnabled = false
+          }
+      }
+    )
 
     socketMap
   }

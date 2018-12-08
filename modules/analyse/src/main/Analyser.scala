@@ -26,7 +26,7 @@ final class Analyser(
         AnalysisRepo.save(analysis) >>
           sendAnalysisProgress(analysis, complete = true) >>- {
             bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-            indexer ! InsertGame(game)
+            bus.publish(InsertGame(game), 'gameSearchInsert)
             requesterApi save analysis
           }
       }

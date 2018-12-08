@@ -2,22 +2,21 @@ package lila.tournament
 
 import lila.user.User
 
-import akka.actor._
 import scala.concurrent.duration._
 
+import lila.common.Tellable
 import lila.db.dsl._
 import lila.notify.{ Notification, NotifyApi, LimitedTournamentInvitation }
 import lila.rating.PerfType
 
-private final class TournamentInviter private (
+private final class TournamentInviter(
     api: TournamentApi,
     notifyApi: NotifyApi
-) extends Actor {
+) extends Tellable with Tellable.PartialReceive with Tellable.HashCode {
 
   import TournamentInviter._
 
-  def receive = {
-
+  val receive: Tellable.Receive = {
     case User.Active(user) if qualifies(user) =>
       notifyApi.exists(Notification.Notifies(user.id), $doc("content.type" -> "u")) flatMap {
         case true => funit
@@ -28,7 +27,7 @@ private final class TournamentInviter private (
       }
   }
 
-  def qualifies(user: User) =
+  private def qualifies(user: User) =
     !user.seenRecently &&
       !user.kid &&
       user.count.rated > 50 &&
@@ -36,22 +35,22 @@ private final class TournamentInviter private (
       bestRating(user).??(1700 >=) &&
       firstTime(user)
 
-  def firstTime(user: User) =
+  private def firstTime(user: User) =
     if (notifiedCache get user.id) false
     else {
       notifiedCache put user.id
       true
     }
 
-  val notifiedCache = new lila.memo.ExpireSetMemo(1 hour)
+  private val notifiedCache = new lila.memo.ExpireSetMemo(1 hour)
 }
 
 object TournamentInviter {
 
-  val minGames = 20
-  val perfs = List(PerfType.Blitz, PerfType.Rapid)
+  private val minGames = 20
+  private val perfs = List(PerfType.Blitz, PerfType.Rapid)
 
-  def bestRating(user: User) = user.perfs.bestRatingInWithMinGames(perfs, minGames)
+  private def bestRating(user: User) = user.perfs.bestRatingInWithMinGames(perfs, minGames)
 
   def findNextFor(
     user: User,
@@ -65,8 +64,6 @@ object TournamentInviter {
     }.take(4))(canEnter)
   }
 
-  def start(system: ActorSystem, api: TournamentApi, notifyApi: NotifyApi) = {
-    val ref = system.actorOf(Props(new TournamentInviter(api, notifyApi)))
-    system.lilaBus.subscribe(ref, 'userActive)
-  }
+  def start(bus: lila.common.Bus, api: TournamentApi, notifyApi: NotifyApi) =
+    bus.subscribe(new TournamentInviter(api, notifyApi), 'userActive)
 }

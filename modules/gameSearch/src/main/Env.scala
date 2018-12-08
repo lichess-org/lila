@@ -32,7 +32,7 @@ final class Env(
     paginator = paginator
   )
 
-  system.lilaBus.subscribeFun('finishGame) {
+  system.lilaBus.subscribeFun('finishGame, 'gameSearchInsert) {
     case FinishGame(game, _, _) if !game.aborted => api store game
     case InsertGame(game) => api store game
   }
