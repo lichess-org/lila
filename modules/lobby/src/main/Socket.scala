@@ -23,6 +23,10 @@ private[lobby] final class Socket(
   system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame, 'lobbySocket, 'deploy)
   system.scheduler.scheduleOnce(5 seconds)(this ! SendHookRemovals)
   system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
+  system.scheduler.schedule(10 seconds, 4073 millis) {
+    lila.mon.socket.queueSize("lobby")(estimateQueueSize)
+    this ! lila.socket.actorApi.Broom
+  }
 
   private var idleUids = collection.mutable.Set[String]()
 

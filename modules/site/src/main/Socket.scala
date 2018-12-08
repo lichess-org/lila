@@ -1,6 +1,7 @@
 package lila.site
 
 import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
@@ -15,6 +16,10 @@ private[site] final class Socket(
 ) extends SocketTrouper[Member](uidTtl) {
 
   system.lilaBus.subscribe(this, 'sendToFlag, 'deploy)
+  system.scheduler.schedule(10 seconds, 4159 millis) {
+    lila.mon.socket.queueSize("site")(estimateQueueSize)
+    this ! lila.socket.actorApi.Broom
+  }
 
   private val flags = new lila.socket.MemberGroup[Member](_.flag)
 

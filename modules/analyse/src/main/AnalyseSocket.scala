@@ -1,6 +1,6 @@
 package lila.analyse
 
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.hub.Trouper
@@ -11,6 +11,10 @@ private final class AnalyseSocket(
     uidTtl: FiniteDuration
 ) extends SocketTrouper[AnalyseSocket.Member](uidTtl) {
 
+  system.scheduler.schedule(10 seconds, 4027 millis) {
+    lila.mon.socket.queueSize("analyse")(estimateQueueSize)
+    this ! lila.socket.actorApi.Broom
+  }
   system.lilaBus.subscribe(this, 'deploy)
 
   def receiveSpecific = PartialFunction.empty

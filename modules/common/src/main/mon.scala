@@ -126,7 +126,6 @@ object mon {
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
       val mobile = rec("lobby.socket.mobile")
-      val queueSize = rec("lobby.socket.queue_size")
     }
     object pool {
       object wave {
@@ -291,6 +290,7 @@ object mon {
       val all = rec("socket.count")
       val site = rec("socket.count.site")
     }
+    def queueSize(name: String) = rec(s"socket.queue_size.$name")
   }
   object mod {
     object report {

@@ -32,10 +32,6 @@ final class Env(
   import settings._
 
   private val socket = new Socket(system, SocketUidTtl)
-  system.scheduler.schedule(10 seconds, 4073 millis) {
-    lila.mon.lobby.socket.queueSize(socket.estimateQueueSize)
-    socket ! lila.socket.actorApi.Broom
-  }
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
