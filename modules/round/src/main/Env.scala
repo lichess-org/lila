@@ -56,7 +56,7 @@ final class Env(
 
   private val bus = system.lidraughtsBus
 
-  private val moveTimeChannel = system.actorOf(Props(classOf[lidraughts.socket.Channel]), name = ChannelMoveTime)
+  private val moveTimeChannel = system.actorOf(Props(new lidraughts.socket.Channel), name = ChannelMoveTime)
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
