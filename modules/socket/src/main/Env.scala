@@ -6,7 +6,6 @@ import com.typesafe.config.Config
 import actorApi._
 
 final class Env(
-    config: Config,
     system: ActorSystem,
     scheduler: lidraughts.common.Scheduler
 ) {
@@ -30,7 +29,6 @@ final class Env(
 object Env {
 
   lazy val current = "socket" boot new Env(
-    config = lidraughts.common.PlayApp loadConfig "socket",
     system = lidraughts.common.PlayApp.system,
     scheduler = lidraughts.common.PlayApp.scheduler
   )
