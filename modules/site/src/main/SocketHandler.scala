@@ -16,7 +16,7 @@ private[site] final class SocketHandler(
     apiVersion: Int,
     flag: Option[String]
   ): Fu[JsSocketHandler] =
-    socket.ask[Connected](JoinP(uid, userId, flag, _)) map {
+    socket.ask[Connected](Join(uid, userId, flag, _)) map {
       case Connected(enum, member) => Handler.iteratee(
         hub,
         PartialFunction.empty,
@@ -39,7 +39,7 @@ private[site] final class SocketHandler(
       case _ => // not available on API socket
     }
 
-    socket.ask[Connected](JoinP(uid, userId, flag, _)) map {
+    socket.ask[Connected](Join(uid, userId, flag, _)) map {
       case Connected(enum, member) => Handler.iteratee(
         hub,
         controller(member),

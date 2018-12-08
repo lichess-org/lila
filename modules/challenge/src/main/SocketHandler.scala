@@ -26,7 +26,7 @@ private[challenge] final class SocketHandler(
     version: Option[SocketVersion]
   ): Fu[JsSocketHandler] = {
     val socket = socketMap getOrMake challengeId
-    socket.ask[Connected](JoinP(uid, userId, owner, version, _)) map {
+    socket.ask[Connected](Join(uid, userId, owner, version, _)) map {
       case Connected(enum, member) => Handler.iteratee(
         hub,
         controller(socket, challengeId, uid, member),

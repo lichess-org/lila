@@ -77,13 +77,14 @@ case class Join(
     playerId: Option[String],
     ip: IpAddress,
     userTv: Option[UserTv],
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    promise: Promise[Connected]
 )
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
-case class IsGone(color: Color)
-case object GetSocketStatus
+case class IsGone(color: Color, promise: Promise[Boolean])
+case class GetSocketStatus(promise: Promise[SocketStatus])
 case class SocketStatus(
     version: SocketVersion,
     whiteOnGame: Boolean,

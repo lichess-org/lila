@@ -5,6 +5,8 @@ import lidraughts.socket.WithSocket
 
 package object round extends PackageObject with WithSocket {
 
+  private[round] type SocketMap = lidraughts.hub.TrouperMap[RoundSocket]
+
   private[round] type Events = List[Event]
 
   private[round] type VersionedEvents = List[VersionedEvent]

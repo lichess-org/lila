@@ -20,7 +20,6 @@ final class Env(
     flood: lidraughts.security.Flood,
     hub: lidraughts.hub.Env,
     roundMap: DuctMap[_],
-    roundSocketHub: ActorSelection,
     lightUserApi: lidraughts.user.LightUserApi,
     isOnline: String => Boolean,
     onStart: String => Unit,
@@ -191,7 +190,7 @@ final class Env(
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketMap.askIfPresentOrZero[Boolean](tourId)(lidraughts.hub.actorApi.HasUserIdP(userId, _)) >>|
+    socketMap.askIfPresentOrZero[Boolean](tourId)(lidraughts.hub.actorApi.HasUserId(userId, _)) >>|
       PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lidraughts.common.Cli {
@@ -220,7 +219,6 @@ object Env {
     flood = lidraughts.security.Env.current.flood,
     hub = lidraughts.hub.Env.current,
     roundMap = lidraughts.round.Env.current.roundMap,
-    roundSocketHub = lidraughts.hub.Env.current.socket.round,
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
     isOnline = lidraughts.user.Env.current.isOnline,
     onStart = lidraughts.game.Env.current.onStart,

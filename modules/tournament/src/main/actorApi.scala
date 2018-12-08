@@ -24,7 +24,7 @@ private[tournament] object Member {
 
 private[tournament] case class Messadata(trollish: Boolean = false)
 
-private[tournament] case class JoinP(
+private[tournament] case class Join(
     uid: Uid,
     user: Option[User],
     version: Option[SocketVersion],

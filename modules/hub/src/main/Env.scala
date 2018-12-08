@@ -26,10 +26,6 @@ final class Env(config: Config, system: ActorSystem) {
     val study = select("actor.study")
   }
 
-  object socket {
-    val round = select("socket.round")
-  }
-
   val bus = system.lidraughtsBus
 
   private def select(name: String) =

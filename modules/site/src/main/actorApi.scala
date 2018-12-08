@@ -17,5 +17,5 @@ case class Member(
   def isApi = flag has "api"
 }
 
-case class JoinP(uid: Uid, userId: Option[String], flag: Option[String], promise: Promise[Connected])
+private[site] case class Join(uid: Uid, userId: Option[String], flag: Option[String], promise: Promise[Connected])
 private[site] case class Connected(enumerator: JsEnumerator, member: Member)

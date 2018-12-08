@@ -95,7 +95,7 @@ private[lobby] final class SocketHandler(
 
   def apply(uid: Uid, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      socket.ask[Connected](JoinP(uid, user, blockedUserIds, mobile, _)) map {
+      socket.ask[Connected](Join(uid, user, blockedUserIds, mobile, _)) map {
         case Connected(enum, member) => Handler.iteratee(
           hub,
           controller(socket, member, user.exists(_.isBot)),

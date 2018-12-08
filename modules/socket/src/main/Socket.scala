@@ -24,6 +24,8 @@ object Socket extends Socket {
 
   case object GetVersion
   case class GetVersionP(promise: Promise[SocketVersion])
+
+  val initialPong = makeMessage("n")
 }
 
 private[socket] trait Socket {
@@ -32,6 +34,4 @@ private[socket] trait Socket {
     JsObject(new Map.Map2("t", JsString(t), "d", writes.writes(data)))
 
   def makeMessage(t: String): JsObject = JsObject(new Map.Map1("t", JsString(t)))
-
-  val initialPong = makeMessage("n")
 }

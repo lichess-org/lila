@@ -31,7 +31,7 @@ private[tournament] final class SocketHandler(
     TournamentRepo exists tourId flatMap {
       _ ?? {
         val socket = socketMap getOrMake tourId
-        socket.ask[Connected](JoinP(uid, user, version, _)) map {
+        socket.ask[Connected](Join(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
             controller(socket, tourId, uid, member),

@@ -12,15 +12,15 @@ import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketTrouper, History, Historical }
 
 private[simul] final class Socket(
-    val system: ActorSystem,
+    system: ActorSystem,
     simulId: String,
-    val history: History[Messadata],
+    protected val history: History[Messadata],
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     lightUser: lidraughts.common.LightUser.Getter,
     uidTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
 
   lidraughtsBus.subscribe(this, chatClassifier)
 
@@ -80,7 +80,7 @@ private[simul] final class Socket(
 
     case GetUserIdsP(promise) => promise success members.values.flatMap(_.userId)
 
-    case JoinP(uid, user, version, promise) =>
+    case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)

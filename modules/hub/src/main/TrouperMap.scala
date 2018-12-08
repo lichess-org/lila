@@ -19,6 +19,8 @@ final class TrouperMap[T <: Trouper](
 
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
+  def tellIfPresent(id: String, msg: Any): Unit = getIfPresent(id) foreach (_ ! msg)
+
   def tellAll(msg: Any) = troupers.asMap().asScala.foreach(_._2 ! msg)
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
@@ -46,14 +48,14 @@ final class TrouperMap[T <: Trouper](
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {
         def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit = {
-          // println(id, "remove trouper")
+          println(id, "remove trouper")
           trouper.stop()
         }
       })
       .build[String, T](new CacheLoader[String, T] {
         def load(id: String): T = {
           val t = mkTrouper(id)
-          // println(id, "start trouper")
+          println(id, "start trouper")
           t
         }
       })

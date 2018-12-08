@@ -7,7 +7,6 @@ final class Env(
     config: Config,
     db: lidraughts.db.Env,
     getLightUser: lidraughts.common.LightUser.GetterSync,
-    roundSocketHub: ActorSelection,
     scheduler: lidraughts.common.Scheduler,
     system: ActorSystem
 ) {
@@ -32,7 +31,7 @@ final class Env(
   private lazy val pushApi = new PushApi(
     oneSignalPush,
     getLightUser,
-    roundSocketHub,
+    bus = system.lidraughtsBus,
     scheduler = scheduler
   )
 
@@ -54,7 +53,6 @@ object Env {
     db = lidraughts.db.Env.current,
     system = lidraughts.common.PlayApp.system,
     getLightUser = lidraughts.user.Env.current.lightUserSync,
-    roundSocketHub = lidraughts.hub.Env.current.socket.round,
     scheduler = lidraughts.common.PlayApp.scheduler,
     config = lidraughts.common.PlayApp loadConfig "push"
   )

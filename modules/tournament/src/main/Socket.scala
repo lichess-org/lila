@@ -14,14 +14,14 @@ import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketTrouper, History, Historical }
 
 private[tournament] final class Socket(
-    val system: ActorSystem,
+    system: ActorSystem,
     tournamentId: String,
-    val history: History[Messadata],
+    protected val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lidraughts.common.LightUser.Getter,
     uidTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
 
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
@@ -69,7 +69,7 @@ private[tournament] final class Socket(
 
     case lidraughts.socket.Socket.GetVersionP(promise) => promise success history.version
 
-    case JoinP(uid, user, version, promise) =>
+    case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)

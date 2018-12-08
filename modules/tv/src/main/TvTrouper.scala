@@ -13,7 +13,6 @@ import lidraughts.hub.Trouper
 private[tv] final class TvTrouper(
     system: ActorSystem,
     rendererActor: ActorSelection,
-    roundSocket: ActorSelection,
     selectChannel: lidraughts.socket.Channel,
     lightUser: LightUser.GetterSync,
     onSelect: Game => Unit

@@ -29,7 +29,7 @@ private[simul] final class SocketHandler(
     exists(simulId) flatMap {
       _ ?? {
         val socket = socketMap getOrMake simulId
-        socket.ask[Connected](JoinP(uid, user, version, _)) map {
+        socket.ask[Connected](Join(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
             controller(socket, simulId, uid, member),
