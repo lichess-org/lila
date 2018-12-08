@@ -33,7 +33,7 @@ private[site] final class SocketHandler(
 
     def controller(member: SocketMember): Handler.Controller = {
       case ("startWatching", o) => o str "d" foreach { ids =>
-        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
+        hub.bus.publish(StartWatching(uid, member, ids.split(' ').toSet), 'socketMoveBroadcast)
       }
       case _ => // not available on API socket
     }

@@ -42,7 +42,6 @@ final class Env(
     socketMap = socketMap,
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
-    userRegister = hub.actor.userRegister,
     onGameStart = onGameStart,
     sequencers = sequencerMap,
     asyncCache = asyncCache
@@ -86,9 +85,12 @@ final class Env(
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
       case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
-        hub.actor.userRegister ! lila.hub.actorApi.SendTo(
-          opponentUserId,
-          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+        system.lilaBus.publish(
+          lila.hub.actorApi.SendTo(
+            opponentUserId,
+            lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+          ),
+          'socketUsers
         )
       case m: lila.hub.actorApi.Deploy => socketMap tellAll m
     }

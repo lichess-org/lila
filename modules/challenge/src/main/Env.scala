@@ -68,7 +68,6 @@ final class Env(
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
     socketMap = socketMap,
-    userRegister = hub.actor.userRegister,
     asyncCache = asyncCache,
     lilaBus = system.lilaBus
   )

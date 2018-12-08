@@ -16,7 +16,6 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     maxPlaying: Int,
     socketMap: SocketMap,
-    userRegister: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus
 ) {
@@ -121,7 +120,8 @@ final class ChallengeApi(
     lang <- UserRepo langOf userId map {
       _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
     }
-  } yield {
-    userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang)))
-  }
+  } yield lilaBus.publish(
+    SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
+    'socketUsers
+  )
 }

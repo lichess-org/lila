@@ -135,7 +135,7 @@ final class RelayApi(
         import JsonView.idWrites
         import lila.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
-        system.lilaBus.publish(SendTos(userIds, payload), 'users)
+        system.lilaBus.publish(SendTos(userIds, payload), 'socketUsers)
       }
     }
 

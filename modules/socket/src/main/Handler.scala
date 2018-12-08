@@ -67,7 +67,7 @@ object Handler {
       hub.actor.relation ! ReloadOnlineFriends(u)
     }
     case ("startWatching", o) => o str "d" foreach { ids =>
-      hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
+      hub.bus.publish(StartWatching(uid, member, ids.split(' ').toSet), 'socketMoveBroadcast)
     }
     case ("moveLat", o) => hub.bus.publish(
       if (~(o boolean "d")) Channel.Sub(member) else Channel.UnSub(member),

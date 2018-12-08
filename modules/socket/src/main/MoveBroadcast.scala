@@ -1,31 +1,24 @@
 package lila.socket
 
-import akka.actor._
 import scala.collection.mutable.AnyRefMap
 
 import actorApi.{ SocketLeave, StartWatching }
+import lila.hub.Trouper
 import lila.hub.actorApi.round.MoveEvent
 
-private final class MoveBroadcast extends Actor {
+private final class MoveBroadcast(system: akka.actor.ActorSystem) extends Trouper {
 
-  override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'moveEvent, 'socketLeave)
-  }
+  system.lilaBus.subscribe(this, 'moveEvent, 'socketLeave, 'socketMoveBroadcast)
 
-  override def postStop(): Unit = {
-    super.postStop()
-    context.system.lilaBus.unsubscribe(self)
-  }
+  private type UidString = String
+  private type GameId = String
 
-  type UidString = String
-  type GameId = String
+  private case class WatchingMember(member: SocketMember, gameIds: Set[GameId])
 
-  case class WatchingMember(member: SocketMember, gameIds: Set[GameId])
+  private val members = AnyRefMap.empty[UidString, WatchingMember]
+  private val games = AnyRefMap.empty[GameId, Set[UidString]]
 
-  val members = AnyRefMap.empty[UidString, WatchingMember]
-  val games = AnyRefMap.empty[GameId, Set[UidString]]
-
-  def receive = {
+  val process: Trouper.Receive = {
 
     case MoveEvent(gameId, fen, move) =>
       games get gameId foreach { mIds =>

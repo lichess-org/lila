@@ -23,7 +23,6 @@ final class SimulApi(
     socketMap: SocketMap,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    userRegister: ActorSelection,
     repo: SimulRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
@@ -151,12 +150,15 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.refresh
-    userRegister ! lila.hub.actorApi.SendTo(
-      simul.hostId,
-      lila.socket.Socket.makeMessage("simulEnd", Json.obj(
-        "id" -> simul.id,
-        "name" -> simul.name
-      ))
+    system.lilaBus.publish(
+      lila.hub.actorApi.SendTo(
+        simul.hostId,
+        lila.socket.Socket.makeMessage("simulEnd", Json.obj(
+          "id" -> simul.id,
+          "name" -> simul.name
+        ))
+      ),
+      'socketUsers
     )
   }
 

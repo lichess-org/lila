@@ -44,7 +44,7 @@ private[relation] final class RelationActor(
 
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
-      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'users)
+      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'socketUsers)
     }
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
@@ -112,26 +112,26 @@ private[relation] final class RelationActor(
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
     friendsEntering foreach { entering =>
       api fetchFollowersFromSecondary entering.user.id map online.userIds.intersect foreach { ids =>
-        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'users)
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'socketUsers)
       }
     }
 
   private def notifyFollowersFriendLeaves(friendsLeaving: List[LightUser]) =
     friendsLeaving foreach { leaving =>
       api fetchFollowersFromSecondary leaving.id map online.userIds.intersect foreach { ids =>
-        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'users)
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'socketUsers)
       }
     }
 
   private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
     userIds foreach { userId =>
       api.fetchFollowersFromSecondary(userId) map online.userIds.intersect foreach { ids =>
-        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'socketUsers)
       }
     }
 
   private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
     api.fetchFollowersFromSecondary(userId) map online.userIds.intersect foreach { ids =>
-      if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
+      if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'socketUsers)
     }
 }
