@@ -319,6 +319,7 @@
   <string name="reportXToModerators">Adrodd %s i\'r cymedrolwyr</string>
   <string name="profileCompletion">%s o\'ch proffeil wedi ei gwblhau</string>
   <string name="xRating">Gradd %s</string>
+  <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
   <string name="gameCompletionRate">Cyfradd gemau a gwblhawyd: %s</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
@@ -590,15 +591,22 @@
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
   <string name="lobby">Cyntedd</string>
+  <string name="anonymous">DiEnw</string>
+  <string name="yourScore">Eich sgor:%s</string>
   <string name="language">Iaith</string>
   <string name="background">Cefndir</string>
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
   <string name="transparent">Tryloyw</string>
+  <string name="backgroundImageUrl">URL y llun cefndir:</string>
+  <string name="boardGeometry">Math a maint bwrdd</string>
   <string name="boardTheme">Thema\'r bwrdd</string>
+  <string name="boardSize">Maint y bwrdd</string>
+  <string name="pieceSet">Math o ddarnau</string>
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
+  <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
   <string name="getAHint">Derbyn cyngor</string>
   <string name="evaluatingYourMove">Gwerthuso\'ch symudiad ...</string>
@@ -625,4 +633,5 @@
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
+  <string name="playX">Chwarae %s</string>
 </resources>
