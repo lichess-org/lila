@@ -595,6 +595,9 @@
   <string name="mobileApp">Мобільний додаток</string>
   <string name="webmasters">Розробникам</string>
   <string name="about">Про сайт</string>
+  <string name="aboutX">Про %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s), шаховим сервером з відкритим кодом без реклами.</string>
+  <string name="really">дійсно</string>
   <string name="contribute">Допомога проекту</string>
   <string name="contact">Контакти</string>
   <string name="termsOfService">Умови користування</string>
