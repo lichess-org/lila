@@ -3,7 +3,7 @@ package lidraughts.tv
 import scala.concurrent.duration._
 
 import lidraughts.common.LightUser
-import lidraughts.game.{ Game, GameRepo, Pov }
+import lidraughts.game.{ Game, Pov }
 import lidraughts.hub.Trouper
 
 final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {

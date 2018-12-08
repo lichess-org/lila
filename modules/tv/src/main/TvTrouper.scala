@@ -14,7 +14,7 @@ private[tv] final class TvTrouper(
     system: ActorSystem,
     rendererActor: ActorSelection,
     roundSocket: ActorSelection,
-    selectChannel: ActorRef,
+    selectChannel: lidraughts.socket.Channel,
     lightUser: LightUser.GetterSync,
     onSelect: Game => Unit
 ) extends Trouper {

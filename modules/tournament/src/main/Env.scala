@@ -47,7 +47,6 @@ final class Env(
     val SocketName = config getString "socket.name"
     val ApiActorName = config getString "api_actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
-    val ChannelStanding = config getString "channel.standing.name "
     val NetDomain = config getString "net.domain"
   }
   import settings._

@@ -14,10 +14,10 @@ import actorApi._, round._
 import lidraughts.chat.Chat
 import lidraughts.common.IpAddress
 import lidraughts.game.{ Pov, PovRef, Game }
-import lidraughts.hub.DuctMap
 import lidraughts.hub.actorApi.map._
 import lidraughts.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lidraughts.hub.actorApi.shutup.PublicSource
+import lidraughts.hub.DuctMap
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
 import lidraughts.socket.Socket.{ Uid, SocketVersion }
@@ -154,7 +154,10 @@ private[round] final class SocketHandler(
       Handler.forActor(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && isRecentTv(pov.game.id)) hub.channel.tvSelect ! lidraughts.socket.Channel.Sub(member)
+          if (playerId.isEmpty && isRecentTv(pov.gameId)) bus.publish(
+            lidraughts.socket.Channel.Sub(member),
+            'tvSelectChannel
+          )
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }
