@@ -1,36 +1,29 @@
 package lidraughts.socket
 
-import akka.actor._
 import play.api.libs.json.JsObject
 
 import actorApi.{ SocketLeave, SocketEnter }
+import lidraughts.hub.Trouper
 import lidraughts.hub.actorApi.{ SendTo, SendTos, WithUserIds }
 import lidraughts.hub.actorApi.security.CloseAccount
 
-private final class UserRegister extends Actor {
+private final class UserRegister(system: akka.actor.ActorSystem) extends Trouper {
 
-  override def preStart(): Unit = {
-    context.system.lidraughtsBus.subscribe(self, 'users, 'socketEnter, 'socketLeave, 'accountClose)
-  }
+  system.lidraughtsBus.subscribe(this, 'socketEnter, 'socketLeave, 'accountClose, 'socketUsers)
 
-  override def postStop(): Unit = {
-    super.postStop()
-    context.system.lidraughtsBus.unsubscribe(self)
-  }
+  private val users = new MemberGroup[SocketMember](_.userId)
 
-  val users = new MemberGroup[SocketMember](_.userId)
+  val process: Trouper.Receive = {
 
-  def receive = {
+    case SocketEnter(uid, member) => users.add(uid, member)
+
+    case SocketLeave(uid, member) => users.remove(uid, member)
 
     case SendTo(userId, msg) => sendTo(userId, msg)
 
     case SendTos(userIds, msg) => userIds foreach { sendTo(_, msg) }
 
     case WithUserIds(f) => f(users.keys)
-
-    case SocketEnter(uid, member) => users.add(uid, member)
-
-    case SocketLeave(uid, member) => users.remove(uid, member)
 
     case CloseAccount(userId) => userDo(userId)(_.end)
   }

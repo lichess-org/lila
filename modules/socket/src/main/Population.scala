@@ -1,24 +1,15 @@
 package lidraughts.socket
 
-import akka.actor._
-
+import lidraughts.hub.Trouper
 import actorApi.{ SocketEnter, SocketLeave, PopulationTell, NbMembers }
 
-private[socket] final class Population extends Actor {
+private[socket] final class Population(system: akka.actor.ActorSystem) extends Trouper {
 
-  var nb = 0
-  val bus = context.system.lidraughtsBus
+  private var nb = 0
 
-  override def preStart(): Unit = {
-    bus.subscribe(self, 'socketEnter, 'socketLeave)
-  }
+  system.lidraughtsBus.subscribe(this, 'socketEnter, 'socketLeave)
 
-  override def postStop(): Unit = {
-    super.postStop()
-    bus.unsubscribe(self)
-  }
-
-  def receive = {
+  val process: Trouper.Receive = {
 
     case _: SocketEnter[_] =>
       nb = nb + 1
@@ -28,6 +19,6 @@ private[socket] final class Population extends Actor {
       nb = nb - 1
       lidraughts.mon.socket.close()
 
-    case PopulationTell => bus.publish(NbMembers(nb), 'nbMembers)
+    case PopulationTell => system.lidraughtsBus.publish(NbMembers(nb), 'nbMembers)
   }
 }

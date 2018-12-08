@@ -22,8 +22,6 @@ final class Env(config: Config, system: ActorSystem) {
     val shutup = select("actor.shutup")
     val mod = select("actor.mod")
     val chat = select("actor.chat")
-    val moveBroadcast = select("actor.move_broadcast")
-    val userRegister = select("actor.user_register")
     val notification = select("actor.notify")
     val study = select("actor.study")
   }

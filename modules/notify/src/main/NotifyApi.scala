@@ -92,6 +92,6 @@ final class NotifyApi(
   private def notifyUser(notifies: Notification.Notifies): Funit =
     getNotificationsAndCount(notifies, 1) map { msg =>
       import play.api.libs.json.Json
-      bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'users)
+      bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'socketUsers)
     }
 }

@@ -13,22 +13,18 @@ final class Env(
 
   import scala.concurrent.duration._
 
-  private val MoveBroadcastName = config getString "move_broadcast.name"
-  private val UserRegisterName = config getString "user_register.name"
-  private val PopulationName = config getString "population.name"
-
   private val socketHub = system.actorOf(Props[SocketHub])
 
-  private val population = system.actorOf(Props[Population], name = PopulationName)
+  private val population = new Population(system)
 
-  system.actorOf(Props[MoveBroadcast], name = MoveBroadcastName)
+  private val moveBroadcast = new MoveBroadcast(system)
 
-  system.actorOf(Props[UserRegister], name = UserRegisterName)
+  private val userRegister = new UserRegister(system)
 
   scheduler.once(10 seconds) {
     scheduler.message(4 seconds) { socketHub -> actorApi.Broom }
-    scheduler.message(1 seconds) { population -> PopulationTell }
   }
+  system.scheduler.schedule(5 seconds, 1 seconds) { population ! PopulationTell }
 }
 
 object Env {

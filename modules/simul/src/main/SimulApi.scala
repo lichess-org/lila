@@ -28,7 +28,6 @@ final class SimulApi(
     roundMap: lidraughts.hub.DuctMap[_],
     renderer: ActorSelection,
     timeline: ActorSelection,
-    userRegister: ActorSelection,
     repo: SimulRepo,
     asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
@@ -201,12 +200,15 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.refresh
-    userRegister ! lidraughts.hub.actorApi.SendTo(
-      simul.hostId,
-      lidraughts.socket.Socket.makeMessage("simulEnd", Json.obj(
-        "id" -> simul.id,
-        "name" -> simul.fullName
-      ))
+    system.lidraughtsBus.publish(
+      lidraughts.hub.actorApi.SendTo(
+        simul.hostId,
+        lidraughts.socket.Socket.makeMessage("simulEnd", Json.obj(
+          "id" -> simul.id,
+          "name" -> simul.name
+        ))
+      ),
+      'socketUsers
     )
   }
 

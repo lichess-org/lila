@@ -136,7 +136,7 @@ final class RelayApi(
         import JsonView.idWrites
         import lidraughts.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
-        system.lidraughtsBus.publish(SendTos(userIds, payload), 'users)
+        system.lidraughtsBus.publish(SendTos(userIds, payload), 'socketUsers)
       }
     }
 

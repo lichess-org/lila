@@ -64,7 +64,7 @@ final class Env(
   }
 
   scheduler.effect(3 seconds, "refresh online user ids") {
-    system.lidraughtsBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+    system.lidraughtsBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'socketUsers)
     onlineUserIdMemo put User.lidraughtsId
   }
 

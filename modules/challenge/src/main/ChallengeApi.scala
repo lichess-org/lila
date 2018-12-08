@@ -16,7 +16,6 @@ final class ChallengeApi(
     gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
     socketMap: SocketMap,
-    userRegister: ActorSelection,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     lidraughtsBus: lidraughts.common.Bus
 ) {
@@ -121,7 +120,8 @@ final class ChallengeApi(
     lang <- UserRepo langOf userId map {
       _ flatMap lidraughts.i18n.I18nLangPicker.byStr getOrElse lidraughts.i18n.defaultLang
     }
-  } yield {
-    userRegister ! SendTo(userId, lidraughts.socket.Socket.makeMessage("challenges", jsonView(all, lang)))
-  }
+  } yield lidraughtsBus.publish(
+    SendTo(userId, lidraughts.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
+    'socketUsers
+  )
 }

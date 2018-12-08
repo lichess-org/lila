@@ -23,6 +23,6 @@ private[tournament] final class Reminder extends Actor {
           "id" -> tour.id,
           "name" -> tour.fullName
         )
-      )), 'users)
+      )), 'socketUsers)
   }
 }
