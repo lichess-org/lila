@@ -1,7 +1,7 @@
 package lila.common
 
-import scala.concurrent.Promise
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import akka.actor._
 import akka.event._
@@ -33,6 +33,10 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
     subscribe(t, to: _*)
     t
   }
+  def subscribeFuns(subscriptions: (Classifier, PartialFunction[Any, Unit])*): Unit =
+    subscriptions foreach {
+      case (classifier, subscriber) => subscribeFun(classifier)(subscriber)
+    }
 
   def unsubscribe(subscriber: Tellable, from: Classifier): Boolean = bus.unsubscribe(subscriber, from)
   def unsubscribe(ref: ActorRef, from: Classifier): Boolean = unsubscribe(Tellable(ref), from)

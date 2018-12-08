@@ -17,6 +17,7 @@ import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
 import lila.hub.actorApi.tv.{ Select => TvSelect }
+import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.Trouper
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -64,9 +65,7 @@ private[round] final class RoundSocket(
     private def isBye = bye > 0
 
     private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
-      import akka.pattern.{ ask => actorAsk }
-      import makeTimeout.short
-      actorAsk(simulActor, lila.hub.actorApi.simul.GetHostIds) mapTo manifest[Set[String]] map (_ contains u)
+      lilaBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
     def isGone: Fu[Boolean] = {
@@ -263,6 +262,7 @@ private[round] final class RoundSocket(
 
   override def broom = {
     super.broom
+    if (members.nonEmpty) keepMeAlive()
     if (!hasAi) Color.all foreach { c =>
       playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
     }
@@ -349,7 +349,6 @@ object RoundSocket {
       lightUser: LightUser.Getter,
       uidTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration,
-      simulActor: ActorSelection
+      ragequitTimeout: FiniteDuration
   )
 }

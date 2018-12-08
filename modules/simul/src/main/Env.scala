@@ -27,7 +27,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -77,12 +76,20 @@ final class Env(
     exists = repo.exists
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import akka.pattern.pipe
-    def receive = {
+  system.lilaBus.subscribeFuns(
+    'finishGame -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    },
+    'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
-      case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
+    },
+    'deploy -> {
+      case m: lila.hub.actorApi.Deploy => socketMap tellAll m
+    },
+    'simulGetHosts -> {
+      case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
+    },
+    'moveEventSimul -> {
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
         system.lilaBus.publish(
           lila.hub.actorApi.socket.SendTo(
@@ -91,9 +98,8 @@ final class Env(
           ),
           'socketUsers
         )
-      case m: lila.hub.actorApi.Deploy => socketMap tellAll m
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul, 'deploy)
+  )
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 

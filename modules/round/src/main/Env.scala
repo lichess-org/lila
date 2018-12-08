@@ -119,8 +119,7 @@ final class Env(
       lightUser = lightUser,
       uidTtl = UidTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
-      ragequitTimeout = PlayerRagequitTimeout,
-      simulActor = hub.actor.simul
+      ragequitTimeout = PlayerRagequitTimeout
     )
   )
 
