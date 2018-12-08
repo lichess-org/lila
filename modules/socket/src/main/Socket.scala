@@ -22,8 +22,7 @@ object Socket extends Socket {
   implicit val socketVersionFormat = lila.common.PimpedJson.intIsoFormat(socketVersionIso)
   implicit val socketVersionZero = Zero.instance[SocketVersion](SocketVersion(0))
 
-  case object GetVersion
-  case class GetVersionP(promise: Promise[SocketVersion])
+  case class GetVersion(promise: Promise[SocketVersion])
 
   val initialPong = makeMessage("n")
 }

@@ -68,7 +68,7 @@ private[simul] final class Socket(
       ping(uid, c)
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case lila.socket.Socket.GetVersionP(promise) => promise success history.version
+    case lila.socket.Socket.GetVersion(promise) => promise success history.version
 
     case GetUserIdsP(promise) => promise success members.values.flatMap(_.userId)
 

@@ -9,7 +9,7 @@ import actorApi._
 import chess.Centis
 import lila.common.LightUser
 import lila.hub.actorApi.Deploy
-import lila.hub.actorApi.HasUserId
+import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Trouper
 import lila.memo.ExpireSetMemo
 

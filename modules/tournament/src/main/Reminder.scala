@@ -4,7 +4,7 @@ import akka.actor._
 import play.api.libs.json.Json
 
 import actorApi._
-import lila.hub.actorApi.SendTos
+import lila.hub.actorApi.socket.SendTos
 import lila.socket.Socket.makeMessage
 
 private[tournament] final class Reminder extends Actor {

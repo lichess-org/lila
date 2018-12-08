@@ -7,7 +7,7 @@ import scala.concurrent.Promise
 
 import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
-import lila.socket.Socket.{ GetVersionP, SocketVersion }
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -185,12 +185,12 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersionP)
+    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersion)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketMap.askIfPresentOrZero[Boolean](tourId)(lila.hub.actorApi.HasUserId(userId, _)) >>|
+    socketMap.askIfPresentOrZero[Boolean](tourId)(lila.hub.actorApi.socket.HasUserId(userId, _)) >>|
       PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {

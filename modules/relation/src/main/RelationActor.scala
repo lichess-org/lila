@@ -6,7 +6,7 @@ import scala.collection.breakOut
 import actorApi._
 import lila.common.LightUser
 import lila.hub.actorApi.relation._
-import lila.hub.actorApi.{ SendTo, SendTos }
+import lila.hub.actorApi.socket.{ SendTo, SendTos }
 
 private[relation] final class RelationActor(
     lightUser: LightUser.GetterSync,

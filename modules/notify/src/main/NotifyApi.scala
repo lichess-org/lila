@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.hub.actorApi.SendTo
+import lila.hub.actorApi.socket.SendTo
 import lila.user.UserRepo
 
 final class NotifyApi(

@@ -67,7 +67,7 @@ private[tournament] final class Socket(
       ping(uid, lt)
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case lila.socket.Socket.GetVersionP(promise) => promise success history.version
+    case lila.socket.Socket.GetVersion(promise) => promise success history.version
 
     case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

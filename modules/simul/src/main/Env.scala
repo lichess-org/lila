@@ -4,10 +4,9 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.map.Ask
 import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
-import lila.socket.Socket.{ GetVersionP, SocketVersion }
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 final class Env(
     config: Config,
@@ -86,7 +85,7 @@ final class Env(
       case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
         system.lilaBus.publish(
-          lila.hub.actorApi.SendTo(
+          lila.hub.actorApi.socket.SendTo(
             opponentUserId,
             lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
           ),
@@ -111,7 +110,7 @@ final class Env(
   )
 
   def version(simulId: String): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersionP)
+    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersion)
 
   private[simul] val simulColl = db(CollectionSimul)
 

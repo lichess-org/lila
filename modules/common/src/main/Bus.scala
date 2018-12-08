@@ -1,5 +1,8 @@
 package lila.common
 
+import scala.concurrent.Promise
+import scala.concurrent.duration._
+
 import akka.actor._
 import akka.event._
 
@@ -44,6 +47,16 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
 
   def publish(event: Event): Unit = bus publish event
 
+  def ask[A](classifier: Classifier, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any): Fu[A] = {
+    val promise = Promise[A]
+    val msg = makeMsg(promise)
+    publish(msg, classifier)
+    promise.future.withTimeout(
+      timeout,
+      Bus.AskTimeout(s"Bus.ask timeout: $classifier $msg")
+    )(system)
+  }
+
   private val bus = new EventBus with LookupClassification {
 
     type Event = Bus.Event
@@ -74,4 +87,6 @@ object Bus extends ExtensionId[Bus] with ExtensionIdProvider {
   override def lookup() = Bus
 
   override def createExtension(system: ExtendedActorSystem) = new Bus(system)
+
+  case class AskTimeout(message: String) extends lila.base.LilaException
 }

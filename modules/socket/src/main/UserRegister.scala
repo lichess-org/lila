@@ -4,7 +4,7 @@ import play.api.libs.json.JsObject
 
 import actorApi.{ SocketLeave, SocketEnter }
 import lila.hub.Trouper
-import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
+import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.security.CloseAccount
 
 private final class UserRegister(system: akka.actor.ActorSystem) extends Trouper {

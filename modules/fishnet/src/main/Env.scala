@@ -58,12 +58,7 @@ final class Env(
     sequencer = sequencer,
     monitor = monitor,
     sink = sink,
-    socketExists = id => {
-      import lila.hub.actorApi.map.Exists
-      val promise = Promise[Boolean]
-      bus.publish(Exists(id, promise), 'roundSocket)
-      promise.future
-    },
+    socketExists = id => bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _)),
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes

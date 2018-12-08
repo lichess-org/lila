@@ -1,24 +1,10 @@
 package lila.hub
 package actorApi
 
-import scala.concurrent.Promise
+import chess.format.Uci
 import org.joda.time.DateTime
 import play.api.libs.json._
-import chess.format.Uci
-
-case class SendTo(userId: String, message: JsObject)
-
-object SendTo {
-  def apply[A: Writes](userId: String, typ: String, data: A): SendTo =
-    SendTo(userId, Json.obj("t" -> typ, "d" -> data))
-}
-
-case class SendTos(userIds: Set[String], message: JsObject)
-
-object SendTos {
-  def apply[A: Writes](userIds: Set[String], typ: String, data: A): SendTos =
-    SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
-}
+import scala.concurrent.Promise
 
 sealed abstract class Deploy(val key: String)
 case object DeployPre extends Deploy("deployPre")
@@ -30,17 +16,25 @@ package streamer {
 }
 
 package map {
-  case class Get(id: String)
   case class Tell(id: String, msg: Any)
-  case class TellIds(ids: Seq[String], msg: Any)
-  case class TellAll(msg: Any)
-  case class Ask(id: String, msg: Any)
+  case class TellIfExists(id: String, msg: Any)
   case class Exists(id: String, promise: Promise[Boolean])
 }
 
-case class WithUserIds(f: Iterable[String] => Unit)
-
-case class HasUserId(userId: String, promise: Promise[Boolean])
+package socket {
+  case class WithUserIds(f: Iterable[String] => Unit)
+  case class HasUserId(userId: String, promise: Promise[Boolean])
+  case class SendTo(userId: String, message: JsObject)
+  object SendTo {
+    def apply[A: Writes](userId: String, typ: String, data: A): SendTo =
+      SendTo(userId, Json.obj("t" -> typ, "d" -> data))
+  }
+  case class SendTos(userIds: Set[String], message: JsObject)
+  object SendTos {
+    def apply[A: Writes](userIds: Set[String], typ: String, data: A): SendTos =
+      SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
+  }
+}
 
 package report {
   case class Cheater(userId: String, text: String)

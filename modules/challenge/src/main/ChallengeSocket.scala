@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.SocketTrouper
-import lila.socket.Socket.{ Uid, GetVersionP, SocketVersion }
+import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ History, Historical }
 
 private final class ChallengeSocket(
@@ -33,7 +33,7 @@ private final class ChallengeSocket(
       ping(uid, lagCentis)
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case GetVersionP(promise) => promise success history.version
+    case GetVersion(promise) => promise success history.version
 
     case ChallengeSocket.Join(uid, userId, owner, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

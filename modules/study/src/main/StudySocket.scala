@@ -10,7 +10,7 @@ import chess.Centis
 import chess.format.pgn.Glyphs
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.{ Uid, GetVersionP, SocketVersion }
+import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketTrouper, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
@@ -197,7 +197,7 @@ final class StudySocket(
       ping(uid, lt)
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case GetVersionP(promise) => promise success history.version
+    case GetVersion(promise) => promise success history.version
 
     case Join(uid, userId, troll, version, promise) =>
       import play.api.libs.iteratee.Concurrent

@@ -4,7 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.WithUserIds
+import lila.hub.actorApi.socket.WithUserIds
 
 final class Env(
     config: Config,

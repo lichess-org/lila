@@ -3,7 +3,7 @@ package lila.study
 import akka.actor._
 import akka.pattern.ask
 
-import lila.hub.actorApi.HasUserId
+import lila.hub.actorApi.socket.HasUserId
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }

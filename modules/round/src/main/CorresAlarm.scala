@@ -8,7 +8,6 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.round.IsOnGame
 import lila.game.{ GameRepo, Pov }
 import makeTimeout.short

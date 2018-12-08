@@ -9,7 +9,7 @@ import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
-import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
@@ -219,17 +219,13 @@ private final class PushApi(
     ) mkString " • "
   }
 
-  private def IfAway(pov: Pov)(f: => Funit): Funit = {
-    val promise = Promise[Boolean]
-    bus.publish(
-      Ask(pov.gameId, IsOnGame(pov.color, promise)),
-      'roundSocket
-    )
-    promise.future flatMap {
+  private def IfAway(pov: Pov)(f: => Funit): Funit =
+    bus.ask[Boolean]('roundSocket) { p =>
+      Tell(pov.gameId, IsOnGame(pov.color, p))
+    } flatMap {
       case true => funit
       case false => f
     }
-  }
 
   private def opponentName(pov: Pov) = Namer playerText pov.opponent
 

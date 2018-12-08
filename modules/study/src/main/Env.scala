@@ -4,10 +4,9 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.HasUserId
-import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.socket.HasUserId
 import lila.hub.{ Duct, DuctMap, TrouperMap }
-import lila.socket.Socket.{ GetVersionP, SocketVersion }
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
 final class Env(
@@ -64,7 +63,7 @@ final class Env(
   }
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersionP)
+    socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersion)
 
   def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     socketMap.askIfPresentOrZero[Boolean](studyId.value)(HasUserId(userId, _))
