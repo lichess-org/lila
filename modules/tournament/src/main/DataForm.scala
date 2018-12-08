@@ -136,7 +136,7 @@ private[tournament] case class TournamentSetup(
       lidraughts.game.Game.allowRated(realVariant, clockConfig)
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration = estimateNumberOfGamesOneCanPlay <= 80
+  def excessiveDuration = estimateNumberOfGamesOneCanPlay <= 70
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
 
