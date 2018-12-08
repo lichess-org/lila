@@ -595,6 +595,7 @@ GET   /privacy                         controllers.Page.bookmark(name = "privacy
 GET   /contact                         controllers.Page.bookmark(name = "contact")
 GET   /about                           controllers.Page.bookmark(name = "about")
 GET   /swag                            controllers.Page.swag
+GET   /how-to-cheat                    controllers.Page.bookmark(name = "how-to-cheat")
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
