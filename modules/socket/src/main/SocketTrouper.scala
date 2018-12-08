@@ -52,7 +52,7 @@ trait LoneSocket { self: SocketTrouper[_] =>
   def monitoringName: String
   def broomFrequency: FiniteDuration
 
-  system.scheduler.schedule(approximatly(0.9f)(10.seconds.toMillis).millis.pp, broomFrequency) {
+  system.scheduler.schedule(approximatly(0.1f)(12.seconds.toMillis).millis.pp, broomFrequency) {
     this ! lidraughts.socket.actorApi.Broom
     lidraughts.mon.socket.queueSize(monitoringName)(estimateQueueSize)
   }
