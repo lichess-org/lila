@@ -51,7 +51,6 @@ final class Env(
     val CollectionHistory = config getString "collection.history"
     val CollectionForecast = config getString "collection.forecast"
     val CollectionAlarm = config getString "collection.alarm"
-    val ChannelMoveTime = config getString "channel.move_time.name "
   }
   import settings._
 
