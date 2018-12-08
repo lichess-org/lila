@@ -17,6 +17,7 @@ import lidraughts.hub.actorApi.Deploy
 import lidraughts.hub.actorApi.game.ChangeFeatured
 import lidraughts.hub.actorApi.round.{ IsOnGame, TourStanding, SimulStanding }
 import lidraughts.hub.actorApi.tv.{ Select => TvSelect }
+import lidraughts.hub.actorApi.simul.GetHostIds
 import lidraughts.hub.Trouper
 import lidraughts.socket._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
@@ -65,9 +66,7 @@ private[round] final class RoundSocket(
     private def isBye = bye > 0
 
     private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
-      import akka.pattern.{ ask => actorAsk }
-      import makeTimeout.short
-      actorAsk(simulActor, lidraughts.hub.actorApi.simul.GetHostIds) mapTo manifest[Set[String]] map (_ contains u)
+      lidraughtsBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
     def isGone: Fu[Boolean] = {
@@ -282,6 +281,7 @@ private[round] final class RoundSocket(
 
   override def broom = {
     super.broom
+    if (members.nonEmpty) keepMeAlive()
     if (!hasAi) Color.all foreach { c =>
       playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
     }
@@ -368,7 +368,6 @@ object RoundSocket {
       lightUser: LightUser.Getter,
       uidTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration,
-      simulActor: ActorSelection
+      ragequitTimeout: FiniteDuration
   )
 }

@@ -13,7 +13,6 @@ final class Env(config: Config, system: ActorSystem) {
     val teamSearch = select("actor.team.search")
     val draughtsnet = select("actor.draughtsnet")
     val tournamentApi = select("actor.tournament.api")
-    val simul = select("actor.simul")
     val timeline = select("actor.timeline.user")
     val bookmark = select("actor.bookmark")
     val lobby = select("actor.lobby")

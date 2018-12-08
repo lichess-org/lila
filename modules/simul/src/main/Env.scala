@@ -31,7 +31,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -86,12 +85,20 @@ final class Env(
     exists = repo.exists
   )
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    import akka.pattern.pipe
-    def receive = {
+  system.lidraughtsBus.subscribeFuns(
+    'finishGame -> {
       case lidraughts.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    },
+    'adjustCheater -> {
       case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
-      case lidraughts.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
+    },
+    'deploy -> {
+      case m: lidraughts.hub.actorApi.Deploy => socketMap tellAll m
+    },
+    'simulGetHosts -> {
+      case lidraughts.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
+    },
+    'moveEventSimul -> {
       case lidraughts.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
         system.lidraughtsBus.publish(
           lidraughts.hub.actorApi.socket.SendTo(
@@ -104,11 +111,12 @@ final class Env(
           if (ids.contains(simulId))
             draughtsnetCommentator(move.gameId)
         }
+    },
+    'draughtsnetComment -> {
       case lidraughts.hub.actorApi.draughtsnet.CommentaryEvent(gameId, simulId, json) if simulId.isDefined =>
         api.processCommentary(simulId.get, gameId, json)
-      case m: lidraughts.hub.actorApi.Deploy => socketMap tellAll m
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul, 'draughtsnetComment, 'deploy)
+  )
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 

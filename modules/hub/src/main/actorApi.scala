@@ -87,7 +87,7 @@ package lobby {
 }
 
 package simul {
-  case object GetHostIds
+  case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)
 }
 
