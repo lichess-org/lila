@@ -16,9 +16,9 @@ import lila.socket.Socket.{ Uid, Uids }
 import lila.socket.{ SocketTrouper, LoneSocket }
 
 private[lobby] final class Socket(
-    val system: ActorSystem,
+    system: ActorSystem,
     uidTtl: FiniteDuration
-) extends SocketTrouper[Member](uidTtl) with LoneSocket {
+) extends SocketTrouper[Member](system, uidTtl) with LoneSocket {
 
   def monitoringName = "lobby"
   def broomFrequency = 4073 millis
@@ -45,7 +45,7 @@ private[lobby] final class Socket(
       idleUids retain members.contains
       hookSubscriberUids retain members.contains
 
-    case JoinP(uid, user, blocks, mobile, promise) =>
+    case Join(uid, user, blocks, mobile, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, blocks, uid, mobile)
       addMember(uid, member)

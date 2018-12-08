@@ -12,13 +12,13 @@ import lila.socket.Socket.{ Uid, GetVersionP, SocketVersion }
 import lila.socket.{ History, Historical }
 
 private final class ChallengeSocket(
-    val system: ActorSystem,
+    system: ActorSystem,
     challengeId: String,
-    val history: History[Unit],
+    protected val history: History[Unit],
     getChallenge: Challenge.ID => Fu[Option[Challenge]],
     uidTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[ChallengeSocket.Member](uidTtl) with Historical[ChallengeSocket.Member, Unit] {
+) extends SocketTrouper[ChallengeSocket.Member](system, uidTtl) with Historical[ChallengeSocket.Member, Unit] {
 
   def receiveSpecific = {
 
@@ -35,7 +35,7 @@ private final class ChallengeSocket(
 
     case GetVersionP(promise) => promise success history.version
 
-    case ChallengeSocket.JoinP(uid, userId, owner, version, promise) =>
+    case ChallengeSocket.Join(uid, userId, owner, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = ChallengeSocket.Member(channel, userId, owner)
       addMember(uid, member)
@@ -65,7 +65,7 @@ private object ChallengeSocket {
     val troll = false
   }
 
-  case class JoinP(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
+  case class Join(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload

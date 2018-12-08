@@ -3,9 +3,9 @@ package lila.socket
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-trait Historical[M <: SocketMember, Metadata] { self: SocketBase[M] =>
+trait Historical[M <: SocketMember, Metadata] { self: SocketTrouper[M] =>
 
-  val history: History[Metadata]
+  protected val history: History[Metadata]
 
   protected type Message = History.Message[Metadata]
 

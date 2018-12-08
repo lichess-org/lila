@@ -13,7 +13,6 @@ import lila.hub.Trouper
 private[tv] final class TvTrouper(
     system: ActorSystem,
     rendererActor: ActorSelection,
-    roundSocket: ActorSelection,
     selectChannel: lila.socket.Channel,
     lightUser: LightUser.GetterSync,
     onSelect: Game => Unit

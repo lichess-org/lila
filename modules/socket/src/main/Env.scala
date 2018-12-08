@@ -6,13 +6,10 @@ import com.typesafe.config.Config
 import actorApi._
 
 final class Env(
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    system: ActorSystem
 ) {
 
   import scala.concurrent.duration._
-
-  private val socketHub = system.actorOf(Props[SocketHub])
 
   private val population = new Population(system)
 
@@ -20,16 +17,12 @@ final class Env(
 
   private val userRegister = new UserRegister(system)
 
-  scheduler.once(10 seconds) {
-    scheduler.message(4 seconds) { socketHub -> actorApi.Broom }
-  }
   system.scheduler.schedule(5 seconds, 1 seconds) { population ! PopulationTell }
 }
 
 object Env {
 
   lazy val current = "socket" boot new Env(
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    system = lila.common.PlayApp.system
   )
 }

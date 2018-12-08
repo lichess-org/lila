@@ -20,7 +20,6 @@ final class Env(
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: DuctMap[_],
-    roundSocketHub: ActorSelection,
     lightUserApi: lila.user.LightUserApi,
     isOnline: String => Boolean,
     onStart: String => Unit,
@@ -191,7 +190,7 @@ final class Env(
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketMap.askIfPresentOrZero[Boolean](tourId)(lila.hub.actorApi.HasUserIdP(userId, _)) >>|
+    socketMap.askIfPresentOrZero[Boolean](tourId)(lila.hub.actorApi.HasUserId(userId, _)) >>|
       PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {
@@ -220,7 +219,6 @@ object Env {
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
-    roundSocketHub = lila.hub.Env.current.socket.round,
     lightUserApi = lila.user.Env.current.lightUserApi,
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,

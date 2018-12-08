@@ -17,17 +17,17 @@ import lila.user.User
 import lila.chat.Chat
 
 final class StudySocket(
-    val system: ActorSystem,
+    system: ActorSystem,
     studyId: Study.Id,
     jsonView: JsonView,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
-    val history: History[StudySocket.Messadata],
+    protected val history: History[StudySocket.Messadata],
     uidTtl: Duration,
     lightStudyCache: LightStudyCache,
     keepMeAlive: () => Unit
-) extends SocketTrouper[StudySocket.Member](uidTtl) with Historical[StudySocket.Member, StudySocket.Messadata] {
+) extends SocketTrouper[StudySocket.Member](system, uidTtl) with Historical[StudySocket.Member, StudySocket.Messadata] {
 
   import StudySocket._
   import JsonView._
@@ -199,7 +199,7 @@ final class StudySocket(
 
     case GetVersionP(promise) => promise success history.version
 
-    case JoinP(uid, userId, troll, version, promise) =>
+    case Join(uid, userId, troll, version, promise) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId, troll = troll)
@@ -284,7 +284,7 @@ object StudySocket {
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class JoinP(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)

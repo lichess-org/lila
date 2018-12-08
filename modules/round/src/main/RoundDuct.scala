@@ -74,7 +74,7 @@ private[round] final class Round(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
+        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
           case true => finisher.rageQuit(pov.game, Some(pov.color))
           case _ => fuccess(List(Event.Reload))
         }
@@ -83,7 +83,7 @@ private[round] final class Round(
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
+        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
         }
@@ -263,7 +263,7 @@ private[round] final class Round(
 
   private[this] def publish[A](op: Fu[Events]): Funit = op.map { events =>
     if (events.nonEmpty) {
-      socketHub ! Tell(gameId, EventList(events))
+      socketMap.tell(gameId, EventList(events))
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
@@ -292,7 +292,7 @@ object Round {
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketHub: ActorRef,
+      socketMap: SocketMap,
       moretimeDuration: FiniteDuration
   )
 

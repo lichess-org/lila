@@ -13,15 +13,15 @@ import lila.socket.{ SocketTrouper, History, Historical }
 import lila.chat.Chat
 
 private[simul] final class Socket(
-    val system: ActorSystem,
+    system: ActorSystem,
     simulId: String,
-    val history: History[Messadata],
+    protected val history: History[Messadata],
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
     uidTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
 
   lilaBus.subscribe(this, chatClassifier)
 
@@ -72,7 +72,7 @@ private[simul] final class Socket(
 
     case GetUserIdsP(promise) => promise success members.values.flatMap(_.userId)
 
-    case JoinP(uid, user, version, promise) =>
+    case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)

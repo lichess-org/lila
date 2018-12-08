@@ -3,6 +3,7 @@ package lila.fishnet
 import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 final class Env(
     config: Config,
@@ -59,9 +60,9 @@ final class Env(
     sink = sink,
     socketExists = id => {
       import lila.hub.actorApi.map.Exists
-      import akka.pattern.ask
-      import makeTimeout.short
-      hub.socket.round ? Exists(id) mapTo manifest[Boolean]
+      val promise = Promise[Boolean]
+      bus.publish(Exists(id, promise), 'roundSocket)
+      promise.future
     },
     clientVersion = clientVersion,
     offlineMode = OfflineMode,

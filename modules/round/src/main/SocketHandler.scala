@@ -4,8 +4,6 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.Try
 
-import akka.actor._
-import akka.pattern.ask
 import chess.format.Uci
 import chess.{ Centis, MoveMetrics, Color }
 import play.api.libs.json.{ JsObject, JsNumber, Json, Reads }
@@ -26,7 +24,7 @@ import makeTimeout.short
 
 private[round] final class SocketHandler(
     roundMap: DuctMap[Round],
-    socketHub: ActorRef,
+    socketMap: SocketMap,
     hub: lila.hub.Env,
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
@@ -40,7 +38,7 @@ private[round] final class SocketHandler(
   private def controller(
     gameId: Game.ID,
     chat: Option[Chat.Setup], // if using a non-game chat (tournament, simul, ...)
-    socket: ActorRef,
+    socket: RoundSocket,
     uid: Uid,
     ref: PovRef,
     member: Member,
@@ -145,29 +143,34 @@ private[round] final class SocketHandler(
     userTv: Option[UserTv],
     version: Option[SocketVersion]
   ): Fu[JsSocketHandler] = {
-    val join = Join(
+    val socket = socketMap getOrMake pov.gameId
+    socket.ask[Connected](promise => Join(
       uid = uid,
       user = user,
       color = pov.color,
       playerId = playerId,
       ip = ip,
       userTv = userTv,
-      version = version
-    )
-    // non-game chat, for tournament or simul games; only for players
-    val chatSetup = playerId.isDefined ?? {
-      pov.game.tournamentId.map(Chat.tournamentSetup) orElse pov.game.simulId.map(Chat.simulSetup)
-    }
-    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
-      Handler.forActor(hub, socket, uid, join) {
-        case Connected(enum, member) =>
-          // register to the TV channel when watching TV
-          if (playerId.isEmpty && isRecentTv(pov.gameId)) bus.publish(
-            lila.socket.Channel.Sub(member),
-            'tvSelectChannel
-          )
-          (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
-      }
+      version = version,
+      promise = promise
+    )) map {
+      case Connected(enum, member) =>
+        // register to the TV channel when watching TV
+        if (playerId.isEmpty && isRecentTv(pov.gameId)) bus.publish(
+          lila.socket.Channel.Sub(member),
+          'tvSelectChannel
+        )
+        // non-game chat, for tournament or simul games; only for players
+        val chatSetup = playerId.isDefined ?? {
+          pov.game.tournamentId.map(Chat.tournamentSetup) orElse pov.game.simulId.map(Chat.simulSetup)
+        }
+        Handler.iteratee(
+          hub,
+          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user),
+          member,
+          socket,
+          uid
+        ) -> enum
     }
   }
 

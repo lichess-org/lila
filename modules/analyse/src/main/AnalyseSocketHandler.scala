@@ -12,8 +12,8 @@ private[analyse] final class AnalyseSocketHandler(
   import AnalyseSocket._
 
   def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] =
-    socket.addMember(uid)(Member(_, user.map(_.id))) map {
-      case (member, enum) => Handler.iteratee(
+    socket.ask[Connected](Join(uid, user.map(_.id), _)) map {
+      case Connected(enum, member) => Handler.iteratee(
         hub,
         evalCacheHandler(uid, member, user),
         member,

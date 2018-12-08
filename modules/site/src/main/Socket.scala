@@ -11,9 +11,9 @@ import lila.socket._
 import lila.socket.actorApi.SendToFlag
 
 private[site] final class Socket(
-    val system: akka.actor.ActorSystem,
+    system: akka.actor.ActorSystem,
     uidTtl: Duration
-) extends SocketTrouper[Member](uidTtl) with LoneSocket {
+) extends SocketTrouper[Member](system, uidTtl) with LoneSocket {
 
   def monitoringName = "site"
   def broomFrequency = 4159 millis
@@ -24,7 +24,7 @@ private[site] final class Socket(
 
   def receiveSpecific = {
 
-    case JoinP(uid, userId, flag, promise) =>
+    case Join(uid, userId, flag, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId, flag)
       addMember(uid, member)

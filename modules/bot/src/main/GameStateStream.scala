@@ -18,8 +18,7 @@ import lila.user.User
 
 final class GameStateStream(
     system: ActorSystem,
-    jsonView: BotJsonView,
-    roundSocketHub: ActorSelection
+    jsonView: BotJsonView
 ) {
 
   private case object SetOnline
@@ -87,8 +86,10 @@ final class GameStateStream(
             gameOver = true
             channel.eofAndEnd()
           }
-          def setConnected(v: Boolean) =
-            roundSocketHub ! Tell(init.game.id, BotConnected(as, v))
+          def setConnected(v: Boolean) = system.lilaBus.publish(
+            Tell(init.game.id, BotConnected(as, v)),
+            'roundSocket
+          )
         }))
         stream = actor.some
       },

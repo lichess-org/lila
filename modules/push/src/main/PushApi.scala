@@ -1,9 +1,9 @@
 package lila.push
 
 import akka.actor._
-import akka.pattern.ask
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import chess.format.Forsyth
 import lila.challenge.Challenge
@@ -16,7 +16,7 @@ import lila.message.{ Thread, Post }
 private final class PushApi(
     oneSignalPush: OneSignalPush,
     implicit val lightUser: LightUser.GetterSync,
-    roundSocketHub: ActorSelection,
+    bus: lila.common.Bus,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -220,8 +220,12 @@ private final class PushApi(
   }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit = {
-    import makeTimeout.short
-    roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] flatMap {
+    val promise = Promise[Boolean]
+    bus.publish(
+      Ask(pov.gameId, IsOnGame(pov.color, promise)),
+      'roundSocket
+    )
+    promise.future flatMap {
       case true => funit
       case false => f
     }

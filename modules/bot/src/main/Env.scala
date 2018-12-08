@@ -11,11 +11,7 @@ final class Env(
 
   lazy val jsonView = new BotJsonView(lightUserApi)
 
-  lazy val gameStateStream = new GameStateStream(
-    system,
-    jsonView,
-    hub.socket.round
-  )
+  lazy val gameStateStream = new GameStateStream(system, jsonView)
 
   lazy val player = new BotPlayer(hub.actor.chat)(system)
 

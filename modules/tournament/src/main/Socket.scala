@@ -14,14 +14,14 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketTrouper, History, Historical }
 
 private[tournament] final class Socket(
-    val system: ActorSystem,
+    system: ActorSystem,
     tournamentId: String,
-    val history: History[Messadata],
+    protected val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
     uidTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
 
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
@@ -69,7 +69,7 @@ private[tournament] final class Socket(
 
     case lila.socket.Socket.GetVersionP(promise) => promise success history.version
 
-    case JoinP(uid, user, version, promise) =>
+    case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)

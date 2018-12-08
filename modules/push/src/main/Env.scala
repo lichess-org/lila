@@ -7,7 +7,6 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     getLightUser: lila.common.LightUser.GetterSync,
-    roundSocketHub: ActorSelection,
     scheduler: lila.common.Scheduler,
     system: ActorSystem
 ) {
@@ -32,7 +31,7 @@ final class Env(
   private lazy val pushApi = new PushApi(
     oneSignalPush,
     getLightUser,
-    roundSocketHub,
+    bus = system.lilaBus,
     scheduler = scheduler
   )
 
@@ -54,7 +53,6 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUserSync,
-    roundSocketHub = lila.hub.Env.current.socket.round,
     scheduler = lila.common.PlayApp.scheduler,
     config = lila.common.PlayApp loadConfig "push"
   )

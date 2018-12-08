@@ -15,7 +15,7 @@ import makeTimeout.short
 
 private final class CorresAlarm(
     coll: Coll,
-    roundSocketHub: ActorSelection
+    socketMap: SocketMap
 ) extends Actor {
 
   object Run
@@ -55,7 +55,7 @@ private final class CorresAlarm(
           case (count, alarm) => GameRepo.game(alarm._id).flatMap {
             _ ?? { game =>
               val pov = Pov(game, game.turnColor)
-              roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] addEffect {
+              socketMap.ask[Boolean](pov.gameId)(IsOnGame(pov.color, _)) addEffect {
                 case true => // already looking at the game
                 case false => context.system.lilaBus.publish(
                   lila.game.actorApi.CorresAlarmEvent(pov),

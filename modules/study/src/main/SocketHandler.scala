@@ -299,7 +299,7 @@ final class SocketHandler(
     controller: StudySocket.Member => Handler.Controller,
     version: Option[SocketVersion]
   ): Fu[JsSocketHandler] =
-    socket.ask[StudySocket.Connected](StudySocket.JoinP(uid, user.map(_.id), user.??(_.troll), version, _)) map {
+    socket.ask[StudySocket.Connected](StudySocket.Join(uid, user.map(_.id), user.??(_.troll), version, _)) map {
       case StudySocket.Connected(enum, member) => Handler.iteratee(
         hub,
         controller(member),

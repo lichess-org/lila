@@ -47,7 +47,7 @@ private[lobby] case class BiteHook(hookId: String, uid: Uid, user: Option[LobbyU
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(uid: Uid, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
-private[lobby] case class JoinP(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean, promise: Promise[Connected])
+private[lobby] case class Join(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean, promise: Promise[Connected])
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 

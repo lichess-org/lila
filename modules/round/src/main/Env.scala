@@ -8,9 +8,10 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.map.{ Ask, Tell }
+import lila.hub.actorApi.map.{ Ask, Tell, Exists }
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.{ HasUserId, DeployPost }
+import lila.hub.TrouperMap
 
 final class Env(
     config: Config,
@@ -43,7 +44,6 @@ final class Env(
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDuration = config duration "animation.duration"
     val MoretimeDuration = config duration "moretime"
-    val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val NetDomain = config getString "net.domain"
     val ActiveTtl = config duration "active.ttl"
@@ -69,7 +69,7 @@ final class Env(
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketHub = socketHub,
+    socketMap = socketMap,
     moretimeDuration = MoretimeDuration
   )
   val roundMap = new lila.hub.DuctMap[Round](
@@ -84,9 +84,9 @@ final class Env(
     accessTimeout = ActiveTtl
   )
 
-  bus.subscribeFun('roundMapTell, 'deploy, 'accountClose) {
-    case Tell(id, msg) => roundMap.tell(id, msg)
-    case DeployPost => roundMap.tellAll(DeployPost)
+  bus.subscribeFun('roundMapTell) { case Tell(id, msg) => roundMap.tell(id, msg) }
+  bus.subscribeFun('deploy) { case DeployPost => roundMap.tellAll(DeployPost) }
+  bus.subscribeFun('accountClose) {
     case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
       _ foreach { pov =>
         roundMap.tell(pov.gameId, Resign(pov.playerId))
@@ -113,39 +113,45 @@ final class Env(
     }
   }
 
-  private val socketHub = {
-    val actor = system.actorOf(
-      Props(new lila.socket.SocketHubActor[Socket] {
-        private var historyPersistenceEnabled = false
-        def mkActor(id: String) = new Socket(
-          gameId = id,
-          history = eventHistory(id, historyPersistenceEnabled),
-          lightUser = lightUser,
-          uidTimeout = UidTimeout,
-          socketTimeout = SocketTimeout,
-          disconnectTimeout = PlayerDisconnectTimeout,
-          ragequitTimeout = PlayerRagequitTimeout,
-          simulActor = hub.actor.simul
-        )
-        def receive: Receive = ({
-          case msg @ lila.chat.actorApi.ChatLine(id, line) =>
-            self ! Tell(id.value take 8, msg)
-          case _: lila.hub.actorApi.Deploy =>
-            logger.warn("Enable history persistence")
-            historyPersistenceEnabled = true
-            // if the deploy didn't go through, cancel persistence
-            system.scheduler.scheduleOnce(10.minutes) {
-              logger.warn("Disabling round history persistence!")
-              historyPersistenceEnabled = false
-            }
-          case msg: lila.game.actorApi.StartGame =>
-            self ! Tell(msg.game.id, msg)
-        }: Receive) orElse socketHubReceive
-      }),
-      name = SocketName
-    )
-    bus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
-    actor
+  private var historyPersistenceEnabled = false
+  private val socketMap: SocketMap = new TrouperMap[RoundSocket](
+    mkTrouper = (id: Game.ID) => new RoundSocket(
+      system = system,
+      gameId = id,
+      history = eventHistory(id, historyPersistenceEnabled),
+      lightUser = lightUser,
+      uidTtl = UidTimeout,
+      disconnectTimeout = PlayerDisconnectTimeout,
+      ragequitTimeout = PlayerRagequitTimeout,
+      simulActor = hub.actor.simul,
+      keepMeAlive = () => socketMap touch id
+    ),
+    accessTimeout = SocketTimeout
+  )
+  system.scheduler.schedule(30 seconds, 30 seconds) {
+    socketMap.monitor("round.socketMap")
+  }
+  system.scheduler.schedule(10 seconds, 4001 millis) {
+    socketMap tellAll lila.socket.actorApi.Broom
+  }
+  bus.subscribeFun('startGame) {
+    case msg: lila.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
+  }
+  bus.subscribeFun('roundSocket) {
+    case Tell(id, msg) => socketMap.tellIfPresent(id, msg)
+    case Ask(id, msg) => socketMap.tell(id, msg)
+    case Exists(id, promise) => promise success socketMap.exists(id)
+  }
+  bus.subscribeFun('deploy) {
+    case m: lila.hub.actorApi.Deploy =>
+      socketMap tellAll m
+      logger.warn("Enable history persistence")
+      historyPersistenceEnabled = true
+      // if the deploy didn't go through, cancel persistence
+      system.scheduler.scheduleOnce(10.minutes) {
+        logger.warn("Disabling round history persistence!")
+        historyPersistenceEnabled = false
+      }
   }
 
   lazy val selfReport = new SelfReport(roundMap, slackApi)
@@ -163,7 +169,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     roundMap = roundMap,
-    socketHub = socketHub,
+    socketMap = socketMap,
     messenger = messenger,
     evalCacheHandler = evalCacheHandler,
     selfReport = selfReport,
@@ -222,15 +228,11 @@ final class Env(
     chat = hub.actor.chat
   )
 
-  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] = {
-    import makeTimeout.large
-    socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
-  }
+  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] =
+    socketMap.ask[SocketStatus](gameId)(GetSocketStatus)
 
-  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] = {
-    import makeTimeout.large
-    socketHub ? Ask(game.id, HasUserId(userId)) mapTo manifest[Boolean]
-  }
+  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+    socketMap.ask[Boolean](game.id)(HasUserId(userId, _))
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
@@ -253,7 +255,7 @@ final class Env(
   )
 
   bus.subscribe(system.actorOf(
-    Props(new CorresAlarm(db(CollectionAlarm), hub.socket.round)),
+    Props(new CorresAlarm(db(CollectionAlarm), socketMap)),
     name = "corres-alarm"
   ), 'moveEventCorres, 'finishGame)
 

@@ -35,13 +35,12 @@ package map {
   case class TellIds(ids: Seq[String], msg: Any)
   case class TellAll(msg: Any)
   case class Ask(id: String, msg: Any)
-  case class Exists(id: String)
+  case class Exists(id: String, promise: Promise[Boolean])
 }
 
 case class WithUserIds(f: Iterable[String] => Unit)
 
-case class HasUserId(userId: String)
-case class HasUserIdP(userId: String, promise: Promise[Boolean])
+case class HasUserId(userId: String, promise: Promise[Boolean])
 
 package report {
   case class Cheater(userId: String, text: String)
@@ -245,7 +244,7 @@ package round {
   )
   case class NbRounds(nb: Int)
   case class Berserk(gameId: String, userId: String)
-  case class IsOnGame(color: chess.Color)
+  case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
   sealed trait SocketEvent
   case class TourStanding(json: JsArray)
   case class FishnetPlay(uci: Uci, currentFen: chess.format.FEN)

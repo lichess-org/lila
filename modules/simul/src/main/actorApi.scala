@@ -24,7 +24,7 @@ private[simul] object Member {
 
 private[simul] case class Messadata(trollish: Boolean = false)
 
-private[simul] case class JoinP(
+private[simul] case class Join(
     uid: Uid,
     user: Option[User],
     version: Option[SocketVersion],
