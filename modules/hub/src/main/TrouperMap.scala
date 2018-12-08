@@ -42,6 +42,7 @@ final class TrouperMap[T <: Trouper](
 
   private[this] val troupers: LoadingCache[String, T] =
     Caffeine.newBuilder()
+      .recordStats
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {
         def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit = {
