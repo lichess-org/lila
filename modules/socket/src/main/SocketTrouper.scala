@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
+import ornicar.scalalib.Random.approximatly
 
 import lidraughts.hub.actorApi.HasUserIdP
 import lidraughts.hub.Trouper
@@ -43,4 +44,17 @@ abstract class SocketTrouper[M <: SocketMember](
 
 object SocketTrouper {
   case class GetNbMembers(promise: Promise[Int])
+}
+
+// Not managed by a TrouperMap
+trait LoneSocket { self: SocketTrouper[_] =>
+
+  def monitoringName: String
+  def broomFrequency: FiniteDuration
+
+  system.scheduler.schedule(approximatly(0.9f)(10.seconds.toMillis).millis.pp, broomFrequency) {
+    this ! lidraughts.socket.actorApi.Broom
+    lidraughts.mon.socket.queueSize(monitoringName)(estimateQueueSize)
+  }
+  system.lidraughtsBus.subscribe(this, 'deploy)
 }

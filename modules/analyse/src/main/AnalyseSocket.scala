@@ -9,13 +9,10 @@ import lidraughts.socket._
 private final class AnalyseSocket(
     val system: akka.actor.ActorSystem,
     uidTtl: FiniteDuration
-) extends SocketTrouper[AnalyseSocket.Member](uidTtl) {
+) extends SocketTrouper[AnalyseSocket.Member](uidTtl) with LoneSocket {
 
-  system.scheduler.schedule(10 seconds, 4027 millis) {
-    lidraughts.mon.socket.queueSize("analyse")(estimateQueueSize)
-    this ! lidraughts.socket.actorApi.Broom
-  }
-  system.lidraughtsBus.subscribe(this, 'deploy)
+  def monitoringName = "analyse"
+  def broomFrequency = 4027 millis
 
   def receiveSpecific = PartialFunction.empty
 }

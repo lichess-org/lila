@@ -13,13 +13,12 @@ import lidraughts.socket.actorApi.SendToFlag
 private[site] final class Socket(
     val system: akka.actor.ActorSystem,
     uidTtl: Duration
-) extends SocketTrouper[Member](uidTtl) {
+) extends SocketTrouper[Member](uidTtl) with LoneSocket {
 
-  system.lidraughtsBus.subscribe(this, 'sendToFlag, 'deploy)
-  system.scheduler.schedule(10 seconds, 4159 millis) {
-    lidraughts.mon.socket.queueSize("site")(estimateQueueSize)
-    this ! lidraughts.socket.actorApi.Broom
-  }
+  def monitoringName = "site"
+  def broomFrequency = 4159 millis
+
+  system.lidraughtsBus.subscribe(this, 'sendToFlag)
 
   private val flags = new lidraughts.socket.MemberGroup[Member](_.flag)
 
