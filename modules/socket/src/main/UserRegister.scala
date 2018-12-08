@@ -10,7 +10,7 @@ import lila.hub.actorApi.security.CloseAccount
 private final class UserRegister extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'users, 'socketDoor, 'accountClose)
+    context.system.lilaBus.subscribe(self, 'users, 'socketEnter, 'socketLeave, 'accountClose)
   }
 
   override def postStop(): Unit = {

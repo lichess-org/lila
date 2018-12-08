@@ -90,7 +90,7 @@ trait SocketBase[M <: SocketMember] extends Socket {
 
   protected def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
     members -= uid.value
-    lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
+    lilaBus.publish(SocketLeave(uid, member), 'socketLeave)
   }
 
   protected def onDeploy(d: Deploy): Unit =
@@ -115,7 +115,7 @@ trait SocketBase[M <: SocketMember] extends Socket {
     eject(uid)
     members += (uid.value -> member)
     setAlive(uid)
-    lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
+    lilaBus.publish(SocketEnter(uid, member), 'socketEnter)
   }
 
   protected def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value

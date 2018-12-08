@@ -38,7 +38,7 @@ final class Env(
     upgrade = upgrade
   )
 
-  system.lilaBus.subscribeFun('socketDoor) {
+  system.lilaBus.subscribeFun('socketLeave) {
     case lila.socket.actorApi.SocketLeave(uid, _) => upgrade unregister uid
   }
 
