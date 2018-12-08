@@ -217,7 +217,7 @@
   <string name="yourPerfRatingIsProvisional">Mae dy raddfa %s yn un dros dro</string>
   <string name="yourPerfRatingIsTooHigh">Mae dy raddfa %1$s (%2$s) yn rhy uchel</string>
   <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
-  <string name="ratedLessThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
+  <string name="ratedLessThanInPerf">Graddfa %2$s yn ≥ %1$s</string>
   <string name="backToGame">Nôl at y gêm</string>
   <string name="siteDescription">Gweinydd gwyddbwyll ar-lein am ddim.  Chwaraewch wyddbwyll nawr mewn rhyngwyneb glan.  Dim cofrestru, hysbysebion, dim angen ategyn.  Chwaraewch wyddbwyll yn erbyn y cyfrifiadur, efo ffrindiau neu berson ar hap.</string>
   <string name="teams">Tîmau</string>
@@ -287,6 +287,7 @@
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
   <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
   <string name="recommendNotTouching">Rydym yn awgrymu nad ydych yn cyffwrdd rhain.</string>
+  <string name="showAdvancedSettings">Dangos gosodiadau cymleth</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
   <string name="points">o bwyntiau</string>
@@ -485,6 +486,7 @@
   <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol</string>
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
+  <string name="zenMode">Ffocysu</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
