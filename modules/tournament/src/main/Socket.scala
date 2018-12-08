@@ -8,10 +8,10 @@ import scala.collection.breakOut
 import scala.concurrent.duration._
 
 import actorApi._
+import lila.chat.Chat
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketTrouper, History, Historical }
-import lila.chat.Chat
 
 private[tournament] final class Socket(
     val system: ActorSystem,
@@ -32,14 +32,10 @@ private[tournament] final class Socket(
 
   private def chatClassifier = Chat classify Chat.Id(tournamentId)
 
-  override def start(): Unit = {
-    super.start()
-    lilaBus.subscribe(this, chatClassifier)
-    TournamentRepo clockById tournamentId foreach {
-      _ foreach { c =>
-        this ! SetTournamentClock(c)
-      }
-    }
+  lilaBus.subscribe(this, chatClassifier)
+
+  TournamentRepo clockById tournamentId foreach {
+    _ foreach { c => this ! SetTournamentClock(c) }
   }
 
   override def stop(): Unit = {

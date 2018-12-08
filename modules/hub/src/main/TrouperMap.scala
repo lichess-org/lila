@@ -52,7 +52,6 @@ final class TrouperMap[T <: Trouper](
       .build[String, T](new CacheLoader[String, T] {
         def load(id: String): T = {
           val t = mkTrouper(id)
-          t.start()
           // println(id, "start trouper")
           t
         }

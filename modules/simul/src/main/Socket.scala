@@ -23,10 +23,7 @@ private[simul] final class Socket(
     keepMeAlive: () => Unit
 ) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
 
-  override def start(): Unit = {
-    super.start()
-    lilaBus.subscribe(this, chatClassifier)
-  }
+  lilaBus.subscribe(this, chatClassifier)
 
   override def stop(): Unit = {
     super.stop()

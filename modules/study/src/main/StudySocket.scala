@@ -36,10 +36,7 @@ final class StudySocket(
 
   private var delayedCrowdNotification = false
 
-  override def start(): Unit = {
-    super.start()
-    lilaBus.subscribe(this, chatClassifier)
-  }
+  lilaBus.subscribe(this, chatClassifier)
 
   override def stop(): Unit = {
     super.stop()

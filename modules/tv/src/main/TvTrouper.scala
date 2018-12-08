@@ -30,7 +30,7 @@ private[tv] final class TvTrouper(
   private def forward[A](channel: Tv.Channel, msg: Any) =
     channelTroupers get channel foreach { _ ! msg }
 
-  val process: Trouper.Receive = {
+  protected val process: Trouper.Receive = {
 
     case GetGameId(channel, promise) =>
       forward(channel, ChannelTrouper.GetGameId(promise))

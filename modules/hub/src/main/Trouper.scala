@@ -16,12 +16,11 @@ trait Trouper extends lila.common.Tellable {
   // implement async behaviour here
   protected val process: Trouper.Receive
 
-  def start(): Unit = {}
+  private[this] var alive = true
+
   def stop(): Unit = {
     alive = false
   }
-
-  private[this] var alive = true
 
   def !(msg: Any): Unit =
     if (alive && stateRef.single.getAndTransform { q =>
