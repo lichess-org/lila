@@ -125,7 +125,8 @@ object mon {
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
-      val mobile = rec(s"lobby.socket.mobile")
+      val mobile = rec("lobby.socket.mobile")
+      val queueSize = rec("lobby.socket.queue_size")
     }
     object pool {
       object wave {

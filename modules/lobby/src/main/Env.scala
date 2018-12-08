@@ -2,6 +2,7 @@ package lidraughts.lobby
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -13,8 +14,7 @@ final class Env(
     gameCache: lidraughts.game.Cached,
     poolApi: lidraughts.pool.PoolApi,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
-    system: ActorSystem,
-    scheduler: lidraughts.common.Scheduler
+    system: ActorSystem
 ) {
 
   private val settings = new {
@@ -32,6 +32,10 @@ final class Env(
   import settings._
 
   private val socket = new Socket(system, SocketUidTtl)
+  system.scheduler.schedule(10 seconds, 4073 millis) {
+    lidraughts.mon.lobby.socket.queueSize(socket.estimateQueueSize)
+    socket ! lidraughts.socket.actorApi.Broom
+  }
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -84,7 +88,6 @@ object Env {
     gameCache = lidraughts.game.Env.current.cached,
     poolApi = lidraughts.pool.Env.current.api,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
-    system = lidraughts.common.PlayApp.system,
-    scheduler = lidraughts.common.PlayApp.scheduler
+    system = lidraughts.common.PlayApp.system
   )
 }

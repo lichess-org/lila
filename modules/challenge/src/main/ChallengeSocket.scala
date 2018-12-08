@@ -10,7 +10,7 @@ import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.SocketTrouper
 import lidraughts.socket.Socket.{ Uid, GetVersionP, SocketVersion }
-import lidraughts.socket.{ SocketActor, History, Historical }
+import lidraughts.socket.{ History, Historical }
 
 private final class ChallengeSocket(
     val system: ActorSystem,
