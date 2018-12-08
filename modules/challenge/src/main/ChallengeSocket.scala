@@ -9,7 +9,7 @@ import scala.concurrent.Promise
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.SocketTrouper
 import lila.socket.Socket.{ Uid, GetVersionP, SocketVersion }
-import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.{ History, Historical }
 
 private final class ChallengeSocket(
     val system: ActorSystem,

@@ -21,7 +21,7 @@ private[lobby] final class Socket(
 ) extends SocketTrouper[Member](uidTtl) {
 
   system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame, 'lobbySocket, 'deploy)
-  system.scheduler.scheduleOnce(3 seconds)(this ! SendHookRemovals)
+  system.scheduler.scheduleOnce(5 seconds)(this ! SendHookRemovals)
   system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
 
   private var idleUids = collection.mutable.Set[String]()
@@ -80,7 +80,7 @@ private[lobby] final class Socket(
         }
         removedHookIds = ""
       }
-      system.scheduler.scheduleOnce(1 second)(this ! SendHookRemovals)
+      system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
 
     case RemoveSeek(_) => notifySeeks
 

@@ -2,8 +2,8 @@ package lila.hub
 
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
-import scala.concurrent.{ Future, Promise }
 import scala.concurrent.stm._
+import scala.concurrent.{ Future, Promise }
 
 /*
  * Like an actor, but not an actor.
@@ -34,7 +34,10 @@ trait Trouper extends lila.common.Tellable {
     promise.future
   }
 
-  def queueSize = stateRef.single().??(_.size)
+  // As fast as possible, at the expense of precision
+  def estimateQueueSize = atomic { implicit txn =>
+    stateRef.relaxedGet({ (_, _) => true }).??(_.size)
+  }
 
   /*
    * Idle: None

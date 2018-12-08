@@ -2,6 +2,7 @@ package lila.lobby
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -13,8 +14,7 @@ final class Env(
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    system: ActorSystem
 ) {
 
   private val settings = new {
@@ -32,6 +32,10 @@ final class Env(
   import settings._
 
   private val socket = new Socket(system, SocketUidTtl)
+  system.scheduler.schedule(10 seconds, 4073 millis) {
+    lila.mon.lobby.socket.queueSize(socket.estimateQueueSize)
+    socket ! lila.socket.actorApi.Broom
+  }
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -84,7 +88,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    system = lila.common.PlayApp.system
   )
 }
