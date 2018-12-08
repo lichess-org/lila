@@ -14,6 +14,7 @@ export function report(txt: string) {
 const spamRegex = new RegExp([
   'xcamweb.com',
   '(^|[^i])chess-bot',
+  'chess-cheat',
   'coolteenbitch',
   'goo.gl/',
   'letcafa.webcam',
