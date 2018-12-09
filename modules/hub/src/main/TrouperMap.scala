@@ -47,17 +47,11 @@ final class TrouperMap[T <: Trouper](
       .recordStats
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {
-        def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit = {
-          println(id, "remove trouper")
+        def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit =
           trouper.stop()
-        }
       })
       .build[String, T](new CacheLoader[String, T] {
-        def load(id: String): T = {
-          val t = mkTrouper(id)
-          println(id, "start trouper")
-          t
-        }
+        def load(id: String): T = mkTrouper(id)
       })
 
   def monitor(name: String) = lila.mon.caffeineStats(troupers, name)
