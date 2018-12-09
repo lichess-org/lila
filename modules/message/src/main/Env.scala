@@ -58,7 +58,7 @@ object Env {
   lazy val current = "message" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "message",
     db = lidraughts.db.Env.current,
-    shutup = lidraughts.hub.Env.current.actor.shutup,
+    shutup = lidraughts.hub.Env.current.shutup,
     notifyApi = lidraughts.notify.Env.current.api,
     blocks = lidraughts.relation.Env.current.api.fetchBlocks,
     follows = lidraughts.relation.Env.current.api.fetchFollows,

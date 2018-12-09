@@ -99,7 +99,7 @@ object Env {
 
   lazy val current: Env = "puzzle" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "puzzle",
-    renderer = lidraughts.hub.Env.current.actor.renderer,
+    renderer = lidraughts.hub.Env.current.renderer,
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system,

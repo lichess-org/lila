@@ -111,7 +111,7 @@ object Env {
     mongoCache = lidraughts.memo.Env.current.mongoCache,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     scheduler = lidraughts.common.PlayApp.scheduler,
-    timeline = lidraughts.hub.Env.current.actor.timeline,
+    timeline = lidraughts.hub.Env.current.timeline,
     system = lidraughts.common.PlayApp.system
   )
 }

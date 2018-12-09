@@ -16,7 +16,7 @@ object Game extends LidraughtsController {
   def delete(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game gameId) { game =>
       if (game.pdnImport.flatMap(_.user) ?? (me.id==)) {
-        Env.hub.actor.bookmark ! lidraughts.hub.actorApi.bookmark.Remove(game.id)
+        Env.hub.bookmark ! lidraughts.hub.actorApi.bookmark.Remove(game.id)
         (GameRepo remove game.id) >>
           (lidraughts.analyse.AnalysisRepo remove game.id) >>
           Env.game.cached.clearNbImportedByCache(me.id) inject

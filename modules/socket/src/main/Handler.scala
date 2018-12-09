@@ -63,7 +63,7 @@ object Handler {
 
   private def baseController(hub: lidraughts.hub.Env, member: SocketMember, uid: Socket.Uid): Controller = {
     case ("following_onlines", _) => member.userId foreach { u =>
-      hub.actor.relation ! ReloadOnlineFriends(u)
+      hub.relation ! ReloadOnlineFriends(u)
     }
     case ("startWatching", o) => o str "d" foreach { ids =>
       hub.bus.publish(StartWatching(uid, member, ids.split(' ').toSet), 'socketMoveBroadcast)
@@ -96,7 +96,7 @@ object Handler {
       }
     }
     case ("notified", _) => member.userId foreach { userId =>
-      hub.actor.notification ! lidraughts.hub.actorApi.notify.Notified(userId)
+      hub.notification ! lidraughts.hub.actorApi.notify.Notified(userId)
     }
     case _ => // logwarn("Unhandled msg: " + msg)
   }

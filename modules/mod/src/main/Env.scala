@@ -66,7 +66,7 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
-    reporter = hub.actor.report,
+    reporter = hub.report,
     reportApi = reportApi,
     lightUserApi = lightUserApi,
     notifier = notifier,
@@ -85,8 +85,8 @@ final class Env(
     collAssessments = db(CollectionPlayerAssessment),
     logApi = logApi,
     modApi = api,
-    reporter = hub.actor.report,
-    draughtsnet = hub.actor.draughtsnet
+    reporter = hub.report,
+    draughtsnet = hub.draughtsnet
   )
 
   lazy val gamify = new Gamify(

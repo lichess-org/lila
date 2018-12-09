@@ -13,7 +13,7 @@ final class Env(
 
   lazy val gameStateStream = new GameStateStream(system, jsonView)
 
-  lazy val player = new BotPlayer(hub.actor.chat)(system)
+  lazy val player = new BotPlayer(hub.chat)(system)
 
   val form = BotForm
 }

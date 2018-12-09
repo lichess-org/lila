@@ -44,7 +44,7 @@ object Env {
 
   lazy val current: Env = "shutup" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "shutup",
-    reporter = lidraughts.hub.Env.current.actor.report,
+    reporter = lidraughts.hub.Env.current.report,
     system = lidraughts.common.PlayApp.system,
     follows = lidraughts.relation.Env.current.api.fetchFollows _,
     db = lidraughts.db.Env.current

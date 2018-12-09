@@ -60,7 +60,7 @@ object Env {
     hub = lidraughts.hub.Env.current,
     getFriendIds = lidraughts.relation.Env.current.api.fetchFriends,
     getFollowerIds = lidraughts.relation.Env.current.api.fetchFollowersFromSecondary,
-    renderer = lidraughts.hub.Env.current.actor.renderer,
+    renderer = lidraughts.hub.Env.current.renderer,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system
   )

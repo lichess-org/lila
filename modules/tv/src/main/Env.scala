@@ -26,7 +26,7 @@ final class Env(
 
   private val tvTrouper = new TvTrouper(
     system,
-    hub.actor.renderer,
+    hub.renderer,
     selectChannel,
     lightUser,
     onSelect

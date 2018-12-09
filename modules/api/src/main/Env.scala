@@ -149,7 +149,7 @@ object Env {
   lazy val current = "api" boot new Env(
     config = lidraughts.common.PlayApp.loadConfig,
     settingStore = lidraughts.memo.Env.current.settingStore,
-    renderer = lidraughts.hub.Env.current.actor.renderer,
+    renderer = lidraughts.hub.Env.current.renderer,
     userEnv = lidraughts.user.Env.current,
     annotator = lidraughts.analyse.Env.current.annotator,
     lobbyEnv = lidraughts.lobby.Env.current,

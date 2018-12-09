@@ -217,7 +217,7 @@ object Env {
     },
     system = system,
     scheduler = lidraughts.common.PlayApp.scheduler,
-    captcher = lidraughts.hub.Env.current.actor.captcher,
+    captcher = lidraughts.hub.Env.current.captcher,
     lifecycle = lidraughts.common.PlayApp.lifecycle
   )
 }

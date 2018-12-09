@@ -24,7 +24,7 @@ final class Env(
   lazy val analyser = new Analyser(
     indexer = indexer,
     requesterApi = requesterApi,
-    studyActor = hub.actor.study,
+    studyActor = hub.study,
     bus = system.lidraughtsBus
   )
 
@@ -43,6 +43,6 @@ object Env {
     system = lidraughts.common.PlayApp.system,
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
     hub = lidraughts.hub.Env.current,
-    indexer = lidraughts.hub.Env.current.actor.gameSearch
+    indexer = lidraughts.hub.Env.current.gameSearch
   )
 }

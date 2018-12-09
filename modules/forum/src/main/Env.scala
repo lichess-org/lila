@@ -43,12 +43,12 @@ final class Env(
 
   lazy val topicApi = new TopicApi(
     env = this,
-    indexer = hub.actor.forumSearch,
+    indexer = hub.forumSearch,
     maxPerPage = MaxPerPage(TopicMaxPerPage),
     modLog = modLog,
     spam = spam,
     shutup = shutup,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     detectLanguage = detectLanguage,
     mentionNotifier = mentionNotifier,
     bus = system.lidraughtsBus
@@ -56,18 +56,18 @@ final class Env(
 
   lazy val postApi = new PostApi(
     env = this,
-    indexer = hub.actor.forumSearch,
+    indexer = hub.forumSearch,
     maxPerPage = MaxPerPage(PostMaxPerPage),
     modLog = modLog,
     spam = spam,
     shutup = shutup,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     detectLanguage = detectLanguage,
     mentionNotifier = mentionNotifier,
     bus = system.lidraughtsBus
   )
 
-  lazy val forms = new DataForm(hub.actor.captcher)
+  lazy val forms = new DataForm(hub.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
   system.lidraughtsBus.subscribeFun('team, 'gdprErase) {
@@ -87,7 +87,7 @@ object Env {
     db = lidraughts.db.Env.current,
     modLog = lidraughts.mod.Env.current.logApi,
     spam = lidraughts.security.Env.current.spam,
-    shutup = lidraughts.hub.Env.current.actor.shutup,
+    shutup = lidraughts.hub.Env.current.shutup,
     hub = lidraughts.hub.Env.current,
     detectLanguage = DetectLanguage(lidraughts.common.PlayApp loadConfig "detectlanguage"),
     notifyApi = lidraughts.notify.Env.current.api,

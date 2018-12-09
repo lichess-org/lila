@@ -71,7 +71,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketMap = socketMap,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     api = api,
     evalCacheHandler = evalCacheHandler
   )
@@ -90,7 +90,7 @@ final class Env(
     importer = importer,
     pdnFetch = new PdnFetch,
     lightUser = lightUserApi,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     domain = NetDomain
   )
 
@@ -122,7 +122,7 @@ final class Env(
   )
 
   private lazy val serverEvalRequester = new ServerEval.Requester(
-    draughtsnetActor = hub.actor.draughtsnet,
+    draughtsnetActor = hub.draughtsnet,
     chapterRepo = chapterRepo
   )
 
@@ -152,9 +152,9 @@ final class Env(
     explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     bus = system.lidraughtsBus,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     socketMap = socketMap,
     serverEvalRequester = serverEvalRequester,
     lightStudyCache = lightStudyCache

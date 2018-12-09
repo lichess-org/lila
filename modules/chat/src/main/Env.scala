@@ -62,8 +62,8 @@ object Env {
     db = lidraughts.db.Env.current,
     flood = lidraughts.security.Env.current.flood,
     spam = lidraughts.security.Env.current.spam,
-    shutup = lidraughts.hub.Env.current.actor.shutup,
-    modLog = lidraughts.hub.Env.current.actor.mod,
+    shutup = lidraughts.hub.Env.current.shutup,
+    modLog = lidraughts.hub.Env.current.mod,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system
   )

@@ -35,7 +35,7 @@ final class Env(
 object Env {
 
   lazy val current: Env = "pool" boot new Env(
-    lobbyActor = lidraughts.hub.Env.current.actor.lobby,
+    lobbyActor = lidraughts.hub.Env.current.lobby,
     playbanApi = lidraughts.playban.Env.current.api,
     system = lidraughts.common.PlayApp.system,
     onStart = lidraughts.game.Env.current.onStart
