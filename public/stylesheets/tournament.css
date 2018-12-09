@@ -340,6 +340,25 @@ body.dark #tournament .delay button {
 #tournament .notice.closed {
   background: #3893E8;
 }
+#tournament .notice.wait {
+  position: relative;
+  overflow: hidden;
+}
+@keyframes bar-anim {
+  0%{transform:translateX(-1500px);}
+  100%{transform:translateX(2500px);}
+}
+#tournament .notice.wait::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+  animation: bar-anim 3s linear infinite;
+}
+
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
