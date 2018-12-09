@@ -868,29 +868,20 @@ div.faq_box {
   color: #3893E8;
 }
 .scheduled_tournaments a {
-  padding: 5px 0;
+  padding: 6px 0 6px 35px;
   display: block;
-  transition: all 0.3s;
-}
-.scheduled_tournaments a:hover {
-  padding-left: 5px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
-  background: #fff;
-  border-radius: 3px;
-}
-body.dark .scheduled_tournaments a:hover {
-  background: rgba(27, 51, 68, 0.5);
-  background: #333;
+  position: relative;
 }
 .scheduled_tournaments strong {
   display: block;
 }
 .scheduled_tournaments a::before {
+  position: absolute;
+  top: 8px;
+  left: 0;
   font-size: 30px;
-  float: left;
-  margin: 3px 5px 0 0;
   opacity: 0.6;
-  transition: opacity 0.3s;
+  color: #d59120;
 }
 .scheduled_tournaments a:hover::before {
   opacity: 1;
