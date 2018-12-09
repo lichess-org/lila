@@ -20,7 +20,6 @@ final class Env(
   private val settings = new {
     val NetDomain = config getString "net.domain"
     val SocketUidTtl = config duration "socket.uid.ttl"
-    val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
     val CollectionSeek = config getString "collection.seek"
@@ -42,10 +41,13 @@ final class Env(
     maxPerUser = SeekMaxPerUser
   )
 
-  val lobby = Lobby.start(system, ActorName,
+  private val lobbyTrouper = LobbyTrouper.start(
+    system,
     broomPeriod = BroomPeriod,
-    resyncIdsPeriod = ResyncIdsPeriod) {
-    new Lobby(
+    resyncIdsPeriod = ResyncIdsPeriod
+  ) {
+    new LobbyTrouper(
+      system = system,
       socket = socket,
       seekApi = seekApi,
       gameCache = gameCache,
@@ -59,7 +61,7 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    lobby = lobby,
+    lobby = lobbyTrouper,
     socket = socket,
     poolApi = poolApi,
     blocking = blocking

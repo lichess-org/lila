@@ -8,7 +8,6 @@ import lidraughts.user.UserContext
 final class Env(
     config: AppConfig,
     db: lidraughts.db.Env,
-    hub: lidraughts.hub.Env,
     draughtsnetPlayer: lidraughts.draughtsnet.Player,
     onStart: String => Unit,
     prefApi: lidraughts.pref.PrefApi,
@@ -27,7 +26,7 @@ final class Env(
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)
 
   lazy val processor = new Processor(
-    lobby = hub.lobby,
+    bus = system.lidraughtsBus,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
     draughtsnetPlayer = draughtsnetPlayer,
@@ -43,7 +42,6 @@ object Env {
   lazy val current = "setup" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "setup",
     db = lidraughts.db.Env.current,
-    hub = lidraughts.hub.Env.current,
     draughtsnetPlayer = lidraughts.draughtsnet.Env.current.player,
     onStart = lidraughts.game.Env.current.onStart,
     prefApi = lidraughts.pref.Env.current.api,

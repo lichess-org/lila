@@ -1,13 +1,11 @@
 package lidraughts.setup
 
-import akka.actor.ActorSelection
-
 import lidraughts.game.{ GameRepo, Pov, PerfPicker }
 import lidraughts.lobby.actorApi.{ AddHook, AddSeek }
 import lidraughts.user.{ User, UserContext }
 
 private[setup] final class Processor(
-    lobby: ActorSelection,
+    bus: lidraughts.common.Bus,
     gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
     draughtsnetPlayer: lidraughts.draughtsnet.Player,
@@ -37,13 +35,13 @@ private[setup] final class Processor(
     saveConfig(_ withHook config) >> {
       config.hook(uid, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
-          lobby ! AddHook(hook)
+          bus.publish(AddHook(hook), 'lobby)
           Created(hook.id)
         }
         case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
           if (nbPlaying >= maxPlaying) Refused
           else {
-            lobby ! AddSeek(seek)
+            bus.publish(AddSeek(seek), 'lobby)
             Created(seek.id)
           }
         }

@@ -5,13 +5,12 @@ import scala.concurrent.duration._
 import lidraughts.hub.FutureSequencer
 
 final class Env(
-    lobbyActor: akka.actor.ActorSelection,
-    playbanApi: lidraughts.playban.PlaybanApi,
     system: akka.actor.ActorSystem,
+    playbanApi: lidraughts.playban.PlaybanApi,
     onStart: String => Unit
 ) {
 
-  private lazy val hookThieve = new HookThieve(lobbyActor)
+  private lazy val hookThieve = new HookThieve(system.lidraughtsBus)
 
   lazy val api = new PoolApi(
     configs = PoolList.all,
@@ -35,9 +34,8 @@ final class Env(
 object Env {
 
   lazy val current: Env = "pool" boot new Env(
-    lobbyActor = lidraughts.hub.Env.current.lobby,
-    playbanApi = lidraughts.playban.Env.current.api,
     system = lidraughts.common.PlayApp.system,
+    playbanApi = lidraughts.playban.Env.current.api,
     onStart = lidraughts.game.Env.current.onStart
   )
 }

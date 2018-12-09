@@ -14,7 +14,6 @@ final class Env(config: Config, system: ActorSystem) {
   val tournamentApi = select("actor.tournament.api")
   val timeline = select("actor.timeline.user")
   val bookmark = select("actor.bookmark")
-  val lobby = select("actor.lobby")
   val relation = select("actor.relation")
   val report = select("actor.report")
   val shutup = select("actor.shutup")
