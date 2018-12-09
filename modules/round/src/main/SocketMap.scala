@@ -4,7 +4,6 @@ import scala.concurrent.duration._
 
 import lidraughts.game.Game
 import lidraughts.hub.actorApi.map.{ Tell, TellIfExists, Exists }
-import lidraughts.hub.TrouperMap
 
 private object SocketMap {
 
@@ -19,21 +18,18 @@ private object SocketMap {
     import dependencies._
     val bus = system.lidraughtsBus
 
-    lazy val socketMap: SocketMap = new TrouperMap[RoundSocket](
+    lazy val socketMap: SocketMap = lidraughts.socket.SocketMap[RoundSocket](
+      system = system,
       mkTrouper = (id: Game.ID) => new RoundSocket(
         dependencies = dependencies,
         gameId = id,
         history = makeHistory(id, historyPersistenceEnabled),
         keepMeAlive = () => socketMap touch id
       ),
-      accessTimeout = socketTimeout
+      accessTimeout = socketTimeout,
+      monitoringName = "round.socketMap",
+      broomFrequency = 4001 millis
     )
-    system.scheduler.schedule(30 seconds, 30 seconds) {
-      socketMap.monitor("round.socketMap")
-    }
-    system.scheduler.schedule(10 seconds, 4001 millis) {
-      socketMap tellAll lidraughts.socket.actorApi.Broom
-    }
     bus.subscribeFuns(
       'startGame -> {
         case msg: lidraughts.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
@@ -55,7 +51,6 @@ private object SocketMap {
           }
       }
     )
-
     socketMap
   }
 }

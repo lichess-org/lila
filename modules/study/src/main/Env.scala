@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lidraughts.hub.actorApi.socket.HasUserId
-import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.user.User
 
@@ -40,7 +40,8 @@ final class Env(
   }
   import settings._
 
-  val socketMap: SocketMap = new TrouperMap[StudySocket](
+  val socketMap: SocketMap = lidraughts.socket.SocketMap[StudySocket](
+    system = system,
     mkTrouper = (studyId: String) => new StudySocket(
       system = system,
       studyId = Study.Id(studyId),
@@ -53,14 +54,10 @@ final class Env(
       lightStudyCache = lightStudyCache,
       keepMeAlive = () => socketMap touch studyId
     ),
-    accessTimeout = SocketTimeout
+    accessTimeout = SocketTimeout,
+    monitoringName = "study.socketMap",
+    broomFrequency = 3697 millis
   )
-  system.scheduler.schedule(30 seconds, 30 seconds) {
-    socketMap.monitor("study.socketMap")
-  }
-  system.scheduler.schedule(10 seconds, 3697 millis) {
-    socketMap tellAll lidraughts.socket.actorApi.Broom
-  }
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersion)

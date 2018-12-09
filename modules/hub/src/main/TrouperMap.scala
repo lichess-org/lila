@@ -40,6 +40,8 @@ final class TrouperMap[T <: Trouper](
 
   def kill(id: String): Unit = troupers invalidate id
 
+  def killAll: Unit = troupers.invalidateAll
+
   def touch(id: String): Unit = troupers getIfPresent id
 
   private[this] val troupers: LoadingCache[String, T] =
