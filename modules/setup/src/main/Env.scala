@@ -27,7 +27,7 @@ final class Env(
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)
 
   lazy val processor = new Processor(
-    lobby = hub.actor.lobby,
+    lobby = hub.lobby,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
     fishnetPlayer = fishnetPlayer,

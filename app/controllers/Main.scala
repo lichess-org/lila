@@ -47,7 +47,7 @@ object Main extends LilaController {
   }
 
   def captchaCheck(id: String) = Open { implicit ctx =>
-    Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
+    Env.hub.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(if (valid) 1 else 0)
     }
   }

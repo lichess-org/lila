@@ -93,7 +93,7 @@ object Env {
 
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
     lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,

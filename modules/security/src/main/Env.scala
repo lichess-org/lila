@@ -216,7 +216,7 @@ object Env {
     },
     system = system,
     scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher,
+    captcher = lila.hub.Env.current.captcher,
     lifecycle = lila.common.PlayApp.lifecycle
   )
 }

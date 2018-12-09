@@ -24,7 +24,7 @@ final class Env(
   lazy val analyser = new Analyser(
     indexer = indexer,
     requesterApi = requesterApi,
-    studyActor = hub.actor.study,
+    studyActor = hub.study,
     bus = system.lilaBus
   )
 
@@ -43,6 +43,6 @@ object Env {
     system = lila.common.PlayApp.system,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     hub = lila.hub.Env.current,
-    indexer = lila.hub.Env.current.actor.gameSearch
+    indexer = lila.hub.Env.current.gameSearch
   )
 }

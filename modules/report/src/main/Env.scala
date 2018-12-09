@@ -27,10 +27,10 @@ final class Env(
     text = "Report score threshold. Reports with lower scores are concealed to moderators".some
   )
 
-  lazy val forms = new DataForm(hub.actor.captcher, NetDomain)
+  lazy val forms = new DataForm(hub.captcher, NetDomain)
 
   private lazy val autoAnalysis = new AutoAnalysis(
-    fishnet = hub.actor.fishnet,
+    fishnet = hub.fishnet,
     system = system
   )
 

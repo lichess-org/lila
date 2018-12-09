@@ -97,8 +97,8 @@ final class Env(
       if (tour.isShield) scheduler.once(10 seconds)(shieldApi.clear)
       else if (Revolution is tour) scheduler.once(10 seconds)(revolutionApi.clear)
     },
-    renderer = hub.actor.renderer,
-    timeline = hub.actor.timeline,
+    renderer = hub.renderer,
+    timeline = hub.timeline,
     socketMap = socketMap,
     trophyApi = trophyApi,
     verify = verify,
@@ -117,7 +117,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketMap = socketMap,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     flood = flood
   )
 

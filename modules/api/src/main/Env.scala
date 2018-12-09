@@ -155,7 +155,7 @@ object Env {
   lazy val current = "api" boot new Env(
     config = lila.common.PlayApp.loadConfig,
     settingStore = lila.memo.Env.current.settingStore,
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
     userEnv = lila.user.Env.current,
     annotator = lila.analyse.Env.current.annotator,
     lobbyEnv = lila.lobby.Env.current,

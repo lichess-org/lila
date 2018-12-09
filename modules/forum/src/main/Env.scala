@@ -43,12 +43,12 @@ final class Env(
 
   lazy val topicApi = new TopicApi(
     env = this,
-    indexer = hub.actor.forumSearch,
+    indexer = hub.forumSearch,
     maxPerPage = MaxPerPage(TopicMaxPerPage),
     modLog = modLog,
     spam = spam,
     shutup = shutup,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     detectLanguage = detectLanguage,
     mentionNotifier = mentionNotifier,
     bus = system.lilaBus
@@ -56,18 +56,18 @@ final class Env(
 
   lazy val postApi = new PostApi(
     env = this,
-    indexer = hub.actor.forumSearch,
+    indexer = hub.forumSearch,
     maxPerPage = MaxPerPage(PostMaxPerPage),
     modLog = modLog,
     spam = spam,
     shutup = shutup,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     detectLanguage = detectLanguage,
     mentionNotifier = mentionNotifier,
     bus = system.lilaBus
   )
 
-  lazy val forms = new DataForm(hub.actor.captcher)
+  lazy val forms = new DataForm(hub.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
   system.lilaBus.subscribeFun('team, 'gdprErase) {
@@ -87,7 +87,7 @@ object Env {
     db = lila.db.Env.current,
     modLog = lila.mod.Env.current.logApi,
     spam = lila.security.Env.current.spam,
-    shutup = lila.hub.Env.current.actor.shutup,
+    shutup = lila.hub.Env.current.shutup,
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
     notifyApi = lila.notify.Env.current.api,

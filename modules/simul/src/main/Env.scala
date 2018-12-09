@@ -38,8 +38,8 @@ final class Env(
     repo = repo,
     system = system,
     socketMap = socketMap,
-    renderer = hub.actor.renderer,
-    timeline = hub.actor.timeline,
+    renderer = hub.renderer,
+    timeline = hub.timeline,
     onGameStart = onGameStart,
     sequencers = sequencerMap,
     asyncCache = asyncCache
@@ -72,7 +72,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketMap = socketMap,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     exists = repo.exists
   )
 

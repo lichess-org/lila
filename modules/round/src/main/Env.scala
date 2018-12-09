@@ -160,7 +160,7 @@ final class Env(
   )
 
   private lazy val notifier = new RoundNotifier(
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     isUserPresent = isUserPresent,
     notifyApi = notifyApi
   )
@@ -200,7 +200,7 @@ final class Env(
   )
 
   lazy val messenger = new Messenger(
-    chat = hub.actor.chat
+    chat = hub.chat
   )
 
   def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] =
@@ -225,7 +225,7 @@ final class Env(
   MoveMonitor.start(system, moveTimeChannel)
 
   system.actorOf(
-    Props(new Titivate(roundMap, hub.actor.bookmark, hub.actor.chat)),
+    Props(new Titivate(roundMap, hub.bookmark, hub.chat)),
     name = "titivate"
   )
 

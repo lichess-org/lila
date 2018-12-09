@@ -60,7 +60,7 @@ object Env {
     hub = lila.hub.Env.current,
     getFriendIds = lila.relation.Env.current.api.fetchFriends,
     getFollowerIds = lila.relation.Env.current.api.fetchFollowersFromSecondary,
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )

@@ -111,7 +111,7 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
-    timeline = lila.hub.Env.current.actor.timeline,
+    timeline = lila.hub.Env.current.timeline,
     system = lila.common.PlayApp.system
   )
 }

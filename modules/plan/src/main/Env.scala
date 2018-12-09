@@ -32,7 +32,7 @@ final class Env(
   private lazy val notifier = new PlanNotifier(
     notifyApi = notifyApi,
     scheduler = scheduler,
-    timeline = hub.actor.timeline
+    timeline = hub.timeline
   )
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
