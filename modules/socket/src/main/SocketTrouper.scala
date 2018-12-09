@@ -186,5 +186,5 @@ trait LoneSocket { self: SocketTrouper[_] =>
     this ! lidraughts.socket.actorApi.Broom
     lidraughts.mon.socket.queueSize(monitoringName)(estimateQueueSize)
   }
-  system.lidraughtsBus.subscribe(this, 'deploy)
+  system.lidraughtsBus.subscribe(this, 'deploy, 'shutdown)
 }
