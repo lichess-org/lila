@@ -1750,15 +1750,6 @@ div.lichess_overboard .close:hover {
 @keyframes fire {
   0% {
     text-shadow: 0 0 6.66px #fefcc9,
-    3.33px -3.33px 10px #feec85,
-    -6.66px -6.66px 13.33px #ffae34,
-    6.66px -13.33px 16.66px #ec760c,
-    -6.66px -20px 20px #cd4606,
-    0 -26.66px 11.66px #973716,
-    3.33px -30px 26.66px #451b0e;
-  }
-  100% {
-    text-shadow: 0 0 6.66px #fefcc9,
     3.33px -3.33px 10px #fefcc9,
     -6.66px -6.66px 13.33px #feec85,
     7.33px -14px 20px #ffae34,
@@ -1766,21 +1757,30 @@ div.lichess_overboard .close:hover {
     0 -27.33px 26.66px #cd4606,
     3.33px -30px 26.66px #973716;
   }
+  100% {
+    text-shadow: 0 0.5px 7.66px #fefcc9,
+    3.33px -4px 12px #feec85,
+    -6.66px -7.66px 16.33px #ffae34,
+    6.66px -16.33px 24.66px #ec760c,
+    -6.66px -25px 25px #cd4606,
+    0 -32px 34px #973716,
+    3.33px -33px 32px #451b0e;
+  }
 }
 .fire_trophy {
   color: rgba(0, 0, 0, 0.6);
   font-size: 60px;
   display: block;
   text-shadow: 0 0 6.66px #fefcc9,
-  3.33px -3.33px 10px #feec85,
-  -6.66px -6.66px 13.33px #ffae34,
-  6.66px -13.33px 16.66px #ec760c,
-  -6.66px -20px 20px #cd4606,
-  0 -26.66px 11.66px #973716,
-  3.33px -30px 26.66px #451b0e;
+  3.33px -3.33px 10px #fefcc9,
+  -6.66px -6.66px 13.33px #feec85,
+  7.33px -14px 20px #ffae34,
+  -7.33px -19.33px 16.66px #ec760c,
+  0 -27.33px 26.66px #cd4606,
+  3.33px -30px 26.66px #973716;
 }
 .fire_trophy:hover {
-  animation: fire 1.25s ease-in-out infinite alternate;
+  animation: fire 1.5s ease-in-out infinite alternate;
 }
 /* switch toggle button */
 .cmn-toggle {
