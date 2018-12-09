@@ -24,8 +24,8 @@
     <item quantity="other">Har spilt %1$s trekk i %2$s fjernsjakkparti</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Har spilt %s fjernsjakkparti</item>
-    <item quantity="other">Har spilt %s fjernsjakkpartier</item>
+    <item quantity="one">Har spilt ferdig %s fjernsjakkparti</item>
+    <item quantity="other">Har spilt ferdig %s fjernsjakkpartier</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Følger %s spiller</item>
@@ -36,12 +36,12 @@
     <item quantity="other">Har %s nye følgere</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Har vært vertskap for %s simultan-match</item>
-    <item quantity="other">Har vært vertskap for %s simultan-matcher</item>
+    <item quantity="one">Har vært vertskap for %s simultanoppvisning</item>
+    <item quantity="other">Har vært vertskap for %s simultanoppvisninger</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Har deltatt i %s simultanoppvisning</item>
-    <item quantity="other">Har deltatt i %s simultanmatcher</item>
+    <item quantity="other">Har deltatt i %s simultanoppvisninger</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Har laget %s ny studie</item>
