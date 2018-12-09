@@ -11,6 +11,8 @@ case object DeployPre extends Deploy("deployPre")
 case object DeployPost extends Deploy("deployPost")
 case class StreamsOnAir(html: String)
 
+case object Shutdown // on actor system termination
+
 package map {
   case class Tell(id: String, msg: Any)
   case class TellIfExists(id: String, msg: Any)

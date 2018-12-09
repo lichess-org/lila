@@ -142,6 +142,10 @@ final class Env(
     endpoint = InfluxEventEndpoint,
     env = InfluxEventEnv
   )), name = "influx-event")
+
+  system.registerOnTermination {
+    system.lidraughtsBus.publish(lidraughts.hub.actorApi.Shutdown, 'shutdown)
+  }
 }
 
 object Env {
