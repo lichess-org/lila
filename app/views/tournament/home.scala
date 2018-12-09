@@ -50,7 +50,7 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
         div(cls := "scheduled_tournaments")(
           scheduled.map { tour =>
             tour.schedule.filter(s => s.freq != lidraughts.tournament.Schedule.Freq.Hourly) map { s =>
-              a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour), cls := s"is-gold ${s.freq.name}")(
+              a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
                 strong(tour.name),
                 momentFromNow(s.at)
               )
