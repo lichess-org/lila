@@ -4,7 +4,6 @@ import scala.concurrent.duration._
 
 import lila.game.Game
 import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
-import lila.hub.TrouperMap
 
 private object SocketMap {
 
@@ -19,21 +18,18 @@ private object SocketMap {
     import dependencies._
     val bus = system.lilaBus
 
-    lazy val socketMap: SocketMap = new TrouperMap[RoundSocket](
+    lazy val socketMap: SocketMap = lila.socket.SocketMap[RoundSocket](
+      system = system,
       mkTrouper = (id: Game.ID) => new RoundSocket(
         dependencies = dependencies,
         gameId = id,
         history = makeHistory(id, historyPersistenceEnabled),
         keepMeAlive = () => socketMap touch id
       ),
-      accessTimeout = socketTimeout
+      accessTimeout = socketTimeout,
+      monitoringName = "round.socketMap",
+      broomFrequency = 4001 millis
     )
-    system.scheduler.schedule(30 seconds, 30 seconds) {
-      socketMap.monitor("round.socketMap")
-    }
-    system.scheduler.schedule(10 seconds, 4001 millis) {
-      socketMap tellAll lila.socket.actorApi.Broom
-    }
     bus.subscribeFuns(
       'startGame -> {
         case msg: lila.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
@@ -55,7 +51,6 @@ private object SocketMap {
           }
       }
     )
-
     socketMap
   }
 }

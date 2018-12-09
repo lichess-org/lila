@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.socket.HasUserId
-import lila.hub.{ Duct, DuctMap, TrouperMap }
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
@@ -40,7 +40,8 @@ final class Env(
   }
   import settings._
 
-  val socketMap: SocketMap = new TrouperMap[StudySocket](
+  val socketMap: SocketMap = lila.socket.SocketMap[StudySocket](
+    system = system,
     mkTrouper = (studyId: String) => new StudySocket(
       system = system,
       studyId = Study.Id(studyId),
@@ -53,14 +54,10 @@ final class Env(
       lightStudyCache = lightStudyCache,
       keepMeAlive = () => socketMap touch studyId
     ),
-    accessTimeout = SocketTimeout
+    accessTimeout = SocketTimeout,
+    monitoringName = "study.socketMap",
+    broomFrequency = 3697 millis
   )
-  system.scheduler.schedule(30 seconds, 30 seconds) {
-    socketMap.monitor("study.socketMap")
-  }
-  system.scheduler.schedule(10 seconds, 3697 millis) {
-    socketMap tellAll lila.socket.actorApi.Broom
-  }
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersion)

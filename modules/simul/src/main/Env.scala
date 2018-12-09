@@ -49,7 +49,8 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  private val socketMap: SocketMap = new TrouperMap[Socket](
+  private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
+    system = system,
     mkTrouper = (simulId: String) => new Socket(
       system = system,
       simulId = simulId,
@@ -60,14 +61,10 @@ final class Env(
       lightUser = lightUser,
       keepMeAlive = () => socketMap touch simulId
     ),
-    accessTimeout = SocketTimeout
+    accessTimeout = SocketTimeout,
+    monitoringName = "simul.socketMap",
+    broomFrequency = 3691 millis
   )
-  system.scheduler.schedule(30 seconds, 30 seconds) {
-    socketMap.monitor("simul.socketMap")
-  }
-  system.scheduler.schedule(10 seconds, 3691 millis) {
-    socketMap tellAll lila.socket.actorApi.Broom
-  }
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

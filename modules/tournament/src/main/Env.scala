@@ -137,7 +137,8 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketMap: SocketMap = new TrouperMap[Socket](
+  private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
+    system = system,
     mkTrouper = (tournamentId: String) => new Socket(
       system = system,
       tournamentId = tournamentId,
@@ -147,14 +148,10 @@ final class Env(
       uidTtl = UidTimeout,
       keepMeAlive = () => socketMap touch tournamentId
     ),
-    accessTimeout = SocketTimeout
+    accessTimeout = SocketTimeout,
+    monitoringName = "tournament.socketMap",
+    broomFrequency = 3701 millis
   )
-  system.scheduler.schedule(30 seconds, 30 seconds) {
-    socketMap.monitor("tournament.socketMap")
-  }
-  system.scheduler.schedule(10 seconds, 3701 millis) {
-    socketMap tellAll lila.socket.actorApi.Broom
-  }
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),

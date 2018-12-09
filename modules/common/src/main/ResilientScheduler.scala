@@ -13,7 +13,7 @@ object ResilientScheduler {
     atMost: FiniteDuration,
     system: ActorSystem,
     logger: lila.log.Logger
-  )(f: => Funit): Unit = {
+  )(f: => Funit): Unit =
 
     system.actorOf(Props(new Actor {
 
@@ -34,6 +34,4 @@ object ResilientScheduler {
         case Tick => f >>- scheduleNext
       }
     }))
-  }
-
 }

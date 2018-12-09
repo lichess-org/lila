@@ -14,10 +14,11 @@ private[tournament] final class Reminder extends Actor {
   def receive = {
 
     case RemindTournament(tour, activeUserIds) if !tour.pairingsClosed =>
-      val userIds =
+      val userIds = {
         if (activeUserIds.size > max) scala.util.Random.shuffle(activeUserIds) take max
         else activeUserIds
-      context.system.lilaBus.publish(SendTos(userIds.toSet, makeMessage(
+      }.toSet
+      if (userIds.nonEmpty) context.system.lilaBus.publish(SendTos(userIds, makeMessage(
         "tournamentReminder",
         Json.obj(
           "id" -> tour.id,
