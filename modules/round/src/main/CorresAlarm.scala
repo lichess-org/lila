@@ -1,25 +1,24 @@
 package lila.round
 
-import akka.actor._
-import akka.pattern.ask
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.api._
+import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
+import lila.common.Tellable
 import lila.db.dsl._
-import lila.hub.actorApi.round.IsOnGame
 import lila.game.{ GameRepo, Pov }
+import lila.hub.actorApi.round.IsOnGame
 import makeTimeout.short
 
 private final class CorresAlarm(
+    system: akka.actor.ActorSystem,
     coll: Coll,
     socketMap: SocketMap
-) extends Actor {
+) {
 
-  object Run
-
-  case class Alarm(
+  private case class Alarm(
       _id: String, // game id
       ringsAt: DateTime, // when to notify the player
       expiresAt: DateTime
@@ -27,50 +26,16 @@ private final class CorresAlarm(
 
   private implicit val AlarmHandler = reactivemongo.bson.Macros.handler[Alarm]
 
-  override def preStart(): Unit = {
-    scheduleNext
-    context setReceiveTimeout 1.minute
-  }
+  private def scheduleNext: Unit = system.scheduler.scheduleOnce(10 seconds)(run)
 
-  def scheduler = context.system.scheduler
+  system.scheduler.scheduleOnce(10 seconds)(scheduleNext)
 
-  def scheduleNext = scheduler.scheduleOnce(10 seconds, self, Run)
-
-  import reactivemongo.play.iteratees.cursorProducer
-
-  def receive = {
-
-    case ReceiveTimeout =>
-      val msg = "CorresAlarm timed out!"
-      logger.error(msg)
-      throw new RuntimeException(msg)
-
-    case Run =>
-      coll.find($doc(
-        "ringsAt" $lt DateTime.now
-      )).cursor[Alarm](ReadPreference.secondaryPreferred)
-        .enumerator(100, Cursor.ContOnError())
-        .|>>>(Iteratee.foldM[Alarm, Int](0) {
-          case (count, alarm) => GameRepo.game(alarm._id).flatMap {
-            _ ?? { game =>
-              val pov = Pov(game, game.turnColor)
-              socketMap.ask[Boolean](pov.gameId)(IsOnGame(pov.color, _)) addEffect {
-                case true => // already looking at the game
-                case false => context.system.lilaBus.publish(
-                  lila.game.actorApi.CorresAlarmEvent(pov),
-                  'corresAlarm
-                )
-              }
-            }
-          } >> coll.remove($id(alarm._id)) inject (count + 1)
-        })
-        .mon(_.round.alarm.time)
-        .addEffect(c => lila.mon.round.alarm.count(c))
-        .addEffectAnyway(scheduleNext)
-
+  system.lilaBus.subscribeFun('FinishGame) {
     case lila.game.actorApi.FinishGame(game, _, _) =>
       if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
+  }
 
+  system.lilaBus.subscribeFun('moveEventCorres) {
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
       GameRepo game move.gameId flatMap {
         _ ?? { game =>
@@ -92,4 +57,26 @@ private final class CorresAlarm(
         }
       }
   }
+
+  private def run: Unit = coll.find($doc(
+    "ringsAt" $lt DateTime.now
+  )).cursor[Alarm](ReadPreference.secondaryPreferred)
+    .enumerator(100, Cursor.ContOnError())
+    .|>>>(Iteratee.foldM[Alarm, Int](0) {
+      case (count, alarm) => GameRepo.game(alarm._id).flatMap {
+        _ ?? { game =>
+          val pov = Pov(game, game.turnColor)
+          socketMap.ask[Boolean](pov.gameId)(IsOnGame(pov.color, _)) addEffect {
+            case true => // already looking at the game
+            case false => system.lilaBus.publish(
+              lila.game.actorApi.CorresAlarmEvent(pov),
+              'corresAlarm
+            )
+          }
+        }
+      } >> coll.remove($id(alarm._id)) inject (count + 1)
+    })
+    .mon(_.round.alarm.time)
+    .addEffect(c => lila.mon.round.alarm.count(c))
+    .addEffectAnyway(scheduleNext)
 }
