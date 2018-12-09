@@ -217,7 +217,7 @@
   <string name="yourPerfRatingIsProvisional">Mae dy raddfa %s yn un dros dro</string>
   <string name="yourPerfRatingIsTooHigh">Mae dy raddfa %1$s (%2$s) yn rhy uchel</string>
   <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
-  <string name="ratedLessThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
+  <string name="ratedLessThanInPerf">Graddfa %2$s yn ≥ %1$s</string>
   <string name="backToGame">Nôl at y gêm</string>
   <string name="siteDescription">Gweinydd gwyddbwyll ar-lein am ddim.  Chwaraewch wyddbwyll nawr mewn rhyngwyneb glan.  Dim cofrestru, hysbysebion, dim angen ategyn.  Chwaraewch wyddbwyll yn erbyn y cyfrifiadur, efo ffrindiau neu berson ar hap.</string>
   <string name="teams">Tîmau</string>
@@ -287,6 +287,7 @@
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
   <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
   <string name="recommendNotTouching">Rydym yn awgrymu nad ydych yn cyffwrdd rhain.</string>
+  <string name="showAdvancedSettings">Dangos gosodiadau cymleth</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
   <string name="points">o bwyntiau</string>
@@ -319,6 +320,7 @@
   <string name="reportXToModerators">Adrodd %s i\'r cymedrolwyr</string>
   <string name="profileCompletion">%s o\'ch proffeil wedi ei gwblhau</string>
   <string name="xRating">Gradd %s</string>
+  <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
   <string name="gameCompletionRate">Cyfradd gemau a gwblhawyd: %s</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
@@ -484,6 +486,7 @@
   <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol</string>
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
+  <string name="zenMode">Ffocysu</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
@@ -590,15 +593,22 @@
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
   <string name="lobby">Cyntedd</string>
+  <string name="anonymous">DiEnw</string>
+  <string name="yourScore">Eich sgor:%s</string>
   <string name="language">Iaith</string>
   <string name="background">Cefndir</string>
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
   <string name="transparent">Tryloyw</string>
+  <string name="backgroundImageUrl">URL y llun cefndir:</string>
+  <string name="boardGeometry">Math a maint bwrdd</string>
   <string name="boardTheme">Thema\'r bwrdd</string>
+  <string name="boardSize">Maint y bwrdd</string>
+  <string name="pieceSet">Math o ddarnau</string>
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
+  <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
   <string name="getAHint">Derbyn cyngor</string>
   <string name="evaluatingYourMove">Gwerthuso\'ch symudiad ...</string>
@@ -625,4 +635,5 @@
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
+  <string name="playX">Chwarae %s</string>
 </resources>

@@ -81,7 +81,7 @@
   <string name="viewInFullSize">Ssemɣweṛ</string>
   <string name="logOut">Asenser</string>
   <string name="signIn">Tuqqna</string>
-  <string name="newToLichess">Amaynu ɣef Lichess?</string>
+  <string name="newToLichess">D amaynut ɣef Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Ḥwajeḍ amidan n umseqdac</string>
   <string name="signUp">Tiggezt</string>
   <string name="games">Temliliyin</string>
@@ -290,8 +290,8 @@
   <string name="biography">Tameddurt</string>
   <string name="country">Tamurt</string>
   <string name="preferences">Isemnyafen</string>
-  <string name="watchLichessTV">Walli Lichess TV</string>
-  <string name="previouslyOnLichessTV">Uqbel s Lichess TV</string>
+  <string name="watchLichessTV">Wali kan Lichess TV</string>
+  <string name="previouslyOnLichessTV">Yakan seg Lichess TV</string>
   <string name="onlinePlayers">Imariren s weskar uqqin</string>
   <string name="activeToday">Urmid ass-a</string>
   <string name="activePlayers">Imariren urmiden</string>
