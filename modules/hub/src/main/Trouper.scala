@@ -1,5 +1,6 @@
 package lila.hub
 
+import lila.hub.actorApi.Shutdown
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
 import scala.concurrent.stm._
@@ -46,7 +47,7 @@ trait Trouper extends lila.common.Tellable {
   private[this] val stateRef: Ref[Option[Queue[Any]]] = Ref(None)
 
   private[this] def run(msg: Any): Unit = Future {
-    process.applyOrElse(msg, Trouper.fallback)
+    process.applyOrElse(msg, fallback)
   } onComplete postRun
 
   private[this] val postRun = (_: Any) =>
@@ -56,14 +57,15 @@ trait Trouper extends lila.common.Tellable {
       }
     } flatMap (_.headOption) foreach run
 
+  private val fallback: Trouper.Receive = {
+    case Shutdown => stop()
+    case msg => lila.log("Trouper").warn(s"unhandled msg: $msg")
+  }
+
   lazy val uniqueId = Integer.toHexString(hashCode)
 }
 
 object Trouper {
 
   type Receive = PartialFunction[Any, Unit]
-
-  private val fallback = { msg: Any =>
-    lila.log("Trouper").warn(s"unhandled msg: $msg")
-  }
 }

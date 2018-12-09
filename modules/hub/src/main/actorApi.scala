@@ -10,6 +10,8 @@ sealed abstract class Deploy(val key: String)
 case object DeployPre extends Deploy("deployPre")
 case object DeployPost extends Deploy("deployPost")
 
+case object Shutdown // on actor system termination
+
 package streamer {
   case class StreamsOnAir(html: String)
   case class StreamStart(userId: String)

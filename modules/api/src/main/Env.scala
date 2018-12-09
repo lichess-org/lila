@@ -148,6 +148,10 @@ final class Env(
     endpoint = InfluxEventEndpoint,
     env = InfluxEventEnv
   )), name = "influx-event")
+
+  system.registerOnTermination {
+    system.lilaBus.publish(lila.hub.actorApi.Shutdown, 'shutdown)
+  }
 }
 
 object Env {
