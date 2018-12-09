@@ -5,7 +5,8 @@ import ornicar.scalalib.Zero
 
 import play.twirl.api.Html
 import scalatags.Text.all.{ genericAttr, attr, StringFrag }
-import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Cap, Aggregate, Attrs, Styles }
+import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Modifier, Cap, Aggregate, Attrs, Styles }
+import scalatags.text.Builder
 
 // collection of lila attrs
 trait ScalatagsAttrs {
@@ -29,6 +30,12 @@ trait ScalatagsSnippets extends Cap {
   def iconTag(icon: Char): Tag = iconTag(icon.toString)
   def iconTag(icon: String): Tag = i(dataIcon := icon)
   def iconTag(icon: String, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
+
+  lazy val dataBotAttr = attr("data-bot").empty
+
+  def dataBot(title: lila.user.Title): Modifier =
+    if (title == lila.user.Title.BOT) dataBotAttr
+    else emptyModifier
 }
 
 // basic imports from scalatags
@@ -113,6 +120,10 @@ trait ScalatagsExtensions {
   }
 
   val emptyFrag: Frag = new StringFrag("")
-
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
+
+  val emptyModifier: Modifier = new Modifier {
+    def applyTo(t: Builder) = {}
+  }
+  // implicit val LilaModifierZero: Zero[Modifier] = Zero.instance(emptyModifier)
 }

@@ -138,7 +138,7 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
 
   def titleTag(title: Option[Title]) = Html {
     title.fold("") { t =>
-      s"""<span class="title" data-title="$t" title="${Title titleName t}">$t</span>&nbsp;"""
+      s"""<span class="title"${(t == Title.BOT) ?? " data-bot"} title="${Title titleName t}">$t</span>&nbsp;"""
     }
   }
   def titleTag(lu: LightUser): Html = titleTag(lu.title map Title.apply)
