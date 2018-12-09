@@ -27,8 +27,8 @@ object actions {
             )
           ),
           relation match {
-            case None if followable && !blocked => frag(
-              a(
+            case None => frag(
+              followable && !blocked option a(
                 cls := "icon button relation hint--bottom",
                 href := routes.Relation.follow(userId),
                 dataHint := trans.follow.txt()
@@ -39,7 +39,6 @@ object actions {
                 dataHint := trans.block.txt()
               )(iconTag("k"))
             )
-            case None => emptyFrag
             case Some(true) =>
               a(cls := "button relation hover_text", href := routes.Relation.unfollow(userId))(
                 iconTag("h")(cls := "base text")(trans.following()),
