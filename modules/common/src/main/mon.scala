@@ -292,6 +292,9 @@ object mon {
     }
     def queueSize(name: String) = rec(s"socket.queue_size.$name")
   }
+  object trouper {
+    def queueSize(name: String) = rec(s"trouper.queue_size.$name")
+  }
   object mod {
     object report {
       val unprocessed = rec("mod.report.unprocessed")

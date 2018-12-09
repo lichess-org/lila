@@ -1,6 +1,5 @@
 package lila.lobby
 
-import akka.actor._
 import scala.concurrent.duration._
 
 import actorApi._
@@ -13,7 +12,7 @@ import ornicar.scalalib.Zero
 
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
-    lobby: ActorRef,
+    lobby: LobbyTrouper,
     socket: Socket,
     poolApi: PoolApi,
     blocking: String => Fu[Set[String]]

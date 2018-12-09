@@ -1,13 +1,11 @@
 package lila.setup
 
-import akka.actor.ActorSelection
-
 import lila.game.{ GameRepo, Pov, PerfPicker }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.user.{ User, UserContext }
 
 private[setup] final class Processor(
-    lobby: ActorSelection,
+    bus: lila.common.Bus,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
     fishnetPlayer: lila.fishnet.Player,
@@ -37,13 +35,13 @@ private[setup] final class Processor(
     saveConfig(_ withHook config) >> {
       config.hook(uid, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
-          lobby ! AddHook(hook)
+          bus.publish(AddHook(hook), 'lobby)
           Created(hook.id)
         }
         case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
           if (nbPlaying >= maxPlaying) Refused
           else {
-            lobby ! AddSeek(seek)
+            bus.publish(AddSeek(seek), 'lobby)
             Created(seek.id)
           }
         }

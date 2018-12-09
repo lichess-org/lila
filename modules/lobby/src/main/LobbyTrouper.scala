@@ -3,15 +3,15 @@ package lila.lobby
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import akka.actor._
-import akka.pattern.{ ask, pipe }
 import org.joda.time.DateTime
 
 import actorApi._
 import lila.game.GameRepo
+import lila.hub.Trouper
 import lila.socket.Socket.Uids
 
-private[lobby] final class Lobby(
+private[lobby] final class LobbyTrouper(
+    system: akka.actor.ActorSystem,
     socket: Socket,
     seekApi: SeekApi,
     gameCache: lila.game.Cached,
@@ -19,26 +19,28 @@ private[lobby] final class Lobby(
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     poolApi: lila.pool.PoolApi,
-    onStart: String => Unit
-) extends Actor {
+    onStart: lila.game.Game.ID => Unit
+) extends Trouper {
 
-  def receive = {
+  import LobbyTrouper._
+
+  val process: Trouper.Receive = {
 
     case msg @ AddHook(hook) => {
       lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       (!hook.compatibleWithPools).??(findCompatible(hook)) foreach {
-        case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
-        case None => self ! SaveHook(msg)
+        case Some(h) => this ! BiteHook(h.id, hook.uid, hook.user)
+        case None => this ! SaveHook(msg)
       }
     }
 
     case msg @ AddSeek(seek) =>
       lila.mon.lobby.seek.create()
       findCompatible(seek) foreach {
-        case Some(s) => self ! BiteSeek(s.id, seek.user)
-        case None => self ! SaveSeek(msg)
+        case Some(s) => this ! BiteSeek(s.id, seek.user)
+        case None => this ! SaveSeek(msg)
       }
 
     case SaveHook(msg) =>
@@ -59,7 +61,7 @@ private[lobby] final class Lobby(
     case BiteHook(hookId, uid, user) => NoPlayban(user) {
       HookRepo byId hookId foreach { hook =>
         HookRepo byUid uid foreach remove
-        Biter(hook, uid, user) pipeTo self
+        Biter(hook, uid, user) foreach this.!
       }
     }
 
@@ -69,7 +71,7 @@ private[lobby] final class Lobby(
           lila.mon.lobby.seek.join()
           seekApi find seekId foreach {
             _ foreach { seek =>
-              Biter(seek, user) pipeTo self
+              Biter(seek, user) foreach this.!
             }
           }
         }
@@ -88,7 +90,7 @@ private[lobby] final class Lobby(
         socket ! RemoveSeek(seek.id)
       }
 
-    case Lobby.Tick(promise) =>
+    case Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
       socket.ask[Uids](GetUidsP).chronometer
@@ -96,10 +98,9 @@ private[lobby] final class Lobby(
         .mon(_.lobby.socket.getUids)
         .result
         .logFailure(logger, err => s"broom cannot get uids from socket: $err")
-        .map { Lobby.WithPromise(_, promise) }
-        .pipeTo(self)
+        .foreach { this ! WithPromise(_, promise) }
 
-    case Lobby.WithPromise(Uids(uids), promise) =>
+    case WithPromise(Uids(uids), promise) =>
       poolApi socketIds uids
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
@@ -111,10 +112,11 @@ private[lobby] final class Lobby(
       //   s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
       if (hooks.nonEmpty) {
         // logger.debug(s"remove ${hooks.size} hooks")
-        self ! RemoveHooks(hooks)
+        this ! RemoveHooks(hooks)
       }
       lila.mon.lobby.socket.member(uids.size)
       lila.mon.lobby.hook.size(HookRepo.size)
+      lila.mon.trouper.queueSize("lobby")(estimateQueueSize)
       promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove
@@ -125,8 +127,8 @@ private[lobby] final class Lobby(
     case msg @ HookSub(member, true) =>
       socket ! AllHooksFor(member, HookRepo.vector.filter { Biter.showHookTo(_, member) })
 
-    case lila.pool.HookThieve.GetCandidates(clock) =>
-      sender ! lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
+    case lila.pool.HookThieve.GetCandidates(clock, promise) =>
+      promise success lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
 
     case lila.pool.HookThieve.StolenHookIds(ids) =>
       HookRepo byIds ids.toSet foreach remove
@@ -168,21 +170,18 @@ private[lobby] final class Lobby(
   }
 }
 
-private object Lobby {
+private object LobbyTrouper {
 
   private case class Tick(promise: Promise[Unit])
 
   private case class WithPromise[A](value: A, promise: Promise[Unit])
 
   def start(
-    system: ActorSystem,
-    name: String,
+    system: akka.actor.ActorSystem,
     broomPeriod: FiniteDuration,
     resyncIdsPeriod: FiniteDuration
-  )(instance: => Actor) = {
-
-    val ref = system.actorOf(Props(instance), name = name)
-    system.scheduler.schedule(15 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+  )(trouper: => LobbyTrouper) = {
+    system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
     system.scheduler.scheduleOnce(7 seconds) {
       lila.common.ResilientScheduler(
         every = broomPeriod,
@@ -190,11 +189,9 @@ private object Lobby {
         system = system,
         logger = logger
       ) {
-        val promise = Promise[Unit]()
-        ref ! Tick(promise)
-        promise.future
+        trouper.ask[Unit](Tick)
       }
     }
-    ref
+    trouper
   }
 }
