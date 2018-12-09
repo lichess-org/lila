@@ -33,7 +33,8 @@ final class Env(
   }
   import settings._
 
-  private val socketMap: SocketMap = new TrouperMap[ChallengeSocket](
+  private val socketMap: SocketMap = lila.socket.SocketMap[ChallengeSocket](
+    system = system,
     mkTrouper = (challengeId: String) => new ChallengeSocket(
       system = system,
       challengeId = challengeId,
@@ -42,15 +43,10 @@ final class Env(
       uidTtl = UidTimeout,
       keepMeAlive = () => socketMap touch challengeId
     ),
-    accessTimeout = SocketTimeout
+    accessTimeout = SocketTimeout,
+    monitoringName = "challenge.socketMap",
+    broomFrequency = 3677 millis
   )
-  system.lilaBus.subscribeFun('deploy) { case m => socketMap tellAll m }
-  system.scheduler.schedule(30 seconds, 30 seconds) {
-    socketMap.monitor("challenge.socketMap")
-  }
-  system.scheduler.schedule(10 seconds, 3677 millis) {
-    socketMap tellAll lila.socket.actorApi.Broom
-  }
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](challengeId)(GetVersion)
