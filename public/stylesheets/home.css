@@ -680,6 +680,9 @@ body.dark .tour_spotlight {
   color: #ccc;
   text-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
+body.dark .tour_spotlight span {
+  color: #ccc;
+}
 body.dark .tour_spotlight.invert,
 body.dark .tour_spotlight.event_spotlight,
 body.dark .tour_spotlight:hover {
