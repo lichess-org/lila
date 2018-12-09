@@ -132,7 +132,7 @@ function renderUser(u?: ChallengeUser): VNode {
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
     h('name', [
-      u.title && h('span.title', { attrs: { 'data-title': u.title } }, u.title + ' '),
+      u.title && h('span.title', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
       u.name + ' (' + rating + ') '
     ]),
       h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {

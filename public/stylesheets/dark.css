@@ -231,7 +231,7 @@ body.dark .undertable_top span.title {
 body.dark .user_link span.title {
   color: #bf811d;
 }
-body.dark .user_link span.title[data-title=BOT] {
+body.dark .user_link span.title[data-bot] {
   color: #9e1aad;
 }
 body.dark .user_show .fire_trophy {
