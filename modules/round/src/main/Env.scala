@@ -229,10 +229,7 @@ final class Env(
     name = "titivate"
   )
 
-  bus.subscribe(system.actorOf(
-    Props(new CorresAlarm(db(CollectionAlarm), socketMap)),
-    name = "corres-alarm"
-  ), 'moveEventCorres, 'finishGame)
+  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,
