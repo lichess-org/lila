@@ -121,8 +121,7 @@ case class PlayerAggregateAssessment(
       a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
-    s"""[AUTOREPORT] $reason
-    Cheating Games: $cheatingSum
+    s"""Cheating Games: $cheatingSum
     Likely Cheating Games: $likelyCheatingSum
     $gameLinks"""
   }
