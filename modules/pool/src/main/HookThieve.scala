@@ -7,7 +7,7 @@ private final class HookThieve(bus: lila.common.Bus) {
   import HookThieve._
 
   def candidates(clock: chess.Clock.Config, monId: String): Fu[PoolHooks] =
-    bus.ask[PoolHooks]('lobby)(GetCandidates(clock, _)) recover {
+    bus.ask[PoolHooks]('lobbyTrouper)(GetCandidates(clock, _)) recover {
       case _ =>
         lila.mon.lobby.pool.thieve.timeout(monId)()
         PoolHooks(Vector.empty)
@@ -15,7 +15,7 @@ private final class HookThieve(bus: lila.common.Bus) {
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) = {
     lila.mon.lobby.pool.thieve.stolen(monId)(poolHooks.size)
-    if (poolHooks.nonEmpty) bus.publish(StolenHookIds(poolHooks.map(_.hookId)), 'lobby)
+    if (poolHooks.nonEmpty) bus.publish(StolenHookIds(poolHooks.map(_.hookId)), 'lobbyTrouper)
   }
 }
 

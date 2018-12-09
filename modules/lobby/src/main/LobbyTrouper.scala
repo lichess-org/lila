@@ -181,6 +181,7 @@ private object LobbyTrouper {
     broomPeriod: FiniteDuration,
     resyncIdsPeriod: FiniteDuration
   )(trouper: => LobbyTrouper) = {
+    system.lilaBus.subscribe(trouper, 'lobbyTrouper)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
     system.scheduler.scheduleOnce(7 seconds) {
       lila.common.ResilientScheduler(
