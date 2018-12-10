@@ -72,6 +72,7 @@ object mon {
     def timeout(name: String) = inc(s"syncache.timeout.$name")
     def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
     def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
+    def chmSize(name: String) = rec(s"syncache.chm.size.$name")
   }
   def caffeineStats(cache: CaffeineCache[_, _], name: String) {
     val stats = cache.stats

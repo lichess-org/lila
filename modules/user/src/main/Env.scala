@@ -49,6 +49,10 @@ final class Env(
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
+  system.scheduler.schedule(1 minute, 1 minute) {
+    lightUserApi.monitorCache
+  }
+
   system.lilaBus.subscribeFuns(
     'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) =>

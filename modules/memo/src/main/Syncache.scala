@@ -86,22 +86,24 @@ final class Syncache[K, V](
       cache.put(k, v)
     }
 
+  def chmSize = chm.size
+
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
       error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
       .mon(_ => recComputeNanos) // monitoring: record async time
-      .addEffects(
-        err => {
-          logger.branch(name).warn(s"$err key=$k")
+      .addEffect { res =>
+        cache.put(k, res)
+        chm remove k
+      }
+      .recover {
+        case e: Exception =>
+          logger.branch(name).warn(s"$e key=$k")
           chm remove k
-        },
-        res => {
-          cache.put(k, res)
-          chm remove k
-        }
-      )
+          default(k)
+      }
   }
 
   private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {
