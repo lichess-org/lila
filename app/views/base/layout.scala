@@ -60,7 +60,10 @@ object layout {
 <a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn()}</a>""")
 
   private def clinput(implicit ctx: Context) =
-    raw(s"""<div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="${trans.search.txt()}"/></div>""")
+    div(id := "clinput")(
+      a(cls := "link")(span(dataIcon := "y")),
+      input(spellcheck := "false", placeholder := trans.search.txt())
+    )
 
   private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;")
 
