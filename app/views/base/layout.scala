@@ -32,7 +32,7 @@ object layout {
       s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}"/>"""
     } mkString
   }
-  private def titleTag(content: String) = raw(s"""<title>$content</title>""")
+  private def titleTag(content: String) = scalatags.Text.tags2.title(content)
   private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind_mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blindMode) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blindMode) "Disable" else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
@@ -60,7 +60,10 @@ object layout {
 <a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn()}</a>""")
 
   private def clinput(implicit ctx: Context) =
-    raw(s"""<div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="${trans.search.txt()}"/></div>""")
+    div(id := "clinput")(
+      a(cls := "link")(span(dataIcon := "y")),
+      input(spellcheck := "false", placeholder := trans.search.txt())
+    )
 
   private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;")
 
