@@ -89,7 +89,7 @@ lazy val i18n = module("i18n", Seq(common, db, user, hub)).settings(
       compileTo = (sourceManaged in Compile).value / "messages"
     )
   }.taskValue,
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api)
 )
 
 lazy val insight = module("insight", Seq(common, game, user, analyse, relation, pref, socket, round, security)
