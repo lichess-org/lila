@@ -34,8 +34,9 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
           div(cls := "tournament_links")(
             a(dataIcon := "", cls := "text", href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
           ),
-          h2(cls := "leaderboard_title"),
-          a(href := routes.Tournament.leaderboard)(trans.leaderboard())
+          h2(cls := "leaderboard_title")(
+            a(href := routes.Tournament.leaderboard)(trans.leaderboard())
+          )
         ),
         ul(cls := "tournament_leaderboard")(
           winners.top.map { w =>
