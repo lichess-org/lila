@@ -116,7 +116,7 @@ private[lobby] final class LobbyTrouper(
       }
       lidraughts.mon.lobby.socket.member(uids.size)
       lidraughts.mon.lobby.hook.size(HookRepo.size)
-      lidraughts.mon.trouper.queueSize("lobby")(estimateQueueSize)
+      lidraughts.mon.trouper.queueSize("lobby")(queueSize)
       promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove
