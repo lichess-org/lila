@@ -12,7 +12,7 @@ trait EmailConfirm {
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit
 
-  def confirm(token: String): Fu[Option[User]]
+  def confirm(token: String): Fu[EmailConfirm.Result]
 }
 
 object EmailConfirmSkip extends EmailConfirm {
@@ -21,7 +21,7 @@ object EmailConfirmSkip extends EmailConfirm {
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang) = UserRepo setEmailConfirmed user.id
 
-  def confirm(token: String): Fu[Option[User]] = fuccess(none)
+  def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }
 
 final class EmailConfirmMailgun(
@@ -68,12 +68,15 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
     )
   }
 
-  def confirm(token: String): Fu[Option[User]] = tokener read token flatMap {
-    _ ?? { userId =>
-      UserRepo.mustConfirmEmail(userId) flatMap {
-        _ ?? {
-          (UserRepo setEmailConfirmed userId) >> (UserRepo enabledById userId)
-        }
+  import EmailConfirm.Result
+
+  def confirm(token: String): Fu[Result] = tokener read token flatMap {
+    _ ?? UserRepo.enabledById
+  } flatMap {
+    _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
+      UserRepo.mustConfirmEmail(user.id) flatMap {
+        case true => (UserRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+        case false => fuccess(Result.AlreadyConfirmed(user))
       }
     }
   }
@@ -85,6 +88,13 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 }
 
 object EmailConfirm {
+
+  sealed trait Result
+  object Result {
+    case class JustConfirmed(user: User) extends Result
+    case class AlreadyConfirmed(user: User) extends Result
+    case object NotFound extends Result
+  }
 
   case class UserEmail(username: String, email: EmailAddress)
 
