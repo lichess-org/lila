@@ -3,6 +3,7 @@ package lila.common
 import java.text.Normalizer
 import play.api.libs.json._
 import play.twirl.api.Html
+import scalatags.Text.RawFrag
 
 import lila.base.RawHtml
 import lila.common.base.StringUtils.{ safeJsonString, escapeHtml => escapeHtmlRaw }
@@ -90,6 +91,12 @@ final object String {
 
     def safeJson(jsValue: JsValue) = Html {
       safeJsonValue(jsValue)
+    }
+  }
+
+  object frag {
+    def escapeHtml(s: String) = RawFrag {
+      escapeHtmlRaw(s)
     }
   }
 
