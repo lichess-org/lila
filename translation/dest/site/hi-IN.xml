@@ -22,7 +22,7 @@
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद की जय</string>
   <string name="blackIsVictorious">काले की जय</string>
-  <string name="kingInTheCenter">राजा बीच में</string>
+  <string name="kingInTheCenter">राजा मध्य में</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">दौड़ समाप्त</string>
   <string name="variantEnding">प्रकार का अंत</string>
@@ -33,8 +33,8 @@
   <string name="blackPlays">काले की चाल</string>
   <string name="opponentLeftChoices">आपका प्रतिद्वंदी ये खेल छोड़ कर चला गया है। आप चाहे तो जीत का दावा कर सकते हैं , खेल रद्द कर सकते हैं, या फिर अपने प्रतिद्वंद्वी के लौटने की प्रतीक्षा कर सकते हैं|</string>
   <string name="makeYourOpponentResign">अपने प्रतिद्वंदी को हारने पे मजबूर करें</string>
-  <string name="forceResignation">जीत का दवा करें</string>
-  <string name="forceDraw">बराबरी पे खेल समाप्त करें</string>
+  <string name="forceResignation">जीत का दावा करें</string>
+  <string name="forceDraw">बराबरी पर खेल समाप्त करें</string>
   <string name="talkInChat">कृपया सज्जनतापूर्ण बातचीत करें!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">इस पते पर क्लिक करने वाला पहला आदमी आपके साथ खेलेगा.</string>
   <string name="whiteResigned">सफेद ने हार मान ली</string>
