@@ -292,7 +292,6 @@ object mon {
       val site = rec("socket.count.site")
     }
     def queueSize(name: String) = rec(s"socket.queue_size.$name")
-    def pushChannelClosed = inc("socket.push.channel_closed")
   }
   object trouper {
     def queueSize(name: String) = rec(s"trouper.queue_size.$name")
