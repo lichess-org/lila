@@ -1,21 +1,24 @@
 package lila.hub
 
+import java.util.concurrent.atomic.AtomicReference
+import java.util.function.UnaryOperator
 import lila.hub.actorApi.Shutdown
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
-import scala.concurrent.stm._
 import scala.concurrent.{ Future, Promise }
 
 /*
  * Like an actor, but not an actor.
- * Uses an STM backend for sequentiality.
+ * Uses an Atomic Reference backend for sequentiality.
  * Has an unbounded (!) Queue of messages.
  * Like Duct, but for synchronous message processors.
  */
 trait Trouper extends lila.common.Tellable {
 
+  import Trouper._
+
   // implement async behaviour here
-  protected val process: Trouper.Receive
+  protected val process: Receive
 
   private[this] var alive = true
 
@@ -24,9 +27,11 @@ trait Trouper extends lila.common.Tellable {
   }
 
   def !(msg: Any): Unit =
-    if (alive && stateRef.single.getAndTransform { q =>
-      Some(q.fold(Queue.empty[Any])(_ enqueue msg))
-    }.isEmpty) run(msg)
+    if (alive && stateRef.getAndUpdate(
+      new UnaryOperator[State] {
+        override def apply(state: State): State = Some(state.fold(Queue.empty[Any])(_ enqueue msg))
+      }
+    ).isEmpty) run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
@@ -34,32 +39,25 @@ trait Trouper extends lila.common.Tellable {
     promise.future
   }
 
-  // As fast as possible, at the expense of precision
-  def estimateQueueSize = atomic { implicit txn =>
-    stateRef.relaxedGet({ (_, _) => true }).??(_.size)
-  }
+  def queueSize = stateRef.get().fold(0)(_.size + 1)
 
   /*
    * Idle: None
    * Busy: Some(Queue.empty)
    * Busy with backlog: Some(Queue.nonEmpty)
    */
-  private[this] val stateRef: Ref[Option[Queue[Any]]] = Ref(None)
+  private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
   private[this] def run(msg: Any): Unit = Future {
     process.applyOrElse(msg, fallback)
   } onComplete postRun
 
   private[this] val postRun = (_: Any) =>
-    stateRef.single.getAndTransform {
-      _ flatMap { q =>
-        if (q.isEmpty) None else Some(q.tail)
-      }
-    } flatMap (_.headOption) foreach run
+    stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
-  private val fallback: Trouper.Receive = {
+  private val fallback: Receive = {
     case Shutdown => stop()
-    case msg => lila.log("Trouper").warn(s"unhandled msg: $msg")
+    case msg => lila.log("trouper").warn(s"unhandled msg: $msg")
   }
 
   lazy val uniqueId = Integer.toHexString(hashCode)
@@ -68,4 +66,13 @@ trait Trouper extends lila.common.Tellable {
 object Trouper {
 
   type Receive = PartialFunction[Any, Unit]
+
+  private type State = Option[Queue[Any]]
+
+  private val postRunUpdate = new UnaryOperator[State] {
+    override def apply(state: State): State =
+      state flatMap { q =>
+        if (q.isEmpty) None else Some(q.tail)
+      }
+  }
 }

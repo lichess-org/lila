@@ -184,7 +184,7 @@ trait LoneSocket { self: SocketTrouper[_] =>
 
   system.scheduler.schedule(approximatly(0.1f)(12.seconds.toMillis).millis, broomFrequency) {
     this ! lila.socket.actorApi.Broom
-    lila.mon.socket.queueSize(monitoringName)(estimateQueueSize)
+    lila.mon.socket.queueSize(monitoringName)(queueSize)
   }
   system.lilaBus.subscribe(this, 'deploy, 'shutdown)
 }
