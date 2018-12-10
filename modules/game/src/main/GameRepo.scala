@@ -361,6 +361,7 @@ object GameRepo {
         s"${F.blackPlayer}.${Player.BSONFields.rating}" $gt 1200
       )
   )
+  // def featuredCandidates: Fu[List[Game]] = coll.find($empty).skip(util.Random nextInt 10000).list[Game](50)
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 

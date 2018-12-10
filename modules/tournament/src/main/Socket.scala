@@ -4,24 +4,24 @@ import akka.actor._
 import akka.pattern.pipe
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.collection.breakOut
+import scala.concurrent.duration._
 
 import actorApi._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.{ SocketTrouper, History, Historical }
+import lila.chat.Chat
 
 private[tournament] final class Socket(
+    val system: ActorSystem,
     tournamentId: String,
     val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration
-) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
-
-  private val timeBomb = new TimeBomb(socketTimeout)
+    val uidTtl: Duration,
+    keepMeAlive: () => Unit
+) extends SocketTrouper[Member](uidTtl) with Historical[Member, Messadata] {
 
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
@@ -30,20 +30,26 @@ private[tournament] final class Socket(
 
   private var waitingUsers = WaitingUsers.empty
 
-  override def preStart(): Unit = {
-    super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat:$tournamentId"))
-    TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
+  private def chatClassifier = Chat classify Chat.Id(tournamentId)
+
+  override def start(): Unit = {
+    super.start()
+    lilaBus.subscribe(this, chatClassifier)
+    TournamentRepo clockById tournamentId foreach {
+      _ foreach { c =>
+        this ! SetTournamentClock(c)
+      }
+    }
   }
 
-  override def postStop(): Unit = {
-    super.postStop()
-    lilaBus.unsubscribe(self)
+  override def stop(): Unit = {
+    super.stop()
+    lilaBus.unsubscribe(this, chatClassifier)
   }
 
-  def receiveSpecific = ({
+  protected def receiveSpecific = ({
 
-    case SetTournament(Some(tour)) => clock = tour.clock.some
+    case SetTournamentClock(c) => clock = c.some
 
     case StartGame(game) =>
       game.players foreach { player =>
@@ -57,28 +63,22 @@ private[tournament] final class Socket(
 
     case Reload => notifyReload
 
-    case GetWaitingUsers =>
+    case GetWaitingUsersP(promise) =>
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
-      sender ! waitingUsers
+      promise success waitingUsers
 
     case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
-      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
 
-    case Broom => {
-      broom
-      if (timeBomb.boom) self ! PoisonPill
-    }
+    case lila.socket.Socket.GetVersionP(promise) => promise success history.version
 
-    case lila.socket.Socket.GetVersion => sender ! history.version
-
-    case Join(uid, user, version) =>
+    case JoinP(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
       notifyCrowd
-      sender ! Connected(
+      promise success Connected(
         prependEventsSince(version, enumerator, member),
         member
       )
@@ -101,18 +101,23 @@ private[tournament] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit =
+  override protected def broom: Unit = {
+    super.broom
+    if (members.nonEmpty) keepMeAlive()
+  }
+
+  private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
-      context.system.scheduler.scheduleOnce(1 second, self, NotifyCrowd)
+      system.scheduler.scheduleOnce(1 second)(this ! NotifyCrowd)
     }
 
-  def notifyReload: Unit =
+  private def notifyReload: Unit =
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(1 second, self, NotifyReload)
+      system.scheduler.scheduleOnce(1 second)(this ! NotifyReload)
     }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

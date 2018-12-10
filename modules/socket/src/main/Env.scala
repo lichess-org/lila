@@ -13,12 +13,11 @@ final class Env(
 
   import scala.concurrent.duration._
 
-  private val HubName = config getString "hub.name"
   private val MoveBroadcastName = config getString "move_broadcast.name"
   private val UserRegisterName = config getString "user_register.name"
   private val PopulationName = config getString "population.name"
 
-  private val socketHub = system.actorOf(Props[SocketHub], name = HubName)
+  private val socketHub = system.actorOf(Props[SocketHub])
 
   private val population = system.actorOf(Props[Population], name = PopulationName)
 

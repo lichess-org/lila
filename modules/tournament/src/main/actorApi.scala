@@ -1,9 +1,11 @@
 package lila.tournament
 package actorApi
 
+import scala.concurrent.Promise
+
 import lila.game.Game
-import lila.socket.SocketMember
 import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.SocketMember
 import lila.user.User
 
 private[tournament] case class Member(
@@ -22,10 +24,11 @@ private[tournament] object Member {
 
 private[tournament] case class Messadata(trollish: Boolean = false)
 
-private[tournament] case class Join(
+private[tournament] case class JoinP(
     uid: Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    promise: Promise[Connected]
 )
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[tournament] case object Reload
@@ -39,6 +42,6 @@ private[tournament] case object ScheduleNow
 private[tournament] case object NotifyCrowd
 private[tournament] case object NotifyReload
 
-private[tournament] case object GetWaitingUsers
+private[tournament] case class GetWaitingUsersP(promise: Promise[WaitingUsers])
 
-private[tournament] case class SetTournament(tour: Option[Tournament])
+private[tournament] case class SetTournamentClock(clock: chess.Clock.Config)

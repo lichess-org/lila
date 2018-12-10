@@ -675,7 +675,7 @@ div.lichess_overboard .color_submits .spinner {
   line-height: 13px;
   display: block;
 }
-body.dark .tour_spotlight.little {
+body.dark .tour_spotlight {
   background: #444;
   color: #ccc;
   text-shadow: 0 0 2px rgba(0,0,0,0.6);

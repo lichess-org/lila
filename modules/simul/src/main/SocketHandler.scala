@@ -30,7 +30,7 @@ private[simul] final class SocketHandler(
         for {
           socket ← socketHub ? Get(simId) mapTo manifest[ActorRef]
           join = Join(uid = uid, user = user, version = version)
-          handler ← Handler(hub, socket, uid, join) {
+          handler ← Handler.forActor(hub, socket, uid, join) {
             case Connected(enum, member) =>
               (controller(socket, simId, uid, member), enum, member)
           }
@@ -48,7 +48,6 @@ private[simul] final class SocketHandler(
   }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = Chat.Id(simId),
     member = member,
-    socket = socket,
     chat = chat,
     publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simId).some
   )

@@ -1,14 +1,13 @@
 package lila.tournament
 
 import akka.actor._
-import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
-import lila.hub.actorApi.map.Ask
-import lila.hub.{ Duct, DuctMap }
+import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.Socket.{ GetVersionP, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -102,7 +101,7 @@ final class Env(
     },
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
-    socketHub = socketHub,
+    socketMap = socketMap,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
@@ -121,7 +120,7 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
+    socketMap = socketMap,
     chat = hub.actor.chat,
     flood = flood
   )
@@ -142,18 +141,24 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(tournamentId: String) = new Socket(
-        tournamentId = tournamentId,
-        history = new History(ttl = HistoryMessageTtl),
-        jsonView = jsonView,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightUser = lightUserApi.async
-      )
-    }), name = SocketName
+  private val socketMap: SocketMap = new TrouperMap[Socket](
+    mkTrouper = (tournamentId: String) => new Socket(
+      system = system,
+      tournamentId = tournamentId,
+      history = new History(ttl = HistoryMessageTtl),
+      jsonView = jsonView,
+      lightUser = lightUserApi.async,
+      uidTtl = UidTimeout,
+      keepMeAlive = () => socketMap touch tournamentId
+    ),
+    accessTimeout = SocketTimeout
   )
+  system.scheduler.schedule(10 seconds, 10 seconds) {
+    socketMap.monitor("tournament.socketMap")
+  }
+  system.scheduler.schedule(10 seconds, 3819 millis) {
+    socketMap tellAll lila.socket.actorApi.Broom
+  }
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
@@ -161,8 +166,8 @@ final class Env(
   )
 
   system.lilaBus.subscribe(
-    system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),
-    'finishGame, 'adjustCheater, 'adjustBooster, 'playban
+    system.actorOf(Props(new ApiActor(api, leaderboardApi, socketMap)), name = ApiActorName),
+    'finishGame, 'adjustCheater, 'adjustBooster, 'playban, 'deploy
   )
 
   system.actorOf(Props(new CreatedOrganizer(
@@ -176,7 +181,7 @@ final class Env(
     api = api,
     reminder = reminder,
     isOnline = isOnline,
-    socketHub = socketHub
+    socketMap = socketMap
   )))
 
   TournamentScheduler.start(system, api)
@@ -184,13 +189,13 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[SocketVersion]
+    socketMap.ask[SocketVersion](tourId)(GetVersionP.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
-    socketHub ? Ask(tourId, lila.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
-  } >>| PairingRepo.isPlaying(tourId, userId)
+  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+    socketMap.ask[Boolean](tourId)(lila.hub.actorApi.HasUserIdP(userId, _)) >>|
+      PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {
     def process = {

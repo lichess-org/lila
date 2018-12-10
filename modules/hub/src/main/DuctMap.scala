@@ -2,7 +2,6 @@ package lila.hub
 
 import com.github.benmanes.caffeine.cache._
 
-import scala.compat.java8.FunctionConverters.asJavaFunction
 import scala.collection.JavaConverters._
 import scala.concurrent.duration.FiniteDuration
 import java.util.concurrent.TimeUnit

@@ -553,6 +553,8 @@ case class Game(
   def blackPov = pov(Black)
   def playerPov(p: Player) = pov(p.color)
   def loserPov = loser map playerPov
+
+  override def toString = s"""Game($id)"""
 }
 
 object Game {

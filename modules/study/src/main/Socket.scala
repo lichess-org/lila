@@ -13,6 +13,7 @@ import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
+import lila.chat.Chat
 
 private final class Socket(
     studyId: Study.Id,
@@ -37,13 +38,15 @@ private final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat:$studyId"))
+    lilaBus.subscribe(self, chatClassifier)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lilaBus.unsubscribe(self, chatClassifier)
   }
+
+  private def chatClassifier = Chat classify Chat.Id(studyId.value)
 
   def sendStudyDoor(enters: Boolean)(userId: User.ID) =
     lightStudyCache.get(studyId) foreach {
