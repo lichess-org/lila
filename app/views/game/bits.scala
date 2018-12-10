@@ -68,7 +68,7 @@ object bits {
   ) = a(
     cls := s"$cssClass variant-link",
     href := (variant match {
-      case draughts.variant.FromPosition => s"""${routes.Editor.index}?fen=${initialFen.map(_.value.replace(' ', '_'))}"""
+      case draughts.variant.FromPosition => s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
       case v => routes.Page.variant(v.key).url
     }),
     rel := "nofollow",
