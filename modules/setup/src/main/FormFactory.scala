@@ -1,6 +1,7 @@
 package lidraughts.setup
 
 import draughts.format.FEN
+import draughts.variant.Variant
 import lidraughts.lobby.Color
 import lidraughts.user.UserContext
 import play.api.data._
@@ -84,13 +85,27 @@ private[setup] final class FormFactory {
       "days" -> days,
       "mode" -> mode(ctx.isAuth),
       "ratingRange" -> optional(ratingRange),
-      "color" -> text.verifying(Color.names contains _)
+      "color" -> color
     )(HookConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
   )
 
   def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig map (_.hook)
+
+  lazy val api = Form(
+    mapping(
+      "variant" -> optional(text.verifying(Variant.byKey.contains _)),
+      "clock" -> optional(mapping(
+        "limit" -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
+        "increment" -> increment
+      )(draughts.Clock.Config.apply)(draughts.Clock.Config.unapply)),
+      "days" -> optional(days),
+      "rated" -> boolean,
+      "color" -> optional(color),
+      "fen" -> fen
+    )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+  )
 
   def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
     ctx.me.fold(AnonConfigRepo config ctx.req)(UserConfigRepo.config)
