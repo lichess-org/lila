@@ -107,7 +107,7 @@ men du kan forsvare!</string>
   <string name="firstPlaceTheRooks">Plasser først tårnene! De står i hjørnene.</string>
   <string name="thenPlaceTheKnights">Plasser så springerne! De står ved siden av tårnene.</string>
   <string name="placeTheBishops">Sett løperne på plass. De står ved siden av springerne.</string>
-  <string name="placeTheQueen">Plasser dronninga på feltet med samme farge som brikken! (hvit dronning på hvitt felt, svart dronning på svart felt).</string>
+  <string name="placeTheQueen">Plasser dronningen! Hun står på egen farge.</string>
   <string name="placeTheKing">Sett kongen på plass! Helt inntil dronningen.</string>
   <string name="pawnsFormTheFrontLine">Bøndene danner frontlinja. Gjør et valgfritt trekk når du vil fortsette.</string>
   <string name="boardSetupComplete">Gratulerer! Du kjenner nå til hvordan brikkene stilles opp på brettet.</string>
