@@ -21,7 +21,7 @@ object index {
     views.html.round.layout(
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       side = side(channel, champions, "/tv", pov.some),
-      underchat = views.html.game.bits.watchers.some,
+      underchat = Some(views.html.game.bits.watchers),
       moreJs = frag(
         roundTag,
         embedJs {

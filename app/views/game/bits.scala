@@ -4,8 +4,8 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.game.{ Game, Pov, Player }
 import lila.app.ui.ScalatagsTemplate._
+import lila.game.{ Game, Pov, Player }
 import lila.user.Title
 
 import controllers.routes
@@ -24,15 +24,14 @@ object bits {
     s"""<div class="mini_board parse_fen is2d" data-color="${color.name}" data-fen="$fen">$miniBoardContent</div>"""
   }
 
-  def watchers(implicit ctx: Context) = Html {
+  def watchers(implicit ctx: Context): Frag =
     div(cls := "watchers hidden")(
       span(cls := "number")(nbsp),
       " ",
       trans.spectators.txt().replace(":", ""),
       " ",
       span(cls := "list inline_userlist")
-    ).render
-  }
+    )
 
   def gameIcon(game: Game): Char = game.perfType match {
     case _ if game.fromPosition => '*'
