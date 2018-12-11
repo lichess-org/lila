@@ -124,8 +124,8 @@
   </plurals>
   <string name="currentGames">Pågående partier</string>
   <plurals name="nbGames">
-    <item quantity="one">%spartier</item>
-    <item quantity="other">%spartier</item>
+    <item quantity="one">%s parti</item>
+    <item quantity="other">%s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Bokmärken</item>
