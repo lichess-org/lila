@@ -756,14 +756,14 @@ lichess.topMenuIntent = function() {
           el = self.element;
         var hideStorage = lichess.storage.make('friends-hide');
         self.$list = el.find("div.list");
-        var $title = el.find('.title').click(function() {
+        var $friendBoxTitle = el.find('.friend_box_title').click(function() {
           var show = hideStorage.get() == 1;
           el.find('.content_wrap').toggleNone(show);
           if (show) hideStorage.remove();
           else hideStorage.set(1);
         });
         if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
-        self.$nbOnline = $title.find('.online');
+        self.$nbOnline = $friendBoxTitle.find('.online');
         self.$nobody = el.find(".nobody");
 
         var users = el.data('preload').split(','),
@@ -858,13 +858,19 @@ lichess.topMenuIntent = function() {
       },
       _renderUser: function(user) {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
-        var name = lichess.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        var name = user.name;
+        var titleTag = ''
+        if (lichess.fp.contains(user.name, ' ')) { 
+          var split = user.name.split(' ');
+          titleTag = '<span class="title"' + (split[0] == 'BOT' ? ' data-bot' : '') + '>' + split[0] + '</span>&nbsp;';
+          name = split[1];
+        };
         var url = '/@/' + name;
         var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
         var studyButton = user.studying ? '<a data-icon="4" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
         var rightButton = tvButton || studyButton;
 
-        return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + user.name + '</a>' + rightButton + '</div>';
+        return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + name + '</a>' + rightButton + '</div>';
       }
     };
   })());

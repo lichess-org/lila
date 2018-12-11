@@ -972,7 +972,7 @@ span.progress > .negative {
 #friend_box:hover {
   overflow-y: auto;
 }
-#friend_box .title {
+#friend_box .friend_box_title {
   cursor: pointer;
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
@@ -1054,7 +1054,7 @@ div.join_warning {
 /* soft inactive gradient */
 
 .crosstable th,
-#friend_box .title,
+#friend_box .friend_box_title,
 div.side_box div.top,
 div.box div.top,
 .undertable_top,
