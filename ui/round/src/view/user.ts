@@ -20,6 +20,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
   perf = user ? user.perfs[d.game.perf] : null,
   rating = player.rating ? player.rating : (perf && perf.rating);
   if (user) {
+    console.log(user.title);
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
     return h('div.username.user_link.' + player.color, {
       class: {
@@ -40,9 +41,13 @@ export function userHtml(ctrl: RoundController, player: Player) {
           href: '/@/' + user.username,
           target: ctrl.isPlaying() ? '_blank' : '_self'
         }
-      }, user.title ? [h('span.title', {
-        attrs: user.title == 'BOT' ? { 'data-bot': true } : {}
-      }, user.title), ' ', user.username] : [user.username]),
+      }, user.title ? [
+        h(
+          'span.title',
+          user.title == 'BOT' ? { attrs: {'data-bot': true } } : {},
+          user.title
+        ), ' ', user.username
+      ] : [user.username]),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
       ratingDiff(player),
       player.engine ? h('span', {
