@@ -100,12 +100,12 @@ men du kan forsvare!</string>
   <string name="attackYourOpponentsKing">Angrip motspillerens konge på en måte som det ikke er mulig å forsvare seg mot!</string>
   <string name="mateInOneComplete">Gratulerer! Slik vinner du et sjakkparti!</string>
   <string name="intermediate">Middels vanskelig</string>
-  <string name="boardSetup">Oppstilling på brettet</string>
+  <string name="boardSetup">Oppstilling</string>
   <string name="howTheGameStarts">Hvordan partiet starter</string>
   <string name="boardSetupIntro">De to arméene står mot hverandre, klare til kamp.</string>
-  <string name="thisIsTheInitialPosition">Dette er den innledende stillingen i alle sjakkparti! Gjør eit trekk for å fortsette.</string>
+  <string name="thisIsTheInitialPosition">Dette er utgangsstillingen i alle sjakkpartier! Gjør et trekk for å fortsette.</string>
   <string name="firstPlaceTheRooks">Plasser først tårnene! De står i hjørnene.</string>
-  <string name="thenPlaceTheKnights">Plasser så springerne! De står ved siden av tårna.</string>
+  <string name="thenPlaceTheKnights">Plasser så springerne! De står ved siden av tårnene.</string>
   <string name="placeTheBishops">Sett løperne på plass. De står ved siden av springerne.</string>
   <string name="placeTheQueen">Plasser dronninga på feltet med samme farge som brikken! (hvit dronning på hvitt felt, svart dronning på svart felt).</string>
   <string name="placeTheKing">Sett kongen på plass! Helt inntil dronningen.</string>
