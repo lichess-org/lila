@@ -12,7 +12,12 @@ export function userLink(u: string, title?: string) {
     attrs: {
       href: '/@/' + u
     }
-  }, title ? [h('span.title', title), spaced] : [spaced]);
+  }, title ? [
+    h(
+      'span.title',
+      title == 'BOT' ? { attrs: {'data-bot': true } } : {},
+      title), spaced
+  ] : [spaced]);
 }
 
 export function spinner() {

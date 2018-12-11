@@ -40,9 +40,13 @@ export function userHtml(ctrl: RoundController, player: Player) {
           href: '/@/' + user.username,
           target: ctrl.isPlaying() ? '_blank' : '_self'
         }
-      }, user.title ? [h('span.title', {
-        attrs: user.title == 'BOT' ? { 'data-bot': true } : {}
-      }, user.title), ' ', user.username] : [user.username]),
+      }, user.title ? [
+        h(
+          'span.title',
+          user.title == 'BOT' ? { attrs: {'data-bot': true } } : {},
+          user.title
+        ), ' ', user.username
+      ] : [user.username]),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
       ratingDiff(player),
       player.engine ? h('span', {
