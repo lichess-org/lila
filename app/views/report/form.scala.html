@@ -7,6 +7,7 @@
 <div class="content_box small_box" id="report">
   <h1>@title</h1>
   <form class="create form3" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
+    @form3.globalError(form)
     @form3.group(form("username"), trans.user(), klass = "field_to") { f =>
     @reqUser.map { user =>
     @userLink(user)
