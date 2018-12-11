@@ -147,6 +147,43 @@ object Challenge extends LilaController {
     }
   }
 
+  def apiCreate(userId: String) = ScopedBody() { implicit req => me =>
+    implicit val lang = lila.i18n.I18nLangPicker(req, me.some)
+    Setup.PostRateLimit(HTTPRequest lastRemoteAddress req) {
+      Env.setup.forms.api.bindFromRequest.fold(
+        jsonFormErrorDefaultLang,
+        config => UserRepo enabledById userId flatMap { destUser =>
+          destUser ?? { Env.challenge.granter(me.some, _, config.perfType) } flatMap {
+            case Some(denied) =>
+              BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+            case _ =>
+              import lila.challenge.Challenge._
+              val challenge = lila.challenge.Challenge.make(
+                variant = config.variant,
+                initialFen = config.position,
+                timeControl = config.clock map { c =>
+                  TimeControl.Clock(c)
+                } orElse config.days.map {
+                  TimeControl.Correspondence.apply
+                } getOrElse TimeControl.Unlimited,
+                mode = config.mode,
+                color = config.color.name,
+                challenger = Right(me),
+                destUser = destUser,
+                rematchOf = none
+              )
+              (Env.challenge.api create challenge) map {
+                case true =>
+                  Ok(env.jsonView.show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some))
+                case false =>
+                  BadRequest(jsonError("Challenge not created"))
+              }
+          }
+        }
+      )
+    }
+  }
+
   def rematchOf(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game gameId) { g =>
       Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? UserRepo.byId flatMap {

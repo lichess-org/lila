@@ -20,7 +20,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val PostRateLimit = new lila.memo.RateLimit[IpAddress](5, 1 minute,
+  private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](5, 1 minute,
     name = "setup post",
     key = "setup_post")
 
@@ -66,47 +66,46 @@ object Setup extends LilaController with TheftPrevention {
         err => negotiate(
           html = Lobby.renderHome(Results.BadRequest),
           api = _ => jsonFormError(err)
-        ), {
-          case config => userId ?? UserRepo.byId flatMap { destUser =>
-            destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
-              case Some(denied) =>
-                val message = lila.challenge.ChallengeDenied.translated(denied)
-                negotiate(
-                  html = BadRequest(message).fuccess,
-                  api = _ => BadRequest(jsonError(message)).fuccess
-                )
-              case None =>
-                import lila.challenge.Challenge._
-                val challenge = lila.challenge.Challenge.make(
-                  variant = config.variant,
-                  initialFen = config.fen,
-                  timeControl = config.makeClock map { c =>
-                    TimeControl.Clock(c)
-                  } orElse config.makeDaysPerTurn.map {
-                    TimeControl.Correspondence.apply
-                  } getOrElse TimeControl.Unlimited,
-                  mode = config.mode,
-                  color = config.color.name,
-                  challenger = (ctx.me, HTTPRequest sid req) match {
-                    case (Some(user), _) => Right(user)
-                    case (_, Some(sid)) => Left(sid)
-                    case _ => Left("no_sid")
-                  },
-                  destUser = destUser,
-                  rematchOf = none
-                )
-                env.processor.saveFriendConfig(config) >>
-                  (Env.challenge.api create challenge) flatMap {
-                    case true => negotiate(
-                      html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                      api = _ => Challenge showChallenge challenge
-                    )
-                    case false => negotiate(
-                      html = fuccess(Redirect(routes.Lobby.home)),
-                      api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
-                    )
-                  }
-            }
+        ),
+        config => userId ?? UserRepo.enabledById flatMap { destUser =>
+          destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
+            case Some(denied) =>
+              val message = lila.challenge.ChallengeDenied.translated(denied)
+              negotiate(
+                html = BadRequest(message).fuccess,
+                api = _ => BadRequest(jsonError(message)).fuccess
+              )
+            case None =>
+              import lila.challenge.Challenge._
+              val challenge = lila.challenge.Challenge.make(
+                variant = config.variant,
+                initialFen = config.fen,
+                timeControl = config.makeClock map { c =>
+                  TimeControl.Clock(c)
+                } orElse config.makeDaysPerTurn.map {
+                  TimeControl.Correspondence.apply
+                } getOrElse TimeControl.Unlimited,
+                mode = config.mode,
+                color = config.color.name,
+                challenger = (ctx.me, HTTPRequest sid req) match {
+                  case (Some(user), _) => Right(user)
+                  case (_, Some(sid)) => Left(sid)
+                  case _ => Left("no_sid")
+                },
+                destUser = destUser,
+                rematchOf = none
+              )
+              env.processor.saveFriendConfig(config) >>
+                (Env.challenge.api create challenge) flatMap {
+                  case true => negotiate(
+                    html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                    api = _ => Challenge showChallenge challenge
+                  )
+                  case false => negotiate(
+                    html = fuccess(Redirect(routes.Lobby.home)),
+                    api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                  )
+                }
           }
         }
       )

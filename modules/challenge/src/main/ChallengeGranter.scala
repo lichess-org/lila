@@ -4,7 +4,7 @@ import lila.i18n.I18nKeys
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Relation, Block, Follow }
-import lila.user.{ User, UserContext }
+import lila.user.User
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 
@@ -21,7 +21,7 @@ object ChallengeDenied {
     case object FriendsOnly extends Reason
   }
 
-  def translated(d: ChallengeDenied)(implicit ctx: UserContext) = d.reason match {
+  def translated(d: ChallengeDenied)(implicit lang: lila.common.Lang) = d.reason match {
     case Reason.YouAreAnon => I18nKeys.registerToSendChallenges.txt()
     case Reason.YouAreBlocked => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
     case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
