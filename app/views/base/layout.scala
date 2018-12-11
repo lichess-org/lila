@@ -59,9 +59,11 @@ object layout {
 </div>
 <a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn()}</a>""")
 
+  private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
+
   private def clinput(implicit ctx: Context) =
     div(id := "clinput")(
-      a(cls := "link")(span(dataIcon := "y")),
+      clinputLink,
       input(spellcheck := "false", placeholder := trans.search.txt())
     )
 
