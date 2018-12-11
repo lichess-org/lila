@@ -25,7 +25,13 @@ object bits {
   }
 
   def watchers(implicit ctx: Context) = Html {
-    s"""<div class="watchers hidden"><span class="number">&nbsp;</span> ${trans.spectators.txt().replace(":", "")} <span class="list inline_userlist"></span></div>"""
+    div(cls := "watchers hidden")(
+      span(cls := "number")(nbsp),
+      " ",
+      trans.spectators.txt().replace(":", ""),
+      " ",
+      span(cls := "list inline_userlist")
+    ).render
   }
 
   def gameIcon(game: Game): Char = game.perfType match {
@@ -62,7 +68,7 @@ object bits {
     cls := s"$cssClass variant-link",
     href := (variant match {
       case chess.variant.Standard => "https://en.wikipedia.org/wiki/Chess"
-      case chess.variant.FromPosition => s"""${routes.Editor.index}?fen=${initialFen.map(_.value.replace(' ', '_'))}"""
+      case chess.variant.FromPosition => s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
       case v => routes.Page.variant(v.key).url
     }),
     rel := "nofollow",
