@@ -34,6 +34,9 @@ abstract class SocketTrouper[M <: SocketMember](
 
   val process = receiveSpecific orElse receiveTrouper orElse receiveGeneric
 
+  // expose so the handler can call without going through process, during ping
+  def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value
+
   protected val members = scala.collection.mutable.AnyRefMap.empty[String, M]
   protected val aliveUids = new ExpireSetMemo(uidTtl)
   protected var pong = Socket.initialPong
@@ -134,8 +137,6 @@ abstract class SocketTrouper[M <: SocketMember](
     setAlive(uid)
     lilaBus.publish(SocketEnter(uid, member), 'socketEnter)
   }
-
-  protected def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value
 
   protected def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member
