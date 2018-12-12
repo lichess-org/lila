@@ -611,8 +611,8 @@ POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
 # Assets
-GET   /assets/$version<_\w{6}>/*file      controllers.Main.versionedAsset(version: String, file: String)
-GET   /assets/*file                    controllers.Assets.at(path="/public", file)
+GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: String, file: String)
+GET   /assets/*file                    controllers.Assets.at(path="/public", file: String)
 
 GET   /robots.txt                      controllers.Main.robots
 GET   /free-js                         controllers.Main.freeJs
