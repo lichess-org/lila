@@ -139,7 +139,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
   };
 
   var pingData = function(forceVersion) {
-    if (!versioned) return '{"t":"p"}';
+    if (!versioned) return null;
     var data = {
       t: "p"
     };
