@@ -48,6 +48,7 @@ TwirlKeys.templateImports ++= Seq(
   "lidraughts.common.String.html._"
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+unmanagedResourceDirectories in Assets += baseDirectory( _ / "public" ).value
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
