@@ -46,17 +46,22 @@ object Handler {
 
   def iteratee(hub: lila.hub.Env, controller: Controller, member: SocketMember, socket: Tellable, uid: Socket.Uid): JsIteratee = {
     val control = controller orElse pingController(socket, uid) orElse baseController(hub, member, uid)
-    Iteratee.foreach[JsValue](jsv =>
-      jsv.asOpt[JsObject] foreach { obj =>
+    Iteratee.foreach[JsValue] {
+      case JsNull => control.applyOrElse(emptyPingPair, noop)
+      case jsv => jsv.asOpt[JsObject] foreach { obj =>
         obj str "t" foreach { t =>
-          control.lift(t -> obj)
+          control.applyOrElse(t -> obj, noop)
         }
-      })
+      }
+    }
       // Unfortunately this map function is only called
       // if the JS closes the socket with lichess.socket.disconnect()
       // but not if the tab is closed or browsed away!
       .map(_ => socket ! Quit(uid))
   }
+
+  private val noop = (_: Any) => {}
+  private val emptyPingPair = "p" -> Json.obj()
 
   private def pingController(socket: Tellable, uid: Socket.Uid): Controller = {
     case ("p", o) => socket ! Ping(uid, o)
