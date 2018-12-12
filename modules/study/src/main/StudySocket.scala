@@ -221,7 +221,7 @@ final class StudySocket(
       delayedCrowdNotification = false
       val json =
         if (members.size <= maxSpectatorUsers) showSpectators(lightUserApi.async)(members.values)
-        else studyRepo uids studyId map showSpectatorsAndMembers
+        else studyRepo uids studyId map showSpectatorsAndMembers map some
       json foreach { notifyAll("crowd", _) }
 
     case Broadcast(t, msg) => notifyAll(t, msg)
