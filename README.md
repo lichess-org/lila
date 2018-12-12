@@ -39,20 +39,19 @@ Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and 
 Installation
 ------------
 
-> If you want to add a live chess section to your website, you are welcome to [embed lichess](https://lichess.org/developers) into your website. It's very easy to do.
+The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 
-> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, [embed lichess using an &lt;iframe&gt;](https://lichess.org/developers) into your website.
+The source code is available for learning and contribution, but please don't just setup a public Lichess clone. Don't expect developers to help you run your own instance. Questions about the installation and runtime issues will probably be ignored.
 
-> Also note that while I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
-
-## HTTP API
+HTTP API
+--------
 
 Feel free to use [lichess API](https://lichess.org/api) in your applications and websites.
 
 Credits
 -------
 
-See the [lichess Thanks page](https://lichess.org/thanks)
+See the [contributors](https://github.com/ornicar/lila/graphs/contributors) on this repository and [lichess.org/thanks](https://lichess.org/thanks).
 
 Supported browsers
 ------------------
