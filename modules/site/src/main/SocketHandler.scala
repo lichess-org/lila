@@ -2,7 +2,7 @@ package lidraughts.site
 
 import actorApi._
 import lidraughts.socket._
-import lidraughts.socket.actorApi.StartWatching
+import lidraughts.socket.actorApi.{ StartWatching, Ping }
 import ornicar.scalalib.Random
 
 private[site] final class SocketHandler(
@@ -19,7 +19,12 @@ private[site] final class SocketHandler(
     socket.ask[Connected](Join(uid, userId, flag, _)) map {
       case Connected(enum, member) => Handler.iteratee(
         hub,
-        PartialFunction.empty,
+        controller = {
+          /* Experimental: skip SocketTrouper.process during site ping */
+          case ("p", _) =>
+            socket setAlive uid
+            member push Socket.initialPong
+        },
         member,
         socket,
         uid
