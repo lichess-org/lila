@@ -50,6 +50,7 @@ lichess.StrongSocket = function(url, version, settings) {
         ackable.resend();
       };
       ws.onmessage = function(e) {
+        if (e.data == 0) return pong();
         var m = JSON.parse(e.data);
         // if (Math.random() > 0.5) {
         //   console.log(m, 'skip');

@@ -4,6 +4,7 @@ import actorApi._
 import lila.socket._
 import lila.socket.actorApi.{ StartWatching, Ping }
 import ornicar.scalalib.Random
+import play.api.libs.json.JsNumber
 
 private[site] final class SocketHandler(
     socket: Socket,
@@ -22,13 +23,15 @@ private[site] final class SocketHandler(
           /* Experimental: skip SocketTrouper.process during site ping */
           case ("p", _) =>
             socket setAlive uid
-            member push Socket.initialPong
+            member push emptyPong
         },
         member,
         socket,
         uid
       ) -> enum
     }
+
+  private val emptyPong = JsNumber(0)
 
   def api: Fu[JsSocketHandler] = {
 
