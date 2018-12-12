@@ -271,13 +271,12 @@ object Event {
   case class Crowd(
       white: Boolean,
       black: Boolean,
-      watchers: JsValue
+      watchers: Option[JsValue]
   ) extends Event {
     def typ = "crowd"
     def data = Json.obj(
       "white" -> white,
-      "black" -> black,
-      "watchers" -> watchers
-    )
+      "black" -> black
+    ).add("watchers" -> watchers)
   }
 }
