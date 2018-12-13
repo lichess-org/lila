@@ -207,6 +207,10 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
+    object history {
+      val getEventsDelta = rec("round.history.getEventsDelta")
+      val getEventsTooFar = inc("round.history.getEventsTooFar")
+    }
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")

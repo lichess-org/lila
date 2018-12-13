@@ -32,9 +32,13 @@ private[round] final class History(
     val version = getVersion
     if (v > version) None
     else if (v == version) Some(Nil)
-    else events.takeWhile(_.version > v).reverse.some filter {
-      case first :: rest => first.version == v.inc
-      case _ => true
+    else {
+      val delta = version.value - v.value
+      lila.mon.round.history.getEventsDelta(delta)
+      if (delta > History.size) lila.mon.round.history.getEventsTooFar()
+      events.takeWhile(_.version > v).reverse.some filter {
+        _.headOption.fold(true)(_.version == v.inc)
+      }
     }
   }
 
@@ -48,7 +52,7 @@ private[round] final class History(
     val vevs = xs.foldLeft(List.empty[VersionedEvent] -> getVersion) {
       case ((vevs, v), e) => (VersionedEvent(e, v.inc) :: vevs, v.inc)
     }._1
-    events = (vevs ::: events) take History.size
+    events = vevs ::: events.take(History.size - vevs.size)
     if (persistenceEnabled) persist(events)
     vevs.reverse
   }
