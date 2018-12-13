@@ -347,7 +347,7 @@
     box-shadow: 0 0 40px rgba(255,255,255,0.7);
   }
 }
-.highlight-2nd-rank .cg-board::before,
+.highlight-2nd-rank .cg-board::after,
 .highlight-5th-rank .cg-board::after,
 .highlight-7th-rank .cg-board::after {
   width: 100%;
