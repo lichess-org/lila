@@ -35,7 +35,6 @@ private[lobby] case class Messadata(hook: Option[Hook] = None)
 
 private[lobby] case class Connected(enumerator: JsEnumerator, member: Member)
 private[lobby] case class WithHooks(op: Iterable[String] => Unit)
-private[lobby] case class SaveHook(msg: AddHook)
 private[lobby] case class SaveSeek(msg: AddSeek)
 private[lobby] case class RemoveHook(hookId: String)
 private[lobby] case class RemoveSeek(seekId: String)
