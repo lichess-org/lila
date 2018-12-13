@@ -42,6 +42,7 @@ final class JsonView(
   }
 
   def pref(p: lidraughts.pref.Pref) = Json.obj(
+    "blindfold" -> p.blindfold,
     "coords" -> p.coords,
     "animation" -> Json.obj(
       "duration" -> p.animationFactor * animationDuration.toMillis

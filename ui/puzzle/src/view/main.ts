@@ -94,7 +94,7 @@ export default function(ctrl: Controller): VNode {
       },
       class: { gauge_displayed: ctrl.showEvalGauge() }
     }, [
-      h('div.lidraughts_game', {
+      h('div.lidraughts_game' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
         hook: {
           insert: _ => window.lidraughts.pubsub.emit('content_loaded')()
         }
