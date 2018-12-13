@@ -303,7 +303,7 @@ lichess.topMenuIntent = function() {
       }
 
       if (!window.customWS) setTimeout(function() {
-        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
+        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket/v2", false);
       }, 300);
 
       var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
@@ -1179,7 +1179,7 @@ lichess.topMenuIntent = function() {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .puzzle_side');
-    lichess.socket = lichess.StrongSocket('/socket', false, {
+    lichess.socket = lichess.StrongSocket('/socket/v2', false, {
       options: {
         name: "puzzle"
       },

@@ -69,7 +69,8 @@ GET   /player/autocomplete             controllers.User.autocomplete
 GET   /dasher                          controllers.Dasher.get
 
 # Site
-GET   /socket                          controllers.Main.websocket
+GET   /socket                          controllers.Main.websocket(apiVersion: Int = 1)
+GET   /socket/v:apiVersion             controllers.Main.websocket(apiVersion: Int)
 
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)

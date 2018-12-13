@@ -14,6 +14,7 @@ private[site] final class SocketHandler(
   def human(
     uid: Socket.Uid,
     userId: Option[String],
+    apiVersion: Int,
     flag: Option[String]
   ): Fu[JsSocketHandler] =
     socket.ask[Connected](Join(uid, userId, flag, _)) map {
@@ -23,7 +24,10 @@ private[site] final class SocketHandler(
           /* Experimental: skip SocketTrouper.process during site ping */
           case ("p", _) =>
             socket setAlive uid
-            member push emptyPong
+            member push {
+              if (apiVersion > 1) emptyPong
+              else Socket.initialPong
+            }
         },
         member,
         socket,
