@@ -25,7 +25,7 @@ private[site] final class SocketHandler(
           case ("p", _) =>
             socket setAlive uid
             member push {
-              if (apiVersion > 1) emptyPong
+              if (apiVersion > 2) emptyPong
               else Socket.initialPong
             }
         },

@@ -303,7 +303,7 @@ lidraughts.topMenuIntent = function() {
       }
 
       if (!window.customWS) setTimeout(function() {
-        if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket/v2", false);
+        if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket/v3", false);
       }, 300);
 
       var initiatingHtml = '<div class="initiating">' + lidraughts.spinnerHtml + '</div>';
@@ -994,7 +994,7 @@ lidraughts.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var tournament;
     lidraughts.socket = lidraughts.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v2', cfg.data.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v3', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
         },
@@ -1040,7 +1040,7 @@ lidraughts.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var simul;
     lidraughts.socket = lidraughts.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v2', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v3', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         },
@@ -1180,7 +1180,7 @@ lidraughts.topMenuIntent = function() {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .puzzle_side');
-    lidraughts.socket = lidraughts.StrongSocket('/socket/v2', false, {
+    lidraughts.socket = lidraughts.StrongSocket('/socket/v3', false, {
       options: {
         name: "puzzle"
       },
