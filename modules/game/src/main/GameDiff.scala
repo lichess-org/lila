@@ -23,16 +23,16 @@ private[game] object GameDiff {
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
     def d[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => B): Unit = {
-      val (va, vb) = (getter(a), getter(b))
-      if (va != vb) {
+      val vb = getter(b)
+      if (getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else setBuilder += name -> toBson(vb)
       }
     }
 
     def dOpt[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => Option[B]): Unit = {
-      val (va, vb) = (getter(a), getter(b))
-      if (va != vb) {
+      val vb = getter(b)
+      if (getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else toBson(vb) match {
           case None => unsetBuilder += (name -> bTrue)
