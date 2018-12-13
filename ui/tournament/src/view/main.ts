@@ -10,8 +10,8 @@ export default function(ctrl: TournamentController) {
     main(ctrl: TournamentController): MaybeVNodes;
     side(ctrl: TournamentController): MaybeVNodes;
   };
-  if (ctrl.data.isStarted) handler = started;
-  else if (ctrl.data.isFinished) handler = finished;
+  if (ctrl.data.isFinished) handler = finished;
+  else if (ctrl.data.isStarted) handler = started;
   else handler = created;
 
   const side: MaybeVNodes = handler.side(ctrl);
