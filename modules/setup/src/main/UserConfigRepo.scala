@@ -5,10 +5,7 @@ import reactivemongo.bson._
 import lidraughts.db.dsl._
 import lidraughts.user.User
 
-private[setup] object UserConfigRepo {
-
-  // dirty
-  private val coll = Env.current.userConfigColl
+private final class UserConfigRepo(coll: Coll) {
 
   def update(user: User)(f: UserConfig => UserConfig): Funit =
     config(user) flatMap { config =>
