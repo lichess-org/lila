@@ -303,7 +303,7 @@ lichess.topMenuIntent = function() {
       }
 
       if (!window.customWS) setTimeout(function() {
-        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket/v2", false);
+        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket/v4", false);
       }, 300);
 
       var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
@@ -993,7 +993,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var tournament;
     lichess.socket = lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v2', cfg.data.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v4', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
         },
@@ -1039,7 +1039,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var simul;
     lichess.socket = lichess.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v2', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         },
@@ -1179,7 +1179,7 @@ lichess.topMenuIntent = function() {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .puzzle_side');
-    lichess.socket = lichess.StrongSocket('/socket/v2', false, {
+    lichess.socket = lichess.StrongSocket('/socket/v4', false, {
       options: {
         name: "puzzle"
       },
