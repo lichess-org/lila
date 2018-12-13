@@ -28,17 +28,16 @@ private[lobby] final class LobbyTrouper(
 
   val process: Trouper.Receive = {
 
-    case msg @ AddHook(hook) => {
+    case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
-      !hook.compatibleWithPools ?? findCompatible(hook) pp "compatible" match {
+      !hook.compatibleWithPools ?? findCompatible(hook) pp "------------------" match {
         case Some(h) => biteHook(h.id, hook.uid, hook.user)
         case None =>
           HookRepo save msg.hook
           socket ! msg
       }
-    }
 
     case msg @ AddSeek(seek) =>
       lila.mon.lobby.seek.create()
@@ -58,7 +57,9 @@ private[lobby] final class LobbyTrouper(
       socket ! RemoveSeek(seekId)
     }
 
-    case BiteHook(hookId, uid, user) => biteHook(hookId, uid, user)
+    case BiteHook(hookId, uid, user) => NoPlayban(user) {
+      biteHook(hookId, uid, user)
+    }
 
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
       gameCache.nbPlaying(user.id) foreach { nbPlaying =>
@@ -136,12 +137,12 @@ private[lobby] final class LobbyTrouper(
     }
   }
 
-  private def biteHook(hookId: String, uid: Uid, user: Option[LobbyUser]) = NoPlayban(user) {
+  private def biteHook(hookId: String, uid: Uid, user: Option[LobbyUser]) =
     HookRepo byId hookId foreach { hook =>
+      remove(hook)
       HookRepo byUid uid foreach remove
       Biter(hook, uid, user) foreach this.!
     }
-  }
 
   private def findCompatible(hook: Hook): Option[Hook] =
     findCompatibleIn(hook, HookRepo findCompatible hook)
