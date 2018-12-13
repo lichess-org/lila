@@ -243,15 +243,14 @@ object layout {
                   trans.onlineFriends()
                 ),
                 div(cls := "content_wrap")(
-                  div(cls := "content list")(
-                    div(cls := List(
-                      "nobody" -> true,
-                      "none" -> ctx.onlineFriends.users.nonEmpty
-                    ))(
-                      span(trans.noFriendsOnline()),
-                      a(cls := "find button", href := routes.User.opponents)(
-                        span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
-                      )
+                  div(cls := "content list"),
+                  div(cls := List(
+                    "nobody" -> true,
+                    "none" -> ctx.onlineFriends.users.nonEmpty
+                  ))(
+                    span(trans.noFriendsOnline()),
+                    a(cls := "find button", href := routes.User.opponents)(
+                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
                     )
                   )
                 )
