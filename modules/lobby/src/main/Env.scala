@@ -45,7 +45,7 @@ final class Env(
     system,
     broomPeriod = BroomPeriod,
     resyncIdsPeriod = ResyncIdsPeriod
-  ) {
+  ) { () =>
     new LobbyTrouper(
       system = system,
       socket = socket,
