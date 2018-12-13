@@ -11,4 +11,7 @@
 # Yes it needs tons of memory. Go for 4g if you have them.
 export JAVA_OPTS="-Xms2048m -Xmx2560m -XX:ReservedCodeCacheSize=128m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+ExitOnOutOfMemoryError -Dkamon.auto-start=true"
 
+# For development without nginx.
+export SERVE_ASSETS=1
+
 sbt -Dhttp.port=9663 "$@"
