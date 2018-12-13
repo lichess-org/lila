@@ -25,7 +25,7 @@ object layout {
   private val wasmx = raw("""<meta http-equiv="origin-trial" data-feature="WebAssembly Threads" data-expires="2018-12-12" content="AvQS5g8cLXUfw7Vu3lmQ6B55HURS0KMuY6blwOUmAPYX3Jph8GXMSO4/jTx3el3BxG8SyJRlQTbsRRsjOHwiCAMAAABXeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJBc3NlbWJseVRocmVhZHMiLCJleHBpcnkiOjE1NDQ2MzY2MzN9">""")
   private val manifests = raw(List(
     """<link rel="manifest" href="/manifest.json" />""",
-    """<meta name="twitter:site" content="@@lichess" />"""
+    """<meta name="twitter:site" content="@lichess" />"""
   ).mkString)
 
   private val favicons = raw {

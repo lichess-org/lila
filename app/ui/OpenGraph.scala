@@ -43,8 +43,7 @@ case class OpenGraph(
     def str = List(
       "card" -> "summary",
       "title" -> title,
-      "description" -> description,
-      "site" -> "@lichess"
+      "description" -> description
     ).map(tupledTag).mkString +
       image.?? { tag("image", _) } +
       more.map(tupledTag).mkString
