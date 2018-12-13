@@ -20,7 +20,6 @@ export function userHtml(ctrl: RoundController, player: Player) {
   perf = user ? user.perfs[d.game.perf] : null,
   rating = player.rating ? player.rating : (perf && perf.rating);
   if (user) {
-    console.log(user.title);
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
     return h('div.username.user_link.' + player.color, {
       class: {
