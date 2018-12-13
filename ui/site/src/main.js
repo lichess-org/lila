@@ -746,16 +746,35 @@ lichess.topMenuIntent = function() {
   });
 
   lichess.widget("friends", (function() {
-    var isSameUser = function(userId, user) {
-      var id = lichess.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-      return id.toLowerCase() === userId;
+    var getId = function(titleName) {
+      return titleName.toLowerCase().replace(/^\w+\s/, '');
+    };
+    var makeUser = function(titleName) {
+      var split = titleName.split(' ');
+      return {
+        id: split[split.length - 1].toLowerCase(),
+        name: split[split.length - 1],
+        title: (split.length > 1) ? split[0] : undefined,
+        playing: false,
+        studying: false,
+        patron: false
+      };
+    };
+    var renderUser = function(user) {
+      var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
+      var titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '';
+      var url = '/@/' + user.name;
+      var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+      var studyButton = user.studying ? '<a data-icon="4" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
+      var rightButton = tvButton || studyButton;
+      return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
     };
     return {
       _create: function() {
-        var self = this,
-          el = self.element;
+        var self = this;
+        var el = self.element;
+
         var hideStorage = lichess.storage.make('friends-hide');
-        self.$list = el.find("div.list");
         var $friendBoxTitle = el.find('.friend_box_title').click(function() {
           var show = hideStorage.get() == 1;
           el.find('.content_wrap').toggleNone(show);
@@ -763,115 +782,67 @@ lichess.topMenuIntent = function() {
           else hideStorage.set(1);
         });
         if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
+
         self.$nbOnline = $friendBoxTitle.find('.online');
         self.$nobody = el.find(".nobody");
 
-        var users = el.data('preload').split(','),
-          playings = el.data('playing').split(','),
-          studyings = el.data('studying').split(','),
-          patrons = el.data('patrons').split(',');
-        self.set(users, playings, studyings, patrons);
-      },
-      _findByUsername: function(n) {
-        return this.users.filter(function(u) {
-          return isSameUser(n.toLowerCase(), u);
-        })[0];
-      },
-      _makeUser: function(name, playing, studying, patron) {
-        return {
-          'name': name,
-          'playing': !!playing,
-          'studying': !!studying,
-          'patron': !!patron
-        }
-      },
-      _uniqueUsers: function(users) {
-        var usersEncountered = [];
-        return users.filter(function(u) {
-          if (usersEncountered.indexOf(u.name) !== -1) {
-            return false;
-          } else {
-            usersEncountered.push(u.name);
-            return true;
-          }
-        })
+        var users = el.data('preload') ? el.data('preload').split(',') : [],
+          playing = el.data('playing') ? el.data('playing').split(',') : [],
+          studying = el.data('studying') ? el.data('studying').split(',') : [],
+          patrons = el.data('patrons') ? el.data('patrons').split(',') : [];
+        self.set(users, playing, studying, patrons);
       },
       repaint: function() {
         lichess.raf(function() {
-          this.users = this._uniqueUsers(this.users.filter(function(u) {
-            return u.name !== '';
-          }));
-          this.$nbOnline.text(this.users.length);
-          this.$nobody.toggleNone(!this.users.length);
-          var getId = function(user) { return user.name.toLowerCase().replace(/^\w+\s/, ''); }
-          this.$list.html(this.users.sort(function(a, b) {
-            return getId(a) < getId(b) ? -1 : 1;
-          }).map(this._renderUser).join(""));
+          var ids = Object.keys(this.users).sort();
+          this.$nbOnline.text(ids.length);
+          this.$nobody.toggleNone(!ids.length);
+          this.element.find('div.list').replaceWith(
+            $('<div class="content list"></div>').append(ids.map(function(id) {
+              return renderUser(this.users[id]);
+            }.bind(this)))
+          );
         }.bind(this));
       },
-      set: function(us, playings, studyings, patrons) {
-        this.users = us.map(function(user) {
-          return this._makeUser(user, false, false, false);
-        }.bind(this));
-        for (i in playings) this._setPlaying(playings[i], true);
-        for (i in studyings) this._setStudying(studyings[i], true);
-        for (i in patrons) this._setPatron(patrons[i], true);
+      insert: function(titleName) {
+        var id = getId(titleName);
+        if (!this.users[id]) this.users[id] = makeUser(titleName);
+        return this.users[id];
+      },
+      set: function(online, playing, studying, patrons) {
+        this.users = {};
+        for (i in online) this.insert(online[i]);
+        for (i in playing) this.insert(playing[i]).playing = true;
+        for (i in studying) this.insert(studying[i]).studying = true;
+        for (i in patrons) this.insert(patrons[i]).patron = true;
         this.repaint();
       },
-      enters: function(userName, playing, studying, patron) {
-        var user = this._makeUser(userName, playing, studying, patron);
-        this.users.push(user);
+      enters: function(titleName, playing, studying, patron) {
+        var user = this.insert(titleName);
+        user.playing = playing;
+        user.studying = studying;
+        user.patron = patron;
         this.repaint();
       },
-      leaves: function(userName) {
-        this.users = this.users.filter(function(u) {
-          return u.name != userName
-        });
+      leaves: function(titleName) {
+        delete this.users[getId(titleName)];
         this.repaint();
       },
-      _setPlaying: function(userName, playing) {
-        var user = this._findByUsername(userName);
-        if (user) user.playing = playing;
-      },
-      _setPatron: function(userName, patron) {
-        var user = this._findByUsername(userName);
-        if (user) user.patron = patron;
-      },
-      _setStudying: function(userName, studying) {
-        var user = this._findByUsername(userName);
-        if (user) user.studying = studying;
-      },
-      playing: function(userName) {
-        this._setPlaying(userName, true);
+      playing: function(titleName) {
+        this.insert(titleName).playing = true;
         this.repaint();
       },
-      stopped_playing: function(userName) {
-        this._setPlaying(userName, false);
+      stopped_playing: function(titleName) {
+        this.insert(titleName).playing = false;
         this.repaint();
       },
-      study_join: function(userName) {
-        this._setStudying(userName, true);
+      study_join: function(titleName) {
+        this.insert(titleName).studying = true;
         this.repaint();
       },
-      study_leave: function(userName) {
-        this._setStudying(userName, false);
+      study_leave: function(titleName) {
+        this.insert(titleName).studying = false;
         this.repaint();
-      },
-      _renderUser: function(user) {
-        var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
-        var name = user.name;
-        var titleTag = ''
-        if (lichess.fp.contains(name, ' ')) {
-          var split = name.split(' ');
-          titleTag = '<span class="title"' + (split[0] == 'BOT' ? ' data-bot' : '') + '>' + split[0] + '</span>&nbsp;';
-          name = split[1];
-        };
-        var url = '/@/' + name;
-        var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-        var studyButton = user.studying ? '<a data-icon="4" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
-        var rightButton = tvButton || studyButton;
-
-        return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + name + '</a>' + rightButton + '</div>';
       }
     };
   })());
