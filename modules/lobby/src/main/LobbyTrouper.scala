@@ -32,7 +32,7 @@ private[lobby] final class LobbyTrouper(
       lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
-      !hook.compatibleWithPools ?? findCompatible(hook) pp "------------------" match {
+      !hook.compatibleWithPools ?? findCompatible(hook) match {
         case Some(h) => biteHook(h.id, hook.uid, hook.user)
         case None =>
           HookRepo save msg.hook
