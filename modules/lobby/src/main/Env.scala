@@ -67,7 +67,7 @@ final class Env(
     blocking = blocking
   )
 
-  private val abortListener = new AbortListener(seekApi = seekApi)
+  private val abortListener = new AbortListener(seekApi, lobbyTrouper)
 
   system.lilaBus.subscribeFun('abortGame) {
     case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
