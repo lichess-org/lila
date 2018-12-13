@@ -180,7 +180,8 @@ private object LobbyTrouper {
     system: akka.actor.ActorSystem,
     broomPeriod: FiniteDuration,
     resyncIdsPeriod: FiniteDuration
-  )(trouper: => LobbyTrouper) = {
+  )(makeTrouper: () => LobbyTrouper) = {
+    val trouper = makeTrouper()
     system.lilaBus.subscribe(trouper, 'lobbyTrouper)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
     system.scheduler.scheduleOnce(7 seconds) {
