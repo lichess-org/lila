@@ -7,7 +7,10 @@ import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
 
-private[setup] final class FormFactory {
+private[setup] final class FormFactory(
+    anonConfigRepo: AnonConfigRepo,
+    userConfigRepo: UserConfigRepo
+) {
 
   import Mappings._
 
@@ -107,5 +110,5 @@ private[setup] final class FormFactory {
   )
 
   def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
-    ctx.me.fold(AnonConfigRepo config ctx.req)(UserConfigRepo.config)
+    ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
 }

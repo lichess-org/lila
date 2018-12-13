@@ -9,6 +9,8 @@ private[setup] final class Processor(
     gameCache: lila.game.Cached,
     maxPlaying: Int,
     fishnetPlayer: lila.fishnet.Player,
+    anonConfigRepo: AnonConfigRepo,
+    userConfigRepo: UserConfigRepo,
     onStart: String => Unit
 ) {
 
@@ -58,7 +60,7 @@ private[setup] final class Processor(
     saveConfig(_ withHook config)
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
-    ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user => UserConfigRepo.update(user) _)(map)
+    ctx.me.fold(anonConfigRepo.update(ctx.req) _)(user => userConfigRepo.update(user) _)(map)
 }
 
 object Processor {
