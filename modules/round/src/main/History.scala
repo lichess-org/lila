@@ -75,7 +75,7 @@ private[round] final class History(
 
 private[round] object History {
 
-  val size = 30
+  val size = 20
 
   def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
     load = serverStarting ?? load(coll, gameId, withPersistence),
