@@ -71,10 +71,11 @@ function podiumPosition(p, pos, trans: Trans): VNode | undefined {
 let lastBody: MaybeVNodes | undefined;
 
 export function podium(ctrl: TournamentController) {
+  const p = ctrl.data.podium || [];
   return h('div.podium', [
-    podiumPosition(ctrl.data.podium[1], 'second', ctrl.trans),
-    podiumPosition(ctrl.data.podium[0], 'first', ctrl.trans),
-    podiumPosition(ctrl.data.podium[2], 'third', ctrl.trans)
+    podiumPosition(p[1], 'second', ctrl.trans),
+    podiumPosition(p[0], 'first', ctrl.trans),
+    podiumPosition(p[2], 'third', ctrl.trans)
   ]);
 }
 
