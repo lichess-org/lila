@@ -861,8 +861,8 @@ lidraughts.topMenuIntent = function() {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
         var name = user.name;
         var titleTag = ''
-        if (lidraughts.fp.contains(user.name, ' ')) { 
-          var split = user.name.split(' ');
+        if (lidraughts.fp.contains(name, ' ')) { 
+          var split = name.split(' ');
           titleTag = '<span class="title"' + (split[0] == 'BOT' ? ' data-bot' : '') + '>' + split[0] + '</span>&nbsp;';
           name = split[1];
         };
