@@ -48,7 +48,7 @@ function podiumUsername(p) {
   }, playerName(p));
 }
 
-function podiumStats(p, trans): VNode {
+function podiumStats(p, trans: Trans): VNode {
   const noarg = trans.noarg, nb = p.nb;
   return h('table.stats', [
     p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
@@ -60,7 +60,7 @@ function podiumStats(p, trans): VNode {
   ]);
 }
 
-function podiumPosition(p, pos, trans): VNode | undefined {
+function podiumPosition(p, pos, trans: Trans): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
