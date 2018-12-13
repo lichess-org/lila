@@ -709,6 +709,8 @@ v %3$s</string>
   <string name="webmasters">Razvijalci</string>
   <string name="about">O</string>
   <string name="aboutX">O %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je brezplačen (%2$s), svoboden, brez oglasov, odprto-koden šahovski strežnik.</string>
+  <string name="really">resnično</string>
   <string name="contribute">Prispevaj</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Pogoji uporabe</string>

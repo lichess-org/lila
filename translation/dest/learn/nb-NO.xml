@@ -100,14 +100,14 @@ men du kan forsvare!</string>
   <string name="attackYourOpponentsKing">Angrip motspillerens konge på en måte som det ikke er mulig å forsvare seg mot!</string>
   <string name="mateInOneComplete">Gratulerer! Slik vinner du et sjakkparti!</string>
   <string name="intermediate">Middels vanskelig</string>
-  <string name="boardSetup">Oppstilling på brettet</string>
+  <string name="boardSetup">Oppstilling</string>
   <string name="howTheGameStarts">Hvordan partiet starter</string>
   <string name="boardSetupIntro">De to arméene står mot hverandre, klare til kamp.</string>
-  <string name="thisIsTheInitialPosition">Dette er den innledende stillingen i alle sjakkparti! Gjør eit trekk for å fortsette.</string>
+  <string name="thisIsTheInitialPosition">Dette er utgangsstillingen i alle sjakkpartier! Gjør et trekk for å fortsette.</string>
   <string name="firstPlaceTheRooks">Plasser først tårnene! De står i hjørnene.</string>
-  <string name="thenPlaceTheKnights">Plasser så springerne! De står ved siden av tårna.</string>
+  <string name="thenPlaceTheKnights">Plasser så springerne! De står ved siden av tårnene.</string>
   <string name="placeTheBishops">Sett løperne på plass. De står ved siden av springerne.</string>
-  <string name="placeTheQueen">Plasser dronninga på feltet med samme farge som brikken! (hvit dronning på hvitt felt, svart dronning på svart felt).</string>
+  <string name="placeTheQueen">Plasser dronningen! Hun står på egen farge.</string>
   <string name="placeTheKing">Sett kongen på plass! Helt inntil dronningen.</string>
   <string name="pawnsFormTheFrontLine">Bøndene danner frontlinja. Gjør et valgfritt trekk når du vil fortsette.</string>
   <string name="boardSetupComplete">Gratulerer! Du kjenner nå til hvordan brikkene stilles opp på brettet.</string>
@@ -119,7 +119,7 @@ men du kan forsvare!</string>
   <string name="theKnightIsInTheWay">Springeren står i veien! Flytt den og ta en kort rokade.</string>
   <string name="castleKingSideMovePiecesFirst">Roker kort! Du må få ut brikkene dine først.</string>
   <string name="castleQueenSideMovePiecesFirst">Roker langt! Du må få ut brikkene dine først.</string>
-  <string name="youCannotCastleIfMoved">Du kan ikke rokere etter at kongen eller tårnet er flytta på.</string>
+  <string name="youCannotCastleIfMoved">Du kan ikke rokere dersom kongen er flyttet tidligere, eller med et tårn som er flyttet tidligere.</string>
   <string name="youCannotCastleIfAttacked">Du kan ikke rokere om kongen er under angrep. Blokker sjakken først og roker etterpå!</string>
   <string name="findAWayToCastleKingSide">Finn en måte å rokere kort på!</string>
   <string name="findAWayToCastleQueenSide">Finn en måte å rokere langt på!</string>
