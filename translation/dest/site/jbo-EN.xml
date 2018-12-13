@@ -218,6 +218,8 @@
     <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">lo nilcre be do cu tolsatci</string>
+  <string name="mustBeInTeam">.i sarcu fa lo nu cmima la\'o zoi. %s .zoi noi bende</string>
+  <string name="youAreNotInTeam">.i do na cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
   <string name="siteDescription">zifre je kibro ke caxmati seltcana .i .e\'e kelci la caxmati do\'e lo sampu krati .i na japtcu .i na viska lo gubnoi .i na nitcu lo kibykla se jmina .i .e\'e jvikei lo skami .a lo pendo .a lo jai cunso</string>
   <string name="teams">lo bende</string>
@@ -584,6 +586,7 @@
   <string name="doItAgain">za\'u re\'u zukte</string>
   <string name="reviewWhiteMistakes">catlu lo se srera be la blabi</string>
   <string name="reviewBlackMistakes">catlu lo se srera be la xekri</string>
-  <string name="youCannotChallengeX">do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
+  <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
+  <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
 </resources>
