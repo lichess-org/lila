@@ -803,8 +803,9 @@ lichess.topMenuIntent = function() {
           }));
           this.$nbOnline.text(this.users.length);
           this.$nobody.toggleNone(!this.users.length);
+          var getId = function(user) { return user.name.toLowerCase().replace(/^\w+\s/, ''); }
           this.$list.html(this.users.sort(function(a, b) {
-            return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+            return getId(a) < getId(b) ? -1 : 1;
           }).map(this._renderUser).join(""));
         }.bind(this));
       },
