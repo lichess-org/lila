@@ -8,8 +8,6 @@ lichess.StrongSocket = function(url, version, settings) {
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
   var versioned = version !== false;
   var options = settings.options;
-  var origVersion;
-  var reloadTriggered = false;
   var ws;
   var pingSchedule;
   var connectSchedule;
@@ -27,7 +25,6 @@ lichess.StrongSocket = function(url, version, settings) {
     autoReconnect = true;
     var params = $.param(settings.params);
     if (versioned) params += (params ? '&' : '') + 'v=' + version;
-    origVersion = version;
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
     debug("connection attempt to " + fullUrl);
     try {
@@ -110,11 +107,15 @@ lichess.StrongSocket = function(url, version, settings) {
     pingSchedule = setTimeout(pingNow, delay);
   };
 
-  var pingNow = function(forceVersion) {
+  var pingNow = function() {
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
+    var pingData = (options.isAuth && pongCount % 8 == 2) ? JSON.stringify({
+      t: 'p',
+      l: Math.round(0.1 * averageLag)
+    }) : null;
     try {
-      ws.send(pingData(forceVersion));
+      ws.send(pingData());
       lastPingTime = now();
     } catch (e) {
       debug(e, true);
@@ -139,39 +140,20 @@ lichess.StrongSocket = function(url, version, settings) {
     lichess.pubsub.emit('socket.lag')(averageLag);
   };
 
-  var pingData = function(forceVersion) {
-    var sendLag = options.isAuth && pongCount % 8 === 2;
-    if (!versioned || !(forceVersion || sendLag)) return null;
-    var data = {
-      t: "p"
-    };
-    if (forceVersion) data.v = version;
-    if (sendLag) data.l = Math.round(0.1 * averageLag);
-    return JSON.stringify(data);
-  };
-
-  var handle = function(m, idx) {
+  var handle = function(m) {
     if (m.v) {
       if (m.v <= version) {
         debug("already has event " + m.v);
         return;
       }
-      if (m.v > version + 1) {
-        if (!idx && !reloadTriggered) {
-          // This is not expected. Recover with a versioned ping.
-          $.post('/nlog/socket7/eventGap/' + idx + ';' + nbConnects + ';' + origVersion + ';' + version + ';' + m.v);
-          debug("event gap detected from " + version + " to " + m.v);
-          pingNow(true);
-        }
-        return;
-      }
+      // it's impossible but according to previous login, it happens nonetheless
+      if (m.v > version + 1) return lichess.reload();
       version = m.v;
     }
     switch (m.t || false) {
       case false:
         break;
       case 'resync':
-        reloadTriggered = true;
         lichess.reload();
         break;
       case 'ack':
@@ -222,7 +204,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var onSuccess = function() {
     $('#network_error').remove();
     nbConnects++;
-    if (nbConnects === 1) {
+    if (nbConnects == 1) {
       options.onFirstConnect();
       var disconnectTimeout;
       lichess.idleTimer(10 * 60 * 1000, function() {
