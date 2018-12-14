@@ -1,9 +1,13 @@
 package lila.common
 
-case class ApiVersion(value: Int) extends AnyVal with IntValue {
+case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def v1 = value == 1
   def v2 = value == 2
   def v3 = value == 3
+  def v4 = value == 4
+  def compare(other: ApiVersion) = value compare other.value
+  def gt(other: Int) = value > other
+  def gte(other: Int) = value >= other
 }
 
 case class AssetVersion(value: String) extends AnyVal with StringValue

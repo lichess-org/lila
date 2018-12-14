@@ -1,10 +1,12 @@
 package lila.site
 
+import play.api.libs.json.JsNumber
+import ornicar.scalalib.Random
+
 import actorApi._
 import lila.socket._
 import lila.socket.actorApi.{ StartWatching, Ping }
-import ornicar.scalalib.Random
-import play.api.libs.json.JsNumber
+import lila.common.ApiVersion
 
 private[site] final class SocketHandler(
     socket: Socket,
@@ -14,7 +16,7 @@ private[site] final class SocketHandler(
   def human(
     uid: Socket.Uid,
     userId: Option[String],
-    apiVersion: Int,
+    apiVersion: ApiVersion,
     flag: Option[String]
   ): Fu[JsSocketHandler] =
     socket.ask[Connected](Join(uid, userId, flag, _)) map {
@@ -25,7 +27,7 @@ private[site] final class SocketHandler(
           case ("p", _) =>
             socket setAlive uid
             member push {
-              if (apiVersion > 3) emptyPong
+              if (apiVersion gte 4) emptyPong
               else Socket.initialPong
             }
         },
