@@ -27,15 +27,17 @@ object Mobile {
         unsupportedAt: DateTime
     )
 
-    val currentVersion = ApiVersion(2)
+    val currentVersion = ApiVersion(3)
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2) map ApiVersion.apply
+    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3) map ApiVersion.apply
 
-    val oldVersions: List[Old] = List( /*Old( // old puzzle API
+    val oldVersions: List[Old] = List(
+      Old( // old ping API
         version = ApiVersion(2),
-        deprecatedAt = new DateTime("2017-10-23"),
-        unsupportedAt = new DateTime("2018-03-23")
-      )*/ )
+        deprecatedAt = new DateTime("2019-11-25"),
+        unsupportedAt = new DateTime("2020-11-25")
+      )
+    )
 
     private val PathPattern = """/socket/v(\d++)$""".r.unanchored
     private val HeaderPattern = """application/vnd\.lidraughts\.v(\d++)\+json""".r

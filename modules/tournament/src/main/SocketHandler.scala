@@ -52,10 +52,10 @@ private[tournament] final class SocketHandler(
     member: Member,
     apiVersion: ApiVersion
   ): Handler.Controller = ({
-    case ("p", _) if apiVersion gte 4 =>
+    case ("p", _) if apiVersion gte 3 =>
       socket setAlive uid
       member push Socket.emptyPong
-    // mobile app BC
+    // mobile app BC and lag inputs
     case ("p", o) => socket ! Ping(uid, o)
   }: Handler.Controller) orElse lidraughts.chat.Socket.in(
     chatId = Chat.Id(tourId),

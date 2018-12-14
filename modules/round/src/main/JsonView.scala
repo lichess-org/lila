@@ -167,7 +167,7 @@ final class JsonView(
             "captureLength" -> captureLength(pov),
             "orientation" -> pov.color.name,
             "url" -> Json.obj(
-              "socket" -> s"/$gameId/${color.name}/socket",
+              "socket" -> s"/$gameId/${color.name}/socket/v$apiVersion",
               "round" -> s"/$gameId/${color.name}"
             ),
             "pref" -> Json.obj(

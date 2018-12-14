@@ -6,7 +6,7 @@ import play.api.mvc._
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.chat.Chat
-import lidraughts.common.HTTPRequest
+import lidraughts.common.{ HTTPRequest, ApiVersion }
 import lidraughts.game.{ Pov, GameRepo, Game => GameModel, PdnDump, PlayerRef }
 import lidraughts.tournament.{ TourMiniView, Tournament => Tour }
 import lidraughts.user.{ User => UserModel }
@@ -17,7 +17,7 @@ object Round extends LidraughtsController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
@@ -33,7 +33,8 @@ object Round extends LidraughtsController with TheftPrevention {
             user = ctx.me,
             ip = ctx.ip,
             userTv = userTv,
-            version = getSocketVersion
+            version = getSocketVersion,
+            apiVersion = ApiVersion(apiVersion)
           ) map some
         }
       }
@@ -47,7 +48,7 @@ object Round extends LidraughtsController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, ApiVersion(apiVersion)) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))
