@@ -140,7 +140,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var pingData = function(forceVersion) {
-    var sendLag = pongCount % 8 === 2;
+    var sendLag = options.isAuth && pongCount % 8 === 2;
     if (!versioned || !(forceVersion || sendLag)) return null;
     var data = {
       t: "p"
