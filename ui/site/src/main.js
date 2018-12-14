@@ -121,7 +121,8 @@ lidraughts.topMenuIntent = function() {
     params: {},
     options: {
       name: "site",
-      lagTag: null
+      lagTag: null,
+      isAuth: !!$('body').data('user')
     }
   });
 
