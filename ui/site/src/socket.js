@@ -115,7 +115,7 @@ lichess.StrongSocket = function(url, version, settings) {
       l: Math.round(0.1 * averageLag)
     }) : null;
     try {
-      ws.send(pingData());
+      ws.send(pingData);
       lastPingTime = now();
     } catch (e) {
       debug(e, true);
