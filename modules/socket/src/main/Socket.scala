@@ -25,6 +25,7 @@ object Socket extends Socket {
   case class GetVersion(promise: Promise[SocketVersion])
 
   val initialPong = makeMessage("n")
+  val emptyPong = JsNumber(0)
 }
 
 private[socket] trait Socket {

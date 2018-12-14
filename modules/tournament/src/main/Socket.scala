@@ -13,7 +13,7 @@ import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketTrouper, History, Historical }
 
-private[tournament] final class Socket(
+private[tournament] final class TournamentSocket(
     system: ActorSystem,
     tournamentId: String,
     protected val history: History[Messadata],
@@ -63,6 +63,7 @@ private[tournament] final class Socket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       promise success waitingUsers
 
+    // only for mobile BC
     case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
       pushEventsSinceForMobileBC(vOpt, uid)

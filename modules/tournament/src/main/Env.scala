@@ -137,9 +137,9 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
+  private val socketMap: SocketMap = lila.socket.SocketMap[TournamentSocket](
     system = system,
-    mkTrouper = (tournamentId: String) => new Socket(
+    mkTrouper = (tournamentId: String) => new TournamentSocket(
       system = system,
       tournamentId = tournamentId,
       history = new History(ttl = HistoryMessageTtl),

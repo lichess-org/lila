@@ -4,7 +4,7 @@ import lila.socket.WithSocket
 
 package object tournament extends PackageObject with WithSocket {
 
-  private[tournament] type SocketMap = lila.hub.TrouperMap[tournament.Socket]
+  private[tournament] type SocketMap = lila.hub.TrouperMap[tournament.TournamentSocket]
 
   private[tournament] type Players = List[tournament.Player]
 

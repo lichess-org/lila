@@ -6,12 +6,13 @@ import akka.pattern.ask
 import actorApi._
 import akka.actor.ActorSelection
 import lila.chat.Chat
+import lila.common.ApiVersion
 import lila.hub.actorApi.map._
 import lila.hub.Trouper
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket
 import lila.user.User
 import makeTimeout.short
 
@@ -24,9 +25,10 @@ private[tournament] final class SocketHandler(
 
   def join(
     tourId: String,
-    uid: Uid,
+    uid: Socket.Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[Socket.SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[Option[JsSocketHandler]] =
     TournamentRepo exists tourId flatMap {
       _ ?? {
@@ -34,7 +36,7 @@ private[tournament] final class SocketHandler(
         socket.ask[Connected](Join(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
-            controller(socket, tourId, uid, member),
+            controller(socket, tourId, uid, member, apiVersion),
             member,
             socket,
             uid
@@ -44,11 +46,16 @@ private[tournament] final class SocketHandler(
     }
 
   private def controller(
-    socket: Trouper,
+    socket: TournamentSocket,
     tourId: String,
-    uid: Uid,
-    member: Member
+    uid: Socket.Uid,
+    member: Member,
+    apiVersion: ApiVersion
   ): Handler.Controller = ({
+    case ("p", _) if apiVersion gte 4 =>
+      socket setAlive uid
+      member push Socket.emptyPong
+    // mobile app BC
     case ("p", o) => socket ! Ping(uid, o)
   }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = Chat.Id(tourId),

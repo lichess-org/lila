@@ -27,7 +27,7 @@ private[site] final class SocketHandler(
           case ("p", _) =>
             socket setAlive uid
             member push {
-              if (apiVersion gte 4) emptyPong
+              if (apiVersion gte 4) Socket.emptyPong
               else Socket.initialPong
             }
         },
@@ -36,8 +36,6 @@ private[site] final class SocketHandler(
         uid
       ) -> enum
     }
-
-  private val emptyPong = JsNumber(0)
 
   def api: Fu[JsSocketHandler] = {
 
