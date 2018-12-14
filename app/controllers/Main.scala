@@ -7,7 +7,7 @@ import play.api.mvc._
 
 import lidraughts.app._
 import lidraughts.api.Context
-import lidraughts.common.HTTPRequest
+import lidraughts.common.{ HTTPRequest, ApiVersion }
 import lidraughts.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -38,7 +38,7 @@ object Main extends LidraughtsController {
 
   def websocket(apiVersion: Int) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      Env.site.socketHandler.human(uid, ctx.userId, apiVersion, get("flag")) map some
+      Env.site.socketHandler.human(uid, ctx.userId, ApiVersion(apiVersion), get("flag")) map some
     }
   }
 

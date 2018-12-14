@@ -1,10 +1,12 @@
 package lidraughts.site
 
+import play.api.libs.json.JsNumber
+import ornicar.scalalib.Random
+
 import actorApi._
 import lidraughts.socket._
 import lidraughts.socket.actorApi.{ StartWatching, Ping }
-import ornicar.scalalib.Random
-import play.api.libs.json.JsNumber
+import lidraughts.common.ApiVersion
 
 private[site] final class SocketHandler(
     socket: Socket,
@@ -14,7 +16,7 @@ private[site] final class SocketHandler(
   def human(
     uid: Socket.Uid,
     userId: Option[String],
-    apiVersion: Int,
+    apiVersion: ApiVersion,
     flag: Option[String]
   ): Fu[JsSocketHandler] =
     socket.ask[Connected](Join(uid, userId, flag, _)) map {
@@ -25,7 +27,7 @@ private[site] final class SocketHandler(
           case ("p", _) =>
             socket setAlive uid
             member push {
-              if (apiVersion > 2) emptyPong
+              if (apiVersion gte 3) emptyPong
               else Socket.initialPong
             }
         },
