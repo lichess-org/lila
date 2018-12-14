@@ -153,7 +153,6 @@ private[round] final class RoundSocket(
       ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
       }
-
       // Mobile backwards compat
       vOpt foreach { v =>
         withMember(uid) { member =>
@@ -329,9 +328,8 @@ private[round] final class RoundSocket(
   private def playerGet[A](color: Color, getter: Player => A): A =
     getter(color.fold(whitePlayer, blackPlayer))
 
-  private def playerDo(color: Color, effect: Player => Unit): Unit = {
+  def playerDo(color: Color, effect: Player => Unit): Unit =
     effect(color.fold(whitePlayer, blackPlayer))
-  }
 }
 
 object RoundSocket {

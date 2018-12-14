@@ -29,9 +29,9 @@ object Mobile {
         unsupportedAt: DateTime
     )
 
-    val currentVersion = ApiVersion(2)
+    val currentVersion = ApiVersion(4)
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3) map ApiVersion.apply
+    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4) map ApiVersion.apply
 
     val oldVersions: List[Old] = List(
       Old( // chat messages are html escaped
@@ -43,6 +43,11 @@ object Mobile {
         version = ApiVersion(2),
         deprecatedAt = new DateTime("2017-10-23"),
         unsupportedAt = new DateTime("2018-03-23")
+      ),
+      Old( // old ping API
+        version = ApiVersion(3),
+        deprecatedAt = new DateTime("2018-12-14"),
+        unsupportedAt = new DateTime("2019-12-14")
       )
     )
 

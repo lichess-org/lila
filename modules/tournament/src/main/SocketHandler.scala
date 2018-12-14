@@ -55,7 +55,7 @@ private[tournament] final class SocketHandler(
     case ("p", _) if apiVersion gte 4 =>
       socket setAlive uid
       member push Socket.emptyPong
-    // mobile app BC
+    // mobile app BC and lag inputs
     case ("p", o) => socket ! Ping(uid, o)
   }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = Chat.Id(tourId),
