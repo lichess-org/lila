@@ -4,7 +4,7 @@ import lidraughts.socket.WithSocket
 
 package object tournament extends PackageObject with WithSocket {
 
-  private[tournament] type SocketMap = lidraughts.hub.TrouperMap[tournament.Socket]
+  private[tournament] type SocketMap = lidraughts.hub.TrouperMap[tournament.TournamentSocket]
 
   private[tournament] type Players = List[tournament.Player]
 

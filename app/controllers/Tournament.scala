@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.chat.Chat
-import lidraughts.common.HTTPRequest
+import lidraughts.common.{ HTTPRequest, ApiVersion }
 import lidraughts.game.{ Pov, GameRepo }
 import lidraughts.hub.tournamentTeam._
 import lidraughts.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
@@ -263,7 +263,7 @@ object Tournament extends LidraughtsController {
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      env.socketHandler.join(id, uid, ctx.me, getSocketVersion)
+      env.socketHandler.join(id, uid, ctx.me, getSocketVersion, ApiVersion(apiVersion))
     }
   }
 
