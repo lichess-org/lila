@@ -29,7 +29,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
   def subscribe(ref: ActorRef, to: Classifier*): Boolean = subscribe(Tellable(ref), to: _*)
 
   def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Tellable = {
-    val t = lila.common.Tellable.async(f)
+    val t = lila.common.Tellable(f)
     subscribe(t, to: _*)
     t
   }
