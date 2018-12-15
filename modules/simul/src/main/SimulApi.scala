@@ -130,18 +130,16 @@ final class SimulApi(
     }
   }
 
-  def finishGame(game: Game): Unit = {
-    game.simulId foreach { simulId =>
-      Sequence(simulId) {
-        repo.findStarted(simulId) flatMap {
-          _ ?? { simul =>
-            val simul2 = simul.updatePairing(
-              game.id,
-              _.finish(game.status, game.winnerUserId, game.turns)
-            )
-            update(simul2) >>- {
-              if (simul2.isFinished) onComplete(simul2)
-            }
+  def finishGame(game: Game): Unit = game.simulId foreach { simulId =>
+    Sequence(simulId) {
+      repo.findStarted(simulId) flatMap {
+        _ ?? { simul =>
+          val simul2 = simul.updatePairing(
+            game.id,
+            _.finish(game.status, game.winnerUserId, game.turns)
+          )
+          update(simul2) >>- {
+            if (simul2.isFinished) onComplete(simul2)
           }
         }
       }
