@@ -112,7 +112,7 @@ final class JsonView(
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
             .add("drawLimit" -> game.metadata.drawLimit)
-            .add("possibleMoves" -> possibleMoves(pov))
+            .add("possibleMoves" -> possibleMoves(pov, apiVersion))
             .add("possibleDrops" -> possibleDrops(pov))
             .add("expiration" -> game.expirable.option {
               Json.obj(
@@ -302,28 +302,21 @@ final class JsonView(
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
-  private def possibleMoves(pov: Pov): Option[Map[String, String]] = {
+  private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
     (pov.game playableBy pov.player) option {
       if (pov.game.situation.ghosts > 0) {
         val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
         val destPos = draughts.Pos.posAt(move.substring(move.lastIndexOf('x') + 1))
         destPos match {
           case Some(dest) =>
-            Map(dest -> pov.game.situation.destinationsFrom(dest)) map {
-              case (from, dests) => from.key -> dests.mkString
-            }
+            lidraughts.game.Event.PossibleMoves.json(Map(dest -> pov.game.situation.destinationsFrom(dest)), apiVersion)
           case _ =>
-            pov.game.situation.allDestinations map {
-              case (from, dests) => from.key -> dests.mkString
-            }
+            lidraughts.game.Event.PossibleMoves.json(pov.game.situation.allDestinations, apiVersion)
         }
       } else {
-        pov.game.situation.allDestinations map {
-          case (from, dests) => from.key -> dests.mkString
-        }
+        lidraughts.game.Event.PossibleMoves.json(pov.game.situation.allDestinations, apiVersion)
       }
     }
-  }
 
   private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
     pov.game.situation.drops map { drops =>

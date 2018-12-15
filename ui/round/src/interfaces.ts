@@ -31,9 +31,9 @@ export interface SocketDrop {
   b?: 1;
 }
 
-export interface EncodedDests {
+export type EncodedDests = string | {
   [key: string]: string;
-}
+};
 export interface DecodedDests {
   [key: string]: cg.Key[];
 }
@@ -112,7 +112,7 @@ export interface Step {
 }
 
 export interface ApiMove extends Step {
-  dests: { [key: string]: string };
+  dests: EncodedDests;
   captLen?: number
   clock?: {
     white: Seconds;
