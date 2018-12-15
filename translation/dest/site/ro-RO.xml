@@ -43,9 +43,9 @@
   <string name="blackLeftTheGame">Negrul a părăsit partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribuiţi acest link pentru a permite spectatorilor să vizioneze partida</string>
   <string name="theComputerAnalysisHasFailed">Analiza computerului a eșuat</string>
-  <string name="viewTheComputerAnalysis">Vezi analiza computerului</string>
-  <string name="requestAComputerAnalysis">Cereți o analiză a computerului</string>
-  <string name="computerAnalysis">Analiza computerului</string>
+  <string name="viewTheComputerAnalysis">Vezi analiza computer-ului</string>
+  <string name="requestAComputerAnalysis">Cereți o analiză a computer-ului</string>
+  <string name="computerAnalysis">Analiza computer-ului</string>
   <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
   <string name="analysis">Analiza</string>
   <string name="depthX">Profunzime %s</string>

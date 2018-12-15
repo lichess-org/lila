@@ -17,11 +17,11 @@ Eksempelvis gir to seire etterfulgt av en remis seks poeng: 2 + 2 + (2 *1)</stri
 Berserk er ikke mulig for partier med null i starttid (0+1, 0+2).
 
 Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
-  <string name="howIsTheWinnerDecided">Hvordan avgjøres vinneren?</string>
+  <string name="howIsTheWinnerDecided">Hvordan kåres vinneren?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spilleren eller spillerene med flest poeng ved slutten av turneringens frist vil bli annonsert som vinner(e).</string>
   <string name="howDoesPairingWork">Hvordan fungerer paringen?</string>
   <string name="howDoesPairingWorkAnswer">I begynnelsen av turneringen, er spillere sammensatt basert på sin rating. Så snart du er ferdig med et spill, gå tilbake til turneringslobbyen: du vil da bli sammensatt med en spiller nær din rangering på turneringsstigen. Dette sikrer minimal ventetid, men du møter ikke nødvendigvis alle andre spillere i turneringen. Spill raskt og gå tilbake til lobbyen for å spille flere parti og vinne flere poeng.</string>
-  <string name="howDoesItEnd">Hvordan avsluttes det?</string>
+  <string name="howDoesItEnd">Hvordan avsluttes den?</string>
   <string name="howDoesItEndAnswer">Turneringen har en nedtellingsklokke. Når den når null, fryses turneringsrangeringen, og vinneren blir kunngjort. Partier som allerede foregår, må spilles ferdig, men de teller ikke for turneringen.</string>
   <string name="otherRules">Andre viktige regler</string>
   <string name="otherRulesAnswer">Du er pålagt å gjøre første trekk innen 20 sekunder av din tur. Hvis du ikke gjør et trekk innen disse 20 sekundene, gir du opp spillet til motstanderen. Et parti som ender uavgjort på de første 10 trekkene får ingen spillere poeng for.</string>
