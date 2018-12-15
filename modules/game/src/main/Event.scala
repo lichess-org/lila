@@ -157,7 +157,7 @@ object Event {
     def newJson(moves: Map[Pos, List[Pos]]) =
       if (moves.isEmpty) JsNull
       else {
-        val sb = new java.lang.StringBuilder(64)
+        val sb = new java.lang.StringBuilder(128)
         var first = true
         moves foreach {
           case (orig, dests) =>

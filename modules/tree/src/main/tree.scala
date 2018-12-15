@@ -264,11 +264,7 @@ object Node {
         .add("glyphs", glyphs.nonEmpty)
         .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
         .add("opening", opening)
-        .add("dests", dests.map {
-          _.map {
-            case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-          }.mkString(" ")
-        })
+        .add("dests", dests)
         .add("drops", drops.map { drops =>
           JsString(drops.map(_.key).mkString)
         })
@@ -282,6 +278,23 @@ object Node {
         e.printStackTrace
         sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
     }
+  }
+
+  def destString(dests: Map[Pos, List[Pos]]): String = {
+    val sb = new java.lang.StringBuilder(64)
+    var first = true
+    dests foreach {
+      case (orig, dests) =>
+        if (first) first = false
+        else sb append " "
+        sb append orig.piotr
+        dests foreach { sb append _.piotr }
+    }
+    sb.toString
+  }
+
+  implicit val destsJsonWriter: Writes[Map[Pos, List[Pos]]] = Writes { dests =>
+    JsString(destString(dests))
   }
 
   implicit val defaultNodeJsonWriter: Writes[Node] =
