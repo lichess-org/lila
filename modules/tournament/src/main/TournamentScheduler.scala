@@ -118,6 +118,22 @@ Thank you all, you rock!"""
             }
         },
 
+      List( // yearly variant tournaments!
+        secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Chess960,
+        secondWeekOf(FEBRUARY).withDayOfWeek(THURSDAY) -> Crazyhouse,
+        secondWeekOf(MARCH).withDayOfWeek(FRIDAY) -> KingOfTheHill,
+        secondWeekOf(APRIL).withDayOfWeek(SATURDAY) -> RacingKings,
+        secondWeekOf(MAY).withDayOfWeek(MONDAY) -> Antichess,
+        secondWeekOf(JUNE).withDayOfWeek(TUESDAY) -> Atomic,
+        secondWeekOf(JULY).withDayOfWeek(WEDNESDAY) -> Horde,
+        secondWeekOf(AUGUST).withDayOfWeek(THURSDAY) -> ThreeCheck
+      ).flatMap {
+          case (day, variant) =>
+            at(day, 17) filter farFuture.isAfter map { date =>
+              Schedule(Yearly, SuperBlitz, variant, std, date).plan
+            }
+        },
+
       List(thisMonth, nextMonth).flatMap { month =>
         List(
           List( // monthly standard tournaments!
