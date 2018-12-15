@@ -17,7 +17,7 @@ function load($f) {
         if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
           $f.find('.one-factor').hide();
           $f.find('.two-factor').show();
-          $f.find('.token input').val('');
+          $f.find('.two-factor input').val('');
           $f.find('.submit').attr('disabled', false);
           if (res === 'InvalidTotpToken') $f.find('.two-factor .error').show();
         }
