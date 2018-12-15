@@ -31,12 +31,11 @@ object Mobile {
 
     val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3) map ApiVersion.apply
 
-    val oldVersions: List[Old] = List(
-      Old( // old ping API
-        version = ApiVersion(2),
-        deprecatedAt = new DateTime("2019-11-25"),
-        unsupportedAt = new DateTime("2020-11-25")
-      )
+    val oldVersions: List[Old] = List( // Old( // old ping API
+    //   version = ApiVersion(2),
+    //   deprecatedAt = new DateTime("2019-11-25"),
+    //   unsupportedAt = new DateTime("2020-11-25")
+    // )
     )
 
     private val PathPattern = """/socket/v(\d++)$""".r.unanchored
