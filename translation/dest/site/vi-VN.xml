@@ -691,6 +691,7 @@ trong %3$s</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Bạn đã đăng ký với email: %s</string>
   <string name="kidMode">Chế độ trẻ em</string>
   <string name="kidModeExplanation">Điều này là về an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị cấm. Kích hoạt điều này cho con của bạn và học sinh để bảo vệ chúng từ những người dùng internet khác.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng lichess được một biểu tượng %s để bạn biết con bạn được an toàn.</string>
   <string name="enableKidMode">Kích hoạt chế độ trẻ em</string>
   <string name="disableKidMode">Tắt chế độ trẻ em</string>
   <string name="security">Bảo mật</string>
