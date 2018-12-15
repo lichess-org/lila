@@ -17,25 +17,26 @@ case class VersionedEvent(
     troll: Boolean
 ) {
 
-  lazy val decoded: JsValue = encoded match {
-    case Left(s) => Json parse s
-    case Right(js) => js
-  }
+  lazy val decoded: JsValue = encoded.fold(Json.parse, identity)
 
   def jsFor(m: Member): JsObject = if (visibleBy(m)) {
     if (decoded == JsNull) Json.obj("v" -> version, "t" -> typ)
     else Json.obj(
       "v" -> version,
       "t" -> typ,
-      "d" -> decoded
+      "d" -> decodedFor(typ, m)
     )
   } else Json.obj("v" -> version)
 
+  private def decodedFor(typ: String, m: Member) =
+    if ((typ == "move" || typ == "drop") && m.watcher) decoded.as[JsObject] - "dests"
+    else decoded
+
   private def visibleBy(m: Member): Boolean =
-    if (watcher && m.owner) false
-    else if (owner && m.watcher) false
-    else if (troll && !m.troll) false
-    else only.fold(true)(_ == m.color)
+    !(watcher && m.owner) &&
+      !(owner && m.watcher) &&
+      !(troll && !m.troll) &&
+      only.fold(true)(_ == m.color)
 
   override def toString = s"Event $version $typ"
 }
