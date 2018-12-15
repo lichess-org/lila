@@ -281,7 +281,7 @@ object Node {
   }
 
   def destString(dests: Map[Pos, List[Pos]]): String = {
-    val sb = new java.lang.StringBuilder(64)
+    val sb = new java.lang.StringBuilder(80)
     var first = true
     dests foreach {
       case (orig, dests) =>
