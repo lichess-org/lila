@@ -14,6 +14,7 @@ sealed trait Event {
   def owner: Boolean = false
   def watcher: Boolean = false
   def troll: Boolean = false
+  def moveBy: Option[Color] = None
 }
 
 object Event {
@@ -69,6 +70,7 @@ object Event {
         "san" -> san
       )
     }
+    override def moveBy = Some(!state.color)
   }
   object Move {
     def apply(move: DraughtsMove, situation: Situation, state: State, clock: Option[ClockEvent]): Move = Move(
