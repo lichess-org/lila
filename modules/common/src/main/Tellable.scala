@@ -20,10 +20,8 @@ object Tellable {
     def !(msg: Any): Unit = receive.applyOrElse(msg, doNothing)
   }
 
-  def async(f: Receive) = new HashCode {
-    def !(msg: Any) = ScalaFuture {
-      f.applyOrElse(msg, doNothing)
-    }
+  def apply(f: Receive) = new HashCode {
+    def !(msg: Any) = f.applyOrElse(msg, doNothing)
   }
 
   case class Actor(ref: akka.actor.ActorRef) extends AnyVal with Tellable {
