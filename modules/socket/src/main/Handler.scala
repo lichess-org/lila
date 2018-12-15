@@ -48,14 +48,14 @@ object Handler {
     apiVersion: ApiVersion,
     onPing: OnPing = defaultOnPing
   ): JsIteratee = {
-    val control = controller orElse baseController(hub, socket, member, uid, apiVersion, onPing)
+    val fullCtrl = controller orElse baseController(hub, socket, member, uid, apiVersion, onPing)
     Iteratee.foreach[JsValue] {
       // process null ping immediately
       case JsNull => onPing(socket, member, uid, apiVersion)
       case jsv => for {
         obj <- jsv.asOpt[JsObject]
         t <- (obj \ "t").asOpt[String]
-      } control.applyOrElse(t -> obj, noop)
+      } fullCtrl(t -> obj)
     }
       // Unfortunately this map function is only called
       // if the JS closes the socket with lichess.socket.disconnect()
