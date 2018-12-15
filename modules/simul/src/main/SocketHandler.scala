@@ -4,14 +4,14 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
+import lidraughts.chat.Chat
+import lidraughts.common.ApiVersion
 import lidraughts.hub.actorApi.map._
 import lidraughts.hub.Trouper
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
 import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
-import lidraughts.chat.Chat
-import makeTimeout.short
 
 private[simul] final class SocketHandler(
     hub: lidraughts.hub.Env,
@@ -24,7 +24,8 @@ private[simul] final class SocketHandler(
     simulId: String,
     uid: Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[Option[JsSocketHandler]] =
     exists(simulId) flatMap {
       _ ?? {
@@ -32,26 +33,18 @@ private[simul] final class SocketHandler(
         socket.ask[Connected](Join(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
-            controller(socket, simulId, uid, member),
+            lidraughts.chat.Socket.in(
+              chatId = Chat.Id(simulId),
+              member = member,
+              chat = chat,
+              publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Simul(simulId).some
+            ),
             member,
             socket,
-            uid
+            uid,
+            apiVersion
           ) -> enum
         } map some
       }
     }
-
-  private def controller(
-    socket: Trouper,
-    simulId: String,
-    uid: Uid,
-    member: Member
-  ): Handler.Controller = ({
-    case ("p", o) => socket ! Ping(uid, o)
-  }: Handler.Controller) orElse lidraughts.chat.Socket.in(
-    chatId = Chat.Id(simulId),
-    member = member,
-    chat = chat,
-    publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Simul(simulId).some
-  )
 }

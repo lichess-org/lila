@@ -1,7 +1,6 @@
 package lidraughts.relay
 
-import akka.actor._
-
+import lidraughts.common.ApiVersion
 import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.socket.{ Handler, JsSocketHandler }
 import lidraughts.study.{ Study, StudySocket, SocketHandler => StudyHandler }
@@ -34,10 +33,11 @@ private[relay] final class SocketHandler(
     relayId: Relay.Id,
     uid: Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[JsSocketHandler] = {
     val studyId = Study.Id(relayId.value)
     val socket = studyHandler.getSocket(studyId)
-    studyHandler.join(studyId, uid, user, socket, member => makeController(socket, relayId, uid, member, user), version)
+    studyHandler.join(studyId, uid, user, socket, member => makeController(socket, relayId, uid, member, user), version, apiVersion)
   }
 }

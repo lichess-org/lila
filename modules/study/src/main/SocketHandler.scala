@@ -9,6 +9,7 @@ import play.api.libs.json._
 
 import draughts.format.pdn.Glyph
 import lidraughts.chat.Chat
+import lidraughts.common.ApiVersion
 import lidraughts.common.PimpedJson._
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
@@ -68,7 +69,6 @@ final class SocketHandler(
     member: StudySocket.Member,
     user: Option[User]
   ): Handler.Controller = ({
-    case ("p", o) => socket ! Ping(uid, o)
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { api.talk(_, studyId, text) }
     }
@@ -279,10 +279,11 @@ final class SocketHandler(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[JsSocketHandler] = {
     val socket = getSocket(studyId)
-    join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version)
+    join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version, apiVersion)
   }
 
   def join(
@@ -291,7 +292,8 @@ final class SocketHandler(
     user: Option[User],
     socket: StudySocket,
     controller: StudySocket.Member => Handler.Controller,
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[JsSocketHandler] =
     socket.ask[StudySocket.Connected](StudySocket.Join(uid, user.map(_.id), user.??(_.troll), version, _)) map {
       case StudySocket.Connected(enum, member) => Handler.iteratee(
@@ -299,7 +301,8 @@ final class SocketHandler(
         controller(member),
         member,
         socket,
-        uid
+        uid,
+        apiVersion
       ) -> enum
     }
 }

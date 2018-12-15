@@ -8,10 +8,12 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lidraughts.common.Tellable
+import draughts.Centis
+import lidraughts.common.ApiVersion
+import lidraughts.common.PimpedJson.centisReads
 import lidraughts.hub.actorApi.relation.ReloadOnlineFriends
+import lidraughts.hub.Trouper
 import lidraughts.socket.Socket.makeMessage
-import makeTimeout.large
 
 object Handler {
 
@@ -27,31 +29,33 @@ object Handler {
   def AnaRateLimit[A: Zero](uid: Socket.Uid, member: SocketMember)(op: => A) =
     AnaRateLimiter(uid.value, msg = s"user: ${member.userId | "anon"}")(op)
 
-  def forActor[S](
-    hub: lidraughts.hub.Env,
-    socketActor: ActorRef,
-    uid: Socket.Uid,
-    join: Any
-  )(connecter: ActorConnecter): Fu[JsSocketHandler] =
-    socketActor ? join map connecter map {
-      case (controller, enum, member) => iteratee(
-        hub,
-        controller,
-        member,
-        lidraughts.common.Tellable(socketActor),
-        uid
-      ) -> enum
-    }
+  private type OnPing = (SocketTrouper[_], SocketMember, Socket.Uid, ApiVersion) => Unit
 
-  def iteratee(hub: lidraughts.hub.Env, controller: Controller, member: SocketMember, socket: Tellable, uid: Socket.Uid): JsIteratee = {
-    val control = controller orElse pingController(socket, uid) orElse baseController(hub, member, uid)
+  val defaultOnPing: OnPing = (socket, member, uid, apiVersion) => {
+    socket setAlive uid
+    member push {
+      if (apiVersion gte 3) Socket.emptyPong
+      else Socket.initialPong
+    }
+  }
+
+  def iteratee(
+    hub: lidraughts.hub.Env,
+    controller: Controller,
+    member: SocketMember,
+    socket: SocketTrouper[_],
+    uid: Socket.Uid,
+    apiVersion: ApiVersion,
+    onPing: OnPing = defaultOnPing
+  ): JsIteratee = {
+    val control = controller orElse baseController(hub, socket, member, uid, apiVersion, onPing)
     Iteratee.foreach[JsValue] {
-      case JsNull => control.applyOrElse(emptyPingPair, noop)
-      case jsv => jsv.asOpt[JsObject] foreach { obj =>
-        obj str "t" foreach { t =>
-          control.applyOrElse(t -> obj, noop)
-        }
-      }
+      // process null ping immediately
+      case JsNull => onPing(socket, member, uid, apiVersion)
+      case jsv => for {
+        obj <- jsv.asOpt[JsObject]
+        t <- (obj \ "t").asOpt[String]
+      } control.applyOrElse(t -> obj, noop)
     }
       // Unfortunately this map function is only called
       // if the JS closes the socket with lidraughts.socket.disconnect()
@@ -60,13 +64,22 @@ object Handler {
   }
 
   private val noop = (_: Any) => {}
-  private val emptyPingPair = "p" -> Json.obj()
 
-  private def pingController(socket: Tellable, uid: Socket.Uid): Controller = {
-    case ("p", o) => socket ! Ping(uid, o)
-  }
-
-  private def baseController(hub: lidraughts.hub.Env, member: SocketMember, uid: Socket.Uid): Controller = {
+  private def baseController(
+    hub: lidraughts.hub.Env,
+    socket: SocketTrouper[_],
+    member: SocketMember,
+    uid: Socket.Uid,
+    apiVersion: ApiVersion,
+    onPing: OnPing
+  ): Controller = {
+    // latency ping, or BC mobile app ping
+    case ("p", o) =>
+      onPing(socket, member, uid, apiVersion)
+      for {
+        user <- member.userId
+        lag <- (o \ "l").asOpt[Centis]
+      } UserLagCache.put(user, lag)
     case ("following_onlines", _) => member.userId foreach { u =>
       hub.relation ! ReloadOnlineFriends(u)
     }

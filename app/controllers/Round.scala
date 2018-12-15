@@ -6,7 +6,7 @@ import play.api.mvc._
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.chat.Chat
-import lidraughts.common.{ HTTPRequest, ApiVersion }
+import lidraughts.common.HTTPRequest
 import lidraughts.game.{ Pov, GameRepo, Game => GameModel, PdnDump, PlayerRef }
 import lidraughts.tournament.{ TourMiniView, Tournament => Tour }
 import lidraughts.user.{ User => UserModel }
@@ -34,7 +34,7 @@ object Round extends LidraughtsController with TheftPrevention {
             ip = ctx.ip,
             userTv = userTv,
             version = getSocketVersion,
-            apiVersion = ApiVersion(apiVersion)
+            apiVersion = apiVersion
           ) map some
         }
       }
@@ -48,7 +48,7 @@ object Round extends LidraughtsController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, ApiVersion(apiVersion)) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, apiVersion) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))

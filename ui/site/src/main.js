@@ -1040,7 +1040,7 @@ lidraughts.topMenuIntent = function() {
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     cfg.trans = lidraughts.trans(cfg.i18n);
-    lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v2', false, {
+    lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
       options: {
         name: "analyse"
       },
@@ -1097,7 +1097,7 @@ lidraughts.topMenuIntent = function() {
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
     cfg.trans = lidraughts.trans(cfg.i18n);
-    lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v2', false, {
+    lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
       options: {
         name: "practice"
       },

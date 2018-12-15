@@ -72,10 +72,6 @@ private[simul] final class Socket(
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
-    case Ping(uid, vOpt, c) =>
-      ping(uid, c)
-      pushEventsSinceForMobileBC(vOpt, uid)
-
     case lidraughts.socket.Socket.GetVersion(promise) => promise success history.version
 
     case GetUserIdsP(promise) => promise success members.values.flatMap(_.userId)

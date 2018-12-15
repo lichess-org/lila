@@ -45,6 +45,8 @@ private[controllers] trait LidraughtsController
 
   protected implicit def LidraughtsFragToResult(content: Frag): Result = Ok(content)
 
+  protected implicit def makeApiVersion(v: Int) = ApiVersion(v)
+
   protected val jsonOkBody = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
 

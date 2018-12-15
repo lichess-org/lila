@@ -3,24 +3,11 @@ package actorApi
 
 import play.api.libs.json.JsObject
 
-import draughts.Centis
-import lidraughts.common.PimpedJson.centisReads
-
 case class Connected[M <: SocketMember](
     enumerator: JsEnumerator,
     member: M
 )
-case class Ping(uid: Socket.Uid, version: Option[Socket.SocketVersion], lagCentis: Option[Centis])
 case class BotConnected(color: draughts.Color, v: Boolean)
-
-object Ping {
-  import Socket.{ SocketVersion, socketVersionFormat }
-  def apply(uid: Socket.Uid, o: JsObject): Ping = Ping(
-    uid = uid,
-    version = o.get[SocketVersion]("v"),
-    lagCentis = o.get[Centis]("l")
-  )
-}
 
 case object Broom
 case class Quit(uid: Socket.Uid)

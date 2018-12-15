@@ -16,7 +16,7 @@ object Tellable {
   }
 
   trait PartialReceive extends Tellable {
-    val receive: Receive
+    protected val receive: Receive
     def !(msg: Any): Unit = receive.applyOrElse(msg, doNothing)
   }
 

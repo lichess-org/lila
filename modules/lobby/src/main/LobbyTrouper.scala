@@ -9,12 +9,12 @@ import actorApi._
 import lidraughts.game.Game
 import lidraughts.game.GameRepo
 import lidraughts.hub.Trouper
-import lidraughts.socket.Socket.{ Uid, Uids }
+import lidraughts.socket.Socket
 import lidraughts.user.User
 
 private[lobby] final class LobbyTrouper(
     system: akka.actor.ActorSystem,
-    socket: Socket,
+    socket: LobbySocket,
     seekApi: SeekApi,
     gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
@@ -89,14 +89,14 @@ private[lobby] final class LobbyTrouper(
     case Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
-      socket.ask[Uids](GetUidsP).chronometer
+      socket.ask[Socket.Uids](GetUidsP).chronometer
         .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result
         .logFailure(logger, err => s"broom cannot get uids from socket: $err")
         .foreach { this ! WithPromise(_, promise) }
 
-    case WithPromise(Uids(uids), promise) =>
+    case WithPromise(Socket.Uids(uids), promise) =>
       poolApi socketIds uids
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
@@ -137,7 +137,7 @@ private[lobby] final class LobbyTrouper(
     }
   }
 
-  private def biteHook(hookId: String, uid: Uid, user: Option[LobbyUser]) =
+  private def biteHook(hookId: String, uid: Socket.Uid, user: Option[LobbyUser]) =
     HookRepo byId hookId foreach { hook =>
       remove(hook)
       HookRepo byUid uid foreach remove
