@@ -7,7 +7,7 @@ import play.api.mvc._
 
 import lila.app._
 import lila.api.Context
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -38,12 +38,12 @@ object Main extends LilaController {
 
   def websocket(apiVersion: Int) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      Env.site.socketHandler.human(uid, ctx.userId, ApiVersion(apiVersion), get("flag")) map some
+      Env.site.socketHandler.human(uid, ctx.userId, apiVersion, get("flag")) map some
     }
   }
 
   def apiWebsocket = WebSocket.tryAccept { req =>
-    Env.site.socketHandler.api map Right.apply
+    Env.site.socketHandler.api(lila.api.Mobile.Api.currentVersion) map Right.apply
   }
 
   def captchaCheck(id: String) = Open { implicit ctx =>

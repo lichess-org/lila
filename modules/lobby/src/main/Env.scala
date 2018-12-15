@@ -30,7 +30,7 @@ final class Env(
   }
   import settings._
 
-  private val socket = new Socket(system, SocketUidTtl)
+  private val socket = new LobbySocket(system, SocketUidTtl)
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -66,6 +66,7 @@ final class Env(
     poolApi = poolApi,
     blocking = blocking
   )
+  system.lilaBus.subscribe(socketHandler, 'nbMembers, 'nbRounds)
 
   private val abortListener = new AbortListener(seekApi, lobbyTrouper)
 

@@ -6,7 +6,6 @@ lichess.StrongSocket = function(url, version, settings) {
   var now = Date.now;
 
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
-  var versioned = version !== false;
   var options = settings.options;
   var ws;
   var pingSchedule;
@@ -24,7 +23,7 @@ lichess.StrongSocket = function(url, version, settings) {
     destroy();
     autoReconnect = true;
     var params = $.param(settings.params);
-    if (versioned) params += (params ? '&' : '') + 'v=' + version;
+    if (version !== false) params += (params ? '&' : '') + 'v=' + version;
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
     debug("connection attempt to " + fullUrl);
     try {

@@ -206,7 +206,7 @@ object Challenge extends LilaController {
     env.api byId id flatMap {
       _ ?? { c =>
         getSocketUid("sri") ?? { uid =>
-          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion) map some
+          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion, apiVersion) map some
         }
       }
     }

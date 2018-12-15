@@ -1039,7 +1039,7 @@ lichess.topMenuIntent = function() {
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
+    lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
       options: {
         name: "analyse"
       },
@@ -1096,7 +1096,7 @@ lichess.topMenuIntent = function() {
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
     cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
+    lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
       options: {
         name: "practice"
       },

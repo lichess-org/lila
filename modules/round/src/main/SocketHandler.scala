@@ -49,11 +49,6 @@ private[round] final class SocketHandler(
     def send(msg: Any): Unit = roundMap.tell(gameId, msg)
 
     member.playerIdOption.fold[Handler.Controller](({
-      case ("p", _) if apiVersion gte 4 =>
-        socket setAlive uid
-        member push Socket.emptyPong
-      // mobile app BC and lag inputs
-      case ("p", o) => socket ! Ping(uid, o)
       case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
@@ -64,12 +59,6 @@ private[round] final class SocketHandler(
       publicSource = PublicSource.Watcher(gameId).some
     )) { playerId =>
       ({
-        case ("p", _) if apiVersion gte 4 =>
-          socket setAlive uid
-          socket.playerDo(member.color, _.ping)
-          member push Socket.emptyPong
-        // mobile app BC and lag inputs
-        case ("p", o) => socket ! Ping(uid, o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
@@ -182,7 +171,14 @@ private[round] final class SocketHandler(
           controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user, apiVersion),
           member,
           socket,
-          uid
+          uid,
+          apiVersion,
+          onPing =
+            if (member.owner) (_, _, _, _) => {
+              Handler.defaultOnPing(socket, member, uid, apiVersion)
+              if (member.owner) socket.playerDo(member.color, _.ping)
+            }
+            else Handler.defaultOnPing
         ) -> enum
     }
   }

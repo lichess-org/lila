@@ -36,31 +36,18 @@ private[tournament] final class SocketHandler(
         socket.ask[Connected](Join(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
-            controller(socket, tourId, uid, member, apiVersion),
+            lila.chat.Socket.in(
+              chatId = Chat.Id(tourId),
+              member = member,
+              chat = chat,
+              publicSource = lila.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
+            ),
             member,
             socket,
-            uid
+            uid,
+            apiVersion
           ) -> enum
         } map some
       }
     }
-
-  private def controller(
-    socket: TournamentSocket,
-    tourId: String,
-    uid: Socket.Uid,
-    member: Member,
-    apiVersion: ApiVersion
-  ): Handler.Controller = ({
-    case ("p", _) if apiVersion gte 4 =>
-      socket setAlive uid
-      member push Socket.emptyPong
-    // mobile app BC and lag inputs
-    case ("p", o) => socket ! Ping(uid, o)
-  }: Handler.Controller) orElse lila.chat.Socket.in(
-    chatId = Chat.Id(tourId),
-    member = member,
-    chat = chat,
-    publicSource = lila.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
-  )
 }

@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
 import lila.hub.tournamentTeam._
 import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
@@ -266,7 +266,7 @@ object Tournament extends LilaController {
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      env.socketHandler.join(id, uid, ctx.me, getSocketVersion, ApiVersion(apiVersion))
+      env.socketHandler.join(id, uid, ctx.me, getSocketVersion, apiVersion)
     }
   }
 

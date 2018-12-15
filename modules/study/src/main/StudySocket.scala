@@ -193,10 +193,6 @@ final class StudySocket(
       "chapterId" -> chapterId
     ))(uid)
 
-    case Ping(uid, vOpt, lt) =>
-      ping(uid, lt)
-      pushEventsSinceForMobileBC(vOpt, uid)
-
     case GetVersion(promise) => promise success history.version
 
     case Join(uid, userId, troll, version, promise) =>

@@ -63,11 +63,6 @@ private[tournament] final class TournamentSocket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       promise success waitingUsers
 
-    // only for mobile BC and latency inputs
-    case Ping(uid, vOpt, lt) =>
-      ping(uid, lt)
-      pushEventsSinceForMobileBC(vOpt, uid)
-
     case lila.socket.Socket.GetVersion(promise) => promise success history.version
 
     case Join(uid, user, version, promise) =>

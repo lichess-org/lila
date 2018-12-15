@@ -38,12 +38,4 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketTrouper[M] =>
         .fold(List(resyncMessage))(_ map filteredMessage(member)),
       enum
     )
-
-  // Mobile backwards compat
-  protected def pushEventsSinceForMobileBC(since: Option[Socket.SocketVersion], uid: Socket.Uid): Unit =
-    since foreach { v =>
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
-    }
 }

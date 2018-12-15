@@ -6,7 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump, PlayerRef }
 import lila.tournament.{ TourMiniView, Tournament => Tour }
 import lila.user.{ User => UserModel }
@@ -34,7 +34,7 @@ object Round extends LilaController with TheftPrevention {
             ip = ctx.ip,
             userTv = userTv,
             version = getSocketVersion,
-            apiVersion = ApiVersion(apiVersion)
+            apiVersion = apiVersion
           ) map some
         }
       }
@@ -48,7 +48,7 @@ object Round extends LilaController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, ApiVersion(apiVersion)) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, apiVersion) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))

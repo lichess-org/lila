@@ -148,18 +148,6 @@ private[round] final class RoundSocket(
       onDeploy(d)
       history.enablePersistence
 
-    case Ping(uid, vOpt, lagCentis) =>
-      ping(uid, lagCentis)
-      ownerOf(uid) foreach { o =>
-        playerDo(o.color, _.ping)
-      }
-      // Mobile backwards compat
-      vOpt foreach { v =>
-        withMember(uid) { member =>
-          (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
-        }
-      }
-
     case BotConnected(color, v) =>
       playerDo(color, _ setBotConnected v)
       notifyCrowd

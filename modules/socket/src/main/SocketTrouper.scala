@@ -39,7 +39,6 @@ abstract class SocketTrouper[M <: SocketMember](
 
   protected val members = scala.collection.mutable.AnyRefMap.empty[String, M]
   protected val aliveUids = new ExpireSetMemo(uidTtl)
-  protected var pong = Socket.initialPong
 
   protected def lilaBus = system.lilaBus
 
@@ -48,8 +47,6 @@ abstract class SocketTrouper[M <: SocketMember](
 
   // generic message handler
   protected def receiveGeneric: PartialFunction[Any, Unit] = {
-
-    case Ping(uid, _, lagCentis) => ping(uid, lagCentis)
 
     case Broom => broom
 
@@ -83,17 +80,6 @@ abstract class SocketTrouper[M <: SocketMember](
 
   protected def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid): Unit = {
     withMember(uid)(_ push makeMessage(t, data))
-  }
-
-  protected def ping(uid: Socket.Uid, lagCentis: Option[Centis]): Unit = {
-    setAlive(uid)
-    withMember(uid) { member =>
-      member push pong
-      for {
-        lc <- lagCentis
-        user <- member.userId
-      } UserLagCache.put(user, lc)
-    }
   }
 
   protected def broom: Unit =

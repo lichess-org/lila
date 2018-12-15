@@ -11,11 +11,9 @@ import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.{ Uid, Uids }
-import lila.socket.{ SocketTrouper, LoneSocket }
+import lila.socket.{ Socket, SocketTrouper, LoneSocket }
 
-private[lobby] final class Socket(
+private[lobby] final class LobbySocket(
     system: ActorSystem,
     uidTtl: FiniteDuration
 ) extends SocketTrouper[Member](system, uidTtl) with LoneSocket {
@@ -23,7 +21,7 @@ private[lobby] final class Socket(
   def monitoringName = "lobby"
   def broomFrequency = 4073 millis
 
-  system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame, 'lobbySocket)
+  system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolGame, 'lobbySocket)
   system.scheduler.scheduleOnce(5 seconds)(this ! SendHookRemovals)
   system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
 
@@ -36,7 +34,7 @@ private[lobby] final class Socket(
   def receiveSpecific = {
 
     case GetUidsP(promise) =>
-      promise success Uids(members.keySet.map(Uid.apply)(scala.collection.breakOut))
+      promise success Socket.Uids(members.keySet.map(Socket.Uid.apply)(scala.collection.breakOut))
       lila.mon.lobby.socket.idle(idleUids.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
       lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
@@ -123,10 +121,6 @@ private[lobby] final class Socket(
 
     case lila.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
-    case NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
-    case lila.hub.actorApi.round.NbRounds(nb) =>
-      pong = pong + ("r" -> JsNumber(nb))
-
     case ChangeFeatured(_, msg) => notifyAllActive(msg)
 
     case SetIdle(uid, true) => idleUids += uid.value
@@ -157,7 +151,7 @@ private[lobby] final class Socket(
   private def withActiveMemberByUidString(uid: String)(f: Member => Unit): Unit =
     if (!idleUids(uid)) members get uid foreach f
 
-  override def quit(uid: Uid): Unit = {
+  override def quit(uid: Socket.Uid): Unit = {
     super.quit(uid)
     idleUids -= uid.value
     hookSubscriberUids -= uid.value

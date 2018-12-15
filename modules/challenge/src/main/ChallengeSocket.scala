@@ -29,10 +29,6 @@ private final class ChallengeSocket(
         }
       }
 
-    case Ping(uid, vOpt, lagCentis) =>
-      ping(uid, lagCentis)
-      pushEventsSinceForMobileBC(vOpt, uid)
-
     case GetVersion(promise) => promise success history.version
 
     case ChallengeSocket.Join(uid, userId, owner, version, promise) =>

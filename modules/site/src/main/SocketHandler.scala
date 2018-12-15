@@ -5,7 +5,7 @@ import ornicar.scalalib.Random
 
 import actorApi._
 import lila.socket._
-import lila.socket.actorApi.{ StartWatching, Ping }
+import lila.socket.actorApi.StartWatching
 import lila.common.ApiVersion
 
 private[site] final class SocketHandler(
@@ -22,22 +22,15 @@ private[site] final class SocketHandler(
     socket.ask[Connected](Join(uid, userId, flag, _)) map {
       case Connected(enum, member) => Handler.iteratee(
         hub,
-        controller = {
-          /* Experimental: skip SocketTrouper.process during site ping */
-          case ("p", _) =>
-            socket setAlive uid
-            member push {
-              if (apiVersion gte 4) Socket.emptyPong
-              else Socket.initialPong
-            }
-        },
+        controller = PartialFunction.empty,
         member,
         socket,
-        uid
+        uid,
+        apiVersion
       ) -> enum
     }
 
-  def api: Fu[JsSocketHandler] = {
+  def api(apiVersion: ApiVersion): Fu[JsSocketHandler] = {
 
     val uid = Socket.Uid(Random secureString 8)
     val userId = none[String]
@@ -56,7 +49,8 @@ private[site] final class SocketHandler(
         controller(member),
         member,
         socket,
-        uid
+        uid,
+        apiVersion
       ) -> enum
     }
   }

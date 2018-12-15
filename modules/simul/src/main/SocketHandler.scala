@@ -4,14 +4,14 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
+import lila.chat.Chat
+import lila.common.ApiVersion
 import lila.hub.actorApi.map._
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.user.User
-import lila.chat.Chat
-import makeTimeout.short
 
 private[simul] final class SocketHandler(
     hub: lila.hub.Env,
@@ -24,7 +24,8 @@ private[simul] final class SocketHandler(
     simulId: String,
     uid: Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[Option[JsSocketHandler]] =
     exists(simulId) flatMap {
       _ ?? {
@@ -32,26 +33,18 @@ private[simul] final class SocketHandler(
         socket.ask[Connected](Join(uid, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
-            controller(socket, simulId, uid, member),
+            lila.chat.Socket.in(
+              chatId = Chat.Id(simulId),
+              member = member,
+              chat = chat,
+              publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simulId).some
+            ),
             member,
             socket,
-            uid
+            uid,
+            apiVersion
           ) -> enum
         } map some
       }
     }
-
-  private def controller(
-    socket: Trouper,
-    simulId: String,
-    uid: Uid,
-    member: Member
-  ): Handler.Controller = ({
-    case ("p", o) => socket ! Ping(uid, o)
-  }: Handler.Controller) orElse lila.chat.Socket.in(
-    chatId = Chat.Id(simulId),
-    member = member,
-    chat = chat,
-    publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simulId).some
-  )
 }
