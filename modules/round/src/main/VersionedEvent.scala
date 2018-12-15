@@ -12,6 +12,7 @@ case class VersionedEvent(
     typ: String,
     encoded: Either[String, JsValue],
     only: Option[Color],
+    moveBy: Option[Color],
     owner: Boolean,
     watcher: Boolean,
     troll: Boolean
@@ -24,12 +25,12 @@ case class VersionedEvent(
     else Json.obj(
       "v" -> version,
       "t" -> typ,
-      "d" -> decodedFor(typ, m)
+      "d" -> decodedFor(m)
     )
   } else Json.obj("v" -> version)
 
-  private def decodedFor(typ: String, m: Member) =
-    if ((typ == "move" || typ == "drop") && m.watcher) decoded.as[JsObject] - "dests"
+  private def decodedFor(m: Member) =
+    if (moveBy.exists(by => m.color == by || m.watcher)) decoded.as[JsObject] - "dests"
     else decoded
 
   private def visibleBy(m: Member): Boolean =
@@ -48,6 +49,7 @@ private[round] object VersionedEvent {
     typ = e.typ,
     encoded = Right(e.data),
     only = e.only,
+    moveBy = e.moveBy,
     owner = e.owner,
     watcher = e.watcher,
     troll = e.troll
@@ -64,6 +66,7 @@ private[round] object VersionedEvent {
       typ = r str "t",
       encoded = r.strO("d").map(Left.apply).getOrElse(Right(JsNull)),
       only = r boolO "o" map Color.apply,
+      moveBy = r boolO "m" map Color.apply,
       owner = r boolD "ow",
       watcher = r boolD "w",
       troll = r boolD "r"
@@ -77,6 +80,7 @@ private[round] object VersionedEvent {
         case Right(js) => Json.stringify(js).some
       }),
       "o" -> o.only.map(_.white),
+      "m" -> o.moveBy.map(_.white),
       "ow" -> w.boolO(o.owner),
       "w" -> w.boolO(o.watcher),
       "r" -> w.boolO(o.troll)

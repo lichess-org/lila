@@ -15,6 +15,7 @@ sealed trait Event {
   def owner: Boolean = false
   def watcher: Boolean = false
   def troll: Boolean = false
+  def moveBy: Option[Color] = None
 }
 
 object Event {
@@ -82,6 +83,7 @@ object Event {
         .add("enpassant" -> enpassant.map(_.data))
         .add("castle" -> castle.map(_.data))
     }
+    override def moveBy = Some(!state.color)
   }
   object Move {
     def apply(move: ChessMove, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Move = Move(
@@ -127,6 +129,7 @@ object Event {
         "san" -> san
       )
     }
+    override def moveBy = Some(!state.color)
   }
   object Drop {
     def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
