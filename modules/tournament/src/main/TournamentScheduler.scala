@@ -98,23 +98,23 @@ Thank you all, you rock!"""
       ).flatten,
 
       List( // yearly tournaments!
-        secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-        secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-        secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-        secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Classical -> Standard,
-        secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard,
+        secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet,
+        secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz,
+        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz,
+        secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid,
+        secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Classical,
+        secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> HyperBullet,
 
-        secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-        secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-        secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-        secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-        secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Classical -> Standard,
-        secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard
+        secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet,
+        secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz,
+        secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz,
+        secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid,
+        secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Classical,
+        secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet
       ).flatMap {
-          case ((day, speed), variant) =>
+          case (day, speed) =>
             at(day, 17) filter farFuture.isAfter map { date =>
-              Schedule(Yearly, speed, variant, std, date).plan
+              Schedule(Yearly, speed, Standard, std, date).plan
             }
         },
 
