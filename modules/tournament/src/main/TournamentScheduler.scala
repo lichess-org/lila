@@ -113,23 +113,23 @@ Thank you all, you rock!"""
         ).flatten,
 
         List( // yearly tournaments!
-          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Classical -> Standard,
-          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> HyperBullet -> Standard,
-          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Bullet -> Standard,
-          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> SuperBlitz -> Standard,
-          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Blitz -> Standard,
-          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> Rapid -> Standard,
+          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Classical,
+          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> HyperBullet,
+          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Bullet,
+          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> SuperBlitz,
+          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Blitz,
+          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> Rapid,
 
-          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Classical -> Standard,
-          secondWeekOf(AUGUST).withDayOfWeek(THURSDAY) -> HyperBullet -> Standard,
-          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Bullet -> Standard,
-          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> SuperBlitz -> Standard,
-          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Blitz -> Standard,
-          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> Rapid -> Standard
+          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Classical,
+          secondWeekOf(AUGUST).withDayOfWeek(THURSDAY) -> HyperBullet,
+          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Bullet,
+          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> SuperBlitz,
+          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Blitz,
+          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> Rapid
         ).flatMap {
-            case ((day, speed), variant) =>
+            case (day, speed) =>
               at(day, 17 - offsetCET(day)) filter farFuture.isAfter map { date =>
-                Schedule(Yearly, speed, variant, std, date).plan
+                Schedule(Yearly, speed, Standard, std, date).plan
               }
           },
 
