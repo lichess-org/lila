@@ -7,6 +7,7 @@ import chess.variant.Crazyhouse
 import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
 import lila.chat.{ UserLine, PlayerLine }
+import lila.common.ApiVersion
 
 sealed trait Event {
   def typ: String
@@ -43,7 +44,7 @@ object Event {
       extra ++ Json.obj(
         "fen" -> fen,
         "ply" -> state.turns,
-        "dests" -> PossibleMoves.json(possibleMoves)
+        "dests" -> PossibleMoves.oldJson(possibleMoves)
       ).add("clock" -> clock.map(_.data))
         .add("status" -> state.status)
         .add("winner" -> state.winner)
@@ -148,7 +149,27 @@ object Event {
   }
 
   object PossibleMoves {
-    def json(moves: Map[Pos, List[Pos]]) =
+
+    def json(moves: Map[Pos, List[Pos]], apiVersion: ApiVersion) =
+      if (apiVersion gte 4) newJson(moves)
+      else oldJson(moves)
+
+    def newJson(moves: Map[Pos, List[Pos]]) =
+      if (moves.isEmpty) JsNull
+      else {
+        val sb = new java.lang.StringBuilder(64)
+        var first = true
+        moves foreach {
+          case (orig, dests) =>
+            if (first) first = false
+            else sb append " "
+            sb append orig.key
+            dests foreach { sb append _.key }
+        }
+        JsString(sb.toString)
+      }
+
+    def oldJson(moves: Map[Pos, List[Pos]]) =
       if (moves.isEmpty) JsNull
       else moves.foldLeft(JsObject(Nil)) {
         case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))

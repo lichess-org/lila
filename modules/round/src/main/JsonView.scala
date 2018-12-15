@@ -111,7 +111,7 @@ final class JsonView(
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
             .add("crazyhouse" -> pov.game.board.crazyData)
-            .add("possibleMoves" -> possibleMoves(pov))
+            .add("possibleMoves" -> possibleMoves(pov, apiVersion))
             .add("possibleDrops" -> possibleDrops(pov))
             .add("expiration" -> game.expirable.option {
               Json.obj(
@@ -254,12 +254,9 @@ final class JsonView(
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
-  private def possibleMoves(pov: Pov): Option[Map[String, String]] =
-    (pov.game playableBy pov.player) option {
-      pov.game.situation.destinations map {
-        case (from, dests) => from.key -> dests.mkString
-      }
-    }
+  private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
+    (pov.game playableBy pov.player) option
+      lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
 
   private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
     pov.game.situation.drops map { drops =>

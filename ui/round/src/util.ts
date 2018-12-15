@@ -41,7 +41,11 @@ export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw):
 export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
   if (!dests) return {};
   const dec: DecodedDests = {};
-  for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
+  if (typeof dests == 'string')
+    dests.split(' ').forEach(ds => {
+      dec[ds.slice(0,2)] = ds.slice(2).match(/.{2}/g) as cg.Key[];
+    });
+    else for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
   return dec;
 }
 
