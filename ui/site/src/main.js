@@ -787,11 +787,12 @@ lichess.topMenuIntent = function() {
         self.$nbOnline = $friendBoxTitle.find('.online');
         self.$nobody = el.find(".nobody");
 
-        var users = el.data('preload') ? el.data('preload').split(',') : [],
-          playing = el.data('playing') ? el.data('playing').split(',') : [],
-          studying = el.data('studying') ? el.data('studying').split(',') : [],
-          patrons = el.data('patrons') ? el.data('patrons').split(',') : [];
-        self.set(users, playing, studying, patrons);
+        function dataList(name) { return el.data(name) ? el.data(name).split(',') : []; }
+        self.set(
+          dataList('preload'),
+          dataList('playing'),
+          dataList('studying'),
+          dataList('patrons'));
       },
       repaint: function() {
         lichess.raf(function() {
