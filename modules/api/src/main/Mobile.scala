@@ -43,12 +43,12 @@ object Mobile {
         version = ApiVersion(2),
         deprecatedAt = new DateTime("2017-10-23"),
         unsupportedAt = new DateTime("2018-03-23")
-      ),
-      Old( // old ping API
-        version = ApiVersion(3),
-        deprecatedAt = new DateTime("2018-12-14"),
-        unsupportedAt = new DateTime("2019-12-14")
       )
+    // Old( // old ping API
+    //   version = ApiVersion(3),
+    //   deprecatedAt = new DateTime("2018-12-14"),
+    //   unsupportedAt = new DateTime("2019-12-14")
+    // )
     )
 
     private val PathPattern = """/socket/v(\d++)$""".r.unanchored
