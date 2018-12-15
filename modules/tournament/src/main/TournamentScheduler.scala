@@ -133,6 +133,18 @@ Thank you all, you rock!"""
               }
           },
 
+        List( // yearly variant tournaments!
+          secondWeekOf(JANUARY).withDayOfWeek(TUESDAY) -> Breakthrough,
+          secondWeekOf(FEBRUARY).withDayOfWeek(WEDNESDAY) -> Frysk,
+          secondWeekOf(MARCH).withDayOfWeek(THURSDAY) -> Antidraughts,
+          secondWeekOf(APRIL).withDayOfWeek(FRIDAY) -> Frisian
+        ).flatMap {
+            case (day, variant) =>
+              at(day, 18) filter farFuture.isAfter map { date =>
+                Schedule(Yearly, Blitz, variant, std, date).plan
+              }
+          },
+
         List(thisMonth, nextMonth).flatMap { month =>
           List(
             List( // monthly standard tournaments!
