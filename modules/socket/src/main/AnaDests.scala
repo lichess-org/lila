@@ -4,7 +4,7 @@ import play.api.libs.json._
 import draughts.format.FEN
 import draughts.opening._
 import draughts.variant.Variant
-import lidraughts.tree.Node.{ Alternative, alternativeWriter, openingWriter }
+import lidraughts.tree.Node.{ Alternative, alternativeWriter, destString, openingWriter }
 import ornicar.scalalib.Zero
 
 case class AnaDests(
@@ -24,9 +24,7 @@ case class AnaDests(
     if (isInitial) AnaDests.initialDests
     else {
       sit.playable(false) ?? {
-        val destStr = sit.allDestinations map {
-          case (orig, thedests) => s"${orig.piotr}${thedests.distinct.map(_.piotr).mkString}"
-        } mkString " "
+        val destStr = destString(sit.allDestinations)
         sit.allMovesCaptureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
       }
     }
