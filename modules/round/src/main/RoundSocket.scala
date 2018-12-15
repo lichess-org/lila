@@ -198,7 +198,6 @@ private[round] final class RoundSocket(
 
       promise success Connected(fullEnumerator, member)
 
-    case Nil =>
     case eventList: EventList => notify(eventList.events)
 
     case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
@@ -270,7 +269,9 @@ private[round] final class RoundSocket(
 
   def notify(events: Events): Unit = {
     val vevents = history addEvents events
-    members.foreachValue { m => batch(m, vevents) }
+    members.foreachValue { m =>
+      batchMsgs(m, vevents) foreach m.push
+    }
   }
 
   def batchMsgs(member: Member, vevents: List[VersionedEvent]) = vevents match {
@@ -278,9 +279,6 @@ private[round] final class RoundSocket(
     case List(one) => one.jsFor(member).some
     case many => makeMessage("b", many map (_ jsFor member)).some
   }
-
-  def batch(member: Member, vevents: List[VersionedEvent]) =
-    batchMsgs(member, vevents) foreach member.push
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) =
     withOwnerOf(color) {
