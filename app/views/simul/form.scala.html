@@ -14,7 +14,7 @@ formCss = true) {
       <p class="help">@trans.whenCreateSimul()</p>
       @form3.globalError(form)
 
-      @form3.group(form("variants"), trans.simulVariantsHint(), klass = "variants")(_ => views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants))
+      @form3.group(form("variants"), trans.simulVariantsHint(), klass = "variants")(_ => views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants))
       @form3.split {
       @form3.group(form("clockTime"), trans.clockInitialTime(), help = trans.simulClockHint().some, half = true)(form3.select(_, clockTimeChoices))
       @form3.group(form("clockIncrement"), trans.increment(), half = true)(form3.select(_, clockIncrementChoices))

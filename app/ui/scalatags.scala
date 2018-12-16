@@ -19,6 +19,8 @@ trait ScalatagsAttrs {
   lazy val dataCount = attr("data-count")
   lazy val dataEnableTime = attr("data-enable-time")
   lazy val datatime24h = attr("data-time_24h")
+  lazy val dataColor = attr("data-color")
+  lazy val dataFen = attr("data-fen")
   lazy val novalidate = attr("novalidate")
 }
 

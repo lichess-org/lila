@@ -38,6 +38,6 @@
 @form3.group(form("fmjd"), Html("Official rating visibility"))(form3.select(_, fmjdChoices))
 @form3.group(form("ceval"), Html("Computer analysis in lobby"))(form3.select(_, cevalChoices))
 
-@form3.group(form("variants"), Html("Variants"))(_ => views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running))
+@form3.group(form("variants"), Html("Variants"))(_ => views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running))
 
 @form3.action(form3.submit(trans.apply()))
