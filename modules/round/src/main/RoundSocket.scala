@@ -16,8 +16,8 @@ import lidraughts.game.{ Game, GameRepo, Event }
 import lidraughts.hub.actorApi.Deploy
 import lidraughts.hub.actorApi.game.ChangeFeatured
 import lidraughts.hub.actorApi.round.{ IsOnGame, TourStanding, SimulStanding }
-import lidraughts.hub.actorApi.tv.{ Select => TvSelect }
 import lidraughts.hub.actorApi.simul.GetHostIds
+import lidraughts.hub.actorApi.tv.{ Select => TvSelect }
 import lidraughts.hub.Trouper
 import lidraughts.socket._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
@@ -273,13 +273,9 @@ private[round] final class RoundSocket(
     }
   }
 
-  override def quit(uid: Socket.Uid) =
-    if (members contains uid.value) {
-      super.quit(uid)
-      notifyCrowd
-    }
+  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
 
-  def notifyCrowd: Unit = {
+  def notifyCrowd: Unit = if (isAlive) {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       system.scheduler.scheduleOnce(1 second)(this ! NotifyCrowd)

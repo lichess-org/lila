@@ -86,10 +86,6 @@ private[simul] final class Socket(
         member
       )
 
-    case Quit(uid) =>
-      quit(uid)
-      notifyCrowd
-
     case NotifyCrowd =>
       delayedCrowdNotification = false
       showSpectators(lightUser)(members.values) foreach { notifyAll("crowd", _) }
@@ -102,6 +98,8 @@ private[simul] final class Socket(
     super.broom
     if (members.nonEmpty) keepMeAlive()
   }
+
+  override protected def afterQuit(uid: lidraughts.socket.Socket.Uid, member: Member) = notifyCrowd
 
   def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
