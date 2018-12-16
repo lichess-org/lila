@@ -10,7 +10,7 @@ import views._
 object Timeline extends LidraughtsController {
 
   def home = Auth { implicit ctx => me =>
-    def nb = getInt("nb").fold(15)(_ min 75)
+    def nb = getInt("nb").fold(15)(_ min 50)
     lidraughts.mon.http.response.timeline.count()
     negotiate(
       html =
