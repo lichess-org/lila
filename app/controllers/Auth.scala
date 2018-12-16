@@ -10,7 +10,7 @@ import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, IpAddress, EmailAddress }
 import lila.memo.RateLimit
 import lila.security.FingerPrint
-import lila.user.{ UserRepo, User => UserModel }
+import lila.user.{ UserRepo, User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
 import views._
 
@@ -426,7 +426,8 @@ object Auth extends LilaController {
 
   private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
 
-  private[controllers] def HasherRateLimit = lila.user.PasswordHasher.rateLimit[Result] _
+  private[controllers] def HasherRateLimit =
+    PasswordHasher.rateLimit[Result](enforce = Env.api.Net.RateLimit) _
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result] _
 }

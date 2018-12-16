@@ -57,7 +57,7 @@ object Lobby extends LilaController {
     duration = 10 seconds,
     name = "lobby socket message per IP",
     key = "lobby_socket.message.ip",
-    enforce = Env.api.Net.Ratelimit
+    enforce = Env.api.Net.RateLimit
   )
 
   def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>

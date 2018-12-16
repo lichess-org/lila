@@ -49,7 +49,7 @@ final class Env(
     val SocketDomain = config getString "net.socket.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
-    val Ratelimit = config getBoolean "net.ratelimit"
+    val RateLimit = config getBoolean "net.ratelimit"
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"

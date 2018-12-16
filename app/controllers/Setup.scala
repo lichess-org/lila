@@ -23,7 +23,7 @@ object Setup extends LilaController with TheftPrevention {
   private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](5, 1 minute,
     name = "setup post",
     key = "setup_post",
-    enforce = Env.api.Net.Ratelimit)
+    enforce = Env.api.Net.RateLimit)
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
