@@ -107,12 +107,10 @@ object AsyncCache {
     }
   }
 
-  private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit = {
-    logger.info(s"Caffeine cache $name started")
+  private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
     system.scheduler.schedule(1 minute, 1 minute) {
       lila.mon.caffeineStats(cache, name)
     }
-  }
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
