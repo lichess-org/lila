@@ -46,6 +46,10 @@ object mon {
         val website = rec("http.response.watcher.website")
         val mobile = rec("http.response.watcher.mobile")
       }
+      object accountInfo {
+        val time = rec("http.response.accountInfo")
+        val count = inc("http.response.accountInfo")
+      }
     }
     object prismic {
       val timeout = inc("http.prismic.timeout")
