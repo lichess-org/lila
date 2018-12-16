@@ -101,7 +101,7 @@ object side {
         )
       } orElse {
         lidraughts.common.HTTPRequest.isMobile(ctx.req) option
-          a(cls := "side_box text deep_link", dataIcon := "", href := "lidraughts://analyse/@pov.gameId")(
+          a(cls := "side_box text deep_link", dataIcon := "", href := s"lidraughts://analyse/${pov.gameId}")(
             "Open with ",
             strong("Mobile app")
           )
