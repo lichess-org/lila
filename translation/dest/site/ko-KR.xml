@@ -797,9 +797,9 @@
   <plurals name="nbSeconds">
     <item quantity="other">%s초</item>
   </plurals>
-  <string name="opening">발단</string>
-  <string name="middlegame">전개</string>
-  <string name="endgame">절정</string>
+  <string name="opening">오프닝</string>
+  <string name="middlegame">미들게임</string>
+  <string name="endgame">엔드게임</string>
   <string name="registerToSendChallenges">시합을 공유하려면 가입하십시오</string>
   <string name="youCannotChallengeX">%s와는 대국할 수 없습니다.</string>
   <string name="xDoesNotAcceptChallenges">%s님이 대국을 수락하지 않았습니다.</string>
