@@ -18,6 +18,7 @@ trait ScalatagsAttrs {
   lazy val dataCount = attr("data-count")
   lazy val dataEnableTime = attr("data-enable-time")
   lazy val datatime24h = attr("data-time_24h")
+  lazy val novalidate = attr("novalidate")
 }
 
 // collection of lila snippets
