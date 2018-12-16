@@ -492,7 +492,7 @@
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
   <string name="gameDisplay">게임 화면</string>
-  <string name="pieceAnimation">피스 움직임 애니메이션</string>
+  <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
   <string name="closeAccount">계정 폐쇄</string>
   <string name="changedMindDoNotCloseAccount">마음이 바뀌었습니다, 계정을 폐쇄하지 않곘습니다</string>
@@ -506,7 +506,7 @@
   <string name="newPassword">새 비밀번호</string>
   <string name="newPasswordAgain">새 비밀번호 확인</string>
   <string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
-  <string name="pieceDestinations">피스 위치 (유효한 움직임 및 미리두기)</string>
+  <string name="pieceDestinations">기물 착지점 (유효한 움직임 및 미리두기)</string>
   <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">피스 움직임 기록</string>
   <string name="pgnPieceNotation">PGN 기물표기방식</string>
@@ -521,7 +521,7 @@
   <string name="gameBehavior">동작</string>
   <string name="howDoYouMovePieces">기물을 어떻게 움직이나요?</string>
   <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
-  <string name="dragPiece">드래그</string>
+  <string name="dragPiece">체스 말 드래그</string>
   <string name="bothClicksAndDrag">아무 방법으로</string>
   <string name="premovesPlayingDuringOpponentTurn">미리두기 (상대 턴일 때)</string>
   <string name="takebacksWithOpponentApproval">무르기 (상대 승인과 함께)</string>
@@ -594,7 +594,7 @@
   <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다.</string>
   <string name="error.email_unique">이미 사용 중인 이메일 주소입니다.</string>
   <string name="error.email_different">이미 등록된 이메일 주소입니다.</string>
-  <string name="blindfoldChess">눈을 가리고 체스</string>
+  <string name="blindfoldChess">눈을 가리고 체스 (기물이 보이지 않음)</string>
   <string name="zenMode">젠 모드</string>
   <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
   <string name="inCorrespondenceGames">긴 대국에서만</string>
@@ -735,7 +735,7 @@
   <string name="boardGeometry">보드 모양</string>
   <string name="boardTheme">보드 테마</string>
   <string name="boardSize">보드 크기</string>
-  <string name="pieceSet">조각 세트</string>
+  <string name="pieceSet">기물 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
   <string name="usernamePrefixInvalid">유저 이름의 첫 글자는 알파벳이어야 합니다.</string>
