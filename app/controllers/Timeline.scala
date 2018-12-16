@@ -10,7 +10,7 @@ import views._
 object Timeline extends LilaController {
 
   def home = Auth { implicit ctx => me =>
-    def nb = getInt("nb").fold(15)(_ min 75)
+    def nb = getInt("nb").fold(15)(_ min 50)
     lila.mon.http.response.timeline.count()
     negotiate(
       html =
