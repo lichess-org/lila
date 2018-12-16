@@ -11,7 +11,7 @@ import actorApi._
 import lila.chat.Chat
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketTrouper, History, Historical }
+import lila.socket.{ SocketTrouper, History, Historical, Socket }
 
 private[tournament] final class TournamentSocket(
     system: ActorSystem,
@@ -75,10 +75,6 @@ private[tournament] final class TournamentSocket(
         member
       )
 
-    case Quit(uid) =>
-      quit(uid)
-      notifyCrowd
-
     case NotifyCrowd =>
       delayedCrowdNotification = false
       showSpectators(lightUser)(members.values) foreach {
@@ -97,6 +93,8 @@ private[tournament] final class TournamentSocket(
     super.broom
     if (members.nonEmpty) keepMeAlive()
   }
+
+  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
 
   private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {

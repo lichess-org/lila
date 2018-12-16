@@ -45,8 +45,7 @@ private[site] final class Socket(
     lila.mon.socket.count.site(members.size)
   }
 
-  override def quit(uid: Socket.Uid): Unit = {
-    members get uid.value foreach { flags.remove(uid, _) }
-    super.quit(uid)
+  override protected def afterQuit(uid: Socket.Uid, member: Member) = {
+    flags.remove(uid, member)
   }
 }

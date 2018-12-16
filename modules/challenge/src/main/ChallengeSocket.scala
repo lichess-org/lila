@@ -39,8 +39,6 @@ private final class ChallengeSocket(
         prependEventsSince(version, enumerator, member),
         member
       )
-
-    case Quit(uid) => quit(uid)
   }
 
   override protected def broom: Unit = {

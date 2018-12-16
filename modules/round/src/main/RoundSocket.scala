@@ -16,8 +16,8 @@ import lila.game.{ Game, GameRepo, Event }
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
-import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.actorApi.simul.GetHostIds
+import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.Trouper
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -254,13 +254,9 @@ private[round] final class RoundSocket(
     }
   }
 
-  override def quit(uid: Socket.Uid) =
-    if (members contains uid.value) {
-      super.quit(uid)
-      notifyCrowd
-    }
+  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
 
-  def notifyCrowd: Unit = {
+  def notifyCrowd: Unit = if (isAlive) {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       system.scheduler.scheduleOnce(1 second)(this ! NotifyCrowd)

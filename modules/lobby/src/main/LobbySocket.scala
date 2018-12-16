@@ -151,8 +151,7 @@ private[lobby] final class LobbySocket(
   private def withActiveMemberByUidString(uid: String)(f: Member => Unit): Unit =
     if (!idleUids(uid)) members get uid foreach f
 
-  override def quit(uid: Socket.Uid): Unit = {
-    super.quit(uid)
+  override protected def afterQuit(uid: Socket.Uid, member: Member) = {
     idleUids -= uid.value
     hookSubscriberUids -= uid.value
   }

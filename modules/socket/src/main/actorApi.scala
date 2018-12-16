@@ -9,8 +9,8 @@ case class Connected[M <: SocketMember](
 )
 case class BotConnected(color: chess.Color, v: Boolean)
 
-case object Broom
-case class Quit(uid: Socket.Uid)
+private[socket] case object Broom
+private[socket] case class Quit(uid: Socket.Uid)
 
 case class SocketEnter[M <: SocketMember](uid: Socket.Uid, member: M)
 case class SocketLeave[M <: SocketMember](uid: Socket.Uid, member: M)

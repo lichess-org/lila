@@ -20,14 +20,14 @@ trait Trouper extends lila.common.Tellable {
   // implement async behaviour here
   protected val process: Receive
 
-  private[this] var alive = true
+  protected var isAlive = true
 
   def stop(): Unit = {
-    alive = false
+    isAlive = false
   }
 
   def !(msg: Any): Unit =
-    if (alive && stateRef.getAndUpdate(
+    if (isAlive && stateRef.getAndUpdate(
       new UnaryOperator[State] {
         override def apply(state: State): State = Some(state.fold(Queue.empty[Any])(_ enqueue msg))
       }

@@ -207,12 +207,6 @@ final class StudySocket(
       )
       userId foreach sendStudyDoor(true)
 
-    case Quit(uid) => withMember(uid) { member =>
-      quit(uid)
-      member.userId foreach sendStudyDoor(false)
-      notifyCrowd
-    }
-
     case NotifyCrowd =>
       delayedCrowdNotification = false
       val json =
@@ -237,6 +231,11 @@ final class StudySocket(
   override protected def broom: Unit = {
     super.broom
     if (members.nonEmpty) keepMeAlive()
+  }
+
+  override protected def afterQuit(uid: Uid, member: Member) = {
+    member.userId foreach sendStudyDoor(false)
+    notifyCrowd
   }
 
   private def notifyCrowd: Unit =

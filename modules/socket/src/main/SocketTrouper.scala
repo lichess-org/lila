@@ -51,7 +51,7 @@ abstract class SocketTrouper[M <: SocketMember](
     case Broom => broom
 
     // when a member quits
-    case Quit(uid) => quit(uid)
+    case Quit(uid) => withMember(uid) { quit(uid, _) }
 
     case Resync(uid) => resync(uid)
 
@@ -89,15 +89,23 @@ abstract class SocketTrouper[M <: SocketMember](
 
   protected def ejectUidString(uid: String): Unit = eject(Socket.Uid(uid))
 
-  protected def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
+  // actively boot a member, if it exists
+  // this function is called when a member joins,
+  // to prevent duplicate UID
+  private final def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
     member.end
-    quit(uid)
+    quit(uid, member)
   }
 
-  protected def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
+  // when a member quits, voluntarily or not
+  // at this point we know the member exists
+  private final def quit(uid: Socket.Uid, member: M): Unit = {
     members -= uid.value
     lilaBus.publish(SocketLeave(uid, member), 'socketLeave)
+    afterQuit(uid, member)
   }
+
+  protected def afterQuit(uid: Socket.Uid, member: M): Unit = {}
 
   protected def onDeploy(d: Deploy): Unit =
     notifyAll(makeMessage(d.key))
