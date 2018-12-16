@@ -110,7 +110,7 @@
   <string name="mistakes">실수</string>
   <string name="inaccuracy">잘못된 판단</string>
   <string name="inaccuracies">사소한 실수</string>
-  <string name="moveTimes">이동 횟수</string>
+  <string name="moveTimes">이동 시간</string>
   <string name="flipBoard">보드 돌리기</string>
   <string name="threefoldRepetition">3회 동형반복</string>
   <string name="claimADraw">무승부 처리</string>
