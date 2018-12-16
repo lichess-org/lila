@@ -11,8 +11,6 @@ import controllers.routes
 
 object bits {
 
-  private val dataColor = attr("data-color")
-  private val dataFen = attr("data-fen")
   private val dataLastmove = attr("data-lastmove")
 
   def daily(p: lila.puzzle.Puzzle, fen: String, lastMove: String) = a(

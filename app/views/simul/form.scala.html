@@ -19,7 +19,7 @@ title = trans.hostANewSimul.txt()) {
         <tr>
           <th><label for="@form("variants").id">@trans.variants()</label></th>
           <td>
-            @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
+            @views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
             @errMsg(form("variants"))
           </td>
         </tr>

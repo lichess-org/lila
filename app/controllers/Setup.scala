@@ -28,7 +28,7 @@ object Setup extends LilaController with TheftPrevention {
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
       env.forms aiFilled get("fen").map(FEN) map { form =>
-        html.setup.ai(
+        html.setup.forms.ai(
           form,
           Env.fishnet.aiPerfApi.intRatings,
           form("fen").value flatMap ValidFen(getBool("strict"))
@@ -48,10 +48,10 @@ object Setup extends LilaController with TheftPrevention {
       env.forms friendFilled get("fen").map(FEN) flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? UserRepo.named flatMap {
-          case None => Ok(html.setup.friend(form, none, none, validFen)).fuccess
+          case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
           case Some(user) => Env.challenge.granter(ctx.me, user, none) map {
             case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-            case None => Ok(html.setup.friend(form, user.some, none, validFen))
+            case None => Ok(html.setup.forms.friend(form, user.some, none, validFen))
           }
         }
       }
@@ -116,7 +116,7 @@ object Setup extends LilaController with TheftPrevention {
   def hookForm = Open { implicit ctx =>
     NoBot {
       if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-        env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
+        env.forms.hookFilled(timeModeString = get("time")) map { html.setup.forms.hook(_) }
       }
       else fuccess {
         Redirect(routes.Lobby.home + "#hook")
