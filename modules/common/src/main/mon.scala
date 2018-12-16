@@ -50,6 +50,10 @@ object mon {
         val time = rec("http.response.accountInfo")
         val count = inc("http.response.accountInfo")
       }
+      object timeline {
+        val time = rec("http.response.timeline")
+        val count = inc("http.response.timeline")
+      }
     }
     object prismic {
       val timeout = inc("http.prismic.timeout")
