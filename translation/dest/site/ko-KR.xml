@@ -482,6 +482,7 @@
   <string name="troll">분란 조장</string>
   <string name="other">기타</string>
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
+  <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="theming">꾸미기</string>
@@ -617,6 +618,9 @@
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
   <string name="about">Lichess 개요</string>
+  <string name="aboutX">%s에 대해</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s는 무료(%2$s)이고, 자유로우며, 광고가 없는 오픈 소스 체스 서버입니다.</string>
+  <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
   <string name="contact">연락처</string>
   <string name="termsOfService">이용 약관</string>
@@ -659,10 +663,10 @@
   <string name="returnToTournamentsHomepage">토너먼트 홈으로 돌아가기</string>
   <string name="weeklyPerfTypeRatingDistribution">주간 %s 레이팅 분포</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="other">이번 주에 %2$s 사용자는 %1$s명입니다.</item>
+    <item quantity="other">이번 주의 %2$s 플레이어는 %1$s명입니다.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 상위 %1$s 의 %2$s 성적을 기록했습니다.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
