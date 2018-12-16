@@ -20,7 +20,10 @@
     <tbody>
       @events.map { e =>
       <tr>
-        <td><a href="@routes.Event.edit(e.id)">@e.title</a></td>
+        <td><a href="@routes.Event.edit(e.id)">
+            <p>@e.title</p>
+            <small>@e.headline</small>
+        </a></td>
         <td>
           @showDateTimeUTC(e.startsAt)
           @momentFromNow(e.startsAt)

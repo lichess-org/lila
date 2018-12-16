@@ -30,7 +30,10 @@
         <tbody>
         @simuls.map { sim =>
         <tr>
-            <td><a href="@routes.SimulCrud.edit(sim.id)">@sim.fullName</a></td>
+            <td><a href="@routes.SimulCrud.edit(sim.id)">
+                <p>@sim.fullName</p>
+                <small>@sim.spotlight.map(_.headline)</small>
+            </a></td>
             @simHosts(sim)
             <td>@sim.clock.config.show</td>
             <td>@sim.variants.map(_.name).mkString(", ")</td>
