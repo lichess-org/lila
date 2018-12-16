@@ -32,27 +32,30 @@ object Account extends LidraughtsController {
   def info = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => relationEnv.api.countFollowers(me.id) zip
-        relationEnv.api.countFollowing(me.id) zip
-        Env.pref.api.getPref(me) zip
-        lidraughts.game.GameRepo.urgentGames(me) zip
-        Env.challenge.api.countInFor.get(me.id) zip
-        Env.playban.api.currentBan(me.id) map {
-          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
-            Env.current.system.lidraughtsBus.publish(lidraughts.user.User.Active(me), 'userActive)
-            Ok {
-              import lidraughts.pref.JsonView._
-              Env.user.jsonView(me) ++ Json.obj(
-                "prefs" -> prefs,
-                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
-                "nbFollowing" -> nbFollowing,
-                "nbFollowers" -> nbFollowers,
-                "nbChallenges" -> nbChallenges
-              ).add("kid" -> me.kid)
-                .add("troll" -> me.troll)
-                .add("playban" -> playban)
-            }
-        }
+      api = _ => {
+        lidraughts.mon.http.response.accountInfo.count()
+        relationEnv.api.countFollowers(me.id) zip
+          relationEnv.api.countFollowing(me.id) zip
+          Env.pref.api.getPref(me) zip
+          lidraughts.game.GameRepo.urgentGames(me) zip
+          Env.challenge.api.countInFor.get(me.id) zip
+          Env.playban.api.currentBan(me.id) map {
+            case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
+              Env.current.system.lidraughtsBus.publish(lidraughts.user.User.Active(me), 'userActive)
+              Ok {
+                import lidraughts.pref.JsonView._
+                Env.user.jsonView(me) ++ Json.obj(
+                  "prefs" -> prefs,
+                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                  "nbFollowing" -> nbFollowing,
+                  "nbFollowers" -> nbFollowers,
+                  "nbChallenges" -> nbChallenges
+                ).add("kid" -> me.kid)
+                  .add("troll" -> me.troll)
+                  .add("playban" -> playban)
+              }
+          }
+      }.mon(_.http.response.accountInfo.time)
     )
   }
 
