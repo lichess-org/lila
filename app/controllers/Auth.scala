@@ -10,7 +10,7 @@ import lidraughts.app._
 import lidraughts.common.{ LidraughtsCookie, HTTPRequest, IpAddress, EmailAddress }
 import lidraughts.memo.RateLimit
 import lidraughts.security.FingerPrint
-import lidraughts.user.{ UserRepo, User => UserModel }
+import lidraughts.user.{ UserRepo, User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
 import views._
 
@@ -426,7 +426,8 @@ object Auth extends LidraughtsController {
 
   private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
 
-  private[controllers] def HasherRateLimit = lidraughts.user.PasswordHasher.rateLimit[Result] _
+  private[controllers] def HasherRateLimit =
+    PasswordHasher.rateLimit[Result](enforce = Env.api.Net.RateLimit) _
 
   private[controllers] def EmailConfirmRateLimit = lidraughts.security.EmailConfirm.rateLimit[Result] _
 }

@@ -108,17 +108,18 @@ object PasswordHasher {
     key = "password.hashes.global"
   )
 
-  def rateLimit[A: Zero](username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] = {
-    val cost = 1
-    val ip = HTTPRequest lastRemoteAddress req
-    rateLimitPerUser(User normalize username, cost = cost) {
-      rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
-        rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
-          rateLimitGlobal("-", cost = cost, msg = ip.value) {
-            run(charge)
+  def rateLimit[A: Zero](enforce: Boolean)(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
+    if (enforce) {
+      val cost = 1
+      val ip = HTTPRequest lastRemoteAddress req
+      rateLimitPerUser(User normalize username, cost = cost) {
+        rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
+          rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
+            rateLimitGlobal("-", cost = cost, msg = ip.value) {
+              run(charge)
+            }
           }
         }
       }
-    }
-  }
+    } else run(_ => ())
 }
