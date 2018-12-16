@@ -4,10 +4,10 @@
 @form3.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
 @form3.group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
 }
-@form3.group(form("title"), Html("Short title"))(form3.input(_))
-@form3.group(form("headline"), Html("Short headline"))(form3.input(_))
-@form3.group(form("description"), Html("Possibly long description"))(form3.textarea(_)())
-@form3.group(form("url"), Html("External URL"))(form3.input(_))
+@form3.group(form("title"), Html("Short title"), help = Html("Keep it VERY short, so it fits on homepage").some)(form3.input(_))
+@form3.group(form("headline"), Html("Short headline"), help = Html("Keep it VERY short, so it fits on homepage").some)(form3.input(_))
+@form3.group(form("description"), Html("Possibly long description"), help = Html("Link: [text](url)").some)(form3.textarea(_)())
+@form3.group(form("url"), Html("External URL"), help = Html("What to redirect to when the event starts").some)(form3.input(_))
 @form3.group(form("lang"), Html("Language"))(form3.select(_, lila.i18n.LangList.choices))
 @form3.split {
 @form3.checkbox(form("enabled"), Html("Enabled"), help = Html("Display the event").some, half = true)
