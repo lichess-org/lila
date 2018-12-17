@@ -10,14 +10,18 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
 
-private[game] object GameDiff {
+object GameDiff {
 
-  type Set = BSONElement // [String, BSONValue]
-  type Unset = BSONElement // [String, BSONBoolean]
+  private type Set = BSONElement // [String, BSONValue]
+  private type Unset = BSONElement // [String, BSONBoolean]
 
-  type ClockHistorySide = (Centis, Vector[Centis], Boolean)
+  private type ClockHistorySide = (Centis, Vector[Centis], Boolean)
 
-  def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
+  type Diff = (List[Set], List[Unset])
+
+  private val w = lila.db.BSON.writer
+
+  def apply(a: Game, b: Game): Diff = {
 
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
@@ -52,8 +56,6 @@ private[game] object GameDiff {
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
       case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z))
     }
-
-    val w = lila.db.BSON.writer
 
     if (a.variant.standard) d(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
     else {

@@ -132,13 +132,15 @@ object GameRepo {
     )).void
 
   def save(progress: Progress): Funit =
-    GameDiff(progress.origin, progress.game) match {
-      case (Nil, Nil) => funit
-      case (sets, unsets) => coll.update(
-        $id(progress.origin.id),
-        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
-      ).void
-    }
+    saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
+
+  def saveDiff(origin: Game, diff: GameDiff.Diff): Funit = diff match {
+    case (Nil, Nil) => funit
+    case (sets, unsets) => coll.update(
+      $id(origin.id),
+      nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+    ).void
+  }
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
