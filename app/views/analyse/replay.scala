@@ -30,6 +30,10 @@ object replay {
 
     import pov._
 
+    val chatJson = chatOption map { c =>
+      views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+    }
+
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in $gameId : ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
       side = Some(views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)),
@@ -38,21 +42,9 @@ object replay {
       moreCss = cssTags("analyse.css", "chat.css"),
       moreJs = frag(
         jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js"),
-        embedJs(s"""lidraughts = lidraughts || {};
-lidraughts.analyse = {
-data: ${safeJsonValue(data)},
-i18n: ${jsI18n()},
-userId: $jsUserId,
-chat: ${
-          jsOrNull(chatOption map { c =>
-            views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
-          })
-        },
-explorer: {
-endpoint: "$explorerEndpoint",
-tablebaseEndpoint: "$tablebaseEndpoint"
-}
-}""")
+        embedJs(s"""lidraughts=lidraughts||{};
+lidraughts.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserId,chat:${jsOrNull(chatJson)},
+explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
       ),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false
