@@ -422,11 +422,12 @@ GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String
 # Message
 GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
 GET   /inbox/new                       controllers.Message.form
+GET   /inbox/unread-count              controllers.Message.unreadCount
 POST  /inbox/new                       controllers.Message.create
 POST  /inbox/batch                     controllers.Message.batch
-GET   /inbox/$id<\w{8}>              controllers.Message.thread(id: String)
-POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
-POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
+GET   /inbox/$id<\w{8}>                controllers.Message.thread(id: String)
+POST  /inbox/$id<\w{8}>                controllers.Message.answer(id: String)
+POST  /inbox/$id<\w{8}>/delete         controllers.Message.delete(id: String)
 
 # Coach
 GET   /coach                           controllers.Coach.allDefault(page: Int ?= 1)

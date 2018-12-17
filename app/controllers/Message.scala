@@ -33,6 +33,15 @@ object Message extends LilaController {
     }
   }
 
+  def unreadCount = Auth { implicit ctx => me =>
+    NotForKids {
+      negotiate(
+        html = notFound,
+        api = _ => JsonOk(api unreadCount me)
+      )
+    }
+  }
+
   def thread(id: String) = Auth { implicit ctx => implicit me =>
     NotForKids {
       negotiate(
