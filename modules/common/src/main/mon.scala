@@ -416,7 +416,6 @@ object mon {
     object createdOrganizer {
       val tickTime = rec("tournament.created_organizer.tick_time")
     }
-    val apiShowHit = inc("tournament.api.show.hit")
     def apiShowPartial(partial: Boolean) = inc(s"tournament.api.show.partial.$partial")
     val trouperCount = rec("tournament.trouper.count")
   }
