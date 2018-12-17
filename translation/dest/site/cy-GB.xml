@@ -424,6 +424,7 @@
   <string name="pieceDestinations">Cyrchfanau darnau (symudiadau dilys a symudiadau o flaen)</string>
   <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
+  <string name="pgnPieceNotation">Math o gofnod</string>
   <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
