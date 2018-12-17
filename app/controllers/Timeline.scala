@@ -19,7 +19,7 @@ object Timeline extends LilaController {
         else
           Env.timeline.entryApi.moreUserEntries(me.id, nb) map { html.timeline.more(_) },
       _ => Env.timeline.entryApi.moreUserEntries(me.id, nb) map { es => Ok(Json.obj("entries" -> es)) }
-    ).mon(_.http.response.accountInfo.time)
+    ).mon(_.http.response.timeline.time)
   }
 
   def unsub(channel: String) = Auth { implicit ctx => me =>
