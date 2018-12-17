@@ -7,12 +7,13 @@ import reactivemongo.bson._
 import lila.db.dsl._
 import lila.game.Event
 import lila.socket.Socket.SocketVersion
+import VersionedEvent.EpochSeconds
 
 /**
  * NOT THREAD SAFE
  * Designed for use within a sequential actor (or a Duct)
  */
-private[round] final class History(
+private final class History(
     load: Fu[VersionedEvents],
     persist: VersionedEvents => Unit,
     withPersistence: Boolean
@@ -35,7 +36,7 @@ private[round] final class History(
     else {
       val delta = version.value - v.value
       lila.mon.round.history.getEventsDelta(delta)
-      if (delta > History.size) lila.mon.round.history.getEventsTooFar()
+      if (delta > History.maxSize) lila.mon.round.history.getEventsTooFar()
       events.takeWhile(_.version > v).reverse.some filter {
         _.headOption.fold(true)(_.version == v.inc)
       }
@@ -49,12 +50,22 @@ private[round] final class History(
 
   def addEvents(xs: List[Event]): VersionedEvents = {
     waitForLoadedEvents
+    val date = nowSeconds
     val vevs = xs.foldLeft(List.empty[VersionedEvent] -> getVersion) {
-      case ((vevs, v), e) => (VersionedEvent(e, v.inc) :: vevs, v.inc)
+      case ((vevs, v), e) => (VersionedEvent(e, v.inc, date) :: vevs, v.inc)
     }._1
-    events = vevs ::: events.take(History.size - vevs.size)
+    events = slideEvents(vevs, events, date)
     if (persistenceEnabled) persist(events)
     vevs.reverse
+  }
+
+  private def slideEvents(newEvents: VersionedEvents, history: VersionedEvents, date: EpochSeconds): VersionedEvents = {
+    val expiration: EpochSeconds = date - History.expireAfterSeconds
+    var nb = events.size
+    newEvents ::: history.takeWhile { e =>
+      nb += 1
+      nb <= History.maxSize && e.date > expiration
+    }
   }
 
   private def waitForLoadedEvents: Unit = {
@@ -73,9 +84,10 @@ private[round] final class History(
   }
 }
 
-private[round] object History {
+private object History {
 
-  val size = 20
+  private val maxSize = 25
+  private val expireAfterSeconds = 20
 
   def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
     load = serverStarting ?? load(coll, gameId, withPersistence),

@@ -7,7 +7,7 @@ import chess.Color
 import lila.game.Event
 import lila.socket.Socket.{ SocketVersion, socketVersionFormat }
 
-case class VersionedEvent(
+private case class VersionedEvent(
     version: SocketVersion,
     typ: String,
     encoded: Either[String, JsValue],
@@ -15,7 +15,8 @@ case class VersionedEvent(
     moveBy: Option[Color],
     owner: Boolean,
     watcher: Boolean,
-    troll: Boolean
+    troll: Boolean,
+    date: VersionedEvent.EpochSeconds
 ) {
 
   lazy val decoded: JsValue = encoded.fold(Json.parse, identity)
@@ -42,9 +43,11 @@ case class VersionedEvent(
   override def toString = s"Event $version $typ"
 }
 
-private[round] object VersionedEvent {
+private object VersionedEvent {
 
-  def apply(e: Event, v: SocketVersion): VersionedEvent = VersionedEvent(
+  type EpochSeconds = Int
+
+  def apply(e: Event, v: SocketVersion, date: EpochSeconds): VersionedEvent = VersionedEvent(
     version = v,
     typ = e.typ,
     encoded = Right(e.data),
@@ -52,7 +55,8 @@ private[round] object VersionedEvent {
     moveBy = e.moveBy,
     owner = e.owner,
     watcher = e.watcher,
-    troll = e.troll
+    troll = e.troll,
+    date = date
   )
 
   import lila.db.BSON
@@ -69,7 +73,8 @@ private[round] object VersionedEvent {
       moveBy = r boolO "m" map Color.apply,
       owner = r boolD "ow",
       watcher = r boolD "w",
-      troll = r boolD "r"
+      troll = r boolD "r",
+      date = nowSeconds
     )
     def writes(w: BSON.Writer, o: VersionedEvent) = BSONDocument(
       "v" -> o.version,
