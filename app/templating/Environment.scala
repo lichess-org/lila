@@ -26,7 +26,6 @@ object Environment
   with I18nHelper
   with SecurityHelper
   with TeamHelper
-  with AnalysisHelper
   with TournamentHelper
   with SimulHelper
   with ChessgroundHelper

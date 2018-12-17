@@ -43,7 +43,7 @@ description = categ.desc).some) {
     <tbody>
       @stickyPosts.map { topic =>
       <tr>
-        <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)" class="sticky"><span data-icon="&#xe005;" title="Sticky"></span>@topic.name</a></td>
+        <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)" class="sticky"><span data-icon="" title="Sticky"></span>@topic.name</a></td>
         <td class="right">@topic.views.localize</td>
         <td class="right">@topic.nbReplies.localize</td>
         <td class="last_post">

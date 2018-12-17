@@ -104,7 +104,7 @@ object Trophy {
     object Developer extends Kind(
       key = "developer",
       name = "Lichess developer",
-      icon = "&#xe000;".some,
+      icon = "".some,
       url = "https://github.com/ornicar/lila/graphs/contributors".some,
       klass = "icon3d".some,
       order = 100
@@ -113,7 +113,7 @@ object Trophy {
     object Moderator extends Kind(
       key = "moderator",
       name = "Lichess moderator",
-      icon = "&#xe002;".some,
+      icon = "".some,
       url = "//lichess.org/report".some,
       "icon3d".some,
       order = 101
