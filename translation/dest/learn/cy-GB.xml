@@ -7,6 +7,9 @@
   <string name="play">chwarae!</string>
   <string name="chessPieces">Darnau Gwyddbwyll</string>
   <string name="theRook">Y castell</string>
+  <string name="grabAllTheStars">Bachwch pob seren!</string>
+  <string name="theFewerMoves">Po leiaf o symudiadau y gwnewch chi, mwyaf fydd eich sgor!</string>
+  <string name="useTwoRooks">Defnyddiwch dau gastell i gyflymu pethau!</string>
   <string name="theBishop">Yr esgob</string>
   <string name="theQueen">Y frenhiness</string>
   <string name="theKing">Y teyrn</string>
