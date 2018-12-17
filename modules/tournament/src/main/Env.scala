@@ -168,11 +168,9 @@ final class Env(
     isOnline = isOnline
   )))
 
-  private val reminder = system.actorOf(Props[Reminder])
-
   system.actorOf(Props(new StartedOrganizer(
     api = api,
-    reminder = reminder,
+    reminder = new TournamentReminder(system.lilaBus),
     isOnline = isOnline,
     socketMap = socketMap
   )))

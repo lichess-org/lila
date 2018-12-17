@@ -9,7 +9,7 @@ import makeTimeout.short
 
 private final class StartedOrganizer(
     api: TournamentApi,
-    reminder: ActorRef,
+    reminder: TournamentReminder,
     isOnline: String => Boolean,
     socketMap: SocketMap
 ) extends Actor {
@@ -43,9 +43,7 @@ private final class StartedOrganizer(
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
               else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
               else funit
-            result >>- {
-              reminder ! RemindTournament(tour, activeUserIds)
-            } inject nb
+            result >>- reminder(tour, activeUserIds) inject nb
           }
         }.addEffect { playerCounts =>
           lila.mon.tournament.player(playerCounts.sum)
