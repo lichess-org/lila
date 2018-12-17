@@ -27,8 +27,7 @@ object replayBot {
       chat = none,
       underchat = Some(views.html.game.bits.watchers),
       moreCss = cssTag("analyse.css"),
-      openGraph = povOpenGraph(pov).some,
-      draughtsground = false
+      openGraph = povOpenGraph(pov).some
     ) {
         frag(
           div(cls := "analyse cg-512")(

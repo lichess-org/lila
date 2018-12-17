@@ -25,8 +25,7 @@ object bits {
     underchat: Option[Html] = None,
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
-    openGraph: Option[lidraughts.app.ui.OpenGraph] = None,
-    draughtsground: Boolean
+    openGraph: Option[lidraughts.app.ui.OpenGraph] = None
   )(body: Html)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
@@ -36,7 +35,7 @@ object bits {
       moreCss = moreCss,
       moreJs = moreJs,
       openGraph = openGraph,
-      draughtsground = draughtsground,
+      draughtsground = false,
       robots = false,
       zoomable = true
     )(body)
