@@ -637,6 +637,8 @@
   <string name="tryAnotherMoveForBlack">Chwilia am ddewis gwell i du</string>
   <string name="solution">Ateb</string>
   <string name="waitingForAnalysis">Aros am farn gyfrifiadurol</string>
+  <string name="noMistakesFoundForWhite">Ni ddarganfuwyd camgymeriadau gan gwyn</string>
+  <string name="noMistakesFoundForBlack">Ni ddarganfuwyd camgymeriadau gan du</string>
   <string name="doneReviewingWhiteMistakes">Wedi gorffen adolygu camgymeriadau gwyn</string>
   <string name="doneReviewingBlackMistakes">Wedi gorffen adolygu camgymeriadau du</string>
   <string name="doItAgain">Ailwneud</string>
