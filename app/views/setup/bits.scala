@@ -47,7 +47,7 @@ private object bits {
           st.value := value,
           cls := s"${field.name}_$value",
           st.title := title,
-          selected := field.value.has(value)
+          selected := field.value.has(value).option(true)
         )(name)
       }
     )
