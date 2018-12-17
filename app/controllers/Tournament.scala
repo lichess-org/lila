@@ -100,6 +100,7 @@ object Tournament extends LilaController {
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
+                lila.mon.tournament.apiShowPartial(partial)
                 env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
