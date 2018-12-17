@@ -36,10 +36,11 @@ private final class History(
     else {
       val delta = version.value - v.value
       lidraughts.mon.round.history.getEventsDelta(delta)
-      if (delta > History.maxSize) lidraughts.mon.round.history.getEventsTooFar()
-      events.takeWhile(_.version > v).reverse.some filter {
+      val result = events.takeWhile(_.version > v).reverse.some filter {
         _.headOption.fold(true)(_.version == v.inc)
       }
+      if (result.isEmpty) lidraughts.mon.round.history.getEventsTooFar()
+      result
     }
   }
 
