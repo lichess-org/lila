@@ -99,6 +99,7 @@ object Tournament extends LidraughtsController {
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
+                lidraughts.mon.tournament.apiShowPartial(partial)
                 env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
