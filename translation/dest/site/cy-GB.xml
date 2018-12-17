@@ -77,6 +77,7 @@
   <string name="topGames">Gemau cryfaf</string>
   <string name="masterDbExplanation">Dau filiwn o gemau gan %1$s o chwaraewyr FIDE a chwaraewyd rhwng %2$s a %3$s</string>
   <string name="noGameFound">Dim gem wedi\'w ddarganfod</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Efallai y dylswch gynnwys mwy o gemau yn y dewislen gosodiadau.</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="xOpeningExplorer">Archwiliwr agoriad %s</string>
   <string name="winPreventedBy50MoveRule">Cyfartal o dan rhel 50 symudiad</string>
@@ -96,6 +97,7 @@
   <string name="cpus">Nifer o CPU\'s</string>
   <string name="memory">Cof</string>
   <string name="infiniteAnalysis">Dadansoddiad ddiddiwedd</string>
+  <string name="removesTheDepthLimit">Dileu\'r terfyn dyfnder, a cadw\'r cyfrifiadur yn gynnes</string>
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Camgymeriad</string>
@@ -199,6 +201,7 @@
   <string name="giveMoreTime">Rhoi mwy o amser</string>
   <string name="thisPlayerUsesChessComputerAssistance">Mae\'r chwaraewr hwn yn defnyddio cymorth cyfrifiadurol</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Mae\'r chwaraewr hwn yn cynyddu/lleihau ei raddfa yn ffug</string>
+  <string name="openingExplorerAndTablebase">Porwr agoriadau &amp; bas tabl diweddglo</string>
   <string name="takeback">Cymryd yn ôl</string>
   <string name="proposeATakeback">Awgrymu cymryd yn ôl</string>
   <string name="takebackPropositionSent">Anfonwyd awgrymiad cymryd yn ôl</string>
@@ -217,6 +220,8 @@
   <string name="thematic">Ar thema</string>
   <string name="yourPerfRatingIsProvisional">Mae dy raddfa %s yn un dros dro</string>
   <string name="yourPerfRatingIsTooHigh">Mae dy raddfa %1$s (%2$s) yn rhy uchel</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Mae eich graddfa %1$s wythnosol (%2$s) yn rhy uchel</string>
+  <string name="yourPerfRatingIsTooLow">Mae dy raddfa %1$s (%2$s) yn rhy isel</string>
   <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
   <string name="ratedLessThanInPerf">Graddfa %2$s yn ≥ %1$s</string>
   <string name="mustBeInTeam">Rhaid fod yn aelod o dîm %s</string>
@@ -616,14 +621,19 @@
   <string name="boardTheme">Thema\'r bwrdd</string>
   <string name="boardSize">Maint y bwrdd</string>
   <string name="pieceSet">Math o ddarnau</string>
+  <string name="embedInYourWebsite">Gosod i\'ch gwefan</string>
+  <string name="usernameAlreadyUsed">Ymddiheuriadau, mae\'r enw defnyddiwr yna wedi ei fachu\'n barod, defnyddiwch un arall.</string>
+  <string name="usernamePrefixInvalid">Rhaid i enw defnyddiwr dechrau gyda llythyren.</string>
   <string name="chessBasics">Hanfodion gwyddbwyll</string>
   <string name="coaches">Hyfforddwyr</string>
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
   <string name="error.unknown">Gwall</string>
+  <string name="custom">Dewis amgenach</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
+  <string name="seeBestMove">Gweld y symudiad gorau</string>
   <string name="hideBestMove">Cuddio\'r symudaid gorau</string>
   <string name="getAHint">Derbyn cyngor</string>
   <string name="evaluatingYourMove">Gwerthuso\'ch symudiad ...</string>
