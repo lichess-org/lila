@@ -10,7 +10,7 @@ import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlie
 import akka.actor._
 import lidraughts.common.Future
 import lidraughts.game.actorApi.MoveGameEvent
-import lidraughts.game.{ Game, Pov, Progress, UciMemo }
+import lidraughts.game.{ Game, GameDiff, Pov, Progress, UciMemo }
 import lidraughts.hub.actorApi.round.{ BotPlay, DraughtsnetPlay }
 import ornicar.scalalib.Random.approximatly
 
@@ -37,7 +37,8 @@ private[round] final class Player(
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
-              p.trace.segment("save", "db")(proxy save progress) >>
+              val diff = p.trace.segmentSync("gameDiff", "mapping")(GameDiff(progress.origin, progress.game))
+              p.trace.segment("save", "db")(proxy.saveDiff(progress, diff)) >>
                 postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)

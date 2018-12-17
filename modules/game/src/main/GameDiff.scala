@@ -10,14 +10,18 @@ import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import lidraughts.db.ByteArray
 import lidraughts.db.ByteArray.ByteArrayBSONHandler
 
-private[game] object GameDiff {
+object GameDiff {
 
-  type Set = BSONElement // [String, BSONValue]
-  type Unset = BSONElement // [String, BSONBoolean]
+  private type Set = BSONElement // [String, BSONValue]
+  private type Unset = BSONElement // [String, BSONBoolean]
 
-  type ClockHistorySide = (Centis, Vector[Centis], Boolean)
+  private type ClockHistorySide = (Centis, Vector[Centis], Boolean)
 
-  def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
+  type Diff = (List[Set], List[Unset])
+
+  private val w = lidraughts.db.BSON.writer
+
+  def apply(a: Game, b: Game): Diff = {
 
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
@@ -52,8 +56,6 @@ private[game] object GameDiff {
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
       case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z))
     }
-
-    val w = lidraughts.db.BSON.writer
 
     a.pdnStorage match {
       case f @ PdnStorage.OldBin => {
