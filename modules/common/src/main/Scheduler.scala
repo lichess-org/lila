@@ -36,7 +36,7 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     if (enabled) {
       val f = randomize(freq)
       val doDebug = debug && freq > 5.seconds
-      logger.info("schedule %s every %s".format(name, freq))
+      // logger.info("schedule %s every %s".format(name, freq))
       scheduler.schedule(f, f) {
         val tagged = "(%s) %s".format(nextString(3), name)
         if (doDebug) logger.info(tagged)

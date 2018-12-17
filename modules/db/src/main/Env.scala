@@ -1,13 +1,15 @@
 package lila.db
 
 import com.typesafe.config.Config
-import dsl.Coll
-import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver, FailoverStrategy, ReadPreference }
-import reactivemongo.api.commands.Command
 import reactivemongo.api.BSONSerializationPack
+import reactivemongo.api.commands.Command
+import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver, FailoverStrategy, ReadPreference }
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success }
+
+import dsl.Coll
+import lila.common.Chronometer
 
 final class Env(
     name: String,
@@ -15,7 +17,8 @@ final class Env(
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
-  lazy val (connection, dbName) = {
+  private lazy val (connection, dbName) = {
+
     val driver = MongoDriver(config)
 
     registerDriverShutdownHook(driver)
@@ -32,18 +35,14 @@ final class Env(
     } yield con -> db).get
   }
 
-  private lazy val lnm = s"${connection.supervisor}/${connection.name}"
+  private lazy val lnm = s"$name ${connection.supervisor}/${connection.name}"
 
-  @inline private def resolveDB(ec: ExecutionContext) =
-    connection.database(dbName)(ec).andThen {
-      case _ => /*logger.debug*/ println(s"[$lnm] MongoDB resolved: $dbName")
+  private lazy val db =
+    Chronometer.syncEffect(Await.result(connection database dbName, 5.seconds)) { lap =>
+      logger.info(s"$lnm MongoDB connected in ${lap.showDuration}")
     }
 
-  def db(implicit ec: ExecutionContext): DefaultDB =
-    Await.result(resolveDB(ec), 10.seconds)
-
-  def apply(name: String)(implicit ec: ExecutionContext): Coll =
-    db(ec).apply(name)
+  def apply(name: String): Coll = db(name)
 
   val runCommand: RunCommand = (command, readPreference) => {
     val runner = Command.run(BSONSerializationPack, FailoverStrategy.strict)
@@ -59,7 +58,7 @@ final class Env(
 
   private def registerDriverShutdownHook(mongoDriver: MongoDriver): Unit =
     lifecycle.addStopHook { () =>
-      logger.info(s"[$lnm] Stopping the MongoDriver...")
+      logger.info(s"$lnm Stopping the MongoDriver...")
       Future(mongoDriver.close())
     }
 }
