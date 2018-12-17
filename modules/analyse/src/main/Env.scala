@@ -24,7 +24,6 @@ final class Env(
   lazy val analyser = new Analyser(
     indexer = indexer,
     requesterApi = requesterApi,
-    studyActor = hub.study,
     bus = system.lilaBus
   )
 

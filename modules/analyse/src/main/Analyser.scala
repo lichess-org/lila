@@ -10,7 +10,6 @@ import lila.hub.actorApi.map.TellIfExists
 final class Analyser(
     indexer: ActorSelection,
     requesterApi: RequesterApi,
-    studyActor: ActorSelection,
     bus: lila.common.Bus
 ) {
 
@@ -55,7 +54,7 @@ final class Analyser(
       }
     }
     case Some(studyId) => fuccess {
-      studyActor ! actorApi.StudyAnalysisProgress(analysis, complete)
+      bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), 'studyAnalysisProgress)
     }
   }
 }

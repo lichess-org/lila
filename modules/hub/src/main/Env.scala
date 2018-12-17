@@ -20,7 +20,6 @@ final class Env(config: Config, system: ActorSystem) {
   val mod = select("actor.mod")
   val chat = select("actor.chat")
   val notification = select("actor.notify")
-  val study = select("actor.study")
 
   val bus = system.lilaBus
 
