@@ -621,6 +621,7 @@
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
+  <string name="hideBestMove">Cuddio\'r symudaid gorau</string>
   <string name="getAHint">Derbyn cyngor</string>
   <string name="evaluatingYourMove">Gwerthuso\'ch symudiad ...</string>
   <string name="whiteWinsGame">Gwyn yn enill</string>
@@ -648,5 +649,10 @@
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
+  <string name="registerToSendChallenges">Cofrestrwch cyn danfon her.</string>
+  <string name="youCannotChallengeX">Ni fedrwch chi herio %s.</string>
+  <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>
+  <string name="yourXRatingIsTooFarFromY">Mae eich graddfa %1$s yn rhy bell o un %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
   <string name="playX">Chwarae %s</string>
 </resources>
