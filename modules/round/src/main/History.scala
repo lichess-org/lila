@@ -36,10 +36,11 @@ private final class History(
     else {
       val delta = version.value - v.value
       lila.mon.round.history.getEventsDelta(delta)
-      if (delta > History.maxSize) lila.mon.round.history.getEventsTooFar()
-      events.takeWhile(_.version > v).reverse.some filter {
+      val result = events.takeWhile(_.version > v).reverse.some filter {
         _.headOption.fold(true)(_.version == v.inc)
       }
+      if (result.isEmpty) lila.mon.round.history.getEventsTooFar()
+      result
     }
   }
 
