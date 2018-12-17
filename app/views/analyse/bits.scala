@@ -25,8 +25,7 @@ object bits {
     underchat: Option[Html] = None,
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
-    openGraph: Option[lila.app.ui.OpenGraph] = None,
-    chessground: Boolean
+    openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Html)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
@@ -36,7 +35,7 @@ object bits {
       moreCss = moreCss,
       moreJs = moreJs,
       openGraph = openGraph,
-      chessground = chessground,
+      chessground = false,
       robots = false,
       zoomable = true
     )(body)

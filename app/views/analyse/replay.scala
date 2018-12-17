@@ -45,8 +45,7 @@ object replay {
 lichess.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserId,chat:${jsOrNull(chatJson)},
 explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
       ),
-      openGraph = povOpenGraph(pov).some,
-      chessground = false
+      openGraph = povOpenGraph(pov).some
     )(frag(
         div(cls := "analyse cg-512")(
           views.html.board.bits.domPreload(none)
