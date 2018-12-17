@@ -305,6 +305,7 @@
   <string name="winStreak">Gêmau wedi\'u hennill heb golli</string>
   <string name="createdBy">greuwyd gan</string>
   <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
+  <string name="standByX">Ar eich marciau %s, wrthi\'n dewis gwrthwynebwyr!</string>
   <string name="youArePlaying">Rwyt ti\'n chwarae!</string>
   <string name="winRate">Cyfradd enill</string>
   <string name="berserkRate">Cyfradd myllio</string>
@@ -635,6 +636,9 @@
   <string name="coaches">Hyfforddwyr</string>
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
+  <string name="error.minLength">Yr hyd lleiaf sy\'n dderbyniol yw %s (medd yr actores wrth yr esgob)</string>
+  <string name="error.maxLength">Yr hyd mwyaf sy\'n dderbyniol yw %s</string>
+  <string name="error.min">Rhaid bod yn gyfartal i neu yn uwch na %s</string>
   <string name="error.unknown">Gwall</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
