@@ -32,7 +32,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val ActorName = config getString "actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
     val NetBaseUrl = config getString "net.base_url"
@@ -131,13 +130,6 @@ final class Env(
     divider = divider
   )
 
-  // study actor
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
-    }
-  }), name = ActorName)
-
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
@@ -191,6 +183,9 @@ final class Env(
   system.lidraughtsBus.subscribeFun('gdprErase, 'deploy) {
     case lidraughts.user.User.GDPRErase(user) => api erase user
     case m: lidraughts.hub.actorApi.Deploy => socketMap tellAll m
+  }
+  system.lidraughtsBus.subscribeFun('studyAnalysisProgress) {
+    case lidraughts.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
   }
 }
 
