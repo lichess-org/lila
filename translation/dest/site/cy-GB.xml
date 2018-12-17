@@ -75,6 +75,7 @@
   <string name="averageRatingX">Cyfartaledd gradd: %s</string>
   <string name="recentGames">Gemau diweddar</string>
   <string name="topGames">Gemau cryfaf</string>
+  <string name="masterDbExplanation">Dau filiwn o gemau gan %1$s o chwaraewyr FIDE a chwaraewyd rhwng %2$s a %3$s</string>
   <string name="noGameFound">Dim gem wedi\'w ddarganfod</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="xOpeningExplorer">Archwiliwr agoriad %s</string>
@@ -578,6 +579,8 @@
   <string name="withEverybody">Gyda pawb</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Cyfeiriad wedi\'i cofrestru yn barod: %s</string>
   <string name="kidMode">Dull plentyn</string>
+  <string name="kidModeExplanation">Mewn modd plant, fydd cyfathrebu wedi ei analluogi. Defnyddiwch y modd yma ar gyfer plant a disgyblion ysgol i\'w hamddiffyn rhag defnyddwyr eraill o\'r rhyngrwyd.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Pan mewn modd plant, fydd eicon %s ar logo lichess, fel y byddwch yn gwybod fod eich plant yn saff.</string>
   <string name="enableKidMode">Galluogi modd plant</string>
   <string name="disableKidMode">Analluogi modd plant</string>
   <string name="security">Diogelwch</string>
@@ -610,8 +613,11 @@
   <string name="boardTheme">Thema\'r bwrdd</string>
   <string name="boardSize">Maint y bwrdd</string>
   <string name="pieceSet">Math o ddarnau</string>
+  <string name="chessBasics">Hanfodion gwyddbwyll</string>
+  <string name="coaches">Hyfforddwyr</string>
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
+  <string name="error.unknown">Gwall</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
