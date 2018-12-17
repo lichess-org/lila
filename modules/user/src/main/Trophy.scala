@@ -95,7 +95,7 @@ object Trophy {
     object Developer extends Kind(
       key = "developer",
       name = "Lidraughts developer",
-      icon = "&#xe000;".some,
+      icon = "".some,
       url = none,
       klass = "icon3d".some,
       order = 100
@@ -104,7 +104,7 @@ object Trophy {
     object Moderator extends Kind(
       key = "moderator",
       name = "Lidraughts moderator",
-      icon = "&#xe002;".some,
+      icon = "".some,
       url = "//lidraughts.org/report".some,
       klass = "icon3d".some,
       order = 101
