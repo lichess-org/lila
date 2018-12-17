@@ -7,6 +7,10 @@ import play.api.{ Application, GlobalSettings }
 
 object Global extends GlobalSettings {
 
+  val version = System.getProperty("java.version")
+  val memory = Runtime.getRuntime().maxMemory() / 1024 / 1024
+  lila.log.boot.info(s"Java version: $version, memory: ${memory}MB")
+
   private val httpLogger = lila.log("http")
 
   private def logHttp(code: Int, req: RequestHeader, exception: Option[Throwable] = None) = {

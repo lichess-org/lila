@@ -95,19 +95,15 @@ final class Env(
     system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
-        system.scheduler.scheduleOnce(1 second) {
-          closeAccount(userId, self = false)
-        }
-    }
-  })), 'garbageCollect)
+  system.lilaBus.subscribeFun('garbageCollect) {
+    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      system.scheduler.scheduleOnce(1 second) {
+        closeAccount(userId, self = false)
+      }
+  }
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
-  lila.log.boot.info(s"Java version ${System.getProperty("java.version")}")
-  lila.log.boot.info("Preloading modules")
   lila.common.Chronometer.syncEffect(List(
     Env.socket,
     Env.site,
