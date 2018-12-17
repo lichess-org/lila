@@ -71,27 +71,15 @@ object side {
         }
       ),
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      if (tour.createdBy == "lichess") trans.tournamentOfficial()
-      else trans.by(usernameOrId(tour.createdBy)),
-      !tour.isStarted option frag(
-        br,
-        absClientDateTime(tour.startsAt)
-      ),
-      (!tour.position.initial) ?? List(
+      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
+      !tour.isStarted option absClientDateTime(tour.startsAt),
+      (!tour.position.initial) ?? frag(
         br, br,
         a(target := "_blank", href := tour.position.url)(
           strong(tour.position.eco),
           s" ${tour.position.name}"
         )
-      ),
-      tour.winnerId ?? { userId =>
-        List[Modifier](
-          br, br,
-          trans.winner(),
-          ": ",
-          userIdLink(userId.some)
-        )
-      }
+      )
     ),
     streamers.toList map { id =>
       a(href := routes.Streamer.show(id), cls := "context-streamer text side_box", dataIcon := "")(
