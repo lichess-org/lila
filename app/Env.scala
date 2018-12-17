@@ -94,19 +94,15 @@ final class Env(
     system.lidraughtsBus.publish(lidraughts.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.hub.actorApi.security.GarbageCollect(userId, _) =>
-        system.scheduler.scheduleOnce(1 second) {
-          closeAccount(userId, self = false)
-        }
-    }
-  })), 'garbageCollect)
+  system.lidraughtsBus.subscribeFun('garbageCollect) {
+    case lidraughts.hub.actorApi.security.GarbageCollect(userId, _) =>
+      system.scheduler.scheduleOnce(1 second) {
+        closeAccount(userId, self = false)
+      }
+  }
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
-  lidraughts.log.boot.info(s"Java version ${System.getProperty("java.version")}")
-  lidraughts.log.boot.info("Preloading modules")
   lidraughts.common.Chronometer.syncEffect(List(
     Env.socket,
     Env.site,
