@@ -433,12 +433,14 @@
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>
   <string name="soundWhenTimeGetsCritical">Sain cyn redeg allan o amser</string>
   <string name="gameBehavior">Dewisiadau gêm</string>
+  <string name="howDoYouMovePieces">Sut mae symud darnau?</string>
   <string name="clickTwoSquares">Clicio dwy sgwar</string>
   <string name="dragPiece">Llusgo darn</string>
   <string name="bothClicksAndDrag">Y ddwy</string>
   <string name="premovesPlayingDuringOpponentTurn">Symudiadau o flaen (symud yn ystod tro y gwrthwynebydd)</string>
   <string name="takebacksWithOpponentApproval">Cymryd yn ôl (gyda chaniatád y gwrthwynebydd)</string>
   <string name="promoteToQueenAutomatically">Troi yn Frenhines yn awtomatig</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Dewis gem gyfartal yn awtomatig ar ol ailadrodd tair gwaith</string>
   <string name="privacy">Preifatrwydd</string>
   <string name="letOtherPlayersFollowYou">Caniatáu i chwaraewyr eraill dy ddilyn</string>
   <string name="letOtherPlayersChallengeYou">Caniatáu i chwaraewyr eraill dy herio</string>
@@ -495,6 +497,7 @@
   <string name="error.email">Cyfeiriad e-bost annilys</string>
   <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol</string>
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
+  <string name="error.email_different">Mae hwn wedi ei osod fel eich ebost yn barod</string>
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
   <string name="zenMode">Ffocysu</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
@@ -625,6 +628,9 @@
   <string name="embedInYourWebsite">Gosod i\'ch gwefan</string>
   <string name="usernameAlreadyUsed">Ymddiheuriadau, mae\'r enw defnyddiwr yna wedi ei fachu\'n barod, defnyddiwch un arall.</string>
   <string name="usernamePrefixInvalid">Rhaid i enw defnyddiwr dechrau gyda llythyren.</string>
+  <string name="usernameUnacceptable">Nid yw enw defnyddiwr hwn yn dderbyniol.</string>
+  <string name="directlySupportLichess">Cefnogwch Lichess yn uniongyrchol</string>
+  <string name="playChessInStyle">Edrychwch yn swanc efo Lichess</string>
   <string name="chessBasics">Hanfodion gwyddbwyll</string>
   <string name="coaches">Hyfforddwyr</string>
   <string name="invalidPgn">PGN anilys</string>
@@ -632,6 +638,7 @@
   <string name="error.unknown">Gwall</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
+  <string name="challenges">Heriau</string>
   <string name="perfRatingX">Graddfa %s</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="anotherWasX">Dewis da arall oedd %s</string>
