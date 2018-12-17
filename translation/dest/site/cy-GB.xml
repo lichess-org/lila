@@ -630,8 +630,13 @@
   <string name="invalidFen">FEN anilys</string>
   <string name="error.unknown">Gwall</string>
   <string name="custom">Dewis amgenach</string>
+  <string name="notifications">Hysbysiadau</string>
+  <string name="perfRatingX">Graddfa %s</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
+  <string name="anotherWasX">Dewis da arall oedd %s</string>
+  <string name="bestWasX">%s oedd orau</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
+  <string name="theGameIsADraw">Canlyniad gem gyfartal.</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
   <string name="seeBestMove">Gweld y symudiad gorau</string>
   <string name="hideBestMove">Cuddio\'r symudaid gorau</string>
