@@ -20,7 +20,7 @@
       @sessions.map { s =>
       <tr>
         <td class="icon">
-          <span class="is-@if(s.session.id == curSessionId){gold}else{green}" data-icon="&#xe00@if(s.session.isMobile){7}else{6};"></span>
+          <span class="is-@if(s.session.id == curSessionId){gold}else{green}" data-icon="if(s.session.isMobile){}else{};"></span>
         </td>
         <td class="info">
           <span class="ip">@s.session.ip</span>

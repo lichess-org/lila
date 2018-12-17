@@ -13,7 +13,7 @@
 @menu = {
 @lidraughts.pref.PrefCateg.all.map { categ =>
 <a class="@active.active(categ.slug)" href="@routes.Pref.form(categ.slug)">
-  @categName(categ)
+  @bits.categName(categ)
 </a>
 }
 <a class="@active.active("kid")" href="@routes.Account.kid()">

@@ -59,7 +59,7 @@ object replayBot {
                       },
                       tr(
                         td(strong(lidraughts.analyse.Accuracy.mean(pov.withColor(color), a))),
-                        th(trans.averageCentipawnLoss())
+                        th(trans.averageCentipieceLoss())
                       ),
                       tr(td(cls := "spacerlol", colspan := 2))
                     )
