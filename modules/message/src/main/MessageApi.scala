@@ -1,5 +1,8 @@
 package lidraughts.message
 
+import scala.concurrent.duration._
+import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
+
 import lidraughts.common.paginator._
 import lidraughts.db.dsl._
 import lidraughts.db.paginator._
@@ -28,6 +31,12 @@ final class MessageApi(
     currentPage = page,
     maxPerPage = maxPerPage
   )
+
+  private val unreadCountCache: AsyncLoadingCache[User.ID, Int] = Scaffeine()
+    .expireAfterWrite(1 minute)
+    .buildAsyncFuture[User.ID, Int](ThreadRepo.unreadCount _)
+
+  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← coll.byId[Thread](id) map (_ filter (_ hasUser me))
