@@ -567,6 +567,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Gellwch rholio dros y bwrdd i symud yn y gêm.</string>
   <string name="analysisShapesHowTo">Gwasgwch shift a chliciwch neu dde-gliciwch i dynnu cylchau a saithau ar y bwrdd.</string>
   <string name="confirmResignationAndDrawOffers">Cadarnhau cynnigion gem cyfartal ac ildio</string>
+  <string name="inputMovesWithTheKeyboard">Mewnbynnu symudiadau efo\'r allweddfwrdd</string>
   <string name="letOtherPlayersMessageYou">Cael negeseuon gan chwaraewyr arall</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Modd castellu</string>
   <string name="castleByMovingTwoSquares">Symud y Teyrn dau sgwar</string>
