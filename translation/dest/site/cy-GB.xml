@@ -672,5 +672,6 @@
   <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>
   <string name="yourXRatingIsTooFarFromY">Mae eich graddfa %1$s yn rhy bell o un %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Mae %s dim ond yn derbyn heriau gan ffrindiau.</string>
   <string name="playX">Chwarae %s</string>
 </resources>
