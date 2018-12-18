@@ -143,6 +143,8 @@
   <string name="mode">Хаклани</string>
   <string name="casual">Ахаљ</string>
   <string name="rated">Хаклавшӑн</string>
+  <string name="casualTournament">Ахаљ</string>
+  <string name="ratedTournament">Хаклавшӑн</string>
   <string name="thisGameIsRated">Ку хаклавшӑн вӑййи</string>
   <string name="rematch">Рематч сӗн</string>
   <string name="rematchOfferSent">Рематч сӗнни йанӑ</string>
@@ -179,6 +181,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s ҫеккунт пар</item>
   </plurals>
+  <string name="giveMoreTime">Вӑхӑт партар</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ҫак вӑйӑҫ шахмат компйутӑрӗ пулӑшнипе выљать</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ҫак вӑйӑҫӑ хӑйӗн рейтингне йури ӳстерет / чакарать</string>
   <string name="takeback">Тавӑрасси</string>
