@@ -44,6 +44,8 @@ case class AiConfig(
   } start
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
+
+  def timeControlFromPosition = variant != chess.variant.FromPosition || time >= 1
 }
 
 object AiConfig extends BaseConfig {

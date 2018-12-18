@@ -111,5 +111,6 @@ private object bits {
   val dataMax = attr("data-max")
   val dataValidateUrl = attr("data-validate-url")
   val dataResizable = attr("data-resizable")
+  val dataType = attr("data-type")
   val groupTag = tag("group")
 }

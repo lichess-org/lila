@@ -179,15 +179,17 @@ module.exports = function(cfg, element) {
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
     var $casual = $modeChoices.eq(0),
-      $rated = $modeChoices.eq(1);
+    $rated = $modeChoices.eq(1);
     var $variantSelect = $form.find('#variant');
     var $fenPosition = $form.find(".fen_position");
     var $timeInput = $form.find('.time_choice input');
     var $incrementInput = $form.find('.increment_choice input');
     var $daysInput = $form.find('.days_choice input');
-    var isHook = $form.hasClass('game_config_hook');
+    var typ = $form.data('type');
     var $ratings = $form.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
+    var $submits = $form.find('.color_submits button');
+    var $formTag = $form.find('form');
     var toggleButtons = function() {
       var variantId = $variantSelect.val();
       var timeMode = $timeModeSelect.val();
@@ -197,20 +199,18 @@ module.exports = function(cfg, element) {
       // no rated variants with less than 30s on the clock
       var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
         (variantId != '1' && timeMode != '1');
-      if (cantBeRated) {
-        if (rated) {
-          $casual.click();
-          return toggleButtons();
-        }
+      if (cantBeRated && rated) {
+        $casual.click();
+        return toggleButtons();
       }
       $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
-      var ratedOk = !isHook || !rated || timeMode != '0';
-      if (timeOk && ratedOk) {
-        $form.find('.color_submits button').toggleClass('nope', false);
-        $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
-      } else
-        $form.find('.color_submits button').toggleClass('nope', true);
+      var ratedOk = typ != 'hook' || !rated || timeMode != '0';
+      var aiOk = typ != 'ai' || variantId != '3' || $timeInput.val() >= 1;
+      if (timeOk && ratedOk && aiOk) {
+        $submits.toggleClass('nope', false);
+        $submits.filter(':not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
+      } else $submits.toggleClass('nope', true);
     };
     var showRating = function() {
       var timeMode = $timeModeSelect.val();
@@ -226,35 +226,34 @@ module.exports = function(cfg, element) {
             else key = 'classical';
           } else key = 'correspondence';
           break;
-        case '10':
-          key = 'crazyhouse';
-          break;
-        case '2':
-          key = 'chess960';
-          break;
-        case '4':
-          key = 'kingOfTheHill';
-          break;
-        case '5':
-          key = 'threeCheck';
-          break;
-        case '6':
-          key = 'antichess'
-          break;
-        case '7':
-          key = 'atomic'
-          break;
-        case '8':
-          key = "horde"
-          break;
-        case '9':
-          key = "racingKings"
-          break;
+ case '10':
+   key = 'crazyhouse';
+   break;
+ case '2':
+   key = 'chess960';
+   break;
+ case '4':
+   key = 'kingOfTheHill';
+   break;
+ case '5':
+   key = 'threeCheck';
+   break;
+ case '6':
+   key = 'antichess'
+     break;
+ case '7':
+   key = 'atomic'
+     break;
+ case '8':
+   key = "horde"
+     break;
+ case '9':
+   key = "racingKings"
+     break;
       }
       $ratings.hide().filter('.' + key).show();
     };
-    if (isHook) {
-      var $formTag = $form.find('form');
+    if (typ == 'hook') {
       if ($form.data('anon')) {
         $timeModeSelect.val(1)
           .children('.timeMode_2, .timeMode_0')
@@ -277,20 +276,19 @@ module.exports = function(cfg, element) {
         $.ajax(call);
         return false;
       };
-      $formTag.find('.color_submits button').click(function() {
+      $submits.click(function() {
         return ajaxSubmit($(this).val());
       }).attr('disabled', false);
       $formTag.submit(function() {
         return ajaxSubmit('random');
       });
-    } else
-      $form.find('form').one('submit', function() {
-        $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
-      });
+    } else $formTag.one('submit', function() {
+      $submits.hide().end().append(lichess.spinnerHtml);
+    });
     lichess.slider().done(function() {
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
-          $value = $input.siblings('span');
+        $value = $input.siblings('span');
         var isTimeSlider = $input.parent().hasClass('time_choice');
         $input.hide().after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
@@ -309,7 +307,7 @@ module.exports = function(cfg, element) {
       });
       $daysInput.each(function() {
         var $input = $(this),
-          $value = $input.siblings('span');
+        $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
           value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
           min: 1,
@@ -354,64 +352,64 @@ module.exports = function(cfg, element) {
     }).trigger('change');
 
     var $fenInput = $fenPosition.find('input');
-    var validateFen = lichess.fp.debounce(function() {
-      $fenInput.removeClass("success failure");
-      var fen = $fenInput.val();
-      if (fen) {
-        $.ajax({
-          url: $fenInput.parent().data('validate-url'),
-          data: {
-            fen: fen
-          },
-          success: function(data) {
-            $fenInput.addClass("success");
-            $fenPosition.find('.preview').html(data);
-            $fenPosition.find('a.board_editor').each(function() {
-              $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
-            });
-            $form.find('.color_submits button').removeClass('nope');
-            lichess.pubsub.emit('content_loaded')();
-          },
-          error: function() {
-            $fenInput.addClass("failure");
-            $fenPosition.find('.preview').html("");
-            $form.find('.color_submits button').addClass('nope');
-          }
-        });
-      }
-    }, 200);
-    $fenInput.on('keyup', validateFen);
-
-    $variantSelect.on('change', function() {
-      var fen = $(this).val() == '3';
-      $fenPosition.toggle(fen);
-      $modeChoicesWrap.toggle(!fen);
-      if (fen) {
-        $casual.click();
-        lichess.raf(function() {
-          document.body.dispatchEvent(new Event('chessground.resize'));
-        });
-      }
-      showRating();
-      toggleButtons();
-    }).trigger('change');
-
-    $form.find('div.level').each(function() {
-      var $infos = $(this).find('.ai_info > div');
-      $(this).find('label').mouseenter(function() {
-        $infos.hide().filter('.' + $(this).attr('for')).show();
+  var validateFen = lichess.fp.debounce(function() {
+    $fenInput.removeClass("success failure");
+    var fen = $fenInput.val();
+    if (fen) {
+      $.ajax({
+        url: $fenInput.parent().data('validate-url'),
+        data: {
+          fen: fen
+        },
+        success: function(data) {
+          $fenInput.addClass("success");
+          $fenPosition.find('.preview').html(data);
+          $fenPosition.find('a.board_editor').each(function() {
+            $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
+          });
+          $form.find('.color_submits button').removeClass('nope');
+          lichess.pubsub.emit('content_loaded')();
+        },
+        error: function() {
+          $fenInput.addClass("failure");
+          $fenPosition.find('.preview').html("");
+          $form.find('.color_submits button').addClass('nope');
+        }
       });
-      $(this).find('#config_level').mouseleave(function() {
-        var level = $(this).find('input:checked').val();
-        $infos.hide().filter('.level_' + level).show();
-      }).trigger('mouseout');
-    });
+    }
+  }, 200);
+  $fenInput.on('keyup', validateFen);
 
-    $form.find('a.close.icon').click(function() {
-      $form.remove();
-      $startButtons.find('a.active').removeClass('active');
-      return false;
+  $variantSelect.on('change', function() {
+    var fen = $(this).val() == '3';
+    $fenPosition.toggle(fen);
+    $modeChoicesWrap.toggle(!fen);
+    if (fen) {
+      $casual.click();
+      lichess.raf(function() {
+        document.body.dispatchEvent(new Event('chessground.resize'));
+      });
+    }
+    showRating();
+    toggleButtons();
+  }).trigger('change');
+
+  $form.find('div.level').each(function() {
+    var $infos = $(this).find('.ai_info > div');
+    $(this).find('label').mouseenter(function() {
+      $infos.hide().filter('.' + $(this).attr('for')).show();
     });
+    $(this).find('#config_level').mouseleave(function() {
+      var level = $(this).find('input:checked').val();
+      $infos.hide().filter('.level_' + level).show();
+    }).trigger('mouseout');
+  });
+
+  $form.find('a.close.icon').click(function() {
+    $form.remove();
+    $startButtons.find('a.active').removeClass('active');
+    return false;
+  });
   }
 
   $startButtons.find('a').not('.disabled').on('mousedown', function() {
@@ -444,14 +442,14 @@ module.exports = function(cfg, element) {
         $(this).attr("href", $(this).attr("href") + location.search);
       }).trigger('mousedown');
 
-    if (location.hash === '#hook') {
-      if (/time=realTime/.test(location.search))
-        lobby.setTab('real_time');
-      else if (/time=correspondence/.test(location.search))
-        lobby.setTab('seeks');
-    }
+      if (location.hash === '#hook') {
+        if (/time=realTime/.test(location.search))
+          lobby.setTab('real_time');
+        else if (/time=correspondence/.test(location.search))
+          lobby.setTab('seeks');
+      }
 
-    history.replaceState(null, null, '/');
+      history.replaceState(null, null, '/');
   }
 };
 

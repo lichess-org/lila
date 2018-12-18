@@ -100,8 +100,9 @@ object forms {
     error: Option[Frag] = None
   )(fields: Frag)(implicit ctx: Context) =
     div(
-      cls := s"""lichess_overboard game_config game_config_$typ${error.isDefined ?? " error"}""",
+      cls := s"""lichess_overboard game_config${error.isDefined ?? " error"}""",
       dataRandomColorVariants,
+      dataType := typ,
       dataAnon := ctx.isAnon.option("1")
     )(
         a(href := routes.Lobby.home, cls := "close icon", st.title := trans.cancel.txt(), dataIcon := "L"),

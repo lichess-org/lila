@@ -3,7 +3,7 @@ package lila.game
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
-import chess.variant.{ Variant, Standard }
+import chess.variant.{ Variant, Standard, FromPosition }
 import chess.{ Speed, PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
 import org.joda.time.DateTime
 
@@ -305,7 +305,9 @@ case class Game(
     !player(color).isOfferingRematch &&
       finishedOrAborted &&
       nonMandatory &&
-      !boosted
+      !boosted && !{
+        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      }
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&

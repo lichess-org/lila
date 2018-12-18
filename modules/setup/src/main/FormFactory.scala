@@ -47,6 +47,7 @@ private[setup] final class FormFactory(
       "fen" -> fen
     )(AiConfig.<<)(_.>>)
       .verifying("invalidFen", _.validFen)
+      .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
   def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig map (_.ai)

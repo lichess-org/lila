@@ -120,7 +120,7 @@ trait BaseConfig {
   val variantsWithFenAndVariants =
     variantsWithVariants :+ FromPosition.id
 
-  val speeds = Speed.all map (_.id)
+  val speeds = Speed.all.map(_.id)
 
   private val timeMin = 0
   private val timeMax = 180
