@@ -274,7 +274,7 @@ object Api extends LilaController {
     jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
   }
 
-  def eventStream = Scoped() { req => me =>
+  def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { req => me =>
     lila.game.GameRepo.urgentGames(me) flatMap { povs =>
       Env.challenge.api.createdByDestId(me.id) map { challenges =>
         jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
