@@ -23,7 +23,7 @@ object OAuthScope {
   }
 
   object Bot {
-    case object Play extends OAuthScope("bot:play", "Play bot moves")
+    case object Play extends OAuthScope("bot:play", "Play as a bot")
   }
 
   case class Scoped(user: lidraughts.user.User, scopes: List[OAuthScope])
