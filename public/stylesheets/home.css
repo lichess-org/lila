@@ -189,6 +189,10 @@ body.dark #hooks_wrap .hook_filter {
 #hooks_wrap .hook_filter input {
   vertical-align: middle;
   cursor: pointer;
+  margin-right: .25em;
+}
+#hooks_wrap .hook_filter input[type=checkbox] {
+  margin-right: .25em;
 }
 #hooks_wrap .hook_filter .range {
   display: block;

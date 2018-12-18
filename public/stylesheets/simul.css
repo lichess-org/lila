@@ -32,6 +32,7 @@
 }
 #simul form.plain input[type=checkbox] {
   width: auto;
+  margin-right: .25em;
 }
 #simul form.plain select {
   padding: 0.5% 1%;

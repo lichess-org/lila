@@ -62,7 +62,7 @@ object filter {
     checks: List[String],
     options: Seq[(Any, String, Option[String])],
     disabled: Boolean = false
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context): Frag =
     options.zipWithIndex.map {
       case ((value, text, hint), index) => div(cls := "checkable")(
         renderCheckbox(form, key, index, value.toString, checks, raw(text), hint, disabled)

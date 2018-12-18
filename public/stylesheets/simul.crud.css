@@ -104,6 +104,9 @@ table.slist time {
 .simul_crud .form-group.short-margin {
   margin-bottom: 1rem;
 }
+.simul_crud .form3 input[type=checkbox] {
+  margin-right: .25em;
+}
 .simul_crud .arbiter {
   font-size: 0.8rem;
   opacity: 0.9;
