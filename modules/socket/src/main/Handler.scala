@@ -29,7 +29,7 @@ object Handler {
   def AnaRateLimit[A: Zero](uid: Socket.Uid, member: SocketMember)(op: => A) =
     AnaRateLimiter(uid.value, msg = s"user: ${member.userId | "anon"}")(op)
 
-  private type OnPing = (SocketTrouper[_], SocketMember, Socket.Uid, ApiVersion) => Unit
+  type OnPing = (SocketTrouper[_], SocketMember, Socket.Uid, ApiVersion) => Unit
 
   val defaultOnPing: OnPing = (socket, member, uid, apiVersion) => {
     socket setAlive uid
@@ -63,7 +63,10 @@ object Handler {
       .map(_ => socket ! Quit(uid))
   }
 
-  private val noop = (_: Any) => {}
+  def recordUserLagFromPing(member: SocketMember, ping: JsObject) = for {
+    user <- member.userId
+    lag <- (ping \ "l").asOpt[Centis]
+  } UserLagCache.put(user, lag)
 
   private def baseController(
     hub: lila.hub.Env,
@@ -76,10 +79,7 @@ object Handler {
     // latency ping, or BC mobile app ping
     case ("p", o) =>
       onPing(socket, member, uid, apiVersion)
-      for {
-        user <- member.userId
-        lag <- (o \ "l").asOpt[Centis]
-      } UserLagCache.put(user, lag)
+      recordUserLagFromPing(member, o)
     case ("following_onlines", _) => member.userId foreach { u =>
       hub.relation ! ReloadOnlineFriends(u)
     }

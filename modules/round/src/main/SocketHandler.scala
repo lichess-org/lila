@@ -43,7 +43,7 @@ private[round] final class SocketHandler(
     ref: PovRef,
     member: Member,
     me: Option[User],
-    apiVersion: ApiVersion
+    onPing: () => Unit
   ): Handler.Controller = {
 
     def send(msg: Any): Unit = roundMap.tell(gameId, msg)
@@ -59,6 +59,12 @@ private[round] final class SocketHandler(
       publicSource = PublicSource.Watcher(gameId).some
     )) { playerId =>
       ({
+        case ("p", o) =>
+          onPing()
+          Handler.recordUserLagFromPing(member, o)
+          (o \ "v").asOpt[Int] foreach { v =>
+            socket ! VersionCheck(Socket.SocketVersion(v), member)
+          }
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
@@ -166,19 +172,22 @@ private[round] final class SocketHandler(
         val chatSetup = playerId.isDefined ?? {
           pov.game.tournamentId.map(Chat.tournamentSetup) orElse pov.game.simulId.map(Chat.simulSetup)
         }
+        val onPing: Handler.OnPing =
+          if (member.owner) (_, _, _, _) => {
+            Handler.defaultOnPing(socket, member, uid, apiVersion)
+            if (member.owner) socket.playerDo(member.color, _.ping)
+          }
+          else Handler.defaultOnPing
+
         Handler.iteratee(
           hub,
-          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user, apiVersion),
+          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user,
+            () => onPing(socket, member, uid, apiVersion)),
           member,
           socket,
           uid,
           apiVersion,
-          onPing =
-            if (member.owner) (_, _, _, _) => {
-              Handler.defaultOnPing(socket, member, uid, apiVersion)
-              if (member.owner) socket.playerDo(member.color, _.ping)
-            }
-            else Handler.defaultOnPing
+          onPing = onPing
         ) -> enum
     }
   }

@@ -56,6 +56,8 @@ case class Owner(
 
   val playerIdOption = playerId.some
   val userTv = none
+
+  override def toString = s"$color owner: ${userId | "anon"}"
 }
 
 case class Watcher(
@@ -68,6 +70,8 @@ case class Watcher(
 ) extends Member {
 
   val playerIdOption = none
+
+  override def toString = s"$color watcher: ${userId | "anon"}"
 }
 
 case class Join(
@@ -80,6 +84,7 @@ case class Join(
     version: Option[SocketVersion],
     promise: Promise[Connected]
 )
+case class VersionCheck(version: SocketVersion, member: Member)
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

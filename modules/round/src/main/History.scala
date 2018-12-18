@@ -29,7 +29,6 @@ private final class History(
   // none if version asked is > to history version
   // none if an event is missing (asked too old version)
   def getEventsSince(v: SocketVersion): Option[List[VersionedEvent]] = {
-    waitForLoadedEvents
     val version = getVersion
     if (v > version) None
     else if (v == version) Some(Nil)
@@ -43,6 +42,22 @@ private final class History(
       result
     }
   }
+
+  /* if v+1 refers to an old event,
+   * then the client probably has skipped events somehow.
+   * Log and send new events.
+   * None => client is too late, or has greater version than server. Resync.
+   * Some(List.empty) => all is good, do nothing
+   * Some(List.nonEmpty) => late client, send new events
+   *
+   * We check the event age because if the client sends a
+   * versionCheck ping while the server sends an event,
+   * we can get a false positive.
+   * */
+  def versionCheck(v: SocketVersion): Option[List[VersionedEvent]] =
+    getEventsSince(v) map { evs =>
+      if (evs.headOption.exists(_ hasSeconds 7)) evs else Nil
+    }
 
   def getRecentEvents(maxEvents: Int): List[VersionedEvent] = {
     waitForLoadedEvents

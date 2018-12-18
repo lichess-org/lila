@@ -218,6 +218,10 @@ object mon {
     object history {
       val getEventsDelta = rec("round.history.getEventsDelta")
       val getEventsTooFar = inc("round.history.getEventsTooFar")
+      object versionCheck {
+        val getEventsTooFar = inc("round.history.versionCheck.getEventsTooFar")
+        val lateClient = inc("round.history.versionCheck.lateClient")
+      }
     }
   }
   object playban {

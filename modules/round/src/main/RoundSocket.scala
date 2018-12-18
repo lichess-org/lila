@@ -169,7 +169,7 @@ private[round] final class RoundSocket(
         )
       }
 
-    case Join(uid, user, color, playerId, ip, onTv, version, promise) =>
+    case Join(uid, user, color, playerId, ip, onTv, version, promise) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip, onTv.map(_.userId))
       addMember(uid, member)
@@ -197,6 +197,19 @@ private[round] final class RoundSocket(
       )
 
       promise success Connected(fullEnumerator, member)
+    }
+
+    // see History.versionCheck
+    case VersionCheck(version, member) => history versionCheck version match {
+      case None =>
+        lila.mon.round.history.versionCheck.getEventsTooFar()
+        member push resyncMessage
+      case Some(Nil) => // all good, nothing to do
+      case Some(evs) =>
+        lila.mon.round.history.versionCheck.lateClient()
+        logger.info(s"Late client $version < ${evs.lastOption.??(_.version)} $gameId $member")
+        batchMsgs(member, evs) foreach member.push
+    }
 
     case eventList: EventList => notify(eventList.events)
 
