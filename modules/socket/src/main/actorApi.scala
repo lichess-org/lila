@@ -3,17 +3,14 @@ package actorApi
 
 import play.api.libs.json.JsObject
 
-case class Connected[M <: SocketMember](
-    enumerator: JsEnumerator,
-    member: M
-)
+case class Connected(enumerator: JsEnumerator, member: SocketMember)
 case class BotConnected(color: chess.Color, v: Boolean)
 
 private[socket] case object Broom
 private[socket] case class Quit(uid: Socket.Uid)
 
-case class SocketEnter[M <: SocketMember](uid: Socket.Uid, member: M)
-case class SocketLeave[M <: SocketMember](uid: Socket.Uid, member: M)
+case class SocketEnter(uid: Socket.Uid, member: SocketMember)
+case class SocketLeave(uid: Socket.Uid, member: SocketMember)
 
 case class Resync(uid: Socket.Uid)
 
