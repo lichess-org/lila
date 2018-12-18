@@ -173,21 +173,14 @@ module.exports = function(cfg, element) {
     };
   }
 
-  function hackFixSelect($select) {
-    $select.find('option[selected=false]').removeAttr('selected');
-    $select.val($select.find('option[selected=true]').val());
-  }
-
   function prepareForm() {
     var $form = $('.lichess_overboard');
     var $timeModeSelect = $form.find('#timeMode');
-    hackFixSelect($timeModeSelect);
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
     var $casual = $modeChoices.eq(0),
       $rated = $modeChoices.eq(1);
     var $variantSelect = $form.find('#variant');
-    hackFixSelect($variantSelect);
     var $fenPosition = $form.find(".fen_position");
     var $timeInput = $form.find('.time_choice input');
     var $incrementInput = $form.find('.increment_choice input');
