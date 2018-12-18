@@ -74,7 +74,7 @@ object Challenge extends LilaController {
       }
     }
   }
-  def apiAccept(id: String) = Scoped(_.Challenge.Write) { _ => me =>
+  def apiAccept(id: String) = Scoped(_.Challenge.Write, _.Bot.Play) { _ => me =>
     env.api.onlineByIdFor(id, me) flatMap {
       _ ?? { env.api.accept(_, me.some) }
     } flatMap { res =>
@@ -109,7 +109,7 @@ object Challenge extends LilaController {
       else notFound
     }
   }
-  def apiDecline(id: String) = Scoped(_.Challenge.Write) { _ => me =>
+  def apiDecline(id: String) = Scoped(_.Challenge.Write, _.Bot.Play) { _ => me =>
     env.api.activeByIdFor(id, me) flatMap {
       case None => Env.bot.player.rematchDecline(id, me) flatMap {
         case true => jsonOkResult.fuccess
@@ -147,7 +147,7 @@ object Challenge extends LilaController {
     }
   }
 
-  def apiCreate(userId: String) = ScopedBody(_.Challenge.Write) { implicit req => me =>
+  def apiCreate(userId: String) = ScopedBody(_.Challenge.Write, _.Bot.Play) { implicit req => me =>
     implicit val lang = lila.i18n.I18nLangPicker(req, me.some)
     Setup.PostRateLimit(HTTPRequest lastRemoteAddress req) {
       Env.setup.forms.api.bindFromRequest.fold(

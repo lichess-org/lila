@@ -1,6 +1,8 @@
 package lila.oauth
 
-sealed abstract class OAuthScope(val key: String, val name: String)
+sealed abstract class OAuthScope(val key: String, val name: String) {
+  override def toString = s"Scope($key)"
+}
 
 object OAuthScope {
 
