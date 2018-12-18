@@ -11,11 +11,11 @@ private[socket] final class Population(system: akka.actor.ActorSystem) extends T
 
   val process: Trouper.Receive = {
 
-    case _: SocketEnter[_] =>
+    case _: SocketEnter =>
       nb = nb + 1
       lidraughts.mon.socket.open()
 
-    case _: SocketLeave[_] =>
+    case _: SocketLeave =>
       nb = nb - 1
       lidraughts.mon.socket.close()
 
