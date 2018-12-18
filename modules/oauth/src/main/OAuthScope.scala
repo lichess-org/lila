@@ -4,10 +4,6 @@ sealed abstract class OAuthScope(val key: String, val name: String)
 
 object OAuthScope {
 
-  object Game {
-    case object Read extends OAuthScope("game:read", "Download all games")
-  }
-
   object Preference {
     case object Read extends OAuthScope("preference:read", "Read preferences")
     case object Write extends OAuthScope("preference:write", "Write preferences")
@@ -15,6 +11,11 @@ object OAuthScope {
 
   object Email {
     case object Read extends OAuthScope("email:read", "Read email address")
+  }
+
+  object Challenge {
+    case object Read extends OAuthScope("challenge:read", "Read incoming challenges")
+    case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
   }
 
   object Tournament {
@@ -30,9 +31,9 @@ object OAuthScope {
   type Selector = OAuthScope.type => OAuthScope
 
   val all = List(
-    Game.Read,
     Preference.Read, Preference.Write,
     Email.Read,
+    Challenge.Read, Challenge.Write,
     Tournament.Write,
     Bot.Play
   )
