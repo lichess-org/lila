@@ -11,6 +11,7 @@
 # To restore normal traffic:
 # iptables-drop 0
 
+PORT=443
 DROP_RATIO=${1-0}
 IPTABLES_COMMANDS="iptables ip6tables"
 
@@ -41,7 +42,7 @@ if (( $(echo "$DROP_RATIO > 0" | bc -l) )); then
   echo;
 
   for IPTABLES in $IPTABLES_COMMANDS; do
-    COMMAND="$IPTABLES -I INPUT 1 --protocol tcp -m multiport --dports 9004 --match statistic --mode random --probability $DROP_RATIO --jump DROP";
+    COMMAND="$IPTABLES -I INPUT 1 --protocol tcp -m multiport --dports $PORT --match statistic --mode random --probability $DROP_RATIO --jump DROP";
     echo $COMMAND;
     $COMMAND;
   done
