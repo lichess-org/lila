@@ -95,8 +95,6 @@ fi
 if [ $FRONT_REMOTE ] && [ $FRONT_REMOTE_DIR ]; then
   lilalog "Deploy assets to $mode frontend server $FRONT_REMOTE:$FRONT_REMOTE_DIR"
   rsync --archive --no-o --no-g --progress public $FRONT_REMOTE:$FRONT_REMOTE_DIR
-  lilalog "Deploy scripts to $mode frontend server $FRONT_REMOTE:$FRONT_REMOTE_DIR"
-  rsync --archive --no-o --no-g --progress bin $FRONT_REMOTE:$FRONT_REMOTE_DIR
 fi
 
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
@@ -107,23 +105,17 @@ if [ $mode = "main" ]; then
   sleep 1
 fi
 
+# start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
+START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.9"
+STOP_DROPPING="sleep w && $REMOTE_DIR/bin/prod/iptables-drop 0.75 && sleep 6 && $REMOTE_DIR/bin/prod/iptables-drop 0"
+# STOP_DROPPING="echo \"not resuming traffic\""
+
 if [ $mode = "main" ]; then
-  START_DROPPING="$FRONT_REMOTE_DIR/bin/prod/iptables-drop 0.95"
-  STOP_DROPPING="$FRONT_REMOTE_DIR/bin/prod/iptables-drop 0.75 && sleep 8 && $FRONT_REMOTE_DIR/bin/prod/iptables-drop 0"
-
-  lilalog "Start dropping"
-  echo $START_DROPPING
-  ssh $FRONT_REMOTE $START_DROPPING
-
   lilalog "Restart lichess"
   RUN_DIR="/home/lichess"
-  SSH_COMMAND="rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess"
+  SSH_COMMAND="$START_DROPPING && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess && $STOP_DROPPING"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
-
-  lilalog "Stop dropping"
-  echo $STOP_DROPPING
-  ssh $FRONT_REMOTE $STOP_DROPPING
 fi
 if [ $mode = "stage" ]; then
   lilalog "Restart lichess-stage"
