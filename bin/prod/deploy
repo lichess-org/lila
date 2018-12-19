@@ -2,6 +2,7 @@
 . bin/lilarc
 
 mode=$1
+
 if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
@@ -17,6 +18,11 @@ elif [ $mode = "stage" ]; then
   FRONT_REMOTE="khiaw"
   FRONT_REMOTE_DIR="/home/lichess-stage"
   CLI="bin/cli-stage"
+elif [ $mode = "stress" ]; then
+  REMOTE="listress"
+  REMOTE_DIR="/home/lichess-deploy"
+  FRONT_REMOTE=$REMOTE
+  FRONT_REMOTE_DIR=$REMOTE_DIR
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
@@ -46,7 +52,7 @@ if [ $mode = "main" ]; then
 fi
 
 SBT_OPTS=""
-export JAVA_OPTS="-Xms2048m -Xmx2560m -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
+export JAVA_OPTS="-Xms512m -Xmx2048m -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
 sbt stage exit
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
@@ -120,6 +126,12 @@ fi
 if [ $mode = "stage" ]; then
   lilalog "Restart lichess-stage"
   SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR && systemctl restart lichess-stage"
+  echo $SSH_COMMAND
+  ssh $REMOTE $SSH_COMMAND
+fi
+if [ $mode = "stress" ]; then
+  lilalog "Restart lichess-stage"
+  SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR && systemctl restart lichess-stress"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
 fi
