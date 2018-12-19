@@ -50,6 +50,7 @@
 #lidraughts_blog .body p {
   margin: 15px 0;
 }
+#lidraughts_blog .meta a,
 #lidraughts_blog .body a {
   text-decoration: underline;
 }
