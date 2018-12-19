@@ -50,6 +50,7 @@
 #lichess_blog .body p {
   margin: 15px 0;
 }
+#lichess_blog .meta a,
 #lichess_blog .body a {
   text-decoration: underline;
 }
