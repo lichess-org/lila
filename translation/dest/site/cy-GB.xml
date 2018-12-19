@@ -426,6 +426,7 @@
   <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
   <string name="pgnPieceNotation">Math o gofnod</string>
+  <string name="chessPieceSymbol">Nodiad symbolau</string>
   <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
@@ -613,6 +614,7 @@
   <string name="viewTheSolution">Gweld yr ateb</string>
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
+  <string name="quickPairing">Gem yn sydyn</string>
   <string name="lobby">Cyntedd</string>
   <string name="anonymous">DiEnw</string>
   <string name="yourScore">Eich sgor:%s</string>
@@ -639,6 +641,7 @@
   <string name="error.minLength">Yr hyd lleiaf sy\'n dderbyniol yw %s (medd yr actores wrth yr esgob)</string>
   <string name="error.maxLength">Yr hyd mwyaf sy\'n dderbyniol yw %s</string>
   <string name="error.min">Rhaid bod yn gyfartal i neu yn uwch na %s</string>
+  <string name="error.max">Rhaid bod yn gyfartal i neu yn llai na %s</string>
   <string name="error.unknown">Gwall</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
