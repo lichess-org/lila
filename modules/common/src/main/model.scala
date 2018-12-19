@@ -18,6 +18,8 @@ object AssetVersion {
   private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
 }
 
+case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
+
 case class MaxPerPage(value: Int) extends AnyVal with IntValue
 
 case class MaxPerSecond(value: Int) extends AnyVal with IntValue

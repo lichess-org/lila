@@ -216,12 +216,19 @@ object mon {
       val count = inc("round.expiration.count")
     }
     object history {
-      val getEventsDelta = rec("round.history.getEventsDelta")
-      val getEventsTooFar = inc("round.history.getEventsTooFar")
-      object versionCheck {
-        val getEventsTooFar = inc("round.history.versionCheck.getEventsTooFar")
-        val lateClient = inc("round.history.versionCheck.lateClient")
+      sealed abstract class PlatformHistory(platform: String) {
+        val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
+        val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
+        object versionCheck {
+          val getEventsDelta = rec(s"round.history.versionCheck.$platform.getEventsDelta")
+          val getEventsTooFar = inc(s"round.history.$platform.versionCheck.getEventsTooFar")
+          val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
+        }
       }
+      object mobile extends PlatformHistory("mobile")
+      object site extends PlatformHistory("site")
+      def apply(isMobile: lila.common.IsMobile): PlatformHistory =
+        if (isMobile.value) mobile else site
     }
   }
   object playban {

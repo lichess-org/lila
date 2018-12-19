@@ -6,9 +6,8 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
-import lila.common.IpAddress
-import lila.socket.Socket.SocketVersion
-import lila.socket.Socket.Uid
+import lila.common.{ IpAddress, IsMobile }
+import lila.socket.Socket.{ SocketVersion, Uid }
 import lila.socket.SocketMember
 import lila.user.User
 
@@ -75,12 +74,12 @@ case class Join(
     user: Option[User],
     color: Color,
     playerId: Option[String],
-    ip: IpAddress,
     userTv: Option[UserTv],
     version: Option[SocketVersion],
+    mobile: IsMobile,
     promise: Promise[Connected]
 )
-case class VersionCheck(version: SocketVersion, member: Member)
+case class VersionCheck(version: SocketVersion, member: Member, mobile: IsMobile)
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

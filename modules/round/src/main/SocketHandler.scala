@@ -10,7 +10,7 @@ import play.api.libs.json.{ JsObject, JsNumber, Json, Reads }
 
 import actorApi._, round._
 import lila.chat.Chat
-import lila.common.{ IpAddress, ApiVersion }
+import lila.common.{ IpAddress, ApiVersion, IsMobile }
 import lila.game.{ Pov, PovRef, Game }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
@@ -44,6 +44,7 @@ private[round] final class SocketHandler(
     member: Member,
     ip: IpAddress,
     me: Option[User],
+    mobile: IsMobile,
     onPing: () => Unit
   ): Handler.Controller = {
 
@@ -53,7 +54,7 @@ private[round] final class SocketHandler(
       onPing()
       Handler.recordUserLagFromPing(member, o)
       (o \ "v").asOpt[Int] foreach { v =>
-        socket ! VersionCheck(Socket.SocketVersion(v), member)
+        socket ! VersionCheck(Socket.SocketVersion(v), member, mobile)
       }
     }
 
@@ -133,8 +134,9 @@ private[round] final class SocketHandler(
     ip: IpAddress,
     userTv: Option[UserTv],
     version: Option[Socket.SocketVersion],
-    apiVersion: ApiVersion
-  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv, version, apiVersion)
+    apiVersion: ApiVersion,
+    mobile: IsMobile
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv, version, apiVersion, mobile)
 
   def player(
     pov: Pov,
@@ -142,9 +144,10 @@ private[round] final class SocketHandler(
     user: Option[User],
     ip: IpAddress,
     version: Option[Socket.SocketVersion],
-    apiVersion: ApiVersion
+    apiVersion: ApiVersion,
+    mobile: IsMobile
   ): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, user, ip, none, version, apiVersion)
+    join(pov, Some(pov.playerId), uid, user, ip, none, version, apiVersion, mobile)
 
   private def join(
     pov: Pov,
@@ -154,7 +157,8 @@ private[round] final class SocketHandler(
     ip: IpAddress,
     userTv: Option[UserTv],
     version: Option[Socket.SocketVersion],
-    apiVersion: ApiVersion
+    apiVersion: ApiVersion,
+    mobile: IsMobile
   ): Fu[JsSocketHandler] = {
     val socket = socketMap getOrMake pov.gameId
     socket.ask[Connected](promise => Join(
@@ -162,9 +166,9 @@ private[round] final class SocketHandler(
       user = user,
       color = pov.color,
       playerId = playerId,
-      ip = ip,
       userTv = userTv,
       version = version,
+      mobile = mobile,
       promise = promise
     )) map {
       case Connected(enum, member) =>
@@ -186,7 +190,7 @@ private[round] final class SocketHandler(
 
         Handler.iteratee(
           hub,
-          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, ip, user,
+          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, ip, user, mobile,
             () => onPing(socket, member, uid, apiVersion)),
           member,
           socket,

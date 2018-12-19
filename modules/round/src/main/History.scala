@@ -28,17 +28,17 @@ private final class History(
 
   // none if version asked is > history version
   // none if an event is missing (asked too old version)
-  def getEventsSince(v: SocketVersion): Option[List[VersionedEvent]] = {
+  def getEventsSince(v: SocketVersion, mon: Option[lila.mon.round.history.PlatformHistory]): Option[List[VersionedEvent]] = {
     val version = getVersion
     if (v > version) None
     else if (v == version) Some(Nil)
     else {
       val delta = version.value - v.value
-      lila.mon.round.history.getEventsDelta(delta)
+      mon.foreach(_ getEventsDelta delta)
       val result = events.takeWhile(_.version > v).reverse.some filter {
         _.headOption.fold(true)(_.version == v.inc)
       }
-      if (result.isEmpty) lila.mon.round.history.getEventsTooFar()
+      mon.ifTrue(result.isEmpty).foreach(_.getEventsTooFar())
       result
     }
   }
@@ -55,7 +55,7 @@ private final class History(
    * we can get a false positive.
    * */
   def versionCheck(v: SocketVersion): Option[List[VersionedEvent]] =
-    getEventsSince(v) map { evs =>
+    getEventsSince(v, none) map { evs =>
       if (evs.headOption.exists(_ hasSeconds 10)) evs else Nil
     }
 

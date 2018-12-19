@@ -169,7 +169,7 @@ private[round] final class RoundSocket(
         )
       }
 
-    case Join(uid, user, color, playerId, ip, onTv, version, promise) => {
+    case Join(uid, user, color, playerId, onTv, version, mobile, promise) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, onTv.map(_.userId))
       addMember(uid, member)
@@ -177,14 +177,14 @@ private[round] final class RoundSocket(
       if (playerId.isDefined) playerDo(color, _.ping)
       val reloadTvEvent = onTv ?? {
         case UserTv(_, reload) => reload map {
-          case true => makeMessage("resync").some
+          case true => resyncMessage.some
           case false =>
             buscriptions.tv // reload buscriptions
             none
         }
       }
-      val events = version.fold(history.getRecentEvents(5).some) {
-        history.getEventsSince
+      val events = version.fold(history.getRecentEvents(5).some) { v =>
+        history.getEventsSince(v, lila.mon.round.history(mobile).some)
       }
 
       val initialMsgs = events.fold(resyncMessage.some) {
@@ -200,17 +200,18 @@ private[round] final class RoundSocket(
     }
 
     // see History.versionCheck
-    case VersionCheck(version, member) =>
-      // logger.info(s"Check client $version / ${history.getVersion} $gameId $member")
+    case VersionCheck(version, member, mobile) =>
+      // logger.info(s"Check mobile:$mobile $version / ${history.getVersion} $gameId $member")
       history versionCheck version match {
         case None =>
-          lila.mon.round.history.versionCheck.getEventsTooFar()
-          logger.info(s"Lost client $version < ${history.getVersion} $gameId $member")
+          lila.mon.round.history(mobile).versionCheck.getEventsTooFar()
+          logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
           member push resyncMessage
         case Some(Nil) => // all good, nothing to do
         case Some(evs) =>
-          lila.mon.round.history.versionCheck.lateClient()
-          logger.info(s"Late client $version < ${evs.lastOption.??(_.version)} $gameId $member")
+          lila.mon.round.history(mobile).getEventsDelta(evs.size)
+          lila.mon.round.history(mobile).versionCheck.lateClient()
+          logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
           batchMsgs(member, evs) foreach member.push
       }
 
