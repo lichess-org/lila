@@ -6,11 +6,10 @@ import scala.concurrent.Promise
 import draughts.format.Uci
 import draughts.{ MoveMetrics, Color }
 
-import lidraughts.common.IpAddress
+import lidraughts.common.{ IpAddress, IsMobile }
 import lidraughts.socket.Socket.{ SocketVersion, Uid }
 import lidraughts.socket.SocketMember
 import lidraughts.user.User
-import lidraughts.socket.Socket.SocketVersion
 
 case class EventList(events: List[lidraughts.game.Event])
 
@@ -75,12 +74,12 @@ case class Join(
     user: Option[User],
     color: Color,
     playerId: Option[String],
-    ip: IpAddress,
     userTv: Option[UserTv],
     version: Option[SocketVersion],
+    mobile: IsMobile,
     promise: Promise[Connected]
 )
-case class VersionCheck(version: SocketVersion, member: Member)
+case class VersionCheck(version: SocketVersion, member: Member, mobile: IsMobile)
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

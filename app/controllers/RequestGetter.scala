@@ -4,6 +4,7 @@ import lidraughts.api._
 import lidraughts.socket.Socket.Uid
 import lidraughts.user.UserContext
 import lidraughts.common.Form.trueish
+import lidraughts.common.IsMobile
 
 import play.api.mvc.RequestHeader
 
@@ -40,4 +41,7 @@ trait RequestGetter {
 
   protected def getBoolOpt(name: String, req: RequestHeader) =
     (getInt(name, req) map (trueish)) orElse (get(name, req) map trueish)
+
+  protected def getMobile(implicit ctx: UserContext) =
+    IsMobile(getBool("mobile"))
 }
