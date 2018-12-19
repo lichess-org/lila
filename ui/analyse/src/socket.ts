@@ -149,10 +149,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   return {
     receive(type: string, data: any): boolean {
       const handler = handlers[type];
-      if (handler) {
-        handler(data);
-        return true;
-      }
+      if (handler) handler(data);
       return !!ctrl.study && ctrl.study.socketHandler(type, data);
     },
     sendAnaMove,
