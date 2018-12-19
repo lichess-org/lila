@@ -56,7 +56,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
-  <string name="promoteVariation">Προαγωγή βαριάντας</string>
+  <string name="promoteVariation">Προαγωγή παραλλαγής</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="move">Κίνηση</string>
@@ -394,7 +394,7 @@
   <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
   <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
   <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
-  <string name="emptyTournamentName">Αφήστε το κενό για να ονομαστεί το τουρνουά ως κάποιον τυχαίο Γκραν Μετρ.</string>
+  <string name="emptyTournamentName">Αφήστε το κενό για να πάρει τ\' όνομά του από κάποιον τυχαίο Γραντ Μετρ.</string>
   <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
   <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
   <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
