@@ -135,7 +135,7 @@ export function ctrl(opts: Opts) {
     size() {
       return Object.keys(dict()).length;
     },
-    setSpectators: function(usernames) {
+    setSpectators(usernames: string[]) {
       this.inviteForm.setSpectators(usernames);
       spectatorIds = usernames.map(titleNameToId);
       updateOnline();
