@@ -48,7 +48,16 @@ private[round] final class SocketHandler(
 
     def send(msg: Any): Unit = roundMap.tell(gameId, msg)
 
+    def handlePing(o: JsObject) = {
+      onPing()
+      Handler.recordUserLagFromPing(member, o)
+      (o \ "v").asOpt[Int] foreach { v =>
+        socket ! VersionCheck(Socket.SocketVersion(v), member)
+      }
+    }
+
     member.playerIdOption.fold[Handler.Controller](({
+      case ("p", o) => handlePing(o)
       case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
@@ -59,12 +68,7 @@ private[round] final class SocketHandler(
       publicSource = PublicSource.Watcher(gameId).some
     )) { playerId =>
       ({
-        case ("p", o) =>
-          onPing()
-          Handler.recordUserLagFromPing(member, o)
-          (o \ "v").asOpt[Int] foreach { v =>
-            socket ! VersionCheck(Socket.SocketVersion(v), member)
-          }
+        case ("p", o) => handlePing(o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]

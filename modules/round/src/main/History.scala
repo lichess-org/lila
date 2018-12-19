@@ -26,7 +26,7 @@ private final class History(
     events.headOption.fold(SocketVersion(0))(_.version)
   }
 
-  // none if version asked is > to history version
+  // none if version asked is > history version
   // none if an event is missing (asked too old version)
   def getEventsSince(v: SocketVersion): Option[List[VersionedEvent]] = {
     val version = getVersion
@@ -56,7 +56,7 @@ private final class History(
    * */
   def versionCheck(v: SocketVersion): Option[List[VersionedEvent]] =
     getEventsSince(v) map { evs =>
-      if (evs.headOption.exists(_ hasSeconds 7)) evs else Nil
+      if (evs.headOption.exists(_ hasSeconds 10)) evs else Nil
     }
 
   def getRecentEvents(maxEvents: Int): List[VersionedEvent] = {

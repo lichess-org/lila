@@ -200,16 +200,19 @@ private[round] final class RoundSocket(
     }
 
     // see History.versionCheck
-    case VersionCheck(version, member) => history versionCheck version match {
-      case None =>
-        lila.mon.round.history.versionCheck.getEventsTooFar()
-        member push resyncMessage
-      case Some(Nil) => // all good, nothing to do
-      case Some(evs) =>
-        lila.mon.round.history.versionCheck.lateClient()
-        logger.info(s"Late client $version < ${evs.lastOption.??(_.version)} $gameId $member")
-        batchMsgs(member, evs) foreach member.push
-    }
+    case VersionCheck(version, member) =>
+      // logger.info(s"Check client $version / ${history.getVersion} $gameId $member")
+      history versionCheck version match {
+        case None =>
+          lila.mon.round.history.versionCheck.getEventsTooFar()
+          logger.info(s"Lost client $version < ${history.getVersion} $gameId $member")
+          member push resyncMessage
+        case Some(Nil) => // all good, nothing to do
+        case Some(evs) =>
+          lila.mon.round.history.versionCheck.lateClient()
+          logger.info(s"Late client $version < ${evs.lastOption.??(_.version)} $gameId $member")
+          batchMsgs(member, evs) foreach member.push
+      }
 
     case eventList: EventList => notify(eventList.events)
 
