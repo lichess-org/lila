@@ -66,9 +66,7 @@ object Account extends LilaController {
   }
 
   def apiMe = Scoped() { _ => me =>
-    Env.api.userApi.extended(me, me.some) map { json =>
-      Ok(json) as JSON
-    }
+    Env.api.userApi.extended(me, me.some) map { JsonOk(_) }
   }
 
   def apiNowPlaying = Scoped() { req => me =>
@@ -130,7 +128,7 @@ object Account extends LilaController {
   def apiEmail = Scoped(_.Email.Read) { _ => me =>
     UserRepo email me.id map {
       _ ?? { email =>
-        Ok(Json.obj("email" -> email.value))
+        JsonOk(Json.obj("email" -> email.value))
       }
     }
   }
@@ -230,7 +228,7 @@ object Account extends LilaController {
     Ok(html.account.kid(me)).fuccess
   }
   def apiKid = Scoped(_.Preference.Read) { _ => me =>
-    Ok(Json.obj("kid" -> me.kid)).fuccess
+    JsonOk(Json.obj("kid" -> me.kid)).fuccess
   }
 
   // App BC

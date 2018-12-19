@@ -177,7 +177,7 @@ private[controllers] trait LilaController
       case Right(scoped) =>
         lila.mon.user.oauth.usage.success()
         f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
-    } map { _ as JSON }
+    }
   }
 
   protected def OAuthSecure(perm: Permission.Selector)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
@@ -268,6 +268,7 @@ private[controllers] trait LilaController
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
   }
+  protected def JsonOk[A: Writes](a: A) = Ok(Json toJson a) as JSON
 
   protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]])(implicit ctx: Context) = fua flatMap {
     _.fold(notFound(ctx))(a => fuccess(Ok(Json toJson a) as JSON))

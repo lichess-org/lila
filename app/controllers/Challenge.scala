@@ -174,11 +174,11 @@ object Challenge extends LilaController {
               )
               (Env.challenge.api create challenge) map {
                 case true =>
-                  Ok(env.jsonView.show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some))
+                  JsonOk(env.jsonView.show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some))
                 case false =>
                   BadRequest(jsonError("Challenge not created"))
               }
-          }
+          } map (_ as JSON)
         }
       )
     }

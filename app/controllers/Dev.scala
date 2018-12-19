@@ -57,7 +57,7 @@ object Dev extends LilaController {
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
     lila.security.Granter(_.Cli)(me) ?? {
-      runAs(me.id, req.body) map { res => Ok(res) }
+      runAs(me.id, req.body) map { Ok(_) }
     }
   }
 

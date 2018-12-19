@@ -14,7 +14,7 @@ object Pref extends LilaController {
 
   def apiGet = Scoped(_.Preference.Read) { _ => me =>
     Env.pref.api.getPref(me) map { prefs =>
-      Ok {
+      JsonOk {
         import play.api.libs.json._
         import lila.pref.JsonView._
         Json.obj("prefs" -> prefs)
