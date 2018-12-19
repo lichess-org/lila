@@ -43,6 +43,7 @@ private[round] final class SocketHandler(
     uid: Socket.Uid,
     ref: PovRef,
     member: Member,
+    ip: IpAddress,
     me: Option[User],
     onPing: () => Unit
   ): Handler.Controller = {
@@ -99,7 +100,7 @@ private[round] final class SocketHandler(
           d ← o obj "d"
           mean ← d int "mean"
           sd ← d int "sd"
-        } send(HoldAlert(playerId, mean, sd, member.ip))
+        } send(HoldAlert(playerId, mean, sd, ip))
         case ("berserk", o) => member.userId foreach { userId =>
           hub.tournamentApi ! Berserk(gameId, userId)
           member.push(ackMessage((o \ "d" \ "a").asOpt[AckId]))
@@ -107,7 +108,7 @@ private[round] final class SocketHandler(
         case ("rep", o) => for {
           d ← o obj "d"
           name ← d str "n"
-        } selfReport(member.userId, member.ip, s"$gameId$playerId", name)
+        } selfReport(member.userId, ip, s"$gameId$playerId", name)
       }: Handler.Controller) orElse lidraughts.chat.Socket.in(
         chatId = chat.fold(Chat.Id(gameId))(_.id),
         publicSource = chat.map(_.publicSource),
@@ -177,7 +178,7 @@ private[round] final class SocketHandler(
 
         Handler.iteratee(
           hub,
-          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user,
+          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, ip, user,
             () => onPing(socket, member, uid, apiVersion)),
           member,
           socket,
