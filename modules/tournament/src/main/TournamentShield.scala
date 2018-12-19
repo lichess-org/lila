@@ -180,7 +180,8 @@ object TournamentShield {
     headline = s"Battle for the $name Shield",
     description = s"""This Shield trophy is unique.
 The winner keeps it for one month,
-then must defend it during the next $name Shield tournament!""",
+then must defend it during the next $name Shield tournament!
+More info on Shield tournaments here: https://bit.ly/2UYJdPN""",
     homepageHours = 6.some
   )
 }
