@@ -119,11 +119,20 @@ object Trophy {
       order = 102
     )
 
-    object ZHWC extends Kind(
-      key = "zhwc",
-      name = "Crazyhouse champion",
+    object ZHWC17 extends Kind(
+      key = "zhwc17",
+      name = "Crazyhouse champion 2017",
       icon = none,
-      url = "//lidraughts.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates".some,
+      url = "//lichess.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates".some,
+      klass = none,
+      order = 1
+    )
+
+    object ZHWC18 extends Kind(
+      key = "zhwc18",
+      name = "Crazyhouse champion 2018",
+      icon = none,
+      url = "//lichess.org/forum/team-crazyhouse-world-championship/opperwezen-the-2nd-cwc".some,
       klass = none,
       order = 1
     )
@@ -131,7 +140,7 @@ object Trophy {
     val all = List(
       Developer, Moderator, Verified,
       MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
-      ZHWC,
+      ZHWC17, ZHWC18,
       WayOfBerserk,
       MarathonSurvivor,
       BongcloudWarrior
