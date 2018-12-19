@@ -647,8 +647,8 @@
   <string name="mobileApp">Aplicación para móviles</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Acerca de</string>
-  <string name="aboutX">Sobre %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez totalmente gratuito (%2$s) creado con código abierto, libre, sin publicidad.</string>
+  <string name="aboutX">Acerca de %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez totalmente gratuito creado con código abierto, libre, sin publicidad.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contacto</string>
@@ -837,7 +837,7 @@
   <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu puntuación temporal de %s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu rating provisional %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
