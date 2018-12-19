@@ -7,10 +7,10 @@ import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
 import lila.common.IpAddress
+import lila.socket.Socket.SocketVersion
 import lila.socket.Socket.Uid
 import lila.socket.SocketMember
 import lila.user.User
-import lila.socket.Socket.SocketVersion
 
 case class EventList(events: List[lila.game.Event])
 
@@ -19,7 +19,6 @@ sealed trait Member extends SocketMember {
   val color: Color
   val playerIdOption: Option[String]
   val troll: Boolean
-  val ip: IpAddress
   val userTv: Option[User.ID]
 
   def owner = playerIdOption.isDefined
@@ -34,13 +33,12 @@ object Member {
     user: Option[User],
     color: Color,
     playerIdOption: Option[String],
-    ip: IpAddress,
     userTv: Option[User.ID]
   ): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip, userTv)) { playerId =>
-      Owner(channel, userId, playerId, color, troll, ip)
+    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, userTv)) { playerId =>
+      Owner(channel, userId, playerId, color, troll)
     }
   }
 }
@@ -50,8 +48,7 @@ case class Owner(
     userId: Option[User.ID],
     playerId: String,
     color: Color,
-    troll: Boolean,
-    ip: IpAddress
+    troll: Boolean
 ) extends Member {
 
   val playerIdOption = playerId.some
@@ -65,7 +62,6 @@ case class Watcher(
     userId: Option[User.ID],
     color: Color,
     troll: Boolean,
-    ip: IpAddress,
     userTv: Option[User.ID]
 ) extends Member {
 

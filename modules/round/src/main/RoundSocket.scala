@@ -171,7 +171,7 @@ private[round] final class RoundSocket(
 
     case Join(uid, user, color, playerId, ip, onTv, version, promise) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip, onTv.map(_.userId))
+      val member = Member(channel, user, color, playerId, onTv.map(_.userId))
       addMember(uid, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
