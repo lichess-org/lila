@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.app._
 import lila.common.HTTPRequest
@@ -15,10 +16,16 @@ object Timeline extends LilaController {
     negotiate(
       html =
         if (HTTPRequest.isXhr(ctx.req))
-          Env.timeline.entryApi.userEntries(me.id) map { html.timeline.entries(_) }
+          Env.timeline.entryApi.userEntries(me.id)
+          .logTimeIfGt(s"timeline site entries for ${me.id}", 10 seconds)
+          .map { html.timeline.entries(_) }
         else
-          Env.timeline.entryApi.moreUserEntries(me.id, nb) map { html.timeline.more(_) },
-      _ => Env.timeline.entryApi.moreUserEntries(me.id, nb) map { es => Ok(Json.obj("entries" -> es)) }
+          Env.timeline.entryApi.moreUserEntries(me.id, nb)
+            .logTimeIfGt(s"timeline site more entries ($nb) for ${me.id}", 10 seconds)
+            .map { html.timeline.more(_) },
+      _ => Env.timeline.entryApi.moreUserEntries(me.id, nb)
+        .logTimeIfGt(s"timeline mobile $nb for ${me.id}", 10 seconds)
+        .map { es => Ok(Json.obj("entries" -> es)) }
     ).mon(_.http.response.timeline.time)
   }
 
