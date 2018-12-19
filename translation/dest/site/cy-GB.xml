@@ -75,7 +75,9 @@
   <string name="averageRatingX">Cyfartaledd gradd: %s</string>
   <string name="recentGames">Gemau diweddar</string>
   <string name="topGames">Gemau cryfaf</string>
+  <string name="masterDbExplanation">Dau filiwn o gemau gan %1$s o chwaraewyr FIDE a chwaraewyd rhwng %2$s a %3$s</string>
   <string name="noGameFound">Dim gem wedi\'w ddarganfod</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Efallai y dylswch gynnwys mwy o gemau yn y dewislen gosodiadau.</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="xOpeningExplorer">Archwiliwr agoriad %s</string>
   <string name="winPreventedBy50MoveRule">Cyfartal o dan rhel 50 symudiad</string>
@@ -95,6 +97,7 @@
   <string name="cpus">Nifer o CPU\'s</string>
   <string name="memory">Cof</string>
   <string name="infiniteAnalysis">Dadansoddiad ddiddiwedd</string>
+  <string name="removesTheDepthLimit">Dileu\'r terfyn dyfnder, a cadw\'r cyfrifiadur yn gynnes</string>
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistake">Camgymeriad</string>
@@ -198,6 +201,7 @@
   <string name="giveMoreTime">Rhoi mwy o amser</string>
   <string name="thisPlayerUsesChessComputerAssistance">Mae\'r chwaraewr hwn yn defnyddio cymorth cyfrifiadurol</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Mae\'r chwaraewr hwn yn cynyddu/lleihau ei raddfa yn ffug</string>
+  <string name="openingExplorerAndTablebase">Porwr agoriadau &amp; bas tabl diweddglo</string>
   <string name="takeback">Cymryd yn ôl</string>
   <string name="proposeATakeback">Awgrymu cymryd yn ôl</string>
   <string name="takebackPropositionSent">Anfonwyd awgrymiad cymryd yn ôl</string>
@@ -216,8 +220,12 @@
   <string name="thematic">Ar thema</string>
   <string name="yourPerfRatingIsProvisional">Mae dy raddfa %s yn un dros dro</string>
   <string name="yourPerfRatingIsTooHigh">Mae dy raddfa %1$s (%2$s) yn rhy uchel</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Mae eich graddfa %1$s wythnosol (%2$s) yn rhy uchel</string>
+  <string name="yourPerfRatingIsTooLow">Mae dy raddfa %1$s (%2$s) yn rhy isel</string>
   <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
   <string name="ratedLessThanInPerf">Graddfa %2$s yn ≥ %1$s</string>
+  <string name="mustBeInTeam">Rhaid fod yn aelod o dîm %s</string>
+  <string name="youAreNotInTeam">Nid ydych yn aelod o dîm %s</string>
   <string name="backToGame">Nôl at y gêm</string>
   <string name="siteDescription">Gweinydd gwyddbwyll ar-lein am ddim.  Chwaraewch wyddbwyll nawr mewn rhyngwyneb glan.  Dim cofrestru, hysbysebion, dim angen ategyn.  Chwaraewch wyddbwyll yn erbyn y cyfrifiadur, efo ffrindiau neu berson ar hap.</string>
   <string name="teams">Tîmau</string>
@@ -287,6 +295,7 @@
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
   <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
   <string name="recommendNotTouching">Rydym yn awgrymu nad ydych yn cyffwrdd rhain.</string>
+  <string name="fewerPlayers">Bydd gosod telerau ymuno yn debyg o olygu llai o chwaraewyr yn y talwrn.</string>
   <string name="showAdvancedSettings">Dangos gosodiadau cymleth</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
@@ -296,6 +305,7 @@
   <string name="winStreak">Gêmau wedi\'u hennill heb golli</string>
   <string name="createdBy">greuwyd gan</string>
   <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
+  <string name="standByX">Ar eich marciau %s, wrthi\'n dewis gwrthwynebwyr!</string>
   <string name="youArePlaying">Rwyt ti\'n chwarae!</string>
   <string name="winRate">Cyfradd enill</string>
   <string name="berserkRate">Cyfradd myllio</string>
@@ -415,6 +425,7 @@
   <string name="pieceDestinations">Cyrchfanau darnau (symudiadau dilys a symudiadau o flaen)</string>
   <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
+  <string name="pgnPieceNotation">Math o gofnod</string>
   <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
@@ -423,12 +434,14 @@
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>
   <string name="soundWhenTimeGetsCritical">Sain cyn redeg allan o amser</string>
   <string name="gameBehavior">Dewisiadau gêm</string>
+  <string name="howDoYouMovePieces">Sut mae symud darnau?</string>
   <string name="clickTwoSquares">Clicio dwy sgwar</string>
   <string name="dragPiece">Llusgo darn</string>
   <string name="bothClicksAndDrag">Y ddwy</string>
   <string name="premovesPlayingDuringOpponentTurn">Symudiadau o flaen (symud yn ystod tro y gwrthwynebydd)</string>
   <string name="takebacksWithOpponentApproval">Cymryd yn ôl (gyda chaniatád y gwrthwynebydd)</string>
   <string name="promoteToQueenAutomatically">Troi yn Frenhines yn awtomatig</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Dewis gem gyfartal yn awtomatig ar ol ailadrodd tair gwaith</string>
   <string name="privacy">Preifatrwydd</string>
   <string name="letOtherPlayersFollowYou">Caniatáu i chwaraewyr eraill dy ddilyn</string>
   <string name="letOtherPlayersChallengeYou">Caniatáu i chwaraewyr eraill dy herio</string>
@@ -485,6 +498,7 @@
   <string name="error.email">Cyfeiriad e-bost annilys</string>
   <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol</string>
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
+  <string name="error.email_different">Mae hwn wedi ei osod fel eich ebost yn barod</string>
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
   <string name="zenMode">Ffocysu</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
@@ -567,6 +581,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Gellwch rholio dros y bwrdd i symud yn y gêm.</string>
   <string name="analysisShapesHowTo">Gwasgwch shift a chliciwch neu dde-gliciwch i dynnu cylchau a saithau ar y bwrdd.</string>
   <string name="confirmResignationAndDrawOffers">Cadarnhau cynnigion gem cyfartal ac ildio</string>
+  <string name="inputMovesWithTheKeyboard">Mewnbynnu symudiadau efo\'r allweddfwrdd</string>
   <string name="letOtherPlayersMessageYou">Cael negeseuon gan chwaraewyr arall</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Modd castellu</string>
   <string name="castleByMovingTwoSquares">Symud y Teyrn dau sgwar</string>
@@ -577,6 +592,8 @@
   <string name="withEverybody">Gyda pawb</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Cyfeiriad wedi\'i cofrestru yn barod: %s</string>
   <string name="kidMode">Dull plentyn</string>
+  <string name="kidModeExplanation">Mewn modd plant, fydd cyfathrebu wedi ei analluogi. Defnyddiwch y modd yma ar gyfer plant a disgyblion ysgol i\'w hamddiffyn rhag defnyddwyr eraill o\'r rhyngrwyd.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Pan mewn modd plant, fydd eicon %s ar logo lichess, fel y byddwch yn gwybod fod eich plant yn saff.</string>
   <string name="enableKidMode">Galluogi modd plant</string>
   <string name="disableKidMode">Analluogi modd plant</string>
   <string name="security">Diogelwch</string>
@@ -609,11 +626,32 @@
   <string name="boardTheme">Thema\'r bwrdd</string>
   <string name="boardSize">Maint y bwrdd</string>
   <string name="pieceSet">Math o ddarnau</string>
+  <string name="embedInYourWebsite">Gosod i\'ch gwefan</string>
+  <string name="usernameAlreadyUsed">Ymddiheuriadau, mae\'r enw defnyddiwr yna wedi ei fachu\'n barod, defnyddiwch un arall.</string>
+  <string name="usernamePrefixInvalid">Rhaid i enw defnyddiwr dechrau gyda llythyren.</string>
+  <string name="usernameUnacceptable">Nid yw enw defnyddiwr hwn yn dderbyniol.</string>
+  <string name="directlySupportLichess">Cefnogwch Lichess yn uniongyrchol</string>
+  <string name="playChessInStyle">Edrychwch yn swanc efo Lichess</string>
+  <string name="chessBasics">Hanfodion gwyddbwyll</string>
+  <string name="coaches">Hyfforddwyr</string>
   <string name="invalidPgn">PGN anilys</string>
   <string name="invalidFen">FEN anilys</string>
+  <string name="error.minLength">Yr hyd lleiaf sy\'n dderbyniol yw %s (medd yr actores wrth yr esgob)</string>
+  <string name="error.maxLength">Yr hyd mwyaf sy\'n dderbyniol yw %s</string>
+  <string name="error.min">Rhaid bod yn gyfartal i neu yn uwch na %s</string>
+  <string name="error.unknown">Gwall</string>
+  <string name="custom">Dewis amgenach</string>
+  <string name="notifications">Hysbysiadau</string>
+  <string name="challenges">Heriau</string>
+  <string name="perfRatingX">Graddfa %s</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
+  <string name="anotherWasX">Dewis da arall oedd %s</string>
+  <string name="bestWasX">%s oedd orau</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
+  <string name="theGameIsADraw">Canlyniad gem gyfartal.</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
+  <string name="seeBestMove">Gweld y symudiad gorau</string>
+  <string name="hideBestMove">Cuddio\'r symudaid gorau</string>
   <string name="getAHint">Derbyn cyngor</string>
   <string name="evaluatingYourMove">Gwerthuso\'ch symudiad ...</string>
   <string name="whiteWinsGame">Gwyn yn enill</string>
@@ -630,6 +668,8 @@
   <string name="tryAnotherMoveForBlack">Chwilia am ddewis gwell i du</string>
   <string name="solution">Ateb</string>
   <string name="waitingForAnalysis">Aros am farn gyfrifiadurol</string>
+  <string name="noMistakesFoundForWhite">Ni ddarganfuwyd camgymeriadau gan gwyn</string>
+  <string name="noMistakesFoundForBlack">Ni ddarganfuwyd camgymeriadau gan du</string>
   <string name="doneReviewingWhiteMistakes">Wedi gorffen adolygu camgymeriadau gwyn</string>
   <string name="doneReviewingBlackMistakes">Wedi gorffen adolygu camgymeriadau du</string>
   <string name="doItAgain">Ailwneud</string>
@@ -639,5 +679,11 @@
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
+  <string name="registerToSendChallenges">Cofrestrwch cyn danfon her.</string>
+  <string name="youCannotChallengeX">Ni fedrwch chi herio %s.</string>
+  <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>
+  <string name="yourXRatingIsTooFarFromY">Mae eich graddfa %1$s yn rhy bell o un %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Mae %s dim ond yn derbyn heriau gan ffrindiau.</string>
   <string name="playX">Chwarae %s</string>
 </resources>
