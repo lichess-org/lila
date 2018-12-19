@@ -6,7 +6,6 @@ trait SocketMember {
 
   protected val channel: JsChannel
   val userId: Option[String]
-  val troll: Boolean
 
   def isAuth = userId.isDefined
 

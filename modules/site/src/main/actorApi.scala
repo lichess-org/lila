@@ -12,8 +12,6 @@ case class Member(
     flag: Option[String]
 ) extends SocketMember {
 
-  val troll = false
-
   def isApi = flag has "api"
 }
 

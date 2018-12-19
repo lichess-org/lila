@@ -16,7 +16,6 @@ private[lobby] case class Member(
 ) extends SocketMember {
 
   val userId = user.map(_.id)
-  val troll = false
 }
 
 private[lobby] object Member {

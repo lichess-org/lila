@@ -33,9 +33,7 @@ private object AnalyseSocket {
   case class Member(
       channel: JsChannel,
       userId: Option[lila.user.User.ID]
-  ) extends SocketMember {
-    val troll = false
-  }
+  ) extends SocketMember
 
   private[analyse] case class Join(uid: Socket.Uid, userId: Option[String], promise: Promise[Connected])
   private[analyse] case class Connected(enumerator: JsEnumerator, member: Member)
