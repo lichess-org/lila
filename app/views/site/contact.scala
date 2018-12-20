@@ -112,7 +112,7 @@ object contact {
             " to learn more about this chess rule."
           )
         )),
-        Leaf("enpassant", "Illegal or impossible castling", frag(
+        Leaf("castling", "Illegal or impossible castling", frag(
           p("The castle is only prevented if the king goes through a controlled square."),
           p(
             "Make sure you understand the ",
