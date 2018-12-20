@@ -3,6 +3,7 @@ package controllers
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import play.api.mvc._
+import play.api.data.FormError
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -94,7 +95,7 @@ object Auth extends LilaController {
                 negotiate(
                   html = fuccess {
                     err.errors match {
-                      case List(play.api.data.FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                      case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
                       case _ => Unauthorized(html.auth.login(err, referrer))
                     }
                   },

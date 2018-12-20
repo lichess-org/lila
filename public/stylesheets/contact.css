@@ -1,0 +1,46 @@
+.contact {
+  font-size: 1.3em;
+  margin-top: 3em;
+}
+.contact h2 {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(128,128,128,0.2);
+}
+.contact .node {
+  display: none;
+  opacity: 0;
+  transition: 1s opacity;
+}
+.contact .node:target {
+  display: block;
+  opacity: 1;
+}
+
+.contact .node a.back {
+  color: #3893E8;
+  width: 30px;
+  display: inline-block;
+}
+
+.contact .branch .links a {
+  display: block;
+  padding: 1em;
+  padding-left: 30px;
+  color: #3893E8;
+}
+.contact .branch .links a:hover {
+  color: #fff;
+  background: #3893E8;
+}
+
+.contact .leaf a {
+  color: #3893E8;
+}
+.contact .leaf .content {
+  padding: 1em 0;
+}
+.contact .leaf .content p {
+  margin-bottom: 1em;
+}

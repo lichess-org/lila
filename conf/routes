@@ -599,7 +599,7 @@ POST  /mobile/unregister               controllers.Main.mobileUnregister
 GET   /thanks                          controllers.Page.bookmark(name = "thanks")
 GET   /terms-of-service                controllers.Page.bookmark(name = "tos")
 GET   /privacy                         controllers.Page.bookmark(name = "privacy")
-GET   /contact                         controllers.Page.bookmark(name = "contact")
+GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.bookmark(name = "about")
 GET   /swag                            controllers.Page.swag
 GET   /how-to-cheat                    controllers.Page.bookmark(name = "how-to-cheat")
