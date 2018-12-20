@@ -3,7 +3,7 @@
 <resources>
   <string name="emailConfirm_subject">أكد حسابك على lichess.org ، %s</string>
   <string name="emailConfirm_click">انقر على الرابط لتفعيل حسابك على Lichess:</string>
-  <string name="emailConfirm_ignore">إذا أنت لم تسجل مع lichess.org بامكانك تجاهل هذه الرسالة بأمان.</string>
+  <string name="emailConfirm_ignore">إذا لم تسجل في Lichess بامكانك تجاهل هذه الرسالة بأمان.</string>
   <string name="passwordReset_subject">إعادة تعيين كلمة المرور lichess.org، %s</string>
   <string name="passwordReset_intro">لقد تلقينا طلبا لإعادة تعيين كلمة المرور للحساب الخاص بك.</string>
   <string name="passwordReset_clickOrIgnore">إذا قمت بهذا الطلب، انقر فوق الارتباط الموجود أدناه. إذا لم يكن الأمر كذلك، يمكنك تجاهل هذه الرسالة.</string>
