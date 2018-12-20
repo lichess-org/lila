@@ -12,7 +12,7 @@
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Flyttes i rette linjer</string>
   <string name="rookIntro">Tårnet er en kraftig brikke. Er du klar til å ta det i bruk?</string>
-  <string name="rookGoal">Klikk på tårnet for å flytte den til stjernen!</string>
+  <string name="rookGoal">Klikk på tårnet for å flytte det til stjernen!</string>
   <string name="grabAllTheStars">Fang alle stjernene!</string>
   <string name="theFewerMoves">Jo færre trekk du gjør, desto fler poeng vinner du!</string>
   <string name="useTwoRooks">Bruk to tårn for å sette litt fart på sakene!</string>
