@@ -787,6 +787,7 @@ val `welcome_subject` = new Translated("welcome_subject", Emails)
 val `welcome_text` = new Translated("welcome_text", Emails)
 val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
+val `common_contact` = new Translated("common_contact", Emails)
 }
 
 object learn {
