@@ -20,7 +20,7 @@ elif [ $mode = "stage" ]; then
   CLI="bin/cli-stage"
 elif [ $mode = "stress" ]; then
   REMOTE="listress"
-  REMOTE_DIR="/home/lichess-deploy"
+  REMOTE_DIR="/home/lichess"
   FRONT_REMOTE=$REMOTE
   FRONT_REMOTE_DIR=$REMOTE_DIR
 elif [ $mode = "local" ]; then
@@ -130,8 +130,8 @@ if [ $mode = "stage" ]; then
   ssh $REMOTE $SSH_COMMAND
 fi
 if [ $mode = "stress" ]; then
-  lilalog "Restart lichess-stage"
-  SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR && systemctl restart lichess-stress"
+  lilalog "Restart listress"
+  SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR && systemctl restart lichess"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
 fi
