@@ -54,7 +54,9 @@ final class Player(
             moves = moves mkString " "
           ),
           currentFen = FEN(Forsyth >> game.chess),
-          level = level,
+          level =
+            if (level == 1 && game.clock.exists(_.config.limit.toSeconds < 60)) 2
+            else level,
           clock = game.clock.map { clk =>
             Work.Clock(
               wtime = clk.remainingTime(White).centis,
