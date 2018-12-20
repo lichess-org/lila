@@ -18,4 +18,5 @@ Voici votre page de profil : %1$s, que vous pouvez personnaliser ici : %2$s
 Bonnes parties sur lidraughts.org!</string>
   <string name="common_orPaste">(Cliquer ne fonctionne pas ? Essayez de coller l\'url dans votre navigateur!)</string>
   <string name="common_note">Cet email automatique provient de l\'utilisation de %s.</string>
+  <string name="common_contact">Pour nous contacter, veuillez consulter %s.</string>
 </resources>

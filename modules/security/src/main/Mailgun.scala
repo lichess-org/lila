@@ -7,8 +7,8 @@ import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import play.twirl.api.Html
 
-import lidraughts.common.{ Lang, EmailAddress }
 import lidraughts.common.String.html.escapeHtml
+import lidraughts.common.{ Lang, EmailAddress }
 import lidraughts.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
@@ -58,8 +58,10 @@ object Mailgun {
 
   object txt {
 
-    def serviceNote(implicit lang: Lang) =
-      trans.common_note.literalHtmlTo(lang, List("https://lidraughts.org"))
+    def serviceNote(implicit lang: Lang) = s"""
+${trans.common_note.literalHtmlTo(lang, List("https://lidraughts.org"))}
+
+${trans.common_contact.literalHtmlTo(lang, List("https://lidraughts.org/contact"))}"""
   }
 
   object html {
@@ -67,10 +69,13 @@ object Mailgun {
     val noteLink = Html {
       """<a itemprop="url" href="https://lidraughts.org/"><span itemprop="name">lidraughts.org</span></a>"""
     }
+    val noteContact = Html {
+      """<a itemprop="url" href="https://lidraughts.org/contact"><span itemprop="name">lidraughts.org/contact</span></a>"""
+    }
 
     def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}</small>
+  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}${trans.common_contact.literalHtmlTo(lang, List(noteContact))}</small>
 </div>
 """
 
