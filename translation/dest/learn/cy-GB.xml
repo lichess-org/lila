@@ -18,11 +18,15 @@
   <string name="theBishop">Yr esgob</string>
   <string name="itMovesDiagonally">Mae\'n symud yn lletraws</string>
   <string name="theQueen">Y frenhiness</string>
+  <string name="queenCombinesRookAndBishop">Brenhiness = Castell ac Esgob</string>
+  <string name="queenIntro">Y darn mwyaf grymus. Ei mawrhydi, Y Frenhiness!</string>
   <string name="theKing">Y teyrn</string>
   <string name="theKingIsSlow">Mae\'r Teyrn yn araf.</string>
   <string name="lastOne">I orffen!</string>
   <string name="theKnight">Y marchog</string>
   <string name="itMovesInAnLShape">Mae\'n symud mewn siap L</string>
   <string name="thePawn">Y gwerinwr</string>
+  <string name="captureThenPromote">Cipiwch, ac enillwch ddyrchafiad!</string>
+  <string name="useAllThePawns">Defnyddiwch pob gwerinwr! Nid oes angen eu dyrchafu.</string>
   <string name="defendYourKing">Amddiffyna\'r teyrn</string>
 </resources>
