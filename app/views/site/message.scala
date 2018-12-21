@@ -46,7 +46,7 @@ object message {
   }
 
   def privateStudy(ownerId: User.ID)(implicit ctx: Context) = apply(
-    title = s"${usernameOrId(ownerId)}' study",
+    title = s"${usernameOrId(ownerId)}'s study",
     icon = "4".some
   )("Sorry! This study is private, you cannot access it.")
 
