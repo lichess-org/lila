@@ -18,4 +18,5 @@ Oto strona Twojego profilu: %1$s którą możesz spersonalizować tutaj: %2$s.
 Baw się dobrze i niech Twoje figury zawsze znajdą drogę do króla przeciwnika!</string>
   <string name="common_orPaste">(Jeśli kliknięcie nie działa spróbuj skopiować link do przeglądarki)</string>
   <string name="common_note">To jest e-mail związany z Twoim kontem na %s.</string>
+  <string name="common_contact">Możesz skontaktować się z nami pisząc na adres %s.</string>
 </resources>
