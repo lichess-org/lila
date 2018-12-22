@@ -20,7 +20,8 @@
 
 .contact .node a.back {
   color: #3893E8;
-  width: 30px;
+  width: 25px;
+  margin-right: 5px;
   display: inline-block;
 }
 
@@ -30,7 +31,8 @@
   padding-left: 30px;
   color: #3893E8;
 }
-.contact .branch .links a:hover {
+.contact .branch .links a:hover,
+.contact a.back:hover {
   color: #fff;
   background: #3893E8;
 }

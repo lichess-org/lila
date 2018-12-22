@@ -43,13 +43,19 @@ object contact {
           ),
           p("Also check your spam folder, it might end up there. If so, mark it as NOT spam."),
           p(
-            "If you still don't receive it, you can email us to request a manual confirmation.", br,
+            "If you still don't receive it, you can email us to request a manual confirmation.",
             strong("You MUST include your new lichess username in the email you send us.")
           ),
           p(
             s"Send your request to $contactEmail ",
             strong("with your lichess username in it.")
-          )
+          ),
+          p("Here's an example email that you can copy and paste:"),
+          hr,
+          p(i("Hello, please confirm my account: <USERNAME>")),
+          hr,
+          p("Just replace <USERNAME> with your username."),
+          p("Did we mention that you need to include your username in the email? ;)")
         )),
         Leaf("close", "I want to close my account", frag(
           p(
@@ -70,7 +76,8 @@ object contact {
             strong("from the same email address that you used to create the account"),
             ".", br,
             "This is required so we know that you indeed own the account."
-          )
+          ),
+          p("Don't forget to mention your username.")
         )),
         Leaf("title", "I want my title displayed on lichess", frag(
           p(
