@@ -327,7 +327,7 @@
   <string name="teamRecentMembers">Nye lagmedlemmer</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
-  <string name="averageElo">Gjennomsnittsrating</string>
+  <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>
   <string name="settings">Innstillinger</string>
   <string name="filterGames">Filtrer partier</string>
