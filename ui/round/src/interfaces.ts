@@ -50,7 +50,7 @@ export interface RoundData extends GameData {
   url: {
     socket: string;
     round: string;
-  },
+  };
   blind?: boolean;
   tv?: Tv;
   userTv?: {
@@ -194,4 +194,8 @@ export interface MaterialDiffSide {
 export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
+}
+export interface ChecksData {
+  white: number;
+  black: number;
 }

@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
 import { opposite } from 'chessground/util';
-import { Redraw, EncodedDests, DecodedDests, MaterialDiff } from './interfaces';
+import { Redraw, EncodedDests, DecodedDests, MaterialDiff, Step, ChecksData } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -45,7 +45,7 @@ export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
     dests.split(' ').forEach(ds => {
       dec[ds.slice(0,2)] = ds.slice(2).match(/.{2}/g) as cg.Key[];
     });
-    else for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
+  else for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
   return dec;
 }
 
@@ -69,6 +69,27 @@ export function getScore(pieces: cg.Pieces): number {
     score += pieceScores[pieces[k]!.role] * (pieces[k]!.color === 'white' ? 1 : -1);
   }
   return score;
+}
+
+export function getChecks(steps: Step[], ply: Ply): ChecksData {
+  const checksData: ChecksData = { white: 0, black: 0 };
+  for (let step of steps) {
+    if (ply < step.ply) {
+      break;
+    }
+
+    if (!step.check) {
+      continue;
+    }
+
+    if (step.ply % 2 == 1) {
+      checksData.white += 1;
+    } else {
+      checksData.black += 1;
+    }
+  }
+
+  return checksData;
 }
 
 export function spinner() {
