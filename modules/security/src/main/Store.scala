@@ -17,6 +17,8 @@ object Store {
 
   private implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
 
+  private val localhost = IpAddress("127.0.0.1")
+
   private[security] def save(
     sessionId: String,
     userId: User.ID,
@@ -28,7 +30,11 @@ object Store {
     coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> HTTPRequest.lastRemoteAddress(req),
+      "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
+        // randomize stresser IPs to relieve mod tools
+        case ip if ip == localhost => IpAddress(s"127.0.0.${scala.util.Random nextInt 256}")
+        case ip => ip
+      }),
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> up,
