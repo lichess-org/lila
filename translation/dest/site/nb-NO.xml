@@ -249,8 +249,8 @@
     <item quantity="other">%s remis</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s spilles</item>
-    <item quantity="other">%s spilles</item>
+    <item quantity="one">%s pågår</item>
+    <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
   <string name="ratingRange">Ratingspenn</string>
