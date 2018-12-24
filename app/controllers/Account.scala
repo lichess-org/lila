@@ -165,6 +165,24 @@ object Account extends LilaController {
     }
   }
 
+  def emailConfirmHelp = OpenBody { implicit ctx =>
+    import lila.security.EmailConfirm.Help._
+    ctx.me match {
+      case Some(me) =>
+        Redirect(routes.User.show(me.username)).fuccess
+      case None if get("username").isEmpty =>
+        Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
+      case None =>
+        implicit val req = ctx.body
+        helpForm.bindFromRequest.fold(
+          err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+          username => getStatus(username) map { status =>
+            Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+          }
+        )
+    }
+  }
+
   def twoFactor = Auth { implicit ctx => me =>
     if (me.totpSecret.isDefined)
       Env.security.forms.disableTwoFactor(me) map { form =>

@@ -60,6 +60,8 @@ trait FormHelper { self: I18nHelper =>
 
     def split(html: Html): Html = div(cls := "form-split")(html)
 
+    def split(frags: Frag*): Html = div(cls := "form-split")(frags)
+
     def group(
       field: Field,
       labelContent: Frag,

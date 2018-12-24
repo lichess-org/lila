@@ -150,4 +150,39 @@ object EmailConfirm {
         }
       }
     }
+
+  object Help {
+
+    sealed trait Status { val name: String }
+    case class NoSuchUser(name: String) extends Status
+    case class Closed(name: String) extends Status
+    case class Confirmed(name: String) extends Status
+    case class NoEmail(name: String) extends Status
+    case class EmailSent(name: String, email: EmailAddress) extends Status
+
+    import play.api.data._
+    import play.api.data.validation.Constraints
+    import play.api.data.Forms._
+
+    val helpForm = Form(
+      single("username" -> text.verifying(
+        Constraints minLength 2,
+        Constraints maxLength 30,
+        Constraints.pattern(regex = User.newUsernameRegex)
+      ))
+    )
+
+    def getStatus(username: String): Fu[Status] = UserRepo withEmails username flatMap {
+      case None => fuccess(NoSuchUser(username))
+      case Some(User.WithEmails(user, emails)) =>
+        if (!user.enabled) fuccess(Closed(username))
+        else UserRepo mustConfirmEmail user.id map {
+          case true => emails.current match {
+            case None => NoEmail(user.username)
+            case Some(email) => EmailSent(user.username, email)
+          }
+          case false => Confirmed(user.username)
+        }
+    }
+  }
 }

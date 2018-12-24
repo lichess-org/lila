@@ -17,7 +17,7 @@ object contact {
 
   private case class FlatNode(id: String, name: String, parentId: Option[String])
 
-  private def menu: Branch =
+  private def menu(implicit ctx: Context): Branch =
     Branch("root", "What can we help you with?", List(
       Branch("account", "I need login and account support", List(
         Leaf("forgot-password", "I forgot my password", frag(
@@ -38,24 +38,9 @@ object contact {
         )),
         Leaf("email-confirm", "I don't receive my confirmation email", frag(
           p(
-            "It can take some time to arrive.", br,
-            strong("Wait 10 minutes and refresh your email inbox.")
-          ),
-          p("Also check your spam folder, it might end up there. If so, mark it as NOT spam."),
-          p(
-            "If you still don't receive it, you can email us to request a manual confirmation.",
-            strong("You MUST include your new lichess username in the email you send us.")
-          ),
-          p(
-            s"Send your request to $contactEmail ",
-            strong("with your lichess username in it.")
-          ),
-          p("Here's an example email that you can copy and paste:"),
-          hr,
-          p(i("Hello, please confirm my account: <USERNAME>")),
-          hr,
-          p("Just replace <USERNAME> with your username."),
-          p("Did we mention that you need to include your username in the email? ;)")
+            "You signed up, but didn't receive your confirmation email?", br,
+            a(href := routes.Account.emailConfirmHelp)("Visit this page to solve the issue"), "."
+          )
         )),
         Leaf("close", "I want to close my account", frag(
           p(
@@ -93,7 +78,7 @@ object contact {
         List("cheating", "sandbagging", "trolling", "insults", "some other reason").map { reason =>
           Leaf(reason, s"Report a player for $reason", frag(
             p(
-              s"To report a player for $reason,", br,
+              s"To report a player for $reason, ",
               a(href := routes.Report.form)(strong("use the report form")), "."
             ),
             p(
@@ -247,8 +232,6 @@ object contact {
     )
   }
 
-  private lazy val renderedMenu: Frag = renderNode(menu, none)
-
   private def makeId(id: String) = st.id := s"help-$id"
   private def makeLink(id: String) = href := s"#help-$id"
 
@@ -257,13 +240,13 @@ object contact {
 
   def apply()(implicit ctx: Context) = views.html.base.layout(
     title = "Contact",
-    moreCss = cssTags("page.css", "contact.css"),
+    moreCss = cssTags("contact.css"),
     moreJs = embedJs("""location=location.hash||"#help-root"""")
   )(
       div(cls := "content_box small_box")(
         h1(cls := "lichess_title")("Contact lichess"),
         div(cls := "contact")(
-          renderedMenu
+          renderNode(menu, none)
         )
       )
     )

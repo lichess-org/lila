@@ -42,6 +42,10 @@ object IpAddress {
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
   def isHotmail = EmailAddress.hotmailRegex.find(value)
+  def conceal = value.split('@') match {
+    case Array(user, domain) => s"${user take 3}*****@${domain}"
+    case _ => value
+  }
 }
 
 object EmailAddress {
