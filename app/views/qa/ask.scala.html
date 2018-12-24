@@ -1,4 +1,5 @@
 @(form: Form[_], tags: List[String], popular: List[lila.qa.Question], captcha: lila.common.Captcha)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @layout(
 title = "Ask a new question" ,
@@ -22,7 +23,7 @@ formCss = true) {
     @questionForm(form, tags, captcha)
     @form3.actions {
     <a href="@routes.QaQuestion.index()">@trans.cancel()</a>
-    @form3.submit(Html("Post your question"))
+    @form3.submit(raw("Post your question"))
     }
   </form>
 </div>

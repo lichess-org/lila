@@ -1,4 +1,5 @@
 @(form: Form[_], q: lila.qa.Question, tags: List[String], popular: List[lila.qa.Question], captcha: lila.common.Captcha)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @title = @{ s"""Edit question "${q.title}"""" }
 
@@ -23,7 +24,7 @@ formCss = true) {
     @questionForm(form, tags, captcha)
     @form3.actions {
     <a href="@routes.QaQuestion.show(q.id, q.slug)">@trans.cancel()</a>
-    @form3.submit(Html("Update your question"))
+    @form3.submit(raw("Update your question"))
     }
   </form>
 </div>

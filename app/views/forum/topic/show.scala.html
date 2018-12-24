@@ -114,7 +114,7 @@ formCss = formWithCaptcha.isDefined) {
       @form3.actions {
       <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
       @if(isGranted(_.PublicMod)){
-      @form3.submit(Html("Reply as mod"), nameValue = (form("modIcon").name, "true").some, icon = "".some)
+      @form3.submit(raw("Reply as mod"), nameValue = (form("modIcon").name, "true").some, icon = "".some)
       }
       @form3.submit(trans.reply.frag())
       }
