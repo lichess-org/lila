@@ -172,11 +172,11 @@ final class Env(
 
   lazy val spam = new Spam(spamKeywordsSetting.get)
 
-  scheduler.once(15 seconds)(disposableEmailDomain.refresh)
+  scheduler.once(30 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
-  scheduler.once(30 seconds)(tor.refresh(_ => funit))
+  scheduler.once(31 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
   lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
