@@ -646,7 +646,7 @@ in %3$s</string>
   <string name="watch">Guarda</string>
   <string name="internationalEvents">Eventi internazionali</string>
   <string name="videoLibrary">Libreria video</string>
-  <string name="mobileApp">Mobile App</string>
+  <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
   <string name="aboutX">Informazioni su %s</string>
@@ -654,8 +654,8 @@ in %3$s</string>
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="contact">Contattaci</string>
-  <string name="termsOfService">Termini di Servizio</string>
-  <string name="sourceCode">Codice Sorgente</string>
+  <string name="termsOfService">Termini di servizio</string>
+  <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
