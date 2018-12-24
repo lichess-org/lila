@@ -66,7 +66,7 @@ object contact {
         )),
         Leaf("title", "I want my title displayed on lichess", frag(
           p(
-            "To show your title on your lichess profile,", br,
+            "To show your title on your lichess profile, and participate to Titled Arenas, ",
             a(href := routes.Page.bookmark(name = "master"))(
               "visit the title confirmation page"
             ),
