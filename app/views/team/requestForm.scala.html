@@ -15,7 +15,7 @@
       @base.captcha(form, captcha)
       @form3.actions {
       <a href="@routes.Team.show(t.slug)">@trans.cancel()</a>
-      @form3.submit(trans.joinTeam())
+      @form3.submit(trans.joinTeam.frag())
       }
     </form>
   </div>

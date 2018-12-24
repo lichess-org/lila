@@ -1,30 +1,30 @@
 @(form: Form[_])(implicit ctx: Context)
 @import lidraughts.app.ui.ScalatagsTwirlForm._
 
-@form3.group(form("name"), Html("Event name"))(form3.input(_))
-@form3.group(form("description"), Html("Short event description"))(form3.textarea(_)(*.rows := 2))
-@form3.group(form("markup"), Html("Full event description"), help = Html("""<a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown</a> is available""").some)(form3.textarea(_)(*.rows := 10))
+@form3.group(form("name"), raw("Event name"))(form3.input(_))
+@form3.group(form("description"), raw("Short event description"))(form3.textarea(_)(*.rows := 2))
+@form3.group(form("markup"), raw("Full event description"), help = raw("""<a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown</a> is available""").some)(form3.textarea(_)(*.rows := 10))
 
 @if(isGranted(_.Admin)) {
 @form3.split {
-@form3.checkbox(form("official"), Html("Official lidraughts broadcast"), half = true, help = Html("Feature on /broadcast - for admins only").some)
-@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to ${lidraughts.relay.RelayForm.maxHomepageHours})"), half = true, help = Html("Ask first!").some)(form3.input(_, typ = "number"))
+@form3.checkbox(form("official"), raw("Official lidraughts broadcast"), half = true, help = raw("Feature on /broadcast - for admins only").some)
+@form3.group(form("homepageHours"), raw(s"Hours on homepage (0 to ${lidraughts.relay.RelayForm.maxHomepageHours})"), half = true, help = raw("Ask first!").some)(form3.input(_, typ = "number"))
 }
 } else { @form3.hidden(form("official")) }
-@form3.group(form("syncUrl"), Html("Source URL"))(form3.input(_, typ = "url"))
+@form3.group(form("syncUrl"), raw("Source URL"))(form3.input(_, typ = "url"))
 @if(isGranted(_.Admin)) {
-@form3.group(form("gameIndices"), Html("Game indices (comma separated)"), help = Html("For broadcasts without index - which game indices to load").some)(form3.input(_))
+@form3.group(form("gameIndices"), raw("Game indices (comma separated)"), help = raw("For broadcasts without index - which game indices to load").some)(form3.input(_))
 }
 @form3.split {
-@form3.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_))
+@form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_))
 @if(isGranted(_.Admin)) {
-@form3.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
+@form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
 }
 }
 @if(isGranted(_.Admin)) {
-@form3.group(form("credit"), Html("Credit the source"), half = true)(form3.input(_))
+@form3.group(form("credit"), raw("Credit the source"), half = true)(form3.input(_))
 }
 @form3.actions {
 <a href="@routes.Relay.index(1)">@trans.cancel()</a>
-@form3.submit(trans.apply())
+@form3.submit(trans.apply.frag())
 }
