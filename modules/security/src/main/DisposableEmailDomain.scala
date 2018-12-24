@@ -14,13 +14,8 @@ final class DisposableEmailDomain(
 
   private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
-      res.json.validate[Set[String]].fold(
-        err => onError(lila.base.LilaException(err.toString)),
-        dat => {
-          domains = dat
-          failed = false
-        }
-      )
+      domains = res.body.lines.toSet
+      failed = domains.size < 10000
       lila.mon.email.disposableDomain(domains.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
