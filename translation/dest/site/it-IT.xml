@@ -85,7 +85,7 @@
     <item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova ad includere più partite dal menu Preferenze.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">%s explorer delle aperture</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
@@ -588,7 +588,7 @@ in %3$s</string>
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>
   <string name="yourCityRegionOrDepartment">La tua città, regione o provincia.</string>
-  <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, giochi, giocatori preferiti…</string>
+  <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, partite, giocatori preferiti…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Massimo: %s carattere.</item>
     <item quantity="other">Massimo: %s caratteri.</item>
@@ -699,7 +699,7 @@ in %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un rating %s consolidato.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
   <string name="checkYourEmail">Controlla la tua e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
@@ -838,8 +838,8 @@ in %3$s</string>
   <string name="registerToSendChallenges">Per favore, registrati per mandare sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
-  <string name="yourXRatingIsTooFarFromY">Il tuo %1$s rating è troppo diverso da %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un %s rating provvisorio.</string>
+  <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un punteggio %s provvisorio.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
   <string name="conditionalPremoves">Premosse condizionali</string>
   <string name="addCurrentVariation">Aggiungi variazione corrente</string>
