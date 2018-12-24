@@ -57,6 +57,5 @@ object DataForm {
     Constraints maxLength 30,
     Constraints.pattern(regex = User.historicalUsernameRegex)
   )
-
   lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints: _*)
 }
