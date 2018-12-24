@@ -735,11 +735,11 @@ in %3$s</string>
   <string name="alternativelyYouCanX">In alternativa è possibile %s.</string>
   <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
-  <string name="asFreeAsLichess">Libero come Lichess</string>
+  <string name="asFreeAsLichess">Gratuita, proprio come Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Fatto per amore degli scacchi, non del denaro</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutti hanno le stesse funzionalità gratis</string>
   <string name="zeroAdvertisement">Nessuna pubblicità</string>
-  <string name="fullFeatured">Piena funzionalità</string>
+  <string name="fullFeatured">Senza limitazioni</string>
   <string name="phoneAndTablet">Cellulare e tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classico</string>
   <string name="correspondenceChess">Scacchi per corrispondenza</string>
