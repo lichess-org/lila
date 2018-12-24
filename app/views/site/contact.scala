@@ -17,9 +17,30 @@ object contact {
 
   private case class FlatNode(id: String, name: String, parentId: Option[String])
 
-  private def menu(implicit ctx: Context): Branch =
+  private def reopenLeaf(prefix: String) = Leaf(s"$prefix-reopen", "I want to re-open my account", frag(
+    p(
+      "We may agree to re-open your account, ",
+      strong("but only once"),
+      "."
+    ),
+    p(
+      s"Send an email to $contactEmail ",
+      strong("from the same email address that you used to create the account"),
+      ".", br,
+      "This is required so we know that you indeed own the account."
+    ),
+    p("Don't forget to mention your username.")
+  ))
+
+  private lazy val menu: Branch =
     Branch("root", "What can we help you with?", List(
-      Branch("account", "I need login and account support", List(
+      Branch("login", "I can't log in", List(
+        Leaf("email-confirm", "I don't receive my confirmation email", frag(
+          p(
+            "You signed up, but didn't receive your confirmation email?", br,
+            a(href := routes.Account.emailConfirmHelp)("Visit this page to solve the issue"), "."
+          )
+        )),
         Leaf("forgot-password", "I forgot my password", frag(
           p(
             "To request a new password, ",
@@ -36,10 +57,30 @@ object contact {
             " with the email address you signed up with."
           )
         )),
-        Leaf("email-confirm", "I don't receive my confirmation email", frag(
+        reopenLeaf("login"),
+        Leaf("dns", "\"This site can’t be reached\"", frag(
+          p("If you can't reach lichess, and your browser says something like:"),
+          ul(
+            li("This site can't be reached."),
+            li(strong("lichess.org"), "’s server IP address could not be found."),
+            li("We can’t connect to the server at lichess.org.")
+          ),
+          p("Then you have a ", strong("DNS issue"), "."),
           p(
-            "You signed up, but didn't receive your confirmation email?", br,
-            a(href := routes.Account.emailConfirmHelp)("Visit this page to solve the issue"), "."
+            "There's nothing we can do about it, but ",
+            a("here's how you can fix it")(href := "https://www.wikihow.com/Fix-DNS-Server-Not-Responding-Problem"),
+            "."
+          )
+        ))
+      )),
+      Branch("account", "I need account support", List(
+        Leaf("title", "I want my title displayed on lichess", frag(
+          p(
+            "To show your title on your lichess profile, and participate to Titled Arenas, ",
+            a(href := routes.Page.bookmark(name = "master"))(
+              "visit the title confirmation page"
+            ),
+            "."
           )
         )),
         Leaf("close", "I want to close my account", frag(
@@ -50,28 +91,14 @@ object contact {
           ),
           p("Do not ask us by email to close an account, we won't do it.")
         )),
-        Leaf("reopen", "I want to re-open my account", frag(
-          p(
-            "We may agree to re-open your account, ",
-            strong("but only once"),
-            "."
-          ),
-          p(
-            s"Send an email to $contactEmail ",
-            strong("from the same email address that you used to create the account"),
-            ".", br,
-            "This is required so we know that you indeed own the account."
-          ),
-          p("Don't forget to mention your username.")
+        reopenLeaf("account"),
+        Leaf("title", "I want to change my username", frag(
+          p("We're very sorry, but the username cannot be changed. For technical reasons, it's downright impossible."),
+          p("However, you can always close your current account, and create a new one.")
         )),
-        Leaf("title", "I want my title displayed on lichess", frag(
-          p(
-            "To show your title on your lichess profile, and participate to Titled Arenas, ",
-            a(href := routes.Page.bookmark(name = "master"))(
-              "visit the title confirmation page"
-            ),
-            "."
-          )
+        Leaf("title", "I want to clear my history or rating", frag(
+          p("It's not possible to clear your game history, puzzle history, or ratings."),
+          p("However, you can always close your current account, and create a new one.")
         ))
       )),
       Branch("report", "I want to report a player",
@@ -232,6 +259,8 @@ object contact {
     )
   }
 
+  private lazy val renderedMenu = renderNode(menu, none)
+
   private def makeId(id: String) = st.id := s"help-$id"
   private def makeLink(id: String) = href := s"#help-$id"
 
@@ -246,7 +275,7 @@ object contact {
       div(cls := "content_box small_box")(
         h1(cls := "lichess_title")("Contact lichess"),
         div(cls := "contact")(
-          renderNode(menu, none)
+          renderedMenu
         )
       )
     )
