@@ -14,13 +14,8 @@ final class DisposableEmailDomain(
 
   private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
-      res.json.validate[Set[String]].fold(
-        err => onError(lidraughts.base.LidraughtsException(err.toString)),
-        dat => {
-          domains = dat
-          failed = false
-        }
-      )
+      domains = res.body.lines.toSet
+      failed = domains.size < 10000
       lidraughts.mon.email.disposableDomain(domains.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
