@@ -1,6 +1,6 @@
 @(s: lila.streamer.Streamer.WithUserAndStream, form: Form[_], modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])])(implicit ctx: Context)
 @import lila.app.ui.ScalatagsTwirlForm._
-@modsOnly = @{ Html("Moderators only").some }
+@modsOnly = @{ raw("Moderators only").some }
 
 @base.layout(title = s"${s.user.titleUsername} streamer page",
 moreCss = cssTags("form3.css", "streamer.show.css", "streamer.form.css"),
@@ -84,33 +84,33 @@ menu = menu("edit", s.withoutStream.some).some) {
     @if(isGranted(_.Streamers)) {
     <div class="mod">
       @form3.split {
-      @form3.checkbox(form("approval.granted"), Html("Publish on the streamers list"), help = modsOnly, half = true)
-      @form3.checkbox(form("approval.requested"), Html("Active approval request"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.granted"), raw("Publish on the streamers list"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.requested"), raw("Active approval request"), help = modsOnly, half = true)
       }
       @form3.split {
-      @form3.checkbox(form("approval.chat"), Html("Embed stream chat too"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.chat"), raw("Embed stream chat too"), help = modsOnly, half = true)
       @if(granted) {
-      @form3.checkbox(form("approval.featured"), Html("Feature on lichess homepage"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.featured"), raw("Feature on lichess homepage"), help = modsOnly, half = true)
       } else {
-      @form3.checkbox(form("approval.ignored"), Html("Ignore further approval requests"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
       }
       }
-      @form3.action(form3.submit(trans.apply()))
+      @form3.action(form3.submit(trans.apply.frag()))
     </div>
     }
     @form3.split {
-    @form3.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
-    @form3.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
+    @form3.group(form("twitch"), raw("Your Twitch username or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
+    @form3.group(form("youTube"), raw("Your YouTube channel ID or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
     }
     @form3.split {
-    @form3.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_))
-    @form3.checkbox(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true)
+    @form3.group(form("name"), raw("Your streamer name on lichess"), help = raw("Keep it short: 20 characters max").some, half = true)(form3.input(_))
+    @form3.checkbox(form("listed"), raw("Visible on the streamers page"), help = raw("When approved by moderators").some, half = true)
     }
-    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_))
-    @form3.group(form("description"), Html("Long description"))(form3.textarea(_)(*.rows := 10))
+    @form3.group(form("headline"), raw("Headline"), help = raw("In one sentence, tell us about your stream").some)(form3.input(_))
+    @form3.group(form("description"), raw("Long description"))(form3.textarea(_)(*.rows := 10))
     @form3.actions {
     <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
-    @form3.submit(trans.apply())
+    @form3.submit(trans.apply.frag())
     }
   </form>
   }

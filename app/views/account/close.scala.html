@@ -8,10 +8,10 @@
     <h1 data-icon="j" class="lichess_title text">@trans.closeAccount()</h1>
     <form class="form3" action="@routes.Account.closeConfirm" method="POST">
       <div class="form-group">@trans.closeAccountExplanation()</div>
-      @form3.password(form("passwd"), trans.password())
+      @form3.password(form("passwd"), trans.password.frag())
       @form3.actions {
       <a href="@routes.User.show(u.username)">@trans.changedMindDoNotCloseAccount()</a>
-      @form3.submit(trans.closeAccount(), icon = "j".some)
+      @form3.submit(trans.closeAccount.frag(), icon = "j".some)
       }
     </form>
   </div>

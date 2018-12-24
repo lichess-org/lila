@@ -1,17 +1,18 @@
 @(form: Form[_])(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @form3.split {
-@form3.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
-@form3.group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+@form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+@form3.group(form("finishesAt"), raw("End date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
 }
-@form3.group(form("title"), Html("Short title"), help = Html("Keep it VERY short, so it fits on homepage").some)(form3.input(_))
-@form3.group(form("headline"), Html("Short headline"), help = Html("Keep it VERY short, so it fits on homepage").some)(form3.input(_))
-@form3.group(form("description"), Html("Possibly long description"), help = Html("Link: [text](url)").some)(form3.textarea(_)())
-@form3.group(form("url"), Html("External URL"), help = Html("What to redirect to when the event starts").some)(form3.input(_))
-@form3.group(form("lang"), Html("Language"))(form3.select(_, lila.i18n.LangList.choices))
+@form3.group(form("title"), raw("Short title"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_))
+@form3.group(form("headline"), raw("Short headline"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_))
+@form3.group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(form3.textarea(_)())
+@form3.group(form("url"), raw("External URL"), help = raw("What to redirect to when the event starts").some)(form3.input(_))
+@form3.group(form("lang"), raw("Language"))(form3.select(_, lila.i18n.LangList.choices))
 @form3.split {
-@form3.checkbox(form("enabled"), Html("Enabled"), help = Html("Display the event").some, half = true)
-@form3.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_, typ = "number"))
+@form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true)
+@form3.group(form("homepageHours"), raw("Hours on homepage (0 to 24)"), half = true, help = raw("Ask on slack first!").some)(form3.input(_, typ = "number"))
 }
 
-@form3.action(form3.submit(trans.apply()))
+@form3.action(form3.submit(trans.apply.frag()))

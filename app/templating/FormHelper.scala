@@ -62,10 +62,10 @@ trait FormHelper { self: I18nHelper =>
 
     def group(
       field: Field,
-      labelContent: Html,
+      labelContent: Frag,
       klass: String = "",
       half: Boolean = false,
-      help: Option[Html] = None
+      help: Option[Frag] = None
     )(content: Field => Frag)(implicit ctx: Context): Html =
       div(cls := List(
         "form-group" -> true,
@@ -93,9 +93,9 @@ trait FormHelper { self: I18nHelper =>
 
     def checkbox(
       field: Field,
-      labelContent: Html,
+      labelContent: Frag,
       half: Boolean = false,
-      help: Option[Html] = None,
+      help: Option[Frag] = None,
       disabled: Boolean = false
     ): Html =
       div(cls := List(
@@ -149,12 +149,12 @@ trait FormHelper { self: I18nHelper =>
         cls := List("form-control" -> true, klass -> klass.nonEmpty)
       )(validationModifiers(field))(modifiers)(~field.value)
 
-    def actions(html: Html): Html = div(cls := "form-actions")(html)
+    def actions(html: Frag): Html = div(cls := "form-actions")(html)
 
-    def action(html: Html): Html = div(cls := "form-actions single")(html)
+    def action(html: Frag): Html = div(cls := "form-actions single")(html)
 
     def submit(
-      content: Html,
+      content: Frag,
       icon: Option[String] = Some("E"),
       nameValue: Option[(String, String)] = None,
       klass: String = ""

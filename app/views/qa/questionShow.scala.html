@@ -75,14 +75,14 @@ formCss = answerForm.isDefined) {
       <p class="title answers-header content_box_inter">Your answer</p>
       }
       <form class="form3" action="@routes.QaAnswer.create(q.id).url#your-answer" method="post">
-        @form3.group(form("body"), Html("Your answer"), help = Html("Do not comment the question here. Only post an answer, if you have one.").some) { f =>
+        @form3.group(form("body"), raw("Your answer"), help = raw("Do not comment the question here. Only post an answer, if you have one.").some) { f =>
         @form3.textarea(f)(*.rows := 12)
         }
         @base.captcha(form, captcha)
         @form3.actions {
-        @form3.submit(Html("Post your answer"))
+        @form3.submit(raw("Post your answer"))
         @if(isGranted(_.PublicMod)){
-        @form3.submit(Html("Answer as mod"), nameValue = ("modIcon", "true").some, icon = "".some)
+        @form3.submit(raw("Answer as mod"), nameValue = ("modIcon", "true").some, icon = "".some)
         }
         }
       </form>

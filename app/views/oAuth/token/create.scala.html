@@ -1,4 +1,5 @@
 @(form: Form[_], me: User)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @title = @{ "New personal API access token" }
 
@@ -17,7 +18,7 @@ evenMoreCss = cssTag("form3.css")
       They can be used to authenticate to the API over Basic Authentication.
     </div>
 
-    @form3.group(form("description"), Html("Token description"), help = Html("For you to remember what this token is for").some)(form3.input(_))
+    @form3.group(form("description"), raw("Token description"), help = raw("For you to remember what this token is for").some)(form3.input(_))
 
     <br><br>
     <h2>Scopes define the access for personal tokens:</h2>
@@ -35,7 +36,7 @@ evenMoreCss = cssTag("form3.css")
 
     @form3.actions {
     <a href="@routes.OAuthToken.index">Cancel</a>
-    @form3.submit(trans.apply())
+    @form3.submit(trans.apply.frag())
     }
   </form>
 </div>

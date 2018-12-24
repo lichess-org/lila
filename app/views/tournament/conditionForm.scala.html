@@ -1,35 +1,36 @@
 @(form: Form[_], auto: Boolean, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @import lila.tournament.Condition
 
-@autoField(fieldName: String)(visible: Field => Html) = {
-@if(auto) { @form3.hidden(form(fieldName)) } else { @visible(form(fieldName)) }
+@autoField(fieldName: String)(visible: Field => Frag) = @{
+if(auto) form3.hidden(form(fieldName)) else visible(form(fieldName))
 }
 
 @form3.split {
-@form3.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices))
+@form3.group(form("conditions.nbRatedGame.nb"), raw("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices))
 @autoField("conditions.nbRatedGame.perf") { field =>
-@form3.group(field, Html("In variant"), half = true)(form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices))
+@form3.group(field, raw("In variant"), half = true)(form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices))
 }
 }
 @form3.split {
-@form3.group(form("conditions.minRating.rating"), Html("Minimum rating"), half = true)(form3.select(_, Condition.DataForm.minRatingChoices))
+@form3.group(form("conditions.minRating.rating"), raw("Minimum rating"), half = true)(form3.select(_, Condition.DataForm.minRatingChoices))
 @autoField("conditions.minRating.perf") { field =>
-@form3.group(field, Html("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+@form3.group(field, raw("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
 }
 }
 @form3.split {
-@form3.group(form("conditions.maxRating.rating"), Html("Maximum weekly rating"), half = true)(form3.select(_, Condition.DataForm.maxRatingChoices))
+@form3.group(form("conditions.maxRating.rating"), raw("Maximum weekly rating"), half = true)(form3.select(_, Condition.DataForm.maxRatingChoices))
 @autoField("conditions.maxRating.perf") { field =>
-@form3.group(field, Html("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+@form3.group(field, raw("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
 }
 }
 @form3.split {
 @if(ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) {
-@form3.checkbox(form("conditions.titled"), Html("Only titled players"), help = Html("Require an official title to join the tournament").some, half = true)
+@form3.checkbox(form("conditions.titled"), raw("Only titled players"), help = raw("Require an official title to join the tournament").some, half = true)
 }
-@form3.checkbox(form("berserkable"), Html("Allow Berserk"), help = Html("Let players halve their clock time to gain an extra point").some, half = true)
+@form3.checkbox(form("berserkable"), raw("Allow Berserk"), help = raw("Let players halve their clock time to gain an extra point").some, half = true)
 }
 @if(auto && teams.size > 0) {
-@form3.group(form("conditions.teamMember.teamId"), Html("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
+@form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
 }
