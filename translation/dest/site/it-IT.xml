@@ -546,7 +546,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="whenTimeRemainingLessThanTenSeconds">Quando il tempo rimanente è &lt; 10 secondi</string>
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
-  <string name="gameBehavior">Andamento del gioco</string>
+  <string name="gameBehavior">Preferenze di gioco</string>
   <string name="howDoYouMovePieces">Come vuoi muovere i pezzi?</string>
   <string name="clickTwoSquares">Click sulle caselle</string>
   <string name="dragPiece">Trascina il pezzo</string>
