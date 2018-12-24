@@ -31,6 +31,8 @@ final class DataForm(
   private def acceptableUniqueEmail(forUser: Option[User]) =
     acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
 
+  private def withDns(m: Mapping[String]) = m verifying emailValidator.withDns
+
   private def trimField(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   object signup {
@@ -56,7 +58,7 @@ final class DataForm(
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none),
+      "email" -> withDns(acceptableUniqueEmail(none)),
       "fp" -> optional(nonEmptyText),
       "g-recaptcha-response" -> optional(nonEmptyText)
     )(SignupData.apply)(_ => None))
@@ -64,7 +66,7 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none)
+      "email" -> withDns(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -96,7 +98,9 @@ final class DataForm(
   def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "passwd" -> passwordMapping(candidate),
-      "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+      "email" -> withDns {
+        acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+      }
     )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
       passwd = "",
       email = old.??(_.value)
@@ -126,7 +130,11 @@ final class DataForm(
   }
 
   def fixEmail(old: EmailAddress) = Form(
-    single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))
+    single(
+      "email" -> withDns {
+        acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some)
+      }
+    )
   ).fill(old.value)
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))

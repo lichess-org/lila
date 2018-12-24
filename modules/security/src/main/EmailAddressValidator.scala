@@ -1,7 +1,7 @@
 package lidraughts.security
 
-import lidraughts.user.User
 import lidraughts.common.EmailAddress
+import lidraughts.user.User
 
 import play.api.data.validation._
 
@@ -44,13 +44,12 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
    *                If they already have it assigned, returns false.
    * @return
    */
-  private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Boolean = validate(email) ?? { e =>
-    (lidraughts.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
+  private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Boolean =
+    (lidraughts.user.UserRepo.idByEmail(email) awaitSeconds 2, forUser) match {
       case (None, _) => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _) => true
     }
-  }
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isValid(EmailAddress(e))) Valid
@@ -67,6 +66,11 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
     if (than has EmailAddress(e))
       Invalid(ValidationError("error.email_different"))
     else Valid
+  }
+
+  private[security] val withDns = Constraint[String]("constraint.email_acceptable") { e =>
+    if (DnsCheck email EmailAddress(e)) Valid
+    else Invalid(ValidationError("error.email_acceptable"))
   }
 
   private val gmailDomains = Set("gmail.com", "googlemail.com")
