@@ -253,9 +253,16 @@ object Auth extends LidraughtsController {
     Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
-    fuccess {
-      if (ctx.isAuth) Redirect(routes.Lobby.home)
-      else Account.renderCheckYourEmail
+    ctx.me match {
+      case Some(me) => Redirect(routes.User.show(me.username)).fuccess
+      case None => lidraughts.security.EmailConfirm.cookie get ctx.req match {
+        case None => Ok(Account.renderCheckYourEmail).fuccess
+        case Some(userEmail) =>
+          UserRepo nameExists userEmail.username map {
+            case false => Redirect(routes.Auth.signup) withCookies LidraughtsCookie.newSession(ctx.req)
+            case true => Ok(Account.renderCheckYourEmail)
+          }
+      }
     }
   }
 
