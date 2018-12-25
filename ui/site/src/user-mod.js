@@ -72,7 +72,7 @@ function userMod($zone) {
       });
   }
 
-  $zone.find('li.ip').slice(0, 2).each(function() {
+  $zone.find('li.ip').slice(0, 3).filter(':not(.loaded)').addClass('loaded').each(function() {
     var $li = $(this);
     $(this).one('mouseover', function() {
       $.ajax({
