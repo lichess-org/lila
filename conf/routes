@@ -597,21 +597,21 @@ POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platf
 POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Pages
-GET   /thanks                          controllers.Page.bookmark(name = "thanks")
-GET   /terms-of-service                controllers.Page.bookmark(name = "tos")
-GET   /privacy                         controllers.Page.bookmark(name = "privacy")
+GET   /thanks                          controllers.Page.thanks
+GET   /terms-of-service                controllers.Page.tos
+GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Main.contact
-GET   /about                           controllers.Page.bookmark(name = "about")
+GET   /about                           controllers.Page.about
 GET   /swag                            controllers.Page.swag
-GET   /how-to-cheat                    controllers.Page.bookmark(name = "how-to-cheat")
+GET   /how-to-cheat                    controllers.Page.howToCheat
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.bookmark(name = "help")
-GET   /help/master                     controllers.Page.bookmark(name = "master")
+GET   /help/contribute                 controllers.Page.help
+GET   /help/master                     controllers.Page.master
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)

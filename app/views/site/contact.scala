@@ -32,6 +32,30 @@ object contact {
     p("Don't forget to mention your username.")
   ))
 
+  private def howToReportBugs: Frag = frag(
+    ul(
+      li(
+        "In the ",
+        a(href := routes.ForumCateg.show("lichess-feedback"))("Lichess Feedback Forum")
+      ),
+      li(
+        "As a ",
+        a(href := "https://github.com/ornicar/lila/issues")("Lichess website issue"),
+        " on GitHub"
+      ),
+      li(
+        "As a ",
+        a(href := "https://github.com/veloce/lichobile/issues")("Lichess mobile app issue"),
+        " on GitHub"
+      ),
+      li(
+        "In the ",
+        a(href := "https://discord.gg/hy5jqSs")("Lichess discord server")
+      )
+    ),
+    p("Please describe what the bug looks like, what you expected to happen instead, and the steps to reproduce the bug.")
+  )
+
   private lazy val menu: Branch =
     Branch("root", "What can we help you with?", List(
       Branch("login", "I can't log in", List(
@@ -77,7 +101,7 @@ object contact {
         Leaf("title", "I want my title displayed on lichess", frag(
           p(
             "To show your title on your lichess profile, and participate to Titled Arenas, ",
-            a(href := routes.Page.bookmark(name = "master"))(
+            a(href := routes.Page.master)(
               "visit the title confirmation page"
             ),
             "."
@@ -161,28 +185,13 @@ object contact {
           p("Make sure you played a rated game."),
           p("Casual games do not affect the players ratings.")
         )),
-        Leaf("other-bug", "None of the above", frag(
+        Leaf("error-page", "Error page", frag(
+          p("If you faced an error page, you may report it:"),
+          howToReportBugs
+        )),
+        Leaf("other-bug", "Other bug", frag(
           p("If you found a new bug, you may report it:"),
-          ul(
-            li(
-              "In the ",
-              a(href := routes.ForumCateg.show("lichess-feedback"))("Lichess Feedback Forum")
-            ),
-            li(
-              "As a ",
-              a(href := "https://github.com/ornicar/lila/issues")("Lichess website issue"),
-              " on GitHub"
-            ),
-            li(
-              "As a ",
-              a(href := "https://github.com/veloce/lichobile/issues")("Lichess mobile app issue"),
-              " on GitHub"
-            ),
-            li(
-              "In the ",
-              a(href := "https://discord.gg/hy5jqSs")("Lichess discord server")
-            )
-          )
+          howToReportBugs
         ))
       )),
       Branch("appeal", "Appeal for a ban or IP restriction", List(
@@ -196,7 +205,7 @@ object contact {
             "However if you indeed used engine assistance, ",
             strong("even just once"),
             ", then your account is unfortunately lost.", br,
-            "Do not deny having cheated. If you want to be allowed to create a new account", br,
+            "Do not deny having cheated. If you want to be allowed to create a new account, ",
             "just admit to what you did, and show that you understood that it was a mistake."
           )
         )),

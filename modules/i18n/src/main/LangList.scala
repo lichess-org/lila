@@ -91,6 +91,7 @@ object LangList {
     Lang("ta", "IN") -> "தமிழ்",
     Lang("tg", "TJ") -> "тоҷикӣ",
     Lang("th", "TH") -> "ไทย",
+    Lang("tk", "TM") -> "Türkmençe",
     Lang("tl", "PH") -> "Tagalog",
     Lang("tp", "TP") -> "toki pona",
     Lang("tr", "TR") -> "Türkçe",

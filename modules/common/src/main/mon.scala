@@ -392,6 +392,11 @@ object mon {
     object linearLimit {
       def generic(key: String) = inc(s"security.linear_limit.generic.$key")
     }
+    object dnsCheck {
+      def time = rec("security.dnsCheck.time")
+      def count = inc("security.dnsCheck.count")
+      def valid = inc("security.dnsCheck.valid")
+    }
   }
   object tv {
     object stream {
