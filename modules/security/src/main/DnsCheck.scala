@@ -4,7 +4,7 @@ import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import java.net.{ InetAddress, UnknownHostException }
 import scala.concurrent.duration._
 
-import lila.common.EmailAddress
+import lila.common.{ Chronometer, EmailAddress }
 
 // blocking API
 private object DnsCheck {
@@ -17,14 +17,18 @@ private object DnsCheck {
     .expireAfterWrite(1 hour)
     .build(doCheck)
 
-  private def doCheck(domain: String): Boolean = try {
-    InetAddress getByName domain
-    true
-  } catch {
-    case _: UnknownHostException => false
-    case e: Exception =>
-      logger.warn(s"DisposableEmailDomain.noDns $domain", e)
+  private def doCheck(domain: String): Boolean = Chronometer.syncMon(_.security.dnsCheck.time) {
+    try {
+      lila.mon.security.dnsCheck.count()
+      InetAddress getByName domain
+      lila.mon.security.dnsCheck.valid()
       true
+    } catch {
+      case _: UnknownHostException => false
+      case e: Exception =>
+        logger.warn(s"DisposableEmailDomain.noDns $domain", e)
+        true
+    }
   }
 
   val mainstreamDomains = Set(
