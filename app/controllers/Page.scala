@@ -5,7 +5,15 @@ import views._
 
 object Page extends LilaController {
 
-  def bookmark(name: String) = Open { implicit ctx =>
+  val tos = bookmark("tos")
+  val thanks = bookmark("thanks")
+  val help = bookmark("help")
+  val howToCheat = bookmark("how-to-cheat")
+  val privacy = bookmark("privacy")
+  val about = bookmark("about")
+  val master = bookmark("master")
+
+  private def bookmark(name: String) = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark name) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
