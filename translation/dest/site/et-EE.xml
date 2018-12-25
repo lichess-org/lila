@@ -648,6 +648,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>
   <string name="about">Rakenduse info</string>
+  <string name="aboutX">Info %s kohta</string>
   <string name="contribute">Panustada</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Kasutajatingimused</string>
