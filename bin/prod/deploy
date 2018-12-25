@@ -119,7 +119,8 @@ STOP_DROPPING="sleep 7 && $REMOTE_DIR/bin/prod/iptables-drop 0.75 && sleep 6 && 
 if [ $mode = "main" ]; then
   lilalog "Restart lichess"
   RUN_DIR="/home/lichess"
-  SSH_COMMAND="$START_DROPPING && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess && $STOP_DROPPING"
+  # SSH_COMMAND="$START_DROPPING && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess && $STOP_DROPPING"
+  SSH_COMMAND="rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
 fi
