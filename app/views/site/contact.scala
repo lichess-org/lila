@@ -92,11 +92,11 @@ object contact {
           p("Do not ask us by email to close an account, we won't do it.")
         )),
         reopenLeaf("account"),
-        Leaf("title", "I want to change my username", frag(
+        Leaf("change-username", "I want to change my username", frag(
           p("We're very sorry, but the username cannot be changed. For technical reasons, it's downright impossible."),
           p("However, you can always close your current account, and create a new one.")
         )),
-        Leaf("title", "I want to clear my history or rating", frag(
+        Leaf("clear-history", "I want to clear my history or rating", frag(
           p("It's not possible to clear your game history, puzzle history, or ratings."),
           p("However, you can always close your current account, and create a new one.")
         ))
