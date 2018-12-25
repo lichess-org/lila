@@ -14,7 +14,7 @@ private object DnsCheck {
   def email(email: EmailAddress): Boolean = email.domain exists domain
 
   private val cache: LoadingCache[String, Boolean] = Scaffeine()
-    .expireAfterWrite(1 hour)
+    .expireAfterWrite(6 hour)
     .build(doCheck)
 
   private def doCheck(domain: String): Boolean = Chronometer.syncMon(_.security.dnsCheck.time) {
