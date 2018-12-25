@@ -205,7 +205,7 @@ object contact {
             "However if you indeed used engine assistance, ",
             strong("even just once"),
             ", then your account is unfortunately lost.", br,
-            "Do not deny having cheated. If you want to be allowed to create a new account", br,
+            "Do not deny having cheated. If you want to be allowed to create a new account, ",
             "just admit to what you did, and show that you understood that it was a mistake."
           )
         )),
