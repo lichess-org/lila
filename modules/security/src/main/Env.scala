@@ -48,7 +48,6 @@ final class Env(
   private val RecaptchaEndpoint = config getString "recaptcha.endpoint"
   private val NetBaseUrl = config getString "net.base_url"
   private val NetDomain = config getString "net.domain"
-  private val NetEmail = config getString "net.email"
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
