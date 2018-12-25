@@ -31,8 +31,8 @@
   <string name="joinTheGame">Ühine mänguga</string>
   <string name="whitePlays">Valge mängib</string>
   <string name="blackPlays">Must mängib</string>
-  <string name="opponentLeftChoices">Vastane on lahkunud mängust. Sa võid sundida, et mängija alistuks või ootad.</string>
-  <string name="makeYourOpponentResign">Sunni vastane alistuma</string>
+  <string name="opponentLeftChoices">Vastane on lahkunud mängust. Võid sundida mängijat alistuma või ootadata.</string>
+  <string name="makeYourOpponentResign">Sunni vastast alistuma</string>
   <string name="forceResignation">Sunni alistuma</string>
   <string name="forceDraw">Sunni viiki</string>
   <string name="talkInChat">Palun käitu vestluses viisakalt!</string>
