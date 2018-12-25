@@ -69,7 +69,7 @@ object emailConfirmHelp {
             )
             case NoEmail(name) => frag(
               p("The account ", strong(name), " doesn't have an email."),
-              p("Visit the ", a(href := routes.Page.bookmark(name = "contact"))("contact page"), ".")
+              p("Visit the ", a(href := routes.Page.contact)("contact page"), ".")
             )
           }
         )
