@@ -16,4 +16,5 @@ Siin on sinu profiil: %1$s. Saad seda kohandada siin %2$s.
 Veeda mõnusalt aega, ning et sinu vigurid leiaksid tee vastase kuningani!</string>
   <string name="common_orPaste">(Klikkimine ei tööta? Proovi kleepida see oma brauserisse!)</string>
   <string name="common_note">See on meil, mis on seotud sinu tegevusega lehel %s.</string>
+  <string name="common_contact">Et meiega ühendust võtta, palun kasutage %s.</string>
 </resources>
