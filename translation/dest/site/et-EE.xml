@@ -6,13 +6,13 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Et kutsuda kedagi mängima, anna talle see URL</string>
   <string name="gameOver">Mäng läbi</string>
   <string name="waitingForOpponent">Ootan vastast</string>
-  <string name="waiting">Ootan</string>
+  <string name="waiting">Ootan vastust</string>
   <string name="yourTurn">Sinu käik</string>
   <string name="aiNameLevelAiLevel">%1$s tase %2$s</string>
   <string name="level">Tase</string>
   <string name="toggleTheChat">Luba vestlust</string>
   <string name="toggleSound">Luba heli</string>
-  <string name="chat">Vestlus</string>
+  <string name="chat">Saada sõnum</string>
   <string name="resign">Alistu</string>
   <string name="checkmate">Šahh ja matt</string>
   <string name="stalemate">Patt</string>
