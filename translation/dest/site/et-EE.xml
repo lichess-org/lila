@@ -298,7 +298,7 @@
     <item quantity="one">Peate veel mängima %s reitinguga mängu</item>
     <item quantity="other">Peate veel mängima %s reitinguga mängu</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Teie %s reiting on hinnanguline</string>
+  <string name="yourPerfRatingIsProvisional">Teie %s reiting on liiga madal/kõrge</string>
   <string name="yourPerfRatingIsTooHigh">Teie %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Teie parim nädalane %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
@@ -306,11 +306,11 @@
   <string name="ratedLessThanInPerf">Reiting ≤ %1$s %2$s</string>
   <string name="mustBeInTeam">Sa pead olema %s tiimis</string>
   <string name="youAreNotInTeam">Sa ei ole %s tiimi liige</string>
-  <string name="backToGame">Tagasi mängule</string>
-  <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
+  <string name="backToGame">Tagasi mängu</string>
+  <string name="siteDescription">Tasuta online male. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõprade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s liiget</item>
+    <item quantity="one">%s liige</item>
     <item quantity="other">%s liiget</item>
   </plurals>
   <string name="allTeams">Kõik võistkonnad</string>
@@ -392,7 +392,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentCalendar">Turniiride kalender</string>
   <string name="conditionOfEntry">Sisenemise tingimus:</string>
   <string name="advancedSettings">Täpsemad seaded</string>
-  <string name="safeTournamentName">Vali turniirile väga turvaline nimi.</string>
+  <string name="safeTournamentName">Vali turniirile sobiv nimi.</string>
   <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
   <string name="emptyTournamentName">Jäta tühjaks, et nimetada turniir juhusliku suurmeistri järgi.</string>
   <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
@@ -400,11 +400,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
   <string name="join">Liitu</string>
   <string name="withdraw">Loobu</string>
-  <string name="points">Punkte</string>
-  <string name="wins">Võite</string>
-  <string name="losses">Kaotusi</string>
-  <string name="winStreak">Järjest võidetuid</string>
-  <string name="createdBy">Lõi kasutaja</string>
+  <string name="points">Punktid</string>
+  <string name="wins">Võidud</string>
+  <string name="losses">Kaotused</string>
+  <string name="winStreak">Järjestikused võidud</string>
+  <string name="createdBy">Loodud</string>
   <string name="tournamentIsStarting">Turniir algab</string>
   <string name="tournamentPairingsAreNowClosed">Turniiri paarimine on nüüd lõppenud.</string>
   <string name="standByX">Palun oodake %s, paarime mängijaid, olge valmis!</string>
