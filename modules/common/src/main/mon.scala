@@ -395,7 +395,7 @@ object mon {
     object dnsCheck {
       def time = rec("security.dnsCheck.time")
       def count = inc("security.dnsCheck.count")
-      def valid = inc("security.dnsCheck.valid")
+      def invalid = inc("security.dnsCheck.invalid")
     }
   }
   object tv {
