@@ -52,24 +52,24 @@
   <string name="usingServerAnalysis">Kasutusel serveri analüüs</string>
   <string name="loadingEngine">Laen analüüsi...</string>
   <string name="cloudAnalysis">Pilve analüüs</string>
-  <string name="goDeeper">Mine sügavamale</string>
+  <string name="goDeeper">Vaata põhjalikumalt</string>
   <string name="showThreat">Näita ohtu</string>
   <string name="inLocalBrowser">Kohalikus veebis</string>
   <string name="toggleLocalEvaluation">Lülita kohalik hindamine</string>
   <string name="promoteVariation">Edenda varient</string>
-  <string name="makeMainLine">Loo põhiliin</string>
-  <string name="deleteFromHere">Kustuta siit</string>
+  <string name="makeMainLine">Tee põhiliiniks</string>
+  <string name="deleteFromHere">Kustuta alates siit</string>
   <string name="move">Käik</string>
   <string name="variantLoss">Variandi kaotus</string>
   <string name="variantWin">Variant võidab</string>
   <string name="insufficientMaterial">Pole piisavalt materjali</string>
   <string name="pawnMove">Etturi käik</string>
-  <string name="capture">Võtta</string>
+  <string name="capture">Võta</string>
   <string name="close">Sulge</string>
   <string name="winning">Võidab</string>
   <string name="losing">Kaotav</string>
   <string name="drawn">Viik</string>
-  <string name="unknown">Teadmata</string>
+  <string name="unknown">Teadmatu</string>
   <string name="database">Andmebaas</string>
   <string name="whiteDrawBlack">Valge / Viik / Must</string>
   <string name="averageRatingX">Keskmine reiting: %s</string>
@@ -77,12 +77,12 @@
   <string name="topGames">Parimad mängud</string>
   <string name="masterDbExplanation">Kaks miljonit päriselumängu %1$s+ FIDE hinnatud mängijat alates %2$s kuni %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matt %s käiguga</item>
-    <item quantity="other">Šahhmatt %s käiguga</item>
+    <item quantity="one">Šahh ja Matt %s käiguga</item>
+    <item quantity="other">Šahh ja matt %s käiguga</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Järgmine löömine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
-    <item quantity="other">Järgmine löömine või etturikäik %s käigu jooksul (50 käigu reegli järelejäänud käigud)</item>
+    <item quantity="one">Järgmine võtmine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
+    <item quantity="other">Järgmine võtmine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
   </plurals>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
@@ -171,17 +171,17 @@
   <string name="email">Email</string>
   <string name="passwordReset">Salasõna lähtestamine</string>
   <string name="forgotPassword">Unustasid salasõna?</string>
-  <string name="rank">Asetus</string>
+  <string name="rank">Koht</string>
   <string name="rankX">Koht: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Reitingut uuendatakse iga %s minuti tagant</string>
+  <string name="rankIsUpdatedEveryXMinutes">Kohta uuendatakse iga %s minuti tagant</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
-    <item quantity="other">%s ülesanded</item>
+    <item quantity="other">%s ülesannet</item>
   </plurals>
   <string name="gamesPlayed">Mänge mängitud</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s mängudest sinuga</item>
-    <item quantity="other">%s mängudest sinuga</item>
+    <item quantity="one">%s mäng sinuga</item>
+    <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
   <string name="timeOut">Aja ületus</string>
