@@ -4,7 +4,7 @@
 @import lila.tournament.Condition
 
 @autoField(fieldName: String)(visible: Field => Frag) = @{
-if(auto) form3.hidden(form(fieldName)) else visible(form(fieldName))
+if(auto) form3.hidden(form(fieldName)) else visible(form(fieldName)).toHtml
 }
 
 @form3.split {
