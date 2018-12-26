@@ -105,7 +105,7 @@
   <string name="cpus">Processori</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
-  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e mantiene il tuo computer caldo</string>
+  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi, ma può surriscaldare il tuo computer</string>
   <string name="blunder">Errore grave</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistake">Errore</string>
