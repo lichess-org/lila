@@ -406,8 +406,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="winStreak">Järjestikused võidud</string>
   <string name="createdBy">Loodud</string>
   <string name="tournamentIsStarting">Turniir algab</string>
-  <string name="tournamentPairingsAreNowClosed">Turniiri paarimine on nüüd lõppenud.</string>
-  <string name="standByX">Palun oodake %s, paarime mängijaid, olge valmis!</string>
+  <string name="tournamentPairingsAreNowClosed">Turniiri paaride loomine on nüüd lõppenud.</string>
+  <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
   <string name="youArePlaying">Te mängite!</string>
   <string name="winRate">Võidumäär</string>
   <string name="berserkRate">Berserk määr</string>
