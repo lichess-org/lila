@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">Arvuti analüüs saadaval</string>
   <string name="analysis">Analüüs</string>
   <string name="depthX">Käik number %s</string>
-  <string name="usingServerAnalysis">Kasutan serveri analüüsi</string>
+  <string name="usingServerAnalysis">Kasutusel serveri analüüs</string>
   <string name="loadingEngine">Laen analüüsi...</string>
   <string name="cloudAnalysis">Pilve analüüs</string>
   <string name="goDeeper">Mine sügavamale</string>
@@ -112,30 +112,30 @@
   <string name="mistakes">Eksimust</string>
   <string name="inaccuracy">Ebatäpsus</string>
   <string name="inaccuracies">Ebatäpsust</string>
-  <string name="moveTimes">Aeg käikudele</string>
+  <string name="moveTimes">Aeg käigu tegemisel</string>
   <string name="flipBoard">Keera lauda</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
-  <string name="claimADraw">Nõustu viigiga</string>
+  <string name="claimADraw">Võta viik</string>
   <string name="offerDraw">Paku viiki</string>
   <string name="draw">Viik</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s mängija</item>
     <item quantity="other">%s mängijat</item>
   </plurals>
-  <string name="currentGames">Käimasolevad mängud</string>
+  <string name="currentGames">Hetkel mängitavad mängud</string>
   <plurals name="nbGames">
     <item quantity="one">%s mäng</item>
     <item quantity="other">%s mängu</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s järjehoidja</item>
-    <item quantity="other">%s järjehoidjad</item>
+    <item quantity="one">%s mängu järjehoidja</item>
+    <item quantity="other">%s mängude järjehoidjad</item>
   </plurals>
   <string name="viewInFullSize">Vaata täisekraanil</string>
   <string name="logOut">Logi välja</string>
   <string name="signIn">Logi sisse</string>
   <string name="newToLichess">Uus Lichessis?</string>
-  <string name="youNeedAnAccountToDoThat">Sa vajad kasutajat, et teha seda</string>
+  <string name="youNeedAnAccountToDoThat">Sa vajad kasutajat, et seda teha</string>
   <string name="signUp">Registreeri</string>
   <string name="computersAreNotAllowedToPlay">Kompuutrit ja kompuutri abi kasutavad mängijad ei tohi mängida. Palun ära kasuta mängides maleprogrammide, andmebaaside ja teiste mängijate abi.</string>
   <string name="games">Mängud</string>
