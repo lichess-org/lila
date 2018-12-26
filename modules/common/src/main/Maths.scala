@@ -24,4 +24,7 @@ object Maths {
 
   def toInt(l: Long): Int = l.min(Int.MaxValue).max(Int.MinValue).toInt
   def toInt(l: Option[Long]): Option[Int] = l map toInt
+
+  def closestMultipleOf(mult: Int, v: Int): Int =
+    Math.round(v / mult.toFloat) * mult
 }
