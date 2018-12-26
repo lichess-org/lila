@@ -21,10 +21,11 @@ private object DnsCheck {
     try {
       lidraughts.mon.security.dnsCheck.count()
       InetAddress getByName domain
-      lidraughts.mon.security.dnsCheck.valid()
       true
     } catch {
-      case _: UnknownHostException => false
+      case _: UnknownHostException =>
+        lidraughts.mon.security.dnsCheck.invalid()
+        false
       case e: Exception =>
         logger.warn(s"DisposableEmailDomain.noDns $domain", e)
         true
