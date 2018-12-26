@@ -86,8 +86,8 @@
   </plurals>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
-  <string name="openingExplorer">Avangute avastamine</string>
-  <string name="xOpeningExplorer">%s avangute uurija</string>
+  <string name="openingExplorer">Avamiste otsija</string>
+  <string name="xOpeningExplorer">%s avamiste otsija</string>
   <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
   <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
   <string name="allSet">Valmis!</string>
@@ -237,11 +237,11 @@
     <item quantity="other">%s reitinguga</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s võitu</item>
+    <item quantity="one">%s võit</item>
     <item quantity="other">%s võitu</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s kaotust</item>
+    <item quantity="one">%s kaotus</item>
     <item quantity="other">%s kaotust</item>
   </plurals>
   <plurals name="nbDraws">
@@ -253,14 +253,14 @@
     <item quantity="other">%s mängimas</item>
   </plurals>
   <string name="exportGames">Ekspordi mängud</string>
-  <string name="ratingRange">Elo vahemik</string>
+  <string name="ratingRange">Reitingu vahemik</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Lisa %s sekundit</item>
+    <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
   <string name="giveMoreTime">Anna lisaaega</string>
-  <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab maletades arvuti abi</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija tõstab kunstlikult / vähendab oma reitingut</string>
+  <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab mängides arvuti abi</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija kunstlikult tõstab / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
@@ -269,7 +269,7 @@
   <string name="takebackPropositionAccepted">Tagasivõtu ettepanek vastuvõetud</string>
   <string name="takebackPropositionCanceled">Tagasivõtu ettepanek tühistatud</string>
   <string name="yourOpponentProposesATakeback">Vastane teeb ettepaneku tagasivõtuks</string>
-  <string name="bookmarkThisGame">Lisa see mäng</string>
+  <string name="bookmarkThisGame">Lisa see mäng järjehoidjasse</string>
   <string name="search">Otsi</string>
   <string name="advancedSearch">Täpsem otsing</string>
   <string name="tournament">Turniir</string>
@@ -283,11 +283,11 @@
   <string name="backToTournament">Tagasi turniirile</string>
   <string name="thematic">Temaatiline</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s reitinguga mängu</item>
+    <item quantity="one">≥ %s reitinguga mäng</item>
     <item quantity="other">≥ %s reitinguga mängu</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s reitinguga mängu</item>
+    <item quantity="one">≥ %1$s %2%s reitinguga mäng</item>
     <item quantity="other">≥ %1$s %2%s reitinguga mängu</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
