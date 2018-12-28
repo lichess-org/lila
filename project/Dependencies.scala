@@ -45,7 +45,7 @@ object Dependencies {
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
 
   object reactivemongo {
-    val version = "0.12.4"
+    val version = "0.12.5"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
