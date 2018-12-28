@@ -301,7 +301,7 @@
   <string name="yourPerfRatingIsProvisional">%s-ratingen din er foreløpig</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-ratingen din (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
-  <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
+  <string name="yourPerfRatingIsTooLow">%1$s-ratingen din (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Du må være med i team %s</string>
@@ -697,7 +697,7 @@ i %3$s</string>
     <item quantity="one">%1$s %2$s-spiller denne uken.</item>
     <item quantity="other">%1$s %2$s-spillere denne uken.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Din %1$s-rating er %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke etablert en %s-rating.</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
