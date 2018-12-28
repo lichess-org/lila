@@ -47,7 +47,6 @@ private[setup] final class Processor(
             Created(seek.id)
           }
         }
-        case Right(None) if ctx.me.isEmpty => fuccess(Refused)
         case _ => fuccess(Refused)
       }
     }

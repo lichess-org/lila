@@ -33,7 +33,7 @@ object MatchMaking {
     // None indicates a forbidden pairing
     private def pairScore(a: PoolMember, b: PoolMember): Option[Int] = {
       val score = a.ratingDiff(b) - {
-        missBonus(a) + missBonus(b)
+        missBonus(a) atMost missBonus(b)
       } + {
         rangeMalus(a, b) + rangeMalus(b, a)
       } + {
@@ -44,7 +44,7 @@ object MatchMaking {
     }
 
     // score bonus based on how many waves the member missed
-    private def missBonus(p: PoolMember) = (p.misses * 30) atMost 1000
+    private def missBonus(p: PoolMember) = (p.misses * 20) atMost 500
 
     // big malus if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =

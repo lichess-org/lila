@@ -27,19 +27,21 @@ final class Player(
   private val delayFactor = 0.011f
   private val defaultClock = Clock(300, 0)
 
-  private def delayFor(g: Game): Option[FiniteDuration] = for {
-    pov <- g.aiPov
-    clock = g.clock | defaultClock
-    totalTime = clock.estimateTotalTime.centis
-    if totalTime > 20 * 100
-    delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
-    accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
-    sleep = (delay * accel) atMost 500
-    if sleep > 25
-    millis = sleep * 10
-    randomized = approximatly(0.5f)(millis)
-    divided = randomized / (if (g.turns > 9) 1 else 2)
-  } yield divided.millis
+  private def delayFor(g: Game): Option[FiniteDuration] =
+    if (!g.bothPlayersHaveMoved) 4.seconds.some
+    else for {
+      pov <- g.aiPov
+      clock = g.clock | defaultClock
+      totalTime = clock.estimateTotalTime.centis
+      if totalTime > 20 * 100
+      delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
+      accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
+      sleep = (delay * accel) atMost 500
+      if sleep > 25
+      millis = sleep * 10
+      randomized = approximatly(0.5f)(millis)
+      divided = randomized / (if (g.turns > 9) 1 else 2)
+    } yield divided.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)
