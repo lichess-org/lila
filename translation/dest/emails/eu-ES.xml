@@ -18,4 +18,5 @@ Hemen dago zure profilaren orrialdea: %1$s. Nahi duzun bezala egokitu dezakezu h
 Ondo ibili eta zorte on!</string>
   <string name="common_orPaste">(Klik egitea ez badabil, saiatu helbidea kopiatu eta nabigatzailean itsasten)</string>
   <string name="common_note">%s-en erabileraren inguruko eposta automatiko bat da hau.</string>
+  <string name="common_contact">Gurekin kontaktuan jartzeko idatzi %s helbidera.</string>
 </resources>
