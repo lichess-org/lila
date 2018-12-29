@@ -140,7 +140,7 @@ object Account extends LidraughtsController {
   def emailApply = AuthBody { implicit ctx => me =>
     controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      emailForm(me) flatMap { form =>
+      Env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.email(me, err))
         } { data =>

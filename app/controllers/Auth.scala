@@ -1,6 +1,7 @@
 package controllers
 
 import ornicar.scalalib.Zero
+import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -94,7 +95,7 @@ object Auth extends LidraughtsController {
                 negotiate(
                   html = fuccess {
                     err.errors match {
-                      case List(play.api.data.FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                      case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
                       case _ => Unauthorized(html.auth.login(err, referrer))
                     }
                   },
@@ -178,7 +179,7 @@ object Auth extends LidraughtsController {
     implicit val req = ctx.body
     NoTor {
       Firewall {
-        negotiate(
+        forms.preloadEmailDns >> negotiate(
           html = forms.signup.website.bindFromRequest.fold(
             err => {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
@@ -270,7 +271,7 @@ object Auth extends LidraughtsController {
   def fixEmail = OpenBody { implicit ctx =>
     lidraughts.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
       implicit val req = ctx.body
-      forms.fixEmail(userEmail.email).bindFromRequest.fold(
+      forms.preloadEmailDns >> forms.fixEmail(userEmail.email).bindFromRequest.fold(
         err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
         email => UserRepo.named(userEmail.username) flatMap {
           _.fold(Redirect(routes.Auth.signup).fuccess) { user =>

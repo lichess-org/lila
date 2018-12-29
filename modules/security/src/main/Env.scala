@@ -50,6 +50,8 @@ final class Env(
   private val NetDomain = config getString "net.domain"
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
   private val CsrfEnabled = config getBoolean "csrf.enabled"
+  private val DnsApiUrl = config getString "dns_api.url"
+  private val DnsApiTimeout = config duration "dns_api.timeout"
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
@@ -147,7 +149,9 @@ final class Env(
     baseUrl = NetBaseUrl
   )
 
-  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
+  private lazy val dnsApi = new DnsApi(DnsApiUrl, DnsApiTimeout)(system)
+
+  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain, dnsApi)
 
   lazy val emailBlacklistSetting = settingStore[Strings](
     "emailBlacklist",
@@ -158,7 +162,7 @@ final class Env(
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
     blacklistStr = emailBlacklistSetting.get,
-    busOption = system.lidraughtsBus.some
+    bus = system.lidraughtsBus
   )
 
   import reactivemongo.bson._

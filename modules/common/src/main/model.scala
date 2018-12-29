@@ -45,8 +45,8 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
     case Array(user, domain) => s"${user take 3}*****@${domain}"
     case _ => value
   }
-  def domain = value split '@' match {
-    case Array(_, domain) => domain.some
+  def domain: Option[Domain] = value split '@' match {
+    case Array(_, domain) => Domain(domain).some
     case _ => none
   }
 }
@@ -61,5 +61,7 @@ object EmailAddress {
 
   private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
+
+case class Domain(value: String) extends AnyVal with StringValue
 
 case class Strings(value: List[String]) extends AnyVal
