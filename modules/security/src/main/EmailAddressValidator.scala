@@ -1,14 +1,18 @@
 package lila.security
 
+import play.api.data.validation._
+import scala.concurrent.duration._
+
 import lila.common.EmailAddress
 import lila.user.User
-
-import play.api.data.validation._
 
 /**
  * Validate and normalize emails
  */
-final class EmailAddressValidator(disposable: DisposableEmailDomain) {
+final class EmailAddressValidator(
+    disposable: DisposableEmailDomain,
+    dnsApi: DnsApi
+) {
 
   // email was already regex-validated at this stage
   def validate(email: EmailAddress): Option[EmailAddress] =
@@ -26,7 +30,7 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
         .map(radix => EmailAddress(s"$radix@$domain")) // okay
 
         // disposable addresses
-        case Array(_, domain) if disposable(domain) => none
+        case Array(_, domain) if disposable fromDomain domain => none
 
         // other valid addresses
         case Array(name, domain) if domain contains "." => EmailAddress(s"$name@$domain").some
@@ -68,8 +72,26 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
     else Valid
   }
 
-  private[security] val withDns = Constraint[String]("constraint.email_acceptable") { e =>
-    if (DnsCheck email EmailAddress(e)) Valid
+  // make sure the cache is warmed up, so next call can be synchronous
+  def preloadDns(e: EmailAddress): Funit = hasAcceptableDns(e).void
+
+  // only compute valid and non-whitelisted email domains
+  private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] = validate(e) ?? {
+    _.domain ?? { domain =>
+      if (DisposableEmailDomain whitelisted domain) fuccess(true)
+      else dnsApi.a(domain) >>& dnsApi.mx(domain).map { domains =>
+        domains.nonEmpty && domains.forall { !disposable(_) }
+      }
+    }
+  }
+
+  // the DNS emails should have been preloaded
+  private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
+    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(100.millis, {
+      logger.warn(s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded")
+      true
+    })
+    if (ok) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 

@@ -1,9 +1,9 @@
 package controllers
 
 import ornicar.scalalib.Zero
+import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.data.FormError
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -179,7 +179,7 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     NoTor {
       Firewall {
-        negotiate(
+        forms.preloadEmailDns >> negotiate(
           html = forms.signup.website.bindFromRequest.fold(
             err => {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
@@ -271,7 +271,7 @@ object Auth extends LilaController {
   def fixEmail = OpenBody { implicit ctx =>
     lila.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
       implicit val req = ctx.body
-      forms.fixEmail(userEmail.email).bindFromRequest.fold(
+      forms.preloadEmailDns >> forms.fixEmail(userEmail.email).bindFromRequest.fold(
         err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
         email => UserRepo.named(userEmail.username) flatMap {
           _.fold(Redirect(routes.Auth.signup).fuccess) { user =>

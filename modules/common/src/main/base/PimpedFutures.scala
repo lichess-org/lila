@@ -124,6 +124,9 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def awaitSeconds(seconds: Int): A =
     await(seconds.seconds)
 
+  def withTimeout(duration: FiniteDuration)(implicit system: akka.actor.ActorSystem): Fu[A] =
+    withTimeout(duration, LilaException(s"Future timed out after $duration"))
+
   def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,

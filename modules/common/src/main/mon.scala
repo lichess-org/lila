@@ -392,10 +392,17 @@ object mon {
     object linearLimit {
       def generic(key: String) = inc(s"security.linear_limit.generic.$key")
     }
-    object dnsCheck {
-      def time = rec("security.dnsCheck.time")
-      def count = inc("security.dnsCheck.count")
-      def invalid = inc("security.dnsCheck.invalid")
+    object dnsApi {
+      object mx {
+        def time = rec("security.dnsApi.mx.time")
+        def count = inc("security.dnsApi.mx.count")
+        def error = inc("security.dnsApi.mx.error")
+      }
+      object a {
+        def time = rec("security.dnsApi.a.time")
+        def count = inc("security.dnsApi.a.count")
+        def error = inc("security.dnsApi.a.error")
+      }
     }
   }
   object tv {

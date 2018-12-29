@@ -31,9 +31,17 @@ final class DataForm(
   private def acceptableUniqueEmail(forUser: Option[User]) =
     acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
 
-  private def withDns(m: Mapping[String]) = m verifying emailValidator.withDns
+  private def withAcceptableDns(m: Mapping[String]) = m verifying emailValidator.withAcceptableDns
 
   private def trimField(m: Mapping[String]) = m.transform[String](_.trim, identity)
+
+  private val preloadEmailDnsForm = Form(single("email" -> acceptableEmail))
+
+  def preloadEmailDns(implicit req: play.api.mvc.Request[_]): Funit =
+    preloadEmailDnsForm.bindFromRequest.fold(
+      _ => funit,
+      email => emailValidator.preloadDns(EmailAddress(email))
+    )
 
   object signup {
 
@@ -58,7 +66,7 @@ final class DataForm(
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> withDns(acceptableUniqueEmail(none)),
+      "email" -> withAcceptableDns(acceptableUniqueEmail(none)),
       "fp" -> optional(nonEmptyText),
       "g-recaptcha-response" -> optional(nonEmptyText)
     )(SignupData.apply)(_ => None))
@@ -66,7 +74,7 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> withDns(acceptableUniqueEmail(none))
+      "email" -> withAcceptableDns(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -98,7 +106,7 @@ final class DataForm(
   def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "passwd" -> passwordMapping(candidate),
-      "email" -> withDns {
+      "email" -> withAcceptableDns {
         acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
       }
     )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
@@ -131,7 +139,7 @@ final class DataForm(
 
   def fixEmail(old: EmailAddress) = Form(
     single(
-      "email" -> withDns {
+      "email" -> withAcceptableDns {
         acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some)
       }
     )
