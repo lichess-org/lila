@@ -43,7 +43,7 @@
   <string name="blackLeftTheGame">Svart har forlate partiet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne lekkja slik at andre kan sjå partiet</string>
   <string name="theComputerAnalysisHasFailed">Sjakkprogramanalysen havarerte</string>
-  <string name="viewTheComputerAnalysis">Sjå sjakkprogramanalysen</string>
+  <string name="viewTheComputerAnalysis">Vis maskinanalysen</string>
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>
@@ -131,7 +131,7 @@
     <item quantity="one">%s bokmerke</item>
     <item quantity="other">%s bokmerke</item>
   </plurals>
-  <string name="viewInFullSize">Sjå i full storleik</string>
+  <string name="viewInFullSize">Vis i full storleik</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
   <string name="newToLichess">Er du ny på Lichess?</string>
@@ -204,9 +204,9 @@
   <string name="standard">Standard</string>
   <string name="unlimited">Uavgrensa</string>
   <string name="mode">Modus</string>
-  <string name="casual">Ikkje rangert</string>
+  <string name="casual">Uformelt</string>
   <string name="rated">Rangert</string>
-  <string name="casualTournament">Ikkje rangert</string>
+  <string name="casualTournament">Uformell</string>
   <string name="ratedTournament">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
@@ -217,7 +217,7 @@
   <string name="rematchOfferCanceled">Førespurnad om omkamp trekt tilbake</string>
   <string name="rematchOfferDeclined">Tilbod om omkamp avslått</string>
   <string name="cancelRematchOffer">Avbryt førespurnad om omkamp</string>
-  <string name="viewRematch">Sjå omkamp</string>
+  <string name="viewRematch">Vis omkampen</string>
   <string name="play">Spel</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Praterom</string>
@@ -418,7 +418,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blackWins">Svart vinn</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Neste %s turnering:</string>
-  <string name="viewMoreTournaments">Sjå fleire turneringar</string>
+  <string name="viewMoreTournaments">Vis fleire turneringar</string>
   <string name="averageOpponent">Gjennomsnittleg motstand</string>
   <string name="membersOnly">Berre for medlemmer</string>
   <string name="boardEditor">Brettskipar</string>
@@ -745,7 +745,7 @@ i %3$s</string>
   <string name="correspondenceChess">Fjernsjakk</string>
   <string name="onlineAndOfflinePlay">Spel online og offline</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og ubegrensa tid</string>
-  <string name="viewTheSolution">Sjå løysinga</string>
+  <string name="viewTheSolution">Vis løysinga</string>
   <string name="followAndChallengeFriends">Følg og utfordre vener</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgjengeleg på %s språk!</item>
