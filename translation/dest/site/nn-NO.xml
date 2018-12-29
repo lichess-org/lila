@@ -23,9 +23,9 @@
   <string name="whiteIsVictorious">Kvit vann partiet</string>
   <string name="blackIsVictorious">Svart vann partiet</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
-  <string name="threeChecks">Sjakk tre gongar</string>
+  <string name="threeChecks">Sjakk tre gonger</string>
   <string name="raceFinished">Målgang</string>
-  <string name="variantEnding">Variant slutt</string>
+  <string name="variantEnding">Variantavslutning</string>
   <string name="newOpponent">Ny motspelar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Motspelaren din ønskjer å spela eit nytt parti med deg</string>
   <string name="joinTheGame">Bli med</string>
@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
-  <string name="openingExplorer">Opningsutforskar &amp; opningsbok</string>
+  <string name="openingExplorer">Opningsbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
@@ -119,7 +119,7 @@
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">Spelarar: %s</item>
+    <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
   <string name="currentGames">Parti som blir spelt nett no</string>
@@ -128,8 +128,8 @@
     <item quantity="other">%s parti</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Bokmerke</item>
-    <item quantity="other">%s Bokmerke</item>
+    <item quantity="one">%s bokmerke</item>
+    <item quantity="other">%s bokmerke</item>
   </plurals>
   <string name="viewInFullSize">Sjå i full storleik</string>
   <string name="logOut">Logg ut</string>
@@ -178,7 +178,7 @@
     <item quantity="one">%s sjakkproblem</item>
     <item quantity="other">%s sjakkproblem</item>
   </plurals>
-  <string name="gamesPlayed">spelte parti</string>
+  <string name="gamesPlayed">Spelte parti</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s parti med deg</item>
     <item quantity="other">%s parti med deg</item>
@@ -345,7 +345,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte parti</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dette er ein sjakk-CAPTCHA</string>
+  <string name="thisIsAChessCaptcha">Dette er ein sjakk-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Gjer eit trekk på brettet for å prova at du er eit menneske.</string>
   <string name="captcha.fail">Ver venleg og løys sjakkproblemet.</string>
   <string name="notACheckmate">Ikkje sjakk matt</string>
@@ -452,7 +452,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="yourPuzzleRatingX">Problemløysar-ratinga di: %s</string>
   <string name="findTheBestMoveForWhite">Finn beste trekket for kvit.</string>
   <string name="findTheBestMoveForBlack">Finn beste trekket for svart.</string>
-  <string name="toTrackYourProgress">Finn ut kor stor framgong du har:</string>
+  <string name="toTrackYourProgress">Finn ut kor stor framgang du har:</string>
   <string name="trainingSignupExplanation">Lichess gjev deg oppgåver som er tilpassa ditt nivå, og dette gjev betre treningsøkter.</string>
   <string name="puzzleId">Oppgåve %s</string>
   <string name="puzzleOfTheDay">Dagens oppgåve</string>
