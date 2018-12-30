@@ -383,8 +383,8 @@
   <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
   <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
   <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
-  <string name="fewerPlayers">Si ajustes les condicions per participar-hi, el torneig tindrà menys jugadors.</string>
-  <string name="showAdvancedSettings">Mostrar configuració avançada</string>
+  <string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
+  <string name="showAdvancedSettings">Configuració avançada</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
@@ -404,10 +404,12 @@
   <string name="whiteWins">Les blanques guanyen</string>
   <string name="blackWins">Les negres guanyen</string>
   <string name="draws">Taules</string>
+  <string name="nextXTournament">Proper torneig de %s:</string>
   <string name="viewMoreTournaments">Mostrar més tornejos</string>
   <string name="averageOpponent">Oponent mitjà</string>
   <string name="membersOnly">Només per membres</string>
   <string name="boardEditor">Editor del tauler</string>
+  <string name="setTheBoard">Establir el tauler</string>
   <string name="popularOpenings">Obertures populars</string>
   <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Neteja el tauler</string>
@@ -416,6 +418,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Denuncia %s als moderadors</string>
   <string name="profileCompletion">Perfil completat: %s</string>
+  <string name="xRating">Puntuació %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
@@ -424,6 +427,7 @@
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferències</string>
+  <string name="inlineNotation">Notació Lineal</string>
   <string name="watchLichessTV">Mira Lichess TV</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
@@ -509,6 +513,7 @@
   <string name="thisAccountIsClosed">Aquest compte està tancat.</string>
   <string name="invalidUsernameOrPassword">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="incorrectPassword">Contrasenya incorrecta</string>
+  <string name="invalidAuthenticationCode">Autenticació invàlida</string>
   <string name="emailMeALink">Envieu-me per correu electrònic un enllaç</string>
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
@@ -751,6 +756,7 @@ en %3$s</string>
   <string name="notifications">Avisos</string>
   <string name="challenges">Reptes</string>
   <string name="perfRatingX">Classificació: %s</string>
+  <string name="next">Següent</string>
   <string name="solution">Solució</string>
   <string name="waitingForAnalysis">Esperant l\'anàlisi</string>
   <string name="noMistakesFoundForWhite">No s\'ha trobat cap error per a les blanques</string>
