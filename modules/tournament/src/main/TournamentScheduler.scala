@@ -292,7 +292,7 @@ Thank you all, you rock!"""
       },
 
       // hourly standard tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
+      (-2 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
         // Avoid overlap with daily/eastern bullet, daily/hourly ultra.
@@ -311,7 +311,7 @@ Thank you all, you rock!"""
       },
 
       // hourly limited tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
+      (-2 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
         val speed = hour % 4 match {
@@ -370,7 +370,7 @@ Thank you all, you rock!"""
           }
         ).flatten
       }
-    ).flatten filter { _.schedule.at.isAfter(rightNow) }
+    ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 2) }
   }
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
