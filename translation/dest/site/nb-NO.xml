@@ -799,7 +799,7 @@ i %3$s</string>
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde vekk</string>
   <string name="resumePractice">Gjenoppta øving</string>
-  <string name="theGameIsADraw">Partiet ender med remis.</string>
+  <string name="theGameIsADraw">Partiet er remis.</string>
   <string name="computerThinking">Maskinen tenker ...</string>
   <string name="seeBestMove">Vis beste trekk</string>
   <string name="hideBestMove">Skjul beste trekk</string>
