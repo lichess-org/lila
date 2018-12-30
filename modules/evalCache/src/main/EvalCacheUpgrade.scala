@@ -11,16 +11,13 @@ import lila.socket.{ Socket, SocketMember }
  * by remembering the last evalGet of each socket member,
  * and listening to new evals stored.
  */
-private final class EvalCacheUpgrade(
-    asyncCache: lila.memo.AsyncCache.Builder,
-    enabled: () => Boolean
-) {
+private final class EvalCacheUpgrade(asyncCache: lila.memo.AsyncCache.Builder) {
   import EvalCacheUpgrade._
 
   private val members = AnyRefMap.empty[UidString, WatchingMember]
   private val evals = AnyRefMap.empty[SetupId, Set[UidString]]
 
-  def register(uid: Socket.Uid, member: SocketMember, variant: Variant, fen: FEN, multiPv: Int, path: String): Unit = if (enabled()) {
+  def register(uid: Socket.Uid, member: SocketMember, variant: Variant, fen: FEN, multiPv: Int, path: String): Unit = {
     members get uid.value foreach { wm =>
       unregisterEval(wm.setupId, uid)
     }
@@ -29,7 +26,7 @@ private final class EvalCacheUpgrade(
     evals += (setupId -> (~evals.get(setupId) + uid.value))
   }
 
-  def onEval(input: EvalCacheEntry.Input, uid: Socket.Uid): Unit = if (enabled()) {
+  def onEval(input: EvalCacheEntry.Input, uid: Socket.Uid): Unit = {
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
     } foreach { uids =>
