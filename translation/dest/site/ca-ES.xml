@@ -382,6 +382,9 @@
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
   <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
+  <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
+  <string name="fewerPlayers">Si ajustes les condicions per participar-hi, el torneig tindrà menys jugadors.</string>
+  <string name="showAdvancedSettings">Mostrar configuració avançada</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
@@ -390,6 +393,8 @@
   <string name="winStreak">Victòries consecutives</string>
   <string name="createdBy">Creat per</string>
   <string name="tournamentIsStarting">El torneig està començant</string>
+  <string name="tournamentPairingsAreNowClosed">L\'emparellament al torneig s\'ha finalitzat.</string>
+  <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="youArePlaying">¡Estàs jugant!</string>
   <string name="winRate">Percentatge de victòries</string>
   <string name="berserkRate">Taxa de Berserk</string>
