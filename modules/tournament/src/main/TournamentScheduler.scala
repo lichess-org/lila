@@ -219,7 +219,7 @@ Thank you all, you rock!"""
         ).flatten,
 
         // hourly standard tournaments!
-        (0 to 6).toList.flatMap { hourDelta =>
+        (-1 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
           val bulletType = if (hour % 3 == 2) HippoBullet else Bullet
@@ -235,7 +235,7 @@ Thank you all, you rock!"""
         },
 
         // frisian blitz tournaments every 3rd hour!
-        (0 to 6).toList.flatMap { hourDelta =>
+        (-1 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
           val speed = if (hour % 6 == 2) SuperBlitz else Blitz
@@ -250,7 +250,7 @@ Thank you all, you rock!"""
       nextPlans.map { plan =>
         plan.copy(schedule = Schedule addCondition plan.schedule)
       }.foldLeft(List[Plan]()) {
-        case (plans, p) if p.schedule.at.isBeforeNow => plans
+        case (plans, p) if p.schedule.at.isBefore(rightNow minusHours 1) => plans
         case (plans, p) if overlaps(p.schedule, dbScheds) => plans
         case (plans, p) if overlaps(p.schedule, plans.map(_.schedule)) => plans
         case (plans, p) => p :: plans
