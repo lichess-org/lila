@@ -18,8 +18,7 @@ object Dev extends LidraughtsController {
     Env.report.scoreThresholdSetting,
     Env.game.pdnEncodingSetting,
     Env.api.cspEnabledSetting,
-    Env.streamer.alwaysFeaturedSetting,
-    Env.evalCache.upgradeEnabledSetting
+    Env.streamer.alwaysFeaturedSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
