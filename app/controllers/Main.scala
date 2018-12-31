@@ -161,6 +161,10 @@ Disallow: /games/export
     Ok(html.site.getFishnet()).fuccess
   }
 
+  def costs = Open { implicit ctx =>
+    Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview").fuccess
+  }
+
   def contact = Open { implicit ctx =>
     Ok(html.site.contact()).fuccess
   }
