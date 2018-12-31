@@ -307,10 +307,10 @@ private[round] final class Round(
 
   private[this] def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
-      logger.info(s"Round client error $name", e)
+      logger.info(s"Round client error $name: ${e.getMessage}")
       lidraughts.mon.round.error.client()
     case e: DraughtsnetError =>
-      logger.info(s"Round draughtsnet error $name", e)
+      logger.info(s"Round draughtsnet error $name: ${e.getMessage}")
       lidraughts.mon.round.error.draughtsnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
