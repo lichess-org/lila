@@ -1,5 +1,7 @@
 package lila.round
 
+import scala.concurrent.duration._
+
 import lila.common.IpAddress
 import lila.hub.DuctMap
 import lila.user.{ User, UserRepo }
@@ -10,6 +12,16 @@ final class SelfReport(
 ) {
 
   private val whitelist = Set("treehugger")
+
+  private object recent {
+    private val cache = new lila.memo.ExpireSetMemo(10 minutes)
+    def isNew(user: User, fullId: String): Boolean = {
+      val key = s"${user.id}:${fullId}"
+      val res = !cache.get(key)
+      cache.put(key)
+      res
+    }
+  }
 
   def apply(
     userId: Option[User.ID],
@@ -27,7 +39,7 @@ final class SelfReport(
         lila.log("cheat").branch("jslog").info(
           s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
         )
-        user ?? { u =>
+        user.filter(recent.isNew(_, fullId)) ?? { u =>
           slackApi.selfReport(
             typ = name,
             path = fullId,
