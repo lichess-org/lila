@@ -197,7 +197,7 @@
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spiller nå</string>
-  <string name="eventInProgress">Spiller nå</string>
+  <string name="eventInProgress">Pågår</string>
   <string name="finished">Ferdig</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
