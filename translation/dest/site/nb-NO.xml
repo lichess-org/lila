@@ -540,8 +540,8 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="pgnPieceNotation">Notasjon</string>
   <string name="chessPieceSymbol">Brikkesymbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
-  <string name="chessClock">Sjakklokke</string>
-  <string name="tenthsOfSeconds">Tidels sekund</string>
+  <string name="chessClock">Sjakkur</string>
+  <string name="tenthsOfSeconds">Tidels sekunder</string>
   <string name="never">Aldri</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Når gjenværende tid &lt; 10 sekunder</string>
   <string name="horizontalGreenProgressBars">Horisontal grønn progresjonslinje</string>
