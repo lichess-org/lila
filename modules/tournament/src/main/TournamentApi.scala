@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import actorApi._
 import lila.common.{ Debouncer, LightUser }
@@ -66,7 +67,7 @@ final class TournamentApi(
     if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
       bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), 'slack)
     logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds) inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds, none) inject tour
   }
 
   private[tournament] def create(tournament: Tournament): Funit = {
@@ -192,30 +193,41 @@ final class TournamentApi(
     case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
 
-  def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Unit = {
-    Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      if (tour.password == p) {
-        verdicts(tour, me.some, getUserTeamIds) flatMap {
-          _.accepted ?? {
-            pause.canJoin(me.id, tour) ?? {
-              PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-                withdrawOtherTournaments(tour.id, me.id)
-                socketReload(tour.id)
-                publish()
-              }
-            }
+  def join(
+    tourId: Tournament.ID,
+    me: User,
+    p: Option[String],
+    getUserTeamIds: User => Fu[TeamIdList],
+    promise: Option[Promise[Boolean]]
+  ): Unit = Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
+    if (tour.password == p) {
+      verdicts(tour, me.some, getUserTeamIds) flatMap {
+        _.accepted ?? {
+          pause.canJoin(me.id, tour) ?? {
+            PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+              withdrawOtherTournaments(tour.id, me.id)
+              socketReload(tour.id)
+              publish()
+            } inject true
           }
         }
-      } else fuccess(socketReload(tour.id))
+      } addEffect {
+        joined => promise.foreach(_ success joined)
+      } void
+    } else {
+      promise.foreach(_ success false)
+      fuccess(socketReload(tour.id))
     }
   }
 
-  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Fu[Boolean] = {
-    join(tourId, me, p, getUserTeamIds)
-    // atrocious hack, because joining is fire and forget
-    akka.pattern.after(500 millis, system.scheduler) {
-      PlayerRepo.find(tourId, me.id) map { _ ?? (_.active) }
-    }
+  def joinWithResult(
+    tourId: Tournament.ID,
+    me: User, p: Option[String],
+    getUserTeamIds: User => Fu[TeamIdList]
+  ): Fu[Boolean] = {
+    val promise = Promise[Boolean]
+    join(tourId, me, p, getUserTeamIds, promise.some)
+    promise.future.withTimeoutDefault(5.seconds, false)(system)
   }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
