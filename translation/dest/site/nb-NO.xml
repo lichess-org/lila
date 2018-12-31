@@ -688,7 +688,7 @@ i %3$s</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturneringer med ulike tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spill fartsfylte sjakkturneringer! Delta i offisielle, faste turneringer eller lag din egen. Lynsjakk, hurtigsjakk, og andre varianter er tilgjengelig for endeløs sjakkunderholdning.</string>
-  <string name="tournamentNotFound">Kan ikke finne turneringen</string>
+  <string name="tournamentNotFound">Finner ikke turneringen</string>
   <string name="tournamentDoesNotExist">Turneringen eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avlyst fordi alle spillerne trakk seg før den startet.</string>
   <string name="returnToTournamentsHomepage">Tilbake til turneringsoversikt</string>
