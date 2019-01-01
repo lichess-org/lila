@@ -692,6 +692,10 @@ en %3$s</string>
   <string name="tournamentMayHaveBeenCanceled">Pot ser que s\'hagi cancel·lat, si tots els jugadors l\'han abandonat abans que comencés.</string>
   <string name="returnToTournamentsHomepage">Torna a la pàgina principal de tornejos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribució mensual de les puntuacions en %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s jugador de %2$s aquesta setmana.</item>
+    <item quantity="other">%1$s jugadors de %2$s aquesta setmana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
@@ -823,6 +827,10 @@ en %3$s</string>
   <string name="reviewWhiteMistakes">Revisar errors de les blanques</string>
   <string name="reviewBlackMistakes">Revisar errors de les negres</string>
   <string name="advantage">Avantatge</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s segon</item>
+    <item quantity="other">%s segon</item>
+  </plurals>
   <string name="opening">Obertura</string>
   <string name="middlegame">Joc mitjà</string>
   <string name="endgame">Final</string>
