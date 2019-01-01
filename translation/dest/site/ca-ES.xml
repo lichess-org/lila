@@ -232,6 +232,10 @@
   <string name="incrementInSeconds">Increment en segons</string>
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <string name="spectators">Espectadors</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s per punts</item>
+    <item quantity="other">%s per punts</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victòries</item>
     <item quantity="other">%s victòries</item>
@@ -243,6 +247,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s taules</item>
     <item quantity="other">%s taules</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en joc</item>
+    <item quantity="other">%s en joc</item>
   </plurals>
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
@@ -274,6 +282,10 @@
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partida per punts</item>
+    <item quantity="other">≥ %s partides per punts</item>
+  </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s partida puntuada</item>
     <item quantity="other">≥ %1$s %2$s partides puntuades</item>
@@ -823,4 +835,10 @@ en %3$s</string>
   <string name="conditionalPremoves">Premoviments condicionals</string>
   <string name="addCurrentVariation">Afegir variació actual</string>
   <string name="playVariationToCreateConditionalPremoves">Jugar una variació per crear premoviments condicionals</string>
+  <string name="noConditionalPremoves">Sense moviments anticipats condicionals</string>
+  <string name="playX">Jugar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i guardar %s línia anticipada</item>
+    <item quantity="other">i guardar %s línies anticipades</item>
+  </plurals>
 </resources>
