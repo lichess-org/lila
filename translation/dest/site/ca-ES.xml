@@ -420,6 +420,7 @@
   <string name="profileCompletion">Perfil completat: %s</string>
   <string name="xRating">Puntuació %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
+  <string name="gameCompletionRate">Percentatge de finalització de partides: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
@@ -496,6 +497,7 @@
   <string name="troll">Troll</string>
   <string name="other">Altres</string>
   <string name="reportDescriptionHelp">Enganxa el link de la/les pardida/s i explica què hi ha de malament en el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", i digues com has arribat a aquesta conclusió. El teu informe serà processat més ràpid si l\'escrius en Anglés.</string>
+  <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
   <string name="theming">Temes de l\'interfície</string>
@@ -522,6 +524,8 @@
   <string name="pieceDestinations">Destinacions de la peça (moviments vàlids i moviments anticipats)</string>
   <string name="boardCoordinates">Coordenades del tauler (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
+  <string name="pgnPieceNotation">Notació de les jugades</string>
+  <string name="chessPieceSymbol">Símbol de la peça</string>
   <string name="pgnLetter">Lletres (K, Q, R, B, N)</string>
   <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>
@@ -631,6 +635,8 @@ en %3$s</string>
   <string name="videoLibrary">Col·lecció de vídeos</string>
   <string name="mobileApp">Aplicació mòbil</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">En quant a</string>
+  <string name="aboutX">En quant a %s</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="contact">Contacte</string>
   <string name="termsOfService">Condicions del servei</string>
