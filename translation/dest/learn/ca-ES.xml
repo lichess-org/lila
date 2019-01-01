@@ -16,4 +16,7 @@
   <string name="grabAllTheStars">Captura totes les estrelles!</string>
   <string name="theFewerMoves">Contra menys moviments fagis, més punts guanyes!</string>
   <string name="useTwoRooks">Usa les dues torres per acabar abans!</string>
+  <string name="rookComplete">Felicitats! Has aconseguit dominar la torre.</string>
+  <string name="theBishop">L\'àlfil</string>
+  <string name="itMovesDiagonally">Es mou en diagonal</string>
 </resources>
