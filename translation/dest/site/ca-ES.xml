@@ -637,6 +637,8 @@ en %3$s</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">En quant a</string>
   <string name="aboutX">En quant a %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
+  <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="contact">Contacte</string>
   <string name="termsOfService">Condicions del servei</string>
@@ -736,6 +738,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s és amfitrió de %2$s</string>
   <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
   <string name="xLikesY">A %1$s li agrada %2$s</string>
+  <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
@@ -751,7 +754,11 @@ en %3$s</string>
   <string name="pieceSet">Conjunt de peces</string>
   <string name="embedInYourWebsite">Integrar en el seu lloc web</string>
   <string name="usernameAlreadyUsed">Aquest nom d\'usuari ja està en ús. Si us plau, tria un altre nom.</string>
+  <string name="usernamePrefixInvalid">El nom d\'usuari ha de començar amb una lletra.</string>
+  <string name="usernameSuffixInvalid">El nom d\'usuari ha d\'acabar amb una lletra o dígit.</string>
+  <string name="usernameCharsInvalid">Els noms d\'usuari només poden contenir lletres, números, guions i guions baixos.</string>
   <string name="usernameUnacceptable">Aquest nom d\'usuari no és acceptable.</string>
+  <string name="directlySupportLichess">Suporta directament a Lichess</string>
   <string name="playChessInStyle">Juga a escacs amb estil</string>
   <string name="chessBasics">Fonaments d\'escacs</string>
   <string name="coaches">Entrenador</string>
