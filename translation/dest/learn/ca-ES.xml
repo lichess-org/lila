@@ -114,6 +114,22 @@ Fes un moviment per continuar.</string>
 Van a les cantonades.</string>
   <string name="thenPlaceTheKnights">Llavors posa els cavalls!
 Van al costat de les torres.</string>
+  <string name="placeTheBishops">Col·loca el àlfils!
+van al costat dels cavalls.</string>
+  <string name="placeTheQueen">Posa la dama!
+va al seu propi color.</string>
+  <string name="placeTheKing">Posa el rei!
+Va al costat de la seva reina.</string>
+  <string name="pawnsFormTheFrontLine">Els peons formen la primera línia.
+fer un moviment per continuar.</string>
+  <string name="boardSetupComplete">Felicitats! Saps com configurar el tauler d\'escacs.</string>
+  <string name="castling">Enroc</string>
+  <string name="theSpecialKingMove">El moviment especial del rei</string>
+  <string name="castlingIntro">Assegura el rei, i desplega la teva torre per l\'atac!</string>
+  <string name="castleKingSide">Mou el rei dues caselles 
+per enrocar al costat de rei!</string>
+  <string name="castleQueenSide">Mou el rei dues caselles 
+per enrocar al costat de dama!</string>
   <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
 immediatament després de que
 l\'oponent mogui el peó.</string>
