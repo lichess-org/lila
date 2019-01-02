@@ -19,4 +19,5 @@
   <string name="rookComplete">Felicitats! Has aconseguit dominar la torre.</string>
   <string name="theBishop">L\'àlfil</string>
   <string name="itMovesDiagonally">Es mou en diagonal</string>
+  <string name="bishopIntro">A continuació anem a aprendre com fer anar l\'àlfil!</string>
 </resources>
