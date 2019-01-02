@@ -31,4 +31,21 @@
   <string name="kingIntro">Tu ets el rei. Si caus en batalla, el joc està perdut.</string>
   <string name="theKingIsSlow">El rei es lent.</string>
   <string name="lastOne">L\'últim!</string>
+  <string name="kingComplete">Ara ja pots comandar el comandant!</string>
+  <string name="theKnight">El cavall</string>
+  <string name="itMovesInAnLShape">Es mou en forma de L</string>
+  <string name="knightIntro">Aquí un repte per a tu. El cavall és... una peça difícil.</string>
+  <string name="knightsHaveAFancyWay">Els cavalls tenen una peculiar manera de saltar!</string>
+  <string name="knightsCanJumpOverObstacles">Els cavalls pueden saltar obstacles! Escapa i captura les estrelles!</string>
+  <string name="knightComplete">Felicitats! Ja domines el cavall.</string>
+  <string name="thePawn">El peó</string>
+  <string name="itMovesForwardOnly">Es mou cap endavant només</string>
+  <string name="pawnIntro">Els peons són febles, però amaguen un munt de potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Els peons es mouen un quadrat només.
+Però quan arriben a l\'altre costat del tauler, es converteixen en una peça més forta!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">La majoria de les vegades la promoció a dama és el millor.
+Però a vegades un cavall pot resultar útil!</string>
+  <string name="pawnsMoveForward">Els peons avancen endavant,
+però capturen en diagonal!</string>
+  <string name="captureThenPromote">Captura, y després promou el peó!</string>
 </resources>
