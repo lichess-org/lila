@@ -79,6 +79,23 @@ cap peça no defesa!</string>
   <string name="combatIntro">Un bon guerrer sap tant en atac com en defensa!</string>
   <string name="combatComplete">Felicitats! Saps com lluitar amb les peces d\'escacs!</string>
   <string name="checkInOne">Escac en un</string>
+  <string name="attackTheOpponentsKing">Atacar el rei de l\'oponent</string>
+  <string name="checkInOneIntro">Per posar en escac a l\'oponent, ataca el seu rei. L\'ha de defendre!</string>
+  <string name="checkInOneGoal">Amenaça el rei de l\'oponent 
+en un moviment!</string>
+  <string name="checkInOneComplete">Felicitats! Has posat en escac a l\'oponent, obligant-lo a defensar el seu rei!</string>
+  <string name="outOfCheck">Sortir de l\'escac</string>
+  <string name="defendYourKing">Defensa el teu rei</string>
+  <string name="outOfCheckIntro">Ets en escac! Has de fugir o bloquejar l\'atac.</string>
+  <string name="escapeWithTheKing">Escapa amb el rei!</string>
+  <string name="theKingCannotEscapeButBlock">El rei no pot fugir, 
+però pot bloquejar l\'atac!</string>
+  <string name="youCanGetOutOfCheckByTaking">Pots sortir de l\'escac 
+prenent la peça atacant.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">El cavall et dóna escac 
+a través de les teves defenses!</string>
+  <string name="escapeOrBlock">Escapa amb el rei 
+o bloqueja l\'atac!</string>
   <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
 immediatament després de que
 l\'oponent mogui el peó.</string>
