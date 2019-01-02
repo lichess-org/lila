@@ -71,4 +71,18 @@ I no perdis les teves.</string>
   <string name="protectionComplete">Felicitats! Una peça que no perds és una peça que guanyes!</string>
   <string name="escape">Estàs atacat!
 Escapa de l\'amenaça!</string>
+  <string name="noEscape">No hi ha fugida, però et pots defendre!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">No permetis que et capturin
+cap peça no defesa!</string>
+  <string name="combat">Combat</string>
+  <string name="captureAndDefendPieces">Captura i defensa peces</string>
+  <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
+immediatament després de que
+l\'oponent mogui el peó.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">«En passant» només funciona
+si el seu peó és a la fila 5.</string>
+  <string name="takeAllThePawnsEnPassant">Captura tots els peons «en passant»!</string>
+  <string name="enPassantComplete">Felicitats! Ara pots capturar «en passant».</string>
+  <string name="stalemate">Taules</string>
+  <string name="theGameIsADraw">El joc és un empat</string>
 </resources>
