@@ -96,6 +96,24 @@ prenent la peça atacant.</string>
 a través de les teves defenses!</string>
   <string name="escapeOrBlock">Escapa amb el rei 
 o bloqueja l\'atac!</string>
+  <string name="outOfCheckComplete">Felicitats! El teu rei no por ser mai capturat, assegura\'t que pots defendre\'l contra un escac!</string>
+  <string name="mateInOne">Escac i mat en un</string>
+  <string name="defeatTheOpponentsKing">Derrota el rei de l\'oponent</string>
+  <string name="mateInOneIntro">Guanyes quan el teu oponent no es pot defendre contra un escac.</string>
+  <string name="attackYourOpponentsKing">Ataca el rei del teu oponent 
+de forma que no es pugui defendre!</string>
+  <string name="mateInOneComplete">Felicitats! Així és com es guanya als escacs!</string>
+  <string name="intermediate">Intermedi</string>
+  <string name="boardSetup">Configuració del tauler</string>
+  <string name="howTheGameStarts">Com s\'inicia el joc</string>
+  <string name="boardSetupIntro">Els dos exèrcits s\'enfronten mútuament, preparat per a la batalla.</string>
+  <string name="thisIsTheInitialPosition">Aquesta és la posició inicial
+de cada joc d\'escacs!
+Fes un moviment per continuar.</string>
+  <string name="firstPlaceTheRooks">Primer posa les torres!
+Van a les cantonades.</string>
+  <string name="thenPlaceTheKnights">Llavors posa els cavalls!
+Van al costat de les torres.</string>
   <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
 immediatament després de que
 l\'oponent mogui el peó.</string>
