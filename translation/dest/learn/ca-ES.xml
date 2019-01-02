@@ -20,4 +20,15 @@
   <string name="theBishop">L\'àlfil</string>
   <string name="itMovesDiagonally">Es mou en diagonal</string>
   <string name="bishopIntro">A continuació anem a aprendre com fer anar l\'àlfil!</string>
+  <string name="youNeedBothBishops">Un àlfil a caselles blanques, un a caselles negres. Necessites ambdós!</string>
+  <string name="bishopComplete">Felicitats! Pots dirigit un àlfil.</string>
+  <string name="theQueen">La reina</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + àlfil</string>
+  <string name="queenIntro">I ara, la peça més poderosa dels escacs; sa majestat la dama!</string>
+  <string name="queenComplete">Felicitats! La dama no té secrets per tu.</string>
+  <string name="theKing">El rei</string>
+  <string name="theMostImportantPiece">La peça més important</string>
+  <string name="kingIntro">Tu ets el rei. Si caus en batalla, el joc està perdut.</string>
+  <string name="theKingIsSlow">El rei es lent.</string>
+  <string name="lastOne">L\'últim!</string>
 </resources>
