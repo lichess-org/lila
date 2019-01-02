@@ -150,6 +150,9 @@ d\'enrocar en llarg!</string>
   <string name="enPassant">«En passant»</string>
   <string name="theSpecialPawnMove">El moviment especial del peó</string>
   <string name="enPassantIntro">Quan el peó oponent ha mogut dues caselles, vostè pot capturar com si fos mogut per una casella.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">El negre ha mogut el peó
+per dues places!
+Captura\'l «en passant».</string>
   <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
 immediatament després de que
 l\'oponent mogui el peó.</string>
@@ -219,4 +222,7 @@ en dos moviments!</string>
   <string name="stageXComplete">Nivell %s completat</string>
   <string name="yourScore">El seu resultat</string>
   <string name="next">Següent</string>
+  <string name="backToMenu">Tornar al menú</string>
+  <string name="puzzleFailed">Solució incorrecta!</string>
+  <string name="retry">Intenta-ho de nou</string>
 </resources>
