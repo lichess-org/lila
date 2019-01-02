@@ -76,6 +76,9 @@ Escapa de l\'amenaça!</string>
 cap peça no defesa!</string>
   <string name="combat">Combat</string>
   <string name="captureAndDefendPieces">Captura i defensa peces</string>
+  <string name="combatIntro">Un bon guerrer sap tant en atac com en defensa!</string>
+  <string name="combatComplete">Felicitats! Saps com lluitar amb les peces d\'escacs!</string>
+  <string name="checkInOne">Escac en un</string>
   <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
 immediatament després de que
 l\'oponent mogui el peó.</string>
@@ -128,4 +131,21 @@ en dos moviments!</string>
   <string name="watchInstructiveChessVideos">Veure vídeos instructius d\'escacs</string>
   <string name="playPeople">Jugar amb gent</string>
   <string name="opponentsFromAroundTheWorld">Oponents de tot el món</string>
+  <string name="playMachine">Juga amb l\'ordinador</string>
+  <string name="testYourSkillsWithTheComputer">Prova les teves habilitats amb l\'ordinador</string>
+  <string name="letsGo">Som-hi!</string>
+  <string name="stageX">Nivell %s</string>
+  <string name="awesome">Fantàstic!</string>
+  <string name="excellent">Excel·lent!</string>
+  <string name="greatJob">Bona feina!</string>
+  <string name="perfect">Perfecte!</string>
+  <string name="outstanding">Excepcional!</string>
+  <string name="wayToGo">Ben fet!</string>
+  <string name="yesYesYes">Sí, sí, sí!</string>
+  <string name="youreGoodAtThis">Ets bo en això!</string>
+  <string name="nailedIt">L\'has ben clavat.</string>
+  <string name="rightOn">Exacte!</string>
+  <string name="stageXComplete">Nivell %s completat</string>
+  <string name="yourScore">El seu resultat</string>
+  <string name="next">Següent</string>
 </resources>
