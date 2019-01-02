@@ -123,4 +123,9 @@ en dos moviments!</string>
   <string name="practice">Pràctica</string>
   <string name="learnCommonChessPositions">Aprendre posicions comunes d\'escacs</string>
   <string name="puzzles">Problemes</string>
+  <string name="exerciseYourTacticalSkills">Exercitar les teves habilitats tàctiques</string>
+  <string name="videos">Vídeos</string>
+  <string name="watchInstructiveChessVideos">Veure vídeos instructius d\'escacs</string>
+  <string name="playPeople">Jugar amb gent</string>
+  <string name="opponentsFromAroundTheWorld">Oponents de tot el món</string>
 </resources>
