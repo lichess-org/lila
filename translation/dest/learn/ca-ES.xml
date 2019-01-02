@@ -41,11 +41,23 @@
   <string name="thePawn">El peó</string>
   <string name="itMovesForwardOnly">Es mou cap endavant només</string>
   <string name="pawnIntro">Els peons són febles, però amaguen un munt de potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Els peons es mouen un quadrat només.
+  <string name="pawnsMoveOneSquareOnly">Els peons es mouen una casella només.
 Però quan arriben a l\'altre costat del tauler, es converteixen en una peça més forta!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La majoria de les vegades la promoció a dama és el millor.
 Però a vegades un cavall pot resultar útil!</string>
   <string name="pawnsMoveForward">Els peons avancen endavant,
 però capturen en diagonal!</string>
   <string name="captureThenPromote">Captura, y després promou el peó!</string>
+  <string name="useAllThePawns">Usa tots els peons!
+No et cal promoure\'ls.</string>
+  <string name="aPawnOnTheSecondRank">Un peó a la segona fila pot moure 2 caselles de cop!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Captura totes les estrelles! No cal promoure els peons.</string>
+  <string name="pawnComplete">Felicitats! Els peons no tenen secrets per tu.</string>
+  <string name="pawnPromotion">Promoció de peó</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">El seu peó ha arribat al final del tauler!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ara promou a una peça més forta.</string>
+  <string name="selectThePieceYouWant">Selecciona la peça que vulguis!</string>
+  <string name="fundamentals">Fonaments</string>
+  <string name="capture">Captura</string>
+  <string name="takeTheEnemyPieces">Prendre les peces enemigues</string>
 </resources>
