@@ -130,6 +130,26 @@ fer un moviment per continuar.</string>
 per enrocar al costat de rei!</string>
   <string name="castleQueenSide">Mou el rei dues caselles 
 per enrocar al costat de dama!</string>
+  <string name="theKnightIsInTheWay">El cavall està en el camí!
+mou-lo, llavors enroca en curt.</string>
+  <string name="castleKingSideMovePiecesFirst">Enroca en curt! 
+Necessites moure les peces primer.</string>
+  <string name="castleQueenSideMovePiecesFirst">Enroca en llarg!
+Cal moure les peces primer.</string>
+  <string name="youCannotCastleIfMoved">No pots enrocar si 
+el rei o la torre 
+s\'han mogut ja.</string>
+  <string name="youCannotCastleIfAttacked">No pots enrocar si 
+el rei és atacat en el camí.
+Bloqueja l\'escac i aleshores enroca!</string>
+  <string name="findAWayToCastleKingSide">Troba la forma 
+d\'enrocar en curt!</string>
+  <string name="findAWayToCastleQueenSide">Troba la forma 
+d\'enrocar en llarg!</string>
+  <string name="castlingComplete">Felicitats! Convé enrocar en gairebé totes les partides.</string>
+  <string name="enPassant">«En passant»</string>
+  <string name="theSpecialPawnMove">El moviment especial del peó</string>
+  <string name="enPassantIntro">Quan el peó oponent ha mogut dues caselles, vostè pot capturar com si fos mogut per una casella.</string>
   <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
 immediatament després de que
 l\'oponent mogui el peó.</string>
