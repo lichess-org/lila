@@ -60,4 +60,15 @@ No et cal promoure\'ls.</string>
   <string name="fundamentals">Fonaments</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Prendre les peces enemigues</string>
+  <string name="captureIntro">¡Identifica les peces no defensades de l\'oponent i captura-les!</string>
+  <string name="takeTheBlackPieces">Captura les peces negres!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Captura les peces negres!
+I no perdis les teves.</string>
+  <string name="captureComplete">Felicitats! Saps com lluitar amb les peces d\'escacs!</string>
+  <string name="protection">Protecció</string>
+  <string name="keepYourPiecesSafe">Manté les teves peces segures</string>
+  <string name="protectionIntro">Identifica les peces que atacades pel teu oponent, i defen-les!</string>
+  <string name="protectionComplete">Felicitats! Una peça que no perds és una peça que guanyes!</string>
+  <string name="escape">Estàs atacat!
+Escapa de l\'amenaça!</string>
 </resources>
