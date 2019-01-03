@@ -89,18 +89,18 @@
     <item quantity="other">Naslednje jemanje ali premik kmetov čez %s pol-potezi (do pravila 50 potez)</item>
   </plurals>
   <string name="noGameFound">Igra ni najdena</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij iz menija nastavitev?</string>
-  <string name="openingExplorer">Raziskovalec otovritev</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij v meniju nastavitev?</string>
+  <string name="openingExplorer">Raziskovalec otvoritev</string>
   <string name="xOpeningExplorer">%s raziskovalec otvoritev</string>
   <string name="winPreventedBy50MoveRule">Zmago preprečilo pravilo 50 potez</string>
   <string name="lossSavedBy50MoveRule">Poraz rešilo pravilo 50 potez</string>
-  <string name="allSet">Pripravljeno!</string>
+  <string name="allSet">Vse pripravljeno!</string>
   <string name="importPgn">Uvozi PGN</string>
   <string name="delete">Izbriši</string>
-  <string name="deleteThisImportedGame">Izbriši te uvožene partije?</string>
+  <string name="deleteThisImportedGame">Izbriši to uvoženo partijo?</string>
   <string name="replayMode">Način predvajanja</string>
-  <string name="realtimeReplay">Predvajaj v času</string>
-  <string name="byCPL">Za stotinko</string>
+  <string name="realtimeReplay">Realnočasovno</string>
+  <string name="byCPL">Za stotinko kmeta</string>
   <string name="openStudy">Odpri študijo</string>
   <string name="enable">Omogoči</string>
   <string name="bestMoveArrow">Puščica najboljše poteze</string>
@@ -138,8 +138,8 @@
   <plurals name="nbBookmarks">
     <item quantity="one">%s zaznamek</item>
     <item quantity="two">%s zaznamka</item>
-    <item quantity="few">%s zaznamkov</item>
-    <item quantity="other">%s zaznamkov</item>
+    <item quantity="few">%s zaznamki</item>
+    <item quantity="other">%s zaznamki</item>
   </plurals>
   <string name="viewInFullSize">Pogled v polni velikosti</string>
   <string name="logOut">Odjava</string>
@@ -175,19 +175,19 @@
   </plurals>
   <string name="time">Čas</string>
   <string name="rating">Rating</string>
-  <string name="ratingStats">Rating statistika</string>
+  <string name="ratingStats">Statistika ratinga</string>
   <string name="username">Uporabniško ime</string>
   <string name="usernameOrEmail">Uporabniško ime ali elektronski naslov</string>
   <string name="password">Geslo</string>
   <string name="haveAnAccount">Že imate račun?</string>
   <string name="changePassword">Zamenjaj geslo</string>
-  <string name="changeEmail">Zamenjava E-poštnega naslova</string>
+  <string name="changeEmail">Zamenjaj E-poštnega naslova</string>
   <string name="email">E-poštni naslov</string>
   <string name="passwordReset">Ponovna nastavitev gesla</string>
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rank: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rank se posodobi vsakih %s minut</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rang se posodobi vsakih %s minut</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problem</item>
     <item quantity="two">%s problema</item>
@@ -196,7 +196,7 @@
   </plurals>
   <string name="gamesPlayed">Odigranih iger</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partijo s teboj</item>
+    <item quantity="one">%s partija s teboj</item>
     <item quantity="two">%s partiji s teboj</item>
     <item quantity="few">%s partije s teboj</item>
     <item quantity="other">%s partij s teboj</item>
@@ -216,7 +216,7 @@
   <string name="decline">Zavrni</string>
   <string name="playingRightNow">Trenutno se igra</string>
   <string name="eventInProgress">Pravkar poteka</string>
-  <string name="finished">Končani</string>
+  <string name="finished">Končano</string>
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
   <string name="standard">Običajno</string>
