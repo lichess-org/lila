@@ -30,7 +30,7 @@ private final class CorresAlarm(
 
   system.scheduler.scheduleOnce(10 seconds)(scheduleNext)
 
-  system.lidraughtsBus.subscribeFun('FinishGame) {
+  system.lidraughtsBus.subscribeFun('finishGame) {
     case lidraughts.game.actorApi.FinishGame(game, _, _) =>
       if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
   }
