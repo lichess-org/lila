@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">Beli je zmagal</string>
   <string name="blackIsVictorious">Črni je zmagal</string>
   <string name="kingInTheCenter">Kralj v sredini</string>
-  <string name="threeChecks">Trikrat v šahu</string>
+  <string name="threeChecks">Trojni šah</string>
   <string name="raceFinished">Dirka končana</string>
   <string name="variantEnding">Varianta končnice</string>
   <string name="newOpponent">Nov nasprotnik</string>
@@ -41,7 +41,7 @@
   <string name="blackResigned">Črni je predal</string>
   <string name="whiteLeftTheGame">Beli je zapustil igro</string>
   <string name="blackLeftTheGame">Črni je zapustil igro</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">S tem naslovom lahko povabiš v igro opazovalce</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">S tem naslovom lahko povabiš v igro gledalce</string>
   <string name="theComputerAnalysisHasFailed">Računalniška analiza je spodletela</string>
   <string name="viewTheComputerAnalysis">Poglej računalniško analizo</string>
   <string name="requestAComputerAnalysis">Zahtevaj računalniško analizo</string>
@@ -59,7 +59,7 @@
   <string name="promoteVariation">Promoviraj variacijo</string>
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
-  <string name="move">Poteze</string>
+  <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
   <string name="insufficientMaterial">Premalo materiala</string>
@@ -73,7 +73,7 @@
   <string name="database">Baza</string>
   <string name="whiteDrawBlack">Beli / Remi / Črni</string>
   <string name="averageRatingX">Povprečni rating: %s</string>
-  <string name="recentGames">Prejšnje partije</string>
+  <string name="recentGames">Nedavne igre</string>
   <string name="topGames">Najboljše partije</string>
   <string name="masterDbExplanation">Dva milijona iger na šahovnici med igralci s FIDE ratingom %1$s ali več od leta %2$s do %3$s</string>
   <plurals name="mateInXHalfMoves">
@@ -83,10 +83,10 @@
     <item quantity="other">Mat v %s pol-potezah</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Naslednje jemanje ali premik meta čez %s pol-potezo (do pravila 50 potez)</item>
-    <item quantity="two">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
-    <item quantity="few">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
-    <item quantity="other">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
+    <item quantity="one">Naslednje jemanje ali premik kmeta čez %s pol-potezo (do pravila 50 potez)</item>
+    <item quantity="two">Naslednje jemanje ali premik kmetov čez %s pol-potezi (do pravila 50 potez)</item>
+    <item quantity="few">Naslednje jemanje ali premik kmetov čez %s pol-potezi (do pravila 50 potez)</item>
+    <item quantity="other">Naslednje jemanje ali premik kmetov čez %s pol-potezi (do pravila 50 potez)</item>
   </plurals>
   <string name="noGameFound">Igra ni najdena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij iz menija nastavitev?</string>
@@ -123,7 +123,7 @@
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s igralcev</item>
+    <item quantity="one">%s igralec</item>
     <item quantity="two">%s igralca</item>
     <item quantity="few">%s igralci</item>
     <item quantity="other">%s igralcev</item>
@@ -416,8 +416,8 @@
   <plurals name="nbFollowing">
     <item quantity="one">%s sledi</item>
     <item quantity="two">%s sledi</item>
-    <item quantity="few">%s sledi</item>
-    <item quantity="other">%s sledi</item>
+    <item quantity="few">%s sledijo</item>
+    <item quantity="other">%s sledijo</item>
   </plurals>
   <string name="more">Več</string>
   <string name="memberSince">Član od</string>
