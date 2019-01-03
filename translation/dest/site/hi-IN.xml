@@ -300,6 +300,7 @@
   <string name="yourPerfRatingIsTooLow">आपका %1$s रेटिंग (%2$s) बहुत कम है</string>
   <string name="ratedMoreThanInPerf">≥ %1$s में %2$s रेट</string>
   <string name="ratedLessThanInPerf">≤ %1$s में %2$s रेट</string>
+  <string name="mustBeInTeam">टीम में होना ज़रूरी है %s</string>
   <string name="backToGame">खेल पर लौटें।</string>
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="teams">समूह</string>
