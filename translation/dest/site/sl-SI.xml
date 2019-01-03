@@ -339,12 +339,12 @@
     <item quantity="other">Morate odigrati še %s rangiranih partij</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rating je začasen</string>
-  <string name="yourPerfRatingIsTooHigh">Vaš %1$s rejting (%2$s) je previsok</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvišji %1$s rejting (%2$s) v tem tednu, je previsok</string>
-  <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizek</string>
-  <string name="ratedMoreThanInPerf">Rejting ≥ %1$s v %2$s</string>
-  <string name="ratedLessThanInPerf">Rejting ≤ %1$s v %2$s</string>
-  <string name="mustBeInTeam">Potrebno je biti v ekipi %s</string>
+  <string name="yourPerfRatingIsTooHigh">Vaš %1$s rating (%2$s) je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvišji %1$s rating (%2$s) v tem tednu, je previsok</string>
+  <string name="yourPerfRatingIsTooLow">Vaš %1$s rating (%2$s) je prenizek</string>
+  <string name="ratedMoreThanInPerf">Rating ≥ %1$s v %2$s</string>
+  <string name="ratedLessThanInPerf">Rating ≤ %1$s v %2$s</string>
+  <string name="mustBeInTeam">Morate biti v ekipi %s</string>
   <string name="youAreNotInTeam">Niste v ekipi %s</string>
   <string name="backToGame">Vrni se v igro</string>
   <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
@@ -376,8 +376,8 @@
   <string name="reset">Ponastavi</string>
   <string name="apply">Uporabi</string>
   <string name="leaderboard">Lestvica</string>
-  <string name="pasteTheFenStringHere">Prilepi FEN niz tukaj</string>
-  <string name="pasteThePgnStringHere">Prilepi PGN niz tukaj</string>
+  <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
+  <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
   <string name="importGame">Uvozi igro</string>
@@ -390,18 +390,18 @@
   </plurals>
   <string name="thisIsAChessCaptcha">To je test, ki loči ljudi od računalnikov</string>
   <string name="clickOnTheBoardToMakeYourMove">Odigraj potezo in dokaži, da nisi robot</string>
-  <string name="captcha.fail">Prosimo, rešite to uganko za ljudi.</string>
+  <string name="captcha.fail">Prosimo, rešite ta test.</string>
   <string name="notACheckmate">To ni mat</string>
   <string name="colorPlaysCheckmateInOne">%s na potezi; mat v eni potezi</string>
   <string name="retry">Poskusi ponovno</string>
   <string name="reconnecting">Ponovno vzpostavljanje povezave</string>
   <string name="onlineFriends">Prijavljenji prijatelji</string>
   <string name="noFriendsOnline">Ni prijavljenih prijateljev</string>
-  <string name="findFriends">Poišči prijatelja</string>
+  <string name="findFriends">Poišči prijatelje</string>
   <string name="favoriteOpponents">Priljubljeni nasprotniki</string>
   <string name="follow">Sledi</string>
   <string name="following">Igralcu že sledite</string>
-  <string name="unfollow">Ne sledi več</string>
+  <string name="unfollow">Nehajte slediti</string>
   <string name="block">Blokiraj</string>
   <string name="blocked">Blokiran</string>
   <string name="unblock">Odblokiraj</string>
@@ -410,7 +410,7 @@
   <plurals name="nbFollowers">
     <item quantity="one">%s sledilec</item>
     <item quantity="two">%s sledilca</item>
-    <item quantity="few">%s sledilce</item>
+    <item quantity="few">%s sledilci</item>
     <item quantity="other">%s sledilcev</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -436,7 +436,7 @@
   <string name="openTournaments">Odprti turnirji</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Zmagovalec</string>
-  <string name="standing">Stanje</string>
+  <string name="standing">Lestvica</string>
   <string name="createANewTournament">Ustvari turnir</string>
   <string name="tournamentCalendar">Turnirski koledar</string>
   <string name="conditionOfEntry">Vstopni pogoji:</string>
@@ -457,12 +457,12 @@
   <string name="tournamentIsStarting">Turnir se začenja</string>
   <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
-  <string name="youArePlaying">Vi igrate!</string>
+  <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Delež zmag</string>
   <string name="berserkRate">Delež divjanja</string>
   <string name="performance">Izkazan rating</string>
   <string name="tournamentComplete">Turnir je zaključen</string>
-  <string name="movesPlayed">Igranih potez</string>
+  <string name="movesPlayed">Odigranih potez</string>
   <string name="whiteWins">Belih zmag</string>
   <string name="blackWins">Črnih zmag</string>
   <string name="draws">Remijev</string>
