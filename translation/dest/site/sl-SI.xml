@@ -860,20 +860,20 @@ v %3$s</string>
     <item quantity="other">%s sekund za prvo potezo</item>
   </plurals>
   <string name="practiceWithComputer">Vadi z računalnikom</string>
-  <string name="anotherWasX">Drugi/a je bil/a %s</string>
-  <string name="bestWasX">Najboljši/a je bil/a %s</string>
+  <string name="anotherWasX">Alternativna poteza je bila tudi %s</string>
+  <string name="bestWasX">Najboljša poteza je bila %s</string>
   <string name="youBrowsedAway">Odtavali ste</string>
-  <string name="resumePractice">Nadaljevanje vadbe</string>
+  <string name="resumePractice">Nadaljujte vadbo</string>
   <string name="theGameIsADraw">Rezultat partije je remi.</string>
   <string name="computerThinking">Računalnik razmišlja...</string>
-  <string name="seeBestMove">Poglejte najboljšo potezo</string>
+  <string name="seeBestMove">Poglej najboljšo potezo</string>
   <string name="hideBestMove">Skrij najboljšo potezo</string>
   <string name="getAHint">Namig</string>
   <string name="evaluatingYourMove">Ocenjevanje poteze ...</string>
   <string name="whiteWinsGame">Beli je zmagal</string>
   <string name="blackWinsGame">Črni je zmagal</string>
-  <string name="learnFromYourMistakes">Naučite se s svojih napak</string>
-  <string name="learnFromThisMistake">Učite se iz svojih napak</string>
+  <string name="learnFromYourMistakes">Naučite se iz svojih napak</string>
+  <string name="learnFromThisMistake">Naučite se iz te napake</string>
   <string name="skipThisMove">Preskočite to potezo</string>
   <string name="next">Naprej</string>
   <string name="xWasPlayed">%s je igral/a</string>
@@ -906,7 +906,7 @@ v %3$s</string>
   <string name="youCannotChallengeX">Ne morete izzvati %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ne sprejema izzivov.</string>
   <string name="yourXRatingIsTooFarFromY">Vaš %1$s rating je predaleč od ratinga igralca %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Izzivanje ni mogoče, zaradi preskusnega %s ratinga.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Izzivanje ni mogoče, zaradi začasnega %s ratinga.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sprejema izzive samo od prijateljev.</string>
   <string name="conditionalPremoves">Pogojne predpoteze</string>
   <string name="addCurrentVariation">Dodaj trenutno varianto</string>
