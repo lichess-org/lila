@@ -52,6 +52,7 @@ private object DisposableEmailDomain {
 
   private val staticBlacklist = Set(
     "lichess.org",
+    "gamil.com",
     "mybx.site", "mywrld.top", "wemel.top", "matra.top", "dripbank.com", "yopmail.xxi2.com",
     "4bi.email-temp.com", "forevernew.in", "sss.pp.ua", "ttempm.com"
   )
