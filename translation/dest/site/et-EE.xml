@@ -185,7 +185,7 @@
   </plurals>
   <string name="cancel">Katkesta</string>
   <string name="timeOut">Aja ületus</string>
-  <string name="drawOfferSent">Pakutakse viiki</string>
+  <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
   <string name="drawOfferCanceled">Viigi pakkumine tühistatud</string>
@@ -225,12 +225,12 @@
   <string name="youHaveBeenTimedOut">Olete välja logitud.</string>
   <string name="spectatorRoom">Pealtvaatajate tuba</string>
   <string name="composeMessage">Koosta sõnum</string>
-  <string name="noNewMessages">Pole uusi sõnumeid</string>
+  <string name="noNewMessages">Uusi sõnumeid pole</string>
   <string name="subject">Teema</string>
   <string name="recipient">Saaja</string>
   <string name="send">Saada</string>
   <string name="incrementInSeconds">Lisatavad sekundid</string>
-  <string name="freeOnlineChess">Tasuta onlain male</string>
+  <string name="freeOnlineChess">Tasuta interneti male</string>
   <string name="spectators">Pealtvaatajad</string>
   <plurals name="nbRated">
     <item quantity="one">%s reitinguga</item>
