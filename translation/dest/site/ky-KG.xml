@@ -89,6 +89,14 @@
   <string name="replayMode">Кайталоодо көрүү</string>
   <string name="realtimeReplay">Чыныгы убакытта</string>
   <string name="byCPL">Каталар боюнча</string>
+  <string name="openStudy">Изилдөөнү ач</string>
+  <string name="enable">Жандыруу</string>
+  <string name="bestMoveArrow">Эң жакшы жүрүштөрдү стрелка менен көрсөтүү</string>
+  <string name="evaluationGauge">Баалоо шкаласы</string>
+  <string name="multipleLines">Варианттардын көптүгү</string>
+  <string name="cpus">Агымдар</string>
+  <string name="memory">Эс-тутум</string>
+  <string name="infiniteAnalysis">Чексиз анализ</string>
   <string name="blunders">Одоно ката</string>
   <string name="mistakes">Жаңылыштык</string>
   <string name="inaccuracies">Так эместик</string>
