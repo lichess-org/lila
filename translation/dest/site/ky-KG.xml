@@ -32,6 +32,7 @@
   <string name="whitePlays">Ак түстөгү оюнчу баштайт</string>
   <string name="blackPlays">Кара түстөгү оюнчу баштайт</string>
   <string name="opponentLeftChoices">Сиздин өнөктөшүңүз оюндан чыгып кетти, кутунуз же башка оюн тандаңыз</string>
+  <string name="makeYourOpponentResign">Атаандашка утулуш эсептелинет</string>
   <string name="forceResignation">Утушту талап кылуу</string>
   <string name="forceDraw">Барабардык сурануу</string>
   <string name="talkInChat">Чат менен суйлошүү</string>
@@ -55,6 +56,9 @@
   <string name="showThreat">Вариантты көрсөт</string>
   <string name="inLocalBrowser">жергиликтүү браузерде</string>
   <string name="toggleLocalEvaluation">Жергиликтүү баалоого которуу</string>
+  <string name="promoteVariation">Варианттын артыкчылыгын жогорулатуу</string>
+  <string name="makeMainLine">Бул вариантты негизги кылуу</string>
+  <string name="deleteFromHere">Бул жактан өчүрүү</string>
   <string name="move">Жүрүш</string>
   <string name="variantLoss">Утулуу варианты</string>
   <string name="variantWin">Утуу варианты</string>
@@ -72,6 +76,8 @@
   <string name="recentGames">Жакында бүткөн оюндар</string>
   <string name="topGames">Мыкты оюндар</string>
   <string name="masterDbExplanation">Эки миллион OTB оюндар %1$sтен + FIDE рейтинги оюнчулары %2$sдан %3$sга чейин</string>
+  <string name="noGameFound">Оюн табылган жок</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Балким жөндөөлөрдөн көбүрөөк оюндарды кошоттурсуз?</string>
   <string name="blunders">Одоно ката</string>
   <string name="mistakes">Жаңылыштык</string>
   <string name="inaccuracies">Так эместик</string>
