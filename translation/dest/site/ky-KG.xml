@@ -78,6 +78,17 @@
   <string name="masterDbExplanation">Эки миллион OTB оюндар %1$sтен + FIDE рейтинги оюнчулары %2$sдан %3$sга чейин</string>
   <string name="noGameFound">Оюн табылган жок</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Балким жөндөөлөрдөн көбүрөөк оюндарды кошоттурсуз?</string>
+  <string name="openingExplorer">Дебюттар базасы</string>
+  <string name="xOpeningExplorer">%s дебюттар базасы</string>
+  <string name="winPreventedBy50MoveRule">50 жүрүш эрежеси негизинде уту болбой жатат</string>
+  <string name="lossSavedBy50MoveRule">50 жүрүш эрежеси негизинде утулуштан куткарылды</string>
+  <string name="allSet">Даяр!</string>
+  <string name="importPgn">PGNге импортто</string>
+  <string name="delete">Өчүрүү</string>
+  <string name="deleteThisImportedGame">Импорттолгон оюн өчүрүлсүнбү?</string>
+  <string name="replayMode">Кайталоодо көрүү</string>
+  <string name="realtimeReplay">Чыныгы убакытта</string>
+  <string name="byCPL">Каталар боюнча</string>
   <string name="blunders">Одоно ката</string>
   <string name="mistakes">Жаңылыштык</string>
   <string name="inaccuracies">Так эместик</string>
