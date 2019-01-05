@@ -13,10 +13,10 @@
   <string name="welcome_subject">Bienvenue sur lichess.org, %s</string>
   <string name="welcome_text">Vous avez créé votre compte sur https://lichess.org avec succès.
 
-Voici votre page de profil : %1$s, que vous pouvez personnaliser ici : %2$s
+Voici votre page de profil : %1$s. Vous pouvez la personnaliser ici : %2$s.
 
-Bonnes parties sur lichess.org et vos pièces trouveront toujours leur chemin vers le roi adverse !</string>
-  <string name="common_orPaste">(Cliquer ne fonctionne pas ? Essayez de coller l\'url dans votre navigateur!)</string>
-  <string name="common_note">Cet email automatique provient de votre utilisation de %s.</string>
+Bonnes parties sur lichess.org. Puissent vos pièces toujours trouver leur chemin vers le roi adverse !</string>
+  <string name="common_orPaste">(Cliquer ne fonctionne pas ? Essayez de coller l\'url dans votre navigateur !)</string>
+  <string name="common_note">Ceci est un email automatique lié à votre utilisation de %s.</string>
   <string name="common_contact">Pour nous contacter, veuillez le faire via %s.</string>
 </resources>
