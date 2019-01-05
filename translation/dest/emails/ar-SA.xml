@@ -16,4 +16,5 @@
  فلتستمتع، ولتجد قطعك دائماً طريقها إلى ملك خصمك!</string>
   <string name="common_orPaste">(هل النقر لا يعمل؟ جرب لصق الرابط في متصفحك!)</string>
   <string name="common_note">هذا هو خدمة البريد الإلكتروني الخاص باستخدام %s.</string>
+  <string name="common_contact">للتواصل معنا, الرجاء استعمال هذاs%s.</string>
 </resources>
