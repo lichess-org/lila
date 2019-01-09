@@ -261,3 +261,8 @@ body.dark #puzzle .timeline > * {
 .puzzle_side .rating span.rp.down {
   color: #ac524f;
 }
+@media (max-width: 1070px) {
+  .side_box.rating canvas {
+    width: 194px!important;
+  }
+}

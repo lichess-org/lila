@@ -11,14 +11,15 @@ import lila.memo.RateLimit
 private final class SlackClient(url: String, defaultChannel: String) {
 
   private val limiter = new RateLimit[SlackMessage](
-    credits = 2,
+    credits = 1,
     duration = 15 minutes,
     name = "slack client",
     key = "slack.client"
   )
 
   def apply(msg: SlackMessage): Funit = limiter(msg) {
-    url.nonEmpty ?? WS.url(url)
+    if (url.isEmpty) fuccess(lila.log("slack").info(msg.toString))
+    else WS.url(url)
       .post(Json.obj(
         "username" -> msg.username,
         "text" -> msg.text,

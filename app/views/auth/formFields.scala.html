@@ -1,35 +1,11 @@
 @(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
-<li class="username">
-  <label for="@username.id">@if(register){@trans.username()}else{@trans.usernameOrEmail()}</label>
-  <input
-  type="text"
-  required="required"
-  name="@username.name"
-  id="@username.id"
-  value="@username.value"
-  autofocus="true" />
-  @errMsg(username)
-  <p class="error exists none">@trans.usernameAlreadyUsed()</p>
-</li>
-<li class="password">
-  <label for="@password.id">@trans.password()</label>
-  <input
-  type="password"
-  required="required"
-  name="@password.name"
-  id="@password.id" />
-  @errMsg(password)
-</li>
+@form3.group(username, if(register) trans.username.frag() else trans.usernameOrEmail.frag()) { f =>
+@form3.inputHtml(f)(*.autofocus := true)
+<p class="error exists none">@trans.usernameAlreadyUsed()</p>
+}
+@form3.group(password, trans.password.frag())(form3.input(_, typ = "password"))
 @emailOption.map { email =>
-<li class="email">
-  <label for="@email.id">@trans.email()</label>
-  <input
-  type="email"
-  required="required"
-  name="@email.name"
-  id="@email.id"
-  value="@email.value"/>
-  @errMsg(email)
-</li>
+@form3.group(email, trans.email.frag())(form3.input(_, typ = "email"))
 }

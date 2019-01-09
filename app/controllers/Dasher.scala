@@ -9,33 +9,38 @@ import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
 
 object Dasher extends LilaController {
 
+  private val translationsBase = List(
+    I18nKeys.networkLagBetweenYouAndLichess,
+    I18nKeys.timeToProcessAMoveOnLichessServer,
+    I18nKeys.sound,
+    I18nKeys.background,
+    I18nKeys.light,
+    I18nKeys.dark,
+    I18nKeys.transparent,
+    I18nKeys.backgroundImageUrl,
+    I18nKeys.boardGeometry,
+    I18nKeys.boardTheme,
+    I18nKeys.boardSize,
+    I18nKeys.pieceSet,
+    I18nKeys.zenMode
+  )
+
+  private val translationsAnon = List(
+    I18nKeys.signIn,
+    I18nKeys.signUp
+  ) ::: translationsBase
+
+  private val translationsAuth = List(
+    I18nKeys.profile,
+    I18nKeys.inbox,
+    I18nKeys.preferences,
+    I18nKeys.logOut
+  ) ::: translationsBase
+
   private def translations(implicit ctx: Context) = lila.i18n.JsDump.keysToObject(
-    (if (ctx.isAnon)
-      List(
-      I18nKeys.signIn,
-      I18nKeys.signUp
-    )
-    else
-      List(
-        I18nKeys.profile,
-        I18nKeys.inbox,
-        I18nKeys.preferences,
-        I18nKeys.logOut
-      )) ::: List(
-      I18nKeys.networkLagBetweenYouAndLichess,
-      I18nKeys.timeToProcessAMoveOnLichessServer,
-      I18nKeys.sound,
-      I18nKeys.background,
-      I18nKeys.light,
-      I18nKeys.dark,
-      I18nKeys.transparent,
-      I18nKeys.backgroundImageUrl,
-      I18nKeys.boardGeometry,
-      I18nKeys.boardTheme,
-      I18nKeys.boardSize,
-      I18nKeys.pieceSet,
-      I18nKeys.zenMode
-    ), lila.i18n.I18nDb.Site, ctx.lang
+    if (ctx.isAnon) translationsAnon else translationsAuth,
+    lila.i18n.I18nDb.Site,
+    ctx.lang
   ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
       List(I18nKeys.language),

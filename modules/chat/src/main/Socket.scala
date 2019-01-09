@@ -12,7 +12,6 @@ object Socket {
   def in(
     chatId: Chat.Id,
     member: SocketMember,
-    socket: ActorRef,
     chat: ActorSelection,
     publicSource: Option[PublicSource],
     canTimeout: Option[User.ID => Fu[Boolean]] = None

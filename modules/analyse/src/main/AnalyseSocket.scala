@@ -1,27 +1,30 @@
 package lila.analyse
 
-import scala.concurrent.duration.FiniteDuration
-
-import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
+import scala.concurrent.duration._
+import scala.concurrent.Promise
 
+import lila.hub.Trouper
 import lila.socket._
 
 private final class AnalyseSocket(
-    timeout: FiniteDuration
-) extends SocketActor[AnalyseSocket.Member](timeout) {
+    system: akka.actor.ActorSystem,
+    uidTtl: FiniteDuration
+) extends SocketTrouper[AnalyseSocket.Member](system, uidTtl) with LoneSocket {
+
+  def monitoringName = "analyse"
+  def broomFrequency = 4027 millis
 
   import AnalyseSocket._
 
   def receiveSpecific = {
 
-    case Join(uid, userId) => {
+    case Join(uid, userId, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId)
       addMember(uid, member)
-      sender ! Connected(enumerator, member)
-    }
+      promise success Connected(enumerator, member)
   }
 }
 
@@ -30,11 +33,8 @@ private object AnalyseSocket {
   case class Member(
       channel: JsChannel,
       userId: Option[lila.user.User.ID]
-  ) extends SocketMember {
+  ) extends SocketMember
 
-    val troll = false
-  }
-
-  case class Join(uid: Socket.Uid, userId: Option[lila.user.User.ID])
-  case class Connected(enumerator: JsEnumerator, member: Member)
+  private[analyse] case class Join(uid: Socket.Uid, userId: Option[String], promise: Promise[Connected])
+  private[analyse] case class Connected(enumerator: JsEnumerator, member: Member)
 }

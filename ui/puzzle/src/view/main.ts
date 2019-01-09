@@ -95,7 +95,7 @@ export default function(ctrl: Controller): VNode {
       },
       class: { gauge_displayed: ctrl.showEvalGauge() }
     }, [
-      h('div.lichess_game', {
+      h('div.lichess_game' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
         hook: {
           insert: _ => window.lichess.pubsub.emit('content_loaded')()
         }

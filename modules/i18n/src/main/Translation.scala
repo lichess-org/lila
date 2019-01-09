@@ -1,8 +1,10 @@
 package lila.i18n
 
 import play.twirl.api.Html
+import scalatags.Text.RawFrag
 
 import lila.common.String.html.escapeHtml
+import lila.common.String.frag.{ escapeHtml => escapeFrag }
 
 private sealed trait Translation
 
@@ -11,6 +13,10 @@ private final class Simple(val message: String) extends Translation {
   def formatTxt(args: Seq[Any]): String =
     if (args.isEmpty) message
     else message.format(args: _*)
+
+  def formatFrag(args: Seq[RawFrag]): RawFrag =
+    if (args.isEmpty) RawFrag(message)
+    else RawFrag(message.format(args.map(_.v): _*))
 
   def formatHtml(args: Seq[Html]): Html =
     if (args.isEmpty) Html(message)
@@ -24,6 +30,10 @@ private final class Escaped(val message: String, escaped: String) extends Transl
   def formatTxt(args: Seq[Any]): String =
     if (args.isEmpty) message
     else message.format(args: _*)
+
+  def formatFrag(args: Seq[RawFrag]): RawFrag =
+    if (args.isEmpty) RawFrag(escaped)
+    else RawFrag(escaped.format(args.map(_.v): _*))
 
   def formatHtml(args: Seq[Html]): Html =
     if (args.isEmpty) Html(escaped)
@@ -43,6 +53,13 @@ private final class Plurals(val messages: Map[I18nQuantity, String]) extends Tra
     messageFor(quantity).map { message =>
       if (args.isEmpty) message
       else message.format(args: _*)
+    }
+
+  def formatFrag(quantity: I18nQuantity, args: Seq[RawFrag]): Option[RawFrag] =
+    messageFor(quantity).map { message =>
+      val escaped = escapeFrag(message)
+      if (args.isEmpty) escaped
+      else RawFrag(escaped.v.format(args.map(_.v): _*))
     }
 
   def formatHtml(quantity: I18nQuantity, args: Seq[Html]): Option[Html] =

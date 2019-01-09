@@ -19,7 +19,7 @@ i18n: @board.userAnalysisI18n(),
 tagTypes: '@lila.study.PgnTags.typesToString',
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(
+chat.json(
 c.chat,
 name = trans.chatRoom.txt(),
 timeout = c.timeout,
@@ -47,13 +47,18 @@ socketVersion: @socketVersion.value
 @base.layout(
 title = r.name,
 side = side.some,
-chat = chat.dom().some,
-underchat = views.html.game.watchers().some,
+chat = chat.html.some,
+underchat = Some(views.html.game.bits.watchers),
 moreCss = moreCss,
 moreJs = moreJs,
 chessground = false,
-zoomable = true) {
+zoomable = true,
+openGraph = lila.app.ui.OpenGraph(
+title = r.name,
+url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
+description = shorten(r.description, 152)).some
+) {
 <div class="analyse cg-512">
-  @board.domPreload(none)
+  @board.bits.domPreload(none).toHtml
 </div>
-}
+}.toHtml

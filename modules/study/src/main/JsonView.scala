@@ -120,7 +120,7 @@ object JsonView {
   implicit val chapterIdWrites: Writes[Chapter.Id] = stringIsoWriter(Chapter.idIso)
   implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
 
-  private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
+  private[study] implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
   }
   private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
@@ -132,10 +132,10 @@ object JsonView {
   private[study] implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
   }
-  private implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
+  private[study] implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
     JsString(c.name)
   }
-  private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+  private[study] implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
   }
   private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>

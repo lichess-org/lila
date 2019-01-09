@@ -2,19 +2,19 @@
 
 @import lila.pref.{Pref,PrefCateg}
 
-@name = @{ categName(categ) }
-@title = @{ s"$name - ${u.username} - ${trans.preferences.txt()}" }
-
 @categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg)(body: Html) = {
 <div@if(categ != active) { class="none" }>
   @body
 </div>
 }
 
-@account.layout(title = title, active = categ.slug, evenMoreCss = cssTag("pref.css")) {
+@account.layout(
+title = s"${bits.categName(categ)} - ${u.username} - ${trans.preferences.txt()}",
+active = categ.slug,
+evenMoreCss = cssTag("pref.css")) {
 <div class="content_box small_box prefs">
   <div class="signup_box">
-    <h1 class="lichess_title" text data-icon="%">@categName(categ)</h1>
+    <h1 class="lichess_title" text data-icon="%">@bits.categName(categ)</h1>
     <form class="autosubmit" action="@routes.Pref.formApply" method="POST">
       @defining(Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())) { booleanChoices =>
       @categFieldset(PrefCateg.GameDisplay, categ) {

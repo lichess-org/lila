@@ -2,6 +2,7 @@ package lila
 
 import scala.concurrent.Future
 
+import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import kamon.Kamon.{ metrics, tracer }
 import kamon.trace.{ TraceContext, Segment, Status }
 import kamon.util.RelativeNanoTimestamp
@@ -45,6 +46,14 @@ object mon {
         val website = rec("http.response.watcher.website")
         val mobile = rec("http.response.watcher.mobile")
       }
+      object accountInfo {
+        val time = rec("http.response.accountInfo")
+        val count = inc("http.response.accountInfo")
+      }
+      object timeline {
+        val time = rec("http.response.timeline")
+        val count = inc("http.response.timeline")
+      }
     }
     object prismic {
       val timeout = inc("http.prismic.timeout")
@@ -71,17 +80,21 @@ object mon {
     def timeout(name: String) = inc(s"syncache.timeout.$name")
     def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
     def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
+    def chmSize(name: String) = rec(s"syncache.chm.size.$name")
   }
-  class Caffeine(name: String) {
-    val hitCount = rec(s"caffeine.count.hit.$name")
-    val hitRate = rate(s"caffeine.rate.hit.$name")
-    val missCount = rec(s"caffeine.count.miss.$name")
-    val loadSuccessCount = rec(s"caffeine.count.load.success.$name")
-    val loadFailureCount = rec(s"caffeine.count.load.failure.$name")
-    val totalLoadTime = rec(s"caffeine.total.load_time.$name") // in millis
-    val averageLoadPenalty = rec(s"caffeine.penalty.load_time.$name")
-    val evictionCount = rec(s"caffeine.count.eviction.$name")
-    val entryCount = rec(s"caffeine.count.entry.$name")
+  def caffeineStats(cache: CaffeineCache[_, _], name: String) {
+    val stats = cache.stats
+    rec(s"caffeine.count.hit.$name")(stats.hitCount)
+    rate(s"caffeine.rate.hit.$name")(stats.hitRate)
+    rec(s"caffeine.count.miss.$name")(stats.missCount)
+    if (stats.totalLoadTime > 0) {
+      rec(s"caffeine.count.load.success.$name")(stats.loadSuccessCount)
+      rec(s"caffeine.count.load.failure.$name")(stats.loadFailureCount)
+      rec(s"caffeine.total.load_time.$name")(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
+      rec(s"caffeine.penalty.load_time.$name")(stats.averageLoadPenalty.toLong)
+    }
+    rec(s"caffeine.count.eviction.$name")(stats.evictionCount)
+    rec(s"caffeine.count.entry.$name")(cache.estimatedSize)
   }
   object evalCache {
     private val hit = inc("eval_Cache.all.hit")
@@ -95,6 +108,11 @@ object mon {
     def register(ply: Int, isHit: Boolean) = {
       hitIf(isHit)()
       if (ply <= 10) byPly.hitIf(ply, isHit)()
+    }
+    object upgrade {
+      val hit = incX("eval_Cache.upgrade.hit")
+      val members = rec("eval_Cache.upgrade.members")
+      val evals = rec("eval_Cache.upgrade.evals")
     }
   }
   object lobby {
@@ -116,7 +134,7 @@ object mon {
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
-      val mobile = rec(s"lobby.socket.mobile")
+      val mobile = rec("lobby.socket.mobile")
     }
     object pool {
       object wave {
@@ -197,6 +215,21 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
+    object history {
+      sealed abstract class PlatformHistory(platform: String) {
+        val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
+        val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
+        object versionCheck {
+          val getEventsDelta = rec(s"round.history.versionCheck.$platform.getEventsDelta")
+          val getEventsTooFar = inc(s"round.history.$platform.versionCheck.getEventsTooFar")
+          val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
+        }
+      }
+      object mobile extends PlatformHistory("mobile")
+      object site extends PlatformHistory("site")
+      def apply(isMobile: lila.common.IsMobile): PlatformHistory =
+        if (isMobile.value) mobile else site
+    }
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")
@@ -273,11 +306,18 @@ object mon {
     }
   }
   object socket {
-    val member = rec("socket.count")
     val open = inc("socket.open")
     val close = inc("socket.close")
     def eject(userId: String) = inc(s"socket.eject.user.$userId")
     val ejectAll = inc(s"socket.eject.all")
+    object count {
+      val all = rec("socket.count")
+      val site = rec("socket.count.site")
+    }
+    def queueSize(name: String) = rec(s"socket.queue_size.$name")
+  }
+  object trouper {
+    def queueSize(name: String) = rec(s"trouper.queue_size.$name")
   }
   object mod {
     object report {
@@ -352,6 +392,18 @@ object mon {
     object linearLimit {
       def generic(key: String) = inc(s"security.linear_limit.generic.$key")
     }
+    object dnsApi {
+      object mx {
+        def time = rec("security.dnsApi.mx.time")
+        def count = inc("security.dnsApi.mx.count")
+        def error = inc("security.dnsApi.mx.error")
+      }
+      object a {
+        def time = rec("security.dnsApi.a.time")
+        def count = inc("security.dnsApi.a.count")
+        def error = inc("security.dnsApi.a.error")
+      }
+    }
   }
   object tv {
     object stream {
@@ -387,6 +439,8 @@ object mon {
     object createdOrganizer {
       val tickTime = rec("tournament.created_organizer.tick_time")
     }
+    def apiShowPartial(partial: Boolean) = inc(s"tournament.api.show.partial.$partial")
+    val trouperCount = rec("tournament.trouper.count")
   }
   object plan {
     object amount {
@@ -576,10 +630,13 @@ object mon {
     }
     def pdf = inc("export.pdf.game")
   }
-
   object jsmon {
     val socketGap = inc("jsmon.socket_gap")
     val unknown = inc("jsmon.unknown")
+  }
+  object bus {
+    val classifiers = rec("bus.classifiers")
+    val subscribers = rec("bus.subscribers")
   }
 
   def measure[A](path: RecPath)(op: => A): A = measureRec(path(this))(op)

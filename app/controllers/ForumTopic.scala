@@ -16,44 +16,40 @@ object ForumTopic extends LilaController with ForumController {
 
   def form(categSlug: String) = Open { implicit ctx =>
     NotForKids {
-      CategGrantWrite(categSlug) {
-        OptionFuOk(CategRepo bySlug categSlug) { categ =>
-          forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic, _) }
-        }
+      OptionFuOk(CategRepo bySlug categSlug) { categ =>
+        forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic, _) }
       }
     }
   }
 
   def create(categSlug: String) = OpenBody { implicit ctx =>
-    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-      CategGrantWrite(categSlug) {
-        implicit val req = ctx.body
-        OptionFuResult(CategRepo bySlug categSlug) { categ =>
-          forms.topic.bindFromRequest.fold(
-            err => forms.anyCaptcha map { captcha =>
-              BadRequest(html.forum.topic.form(categ, err, captcha))
-            },
-            data => topicApi.makeTopic(categ, data) map { topic =>
+    CategGrantWrite(categSlug) {
+      implicit val req = ctx.body
+      OptionFuResult(CategRepo bySlug categSlug) { categ =>
+        forms.topic.bindFromRequest.fold(
+          err => forms.anyCaptcha map { captcha =>
+            BadRequest(html.forum.topic.form(categ, err, captcha))
+          },
+          data => CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+            topicApi.makeTopic(categ, data) map { topic =>
               Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
             }
-          )
-        }
+          }
+        )
       }
     }
   }
 
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      CategGrantRead(categSlug) {
-        OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
-          case (categ, topic, posts) => for {
-            unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
-            canWrite <- isGrantedWrite(categSlug)
-            form <- (!posts.hasNextPage && canWrite && topic.open) ?? forms.postWithCaptcha.map(_.some)
-            canModCateg <- isGrantedMod(categ.slug)
-            _ <- Env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
-          } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
-        }
+      OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
+        case (categ, topic, posts) => for {
+          unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
+          canWrite <- isGrantedWrite(categSlug)
+          form <- (!posts.hasNextPage && canWrite && topic.open) ?? forms.postWithCaptcha.map(_.some)
+          canModCateg <- isGrantedMod(categ.slug)
+          _ <- Env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
+        } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
       }
     }
   }

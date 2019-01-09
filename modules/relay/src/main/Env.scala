@@ -26,6 +26,7 @@ final class Env(
   val api = new RelayApi(
     repo = repo,
     studyApi = studyEnv.api,
+    socketMap = studyEnv.socketMap,
     withStudy = withStudy,
     clearFormatCache = formatApi.refresh,
     system = system

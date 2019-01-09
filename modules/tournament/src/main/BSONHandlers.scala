@@ -25,7 +25,7 @@ object BSONHandlers {
     def write(x: Schedule.Speed) = BSONString(x.name)
   }
 
-  private implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
+  implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
     def read(doc: BSONDocument) = ClockConfig(
       doc.getAs[Int]("limit").get,
       doc.getAs[Int]("increment").get
@@ -64,7 +64,6 @@ object BSONHandlers {
         variant = variant,
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
-        `private` = r boolD "private",
         password = r.strO("password"),
         conditions = conditions,
         noBerserk = r boolD "noBerserk",
@@ -92,7 +91,6 @@ object BSONHandlers {
       "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
       "fen" -> o.position.some.filterNot(_.initial).map(_.fen),
       "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
-      "private" -> w.boolO(o.`private`),
       "password" -> o.password,
       "conditions" -> o.conditions.ifNonEmpty,
       "noBerserk" -> w.boolO(o.noBerserk),

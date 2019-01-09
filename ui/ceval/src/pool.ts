@@ -1,6 +1,42 @@
-import { sync, Sync } from 'common';
-import { PoolOpts, WorkerOpts, Work } from './types';
+import { storedProp, sync, Sync } from 'common';
+import { Watchdog, PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
+
+export function makeWatchdog(name: string): Watchdog {
+  const prop = storedProp<number>('ceval.watchdog3.' + name, 0);
+  let failed = false;
+  let disarming = false;
+  return {
+    arm() {
+      prop(new Date().getTime());
+      console.log('watchdog armed: ' + name);
+    },
+    disarmSoon() {
+      if (failed || disarming) return;
+      disarming = true;
+      setTimeout(() => {
+        // delayed to detect potential tab crash
+        prop(0);
+        console.log('watchdog disarmed (delayed): ' + name);
+      }, 2000);
+    },
+    disarm() {
+      if (failed || disarming) return;
+      disarming = true;
+      prop(0);
+      console.log('watchdog disarmed: ' + name);
+    },
+    good() {
+      const lastArmed = parseInt(prop(), 10);
+      const now = new Date().getTime();
+      return (lastArmed < (now - 1000 * 60 * 60 * 24 * 2)) || ((now - 5000) < lastArmed);
+    },
+    fail() {
+      failed = true;
+      prop(new Date().getTime());
+    },
+  };
+}
 
 export abstract class AbstractWorker {
   protected url: string;
@@ -50,7 +86,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot(): Promise<Protocol> {
-    this.worker = new Worker(this.url);
+    this.worker = new Worker(window.lichess.assetUrl(this.url, {sameDomain: true}));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
@@ -73,6 +109,10 @@ class PNaClWorker extends AbstractWorker {
 
   boot(): Promise<Protocol> {
     return new Promise((resolve, reject) => {
+      const watchdog = makeWatchdog('pnacl');
+      watchdog.arm();
+      window.addEventListener('unload', () => watchdog.disarm(), false);
+
       try {
         // Use a listener div to ensure listeners are active before the
         // load event fires.
@@ -81,28 +121,30 @@ class PNaClWorker extends AbstractWorker {
           resolve(new Protocol(this.send.bind(this), this.workerOpts));
         }, true);
         this.listener.addEventListener('error', e => {
-          this.poolOpts.onCrash(e);
+          watchdog.fail();
           reject(e);
         }, true);
         this.listener.addEventListener('message', e => {
+          watchdog.disarmSoon();
           if (this.protocol.sync) this.protocol.sync.received((e as any).data);
         }, true);
         this.listener.addEventListener('crash', e => {
           const err = this.worker ? (this.worker as any).lastError : e;
-          this.poolOpts.onCrash(err);
+          console.error('pnacl crash', err);
+          watchdog.fail();
         }, true);
         document.body.appendChild(this.listener);
 
         this.worker = document.createElement('object');
         this.worker.width = '0';
         this.worker.height = '0';
-        this.worker.data = this.url;
+        this.worker.data = window.lichess.assetUrl(this.url);
         this.worker.type = 'application/x-pnacl';
         this.listener.appendChild(this.worker);
       } catch (err) {
-        console.log('exception while booting pnacl', err);
+        console.error('exception while booting pnacl', err);
+        watchdog.fail();
         this.destroy();
-        this.poolOpts.onCrash(err);
         reject(err);
       }
     });
@@ -120,7 +162,32 @@ class PNaClWorker extends AbstractWorker {
   }
 }
 
-export default class Pool {
+class ThreadedWasmWorker extends AbstractWorker {
+  private module?: any;
+
+  boot(): Promise<Protocol> {
+    if (window['Module']) console.log('trying to reboot singleton wasmx worker');
+    return window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
+      this.module = window['Module'];
+      const protocol = new Protocol(this.send.bind(this), this.workerOpts);
+      this.module.addMessageListener(protocol.received.bind(protocol));
+      return protocol;
+    });
+  }
+
+  destroy() {
+    if (!this.module) return;
+    console.log('trying to detroy singleton wasmx worker');
+    this.module.postMessage('quit');
+    this.module = undefined;
+  }
+
+  send(cmd: string) {
+    if (this.module) this.module.postMessage(cmd);
+  }
+}
+
+export class Pool {
   private workers: AbstractWorker[] = [];
   private token = 0;
   private poolOpts: PoolOpts;
@@ -150,11 +217,14 @@ export default class Pool {
   warmup() {
     if (this.workers.length) return;
 
-    if (this.poolOpts.pnacl)
+    if (this.poolOpts.wasmx)
+      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts));
+    else if (this.poolOpts.pnacl)
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts));
-    else
+    else {
       for (var i = 1; i <= 2; i++)
         this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
+    }
   }
 
   stop() {
@@ -170,6 +240,9 @@ export default class Pool {
     window.lichess.storage.set('ceval.pool.start', Date.now().toString());
     this.getWorker().then(function(worker) {
       worker.start(work);
+    }).catch(function(error) {
+      console.log(error);
+      setTimeout(() => window.lichess.reload(), 10000);
     });
   }
 

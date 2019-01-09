@@ -1,6 +1,8 @@
 package lila.socket
 
 import play.api.libs.json._
+import scala.concurrent.Promise
+import ornicar.scalalib.Zero
 
 object Socket extends Socket {
 
@@ -18,8 +20,12 @@ object Socket extends Socket {
 
   val socketVersionIso = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
   implicit val socketVersionFormat = lila.common.PimpedJson.intIsoFormat(socketVersionIso)
+  implicit val socketVersionZero = Zero.instance[SocketVersion](SocketVersion(0))
 
-  case object GetVersion
+  case class GetVersion(promise: Promise[SocketVersion])
+
+  val initialPong = makeMessage("n")
+  val emptyPong = JsNumber(0)
 }
 
 private[socket] trait Socket {
@@ -28,6 +34,4 @@ private[socket] trait Socket {
     JsObject(new Map.Map2("t", JsString(t), "d", writes.writes(data)))
 
   def makeMessage(t: String): JsObject = JsObject(new Map.Map1("t", JsString(t)))
-
-  val initialPong = makeMessage("n")
 }

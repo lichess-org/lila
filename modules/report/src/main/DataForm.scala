@@ -16,7 +16,7 @@ private[report] final class DataForm(val captcher: akka.actor.ActorSelection, va
   })
 
   val create = Form(mapping(
-    "username" -> nonEmptyText.verifying("Unknown username", { fetchUser(_).isDefined }),
+    "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", { fetchUser(_).isDefined }),
     "reason" -> text.verifying("error.required", Reason.keys contains _),
     "text" -> text(minLength = 5, maxLength = 2000),
     "gameId" -> text,

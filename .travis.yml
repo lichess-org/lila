@@ -64,7 +64,7 @@ jobs:
     # Build assets
     - stage: test
       language: node_js
-      node_js: "4"
+      node_js: "10"
       before_install:
        - yarn --version
        - yarn global add gulp-cli

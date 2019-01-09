@@ -1,7 +1,8 @@
 package lila.user
 
-import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
+
+import lila.common.Lang
 
 sealed trait UserContext {
 

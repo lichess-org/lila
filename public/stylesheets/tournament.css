@@ -3,7 +3,7 @@ div.create_tournament {
   top: 26px;
   right: 15px;
 }
-#tournament .init.spinner {
+#tournament .content_box_content.spinner {
   padding-top: 200px;
   margin: 0 auto 0 auto;
 }
@@ -340,6 +340,25 @@ body.dark #tournament .delay button {
 #tournament .notice.closed {
   background: #3893E8;
 }
+#tournament .notice.wait {
+  position: relative;
+  overflow: hidden;
+}
+@keyframes bar-anim {
+  0%{transform:translateX(-1500px);}
+  100%{transform:translateX(2500px);}
+}
+#tournament .notice.wait::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+  animation: bar-anim 3s linear infinite;
+}
+
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
@@ -849,29 +868,20 @@ div.faq_box {
   color: #3893E8;
 }
 .scheduled_tournaments a {
-  padding: 5px 0;
+  padding: 6px 0 6px 35px;
   display: block;
-  transition: all 0.3s;
-}
-.scheduled_tournaments a:hover {
-  padding-left: 5px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
-  background: #fff;
-  border-radius: 3px;
-}
-body.dark .scheduled_tournaments a:hover {
-  background: rgba(27, 51, 68, 0.5);
-  background: #333;
+  position: relative;
 }
 .scheduled_tournaments strong {
   display: block;
 }
 .scheduled_tournaments a::before {
+  position: absolute;
+  top: 8px;
+  left: 0;
   font-size: 30px;
-  float: left;
-  margin: 3px 5px 0 0;
   opacity: 0.6;
-  transition: opacity 0.3s;
+  color: #d59120;
 }
 .scheduled_tournaments a:hover::before {
   opacity: 1;
@@ -1066,11 +1076,11 @@ body.dark .scheduled_tournaments a:hover {
   font-size: 1.7em;
   display: block;
 }
-#tournament_list .icon span {
+#tournament_list .icon i {
   font-size: 4em;
   opacity: 0.6;
 }
-#tournament_list .scheduled .icon span {
+#tournament_list .scheduled .icon i {
   color: #d59120;
   opacity: 0.8;
 }

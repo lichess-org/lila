@@ -2,8 +2,8 @@ package lila.study
 
 import play.api.libs.json._
 
-import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import chess.format.pgn.Glyphs
+import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
@@ -19,7 +19,7 @@ object ServerEval {
       chapterRepo: ChapterRepo
   ) {
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
+    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
       chapterRepo.startServerEval(chapter) >>- {
         fishnetActor ! StudyChapterRequest(
           studyId = study.id.value,
@@ -31,14 +31,15 @@ object ServerEval {
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant
           ).toOption.map(_.map(chess.format.Uci.apply).flatten) | List.empty,
-          userId = userId.some
+          userId = userId
         )
       }
+    }
   }
 
   final class Merger(
       sequencer: StudySequencer,
-      socketHub: akka.actor.ActorRef,
+      socketMap: SocketMap,
       api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
@@ -74,7 +75,7 @@ object ServerEval {
           } >>- {
             chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
               _ ?? { chapter =>
-                socketHub ! Tell(studyId, ServerEval.Progress(
+                socketMap.tell(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
                   tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
                   analysis = toJson(chapter, analysis),

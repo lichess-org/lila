@@ -34,7 +34,7 @@ object Tournament extends LilaController {
     negotiate(
       html = Reasonable(page, 20) {
         pageHit
-        val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(30), page = page)
+        val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(15), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
           _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
@@ -82,30 +82,29 @@ object Tournament extends LilaController {
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
-    negotiate(
-      html = repo byId id flatMap {
-        _.fold(tournamentNotFound.fuccess) { tour =>
+    repo byId id flatMap { tourOption =>
+      negotiate(
+        html = tourOption.fold(tournamentNotFound.fuccess) { tour =>
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
             chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, ctx.lang)
+            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
-        }
-      }, api = _ => repo byId id flatMap {
-        case None => NotFound(jsonError("No such tournament")).fuccess
-        case Some(tour) => {
+        }, api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
-                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, ctx.lang)
+                val partial = getBool("partial")
+                lila.mon.tournament.apiShowPartial(partial)()
+                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
-      } map (_ as JSON)
-    ) map NoCache
+      ) map NoCache
+    }
   }
 
   def standing(id: String, page: Int) = Open { implicit ctx =>
@@ -199,14 +198,14 @@ object Tournament extends LilaController {
   }
 
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 8,
+    credits = 12,
     duration = 24 hour,
     name = "tournament per user",
     key = "tournament.user"
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 12,
+    credits = 16,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
@@ -227,8 +226,8 @@ object Tournament extends LilaController {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
                 isGranted(_.ManageTournament)) 1 else 4
-              CreateLimitPerUser(me.id, cost = 1) {
-                CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
+              CreateLimitPerUser(me.id, cost = cost) {
+                CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
                   env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
                     fuccess(Redirect(routes.Tournament.show(tour.id)))
                   }
@@ -248,10 +247,10 @@ object Tournament extends LilaController {
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     env.forms(me).bindFromRequest.fold(
-      jsonFormError,
+      jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
         env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-          Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, lila.i18n.defaultLang)
+          Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lila.i18n.defaultLang)
         }
       } map { Ok(_) }
     )
@@ -267,7 +266,7 @@ object Tournament extends LilaController {
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      env.socketHandler.join(id, uid, ctx.me, getSocketVersion)
+      env.socketHandler.join(id, uid, ctx.me, getSocketVersion, apiVersion)
     }
   }
 

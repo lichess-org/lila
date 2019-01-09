@@ -33,7 +33,7 @@ libraryDependencies ++= Seq(
   scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
-  kamon.core, kamon.influxdb,
+  kamon.core, kamon.influxdb, scalatags,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
 )
 TwirlKeys.templateImports ++= Seq(
@@ -48,6 +48,7 @@ TwirlKeys.templateImports ++= Seq(
   "lila.common.String.html._"
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
@@ -131,7 +132,7 @@ lazy val evaluation = module("evaluation", Seq(
 // )
 
 lazy val common = module("common", Seq()).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core)
+  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags) ++ Seq(scaffeine)
 )
 
 lazy val rating = module("rating", Seq(common, db)).settings(
@@ -159,7 +160,7 @@ lazy val search = module("search", Seq(common, hub)).settings(
 )
 
 lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
@@ -167,7 +168,7 @@ lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security
 )
 
 lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.test, scalatags, reactivemongo.driver)
 )
 
 lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation,
@@ -207,8 +208,8 @@ lazy val round = module("round", Seq(
   common, db, memo, hub, socket, game, user,
   i18n, fishnet, pref, chat, history, playban
 )).settings(
-  libraryDependencies ++= provided(play.api, hasher, kamon.core,
-    reactivemongo.driver, reactivemongo.iteratees, stm)
+  libraryDependencies ++= provided(play.api, scalatags, hasher, kamon.core,
+    reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val pool = module("pool", Seq(common, game, user, playban)).settings(
@@ -249,7 +250,7 @@ lazy val tournament = module("tournament", Seq(
   common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
 )).settings(
   libraryDependencies ++= provided(
-    play.api, reactivemongo.driver, reactivemongo.iteratees
+    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
@@ -272,7 +273,7 @@ lazy val oauth = module("oauth", Seq(common, db, user)).settings(
 )
 
 lazy val security = module("security", Seq(common, hub, db, user, i18n, slack, oauth)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, maxmind, hasher)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, maxmind, hasher)
 )
 
 lazy val shutup = module("shutup", Seq(common, db, hub, game, relation)).settings(
@@ -280,7 +281,7 @@ lazy val shutup = module("shutup", Seq(common, db, hub, game, relation)).setting
 )
 
 lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relation, pref)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val study = module("study", Seq(
@@ -371,7 +372,7 @@ lazy val i18n = module("i18n", Seq(common, db, user, hub)).settings(
       compileTo = (sourceManaged in Compile).value / "messages"
     )
   }.taskValue,
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags)
 )
 
 lazy val bookmark = module("bookmark", Seq(common, memo, db, hub, user, game)).settings(

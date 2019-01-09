@@ -7,7 +7,7 @@ import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -121,7 +121,7 @@ object GameRepo {
     sort: Bdoc,
     batchSize: Int = 0,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]) = {
+  )(implicit cp: CursorProducer[Game]): cp.ProducedCursor = {
     val query = coll.find(selector).sort(sort)
     query.copy(options = query.options.batchSize(batchSize)).cursor[Game](readPreference)
   }
@@ -132,13 +132,15 @@ object GameRepo {
     )).void
 
   def save(progress: Progress): Funit =
-    GameDiff(progress.origin, progress.game) match {
-      case (Nil, Nil) => funit
-      case (sets, unsets) => coll.update(
-        $id(progress.origin.id),
-        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
-      ).void
-    }
+    saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
+
+  def saveDiff(origin: Game, diff: GameDiff.Diff): Funit = diff match {
+    case (Nil, Nil) => funit
+    case (sets, unsets) => coll.update(
+      $id(origin.id),
+      nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+    ).void
+  }
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
@@ -170,11 +172,13 @@ object GameRepo {
 
   // gets last recently played move game in progress
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
-    coll.find(Query recentlyPlaying user.id)
+    lastPlayedPlaying(user.id).map { _ flatMap { Pov(_, user) } }
+
+  def lastPlayedPlaying(userId: User.ID): Fu[Option[Game]] =
+    coll.find(Query recentlyPlaying userId)
       .sort(Query.sortMovedAtNoIndex)
       .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
       .uno
-      .map { _ flatMap { Pov(_, user) } }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
     coll.find(Query nowPlaying userId).list[Game]()
@@ -352,13 +356,14 @@ object GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = coll.list[Game](
     Query.playable ++ Query.clock(true) ++ $doc(
-      F.createdAt $gt (DateTime.now minusMinutes 5),
+      F.createdAt $gt (DateTime.now minusMinutes 4),
       F.movedAt $gt (DateTime.now minusSeconds 40)
     ) ++ $or(
         s"${F.whitePlayer}.${Player.BSONFields.rating}" $gt 1200,
         s"${F.blackPlayer}.${Player.BSONFields.rating}" $gt 1200
       )
   )
+  // def featuredCandidates: Fu[List[Game]] = coll.find($empty).skip(util.Random nextInt 10000).list[Game](50)
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 

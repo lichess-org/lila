@@ -2,7 +2,8 @@ package lila.qa
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.i18n.Lang
+
+import lila.common.Lang
 
 private[qa] final class DataForm(
     val captcher: akka.actor.ActorSelection,
@@ -11,9 +12,9 @@ private[qa] final class DataForm(
 
   lazy val question = Form(
     mapping(
-      "title" -> nonEmptyText(minLength = 10, maxLength = 150)
+      "title" -> text(minLength = 10, maxLength = 150)
         .verifying(languageMessage, validateLanguage _),
-      "body" -> nonEmptyText(minLength = 10, maxLength = 10000)
+      "body" -> text(minLength = 10, maxLength = 10000)
         .verifying(languageMessage, validateLanguage _),
       "hidden-tags" -> text,
       "gameId" -> text,
@@ -32,7 +33,7 @@ private[qa] final class DataForm(
 
   lazy val answer = Form(
     mapping(
-      "body" -> nonEmptyText(minLength = 30)
+      "body" -> text(minLength = 30, maxLength = 10000)
         .verifying(languageMessage, validateLanguage _),
       "gameId" -> text,
       "move" -> text,
@@ -43,7 +44,7 @@ private[qa] final class DataForm(
 
   lazy val editAnswer = Form(
     single(
-      "body" -> nonEmptyText(minLength = 30)
+      "body" -> text(minLength = 30, maxLength = 50000)
         .verifying(languageMessage, validateLanguage _)
     )
   )
@@ -54,7 +55,7 @@ private[qa] final class DataForm(
 
   lazy val comment = Form(
     mapping(
-      "body" -> nonEmptyText(minLength = 20)
+      "body" -> text(minLength = 20, maxLength = 10000)
         .verifying(languageMessage, validateLanguage _)
     )(CommentData.apply)(CommentData.unapply)
   )
@@ -65,8 +66,10 @@ private[qa] final class DataForm(
 
   private val languageMessage = "I didn't understand that. Is it written in English?"
 
+  private val validLang = Lang("en")
+
   private def validateLanguage(str: String) =
-    detectLanguage(str).awaitSeconds(5).??(_ == Lang("en"))
+    detectLanguage(str).awaitSeconds(5).??(validLang.is)
 }
 
 private[qa] case class QuestionData(

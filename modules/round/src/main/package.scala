@@ -5,6 +5,8 @@ import lila.socket.WithSocket
 
 package object round extends PackageObject with WithSocket {
 
+  private[round] type SocketMap = lila.hub.TrouperMap[RoundSocket]
+
   private[round] type Events = List[Event]
 
   private[round] type VersionedEvents = List[VersionedEvent]

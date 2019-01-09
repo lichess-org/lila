@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.SendTo
+import lila.hub.actorApi.socket.SendTo
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
@@ -15,8 +15,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
-    socketHub: ActorRef,
-    userRegister: ActorSelection,
+    socketMap: SocketMap,
     asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus
 ) {
@@ -114,14 +113,15 @@ final class ChallengeApi(
   }
 
   private def socketReload(id: Challenge.ID): Unit =
-    socketHub ! Tell(id, Socket.Reload)
+    socketMap.tell(id, ChallengeSocket.Reload)
 
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)
     lang <- UserRepo langOf userId map {
       _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
     }
-  } yield {
-    userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang)))
-  }
+  } yield lilaBus.publish(
+    SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
+    'socketUsers
+  )
 }

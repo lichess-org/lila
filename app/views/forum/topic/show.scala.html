@@ -1,24 +1,21 @@
 @(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean], canModCateg: Boolean)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @moreJs = {
 @jsTag("forum-post.js")
 @jsTag("embed-analyse.js")
 }
 
-@modMenu = {
-@mod.menu("forum")
-}
-
 @title = @{ s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}" }
 
 @forum.layout(
 title = title,
-menu = modMenu.some.ifTrue(categ.isStaff),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = topic.name,
-url = title,
-description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some) {
+url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
+description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some,
+formCss = formWithCaptcha.isDefined) {
 <div class="topic">
   @categ.team.map { team =>
   <ol class="crumbs">
@@ -109,15 +106,18 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
     @formWithCaptcha.map {
     case (form, captcha) => {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
-    <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
-      @forum.post.formFields(form("text"), topic.some)
-      @base.captcha(form("move"), form("gameId"), captcha)
-      @globalError(form)
-      <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>
-      @if(isGranted(_.PublicMod)){
-        <button type="submit" class="button" data-icon="" name="modIcon" value="true" /> Reply as mod</button>
+    <form class="form3 reply" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
+      @form3.group(form("text"), trans.message.frag()) { f =>
+      @form3.textarea(f, klass = "post-text-area")(*.rows := 10, *.attr("data-topic") := topic.id)
       }
-      <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
+      @base.captcha(form, captcha)
+      @form3.actions {
+      <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
+      @if(isGranted(_.PublicMod)){
+      @form3.submit(raw("Reply as mod"), nameValue = (form("modIcon").name, "true").some, icon = "".some)
+      }
+      @form3.submit(trans.reply.frag())
+      }
     </form>
     }
     }.getOrElse {

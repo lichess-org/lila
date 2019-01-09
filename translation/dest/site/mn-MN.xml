@@ -538,7 +538,6 @@
   <string name="defeat">Явагдал</string>
   <string name="xVsYinZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
-  <string name="seeAllTournaments">Бүх тэмцээнүүдийг харах</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
   <string name="allInformationIsPublicAndOptional">Энэ хүснэгтийг бөглөх нь сайн дурын бөгөөд өгөгдсөн мэдээлэл нийтэд ил харагдана.</string>
   <string name="yourCityRegionOrDepartment">Таны хот дүүрэг, аймаг сум</string>

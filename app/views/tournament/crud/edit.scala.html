@@ -6,7 +6,7 @@
     <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>
     <span>Created by @usernameOrId(tour.createdBy) on @showDate(tour.createdAt)</span>
   </h1>
-  <form class="content_box_content material form" action="@routes.TournamentCrud.update(tour.id)" method="POST">
+  <form class="content_box_content form3" action="@routes.TournamentCrud.update(tour.id)" method="POST">
     @inForm(form)
   </form>
 </div>

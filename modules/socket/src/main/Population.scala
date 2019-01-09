@@ -1,33 +1,24 @@
 package lila.socket
 
-import akka.actor._
-
+import lila.hub.Trouper
 import actorApi.{ SocketEnter, SocketLeave, PopulationTell, NbMembers }
 
-private[socket] final class Population extends Actor {
+private[socket] final class Population(system: akka.actor.ActorSystem) extends Trouper {
 
-  var nb = 0
-  val bus = context.system.lilaBus
+  private var nb = 0
 
-  override def preStart(): Unit = {
-    bus.subscribe(self, 'socketDoor)
-  }
+  system.lilaBus.subscribe(this, 'socketEnter, 'socketLeave)
 
-  override def postStop(): Unit = {
-    super.postStop()
-    bus.unsubscribe(self)
-  }
+  val process: Trouper.Receive = {
 
-  def receive = {
-
-    case _: SocketEnter[_] =>
+    case _: SocketEnter =>
       nb = nb + 1
       lila.mon.socket.open()
 
-    case _: SocketLeave[_] =>
+    case _: SocketLeave =>
       nb = nb - 1
       lila.mon.socket.close()
 
-    case PopulationTell => bus.publish(NbMembers(nb), 'nbMembers)
+    case PopulationTell => system.lilaBus.publish(NbMembers(nb), 'nbMembers)
   }
 }

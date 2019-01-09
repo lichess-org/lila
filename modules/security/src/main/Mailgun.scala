@@ -3,13 +3,12 @@ package lila.security
 import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
-import play.api.i18n.Lang
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
 import lila.common.String.html.escapeHtml
+import lila.common.{ Lang, EmailAddress }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
@@ -59,8 +58,10 @@ object Mailgun {
 
   object txt {
 
-    def serviceNote(implicit lang: Lang) =
-      trans.common_note.literalHtmlTo(lang, List("https://lichess.org"))
+    def serviceNote(implicit lang: Lang) = s"""
+${trans.common_note.literalHtmlTo(lang, List("https://lichess.org"))}
+
+${trans.common_contact.literalHtmlTo(lang, List("https://lichess.org/contact"))}"""
   }
 
   object html {
@@ -68,10 +69,13 @@ object Mailgun {
     val noteLink = Html {
       """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
     }
+    val noteContact = Html {
+      """<a itemprop="url" href="https://lichess.org/contact"><span itemprop="name">lichess.org/contact</span></a>"""
+    }
 
     def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}</small>
+  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}${trans.common_contact.literalHtmlTo(lang, List(noteContact))}</small>
 </div>
 """
 

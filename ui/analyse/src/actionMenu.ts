@@ -215,10 +215,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
           h('div.range_value', ceval.multiPv() + ' / ' + max)
         ]);
       })('analyse-multipv'),
-      ceval.pnaclSupported ? (id => {
+      (ceval.pnaclSupported || ceval.wasmxSupported) ? (id => {
         let max = navigator.hardwareConcurrency;
         if (!max) return;
         if (max > 2) max--; // don't overload your computer, you dummy
+        if (max > 8 && ceval.wasmxSupported) max = 8; // hard limit for now
         return h('div.setting', [
           h('label', { attrs: { 'for': id } }, noarg('cpus')),
           h('input#' + id, {
@@ -235,7 +236,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           h('div.range_value', ceval.threads() + ' / ' + max)
         ]);
       })('analyse-threads') : null,
-      ceval.pnaclSupported ? (id => h('div.setting', [
+      (ceval.pnaclSupported && !ceval.wasmxSupported) ? (id => h('div.setting', [
         h('label', { attrs: { 'for': id } }, noarg('memory')),
         h('input#' + id, {
           attrs: {

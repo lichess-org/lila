@@ -1,12 +1,11 @@
 package lila.tournament
 
-import play.api.i18n.Lang
-
+import lila.common.Lang
 import lila.hub.tournamentTeam._
 import lila.i18n.I18nKeys
 import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.rating.PerfType
-import lila.user.User
+import lila.user.{ User, Title }
 
 sealed trait Condition {
 
@@ -33,7 +32,7 @@ object Condition {
   case object Titled extends Condition with FlatCond {
     def name(lang: Lang) = "Only titled players"
     def apply(user: User) =
-      if (user.title.exists(_ != "LM")) Accepted
+      if (user.title.exists(_ != Title.LM)) Accepted
       else Refused(name _)
   }
 

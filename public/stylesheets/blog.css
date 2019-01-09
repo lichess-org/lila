@@ -27,6 +27,9 @@
   width: 744px;
   height: 417px;
 }
+#lichess_blog twitter-widget {
+  margin: 30px auto!important;
+}
 #lichess_blog .post.no-icon .illustration {
   display: none;
 }
@@ -47,6 +50,7 @@
 #lichess_blog .body p {
   margin: 15px 0;
 }
+#lichess_blog .meta a,
 #lichess_blog .body a {
   text-decoration: underline;
 }

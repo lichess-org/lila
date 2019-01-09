@@ -4,12 +4,12 @@ import akka.actor._
 import org.joda.time.DateTime
 
 import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
+import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimelines }
 import lila.security.{ Granter, Permission }
 import lila.user.UserRepo
 
 private[timeline] final class Push(
-    lobbySocket: ActorSelection,
+    bus: lila.common.Bus,
     renderer: ActorSelection,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
@@ -24,9 +24,7 @@ private[timeline] final class Push(
         unsubApi.filterUnsub(data.channel, users)
       } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
-          (users foreach { u =>
-            lobbySocket ! ReloadTimeline(u)
-          })
+          bus.publish(ReloadTimelines(users), 'lobbySocket)
         lila.mon.timeline.notification(users.size)
       }
   }
@@ -36,9 +34,6 @@ private[timeline] final class Push(
       case Users(ids) => fuccess(ids)
       case Followers(id) => getFollowerIds(id)
       case Friends(id) => getFriendIds(id)
-      case StaffFriends(id) => getFriendIds(id) flatMap UserRepo.byIdsSecondary map {
-        _ filter Granter(_.StaffForum) map (_.id)
-      }
       case ExceptUser(_) => fuccess(Nil)
       case ModsOnly(_) => fuccess(Nil)
     }.sequence flatMap { users =>

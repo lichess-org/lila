@@ -13,6 +13,9 @@ object HTTPRequest {
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
+  def isEventSource(req: RequestHeader): Boolean =
+    req.headers get "Accept" contains "text/event-stream"
+
   def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 

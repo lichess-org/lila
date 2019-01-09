@@ -2,7 +2,6 @@ package lila.common
 
 import com.typesafe.config.Config
 import org.joda.time.{ DateTime, Period }
-import play.api.i18n.Lang
 import play.api.{ Play, Application, Mode }
 import scala.collection.JavaConversions._
 
@@ -29,8 +28,6 @@ object PlayApp {
   def system = withApp { implicit app =>
     play.api.libs.concurrent.Akka.system
   }
-
-  lazy val langs = loadConfig.getStringList("play.i18n.langs").map(Lang.apply)(scala.collection.breakOut)
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 

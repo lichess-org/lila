@@ -1,6 +1,7 @@
 @(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
-@forum.layout(title = "New forum topic", moreJs=jsTag("forum-post.js")) {
+@forum.layout(title = "New forum topic", moreJs = jsTag("forum-post.js"), formCss = true) {
 <ol class="crumbs">
   <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
   <li><h1>@categ.name</h1></li>
@@ -17,19 +18,16 @@
   </p>
 </div>
 
-<form class="wide" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
-  <label>
-    <span class="required">@trans.subject()</span>
-    <input class="subject" autofocus="true" minlength=3 maxlength=100 value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">
-    @errMsg(form("name"))
-  </label>
-  @forum.post.formFields(form("post")("text"), None)
-  @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
-  @errMsg(form("post"))
-  <button class="submit button" type="submit" data-icon="E"> @trans.createTheTopic()</button>
+<form class="form3 create-topic" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
+  @form3.group(form("name"), trans.subject.frag())(form3.input(_)(*.autofocus := true))
+  @form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(*.rows := 10))
+  @base.captcha(form("post"), captcha)
+  @form3.actions {
+  <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
   @if(isGranted(_.PublicMod)){
-    <button class="button" type="submit" data-icon="" name="post.modIcon" value="true"> Create topic as mod</button>
+  @form3.submit(raw("Create as mod"), nameValue = (form("post")("modIcon").name, "true").some, icon = "".some)
   }
-  <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
+  @form3.submit(trans.createTheTopic.frag())
+  }
 </form>
 }

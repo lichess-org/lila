@@ -4,7 +4,7 @@ import lila.common.{ IpAddress, EmailAddress }
 import lila.report.{ Mod, ModId, Suspect, SuspectId, Room }
 import lila.security.Permission
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
-import lila.user.{ User, UserRepo, LightUserApi }
+import lila.user.{ User, UserRepo, Title, LightUserApi }
 
 final class ModApi(
     logApi: ModlogApi,
@@ -108,18 +108,18 @@ final class ModApi(
 
   def reopenAccount(mod: String, username: String): Funit = withUser(username) { user =>
     !user.enabled ?? {
-      (UserRepo enable user.id) >> logApi.reopenAccount(mod, user.id)
+      (UserRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
     }
   }
 
-  def setTitle(mod: String, username: String, title: Option[String]): Funit = withUser(username) { user =>
+  def setTitle(mod: String, username: String, title: Option[Title]): Funit = withUser(username) { user =>
     title match {
       case None => {
         UserRepo.removeTitle(user.id) >>-
           logApi.removeTitle(mod, user.id) >>-
           lightUserApi.invalidate(user.id)
       }
-      case Some(t) => User.titlesMap.get(t) ?? { tFull =>
+      case Some(t) => Title.names.get(t) ?? { tFull =>
         UserRepo.addTitle(user.id, t) >>-
           logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
           lightUserApi.invalidate(user.id)

@@ -34,8 +34,6 @@ case class Topic(
 
   def isSticky = ~sticky
 
-  def isStaff = categId == Categ.staffId
-
   def withPost(post: Post): Topic = copy(
     nbPosts = if (post.troll) nbPosts else nbPosts + 1,
     lastPostId = if (post.troll) lastPostId else post.id,

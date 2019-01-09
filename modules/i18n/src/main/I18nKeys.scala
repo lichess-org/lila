@@ -482,7 +482,6 @@ val `victory` = new Translated("victory", Site)
 val `defeat` = new Translated("defeat", Site)
 val `xVsYinZ` = new Translated("xVsYinZ", Site)
 val `timeline` = new Translated("timeline", Site)
-val `seeAllTournaments` = new Translated("seeAllTournaments", Site)
 val `starting` = new Translated("starting", Site)
 val `allInformationIsPublicAndOptional` = new Translated("allInformationIsPublicAndOptional", Site)
 val `yourCityRegionOrDepartment` = new Translated("yourCityRegionOrDepartment", Site)
@@ -788,6 +787,7 @@ val `welcome_subject` = new Translated("welcome_subject", Emails)
 val `welcome_text` = new Translated("welcome_text", Emails)
 val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
+val `common_contact` = new Translated("common_contact", Emails)
 }
 
 object learn {

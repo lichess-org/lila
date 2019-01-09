@@ -47,6 +47,8 @@ final class JsonView(isOnline: User.ID => Boolean) {
 
 object JsonView {
 
+  import Title.titleJsonWrites
+
   implicit val nameWrites = Writes[User] { u =>
     JsString(u.username)
   }

@@ -30,7 +30,7 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
           case Some(email) if email.value.toLowerCase == s"${user.id}@erase.forever" =>
             bus.publish(lila.user.User.GDPRErase(user), 'gdprErase)
             s"Erasing all data about ${user.username} now"
-          case None => s"The user email must be set to <username>@erase.forever for erasing to start."
+          case _ => s"The user email must be set to <username>@erase.forever for erasing to start."
         }
       }
   }

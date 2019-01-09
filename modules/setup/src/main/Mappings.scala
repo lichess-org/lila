@@ -22,8 +22,8 @@ object Mappings {
   def rawMode(withRated: Boolean) = number
     .verifying(HookConfig.modes contains _)
     .verifying(m => m == Mode.Casual.id || withRated)
-  val ratingRange = nonEmptyText.verifying(RatingRange valid _)
-  val color = nonEmptyText.verifying(Color.names contains _)
+  val ratingRange = text.verifying(RatingRange valid _)
+  val color = text.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)
   val speed = number.verifying(Config.speeds contains _)
   val fen = optional(nonEmptyText)

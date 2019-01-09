@@ -78,10 +78,7 @@ private[forum] final class TopicApi(
             }
           } >>- {
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
-                if (post.isStaff) prop toStaffFriendsOf userId
-                else prop toFollowersOf userId
-              }
+              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
             }
             lila.mon.forum.post.create()
           } >>- {
@@ -101,7 +98,7 @@ private[forum] final class TopicApi(
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = "lichess".some,
+      userId = lila.user.User.lichessId.some,
       ip = none,
       troll = false,
       hidden = false,

@@ -62,8 +62,8 @@ object Env {
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,
     spam = lila.security.Env.current.spam,
-    shutup = lila.hub.Env.current.actor.shutup,
-    modLog = lila.hub.Env.current.actor.mod,
+    shutup = lila.hub.Env.current.shutup,
+    modLog = lila.hub.Env.current.mod,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )

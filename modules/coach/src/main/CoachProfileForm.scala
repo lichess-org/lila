@@ -10,9 +10,9 @@ object CoachProfileForm {
     "listed" -> boolean,
     "available" -> boolean,
     "profile" -> mapping(
-      "headline" -> optional(nonEmptyText(minLength = 5, maxLength = 170)),
-      "languages" -> optional(nonEmptyText(minLength = 3, maxLength = 140)),
-      "hourlyRate" -> optional(nonEmptyText(minLength = 3, maxLength = 140)),
+      "headline" -> optional(text(minLength = 5, maxLength = 170)),
+      "languages" -> optional(text(minLength = 3, maxLength = 140)),
+      "hourlyRate" -> optional(text(minLength = 3, maxLength = 140)),
       "description" -> optional(richText),
       "playingExperience" -> optional(richText),
       "teachingExperience" -> optional(richText),

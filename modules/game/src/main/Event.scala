@@ -7,6 +7,7 @@ import chess.variant.Crazyhouse
 import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
 import lila.chat.{ UserLine, PlayerLine }
+import lila.common.ApiVersion
 
 sealed trait Event {
   def typ: String
@@ -15,6 +16,7 @@ sealed trait Event {
   def owner: Boolean = false
   def watcher: Boolean = false
   def troll: Boolean = false
+  def moveBy: Option[Color] = None
 }
 
 object Event {
@@ -42,7 +44,7 @@ object Event {
       extra ++ Json.obj(
         "fen" -> fen,
         "ply" -> state.turns,
-        "dests" -> PossibleMoves.json(possibleMoves)
+        "dests" -> PossibleMoves.oldJson(possibleMoves)
       ).add("clock" -> clock.map(_.data))
         .add("status" -> state.status)
         .add("winner" -> state.winner)
@@ -82,6 +84,7 @@ object Event {
         .add("enpassant" -> enpassant.map(_.data))
         .add("castle" -> castle.map(_.data))
     }
+    override def moveBy = Some(!state.color)
   }
   object Move {
     def apply(move: ChessMove, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Move = Move(
@@ -127,6 +130,7 @@ object Event {
         "san" -> san
       )
     }
+    override def moveBy = Some(!state.color)
   }
   object Drop {
     def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
@@ -145,7 +149,27 @@ object Event {
   }
 
   object PossibleMoves {
-    def json(moves: Map[Pos, List[Pos]]) =
+
+    def json(moves: Map[Pos, List[Pos]], apiVersion: ApiVersion) =
+      if (apiVersion gte 4) newJson(moves)
+      else oldJson(moves)
+
+    def newJson(moves: Map[Pos, List[Pos]]) =
+      if (moves.isEmpty) JsNull
+      else {
+        val sb = new java.lang.StringBuilder(128)
+        var first = true
+        moves foreach {
+          case (orig, dests) =>
+            if (first) first = false
+            else sb append " "
+            sb append orig.key
+            dests foreach { sb append _.key }
+        }
+        JsString(sb.toString)
+      }
+
+    def oldJson(moves: Map[Pos, List[Pos]]) =
       if (moves.isEmpty) JsNull
       else moves.foldLeft(JsObject(Nil)) {
         case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))
@@ -345,13 +369,12 @@ object Event {
   case class Crowd(
       white: Boolean,
       black: Boolean,
-      watchers: JsValue
+      watchers: Option[JsValue]
   ) extends Event {
     def typ = "crowd"
     def data = Json.obj(
       "white" -> white,
-      "black" -> black,
-      "watchers" -> watchers
-    )
+      "black" -> black
+    ).add("watchers" -> watchers)
   }
 }

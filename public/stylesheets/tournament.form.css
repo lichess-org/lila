@@ -1,14 +1,26 @@
-#tournament form fieldset {
+#form3-name {
+  width: 48%!important;
+  display: inline-block;
+}
+#tournament form.create .conditions {
   margin: 1.5em 0;
   border-color: rgba(128,128,128,0.3);
 }
-#tournament form fieldset legend {
+#tournament form.create .conditions legend {
   text-align: center;
 }
-#tournament form fieldset p {
+#tournament form.create .conditions p {
   margin: 20px;
 }
-#tournament form fieldset .material {
+#tournament form.create .conditions .form {
   display: none;
-  margin: 40px 20px -20px 20px;
+}
+#tournament form.create .conditions.visible {
+  margin: 0;
+  padding: 0;
+  border-left: none;
+  border-right: none;
+}
+#tournament form.create .conditions.visible .form {
+  display: block;
 }

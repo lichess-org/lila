@@ -16,6 +16,7 @@ private final class Streaming(
     isOnline: User.ID => Boolean,
     timeline: ActorSelection,
     keyword: Stream.Keyword,
+    alwaysFeatured: () => lila.common.Strings,
     googleApiKey: String,
     twitchClientId: String,
     lightUserApi: lila.user.LightUserApi
@@ -62,8 +63,8 @@ private final class Streaming(
     import akka.pattern.ask
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
-        case html: play.twirl.api.Html =>
-          context.system.lilaBus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html.body), 'streams)
+        case html: String =>
+          context.system.lilaBus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -106,7 +107,11 @@ private final class Streaming(
       )
       .get().map { res =>
         res.json.validate[Twitch.Result](twitchResultReads) match {
-          case JsSuccess(data, _) => data.streams(keyword, streamers)
+          case JsSuccess(data, _) => data.streams(
+            keyword,
+            streamers,
+            alwaysFeatured().value.map(_.toLowerCase)
+          )
           case JsError(err) =>
             logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
             Nil

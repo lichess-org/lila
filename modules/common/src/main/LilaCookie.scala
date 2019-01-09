@@ -18,7 +18,7 @@ object LilaCookie {
     s + (name -> value)
   }
 
-  def newSession(implicit req: RequestHeader): Cookie = withSession(identity)
+  def newSession(implicit req: RequestHeader): Cookie = withSession(_ => Session.emptyCookie)
 
   def withSession(op: Session => Session)(implicit req: RequestHeader): Cookie = cookie(
     Session.COOKIE_NAME,

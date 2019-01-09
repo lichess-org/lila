@@ -7,15 +7,21 @@
 @jsTag("chart/ratingHistory.js")
 @embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
 }
+@if(isGranted(_.UserSpy)) { @jsAt("compiled/user-mod.js") }
+}
+
+@evenMoreCss = {
+@cssTag("activity.css")
+@if(isGranted(_.UserSpy)) { @cssTag("user-mod.css") }
 }
 
 @user.layout(
 title =  s"${u.username} : ${trans.activity.activity.txt()}",
-side = side(u, info.ranks, none).some,
+side = Some(side(u, info.ranks, none)),
 evenMoreJs = evenMoreJs,
-evenMoreCss = cssTag("activity.css")) {
+evenMoreCss = evenMoreCss) {
 <div data-username="@u.username" class="content_box no_padding user_show">
   @header(u, info, Angle.Activity, social)
-  <div class="angle_content">@views.html.activity.list(u, activities)</div>
+  <div class="angle_content">@views.html.activity(u, activities).toHtml</div>
 </div>
 }

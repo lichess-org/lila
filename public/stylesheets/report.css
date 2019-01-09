@@ -1,45 +1,6 @@
 #report form.create {
-  font-size: 1.1em;
-  padding-top: 2em;
-}
-#report form.create div.actions, #report div.answer div.actions {
-  padding: 0.5em 0;
-  font-size: 1.1em;
-}
-#report form.create .actions a, #report div.answer div.actions a {
-  margin-left: 1em;
-}
-#report form.create >div >label {
-  float: left;
-  width: 100px;
-  text-align: right;
-  margin-right: 10px;
-  vertical-align: middle;
-  margin-top: 3px;
-}
-#report .field_to input, #report .field_reason input {
-  width: 450px;
-  padding: 3px 5px;
-}
-#report .field_to, #report .field_reason {
-  margin-bottom: 1em;
-}
-#report textarea {
-  width: 547px;
-  height: 150px;
-  padding: 10px;
-}
-#report .error {
-  color: red;
-  margin-left: 110px;
-}
-#report .help {
-  margin-left: 110px;
-}
-#report .checkmateCaptcha {
   margin-top: 2em;
 }
-
 #report_list .header {
   display: flex;
   justify-content: space-between;

@@ -1,10 +1,12 @@
 @(form: Form[_], q: lila.qa.Question, tags: List[String], popular: List[lila.qa.Question], captcha: lila.common.Captcha)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @title = @{ s"""Edit question "${q.title}"""" }
 
 @layout(
 title = title,
-side = popularBox(popular).some) {
+side = popularBox(popular).some,
+formCss = true) {
 
 <div class="content_box_top">
   <h1 class="lichess_title">
@@ -18,10 +20,12 @@ side = popularBox(popular).some) {
 </div>
 
 <div class="content_box_content">
-  <form class="wide question" action="@routes.QaQuestion.doEdit(q.id)" method="post">
+  <form class="question form3" action="@routes.QaQuestion.doEdit(q.id)" method="post">
     @questionForm(form, tags, captcha)
-    <button type="submit" class="pure submit button" data-icon="E"> Update your question</button>
-    <a href="@routes.QaQuestion.show(q.id, q.slug)" style="margin-left:20px">@trans.cancel()</a>
+    @form3.actions {
+    <a href="@routes.QaQuestion.show(q.id, q.slug)">@trans.cancel()</a>
+    @form3.submit(raw("Update your question"))
+    }
   </form>
 </div>
 }

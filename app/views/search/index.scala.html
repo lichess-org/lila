@@ -32,8 +32,8 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <label>@trans.players() <span class="help" title="The name(s) of the player(s) you wish to search">(?)</span></label>
         </th>
         <td class="usernames">
-          <div class="half">@base.form.input(form("players")("a"))</div>
-          <div class="half">@base.form.input(form("players")("b"))</div>
+          <div class="half">@form3.inputHtml(form("players")("a"))()</div>
+          <div class="half">@form3.inputHtml(form("players")("b"))()</div>
         </td>
       </tr>
       @chess.Color.all.map { color =>
@@ -195,7 +195,9 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
         </th>
         <td class="single">
-          @base.form.checkbox(form("analysed"), "", 1)
+          @defining(form("analysed")) { field =>
+          <input type="checkbox" id="@field.id" name="@field.name" value="1" @if(field.value.has("1")){checked} />
+          }
         </td>
       </tr>
       <tr>
@@ -203,7 +205,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
         <td class="simple action">
           <button type="submit" class="submit button">@trans.search()</button>
           <div class="wait">
-            @base.spinner()
+            @spinner
             Searching in @nbGames.localize games
           </div>
         </td>
@@ -223,7 +225,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       }.getOrElse {
       <div class="none"></div>
       }
-      @game.widgets(pager.currentPageResults)
+      @game.widgets(pager.currentPageResults).toHtml
     </div>
     } else {
     <div class="search_status">
@@ -234,4 +236,4 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     }
   </div>
 </div>
-}
+}.toHtml

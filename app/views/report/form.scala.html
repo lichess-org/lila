@@ -1,54 +1,30 @@
 @(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(implicit ctx: Context)
-
-@import lila.report.Reason
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @title = @{ trans.reportAUser.txt() }
 
-@base.layout(title = title, moreCss = cssTag("report.css")) {
-<div class="content_box" id="report">
+@base.layout(title = title, moreCss = cssTags("report.css", "form3.css")) {
+<div class="content_box small_box" id="report">
   <h1>@title</h1>
-  <form class="create" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
-    <div class="field_to">
-      <label for="@form("username").id">@trans.user()</label>
-      @reqUser.map { user =>
-      @userLink(user)
-      <input
-      type="hidden"
-      name="@form("username").name"
-      value="@user.id">
-      }.getOrElse {
-      <input
-      type="text"
-      class="user-autocomplete"
-      required="required"
-      name="@form("username").name"
-      id="@form("username").id"
-      value="@form("username").value">
-      @errMsg(form("username"))
-      }
-    </div>
-    <div class="field_reason">
-      <label for="@form("reason").id">@trans.reason()</label>
-      @base.form.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.txt().some)
-      @errMsg(form("reason"))
-    </div>
-    <div class="field_body">
-      <label for="@form("text").id">@trans.description()</label>
-      <textarea
-        name="@form("text").name"
-        required="required"
-        id="@form("text").id">@form("text").value</textarea>
-      <p class="help">
-        @trans.reportDescriptionHelp()
-      </p>
-      @errMsg(form("text"))
-    </div>
-    @base.captcha(form("move"), form("gameId"), captcha)
-    @globalError(form)
-    <div class="actions">
-      <input class="send button" type="submit" value="@trans.send()" />
-      <a class="cancel" href="@routes.Lobby.home()">@trans.cancel()</a>
-    </div>
+  <form class="create form3" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
+    @form3.globalError(form)
+    @form3.group(form("username"), trans.user.frag(), klass = "field_to") { f =>
+    @reqUser.map { user =>
+    @userLink(user)
+    @form3.hidden(f, user.id.some)
+    }.getOrElse {
+    <div>@form3.inputHtml(f, klass = "user-autocomplete")(*.dataTag := "span")</div>
+    }
+    }
+    @form3.group(form("reason"), trans.reason.frag()) { f =>
+    @form3.select(f, translatedReasonChoices, trans.whatIsIheMatter.txt().some)
+    }
+    @form3.group(form("text"), trans.description.frag(), help = trans.reportDescriptionHelp.frag().some)(form3.textarea(_)(*.rows := 8))
+    @base.captcha(form, captcha)
+    @form3.actions {
+    <a href="@routes.Lobby.home()">@trans.cancel()</a>
+    @form3.submit(trans.send.frag())
+    }
   </form>
 </div>
-}
+}.toHtml

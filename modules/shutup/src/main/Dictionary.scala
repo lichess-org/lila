@@ -137,6 +137,7 @@ shemale
 shit(z|e|y|ty|bag|)
 sister
 slag
+slave
 slut
 spastic
 spaz
@@ -148,6 +149,7 @@ spunk
 stfu
 stripper
 stupid
+suicide
 taint
 tart
 terrorist
@@ -176,6 +178,4 @@ pid(a|o)r
 """)
 
   private def dict(words: String) = words.lines.filter(_.nonEmpty)
-
-  val youtubeIds = List("7UpltimWY_E", "J_bzfjZZnjU", "xRiQe_tq7h0", "8IlVvluRbwk", "P3o0hPjrxgo", "d8TSD4f89i8")
 }

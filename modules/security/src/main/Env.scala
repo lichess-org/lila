@@ -1,6 +1,8 @@
 package lila.security
 
-import lila.common.EmailAddress
+import lila.common.{ EmailAddress, Strings, Iso }
+import lila.memo.SettingStore.Formable.stringsFormable
+import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 
 import akka.actor._
@@ -46,8 +48,9 @@ final class Env(
   private val RecaptchaEndpoint = config getString "recaptcha.endpoint"
   private val NetBaseUrl = config getString "net.base_url"
   private val NetDomain = config getString "net.domain"
-  private val NetEmail = config getString "net.email"
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
+  private val DnsApiUrl = config getString "dns_api.url"
+  private val DnsApiTimeout = config duration "dns_api.timeout"
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
@@ -145,40 +148,38 @@ final class Env(
     baseUrl = NetBaseUrl
   )
 
-  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
+  private lazy val dnsApi = new DnsApi(DnsApiUrl, DnsApiTimeout)(system)
 
-  lazy val emailBlacklistSetting = settingStore[String](
+  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain, dnsApi)
+
+  lazy val emailBlacklistSetting = settingStore[Strings](
     "emailBlacklist",
-    default = "",
-    text = "Blacklisted email domains separated by a space".some
+    default = Strings(Nil),
+    text = "Blacklisted email domains separated by a comma".some
   )
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
     blacklistStr = emailBlacklistSetting.get,
-    busOption = system.lilaBus.some
+    bus = system.lilaBus
   )
 
   import reactivemongo.bson._
 
-  lazy val spamKeywordsSetting = {
-    val stringListIso = lila.common.Iso.stringList(",")
-    implicit val stringListBsonHandler = lila.db.dsl.isoHandler(stringListIso)
-    implicit val stringListReader = lila.memo.SettingStore.StringReader.fromIso(stringListIso)
-    settingStore[List[String]](
+  lazy val spamKeywordsSetting =
+    settingStore[Strings](
       "spamKeywords",
-      default = Nil,
+      default = Strings(Nil),
       text = "Spam keywords separated by a comma".some
     )
-  }
 
   lazy val spam = new Spam(spamKeywordsSetting.get)
 
-  scheduler.once(15 seconds)(disposableEmailDomain.refresh)
+  scheduler.once(30 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
-  scheduler.once(30 seconds)(tor.refresh(_ => funit))
+  scheduler.once(31 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
   lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
@@ -190,7 +191,8 @@ final class Env(
   def cli = new Cli
 
   system.lilaBus.subscribeFun('fishnet) {
-    case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+    case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
+      automaticEmail.onFishnetKey(userId, key)(lila.i18n.defaultLang)
   }
 
   private[security] lazy val storeColl = db(CollectionSecurity)
@@ -217,7 +219,7 @@ object Env {
     },
     system = system,
     scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher,
+    captcher = lila.hub.Env.current.captcher,
     lifecycle = lila.common.PlayApp.lifecycle
   )
 }

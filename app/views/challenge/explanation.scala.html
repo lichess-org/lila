@@ -1,7 +1,7 @@
 @(c: lila.challenge.Challenge)(implicit ctx: Context)
 
 <p>
-  @views.html.game.variantLink(c.variant, variantName(c.variant)) • @modeName(c.mode)<br />
+  @views.html.game.bits.variantLink(c.variant, variantName(c.variant)).toHtml • @modeName(c.mode)<br />
   @c.daysPerTurn.map { days =>
   <span class="text" data-icon=";">@if(days == 1){@trans.oneDay()}else{@trans.nbDays.pluralSame(days)}</span>
   }.getOrElse {

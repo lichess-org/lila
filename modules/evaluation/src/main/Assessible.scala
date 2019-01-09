@@ -36,15 +36,15 @@ case class Assessible(analysed: Analysed, color: Color) {
 
   lazy val highestChunkBlurs: Int =
     game.player(color).blurs match {
-      case bits: lila.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
+      case bits: lila.game.Blurs.Bits => bits.booleans.sliding(12).map(_.count(identity)).max
       case _ => 0
     }
 
   lazy val highChunkBlurRate: Boolean =
-    highestChunkBlurs >= 9
+    highestChunkBlurs >= 11
 
   lazy val moderateChunkBlurRate: Boolean =
-    highestChunkBlurs >= 7
+    highestChunkBlurs >= 8
 
   lazy val highlyConsistentMoveTimes: Boolean =
     if (game.clock.forall(_.estimateTotalSeconds > 60))

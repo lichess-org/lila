@@ -99,7 +99,9 @@ object Relay {
   }
 
   object Sync {
-    case class Upstream(url: String) extends AnyVal
+    case class Upstream(url: String) extends AnyVal {
+      def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
+    }
   }
 
   case class WithStudy(relay: Relay, study: Study)

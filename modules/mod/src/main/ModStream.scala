@@ -9,18 +9,18 @@ import lila.report.ModId
 
 final class ModStream(system: ActorSystem) {
 
-  import lila.common.HttpStream._
-
   private val stringify =
     Enumeratee.map[JsValue].apply[String] { js =>
       Json.stringify(js) + "\n"
     }
 
+  private val classifier = 'userSignup
+
   def enumerator: Enumerator[String] = {
-    var stream: Option[ActorRef] = None
+    var subscriber: Option[lila.common.Tellable] = None
     Concurrent.unicast[JsValue](
       onStart = channel => {
-        stream = system.lilaBus.subscribeFun('userSignup) {
+        subscriber = system.lilaBus.subscribeFun(classifier) {
           case lila.security.Signup(user, email, req, fp) =>
             channel push Json.obj(
               "t" -> "signup",
@@ -32,7 +32,7 @@ final class ModStream(system: ActorSystem) {
             )
         } some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = subscriber foreach { system.lilaBus.unsubscribe(_, classifier) }
     ) &> stringify
   }
 }

@@ -585,7 +585,6 @@
   <string name="xVsYinZ">%1$s εναντίον %2$s
 στο %3$s</string>
   <string name="timeline">Χρονολόγιο</string>
-  <string name="seeAllTournaments">Προβολή όλων των πρωταθλημάτων</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας.</string>
@@ -652,6 +651,7 @@
   <string name="about">Σχετικά με</string>
   <string name="aboutX">Σχετικά με %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s είναι δωρεάν (%2$s), ελεύθερο, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
+  <string name="really">αλήθεια</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>

@@ -1,18 +1,17 @@
 package lila.tournament
 
 import akka.actor._
-import akka.pattern.ask
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import actorApi._
-import lila.hub.actorApi.map.Ask
 import makeTimeout.short
 
 private final class StartedOrganizer(
     api: TournamentApi,
-    reminder: ActorRef,
+    reminder: TournamentReminder,
     isOnline: String => Boolean,
-    socketHub: ActorRef
+    socketMap: SocketMap
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -44,9 +43,7 @@ private final class StartedOrganizer(
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
               else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
               else funit
-            result >>- {
-              reminder ! RemindTournament(tour, activeUserIds)
-            } inject nb
+            result >>- reminder(tour, activeUserIds) inject nb
           }
         }.addEffect { playerCounts =>
           lila.mon.tournament.player(playerCounts.sum)
@@ -66,5 +63,5 @@ private final class StartedOrganizer(
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    socketHub ? Ask(tour.id, GetWaitingUsers) mapTo manifest[WaitingUsers]
+    socketMap.askIfPresent[WaitingUsers](tour.id)(GetWaitingUsersP) map (_ | WaitingUsers.empty)
 }

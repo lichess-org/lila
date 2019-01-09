@@ -30,12 +30,12 @@ final class Env(
 
   private lazy val notifier = new Notifier(
     notifyApi = notifyApi,
-    timeline = hub.actor.timeline
+    timeline = hub.timeline
   )
 
   lazy val search = new Search(questionColl)
 
-  lazy val forms = new DataForm(hub.actor.captcher, detectLanguage)
+  lazy val forms = new DataForm(hub.captcher, detectLanguage)
 
   system.lilaBus.subscribeFun('gdprErase) {
     case lila.user.User.GDPRErase(user) =>

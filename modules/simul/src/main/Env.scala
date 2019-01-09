@@ -1,15 +1,12 @@
 package lila.simul
 
 import akka.actor._
-import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.map.Ask
-import lila.hub.{ Duct, DuctMap }
+import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
-import makeTimeout.short
 
 final class Env(
     config: Config,
@@ -30,8 +27,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
-    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -42,12 +37,9 @@ final class Env(
   lazy val api = new SimulApi(
     repo = repo,
     system = system,
-    socketHub = socketHub,
-    site = hub.socket.site,
-    renderer = hub.actor.renderer,
-    timeline = hub.actor.timeline,
-    userRegister = hub.actor.userRegister,
-    lobby = hub.socket.lobby,
+    socketMap = socketMap,
+    renderer = hub.renderer,
+    timeline = hub.timeline,
     onGameStart = onGameStart,
     sequencers = sequencerMap,
     asyncCache = asyncCache
@@ -57,40 +49,54 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(simulId: String) = new Socket(
-        simulId = simulId,
-        history = new History(ttl = HistoryMessageTtl),
-        getSimul = repo.find,
-        jsonView = jsonView,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightUser = lightUser
-      )
-    }), name = SocketName
+  private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
+    system = system,
+    mkTrouper = (simulId: String) => new Socket(
+      system = system,
+      simulId = simulId,
+      history = new History(ttl = HistoryMessageTtl),
+      getSimul = repo.find,
+      jsonView = jsonView,
+      uidTtl = UidTimeout,
+      lightUser = lightUser,
+      keepMeAlive = () => socketMap touch simulId
+    ),
+    accessTimeout = SocketTimeout,
+    monitoringName = "simul.socketMap",
+    broomFrequency = 3691 millis
   )
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
-    chat = hub.actor.chat,
+    socketMap = socketMap,
+    chat = hub.chat,
     exists = repo.exists
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import akka.pattern.pipe
-    def receive = {
+  system.lilaBus.subscribeFuns(
+    'finishGame -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    },
+    'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
-      case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
+    },
+    'deploy -> {
+      case m: lila.hub.actorApi.Deploy => socketMap tellAll m
+    },
+    'simulGetHosts -> {
+      case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
+    },
+    'moveEventSimul -> {
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
-        hub.actor.userRegister ! lila.hub.actorApi.SendTo(
-          opponentUserId,
-          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+        system.lilaBus.publish(
+          lila.hub.actorApi.socket.SendTo(
+            opponentUserId,
+            lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+          ),
+          'socketUsers
         )
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul)
+  )
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
@@ -107,7 +113,7 @@ final class Env(
   )
 
   def version(simulId: String): Fu[SocketVersion] =
-    socketHub ? Ask(simulId, GetVersion) mapTo manifest[SocketVersion]
+    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersion)
 
   private[simul] val simulColl = db(CollectionSimul)
 
@@ -116,7 +122,7 @@ final class Env(
     accessTimeout = SequencerTimeout
   )
 
-  private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
+  private lazy val simulCleaner = new SimulCleaner(repo, api, socketMap)
 
   scheduler.effect(15 seconds, "[simul] cleaner")(simulCleaner.apply)
 }

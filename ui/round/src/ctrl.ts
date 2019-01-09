@@ -178,7 +178,7 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.chessground.selectSquare(null);
-    this.jump(ply);
+    if (!this.jump(ply)) this.redraw();
   };
 
   isPlaying = () => game.isPlayerPlaying(this.data);
@@ -244,10 +244,6 @@ export default class RoundController {
         const moveMillis = this.clock.stopClock();
         if (moveMillis !== undefined && this.shouldSendMoveTime) {
           socketOpts.millis = moveMillis;
-          if (socketOpts.millis < 3) {
-            // instant move, no premove? might be fishy
-            $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
-          }
         }
       }
     }
@@ -345,7 +341,7 @@ export default class RoundController {
       }
       if (o.enpassant) {
         const p = o.enpassant, pieces: cg.PiecesDiff = {};
-        pieces[p.key] = null;
+        pieces[p.key] = undefined;
         this.chessground.setPieces(pieces);
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
@@ -355,8 +351,8 @@ export default class RoundController {
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.state.autoCastle) {
         const c = o.castle, pieces: cg.PiecesDiff = {};
-        pieces[c.king[0]] = null;
-        pieces[c.rook[0]] = null;
+        pieces[c.king[0]] = undefined;
+        pieces[c.rook[0]] = undefined;
         pieces[c.king[1]] = {
           role: 'king',
           color: c.color
@@ -482,7 +478,7 @@ export default class RoundController {
     this.redraw();
     this.autoScroll();
     this.onChange();
-    if (d.tv) setTimeout(li.reload, 8000);
+    if (d.tv) setTimeout(li.reload, 10000);
   };
 
   challengeRematch = (): void => {

@@ -231,7 +231,7 @@ object Api extends LilaController {
     lila.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
         val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, lila.i18n.defaultLang) map some
+        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, partial = false, lila.i18n.defaultLang) map some
       }
     } map toApiResult
   }
@@ -255,12 +255,26 @@ object Api extends LilaController {
     }
   }
 
+  def tournamentResults(id: String) = Action.async { req =>
+    lila.tournament.TournamentRepo byId id flatMap {
+      _ ?? { tour =>
+        GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          import lila.tournament.JsonView.playerResultWrites
+          val nb = getInt("nb", req) | Int.MaxValue
+          val enumerator = Env.tournament.api.resultStream(tour, 50, nb) &>
+            Enumeratee.map(playerResultWrites.writes)
+          jsonStream(enumerator).fuccess
+        }
+      }
+    }
+  }
+
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
     val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
     jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
   }
 
-  def eventStream = Scoped() { req => me =>
+  def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { req => me =>
     lila.game.GameRepo.urgentGames(me) flatMap { povs =>
       Env.challenge.api.createdByDestId(me.id) map { challenges =>
         jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))

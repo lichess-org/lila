@@ -143,23 +143,23 @@ object DataForm {
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
 
   val theme = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme contains _)
+    "theme" -> text.verifying(Theme contains _)
   ))
 
   val pieceSet = Form(single(
-    "set" -> nonEmptyText.verifying(PieceSet contains _)
+    "set" -> text.verifying(PieceSet contains _)
   ))
 
   val theme3d = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme3d contains _)
+    "theme" -> text.verifying(Theme3d contains _)
   ))
 
   val pieceSet3d = Form(single(
-    "set" -> nonEmptyText.verifying(PieceSet3d contains _)
+    "set" -> text.verifying(PieceSet3d contains _)
   ))
 
   val soundSet = Form(single(
-    "set" -> nonEmptyText.verifying(SoundSet contains _)
+    "set" -> text.verifying(SoundSet contains _)
   ))
 
   val bg = Form(single(

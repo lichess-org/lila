@@ -29,7 +29,7 @@
   <form action="@routes.Dev.settingsPost(s.id)" method="POST">
     <label>
       <p>@s.text.getOrElse(s.id)</p>
-      <input name="v" value="@s.get()" />
+      <input name="v" value="@s.form.value" />
     </label>
     <button type="submit" class="submit button text" data-icon="E"></button>
   </form>

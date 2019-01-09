@@ -22,7 +22,7 @@ object Irwin extends LilaController {
       req.body.validate[lila.irwin.IrwinReport].fold(
         err => fuccess(BadRequest(err.toString)),
         report => Env.irwin.api.reports.insert(report) inject Ok
-      )
+      ) map (_ as TEXT)
     }
   }
 

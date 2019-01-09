@@ -1,14 +1,12 @@
 package lila.challenge
 
 import akka.actor._
-import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.hub.TrouperMap
+import lila.socket.Socket.{ SocketVersion, GetVersion }
 import lila.user.User
-import lila.hub.actorApi.map.Ask
-import lila.socket.Socket.{ GetVersion, SocketVersion }
-import makeTimeout.short
 
 final class Env(
     config: Config,
@@ -31,29 +29,31 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
     val MaxPlaying = config getInt "max_playing"
   }
   import settings._
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(challengeId: String) = new Socket(
-        challengeId = challengeId,
-        history = new lila.socket.History(ttl = HistoryMessageTtl),
-        getChallenge = repo.byId,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout
-      )
-    }), name = SocketName
+  private val socketMap: SocketMap = lila.socket.SocketMap[ChallengeSocket](
+    system = system,
+    mkTrouper = (challengeId: String) => new ChallengeSocket(
+      system = system,
+      challengeId = challengeId,
+      history = new lila.socket.History(ttl = HistoryMessageTtl),
+      getChallenge = repo.byId,
+      uidTtl = UidTimeout,
+      keepMeAlive = () => socketMap touch challengeId
+    ),
+    accessTimeout = SocketTimeout,
+    monitoringName = "challenge.socketMap",
+    broomFrequency = 3677 millis
   )
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
-    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[SocketVersion]
+    socketMap.askIfPresentOrZero[SocketVersion](challengeId)(GetVersion)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
+    socketMap = socketMap,
     pingChallenge = api.ping
   )
 
@@ -63,8 +63,7 @@ final class Env(
     jsonView = jsonView,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
-    socketHub = socketHub,
-    userRegister = hub.actor.userRegister,
+    socketMap = socketMap,
     asyncCache = asyncCache,
     lilaBus = system.lilaBus
   )

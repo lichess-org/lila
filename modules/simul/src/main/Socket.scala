@@ -1,6 +1,6 @@
 package lila.simul
 
-import akka.actor._
+import akka.actor.ActorSystem
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -8,29 +8,29 @@ import scala.concurrent.duration._
 import actorApi._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lila.hub.Trouper
+import lila.socket.{ SocketTrouper, History, Historical }
+import lila.chat.Chat
 
 private[simul] final class Socket(
+    system: ActorSystem,
     simulId: String,
-    val history: History[Messadata],
+    protected val history: History[Messadata],
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration
-) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
+    uidTtl: Duration,
+    keepMeAlive: () => Unit
+) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
 
-  override def preStart(): Unit = {
-    super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat:$simulId"))
+  lilaBus.subscribe(this, chatClassifier)
+
+  override def stop(): Unit = {
+    super.stop()
+    lilaBus.unsubscribe(this, chatClassifier)
   }
 
-  override def postStop(): Unit = {
-    super.postStop()
-    lilaBus.unsubscribe(self)
-  }
-
-  private val timeBomb = new TimeBomb(socketTimeout)
+  private def chatClassifier = Chat classify Chat.Id(simulId)
 
   private var delayedCrowdNotification = false
 
@@ -64,53 +64,41 @@ private[simul] final class Socket(
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
-    case Ping(uid, vOpt, c) =>
-      ping(uid, c)
-      timeBomb.delay
-      pushEventsSinceForMobileBC(vOpt, uid)
+    case lila.socket.Socket.GetVersion(promise) => promise success history.version
 
-    case Broom => {
-      broom
-      if (timeBomb.boom) self ! PoisonPill
-    }
+    case GetUserIdsP(promise) => promise success members.values.flatMap(_.userId)
 
-    case lila.socket.Socket.GetVersion => sender ! history.version
-
-    case Socket.GetUserIds => sender ! members.values.flatMap(_.userId)
-
-    case Join(uid, user, version) =>
+    case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
       notifyCrowd
-      sender ! Connected(
+      promise success Connected(
         prependEventsSince(version, enumerator, member),
         member
       )
-
-    case Quit(uid) =>
-      quit(uid)
-      notifyCrowd
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
       showSpectators(lightUser)(members.values) foreach { notifyAll("crowd", _) }
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Trouper.Receive) orElse lila.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit = {
+  override protected def broom: Unit = {
+    super.broom
+    if (members.nonEmpty) keepMeAlive()
+  }
+
+  override protected def afterQuit(uid: lila.socket.Socket.Uid, member: Member) = notifyCrowd
+
+  def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
-      context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
+      system.scheduler.scheduleOnce(500 millis)(this ! NotifyCrowd)
     }
-  }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll
-}
-
-case object Socket {
-  case object GetUserIds
 }

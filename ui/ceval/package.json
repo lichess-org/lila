@@ -31,7 +31,7 @@
     "@types/lichess": "1.0.0",
     "@types/defer-promise": "1.0.0",
     "nodeunit": "^0.11.0",
-    "typescript": "^2"
+    "typescript": "^3"
   },
   "dependencies": {
     "chess": "1.0.0",

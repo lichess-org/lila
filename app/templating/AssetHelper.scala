@@ -8,7 +8,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.common.{ AssetVersion, ContentSecurityPolicy }
 
-trait AssetHelper { self: I18nHelper =>
+trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
 
@@ -28,6 +28,14 @@ trait AssetHelper { self: I18nHelper =>
 
   def cssTag(name: String): Html = cssAt("stylesheets/" + name)
 
+  def cssTags(names: String*): Html = Html {
+    names.map { name =>
+      cssTag(name).body
+    } mkString ""
+  }
+  def cssTags(names: List[(String, Boolean)]): Html =
+    cssTags(names.collect { case (k, true) => k }: _*)
+
   def cssVendorTag(name: String) = cssAt("vendor/" + name)
 
   def cssAt(path: String): Html = Html {
@@ -46,8 +54,7 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag =
-    jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
+  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
 
   val highchartsLatestTag = Html {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
@@ -72,8 +79,18 @@ trait AssetHelper { self: I18nHelper =>
   val flatpickrTag = Html {
     s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
+  def delayFlatpickrStart(implicit ctx: Context) = embedJs {
+    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
+  }
 
   val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+
+  def prismicJs(implicit ctx: Context) = Html {
+    isGranted(_.Prismic) ?? {
+      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").body ++
+        """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+    }
+  }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) "https://" + assetDomain else assetDomain
@@ -86,7 +103,7 @@ trait AssetHelper { self: I18nHelper =>
       frameSrc = List("'self'", assets, "https://www.youtube.com"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assets),
+      scriptSrc = List("'self'", "'unsafe-eval'", assets),
       baseUri = List("'none'")
     )
   }
@@ -100,6 +117,11 @@ trait AssetHelper { self: I18nHelper =>
     val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
     s"""<script$nonce>$js</script>"""
   }
+  def embedJsUnsafe(js: scalatags.Text.RawFrag)(implicit ctx: Context): scalatags.Text.RawFrag = scalatags.Text.all.raw {
+    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
+    s"""<script$nonce>$js</script>"""
+  }
 
   def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
+  def embedJs(js: String)(implicit ctx: Context): Html = embedJsUnsafe(js)
 }

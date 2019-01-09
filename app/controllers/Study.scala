@@ -222,8 +222,9 @@ object Study extends LilaController {
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
             user = ctx.me,
-            getSocketVersion
-          )
+            getSocketVersion,
+            apiVersion
+          ) map some
         }
       }
     }
@@ -389,10 +390,20 @@ object Study extends LilaController {
     }
   }
 
+  def multiBoard(id: String, page: Int) = Open { implicit ctx =>
+    OptionFuResult(env.api byId id) { study =>
+      CanViewResult(study) {
+        env.multiBoard.json(study, page, getBool("playing")) map { json =>
+          Ok(json) as JSON
+        }
+      }
+    }
+  }
+
   private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
     else negotiate(
-      html = fuccess(Unauthorized(html.study.restricted(study))),
+      html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),
       api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
     )
 

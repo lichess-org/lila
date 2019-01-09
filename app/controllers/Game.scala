@@ -16,7 +16,7 @@ object Game extends LilaController {
   def delete(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game gameId) { game =>
       if (game.pgnImport.flatMap(_.user) ?? (me.id==)) {
-        Env.hub.actor.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+        Env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (GameRepo remove game.id) >>
           (lila.analyse.AnalysisRepo remove game.id) >>
           Env.game.cached.clearNbImportedByCache(me.id) inject

@@ -1,22 +1,22 @@
 package lila.push
 
 import akka.actor._
-import akka.pattern.ask
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
-import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
     oneSignalPush: OneSignalPush,
     implicit val lightUser: LightUser.GetterSync,
-    roundSocketHub: ActorSelection,
+    bus: lila.common.Bus,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -219,13 +219,13 @@ private final class PushApi(
     ) mkString " • "
   }
 
-  private def IfAway(pov: Pov)(f: => Funit): Funit = {
-    import makeTimeout.short
-    roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] flatMap {
+  private def IfAway(pov: Pov)(f: => Funit): Funit =
+    bus.ask[Boolean]('roundSocket) { p =>
+      Tell(pov.gameId, IsOnGame(pov.color, p))
+    } flatMap {
       case true => funit
       case false => f
     }
-  }
 
   private def opponentName(pov: Pov) = Namer playerText pov.opponent
 

@@ -78,6 +78,10 @@ final class NoteApi(
         mod = modOnly
       ), 'userNote)
     }
+  } >> {
+    modOnly ?? Title.fromUrl(text) flatMap {
+      _ ?? { UserRepo.addTitle(to.id, _) }
+    }
   }
 
   def byId(id: String): Fu[Option[Note]] =

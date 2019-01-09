@@ -43,7 +43,7 @@ private final class RelayFormatApi(
           }
         }
 
-    guessManyFiles orElse guessSingleFile flatten "Cannot find any DGT compatible files"
+    guessSingleFile orElse guessManyFiles flatten "Cannot find any DGT compatible files"
   } addEffect { format =>
     logger.info(s"guessed format of $url: $format")
   } addFailureEffect { err =>

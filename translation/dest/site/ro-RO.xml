@@ -43,9 +43,9 @@
   <string name="blackLeftTheGame">Negrul a părăsit partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribuiţi acest link pentru a permite spectatorilor să vizioneze partida</string>
   <string name="theComputerAnalysisHasFailed">Analiza computerului a eșuat</string>
-  <string name="viewTheComputerAnalysis">Vezi analiza computerului</string>
-  <string name="requestAComputerAnalysis">Cereți o analiză a computerului</string>
-  <string name="computerAnalysis">Analiza computerului</string>
+  <string name="viewTheComputerAnalysis">Vezi analiza computer-ului</string>
+  <string name="requestAComputerAnalysis">Cereți o analiză a computer-ului</string>
+  <string name="computerAnalysis">Analiza computer-ului</string>
   <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
   <string name="analysis">Analiza</string>
   <string name="depthX">Profunzime %s</string>
@@ -611,7 +611,6 @@
   <string name="xVsYinZ">%1$s vs %2$s
 în %3$s</string>
   <string name="timeline">Activitate recentă</string>
-  <string name="seeAllTournaments">Vezi toate turneele</string>
   <string name="starting">Începe în:</string>
   <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și facultative</string>
   <string name="yourCityRegionOrDepartment">Orașul tău, regiunea sau provincia</string>
@@ -679,6 +678,9 @@
   <string name="mobileApp">Aplicație mobilă</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">Despre</string>
+  <string name="aboutX">Despre %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s este un server de șah gratuit (%2$s), fără reclame și open-source.</string>
+  <string name="really">pe bune</string>
   <string name="contribute">Contribuie</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Termeni și condiții</string>

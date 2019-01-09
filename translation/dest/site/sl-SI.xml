@@ -638,7 +638,6 @@
   <string name="xVsYinZ">%1$s poti %2$s 
 v %3$s</string>
   <string name="timeline">Časovni trak</string>
-  <string name="seeAllTournaments">Poglej vse turnirje</string>
   <string name="starting">Začetek:</string>
   <string name="allInformationIsPublicAndOptional">Vsi podatki so vidni in niso obvezni.</string>
   <string name="yourCityRegionOrDepartment">Tvoje mesto, kraj ali regija.</string>
@@ -710,6 +709,8 @@ v %3$s</string>
   <string name="webmasters">Razvijalci</string>
   <string name="about">O</string>
   <string name="aboutX">O %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je brezplačen (%2$s), svoboden, brez oglasov, odprto-koden šahovski strežnik.</string>
+  <string name="really">resnično</string>
   <string name="contribute">Prispevaj</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Pogoji uporabe</string>

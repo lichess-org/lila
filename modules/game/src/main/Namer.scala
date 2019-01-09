@@ -1,7 +1,7 @@
 package lila.game
 
 import lila.common.LightUser
-import lila.user.User
+import lila.user.{ User, Title }
 import play.twirl.api.Html
 
 object Namer {
@@ -12,8 +12,8 @@ object Namer {
   def player(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) = Html {
     p.aiLevel.fold(
       p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
-        val title = (user.title ifTrue withTitle) ?? { t =>
-          s"""<span class="title" data-title="$t" title="${User titleName t}">$t</span>&nbsp;"""
+        val title = withTitle ?? user.title ?? { t =>
+          s"""<span class="title"${(Title(t) == Title.BOT) ?? " data-bot"} title="${Title titleName Title(t)}">$t</span>&nbsp;"""
         }
         if (withRating) s"$title${user.name}&nbsp;(${ratingString(p)})"
         else s"$title${user.name}"

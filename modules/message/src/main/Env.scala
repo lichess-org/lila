@@ -58,7 +58,7 @@ object Env {
   lazy val current = "message" boot new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
-    shutup = lila.hub.Env.current.actor.shutup,
+    shutup = lila.hub.Env.current.shutup,
     notifyApi = lila.notify.Env.current.api,
     blocks = lila.relation.Env.current.api.fetchBlocks,
     follows = lila.relation.Env.current.api.fetchFollows,

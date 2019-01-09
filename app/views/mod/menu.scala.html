@@ -41,6 +41,3 @@
 @if(isGranted(_.Cli)) {
 <a class="@active.active("cli")" href="@routes.Dev.cli">CLI</a>
 }
-@if(isGranted(_.StaffForum)) {
-<a class="@active.active("forum")" href="@routes.ForumCateg.show(lila.forum.Categ.staffId)">Staff Forum</a>
-}

@@ -46,6 +46,11 @@ class RawHtmlTest extends Specification {
       addLinks(s"""img to $url here""") must_==
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
+    "ignore imgur image URL in quotes" in {
+      val url = "http://i.imgur.com/Cku31nh.png"
+      addLinks(s"""img to "$url" here""") must_==
+        s"""img to &quot;<a rel="nofollow" href="$url" target="_blank">$url</a>&quot; here"""
+    }
     "ignore imgur gallery URL" in {
       val url = "http://imgur.com/gallery/pMtTE"
       addLinks(s"""link to $url here""") must_==

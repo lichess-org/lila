@@ -22,7 +22,7 @@ searchText = text
     <tr></tr>
     }
     @views.currentPageResults.map { view =>
-    <tr class="paginated_element">
+    <tr class="paginated">
       <td>
         <a class="post" href="@routes.ForumPost.redirect(view.post.id)">@view.categ.name - @view.topic.name #@view.post.number</a>
         <p>@nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200))</p>

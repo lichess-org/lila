@@ -1,16 +1,13 @@
 package lila.study
 
 import akka.actor._
-import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.hub.actorApi.socket.HasUserId
 import lila.hub.{ Duct, DuctMap }
-import lila.hub.actorApi.HasUserId
-import lila.hub.actorApi.map.Ask
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
-import makeTimeout.short
 
 final class Env(
     config: Config,
@@ -35,8 +32,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
-    val ActorName = config getString "actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
     val NetBaseUrl = config getString "net.base_url"
@@ -44,38 +39,43 @@ final class Env(
   }
   import settings._
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(studyId: String) = new Socket(
-        studyId = Study.Id(studyId),
-        jsonView = jsonView,
-        studyRepo = studyRepo,
-        chapterRepo = chapterRepo,
-        lightUser = lightUserApi.async,
-        history = new lila.socket.History(ttl = HistoryMessageTtl),
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightStudyCache = lightStudyCache
-      )
-    }), name = SocketName
+  val socketMap: SocketMap = lila.socket.SocketMap[StudySocket](
+    system = system,
+    mkTrouper = (studyId: String) => new StudySocket(
+      system = system,
+      studyId = Study.Id(studyId),
+      jsonView = jsonView,
+      studyRepo = studyRepo,
+      chapterRepo = chapterRepo,
+      lightUserApi = lightUserApi,
+      history = new lila.socket.History(ttl = HistoryMessageTtl),
+      uidTtl = UidTimeout,
+      lightStudyCache = lightStudyCache,
+      keepMeAlive = () => socketMap touch studyId
+    ),
+    accessTimeout = SocketTimeout,
+    monitoringName = "study.socketMap",
+    broomFrequency = 3697 millis
   )
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
-    socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[SocketVersion]
+    socketMap.askIfPresentOrZero[SocketVersion](studyId.value)(GetVersion)
 
   def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
-    socketHub ? Ask(studyId.value, HasUserId(userId)) mapTo manifest[Boolean]
+    socketMap.askIfPresentOrZero[Boolean](studyId.value)(HasUserId(userId, _))
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    socketHub = socketHub,
-    chat = hub.actor.chat,
+    socketMap = socketMap,
+    chat = hub.chat,
     api = api,
     evalCacheHandler = evalCacheHandler
   )
 
+  private lazy val chapterColl = db(CollectionChapter)
+
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
-  lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
+  lazy val chapterRepo = new ChapterRepo(coll = chapterColl)
 
   lazy val jsonView = new JsonView(
     studyRepo,
@@ -86,7 +86,7 @@ final class Env(
     importer = importer,
     pgnFetch = new PgnFetch,
     lightUser = lightUserApi,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     domain = NetDomain
   )
 
@@ -118,7 +118,7 @@ final class Env(
   )
 
   private lazy val serverEvalRequester = new ServerEval.Requester(
-    fishnetActor = hub.actor.fishnet,
+    fishnetActor = hub.fishnet,
     chapterRepo = chapterRepo
   )
 
@@ -126,16 +126,9 @@ final class Env(
     sequencer = sequencer,
     api = api,
     chapterRepo = chapterRepo,
-    socketHub = socketHub,
+    socketMap = socketMap,
     divider = divider
   )
-
-  // study actor
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
-    }
-  }), name = ActorName)
 
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
@@ -148,10 +141,10 @@ final class Env(
     explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
-    chat = hub.actor.chat,
+    chat = hub.chat,
     bus = system.lilaBus,
-    timeline = hub.actor.timeline,
-    socketHub = socketHub,
+    timeline = hub.timeline,
+    socketMap = socketMap,
     serverEvalRequester = serverEvalRequester,
     lightStudyCache = lightStudyCache
   )
@@ -160,6 +153,12 @@ final class Env(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     maxPerPage = lila.common.MaxPerPage(MaxPerPage)
+  )
+
+  lazy val multiBoard = new StudyMultiBoard(
+    runCommand = db.runCommand,
+    chapterColl = chapterColl,
+    maxPerPage = lila.common.MaxPerPage(9)
   )
 
   lazy val pgnDump = new PgnDump(
@@ -181,8 +180,12 @@ final class Env(
     }
   }
 
-  system.lilaBus.subscribeFun('gdprErase) {
+  system.lilaBus.subscribeFun('gdprErase, 'deploy) {
     case lila.user.User.GDPRErase(user) => api erase user
+    case m: lila.hub.actorApi.Deploy => socketMap tellAll m
+  }
+  system.lilaBus.subscribeFun('studyAnalysisProgress) {
+    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
   }
 }
 

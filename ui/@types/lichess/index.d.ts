@@ -10,7 +10,7 @@ interface Lichess {
   storage: LichessStorageHelper
   reload(): void;
   redirect(o: string | { url: string, cookie: Cookie }): void;
-  loadScript(url: string): any
+  loadScript(url: string, opts?: AssetUrlOpts): any
   keyboardMove: any
   slider(): any
   reloadOtherTabs(): void
@@ -112,16 +112,6 @@ interface Window {
   [key: string]: any; // TODO
 }
 
-interface Paginator<T> {
-  currentPage: number
-  maxPerPage: number
-  currentPageResults: Array<T>
-  nbResults: number
-  previousPage: number
-  nextPage: number
-  nbPages: number
-}
-
 interface LightUser {
   id: string
   name: string
@@ -139,15 +129,19 @@ interface Math {
 
 interface WebAssemblyStatic {
   validate(bufferSource: ArrayBuffer | Uint8Array): boolean
+  Memory: any
+  Module: any
 }
 
 declare var WebAssembly: WebAssemblyStatic | undefined;
+declare var SharedArrayBuffer: any | undefined;
+declare var Atomics: any | undefined;
 
-declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse'
+declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
 
-declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited'
+declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
 
-declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse'
+declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
 
 declare type Color = 'white' | 'black';
 
@@ -162,6 +156,16 @@ interface Variant {
   name: string
   short: string
   title?: string
+}
+
+interface Paginator<A> {
+  currentPage: number
+  maxPerPage: number
+  currentPageResults: [A]
+  nbResults: number
+  previousPage?: number
+  nextPage?: number
+  nbPages: number
 }
 
 declare namespace Tree {

@@ -420,7 +420,7 @@ div.underboard .notif.error {
   display: flex;
   justify-content: space-between;
   border: 1px solid #ccc;
-  border-bottom: none;
+  border-bottom: 2px solid rgba(99,155,36,0.75) !important;
 }
 .study_buttons .member_buttons {
   display: flex;
@@ -575,12 +575,66 @@ body.base .study_buttons .fbt.active {
   margin-top: 2em;
 }
 
-.server_eval,
-.study_glyph_form,
-.study_comment_form,
-.study_metadata,
-.study_share {
-  border-top: 2px solid rgba(99,155,36,0.75) !important;
+.multi_board .spinner {
+  margin: 50px auto;
+}
+.multi_board.loading {
+  opacity: 0.7;
+}
+.multi_board .top {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.multi_board .playing {
+  cursor: pointer;
+}
+.multi_board .playing input {
+  vertical-align: middle;
+  margin-right: 3px;
+}
+.multi_board .pager .page {
+  margin: 0 3px;
+}
+#now_playing {
+  padding: 0 0 0 1px;
+}
+#now_playing > a {
+  flex: 0 0 160px;
+  overflow: hidden;
+  padding: 5px;
+  transition: none;
+}
+#now_playing a:nth-child(even) {
+  background: rgba(128, 128, 128, 0.2);
+}
+body.dark #now_playing a {
+  background: #000;
+}
+body.dark #now_playing a:nth-child(even) {
+  background: #333;
+  color: #aaa;
+}
+body.base #now_playing > a:hover {
+  background: rgba(56, 147, 232, 0.7);
+  color: #fff;
+}
+#now_playing a.active,
+#now_playing a:active {
+  background: rgba(99,155,36,0.8)!important;
+  color: #fff!important;
+}
+#now_playing .player {
+  height: 1.5em;
+  white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+}
+#now_playing .name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3em;
 }
 
 div.advice_summary {

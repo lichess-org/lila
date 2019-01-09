@@ -48,7 +48,7 @@ function podiumUsername(p) {
   }, playerName(p));
 }
 
-function podiumStats(p, trans): VNode {
+function podiumStats(p, trans: Trans): VNode {
   const noarg = trans.noarg, nb = p.nb;
   return h('table.stats', [
     p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
@@ -60,7 +60,7 @@ function podiumStats(p, trans): VNode {
   ]);
 }
 
-function podiumPosition(p, pos, trans): VNode | undefined {
+function podiumPosition(p, pos, trans: Trans): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
@@ -71,10 +71,11 @@ function podiumPosition(p, pos, trans): VNode | undefined {
 let lastBody: MaybeVNodes | undefined;
 
 export function podium(ctrl: TournamentController) {
+  const p = ctrl.data.podium || [];
   return h('div.podium', [
-    podiumPosition(ctrl.data.podium[1], 'second', ctrl.trans),
-    podiumPosition(ctrl.data.podium[0], 'first', ctrl.trans),
-    podiumPosition(ctrl.data.podium[2], 'third', ctrl.trans)
+    podiumPosition(p[1], 'second', ctrl.trans),
+    podiumPosition(p[0], 'first', ctrl.trans),
+    podiumPosition(p[2], 'third', ctrl.trans)
   ]);
 }
 

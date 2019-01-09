@@ -7,7 +7,7 @@ import metric.SubscriptionsDispatcher.TickMetricSnapshot
 
 private object MoveMonitor {
 
-  def start(system: ActorSystem, channel: ActorRef) =
+  def start(system: ActorSystem, channel: lila.socket.Channel) =
 
     Kamon.metrics.subscribe("trace", "round.move.trace", system.actorOf(Props(new Actor {
       var current: Int = 0

@@ -32,7 +32,7 @@ final class Env(
     member = db(CollectionMember)
   )
 
-  lazy val forms = new DataForm(colls.team, hub.actor.captcher)
+  lazy val forms = new DataForm(colls.team, hub.captcher)
 
   lazy val memberStream = new TeamMemberStream(colls.member)(system)
 
@@ -41,8 +41,8 @@ final class Env(
     cached = cached,
     notifier = notifier,
     bus = system.lilaBus,
-    indexer = hub.actor.teamSearch,
-    timeline = hub.actor.timeline,
+    indexer = hub.teamSearch,
+    timeline = hub.timeline,
     modLog = modLog
   )
 

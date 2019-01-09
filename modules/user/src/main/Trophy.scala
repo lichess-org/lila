@@ -104,7 +104,7 @@ object Trophy {
     object Developer extends Kind(
       key = "developer",
       name = "Lichess developer",
-      icon = "&#xe000;".some,
+      icon = "".some,
       url = "https://github.com/ornicar/lila/graphs/contributors".some,
       klass = "icon3d".some,
       order = 100
@@ -113,7 +113,7 @@ object Trophy {
     object Moderator extends Kind(
       key = "moderator",
       name = "Lichess moderator",
-      icon = "&#xe002;".some,
+      icon = "".some,
       url = "//lichess.org/report".some,
       "icon3d".some,
       order = 101
@@ -128,11 +128,47 @@ object Trophy {
       order = 102
     )
 
-    object ZHWC extends Kind(
-      key = "zhwc",
-      name = "Crazyhouse champion",
+    object ZHWC17 extends Kind(
+      key = "zhwc17",
+      name = "Crazyhouse champion 2017",
       icon = none,
       url = "//lichess.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates".some,
+      klass = none,
+      order = 1
+    )
+
+    object ZHWC18 extends Kind(
+      key = "zhwc18",
+      name = "Crazyhouse champion 2018",
+      icon = none,
+      url = "//lichess.org/forum/team-crazyhouse-world-championship/opperwezen-the-2nd-cwc".some,
+      klass = none,
+      order = 1
+    )
+
+    object AtomicWC16 extends Kind(
+      key = "atomicwc16",
+      name = "Atomic World Champion 2016",
+      icon = none,
+      url = "//lichess.org/forum/team-atomic-wc/championship-final".some,
+      klass = none,
+      order = 1
+    )
+
+    object AtomicWC17 extends Kind(
+      key = "atomicwc17",
+      name = "Atomic World Champion 2017",
+      icon = none,
+      url = "//lichess.org/forum/team-atomic-wc/awc-2017-its-final-time".some,
+      klass = none,
+      order = 1
+    )
+
+    object AtomicWC18 extends Kind(
+      key = "atomicwc18",
+      name = "Atomic World Champion 2018",
+      icon = none,
+      url = "//lichess.org/forum/team-atomic-wc/announcement-awc-2018".some,
       klass = none,
       order = 1
     )
@@ -140,10 +176,11 @@ object Trophy {
     val all = List(
       Developer, Moderator, Verified,
       MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
-      ZugMiracle, ZHWC,
+      ZugMiracle, ZHWC17, ZHWC18,
       WayOfBerserk,
       MarathonSurvivor,
-      BongcloudWarrior
+      BongcloudWarrior,
+      AtomicWC16, AtomicWC17, AtomicWC18
     )
     val byKey: Map[String, Kind] = all.map { k => k.key -> k }(scala.collection.breakOut)
   }

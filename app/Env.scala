@@ -46,7 +46,7 @@ final class Env(
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
-    getRanks = Env.user.cached.ranking.getAll,
+    getRanks = Env.user.cached.ranking.getAllQuicklyMaybe,
     isHostingSimul = Env.simul.isHosting,
     fetchIsStreamer = Env.streamer.api.isStreamer,
     fetchTeamIds = Env.team.cached.teamIdsList,
@@ -95,19 +95,15 @@ final class Env(
     system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
-        system.scheduler.scheduleOnce(1 second) {
-          closeAccount(userId, self = false)
-        }
-    }
-  })), 'garbageCollect)
+  system.lilaBus.subscribeFun('garbageCollect) {
+    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      system.scheduler.scheduleOnce(1 second) {
+        closeAccount(userId, self = false)
+      }
+  }
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
-  lila.log.boot.info(s"Java version ${System.getProperty("java.version")}")
-  lila.log.boot.info("Preloading modules")
   lila.common.Chronometer.syncEffect(List(
     Env.socket,
     Env.site,
@@ -228,4 +224,5 @@ object Env {
   def streamer = lila.streamer.Env.current
   def oAuth = lila.oauth.Env.current
   def bot = lila.bot.Env.current
+  def evalCache = lila.evalCache.Env.current
 }

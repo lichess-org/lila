@@ -2,6 +2,7 @@ package lila.lobby
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -13,15 +14,12 @@ final class Env(
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    system: ActorSystem
 ) {
 
   private val settings = new {
     val NetDomain = config getString "net.domain"
-    val SocketName = config getString "socket.name"
     val SocketUidTtl = config duration "socket.uid.ttl"
-    val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
     val CollectionSeek = config getString "collection.seek"
@@ -32,9 +30,7 @@ final class Env(
   }
   import settings._
 
-  private val socket = system.actorOf(Props(new Socket(
-    uidTtl = SocketUidTtl
-  )), name = SocketName)
+  private val socket = new LobbySocket(system, SocketUidTtl)
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -45,10 +41,13 @@ final class Env(
     maxPerUser = SeekMaxPerUser
   )
 
-  val lobby = Lobby.start(system, ActorName,
+  private val lobbyTrouper = LobbyTrouper.start(
+    system,
     broomPeriod = BroomPeriod,
-    resyncIdsPeriod = ResyncIdsPeriod) {
-    new Lobby(
+    resyncIdsPeriod = ResyncIdsPeriod
+  ) { () =>
+    new LobbyTrouper(
+      system = system,
       socket = socket,
       seekApi = seekApi,
       gameCache = gameCache,
@@ -62,13 +61,14 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    lobby = lobby,
+    lobby = lobbyTrouper,
     socket = socket,
     poolApi = poolApi,
     blocking = blocking
   )
+  system.lilaBus.subscribe(socketHandler, 'nbMembers, 'nbRounds)
 
-  private val abortListener = new AbortListener(seekApi = seekApi)
+  private val abortListener = new AbortListener(seekApi, lobbyTrouper)
 
   system.lilaBus.subscribeFun('abortGame) {
     case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
@@ -87,7 +87,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    system = lila.common.PlayApp.system
   )
 }

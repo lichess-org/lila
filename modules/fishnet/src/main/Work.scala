@@ -62,7 +62,7 @@ object Work {
   ) {
 
     override def toString =
-      if (system) "lichess"
+      if (system) lila.user.User.lichessId
       else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 

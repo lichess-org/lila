@@ -1,9 +1,11 @@
 package lila.i18n
 
-import play.api.i18n.Lang
 import play.twirl.api.Html
+import scalatags.Text.RawFrag
 
+import lila.common.Lang
 import lila.common.String.html.escapeHtml
+import lila.common.String.frag.{ escapeHtml => escapeFrag }
 
 object Translator {
 
@@ -37,7 +39,42 @@ object Translator {
     private def escapeArgs(args: Seq[Any]): Seq[Html] = args.map {
       case s: String => escapeHtml(s)
       case h: Html => h
+      case r: RawFrag => Html(r.v)
       case a => Html(a.toString)
+    }
+  }
+
+  object frag {
+    def literal(key: MessageKey, db: I18nDb.Ref, args: Seq[Any], lang: Lang): RawFrag =
+      translate(key, db, lang, I18nQuantity.Other /* grmbl */ , args)
+
+    def plural(key: MessageKey, db: I18nDb.Ref, count: Count, args: Seq[Any], lang: Lang): RawFrag =
+      translate(key, db, lang, I18nQuantity(lang, count), args)
+
+    private def translate(key: MessageKey, db: I18nDb.Ref, lang: Lang, quantity: I18nQuantity, args: Seq[Any]): RawFrag =
+      findTranslation(key, db, lang) flatMap { translation =>
+        val htmlArgs = escapeArgs(args)
+        try {
+          translation match {
+            case literal: Simple => Some(literal.formatFrag(htmlArgs))
+            case literal: Escaped => Some(literal.formatFrag(htmlArgs))
+            case plurals: Plurals => plurals.formatFrag(quantity, htmlArgs)
+          }
+        } catch {
+          case e: Exception =>
+            logger.warn(s"Failed to format html $db/$lang/$key -> $translation (${args.toList})", e)
+            Some(RawFrag(key))
+        }
+      } getOrElse {
+        logger.info(s"No translation found for $quantity $key in $lang")
+        RawFrag(key)
+      }
+
+    private def escapeArgs(args: Seq[Any]): Seq[RawFrag] = args.map {
+      case s: String => escapeFrag(s)
+      case h: Html => RawFrag(h.body)
+      case r: RawFrag => r
+      case a => RawFrag(a.toString)
     }
   }
 
@@ -69,6 +106,6 @@ object Translator {
   }
 
   private[i18n] def findTranslation(key: MessageKey, db: I18nDb.Ref, lang: Lang): Option[Translation] =
-    I18nDb(db).get(lang).flatMap(t => Option(t get key)) orElse
-      I18nDb(db).get(defaultLang).flatMap(t => Option(t get key))
+    I18nDb(db).get(lang.value).flatMap(t => Option(t get key)) orElse
+      I18nDb(db).get(defaultLang.value).flatMap(t => Option(t get key))
 }

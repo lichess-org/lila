@@ -2,43 +2,12 @@
 #qa textarea {
   border: 1px solid #ccc;
 }
-#qa form.wide {
-  font-size: 1.2em;
-}
-#qa form.wide input.title {
-  width: 600px;
-  padding: 5px 10px;
-  margin-top: 20px;
-}
-#qa form.wide textarea {
-  width: 600px;
-  height: 200px;
-  padding: 5px 10px;
-  margin-top: 20px;
-}
-#qa form.wide .tags_wrap {
-  margin-top: 20px;
-}
-#qa form.wide .tags_wrap .tags_input {
+#qa form.form3 .tags_wrap .tags_input {
   display: block;
   margin-bottom: 10px;
-}
-#qa form.wide .submit {
-  margin-top: 20px;
-}
-#qa form.wide p.error {
-  margin-bottom: 10px;
-  color: red;
 }
 #qa form.mod {
   display: inline;
-}
-#qa .checkmateCaptcha {
-  margin-top: 20px;
-  display: block;
-}
-#qa .checkmateFen {
-  margin-left: 0;
 }
 #qa .content_box_inter.meta {
   border-top: none;
@@ -219,12 +188,8 @@ div.side .questions a:hover {
 #qa .help {
   margin: 20px 0 20px 90px;
 }
-#qa #your-answer form {
-  display: block;
-  margin: 30px 0 20px 90px;
-}
-#qa #your-answer textarea {
-  display: block;
+#qa #your-answer .form3 {
+  margin: 30px 30px 20px 90px;
 }
 #qa .answer-wrap {
   overflow: hidden;

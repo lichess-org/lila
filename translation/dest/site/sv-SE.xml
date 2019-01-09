@@ -124,7 +124,7 @@
   </plurals>
   <string name="currentGames">Pågående partier</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partier</item>
+    <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -161,7 +161,7 @@
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
-  <string name="ratingStats">Rating statistik</string>
+  <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
   <string name="usernameOrEmail">Användarnamn eller email</string>
   <string name="password">Lösenord</string>
@@ -287,12 +287,12 @@
     <item quantity="other">≥ %s rankade partier</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rankat parti</item>
+    <item quantity="one">≥ %1$s rankade %2$spartier</item>
     <item quantity="other">≥ %1$s %2%s rankade partier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du behöver spela ytterligare %1$s %2$s rankat parti</item>
-    <item quantity="other">Du behöver spela ytterligare %1$s rankade partier i %2$s</item>
+    <item quantity="one">Du behöver spela ytterligare %1$s rankat %2$sparti</item>
+    <item quantity="other">Du behöver spela ytterligare %1$s rankade %2$spartier</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Du behöver spela ytterligare %s rankat parti</item>
@@ -408,8 +408,8 @@
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="youArePlaying">Du spelar!</string>
-  <string name="winRate">Vinst frekvens</string>
-  <string name="berserkRate">Berserk frekvens</string>
+  <string name="winRate">Vinstfrekvens</string>
+  <string name="berserkRate">Berserkfrekvens</string>
   <string name="performance">Prestation</string>
   <string name="tournamentComplete">Turneringen avslutad</string>
   <string name="movesPlayed">Drag spelade</string>
@@ -429,10 +429,10 @@
   <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
-  <string name="profileCompletion">Profil fulländning: %s</string>
+  <string name="profileCompletion">Profilfulländning: %s</string>
   <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
-  <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
+  <string name="gameCompletionRate">Partislutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -523,7 +523,7 @@
   <string name="materialDifference">Materialskillnad</string>
   <string name="closeAccount">Avsluta konto</string>
   <string name="changedMindDoNotCloseAccount">Jag ändrade mig, avsluta inte mitt konto</string>
-  <string name="closeAccountExplanation">Är du säker att du vill avsluta ditt konto? Att avsluta ditt konto är ett permanent beslut. Du kommer inte längre kunna logga in och din profilsida kommer inte längre vara tillgänglig.</string>
+  <string name="closeAccountExplanation">Är du säker på att du vill avsluta ditt konto? Att avsluta ditt konto är ett permanent beslut. Du kommer inte längre kunna logga in och din profilsida kommer inte längre vara tillgänglig.</string>
   <string name="thisAccountIsClosed">Det här kontot är avslutat</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Inkorrekt lösenord</string>
@@ -583,7 +583,6 @@
   <string name="defeat">Förlust</string>
   <string name="xVsYinZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
-  <string name="seeAllTournaments">Se alla turneringar</string>
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
@@ -650,6 +649,7 @@
   <string name="about">Om Lichess</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en fri (%2$s), libre, inga annonser, öppen källkod schackserver.</string>
+  <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Användarvillkor</string>
@@ -663,7 +663,7 @@
   <string name="noSimulExplanation">Denna simultan existerar inte.</string>
   <string name="returnToSimulHomepage">Återvänd till hemsidan för simultan</string>
   <string name="aboutSimul">Simultan går ut på att en spelare möter flera spelare samtidigt.</string>
-  <string name="aboutSimulImage">Av totalt 50 partier vann Fischer 47, spelade 2 remier och förlorade en.</string>
+  <string name="aboutSimulImage">Av totalt 50 partier vann Fischer 47, spelade två remier och förlorade ett.</string>
   <string name="aboutSimulRealLife">Konceptet är taget från verkliga evenemang. I verkligheten involverar det att simultan-värden rör sig från bord till bord för att göra sina drag.</string>
   <string name="aboutSimulRules">När simultanmatchen börjar startar varje spelare ett parti med värden som spelar vit i alla partier.  Simultanmatchen slutar när alla partier är avklarade.</string>
   <string name="aboutSimulSettings">Simultanpartier är alltid orankade. Returmatch, ångerdrag och \"extratid\" är inaktiverat.</string>
@@ -692,11 +692,11 @@
   <string name="returnToTournamentsHomepage">Återgå till turneringens hemsida</string>
   <string name="weeklyPerfTypeRatingDistribution">Veckans %sratingfördelning</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s spelare denna vecka.</item>
-    <item quantity="other">%1$s %2$s spelare denna vecka.</item>
+    <item quantity="one">%1$s %2$sspelare denna vecka.</item>
+    <item quantity="other">%1$s %2$sspelare denna vecka.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av alla som spelar %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
@@ -823,8 +823,7 @@
   <string name="doneReviewingWhiteMistakes">Färdig med utvärderingen av vits misstag</string>
   <string name="doneReviewingBlackMistakes">Färdig med utvärderingen av svarts misstag</string>
   <string name="doItAgain">Gör det igen</string>
-  <string name="reviewWhiteMistakes">Granska vits misstag
-</string>
+  <string name="reviewWhiteMistakes">Granska vits misstag</string>
   <string name="reviewBlackMistakes">Granska svarts misstag</string>
   <string name="advantage">Fördel</string>
   <plurals name="nbSeconds">

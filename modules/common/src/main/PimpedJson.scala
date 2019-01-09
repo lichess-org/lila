@@ -25,4 +25,6 @@ object PimpedJson {
     Reads.of[String] map iso.from,
     Writes { o => JsString(iso to o) }
   )
+
+  implicit val centisReads = Reads.of[Int] map chess.Centis.apply
 }

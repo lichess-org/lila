@@ -1,5 +1,5 @@
-body {
-  margin-top: 45px;
+body, #mz_menu .inner {
+  margin-top: 45px!important;
 }
 
 #inquiry {
@@ -291,6 +291,6 @@ body.no-inquiry {
 #inquiry .switcher label::before {
   background-color: #999;
 }
-#inquiry .switcher .cmn-toggle-round:checked + label::before {
+#inquiry .switcher .cmn-toggle:checked + label::before {
   background-color: rgba(117, 153, 0, 1)!important;
 }

@@ -2,7 +2,7 @@ package lila.slack
 
 import org.joda.time.DateTime
 
-import lila.common.LightUser
+import lila.common.{ LightUser, IpAddress }
 import lila.hub.actorApi.slack._
 import lila.user.User
 
@@ -23,13 +23,13 @@ final class SlackApi(
     def apply(event: ChargeEvent): Funit =
       if (event.amount < 5000) addToBuffer(event)
       else displayMessage {
-        s"${link(event.username)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
+        s"${userAt(event.username)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
       }
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
       (buffer.head.date isBefore DateTime.now.minusHours(6)) ?? {
-        val patrons = buffer map (_.username) map link mkString ", "
+        val patrons = buffer map (_.username) map userAt mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
@@ -46,7 +46,7 @@ final class SlackApi(
       channel = "team"
     ))
 
-    private def link(username: String) =
+    private def userAt(username: String) =
       if (username == "Anonymous") "Anonymous"
       else s"@$username"
 
@@ -58,6 +58,12 @@ final class SlackApi(
     case Warning(msg) => publishWarning(msg)
     case Info(msg) => publishInfo(msg)
     case Victory(msg) => publishVictory(msg)
+    case TournamentName(userName, tourId, tourName) => client(SlackMessage(
+      username = "Tournament name alert",
+      icon = "children_crossing",
+      text = s"${userLink(userName)} created ${link(s"https://lichess.org/tournament/$tourId", s"$tourName Arena")}",
+      channel = rooms.tavern
+    ))
   }
 
   def commlog(mod: User, user: User, reportBy: Option[User.ID]): Funit = client(SlackMessage(
@@ -72,8 +78,6 @@ final class SlackApi(
     channel = "commlog"
   ))
 
-  private val chatPanicLink = "<https://lichess.org/mod/chat-panic|Chat Panic>"
-
   def chatPanic(mod: User, v: Boolean): Funit = client(SlackMessage(
     username = mod.username,
     icon = if (v) "anger" else "information_source",
@@ -82,16 +86,23 @@ final class SlackApi(
   ))
 
   def garbageCollector(message: String): Funit = client(SlackMessage(
-    username = "lichess",
+    username = "Garbage Collector",
     icon = "put_litter_in_its_place",
     text = linkifyUsers(message),
     channel = rooms.tavernBots
   ))
 
-  def broadcastError(id: String, name: String): Funit = client(SlackMessage(
+  def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit = client(SlackMessage(
+    username = "Self Report",
+    icon = "kms",
+    text = s"[*$typ*] ${userLink(user)}@$ip ${gameLink(path)}",
+    channel = rooms.tavernBots
+  ))
+
+  def broadcastError(id: String, name: String, error: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",
-    text = s"${broadcastLink(id, name)} is failing",
+    text = s"${broadcastLink(id, name)}: $error",
     channel = rooms.broadcast
   ))
 
@@ -129,17 +140,22 @@ final class SlackApi(
       username = stage.name,
       icon = stage.icon,
       text = "stage has restarted.",
-      channel = rooms.general
+      channel = rooms.devNoise
     ))
 
-  private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
-  private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
-  private def broadcastLink(id: String, name: String) = s"<https://lichess.org/broadcast/-/$id|$name>"
+  private def link(url: String, name: String) = s"<$url|$name>"
+  private def userLink(name: String): String = link(s"https://lichess.org/@/$name?mod", name)
+  private def userLink(user: User): String = userLink(user.username)
+  private def userNotesLink(name: String) = link(s"https://lichess.org/@/$name?notes", "notes")
+  private def broadcastLink(id: String, name: String) = link(s"https://lichess.org/broadcast/-/$id", name)
+  private def gameLink(path: String) = link(s"https://lichess.org/$path", path)
+  private val chatPanicLink = link("https://lichess.org/mod/chat-panic", "Chat Panic")
 
-  val userRegex = lila.common.String.atUsernameRegex.pattern
+  private val userRegex = lila.common.String.atUsernameRegex.pattern
+  private val userReplace = link("https://lichess.org/@/$1?mod", "$1")
 
   private def linkifyUsers(msg: String) =
-    userRegex matcher msg replaceAll "<https://lichess.org/@/$1?mod|@$1>"
+    userRegex matcher msg replaceAll userReplace
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
@@ -182,7 +198,7 @@ final class SlackApi(
       username = "stage.lichess.org",
       icon = "volcano",
       text = "stage has been updated!",
-      channel = rooms.general
+      channel = rooms.devNoise
     ))
 }
 
@@ -193,6 +209,7 @@ private object SlackApi {
     val tavern = "tavern"
     val tavernBots = "tavern-bots"
     val broadcast = "broadcast"
+    val devNoise = "dev-noise"
   }
 
   object stage {

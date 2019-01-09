@@ -1,27 +1,23 @@
 @(t: lila.team.Team, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
 @title = @{ trans.joinTeam.txt() + " " + t.name }
 
-@team.layout(title = title) {
+@team.layout(title = title, formCss = true) {
 <div id="team">
-  <div class="content_box team_box">
+  <div class="content_box small_box team_box">
     <h1>@title</h1>
-    <form class="wide team-request" action="@routes.Team.requestCreate(t.id)" method="POST">
-      <label>
-        <span class="required">Message</span>
-        @defining(form("message")) { message =>
-        <textarea name="@message.name" id="@message.id">@message.value</textarea>
-        @errMsg(message)
-        }
-      </label>
-      <label>
-        <span></span>
-        <p class="info">Your join request will be reviewed by the team leader.</p>
-      </label>
-      @base.captcha(form("move"), form("gameId"), captcha)
-      @errMsg(form)
-      <button class="submit button" type="submit" data-icon="E"> @trans.joinTeam()</button>
-      <a href="@routes.Team.home(1)" style="margin-left:20px">@trans.cancel()</a>
+    <p style="margin:2em 0">@richText(t.description)</p>
+    <form class="form3" action="@routes.Team.requestCreate(t.id)" method="POST">
+      @form3.group(form("message"), raw("Message"))(form3.textarea(_)())
+      <hr />
+      <p>Your join request will be reviewed by the team leader.</p>
+      <hr />
+      @base.captcha(form, captcha)
+      @form3.actions {
+      <a href="@routes.Team.show(t.slug)">@trans.cancel()</a>
+      @form3.submit(trans.joinTeam.frag())
+      }
     </form>
   </div>
 </div>

@@ -2,8 +2,9 @@
 
 @base.layout(
 title = "Page not found",
-moreCss = cssTag("notFound.css")) {
-
+moreJs = prismicJs,
+moreCss = cssTag("notFound.css"),
+csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)) {
 <div class="content_box small_box">
   <header>
     <h1>404</h1>
@@ -24,4 +25,4 @@ moreCss = cssTag("notFound.css")) {
     </p>
   </div>
 </div>
-}
+}.toHtml

@@ -52,12 +52,12 @@
   <string name="usingServerAnalysis">Analisi del computer in uso</string>
   <string name="loadingEngine">Sto caricando il motore...</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
-  <string name="goDeeper">Andare più a fondo</string>
+  <string name="goDeeper">Aumenta la profondità</string>
   <string name="showThreat">Mostra minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
   <string name="promoteVariation">Promuovi la variante</string>
-  <string name="makeMainLine">Rendi questa linea principale</string>
+  <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Variante perdente</string>
@@ -287,16 +287,16 @@
     <item quantity="other">≥ %s partite classificate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partita valida per la classifica</item>
-    <item quantity="other">≥ %1$s %2%s partite valide per la classifica</item>
+    <item quantity="one">≥ %1$s partita %2$s classificata</item>
+    <item quantity="other">≥ %1$s partite %2$s classificate</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Devi giocare ancora %1$s partita valida per la classifica %2$s</item>
-    <item quantity="other">Devi giocare ancora %1$s partite valide per la classifica %2$s</item>
+    <item quantity="one">Ti manca ancora %1$s partita %2$s classificata</item>
+    <item quantity="other">Ti mancano ancora %1$s partite %2$s classificate</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Devi giocare ancora %s partita valida per la classifica</item>
-    <item quantity="other">Devi giocare ancora %s partite valide per la classifica</item>
+    <item quantity="one">Ti manca ancora %s partita classificata</item>
+    <item quantity="other">Ti mancano ancora %s partite classificate</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
@@ -393,7 +393,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="conditionOfEntry">Condizioni di accesso:</string>
   <string name="advancedSettings">Impostazioni Avanzate</string>
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
-  <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare la chiusura del tuo account.</string>
+  <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
   <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo come un Grande Maestro scelto casualmente.</string>
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
   <string name="fewerPlayers">Se imposti le condizioni di accesso, il torneo avrà un minor numero di giocatori.</string>
@@ -485,7 +485,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="autoSwitch">Cambia automaticamente</string>
   <string name="puzzles">Puzzle</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
-  <string name="tournamentWinners">Vincitori del torneo</string>
+  <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
   <string name="no">No</string>
@@ -494,7 +494,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="createANewTopic">Crea una nuova discussione</string>
   <string name="topics">Discussioni</string>
   <string name="posts">Post</string>
-  <string name="lastPost">Ultimo Post</string>
+  <string name="lastPost">Ultimo post</string>
   <string name="views">Visualizzazioni</string>
   <string name="replies">Risposte</string>
   <string name="replyToThisTopic">Rispondi a questa discussione</string>
@@ -511,7 +511,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="other">Altro</string>
   <string name="reportDescriptionHelp">Incolla il link della partita/e e spiega cosa non va con questo giocatore. Non dire soltanto \"ha imbrogliato\", ma specifica come sei arrivato a questa conclusione. Il tuo report verrà processato più velocemente se scritto in lingua inglese.</string>
   <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un link a una partita in cui un giocatore ha imbrogliato.</string>
-  <string name="by">da %s</string>
+  <string name="by">di %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
   <string name="theming">Temi</string>
   <string name="donate">Dona</string>
@@ -522,10 +522,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="gameDisplay">Schermata di gioco</string>
   <string name="pieceAnimation">Animazione dei pezzi</string>
   <string name="materialDifference">Differenza di materiale</string>
-  <string name="closeAccount">Chiudi account</string>
-  <string name="changedMindDoNotCloseAccount">Ho cambiato idea, non chiudere il mio account</string>
-  <string name="closeAccountExplanation">Sei sicuro di voler chiudere il tuo account? La chiusura del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
-  <string name="thisAccountIsClosed">Questo account è stato chiuso.</string>
+  <string name="closeAccount">Elimina account</string>
+  <string name="changedMindDoNotCloseAccount">Ci ho ripensato, non eliminare il mio account</string>
+  <string name="closeAccountExplanation">Sei sicuro di voler eliminare il tuo account? L\'eliminazione del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
+  <string name="thisAccountIsClosed">Questo account è stato eliminato.</string>
   <string name="invalidUsernameOrPassword">Nome utente o password non validi</string>
   <string name="incorrectPassword">Password errata</string>
   <string name="invalidAuthenticationCode">Codice di autenticazione non valido</string>
@@ -558,7 +558,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
   <string name="letOtherPlayersChallengeYou">Permetti ad altri giocatori di sfidarti</string>
-  <string name="letOtherPlayersInviteYouToStudy">Permetti ad altri giocatori di invitarti allo studio</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permetti ad altri giocatori di invitarti negli studi</string>
   <string name="sound">Suono</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
   <string name="none">Nessuna</string>
@@ -585,7 +585,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="xVsYinZ">%1$s vs %2$s
 in %3$s</string>
   <string name="timeline">Resoconto attività</string>
-  <string name="seeAllTournaments">Vedi tutti i tornei</string>
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>
   <string name="yourCityRegionOrDepartment">La tua città, regione o provincia.</string>
@@ -598,7 +597,7 @@ in %3$s</string>
     <item quantity="one">%s giocatore bloccato</item>
     <item quantity="other">%s giocatori bloccati</item>
   </plurals>
-  <string name="listBlockedPlayers">Lista dei giocatori bloccati da te</string>
+  <string name="listBlockedPlayers">Elenca i giocatori che hai bloccato</string>
   <string name="human">Umano</string>
   <string name="computer">Computer</string>
   <string name="side">Lato</string>
@@ -650,9 +649,9 @@ in %3$s</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
-  <string name="aboutX">Informazioni %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi a sorgente aperta (%2$s) gratuito, privo di pubblicità e rilasciato sotto licenza libera.</string>
-  <string name="really">veramente</string>
+  <string name="aboutX">Informazioni su %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi (%2$s), open source, privo di pubblicità e rilasciato sotto licenza libera.</string>
+  <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="contact">Contattaci</string>
   <string name="termsOfService">Termini di Servizio</string>
@@ -677,7 +676,7 @@ in %3$s</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
   <string name="simulHostExtraTime">Tempo aggiuntivo del simultaneista</string>
   <string name="lichessTournaments">Tornei Lichess</string>
-  <string name="tournamentFAQ">FAQ tornei Arena</string>
+  <string name="tournamentFAQ">Domande frequenti sui tornei</string>
   <string name="tournamentOfficial">Ufficiale</string>
   <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
   <string name="averageCentipawnLoss">Centesimi di pedone persi in media</string>
@@ -804,7 +803,7 @@ in %3$s</string>
   <string name="computerThinking">Il computer sta pensando...</string>
   <string name="seeBestMove">Scopri la mossa migliore</string>
   <string name="hideBestMove">Nascondi la mossa migliore</string>
-  <string name="getAHint">Ottieni un suggerimento</string>
+  <string name="getAHint">Vuoi un suggerimento?</string>
   <string name="evaluatingYourMove">Valutando la tua mossa...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>

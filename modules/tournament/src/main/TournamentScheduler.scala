@@ -98,23 +98,39 @@ Thank you all, you rock!"""
       ).flatten,
 
       List( // yearly tournaments!
-        secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-        secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-        secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-        secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Classical -> Standard,
-        secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard,
+        secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet,
+        secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz,
+        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz,
+        secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid,
+        secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Classical,
+        secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> HyperBullet,
 
-        secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-        secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-        secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-        secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-        secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Classical -> Standard,
-        secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard
+        secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet,
+        secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz,
+        secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz,
+        secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid,
+        secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Classical,
+        secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet
       ).flatMap {
-          case ((day, speed), variant) =>
+          case (day, speed) =>
             at(day, 17) filter farFuture.isAfter map { date =>
-              Schedule(Yearly, speed, variant, std, date).plan
+              Schedule(Yearly, speed, Standard, std, date).plan
+            }
+        },
+
+      List( // yearly variant tournaments!
+        secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Chess960,
+        secondWeekOf(FEBRUARY).withDayOfWeek(THURSDAY) -> Crazyhouse,
+        secondWeekOf(MARCH).withDayOfWeek(FRIDAY) -> KingOfTheHill,
+        secondWeekOf(APRIL).withDayOfWeek(SATURDAY) -> RacingKings,
+        secondWeekOf(MAY).withDayOfWeek(MONDAY) -> Antichess,
+        secondWeekOf(JUNE).withDayOfWeek(TUESDAY) -> Atomic,
+        secondWeekOf(JULY).withDayOfWeek(WEDNESDAY) -> Horde,
+        secondWeekOf(AUGUST).withDayOfWeek(THURSDAY) -> ThreeCheck
+      ).flatMap {
+          case (day, variant) =>
+            at(day, 17) filter farFuture.isAfter map { date =>
+              Schedule(Yearly, SuperBlitz, variant, std, date).plan
             }
         },
 
@@ -276,7 +292,7 @@ Thank you all, you rock!"""
       },
 
       // hourly standard tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
+      (-1 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
         // Avoid overlap with daily/eastern bullet, daily/hourly ultra.
@@ -295,7 +311,7 @@ Thank you all, you rock!"""
       },
 
       // hourly limited tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
+      (-1 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
         val speed = hour % 4 match {
@@ -330,6 +346,10 @@ Thank you all, you rock!"""
                 )
               }
           }
+      }.map {
+        // No berserk for rating-limited tournaments
+        // Because berserking lowers the player rating
+        _ map { _.copy(noBerserk = true) }
       },
 
       // hourly crazyhouse tournaments!
@@ -350,7 +370,7 @@ Thank you all, you rock!"""
           }
         ).flatten
       }
-    ).flatten filter { _.schedule.at.isAfter(rightNow) }
+    ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
   }
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {

@@ -1,11 +1,11 @@
 package lila.challenge
 
-import play.api.i18n.Lang
 import play.api.libs.json._
 
+import lila.common.Lang
 import lila.i18n.{ I18nKeys => trans }
-import lila.socket.UserLagCache
 import lila.socket.Socket.SocketVersion
+import lila.socket.UserLagCache
 
 final class JsonView(
     getLightUser: lila.common.LightUser.GetterSync,

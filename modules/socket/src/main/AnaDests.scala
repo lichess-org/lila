@@ -5,7 +5,7 @@ import play.api.libs.json._
 import chess.format.FEN
 import chess.opening._
 import chess.variant.Variant
-import lila.tree.Node.openingWriter
+import lila.tree.Node.{ openingWriter, destString }
 
 case class AnaDests(
     variant: Variant,
@@ -21,11 +21,7 @@ case class AnaDests(
     if (isInitial) AnaDests.initialDests
     else {
       val sit = chess.Game(variant.some, fen.value.some).situation
-      sit.playable(false) ?? {
-        sit.destinations map {
-          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-        } mkString " "
-      }
+      sit.playable(false) ?? destString(sit.destinations)
     }
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {

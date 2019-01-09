@@ -1,5 +1,5 @@
 var sender = 'lichess';
-var threadName = "Lichess meetup in Montreal, July 28th";
+var threadName = "Lichess meetup in London, November 24th";
 
 var sent = 0;
 
@@ -38,7 +38,7 @@ db.user4.find({
     "posts": [
       {
         "id": Math.random().toString(36).substring(2, 10),
-        "text": "You are most welcome to join us!\n\nhttps://lichess.org/blog/WzP77CsAAPYwTpfU/lichess-meetup-montreal-july-28th\n\nYou received this message because your profile location is Montreal.",
+        "text": "You are most welcome to join us!\n\nhttps://lichess.org/blog/W-nQzxYAAC8AaUUo/lichess-london-meetup-on-the-24th-november\n\nYou received this message because you connected from the UK, Ireland, France or Belgium.",
         "isByCreator": true,
         "isRead": false,
         "createdAt": new Date()

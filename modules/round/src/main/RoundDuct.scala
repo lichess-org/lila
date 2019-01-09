@@ -74,7 +74,7 @@ private[round] final class Round(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
+        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
           case true => finisher.rageQuit(pov.game, Some(pov.color))
           case _ => fuccess(List(Event.Reload))
         }
@@ -83,7 +83,7 @@ private[round] final class Round(
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
+        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
         }
@@ -182,7 +182,7 @@ private[round] final class Round(
 
     case DeployPost => handle { game =>
       game.playable ?? {
-        val freeTime = 15.seconds
+        val freeTime = 20.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
         val progress = giveMoretime(game, Color.all, freeTime)
         proxy save progress inject progress.events
@@ -263,7 +263,7 @@ private[round] final class Round(
 
   private[this] def publish[A](op: Fu[Events]): Funit = op.map { events =>
     if (events.nonEmpty) {
-      socketHub ! Tell(gameId, EventList(events))
+      socketMap.tell(gameId, EventList(events))
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
@@ -273,10 +273,10 @@ private[round] final class Round(
 
   private[this] def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
-      logger.info(s"Round client error $name", e)
+      logger.info(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client()
     case e: FishnetError =>
-      logger.info(s"Round fishnet error $name", e)
+      logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
@@ -292,7 +292,7 @@ object Round {
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketHub: ActorRef,
+      socketMap: SocketMap,
       moretimeDuration: FiniteDuration
   )
 

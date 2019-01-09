@@ -96,12 +96,14 @@ private final class RelayFetch(
   }
 
   def continueRelay(r: Relay): Fu[Relay] = {
-    if (r.sync.log.alwaysFails) {
-      if (r.official) slackApi.broadcastError(r.id.value, r.name)
+    if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
+      r.sync.log.events.lastOption.flatMap(_.error).ifTrue(r.official && r.hasStarted) foreach { error =>
+        slackApi.broadcastError(r.id.value, r.name, error)
+      }
       fuccess(60)
     } else r.sync.delay match {
       case Some(delay) => fuccess(delay)
-      case None => api.getNbViewers(r) map { nb =>
+      case None => api getNbViewers r map { nb =>
         (18 - nb) atLeast 7
       }
     }

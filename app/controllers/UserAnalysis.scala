@@ -95,9 +95,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
         }
     }
 
-  def socket = SocketOption { implicit ctx =>
+  def socket(apiVersion: Int) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      Env.analyse.socketHandler.join(uid, ctx.me) map some
+      Env.analyse.socketHandler.join(uid, ctx.me, apiVersion) map some
     }
   }
 

@@ -9,15 +9,15 @@ function load($f) {
       url: $f.attr('action'),
       method: $f.attr('method'),
       data: {
-        username: $f.find('.username input').val(),
-        password: $f.find('.password input').val(),
-        token: $f.find('.token input').val()
+        username: $f.find('#form3-username').val(),
+        password: $f.find('#form3-password').val(),
+        token: $f.find('#form3-token').val()
       },
       success: function(res) {
         if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
           $f.find('.one-factor').hide();
           $f.find('.two-factor').show();
-          $f.find('.token input').val('');
+          $f.find('.two-factor input').val('').focus();
           $f.find('.submit').attr('disabled', false);
           if (res === 'InvalidTotpToken') $f.find('.two-factor .error').show();
         }

@@ -4,24 +4,24 @@ import akka.actor._
 import akka.pattern.pipe
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.collection.breakOut
+import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.TimeBomb
+import lila.chat.Chat
+import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.{ SocketTrouper, History, Historical, Socket }
 
-private[tournament] final class Socket(
+private[tournament] final class TournamentSocket(
+    system: ActorSystem,
     tournamentId: String,
-    val history: History[Messadata],
+    protected val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration
-) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
-
-  private val timeBomb = new TimeBomb(socketTimeout)
+    uidTtl: Duration,
+    keepMeAlive: () => Unit
+) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
 
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
@@ -30,20 +30,22 @@ private[tournament] final class Socket(
 
   private var waitingUsers = WaitingUsers.empty
 
-  override def preStart(): Unit = {
-    super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat:$tournamentId"))
-    TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
+  private def chatClassifier = Chat classify Chat.Id(tournamentId)
+
+  lilaBus.subscribe(this, chatClassifier)
+
+  TournamentRepo clockById tournamentId foreach {
+    _ foreach { c => this ! SetTournamentClock(c) }
   }
 
-  override def postStop(): Unit = {
-    super.postStop()
-    lilaBus.unsubscribe(self)
+  override def stop(): Unit = {
+    super.stop()
+    lilaBus.unsubscribe(this, chatClassifier)
   }
 
-  def receiveSpecific = ({
+  protected def receiveSpecific = ({
 
-    case SetTournament(Some(tour)) => clock = tour.clock.some
+    case SetTournamentClock(c) => clock = c.some
 
     case StartGame(game) =>
       game.players foreach { player =>
@@ -57,35 +59,21 @@ private[tournament] final class Socket(
 
     case Reload => notifyReload
 
-    case GetWaitingUsers =>
+    case GetWaitingUsersP(promise) =>
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
-      sender ! waitingUsers
+      promise success waitingUsers
 
-    case Ping(uid, vOpt, lt) =>
-      ping(uid, lt)
-      timeBomb.delay
-      pushEventsSinceForMobileBC(vOpt, uid)
+    case lila.socket.Socket.GetVersion(promise) => promise success history.version
 
-    case Broom => {
-      broom
-      if (timeBomb.boom) self ! PoisonPill
-    }
-
-    case lila.socket.Socket.GetVersion => sender ! history.version
-
-    case Join(uid, user, version) =>
+    case Join(uid, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
       notifyCrowd
-      sender ! Connected(
+      promise success Connected(
         prependEventsSince(version, enumerator, member),
         member
       )
-
-    case Quit(uid) =>
-      quit(uid)
-      notifyCrowd
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
@@ -97,22 +85,29 @@ private[tournament] final class Socket(
       delayedReloadNotification = false
       notifyAll("reload")
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Trouper.Receive) orElse lila.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit =
+  override protected def broom: Unit = {
+    super.broom
+    if (members.nonEmpty) keepMeAlive()
+  }
+
+  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
+
+  private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
-      context.system.scheduler.scheduleOnce(1000 millis, self, NotifyCrowd)
+      system.scheduler.scheduleOnce(1 second)(this ! NotifyCrowd)
     }
 
-  def notifyReload: Unit =
+  private def notifyReload: Unit =
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(700 millis, self, NotifyReload)
+      system.scheduler.scheduleOnce(1 second)(this ! NotifyReload)
     }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

@@ -282,7 +282,7 @@
   <string name="advancedSearch">Napredna pretraga</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turniri</string>
-  <string name="tournamentPoints">Bodovi na turniru</string>
+  <string name="tournamentPoints">Turnirski bodovi</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s turnirskih bodova</item>
     <item quantity="few">%s turnirskih bodova</item>
@@ -530,7 +530,6 @@
   <string name="xVsYinZ">%1$s protiv %2$s
 u %3$s</string>
   <string name="timeline">Hronologija</string>
-  <string name="seeAllTournaments">Pogledaj sve turnire</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
   <string name="yourCityRegionOrDepartment">Vaš grad, regija ili pokrajina.</string>

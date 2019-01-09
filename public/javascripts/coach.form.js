@@ -6,7 +6,7 @@ $(function() {
 
     var $overview = $editor.find('.overview');
     var $el = $overview.find('.todo');
-    var $option = $editor.find('select[name=listed] option[value=true]');
+    var $checkbox = $editor.find('#form3-listed');
 
     var must = [{
       html: '<a href="/account/profile">Complete your lichess profile</a>',
@@ -43,8 +43,8 @@ $(function() {
       $el.find('ul').html(points);
       var fail = !!points.length;
       $overview.toggleClass('with_todo', fail);
-      if (fail) $option.parent().val('false');
-      $option.attr('disabled', fail);
+      if (fail) $checkbox.prop('checked', false);
+      $checkbox.attr('disabled', fail);
     };
   })();
   todo();
@@ -57,7 +57,7 @@ $(function() {
     $editor.find('div.status').removeClass('saved');
   });
   var submit = lichess.fp.debounce(function() {
-    $editor.find('form.form').ajaxSubmit({
+    $editor.find('form.form3').ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');
         todo();

@@ -16,7 +16,6 @@ final class Env(
   private val CollectionRequester = config getString "collection.requester"
   private val NetDomain = config getString "net.domain"
   private val SocketUidTtl = config duration "socket.uid.ttl"
-  private val SocketName = config getString "socket.name"
 
   lazy val analysisColl = db(CollectionAnalysis)
 
@@ -25,16 +24,12 @@ final class Env(
   lazy val analyser = new Analyser(
     indexer = indexer,
     requesterApi = requesterApi,
-    roundSocket = hub.socket.round,
-    studyActor = hub.actor.study,
     bus = system.lilaBus
   )
 
   lazy val annotator = new Annotator(NetDomain)
 
-  private val socket = system.actorOf(
-    Props(new AnalyseSocket(timeout = SocketUidTtl)), name = SocketName
-  )
+  private val socket = new AnalyseSocket(system, SocketUidTtl)
 
   lazy val socketHandler = new AnalyseSocketHandler(socket, hub, evalCacheHandler)
 }
@@ -47,6 +42,6 @@ object Env {
     system = lila.common.PlayApp.system,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     hub = lila.hub.Env.current,
-    indexer = lila.hub.Env.current.actor.gameSearch
+    indexer = lila.hub.Env.current.gameSearch
   )
 }

@@ -34,7 +34,6 @@ final class Env(
     val CollectionBoosting = config getString "collection.boosting"
     val CollectionModlog = config getString "collection.modlog"
     val CollectionGamingHistory = config getString "collection.gaming_history"
-    val CollectionCheatList = config getString "collection.cheat_list"
     val ActorName = config getString "actor.name"
     val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
     val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
@@ -62,7 +61,7 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
-    reporter = hub.actor.report,
+    reporter = hub.report,
     reportApi = reportApi,
     lightUserApi = lightUserApi,
     notifier = notifier,
@@ -81,8 +80,8 @@ final class Env(
     collAssessments = db(CollectionPlayerAssessment),
     logApi = logApi,
     modApi = api,
-    reporter = hub.actor.report,
-    fishnet = hub.actor.fishnet
+    reporter = hub.report,
+    fishnet = hub.fishnet
   )
 
   lazy val gamify = new Gamify(
@@ -98,8 +97,6 @@ final class Env(
   )
 
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
-
-  lazy val cheatList = new CheatList(db(CollectionCheatList))
 
   lazy val stream = new ModStream(system)
 

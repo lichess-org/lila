@@ -31,21 +31,21 @@ trait DateHelper { self: I18nHelper =>
 
   private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
-      lang(ctx).code,
-      DateTimeFormat forStyle dateTimeStyle withLocale lang(ctx).toLocale
+      ctx.lang.code,
+      DateTimeFormat forStyle dateTimeStyle withLocale ctx.lang.toLocale
     )
 
   private def dateFormatter(ctx: Context): DateTimeFormatter =
     dateFormatters.getOrElseUpdate(
-      lang(ctx).code,
-      DateTimeFormat forStyle dateStyle withLocale lang(ctx).toLocale
+      ctx.lang.code,
+      DateTimeFormat forStyle dateStyle withLocale ctx.lang.toLocale
     )
 
   private def periodFormatter(ctx: Context): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
-      lang(ctx).code, {
+      ctx.lang.code, {
         Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased lang(ctx).toLocale
+        PeriodFormat wordBased ctx.lang.toLocale
       }
     )
 

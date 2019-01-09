@@ -10,9 +10,9 @@ import lila.api.Context
 import lila.common.LightUser
 import lila.i18n.I18nKeys
 import lila.rating.{ PerfType, Perf }
-import lila.user.{ User, UserContext }
+import lila.user.{ User, Title, UserContext }
 
-trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
+trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
 
   def showProgress(progress: Int, withTitle: Boolean = true) = Html {
     val span = progress match {
@@ -100,10 +100,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
         userId = user.id,
         username = user.name,
         isPatron = user.isPatron,
-        title = user.title,
+        title = withTitle ?? user.title map Title.apply,
         cssClass = cssClass,
         withOnline = withOnline,
-        withTitle = withTitle,
         truncate = truncate,
         params = params,
         modIcon = modIcon
@@ -123,10 +122,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       userId = user.id,
       username = user.name,
       isPatron = user.isPatron,
-      title = user.title,
+      title = withTitle ?? user.title map Title.apply,
       cssClass = cssClass,
       withOnline = withOnline,
-      withTitle = withTitle,
       truncate = truncate,
       params = params,
       modIcon = false
@@ -138,11 +136,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     cssClass: Option[String]
   ): Html = userIdLink(userId.some, cssClass)
 
-  def titleTag(title: Option[String]) = Html {
+  def titleTag(title: Option[Title]) = Html {
     title.fold("") { t =>
-      s"""<span class="title" data-title="$t" title="${User titleName t}">$t</span>&nbsp;"""
+      s"""<span class="title"${(t == Title.BOT) ?? " data-bot"} title="${Title titleName t}">$t</span>&nbsp;"""
     }
   }
+  def titleTag(lu: LightUser): Html = titleTag(lu.title map Title.apply)
 
   private def userIdNameLink(
     userId: String,
@@ -150,16 +149,15 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     isPatron: Boolean,
     cssClass: Option[String],
     withOnline: Boolean,
-    withTitle: Boolean,
     truncate: Option[Int],
-    title: Option[String],
+    title: Option[Title],
     params: String,
     modIcon: Boolean
   ): String = {
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
-    val titleS = if (withTitle) titleTag(title).body else ""
+    val titleS = titleTag(title).body
     val icon = withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
     s"""<a $klass $href>$icon$titleS$content</a>"""
   }
@@ -197,7 +195,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val klass = userClass(userId, cssClass, withOnline, withPowerTip)
     val href = userHref(name)
     val rat = rating ?? { r => s" ($r)" }
-    val titleS = titleTag(user.flatMap(_.title) ifTrue withTitle).body
+    val titleS = withTitle ?? user ?? (u => titleTag(u).body)
     val icon = withOnline ?? lineIcon(user)
     Html(s"""<a $klass $href>$icon$titleS$name$rat</a>""")
   }
@@ -225,7 +223,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val content = user.fold(userId)(_.name)
-    val titleS = user.??(u => titleTag(u.title).body)
+    val titleS = user.??(u => titleTag(u.title map Title.apply).body)
     val klass = userClass(userId, none, withOnline)
     val href = s"data-${userHref(name)}"
     val icon = withOnline ?? lineIcon(user)
@@ -247,20 +245,19 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""
 
+  private def addClass(cls: Option[String]) = cls.fold("")(" " + _)
+
   protected def userClass(
     userId: String,
     cssClass: Option[String],
     withOnline: Boolean,
     withPowerTip: Boolean = true
-  ) = {
-    "user_link" :: List(
-      cssClass,
-      withPowerTip option "ulpt",
-      withOnline option {
-        if (isOnline(userId)) "online" else "offline"
-      }
-    ).flatten
-  }.mkString("class=\"", " ", "\"")
+  ): String = {
+    val online = if (withOnline) {
+      if (isOnline(userId)) " online" else " offline"
+    } else ""
+    s"""class="user_link${addClass(cssClass)}${addClass(withPowerTip option "ulpt")}$online""""
+  }
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext) =
     splitNumber(userGameFilterTitleNoTag(u, nbs, filter))

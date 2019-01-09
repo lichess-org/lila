@@ -5,13 +5,11 @@ import akka.actor.ActorSelection
 import chess.format.FEN
 import lila.game.actorApi.InsertGame
 import lila.game.{ GameRepo, Game }
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.map.TellIfExists
 
 final class Analyser(
     indexer: ActorSelection,
     requesterApi: RequesterApi,
-    roundSocket: ActorSelection,
-    studyActor: ActorSelection,
     bus: lila.common.Bus
 ) {
 
@@ -27,7 +25,7 @@ final class Analyser(
         AnalysisRepo.save(analysis) >>
           sendAnalysisProgress(analysis, complete = true) >>- {
             bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-            indexer ! InsertGame(game)
+            bus.publish(InsertGame(game), 'gameSearchInsert)
             requesterApi save analysis
           }
       }
@@ -44,17 +42,19 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit = analysis.studyId match {
     case None => GameRepo gameWithInitialFen analysis.id map {
       _ ?? {
-        case (game, initialFen) =>
-          roundSocket ! Tell(analysis.id, actorApi.AnalysisProgress(
+        case (game, initialFen) => bus.publish(
+          TellIfExists(analysis.id, actorApi.AnalysisProgress(
             analysis = analysis,
             game = game,
             variant = game.variant,
             initialFen = initialFen | FEN(game.variant.initialFen)
-          ))
+          )),
+          'roundSocket
+        )
       }
     }
     case Some(studyId) => fuccess {
-      studyActor ! actorApi.StudyAnalysisProgress(analysis, complete)
+      bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), 'studyAnalysisProgress)
     }
   }
 }

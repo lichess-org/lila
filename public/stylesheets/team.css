@@ -1,44 +1,9 @@
-#team form {
+#team .form3 {
   margin-top: 2em;
-  font-size: 1.3em;
-}
-#team form label {
-  display: block;
-  margin-bottom: 2em;
-}
-#team form label span {
-  float: left;
-  display: block;
-  width: 180px;
-  text-align: right;
-  margin-right: 10px;
-  margin-top: 3px;
-}
-#team form label span.required:after {
-  content:"*";
-  color: #FF6666;
-  margin-left: 3px;
-}
-#team form .team-data input, #team form textarea {
-  width: 480px;
-}
-#team form textarea {
-  height: 8em;
-}
-#team form.wide .submit {
-  margin-left: 110px;
-}
-#team form p.error {
-  margin-left: 110px;
-  margin-bottom: 10px;
-  color: red;
 }
 #team form.search {
   float: right;
   margin: 20px;
-}
-#team form.inline {
-  display: inline-block;
 }
 #team table.slist td {
   padding-top: 1em;
@@ -106,7 +71,7 @@
   margin-bottom: 20px;
 }
 #team .userlist > li,
-#team .userlist > div.paginated_element {
+#team .userlist > div.paginated {
   padding: 5px 0 5px 25px;
 }
 #team .actions {

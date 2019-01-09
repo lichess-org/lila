@@ -3,9 +3,9 @@ package lila.socket
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-trait Historical[M <: SocketMember, Metadata] { self: SocketActor[M] =>
+trait Historical[M <: SocketMember, Metadata] { self: SocketTrouper[M] =>
 
-  val history: History[Metadata]
+  protected val history: History[Metadata]
 
   protected type Message = History.Message[Metadata]
 
@@ -38,12 +38,4 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketActor[M] =>
         .fold(List(resyncMessage))(_ map filteredMessage(member)),
       enum
     )
-
-  // Mobile backwards compat
-  protected def pushEventsSinceForMobileBC(since: Option[Socket.SocketVersion], uid: Socket.Uid): Unit =
-    since foreach { v =>
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
-    }
 }

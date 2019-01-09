@@ -41,7 +41,11 @@ export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw):
 export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
   if (!dests) return {};
   const dec: DecodedDests = {};
-  for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
+  if (typeof dests == 'string')
+    dests.split(' ').forEach(ds => {
+      dec[ds.slice(0,2)] = ds.slice(2).match(/.{2}/g) as cg.Key[];
+    });
+    else for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
   return dec;
 }
 
@@ -52,7 +56,7 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
     black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
   for (let k in pieces) {
-    const p = pieces[k], them = diff[opposite(p.color)];
+    const p = pieces[k]!, them = diff[opposite(p.color)];
     if (them[p.role] > 0) them[p.role]--;
     else diff[p.color][p.role]++;
   }
@@ -62,7 +66,7 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
 export function getScore(pieces: cg.Pieces): number {
   let score = 0, k;
   for (k in pieces) {
-    score += pieceScores[pieces[k].role] * (pieces[k].color === 'white' ? 1 : -1);
+    score += pieceScores[pieces[k]!.role] * (pieces[k]!.color === 'white' ? 1 : -1);
   }
   return score;
 }

@@ -1,23 +1,30 @@
 package lila.lobby
 
-import akka.actor._
 import scala.concurrent.duration._
+import play.api.libs.json._
 
 import actorApi._
+import lila.common.{ Tellable, ApiVersion }
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
-import lila.socket.Handler
-import lila.socket.Socket.Uid
+import lila.socket.{ Socket, Handler }
 import lila.user.User
 import ornicar.scalalib.Zero
 
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
-    lobby: ActorRef,
-    socket: ActorRef,
+    lobby: LobbyTrouper,
+    socket: LobbySocket,
     poolApi: PoolApi,
     blocking: String => Fu[Set[String]]
-) {
+) extends Tellable.PartialReceive with Tellable.HashCode {
+
+  private var pong = Socket.initialPong
+
+  protected val receive: Tellable.Receive = {
+    case lila.socket.actorApi.NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
+    case lila.hub.actorApi.round.NbRounds(nb) => pong = pong + ("r" -> JsNumber(nb))
+  }
 
   private val HookPoolLimitPerMember = new lila.memo.RateLimit[String](
     credits = 25,
@@ -33,7 +40,7 @@ private[lobby] final class SocketHandler(
       msg = s"$msg mobile=${member.mobile}"
     )(op)
 
-  private def controller(socket: ActorRef, member: Member, isBot: Boolean): Handler.Controller = {
+  private def controller(socket: LobbySocket, member: Member, isBot: Boolean): Handler.Controller = {
     case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.uid, member.user)
@@ -93,12 +100,26 @@ private[lobby] final class SocketHandler(
     case ("hookOut", _) => socket ! HookSub(member, false)
   }
 
-  def apply(uid: Uid, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
+  def apply(
+    uid: Socket.Uid,
+    user: Option[User],
+    mobile: Boolean,
+    apiVersion: ApiVersion
+  ): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid, user = user, blocking = blockedUserIds, mobile = mobile)
-      Handler(hub, socket, uid, join) {
-        case Connected(enum, member) =>
-          (controller(socket, member, isBot = user.exists(_.isBot)), enum, member)
+      socket.ask[Connected](Join(uid, user, blockedUserIds, mobile, _)) map {
+        case Connected(enum, member) => Handler.iteratee(
+          hub,
+          controller(socket, member, user.exists(_.isBot)),
+          member,
+          socket,
+          uid,
+          apiVersion,
+          onPing = (_, _, _, _) => {
+            socket setAlive uid
+            member push pong
+          }
+        ) -> enum
       }
     }
 }

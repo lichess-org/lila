@@ -3,17 +3,23 @@ package lila.streamer
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
+
+import lila.common.Form.{ formatter, constraint }
 
 object StreamerForm {
 
   import Streamer.{ Name, Headline, Description, Twitch, YouTube, Listed }
 
   lazy val emptyUserForm = Form(mapping(
-    "name" -> name,
-    "headline" -> optional(headline),
-    "description" -> optional(description),
-    "twitch" -> optional(nonEmptyText.verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
-    "youTube" -> optional(nonEmptyText.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
+    "name" -> nameField,
+    "headline" -> optional(headlineField),
+    "description" -> optional(descriptionField),
+    "twitch" -> optional(text.verifying(
+      Constraints.minLength(2),
+      Constraints.maxLength(24)
+    ).verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
+    "youTube" -> optional(text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
     "listed" -> boolean,
     "approval" -> optional(mapping(
       "granted" -> boolean,
@@ -86,10 +92,13 @@ object StreamerForm {
       chat: Boolean
   )
 
-  private implicit val headlineFormat = lila.common.Form.formatter.stringFormatter[Headline](_.value, Headline.apply)
-  private def headline = of[Headline]
-  private implicit val descriptionFormat = lila.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
-  private def description = of[Description]
-  private implicit val nameFormat = lila.common.Form.formatter.stringFormatter[Name](_.value, Name.apply)
-  private def name = of[Name]
+  private implicit val headlineFormat = formatter.stringFormatter[Headline](_.value, Headline.apply)
+  private def headlineField = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
+  private implicit val descriptionFormat = formatter.stringFormatter[Description](_.value, Description.apply)
+  private def descriptionField = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
+  private implicit val nameFormat = formatter.stringFormatter[Name](_.value, Name.apply)
+  private def nameField = of[Name].verifying(
+    constraint.minLength[Name](_.value)(3),
+    constraint.maxLength[Name](_.value)(20)
+  )
 }

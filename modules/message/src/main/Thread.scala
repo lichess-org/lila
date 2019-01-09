@@ -61,19 +61,19 @@ case class Thread(
 
   def visibleOtherUserId(user: User) =
     if (isCreator(user)) invitedId
-    else if (asMod) Thread.lichess
+    else if (asMod) User.lichessId
     else creatorId
 
   def senderOf(post: Post) = if (post.isByCreator) creatorId else invitedId
 
   def visibleSenderOf(post: Post) =
-    if (post.isByCreator && asMod) Thread.lichess
+    if (post.isByCreator && asMod) User.lichessId
     else senderOf(post)
 
   def receiverOf(post: Post) = if (post.isByCreator) invitedId else creatorId
 
   def visibleReceiverOf(post: Post) =
-    if (!post.isByCreator && asMod) Thread.lichess
+    if (!post.isByCreator && asMod) User.lichessId
     else receiverOf(post)
 
   def isWrittenBy(post: Post, user: User) = post.isByCreator == isCreator(user)
@@ -104,8 +104,6 @@ case class Thread(
 object Thread {
 
   val idSize = 8
-
-  private val lichess = "lichess"
 
   def make(
     name: String,

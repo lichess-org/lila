@@ -1,8 +1,7 @@
 @(title: String, side: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = emptyHtml, evenMoreCss: Html = emptyHtml, openGraph: Option[lila.app.ui.OpenGraph] = None, menu: Option[Html] = None, withInfScroll: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
-@cssTag("user-list.css")
-@cssTag("user-show.css")
+@cssTags("user-list.css", "user-show.css")
 @evenMoreCss
 }
 
@@ -21,4 +20,4 @@ moreCss = moreCss,
 moreJs = moreJs,
 menu = menu,
 robots = robots,
-openGraph = openGraph)(body)
+openGraph = openGraph)(body).toHtml

@@ -4,7 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.WithUserIds
+import lila.hub.actorApi.socket.WithUserIds
 
 final class Env(
     config: Config,
@@ -49,23 +49,37 @@ final class Env(
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
-  system.lilaBus.subscribeFun('adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase) {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      rankingApi remove userId
-      UserRepo.setRoles(userId, Nil)
-    case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-    case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
-    case User.Active(user) =>
-      if (!user.seenRecently) UserRepo setSeenAt user.id
-      onlineUserIdMemo put user.id
-    case User.GDPRErase(user) =>
-      UserRepo erase user
-      noteApi erase user
+  system.scheduler.schedule(1 minute, 1 minute) {
+    lightUserApi.monitorCache
   }
 
+  system.lilaBus.subscribeFuns(
+    'adjustCheater -> {
+      case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+        rankingApi remove userId
+        UserRepo.setRoles(userId, Nil)
+    },
+    'adjustBooster -> {
+      case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    },
+    'userActive -> {
+      case User.Active(user) =>
+        if (!user.seenRecently) UserRepo setSeenAt user.id
+        onlineUserIdMemo put user.id
+    },
+    'kickFromRankings -> {
+      case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    },
+    'gdprErase -> {
+      case User.GDPRErase(user) =>
+        UserRepo erase user
+        noteApi erase user
+    }
+  )
+
   scheduler.effect(3 seconds, "refresh online user ids") {
-    system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
-    onlineUserIdMemo put "lichess"
+    system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'socketUsers)
+    onlineUserIdMemo put User.lichessId
   }
 
   lazy val cached = new Cached(
@@ -75,7 +89,7 @@ final class Env(
     mongoCache = mongoCache,
     asyncCache = asyncCache,
     rankingApi = rankingApi
-  )
+  )(system)
 
   lazy val authenticator = new Authenticator(
     passHasher = new PasswordHasher(
@@ -101,7 +115,7 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
-    timeline = lila.hub.Env.current.actor.timeline,
+    timeline = lila.hub.Env.current.timeline,
     system = lila.common.PlayApp.system
   )
 }

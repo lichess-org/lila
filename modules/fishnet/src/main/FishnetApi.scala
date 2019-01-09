@@ -98,7 +98,7 @@ final class FishnetApi(
             }
           } recoverWith {
             case e: Exception =>
-              Monitor.failure(work, client)
+              Monitor.failure(work, client, e)
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
           }
           case partial: PartialAnalysis => {

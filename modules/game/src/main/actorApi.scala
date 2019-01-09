@@ -21,3 +21,13 @@ case class AbortedBy(pov: Pov)
 case class CorresAlarmEvent(pov: Pov)
 
 private[game] case object NewCaptcha
+
+case class MoveGameEvent(
+    game: Game,
+    fen: String,
+    move: String
+)
+object MoveGameEvent {
+  def makeSymbol(gameId: Game.ID) = Symbol(s"moveEvent:$gameId")
+  def makeBusEvent(event: MoveGameEvent) = lila.common.Bus.Event(event, makeSymbol(event.game.id))
+}

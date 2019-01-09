@@ -94,7 +94,7 @@ private final class MoveDB(
               )
             case _ =>
               updateOrGiveUp(move.invalid)
-              Monitor.failure(move, client)
+              Monitor.failure(move, client, lila.base.LilaException("Missing move"))
           }
           case Some(move) => Monitor.notAcquired(move, client)
         }

@@ -31,27 +31,30 @@ object Account extends LilaController {
   def info = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => relationEnv.api.countFollowers(me.id) zip
-        relationEnv.api.countFollowing(me.id) zip
-        Env.pref.api.getPref(me) zip
-        lila.game.GameRepo.urgentGames(me) zip
-        Env.challenge.api.countInFor.get(me.id) zip
-        Env.playban.api.currentBan(me.id) map {
-          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
-            Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
-            Ok {
-              import lila.pref.JsonView._
-              Env.user.jsonView(me) ++ Json.obj(
-                "prefs" -> prefs,
-                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
-                "nbFollowing" -> nbFollowing,
-                "nbFollowers" -> nbFollowers,
-                "nbChallenges" -> nbChallenges
-              ).add("kid" -> me.kid)
-                .add("troll" -> me.troll)
-                .add("playban" -> playban)
-            }
-        }
+      api = _ => {
+        lila.mon.http.response.accountInfo.count()
+        relationEnv.api.countFollowers(me.id) zip
+          relationEnv.api.countFollowing(me.id) zip
+          Env.pref.api.getPref(me) zip
+          lila.game.GameRepo.urgentGames(me) zip
+          Env.challenge.api.countInFor.get(me.id) zip
+          Env.playban.api.currentBan(me.id) map {
+            case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
+              Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
+              Ok {
+                import lila.pref.JsonView._
+                Env.user.jsonView(me) ++ Json.obj(
+                  "prefs" -> prefs,
+                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                  "nbFollowing" -> nbFollowing,
+                  "nbFollowers" -> nbFollowers,
+                  "nbChallenges" -> nbChallenges
+                ).add("kid" -> me.kid)
+                  .add("troll" -> me.troll)
+                  .add("playban" -> playban)
+              }
+          }
+      }.mon(_.http.response.accountInfo.time)
     )
   }
 
@@ -63,9 +66,7 @@ object Account extends LilaController {
   }
 
   def apiMe = Scoped() { _ => me =>
-    Env.api.userApi.extended(me, me.some) map { json =>
-      Ok(json) as JSON
-    }
+    Env.api.userApi.extended(me, me.some) map { JsonOk(_) }
   }
 
   def apiNowPlaying = Scoped() { req => me =>
@@ -127,7 +128,7 @@ object Account extends LilaController {
   def apiEmail = Scoped(_.Email.Read) { _ => me =>
     UserRepo email me.id map {
       _ ?? { email =>
-        Ok(Json.obj("email" -> email.value))
+        JsonOk(Json.obj("email" -> email.value))
       }
     }
   }
@@ -138,7 +139,7 @@ object Account extends LilaController {
   def emailApply = AuthBody { implicit ctx => me =>
     controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      emailForm(me) flatMap { form =>
+      Env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.email(me, err))
         } { data =>
@@ -161,6 +162,24 @@ object Account extends LilaController {
           Redirect(s"${routes.Account.email}?ok=1")
         })
       }
+    }
+  }
+
+  def emailConfirmHelp = OpenBody { implicit ctx =>
+    import lila.security.EmailConfirm.Help._
+    ctx.me match {
+      case Some(me) =>
+        Redirect(routes.User.show(me.username)).fuccess
+      case None if get("username").isEmpty =>
+        Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
+      case None =>
+        implicit val req = ctx.body
+        helpForm.bindFromRequest.fold(
+          err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+          username => getStatus(username) map { status =>
+            Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+          }
+        )
     }
   }
 
@@ -205,23 +224,21 @@ object Account extends LilaController {
   }
 
   def close = Auth { implicit ctx => me =>
-    Ok(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+    Env.security.forms closeAccount me map { form =>
+      Ok(html.account.close(me, form))
+    }
   }
 
   def closeConfirm = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    FormFuResult(Env.security.forms.closeAccount) { err =>
-      fuccess(html.account.close(me, err))
-    } { password =>
-      Env.user.authenticator.authenticateById(
-        me.id,
-        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.currentTotp))
-      ).map(_.isDefined) flatMap {
-          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-          case true => Env.current.closeAccount(me.id, self = true) inject {
-            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-          }
+    Env.security.forms closeAccount me flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.close(me, err))
+      } { _ =>
+        Env.current.closeAccount(me.id, self = true) inject {
+          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
+      }
     }
   }
 
@@ -229,7 +246,7 @@ object Account extends LilaController {
     Ok(html.account.kid(me)).fuccess
   }
   def apiKid = Scoped(_.Preference.Read) { _ => me =>
-    Ok(Json.obj("kid" -> me.kid)).fuccess
+    JsonOk(Json.obj("kid" -> me.kid)).fuccess
   }
 
   // App BC

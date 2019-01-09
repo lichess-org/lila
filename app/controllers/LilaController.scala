@@ -5,12 +5,13 @@ import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
+import play.api.mvc.BodyParsers.parse
 import play.twirl.api.Html
-import BodyParsers.parse
+import scalatags.Text.{ TypedTag, Frag }
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest, ApiVersion, Nonce }
+import lila.common.{ LilaCookie, HTTPRequest, ApiVersion, Nonce, Lang }
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ Permission, Granter, FingerprintedUser }
@@ -34,6 +35,17 @@ private[controllers] trait LilaController
   }
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
+
+  protected implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
+    ContentTypeOf[Frag](Some(ContentTypes.HTML))
+  protected implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
+    Writeable(frag => codec.encode(frag.render))
+
+  protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
+
+  protected implicit def LilaFragToResult(content: Frag): Result = Ok(content)
+
+  protected implicit def makeApiVersion(v: Int) = ApiVersion(v)
 
   protected val jsonOkBody = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
@@ -165,7 +177,7 @@ private[controllers] trait LilaController
       case Right(scoped) =>
         lila.mon.user.oauth.usage.success()
         f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
-    } map { _ as JSON }
+    }
   }
 
   protected def OAuthSecure(perm: Permission.Selector)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
@@ -205,16 +217,16 @@ private[controllers] trait LilaController
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.noEngine()).fuccess else a
+    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
 
   protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.noBooster()).fuccess else a
+    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.message.noBooster).fuccess else a
 
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.noBot()).fuccess else a
+    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.message.noBot).fuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoLame(NoBot(a))
@@ -237,7 +249,7 @@ private[controllers] trait LilaController
     }
 
   protected def NoCurrentGame(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(mashup.Preload.currentGame(Env.user.lightUserSync)) flatMap {
+    ctx.me.??(mashup.Preload.currentGameMyTurn(Env.user.lightUserSync)) flatMap {
       _.fold(a) { current =>
         negotiate(
           html = Lobby.renderHome(Results.Forbidden),
@@ -256,6 +268,7 @@ private[controllers] trait LilaController
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
   }
+  protected def JsonOk[A: Writes](a: A) = Ok(Json toJson a) as JSON
 
   protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]])(implicit ctx: Context) = fua flatMap {
     _.fold(notFound(ctx))(a => fuccess(Ok(Json toJson a) as JSON))
@@ -466,7 +479,7 @@ private[controllers] trait LilaController
     ) andThen (__ \ "").json.prune
   }
 
-  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang): JsObject = {
+  protected def errorsAsJson(form: Form[_])(implicit lang: Lang): JsObject = {
     val json = JsObject(
       form.errors.groupBy(_.key).mapValues { errors =>
         JsArray {
@@ -479,8 +492,11 @@ private[controllers] trait LilaController
     json validate jsonGlobalErrorRenamer getOrElse json
   }
 
-  protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
+  protected def jsonFormError(err: Form[_])(implicit lang: Lang) =
     fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
+
+  protected def jsonFormErrorDefaultLang(err: Form[_]) =
+    jsonFormError(err)(lila.i18n.defaultLang)
 
   protected def pageHit(implicit ctx: lila.api.Context) =
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()

@@ -3,7 +3,7 @@
 @title = @{ s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}" }
 
 <!doctype html>
-<html lang="@lang.language">
+<html lang="@ctx.lang.language">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="@defaultCsp">

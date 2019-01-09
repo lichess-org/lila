@@ -612,7 +612,6 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="xVsYinZ">%1$s protiv %2$s
 u %3$s</string>
   <string name="timeline">Vremenska crta</string>
-  <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
   <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
@@ -680,6 +679,9 @@ u %3$s</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">O</string>
+  <string name="aboutX">Više o %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je besplatni (%2$s) šah poslužitelj otvorenog koda i bez oglasa.</string>
+  <string name="really">više</string>
   <string name="contribute">Doprinesi</string>
   <string name="contact">Kontaktiraj</string>
   <string name="termsOfService">Uvjeti pružanja usluge</string>

@@ -180,7 +180,7 @@
 .user_show .relation_actions {
   display: inline;
 }
-.user_show div.meat {
+#us_profile {
   height: 325px;
   position: relative;
 }
@@ -237,6 +237,11 @@ div.sub_ratings > a:hover > i {
 }
 div.sub_ratings > a.active > i {
   display: none;
+}
+div.sub_ratings > a .shy {
+  font-size: 0.8em;
+  opacity: 0.6;
+  line-height: 1em;
 }
 div.sub_ratings h3 {
   font-weight: 100;
@@ -382,7 +387,8 @@ div.sub_ratings h3 {
 .user_show .note_zone textarea {
   width: 98%;
   margin-bottom: 5px;
-  height: 2em;
+  padding: 5px 8px;
+  height: 5em;
   resize: vertical;
 }
 .user_show .note_zone div {
@@ -407,12 +413,6 @@ div.sub_ratings h3 {
   padding-left: 30px;
   width: 775px;
   border: 1px solid #ccc;
-}
-.mod_zone {
-  display: none;
-}
-.mod_zone .spinner {
-  margin: 100px auto;
 }
 div.crosstable {
   margin: 25px 10px 15px 10px;

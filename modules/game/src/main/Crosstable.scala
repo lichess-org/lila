@@ -74,7 +74,7 @@ object Crosstable {
     )
   }
 
-  private[game] def makeKey(u1: String, u2: String): String = List(u1, u2).sorted mkString "/"
+  private[game] def makeKey(u1: String, u2: String): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
 
   import reactivemongo.bson._
   import lila.db.BSON

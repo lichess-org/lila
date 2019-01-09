@@ -4,7 +4,7 @@ import chess.format.pgn.Glyph
 import lila.tree.Eval._
 
 sealed trait Advice {
-  def judgment: Advice.Judgment
+  def judgment: Advice.Judgement
   def info: Info
   def prev: Info
 
@@ -32,14 +32,14 @@ sealed trait Advice {
 
 object Advice {
 
-  sealed abstract class Judgment(val glyph: Glyph, val name: String) {
+  sealed abstract class Judgement(val glyph: Glyph, val name: String) {
     override def toString = name
-    def isBlunder = this == Judgment.Blunder
+    def isBlunder = this == Judgement.Blunder
   }
-  object Judgment {
-    object Inaccuracy extends Judgment(Glyph.MoveAssessment.dubious, "Inaccuracy")
-    object Mistake extends Judgment(Glyph.MoveAssessment.mistake, "Mistake")
-    object Blunder extends Judgment(Glyph.MoveAssessment.blunder, "Blunder")
+  object Judgement {
+    object Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")
+    object Mistake extends Judgement(Glyph.MoveAssessment.mistake, "Mistake")
+    object Blunder extends Judgement(Glyph.MoveAssessment.blunder, "Blunder")
     val all = List(Inaccuracy, Mistake, Blunder)
   }
 
@@ -47,24 +47,24 @@ object Advice {
 }
 
 private[analyse] case class CpAdvice(
-    judgment: Advice.Judgment,
+    judgment: Advice.Judgement,
     info: Info,
     prev: Info
 ) extends Advice
 
 private[analyse] object CpAdvice {
 
-  private val cpJudgments = List(
-    300 -> Advice.Judgment.Blunder,
-    100 -> Advice.Judgment.Mistake,
-    50 -> Advice.Judgment.Inaccuracy
+  private val cpJudgements = List(
+    300 -> Advice.Judgement.Blunder,
+    100 -> Advice.Judgement.Mistake,
+    50 -> Advice.Judgement.Inaccuracy
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
     cp ← prev.cp map (_.ceiled.centipawns)
     infoCp ← info.cp map (_.ceiled.centipawns)
     delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
-    judgment ← cpJudgments find { case (d, n) => d <= delta } map (_._2)
+    judgment ← cpJudgements find { case (d, n) => d <= delta } map (_._2)
   } yield CpAdvice(judgment, info, prev)
 }
 
@@ -90,7 +90,7 @@ private[analyse] object MateSequence {
 }
 private[analyse] case class MateAdvice(
     sequence: MateSequence,
-    judgment: Advice.Judgment,
+    judgment: Advice.Judgement,
     info: Info,
     prev: Info
 ) extends Advice
@@ -102,7 +102,7 @@ private[analyse] object MateAdvice {
     def prevCp = prev.cp.map(invertCp).??(_.centipawns)
     def nextCp = info.cp.map(invertCp).??(_.centipawns)
     MateSequence(prev.mate map invertMate, info.mate map invertMate) map { sequence =>
-      import Advice.Judgment._
+      import Advice.Judgement._
       val judgment = sequence match {
         case MateCreated if prevCp < -999 => Inaccuracy
         case MateCreated if prevCp < -700 => Mistake

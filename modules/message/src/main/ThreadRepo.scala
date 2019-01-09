@@ -1,6 +1,8 @@
 package lila.message
 
+import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
+
 import lila.db.dsl._
 import lila.user.User
 
@@ -41,6 +43,39 @@ object ThreadRepo {
     thread.readIndexesBy(user).lastOption ?? { index =>
       coll.update($id(thread.id), $set(s"posts.$index.isRead" -> false)).void
     }
+
+  def unreadCount(userId: String): Fu[Int] = {
+    import reactivemongo.bson.BSONNull
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregateOne(
+      Match($doc(
+        "visibleByUserIds" -> userId,
+        "updatedAt" $gt DateTime.now.minusMonths(1),
+        "posts.isRead" -> false
+      )),
+      List(
+        Project($doc(
+          "m" -> $doc("$eq" -> $arr("$creatorId", userId)),
+          "posts.isByCreator" -> true,
+          "posts.isRead" -> true
+        )),
+        UnwindField("posts"),
+        Match($doc(
+          "posts.isRead" -> false
+        )),
+        Project($doc(
+          "u" -> $doc("$ne" -> $arr("$posts.isByCreator", "$m"))
+        )),
+        Match($doc(
+          "u" -> true
+        )),
+        Group(BSONNull)("nb" -> SumValue(1))
+      ),
+      readPreference = ReadPreference.secondaryPreferred
+    ).map {
+        ~_.flatMap(_.getAs[Int]("nb"))
+      }
+  }
 
   def deleteFor(user: ID)(thread: ID) =
     coll.update($id(thread), $pull("visibleByUserIds", user)).void

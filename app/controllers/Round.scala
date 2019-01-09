@@ -17,17 +17,25 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
+          val userTv = get("userTv") map { userId =>
+            lila.round.actorApi.UserTv(
+              userId,
+              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
+            )
+          }
           env.socketHandler.watcher(
             pov = pov,
             uid = uid,
             user = ctx.me,
             ip = ctx.ip,
-            userTv = get("userTv"),
-            version = getSocketVersion
+            userTv = userTv,
+            version = getSocketVersion,
+            apiVersion = apiVersion,
+            mobile = getMobile
           ) map some
         }
       }
@@ -41,7 +49,7 @@ object Round extends LilaController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, apiVersion, getMobile) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))
@@ -254,7 +262,7 @@ object Round extends LilaController with TheftPrevention {
         Env.game.crosstableApi.withMatchup(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) map {
           case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
-            Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+            Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
     }
   }
@@ -301,24 +309,13 @@ object Round extends LilaController with TheftPrevention {
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
     OptionOk(GameRepo.pov(gameId, color)) { pov =>
-      html.game.mini(pov)
+      html.game.bits.mini(pov)
     }
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
     OptionOk(GameRepo pov fullId) { pov =>
-      html.game.mini(pov)
-    }
-  }
-
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
-    GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => GameRepo initialFen pov.game flatMap { initialFen =>
-        Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) map { pgn =>
-          Ok(views.xml.round.atom(pov, pgn)) as XML
-        }
-      }
-      case _ => NotFound("no such game").fuccess
+      html.game.bits.mini(pov)
     }
   }
 }

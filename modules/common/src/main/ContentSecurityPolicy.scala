@@ -54,23 +54,34 @@ case class ContentSecurityPolicy(
     styleSrc = "https://platform.twitter.com" :: styleSrc
   )
 
-  def withGoogleForm = copy(
-    frameSrc = "https://docs.google.com" :: frameSrc
+  def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
+
+  def withRecaptcha = copy(
+    scriptSrc = "https://www.google.com" :: scriptSrc,
+    frameSrc = "https://www.google.com" :: frameSrc
   )
 
-  override def toString: String =
-    List(
-      "default-src " -> defaultSrc,
-      "connect-src " -> connectSrc,
-      "style-src " -> styleSrc,
-      "font-src " -> fontSrc,
-      "frame-src " -> frameSrc,
-      "worker-src " -> workerSrc,
-      "img-src " -> imgSrc,
-      "script-src " -> scriptSrc,
-      "base-uri " -> baseUri
-    ) collect {
-        case (directive, sources) if sources.nonEmpty =>
-          sources.mkString(directive, " ", ";")
-      } mkString (" ")
+  private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(
+    scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
+    frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,
+    connectSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: connectSrc
+  )
+  else this
+
+  def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
+
+  override def toString: String = List(
+    "default-src " -> defaultSrc,
+    "connect-src " -> connectSrc,
+    "style-src " -> styleSrc,
+    "font-src " -> fontSrc,
+    "frame-src " -> frameSrc,
+    "worker-src " -> workerSrc,
+    "img-src " -> imgSrc,
+    "script-src " -> scriptSrc,
+    "base-uri " -> baseUri
+  ) collect {
+      case (directive, sources) if sources.nonEmpty =>
+        sources.mkString(directive, " ", ";")
+    } mkString " "
 }

@@ -49,6 +49,7 @@ final class Env(
     val SocketDomain = config getString "net.socket.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
+    val RateLimit = config getBoolean "net.ratelimit"
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
@@ -62,6 +63,12 @@ final class Env(
     "cspEnabled",
     default = true,
     text = "Enable CSP for everyone.".some
+  )
+
+  val wasmxEnabledSetting = settingStore[Boolean](
+    "wasmxEnabled",
+    default = false,
+    text = "Enable WASMX for everyone.".some
   )
 
   object Accessibility {
@@ -142,6 +149,10 @@ final class Env(
     endpoint = InfluxEventEndpoint,
     env = InfluxEventEnv
   )), name = "influx-event")
+
+  system.registerOnTermination {
+    system.lilaBus.publish(lila.hub.actorApi.Shutdown, 'shutdown)
+  }
 }
 
 object Env {
@@ -149,7 +160,7 @@ object Env {
   lazy val current = "api" boot new Env(
     config = lila.common.PlayApp.loadConfig,
     settingStore = lila.memo.Env.current.settingStore,
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
     userEnv = lila.user.Env.current,
     annotator = lila.analyse.Env.current.annotator,
     lobbyEnv = lila.lobby.Env.current,

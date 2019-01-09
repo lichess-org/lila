@@ -1,16 +1,16 @@
 package lila.setup
 
-import akka.actor.ActorSelection
-
 import lila.game.{ GameRepo, Pov, PerfPicker }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.user.{ User, UserContext }
 
 private[setup] final class Processor(
-    lobby: ActorSelection,
+    bus: lila.common.Bus,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
     fishnetPlayer: lila.fishnet.Player,
+    anonConfigRepo: AnonConfigRepo,
+    userConfigRepo: UserConfigRepo,
     onStart: String => Unit
 ) {
 
@@ -37,17 +37,16 @@ private[setup] final class Processor(
     saveConfig(_ withHook config) >> {
       config.hook(uid, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
-          lobby ! AddHook(hook)
+          bus.publish(AddHook(hook), 'lobbyTrouper)
           Created(hook.id)
         }
         case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
           if (nbPlaying >= maxPlaying) Refused
           else {
-            lobby ! AddSeek(seek)
+            bus.publish(AddSeek(seek), 'lobbyTrouper)
             Created(seek.id)
           }
         }
-        case Right(None) if ctx.me.isEmpty => fuccess(Refused)
         case _ => fuccess(Refused)
       }
     }
@@ -60,7 +59,7 @@ private[setup] final class Processor(
     saveConfig(_ withHook config)
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
-    ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user => UserConfigRepo.update(user) _)(map)
+    ctx.me.fold(anonConfigRepo.update(ctx.req) _)(user => userConfigRepo.update(user) _)(map)
 }
 
 object Processor {

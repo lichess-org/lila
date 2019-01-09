@@ -14,12 +14,8 @@
   <string name="toggleSound">Bunyi togel</string>
   <string name="chat">Sembang</string>
   <string name="resign">Menyerah kalah</string>
-  <string name="checkmate"> Checkmate
-
-
-</string>
-  <string name="stalemate">Stalemate
-</string>
+  <string name="checkmate"> Checkmate</string>
+  <string name="stalemate">Stalemate</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
   <string name="randomColor">Pilihan rawak</string>
@@ -27,14 +23,11 @@
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
   <string name="kingInTheCenter">Raja di tengah</string>
-  <string name="threeChecks">Tiga check
-</string>
+  <string name="threeChecks">Tiga check</string>
   <string name="raceFinished">Perlumbaan tamat</string>
   <string name="variantEnding">Variasi berakhir</string>
-  <string name="newOpponent">Lawan baru
-</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan anda mahu bermain perminan yang baru dengan anda
-</string>
+  <string name="newOpponent">Lawan baru</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan anda mahu bermain perminan yang baru dengan anda</string>
   <string name="joinTheGame">Menyertai permainan</string>
   <string name="whitePlays">Putih untuk main</string>
   <string name="blackPlays">Hitam untuk main</string>

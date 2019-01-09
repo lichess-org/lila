@@ -1,9 +1,13 @@
 package lila.common
 
-case class ApiVersion(value: Int) extends AnyVal with IntValue {
+case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def v1 = value == 1
   def v2 = value == 2
   def v3 = value == 3
+  def v4 = value == 4
+  def compare(other: ApiVersion) = value compare other.value
+  def gt(other: Int) = value > other
+  def gte(other: Int) = value >= other
 }
 
 case class AssetVersion(value: String) extends AnyVal with StringValue
@@ -13,6 +17,8 @@ object AssetVersion {
   def change = { current = random }
   private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
 }
+
+case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
 case class MaxPerPage(value: Int) extends AnyVal with IntValue
 
@@ -35,7 +41,14 @@ object IpAddress {
 }
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
-  def isHotmail = EmailAddress.hotmailRegex.find(value)
+  def conceal = value split '@' match {
+    case Array(user, domain) => s"${user take 3}*****@${domain}"
+    case _ => value
+  }
+  def domain: Option[Domain] = value split '@' match {
+    case Array(_, domain) => Domain(domain).some
+    case _ => none
+  }
 }
 
 object EmailAddress {
@@ -48,3 +61,7 @@ object EmailAddress {
 
   private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
+
+case class Domain(value: String) extends AnyVal with StringValue
+
+case class Strings(value: List[String]) extends AnyVal

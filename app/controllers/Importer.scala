@@ -30,7 +30,7 @@ object Importer extends LilaController {
             Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
               userId = ctx.userId,
               ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-              mod = isGranted(_.Hunter),
+              mod = isGranted(_.Hunter) || isGranted(_.Relay),
               system = false
             ))
           } inject Redirect(routes.Round.watcher(game.id, "white"))

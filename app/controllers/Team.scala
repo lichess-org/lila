@@ -158,15 +158,6 @@ object Team extends LilaController {
     api mine me map { html.team.mine(_) }
   }
 
-  def joinPage(id: String) = Auth { implicit ctx => me =>
-    NotForKids {
-      OptionResult(api.requestable(id, me)) { team =>
-        if (team.open) Ok(html.team.join(team))
-        else Redirect(routes.Team.requestForm(team.id))
-      }
-    }
-  }
-
   def join(id: String) = Auth { implicit ctx => implicit me =>
     api join id flatMap {
       case Some(Joined(team)) => Redirect(routes.Team.show(team.id)).fuccess
@@ -223,7 +214,7 @@ object Team extends LilaController {
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
-      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.team.createLimit()).fuccess
+      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.site.message.teamCreateLimit).fuccess
       else a
     }
 

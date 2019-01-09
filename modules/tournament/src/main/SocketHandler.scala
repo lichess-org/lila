@@ -6,52 +6,48 @@ import akka.pattern.ask
 import actorApi._
 import akka.actor.ActorSelection
 import lila.chat.Chat
+import lila.common.ApiVersion
 import lila.hub.actorApi.map._
+import lila.hub.Trouper
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket
 import lila.user.User
 import makeTimeout.short
 
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: ActorRef,
+    socketMap: SocketMap,
     chat: ActorSelection,
     flood: Flood
 ) {
 
   def join(
     tourId: String,
-    uid: Uid,
+    uid: Socket.Uid,
     user: Option[User],
-    version: Option[SocketVersion]
+    version: Option[Socket.SocketVersion],
+    apiVersion: ApiVersion
   ): Fu[Option[JsSocketHandler]] =
-    TournamentRepo.exists(tourId) flatMap {
+    TournamentRepo exists tourId flatMap {
       _ ?? {
-        for {
-          socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]
-          join = Join(uid, user, version)
-          handler ← Handler(hub, socket, uid, join) {
-            case Connected(enum, member) =>
-              (controller(socket, tourId, uid, member), enum, member)
-          }
-        } yield handler.some
+        val socket = socketMap getOrMake tourId
+        socket.ask[Connected](Join(uid, user, version, _)) map {
+          case Connected(enum, member) => Handler.iteratee(
+            hub,
+            lila.chat.Socket.in(
+              chatId = Chat.Id(tourId),
+              member = member,
+              chat = chat,
+              publicSource = lila.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
+            ),
+            member,
+            socket,
+            uid,
+            apiVersion
+          ) -> enum
+        } map some
       }
     }
-
-  private def controller(
-    socket: ActorRef,
-    tourId: String,
-    uid: Uid,
-    member: Member
-  ): Handler.Controller = ({
-    case ("p", o) => socket ! Ping(uid, o)
-  }: Handler.Controller) orElse lila.chat.Socket.in(
-    chatId = Chat.Id(tourId),
-    member = member,
-    socket = socket,
-    chat = chat,
-    publicSource = lila.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
-  )
 }

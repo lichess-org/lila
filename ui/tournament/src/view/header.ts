@@ -17,6 +17,11 @@ function hasFreq(freq, d) {
 
 function clock(d): VNode | undefined {
   if (d.isFinished) return;
+  if (d.secondsToFinish) return h('div.clock', {
+    hook: startClock(d.secondsToFinish)
+  }, [
+    h('div.time')
+  ]);
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds) return h('div.clock', [
       h('time.timeago.shy', {
@@ -38,11 +43,6 @@ function clock(d): VNode | undefined {
       h('span.time.text')
     ]);
   }
-  if (d.secondsToFinish) return h('div.clock', {
-    hook: startClock(d.secondsToFinish)
-  }, [
-    h('div.time')
-  ]);
 }
 
 function image(d): VNode | undefined {

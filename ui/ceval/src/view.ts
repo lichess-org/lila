@@ -74,10 +74,11 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', version ? {
-      attrs: { title: version }
-    } : {}, window.lichess.engineName),
-    ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs'))
+    h('span', version ? { attrs: { title: version } } : {}, window.lichess.engineName),
+    ctrl.wasmxSupported ? h('span.native', { attrs: { title: 'Multi-threaded WebAssembly (experimental)' } }, 'wasmx') :
+      (ctrl.pnaclSupported ? h('span.native', { attrs: { title: 'Portable Native Client' } }, 'pnacl') :
+        (ctrl.wasmSupported ? h('span.native', { attrs: { title: 'WebAssembly' } }, 'wasm') :
+          h('span.asmjs', { attrs: { title: 'JavaScript fallback' } }, 'asmjs')))
   ];
 }
 
@@ -182,7 +183,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
-    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle-round', {
+    h('input#analyse-toggle-ceval.cmn-toggle', {
       attrs: {
         type: 'checkbox',
         checked: enabled

@@ -1,4 +1,4 @@
-@(title: String, side: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None, moreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None, moreJs: Html = emptyHtml, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
 
 @sideSection = {
 <div class="side">
@@ -19,11 +19,11 @@
 
 @base.layout(
 title = title,
-moreCss = cssTag("qa.css"),
+moreCss = cssTags(List("qa.css" -> true, "form3.css" -> formCss)),
 moreJs = evenMoreJs,
 side = sideSection.some,
 openGraph = openGraph) {
 <div id="qa" class="content_box no_padding">
   @body
 </div>
-}
+}.toHtml

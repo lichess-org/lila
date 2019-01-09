@@ -19,6 +19,7 @@ import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
+import { MultiBoardCtrl } from './multiBoard';
 
 const li = window.lichess;
 
@@ -86,6 +87,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
+  const multiBoard = new MultiBoardCtrl(data.id, redraw);
+
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
   const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
@@ -130,7 +133,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
-  else if (data.chapter.relay) ctrl.userJump(data.chapter.relay.path);
+  else if (data.chapter.relay && !ctrl.initialPath) ctrl.userJump(data.chapter.relay.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;
@@ -270,6 +273,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return obj;
   }
 
+  const likeToggler = window.lichess.fp.debounce(() => send("like", { liked: data.liked }), 1000);
+
   const socketHandlers = {
     path(d) {
       const position = d.p,
@@ -294,6 +299,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       who = d.w,
       sticky = d.s;
       setMemberActive(who);
+      if (vm.toolTab() == 'multiBoard') multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
@@ -456,7 +462,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     error(msg) {
       alert(msg);
     }
-  }
+  };
 
   return {
     data,
@@ -472,13 +478,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     desc,
     vm,
     relay,
+    multiBoard,
     isUpdatedRecently() {
       return Date.now() - vm.updatedAt < 300 * 1000;
     },
     toggleLike() {
-      send("like", {
-        liked: !data.liked
-      });
+      data.liked = !data.liked;
+      redraw();
+      likeToggler();
     },
     position() {
       return data.position;
@@ -533,11 +540,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       vm.justSetChapterId = id;
       redraw();
     },
-    toggleSticky: function() {
+    toggleSticky() {
       vm.mode.sticky = !vm.mode.sticky && data.features.sticky;
       xhrReload();
     },
-    toggleWrite: function() {
+    toggleWrite() {
       vm.mode.write = !vm.mode.write && members.canContribute();
       xhrReload();
     },

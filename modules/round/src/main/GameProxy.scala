@@ -1,7 +1,7 @@
 package lila.round
 
 import chess.Color
-import lila.game.{ Game, Progress, Pov, GameRepo }
+import lila.game.{ Game, GameDiff, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
 
 private final class GameProxy(id: Game.ID) {
@@ -11,6 +11,11 @@ private final class GameProxy(id: Game.ID) {
   def save(progress: Progress): Funit = {
     set(progress.game)
     GameRepo save progress
+  }
+
+  def saveDiff(progress: Progress, diff: GameDiff.Diff): Funit = {
+    set(progress.game)
+    GameRepo.saveDiff(progress.origin, diff)
   }
 
   def invalidating(f: GameRepo.type => Funit): Funit = f(GameRepo) >>- invalidate

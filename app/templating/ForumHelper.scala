@@ -17,9 +17,6 @@ trait ForumHelper { self: UserHelper with StringHelper =>
       Env.team.api.owns(teamId, userId)
   }
 
-  def isGrantedRead(categSlug: String)(implicit ctx: Context) =
-    Granter isGrantedRead categSlug
-
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
     Granter isGrantedWrite categSlug
 

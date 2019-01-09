@@ -53,8 +53,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("/assets/font81/fonts/lichess.eot");
-  src: url("/assets/font81/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("/assets/font81/fonts/lichess.woff") format("woff"), url("/assets/font81/fonts/lichess.ttf") format("truetype");
+  src: url("/assets/font82/fonts/lichess.eot");
+  src: url("/assets/font82/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("/assets/font82/fonts/lichess.woff") format("woff"), url("/assets/font82/fonts/lichess.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -498,14 +498,6 @@ body > div.content {
 #top > * {
   position: relative;
 }
-#top .reports i {
-  border-radius: 50%;
-  position: absolute;
-  right: 5px;
-  width: 12px;
-  height: 12px;
-  background-image: linear-gradient(#d85000, #b34100);
-}
 #top .dropdown {
   display: none;
   position: absolute;
@@ -774,14 +766,14 @@ div.side_box .game_infos::before {
   font-size: 30px;
   opacity: 0.7;
 }
-div.side_box .game_infos .bookmark {
+.side_box .bookmark {
   position: absolute;
   right: 0;
   z-index: 10;
   display: none;
 }
-div.side_box .game_infos:hover .bookmark,
-body.mobile div.side_box .game_infos .bookmark {
+.side_box .bookmark,
+body.mobile .side_box .bookmark {
   display: block;
 }
 .bookmark:not(.bookmarked) .on,
@@ -958,11 +950,6 @@ div.side form.search input {
   padding-left: 3px;
 }
 
-form.wide input[type="text"],
-form.wide textarea {
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
-}
 span.progress > .positive {
   color: #759900;
 }
@@ -985,7 +972,7 @@ span.progress > .negative {
 #friend_box:hover {
   overflow-y: auto;
 }
-#friend_box .title {
+#friend_box .friend_box_title {
   cursor: pointer;
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
@@ -1051,8 +1038,8 @@ span.progress > .negative {
   color: #d59120;
   font-weight: bold;
 }
-.user_link span.title[data-title=BOT] {
-  color: #d756e6;
+.user_link span.title[data-bot] {
+  color: #cd63d9;
 }
 div.warning {
   padding: 5px;
@@ -1067,7 +1054,7 @@ div.join_warning {
 /* soft inactive gradient */
 
 .crosstable th,
-#friend_box .title,
+#friend_box .friend_box_title,
 div.side_box div.top,
 div.box div.top,
 .undertable_top,
@@ -1083,6 +1070,9 @@ table.slist thead {
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
+}
+.button.big {
+  font-size: 1.6em;
 }
 .undertable_top,
 .button,
@@ -1187,39 +1177,6 @@ body.base .fbt.active {
   background: #bbb !important;
   border-color: #aaa !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
-}
-div.checkmateFen {
-  float: left;
-  width: 250px;
-  margin-left: 110px;
-  cursor: pointer;
-}
-div.checkmateSection {
-  float: left;
-  font-size: 0.9em;
-}
-div.checkmateSection label {
-  display: block;
-  width: 310px;
-}
-div.checkmateSection div.result {
-  display: none;
-  height: 48px;
-  line-height: 48px;
-  vertical-align: middle;
-  font-weight: bold;
-}
-div.checkmateSection div.success {
-  color: #759900;
-}
-div.checkmateSection div.failure {
-  color: #ac524f;
-}
-div.checkmateCaptcha.success div.success {
-  display: block;
-}
-div.checkmateCaptcha.failure div.failure {
-  display: block;
 }
 /* gamelist.css */
 
@@ -1423,11 +1380,13 @@ div.lichess_overboard .target {
 .undertable_top {
   border: 1px solid #ccc;
   padding: 3px 5px;
+  display: flex;
+  justify-content: space-between;
 }
 .undertable_top a.more {
-  float: right;
   padding-right: 2px;
   font-weight: normal;
+  order:2;
 }
 .undertable_top span.title {
   font-weight: bold;
@@ -1791,15 +1750,6 @@ div.lichess_overboard .close:hover {
 @keyframes fire {
   0% {
     text-shadow: 0 0 6.66px #fefcc9,
-    3.33px -3.33px 10px #feec85,
-    -6.66px -6.66px 13.33px #ffae34,
-    6.66px -13.33px 16.66px #ec760c,
-    -6.66px -20px 20px #cd4606,
-    0 -26.66px 11.66px #973716,
-    3.33px -30px 26.66px #451b0e;
-  }
-  100% {
-    text-shadow: 0 0 6.66px #fefcc9,
     3.33px -3.33px 10px #fefcc9,
     -6.66px -6.66px 13.33px #feec85,
     7.33px -14px 20px #ffae34,
@@ -1807,21 +1757,30 @@ div.lichess_overboard .close:hover {
     0 -27.33px 26.66px #cd4606,
     3.33px -30px 26.66px #973716;
   }
+  100% {
+    text-shadow: 0 0.5px 7.66px #fefcc9,
+    3.33px -4px 12px #feec85,
+    -6.66px -7.66px 16.33px #ffae34,
+    6.66px -16.33px 24.66px #ec760c,
+    -6.66px -25px 25px #cd4606,
+    0 -32px 34px #973716,
+    3.33px -33px 32px #451b0e;
+  }
 }
 .fire_trophy {
   color: rgba(0, 0, 0, 0.6);
   font-size: 60px;
   display: block;
   text-shadow: 0 0 6.66px #fefcc9,
-  3.33px -3.33px 10px #feec85,
-  -6.66px -6.66px 13.33px #ffae34,
-  6.66px -13.33px 16.66px #ec760c,
-  -6.66px -20px 20px #cd4606,
-  0 -26.66px 11.66px #973716,
-  3.33px -30px 26.66px #451b0e;
+  3.33px -3.33px 10px #fefcc9,
+  -6.66px -6.66px 13.33px #feec85,
+  7.33px -14px 20px #ffae34,
+  -7.33px -19.33px 16.66px #ec760c,
+  0 -27.33px 26.66px #cd4606,
+  3.33px -30px 26.66px #973716;
 }
 .fire_trophy:hover {
-  animation: fire 1.25s ease-in-out infinite alternate;
+  animation: fire 1.5s ease-in-out infinite alternate;
 }
 /* switch toggle button */
 .cmn-toggle {
@@ -1837,15 +1796,15 @@ div.lichess_overboard .close:hover {
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-input.cmn-toggle-round + label {
+input.cmn-toggle + label {
   padding: 1px;
   width: 34px;
   height: 20px;
   background-color: #aaa;
   border-radius: 20px;
 }
-input.cmn-toggle-round + label::before,
-input.cmn-toggle-round + label::after {
+input.cmn-toggle + label::before,
+input.cmn-toggle + label::after {
   display: block;
   position: absolute;
   top: 1px;
@@ -1853,27 +1812,27 @@ input.cmn-toggle-round + label::after {
   bottom: 1px;
   content: "";
 }
-input.cmn-toggle-round + label::before {
+input.cmn-toggle + label::before {
   right: 1px;
   background-color: #ccc;
   border-radius: 20px;
 }
-input.cmn-toggle-round:hover + label::before {
+input.cmn-toggle:hover + label::before {
   transition: background 0.2s;
 }
-input.cmn-toggle-round + label::after {
+input.cmn-toggle + label::after {
   width: 20px;
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 }
-input.cmn-toggle-round:hover + label::after {
+input.cmn-toggle:hover + label::after {
   transition: margin 0.2s;
 }
-input.cmn-toggle-round:checked + label::before {
+input.cmn-toggle:checked + label::before {
   background-color: rgba(117, 153, 0, 0.4)!important;
 }
-input.cmn-toggle-round:checked + label::after {
+input.cmn-toggle:checked + label::after {
   margin-left: 14px;
 }
 .hopscotch-content a {
