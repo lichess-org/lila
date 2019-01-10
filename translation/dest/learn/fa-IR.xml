@@ -114,6 +114,11 @@
   <string name="theGameIsADraw">بازی مساوی است</string>
   <string name="stalemateIntro">وقتی که بازیکن کیش نیست و هیچ حرکت قانونی ندارد بازی پات شده است. این بازی مساوی است.</string>
   <string name="takeThePieceWithTheHighestValue">با ارزش ترین مهره را بزن!</string>
+  <string name="register">نام نویسی</string>
+  <string name="getAFreeLichessAccount">یک حساب رایگان در لیچس بگیرید</string>
+  <string name="practice">تمرین</string>
+  <string name="learnCommonChessPositions">وضعیت های متداول شطرنج را یاد بگیرید</string>
+  <string name="puzzles">معما</string>
   <string name="next">بعدی</string>
   <string name="backToMenu">برگشت به منو</string>
   <string name="retry">تلاش مجدد</string>
