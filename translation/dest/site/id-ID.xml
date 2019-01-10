@@ -220,7 +220,7 @@
   <string name="subject">subyek</string>
   <string name="recipient">Penerima</string>
   <string name="send">Kirim</string>
-  <string name="incrementInSeconds">Increment dalam detik</string>
+  <string name="incrementInSeconds">Kenaikan dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
   <string name="spectators">Penonton:</string>
   <plurals name="nbRated">
@@ -261,13 +261,13 @@
   <string name="tournaments">Turnamen</string>
   <string name="tournamentPoints">Poin Turnamen</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="other">%s titik turnamen</item>
+    <item quantity="other">%s poin turnamen</item>
   </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
   <string name="thematic">Bertema</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">≥ %s pertandingan tercatat</item>
+    <item quantity="other">≥ %s permainan di-rating</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="other">%1$s %2$s permainan yang digolongkan</item>
