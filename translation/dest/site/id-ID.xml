@@ -202,6 +202,8 @@
   <string name="thisGameIsRated">Permainan ini di-rating</string>
   <string name="rematch">Ulang pertandingan</string>
   <string name="rematchOfferSent">Tawaran permainan ulang terkirim</string>
+  <string name="rematchOfferSentWhite">Putih menawarkan remis</string>
+  <string name="rematchOfferSentBlack">Hitam menawarkan tanding ulang</string>
   <string name="rematchOfferAccepted">Tawaran permainan ulang diterima</string>
   <string name="rematchOfferCanceled">Tawaran permainan ulang dibatalkan</string>
   <string name="rematchOfferDeclined">Tawaran permainan ulang ditolak</string>
@@ -282,6 +284,8 @@
   <string name="yourPerfRatingIsTooLow">Rating %1$s kamu (%2$s) terlalu rendah</string>
   <string name="ratedMoreThanInPerf">Rated ≥ %1$s masuk %2$s</string>
   <string name="ratedLessThanInPerf">Rated ≤ %1$s masuk %2$s</string>
+  <string name="mustBeInTeam">Harus dari dalam tim %s</string>
+  <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="teams">Tim</string>
@@ -359,6 +363,12 @@
   <string name="winner">Pemenang</string>
   <string name="standing">Klasemen</string>
   <string name="createANewTournament">Buat turnamen baru</string>
+  <string name="tournamentCalendar">Jadwal turnamen</string>
+  <string name="conditionOfEntry">Persyaratan masuk:</string>
+  <string name="advancedSettings">Pengaturan lanjutan</string>
+  <string name="safeTournamentName">Pilih nama yang paling aman untuk turnamen.</string>
+  <string name="inappropriateNameWarning">Nama apapun yang bahkan sedikit tidak pantas akan mengakibatkan akun Anda ditutup.</string>
+  <string name="emptyTournamentName">Biarkan kosong untuk nama turnamen setelah pengacakan Grandmaster.</string>
   <string name="join">Gabung</string>
   <string name="withdraw">Keluar</string>
   <string name="points">Poin</string>
