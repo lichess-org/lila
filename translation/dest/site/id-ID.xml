@@ -157,13 +157,13 @@
   <string name="ratingStats">Statistik rating</string>
   <string name="username">Nama pengguna</string>
   <string name="usernameOrEmail">Nama pengguna atau email</string>
-  <string name="password">Kata kunci</string>
+  <string name="password">Kata sandi</string>
   <string name="haveAnAccount">Punya akun?</string>
-  <string name="changePassword">Ganti kata kunci</string>
+  <string name="changePassword">Ganti kata sandi</string>
   <string name="changeEmail">Ubah email</string>
   <string name="email">Email</string>
-  <string name="passwordReset">Reset password</string>
-  <string name="forgotPassword">Lupa password?</string>
+  <string name="passwordReset">Reset kata sandi</string>
+  <string name="forgotPassword">Lupa kata sandi?</string>
   <string name="rank">Peringkat</string>
   <string name="rankX">Rating: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Peringkat diupdate setiap %s menit</string>
@@ -172,7 +172,7 @@
   </plurals>
   <string name="gamesPlayed">Permainan yang telah dimainkan</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="other">%s bermain dengan anda</item>
+    <item quantity="other">%s kali bermain dengan anda</item>
   </plurals>
   <string name="cancel">Batal</string>
   <string name="timeOut">Waktu habis</string>
@@ -195,9 +195,9 @@
   <string name="standard">Standar</string>
   <string name="unlimited">Tak terbatas</string>
   <string name="mode">Mode</string>
-  <string name="casual">Bebas</string>
+  <string name="casual">Santai (Tanpa rating)</string>
   <string name="rated">Di-rating</string>
-  <string name="casualTournament">Santai</string>
+  <string name="casualTournament">Santai (Tanpa rating)</string>
   <string name="ratedTournament">Yang digolongkan</string>
   <string name="thisGameIsRated">Permainan ini di-rating</string>
   <string name="rematch">Ulang pertandingan</string>
@@ -212,7 +212,7 @@
   <string name="play">Mainkan</string>
   <string name="inbox">Kotak Masuk</string>
   <string name="chatRoom">Ruang Ngobrol</string>
-  <string name="loginToChat">Login untuk chatting</string>
+  <string name="loginToChat">Masuk untuk mengobrol</string>
   <string name="youHaveBeenTimedOut">Waktu Anda telah habis.</string>
   <string name="spectatorRoom">Ruang penonton</string>
   <string name="composeMessage">Tulis pesan</string>
