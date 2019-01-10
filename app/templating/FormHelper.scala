@@ -151,9 +151,11 @@ trait FormHelper { self: I18nHelper =>
         cls := List("form-control" -> true, klass -> klass.nonEmpty)
       )(validationModifiers(field))(modifiers)(~field.value)
 
-    def actions(html: Frag): Html = div(cls := "form-actions")(html)
+    val actions = div(cls := "form-actions")
+    def actionsHtml(html: Frag): Html = actions(html)
 
-    def action(html: Frag): Html = div(cls := "form-actions single")(html)
+    val action = div(cls := "form-actions single")
+    def actionHtml(html: Frag): Html = div(cls := "form-actions single")(html)
 
     def submit(
       content: Frag,
@@ -181,8 +183,11 @@ trait FormHelper { self: I18nHelper =>
         `type` := "hidden"
       )
 
-    def password(field: Field, content: Html)(implicit ctx: Context): Html =
+    def password(field: Field, content: Html)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required := true))
+
+    def passwordNoAutocomplete(field: Field, content: Html)(implicit ctx: Context): Frag =
+      group(field, content)(input(_, typ = "password")(autocomplete := "off")(required := true))
 
     def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
       form.globalError map { err =>

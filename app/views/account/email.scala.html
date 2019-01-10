@@ -9,7 +9,7 @@
       @if(ctx.req.queryString.contains("ok")) { <span class="is-green" data-icon="E"></span>}
     </h1>
     <form class="form3" action="@routes.Account.emailApply" method="POST">
-      @form3.password(form("passwd"), trans.password.frag())
+      @form3.password(form("passwd"), trans.password.frag()).toHtml
       @form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email"))
       @form3.action(form3.submit(trans.apply.frag()))
     </form>
