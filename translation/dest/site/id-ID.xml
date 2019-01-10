@@ -369,6 +369,9 @@
   <string name="safeTournamentName">Pilih nama yang paling aman untuk turnamen.</string>
   <string name="inappropriateNameWarning">Nama apapun yang bahkan sedikit tidak pantas akan mengakibatkan akun Anda ditutup.</string>
   <string name="emptyTournamentName">Biarkan kosong untuk nama turnamen setelah pengacakan Grandmaster.</string>
+  <string name="recommendNotTouching">Kita rekomendasikan jangan sentuh ini.</string>
+  <string name="fewerPlayers">Jika Anda atur persyaratan masuk, turnamen yang Anda buat akan memiliki lebih sedikit pemain.</string>
+  <string name="showAdvancedSettings">Tampilkan pengaturan lanjutan</string>
   <string name="join">Gabung</string>
   <string name="withdraw">Keluar</string>
   <string name="points">Poin</string>
@@ -479,6 +482,7 @@
   <string name="troll">Jebakan</string>
   <string name="other">Lainnya</string>
   <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
+  <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini ditutup.</string>
   <string name="theming">Tampilan</string>
@@ -496,6 +500,7 @@
   <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
   <string name="invalidUsernameOrPassword">Username dan atau password salah</string>
   <string name="incorrectPassword">Kata sandi salah</string>
+  <string name="invalidAuthenticationCode">Kode autentikasi salah</string>
   <string name="emailMeALink">Emailkan ke saya sebuah link</string>
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
@@ -612,6 +617,8 @@ masuk %3$s</string>
   <string name="videoLibrary">Pustaka Video</string>
   <string name="mobileApp">Aplikasi Mobil</string>
   <string name="webmasters">Webmaster</string>
+  <string name="about">Tentang</string>
+  <string name="aboutX">Tentang %s</string>
   <string name="contribute">Penyumbang</string>
   <string name="contact">Kontak</string>
   <string name="termsOfService">ToS</string>
@@ -729,6 +736,8 @@ masuk %3$s</string>
   <string name="pieceSet">Susunan buah catur</string>
   <string name="embedInYourWebsite">Salin dalam website Anda</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
+  <string name="usernamePrefixInvalid">Nama pengguna harus berawal huruf.</string>
+  <string name="usernameSuffixInvalid">Nama pengguna harus berakhiran dengan huruf atau angka.</string>
   <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
   <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
   <string name="playChessInStyle">Bermain catur dengan gaya</string>
