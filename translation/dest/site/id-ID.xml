@@ -4,7 +4,7 @@
   <string name="playWithAFriend">Bermain melawan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang mengundang yang lain bermain, berikan URL ini</string>
-  <string name="gameOver">Permainan berakhir</string>
+  <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran Anda</string>
@@ -12,17 +12,17 @@
   <string name="level">Level</string>
   <string name="toggleTheChat">Ganti tampilan chat</string>
   <string name="toggleSound">Aktifkan/nonaktifkan suara</string>
-  <string name="chat">Mengobrol</string>
+  <string name="chat">Obrolan</string>
   <string name="resign">Menyerah</string>
   <string name="checkmate">Skakmat</string>
-  <string name="stalemate">Pat</string>
+  <string name="stalemate">Langkah buntu</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
   <string name="randomColor">Warna acak</string>
   <string name="createAGame">Mulai permainan baru</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
-  <string name="kingInTheCenter">Raja telah di centrum</string>
+  <string name="kingInTheCenter">Raja berada di tengah</string>
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
   <string name="variantEnding">Variasi Babak Akhir</string>
@@ -32,7 +32,7 @@
   <string name="whitePlays">Putih melangkah</string>
   <string name="blackPlays">Hitam melangkah</string>
   <string name="opponentLeftChoices">Pemain lainnya telah meninggalkan permainan. Anda bisa klaim kemenangan, menyatakan remis, atau menunggunya.</string>
-  <string name="makeYourOpponentResign">Klaim menang</string>
+  <string name="makeYourOpponentResign">Buat lawan Anda menyerah</string>
   <string name="forceResignation">Klaim menang</string>
   <string name="forceDraw">Nyatakan remis</string>
   <string name="talkInChat">Silahkan mengobrol dengan sopan</string>
@@ -738,6 +738,7 @@ masuk %3$s</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
   <string name="usernamePrefixInvalid">Nama pengguna harus berawal huruf.</string>
   <string name="usernameSuffixInvalid">Nama pengguna harus berakhiran dengan huruf atau angka.</string>
+  <string name="usernameCharsInvalid">Nama pengguna hanya boleh mengandung huruf, garisbawah, dan tanda hubung.</string>
   <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
   <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
   <string name="playChessInStyle">Bermain catur dengan gaya</string>
@@ -803,4 +804,12 @@ masuk %3$s</string>
   <string name="yourXRatingIsTooFarFromY">Rating %1$s terlalu jauh dari %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Tidak bisa menantang karena sementara%s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima tantangan dari teman.</string>
+  <string name="conditionalPremoves">Syarat pra-langkah</string>
+  <string name="addCurrentVariation">Tambahkan variasi</string>
+  <string name="playVariationToCreateConditionalPremoves">Memainkan sebuah variasi untuk membuat syarat pra-langkah</string>
+  <string name="noConditionalPremoves">Tidak ada syarat pra-langkah</string>
+  <string name="playX">Memainkan %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">dan simpan %s baris pra-langkah</item>
+  </plurals>
 </resources>
