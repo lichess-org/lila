@@ -110,6 +110,9 @@
   <string name="findAWayToCastleQueenSide">پیدا کردن راهی برای قلعه سمت وزیر!</string>
   <string name="castlingComplete">تبریک میگم! شما تقریبا همیشه باید در بازی قلعه بروید.</string>
   <string name="enPassant">گرفتن در حین عبور</string>
+  <string name="stalemate">پات</string>
+  <string name="theGameIsADraw">بازی مساوی است</string>
+  <string name="stalemateIntro">وقتی که بازیکن کیش نیست و هیچ حرکت قانونی ندارد بازی پات شده است. این بازی مساوی است.</string>
   <string name="takeThePieceWithTheHighestValue">با ارزش ترین مهره را بزن!</string>
   <string name="next">بعدی</string>
   <string name="backToMenu">برگشت به منو</string>
