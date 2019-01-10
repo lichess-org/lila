@@ -11,9 +11,9 @@ evenMoreCss = cssTag("form3.css")) {
       @if(ctx.req.queryString.contains("ok")) { <span class="is-green" data-icon="E"></span>}
     </h1>
     <form class="form3" action="@routes.Account.passwdApply" method="POST">
-      @form3.password(form("oldPasswd"), trans.currentPassword.frag())
-      @form3.password(form("newPasswd1"), trans.newPassword.frag())
-      @form3.password(form("newPasswd2"), trans.newPasswordAgain.frag())
+      @form3.password(form("oldPasswd"), trans.currentPassword.frag()).toHtml
+      @form3.password(form("newPasswd1"), trans.newPassword.frag()).toHtml
+      @form3.password(form("newPasswd2"), trans.newPasswordAgain.frag()).toHtml
       @form3.action(form3.submit(trans.apply.frag()))
     </form>
   </div>
