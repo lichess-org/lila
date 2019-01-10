@@ -66,18 +66,18 @@
   <string name="pawnMove">Langkah pion</string>
   <string name="capture">Makan</string>
   <string name="close">Tutup</string>
-  <string name="winning">Akan menang</string>
-  <string name="losing">Akan kalah</string>
+  <string name="winning">Kemenangan</string>
+  <string name="losing">Kekalahan</string>
   <string name="drawn">Langkah remis</string>
   <string name="unknown">Tak diketahui</string>
   <string name="database">Basis Data</string>
   <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
-  <string name="averageRatingX">Rating rata-rata%s</string>
+  <string name="averageRatingX">Rata-rata rating: %s</string>
   <string name="recentGames">Permainan baru-baru ini</string>
   <string name="topGames">Permaninan kelas atas</string>
   <string name="masterDbExplanation">Permainan OTB dua juta 2200 + FIDE dinilai pemain dari tahun 1952 untuk 2016</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">Mat %s setengah-langkah</item>
+    <item quantity="other">Mati %s di pertengahan langkah</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="other">Memakan berikutnya atau pion melangkah dalam setengah %s-bergerak (jarak ke Zeroing counter 50 bergerak)</item>
@@ -85,7 +85,7 @@
   <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Perambah pembukaan</string>
-  <string name="xOpeningExplorer">%s menelusuri pembukaan</string>
+  <string name="xOpeningExplorer">Menjelajahi pembukaan %s</string>
   <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
   <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
   <string name="allSet">Siap!</string>
