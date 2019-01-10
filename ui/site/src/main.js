@@ -563,7 +563,7 @@ lichess.topMenuIntent = function() {
         return confirm('Delete?');
       });
       $('input.confirm, button.confirm').click(function() {
-        return confirm('Confirm this action?');
+        return confirm($(this).attr('title') || 'Confirm this action?');
       });
 
       $('div.content').on('click', 'a.bookmark', function() {

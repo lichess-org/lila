@@ -161,19 +161,21 @@ trait FormHelper { self: I18nHelper =>
       content: Frag,
       icon: Option[String] = Some("E"),
       nameValue: Option[(String, String)] = None,
-      klass: String = ""
-    ): Html =
-      button(
-        `type` := "submit",
-        dataIcon := icon,
-        name := nameValue.map(_._1),
-        value := nameValue.map(_._2),
-        cls := List(
-          "submit button" -> true,
-          "text" -> icon.isDefined,
-          klass -> klass.nonEmpty
-        )
-      )(content)
+      klass: String = "",
+      confirm: Option[String] = None
+    ): Html = button(
+      `type` := "submit",
+      dataIcon := icon,
+      name := nameValue.map(_._1),
+      value := nameValue.map(_._2),
+      cls := List(
+        "submit button" -> true,
+        "text" -> icon.isDefined,
+        "confirm" -> confirm.nonEmpty,
+        klass -> klass.nonEmpty
+      ),
+      title := confirm
+    )(content)
 
     def hidden(field: Field, value: Option[String] = None): Html =
       st.input(
