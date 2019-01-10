@@ -369,6 +369,9 @@ object mon {
     val change = inc("email.change")
     val confirmation = inc("email.confirmation")
     val disposableDomain = rec("email.disposable_domain")
+    val send = inc("email.send")
+    val fail = inc("email.fail")
+    val retry = inc("email.retry")
   }
   object security {
     object tor {

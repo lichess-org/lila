@@ -23,23 +23,32 @@ final class Mailgun(
     if (apiUrl.isEmpty) {
       println(msg, "No mailgun API URL")
       funit
-    } else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
-      "from" -> Seq(msg.from | from),
-      "to" -> Seq(msg.to.value),
-      "h:Reply-To" -> Seq(msg.replyTo | replyTo),
-      "o:tag" -> msg.tag.toSeq,
-      "subject" -> Seq(msg.subject),
-      "text" -> Seq(msg.text)
-    ) ++ msg.htmlBody.?? { body =>
-        Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).body))
-      }).void addFailureEffect {
-      case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
-      case _ =>
-    } recoverWith {
-      case e if msg.retriesLeft > 0 => akka.pattern.after(15 seconds, system.scheduler) {
-        send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+    } else {
+      lila.mon.email.send()
+      WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
+        "from" -> Seq(msg.from | from),
+        "to" -> Seq(msg.to.value),
+        "h:Reply-To" -> Seq(msg.replyTo | replyTo),
+        "o:tag" -> msg.tag.toSeq,
+        "subject" -> Seq(msg.subject),
+        "text" -> Seq(msg.text)
+      ) ++ msg.htmlBody.?? { body =>
+          Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).body))
+        }).void addFailureEffect {
+        case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
+        case _ =>
+      } recoverWith {
+        case e if msg.retriesLeft > 0 => {
+          lila.mon.email.retry()
+          akka.pattern.after(15 seconds, system.scheduler) {
+            send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+          }
+        }
+        case e => {
+          lila.mon.email.fail()
+          fufail(e)
+        }
       }
-      case e => fufail(e)
     }
 }
 
