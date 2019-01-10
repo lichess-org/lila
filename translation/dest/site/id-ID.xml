@@ -270,19 +270,19 @@
     <item quantity="other">≥ %s permainan di-rating</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">%1$s %2$s permainan yang digolongkan</item>
+    <item quantity="other">≥ %1$s permainan %2$s yang dirating</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">Kamu perlu bermain %1$s lebih banyak %2$s permainan yang digolongkan</item>
+    <item quantity="other">Kamu perlu bermain %1$s lebih banyak permainan %2$s yang di-rating</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">Kamu perlu bermain %s lebih banyak permainan yang digolongkan</item>
+    <item quantity="other">Kamu perlu bermain %s lebih banyak permainan yang di-rating</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Rating anda %s bersifat sementara</string>
+  <string name="yourPerfRatingIsProvisional">Rating Anda (%s) bersifat sementara</string>
   <string name="yourPerfRatingIsTooHigh">Rating %1$s kamu (%2$s) terlalu besar</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Mingguan teratas anda %1$s rating (%2$s) terlalu besar</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Rating permainan %1$s mingguan teratas Anda (%2$s) terlalu besar</string>
   <string name="yourPerfRatingIsTooLow">Rating %1$s kamu (%2$s) terlalu rendah</string>
-  <string name="ratedMoreThanInPerf">Rated ≥ %1$s masuk %2$s</string>
+  <string name="ratedMoreThanInPerf">Hanya boleh dengan rating  ≥ %1$s permainan %2$s</string>
   <string name="ratedLessThanInPerf">Rated ≤ %1$s masuk %2$s</string>
   <string name="mustBeInTeam">Harus dari dalam tim %s</string>
   <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
