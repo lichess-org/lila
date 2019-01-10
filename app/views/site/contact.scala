@@ -243,7 +243,10 @@ object contact {
         )),
         Leaf("contact-other", "None of the above", frag(
           p(s"Please send us an email at $contactEmail."),
-          p("Please explain your request clearly and thoroughly.")
+          p(
+            "Please explain your request clearly and thoroughly.",
+            "State your lichess username, and any information that could help us help you."
+          )
         ))
       ))
     ))
