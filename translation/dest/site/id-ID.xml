@@ -88,7 +88,7 @@
   <string name="xOpeningExplorer">Menjelajahi pembukaan %s</string>
   <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
   <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
-  <string name="allSet">Siap!</string>
+  <string name="allSet">Semua siap!</string>
   <string name="importPgn">Impor PGN</string>
   <string name="delete">Hapus</string>
   <string name="deleteThisImportedGame">Hapus permainan impor ini?</string>
