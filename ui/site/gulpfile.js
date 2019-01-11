@@ -32,37 +32,37 @@ const ab = () => {
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest('./dist'));
-    else {
-      logger.info(colors.yellow('Building without AB file'));
-      return gulp.src('.');
-    }
+  else {
+    logger.info(colors.yellow('Building without AB file'));
+    return gulp.src('.');
+  }
 };
 
 const stockfishPexe = () => gulp.src([
-    require.resolve('stockfish.pexe/stockfish.nmf'),
-    require.resolve('stockfish.pexe/stockfish.pexe'),
-    require.resolve('stockfish.pexe/stockfish.bc')
-  ]).pipe(gulp.dest('../../public/vendor/stockfish.pexe'));
+  require.resolve('stockfish.pexe/stockfish.nmf'),
+  require.resolve('stockfish.pexe/stockfish.pexe'),
+  require.resolve('stockfish.pexe/stockfish.bc')
+]).pipe(gulp.dest('../../public/vendor/stockfish.pexe'));
 
 const stockfishJs = () => gulp.src([
-    require.resolve('stockfish.js/stockfish.wasm.js'),
-    require.resolve('stockfish.js/stockfish.wasm'),
-    require.resolve('stockfish.js/stockfish.js')
-  ]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
+  require.resolve('stockfish.js/stockfish.wasm.js'),
+  require.resolve('stockfish.js/stockfish.wasm'),
+  require.resolve('stockfish.js/stockfish.js')
+]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
 
 const stockfishWasm = () => gulp.src([
-    require.resolve('stockfish.wasm/stockfish.js'),
-    require.resolve('stockfish.wasm/stockfish.js.mem'),
-    require.resolve('stockfish.wasm/stockfish.wasm'),
-    require.resolve('stockfish.wasm/pthread-main.js')
-  ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
+  require.resolve('stockfish.wasm/stockfish.js'),
+  require.resolve('stockfish.wasm/stockfish.js.mem'),
+  require.resolve('stockfish.wasm/stockfish.wasm'),
+  require.resolve('stockfish.wasm/pthread-main.js')
+]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
 
 const stockfishMvWasm = () => gulp.src([
-    require.resolve('stockfish-mv.wasm/stockfish.js'),
-    require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
-    require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-    require.resolve('stockfish-mv.wasm/pthread-main.js')
-  ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
+  require.resolve('stockfish-mv.wasm/stockfish.js'),
+  require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
+  require.resolve('stockfish-mv.wasm/stockfish.wasm'),
+  require.resolve('stockfish-mv.wasm/pthread-main.js')
+]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
 
 const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
   .plugin(tsify)
@@ -106,16 +106,9 @@ const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdo
   cb();
 });
 
-const standaloneFiles = [
-  'src/standalones/util.js',
-  'src/standalones/trans.js',
-  'src/standalones/tv.js',
-  'src/standalones/puzzle.js',
-  'src/standalones/user.js',
-  'src/standalones/coordinate.js'
-];
-
-const standalones = () => gulp.src(standaloneFiles)
+const standalonesJs = () => gulp.src([
+  'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js'
+].map(f => `src/standalones/${f}`))
   .pipe(buffer())
   .pipe(uglify())
   .pipe(destination());
@@ -127,7 +120,7 @@ const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
   .pipe(uglify())
   .pipe(destination());
 
-const tasks = [gitSha, jqueryFill, ab, standalones, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs];
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs];
 
 const dev = gulp.series(tasks.concat([devSource, makeBundle(`${fileBaseName}.source.js`)]));
 
