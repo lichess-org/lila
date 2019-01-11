@@ -620,7 +620,7 @@
   <string name="aboutX">Tentang %s</string>
   <string name="contribute">Kontribusi</string>
   <string name="contact">Kontak</string>
-  <string name="termsOfService">ToS</string>
+  <string name="termsOfService">Ketentuan Layanan (ToS)</string>
   <string name="sourceCode">Kode Sumber</string>
   <string name="simultaneousExhibitions">Eksibisi Simultan</string>
   <string name="host">Penyedia</string>
@@ -682,7 +682,7 @@
   <string name="confirmResignationAndDrawOffers">Mengkonfirmasi tawaran nyerah dan remis</string>
   <string name="inputMovesWithTheKeyboard">Melangkah dengan menggunakan keyboard</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cara rokade</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metode rokade</string>
   <string name="castleByMovingTwoSquares">Memindahkan raja dua kotak</string>
   <string name="castleByMovingOntoTheRook">Memindahkan raja ke benteng</string>
   <string name="shareYourInsightsData">Berbagi data permainan anda</string>
@@ -703,12 +703,12 @@
   <string name="asFreeAsLichess">Gratis seperti lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Dibuat atas dasar cinta terhadap catur, bukan uang</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
-  <string name="zeroAdvertisement">Nol iklan</string>
+  <string name="zeroAdvertisement">Tanpa iklan</string>
   <string name="fullFeatured">Fitur lengkap</string>
   <string name="phoneAndTablet">Telefon genggam dan tablet</string>
   <string name="bulletBlitzClassical">Superkilat, kilat, klasik</string>
   <string name="correspondenceChess">Catur korespondensi</string>
-  <string name="onlineAndOfflinePlay">Permainan daring dan luring</string>
+  <string name="onlineAndOfflinePlay">Permainan saat online dan offline</string>
   <string name="correspondenceAndUnlimited">Korespondensi dan permainan tanpa batas waktu</string>
   <string name="viewTheSolution">Lihat jawaban</string>
   <string name="followAndChallengeFriends">Mengikuti dan menantang teman</string>
@@ -782,7 +782,7 @@
   <string name="tryAnotherMoveForWhite">Coba langkah lain untuk putih</string>
   <string name="tryAnotherMoveForBlack">Coba langkah lain untuk hitam</string>
   <string name="solution">Solusi</string>
-  <string name="waitingForAnalysis">Tunggu untuk analisis</string>
+  <string name="waitingForAnalysis">Tunggu untuk menganalisa</string>
   <string name="noMistakesFoundForWhite">Tidak ditemukan kesalahan untuk putih</string>
   <string name="noMistakesFoundForBlack">Tidak ditemukan kesalahan untuk hitam</string>
   <string name="doneReviewingWhiteMistakes">Selesai mereview kesalahan putih</string>
