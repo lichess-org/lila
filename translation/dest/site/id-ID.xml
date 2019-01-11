@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Bermain melawan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Undang mengundang yang lain bermain, berikan URL ini</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
   <string name="waiting">Menunggu</string>
@@ -42,8 +42,8 @@
   <string name="whiteLeftTheGame">Putih telah meninggalkan permainan</string>
   <string name="blackLeftTheGame">Hitam telah meninggalkan permainan</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Berbagi URL ini untuk mengundang orang menonton permainan</string>
-  <string name="theComputerAnalysisHasFailed">Analisis komputer gagal dilakukan</string>
-  <string name="viewTheComputerAnalysis">Lihat analisis komputer</string>
+  <string name="theComputerAnalysisHasFailed">Analisa komputer gagal dilakukan</string>
+  <string name="viewTheComputerAnalysis">Lihat analisa komputer</string>
   <string name="requestAComputerAnalysis">Minta analisa komputer</string>
   <string name="computerAnalysis">Analisa komputer</string>
   <string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
@@ -51,7 +51,7 @@
   <string name="depthX">Detil %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisa</string>
   <string name="loadingEngine">Memuat...</string>
-  <string name="cloudAnalysis">Awan analisis</string>
+  <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
   <string name="showThreat">Menunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
@@ -92,7 +92,7 @@
   <string name="importPgn">Impor PGN</string>
   <string name="delete">Hapus</string>
   <string name="deleteThisImportedGame">Hapus permainan impor ini?</string>
-  <string name="replayMode">Moda Putar Ulang</string>
+  <string name="replayMode">Mode Putar Ulang</string>
   <string name="realtimeReplay">Langsung</string>
   <string name="byCPL">Secara CPL</string>
   <string name="openStudy">Buka materi</string>
