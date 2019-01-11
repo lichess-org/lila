@@ -522,8 +522,8 @@
   <string name="howDoYouMovePieces">Bagaimana Anda melangkahkan bidak?</string>
   <string name="clickTwoSquares">Klik dua kotak</string>
   <string name="dragPiece">Seret sebuah bidak</string>
-  <string name="bothClicksAndDrag">Salah satu</string>
-  <string name="premovesPlayingDuringOpponentTurn">Premove (siapkan langkah saat giliran lawan)</string>
+  <string name="bothClicksAndDrag">Keduanya</string>
+  <string name="premovesPlayingDuringOpponentTurn">Pra-langkah (siapkan langkah saat giliran lawan)</string>
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
@@ -541,8 +541,8 @@
   <string name="outsideTheBoard">Di luar papan</string>
   <string name="onSlowGames">Pada catur klasik</string>
   <string name="always">Selalu</string>
-  <string name="inCasualGamesOnly">Hanya pada permainan bebas</string>
-  <string name="whenPremoving">Ketika premove</string>
+  <string name="inCasualGamesOnly">Hanya pada permainan santai (tanpa di-rating)</string>
+  <string name="whenPremoving">Ketika pra-langkah</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ketika waktu tersisa &lt; 30 detik</string>
   <string name="difficultyEasy">Mudah</string>
   <string name="difficultyNormal">Normal</string>
@@ -554,8 +554,7 @@
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
   <string name="victory">Menang!</string>
   <string name="defeat">Kalah</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-masuk %3$s</string>
+  <string name="xVsYinZ">%1$s melawan %2$s dalam permainan %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Mulai:</string>
   <string name="allInformationIsPublicAndOptional">Semua informasi bersifat publik jika dikehendaki.</string>
@@ -565,12 +564,12 @@ masuk %3$s</string>
     <item quantity="other">Maksimal: %s karakter</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="other">%s blok</item>
+    <item quantity="other">%s diblokir</item>
   </plurals>
-  <string name="listBlockedPlayers">Daftar pengguna yang anda blok</string>
+  <string name="listBlockedPlayers">Daftar pengguna yang anda blokir</string>
   <string name="human">Manusia</string>
   <string name="computer">Komputer</string>
-  <string name="side">Sisi</string>
+  <string name="side">Pihak</string>
   <string name="clock">Jam</string>
   <string name="unauthorizedError">Akses tidak sah.</string>
   <string name="noInternetConnection">Tak ada koneksi internet. Anda masih bisa bermain offline dari menu.</string>
@@ -583,7 +582,7 @@ masuk %3$s</string>
   <string name="learnMenu">Belajar</string>
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
-  <string name="increment">Increment</string>
+  <string name="increment">Kenaikan</string>
   <string name="sharePGN">Bagikan PGN</string>
   <string name="playOnline">Bermain Online</string>
   <string name="playOffline">Bermain Offline</string>
@@ -595,7 +594,7 @@ masuk %3$s</string>
   <string name="error.email_unique">Alamat email ini telah digunakan</string>
   <string name="error.email_different">Ini sudah menjadi alamat email Anda</string>
   <string name="blindfoldChess">Catur buta (buah catur disembunyikan)</string>
-  <string name="zenMode">Moda Zen</string>
+  <string name="zenMode">Mode Zen</string>
   <string name="moveConfirmation">Konfirmasi langkah</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
@@ -615,11 +614,11 @@ masuk %3$s</string>
   <string name="watch">Tonton</string>
   <string name="internationalEvents">Turnamen Internasioal</string>
   <string name="videoLibrary">Pustaka Video</string>
-  <string name="mobileApp">Aplikasi Mobil</string>
+  <string name="mobileApp">Aplikasi Mobile</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Tentang</string>
   <string name="aboutX">Tentang %s</string>
-  <string name="contribute">Penyumbang</string>
+  <string name="contribute">Kontribusi</string>
   <string name="contact">Kontak</string>
   <string name="termsOfService">ToS</string>
   <string name="sourceCode">Kode Sumber</string>
