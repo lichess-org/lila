@@ -34,10 +34,10 @@ const ab = () => {
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest('./dist'));
-    else {
-      logger.info(colors.yellow('Building without AB file'));
-      return gulp.src('.');
-    }
+  else {
+    logger.info(colors.yellow('Building without AB file'));
+    return gulp.src('.');
+  }
 };
 
 const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
@@ -82,16 +82,9 @@ const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdo
   cb();
 });
 
-const standaloneFiles = [
-  'src/standalones/util.js',
-  'src/standalones/trans.js',
-  'src/standalones/tv.js',
-  'src/standalones/puzzle.js',
-  'src/standalones/user.js',
-  'src/standalones/coordinate.js'
-];
-
-const standalones = () => gulp.src(standaloneFiles)
+const standalonesJs = () => gulp.src([
+  'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js'
+].map(f => `src/standalones/${f}`))
   .pipe(buffer())
   .pipe(uglify())
   .pipe(destination());
@@ -103,7 +96,7 @@ const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
   .pipe(uglify())
   .pipe(destination());
 
-const tasks = [gitSha, jqueryFill, ab, standalones, userMod];
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod];
 
 const dev = gulp.series(tasks.concat([devSource, makeBundle(`${fileBaseName}.source.js`)]));
 
