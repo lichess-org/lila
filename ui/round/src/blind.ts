@@ -1,51 +1,11 @@
-import { throttle } from 'common';
-import { router } from 'game';
-import * as round from './round';
 import RoundController from './ctrl';
 
-let element: HTMLElement;
-
-export const reload = throttle(1000, (ctrl: RoundController) => {
-  $.ajax({
-    url: (ctrl.data.player.spectator ?
-      router.game(ctrl.data, ctrl.data.player.color) :
-      router.player(ctrl.data)
-    ) + '/text',
-    success(html) {
-      $(element).html(html).find('form').each(function(this: HTMLFormElement) {
-        var $form = $(this);
-        var $input = $form.find('.move').focus();
-        // const movable = root.draughtsground.state.movable;
-        window.lidraughts.keyboardMove({
-          input: $input[0],
-          setFocus: $.noop,
-          select: function() {
-            console.log('select')
-          },
-          hasSelected: function () { return false; },
-          confirmMove: function() {
-            console.log('confirm')
-          },
-          san: function(orig: string, dest: string) {
-            console.log(orig, dest);
-            ctrl.socket.send("move", {
-              from: orig,
-              to: dest
-            }, {
-              ackable: true
-            });
-          }
-        })(round.plyStep(ctrl.data, ctrl.ply).fen, ctrl.draughtsground.state.movable.dests, ctrl.draughtsground.state.movable.captLen);
-        $form.submit(function() {
-          return false;
-        });
-      });
-      console.log($(element).find('form'));
-    }
-  });
-});
+let handler: any;
 
 export function init(el: HTMLElement, ctrl: RoundController) {
-  element = el;
-  reload(ctrl);
+  if (window.lidraughts.NVUI) handler = window.lidraughts.NVUI(el, ctrl);
+  else window.lidraughts.loadScript('compiled/nvui.min.js').then(() => init(el, ctrl));
+}
+export function reload() {
+  if (handler) handler.reload();
 }

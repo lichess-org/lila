@@ -39,7 +39,7 @@ object textualRepresentation {
       (playing && pov.game.playable && pov.game.turnOf(pov.player)) option form(
         label(
           "Your move",
-          input(name := "move", cls := "move", `type` := "text", cls := "", autocomplete := "off")
+          input(name := "move", cls := "move", `type` := "text", cls := "", autocomplete := "off", autofocus := true)
         ),
         button(`type` := "submit")("Send move")
       )

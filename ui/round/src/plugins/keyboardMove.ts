@@ -3,9 +3,9 @@ import { DecodedDests } from '../interfaces';
 
 const keyRegex = /^\d{1,2}$/;
 
-type San2Uci = {
-  [key: string]: string;
-};
+type Sans = {
+  [key: string]: Uci;
+}
 
 window.lidraughts.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
@@ -62,7 +62,7 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
   });
 }
 
-function sanToUci(san: string, sans: San2Uci): string | undefined {
+function sanToUci(san: string, sans: Sans): string | undefined {
   if (san in sans) return sans[san];
   if (san.length === 4 && Object.keys(sans).find(key => sans[key] === san)) return san;
   let lowered = san.toLowerCase().replace('x0', 'x').replace('-0', '-');
@@ -71,7 +71,7 @@ function sanToUci(san: string, sans: San2Uci): string | undefined {
   return undefined
 }
 
-function sanCandidates(san: string, sans: San2Uci) {
+function sanCandidates(san: string, sans: Sans) {
   const lowered = san.toLowerCase();
   let cleanLowered = lowered.replace('x0', 'x').replace('-0', '-');
   if (cleanLowered.slice(0, 1) === '0') cleanLowered = cleanLowered.slice(1)
