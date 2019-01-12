@@ -26,14 +26,15 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     else root.chessground.selectSquare(key, true);
   };
   let usedSan = false;
+  const cgState = root.chessground.state;
   return {
     update(step) {
-      if (handler) handler(step.fen, root.chessground.state.movable.dests);
+      if (handler) handler(step.fen, cgState.movable.dests);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, root.chessground.state.movable.dests);
+      if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
     },
     hasFocus: () => focus,
     setFocus(v) {

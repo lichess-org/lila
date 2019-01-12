@@ -9,7 +9,7 @@ const uglify = require('gulp-uglify');
 const size = require('gulp-size');
 const tsify = require('tsify');
 
-module.exports = (standalone, fileBaseName, dir) => {
+module.exports = (standalone, fileBaseName, dir, standaloneFiles) => {
 
   const browserifyOpts = (debug) => ({
     entries: [`${dir}/src/main.ts`],
@@ -33,23 +33,42 @@ module.exports = (standalone, fileBaseName, dir) => {
     .pipe(source(`${fileBaseName}.js`))
     .pipe(destination());
 
+  const standalones = gulp.series(standaloneFiles.map(file => {
+    return function standalone() {
+      return browserify({
+        entries: [file],
+        debug: true
+      })
+        .plugin(tsify)
+        .bundle()
+        .pipe(source(file.replace(/\.ts/, '.min.js')))
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(size())
+        .pipe(destination());
+    }
+  }));
+
+  const nonEmptyStandalones = standaloneFiles ? standalones : gulp.noop();
+
   const watch = () => {
 
-    const bundle = () => bundler
+    const bundle = gulp.series([nonEmptyStandalones, () => bundler
       .bundle()
       .on('error', error => logger.error(colors.red(error.message)))
       .pipe(source(`${fileBaseName}.js`))
-      .pipe(destination());
+      .pipe(destination())
+    ]);
 
     const bundler = watchify(
       browserify(Object.assign({}, watchify.args, browserifyOpts(true)))
-        .plugin(tsify)
+      .plugin(tsify)
     ).on('update', bundle).on('log', logger.info);
 
     return bundle();
   };
 
-  gulp.task('prod', prod);
-  gulp.task('dev', dev);
-  gulp.task('default', watch);
-};
+    gulp.task('prod', prod);
+    gulp.task('dev', gulp.series([standalones, dev]));
+    gulp.task('default', watch);
+  };

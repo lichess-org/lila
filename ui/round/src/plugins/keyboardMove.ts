@@ -1,12 +1,12 @@
-var keyRegex = /^[a-h][1-8]$/;
-var fileRegex = /^[a-h]$/;
+const keyRegex = /^[a-h][1-8]$/;
+const fileRegex = /^[a-h]$/;
 
-lichess.keyboardMove = function(opts) {
+window.lichess.keyboardMove = function(opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
-  var writer = sanWriter();
-  var sans = null;
-  var submit = function(v, force) {
+  const writer = sanWriter();
+  let sans = null;
+  const submit = function(v: string, force?: boolean) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
@@ -37,7 +37,7 @@ lichess.keyboardMove = function(opts) {
 }
 
 function makeBindings(opts, submit, clear) {
-  Mousetrap.bind('enter', function() {
+  window.Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
   /* keypress doesn't cut it here;
@@ -237,6 +237,6 @@ function sanWriter() {
 }
 
 function focusChat() {
-  var chatInput = document.querySelector('.mchat input.lichess_say');
+  var chatInput = document.querySelector('.mchat input.lichess_say') as HTMLInputElement;
   if (chatInput) chatInput.focus();
 }
