@@ -10,7 +10,7 @@
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
   <string name="level">स्तर</string>
-  <string name="toggleTheChat">बातचीत  को शुरू या बंद करें</string>
+  <string name="toggleTheChat">बातचीत को शुरू या बंद करें</string>
   <string name="toggleSound">ध्वनि को चालू या बंद करें</string>
   <string name="chat">बातचीत</string>
   <string name="resign">हार मान लें</string>
@@ -27,7 +27,7 @@
   <string name="raceFinished">दौड़ समाप्त</string>
   <string name="variantEnding">प्रकार का अंत</string>
   <string name="newOpponent">नया प्रतिद्वंदी ढूंढें</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">आपका प्रतिद्वंदी आपके साथ एक और खेल खेलना चाहता है</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">आपका प्रतिद्वंदी आपके साथ नया खेल खेलना चाहता है</string>
   <string name="joinTheGame">खेल में शामिल हों</string>
   <string name="whitePlays">सफेद की चाल</string>
   <string name="blackPlays">काले की चाल</string>
@@ -62,7 +62,7 @@
   <string name="move">चाल</string>
   <string name="variantLoss">भिन् न हानि</string>
   <string name="variantWin">भिन् न जीत</string>
-  <string name="insufficientMaterial">मात के लिए शतरंज के टुकड़े नहीं हैं</string>
+  <string name="insufficientMaterial">मात के लिए शतरंज के मोहरे नहीं हैं</string>
   <string name="pawnMove">प्यादा कदम</string>
   <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
