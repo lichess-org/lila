@@ -26,14 +26,15 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     else root.draughtsground.selectSquare(key, true);
   };
   let usedSan = false;
+  const dgState = root.draughtsground.state;
   return {
     update(step) {
-      if (handler) handler(step.fen, root.draughtsground.state.movable.dests, root.draughtsground.state.movable.captLen);
+      if (handler) handler(step.fen, dgState.movable.dests, dgState.movable.captLen);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, root.draughtsground.state.movable.dests, root.draughtsground.state.movable.captLen);
+      if (preHandlerBuffer) handler(preHandlerBuffer, dgState.movable.dests, dgState.movable.captLen);
     },
     hasFocus: () => focus,
     setFocus(v) {

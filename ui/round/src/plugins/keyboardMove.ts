@@ -1,12 +1,12 @@
-var keyRegex = /^\d{1,2}$/;
-var uciRegex = /^\d{4}$/;
+const keyRegex = /^\d{1,2}$/;
+const uciRegex = /^\d{4}$/;
 
-lidraughts.keyboardMove = function(opts) {
+window.lidraughts.keyboardMove = function(opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
-  var writer = sanWriter();
-  var sans = null;
-  var submit = function(v, force) {
+  const writer = sanWriter();
+  let sans = null;
+  const submit = function(v: string, force?: boolean) {
     var foundUci = v.length >= 3 && sans && sanToUci(v, sans);
     if (foundUci) {
       opts.san(foundUci.slice(0, 2), foundUci.slice(2));
@@ -32,7 +32,7 @@ lidraughts.keyboardMove = function(opts) {
 }
 
 function makeBindings(opts, submit, clear) {
-  Mousetrap.bind('enter', function() {
+  window.Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
   /* keypress doesn't cut it here;
@@ -146,6 +146,6 @@ function sanWriter() {
 }
 
 function focusChat() {
-  var chatInput = document.querySelector('.mchat input.lidraughts_say');
+  var chatInput = document.querySelector('.mchat input.lidraughts_say') as HTMLInputElement;
   if (chatInput) chatInput.focus();
 }

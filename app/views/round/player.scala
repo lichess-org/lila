@@ -35,6 +35,7 @@ object player {
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundTag,
+        ctx.blindMode option jsAt("javascripts/keyboardMove.js"),
         embedJs(s"""window.customWS = true; window.onload = function() {
 LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, userId: $jsUserId, chat: ${jsOrNull(chatJson)},
 ${tour.??(t => s"tour: ${toJson(tour.flatMap(_.top).map(lidraughts.tournament.JsonView.top(_, lightUser)))}")}
