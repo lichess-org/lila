@@ -13,15 +13,27 @@ const lilaGulp = require('../gulp/tsProject.js');
 
 lilaGulp('LichessRound', 'lichess.round', __dirname);
 
+/* The following code adds two dev commands:
+ * KeyboardMoves
+ * NVUI
+ */
+
 const roundProd = gulp.task('prod');
 
 const destination = () => gulp.dest(`../../public/compiled/`);
 
-const plugins = [{
-  entries: ['src/plugins/keyboardMove.ts'],
-  standalone: 'KeyboardMove',
-  target: 'keyboardMove.min.js'
-}];
+const plugins = [
+  {
+    entries: ['src/plugins/keyboardMove.ts'],
+    standalone: 'KeyboardMove',
+    target: 'keyboardMove.min.js'
+  },
+  {
+    entries: ['src/plugins/nvui.ts'],
+    standalone: 'NVUI',
+    target: 'nvui.min.js'
+  }
+];
 
 const pluginsProd = plugins.map(opts => {
   return () => browserify(opts)
@@ -36,9 +48,7 @@ const pluginsProd = plugins.map(opts => {
 
 gulp.task('prod', gulp.series(pluginsProd.concat(roundProd)));
 
-const pluginWatch = () => {
-
-  const opts = plugins[0];
+const pluginWatch = (opts) => () => {
 
   const bundle = () => bundler
     .bundle()
@@ -54,4 +64,6 @@ const pluginWatch = () => {
   return bundle();
 };
 
-gulp.task('plugins', pluginWatch);
+plugins.map(plugin => {
+  gulp.task(plugin.standalone, pluginWatch(plugin));
+});

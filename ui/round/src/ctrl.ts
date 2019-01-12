@@ -401,7 +401,7 @@ export default class RoundController {
       else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
-    if (d.blind) blind.reload(this);
+    if (d.blind) blind.reload();
     if (playing && playedColor === d.player.color) {
       this.moveOn.next();
       cevalSub.publish(d, o);
@@ -446,7 +446,7 @@ export default class RoundController {
     if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
-    if (d.blind) blind.reload(this);
+    if (d.blind) blind.reload();
     this.moveOn.next();
     this.setQuietMode();
     this.redraw();
