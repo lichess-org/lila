@@ -28,7 +28,7 @@ object UserRepo {
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().gather[List](nb)
+    coll.find(enabledSelect).sort($sort desc "count.game").list[User](nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
 
@@ -43,6 +43,15 @@ object UserRepo {
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
 
   def enabledByEmail(email: EmailAddress): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
+
+  def idCursor(
+    selector: Bdoc,
+    batchSize: Int = 0,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(implicit cp: CursorProducer[Bdoc]): cp.ProducedCursor = {
+    val query = coll.find(selector)
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Bdoc](readPreference)
+  }
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     coll.byIds[User](List(x, y).flatten) map { users =>
@@ -95,7 +104,7 @@ object UserRepo {
       }
 
   private[user] def allSortToints(nb: Int) =
-    coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
+    coll.find($empty).sort($sort desc F.toints).list[User](nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -265,9 +274,9 @@ object UserRepo {
         $doc(F.id -> true)
       )
         .sort($doc("len" -> 1))
-        .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
+        .list[Bdoc](max, ReadPreference.secondaryPreferred)
         .map {
-          _ flatMap { _.getAs[String](F.id) }
+          _ flatMap { _.getAs[User.ID](F.id) }
         }
     }
 

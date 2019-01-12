@@ -7,7 +7,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.{ Context, GameApiV2 }
+import lila.api.{ Context, GameApiV2, UserApi }
 import lila.app._
 import lila.common.PimpedJson._
 import lila.common.{ HTTPRequest, IpAddress, MaxPerPage, MaxPerSecond }
@@ -93,6 +93,19 @@ object Api extends LilaController {
             .add("streaming" -> streamingIds(u.id))
         }
       }
+    }
+  }
+
+  def titledUsers = Action.async { req =>
+    val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
+    GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      val online = getBool("online", req)
+      val config = UserApi.Titled(
+        titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
+        online = online,
+        perSecond = MaxPerSecond(50 * (if (online) 2 else 1))
+      )
+      jsonStream(Env.api.userApi.exportTitled(config)).fuccess
     }
   }
 

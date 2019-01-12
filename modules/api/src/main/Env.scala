@@ -90,6 +90,7 @@ final class Env(
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
+    lightUserApi = userEnv.lightUserApi,
     makeUrl = makeUrl,
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
@@ -98,8 +99,9 @@ final class Env(
     gameCache = gameCache,
     isStreaming = isStreaming,
     isPlaying = isPlaying,
+    isOnline = userEnv.onlineUserIdMemo.get,
     prefApi = prefApi
-  )
+  )(system)
 
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
