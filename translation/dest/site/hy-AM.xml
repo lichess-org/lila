@@ -22,11 +22,11 @@
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
   <string name="blackIsVictorious">Սևերը հաղթեցին</string>
-  <string name="kingInTheCenter">Թագավորը կենտրոնում</string>
-  <string name="threeChecks">երեք չեկեր</string>
+  <string name="kingInTheCenter">Թագավորը կենտրոնում է</string>
+  <string name="threeChecks">Երեք շախ</string>
   <string name="raceFinished">Մրցավազքը ավարտվեց</string>
   <string name="variantEnding">Տարբերակի ավարտ</string>
-  <string name="newOpponent">Նոր հակառակորդ</string>
+  <string name="newOpponent">Գտնել նոր հակառակորդ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ձեր հակառակորդը ուզում է կրկին խաղալ Ձեզ հետ</string>
   <string name="joinTheGame">Միանալ խաղին</string>
   <string name="whitePlays">Խաղում են սպիտակները</string>
