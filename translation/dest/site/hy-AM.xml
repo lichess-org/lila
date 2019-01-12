@@ -5,7 +5,7 @@
   <string name="playWithTheMachine">Խաղալ համակարգչի հետ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար ուղարկեք ստորև տրված հղումը</string>
   <string name="gameOver">Խաղն ավարտված է</string>
-  <string name="waitingForOpponent">Սպասում ենք հակառակորդին</string>
+  <string name="waitingForOpponent">Սպասում եմ հակառակորդին</string>
   <string name="waiting">Սպասում եմ</string>
   <string name="yourTurn">Ձեր հերթն է</string>
   <string name="aiNameLevelAiLevel">%1$s, մակարդակ՝ %2$s</string>
