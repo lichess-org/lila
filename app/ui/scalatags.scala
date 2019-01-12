@@ -5,8 +5,8 @@ import ornicar.scalalib.Zero
 
 import play.twirl.api.Html
 import scalatags.Text.all.{ genericAttr, attr, StringFrag }
-import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Modifier, Cap, Aggregate, Attrs, Styles }
 import scalatags.text.Builder
+import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Modifier, Cap, Aggregate, Attrs, Styles }
 
 // collection of lila attrs
 trait ScalatagsAttrs {
@@ -50,7 +50,9 @@ trait ScalatagsBundle extends Cap
 
 // short prefix
 trait ScalatagsPrefix {
-  object st extends Cap with Attrs with scalatags.text.Tags
+  object st extends Cap with Attrs with scalatags.text.Tags {
+    lazy val group = tag("group")
+  }
 
 }
 

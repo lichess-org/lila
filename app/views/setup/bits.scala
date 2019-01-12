@@ -53,7 +53,7 @@ private object bits {
     )
 
   def renderRadios(field: Field, options: Seq[(String, String, Option[String])]) =
-    groupTag(cls := "radio")(
+    st.group(cls := "radio")(
       options.map {
         case (key, name, hint) => div(
           input(
@@ -112,5 +112,4 @@ private object bits {
   val dataValidateUrl = attr("data-validate-url")
   val dataResizable = attr("data-resizable")
   val dataType = attr("data-type")
-  val groupTag = tag("group")
 }
