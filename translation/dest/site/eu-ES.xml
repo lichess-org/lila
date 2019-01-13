@@ -406,7 +406,7 @@
   <string name="createdBy">Sortuta</string>
   <string name="tournamentIsStarting">Txapelketa hasiko da</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
-  <string name="standByX">Itxaron %s jokalariari, jokalariak parekatzen, prest!</string>
+  <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
   <string name="youArePlaying">Jokatzen ari zara!</string>
   <string name="winRate">Irabazien ratioa</string>
   <string name="berserkRate">Berserk ratioa</string>
