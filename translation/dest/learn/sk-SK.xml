@@ -67,7 +67,7 @@ Premieňať nepotrebujete.</string>
   <string name="takeTheBlackPieces">Vyhoďte čierne figúrky!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Vezmite súperove figúrky!
 A nepríďte o vlastné!</string>
-  <string name="captureComplete">Gratulujeme! Už viete ako s šachovými figúrkami bojovať!</string>
+  <string name="captureComplete">Gratulujeme! Teraz viete ako so šachovými figúrkami bojovať!</string>
   <string name="protection">Chránenie</string>
   <string name="keepYourPiecesSafe">Držte svoje figúrky v bezpečí</string>
   <string name="protectionIntro">Rozpoznajte figúrky, ktoré Vám súper napadá a ochráňte ich!</string>
@@ -80,7 +80,7 @@ ale môžete sa brániť!</string>
   <string name="combat">Súboj</string>
   <string name="captureAndDefendPieces">Branie a chránenie figúrok</string>
   <string name="combatIntro">Dobrý bojovník vie aj útočiť aj sa brániť!</string>
-  <string name="combatComplete">Gratulujeme! Už viete ako s šachovými figúrkami útočiť!</string>
+  <string name="combatComplete">Gratulujeme! Teraz viete ako so šachovými figúrkami bojovať!</string>
   <string name="checkInOne">Šach 1. ťahom</string>
   <string name="attackTheOpponentsKing">Útočenie na súperovho kráľa</string>
   <string name="checkInOneIntro">Ak chcete dať súperovi šach, zaútočte na jeho kráľa! On ho bude musieť brániť!</string>
@@ -88,7 +88,7 @@ ale môžete sa brániť!</string>
   <string name="checkInOneComplete">Gratulujeme! Šachom ste súpera prinútili k obrane svojho kráľa!</string>
   <string name="outOfCheck">Únik zo šachu</string>
   <string name="defendYourKing">Chránenie vlastného kráľa</string>
-  <string name="outOfCheckIntro">Ste v šachu! Musíte z neho ustúpiť alebo predkryť napadnutie.</string>
+  <string name="outOfCheckIntro">Ste v šachu! Musíte uniknúť alebo zablokovať útok.</string>
   <string name="escapeWithTheKing">Ustúpte kráľom!</string>
   <string name="theKingCannotEscapeButBlock">Kráľ nemôže ustúpiť, ale napadnutie môžete predkryť!</string>
   <string name="youCanGetOutOfCheckByTaking">Môžete sa dostať zo šachu tým, že vezmete šachujúcu figúrku.</string>
