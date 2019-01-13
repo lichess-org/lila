@@ -202,8 +202,8 @@
     <item quantity="other">%s պարտվեց</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s ոչոքի</item>
-    <item quantity="other">%s ոչոքի</item>
+    <item quantity="one">%s ոչ-ոքի</item>
+    <item quantity="other">%s ոչ-ոքի</item>
   </plurals>
   <string name="exportGames">Էկսպորտ անել խաղերը</string>
   <string name="ratingRange">Elo միջակայք</string>
@@ -211,7 +211,7 @@
     <item quantity="one">Տալ %s վայրկան</item>
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Այղ խաղացողը դիմում է համակարգչի օգնությանը</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Այս խաղացողը դիմում է համակարգչի օգնությանը</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Այս խաղացողը արհեստականորեն մեծացնում է իր վարկանիշը</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
@@ -222,7 +222,7 @@
   <string name="yourOpponentProposesATakeback">Ձեր հակառակորդը առաջարկում է քայլը հետ վերցնել</string>
   <string name="bookmarkThisGame">Էջանշել այս խաղը</string>
   <string name="search">Փնտրել</string>
-  <string name="advancedSearch">Բարդեցված որոնում</string>
+  <string name="advancedSearch">Ընդլայնված որոնում</string>
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
@@ -266,7 +266,7 @@
     <item quantity="other">%s ներմուծված խաղեր</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Սա շախմատային CAPTCHA է</string>
-  <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ քայլ անեք և ապացուցեք, որ մարդ եք:</string>
+  <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ անեք ձեր քայլը և ապացուցեք, որ մարդ եք:</string>
   <string name="notACheckmate">Մատ չէ</string>
   <string name="colorPlaysCheckmateInOne">Խաղում է %s-ը. մատ մեկ քայլից</string>
   <string name="retry">Կրկին փորձել</string>
@@ -337,8 +337,8 @@
   <string name="onlinePlayers">առցանց խաղացողներ</string>
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում․ խաղը միավորներով է սակայն առանց ժամանակի</string>
-  <string name="training">Մարզում</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
+  <string name="training">Խնդիրներ</string>
   <string name="yourPuzzleRatingX">Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s</string>
   <string name="findTheBestMoveForWhite">Փնտրիր լավագույն քայլը սպիտակների համար</string>
   <string name="findTheBestMoveForBlack">Փնտրիր լավագույն քայլը սևերի համար</string>
