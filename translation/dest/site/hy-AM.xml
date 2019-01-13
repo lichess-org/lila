@@ -45,7 +45,7 @@
   <string name="theComputerAnalysisHasFailed">Համակարգչային անալիզը չստացվեց</string>
   <string name="viewTheComputerAnalysis">Ցույց տալ համակարգչային անալիզը</string>
   <string name="requestAComputerAnalysis">Համակարգչային անալիզ պատվիրել</string>
-  <string name="computerAnalysis">Վերլուծություն</string>
+  <string name="computerAnalysis">Համակարգչային վերլուծություն</string>
   <string name="computerAnalysisAvailable">Հնարավոր է համակարգչի վերլուծություն</string>
   <string name="analysis">վերլուծություն</string>
   <string name="depthX">Խորություն</string>
@@ -64,7 +64,7 @@
   <string name="variantWin">Տարբերակը հաղթում է</string>
   <string name="insufficientMaterial">Ոչ բավարար նյութ</string>
   <string name="pawnMove">Զինվորի քայլ</string>
-  <string name="capture">Սևեռեք</string>
+  <string name="capture">Փոխանակում</string>
   <string name="close">Փակել</string>
   <string name="winning">Հաղթում է</string>
   <string name="losing">Պարտվում է</string>
@@ -72,7 +72,7 @@
   <string name="unknown">Անհայտ</string>
   <string name="database">Նյութերի բազա</string>
   <string name="whiteDrawBlack">Սպիտակ / Ոչ-ոքի / Սև</string>
-  <string name="averageRatingX">Միջին գնահատականը</string>
+  <string name="averageRatingX">Միջին վարկանիշ %s</string>
   <string name="recentGames">Վերջին խաղեր</string>
   <string name="topGames">Լավագույն խաղեր</string>
   <string name="masterDbExplanation">2 միլիոն խաղ ֆիդե-ի վարկանիշային խաղացողներից</string>
