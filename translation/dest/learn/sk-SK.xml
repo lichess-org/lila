@@ -5,8 +5,8 @@
   <string name="byPlaying">hrou!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Dosiahnutý výsledok: %s</string>
-  <string name="resetMyProgress">Vynulovať moje výsledky</string>
-  <string name="youWillLoseAllYourProgress">Upozornenie: Všetky Vami dosiahnuté výsledky budú odstránené!</string>
+  <string name="resetMyProgress">Vynulovať môj progres</string>
+  <string name="youWillLoseAllYourProgress">Stratíte celý váš progres!</string>
   <string name="play">hrať!</string>
   <string name="chessPieces">Šachové figúrky</string>
   <string name="theRook">Veža</string>
