@@ -14,7 +14,7 @@
       <p>Your join request will be reviewed by the team leader.</p>
       <hr />
       @base.captcha(form, captcha)
-      @form3.actions {
+      @form3.actionsHtml {
       <a href="@routes.Team.show(t.slug)">@trans.cancel()</a>
       @form3.submit(trans.joinTeam.frag())
       }

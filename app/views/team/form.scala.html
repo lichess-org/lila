@@ -16,7 +16,7 @@ formCss = true) {
       @form3.group(form("location"), trans.location.frag())(form3.input(_))
       @form3.group(form("description"), trans.description.frag())(form3.textarea(_)(*.rows := 10))
       @base.captcha(form, captcha)
-      @form3.actions {
+      @form3.actionsHtml {
       <a href="@routes.Team.home(1)">@trans.cancel()</a>
       @form3.submit(trans.newTeam.frag())
       }

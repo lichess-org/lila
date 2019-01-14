@@ -31,7 +31,7 @@ csp = defaultCsp.withRecaptcha.some) {
         @trans.computersAreNotAllowedToPlay()<br />
         <small>@trans.byRegisteringYouAgreeToBeBoundByOur(tosLink)</small>
       </div>
-      @form3.action {
+      @form3.actionHtml {
       @if(recaptcha.enabled) {
       <button class="g-recaptcha submit button text big" data-icon="F" data-sitekey="@recaptcha.key" data-callback='signupSubmit'>@trans.signUp()</button>
       } else {

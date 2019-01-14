@@ -25,7 +25,7 @@ evenMoreJs = moreJs) {
     @form3.password(form("passwd"), trans.password.frag()).toHtml
     @form3.group(form("token"), raw("Authentication code"))(form3.input(_)(*.pattern := "[0-9]{6}", *.autocomplete := "off"))
     @form3.globalError(form)
-    @form3.action(form3.submit(raw("Enable two-factor authentication")))
+    @form3.actionHtml(form3.submit(raw("Enable two-factor authentication")))
   </form>
 </div>
 }

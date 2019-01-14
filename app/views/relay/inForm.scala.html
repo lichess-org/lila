@@ -24,7 +24,7 @@
 @if(isGranted(_.Admin)) {
 @form3.group(form("credit"), raw("Credit the source"), half = true)(form3.input(_))
 }
-@form3.actions {
+@form3.actionsHtml {
 <a href="@routes.Relay.index(1)">@trans.cancel()</a>
 @form3.submit(trans.apply.frag())
 }

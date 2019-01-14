@@ -27,7 +27,7 @@ formCss = true) {
       @form3.group(form("targetPct"), trans.winningPercentage.frag(), help = trans.simulTargetPercentageHint.frag().some)(form3.input(_, typ = "number")(*.placeholder := trans.targetPercentage.txt(), *.min := 50, *.max := 100))
       @form3.group(form("chat"), trans.chatAvailableFor.frag(), help = trans.simulChatRestrictionsHint.frag().some)(form3.select(_, translatedChatChoices))
 
-      @form3.actions { 
+      @form3.actionsHtml {
         <a href="@routes.Simul.home()">@trans.cancel()</a>
         @form3.submit(trans.create.frag(), icon = "|".some)
       }

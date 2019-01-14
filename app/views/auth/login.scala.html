@@ -16,12 +16,12 @@ formCss = true) {
       <div class="one-factor">
         @form3.globalError(form)
         @auth.formFields(form("username"), form("password"), none, register = false)
-        @form3.action(form3.submit(trans.signIn.frag(), icon = "F".some))
+        @form3.actionHtml(form3.submit(trans.signIn.frag(), icon = "F".some))
       </div>
       <div class="two-factor none">
         @form3.group(form("token"), raw("Authentication code"), help = Some(twoFactorHelp))(form3.input(_)(*.autocomplete := "off", *.pattern := "[0-9]{6}"))
         <p class="error none">Invalid code.</p>
-        @form3.action(form3.submit(trans.signIn.frag(), icon = "F".some))
+        @form3.actionHtml(form3.submit(trans.signIn.frag(), icon = "F".some))
       </form>
     </div>
     <div class="alternative">

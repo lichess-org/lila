@@ -15,4 +15,4 @@
 @form3.group(form("homepageHours"), raw("Hours on homepage (0 to 336)"), half = true, help = raw("Ask first!").some)(form3.input(_, typ = "number"))
 }
 
-@form3.action(form3.submit(trans.apply.frag()))
+@form3.actionHtml(form3.submit(trans.apply.frag()))
