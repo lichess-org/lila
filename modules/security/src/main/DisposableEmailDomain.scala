@@ -11,26 +11,32 @@ final class DisposableEmailDomain(
     bus: lila.common.Bus
 ) {
 
-  private var domains = Set.empty[String]
+  private var regex = finalizeRegex(toRegexStr(DisposableEmailDomain.staticBlacklist.iterator))
   private var failed = false
 
   private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
-      domains = res.body.lines.toSet
-      failed = domains.size < 10000
-      lila.mon.email.disposableDomain(domains.size)
+      val regexStr = toRegexStr(res.body.lines)
+      val nbDomains = regexStr.count('|' ==)
+      failed = nbDomains < 10000
+      lila.mon.email.disposableDomain(nbDomains)
+      regex = finalizeRegex(s"${toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)}|$regexStr")
     } recover {
       case _: java.net.ConnectException => // ignore network errors
       case e: Exception => onError(e)
     }
   }
 
+  private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
+
+  private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
+
   private def onError(e: Exception): Unit = {
     logger.error("Can't update disposable emails", e)
     if (!failed) {
       failed = true
       bus.publish(
-        lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
+        lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nFrom $providerUrl"),
         'slack
       )
     }
@@ -38,9 +44,8 @@ final class DisposableEmailDomain(
 
   def apply(domain: Domain): Boolean =
     !DisposableEmailDomain.whitelisted(domain) && {
-      domains.contains(domain.value) ||
-        DisposableEmailDomain.staticBlacklist.contains(domain.value) ||
-        blacklistStr().value.contains(domain.value)
+      regex.find(domain.value) ||
+        finalizeRegex(toRegexStr(blacklistStr().value.iterator)).find(domain.value)
     }
 
   def fromDomain(mixedCase: String): Boolean = apply(Domain(mixedCase.toLowerCase))
@@ -53,8 +58,8 @@ private object DisposableEmailDomain {
   private val staticBlacklist = Set(
     "lichess.org",
     "gamil.com",
-    "mybx.site", "mywrld.top", "wemel.top", "matra.top", "dripbank.com", "yopmail.xxi2.com",
-    "4bi.email-temp.com", "forevernew.in", "sss.pp.ua", "ttempm.com", "emailnext.com",
+    "mybx.site", "mywrld.top", "wemel.top", "matra.top", "dripbank.com", "xxi2.com",
+    "forevernew.in", "sss.pp.ua", "ttempm.com", "emailnext.com",
     "dea-love.net"
   )
 
