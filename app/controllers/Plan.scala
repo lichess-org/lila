@@ -66,6 +66,13 @@ object Plan extends LidraughtsController {
       }
     }
 
+  def features = Open { implicit ctx =>
+    pageHit
+    fuccess {
+      html.plan.features()
+    }
+  }
+
   def switch = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lidraughts.plan.Switch.form.bindFromRequest.fold(
