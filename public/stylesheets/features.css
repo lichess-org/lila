@@ -43,6 +43,9 @@ tbody td .is::before {
 tbody th {
   opacity: 0.9;
 }
+tbody td {
+  whitespace: nowrap;
+}
 
 .price {
   font-size: 1.4em;
