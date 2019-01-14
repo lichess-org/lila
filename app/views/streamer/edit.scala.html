@@ -95,7 +95,7 @@ menu = menu("edit", s.withoutStream.some).some) {
       @form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
       }
       }
-      @form3.action(form3.submit(trans.apply.frag()))
+      @form3.actionHtml(form3.submit(trans.apply.frag()))
     </div>
     }
     @form3.split {

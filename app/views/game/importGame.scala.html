@@ -22,7 +22,7 @@ description = "When pasting a game PGN, you get a browsable replay, a computer a
     @form3.file.pgn(f.name)
     }
     @form3.checkbox(form("analyse"), trans.requestAComputerAnalysis.frag(), help = Some(analyseHelp), disabled = ctx.isAnon)
-    @form3.action(form3.submit(trans.importGame.frag()))
+    @form3.actionHtml(form3.submit(trans.importGame.frag()))
   </form>
 </div>
 }.toHtml

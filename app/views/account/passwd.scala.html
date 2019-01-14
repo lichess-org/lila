@@ -14,7 +14,7 @@ evenMoreCss = cssTag("form3.css")) {
       @form3.password(form("oldPasswd"), trans.currentPassword.frag()).toHtml
       @form3.password(form("newPasswd1"), trans.newPassword.frag()).toHtml
       @form3.password(form("newPasswd2"), trans.newPasswordAgain.frag()).toHtml
-      @form3.action(form3.submit(trans.apply.frag()))
+      @form3.actionHtml(form3.submit(trans.apply.frag()))
     </form>
   </div>
 </div>
