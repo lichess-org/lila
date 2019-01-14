@@ -9,9 +9,9 @@ import { Position } from '../interfaces';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position) {
   const clock = ctrl.clock!,
-  millis = clock.millisOf(player.color),
-  isPlayer = ctrl.data.player.color === player.color,
-  isRunning = player.color === clock.times.activeColor;
+    millis = clock.millisOf(player.color),
+    isPlayer = ctrl.data.player.color === player.color,
+    isRunning = player.color === clock.times.activeColor;
   const update = (el: HTMLElement) => {
     const els = clock.elements[player.color]
     els.time = el;
@@ -27,6 +27,10 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   }, [
     showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]),
     h('div.time', {
+      attrs: {
+        role: 'timer',
+        title: `${player.color} clock`
+      },
       hook: {
         insert: vnode => update(vnode.elm as HTMLElement),
         postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
@@ -47,9 +51,9 @@ const sepLow = '<sep class="low">:</sep>';
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
   const date = new Date(time),
-  millis = date.getUTCMilliseconds(),
-  sep = (isRunning && millis < 500) ? sepLow : sepHigh,
-  baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
+    millis = date.getUTCMilliseconds(),
+    sep = (isRunning && millis < 500) ? sepLow : sepHigh,
+    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (time >= 3600000) {
     const hours = pad2(Math.floor(time / 3600000));
     return hours + sepHigh + baseStr;
@@ -73,8 +77,8 @@ function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, bers
   return ctrl.showBar ? h('div.bar', {
     class: { berserk },
     hook: {
-        insert: vnode => update(vnode.elm as HTMLElement),
-        postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
+      insert: vnode => update(vnode.elm as HTMLElement),
+      postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
     }
   }) : null;
 }
@@ -110,7 +114,7 @@ function goBerserk(ctrl: RoundController) {
 function tourRank(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
   return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ?
-  h('div.tournament_rank.' + position, {
-    attrs: {title: 'Current tournament rank'}
-  }, '#' + d.tournament.ranks[color]) : null;
+    h('div.tournament_rank.' + position, {
+      attrs: {title: 'Current tournament rank'}
+    }, '#' + d.tournament.ranks[color]) : null;
 }
