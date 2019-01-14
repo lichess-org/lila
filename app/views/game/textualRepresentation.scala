@@ -16,7 +16,7 @@ object textualRepresentation {
       dt("Turn"),
       dd(pov.game.turns),
       dt("PDN"),
-      dd(raw(pov.game.pdnMoves.mkString("<br>"))),
+      dd(role := "log", aria.live := "assertive")(raw(pov.game.pdnMoves.mkString(" "))),
       dt("FEN"),
       dd(draughts.format.Forsyth.>>(pov.game.draughts)),
       if (playing) frag(
@@ -32,7 +32,7 @@ object textualRepresentation {
         dd(playerText(pov.game.blackPlayer))
       ),
       dt("Game status"),
-      dd(
+      dd(role := "status")(
         if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
         else frag(pov.game.turnColor.name, " plays")
       ),
