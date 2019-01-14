@@ -54,7 +54,8 @@ private object DisposableEmailDomain {
     "lichess.org",
     "gamil.com",
     "mybx.site", "mywrld.top", "wemel.top", "matra.top", "dripbank.com", "yopmail.xxi2.com",
-    "4bi.email-temp.com", "forevernew.in", "sss.pp.ua", "ttempm.com", "emailnext.com"
+    "4bi.email-temp.com", "forevernew.in", "sss.pp.ua", "ttempm.com", "emailnext.com",
+    "dea-love.net"
   )
 
   private val whitelist = Set(
