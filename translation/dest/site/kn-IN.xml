@@ -41,4 +41,17 @@
   <string name="blackResigned">ಕರಿ ತಂಡದ ಆಟಗಾರ ಸೋಲನ್ನ ಒಪ್ಪಿದ್ದಾರೆ</string>
   <string name="whiteLeftTheGame">ಬಿಳಿ ಆಟ ಬಿಟ್ಟಿದೆ</string>
   <string name="blackLeftTheGame">ಕಪ್ಪು ಆಟ ಬಿಟ್ಟಿದೆ</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ಆಟವನ್ನು ವೀಕ್ಷಕರು ನೋಡಲು ಈ URL ಹಂಚಿ</string>
+  <string name="theComputerAnalysisHasFailed">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿಫಲವಾಗಿದೆ</string>
+  <string name="viewTheComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವೀಕ್ಷಿಸಿ</string>
+  <string name="requestAComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿನಂತಿಸಿ</string>
+  <string name="computerAnalysis">ಗಣಕಯಂತ್ರದ ವಿಶ್ಲೇಷಣೆ</string>
+  <string name="computerAnalysisAvailable">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಲಭ್ಯವಿದೆ</string>
+  <string name="analysis">ವಿಶ್ಲೇಷಣಾ ಫಲಕ</string>
+  <string name="depthX">ಆಳ %s</string>
+  <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
+  <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
+  <string name="cloudAnalysis">ಮೋಡ ವಿಶ್ಲೇಷಣೆ</string>
+  <string name="goDeeper">ಆಳ ಇಳಿ</string>
+  <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
 </resources>
