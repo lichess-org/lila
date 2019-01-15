@@ -54,4 +54,5 @@
   <string name="cloudAnalysis">ಮೋಡ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="goDeeper">ಆಳ ಇಳಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
+  <string name="inLocalBrowser">ಸ್ಥಳೀಯ ಬ್ರೌಸರ್ ನಲ್ಲಿ</string>
 </resources>
