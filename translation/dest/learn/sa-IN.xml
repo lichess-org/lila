@@ -10,4 +10,5 @@
   <string name="play">krIDati</string>
   <string name="chessPieces">Chaturanga dal</string>
   <string name="theRook">Ratha</string>
+  <string name="itMovesInStraightLines">Esha chalati samrekha</string>
 </resources>
