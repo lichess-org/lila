@@ -8,6 +8,7 @@
   <string name="waitingForOpponent">ಎದುರಾಳಿಯ ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="waiting">ನಿರೀಕ್ಷೆ ಎದುರಾಳಿಯ ತಿರುವು</string>
   <string name="yourTurn">ನಿಮ್ಮ ತಿರುವು</string>
+  <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
   <string name="level">ಮಟ್ಟ</string>
   <string name="toggleTheChat">ಮಾತಾಡುವುದು ಬೇಕೇ?</string>
   <string name="toggleSound">ಧ್ವನಿ ಬೇಕೇ?</string>
@@ -24,6 +25,7 @@
   <string name="kingInTheCenter">ರಾಜ ಮಧ್ಯದಲ್ಲಿ</string>
   <string name="threeChecks">ಮೂರು ಚೆಕ್</string>
   <string name="raceFinished">ಪಂದ್ಯವನ್ನು ಮುಗಿಸಿದವು</string>
+  <string name="variantEnding">ಭಿನ್ನ ಅಂತ್ಯ</string>
   <string name="newOpponent">ಹೊಸ ಎದುರಾಳಿಯ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">ನಿಮ್ಮ ಎದುರಾಳಿಯ ನೀವು ಒಂದು ಹೊಸ ಆಟ ಬಯಸಿದೆ</string>
   <string name="joinTheGame">ಆಟದ ಸೇರಲು</string>
@@ -37,4 +39,6 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ಈ ಲಿಂಕ್ ಗೆ ಬರುವ ಮೊದಲ ವ್ಯಕ್ತಿ ನಿಮ್ಮ ಜೊತೆ ಆಟ ಆಡಬಹುದು</string>
   <string name="whiteResigned">ಬಿಳಿ ತಂಡದ ಆಟಗಾರ ಸೋಲನ್ನ ಒಪ್ಪಿದ್ದಾರೆ</string>
   <string name="blackResigned">ಕರಿ ತಂಡದ ಆಟಗಾರ ಸೋಲನ್ನ ಒಪ್ಪಿದ್ದಾರೆ</string>
+  <string name="whiteLeftTheGame">ಬಿಳಿ ಆಟ ಬಿಟ್ಟಿದೆ</string>
+  <string name="blackLeftTheGame">ಕಪ್ಪು ಆಟ ಬಿಟ್ಟಿದೆ</string>
 </resources>
