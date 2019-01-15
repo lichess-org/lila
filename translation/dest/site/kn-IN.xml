@@ -75,4 +75,5 @@
   <string name="averageRatingX">ಸರಾಸರಿ ಮೌಲ್ಯ: %s</string>
   <string name="recentGames">ಇತ್ತೀಚಿನ ಆಟಗಳು</string>
   <string name="topGames">ಅತ್ಯುತ್ತಮ ಆಟಗಳು</string>
+  <string name="masterDbExplanation">%2$s ಇಂದ %3$s ವರೆಗಿನ %1$s+ FIDE ಮೌಲ್ಯ ಆಟಗಾರ ಇಪ್ಪತ್ತು ಲಕ್ಷ ಒ.ಟಿ.ಬಿ ಆಟಗಳು</string>
 </resources>
