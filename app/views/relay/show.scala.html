@@ -12,9 +12,9 @@
 @embedJs {
 lidraughts = lidraughts || {};
 lidraughts.relay = {
-relay: @safeJson(data.relay),
-study: @safeJson(data.study),
-data: @safeJson(data.analysis),
+relay: @safeJsonHtml(data.relay),
+study: @safeJsonHtml(data.study),
+data: @safeJsonHtml(data.analysis),
 i18n: @board.userAnalysisI18n(),
 tagTypes: '@lidraughts.study.PdnTags.typesToString',
 userId: @jsUserId,

@@ -7,7 +7,7 @@
 @jsAt(s"compiled/lidraughts.puzzle${isProd??(".min")}.js")
 @embedJs {
 lidraughts = lidraughts || {};
-lidraughts.puzzle = { data: @toJson(data), pref: @toJson(pref), i18n: @bits.jsI18n };
+lidraughts.puzzle = { data: @toJsonHtml(data), pref: @toJsonHtml(pref), i18n: @bits.jsI18n.toHtml };
 }
 }
 

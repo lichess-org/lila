@@ -2,12 +2,12 @@ package views.html.analyse
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.common.String.html.safeJson
+import lidraughts.common.String.html.safeJsonFrag
 import lidraughts.i18n.{ I18nKeys => trans }
 
 object jsI18n {
 
-  def apply()(implicit ctx: Context) = safeJson(i18nJsObject(translations))
+  def apply()(implicit ctx: Context) = safeJsonFrag(i18nJsObject(translations))
 
   private val translations = List(
     trans.flipBoard,

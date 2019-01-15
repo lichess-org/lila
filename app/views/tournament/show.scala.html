@@ -5,7 +5,7 @@
 @embedJs {
 lidraughts = lidraughts || {};
 lidraughts.tournament = {
-data: @safeJson(data),
+data: @safeJsonHtml(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>

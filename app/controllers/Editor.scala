@@ -11,7 +11,7 @@ import views._
 
 object Editor extends LidraughtsController {
 
-  private lazy val positionsJson = lidraughts.common.String.html.safeJson {
+  private lazy val positionsJson = lidraughts.common.String.html.safeJsonValue {
     JsArray(draughts.StartingPosition.all map { p =>
       Json.obj(
         "eco" -> p.eco,
