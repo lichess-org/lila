@@ -185,7 +185,7 @@ export default class RoundController {
 
   jump = (ply: Ply): boolean => {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
-    const samePly = this.ply === ply;
+    const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
@@ -202,7 +202,7 @@ export default class RoundController {
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
-    if (s.san && !samePly) {
+    if (s.san && isForwardStep) {
       if (s.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();

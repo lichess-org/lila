@@ -319,18 +319,21 @@ export default class AnalyseCtrl {
     !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
 
   jump(path: Tree.Path): void {
-    const pathChanged = path !== this.path;
+    const pathChanged = path !== this.path,
+    isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
       const playedMyself = this.playedLastMoveMyself();
       if (this.study) this.study.setPath(path, this.node, playedMyself);
-      if (!this.node.uci) this.sound.move(); // initial position
-      else if (!playedMyself) {
-        if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
-        else this.sound.move();
+      if (isForwardStep) {
+        if (!this.node.uci) this.sound.move(); // initial position
+        else if (!playedMyself) {
+          if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
+          else this.sound.move();
+        }
+        if (/\+|\#/.test(this.node.san!)) this.sound.check();
       }
-      if (/\+|\#/.test(this.node.san!)) this.sound.check();
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
