@@ -44,7 +44,7 @@
     @embedJs {
     lichess.startEmbeddedAnalyse({
     element: document.querySelector('.embedded_analyse'),
-    data: @safeJson(data),
+    data: @safeJsonHtml(data),
     embed: true,
     i18n: @board.userAnalysisI18n(withCeval = false, withExplorer = false)
     });

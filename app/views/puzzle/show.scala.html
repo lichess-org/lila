@@ -5,7 +5,7 @@
 @jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js")
 @embedJs {
 lichess = lichess || {};
-lichess.puzzle = { data: @toJson(data), pref: @toJson(pref), i18n: @bits.jsI18n };
+lichess.puzzle = { data: @toJsonHtml(data), pref: @toJsonHtml(pref), i18n: @bits.jsI18n.toHtml };
 }
 }
 

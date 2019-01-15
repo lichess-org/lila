@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.HTTPRequest
-import lila.common.String.html.{ safeJson, safeJsonValue }
+import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
 import controllers.routes
@@ -70,8 +70,8 @@ object home {
     moreJs = frag(
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", async = true),
       embedJs {
-        val playbanJs = htmlOrNull(playban)(pb => safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
-        val gameJs = htmlOrNull(currentGame)(cg => safeJson(cg.json))
+        val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+        val gameJs = currentGame.fold("null")(cg => safeJsonValue(cg.json))
         val transJs = safeJsonValue(i18nJsObject(translations))
         s"""window.customWS = true; lichess_lobby = { data: ${safeJsonValue(data)}, playban: $playbanJs, currentGame: $gameJs, i18n: $transJs, }"""
       }

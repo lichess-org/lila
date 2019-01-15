@@ -5,7 +5,7 @@ lichess_challenge = {
 socketUrl: '@routes.Challenge.websocket(c.id, apiVersion.value)',
 xhrUrl: '@routes.Challenge.show(c.id)',
 owner: @owner,
-data: @toJson(json)
+data: @toJsonHtml(json)
 };
 }
 @jsTag("challenge.js", async = false)

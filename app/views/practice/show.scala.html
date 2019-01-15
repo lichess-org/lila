@@ -11,9 +11,9 @@
 @embedJs {
 lichess = lichess || {};
 lichess.practice = {
-practice: @safeJson(data.practice),
-study: @safeJson(data.study),
-data: @safeJson(data.analysis),
+practice: @safeJsonHtml(data.practice),
+study: @safeJsonHtml(data.study),
+data: @safeJsonHtml(data.analysis),
 i18n: @board.userAnalysisI18n(),
 explorer: {
 endpoint: "@explorerEndpoint",

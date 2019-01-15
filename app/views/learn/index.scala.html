@@ -7,7 +7,7 @@ $(function() {
 LichessLearn(document.getElementById('learn_app'), {
 data: @jsOrNull(data),
 sideElement: document.getElementById('learn_side'),
-i18n: @safeJson(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))
+i18n: @safeJsonHtml(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))
 });
 });
 }

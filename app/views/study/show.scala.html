@@ -5,8 +5,8 @@
 @embedJs {
 lichess = lichess || {};
 lichess.study = {
-study: @safeJson(data.study),
-data: @safeJson(data.analysis),
+study: @safeJsonHtml(data.study),
+data: @safeJsonHtml(data.analysis),
 i18n: @board.userAnalysisI18n(),
 tagTypes: '@lila.study.PgnTags.typesToString',
 userId: @jsUserId,

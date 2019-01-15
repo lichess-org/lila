@@ -8,7 +8,7 @@
 @jsAt(s"compiled/lichess.tournamentCalendar${isProd??(".min")}.js")
 @embedJs {
 var app = LichessTournamentCalendar.app(document.getElementById('tournament_calendar'), {
-data: @safeJson(json),
+data: @safeJsonHtml(json),
 i18n: @jsI18n()
 });
 }
