@@ -32,9 +32,15 @@ object textualRepresentation {
         dd(playerText(pov.game.blackPlayer))
       ),
       dt("Game status"),
-      dd(role := "status")(
+      dd(role := "status", aria.live := "assertive")(
         if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
-        else frag(pov.game.turnColor.name, " plays")
+        else frag(
+          pov.game.pgnMoves.lastOption.map { lastMove =>
+            s"${(!pov.game.turnColor).name} played $lastMove, "
+          },
+          pov.game.turnColor.name,
+          " to play"
+        )
       ),
       (playing && pov.game.playable && pov.game.turnOf(pov.player)) option form(
         label(
