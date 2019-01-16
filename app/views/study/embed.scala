@@ -1,0 +1,91 @@
+package views.html.study
+
+import play.api.libs.json.Json
+import scalatags.Text.tags2.{ title => titleTag }
+
+import lila.api.Context
+import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.safeJsonValue
+
+import controllers.routes
+
+object embed {
+
+  import views.html.base.layout.{ doctype, topComment, charset, metaCsp, currentBgCss }
+
+  private val fontLink = raw("""<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet" type="text/css">""")
+
+  private def bodyClass(implicit ctx: Context) = List(
+    "base" -> true,
+    ctx.currentTheme.cssClass -> true,
+    (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true
+  )
+
+  def apply(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit ctx: Context) = frag(
+    doctype,
+    html(st.lang := ctx.lang.language)(
+      topComment,
+      head(
+        charset,
+        metaCsp(none),
+        titleTag(s"${s.name} ${chapter.name}"),
+        fontLink,
+        currentBgCss,
+        cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
+        link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css"), `type` := "text/css", rel := "stylesheet")
+      ),
+      body(cls := bodyClass ::: List(
+        "highlight" -> true,
+        "piece_letter" -> ctx.pref.pieceNotationIsLetter
+      ))(
+        div(cls := "is2d")(
+          div(cls := "embedded_study analyse cg-512")(miniBoardContent)
+        ),
+        footer {
+          val url = routes.Study.chapter(s.id.value, chapter.id.value)
+          div(cls := "left")(
+            a(target := "_blank", href := url)(h1(s.name.value)),
+            " ",
+            em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+          )
+          a(target := "_blank", cls := "open", href := url)("Open")
+        },
+        jQueryTag,
+        jsTag("vendor/mousetrap.js"),
+        jsAt("compiled/util.js"),
+        jsAt("compiled/trans.js"),
+        jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js"),
+        jsTag("embed-analyse.js"),
+        embedJs(s"""lichess.startEmbeddedAnalyse({
+element: document.querySelector('.embedded_study'),
+study: ${safeJsonValue(data.study)},
+data: ${safeJsonValue(data.analysis)},
+embed: true,
+i18n: ${views.html.board.userAnalysisI18n()},
+userId: null
+});""")
+      )
+    )
+  )
+
+  def notFound()(implicit ctx: Context) = frag(
+    doctype,
+    html(st.lang := ctx.lang.language)(
+      topComment,
+      head(
+        charset,
+        metaCsp(none),
+        titleTag("404 - Study not available"),
+        fontLink,
+        currentBgCss,
+        cssTags("common.css", "analyse-embed.css")
+      ),
+      body(cls := bodyClass)(
+        div(cls := "not_found")(
+          h1("Study not available")
+        )
+      )
+    )
+  )
+}

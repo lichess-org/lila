@@ -7,8 +7,8 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.{ IpAddress, HTTPRequest }
 import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
@@ -26,7 +26,7 @@ object Study extends LilaController {
       if (text.trim.isEmpty)
         env.pager.all(ctx.me, Order.default, page) flatMap { pag =>
           negotiate(
-            html = Ok(html.study.all(pag, Order.default)).fuccess,
+            html = Ok(html.study.list.all(pag, Order.default)).fuccess,
             api = _ => apiStudies(pag)
           )
         }
@@ -48,7 +48,7 @@ object Study extends LilaController {
         case order =>
           env.pager.all(ctx.me, order, page) flatMap { pag =>
             negotiate(
-              html = Ok(html.study.all(pag, order)).fuccess,
+              html = Ok(html.study.list.all(pag, order)).fuccess,
               api = _ => apiStudies(pag)
             )
           }
@@ -63,7 +63,7 @@ object Study extends LilaController {
       _.fold(notFound(ctx)) { owner =>
         env.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
           negotiate(
-            html = Ok(html.study.byOwner(pag, Order(order), owner)).fuccess,
+            html = Ok(html.study.list.byOwner(pag, Order(order), owner)).fuccess,
             api = _ => apiStudies(pag)
           )
         }
@@ -74,7 +74,7 @@ object Study extends LilaController {
   def mine(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.mine(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.mine(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mine(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -83,7 +83,7 @@ object Study extends LilaController {
   def minePublic(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.minePublic(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.minePublic(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.minePublic(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -92,7 +92,7 @@ object Study extends LilaController {
   def minePrivate(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.minePrivate(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.minePrivate(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.minePrivate(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -101,7 +101,7 @@ object Study extends LilaController {
   def mineMember(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.mineMember(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.mineMember(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mineMember(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -110,7 +110,7 @@ object Study extends LilaController {
   def mineLikes(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.mineLikes(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.mineLikes(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mineLikes(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -309,7 +309,7 @@ object Study extends LilaController {
   }
 
   private def embedNotFound(implicit ctx: Context): Fu[Result] =
-    fuccess(NotFound(html.study.embedNotFound()))
+    fuccess(NotFound(html.study.embed.notFound()))
 
   def cloneStudy(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.api.byId(id)) { study =>
