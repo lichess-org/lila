@@ -51,7 +51,7 @@ object home {
       relays map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lidraughts.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
-        simuls.find(_.spotlightable) take 2 map { views.html.simul.homepageSpotlight(_) } toList
+        simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
       ),
       ctx.me map { u =>
         div(id := "timeline", dataHref := routes.Timeline.home)(

@@ -23,4 +23,7 @@ trait JsonHelper {
   def jsUserId(implicit ctx: Context) = Html {
     ctx.userId.fold("null")(id => s""""$id"""")
   }
+  def jsUserIdString(implicit ctx: Context) = Html {
+    ctx.userId.fold("null")(id => s""""$id"""")
+  }
 }
