@@ -2,6 +2,7 @@ package views.html
 
 import play.api.libs.json.Json
 import play.twirl.api.Html
+import scalatags.Text.RawFrag
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -10,6 +11,7 @@ import lila.i18n.I18nKeys
 object chat {
 
   val html = Html("""<div id="chat" class="side_box"></div>""")
+  val frag = RawFrag(html.toString)
 
   import lila.chat.JsonView.chatIdWrites
 
