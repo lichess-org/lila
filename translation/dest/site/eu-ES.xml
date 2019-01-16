@@ -468,8 +468,8 @@
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s alditan jokaturik</item>
-    <item quantity="other">%s alditan jokaturik</item>
+    <item quantity="one">Behin jokatu da</item>
+    <item quantity="other">%s aldiz jokatu da</item>
   </plurals>
   <string name="fromGameLink">%s partidatik hartua</string>
   <string name="continueTraining">Entrenatzen jarraitu</string>
