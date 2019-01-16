@@ -20,10 +20,6 @@ trait JsonHelper {
 
   def jsOrNull[A: Writes](a: Option[A]) = a.fold(Html("null"))(x => toJsonHtml(x))
 
-  def jsUserId(implicit ctx: Context) = Html {
-    ctx.userId.fold("null")(id => s""""$id"""")
-  }
-  def jsUserIdString(implicit ctx: Context) = Html {
-    ctx.userId.fold("null")(id => s""""$id"""")
-  }
+  def jsUserIdString(implicit ctx: Context) = ctx.userId.fold("null")(id => s""""$id"""")
+  def jsUserId(implicit ctx: Context) = Html { jsUserIdString(ctx) }
 }

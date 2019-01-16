@@ -35,9 +35,9 @@ object player {
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundTag,
-        embedJs(s"""window.customWS = true; window.onload = function() {
-LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, userId: $jsUserId, chat: ${jsOrNull(chatJson)},
-${tour.??(t => s"tour: ${toJsonHtml(tour.flatMap(_.top).map(lidraughts.tournament.JsonView.top(_, lightUser)))}")}
+        embedJs(s"""window.customWS=true;window.onload=function(){
+LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserId,chat:${jsOrNull(chatJson)}
+${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lidraughts.tournament.JsonView.top(top, lightUser))}")}
 }, document.getElementById('lidraughts'))}""")
       ),
       moreCss = cssTag("chat.css"),
