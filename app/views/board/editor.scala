@@ -6,7 +6,6 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.html.safeJsonValue
-import lidraughts.rating.PerfType.iconByVariant
 
 import controllers.routes
 
@@ -22,8 +21,7 @@ object editor {
     moreJs = frag(
       jsAt(s"compiled/lidraughts.editor${isProd ?? (".min")}.js"),
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
-LidraughtsEditor(document.getElementById('board_editor'), data);
-""")
+LidraughtsEditor(document.getElementById('board_editor'), data);""")
     ),
     moreCss = cssTag("boardEditor.css"),
     draughtsground = false,
