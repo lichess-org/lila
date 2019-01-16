@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.rating.PerfType.iconByVariant
 
 import controllers.routes
 
@@ -22,8 +21,7 @@ object editor {
     moreJs = frag(
       jsAt(s"compiled/lichess.editor${isProd ?? (".min")}.js"),
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
-LichessEditor(document.getElementById('board_editor'), data);
-""")
+LichessEditor(document.getElementById('board_editor'), data);""")
     ),
     moreCss = cssTag("boardEditor.css"),
     chessground = false,

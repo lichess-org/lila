@@ -111,7 +111,7 @@ formCss = formWithCaptcha.isDefined) {
       @form3.textarea(f, klass = "post-text-area")(*.rows := 10, *.attr("data-topic") := topic.id)
       }
       @base.captcha(form, captcha)
-      @form3.actions {
+      @form3.actionsHtml {
       <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
       @if(isGranted(_.PublicMod)){
       @form3.submit(raw("Reply as mod"), nameValue = (form("modIcon").name, "true").some, icon = "".some)

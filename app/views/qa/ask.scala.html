@@ -21,7 +21,7 @@ formCss = true) {
 <div class="content_box_content">
   <form class="form3 question" action="@routes.QaQuestion.ask()" method="post">
     @questionForm(form, tags, captcha)
-    @form3.actions {
+    @form3.actionsHtml {
     <a href="@routes.QaQuestion.index()">@trans.cancel()</a>
     @form3.submit(raw("Post your question"))
     }

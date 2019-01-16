@@ -155,7 +155,7 @@ image = c.coach.picturePath.map(p => dbImageUrl(p.value))).some) {
     <div class="list">
       @studies.map { s =>
       <div class="study">
-        @study.widget(s)
+        @study.bits.widget(s).toHtml
       </div>
       }
     </div>

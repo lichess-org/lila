@@ -79,7 +79,7 @@ formCss = answerForm.isDefined) {
         @form3.textarea(f)(*.rows := 12)
         }
         @base.captcha(form, captcha)
-        @form3.actions {
+        @form3.actionsHtml {
         @form3.submit(raw("Post your answer"))
         @if(isGranted(_.PublicMod)){
         @form3.submit(raw("Answer as mod"), nameValue = ("modIcon", "true").some, icon = "".some)
