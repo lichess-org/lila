@@ -5,6 +5,7 @@ import play.twirl.api.Html
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.ContentSecurityPolicy
 import scalatags.Text.tags2.{ title => titleTag }
 
 import controllers.routes
@@ -13,9 +14,19 @@ object layout {
 
   private val fontVersion = "04"
 
-  private val doctype = raw("<!doctype html>")
-  private val topComment = raw("""<!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->""")
-  private val charset = raw("""<meta charset="utf-8">""")
+  val doctype = raw("<!doctype html>")
+  val topComment = raw("""<!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->""")
+  val charset = raw("""<meta charset="utf-8">""")
+  def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
+    cspEnabled() option raw(
+      s"""<meta http-equiv="Content-Security-Policy" content="${csp.getOrElse(defaultCsp)}">"""
+    )
+  def currentBgCss(implicit ctx: Context) = ctx.currentBg match {
+    case "dark" => cssTag("dark.css")
+    case "transp" => cssTags("dark.css", "transp.css")
+    case _ => emptyHtml
+  }
+
   private val fontStylesheets = raw(List(
     """<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">""",
     """<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">"""
@@ -99,16 +110,14 @@ object layout {
     draughtsground: Boolean = true,
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
-    csp: Option[lidraughts.common.ContentSecurityPolicy] = None
+    csp: Option[ContentSecurityPolicy] = None
   )(body: Html)(implicit ctx: Context) = frag(
     doctype,
     html(st.lang := ctx.lang.language)(
       topComment,
       head(
         charset,
-        cspEnabled() option raw(
-          s"""<meta http-equiv="Content-Security-Policy" content="${csp.getOrElse(defaultCsp)}">"""
-        ),
+        metaCsp(csp),
         if (isProd) frag(
           titleTag(fullTitle | s"$title • lidraughts.org"),
           fontStylesheets
@@ -118,11 +127,7 @@ object layout {
           cssAt("offline/font.noto.css"),
           cssAt("offline/font.roboto.mono.css")
         ),
-        ctx.currentBg match {
-          case "dark" => cssTag("dark.css")
-          case "transp" => cssTags("dark.css", "transp.css")
-          case _ => emptyHtml
-        },
+        currentBgCss,
         cssTag("common.css"),
         cssTag("board.css"),
         ctx.zoom ifTrue zoomable map { z =>
