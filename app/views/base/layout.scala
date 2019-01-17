@@ -14,23 +14,29 @@ object layout {
 
   private val fontVersion = "04"
 
-  val doctype = raw("<!doctype html>")
-  val topComment = raw("""<!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->""")
-  val charset = raw("""<meta charset="utf-8">""")
-  def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
-    cspEnabled() option raw(
-      s"""<meta http-equiv="Content-Security-Policy" content="${csp.getOrElse(defaultCsp)}">"""
-    )
-  def currentBgCss(implicit ctx: Context) = ctx.currentBg match {
-    case "dark" => cssTag("dark.css")
-    case "transp" => cssTags("dark.css", "transp.css")
-    case _ => emptyHtml
+  object bits {
+    val doctype = raw("<!doctype html>")
+    def htmlTag(implicit ctx: Context) = html(st.lang := ctx.lang.language)
+    val topComment = raw("""<!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->""")
+    val charset = raw("""<meta charset="utf-8">""")
+    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
+      cspEnabled() option raw(
+        s"""<meta http-equiv="Content-Security-Policy" content="${csp.getOrElse(defaultCsp)}">"""
+      )
+    def currentBgCss(implicit ctx: Context) = ctx.currentBg match {
+      case "dark" => cssTag("dark.css")
+      case "transp" => cssTags("dark.css", "transp.css")
+      case _ => emptyHtml
+    }
+    def pieceSprite(implicit ctx: Context) =
+      link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css"), `type` := "text/css", rel := "stylesheet")
+    val fontStylesheets = raw(List(
+      """<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">""",
+      """<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">"""
+    ).mkString)
   }
+  import bits._
 
-  private val fontStylesheets = raw(List(
-    """<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">""",
-    """<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">"""
-  ).mkString)
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
   private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
   private val manifests = raw(List(
@@ -113,7 +119,7 @@ object layout {
     csp: Option[ContentSecurityPolicy] = None
   )(body: Html)(implicit ctx: Context) = frag(
     doctype,
-    html(st.lang := ctx.lang.language)(
+    htmlTag(ctx)(
       topComment,
       head(
         charset,
@@ -138,7 +144,7 @@ object layout {
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
         isStage option cssTag("stage.css"),
         moreCss,
-        link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css"), `type` := "text/css", rel := "stylesheet"),
+        pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
