@@ -77,7 +77,7 @@ object Analyse extends LilaController {
           withFlags = WithFlags(opening = true)) map { data =>
             Ok(html.analyse.embed(pov, data))
           }
-      case _ => fuccess(NotFound(html.analyse.embedNotFound()))
+      case _ => fuccess(NotFound(html.analyse.embed.notFound()))
     }
   }
 

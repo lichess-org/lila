@@ -1,4 +1,4 @@
-package views.html.study
+package views.html.analyse
 
 import play.api.libs.json.Json
 import scalatags.Text.tags2.{ title => titleTag }
@@ -20,14 +20,14 @@ object embed {
     (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true
   )
 
-  def apply(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit ctx: Context) = frag(
+  def apply(pov: lila.game.Pov, data: play.api.libs.json.JsObject)(implicit ctx: Context) = frag(
     doctype,
     htmlTag(ctx)(
       topComment,
       head(
         charset,
         metaCsp(none),
-        titleTag(s"${s.name} ${chapter.name}"),
+        titleTag(s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"),
         fontStylesheets,
         currentBgCss,
         cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
@@ -38,16 +38,18 @@ object embed {
         "piece_letter" -> ctx.pref.pieceNotationIsLetter
       ))(
         div(cls := "is2d")(
-          div(cls := "embedded_study analyse cg-512")(miniBoardContent)
+          div(cls := "embedded_analyse analyse cg-512")(miniBoardContent)
         ),
         footer {
-          val url = routes.Study.chapter(s.id.value, chapter.id.value)
-          div(cls := "left")(
-            a(target := "_blank", href := url)(h1(s.name.value)),
-            " ",
-            em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+          val url = routes.Round.watcher(pov.gameId, pov.color.name)
+          frag(
+            div(cls := "left")(
+              a(target := "_blank", href := url)(h1(titleGame(pov.game))),
+              " ",
+              em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+            ),
+            a(target := "_blank", cls := "open", href := url)("Open")
           )
-          a(target := "_blank", cls := "open", href := url)("Open")
         },
         jQueryTag,
         jsTag("vendor/mousetrap.js"),
@@ -56,13 +58,11 @@ object embed {
         jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js"),
         jsTag("embed-analyse.js"),
         embedJs(s"""lichess.startEmbeddedAnalyse({
-element: document.querySelector('.embedded_study'),
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-embed: true,
-i18n: ${views.html.board.userAnalysisI18n()},
-userId: null
-});""")
+    element: document.querySelector('.embedded_analyse'),
+    data: ${safeJsonValue(data)},
+    embed: true,
+    i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
+    });""")
       )
     )
   )
@@ -74,14 +74,14 @@ userId: null
       head(
         charset,
         metaCsp(none),
-        titleTag("404 - Study not available"),
+        titleTag("404 - Game not found"),
         fontStylesheets,
         currentBgCss,
         cssTags("common.css", "analyse-embed.css")
       ),
       body(cls := bodyClass)(
         div(cls := "not_found")(
-          h1("Study not available")
+          h1("Game not found")
         )
       )
     )
