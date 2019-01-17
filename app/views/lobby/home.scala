@@ -35,9 +35,9 @@ object home {
     title = "",
     fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
     baseline = Some(frag(
-      a(id := "nb_connected_players", href := routes.User.list)(trans.nbPlayers(nbPlayersPlaceholder)),
+      a(id := "nb_connected_players", href := routes.User.list)(trans.nbPlayers.frag(nbPlayersPlaceholder)),
       a(id := "nb_games_in_play", href := routes.Tv.games)(
-        trans.nbGamesInPlay.plural(nbRounds, Html(s"<span>${nbRounds}</span>"))
+        trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
       ),
       ctx.isMobileBrowser option {
         if (HTTPRequest isAndroid ctx.req) views.html.mobile.bits.googlePlayButton
@@ -58,7 +58,7 @@ object home {
           views.html.timeline entries userTimeline,
           div(cls := "links")(
             userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
           )
         )
       } getOrElse {
@@ -66,7 +66,7 @@ object home {
           //trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
           trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", trans.really()),
           " ",
-          a(cls := "blue", href := "/about")(trans.aboutX("lidraughts.org"), "...")
+          a(cls := "blue", href := "/about")(trans.aboutX.frag("lidraughts.org"), "...")
         )
       }
     )),
@@ -112,22 +112,22 @@ object home {
             a(href := routes.Setup.hookForm, cls := List(
               "fat button config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
-            ), trans.createAGame()),
+            ), trans.createAGame.frag()),
             a(href := routes.Setup.friendForm(none), cls := List(
               "fat button config_friend" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithAFriend()),
+            ), trans.playWithAFriend.frag()),
             a(href := routes.Setup.aiForm, cls := List(
               "fat button config_ai" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithTheMachine())
+            ), trans.playWithTheMachine.frag())
           )
         ),
         puzzle map { p =>
           div(id := "daily_puzzle", title := trans.clickToSolve.txt())(
             raw(p.html),
             div(cls := "vstext")(
-              trans.puzzleOfTheDay(),
+              trans.puzzleOfTheDay.frag(),
               br,
               p.color.fold(trans.whitePlays, trans.blackPlays)()
             )
@@ -137,8 +137,8 @@ object home {
         ctx.noKid option frag(
           div(cls := "new_posts undertable", dataUrl := routes.ForumPost.recent)(
             div(cls := "undertable_top")(
-              a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more(), " »"),
-              span(cls := "title text", dataIcon := "d")(trans.latestForumPosts())
+              a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more.frag(), " »"),
+              span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
             ),
             div(cls := "undertable_inner scroll-shadow-hard")(
               div(cls := "content")(views.html.forum.post recent forumRecent)
@@ -150,15 +150,15 @@ object home {
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             strong("Lidraughts Patron"),
-            span(trans.directlySupportLidraughts())
+            span(trans.directlySupportLidraughts.frag())
           ),
           a(href := routes.Page.swag)(
             iconTag(""),
             strong("Swag Store"),
-            span(trans.playDraughtsInStyle())
+            span(trans.playDraughtsInStyle.frag())
           )
         ),*/
-        div(cls := "about-footer")(a(href := "/about")(trans.aboutX("lidraughts.org")))
+        div(cls := "about-footer")(a(href := "/about")(trans.aboutX.frag("lidraughts.org")))
       )
     }
 
@@ -190,5 +190,5 @@ object home {
     trans.anonymous
   )
 
-  private val nbPlayersPlaceholder = Html("<strong>-,---</strong>")
+  private val nbPlayersPlaceholder = strong("--,---")
 }

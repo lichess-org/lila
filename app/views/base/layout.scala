@@ -54,25 +54,25 @@ object layout {
 
   private def challenges(implicit ctx: Context) = spaceless(s"""<div class="challenge_notifications">
   <a id="challenge_notifications_tag" class="toggle link data-count" data-count="${ctx.nbChallenges}">
-    <span class="hint--bottom-left" data-hint="${trans.challenges()}"><span data-icon="U"></span></span>
+    <span class="hint--bottom-left" data-hint="${trans.challenges.frag()}"><span data-icon="U"></span></span>
   </a>
   <div id="challenge_app" class="dropdown"></div>
 </div>""")
 
   private def notifications(implicit ctx: Context) = spaceless(s"""<div class="site_notifications">
   <a id="site_notifications_tag" class="toggle link data-count" data-count="${ctx.nbNotifications}">
-    <span class="hint--bottom-left" data-hint="${trans.notifications()}"><span data-icon=""></span></span>
+    <span class="hint--bottom-left" data-hint="${trans.notifications.frag()}"><span data-icon=""></span></span>
   </a>
   <div id="notify_app" class="dropdown"></div>
 </div>""")
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
   <a class="toggle anon">
-    <span class="hint--bottom-left" data-hint="${trans.preferences()}"><span data-icon="%"></span></span>
+    <span class="hint--bottom-left" data-hint="${trans.preferences.frag()}"><span data-icon="%"></span></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn()}</a>""")
+<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn.frag()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 
@@ -178,7 +178,7 @@ object layout {
         dataZoom := ctx.zoom.map(_.toString)
       )(
           blindModeForm,
-          div(id := "site_description")(trans.siteDescription()),
+          div(id := "site_description")(trans.siteDescription.frag()),
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
           ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
           isStage option div(id := "stage")(
@@ -204,7 +204,7 @@ object layout {
             isGranted(_.SeeReport) option
               a(cls := "link text data-count", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := ""),
             clinput,
-            a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting())
+            a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
           ),
           div(cls := "content is2d")(
             div(id := "site_header")(
@@ -242,7 +242,7 @@ object layout {
                 div(cls := "friend_box_title")(
                   strong(cls := "online")(" "),
                   " ",
-                  trans.onlineFriends()
+                  trans.onlineFriends.frag()
                 ),
                 div(cls := "content_wrap")(
                   div(cls := "content list"),
@@ -250,9 +250,9 @@ object layout {
                     "nobody" -> true,
                     "none" -> ctx.onlineFriends.users.nonEmpty
                   ))(
-                    span(trans.noFriendsOnline()),
+                    span(trans.noFriendsOnline.frag()),
                     a(cls := "find button", href := routes.User.opponents)(
-                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
+                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends.frag())
                     )
                   )
                 )
