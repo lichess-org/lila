@@ -72,8 +72,8 @@ private object DisposableEmailDomain {
     /* Other global domains */
     "email.com", "games.com" /* AOL */ , "gmx.net", "hush.com", "hushmail.com", "icloud.com", "inbox.com",
     "lavabit.com", "love.com" /* AOL */ , "outlook.com", "pobox.com", "rocketmail.com" /* Yahoo */ ,
-    "safe-mail.net", "wow.com" /* AOL */ , "ygm.com" /* AOL */ , "ymail.com" /* Yahoo */ , "zoho.com", "fastmail.fm",
-    "yandex.com",
+    "safe-mail.net", "wow.com" /* AOL */ , "ygm.com" /* AOL */ , "ymail.com" /* Yahoo */ , "zoho.com",
+    "fastmail.com", "fastmail.fm", "yandex.com",
 
     /* United States ISP domains */
     "bellsouth.net", "charter.net", "comcast.net", "cox.net", "earthlink.net", "juno.com",
