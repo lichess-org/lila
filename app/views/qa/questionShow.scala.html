@@ -78,7 +78,7 @@ formCss = answerForm.isDefined) {
         @form3.group(form("body"), raw("Your answer"), help = raw("Do not comment the question here. Only post an answer, if you have one.").some) { f =>
         @form3.textarea(f)(*.rows := 12)
         }
-        @base.captcha(form, captcha)
+        @base.captcha(form, captcha).toHtml
         @form3.actionsHtml {
         @form3.submit(raw("Post your answer"))
         @if(isGranted(_.PublicMod)){

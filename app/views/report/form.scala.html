@@ -20,7 +20,7 @@
     @form3.select(f, translatedReasonChoices, trans.whatIsIheMatter.txt().some)
     }
     @form3.group(form("text"), trans.description.frag(), help = trans.reportDescriptionHelp.frag().some)(form3.textarea(_)(*.rows := 8))
-    @base.captcha(form, captcha)
+    @base.captcha(form, captcha).toHtml
     @form3.actionsHtml {
     <a href="@routes.Lobby.home()">@trans.cancel()</a>
     @form3.submit(trans.send.frag())
