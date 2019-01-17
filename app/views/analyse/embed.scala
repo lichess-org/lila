@@ -58,11 +58,11 @@ object embed {
         jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js"),
         jsTag("embed-analyse.js"),
         embedJs(s"""lichess.startEmbeddedAnalyse({
-    element: document.querySelector('.embedded_analyse'),
-    data: ${safeJsonValue(data)},
-    embed: true,
-    i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
-    });""")
+element: document.querySelector('.embedded_analyse'),
+data: ${safeJsonValue(data)},
+embed: true,
+i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
+});""")
       )
     )
   )
