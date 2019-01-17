@@ -9,7 +9,7 @@ formCss = true) {
     <form class="form3" action="@routes.Simul.exportConfirm(simulId)" method="POST">
       <ul>
         <li>
-          @base.captcha(form, captcha)
+          @base.captcha(form, captcha).toHtml
         </li>
         @errMsg(form)
         <li>

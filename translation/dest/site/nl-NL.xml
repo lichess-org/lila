@@ -357,7 +357,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="thisIsADraughtsCaptcha">Dit is een dam CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.</string>
   <string name="captcha.fail">Gelieve de dam-captcha op te lossen.</string>
-  <string name="notACapture">Dat is niet de langste slagzet</string>
+  <string name="notTheBestCapture">Dat is niet de langste slagzet</string>
   <string name="colorPlaysCapture">%s aan zet; speel de langste slagzet</string>
   <string name="retry">Probeer opnieuw</string>
   <string name="reconnecting">Opnieuw aan het verbinden</string>

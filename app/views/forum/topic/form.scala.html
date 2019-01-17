@@ -21,7 +21,7 @@
 <form class="form3 create-topic" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
   @form3.group(form("name"), trans.subject.frag())(form3.input(_)(*.autofocus := true))
   @form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(*.rows := 10))
-  @base.captcha(form("post"), captcha)
+  @base.captcha(form("post"), captcha).toHtml
   @form3.actionsHtml {
   <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>
   @if(isGranted(_.PublicMod)){
