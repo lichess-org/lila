@@ -23,6 +23,7 @@ trait StringHelper { self: NumberHelper =>
 
   implicit def lilaRichString(str: String) = new {
     def active(other: String, one: String = "active") = if (str == other) one else ""
+    def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None
   }
 
   def when(cond: Boolean, str: String) = cond ?? str
