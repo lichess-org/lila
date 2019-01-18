@@ -20,17 +20,6 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-color: #b84400 !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
-.ui-corner-right {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-.ui-corner-left {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-}
-.ui-corner-all {
-  border-radius: 2px;
-}
 /* slider */
 
 .ui-slider {
