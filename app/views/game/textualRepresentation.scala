@@ -13,12 +13,6 @@ object textualRepresentation {
 
     h1("Textual representation"),
     dl(
-      dt("Turn"),
-      dd(pov.game.turns),
-      dt("PDN"),
-      dd(role := "log", aria.live := "assertive")(raw(pov.game.pdnMoves.mkString(" "))),
-      dt("FEN"),
-      dd(draughts.format.Forsyth.>>(pov.game.draughts)),
       if (playing) frag(
         dt("Your color"),
         dd(pov.color.name),
@@ -31,8 +25,12 @@ object textualRepresentation {
         dt("Black player"),
         dd(playerText(pov.game.blackPlayer))
       ),
+      dt("PDN"),
+      dd(cls := "pdn", role := "log", aria.live := "off")(raw(pov.game.pdnMoves.mkString(" "))),
+      dt("FEN"),
+      dd(cls := "fen", aria.live := "off")(draughts.format.Forsyth.>>(pov.game.draughts)),
       dt("Game status"),
-      dd(role := "status", aria.live := "assertive")(
+      dd(cls := "status")(role := "status", aria.live := "assertive")(
         if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
         else frag(
           pov.game.pdnMoves.lastOption.map { lastMove =>
@@ -42,7 +40,7 @@ object textualRepresentation {
           " to play"
         )
       ),
-      (playing && pov.game.playable && pov.game.turnOf(pov.player)) option form(
+      (playing && pov.game.playable) option form(
         label(
           "Your move",
           input(name := "move", cls := "move", `type` := "text", cls := "", autocomplete := "off", autofocus := true)
