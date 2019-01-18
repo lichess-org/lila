@@ -100,8 +100,8 @@ module.exports = function(cfg, element) {
   var $startButtons = $('#start_buttons');
 
   var sliderTimes = [
-    0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-    16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
+    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
   ];
 
   function sliderTime(v) {
@@ -175,16 +175,16 @@ module.exports = function(cfg, element) {
 
   function prepareForm() {
     var $form = $('.lichess_overboard');
-    var $timeModeSelect = $form.find('#timeMode');
+    var $timeModeSelect = $form.find('#sf_timeMode');
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
     var $casual = $modeChoices.eq(0),
       $rated = $modeChoices.eq(1);
-    var $variantSelect = $form.find('#variant');
+    var $variantSelect = $form.find('#sf_variant');
     var $fenPosition = $form.find(".fen_position");
-    var $timeInput = $form.find('.time_choice input');
-    var $incrementInput = $form.find('.increment_choice input');
-    var $daysInput = $form.find('.days_choice input');
+    var $timeInput = $form.find('.time_choice [name=time]');
+    var $incrementInput = $form.find('.increment_choice [name=increment]');
+    var $daysInput = $form.find('.days_choice [name=days]');
     var typ = $form.data('type');
     var $ratings = $form.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
@@ -196,6 +196,8 @@ module.exports = function(cfg, element) {
       var rated = $rated.prop('checked');
       var limit = $timeInput.val();
       var inc = $incrementInput.val();
+      console.log($timeInput, $incrementInput);
+      console.log(limit, inc);
       // no rated variants with less than 30s on the clock
       var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
         (variantId != '1' && timeMode != '1');
@@ -285,12 +287,17 @@ module.exports = function(cfg, element) {
     } else $formTag.one('submit', function() {
       $submits.hide().end().append(lichess.spinnerHtml);
     });
-    lichess.slider().done(function() {
+    if ($('body').hasClass('blind_mode')) {
+      $timeInput.add($incrementInput).on('change', function() {
+        toggleButtons();
+        showRating();
+      });
+    } else lichess.slider().done(function() {
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
           $value = $input.siblings('span');
         var isTimeSlider = $input.parent().hasClass('time_choice');
-        $input.hide().after($('<div>').slider({
+        $input.after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
           max: isTimeSlider ? 34 : 30,
@@ -308,7 +315,7 @@ module.exports = function(cfg, element) {
       $daysInput.each(function() {
         var $input = $(this),
           $value = $input.siblings('span');
-        $input.hide().after($('<div>').slider({
+        $input.after($('<div>').slider({
           value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
           min: 1,
           max: 7,
@@ -401,7 +408,7 @@ module.exports = function(cfg, element) {
       });
       $(this).find('#config_level').mouseleave(function() {
         var level = $(this).find('input:checked').val();
-        $infos.hide().filter('.level_' + level).show();
+        $infos.hide().filter('.sf_level_' + level).show();
       }).trigger('mouseout');
     });
 

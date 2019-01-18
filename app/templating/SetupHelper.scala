@@ -11,6 +11,24 @@ import lila.tournament.System
 
 trait SetupHelper { self: I18nHelper =>
 
+  type SelectChoice = (String, String, Option[String])
+
+  val clockTimeChoices: List[SelectChoice] = List(
+    ("0", "0", none),
+    ("0.25", "¼", none),
+    ("0.5", "½", none),
+    ("0.75", "¾", none)
+  ) ::: List(
+      "1", "1.5", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
+      "17", "18", "19", "20", "25", "30", "35", "40", "45", "60", "90", "120", "150", "180"
+    ).map { v => (v.toString, v.toString, none) }
+
+  val clockIncrementChoices: List[SelectChoice] = {
+    (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
+  } map { s =>
+    (s.toString, s.toString, none)
+  }
+
   def translatedTimeModeChoices(implicit ctx: Context) = List(
     (TimeMode.RealTime.id.toString, I18nKeys.realTime.txt(), none),
     (TimeMode.Correspondence.id.toString, I18nKeys.correspondence.txt(), none),
@@ -38,7 +56,7 @@ trait SetupHelper { self: I18nHelper =>
     System.Arena.id.toString -> "Arena"
   )
 
-  private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =
+  private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): SelectChoice =
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(

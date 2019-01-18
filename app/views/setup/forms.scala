@@ -30,14 +30,13 @@ object forms {
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
           ),
-          div(cls := "optional_config")(
+          !ctx.blindMode option div(cls := "optional_config")(
             div(cls := "rating_range_config slider")(
               trans.ratingRange(),
               ": ",
               span(cls := "range")("? - ?"),
               div(cls := "rating_range")(
                 renderInput(form("ratingRange"))(
-                  `type` := "hidden",
                   dataMin := RatingRange.min,
                   dataMax := RatingRange.max
                 )
@@ -54,15 +53,21 @@ object forms {
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), true, validFen),
         renderTimeMode(form, lila.setup.AiConfig),
-        trans.level(),
-        div(cls := "level buttons")(
-          div(id := "config_level")(
-            renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
-          ),
-          div(cls := "ai_info")(
-            ratings.toList.map {
-              case (level, rating) => div(cls := s"level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
-            }
+        if (ctx.blindMode) frag(
+          renderLabel(form("level"), trans.level()),
+          renderSelect(form("level"), lila.setup.AiConfig.levelChoices)
+        )
+        else frag(
+          trans.level(),
+          div(cls := "level buttons")(
+            div(id := "config_level")(
+              renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
+            ),
+            div(cls := "ai_info")(
+              ratings.toList.map {
+                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+              }
+            )
           )
         )
       )
@@ -125,11 +130,11 @@ object forms {
                   case (key, name) => button(
                     disabled := typ == "hook" option true,
                     `type` := "submit",
-                    dataHint := name,
+                    dataHint := !ctx.blindMode option name,
                     cls := s"button hint--bottom $key",
                     st.name := form("color").id,
                     value := key
-                  )(i)
+                  )(if (ctx.blindMode) name else i)
                 }
             )
           )
