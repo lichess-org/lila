@@ -3,7 +3,7 @@ package lidraughts.security
 import play.api.data.validation._
 import scala.concurrent.duration._
 
-import lidraughts.common.EmailAddress
+import lidraughts.common.{ EmailAddress, Domain }
 import lidraughts.user.User
 
 /**
@@ -79,7 +79,11 @@ final class EmailAddressValidator(
   private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] = validate(e) ?? {
     _.domain ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
-      else dnsApi.a(domain) >>& dnsApi.mx(domain).map { domains =>
+      else {
+        dnsApi.a(domain) >>| {
+          domain.value.startsWith("students.") ?? dnsApi.a(Domain(domain.value drop "students.".size))
+        }
+      } >>& dnsApi.mx(domain).map { domains =>
         domains.nonEmpty && domains.forall { !disposable(_) }
       }
     }
