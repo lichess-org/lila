@@ -11,16 +11,19 @@ type Sans = {
 
 window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
 
-  const reload = () => {
+  let $form: JQuery;
+
+  const reload = (first: boolean = false) => {
     $.ajax({
       url: (ctrl.data.player.spectator ?
         router.game(ctrl.data, ctrl.data.player.color) :
         router.player(ctrl.data)
       ) + '/text',
       success(html) {
-        $(element).html(html).find('form').each(function(this: HTMLFormElement) {
-          const $form = $(this).submit(function() {
-            let input = $form.find('.move').val();
+        if (first) {
+          $(element).html(html);
+          $form = $(element).find('form').submit(function() {
+            const input = $form.find('.move').val();
             const sans: Sans = sanWriter(
               plyStep(ctrl.data, ctrl.ply).fen,
               destsToUcis(ctrl.chessground.state.movable.dests!)
@@ -35,13 +38,16 @@ window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
             });
             return false;
           });
-          $form.find('.move').focus();
+        }
+        else ['pgn', 'fen', 'status'].forEach(r => {
+          $(element).find('.' + r).html($(html).find('.' + r).html());
         });
+        $form.find('.move').val('').focus();
       }
     });
   }
 
-  reload();
+  reload(true);
 
   return {
     reload: throttle(1000, reload)

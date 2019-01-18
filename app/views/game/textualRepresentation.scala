@@ -13,12 +13,6 @@ object textualRepresentation {
 
     h1("Textual representation"),
     dl(
-      dt("Turn"),
-      dd(pov.game.turns),
-      dt("PGN"),
-      dd(role := "log", aria.live := "assertive")(raw(pov.game.pgnMoves.mkString(" "))),
-      dt("FEN"),
-      dd(chess.format.Forsyth.>>(pov.game.chess)),
       if (playing) frag(
         dt("Your color"),
         dd(pov.color.name),
@@ -31,8 +25,12 @@ object textualRepresentation {
         dt("Black player"),
         dd(playerText(pov.game.blackPlayer))
       ),
+      dt("PGN"),
+      dd(cls := "pgn", role := "log", aria.live := "off")(raw(pov.game.pgnMoves.mkString(" "))),
+      dt("FEN"),
+      dd(cls := "fen", aria.live := "off")(chess.format.Forsyth.>>(pov.game.chess)),
       dt("Game status"),
-      dd(role := "status", aria.live := "assertive")(
+      dd(cls := "status")(role := "status", aria.live := "assertive")(
         if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
         else frag(
           pov.game.pgnMoves.lastOption.map { lastMove =>
