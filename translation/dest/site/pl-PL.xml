@@ -592,9 +592,9 @@
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
   <string name="pgnPieceNotation">Notacja ruchów</string>
   <string name="chessPieceSymbol">Symbole bierek</string>
-  <string name="pgnLetter">Literowe (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="chessClock">Zegar szachowy</string>
-  <string name="tenthsOfSeconds">Dziesiętne części sekundy</string>
+  <string name="tenthsOfSeconds">Dziesiętne sekundy</string>
   <string name="never">Nigdy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
@@ -699,7 +699,7 @@
     <item quantity="other">%s postów na forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
-  <string name="watchGames">Obserwuj partie</string>
+  <string name="watchGames">Oglądaj partie</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="internationalEvents">Turnieje międzynarodowe</string>
@@ -708,7 +708,7 @@
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
   <string name="aboutX">Informacje o %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), bez reklam, o otwartym kodzie źródłowym serwerem szachowym.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), wolnym, bez reklam, otwartym serwerem szachowym.</string>
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="contact">Kontakt</string>
@@ -727,8 +727,8 @@
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
-  <string name="create">Stwórz</string>
-  <string name="whenCreateSimul">Symultana pozwoli Ci zagrać z wieloma przeciwnikami równocześnie.</string>
+  <string name="create">Utwórz</string>
+  <string name="whenCreateSimul">Symultana to równoczesna gra z wieloma przeciwnikami.</string>
   <string name="simulVariantsHint">Każdy z graczy może będzie mógł wybrać spośród kilku wskazanych odmian gry.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
@@ -744,12 +744,12 @@
   <string name="keyShowOrHideComments">pokaż/ukryj komentarze</string>
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
   <string name="newTournament">Nowy turniej</string>
-  <string name="tournamentHomeTitle">Turnieje mogą być rozgrywane w różnym tempie i w różnych odmianach szachów</string>
+  <string name="tournamentHomeTitle">Turnieje szachowe z możliwością rozgrywki w różnym tempie i odmianach szachów</string>
   <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
   <string name="tournamentNotFound">Nie znaleziono turnieju</string>
   <string name="tournamentDoesNotExist">Taki turniej nie istnieje.</string>
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
-  <string name="returnToTournamentsHomepage">Wróć do turnieju</string>
+  <string name="returnToTournamentsHomepage">Wróć do strony głównej turniejów</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s gracz w tym tygodniu (%2$s).</item>
