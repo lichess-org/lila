@@ -289,6 +289,7 @@ module.exports = function(cfg, element) {
         $(this).find('.color_submits').find('button').hide().end().append(lidraughts.spinnerHtml);
       });
     if (blindMode) {
+      $variantSelect.focus();
       $timeInput.add($incrementInput).on('change', function() {
         toggleButtons();
         showRating();

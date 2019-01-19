@@ -20,8 +20,8 @@ moreCss = cssTag("challenge.css")) {
       @c.status match {
       case Status.Created | Status.Offline => {
       <div id="ping_challenge">
+        <h1>@trans.challengeToPlay()</h1>
         @c.destUserId.map { destId =>
-        <h2>@trans.challengeToPlay()</h2>
         @userIdLink(destId.some, cssClass="target".some)
         @spinner
         @trans.waitingForOpponent()<br />
