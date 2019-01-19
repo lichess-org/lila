@@ -53,7 +53,7 @@
   <string name="loadingEngine">Wczytywanie silnika...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
-  <string name="showThreat">Pokaż zagrożenia</string>
+  <string name="showThreat">Pokaż groźby</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
   <string name="promoteVariation">Promuj ten wariant</string>
