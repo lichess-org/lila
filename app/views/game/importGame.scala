@@ -37,7 +37,7 @@ object importGame {
             frag(" ", form3.file.pdn(f.name))
           },
           form3.checkbox(form("analyse"), trans.requestAComputerAnalysis.frag(), help = Some(analyseHelp), disabled = ctx.isAnon),
-          form3.actionHtml(form3.submit(trans.importGame.frag()))
+          form3.action(form3.submit(trans.importGame.frag()))
         )
       )
     }.toHtml
