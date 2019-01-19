@@ -56,25 +56,25 @@ object layout {
 
   private def challenges(implicit ctx: Context) = spaceless(s"""<div class="challenge_notifications">
   <a id="challenge_notifications_tag" class="toggle link data-count" data-count="${ctx.nbChallenges}">
-    <span class="hint--bottom-left" data-hint="${trans.challenges.frag()}"><span data-icon="U"></span></span>
+    <span class="hint--bottom-left" data-hint="${trans.challenges.txt()}"><span data-icon="U"></span></span>
   </a>
   <div id="challenge_app" class="dropdown"></div>
 </div>""")
 
   private def notifications(implicit ctx: Context) = spaceless(s"""<div class="site_notifications">
   <a id="site_notifications_tag" class="toggle link data-count" data-count="${ctx.nbNotifications}">
-    <span class="hint--bottom-left" data-hint="${trans.notifications.frag()}"><span data-icon=""></span></span>
+    <span class="hint--bottom-left" data-hint="${trans.notifications.txt()}"><span data-icon=""></span></span>
   </a>
   <div id="notify_app" class="dropdown"></div>
 </div>""")
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
   <a class="toggle anon">
-    <span class="hint--bottom-left" data-hint="${trans.preferences.frag()}"><span data-icon="%"></span></span>
+    <span class="hint--bottom-left" data-hint="${trans.preferences.txt()}"><span data-icon="%"></span></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn.frag()}</a>""")
+<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn.txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 
