@@ -41,4 +41,10 @@
   <string name="blackResigned">Hitam telah menyerah kalah</string>
   <string name="whiteLeftTheGame">Putih telah meninggalkan perlawanan</string>
   <string name="blackLeftTheGame">Hitam telah meninggalkan perlawanan</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Kongsi URL ini untuk membenarkan penonton lihat perlawanan</string>
+  <string name="theComputerAnalysisHasFailed">Analisis Komputer gagal</string>
+  <string name="viewTheComputerAnalysis">Lihat analisis komputer</string>
+  <string name="requestAComputerAnalysis">Minta analisis komputer</string>
+  <string name="computerAnalysis">Analisis komputer</string>
+  <string name="computerAnalysisAvailable">Analisis komputer ada</string>
 </resources>
