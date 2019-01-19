@@ -59,8 +59,13 @@
   <string name="allSet">Gereed!</string>
   <string name="delete">Skrap</string>
   <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
+  <string name="enable">Aktief</string>
+  <string name="multipleLines">Aantal lyne</string>
+  <string name="cpus">CPU</string>
+  <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="blunders">Flaters</string>
   <string name="mistakes">Foute</string>
+  <string name="inaccuracy">Onakkuraathede</string>
   <string name="inaccuracies">Onakkuraathede</string>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
@@ -122,6 +127,7 @@
   <string name="passwordReset">Wagwoord herstel</string>
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
+  <string name="rankX">Gradering: %s</string>
   <string name="gamesPlayed">Gespeel</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s spelle vir jou</item>
