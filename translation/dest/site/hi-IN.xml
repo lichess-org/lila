@@ -62,7 +62,7 @@
   <string name="move">चाल</string>
   <string name="variantLoss">भिन् न हानि</string>
   <string name="variantWin">भिन् न जीत</string>
-  <string name="insufficientMaterial">मात के लिए शतरंज के टुकड़े नहीं हैं</string>
+  <string name="insufficientMaterial">मात के लिए शतरंज के मोहरे नहीं हैं</string>
   <string name="pawnMove">प्यादा कदम</string>
   <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
