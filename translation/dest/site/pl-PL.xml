@@ -605,7 +605,7 @@
   <string name="dragPiece">Przeciągając figurę</string>
   <string name="bothClicksAndDrag">Klikając pola lub przeciągając figurę</string>
   <string name="premovesPlayingDuringOpponentTurn">Ruch planowany (podczas ruchu przeciwnika)</string>
-  <string name="takebacksWithOpponentApproval">Cofnięcie ruchu (za zgodą przeciwnika)</string>
+  <string name="takebacksWithOpponentApproval">Cofanie ruchów (za zgodą przeciwnika)</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="privacy">Prywatność</string>
@@ -624,7 +624,7 @@
   <string name="always">Zawsze</string>
   <string name="inCasualGamesOnly">Tylko w grach towarzyskich</string>
   <string name="whenPremoving">W czasie ruchu planowanego</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało &lt; 30 sekund czasu</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy na zegarze jest mniej niż 30 sekund</string>
   <string name="difficultyEasy">Łatwy</string>
   <string name="difficultyNormal">Normalny</string>
   <string name="difficultyHard">Trudny</string>
