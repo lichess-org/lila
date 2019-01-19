@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
 import * as button from '../view/button';
 import { bind, justIcon } from '../util';
 import { game } from 'game';
@@ -13,28 +14,34 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     isPlayer = ctrl.data.player.color === player.color,
     isRunning = player.color === clock.times.activeColor;
   const update = (el: HTMLElement) => {
-    const els = clock.elements[player.color]
+    const els = clock.elements[player.color];
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning);
+    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.blind);
   }
+  const timeHook: Hooks = {
+    insert: (vnode) => update(vnode.elm as HTMLElement),
+    postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
+  };
   return h('div.clock.clock_' + player.color + '.clock_' + position, {
     class: {
       outoftime: millis <= 0,
       running: isRunning,
       emerg: millis < clock.emergMs
     }
-  }, [
-    showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]),
+  }, clock.blind ? [
     h('div.time', {
       attrs: {
         role: 'timer',
-        title: `${player.color} clock`
+        'aria.atomic': true
       },
-      hook: {
-        insert: vnode => update(vnode.elm as HTMLElement),
-        postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
-      }
+      hook: timeHook
+    })
+  ] : [
+    clock.showBar ? showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]) : undefined,
+    h('div.time', {
+      attrs: { title: `${player.color} clock` },
+      hook: timeHook
     }),
     renderBerserk(ctrl, player.color, position),
     isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
@@ -49,9 +56,14 @@ function pad2(num: number): string {
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
-  const date = new Date(time),
-    millis = date.getUTCMilliseconds(),
+function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, blind: boolean) {
+  const date = new Date(time);
+  if (blind) return [
+    time > 3600000 ? Math.floor(time / 3600000) + ' hours' : '',
+    date.getUTCMinutes() + ' minutes',
+    date.getUTCSeconds() + ' seconds'
+  ].join(' ').trim();
+  const millis = date.getUTCMilliseconds(),
     sep = (isRunning && millis < 500) ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (time >= 3600000) {
@@ -74,17 +86,17 @@ function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, bers
     els.bar = el;
     el.style.transform = "scale(" + ctrl.timeRatio(millis) + ",1)";
   };
-  return ctrl.showBar ? h('div.bar', {
+  return h('div.bar', {
     class: { berserk },
     hook: {
       insert: vnode => update(vnode.elm as HTMLElement),
       postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
     }
-  }) : null;
+  });
 }
 
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
-  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true);
+  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.blind);
   if (els.bar) els.bar.style.transform = "scale(" + clock.timeRatio(millis) + ",1)";
   if (els.clock) {
     if (millis < clock.emergMs) els.clock.classList.add("emerg");
