@@ -66,6 +66,7 @@ export class ClockController {
   };
 
   showTenths: (millis: Millis) => boolean;
+  blind: boolean;
   showBar: boolean;
   times: Times;
 
@@ -88,7 +89,8 @@ export class ClockController {
       this.showTenths = (time) => time < cutoff;
     }
 
-    this.showBar = cdata.showBar;
+    this.blind = !!d.blind;
+    this.showBar = cdata.showBar && !d.blind;
     this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
@@ -136,7 +138,7 @@ export class ClockController {
       time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
   }
 
-  // Should only be involked by scheduleTick.
+  // Should only be invoked by scheduleTick.
   private tick = (): void => {
     this.tickCallback = undefined;
 

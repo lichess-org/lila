@@ -121,7 +121,8 @@ object forms {
         }.getOrElse {
           st.form(action := route, method := "post", novalidate := true)(
             fields,
-            div(cls := "color_submits")(
+            if (ctx.blindMode) button(`type` := "submit", st.name := "color", value := "random")("Create the game")
+            else div(cls := "color_submits")(
               List(
                 "black" -> trans.black.txt(),
                 "random" -> trans.randomColor.txt(),
@@ -132,14 +133,14 @@ object forms {
                     `type` := "submit",
                     dataHint := !ctx.blindMode option name,
                     cls := s"button hint--bottom $key",
-                    st.name := form("color").id,
+                    st.name := "color",
                     value := key
-                  )(if (ctx.blindMode) name else i)
+                  )(i)
                 }
             )
           )
         },
-        ctx.me.map { me =>
+        ctx.me.ifFalse(ctx.blindMode).map { me =>
           div(cls := "ratings")(
             lila.rating.PerfType.nonPuzzle.map { perfType =>
               div(cls := perfType.key)(

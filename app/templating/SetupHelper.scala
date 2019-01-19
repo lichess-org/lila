@@ -29,6 +29,11 @@ trait SetupHelper { self: I18nHelper =>
     (s.toString, s.toString, none)
   }
 
+  val corresDaysChoices: List[SelectChoice] =
+    ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
+      (d.toString, s"${d} days", none)
+    }
+
   def translatedTimeModeChoices(implicit ctx: Context) = List(
     (TimeMode.RealTime.id.toString, I18nKeys.realTime.txt(), none),
     (TimeMode.Correspondence.id.toString, I18nKeys.correspondence.txt(), none),

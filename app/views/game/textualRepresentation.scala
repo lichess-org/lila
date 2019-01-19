@@ -17,29 +17,39 @@ object textualRepresentation {
         dt("Your color"),
         dd(pov.color.name),
         dt("Opponent"),
-        dd(playerText(pov.opponent))
+        dd(playerLink(pov.opponent))
       )
       else frag(
         dt("White player"),
-        dd(playerText(pov.game.whitePlayer)),
+        dd(playerLink(pov.game.whitePlayer)),
         dt("Black player"),
-        dd(playerText(pov.game.blackPlayer))
+        dd(playerLink(pov.game.blackPlayer))
       ),
       dt("PGN"),
-      dd(cls := "pgn", role := "log", aria.live := "off")(raw(pov.game.pgnMoves.mkString(" "))),
+      dd(
+        cls := "pgn",
+        role := "log",
+        aria.live := "off",
+        aria.relevant := "additions text"
+      )(raw(pov.game.pgnMoves.mkString(" "))),
       dt("FEN"),
       dd(cls := "fen", aria.live := "off")(chess.format.Forsyth.>>(pov.game.chess)),
       dt("Game status"),
-      dd(cls := "status")(role := "status", aria.live := "assertive")(
-        if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
-        else frag(
-          pov.game.pgnMoves.lastOption.map { lastMove =>
-            s"${(!pov.game.turnColor).name} played $lastMove, "
-          },
-          pov.game.turnColor.name,
-          " to play"
-        )
-      ),
+      dd(
+        cls := "status",
+        role := "status",
+        aria.live := "assertive",
+        aria.atomic := true
+      )(
+          if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
+          else frag(
+            pov.game.pgnMoves.lastOption.map { lastMove =>
+              s"${(!pov.game.turnColor).name} played $lastMove, "
+            },
+            pov.game.turnColor.name,
+            " to play"
+          )
+        ),
       (playing && pov.game.playable) option form(
         label(
           "Your move",

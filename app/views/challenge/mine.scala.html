@@ -29,7 +29,7 @@ moreCss = cssTag("challenge.css")) {
         }.getOrElse {
         @trans.toInviteSomeoneToPlayGiveThisUrl():
         <input id="lichess_id_input" class="copyable autoselect" spellcheck="false" readonly="true" value="@netBaseUrl@routes.Round.watcher(c.id, "white")" />
-        <button class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
+        <button title="Copy URL" class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
         <br />
         @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
         <br />

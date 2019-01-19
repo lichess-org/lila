@@ -37,25 +37,6 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   return false;
 }
 
-function visualBoard(ctrl: RoundController) {
-  return h('div.lichess_board_wrap', [
-    h('div.lichess_board.' + ctrl.data.game.variant.key, {
-      hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
-    }, [renderGround(ctrl)]),
-    promotion.view(ctrl)
-  ]);
-}
-
-function blindBoard(ctrl: RoundController) {
-  return h('div.lichess_board_blind', [
-    h('div.textual', {
-      hook: {
-        insert: vnode => blind.init(vnode.elm as HTMLElement, ctrl)
-      }
-    }, [ renderGround(ctrl) ])
-  ]);
-}
-
 const emptyMaterialDiff: MaterialDiff = {
   white: {},
   black: {}
@@ -63,9 +44,9 @@ const emptyMaterialDiff: MaterialDiff = {
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
-  cgState = ctrl.chessground && ctrl.chessground.state,
-  topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
-  bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
+    cgState = ctrl.chessground && ctrl.chessground.state,
+    topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
+    bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material: MaterialDiff, score: number = 0;
   if (d.pref.showCaptured) {
     var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
@@ -77,8 +58,13 @@ export function main(ctrl: RoundController): VNode {
       hook: {
         insert: () => window.lichess.pubsub.emit('content_loaded')()
       }
-    }, [
-      d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
+    }, d.blind ? blind.view(ctrl) : [
+      h('div.lichess_board_wrap', [
+        h('div.lichess_board.' + d.game.variant.key, {
+          hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+        }, [renderGround(ctrl)]),
+        promotion.view(ctrl)
+      ]),
       h('div.lichess_ground', [
         crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, d.player.checks),
         renderTable(ctrl),

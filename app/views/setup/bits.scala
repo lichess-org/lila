@@ -113,7 +113,11 @@ private object bits {
         )
       ),
       div(cls := "correspondence")(
-        div(cls := "days_choice slider")(
+        if (ctx.blindMode) div(cls := "days_choice")(
+          renderLabel(form("days"), trans.daysPerTurn()),
+          renderSelect(form("days"), corresDaysChoices)
+        )
+        else div(cls := "days_choice slider")(
           trans.daysPerTurn(),
           ": ",
           span(form("days").value),
