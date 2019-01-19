@@ -496,13 +496,13 @@
   <string name="onlinePlayers">Gracze online</string>
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Uważaj, ta gra jest rankingowa, ale nie ma limitu czasu!</string>
   <string name="training">Zadania szachowe</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
-  <string name="toTrackYourProgress">Zarejestruj się aby śledzić swoje postępy</string>
-  <string name="trainingSignupExplanation">Lichess będzie dodawał zadania dostosowane do twoich umiejętności.</string>
+  <string name="toTrackYourProgress">Śledź swoje postępy:</string>
+  <string name="trainingSignupExplanation">Lichess będzie proponował zadania dostosowane do twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby rozwiązać</string>
@@ -523,20 +523,20 @@
     <item quantity="many">Rozwiązywane %s razy</item>
     <item quantity="other">Rozwiązywane %s razy</item>
   </plurals>
-  <string name="fromGameLink">Pochodzi z partii %s</string>
+  <string name="fromGameLink">Z partii %s</string>
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="retryThisPuzzle">Powtórz to zadanie</string>
   <string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
-  <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne lub nudne</string>
+  <string name="thisPuzzleIsWrong">To niepoprawne lub nudne zadanie</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partia w toku</item>
     <item quantity="few">%s partie w toku</item>
     <item quantity="many">%s partii w toku</item>
     <item quantity="other">%s partii w toku</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej partii po wykonaniu ruchu</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
-  <string name="puzzles">Łamigłówki</string>
+  <string name="puzzles">Zadania</string>
   <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
@@ -544,7 +544,7 @@
   <string name="no">Nie</string>
   <string name="yes">Tak</string>
   <string name="help">Porada:</string>
-  <string name="createANewTopic">Stwórz nowy temat</string>
+  <string name="createANewTopic">Utwórz nowy temat</string>
   <string name="topics">Tematy</string>
   <string name="posts">Posty</string>
   <string name="lastPost">Ostatni post</string>
@@ -557,10 +557,10 @@
   <string name="reportAUser">Zgłoś użytkownika</string>
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
-  <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
-  <string name="cheat">Oszust</string>
+  <string name="whatIsIheMatter">O co chodzi?</string>
+  <string name="cheat">Oszustwo</string>
   <string name="insult">Znieważenie</string>
-  <string name="troll">Natręt (troll)</string>
+  <string name="troll">Naprzykrzanie się</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej link do gry i wyjaśnij, dlaczego zachowanie użytkownika jest nieprawidłowe. Nie wystarczy napisać \"oszukuje\", powiedz nam na jakiej podstawie doszedłeś do takiego wniosku. Twoje zgłoszenie będzie zweryfikowane szybciej jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
