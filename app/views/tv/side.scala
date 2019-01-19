@@ -16,7 +16,7 @@ object side {
     champions: lila.tv.Tv.Champions,
     baseUrl: String,
     povOption: Option[lila.game.Pov]
-  )(implicit ctx: Context): Option[Frag] = !ctx.blindMode option div(cls := "side")(
+  )(implicit ctx: Context): Option[Frag] = ctx.noBlind option div(cls := "side")(
     div(cls := "side_box padded")(
       povOption.fold[Frag](titleTag("Lichess games")) { pov =>
         frag(

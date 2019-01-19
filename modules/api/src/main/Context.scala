@@ -50,7 +50,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def nbChallenges = pageData.nbChallenges
   def nbNotifications = pageData.nbNotifications
   def pref = pageData.pref
-  def blindMode = pageData.blindMode
+  def blind = pageData.blindMode
+  def noBlind = !blind
   def nonce = pageData.nonce
 
   def currentTheme = lila.pref.Theme(pref.theme)

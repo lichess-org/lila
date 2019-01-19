@@ -30,7 +30,7 @@ object forms {
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
           ),
-          !ctx.blindMode option div(cls := "optional_config")(
+          ctx.noBlind option div(cls := "optional_config")(
             div(cls := "rating_range_config slider")(
               trans.ratingRange(),
               ": ",
@@ -53,7 +53,7 @@ object forms {
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), true, validFen),
         renderTimeMode(form, lila.setup.AiConfig),
-        if (ctx.blindMode) frag(
+        if (ctx.blind) frag(
           renderLabel(form("level"), trans.level()),
           renderSelect(form("level"), lila.setup.AiConfig.levelChoices)
         )
@@ -121,7 +121,7 @@ object forms {
         }.getOrElse {
           st.form(action := route, method := "post", novalidate := true)(
             fields,
-            if (ctx.blindMode) button(`type` := "submit", st.name := "color", value := "random")("Create the game")
+            if (ctx.blind) button(`type` := "submit", st.name := "color", value := "random")("Create the game")
             else div(cls := "color_submits")(
               List(
                 "black" -> trans.black.txt(),
@@ -131,7 +131,7 @@ object forms {
                   case (key, name) => button(
                     disabled := typ == "hook" option true,
                     `type` := "submit",
-                    dataHint := !ctx.blindMode option name,
+                    dataHint := ctx.noBlind option name,
                     cls := s"button hint--bottom $key",
                     st.name := "color",
                     value := key
@@ -140,7 +140,7 @@ object forms {
             )
           )
         },
-        ctx.me.ifFalse(ctx.blindMode).map { me =>
+        ctx.me.ifFalse(ctx.blind).map { me =>
           div(cls := "ratings")(
             lila.rating.PerfType.nonPuzzle.map { perfType =>
               div(cls := perfType.key)(

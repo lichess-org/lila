@@ -196,7 +196,7 @@ object Auth extends LilaController {
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   authLog(data.username, s"$email fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-                  UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
+                  UserRepo.create(data.username, passwordHash, email, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {

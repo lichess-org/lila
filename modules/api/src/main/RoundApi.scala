@@ -180,5 +180,5 @@ private[api] final class RoundApi(
     })
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =
-    js.add("blind", ctx.blindMode)
+    js.add("blind", ctx.blind)
 }

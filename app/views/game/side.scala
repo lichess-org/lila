@@ -20,7 +20,7 @@ object side {
     simul: Option[lila.simul.Simul],
     userTv: Option[lila.user.User] = None,
     bookmarked: Boolean
-  )(implicit ctx: Context): Option[Frag] = !ctx.blindMode option {
+  )(implicit ctx: Context): Option[Frag] = ctx.noBlind option {
     import pov._
     div(cls := "side")(
       div(cls := "side_box padded")(

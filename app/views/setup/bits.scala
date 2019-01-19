@@ -88,7 +88,7 @@ private object bits {
         renderLabel(form("timeMode"), trans.timeControl()),
         renderSelect(form("timeMode"), translatedTimeModeChoices)
       ),
-      if (ctx.blindMode) frag(
+      if (ctx.blind) frag(
         div(cls := "time_choice")(
           renderLabel(form("time"), trans.minutesPerSide()),
           renderSelect(form("time"), clockTimeChoices, (a, b) => a.replace(".0", "") == b)
@@ -113,7 +113,7 @@ private object bits {
         )
       ),
       div(cls := "correspondence")(
-        if (ctx.blindMode) div(cls := "days_choice")(
+        if (ctx.blind) div(cls := "days_choice")(
           renderLabel(form("days"), trans.daysPerTurn()),
           renderSelect(form("days"), corresDaysChoices)
         )
