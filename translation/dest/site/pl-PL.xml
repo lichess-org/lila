@@ -684,7 +684,7 @@
   <string name="zenMode">Tryb Zen (ukryj zbędne elementy interface\'u)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
-  <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
+  <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
@@ -703,7 +703,7 @@
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="internationalEvents">Turnieje międzynarodowe</string>
-  <string name="videoLibrary">Kolekcja filmów</string>
+  <string name="videoLibrary">Wideoteka</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
@@ -712,7 +712,7 @@
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="contact">Kontakt</string>
-  <string name="termsOfService">Zasady</string>
+  <string name="termsOfService">Regulamin</string>
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
@@ -730,7 +730,7 @@
   <string name="create">Stwórz</string>
   <string name="whenCreateSimul">Symultana pozwoli Ci zagrać z wieloma przeciwnikami równocześnie.</string>
   <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
-  <string name="simulClockHint">Ustawienie zegara Fischera. Przy większej ilości przeciwników możesz potrzebować więcej czasu.</string>
+  <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
   <string name="lichessTournaments">Turnieje Lichess</string>
