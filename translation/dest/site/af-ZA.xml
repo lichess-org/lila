@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar ontleding</string>
+  <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
   <string name="analysis">Ontleding bord</string>
   <string name="openingExplorer">Die Opening explorer</string>
   <string name="blunders">Flaters</string>
