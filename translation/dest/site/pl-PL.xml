@@ -75,9 +75,9 @@
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
-  <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
+  <string name="masterDbExplanation">Dwa miliony partii rankingowych graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s ruchu</item>
+    <item quantity="one">Mat w %s półruchu</item>
     <item quantity="few">Mat w %s ruchach</item>
     <item quantity="many">Mat w %s ruchach</item>
     <item quantity="other">Mat w %s ruchach</item>
@@ -86,10 +86,10 @@
     <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="other">Następne bicie lub ruch pionem w ciągu %s półruchów (zerowanie licznika dla reguły 50 ruchów)</item>
   </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może chcesz zaimportować więcej partii z menu ustawień?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
@@ -587,7 +587,7 @@
   <string name="newPassword">Nowe hasło</string>
   <string name="newPasswordAgain">Powtórz nowe hasło</string>
   <string name="boardHighlights">Podświetlenie pól szachownicy (ostatni ruch i szach)</string>
-  <string name="pieceDestinations">Podświetlaj możliwe pola docelowe (ruchy zwykłe i planowane)</string>
+  <string name="pieceDestinations">Pola docelowe (ruchy poprawne i planowane)</string>
   <string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
   <string name="pgnPieceNotation">Sposób notacji PGN</string>
@@ -729,7 +729,7 @@
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Stwórz</string>
   <string name="whenCreateSimul">Symultana pozwoli Ci zagrać z wieloma przeciwnikami równocześnie.</string>
-  <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
+  <string name="simulVariantsHint">Każdy z graczy może będzie mógł wybrać spośród kilku wskazanych odmian gry.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
@@ -909,13 +909,13 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
   <string name="addCurrentVariation">Dodaj bieżący wariant</string>
-  <string name="playVariationToCreateConditionalPremoves">Wykonaj ruch aby utworzyć wariant warunkowy</string>
+  <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by stworzyć ruchy warunkowe</string>
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">i zapisz wariant warunkowy</item>
+    <item quantity="one">i zapisz %s wariant warunkowy</item>
     <item quantity="few">i zapisz warianty warunkowe</item>
     <item quantity="many">i zapisz warianty warunkowe</item>
-    <item quantity="other">i zapisz warianty warunkowe</item>
+    <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
 </resources>
