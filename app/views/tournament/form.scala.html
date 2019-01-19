@@ -8,7 +8,7 @@
 @jsTag("tournamentForm.js")
 }
 
-@tournament.layout(
+@tournament.bits.layout(
 title = trans.newTournament.txt(),
 moreCss = cssTags("flatpickr.css", "form3.css", "tournament.form.css"),
 moreJs = moreJs) {
@@ -69,4 +69,4 @@ moreJs = moreJs) {
     <div class="content_box_content">@tournament.faq()</div>
   </div>
 </div>
-}
+}.toHtml

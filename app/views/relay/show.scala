@@ -1,49 +1,48 @@
-package views.html.study
-
-import play.api.libs.json.Json
+package views.html
+package relay
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.html.safeJsonValue
+import lidraughts.game.Pov
 
 import controllers.routes
 
 object show {
 
   def apply(
+    r: lidraughts.relay.Relay,
     s: lidraughts.study.Study,
-    data: lidraughts.study.JsonView.JsData,
+    data: lidraughts.relay.JsonView.JsData,
     chatOption: Option[lidraughts.chat.UserChat.Mine],
     socketVersion: lidraughts.socket.Socket.SocketVersion,
     streams: List[lidraughts.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
-    title = s.name.value,
-    side = Some(div(cls := "side_box study_box")(
-      streams.map { s =>
-        a(
-          href := routes.Lobby.home, // routes.Streamer.show(s.streamer.userId),
-          cls := "context-streamer text side_box",
-          dataIcon := ""
-        )(
-            usernameOrId(s.streamer.userId),
-            " is streaming"
-          )
-      }
+    title = r.name,
+    side = Some(frag(
+      div(cls := "side_box study_box")
+    /*streams.map { s =>
+        a(href := routes.Streamer.show(s.streamer.userId), cls := "context-streamer text side_box", dataIcon := "")(
+          usernameOrId(s.streamer.userId),
+          " is streaming"
+        )
+      }*/
     )),
-    chat = views.html.chat.frag.some,
+    chat = chat.frag.some,
     underchat = Some(views.html.game.bits.watchers),
-    moreCss = cssTags("analyse.css", "study.css", "chat.css"),
+    moreCss = cssTags("analyse.css", "study.css", "relay.css", "chat.css"),
     moreJs = frag(
       jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js"),
-      embedJs(s"""lidraughts=lidraughts||{};lidraughts.study={
+      embedJs(s"""lidraughts = lidraughts || {}; lidraughts.relay = {
+relay: ${safeJsonValue(data.relay)},
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},
-i18n: ${views.html.board.userAnalysisI18n()},
+i18n: ${board.userAnalysisI18n()},
 tagTypes: '${lidraughts.study.PdnTags.typesToString}',
 userId: $jsUserIdString,
 chat: ${
-        chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(
+        chatOption.fold("null")(c => safeJsonValue(chat.json(
           c.chat,
           name = trans.chatRoom.txt(),
           timeout = c.timeout,
@@ -56,19 +55,21 @@ explorer: {
 endpoint: "$explorerEndpoint",
 tablebaseEndpoint: "$tablebaseEndpoint"
 },
-socketUrl: "${routes.Study.websocket(s.id.value, apiVersion.value)}",
+socketUrl: "${routes.Relay.websocket(s.id.value, apiVersion.value)}",
 socketVersion: $socketVersion
 };""")
     ),
-    robots = s.isPublic,
     draughtsground = false,
     zoomable = true,
+    csp = defaultCsp.withTwitch.some,
     openGraph = lidraughts.app.ui.OpenGraph(
-      title = s.name.value,
-      url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
-      description = s"A draughts study by ${usernameOrId(s.ownerId)}"
+      title = r.name,
+      url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
+      description = shorten(r.description, 152)
     ).some
   ) {
-      div(cls := "analyse cg-512")(views.html.board.bits.domPreload(none))
+      div(cls := "analyse cg-512")(
+        board.bits.domPreload(none)
+      )
     }
 }
