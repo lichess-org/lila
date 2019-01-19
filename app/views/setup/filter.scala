@@ -36,7 +36,6 @@ object filter {
                 label(cls := "range")("? - ?"),
                 div(cls := "rating_range")(
                   renderInput(form("ratingRange"))(
-                    `type` := "hidden",
                     dataMin := RatingRange.min,
                     dataMax := RatingRange.max
                   )
@@ -47,8 +46,8 @@ object filter {
         )
       ),
       ctx.isAnon option frag(
-        renderInput(form("mode"))(`type` := "hidden"),
-        renderInput(form("ratingRange"))(`type` := "hidden")
+        renderInput(form("mode")),
+        renderInput(form("ratingRange"))
       ),
       div(cls := "actions")(
         button(`type` := "submit", cls := "reset button text", dataIcon := "k")(trans.reset()),
