@@ -27,7 +27,7 @@ object watcher {
       chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
     }
 
-    layout(
+    bits.layout(
       title = s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}",
       side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
       chat = chat.frag.some,

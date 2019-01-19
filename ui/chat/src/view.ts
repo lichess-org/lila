@@ -37,7 +37,7 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
 
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion') return [
-    h('span', ctrl.data.name),
+    h('h2', ctrl.data.name),
     ctrl.opts.alwaysEnabled ? undefined : h('input.toggle_chat', {
       attrs: {
         type: 'checkbox',
@@ -49,7 +49,7 @@ function tabName(ctrl: Ctrl, tab: Tab) {
       })
     })
   ];
-  if (tab === 'note') return [ctrl.trans.noarg('notes')];
-  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [ctrl.plugin.tab.name];
+  if (tab === 'note') return [h('h2', ctrl.trans.noarg('notes'))];
+  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('h2', ctrl.plugin.tab.name)];
   return [];
 }

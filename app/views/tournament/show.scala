@@ -24,7 +24,11 @@ object show {
     title = s"${tour.fullName} #${tour.id}",
     side = Some(tournament.side(tour, verdicts, streamers, shieldOwner)),
     chat = chat.frag.some,
-    underchat = Html("""<div class="watchers hidden"><span class="list inline_userlist"></span></div>""").some,
+    underchat = Some(div(
+      cls := "watchers hidden",
+      aria.live := "off",
+      aria.relevant := "additions removals text"
+    )(span(cls := "list inline_userlist"))),
     moreJs = frag(
       jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
       embedJs(s"""lichess = lichess || {}; lichess.tournament = {

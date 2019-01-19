@@ -14,7 +14,7 @@ object bits {
     moreCss: Html = emptyHtml,
     side: Option[Html] = None,
     chat: Option[Frag] = None,
-    underchat: Option[Html] = None,
+    underchat: Option[Frag] = None,
     chessground: Boolean = true,
     openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Frag)(implicit ctx: Context) =

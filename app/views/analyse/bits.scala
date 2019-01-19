@@ -22,7 +22,7 @@ object bits {
     title: String,
     side: Option[Frag] = None,
     chat: Option[Frag] = None,
-    underchat: Option[Html] = None,
+    underchat: Option[Frag] = None,
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
     openGraph: Option[lila.app.ui.OpenGraph] = None

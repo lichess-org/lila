@@ -109,7 +109,7 @@ object layout {
     side: Option[Html] = None,
     menu: Option[Html] = None,
     chat: Option[Frag] = None,
-    underchat: Option[Html] = None,
+    underchat: Option[Frag] = None,
     robots: Boolean = isGloballyCrawlable,
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,

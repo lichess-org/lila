@@ -24,6 +24,11 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
   m = ctrl.moderation();
   const vnodes = [
     h('ol.messages.content.scroll-shadow-soft' + (m ? '.as-mod' : ''), {
+      attrs: { 
+        role: 'log',
+        'aria-live': 'polite',
+        'aria-atomic': false
+      },
       hook: {
         insert(vnode) {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {

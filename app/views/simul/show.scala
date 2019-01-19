@@ -55,7 +55,11 @@ object show {
         )(usernameOrId(s.streamer.userId), " is streaming")
       }
     )),
-    underchat = Some(div(cls := "watchers hidden")(span(cls := "list inline_userlist"))),
+    underchat = Some(div(
+      cls := "watchers hidden",
+      aria.live := "off",
+      aria.relevant := "additions removals text"
+    )(span(cls := "list inline_userlist"))),
     chat = views.html.chat.frag.some,
     moreJs = frag(
       jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),

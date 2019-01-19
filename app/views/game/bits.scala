@@ -25,13 +25,17 @@ object bits {
   }
 
   def watchers(implicit ctx: Context): Frag =
-    div(cls := "watchers hidden")(
-      span(cls := "number")(nbsp),
-      " ",
-      trans.spectators.txt().replace(":", ""),
-      " ",
-      span(cls := "list inline_userlist")
-    )
+    div(
+      cls := "watchers hidden",
+      aria.live := "off",
+      aria.relevant := "additions removals text"
+    )(
+        span(cls := "number")(nbsp),
+        " ",
+        trans.spectators.txt().replace(":", ""),
+        " ",
+        span(cls := "list inline_userlist")
+      )
 
   def gameIcon(game: Game): Char = game.perfType match {
     case _ if game.fromPosition => '*'

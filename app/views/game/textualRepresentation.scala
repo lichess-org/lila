@@ -40,7 +40,7 @@ object textualRepresentation {
           " to play"
         )
       ),
-      (playing && pov.game.playable && pov.game.turnOf(pov.player)) option form(
+      (playing && pov.game.playable) option form(
         label(
           "Your move",
           input(name := "move", cls := "move", `type` := "text", cls := "", autocomplete := "off", autofocus := true)
