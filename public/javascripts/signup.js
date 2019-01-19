@@ -26,7 +26,7 @@ $(function() {
         .attr('disabled', true)
         .removeAttr('data-icon')
         .addClass('frameless')
-        .html(lichess.spinnerHtml);
+        .html(lidraughts.spinnerHtml);
     });
 });
 window.signupSubmit = function(token) {

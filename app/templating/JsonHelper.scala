@@ -3,7 +3,7 @@ package templating
 
 import play.api.libs.json._
 import play.twirl.api.Html
-import scalatags.Text.Frag
+import scalatags.Text.{ Frag, RawFrag }
 
 import lidraughts.api.Context
 
@@ -14,7 +14,7 @@ trait JsonHelper {
   }
 
   def toJsonHtml[A: Writes](a: A): Html = lidraughts.common.String.html.safeJsonHtml(Json toJson a)
-  def toJsonFrag[A: Writes](a: A): Frag = lidraughts.common.String.html.safeJsonFrag(Json toJson a)
+  def toJsonFrag[A: Writes](a: A): Frag = RawFrag(lidraughts.common.String.html.safeJsonValue(Json toJson a))
 
   def htmlOrNull[A, B](a: Option[A])(f: A => Html) = a.fold(Html("null"))(f)
 
