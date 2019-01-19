@@ -61,4 +61,17 @@
   <string name="move">Gerak</string>
   <string name="variantLoss">Variasi kalah</string>
   <string name="variantWin">Variasi menang</string>
+  <string name="insufficientMaterial">Kekurangan bahan</string>
+  <string name="pawnMove">Bidak gerak</string>
+  <string name="capture">Tangkap</string>
+  <string name="close">Tutup</string>
+  <string name="winning">Menang</string>
+  <string name="losing">Kalah</string>
+  <string name="drawn">Seri</string>
+  <string name="unknown">Tidak diketahui</string>
+  <string name="database">Pangkalan data</string>
+  <string name="whiteDrawBlack">Putih / Seri / Hitam</string>
+  <string name="averageRatingX">Purata penilaian: </string>
+  <string name="recentGames">Permainan terkini</string>
+  <string name="topGames">Permainan teratas</string>
 </resources>
