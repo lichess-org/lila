@@ -18,4 +18,5 @@ Aqui está sua página de perfil: %1$s. Você pode personalizá-la em %2$s.
 Divirta-se, e que suas peças sempre encontrem o caminho até o rei inimigo!</string>
   <string name="common_orPaste">(Clicar no link não funciona? Tente colar em seu navegador!)</string>
   <string name="common_note">Este é um e-mail de serviço relativo ao seu uso de %s.</string>
+  <string name="common_contact">Para nos contactar, por favor utilize %s.</string>
 </resources>

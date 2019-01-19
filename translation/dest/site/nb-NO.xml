@@ -197,7 +197,7 @@
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spiller nå</string>
-  <string name="eventInProgress">Spiller nå</string>
+  <string name="eventInProgress">Pågår</string>
   <string name="finished">Ferdig</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
@@ -249,8 +249,8 @@
     <item quantity="other">%s remis</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s spilles</item>
-    <item quantity="other">%s spilles</item>
+    <item quantity="one">%s pågår</item>
+    <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
   <string name="ratingRange">Ratingspenn</string>
@@ -301,7 +301,7 @@
   <string name="yourPerfRatingIsProvisional">%s-ratingen din er foreløpig</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-ratingen din (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
-  <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
+  <string name="yourPerfRatingIsTooLow">%1$s-ratingen din (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Du må være med i team %s</string>
@@ -327,15 +327,15 @@
   <string name="teamRecentMembers">Nye lagmedlemmer</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
-  <string name="averageElo">Gjennomsnittsrating</string>
+  <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>
   <string name="settings">Innstillinger</string>
   <string name="filterGames">Filtrer partier</string>
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
   <string name="leaderboard">Ledertabell</string>
-  <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
-  <string name="pasteThePgnStringHere">Lim inn PGN-strengen her</string>
+  <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
+  <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="importGame">Importer parti</string>
@@ -540,8 +540,8 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="pgnPieceNotation">Notasjon</string>
   <string name="chessPieceSymbol">Brikkesymbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
-  <string name="chessClock">Sjakklokke</string>
-  <string name="tenthsOfSeconds">Tidels sekund</string>
+  <string name="chessClock">Sjakkur</string>
+  <string name="tenthsOfSeconds">Tidels sekunder</string>
   <string name="never">Aldri</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Når gjenværende tid &lt; 10 sekunder</string>
   <string name="horizontalGreenProgressBars">Horisontal grønn progresjonslinje</string>
@@ -560,7 +560,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="letOtherPlayersChallengeYou">La andre spillere utfordre deg</string>
   <string name="letOtherPlayersInviteYouToStudy">La andre spillere invitere deg til studier</string>
   <string name="sound">Lyd</string>
-  <string name="yourPreferencesHaveBeenSaved">Dine innstillinger har blitt lagret.</string>
+  <string name="yourPreferencesHaveBeenSaved">Innstillingene dine er lagret.</string>
   <string name="none">Ingen</string>
   <string name="fast">Rask</string>
   <string name="normal">Normal</string>
@@ -688,16 +688,16 @@ i %3$s</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturneringer med ulike tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spill fartsfylte sjakkturneringer! Delta i offisielle, faste turneringer eller lag din egen. Lynsjakk, hurtigsjakk, og andre varianter er tilgjengelig for endeløs sjakkunderholdning.</string>
-  <string name="tournamentNotFound">Kan ikke finne turneringen</string>
+  <string name="tournamentNotFound">Finner ikke turneringen</string>
   <string name="tournamentDoesNotExist">Turneringen eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avlyst fordi alle spillerne trakk seg før den startet.</string>
   <string name="returnToTournamentsHomepage">Tilbake til turneringsoversikt</string>
   <string name="weeklyPerfTypeRatingDistribution">Ukentlig %s-ratingfordeling</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s spiller denne uken.</item>
-    <item quantity="other">%1$s %2$s spillere denne uken.</item>
+    <item quantity="one">%1$s %2$s-spiller denne uken.</item>
+    <item quantity="other">%1$s %2$s-spillere denne uken.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Din %1$s-rating er %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke etablert en %s-rating.</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
@@ -705,8 +705,8 @@ i %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg, godtar du å våre %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelse mellom deg og lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på lichess serveren.</string>
+  <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på lichess-serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
@@ -799,7 +799,7 @@ i %3$s</string>
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde vekk</string>
   <string name="resumePractice">Gjenoppta øving</string>
-  <string name="theGameIsADraw">Partiet ender med remis.</string>
+  <string name="theGameIsADraw">Partiet er remis.</string>
   <string name="computerThinking">Maskinen tenker ...</string>
   <string name="seeBestMove">Vis beste trekk</string>
   <string name="hideBestMove">Skjul beste trekk</string>
@@ -838,7 +838,7 @@ i %3$s</string>
   <string name="registerToSendChallenges">Opprett en konto om du vil utforde andre.</string>
   <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
   <string name="xDoesNotAcceptChallenges">%s aksepterer ikke utfordringer.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s-ratingen din er for langt unna %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av midlertidig %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s aksepterer kun utfordringer fra venner.</string>
   <string name="conditionalPremoves">Betingede forhåndstrekk</string>

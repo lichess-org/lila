@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Partida irabazitzat hartu.</string>
   <string name="forceResignation">Irabazi</string>
   <string name="forceDraw">Berdindu</string>
-  <string name="talkInChat">Txatean txintxo, mesedez!</string>
+  <string name="talkInChat">Txatean txintxo mesedez!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">URL honetara datorren lehenengoak jokatuko du zurekin.</string>
   <string name="whiteResigned">Zuriak amore eman du</string>
   <string name="blackResigned">Beltzak amore eman du</string>
@@ -406,7 +406,7 @@
   <string name="createdBy">Sortuta</string>
   <string name="tournamentIsStarting">Txapelketa hasiko da</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
-  <string name="standByX">Itxaron %s jokalariari, jokalariak parekatzen, prest!</string>
+  <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
   <string name="youArePlaying">Jokatzen ari zara!</string>
   <string name="winRate">Irabazien ratioa</string>
   <string name="berserkRate">Berserk ratioa</string>
@@ -468,8 +468,8 @@
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s alditan jokaturik</item>
-    <item quantity="other">%s alditan jokaturik</item>
+    <item quantity="one">Behin jokatu da</item>
+    <item quantity="other">%s aldiz jokatu da</item>
   </plurals>
   <string name="fromGameLink">%s partidatik hartua</string>
   <string name="continueTraining">Entrenatzen jarraitu</string>
@@ -647,6 +647,9 @@
   <string name="mobileApp">Aplikazio mugikorra</string>
   <string name="webmasters">Web-orriko administratzaileak</string>
   <string name="about">Honi buruz</string>
+  <string name="aboutX">%s-i buruz</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
+  <string name="really">benetan</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="contact">Harremana</string>
   <string name="termsOfService">ToS</string>

@@ -12,7 +12,7 @@
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Flyttes i rette linjer</string>
   <string name="rookIntro">Tårnet er en kraftig brikke. Er du klar til å ta det i bruk?</string>
-  <string name="rookGoal">Klikk på tårnet for å flytte den til stjernen!</string>
+  <string name="rookGoal">Klikk på tårnet for å flytte det til stjernen!</string>
   <string name="grabAllTheStars">Fang alle stjernene!</string>
   <string name="theFewerMoves">Jo færre trekk du gjør, desto fler poeng vinner du!</string>
   <string name="useTwoRooks">Bruk to tårn for å sette litt fart på sakene!</string>
@@ -133,7 +133,7 @@ men du kan forsvare!</string>
   <string name="takeAllThePawnsEnPassant">Slå alle bøndene en passant!</string>
   <string name="enPassantComplete">Gratulerer! Du kan nå slå en passant.</string>
   <string name="stalemate">Patt</string>
-  <string name="theGameIsADraw">Partiet ender remis</string>
+  <string name="theGameIsADraw">Partiet er remis</string>
   <string name="stalemateIntro">Når en spiller ikke står i sjakk og ikke har noe lovlig trekk, er det patt. Partiet er remis: ingen vinner, ingen taper.</string>
   <string name="stalemateGoal">Svart blir patt om:
 - svart ikke kan flytte noen av brikkene

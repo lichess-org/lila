@@ -18,4 +18,5 @@
 لذت ببرید و به امید اینکه قطعات شما همیشه راه خود را با شاه حریف پیدا کنند!</string>
   <string name="common_orPaste">(با کلیک کردن عمل نمیکند؟ سعی کنید در مرورگر خود وارد کنید!)</string>
   <string name="common_note">این سرویس ایمیل مربوط به استفاده شما از%s است.</string>
+  <string name="common_contact">برای تماس با ما لطفا از %s استفاده کنید.</string>
 </resources>

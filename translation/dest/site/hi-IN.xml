@@ -300,6 +300,8 @@
   <string name="yourPerfRatingIsTooLow">आपका %1$s रेटिंग (%2$s) बहुत कम है</string>
   <string name="ratedMoreThanInPerf">≥ %1$s में %2$s रेट</string>
   <string name="ratedLessThanInPerf">≤ %1$s में %2$s रेट</string>
+  <string name="mustBeInTeam">टीम में होना ज़रूरी है %s</string>
+  <string name="youAreNotInTeam">आप %s का हिस्सा नही हो</string>
   <string name="backToGame">खेल पर लौटें।</string>
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="teams">समूह</string>
@@ -388,6 +390,7 @@
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
   <string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ शतरंज के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
+  <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
   <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
   <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
   <string name="join">हिस्सा लें</string>
@@ -639,6 +642,8 @@
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
   <string name="mobileApp">मोबाइल ऐप्प</string>
   <string name="webmasters">वेबमास्टर्स</string>
+  <string name="aboutX">%s के बारे में</string>
+  <string name="really">सचमुच</string>
   <string name="contribute">सहयोग करें</string>
   <string name="contact">संपर्क करें</string>
   <string name="termsOfService">नियम और शर्तें</string>

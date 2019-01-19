@@ -41,7 +41,7 @@
   <string name="blackResigned">Czarne zrezygnowały</string>
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
   <string name="blackLeftTheGame">Czarne opuściły grę</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić innych do obserwowania tej partii</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres aby inni mogli obserwować tę partię</string>
   <string name="theComputerAnalysisHasFailed">Nie udało się przeanalizować tej partii</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
@@ -620,7 +620,7 @@
   <string name="slow">Wolno</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
-  <string name="onSlowGames">W wolniejszych grach</string>
+  <string name="onSlowGames">W wolniejszych partiach</string>
   <string name="always">Zawsze</string>
   <string name="inCasualGamesOnly">Tylko w grach towarzyskich</string>
   <string name="whenPremoving">W czasie ruchu planowanego</string>
