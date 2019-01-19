@@ -164,7 +164,7 @@ lichess.topMenuIntent = function() {
           suggestion: function(o) {
             var tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
-            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? o.title + ' ' : '') + o.name +
+            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
             '</' + tag + '>';
           }
         }
