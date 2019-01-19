@@ -467,9 +467,9 @@
   <string name="blackWins">Wygranych czarnych</string>
   <string name="draws">Remisów</string>
   <string name="nextXTournament">Następny turniej %s:</string>
-  <string name="viewMoreTournaments">Pokaż inne turnieje</string>
-  <string name="averageOpponent">Średni ranking przeciwnika</string>
-  <string name="membersOnly">Tylko dla zarejestrowanych</string>
+  <string name="viewMoreTournaments">Zobacz więcej turniejów</string>
+  <string name="averageOpponent">Przeciwnik średnio</string>
+  <string name="membersOnly">Tylko członkowie</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
@@ -479,7 +479,7 @@
   <string name="loadPosition">Wczytaj ustawienie</string>
   <string name="isPrivate">Prywatny</string>
   <string name="reportXToModerators">Zgłoś %s do moderatora</string>
-  <string name="profileCompletion">Kompletność profilu: %s</string>
+  <string name="profileCompletion">Zupełność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
   <string name="gameCompletionRate">Ukończonych gier: %s</string>
@@ -490,7 +490,7 @@
   <string name="biography">O mnie</string>
   <string name="country">Kraj</string>
   <string name="preferences">Ustawienia</string>
-  <string name="inlineNotation">Notacja inline</string>
+  <string name="inlineNotation">Notacja ciągła</string>
   <string name="watchLichessTV">Oglądaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
   <string name="onlinePlayers">Gracze online</string>
@@ -681,7 +681,7 @@
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="error.email_different">To już jest Twój adres e-mail</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
-  <string name="zenMode">Tryb Zen (ukryj zbędne elementy interface\'u)</string>
+  <string name="zenMode">Tryb zen</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
