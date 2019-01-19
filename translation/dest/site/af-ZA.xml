@@ -193,6 +193,7 @@
     <item quantity="one">Gee %s sekondes</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
+  <string name="giveMoreTime">Gee meer tyd</string>
   <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="takeback">Terug-vat</string>
@@ -379,6 +380,7 @@
   <string name="troll">Trol</string>
   <string name="other">Ander</string>
   <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag.</string>
+  <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n verkul spel.</string>
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou afgesluit.</string>
   <string name="theming">Versiering</string>
@@ -403,6 +405,7 @@
   <string name="pieceDestinations">Stuk bestemmings (geldige skuiwe en vooraf-skuiwe)</string>
   <string name="boardCoordinates">Bord koördinate (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Skuiflys tydens spel</string>
+  <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
   <string name="never">Nooit</string>
@@ -410,6 +413,7 @@
   <string name="horizontalGreenProgressBars">Horisontale groen voortgangsbalkies</string>
   <string name="soundWhenTimeGetsCritical">Klank as tyd noop</string>
   <string name="gameBehavior">Spel gedrag</string>
+  <string name="howDoYouMovePieces">Hoe beweeg jy stukke?</string>
   <string name="premovesPlayingDuringOpponentTurn">Vooraf-skuiwe (speel tydens opponent se beurt)</string>
   <string name="takebacksWithOpponentApproval">Terug-vat (met goedkeuring van opponent)</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
