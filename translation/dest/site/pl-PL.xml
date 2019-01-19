@@ -111,7 +111,7 @@
   <string name="infiniteAnalysis">Analiza nieskończona</string>
   <string name="removesTheDepthLimit">Zdejmuje ograniczenie głębokości analizy utrzymując ciepło Twojego komputera</string>
   <string name="blunder">Błąd</string>
-  <string name="blunders">Poważne błędy</string>
+  <string name="blunders">Błędy</string>
   <string name="mistake">Pomyłka</string>
   <string name="mistakes">Pomyłki</string>
   <string name="inaccuracy">Niedokładność</string>
@@ -128,7 +128,7 @@
     <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="currentGames">Partie w toku</string>
+  <string name="currentGames">Rozgrywane partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
@@ -202,7 +202,7 @@
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
-  <string name="timeOut">Przekroczenie limitu czasu</string>
+  <string name="timeOut">Koniec czasu</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferDeclined">Propozycja remisu została odrzucona</string>
   <string name="drawOfferAccepted">Propozycja remisu została przyjęta</string>
@@ -288,10 +288,10 @@
     <item quantity="many">Dodaj %s sekund</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
-  <string name="giveMoreTime">Dodaj więcej czasu</string>
+  <string name="giveMoreTime">Daj więcej czasu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
-  <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
+  <string name="openingExplorerAndTablebase">Biblioteki otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
@@ -301,7 +301,7 @@
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
-  <string name="advancedSearch">Wyszukiwarka</string>
+  <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
   <string name="tournament">Turniej</string>
   <string name="tournaments">Turnieje</string>
   <string name="tournamentPoints">Punkty turniejowe</string>
@@ -311,7 +311,7 @@
     <item quantity="many">%s punktów turniejowych</item>
     <item quantity="other">%s punktów turniejowych</item>
   </plurals>
-  <string name="viewTournament">Wróć do turnieju</string>
+  <string name="viewTournament">Do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
   <plurals name="moreThanNbRatedGames">
@@ -884,7 +884,7 @@
   <string name="tryAnotherMoveForBlack">Znajdź inny ruch dla czarnych</string>
   <string name="solution">Rozwiązanie</string>
   <string name="waitingForAnalysis">Oczekiwanie na wynik analizy</string>
-  <string name="noMistakesFoundForWhite">Brak błędów białych</string>
+  <string name="noMistakesFoundForWhite">Nie znaleziono błędów białych</string>
   <string name="noMistakesFoundForBlack">Nie znaleziono błędów czarnych</string>
   <string name="doneReviewingWhiteMistakes">Przejrzano błędy białych</string>
   <string name="doneReviewingBlackMistakes">Przejrzano błędy czarnych</string>
