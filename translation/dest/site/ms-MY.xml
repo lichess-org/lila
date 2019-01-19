@@ -87,4 +87,8 @@
   <string name="allSet">Semuanya sedia!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Hapus</string>
+  <string name="deleteThisImportedGame">Hapus game import ini?</string>
+  <string name="replayMode">Mode ulang tayang</string>
+  <string name="realtimeReplay">Masa sebenar</string>
+  <string name="byCPL">Oleh CPL</string>
 </resources>
