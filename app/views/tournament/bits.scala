@@ -14,7 +14,7 @@ object bits {
     moreCss: Html = emptyHtml,
     side: Option[Html] = None,
     chat: Option[Frag] = None,
-    underchat: Option[Html] = None,
+    underchat: Option[Frag] = None,
     draughtsground: Boolean = true,
     openGraph: Option[lidraughts.app.ui.OpenGraph] = None
   )(body: Frag)(implicit ctx: Context) =

@@ -30,7 +30,7 @@ div.mchat .chat_tabs .tab:not(.active) {
 div.mchat .chat_tabs .tab:not(.active):hover {
   opacity: 1;
 }
-div.mchat .chat_tabs .tab.active {
+div.mchat .chat_tabs .tab.active h2 {
   font-weight: bold;
 }
 div.mchat .chat_tabs .tab input {

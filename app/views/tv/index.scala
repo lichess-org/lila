@@ -18,7 +18,7 @@ object index {
     flip: Boolean,
     history: List[lidraughts.game.Pov]
   )(implicit ctx: Context) =
-    views.html.round.layout(
+    views.html.round.bits.layout(
       title = s"${channel.name} TV: ${pov.fold(trans.noGameFound.txt())(p => s"${playerText(p.player)} vs ${playerText(p.opponent)}")}",
       side = side(channel, champions, "/tv", pov),
       underchat = Some(views.html.game.bits.watchers),
