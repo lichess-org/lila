@@ -47,4 +47,18 @@
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>
+  <string name="analysis">Analisis papan</string>
+  <string name="depthX">Kedalaman </string>
+  <string name="usingServerAnalysis">Menggunakan server analisis</string>
+  <string name="loadingEngine">Memuatkan enjin ...</string>
+  <string name="cloudAnalysis">Analisis Cloud</string>
+  <string name="goDeeper">Pergi lebih mendalam</string>
+  <string name="showThreat">Tunjukkan kenyataan</string>
+  <string name="inLocalBrowser">dalam browser tempatan</string>
+  <string name="promoteVariation">Naikkan variasi</string>
+  <string name="makeMainLine">Buat garisan utama</string>
+  <string name="deleteFromHere">Hapuskan daripada sini</string>
+  <string name="move">Gerak</string>
+  <string name="variantLoss">Variasi kalah</string>
+  <string name="variantWin">Variasi menang</string>
 </resources>
