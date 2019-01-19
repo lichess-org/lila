@@ -109,6 +109,8 @@ module.exports = function(cfg, element) {
   cfg.pools = pools;
   lobby = LidraughtsLobby.start(cfg);
 
+  var blindMode = $('body').hasClass('blind_mode');
+
   var $startButtons = $('#start_buttons');
 
   var sliderTimes = [
@@ -286,7 +288,7 @@ module.exports = function(cfg, element) {
       $form.find('form').one('submit', function() {
         $(this).find('.color_submits').find('button').hide().end().append(lidraughts.spinnerHtml);
       });
-    if ($('body').hasClass('blind_mode')) {
+    if (blindMode) {
       $timeInput.add($incrementInput).on('change', function() {
         toggleButtons();
         showRating();
@@ -418,7 +420,9 @@ module.exports = function(cfg, element) {
     });
   }
 
-  $startButtons.find('a').not('.disabled').on('mousedown', function() {
+  var clickEvent = blindMode ? 'click' : 'mousedown';
+
+  $startButtons.find('a').not('.disabled').on(clickEvent, function() {
     lidraughts.loadCss('stylesheets/setup.css');
     lobby.leavePool();
     $.ajax({
@@ -446,7 +450,7 @@ module.exports = function(cfg, element) {
       .find('a.config_' + location.hash.replace('#', ''))
       .each(function() {
         $(this).attr("href", $(this).attr("href") + location.search);
-      }).trigger('mousedown');
+      }).trigger(clickEvent);
 
     if (location.hash === '#hook') {
       if (/time=realTime/.test(location.search))
