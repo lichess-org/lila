@@ -31,7 +31,7 @@
   <string name="joinTheGame">Dołącz do gry</string>
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
-  <string name="opponentLeftChoices">Twój przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, ogłosić remis lub poczekać.</string>
+  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
   <string name="makeYourOpponentResign">Wymuś rezygnację przeciwnika</string>
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
@@ -55,7 +55,7 @@
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż groźby</string>
   <string name="inLocalBrowser">w przeglądarce</string>
-  <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="toggleLocalEvaluation">Włącz/wyłącz analizę lokalną</string>
   <string name="promoteVariation">Promuj ten wariant</string>
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń począwszy odtąd</string>
@@ -145,7 +145,7 @@
   <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
   <string name="newToLichess">Nowy na Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Musisz mieć konto, aby to zrobić</string>
+  <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz pomocy innych graczy. Zakładanie wielu kont jest zabronione i prowadzi do zablokowania użytkownika.</string>
   <string name="games">Gry</string>
