@@ -48,6 +48,8 @@
   <string name="computerAnalysis">Rekenaar ontleding</string>
   <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
   <string name="analysis">Ontleding bord</string>
+  <string name="insufficientMaterial">Onvoldoende materiaal</string>
+  <string name="close">Maak toe</string>
   <string name="openingExplorer">Die Opening explorer</string>
   <string name="blunders">Flaters</string>
   <string name="mistakes">Foute</string>
