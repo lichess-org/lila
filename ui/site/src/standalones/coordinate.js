@@ -182,5 +182,9 @@ $(function() {
       }, 1000);
     });
   });
-  lichess.pubsub.emit('reset_zoom')();
+
+  // reset_zoom subscriber is added in requestIdleCallback
+  lichess.requestIdleCallback(function() {
+    lichess.pubsub.emit('reset_zoom')();
+  });
 });
