@@ -50,7 +50,15 @@
   <string name="analysis">Ontleding bord</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="close">Maak toe</string>
+  <string name="drawn">Gelyk</string>
+  <string name="unknown">Onbekend</string>
+  <string name="database">Databasis</string>
+  <string name="whiteDrawBlack">Wit / Gelyk / Swart</string>
+  <string name="averageRatingX">Gemiddelde Elo: %s</string>
   <string name="openingExplorer">Die Opening explorer</string>
+  <string name="allSet">Gereed!</string>
+  <string name="delete">Skrap</string>
+  <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
   <string name="blunders">Flaters</string>
   <string name="mistakes">Foute</string>
   <string name="inaccuracies">Onakkuraathede</string>
