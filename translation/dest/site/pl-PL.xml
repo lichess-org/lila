@@ -185,7 +185,7 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
-  <string name="rank">Pozycja</string>
+  <string name="rank">Miejsce</string>
   <string name="rankX">Ranking: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Ranking jest aktualizowany co %s minut</string>
   <plurals name="nbPuzzles">
@@ -212,7 +212,7 @@
   <string name="whiteDeclinesDraw">Białe odrzuciły propozycję remisu</string>
   <string name="blackDeclinesDraw">Czarne odrzuciły propozycję remisu</string>
   <string name="yourOpponentOffersADraw">Przeciwnik proponuje remis</string>
-  <string name="accept">Akceptuję</string>
+  <string name="accept">Przyjmij</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
   <string name="eventInProgress">W toku</string>
@@ -221,7 +221,7 @@
   <string name="gameAborted">Gra została przerwana</string>
   <string name="standard">Standard</string>
   <string name="unlimited">Bez limitu</string>
-  <string name="mode">Tryb</string>
+  <string name="mode">Rodzaj</string>
   <string name="casual">Towarzyska</string>
   <string name="rated">Rankingowa</string>
   <string name="casualTournament">Towarzyska</string>
@@ -235,7 +235,7 @@
   <string name="rematchOfferCanceled">Propozycja rewanżu została anulowana</string>
   <string name="rematchOfferDeclined">Propozycja rewanżu została odrzucona</string>
   <string name="cancelRematchOffer">Wycofaj propozycję rewanżu</string>
-  <string name="viewRematch">Pokaż rewanż</string>
+  <string name="viewRematch">Zobacz rewanż</string>
   <string name="play">Zagraj</string>
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
@@ -281,7 +281,7 @@
     <item quantity="other">%s w toku</item>
   </plurals>
   <string name="exportGames">Eksportuj partie</string>
-  <string name="ratingRange">Ranking przeciwnika</string>
+  <string name="ratingRange">Przedział rankingowy</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
     <item quantity="few">Dodaj %s sekundy</item>
