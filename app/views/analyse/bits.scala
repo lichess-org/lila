@@ -20,8 +20,8 @@ object bits {
 
   def layout(
     title: String,
-    side: Option[Html] = None,
-    chat: Option[Html] = None,
+    side: Option[Frag] = None,
+    chat: Option[Frag] = None,
     underchat: Option[Html] = None,
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
@@ -29,7 +29,7 @@ object bits {
   )(body: Html)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
-      side = side,
+      side = side.map(_.toHtml),
       chat = chat,
       underchat = underchat,
       moreCss = moreCss,

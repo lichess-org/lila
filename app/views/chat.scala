@@ -10,8 +10,7 @@ import lila.i18n.I18nKeys
 
 object chat {
 
-  val html = Html("""<div id="chat" class="side_box"></div>""")
-  val frag = RawFrag(html.toString)
+  val frag = RawFrag("""<div id="chat" class="side_box"></div>""")
 
   import lila.chat.JsonView.chatIdWrites
 

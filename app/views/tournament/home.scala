@@ -18,7 +18,7 @@ object home {
     winners: lila.tournament.AllWinners,
     json: play.api.libs.json.JsObject
   )(implicit ctx: Context) =
-    layout(
+    bits.layout(
       title = trans.tournaments.txt(),
       moreJs = frag(
         infiniteScrollTag,

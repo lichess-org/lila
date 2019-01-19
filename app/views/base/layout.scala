@@ -108,7 +108,7 @@ object layout {
     baseline: Option[Html] = None,
     side: Option[Html] = None,
     menu: Option[Html] = None,
-    chat: Option[Html] = None,
+    chat: Option[Frag] = None,
     underchat: Option[Html] = None,
     robots: Boolean = isGloballyCrawlable,
     moreCss: Html = emptyHtml,

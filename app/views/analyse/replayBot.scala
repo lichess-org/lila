@@ -23,7 +23,7 @@ object replayBot {
 
     views.html.analyse.bits.layout(
       title = s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      side = Some(views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false)),
+      side = views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false),
       chat = none,
       underchat = Some(views.html.game.bits.watchers),
       moreCss = cssTag("analyse.css"),

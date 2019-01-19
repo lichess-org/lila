@@ -10,8 +10,8 @@ object layout {
 
   def apply(
     title: String,
-    side: Frag,
-    chat: Option[Html] = None,
+    side: Option[Frag],
+    chat: Option[Frag] = None,
     underchat: Option[Html] = None,
     moreJs: Html = emptyHtml,
     openGraph: Option[lila.app.ui.OpenGraph] = None,
@@ -22,7 +22,7 @@ object layout {
   )(body: Html)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      side = Some(side),
+      side = side.map(_.toHtml),
       chat = chat,
       underchat = underchat,
       openGraph = openGraph,

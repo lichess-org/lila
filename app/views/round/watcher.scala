@@ -30,7 +30,7 @@ object watcher {
     layout(
       title = s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}",
       side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = chat.html.some,
+      chat = chat.frag.some,
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundTag,
