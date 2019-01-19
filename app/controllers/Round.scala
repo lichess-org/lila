@@ -65,7 +65,7 @@ object Round extends LidraughtsController with TheftPrevention {
         (pov.game.simulId ?? Env.simul.repo.find) flatMap { simul =>
           Game.preloadUsers(pov.game) zip
             getPlayerChat(pov.game, tour.map(_.tour), simul) zip
-            (!ctx.blindMode ?? Env.game.crosstableApi.withMatchup(pov.game)) zip // probably what raises page mean time?
+            (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip // probably what raises page mean time?
             (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
             Env.bookmark.api.exists(pov.game, ctx.me) zip
             Env.api.roundApi.player(pov, lidraughts.api.Mobile.Api.currentVersion) map {
@@ -213,7 +213,7 @@ object Round extends LidraughtsController with TheftPrevention {
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
               getWatcherChat(pov.game) zip
-              (!ctx.blindMode ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
+              (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
               Env.api.roundApi.watcher(
                 pov,
                 lidraughts.api.Mobile.Api.currentVersion,
@@ -276,14 +276,14 @@ object Round extends LidraughtsController with TheftPrevention {
 
   def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>
-      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, true))
+      if (ctx.blind) Ok(html.game.textualRepresentation(pov, true))
       else BadRequest
     }
   }
 
   def watcherText(gameId: String, color: String) = Open { implicit ctx =>
     OptionResult(GameRepo.pov(gameId, color)) { pov =>
-      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, false))
+      if (ctx.blind) Ok(html.game.textualRepresentation(pov, false))
       else BadRequest
     }
   }

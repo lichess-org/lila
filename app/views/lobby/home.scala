@@ -35,8 +35,8 @@ object home {
     title = "",
     fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
     baseline = Some(frag(
-      a(id := "nb_connected_players", href := routes.User.list)(trans.nbPlayers.frag(nbPlayersPlaceholder)),
-      a(id := "nb_games_in_play", href := routes.Tv.games)(
+      a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
+      a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
         trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
       ),
       ctx.isMobileBrowser option {

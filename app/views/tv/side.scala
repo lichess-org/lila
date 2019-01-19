@@ -16,7 +16,7 @@ object side {
     champions: lidraughts.tv.Tv.Champions,
     baseUrl: String,
     povOption: Option[lidraughts.game.Pov]
-  )(implicit ctx: Context): Option[Frag] = !ctx.blindMode option div(cls := "side")(
+  )(implicit ctx: Context): Option[Frag] = ctx.noBlind option div(cls := "side")(
     div(cls := "side_box padded")(
       povOption.fold[Frag](
         if (baseUrl != "/tv") titleTag("Lidraughts games")
