@@ -113,7 +113,7 @@
   <string name="blunder">Poważny błąd</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistake">Błąd</string>
-  <string name="mistakes">Błędy</string>
+  <string name="mistakes">Potknięcia</string>
   <string name="inaccuracy">Niedokładność</string>
   <string name="inaccuracies">Niedokładności</string>
   <string name="moveTimes">Czas przeznaczony na ruch</string>
@@ -436,7 +436,7 @@
   <string name="openTournaments">Turnieje</string>
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
-  <string name="standing">Pozycja</string>
+  <string name="standing">Miejsce</string>
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turniejów</string>
   <string name="conditionOfEntry">Warunki przystąpienia:</string>
@@ -511,7 +511,7 @@
   <string name="bestMove">Najlepszy ruch!</string>
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleFailed">To zły ruch</string>
-  <string name="butYouCanKeepTrying">Spróbuj jeszcze raz.</string>
+  <string name="butYouCanKeepTrying">Ale nadal możesz próbować.</string>
   <string name="success">Sukces</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
