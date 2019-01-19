@@ -1366,6 +1366,7 @@ div.vstext .right {
   height: 160px;
 }
 
+div.lichess_overboard h1,
 div.lichess_overboard h2 {
   margin-bottom: 1em;
   font-size: 1.4em;

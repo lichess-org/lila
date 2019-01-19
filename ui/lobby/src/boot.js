@@ -290,6 +290,7 @@ module.exports = function(cfg, element) {
       $submits.hide().end().append(lichess.spinnerHtml);
     });
     if (blindMode) {
+      $variantSelect.focus();
       $timeInput.add($incrementInput).on('change', function() {
         toggleButtons();
         showRating();
