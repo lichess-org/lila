@@ -218,8 +218,8 @@ GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: 
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
 
 # Round accessibility: text representation
-GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
+GET   /$fullId<\w{12}>/nvui                      controllers.Round.playerNvui(fullId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/nvui   controllers.Round.watcherNvui(gameId: String, color: String)
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)

@@ -4,6 +4,7 @@ import { router } from 'game';
 import { throttle } from 'common';
 import { plyStep } from '../round';
 import { DecodedDests } from '../interfaces';
+import * as xhr from '../xhr';
 
 type Sans = {
   [key: string]: Uci;
@@ -18,31 +19,37 @@ window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
       url: (ctrl.data.player.spectator ?
         router.game(ctrl.data, ctrl.data.player.color) :
         router.player(ctrl.data)
-      ) + '/text',
-      success(html) {
+      ) + '/nvui',
+      headers: first ? {} : xhr.headers,
+      success(res) {
         if (first) {
-          $(element).html(html);
+          $(element).html(res);
           $form = $(element).find('form').submit(function() {
             const input = $form.find('.move').val();
-            const sans: Sans = sanWriter(
-              plyStep(ctrl.data, ctrl.ply).fen,
-              destsToUcis(ctrl.chessground.state.movable.dests!)
-            ) as Sans;
+            const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
+            const sans: Sans = sanWriter(plyStep(ctrl.data, ctrl.ply).fen, legalUcis) as Sans;
             const uci = sanToUci(input, sans) || input;
-            ctrl.socket.send("move", {
+            if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
               from: uci.substr(0, 2),
               to: uci.substr(2, 2),
               promotion: uci.substr(4, 1)
-            }, {
-              ackable: true
-            });
+            }, { ackable: true });
+            else {
+              $(element).find('.notify').text('Invalid move');
+            }
+            $form.find('.move').val('');
             return false;
           });
+          $form.find('.move').val('').focus();
         }
-        else ['pgn', 'fen', 'status'].forEach(r => {
-          $(element).find('.' + r).html($(html).find('.' + r).html());
-        });
-        $form.find('.move').val('').focus();
+        else {
+          $(element).find('.notify').text('');
+          ['pgn', 'fen', 'status', 'lastMove'].forEach(r => {
+            if ($(element).find('.' + r).text() != res[r]) {
+              $(element).find('.' + r).text(res[r]);
+            }
+          });
+        }
       }
     });
   }
@@ -52,7 +59,6 @@ window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
   return {
     reload: throttle(1000, reload)
   };
-
 }
 
 function destsToUcis(dests: DecodedDests) {
