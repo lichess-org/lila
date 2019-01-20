@@ -186,6 +186,10 @@ div.lichess_game div.lichess_board_wrap {
 body.blind_mode .cg-board-wrap {
   display: none;
 }
+body.blind_mode .board {
+  font-family: monospace;
+  font-size: 2em;
+}
 div.lichess_game div.lichess_ground {
   display: flex;
   flex-flow: column nowrap;

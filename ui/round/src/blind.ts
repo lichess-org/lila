@@ -9,17 +9,15 @@ let handler: any;
 
 export function view(ctrl: RoundController): MaybeVNodes {
   return [
-    h('div.lichess_board_blind', [
-      h('div.textual', {
-        hook: {
-          insert: vnode => init(vnode.elm as HTMLElement, ctrl)
-        }
-      }, [ renderGround(ctrl) ]),
-      h('dt', 'Your clock'),
-      h('dd', anyClock(ctrl, 'bottom')),
-      h('dt', 'Opponent clock'),
-      h('dd', anyClock(ctrl, 'top'))
-    ])
+    h('div.textual', {
+      hook: {
+        insert: vnode => init(vnode.elm as HTMLElement, ctrl)
+      }
+    }, [ renderGround(ctrl) ]),
+    h('dt', 'Your clock'),
+    h('dd', anyClock(ctrl, 'bottom')),
+    h('dt', 'Opponent clock'),
+    h('dd', anyClock(ctrl, 'top'))
   ];
 }
 

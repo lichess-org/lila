@@ -4,6 +4,9 @@ import { router } from 'game';
 import { throttle } from 'common';
 import { plyStep } from '../round';
 import { DecodedDests } from '../interfaces';
+import { read as fenRead } from 'chessground/fen';
+import { files } from 'chessground/types';
+import { invRanks } from 'chessground/util';
 import * as xhr from '../xhr';
 
 type Sans = {
@@ -13,6 +16,8 @@ type Sans = {
 window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
 
   let $form: JQuery;
+
+  const currentFen = () => plyStep(ctrl.data, ctrl.ply).fen
 
   const reload = (first: boolean = false) => {
     $.ajax({
@@ -27,7 +32,7 @@ window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
           $form = $(element).find('form').submit(function() {
             const input = $form.find('.move').val();
             const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
-            const sans: Sans = sanWriter(plyStep(ctrl.data, ctrl.ply).fen, legalUcis) as Sans;
+            const sans: Sans = sanWriter(currentFen(), legalUcis) as Sans;
             const uci = sanToUci(input, sans) || input;
             if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
               from: uci.substr(0, 2),
@@ -50,6 +55,7 @@ window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
             }
           });
         }
+        $(element).find('.board').text(textBoard(currentFen(), ctrl.data.player.color === 'white'));
       }
     });
   }
@@ -77,4 +83,41 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   for (let i in sans)
     if (i.toLowerCase() === lowered) return sans[i];
   return;
+}
+
+/*
+   H  G  F  E  D  C  B  A
+1  R  N  B  K  Q  B  N  R   1
+2  P  P  P  P  P  P  +  P   2
+3  -  +  -  +  -  +  -  +   3
+4  +  -  +  -  +  -  +  -   4
+5  -  +  -  p  -  +  P  +   5
+6  +  -  +  -  +  -  +  -   6
+7  p  p  p  +  p  p  p  p   7
+8  r  n  b  k  q  b  n  r   8
+   H  G  F  E  D  C  B  A
+ */
+const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
+
+function textBoard(fen: string, white: boolean) {
+  const pieces = fenRead(fen);
+  const board = [[' ', ...files, ' ']];
+  for(let rank of invRanks) {
+    let line = [];
+    for(let file of files) {
+      let key = file + rank;
+      const piece = pieces[key];
+      if (piece) {
+        const letter = letters[piece.role];
+        line.push(piece.color === 'white' ? letter.toUpperCase() : letter);
+      } else line.push((file.charCodeAt(0) + rank) % 2 ? '-' : '+');
+    }
+    board.push(['' + rank, ...line, '' + rank]);
+  }
+  board.push([' ', ...files, ' ']);
+  if (!white) {
+    board.reverse();
+    board.forEach(r => r.reverse());
+  }
+  return board.map(line => line.join(' ')).join('\n');
 }
