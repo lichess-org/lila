@@ -5,7 +5,6 @@ import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
-import * as blind from './blind';
 import * as cg from 'draughtsground/types';
 import { Config as CgConfig } from 'draughtsground/config';
 import { Api as CgApi } from 'draughtsground/api';
@@ -23,7 +22,7 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 import { decSimulToMove } from './simulStanding';
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, Blind } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
@@ -71,6 +70,7 @@ export default class RoundController {
     shouldSendMoveTime: boolean = false;
     preDrop?: cg.Role;
     lastDrawOfferAtPly?: Ply;
+    blind?: Blind;
 
     private music?: any;
 
@@ -131,8 +131,12 @@ export default class RoundController {
             });
           if (this.music && set !== 'music') this.music = undefined;
         });
-
         if (li.ab && this.isPlaying()) li.ab.init(this);
+
+        if (d.blind) window.lidraughts.loadScript('compiled/round.nvui.min.js').then(() => {
+          this.blind = window.lidraughts.RoundNVUI();
+          this.redraw();
+        });
     }
 
     private showExpiration = () => {
@@ -330,26 +334,26 @@ export default class RoundController {
     };
 
     showYourMoveNotification = () => {
-        const d = this.data;
-        if (game.isPlayerTurn(d)) li.desktopNotification(() => {
-            let txt = this.trans('yourTurn'),
-                opponent = renderUser.userTxt(this, d.opponent);
-            if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
-            else {
-                let move = d.steps[d.steps.length - 1].san,
-                    turn = Math.floor((this.ply - 1) / 2) + 1;
-                move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
-                txt = opponent + '\nplayed ' + move + '.\n' + txt;
-            }
-            return txt;
-        });
-        else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
-            return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
-        });
+      const d = this.data;
+      if (game.isPlayerTurn(d)) li.desktopNotification(() => {
+        let txt = this.trans('yourTurn'),
+            opponent = renderUser.userTxt(this, d.opponent);
+        if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
+        else {
+          let move = d.steps[d.steps.length - 1].san,
+              turn = Math.floor((this.ply - 1) / 2) + 1;
+          move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
+          txt = opponent + '\nplayed ' + move + '.\n' + txt;
+        }
+        return txt;
+      });
+      else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
+        return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
+      });
     };
 
-    private playerByColor = (c: Color) =>
-        this.data[c === this.data.player.color ? 'player' : 'opponent'];
+    playerByColor = (c: Color) =>
+      this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
     apiMove = (o: ApiMove): void => {
         const d = this.data,
@@ -437,7 +441,6 @@ export default class RoundController {
             else this.data.expiration.movedAt = Date.now();
         }
         this.redraw();
-        if (d.blind) blind.reload();
         if (playing && playedColor === d.player.color) {
             this.moveOn.next();
             cevalSub.publish(d, o);
@@ -485,7 +488,6 @@ export default class RoundController {
         if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
         if (!this.replaying()) ground.reload(this);
         this.setTitle();
-        if (d.blind) blind.reload();
         this.moveOn.next();
         this.setQuietMode();
         this.redraw();

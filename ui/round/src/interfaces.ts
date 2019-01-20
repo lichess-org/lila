@@ -162,6 +162,9 @@ export interface ApiEnd {
 export interface StepCrazy extends Untyped {
 }
 
+export interface Blind extends Untyped {
+}
+
 export interface Pref {
   animationDuration: number;
   blindfold: boolean;

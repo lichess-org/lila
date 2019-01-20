@@ -6,7 +6,6 @@ import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'draughtsground/fen';
 import * as util from '../util';
-import * as blind from '../blind';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
@@ -54,7 +53,7 @@ export function main(ctrl: RoundController): VNode {
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
-  return d.blind ? blind.view(ctrl) : h('div.round.cg-512', [
+  return ctrl.blind ? ctrl.blind.render(ctrl) : h('div.round.cg-512', [
     h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lidraughts.pubsub.emit('content_loaded')()
