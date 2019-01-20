@@ -148,7 +148,7 @@
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz pomocy innych graczy. Zakładanie wielu kont jest zabronione i prowadzi do zablokowania użytkownika.</string>
-  <string name="games">Gry</string>
+  <string name="games">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
   <string name="latestForumPosts">Najnowsze posty</string>
@@ -209,8 +209,8 @@
   <string name="drawOfferCanceled">Propozycja remisu została anulowana</string>
   <string name="whiteOffersDraw">Białe proponują remis</string>
   <string name="blackOffersDraw">Czarne proponują remis</string>
-  <string name="whiteDeclinesDraw">Białe odrzuciły propozycję remisu</string>
-  <string name="blackDeclinesDraw">Czarne odrzuciły propozycję remisu</string>
+  <string name="whiteDeclinesDraw">Białe odrzucają propozycję remisu</string>
+  <string name="blackDeclinesDraw">Czarne odrzucają propozycję remisu</string>
   <string name="yourOpponentOffersADraw">Przeciwnik proponuje remis</string>
   <string name="accept">Przyjmij</string>
   <string name="decline">Odrzuć</string>
@@ -358,7 +358,7 @@
   <string name="allTeams">Wszystkie kluby</string>
   <string name="newTeam">Nowy klub</string>
   <string name="myTeams">Moje kluby</string>
-  <string name="noTeamFound">Nie należysz do żadnego klubu</string>
+  <string name="noTeamFound">Nie znaleziono klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
@@ -368,9 +368,9 @@
   <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
   <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
-  <string name="xCreatedTeamY">%1$s stworzył klub %2$s</string>
+  <string name="xCreatedTeamY">%1$s założył klub %2$s</string>
   <string name="averageElo">Średni ranking</string>
-  <string name="location">Lokalizacja</string>
+  <string name="location">Miejsce</string>
   <string name="settings">Ustawienia</string>
   <string name="filterGames">Filtruj partie</string>
   <string name="reset">Przywróć domyślne</string>
@@ -392,7 +392,7 @@
   <string name="clickOnTheBoardToMakeYourMove">Wykonaj ruch i udowodnij, że jesteś człowiekiem.</string>
   <string name="captcha.fail">Rozwiąż zadanie szachowe.</string>
   <string name="notACheckmate">To nie jest mat</string>
-  <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym ruchu</string>
+  <string name="colorPlaysCheckmateInOne">%s zaczynają i matują w jednym ruchu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne łączenie</string>
   <string name="onlineFriends">znajomych online</string>
@@ -599,7 +599,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
-  <string name="gameBehavior">Interfejs</string>
+  <string name="gameBehavior">Zachowanie</string>
   <string name="howDoYouMovePieces">W jaki sposób przesuwasz bierki?</string>
   <string name="clickTwoSquares">Wskazuję dwa pola</string>
   <string name="dragPiece">Przeciągam bierkę</string>
@@ -680,7 +680,7 @@
   <string name="error.email_acceptable">Podany adres e-mail nie został zaakceptowany</string>
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="error.email_different">To już jest Twój adres e-mail</string>
-  <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
+  <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
   <string name="zenMode">Tryb zen</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
@@ -690,8 +690,8 @@
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
   <string name="whiteCastlingQueenside">Białe O-O-O</string>
-  <string name="blackCastlingKingside">Czarne O-O</string>
-  <string name="blackCastlingQueenside">Czarne O-O-O</string>
+  <string name="blackCastlingKingside">O-O czarnych</string>
+  <string name="blackCastlingQueenside">O-O-O czarnych</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
@@ -721,14 +721,14 @@
   <string name="hostANewSimul">Nowa symultana</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
-  <string name="returnToSimulHomepage">Wróć do symultany</string>
-  <string name="aboutSimul">Symultana pozwala symultaniście grać z wieloma przeciwnikami równocześnie.</string>
+  <string name="returnToSimulHomepage">Wróć do do strony głównej symultan</string>
+  <string name="aboutSimul">Symultana to równoczesna gra pojedynczego gracza z kilkoma przeciwnikami.</string>
   <string name="aboutSimulImage">Rok 1964 - Fischer grając na 50 szachownicach wygrał 47 partii, 2 zremisował i 1 przegrał.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Utwórz</string>
-  <string name="whenCreateSimul">Symultana to równoczesna gra z wieloma przeciwnikami.</string>
+  <string name="whenCreateSimul">W symultanie będziesz grał równocześnie z kilkoma przeciwnikami.</string>
   <string name="simulVariantsHint">Każdy z graczy może będzie mógł wybrać spośród kilku wskazanych odmian gry.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
