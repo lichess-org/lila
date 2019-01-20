@@ -4,7 +4,6 @@ import { router } from 'game';
 import { throttle } from 'common';
 import { plyStep } from '../round';
 import { DecodedDests } from '../interfaces';
-import { read as fenRead } from 'chessground/fen';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
 import * as xhr from '../xhr';
@@ -55,7 +54,7 @@ window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
             }
           });
         }
-        $(element).find('.board').text(textBoard(currentFen(), ctrl.data.player.color === 'white'));
+        $(element).siblings('.board').find('pre').text(textBoard(ctrl));
       }
     });
   }
@@ -99,8 +98,8 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
  */
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
-function textBoard(fen: string, white: boolean) {
-  const pieces = fenRead(fen);
+function textBoard(ctrl: RoundController) {
+  const pieces = ctrl.chessground.state.pieces;
   const board = [[' ', ...files, ' ']];
   for(let rank of invRanks) {
     let line = [];
@@ -115,7 +114,7 @@ function textBoard(fen: string, white: boolean) {
     board.push(['' + rank, ...line, '' + rank]);
   }
   board.push([' ', ...files, ' ']);
-  if (!white) {
+  if (ctrl.data.player.color === 'black') {
     board.reverse();
     board.forEach(r => r.reverse());
   }

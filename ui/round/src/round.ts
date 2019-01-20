@@ -25,5 +25,9 @@ export function massage(d: RoundData): void {
 
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
 
-  if (d.blind) d.pref.keyboardMove = false;
+  if (d.blind) {
+    d.pref.keyboardMove = false;
+    d.pref.confirmResign = false;
+    d.pref.submitMove = false;
+  }
 };

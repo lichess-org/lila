@@ -1,24 +1,30 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { render as renderGround } from './ground';
 import { renderClock } from './clock/clockView';
+import { renderInner as tableInner } from './view/table';
 import renderCorresClock from './corresClock/corresClockView';
-import { MaybeVNodes, Position } from './interfaces';
+import { Position } from './interfaces';
 import RoundController from './ctrl';
 
 let handler: any;
 
-export function view(ctrl: RoundController): MaybeVNodes {
-  return [
+export function view(ctrl: RoundController): VNode {
+  return h('div.blind', [
     h('div.textual', {
       hook: {
         insert: vnode => init(vnode.elm as HTMLElement, ctrl)
       }
     }, [ renderGround(ctrl) ]),
     h('dt', 'Your clock'),
-    h('dd', anyClock(ctrl, 'bottom')),
+    h('dd.botc', anyClock(ctrl, 'bottom')),
     h('dt', 'Opponent clock'),
-    h('dd', anyClock(ctrl, 'top'))
-  ];
+    h('dd.topc', anyClock(ctrl, 'top')),
+    h('dt', 'Actions'),
+    h('dd.actions', tableInner(ctrl)),
+    h('dt', 'Board'),
+    h('dd.board', h('pre'))
+  ]);
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
