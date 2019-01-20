@@ -23,7 +23,7 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 import { decSimulToMove } from './simulStanding';
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
@@ -125,11 +125,11 @@ export default class RoundController {
         li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
 
         li.pubsub.on('sound_set', set => {
-            if (!this.music && set === 'music')
-                li.loadScript('javascripts/music/play.js').then(() => {
-                    this.music = window.lidraughtsPlayMusic();
-                });
-            if (this.music && set !== 'music') this.music = undefined;
+          if (!this.music && set === 'music')
+            li.loadScript('javascripts/music/play.js').then(() => {
+                this.music = window.lidraughtsPlayMusic();
+            });
+          if (this.music && set !== 'music') this.music = undefined;
         });
 
         if (li.ab && this.isPlaying()) li.ab.init(this);
@@ -212,14 +212,13 @@ export default class RoundController {
 
         this.justDropped = undefined;
         this.preDrop = undefined;
-        const s = round.plyStep(this.data, ply);
-
-        const ghosts = countGhosts(s.fen);
-        const config: CgConfig = {
-                fen: s.fen,
-                lastMove: util.uci2move(s.uci),
-                turnColor: (this.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black'
-            };
+        const s = round.plyStep(this.data, ply),
+          ghosts = countGhosts(s.fen),
+          config: CgConfig = {
+            fen: s.fen,
+            lastMove: util.uci2move(s.uci),
+            turnColor: (this.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black'
+          };
 
         if (this.replaying()) this.draughtsground.stop();
         else {
@@ -251,8 +250,11 @@ export default class RoundController {
 
     isLate = () => this.replaying() && status.playing(this.data);
 
+    playerAt = (position: Position) =>
+      (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
+
     flipNow = () => {
-        this.flip = !this.flip;
+        this.flip = !this.data.blind && !this.flip;
         this.draughtsground.set({
             orientation: ground.boardOrientation(this.data, this.flip)
         });
