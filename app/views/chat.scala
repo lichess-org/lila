@@ -51,7 +51,7 @@ object chat {
     "public" -> public,
     "permissions" -> Json.obj("local" -> localMod)
       .add("timeout" -> isGranted(_.ChatTimeout))
-      .add("shadowban" -> isGranted(_.MarkTroll)),
+      .add("shadowban" -> isGranted(_.Shadowban)),
     "timeout" -> timeout
   ).add("kobold" -> ctx.troll)
     .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))

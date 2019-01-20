@@ -24,7 +24,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
   m = ctrl.moderation();
   const vnodes = [
     h('ol.messages.content.scroll-shadow-soft' + (m ? '.as-mod' : ''), {
-      attrs: { 
+      attrs: {
         role: 'log',
         'aria-live': 'polite',
         'aria-atomic': false

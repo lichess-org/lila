@@ -50,7 +50,7 @@ object Mod extends LilaController {
     case (inquiry, suspect) => Report.onInquiryClose(inquiry, me, suspect.some)(ctx)
   })
 
-  def troll(username: String, v: Boolean) = OAuthModBody(_.MarkTroll) { me =>
+  def troll(username: String, v: Boolean) = OAuthModBody(_.Shadowban) { me =>
     withSuspect(username) { prev =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
@@ -82,7 +82,7 @@ object Mod extends LilaController {
     }
   }(actionResult(username))
 
-  def deletePmsAndChats(username: String) = OAuthMod(_.MarkTroll) { _ => me =>
+  def deletePmsAndChats(username: String) = OAuthMod(_.Shadowban) { _ => me =>
     withSuspect(username) { sus =>
       Env.mod.publicChat.delete(sus) >>
         Env.message.api.deleteThreadsBy(sus.user) map some
@@ -164,7 +164,7 @@ object Mod extends LilaController {
   }
 
   private def communications(username: String, priv: Boolean) = Secure {
-    perms => if (priv) perms.ViewPrivateComms else perms.MarkTroll
+    perms => if (priv) perms.ViewPrivateComms else perms.Shadowban
   } { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
@@ -300,11 +300,11 @@ object Mod extends LilaController {
     }
   }
 
-  def chatPanic = Secure(_.MarkTroll) { implicit ctx => me =>
+  def chatPanic = Secure(_.Shadowban) { implicit ctx => me =>
     Ok(html.mod.chatPanic(Env.chat.panic.get)).fuccess
   }
 
-  def chatPanicPost = OAuthMod(_.MarkTroll) { req => me =>
+  def chatPanicPost = OAuthMod(_.Shadowban) { req => me =>
     val v = getBool("v", req)
     Env.chat.panic.set(v)
     Env.slack.api.chatPanic(me, v)
