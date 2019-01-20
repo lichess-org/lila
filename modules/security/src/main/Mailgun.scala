@@ -24,7 +24,7 @@ final class Mailgun(
       println(msg, "No mailgun API URL")
       funit
     } else {
-      lila.mon.email.send()
+      lila.mon.email.actions.send()
       WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
         "from" -> Seq(msg.from | from),
         "to" -> Seq(msg.to.value),
@@ -39,13 +39,13 @@ final class Mailgun(
         case _ =>
       } recoverWith {
         case e if msg.retriesLeft > 0 => {
-          lila.mon.email.retry()
+          lila.mon.email.actions.retry()
           akka.pattern.after(15 seconds, system.scheduler) {
             send(msg.copy(retriesLeft = msg.retriesLeft - 1))
           }
         }
         case e => {
-          lila.mon.email.fail()
+          lila.mon.email.actions.fail()
           fufail(e)
         }
       }

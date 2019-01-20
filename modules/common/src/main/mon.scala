@@ -364,14 +364,18 @@ object mon {
     }
   }
   object email {
-    val resetPassword = inc("email.reset_password")
-    val fix = inc("email.fix")
-    val change = inc("email.change")
-    val confirmation = inc("email.confirmation")
+    object types {
+      val resetPassword = inc("email.reset_password")
+      val fix = inc("email.fix")
+      val change = inc("email.change")
+      val confirmation = inc("email.confirmation")
+    }
     val disposableDomain = rec("email.disposable_domain")
-    val send = inc("email.send")
-    val fail = inc("email.fail")
-    val retry = inc("email.retry")
+    object actions {
+      val send = inc("email.send")
+      val fail = inc("email.fail")
+      val retry = inc("email.retry")
+    }
   }
   object security {
     object tor {
