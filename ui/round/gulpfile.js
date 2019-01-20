@@ -31,7 +31,7 @@ const plugins = [
   {
     entries: ['src/plugins/nvui.ts'],
     standalone: 'NVUI',
-    target: 'nvui.min.js'
+    target: 'round.nvui.min.js'
   }
 ];
 

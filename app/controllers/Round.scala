@@ -240,21 +240,6 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def playerNvui(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId)(nvui(true))
-  }
-
-  def watcherNvui(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color))(nvui(false))
-  }
-
-  private def nvui(playing: Boolean)(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    if (ctx.blind) negotiate(
-      html = Ok(html.game.nvui.html(pov, playing)).fuccess,
-      api = _ => Ok(html.game.nvui.json(pov)).fuccess
-    )
-    else BadRequest.fuccess
-
   def sides(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
       (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip

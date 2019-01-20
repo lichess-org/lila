@@ -5,7 +5,6 @@ import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
-import * as blind from './blind';
 import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
@@ -22,7 +21,7 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, Blind } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
@@ -65,6 +64,7 @@ export default class RoundController {
   shouldSendMoveTime: boolean = false;
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
+  blind?: Blind;
 
   private music?: any;
 
@@ -118,6 +118,10 @@ export default class RoundController {
     });
     if (li.ab && this.isPlaying()) li.ab.init(this);
 
+    if (d.blind) window.lichess.loadScript('compiled/round.nvui.min.js').then(() => {
+      this.blind = window.lichess.RoundNVUI();
+      this.redraw();
+    });
   }
 
   private showExpiration = () => {
@@ -313,7 +317,7 @@ export default class RoundController {
     });
   };
 
-  private playerByColor = (c: Color) =>
+  playerByColor = (c: Color) =>
     this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): void => {
@@ -404,7 +408,6 @@ export default class RoundController {
       else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
-    if (d.blind) blind.reload();
     if (playing && playedColor === d.player.color) {
       this.moveOn.next();
       cevalSub.publish(d, o);
@@ -449,7 +452,6 @@ export default class RoundController {
     if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
-    if (d.blind) blind.reload();
     this.moveOn.next();
     this.setQuietMode();
     this.redraw();

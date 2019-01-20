@@ -1,69 +1,120 @@
+import { h } from 'snabbdom'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
-import { router } from 'game';
-import { throttle } from 'common';
+import { renderClock } from '../clock/clockView';
+import { renderInner as tableInner } from '../view/table';
+import renderCorresClock from '../corresClock/corresClockView';
+import { userHtml } from '../view/user';
 import { plyStep } from '../round';
-import { DecodedDests } from '../interfaces';
+import { DecodedDests, Position } from '../interfaces';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
-import * as xhr from '../xhr';
+import { view as gameView } from 'game';
 
 type Sans = {
   [key: string]: Uci;
 }
 
-window.lichess.NVUI = function(element: HTMLElement, ctrl: RoundController) {
-
-  let $form: JQuery;
-
-  const currentFen = () => plyStep(ctrl.data, ctrl.ply).fen
-
-  const reload = (first: boolean = false) => {
-    $.ajax({
-      url: (ctrl.data.player.spectator ?
-        router.game(ctrl.data, ctrl.data.player.color) :
-        router.player(ctrl.data)
-      ) + '/nvui',
-      headers: first ? {} : xhr.headers,
-      success(res) {
-        if (first) {
-          $(element).html(res);
-          $form = $(element).find('form').submit(function() {
-            const input = $form.find('.move').val();
-            const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
-            const sans: Sans = sanWriter(currentFen(), legalUcis) as Sans;
-            const uci = sanToUci(input, sans) || input;
-            if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
-              from: uci.substr(0, 2),
-              to: uci.substr(2, 2),
-              promotion: uci.substr(4, 1)
-            }, { ackable: true });
-            else {
-              $(element).find('.notify').text('Invalid move');
-            }
-            $form.find('.move').val('');
-            return false;
-          });
-          $form.find('.move').val('').focus();
-        }
-        else {
-          $(element).find('.notify').text('');
-          ['pgn', 'fen', 'status', 'lastMove'].forEach(r => {
-            if ($(element).find('.' + r).text() != res[r]) {
-              $(element).find('.' + r).text(res[r]);
-            }
-          });
-        }
-        $(element).siblings('.board').find('pre').text(textBoard(ctrl));
-      }
-    });
-  }
-
-  reload(true);
+window.lichess.RoundNVUI = function() {
 
   return {
-    reload: throttle(1000, reload)
+    render(ctrl: RoundController) {
+      const d = ctrl.data,
+        step = plyStep(d, ctrl.ply);
+      return h('div.nvui', [
+        h('h1', 'Textual representation'),
+        h('dl', [
+          ...(ctrl.isPlaying() ? [
+            h('dt', 'Your color'),
+            h('dd', d.player.color),
+            h('dt', 'Opponent'),
+            h('dd', userHtml(ctrl, d.player))
+          ] : [
+            h('dt', 'White player'),
+            h('dd', userHtml(ctrl, ctrl.playerByColor('white'))),
+            h('dt', 'Black player'),
+            h('dd', userHtml(ctrl, ctrl.playerByColor('black')))
+          ]),
+          h('dt', 'PGN'),
+          h('dd.pgn', {
+            attrs: { role : 'log' }
+          }, d.steps.map(s => s.san).join(' ')),
+          h('dt', 'FEN'),
+          // h('dd.fen')(step.fen),
+          h('dt', 'Game status'),
+          h('dd.status', {
+            attrs: {
+              role : 'status',
+              'aria.live' : 'assertive',
+              'aria.atomic' : true
+            }
+          }, ctrl.data.game.status.name === 'started' ? 'Playing' : gameView.status(ctrl)),
+          h('dt', 'Last move'),
+          h('dd.lastMove', {
+            attrs: {
+              'aria.live' : 'assertive',
+              'aria.atomic' : true
+            }
+          }, step.san),
+          ctrl.isPlaying() ? h('form', {
+            hook: {
+              insert(vnode) {
+                const el = vnode.elm as HTMLFormElement;
+                const d = ctrl.data;
+                const $form = $(el).submit(function() {
+                  const input = $form.find('.move').val();
+                  const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
+                  const sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
+                  const uci = sanToUci(input, sans) || input;
+                  if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
+                    from: uci.substr(0, 2),
+                    to: uci.substr(2, 2),
+                    promotion: uci.substr(4, 1)
+                  }, { ackable: true });
+                  else {
+                    $(el).siblings('.notify').text('Invalid move');
+                  }
+                  $form.find('.move').val('');
+                  return false;
+                });
+                $form.find('.move').val('').focus();
+              }
+            }
+          }, [
+            h('label', [
+              'Your move',
+              h('input.move', {
+                attrs: {
+                  name : 'move',
+                  'type' : 'text',
+                  autocomplete : 'off'
+                }
+              })
+            ])
+          ]) : null,
+          h('dt', 'Your clock'),
+          h('dd.botc', anyClock(ctrl, 'bottom')),
+          h('dt', 'Opponent clock'),
+          h('dd.topc', anyClock(ctrl, 'top')),
+          h('dt', 'Actions'),
+          h('dd.actions', tableInner(ctrl)),
+          h('dt', 'Board'),
+          h('dd', h('pre', textBoard(ctrl))),
+          h('div.notify', {
+            'aria.live': "assertive",
+            'aria.atomic' : true
+          })
+        ])
+      ]);
+    }
   };
+}
+
+function anyClock(ctrl: RoundController, position: Position) {
+  const d = ctrl.data, player = ctrl.playerAt(position);
+  return (ctrl.clock && renderClock(ctrl, player, position)) || (
+    d.correspondence && renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player)
+  ) || undefined;
 }
 
 function destsToUcis(dests: DecodedDests) {

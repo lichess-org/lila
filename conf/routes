@@ -217,10 +217,6 @@ POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId:
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
 
-# Round accessibility: text representation
-GET   /$fullId<\w{12}>/nvui                      controllers.Round.playerNvui(fullId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/nvui   controllers.Round.watcherNvui(gameId: String, color: String)
-
 # Tournament
 GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)
 GET   /tournament/featured                    controllers.Tournament.featured
