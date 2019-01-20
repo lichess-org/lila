@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która skorzysta z tego odnośnika, rozegra z Tobą partię.</string>
   <string name="whiteResigned">Białe zrezygnowały</string>
   <string name="blackResigned">Czarne zrezygnowały</string>
-  <string name="whiteLeftTheGame">Białe opuściły grę</string>
-  <string name="blackLeftTheGame">Czarne opuściły grę</string>
+  <string name="whiteLeftTheGame">Białe porzuciły partię</string>
+  <string name="blackLeftTheGame">Czarne porzuciły partię</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres widzom, by mogli obserwować tę partię</string>
   <string name="theComputerAnalysisHasFailed">Nie udało się przeanalizować tej partii</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
@@ -55,7 +55,7 @@
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż groźby</string>
   <string name="inLocalBrowser">w przeglądarce</string>
-  <string name="toggleLocalEvaluation">Włącz/wyłącz analizę lokalną</string>
+  <string name="toggleLocalEvaluation">Włącz/wyłącz ocenę lokalną</string>
   <string name="promoteVariation">Promuj ten wariant</string>
   <string name="makeMainLine">Ustal jako przebieg</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
@@ -139,7 +139,7 @@
     <item quantity="one">%s ulubiona partia</item>
     <item quantity="few">%s ulubiona partie</item>
     <item quantity="many">%s ulubiona partii</item>
-    <item quantity="other">%s ulubiona partii</item>
+    <item quantity="other">%s zakładek</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
@@ -861,20 +861,20 @@
   <string name="practiceWithComputer">Trening z komputerem</string>
   <string name="anotherWasX">Możliwe było %s</string>
   <string name="bestWasX">Najlepsze było %s</string>
-  <string name="youBrowsedAway">Przeglądnąłeś</string>
+  <string name="youBrowsedAway">Oddalono się</string>
   <string name="resumePractice">Wznów trening</string>
-  <string name="theGameIsADraw">Gra zakończona remisem.</string>
-  <string name="computerThinking">Komputer namyśla się...</string>
+  <string name="theGameIsADraw">Partia zakończona remisem.</string>
+  <string name="computerThinking">Komputer szuka ruchu…</string>
   <string name="seeBestMove">Zobacz najlepszy ruch</string>
-  <string name="hideBestMove">Ukryj nalepszy ruch</string>
-  <string name="getAHint">Pokaż podpowiedź</string>
-  <string name="evaluatingYourMove">Analizowanie Twojego ruchu...</string>
+  <string name="hideBestMove">Ukryj najlepszy ruch</string>
+  <string name="getAHint">Uzyskaj podpowiedź</string>
+  <string name="evaluatingYourMove">Ocenianie Twojego ruchu…</string>
   <string name="whiteWinsGame">Wygrana białych</string>
   <string name="blackWinsGame">Wygrana czarnych</string>
   <string name="learnFromYourMistakes">Ucz się na swoich błędach</string>
   <string name="learnFromThisMistake">Ucz się na tym błędzie</string>
   <string name="skipThisMove">Pomiń ten ruch</string>
-  <string name="next">Następny</string>
+  <string name="next">Dalej</string>
   <string name="xWasPlayed">Zagrano %s</string>
   <string name="findBetterMoveForWhite">Znajdź lepszy ruch dla białych</string>
   <string name="findBetterMoveForBlack">Znajdź lepszy ruch dla czarnych</string>
@@ -909,7 +909,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
   <string name="addCurrentVariation">Dodaj bieżący wariant</string>
-  <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by stworzyć ruchy warunkowe</string>
+  <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by utworzyć ruchy warunkowe</string>
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
   <plurals name="andSaveNbPremoveLines">
