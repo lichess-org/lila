@@ -31,10 +31,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     }
   }, clock.blind ? [
     h('div.time', {
-      attrs: {
-        role: 'timer',
-        'aria.atomic': true
-      },
+      attrs: { role: 'timer' },
       hook: timeHook
     })
   ] : [
@@ -58,11 +55,9 @@ const sepLow = '<sep class="low">:</sep>';
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, blind: boolean) {
   const date = new Date(time);
-  if (blind) return [
-    time > 3600000 ? Math.floor(time / 3600000) + ' hours' : '',
-    date.getUTCMinutes() + ' minutes',
-    date.getUTCSeconds() + ' seconds'
-  ].join(' ').trim();
+  if (blind) return (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
+    (date.getUTCMinutes() + 'M:') +
+    date.getUTCSeconds() + 'S';
   const millis = date.getUTCMilliseconds(),
     sep = (isRunning && millis < 500) ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());

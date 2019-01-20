@@ -22,7 +22,7 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
@@ -114,7 +114,7 @@ export default class RoundController {
         li.loadScript('javascripts/music/play.js').then(() => {
           this.music = window.lichessPlayMusic();
         });
-        if (this.music && set !== 'music') this.music = undefined;
+      if (this.music && set !== 'music') this.music = undefined;
     });
     if (li.ab && this.isPlaying()) li.ab.init(this);
 
@@ -190,12 +190,12 @@ export default class RoundController {
     this.justDropped = undefined;
     this.preDrop = undefined;
     const s = round.plyStep(this.data, ply),
-    config: CgConfig = {
-      fen: s.fen,
-      lastMove: util.uci2move(s.uci),
-      check: !!s.check,
-      turnColor: this.ply % 2 === 0 ? 'white' : 'black'
-    };
+      config: CgConfig = {
+        fen: s.fen,
+        lastMove: util.uci2move(s.uci),
+        check: !!s.check,
+        turnColor: this.ply % 2 === 0 ? 'white' : 'black'
+      };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
       color: this.isPlaying() ? this.data.player.color : undefined,
@@ -221,8 +221,11 @@ export default class RoundController {
 
   isLate = () => this.replaying() && status.playing(this.data);
 
+  playerAt = (position: Position) =>
+    (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
+
   flipNow = () => {
-    this.flip = !this.flip;
+    this.flip = !this.data.blind && !this.flip;
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip)
     });
@@ -295,11 +298,11 @@ export default class RoundController {
     const d = this.data;
     if (game.isPlayerTurn(d)) li.desktopNotification(() => {
       let txt = this.trans('yourTurn'),
-      opponent = renderUser.userTxt(this, d.opponent);
+        opponent = renderUser.userTxt(this, d.opponent);
       if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
       else {
         let move = d.steps[d.steps.length - 1].san,
-        turn = Math.floor((this.ply - 1) / 2) + 1;
+          turn = Math.floor((this.ply - 1) / 2) + 1;
         move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
         txt = opponent + '\nplayed ' + move + '.\n' + txt;
       }
@@ -315,12 +318,12 @@ export default class RoundController {
 
   apiMove = (o: ApiMove): void => {
     const d = this.data,
-    playing = this.isPlaying();
+      playing = this.isPlaying();
 
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-    activeColor = d.player.color === d.game.player;
+      activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('white').offeringDraw = o.wDraw;
@@ -468,7 +471,7 @@ export default class RoundController {
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
     if (!d.player.spectator && d.game.turns > 1)
-    li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+      li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -508,16 +511,16 @@ export default class RoundController {
 
   private makeCorrespondenceClock = (): void => {
     if (this.data.correspondence && !this.corresClock)
-    this.corresClock = makeCorresClock(
-      this,
-      this.data.correspondence,
-      this.socket.outoftime
-    );
+      this.corresClock = makeCorresClock(
+        this,
+        this.data.correspondence,
+        this.socket.outoftime
+      );
   };
 
   private corresClockTick = (): void => {
     if (this.corresClock && game.playable(this.data))
-    this.corresClock.tick(this.data.game.player);
+      this.corresClock.tick(this.data.game.player);
   };
 
   private setQuietMode = () => {
@@ -609,7 +612,7 @@ export default class RoundController {
   forecastInfo = (): boolean => {
     const d = this.data;
     return this.isPlaying() && d.correspondence && !d.opponent.ai &&
-    !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
+      !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
   }
 
   private onChange = () => {
@@ -619,10 +622,10 @@ export default class RoundController {
   forceResignable = (): boolean => {
     const d = this.data;
     return !d.opponent.ai &&
-    !!d.clock &&
-    d.opponent.isGone &&
-    !game.isPlayerTurn(d) &&
-    game.resignable(d);
+      !!d.clock &&
+      d.opponent.isGone &&
+      !game.isPlayerTurn(d) &&
+      game.resignable(d);
   }
 
   canOfferDraw = (): boolean =>
@@ -682,11 +685,11 @@ export default class RoundController {
             !this.data.clock ||
             this.data.opponent.ai ||
             this.isSimulHost()) return;
-            document.body.classList.remove('fpmenu');
-            this.socket.send('bye2');
-            const msg = 'There is a game in progress!';
-            (e || window.event).returnValue = msg;
-            return msg;
+          document.body.classList.remove('fpmenu');
+          this.socket.send('bye2');
+          const msg = 'There is a game in progress!';
+          (e || window.event).returnValue = msg;
+          return msg;
         });
 
         window.Mousetrap.bind('esc', () => {

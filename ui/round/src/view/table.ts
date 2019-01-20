@@ -10,18 +10,6 @@ import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
 
-function playerAt(ctrl: RoundController, position: Position) {
-  return (ctrl.flip as any) ^ ((position === 'top') as any) ? ctrl.data.opponent : ctrl.data.player;
-}
-
-function topPlayer(ctrl: RoundController) {
-  return playerAt(ctrl, 'top');
-}
-
-function bottomPlayer(ctrl: RoundController) {
-  return playerAt(ctrl, 'bottom');
-}
-
 function renderPlayer(ctrl: RoundController, player: Player) {
   return player.ai ? h('div.username.user_link.online', [
     h('i.line'),
@@ -40,7 +28,7 @@ function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [
     renderReplay(ctrl),
     h('div.control.buttons', buttons),
-    renderPlayer(ctrl, bottomPlayer(ctrl))
+    renderPlayer(ctrl, ctrl.playerAt('bottom'))
   ];
 }
 
@@ -80,7 +68,7 @@ function renderTablePlay(ctrl: RoundController) {
       class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
     }, icons),
     h('div.control.buttons', buttons),
-    renderPlayer(ctrl, bottomPlayer(ctrl))
+    renderPlayer(ctrl, ctrl.playerAt('bottom'))
   ];
 }
 
@@ -97,7 +85,7 @@ function whosTurn(ctrl: RoundController, color: Color) {
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
-  var player = playerAt(ctrl, position);
+  const player = ctrl.playerAt(position);
   if (ctrl.clock) return renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
   return renderCorresClock(
@@ -109,7 +97,7 @@ function anyClock(ctrl: RoundController, position: Position) {
 export default function(ctrl: RoundController): VNode {
   const playable = game.playable(ctrl.data),
   contents: MaybeVNodes = [
-    renderPlayer(ctrl, topPlayer(ctrl)),
+    renderPlayer(ctrl, ctrl.playerAt('top')),
     h('div.table_inner',
       ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
         playable ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
