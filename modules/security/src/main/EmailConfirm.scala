@@ -35,7 +35,7 @@ final class EmailConfirmMailgun(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit = tokener make user.id flatMap { token =>
-    lidraughts.mon.email.confirmation()
+    lidraughts.mon.email.types.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
     lidraughts.log("auth").info(s"Confirm URL ${user.username} $email $url")
     mailgun send Mailgun.Message(
