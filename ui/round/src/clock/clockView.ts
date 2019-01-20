@@ -56,8 +56,7 @@ const sepLow = '<sep class="low">:</sep>';
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, blind: boolean) {
   const date = new Date(time);
   if (blind) return (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
-    (date.getUTCMinutes() + 'M:') +
-    date.getUTCSeconds() + 'S';
+    date.getUTCMinutes() + 'M:' + date.getUTCSeconds() + 'S';
   const millis = date.getUTCMilliseconds(),
     sep = (isRunning && millis < 500) ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
@@ -94,8 +93,8 @@ export function updateElements(clock: ClockController, els: ClockElements, milli
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.blind);
   if (els.bar) els.bar.style.transform = "scale(" + clock.timeRatio(millis) + ",1)";
   if (els.clock) {
-    if (millis < clock.emergMs) els.clock.classList.add("emerg");
-    else els.clock.classList.remove("emerg");
+    if (millis < clock.emergMs) els.clock.classList.add('emerg');
+    else if (els.clock.classList.contains('emerg')) els.clock.classList.remove('emerg');
   }
 }
 

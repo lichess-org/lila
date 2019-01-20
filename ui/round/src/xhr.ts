@@ -1,7 +1,7 @@
 import RoundController from './ctrl';
 
-const headers = {
-  'Accept': 'application/vnd.lidraughts.v2+json'
+export const headers = {
+  'Accept': 'application/vnd.lidraughts.v3+json'
 };
 
 export function reload(ctrl: RoundController) {

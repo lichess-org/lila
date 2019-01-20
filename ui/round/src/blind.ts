@@ -15,11 +15,10 @@ export function view(ctrl: RoundController): MaybeVNodes {
           insert: vnode => init(vnode.elm as HTMLElement, ctrl)
         }
       }, [ renderGround(ctrl) ]),
-      h('dt', 'Clocks (yours, then the opponent\'s)'),
-      h('dd', [
-        anyClock(ctrl, 'bottom'),
-        anyClock(ctrl, 'top')
-      ])
+      h('dt', 'Your clock'),
+      h('dd', anyClock(ctrl, 'bottom')),
+      h('dt', 'Opponent clock'),
+      h('dd', anyClock(ctrl, 'top'))
     ])
   ];
 }

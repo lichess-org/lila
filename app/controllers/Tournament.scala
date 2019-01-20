@@ -128,7 +128,7 @@ object Tournament extends LidraughtsController {
 
   def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
-      Ok(html.tournament.miniGame(pov))
+      Ok(html.tournament.bits.miniGame(pov))
     }
   }
 

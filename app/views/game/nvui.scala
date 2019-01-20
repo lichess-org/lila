@@ -1,16 +1,25 @@
 package views.html
 package game
 
+import play.api.libs.json._
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.game.Pov
 
 import controllers.routes
 
-object textualRepresentation {
+object nvui {
 
-  def apply(pov: lidraughts.game.Pov, playing: Boolean)(implicit ctx: Context) = frag(
+  def json(pov: Pov)(implicit ctx: Context) = Json.obj(
+    "pdn" -> pov.game.pdnMoves.mkString(" "),
+    "fen" -> draughts.format.Forsyth.>>(pov.game.draughts),
+    "status" -> povStatus(pov).toString,
+    "lastMove" -> pov.game.pdnMoves.lastOption
+  )
 
+  def html(pov: Pov, playing: Boolean)(implicit ctx: Context) = frag(
     h1("Textual representation"),
     dl(
       if (playing) frag(
@@ -40,22 +49,24 @@ object textualRepresentation {
         role := "status",
         aria.live := "assertive",
         aria.atomic := true
-      )(
-          if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
-          else frag(
-            pov.game.pdnMoves.lastOption.map { lastMove =>
-              s"${(!pov.game.turnColor).name} played $lastMove, "
-            },
-            pov.game.turnColor.name,
-            " to play"
-          )
-        ),
+      )(povStatus(pov)),
+      dt("Last move"),
+      dd(
+        cls := "lastMove",
+        aria.live := "assertive",
+        aria.atomic := true
+      )(pov.game.pdnMoves.lastOption),
       (playing && pov.game.playable) option form(
         label(
           "Your move",
           input(name := "move", cls := "move", `type` := "text", cls := "", autocomplete := "off", autofocus := true)
         )
-      )
+      ),
+      div(cls := "notify", aria.live := "assertive", aria.atomic := true)
     )
   )
+
+  private def povStatus(pov: Pov)(implicit ctx: Context) =
+    if (pov.game.finishedOrAborted) gameEndStatus(pov.game)
+    else "playing"
 }

@@ -131,11 +131,13 @@ export class ClockController {
 
   hardStopClock = (): void => this.times.activeColor = undefined;
 
-  scheduleTick = (time: Millis, extraDelay: Millis) => {
+  private scheduleTick = (time: Millis, extraDelay: Millis) => {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
     this.tickCallback = setTimeout(
       this.tick,
-      time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
+      // changing the value of active node makes chromevox screen reader bug out
+      // so update the clock less often
+      this.blind ? 3000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
   }
 
   // Should only be invoked by scheduleTick.
