@@ -54,14 +54,13 @@ object layout {
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
-  private def challenges(implicit ctx: Context) = spaceless(s"""<div class="challenge_notifications">
+  private def allNotifications(implicit ctx: Context) = spaceless(s"""<div class="challenge_notifications">
   <a id="challenge_notifications_tag" class="toggle link data-count" data-count="${ctx.nbChallenges}">
     <span class="hint--bottom-left" data-hint="${trans.challenges.txt()}"><span data-icon="U"></span></span>
   </a>
   <div id="challenge_app" class="dropdown"></div>
-</div>""")
-
-  private def notifications(implicit ctx: Context) = spaceless(s"""<div class="site_notifications">
+</div>
+<div class="site_notifications">
   <a id="site_notifications_tag" class="toggle link data-count" data-count="${ctx.nbNotifications}">
     <span class="hint--bottom-left" data-hint="${trans.notifications.txt()}"><span data-icon=""></span></span>
   </a>
@@ -202,7 +201,7 @@ object layout {
               div(id := "hamburger", dataIcon := "[")
             ),
             ctx.me map { me =>
-              frag(dasher(me), challenges, notifications)
+              frag(dasher(me), allNotifications)
             } getOrElse {
               !ctx.pageData.error option anonDasher(playing)
             },
