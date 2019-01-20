@@ -42,7 +42,7 @@ moreCss = cssTag("report.css")) {
     </thead>
     <tbody>
       @reports.map {
-      case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.Shadowban)) => {
       <tr@if(r.open){ class="new"}>
         <td>
           @reportScore(r.score)

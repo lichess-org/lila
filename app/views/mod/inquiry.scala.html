@@ -78,7 +78,7 @@
     <a href="@routes.User.games(in.user.id, "search")?players.b=@atom.by.value">View<br />Games</a>
     }
     }
-    @if(isGranted(_.MarkTroll)) {
+    @if(isGranted(_.Shadowban)) {
     <a href="@routes.Mod.communicationPublic(in.user.id)">View<br />Comms</a>
     }
   </div>
@@ -111,7 +111,7 @@
       @autoNextInput
     </form>
     }
-    @if(isGranted(_.MarkTroll)) {
+    @if(isGranted(_.Shadowban)) {
     <form method="post" action="@routes.Mod.troll(in.user.username, !in.user.troll)" data-hint="@if(in.user.troll){Un-s}else{S}hadowban" class="hint--bottom-left">
       <button data-icon="c" class="fbt icon@when(in.user.troll, " active")" type="submit"></button>
       @autoNextInput
