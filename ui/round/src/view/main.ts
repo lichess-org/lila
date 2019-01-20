@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { plyStep } from '../round';
-import renderTable from './table';
+import { renderTable } from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'draughtsground/fen';
@@ -54,12 +54,12 @@ export function main(ctrl: RoundController): VNode {
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
-  return h('div.round.cg-512', [
+  return d.blind ? blind.view(ctrl) : h('div.round.cg-512', [
     h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lidraughts.pubsub.emit('content_loaded')()
       }
-    }, d.blind ? blind.view(ctrl) : [
+    }, [
       h('div.lidraughts_board_wrap', [
         h('div.lidraughts_board.' + d.game.variant.key, {
           hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))

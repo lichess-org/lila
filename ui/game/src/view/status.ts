@@ -1,7 +1,7 @@
 import { Ctrl } from '../interfaces';
 
 export default function(ctrl: Ctrl): string {
-  var noarg = ctrl.trans.noarg;
+  const noarg = ctrl.trans.noarg;
   switch (ctrl.data.game.status.name) {
     case 'started':
       return noarg('playingRightNow');

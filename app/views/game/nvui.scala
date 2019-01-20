@@ -62,9 +62,7 @@ object nvui {
           input(name := "move", cls := "move", `type` := "text", cls := "", autocomplete := "off", autofocus := true)
         )
       ),
-      div(cls := "notify", aria.live := "assertive", aria.atomic := true),
-      dt("Text board"),
-      dd(pre(cls := "board"))
+      div(cls := "notify", aria.live := "assertive", aria.atomic := true)
     )
   )
 

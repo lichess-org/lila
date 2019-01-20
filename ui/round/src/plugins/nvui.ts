@@ -4,7 +4,6 @@ import { router } from 'game';
 import { throttle } from 'common';
 import { plyStep } from '../round';
 import { DecodedDests } from '../interfaces';
-import { read as fenRead } from 'draughtsground/fen';
 import { pos2key } from 'draughtsground/util';
 import * as xhr from '../xhr';
 
@@ -53,7 +52,7 @@ window.lidraughts.NVUI = function(element: HTMLElement, ctrl: RoundController) {
             }
           });
         }
-        $(element).find('.board').text(textBoard(currentFen(), ctrl.data.player.color === 'white'));
+        $(element).siblings('.board').find('pre').text(textBoard(ctrl));
       }
     });
   }
@@ -104,8 +103,8 @@ const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
       ranksInv = [' 5', '  ', '15', '  ', '25', '  ', '35', '  ', '45', '  '];
 const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
-function textBoard(fen: string, white: boolean) {
-  const pieces = fenRead(fen);
+function textBoard(ctrl: RoundController) {
+  const pieces = ctrl.draughtsground.state.pieces, white = ctrl.data.player.color === 'white';
   const board = [white ? ['  ', ...filesTop] : [...filesTop, '  ']];
   for(let y = 1; y <= 10; y++) {
     let line = [];
