@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Partia ze znajomym</string>
   <string name="playWithTheMachine">Zagraj z komputerem</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Aby zaprosić znajomego do gry, przekaż mu ten link</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Podaj ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
   <string name="waiting">Oczekiwanie</string>
@@ -299,7 +299,7 @@
   <string name="takebackPropositionAccepted">Ruch został wycofany</string>
   <string name="takebackPropositionCanceled">Anulowano prośbę o cofnięcie ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
-  <string name="bookmarkThisGame">Dodaj do ulubionych</string>
+  <string name="bookmarkThisGame">Dodaj do zakładek</string>
   <string name="search">Szukaj</string>
   <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
   <string name="tournament">Turniej</string>
@@ -507,7 +507,7 @@
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby rozwiązać</string>
   <string name="goodMove">Dobry ruch</string>
-  <string name="butYouCanDoBetter">Dobrze ale jest lepszy ruch.</string>
+  <string name="butYouCanDoBetter">Ale możesz zrobić to lepiej.</string>
   <string name="bestMove">Najlepszy ruch!</string>
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleFailed">To zły ruch</string>
@@ -609,9 +609,9 @@
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="privacy">Prywatność</string>
-  <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
+  <string name="letOtherPlayersFollowYou">Zezwól na obserwowanie przez innych graczy</string>
   <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
-  <string name="letOtherPlayersInviteYouToStudy">Pozwól innym graczom zapraszać Cię do studiowania</string>
+  <string name="letOtherPlayersInviteYouToStudy">Zezwól na zaproszenia do studiowania od innych graczy</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -755,7 +755,7 @@
     <item quantity="one">%1$s gracz w tym tygodniu (%2$s).</item>
     <item quantity="few">%1$s graczy w tym tygodniu (%2$s).</item>
     <item quantity="many">%1$s graczy w tym tygodniu (%2$s).</item>
-    <item quantity="other">%1$s graczy w tym tygodniu (%2$s).</item>
+    <item quantity="other">%1$s graczy (%2$s) w tym tygodniu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
@@ -769,14 +769,14 @@
   <string name="timeToProcessAMoveOnLichessServer">Czas przetwarzania ruchu na serwerze lichess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
-  <string name="downloadImported">Pobierz zaimportowane partie</string>
+  <string name="downloadImported">Pobierz zaimportowane</string>
   <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignationAndDrawOffers">Potwierdzaj propozycje poddań i remisów</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
-  <string name="letOtherPlayersMessageYou">Inni gracze mogą pisać do Ciebie</string>
+  <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>
   <string name="castleByMovingTwoSquares">Ruch królem o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Ruch królem na wieżę</string>
@@ -797,9 +797,9 @@
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
   <string name="asFreeAsLichess">Darmowa jak całe lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
-  <string name="everybodyGetsAllFeaturesForFree">Pełna funkcjonalność za darmo dla wszystkich</string>
+  <string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
   <string name="zeroAdvertisement">Brak reklam</string>
-  <string name="fullFeatured">Pełna możliwości</string>
+  <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
@@ -813,7 +813,7 @@
     <item quantity="many">Dostępna w %s językach!</item>
     <item quantity="other">Dostępna w %s językach!</item>
   </plurals>
-  <string name="gameAnalysis">Analizowanie partii</string>
+  <string name="gameAnalysis">Analiza partii</string>
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
