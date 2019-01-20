@@ -50,7 +50,7 @@ export function main(ctrl: RoundController): VNode {
     noAssistance = d.simul && d.simul.noAssistance;
   let material: cg.MaterialDiff, score: number = 0;
   if (d.pref.showCaptured && !noAssistance) {
-    var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
+    let pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;

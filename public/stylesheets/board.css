@@ -245,6 +245,10 @@ div.lidraughts_game div.lidraughts_board_wrap {
 body.blind_mode .cg-board-wrap {
   display: none;
 }
+body.blind_mode .board {
+  font-family: monospace;
+  font-size: 2em;
+}
 div.lidraughts_game div.lidraughts_ground {
   display: flex;
   flex-flow: column nowrap;
