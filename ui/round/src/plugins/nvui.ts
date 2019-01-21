@@ -9,7 +9,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { userHtml } from '../view/user';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
-import { DecodedDests, Position } from '../interfaces';
+import { Step, DecodedDests, Position } from '../interfaces';
 import { pos2key } from 'draughtsground/util';
 
 type Sans = {
@@ -68,7 +68,7 @@ window.lidraughts.RoundNVUI = function() {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, readSan(step.san)),
+          }, readSan(step)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -232,8 +232,8 @@ function tableBoard(ctrl: RoundController): VNode {
   ]);
 }
 
-function readSan(san: San) {
-  const base = san.toLowerCase(), capture = base.indexOf('x') >= 0;
+function readSan(s: Step) {
+  const san = s.san, base = san.toLowerCase(), capture = base.indexOf('x') >= 0;
   const fields = san.split(capture ? 'x' : '-');
   if (fields.length <= 1) return san;
   return [fields[0], capture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
