@@ -67,7 +67,7 @@ window.lidraughts.RoundNVUI = function() {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, step.san),
+          }, readSan(step.san)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -229,4 +229,11 @@ function tableBoard(ctrl: RoundController): VNode {
     )),
     h('thead', h('tr', board[11].map(x => h('th', x))))
   ]);
+}
+
+function readSan(san: San) {
+  const base = san.toLowerCase(), capture = base.indexOf('x') >= 0;
+  const fields = san.split(capture ? 'x' : '-');
+  if (fields.length <= 1) return san;
+  return [fields[0], capture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
 }
