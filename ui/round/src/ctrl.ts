@@ -711,45 +711,46 @@ export default class RoundController {
     }
 
     private delayedInit = () => {
-        if (this.isPlaying() && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
-            li.sound.genericNotify();
+      const d = this.data;
+      if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
+        li.sound.genericNotify();
+      }
+      li.requestIdleCallback(() => {
+        if (this.isPlaying()) {
+          if (!d.simul || d.simul.isUnique) blur.init(d.steps.length > 2);
+
+          title.init();
+          this.setTitle();
+
+          window.addEventListener('beforeunload', e => {
+            if (li.hasToReload ||
+              d.blind ||
+              !game.playable(d) ||
+              !d.clock ||
+              d.opponent.ai ||
+              this.isSimulHost()) return;
+            document.body.classList.remove('fpmenu');
+            this.socket.send('bye2');
+            const msg = 'There is a game in progress!';
+            (e || window.event).returnValue = msg;
+            return msg;
+          });
+
+          if (!d.blind) {
+            window.Mousetrap.bind('esc', () => {
+              this.submitMove(false);
+              this.draughtsground.cancelMove();
+            });
+            window.Mousetrap.bind('return', () => this.submitMove(true));
+            cevalSub.subscribe(this);
+          }
         }
-        li.requestIdleCallback(() => {
-            if (this.isPlaying()) {
-                if (!this.data.simul || this.data.simul.isUnique) blur.init(this.data.steps.length > 2);
 
-                title.init();
-                this.setTitle();
+        if (!d.blind) keyboard.init(this);
 
-                window.addEventListener('beforeunload', e => {
-                    if (li.hasToReload ||
-                        this.data.blind ||
-                        !game.playable(this.data) ||
-                        !this.data.clock ||
-                        this.data.opponent.ai ||
-                        this.isSimulHost()) return;
-                    document.body.classList.remove('fpmenu');
-                    this.socket.send('bye2');
-                    const msg = 'There is a game in progress!';
-                    (e || window.event).returnValue = msg;
-                    return msg;
-                });
+        this.onChange();
 
-                window.Mousetrap.bind('esc', () => {
-                    this.submitMove(false);
-                    this.draughtsground.cancelMove();
-                });
-
-                window.Mousetrap.bind('return', () => this.submitMove(true));
-
-                cevalSub.subscribe(this);
-            }
-
-            keyboard.init(this);
-
-            this.onChange();
-
-        });
+      });
     };
 
 }

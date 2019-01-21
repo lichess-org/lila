@@ -245,6 +245,9 @@ div.lidraughts_game div.lidraughts_board_wrap {
 body.blind_mode .cg-board-wrap {
   display: none;
 }
+.nvui h2 {
+  font-weight: bold;
+}
 .nvui .board {
   font-family: monospace;
   font-size: 2em;
