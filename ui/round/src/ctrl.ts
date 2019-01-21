@@ -7,7 +7,7 @@ import * as promotion from './promotion';
 import * as blur from './blur';
 import * as cg from 'draughtsground/types';
 import { Config as CgConfig } from 'draughtsground/config';
-import { Api as CgApi } from 'draughtsground/api';
+import { Api as DgApi } from 'draughtsground/api';
 import { countGhosts } from 'draughtsground/fen';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
@@ -39,7 +39,7 @@ export default class RoundController {
     data: RoundData;
     redraw: Redraw;
     socket: RoundSocket;
-    draughtsground: CgApi;
+    draughtsground: DgApi;
     clock?: ClockController;
     corresClock?: CorresClockController;
     trans: Trans;
@@ -133,10 +133,7 @@ export default class RoundController {
         });
         if (li.ab && this.isPlaying()) li.ab.init(this);
 
-        if (d.blind) window.lidraughts.loadScript('compiled/round.nvui.min.js').then(() => {
-          this.blind = window.lidraughts.RoundNVUI();
-          this.redraw();
-        });
+        this.blind = window.lidraughts.RoundNVUI();
     }
 
     private showExpiration = () => {
@@ -686,28 +683,28 @@ export default class RoundController {
     };
 
     private doOfferDraw = () => {
-        this.lastDrawOfferAtPly = this.ply;
-        this.socket.sendLoading('draw-yes', null)
+      this.lastDrawOfferAtPly = this.ply;
+      this.socket.sendLoading('draw-yes', null)
     };
 
     canTimeOut = () =>
       this.isSimulHost() && this.isPlaying()
 
-    setDraughtsground = (cg: CgApi) => {
-        this.draughtsground = cg;
-        if (this.data.pref.keyboardMove) {
-            this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
-        }
+    setDraughtsground = (dg: DgApi) => {
+      this.draughtsground = dg;
+      if (this.data.pref.keyboardMove)
+        this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
+      if (this.blind) window.lidraughts.requestIdleCallback(this.redraw);
     };
 
     toggleZen = () => {
-        if (this.isPlaying()) {
-            const zen = !$('body').hasClass('zen');
-            $('body').toggleClass('zen', zen);
-            $('#dasher_app .zen a').attr('data-icon', zen ? 'E' : 'K');
-            $('#dasher_app .zen a').toggleClass('active', zen);
-            $.post('/pref/zen', { zen: zen ? 1 : 0 });
-        }
+      if (this.isPlaying()) {
+        const zen = !$('body').hasClass('zen');
+        $('body').toggleClass('zen', zen);
+        $('#dasher_app .zen a').attr('data-icon', zen ? 'E' : 'K');
+        $('#dasher_app .zen a').toggleClass('active', zen);
+        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+      }
     }
 
     private delayedInit = () => {

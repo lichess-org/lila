@@ -26,12 +26,12 @@ const plugins = [
   {
     entries: ['src/plugins/keyboardMove.ts'],
     standalone: 'KeyboardMove',
-    target: 'keyboardMove.min.js'
+    target: 'lidraughts.round.keyboardMove.min.js'
   },
   {
     entries: ['src/plugins/nvui.ts'],
     standalone: 'NVUI',
-    target: 'round.nvui.min.js'
+    target: 'lidraughts.round.nvui.min.js'
   }
 ];
 
