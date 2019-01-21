@@ -99,8 +99,8 @@ window.lidraughts.RoundNVUI = function() {
           h('dd.topc', anyClock(ctrl, 'top')),
           h('dt', 'Actions'),
           h('dd.actions', tableInner(ctrl)),
-          h('dt', 'Board'),
-          h('dd', h('pre', textBoard(ctrl))),
+          h('dt', 'Board table'),
+          h('dd.board', tableBoard(ctrl)),
           h('div.notify', {
             'aria-live': "assertive",
             'aria-atomic' : true
@@ -157,7 +157,7 @@ const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
       ranksInv = [' 5', '  ', '15', '  ', '25', '  ', '35', '  ', '45', '  '];
 const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
-function textBoard(ctrl: RoundController) {
+function tableBoard(ctrl: RoundController) {
   const pieces = ctrl.draughtsground.state.pieces, white = ctrl.data.player.color === 'white';
   const board = [white ? ['  ', ...filesTop] : [...filesTop, '  ']];
   for(let y = 1; y <= 10; y++) {
@@ -176,5 +176,16 @@ function textBoard(ctrl: RoundController) {
     board.reverse();
     board.forEach(r => r.reverse());
   }
-  return board.map(line => line.join(' ')).join('\n');
+  return h('table', [
+    h('thead', h('tr', board[0].map(x => h('th', x)))),
+    h('tbody', board.slice(1, 11).map(row =>
+      h('tr', [
+        h('th', row[0]),
+        ...row.slice(1, 11).map(sq => h('td', sq))
+      ])
+    )),
+    h('thead', h('tr', board[11].map(x => h('th', x))))
+  ]);
+
+  // return board.map(line => line.join(' ')).join('\n');
 }

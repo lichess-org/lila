@@ -249,6 +249,14 @@ body.blind_mode .board {
   font-family: monospace;
   font-size: 2em;
 }
+body.blind_mode .board th,
+body.blind_mode .board td {
+  width: 1.3em;
+  height: 1.3em;
+  line-height: 1.3em;
+  margin: 0;
+  padding: 0;
+}
 div.lidraughts_game div.lidraughts_ground {
   display: flex;
   flex-flow: column nowrap;
