@@ -121,7 +121,7 @@ window.lichess.RoundNVUI = function() {
           h('h2', 'Actions'),
           h('div.actions', tableInner(ctrl)),
           h('h2', 'Board table'),
-          h('div.board', tableBoard(ctrl)),
+          h('pre.board', tableBoard(ctrl)),
           h('div.notify', {
             attrs: {
               'aria-live': 'assertive',
@@ -184,7 +184,7 @@ function piecesHtml(ctrl: RoundController): VNode {
 
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
-function tableBoard(ctrl: RoundController): VNode {
+function tableBoard(ctrl: RoundController): string {
   const pieces = ctrl.chessground.state.pieces;
   const board = [[' ', ...files, ' ']];
   for(let rank of invRanks) {
@@ -204,17 +204,7 @@ function tableBoard(ctrl: RoundController): VNode {
     board.reverse();
     board.forEach(r => r.reverse());
   }
-  return h('table', [
-    h('thead', h('tr', board[0].map(x => h('th', x)))),
-    h('tbody', board.slice(1, 9).map(row =>
-      h('tr', [
-        h('th', row[0]),
-        ...row.slice(1, 9).map(sq => h('td', sq)),
-        h('th', row[9])
-      ])
-    )),
-    h('thead', h('tr', board[9].map(x => h('th', x))))
-  ]);
+  return board.map(line => line.join(' ')).join('\n');
 }
 
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
