@@ -6,10 +6,11 @@ import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import { render as renderGround } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
-import { userHtml } from '../view/user';
+import * as renderUser from '../view/user';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position } from '../interfaces';
+import { Player } from 'game';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
 
@@ -35,13 +36,10 @@ window.lichess.RoundNVUI = function() {
         h('div', [
           ...(ctrl.isPlaying() ? [
             h('h2', 'Your color: ' + d.player.color),
-            h('h2', [
-              'Opponent: ',
-              userHtml(ctrl, d.player)
-            ])
+            h('h2', ['Opponent: ', renderPlayer(ctrl, d.opponent)])
           ] : ['white', 'black'].map((color: Color) => h('h2', [
             color + ' player: ',
-            userHtml(ctrl, ctrl.playerByColor(color))
+            renderPlayer(ctrl, ctrl.playerByColor(color))
           ]))
           ),
           h('h2', 'Moves'),
@@ -132,6 +130,10 @@ window.lichess.RoundNVUI = function() {
       ]) : renderGround(ctrl);
     }
   };
+}
+
+function renderPlayer(ctrl: RoundController, player: Player) {
+  return player.ai ? renderUser.aiName(ctrl, player.ai) : renderUser.userHtml(ctrl, player);
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
