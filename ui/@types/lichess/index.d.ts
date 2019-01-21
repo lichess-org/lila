@@ -24,6 +24,7 @@ interface Lichess {
   fp: {
     debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
     contains<T>(list: T[], needle: T): boolean;
+    contains(str: string, c: string): boolean;
   }
   sound: any
   powertip: any

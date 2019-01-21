@@ -49,7 +49,7 @@ window.lichess.RoundNVUI = function() {
               role : 'log',
               'aria-live': 'off'
             }
-          }, d.steps.slice(1).map(s => h('span', s.san))),
+          }, d.steps.slice(1).map(s => h('span', readSan(s.san)))),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
           // h('h2', 'FEN'),
@@ -68,7 +68,7 @@ window.lichess.RoundNVUI = function() {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, step.san),
+          }, readSan(step.san)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -226,4 +226,24 @@ function tableBoard(ctrl: RoundController): VNode {
     )),
     h('thead', h('tr', board[9].map(x => h('th', x))))
   ]);
+}
+
+const roles: { [letter: string]: string } = { p: 'pawn', r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king' };
+const has = window.lichess.fp.contains;
+
+function readSan(san: San) {
+  const base = san.toLowerCase().replace(/[\+\#x]/g, '');
+  let move: string;
+  if (base === 'o-o') move = 'Short castle';
+  else if (base === 'o-o-o') move = 'Long castle';
+  else if (base.length === 2) {
+    move = has(san, 'x') ? `Pawn takes ${base}` : `Pawn to ${base}`;
+  }
+  else if (base.length === 3) {
+    move = has(san, 'x') ? `${roles[base[0]]} takes ${base.slice(1)}` : `${roles[base[0]]} ${base.slice(1)}`;
+  }
+  else move = base;
+  if (san.indexOf('+') >= 0) move += ' check';
+  if (san.indexOf('#') >= 0) move += ' checkmate';
+  return move;
 }
