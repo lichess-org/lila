@@ -193,8 +193,13 @@ body.blind_mode .cg-board-wrap {
   font-family: monospace;
   font-size: 2em;
 }
-.nvui .pieces span {
-  margin-right: 0.4em;
+.nvui .pieces h3 {
+  font-weight: bold;
+}
+.nvui .pieces h3,
+.nvui .pieces h4,
+.nvui .pieces p {
+  margin: 0;
 }
 div.lichess_game div.lichess_ground {
   display: flex;

@@ -48,7 +48,7 @@ window.lichess.RoundNVUI = function() {
               role : 'log',
               'aria-live': 'off'
             }
-          }, d.steps.slice(1).map(s => h('span', readSan(s) + ', '))),
+          }, movesHtml(d.steps.slice(1))),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
           // h('h2', 'FEN'),
@@ -161,6 +161,15 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   return;
 }
 
+function movesHtml(steps: Step[]) {
+  const res: Array<string | VNode> = [];
+  steps.forEach(s => {
+    res.push(readSan(s) + ', ');
+    if (s.ply % 2 === 0) res.push(h('br'));
+  });
+  return res;
+}
+
 function piecesHtml(ctrl: RoundController): VNode {
   const pieces = ctrl.chessground.state.pieces;
   return h('div', ['white', 'black'].map(color => {
@@ -172,15 +181,15 @@ function piecesHtml(ctrl: RoundController): VNode {
       }
       if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
     });
+    const tags: VNode[] = [];
+    lists.forEach((l: any) => {
+      tags.push(h('h4', l[0]));
+      tags.push(h('p', l.slice(1).map(annaKey).join(', ')));
+    });
     return h('div', [
-      h('dt', color),
-      h('dd', [
-        ...lists.map((l: any) => h('span', [
-          h('span', l[0]),
-          ...l.slice(1).map((k: string) => h('span', annaKey(k)))
-        ]))
-      ])
-    ])
+      h('h3', color),
+      ...tags
+    ]);
   }));
 }
 
