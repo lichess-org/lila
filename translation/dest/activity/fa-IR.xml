@@ -19,6 +19,10 @@
     <item quantity="one">%s مسابقه ی سیمولتانه ای برگزار کرده است</item>
     <item quantity="other">%s مسابقه ی سیمولتانه ای برگزار نکرده است</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">در %s سیمولتانه ای شرکت کرده است</item>
+    <item quantity="other">در %s سیمولتانه ای شرکت کرده است</item>
+  </plurals>
   <string name="signedUp">در لیچس ثبت نام کرد</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">به تیم %s پیوست</item>

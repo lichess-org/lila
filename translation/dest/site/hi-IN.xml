@@ -62,7 +62,7 @@
   <string name="move">चाल</string>
   <string name="variantLoss">भिन् न हानि</string>
   <string name="variantWin">भिन् न जीत</string>
-  <string name="insufficientMaterial">मात के लिए शतरंज के टुकड़े नहीं हैं</string>
+  <string name="insufficientMaterial">मात के लिए शतरंज के मोहरे नहीं हैं</string>
   <string name="pawnMove">प्यादा कदम</string>
   <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
@@ -102,7 +102,7 @@
   <string name="bestMoveArrow">सर्वश्रेष्ठ कदम तीर</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
-  <string name="cpus">CPU</string>
+  <string name="cpus">CPUs</string>
   <string name="memory">मेमोरी</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
@@ -166,7 +166,7 @@
   <string name="usernameOrEmail">उपयोगकर्ता का नाम</string>
   <string name="password">पासवर्ड</string>
   <string name="haveAnAccount">क्या आपके पास खाता है?</string>
-  <string name="changePassword">पासवर्ड बदलो</string>
+  <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
   <string name="email">इ-मेल</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
@@ -268,9 +268,9 @@
   <string name="takebackPropositionDeclined">चाल को वापस लेने के प्रस्ताव को अस्वीकार कर दिया गया है</string>
   <string name="takebackPropositionAccepted">चाल को वापस लेने के प्रस्ताव को स्वीकार कर लिया गया है</string>
   <string name="takebackPropositionCanceled">चाल को वापस लेने के प्रस्ताव को रद्द कर दिया गया है</string>
-  <string name="yourOpponentProposesATakeback">आपका प्रतिद्वंद्वी ने चाल को वापस लेने का प्रस्ताव भेजा है</string>
+  <string name="yourOpponentProposesATakeback">आपके प्रतिद्वंद्वी ने चाल को वापस लेने का प्रस्ताव भेजा है</string>
   <string name="bookmarkThisGame">इस खेल की स्मृति (बुकमार्क) बनाएं</string>
-  <string name="search">खोजे</string>
+  <string name="search">खोजें</string>
   <string name="advancedSearch">उच्च खोज</string>
   <string name="tournament">प्रतियोगिता</string>
   <string name="tournaments">प्रतियोगिताएँ</string>
@@ -348,7 +348,7 @@
   <string name="retry">फिर से कोशिश करें</string>
   <string name="reconnecting">फिर से जुड़ने की कोशिश (रीकनेक्ट)</string>
   <string name="onlineFriends">ऑनलाइन मित्र</string>
-  <string name="noFriendsOnline">कोई मित्र ऑनलाइन  नहीं</string>
+  <string name="noFriendsOnline">कोई मित्र ऑनलाइन नहीं</string>
   <string name="findFriends">मित्र ढूंढे</string>
   <string name="favoriteOpponents">पसंदीदा विरोधि</string>
   <string name="follow">अनुसरण करे</string>
@@ -418,7 +418,7 @@
   <string name="membersOnly">केवल खाता वाले</string>
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="setTheBoard">बोर्ड सेट करें</string>
-  <string name="popularOpenings">लोकप्रिय प्रारंभ</string>
+  <string name="popularOpenings">लोकप्रिय शुरुआती चाल</string>
   <string name="startPosition">शुरुआत की स्थिती</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
   <string name="savePosition">जगह सुरक्षित करें</string>

@@ -46,10 +46,34 @@
   <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar ontleding</string>
+  <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
   <string name="analysis">Ontleding bord</string>
+  <string name="loadingEngine">Enjin is besig om the laai ...</string>
+  <string name="goDeeper">Gaan dieper</string>
+  <string name="insufficientMaterial">Onvoldoende materiaal</string>
+  <string name="pawnMove">Pion skuif</string>
+  <string name="close">Maak toe</string>
+  <string name="drawn">Gelyk</string>
+  <string name="unknown">Onbekend</string>
+  <string name="database">Databasis</string>
+  <string name="whiteDrawBlack">Wit / Gelyk / Swart</string>
+  <string name="averageRatingX">Gemiddelde Elo: %s</string>
+  <string name="recentGames">Onlangse wedstryde</string>
+  <string name="topGames">Top spelle</string>
+  <string name="noGameFound">Geen spel gevind</string>
   <string name="openingExplorer">Die Opening explorer</string>
+  <string name="allSet">Gereed!</string>
+  <string name="delete">Skrap</string>
+  <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
+  <string name="enable">Aktief</string>
+  <string name="bestMoveArrow">Beste skuif pyl</string>
+  <string name="evaluationGauge">Evaluering meter</string>
+  <string name="multipleLines">Aantal lyne</string>
+  <string name="cpus">CPU</string>
+  <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="blunders">Flaters</string>
   <string name="mistakes">Foute</string>
+  <string name="inaccuracy">Onakkuraathede</string>
   <string name="inaccuracies">Onakkuraathede</string>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
@@ -111,6 +135,7 @@
   <string name="passwordReset">Wagwoord herstel</string>
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
+  <string name="rankX">Gradering: %s</string>
   <string name="gamesPlayed">Gespeel</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s spelle vir jou</item>
@@ -176,6 +201,7 @@
     <item quantity="one">Gee %s sekondes</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
+  <string name="giveMoreTime">Gee meer tyd</string>
   <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="takeback">Terug-vat</string>
@@ -362,6 +388,7 @@
   <string name="troll">Trol</string>
   <string name="other">Ander</string>
   <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag.</string>
+  <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n verkul spel.</string>
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou afgesluit.</string>
   <string name="theming">Versiering</string>
@@ -386,6 +413,7 @@
   <string name="pieceDestinations">Stuk bestemmings (geldige skuiwe en vooraf-skuiwe)</string>
   <string name="boardCoordinates">Bord koördinate (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Skuiflys tydens spel</string>
+  <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
   <string name="never">Nooit</string>
@@ -393,6 +421,7 @@
   <string name="horizontalGreenProgressBars">Horisontale groen voortgangsbalkies</string>
   <string name="soundWhenTimeGetsCritical">Klank as tyd noop</string>
   <string name="gameBehavior">Spel gedrag</string>
+  <string name="howDoYouMovePieces">Hoe beweeg jy stukke?</string>
   <string name="premovesPlayingDuringOpponentTurn">Vooraf-skuiwe (speel tydens opponent se beurt)</string>
   <string name="takebacksWithOpponentApproval">Terug-vat (met goedkeuring van opponent)</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
