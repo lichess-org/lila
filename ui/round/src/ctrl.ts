@@ -226,7 +226,7 @@ export default class RoundController {
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
   flipNow = () => {
-    this.flip = !this.data.blind && !this.flip;
+    this.flip = !this.blind && !this.flip;
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip)
     });

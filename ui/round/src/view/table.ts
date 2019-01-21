@@ -11,7 +11,7 @@ import * as button from './button';
 import RoundController from '../ctrl';
 
 function renderPlayer(ctrl: RoundController, player: Player) {
-  return ctrl.data.blind ? undefined : (
+  return ctrl.blind ? undefined : (
     player.ai ? h('div.username.user_link.online', [
       h('i.line'),
       h('name', renderUser.aiName(ctrl, player.ai))
