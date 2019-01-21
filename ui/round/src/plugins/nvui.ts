@@ -14,7 +14,14 @@ type Sans = {
   [key: string]: Uci;
 }
 
+type Notification = {
+  text: string;
+  date: Date;
+}
+
 window.lidraughts.RoundNVUI = function() {
+
+  let notification: Notification | undefined;
 
   return {
     render(ctrl: RoundController) {
@@ -41,8 +48,8 @@ window.lidraughts.RoundNVUI = function() {
               'aria-live': 'off'
             }
           }, d.steps.slice(1).map(s => h('span', s.san))),
-          h('dt', 'FEN'),
-          h('dd.fen', step.fen),
+          // h('dt', 'FEN'),
+          // h('dd.fen', step.fen),
           h('dt', 'Game status'),
           h('dd.status', {
             attrs: {
@@ -73,7 +80,11 @@ window.lidraughts.RoundNVUI = function() {
                     to: uci.substr(2, 2),
                   }, { ackable: true });
                   else {
-                    $(el).siblings('.notify').text('Invalid move');
+                    notification = {
+                      text: `Invalid move: ${input}`,
+                      date: new Date()
+                    };
+                    ctrl.redraw();
                   }
                   $form.find('.move').val('');
                   return false;
@@ -102,9 +113,11 @@ window.lidraughts.RoundNVUI = function() {
           h('dt', 'Board table'),
           h('dd.board', tableBoard(ctrl)),
           h('div.notify', {
-            'aria-live': "assertive",
-            'aria-atomic' : true
-          })
+            attrs: {
+              'aria-live': 'assertive',
+              'aria-atomic' : true
+            }
+          }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : '')
         ])
       ]);
     }
@@ -186,6 +199,4 @@ function tableBoard(ctrl: RoundController) {
     )),
     h('thead', h('tr', board[11].map(x => h('th', x))))
   ]);
-
-  // return board.map(line => line.join(' ')).join('\n');
 }
