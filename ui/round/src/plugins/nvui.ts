@@ -101,8 +101,8 @@ window.lichess.RoundNVUI = function() {
           h('dd.topc', anyClock(ctrl, 'top')),
           h('dt', 'Actions'),
           h('dd.actions', tableInner(ctrl)),
-          h('dt', 'Board'),
-          h('dd', h('pre', textBoard(ctrl))),
+          h('dt', 'Board table'),
+          h('dd.board', tableBoard(ctrl)),
           h('div.notify', {
             'aria-live': "assertive",
             'aria-atomic' : true
@@ -152,7 +152,7 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
  */
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
-function textBoard(ctrl: RoundController) {
+function tableBoard(ctrl: RoundController) {
   const pieces = ctrl.chessground.state.pieces;
   const board = [[' ', ...files, ' ']];
   for(let rank of invRanks) {
@@ -172,5 +172,17 @@ function textBoard(ctrl: RoundController) {
     board.reverse();
     board.forEach(r => r.reverse());
   }
-  return board.map(line => line.join(' ')).join('\n');
+  return h('table', [
+    h('thead', h('tr', board[0].map(x => h('th', x)))),
+    h('tbody', board.slice(1, 9).map(row =>
+      h('tr', [
+        h('th', row[0]),
+        ...row.slice(1, 9).map(sq => h('td', sq)),
+        h('th', row[9])
+      ])
+    )),
+    h('thead', h('tr', board[9].map(x => h('th', x))))
+  ]);
+
+  // return board.map(line => line.join(' ')).join('\n');
 }
