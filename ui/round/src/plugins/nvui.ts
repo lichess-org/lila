@@ -158,6 +158,11 @@ function sanToUci(san: string, sans: Sans): string | undefined {
   return undefined
 }
 
+function rolePlural(r: String, c: number) {
+  if (r === 'man') return c > 1 ? 'men' : 'man';
+  else return c > 1 ? r + 's' : r;
+}
+
 function piecesHtml(ctrl: RoundController): VNode {
   const pieces = ctrl.draughtsground.state.pieces;
   return h('div', ['white', 'black'].map(color => {
@@ -167,7 +172,7 @@ function piecesHtml(ctrl: RoundController): VNode {
       for (let key in pieces) {
         if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
       }
-      if (keys.length) lists.push([role, ...keys.sort().map(key => key[0] === '0' ? key.slice(1) : key)]);
+      if (keys.length) lists.push([rolePlural(role, keys.length), ...keys.sort().map(key => key[0] === '0' ? key.slice(1) : key)]);
     });
     return h('div', [
       h('dt', color),

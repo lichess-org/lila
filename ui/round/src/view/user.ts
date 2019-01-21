@@ -59,7 +59,8 @@ export function userHtml(ctrl: RoundController, player: Player) {
     ]);
   }
   const connecting = !player.onGame && ctrl.firstSeconds;
-  return h('div.username.user_link', {
+  const name = h('name', player.name || 'Anonymous');
+  return ctrl.blind ? name : h('div.username.user_link', {
     class: {
       online: player.onGame,
       offline: !player.onGame,
@@ -71,7 +72,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
         title: connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
       }
     }),
-    h('name', player.name || 'Anonymous')
+    name
   ]);
 }
 
