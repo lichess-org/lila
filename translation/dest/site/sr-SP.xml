@@ -566,7 +566,7 @@
   <string name="moveListWhilePlaying">Прикажи списак потеза током партије</string>
   <string name="pgnPieceNotation">Нотација</string>
   <string name="chessPieceSymbol">симболи фигура</string>
-  <string name="pgnLetter">слова (К, Д, Т, Л, С)</string>
+  <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
   <string name="never">Никада</string>
