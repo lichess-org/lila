@@ -888,9 +888,12 @@ div.side form.search input {
 #topmenu section:hover > a {
   background: #fff;
 }
-#topmenu.blind div,
 #topmenu.hover section:hover div {
   display: block;
+}
+#topmenu.blind div {
+  display: block;
+  margin-left: -9000px;
 }
 #topmenu div {
   display: none;

@@ -16,12 +16,25 @@ export function aiName(ctrl: RoundController, level: number) {
 
 export function userHtml(ctrl: RoundController, player: Player) {
   const d = ctrl.data,
-  user = player.user,
-  perf = user ? user.perfs[d.game.perf] : null,
-  rating = player.rating ? player.rating : (perf && perf.rating);
+    user = player.user,
+    perf = user ? user.perfs[d.game.perf] : null,
+    rating = player.rating ? player.rating : (perf && perf.rating);
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
-    return h('div.username.user_link.' + player.color, {
+    const link = h('a.text.ulpt', {
+      attrs: {
+        'data-pt-pos': 's',
+        href: '/@/' + user.username,
+        target: ctrl.isPlaying() ? '_blank' : '_self'
+      }
+    }, user.title ? [
+      h(
+        'span.title',
+        user.title == 'BOT' ? { attrs: {'data-bot': true } } : {},
+        user.title
+      ), ' ', user.username
+    ] : [user.username]);
+    return ctrl.blind ? link : h('div.username.user_link.' + player.color, {
       class: {
         online: player.onGame,
         offline: !player.onGame,
@@ -34,19 +47,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
           title: connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
         }
       }),
-      h('a.text.ulpt', {
-        attrs: {
-          'data-pt-pos': 's',
-          href: '/@/' + user.username,
-          target: ctrl.isPlaying() ? '_blank' : '_self'
-        }
-      }, user.title ? [
-        h(
-          'span.title',
-          user.title == 'BOT' ? { attrs: {'data-bot': true } } : {},
-          user.title
-        ), ' ', user.username
-      ] : [user.username]),
+      link,
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
       ratingDiff(player),
       player.engine ? h('span', {

@@ -670,22 +670,23 @@ export default class RoundController {
   }
 
   private delayedInit = () => {
-    if (this.isPlaying() && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
+    const d = this.data;
+    if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
       li.sound.genericNotify();
     }
     li.requestIdleCallback(() => {
       if (this.isPlaying()) {
-        if (!this.data.simul) blur.init(this.data.steps.length > 2);
+        if (!d.simul) blur.init(d.steps.length > 2);
 
         title.init();
         this.setTitle();
 
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||
-            this.data.blind ||
-            !game.playable(this.data) ||
-            !this.data.clock ||
-            this.data.opponent.ai ||
+            d.blind ||
+            !game.playable(d) ||
+            !d.clock ||
+            d.opponent.ai ||
             this.isSimulHost()) return;
           document.body.classList.remove('fpmenu');
           this.socket.send('bye2');
@@ -694,17 +695,17 @@ export default class RoundController {
           return msg;
         });
 
-        window.Mousetrap.bind('esc', () => {
-          this.submitMove(false);
-          this.chessground.cancelMove();
-        });
-
-        window.Mousetrap.bind('return', () => this.submitMove(true));
-
-        cevalSub.subscribe(this);
+        if (!d.blind) {
+          window.Mousetrap.bind('esc', () => {
+            this.submitMove(false);
+            this.chessground.cancelMove();
+          });
+          window.Mousetrap.bind('return', () => this.submitMove(true));
+          cevalSub.subscribe(this);
+        }
       }
 
-      keyboard.init(this);
+      if (!d.blind) keyboard.init(this);
 
       this.onChange();
 

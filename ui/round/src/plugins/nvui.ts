@@ -31,92 +31,96 @@ window.lichess.RoundNVUI = function() {
         step = plyStep(d, ctrl.ply);
       return h('div.nvui', [
         h('h1', 'Textual representation'),
-        h('dl', [
+        h('div', [
           ...(ctrl.isPlaying() ? [
-            h('dt', 'Your color'),
-            h('dd', d.player.color),
-            h('dt', 'Opponent'),
-            h('dd', userHtml(ctrl, d.player))
-          ] : [
-            h('dt', 'White player'),
-            h('dd', userHtml(ctrl, ctrl.playerByColor('white'))),
-            h('dt', 'Black player'),
-            h('dd', userHtml(ctrl, ctrl.playerByColor('black')))
-          ]),
-          h('dt', 'PGN'),
-          h('dd.pgn', {
+            h('h2', 'Your color: ' + d.player.color),
+            h('h2', [
+              'Opponent: ',
+              userHtml(ctrl, d.player)
+            ])
+          ] : ['white', 'black'].map((color: Color) => h('h2', [
+            color + ' player: ',
+            userHtml(ctrl, ctrl.playerByColor(color))
+          ]))
+          ),
+          h('h2', 'Moves'),
+          h('p.pgn', {
             attrs: {
               role : 'log',
               'aria-live': 'off'
             }
           }, d.steps.slice(1).map(s => h('span', s.san))),
-          h('dt', 'Pieces'),
-          h('dd.pieces', piecesHtml(ctrl)),
-          // h('dt', 'FEN'),
-          // h('dd.fen', step.fen),
-          h('dt', 'Game status'),
-          h('dd.status', {
+          h('h2', 'Pieces'),
+          h('div.pieces', piecesHtml(ctrl)),
+          // h('h2', 'FEN'),
+          // h('p.fen', step.fen),
+          h('h2', 'Game status'),
+          h('div.status', {
             attrs: {
               role : 'status',
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
           }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
-          h('dt', 'Last move'),
-          h('dd.lastMove', {
+          h('h2', 'Last move'),
+          h('p.lastMove', {
             attrs: {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
           }, step.san),
-          ctrl.isPlaying() ? h('form', {
-            hook: {
-              insert(vnode) {
-                const el = vnode.elm as HTMLFormElement;
-                const d = ctrl.data;
-                const $form = $(el).submit(function() {
-                  const input = $form.find('.move').val();
-                  const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
-                  const sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
-                  const uci = sanToUci(input, sans) || input;
-                  if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
-                    from: uci.substr(0, 2),
-                    to: uci.substr(2, 2),
-                    promotion: uci.substr(4, 1)
-                  }, { ackable: true });
-                  else {
-                    notification = {
-                      text: `Invalid move: ${input}`,
-                      date: new Date()
-                    };
-                    ctrl.redraw();
-                  }
-                  $form.find('.move').val('');
-                  return false;
-                });
-                $form.find('.move').val('').focus();
-              }
-            }
-          }, [
-            h('label', [
-              d.player.color === d.game.player ? 'Your move' : 'Waiting',
-              h('input.move', {
-                attrs: {
-                  name : 'move',
-                  'type' : 'text',
-                  autocomplete : 'off'
+          ...(ctrl.isPlaying() ? [
+            h('h2', 'Move form'),
+            h('form', {
+              hook: {
+                insert(vnode) {
+                  const el = vnode.elm as HTMLFormElement;
+                  const d = ctrl.data;
+                  const $form = $(el).submit(function() {
+                    const input = $form.find('.move').val();
+                    const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
+                    const sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
+                    const uci = sanToUci(input, sans) || input;
+                    if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
+                      from: uci.substr(0, 2),
+                      to: uci.substr(2, 2),
+                      promotion: uci.substr(4, 1)
+                    }, { ackable: true });
+                    else {
+                      notification = {
+                        text: `Invalid move: ${input}`,
+                        date: new Date()
+                      };
+                      ctrl.redraw();
+                    }
+                    $form.find('.move').val('');
+                    return false;
+                  });
+                  $form.find('.move').val('').focus();
                 }
-              })
+              }
+            }, [
+              h('label', [
+                d.player.color === d.game.player ? 'Your move' : 'Waiting',
+                h('input.move', {
+                  attrs: {
+                    name: 'move',
+                    'type': 'text',
+                    autocomplete: 'off',
+                    autofocus: true
+                  }
+                })
+              ])
             ])
-          ]) : null,
-          h('dt', 'Your clock'),
-          h('dd.botc', anyClock(ctrl, 'bottom')),
-          h('dt', 'Opponent clock'),
-          h('dd.topc', anyClock(ctrl, 'top')),
-          h('dt', 'Actions'),
-          h('dd.actions', tableInner(ctrl)),
-          h('dt', 'Board table'),
-          h('dd.board', tableBoard(ctrl)),
+          ]: []),
+          h('h2', 'Your clock'),
+          h('div.botc', anyClock(ctrl, 'bottom')),
+          h('h2', 'Opponent clock'),
+          h('div.topc', anyClock(ctrl, 'top')),
+          h('h2', 'Actions'),
+          h('div.actions', tableInner(ctrl)),
+          h('h2', 'Board table'),
+          h('div.board', tableBoard(ctrl)),
           h('div.notify', {
             attrs: {
               'aria-live': 'assertive',
@@ -165,7 +169,6 @@ function piecesHtml(ctrl: RoundController): VNode {
       }
       if (keys.length) lists.push([role, ...keys]);
     });
-    console.log(lists);
     return h('div', [
       h('dt', color),
       h('dd', [
