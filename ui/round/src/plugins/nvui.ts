@@ -6,11 +6,11 @@ import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import renderCorresClock from '../corresClock/corresClockView';
 import { userHtml } from '../view/user';
+import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { DecodedDests, Position } from '../interfaces';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
-import { view as gameView } from 'game';
 
 type Sans = {
   [key: string]: Uci;
@@ -61,7 +61,7 @@ window.lichess.RoundNVUI = function() {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, ctrl.data.game.status.name === 'started' ? 'Playing' : gameView.status(ctrl)),
+          }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
           h('dt', 'Last move'),
           h('dd.lastMove', {
             attrs: {

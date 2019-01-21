@@ -34,7 +34,7 @@ function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
   }, san);
 }
 
-function renderResult(ctrl: RoundController) {
+export function renderResult(ctrl: RoundController): VNode | undefined {
   let result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
