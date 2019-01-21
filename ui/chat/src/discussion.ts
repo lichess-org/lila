@@ -60,7 +60,8 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
-  else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
+  else if (ctrl.opts.blind) placeholder = 'Chat';
+  else placeholder = ctrl.trans.noarg(ctrl.vm.placeholderKey);
   return h('input.lichess_say', {
     attrs: {
       placeholder,

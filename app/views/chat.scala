@@ -47,13 +47,14 @@ object chat {
     ),
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,
-    "noteId" -> withNote.option(chat.id.value take 8),
+    "noteId" -> (withNote && ctx.noBlind).option(chat.id.value take 8),
     "public" -> public,
     "permissions" -> Json.obj("local" -> localMod)
       .add("timeout" -> isGranted(_.ChatTimeout))
       .add("shadowban" -> isGranted(_.Shadowban)),
     "timeout" -> timeout
   ).add("kobold" -> ctx.troll)
+    .add("blind" -> ctx.blind)
     .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(
