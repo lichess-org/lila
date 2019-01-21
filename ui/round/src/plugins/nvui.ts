@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
@@ -49,6 +50,8 @@ window.lichess.RoundNVUI = function() {
               'aria-live': 'off'
             }
           }, d.steps.slice(1).map(s => h('span', s.san))),
+          h('dt', 'Pieces'),
+          h('dd.pieces', piecesHtml(ctrl)),
           // h('dt', 'FEN'),
           // h('dd.fen', step.fen),
           h('dt', 'Game status'),
@@ -151,6 +154,30 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   return;
 }
 
+function piecesHtml(ctrl: RoundController): VNode {
+  const pieces = ctrl.chessground.state.pieces;
+  return h('div', ['white', 'black'].map(color => {
+    const lists: any = [];
+    ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
+      const keys = [];
+      for (let key in pieces) {
+        if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
+      }
+      if (keys.length) lists.push([role, ...keys]);
+    });
+    console.log(lists);
+    return h('div', [
+      h('dt', color),
+      h('dd', [
+        ...lists.map((l: any) => h('span', [
+          h('span', l[0]),
+          ...l.slice(1).map((k: string) => h('span', k))
+        ]))
+      ])
+    ])
+  }));
+}
+
 /*
    H  G  F  E  D  C  B  A
 1  R  N  B  K  Q  B  N  R   1
@@ -165,7 +192,7 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
  */
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
-function tableBoard(ctrl: RoundController) {
+function tableBoard(ctrl: RoundController): VNode {
   const pieces = ctrl.chessground.state.pieces;
   const board = [[' ', ...files, ' ']];
   for(let rank of invRanks) {

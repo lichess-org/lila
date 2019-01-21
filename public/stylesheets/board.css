@@ -190,6 +190,9 @@ body.blind_mode .cg-board-wrap {
   font-family: monospace;
   font-size: 2em;
 }
+.nvui .pieces span {
+  margin-right: 0.4em;
+}
 .nvui .pgn span {
   margin-right: 0.4em;
 }
