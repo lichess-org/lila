@@ -42,7 +42,7 @@ window.lidraughts.RoundNVUI = function() {
             }
           }, d.steps.slice(1).map(s => h('span', s.san))),
           h('dt', 'FEN'),
-          // h('dd.fen')(step.fen),
+          h('dd.fen', step.fen),
           h('dt', 'Game status'),
           h('dd.status', {
             attrs: {
