@@ -50,7 +50,7 @@ window.lichess.RoundNVUI = function() {
               role : 'log',
               'aria-live': 'off'
             }
-          }, d.steps.slice(1).map(s => h('span', readSan(s)))),
+          }, d.steps.slice(1).map(s => h('span', readSan(s) + ', '))),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
           // h('h2', 'FEN'),
@@ -175,7 +175,7 @@ function piecesHtml(ctrl: RoundController): VNode {
       h('dd', [
         ...lists.map((l: any) => h('span', [
           h('span', l[0]),
-          ...l.slice(1).map((k: string) => h('span', k))
+          ...l.slice(1).map((k: string) => h('span', annaKey(k)))
         ]))
       ])
     ])
@@ -224,13 +224,13 @@ function readSan(s: Step) {
   const has = window.lichess.fp.contains;
   const base = s.san.toLowerCase().replace(/[\+\#x]/g, '');
   let move: string;
-  if (base === 'o-o') move = 'Short castle';
-  else if (base === 'o-o-o') move = 'Long castle';
+  if (base === 'o-o') move = 'Short castling';
+  else if (base === 'o-o-o') move = 'Long castling';
   else {
     const role = roles[s.san[0]] || 'pawn';
-    const orig = s.uci.slice(0, 2);
-    const dest = s.uci.slice(2, 4);
-    const goes = has(s.san, 'x') ? 'takes on' : 'to';
+    const orig = annaKey(s.uci.slice(0, 2));
+    const dest = annaKey(s.uci.slice(2, 4));
+    const goes = has(s.san, 'x') ? 'takes on' : 'moves to';
     move = `${orig} ${role} ${goes} ${dest}`
     const prom = s.uci[4];
     if (prom) move += ' promotes to ' + roles[prom.toUpperCase()];
@@ -238,4 +238,9 @@ function readSan(s: Step) {
   if (has(s.san, '+')) move += ' check';
   if (has(s.san, '#')) move += ' checkmate';
   return move;
+}
+
+const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
+function annaKey(key: string): string {
+  return `${anna[key[0]]} ${key[1]}`;
 }
