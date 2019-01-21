@@ -186,12 +186,15 @@ div.lichess_game div.lichess_board_wrap {
 body.blind_mode .cg-board-wrap {
   display: none;
 }
-body.blind_mode .board {
+.nvui .board {
   font-family: monospace;
   font-size: 2em;
 }
-body.blind_mode .board th,
-body.blind_mode .board td {
+.nvui .pgn span {
+  margin-right: 0.4em;
+}
+.nvui .board th,
+.nvui .board td {
   width: 1.3em;
   height: 1.3em;
   line-height: 1.3em;

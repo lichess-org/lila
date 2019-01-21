@@ -15,7 +15,14 @@ type Sans = {
   [key: string]: Uci;
 }
 
+type Notification = {
+  text: string;
+  date: Date;
+}
+
 window.lichess.RoundNVUI = function() {
+
+  let notification: Notification | undefined;
 
   return {
     render(ctrl: RoundController) {
@@ -42,8 +49,8 @@ window.lichess.RoundNVUI = function() {
               'aria-live': 'off'
             }
           }, d.steps.slice(1).map(s => h('span', s.san))),
-          h('dt', 'FEN'),
-          h('dd.fen', step.fen),
+          // h('dt', 'FEN'),
+          // h('dd.fen', step.fen),
           h('dt', 'Game status'),
           h('dd.status', {
             attrs: {
@@ -75,7 +82,11 @@ window.lichess.RoundNVUI = function() {
                     promotion: uci.substr(4, 1)
                   }, { ackable: true });
                   else {
-                    $(el).siblings('.notify').text('Invalid move');
+                    notification = {
+                      text: `Invalid move: ${input}`,
+                      date: new Date()
+                    };
+                    ctrl.redraw();
                   }
                   $form.find('.move').val('');
                   return false;
@@ -104,9 +115,11 @@ window.lichess.RoundNVUI = function() {
           h('dt', 'Board table'),
           h('dd.board', tableBoard(ctrl)),
           h('div.notify', {
-            'aria-live': "assertive",
-            'aria-atomic' : true
-          })
+            attrs: {
+              'aria-live': 'assertive',
+              'aria-atomic' : true
+            }
+          }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : '')
         ])
       ]);
     }
@@ -183,6 +196,4 @@ function tableBoard(ctrl: RoundController) {
     )),
     h('thead', h('tr', board[9].map(x => h('th', x))))
   ]);
-
-  // return board.map(line => line.join(' ')).join('\n');
 }
