@@ -4,6 +4,7 @@ import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
+import { render as renderGround } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { userHtml } from '../view/user';
 import { renderResult } from '../view/replay';
@@ -29,7 +30,7 @@ window.lichess.RoundNVUI = function() {
     render(ctrl: RoundController) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply);
-      return h('div.nvui', [
+      return ctrl.chessground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('div', [
           ...(ctrl.isPlaying() ? [
@@ -88,7 +89,7 @@ window.lichess.RoundNVUI = function() {
                     }, { ackable: true });
                     else {
                       notification = {
-                        text: `Invalid move: ${input}`,
+                        text: d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn',
                         date: new Date()
                       };
                       ctrl.redraw();
@@ -128,7 +129,7 @@ window.lichess.RoundNVUI = function() {
             }
           }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : '')
         ])
-      ]);
+      ]) : renderGround(ctrl);
     }
   };
 }
@@ -229,9 +230,10 @@ function tableBoard(ctrl: RoundController): VNode {
 }
 
 const roles: { [letter: string]: string } = { p: 'pawn', r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king' };
-const has = window.lichess.fp.contains;
 
 function readSan(san: San) {
+  if (!san) return '';
+  const has = window.lichess.fp.contains;
   const base = san.toLowerCase().replace(/[\+\#x]/g, '');
   let move: string;
   if (base === 'o-o') move = 'Short castle';

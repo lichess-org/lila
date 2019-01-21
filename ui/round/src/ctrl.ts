@@ -118,10 +118,7 @@ export default class RoundController {
     });
     if (li.ab && this.isPlaying()) li.ab.init(this);
 
-    if (d.blind) window.lichess.loadScript('compiled/round.nvui.min.js').then(() => {
-      this.blind = window.lichess.RoundNVUI();
-      this.redraw();
-    });
+    if (d.blind) this.blind = window.lichess.RoundNVUI();
   }
 
   private showExpiration = () => {
@@ -656,9 +653,9 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
-    }
+    if (this.blind) window.lichess.requestIdleCallback(this.redraw);
   };
 
   toggleZen = () => {

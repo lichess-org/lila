@@ -26,12 +26,12 @@ const plugins = [
   {
     entries: ['src/plugins/keyboardMove.ts'],
     standalone: 'KeyboardMove',
-    target: 'keyboardMove.min.js'
+    target: 'lichess.round.keyboardMove.min.js'
   },
   {
     entries: ['src/plugins/nvui.ts'],
     standalone: 'NVUI',
-    target: 'round.nvui.min.js'
+    target: 'lichess.round.nvui.min.js'
   }
 ];
 

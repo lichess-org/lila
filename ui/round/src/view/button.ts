@@ -17,7 +17,7 @@ function poolUrl(clock: ClockData, blocking?: PlayerUser) {
 function analysisButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data,
     url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
-  return !ctrl.data.blind && game.replayable(d) ? h('a.button', {
+  return (!ctrl.blind && game.replayable(d)) ? h('a.button', {
     attrs: { href: url },
     hook: util.bind('click', _ => {
       // force page load in case the URL is the same
@@ -89,7 +89,7 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', [ctrl.data.blind ? ctrl.trans.noarg(hint) : util.justIcon(icon)])
+    h('span', ctrl.blind ? [ctrl.trans.noarg(hint)] : util.justIcon(icon))
   ]);
 }
 

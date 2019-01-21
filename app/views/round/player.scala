@@ -34,6 +34,7 @@ object player {
       chat = chatOption.map(_ => chat.frag),
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
+        roundNvuiTag,
         roundTag,
         embedJs(s"""window.customWS=true;window.onload=function(){
 LichessRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserId,chat:${jsOrNull(chatJson)}

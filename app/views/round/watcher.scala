@@ -33,6 +33,7 @@ object watcher {
       chat = chat.frag.some,
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
+        roundNvuiTag,
         roundTag,
         embedJs(s"""window.customWS = true; window.onload = function() {
 LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, chat: ${jsOrNull(chatJson)} }, document.getElementById('lichess'))}""")
