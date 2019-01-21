@@ -243,10 +243,10 @@ export default class RoundController {
     };
 
     replayEnabledByPref = (): boolean => {
-        const d = this.data;
-        return d.pref.replay === 2 || (
-            d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
-        );
+      const d = this.data;
+      return d.pref.replay === 2 || (
+        d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
+      );
     };
 
     isLate = () => this.replaying() && status.playing(this.data);
@@ -255,11 +255,11 @@ export default class RoundController {
       (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
     flipNow = () => {
-        this.flip = !this.data.blind && !this.flip;
-        this.draughtsground.set({
-            orientation: ground.boardOrientation(this.data, this.flip)
-        });
-        this.redraw();
+      this.flip = !this.blind && !this.flip;
+      this.draughtsground.set({
+        orientation: ground.boardOrientation(this.data, this.flip)
+      });
+      this.redraw();
     };
 
     //Whos turn / game over in window title
