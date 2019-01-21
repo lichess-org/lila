@@ -9,7 +9,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { userHtml } from '../view/user';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
-import { DecodedDests, Position } from '../interfaces';
+import { Step, DecodedDests, Position } from '../interfaces';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
 
@@ -50,7 +50,7 @@ window.lichess.RoundNVUI = function() {
               role : 'log',
               'aria-live': 'off'
             }
-          }, d.steps.slice(1).map(s => h('span', readSan(s.san)))),
+          }, d.steps.slice(1).map(s => h('span', readSan(s)))),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
           // h('h2', 'FEN'),
@@ -69,7 +69,7 @@ window.lichess.RoundNVUI = function() {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, readSan(step.san)),
+          }, readSan(step)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -229,26 +229,25 @@ function tableBoard(ctrl: RoundController): VNode {
   ]);
 }
 
-const roles: { [letter: string]: string } = { p: 'pawn', r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king' };
+const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 
-function readSan(san: San) {
-  if (!san) return '';
+function readSan(s: Step) {
+  if (!s.san) return '';
   const has = window.lichess.fp.contains;
-  const base = san.toLowerCase().replace(/[\+\#x]/g, '');
+  const base = s.san.toLowerCase().replace(/[\+\#x]/g, '');
   let move: string;
   if (base === 'o-o') move = 'Short castle';
   else if (base === 'o-o-o') move = 'Long castle';
-  else if (base.length === 2) {
-    move = has(san, 'x') ? `Pawn takes ${base}` : `Pawn to ${base}`;
+  else {
+    const role = roles[s.san[0]] || 'pawn';
+    const orig = s.uci.slice(0, 2);
+    const dest = s.uci.slice(2, 4);
+    const goes = has(s.san, 'x') ? 'takes on' : 'to';
+    move = `${orig} ${role} ${goes} ${dest}`
+    const prom = s.uci[4];
+    if (prom) move += ' promotes to ' + roles[prom.toUpperCase()];
   }
-  else if (base.length === 3) {
-    // exd4
-    if (san[0] === san[0].toLowerCase()) move = `${san[0]} pawn takes ${base.slice(1)}`;
-    // Nd4, Nxd4
-    else move = has(san, 'x') ? `${roles[base[0]]} takes ${base.slice(1)}` : `${roles[base[0]]} ${base.slice(1)}`;
-  }
-  else move = base;
-  if (san.indexOf('+') >= 0) move += ' check';
-  if (san.indexOf('#') >= 0) move += ' checkmate';
+  if (has(s.san, '+')) move += ' check';
+  if (has(s.san, '#')) move += ' checkmate';
   return move;
 }
