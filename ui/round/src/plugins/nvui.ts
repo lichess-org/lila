@@ -168,7 +168,7 @@ function piecesHtml(ctrl: RoundController): VNode {
       for (let key in pieces) {
         if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
       }
-      if (keys.length) lists.push([role, ...keys]);
+      if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
     });
     return h('div', [
       h('dt', color),
@@ -182,18 +182,6 @@ function piecesHtml(ctrl: RoundController): VNode {
   }));
 }
 
-/*
-   H  G  F  E  D  C  B  A
-1  R  N  B  K  Q  B  N  R   1
-2  P  P  P  P  P  P  +  P   2
-3  -  +  -  +  -  +  -  +   3
-4  +  -  +  -  +  -  +  -   4
-5  -  +  -  p  -  +  P  +   5
-6  +  -  +  -  +  -  +  -   6
-7  p  p  p  +  p  p  p  p   7
-8  r  n  b  k  q  b  n  r   8
-   H  G  F  E  D  C  B  A
- */
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
 function tableBoard(ctrl: RoundController): VNode {
