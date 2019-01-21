@@ -182,7 +182,7 @@
   <string name="send">Stuur</string>
   <string name="incrementInSeconds">Tel in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
-  <string name="spectators">Toeskouers</string>
+  <string name="spectators">Toeskouers:</string>
   <plurals name="nbWins">
     <item quantity="one">%s gewen</item>
     <item quantity="other">%s gewen</item>
@@ -293,7 +293,7 @@
     <item quantity="other">Minder as %s minute</item>
   </plurals>
   <string name="required">Vereiste.</string>
-  <string name="openTournaments">Oop tornooie</string>
+  <string name="openTournaments">Oop toernooie</string>
   <string name="duration">Duur</string>
   <string name="winner">Wenner</string>
   <string name="standing">Stand</string>
