@@ -36,23 +36,26 @@ window.lidraughts.RoundNVUI = function() {
           ]),
           h('dt', 'PDN'),
           h('dd.pdn', {
-            attrs: { role : 'log' }
-          }, d.steps.map(s => s.san).join(' ')),
+            attrs: {
+              role : 'log',
+              'aria-live': 'off'
+            }
+          }, d.steps.slice(1).map(s => h('span', s.san))),
           h('dt', 'FEN'),
           // h('dd.fen')(step.fen),
           h('dt', 'Game status'),
           h('dd.status', {
             attrs: {
               role : 'status',
-              'aria.live' : 'assertive',
-              'aria.atomic' : true
+              'aria-live' : 'assertive',
+              'aria-atomic' : true
             }
           }, ctrl.data.game.status.name === 'started' ? 'Playing' : gameView.status(ctrl)),
           h('dt', 'Last move'),
           h('dd.lastMove', {
             attrs: {
-              'aria.live' : 'assertive',
-              'aria.atomic' : true
+              'aria-live' : 'assertive',
+              'aria-atomic' : true
             }
           }, step.san),
           ctrl.isPlaying() ? h('form', {
@@ -80,7 +83,7 @@ window.lidraughts.RoundNVUI = function() {
             }
           }, [
             h('label', [
-              'Your move',
+              d.player.color === d.game.player ? 'Your move' : 'Waiting',
               h('input.move', {
                 attrs: {
                   name : 'move',
@@ -99,8 +102,8 @@ window.lidraughts.RoundNVUI = function() {
           h('dt', 'Board'),
           h('dd', h('pre', textBoard(ctrl))),
           h('div.notify', {
-            'aria.live': "assertive",
-            'aria.atomic' : true
+            'aria-live': "assertive",
+            'aria-atomic' : true
           })
         ])
       ]);
