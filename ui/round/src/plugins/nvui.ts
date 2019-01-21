@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
@@ -48,6 +49,8 @@ window.lidraughts.RoundNVUI = function() {
               'aria-live': 'off'
             }
           }, d.steps.slice(1).map(s => h('span', s.san))),
+          h('dt', 'Pieces'),
+          h('dd.pieces', piecesHtml(ctrl)),
           // h('dt', 'FEN'),
           // h('dd.fen', step.fen),
           h('dt', 'Game status'),
@@ -150,6 +153,29 @@ function sanToUci(san: string, sans: Sans): string | undefined {
   return undefined
 }
 
+function piecesHtml(ctrl: RoundController): VNode {
+  const pieces = ctrl.draughtsground.state.pieces;
+  return h('div', ['white', 'black'].map(color => {
+    const lists: any = [];
+    ['king', 'man'].forEach(role => {
+      const keys = [];
+      for (let key in pieces) {
+        if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
+      }
+      if (keys.length) lists.push([role, ...keys.sort().map(key => key[0] === '0' ? key.slice(1) : key)]);
+    });
+    return h('div', [
+      h('dt', color),
+      h('dd', [
+        ...lists.map((l: any) => h('span', [
+          h('span', l[0]),
+          ...l.slice(1).map((k: string) => h('span', k))
+        ]))
+      ])
+    ])
+  }));
+}
+
 /*
       1     2     3     4     5
    -  M  -  M  -  M  -  M  -  M  
@@ -170,7 +196,7 @@ const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
       ranksInv = [' 5', '  ', '15', '  ', '25', '  ', '35', '  ', '45', '  '];
 const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
-function tableBoard(ctrl: RoundController) {
+function tableBoard(ctrl: RoundController): VNode {
   const pieces = ctrl.draughtsground.state.pieces, white = ctrl.data.player.color === 'white';
   const board = [white ? ['  ', ...filesTop] : [...filesTop, '  ']];
   for(let y = 1; y <= 10; y++) {
