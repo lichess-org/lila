@@ -242,7 +242,10 @@ function readSan(san: San) {
     move = has(san, 'x') ? `Pawn takes ${base}` : `Pawn to ${base}`;
   }
   else if (base.length === 3) {
-    move = has(san, 'x') ? `${roles[base[0]]} takes ${base.slice(1)}` : `${roles[base[0]]} ${base.slice(1)}`;
+    // exd4
+    if (san[0] === san[0].toLowerCase()) move = `${san[0]} pawn takes ${base.slice(1)}`;
+    // Nd4, Nxd4
+    else move = has(san, 'x') ? `${roles[base[0]]} takes ${base.slice(1)}` : `${roles[base[0]]} ${base.slice(1)}`;
   }
   else move = base;
   if (san.indexOf('+') >= 0) move += ' check';
