@@ -48,105 +48,102 @@ window.lichess.RoundNVUI = function() {
         style = settings.moveNotation.value.get();
       return ctrl.chessground ? h('div.nvui', [
         h('h1', 'Textual representation'),
-        h('div', [
-          ...(ctrl.isPlaying() ? [
-            h('h2', 'Your color: ' + d.player.color),
-            h('h2', ['Opponent: ', renderPlayer(ctrl, d.opponent)])
-          ] : ['white', 'black'].map((color: Color) => h('h2', [
-            color + ' player: ',
-            renderPlayer(ctrl, ctrl.playerByColor(color))
-          ]))
-          ),
-          h('h2', 'Moves'),
-          h('p.pgn', {
-            attrs: {
-              role : 'log',
-              'aria-live': 'off'
-            }
-          }, movesHtml(d.steps.slice(1), style)),
-          h('h2', 'Pieces'),
-          h('div.pieces', piecesHtml(ctrl, style)),
-          // h('h2', 'FEN'),
-          // h('p.fen', step.fen),
-          h('h2', 'Game status'),
-          h('div.status', {
-            attrs: {
-              role : 'status',
-              'aria-live' : 'assertive',
-              'aria-atomic' : true
-            }
-          }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
-          h('h2', 'Last move'),
-          h('p.lastMove', {
-            attrs: {
-              'aria-live' : 'assertive',
-              'aria-atomic' : true
-            }
-          }, readSan(step, style)),
-          ...(ctrl.isPlaying() ? [
-            h('h2', 'Move form'),
-            h('form', {
-              hook: {
-                insert(vnode) {
-                  const el = vnode.elm as HTMLFormElement;
-                  const d = ctrl.data;
-                  const $form = $(el).submit(function() {
-                    const input = $form.find('.move').val();
-                    const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
-                    const sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
-                    const uci = sanToUci(input, sans) || input;
-                    if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
-                      from: uci.substr(0, 2),
-                      to: uci.substr(2, 2),
-                      promotion: uci.substr(4, 1)
-                    }, { ackable: true });
-                    else {
-                      notification = {
-                        text: d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn',
-                        date: new Date()
-                      };
-                      ctrl.redraw();
-                    }
-                    $form.find('.move').val('');
-                    return false;
-                  });
-                  $form.find('.move').val('').focus();
-                }
-              }
-            }, [
-              h('label', [
-                d.player.color === d.game.player ? 'Your move' : 'Waiting',
-                h('input.move', {
-                  attrs: {
-                    name: 'move',
-                    'type': 'text',
-                    autocomplete: 'off',
-                    autofocus: true
+        h('h2', 'Game info'),
+        ...(['white', 'black'].map((color: Color) => h('p', [
+          color + ' player: ',
+          renderPlayer(ctrl, ctrl.playerByColor(color))
+        ]))),
+        h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
+        d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
+        h('h2', 'Moves'),
+        h('p.pgn', {
+          attrs: {
+            role : 'log',
+            'aria-live': 'off'
+          }
+        }, movesHtml(d.steps.slice(1), style)),
+        h('h2', 'Pieces'),
+        h('div.pieces', piecesHtml(ctrl, style)),
+        // h('h2', 'FEN'),
+        // h('p.fen', step.fen),
+        h('h2', 'Game status'),
+        h('div.status', {
+          attrs: {
+            role : 'status',
+            'aria-live' : 'assertive',
+            'aria-atomic' : true
+          }
+        }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
+        h('h2', 'Last move'),
+        h('p.lastMove', {
+          attrs: {
+            'aria-live' : 'assertive',
+            'aria-atomic' : true
+          }
+        }, readSan(step, style)),
+        ...(ctrl.isPlaying() ? [
+          h('h2', 'Move form'),
+          h('form', {
+            hook: {
+              insert(vnode) {
+                const el = vnode.elm as HTMLFormElement;
+                const d = ctrl.data;
+                const $form = $(el).submit(function() {
+                  const input = $form.find('.move').val();
+                  const legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!);
+                  const sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
+                  const uci = sanToUci(input, sans) || input;
+                  if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
+                    from: uci.substr(0, 2),
+                    to: uci.substr(2, 2),
+                    promotion: uci.substr(4, 1)
+                  }, { ackable: true });
+                  else {
+                    notification = {
+                      text: d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn',
+                      date: new Date()
+                    };
+                    ctrl.redraw();
                   }
-                })
-              ])
-            ])
-          ]: []),
-          h('h2', 'Your clock'),
-          h('div.botc', anyClock(ctrl, 'bottom')),
-          h('h2', 'Opponent clock'),
-          h('div.topc', anyClock(ctrl, 'top')),
-          h('h2', 'Actions'),
-          h('div.actions', tableInner(ctrl)),
-          h('h2', 'Board'),
-          h('pre.board', tableBoard(ctrl)),
-          h('h2', 'Settings'),
-          h('label', [
-            'Move notation',
-            renderSetting(settings.moveNotation, ctrl.redraw)
-          ]),
-          h('div.notify', {
-            attrs: {
-              'aria-live': 'assertive',
-              'aria-atomic' : true
+                  $form.find('.move').val('');
+                  return false;
+                });
+                $form.find('.move').val('').focus();
+              }
             }
-          }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : '')
-        ])
+          }, [
+            h('label', [
+              d.player.color === d.game.player ? 'Your move' : 'Waiting',
+              h('input.move', {
+                attrs: {
+                  name: 'move',
+                  'type': 'text',
+                  autocomplete: 'off',
+                  autofocus: true
+                }
+              })
+            ])
+          ])
+        ]: []),
+        h('h2', 'Your clock'),
+        h('div.botc', anyClock(ctrl, 'bottom')),
+        h('h2', 'Opponent clock'),
+        h('div.topc', anyClock(ctrl, 'top')),
+        h('h2', 'Actions'),
+        h('div.actions', tableInner(ctrl)),
+        h('h2', 'Board'),
+        h('pre.board', tableBoard(ctrl)),
+        h('h2', 'Settings'),
+        h('label', [
+          'Move notation',
+          renderSetting(settings.moveNotation, ctrl.redraw)
+        ]),
+        h('div.notify', {
+          attrs: {
+            'aria-live': 'assertive',
+            'aria-atomic' : true
+          }
+        }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : '')
       ]) : renderGround(ctrl);
     }
   };
@@ -223,7 +220,7 @@ function piecesHtml(ctrl: RoundController, style: string): VNode {
       h('h3', `${color} pieces`),
       ...lists.map((l: any) =>
         `${l[0]}: ${l.slice(1).map((k: string) => annaKey(k, style)).join('. ')}`
-      ).join('. ')
+      ).join(', ')
     ]);
   }));
 }
