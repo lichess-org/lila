@@ -28,23 +28,23 @@ window.lichess.RoundNVUI = function() {
   let notification: Notification | undefined;
 
   const settings = {
-    moveNotation: {
+    moveNotation: makeSetting({
       choices: [
         ['san', 'SAN: Nxf3'],
         ['literate', 'Literate: knight takes f 3'],
         ['anna', 'Anna: knight takes felix 3'],
         ['full', 'Full: gustav 1 knight takes on felix 3']
       ],
-      default: 'san',
-      value: window.lichess.storage.make('nvui.moveNotation')
-    }
+      default: 'anna',
+      storage: window.lichess.storage.make('nvui.moveNotation')
+    })
   };
 
   return {
     render(ctrl: RoundController) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
-        style = settings.moveNotation.value.get();
+        style = settings.moveNotation.get();
       return ctrl.chessground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
@@ -149,10 +149,10 @@ window.lichess.RoundNVUI = function() {
 }
 
 function renderSetting(setting: any, redraw: Redraw) {
-  const v = setting.value.get() || setting.default;
+  const v = setting.get();
   return h('select', {
     hook: bind('change', e => {
-      setting.value.set((e.target as HTMLSelectElement).value);
+      setting.set((e.target as HTMLSelectElement).value);
       redraw();
     })
   }, setting.choices.map((choice: [string, string]) => {
@@ -214,7 +214,7 @@ function piecesHtml(ctrl: RoundController, style: string): VNode {
     return h('div', [
       h('h3', `${color} pieces`),
       ...lists.map((l: any) =>
-        `${l[0]}: ${l.slice(1).map((k: string) => annaKey(k, style)).join('. ')}`
+        `${l[0]}: ${l.slice(1).map((k: string) => annaKey(k, style)).join(', ')}`
       ).join(', ')
     ]);
   }));
@@ -304,4 +304,12 @@ function userHtml(ctrl: RoundController, player: Player) {
     rating ? ` ${rating}` : ``,
     ' ' + ratingDiff,
   ]) : 'Anonymous';
+}
+
+function makeSetting(opts: any) {
+  return {
+    choices: opts.choices,
+    get: () => opts.storage.get() || opts.default,
+    set: opts.storage.set
+  }
 }
