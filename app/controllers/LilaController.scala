@@ -425,7 +425,7 @@ private[controllers] trait LilaController
   type RestoredUser = (Option[FingerprintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
-      _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
+      _ ifTrue (HTTPRequest isSocket req) foreach { d =>
         Env.current.system.lilaBus.publish(lila.user.User.Active(d.user), 'userActive)
       }
     } dmap {

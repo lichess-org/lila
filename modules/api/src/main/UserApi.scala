@@ -23,6 +23,7 @@ private[api] final class UserApi(
     isStreaming: User.ID => Boolean,
     isPlaying: User.ID => Boolean,
     isOnline: User.ID => Boolean,
+    recentTitledUserIds: () => Iterable[User.ID],
     makeUrl: String => String
 )(implicit system: akka.actor.ActorSystem) {
 
@@ -36,7 +37,9 @@ private[api] final class UserApi(
   def exportTitled(config: UserApi.Titled): Enumerator[JsObject] =
     if (config.titles.isEmpty) Enumerator.empty[JsObject]
     else UserRepo.idCursor(
-      selector = $doc("title" $in config.titles, "enabled" -> true),
+      selector = $doc(
+        "title" $in config.titles, "enabled" -> true
+      ) ++ config.online.??($doc("_id" $in recentTitledUserIds())),
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
       lila.common.Iteratee.delay(1 second) &>

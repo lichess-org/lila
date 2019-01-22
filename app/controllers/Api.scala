@@ -99,11 +99,10 @@ object Api extends LilaController {
   def titledUsers = Action.async { req =>
     val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
     GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-      val online = getBool("online", req)
       val config = UserApi.Titled(
         titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
-        online = online,
-        perSecond = MaxPerSecond(50 * (if (online) 2 else 1))
+        online = getBool("online", req),
+        perSecond = MaxPerSecond(50)
       )
       jsonStream(Env.api.userApi.exportTitled(config)).fuccess
     }
