@@ -198,8 +198,6 @@ module.exports = function(cfg, element) {
       var rated = $rated.prop('checked');
       var limit = $timeInput.val();
       var inc = $incrementInput.val();
-      console.log($timeInput, $incrementInput);
-      console.log(limit, inc);
       // no rated variants with less than 30s on the clock
       var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
         (variantId != '1' && timeMode != '1');
@@ -210,7 +208,7 @@ module.exports = function(cfg, element) {
       $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
       var ratedOk = typ != 'hook' || !rated || timeMode != '0';
-      var aiOk = typ != 'ai' || variantId != '3' || $timeInput.val() >= 1;
+      var aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
       if (timeOk && ratedOk && aiOk) {
         $submits.toggleClass('nope', false);
         $submits.filter(':not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
