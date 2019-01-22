@@ -32,15 +32,15 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
   }
 
   const settings = {
-    moveNotation: {
+    moveNotation: makeSetting({
       choices: [
         ['notation', 'Notation: 32-27, 18x29'],
         ['short', 'Short: 32 27, 18 takes 29'],
         ['full', 'Full: 32 to 27, 18 takes 29']
       ],
       default: 'full',
-      value: window.lidraughts.storage.make('nvui.moveNotation')
-    }
+      storage: window.lidraughts.storage.make('nvui.moveNotation')
+    })
   };
 
   window.lidraughts.pubsub.on('socket.in.message', line => {
@@ -51,7 +51,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
     render(ctrl: RoundController) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
-        style = settings.moveNotation.value.get();
+        style = settings.moveNotation.get();
       return ctrl.draughtsground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
@@ -147,10 +147,10 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
 }
 
 function renderSetting(setting: any, redraw: Redraw) {
-  const v = setting.value.get() || setting.default;
+  const v = setting.get();
   return h('select', {
     hook: bind('change', e => {
-      setting.value.set((e.target as HTMLSelectElement).value);
+      setting.set((e.target as HTMLSelectElement).value);
       redraw();
     })
   }, setting.choices.map((choice: [string, string]) => {
@@ -310,4 +310,12 @@ function userHtml(ctrl: RoundController, player: Player) {
     rating ? ` ${rating}` : ``,
     ' ' + ratingDiff,
   ]) : 'Anonymous';
+}
+
+function makeSetting(opts: any) {
+  return {
+    choices: opts.choices,
+    get: () => opts.storage.get() || opts.default,
+    set: opts.storage.set
+  }
 }
