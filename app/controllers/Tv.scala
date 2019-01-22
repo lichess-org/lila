@@ -85,7 +85,7 @@ object Tv extends LidraughtsController {
     import play.api.libs.EventSource
     Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
       manifest[TvBroadcast.EnumeratorType] map { enum =>
-        Ok.chunked(enum &> EventSource()).as("text/event-stream")
+        Ok.chunked(enum &> EventSource()).as("text/event-stream") |> noProxyBuffer
       }
   }
 

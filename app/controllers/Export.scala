@@ -24,12 +24,7 @@ object Export extends LidraughtsController {
       PngRateLimitGlobal("-", msg = s"${HTTPRequest.lastRemoteAddress(ctx.req).value} ${~HTTPRequest.userAgent(ctx.req)}") {
         lidraughts.mon.export.png.game()
         OptionFuResult(GameRepo game id) { game =>
-          env.pngExport fromGame game map { stream =>
-            Ok.chunked(stream).withHeaders(
-              CONTENT_TYPE -> "image/png",
-              CACHE_CONTROL -> "max-age=7200"
-            )
-          }
+          env.pngExport fromGame game map pngStream
         }
       }
     }
@@ -53,15 +48,16 @@ object Export extends LidraughtsController {
             check = none,
             orientation = puzzle.color.some,
             logHint = s"puzzle $id"
-          ) map { stream =>
-              Ok.chunked(stream).withHeaders(
-                CONTENT_TYPE -> "image/png",
-                CACHE_CONTROL -> "max-age=7200"
-              )
-            }
+          ) map pngStream
         }
       }
     }
   }
 
+  private def pngStream(stream: play.api.libs.iteratee.Enumerator[Array[Byte]]) =
+    Ok.chunked(stream).withHeaders(
+      noProxyBufferHeader,
+      CONTENT_TYPE -> "image/png",
+      CACHE_CONTROL -> "max-age=7200"
+    )
 }

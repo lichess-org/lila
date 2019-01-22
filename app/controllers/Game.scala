@@ -89,6 +89,7 @@ object Game extends LidraughtsController {
               )
               val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
               Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
+                noProxyBufferHeader,
                 CONTENT_TYPE -> gameContentType(config),
                 CONTENT_DISPOSITION -> s"attachment; filename=lidraughts_${user.username}_$date.${format.toString.toLowerCase}"
               ).fuccess
@@ -108,6 +109,7 @@ object Game extends LidraughtsController {
         perSecond = MaxPerSecond(20)
       )
       Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
+        noProxyBufferHeader,
         CONTENT_TYPE -> gameContentType(config)
       ).fuccess
     }

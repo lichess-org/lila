@@ -304,7 +304,7 @@ object User extends LidraughtsController {
             futureToEnumerator(identification.logTimeIfGt(s"$username identification", 2 seconds)) interleave
             futureToEnumerator(assess.logTimeIfGt(s"$username assess", 2 seconds))) &>
             EventSource()
-        }.as("text/event-stream")
+        }.as("text/event-stream") |> noProxyBuffer
     }
   }
 

@@ -262,6 +262,7 @@ object Api extends LidraughtsController {
             perSecond = MaxPerSecond(20)
           )
           Ok.chunked(Env.api.gameApiV2.exportByTournament(config)).withHeaders(
+            noProxyBufferHeader,
             CONTENT_TYPE -> Game.gameContentType(config)
           ).fuccess
         }
@@ -368,5 +369,5 @@ object Api extends LidraughtsController {
   }
 
   private def jsonStringStream(stream: Enumerator[String]): Result =
-    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType)
+    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType) |> noProxyBuffer
 }

@@ -501,6 +501,9 @@ private[controllers] trait LidraughtsController
   protected def pageHit(implicit ctx: lidraughts.api.Context) =
     if (HTTPRequest isHuman ctx.req) lidraughts.mon.http.request.path(ctx.req.path)()
 
+  protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
+  protected val noProxyBuffer = (res: Result) => res.withHeaders(noProxyBufferHeader)
+
   protected val pdnContentType = "application/x-draughts-pdn"
   protected val ndJsonContentType = "application/x-ndjson"
 }
