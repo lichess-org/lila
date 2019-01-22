@@ -32,7 +32,7 @@ window.lichess.RoundNVUI = function() {
     moveNotation: {
       choices: [
         ['san', 'SAN: Nxf3'],
-        ['literate', 'literate: knight takes f 3'],
+        ['literate', 'Literate: knight takes f 3'],
         ['anna', 'Anna: knight takes felix 3'],
         ['full', 'Full: gustav 1 knight takes on felix 3']
       ],
@@ -44,7 +44,8 @@ window.lichess.RoundNVUI = function() {
   return {
     render(ctrl: RoundController) {
       const d = ctrl.data,
-        step = plyStep(d, ctrl.ply);
+        step = plyStep(d, ctrl.ply),
+        style = settings.moveNotation.value.get();
       return ctrl.chessground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('div', [
@@ -62,9 +63,9 @@ window.lichess.RoundNVUI = function() {
               role : 'log',
               'aria-live': 'off'
             }
-          }, movesHtml(d.steps.slice(1), settings)),
+          }, movesHtml(d.steps.slice(1), style)),
           h('h2', 'Pieces'),
-          h('div.pieces', piecesHtml(ctrl)),
+          h('div.pieces', piecesHtml(ctrl, style)),
           // h('h2', 'FEN'),
           // h('p.fen', step.fen),
           h('h2', 'Game status'),
@@ -81,7 +82,7 @@ window.lichess.RoundNVUI = function() {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, readSan(step, settings)),
+          }, readSan(step, style)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -132,7 +133,7 @@ window.lichess.RoundNVUI = function() {
           h('div.topc', anyClock(ctrl, 'top')),
           h('h2', 'Actions'),
           h('div.actions', tableInner(ctrl)),
-          h('h2', 'Board table'),
+          h('h2', 'Board'),
           h('pre.board', tableBoard(ctrl)),
           h('h2', 'Settings'),
           h('label', [
@@ -156,7 +157,6 @@ function renderSetting(setting: any, redraw: Redraw) {
   return h('select', {
     hook: bind('change', e => {
       setting.value.set((e.target as HTMLSelectElement).value);
-      console.log(setting.value.get());
       redraw();
     })
   }, setting.choices.map((choice: [string, string]) => {
@@ -199,16 +199,16 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   return;
 }
 
-function movesHtml(steps: Step[], settings: any) {
+function movesHtml(steps: Step[], style: any) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    res.push(readSan(s, settings) + ', ');
+    res.push(readSan(s, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
 }
 
-function piecesHtml(ctrl: RoundController): VNode {
+function piecesHtml(ctrl: RoundController, style: string): VNode {
   const pieces = ctrl.chessground.state.pieces;
   return h('div', ['white', 'black'].map(color => {
     const lists: any = [];
@@ -219,14 +219,11 @@ function piecesHtml(ctrl: RoundController): VNode {
       }
       if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
     });
-    const tags: VNode[] = [];
-    lists.forEach((l: any) => {
-      tags.push(h('h4', l[0]));
-      tags.push(h('p', l.slice(1).map(annaKey).join(', ')));
-    });
     return h('div', [
       h('h3', `${color} pieces`),
-      ...tags
+      ...lists.map((l: any) =>
+        `${l[0]}: ${l.slice(1).map((k: string) => annaKey(k, style)).join('. ')}`
+      ).join('. ')
     ]);
   }));
 }
@@ -258,9 +255,8 @@ function tableBoard(ctrl: RoundController): string {
 
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 
-function readSan(s: Step, settings: any) {
+function readSan(s: Step, style: string) {
   if (!s.san) return '';
-  const style = settings.moveNotation.value.get();
   const has = window.lichess.fp.contains;
   let move: string;
   if (has(s.san, 'O-O')) move = 'short castling';
@@ -280,8 +276,8 @@ function readSan(s: Step, settings: any) {
     }).join(' ');
     else {
       const role = roles[s.san[0]] || 'pawn';
-      const orig = annaKey(s.uci.slice(0, 2));
-      const dest = annaKey(s.uci.slice(2, 4));
+      const orig = annaKey(s.uci.slice(0, 2), style);
+      const dest = annaKey(s.uci.slice(2, 4), style);
       const goes = has(s.san, 'x') ? 'takes on' : 'moves to';
       move = `${orig} ${role} ${goes} ${dest}`
       const prom = s.uci[4];
@@ -294,6 +290,6 @@ function readSan(s: Step, settings: any) {
 }
 
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
-function annaKey(key: string): string {
-  return `${anna[key[0]]} ${key[1]}`;
+function annaKey(key: string, style: string): string {
+  return (style === 'anna' || style === 'full') ? `${anna[key[0]]} ${key[1]}` : key;
 }
