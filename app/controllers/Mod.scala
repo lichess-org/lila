@@ -312,7 +312,7 @@ object Mod extends LilaController {
   }(ctx => me => _ => Redirect(routes.Mod.chatPanic).fuccess)
 
   def eventStream = OAuthSecure(_.Admin) { req => me =>
-    Ok.chunked(Env.mod.stream.enumerator).fuccess
+    noProxyBuffer(Ok.chunked(Env.mod.stream.enumerator)).fuccess
   }
 
   private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =

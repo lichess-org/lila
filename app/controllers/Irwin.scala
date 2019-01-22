@@ -28,7 +28,7 @@ object Irwin extends LilaController {
 
   def eventStream = Scoped() { _ => me =>
     isGranted(_.Admin, me) ?? {
-      Ok.chunked(Env.irwin.stream.enumerator).fuccess
+      noProxyBuffer(Ok.chunked(Env.irwin.stream.enumerator)).fuccess
     }
   }
 }

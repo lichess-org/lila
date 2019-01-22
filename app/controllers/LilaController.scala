@@ -501,6 +501,9 @@ private[controllers] trait LilaController
   protected def pageHit(implicit ctx: lila.api.Context) =
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
 
+  protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
+  protected val noProxyBuffer = (res: Result) => res.withHeaders(noProxyBufferHeader)
+
   protected val pgnContentType = "application/x-chess-pgn"
   protected val ndJsonContentType = "application/x-ndjson"
 }
