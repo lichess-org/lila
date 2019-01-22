@@ -199,7 +199,8 @@ body.blind_mode .cg-board-wrap {
 .nvui .pieces h3,
 .nvui .pieces h4,
 .nvui .pieces p {
-  margin: 0;
+  margin: 0 5px 0 0;
+  display: inline;
 }
 div.lichess_game div.lichess_ground {
   display: flex;
