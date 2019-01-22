@@ -17,7 +17,7 @@ function poolUrl(clock: ClockData, blocking?: PlayerUser) {
 function analysisButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data,
     url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
-  return (!ctrl.blind && game.replayable(d)) ? h('a.button', {
+  return game.replayable(d) ? h('a.button', {
     attrs: { href: url },
     hook: util.bind('click', _ => {
       // force page load in case the URL is the same
