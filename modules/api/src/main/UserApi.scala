@@ -36,18 +36,21 @@ private[api] final class UserApi(
 
   def exportTitled(config: UserApi.Titled): Enumerator[JsObject] =
     if (config.titles.isEmpty) Enumerator.empty[JsObject]
+    else if (config.online) Enumerator.enumerate(recentTitledUserIds()) &>
+      Enumeratee.filter(isOnline) &>
+      Enumeratee.mapM(lightUserApi.async) &>
+      Enumeratee.collect {
+        case Some(lu) if lu.title.exists(ut => config.titles.exists(_.value == ut)) =>
+          addPlayingStreaming(LightUser.lightUserWrites.writes(lu), lu.id)
+      }
     else UserRepo.idCursor(
-      selector = $doc(
-        "title" $in config.titles, "enabled" -> true
-      ) ++ config.online.??($doc("_id" $in recentTitledUserIds())),
+      selector = $doc("title" $in config.titles, "enabled" -> true),
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
       lila.common.Iteratee.delay(1 second) &>
       Enumeratee.mapM { docs =>
         lightUserApi.asyncMany {
-          docs.flatMap { _.getAs[User.ID]("_id") } filter { id =>
-            !config.online || isOnline(id)
-          } toList
+          docs.flatMap { _.getAs[User.ID]("_id") } toList
         }
       } &>
       Enumeratee.mapConcat { users =>
