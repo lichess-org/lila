@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.UserRepo
+import lila.user.{ User, UserRepo }
 
 final class CrosstableApi(
     coll: Coll,
@@ -28,15 +28,15 @@ final class CrosstableApi(
     case _ => fuccess(none)
   }
 
-  def apply(u1: String, u2: String, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
+  def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
     coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout)
 
-  def withMatchup(u1: String, u2: String, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable.WithMatchup]] =
+  def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable.WithMatchup]] =
     apply(u1, u2, timeout) zip getMatchup(u1, u2) map {
       case crosstable ~ matchup => crosstable.map { Crosstable.WithMatchup(_, matchup) }
     }
 
-  def nbGames(u1: String, u2: String): Fu[Int] =
+  def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
     coll.find(
       select(u1, u2),
       $doc("s1" -> true, "s2" -> true)
@@ -52,7 +52,7 @@ final class CrosstableApi(
     case List(u1, u2) => {
       val result = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
-      def incScore(userId: String): Int = game.winnerUserId match {
+      def incScore(userId: User.ID): Int = game.winnerUserId match {
         case Some(u) if u == userId => 10
         case None => 5
         case _ => 0
@@ -82,14 +82,14 @@ final class CrosstableApi(
 
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
-  private def getMatchup(u1: String, u2: String): Fu[Option[Matchup]] =
+  private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
     matchupColl.find(select(u1, u2), matchupProjection).uno[Matchup]
 
-  private def createWithTimeout(u1: String, u2: String, timeout: FiniteDuration) =
+  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration) =
     creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)(system)
 
   // to avoid creating it twice during a new matchup
-  private val creationCache = asyncCache.multi[(String, String), Option[Crosstable]](
+  private val creationCache = asyncCache.multi[(User.ID, User.ID), Option[Crosstable]](
     name = "crosstable",
     f = (create _).tupled,
     resultTimeout = 19.second,
@@ -98,7 +98,7 @@ final class CrosstableApi(
 
   private val winnerProjection = $doc(GF.winnerId -> true)
 
-  private def create(x1: String, x2: String): Fu[Option[Crosstable]] = {
+  private def create(x1: User.ID, x2: User.ID): Fu[Option[Crosstable]] = {
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
@@ -114,7 +114,7 @@ final class CrosstableApi(
           .gather[List]().map { docs =>
 
             val (s1, s2) = docs.foldLeft(0 -> 0) {
-              case ((s1, s2), doc) => doc.getAs[String](GF.winnerId) match {
+              case ((s1, s2), doc) => doc.getAs[User.ID](GF.winnerId) match {
                 case Some(u) if u == su1 => (s1 + 10, s2)
                 case Some(u) if u == su2 => (s1, s2 + 10)
                 case _ => (s1 + 5, s2 + 5)
@@ -127,7 +127,7 @@ final class CrosstableApi(
               ),
               results = docs.take(Crosstable.maxGames).flatMap { doc =>
                 doc.getAs[String](GF.id).map { id =>
-                  Result(id, doc.getAs[String](GF.winnerId))
+                  Result(id, doc.getAs[User.ID](GF.winnerId))
                 }
               }.reverse
             )
@@ -145,6 +145,6 @@ final class CrosstableApi(
       none
   }
 
-  private def select(u1: String, u2: String) =
+  private def select(u1: User.ID, u2: User.ID) =
     $id(Crosstable.makeKey(u1, u2))
 }
