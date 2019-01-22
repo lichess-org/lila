@@ -152,7 +152,9 @@ final class Env(
     isRecentTv = recentTvGames get _
   )
 
-  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
+  private lazy val botFarming = new BotFarming(crosstableApi, isBotSync)
+
+  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi, botFarming)
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
