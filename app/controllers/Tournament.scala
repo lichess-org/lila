@@ -242,7 +242,9 @@ object Tournament extends LilaController {
   }
 
   def apiCreate = ScopedBody() { implicit req => me =>
-    doApiCreate(me)
+    NoLameOrBot {
+      doApiCreate(me)
+    }
   }
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
