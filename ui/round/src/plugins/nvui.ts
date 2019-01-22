@@ -7,7 +7,6 @@ import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import { render as renderGround } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
-import * as renderUser from '../view/user';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
@@ -165,10 +164,6 @@ function renderSetting(setting: any, redraw: Redraw) {
   }));
 }
 
-function renderPlayer(ctrl: RoundController, player: Player) {
-  return player.ai ? renderUser.aiName(ctrl, player.ai) : renderUser.userHtml(ctrl, player);
-}
-
 function anyClock(ctrl: RoundController, position: Position) {
   const d = ctrl.data, player = ctrl.playerAt(position);
   return (ctrl.clock && renderClock(ctrl, player, position)) || (
@@ -295,4 +290,24 @@ function readSan(s: Step, style: string): string {
     else return fields.join(' ');
   }
   return [fields[0], isCapture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
+}
+
+function renderPlayer(ctrl: RoundController, player: Player) {
+  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
+}
+
+function userHtml(ctrl: RoundController, player: Player) {
+  const d = ctrl.data,
+    user = player.user,
+    perf = user ? user.perfs[d.game.perf] : null,
+    rating = player.rating ? player.rating : (perf && perf.rating),
+    rd = player.ratingDiff,
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : ( rd < 0 ? '−' + (-rd) : '')) : '';
+  return user ? h('span', [
+    h('a', {
+      attrs: { href: '/@/' + user.username }
+    }, user.title ? `${user.title} ${user.username}` : user.username),
+    rating ? ` ${rating}` : ``,
+    ' ' + ratingDiff,
+  ]) : 'Anonymous';
 }
