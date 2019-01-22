@@ -34,7 +34,8 @@ export function userHtml(ctrl: RoundController, player: Player) {
         user.title
       ), ' ', user.username
     ] : [user.username]);
-    return ctrl.blind ? link : h('div.username.user_link.' + player.color, {
+    const ratingTag = rating ? h('rating', rating + (player.provisional ? '?' : '')) : null;
+    return ctrl.blind ? h('span', [link, ratingTag]) : h('div.username.user_link.' + player.color, {
       class: {
         online: player.onGame,
         offline: !player.onGame,
@@ -48,7 +49,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
         }
       }),
       link,
-      rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
+      ratingTag,
       ratingDiff(player),
       player.engine ? h('span', {
         attrs: {
