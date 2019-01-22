@@ -51,7 +51,8 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
   return {
     render(ctrl: RoundController) {
       const d = ctrl.data,
-        step = plyStep(d, ctrl.ply);
+        step = plyStep(d, ctrl.ply),
+        style = settings.moveNotation.value.get();
       return ctrl.draughtsground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('div', [
@@ -69,7 +70,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
               role : 'log',
               'aria-live': 'off'
             }
-          }, movesHtml(d.steps.slice(1), settings)),
+          }, movesHtml(d.steps.slice(1), style)),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
           h('h2', 'Game status'),
@@ -86,7 +87,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, readSan(step, settings)),
+          }, readSan(step, style)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -154,7 +155,6 @@ function renderSetting(setting: any, redraw: Redraw) {
   return h('select', {
     hook: bind('change', e => {
       setting.value.set((e.target as HTMLSelectElement).value);
-      console.log(setting.value.get());
       redraw();
     })
   }, setting.choices.map((choice: [string, string]) => {
@@ -203,10 +203,10 @@ function rolePlural(r: String, c: number) {
   else return c > 1 ? r + 's' : r;
 }
 
-function movesHtml(steps: Step[], settings: any) {
+function movesHtml(steps: Step[], style: string) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    res.push(readSan(s, settings) + ', ');
+    res.push(readSan(s, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
@@ -223,14 +223,11 @@ function piecesHtml(ctrl: RoundController): VNode {
       }
       if (keys.length) lists.push([rolePlural(role, keys.length), ...keys.sort().map(key => key[0] === '0' ? key.slice(1) : key)]);
     });
-    const tags: VNode[] = [];
-    lists.forEach((l: any) => {
-      tags.push(h('h4', l[0]));
-      tags.push(h('p', l.slice(1).join(', ')));
-    });
     return h('div', [
       h('h3', `${color} pieces`),
-      ...tags
+      ...lists.map((l: any) =>
+        `${l[0]}: ${l.slice(1).join(', ')}`
+      ).join(', ')
     ]);
   }));
 }
@@ -286,20 +283,19 @@ function tableBoard(ctrl: RoundController): VNode {
   ]);
 }
 
-function readSan(s: Step, settings: any): string {
+function readSan(s: Step, style: string): string {
   const san = s.san;
   if (!san) return ''
-  const style = settings.moveNotation.value.get();
-  if (style === 'notation') return san;
+  else if (style === 'notation') return san;
 
-  const isCapture = san.toLowerCase().indexOf('x') >= 0,
-    fields = san.split(isCapture ? 'x' : '-');
+  const lowerSan = san.toLowerCase(),
+    isCapture = lowerSan.toLowerCase().indexOf('x') >= 0,
+    fields = lowerSan.split(isCapture ? 'x' : '-');
   if (fields.length <= 1) return san;
 
   if (style === 'short') {
     if (isCapture) return [fields[0], 'takes', ...fields.slice(1)].join(' ');
     else return fields.join(' ');
-  } else {
-    return [fields[0], isCapture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
   }
+  return [fields[0], isCapture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
 }
