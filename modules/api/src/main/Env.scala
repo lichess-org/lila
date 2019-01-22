@@ -94,6 +94,7 @@ final class Env(
     isStreaming = isStreaming,
     isPlaying = isPlaying,
     isOnline = userEnv.onlineUserIdMemo.get,
+    recentTitledUserIds = () => userEnv.recentTitledUserIdMemo.keys,
     prefApi = prefApi
   )(system)
 
