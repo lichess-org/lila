@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
+import { bind } from '../util';
 import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import { render as renderGround } from '../ground';
@@ -31,6 +32,18 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
     redraw();
   }
 
+  const settings = {
+    moveNotation: {
+      choices: [
+        ['notation', 'Notation: 32-27, 18x29'],
+        ['short', 'Short: 32 27, 18 takes 29'],
+        ['full', 'Full: 32 to 27, 18 takes 29']
+      ],
+      default: 'full',
+      value: window.lidraughts.storage.make('nvui.moveNotation')
+    }
+  };
+
   window.lidraughts.pubsub.on('socket.in.message', line => {
     if (line.u === 'lidraughts') notify(line.t);
   });
@@ -56,7 +69,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
               role : 'log',
               'aria-live': 'off'
             }
-          }, movesHtml(d.steps.slice(1))),
+          }, movesHtml(d.steps.slice(1), settings)),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
           h('h2', 'Game status'),
@@ -73,7 +86,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
               'aria-live' : 'assertive',
               'aria-atomic' : true
             }
-          }, readSan(step)),
+          }, readSan(step, settings)),
           ...(ctrl.isPlaying() ? [
             h('h2', 'Move form'),
             h('form', {
@@ -119,6 +132,11 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
           h('div.actions', tableInner(ctrl)),
           h('h2', 'Board table'),
           h('div.board', tableBoard(ctrl)),
+          h('h2', 'Settings'),
+          h('label', [
+            'Move notation',
+            renderSetting(settings.moveNotation, ctrl.redraw)
+          ]),
           h('div.notify', {
             attrs: {
               'aria-live': 'assertive',
@@ -129,6 +147,25 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
       ]) : renderGround(ctrl);
     }
   };
+}
+
+function renderSetting(setting: any, redraw: Redraw) {
+  const v = setting.value.get() || setting.default;
+  return h('select', {
+    hook: bind('change', e => {
+      setting.value.set((e.target as HTMLSelectElement).value);
+      console.log(setting.value.get());
+      redraw();
+    })
+  }, setting.choices.map((choice: [string, string]) => {
+    const [key, name] = choice;
+    return h('option', {
+      attrs: {
+        value: key,
+        selected: key === v
+      }
+    }, name)
+  }));
 }
 
 function renderPlayer(ctrl: RoundController, player: Player) {
@@ -166,10 +203,10 @@ function rolePlural(r: String, c: number) {
   else return c > 1 ? r + 's' : r;
 }
 
-function movesHtml(steps: Step[]) {
+function movesHtml(steps: Step[], settings: any) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    res.push(readSan(s) + ', ');
+    res.push(readSan(s, settings) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
@@ -192,7 +229,7 @@ function piecesHtml(ctrl: RoundController): VNode {
       tags.push(h('p', l.slice(1).join(', ')));
     });
     return h('div', [
-      h('h3', color),
+      h('h3', `${color} pieces`),
       ...tags
     ]);
   }));
@@ -249,10 +286,20 @@ function tableBoard(ctrl: RoundController): VNode {
   ]);
 }
 
-function readSan(s: Step) {
-  if (!s.san) return ''
-  const san = s.san, base = san.toLowerCase(), capture = base.indexOf('x') >= 0;
-  const fields = san.split(capture ? 'x' : '-');
+function readSan(s: Step, settings: any): string {
+  const san = s.san;
+  if (!san) return ''
+  const style = settings.moveNotation.value.get();
+  if (style === 'notation') return san;
+
+  const isCapture = san.toLowerCase().indexOf('x') >= 0,
+    fields = san.split(isCapture ? 'x' : '-');
   if (fields.length <= 1) return san;
-  return [fields[0], capture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
+
+  if (style === 'short') {
+    if (isCapture) return [fields[0], 'takes', ...fields.slice(1)].join(' ');
+    else return fields.join(' ');
+  } else {
+    return [fields[0], isCapture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
+  }
 }
