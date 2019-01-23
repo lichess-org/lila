@@ -29,7 +29,7 @@ object player {
     }
 
     bits.layout(
-      title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)} in ${pov.gameId}",
+      title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
       side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
       chat = chatOption.map(_ => chat.frag),
       underchat = Some(bits underchat pov.game),

@@ -28,7 +28,7 @@ object watcher {
     }
 
     bits.layout(
-      title = s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}",
+      title = gameVsText(pov.game, withRatings = true),
       side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
       chat = chat.frag.some,
       underchat = Some(bits underchat pov.game),
