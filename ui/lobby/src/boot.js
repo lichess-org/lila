@@ -484,4 +484,4 @@ function spreadNumber(el, nbSteps, getDuration) {
     for (var i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
   };
-};
+}

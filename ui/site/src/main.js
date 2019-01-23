@@ -955,6 +955,9 @@ lichess.topMenuIntent = function() {
         };
       });
     });
+
+    if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
+      $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lichess.reload);
   });
 
   ///////////////////
