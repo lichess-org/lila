@@ -86,9 +86,11 @@
   <string name="delete">წაშლა</string>
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
+  <string name="realtimeReplay">პირდაპირი</string>
   <string name="openStudy">გახსენი სწავლება</string>
   <string name="enable">ჩართვა</string>
   <string name="bestMoveArrow">საუკეთესო სვლის ისარი</string>
+  <string name="evaluationGauge">პოზიციის საზომი</string>
   <string name="multipleLines">რამდენიმე ხაზი</string>
   <string name="cpus">პროცესორები</string>
   <string name="memory">მეხსიერება</string>
@@ -199,6 +201,7 @@
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
   <string name="rematchOfferSentWhite">მოწინააღმდეგე გთავაზობთ ხელახლა თამაშს</string>
+  <string name="rematchOfferSentBlack">შავი გთავაზობთ ხელახალ პარტიას</string>
   <string name="rematchOfferAccepted">რევანშის შეთავაზება მიღებულია</string>
   <string name="rematchOfferCanceled">განმეორებით თამაშზე მოთხოვნა გაუქმებულია</string>
   <string name="rematchOfferDeclined">განმეორებით თამაშზე მოთხოვნა უარყოფილია</string>
@@ -218,6 +221,10 @@
   <string name="incrementInSeconds">ზრდა წამებში</string>
   <string name="freeOnlineChess">უფასო ონლაინ ჭადრაკი</string>
   <string name="spectators">მაყურებლები</string>
+  <plurals name="nbRated">
+    <item quantity="one">%sრეიტინგული</item>
+    <item quantity="other">%sრეიტინგული</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s გამარჯვება</item>
     <item quantity="other">%s გამარჯვება</item>
