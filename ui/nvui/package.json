@@ -1,0 +1,33 @@
+{
+  "name": "nvui",
+  "version": "1.0.0",
+  "description": "lidraughts.org non-visual user interface",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts"
+  },
+  "keywords": [
+    "draughts",
+    "lidraughts",
+    "non-visual",
+    "blind",
+    "accessibility"
+  ],
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
+  "homepage": "https://github.com/roepstoep/lidraughts",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "@types/lichess": "1.0.0",
+    "game": "1.0.0",
+    "typescript": "^3"
+  },
+  "dependencies": {}
+}
