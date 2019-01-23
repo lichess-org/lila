@@ -65,7 +65,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
         d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
         h('h2', 'Moves'),
-        h('p.pgn', {
+        h('p.moves', {
           attrs: {
             role : 'log',
             'aria-live': 'off'
@@ -73,8 +73,6 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         }, movesHtml(d.steps.slice(1), style)),
         h('h2', 'Pieces'),
         h('div.pieces', piecesHtml(ctrl, style)),
-        // h('h2', 'FEN'),
-        // h('p.fen', step.fen),
         h('h2', 'Game status'),
         h('div.status', {
           attrs: {

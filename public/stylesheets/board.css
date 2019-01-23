@@ -189,6 +189,10 @@ body.blind_mode .cg-board-wrap {
 .nvui h2 {
   font-weight: bold;
 }
+.nvui .moves {
+  max-height: 140px;
+  overflow-y: auto;
+}
 .nvui .board {
   font-family: monospace;
   font-size: 2em;
