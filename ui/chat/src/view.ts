@@ -38,7 +38,7 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion') return [
     h('h2', ctrl.data.name),
-    (ctrl.opts.blind || ctrl.opts.alwaysEnabled) ? undefined : h('input.toggle_chat', {
+    ctrl.opts.alwaysEnabled ? undefined : h('input.toggle_chat', {
       attrs: {
         type: 'checkbox',
         title: ctrl.trans.noarg('toggleTheChat'),

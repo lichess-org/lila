@@ -51,7 +51,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
           ]))
           ),
           h('h2', 'Moves'),
-          h('p.pdn', {
+          h('p.moves', {
             attrs: {
               role : 'log',
               'aria-live': 'off'
@@ -59,8 +59,6 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
           }, movesHtml(d.steps.slice(1))),
           h('h2', 'Pieces'),
           h('div.pieces', piecesHtml(ctrl)),
-          // h('h2', 'FEN'),
-          // h('p.fen', step.fen),
           h('h2', 'Game status'),
           h('div.status', {
             attrs: {
