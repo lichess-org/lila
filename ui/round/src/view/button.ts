@@ -28,17 +28,18 @@ function analysisButton(ctrl: RoundController): VNode | null {
 
 function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
-    me = !!d.player.offeringRematch, them = !!d.opponent.offeringRematch;
+    me = !!d.player.offeringRematch, them = !!d.opponent.offeringRematch,
+    noarg = ctrl.trans.noarg;
   return [
     them ? h('button.rematch-decline', {
       attrs: {
         'data-icon': 'L',
-        title: ctrl.trans.noarg('decline')
+        title: noarg('decline')
       },
       hook: util.bind('click', () => {
         ctrl.socket.send('rematch-no');
       })
-    }) : null,
+    }, ctrl.blind ? noarg('decline') : '') : null,
     h('button.button.rematch.white', {
       class: {
         me,
@@ -46,8 +47,8 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user))
       },
       attrs: {
-        title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
-          me ? ctrl.trans.noarg('rematchOfferSent') : '')
+        title: them ? noarg('yourOpponentWantsToPlayANewGameWithYou') : (
+          me ? noarg('rematchOfferSent') : '')
       },
       hook: util.bind('click', e => {
         const d = ctrl.data;
@@ -63,7 +64,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         else if (!(e.target as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
       }, ctrl.redraw)
     }, [
-      me ? util.spinner() : h('span', ctrl.trans.noarg('rematch'))
+      me ? util.spinner() : h('span', noarg('rematch'))
     ])
   ];
 }
