@@ -36,6 +36,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
     moveNotation: makeSetting({
       choices: [
         ['san', 'SAN: Nxf3'],
+        ['uci', 'UCI: g1f3'],
         ['literate', 'Literate: knight takes f 3'],
         ['anna', 'Anna: knight takes felix 3'],
         ['full', 'Full: gustav 1 knight takes on felix 3']
@@ -257,6 +258,7 @@ function readSan(s: Step, style: string) {
   if (has(s.san, 'O-O-O')) move = 'long castling';
   else if (has(s.san, 'O-O')) move = 'short castling';
   else if (style === 'san') move = s.san.replace(/[\+#]/, '');
+  else if (style === 'uci') move = s.uci;
   else {
     if (style === 'literate' || style == 'anna') move = s.san.replace(/[\+#]/, '').split('').map(c => {
       const code = c.charCodeAt(0);
@@ -274,7 +276,7 @@ function readSan(s: Step, style: string) {
       const orig = annaKey(s.uci.slice(0, 2), style);
       const dest = annaKey(s.uci.slice(2, 4), style);
       const goes = has(s.san, 'x') ? 'takes on' : 'moves to';
-      move = `${orig} ${role} ${goes} ${dest}`
+      move = `${orig} ${role} ${goes} ${dest}`;
       const prom = s.uci[4];
       if (prom) move += ' promotes to ' + roles[prom.toUpperCase()];
     }
