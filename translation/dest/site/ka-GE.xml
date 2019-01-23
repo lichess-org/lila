@@ -288,6 +288,9 @@
     <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">თქვნი რეიტინგი %s არის პირობითი</string>
+  <string name="ratedMoreThanInPerf">რეიტინგი ≥ %1$s %2$sში</string>
+  <string name="ratedLessThanInPerf">რეიტინგი ≤ %1$s %2$sში</string>
+  <string name="mustBeInTeam">უნდა იყოთ გუნდ %s-ში</string>
   <string name="youAreNotInTeam">თქვენ %s გუნდის წევრი არ ხართ</string>
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
