@@ -252,6 +252,7 @@ function tableBoard(ctrl: RoundController): VNode {
 }
 
 function readSan(s: Step) {
+  if (!s.san) return ''
   const san = s.san, base = san.toLowerCase(), capture = base.indexOf('x') >= 0;
   const fields = san.split(capture ? 'x' : '-');
   if (fields.length <= 1) return san;
