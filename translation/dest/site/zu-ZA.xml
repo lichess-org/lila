@@ -10,5 +10,20 @@
   <string name="yourTurn">Ithuba lakho</string>
   <string name="aiNameLevelAiLevel">%1$s Izinga %2$s</string>
   <string name="level">Izinga</string>
+  <string name="toggleTheChat">Guqula ingxoxo</string>
+  <string name="toggleSound">Shintsha umsindo</string>
+  <string name="chat">Ingxoxo</string>
+  <string name="resign">Yeka</string>
   <string name="checkmate">Mui_season_name_76</string>
+  <string name="stalemate">I-Stalemate</string>
+  <string name="white">Okumhlophe</string>
+  <string name="black">Mnyama</string>
+  <string name="randomColor">Okungahleliwe</string>
+  <string name="createAGame">Dala umdlalo</string>
+  <string name="whiteIsVictorious">Umhlophe unqobile</string>
+  <string name="blackIsVictorious">Omnyama unqobile</string>
+  <string name="kingInTheCenter">Inkosi phakathi</string>
+  <string name="threeChecks">Ukuhlola ezintathu</string>
+  <string name="raceFinished">Umjaho uqedile</string>
+  <string name="variantEnding">Ukuphela okuhlukile</string>
 </resources>
