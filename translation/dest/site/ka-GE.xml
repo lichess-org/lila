@@ -79,6 +79,8 @@
   </plurals>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
   <string name="openingExplorer">დებიუტების გზამკვლევი</string>
+  <string name="xOpeningExplorer">%sდებიუტების გზამკვლევი</string>
+  <string name="winPreventedBy50MoveRule">მოგება შეუძლებელია 50 სვლის წესის გამო</string>
   <string name="allSet">ყველაფერი მზადაა!</string>
   <string name="importPgn">PGN-ის იმპორტი</string>
   <string name="delete">წაშლა</string>
