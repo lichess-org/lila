@@ -23,9 +23,14 @@ type Notification = {
   date: Date;
 }
 
-window.lichess.RoundNVUI = function() {
+window.lichess.RoundNVUI = function(redraw: Redraw) {
 
   let notification: Notification | undefined;
+
+  function notify(msg: string) {
+    notification = { text: msg, date: new Date() };
+    redraw();
+  }
 
   const settings = {
     moveNotation: makeSetting({
@@ -39,6 +44,10 @@ window.lichess.RoundNVUI = function() {
       storage: window.lichess.storage.make('nvui.moveNotation')
     })
   };
+
+  window.lichess.pubsub.on('socket.in.message', line => {
+    if (line.u === 'lichess') notify(line.t);
+  });
 
   return {
     render(ctrl: RoundController) {
@@ -97,13 +106,7 @@ window.lichess.RoundNVUI = function() {
                     to: uci.substr(2, 2),
                     promotion: uci.substr(4, 1)
                   }, { ackable: true });
-                  else {
-                    notification = {
-                      text: d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn',
-                      date: new Date()
-                    };
-                    ctrl.redraw();
-                  }
+                  else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
                   $form.find('.move').val('');
                   return false;
                 });
