@@ -26,4 +26,26 @@
   <string name="threeChecks">Ukuhlola ezintathu</string>
   <string name="raceFinished">Umjaho uqedile</string>
   <string name="variantEnding">Ukuphela okuhlukile</string>
+  <string name="newOpponent">Umphikisi omusha</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Umphikisi wakho ufuna ukudlala umdlalo omusha nawe</string>
+  <string name="joinTheGame">Joyina umdlalo</string>
+  <string name="whitePlays">Mhlophe ukuze udlale</string>
+  <string name="blackPlays">Okumnyama ukudlala</string>
+  <string name="opponentLeftChoices">Omunye umdlali kungenzeka ukuthi ushiye lo mdlalo. Ungacela ukunqoba, shayela umdlalo umdwebo, noma ulinde.</string>
+  <string name="makeYourOpponentResign">Yenza umphikisi wakho ashiye</string>
+  <string name="forceResignation">Imangalo yokunqoba</string>
+  <string name="forceDraw">Dweba ucingo</string>
+  <string name="talkInChat">Sicela ujabule engxoxweni!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Umuntu wokuqala oza kule URL uzodlala nawe.</string>
+  <string name="whiteResigned">Ukumiswa okumhlophe</string>
+  <string name="blackResigned">Okumnyama kususwe</string>
+  <string name="whiteLeftTheGame">Umhlophe ushiye umdlalo</string>
+  <string name="blackLeftTheGame">Omnyama ushiye umdlalo</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Yabelana ngale URL ukuze ababukeli babone umdlalo</string>
+  <string name="theComputerAnalysisHasFailed">Ukuhlaziywa kwekhompuyutha kuhlulekile</string>
+  <string name="viewTheComputerAnalysis">Buka ukuhlaziywa kwekhompyutha</string>
+  <string name="requestAComputerAnalysis">Cela ukuhlaziywa kwekhompyutha</string>
+  <string name="computerAnalysis">Ukuhlaziywa kwekhompyutha</string>
+  <string name="computerAnalysisAvailable">Ukuhlaziywa kwekhompyutha kuyatholakala</string>
+  <string name="analysis">Ibhodi Yokuhlola</string>
 </resources>
