@@ -412,6 +412,7 @@
   <string name="loadPosition">საწყისი პოზიცია</string>
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
+  <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">რეიტინგი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
