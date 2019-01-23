@@ -48,4 +48,17 @@
   <string name="computerAnalysis">Ukuhlaziywa kwekhompyutha</string>
   <string name="computerAnalysisAvailable">Ukuhlaziywa kwekhompyutha kuyatholakala</string>
   <string name="analysis">Ibhodi Yokuhlola</string>
+  <string name="depthX">Ukujula %s</string>
+  <string name="usingServerAnalysis">Ukusebenzisa ukuhlaziywa kweseva</string>
+  <string name="loadingEngine">Ilayisha injini ...</string>
+  <string name="cloudAnalysis">Ukuhlaziywa kwamafu</string>
+  <string name="goDeeper">Hamba ngokujulile</string>
+  <string name="showThreat">Bonisa usongo</string>
+  <string name="inLocalBrowser">kusiphequluli sendawo</string>
+  <string name="toggleLocalEvaluation">Guqula ukuhlola kwendawo</string>
+  <string name="promoteVariation">Khuthaza ukushintshashintsha</string>
+  <string name="makeMainLine">Yenza umugqa owodwav</string>
+  <string name="deleteFromHere">Susa kusukela lapha</string>
+  <string name="move">Hambisa</string>
+  <string name="variantLoss">Ukulahlekelwa okuhlukile</string>
 </resources>
