@@ -54,7 +54,7 @@ interface Lidraughts {
   dispatchEvent(el: HTMLElement, eventName: string): void;
   isTrident: boolean;
   isMS: boolean;
-  RoundNVUI(): {
+  RoundNVUI(redraw: () => void): {
     render(ctrl: any): void;
   }
 }

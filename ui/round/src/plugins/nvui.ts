@@ -9,7 +9,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import * as renderUser from '../view/user';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
-import { Step, DecodedDests, Position } from '../interfaces';
+import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { pos2key } from 'draughtsground/util';
 
@@ -22,9 +22,18 @@ type Notification = {
   date: Date;
 }
 
-window.lidraughts.RoundNVUI = function() {
+window.lidraughts.RoundNVUI = function(redraw: Redraw) {
 
   let notification: Notification | undefined;
+
+  function notify(msg: string) {
+    notification = { text: msg, date: new Date() };
+    redraw();
+  }
+
+  window.lidraughts.pubsub.on('socket.in.message', line => {
+    if (line.u === 'lidraughts') notify(line.t);
+  });
 
   return {
     render(ctrl: RoundController) {
@@ -83,13 +92,7 @@ window.lidraughts.RoundNVUI = function() {
                       from: uci.substr(0, 2),
                       to: uci.substr(2, 2)
                     }, { ackable: true });
-                    else {
-                      notification = {
-                        text: d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn',
-                        date: new Date()
-                      };
-                      ctrl.redraw();
-                    }
+                    else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
                     $form.find('.move').val('');
                     return false;
                   });

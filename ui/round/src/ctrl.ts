@@ -133,7 +133,7 @@ export default class RoundController {
         });
         if (li.ab && this.isPlaying()) li.ab.init(this);
 
-        if (d.blind) this.blind = window.lidraughts.RoundNVUI();
+        if (d.blind) this.blind = window.lidraughts.RoundNVUI(redraw);
     }
 
     private showExpiration = () => {
