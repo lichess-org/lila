@@ -144,20 +144,8 @@ export function cancelDrawOffer(ctrl: RoundController) {
 export function answerOpponentDrawOffer(ctrl: RoundController) {
   return ctrl.data.opponent.offeringDraw ? h('div.negotiation.draw', [
     h('p', ctrl.trans.noarg('yourOpponentOffersADraw')),
-    h('a.accept', {
-      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-yes')),
-      attrs: {
-        'data-icon': 'E',
-        title: ctrl.trans.noarg('accept')
-      }
-    }),
-    h('a.decline', {
-      attrs: {
-        'data-icon': 'L',
-        title: ctrl.trans.noarg('decline')
-      },
-      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-no'))
-    })
+    acceptButton(ctrl, () => ctrl.socket.sendLoading('draw-yes')),
+    declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no'))
   ]) : null;
 }
 
@@ -170,43 +158,44 @@ export function cancelTakebackProposition(ctrl: RoundController) {
   ]) : null;
 }
 
+function acceptButton(ctrl: RoundController, action: () => void, i18nKey: string = 'accept') {
+  const text = ctrl.trans.noarg(i18nKey);
+  return ctrl.blind ? h('button', {
+    hook: util.bind('click', action)
+  }, text) : h('a.accept', {
+    attrs: {
+      'data-icon': 'E',
+      title: text
+    },
+    hook: util.bind('click', action)
+  });
+}
+function declineButton(ctrl: RoundController, action: () => void, i18nKey: string = 'decline') {
+  const text = ctrl.trans.noarg(i18nKey);
+  return ctrl.blind ? h('button', {
+    hook: util.bind('click', action)
+  }, text) : h('a.decline', {
+    attrs: {
+      'data-icon': 'L',
+      title: text
+    },
+    hook: util.bind('click', action)
+  });
+}
+
 export function answerOpponentTakebackProposition(ctrl: RoundController) {
   return ctrl.data.opponent.proposingTakeback ? h('div.negotiation.takeback', [
     h('p', ctrl.trans.noarg('yourOpponentProposesATakeback')),
-    h('a.accept', {
-      attrs: {
-        'data-icon': 'E',
-        title: ctrl.trans.noarg('accept')
-      },
-      hook: util.bind('click', ctrl.takebackYes)
-    }),
-    h('a.decline', {
-      attrs: {
-        'data-icon': 'L',
-        title: ctrl.trans.noarg('decline')
-      },
-      hook: util.bind('click', () => ctrl.socket.sendLoading('takeback-no'))
-    })
+    acceptButton(ctrl, ctrl.takebackYes),
+    declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no'))
   ]) : null;
 }
 
 export function submitMove(ctrl: RoundController): VNode | undefined {
   return (ctrl.moveToSubmit || ctrl.dropToSubmit) ? h('div.negotiation.move-confirm', [
     h('p', ctrl.trans.noarg('moveConfirmation')),
-    h('a.accept', {
-      attrs: {
-        'data-icon': 'E',
-        title: ctrl.trans.noarg('accept')
-      },
-      hook: util.bind('click', () => ctrl.submitMove(true))
-    }),
-    h('a.decline', {
-      attrs: {
-        'data-icon': 'L',
-        title: ctrl.trans.noarg('cancel')
-      },
-      hook: util.bind('click', () => ctrl.submitMove(false))
-    })
+    acceptButton(ctrl, () => ctrl.submitMove(true)),
+    declineButton(ctrl, () => ctrl.submitMove(false), 'cancel')
   ]) : undefined;
 }
 
@@ -265,7 +254,7 @@ export function followUp(ctrl: RoundController): VNode {
       attrs: {href: '/tournament/' + d.tournament.id}
     }, noarg('viewTournament')) : null,
     newable ? h('a.button', {
-      attrs: {href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id },
+      attrs: { href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id },
     }, noarg('newOpponent')) : null,
     analysisButton(ctrl)
   ]);
