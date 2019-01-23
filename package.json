@@ -32,6 +32,7 @@
     "ui/dasher",
     "ui/editor",
     "ui/game",
+    "ui/nvui",
     "ui/insight",
     "ui/learn",
     "ui/lobby",

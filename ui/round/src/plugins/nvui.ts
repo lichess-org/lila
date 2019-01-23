@@ -13,6 +13,7 @@ import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
+import { renderKey } from 'nvui/chess';
 
 type Sans = {
   [key: string]: Uci;
@@ -282,11 +283,6 @@ function readSan(s: Step, style: string) {
   if (has(s.san, '+')) move += ' check';
   if (has(s.san, '#')) move += ' checkmate';
   return move;
-}
-
-const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
-function annaKey(key: string, style: string): string {
-  return (style === 'anna' || style === 'full') ? `${anna[key[0]]} ${key[1]}` : key;
 }
 
 function renderPlayer(ctrl: RoundController, player: Player) {
