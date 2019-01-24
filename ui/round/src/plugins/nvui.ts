@@ -134,7 +134,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {
   return function() {
-    const input = $input.val();
+    const input = castlingFlavours($input.val());
     if (input == '/c') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
     else if (input == '/l') notify($('.lastMove').text());
     else {
@@ -152,6 +152,18 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
     $input.val('');
     return false;
   };
+}
+
+function castlingFlavours(input: string): string {
+  switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
+    case 'oo':
+    case '00':
+      return 'o-o';
+    case 'ooo':
+    case '000':
+      return 'o-o-o';
+  }
+  return input;
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
