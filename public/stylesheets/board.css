@@ -204,6 +204,10 @@ body.blind_mode .cg-board-wrap {
   margin: 0 5px 0 0;
   display: inline;
 }
+.nvui .notify {
+  color: #dc322f;
+  font-weight: bold;
+}
 div.lichess_game div.lichess_ground {
   display: flex;
   flex-flow: column nowrap;

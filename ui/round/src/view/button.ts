@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { Hooks } from 'snabbdom/hooks'
 import * as util from '../util';
 import { PlayerUser, game, status, router } from 'game';
 import { RoundData, MaybeVNodes } from '../interfaces';
@@ -96,7 +97,7 @@ export function standard(
 
 export function forceResign(ctrl: RoundController) {
   return ctrl.forceResignable() ? h('div.suggestion', [
-    h('p', ctrl.trans.noarg('opponentLeftChoices')),
+    h('p', { hook: onSuggestionHook }, ctrl.trans.noarg('opponentLeftChoices')),
     h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
     }, ctrl.trans.noarg('forceResignation')),
@@ -129,7 +130,9 @@ export function drawConfirm(ctrl: RoundController): VNode {
 
 export function threefoldClaimDraw(ctrl: RoundController) {
   return ctrl.data.game.threefold ? h('div.suggestion', [
-    h('p', ctrl.trans('threefoldRepetition')),
+    h('p', {
+      hook: onSuggestionHook
+    }, ctrl.trans.noarg('threefoldRepetition')),
     h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim'))
     }, ctrl.trans.noarg('claimADraw'))
@@ -242,7 +245,10 @@ export function followUp(ctrl: RoundController): VNode {
       d.game.source === 'lobby' ||
       d.game.source === 'pool'),
     rematchZone = ctrl.challengeRematched ? [
-      h('div.suggestion.text', util.justIcon('j'), noarg('rematchOfferSent'))
+      h('div.suggestion.text', {
+        hook: onSuggestionHook,
+        attrs: { 'data-icon': 'j' }
+      }, noarg('rematchOfferSent'))
     ] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : [
       h('button.button.rematch.white',
         { class: { disabled: true } },
@@ -276,3 +282,9 @@ export function watcherFollowUp(ctrl: RoundController): VNode {
     analysisButton(ctrl)
   ]);
 }
+
+const onSuggestionHook: Hooks = {
+  insert(vnode) {
+    window.lichess.pubsub.emit('round.suggestion')((vnode.elm as HTMLElement).textContent);
+  }
+};
