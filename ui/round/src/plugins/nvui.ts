@@ -89,7 +89,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           }, [
             h('label', [
               d.player.color === d.game.player ? 'Your move' : 'Waiting',
-              h('input.move', {
+              h('input.move.mousetrap', {
                 attrs: {
                   name: 'move',
                   'type': 'text',
@@ -118,6 +118,14 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('label', [
           'Move notation',
           renderSetting(moveStyle, ctrl.redraw)
+        ]),
+        h('h2', 'Commands'),
+        h('p', [
+          'Type these commands in the move input',
+          h('br'),
+          '/c: Read clocks',
+          h('br'),
+          '/l: Read last move'
         ])
       ]) : renderGround(ctrl);
     }
@@ -126,17 +134,21 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {
   return function() {
-    const d = ctrl.data,
-      input = $input.val(),
-      legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
-      sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans,
-      uci = sanToUci(input, sans) || input;
-    if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
-      from: uci.substr(0, 2),
-      to: uci.substr(2, 2),
-      promotion: uci.substr(4, 1)
-    }, { ackable: true });
-    else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
+    const input = $input.val();
+    if (input == '/c') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+    else if (input == '/l') notify($('.lastMove').text());
+    else {
+      const d = ctrl.data,
+        legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
+        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans,
+        uci = sanToUci(input, sans) || input;
+      if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
+        from: uci.substr(0, 2),
+        to: uci.substr(2, 2),
+        promotion: uci.substr(4, 1)
+      }, { ackable: true });
+      else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
+    }
     $input.val('');
     return false;
   };
