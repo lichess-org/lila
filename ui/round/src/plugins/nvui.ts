@@ -28,7 +28,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
 
   function notify(msg: string) {
     notification = { text: msg, date: new Date() };
-    redraw();
+    window.lidraughts.requestIdleCallback(redraw);
   }
 
   const settings = {
@@ -46,6 +46,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
   window.lidraughts.pubsub.on('socket.in.message', line => {
     if (line.u === 'lidraughts') notify(line.t);
   });
+  window.lidraughts.pubsub.on('round.suggestion', notify);
 
   return {
     render(ctrl: RoundController) {
@@ -126,6 +127,12 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         h('div.botc', anyClock(ctrl, 'bottom')),
         h('h2', 'Opponent clock'),
         h('div.topc', anyClock(ctrl, 'top')),
+        h('div.notify', {
+          attrs: {
+            'aria-live': 'assertive',
+            'aria-atomic' : true
+          }
+        }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : ''),
         h('h2', 'Actions'),
         h('div.actions', tableInner(ctrl)),
         h('h2', 'Board table'),
@@ -134,13 +141,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         h('label', [
           'Move notation',
           renderSetting(settings.moveNotation, ctrl.redraw)
-        ]),
-        h('div.notify', {
-          attrs: {
-            'aria-live': 'assertive',
-            'aria-atomic' : true
-          }
-        }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : '')
+        ])
       ]) : renderGround(ctrl);
     }
   };

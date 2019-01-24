@@ -39,7 +39,7 @@
 	"ui/draughtsground",
 	"ui/editor",
 	"ui/game",
-    "ui/nvui",
+	"ui/nvui",
 	"ui/lobby",
 	"ui/notify",
 	"ui/perfstat",

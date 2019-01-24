@@ -263,9 +263,6 @@ body.blind_mode .cg-board-wrap {
   margin: 0 5px 0 0;
   display: inline;
 }
-.nvui .pdn span {
-  margin-right: 0.4em;
-}
 .nvui .board th,
 .nvui .board td {
   width: 1.3em;
@@ -273,6 +270,10 @@ body.blind_mode .cg-board-wrap {
   line-height: 1.3em;
   margin: 0;
   padding: 0;
+}
+.nvui .notify {
+  color: #dc322f;
+  font-weight: bold;
 }
 div.lidraughts_game div.lidraughts_ground {
   display: flex;
