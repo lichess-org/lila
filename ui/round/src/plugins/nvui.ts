@@ -10,8 +10,7 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { pos2key } from 'draughtsground/util';
-import { Style, renderSan, styleSetting } from 'nvui/draughts';
+import { Style, renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
 import { renderSetting } from 'nvui/setting';
 
 type Sans = {
@@ -59,9 +58,9 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
             role : 'log',
             'aria-live': 'off'
           }
-        }, movesHtml(d.steps.slice(1), style)),
+        }, renderMoves(d.steps.slice(1), style)),
         h('h2', 'Pieces'),
-        h('div.pieces', piecesHtml(ctrl)),
+        h('div.pieces', renderPieces(ctrl.draughtsground.state.pieces)),
         h('h2', 'Game status'),
         h('div.status', {
           attrs: {
@@ -126,8 +125,8 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : ''),
         h('h2', 'Actions'),
         h('div.actions', tableInner(ctrl)),
-        h('h2', 'Board table'),
-        h('div.board', tableBoard(ctrl)),
+        h('h2', 'Board'),
+        h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -164,89 +163,13 @@ function sanToUci(san: string, sans: Sans): string | undefined {
   return undefined
 }
 
-function rolePlural(r: String, c: number) {
-  if (r === 'man') return c > 1 ? 'men' : 'man';
-  else return c > 1 ? r + 's' : r;
-}
-
-function movesHtml(steps: Step[], style: Style) {
+function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
     res.push(renderSan(s.san, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
-}
-
-function piecesHtml(ctrl: RoundController): VNode {
-  const pieces = ctrl.draughtsground.state.pieces;
-  return h('div', ['white', 'black'].map(color => {
-    const lists: any = [];
-    ['king', 'man'].forEach(role => {
-      const keys = [];
-      for (let key in pieces) {
-        if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
-      }
-      if (keys.length) lists.push([rolePlural(role, keys.length), ...keys.sort().map(key => key[0] === '0' ? key.slice(1) : key)]);
-    });
-    return h('div', [
-      h('h3', `${color} pieces`),
-      ...lists.map((l: any) =>
-        `${l[0]}: ${l.slice(1).join(', ')}`
-      ).join(', ')
-    ]);
-  }));
-}
-
-/*
-      1     2     3     4     5
-   -  M  -  M  -  M  -  M  -  M  
-6  M  -  M  -  M  -  M  -  M  -  
-   -  M  -  M  -  M  -  M  -  M  
-16 M  -  M  -  M  -  M  -  M  -  
-   -  +  -  +  -  +  -  +  -  +
-26 +  -  +  -  +  -  +  -  +  -
-   -  m  -  m  -  m  -  m  -  m  
-36 m  -  m  -  m  -  m  -  m  -  
-   -  m  -  m  -  m  -  m  -  m  
-46 m  -  m  -  m  -  m  -  m  -  
-   46    47    48    49    50
- */
-const filesTop = [' ', '1', ' ', '2', ' ', '3', ' ', '4', ' ', '5'],
-      filesBottom = ['46', '', '47', '', '48', '', '49', '', '50'];
-const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
-      ranksInv = [' 5', '  ', '15', '  ', '25', '  ', '35', '  ', '45', '  '];
-const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
-
-function tableBoard(ctrl: RoundController): VNode {
-  const pieces = ctrl.draughtsground.state.pieces, white = ctrl.data.player.color === 'white';
-  const board = [white ? ['  ', ...filesTop] : [...filesTop, '  ']];
-  for(let y = 1; y <= 10; y++) {
-    let line = [];
-    for(let x = 0; x < 10; x++) {
-      const piece = (x % 2 !== y % 2) ? undefined : pieces[pos2key([(x - y % 2) / 2 + 1, y])];
-      if (piece) {
-        const letter = letters[piece.role];
-        line.push(piece.color === 'white' ? letter.toUpperCase() : letter);
-      } else line.push((x % 2 !== y % 2) ? '-' : '+');
-    }
-    board.push(white ? ['' + ranks[y - 1], ...line] : [...line, '' + ranksInv[y - 1]]);
-  }
-  board.push(white ? ['  ', ...filesBottom] : [...filesBottom, ' ', '  ']);
-  if (!white) {
-    board.reverse();
-    board.forEach(r => r.reverse());
-  }
-  return h('table', [
-    h('thead', h('tr', board[0].map(x => h('th', x)))),
-    h('tbody', board.slice(1, 11).map(row =>
-      h('tr', [
-        h('th', row[0]),
-        ...row.slice(1, 11).map(sq => h('td', sq))
-      ])
-    )),
-    h('thead', h('tr', board[11].map(x => h('th', x))))
-  ]);
 }
 
 function renderPlayer(ctrl: RoundController, player: Player) {
