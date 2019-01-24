@@ -842,7 +842,7 @@ div.control .button.disabled {
   margin-bottom: 7px;
 }
 .lidraughts_ground .suggestion .button {
-  display: block;
+  width: 100%;
 }
 .lidraughts_ground .expiration.emerg {
   background: #dc322f!important;
