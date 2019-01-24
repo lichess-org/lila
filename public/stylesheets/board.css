@@ -204,6 +204,10 @@ body.blind_mode .cg-board-wrap {
   margin: 0 5px 0 0;
   display: inline;
 }
+.nvui .notify {
+  color: #dc322f;
+  font-weight: bold;
+}
 div.lichess_game div.lichess_ground {
   display: flex;
   flex-flow: column nowrap;
@@ -783,7 +787,7 @@ div.control .button.disabled {
   margin-bottom: 7px;
 }
 .lichess_ground .suggestion .button {
-  display: block;
+  width: 100%;
 }
 .lichess_ground .expiration.emerg {
   background: #dc322f!important;
