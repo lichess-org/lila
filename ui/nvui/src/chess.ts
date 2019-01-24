@@ -19,10 +19,10 @@ export function styleSetting(): Setting<Style> {
       ['san', 'SAN: Nxf3'],
       ['uci', 'UCI: g1f3'],
       ['literate', 'Literate: knight takes f 3'],
-      ['nato', 'Nato: knight takes foxtrot 3'],
-      ['anna', 'Anna: knight takes felix 3']
+      ['anna', 'Anna: knight takes felix 3'],
+      ['nato', 'Nato: knight takes foxtrot 3']
     ],
-    default: 'nato',
+    default: 'anna', // all the rage in OTB blind chess tournaments
     storage: window.lichess.storage.make('nvui.moveNotation')
   });
 }
