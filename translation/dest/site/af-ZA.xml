@@ -15,7 +15,7 @@
   <string name="chat">Klets</string>
   <string name="resign">Gee oor</string>
   <string name="checkmate">Skaakmat</string>
-  <string name="stalemate">Pat</string>
+  <string name="stalemate">Dooiepunt</string>
   <string name="white">Wit</string>
   <string name="black">Swart</string>
   <string name="randomColor">Lukrake kant</string>
@@ -29,8 +29,8 @@
   <string name="newOpponent">Nuwe uitdager</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Jou teenstander wil weer teen jou speel</string>
   <string name="joinTheGame">Sluit aan by spel</string>
-  <string name="whitePlays">Wit speel</string>
-  <string name="blackPlays">Swart speel</string>
+  <string name="whitePlays">Wit om te speel</string>
+  <string name="blackPlays">Swart om te speel</string>
   <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Verklaar oorwinning</string>
