@@ -2,7 +2,6 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
-import { bind } from '../util';
 import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import { render as renderGround } from '../ground';
@@ -13,7 +12,8 @@ import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { files } from 'chessground/types';
 import { invRanks } from 'chessground/util';
-import { renderKey } from 'nvui/chess';
+import { Style, renderKey, renderSan, styleSetting } from 'nvui/chess';
+import { renderSetting } from 'nvui/setting';
 
 type Sans = {
   [key: string]: Uci;
@@ -33,19 +33,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
     window.lichess.requestIdleCallback(redraw);
   }
 
-  const settings = {
-    moveNotation: makeSetting({
-      choices: [
-        ['san', 'SAN: Nxf3'],
-        ['uci', 'UCI: g1f3'],
-        ['literate', 'Literate: knight takes f 3'],
-        ['anna', 'Anna: knight takes felix 3'],
-        ['full', 'Full: gustav 1 knight takes on felix 3']
-      ],
-      default: 'anna',
-      storage: window.lichess.storage.make('nvui.moveNotation')
-    })
-  };
+  const moveStyle = styleSetting();
 
   window.lichess.pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify(line.t);
@@ -56,7 +44,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
     render(ctrl: RoundController) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
-        style = settings.moveNotation.get();
+        style = moveStyle.get();
       return ctrl.chessground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
@@ -89,7 +77,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
             'aria-live' : 'assertive',
             'aria-atomic' : true
           }
-        }, readSan(step, style)),
+        }, renderSan(step.san, step.uci, style)),
         ...(ctrl.isPlaying() ? [
           h('h2', 'Move form'),
           h('form', {
@@ -145,29 +133,11 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
-          renderSetting(settings.moveNotation, ctrl.redraw)
+          renderSetting(moveStyle, ctrl.redraw)
         ])
       ]) : renderGround(ctrl);
     }
   };
-}
-
-function renderSetting(setting: any, redraw: Redraw) {
-  const v = setting.get();
-  return h('select', {
-    hook: bind('change', e => {
-      setting.set((e.target as HTMLSelectElement).value);
-      redraw();
-    })
-  }, setting.choices.map((choice: [string, string]) => {
-    const [key, name] = choice;
-    return h('option', {
-      attrs: {
-        value: key,
-        selected: key === v
-      }
-    }, name)
-  }));
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
@@ -198,13 +168,13 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
 function movesHtml(steps: Step[], style: any) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    res.push(readSan(s, style) + ', ');
+    res.push(renderSan(s.san, s.uci, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
 }
 
-function piecesHtml(ctrl: RoundController, style: string): VNode {
+function piecesHtml(ctrl: RoundController, style: Style): VNode {
   const pieces = ctrl.chessground.state.pieces;
   return h('div', ['white', 'black'].map(color => {
     const lists: any = [];
@@ -218,7 +188,7 @@ function piecesHtml(ctrl: RoundController, style: string): VNode {
     return h('div', [
       h('h3', `${color} pieces`),
       ...lists.map((l: any) =>
-        `${l[0]}: ${l.slice(1).map((k: string) => annaKey(k, style)).join(', ')}`
+        `${l[0]}: ${l.slice(1).map((k: string) => renderKey(k, style)).join(', ')}`
       ).join(', ')
     ]);
   }));
@@ -249,43 +219,6 @@ function tableBoard(ctrl: RoundController): string {
   return board.map(line => line.join(' ')).join('\n');
 }
 
-const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
-
-function readSan(s: Step, style: string) {
-  if (!s.san) return '';
-  const has = window.lichess.fp.contains;
-  let move: string;
-  if (has(s.san, 'O-O-O')) move = 'long castling';
-  else if (has(s.san, 'O-O')) move = 'short castling';
-  else if (style === 'san') move = s.san.replace(/[\+#]/, '');
-  else if (style === 'uci') move = s.uci;
-  else {
-    if (style === 'literate' || style == 'anna') move = s.san.replace(/[\+#]/, '').split('').map(c => {
-      const code = c.charCodeAt(0);
-      if (code > 48 && code < 58) return c;
-      if (c == 'x') return 'takes';
-      if (c == '+') return 'check';
-      if (c == '#') return 'checkmate';
-      if (c == '=') return 'promotion';
-      if (c.toUpperCase() === c) return roles[c];
-      if (style === 'anna' && anna[c]) return anna[c];
-      return c;
-    }).join(' ');
-    else {
-      const role = roles[s.san[0]] || 'pawn';
-      const orig = annaKey(s.uci.slice(0, 2), style);
-      const dest = annaKey(s.uci.slice(2, 4), style);
-      const goes = has(s.san, 'x') ? 'takes on' : 'moves to';
-      move = `${orig} ${role} ${goes} ${dest}`;
-      const prom = s.uci[4];
-      if (prom) move += ' promotes to ' + roles[prom.toUpperCase()];
-    }
-  }
-  if (has(s.san, '+')) move += ' check';
-  if (has(s.san, '#')) move += ' checkmate';
-  return move;
-}
-
 function renderPlayer(ctrl: RoundController, player: Player) {
   return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
 }
@@ -304,12 +237,4 @@ function userHtml(ctrl: RoundController, player: Player) {
     rating ? ` ${rating}` : ``,
     ' ' + ratingDiff,
   ]) : 'Anonymous';
-}
-
-function makeSetting(opts: any) {
-  return {
-    choices: opts.choices,
-    get: () => opts.storage.get() || opts.default,
-    set: opts.storage.set
-  }
 }

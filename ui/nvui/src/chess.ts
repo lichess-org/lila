@@ -2,8 +2,54 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 // import { GameData } from 'game';
 import { Pieces } from 'chessground/types';
+import { Setting, makeSetting } from './setting';
 
-export function piecesHtml(pieces: Pieces, style: string): VNode {
+export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
+
+const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
+const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
+const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
+
+export function styleSetting(): Setting<Style> {
+  return makeSetting<Style>({
+    choices: [
+      ['san', 'SAN: Nxf3'],
+      ['uci', 'UCI: g1f3'],
+      ['literate', 'Literate: knight takes f 3'],
+      ['nato', 'Nato: knight takes foxtrot 3'],
+      ['anna', 'Anna: knight takes felix 3']
+    ],
+    default: 'nato',
+    storage: window.lichess.storage.make('nvui.moveNotation')
+  });
+}
+
+export function renderSan(san: San, uci: Uci, style: Style) {
+  if (!san) return '';
+  const has = window.lichess.fp.contains;
+  let move: string;
+  if (has(san, 'O-O-O')) move = 'long castling';
+  else if (has(san, 'O-O')) move = 'short castling';
+  else if (style === 'san') move = san.replace(/[\+#]/, '');
+  else if (style === 'uci') move = uci;
+  else {
+    move = san.replace(/[\+#]/, '').split('').map(c => {
+      if (c == 'x') return 'takes';
+      if (c == '+') return 'check';
+      if (c == '#') return 'checkmate';
+      if (c == '=') return 'promotion';
+      const code = c.charCodeAt(0);
+      if (code > 48 && code < 58) return c; // 1-8
+      if (code > 96 && code < 105) return renderFile(c, style); // a-g
+      return roles[c] || c;
+    }).join(' ');
+  }
+  if (has(san, '+')) move += ' check';
+  if (has(san, '#')) move += ' checkmate';
+  return move;
+}
+
+export function piecesHtml(pieces: Pieces, style: Style): VNode {
   return h('div', ['white', 'black'].map(color => {
     const lists: any = [];
     ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
@@ -22,7 +68,10 @@ export function piecesHtml(pieces: Pieces, style: string): VNode {
   }));
 }
 
-const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
-export function renderKey(key: string, style: string): string {
-  return (style === 'anna' || style === 'full') ? `${anna[key[0]]} ${key[1]}` : key;
+export function renderFile(f: string, style: Style): string {
+  return style === 'nato' ? nato[f] : (style === 'anna' ? anna[f] : f);
+}
+
+export function renderKey(key: string, style: Style): string {
+  return `${renderFile(key[0], style)} ${key[1]}`;
 }
