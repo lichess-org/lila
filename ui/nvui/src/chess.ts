@@ -2,13 +2,16 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 // import { GameData } from 'game';
 import { Pieces } from 'chessground/types';
+import { invRanks } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
+import { files } from 'chessground/types';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 
 const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
+const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({
@@ -49,7 +52,7 @@ export function renderSan(san: San, uci: Uci, style: Style) {
   return move;
 }
 
-export function piecesHtml(pieces: Pieces, style: Style): VNode {
+export function renderPieces(pieces: Pieces, style: Style): VNode {
   return h('div', ['white', 'black'].map(color => {
     const lists: any = [];
     ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
@@ -66,6 +69,28 @@ export function piecesHtml(pieces: Pieces, style: Style): VNode {
       ).join(', ')
     ]);
   }));
+}
+
+export function renderBoard(pieces: Pieces, pov: Color): string {
+  const board = [[' ', ...files, ' ']];
+  for(let rank of invRanks) {
+    let line = [];
+    for(let file of files) {
+      let key = file + rank;
+      const piece = pieces[key];
+      if (piece) {
+        const letter = letters[piece.role];
+        line.push(piece.color === 'white' ? letter.toUpperCase() : letter);
+      } else line.push((file.charCodeAt(0) + rank) % 2 ? '-' : '+');
+    }
+    board.push(['' + rank, ...line, '' + rank]);
+  }
+  board.push([' ', ...files, ' ']);
+  if (pov === 'black') {
+    board.reverse();
+    board.forEach(r => r.reverse());
+  }
+  return board.map(line => line.join(' ')).join('\n');
 }
 
 export function renderFile(f: string, style: Style): string {

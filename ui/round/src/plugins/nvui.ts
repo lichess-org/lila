@@ -10,9 +10,7 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { files } from 'chessground/types';
-import { invRanks } from 'chessground/util';
-import { Style, renderKey, renderSan, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 
 type Sans = {
@@ -60,9 +58,9 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
             role : 'log',
             'aria-live': 'off'
           }
-        }, movesHtml(d.steps.slice(1), style)),
+        }, renderMoves(d.steps.slice(1), style)),
         h('h2', 'Pieces'),
-        h('div.pieces', piecesHtml(ctrl, style)),
+        h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
         h('h2', 'Game status'),
         h('div.status', {
           attrs: {
@@ -129,7 +127,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Actions'),
         h('div.actions', tableInner(ctrl)),
         h('h2', 'Board'),
-        h('pre.board', tableBoard(ctrl)),
+        h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -165,58 +163,13 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   return;
 }
 
-function movesHtml(steps: Step[], style: any) {
+function renderMoves(steps: Step[], style: any) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
     res.push(renderSan(s.san, s.uci, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
-}
-
-function piecesHtml(ctrl: RoundController, style: Style): VNode {
-  const pieces = ctrl.chessground.state.pieces;
-  return h('div', ['white', 'black'].map(color => {
-    const lists: any = [];
-    ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
-      const keys = [];
-      for (let key in pieces) {
-        if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
-      }
-      if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
-    });
-    return h('div', [
-      h('h3', `${color} pieces`),
-      ...lists.map((l: any) =>
-        `${l[0]}: ${l.slice(1).map((k: string) => renderKey(k, style)).join(', ')}`
-      ).join(', ')
-    ]);
-  }));
-}
-
-const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
-
-function tableBoard(ctrl: RoundController): string {
-  const pieces = ctrl.chessground.state.pieces;
-  const board = [[' ', ...files, ' ']];
-  for(let rank of invRanks) {
-    let line = [];
-    for(let file of files) {
-      let key = file + rank;
-      const piece = pieces[key];
-      if (piece) {
-        const letter = letters[piece.role];
-        line.push(piece.color === 'white' ? letter.toUpperCase() : letter);
-      } else line.push((file.charCodeAt(0) + rank) % 2 ? '-' : '+');
-    }
-    board.push(['' + rank, ...line, '' + rank]);
-  }
-  board.push([' ', ...files, ' ']);
-  if (ctrl.data.player.color === 'black') {
-    board.reverse();
-    board.forEach(r => r.reverse());
-  }
-  return board.map(line => line.join(' ')).join('\n');
 }
 
 function renderPlayer(ctrl: RoundController, player: Player) {
