@@ -57,6 +57,7 @@ interface Lichess {
   RoundNVUI(redraw: () => void): {
     render(ctrl: any): void;
   }
+  playMusic(): void;
 }
 
 interface Cookie {
@@ -111,7 +112,6 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
-  lichessPlayMusic(): void;
 
   [key: string]: any; // TODO
 }

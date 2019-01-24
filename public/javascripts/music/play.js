@@ -1,4 +1,4 @@
-function lichessPlayMusic() {
+lichess.playMusic = function() {
 
   var orchestra;
 

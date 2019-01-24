@@ -112,13 +112,13 @@ export default class RoundController {
     li.pubsub.on('sound_set', set => {
       if (!this.music && set === 'music')
         li.loadScript('javascripts/music/play.js').then(() => {
-          this.music = window.lichessPlayMusic();
+          this.music = li.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
     });
     if (li.ab && this.isPlaying()) li.ab.init(this);
 
-    if (d.blind) this.blind = window.lichess.RoundNVUI(redraw);
+    if (d.blind) this.blind = li.RoundNVUI(redraw);
   }
 
   private showExpiration = () => {
@@ -655,7 +655,7 @@ export default class RoundController {
     this.chessground = cg;
     if (this.data.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
-    if (this.blind) window.lichess.requestIdleCallback(this.redraw);
+    if (this.blind) li.requestIdleCallback(this.redraw);
   };
 
   toggleZen = () => {
