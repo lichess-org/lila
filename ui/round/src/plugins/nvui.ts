@@ -156,12 +156,8 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
 
 function castlingFlavours(input: string): string {
   switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
-    case 'oo':
-    case '00':
-      return 'o-o';
-    case 'ooo':
-    case '000':
-      return 'o-o-o';
+    case 'oo': case '00': return 'o-o';
+    case 'ooo': case '000': return 'o-o-o';
   }
   return input;
 }
