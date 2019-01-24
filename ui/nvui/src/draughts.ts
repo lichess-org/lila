@@ -73,6 +73,7 @@ export function renderPieces(pieces: Pieces): VNode {
 46 m  -  m  -  m  -  m  -  m  -  
    46    47    48    49    50
  */
+
 const filesTop = [' ', '1', ' ', '2', ' ', '3', ' ', '4', ' ', '5'],
       filesBottom = ['46', '', '47', '', '48', '', '49', '', '50'];
 const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
