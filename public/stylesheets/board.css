@@ -783,7 +783,7 @@ div.control .button.disabled {
   margin-bottom: 7px;
 }
 .lichess_ground .suggestion .button {
-  display: block;
+  width: 100%;
 }
 .lichess_ground .expiration.emerg {
   background: #dc322f!important;
