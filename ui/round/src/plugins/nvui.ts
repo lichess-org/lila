@@ -2,7 +2,6 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
-import { bind } from '../util';
 import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import { render as renderGround } from '../ground';
@@ -12,6 +11,8 @@ import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { pos2key } from 'draughtsground/util';
+import { Style, renderSan, styleSetting } from 'nvui/draughts';
+import { renderSetting } from 'nvui/setting';
 
 type Sans = {
   [key: string]: Uci;
@@ -31,17 +32,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
     window.lidraughts.requestIdleCallback(redraw);
   }
 
-  const settings = {
-    moveNotation: makeSetting({
-      choices: [
-        ['notation', 'Notation: 32-27, 18x29'],
-        ['short', 'Short: 32 27, 18 takes 29'],
-        ['full', 'Full: 32 to 27, 18 takes 29']
-      ],
-      default: 'full',
-      storage: window.lidraughts.storage.make('nvui.moveNotation')
-    })
-  };
+  const moveStyle = styleSetting();
 
   window.lidraughts.pubsub.on('socket.in.message', line => {
     if (line.u === 'lidraughts') notify(line.t);
@@ -52,7 +43,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
     render(ctrl: RoundController) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
-        style = settings.moveNotation.get();
+        style = moveStyle.get();
       return ctrl.draughtsground ? h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
@@ -85,7 +76,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
             'aria-live' : 'assertive',
             'aria-atomic' : true
           }
-        }, readSan(step, style)),
+        }, renderSan(step.san, style)),
         ...(ctrl.isPlaying() ? [
           h('h2', 'Move form'),
           h('form', {
@@ -140,29 +131,11 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
-          renderSetting(settings.moveNotation, ctrl.redraw)
+          renderSetting(moveStyle, ctrl.redraw)
         ])
       ]) : renderGround(ctrl);
     }
   };
-}
-
-function renderSetting(setting: any, redraw: Redraw) {
-  const v = setting.get();
-  return h('select', {
-    hook: bind('change', e => {
-      setting.set((e.target as HTMLSelectElement).value);
-      redraw();
-    })
-  }, setting.choices.map((choice: [string, string]) => {
-    const [key, name] = choice;
-    return h('option', {
-      attrs: {
-        value: key,
-        selected: key === v
-      }
-    }, name)
-  }));
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
@@ -196,10 +169,10 @@ function rolePlural(r: String, c: number) {
   else return c > 1 ? r + 's' : r;
 }
 
-function movesHtml(steps: Step[], style: string) {
+function movesHtml(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    res.push(readSan(s, style) + ', ');
+    res.push(renderSan(s.san, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
@@ -276,23 +249,6 @@ function tableBoard(ctrl: RoundController): VNode {
   ]);
 }
 
-function readSan(s: Step, style: string): string {
-  const san = s.san;
-  if (!san) return ''
-  else if (style === 'notation') return san;
-
-  const lowerSan = san.toLowerCase(),
-    isCapture = lowerSan.toLowerCase().indexOf('x') >= 0,
-    fields = lowerSan.split(isCapture ? 'x' : '-');
-  if (fields.length <= 1) return san;
-
-  if (style === 'short') {
-    if (isCapture) return [fields[0], 'takes', ...fields.slice(1)].join(' ');
-    else return fields.join(' ');
-  }
-  return [fields[0], isCapture ? 'takes' : 'to', ...fields.slice(1)].join(' ');
-}
-
 function renderPlayer(ctrl: RoundController, player: Player) {
   return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
 }
@@ -311,12 +267,4 @@ function userHtml(ctrl: RoundController, player: Player) {
     rating ? ` ${rating}` : ``,
     ' ' + ratingDiff,
   ]) : 'Anonymous';
-}
-
-function makeSetting(opts: any) {
-  return {
-    choices: opts.choices,
-    get: () => opts.storage.get() || opts.default,
-    set: opts.storage.set
-  }
 }
