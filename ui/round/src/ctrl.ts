@@ -655,7 +655,6 @@ export default class RoundController {
     this.chessground = cg;
     if (this.data.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
-    if (this.blind) li.requestIdleCallback(this.redraw);
   };
 
   toggleZen = () => {
