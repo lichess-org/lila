@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
@@ -257,6 +256,7 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 let firstRender = true;
 
 export default function(ctrl: AnalyseCtrl): VNode {
+  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
   study = ctrl.study,
   showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
@@ -334,4 +334,4 @@ export default function(ctrl: AnalyseCtrl): VNode {
       ) : null
     ])
   ]);
-};
+}

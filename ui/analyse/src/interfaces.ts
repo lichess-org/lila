@@ -1,5 +1,5 @@
 import { VNode } from 'snabbdom/vnode'
-import { Player, Status, Source } from 'game';
+import { Player, Status, Source, Clock } from 'game';
 import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
@@ -8,6 +8,7 @@ import AnalyseController from './ctrl';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
+export type Seconds = number;
 
 export { Key, Piece } from 'chessground/types';
 
@@ -29,6 +30,7 @@ export interface AnalyseData {
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
+  clock?: Clock;
   pref: any;
 }
 
@@ -55,6 +57,7 @@ export interface Game {
   division?: Division;
   opening?: Opening;
   perf: string;
+  rated?: boolean;
 }
 
 export interface Opening {
