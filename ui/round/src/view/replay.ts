@@ -2,7 +2,10 @@ import { h } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import * as round from '../round';
 import { throttle } from 'common';
-import { game, status, router, view as gameView } from 'game';
+import * as game from 'game';
+import * as status from 'game/status';
+import { game as gameRoute } from 'game/router';
+import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
@@ -58,7 +61,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
           }
         }
       }, [
-        h('div', gameView.status(ctrl)),
+        h('div', viewStatus(ctrl)),
         winner ? h('div', ctrl.trans.noarg(winner.color + 'IsVictorious')) : null
       ])
     ]);
@@ -68,8 +71,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
-  firstPly = round.firstPly(ctrl.data),
-  lastPly = round.lastPly(ctrl.data);
+    firstPly = round.firstPly(ctrl.data),
+    lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
@@ -93,7 +96,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 
 function analyseButton(ctrl: RoundController) {
   const showInfo = ctrl.forecastInfo(),
-  forecastCount = ctrl.data.forecastCount;
+    forecastCount = ctrl.data.forecastCount;
   const data: VNodeData = {
     class: {
       'hint--top': !showInfo,
@@ -103,7 +106,7 @@ function analyseButton(ctrl: RoundController) {
     },
     attrs: {
       'data-hint': ctrl.trans.noarg('analysis'),
-      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
+      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
     }
   };
   if (showInfo) data.hook = {
@@ -133,8 +136,8 @@ function analyseButton(ctrl: RoundController) {
 
 function renderButtons(ctrl: RoundController) {
   const d = ctrl.data,
-  firstPly = round.firstPly(d),
-  lastPly = round.lastPly(d);
+    firstPly = round.firstPly(d),
+    lastPly = round.lastPly(d);
   return h('div.buttons', {
     hook: util.bind('mousedown', e => {
       const target = e.target as HTMLElement;
@@ -144,7 +147,7 @@ function renderButtons(ctrl: RoundController) {
         const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
         if (action === 'flip') {
           if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-          else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
+          else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
           else ctrl.flipNow();
         }
       }

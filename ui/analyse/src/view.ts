@@ -2,7 +2,9 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
-import { game, router, view as gameView } from 'game';
+import { getPlayer, playable } from 'game';
+import * as router from 'game/router';
+import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
@@ -44,9 +46,9 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const tags: VNode[] = [];
   if (result) {
     tags.push(h('div.result', result));
-    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner!);
+    const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
     tags.push(h('div.status', [
-      gameView.status(ctrl),
+      statusView(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
   }
@@ -324,7 +326,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-      game.playable(ctrl.data) ? h('div.back_to_game',
+      playable(ctrl.data) ? h('div.back_to_game',
         h('a.button.text', {
           attrs: {
             href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),

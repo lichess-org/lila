@@ -1,5 +1,5 @@
 var m = require('mithril');
-var status = require('game').status;
+var status = require('game/status');
 
 var NumberFirstRegex = /^(\d+)\s(.+)$/;
 var NumberLastRegex = /^(.+)\s(\d+)$/;

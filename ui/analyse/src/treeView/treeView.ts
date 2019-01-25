@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
-import { game } from 'game';
+import { playable } from 'game';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
@@ -79,7 +79,7 @@ export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
 }
 
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
-  return (!synthetic(c.data) && game.playable(c.data) && c.initialPath) || (
+  return (!synthetic(c.data) && playable(c.data) && c.initialPath) || (
     c.retro && c.retro.current() && c.retro.current().prev.path
   ) || (
     c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path
