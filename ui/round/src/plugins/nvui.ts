@@ -5,7 +5,6 @@ import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
@@ -13,6 +12,7 @@ import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
+import { makeChessground } from 'nvui/ground';
 import { Notify } from 'nvui/notify';
 
 type Sans = {
@@ -34,8 +34,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get();
-      if (!ctrl.chessground)
-        ctrl.setChessground(Chessground(document.createElement("div"), makeCgConfig(ctrl)));
+      if (!ctrl.chessground) ctrl.setChessground(makeChessground(makeCgConfig(ctrl)));
       return h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
