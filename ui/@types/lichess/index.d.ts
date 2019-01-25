@@ -55,7 +55,10 @@ interface Lichess {
   isTrident: boolean;
   isMS: boolean;
   RoundNVUI(redraw: () => void): {
-    render(ctrl: any): void;
+    render(ctrl: any): any;
+  }
+  AnalyseNVUI(redraw: () => void): {
+    render(ctrl: any): any;
   }
   playMusic(): void;
 }

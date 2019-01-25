@@ -53,7 +53,7 @@ object embed {
         jsTag("vendor/mousetrap.js"),
         jsAt("compiled/util.js"),
         jsAt("compiled/trans.js"),
-        jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js"),
+        analyseTag,
         jsTag("embed-analyse.js"),
         embedJs(s"""lichess.startEmbeddedAnalyse({
 element: document.querySelector('.embedded_study'),

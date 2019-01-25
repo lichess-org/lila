@@ -28,7 +28,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured, NvuiPlugin } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 
@@ -98,6 +98,7 @@ export default class AnalyseCtrl {
   // misc
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
+  nvui?: NvuiPlugin;
 
   constructor(opts: AnalyseOpts, redraw: () => void) {
 
@@ -165,6 +166,8 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
+
+    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
   }
 
   initialize(data: AnalyseData, merge: boolean): void {

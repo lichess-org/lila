@@ -40,7 +40,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       hook: util.bind('click', () => {
         ctrl.socket.send('rematch-no');
       })
-    }, ctrl.blind ? noarg('decline') : '') : null,
+    }, ctrl.nvui ? noarg('decline') : '') : null,
     h('button.button.rematch.white', {
       class: {
         me,
@@ -91,7 +91,7 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', ctrl.blind ? [ctrl.trans.noarg(hint)] : util.justIcon(icon))
+    h('span', ctrl.nvui ? [ctrl.trans.noarg(hint)] : util.justIcon(icon))
   ]);
 }
 
@@ -164,7 +164,7 @@ export function cancelTakebackProposition(ctrl: RoundController) {
 
 function acceptButton(ctrl: RoundController, action: () => void, i18nKey: string = 'accept') {
   const text = ctrl.trans.noarg(i18nKey);
-  return ctrl.blind ? h('button', {
+  return ctrl.nvui ? h('button', {
     hook: util.bind('click', action)
   }, text) : h('a.accept', {
     attrs: {
@@ -176,7 +176,7 @@ function acceptButton(ctrl: RoundController, action: () => void, i18nKey: string
 }
 function declineButton(ctrl: RoundController, action: () => void, i18nKey: string = 'decline') {
   const text = ctrl.trans.noarg(i18nKey);
-  return ctrl.blind ? h('button', {
+  return ctrl.nvui ? h('button', {
     hook: util.bind('click', action)
   }, text) : h('a.decline', {
     attrs: {

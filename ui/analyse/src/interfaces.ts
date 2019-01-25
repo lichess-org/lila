@@ -1,14 +1,19 @@
+import { VNode } from 'snabbdom/vnode'
 import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
+import AnalyseController from './ctrl';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 
 export { Key, Piece } from 'chessground/types';
-import { VNode } from 'snabbdom/vnode'
+
+export interface NvuiPlugin {
+  render(ctrl: AnalyseController): VNode;
+}
 
 // similar, but not identical, to game/GameData
 export interface AnalyseData {

@@ -35,7 +35,8 @@ object show {
     underchat = Some(views.html.game.bits.watchers),
     moreCss = cssTags("analyse.css", "study.css", "chat.css"),
     moreJs = frag(
-      jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js"),
+      analyseTag,
+      analyseNvuiTag,
       embedJs(s"""lichess=lichess||{};lichess.study={
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},

@@ -21,12 +21,12 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, Blind } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, NvuiPlugin } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
   black?: boolean;
-};
+}
 
 type Timeout = number;
 
@@ -64,7 +64,7 @@ export default class RoundController {
   shouldSendMoveTime: boolean = false;
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
-  blind?: Blind;
+  nvui?: NvuiPlugin;
 
   private music?: any;
 
@@ -85,9 +85,12 @@ export default class RoundController {
 
     this.socket = makeSocket(opts.socketSend, this);
 
+    if (li.RoundNVUI) this.nvui = li.RoundNVUI(redraw) as NvuiPlugin;
+
     if (d.clock) this.clock = new ClockController(d, {
       onFlag: () => { this.socket.outoftime(); this.redraw(); },
-      soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color
+      soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color,
+      nvui: !!this.nvui
     });
     else {
       this.makeCorrespondenceClock();
@@ -117,8 +120,6 @@ export default class RoundController {
       if (this.music && set !== 'music') this.music = undefined;
     });
     if (li.ab && this.isPlaying()) li.ab.init(this);
-
-    if (d.blind) this.blind = li.RoundNVUI(redraw);
   }
 
   private showExpiration = () => {
@@ -226,7 +227,7 @@ export default class RoundController {
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
   flipNow = () => {
-    this.flip = !this.blind && !this.flip;
+    this.flip = !this.nvui && !this.flip;
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip)
     });
@@ -679,7 +680,7 @@ export default class RoundController {
 
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||
-            d.blind ||
+            this.nvui ||
             !game.playable(d) ||
             !d.clock ||
             d.opponent.ai ||
@@ -691,7 +692,7 @@ export default class RoundController {
           return msg;
         });
 
-        if (!d.blind) {
+        if (!this.nvui) {
           window.Mousetrap.bind('esc', () => {
             this.submitMove(false);
             this.chessground.cancelMove();
@@ -701,7 +702,7 @@ export default class RoundController {
         }
       }
 
-      if (!d.blind) keyboard.init(this);
+      if (!this.nvui) keyboard.init(this);
 
       this.onChange();
 

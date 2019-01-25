@@ -8,6 +8,6 @@ lilaGulpPlugins([
   {
     standalone: 'NVUI',
     entries: ['src/plugins/nvui.ts'],
-    target: 'lichess.round.nvui.min.js'
+    target: 'lichess.analyse.nvui.min.js'
   }
 ]);

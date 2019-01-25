@@ -18,7 +18,8 @@ object show {
     side = div(cls := "side_box study_box").toHtml.some,
     moreCss = cssTags("analyse.css", "study.css", "practice.css"),
     moreJs = frag(
-      jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js"),
+      analyseTag,
+      analyseNvuiTag,
       embedJs(s"""lichess = lichess || {}; lichess.practice = {
 practice: ${safeJsonValue(data.practice)},
 study: ${safeJsonValue(data.study)},

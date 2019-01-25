@@ -30,7 +30,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
   window.lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
-    render(ctrl: RoundController) {
+    render(ctrl: RoundController): VNode {
       const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get();
       if (!ctrl.chessground) ctrl.setChessground(Chessground(document.createElement("div"), {
         ...makeCgConfig(ctrl),

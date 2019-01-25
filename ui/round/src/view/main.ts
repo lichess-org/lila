@@ -52,7 +52,7 @@ export function main(ctrl: RoundController): VNode {
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
-  return ctrl.blind ? ctrl.blind.render(ctrl) : h('div.round.cg-512', [
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round.cg-512', [
     h('div.lichess_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lichess.pubsub.emit('content_loaded')()
