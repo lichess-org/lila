@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import * as button from '../view/button';
 import { bind, justIcon } from '../util';
-import { game } from 'game';
+import * as game from 'game';
 import RoundController from '../ctrl';
 import { ClockElements, ClockController, Millis } from './clockCtrl';
 import { Player } from 'game';

@@ -1,5 +1,6 @@
 import * as round from './round';
-import { game, status } from 'game';
+import * as game from 'game';
+import * as status from 'game/status';
 import * as ground from './ground';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';

@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "lidraughts.org analyse",
   "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts"
+  },
   "keywords": [
     "draughts",
     "lidraughts",
@@ -13,6 +17,10 @@
   ],
   "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
+  "homepage": "https://github.com/roepstoep/lidraughts",
   "devDependencies": {
     "@types/jquery": "^2.0",
     "@types/lidraughts": "1.0.0",

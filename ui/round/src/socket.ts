@@ -1,11 +1,10 @@
-import { game } from 'game';
+import * as game from 'game';
 import { throttle } from 'common';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
 import { Untyped, ApiEnd } from './interfaces';
 import { incSimulToMove } from './simulStanding';
-import { Simul } from 'game';
 
 const li = window.lidraughts;
 
@@ -134,7 +133,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
                 }
             }
         },
-        simulEnd(simul: Simul) {
+        simulEnd(simul: game.Simul) {
             $.modal($(
                 '<p>' + ctrl.trans('xComplete', simul.name) + '</p><br /><br />' +
                 '<a class="button" href="/simul/' + simul.id + '">' + ctrl.trans('backToSimul') + '</a>'

@@ -2,7 +2,10 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as util from '../util';
-import { PlayerUser, game, status, router } from 'game';
+import * as game from 'game';
+import * as status from 'game/status';
+import { game as gameRoute } from 'game/router';
+import { PlayerUser } from 'game';
 import { RoundData, MaybeVNodes } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
@@ -17,7 +20,7 @@ function poolUrl(clock: ClockData, blocking?: PlayerUser) {
 
 function analysisButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data,
-    url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
+    url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return game.replayable(d) ? h('a.button', {
     attrs: { href: url },
     hook: util.bind('click', _ => {
@@ -53,7 +56,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       },
       hook: util.bind('click', e => {
         const d = ctrl.data;
-        if (d.game.rematch) location.href = router.game(d.game.rematch, d.opponent.color);
+        if (d.game.rematch) location.href = gameRoute(d.game.rematch, d.opponent.color);
         else if (d.player.offeringRematch) {
           d.player.offeringRematch = false;
           ctrl.socket.send('rematch-no');

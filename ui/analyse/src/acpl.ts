@@ -3,9 +3,9 @@ import { VNode, VNodeData } from 'snabbdom/vnode'
 import { MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
-import { bind, dataIcon } from './util';
-import { game } from 'game';
+import * as game from 'game';
 import { defined } from 'common';
+import { bind, dataIcon } from './util';
 
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
   if (rd === 0) return h('span.rp.null', '±0');
