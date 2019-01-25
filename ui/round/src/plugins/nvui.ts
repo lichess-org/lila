@@ -31,11 +31,13 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 
   return {
     render(ctrl: RoundController) {
-      const d = ctrl.data,
-        step = plyStep(d, ctrl.ply),
-        style = moveStyle.get();
-      if (!ctrl.chessground)
-        ctrl.setChessground(Chessground(document.createElement("div"), makeCgConfig(ctrl)));
+      const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get();
+      if (!ctrl.chessground) ctrl.setChessground(Chessground(document.createElement("div"), {
+        ...makeCgConfig(ctrl),
+        animation: { enabled: false },
+        drawable: { enabled: false },
+        coordinates: false
+      }));
       return h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
