@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import * as draughtsground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
@@ -279,7 +278,8 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
   return cssClass + ((study && study.data.chapter) ? '.' + study.data.chapter.id + study.vm.loading : '.nostudy');
 }
 
-export default function (ctrl: AnalyseCtrl): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
+  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
@@ -359,4 +359,4 @@ export default function (ctrl: AnalyseCtrl): VNode {
       ) : null
     ])
   ]);
-};
+}

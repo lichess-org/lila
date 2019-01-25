@@ -28,7 +28,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { getCompChild, nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, DgDests, JustCaptured, NvuiPlugin } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, DgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { calcDests } from './study/gamebook/gamebookEmbed';
 import { ctrl as treeViewCtrl, TreeView, findCurrentPath } from './treeView/treeView';
@@ -102,7 +102,7 @@ export default class AnalyseCtrl {
   nvui?: NvuiPlugin;
   skipSteps: number;
 
-  constructor(opts: AnalyseOpts, redraw: () => void) {
+  constructor(opts: AnalyseOpts, redraw: Redraw) {
 
     this.opts = opts;
     this.data = opts.data;
@@ -114,6 +114,8 @@ export default class AnalyseCtrl {
     this.flipped = this.data.puzzleEditor;
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
+
+    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -172,8 +174,6 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
-
-    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
