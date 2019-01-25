@@ -52,7 +52,7 @@ object embed {
         jsTag("vendor/mousetrap.js"),
         jsAt("compiled/util.js"),
         jsAt("compiled/trans.js"),
-        jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js"),
+        analyseTag,
         jsTag("embed-analyse.js"),
         embedJs(s"""lidraughts.startEmbeddedAnalyse({
 element: document.querySelector('.embedded_study'),

@@ -33,7 +33,8 @@ object show {
     underchat = Some(views.html.game.bits.watchers),
     moreCss = cssTags("analyse.css", "study.css", "relay.css", "chat.css"),
     moreJs = frag(
-      jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js"),
+      analyseTag,
+      analyseNvuiTag,
       embedJs(s"""lidraughts = lidraughts || {}; lidraughts.relay = {
 relay: ${safeJsonValue(data.relay)},
 study: ${safeJsonValue(data.study)},

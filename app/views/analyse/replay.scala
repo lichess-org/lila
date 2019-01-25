@@ -41,7 +41,8 @@ object replay {
       underchat = Some(views.html.round.bits underchat pov.game),
       moreCss = cssTags("analyse.css", "chat.css"),
       moreJs = frag(
-        jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js"),
+        analyseTag,
+        analyseNvuiTag,
         embedJs(s"""lidraughts=lidraughts||{};
 lidraughts.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserId,chat:${jsOrNull(chatJson)},
 explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")

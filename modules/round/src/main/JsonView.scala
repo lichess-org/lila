@@ -54,7 +54,8 @@ final class JsonView(
     apiVersion: ApiVersion,
     playerUser: Option[User],
     initialFen: Option[FEN],
-    withFlags: WithFlags
+    withFlags: WithFlags,
+    nvui: Boolean
   ): Fu[JsObject] =
     getSocketStatus(pov.gameId) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
@@ -89,8 +90,8 @@ final class JsonView(
               "moveEvent" -> pref.moveEvent
             ).add("clockBar" -> pref.clockBar)
               .add("clockSound" -> pref.clockSound)
-              .add("confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES))
-              .add("keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES))
+              .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
+              .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> (pref.highlight || pref.isBlindfold))
               .add("destination" -> (pref.destination && !pref.isBlindfold))
@@ -101,7 +102,7 @@ final class JsonView(
               .add("submitMove" -> {
                 import Pref.SubmitMove._
                 pref.submitMove match {
-                  case _ if game.hasAi => false
+                  case _ if game.hasAi || nvui => false
                   case ALWAYS => true
                   case CORRESPONDENCE_UNLIMITED if game.isCorrespondence => true
                   case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true

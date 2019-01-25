@@ -27,14 +27,14 @@ private[api] final class RoundApi(
     GameRepo.initialFen(pov.game).flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
-        initialFen = initialFen) zip
+        initialFen = initialFen,
+        nvui = ctx.blind) zip
         getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         forecastApi.loadForDisplay(pov) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ forecast ~ bookmarked => (
-            blindMode _ compose
             withTournament(pov, tourOption) _ compose
             withSimul(pov, simulOption, true) _ compose
             withSteps(pov, initialFen) _ compose
@@ -56,7 +56,6 @@ private[api] final class RoundApi(
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
-            blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption, false)_ compose
             withNote(note)_ compose
@@ -80,7 +79,6 @@ private[api] final class RoundApi(
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
-            blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption, false)_ compose
             withNote(note)_ compose
@@ -189,7 +187,4 @@ private[api] final class RoundApi(
         .add("isUnique" -> simul.isUnique.option(true))
         .add("noAssistance" -> simul.spotlight.flatMap(_.noAssistance).ifTrue(player))
     })
-
-  private def blindMode(js: JsObject)(implicit ctx: Context) =
-    js.add("blind", ctx.blind)
 }

@@ -30,7 +30,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
   window.lidraughts.pubsub.on('round.suggestion', notify.set);
 
   return {
-    render(ctrl: RoundController) {
+    render(ctrl: RoundController): VNode {
       const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get();
       if (!ctrl.draughtsground) ctrl.setDraughtsground(Draughtsground(document.createElement("div"), {
         ...makeCgConfig(ctrl),

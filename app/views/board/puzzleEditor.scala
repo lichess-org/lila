@@ -18,9 +18,9 @@ object puzzleEditor {
       "analyse.css" -> true
     )),
     moreJs = frag(
-      jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js"),
-      embedJs(s"""lidraughts=lidraughts||{};
-lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${
+      analyseTag,
+      analyseNvuiTag,
+      embedJs(s"""lidraughts=lidraughts||{};lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${
         userAnalysisI18n(withForecast = false)
       },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
     ),

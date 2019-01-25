@@ -28,7 +28,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { getCompChild, nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, DgDests, JustCaptured, NvuiPlugin } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { calcDests } from './study/gamebook/gamebookEmbed';
 import { ctrl as treeViewCtrl, TreeView, findCurrentPath } from './treeView/treeView';
@@ -99,6 +99,7 @@ export default class AnalyseCtrl {
   // misc
   cgConfig: any; // latest draughtsground config (useful for revert)
   music?: any;
+  nvui?: NvuiPlugin;
   skipSteps: number;
 
   constructor(opts: AnalyseOpts, redraw: () => void) {
@@ -171,6 +172,8 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
+
+    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -320,10 +323,10 @@ export default class AnalyseCtrl {
         captureLength: captLen,
         movable: (this.embed && !this.gamebookPlay()) ? {
           color: undefined,
-          dests: {} as CgDests
+          dests: {} as DgDests
         } : {
             color: movableColor,
-            dests: (movableColor === color ? (dests || {}) : {}) as CgDests
+            dests: (movableColor === color ? (dests || {}) : {}) as DgDests
           },
         lastMove: this.uciToLastMove(node.uci),
       };

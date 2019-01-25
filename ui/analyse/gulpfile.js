@@ -8,6 +8,6 @@ lidraughtsGulpPlugins([
   {
     standalone: 'NVUI',
     entries: ['src/plugins/nvui.ts'],
-    target: 'lidraughts.round.nvui.min.js'
+    target: 'lidraughts.analyse.nvui.min.js'
   }
 ]);

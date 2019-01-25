@@ -17,7 +17,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     const els = clock.elements[player.color];
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.blind);
+    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
   }
   const timeHook: Hooks = {
     insert: (vnode) => update(vnode.elm as HTMLElement),
@@ -29,7 +29,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       running: isRunning,
       emerg: millis < clock.emergMs
     }
-  }, clock.blind ? [
+  }, clock.opts.nvui ? [
     h('div.time', {
       attrs: { role: 'timer' },
       hook: timeHook
@@ -53,9 +53,9 @@ function pad2(num: number): string {
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, blind: boolean) {
+function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);
-  if (blind) return (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
+  if (nvui) return (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
     date.getUTCMinutes() + 'M:' + date.getUTCSeconds() + 'S';
   const millis = date.getUTCMilliseconds(),
     sep = (isRunning && millis < 500) ? sepLow : sepHigh,
@@ -90,7 +90,7 @@ function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, bers
 }
 
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
-  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.blind);
+  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   if (els.bar) els.bar.style.transform = "scale(" + clock.timeRatio(millis) + ",1)";
   if (els.clock) {
     if (millis < clock.emergMs) els.clock.classList.add('emerg');

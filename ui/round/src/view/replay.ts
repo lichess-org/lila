@@ -182,7 +182,7 @@ function renderButtons(ctrl: RoundController) {
 }
 
 export default function(ctrl: RoundController): VNode | undefined {
-  return ctrl.blind ? undefined : h('div.replay', [
+  return ctrl.nvui ? undefined : h('div.replay', [
     renderButtons(ctrl),
     (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {
