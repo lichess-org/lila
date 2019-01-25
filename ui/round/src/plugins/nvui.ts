@@ -31,11 +31,13 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
 
   return {
     render(ctrl: RoundController) {
-      const d = ctrl.data,
-        step = plyStep(d, ctrl.ply),
-        style = moveStyle.get();
-      if (!ctrl.draughtsground)
-        ctrl.setDraughtsground(Draughtsground(document.createElement("div"), makeCgConfig(ctrl)));
+      const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get();
+      if (!ctrl.draughtsground) ctrl.setDraughtsground(Draughtsground(document.createElement("div"), {
+        ...makeCgConfig(ctrl),
+        animation: { enabled: false },
+        drawable: { enabled: false },
+        coordinates: 0
+      }));
       return h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
