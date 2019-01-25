@@ -34,6 +34,7 @@
     "draughtsground": "^7.2",
     "common": "1.0.0",
     "game": "1.0.0",
+    "nvui": "1.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "tree": "1.0.0"
   }
