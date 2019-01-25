@@ -12,31 +12,21 @@ import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
+import { Notify } from 'nvui/notify';
 
 type Sans = {
   [key: string]: Uci;
 }
 
-type Notification = {
-  text: string;
-  date: Date;
-}
-
 window.lichess.RoundNVUI = function(redraw: Redraw) {
 
-  let notification: Notification | undefined;
-
-  function notify(msg: string) {
-    notification = { text: msg, date: new Date() };
-    window.lichess.requestIdleCallback(redraw);
-  }
-
-  const moveStyle = styleSetting();
+  const notify = new Notify(redraw),
+    moveStyle = styleSetting();
 
   window.lichess.pubsub.on('socket.in.message', line => {
-    if (line.u === 'lichess') notify(line.t);
+    if (line.u === 'lichess') notify.set(line.t);
   });
-  window.lichess.pubsub.on('round.suggestion', notify);
+  window.lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
     render(ctrl: RoundController) {
@@ -83,7 +73,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
                   $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify, $input));
+                $form.submit(onSubmit(ctrl, notify.set, $input));
               }
             }
           }, [
@@ -104,12 +94,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('div.botc', anyClock(ctrl, 'bottom')),
         h('h2', 'Opponent clock'),
         h('div.topc', anyClock(ctrl, 'top')),
-        h('div.notify', {
-          attrs: {
-            'aria-live': 'assertive',
-            'aria-atomic' : true
-          }
-        }, (notification && notification.date.getTime() > (Date.now() - 1000 * 3)) ? notification.text : ''),
+        notify.render(),
         h('h2', 'Actions'),
         h('div.actions', tableInner(ctrl)),
         h('h2', 'Board'),
