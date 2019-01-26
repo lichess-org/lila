@@ -10,7 +10,8 @@ import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
 final class PerfsUpdater(
     historyApi: HistoryApi,
-    rankingApi: RankingApi
+    rankingApi: RankingApi,
+    botFarming: BotFarming
 ) {
 
   private val VOLATILITY = Glicko.default.volatility
@@ -18,8 +19,9 @@ final class PerfsUpdater(
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   // returns rating diffs
-  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
-    PerfPicker.main(game) ?? { mainPerf =>
+  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] = botFarming(game) flatMap {
+    case true => fuccess(none)
+    case _ => PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)
@@ -73,6 +75,7 @@ final class PerfsUpdater(
           rankingApi.save(black, game.perfType, perfsB) inject ratingDiffs.some
       }
     }
+  }
 
   private final case class Ratings(
       chess960: Rating,

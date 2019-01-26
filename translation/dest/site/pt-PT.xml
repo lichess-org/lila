@@ -50,7 +50,7 @@
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidores</string>
-  <string name="loadingEngine">Carregando motor de jogo ...</string>
+  <string name="loadingEngine">A carregar o motor de jogo ...</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Detalhar</string>
   <string name="showThreat">Mostrar ameaça</string>
@@ -341,7 +341,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de conversação e link de partilha.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s partida importada</item>
+    <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>

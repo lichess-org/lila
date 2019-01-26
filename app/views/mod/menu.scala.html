@@ -30,7 +30,7 @@
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("irwin")" href="@routes.Irwin.dashboard">Irwin dashboard</a>
 }
-@if(isGranted(_.MarkTroll)) {
+@if(isGranted(_.Shadowban)) {
 <a class="@active.active("panic")" href="@routes.Mod.chatPanic">
   Chat Panic <strong>@if(isChatPanicEnabled){ON}else{OFF}</strong>
 </a>

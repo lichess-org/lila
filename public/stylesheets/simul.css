@@ -2,52 +2,13 @@
   text-align: center;
   display: block;
 }
-#simul form.plain {
-  margin-top: 10px;
+#simul.form .variants {
+  display: flex;
+  flex-flow: row wrap;
 }
-#simul form.plain .help {
-  margin-bottom: 40px;
-  text-align: center;
-}
-#simul form.plain td {
-  padding: 0.6em;
+#simul.form .variants .checkable {
+  flex: 1 1 33%;
   white-space: nowrap;
-}
-#simul form.plain tr td,
-#simul form.plain tr th {
-  padding: 0 0 50px 0;
-}
-#simul form.plain tr.help th {
-  font-style: italic;
-  padding: 0 0 10px 0;
-}
-#simul form.plain label {
-  margin-right: 10px;
-}
-#simul form.plain input {
-  width: 96%;
-  padding: 0.5% 1%;
-}
-#simul form.plain input[type=checkbox] {
-  width: auto;
-}
-#simul form.plain select {
-  padding: 0.5% 1%;
-  text-transform: capitalize;
-  width: 99%;
-}
-#simul form.plain .inline select {
-  width: 46%;
-}
-#simul form.plain input.submit {
-  width: 99%;
-}
-#simul form.plain .error {
-  color: red;
-}
-#simul form.plain button[type=submit] {
-  font-size: 2em;
-  margin-right: 20px;
 }
 #simul .content_box {
   min-height: 400px;

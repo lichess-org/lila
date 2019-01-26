@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Reclama la victòria</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
-  <string name="talkInChat">Siusplau sigues respectuós en el xat!</string>
+  <string name="talkInChat">Siusplau sigues amable al xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquesta URL jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
@@ -48,11 +48,11 @@
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="computerAnalysisAvailable">Anàlisi de l\'ordinador disponible</string>
   <string name="analysis">Tauler d\'anàlisi</string>
-  <string name="depthX">Profunditat %5</string>
+  <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
   <string name="loadingEngine">Carregant motor...</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
-  <string name="goDeeper">Enfonsat més</string>
+  <string name="goDeeper">Aprofundir</string>
   <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar avaluació local</string>
@@ -232,6 +232,10 @@
   <string name="incrementInSeconds">Increment en segons</string>
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <string name="spectators">Espectadors</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s per punts</item>
+    <item quantity="other">%s per punts</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victòries</item>
     <item quantity="other">%s victòries</item>
@@ -243,6 +247,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s taules</item>
     <item quantity="other">%s taules</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en joc</item>
+    <item quantity="other">%s en joc</item>
   </plurals>
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
@@ -274,6 +282,10 @@
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partida per punts</item>
+    <item quantity="other">≥ %s partides per punts</item>
+  </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s partida puntuada</item>
     <item quantity="other">≥ %1$s %2$s partides puntuades</item>
@@ -382,6 +394,9 @@
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
   <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
+  <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
+  <string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
+  <string name="showAdvancedSettings">Configuració avançada</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
@@ -390,6 +405,8 @@
   <string name="winStreak">Victòries consecutives</string>
   <string name="createdBy">Creat per</string>
   <string name="tournamentIsStarting">El torneig està començant</string>
+  <string name="tournamentPairingsAreNowClosed">L\'emparellament al torneig s\'ha finalitzat.</string>
+  <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="youArePlaying">¡Estàs jugant!</string>
   <string name="winRate">Percentatge de victòries</string>
   <string name="berserkRate">Taxa de Berserk</string>
@@ -399,10 +416,12 @@
   <string name="whiteWins">Les blanques guanyen</string>
   <string name="blackWins">Les negres guanyen</string>
   <string name="draws">Taules</string>
+  <string name="nextXTournament">Proper torneig de %s:</string>
   <string name="viewMoreTournaments">Mostrar més tornejos</string>
   <string name="averageOpponent">Oponent mitjà</string>
   <string name="membersOnly">Només per membres</string>
   <string name="boardEditor">Editor del tauler</string>
+  <string name="setTheBoard">Establir el tauler</string>
   <string name="popularOpenings">Obertures populars</string>
   <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Neteja el tauler</string>
@@ -411,7 +430,9 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Denuncia %s als moderadors</string>
   <string name="profileCompletion">Perfil completat: %s</string>
+  <string name="xRating">Puntuació %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
+  <string name="gameCompletionRate">Percentatge de finalització de partides: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
@@ -419,6 +440,7 @@
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferències</string>
+  <string name="inlineNotation">Notació Lineal</string>
   <string name="watchLichessTV">Mira Lichess TV</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
@@ -487,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Altres</string>
   <string name="reportDescriptionHelp">Enganxa el link de la/les pardida/s i explica què hi ha de malament en el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", i digues com has arribat a aquesta conclusió. El teu informe serà processat més ràpid si l\'escrius en Anglés.</string>
+  <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
   <string name="theming">Temes de l\'interfície</string>
@@ -504,6 +527,7 @@
   <string name="thisAccountIsClosed">Aquest compte està tancat.</string>
   <string name="invalidUsernameOrPassword">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="incorrectPassword">Contrasenya incorrecta</string>
+  <string name="invalidAuthenticationCode">Autenticació invàlida</string>
   <string name="emailMeALink">Envieu-me per correu electrònic un enllaç</string>
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
@@ -512,6 +536,8 @@
   <string name="pieceDestinations">Destinacions de la peça (moviments vàlids i moviments anticipats)</string>
   <string name="boardCoordinates">Coordenades del tauler (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
+  <string name="pgnPieceNotation">Notació de les jugades</string>
+  <string name="chessPieceSymbol">Símbol de la peça</string>
   <string name="pgnLetter">Lletres (K, Q, R, B, N)</string>
   <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>
@@ -621,6 +647,10 @@ en %3$s</string>
   <string name="videoLibrary">Col·lecció de vídeos</string>
   <string name="mobileApp">Aplicació mòbil</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">En quant a</string>
+  <string name="aboutX">En quant a %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
+  <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="contact">Contacte</string>
   <string name="termsOfService">Condicions del servei</string>
@@ -662,6 +692,10 @@ en %3$s</string>
   <string name="tournamentMayHaveBeenCanceled">Pot ser que s\'hagi cancel·lat, si tots els jugadors l\'han abandonat abans que comencés.</string>
   <string name="returnToTournamentsHomepage">Torna a la pàgina principal de tornejos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribució mensual de les puntuacions en %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s jugador de %2$s aquesta setmana.</item>
+    <item quantity="other">%1$s jugadors de %2$s aquesta setmana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
@@ -720,6 +754,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s és amfitrió de %2$s</string>
   <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
   <string name="xLikesY">A %1$s li agrada %2$s</string>
+  <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
@@ -735,17 +770,53 @@ en %3$s</string>
   <string name="pieceSet">Conjunt de peces</string>
   <string name="embedInYourWebsite">Integrar en el seu lloc web</string>
   <string name="usernameAlreadyUsed">Aquest nom d\'usuari ja està en ús. Si us plau, tria un altre nom.</string>
+  <string name="usernamePrefixInvalid">El nom d\'usuari ha de començar amb una lletra.</string>
+  <string name="usernameSuffixInvalid">El nom d\'usuari ha d\'acabar amb una lletra o dígit.</string>
+  <string name="usernameCharsInvalid">Els noms d\'usuari només poden contenir lletres, números, guions i guions baixos.</string>
   <string name="usernameUnacceptable">Aquest nom d\'usuari no és acceptable.</string>
+  <string name="directlySupportLichess">Suporta directament a Lichess</string>
   <string name="playChessInStyle">Juga a escacs amb estil</string>
   <string name="chessBasics">Fonaments d\'escacs</string>
   <string name="coaches">Entrenador</string>
   <string name="invalidPgn">PGN no vàlid</string>
   <string name="invalidFen">FEN no vàlid</string>
+  <string name="error.minLength">La llargada mínima és de %s</string>
+  <string name="error.maxLength">La llargada máxima és de %s</string>
+  <string name="error.min">Ha de ser major o igual a %s</string>
+  <string name="error.max">Ha de ser menor o igual a %s</string>
   <string name="error.unknown">Error</string>
   <string name="custom">Personalitzat</string>
   <string name="notifications">Avisos</string>
   <string name="challenges">Reptes</string>
   <string name="perfRatingX">Classificació: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segon per jugar el primer moviment</item>
+    <item quantity="other">%s segons per jugar el primer moviment</item>
+  </plurals>
+  <string name="practiceWithComputer">Practicar amb l\'ordinador</string>
+  <string name="anotherWasX">Un altre era %s</string>
+  <string name="bestWasX">El millor era %s</string>
+  <string name="youBrowsedAway">Ha sortit de la revisió</string>
+  <string name="resumePractice">Reprendre la pràctica</string>
+  <string name="theGameIsADraw">El joc és un empat.</string>
+  <string name="computerThinking">L\'ordinador està pensant ...</string>
+  <string name="seeBestMove">Veure la millor jugada</string>
+  <string name="hideBestMove">Amagar la millor jugada</string>
+  <string name="getAHint">Obtenir una pista</string>
+  <string name="evaluatingYourMove">Avaluant la seva jugada ...</string>
+  <string name="whiteWinsGame">Les blanques guanyen</string>
+  <string name="blackWinsGame">Les negres guanyen</string>
+  <string name="learnFromYourMistakes">Aprendre dels seus errors</string>
+  <string name="learnFromThisMistake">Aprendre d\'aquest error</string>
+  <string name="skipThisMove">Ometre aquest pas</string>
+  <string name="next">Següent</string>
+  <string name="xWasPlayed">%s es va jugar</string>
+  <string name="findBetterMoveForWhite">Trobar un moviment millor per a les blanques</string>
+  <string name="findBetterMoveForBlack">Trobar un moviment millor per les negres</string>
+  <string name="resumeLearning">Seguir l\'aprenentatge</string>
+  <string name="youCanDoBetter">Ho pots fer millor</string>
+  <string name="tryAnotherMoveForWhite">Prova un altre moviment per a les blanques</string>
+  <string name="tryAnotherMoveForBlack">Prova un altre moviment per a les negres</string>
   <string name="solution">Solució</string>
   <string name="waitingForAnalysis">Esperant l\'anàlisi</string>
   <string name="noMistakesFoundForWhite">No s\'ha trobat cap error per a les blanques</string>
@@ -756,7 +827,26 @@ en %3$s</string>
   <string name="reviewWhiteMistakes">Revisar errors de les blanques</string>
   <string name="reviewBlackMistakes">Revisar errors de les negres</string>
   <string name="advantage">Avantatge</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s segon</item>
+    <item quantity="other">%s segon</item>
+  </plurals>
   <string name="opening">Obertura</string>
   <string name="middlegame">Joc mitjà</string>
   <string name="endgame">Final</string>
+  <string name="registerToSendChallenges">Si us plau, registra\'t per enviar reptes.</string>
+  <string name="youCannotChallengeX">No pots desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s no accepta reptes.</string>
+  <string name="yourXRatingIsTooFarFromY">La teva qualificació de %1$s és massa llunyana de la de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No es pot desafiar a causa de la qualificació provisional de %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s només acepta reptes dels amics.</string>
+  <string name="conditionalPremoves">Premoviments condicionals</string>
+  <string name="addCurrentVariation">Afegir variació actual</string>
+  <string name="playVariationToCreateConditionalPremoves">Jugar una variació per crear premoviments condicionals</string>
+  <string name="noConditionalPremoves">Sense moviments anticipats condicionals</string>
+  <string name="playX">Jugar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i guardar %s línia anticipada</item>
+    <item quantity="other">i guardar %s línies anticipades</item>
+  </plurals>
 </resources>

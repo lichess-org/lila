@@ -1,12 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { plyStep } from '../round';
-import renderTable from './table';
+import { renderTable } from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'chessground/fen';
 import * as util from '../util';
-import * as blind from '../blind';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
@@ -37,25 +36,6 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   return false;
 }
 
-function visualBoard(ctrl: RoundController) {
-  return h('div.lichess_board_wrap', [
-    h('div.lichess_board.' + ctrl.data.game.variant.key, {
-      hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
-    }, [renderGround(ctrl)]),
-    promotion.view(ctrl)
-  ]);
-}
-
-function blindBoard(ctrl: RoundController) {
-  return h('div.lichess_board_blind', [
-    h('div.textual', {
-      hook: {
-        insert: vnode => blind.init(vnode.elm as HTMLElement, ctrl)
-      }
-    }, [ renderGround(ctrl) ])
-  ]);
-}
-
 const emptyMaterialDiff: MaterialDiff = {
   white: {},
   black: {}
@@ -73,7 +53,7 @@ export function main(ctrl: RoundController): VNode {
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material: MaterialDiff, checks: ChecksData, score: number = 0;
   if (d.pref.showCaptured) {
-    var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
+    let pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
@@ -82,13 +62,18 @@ export function main(ctrl: RoundController): VNode {
     checks = util.getChecks(ctrl.data.steps, ctrl.ply);
   } else checks = emptyChecksData;
 
-  return h('div.round.cg-512', [
+  return ctrl.blind ? ctrl.blind.render(ctrl) : h('div.round.cg-512', [
     h('div.lichess_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lichess.pubsub.emit('content_loaded')()
       }
     }, [
-      d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
+      h('div.lichess_board_wrap', [
+        h('div.lichess_board.' + d.game.variant.key, {
+          hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+        }, [renderGround(ctrl)]),
+        promotion.view(ctrl)
+      ]),
       h('div.lichess_ground', [
         crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, checks[topColor]),
         renderTable(ctrl),

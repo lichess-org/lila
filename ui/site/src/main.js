@@ -164,7 +164,7 @@ lichess.topMenuIntent = function() {
           suggestion: function(o) {
             var tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
-            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? o.title + ' ' : '') + o.name +
+            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
             '</' + tag + '>';
           }
         }
@@ -563,7 +563,7 @@ lichess.topMenuIntent = function() {
         return confirm('Delete?');
       });
       $('input.confirm, button.confirm').click(function() {
-        return confirm('Confirm this action?');
+        return confirm($(this).attr('title') || 'Confirm this action?');
       });
 
       $('div.content').on('click', 'a.bookmark', function() {
@@ -955,6 +955,9 @@ lichess.topMenuIntent = function() {
         };
       });
     });
+
+    if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
+      $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lichess.reload);
   });
 
   ///////////////////

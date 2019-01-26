@@ -425,7 +425,7 @@ private[controllers] trait LilaController
   type RestoredUser = (Option[FingerprintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
-      _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
+      _ ifTrue (HTTPRequest isSocket req) foreach { d =>
         Env.current.system.lilaBus.publish(lila.user.User.Active(d.user), 'userActive)
       }
     } dmap {
@@ -500,6 +500,9 @@ private[controllers] trait LilaController
 
   protected def pageHit(implicit ctx: lila.api.Context) =
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
+
+  protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
+  protected val noProxyBuffer = (res: Result) => res.withHeaders(noProxyBufferHeader)
 
   protected val pgnContentType = "application/x-chess-pgn"
   protected val ndJsonContentType = "application/x-ndjson"

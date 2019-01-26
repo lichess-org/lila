@@ -35,8 +35,8 @@ object replay {
 
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in $gameId : ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      side = Some(views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)),
-      chat = views.html.chat.html.some,
+      side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked),
+      chat = views.html.chat.frag.some,
       underchat = Some(views.html.round.bits underchat pov.game),
       moreCss = cssTags("analyse.css", "chat.css"),
       moreJs = frag(

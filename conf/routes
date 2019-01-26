@@ -217,10 +217,6 @@ POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId:
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
 
-# Round accessibility: text representation
-GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
-
 # Tournament
 GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)
 GET   /tournament/featured                    controllers.Tournament.featured
@@ -509,6 +505,7 @@ POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
 GET   /api/users/status                controllers.Api.usersStatus
+GET   /api/users/titled                controllers.Api.titledUsers
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 GET   /api/stream/event                controllers.Api.eventStream
@@ -537,6 +534,7 @@ GET   /account/passwd                  controllers.Account.passwd
 POST  /account/passwd                  controllers.Account.passwdApply
 GET   /account/email                   controllers.Account.email
 POST  /account/email                   controllers.Account.emailApply
+GET   /contact/email-confirm/help      controllers.Account.emailConfirmHelp
 GET   /account/email/confirm/:token    controllers.Account.emailConfirm(token: String)
 GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
@@ -583,6 +581,7 @@ GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /fpmenu                          controllers.Main.fpmenu
 GET   /get-fishnet                     controllers.Main.getFishnet
+GET   /costs                           controllers.Main.costs
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
@@ -596,21 +595,21 @@ POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platf
 POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Pages
-GET   /thanks                          controllers.Page.bookmark(name = "thanks")
-GET   /terms-of-service                controllers.Page.bookmark(name = "tos")
-GET   /privacy                         controllers.Page.bookmark(name = "privacy")
+GET   /thanks                          controllers.Page.thanks
+GET   /terms-of-service                controllers.Page.tos
+GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Main.contact
-GET   /about                           controllers.Page.bookmark(name = "about")
+GET   /about                           controllers.Page.about
 GET   /swag                            controllers.Page.swag
-GET   /how-to-cheat                    controllers.Page.bookmark(name = "how-to-cheat")
+GET   /how-to-cheat                    controllers.Page.howToCheat
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.bookmark(name = "help")
-GET   /help/master                     controllers.Page.bookmark(name = "master")
+GET   /help/contribute                 controllers.Page.help
+GET   /help/master                     controllers.Page.master
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
@@ -618,7 +617,7 @@ POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
 # Assets
 GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: String, file: String)
-GET   /assets/*file                    controllers.Assets.at(path="/public", file: String)
+GET   /assets/*file                    controllers.Assets.at(path = "/public", file: String)
 
 GET   /robots.txt                      controllers.Main.robots
 GET   /free-js                         controllers.Main.freeJs

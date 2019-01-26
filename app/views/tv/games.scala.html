@@ -4,7 +4,7 @@
 
 @base.layout(
 title = title,
-side = Some(side(channel, champions, "/games", povOption = none)),
+side = side(channel, champions, "/games", povOption = none).map(_.toHtml),
 moreCss = cssTag("tv.css")) {
 
 <div class="games_playing">

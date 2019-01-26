@@ -14,16 +14,7 @@ final class Env(
 
   private lazy val truster = new EvalCacheTruster
 
-  private lazy val upgrade = new EvalCacheUpgrade(
-    asyncCache = asyncCache,
-    enabled = upgradeEnabledSetting.get
-  )
-
-  val upgradeEnabledSetting = settingStore[Boolean](
-    "cloudUpgradeEnabled",
-    default = true,
-    text = "Enable cloud eval upgrade for everyone.".some
-  )
+  private lazy val upgrade = new EvalCacheUpgrade(asyncCache)
 
   lazy val api = new EvalCacheApi(
     coll = db(CollectionEvalCache),

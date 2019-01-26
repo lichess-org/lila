@@ -129,7 +129,7 @@ object Tournament extends LilaController {
 
   def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
-      Ok(html.tournament.miniGame(pov))
+      Ok(html.tournament.bits.miniGame(pov))
     }
   }
 
@@ -242,7 +242,8 @@ object Tournament extends LilaController {
   }
 
   def apiCreate = ScopedBody() { implicit req => me =>
-    doApiCreate(me)
+    if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
+    else doApiCreate(me)
   }
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =

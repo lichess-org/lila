@@ -139,7 +139,7 @@ object Account extends LilaController {
   def emailApply = AuthBody { implicit ctx => me =>
     controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      emailForm(me) flatMap { form =>
+      Env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.email(me, err))
         } { data =>
@@ -162,6 +162,24 @@ object Account extends LilaController {
           Redirect(s"${routes.Account.email}?ok=1")
         })
       }
+    }
+  }
+
+  def emailConfirmHelp = OpenBody { implicit ctx =>
+    import lila.security.EmailConfirm.Help._
+    ctx.me match {
+      case Some(me) =>
+        Redirect(routes.User.show(me.username)).fuccess
+      case None if get("username").isEmpty =>
+        Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
+      case None =>
+        implicit val req = ctx.body
+        helpForm.bindFromRequest.fold(
+          err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+          username => getStatus(username) map { status =>
+            Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+          }
+        )
     }
   }
 

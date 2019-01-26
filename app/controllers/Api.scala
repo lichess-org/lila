@@ -7,7 +7,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.{ Context, GameApiV2 }
+import lila.api.{ Context, GameApiV2, UserApi }
 import lila.app._
 import lila.common.PimpedJson._
 import lila.common.{ HTTPRequest, IpAddress, MaxPerPage, MaxPerSecond }
@@ -93,6 +93,18 @@ object Api extends LilaController {
             .add("streaming" -> streamingIds(u.id))
         }
       }
+    }
+  }
+
+  def titledUsers = Action.async { req =>
+    val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
+    GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      val config = UserApi.Titled(
+        titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
+        online = getBool("online", req),
+        perSecond = MaxPerSecond(50)
+      )
+      jsonStream(Env.api.userApi.exportTitled(config)).fuccess
     }
   }
 
@@ -248,6 +260,7 @@ object Api extends LilaController {
             perSecond = MaxPerSecond(20)
           )
           Ok.chunked(Env.api.gameApiV2.exportByTournament(config)).withHeaders(
+            noProxyBufferHeader,
             CONTENT_TYPE -> Game.gameContentType(config)
           ).fuccess
         }
@@ -354,5 +367,5 @@ object Api extends LilaController {
   }
 
   private def jsonStringStream(stream: Enumerator[String]): Result =
-    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType)
+    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType) |> noProxyBuffer
 }

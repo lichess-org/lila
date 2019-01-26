@@ -1,5 +1,7 @@
 package lila.rating
 
+import lila.common.Maths.closestMultipleOf
+
 case class RatingRange(min: Int, max: Int) {
 
   def contains(rating: Int) =
@@ -7,6 +9,11 @@ case class RatingRange(min: Int, max: Int) {
       (max >= RatingRange.max || rating <= max)
 
   def notBroad: Option[RatingRange] = (this != RatingRange.broad) option this
+
+  def withinLimits(rating: Int, delta: Int, multipleOf: Int) = copy(
+    min = closestMultipleOf(multipleOf, min.atMost(rating + delta)),
+    max = closestMultipleOf(multipleOf, max.atLeast(rating - delta))
+  )
 
   override def toString = s"$min-$max"
 }

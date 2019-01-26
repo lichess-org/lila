@@ -5,6 +5,7 @@ export interface ChatOpts {
   data: ChatData
   writeable: boolean
   kobold: boolean
+  blind: boolean
   timeout: boolean
   parseMoves: boolean
   public: boolean

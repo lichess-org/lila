@@ -141,10 +141,10 @@ export default function(opts, redraw: () => void): Controller {
 
   var getDests = throttle(800, function() {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
-    socket.sendAnaDests({
-      fen: vm.node.fen,
-      path: vm.path
-    });
+      socket.sendAnaDests({
+        fen: vm.node.fen,
+        path: vm.path
+      });
   });
 
   var uciToLastMove = function(uci) {
@@ -262,9 +262,9 @@ export default function(opts, redraw: () => void): Controller {
         tree.updateAt(work.path, function(node) {
           if (work.threatMode) {
             if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth)
-            node.threat = ev;
+              node.threat = ev;
           } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth)
-          node.ceval = ev;
+            node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -341,16 +341,19 @@ export default function(opts, redraw: () => void): Controller {
   };
 
   function jump(path) {
-    var pathChanged = path !== vm.path;
+    const pathChanged = path !== vm.path,
+      isForwardStep = pathChanged && path.length === vm.path.length + 2;
     setPath(path);
     withGround(showGround);
     if (pathChanged) {
-      if (!vm.node.uci) sound.move(); // initial position
-      else if (!vm.justPlayed || vm.node.uci.indexOf(vm.justPlayed) !== 0) {
-        if (vm.node.san!.indexOf('x') !== -1) sound.capture();
-        else sound.move();
+      if (isForwardStep) {
+        if (!vm.node.uci) sound.move(); // initial position
+        else if (!vm.justPlayed || vm.node.uci.indexOf(vm.justPlayed) !== 0) {
+          if (vm.node.san!.indexOf('x') !== -1) sound.capture();
+          else sound.move();
+        }
+        if (/\+|\#/.test(vm.node.san!)) sound.check();
       }
-      if (/\+|\#/.test(vm.node.san!)) sound.check();
       threatMode(false);
       ceval.stop();
       startCeval();

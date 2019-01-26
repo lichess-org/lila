@@ -1,0 +1,33 @@
+{
+  "name": "nvui",
+  "version": "1.0.0",
+  "description": "lichess.org non-visual user interface",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila"
+  },
+  "keywords": [
+    "chess",
+    "lichess",
+    "non-visual",
+    "blind",
+    "accessibility"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "@types/lichess": "1.0.0",
+    "game": "1.0.0",
+    "typescript": "^3"
+  },
+  "dependencies": {}
+}

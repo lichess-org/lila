@@ -65,7 +65,7 @@ object Round extends LilaController with TheftPrevention {
         Game.preloadUsers(pov.game) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           getPlayerChat(pov.game, tour.map(_.tour)) zip
-          Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
+          (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip // probably what raises page mean time?
           (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {
@@ -174,12 +174,12 @@ object Round extends LilaController with TheftPrevention {
       case _ => Game.preloadUsers(pov.game) >> negotiate(
         html = {
           if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
+          else if (pov.game.replayable && ctx.noBlind) Analyse.replay(pov, userTv = userTv)
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
               getWatcherChat(pov.game) zip
-              Env.game.crosstableApi.withMatchup(pov.game) zip
+              (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
               Env.api.roundApi.watcher(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
@@ -237,20 +237,6 @@ object Round extends LilaController with TheftPrevention {
           Chat.GameOrEvent(Left(Chat.Restricted(chat, game.fromLobby && ctx.isAnon))).some
         }
       }
-    }
-  }
-
-  def playerText(fullId: String) = Open { implicit ctx =>
-    OptionResult(GameRepo pov fullId) { pov =>
-      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, true))
-      else BadRequest
-    }
-  }
-
-  def watcherText(gameId: String, color: String) = Open { implicit ctx =>
-    OptionResult(GameRepo.pov(gameId, color)) { pov =>
-      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, false))
-      else BadRequest
     }
   }
 

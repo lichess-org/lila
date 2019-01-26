@@ -3,16 +3,16 @@
 <resources>
   <string name="playWithAFriend">Խաղալ ընկերոջ հետ</string>
   <string name="playWithTheMachine">Խաղալ համակարգչի հետ</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար հարկավոր է տալ նրան հետևյալ ինտերնետային հասցեն</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար ուղարկեք ստորև տրված հղումը</string>
   <string name="gameOver">Խաղն ավարտված է</string>
   <string name="waitingForOpponent">Սպասում եմ հակառակորդին</string>
   <string name="waiting">Սպասում եմ</string>
   <string name="yourTurn">Ձեր հերթն է</string>
   <string name="aiNameLevelAiLevel">%1$s, մակարդակ՝ %2$s</string>
   <string name="level">Մակարդակ</string>
-  <string name="toggleTheChat">Ցուցադրել/Պահել չաթի պատուհանը</string>
+  <string name="toggleTheChat">Թաքցնել/ցուցադրել զրուցարանը</string>
   <string name="toggleSound">Անջատել/Միացնել ձայնը</string>
-  <string name="chat">Չաթ</string>
+  <string name="chat">Զրուցել</string>
   <string name="resign">Հանձնվել</string>
   <string name="checkmate">Շախ և մատ</string>
   <string name="stalemate">Պատ</string>
@@ -22,11 +22,11 @@
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
   <string name="blackIsVictorious">Սևերը հաղթեցին</string>
-  <string name="kingInTheCenter">Թագավորը կենտրոնում</string>
-  <string name="threeChecks">երեք չեկեր</string>
+  <string name="kingInTheCenter">Թագավորը կենտրոնում է</string>
+  <string name="threeChecks">Երեք շախ</string>
   <string name="raceFinished">Մրցավազքը ավարտվեց</string>
   <string name="variantEnding">Տարբերակի ավարտ</string>
-  <string name="newOpponent">Նոր հակառակորդ</string>
+  <string name="newOpponent">Գտնել նոր հակառակորդ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ձեր հակառակորդը ուզում է կրկին խաղալ Ձեզ հետ</string>
   <string name="joinTheGame">Միանալ խաղին</string>
   <string name="whitePlays">Խաղում են սպիտակները</string>
@@ -45,10 +45,10 @@
   <string name="theComputerAnalysisHasFailed">Համակարգչային անալիզը չստացվեց</string>
   <string name="viewTheComputerAnalysis">Ցույց տալ համակարգչային անալիզը</string>
   <string name="requestAComputerAnalysis">Համակարգչային անալիզ պատվիրել</string>
-  <string name="computerAnalysis">Վերլուծություն</string>
+  <string name="computerAnalysis">Համակարգչային վերլուծություն</string>
   <string name="computerAnalysisAvailable">Հնարավոր է համակարգչի վերլուծություն</string>
   <string name="analysis">վերլուծություն</string>
-  <string name="depthX">Խորություն</string>
+  <string name="depthX">Խորություն %s</string>
   <string name="usingServerAnalysis">Օգտագործի սերվերի վերլուծությունը</string>
   <string name="loadingEngine">Շարժիչի բեռնում...</string>
   <string name="cloudAnalysis">Ամպի վերլուծություն</string>
@@ -64,7 +64,7 @@
   <string name="variantWin">Տարբերակը հաղթում է</string>
   <string name="insufficientMaterial">Ոչ բավարար նյութ</string>
   <string name="pawnMove">Զինվորի քայլ</string>
-  <string name="capture">Սևեռեք</string>
+  <string name="capture">Փոխանակում</string>
   <string name="close">Փակել</string>
   <string name="winning">Հաղթում է</string>
   <string name="losing">Պարտվում է</string>
@@ -72,24 +72,20 @@
   <string name="unknown">Անհայտ</string>
   <string name="database">Նյութերի բազա</string>
   <string name="whiteDrawBlack">Սպիտակ / Ոչ-ոքի / Սև</string>
-  <string name="averageRatingX">Միջին գնահատականը</string>
+  <string name="averageRatingX">Միջին վարկանիշ %s</string>
   <string name="recentGames">Վերջին խաղեր</string>
   <string name="topGames">Լավագույն խաղեր</string>
   <string name="masterDbExplanation">2 միլիոն խաղ ֆիդե-ի վարկանիշային խաղացողներից</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Մատ կես քայլից
-
-Մատ կես քայլից</item>
-    <item quantity="other">Մատ կես քայլից
-
-Մատ կես քայլից</item>
+    <item quantity="one">Մատ %s հատ կես քայլից</item>
+    <item quantity="other">Մատ %s հատ կես քայլից</item>
   </plurals>
   <string name="blunders">Կոպիտ սխալներ</string>
-  <string name="mistake">Բաղթողում</string>
+  <string name="mistake">Սխալ</string>
   <string name="mistakes">Սխալներ</string>
   <string name="inaccuracy">Անճշտություն</string>
   <string name="inaccuracies">Անճշտություններ</string>
-  <string name="moveTimes">քայլի ժամանակ</string>
+  <string name="moveTimes">Քայլի ժամանակ</string>
   <string name="flipBoard">Շրջել խաղատախտակը</string>
   <string name="threefoldRepetition">Եռապատիկ կրկնություն</string>
   <string name="claimADraw">Հայտարարել ոչ-ոքի</string>
@@ -115,7 +111,7 @@
   <string name="youNeedAnAccountToDoThat">Դա անելու համար պետք է հաշիվ ունենալ</string>
   <string name="signUp">Գրանցվել</string>
   <string name="computersAreNotAllowedToPlay">Համակարգիչներն ու համակարգչից օգնություն վերցնող խաղացողներն իրավունք չունեն խաղալ։ Խնդրում ենք խաղալիս չօգտվել շախմատային ծրագրերից, տվյալների բազաներից և այլ մարդկանցից։</string>
-  <string name="games">Խաղերը</string>
+  <string name="games">Խաղեր</string>
   <string name="forum">Ֆորում</string>
   <string name="xPostedInForumY">%1$s գրառել է %2$s ֆորումում</string>
   <string name="latestForumPosts">Վերջին գրառումները ֆորումում</string>
@@ -126,7 +122,7 @@
   <string name="timeControl">Ժամանակի վերահսկողություն</string>
   <string name="realTime">հիմնական ծամանակ</string>
   <string name="correspondence">համապատասխանություն</string>
-  <string name="daysPerTurn">Օրական քայլ</string>
+  <string name="daysPerTurn">Օրեր քայլի համար</string>
   <string name="oneDay">մեկ օր</string>
   <plurals name="nbDays">
     <item quantity="one">%s օր</item>
@@ -140,7 +136,7 @@
   <string name="rating">Վարկանիշ</string>
   <string name="ratingStats">Մակարդակ աստիճան</string>
   <string name="username">Օգտատիրոջ անուն</string>
-  <string name="usernameOrEmail">Անուն</string>
+  <string name="usernameOrEmail">Օգտատիրոջ անուն կամ email</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="haveAnAccount">Արդեն գրանցվե՞լ եք</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
@@ -149,7 +145,7 @@
   <string name="passwordReset">վերականգնել ծածկագիրը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
   <string name="rank">Միավորներ</string>
-  <string name="rankX">Դասակարգում</string>
+  <string name="rankX">Դասակարգում %s</string>
   <string name="gamesPlayed">Խաղացած խաղեր</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Խաղեր՝ ձեր հետ</item>
@@ -160,13 +156,13 @@
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferDeclined">Ոչ-ոքի առաջարկը չի ընդունվել</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>
-  <string name="drawOfferCanceled">Ոչ-ոքի առաջարկը հետ է կանչվել</string>
+  <string name="drawOfferCanceled">Ոչ-ոքի առաջարկը մերժվել է</string>
   <string name="whiteOffersDraw">սպիտակներն առաջարկում են ոչ-ոքի</string>
   <string name="blackOffersDraw">սևերն առաջարկում են ոչ-ոքի</string>
   <string name="whiteDeclinesDraw">սպիտակները մերժում են ոչ-ոքին</string>
   <string name="blackDeclinesDraw">սևերը մերժում են ոչ-ոքին</string>
   <string name="yourOpponentOffersADraw">Ձեր հակառակորդը առաջարկում է ոչ-ոքի</string>
-  <string name="accept">Համաձայնել</string>
+  <string name="accept">Համաձայնվել</string>
   <string name="decline">Մերժել</string>
   <string name="playingRightNow">Այս պահին խաղում են</string>
   <string name="finished">Ավարտվել է</string>
@@ -176,7 +172,7 @@
   <string name="unlimited">Անսահմանափակ</string>
   <string name="mode">Տեսակը</string>
   <string name="casual">Առանց միավորների</string>
-  <string name="rated">Միավորով</string>
+  <string name="rated">Վարկանիշային</string>
   <string name="thisGameIsRated">Խաղը միավորներով է</string>
   <string name="rematch">Կրկին խաղալ</string>
   <string name="rematchOfferSent">Վերախաղարկելու առաջարկը ուղարկված է</string>
@@ -206,8 +202,8 @@
     <item quantity="other">%s պարտվեց</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s ոչոքի</item>
-    <item quantity="other">%s ոչոքի</item>
+    <item quantity="one">%s ոչ-ոքի</item>
+    <item quantity="other">%s ոչ-ոքի</item>
   </plurals>
   <string name="exportGames">Էկսպորտ անել խաղերը</string>
   <string name="ratingRange">Elo միջակայք</string>
@@ -215,7 +211,7 @@
     <item quantity="one">Տալ %s վայրկան</item>
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Այղ խաղացողը դիմում է համակարգչի օգնությանը</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Այս խաղացողը դիմում է համակարգչի օգնությանը</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Այս խաղացողը արհեստականորեն մեծացնում է իր վարկանիշը</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
@@ -226,7 +222,7 @@
   <string name="yourOpponentProposesATakeback">Ձեր հակառակորդը առաջարկում է քայլը հետ վերցնել</string>
   <string name="bookmarkThisGame">Էջանշել այս խաղը</string>
   <string name="search">Փնտրել</string>
-  <string name="advancedSearch">Բարդեցված որոնում</string>
+  <string name="advancedSearch">Ընդլայնված որոնում</string>
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
@@ -270,7 +266,7 @@
     <item quantity="other">%s ներմուծված խաղեր</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Սա շախմատային CAPTCHA է</string>
-  <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ քայլ անեք և ապացուցեք, որ մարդ եք:</string>
+  <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ անեք ձեր քայլը և ապացուցեք, որ մարդ եք:</string>
   <string name="notACheckmate">Մատ չէ</string>
   <string name="colorPlaysCheckmateInOne">Խաղում է %s-ը. մատ մեկ քայլից</string>
   <string name="retry">Կրկին փորձել</string>
@@ -341,8 +337,8 @@
   <string name="onlinePlayers">առցանց խաղացողներ</string>
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում․ խաղը միավորներով է սակայն առանց ժամանակի</string>
-  <string name="training">Մարզում</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
+  <string name="training">Խնդիրներ</string>
   <string name="yourPuzzleRatingX">Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s</string>
   <string name="findTheBestMoveForWhite">Փնտրիր լավագույն քայլը սպիտակների համար</string>
   <string name="findTheBestMoveForBlack">Փնտրիր լավագույն քայլը սևերի համար</string>
@@ -423,7 +419,7 @@
   <string name="boardHighlights">հարթակի բնութագիր (Վերջին քայլը եւ շախ)</string>
   <string name="boardCoordinates">Հարթակի համակարգում (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">քայլերի ցուցակը խաղի ժամանակ</string>
-  <string name="chessClock">շախմատի ժամցույց</string>
+  <string name="chessClock">շախմատի ժամացույց</string>
   <string name="tenthsOfSeconds">ցուցադրել վայրկյանները</string>
   <string name="never">երբեք</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Երբ ժամանակը մնացել է &lt;10 վայրկյան</string>
@@ -507,5 +503,5 @@
   <string name="withEverybody">Բոլորի հետ</string>
   <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
-  <string name="gameAnalysis">Խաղի ամփոփում</string>
+  <string name="gameAnalysis">Խաղի վերլուծություն</string>
 </resources>

@@ -2,7 +2,7 @@
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 
-@round.layout(
+@round.bits.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
 chat = none,

@@ -16,4 +16,5 @@
 Hãy tự tạo niềm vui cho bản thân, và có thể, các quân của bạn luôn tìm được đường đến vua của đối phương!</string>
   <string name="common_orPaste">(Không thể click vào được? Hãy thử dán vào trình duyệt của bạn!)</string>
   <string name="common_note">Đây là một loại dịch vụ thông qua emai, liên quan đến việc bạn sử dụng %s.</string>
+  <string name="common_contact">Để liên hệ chúng tôi, hãy dùng %s.</string>
 </resources>

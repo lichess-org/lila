@@ -8,7 +8,7 @@
   <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom xhr">
     <input class="button" type="submit" value="Evaluate" />
   </form>
-  @if(isGranted(_.MarkTroll)) {
+  @if(isGranted(_.Shadowban)) {
   <a class="button hint--bottom" href="@routes.Mod.communicationPublic(u.id)" data-hint="View communications">Comms</a>
   }
   <form method="post" action="@routes.Mod.notifySlack(u.id)" data-hint="Notify slack #tavern" class="hint--bottom xhr">
@@ -26,7 +26,7 @@
     <input class="button@when(u.booster, " active")" type="submit" value="Booster" />
   </form>
   }
-  @if(isGranted(_.MarkTroll)) {
+  @if(isGranted(_.Shadowban)) {
   <form method="post" action="@routes.Mod.troll(u.username, !u.troll)" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom xhr">
     <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>

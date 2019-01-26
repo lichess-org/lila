@@ -11,7 +11,7 @@ import views._
 
 object Editor extends LilaController {
 
-  private lazy val positionsJson = lila.common.String.html.safeJson {
+  private lazy val positionsJson = lila.common.String.html.safeJsonValue {
     JsArray(chess.StartingPosition.all map { p =>
       Json.obj(
         "eco" -> p.eco,

@@ -66,7 +66,7 @@ object bits {
         span(cls := "title text", dataIcon := "|")(trans.simultaneousExhibitions())
       ),
       div(id := "enterable_simuls", cls := "enterable_list undertable_inner")(
-        views.html.simul.allCreated(simuls)
+        views.html.simul.bits.allCreated(simuls)
       )
     )
   )

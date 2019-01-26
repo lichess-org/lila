@@ -34,7 +34,7 @@ function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
   }, san);
 }
 
-function renderResult(ctrl: RoundController) {
+export function renderResult(ctrl: RoundController): VNode | undefined {
   let result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
@@ -190,8 +190,8 @@ function racingKingsInit(d: RoundData) {
   return;
 }
 
-export default function(ctrl: RoundController): VNode {
-  return h('div.replay', [
+export default function(ctrl: RoundController): VNode | undefined {
+  return ctrl.blind ? undefined : h('div.replay', [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {

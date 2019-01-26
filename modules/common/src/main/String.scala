@@ -89,9 +89,7 @@ final object String {
       }
     }
 
-    def safeJson(jsValue: JsValue) = Html {
-      safeJsonValue(jsValue)
-    }
+    def safeJsonHtml(jsValue: JsValue) = Html(safeJsonValue(jsValue))
   }
 
   object frag {

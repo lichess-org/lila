@@ -14,7 +14,7 @@ final class PasswordReset(
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make user.id flatMap { token =>
-      lila.mon.email.resetPassword()
+      lila.mon.email.types.resetPassword()
       val url = s"$baseUrl/password/reset/confirm/$token"
       mailgun send Mailgun.Message(
         to = email,

@@ -10,8 +10,8 @@
 $(function() {
 lichess = lichess || {};
 lichess.insight = LichessInsight(document.getElementById('insight'), {
-ui: @toJson(ui),
-initialQuestion: @toJson(question),
+ui: @toJsonHtml(ui),
+initialQuestion: @toJsonHtml(question),
 i18n: {},
 myUserId: @jsUserId,
 user: {

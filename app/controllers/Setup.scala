@@ -141,12 +141,14 @@ object Setup extends LilaController with TheftPrevention {
         NoPlaybanOrCurrent {
           env.forms.hook(ctx).bindFromRequest.fold(
             jsonFormError,
-            config =>
+            userConfig => {
+              val config = userConfig withinLimits ctx.me
               if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
               else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
                 blocking =>
                   env.processor.hook(config, Uid(uid), HTTPRequest sid req, blocking) map hookResponse
               }
+            }
           )
         }
       }

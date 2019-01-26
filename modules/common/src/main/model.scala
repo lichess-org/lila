@@ -41,7 +41,14 @@ object IpAddress {
 }
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
-  def isHotmail = EmailAddress.hotmailRegex.find(value)
+  def conceal = value split '@' match {
+    case Array(user, domain) => s"${user take 3}*****@${domain}"
+    case _ => value
+  }
+  def domain: Option[Domain] = value split '@' match {
+    case Array(_, domain) => Domain(domain).some
+    case _ => none
+  }
 }
 
 object EmailAddress {
@@ -54,5 +61,7 @@ object EmailAddress {
 
   private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
+
+case class Domain(value: String) extends AnyVal with StringValue
 
 case class Strings(value: List[String]) extends AnyVal

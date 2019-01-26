@@ -1,9 +1,9 @@
 package controllers
 
 import ornicar.scalalib.Zero
+import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.data.FormError
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -179,7 +179,7 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     NoTor {
       Firewall {
-        negotiate(
+        forms.preloadEmailDns >> negotiate(
           html = forms.signup.website.bindFromRequest.fold(
             err => {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
@@ -196,7 +196,7 @@ object Auth extends LilaController {
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   authLog(data.username, s"$email fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-                  UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
+                  UserRepo.create(data.username, passwordHash, email, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
@@ -254,9 +254,16 @@ object Auth extends LilaController {
     Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
-    fuccess {
-      if (ctx.isAuth) Redirect(routes.Lobby.home)
-      else Account.renderCheckYourEmail
+    ctx.me match {
+      case Some(me) => Redirect(routes.User.show(me.username)).fuccess
+      case None => lila.security.EmailConfirm.cookie get ctx.req match {
+        case None => Ok(Account.renderCheckYourEmail).fuccess
+        case Some(userEmail) =>
+          UserRepo nameExists userEmail.username map {
+            case false => Redirect(routes.Auth.signup) withCookies LilaCookie.newSession(ctx.req)
+            case true => Ok(Account.renderCheckYourEmail)
+          }
+      }
     }
   }
 
@@ -264,7 +271,7 @@ object Auth extends LilaController {
   def fixEmail = OpenBody { implicit ctx =>
     lila.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
       implicit val req = ctx.body
-      forms.fixEmail(userEmail.email).bindFromRequest.fold(
+      forms.preloadEmailDns >> forms.fixEmail(userEmail.email).bindFromRequest.fold(
         err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
         email => UserRepo.named(userEmail.username) flatMap {
           _.fold(Redirect(routes.Auth.signup).fuccess) { user =>
@@ -273,7 +280,7 @@ object Auth extends LilaController {
               case _ =>
                 val newUserEmail = userEmail.copy(email = EmailAddress(email))
                 EmailConfirmRateLimit(newUserEmail, ctx.req) {
-                  lila.mon.email.fix()
+                  lila.mon.email.types.fix()
                   UserRepo.email(user.id, newUserEmail.email) >>
                     env.emailConfirm.send(user, newUserEmail.email) inject {
                       Redirect(routes.Auth.checkYourEmail) withCookies

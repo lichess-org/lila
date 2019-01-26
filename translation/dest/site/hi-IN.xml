@@ -62,7 +62,7 @@
   <string name="move">चाल</string>
   <string name="variantLoss">भिन् न हानि</string>
   <string name="variantWin">भिन् न जीत</string>
-  <string name="insufficientMaterial">मात के लिए शतरंज के टुकड़े नहीं हैं</string>
+  <string name="insufficientMaterial">मात के लिए शतरंज के मोहरे नहीं हैं</string>
   <string name="pawnMove">प्यादा कदम</string>
   <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
@@ -102,7 +102,7 @@
   <string name="bestMoveArrow">सर्वश्रेष्ठ कदम तीर</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
-  <string name="cpus">CPU</string>
+  <string name="cpus">CPUs</string>
   <string name="memory">मेमोरी</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
@@ -166,7 +166,7 @@
   <string name="usernameOrEmail">उपयोगकर्ता का नाम</string>
   <string name="password">पासवर्ड</string>
   <string name="haveAnAccount">क्या आपके पास खाता है?</string>
-  <string name="changePassword">पासवर्ड बदलो</string>
+  <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
   <string name="email">इ-मेल</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
@@ -268,9 +268,9 @@
   <string name="takebackPropositionDeclined">चाल को वापस लेने के प्रस्ताव को अस्वीकार कर दिया गया है</string>
   <string name="takebackPropositionAccepted">चाल को वापस लेने के प्रस्ताव को स्वीकार कर लिया गया है</string>
   <string name="takebackPropositionCanceled">चाल को वापस लेने के प्रस्ताव को रद्द कर दिया गया है</string>
-  <string name="yourOpponentProposesATakeback">आपका प्रतिद्वंद्वी ने चाल को वापस लेने का प्रस्ताव भेजा है</string>
+  <string name="yourOpponentProposesATakeback">आपके प्रतिद्वंद्वी ने चाल को वापस लेने का प्रस्ताव भेजा है</string>
   <string name="bookmarkThisGame">इस खेल की स्मृति (बुकमार्क) बनाएं</string>
-  <string name="search">खोजे</string>
+  <string name="search">खोजें</string>
   <string name="advancedSearch">उच्च खोज</string>
   <string name="tournament">प्रतियोगिता</string>
   <string name="tournaments">प्रतियोगिताएँ</string>
@@ -300,6 +300,8 @@
   <string name="yourPerfRatingIsTooLow">आपका %1$s रेटिंग (%2$s) बहुत कम है</string>
   <string name="ratedMoreThanInPerf">≥ %1$s में %2$s रेट</string>
   <string name="ratedLessThanInPerf">≤ %1$s में %2$s रेट</string>
+  <string name="mustBeInTeam">टीम में होना ज़रूरी है %s</string>
+  <string name="youAreNotInTeam">आप %s का हिस्सा नही हो</string>
   <string name="backToGame">खेल पर लौटें।</string>
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="teams">समूह</string>
@@ -346,7 +348,7 @@
   <string name="retry">फिर से कोशिश करें</string>
   <string name="reconnecting">फिर से जुड़ने की कोशिश (रीकनेक्ट)</string>
   <string name="onlineFriends">ऑनलाइन मित्र</string>
-  <string name="noFriendsOnline">कोई मित्र ऑनलाइन  नहीं</string>
+  <string name="noFriendsOnline">कोई मित्र ऑनलाइन नहीं</string>
   <string name="findFriends">मित्र ढूंढे</string>
   <string name="favoriteOpponents">पसंदीदा विरोधि</string>
   <string name="follow">अनुसरण करे</string>
@@ -388,6 +390,7 @@
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
   <string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ शतरंज के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
+  <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
   <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
   <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
   <string name="join">हिस्सा लें</string>
@@ -415,7 +418,7 @@
   <string name="membersOnly">केवल खाता वाले</string>
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="setTheBoard">बोर्ड सेट करें</string>
-  <string name="popularOpenings">लोकप्रिय प्रारंभ</string>
+  <string name="popularOpenings">लोकप्रिय शुरुआती चाल</string>
   <string name="startPosition">शुरुआत की स्थिती</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
   <string name="savePosition">जगह सुरक्षित करें</string>
@@ -639,6 +642,8 @@
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
   <string name="mobileApp">मोबाइल ऐप्प</string>
   <string name="webmasters">वेबमास्टर्स</string>
+  <string name="aboutX">%s के बारे में</string>
+  <string name="really">सचमुच</string>
   <string name="contribute">सहयोग करें</string>
   <string name="contact">संपर्क करें</string>
   <string name="termsOfService">नियम और शर्तें</string>

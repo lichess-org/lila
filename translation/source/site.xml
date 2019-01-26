@@ -523,7 +523,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="materialDifference">Material difference</string>
   <string name="closeAccount">Close account</string>
   <string name="changedMindDoNotCloseAccount">I changed my mind, don't close my account</string>
-  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
+  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will NEVER be able to log in EVER AGAIN.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>

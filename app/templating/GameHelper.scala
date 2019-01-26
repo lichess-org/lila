@@ -5,6 +5,7 @@ import chess.format.Forsyth
 import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.twirl.api.Html
+import scalatags.Text.Frag
 
 import lila.common.String.html.escapeHtml
 import lila.game.{ Game, Player, Namer, Pov }
@@ -142,34 +143,34 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {
-    case S.Aborted => I18nKeys.gameAborted()
-    case S.Mate => I18nKeys.checkmate()
+  def gameEndStatus(game: Game)(implicit ctx: UserContext): String = game.status match {
+    case S.Aborted => I18nKeys.gameAborted.txt()
+    case S.Mate => I18nKeys.checkmate.txt()
     case S.Resign => game.loser match {
-      case Some(p) if p.color.white => I18nKeys.whiteResigned()
-      case _ => I18nKeys.blackResigned()
+      case Some(p) if p.color.white => I18nKeys.whiteResigned.txt()
+      case _ => I18nKeys.blackResigned.txt()
     }
-    case S.UnknownFinish => I18nKeys.finished()
-    case S.Stalemate => I18nKeys.stalemate()
+    case S.UnknownFinish => I18nKeys.finished.txt()
+    case S.Stalemate => I18nKeys.stalemate.txt()
     case S.Timeout => game.loser match {
-      case Some(p) if p.color.white => I18nKeys.whiteLeftTheGame()
-      case Some(_) => I18nKeys.blackLeftTheGame()
-      case None => I18nKeys.draw()
+      case Some(p) if p.color.white => I18nKeys.whiteLeftTheGame.txt()
+      case Some(_) => I18nKeys.blackLeftTheGame.txt()
+      case None => I18nKeys.draw.txt()
     }
-    case S.Draw => I18nKeys.draw()
-    case S.Outoftime => I18nKeys.timeOut()
-    case S.NoStart => Html {
+    case S.Draw => I18nKeys.draw.txt()
+    case S.Outoftime => I18nKeys.timeOut.txt()
+    case S.NoStart => {
       val color = game.loser.fold(Color.white)(_.color).name.capitalize
       s"$color didn't move"
     }
-    case S.Cheat => Html("Cheat detected")
+    case S.Cheat => "Cheat detected"
     case S.VariantEnd => game.variant match {
-      case chess.variant.KingOfTheHill => I18nKeys.kingInTheCenter()
-      case chess.variant.ThreeCheck => I18nKeys.threeChecks()
-      case chess.variant.RacingKings => I18nKeys.raceFinished()
-      case _ => I18nKeys.variantEnding()
+      case chess.variant.KingOfTheHill => I18nKeys.kingInTheCenter.txt()
+      case chess.variant.ThreeCheck => I18nKeys.threeChecks.txt()
+      case chess.variant.RacingKings => I18nKeys.raceFinished.txt()
+      case _ => I18nKeys.variantEnding.txt()
     }
-    case _ => emptyHtml
+    case _ => ""
   }
 
   private def gameTitle(game: Game, color: Color): String = {

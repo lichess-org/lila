@@ -14,4 +14,5 @@
   <string name="welcome_text">在 https://lichess.org 上您已成功创建帐户。 这里是您的个人信息页： %1$s。您可以在 %2$s 上修改其内容。 祝您玩得开心，希望您的棋子总是将死您对手的王 ！</string>
   <string name="common_orPaste">（单击链接无效？请试着将它粘贴到您的浏览器域名栏 ！）</string>
   <string name="common_note">这是有关您使用 %s 的服务电子邮件。</string>
+  <string name="common_contact">要联系我们，请使用 %s。</string>
 </resources>

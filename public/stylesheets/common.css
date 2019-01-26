@@ -891,6 +891,10 @@ div.side form.search input {
 #topmenu.hover section:hover div {
   display: block;
 }
+#topmenu.blind div {
+  display: block;
+  margin-left: -9000px;
+}
 #topmenu div {
   display: none;
   position: absolute;
@@ -1364,6 +1368,7 @@ div.vstext .right {
   height: 160px;
 }
 
+div.lichess_overboard h1,
 div.lichess_overboard h2 {
   margin-bottom: 1em;
   font-size: 1.4em;

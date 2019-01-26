@@ -399,6 +399,7 @@
   <string name="troll">Trôl</string>
   <string name="other">Arall</string>
   <string name="reportDescriptionHelp">Gluda ddolen i\'r gêm ac esbonio be sydd o\'i le am ymddigiad y defnyddiwr hwn. Paid â dweud jyst ´\"Mae o\'n twyllo\", ond dwed pam wyt ti\'n meddwl hynny. Bydd dy adrodd yn cael ei brosesu yn gyflymach os ysgrifenni yn Saesneg.</string>
+  <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
   <string name="by">gan %s</string>
   <string name="thisTopicIsNowClosed">Mae\'r pwnc ma wedi\'i gau rwan.</string>
   <string name="theming">Thema</string>
@@ -426,6 +427,7 @@
   <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
   <string name="pgnPieceNotation">Math o gofnod</string>
+  <string name="chessPieceSymbol">Nodiad symbolau</string>
   <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
@@ -472,6 +474,7 @@
   <string name="starting">Cychwyn:</string>
   <string name="allInformationIsPublicAndOptional">Mae pob gwybodaeth yn gyhoeddus ac yn ddewisol.</string>
   <string name="yourCityRegionOrDepartment">Eich dinas, ardal neu dalaith.</string>
+  <string name="biographyDescription">Dywedwch amdanoch chi, beth yr ydych yn ei hoffi am wyddbwyll, eich hoff agoriad, gemau, chwaraewyr…</string>
   <string name="listBlockedPlayers">Rhestru chwaraewyr flociwyd gennoch</string>
   <string name="human">Dynol</string>
   <string name="computer">Cyfrifiadur</string>
@@ -613,6 +616,10 @@
   <string name="viewTheSolution">Gweld yr ateb</string>
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
+  <string name="xHostsY">Mae %1$s yn cynnal %2$s</string>
+  <string name="xJoinsY">Mae %1$s yn ymuno gyda %2$s</string>
+  <string name="xLikesY">Mae %1$s yn hoffi %2$s</string>
+  <string name="quickPairing">Gem yn sydyn</string>
   <string name="lobby">Cyntedd</string>
   <string name="anonymous">DiEnw</string>
   <string name="yourScore">Eich sgor:%s</string>
@@ -629,6 +636,7 @@
   <string name="embedInYourWebsite">Gosod i\'ch gwefan</string>
   <string name="usernameAlreadyUsed">Ymddiheuriadau, mae\'r enw defnyddiwr yna wedi ei fachu\'n barod, defnyddiwch un arall.</string>
   <string name="usernamePrefixInvalid">Rhaid i enw defnyddiwr dechrau gyda llythyren.</string>
+  <string name="usernameSuffixInvalid">Rhaid i\'r enw defnyddiwr orffen efo rhif neu lythyren.</string>
   <string name="usernameUnacceptable">Nid yw enw defnyddiwr hwn yn dderbyniol.</string>
   <string name="directlySupportLichess">Cefnogwch Lichess yn uniongyrchol</string>
   <string name="playChessInStyle">Edrychwch yn swanc efo Lichess</string>
@@ -639,6 +647,7 @@
   <string name="error.minLength">Yr hyd lleiaf sy\'n dderbyniol yw %s (medd yr actores wrth yr esgob)</string>
   <string name="error.maxLength">Yr hyd mwyaf sy\'n dderbyniol yw %s</string>
   <string name="error.min">Rhaid bod yn gyfartal i neu yn uwch na %s</string>
+  <string name="error.max">Rhaid bod yn gyfartal i neu yn llai na %s</string>
   <string name="error.unknown">Gwall</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
@@ -658,6 +667,7 @@
   <string name="blackWinsGame">Du yn enill</string>
   <string name="learnFromYourMistakes">Dysga o dy gamgymeriadau</string>
   <string name="learnFromThisMistake">Dysga o\'r camgymeriad yma</string>
+  <string name="skipThisMove">Symyd ymlaen</string>
   <string name="next">Nesaf</string>
   <string name="xWasPlayed">Chwaraewyd %s</string>
   <string name="findBetterMoveForWhite">Chwilia am ddewis gwell i gwyn</string>

@@ -85,7 +85,7 @@
     <item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova ad includere più partite dal menu Preferenze.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">%s explorer delle aperture</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
@@ -105,7 +105,7 @@
   <string name="cpus">Processori</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
-  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e mantiene il tuo computer caldo</string>
+  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi, ma può surriscaldare il tuo computer</string>
   <string name="blunder">Errore grave</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistake">Errore</string>
@@ -546,7 +546,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="whenTimeRemainingLessThanTenSeconds">Quando il tempo rimanente è &lt; 10 secondi</string>
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
-  <string name="gameBehavior">Andamento del gioco</string>
+  <string name="gameBehavior">Preferenze di gioco</string>
   <string name="howDoYouMovePieces">Come vuoi muovere i pezzi?</string>
   <string name="clickTwoSquares">Click sulle caselle</string>
   <string name="dragPiece">Trascina il pezzo</string>
@@ -588,7 +588,7 @@ in %3$s</string>
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>
   <string name="yourCityRegionOrDepartment">La tua città, regione o provincia.</string>
-  <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, giochi, giocatori preferiti…</string>
+  <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, partite, giocatori preferiti…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Massimo: %s carattere.</item>
     <item quantity="other">Massimo: %s caratteri.</item>
@@ -646,7 +646,7 @@ in %3$s</string>
   <string name="watch">Guarda</string>
   <string name="internationalEvents">Eventi internazionali</string>
   <string name="videoLibrary">Libreria video</string>
-  <string name="mobileApp">Mobile App</string>
+  <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
   <string name="aboutX">Informazioni su %s</string>
@@ -654,8 +654,8 @@ in %3$s</string>
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="contact">Contattaci</string>
-  <string name="termsOfService">Termini di Servizio</string>
-  <string name="sourceCode">Codice Sorgente</string>
+  <string name="termsOfService">Termini di servizio</string>
+  <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
@@ -699,7 +699,7 @@ in %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un rating %s consolidato.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
   <string name="checkYourEmail">Controlla la tua e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
@@ -735,11 +735,11 @@ in %3$s</string>
   <string name="alternativelyYouCanX">In alternativa è possibile %s.</string>
   <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
-  <string name="asFreeAsLichess">Libero come Lichess</string>
+  <string name="asFreeAsLichess">Gratuita, proprio come Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Fatto per amore degli scacchi, non del denaro</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutti hanno le stesse funzionalità gratis</string>
   <string name="zeroAdvertisement">Nessuna pubblicità</string>
-  <string name="fullFeatured">Piena funzionalità</string>
+  <string name="fullFeatured">Senza limitazioni</string>
   <string name="phoneAndTablet">Cellulare e tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classico</string>
   <string name="correspondenceChess">Scacchi per corrispondenza</string>
@@ -838,8 +838,8 @@ in %3$s</string>
   <string name="registerToSendChallenges">Per favore, registrati per mandare sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
-  <string name="yourXRatingIsTooFarFromY">Il tuo %1$s rating è troppo diverso da %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un %s rating provvisorio.</string>
+  <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un punteggio %s provvisorio.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
   <string name="conditionalPremoves">Premosse condizionali</string>
   <string name="addCurrentVariation">Aggiungi variazione corrente</string>

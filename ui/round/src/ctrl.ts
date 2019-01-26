@@ -5,7 +5,6 @@ import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
-import * as blind from './blind';
 import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
@@ -22,7 +21,7 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, Blind } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
@@ -65,6 +64,7 @@ export default class RoundController {
   shouldSendMoveTime: boolean = false;
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
+  blind?: Blind;
 
   private music?: any;
 
@@ -112,12 +112,13 @@ export default class RoundController {
     li.pubsub.on('sound_set', set => {
       if (!this.music && set === 'music')
         li.loadScript('javascripts/music/play.js').then(() => {
-          this.music = window.lichessPlayMusic();
+          this.music = li.playMusic();
         });
-        if (this.music && set !== 'music') this.music = undefined;
+      if (this.music && set !== 'music') this.music = undefined;
     });
     if (li.ab && this.isPlaying()) li.ab.init(this);
 
+    if (d.blind) this.blind = li.RoundNVUI(redraw);
   }
 
   private showExpiration = () => {
@@ -185,24 +186,24 @@ export default class RoundController {
 
   jump = (ply: Ply): boolean => {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
-    const samePly = this.ply === ply;
+    const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
     const s = round.plyStep(this.data, ply),
-    config: CgConfig = {
-      fen: s.fen,
-      lastMove: util.uci2move(s.uci),
-      check: !!s.check,
-      turnColor: this.ply % 2 === 0 ? 'white' : 'black'
-    };
+      config: CgConfig = {
+        fen: s.fen,
+        lastMove: util.uci2move(s.uci),
+        check: !!s.check,
+        turnColor: this.ply % 2 === 0 ? 'white' : 'black'
+      };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
       color: this.isPlaying() ? this.data.player.color : undefined,
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
-    if (s.san && !samePly) {
+    if (s.san && isForwardStep) {
       if (s.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
@@ -221,8 +222,11 @@ export default class RoundController {
 
   isLate = () => this.replaying() && status.playing(this.data);
 
+  playerAt = (position: Position) =>
+    (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
+
   flipNow = () => {
-    this.flip = !this.flip;
+    this.flip = !this.blind && !this.flip;
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip)
     });
@@ -295,11 +299,11 @@ export default class RoundController {
     const d = this.data;
     if (game.isPlayerTurn(d)) li.desktopNotification(() => {
       let txt = this.trans('yourTurn'),
-      opponent = renderUser.userTxt(this, d.opponent);
+        opponent = renderUser.userTxt(this, d.opponent);
       if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
       else {
         let move = d.steps[d.steps.length - 1].san,
-        turn = Math.floor((this.ply - 1) / 2) + 1;
+          turn = Math.floor((this.ply - 1) / 2) + 1;
         move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
         txt = opponent + '\nplayed ' + move + '.\n' + txt;
       }
@@ -310,17 +314,17 @@ export default class RoundController {
     });
   };
 
-  private playerByColor = (c: Color) =>
+  playerByColor = (c: Color) =>
     this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): void => {
     const d = this.data,
-    playing = this.isPlaying();
+      playing = this.isPlaying();
 
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-    activeColor = d.player.color === d.game.player;
+      activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('white').offeringDraw = o.wDraw;
@@ -401,7 +405,6 @@ export default class RoundController {
       else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
-    if (d.blind) blind.reload(this);
     if (playing && playedColor === d.player.color) {
       this.moveOn.next();
       cevalSub.publish(d, o);
@@ -446,7 +449,6 @@ export default class RoundController {
     if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
-    if (d.blind) blind.reload(this);
     this.moveOn.next();
     this.setQuietMode();
     this.redraw();
@@ -468,7 +470,7 @@ export default class RoundController {
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
     if (!d.player.spectator && d.game.turns > 1)
-    li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+      li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -508,16 +510,16 @@ export default class RoundController {
 
   private makeCorrespondenceClock = (): void => {
     if (this.data.correspondence && !this.corresClock)
-    this.corresClock = makeCorresClock(
-      this,
-      this.data.correspondence,
-      this.socket.outoftime
-    );
+      this.corresClock = makeCorresClock(
+        this,
+        this.data.correspondence,
+        this.socket.outoftime
+      );
   };
 
   private corresClockTick = (): void => {
     if (this.corresClock && game.playable(this.data))
-    this.corresClock.tick(this.data.game.player);
+      this.corresClock.tick(this.data.game.player);
   };
 
   private setQuietMode = () => {
@@ -609,7 +611,7 @@ export default class RoundController {
   forecastInfo = (): boolean => {
     const d = this.data;
     return this.isPlaying() && d.correspondence && !d.opponent.ai &&
-    !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
+      !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
   }
 
   private onChange = () => {
@@ -619,10 +621,10 @@ export default class RoundController {
   forceResignable = (): boolean => {
     const d = this.data;
     return !d.opponent.ai &&
-    !!d.clock &&
-    d.opponent.isGone &&
-    !game.isPlayerTurn(d) &&
-    game.resignable(d);
+      !!d.clock &&
+      d.opponent.isGone &&
+      !game.isPlayerTurn(d) &&
+      game.resignable(d);
   }
 
   canOfferDraw = (): boolean =>
@@ -651,9 +653,9 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
-    }
+    if (this.blind) li.requestIdleCallback(this.redraw);
   };
 
   toggleZen = () => {
@@ -665,41 +667,42 @@ export default class RoundController {
   }
 
   private delayedInit = () => {
-    if (this.isPlaying() && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
+    const d = this.data;
+    if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
       li.sound.genericNotify();
     }
     li.requestIdleCallback(() => {
       if (this.isPlaying()) {
-        if (!this.data.simul) blur.init(this.data.steps.length > 2);
+        if (!d.simul) blur.init(d.steps.length > 2);
 
         title.init();
         this.setTitle();
 
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||
-            this.data.blind ||
-            !game.playable(this.data) ||
-            !this.data.clock ||
-            this.data.opponent.ai ||
+            d.blind ||
+            !game.playable(d) ||
+            !d.clock ||
+            d.opponent.ai ||
             this.isSimulHost()) return;
-            document.body.classList.remove('fpmenu');
-            this.socket.send('bye2');
-            const msg = 'There is a game in progress!';
-            (e || window.event).returnValue = msg;
-            return msg;
+          document.body.classList.remove('fpmenu');
+          this.socket.send('bye2');
+          const msg = 'There is a game in progress!';
+          (e || window.event).returnValue = msg;
+          return msg;
         });
 
-        window.Mousetrap.bind('esc', () => {
-          this.submitMove(false);
-          this.chessground.cancelMove();
-        });
-
-        window.Mousetrap.bind('return', () => this.submitMove(true));
-
-        cevalSub.subscribe(this);
+        if (!d.blind) {
+          window.Mousetrap.bind('esc', () => {
+            this.submitMove(false);
+            this.chessground.cancelMove();
+          });
+          window.Mousetrap.bind('return', () => this.submitMove(true));
+          cevalSub.subscribe(this);
+        }
       }
 
-      keyboard.init(this);
+      if (!d.blind) keyboard.init(this);
 
       this.onChange();
 

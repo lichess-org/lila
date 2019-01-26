@@ -97,11 +97,13 @@ module.exports = function(cfg, element) {
   cfg.pools = pools;
   lobby = LichessLobby.start(cfg);
 
+  var blindMode = $('body').hasClass('blind_mode');
+
   var $startButtons = $('#start_buttons');
 
   var sliderTimes = [
-    0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-    16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
+    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
   ];
 
   function sliderTime(v) {
@@ -175,16 +177,16 @@ module.exports = function(cfg, element) {
 
   function prepareForm() {
     var $form = $('.lichess_overboard');
-    var $timeModeSelect = $form.find('#timeMode');
+    var $timeModeSelect = $form.find('#sf_timeMode');
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
     var $casual = $modeChoices.eq(0),
-    $rated = $modeChoices.eq(1);
-    var $variantSelect = $form.find('#variant');
+      $rated = $modeChoices.eq(1);
+    var $variantSelect = $form.find('#sf_variant');
     var $fenPosition = $form.find(".fen_position");
-    var $timeInput = $form.find('.time_choice input');
-    var $incrementInput = $form.find('.increment_choice input');
-    var $daysInput = $form.find('.days_choice input');
+    var $timeInput = $form.find('.time_choice [name=time]');
+    var $incrementInput = $form.find('.increment_choice [name=increment]');
+    var $daysInput = $form.find('.days_choice [name=days]');
     var typ = $form.data('type');
     var $ratings = $form.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
@@ -206,7 +208,7 @@ module.exports = function(cfg, element) {
       $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
       var ratedOk = typ != 'hook' || !rated || timeMode != '0';
-      var aiOk = typ != 'ai' || variantId != '3' || $timeInput.val() >= 1;
+      var aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
       if (timeOk && ratedOk && aiOk) {
         $submits.toggleClass('nope', false);
         $submits.filter(':not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
@@ -226,30 +228,30 @@ module.exports = function(cfg, element) {
             else key = 'classical';
           } else key = 'correspondence';
           break;
- case '10':
-   key = 'crazyhouse';
-   break;
- case '2':
-   key = 'chess960';
-   break;
- case '4':
-   key = 'kingOfTheHill';
-   break;
- case '5':
-   key = 'threeCheck';
-   break;
- case '6':
-   key = 'antichess'
-     break;
- case '7':
-   key = 'atomic'
-     break;
- case '8':
-   key = "horde"
-     break;
- case '9':
-   key = "racingKings"
-     break;
+        case '10':
+          key = 'crazyhouse';
+          break;
+        case '2':
+          key = 'chess960';
+          break;
+        case '4':
+          key = 'kingOfTheHill';
+          break;
+        case '5':
+          key = 'threeCheck';
+          break;
+        case '6':
+          key = 'antichess'
+          break;
+        case '7':
+          key = 'atomic'
+          break;
+        case '8':
+          key = "horde"
+          break;
+        case '9':
+          key = "racingKings"
+          break;
       }
       $ratings.hide().filter('.' + key).show();
     };
@@ -285,12 +287,18 @@ module.exports = function(cfg, element) {
     } else $formTag.one('submit', function() {
       $submits.hide().end().append(lichess.spinnerHtml);
     });
-    lichess.slider().done(function() {
+    if (blindMode) {
+      $variantSelect.focus();
+      $timeInput.add($incrementInput).on('change', function() {
+        toggleButtons();
+        showRating();
+      });
+    } else lichess.slider().done(function() {
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
-        $value = $input.siblings('span');
+          $value = $input.siblings('span');
         var isTimeSlider = $input.parent().hasClass('time_choice');
-        $input.hide().after($('<div>').slider({
+        $input.after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
           max: isTimeSlider ? 34 : 30,
@@ -307,8 +315,8 @@ module.exports = function(cfg, element) {
       });
       $daysInput.each(function() {
         var $input = $(this),
-        $value = $input.siblings('span');
-        $input.hide().after($('<div>').slider({
+          $value = $input.siblings('span');
+        $input.after($('<div>').slider({
           value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
           min: 1,
           max: 7,
@@ -352,67 +360,69 @@ module.exports = function(cfg, element) {
     }).trigger('change');
 
     var $fenInput = $fenPosition.find('input');
-  var validateFen = lichess.fp.debounce(function() {
-    $fenInput.removeClass("success failure");
-    var fen = $fenInput.val();
-    if (fen) {
-      $.ajax({
-        url: $fenInput.parent().data('validate-url'),
-        data: {
-          fen: fen
-        },
-        success: function(data) {
-          $fenInput.addClass("success");
-          $fenPosition.find('.preview').html(data);
-          $fenPosition.find('a.board_editor').each(function() {
-            $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
-          });
-          $form.find('.color_submits button').removeClass('nope');
-          lichess.pubsub.emit('content_loaded')();
-        },
-        error: function() {
-          $fenInput.addClass("failure");
-          $fenPosition.find('.preview').html("");
-          $form.find('.color_submits button').addClass('nope');
-        }
-      });
-    }
-  }, 200);
-  $fenInput.on('keyup', validateFen);
+    var validateFen = lichess.fp.debounce(function() {
+      $fenInput.removeClass("success failure");
+      var fen = $fenInput.val();
+      if (fen) {
+        $.ajax({
+          url: $fenInput.parent().data('validate-url'),
+          data: {
+            fen: fen
+          },
+          success: function(data) {
+            $fenInput.addClass("success");
+            $fenPosition.find('.preview').html(data);
+            $fenPosition.find('a.board_editor').each(function() {
+              $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
+            });
+            $form.find('.color_submits button').removeClass('nope');
+            lichess.pubsub.emit('content_loaded')();
+          },
+          error: function() {
+            $fenInput.addClass("failure");
+            $fenPosition.find('.preview').html("");
+            $form.find('.color_submits button').addClass('nope');
+          }
+        });
+      }
+    }, 200);
+    $fenInput.on('keyup', validateFen);
 
-  $variantSelect.on('change', function() {
-    var fen = $(this).val() == '3';
-    $fenPosition.toggle(fen);
-    $modeChoicesWrap.toggle(!fen);
-    if (fen) {
-      $casual.click();
-      lichess.raf(function() {
-        document.body.dispatchEvent(new Event('chessground.resize'));
-      });
-    }
-    showRating();
-    toggleButtons();
-  }).trigger('change');
+    $variantSelect.on('change', function() {
+      var fen = $(this).val() == '3';
+      $fenPosition.toggle(fen);
+      $modeChoicesWrap.toggle(!fen);
+      if (fen) {
+        $casual.click();
+        lichess.raf(function() {
+          document.body.dispatchEvent(new Event('chessground.resize'));
+        });
+      }
+      showRating();
+      toggleButtons();
+    }).trigger('change');
 
-  $form.find('div.level').each(function() {
-    var $infos = $(this).find('.ai_info > div');
-    $(this).find('label').mouseenter(function() {
-      $infos.hide().filter('.' + $(this).attr('for')).show();
+    $form.find('div.level').each(function() {
+      var $infos = $(this).find('.ai_info > div');
+      $(this).find('label').mouseenter(function() {
+        $infos.hide().filter('.' + $(this).attr('for')).show();
+      });
+      $(this).find('#config_level').mouseleave(function() {
+        var level = $(this).find('input:checked').val();
+        $infos.hide().filter('.sf_level_' + level).show();
+      }).trigger('mouseout');
     });
-    $(this).find('#config_level').mouseleave(function() {
-      var level = $(this).find('input:checked').val();
-      $infos.hide().filter('.level_' + level).show();
-    }).trigger('mouseout');
-  });
 
-  $form.find('a.close.icon').click(function() {
-    $form.remove();
-    $startButtons.find('a.active').removeClass('active');
-    return false;
-  });
+    $form.find('a.close.icon').click(function() {
+      $form.remove();
+      $startButtons.find('a.active').removeClass('active');
+      return false;
+    });
   }
 
-  $startButtons.find('a').not('.disabled').on('mousedown', function() {
+  var clickEvent = blindMode ? 'click' : 'mousedown';
+
+  $startButtons.find('a').not('.disabled').on(clickEvent, function() {
     lichess.loadCss('stylesheets/setup.css');
     lobby.leavePool();
     $.ajax({
@@ -440,16 +450,16 @@ module.exports = function(cfg, element) {
       .find('a.config_' + location.hash.replace('#', ''))
       .each(function() {
         $(this).attr("href", $(this).attr("href") + location.search);
-      }).trigger('mousedown');
+      }).trigger(clickEvent);
 
-      if (location.hash === '#hook') {
-        if (/time=realTime/.test(location.search))
-          lobby.setTab('real_time');
-        else if (/time=correspondence/.test(location.search))
-          lobby.setTab('seeks');
-      }
+    if (location.hash === '#hook') {
+      if (/time=realTime/.test(location.search))
+        lobby.setTab('real_time');
+      else if (/time=correspondence/.test(location.search))
+        lobby.setTab('seeks');
+    }
 
-      history.replaceState(null, null, '/');
+    history.replaceState(null, null, '/');
   }
 };
 
@@ -474,4 +484,4 @@ function spreadNumber(el, nbSteps, getDuration) {
     for (var i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
   };
-};
+}

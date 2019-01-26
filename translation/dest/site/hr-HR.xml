@@ -863,7 +863,7 @@ u %3$s</string>
   <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekundi</item>
-    <item quantity="few">%s sekundi</item>
+    <item quantity="few">%s sekunde</item>
     <item quantity="other">%s sekundi</item>
   </plurals>
   <string name="opening">Otvaranje</string>

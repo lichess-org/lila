@@ -9,7 +9,7 @@
 }
 
 @tosLink = {
-<a href="@routes.Page.bookmark("tos")">@trans.termsOfService()</a>
+<a href="@routes.Page.tos">@trans.termsOfService()</a>
 }
 
 @auth.layout(
@@ -31,11 +31,11 @@ csp = defaultCsp.withRecaptcha.some) {
         @trans.computersAreNotAllowedToPlay()<br />
         <small>@trans.byRegisteringYouAgreeToBeBoundByOur(tosLink)</small>
       </div>
-      @form3.action {
+      @form3.actionHtml {
       @if(recaptcha.enabled) {
       <button class="g-recaptcha submit button text big" data-icon="F" data-sitekey="@recaptcha.key" data-callback='signupSubmit'>@trans.signUp()</button>
       } else {
-      @form3.submit(trans.signUp(), icon = "F".some, klass = "big")
+      @form3.submit(trans.signUp.frag(), icon = "F".some, klass = "big")
       }
       }
     </form>

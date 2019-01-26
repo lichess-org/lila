@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Ĉi tiu ludo estas ranga</string>
   <string name="rematch">Reludi</string>
   <string name="rematchOfferSent">Rematĉa oferto estis sendita</string>
+  <string name="rematchOfferSentWhite">Blanko ofertas reludon</string>
+  <string name="rematchOfferSentBlack">Nigro ofertas reludon</string>
   <string name="rematchOfferAccepted">Rematĉa oferto estis akceptita</string>
   <string name="rematchOfferCanceled">Rematĉa oferto estis nuligita</string>
   <string name="rematchOfferDeclined">Rematĉa oferto estis malakceptita</string>
@@ -632,6 +634,8 @@
   <string name="mobileApp">Poŝtelefona Aplikaĵo</string>
   <string name="webmasters">Retejestroj</string>
   <string name="about">Pri</string>
+  <string name="aboutX">Pri %s</string>
+  <string name="really">vere</string>
   <string name="contribute">Kontribui</string>
   <string name="contact">Kontakto</string>
   <string name="termsOfService">Uzkondiĉojn</string>
@@ -751,6 +755,7 @@
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
+  <string name="usernamePrefixInvalid">La uzantnomo devas komenci kun litero.</string>
   <string name="usernameSuffixInvalid">La salutnomo devas finanta kun letero aux numero.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>

@@ -17,9 +17,54 @@ object contact {
 
   private case class FlatNode(id: String, name: String, parentId: Option[String])
 
-  private def menu: Branch =
+  private def reopenLeaf(prefix: String) = Leaf(s"$prefix-reopen", "I want to re-open my account", frag(
+    p(
+      "We may agree to re-open your account, ",
+      strong("but only once"),
+      "."
+    ),
+    p(
+      s"Send an email to $contactEmail ",
+      strong("from the same email address that you used to create the account"),
+      ".", br,
+      "This is required so we know that you indeed own the account."
+    ),
+    p("Don't forget to mention your username.")
+  ))
+
+  private def howToReportBugs: Frag = frag(
+    ul(
+      li(
+        "In the ",
+        a(href := routes.ForumCateg.show("lichess-feedback"))("Lichess Feedback Forum")
+      ),
+      li(
+        "As a ",
+        a(href := "https://github.com/ornicar/lila/issues")("Lichess website issue"),
+        " on GitHub"
+      ),
+      li(
+        "As a ",
+        a(href := "https://github.com/veloce/lichobile/issues")("Lichess mobile app issue"),
+        " on GitHub"
+      ),
+      li(
+        "In the ",
+        a(href := "https://discord.gg/hy5jqSs")("Lichess discord server")
+      )
+    ),
+    p("Please describe what the bug looks like, what you expected to happen instead, and the steps to reproduce the bug.")
+  )
+
+  private lazy val menu: Branch =
     Branch("root", "What can we help you with?", List(
-      Branch("account", "I need login and account support", List(
+      Branch("login", "I can't log in", List(
+        Leaf("email-confirm", "I don't receive my confirmation email", frag(
+          p(
+            "You signed up, but didn't receive your confirmation email?", br,
+            a(href := routes.Account.emailConfirmHelp)("Visit this page to solve the issue"), "."
+          )
+        )),
         Leaf("forgot-password", "I forgot my password", frag(
           p(
             "To request a new password, ",
@@ -36,26 +81,31 @@ object contact {
             " with the email address you signed up with."
           )
         )),
-        Leaf("email-confirm", "I don't receive my confirmation email", frag(
-          p(
-            "It can take some time to arrive.", br,
-            strong("Wait 10 minutes and refresh your email inbox.")
+        reopenLeaf("login"),
+        Leaf("dns", "\"This site can’t be reached\"", frag(
+          p("If you can't reach lichess, and your browser says something like:"),
+          ul(
+            li("This site can't be reached."),
+            li(strong("lichess.org"), "’s server IP address could not be found."),
+            li("We can’t connect to the server at lichess.org.")
           ),
-          p("Also check your spam folder, it might end up there. If so, mark it as NOT spam."),
+          p("Then you have a ", strong("DNS issue"), "."),
           p(
-            "If you still don't receive it, you can email us to request a manual confirmation.",
-            strong("You MUST include your new lichess username in the email you send us.")
-          ),
+            "There's nothing we can do about it, but ",
+            a("here's how you can fix it")(href := "https://www.wikihow.com/Fix-DNS-Server-Not-Responding-Problem"),
+            "."
+          )
+        ))
+      )),
+      Branch("account", "I need account support", List(
+        Leaf("title", "I want my title displayed on lichess", frag(
           p(
-            s"Send your request to $contactEmail ",
-            strong("with your lichess username in it.")
-          ),
-          p("Here's an example email that you can copy and paste:"),
-          hr,
-          p(i("Hello, please confirm my account: <USERNAME>")),
-          hr,
-          p("Just replace <USERNAME> with your username."),
-          p("Did we mention that you need to include your username in the email? ;)")
+            "To show your title on your lichess profile, and participate to Titled Arenas, ",
+            a(href := routes.Page.master)(
+              "visit the title confirmation page"
+            ),
+            "."
+          )
         )),
         Leaf("close", "I want to close my account", frag(
           p(
@@ -65,35 +115,21 @@ object contact {
           ),
           p("Do not ask us by email to close an account, we won't do it.")
         )),
-        Leaf("reopen", "I want to re-open my account", frag(
-          p(
-            "We may agree to re-open your account, ",
-            strong("but only once"),
-            "."
-          ),
-          p(
-            s"Send an email to $contactEmail ",
-            strong("from the same email address that you used to create the account"),
-            ".", br,
-            "This is required so we know that you indeed own the account."
-          ),
-          p("Don't forget to mention your username.")
+        reopenLeaf("account"),
+        Leaf("change-username", "I want to change my username", frag(
+          p("We're very sorry, but the username cannot be changed. For technical reasons, it's downright impossible."),
+          p("However, you can always close your current account, and create a new one.")
         )),
-        Leaf("title", "I want my title displayed on lichess", frag(
-          p(
-            "To show your title on your lichess profile,", br,
-            a(href := routes.Page.bookmark(name = "master"))(
-              "visit the title confirmation page"
-            ),
-            "."
-          )
+        Leaf("clear-history", "I want to clear my history or rating", frag(
+          p("It's not possible to clear your game history, puzzle history, or ratings."),
+          p("However, you can always close your current account, and create a new one.")
         ))
       )),
       Branch("report", "I want to report a player",
         List("cheating", "sandbagging", "trolling", "insults", "some other reason").map { reason =>
           Leaf(reason, s"Report a player for $reason", frag(
             p(
-              s"To report a player for $reason,", br,
+              s"To report a player for $reason, ",
               a(href := routes.Report.form)(strong("use the report form")), "."
             ),
             p(
@@ -149,28 +185,13 @@ object contact {
           p("Make sure you played a rated game."),
           p("Casual games do not affect the players ratings.")
         )),
-        Leaf("other-bug", "None of the above", frag(
+        Leaf("error-page", "Error page", frag(
+          p("If you faced an error page, you may report it:"),
+          howToReportBugs
+        )),
+        Leaf("other-bug", "Other bug", frag(
           p("If you found a new bug, you may report it:"),
-          ul(
-            li(
-              "In the ",
-              a(href := routes.ForumCateg.show("lichess-feedback"))("Lichess Feedback Forum")
-            ),
-            li(
-              "As a ",
-              a(href := "https://github.com/ornicar/lila/issues")("Lichess website issue"),
-              " on GitHub"
-            ),
-            li(
-              "As a ",
-              a(href := "https://github.com/veloce/lichobile/issues")("Lichess mobile app issue"),
-              " on GitHub"
-            ),
-            li(
-              "In the ",
-              a(href := "https://discord.gg/hy5jqSs")("Lichess discord server")
-            )
-          )
+          howToReportBugs
         ))
       )),
       Branch("appeal", "Appeal for a ban or IP restriction", List(
@@ -184,7 +205,7 @@ object contact {
             "However if you indeed used engine assistance, ",
             strong("even just once"),
             ", then your account is unfortunately lost.", br,
-            "Do not deny having cheated. If you want to be allowed to create a new account", br,
+            "Do not deny having cheated. If you want to be allowed to create a new account, ",
             "just admit to what you did, and show that you understood that it was a mistake."
           )
         )),
@@ -222,7 +243,10 @@ object contact {
         )),
         Leaf("contact-other", "None of the above", frag(
           p(s"Please send us an email at $contactEmail."),
-          p("Please explain your request clearly and thoroughly.")
+          p(
+            "Please explain your request clearly and thoroughly.",
+            "State your lichess username, and any information that could help us help you."
+          )
         ))
       ))
     ))
@@ -247,7 +271,7 @@ object contact {
     )
   }
 
-  private lazy val renderedMenu: Frag = renderNode(menu, none)
+  private lazy val renderedMenu = renderNode(menu, none)
 
   private def makeId(id: String) = st.id := s"help-$id"
   private def makeLink(id: String) = href := s"#help-$id"
@@ -257,7 +281,7 @@ object contact {
 
   def apply()(implicit ctx: Context) = views.html.base.layout(
     title = "Contact",
-    moreCss = cssTags("page.css", "contact.css"),
+    moreCss = cssTags("contact.css"),
     moreJs = embedJs("""location=location.hash||"#help-root"""")
   )(
       div(cls := "content_box small_box")(

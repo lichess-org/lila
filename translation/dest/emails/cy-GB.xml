@@ -18,4 +18,5 @@ Dyma eich tudalen proffil: %1$s. Gallwch chi ei bersonoli ar %2$s.
 Mwynhewch. Dymunwn bydd eich darnau yn canfod brenin y gwrthwynebydd!</string>
   <string name="common_orPaste">(Clicio yn methu? Ceisiwch ludo\'r ddolen i mewn i\'ch porwr!)</string>
   <string name="common_note">Mae\'r e-bost gwasanaeth hwn yn gysylltiedig â\'ch defnydd o %s.</string>
+  <string name="common_contact">I gysylltu gyda ni, defnyddiwch %s.</string>
 </resources>

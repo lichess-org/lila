@@ -79,7 +79,7 @@ export default class AnalyseCtrl {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
@@ -121,8 +121,8 @@ export default class AnalyseCtrl {
 
     if (opts.initialPly) {
       const loc = window.location,
-      intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
-      plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
+        intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
+        plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
@@ -157,7 +157,7 @@ export default class AnalyseCtrl {
         li.loadScript('javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
-        if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = null;
     });
 
     li.pubsub.on('analysis.change.trigger', this.onChange);
@@ -182,7 +182,7 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
-      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+    treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
 
@@ -259,27 +259,27 @@ export default class AnalyseCtrl {
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
-    color = this.turnColor(),
-    dests = chessUtil.readDests(this.node.dests),
-    drops = chessUtil.readDrops(this.node.drops),
-    movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
-      !this.embed && (
-        (dests && Object.keys(dests).length > 0) ||
-        drops === null || drops.length
-      ) ? color : undefined),
-    config: ChessgroundConfig = {
-      fen: node.fen,
-      turnColor: color,
-      movable: this.embed ? {
-        color: undefined,
-        dests: {} as CgDests
-      } : {
-        color: movableColor,
-        dests: (movableColor === color ? (dests || {}) : {}) as CgDests
-      },
-      check: !!node.check,
-      lastMove: this.uciToLastMove(node.uci)
-    };
+      color = this.turnColor(),
+      dests = chessUtil.readDests(this.node.dests),
+      drops = chessUtil.readDrops(this.node.drops),
+      movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
+        !this.embed && (
+          (dests && Object.keys(dests).length > 0) ||
+          drops === null || drops.length
+        ) ? color : undefined),
+      config: ChessgroundConfig = {
+        fen: node.fen,
+        turnColor: color,
+        movable: this.embed ? {
+          color: undefined,
+          dests: {} as CgDests
+        } : {
+          color: movableColor,
+          dests: (movableColor === color ? (dests || {}) : {}) as CgDests
+        },
+        check: !!node.check,
+        lastMove: this.uciToLastMove(node.uci)
+      };
     if (!dests && !node.check) {
       // premove while dests are loading from server
       // can't use when in check because it highlights the wrong king
@@ -319,18 +319,21 @@ export default class AnalyseCtrl {
     !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
 
   jump(path: Tree.Path): void {
-    const pathChanged = path !== this.path;
+    const pathChanged = path !== this.path,
+    isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
       const playedMyself = this.playedLastMoveMyself();
       if (this.study) this.study.setPath(path, this.node, playedMyself);
-      if (!this.node.uci) this.sound.move(); // initial position
-      else if (!playedMyself) {
-        if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
-        else this.sound.move();
+      if (isForwardStep) {
+        if (!this.node.uci) this.sound.move(); // initial position
+        else if (!playedMyself) {
+          if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
+          else this.sound.move();
+        }
+        if (/\+|\#/.test(this.node.san!)) this.sound.check();
       }
-      if (/\+|\#/.test(this.node.san!)) this.sound.check();
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
@@ -555,7 +558,7 @@ export default class AnalyseCtrl {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
         if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth)
-        node.threat = ev;
+          node.threat = ev;
       } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
 

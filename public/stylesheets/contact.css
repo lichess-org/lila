@@ -33,16 +33,20 @@
 }
 .contact .branch .links a:hover,
 .contact a.back:hover {
-  color: #fff;
+  color: #fff!important;
   background: #3893E8;
 }
 
 .contact .leaf a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 .contact .leaf .content {
   padding: 1em 0;
 }
-.contact .leaf .content p {
+.contact .leaf .content p,
+.contact .leaf .content ul {
   margin-bottom: 1em;
+}
+.contact .leaf .content li {
+  list-style: disc inside;
 }

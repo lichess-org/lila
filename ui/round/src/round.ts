@@ -24,4 +24,10 @@ export function massage(d: RoundData): void {
   if (['horde', 'crazyhouse'].indexOf(d.game.variant.key) !== -1) d.pref.showCaptured = false;
 
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
+
+  if (d.blind) {
+    d.pref.keyboardMove = false;
+    d.pref.confirmResign = false;
+    d.pref.submitMove = false;
+  }
 };
