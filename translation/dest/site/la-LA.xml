@@ -73,6 +73,8 @@
   <string name="database">Archivum</string>
   <string name="whiteDrawBlack">Albus / Aequatio / Ater</string>
   <string name="averageRatingX">Ratio media: %s</string>
+  <string name="recentGames">Recentes ludi</string>
+  <string name="topGames">Capitales ludi</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
