@@ -27,14 +27,14 @@ export function styleSetting(): Setting<Style> {
   });
 }
 
-export function renderSan(san: San, uci: Uci, style: Style) {
+export function renderSan(san: San, uci: Uci | undefined, style: Style) {
   if (!san) return '';
   const has = window.lichess.fp.contains;
   let move: string;
   if (has(san, 'O-O-O')) move = 'long castling';
   else if (has(san, 'O-O')) move = 'short castling';
   else if (style === 'san') move = san.replace(/[\+#]/, '');
-  else if (style === 'uci') move = uci;
+  else if (style === 'uci') move = uci || san;
   else {
     move = san.replace(/[\+#]/, '').split('').map(c => {
       if (c == 'x') return 'takes';

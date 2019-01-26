@@ -14,6 +14,7 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
+import { Style } from 'nvui/chess';
 
 type Sans = {
   [key: string]: Uci;
@@ -177,7 +178,7 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   return;
 }
 
-function renderMoves(steps: Step[], style: any) {
+function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
     res.push(renderSan(s.san, s.uci, style) + ', ');

@@ -3,11 +3,13 @@ import { VNode } from 'snabbdom/vnode'
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
-import { Redraw, AnalyseData } from '../interfaces';
+import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
-// import { /* renderSan, renderPieces, renderBoard, */ styleSetting } from 'nvui/chess';
-// import { renderSetting } from 'nvui/setting';
+import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
+import { Style } from 'nvui/chess';
+import * as moveView from '../moveView';
 
 // type Sans = {
 //   [key: string]: Uci;
@@ -15,13 +17,12 @@ import { Notify } from 'nvui/notify';
 
 window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 
-  const notify = new Notify(redraw);
-    // moveStyle = styleSetting();
+  const notify = new Notify(redraw),
+    moveStyle = styleSetting();
 
   return {
     render(ctrl: AnalyseController): VNode {
-      console.log(ctrl.data);
-      const d = ctrl.data; // , node = ctrl.node, style = moveStyle.get();
+      const d = ctrl.data, style = moveStyle.get();
       if (!ctrl.chessground) ctrl.chessground = Chessground(document.createElement("div"), {
         ...makeCgConfig(ctrl),
         animation: { enabled: false },
@@ -37,68 +38,32 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
         ]))),
         h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
         d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-        // h('h2', 'Moves'),
-        // h('p.moves', {
-        //   attrs: {
-        //     role : 'log',
-        //     'aria-live': 'off'
-        //   }
-        // }, renderMoves(d.steps.slice(1), style)),
-        // h('h2', 'Pieces'),
-        // h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-        // h('h2', 'Game status'),
-        // h('div.status', {
-        //   attrs: {
-        //     role : 'status',
-        //     'aria-live' : 'assertive',
-        //     'aria-atomic' : true
-        //   }
-        // }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
-        // h('h2', 'Last move'),
-        // h('p.lastMove', {
-        //   attrs: {
-        //     'aria-live' : 'assertive',
-        //     'aria-atomic' : true
-        //   }
-        // }, renderSan(step.san, step.uci, style)),
-        // ...(ctrl.isPlaying() ? [
-        //   h('h2', 'Move form'),
-        //   h('form', {
-        //     hook: {
-        //       insert(vnode) {
-        //         const $form = $(vnode.elm as HTMLFormElement),
-        //           $input = $form.find('.move').val('').focus();
-        //         $form.submit(onSubmit(ctrl, notify.set, $input));
-        //       }
-        //     }
-        //   }, [
-        //     h('label', [
-        //       d.player.color === d.game.player ? 'Your move' : 'Waiting',
-        //       h('input.move.mousetrap', {
-        //         attrs: {
-        //           name: 'move',
-        //           'type': 'text',
-        //           autocomplete: 'off',
-        //           autofocus: true
-        //         }
-        //       })
-        //     ])
-        //   ])
-        // ]: []),
-        // h('h2', 'Your clock'),
-        // h('div.botc', anyClock(ctrl, 'bottom')),
-        // h('h2', 'Opponent clock'),
-        // h('div.topc', anyClock(ctrl, 'top')),
+        h('h2', 'Moves'),
+        h('p.moves', {
+          attrs: {
+            role : 'log',
+            'aria-live': 'off'
+          }
+        }, renderMainline(ctrl.mainline, ctrl.path, style)),
+        h('h2', 'Pieces'),
+        h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+        h('h2', 'Current position'),
+        h('p.position', {
+          attrs: {
+            'aria-live' : 'assertive',
+            'aria-atomic' : true
+          }
+        }, renderCurrentNode(ctrl.node, style)),
         notify.render(),
         // h('h2', 'Actions'),
         // h('div.actions', tableInner(ctrl)),
-        // h('h2', 'Board'),
-        // h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
-        // h('h2', 'Settings'),
-        // h('label', [
-        //   'Move notation',
-        //   renderSetting(moveStyle, ctrl.redraw)
-        // ]),
+        h('h2', 'Board'),
+        h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+        h('h2', 'Settings'),
+        h('label', [
+          'Move notation',
+          renderSetting(moveStyle, ctrl.redraw)
+        ]),
         // h('h2', 'Commands'),
         // h('p', [
         //   'Type these commands in the move input',
@@ -167,14 +132,47 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 //   return;
 // }
 
-// function renderMoves(steps: Step[], style: any) {
-//   const res: Array<string | VNode> = [];
-//   steps.forEach(s => {
-//     res.push(renderSan(s.san, s.uci, style) + ', ');
-//     if (s.ply % 2 === 0) res.push(h('br'));
-//   });
-//   return res;
-// }
+function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
+  const res: Array<string | VNode> = [];
+  let path: Tree.Path = '';
+  nodes.forEach(node => {
+    if (!node.san || !node.uci) return;
+    path += node.id;
+    const content: MaybeVNodes = [
+      node.ply & 1 ? '' + moveView.plyToTurn(node.ply) : null,
+      renderSan(node.san, node.uci, style)
+    ];
+    res.push(h('move', {
+      attrs: { p: path },
+      class: { active: path === currentPath }
+    }, content));
+    res.push(renderComments(node, style));
+    res.push(', ');
+    if (node.ply % 2 === 0) res.push(h('br'));
+  });
+  return res;
+}
+
+function renderCurrentNode(node: Tree.Node, style: Style): string {
+  if (!node.san || !node.uci) return 'Initial position';
+  return [
+    moveView.plyToTurn(node.ply),
+    renderSan(node.san, node.uci, style),
+    renderComments(node, style)
+  ].join(' ');
+}
+
+function renderComments(node: Tree.Node, style: Style): string {
+  if (!node.comments) return '';
+  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
+}
+
+function renderComment(comment: Tree.Comment, style: Style): string {
+  return comment.by === 'lichess' ?
+    comment.text.replace(/Best move was (.+)\./, (_, san) =>
+      'Best move was ' + renderSan(san, undefined, style)) :
+      comment.text;
+}
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
   return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
