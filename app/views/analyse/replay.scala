@@ -51,7 +51,7 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
         div(cls := "analyse cg-512")(
           views.html.board.bits.domPreload(none)
         ),
-        div(cls := "underboard_content none")(
+        ctx.noBlind option div(cls := "underboard_content none")(
           div(cls := "analysis_panels")(
             game.analysable option div(cls := "panel computer_analysis")(
               if (analysis.isDefined || analysisStarted) div(id := "adv_chart")

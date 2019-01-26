@@ -36,7 +36,7 @@ object Analyse extends LilaController {
           Env.fishnet.api.gameIdExists(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
-          Env.game.crosstableApi.withMatchup(pov.game) zip
+          (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pgnDump(pov.game, initialFen, analysis = none, PgnDump.WithFlags(clocks = false)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>

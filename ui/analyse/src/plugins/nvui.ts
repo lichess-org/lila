@@ -10,10 +10,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
 import * as moveView from '../moveView';
-
-// type Sans = {
-//   [key: string]: Uci;
-// }
+import { bind } from '../util';
 
 window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 
@@ -57,6 +54,8 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
         notify.render(),
         // h('h2', 'Actions'),
         // h('div.actions', tableInner(ctrl)),
+        h('h2', 'Computer analysis'),
+        ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl)]),
         h('h2', 'Board'),
         h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
@@ -75,6 +74,46 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
       ]);
     }
   };
+}
+
+const analysisGlyphs = ['?!', '?', '??'];
+
+function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
+  const anal = ctrl.data.analysis;
+  if (!anal) return undefined;
+  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.indexOf(g.symbol) > -1));
+  const res: Array<VNode> = [];
+  ['white', 'black'].forEach((color: Color) => {
+    const acpl = anal[color].acpl;
+    res.push(h('h3', `${color} player: ${acpl} ACPl`));
+    res.push(h('select', {
+      hook: bind('change', e => {
+        ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value));
+        ctrl.redraw();
+      })
+    },
+      analysisNodes.filter(n => (n.ply % 2 === 1) === (color === 'white')).map(node =>
+        h('option', {
+          attrs: {
+            value: node.ply,
+            selected: node.ply === ctrl.node.ply
+          }
+        }, [
+          moveView.plyToTurn(node.ply),
+          renderSan(node.san!, node.uci, style),
+          renderComments(node, style)
+        ].join(' '))
+      )));
+  });
+  return res;
+}
+
+function requestAnalysisButton(ctrl: AnalyseController) {
+  if (ctrl.ongoing || ctrl.synthetic) return undefined;
+  return h('button', {
+    hook: bind('click', _ =>  {
+    })
+  }, 'Request a computer analysis');
 }
 
 // function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {

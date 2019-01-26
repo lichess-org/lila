@@ -38,7 +38,7 @@ module.exports = function(element, cfg) {
   };
   var lastFen;
 
-  lichess.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
+  if (!window.lichess.AnalyseNVUI) lichess.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
     var chart, point, $chart = $("#adv_chart");
     if (fen && fen !== lastFen) {
       inputFen.value = fen;
