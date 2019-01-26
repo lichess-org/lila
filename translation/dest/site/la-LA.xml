@@ -57,8 +57,12 @@
   <string name="inLocalBrowser">in locali observatore</string>
   <string name="toggleLocalEvaluation">Commuta examinationem localem</string>
   <string name="promoteVariation">Promove variationem</string>
+  <string name="makeMainLine">Fac lineam principalem</string>
+  <string name="deleteFromHere">Dele de hic</string>
   <string name="move">Actio</string>
+  <string name="variantLoss">Variatio perditur</string>
   <string name="variantWin">Alius modus vincentis</string>
+  <string name="insufficientMaterial">Insufficiens materia</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
