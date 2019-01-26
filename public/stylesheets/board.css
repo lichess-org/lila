@@ -267,6 +267,10 @@ body.blind_mode .cg-board-wrap {
   color: #dc322f;
   font-weight: bold;
 }
+.nvui .active {
+  font-weight: bold;
+  color: #d85000;
+}
 div.lidraughts_game div.lidraughts_ground {
   display: flex;
   flex-flow: column nowrap;
