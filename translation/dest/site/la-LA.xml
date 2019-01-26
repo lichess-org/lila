@@ -53,6 +53,10 @@
   <string name="loadingEngine">Ordinatrum incohatur ...</string>
   <string name="cloudAnalysis">Explicatio nimbō</string>
   <string name="goDeeper">Plus analyzare</string>
+  <string name="showThreat">Ostende minaciam</string>
+  <string name="inLocalBrowser">in locali observatore</string>
+  <string name="toggleLocalEvaluation">Commuta examinationem localem</string>
+  <string name="promoteVariation">Promove variationem</string>
   <string name="move">Actio</string>
   <string name="variantWin">Alius modus vincentis</string>
   <string name="openingExplorer">Aperis indagatorem</string>
