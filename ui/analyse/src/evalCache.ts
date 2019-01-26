@@ -1,4 +1,5 @@
-import { throttle, defined, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
+import throttle from 'common/throttle';
 
 export interface EvalCache {
   onCeval(): void

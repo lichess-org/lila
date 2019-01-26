@@ -2,14 +2,21 @@
   "name": "common",
   "version": "1.0.0",
   "description": "lidraughts.org common utils",
-  "main": "dist/main.js",
-  "typings": "dist/main",
+  "main": "common.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts"
+  },
   "keywords": [
     "draughts",
     "lidraughts"
   ],
   "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
+  "homepage": "https://github.com/roepstoep/lidraughts",
   "scripts": {
     "compile": "tsc"
   },
