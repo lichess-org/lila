@@ -1,6 +1,6 @@
 import { Ctrl } from '../interfaces';
 
-export default function(ctrl: Ctrl): string {
+export default function status(ctrl: Ctrl): string {
   const noarg = ctrl.trans.noarg, d = ctrl.data;
   switch (d.game.status.name) {
     case 'started':

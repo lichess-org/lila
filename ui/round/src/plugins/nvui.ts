@@ -179,7 +179,7 @@ function renderMoves(steps: Step[], style: Style) {
 }
 
 function renderPlayer(ctrl: RoundController, player: Player) {
-  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
+  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Scan', player.ai) : userHtml(ctrl, player);
 }
 
 function userHtml(ctrl: RoundController, player: Player) {

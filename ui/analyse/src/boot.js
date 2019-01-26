@@ -58,7 +58,7 @@ module.exports = function(element, cfg) {
   };
   var lastFen;
 
-  lidraughts.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
+  if (!window.lidraughts.AnalyseNVUI) lidraughts.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
     var chart, point, $chart = $("#adv_chart");
     if (fen && fen !== lastFen) {
       inputFen.value = fen;

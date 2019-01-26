@@ -197,7 +197,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
   }
 
-  setPath = (path: Tree.Path): void => {
+  private setPath = (path: Tree.Path): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
@@ -408,9 +408,7 @@ export default class AnalyseCtrl {
       this.practice.preUserJump(prev, path);
       this.jump(path);
       this.practice.postUserJump(prev, this.path);
-    } else {
-      this.jump(path);
-    }
+    } else this.jump(path);
   }
 
   jumpToCurrentPath = () => {
