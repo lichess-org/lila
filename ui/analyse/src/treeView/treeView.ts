@@ -10,7 +10,9 @@ import { synthetic, enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
-import { empty, defined, throttle, storedProp, StoredProp } from 'common';
+import { empty, defined } from 'common';
+import throttle from 'common/throttle';
+import { storedProp, StoredProp } from 'common/storage';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import * as round from '../round';
-import { throttle } from 'common';
+import throttle from 'common/throttle';
 import * as game from 'game';
 import * as status from 'game/status';
 import { game as gameRoute } from 'game/router';

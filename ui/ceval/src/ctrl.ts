@@ -2,7 +2,9 @@ import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
 
 import { Pool, makeWatchdog } from './pool';
 import { median } from './math';
-import { prop, storedProp, throttle } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
+import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 
 const li = window.lichess;

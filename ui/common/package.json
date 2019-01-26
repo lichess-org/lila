@@ -2,8 +2,7 @@
   "name": "common",
   "version": "1.0.0",
   "description": "lichess.org common utils",
-  "main": "dist/main.js",
-  "typings": "dist/main",
+  "main": "common.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila"

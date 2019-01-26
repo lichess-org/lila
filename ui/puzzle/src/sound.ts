@@ -1,4 +1,4 @@
-import { throttle } from 'common';
+import throttle from 'common/throttle';
 
 const sounds = window.lichess.sound;
 

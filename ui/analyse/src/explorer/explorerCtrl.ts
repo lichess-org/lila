@@ -1,4 +1,5 @@
-import { prop, storedProp } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
 import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./explorerXhr');
