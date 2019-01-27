@@ -9,6 +9,7 @@ import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/draught
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/draughts';
+import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
@@ -51,6 +52,28 @@ window.lidraughts.AnalyseNVUI = function(redraw: Redraw) {
             'aria-atomic' : true
           }
         }, renderCurrentNode(ctrl.node, style)),
+        h('h2', 'Move form'),
+        h('form', {
+          hook: {
+            insert(vnode) {
+              const $form = $(vnode.elm as HTMLFormElement),
+                $input = $form.find('.move').val('').focus();
+              $form.submit(onSubmit(ctrl, notify.set, $input));
+            }
+          }
+        }, [
+          h('label', [
+            'Command input',
+            h('input.move.mousetrap', {
+              attrs: {
+                name: 'move',
+                'type': 'text',
+                autocomplete: 'off',
+                autofocus: true
+              }
+            })
+          ])
+        ]),
         notify.render(),
         // h('h2', 'Actions'),
         // h('div.actions', tableInner(ctrl)),
@@ -63,17 +86,37 @@ window.lidraughts.AnalyseNVUI = function(redraw: Redraw) {
           'Move notation',
           renderSetting(moveStyle, ctrl.redraw)
         ]),
-        // h('h2', 'Commands'),
-        // h('p', [
-        //   'Type these commands in the move input',
-        //   h('br'),
-        //   '/c: Read clocks',
-        //   h('br'),
-        //   '/l: Read last move'
-        // ])
+        h('h2', 'Keyboard shortcuts'),
+        h('p', [
+          'Use arrow keys to navigate in the game.'
+        ]),
+        h('h2', 'Commands'),
+        h('p', [
+          'Type these commands in the command input.', h('br'),
+          commands.piece.help, h('br'),
+          commands.scan.help, h('br')
+        ])
       ]);
     }
   };
+}
+
+function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, $input: JQuery) {
+  return function() {
+    const input = $input.val();
+    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1));
+    else notify('Invalid command');
+    return false;
+  };
+}
+
+function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string) {
+  const pieces = ctrl.draughtsground.state.pieces;
+  notify(
+    commands.piece.apply(c, pieces) ||
+    commands.scan.apply(c, pieces, ctrl.data.player.color !== 'white') ||
+    `Invalid command: ${c}`
+  );
 }
 
 const analysisGlyphs = ['?!', '?', '??'];
