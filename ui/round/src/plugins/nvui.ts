@@ -11,9 +11,10 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { Style, renderSan, renderPieces, renderPieceKeys, renderPiecesOn, renderBoard, styleSetting } from 'nvui/draughts';
+import { Style, renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
+import { commands } from 'nvui/command';
 
 type Sans = {
   [key: string]: Uci;
@@ -114,8 +115,8 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
           'Type these commands in the move input.', h('br'),
           '/c: Read clocks.', h('br'),
           '/l: Read last move.', h('br'),
-          '/p: Read locations of a piece type. Example: /p M, /p k.', h('br'),
-          '/scan: Read pieces on a line horizontally. Example: /scan 1, /scan 10.', h('br'),
+          commands.piece.help, h('br'),
+          commands.scan.help, h('br'),
           '/abort: Abort game.', h('br'),
           '/resign: Resign game.', h('br'),
           '/draw: Offer or accept draw.', h('br'),
@@ -154,16 +155,12 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (c == 'draw') $('.nvui button.draw-yes').click();
   else if (c == 'takeback') $('.nvui button.takeback-yes').click();
   else {
-    const tryC = (regex: RegExp, f: (arg: string) => void) => {
-      if (!c.match(regex)) return false;
-      f(c.replace(regex, '$1'));
-      return true;
-    }
-    tryC(/^p ([m|k])$/i, p =>
-      notify(renderPieceKeys(ctrl.draughtsground.state.pieces, p))
-    ) || tryC(/^scan ([1-9]|10)$/i, p =>
-      notify(renderPiecesOn(ctrl.draughtsground.state.pieces, parseInt(p)))
-    ) || notify(`Invalid command: ${c}`);
+    const pieces = ctrl.draughtsground.state.pieces;
+    notify(
+      commands.piece.apply(c, pieces) ||
+      commands.scan.apply(c, pieces, ctrl.data.player.color !== 'white') ||
+      `Invalid command: ${c}`
+    );
   }
 }
 

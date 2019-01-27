@@ -82,7 +82,7 @@ export function renderPieceKeys(pieces: Pieces, p: string): string {
   return `${name}: ${res.length ? res.sort().map(key => key[0] === '0' ? key.slice(1) : key).join(', ') : 'none'}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, lineNumber: number): string {
+export function renderPiecesOn(pieces: Pieces, lineNumber: number, reverse?: boolean): string {
   let res: string[] = [], piece: Piece | undefined;
   for (let k of allKeys) {
     if (key2pos(k)[1] === lineNumber) {
@@ -90,7 +90,7 @@ export function renderPiecesOn(pieces: Pieces, lineNumber: number): string {
       res.push(piece ? `${piece.color} ${roleName(piece.role)}` : 'empty');
     }
   }
-  return res.join(', ');
+  return (reverse ? res.reverse() : res).join(', ');
 }
 
 /*
