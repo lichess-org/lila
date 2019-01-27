@@ -14,7 +14,7 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { Style } from 'nvui/chess';
+import { castlingFlavours, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 
 type Sans = {
@@ -164,14 +164,6 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
       `Invalid command: ${c}`
     );
   }
-}
-
-function castlingFlavours(input: string): string {
-  switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
-    case 'oo': case '00': return 'o-o';
-    case 'ooo': case '000': return 'o-o-o';
-  }
-  return input;
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
