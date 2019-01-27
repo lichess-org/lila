@@ -1,11 +1,18 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 // import { GameData } from 'game';
-import { Pieces } from 'draughtsground/types';
+import { Piece, Pieces } from 'draughtsground/types';
 import { pos2key } from 'draughtsground/util';
 import { Setting, makeSetting } from './setting';
 
 export type Style = 'notation' | 'short' | 'full';
+
+const filesTop = [' ', '1', ' ', '2', ' ', '3', ' ', '4', ' ', '5'],
+      filesBottom = ['46', '', '47', '', '48', '', '49', '', '50'];
+const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
+      ranksInv = [' 5', '  ', '15', '  ', '25', '  ', '35', '  ', '45', '  '];
+const roles: { [letter: string]: string } = { M: 'man', K: 'king', X: 'captured' };
+const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({
@@ -59,6 +66,16 @@ export function renderPieces(pieces: Pieces): VNode {
   }));
 }
 
+export function renderPieceKeys(pieces: Pieces, p: string): string {
+  let name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
+  let res: Key[] = [], piece: Piece | undefined;
+  for (let k in pieces) {
+    piece = pieces[k];
+    if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
+  }
+  return `${name}: ${res.length ? res.sort().map(key => key[0] === '0' ? key.slice(1) : key).join(', ') : 'none'}`;
+}
+
 /*
       1     2     3     4     5
    -  M  -  M  -  M  -  M  -  M  
@@ -73,12 +90,6 @@ export function renderPieces(pieces: Pieces): VNode {
 46 m  -  m  -  m  -  m  -  m  -  
    46    47    48    49    50
  */
-
-const filesTop = [' ', '1', ' ', '2', ' ', '3', ' ', '4', ' ', '5'],
-      filesBottom = ['46', '', '47', '', '48', '', '49', '', '50'];
-const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
-      ranksInv = [' 5', '  ', '15', '  ', '25', '  ', '35', '  ', '45', '  '];
-const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
 export function renderBoard(pieces: Pieces, pov: Color): string {
   const white = pov === 'white',
