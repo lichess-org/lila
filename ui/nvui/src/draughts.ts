@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 // import { GameData } from 'game';
 import { Piece, Pieces } from 'draughtsground/types';
-import { pos2key } from 'draughtsground/util';
+import { pos2key, key2pos, allKeys } from 'draughtsground/util';
 import { Setting, makeSetting } from './setting';
 
 export type Style = 'notation' | 'short' | 'full';
@@ -29,6 +29,12 @@ export function styleSetting(): Setting<Style> {
 function rolePlural(r: String, c: number) {
   if (r === 'man') return c > 1 ? 'men' : 'man';
   else return c > 1 ? r + 's' : r;
+}
+
+function roleName(r: String) {
+  if (r === 'ghostman') return 'captured man';
+  else if (r === 'ghostking') return 'captured king';
+  else return r;
 }
 
 export function renderSan(san: San, style: Style) {
@@ -74,6 +80,17 @@ export function renderPieceKeys(pieces: Pieces, p: string): string {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
   }
   return `${name}: ${res.length ? res.sort().map(key => key[0] === '0' ? key.slice(1) : key).join(', ') : 'none'}`;
+}
+
+export function renderPiecesOn(pieces: Pieces, lineNumber: number): string {
+  let res: string[] = [], piece: Piece | undefined;
+  for (let k of allKeys) {
+    if (key2pos(k)[1] === lineNumber) {
+      piece = pieces[k];
+      res.push(piece ? `${piece.color} ${roleName(piece.role)}` : 'empty');
+    }
+  }
+  return res.join(', ');
 }
 
 /*

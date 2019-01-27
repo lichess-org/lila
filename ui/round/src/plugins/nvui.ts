@@ -11,7 +11,7 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { Style, renderSan, renderPieces, renderPieceKeys, renderBoard, styleSetting } from 'nvui/draughts';
+import { Style, renderSan, renderPieces, renderPieceKeys, renderPiecesOn, renderBoard, styleSetting } from 'nvui/draughts';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 
@@ -114,7 +114,8 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
           'Type these commands in the move input', h('br'),
           '/c: Read clocks.', h('br'),
           '/l: Read last move.', h('br'),
-          '/p: Read piece locations. Example: /p m, /p K.', h('br'),
+          '/p: Read locations of a piece type. Example: /p M, /p k.', h('br'),
+          '/scan: Read pieces on a line horizontally. Example: /scan 1, /scan 10.', h('br'),
           '/abort: Abort game.', h('br'),
           '/resign: Resign game.', h('br'),
           '/draw: Offer or accept draw.', h('br')
@@ -156,8 +157,10 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
       f(c.replace(regex, '$1'));
       return true;
     }
-    tryC(/^p(?:ieces?)? ([m|k])$/i, p =>
+    tryC(/^p ([m|k])$/i, p =>
       notify(renderPieceKeys(ctrl.draughtsground.state.pieces, p))
+    ) || tryC(/^scan ([1-9]|10)$/i, p =>
+      notify(renderPiecesOn(ctrl.draughtsground.state.pieces, parseInt(p)))
     ) || notify(`Invalid command: ${c}`);
   }
 }
