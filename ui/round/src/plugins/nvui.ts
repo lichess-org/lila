@@ -112,14 +112,15 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         ]),
         h('h2', 'Commands'),
         h('p', [
-          'Type these commands in the move input', h('br'),
+          'Type these commands in the move input.', h('br'),
           '/c: Read clocks.', h('br'),
           '/l: Read last move.', h('br'),
           '/p: Read locations of a piece type. Example: /p N, /p k.', h('br'),
           '/scan: Read pieces on a rank or file. Example: /scan a, /scan 1.', h('br'),
           '/abort: Abort game.', h('br'),
           '/resign: Resign game.', h('br'),
-          '/draw: Offer or accept draw.', h('br')
+          '/draw: Offer or accept draw.', h('br'),
+          '/takeback: Offer or accept take back.', h('br')
         ])
       ]);
     }
@@ -153,6 +154,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (c == 'abort') $('.nvui button.abort').click();
   else if (c == 'resign') $('.nvui button.resign-confirm').click();
   else if (c == 'draw') $('.nvui button.draw-yes').click();
+  else if (c == 'takeback') $('.nvui button.takeback-yes').click();
   else {
     const tryC = (regex: RegExp, f: (arg: string) => void) => {
       if (!c.match(regex)) return false;
