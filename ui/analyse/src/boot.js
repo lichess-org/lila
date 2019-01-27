@@ -21,7 +21,10 @@ module.exports = function(element, cfg) {
           var partial = !d.tree.eval;
           if (!lichess.advantageChart) startAdvantageChart();
           else if (lichess.advantageChart.update) lichess.advantageChart.update(data, partial);
-          if (!partial) $("#adv_chart_loader").remove();
+          if (!partial) {
+            lichess.pubsub.emit('analysis.server.complete')();
+            $("#adv_chart_loader").remove();
+          }
         },
         crowd: function(event) {
           $watchers.watchers("set", event.watchers);
@@ -98,12 +101,12 @@ module.exports = function(element, cfg) {
 
   var chartLoader = function() {
     return '<div id="adv_chart_loader">' +
-    '<span>' + lichess.engineName + '<br>server analysis</span>' +
-    lichess.spinnerHtml +
-    '</div>'
+      '<span>' + lichess.engineName + '<br>server analysis</span>' +
+      lichess.spinnerHtml +
+      '</div>'
   };
   var startAdvantageChart = function() {
-    if (lichess.advantageChart) return;
+    if (lichess.advantageChart || lichess.AnalyseNVUI) return;
     var loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
     var $panel = $panels.filter('.computer_analysis');
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));

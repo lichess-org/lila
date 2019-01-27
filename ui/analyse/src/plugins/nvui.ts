@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { prop, Prop } from 'common';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
@@ -16,7 +17,10 @@ import { bind } from '../util';
 window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
-    moveStyle = styleSetting();
+    moveStyle = styleSetting(),
+    analysisInProgress = prop(false);
+
+  window.lichess.pubsub.on('analysis.server.complete', () => notify.set('Server-side analysis complete'));
 
   return {
     render(ctrl: AnalyseController): VNode {
@@ -78,7 +82,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
         // h('h2', 'Actions'),
         // h('div.actions', tableInner(ctrl)),
         h('h2', 'Computer analysis'),
-        ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl)]),
+        ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
         h('h2', 'Board'),
         h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
@@ -128,7 +132,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
     const acpl = anal[color].acpl;
-    res.push(h('h3', `${color} player: ${acpl} ACPl`));
+    res.push(h('h3', `${color} player: ${acpl} ACPL`));
     res.push(h('select', {
       hook: bind('change', e => {
         ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value));
@@ -151,68 +155,23 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
   return res;
 }
 
-function requestAnalysisButton(ctrl: AnalyseController) {
+function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean>, notify: (msg: string) => void) {
+  if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
   return h('button', {
     hook: bind('click', _ =>  {
+      $.ajax({
+        method: 'post',
+        url: `/${ctrl.data.game.id}/request-analysis`,
+        success: () => {
+          inProgress(true);
+          notify('Server-side analysis in progress')
+        },
+        error: () => notify('Cannot run server-side analysis'),
+      });
     })
   }, 'Request a computer analysis');
 }
-
-// function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {
-//   return function() {
-//     const input = castlingFlavours($input.val());
-//     if (input == '/c') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-//     else if (input == '/l') notify($('.lastMove').text());
-//     else {
-//       const d = ctrl.data,
-//         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
-//         sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans,
-//         uci = sanToUci(input, sans) || input;
-//       if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
-//         from: uci.substr(0, 2),
-//         to: uci.substr(2, 2),
-//         promotion: uci.substr(4, 1)
-//       }, { ackable: true });
-//       else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
-//     }
-//     $input.val('');
-//     return false;
-//   };
-// }
-
-// function castlingFlavours(input: string): string {
-//   switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
-//     case 'oo': case '00': return 'o-o';
-//     case 'ooo': case '000': return 'o-o-o';
-//   }
-//   return input;
-// }
-
-// function anyClock(ctrl: RoundController, position: Position) {
-//   const d = ctrl.data, player = ctrl.playerAt(position);
-//   return (ctrl.clock && renderClock(ctrl, player, position)) || (
-//     d.correspondence && renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player)
-//   ) || undefined;
-// }
-
-// function destsToUcis(dests: DecodedDests) {
-//   const ucis: string[] = [];
-//   Object.keys(dests).forEach(function(orig) {
-//     dests[orig].forEach(function(dest) {
-//       ucis.push(orig + dest);
-//     });
-//   });
-//   return ucis;
-// }
-
-// function sanToUci(san: string, sans: Sans): Uci | undefined {
-//   if (san in sans) return sans[san];
-//   const lowered = san.toLowerCase();
-//   for (let i in sans)
-//     if (i.toLowerCase() === lowered) return sans[i];
-//   return;
-// }
 
 function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
   const res: Array<string | VNode> = [];
