@@ -11,7 +11,7 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderPieceKeys, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
@@ -112,11 +112,13 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         ]),
         h('h2', 'Commands'),
         h('p', [
-          'Type these commands in the move input',
-          h('br'),
-          '/c: Read clocks',
-          h('br'),
-          '/l: Read last move'
+          'Type these commands in the move input', h('br'),
+          '/c: Read clocks.', h('br'),
+          '/l: Read last move.', h('br'),
+          '/p: Read piece locations. Example: /p N, /p k.', h('br'),
+          '/abort: Abort game.', h('br'),
+          '/resign: Resign game.', h('br'),
+          '/draw: Offer or accept draw.', h('br')
         ])
       ]);
     }
@@ -126,8 +128,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {
   return function() {
     const input = castlingFlavours($input.val());
-    if (input == '/c') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-    else if (input == '/l') notify($('.lastMove').text());
+    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1));
     else {
       const d = ctrl.data,
         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
@@ -143,6 +144,24 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
     $input.val('');
     return false;
   };
+}
+
+function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string) {
+  if (c == 'c' || c == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+  else if (c == 'l' || c == 'last') notify($('.lastMove').text());
+  else if (c == 'abort') $('.nvui button.abort').click();
+  else if (c == 'resign') $('.nvui button.resign-confirm').click();
+  else if (c == 'draw') $('.nvui button.draw-yes').click();
+  else {
+    const tryC = (regex: RegExp, f: (arg: string) => void) => {
+      if (!c.match(regex)) return false;
+      f(c.replace(regex, '$1'));
+      return true;
+    }
+    tryC(/^p(?:ieces?)? ([p|n|b|r|q|k])$/i, p =>
+      notify(renderPieceKeys(ctrl.chessground.state.pieces, p))
+    ) || notify(`Invalid command: ${c}`);
+  }
 }
 
 function castlingFlavours(input: string): string {

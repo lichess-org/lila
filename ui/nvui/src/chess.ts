@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 // import { GameData } from 'game';
-import { Pieces } from 'chessground/types';
+import { Piece, Pieces } from 'chessground/types';
 import { invRanks } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
@@ -69,6 +69,16 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
       ).join(', ')
     ]);
   }));
+}
+
+export function renderPieceKeys(pieces: Pieces, p: string): string {
+  let name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
+  let res: Key[] = [], piece: Piece | undefined;
+  for (let k in pieces) {
+    piece = pieces[k];
+    if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
+  }
+  return `${name}: ${res.length ? res.join(', ') : 'none'}`;
 }
 
 export function renderBoard(pieces: Pieces, pov: Color): string {
