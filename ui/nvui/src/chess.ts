@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 // import { GameData } from 'game';
 import { Piece, Pieces } from 'chessground/types';
-import { invRanks } from 'chessground/util';
+import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
 
@@ -71,14 +71,27 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
   }));
 }
 
-export function renderPieceKeys(pieces: Pieces, p: string): string {
+export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
   let name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
   let res: Key[] = [], piece: Piece | undefined;
   for (let k in pieces) {
     piece = pieces[k];
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
   }
-  return `${name}: ${res.length ? res.join(', ') : 'none'}`;
+  return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
+}
+
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string): string {
+  let res: string[] = [], piece: Piece | undefined;
+  for (let k of allKeys) {
+    if (k.indexOf(rankOrFile) > -1) {
+      piece = pieces[k];
+      res.push(piece ? `${piece.color} ${piece.role}` : (
+        parseInt(k, 35) % 2 ? 'dark' : 'light'
+      ));
+    }
+  }
+  return res.join(', ');
 }
 
 export function renderBoard(pieces: Pieces, pov: Color): string {

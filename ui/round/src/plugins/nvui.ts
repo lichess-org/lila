@@ -11,7 +11,7 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { renderSan, renderPieces, renderPieceKeys, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderPieceKeys, renderPiecesOn, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
@@ -79,7 +79,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
                   $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, $input));
+                $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
             }
           }, [
@@ -115,7 +115,8 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           'Type these commands in the move input', h('br'),
           '/c: Read clocks.', h('br'),
           '/l: Read last move.', h('br'),
-          '/p: Read piece locations. Example: /p N, /p k.', h('br'),
+          '/p: Read locations of a piece type. Example: /p N, /p k.', h('br'),
+          '/scan: Read pieces on a rank or file. Example: /scan a, /scan 1.', h('br'),
           '/abort: Abort game.', h('br'),
           '/resign: Resign game.', h('br'),
           '/draw: Offer or accept draw.', h('br')
@@ -125,10 +126,10 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
   };
 }
 
-function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {
+function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
     const input = castlingFlavours($input.val());
-    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1));
+    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
@@ -146,7 +147,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
   };
 }
 
-function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string) {
+function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
   if (c == 'c' || c == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
   else if (c == 'l' || c == 'last') notify($('.lastMove').text());
   else if (c == 'abort') $('.nvui button.abort').click();
@@ -158,8 +159,10 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
       f(c.replace(regex, '$1'));
       return true;
     }
-    tryC(/^p(?:ieces?)? ([p|n|b|r|q|k])$/i, p =>
-      notify(renderPieceKeys(ctrl.chessground.state.pieces, p))
+    tryC(/^p ([p|n|b|r|q|k])$/i, p =>
+      notify(renderPieceKeys(ctrl.chessground.state.pieces, p, style))
+    ) || tryC(/^scan ([a-h1-8])$/i, p =>
+      notify(renderPiecesOn(ctrl.chessground.state.pieces, p))
     ) || notify(`Invalid command: ${c}`);
   }
 }
