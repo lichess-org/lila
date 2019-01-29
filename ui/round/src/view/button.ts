@@ -151,7 +151,7 @@ export function cancelDrawOffer(ctrl: RoundController) {
 export function answerOpponentDrawOffer(ctrl: RoundController) {
   return ctrl.data.opponent.offeringDraw ? h('div.negotiation.draw', [
     h('p', ctrl.trans.noarg('yourOpponentOffersADraw')),
-    acceptButton(ctrl, () => ctrl.socket.sendLoading('draw-yes')),
+    acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
     declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no'))
   ]) : null;
 }
@@ -165,9 +165,9 @@ export function cancelTakebackProposition(ctrl: RoundController) {
   ]) : null;
 }
 
-function acceptButton(ctrl: RoundController, action: () => void, i18nKey: string = 'accept') {
+function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: string = 'accept') {
   const text = ctrl.trans.noarg(i18nKey);
-  return ctrl.nvui ? h('button', {
+  return ctrl.nvui ? h('button.' + klass, {
     hook: util.bind('click', action)
   }, text) : h('a.accept', {
     attrs: {
@@ -193,7 +193,7 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: strin
 export function answerOpponentTakebackProposition(ctrl: RoundController) {
   return ctrl.data.opponent.proposingTakeback ? h('div.negotiation.takeback', [
     h('p', ctrl.trans.noarg('yourOpponentProposesATakeback')),
-    acceptButton(ctrl, ctrl.takebackYes),
+    acceptButton(ctrl, 'takeback-yes', ctrl.takebackYes),
     declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no'))
   ]) : null;
 }
@@ -201,7 +201,7 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 export function submitMove(ctrl: RoundController): VNode | undefined {
   return (ctrl.moveToSubmit || ctrl.dropToSubmit) ? h('div.negotiation.move-confirm', [
     h('p', ctrl.trans.noarg('moveConfirmation')),
-    acceptButton(ctrl, () => ctrl.submitMove(true)),
+    acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
     declineButton(ctrl, () => ctrl.submitMove(false), 'cancel')
   ]) : undefined;
 }
