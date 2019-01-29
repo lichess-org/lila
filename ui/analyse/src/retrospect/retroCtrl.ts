@@ -8,6 +8,8 @@ import AnalyseCtrl from '../ctrl';
 export interface RetroCtrl {
   isSolving(): boolean
   trans: Trans
+  mistakeArrowEnabled: boolean
+  isFailedMoveOriginalMistake: boolean
   [key: string]: any
 }
 
@@ -135,6 +137,11 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   }
 
   function onFail(): void {
+
+    if(root.retro) {
+      root.retro.isFailedMoveOriginalMistake = root.node.eval != undefined;
+    }
+
     feedback('fail');
     const bad = {
       node: root.node,
@@ -152,6 +159,13 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     solveCurrent();
   }
 
+  function toggleMistakeArrow() {
+    if(root.retro) {
+      root.retro.mistakeArrowEnabled = !root.retro.mistakeArrowEnabled;
+      root.setAutoShapes();
+    }
+  }
+
   function skip() {
     solveCurrent();
     jumpToNext();
@@ -165,7 +179,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
   };
 
-  function showBadNode(): Tree.Node | undefined {
+  function getBadNode(): Tree.Node | undefined {
     const cur = current();
     if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
   }
@@ -189,8 +203,9 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     jumpToNext,
     skip,
     viewSolution,
+    toggleMistakeArrow,
     hideComputerLine,
-    showBadNode,
+    getBadNode,
     onCeval: checkCeval,
     onMergeAnalysisData,
     feedback,
@@ -202,6 +217,8 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     },
     close: root.toggleRetro,
     trans: root.trans,
+    mistakeArrowEnabled: true,
+    isFailedMoveOriginalMistake: false,
     node: () => root.node,
     redraw
   };

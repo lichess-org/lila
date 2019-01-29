@@ -12,7 +12,10 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
     }, ctrl.trans.noarg('viewTheSolution')),
     h('a', {
       hook: bind('click', ctrl.skip)
-    }, ctrl.trans.noarg('skipThisMove'))
+    }, ctrl.trans.noarg('skipThisMove')),
+    h('a', {
+      hook: bind('click', ctrl.toggleMistakeArrow)
+    }, ctrl.trans.noarg('toggleMistakeArrow'))
   ]);
 }
 
@@ -74,7 +77,7 @@ const feedback = {
       h('div.player', [
         h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', ctrl.trans.noarg('youCanDoBetter')),
+          h('strong', ctrl.trans.noarg(ctrl.isFailedMoveOriginalMistake ? 'originalMistakePlayed' : 'youCanDoBetter')),
           h('em', ctrl.trans.noarg(ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])

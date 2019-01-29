@@ -61,10 +61,15 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   } = ctrl.node;
 
   let shapes: DrawShape[] = [];
-  if (ctrl.retro && ctrl.retro.showBadNode()) {
-    return makeShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
-      lineWidth: 8
-    });
+  if (ctrl.retro && ctrl.retro.getBadNode()) {
+    if(ctrl.retro.mistakeArrowEnabled) {
+      return makeShapesFromUci(color, ctrl.retro.getBadNode().uci, 'paleRed', {
+        lineWidth: 8
+      });
+    }
+    else {
+      return [];
+    }
   }
   if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {

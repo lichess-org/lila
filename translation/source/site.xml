@@ -809,6 +809,8 @@ in %3$s</string>
   <string name="learnFromYourMistakes">Learn from your mistakes</string>
   <string name="learnFromThisMistake">Learn from this mistake</string>
   <string name="skipThisMove">Skip this move</string>
+  <string name="toggleMistakeArrow">Toggle mistake arrow</string>
+  <string name="originalMistakePlayed">You played the same mistake!</string>
   <string name="next">Next</string>
   <string name="xWasPlayed">%s was played</string>
   <string name="findBetterMoveForWhite">Find a better move for white</string>
