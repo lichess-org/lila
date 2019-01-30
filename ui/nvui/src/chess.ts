@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-// import { GameData } from 'game';
 import { Piece, Pieces } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
@@ -12,6 +11,12 @@ const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
+
+export function supportedVariant(key: string) {
+  return [
+    'standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'
+  ].indexOf(key) > -1;
+}
 
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({

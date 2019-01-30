@@ -14,7 +14,7 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, Style } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 
 type Sans = {
@@ -33,13 +33,17 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 
   return {
     render(ctrl: RoundController): VNode {
-      const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get();
-      if (!ctrl.chessground) ctrl.setChessground(Chessground(document.createElement("div"), {
-        ...makeCgConfig(ctrl),
-        animation: { enabled: false },
-        drawable: { enabled: false },
-        coordinates: false
-      }));
+      const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get(),
+        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
+      if (!ctrl.chessground) {
+        ctrl.setChessground(Chessground(document.createElement("div"), {
+          ...makeCgConfig(ctrl),
+          animation: { enabled: false },
+          drawable: { enabled: false },
+          coordinates: false
+        }));
+        if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
+      }
       return h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
@@ -91,7 +95,9 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
                   name: 'move',
                   'type': 'text',
                   autocomplete: 'off',
-                  autofocus: true
+                  autofocus: true,
+                  disabled: !!variantNope,
+                  title: variantNope
                 }
               })
             ])
