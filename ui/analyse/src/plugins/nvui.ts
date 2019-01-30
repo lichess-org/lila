@@ -9,12 +9,14 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { Style } from 'nvui/draughts';
+import { loadCss, Style } from 'nvui/draughts';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
 window.lidraughts.AnalyseNVUI = function(redraw: Redraw) {
+
+  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),

@@ -1,0 +1,31 @@
+.nvui h2 {
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+.nvui .moves {
+  max-height: 140px;
+  overflow-y: auto;
+}
+.nvui .board {
+  font-family: monospace;
+  font-size: 1.5em;
+  margin: 0;
+}
+.nvui .pieces h3 {
+  font-weight: bold;
+}
+.nvui .pieces h3 {
+  margin: 0 5px 0 0;
+  display: inline;
+}
+.nvui .notify {
+  color: #dc322f;
+  font-weight: bold;
+}
+.nvui .active {
+  font-weight: bold;
+  color: #d85000;
+}
+.nvui .content a {
+  margin-right: 1em;
+}

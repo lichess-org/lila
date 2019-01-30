@@ -11,7 +11,7 @@ import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
-import { Style, renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
+import { Style, renderSan, loadCss, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
@@ -21,6 +21,8 @@ type Sans = {
 }
 
 window.lidraughts.RoundNVUI = function(redraw: Redraw) {
+
+  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting();

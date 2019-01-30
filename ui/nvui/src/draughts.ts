@@ -14,6 +14,10 @@ const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
 const roles: { [letter: string]: string } = { M: 'man', K: 'king', X: 'captured' };
 const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
+export function loadCss() {
+  window.lidraughts.loadCss('stylesheets/nvui.css');
+}
+
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({
     choices: [
