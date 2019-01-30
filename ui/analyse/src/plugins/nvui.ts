@@ -85,6 +85,13 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
         ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
         h('h2', 'Board'),
         h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+        h('div.content', {
+          hook: {
+            insert: vnode => {
+              $(vnode.elm as HTMLElement).append($('.blind_content').removeClass('none'));
+            }
+          }
+        }),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
