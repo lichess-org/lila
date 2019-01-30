@@ -193,6 +193,7 @@ function sanToUci(san: string, sans: Sans): string | undefined {
 function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
+    if (s.ply & 1) res.push((Math.ceil(s.ply / 2)) + ' ');
     res.push(renderSan(s.san, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
