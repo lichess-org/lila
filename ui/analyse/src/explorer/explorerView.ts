@@ -312,7 +312,7 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.overlay'),
     content, (!content || explorer.failing()) ? null : h('span.toconf', {
       attrs: dataIcon(configOpened ? 'L' : '%'),
-      hook: bind('click', config.toggleOpen, ctrl.redraw)
+      hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw)
     })
   ]);
 };
