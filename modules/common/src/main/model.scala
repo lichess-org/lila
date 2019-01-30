@@ -62,6 +62,12 @@ object EmailAddress {
   private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
 
-case class Domain(value: String) extends AnyVal with StringValue
+case class Domain(value: String) extends AnyVal with StringValue {
+  // simplistic. Fails on foo.co.uk, foo.com.au, etc.
+  def withoutSubdomain: Option[Domain] = value.split('.').toList.reverse match {
+    case tld :: sld :: _ => Domain(s"$sld.$tld").some
+    case _ => none
+  }
+}
 
 case class Strings(value: List[String]) extends AnyVal
