@@ -14,7 +14,7 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, loadCss, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 
 type Sans = {
@@ -22,6 +22,8 @@ type Sans = {
 }
 
 window.lichess.RoundNVUI = function(redraw: Redraw) {
+
+  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting();

@@ -186,32 +186,6 @@ div.lichess_game div.lichess_board_wrap {
 body.blind_mode .cg-board-wrap {
   display: none;
 }
-.nvui h2 {
-  font-weight: bold;
-}
-.nvui .moves {
-  max-height: 140px;
-  overflow-y: auto;
-}
-.nvui .board {
-  font-family: monospace;
-  font-size: 2em;
-}
-.nvui .pieces h3 {
-  font-weight: bold;
-}
-.nvui .pieces h3 {
-  margin: 0 5px 0 0;
-  display: inline;
-}
-.nvui .notify {
-  color: #dc322f;
-  font-weight: bold;
-}
-.nvui .active {
-  font-weight: bold;
-  color: #d85000;
-}
 div.lichess_game div.lichess_ground {
   display: flex;
   flex-flow: column nowrap;

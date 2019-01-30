@@ -12,6 +12,10 @@ const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', 
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
+export function loadCss() {
+  window.lichess.loadCss('stylesheets/nvui.css');
+}
+
 export function supportedVariant(key: string) {
   return [
     'standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'

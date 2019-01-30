@@ -9,12 +9,14 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { Style } from 'nvui/chess';
+import { loadCss, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
 window.lichess.AnalyseNVUI = function(redraw: Redraw) {
+
+  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
