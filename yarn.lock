@@ -4280,15 +4280,15 @@ stockfish-mv.wasm@^0.2.0:
   resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.2.0.tgz#b402050ccca5455ed4419ffe2ad96d52a19c5f34"
   integrity sha512-a2E/J0kBJIfoKdC8KPNy+xGQ4hvT/E10THMxjqmy1aHCgoV0pvOY+lgcLqvm6Q4c5IyFX5iDiY59ZrrtHedbEg==
 
-stockfish.js@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/stockfish.js/-/stockfish.js-10.0.0.tgz#eb1938f5483c3879c75907f450c41e53637de657"
-  integrity sha512-ZriphsLIOBfY9p7Hik2Fbxl5Fyf21MjZ8j7XEQ7r+hdyOAelhcx52dRTjkmRloBpDkZo51fCG4ujg1XCaWasgg==
+stockfish.js@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/stockfish.js/-/stockfish.js-10.0.1.tgz#612da6ffd82e22a39db273b841cf47a6d217cfa9"
+  integrity sha512-qSUlwMbI+pzyxVB5toGfMjP/ophj5pW+xXwD3IVO7YqkfhEMDi0YDJjHd3BUtknM77fITTwVNgGicG+7MWoK4A==
 
-stockfish.pexe@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-10.0.0.tgz#07ebee26779954ed20e658352c55eeacd8d8aa0e"
-  integrity sha512-nGnezLQgLEtlBIxqMywzcBPMoVvBUY67l/kabnStosaSK2WU3IEkO80B0IywePpjVqWHv3cFBcmN5E8t1O4xjQ==
+stockfish.pexe@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-10.1.0.tgz#5c585f2b974fdc13bf9928bf2878ba09ce7d9691"
+  integrity sha512-dn0X7NrpFxg8Uz+bMy0gsi5hGejHb8cBsSjFKblqO1FXbpMxdRWt1IdXKDrJ0h6r4mBHkZkn6HGv5rnrxLbJ5A==
 
 stockfish.wasm@^0.3.1:
   version "0.3.1"

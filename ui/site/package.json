@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "stockfish-mv.wasm": "^0.2.0",
-    "stockfish.js": "^10.0.0",
-    "stockfish.pexe": "^10.0.0",
+    "stockfish.js": "^10.0.1",
+    "stockfish.pexe": "^10.1.0",
     "stockfish.wasm": "^0.3.1",
     "tablesort": "^5.0.0"
  }
