@@ -180,7 +180,7 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
     if (!node.san || !node.uci) return;
     path += node.id;
     const content: MaybeVNodes = [
-      node.ply & 1 ? '' + moveView.plyToTurn(node.ply) : null,
+      node.ply & 1 ? moveView.plyToTurn(node.ply) + ' ' : null,
       renderSan(node.san, node.uci, style)
     ];
     res.push(h('move', {
