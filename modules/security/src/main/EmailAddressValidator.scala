@@ -81,7 +81,7 @@ final class EmailAddressValidator(
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else {
         dnsApi.a(domain) >>| {
-          domain.value.startsWith("students.") ?? dnsApi.a(Domain(domain.value drop "students.".size))
+          domain.withoutSubdomain ?? dnsApi.a
         }
       } >>& dnsApi.mx(domain).map { domains =>
         domains.nonEmpty && domains.forall { !disposable(_) }
