@@ -50,6 +50,16 @@ Bonyeza ndio usikie ama usisikie Sauti. Hiki kitufe kiko katika upande wa kulia 
   <string name="computerAnalysisAvailable">Uchambuzi wa kompyuta zilizopo</string>
   <string name="analysis">Bodi ya uchambuzi</string>
   <string name="depthX">Kina %s</string>
+  <string name="usingServerAnalysis">Kutumia uchambuzi wa seva</string>
+  <string name="loadingEngine">Injini inaanza...</string>
+  <string name="cloudAnalysis">Uchambuzi wa wingu</string>
+  <string name="goDeeper">Ongeza kina</string>
+  <string name="showThreat">Onyesha tishio</string>
+  <string name="inLocalBrowser">katika tarakilishi yako</string>
+  <string name="toggleLocalEvaluation">Tumia uchambuzi wa tarakilishi yako</string>
+  <string name="promoteVariation">Kuza utofauti</string>
+  <string name="makeMainLine">Fanya mstari kuu</string>
+  <string name="deleteFromHere">Futa kutoka hapa</string>
   <string name="move">Songa</string>
   <string name="rematch">cheza tena</string>
 </resources>
