@@ -33,6 +33,12 @@ object replay {
     val chatJson = chatOption map { c =>
       views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
     }
+    val pdnLinks = div(
+      a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
+      a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(trans.downloadRaw()),
+      game.isPdnImport option a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?imported=1")(trans.downloadImported()),
+      ctx.noBlind option a(dataIcon := "=", cls := "text embed_howto", target := "_blank")(trans.embedInYourWebsite())
+    )
 
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
@@ -52,7 +58,11 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
         div(cls := "analyse cg-512")(
           views.html.board.bits.domPreload(none)
         ),
-        ctx.noBlind option div(cls := "underboard_content none")(
+        if (ctx.blind) div(cls := "blind_content none")(
+          h2("PDN downloads"),
+          pdnLinks
+        )
+        else div(cls := "underboard_content none")(
           div(cls := "analysis_panels")(
             game.analysable option div(cls := "panel computer_analysis")(
               if (analysis.isDefined || analysisStarted) div(id := "adv_chart")
@@ -73,12 +83,7 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
               ),
               div(cls := "pdn_options")(
                 strong("PDN"),
-                div(
-                  a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
-                  a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(trans.downloadRaw()),
-                  game.isPdnImport option a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?imported=1")(trans.downloadImported()),
-                  a(dataIcon := "=", cls := "text embed_howto", target := "_blank")(trans.embedInYourWebsite())
-                )
+                pdnLinks
               ),
               div(cls := "pdn")(pdn)
             ),
