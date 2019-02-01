@@ -2,8 +2,7 @@
   "name": "game",
   "version": "1.0.0",
   "description": "lichess.org game",
-  "main": "dist/main.js",
-  "types": "dist/main",
+  "main": "game.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila"

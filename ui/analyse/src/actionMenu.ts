@@ -5,7 +5,7 @@ import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
-import { router } from 'game';
+import { cont as contRoute } from 'game/router';
 import { synthetic, bind, dataIcon } from './util';
 import * as pgnExport from './pgnExport';
 
@@ -277,14 +277,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
           canContinue ? h('div.continue_with.g_' + d.game.id, [
             h('a.button', {
               attrs: {
-                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
+                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
             }, noarg('playWithTheMachine')),
             h('br'),
             h('a.button', {
               attrs: {
-                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
+                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
             }, noarg('playWithAFriend'))

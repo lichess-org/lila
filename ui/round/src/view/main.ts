@@ -62,7 +62,7 @@ export function main(ctrl: RoundController): VNode {
     checks = util.getChecks(ctrl.data.steps, ctrl.ply);
   } else checks = emptyChecksData;
 
-  return ctrl.blind ? ctrl.blind.render(ctrl) : h('div.round.cg-512', [
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round.cg-512', [
     h('div.lichess_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lichess.pubsub.emit('content_loaded')()

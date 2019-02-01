@@ -2,7 +2,10 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as util from '../util';
-import { PlayerUser, game, status, router } from 'game';
+import * as game from 'game';
+import * as status from 'game/status';
+import { game as gameRoute } from 'game/router';
+import { PlayerUser } from 'game';
 import { RoundData, MaybeVNodes } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
@@ -17,7 +20,7 @@ function poolUrl(clock: ClockData, blocking?: PlayerUser) {
 
 function analysisButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data,
-    url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
+    url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return game.replayable(d) ? h('a.button', {
     attrs: { href: url },
     hook: util.bind('click', _ => {
@@ -40,7 +43,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       hook: util.bind('click', () => {
         ctrl.socket.send('rematch-no');
       })
-    }, ctrl.blind ? noarg('decline') : '') : null,
+    }, ctrl.nvui ? noarg('decline') : '') : null,
     h('button.button.rematch.white', {
       class: {
         me,
@@ -53,7 +56,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       },
       hook: util.bind('click', e => {
         const d = ctrl.data;
-        if (d.game.rematch) location.href = router.game(d.game.rematch, d.opponent.color);
+        if (d.game.rematch) location.href = gameRoute(d.game.rematch, d.opponent.color);
         else if (d.player.offeringRematch) {
           d.player.offeringRematch = false;
           ctrl.socket.send('rematch-no');
@@ -91,7 +94,7 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', ctrl.blind ? [ctrl.trans.noarg(hint)] : util.justIcon(icon))
+    h('span', ctrl.nvui ? [ctrl.trans.noarg(hint)] : util.justIcon(icon))
   ]);
 }
 
@@ -148,7 +151,7 @@ export function cancelDrawOffer(ctrl: RoundController) {
 export function answerOpponentDrawOffer(ctrl: RoundController) {
   return ctrl.data.opponent.offeringDraw ? h('div.negotiation.draw', [
     h('p', ctrl.trans.noarg('yourOpponentOffersADraw')),
-    acceptButton(ctrl, () => ctrl.socket.sendLoading('draw-yes')),
+    acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
     declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no'))
   ]) : null;
 }
@@ -162,9 +165,9 @@ export function cancelTakebackProposition(ctrl: RoundController) {
   ]) : null;
 }
 
-function acceptButton(ctrl: RoundController, action: () => void, i18nKey: string = 'accept') {
+function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: string = 'accept') {
   const text = ctrl.trans.noarg(i18nKey);
-  return ctrl.blind ? h('button', {
+  return ctrl.nvui ? h('button.' + klass, {
     hook: util.bind('click', action)
   }, text) : h('a.accept', {
     attrs: {
@@ -176,7 +179,7 @@ function acceptButton(ctrl: RoundController, action: () => void, i18nKey: string
 }
 function declineButton(ctrl: RoundController, action: () => void, i18nKey: string = 'decline') {
   const text = ctrl.trans.noarg(i18nKey);
-  return ctrl.blind ? h('button', {
+  return ctrl.nvui ? h('button', {
     hook: util.bind('click', action)
   }, text) : h('a.decline', {
     attrs: {
@@ -190,7 +193,7 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: strin
 export function answerOpponentTakebackProposition(ctrl: RoundController) {
   return ctrl.data.opponent.proposingTakeback ? h('div.negotiation.takeback', [
     h('p', ctrl.trans.noarg('yourOpponentProposesATakeback')),
-    acceptButton(ctrl, ctrl.takebackYes),
+    acceptButton(ctrl, 'takeback-yes', ctrl.takebackYes),
     declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no'))
   ]) : null;
 }
@@ -198,7 +201,7 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 export function submitMove(ctrl: RoundController): VNode | undefined {
   return (ctrl.moveToSubmit || ctrl.dropToSubmit) ? h('div.negotiation.move-confirm', [
     h('p', ctrl.trans.noarg('moveConfirmation')),
-    acceptButton(ctrl, () => ctrl.submitMove(true)),
+    acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
     declineButton(ctrl, () => ctrl.submitMove(false), 'cancel')
   ]) : undefined;
 }

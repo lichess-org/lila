@@ -4,7 +4,8 @@ import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderInner as tableInner } from '../view/table';
-import { render as renderGround } from '../ground';
+import { makeConfig as makeCgConfig } from '../ground';
+import { Chessground } from 'chessground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
@@ -13,12 +14,16 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
+import { castlingFlavours, supportedVariant, loadCss, Style } from 'nvui/chess';
+import { commands } from 'nvui/command';
 
 type Sans = {
   [key: string]: Uci;
 }
 
 window.lichess.RoundNVUI = function(redraw: Redraw) {
+
+  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting();
@@ -29,11 +34,19 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
   window.lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
-    render(ctrl: RoundController) {
-      const d = ctrl.data,
-        step = plyStep(d, ctrl.ply),
-        style = moveStyle.get();
-      return ctrl.chessground ? h('div.nvui', [
+    render(ctrl: RoundController): VNode {
+      const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get(),
+        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
+      if (!ctrl.chessground) {
+        ctrl.setChessground(Chessground(document.createElement("div"), {
+          ...makeCgConfig(ctrl),
+          animation: { enabled: false },
+          drawable: { enabled: false },
+          coordinates: false
+        }));
+        if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
+      }
+      return h('div.nvui', [
         h('h1', 'Textual representation'),
         h('h2', 'Game info'),
         ...(['white', 'black'].map((color: Color) => h('p', [
@@ -73,7 +86,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
                   $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, $input));
+                $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
             }
           }, [
@@ -84,7 +97,9 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
                   name: 'move',
                   'type': 'text',
                   autocomplete: 'off',
-                  autofocus: true
+                  autofocus: true,
+                  disabled: !!variantNope,
+                  title: variantNope
                 }
               })
             ])
@@ -106,22 +121,25 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         ]),
         h('h2', 'Commands'),
         h('p', [
-          'Type these commands in the move input',
-          h('br'),
-          '/c: Read clocks',
-          h('br'),
-          '/l: Read last move'
+          'Type these commands in the move input.', h('br'),
+          '/c: Read clocks.', h('br'),
+          '/l: Read last move.', h('br'),
+          commands.piece.help, h('br'),
+          commands.scan.help, h('br'),
+          '/abort: Abort game.', h('br'),
+          '/resign: Resign game.', h('br'),
+          '/draw: Offer or accept draw.', h('br'),
+          '/takeback: Offer or accept take back.', h('br')
         ])
-      ]) : renderGround(ctrl);
+      ]);
     }
   };
 }
 
-function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: JQuery) {
+function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
     const input = castlingFlavours($input.val());
-    if (input == '/c') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-    else if (input == '/l') notify($('.lastMove').text());
+    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
@@ -139,12 +157,21 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
   };
 }
 
-function castlingFlavours(input: string): string {
-  switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
-    case 'oo': case '00': return 'o-o';
-    case 'ooo': case '000': return 'o-o-o';
+function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
+  if (c == 'c' || c == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+  else if (c == 'l' || c == 'last') notify($('.lastMove').text());
+  else if (c == 'abort') $('.nvui button.abort').click();
+  else if (c == 'resign') $('.nvui button.resign-confirm').click();
+  else if (c == 'draw') $('.nvui button.draw-yes').click();
+  else if (c == 'takeback') $('.nvui button.takeback-yes').click();
+  else {
+    const pieces = ctrl.chessground.state.pieces;
+    notify(
+      commands.piece.apply(c, pieces, style) ||
+      commands.scan.apply(c, pieces) ||
+      `Invalid command: ${c}`
+    );
   }
-  return input;
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
@@ -172,9 +199,10 @@ function sanToUci(san: string, sans: Sans): Uci | undefined {
   return;
 }
 
-function renderMoves(steps: Step[], style: any) {
+function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
+    if (s.ply & 1) res.push((Math.ceil(s.ply / 2)) + ' ');
     res.push(renderSan(s.san, s.uci, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });

@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { prop, storedProp, Prop } from 'common';
+import { prop, Prop } from 'common';
+import { storedProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option } from '../util';
 import { variants as xhrVariants, importPgn } from './studyXhr';
 import * as dialog from './dialog';

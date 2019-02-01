@@ -2,7 +2,8 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { currentComments } from './studyComments';
 import { nodeFullName, bind } from '../util';
-import { prop, throttle, Prop } from 'common';
+import { prop, Prop } from 'common';
+import throttle from 'common/throttle';
 import AnalyseCtrl from '../ctrl';
 
 interface Current {

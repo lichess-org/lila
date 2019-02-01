@@ -1,7 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Position, MaybeVNodes } from '../interfaces';
-import { game, status, Player }  from 'game';
+import * as game from 'game';
+import * as status from 'game/status';
+import { Player }  from 'game/interfaces';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import renderReplay from './replay';
@@ -11,7 +13,7 @@ import * as button from './button';
 import RoundController from '../ctrl';
 
 function renderPlayer(ctrl: RoundController, player: Player) {
-  return ctrl.blind ? undefined : (
+  return ctrl.nvui ? undefined : (
     player.ai ? h('div.username.user_link.online', [
       h('i.line'),
       h('name', renderUser.aiName(ctrl, player.ai))

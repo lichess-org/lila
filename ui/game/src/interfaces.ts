@@ -86,6 +86,8 @@ export interface Simul {
 
 export interface Clock {
   running: boolean;
+  initial: number;
+  increment: number;
 }
 export interface CorrespondenceClock {
   daysPerTurn: number;

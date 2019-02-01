@@ -1,4 +1,5 @@
-import { storedProp, sync, Sync } from 'common';
+import { storedProp } from 'common/storage';
+import { sync, Sync } from 'common/sync';
 import { Watchdog, PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 

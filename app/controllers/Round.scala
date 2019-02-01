@@ -174,7 +174,7 @@ object Round extends LilaController with TheftPrevention {
       case _ => Game.preloadUsers(pov.game) >> negotiate(
         html = {
           if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-          else if (pov.game.replayable && ctx.noBlind) Analyse.replay(pov, userTv = userTv)
+          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip

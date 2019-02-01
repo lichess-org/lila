@@ -1,6 +1,6 @@
 var m = require('mithril');
 var util = require('./util');
-var status = require('game').status;
+var status = require('game/status');
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 

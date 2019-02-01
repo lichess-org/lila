@@ -1,15 +1,15 @@
 import { updateElements } from './clockView';
 import { RoundData } from '../interfaces'
-import { game } from 'game';
-
+import * as game from 'game';
 
 export type Seconds = number;
 export type Centis = number;
 export type Millis = number;
 
 interface ClockOpts {
-  onFlag(): void;
+  onFlag(): void
   soundColor?: Color
+  nvui: boolean
 }
 
 export type TenthsPref = 0 | 1 | 2;
@@ -66,7 +66,6 @@ export class ClockController {
   };
 
   showTenths: (millis: Millis) => boolean;
-  blind: boolean;
   showBar: boolean;
   times: Times;
 
@@ -80,7 +79,7 @@ export class ClockController {
 
   private tickCallback?: number;
 
-  constructor(d: RoundData, public opts: ClockOpts) {
+  constructor(d: RoundData, readonly opts: ClockOpts) {
     const cdata = d.clock!;
 
     if (cdata.showTenths === 0) this.showTenths = () => false;
@@ -89,8 +88,7 @@ export class ClockController {
       this.showTenths = (time) => time < cutoff;
     }
 
-    this.blind = !!d.blind;
-    this.showBar = cdata.showBar && !d.blind;
+    this.showBar = cdata.showBar && !this.opts.nvui;
     this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
@@ -137,7 +135,7 @@ export class ClockController {
       this.tick,
       // changing the value of active node makes chromevox screen reader bug out
       // so update the clock less often
-      this.blind ? 3000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
+      this.opts.nvui ? 3000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
   }
 
   // Should only be invoked by scheduleTick.

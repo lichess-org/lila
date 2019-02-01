@@ -1,10 +1,11 @@
-import { prop, storedProp } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
 import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./explorerXhr');
 import { winnerOf, colorOf } from './explorerUtil';
 import { synthetic } from '../util';
-import { game as gameUtil } from 'game';
+import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
 

@@ -54,7 +54,7 @@ const stockfishWasm = () => gulp.src([
   require.resolve('stockfish.wasm/stockfish.js'),
   require.resolve('stockfish.wasm/stockfish.js.mem'),
   require.resolve('stockfish.wasm/stockfish.wasm'),
-  require.resolve('stockfish.wasm/pthread-main.js')
+  require.resolve('stockfish.wasm/stockfish.worker.js')
 ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
 
 const stockfishMvWasm = () => gulp.src([

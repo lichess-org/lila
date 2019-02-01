@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Game => ChessGame, Situation, Clock, Speed }
-import chess.variant.FromPosition
+import chess.variant.{ Variant, FromPosition }
 import chess.format.FEN
 
 import lila.game.Game
@@ -22,7 +22,7 @@ private[setup] trait Config {
   val days: Int
 
   // Game variant code
-  val variant: chess.variant.Variant
+  val variant: Variant
 
   // Creator player color
   val color: Color
@@ -31,7 +31,7 @@ private[setup] trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame(v: chess.variant.Variant): ChessGame =
+  def makeGame(v: Variant): ChessGame =
     ChessGame(situation = Situation(v), clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)

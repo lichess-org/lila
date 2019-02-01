@@ -1,4 +1,4 @@
-import { game } from 'game';
+import { isPlayerTurn } from 'game/game';
 import { dragNewPiece } from 'chessground/drag';
 import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
@@ -19,7 +19,7 @@ export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
 
 export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
-  if (!game.isPlayerTurn(data)) return false;
+  if (!isPlayerTurn(data)) return false;
 
   if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
 

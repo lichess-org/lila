@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { defined, throttle } from 'common';
+import { defined } from 'common';
+import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'chess';
 import { path as treePath } from 'tree';
 import { MaybeVNodes } from '../interfaces';

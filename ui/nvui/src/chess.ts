@@ -1,8 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-// import { GameData } from 'game';
-import { Pieces } from 'chessground/types';
-import { invRanks } from 'chessground/util';
+import { Piece, Pieces } from 'chessground/types';
+import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
 
@@ -12,6 +11,16 @@ const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
+
+export function loadCss() {
+  window.lichess.loadCss('stylesheets/nvui.css');
+}
+
+export function supportedVariant(key: string) {
+  return [
+    'standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'
+  ].indexOf(key) > -1;
+}
 
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({
@@ -27,14 +36,14 @@ export function styleSetting(): Setting<Style> {
   });
 }
 
-export function renderSan(san: San, uci: Uci, style: Style) {
+export function renderSan(san: San, uci: Uci | undefined, style: Style) {
   if (!san) return '';
   const has = window.lichess.fp.contains;
   let move: string;
   if (has(san, 'O-O-O')) move = 'long castling';
   else if (has(san, 'O-O')) move = 'short castling';
   else if (style === 'san') move = san.replace(/[\+#]/, '');
-  else if (style === 'uci') move = uci;
+  else if (style === 'uci') move = uci || san;
   else {
     move = san.replace(/[\+#]/, '').split('').map(c => {
       if (c == 'x') return 'takes';
@@ -71,6 +80,29 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
   }));
 }
 
+export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
+  let name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
+  let res: Key[] = [], piece: Piece | undefined;
+  for (let k in pieces) {
+    piece = pieces[k];
+    if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
+  }
+  return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
+}
+
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string): string {
+  let res: string[] = [], piece: Piece | undefined;
+  for (let k of allKeys) {
+    if (k.indexOf(rankOrFile) > -1) {
+      piece = pieces[k];
+      res.push(piece ? `${piece.color} ${piece.role}` : (
+        parseInt(k, 35) % 2 ? 'dark' : 'light'
+      ));
+    }
+  }
+  return res.join(', ');
+}
+
 export function renderBoard(pieces: Pieces, pov: Color): string {
   const board = [[' ', ...files, ' ']];
   for(let rank of invRanks) {
@@ -99,4 +131,12 @@ export function renderFile(f: string, style: Style): string {
 
 export function renderKey(key: string, style: Style): string {
   return `${renderFile(key[0], style)} ${key[1]}`;
+}
+
+export function castlingFlavours(input: string): string {
+  switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
+    case 'oo': case '00': return 'o-o';
+    case 'ooo': case '000': return 'o-o-o';
+  }
+  return input;
 }

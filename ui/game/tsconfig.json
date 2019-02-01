@@ -1,8 +1,8 @@
 {
-  "include": ["src/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": [],
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./",
     "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

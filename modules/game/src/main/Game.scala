@@ -594,6 +594,14 @@ object Game {
     chess.variant.Antichess
   )
 
+  val blindModeVariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.KingOfTheHill,
+    chess.variant.ThreeCheck,
+    chess.variant.FromPosition
+  )
+
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) =
