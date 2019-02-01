@@ -47,8 +47,16 @@
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
   <string name="analysis">विश्लेषण मंच</string>
+  <string name="depthX">खोली %s</string>
+  <string name="loadingEngine">इंजिन लोड करीत आहे ...</string>
+  <string name="goDeeper">गहन जा</string>
+  <string name="showThreat">धोका दाखवा</string>
+  <string name="inLocalBrowser">स्थानिक ब्राउझरमध्ये</string>
+  <string name="deleteFromHere">येथून हटवा</string>
   <string name="move">चाल</string>
+  <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
   <string name="pawnMove">प्याद्याच्या चाली</string>
+  <string name="capture">ताब्यात घेतले</string>
   <string name="close">बंद</string>
   <string name="database">माहितीसंच</string>
   <string name="whiteDrawBlack">पांढरी / तह / काळी</string>
