@@ -39,7 +39,7 @@ object layout {
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
   private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
-  private val wasmx = raw("""<meta http-equiv="origin-trial" data-feature="WebAssembly Threads" data-expires="2018-12-12" content="AvQS5g8cLXUfw7Vu3lmQ6B55HURS0KMuY6blwOUmAPYX3Jph8GXMSO4/jTx3el3BxG8SyJRlQTbsRRsjOHwiCAMAAABXeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJBc3NlbWJseVRocmVhZHMiLCJleHBpcnkiOjE1NDQ2MzY2MzN9">""")
+  private val wasmx = raw("""<meta http-equiv="origin-trial" data-feature="WebAssembly Threads" data-expires="2019-03-06" content="Ap9XcH0KudHVbEiGod0LQEdRpQAJTkZB4CvOeNI3D7I6CWgsrJLC26CnghTE8RaFx7dQloqGEjBtYWK4Gk+zzQ8AAABXeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJBc3NlbWJseVRocmVhZHMiLCJleHBpcnkiOjE1NTE4MzAzOTl9">""")
   private val manifests = raw(List(
     """<link rel="manifest" href="/manifest.json" />""",
     """<meta name="twitter:site" content="@lichess" />"""
