@@ -199,7 +199,7 @@ export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
 }
-export interface ChecksData {
+export interface CheckCount {
   white: number;
   black: number;
 }

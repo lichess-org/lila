@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
 import { opposite } from 'chessground/util';
-import { Redraw, EncodedDests, DecodedDests, MaterialDiff, Step, ChecksData } from './interfaces';
+import { Redraw, EncodedDests, DecodedDests, MaterialDiff, Step, CheckCount } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -71,25 +71,21 @@ export function getScore(pieces: cg.Pieces): number {
   return score;
 }
 
-export function getChecks(steps: Step[], ply: Ply): ChecksData {
-  const checksData: ChecksData = { white: 0, black: 0 };
+export const noChecks: CheckCount = {
+  white: 0,
+  black: 0
+}
+
+export function countChecks(steps: Step[], ply: Ply): CheckCount {
+  const checks: CheckCount = {...noChecks};
   for (let step of steps) {
-    if (ply < step.ply) {
-      break;
-    }
-
-    if (!step.check) {
-      continue;
-    }
-
-    if (step.ply % 2 == 1) {
-      checksData.white += 1;
-    } else {
-      checksData.black += 1;
+    if (ply < step.ply) break;
+    if (step.check) {
+      if (step.ply % 2 === 1) checks.white++;
+      else checks.black++;
     }
   }
-
-  return checksData;
+  return checks;
 }
 
 export function spinner() {

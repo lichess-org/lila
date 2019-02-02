@@ -10,7 +10,7 @@ import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
-import { MaterialDiff, MaterialDiffSide, ChecksData } from '../interfaces';
+import { MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
 
 function renderMaterial(material: MaterialDiffSide, score: number, checks?: number) {
   const children: VNode[] = [];
@@ -41,26 +41,21 @@ const emptyMaterialDiff: MaterialDiff = {
   black: {}
 };
 
-const emptyChecksData: ChecksData = {
-  white: 0,
-  black: 0
-}
-
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
     cgState = ctrl.chessground && ctrl.chessground.state,
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
-  let material: MaterialDiff, checks: ChecksData, score: number = 0;
+  let material: MaterialDiff, score: number = 0;
   if (d.pref.showCaptured) {
     let pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
 
-  if (d.player.checks || d.opponent.checks) {
-    checks = util.getChecks(ctrl.data.steps, ctrl.ply);
-  } else checks = emptyChecksData;
+  const checks: CheckCount = (d.player.checks || d.opponent.checks) ?
+    util.countChecks(ctrl.data.steps, ctrl.ply) :
+    util.noChecks;
 
   return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round.cg-512', [
     h('div.lichess_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
