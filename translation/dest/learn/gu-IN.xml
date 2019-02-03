@@ -3,4 +3,8 @@
 <resources>
   <string name="play">ચાલો!</string>
   <string name="theRook">ઊંટ</string>
+  <string name="theKnight">ઘોડો</string>
+  <string name="thePawn">પ્યાદું</string>
+  <string name="yesYesYes">હા!</string>
+  <string name="next">આગલુ</string>
 </resources>
