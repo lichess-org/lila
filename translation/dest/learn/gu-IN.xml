@@ -5,6 +5,8 @@
   <string name="theRook">ઊંટ</string>
   <string name="theKnight">ઘોડો</string>
   <string name="thePawn">પ્યાદું</string>
+  <string name="greatJob">સરસ!</string>
   <string name="yesYesYes">હા!</string>
   <string name="next">આગલુ</string>
+  <string name="retry">ફરી પ્રયાસ કરો</string>
 </resources>
