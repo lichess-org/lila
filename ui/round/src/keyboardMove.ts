@@ -6,6 +6,7 @@ import RoundController from './ctrl';
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
 
 export interface KeyboardMove {
+  drop(orig: cg.Key, piece: cg.Role): void
   update(step: Step): void;
   registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;
@@ -27,7 +28,16 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   };
   let usedSan = false;
   const cgState = root.chessground.state;
+  console.log('Root data:', root.data)
   return {
+    drop(square,piece) {
+      root.chessground.newPiece({
+        role: piece,
+        color: 'black' // TODO: un-hardcode
+      }, square)
+      // Figure out how to update pocket (maybe automatic? :o)
+      return
+    },
     update(step) {
       if (handler) handler(step.fen, cgState.movable.dests);
       else preHandlerBuffer = step.fen;
@@ -65,14 +75,15 @@ export function render(ctrl: KeyboardMove) {
       },
       hook: {
         insert: vnode => {
-          window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
+          window.lichess.loadScript('lichess.round.keyboardMove.min.js').then(() => {
             ctrl.registerHandler(window.lichess.keyboardMove({
               input: vnode.elm,
               setFocus: ctrl.setFocus,
               select: ctrl.select,
               hasSelected: ctrl.hasSelected,
               confirmMove: ctrl.confirmMove,
-              san: ctrl.san
+              san: ctrl.san,
+              drop: ctrl.drop
             }));
           });
         }

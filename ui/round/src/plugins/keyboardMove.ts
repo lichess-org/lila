@@ -8,6 +8,7 @@ window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let sans: any = null;
+  let drops: any = null;
   const submit = function(v: string, force?: boolean) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
@@ -24,6 +25,9 @@ window.lichess.keyboardMove = function(opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
+    } else if (drops && v in drops) {
+      // Crazy house
+      opts.drop(v[0], v.slice(2)); // piece, square
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
   };
@@ -33,7 +37,8 @@ window.lichess.keyboardMove = function(opts: any) {
   };
   makeBindings(opts, submit, clear);
   return function(fen: string, dests: DecodedDests) {
-    sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
+    // IDEA: Pass in root.possibleDrops from upstream keyboardMove.ts
+    sans = dests && Object.keys(dests).length ? sanWriter(fen,        destsToUcis(dests)) : null;
     submit(opts.input.value);
   };
 }
