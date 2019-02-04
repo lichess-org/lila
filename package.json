@@ -16,6 +16,9 @@
     "url": "https://github.com/ornicar/lila/issues"
   },
   "homepage": "https://lichess.org",
+  "engines": {
+    "node": ">=10"
+  },
   "dependencies": {
     "fs-extra": "^4.0.2",
     "xml2js": "^0.4.19"
