@@ -20,6 +20,9 @@
     "url": "https://github.com/roepstoep/lidraughts/issues"
   },
   "homepage": "https://lidraughts.org",
+  "engines": {
+    "node": ">=10"
+  },
   "dependencies": {
     "fs-extra": "^4.0.2",
     "typescript": "2.6",
