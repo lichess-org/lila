@@ -32,7 +32,7 @@ object Study extends LidraughtsController {
     }
   }
 
-  def allDefault(page: Int) = all(Order.Hot.key, page)
+  def allDefault(page: Int) = all(Order.default.key, page)
 
   def all(o: String, page: Int) = Open { implicit ctx =>
     Reasonable(page) {

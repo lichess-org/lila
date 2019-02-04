@@ -59,11 +59,11 @@ final class StudyPager(
       selector = selector,
       projection = studyRepo.projection,
       sort = order match {
+        case Order.Popular => $sort desc "likes"
         case Order.Hot => $sort desc "rank"
         case Order.Newest => $sort desc "createdAt"
         case Order.Oldest => $sort asc "createdAt"
         case Order.Updated => $sort desc "updatedAt"
-        case Order.Popular => $sort desc "likes"
       }
     ) mapFutureList withChaptersAndLiking(me)
     Paginator(
@@ -99,14 +99,14 @@ final class StudyPager(
 sealed abstract class Order(val key: String, val name: String)
 
 object Order {
+  case object Popular extends Order("popular", "Most popular")
   case object Hot extends Order("hot", "Hot")
   case object Newest extends Order("newest", "Date added (newest)")
   case object Oldest extends Order("oldest", "Date added (oldest)")
   case object Updated extends Order("updated", "Recently updated")
-  case object Popular extends Order("popular", "Most popular")
 
-  val default = Hot
-  val all = List(Hot, Newest, Oldest, Updated, Popular)
+  val default = Popular
+  val all = List(Popular, Hot, Newest, Oldest, Updated)
   val allButOldest = all filter (Oldest !=)
   private val byKey: Map[String, Order] = all.map { o => o.key -> o }(scala.collection.breakOut)
   def apply(key: String): Order = byKey.getOrElse(key, default)
