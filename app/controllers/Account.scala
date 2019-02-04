@@ -186,11 +186,11 @@ object Account extends LilaController {
   def twoFactor = Auth { implicit ctx => me =>
     if (me.totpSecret.isDefined)
       Env.security.forms.disableTwoFactor(me) map { form =>
-        html.account.disableTwoFactor(me, form)
+        html.account.twoFactor.disable(me, form)
       }
     else
       Env.security.forms.setupTwoFactor(me) map { form =>
-        html.account.setupTwoFactor(me, form)
+        html.account.twoFactor.setup(me, form)
       }
   }
 
@@ -200,7 +200,7 @@ object Account extends LilaController {
       val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
       Env.security.forms.setupTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
-          fuccess(html.account.setupTwoFactor(me, err))
+          fuccess(html.account.twoFactor.setup(me, err))
         } { data =>
           UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
             lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
@@ -215,7 +215,7 @@ object Account extends LilaController {
       implicit val req = ctx.body
       Env.security.forms.disableTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
-          fuccess(html.account.disableTwoFactor(me, err))
+          fuccess(html.account.twoFactor.disable(me, err))
         } { _ =>
           UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
         }
