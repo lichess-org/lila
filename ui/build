@@ -1,8 +1,11 @@
 #!/bin/bash -ea
+
 target=${1-dev}
 mode=${2-build} # use "upgrade" to upgrade all deps
-
 echo "building ui modules with target=$target and mode=$mode"
+
+echo "node: $(node --version)"
+echo "yarn: $(yarn --version)"
 
 cd "$(git rev-parse --show-toplevel)"
 
