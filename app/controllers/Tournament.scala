@@ -225,7 +225,8 @@ object Tournament extends LilaController {
             setup => {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
-                isGranted(_.ManageTournament)) 1 else 4
+                isGranted(_.ManageTournament) ||
+                setup.password.isDefined) 1 else 4
               CreateLimitPerUser(me.id, cost = cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
                   env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
