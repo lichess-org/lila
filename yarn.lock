@@ -4290,10 +4290,10 @@ stockfish.pexe@^10.1.0:
   resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-10.1.0.tgz#5c585f2b974fdc13bf9928bf2878ba09ce7d9691"
   integrity sha512-dn0X7NrpFxg8Uz+bMy0gsi5hGejHb8cBsSjFKblqO1FXbpMxdRWt1IdXKDrJ0h6r4mBHkZkn6HGv5rnrxLbJ5A==
 
-stockfish.wasm@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.4.1.tgz#e5b58aedc6d9eddec5aeb98d7e5ded13f3017ad2"
-  integrity sha512-X6gGfjCc1253W0wD5hGRSBwaUZPXiRizCHKv2PEEvtE5FCKyBF7BZYje331sDgs3K6k11j7jRzkE5QzqIDdrPQ==
+stockfish.wasm@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.4.2.tgz#c6d2c48f7ca6afb66427a522b383d0ff3cab75c2"
+  integrity sha512-CqJZSntobvrRtpXH0fHcWYzjkfYTFR6SBX1xkcyNgDQMDN/1LHOZgCC5dZfvPPnBKwoHUX3wAaptVjdK/dirIQ==
 
 stream-browserify@^2.0.0:
   version "2.0.1"
