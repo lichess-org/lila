@@ -133,7 +133,7 @@ final class DataForm(
   def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
     Form(tuple(
       "passwd" -> passwordMapping(candidate),
-      "token" -> text.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
+      "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
     ))
   }
 
