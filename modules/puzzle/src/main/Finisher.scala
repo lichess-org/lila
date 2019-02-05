@@ -16,7 +16,7 @@ private[puzzle] final class Finisher(
     bus: lidraughts.common.Bus
 ) {
 
-  def apply(historyApi: lidraughts.history.HistoryApi, puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
+  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle(puzzle.variant).intRating
     api.head.find(user, puzzle.variant) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
@@ -35,6 +35,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
+          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           api.round.add(a, puzzle.variant) >> {
             puzzleColl(puzzle.variant).update(
               $id(puzzle.id),
