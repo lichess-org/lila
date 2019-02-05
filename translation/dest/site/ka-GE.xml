@@ -72,16 +72,25 @@
   <string name="averageRatingX">საშუალო რეიტინგი: %s</string>
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
+  <string name="masterDbExplanation">ორი მილიონი პარტია ფიდე 2200+ მოთამაშეებს შორის 1952-დან 2017-მდე</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">შამათი 1 სვლაში</item>
+    <item quantity="other">შამათი 2 სვლაში</item>
+  </plurals>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
   <string name="openingExplorer">დებიუტების გზამკვლევი</string>
+  <string name="xOpeningExplorer">%sდებიუტების გზამკვლევი</string>
+  <string name="winPreventedBy50MoveRule">მოგება შეუძლებელია 50 სვლის წესის გამო</string>
   <string name="allSet">ყველაფერი მზადაა!</string>
   <string name="importPgn">PGN-ის იმპორტი</string>
   <string name="delete">წაშლა</string>
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
+  <string name="realtimeReplay">პირდაპირი</string>
   <string name="openStudy">გახსენი სწავლება</string>
   <string name="enable">ჩართვა</string>
   <string name="bestMoveArrow">საუკეთესო სვლის ისარი</string>
+  <string name="evaluationGauge">პოზიციის საზომი</string>
   <string name="multipleLines">რამდენიმე ხაზი</string>
   <string name="cpus">პროცესორები</string>
   <string name="memory">მეხსიერება</string>
@@ -192,6 +201,7 @@
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
   <string name="rematchOfferSentWhite">მოწინააღმდეგე გთავაზობთ ხელახლა თამაშს</string>
+  <string name="rematchOfferSentBlack">შავი გთავაზობთ ხელახალ პარტიას</string>
   <string name="rematchOfferAccepted">რევანშის შეთავაზება მიღებულია</string>
   <string name="rematchOfferCanceled">განმეორებით თამაშზე მოთხოვნა გაუქმებულია</string>
   <string name="rematchOfferDeclined">განმეორებით თამაშზე მოთხოვნა უარყოფილია</string>
@@ -211,6 +221,10 @@
   <string name="incrementInSeconds">ზრდა წამებში</string>
   <string name="freeOnlineChess">უფასო ონლაინ ჭადრაკი</string>
   <string name="spectators">მაყურებლები</string>
+  <plurals name="nbRated">
+    <item quantity="one">%sრეიტინგული</item>
+    <item quantity="other">%sრეიტინგული</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s გამარჯვება</item>
     <item quantity="other">%s გამარჯვება</item>
@@ -222,6 +236,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s ფრე</item>
     <item quantity="other">%s ფრე</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">მიმდინარე</item>
+    <item quantity="other">მიმდინარე</item>
   </plurals>
   <string name="exportGames">თამაშის ექსპორტი</string>
   <string name="ratingRange">ელო რეიტინგი</string>
@@ -270,6 +288,9 @@
     <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">თქვნი რეიტინგი %s არის პირობითი</string>
+  <string name="ratedMoreThanInPerf">რეიტინგი ≥ %1$s %2$sში</string>
+  <string name="ratedLessThanInPerf">რეიტინგი ≤ %1$s %2$sში</string>
+  <string name="mustBeInTeam">უნდა იყოთ გუნდ %s-ში</string>
   <string name="youAreNotInTeam">თქვენ %s გუნდის წევრი არ ხართ</string>
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
@@ -304,6 +325,7 @@
   <string name="fromPosition">პოზიციიდან</string>
   <string name="continueFromHere">ამ პოზიციიდან გაგრძელება</string>
   <string name="importGame">თამაშის იმპორტი</string>
+  <string name="importGameExplanation">პარტიის PGN-ს დაკოპირებისას მიიღებთ სრულ თამაშს, კომპიუტერის ანალიზს, თამაშის მიმოწერას და გასაზიარებელ ლინკს.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s იმპორტირებული თამაშები</item>
     <item quantity="other">%s იმპორტირებული თამაშები</item>
@@ -368,12 +390,18 @@
   <string name="createdBy">შემქმნელი</string>
   <string name="tournamentIsStarting">ტურნირი იწყება</string>
   <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
+  <string name="standByX">დაელოდეთ %s, ვაჯგუფებთ მოთამაშეებს, მოემზადეთ!</string>
   <string name="youArePlaying">თქვენ ახლა თამაშობთ!</string>
+  <string name="winRate">მოგების სიხშირე</string>
+  <string name="performance">თამაშის დონე</string>
   <string name="tournamentComplete">ტურნირი დასრულდა</string>
   <string name="movesPlayed">ნათამაშები სვლები</string>
   <string name="whiteWins">თეთრებმა მოიგეს</string>
+  <string name="blackWins">შავებმა მოიგეს</string>
+  <string name="draws">ფრე</string>
   <string name="nextXTournament">ახალი ტურნირი:</string>
   <string name="viewMoreTournaments">ნახეთ ტურნირი</string>
+  <string name="averageOpponent">საშ. ოპონენტი</string>
   <string name="membersOnly">მხოლოდ წევრები</string>
   <string name="boardEditor">დაფის რედაქტირება</string>
   <string name="setTheBoard">ადგილობრივი თამაში</string>
@@ -384,6 +412,7 @@
   <string name="loadPosition">საწყისი პოზიცია</string>
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
+  <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">რეიტინგი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>

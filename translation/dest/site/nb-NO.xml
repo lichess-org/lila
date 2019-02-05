@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">i nettleser</string>
   <string name="toggleLocalEvaluation">Lokal evaluering</string>
   <string name="promoteVariation">Forfrem variant</string>
-  <string name="makeMainLine">Gjør til hovedlinje</string>
+  <string name="makeMainLine">Gjør til hovedvariant</string>
   <string name="deleteFromHere">Slett herfra</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
@@ -323,8 +323,8 @@
   <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
   <string name="joiningPolicy">Regler for å bli med</string>
   <string name="teamLeader">Lagleder</string>
-  <string name="teamBestPlayers">Lagets beste spillere</string>
-  <string name="teamRecentMembers">Nye lagmedlemmer</string>
+  <string name="teamBestPlayers">Beste spillere</string>
+  <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
   <string name="averageElo">Snittrating</string>

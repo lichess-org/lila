@@ -10,14 +10,18 @@
   <string name="yourTurn">તમરો વારો</string>
   <string name="aiNameLevelAiLevel">%1$sધોરણ%2$s</string>
   <string name="level">ધોરણ</string>
+  <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
+  <string name="toggleSound">અવાજ ટૉગલ કરો</string>
   <string name="chat">વાત ચીત</string>
   <string name="resign">રાજીનામું</string>
+  <string name="checkmate">શેહમાત</string>
   <string name="white">સફેદ</string>
   <string name="black">કાળુ</string>
   <string name="createAGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
   <string name="blackIsVictorious">કાળો વિજય રહ્યો</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
+  <string name="threeChecks">ત્રણ શે</string>
   <string name="newOpponent">નવો  પ્રાતીસ્પર્ધી</string>
   <string name="joinTheGame">રમત માં જોડવ</string>
   <string name="whitePlays">સફેદની ચાલ</string>
@@ -27,6 +31,8 @@
   <string name="forceResignation">વિજયનો દાવો કરો</string>
   <string name="talkInChat">કૃપા કરીને ચેટમાં સભ્યતા રાખવી!</string>
   <string name="move">ચાલ</string>
+  <string name="capture">કબજા</string>
+  <string name="whiteDrawBlack">સફેદ/બરોબરી/કાળો</string>
   <string name="opening">શરૂઆત</string>
   <string name="youCannotChallengeX">તમે %sને પડકાર કરી શકતા નથી.</string>
   <string name="xDoesNotAcceptChallenges">%s પડકારોને સ્વીકારતા નથી.</string>

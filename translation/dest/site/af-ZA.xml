@@ -15,7 +15,7 @@
   <string name="chat">Klets</string>
   <string name="resign">Gee oor</string>
   <string name="checkmate">Skaakmat</string>
-  <string name="stalemate">Pat</string>
+  <string name="stalemate">Dooiepunt</string>
   <string name="white">Wit</string>
   <string name="black">Swart</string>
   <string name="randomColor">Lukrake kant</string>
@@ -29,8 +29,8 @@
   <string name="newOpponent">Nuwe uitdager</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Jou teenstander wil weer teen jou speel</string>
   <string name="joinTheGame">Sluit aan by spel</string>
-  <string name="whitePlays">Wit speel</string>
-  <string name="blackPlays">Swart speel</string>
+  <string name="whitePlays">Wit om te speel</string>
+  <string name="blackPlays">Swart om te speel</string>
   <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Verklaar oorwinning</string>
@@ -73,7 +73,7 @@
   <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="blunders">Flaters</string>
   <string name="mistakes">Foute</string>
-  <string name="inaccuracy">Onakkuraathede</string>
+  <string name="inaccuracy">Onakkuraatheid</string>
   <string name="inaccuracies">Onakkuraathede</string>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
@@ -182,7 +182,7 @@
   <string name="send">Stuur</string>
   <string name="incrementInSeconds">Tel in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
-  <string name="spectators">Toeskouers</string>
+  <string name="spectators">Toeskouers:</string>
   <plurals name="nbWins">
     <item quantity="one">%s gewen</item>
     <item quantity="other">%s gewen</item>
@@ -293,11 +293,11 @@
     <item quantity="other">Minder as %s minute</item>
   </plurals>
   <string name="required">Vereiste.</string>
-  <string name="openTournaments">Oop tornooie</string>
+  <string name="openTournaments">Oop toernooie</string>
   <string name="duration">Duur</string>
   <string name="winner">Wenner</string>
   <string name="standing">Stand</string>
-  <string name="createANewTournament">Skep \'n nuwe tornooi</string>
+  <string name="createANewTournament">Skep \'n nuwe toernooi</string>
   <string name="join">Sluit aan</string>
   <string name="withdraw">Ontrek</string>
   <string name="points">Punte</string>
@@ -311,7 +311,7 @@
   <string name="startPosition">Begin posisie</string>
   <string name="clearBoard">Maak bord skoon</string>
   <string name="savePosition">Stoor posisie</string>
-  <string name="loadPosition">Laai positie</string>
+  <string name="loadPosition">Laai posisie</string>
   <string name="isPrivate">Privaat</string>
   <string name="reportXToModerators">Klik oor %s</string>
   <string name="profile">Profiel</string>
@@ -506,7 +506,7 @@
   <string name="watchGames">Hou spelle dop</string>
   <string name="tpTimeSpentOnTV">Tyd op TV: %s</string>
   <string name="watch">Toeskou</string>
-  <string name="internationalEvents">Internationale geleenthede</string>
+  <string name="internationalEvents">Internasionale geleenthede</string>
   <string name="videoLibrary">Video biblioteek</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmeesters</string>
