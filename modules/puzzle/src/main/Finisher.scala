@@ -15,7 +15,7 @@ private[puzzle] final class Finisher(
     bus: lila.common.Bus
 ) {
 
-  def apply(historyApi: lila.history.HistoryApi, puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
+  def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle.intRating
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id || mobile =>
@@ -33,6 +33,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
+          historyApi.add_puzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
             puzzleColl.update(
               $id(puzzle.id),

@@ -9,18 +9,22 @@ import scala.concurrent.duration._
 import chess.Speed
 import lila.db.dsl._
 import lila.game.Game
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, Perfs }
 
 final class HistoryApi(coll: Coll) {
 
   import History._
 
-  def add_puzzle(user: User, completedAt: DateTime, rating: Integer): Funit = {
+  def add_puzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
     val days = daysBetween(user.createdAt, completedAt)
     coll.update(
       $id(user.id),
-      $doc($set(BSONElement(s"puzzle.$days", $int(rating)))),
+      $doc(BSONDocument(
+        "$set" -> (
+          BSONDocument(s"puzzle.$days" -> $int(perf.intRating))
+        )
+      )),
       upsert = true
     ).void
   }
