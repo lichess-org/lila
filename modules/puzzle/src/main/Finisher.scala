@@ -10,11 +10,12 @@ import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
+    historyApi: lila.history.HistoryApi,
     puzzleColl: Coll,
     bus: lila.common.Bus
 ) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
+  def apply(historyApi: lila.history.HistoryApi, puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle.intRating
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id || mobile =>

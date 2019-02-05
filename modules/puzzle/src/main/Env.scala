@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     renderer: ActorSelection,
+    historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
@@ -43,6 +44,7 @@ final class Env(
   )
 
   lazy val finisher = new Finisher(
+    historyApi = historyApi,
     api = api,
     puzzleColl = puzzleColl,
     bus = system.lilaBus
@@ -94,6 +96,7 @@ object Env {
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
     renderer = lila.hub.Env.current.renderer,
+    historyApi = lila.history.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,

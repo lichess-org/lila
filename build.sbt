@@ -82,7 +82,7 @@ lazy val api = module("api", moduleCPDeps)
   ) aggregate (moduleRefs: _*)
 
 lazy val puzzle = module("puzzle", Seq(
-  common, memo, hub, db, user, rating, pref, tree, game
+  common, memo, hub, history, db, user, rating, pref, tree, game
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )

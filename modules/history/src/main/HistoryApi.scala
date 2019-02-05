@@ -16,6 +16,15 @@ final class HistoryApi(coll: Coll) {
 
   import History._
 
+  def add_puzzle(user: User, completedAt: DateTime, rating: Integer): Funit = {
+    val days = daysBetween(user.createdAt, completedAt)
+    coll.update(
+      $id(user.id),
+      $doc($set(BSONElement(s"puzzle.$days", $int(rating)))),
+      upsert = true
+    ).void
+  }
+
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.ratingVariant.standard
     val changes = List(
