@@ -164,23 +164,30 @@ class PNaClWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
+  static loaded: Promise<any>;
+
   private module?: any;
+  private listener?: any;
 
   boot(): Promise<Protocol> {
-    if (window['Module']) console.log('trying to reboot singleton wasmx worker');
-    return window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
+    if (!ThreadedWasmWorker.loaded) ThreadedWasmWorker.loaded = window.lichess.loadScript(this.url, {sameDomain: true});
+    return ThreadedWasmWorker.loaded.then(() => {
       this.module = window['Module'];
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
-      this.module.addMessageListener(protocol.received.bind(protocol));
+      this.listener = protocol.received.bind(protocol);
+      this.module.addMessageListener(this.listener);
       return protocol;
     });
   }
 
   destroy() {
     if (!this.module) return;
-    console.log('trying to detroy singleton wasmx worker');
-    this.module.postMessage('quit');
-    this.module = undefined;
+    console.log('stopping singleton wasmx worker (instead of destroying) ...');
+    this.stop().then(() => {
+      console.log('... successfully stopped');
+      this.module.removeMessageListener(this.listener);
+      this.module = undefined;
+    });
   }
 
   send(cmd: string) {
