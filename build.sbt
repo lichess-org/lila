@@ -106,7 +106,7 @@ lazy val common = module("common", Seq(draughts)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags) ++ Seq(scaffeine)
 )
 
-lazy val puzzle = module("puzzle", Seq(common, memo, hub, db, user, rating, pref, tree, game)).settings(
+lazy val puzzle = module("puzzle", Seq(common, memo, hub, history, db, user, rating, pref, tree, game)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 

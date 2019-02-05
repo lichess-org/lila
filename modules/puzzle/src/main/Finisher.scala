@@ -11,11 +11,12 @@ import lidraughts.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
+    historyApi: lidraughts.history.HistoryApi,
     puzzleColl: Map[Variant, Coll],
     bus: lidraughts.common.Bus
 ) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
+  def apply(historyApi: lidraughts.history.HistoryApi, puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle(puzzle.variant).intRating
     api.head.find(user, puzzle.variant) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
