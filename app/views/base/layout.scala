@@ -39,7 +39,6 @@ object layout {
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
   private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
-  private val wasmx = raw("""<meta http-equiv="origin-trial" data-feature="WebAssembly Threads" data-expires="2019-03-06" content="Ap9XcH0KudHVbEiGod0LQEdRpQAJTkZB4CvOeNI3D7I6CWgsrJLC26CnghTE8RaFx7dQloqGEjBtYWK4Gk+zzQ8AAABXeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJBc3NlbWJseVRocmVhZHMiLCJleHBpcnkiOjE1NTE4MzAzOTl9">""")
   private val manifests = raw(List(
     """<link rel="manifest" href="/manifest.json" />""",
     """<meta name="twitter:site" content="@lichess" />"""
@@ -126,7 +125,6 @@ object layout {
         charset,
         metaCsp(csp),
         if (isProd) frag(
-          wasmxEnabled() option wasmx,
           titleTag(fullTitle | s"$title • lichess.org"),
           fontStylesheets
         )

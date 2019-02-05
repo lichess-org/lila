@@ -109,7 +109,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       frameSrc = List("'self'", assets, "https://www.youtube.com"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", "'unsafe-eval'", assets),
+      scriptSrc = List("'self'", "'unsafe-eval'", assets), // unsafe-eval for WebAssembly (wasmx)
       baseUri = List("'none'")
     )
   }

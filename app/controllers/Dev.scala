@@ -18,7 +18,6 @@ object Dev extends LilaController {
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.api.cspEnabledSetting,
-    Env.api.wasmxEnabledSetting,
     Env.streamer.alwaysFeaturedSetting
   )
 
