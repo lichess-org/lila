@@ -64,7 +64,7 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   const pnaclSupported = makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes;
   const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
-  const wasmxSupported = wasmSupported && wasmThreadsSupported();
+  const wasmxSupported = wasmSupported && officialStockfish(opts.variant.key) && wasmThreadsSupported();
 
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
