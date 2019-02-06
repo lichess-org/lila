@@ -95,7 +95,7 @@ object UserRepo {
   // expensive, send to secondary
   def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
     coll.find(
-      $inIds(ids) ++ goodLadSelectBson ++ $doc("perfs.standard" $exists true),
+      $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
       $id(true)
     )
       .sort($sort desc "perfs.standard.gl.r")
