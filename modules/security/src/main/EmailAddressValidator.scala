@@ -61,9 +61,14 @@ final class EmailAddressValidator(
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    if (isTakenBySomeoneElse(EmailAddress(e), forUser))
-      Invalid(ValidationError("error.email_unique"))
-    else Valid
+    validate(EmailAddress(e)) match {
+      case None => Invalid(ValidationError("error.email_acceptable"))
+      case Some(email) => {
+        if (isTakenBySomeoneElse(email, forUser))
+          Invalid(ValidationError("error.email_unique"))
+        else Valid
+      }
+    }
   }
 
   def differentConstraint(than: Option[EmailAddress]) = Constraint[String]("constraint.email_different") { e =>
