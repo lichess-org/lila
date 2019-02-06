@@ -5,12 +5,14 @@
     <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
     <p>@trans.teamLeader(): @userIdLink(t.createdBy.some)</p>
   </section>
-  <h2>@trans.teamBestPlayers()</h2>
-  <ol class="userlist best_players">
+  @if(!info.bestUserIds.isEmpty) {
+    <h2>@trans.teamBestPlayers()</h2>
+    <ol class="userlist best_players">
     @info.bestUserIds.map { userId =>
-    <li>@userIdLink(userId.some)</li>
+      <li>@userIdLink(userId.some)</li>
     }
-  </ol>
+    </ol>
+  }
   <h2>@trans.teamRecentMembers()</h2>
   <div class="userlist infinitescroll">
     @members.nextPage.map { np =>
