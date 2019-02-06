@@ -464,7 +464,7 @@
   <string name="toTrackYourProgress">Зарегистрируйтесь, чтобы следить за своими успехами:</string>
   <string name="trainingSignupExplanation">Lidraughts подберёт задачи для вашего уровня, чтобы повысить эффективность ваших тренировок.</string>
   <string name="puzzleId">Задача № %s</string>
-  <string name="puzzleOfTheDay">Шахматная задача дня</string>
+  <string name="puzzleOfTheDay">Задача дня</string>
   <string name="clickToSolve">Нажмите, чтобы решить</string>
   <string name="goodMove">Хороший ход</string>
   <string name="butYouCanDoBetter">Но вы можете найти лучше.</string>
