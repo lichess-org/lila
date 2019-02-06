@@ -100,7 +100,7 @@ object Practice extends LidraughtsController {
     } yield Ok(html.practice.config(struct, form))
   }
 
-  def configSave = SecureBody(_.StreamConfig) { implicit ctx => me =>
+  def configSave = SecureBody(_.PracticeConfig) { implicit ctx => me =>
     implicit val req = ctx.body
     env.api.config.form.flatMap { form =>
       FormFuResult(form) { err =>
