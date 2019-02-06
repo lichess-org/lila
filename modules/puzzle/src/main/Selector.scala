@@ -19,7 +19,7 @@ private[puzzle] final class Selector(
     me match {
       case None =>
         puzzleColl // this query precisely matches a mongodb partial index
-          .find($doc(F.voteNb $gte 3)) //original 50
+          .find($doc(F.voteNb $gte 1)) //original 50
           .sort($sort desc F.voteRatio)
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
@@ -44,7 +44,7 @@ private[puzzle] final class Selector(
     val step = toleranceStepFor(rating)
     api.puzzle.cachedLastId.get flatMap { maxId =>
       val lastId = headOption match {
-        case Some(PuzzleHead(_, _, l)) if l < maxId - 50 => l //original - 500
+        case Some(PuzzleHead(_, _, l)) if l < maxId - 80 => l //original - 500
         case _ => puzzleIdMin
       }
       tryRange(
