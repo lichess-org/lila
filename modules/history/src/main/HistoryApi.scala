@@ -16,15 +16,11 @@ final class HistoryApi(coll: Coll) {
 
   import History._
 
-  def add_puzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
+  def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
     val days = daysBetween(user.createdAt, completedAt)
     coll.update(
       $id(user.id),
-      $doc(BSONDocument(
-        "$set" -> (
-          BSONDocument(s"puzzle.$days" -> $int(perf.intRating))
-        )
-      )),
+      $set(s"puzzle.$days" -> $int(perf.intRating)),
       upsert = true
     ).void
   }

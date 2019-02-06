@@ -33,7 +33,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
-          historyApi.add_puzzle(user = user, completedAt = date, perf = userPerf)
+          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
             puzzleColl.update(
               $id(puzzle.id),
