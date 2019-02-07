@@ -9,12 +9,21 @@ import scala.concurrent.duration._
 import chess.Speed
 import lila.db.dsl._
 import lila.game.Game
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, Perfs }
 
 final class HistoryApi(coll: Coll) {
 
   import History._
+
+  def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
+    val days = daysBetween(user.createdAt, completedAt)
+    coll.update(
+      $id(user.id),
+      $set(s"puzzle.$days" -> $int(perf.intRating)),
+      upsert = true
+    ).void
+  }
 
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.ratingVariant.standard
