@@ -748,10 +748,16 @@
   <string name="waitingForAnalysis">מחכים לניתוח המשחק</string>
   <string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>
   <string name="noMistakesFoundForBlack">אף טעות לא נמצאה עבור השחור</string>
-  <string name="doneReviewingWhiteMistakes">סקירת טעויות ללבן הסתיימה</string>
-  <string name="doneReviewingBlackMistakes">סקירת טעויות לשחור הסתיימה</string>
+  <string name="doneReviewingWhiteMistakes">בדיקת טעויות ללבן הסתיימה</string>
+  <string name="doneReviewingBlackMistakes">בדיקת טעויות לשחור הסתיימה</string>
+  <string name="doItAgain">עשה זאת שוב</string>
+  <string name="reviewWhiteMistakes">בדוק טעויות ללבן</string>
+  <string name="reviewBlackMistakes">בדוק טעויות לשחור</string>
   <string name="advantage">יתרון</string>
   <string name="opening">פתיחה</string>
   <string name="middlegame">מציעה</string>
   <string name="endgame">סיום</string>
+  <string name="registerToSendChallenges">הירשם על מנת לשלוח אתגרים.</string>
+  <string name="youCannotChallengeX">לא ניתן לאתגר את %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s לא מקבל אתגרים.</string>
 </resources>
