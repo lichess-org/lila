@@ -22,7 +22,7 @@
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
   <string name="blackIsVictorious">Սևերը հաղթեցին</string>
-  <string name="kingInTheCenter">Թագավորը կենտրոնում է</string>
+  <string name="kingInTheCenter">Արքան կենտրոնում է</string>
   <string name="threeChecks">Երեք շախ</string>
   <string name="raceFinished">Մրցավազքը ավարտվեց</string>
   <string name="variantEnding">Տարբերակի ավարտ</string>
@@ -31,7 +31,7 @@
   <string name="joinTheGame">Միանալ խաղին</string>
   <string name="whitePlays">Խաղում են սպիտակները</string>
   <string name="blackPlays">Խաղում են սևերը</string>
-  <string name="opponentLeftChoices">Հակառակորդը լքել է խաղը։ Դուք կարող եք ստիպել նրան հանձնվել կամ սպասել նրան։</string>
+  <string name="opponentLeftChoices">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ, ոչ-ոքի կամ սպասել։</string>
   <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <string name="forceResignation">Ստիպել հանձնվել</string>
   <string name="forceDraw">Ստիպել ոչ ոքի</string>
