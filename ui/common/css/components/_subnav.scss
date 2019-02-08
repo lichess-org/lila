@@ -1,0 +1,47 @@
+.subnav {
+
+  @include breakpoint($mq-subnav-top) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
+    grid-gap: 1px;
+
+    background: $c-background;
+    @include box-neat;
+
+    & a {
+      color: $c-font;
+      padding: 0.6rem 0.4rem 0.6rem 0.8rem;
+      display: flex;
+      align-items: center;
+      background: $c-background-clear;
+      border-radius: $border-radius;
+      &:hover {
+        color: $c-link;
+      }
+      &.active {
+        background: $c-primary;
+        color: $c-primary-over;
+        font-weight: bold;
+      }
+    }
+  }
+
+  @include breakpoint($mq-subnav-side) {
+    & a {
+      display: block;
+      color: $c-font;
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid $c-background-dim;
+      &:hover {
+        color: $c-link;
+        border-bottom: 1px solid $c-link;
+      }
+      &.active {
+        border-radius: 3px 0 0 3px;
+        background: $c-background-clear;
+        font-weight: bold;
+        box-shadow: $box-shadow;
+      }
+    }
+  }
+}

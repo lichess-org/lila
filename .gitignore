@@ -9,6 +9,7 @@ public/vendor/stockfish.wasm
 public/vendor/stockfish-mv.wasm
 public/vendor/stockfish.pexe
 public/vendor/stockfish.js
+public/css/*.css
 target
 bin/.translate_version
 data/

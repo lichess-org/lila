@@ -159,8 +159,8 @@ body.blind_mode #blind_mode {
 }
 @font-face {
   font-family: 'ChessSansPiratf';
-  src: url("../fonts/ChessSansPiratf.eot");
-  src: url("../fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../fonts/ChessSansPiratf.woff") format("woff"), url("../fonts/ChessSansPiratf.ttf") format("truetype"), url("../fonts/ChessSansPiratf.svg#lichess") format("svg");
+  src: url("../font/ChessSansPiratf.eot");
+  src: url("../font/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../font/ChessSansPiratf.woff") format("woff"), url("../font/ChessSansPiratf.ttf") format("truetype"), url("../font/ChessSansPiratf.svg#lichess") format("svg");
 }
 .thin {
   font-family: 'Roboto';

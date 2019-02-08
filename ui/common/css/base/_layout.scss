@@ -1,0 +1,24 @@
+body {
+  --site-header-height: #{$site-header-short-height};
+  @include breakpoint($mq-site-header-tall) {
+    --site-header-height: #{$site-header-tall-height};
+  }
+
+  --main-margin: 0;
+  @include breakpoint($mq-medium) {
+    --main-margin: #{$block-gap};
+    margin-bottom: $block-gap;
+  }
+}
+
+#main-wrap {
+  display: grid;
+  grid-template-columns: $main-margin 1fr minmax(auto, #{$main-max-width}) 1fr $main-margin;
+  grid-template-areas: '. . main . .';
+}
+
+main {
+  grid-area: main;
+  display: grid;
+  grid-gap: $block-gap $block-gap;
+}

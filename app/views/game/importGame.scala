@@ -14,16 +14,17 @@ object importGame {
 
   def apply(form: play.api.data.Form[_])(implicit ctx: Context) = views.html.base.layout(
     title = trans.importGame.txt(),
-    moreCss = cssTags("form3.css", "import.css"),
+    moreCss = responsiveCssTag("importer"),
     moreJs = jsTag("importer.js"),
     openGraph = lila.app.ui.OpenGraph(
       title = "Paste PGN chess game",
       url = s"$netBaseUrl${routes.Importer.importGame.url}",
       description = "When pasting a game PGN, you get a browsable replay, a computer analysis, a game chat and a sharable URL"
-    ).some
+    ).some,
+    responsive = true
   ) {
-      div(id := "import_game", cls := "content_box")(
-        h1(dataIcon := "/", cls := "title text")(trans.importGame()),
+      main(cls := "importer box box-pad")(
+        h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(
           form3.group(form("pgn"), trans.pasteThePgnStringHere.frag())(form3.textarea(_)()),
@@ -31,7 +32,7 @@ object importGame {
             form3.file.pgn(f.name)
           },
           form3.checkbox(form("analyse"), trans.requestAComputerAnalysis.frag(), help = Some(analyseHelp), disabled = ctx.isAnon),
-          form3.action(form3.submit(trans.importGame.frag()))
+          form3.action(form3.submit(trans.importGame.frag(), "/".some))
         )
       )
     }.toHtml

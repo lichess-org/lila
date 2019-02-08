@@ -1,0 +1,36 @@
+/* Widths */
+
+$mq-xx-small: (min-width 500px);
+$mq-x-small: (min-width 650px);
+$mq-small: (min-width 800px);
+$mq-not-small: (max-width 799px);
+$mq-medium: (min-width 1000px);
+$mq-not-medium: (max-width 999px);
+$mq-large: (min-width 1120px);
+
+/* Heights */
+
+$mq-short: (min-height 500px);
+$mq-tall: (min-height 600px);
+
+/* Orientations */
+
+$mq-portrait: (orientation portrait);
+$mq-landscape: (orientation landscape);
+
+/* Capabilities */
+
+$mq-hover-yes: (hover hover);
+$mq-hover-no: (hover none);
+
+/* Aliases */
+
+$mq-topnav-visible: $mq-medium;
+$mq-topnav-hidden: $mq-not-medium;
+
+$mq-site-header-tall: $mq-short;
+
+$mq-subnav-top: $mq-not-small;
+$mq-subnav-side: $mq-small;
+
+$mq-zoom-enabled: $mq-small $mq-short;

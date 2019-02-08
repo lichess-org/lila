@@ -1,0 +1,8 @@
+.box {
+  @extend %box-neat;
+  background: $c-background-clear;
+
+  &-pad {
+    padding: 3vh 3vw;
+  }
+}

@@ -1,0 +1,146 @@
+.form3 {
+  & .form-group {
+    margin-bottom: 1rem;
+  }
+  & .form-split {
+    display: flex;
+    justify-content: space-between;
+  }
+  & .form-split .form-half {
+    flex: 0 0 48%;
+  }
+  & .form-split .form-third {
+    flex: 0 0 31%;
+  }
+
+  & .form-label {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: .5rem;
+  }
+  & .form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  body.dark .form3 .form-control {
+    background-color: #181818;
+    color: #999;
+    border-color: #404040;
+  }
+  & textarea.form-control {
+    overflow: auto;
+    resize: vertical;
+    height: auto;
+  }
+  & .form-control:invalid,
+  & .form-group.is-invalid .form-control {
+    border-color: #dc3545;
+  }
+  & .error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
+
+  & .form-help {
+    font-size: 80%;
+    margin-top: .25rem;
+    color: #6c757d;
+    line-height: 1em;
+  }
+  body.dark .form3 .form-help {
+    color: #8a9299;
+  }
+
+  & .form-check div {
+    display: flex;
+  }
+
+  & .form-check-input {
+    margin-right: 0.5rem;
+  }
+
+  & .form-check .form-label {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  & .form-actions {
+    margin: 1rem 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  & .form-actions a {
+    color: #3893E8!important;
+  }
+  & .form-actions.single {
+    justify-content: flex-end;
+  }
+
+  & hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* CAPTCHA */
+  & .captcha {
+    display: flex;
+    margin-top: 2em;
+  }
+  & .captcha.is-invalid:not(.success) {
+    border: 1px solid #dc3545;
+  }
+  & .captcha .mini_board {
+    width: 250px;
+    cursor: pointer;
+  }
+  & .captcha .captcha-explanation {
+    font-size: 90%;
+    margin-left: 1rem;
+    overflow: hidden;
+  }
+  & .captcha.is-invalid .captcha-explanation {
+    padding: 1em;
+  }
+  & .captcha .captcha-explanation .form-label {
+    display: block;
+    width: 310px;
+  }
+  & .captcha .captcha-explanation .result {
+    display: none;
+    height: 48px;
+    line-height: 48px;
+    vertical-align: middle;
+    font-weight: bold;
+  }
+  & .captcha .success {
+    color: #759900;
+  }
+  & .captcha .failure {
+    color: #dc3545;
+  }
+  & .captcha.success .success,
+  & .captcha.failure .failure {
+    display: block;
+  }
+
+  /* VENDORS */
+  & .twitter-typeahead {
+    width: 100%;
+  }
+}

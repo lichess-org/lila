@@ -1,0 +1,27 @@
+/// Z-indexes map, gathering all Z layers of the application
+/// @access private
+/// @type Map
+/// @prop {String} key - Layer’s name
+/// @prop {Number} value - Z value mapped to the key
+$z-indexes: (
+  'cg__piece.dragging': 9,
+  'cg__piece.anim': 8,
+  'cg__svg': 2,
+  'cg__piece': 2,
+  'cg__piece.fading': 1,
+
+  'modal': 5000,
+  'dropdown': 4000,
+  'site-header': 5,
+  'default': 1,
+  'below': -1,
+);
+
+/// Get a z-index value from a layer name
+/// @access public
+/// @param {String} $layer - Layer’s name
+/// @return {Number}
+/// @require $z-indexes
+@function z($layer) {
+  @return map-get($z-indexes, $layer);
+}

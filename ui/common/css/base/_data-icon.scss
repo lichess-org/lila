@@ -1,0 +1,29 @@
+.is::before,
+[data-icon]::before,
+.user_link .line,
+.is-after::after {
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-family: "lichess" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: attr(data-icon);
+}
+.is.text::before,
+.text[data-icon]::before {
+  margin-right: 0.27em;
+}
+[data-icon].is2::before {
+  font-size: 20px;
+}
+[data-icon].is3::before {
+  font-size: 22px;
+}
+[data-icon].is4::before {
+  font-size: 30px;
+}

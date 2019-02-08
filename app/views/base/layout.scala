@@ -19,6 +19,7 @@ object layout {
     def htmlTag(implicit ctx: Context) = html(st.lang := ctx.lang.language)
     val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
     val charset = raw("""<meta charset="utf-8">""")
+    val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
       cspEnabled() option raw(
         s"""<meta http-equiv="Content-Security-Policy" content="${csp.getOrElse(defaultCsp)}">"""
@@ -38,7 +39,7 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font/lichess$fontVersion/fonts/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
   private val manifests = raw(List(
     """<link rel="manifest" href="/manifest.json" />""",
     """<meta name="twitter:site" content="@lichess" />"""
@@ -116,29 +117,34 @@ object layout {
     chessground: Boolean = true,
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
-    csp: Option[ContentSecurityPolicy] = None
+    csp: Option[ContentSecurityPolicy] = None,
+    responsive: Boolean = false
   )(body: Html)(implicit ctx: Context) = frag(
     doctype,
     htmlTag(ctx)(
       topComment,
       head(
         charset,
+        responsive option viewport,
         metaCsp(csp),
         if (isProd) frag(
           titleTag(fullTitle | s"$title • lichess.org"),
-          fontStylesheets
+          !responsive option fontStylesheets
         )
         else frag(
           titleTag(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
-          cssAt("offline/font.noto.css"),
-          cssAt("offline/font.roboto.mono.css")
+          !responsive option cssAt("offline/font.noto.css"),
+          !responsive option cssAt("offline/font.roboto.mono.css")
         ),
-        currentBgCss,
-        cssTag("common.css"),
-        cssTag("board.css"),
-        ctx.zoom ifTrue zoomable map { z =>
-          zoomStyle(z / 100f, ctx.pref.is3d)
-        },
+        if (responsive) responsiveCssTag("site")
+        else frag(
+          currentBgCss,
+          cssTag("common.css"),
+          cssTag("board.css"),
+          ctx.zoom ifTrue zoomable map { z =>
+            zoomStyle(z / 100f, ctx.pref.is3d)
+          }
+        ),
         ctx.pref.is3d option cssTag("board-3d.css"),
         ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
@@ -184,7 +190,6 @@ object layout {
         dataZoom := ctx.zoom.map(_.toString)
       )(
           blindModeForm,
-          div(id := "site_description")(trans.siteDescription.frag()),
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
           ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
           isStage option div(id := "stage")(
@@ -193,26 +198,10 @@ object layout {
           ),
           lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.emailConfirmBanner(_)),
           playing option zenToggle,
-          div(id := "top", cls := (if (ctx.pref.is3d) "is3d" else "is2d"))(
-            topmenu(),
-            div(id := "ham-plate", cls := "link hint--bottom", dataHint := trans.menu.txt())(
-              div(id := "hamburger", dataIcon := "[")
-            ),
-            ctx.me map { me =>
-              frag(dasher(me), allNotifications)
-            } getOrElse {
-              !ctx.pageData.error option anonDasher(playing)
-            },
-            ctx.teamNbRequests > 0 option
-              a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests)(
-                span(cls := "hint--bottom-left", dataHint := trans.teams.txt())(span(dataIcon := "f"))
-              ),
-            isGranted(_.SeeReport) option
-              a(cls := "link text data-count", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := ""),
-            clinput,
-            a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
-          ),
-          div(cls := s"content ${if (ctx.pref.is3d) "is3d" else "is2d"}")(
+          if (responsive) siteHeader.responsive(playing)
+          else siteHeader.old(playing),
+          if (responsive) div(id := "main-wrap")(body)
+          else div(cls := s"content ${if (ctx.pref.is3d) "is3d" else "is2d"}")(
             div(id := "site_header")(
               div(id := "notifications"),
               div(cls := "board_left")(
@@ -273,4 +262,65 @@ object layout {
         )
     )
   )
+
+  object siteHeader {
+
+    private val topnavToggle = spaceless("""
+<input type="checkbox" id="topnav-toggle" class="topnav-toggle">
+<label for="topnav-toggle" class="topnav-mask"></label>
+<label for="topnav-toggle" class="topnav-toggle-label hamburger"><span></span></label>""")
+
+    private def reconnecting(implicit ctx: Context) =
+      a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
+
+    private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
+      a(cls := "link text data-count", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
+
+    private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
+      a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests)(
+        span(cls := "hint--bottom-left", dataHint := trans.teams.txt())(span(dataIcon := "f"))
+      )
+
+    def responsive(playing: Boolean)(implicit ctx: Context) =
+      header(id := "site-header")(
+        div(cls := "site-title-nav")(
+          topnavToggle,
+          h1(cls := "site-title")(
+            a(href := "/")(
+              if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
+              else ctx.isBot option botImage,
+              "lichess",
+              span(if (isProd) ".org" else " dev")
+            )
+          ),
+          topmenu()
+        ),
+        div(cls := "site-buttons")(
+          reconnecting,
+          clinput,
+          reports,
+          teamRequests,
+          ctx.me map { me =>
+            frag(allNotifications, dasher(me))
+          } getOrElse { !ctx.pageData.error option anonDasher(playing) }
+        )
+      )
+
+    def old(playing: Boolean)(implicit ctx: Context) =
+      div(id := "top", cls := (if (ctx.pref.is3d) "is3d" else "is2d"))(
+        topmenu(),
+        div(id := "ham-plate", cls := "link hint--bottom", dataHint := trans.menu.txt())(
+          div(id := "hamburger", dataIcon := "[")
+        ),
+        ctx.me map { me =>
+          frag(dasher(me), allNotifications)
+        } getOrElse {
+          !ctx.pageData.error option anonDasher(playing)
+        },
+        teamRequests,
+        reports,
+        clinput,
+        reconnecting
+      )
+  }
 }
