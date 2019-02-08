@@ -1,0 +1,123 @@
+#site-header {
+  height: $site-header-height;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: z('site-header');
+  & .dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    background: #fff;
+    z-index: 3;
+    box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+  }
+  & .shown .dropdown {
+    display: block;
+  }
+  & .dropdown .initiating .spinner {
+    padding: 10px 30px;
+  }
+}
+
+.site-title-nav {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.site-title {
+  font-size: 2rem;
+  font-weight: normal;
+  white-space: nowrap;
+  margin: 0 .5rem;
+  display: none;
+  @include breakpoint($mq-xx-small) {
+    display: block;
+  }
+  line-height: calc(#{$site-header-short-height} - 3px);
+  font-size: 1.5rem;
+  @include breakpoint($mq-site-header-tall) {
+    line-height: $site-header-tall-height;
+    font-size: 1.8rem;
+  }
+  @include breakpoint($mq-site-header-tall $mq-topnav-visible) {
+    line-height: 52px;
+    margin: 0 1rem;
+  }
+  & a {
+    color: $c-font;
+    text-decoration: none;
+    &:hover {
+      color: $c-primary;
+      & span {
+        color: $c-primary-dim;
+      }
+    }
+  }
+  & span {
+    color: $c-font-dim;
+  }
+}
+
+.site-buttons {
+  display: flex;
+  align-items: center;
+  & .link {
+    color: $c-font;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 0 0.5rem;
+    &:hover {
+      color: $c-link;
+    }
+  }
+}
+
+#clinput {
+  display: flex;
+  height: 24px;
+}
+#clinput a.link:hover {
+  color: #303030;
+}
+#clinput input {
+  border: 0;
+  border: none;
+  border-bottom: 1px solid #888;
+  background: transparent;
+  font-size: 14px;
+  color: #555;
+  line-height: 24px;
+  margin-right: 14px;
+  display: none;
+}
+#clinput.shown input {
+  display: inline-block;
+}
+#clinput input:focus {
+  outline: none;
+}
+body.dark #clinput input {
+  color: #aaa;
+}
+
+#reconnecting {
+  opacity: 0;
+}
+body.offline #reconnecting,
+#network_error {
+  display: inline-block;
+  opacity: 1;
+  color: #dc322f;
+}
+@keyframes reconnected {
+  0% { opacity: 1; color: #759900; }
+  100% { opacity: 0; color: #759900; transform: translateY(-15px); }
+}
+body.online.reconnected #reconnecting {
+  animation: reconnected 2s ease-out 1s backwards;
+}
+body.online #reconnecting::before {
+  content: 'J'
+}

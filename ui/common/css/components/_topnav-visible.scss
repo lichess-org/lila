@@ -1,0 +1,79 @@
+@include breakpoint($mq-topnav-visible) {
+
+  .hamburger,
+  .topnav-mask,
+  .topnav-toggle {
+    display: none;
+  }
+
+  #topmenu {
+    --nav-section: 26px;
+    --nav-section-hover: 35px;
+    @include breakpoint($mq-site-header-tall) {
+      --nav-section: 48px;
+      --nav-section-hover: 53px;
+    }
+    display: flex;
+    & section {
+      position: relative;
+      height: var(--nav-section);
+      & > a {
+        color: $c-font-dim;
+        text-shadow: $text-shadow;
+        display: block;
+        height: var(--nav-section);
+        line-height: $site-header-height;
+        padding: 0 0.7rem;
+        text-transform: uppercase;
+        border-left: 2px solid transparent;
+        @media (hover: none) {
+          pointer-events: none;
+        }
+      }
+      &:hover,
+      &:active {
+        & > a {
+          height: var(--nav-section-hover);
+          background: $c-header-dropdown;
+          color: $c-font-clear;
+          border-color: $c-primary;
+        }
+        & div {
+          display: block;
+        }
+      }
+    }
+    & div {
+      display: none;
+      position: absolute;
+      left: 0;
+      background: $c-header-dropdown;
+      width: 10rem;
+      box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 0 3px 3px 3px;
+      border-left: 2px solid $c-primary;
+      & a {
+        display: block;
+        padding: .4rem .7rem;
+        @media (hover: none) {
+          padding: .5rem .7rem;
+        }
+        color: $c-font-clear;
+        &:hover {
+          background: $c-primary;
+          color: $c-primary-over;
+        }
+        &:first-child {
+          border-radius: 0 3px 0 0;
+        }
+        &:last-child {
+          border-radius: 0 0 3px 1px ;
+        }
+      }
+    }
+    &.blind div {
+      display: block;
+      margin-left: -9000px;
+    }
+  }
+}

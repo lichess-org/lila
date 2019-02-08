@@ -8,6 +8,7 @@ import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
+// #TODO rename to topnav
 object topmenu {
 
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =

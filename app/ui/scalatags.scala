@@ -66,6 +66,7 @@ trait ScalatagsTemplate extends Styles
   with ScalatagsPrefix {
 
   val trans = lidraughts.i18n.I18nKeys
+  val main = tag("main")
 }
 
 object ScalatagsTemplate extends ScalatagsTemplate

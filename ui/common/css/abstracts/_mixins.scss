@@ -1,0 +1,25 @@
+@mixin box-neat {
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+}
+
+@mixin board-scale-config {
+  --board-scale: 1;
+  @include breakpoint($mq-zoom-enabled) {
+    // --zoom: 85; defined in the HTML, loaded from server saved config
+    --board-scale: calc((var(--zoom) / 100) * 0.5 + 0.5);
+  }
+}
+
+@mixin debug-zoom-input {
+  #zoom-input {
+    display: none;
+    @include breakpoint($mq-zoom-enabled) {
+      display: block;
+      position: fixed;
+      bottom: 3px;
+      right: 3px;
+      width: 10vw;
+    }
+  }
+}

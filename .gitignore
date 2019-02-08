@@ -12,6 +12,7 @@ data/*
 database
 project/target
 public/compiled
+public/css/*.css
 target
 dist
 node_modules

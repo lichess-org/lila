@@ -1,0 +1,20 @@
+%placeholder {
+  width: 100%;
+  height: 100%;
+  background: $c-background-clear;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  // outline: 1px solid $c-border;
+  @extend %box-shadow;
+
+  & p {
+    text-transform: none;
+  }
+}
+placeholder,
+.placeholder {
+  @extend %placeholder;
+}

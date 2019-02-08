@@ -1,0 +1,12 @@
+%square {
+  height: 0;
+  padding-bottom: 100%;
+  width: 100%;
+}
+%box-shadow {
+  box-shadow: $box-shadow;
+}
+%box-neat {
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+}

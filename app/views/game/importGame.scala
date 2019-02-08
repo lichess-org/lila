@@ -14,16 +14,17 @@ object importGame {
 
   def apply(form: play.api.data.Form[_])(implicit ctx: Context) = views.html.base.layout(
     title = trans.importGame.txt(),
-    moreCss = cssTags("form3.css", "import.css"),
+    moreCss = responsiveCssTag("importer"),
     moreJs = jsTag("importer.js"),
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Paste PDN draughts game",
       url = s"$netBaseUrl${routes.Importer.importGame.url}",
       description = "When pasting a game PDN, you get a browsable replay, a computer analysis, a game chat and a sharable URL"
-    ).some
+    ).some,
+    responsive = true
   ) {
-      div(id := "import_game", cls := "content_box")(
-        h1(dataIcon := "/", cls := "title text")(trans.importGame()),
+      main(cls := "importer box box-pad")(
+        h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(
           form3.group(form("pdn"), trans.pasteThePdnStringHere.frag())(form3.textarea(_)()),
@@ -37,7 +38,7 @@ object importGame {
             frag(" ", form3.file.pdn(f.name))
           },
           form3.checkbox(form("analyse"), trans.requestAComputerAnalysis.frag(), help = Some(analyseHelp), disabled = ctx.isAnon),
-          form3.action(form3.submit(trans.importGame.frag()))
+          form3.action(form3.submit(trans.importGame.frag(), "/".some))
         )
       )
     }.toHtml

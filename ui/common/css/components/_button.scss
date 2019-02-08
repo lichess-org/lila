@@ -1,0 +1,20 @@
+.button {
+  &,
+  &:visited {
+    font-family: 'Roboto';
+    font-size: 1.5rem;
+    background: $c-primary;
+    color: $c-primary-over;
+    text-transform: uppercase;
+    padding: .6em 1em;
+    border: none;
+    border-radius: 5px;
+    transition: all .3s ease-out;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.225);
+    cursor: pointer;
+  }
+  &:hover {
+    background: mix(white, $c-primary, 15);
+    box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.225);
+  }
+}

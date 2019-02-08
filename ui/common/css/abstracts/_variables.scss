@@ -1,0 +1,15 @@
+$font-path: "../font";
+
+$block-gap: 1.5vmin;
+
+$border-radius: 3px;
+
+$site-header-tall-height: 60px;
+$site-header-short-height: 40px;
+
+$main-max-width: 1300px !default;
+
+/* var aliases */
+
+$main-margin: var(--main-margin);
+$site-header-height: var(--site-header-height);
