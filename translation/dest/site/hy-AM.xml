@@ -211,7 +211,7 @@
     <item quantity="one">Տալ %s վայրկան</item>
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Այս խաղացողը դիմում է համակարգչի օգնությանը</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Այս խաղացողը օգտագործում է համակարգչի օգնություն</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Այս խաղացողը արհեստականորեն մեծացնում է իր վարկանիշը</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
@@ -228,12 +228,12 @@
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
-  <string name="backToGame">վերադառնալ խաղին</string>
-  <string name="siteDescription">Անճար օնլայն շախմատ: Խաղացցեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
+  <string name="backToGame">Վերադառնալ պարտիային</string>
+  <string name="siteDescription">Անճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="teams">Թիմեր</string>
   <plurals name="nbMembers">
     <item quantity="one">%s անդամ</item>
-    <item quantity="other">%s անդամ</item>
+    <item quantity="other">%s անդամներ</item>
   </plurals>
   <string name="allTeams">Բոլոր թիմերը</string>
   <string name="newTeam">Նոր թիմ</string>
@@ -246,7 +246,7 @@
   <string name="joiningPolicy">Միանալու պայմանները</string>
   <string name="teamLeader">Թիմը առաջնորդ</string>
   <string name="teamBestPlayers">Թիմի լավագույն խաղացողները</string>
-  <string name="teamRecentMembers">Թիմի ներկա անդամները</string>
+  <string name="teamRecentMembers">Թիմի անդամները</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
   <string name="averageElo">Միջին ELO</string>
@@ -256,7 +256,7 @@
   <string name="reset">Վերսկսել</string>
   <string name="apply">Կիրառել</string>
   <string name="leaderboard">Առաջատարներ</string>
-  <string name="pasteTheFenStringHere">տեղադրել FEN-տողը այստեղ</string>
+  <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
   <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
@@ -272,8 +272,8 @@
   <string name="retry">Կրկին փորձել</string>
   <string name="reconnecting">Կապի միացում</string>
   <string name="onlineFriends">Օնլայն ընկերներ</string>
-  <string name="noFriendsOnline">Օնլայն ընկեր չկա</string>
-  <string name="findFriends">Փնտրել ընկերներին</string>
+  <string name="noFriendsOnline">Օնլայն ընկեր չկան</string>
+  <string name="findFriends">Փնտրել ընկերներ</string>
   <string name="favoriteOpponents">Սիրելի հակառակորդներ</string>
   <string name="follow">Հետևել</string>
   <string name="following">Հետևում եք</string>
@@ -297,7 +297,7 @@
   <string name="challengeToPlay">Ուղարկել խաղի մարտահրավեր</string>
   <string name="player">Խաղացող</string>
   <string name="list">ցուցակ</string>
-  <string name="graph">Գրաֆ</string>
+  <string name="graph">Գրաֆիկ</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">ավելի քիչ քան %s րոպե</item>
     <item quantity="other">ավելի քիչ քան %s րոպե</item>
@@ -317,7 +317,7 @@
   <string name="createdBy">Ստեղծող՝</string>
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="membersOnly">Միայն անդամները</string>
-  <string name="boardEditor">Տախտակի խմբագրիչ</string>
+  <string name="boardEditor">Խաղախտակի խմբագրիչ</string>
   <string name="startPosition">Սկզբնական դիրք</string>
   <string name="clearBoard">Մաքրել տախտակը</string>
   <string name="savePosition">Պահպանել դիրքը</string>
@@ -334,14 +334,14 @@
   <string name="preferences">Նախընտրություններ</string>
   <string name="watchLichessTV">Դիտել Lichess TV</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
-  <string name="onlinePlayers">առցանց խաղացողներ</string>
+  <string name="onlinePlayers">Online խաղացողներ</string>
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
   <string name="training">Խնդիրներ</string>
   <string name="yourPuzzleRatingX">Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s</string>
-  <string name="findTheBestMoveForWhite">Փնտրիր լավագույն քայլը սպիտակների համար</string>
-  <string name="findTheBestMoveForBlack">Փնտրիր լավագույն քայլը սևերի համար</string>
+  <string name="findTheBestMoveForWhite">Գտնել լավագույն քայլը սպիտակների համար:</string>
+  <string name="findTheBestMoveForBlack">Գտնել լավագույն քայլը սևերի համար:</string>
   <string name="toTrackYourProgress">Ձեր առաջընթացը հետևելու համար՝</string>
   <string name="trainingSignupExplanation">Lichess-ը կառաջարկի խնդիրներ, որոնք համապատասխանում են Ձեր ունակությանը՝  նպաստելով ավելի արդյունավետ մարզման։</string>
   <string name="puzzleId">Խնդիր %s</string>
@@ -381,7 +381,7 @@
   <string name="yes">այո</string>
   <string name="help">օգնություն</string>
   <string name="createANewTopic">Ստեղծել նոր թեմա</string>
-  <string name="topics">Ստեղծել նոր թեմա</string>
+  <string name="topics">Topics (?)</string>
   <string name="posts">Գրառումներ</string>
   <string name="lastPost">Վերջին հաղորդագրությունը</string>
   <string name="views">Դիտումներ</string>
