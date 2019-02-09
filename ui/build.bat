@@ -33,3 +33,11 @@ call echo Building: editor.min
 call cd ui\editor
 call gulp prod
 call cd ..\..
+
+set css_apps=site
+for %%a in (%css_apps%) do @(
+  call echo Building css: %%a
+  call cd ui\%%a
+  call gulp css-dev
+  call cd ..\..
+)

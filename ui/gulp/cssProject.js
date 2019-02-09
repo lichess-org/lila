@@ -24,7 +24,6 @@ module.exports = (name, dir) => {
   const sourcesGlob = sourceDir + '/**/*.scss';
   const buildsGlob = sourceDir + '/build/*.scss';
   const commonGlob = '../common/css/**/*.scss';
-  console.log(commonGlob);
 
   createThemedBuilds(buildDir);
 
@@ -45,6 +44,19 @@ module.exports = (name, dir) => {
       gulp.watch(commonGlob, build);
     }
   ]));
+
+  gulp.task('css-dev', build);
+
+  gulp.task('css-prod', () => gulp
+    .src(buildsGlob)
+    .pipe(sass({
+      ...sassOptions,
+      ...{ outputStyle: 'compressed' }
+    }).on('error', sass.logError))
+    .pipe(autoprefixer(autoprefixerOptions))
+    .pipe(renameAs('min'))
+    .pipe(destination())
+  );
 }
 
 function renameAs(ext) {
