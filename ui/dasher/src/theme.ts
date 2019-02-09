@@ -54,13 +54,7 @@ export function view(ctrl: ThemeCtrl): VNode {
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
     h('div.list', {
       attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(themeView(d.current, ctrl.set))),
-    h('div.subs', [
-      h('a', {
-        hook: bind('click', () => ctrl.open('piece')),
-        attrs: { 'data-icon': 'H' }
-      }, ctrl.trans.noarg('pieceSet'))
-    ])
+    }, d.list.map(themeView(d.current, ctrl.set)))
   ]);
 }
 

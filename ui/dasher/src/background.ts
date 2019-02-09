@@ -6,10 +6,10 @@ import { Redraw, Close, bind, header } from './util'
 export interface BackgroundCtrl {
   list: Background[]
   set(k: string): void
-  get(): string
+    get(): string
   getImage(): string
   setImage(i: string): void
-  trans: Trans
+    trans: Trans
   close: Close
 }
 
@@ -58,7 +58,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
 
   return h('div.sub.background', [
     header(ctrl.trans.noarg('background'), ctrl.close),
-    h('div.selector', ctrl.list.map(bg => {
+    h('div.selector.large', ctrl.list.map(bg => {
       return h('a.text', {
         class: { active: cur === bg.key },
         attrs: { 'data-icon': 'E' },
@@ -93,20 +93,32 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
   const key = data.current;
 
-  $('body').removeClass(list.map(b => b.key).join(' ')).addClass(key === 'transp' ? 'transp dark' : key);
+  $('body')
+    .removeClass(list.map(b => b.key).join(' '))
+    .addClass(key === 'transp' ? 'transp dark' : key);
 
-  if ((key === 'dark' || key === 'transp') && !$('link[href*="dark.css"]').length) {
-
-    $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
-      $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+  if ($('body').data('resp')) {
+    const prev = $('body').data('theme');
+    $('body').data('theme', key);
+    $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
+      console.log($(this).attr('href'));
+      $(this).attr('href', $(this).attr('href').replace('.' + prev + '.', '.' + key + '.')).appendTo('head');
     });
-  }
+  } else {
 
-  if (key === 'transp' && !$('link[href*="transp.css"]').length) {
+    if ((key === 'dark' || key === 'transp') && !$('link[href*="dark.css"]').length) {
 
-    $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
-      $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
-    });
+      $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
+        $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+      });
+    }
+
+    if (key === 'transp' && !$('link[href*="transp.css"]').length) {
+
+      $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
+        $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
+      });
+    }
   }
 
   if (key === 'transp') {

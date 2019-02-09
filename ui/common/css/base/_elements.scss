@@ -14,3 +14,9 @@ a {
     color: $c-link-hover;
   }
 }
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}

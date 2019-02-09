@@ -96,6 +96,8 @@ object layout {
   private val dataAssetVersion = attr("data-asset-version")
   private val dataNonce = attr("data-nonce")
   private val dataZoom = attr("data-zoom")
+  private val dataTheme = attr("data-theme")
+  private val dataResp = attr("data-resp")
   private val dataPreload = attr("data-preload")
   private val dataPlaying = attr("data-playing")
   private val dataPatrons = attr("data-patrons")
@@ -133,10 +135,14 @@ object layout {
         )
         else frag(
           titleTag(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
-          !responsive option cssAt("offline/font.noto.css"),
-          !responsive option cssAt("offline/font.roboto.mono.css")
+          !responsive option frag(
+            cssAt("offline/font.noto.css"),
+            cssAt("offline/font.roboto.mono.css")
+          )
         ),
-        if (responsive) responsiveCssTag("site")
+        if (responsive) ctx.zoom ifTrue zoomable map { z =>
+          raw(s"""<style>main{--zoom:$z}</style>""")
+        }
         else frag(
           currentBgCss,
           cssTag("common.css"),
@@ -187,7 +193,9 @@ object layout {
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.map(_.value),
-        dataZoom := ctx.zoom.map(_.toString)
+        dataZoom := ctx.zoom.map(_.toString),
+        dataResp := responsive.option(true),
+        dataTheme := responsive.option(ctx.currentBg)
       )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
@@ -282,7 +290,7 @@ object layout {
       )
 
     def responsive(playing: Boolean)(implicit ctx: Context) =
-      header(id := "site-header")(
+      header(id := "top")(
         div(cls := "site-title-nav")(
           topnavToggle,
           h1(cls := "site-title")(

@@ -50,7 +50,7 @@ export function view(ctrl: BoardCtrl): VNode {
 
   return h('div.sub.board', [
     header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
-    h('div.selector', [
+    h('div.selector.large', [
       h('a.text', {
         class: { active: !ctrl.data.is3d },
         attrs: { 'data-icon': 'E' },
@@ -63,7 +63,7 @@ export function view(ctrl: BoardCtrl): VNode {
       }, '3D')
     ]),
     h('div.zoom', [
-      h('h2', ctrl.trans.noarg('boardSize')),
+      h('p', ctrl.trans.noarg('boardSize')),
       h('div.slider', {
         hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
       })

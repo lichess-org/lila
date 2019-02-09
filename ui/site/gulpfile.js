@@ -12,7 +12,7 @@ const concat = require('gulp-concat');
 const exec = require('child_process').exec;
 const fs = require('fs');
 
-require('../gulp/cssProject.js')('lichess.editor', __dirname);
+require('../gulp/cssProject.js')(__dirname);
 
 const browserifyOpts = (entries, debug) => ({
   entries: entries,

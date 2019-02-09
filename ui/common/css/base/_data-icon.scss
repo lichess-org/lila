@@ -3,20 +3,18 @@
 .user_link .line,
 .is-after::after {
   font-size: 1.2em;
-  vertical-align: middle;
+  vertical-align: text-top;
   font-family: "lichess" !important;
   font-style: normal !important;
   font-weight: normal !important;
   text-transform: none !important;
   speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
+  opacity: 0.9;
 }
 .is.text::before,
 .text[data-icon]::before {
-  margin-right: 0.27em;
+  margin-right: 0.37em;
 }
 [data-icon].is2::before {
   font-size: 20px;

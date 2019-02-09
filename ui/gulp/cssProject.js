@@ -17,7 +17,7 @@ const autoprefixerOptions = {
 };
 const destination = () => gulp.dest('../../public/css/');
 
-module.exports = (name, dir) => {
+module.exports = (dir) => {
 
   const sourceDir = `${dir}/css`;
   const buildDir = `${sourceDir}/build`;

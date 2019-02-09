@@ -34,7 +34,7 @@
       &:active {
         & > a {
           height: var(--nav-section-hover);
-          background: $c-header-dropdown;
+          background: $c-header-dropdown-background;
           color: $c-font-clear;
           border-color: $c-primary;
         }
@@ -47,7 +47,7 @@
       display: none;
       position: absolute;
       left: 0;
-      background: $c-header-dropdown;
+      background: $c-header-dropdown-background;
       width: 10rem;
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;
@@ -58,7 +58,7 @@
         @media (hover: none) {
           padding: .5rem .7rem;
         }
-        color: $c-font-clear;
+        color: $c-header-dropdown-color;
         &:hover {
           background: $c-primary;
           color: $c-primary-over;

@@ -28,6 +28,8 @@ export interface DasherData {
 
 export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme' | 'piece';
 
+const defaultMode = 'links';
+
 export interface DasherCtrl {
   mode: Prop<Mode>;
   setMode(m: Mode): void;
@@ -55,13 +57,13 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   const trans = window.lichess.trans(data.i18n);
 
-  let mode: Prop<Mode> = prop('links' as Mode);
+  let mode: Prop<Mode> = prop(defaultMode as Mode);
 
   function setMode(m: Mode) {
     mode(m);
     redraw();
   }
-  function close() { setMode('links'); }
+  function close() { setMode(defaultMode); }
 
   const ping = pingCtrl(trans, redraw);
 

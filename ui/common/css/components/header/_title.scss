@@ -1,0 +1,32 @@
+.site-title {
+  font: 26px/#{$site-header-short-height - 3} 'Noto Sans';
+  font-weight: normal;
+  text-shadow: $text-shadow;
+  white-space: nowrap;
+  margin: 0 .5rem;
+  display: none;
+  @include breakpoint($mq-xx-small) {
+    display: block;
+  }
+  @include breakpoint($mq-site-header-tall) {
+    font-size: 32px;
+    line-height: #{$site-header-tall-height - 3};
+  }
+  @include breakpoint($mq-site-header-tall $mq-topnav-visible) {
+    line-height: #{$site-header-tall-height - 5};
+    margin: 0 1rem;
+  }
+  & a {
+    color: $c-font;
+    text-decoration: none;
+    &:hover {
+      color: $c-primary;
+      & span {
+        color: $c-primary-dim;
+      }
+    }
+  }
+  & span {
+    color: $c-font-dim;
+  }
+}

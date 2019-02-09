@@ -217,6 +217,7 @@ lichess.widget = function(name, prototype) {
     return returnValue;
   };
 };
+lichess.isResp = $('body').data('resp');
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isMS = lichess.isTrident || navigator.userAgent.indexOf('Edge/') > -1;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
@@ -225,6 +226,9 @@ lichess.assetUrl = function(path, opts) {
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
+};
+lichess.cssPath = function(key) {
+  return 'css/lichess.' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css';
 };
 lichess.loadedCss = {};
 lichess.loadCss = function(url) {
@@ -252,7 +256,7 @@ lichess.hopscotch = function(f) {
   lichess.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lichess.slider = function() {
-  lichess.loadCss('stylesheets/jquery-ui.css');
+  if (!lichess.isResp) lichess.loadCss('stylesheets/jquery-ui.css');
   return lichess.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
 lichess.shepherd = function(f) {

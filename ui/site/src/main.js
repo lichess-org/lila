@@ -460,7 +460,7 @@ lichess.topMenuIntent = function() {
           var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lichess.loadCss('stylesheets/dasherApp.css');
+          lichess.loadCss(lichess.cssPath('dasher'));
           lichess.loadScript('compiled/lichess.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessDasher.default($el.empty()[0], {
               setZoom: setZoom,
@@ -468,6 +468,7 @@ lichess.topMenuIntent = function() {
             });
           });
         });
+        setTimeout(function() { $('#top .dasher .toggle').click(); }, 10);
       })();
 
       // cli
