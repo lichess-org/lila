@@ -17,4 +17,10 @@
     background: mix(white, $c-primary, 15);
     box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.225);
   }
+  &[disabled] {
+    cursor: default;
+    background: hsl(0, 0%, 80%);
+    color: hsl(0, 0%, 62%);
+    box-shadow: none;
+  }
 }

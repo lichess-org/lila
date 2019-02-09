@@ -1,23 +1,21 @@
 body {
-  margin-top: 45px;
+  margin-top: 40px;
 }
 
 #stage {
   height: 40px;
   background: #7f1010;
   color: #fff!important;
-  font-size: 1.3em;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #666;
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
+  padding: 0 1rem;
 }
 #stage a {
   color: #fff!important;
