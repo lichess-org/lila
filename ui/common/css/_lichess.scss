@@ -2,27 +2,21 @@
 
 @import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
 
-@import 'abstracts/media-queries';
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
-@import 'abstracts/extends';
-@import 'abstracts/z-index';
-@import 'abstracts/fluid-size';
+@import 'abstract/all';
 
 @import 'base/reset';
 @import 'base/fonts';
 @import 'base/elements';
 @import 'base/typography';
-@import 'base/layout';
 @import 'base/data-icon';
 
-@import 'vendors/chessground';
+@import 'layout/base';
 
-@import 'components/header/header';
-@import 'components/mini-board';
-@import 'components/subnav';
-@import 'components/box';
-@import 'components/button';
-@import 'components/cmn-toggle';
-@import 'components/blind-mode';
-@import 'components/friends';
+@import 'vendor/chessground';
+
+@import 'component/header/header';
+@import 'component/mini-board';
+@import 'component/box';
+@import 'component/button';
+@import 'component/blind-mode';
+@import 'component/friends';

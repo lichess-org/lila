@@ -49,9 +49,9 @@ if type -p parallel; then # parallel execution!
     [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
   set -x
-  parallel --gnu $P_OPTS build_ts ::: $ts_apps1
-  parallel --gnu $P_OPTS build_ts ::: $ts_apps2
-  parallel --gnu $P_OPTS build ::: $apps
+  # parallel --gnu $P_OPTS build_ts ::: $ts_apps1
+  # parallel --gnu $P_OPTS build_ts ::: $ts_apps2
+  # parallel --gnu $P_OPTS build ::: $apps
   parallel --gnu $P_OPTS build_css ::: $css_apps
 else # sequential execution
   echo "For faster builds, install GNU parallel."

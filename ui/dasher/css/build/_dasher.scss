@@ -5,5 +5,5 @@ $c-dasher-over: $c-secondary-over;
 $c-dasher-light: c-dimmer($c-dasher, 85);
 $c-slider: $c-dasher;
 
-@import '../../../common/css/components/ui-slider';
+@import '../../../common/css/component/ui-slider';
 @import '../dasher';
