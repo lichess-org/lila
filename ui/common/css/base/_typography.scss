@@ -11,7 +11,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Roboto';
+  @extend %roboto;
   font-weight: normal;
 }
 h1 {

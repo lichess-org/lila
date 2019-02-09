@@ -21,9 +21,5 @@
   &__content {
     grid-area: content;
     height: 100%;
-    & placeholder {
-      border-radius: 3px;
-      min-height: 600px;
-    }
   }
 }
