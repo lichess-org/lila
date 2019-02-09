@@ -50,10 +50,10 @@ trait ScalatagsBundle extends Cap
 
 // short prefix
 trait ScalatagsPrefix {
-  object st extends Cap with Attrs with scalatags.text.Tags {
+  object st extends Cap with Attrs with scalatags.text.Tags
+  object st2 extends Cap with scalatags.text.Tags2 {
     lazy val group = tag("group")
   }
-
 }
 
 // what to import in a pure scalatags template
