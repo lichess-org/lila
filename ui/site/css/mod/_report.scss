@@ -1,0 +1,127 @@
+$c-report-bg: #484541;
+$c-report-font: #eee;
+
+#report form.create {
+  margin-top: 2em;
+}
+#report_list .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  background: $c-report-bg;
+  color: $c-report-font;
+}
+#report_list .header .icon {
+  flex: 1 1 50px;
+  height: 50px;
+  margin: 5px 0 5px 8px;
+  background: $c-report-bg no-repeat url(../images/icons/octopus.svg) left center;
+  opacity: 0.9;
+}
+#report_list .tabs {
+  display: flex;
+  margin-right: 15px;
+  font-size: 1.2em;
+}
+#report_list .tabs a {
+  color: $c-report-font;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  font-family: Roboto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+#report_list .tabs a:hover {
+  background: rgba(56, 147, 232, 0.5);
+  color: #fff!important;
+}
+#report_list .tabs a.active {
+  background: #3893E8;
+  color: #fff!important;
+}
+#report_list .tabs a count {
+  font-size: 0.8em;
+  display: block;
+  height: 1.2em;
+}
+#report_list .score {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0.3em 0.5em;
+  border-radius: 0.3em;
+}
+#report_list .score.green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.4);
+}
+#report_list .score.yellow {
+  background-color: rgba(221, 207, 63, 0.4);
+}
+#report_list .score.orange {
+  background-color: rgba(231, 155, 100, 0.4);
+}
+#report_list .score.red {
+  background-color: rgba(231, 59, 56, 0.4);
+}
+#report_list table.see {
+  border-top: 3px solid #3893E8;
+}
+#report_list table.see td {
+  padding: 15px 10px 15px 10px;
+  word-break: break-all;
+}
+#report_list table.see button {
+  width: 100px;
+  box-sizing: border-box;
+}
+#report_list table.see .inquiry button {
+  padding: 15px 20px;
+  font-size: 1.4em;
+}
+#report_list table.see .inquiry button:hover {
+  background: rgba(56, 147, 232, 1);
+  color: #fff!important;
+}
+#report_list table.see button.thin {
+  font-size: 0.9em;
+}
+#report_list .atoms .atom {
+  font-size: 0.9em;
+  margin-bottom: 1em;
+}
+#report_list .atoms .atom:last-child {
+  margin-bottom: 0;
+}
+#report_list .atoms .atom .head {
+  display: block;
+}
+#report_list .atoms .atom .score {
+  font-size: 0.9em;
+  padding: 0.1em 0.4em;
+}
+#report_list table.see .perfs {
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+#report_list table.see .text {
+  max-height: 100px;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+#report_list table.see .text.large {
+  font-size: 0.8em;
+}
+#report_list tr.new td:first-child {
+  border-left: 3px solid #3893E8;
+}
+.user_marks i {
+  font-size: 0.9em;
+  background: #dc322f70;
+  padding: 0.1em 0.4em;
+  border-radius: 0.3em;
+  margin: 0 0.2em;
+}

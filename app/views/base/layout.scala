@@ -111,6 +111,7 @@ object layout {
     chat: Option[Frag] = None,
     underchat: Option[Frag] = None,
     robots: Boolean = isGloballyCrawlable,
+    respCss: Option[Html] = None,
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
     playing: Boolean = false,
@@ -139,9 +140,12 @@ object layout {
             cssAt("offline/font.roboto.mono.css")
           )
         ),
-        if (responsive) ctx.zoom ifTrue zoomable map { z =>
-          raw(s"""<style>main{--zoom:$z}</style>""")
-        }
+        if (responsive) frag(
+          ctx.zoom ifTrue zoomable map { z =>
+            raw(s"""<style>main{--zoom:$z}</style>""")
+          },
+          respCss | responsiveCssTag("site")
+        )
         else frag(
           currentBgCss,
           cssTag("common.css"),
