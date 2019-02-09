@@ -103,6 +103,7 @@ body.dark #clinput input {
 }
 
 #reconnecting {
+  display: none;
   opacity: 0;
 }
 body.offline #reconnecting,

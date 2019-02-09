@@ -1,8 +1,14 @@
 .box {
-  @extend %box-neat;
   background: $c-background-clear;
+  @extend %box-shadow;
 
   &-pad {
     padding: 3vh 3vw;
+  }
+}
+
+@include breakpoint($mq-main-margin) {
+  main.box {
+    @include box-radius;
   }
 }

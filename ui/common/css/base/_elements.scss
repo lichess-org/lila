@@ -1,16 +1,7 @@
-html {
-  font: 1rem/1.6 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
-}
-
 body {
   background: $c-background linear-gradient(to bottom, $c-body-gradient, $c-background 116px) no-repeat;
   color: $c-font;
   overflow-x: hidden;
-}
-
-h1 {
-  font: 3rem 'Roboto';
-  font-weight: normal;
 }
 
 a {

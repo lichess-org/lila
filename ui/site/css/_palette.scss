@@ -1,0 +1,131 @@
+$palette-colors: (
+'background': (
+'dim': $c-background-dim,
+'base': $c-background,
+'clear': $c-background-clear
+),
+'primary': (
+'dim': c-dimmer($c-primary),
+'base': $c-primary,
+'clear': c-clearer($c-primary)
+),
+'secondary': (
+'dim': c-dimmer($c-secondary),
+'base': $c-secondary,
+'clear': c-clearer($c-secondary)
+),
+'accent': (
+'dim': c-dimmer($c-accent),
+'base': $c-accent,
+'clear': c-clearer($c-accent)
+),
+'brag': (
+'dim': c-dimmer($c-brag),
+'base': $c-brag,
+'clear': c-clearer($c-brag)
+),
+'error': (
+'dim': c-dimmer($c-error),
+'base': $c-error,
+'clear': c-clearer($c-error)
+),
+'fancy': (
+'dim': c-dimmer($c-fancy),
+'base': $c-fancy,
+'clear': c-clearer($c-fancy)
+),
+'font': (
+'dim': c-dimmer($c-font),
+'base': $c-font,
+'clear': c-clearer($c-font)
+),
+);
+
+$variant-height: 2.5rem;
+
+.palette {
+  display: grid;
+  grid-column-gap: $block-gap;
+  grid-row-gap: $block-gap;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  & *,
+  & *:before,
+  & *:after {
+    position: relative;
+  }
+
+  & .color {
+    height: 16rem;
+    display: block;
+    @extend %box-neat;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 30%;
+      bottom: 0;
+      left: 0;
+      border-top: $borders;
+      padding: 0.5rem;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+
+    &:before {
+      background-color: $c-background-clear;
+      border-radius: 0 0 $box-radius-size $box-radius-size;
+      font-weight: bold;
+    }
+
+    &:after {
+      padding-top: 2rem;
+      font-size: 80%;
+    }
+
+    @each $color-key, $color-variants in $palette-colors {
+      $base-color-value: map-get($color-variants, 'base');
+
+      &.#{$color-key} {
+        background-color: $base-color-value;
+
+        &:before { content: "#{$color-key}"; }
+        &:after { content: "#{$base-color-value}"; }
+
+        $variant-gradient: (unquote("to bottom"),);
+
+        $index: 0;
+        @each $variant-name, $variant-value in $color-variants {
+          $variant-gradient: append($variant-gradient, $variant-value $index * $variant-height);
+          $index: $index + 1;
+          $variant-gradient: append($variant-gradient, $variant-value $index * $variant-height);
+        }
+
+        .variants {
+          border-left: 1px solid white;
+          border-bottom: 1px solid white;
+          border-radius: 0 0 0 $box-radius-size;
+          position: absolute;
+          height: $variant-height * length($color-variants);
+          width: 60%;
+          right: 0;
+          top: 0;
+          background: linear-gradient(#{$variant-gradient});
+          overflow: hidden;
+          &::before {
+            line-height: 2.5rem;
+            content: 'Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris.';
+            left: .5rem;
+          }
+          color: #fff;
+        }
+      }
+    }
+    &.background .variants {
+      color: $c-font;
+    }
+  }
+}
+

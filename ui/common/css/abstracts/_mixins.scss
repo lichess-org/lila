@@ -1,6 +1,12 @@
-@mixin box-neat {
+@mixin box-radius {
+  border-radius: $box-radius-size;
+}
+@mixin box-shadow {
   box-shadow: $box-shadow;
-  border-radius: $border-radius;
+}
+@mixin box-neat {
+  @include box-radius;
+  @include box-shadow;
 }
 
 @mixin board-scale-config {

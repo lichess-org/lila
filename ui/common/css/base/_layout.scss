@@ -5,7 +5,7 @@ body {
   }
 
   --main-margin: 0;
-  @include breakpoint($mq-medium) {
+  @include breakpoint($mq-main-margin) {
     --main-margin: #{$block-gap};
     margin-bottom: $block-gap;
   }
