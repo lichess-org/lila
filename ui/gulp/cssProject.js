@@ -76,7 +76,7 @@ function createThemedBuilds(buildDir) {
         const themedPath = `${buildDir}/${themedName}`;
         if (!fs.existsSync(themedPath)) {
           const buildName = fileName.replace(/^_(.+)\.scss$/, '$1');
-          const code = `@import '../../../common/css/themes/${theme}';\n@import '${buildName}';\n`;
+          const code = `@import '../../../common/css/theme/${theme}';\n@import '${buildName}';\n`;
           console.log(`Create missing SCSS themed build: ${themedPath}`);
           fs.writeFileSync(themedPath, code);
         }
