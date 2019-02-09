@@ -51,7 +51,7 @@
   & .status {
     display: block;
     position: relative;
-    padding: 10px 0 5px 0;
+    padding: 0.8rem;
     border-top: $border;
     & signal {
       position: absolute;
@@ -63,7 +63,6 @@
     & .server {
       display: block;
       font-family: 'Roboto Mono', 'Roboto';
-      padding-left: 10px;
     }
     & strong {
       padding: 0 5px;
@@ -114,7 +113,7 @@
   }
   & .selector {
     flex: 1 1 100%;
-    margin: 5px 0;
+    margin: 0.5rem 0;
     & a {
       display: block;
       padding: 0.4rem 0.9rem;
@@ -157,13 +156,14 @@
     & .content {
       display: flex;
       flex-flow: row;
+      margin: 5px 0 5px 5px;
     }
     & .selector a {
       border-radius: $box-radius-size 0 0 $box-radius-size;
     }
     & .slider {
       flex: 0 0 8px;
-      margin: 10px;
+      margin: 1rem;
     }
     &.silent .slider {
       opacity: 0.2;
@@ -186,12 +186,12 @@
   }
 
   & .board .zoom {
-    margin: 5px 0px;
-    border-top: 1px solid #ddd;
-    padding: 10px 10px;
+    margin: 0.5rem 0px;
+    border-top: $border;
+    padding: 1rem;
   }
   & .board .slider {
-    margin-top: 10px;
+    margin-top: 1rem;
   }
 
   & .theme {
@@ -385,25 +385,4 @@
       background-image: url(../images/board/3d/woodi.thumbnail.png);
     }
   }
-
-  // body.dark & .subs,
-  // body.dark & .status,
-  // body.dark & .board .zoom {
-  //   border-color: #3d3d3d;
-  // }
-  // body.dark & .head,
-  // body.dark & .links a:hover,
-  // body.dark & .links button:hover,
-  // body.dark & .subs a:hover,
-  // body.dark & .langs form > *:hover,
-  // body.dark & .selector a:hover {
-  //   background: #3e3e3e;
-  //   color: #b0b0b0;
-  // }
-  // body.dark & .links button {
-  //   color: #8f8f8f;
-  // }
-  // body.dark & .selector a:hover::before {
-  //   color: #555;
-  // }
 }

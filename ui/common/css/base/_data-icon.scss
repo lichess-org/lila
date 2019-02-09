@@ -1,7 +1,4 @@
-.is::before,
-[data-icon]::before,
-.user_link .line,
-.is-after::after {
+%data-icon {
   font-size: 1.2em;
   vertical-align: text-top;
   font-family: "lichess" !important;
@@ -12,9 +9,16 @@
   content: attr(data-icon);
   opacity: 0.9;
 }
+
+.is::before,
+[data-icon]::before,
+.user_link .line,
+.is-after::after {
+  @extend %data-icon;
+}
 .is.text::before,
 .text[data-icon]::before {
-  margin-right: 0.37em;
+  margin-right: 0.4em;
 }
 [data-icon].is2::before {
   font-size: 20px;
