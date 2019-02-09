@@ -27,7 +27,7 @@
 }
 
 .site-title {
-  font-size: 2rem;
+  font: 26px/#{$site-header-short-height - 3} 'Noto Sans';
   font-weight: normal;
   white-space: nowrap;
   margin: 0 .5rem;
@@ -35,14 +35,12 @@
   @include breakpoint($mq-xx-small) {
     display: block;
   }
-  line-height: calc(#{$site-header-short-height} - 3px);
-  font-size: 1.5rem;
   @include breakpoint($mq-site-header-tall) {
-    line-height: $site-header-tall-height;
-    font-size: 1.8rem;
+    font-size: 32px;
+    line-height: #{$site-header-tall-height - 3};
   }
   @include breakpoint($mq-site-header-tall $mq-topnav-visible) {
-    line-height: 52px;
+    line-height: #{$site-header-tall-height - 5};
     margin: 0 1rem;
   }
   & a {

@@ -164,8 +164,8 @@ lichess.topMenuIntent = function() {
           suggestion: function(o) {
             var tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
-            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
-            '</' + tag + '>';
+              '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
+              '</' + tag + '>';
           }
         }
       }).on('typeahead:render', function() {
@@ -508,6 +508,10 @@ lichess.topMenuIntent = function() {
         });
       });
 
+      $('#topnav-toggle').on('change', e => {
+        document.body.classList.toggle('masked', e.target.checked);
+      });
+
       lichess.loadInfiniteScroll = function(el) {
         $(el).each(function() {
           if (!$('.pager a', this).length) return;
@@ -608,13 +612,13 @@ lichess.topMenuIntent = function() {
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
-          new Fingerprint2({
-            excludeJsFonts: true
-          }).get(function(res) {
-            $i = $('#signup-fp-input');
-            if ($i.length) $i.val(res);
-            else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
-          });
+        new Fingerprint2({
+          excludeJsFonts: true
+        }).get(function(res) {
+          $i = $('#signup-fp-input');
+          if ($i.length) $i.val(res);
+          else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
+        });
       }, 500);
     });
   });

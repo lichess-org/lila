@@ -1,17 +1,10 @@
-/* Viewport limits */
-$vp-min-width: 320px;
-$vp-max-width: 1200px;
-
 html {
   // font-family: 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   // font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", 'Noto Sans', Roboto, Ubuntu, "Helvetica Neue", sans-serif;
   font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  @include fluid-size($vp-min-width, $vp-max-width, 14px, 16px);
-  font-smoothing: antialiased;
+  @include fluid-size('font-size', 14px, 16px);
+  // font-smoothing: antialiased;
 }
-// html {
-//   font: 1rem/1.6 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
-// }
 
 h1,
 h2,
@@ -21,17 +14,17 @@ h4 {
   font-weight: normal;
 }
 h1 {
-  @include fluid-size($vp-min-width, $vp-max-width, 27px, 50px);
+  @include fluid-size('font-size', 27px, 52px);
 }
 h2 {
-  @include fluid-size($vp-min-width, $vp-max-width, 23px, 40px);
+  @include fluid-size('font-size', 23px, 40px);
 }
 h3 {
   font-weight: bold;
   color: $c-font-dim;
-  @include fluid-size($vp-min-width, $vp-max-width, 20px, 30px);
+  @include fluid-size('font-size', 20px, 30px);
 }
 h4 {
   color: $c-font-dim;
-  @include fluid-size($vp-min-width, $vp-max-width, 20px, 26px);
+  @include fluid-size('font-size', 20px, 26px);
 }

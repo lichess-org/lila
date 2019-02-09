@@ -17,8 +17,12 @@ object ui {
         h3("H3 header title"),
         h4("H4 header title"),
         p(
+          "<p> Random quote: ",
+          lila.quote.Quote.one.text
+        ),
+        p(
           "<p> Random quotes: ",
-          (1 to 10).map(_ => lila.quote.Quote.one.text).mkString(" ")
+          (1 to 5).map(_ => lila.quote.Quote.one.text).mkString(" ")
         ),
         div(cls := "palette")(
           List("background", "primary", "secondary", "accent", "brag", "error", "fancy", "font").map { c =>
