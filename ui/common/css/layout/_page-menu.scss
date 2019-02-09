@@ -1,4 +1,4 @@
-$mq-col-2: $mq-subnav-side;
+@import '../component/subnav';
 
 .page-menu {
 
@@ -8,7 +8,7 @@ $mq-col-2: $mq-subnav-side;
 
   grid-column-gap: 0;
 
-  @include breakpoint($mq-col-2) {
+  @include breakpoint($mq-subnav-side) {
     grid-template-columns: max-content auto;
     grid-template-rows: min-content;
     grid-template-areas:

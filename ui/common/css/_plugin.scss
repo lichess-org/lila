@@ -2,9 +2,4 @@
 
 @import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
 
-@import 'abstracts/media-queries';
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
-@import 'abstracts/extends';
-@import 'abstracts/z-index';
-@import 'abstracts/fluid-size';
+@import 'abstract/all';
