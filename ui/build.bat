@@ -34,7 +34,7 @@ call cd ui\editor
 call gulp prod
 call cd ..\..
 
-set css_apps=site
+set css_apps=site dasher editor
 for %%a in (%css_apps%) do @(
   call echo Building css: %%a
   call cd ui\%%a

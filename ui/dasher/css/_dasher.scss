@@ -209,8 +209,8 @@
     }
     & .list span {
       display: block;
-      width: 64px;
-      height: 32px;
+      width: 50px;
+      height: 25px;
       box-sizing: border-box;
     }
     &.d3 .list span {
@@ -230,6 +230,16 @@
   }
 
   & .piece {
+    piece {
+      position: absolute;
+      width: 12.5%;
+      height: 12.5%;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      z-index: 2; /* no less than 2 */
+      pointer-events: none;
+    }
     & .list {
       display: flex;
       flex-flow: row wrap;
