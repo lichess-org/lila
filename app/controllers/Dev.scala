@@ -62,4 +62,8 @@ object Dev extends LilaController {
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
     Env.mod.logApi.cli(user, command) >>
       Env.api.cli(command.split(" ").toList)
+
+  def ui = Open { implicit ctx =>
+    Ok(html.dev.ui()).fuccess
+  }
 }

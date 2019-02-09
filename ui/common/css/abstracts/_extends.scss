@@ -3,10 +3,12 @@
   padding-bottom: 100%;
   width: 100%;
 }
+%box-radius {
+  @include box-radius;
+}
 %box-shadow {
-  box-shadow: $box-shadow;
+  @include box-shadow;
 }
 %box-neat {
-  box-shadow: $box-shadow;
-  border-radius: $border-radius;
+  @include box-neat;
 }

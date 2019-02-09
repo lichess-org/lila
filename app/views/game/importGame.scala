@@ -19,7 +19,7 @@ object importGame {
     openGraph = lila.app.ui.OpenGraph(
       title = "Paste PGN chess game",
       url = s"$netBaseUrl${routes.Importer.importGame.url}",
-      description = "When pasting a game PGN, you get a browsable replay, a computer analysis, a game chat and a sharable URL"
+      description = trans.importGameExplanation.txt()
     ).some,
     responsive = true
   ) {
