@@ -75,19 +75,22 @@ $c-report-font: #eee;
   word-break: break-all;
 }
 #report_list table.see button {
-  width: 100px;
+  width: 6rem;
   box-sizing: border-box;
+  @extend %metal;
+  color: $c-primary;
+  box-shadow: none;
+  border: $border;
+}
+#report_list table.see button:hover {
+  @extend %metal-clear;
 }
 #report_list table.see .inquiry button {
-  padding: 15px 20px;
+  padding: 1rem 1.2rem;
   font-size: 1.4em;
 }
-#report_list table.see .inquiry button:hover {
-  background: rgba(56, 147, 232, 1);
-  color: #fff!important;
-}
 #report_list table.see button.thin {
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 #report_list .atoms .atom {
   font-size: 0.9em;

@@ -1,7 +1,10 @@
+%button-shadow {
+  box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
+}
 .button {
   &,
   &:visited {
-    font-family: 'Roboto';
+    @extend %roboto, %button-shadow;
     font-size: 1.5rem;
     background: $c-primary;
     color: $c-primary-over;
@@ -10,17 +13,26 @@
     border: none;
     border-radius: 5px;
     transition: all .3s ease-out;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.225);
     cursor: pointer;
   }
   &:hover {
+    @extend %button-shadow;
     background: mix(white, $c-primary, 15);
-    box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.225);
   }
   &[disabled] {
     cursor: default;
     background: hsl(0, 0%, 80%);
     color: hsl(0, 0%, 62%);
     box-shadow: none;
+  }
+  &.metal {
+    @extend %metal-clear;
+    color: $c-primary;
+    &:hover {
+      @extend %metal;
+    }
+  }
+  &.thin {
+    padding: 0 1em;
   }
 }
