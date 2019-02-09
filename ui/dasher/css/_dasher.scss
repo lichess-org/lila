@@ -230,6 +230,16 @@
   }
 
   & .piece {
+    piece {
+      position: absolute;
+      width: 12.5%;
+      height: 12.5%;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      z-index: 2; /* no less than 2 */
+      pointer-events: none;
+    }
     & .list {
       display: flex;
       flex-flow: row wrap;

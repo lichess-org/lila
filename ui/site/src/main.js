@@ -468,7 +468,6 @@ lichess.topMenuIntent = function() {
             });
           });
         });
-        setTimeout(function() { $('#top .dasher .toggle').click(); }, 10);
       })();
 
       // cli
