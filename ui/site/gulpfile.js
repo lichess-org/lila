@@ -14,7 +14,7 @@ const download = require('gulp-download-stream');
 const exec = require('child_process').exec;
 const fs = require('fs');
 
-require('../gulp/cssProject.js')('lidraughts.editor', __dirname);
+require('../gulp/cssProject.js')(__dirname);
 
 const browserifyOpts = (entries, debug) => ({
   entries: entries,

@@ -47,15 +47,14 @@ export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, re
 }
 
 export function view(ctrl: BoardCtrl): VNode {
-
-    return h('div.sub.board', [
-        header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
-        h('div.zoom', [
-            h('div.slider', {
-                hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
-            })
-        ])
-    ]);
+  return h('div.sub.board', [
+    header(ctrl.trans.noarg('boardSize'), ctrl.close),
+    h('div.zoom', [
+      h('div.slider', {
+        hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+      })
+    ])
+  ]);
 }
 
 function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {

@@ -1,41 +1,30 @@
-ul.ui-autocomplete {
-  width: 200px;
-  background: #FAFAFA;
-  border: 1px solid #DADADA;
-  max-height: 200px;
-  overflow: auto;
-}
-ul.ui-autocomplete li a {
-  display: block;
-  padding: 0.6em 1em;
-}
-.ui-widget-header {
-  color: #fff !important;
-  text-shadow: 0 1px 0 #000 !important;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
-}
-/* slider */
+$c-slider: $c-primary !default;
 
 .ui-slider {
-  background: #fff;
+  background: $c-background-dim;
   position: relative;
   text-align: left;
   cursor:pointer;
+}
+.ui-widget-header {
+  width: 8px;
+  bottom: 0;
+  background: $c-slider!important;
 }
 .ui-slider-handle {
   position: absolute;
   z-index: 2;
   width: 1.2em;
   height: 1.2em;
-  outline:0;
   cursor:pointer;
-  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  text-shadow: 0 1px 0 #FFF;
-  color: #848484;
+  margin: 0 0 -9px -5.5px;
+  border-radius: 50%;
+  border-color: $c-slider!important;
+  background: linear-gradient(to bottom, hsl(0, 0, 95%) 0%, hsl(0, 0, 80%) 100%);
 }
 .ui-slider-handle,
 .ui-widget-content {
-  border: 1px solid #e2e2e2;
+  border: 1px solid c-clearer($c-slider);
   border-radius: 2px;
 }
 .ui-slider-handle:hover {

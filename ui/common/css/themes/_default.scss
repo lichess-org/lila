@@ -39,6 +39,10 @@ $c-brag-over: white; /* text over brag background */
 $c-error: hsl(0, 60%, 50%);
 $c-error-over: white; /* text over brag background */
 
+/* Good: green */
+$c-good: $c-secondary;
+$c-good-over: $c-secondary-over;
+
 /* Fancy: pink */
 $c-fancy: hsl(294, 61%, 62%);
 $c-fancy-over: white; /* text over brag background */
@@ -50,7 +54,8 @@ $c-border: hsl(0, 0%, 80%);
 
 $c-page-mask: hsla(0, 0, 0%, 0.5);
 
-$c-header-dropdown: $c-background-clear;
+$c-header-dropdown-background: $c-background-clear;
+$c-header-dropdown-color: $c-font;
 
 $c-font-shadow: white;
 
@@ -58,7 +63,7 @@ $c-font-shadow: white;
 
 $border-width: 1px;
 $border-style: solid;
-$borders: $border-width $border-style $c-border;
+$border: $border-width $border-style $c-border;
 
 /* Shadows */
 

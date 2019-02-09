@@ -36,7 +36,7 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg('/streamer/edit', ''),
         'Streamer manager'),
 
-      h('form', {
+      h('form.logout', {
         attrs: { method: 'post', action: '/logout' }
       }, [
         h('button.text', {

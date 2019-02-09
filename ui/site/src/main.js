@@ -460,7 +460,7 @@ lidraughts.topMenuIntent = function() {
           var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lidraughts.loadCss('stylesheets/dasherApp.css');
+          lidraughts.loadCss(lidraughts.cssPath('dasher'));
           lidraughts.loadScript('compiled/lidraughts.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsDasher.default($el.empty()[0], {
               setZoom: setZoom,
@@ -468,6 +468,7 @@ lidraughts.topMenuIntent = function() {
             });
           });
         });
+        setTimeout(function() { $('#top .dasher .toggle').click(); }, 10);
       })();
 
       // cli

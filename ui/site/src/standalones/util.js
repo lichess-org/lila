@@ -217,6 +217,7 @@ lidraughts.widget = function(name, prototype) {
     return returnValue;
   };
 };
+lidraughts.isResp = $('body').data('resp');
 lidraughts.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lidraughts.isMS = lidraughts.isTrident || navigator.userAgent.indexOf('Edge/') > -1;
 lidraughts.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
@@ -225,6 +226,9 @@ lidraughts.assetUrl = function(path, opts) {
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
+};
+lidraughts.cssPath = function(key) {
+  return 'css/lidraughts.' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css';
 };
 lidraughts.loadedCss = {};
 lidraughts.loadCss = function(url, opts) {
@@ -252,7 +256,7 @@ lidraughts.hopscotch = function(f) {
   lidraughts.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lidraughts.slider = function() {
-  lidraughts.loadCss('stylesheets/jquery-ui.css');
+  if (!lidraughts.isResp) lidraughts.loadCss('stylesheets/jquery-ui.css');
   return lidraughts.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
 lidraughts.shepherd = function(f) {
