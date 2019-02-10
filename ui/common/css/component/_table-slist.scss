@@ -1,20 +1,19 @@
-table.slist {
+.slist {
   width: 100%;
   border-bottom: $border;
-  border-spacing: 0;
   & thead {
     @extend %metal, %roboto;
     & th {
       border-top: $border;
       border-bottom: $border;
-      padding: 0.4rem 0.6rem;
+      padding: 0.5rem 0.7rem;
     }
     & th.large {
       font-size: 1.2rem;
     }
   }
   & td {
-    padding: 0.6rem;
+    padding: 0.7rem;
     & .label {
       font-family: monospace;
       font-size: 0.8rem;
@@ -26,5 +25,15 @@ table.slist {
   & td:first-child,
   & th:first-child {
     padding-left: 1.5rem;
+  }
+  &-pad {
+    & td:first-child,
+    & th:first-child {
+      padding-left: var(--box-padding);
+    }
+    & td:last-child,
+    & th:last-child {
+      padding-right: var(--box-padding);
+    }
   }
 }

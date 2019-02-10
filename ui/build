@@ -14,7 +14,7 @@ mkdir -p public/compiled
 ts_apps1="common chess"
 ts_apps2="ceval game tree chat nvui"
 apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher"
-css_apps="site dasher"
+css_apps="site dasher tournament"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive

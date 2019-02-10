@@ -5,10 +5,20 @@ $vp-max-width: 1200px;
   background: $c-bg-high;
   @extend %box-shadow;
 
-  @include fluid-size('--box-padding', 20px, 50px);
+  @include fluid-size('--box-padding', 20px, 60px);
 
   &-pad {
     padding: 4vh var(--box-padding);
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4vh var(--box-padding);
+    &__title {
+      margin: 0;
+    }
   }
 }
 

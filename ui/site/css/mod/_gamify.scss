@@ -1,5 +1,7 @@
 #mod-gamify h1 {
   @extend %h1-pad;
+}
+#mod-gamify.index h1 {
   text-align: center;
 }
 #mod-gamify .champs {
@@ -35,30 +37,17 @@
   }
 }
 #mod-gamify .period table {
-  width: 100%;
-}
-#mod-gamify .period table thead {
-  font-family: 'PT Serif';
-  font-size: 1.2em;
-}
-#mod-gamify .period table td,
-#mod-gamify .period table thead th {
-  padding: 7px;
-}
-#mod-gamify .period table tbody {
-  font-size: 1.3em;
-}
-#mod-gamify .period table tbody th {
-  text-align: left;
-  font-size: 1.4em;
-}
-#mod-gamify .period table td.score {
-  font-size: 1.5em;
-}
-#mod-gamify .period table thead th:nth-child(n+1),
-#mod-gamify .period table tr td {
-  text-align: right;
-  padding-right: 25px;
+  & tbody th {
+    font-size: 1.2em;
+  }
+  & td.score {
+    font-size: 1.2em;
+  }
+  & thead th:nth-child(n+1),
+  & tr td {
+    text-align: right;
+    padding-right: 25px;
+  }
 }
 #mod-gamify .history {
   margin-top: 3rem;

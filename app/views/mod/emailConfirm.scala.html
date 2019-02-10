@@ -1,84 +1,71 @@
 @(query: String, user: Option[User], email: Option[lila.common.EmailAddress])(implicit ctx: Context)
 
-@title = @{ "Email confirmation" }
-
 @js = {
 @embedJs {
 $('#mod-confirm form input').on('paste', function() {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
-}).focus().each(function() {
+}).each(function() {
 this.setSelectionRange(this.value.length, this.value.length);
 });
 }
 }
 
-@layout(
-title = title,
-active = "email",
+@base.layout(
+title = "Email confirmation" ,
+moreCss = responsiveCssTag("mod.misc"),
+responsive = true,
 moreJs = js) {
-
-<style type="text/css">
-  #mod-confirm form {
-    margin: 30px 0;
-    text-align: center;
-  }
-  #mod-confirm form input {
-    padding: 15px 25px;
-    font-size: 1.2em;
-    width: 400px;
-    margin: auto;
-    position: relative;
-  }
-</style>
-
-<div id="mod-confirm" class="content_box">
-  <h1 data-icon="e" class="text">@title</h1>
-  <br />
-  <br />
-  <p>
-    If you provide an email, it will confirm the corresponding account, if any.<br />
-    If you provide an email and a username, it will set the email to that user,
-    but only if the user has not yet confirmed their email.
-  </p>
-  <form class="search" action="@routes.Mod.emailConfirm" method="GET">
-    <input name="q" placeholder="<email> <username (optional)>" value="@query" />
-  </form>
-  @user.map { u =>
-  <table class="slist">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Email</th>
-        <th>Games</th>
-        <th>Marks</th>
-        <th>Created</th>
-        <th>Active</th>
-        <th>Confirmed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>@userLink(u, withBestRating = true, params = "?mod")</td>
-        <td>@email.getOrElse("-")</td>
-        <td>@u.count.game.localize</td>
-        <td>
-          @if(u.engine){ENGINE}
-          @if(u.booster){BOOSTER}
-          @if(u.troll){SHADOWBAN}
-          @if(u.ipBan){IPBAN}
-          @if(u.disabled){CLOSED}
-        </td>
-        <td>@momentFromNow(u.createdAt)</td>
-        <td>@u.seenAt.map(momentFromNow(_))</td>
-        <td style="font-size:2em">
-          @if(!u.everLoggedIn) {
-          <i class="is-green" data-icon="E"></i>
-          } else {
-          <i class="is-red" data-icon="L"></i>
-          }
-        </td>
-      </tr>
-  </tbody></table>
-  }
-</div>
-}
+<main class="page-menu">
+  @mod.menu.nav("email").toHtml
+  <div id="mod-confirm" class="page-menu__content box box-pad">
+    <h1>Confirm a user email</h1>
+    <br />
+    <br />
+    <p>
+      If you provide an email, it will confirm the corresponding account, if any.<br />
+      If you provide an email and a username, it will set the email to that user,
+      but only if the user has not yet confirmed their email.
+    </p>
+    <form class="search" action="@routes.Mod.emailConfirm" method="GET">
+      <input name="q" placeholder="<email> <username (optional)>" value="@query" autofocus />
+    </form>
+    @user.map { u =>
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th>Games</th>
+          <th>Marks</th>
+          <th>Created</th>
+          <th>Active</th>
+          <th>Confirmed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>@userLink(u, withBestRating = true, params = "?mod")</td>
+          <td>@email.getOrElse("-")</td>
+          <td>@u.count.game.localize</td>
+          <td>
+            @if(u.engine){ENGINE}
+            @if(u.booster){BOOSTER}
+            @if(u.troll){SHADOWBAN}
+            @if(u.ipBan){IPBAN}
+            @if(u.disabled){CLOSED}
+          </td>
+          <td>@momentFromNow(u.createdAt)</td>
+          <td>@u.seenAt.map(momentFromNow(_))</td>
+          <td style="font-size:2em">
+            @if(!u.everLoggedIn) {
+            <i class="is-green" data-icon="E"></i>
+            } else {
+            <i class="is-red" data-icon="L"></i>
+            }
+          </td>
+        </tr>
+    </tbody></table>
+    }
+  </div>
+</main>
+}.toHtml

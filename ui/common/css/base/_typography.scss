@@ -16,6 +16,7 @@ h4 {
 }
 h1 {
   @include fluid-size('font-size', 27px, 52px);
+  margin-bottom: .6em;
 }
 h2 {
   @include fluid-size('font-size', 23px, 40px);

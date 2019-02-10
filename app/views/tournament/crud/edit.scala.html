@@ -1,8 +1,8 @@
 @(tour: lila.tournament.Tournament, form: Form[_])(implicit ctx: Context)
 
 @layout(title = tour.fullName) {
-<div class="tour_crud edit content_box small_box no_padding">
-  <h1 class="lichess_title">
+<div class="tour_crud edit page-menu__content box box-pad">
+  <h1>
     <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>
     <span>Created by @usernameOrId(tour.createdBy) on @showDate(tour.createdAt)</span>
   </h1>

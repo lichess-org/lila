@@ -2,39 +2,42 @@
 
 @title = @{ s"Moderators of the ${period.name}" }
 
-@mod.layout(
+@base.layout(
 title = title,
-active = "gamify",
-moreCss = cssTag("mod-gamify.css")) {
-
-<div id="mod-gamify" class="content_box no_padding">
-  <h1>
-    <a href="@routes.Mod.gamify" data-icon="I" class="text">@title</a>
-  </h1>
-  <div class="period">
-    <table class="slist">
-      <thead>
-        <tr>
-          <th colspan="2"></th>
-          <th>Actions</th>
-          <th>Reports</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        @leaderboards(period).zipWithIndex.map {
-        case (m, i) => {
-        <tr>
-          <th>@(i + 1)</th>
-          <th>@userIdLink(m.modId.some, withOnline = false)</th>
-          <td>@m.action.localize</td>
-          <td>@m.report.localize</td>
-          <td class="score">@m.score.localize</td>
-        </tr>
-        }
-        }
-      </tbody>
-    </table>
+moreCss = responsiveCssTag("mod.gamify"),
+responsive = true) {
+<main class="page-menu">
+  @mod.menu.nav("gamify").toHtml
+  <div id="mod-gamify" class="page-menu__content box">
+    <h1>
+      <a href="@routes.Mod.gamify" data-icon="I"></a>
+      @title
+    </h1>
+    <div class="period">
+      <table class="slist">
+        <thead>
+          <tr>
+            <th colspan="2"></th>
+            <th>Actions</th>
+            <th>Reports</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @leaderboards(period).zipWithIndex.map {
+          case (m, i) => {
+          <tr>
+            <th>@(i + 1)</th>
+            <th>@userIdLink(m.modId.some, withOnline = false)</th>
+            <td>@m.action.localize</td>
+            <td>@m.report.localize</td>
+            <td class="score">@m.score.localize</td>
+          </tr>
+          }
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-}
+</main>
+}.toHtml
