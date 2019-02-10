@@ -2,130 +2,128 @@ $c-report-bg: $c-bg-high;
 $c-report-high: $c-brag;
 $c-report-high-over: white;
 
-#report form.create {
-  margin-top: 2em;
-}
-#report_list .header {
-  height: 4rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-}
-#report_list .header .icon {
-  flex: 1 1 auto;
-  margin: .4rem .8rem;
-  background: no-repeat url(../images/icons/octopus.svg) left center;
-  opacity: 0.6;
-}
-#report_list .tabs {
-  display: flex;
-  margin-right: 15px;
-  font-size: 1.2em;
-  & a {
-    @extend %roboto;
-    color: $c-font-dim;
-    text-transform: uppercase;
-    padding: 0.5rem 1.4rem;
+#report_list {
+  .header {
+    height: 4rem;
     display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    &.new {
-      color: $c-font-clear;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  & .header .icon {
+    flex: 1 1 auto;
+    margin: .4rem .8rem;
+    background: no-repeat url(../images/icons/octopus.svg) left center;
+    opacity: 0.6;
+  }
+  & .tabs {
+    display: flex;
+    margin-right: 15px;
+    font-size: 1.2em;
+    & a {
+      @extend %roboto;
+      color: $c-font-dim;
+      text-transform: uppercase;
+      padding: 0.5rem 1.4rem;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      &.new {
+        color: $c-font-clear;
+      }
+      &:hover {
+        background: fade-out($c-report-high, 0.5);
+      }
+      &.active {
+        background: $c-report-high;
+        color: $c-report-high-over;
+      }
+      & count {
+        font-size: 0.8em;
+        display: block;
+        height: 1.2em;
+      }
+      &.room-xfiles:not(.new) {
+        display: none;
+      }
     }
-    &:hover {
-      background: fade-out($c-report-high, 0.5);
+  }
+  & .score {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 0.3em 0.5em;
+    border-radius: 0.3em;
+  }
+  & .score.green {
+    /* actually blue */
+    background-color: rgba(32, 119, 192, 0.4);
+  }
+  & .score.yellow {
+    background-color: rgba(221, 207, 63, 0.4);
+  }
+  & .score.orange {
+    background-color: rgba(231, 155, 100, 0.4);
+  }
+  & .score.red {
+    background-color: rgba(231, 59, 56, 0.4);
+  }
+  & table.see {
+    border-top: 4px solid $c-report-high;
+    & td {
+      word-break: break-all;
     }
-    &.active {
-      background: $c-report-high;
-      color: $c-report-high-over;
+    & .button {
+      width: 6rem;
     }
-    & count {
+    & .button-metal {
+      box-sizing: border-box;
+      box-shadow: none;
+      border: $border;
+    }
+    & .inquiry .button {
+      padding: 1rem 1.2rem;
+      font-size: 1.4em;
+    }
+    & .button-thin {
       font-size: 0.8em;
-      display: block;
-      height: 1.2em;
-    }
-    &.room-xfiles:not(.new) {
-      display: none;
     }
   }
-}
-#report_list .score {
-  display: inline-block;
-  white-space: nowrap;
-  font-weight: bold;
-  font-size: 1.2em;
-  padding: 0.3em 0.5em;
-  border-radius: 0.3em;
-}
-#report_list .score.green {
-  /* actually blue */
-  background-color: rgba(32, 119, 192, 0.4);
-}
-#report_list .score.yellow {
-  background-color: rgba(221, 207, 63, 0.4);
-}
-#report_list .score.orange {
-  background-color: rgba(231, 155, 100, 0.4);
-}
-#report_list .score.red {
-  background-color: rgba(231, 59, 56, 0.4);
-}
-#report_list table.see {
-  border-top: 4px solid $c-report-high;
-  & td {
-    padding: 1rem 0.7rem;
-    word-break: break-all;
+  & .atoms .atom {
+    font-size: 0.9em;
+    margin-bottom: 1em;
   }
-  & .button {
-    width: 6rem;
+  & .atoms .atom:last-child {
+    margin-bottom: 0;
   }
-  & .button-metal {
-    box-sizing: border-box;
-    box-shadow: none;
-    border: $border;
+  & .atoms .atom .head {
+    display: block;
   }
-  & .inquiry .button {
-    padding: 1rem 1.2rem;
-    font-size: 1.4em;
+  & .atoms .atom .score {
+    font-size: 0.9em;
+    padding: 0.1em 0.4em;
   }
-  & .button-thin {
+  & table.see .perfs {
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+  & table.see .text {
+    max-height: 100px;
+    overflow: hidden;
+    font-size: 0.9em;
+  }
+  & table.see .text.large {
     font-size: 0.8em;
   }
-}
-#report_list .atoms .atom {
-  font-size: 0.9em;
-  margin-bottom: 1em;
-}
-#report_list .atoms .atom:last-child {
-  margin-bottom: 0;
-}
-#report_list .atoms .atom .head {
-  display: block;
-}
-#report_list .atoms .atom .score {
-  font-size: 0.9em;
-  padding: 0.1em 0.4em;
-}
-#report_list table.see .perfs {
-  font-size: 0.9em;
-  white-space: nowrap;
-}
-#report_list table.see .text {
-  max-height: 100px;
-  overflow: hidden;
-  font-size: 0.9em;
-}
-#report_list table.see .text.large {
-  font-size: 0.8em;
-}
-#report_list tr.new td:first-child {
-  border-left: 4px solid $c-report-high;
-}
-.user_marks i {
-  font-size: 0.9em;
-  background: #dc322f70;
-  padding: 0.1em 0.4em;
-  border-radius: 0.3em;
-  margin: 0 0.2em;
+  & tr.new td:first-child {
+    border-left: 4px solid $c-report-high;
+  }
+  .user_marks i {
+    font-size: 0.9em;
+    background: #dc322f70;
+    padding: 0.1em 0.4em;
+    border-radius: 0.3em;
+    margin: 0 0.2em;
+  }
 }
