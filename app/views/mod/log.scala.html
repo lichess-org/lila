@@ -2,36 +2,33 @@
 
 @title = @{ "Mod logs" }
 
-@layout(
+@base.layout(
 title = title,
-active = "log") {
-
-<style type="text/css">
-  #modlog_table td {
-  padding: 8px 10px 8px 10px;
-  min-width: 8em;
-  }
-</style>
-<div id="modlog_table" class="content_box no_padding">
-  <h1 data-icon="?" class="text">@title</h1>
-  <table class="slist">
-    <thead>
-      <tr>
-        <th>Mod</th>
-        <th>Action</th>
-        <th>Details</th>
-      </tr>
-    </thead>
-    <tbody>
-      @logs.map { log =>
-      <tr>
-        <td>@userIdLink(log.mod.some)<br />@momentFromNow(log.date)</td>
-        <td>@log.showAction.capitalize @log.user.map { u =>
-          @userIdLink(u.some, params="?mod")
-          }</td>
-        <td>@log.details</td>
-      </tr>
-      }
-  </tbody></table>
-</div>
-}
+moreCss = responsiveCssTag("mod.misc"),
+responsive = true) {
+<main class="page-menu">
+  @mod.menu.nav("log").toHtml
+  <div id="modlog_table" class="page-menu__content box">
+    <h1>@title</h1>
+    <table class="slist slist-pad">
+      <thead>
+        <tr>
+          <th>Mod</th>
+          <th>Action</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        @logs.map { log =>
+        <tr>
+          <td>@userIdLink(log.mod.some)<br />@momentFromNow(log.date)</td>
+          <td>@log.showAction.capitalize @log.user.map { u =>
+            @userIdLink(u.some, params="?mod")
+            }</td>
+          <td>@log.details</td>
+        </tr>
+        }
+    </tbody></table>
+  </div>
+</main>
+}.toHtml

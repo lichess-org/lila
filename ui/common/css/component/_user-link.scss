@@ -1,8 +1,12 @@
 .user_link {
   color: $c-font;
   white-space: nowrap;
+  &:hover {
+    color: $c-link;
+  }
   & .line {
     @extend %data-icon;
+    color: $c-font;
     opacity: 0.4;
     display: inline-block;
     width: 1.5em;

@@ -5,8 +5,13 @@
 @delayFlatpickrStart
 }
 
-@mod.layout(
+@base.layout(
 title = title,
-active = "event",
-moreCss = cssTags("flatpickr.css", "form3.css", "event.crud.css"),
-moreJs = moreJs)(body)
+moreCss = responsiveCssTag("mod.misc"),
+responsive = true,
+moreJs = moreJs) {
+<main class="page-menu">
+  @mod.menu.nav("event").toHtml
+  @body
+</main>
+}.toHtml

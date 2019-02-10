@@ -1,14 +1,14 @@
 @(simul: lidraughts.simul.Simul, form: Form[lidraughts.simul.crud.CrudForm.Data])(implicit ctx: Context)
 
 @layout(title = simul.fullName) {
-<div class="simul_crud edit content_box small_box no_padding">
-    <h1 class="lidraughts_title">
-        <a href="@routes.Simul.show(simul.id)">@simul.fullName</a>
-        @*<span>Created by @usernameOrId(simul.createdBy) on @showDate(simul.createdAt)</span>*@
-    </h1>
-    <form class="content_box_content form3" action="@routes.SimulCrud.update(simul.id)" method="POST">
-        @inForm(form, simul.isRunning || simul.isFinished)
-    </form>
-    @allowedPlayers(simul, simul.isRunning || simul.isFinished)
+<div class="crud edit page-menu__content box box-pad">
+  <h1>
+    <a href="@routes.Simul.show(simul.id)">@simul.fullName</a>
+    <span>Created on @showDate(simul.createdAt)</span>
+  </h1>
+  <form class="content_box_content form3" action="@routes.SimulCrud.update(simul.id)" method="POST">
+    @inForm(form, simul.isRunning || simul.isFinished)
+  </form>
+  @allowedPlayers(simul, simul.isRunning || simul.isFinished)
 </div>
 }

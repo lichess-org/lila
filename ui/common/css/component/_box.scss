@@ -1,6 +1,10 @@
 $vp-min-width: 320px;
 $vp-max-width: 1200px;
 
+%box-padding {
+  padding: 4vh var(--box-padding);
+}
+
 .box {
   background: $c-bg-high;
   @extend %box-shadow;
@@ -8,17 +12,22 @@ $vp-max-width: 1200px;
   @include fluid-size('--box-padding', 20px, 60px);
 
   &-pad {
-    padding: 4vh var(--box-padding);
+    @extend %box-padding;
   }
 
   &__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4vh var(--box-padding);
+    @extend %box-padding;
     &__title {
       margin: 0;
     }
+  }
+
+  &:not(.box-pad) > h1 {
+    @extend %box-padding;
+    margin: 0;
   }
 }
 

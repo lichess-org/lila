@@ -4,47 +4,49 @@
 
 @simHosts(sim: lidraughts.simul.Simul) = {
 <td class="host">
-    @userIdLink(sim.hostId.some, withOnline = false)<br />
-    @sim.arbiterId.map { arbiterId =>
-        <span class="arbiter">@userIdLink(arbiterId.some, withOnline = false)</span>
-    }
+  @userIdLink(sim.hostId.some, withOnline = false)<br />
+  @sim.arbiterId.map { arbiterId =>
+  <span class="arbiter">@userIdLink(arbiterId.some, withOnline = false)</span>
+  }
 </td>
 }
 @layout(title = title.body) {
-<div class="simul_crud content_box no_padding">
-    <h1 class="lidraughts_title">
-        <a href="@routes.SimulCrud.form" data-icon="O" class="new"></a>
-        @title
-    </h1>
-    <table class="slist">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Host / Arbiter</th>
-            <th>Clock</th>
-            <th>Variants</th>
-            <th>UTC Date</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @simuls.map { sim =>
-        <tr>
-            <td><a href="@routes.SimulCrud.edit(sim.id)">
-                <p>@sim.fullName</p>
-                <small>@sim.spotlight.map(_.headline)</small>
-            </a></td>
-            @simHosts(sim)
-            <td>@sim.clock.config.show</td>
-            <td>@sim.variants.map(_.name).mkString(", ")</td>
-            <td>
-                @showDateTimeUTC(sim.spotlight.get.startsAt)
-                @momentFromNow(sim.spotlight.get.startsAt)
-            </td>
-            <td><a href="@routes.Simul.show(sim.id)" data-icon="v" title="View on site"></a></td>
-        </tr>
-        }
-        </tbody>
-    </table>
+<div class="crud page-menu__content box">
+  <div class="box__top">
+    <h1 class="box__top__title">@title</h1>
+    <div class="box__top__actions">
+      <a class="button button-green" href="@routes.SimulCrud.form" data-icon="O"></a>
+    </div>
+  </div>
+  <table class="slist slist-pad">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Host / Arbiter</th>
+      <th>Clock</th>
+      <th>Variants</th>
+      <th>UTC Date</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @simuls.map { sim =>
+    <tr>
+      <td><a href="@routes.SimulCrud.edit(sim.id)">
+        <strong>@sim.fullName</strong>
+        <em>@sim.spotlight.map(_.headline)</em>
+      </a></td>
+      @simHosts(sim)
+      <td>@sim.clock.config.show</td>
+      <td>@sim.variants.map(_.name).mkString(", ")</td>
+      <td>
+        @showDateTimeUTC(sim.spotlight.get.startsAt)
+        @momentFromNow(sim.spotlight.get.startsAt)
+      </td>
+      <td><a href="@routes.Simul.show(sim.id)" data-icon="v" title="View on site"></a></td>
+    </tr>
+    }
+    </tbody>
+  </table>
 </div>
 }

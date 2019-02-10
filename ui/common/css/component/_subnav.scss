@@ -29,7 +29,7 @@
   @include breakpoint($mq-subnav-side) {
     & a {
       display: block;
-      color: $c-font;
+      color: $c-font-dim;
       padding: .7rem 2vw .7rem .8rem;
       border-bottom: $border;
       transition: 0.13s;
@@ -39,6 +39,7 @@
         background: mix($c-bg-high, $c-bg-page, 25%);
       }
       &.active {
+        color: $c-font;
         border-radius: $box-radius-size 0 0 $box-radius-size;
         border-left: $border;
         background: $c-bg-high;
