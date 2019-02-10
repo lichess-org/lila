@@ -1,0 +1,8 @@
+@import '../../../common/css/plugin';
+
+$c-notify: $c-secondary;
+$c-notify-over: $c-secondary-over;
+$c-notify-light: c-dimmer($c-notify, 85);
+$c-slider: $c-notify;
+
+@import '../notify';

@@ -359,7 +359,7 @@ lidraughts.topMenuIntent = function() {
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss('stylesheets/notifyApp.css');
+          lidraughts.loadCss(lidraughts.cssPath('notify'));
           lidraughts.loadScript('compiled/lidraughts.notify' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
@@ -388,6 +388,7 @@ lidraughts.topMenuIntent = function() {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
+        setTimeout(() => $toggle.trigger('click'), 10);
 
         return {
           update: function(data, incoming) {

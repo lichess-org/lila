@@ -165,7 +165,7 @@ interface Variant {
 interface Paginator<A> {
   currentPage: number
   maxPerPage: number
-  currentPageResults: [A]
+  currentPageResults: Array<A>
   nbResults: number
   previousPage?: number
   nextPage?: number
