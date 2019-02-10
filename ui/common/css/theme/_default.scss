@@ -1,10 +1,10 @@
 /* Colors */
 
 @function c-dimmer($color, $weight: 17%) {
-  @return mix(hsl(0, 0, 100%), $color, $weight);
+  @return mix(white, $color, $weight);
 }
 @function c-clearer($color, $weight: 17%) {
-  @return mix(hsl(0, 0, 0%), $color, $weight);
+  @return mix(black, $color, $weight);
 }
 
 $c-bg-page: hsl(37%, 10%, 92%);
@@ -49,8 +49,10 @@ $c-good-over: $c-secondary-over;
 $c-fancy: hsl(294, 61%, 62%);
 $c-fancy-over: white; /* text over brag background */
 
-$c-link: c-dimmer($c-primary);
-$c-link-hover: $c-primary;
+$c-link: $c-primary;
+$c-link-hover: c-clearer(saturate($c-primary, 100%), 35%);
+
+$c-bg-input: mix(white, $c-bg-page, 60%);
 
 $c-border: hsl(0, 0%, 80%);
 

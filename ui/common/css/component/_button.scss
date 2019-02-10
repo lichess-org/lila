@@ -13,6 +13,7 @@
     text-transform: uppercase;
     padding: .6em 1em;
     border: none;
+    cursor: pointer;
     transition: all .3s ease-out;
   }
   &:hover {
@@ -26,7 +27,8 @@
     color: hsl(0, 0%, 62%);
     box-shadow: none;
   }
-  &-empty {
+  &-empty,
+  &-empty:visited {
     color: $c-primary;
     background: none;
     box-shadow: none;
@@ -38,6 +40,15 @@
   }
   &-thin {
     padding: 0 1em;
+  }
+  &-fat {
+    font-size: 1.6rem;
+  }
+  &-green {
+    background: $c-secondary;
+  }
+  &-red {
+    background: $c-error;
   }
 }
 .button.button-metal {

@@ -6,8 +6,13 @@
 @evenMoreJs
 }
 
-@mod.layout(
+@base.layout(
 title = title,
-active = "tour",
-moreCss = cssTags("flatpickr.css", "form3.css", "tournament.crud.css"),
-moreJs = moreJs)(body)
+moreCss = responsiveCssTag("tournament.crud"),
+responsive = true,
+moreJs = moreJs) {
+<main class="page-menu">
+  @mod.menu.nav("tour").toHtml
+  @body
+</main>
+}.toHtml

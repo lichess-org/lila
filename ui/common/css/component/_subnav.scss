@@ -30,17 +30,19 @@
     & a {
       display: block;
       color: $c-font;
-      padding: 0.6rem 0.8rem;
+      padding: .7rem 2vw .7rem .8rem;
       border-bottom: $border;
+      transition: 0.13s;
       &:hover {
         color: $c-link;
-        border-bottom: 1px solid $c-link;
+        // border-bottom: 1px solid $c-link;
+        background: mix($c-bg-high, $c-bg-page, 25%);
       }
       &.active {
         border-radius: $box-radius-size 0 0 $box-radius-size;
+        border-left: $border;
         background: $c-bg-high;
         font-weight: bold;
-        box-shadow: $box-shadow;
       }
     }
   }

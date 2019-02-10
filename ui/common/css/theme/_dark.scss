@@ -3,10 +3,10 @@
 $theme: 'dark';
 
 @function c-dimmer($color, $weight: 20%) {
-  @return mix(hsl(0, 0, 0%), $color, $weight);
+  @return mix(black, $color, $weight);
 }
 @function c-clearer($color, $weight: 20%) {
-  @return mix(hsl(0, 0, 100%), $color, $weight);
+  @return mix(white, $color, $weight);
 }
 
 $c-bg-page: hsl(37%, 10%, 8%);
@@ -14,7 +14,7 @@ $c-bg-high: hsl(37%, 5%, 16%);
 $c-bg-low: hsl(37%, 7%, 22%);
 
 /* even rows in list or tables, subtle shade of $c-bg-high */
-$c-zebra: hsl(0, 8%, 15%);
+$c-zebra: hsl(37%, 5%, 18%);
 
 $c-body-gradient: hsl(37%, 12%, 16%);
 
@@ -22,19 +22,28 @@ $c-font: hsl(0, 0%, 70%);
 $c-font-dim: c-dimmer($c-font, 15%);
 $c-font-clear: c-clearer($c-font, 15%);
 
+$c-primary: hsl(209, 79%, 56%);
+$c-primary-dim: c-dimmer($c-primary, 15%);
+
 /* Brag: gold */
 $c-brag: hsl(37, 74%, 43%);
 
 /* Fancy: pink */
 $c-fancy: hsl(294, 62%, 48%);
 
-$c-primary: hsl(209, 79%, 56%);
-$c-primary-dim: c-dimmer($c-primary, 15%);
+/* Good: green */
+$c-good: $c-secondary;
+$c-good-over: $c-secondary-over;
+
+$c-link: $c-primary;
+$c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
+
+$c-bg-input: lighten($c-bg-page, 4%);
 
 $c-header-dropdown-bg: $c-bg-low;
 $c-header-dropdown-color: $c-font-clear;
 
-$c-border: hsl(0, 0%, 37%);
+$c-border: hsl(0, 0%, 25%);
 $border: $border-width $border-style $c-border;
 
 $c-font-shadow: black;

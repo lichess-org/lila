@@ -109,7 +109,7 @@ object layout {
     chat: Option[Frag] = None,
     underchat: Option[Frag] = None,
     robots: Boolean = isGloballyCrawlable,
-    respCss: Option[Html] = None,
+    respCss: String = "site",
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
     playing: Boolean = false,
@@ -136,7 +136,7 @@ object layout {
           ctx.zoom ifTrue zoomable map { z =>
             raw(s"""<style>main{--zoom:$z}</style>""")
           },
-          respCss | responsiveCssTag("site")
+          responsiveCssTag(respCss)
         )
         else frag(
           responsive option cssTag("offline-fonts.css"),

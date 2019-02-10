@@ -1,3 +1,13 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
   color: $c-font;
@@ -15,23 +25,32 @@ a {
   }
 }
 
-button {
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-}
-
 em, i {
   font-style: normal;
 }
 
+button, input, optgroup, select, textarea {
+  font: inherit;
+  color: $c-font;
+}
+
+input, textarea, select {
+  @extend %box-radius;
+  background: $c-bg-input;
+  border: $border;
+  padding: .6em 1em;
+}
+textarea {
+  overflow: auto;
+  resize: vertical;
+  padding: .8em 1em;
+}
+
 table, tbody, tfoot, thead, tr, th, td {
-  margin: 0;
-  padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
+  vertical-align: middle;
   text-align: inherit;
 }
 table {

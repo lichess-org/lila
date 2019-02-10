@@ -1,0 +1,30 @@
+.user_link {
+  color: $c-font;
+  white-space: nowrap;
+  & .line {
+    @extend %data-icon;
+    opacity: 0.4;
+    display: inline-block;
+    width: 1.5em;
+    text-align: center;
+    &.patron {
+      opacity: 0.8;
+    }
+    &::before {
+      content: '';
+    }
+    &.patron::before {
+      content: '';
+    }
+    &.moderator::before {
+      content: '';
+    }
+  }
+  &.online .line {
+    color: $c-good;
+    opacity: 0.8;
+    &.patron {
+      opacity: 1;
+    }
+  }
+}
