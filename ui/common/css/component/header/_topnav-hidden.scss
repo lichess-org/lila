@@ -59,7 +59,7 @@
       }
     }
     .topnav-toggle:checked ~ & {
-      background: $c-background-clear;
+      background: $c-bg-high;
       & span {
         transform: rotate(225deg);
         transition-delay: 0.12s;
@@ -85,7 +85,7 @@
     top: $site-header-height;
     bottom: 0;
     left: 0;
-    background: $c-background-clear;
+    background: $c-bg-high;
     transform: scale(0, 1);
     transform-origin: left;
     transition: transform 200ms ease-in-out;

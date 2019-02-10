@@ -9,10 +9,14 @@ $theme: 'dark';
   @return mix(hsl(0, 0, 100%), $color, $weight);
 }
 
-$c-background: hsl(0, 0%, 9%);
-$c-background-dim: hsl(0, 0%, 0%);
-$c-background-clear: hsl(0, 0%, 18%);
-$c-background-clearer: hsl(0, 0%, 23%);
+$c-bg-page: hsl(37%, 10%, 8%);
+$c-bg-high: hsl(37%, 5%, 16%);
+$c-bg-low: hsl(37%, 7%, 22%);
+
+/* even rows in list or tables, subtle shade of $c-bg-high */
+$c-zebra: hsl(0, 8%, 15%);
+
+$c-body-gradient: hsl(37%, 12%, 16%);
 
 $c-font: hsl(0, 0%, 70%);
 $c-font-dim: c-dimmer($c-font, 15%);
@@ -24,12 +28,10 @@ $c-brag: hsl(37, 74%, 43%);
 /* Fancy: pink */
 $c-fancy: hsl(294, 62%, 48%);
 
-$c-body-gradient: hsl(0, 0%, 18%);
-
 $c-primary: hsl(209, 79%, 56%);
 $c-primary-dim: c-dimmer($c-primary, 15%);
 
-$c-header-dropdown-background: $c-background-clearer;
+$c-header-dropdown-bg: $c-bg-low;
 $c-header-dropdown-color: $c-font-clear;
 
 $c-border: hsl(0, 0%, 37%);
@@ -39,8 +41,8 @@ $c-font-shadow: black;
 $text-shadow: 0 1px 1px $c-font-shadow;
 
 %metal {
-  background: linear-gradient(to bottom, hsl(0, 0, 28), hsl(0, 0, 25) 100%);
+  background: linear-gradient(to bottom, hsl(0, 0, 20), hsl(0, 0, 17) 100%);
 }
-%metal-clear {
-  background: linear-gradient(to bottom, hsl(0, 0, 26), hsl(0, 0, 23) 100%);
+%metal-hover {
+  background: linear-gradient(to bottom, hsl(0, 0, 23), hsl(0, 0, 20) 100%);
 }

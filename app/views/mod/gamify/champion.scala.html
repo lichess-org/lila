@@ -4,7 +4,7 @@
   <img src="@staticUrl(s"images/mod/$img.png")" />
   <h2>Mod of the @period.name</h2>
   @champ.map { m =>
-  <h3>@userIdLink(m.modId.some, withOnline = false)</h3>
+  @userIdLink(m.modId.some, withOnline = false)
   <table>
     <tbody>
       <tr>
@@ -22,5 +22,5 @@
     </tbody>
   </table>
   }.getOrElse { Nobody! }
-  <a class="current button" href="@routes.Mod.gamifyPeriod(period.name)">View @period.name leaderboard</a>
+  <a class="button button-empty" href="@routes.Mod.gamifyPeriod(period.name)">View @period.name leaderboard</a>
 </div>

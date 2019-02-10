@@ -1,5 +1,5 @@
 body {
-  background: $c-background linear-gradient(to bottom, $c-body-gradient, $c-background 116px) no-repeat;
+  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
   color: $c-font;
   overflow-x: hidden;
 }
@@ -23,4 +23,18 @@ button {
 
 em, i {
   font-style: normal;
+}
+
+table, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-align: inherit;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }

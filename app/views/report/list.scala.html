@@ -62,14 +62,14 @@
           </td>
           <td>@r.processedBy.map { u =>
             <form action="@routes.Report.inquiry(r.id)" method="post" class="reopen">
-              <button type="submit" data-icon="G" class="text button metal">Re-open</button>
+              <button type="submit" data-icon="G" class="text button button-metal">Re-open</button>
             </form>
             }.getOrElse {
             <form action="@routes.Report.inquiry(r.id)" method="post" class="inquiry">
-              <button type="submit" data-icon="G" class="button metal"></button>
+              <button type="submit" data-icon="G" class="button button-metal"></button>
             </form>
             <form action="@routes.Report.process(r.id)" method="post" class="cancel">
-              <button type="submit" class="thin button">Dismiss</button>
+              <button type="submit" class="button button-thin button-empty">Dismiss</button>
             </form>
             }
           </td>

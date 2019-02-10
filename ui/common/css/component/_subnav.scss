@@ -5,7 +5,7 @@
     grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
     grid-gap: 1px;
 
-    background: $c-background;
+    background: $c-bg-page;
     @include box-neat;
 
     & a {
@@ -13,7 +13,7 @@
       padding: 0.6rem 0.4rem 0.6rem 0.8rem;
       display: flex;
       align-items: center;
-      background: $c-background-clear;
+      background: $c-bg-high;
       @include box-radius;
       &:hover {
         color: $c-link;
@@ -31,14 +31,14 @@
       display: block;
       color: $c-font;
       padding: 0.6rem 0.8rem;
-      border-bottom: 1px solid $c-background-dim;
+      border-bottom: $border;
       &:hover {
         color: $c-link;
         border-bottom: 1px solid $c-link;
       }
       &.active {
         border-radius: $box-radius-size 0 0 $box-radius-size;
-        background: $c-background-clear;
+        background: $c-bg-high;
         font-weight: bold;
         box-shadow: $box-shadow;
       }

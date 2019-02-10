@@ -14,26 +14,20 @@ Html(s"""<tr class="year">
 </tr>""")
 }
 
-@mod.layout(
+@base.layout(
 title = title,
-active = "gamify",
-moreCss = cssTag("mod-gamify.css")) {
-
-<div id="mod-gamify" class="content_box no_padding index">
-  <h1>@title</h1>
-  <div class="champs clearfix">
-    <div class="third">
+moreCss = responsiveCssTag("mod.gamify"),
+responsive = true) {
+<main class="page-menu">
+  @mod.menu.nav("gamify").toHtml
+  <div id="mod-gamify" class="page-menu__content index box">
+    <h1>@title</h1>
+    <div class="champs">
       @champion(leaderboards.daily.headOption, "reward1", Period.Day)
-    </div>
-    <div class="third">
       @champion(leaderboards.weekly.headOption, "reward2", Period.Week)
-    </div>
-    <div class="third">
       @champion(leaderboards.monthly.headOption, "reward3", Period.Month)
     </div>
-  </div>
-  <div class="history">
-    <table class="slist">
+    <table class="slist history">
       <tbody>
         @history.headOption.filterNot(_.date.getMonthOfYear == 12).map { h =>
         @yearHeader(h.date.getYear)
@@ -53,5 +47,5 @@ moreCss = cssTag("mod-gamify.css")) {
       </tbody>
     </table>
   </div>
-</div>
-}
+</main>
+}.toHtml

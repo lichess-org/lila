@@ -1,6 +1,6 @@
-$c-report-bg: #484541;
-$c-report-font: #eee;
+$c-report-bg: $c-bg-high;
 $c-report-high: $c-brag;
+$c-report-high-over: white;
 
 #report form.create {
   margin-top: 2em;
@@ -9,36 +9,35 @@ $c-report-high: $c-brag;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  background: $c-report-bg;
-  color: $c-report-font;
 }
 #report_list .header .icon {
   flex: 1 1 50px;
-  height: 50px;
-  margin: 5px 0 5px 8px;
+  margin: .4rem .8rem;
   background: no-repeat url(../images/icons/octopus.svg) left center;
-  opacity: 0.9;
+  opacity: 0.6;
 }
 #report_list .tabs {
   display: flex;
   margin-right: 15px;
   font-size: 1.2em;
   & a {
-    color: $c-report-font;
+    @extend %roboto;
+    color: $c-font-dim;
     text-transform: uppercase;
-    padding: 6px 20px;
-    font-family: Roboto;
+    padding: 0.5rem 1.4rem;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    &.new {
+      color: $c-font-clear;
+    }
     &:hover {
       background: fade-out($c-report-high, 0.5);
-      color: #fff;
     }
     &.active {
       background: $c-report-high;
-      color: #fff;
+      color: $c-report-high-over;
     }
     & count {
       font-size: 0.8em;
@@ -77,22 +76,19 @@ $c-report-high: $c-brag;
     padding: 1rem 0.7rem;
     word-break: break-all;
   }
-  & button {
+  & .button {
     width: 6rem;
+  }
+  & .button-metal {
     box-sizing: border-box;
-    @extend %metal;
-    color: $c-primary;
     box-shadow: none;
     border: $border;
   }
-  & button:hover {
-    @extend %metal-clear;
-  }
-  & .inquiry button {
+  & .inquiry .button {
     padding: 1rem 1.2rem;
     font-size: 1.4em;
   }
-  & button.thin {
+  & .button-thin {
     font-size: 0.8em;
   }
 }
