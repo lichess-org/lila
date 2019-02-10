@@ -321,7 +321,7 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#challenge_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss(lichess.cssPath('challenge'));
+          lichess.loadCss(lichess.cssPath('challengeApp', 'challenge'));
           lichess.loadScript('compiled/lichess.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessChallenge.default($el[0], {
               data: data,
@@ -360,7 +360,7 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss(lichess.cssPath('notify'));
+          lichess.loadCss(lichess.cssPath('notifyApp', 'notify'));
           lichess.loadScript('compiled/lichess.notify' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessNotify.default($el.empty()[0], {
               data: data,
@@ -461,7 +461,7 @@ lichess.topMenuIntent = function() {
           var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lichess.loadCss(lichess.cssPath('dasher'));
+          lichess.loadCss(lichess.cssPath('dasherApp', 'dasher'));
           lichess.loadScript('compiled/lichess.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessDasher.default($el.empty()[0], {
               setZoom: setZoom,

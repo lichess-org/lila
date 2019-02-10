@@ -227,8 +227,10 @@ lichess.assetUrl = function(path, opts) {
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
-lichess.cssPath = function(key) {
-  return 'css/lichess.' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css';
+lichess.cssPath = function(oldKey, respKey) {
+  return lichess.isResp ?
+    'css/lichess.' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
+    'stylesheets/' + oldKey + '.css';
 };
 lichess.loadedCss = {};
 lichess.loadCss = function(url) {

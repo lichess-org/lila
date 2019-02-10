@@ -13,7 +13,7 @@
   & .links button,
   & .subs .sub {
     display: block;
-    padding: 0.5rem 0.9rem;
+    padding: 0.5rem 1rem;
     white-space: nowrap;
     overflow: hidden;
   }
@@ -54,14 +54,14 @@
     border-top: $border;
     & signal {
       position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 20px;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.7rem;
     }
     & .ping,
     & .server {
+      @extend %roboto-mono;
       display: block;
-      font-family: 'Roboto Mono', 'Roboto';
     }
     & strong {
       padding: 0 5px;
@@ -70,7 +70,7 @@
 
   & .head {
     display: block;
-    padding: 1rem 0.9rem;
+    padding: 1rem;
     border-bottom: $border;
   }
   & .head::before {
@@ -91,7 +91,7 @@
     }
     & button {
       display: block;
-      padding: 0.4em 0.5em;
+      padding: .7rem .7rem .7rem 1rem;
       border: none;
       background: none;
       width: 100%;
@@ -102,7 +102,7 @@
       }
     }
     & .accepted {
-      border-left: 3px solid $c-dasher;
+      border-left: 4px solid $c-dasher;
     }
     & .current {
       background: $c-dasher!important;
@@ -115,7 +115,7 @@
     margin: 0.5rem 0;
     & a {
       display: block;
-      padding: 0.4rem 0.9rem;
+      padding: 0.7rem 1rem;
       &:hover {
         background: $c-dasher-light;
       }
@@ -140,7 +140,7 @@
       }
     }
     &.large a {
-      padding: 0.5rem 0.9rem;
+      padding: 1rem 1rem;
     }
   }
   & .zen a::before {
