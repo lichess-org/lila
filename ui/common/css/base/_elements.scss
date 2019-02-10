@@ -17,7 +17,6 @@ body {
 a {
   color: $c-link;
   text-decoration: none;
-  cursor: pointer;
   &:hover,
   &:active,
   &:focus {
@@ -33,7 +32,6 @@ button, input, optgroup, select, textarea {
   font: inherit;
   color: $c-font;
 }
-
 input, textarea, select {
   @extend %box-radius;
   background: $c-bg-input;
@@ -44,6 +42,9 @@ textarea {
   overflow: auto;
   resize: vertical;
   padding: .8em 1em;
+}
+button, a {
+  cursor: pointer;
 }
 
 table, tbody, tfoot, thead, tr, th, td {

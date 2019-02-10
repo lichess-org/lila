@@ -321,7 +321,7 @@ lidraughts.topMenuIntent = function() {
           booted = true;
           var $el = $('#challenge_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss(lidraughts.cssPath('challenge'));
+          lidraughts.loadCss(lidraughts.cssPath('challengeApp', 'challenge'));
           lidraughts.loadScript('compiled/lidraughts.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsChallenge.default($el[0], {
               data: data,
@@ -360,7 +360,7 @@ lidraughts.topMenuIntent = function() {
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss(lidraughts.cssPath('notify'));
+          lidraughts.loadCss(lidraughts.cssPath('notifyApp', 'notify'));
           lidraughts.loadScript('compiled/lidraughts.notify' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
@@ -461,7 +461,7 @@ lidraughts.topMenuIntent = function() {
           var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lidraughts.loadCss(lidraughts.cssPath('dasher'));
+          lidraughts.loadCss(lidraughts.cssPath('dasherApp', 'dasher'));
           lidraughts.loadScript('compiled/lidraughts.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsDasher.default($el.empty()[0], {
               setZoom: setZoom,

@@ -227,8 +227,10 @@ lidraughts.assetUrl = function(path, opts) {
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
-lidraughts.cssPath = function(key) {
-  return 'css/lidraughts.' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css';
+lidraughts.cssPath = function(oldKey, respKey) {
+  return lidraughts.isResp ?
+    'css/lidraughts.' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
+    'stylesheets/' + oldKey + '.css';
 };
 lidraughts.loadedCss = {};
 lidraughts.loadCss = function(url, opts) {

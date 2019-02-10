@@ -5,6 +5,9 @@
   font-family: 'Roboto';
   font-weight: 600;
 }
+%roboto-mono {
+  font-family: 'Roboto Mono', 'Roboto';
+}
 %active {
   color: $c-accent-over;
   text-shadow: 0 1px 0 black;
