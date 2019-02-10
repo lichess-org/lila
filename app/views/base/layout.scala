@@ -12,8 +12,6 @@ import controllers.routes
 
 object layout {
 
-  private val fontVersion = 82
-
   object bits {
     val doctype = raw("<!doctype html>")
     def htmlTag(implicit ctx: Context) = html(st.lang := ctx.lang.language)
@@ -39,7 +37,7 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font/lichess$fontVersion/fonts/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private val fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lichess/fonts/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
   private val manifests = raw(List(
     """<link rel="manifest" href="/manifest.json" />""",
     """<meta name="twitter:site" content="@lichess" />"""
@@ -134,13 +132,7 @@ object layout {
           titleTag(fullTitle | s"$title • lichess.org"),
           !responsive option fontStylesheets
         )
-        else frag(
-          titleTag(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
-          !responsive option frag(
-            cssAt("offline/font.noto.css"),
-            cssAt("offline/font.roboto.mono.css")
-          )
-        ),
+        else titleTag(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
         if (responsive) frag(
           ctx.zoom ifTrue zoomable map { z =>
             raw(s"""<style>main{--zoom:$z}</style>""")
@@ -148,6 +140,7 @@ object layout {
           respCss | responsiveCssTag("site")
         )
         else frag(
+          responsive option cssTag("offline-fonts.css"),
           currentBgCss,
           cssTag("common.css"),
           cssTag("board.css"),
