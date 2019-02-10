@@ -1,10 +1,3 @@
-@font-face {
-  font-family: "lidraughts";
-  src: "../font/lidraughts04/fonts/lidraughts.woff" format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
 /* cyrillic-ext */
 @font-face {
   font-family: 'Noto Sans';
