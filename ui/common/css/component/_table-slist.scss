@@ -5,8 +5,6 @@ table.slist {
   & thead {
     @extend %metal, %roboto;
     & th {
-      text-align: left;
-      font-weight: normal;
       border-top: $border;
       border-bottom: $border;
       padding: 0.4rem 0.6rem;
@@ -23,7 +21,7 @@ table.slist {
     }
   }
   & tbody tr:nth-child(even) {
-    background: c-dimmer($c-background, 60%);
+    background: $c-zebra;
   }
   & td:first-child,
   & th:first-child {

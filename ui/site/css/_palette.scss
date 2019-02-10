@@ -1,8 +1,8 @@
 $palette-colors: (
 'background': (
-'dim': $c-background-dim,
-'base': $c-background,
-'clear': $c-background-clear
+'dim': $c-bg-low,
+'base': $c-bg-page,
+'clear': $c-bg-high
 ),
 'primary': (
 'dim': c-dimmer($c-primary),
@@ -75,7 +75,7 @@ $variant-height: 2.5rem;
     }
 
     &:before {
-      background-color: $c-background-clear;
+      background-color: $c-bg-high;
       border-radius: 0 0 $box-radius-size $box-radius-size;
       font-weight: bold;
     }

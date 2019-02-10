@@ -7,12 +7,14 @@
   @return mix(hsl(0, 0, 0%), $color, $weight);
 }
 
-$c-background: hsl(0, 0%, 93%);
-$c-background-dim: hsl(0, 0%, 87%);
-$c-background-clear: hsl(0, 0%, 100%);
-// $c-background-inv: hsl(209, 19%, 16%);
+$c-bg-page: hsl(37%, 10%, 92%);
+$c-bg-high: hsl(0%, 0%, 100%);
+$c-bg-low: hsl(0, 8%, 87%);
 
-$c-body-gradient: hsl(0, 0%, 84%);
+/* even rows in list or tables, subtle shade of $c-bg-high */
+$c-zebra: hsl(37%, 12%, 96.5%);
+
+$c-body-gradient: hsl(37%, 12%, 84%);
 
 $c-font: hsl(0, 0%, 30%);
 $c-font-dim: c-dimmer($c-font);
@@ -54,7 +56,7 @@ $c-border: hsl(0, 0%, 80%);
 
 $c-page-mask: hsla(0, 0, 0%, 0.5);
 
-$c-header-dropdown-background: $c-background-clear;
+$c-header-dropdown-bg: $c-bg-high;
 $c-header-dropdown-color: $c-font;
 
 $c-font-shadow: white;

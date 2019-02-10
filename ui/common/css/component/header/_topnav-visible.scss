@@ -34,7 +34,7 @@
       &:active {
         & > a {
           height: var(--nav-section-hover);
-          background: $c-header-dropdown-background;
+          background: $c-header-dropdown-bg;
           color: $c-font-clear;
           border-color: $c-primary;
         }
@@ -47,7 +47,7 @@
       display: none;
       position: absolute;
       left: 0;
-      background: $c-header-dropdown-background;
+      background: $c-header-dropdown-bg;
       width: 10rem;
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;

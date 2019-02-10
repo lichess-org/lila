@@ -1,6 +1,22 @@
 %roboto {
   font-family: 'Roboto';
 }
+%roboto-fat {
+  font-family: 'Roboto';
+  font-weight: 600;
+}
+%h1-pad {
+  margin: 4vh var(--box-padding);
+}
+%active {
+  color: $c-accent-over;
+  text-shadow: 0 1px 0 black;
+  background: $c-accent;
+  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+}
+%active-hover {
+  background: mix(white, $c-accent, 20%);
+}
 %square {
   height: 0;
   padding-bottom: 100%;
