@@ -359,7 +359,7 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss('stylesheets/notifyApp.css');
+          lichess.loadCss(lichess.cssPath('notify'));
           lichess.loadScript('compiled/lichess.notify' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessNotify.default($el.empty()[0], {
               data: data,
@@ -388,6 +388,7 @@ lichess.topMenuIntent = function() {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
+        setTimeout(() => $toggle.trigger('click'), 10);
 
         return {
           update: function(data, incoming) {
