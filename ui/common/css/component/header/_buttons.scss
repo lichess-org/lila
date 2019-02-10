@@ -25,13 +25,13 @@
     // color: ;
   }
   & .dropdown {
+    @extend %dropdown-shadow;
     display: none;
     position: absolute;
     right: 0;
     top: var(--dropdown-top);
     background: $c-header-dropdown-bg;
     z-index: 3;
-    box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
     & .initiating .spinner {
       padding: 10px 30px;
     }

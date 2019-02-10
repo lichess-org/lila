@@ -315,12 +315,13 @@ lichess.topMenuIntent = function() {
         $toggle.one('mouseover click', function() {
           load();
         });
+        setTimeout(() => $toggle.trigger('click'), 10);
         var load = function(data) {
           if (booted) return;
           booted = true;
           var $el = $('#challenge_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss('stylesheets/challengeApp.css');
+          lichess.loadCss(lichess.cssPath('challenge'));
           lichess.loadScript('compiled/lichess.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessChallenge.default($el[0], {
               data: data,
@@ -388,7 +389,6 @@ lichess.topMenuIntent = function() {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
-        setTimeout(() => $toggle.trigger('click'), 10);
 
         return {
           update: function(data, incoming) {
