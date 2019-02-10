@@ -4,9 +4,9 @@
 
 @title = @{ "Reports" }
 
-@tab(reports: List[WithSuspect], room: lila.report.Room) = {
+@tab(room: lila.report.Room) = {
 <a href="@routes.Report.listWithFilter(room.key)"
-  class="@when(counts.value.contains(room), "new") @filter.active(room.key)">
+  class="@when(counts.value.contains(room), "new") @filter.active(room.key) room-@room.key">
   <count>@counts.get(room)</count>@room.name</a>
 }
 
@@ -20,9 +20,7 @@
         <a href="@routes.Report.listWithFilter("all")"
           class="@when(counts.sum > 0, "new") @filter.active("all")">
           <count>@if(counts.sum > 0) {@counts.sum}</count>All</a>
-        @lila.report.Room.all.map { r =>
-        @tab(reports, r)
-        }
+        @lila.report.Room.all.map(tab)
         @if(streamers > 0) {
         <a href="@routes.Streamer.index()?requests=1" class="new">
           <count>@streamers</count>Streamers

@@ -1,5 +1,6 @@
 $c-report-bg: #484541;
 $c-report-font: #eee;
+$c-report-high: $c-brag;
 
 #report form.create {
   margin-top: 2em;
@@ -15,36 +16,39 @@ $c-report-font: #eee;
   flex: 1 1 50px;
   height: 50px;
   margin: 5px 0 5px 8px;
-  background: $c-report-bg no-repeat url(../images/icons/octopus.svg) left center;
+  background: no-repeat url(../images/icons/octopus.svg) left center;
   opacity: 0.9;
 }
 #report_list .tabs {
   display: flex;
   margin-right: 15px;
   font-size: 1.2em;
-}
-#report_list .tabs a {
-  color: $c-report-font;
-  text-transform: uppercase;
-  padding: 6px 20px;
-  font-family: Roboto;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-}
-#report_list .tabs a:hover {
-  background: rgba(56, 147, 232, 0.5);
-  color: #fff!important;
-}
-#report_list .tabs a.active {
-  background: #3893E8;
-  color: #fff!important;
-}
-#report_list .tabs a count {
-  font-size: 0.8em;
-  display: block;
-  height: 1.2em;
+  & a {
+    color: $c-report-font;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    font-family: Roboto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background: fade-out($c-report-high, 0.5);
+      color: #fff;
+    }
+    &.active {
+      background: $c-report-high;
+      color: #fff;
+    }
+    & count {
+      font-size: 0.8em;
+      display: block;
+      height: 1.2em;
+    }
+    &.room-xfiles:not(.new) {
+      display: none;
+    }
+  }
 }
 #report_list .score {
   display: inline-block;
@@ -68,29 +72,29 @@ $c-report-font: #eee;
   background-color: rgba(231, 59, 56, 0.4);
 }
 #report_list table.see {
-  border-top: 3px solid #3893E8;
-}
-#report_list table.see td {
-  padding: 15px 10px 15px 10px;
-  word-break: break-all;
-}
-#report_list table.see button {
-  width: 6rem;
-  box-sizing: border-box;
-  @extend %metal;
-  color: $c-primary;
-  box-shadow: none;
-  border: $border;
-}
-#report_list table.see button:hover {
-  @extend %metal-clear;
-}
-#report_list table.see .inquiry button {
-  padding: 1rem 1.2rem;
-  font-size: 1.4em;
-}
-#report_list table.see button.thin {
-  font-size: 0.8em;
+  border-top: 4px solid $c-report-high;
+  & td {
+    padding: 1rem 0.7rem;
+    word-break: break-all;
+  }
+  & button {
+    width: 6rem;
+    box-sizing: border-box;
+    @extend %metal;
+    color: $c-primary;
+    box-shadow: none;
+    border: $border;
+  }
+  & button:hover {
+    @extend %metal-clear;
+  }
+  & .inquiry button {
+    padding: 1rem 1.2rem;
+    font-size: 1.4em;
+  }
+  & button.thin {
+    font-size: 0.8em;
+  }
 }
 #report_list .atoms .atom {
   font-size: 0.9em;
@@ -119,7 +123,7 @@ $c-report-font: #eee;
   font-size: 0.8em;
 }
 #report_list tr.new td:first-child {
-  border-left: 3px solid #3893E8;
+  border-left: 4px solid $c-report-high;
 }
 .user_marks i {
   font-size: 0.9em;
