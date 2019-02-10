@@ -34,7 +34,7 @@ call cd ui\editor
 call gulp prod
 call cd ..\..
 
-set css_apps=site dasher tournament
+set css_apps=site challenge notify dasher tournament
 for %%a in (%css_apps%) do @(
   call echo Building css: %%a
   call cd ui\%%a

@@ -315,12 +315,13 @@ lidraughts.topMenuIntent = function() {
         $toggle.one('mouseover click', function() {
           load();
         });
+        setTimeout(() => $toggle.trigger('click'), 10);
         var load = function(data) {
           if (booted) return;
           booted = true;
           var $el = $('#challenge_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss('stylesheets/challengeApp.css');
+          lidraughts.loadCss(lidraughts.cssPath('challenge'));
           lidraughts.loadScript('compiled/lidraughts.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsChallenge.default($el[0], {
               data: data,
@@ -388,7 +389,6 @@ lidraughts.topMenuIntent = function() {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
-        setTimeout(() => $toggle.trigger('click'), 10);
 
         return {
           update: function(data, incoming) {

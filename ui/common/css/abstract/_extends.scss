@@ -14,6 +14,9 @@
 %active-hover {
   background: mix(white, $c-accent, 20%);
 }
+%dropdown-shadow {
+  box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
+}
 
 %square {
   height: 0;
