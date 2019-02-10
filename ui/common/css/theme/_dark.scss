@@ -35,6 +35,10 @@ $c-fancy: hsl(294, 62%, 48%);
 $c-good: $c-secondary;
 $c-good-over: $c-secondary-over;
 
+/* Bad: red */
+$c-bad: $c-error;
+$c-bad-over: $c-error-over;
+
 $c-link: $c-primary;
 $c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
 

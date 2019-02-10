@@ -45,6 +45,10 @@ $c-error-over: white; /* text over brag background */
 $c-good: $c-secondary;
 $c-good-over: $c-secondary-over;
 
+/* Bad: red */
+$c-bad: $c-error;
+$c-bad-over: $c-error-over;
+
 /* Fancy: pink */
 $c-fancy: hsl(294, 61%, 62%);
 $c-fancy-over: white; /* text over brag background */

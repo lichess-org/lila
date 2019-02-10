@@ -1,14 +1,16 @@
 @(events: List[lila.event.Event])(implicit ctx: Context)
 
-@title = {Event manager}
+@title = @{"Event manager"}
 
-@layout(title = title.body) {
-<div class="event_crud content_box no_padding">
-  <h1 class="lichess_title">
-    <a href="@routes.Event.form" data-icon="O" class="new"></a>
-    @title
-  </h1>
-  <table class="slist">
+@layout(title = title) {
+<div class="crud page-menu__content box">
+  <div class="box__top">
+    <h1 class="box__top__title">@title</h1>
+    <div class="box__top__actions">
+      <a class="button button-green" href="@routes.Event.form" data-icon="O"></a>
+    </div>
+  </div>
+  <table class="slist slist-pad">
     <thead>
       <tr>
         <th></th>
@@ -21,8 +23,8 @@
       @events.map { e =>
       <tr>
         <td><a href="@routes.Event.edit(e.id)">
-            <p>@e.title</p>
-            <small>@e.headline</small>
+            <strong>@e.title</strong>
+            <em>@e.headline</em>
         </a></td>
         <td>
           @showDateTimeUTC(e.startsAt)

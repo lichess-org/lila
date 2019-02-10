@@ -2,56 +2,41 @@
 
 @title = @{ "Chat Panic" }
 
-@mod.layout(title = title, active = "panic") {
-
-<style type="text/css">
-  #chat-panic .forms {
-    margin: 30px 0;
-    text-align: center;
-  }
-  #chat-panic form {
-    font-size: 1.3em;
-    display: inline;
-    margin: 0 .5em;
-  }
-  #chat-panic form input {
-    padding: 15px 25px;
-    font-size: 1.2em;
-    width: 400px;
-    margin: auto;
-    position: relative;
-  }
-</style>
-
-<div id="chat-panic" class="content_box">
-  <h1 data-icon="j" class="text">@title</h1>
-  <br /><br />
-  <p>
-    When Chat Panic is enabled, restrictions apply to public chats (tournament, simul) and PMs<br />
-    Only players 24h old, and with 10 games played, can write messages.
-  </p>
-  <br /><br />
-  <p>
-    Current state:
-    @state.map { s =>
-    <strong class="text" data-icon="E" style="color:#759900">ENABLED</strong>. Expires in @momentFromNow(s)
-    }.getOrElse {
-    <strong class="text" data-icon="L">DISABLED</strong>
-    }
-  </p>
-  <div class="forms">
-    @if(state.isDefined) {
-    <form action="@routes.Mod.chatPanicPost?v=0" method="POST">
-      <button type="submit" class="submit button text" data-icon="L">Disable</button>
-    </form>
-    <form action="@routes.Mod.chatPanicPost?v=1" method="POST">
-      <button type="submit" class="submit button text" data-icon="E">Renew for two hours</button>
-    </form>
-    } else {
-    <form action="@routes.Mod.chatPanicPost?v=1" method="POST">
-      <button type="submit" class="submit button text" data-icon="E">Enable</button>
-    </form>
-    }
+@base.layout(
+title = title,
+moreCss = responsiveCssTag("mod.misc"),
+responsive = true) {
+<main class="page-menu">
+  @mod.menu.nav("panic").toHtml
+  <div id="chat-panic" class="page-menu__content box box-pad">
+    <h1>@title</h1>
+    <p>
+      When Chat Panic is enabled, restrictions apply to public chats (tournament, simul) and PMs<br />
+      Only players 24h old, and with 10 games played, can write messages.
+    </p>
+    <br /><br />
+    <p>
+      Current state:
+      @state.map { s =>
+      <strong class="text" data-icon="E" style="color:#759900">ENABLED</strong>. Expires in @momentFromNow(s)
+      }.getOrElse {
+      <strong class="text" data-icon="L">DISABLED</strong>
+      }
+    </p>
+    <div class="forms">
+      @if(state.isDefined) {
+      <form action="@routes.Mod.chatPanicPost?v=0" method="POST">
+        <button type="submit" class="button button-fat text" data-icon="L">Disable</button>
+      </form>
+      <form action="@routes.Mod.chatPanicPost?v=1" method="POST">
+        <button type="submit" class="button button-fat text" data-icon="E">Renew for two hours</button>
+      </form>
+      } else {
+      <form action="@routes.Mod.chatPanicPost?v=1" method="POST">
+        <button type="submit" class="button button-fat text" data-icon="E">Enable</button>
+      </form>
+      }
+    </div>
   </div>
-</div>
-}
+</main>
+}.toHtml

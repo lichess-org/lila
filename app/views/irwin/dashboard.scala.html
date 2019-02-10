@@ -7,30 +7,33 @@ case p if p < 80 => {orange}
 case _ => {red}
 } }
 
-@mod.layout(
+@base.layout(
 title = "Irwin dashboard",
-active = "irwin",
-moreCss = cssTag("mod-irwin.css")) {
-<div class="content_box irwin no_padding">
-  <div class="content_box_top">
-    <h1 class="text lichess_title">
-      Irwin status:
-      @if(dashboard.seenRecently) {
-      <span class="up">Operational</span>
-      } else {
-      <span class="down">
-        @dashboard.lastSeenAt.map { seenAt =>
-        Last seen @momentFromNow(seenAt)
-        }.getOrElse {
-        Unknown
+moreCss = responsiveCssTag("mod.misc"),
+responsive = true) {
+<main class="page-menu">
+  @mod.menu.nav("irwin").toHtml
+  <div class="irwin page-menu__content box">
+    <div class="box__top">
+      <h1 class="box__top__title">
+        Irwin status:
+        @if(dashboard.seenRecently) {
+        <span class="up">Operational</span>
+        } else {
+        <span class="down">
+          @dashboard.lastSeenAt.map { seenAt =>
+          Last seen @momentFromNow(seenAt)
+          }.getOrElse {
+          Unknown
+          }
+        </span>
         }
-      </span>
-      }
-    </h1>
-    <a href="https://monitor.lichess.ovh/dashboard/db/lichess-moderation" class="monitoring button">Monitoring</a>
-  </div>
-  <div class="recent">
-    <table class="slist">
+      </h1>
+      <div class="box__top__actions">
+        <a href="https://monitor.lichess.ovh/dashboard/db/lichess-moderation" class="button button-empty">Monitoring</a>
+      </div>
+    </div>
+    <table class="slist slist-pad">
       <thead>
         <tr>
           <th>Recent report</th>
@@ -58,5 +61,5 @@ moreCss = cssTag("mod-irwin.css")) {
       </tbody>
     </table>
   </div>
-</div>
-}
+</main>
+}.toHtml

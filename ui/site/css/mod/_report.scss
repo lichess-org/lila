@@ -6,12 +6,13 @@ $c-report-high-over: white;
   margin-top: 2em;
 }
 #report_list .header {
+  height: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
 }
 #report_list .header .icon {
-  flex: 1 1 50px;
+  flex: 1 1 auto;
   margin: .4rem .8rem;
   background: no-repeat url(../images/icons/octopus.svg) left center;
   opacity: 0.6;
