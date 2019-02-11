@@ -15,6 +15,7 @@
     border: none;
     cursor: pointer;
     transition: all .3s ease-out;
+    white-space: nowrap;
   }
   &:hover {
     @extend %button-raised-shadow;
@@ -26,6 +27,9 @@
     background: hsl(0, 0%, 80%);
     color: hsl(0, 0%, 62%);
     box-shadow: none;
+  }
+  &-no-upper {
+    text-transform: none;
   }
   &-thin {
     padding: 0 1em;

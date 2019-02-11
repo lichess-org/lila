@@ -2,16 +2,18 @@
 
 @title = @{ "Change owner of Team " + t.name }
 
-@team.layout(title = title) {
-<div id="team">
-  <div class="content_box team_box">
+@bits.layout(title = title) {
+<main class="page-menu page-small">
+  @bits.menu(none).toHtml
+  <div id="team" class="page-menu__content box box-pad">
     <h1>@title</h1>
     <p class="undertitle">Who do you want to make owner of this team?</p>
+    <br><br>
     <form class="kick" action="@routes.Team.changeOwner(t.id)" method="POST">
       @userIds.toList.sorted.map { userId =>
-      <button name="userId" class="submit button small confirm" value="@userId">@usernameOrId(userId)</button>
+      <button name="userId" class="button button-empty button-no-upper confirm" value="@userId">@usernameOrId(userId)</button>
       }
     </form>
   </div>
-</div>
-}
+</main>
+}.toHtml

@@ -7,7 +7,7 @@ title = s"${t.name} team",
 url = s"$netBaseUrl${routes.Team.show(t.id).url}",
 description = shorten(t.description, 152)).some) {
 <main class="page-menu">
-  @bits.menu("form".some).toHtml
+  @bits.menu(none).toHtml
   <div id="team" class="page-menu__content box team-show">
     <div class="box__top">
       <h1 class="box__top__title text" data-icon="f">@t.name <em>TEAM</em></h1>
