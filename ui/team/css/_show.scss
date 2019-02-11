@@ -6,10 +6,18 @@
   &__content {
     margin: 0 var(--box-padding);
     display: grid;
-    grid-column-gap: var(--box-padding);
-    grid-row-gap: 2rem;
+    grid-row-gap: 2.2rem;
+    grid-template-areas:
+    'desc'
+    'meta'
+    'actions'
+    'forum'
+    'best'
+    'recent';
     @include breakpoint($mq-small) {
+      grid-column-gap: var(--box-padding);
       grid-template-columns: max-content auto;
+      grid-template-rows: 3rem;
       grid-template-areas:
       'meta    desc'
       'actions desc'
@@ -33,6 +41,8 @@
   }
   &__actions {
     grid-area: actions;
+    display: flex;
+    align-items: flex-start;
   }
   &__forum {
     grid-area: forum;
@@ -49,7 +59,7 @@
   }
   &__forum {
     & article {
-      padding: 2rem;
+      padding: 2rem 2vw;
     }
     & article:nth-child(odd) {
       background: $c-zebra;
@@ -62,6 +72,9 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: .5rem;
+      & > a {
+        font-size: 120%;
+      }
     }
     & a.more {
       display: block;

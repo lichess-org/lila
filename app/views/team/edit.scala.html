@@ -3,13 +3,14 @@
 
 @title = @{ "Edit Team " + t.name }
 
-@team.layout(title = title, formCss = true) {
-<div id="team">
-  <div class="content_box team_box">
+@bits.layout(title = title) {
+<main class="page-menu page-small">
+  @bits.menu(none).toHtml
+  <div id="team" class="page-menu__content box box-pad">
     <h1>@title</h1>
     <p class="links undertitle">
-      <a href="@routes.Team.kick(t.id)">Kick someone out of the team</a><br>
-      <a href="@routes.Team.changeOwner(t.id)">Appoint another team owner</a>
+      <a class="button button-empty" href="@routes.Team.kick(t.id)">Kick someone out of the team</a>
+      <a class="button button-empty" href="@routes.Team.changeOwner(t.id)">Appoint another team owner</a>
     </p>
     <form class="form3" action="@routes.Team.update(t.id)" method="POST">
       @form3.group(form("open"), trans.joiningPolicy.frag()) { f =>
@@ -23,5 +24,5 @@
       }
     </form>
   </div>
-</div>
-}
+</main>
+}.toHtml
