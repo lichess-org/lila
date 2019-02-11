@@ -50,9 +50,11 @@ trait ScalatagsBundle extends Cap
 
 // short prefix
 trait ScalatagsPrefix {
-  object st extends Cap with Attrs with scalatags.text.Tags
-  object st2 extends Cap with scalatags.text.Tags2 {
+  object st extends Cap with Attrs with scalatags.text.Tags {
     lazy val group = tag("group")
+    lazy val headTitle = tag("title")
+    lazy val nav = tag("nav")
+    lazy val section = tag("section")
   }
 }
 

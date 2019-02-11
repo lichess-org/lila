@@ -1,7 +1,5 @@
 package views.html.base
 
-import scalatags.Text.tags2.{ nav, section }
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -14,11 +12,11 @@ object topmenu {
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
     if (ctx.blind) h2(name) else a(href := url)(name)
 
-  def apply()(implicit ctx: Context) = nav(
+  def apply()(implicit ctx: Context) = st.nav(
     id := "topmenu",
     cls := (if (ctx.blind) "blind" else "hover")
   )(
-      section(
+      st.section(
         linkTitle("/", trans.play.frag()),
         div(role := "group")(
           if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame.frag())
@@ -29,7 +27,7 @@ object topmenu {
           )
         )
       ),
-      section(
+      st.section(
         linkTitle(routes.Puzzle.home.toString, trans.learnMenu.frag()),
         div(role := "group")(
           ctx.noBot option frag(
@@ -42,7 +40,7 @@ object topmenu {
           a(href := routes.Coach.allDefault(1))(trans.coaches.frag())
         )
       ),
-      section(
+      st.section(
         linkTitle(routes.Tv.index.toString, trans.watch.frag()),
         div(role := "group")(
           a(href := routes.Tv.index)("Lichess TV"),
@@ -52,7 +50,7 @@ object topmenu {
           ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary.frag())
         )
       ),
-      section(
+      st.section(
         linkTitle(routes.User.list.toString, trans.community.frag()),
         div(role := "group")(
           a(href := routes.User.list)(trans.players.frag()),
@@ -63,7 +61,7 @@ object topmenu {
           a(href := routes.QaQuestion.index())(trans.questionsAndAnswers.frag())
         )
       ),
-      section(
+      st.section(
         linkTitle(routes.UserAnalysis.index.toString, trans.tools.frag()),
         div(role := "group")(
           a(href := routes.UserAnalysis.index)(trans.analysis.frag()),

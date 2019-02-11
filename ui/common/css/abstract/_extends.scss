@@ -21,6 +21,13 @@
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
+%box-padding {
+  padding: 4vh var(--box-padding);
+}
+%box-padding-horiz {
+  padding: 0 var(--box-padding);
+}
+
 %square {
   height: 0;
   padding-bottom: 100%;

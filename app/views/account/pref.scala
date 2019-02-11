@@ -16,7 +16,7 @@ object pref {
   private def setting(name: Frag, body: Frag) = li(h2(name), body)
 
   private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
-    st2.group(cls := "radio")(
+    st.group(cls := "radio")(
       options.map { v =>
         val id = s"${field.id}_${v._1}"
         val checked = field.value has v._1.toString

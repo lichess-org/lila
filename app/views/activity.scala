@@ -1,7 +1,6 @@
 package views.html
 
 import play.twirl.api.Html
-import scalatags.Text.tags2.section
 
 import lila.activity.activities._
 import lila.activity.model._
@@ -18,7 +17,7 @@ object activity {
   def apply(u: User, as: Iterable[lila.activity.ActivityView])(implicit ctx: Context) =
     div(cls := "activity")(
       as.toSeq map { a =>
-        section(
+        st.section(
           h2(semanticDate(a.interval.getStart)),
           div(cls := "entries")(
             a.patron map renderPatron,

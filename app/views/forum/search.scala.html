@@ -2,10 +2,9 @@
 
 @title = @{ trans.search.txt() + " \"" + text.trim + "\"" }
 
-@forum.layout(
+@forum.bits.layout(
 title = title,
-moreJs = infiniteScrollTag,
-searchText = text
+moreJs = infiniteScrollTag
 ) {
 
 <h1>@title</h1>
@@ -37,4 +36,4 @@ searchText = text
   <tbody><tr><td>No forum post found</td></tr></tbody>
   }
 </table>
-}
+}.toHtml

@@ -1,0 +1,91 @@
+main.forum {
+
+  .post {
+    font-size: 1.2em;
+    padding: 2em 24px 1em 24px;
+    border-top: 1px solid #D4D4D4;
+    margin-top: 1em;
+    position: relative;
+
+    & .metas .mod {
+      margin-left: 1em;
+      font-size: 0.9em;
+      visibility: hidden;
+    }
+    &:hover .metas .mod {
+      visibility: visible;
+    }
+
+    &.erased {
+      background: rgba(128,128,128,0.2);
+      opacity: 0.5;
+    }
+    &.erased .message {
+      font-style: italic;
+      text-align: center;
+      margin: 0;
+    }
+    &:last-child {
+      border-bottom: 1px solid #D4D4D4;
+      padding-bottom: 2em;
+      margin-bottom: 2em;
+    }
+
+    & .anchor {
+      position: absolute;
+      top: 2em;
+      right: 24px;
+    }
+
+    & .author {
+      font-size: 1.2em;
+      font-weight: bold;
+      float: left;
+    }
+    & .author a {
+      height: 16px;
+      display: block;
+    }
+
+    & time {
+      font-size: 0.8em;
+      font-style: italic;
+      color: #aaa;
+      margin-top: 0.3em;
+      margin-left: 1em;
+      float: left;
+    }
+
+    & .message {
+      margin-top: 1.5em;
+      color: #555;
+      line-height: 1.5em;
+      cursor: initial;
+    }
+    & .edit-buttons {
+      text-align: right;
+      margin-top: 0.5em;
+    }
+    & .edit-buttons a {
+      margin-right: 1em;
+    }
+    & .post-edited {
+      font-size: 0.8em;
+      color: #aaa;
+      margin-top: 0.3em;
+      margin-left: 1em;
+      float: left;
+    }
+  }
+
+  .edit-post-form {
+    display: none;
+    margin-top: 1.5em;
+    & textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #D4D4D4;
+      padding: 0.5em;
+    }
+  }
+}

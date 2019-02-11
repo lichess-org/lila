@@ -1,7 +1,7 @@
 @(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 @import lila.app.ui.ScalatagsTwirlForm._
 
-@forum.layout(title = "New forum topic", moreJs = jsTag("forum-post.js"), formCss = true) {
+@forum.bits.layout(title = "New forum topic", moreJs = jsTag("forum-post.js")) {
 <ol class="crumbs">
   <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
   <li><h1>@categ.name</h1></li>
@@ -30,4 +30,4 @@
   @form3.submit(trans.createTheTopic.frag())
   }
 </form>
-}
+}.toHtml

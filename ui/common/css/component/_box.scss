@@ -1,12 +1,8 @@
 $vp-min-width: 320px;
 $vp-max-width: 1200px;
 
-%box-padding {
-  padding: 4vh var(--box-padding);
-}
-
 .box {
-  background: $c-bg-high;
+  background: $c-bg-box;
   @extend %box-shadow;
 
   @include fluid-size('--box-padding', 20px, 60px);

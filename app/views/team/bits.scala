@@ -1,4 +1,5 @@
 package views.html
+package team
 
 import play.twirl.api.Html
 
@@ -12,7 +13,7 @@ import controllers.routes
 object bits {
 
   def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab |> { tab =>
-    st2.nav(cls := "page-menu__menu subnav")(
+    st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
         a(cls := tab.active("requests"), href := routes.Team.requests())(
           ctx.teamNbRequests, " join requests"
@@ -56,7 +57,7 @@ object bits {
   )
 
   def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context) =
-    base.layout(
+    views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("team"),
       moreJs = infiniteScrollTag,

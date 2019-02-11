@@ -59,7 +59,7 @@ private object bits {
   )
 
   def renderRadios(field: Field, options: Seq[SelectChoice]) =
-    st2.group(cls := "radio")(
+    st.group(cls := "radio")(
       options.map {
         case (key, name, hint) => div(
           input(

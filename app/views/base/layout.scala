@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.ContentSecurityPolicy
-import scalatags.Text.tags2.{ title => titleTag }
 
 import controllers.routes
 
@@ -129,10 +128,10 @@ object layout {
         responsive option viewport,
         metaCsp(csp),
         if (isProd) frag(
-          titleTag(fullTitle | s"$title • lichess.org"),
+          st.headTitle(fullTitle | s"$title • lichess.org"),
           !responsive option fontStylesheets
         )
-        else titleTag(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
+        else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
         if (responsive) frag(
           ctx.zoom ifTrue zoomable map { z =>
             raw(s"""<style>main{--zoom:$z}</style>""")
@@ -292,7 +291,7 @@ object layout {
           topnavToggle,
           h1(cls := "site-title")(
             a(href := "/")(
-              if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
+              if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")("😊")
               else ctx.isBot option botImage,
               "lichess",
               span(if (isProd) ".org" else " dev")

@@ -1,7 +1,6 @@
 package views.html.analyse
 
 import play.api.libs.json.Json
-import scalatags.Text.tags2.{ title => titleTag }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -27,7 +26,7 @@ object embed {
       head(
         charset,
         metaCsp(none),
-        titleTag(s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"),
+        st.headTitle(s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"),
         fontStylesheets,
         currentBgCss,
         cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
@@ -74,7 +73,7 @@ i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = fals
       head(
         charset,
         metaCsp(none),
-        titleTag("404 - Game not found"),
+        st.headTitle("404 - Game not found"),
         fontStylesheets,
         currentBgCss,
         cssTags("common.css", "analyse-embed.css")

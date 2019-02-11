@@ -1,0 +1,110 @@
+@import 'crumbs';
+@import 'search';
+@import 'post';
+@import 'completion';
+@import 'table';
+
+main.forum {
+
+  & .warning {
+    margin: 20px;
+    background: #f4f4f4;
+    text-align: center;
+    font-size: 1.6em;
+  }
+  & .warning h1 {
+    margin: 1em 0 0 0;
+    padding: 0;
+    font-weight: bold;
+  }
+  & .warning p {
+    margin: 1.8em 0;
+    line-height: 1.5em;
+  }
+
+  & .nb_results {
+    padding-left: 25px;
+  }
+
+  &.categ {
+    & .description {
+      @extend %box-padding-horiz ;
+    }
+  }
+
+  .topicReply,
+  .category .description {
+    margin: 1em 24px 0 24px;
+  }
+
+  .postNewTitle {
+    font-size: 1.5em;
+    font-style: italic;
+  }
+
+  & .create-topic {
+    margin: 20px;
+  }
+  & .reply {
+    margin-top: 2em;
+  }
+  & .reply label[for=form3-text] {
+    display: none;
+  }
+
+  .bar {
+    @extend %box-padding-horiz;
+    margin-top: 1em;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .pagination {
+      flex: 1 0 auto;
+      display: flex;
+      & a,
+      & span {
+        flex: 0 0 30px;
+        height: 30px;
+        @extend %box-radius;
+        font-size: 1.1em;
+        margin: 0 .2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      & span {
+        color: $c-font-dimmer;
+      }
+      & a:hover {
+        background: mix($c-primary, $c-bg-box, 10);
+      }
+      & .current {
+        background: $c-primary;
+        color: $c-primary-over;
+      }
+    }
+    .button {
+      flex: 0 0 auto;
+    }
+  }
+
+  & div.topic form.mod {
+    float: right;
+    margin-right: 24px;
+  }
+  & .unsub.on .off,
+  & .unsub.off .on {
+    display: none;
+  }
+
+  a.sticky,
+  body.dark a.sticky {
+    color: #759900;
+  }
+
+  a.sticky > span {
+    margin-right: 0.6em;
+  }
+}
