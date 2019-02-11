@@ -98,7 +98,5 @@
   overflow: hidden;
 }
 .site_notification .content time {
-  font-size: 0.9em;
-  font-family: 'Roboto';
-  font-weight: 300;
+  @extend %roboto;
 }

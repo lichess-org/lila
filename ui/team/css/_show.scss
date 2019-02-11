@@ -1,0 +1,72 @@
+.team-show {
+  & h1 em {
+    color: $c-font-dim;
+    font-size: 72%;
+  }
+  &__content {
+    margin: 0 var(--box-padding);
+    display: grid;
+    grid-column-gap: var(--box-padding);
+    grid-row-gap: 2rem;
+    @include breakpoint($mq-small) {
+      grid-template-columns: max-content auto;
+      grid-template-areas:
+      'meta    desc'
+      'actions desc'
+      'best    forum'
+      'recent  forum';
+    }
+  }
+  &__meta {
+    grid-area: meta;
+    color: $c-font-dim;
+  }
+  &__best {
+    grid-area: best;
+  }
+  &__recent {
+    grid-area: recent;
+  }
+  &__desc {
+    grid-area: desc;
+    font-size: 1.1em;
+  }
+  &__actions {
+    grid-area: actions;
+  }
+  &__forum {
+    grid-area: forum;
+  }
+  & h2 {
+    font-size: 1.6em;
+    padding-bottom: .3rem;
+    border-bottom: $border;
+    margin-bottom: .8rem;
+  }
+  & .userlist > li,
+  & .userlist > div.paginated {
+    padding: 5px 0 5px 25px;
+  }
+  &__forum {
+    & article {
+      padding: 2rem;
+    }
+    & article:nth-child(odd) {
+      background: $c-zebra;
+    }
+    & .user_link {
+      font-weight: bold;
+      color: $c-font-dimmer;
+    }
+    & .meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: .5rem;
+    }
+    & a.more {
+      display: block;
+      text-align: right;
+      margin: 10px 10px 0 0;
+    }
+  }
+}

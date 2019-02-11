@@ -1,5 +1,5 @@
 %data-icon {
-  font-size: 1.2em;
+  font-size: 1.1em;
   vertical-align: text-top;
   font-family: "lichess" !important;
   font-style: normal !important;
@@ -20,6 +20,13 @@
   margin-right: 0.4em;
 }
 
-.is-red {
-  color: $c-error;
+.user_link.online .line,
+.is-green::before {
+  color: #759900;
+}
+.is-red::before {
+  color: #dc322f;
+}
+.is-gold::before {
+  color: #d59120;
 }

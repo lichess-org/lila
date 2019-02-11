@@ -1,25 +1,103 @@
 @(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context)
 
-@team.layout(title = t.name, openGraph = lila.app.ui.OpenGraph(
+@bits.layout(
+title = t.name,
+openGraph = lila.app.ui.OpenGraph(
 title = s"${t.name} team",
 url = s"$netBaseUrl${routes.Team.show(t.id).url}",
 description = shorten(t.description, 152)).some) {
-<div id="team" class="content_box no_padding team_show">
-  <div class="content_box_top">
-    <span class="righty">@trans.nbMembers.plural(t.nbMembers, Html("<strong>" + t.nbMembers.localize + "</strong>"))</span>
-    <div class="icon team-icon@if(myTeam(t.id)){ mine}"></div>
-    <h1 class="lichess_title" data-icon="f"> @t.name <span>TEAM</span></h1>
-    @if(t.disabled) {
-    <span class="staff">CLOSED</span>
+<main class="page-menu">
+  @bits.menu("form".some).toHtml
+  <div id="team" class="page-menu__content box team-show">
+    <div class="box__top">
+      <h1 class="box__top__title text" data-icon="f">@t.name <em>TEAM</em></h1>
+      <div class="box__top__actions">
+        @if(t.disabled) {
+        <span class="staff">CLOSED</span>
+        } else {
+        @trans.nbMembers.plural(t.nbMembers, Html("<strong>" + t.nbMembers.localize + "</strong>"))
+        }
+      </div>
+    </div>
+    @if(info.mine || t.enabled) {
+    @if(info.hasRequests) {
+    @team.requests(info.requests, t.some)
+    }
+    <div class="team-show__content">
+      <section class="team-show__meta">
+        <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
+        <p>@trans.teamLeader(): @userIdLink(t.createdBy.some)</p>
+      </section>
+      <section class="team-show__best">
+        <h2>@trans.teamBestPlayers()</h2>
+        <ol class="userlist best_players">
+          @info.bestUserIds.map { userId =>
+          <li>@userIdLink(userId.some)</li>
+          }
+        </ol>
+      </section>
+      <section class="team-show__recent">
+        <h2>@trans.teamRecentMembers()</h2>
+        <div class="userlist infinitescroll">
+          @members.nextPage.map { np =>
+          <div class="pager none"><a rel="next" href="@routes.Team.show(t.id, np)">Next</a></div>
+          }
+          @members.currentPageResults.map { member =>
+          <div class="paginated">@userLink(member.user)</div>
+          }
+        </div>
+      </section>
+      <section class="team-show__desc">
+        @richText(t.description)
+        @t.location.map { loc =>
+        <br />@trans.location(): @richText(loc)
+        }
+      </section>
+      <section class="team-show__actions">
+        @if(t.enabled && !info.mine) {
+        @if(info.requestedByMe) {
+        <strong>Your join request is being reviewed by the team leader</strong>
+        } else {
+        @if(ctx.me.??(_.canTeam)) {
+        <form class="inline" method="post" action="@routes.Team.join(t.id)">
+          <input class="button button-green" type="submit" value="@trans.joinTeam()" />
+        </form>
+        }
+        }
+        }
+        @if(info.mine && !info.createdByMe) {
+        <form class="quit" method="post" action="@routes.Team.quit(t.id)">
+          <input class="button button-empty button-red confirm" type="submit" value="@trans.quitTeam()" />
+        </form>
+        }
+        @if(info.createdByMe || isGranted(_.Admin)) {
+        <a href="@routes.Team.edit(t.id)" class="button button-empty" data-icon="%"> @trans.settings()</a>
+        }
+        @if(isGranted(_.ManageTeam)) {
+        <form class="inline" method="post" action="@routes.Team.close(t.id)">
+          <button data-icon="q" class="text button button-empty button-red confirm" type="submit"
+            title="Deletes the team and its memberships. Cannot be reverted!">Delete</button>
+        </form>
+        }
+      </section>
+      <section class="team-show__forum">
+        <h2 data-icon="d" class="text"><a href="@teamForumUrl(t.id)">@trans.forum()</a> (@info.forumNbPosts)</h2>
+        @info.forumPosts.take(10).map { p =>
+        <article>
+          <p class="meta">
+            <a href="@routes.ForumPost.redirect(p.postId)">@p.topicName</a>
+            <em>
+              @userIdLink(p.userId, withOnline = false),
+              @momentFromNow(p.createdAt)
+            </em>
+          </p>
+          <p>@shorten(p.text, 200)</p>
+        </article>
+        }
+        <a class="more" href="@teamForumUrl(t.id)">@t.name @trans.forum() »</a>
+      </section>
+    </div>
     }
   </div>
-  @if(info.mine || t.enabled) {
-  @if(info.hasRequests) {
-  @team.requests(info.requests, t.some)
-  }
-  <div class="team-content">
-    @team.showContent(t, members, info)
-  </div>
-  }
-</div>
-}
+</main>
+}.toHtml

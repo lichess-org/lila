@@ -55,10 +55,7 @@ object bits {
     tab = "all"
   )
 
-  def layout(
-    title: String,
-    openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context) =
+  def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context) =
     base.layout(
       title = title,
       moreCss = responsiveCssTag("team"),
