@@ -2,12 +2,12 @@
 
 @title = @{ requests.size + " join requests"  }
 
-@team.layout(
-title = title,
-currentTab = "requests".some) {
-<div id="team" class="content_box team_box no_padding">
-  <h1>@title</h1>
-  @team.requests(requests, none)
-</div>
-}
-
+@bits.layout(title = title) {
+<main class="page-menu">
+  @bits.menu("requests".some).toHtml
+  <div class="page-menu__content box box-pad">
+    <h1>@title</h1>
+    @team.requests(requests, none)
+  </div>
+</main>
+}.toHtml

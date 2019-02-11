@@ -4,7 +4,7 @@
 @bits.layout(title = trans.newTeam.txt()) {
 <main class="page-menu page-small">
   @bits.menu("form".some).toHtml
-  <div id="team" class="page-menu__content box box-pad">
+  <div class="page-menu__content box box-pad">
     <h1>@trans.newTeam()</h1>
     <form class="form3" action="@routes.Team.create()" method="POST">
       @form3.group(form("name"), trans.name.frag())(form3.input(_))
