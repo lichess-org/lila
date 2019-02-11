@@ -1,7 +1,6 @@
 package views.html.study
 
 import play.api.libs.json.Json
-import scalatags.Text.tags2.{ title => titleTag }
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -27,7 +26,7 @@ object embed {
       head(
         charset,
         metaCsp(none),
-        titleTag(s"${s.name} ${chapter.name}"),
+        st.headTitle(s"${s.name} ${chapter.name}"),
         fontStylesheets,
         currentBgCss,
         cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
@@ -73,7 +72,7 @@ userId: null
       head(
         charset,
         metaCsp(none),
-        titleTag("404 - Study not available"),
+        st.headTitle("404 - Study not available"),
         fontStylesheets,
         currentBgCss,
         cssTags("common.css", "analyse-embed.css")

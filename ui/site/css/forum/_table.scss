@@ -1,0 +1,44 @@
+main.forum .slist {
+
+  & td {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  & td.right, & th.right {
+    display: none;
+    @include breakpoint($mq-small) {
+      display: table-cell;
+      text-align: right;
+      padding-right: 2em;
+    }
+  }
+
+  & td:last-child {
+    min-width: 150px;
+    padding-right: 1em;
+    & time {
+      color: $c-link;
+      font-size: 1em;
+    }
+    display: none;
+    @include breakpoint($mq-xx-small) {
+      display: table-cell;
+    }
+  }
+  & thead {
+    display: none;
+    @include breakpoint($mq-xx-small) {
+      display: table-header-group;
+    }
+  }
+
+  &.topics .subject {
+    font-size: 1.2em;
+  }
+  &.categs .subject {
+    & p {
+      margin-top: .3em;
+    }
+  }
+}

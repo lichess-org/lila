@@ -8,7 +8,7 @@ import controllers.routes
 
 object menu {
 
-  def apply(active: String)(implicit ctx: Context) = st2.nav(cls := "page-menu__menu subnav")(
+  def apply(active: String)(implicit ctx: Context) = st.nav(cls := "page-menu__menu subnav")(
     isGranted(_.SeeReport) option
       a(cls := active.active("report"), href := routes.Report.list)("Reports"),
     isGranted(_.ChatTimeout) option

@@ -6,7 +6,6 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.ContentSecurityPolicy
-import scalatags.Text.tags2.{ title => titleTag }
 
 import controllers.routes
 
@@ -128,10 +127,10 @@ object layout {
         responsive option viewport,
         metaCsp(csp),
         if (isProd) frag(
-          titleTag(fullTitle | s"$title • lidraughts.org"),
+          st.headTitle(fullTitle | s"$title • lidraughts.org"),
           !responsive option fontStylesheets
         )
-        else titleTag(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
+        else st.headTitle(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
         if (responsive) frag(
           ctx.zoom ifTrue zoomable map { z =>
             raw(s"""<style>main{--zoom:$z}</style>""")
@@ -285,7 +284,7 @@ object layout {
           topnavToggle,
           h1(cls := "site-title")(
             a(href := "/")(
-              if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
+              if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")("😊")
               else ctx.isBot option botImage,
               "lidraughts",
               span(if (isProd) ".org" else " dev")
