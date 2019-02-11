@@ -6,6 +6,7 @@
     flex-wrap: nowrap;
   }
   &.is-invalid:not(.success) {
+    @extend %box-radius;
     border: 1px solid $c-error;
     background: mix($c-error, $c-bg-high, 10%);
   }

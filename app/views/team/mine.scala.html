@@ -3,7 +3,7 @@
 @bits.layout(title = trans.myTeams.txt()) {
 <main class="page-menu">
   @bits.menu("mine".some).toHtml
-  <div id="team" class="page-menu__content box">
+  <div class="page-menu__content box">
     <h1>@trans.myTeams()</h1>
     <table class="slist slist-pad">
       @if(teams.size > 0) {

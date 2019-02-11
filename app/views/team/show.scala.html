@@ -8,7 +8,7 @@ url = s"$netBaseUrl${routes.Team.show(t.id).url}",
 description = shorten(t.description, 152)).some) {
 <main class="page-menu">
   @bits.menu(none).toHtml
-  <div id="team" class="page-menu__content box team-show">
+  <div class="team-show page-menu__content box team-show">
     <div class="box__top">
       <h1 class="box__top__title text" data-icon="f">@t.name <em>TEAM</em></h1>
       <div class="box__top__actions">
@@ -20,9 +20,6 @@ description = shorten(t.description, 152)).some) {
       </div>
     </div>
     @if(info.mine || t.enabled) {
-    @if(info.hasRequests) {
-    @team.requests(info.requests, t.some)
-    }
     <div class="team-show__content">
       <section class="team-show__meta">
         <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
@@ -52,6 +49,12 @@ description = shorten(t.description, 152)).some) {
         @t.location.map { loc =>
         <br />@trans.location(): @richText(loc)
         }
+        @if(info.hasRequests) {
+        <div class="requests">
+          <h2>@info.requests.size join requests</h2>
+          @team.requests(info.requests, t.some)
+        </div>
+        }
       </section>
       <section class="team-show__actions">
         @if(t.enabled && !info.mine) {
@@ -71,13 +74,7 @@ description = shorten(t.description, 152)).some) {
         </form>
         }
         @if(info.createdByMe || isGranted(_.Admin)) {
-        <a href="@routes.Team.edit(t.id)" class="button button-empty" data-icon="%"> @trans.settings()</a>
-        }
-        @if(isGranted(_.ManageTeam)) {
-        <form class="inline" method="post" action="@routes.Team.close(t.id)">
-          <button data-icon="q" class="text button button-empty button-red confirm" type="submit"
-            title="Deletes the team and its memberships. Cannot be reverted!">Delete</button>
-        </form>
+        <a href="@routes.Team.edit(t.id)" class="button button-empty text" data-icon="%">@trans.settings()</a>
         }
       </section>
       <section class="team-show__forum">

@@ -6,13 +6,13 @@
 @bits.layout(title = title) {
 <main class="page-menu page-small">
   @bits.menu(none).toHtml
-  <div id="team" class="page-menu__content box box-pad">
+  <div class="page-menu__content box box-pad">
     <h1>@title</h1>
-    <p class="links undertitle">
-      <a class="button button-empty" href="@routes.Team.kick(t.id)">Kick someone out of the team</a>
-      <a class="button button-empty" href="@routes.Team.changeOwner(t.id)">Appoint another team owner</a>
-    </p>
     <form class="form3" action="@routes.Team.update(t.id)" method="POST">
+      <div class="form-group">
+        <a class="button button-empty" href="@routes.Team.kick(t.id)">Kick someone out of the team</a>
+        <a class="button button-empty" href="@routes.Team.changeOwner(t.id)">Appoint another team owner</a>
+      </div>
       @form3.group(form("open"), trans.joiningPolicy.frag()) { f =>
       @form3.select(f, Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
       }
@@ -22,6 +22,11 @@
       <a href="@routes.Team.show(t.id)" style="margin-left:20px">@trans.cancel()</a>
       @form3.submit(trans.apply.frag())
       }
+    </form>
+    <hr>
+    <form class="inline" method="post" action="@routes.Team.close(t.id)">
+      <button data-icon="q" class="text button button-empty button-red confirm" type="submit"
+        title="Deletes the team and its memberships. Cannot be reverted!">Delete</button>
     </form>
   </div>
 </main>

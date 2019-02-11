@@ -72,7 +72,7 @@ $c-report-high-over: white;
   & table.see {
     border-top: 4px solid $c-report-high;
     & td {
-      word-break: break-all;
+      overflow-wrap: break-word;
     }
     & .button {
       width: 6rem;

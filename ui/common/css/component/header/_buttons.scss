@@ -15,6 +15,9 @@
       vertical-align: middle;
     }
   }
+  & > .link {
+    position: relative; /* mod and team requests have a data-count */
+  }
   & .toggle {
     display: block;
     height: $site-header-height;

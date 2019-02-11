@@ -37,6 +37,13 @@ time {
   color: $c-font-dim;
 }
 
+hr {
+  margin: 1.5rem 0;
+  border: 0;
+  height: 1px;
+  background: $c-border;
+}
+
 button, input, optgroup, select, textarea {
   font: inherit;
   color: $c-font;
