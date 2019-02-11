@@ -48,8 +48,11 @@ $c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
 
 $c-bg-input: lighten($c-bg-page, 4%);
 
-$c-header-dropdown-bg: $c-bg-low;
-$c-header-dropdown-color: $c-font-clear;
+$c-bg-header-dropdown: $c-bg-low;
+$c-header-dropdown: $c-font-clear;
+
+$c-bg-power-tip: $c-bg-low;
+$c-power-tip: $c-font-clear;
 
 $c-border: hsl(0, 0%, 25%);
 $border: $border-width $border-style $c-border;

@@ -1,0 +1,22 @@
+#team {
+  .slist {
+    & td {
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
+      overflow-wrap: break-word;
+    }
+    & .team-name {
+      font-size: 1.5em;
+      display: block;
+      margin-bottom: .3em;
+    }
+    & .team-name span.team-icon {
+      float: left;
+      margin-top: 4px;
+    }
+    & .info {
+      font-size: 0.9em;
+      white-space: nowrap;
+    }
+  }
+}

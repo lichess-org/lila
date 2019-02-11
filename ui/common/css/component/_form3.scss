@@ -87,48 +87,6 @@
     border-top: $border;
   }
 
-  /* CAPTCHA */
-  & .captcha {
-    display: flex;
-    margin-top: 2em;
-    &.is-invalid:not(.success) {
-      border: 1px solid $c-error;
-    }
-    & .mini_board {
-      width: 250px;
-      cursor: pointer;
-    }
-    & .captcha-explanation {
-      font-size: 90%;
-      margin-left: 1rem;
-      overflow: hidden;
-    }
-    &.is-invalid .captcha-explanation {
-      padding: 1em;
-    }
-    & .captcha-explanation .form-label {
-      display: block;
-      width: 310px;
-    }
-    & .captcha-explanation .result {
-      display: none;
-      height: 48px;
-      line-height: 48px;
-      vertical-align: middle;
-      font-weight: bold;
-    }
-    & .success {
-      color: $c-good;
-    }
-    & .failure {
-      color: $c-error;
-    }
-    &.success .success,
-    &.failure .failure {
-      display: block;
-    }
-  }
-
   /* VENDORS */
   & .twitter-typeahead {
     width: 100%;

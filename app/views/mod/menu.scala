@@ -8,7 +8,7 @@ import controllers.routes
 
 object menu {
 
-  def content(active: String)(implicit ctx: Context) = frag(
+  def apply(active: String)(implicit ctx: Context) = st2.nav(cls := "page-menu__menu subnav")(
     isGranted(_.SeeReport) option
       a(cls := active.active("report"), href := routes.Report.list)("Reports"),
     isGranted(_.ChatTimeout) option
@@ -33,7 +33,7 @@ object menu {
       a(cls := active.active("irwin"), href := routes.Irwin.dashboard)("Irwin dashboard"),*/
     isGranted(_.Shadowban) option
       a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
-        "Chat Panic ",
+        "Chat Panic: ",
         strong(if (isChatPanicEnabled) "ON" else "OFF")
       ),
     isGranted(_.Settings) option
@@ -43,7 +43,4 @@ object menu {
     isGranted(_.StaffForum) option
       a(cls := active.active("forum"), href := routes.ForumCateg.show(lidraughts.forum.Categ.staffId))("Staff Forum")
   )
-
-  def nav(active: String)(implicit ctx: Context) =
-    st2.nav(cls := "page-menu__menu subnav")(content(active))
 }

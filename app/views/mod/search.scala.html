@@ -5,7 +5,7 @@ title = "Search users",
 moreCss = responsiveCssTag("mod.misc"),
 responsive = true) {
 <main class="page-menu">
-  @mod.menu.nav("search").toHtml
+  @mod.menu("search").toHtml
   <div id="mod-search" class="page-menu__content box box-pad">
     <h1>Search users</h1>
     <form class="search" action="@routes.Mod.search" method="GET">

@@ -25,3 +25,7 @@ main {
   display: grid;
   grid-gap: $block-gap $block-gap;
 }
+
+.page-small {
+  max-width: 900px;
+}
