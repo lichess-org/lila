@@ -27,17 +27,6 @@
     color: hsl(0, 0%, 62%);
     box-shadow: none;
   }
-  &-empty,
-  &-empty:visited {
-    color: $c-primary;
-    background: none;
-    box-shadow: none;
-    &:hover {
-      @extend %button-shadow;
-      color: $c-primary;
-      background: $c-bg-page;
-    }
-  }
   &-thin {
     padding: 0 1em;
   }
@@ -49,6 +38,20 @@
   }
   &-red {
     background: $c-error;
+  }
+  &-empty,
+  &-empty:visited {
+    color: $c-primary;
+    background: none;
+    box-shadow: none;
+    &:hover {
+      @extend %button-shadow;
+      color: $c-primary;
+      background: $c-bg-page;
+    }
+    &.button-red {
+      color: $c-error;
+    }
   }
 }
 .button.button-metal {

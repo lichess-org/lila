@@ -28,6 +28,15 @@ em, i {
   font-style: normal;
 }
 
+li {
+  list-style: none;
+}
+
+time {
+  font-size: 90%;
+  color: $c-font-dim;
+}
+
 button, input, optgroup, select, textarea {
   font: inherit;
   color: $c-font;

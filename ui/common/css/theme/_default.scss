@@ -18,6 +18,7 @@ $c-body-gradient: hsl(37%, 12%, 84%);
 
 $c-font: hsl(0, 0%, 30%);
 $c-font-dim: c-dimmer($c-font);
+$c-font-dimmer: c-dimmer($c-font, 40%);
 $c-font-clear: c-clearer($c-font);
 
 /* Primary: blue */
