@@ -1,16 +1,17 @@
 @(teams: List[lila.team.Team])(implicit ctx: Context)
 
-@team.layout(
-title = trans.myTeams.txt(),
-currentTab = "mine".some) {
-<div id="team" class="content_box team_box no_padding">
-  <h1>@trans.myTeams()</h1>
-  <table class="slist">
-  @if(teams.size > 0) {
-  <tbody>@teams.map(x => team.teamTr(x))</tbody>
-    } else {
-    @team.noTeam()
-    }
-  </table>
-</div>
-}
+@bits.layout(title = trans.myTeams.txt()) {
+<main class="page-menu">
+  @bits.menu("mine".some).toHtml
+  <div id="team" class="page-menu__content box">
+    <h1>@trans.myTeams()</h1>
+    <table class="slist slist-pad">
+      @if(teams.size > 0) {
+      <tbody>@teams.map(x => team.teamTr(x))</tbody>
+      } else {
+      @team.noTeam()
+      }
+    </table>
+  </div>
+</main>
+}.toHtml

@@ -1,9 +1,0 @@
-@(title: String, active: String, moreCss: Html = emptyHtml, moreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context)
-
-@base.layout(
-title = title,
-moreJs = moreJs,
-moreCss = moreCss,
-menu = Some(mod.menu.content(active))) {
-@body
-}.toHtml

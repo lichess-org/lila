@@ -271,7 +271,7 @@ object layout {
   object siteHeader {
 
     private val topnavToggle = spaceless("""
-<input type="checkbox" id="topnav-toggle" class="topnav-toggle">
+<input type="checkbox" id="topnav-toggle" class="topnav-toggle" aria-label="Navigation">
 <label for="topnav-toggle" class="topnav-mask"></label>
 <label for="topnav-toggle" class="topnav-toggle-label hamburger"><span></span></label>""")
 
@@ -279,7 +279,7 @@ object layout {
       a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
-      a(cls := "link text data-count", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
+      a(cls := "link text data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
 
     private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
       a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests)(

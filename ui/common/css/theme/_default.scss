@@ -66,8 +66,11 @@ $c-border: hsl(0, 0%, 85%);
 
 $c-page-mask: hsla(0, 0, 0%, 0.5);
 
-$c-header-dropdown-bg: $c-bg-high;
-$c-header-dropdown-color: $c-font;
+$c-bg-header-dropdown: $c-bg-high;
+$c-header-dropdown: $c-font;
+
+$c-bg-power-tip: $c-bg-high;
+$c-power-tip: $c-font;
 
 $c-font-shadow: white;
 

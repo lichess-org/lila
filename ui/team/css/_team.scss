@@ -1,0 +1,134 @@
+@import 'list';
+
+#team {
+  & .form3 {
+    margin-top: 2em;
+  }
+  & .team-content {
+    overflow: hidden;
+  }
+  &.team_show .lichess_title {
+    font-size: 1.8em;
+  }
+  &.team_show .lichess_title span {
+    color: #909090;
+    font-size: 0.8em;
+  }
+  &.team_show .content_box_top {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  &.team_show .content_box_top .righty {
+    float: right;
+    margin-right: 20px;
+    line-height: 30px;
+  }
+  & .team-left {
+    float: left;
+    width: 280px;
+    font-size: 1.2em;
+    border-right: 1px solid #ccc;
+  }
+  & .team-left h2 {
+    font-size: 1.0em;
+    font-weight: bold;
+    padding: 0 0 5px 25px;
+    border-bottom: 1px solid #ccc;
+  }
+  & .team-left .infos {
+    margin: 20px 0 20px 25px;
+  }
+  & .team-right {
+    margin-left: 280px;
+    border-left: 1px solid #ccc;
+  }
+  & .description {
+    font-size: 1.2em;
+    margin: 20px 0 20px 20px;
+  }
+  & .best_players {
+    margin-bottom: 20px;
+  }
+  & .userlist > li,
+  & .userlist > div.paginated {
+    padding: 5px 0 5px 25px;
+  }
+  & .actions {
+    margin-left: 20px;
+  }
+  & .forum {
+    margin-top: 30px;
+    width: 100%;
+  }
+  & .forum h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding: 0 0 5px 20px;
+  }
+  & .forum li {
+    padding: 20px 10px 20px 20px;
+  }
+  & .forum li:nth-child(odd) {
+    background: none repeat scroll 0 0 #F4F4F4;
+  }
+  & .forum a.user_link {
+    font-weight: bold;
+    margin-right: 6px;
+    color: #aaa;
+  }
+  & .forum time {
+    font-size: 0.8em;
+  }
+  & .forum .meta > * {
+    display: block;
+    float: left;
+    margin-right: 1em;
+  }
+  & .forum a.more {
+    display: block;
+    text-align: right;
+    margin: 10px 10px 0 0;
+  }
+  & table.requests form {
+    margin: 0;
+  }
+  & table.requests {
+    margin: 0;
+  }
+  & table.requests.all {
+    margin-bottom: 20px;
+  }
+  & table.requests.for-team {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  & table.requests th {
+    padding: 0.5em;
+    text-align: center;
+    font-size: 1.4em;
+  }
+  & table.requests.all td {
+    padding: 2.3em 1em;
+  }
+  & table.requests .user_link {
+    margin-bottom: 0.7em;
+  }
+  & table.requests .process {
+    white-space: nowrap;
+  }
+  & table.requests button {
+    font-size: 0.8em;
+    display: inline;
+    margin-left: 5px;
+  }
+  & .button.small {
+    font-size: 12px;
+  }
+  & .undertitle {
+    margin-top: 1.5em;
+  }
+  & .kick .button {
+    margin-bottom: 5px;
+  }
+}

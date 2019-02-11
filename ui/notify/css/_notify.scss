@@ -1,5 +1,6 @@
 #notify_app {
   width: 25rem;
+  max-width: 100vw;
   right: 0;
   border-radius: $box-radius-size 0 0 $box-radius-size;
 
@@ -22,7 +23,7 @@
   & .site_notification {
     display: flex;
     padding: .6rem 1rem;
-    background: $c-header-dropdown-bg;
+    background: $c-bg-header-dropdown;
     border-bottom: $border;
     position: relative;
     &:first-child {
@@ -39,13 +40,13 @@
       }
     }
     &.new {
-      background: mix($c-new, $c-header-dropdown-bg, 27%);
+      background: mix($c-new, $c-bg-header-dropdown, 27%);
       & i {
         color: $c-new;
         opacity: 0.7;
       }
       &:hover {
-        background: mix($c-new, $c-header-dropdown-bg, 36%);
+        background: mix($c-new, $c-bg-header-dropdown, 36%);
         & i {
           opacity: 1;
         }

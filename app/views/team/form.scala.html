@@ -1,12 +1,10 @@
 @(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 @import lila.app.ui.ScalatagsTwirlForm._
 
-@team.layout(
-title = trans.newTeam.txt(),
-currentTab = "form".some,
-formCss = true) {
-<div id="team">
-  <div class="content_box small_box team_box">
+@bits.layout(title = trans.newTeam.txt()) {
+<main class="page-menu page-small">
+  @bits.menu("form".some).toHtml
+  <div id="team" class="page-menu__content box box-pad">
     <h1>@trans.newTeam()</h1>
     <form class="form3" action="@routes.Team.create()" method="POST">
       @form3.group(form("name"), trans.name.frag())(form3.input(_))
@@ -22,5 +20,5 @@ formCss = true) {
       }
     </form>
   </div>
-</div>
-}
+</main>
+}.toHtml

@@ -2,19 +2,20 @@
 
   @include breakpoint($mq-subnav-top) {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
-    grid-gap: 1px;
+    grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
+    grid-gap: 3px;
 
     background: $c-bg-page;
-    @include box-neat;
 
     & a {
+      @include box-neat;
       color: $c-font;
+      white-space: nowrap;
+      overflow: hidden;
       padding: 0.6rem 0.4rem 0.6rem 0.8rem;
       display: flex;
       align-items: center;
       background: $c-bg-high;
-      @include box-radius;
       &:hover {
         color: $c-link;
       }

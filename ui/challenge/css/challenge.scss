@@ -5,7 +5,7 @@
 
   & .empty {
     @extend %dropdown-shadow;
-    background: $c-header-dropdown-bg;
+    background: $c-bg-header-dropdown;
     padding: 2rem 0;
   }
 
@@ -16,7 +16,7 @@
   }
   & .challenge {
     @extend %box-neat;
-    background: $c-header-dropdown-bg;
+    background: $c-bg-header-dropdown;
     margin-bottom: 5px;
     transition: height 130ms;
     transition-delay: 100ms;

@@ -11,6 +11,7 @@
 @import 'base/util';
 
 @import 'layout/base';
+@import 'layout/page-menu';
 
 @import 'vendor/chessground';
 
@@ -21,3 +22,4 @@
 @import 'component/user-link';
 @import 'component/blind-mode';
 @import 'component/friends';
+@import 'component/power-tip';
