@@ -64,6 +64,6 @@ object Dev extends LilaController {
       Env.api.cli(command.split(" ").toList)
 
   def ui = Open { implicit ctx =>
-    Ok(html.dev.ui()).fuccess
+    Ok(html.dev.ui(Form(single("foo" -> text)), lila.common.Captcha.default)).fuccess
   }
 }

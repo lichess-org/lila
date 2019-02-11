@@ -1,0 +1,35 @@
+.cg-board-wrap coords {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  opacity: 0.8;
+  font-size: 10px;
+  &.ranks {
+    right: -15px;
+    top: 0;
+    flex-flow: column-reverse;
+    height: 100%;
+    width: 12px;
+    &.black {
+      flex-flow: column;
+    }
+    & coord {
+      transform: translateY(39%);
+    }
+  }
+  &.files {
+    bottom: -16px;
+    left: 0;
+    flex-flow: row;
+    width: 100%;
+    height: 16px;
+    text-transform: uppercase;
+    text-align: center;
+    &.black {
+      flex-flow: row-reverse;
+    }
+  }
+  & coord {
+    flex: 1 1 auto;
+  }
+}

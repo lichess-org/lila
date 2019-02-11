@@ -1,30 +1,27 @@
 .form3 .captcha {
-  display: flex;
   margin-top: 2em;
+  display: flex;
+  flex-flow: row wrap;
+  @include breakpoint($mq-xx-small) {
+    flex-wrap: nowrap;
+  }
   &.is-invalid:not(.success) {
     border: 1px solid $c-error;
+    background: mix($c-error, $c-bg-high, 10%);
   }
   & .mini_board {
-    width: 250px;
-    cursor: pointer;
+    flex: 0 0 calc(224px + 2rem);
   }
   & .captcha-explanation {
-    font-size: 90%;
-    margin-left: 1rem;
+    flex: 1 1 auto;
     overflow: hidden;
   }
   &.is-invalid .captcha-explanation {
     padding: 1em;
   }
-  & .captcha-explanation .form-label {
-    display: block;
-    width: 310px;
-  }
   & .captcha-explanation .result {
     display: none;
-    height: 48px;
-    line-height: 48px;
-    vertical-align: middle;
+    margin-top: 1rem;
     font-weight: bold;
   }
   & .success {
