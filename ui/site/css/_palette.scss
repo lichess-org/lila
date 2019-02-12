@@ -47,6 +47,13 @@ signal {
   font-size: 7em;
 }
 
+$font-colors: ('shade': $c-shade, 'dimmer': $c-font-dimmer, 'dim': $c-font-dim, '': $c-font, 'clear': $c-font-clear, 'clearer': $c-font-clearer);
+@each $k, $c in $font-colors {
+  .font-#{$k} {
+    color: $c;
+  }
+}
+
 .palette {
   display: grid;
   grid-column-gap: $block-gap;

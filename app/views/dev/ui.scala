@@ -18,14 +18,10 @@ object ui {
         h2("H2 header title"),
         h3("H3 header title"),
         h4("H4 header title"),
-        p(
-          "<p> Random quote: ",
-          lila.quote.Quote.one.text
-        ),
-        p(
-          "<p> Random quotes: ",
-          (1 to 5).map(_ => lila.quote.Quote.one.text).mkString(" ")
-        ),
+        p("<p> Random quotes: ", (1 to 5).map(_ => lila.quote.Quote.one.text).mkString(" ")),
+        List("shade", "dimmer", "dim", "", "clear", "clearer").map { v =>
+          p(cls := s"font-$v")(s"<p $v> Random quote: ", lila.quote.Quote.one.text)
+        },
         br,
         div(cls := "palette")(
           List("background", "primary", "secondary", "accent", "brag", "error", "fancy", "font").map { c =>

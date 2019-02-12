@@ -1,3 +1,5 @@
+@import '../abstract/functions';
+
 /* Colors */
 
 @function c-dimmer($color, $weight: 17%) {
@@ -7,7 +9,7 @@
   @return mix(black, $color, $weight);
 }
 
-$c-bg-page: hsl(37%, 10%, 92%);
+$c-bg-page: hsl(37%, 10%, 92%); // hsl(210, 17%, 95%)
 $c-bg-high: hsl(0%, 0%, 100%);
 $c-bg-low: hsl(0, 8%, 87%);
 
@@ -17,9 +19,10 @@ $c-bg-zebra: hsl(37%, 12%, 96.5%);
 $c-body-gradient: hsl(37%, 12%, 84%);
 
 $c-font: hsl(0, 0%, 30%);
-$c-font-dim: c-dimmer($c-font);
-$c-font-dimmer: c-dimmer($c-font, 40%);
-$c-font-clear: c-clearer($c-font);
+$c-font-dim: c-light($c-font, 47%);
+$c-font-dimmer: c-light($c-font, 65%);
+$c-font-clear: c-light($c-font, 12%);
+$c-font-clearer: c-light($c-font, 0%);
 $c-shade: c-dimmer($c-font, 80%);
 
 /* Primary: blue */
