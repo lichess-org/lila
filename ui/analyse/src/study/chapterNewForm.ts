@@ -86,9 +86,9 @@ export function view(ctrl): VNode {
 
   const activeTab = ctrl.vm.tab();
   const makeTab = function(key: string, name: string, title: string) {
-    return h('a.hint--top.' + key, {
+    return h('a.' + key, {
       class: { active: activeTab === key },
-      attrs: { 'data-hint': title },
+      attrs: { title },
       hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw)
     }, name);
   };

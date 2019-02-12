@@ -11,7 +11,7 @@
     <div class="explanation">
       @trans.alternativelyYouCanX {
       <form class="revoke-all" action="@routes.Account.signout("all")" method="POST">
-        <button type="submit" class="button hint--top thin confirm">@trans.revokeAllSessions()</button>
+        <button type="submit" class="button thin confirm">@trans.revokeAllSessions()</button>
       </form>
       }
     </div>
@@ -36,9 +36,7 @@
         <td>
           @if(s.session.id != curSessionId) {
           <form action="@routes.Account.signout(s.session.id)" method="POST">
-            <button type="submit" class="button text hint--top" data-hint="@trans.logOut()">
-              <span data-icon="L"></span>
-            </button>
+            <button type="submit" class="button text" title="@trans.logOut()" data-icon="L"></button>
           </form>
           }
         </td>

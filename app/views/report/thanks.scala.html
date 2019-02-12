@@ -26,7 +26,7 @@ $button.find('span').text('Blocked!');
   <br /><br /><br />
   @if(!blocked) {
   In the meantime, you can block this user:
-  <button data-action="@routes.Relation.block(userId)" class="report-block icon button hint--top inline" type="submit" data-hint="@trans.block()">
+  <button data-action="@routes.Relation.block(userId)" class="report-block icon button inline" type="submit" title="@trans.block()">
     <span class="text" data-icon="k">Block @usernameOrId(userId)</span>
   </button>
   <br /><br /><br />

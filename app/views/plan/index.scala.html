@@ -131,19 +131,19 @@ csp = defaultCsp.withStripe.some) {
 
           <group class="radio buttons freq">
             @defining(s"Pay ${lila.plan.Cents.lifetime.usd} once. Be a Lichess Patron forever!") { info =>
-            <div data-hint="@info" class="hint--top-left@if(patron.exists(_.isLifetime)){ lifetime-check}">
+            <div title="@info" class="@if(patron.exists(_.isLifetime)){ lifetime-check}">
               <input type="radio" name="freq" id="freq_lifetime" @if(patron.exists(_.isLifetime)){disabled} value="lifetime" />
               <label for="freq_lifetime">Lifetime</label>
             </div>
             }
             @defining("Recurring billing, renewing your Patron Wings every month.") { info =>
-            <div data-hint="@info" class="hint--top-left">
+            <div title="@info">
               <input type="radio" name="freq" id="freq_monthly" checked value="monthly" />
               <label for="freq_monthly">Monthly</label>
             </div>
             }
             @defining("A single donation that grants you the Patron Wings for one month.") { info =>
-            <div data-hint="@info" class="hint--top-left">
+            <div title="@info">
               <input type="radio" name="freq" id="freq_onetime" value="onetime" />
               <label for="freq_onetime">One-time</label>
             </div>

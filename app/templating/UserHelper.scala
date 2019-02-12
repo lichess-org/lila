@@ -20,9 +20,8 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
       case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
       case p if p < 0 => s"""<span class="negative" data-icon="M">${math.abs(p)}</span>"""
     }
-    val title = if (withTitle) """ data-hint="Rating progression over the last twelve games"""" else ""
-    val klass = if (withTitle) "progress hint--bottom" else "progress"
-    s"""<span$title class="$klass">$span</span>"""
+    val title = if (withTitle) """ title="Rating progression over the last twelve games"""" else ""
+    s"""<span$title class="progress">$span</span>"""
   }
 
   val topBarSortedPerfTypes: List[PerfType] = List(
@@ -40,29 +39,28 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     PerfType.Crazyhouse
   )
 
-  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context) = Html {
     val title = s"$name rating over ${nb.localize} games"
-    val attr = if (klass == "title") "title" else "data-hint"
     val number = if (nb > 0) s"$rating${if (provisional) "?" else ""}"
     else "&nbsp;&nbsp;&nbsp;-"
-    s"""<span $attr="$title" class="$klass"><span data-icon="$icon">$number</span></span>"""
+    s"""<span title="$title" data-icon="$icon">$number</span>"""
   }
 
-  def showPerfRating(perfType: PerfType, perf: Perf, klass: String)(implicit ctx: Context): Html =
-    showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar, klass)
+  def showPerfRating(perfType: PerfType, perf: Perf)(implicit ctx: Context): Html =
+    showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar)
 
-  def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom")(implicit ctx: Context): Html =
-    showPerfRating(perfType, u perfs perfType, klass)
+  def showPerfRating(u: User, perfType: PerfType)(implicit ctx: Context): Html =
+    showPerfRating(perfType, u perfs perfType)
 
   def showPerfRating(u: User, perfKey: String)(implicit ctx: Context): Option[Html] =
     PerfType(perfKey) map { showPerfRating(u, _) }
 
   def showBestPerf(u: User)(implicit ctx: Context): Option[Html] = u.perfs.bestPerf map {
-    case (pt, perf) => showPerfRating(pt, perf, klass = "hint--bottom")
+    case (pt, perf) => showPerfRating(pt, perf)
   }
   def showBestPerfs(u: User, nb: Int)(implicit ctx: Context): Html = Html {
     u.perfs.bestPerfs(nb) map {
-      case (pt, perf) => showPerfRating(pt, perf, klass = "hint--bottom").body
+      case (pt, perf) => showPerfRating(pt, perf).body
     } mkString " "
   }
 

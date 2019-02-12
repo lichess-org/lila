@@ -99,14 +99,13 @@ function analyseButton(ctrl: RoundController) {
     forecastCount = ctrl.data.forecastCount;
   const data: VNodeData = {
     class: {
-      'hint--top': !showInfo,
-      'hint--bottom': showInfo,
       'glowed': showInfo,
       'text': !!forecastCount
     },
     attrs: {
-      'data-hint': ctrl.trans.noarg('analysis'),
-      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
+      title: ctrl.trans.noarg('analysis'),
+      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+      'data-icon': 'A'
     }
   };
   if (showInfo) data.hook = {
@@ -120,13 +119,7 @@ function analyseButton(ctrl: RoundController) {
     }
   };
   return [
-    h('a.fbt.analysis', data, [
-      h('span', {
-        attrs: { 'data-icon': 'A' },
-        class: {text: !!forecastCount}
-      }),
-      forecastCount ? '' + forecastCount : undefined
-    ]),
+    h('a.fbt.analysis', data, forecastCount ? ['' + forecastCount] : []),
     showInfo ? h('div.forecast-info.info.none', [
       h('strong.title.text', util.justIcon(''), 'Speed up your game!'),
       h('span.content', 'Use the analysis board to create conditional premoves.')
@@ -153,15 +146,14 @@ function renderButtons(ctrl: RoundController) {
       }
     }, ctrl.redraw)
   }, [
-    h('button.fbt.flip.hint--top', {
+    h('button.fbt.flip', {
       class: { active: ctrl.flip },
       attrs: {
-        'data-hint': ctrl.trans('flipBoard'),
-        'data-act': 'flip'
+        title: ctrl.trans.noarg('flipBoard'),
+        'data-act': 'flip',
+        'data-icon': 'B'
       }
-    }, [
-      h('span', util.justIcon('B'))
-    ]),
+    }),
     h('nav', [
       ['W', firstPly],
       ['Y', ctrl.ply - 1],

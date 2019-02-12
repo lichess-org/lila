@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
-import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
+import { synthetic, bind, dataIcon, spinner } from './util';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -173,7 +173,8 @@ function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
 function buttons(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
   canJumpNext = !!ctrl.node.children[0],
-  menuIsOpen = ctrl.actionMenu.open;
+    menuIsOpen = ctrl.actionMenu.open,
+    noarg = ctrl.trans.noarg;
   return h('div.game_control', {
     hook: bind('mousedown', e => {
       const action = dataAct(e);
@@ -186,34 +187,37 @@ function buttons(ctrl: AnalyseCtrl) {
     }, ctrl.redraw)
   }, [
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
-      h('a.hint--bottom', {
+      h('a', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('analysis'),
+          title: noarg('analysis'),
           target: '_blank',
-          href: ctrl.studyPractice.analysisUrl()
+          href: ctrl.studyPractice.analysisUrl(),
+          'data-icon': 'A'
         }
-      }, [iconTag('A')])
+      })
     ] : [
-      h('button.hint--bottom', {
+      h('button', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('openingExplorerAndTablebase'),
-          'data-act': 'explorer'
+          title: noarg('openingExplorerAndTablebase'),
+          'data-act': 'explorer',
+          'data-icon': ']'
         },
         class: {
           hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
           active: ctrl.explorer.enabled()
         }
-      }, [iconTag(']')]),
-      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
+      }),
+      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('practiceWithComputer'),
-          'data-act': 'practice'
+          title: noarg('practiceWithComputer'),
+          'data-act': 'practice',
+          'data-icon': ''
         },
         class: {
           hidden: menuIsOpen || !!ctrl.retro,
           active: !!ctrl.practice
         }
-      }, [iconTag('')]) : null
+      }) : null
   ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
@@ -221,13 +225,14 @@ function buttons(ctrl: AnalyseCtrl) {
       jumpButton('X', 'next', canJumpNext),
       jumpButton('V', 'last', canJumpNext)
     ]),
-    ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
+    ctrl.studyPractice ? h('div.noop') : h('button', {
       class: { active: menuIsOpen },
       attrs: {
-        'data-hint': ctrl.trans.noarg('menu'),
-        'data-act': 'menu'
+        title: noarg('menu'),
+        'data-act': 'menu',
+        'data-icon': '['
       }
-    }, [iconTag('[')])
+    })
     ]);
 }
 

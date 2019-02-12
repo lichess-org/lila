@@ -56,12 +56,13 @@ module.exports = function(ctrl) {
           onclick: function() {
             ctrl.setPanel('filter');
           }
-        }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
-          'data-hint': 'Clear all filters',
+        }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear', {
+          attrs: {
+            title: 'Clear all filters',
+          'data-icon': 'L'
+          },
           onclick: ctrl.clearFilters
-        }, m('span', {
-          'data-icon': 'L',
-        }, 'CLEAR')) : null,
+        }, 'CLEAR') : null,
       ]),
       ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
       ctrl.vm.panel === 'preset' ? presets(ctrl) : null,

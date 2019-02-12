@@ -5,7 +5,7 @@
     You are impersonating @Html(userLink(user, withOnline = false).body.replace("<a ", "<a data-pt-pos=\"se\" "))
   </div>
   <div class="actions">
-    <form method="post" action="@routes.Mod.impersonate("-")" class="hint--bottom-left">
+    <form method="post" action="@routes.Mod.impersonate("-")">
       <input class="fbt" type="submit" value="Stop" />
     </form>
   </div>

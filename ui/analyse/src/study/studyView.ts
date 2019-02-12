@@ -32,8 +32,8 @@ interface ToolButtonOpts {
 }
 
 function toolButton(opts: ToolButtonOpts): VNode {
-  return h('a.fbt.hint--top.' + opts.tab, {
-    attrs: { 'data-hint': opts.hint },
+  return h('a.fbt.' + opts.tab, {
+    attrs: { title: opts.hint },
     class: { active: opts.tab === opts.ctrl.vm.toolTab() },
     hook: bind('mousedown', () => {
       if (opts.onClick) opts.onClick();
@@ -52,16 +52,16 @@ function buttons(root: AnalyseCtrl): VNode {
   return h('div.study_buttons', [
     h('div.member_buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
-      showSticky ? h('a.mode.sync.hint--top', {
-        attrs: { 'data-hint': 'All sync members remain on the same position' },
+      showSticky ? h('a.mode.sync', {
+        attrs: { title: 'All sync members remain on the same position' },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
       }, [
         ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'),
         'Sync'
       ]) : null,
-      ctrl.members.canContribute() ? h('a.mode.write.hint--top', {
-        attrs: { 'data-hint': 'Write changes to the server' },
+      ctrl.members.canContribute() ? h('a.mode.write', {
+        attrs: { title: 'Write changes to the server' },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'Record' ]) : null,
@@ -113,10 +113,10 @@ function buttons(root: AnalyseCtrl): VNode {
 }
 
 function helpButton(ctrl: StudyCtrl) {
-  return h('span.fbt.help.hint--top', {
-    attrs: { 'data-hint': 'Need help? Get the tour!' },
+  return h('span.fbt.help', {
+    attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
     hook: bind('click', ctrl.startTour)
-  }, [ iconTag('') ]);
+  });
 }
 
 function metadata(ctrl: StudyCtrl): VNode {

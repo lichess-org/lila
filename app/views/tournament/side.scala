@@ -30,8 +30,7 @@ object side {
             if (tour.variant.exotic) {
               views.html.game.bits.variantLink(
                 tour.variant,
-                if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name,
-                cssClass = "hint--top"
+                if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name
               )
             } else tour.perfType.map(_.name),
             (!tour.position.initial) ?? s"• ${trans.thematic.txt()}",

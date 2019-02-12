@@ -29,10 +29,10 @@ object side {
             span(cls := "setup")(
               views.html.bookmark.toggle(game, bookmarked),
               if (game.imported) frag(
-                a(cls := "hint--top", href := routes.Importer.importGame, dataHint := trans.importGame.txt())("IMPORT"),
+                a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
                 separator,
                 if (game.variant.exotic)
-                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
                 else
                   game.variant.name.toUpperCase
               )
@@ -42,10 +42,10 @@ object side {
                 if (game.rated) trans.rated.txt() else trans.casual.txt(),
                 separator,
                 if (game.variant.exotic)
-                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
                 else
                   game.perfType.map { pt =>
-                    span(cls := "hint--top", dataHint := pt.title)(pt.shortName)
+                    span(title := pt.title)(pt.shortName)
                   }
               )
             ),

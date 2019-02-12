@@ -15,12 +15,9 @@
       vertical-align: middle;
     }
   }
-  & > .link {
-    position: relative; /* mod and team requests have a data-count */
-  }
   & .toggle {
     display: block;
-    height: $site-header-height;
+    // height: $site-header-height;
     line-height: $site-header-height;
     // padding: 0 0.5rem;
   }

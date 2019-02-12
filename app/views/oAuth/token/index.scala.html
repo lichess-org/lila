@@ -7,9 +7,7 @@
   <div class="top">
     <h1>@title</h1>
     <form class="new_obj" action="@routes.OAuthToken.create">
-      <button type="submit" class="button frameless hint--top" data-hint="New access token">
-        <i data-icon="O"></i>
-      </button>
+      <button type="submit" class="button frameless" title="New access token" data-icon="O"></button>
     </form>
   </div>
   <p class="explanation">
@@ -53,7 +51,7 @@
       </td>
       <td class="action">
         <form action="@routes.OAuthToken.delete(t.id.value)" method="POST">
-          <button type="submit" class="button text confirm hint--top" title="Delete this access token">Delete</button>
+          <button type="submit" class="button text confirm" title="Delete this access token">Delete</button>
         </form>
       </td>
     </tr>

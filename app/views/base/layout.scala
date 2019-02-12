@@ -52,21 +52,21 @@ object layout {
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
   private def allNotifications(implicit ctx: Context) = spaceless(s"""<div class="challenge_notifications">
-  <a id="challenge_notifications_tag" class="toggle link data-count" data-count="${ctx.nbChallenges}">
-    <span class="hint--bottom-left" data-hint="${trans.challenges.txt()}"><span data-icon="U"></span></span>
+  <a id="challenge_notifications_tag" class="toggle link">
+    <span title="${trans.challenges.txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
   </a>
   <div id="challenge_app" class="dropdown"></div>
 </div>
 <div class="site_notifications">
-  <a id="site_notifications_tag" class="toggle link data-count" data-count="${ctx.nbNotifications}">
-    <span class="hint--bottom-left" data-hint="${trans.notifications.txt()}"><span data-icon=""></span></span>
+  <a id="site_notifications_tag" class="toggle link">
+    <span title="${trans.notifications.txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""</span>
   </a>
   <div id="notify_app" class="dropdown"></div>
 </div>""")
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
-    <span class="hint--bottom-left" data-hint="${trans.preferences.txt()}"><span data-icon="%"></span></span>
+    <span title="${trans.preferences.txt()}" data-icon="%"</span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
@@ -278,12 +278,10 @@ object layout {
       a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
-      a(cls := "link text data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
+      a(cls := "link data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
 
     private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
-      a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests)(
-        span(cls := "hint--bottom-left", dataHint := trans.teams.txt())(span(dataIcon := "f"))
-      )
+      a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests, dataIcon := "f", title := trans.teams.txt())
 
     def responsive(playing: Boolean)(implicit ctx: Context) =
       header(id := "top")(
@@ -313,7 +311,7 @@ object layout {
     def old(playing: Boolean)(implicit ctx: Context) =
       div(id := "top", cls := (if (ctx.pref.is3d) "is3d" else "is2d"))(
         topmenu(),
-        div(id := "ham-plate", cls := "link hint--bottom", dataHint := trans.menu.txt())(
+        div(id := "ham-plate", cls := "link", title := trans.menu.txt())(
           div(id := "hamburger", dataIcon := "[")
         ),
         ctx.me map { me =>

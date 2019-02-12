@@ -85,10 +85,10 @@ export function standard(
   const enabled = function() {
     return !condition || condition(ctrl.data);
   };
-  return h('button.fbt.hint--bottom.' + socketMsg, {
+  return h('button.fbt' + socketMsg, {
     attrs: {
       disabled: !enabled(),
-      'data-hint': ctrl.trans.noarg(hint)
+      title: ctrl.trans.noarg(hint)
     },
     hook: util.bind('click', _ => {
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
@@ -112,14 +112,14 @@ export function forceResign(ctrl: RoundController) {
 
 function actConfirm(ctrl: RoundController, f: (v: boolean) => void, transKey: string, icon: string, klass?: string): VNode {
   return h('div.act_confirm.' + transKey, [
-    h('button.fbt.yes.active.hint--bottom.' + (klass || ''), {
-      attrs: {'data-hint': ctrl.trans.noarg(transKey) },
+    h('button.fbt.yes.active.' + (klass || ''), {
+      attrs: { title: ctrl.trans.noarg(transKey), 'data-icon': icon },
       hook: util.bind('click', () => f(true))
-    }, [h('span', util.justIcon(icon))]),
-    h('button.fbt.no.hint--bottom', {
-      attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
+    }),
+    h('button.fbt.no', {
+      attrs: { title: ctrl.trans.noarg('cancel'), 'data-icon': 'L' },
       hook: util.bind('click', () => f(false))
-    }, [h('span', util.justIcon('L'))])
+    })
   ]);
 }
 
@@ -229,15 +229,14 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
 }
 
 export function moretime(ctrl: RoundController) {
-  return game.moretimeable(ctrl.data) ? h('a.moretime.hint--bottom-left', {
+  return game.moretimeable(ctrl.data) ? h('a.moretime', {
     attrs: {
-      'data-hint': ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) :
-      ctrl.trans.noarg('giveMoreTime')
+      title: ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) :
+      ctrl.trans.noarg('giveMoreTime'),
+      'data-icon': 'O'
     },
     hook: util.bind('click', ctrl.socket.moreTime)
-  }, [
-    h('span', util.justIcon('O'))
-  ]) : null;
+  }) : null;
 }
 
 export function followUp(ctrl: RoundController): VNode {

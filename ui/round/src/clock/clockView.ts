@@ -109,12 +109,13 @@ function renderBerserk(ctrl: RoundController, color: Color, position: Position) 
 function goBerserk(ctrl: RoundController) {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
-  return h('button.fbt.berserk.hint--bottom-left', {
-    attrs: { 'data-hint': "GO BERSERK! Half the time, no increment, bonus point" },
+  return h('button.fbt.berserk', {
+    attrs: {
+      title: 'GO BERSERK! Half the time, no increment, bonus point',
+      'data-icon': '`'
+    },
     hook: bind('click', ctrl.goBerserk)
-  }, [
-    h('span', justIcon('`'))
-  ]);
+  });
 }
 
 function tourRank(ctrl: RoundController, color: Color, position: Position) {

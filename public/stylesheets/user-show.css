@@ -121,16 +121,6 @@
   margin-top: -34px!important;
   animation: fire 1.25s ease-in-out infinite alternate;
 }
-.user_show .trophy.patron.hint--left:after {
-  transform: scale(-1, 1);
-  margin: 0;
-}
-.user_show .trophy.patron.hint--left:after {
-  right: -330%;
-}
-.user_show .trophy.patron.hint--left:hover:after {
-  transform: scale(-1, 1), translateX(8px);
-}
 .user_show .combo_trophy {
   width: 60px;
   height: 60px;

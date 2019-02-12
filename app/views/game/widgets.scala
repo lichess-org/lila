@@ -32,7 +32,7 @@ object widgets {
                 frag(" ", trans.by(userIdLink(user.some, None, false)))
               },
               separator,
-              if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase, cssClass = "hint--top")
+              if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
               else g.variant.name.toUpperCase
             )
             else frag(
@@ -104,11 +104,11 @@ object widgets {
     frag(clock.config.show)
   } getOrElse {
     game.daysPerTurn.map { days =>
-      span(cls := "hint--top", dataHint := trans.correspondence.txt())(
+      span(title := trans.correspondence.txt())(
         if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
       )
     }.getOrElse {
-      span(cls := "hint--top", dataHint := trans.unlimited.txt())("∞")
+      span(title := trans.unlimited.txt())("∞")
     }
   }
 

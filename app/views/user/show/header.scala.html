@@ -16,7 +16,7 @@
     @otherTrophies(u, info)
   </div>
   @if(u.plan.active) {
-  <a href="@routes.Plan.index" class="trophy award patron icon3d hint--left" data-hint="Patron since @showDate(u.plan.sinceDate)">@patronIconChar</a>
+  <a href="@routes.Plan.index" class="trophy award patron icon3d" title="Patron since @showDate(u.plan.sinceDate)">@patronIconChar</a>
   }
   @if(u.disabled) {
   <span class="closed">CLOSED</span>
@@ -41,27 +41,21 @@
   </div>
   <div class="user_actions">
     @if(ctx is u) {
-    <a class="button hint--top-left" href="@routes.Account.profile" data-hint="@trans.editProfile()">
-      <span data-icon="%"></span>
-    </a>
-    <a class="button hint--top-left" href="@routes.Relation.blocks()" data-hint="@trans.listBlockedPlayers()">
-      <span data-icon="k"></span>
-    </a>
+    <a class="button" href="@routes.Account.profile" title="@trans.editProfile()" data-icon="%"</a>
+    <a class="button" href="@routes.Relation.blocks()" title="@trans.listBlockedPlayers()" data-icon="k"></a>
     }
     @if(isGranted(_.UserSpy)) {
-    <a class="button mod_zone_toggle hint--top-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon=""></span></a>
+    <a class="button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone" data-icon=""</a>
     }
-    <a class="button hint--top-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="1"></span></a>
+    <a class="button" href="@routes.User.tv(u.username)" title="@trans.watchGames()" data-icon="1"</a>
     @if(ctx.isAuth && !ctx.is(u)) {
     @views.html.relation.actions(u.id, relation = relation, followable = followable, blocked = blocked).toHtml
     @NotForKids {
-    <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--top-left" href="@routes.Report.form?username=@u.username">
-      <span data-icon="!"></span>
-    </a>
+    <a title="@trans.reportXToModerators(u.username)" class="button" href="@routes.Report.form?username=@u.username" data-icon="!"></a>
     }
     }
     @if(ctx is u) {
-    <a class="button hint--top-left" href="@routes.Game.exportByUser(u.username)" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
+    <a class="button" href="@routes.Game.exportByUser(u.username)" title="@trans.exportGames()" data-icon="x"></a>
     }
   </div>
 </div>
@@ -211,7 +205,7 @@ case _ => {
   <a data-tab="games" class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.gamesAll(u.username)">
     @trans.nbGames.plural(info.user.count.game, info.user.count.game.localize)
     @if(info.nbs.playing > 0) {
-    <span class="unread hint--top" data-hint="@trans.nbPlaying.plural(info.nbs.playing, info.nbs.playing.localize)">@info.nbs.playing</span>
+    <span class="unread" title="@trans.nbPlaying.plural(info.nbs.playing, info.nbs.playing.localize)">@info.nbs.playing</span>
     }
   </a>
   <span data-tab="other" class="intertab@if(angle == Angle.Other){ active}"></span>

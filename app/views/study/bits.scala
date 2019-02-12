@@ -18,9 +18,7 @@ object bits {
 
   def newForm()(implicit ctx: Context) =
     form(cls := "new_study", action := routes.Study.create, method := "post")(
-      button(`type` := "submit", cls := "button frameless hint--top", dataHint := "New study")(
-        iconTag("O")
-      )
+      button(`type` := "submit", cls := "button frameless", dataIcon := "O", title := "New study")
     )
 
   def authLinks(me: User, active: String, order: lila.study.Order)(implicit ctx: Context) = frag(

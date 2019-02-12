@@ -33,6 +33,6 @@ object bits {
       case 3 => "Good connection"
       case _ => "Excellent connection"
     }
-    s"""<signal data-hint="$title" class="q$v hint--top">$bars</signal>"""
+    s"""<signal title="$title" class="q$v">$bars</signal>"""
   }
 }

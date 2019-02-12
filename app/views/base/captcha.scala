@@ -47,7 +47,7 @@ object captcha {
             br, br,
             trans.help.frag(),
             " ",
-            a(cls := "hint--bottom", dataHint := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
+            a(title := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
             div(cls := "result success text", dataIcon := "E")(trans.checkmate.frag()),
             div(cls := "result failure text", dataIcon := "k")(trans.notACheckmate.frag()),
             form3.hidden(form("move"))

@@ -100,7 +100,7 @@ object forms {
   private def layout(
     form: Form[_],
     typ: String,
-    title: Frag,
+    titleF: Frag,
     route: Call,
     error: Option[Frag] = None
   )(fields: Frag)(implicit ctx: Context) =
@@ -111,7 +111,7 @@ object forms {
       dataAnon := ctx.isAnon.option("1")
     )(
         a(href := routes.Lobby.home, cls := "close icon", st.title := trans.cancel.txt(), dataIcon := "L"),
-        h2(title),
+        h2(titleF),
         error.map { e =>
           frag(
             p(cls := "error")(e),
@@ -131,8 +131,8 @@ object forms {
                   case (key, name) => button(
                     disabled := typ == "hook" option true,
                     `type` := "submit",
-                    dataHint := ctx.noBlind option name,
-                    cls := s"button hint--bottom $key",
+                    title := name,
+                    cls := s"button $key",
                     st.name := "color",
                     value := key
                   )(i)

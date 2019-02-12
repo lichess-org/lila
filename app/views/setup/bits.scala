@@ -17,7 +17,7 @@ private object bits {
     div(cls := "fen_position optional_config")(
       frag(
         div(cls := "fen_form", dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}""")(
-          a(cls := "button thin hint--bottom", dataHint := trans.boardEditor.txt(), href := url)(iconTag("m")),
+          a(cls := "button thin", dataIcon := "m", title := trans.boardEditor.txt(), href := url),
           form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt())
         ),
         a(cls := "board_editor", href := url)(
@@ -70,8 +70,8 @@ private object bits {
             checked := field.value.has(key).option(true)
           ),
           label(
-            cls := List("required" -> true, "hint--top" -> hint.isDefined),
-            dataHint := hint,
+            cls := "required",
+            title := hint,
             `for` := s"$prefix${field.id}_$key"
           )(name)
         )

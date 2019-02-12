@@ -7,7 +7,7 @@
     data-vote="1"
     data-icon="S"
     class="upvote @if(myVote == Some(true)) {active}"></a>
-  <span data-hint="Popularity" class="count hint--bottom">@vote.score</span>
+  <span title="Popularity" class="count">@vote.score</span>
   <a
     title="@if(isAnswer){This answer is not useful}else{This question does not show any research effort; it is unclear or not useful}"
     data-vote="0"

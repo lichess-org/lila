@@ -293,16 +293,6 @@ lichess.topMenuIntent = function() {
       setTimeago(1200);
       lichess.pubsub.on('content_loaded', renderTimeago);
 
-      if ($('body').hasClass('blind_mode')) {
-        var setBlindMode = function() {
-          $('[data-hint]').each(function() {
-            $(this).attr('aria-label', $(this).data('hint'));
-          });
-        };
-        setBlindMode();
-        lichess.pubsub.on('content_loaded', setBlindMode);
-      }
-
       if (!window.customWS) setTimeout(function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket/v4", false);
       }, 300);
@@ -545,10 +535,6 @@ lichess.topMenuIntent = function() {
       lichess.loadInfiniteScroll('.infinitescroll');
 
       $('#top').on('click', 'a.toggle', function() {
-        this.removeAttribute('data-hint');
-        $(this).find('span').each(function() {
-          this.removeAttribute('data-hint');
-        });
         var $p = $(this).parent();
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
