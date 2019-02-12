@@ -1,27 +1,18 @@
 #clinput {
   display: flex;
-  height: 24px;
-}
-#clinput a.link:hover {
-  color: #303030;
-}
-#clinput input {
-  border: 0;
-  border: none;
-  border-bottom: 1px solid #888;
-  background: transparent;
-  font-size: 14px;
-  color: #555;
-  line-height: 24px;
-  margin-right: 14px;
-  display: none;
-}
-#clinput.shown input {
-  display: inline-block;
-}
-#clinput input:focus {
-  outline: none;
-}
-body.dark #clinput input {
-  color: #aaa;
+  height: $site-header-height;
+  & input {
+    line-height: $site-header-height;
+    background: none;
+    padding: 0;
+    border: 0;
+    margin-right: .5rem;
+    display: none;
+  }
+  &.shown input {
+    display: block;
+  }
+  & input:focus {
+    outline: none;
+  }
 }
