@@ -1,0 +1,36 @@
+group.radio {
+  @extend %box-neat;
+  display: flex;
+  flex-flow: row wrap;
+  overflow: hidden;
+  border: $border;
+  & div {
+    flex: 1 1 auto;
+    position: relative;
+  }
+  & input {
+    position:absolute;
+    left: -99999px;
+  }
+  & label {
+    @extend %metal;
+    padding: 10px;
+    height: 100%;
+    line-height: 1.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+    border-right: $border;
+    user-select: none;
+    &:hover {
+      @extend %metal-hover;
+    }
+  }
+  & div:last-child label {
+    border-right: 0;
+  }
+  & input:checked + label {
+    @extend %active;
+  }
+}

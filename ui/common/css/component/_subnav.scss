@@ -25,6 +25,9 @@
         font-weight: bold;
       }
     }
+    & .sep {
+      display: none;
+    }
   }
 
   @include breakpoint($mq-subnav-side) {
@@ -45,6 +48,9 @@
         border-left: $border;
         background: $c-bg-high;
       }
+    }
+    & .sep {
+      height: 2em;
     }
   }
 }

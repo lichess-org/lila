@@ -5,7 +5,7 @@
 @form3.group(form("description"), raw("App description"))(form3.textarea(_)())
 @form3.split {
 @form3.group(form("homepageUri"), raw("Homepage URL"), half = true)(form3.input(_, typ = "url"))
-@form3.group(form("redirectUri"), raw("Callback URL"), half = true)(form3.input(_, typ = "url"))
+@form3.group(form("redirectUri"), raw("Callback URL"), half = true, help = frag("It must match the URL in your code").some)(form3.input(_, typ = "url"))
 }
 @form3.actionsHtml {
 <a href="@routes.OAuthApp.index">Cancel</a>
