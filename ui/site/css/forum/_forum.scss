@@ -27,8 +27,11 @@ main.forum {
   }
 
   &.categ {
-    & .description {
-      @extend %box-padding-horiz ;
+    & h1 a {
+      color: $c-link-dim;
+      &:hover {
+        color: $c-link;
+      }
     }
   }
 
@@ -54,25 +57,36 @@ main.forum {
 
   .bar {
     @extend %box-padding-horiz;
-    margin-top: 1em;
+    margin-bottom: 1em;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
 
     .pagination {
-      flex: 1 0 auto;
+      color: $c-font-dimmer;
       display: flex;
       & a,
       & span {
-        flex: 0 0 30px;
-        height: 30px;
+        width: 2rem;
+        height: 2rem;
         @extend %box-radius;
-        font-size: 1.1em;
-        margin: 0 .2rem;
+        margin: 0 .1rem;
         display: flex;
         justify-content: center;
         align-items: center;
+        display: none;
+      }
+      & :first-child,
+      & :last-child,
+      & .current {
+          display: flex;
+      }
+      @include breakpoint($mq-x-small) {
+        & a,
+        & span {
+          display: flex;
+        }
       }
       & span {
         color: $c-font-dimmer;
@@ -84,9 +98,6 @@ main.forum {
         background: $c-primary;
         color: $c-primary-over;
       }
-    }
-    .button {
-      flex: 0 0 auto;
     }
   }
 

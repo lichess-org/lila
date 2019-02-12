@@ -24,6 +24,7 @@ $c-font-clear: c-clearer($c-font);
 /* Primary: blue */
 $c-primary: hsl(209, 79%, 53%);
 $c-primary-dim: c-dimmer($c-primary);
+$c-primary-clear: c-clearer($c-primary);
 $c-primary-over: white; /* text over primary background */
 
 /* Secondary: green */
@@ -59,6 +60,8 @@ $c-fancy: hsl(294, 61%, 62%);
 $c-fancy-over: white; /* text over brag background */
 
 $c-link: $c-primary;
+$c-link-dim: $c-primary-dim;
+$c-link-clear: $c-primary-clear;
 $c-link-hover: c-clearer(saturate($c-primary, 100%), 35%);
 
 $c-bg-box: $c-bg-high;
