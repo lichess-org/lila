@@ -67,8 +67,8 @@ module.exports = function(ctrl) {
   });
   var sortableHeader = function(hint, title, sort) {
     return m('th.sortable', [
-      m('span.hint--top-left', { 
-        'data-hint': hint, 
+      m('span', { 
+        title: hint, 
         onclick: function(e) { ctrl.toggleArbiterSort(e.target.nextSibling, sort) } 
       }, title),
       m('span')
@@ -87,7 +87,7 @@ module.exports = function(ctrl) {
         sortableHeader('Average move time in seconds ± standard deviation.', 'Move time ± SD', 'assessment.mtSort'),
         sortableHeader('The percentage of moves the player left the game page (on their own turn).', 'Blurs', 'assessment.blurSort'),
         sortableHeader('Aggregate player assessment.', m.trust('&Sigma;'), 'assessment'),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game. Ongoing games can be settled as a win/draw/loss.' }, 'Result'))
+        m('th', m('span', { title: 'Result of the game. Ongoing games can be settled as a win/draw/loss.' }, 'Result'))
       ])),
       m('tbody', sortedPairings.map(function(pairing) {
       var variant = util.playerVariant(ctrl, pairing.player),
@@ -158,10 +158,10 @@ module.exports = function(ctrl) {
           'data-icon': 'J',
           'title': assessment.totalTxt + ' (eval ' + evalText + ')'
         }) : '-'),
-        result !== '*' ? m('td', m('span' + drawReason ? '.hint--top' : '', drawReason ? { 'data-hint': drawText } : undefined, result)) :
-        m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
+        result !== '*' ? m('td', m('span', drawReason ? { title: drawText } : undefined, result)) :
+        m('td.action', !playing ? '-' : m('a.button', {
           'data-icon': '2',
-          'title': 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',
+          title: 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',
           onclick: function(e) {
             $('#simul #settle-info').text('Choose one of the options below to settle the game ' + gameDesc(pairing, ctrl.data.host.username) + '. Only continue when you are very sure, because this cannot be undone!');
             $('#simul #settle-hostloss').text('Simul participant ' + pairing.player.username + ' wins')

@@ -8,7 +8,7 @@
   @if(simul.fold(true)(_.isHost(ctx.me))) {
   <span>
   @defining("round-toggle-autoswitch") { id =>
-  <span class="move_on switcher hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
+  <span class="move_on switcher" title="@trans.automaticallyProceedToNextGameAfterMoving()">
     <label for="@id">@trans.autoSwitch()</label>
     <span class="switch">
       <input id="@id" class="cmn-toggle" type="checkbox" />
@@ -19,7 +19,7 @@
   @if(simul.fold(false)(_.pairings.length >= 10)) {
   @defining("simul-toggle-sequential") { id =>
   <br>
-  <span class="move_seq switcher hint--bottom-left" data-hint="@trans.switchGamesInSameOrder()" style="visibility: collapse">
+  <span class="move_seq switcher" title="@trans.switchGamesInSameOrder()" style="visibility: collapse">
     <label for="@id">@trans.sequentialSwitch()</label>
     <span class="switch">
       <input id="@id" class="cmn-toggle cmn-toggle-round" type="checkbox" />

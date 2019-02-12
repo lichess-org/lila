@@ -13,9 +13,9 @@ function renderVote(ctrl) {
       class: { active: ctrl.vm.voted === true },
       hook: bind('click', () => ctrl.vote(true))
     }),
-    h('span.count.hint--bottom', {
+    h('span.count', {
       attrs: {
-        'data-hint': 'Popularity'
+        title: 'Popularity'
       }
     }, '' + Math.max(0, data.puzzle.vote)),
     h('a', {

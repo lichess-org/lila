@@ -30,8 +30,7 @@ object side {
             if (tour.variant.exotic) {
               views.html.game.bits.variantLink(
                 tour.variant,
-                tour.variant.name,
-                cssClass = "hint--top"
+                tour.variant.name
               )
             } else tour.perfType.map(_.name),
             (!tour.position.initial) ?? s"• ${trans.thematic.txt()}",

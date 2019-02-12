@@ -137,7 +137,7 @@ object home {
         ctx.noKid option frag(
           div(cls := "new_posts undertable", dataUrl := routes.ForumPost.recent)(
             div(cls := "undertable_top")(
-              a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more.frag(), " »"),
+              a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »"),
               span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
             ),
             div(cls := "undertable_inner scroll-shadow-hard")(

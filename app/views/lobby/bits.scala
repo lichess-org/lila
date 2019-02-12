@@ -53,7 +53,7 @@ object bits {
     ),
     div(cls := "undertable")(
       div(cls := "undertable_top")(
-        a(cls := "more", href := routes.Tournament.home(), dataHint := trans.seeAllTournaments.txt())(frag(trans.more(), " »")),
+        a(cls := "more", href := routes.Tournament.home())(frag(trans.more(), " »")),
         span(cls := "title text", dataIcon := "g")(trans.openTournaments())
       ),
       div(id := "enterable_tournaments", cls := "enterable_list undertable_inner scroll-shadow-hard")(
@@ -75,7 +75,7 @@ object bits {
     div(cls := "blog undertable")(
       div(
         div(cls := "undertable_top")(
-          a(cls := "more", href := routes.Blog.index(), dataHint := trans.blog.txt())(trans.more(), " »"),
+          a(cls := "more", href := routes.Blog.index())(trans.more(), " »"),
           span(cls := "title text", dataIcon := "6")(trans.latestUpdates())
         ),
         div(cls := "undertable_inner")(

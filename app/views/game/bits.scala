@@ -64,19 +64,16 @@ object bits {
   def variantLink(
     variant: draughts.variant.Variant,
     name: String,
-    hintAsTitle: Boolean = false,
-    cssClass: String = "hint--bottom",
     initialFen: Option[draughts.format.FEN] = None
   ) = a(
-    cls := s"$cssClass variant-link",
+    cls := "variant-link",
     href := (variant match {
       case draughts.variant.FromPosition => s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
       case v => routes.Page.variant(v.key).url
     }),
     rel := "nofollow",
     target := "_blank",
-    title := hintAsTitle option variant.title,
-    dataHint := !hintAsTitle option variant.title
+    title := variant.title
   )(name)
 
   private def playerTitle(player: Player) =
@@ -106,7 +103,7 @@ object bits {
         ctxOption flatMap { implicit ctx =>
           pov.game.daysPerTurn map { days =>
             div(cls := "center")(
-              span(cls := "hint--top", dataHint := trans.correspondence.txt())(
+              span(title := trans.correspondence.txt())(
                 if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
               )
             )

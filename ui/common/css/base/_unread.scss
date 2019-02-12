@@ -1,3 +1,6 @@
+.data-count {
+  position: relative;
+}
 .data-count::after,
 .unread {
   @extend %active, %box-radius;
@@ -8,7 +11,7 @@
 .data-count::after {
   content: attr(data-count);
   top: -5px;
-  right: 0;
+  right: -5px;
   position: absolute;
   padding: 0 3px;
   height: 15px;

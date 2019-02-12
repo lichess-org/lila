@@ -18,14 +18,18 @@ object mini {
       a(cls := "relation button", href := s"${routes.Relation.follow(userId)}?mini=1")(
         iconTag("h", trans.follow())
       )
-    case Some(true) =>
-      a(cls := "relation button hint--bottom", dataHint := trans.unfollow.txt(), href := s"${routes.Relation.unfollow(userId)}?mini=1")(
-        iconTag("h", trans.following())
-      )
-    case Some(false) =>
-      a(cls := "relation button hint--bottom hover_text", dataHint := trans.unblock.txt(), href := s"${routes.Relation.unblock(userId)}?mini=1")(
-        iconTag("k", trans.blocked())
-      )
+    case Some(true) => a(
+      cls := "relation button",
+      title := trans.unfollow.txt(),
+      href := s"${routes.Relation.unfollow(userId)}?mini=1",
+      dataIcon := "h"
+    )(trans.following.frag())
+    case Some(false) => a(
+      cls := "relation button hover_text",
+      title := trans.unblock.txt(),
+      href := s"${routes.Relation.unblock(userId)}?mini=1",
+      dataIcon := "k"
+    )(trans.blocked.frag())
     case _ => emptyFrag
   }
 }

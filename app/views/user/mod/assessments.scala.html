@@ -37,9 +37,9 @@
           Move Times
           <br>(Avg ± SD)
         </th>
-        <th><span data-hint="The frequency of which the user leaves the game page." class="hint--top-left">Blurs</span></th>
-        <th><span data-hint="Bot detection using grid click analysis." class="hint--top-left">Bot</span></th>
-        <th><span class="hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
+        <th><span title="The frequency of which the user leaves the game page.">Blurs</span></th>
+        <th><span title="Bot detection using grid click analysis.">Bot</span></th>
+        <th><span title="Aggregate match">&Sigma;</span></th>
       </tr>
     </thead>
     <tbody>
@@ -86,7 +86,7 @@
           @if(result.hold){Yes} else {No}
         </td>
         <td>
-          <div class="aggregate hint--top-left">
+          <div class="aggregate">
             <span class="sig sig_@(result.assessment.id)">@result.assessment.emoticon</span>
           </div>
         </td>

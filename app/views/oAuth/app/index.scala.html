@@ -7,9 +7,7 @@
   <div class="top">
     <h1>@title</h1>
     <form class="new_obj" action="@routes.OAuthApp.create">
-      <button type="submit" class="button frameless hint--top" data-hint="New app">
-        <i data-icon="O"></i>
-      </button>
+      <button type="submit" class="button frameless" title="New app" data-icon="O"></button>
     </form>
   </div>
   <p class="explanation">
@@ -33,9 +31,9 @@
         Created @momentFromNow(t.createdAt)
       </td>
       <td class="action">
-        <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button hint--top" title="Edit this app"><i data-icon="m"></i></a>
+        <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button" title="Edit this app" data-icon="m"></a>
         <form action="@routes.OAuthApp.delete(t.clientId.value)" method="POST">
-          <button type="submit" class="button confirm hint--top" title="Delete this app"><i data-icon="q"></i></button>
+          <button type="submit" class="button confirm" title="Delete this app" data-icon="q"></button>
         </form>
       </td>
     </tr>

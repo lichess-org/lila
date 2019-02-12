@@ -25,9 +25,7 @@ moreJs = infiniteScrollTag) {
   <div class="top">
     <h1>@title</h1>
     @if(isGranted(_.Relay)) {
-    <a href="@routes.Relay.form" class="new_relay button frameless hint--top" data-hint="New Broadcast">
-      <i data-icon="O"></i>
-    </a>
+    <a href="@routes.Relay.form" class="new_relay button frameless" title="New Broadcast" data-icon="O"></a>
     }
   </div>
   @fresh.map { f =>

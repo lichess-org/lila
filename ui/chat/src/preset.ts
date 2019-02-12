@@ -73,12 +73,12 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const said = ctrl.said();
   return (sets && said.length < 2) ? h('div.presets', sets.map((p: Preset) => {
     const disabled = said.indexOf(p.key) !== -1;
-    return h('span.hint--top', {
+    return h('span', {
       class: {
         disabled
       },
       attrs: {
-        'data-hint': p.text,
+        title: p.text,
         disabled
       },
       hook: bind('click', () => { !disabled && ctrl.post(p) })

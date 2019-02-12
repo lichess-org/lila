@@ -19,25 +19,32 @@ object actions {
       ctx.userId map { myId =>
         (myId != userId) ?? frag(
           !blocked option frag(
-            a(dataHint := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=$userId#friend", cls := "icon button hint--bottom")(
-              iconTag("U")
+            a(
+              title := trans.challengeToPlay.txt(),
+              href := s"${routes.Lobby.home()}?user=$userId#friend",
+              cls := "icon button",
+              dataIcon := "U"
             ),
-            a(dataHint := trans.composeMessage.txt(), href := s"${routes.Message.form()}?user=$userId", cls := "icon button hint--bottom")(
-              iconTag("c")
+            a(
+              title := trans.composeMessage.txt(),
+              href := s"${routes.Message.form()}?user=$userId", cls := "icon button",
+              dataIcon := "c"
             )
           ),
           relation match {
             case None => frag(
               followable && !blocked option a(
-                cls := "icon button relation hint--bottom",
+                cls := "icon button relation",
                 href := routes.Relation.follow(userId),
-                dataHint := trans.follow.txt()
-              )(iconTag("h")),
+                title := trans.follow.txt(),
+                dataIcon := "h"
+              ),
               a(
-                cls := "icon button relation hint--bottom",
+                cls := "icon button relation",
                 href := routes.Relation.block(userId),
-                dataHint := trans.block.txt()
-              )(iconTag("k"))
+                title := trans.block.txt(),
+                dataIcon := "k"
+              )
             )
             case Some(true) =>
               a(cls := "button relation hover_text", href := routes.Relation.unfollow(userId))(

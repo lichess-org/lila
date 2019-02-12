@@ -46,15 +46,11 @@ function isNotMine(hook) {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('span.mode_toggle.hint--bottom', {
+  return h('span.mode_toggle', {
     key: 'set-mode-chart',
-    attrs: { 'data-hint': ctrl.trans('graph') },
+    attrs: { title: ctrl.trans('graph'), 'data-icon': '9' },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw)
-  }, [
-    h('span.chart', {
-      attrs: { 'data-icon': '9' }
-    })
-  ]);
+  });
 }
 
 export function render(ctrl: LobbyController, allHooks: Hook[]) {

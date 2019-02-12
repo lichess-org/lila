@@ -26,8 +26,8 @@ object mini {
         u.profileOrDefault.countryInfo map { c =>
           val hasRoomForNameText = u.username.size + c.shortName.size < 20
           span(
-            cls := (if (hasRoomForNameText) "country" else "country hint--top"),
-            dataHint := (!hasRoomForNameText).option(c.name)
+            cls := (if (hasRoomForNameText) "country" else "country"),
+            title := (!hasRoomForNameText).option(c.name)
           )(
               img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
               hasRoomForNameText option c.shortName
@@ -43,24 +43,18 @@ object mini {
     ctx.userId map { myId =>
       frag(
         (myId != u.id && u.enabled) option div(cls := "actions")(
-          a(cls := "button hint--bottom", dataHint := trans.watchGames.txt(), href := routes.User.tv(u.username))(
-            iconTag("1")
-          ),
+          a(cls := "button", dataIcon := "1", title := trans.watchGames.txt(), href := routes.User.tv(u.username)),
           !blocked option frag(
-            a(cls := "button hint--bottom", dataHint := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}")(
-              iconTag("c")
-            ),
-            a(cls := "button hint--bottom", dataHint := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=${u.username}#friend")(
-              iconTag("U")
-            )
+            a(cls := "button", dataIcon := "c", title := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}"),
+            a(cls := "button", dataIcon := "U", title := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=${u.username}#friend")
           ),
           views.html.relation.mini(u.id, blocked, followable, rel)
         ),
         crosstable.flatMap(_.nonEmpty) map { cross =>
           a(
-            cls := "score hint--bottom",
+            cls := "score",
             href := s"${routes.User.games(u.username, "me")}#games",
-            dataHint := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
+            title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
           )(trans.yourScore(Html(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross.showOpponentScore(myId)}</strong>""")))
         }
       )

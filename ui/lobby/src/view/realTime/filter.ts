@@ -66,11 +66,9 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
     class: { active: ctrl.filterOpen },
     hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw)
   }, [
-    ctrl.filterOpen ? h('span', { attrs: { 'data-icon': 'L' }}) : h('span.hint--bottom-left', {
-      attrs: { 'data-hint': ctrl.trans('filterGames') }
-    }, [
-      h('span', { attrs: { 'data-icon': '%' }})
-    ]),
+    ctrl.filterOpen ? h('span', { attrs: { 'data-icon': 'L' }}) : h('span', {
+      attrs: { title: ctrl.trans.noarg('filterGames'), 'data-icon': '%' }
+    }),
     nbFiltered > 0 ? h('span.number', '' + nbFiltered) : null
   ]);
 }

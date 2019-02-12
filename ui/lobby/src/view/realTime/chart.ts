@@ -118,15 +118,11 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('span.mode_toggle.hint--bottom', {
+  return h('span.mode_toggle', {
     key: 'set-mode-list',
-    attrs: { 'data-hint': ctrl.trans('list') },
+    attrs: { title: ctrl.trans('list'), 'data-icon': '?' },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw)
-  }, [
-    h('span.chart', {
-      attrs: { 'data-icon': '?' }
-    })
-  ]);
+  });
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
