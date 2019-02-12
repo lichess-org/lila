@@ -1,5 +1,5 @@
-@import 'crumbs';
 @import 'search';
+@import 'topic';
 @import 'post';
 @import 'completion';
 @import 'table';
@@ -26,37 +26,30 @@ main.forum {
     padding-left: 25px;
   }
 
-  &.categ {
+  &.forum-categ {
     & h1 a {
       color: $c-link-dim;
       &:hover {
         color: $c-link;
       }
     }
-  }
+    & a.sticky {
+      color: $c-secondary;
+      & > span {
+        margin-right: 0.6em;
+      }
+    }
 
-  .topicReply,
-  .category .description {
-    margin: 1em 24px 0 24px;
-  }
-
-  .postNewTitle {
-    font-size: 1.5em;
-    font-style: italic;
+    & .bar {
+      @extend %box-padding-horiz;
+    }
   }
 
   & .create-topic {
     margin: 20px;
   }
-  & .reply {
-    margin-top: 2em;
-  }
-  & .reply label[for=form3-text] {
-    display: none;
-  }
 
   .bar {
-    @extend %box-padding-horiz;
     margin-bottom: 1em;
     display: flex;
     flex-flow: row wrap;
@@ -80,7 +73,7 @@ main.forum {
       & :first-child,
       & :last-child,
       & .current {
-          display: flex;
+        display: flex;
       }
       @include breakpoint($mq-x-small) {
         & a,
@@ -101,21 +94,4 @@ main.forum {
     }
   }
 
-  & div.topic form.mod {
-    float: right;
-    margin-right: 24px;
-  }
-  & .unsub.on .off,
-  & .unsub.off .on {
-    display: none;
-  }
-
-  a.sticky,
-  body.dark a.sticky {
-    color: #759900;
-  }
-
-  a.sticky > span {
-    margin-right: 0.6em;
-  }
 }
