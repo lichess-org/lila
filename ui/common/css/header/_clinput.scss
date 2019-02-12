@@ -6,11 +6,11 @@
     background: none;
     padding: 0;
     border: 0;
-    margin-right: .5rem;
-    display: none;
+    width: 0;
+    transition: 0.2s width ease-in-out;
   }
   &.shown input {
-    display: block;
+    width: 20ch;
   }
   & input:focus {
     outline: none;
