@@ -33,10 +33,10 @@
       color: $c-font-dim;
       padding: .7rem 2vw .7rem .8rem;
       border-bottom: $border;
+      border-left: 1px solid transparent;
       transition: 0.13s;
       &:hover {
         color: $c-link;
-        // border-bottom: 1px solid $c-link;
         background: mix($c-bg-high, $c-bg-page, 25%);
       }
       &.active {
