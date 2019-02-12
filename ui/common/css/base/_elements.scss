@@ -34,7 +34,7 @@ li {
 
 time {
   font-size: 90%;
-  color: $c-font-dim;
+  opacity: 0.9; /* don't use c-color-dim, it overrides too hard */
 }
 
 hr {

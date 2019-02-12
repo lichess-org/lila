@@ -1,0 +1,17 @@
+main.forum-topic {
+
+  & form.mod {
+    float: right;
+    margin-right: 24px;
+  }
+  & .unsub.on .off,
+  & .unsub.off .on {
+    display: none;
+  }
+  & .reply {
+    margin-top: 2em;
+  }
+  & .reply label[for=form3-text] {
+    display: none;
+  }
+}

@@ -28,6 +28,80 @@ object categ {
       )
     }
 
+  def show(
+    categ: lila.forum.Categ,
+    topics: Paginator[lila.forum.TopicView],
+    canWrite: Boolean,
+    stickyPosts: List[lila.forum.TopicView]
+  )(implicit ctx: Context) = {
+
+    val newTopicButton = canWrite option
+      a(href := routes.ForumTopic.form(categ.slug), cls := "button button-empty button-green text", dataIcon := "m")(
+        trans.createANewTopic.frag()
+      )
+    def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) = tr(
+      td(cls := "subject")(
+        a(href := routes.ForumTopic.show(categ.slug, topic.slug), cls := List("sticky" -> sticky))(
+          sticky option iconTag("")(title := "Sticky"),
+          topic.name
+        )
+      ),
+      td(cls := "right")(topic.views.localize),
+      td(cls := "right")(topic.nbReplies.localize),
+      td(
+        topic.lastPost.map { post =>
+          frag(
+            a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
+              momentFromNow(post.createdAt)
+            ),
+            br,
+            trans.by.frag(authorLink(post))
+          )
+        }
+      )
+    )
+    val bar = div(cls := "bar")(
+      bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
+      newTopicButton
+    )
+
+    bits.layout(
+      title = categ.name,
+      openGraph = lila.app.ui.OpenGraph(
+        title = s"Forum: ${categ.name}",
+        url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
+        description = categ.desc
+      ).some
+    ) {
+        main(cls := "forum forum-categ box")(
+          h1(
+            a(
+              href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+              dataIcon := "I",
+              cls := "text"
+            ),
+            categ.team.fold(frag(categ.name))(teamIdToName)
+          ),
+          bar,
+          table(cls := "topics slist slist-pad")(
+            thead(
+              tr(
+                th,
+                th(cls := "right")(trans.views.frag()),
+                th(cls := "right")(trans.replies.frag()),
+                th(trans.lastPost.frag())
+              )
+            ),
+            tbody(
+              stickyPosts map showTopic(true),
+              topics.currentPageResults map showTopic(false)
+            )
+          ),
+          bar
+        )
+      }
+  }
+
   private def showCategs(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     table(cls := "categs slist slist-pad")(
       thead(
@@ -62,79 +136,4 @@ object categ {
         }
       )
     )
-
-  def show(
-    categ: lila.forum.Categ,
-    topics: Paginator[lila.forum.TopicView],
-    canWrite: Boolean,
-    stickyPosts: List[lila.forum.TopicView]
-  )(implicit ctx: Context) = {
-
-    val newTopicButton = canWrite option
-      a(href := routes.ForumTopic.form(categ.slug), cls := "button button-empty button-green text", dataIcon := "m")(
-        trans.createANewTopic.frag()
-      )
-    def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) = tr(
-      td(cls := "subject")(
-        a(href := routes.ForumTopic.show(categ.slug, topic.slug), cls := List("sticky" -> sticky))(
-          sticky option iconTag("")(title := "Sticky"),
-          topic.name
-        )
-      ),
-      td(cls := "right")(topic.views.localize),
-      td(cls := "right")(topic.nbReplies.localize),
-      td(
-        topic.lastPost.map { post =>
-          frag(
-            a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
-              momentFromNow(post.createdAt)
-            ),
-            br,
-            trans.by.frag(authorLink(post))
-          )
-        }
-      )
-    )
-    def showBar(pos: String) =
-      div(cls := s"bar $pos")(
-        bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
-        newTopicButton
-      )
-
-    bits.layout(
-      title = categ.name,
-      openGraph = lila.app.ui.OpenGraph(
-        title = s"Forum: ${categ.name}",
-        url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
-        description = categ.desc
-      ).some
-    ) {
-        main(cls := "forum categ box")(
-          h1(
-            a(
-              href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-              dataIcon := "I",
-              cls := "text"
-            ),
-            categ.team.fold(frag(categ.name))(teamIdToName)
-          ),
-          showBar("top"),
-          table(cls := "topics slist slist-pad")(
-            thead(
-              tr(
-                th,
-                th(cls := "right")(trans.views.frag()),
-                th(cls := "right")(trans.replies.frag()),
-                th(trans.lastPost.frag())
-              )
-            ),
-            tbody(
-              stickyPosts map showTopic(true),
-              topics.currentPageResults map showTopic(false)
-            )
-          ),
-          showBar("bottom")
-        )
-      }
-  }
 }

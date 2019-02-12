@@ -1,91 +1,87 @@
-main.forum {
+.forum-post {
+  @extend %break-word;
+  border-top: $border;
+  padding: 4rem 0;
 
-  .post {
-    font-size: 1.2em;
-    padding: 2em 24px 1em 24px;
-    border-top: 1px solid #D4D4D4;
-    margin-top: 1em;
-    position: relative;
-
-    & .metas .mod {
-      margin-left: 1em;
-      font-size: 0.9em;
+  &__metas {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    & > div {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+    }
+    & .author {
+      color: $c-font-dim;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+    }
+    & .anchor {
+      @extend %break-nope;
+      color: $c-link-dim;
+      font-weight: bold;
+    }
+  }
+  & .mod {
+    @media (hover: hover) {
       visibility: hidden;
     }
-    &:hover .metas .mod {
-      visibility: visible;
-    }
-
-    &.erased {
-      background: rgba(128,128,128,0.2);
-      opacity: 0.5;
-    }
-    &.erased .message {
-      font-style: italic;
-      text-align: center;
-      margin: 0;
-    }
-    &:last-child {
-      border-bottom: 1px solid #D4D4D4;
-      padding-bottom: 2em;
-      margin-bottom: 2em;
-    }
-
-    & .anchor {
-      position: absolute;
-      top: 2em;
-      right: 24px;
-    }
-
-    & .author {
-      font-size: 1.2em;
-      font-weight: bold;
-      float: left;
-    }
-    & .author a {
-      height: 16px;
-      display: block;
-    }
-
-    & time {
-      font-size: 0.8em;
-      font-style: italic;
-      color: #aaa;
-      margin-top: 0.3em;
-      margin-left: 1em;
-      float: left;
-    }
-
-    & .message {
-      margin-top: 1.5em;
-      color: #555;
-      line-height: 1.5em;
-      cursor: initial;
-    }
-    & .edit-buttons {
-      text-align: right;
-      margin-top: 0.5em;
-    }
-    & .edit-buttons a {
-      margin-right: 1em;
-    }
-    & .post-edited {
-      font-size: 0.8em;
-      color: #aaa;
-      margin-top: 0.3em;
-      margin-left: 1em;
-      float: left;
+    font-size: 90%;
+    &.postip {
+      margin-left: 1rem;
+      max-width: 50vw;
+      overflow: hidden;
+      display: none;
+      @include breakpoint($mq-small) {
+        display: block;
+      }
     }
   }
-
-  .edit-post-form {
-    display: none;
-    margin-top: 1.5em;
-    & textarea {
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid #D4D4D4;
-      padding: 0.5em;
-    }
+  &:hover .mod {
+    visibility: visible;
+  }
+  &:last-child {
+    border-bottom: $border;
+    margin-bottom: 2em;
+  }
+  &.erased {
+    background: rgba(128,128,128,0.2);
+    opacity: 0.5;
+  }
+  &.erased .forum-post__message {
+    font-style: italic;
+    text-align: center;
+    margin: 0;
   }
 }
+//   & .edit-buttons {
+//     text-align: right;
+//     margin-top: 0.5em;
+//   }
+//   & .edit-buttons a {
+//     margin-right: 1em;
+//   }
+//   & .post-edited {
+//     font-size: 0.8em;
+//     color: #aaa;
+//     margin-top: 0.3em;
+//     margin-left: 1em;
+//     float: left;
+//   }
+// }
+
+// .edit-post-form {
+//   display: none;
+//   margin-top: 1.5em;
+//   & textarea {
+//     width: 100%;
+//     box-sizing: border-box;
+//     border: 1px solid #D4D4D4;
+//     padding: 0.5em;
+//   }
+// }
+// }

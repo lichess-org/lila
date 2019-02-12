@@ -1,8 +1,8 @@
 .team-list .slist {
   & td {
+    @extend %break-word;
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
-    overflow-wrap: break-word;
   }
   & .team-name {
     font-size: 1.5em;

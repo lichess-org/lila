@@ -20,7 +20,7 @@
   &:hover {
     @extend %button-raised-shadow;
     color: $c-primary-over;
-    background: mix(white, $c-primary, 15);
+    background: mix($c-bg-box, $c-primary, 20);
   }
   &[disabled] {
     cursor: default;
@@ -39,9 +39,15 @@
   }
   &-green {
     background: $c-secondary;
+    &:hover {
+      background: mix($c-bg-box, $c-secondary, 20);
+    }
   }
   &-red {
     background: $c-error;
+    &:hover {
+      background: mix($c-bg-box, $c-error, 20);
+    }
   }
   &-empty,
   &-empty:visited {

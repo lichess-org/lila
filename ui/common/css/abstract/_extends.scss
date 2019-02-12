@@ -22,10 +22,19 @@
 }
 
 %box-padding {
-  padding: 4vh var(--box-padding);
+  padding: 5vh var(--box-padding);
 }
 %box-padding-horiz {
   padding: 0 var(--box-padding);
+}
+
+%break-word {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+%break-nope {
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 %square {
