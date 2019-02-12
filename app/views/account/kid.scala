@@ -13,20 +13,25 @@ object kid {
     title = s"${u.username} - ${trans.kidMode.txt()}",
     active = "kid"
   ) {
-    div(cls := "content_box small_box high")(
-      div(cls := "signup_box")(
-        h1(cls := "lichess_title")(trans.kidMode.frag()),
-        p(cls := "explanation")(trans.kidModeExplanation.frag()),
-        br,
-        br,
-        br,
-        st.form(action := s"${routes.Account.kidPost}?v=${!u.kid}", method := "POST")(
-          input(tpe := "submit", cls := "submit button", value := (if (u.kid) { trans.disableKidMode.txt() } else { trans.enableKidMode.txt() }))
-        ),
-        br,
-        br,
-        p(trans.inKidModeTheLichessLogoGetsIconX.frag(raw(s"""<span title="${trans.kidMode()}" class="kiddo">😊</span>""")))
-      )
+    div(cls := "account box box-pad")(
+      h1(trans.kidMode.frag()),
+      p(trans.kidModeExplanation.frag()),
+      br,
+      br,
+      br,
+      st.form(action := s"${routes.Account.kidPost}?v=${!u.kid}", method := "POST")(
+        input(
+          tpe := "submit",
+          cls := List(
+            "button" -> true,
+            "button-red" -> u.kid
+          ),
+          value := (if (u.kid) { trans.disableKidMode.txt() } else { trans.enableKidMode.txt() })
+        )
+      ),
+      br,
+      br,
+      p(trans.inKidModeTheLichessLogoGetsIconX.frag(raw(s"""<span title="${trans.kidMode()}" class="kiddo">😊</span>""")))
     )
   }
 }

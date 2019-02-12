@@ -2,8 +2,9 @@ $vp-min-width: 320px;
 $vp-max-width: 1200px;
 
 .box {
-  background: $c-bg-box;
   @extend %box-shadow;
+  background: $c-bg-box;
+  min-height: 100%;
 
   @include fluid-size('--box-padding', 20px, 60px);
 
@@ -13,7 +14,7 @@ $vp-max-width: 1200px;
 
   &__top {
     @extend %flex-between, %box-padding;
-    &__title {
+    & h1 {
       margin: 0;
     }
   }
@@ -21,6 +22,10 @@ $vp-max-width: 1200px;
   &:not(.box-pad) > h1 {
     @extend %box-padding;
     margin: 0;
+  }
+
+  &__pad {
+    @extend %box-padding-horiz;
   }
 }
 

@@ -9,7 +9,7 @@ import controllers.routes
 
 object twoFactor {
 
-  private val qrCode = raw("""<div style="width: 276px; height: 275px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>""")
+  private val qrCode = raw("""<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>""")
 
   def setup(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
     title = s"${u.username} - Two-factor authentication",
@@ -20,8 +20,8 @@ object twoFactor {
       jsTag("twofactor.form.js")
     )
   ) {
-      div(cls := "content_box small_box high twofactor")(
-        h1(cls := "lichess_title")("Setup two-factor authentication"),
+      div(cls := "account twofactor box box-pad")(
+        h1("Setup two-factor authentication"),
         st.form(cls := "form3", action := routes.Account.setupTwoFactor, method := "POST")(
           div(cls := "form-group")("Two-factor authentication adds another layer of security to your account."),
           div(cls := "form-group")(
@@ -44,14 +44,14 @@ object twoFactor {
     active = "twofactor",
     evenMoreCss = cssTag("form3.css")
   ) {
-      div(cls := "content_box small_box high twofactor")(
-        h1(cls := "lichess_title")(
-          raw("""<i data-icon="E" class="is-green"></i> """),
-          "Two-factor authentication enabled"
+      div(cls := "account twofactor box box-pad")(
+        h1(
+          i(cls := "is-green", dataIcon := "E"),
+          " Two-factor authentication enabled"
         ),
-        p(cls := "explanation")("Your account is protected with two-factor authentication."),
+        p("Your account is protected with two-factor authentication."),
         st.form(cls := "form3", action := routes.Account.disableTwoFactor, method := "POST")(
-          p(cls := "explanation")("You need your password and an authentication code from your authenticator app to disable two-factor authentication."),
+          p("You need your password and an authentication code from your authenticator app to disable two-factor authentication."),
           form3.password(form("passwd"), trans.password.frag()),
           form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required := "")),
           form3.actionHtml(form3.submit(raw("Disable two-factor authentication"), icon = None))

@@ -3,14 +3,14 @@
 @title = @{ "Personal API access tokens" }
 
 @account.layout(title = title, active = "oauth.token") {
-<div class="content_box no_padding small_box high oauth security">
-  <div class="top">
+<div class="account oauth box">
+  <div class="box__top">
     <h1>@title</h1>
-    <form class="new_obj" action="@routes.OAuthToken.create">
+    <form class="box-top__actions new_obj" action="@routes.OAuthToken.create">
       <button type="submit" class="button frameless" title="New access token" data-icon="O"></button>
     </form>
   </div>
-  <p class="explanation">
+  <p class="box__pad">
     You can make OAuth requests without going through the authorization code flow.<br />
     <br />
     Instead, <a class="blue" href="@routes.OAuthToken.create">generate a personal token</a> that you can directly use in API requests.<br />
@@ -25,7 +25,7 @@
   </p>
 
   @tokens.headOption.filter(_.isBrandNew).map { token =>
-  <div class="brand">
+  <div class="box__pad brand">
     <i data-icon="E" class="is-green"></i>
     <div>
       <p>Make sure to copy your new personal access token now.<br />You won’t be able to see it again!</p>
@@ -34,7 +34,7 @@
   </div>
   }
 
-  <table class="slist">
+  <table class="slist slist-pad">
     @tokens.map { t =>
     <tr>
       <td>
@@ -51,7 +51,7 @@
       </td>
       <td class="action">
         <form action="@routes.OAuthToken.delete(t.id.value)" method="POST">
-          <button type="submit" class="button text confirm" title="Delete this access token">Delete</button>
+          <button type="submit" class="button button-red button-empty confirm" title="Delete this access token">Delete</button>
         </form>
       </td>
     </tr>

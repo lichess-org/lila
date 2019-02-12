@@ -3,21 +3,21 @@
 @title = @{ "OAuth Apps" }
 
 @account.layout(title = title, active = "oauth.app") {
-<div class="content_box no_padding small_box high oauth security">
-  <div class="top">
+<div class="account oauth box">
+  <div class="box__top">
     <h1>@title</h1>
-    <form class="new_obj" action="@routes.OAuthApp.create">
+    <form class="box__top__actions new_obj" action="@routes.OAuthApp.create">
       <button type="submit" class="button frameless" title="New app" data-icon="O"></button>
     </form>
   </div>
-  <p class="explanation">
+  <p class="box__pad">
     Want to build something that integrates with and extends Lichess? Register a new OAuth App to get started developing on the Lichess API.<br />
     <br />
     Here's a <a class="blue" href="https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code">lichess OAuth app example</a>,
     and the <a class="blue" href="@routes.Api.index">API documentation</a>.
   </p>
 
-  <table class="slist">
+  <table class="slist slist-pad">
     @apps.map { t =>
     <tr>
       <td>
@@ -33,7 +33,7 @@
       <td class="action">
         <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button" title="Edit this app" data-icon="m"></a>
         <form action="@routes.OAuthApp.delete(t.clientId.value)" method="POST">
-          <button type="submit" class="button confirm" title="Delete this app" data-icon="q"></button>
+          <button type="submit" class="button button-empty button-red confirm" title="Delete this app" data-icon="q"></button>
         </form>
       </td>
     </tr>

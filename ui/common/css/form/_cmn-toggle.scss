@@ -15,7 +15,7 @@ input.cmn-toggle + label {
   padding: 1px;
   width: 40px;
   height: 24px;
-  background-color: $c-good;
+  background-color: $c-border;
   border-radius: 24px;
 }
 input.cmn-toggle + label::before,
@@ -37,7 +37,7 @@ input.cmn-toggle:hover + label::before {
 }
 input.cmn-toggle + label::after {
   @extend %metal;
-  width: 24px;
+  width: 22px;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 }
@@ -46,8 +46,8 @@ input.cmn-toggle:hover + label::after {
   transition: margin 0.2s;
 }
 input.cmn-toggle:checked + label::before {
-  background-color: rgba(117, 153, 0, 0.4)!important;
+  background-color: $c-good;
 }
 input.cmn-toggle:checked + label::after {
-  margin-left: 14px;
+  margin-left: 16px;
 }

@@ -4,12 +4,10 @@
 
 @account.layout(
 title = title,
-active = "oauth.app",
-evenMoreCss = cssTag("form3.css")
+active = "oauth.app"
 ) {
-<div class="oauth_form content_box oauth security">
+<div class="account oauth box box-pad">
   <h1>@title</h1>
-  <br><br>
   <table class="codes">
     <tbody>
       <tr><th>Client ID</th><td>@app.clientId.value</td></tr>

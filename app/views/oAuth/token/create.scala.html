@@ -5,14 +5,12 @@
 
 @account.layout(
 title = title,
-active = "oauth.token",
-evenMoreCss = cssTag("form3.css")
+active = "oauth.token"
 ) {
-<div class="oauth_form content_box small_box oauth security">
+<div class="account oauth box box-pad">
   <h1>@title</h1>
   <form class="form3" action="@routes.OAuthToken.create" method="POST">
 
-    <br><br>
     <div class="form-group">
       Personal access tokens function like ordinary lichess OAuth access tokens.
       They can be used to authenticate to the API over Basic Authentication.
@@ -26,10 +24,15 @@ evenMoreCss = cssTag("form3.css")
     <div class="scopes">
       @lila.oauth.OAuthScope.all.map { scope =>
       @defining(me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled =>
-      <label@if(disabled) { title="You already have played games!"}>
-        <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"@if(disabled){ disabled }>
-        @scope.name
-      </label>
+      @defining(s"oauth-scope-${scope.key.replace(":", "_")}") { id =>
+      <div>
+        <span>
+          <input id="@id" class="cmn-toggle" type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"@if(disabled){ disabled }>
+          <label for="@id"></label>
+        </span>
+        <label for="@id" @if(disabled) { title="You already have played games!"}>@scope.name</label>
+      </div>
+      }
       }
       }
     </div>
