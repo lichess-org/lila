@@ -18,12 +18,15 @@ body {
   display: grid;
   grid-template-columns: $main-margin 1fr minmax(auto, #{$main-max-width}) 1fr $main-margin;
   grid-template-areas: '. . main . .';
+  &.full-screen {
+    grid-template-columns: $main-margin 1fr minmax(auto, 100%) 1fr $main-margin;
+  }
 }
 
 main {
   grid-area: main;
 }
 
-.page-small {
+main.page-small {
   max-width: 1000px;
 }

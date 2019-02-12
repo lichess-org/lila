@@ -117,7 +117,8 @@ object layout {
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
-    responsive: Boolean = false
+    responsive: Boolean = false,
+    fullScreen: Boolean = false
   )(body: Html)(implicit ctx: Context) = frag(
     doctype,
     htmlTag(ctx)(
@@ -197,7 +198,7 @@ object layout {
           playing option zenToggle,
           if (responsive) siteHeader.responsive(playing)
           else siteHeader.old(playing),
-          if (responsive) div(id := "main-wrap")(body)
+          if (responsive) div(id := "main-wrap", cls := fullScreen.option("full-screen"))(body)
           else div(cls := "content is2d")(
             div(id := "site_header")(
               div(id := "notifications"),
