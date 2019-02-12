@@ -20,6 +20,7 @@ $c-font: hsl(0, 0%, 30%);
 $c-font-dim: c-dimmer($c-font);
 $c-font-dimmer: c-dimmer($c-font, 40%);
 $c-font-clear: c-clearer($c-font);
+$c-shade: c-dimmer($c-font, 80%);
 
 /* Primary: blue */
 $c-primary: hsl(209, 79%, 53%);

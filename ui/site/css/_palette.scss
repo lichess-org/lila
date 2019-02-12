@@ -43,11 +43,15 @@ $palette-colors: (
 
 $variant-height: 2.5rem;
 
+signal {
+  font-size: 7em;
+}
+
 .palette {
   display: grid;
   grid-column-gap: $block-gap;
   grid-row-gap: $block-gap;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   & *,
   & *:before,
@@ -104,8 +108,8 @@ $variant-height: 2.5rem;
         }
 
         .variants {
-          border-left: 1px solid white;
-          border-bottom: 1px solid white;
+          border-left: $border;
+          border-bottom: $border;
           border-radius: 0 0 0 $box-radius-size;
           position: absolute;
           height: $variant-height * length($color-variants);
