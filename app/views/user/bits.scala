@@ -10,6 +10,14 @@ import controllers.routes
 
 object bits {
 
+  def communityMenu(active: String)(implicit ctx: Context) =
+    st.nav(cls := "page-menu__menu subnav")(
+      a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard.frag()),
+      a(cls := active.active("ratings"), href := routes.Stat.ratingDistribution("blitz"))(trans.ratingStats.frag()),
+      a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(trans.tournamentWinners.frag()),
+      a(cls := active.active("shield"), href := routes.Tournament.shields)("Shields")
+    )
+
   def miniClosed(u: User)(implicit ctx: Context) = frag(
     div(cls := "title")(userLink(u, withPowerTip = false)),
     div(style := "padding: 20px 8px; text-align: center")(trans.thisAccountIsClosed())

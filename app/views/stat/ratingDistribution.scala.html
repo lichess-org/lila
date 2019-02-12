@@ -17,7 +17,7 @@ title = title.toString,
 active = perfType.key,
 moreJs = moreJs) {
 <div class="content_box community no_padding stat">
-  @user.communityTabs("ratings")
+  @user.bits.communityMenu("ratings")
   <h1 class="lichess_title">@title</h1>
   <p class="desc" data-icon="@perfType.iconChar">
     @ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
