@@ -19,7 +19,7 @@ object Team extends LilaController {
 
   def all(page: Int) = Open { implicit ctx =>
     NotForKids {
-      paginator popularTeams page map { html.team.all(_) }
+      paginator popularTeams page map { html.team.bits.all(_) }
     }
   }
 
@@ -40,7 +40,7 @@ object Team extends LilaController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
-      if (text.trim.isEmpty) paginator popularTeams page map { html.team.all(_) }
+      if (text.trim.isEmpty) paginator popularTeams page map { html.team.bits.all(_) }
       else Env.teamSearch(text, page) map { html.team.search(text, _) }
     }
   }

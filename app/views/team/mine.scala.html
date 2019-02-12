@@ -1,7 +1,7 @@
 @(teams: List[lila.team.Team])(implicit ctx: Context)
 
 @bits.layout(title = trans.myTeams.txt()) {
-<main class="page-menu">
+<main class="team-list page-menu">
   @bits.menu("mine".some).toHtml
   <div class="page-menu__content box">
     <h1>@trans.myTeams()</h1>
