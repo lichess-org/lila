@@ -463,7 +463,7 @@ case class Game(
       case Rapid => 30
       case _ => 35
     }
-    if (variant.chess960) (base * 2) atMost 90
+    if (variant.chess960) base * 5 / 4
     else base
   }
 
