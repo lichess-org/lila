@@ -2,11 +2,10 @@
 
 .page-menu {
 
+  display: grid;
   grid-template-areas:
   'menu'
   'content';
-
-  grid-column-gap: 0;
 
   @include breakpoint($mq-subnav-side) {
     grid-template-columns: max-content auto;

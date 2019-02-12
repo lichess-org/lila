@@ -118,7 +118,6 @@ object categ {
             ),
             categ.team.fold(frag(categ.name))(teamIdToName)
           ),
-          p(cls := "description")(categ.desc),
           showBar("top"),
           table(cls := "topics slist slist-pad")(
             thead(
