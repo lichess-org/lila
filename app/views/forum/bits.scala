@@ -47,4 +47,6 @@ object bits {
       else span(cls := "disabled", dataIcon := "H")
     )
   }
+  private[forum] val dataTopic = attr("data-topic")
+  private[forum] val dataUnsub = attr("data-unsub")
 }

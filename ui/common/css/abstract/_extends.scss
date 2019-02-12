@@ -37,6 +37,19 @@
   word-break: normal;
 }
 
+%flex-between {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+%flex-between-stretch {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 %square {
   height: 0;
   padding-bottom: 100%;

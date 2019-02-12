@@ -12,10 +12,7 @@ $vp-max-width: 1200px;
   }
 
   &__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    @extend %box-padding;
+    @extend %flex-between, %box-padding;
     &__title {
       margin: 0;
     }

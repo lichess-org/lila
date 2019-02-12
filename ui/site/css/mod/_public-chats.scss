@@ -1,7 +1,6 @@
 #communication h1 {
+  @extend %flex-between;
   font-size: 1.5em;
-  display: flex;
-  justify-content: space-between;
 }
 #communication .user_link {
   margin-left: -.5em;

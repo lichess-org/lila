@@ -4,10 +4,8 @@ $c-report-high-over: white;
 
 #report_list {
   .header {
+    @extend %flex-between-stretch;
     height: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
   }
   & .header .icon {
     flex: 1 1 auto;
@@ -70,10 +68,8 @@ $c-report-high-over: white;
     background-color: rgba(231, 59, 56, 0.4);
   }
   & table.see {
+    @extend %break-word;
     border-top: 4px solid $c-report-high;
-    & td {
-      overflow-wrap: break-word;
-    }
     & .button {
       width: 6rem;
     }

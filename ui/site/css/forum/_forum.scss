@@ -3,23 +3,12 @@
 @import 'post';
 @import 'completion';
 @import 'table';
+@import 'pagination';
 
-main.forum {
+.forum {
 
-  & .warning {
-    margin: 20px;
-    background: #f4f4f4;
-    text-align: center;
-    font-size: 1.6em;
-  }
-  & .warning h1 {
-    margin: 1em 0 0 0;
-    padding: 0;
-    font-weight: bold;
-  }
-  & .warning p {
-    margin: 1.8em 0;
-    line-height: 1.5em;
+  & h1 {
+    @extend %break-word;
   }
 
   & .nb_results {
@@ -27,17 +16,18 @@ main.forum {
   }
 
   &.forum-categ {
+    padding-bottom: 1rem;
     & h1 a {
       color: $c-link-dim;
       &:hover {
         color: $c-link;
       }
     }
-    & a.sticky {
-      color: $c-secondary;
-      & > span {
-        margin-right: 0.6em;
-      }
+    & .sticky {
+      background: mix($c-secondary, $c-bg-box, 12%);
+    }
+    & .sticky:nth-child(even) {
+      background: mix($c-secondary, $c-bg-zebra, 12%);
     }
 
     & .bar {
@@ -50,48 +40,8 @@ main.forum {
   }
 
   .bar {
+    @extend %flex-between;
     margin-bottom: 1em;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-
-    .pagination {
-      color: $c-font-dimmer;
-      display: flex;
-      & a,
-      & span {
-        width: 2rem;
-        height: 2rem;
-        @extend %box-radius;
-        margin: 0 .1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        display: none;
-      }
-      & :first-child,
-      & :last-child,
-      & .current {
-        display: flex;
-      }
-      @include breakpoint($mq-x-small) {
-        & a,
-        & span {
-          display: flex;
-        }
-      }
-      & span {
-        color: $c-font-dimmer;
-      }
-      & a:hover {
-        background: mix($c-primary, $c-bg-box, 10);
-      }
-      & .current {
-        background: $c-primary;
-        color: $c-primary-over;
-      }
-    }
   }
 
 }

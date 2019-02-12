@@ -5,9 +5,8 @@
 @import 'clinput';
 
 #top {
+  @extend %flex-between-stretch;
   height: $site-header-height;
-  display: flex;
-  justify-content: space-between;
   position: relative;
   z-index: z('site-header');
 
