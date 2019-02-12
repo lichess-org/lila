@@ -13,35 +13,39 @@ object mobile {
     moreCss = responsiveCssTag("mobile"),
     responsive = true
   ) {
-      div(cls := "mobile box box-pad")(
-        div(cls := "right-side")(
-          img(cls := "mobile-playing", width := "268", height := "536", src := staticUrl("images/mobile/mobile-playing.jpg"), alt := "A game in progress on the Lidraughts mobile app")
-        ),
-        div(cls := "left-side")(
-          h1(
-            trans.playDraughtsEverywhere.frag(),
-            googlePlayButton,
-            appleStoreButton,
-            h2(trans.asFreeAsLidraughts.frag()),
-            ul(cls := "block")(
-              li(trans.builtForTheLoveOfDraughtsNotMoney.frag()),
-              li(trans.everybodyGetsAllFeaturesForFree.frag()),
-              li(trans.zeroAdvertisement.frag()),
-              li("Entirely ,", a(href := "https://github.com/RoepStoep/lidrobile")("Open Source"))
+      main(
+        div(cls := "mobile page-small box box-pad")(
+          h1(trans.playDraughtsEverywhere.frag()),
+          div(cls := "sides")(
+            div(cls := "left-side")(
+              div(cls := "stores")(
+                googlePlayButton,
+                appleStoreButton
+              ),
+              h2(trans.asFreeAsLidraughts.frag()),
+              ul(cls := "block")(
+                li(trans.builtForTheLoveOfDraughtsNotMoney.frag()),
+                li(trans.everybodyGetsAllFeaturesForFree.frag()),
+                li(trans.zeroAdvertisement.frag()),
+                li("Entirely ", a(href := "https://github.com/RoepStoep/lidrobile")("Open Source"))
+              ),
+              h2(trans.fullFeatured.frag()),
+              ul(cls := "block")(
+                li(trans.phoneAndTablet.frag()),
+                li(trans.bulletBlitzClassical.frag()),
+                li(trans.correspondenceDraughts.frag()),
+                li(trans.onlineAndOfflinePlay.frag()),
+                li(trans.tournaments.frag()),
+                li(trans.puzzles.frag()),
+                li(trans.gameAnalysis.frag()),
+                li(trans.boardEditor.frag()),
+                li("Lidraughts TV"),
+                li(trans.followAndChallengeFriends.frag()),
+                li(trans.availableInNbLanguages.pluralSameFrag(16))
+              )
             ),
-            h2(trans.fullFeatured.frag()),
-            ul(cls := "block")(
-              li(trans.phoneAndTablet.frag()),
-              li(trans.bulletBlitzClassical.frag()),
-              li(trans.correspondenceDraughts.frag()),
-              li(trans.onlineAndOfflinePlay.frag()),
-              li(trans.tournaments.frag()),
-              li(trans.puzzles.frag()),
-              li(trans.gameAnalysis.frag()),
-              li(trans.boardEditor.frag()),
-              li("Lidraughts TV"),
-              li(trans.followAndChallengeFriends.frag()),
-              li(trans.availableInNbLanguages.pluralSameFrag(16))
+            div(cls := "right-side")(
+              img(cls := "nexus5-playing", width := "268px", height := "536px", src := staticUrl("images/mobile/mobile-playing.jpg"), alt := "A game in progress on the Lidraughts mobile app")
             )
           )
         )
