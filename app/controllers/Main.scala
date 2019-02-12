@@ -59,20 +59,23 @@ object Main extends LidraughtsController {
   }
 
   def developers = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.developers()
     }
   }
 
   def lag = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.lag()
     }
   }
 
   def mobile = Open { implicit ctx =>
+    pageHit
     fuccess {
-      html.mobile.home()
+      html.mobile()
     }
   }
 

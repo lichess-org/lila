@@ -5,7 +5,7 @@
   & .link {
     color: $c-font;
     font-size: 1.1rem;
-    padding: 0 .6rem;
+    padding: 0 .7rem;
     display: flex;
     align-items: center;
     &:hover {
@@ -51,6 +51,9 @@
     & .dropdown {
       display: block;
     }
+  }
+  & .signin {
+    margin-right: 1rem;
   }
 }
 #user_tag {
