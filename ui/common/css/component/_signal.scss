@@ -23,5 +23,5 @@ signal.q2 > i {
   background-color: $c-warn;
 }
 signal > i.off {
-  background-color: c-dimmer($c-font, 30%);
+  background-color: $c-font-dimmer;
 }
