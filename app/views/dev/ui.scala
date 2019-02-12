@@ -39,5 +39,5 @@ object ui {
           i, i, i(cls := "off"), i(cls := "off")
         )
       )
-    }.toHtml
+    }
 }

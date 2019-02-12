@@ -7,7 +7,7 @@
     left: -9999px;
   }
 
-  .hamburger {
+  .hbg {
     position: relative;
     flex: 0 0 40px;
     @include breakpoint($mq-site-header-tall) {
@@ -15,7 +15,7 @@
     }
     cursor: pointer;
 
-    & span {
+    &__in {
       &,
       &::after,
       &::before {
@@ -36,7 +36,7 @@
       @include breakpoint($mq-site-header-tall) {
         left: 13px;
       }
-      transition: transform 0.22s, cubic-bezier(0.55, 0.055, 0.675, 0.19);
+      transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
       &::after,
       &::before {
         content: "";
@@ -60,7 +60,7 @@
     }
     .topnav-toggle:checked ~ & {
       background: $c-bg-high;
-      & span {
+      .hbg__in {
         transform: rotate(225deg);
         transition-delay: 0.12s;
         transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);

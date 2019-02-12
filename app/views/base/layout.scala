@@ -109,7 +109,6 @@ object layout {
     chat: Option[Frag] = None,
     underchat: Option[Frag] = None,
     robots: Boolean = isGloballyCrawlable,
-    respCss: String = "site",
     moreCss: Html = emptyHtml,
     moreJs: Html = emptyHtml,
     playing: Boolean = false,
@@ -137,7 +136,7 @@ object layout {
           ctx.zoom ifTrue zoomable map { z =>
             raw(s"""<style>main{--zoom:$z}</style>""")
           },
-          responsiveCssTag(respCss)
+          responsiveCssTag("site")
         )
         else frag(
           responsive option cssTag("offline-fonts.css"),
@@ -273,7 +272,7 @@ object layout {
     private val topnavToggle = spaceless("""
 <input type="checkbox" id="topnav-toggle" class="topnav-toggle" aria-label="Navigation">
 <label for="topnav-toggle" class="topnav-mask"></label>
-<label for="topnav-toggle" class="topnav-toggle-label hamburger"><span></span></label>""")
+<label for="topnav-toggle" class="topnav-toggle-label hbg"><span class="hbg__in"></span></label>""")
 
     private def reconnecting(implicit ctx: Context) =
       a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
