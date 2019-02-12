@@ -14,7 +14,7 @@ object importGame {
 
   def apply(form: play.api.data.Form[_])(implicit ctx: Context) = views.html.base.layout(
     title = trans.importGame.txt(),
-    respCss = "importer",
+    moreCss = responsiveCssTag("importer"),
     moreJs = jsTag("importer.js"),
     openGraph = lila.app.ui.OpenGraph(
       title = "Paste PGN chess game",
@@ -23,7 +23,7 @@ object importGame {
     ).some,
     responsive = true
   ) {
-      main(cls := "importer box box-pad")(
+      main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(

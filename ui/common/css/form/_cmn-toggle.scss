@@ -13,10 +13,10 @@
 }
 input.cmn-toggle + label {
   padding: 1px;
-  width: 34px;
-  height: 20px;
-  background-color: #aaa;
-  border-radius: 20px;
+  width: 40px;
+  height: 24px;
+  background-color: $c-good;
+  border-radius: 24px;
 }
 input.cmn-toggle + label::before,
 input.cmn-toggle + label::after {
@@ -29,19 +29,20 @@ input.cmn-toggle + label::after {
 }
 input.cmn-toggle + label::before {
   right: 1px;
-  background-color: #ccc;
-  border-radius: 20px;
+  background-color: $c-bad;
+  border-radius: 24px;
 }
 input.cmn-toggle:hover + label::before {
   transition: background 0.2s;
 }
 input.cmn-toggle + label::after {
-  width: 20px;
-  background-color: #fff;
+  @extend %metal;
+  width: 24px;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 }
 input.cmn-toggle:hover + label::after {
+  @extend %metal-hover;
   transition: margin 0.2s;
 }
 input.cmn-toggle:checked + label::before {
