@@ -65,12 +65,12 @@ object layout {
 </div>""")
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
-  <a class="toggle anon">
+  <a class="toggle link anon">
     <span class="hint--bottom-left" data-hint="${trans.preferences.txt()}"><span data-icon="%"></span></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button text">${trans.signIn.txt()}</a>""")
+<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button">${trans.signIn.txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 

@@ -1,0 +1,52 @@
+.mobile {
+  & .right-side {
+    float: right;
+    width: 264px;
+    text-align: center;
+  }
+  & .right-side .nexus5-playing {
+    margin: -40px 0 30px 0;
+  }
+  & .right-side .qrcode {
+    margin-top: 20px;
+  }
+  & .left-side {
+    width: 245px;
+    text-align: center;
+  }
+  & h1 {
+    font-size: 4em;
+    display: block!important;
+    margin-bottom: 0.5em;
+  }
+  & .store {
+    display: inline-block;
+    margin-top: 1em;
+  }
+  & .left-side h2 {
+    margin-top: 30px;
+    font-size: 1.5em;
+  }
+  & .left-side .block {
+    text-align: left;
+    margin: 10px 0 20px 0;
+  }
+  & .left-side li {
+    list-style-type: none;
+    line-height: 1.5em;
+    padding-left: 2em;
+    text-indent: -1em;
+  }
+  & .left-side li:before {
+    vertical-align: middle;
+    content:'\2713';
+    display:inline-block;
+    color: #759900;
+    font-weight: bold;
+    font-size: 1.8em;
+    padding:0 6px 0 0;
+  }
+  & .left-side a{
+    color: #3893E8 !important;
+  }
+}

@@ -39,8 +39,8 @@ object home {
         trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
       ),
       ctx.isMobileBrowser option {
-        if (HTTPRequest isAndroid ctx.req) views.html.mobile.bits.googlePlayButton
-        else if (HTTPRequest isIOS ctx.req) views.html.mobile.bits.appleStoreButton
+        if (HTTPRequest isAndroid ctx.req) views.html.mobile.googlePlayButton
+        else if (HTTPRequest isIOS ctx.req) views.html.mobile.appleStoreButton
         else emptyFrag
       }
     )),
