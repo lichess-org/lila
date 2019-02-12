@@ -39,12 +39,9 @@ object categ {
       a(href := routes.ForumTopic.form(categ.slug), cls := "button button-empty button-green text", dataIcon := "m")(
         trans.createANewTopic.frag()
       )
-    def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) = tr(
+    def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) = tr(cls := List("sticky" -> sticky))(
       td(cls := "subject")(
-        a(href := routes.ForumTopic.show(categ.slug, topic.slug), cls := List("sticky" -> sticky))(
-          sticky option iconTag("")(title := "Sticky"),
-          topic.name
-        )
+        a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
       ),
       td(cls := "right")(topic.views.localize),
       td(cls := "right")(topic.nbReplies.localize),

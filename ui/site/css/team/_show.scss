@@ -72,21 +72,19 @@
   &__forum {
     width: 100%;
     & article {
+      @extend %break-word;
       padding: 2rem 2vw;
       overflow: hidden;
-      word-break: break-word;
-      overflow-wrap: break-word;
     }
     & article:nth-child(odd) {
-      background: $c-zebra;
+      background: $c-bg-zebra;
     }
     & .user_link {
       font-weight: bold;
       color: $c-font-dimmer;
     }
     & .meta {
-      display: flex;
-      justify-content: space-between;
+      @extend %flex-between;
       margin-bottom: .5rem;
       & > a {
         font-size: 120%;

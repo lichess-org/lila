@@ -1,14 +1,10 @@
 .forum-post {
-  @extend %break-word;
   border-top: $border;
   padding: 4rem 0;
 
   &__metas {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
+    @extend %flex-between;
+    margin-bottom: 1.5rem;
     & > div {
       display: flex;
       flex-flow: row wrap;
@@ -46,7 +42,7 @@
   }
   &:last-child {
     border-bottom: $border;
-    margin-bottom: 2em;
+    margin-bottom: 3rem;
   }
   &.erased {
     background: rgba(128,128,128,0.2);
@@ -57,31 +53,24 @@
     text-align: center;
     margin: 0;
   }
-}
-//   & .edit-buttons {
-//     text-align: right;
-//     margin-top: 0.5em;
-//   }
-//   & .edit-buttons a {
-//     margin-right: 1em;
-//   }
-//   & .post-edited {
-//     font-size: 0.8em;
-//     color: #aaa;
-//     margin-top: 0.3em;
-//     margin-left: 1em;
-//     float: left;
-//   }
-// }
 
-// .edit-post-form {
-//   display: none;
-//   margin-top: 1.5em;
-//   & textarea {
-//     width: 100%;
-//     box-sizing: border-box;
-//     border: 1px solid #D4D4D4;
-//     padding: 0.5em;
-//   }
-// }
-// }
+  &__message {
+    @extend %break-word;
+  }
+
+  & .edit-buttons {
+    text-align: right;
+    margin-top: 0.5em;
+  }
+  & .edit-buttons a {
+    margin-right: 1em;
+  }
+
+  & .edit-post-form {
+    display: none;
+    margin-top: 1.5em;
+    & textarea {
+      width: 100%;
+    }
+  }
+}

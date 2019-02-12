@@ -24,7 +24,7 @@
     height: 67px;
     &:hover {
       transition-delay: 0ms;
-      background: $c-zebra;
+      background: $c-bg-zebra;
       height: 103px;
       // @extend %dropdown-shadow;
     }

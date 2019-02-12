@@ -5,9 +5,7 @@
     margin-bottom: 1rem;
   }
   & .form-split {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    @extend %flex-between;
   }
   & .form-half {
     flex: 1 1 48%;
@@ -69,12 +67,10 @@
   }
 
   & .form-actions {
+    @extend %flex-between;
     margin: 1.5rem 0;
     padding-top: 1.5rem;
     border-top: $border;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
   & .form-actions.single {
     justify-content: flex-end;

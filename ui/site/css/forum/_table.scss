@@ -1,6 +1,7 @@
-main.forum .slist {
+.forum .slist {
 
   & td {
+    @extend %break-word;
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
@@ -33,12 +34,13 @@ main.forum .slist {
     }
   }
 
-  &.topics .subject {
-    font-size: 1.2em;
-  }
-  &.categs .subject {
-    & p {
-      margin-top: .3em;
+  &.topics {
+    margin-bottom: 2rem;
+    & .subject {
+      font-size: 1.2em;
     }
+  }
+  &.categs .subject p {
+    margin-top: .3em;
   }
 }
