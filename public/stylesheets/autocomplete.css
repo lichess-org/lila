@@ -1,5 +1,6 @@
 .tt-menu {
   box-sizing: border-box;
+  border-radius: 3px;
   width: 198px;
   background-color: #fff;
   border: 1px solid #ccc;
