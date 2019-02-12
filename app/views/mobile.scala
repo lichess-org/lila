@@ -13,39 +13,43 @@ object mobile {
     moreCss = responsiveCssTag("mobile"),
     responsive = true
   ) {
-      div(cls := "mobile box box-pad")(
-        div(cls := "right-side")(
-          img(cls := "nexus5-playing", width := "268", height := "513", src := staticUrl("images/mobile/nexus5-playing.png"), alt := "Lichess mobile on nexus 5"),
-          img(cls := "qrcode", width := "200", height := "200", src := staticUrl("images/mobile/dynamic-qrcode.png"), alt := "Download QR code")
-        ),
-        div(cls := "left-side")(
-          h1(
-            trans.playChessEverywhere.frag(),
-            googlePlayButton,
-            appleStoreButton,
-            div(cls := "apk")(
-              ~apkDoc.getHtml("doc.content", resolver)
+      main(
+        div(cls := "mobile page-small box box-pad")(
+          h1(trans.playChessEverywhere.frag()),
+          div(cls := "sides")(
+            div(cls := "left-side")(
+              div(cls := "stores")(
+                googlePlayButton,
+                appleStoreButton
+              ),
+              div(cls := "apk")(
+                raw(~apkDoc.getHtml("doc.content", resolver))
+              ),
+              h2(trans.asFreeAsLichess.frag()),
+              ul(cls := "block")(
+                li(trans.builtForTheLoveOfChessNotMoney.frag()),
+                li(trans.everybodyGetsAllFeaturesForFree.frag()),
+                li(trans.zeroAdvertisement.frag()),
+                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
+              ),
+              h2(trans.fullFeatured.frag()),
+              ul(cls := "block")(
+                li(trans.phoneAndTablet.frag()),
+                li(trans.bulletBlitzClassical.frag()),
+                li(trans.correspondenceChess.frag()),
+                li(trans.onlineAndOfflinePlay.frag()),
+                li(trans.tournaments.frag()),
+                li(trans.puzzles.frag()),
+                li(trans.gameAnalysis.frag()),
+                li(trans.boardEditor.frag()),
+                li("Lichess TV"),
+                li(trans.followAndChallengeFriends.frag()),
+                li(trans.availableInNbLanguages.pluralSameFrag(80))
+              )
             ),
-            h2(trans.asFreeAsLichess.frag()),
-            ul(cls := "block")(
-              li(trans.builtForTheLoveOfChessNotMoney.frag()),
-              li(trans.everybodyGetsAllFeaturesForFree.frag()),
-              li(trans.zeroAdvertisement.frag()),
-              li("Entirely ,", a(href := "https://github.com/veloce/lichobile")("Open Source"))
-            ),
-            h2(trans.fullFeatured.frag()),
-            ul(cls := "block")(
-              li(trans.phoneAndTablet.frag()),
-              li(trans.bulletBlitzClassical.frag()),
-              li(trans.correspondenceChess.frag()),
-              li(trans.onlineAndOfflinePlay.frag()),
-              li(trans.tournaments.frag()),
-              li(trans.puzzles.frag()),
-              li(trans.gameAnalysis.frag()),
-              li(trans.boardEditor.frag()),
-              li("Lichess TV"),
-              li(trans.followAndChallengeFriends.frag()),
-              li(trans.availableInNbLanguages.pluralSameFrag(80))
+            div(cls := "right-side")(
+              img(cls := "nexus5-playing", width := "268", height := "513", src := staticUrl("images/mobile/nexus5-playing.png"), alt := "Lichess mobile on nexus 5"),
+              img(cls := "qrcode", width := "200", height := "200", src := staticUrl("images/mobile/dynamic-qrcode.png"), alt := "Download QR code")
             )
           )
         )
