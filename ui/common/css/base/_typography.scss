@@ -17,6 +17,12 @@ h4 {
 h1 {
   @include fluid-size('font-size', 27px, 52px);
   margin-bottom: 5vh;
+  & a {
+    color: $c-link-dim;
+    &:hover {
+      color: $c-link;
+    }
+  }
 }
 h2 {
   @include fluid-size('font-size', 23px, 40px);

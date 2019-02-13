@@ -3,7 +3,7 @@
 @message.layout(title = thread.name) {
 <main class="message-thread@if(thread.asMod){ mod} box box-pad">
   <div class="box__top">
-    <h1>@thread.nonEmptyName</h1>
+    <h1><a href="@routes.Message.inbox(1)" data-icon="I" class="text"></a>@thread.nonEmptyName</h1>
     <form action="@routes.Message.delete(thread.id)" method="post">
       <button type="submit" class="button button-empty button-red confirm">Delete</button>
     </form>

@@ -17,12 +17,6 @@
 
   &.forum-categ {
     padding-bottom: 1rem;
-    & h1 a {
-      color: $c-link-dim;
-      &:hover {
-        color: $c-link;
-      }
-    }
     & .sticky {
       background: mix($c-secondary, $c-bg-box, 12%);
     }
