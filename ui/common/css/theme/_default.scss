@@ -75,11 +75,14 @@ $c-border: hsl(0, 0%, 85%);
 
 $c-page-mask: hsla(0, 0, 0%, 0.5);
 
-$c-bg-header-dropdown: $c-bg-high;
-$c-header-dropdown: $c-font;
+$c-bg-popup: $c-bg-high;
+$c-popup: $c-font;
 
-$c-bg-power-tip: $c-bg-high;
-$c-power-tip: $c-font;
+$c-bg-header-dropdown: $c-bg-popup;
+$c-header-dropdown: $c-popup;
+
+$c-bg-power-tip: $c-bg-popup;
+$c-power-tip: $c-popup;
 
 $c-font-shadow: white;
 

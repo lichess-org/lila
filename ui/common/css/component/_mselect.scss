@@ -1,0 +1,60 @@
+$c-mselect: $c-primary;
+
+.mselect {
+  position: relative;
+  &__toggle {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  & label {
+    @extend %box-neat, %metal, %flex-center;
+    padding: .3rem .3rem .3rem 1rem;
+    cursor: pointer;
+    &:hover {
+      @extend %metal-hover;
+    }
+    &::after {
+      @extend %data-icon;
+      content: 'u';
+      font-size: 70%;
+      color: $c-mselect;
+    }
+  }
+  &__toggle:checked ~ label {
+    transition: opacity 200ms;
+    opacity: 0;
+  }
+  &__list {
+    @extend %base-font, %box-radius, %popup-shadow;
+    position:absolute;
+    z-index: z('mselect');
+    top:0;
+    left:0;
+    display: flex;
+    flex-flow: column;
+    background: $c-bg-popup;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 200ms ease-in-out;
+    & > * {
+      white-space: nowrap;
+      display: block;
+      padding: .3em 1em;
+      transition: 0.13s;
+      color: $c-mselect;
+      &:hover{
+        background: $c-mselect;
+        color: #fff;
+      }
+      opacity: 0;
+    }
+    .mselect__toggle:checked ~ & {
+      transform: scale(1, 1);
+      & > * {
+        opacity: 1;
+        transition: opacity 125ms ease-in-out 125ms;
+      }
+    }
+  }
+}
