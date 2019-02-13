@@ -11,8 +11,7 @@
       pointer-events: none;
     }
     & .list {
-      display: flex;
-      flex-flow: row wrap;
+      @extend %flex-wrap;
       background: url(../images/board/darksquares.jpg);
       box-shadow: inset 0 7px 20px 3px #777;
     }

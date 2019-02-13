@@ -1,15 +1,13 @@
 .mobile {
   & .sides {
-    display: flex;
-    flex-flow: row wrap;
+    @extend %flex-wrap;
   }
   & .left-side {
     flex: 1 1 auto;
     & .stores {
       display: flex;
       & a {
-        display: flex;
-        align-items: center;
+        @extend %flex-center;
       }
     }
     & h2 {

@@ -55,8 +55,7 @@
 }
 .oauth .scopes {
   div {
-    display: flex;
-    align-items: center;
+    @extend %flex-center;
     margin: 1rem 0;
     & label {
       margin-left: 1rem;

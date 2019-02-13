@@ -9,12 +9,12 @@
 
     & a {
       @include box-neat;
+      display: flex;
+      align-items: center;
       color: $c-font;
       white-space: nowrap;
       overflow: hidden;
       padding: 0.6rem 0.4rem 0.6rem 0.8rem;
-      display: flex;
-      align-items: center;
       background: $c-bg-high;
       &:hover {
         color: $c-link;

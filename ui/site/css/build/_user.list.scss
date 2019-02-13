@@ -55,8 +55,7 @@ $user-list-width: 24ch;
       & .user_top {
         background: $c-bg-box;
         & h2 {
-          display: flex;
-          align-items: center;
+          @extend %flex-center;
           font-size: 1.6em;
           line-height: 2.5em;
           padding-left: 0.8rem;

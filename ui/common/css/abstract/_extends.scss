@@ -37,11 +37,22 @@
   word-break: normal;
 }
 
-%flex-between {
+%flex-wrap {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+}
+%flex-center {
+  /* extends %flex-wrap */
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
+}
+%flex-between {
+  /* extends %flex-center */
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 %flex-between-stretch {
   display: flex;

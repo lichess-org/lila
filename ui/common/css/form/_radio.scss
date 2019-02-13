@@ -1,7 +1,5 @@
 group.radio {
-  @extend %box-neat;
-  display: flex;
-  flex-flow: row wrap;
+  @extend %box-neat, %flex-wrap;
   overflow: hidden;
   border: $border;
   & div {
@@ -13,13 +11,11 @@ group.radio {
     left: -99999px;
   }
   & label {
-    @extend %metal;
+    @extend %metal, %flex-center;
+    justify-content: center;
     padding: 10px;
     height: 100%;
     line-height: 1.8em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor:pointer;
     border-right: $border;
     user-select: none;

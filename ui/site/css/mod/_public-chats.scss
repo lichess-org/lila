@@ -6,8 +6,7 @@
   margin-left: -.5em;
 }
 #communication .actions {
-  display: flex;
-  align-items: center;
+  @extend %flex-center;
 }
 #communication .actions .priv {
   margin-right: 5px;
