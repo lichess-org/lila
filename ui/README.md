@@ -2,19 +2,13 @@
 
 ## CSS
 
-Say we're working on the `ui/site` module.
-It contains code for all pages that don't have a dedicated module.
-For instance, team, forum, mod pages are in ui/site.
-
-`cd ui/site`
-
-### Build
 
 ```
+cd ui/
 gulp css
 ```
 
-This rebuilds the sass on change.
+This incrementally rebuilds the sass for all ui/ modules on file change.
 
 ### Hack
 
