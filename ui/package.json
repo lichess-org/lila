@@ -1,0 +1,30 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "lichess.org: the forever free, adless and open source chess server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila.git"
+  },
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://lichess.org",
+  "engines": {
+    "node": ">=10"
+  },
+  "private": true,
+  "dependencies": {
+    "gulp": "^4",
+    "gulp-uglify": "^3",
+    "gulp-size": "^3",
+    "gulp-concat": "^2.6",
+    "gulp-sass-inheritance": "^1.1"
+  }
+}
