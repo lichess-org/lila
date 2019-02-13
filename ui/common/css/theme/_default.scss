@@ -69,7 +69,7 @@ $c-link-clear: $c-primary-clear;
 $c-link-hover: c-clearer(saturate($c-primary, 100%), 35%);
 
 $c-bg-box: $c-bg-high;
-$c-bg-input: mix(white, $c-bg-page, 60%);
+$c-bg-input: c-light($c-bg-page, 98%);
 
 $c-border: hsl(0, 0%, 85%);
 

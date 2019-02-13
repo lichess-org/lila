@@ -1,15 +1,13 @@
 #dasher_app .theme {
   & .list {
+    @extend %flex-wrap;
     margin: 5px 0;
-    display: flex;
-    flex-flow: row wrap;
   }
   & .list a {
     flex: 0 0 50%;
     height: 44px;
-    display: flex;
+    @extend %flex-center;
     justify-content: center;
-    align-items: center;
   }
   & .list span {
     display: block;

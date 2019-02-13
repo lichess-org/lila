@@ -53,7 +53,7 @@ $c-link-clear: $c-primary-clear;
 $c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
 
 $c-bg-box: $c-bg-high;
-$c-bg-input: lighten($c-bg-page, 4%);
+$c-bg-input: c-light($c-bg-page, 13%);
 
 $c-bg-header-dropdown: $c-bg-low;
 $c-header-dropdown: $c-font-clear;

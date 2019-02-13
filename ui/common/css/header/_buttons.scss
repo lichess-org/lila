@@ -1,13 +1,11 @@
 .site-buttons {
-  display: flex;
-  align-items: center;
+  @extend %flex-center;
 
   & .link {
+    @extend %flex-center;
     color: $c-font;
     font-size: 1.1rem;
     padding: 0 .7rem;
-    display: flex;
-    align-items: center;
     &:hover {
       color: $c-link;
     }

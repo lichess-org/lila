@@ -1,28 +1,29 @@
-@(thread: lila.message.Thread, form: Option[Form[_]], blocks: Boolean)(implicit ctx: Context, me: User)
+@(thread: lila.message.Thread, replyForm: Option[Form[_]], blocks: Boolean)(implicit ctx: Context, me: User)
 
-@message.layout(
-title = thread.name) {
-<div id="lichess_message" class="content_box @if(thread.asMod){ mod}">
-  <div class="thread_actions">
+@message.layout(title = thread.name) {
+<main class="message-thread@if(thread.asMod){ mod} box box-pad">
+  <div class="box__top">
+    <h1>@thread.nonEmptyName</h1>
     <form action="@routes.Message.delete(thread.id)" method="post">
-      <button type="submit" class="delete button"> Delete</button>
+      <button type="submit" class="button button-empty button-red confirm">Delete</button>
     </form>
   </div>
 
-  <div class="head">
-    <h1>@thread.nonEmptyName</h1>
-  </div>
-
   @thread.posts.map { post =>
-  <div class="thread_message embed_analyse" id="message_@post.id">
-    <span class="infos">
-      @userIdLink(thread.visibleSenderOf(post), none) <span data-icon="H"></span> @userIdLink(thread.visibleReceiverOf(post), "inline".some) - @momentFromNow(post.createdAt)
-    </span>
-    <div class="thread_message_body">@richText(post.text)</div>
-  </div>
+  <article class="message-thread__message embed_analyse" id="message_@post.id">
+    <div class="infos">
+      <div>
+        @userIdLink(thread.visibleSenderOf(post), none)
+        <i data-icon="H"></i>
+        @userIdLink(thread.visibleReceiverOf(post), "inline".some)
+      </div>
+      @momentFromNow(post.createdAt)
+    </div>
+    <div class="message-thread__message__body">@richText(post.text)</div>
+  </article>
   }
 
-  <div class="answer" id="bottom">
+  <div class="message-thread__answer" id="bottom">
     @if(blocks) {
     <p class="end">@userIdLink(thread.visibleOtherUserId(me).some) blocks you. You cannot answer.</p>
     } else {
@@ -30,19 +31,21 @@ title = thread.name) {
     <p class="end">
       @userIdLink(thread.visibleOtherUserId(me).some) has closed this thread.
       @if(!thread.asMod){
-        <a href="@routes.Message.form?user=@thread.otherUserId(me)" class="button">Create a new one</a>
+      <a href="@routes.Message.form?user=@thread.otherUserId(me)" class="button">Create a new one</a>
       }
     </p>
     } else {
-    @form.map { f =>
+    @replyForm.map { form =>
     <form action="@routes.Message.answer(thread.id)" method="post">
       <div class="field_body">
-        <textarea required="required" name="@f("text").name" id="@f("text").id">@f("text").value</textarea>
-        @errMsg(f("text"))
+        @defining(form("text")) { f =>
+        <textarea required="required" name="@f.name" id="@form3.id(f)">@f.value</textarea>
+        @errMsg(f)
+        }
       </div>
       <div class="actions">
-        <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
         <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
+        <button class="button text" data-icon="E" type="submit">@trans.send()</button>
       </div>
     </form>
     }

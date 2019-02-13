@@ -115,8 +115,7 @@
   }
   & .sound {
     & .content {
-      display: flex;
-      flex-flow: row;
+      @extend %flex-wrap;
       margin: 5px 0 5px 5px;
     }
     & .selector a {

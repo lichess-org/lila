@@ -81,6 +81,8 @@
   }
 
   #topmenu {
+    display: flex;
+    flex-flow: row wrap;
     position: fixed;
     top: $site-header-height;
     bottom: 0;
@@ -95,8 +97,6 @@
     line-height: 40px;
     box-shadow: 2px 3px 6px hsla(0, 0, 0%, 0.3);
     border-radius: 0 3px 0 0;
-    display: flex;
-    flex-flow: row wrap;
     max-width: 80%;
     @include breakpoint($mq-xx-small) {
       max-width: 70%;

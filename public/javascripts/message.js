@@ -1,5 +1,5 @@
 $(function() {
-  $root = $('#lichess_message');
+  $root = $('main.message');
   $root.find('select.select').change(function() {
     $root.find('input[name=threads]').prop('checked', false);
     switch ($(this).val()) {
@@ -19,6 +19,7 @@ $(function() {
   });
   $root.find('select.action').change(function() {
     var action = $(this).val();
+    if (!action) return;
     var ids = [];
     $root.find('input[name=threads]:checked').each(function() {
       return ids.push(this.value);

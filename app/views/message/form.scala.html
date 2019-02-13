@@ -1,94 +1,64 @@
 @(form: Form[_], reqUser: Option[User], reqTitle: Option[String], reqMod: Boolean, canMessage: Boolean, oldEnough: Boolean)(implicit ctx: Context)
+@import lila.app.ui.ScalatagsTwirlForm._
 
-@message.layout(
-title = trans.composeMessage.txt()) {
-<div id="lichess_message" class="content_box">
-  <div class="message_new">
-    <h1>@trans.composeMessage()</h1>
-    @reqUser.ifFalse(canMessage).map { u =>
-    <br /> <br /> <hr /> <br />
-    <p>Sorry, @u.username doesn't accept new messages.</p>
+@message.layout(title = trans.composeMessage.txt()) {
+<main class="message-new box box-pad">
+  <h1>@trans.composeMessage()</h1>
+  @reqUser.ifFalse(canMessage).map { u =>
+  <br /> <br /> <hr /> <br />
+  <p>Sorry, @u.username doesn't accept new messages.</p>
+  }.getOrElse {
+  @if(!oldEnough) {
+  <br><br><hr><br.
+  <p>Sorry, you cannot start conversations yet.</p>
+  } else {
+  <form class="form3" action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
+    @form3.group(form("username"), trans.recipient.frag()) { f =>
+    @reqUser.map { user =>
+    @userLink(user)
+    @form3.hidden(f)
     }.getOrElse {
-    @if(!oldEnough) {
-    <br /> <br /> <hr /> <br />
-    <p>Sorry, you cannot start conversations yet.</p>
-    } else {
-    <div class="center form">
-      <form action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
-        <div class="field_to">
-          <label for="@form("username").id">@trans.recipient():</label>
-          @reqUser.map { user =>
-          @userLink(user)
-          <input
-          type="hidden"
-          name="@form("username").name"
-          value="@user.id">
-          }.getOrElse {
-          <input
-          type="text"
-          class="user-autocomplete"
-          required="required"
-          name="@form("username").name"
-          id="@form("username").id"
-          value="@form("username").value"
-          autofocus="1"
-          data-tag="span">
-          @errMsg(form("username"))
-          }
-        </div>
-
-        @if(isGranted(_.ModMessage)) {
-        <div class="field_mod">
-          <label for="@form("mod").id">Send as mod</label>
-          <span>
-            <input
-            @if(reqMod) { checked }
-            name="@form("mod").name"
-            id="@form("mod").id"
-            class="cmn-toggle"
-            type="checkbox" />
-            <label for="@form("mod").id"></label>
-          </span>
-        </div>
-        <div class="field_preset">
-          <label for="@form("preset").id">Preset</label>
-          <select name="@form("preset").name">
-            <option></option>
-          </select>
-        </div>
-        @embedJs {
-        window.lichess_mod_presets = @toJsonHtml(lila.message.ModPreset.asJson);
-        }
-        }
-
-        <div class="field_subject">
-          <label for="@form("subject").id">@trans.subject():</label>
-          <input
-          type="text"
-          required="required"
-          minlength=3
-          maxlength=100
-          name="@form("subject").name"
-          id="@form("subject").id"
-          value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)"
-          @if(reqUser.isDefined) { autofocus="1" }>
-          @errMsg(form("subject"))
-        </div>
-        <div class="field_body">
-          <textarea
-            name="@form("text").name"
-            required="required"
-            id="@form("text").id">@form("text").value</textarea>
-          @errMsg(form("text"))
-        </div>
-        <div class="actions">
-          <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
-          <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
-        </div>
-      </form>
-    </div>
+    <input
+    type="text"
+    class="form-control user-autocomplete"
+    required="required"
+    name="@f.name"
+    id="@form3.id(f)"
+    value="@f.value"
+    autofocus="1"
+    data-tag="span" />
     }
     }
-  </div>
+
+    @if(isGranted(_.ModMessage)) {
+    @form3.checkbox(form("mod"), frag("Send as mod"))
+    @form3.group(form("preset"), frag("Preset")) { f =>
+    @form3.select(f, Nil)
+    }
+    @embedJs { window.lichess_mod_presets = @toJsonHtml(lila.message.ModPreset.asJson); }
+    }
+
+    @form3.group(form("subject"), trans.subject.frag()) { f =>
+    <input
+    class="form-control"
+    type="text"
+    required="required"
+    minlength=3
+    maxlength=100
+    name="@f.name"
+    id="@form3.id(f)"
+    value="@f.value.filter(_.nonEmpty).orElse(reqTitle)"
+    @if(reqUser.isDefined) { autofocus="1" } />
+    }
+    @form3.group(form("text"), frag("Message"), klass = "message-text") { f =>
+    @form3.textarea(f)(*.required := true)
+    }
+    @form3.actionsHtml {
+    <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
+    <button class="button text" data-icon="E" type="submit">@trans.send()</button>
+    }
+  </form>
+  }
+  }
 </div>
 }

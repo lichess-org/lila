@@ -6,9 +6,7 @@
     @extend %flex-between;
     margin-bottom: 1.5rem;
     & > div {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
+      @extend %flex-center;
     }
     & .author {
       color: $c-font-dim;

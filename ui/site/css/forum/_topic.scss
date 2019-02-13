@@ -30,8 +30,7 @@
     @extend %flex-between;
     margin-bottom: 3rem;
     & div {
-      display: flex;
-      flex-flow: row wrap;
+      @extend %flex-wrap;
       & .button {
         margin-left: 1rem;
       }
