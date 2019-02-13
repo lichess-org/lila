@@ -1,30 +1,33 @@
 {
   "name": "ui",
   "version": "1.0.0",
-  "description": "lichess.org: the forever free, adless and open source chess server",
+  "description": "lidraughts.org: the forever free, adless and open source draughts server",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ornicar/lila.git"
+    "url": "https://github.com/roepstoep/lidraughts"
   },
   "keywords": [
-    "chess",
-    "lichess"
+    "draughts",
+    "lidraughts"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
+    "url": "https://github.com/roepstoep/lidraughts/issues"
   },
-  "homepage": "https://lichess.org",
+  "homepage": "https://lidraughts.org",
   "engines": {
     "node": ">=10"
   },
   "private": true,
   "dependencies": {
     "gulp": "^4",
-    "gulp-uglify": "^3",
-    "gulp-size": "^3",
+    "gulp-cached": "^1.1.1",
     "gulp-concat": "^2.6",
-    "gulp-sass-inheritance": "^1.1"
+    "gulp-filter": "^5.1.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sass-inheritance": "^1.1",
+    "gulp-size": "^3",
+    "gulp-uglify": "^3"
   }
 }
