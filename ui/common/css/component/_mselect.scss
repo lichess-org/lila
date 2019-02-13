@@ -7,7 +7,7 @@ $c-mselect: $c-primary;
     top: -9999px;
     left: -9999px;
   }
-  & label {
+  &__label {
     @extend %box-neat, %metal, %flex-center;
     padding: .3rem .3rem .3rem 1rem;
     cursor: pointer;
@@ -21,7 +21,7 @@ $c-mselect: $c-primary;
       color: $c-mselect;
     }
   }
-  &__toggle:checked ~ label {
+  &__toggle:checked ~ .mselect__label {
     transition: opacity 200ms;
     opacity: 0;
   }
