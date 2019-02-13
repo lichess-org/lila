@@ -8,6 +8,7 @@ const cached = require('gulp-cached');
 const gulpif = require('gulp-if');
 const filter = require('gulp-filter');
 const fs = require('fs');
+const glob = require('glob');
 
 const themes = ['light', 'dark', 'transp'];
 
@@ -21,19 +22,15 @@ const autoprefixerOptions = {
 };
 const destination = () => gulp.dest('../public/css/');
 
-// const sourceDir = '.';
-// const buildDir = `${sourceDir}/build`;
 const sourcesGlob = './*/css/**/*.scss';
 const buildsGlob = './*/css/build/*.scss';
 
-// createThemedBuilds(buildDir);
-
 const build = () => gulp.src(sourcesGlob)
-  //filter out unchanged scss files, only works when watching
+//filter out unchanged scss files, only works when watching
   .pipe(gulpif(global.isWatching, cached('sass')))
-  //find files that depend on the files that have changed
+//find files that depend on the files that have changed
   .pipe(sassInheritance({dir: '.',debug: false}))
-  //filter out internal imports (folders and files starting with "_" )
+//filter out internal imports (folders and files starting with "_" )
   .pipe(filter(file => !/\/_/.test(file.path) || !/^_/.test(file.relative)))
   .pipe(sourcemaps.init())
   .pipe(sass(sassOptions).on('error', sass.logError))
@@ -44,46 +41,48 @@ const build = () => gulp.src(sourcesGlob)
 const setWatching = async () => { global.isWatching = true; };
 
 gulp.task('css', gulp.series([
+  createThemedBuilds,
   setWatching,
   build,
   () => gulp.watch(sourcesGlob, build)
 ]));
 
-gulp.task('css-dev', build);
+gulp.task('css-dev', gulp.series([createThemedBuilds, build]));
 
-gulp.task('css-prod', () => gulp
-  .src(buildsGlob)
-  .pipe(sass({
-    ...sassOptions,
-    ...{ outputStyle: 'compressed' }
-  }).on('error', sass.logError))
-  .pipe(autoprefixer(autoprefixerOptions))
-  .pipe(renameAs('min'))
-  .pipe(destination())
-);
+  gulp.task('css-prod', () => gulp
+    .src(buildsGlob)
+    .pipe(sass({
+      ...sassOptions,
+      ...{ outputStyle: 'compressed' }
+    }).on('error', sass.logError))
+    .pipe(autoprefixer(autoprefixerOptions))
+    .pipe(renameAs('min'))
+    .pipe(destination())
+  );
 
-function renameAs(ext) {
-  return rename(path => {
-    path.dirname = '';
-    path.basename = `lichess.${path.basename}.${ext}`;
-    return path;
-  });
-}
-
-function createThemedBuilds(buildDir) {
-  const builds = fs.readdirSync(buildDir);
-  builds
-    .filter(fileName => fileName[0] === '_')
-    .forEach(fileName => {
-      themes.forEach(theme => {
-        const themedName = fileName.replace(/^_(.+)\.scss$/, `$1.${theme}.scss`);
-        const themedPath = `${buildDir}/${themedName}`;
-        if (!fs.existsSync(themedPath)) {
-          const buildName = fileName.replace(/^_(.+)\.scss$/, '$1');
-          const code = `@import '../../../common/css/theme/${theme}';\n@import '${buildName}';\n`;
-          console.log(`Create missing SCSS themed build: ${themedPath}`);
-          fs.writeFileSync(themedPath, code);
-        }
-      });
+  function renameAs(ext) {
+    return rename(path => {
+      path.dirname = '';
+      path.basename = `lichess.${path.basename}.${ext}`;
+      return path;
     });
-}
+  }
+
+  function createThemedBuilds(cb) {
+    glob(buildsGlob, {}, (err, files) => {
+      files
+        .filter(file => file.match(/\/_.+\.scss$/))
+        .forEach(file => {
+          themes.forEach(theme => {
+            const themed = file.replace(/\/_(.+)\.scss$/, `/$1.${theme}.scss`);
+            if (!fs.existsSync(themed)) {
+              const buildName = file.replace(/.+\/_(.+)\.scss$/, '$1');
+              const code = `@import '../../../common/css/theme/${theme}';\n@import '${buildName}';\n`;
+              console.log(`Create missing SCSS themed build: ${themed}`);
+              fs.writeFileSync(themed, code);
+            }
+          });
+        });
+      cb();
+    });
+  }
