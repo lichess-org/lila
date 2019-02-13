@@ -34,12 +34,13 @@ function studyButton(ctrl, fen) {
     m('input[type=hidden][name=fen]', {
       value: fen
     }),
-    m('button.button.text', {
+    m('button.button.button-empty.text', {
       type: 'submit',
       'data-icon': '4',
-      disabled: !ctrl.positionLooksLegit()
+      disabled: !ctrl.positionLooksLegit(),
+      class: ctrl.positionLooksLegit() ? '' : 'disabled'
     },
-    'Study')
+      'Study')
   ]);
 }
 
@@ -88,7 +89,7 @@ function controls(ctrl, fen) {
         )
       ]) : null
     ]),
-    m('div.metadata.content_box', [
+    m('div.metadata', [
       m('div.color',
         m('select', {
           onchange: m.withAttr('value', ctrl.setColor)
@@ -136,25 +137,25 @@ function controls(ctrl, fen) {
         onclick: ctrl.clearBoard
       }, 'Empty board')
     ]) : [
-      m('div', [
-        m('a.button.text[data-icon=B]', {
+      m('div.actions', [
+        m('a.button.button-empty.text[data-icon=B]', {
           onclick: function() {
             ctrl.chessground.toggleOrientation();
           }
         }, ctrl.trans('flipBoard')),
-        looksLegit ? m('a.button.text[data-icon="A"]', {
+        looksLegit ? m('a.button.button-empty.text[data-icon="A"]', {
           href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
           rel: 'nofollow'
-        }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
+        }, ctrl.trans('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
-        m('a.button', {
+        m('a.button.button-empty', {
           class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
           onclick: function() {
             if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue_with'));
           }
         },
-        m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
+          m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
       m('div.continue_with', [
@@ -210,7 +211,7 @@ function sparePieces(ctrl, color, orientation, position) {
   });
 
   return m('div', {
-    class: ['spare', 'spare-' + position, 'orientation-' + orientation, color].join(' ')
+    class: ['spare', 'spare-' + position, 'orientation-' + orientation, 'spare-' + color].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
@@ -223,31 +224,31 @@ function sparePieces(ctrl, color, orientation, position) {
       (
         (
           selectedClass === className &&
-            (
-              !ctrl.chessground ||
-              !ctrl.chessground.state.draggable.current ||
-              !ctrl.chessground.state.draggable.current.newPiece
-            )
+          (
+            !ctrl.chessground ||
+            !ctrl.chessground.state.draggable.current ||
+            !ctrl.chessground.state.draggable.current.newPiece
+          )
         ) ?
         ' selected-square' : ''
       );
 
-      if (s === 'trash') {
-        attrs['data-icon'] = 'q';
-        containerClass += ' trash';
-      } else if (s !== 'pointer') {
-        attrs['data-color'] = s[0];
-        attrs['data-role'] = s[1];
-      }
+    if (s === 'trash') {
+      attrs['data-icon'] = 'q';
+      containerClass += ' trash';
+    } else if (s !== 'pointer') {
+      attrs['data-color'] = s[0];
+      attrs['data-role'] = s[1];
+    }
 
-      return m('div', {
-        class: containerClass,
-        onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
-        ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
-        ontouchmove: function(e) {
-          lastTouchMovePos = eventPosition(e)
-        }
-      }, m('piece', attrs));
+    return m('div', {
+      class: containerClass,
+      onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
+      ontouchmove: function(e) {
+        lastTouchMovePos = eventPosition(e)
+      }
+    }, m('div', m('piece', attrs)));
   }));
 }
 

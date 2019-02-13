@@ -41,7 +41,7 @@
   100% { background-position: right }
 }
 .ddloader {
-  background: url(#{$img-path}/loader/blackx1.png) no-repeat;
+  background: img-url('loader/blackx1.png') no-repeat;
   animation: ddloader 0.5s steps(15) infinite;
   vertical-align: middle;
   display: inline-block;

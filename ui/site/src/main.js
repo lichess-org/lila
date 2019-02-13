@@ -387,6 +387,10 @@ lichess.topMenuIntent = function() {
         };
       })();
 
+      var resizeChessground = function() {
+        lichess.dispatchEvent(document.body, 'chessground.resize');
+      };
+
       // Zoom
       var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 
@@ -438,12 +442,12 @@ lichess.topMenuIntent = function() {
 
         // reflow charts
         lichess.dispatchEvent(window, 'resize');
-
-        lichess.dispatchEvent(document.body, 'chessground.resize');
+        resizeChessground();
       };
       lichess.pubsub.on('reset_zoom', function() {
         if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
+      window.addEventListener('resize', resizeChessground);
 
       // dasher
       (function() {

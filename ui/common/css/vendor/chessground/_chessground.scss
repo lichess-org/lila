@@ -14,71 +14,71 @@
     top: 0;
     height: 100%;
   }
-  & square {
-    position: absolute;
-    width: 12.5%;
-    height: 12.5%;
-    pointer-events: none;
-    &.move-dest {
-      background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
-      pointer-events: auto;
-    }
-    &.premove-dest {
-      background: radial-gradient(rgba(20, 30, 85, 0.5) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
-    }
-    &.oc.move-dest {
-      background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
-    }
-    &.oc.premove-dest {
-      background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
-    }
-    &.move-dest:hover {
-      background: rgba(20, 85, 30, 0.3);
-    }
-    &.premove-dest:hover {
-      background: rgba(20, 30, 85, 0.2);
-    }
-    &.last-move {
-      will-change: transform;
-      background-color: rgba(155, 199, 0, 0.41);
-    }
-    &.selected {
-      background-color: rgba(20, 85, 30, 0.5);
-    }
-    &.check {
-      background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
-    }
-    &.current-premove {
-      background-color: rgba(20, 30, 85, 0.5);
-    }
+}
+square {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
+  pointer-events: none;
+  &.move-dest {
+    background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+    pointer-events: auto;
   }
-  & piece {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 12.5%;
-    height: 12.5%;
-    background-size: cover;
-    z-index: z('cg__piece');
+  &.premove-dest {
+    background: radial-gradient(rgba(20, 30, 85, 0.5) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  }
+  &.oc.move-dest {
+    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+  }
+  &.oc.premove-dest {
+    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+  }
+  &.move-dest:hover {
+    background: rgba(20, 85, 30, 0.3);
+  }
+  &.premove-dest:hover {
+    background: rgba(20, 30, 85, 0.2);
+  }
+  &.last-move {
     will-change: transform;
-    pointer-events: none;
-    &.dragging {
-      cursor: move;
-      z-index: z('cg__piece.dragging');
-    }
-    &.anim {
-      z-index: z('cg__piece.anim');
-    }
-    &.fading {
-      z-index: z('cg__piece.fading');
-      opacity: 0.5;
-    }
-    &.ghost {
-      opacity: 0.3;
-    }
+    background-color: rgba(155, 199, 0, 0.41);
+  }
+  &.selected {
+    background-color: rgba(20, 85, 30, 0.5);
+  }
+  &.check {
+    background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  }
+  &.current-premove {
+    background-color: rgba(20, 30, 85, 0.5);
   }
   &.bh1 piece {
     opacity: 0.98;
+  }
+}
+piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12.5%;
+  height: 12.5%;
+  background-size: cover;
+  z-index: z('cg__piece');
+  will-change: transform;
+  pointer-events: none;
+  &.dragging {
+    cursor: move;
+    z-index: z('cg__piece.dragging');
+  }
+  &.anim {
+    z-index: z('cg__piece.anim');
+  }
+  &.fading {
+    z-index: z('cg__piece.fading');
+    opacity: 0.5;
+  }
+  &.ghost {
+    opacity: 0.3;
   }
 }
 
