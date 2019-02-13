@@ -108,9 +108,11 @@ object User extends LilaController {
   }
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(UserRepo named username) { u =>
-      if (u.enabled || isGranted(_.UserSpy)) f(u)
-      else negotiate(
+    UserRepo named username flatMap {
+      case None if isGranted(_.UserSpy) => Mod.searchTerm(username.trim)
+      case None => notFound
+      case Some(u) if (u.enabled || isGranted(_.UserSpy)) => f(u)
+      case Some(u) => negotiate(
         html = UserRepo isErased u flatMap { erased =>
           if (erased.value) notFound
           else NotFound(html.user.disabled(u)).fuccess

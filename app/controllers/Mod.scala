@@ -235,11 +235,11 @@ object Mod extends LilaController {
   }
 
   def search = Secure(_.UserSearch) { implicit ctx => me =>
-    val query = (~get("q")).trim
-    Env.mod.search(query) map { users =>
-      html.mod.search(query, users)
-    }
+    searchTerm((~get("q")).trim)
   }
+
+  protected[controllers] def searchTerm(query: String)(implicit ctx: Context) =
+    Env.mod.search(query) map { users => Ok(html.mod.search(query, users)) }
 
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>
     implicit val lightUser = Env.user.lightUserSync _
