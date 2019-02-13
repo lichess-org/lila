@@ -14,7 +14,6 @@ mkdir -p public/compiled
 ts_apps1="common chess"
 ts_apps2="ceval game tree chat nvui"
 apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher"
-css_apps="site dasher challenge notify tournament"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -39,9 +38,11 @@ build() {
 build_css() {
   echo "build_css" "$@"
   set -ev
-  cd ui/$1
+  cd ui
   gulp "css-$target"
 }
+
+build_css
 
 if type -p parallel; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
@@ -49,13 +50,11 @@ if type -p parallel; then # parallel execution!
     [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
   set -x
-  parallel --gnu $P_OPTS build_css ::: $css_apps
   parallel --gnu $P_OPTS build_ts ::: $ts_apps1
   parallel --gnu $P_OPTS build_ts ::: $ts_apps2
   parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
   echo "For faster builds, install GNU parallel."
-  for app in $css_apps; do (build_css $app); done
   for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
   for app in $apps; do (build $app); done
 fi

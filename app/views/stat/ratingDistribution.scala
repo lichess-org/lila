@@ -30,7 +30,7 @@ object ratingDistribution {
         });""")
     )
   ) {
-      main(cls := "page-menu page-large")(
+      main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
           h1(trans.weeklyPerfTypeRatingDistribution.frag(mselect(

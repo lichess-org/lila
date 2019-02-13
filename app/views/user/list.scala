@@ -28,7 +28,7 @@ object list {
       description = "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
     ).some
   ) {
-      main(cls := "page-menu page-large")(
+      main(cls := "page-menu")(
         bits.communityMenu("leaderboard"),
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(

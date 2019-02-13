@@ -31,4 +31,11 @@
       opacity: 1;
     }
   }
+  & .title {
+    color: $c-brag;
+    font-weight: bold;
+    &[data-bot] {
+      color: $c-bot;
+    }
+  }
 }
