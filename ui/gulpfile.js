@@ -2,7 +2,11 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
+const sassInheritance = require('gulp-sass-inheritance')
 const rename = require('gulp-rename');
+const cached = require('gulp-cached');
+const gulpif = require('gulp-if');
+const filter = require('gulp-filter');
 const fs = require('fs');
 
 const themes = ['light', 'dark', 'transp'];
@@ -24,14 +28,23 @@ const buildsGlob = './*/css/build/*.scss';
 
 // createThemedBuilds(buildDir);
 
-const build = () => gulp.src(buildsGlob)
+const build = () => gulp.src(sourcesGlob)
+  //filter out unchanged scss files, only works when watching
+  .pipe(gulpif(global.isWatching, cached('sass')))
+  //find files that depend on the files that have changed
+  .pipe(sassInheritance({dir: '.',debug: false}))
+  //filter out internal imports (folders and files starting with "_" )
+  .pipe(filter(file => !/\/_/.test(file.path) || !/^_/.test(file.relative)))
   .pipe(sourcemaps.init())
   .pipe(sass(sassOptions).on('error', sass.logError))
   .pipe(sourcemaps.write())
   .pipe(renameAs('dev'))
   .pipe(destination());
 
+const setWatching = async () => { global.isWatching = true; };
+
 gulp.task('css', gulp.series([
+  setWatching,
   build,
   () => gulp.watch(sourcesGlob, build)
 ]));

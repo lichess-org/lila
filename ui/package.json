@@ -22,9 +22,12 @@
   "private": true,
   "dependencies": {
     "gulp": "^4",
-    "gulp-uglify": "^3",
-    "gulp-size": "^3",
+    "gulp-cached": "^1.1.1",
     "gulp-concat": "^2.6",
-    "gulp-sass-inheritance": "^1.1"
+    "gulp-filter": "^5.1.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sass-inheritance": "^1.1",
+    "gulp-size": "^3",
+    "gulp-uglify": "^3"
   }
 }

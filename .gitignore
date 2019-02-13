@@ -18,6 +18,7 @@ node_modules/
 local/
 ui/*/npm-debug.log
 hs_*.log
+yarn-error.log
 
 RUNNING_PID
 
