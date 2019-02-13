@@ -540,8 +540,7 @@ body > div.content {
 #reconnecting {
   opacity: 0;
 }
-body.offline #reconnecting,
-#network_error {
+body.offline #reconnecting {
   display: inline-block;
   opacity: 1;
   color: #dc322f;

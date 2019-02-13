@@ -26,9 +26,8 @@
   display: none;
   opacity: 0;
 }
-body.offline #reconnecting,
-#network_error {
-  display: inline-block;
+body.offline #reconnecting {
+  display: block;
   opacity: 1;
   color: $c-error;
 }

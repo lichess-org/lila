@@ -193,16 +193,10 @@ lichess.StrongSocket = function(url, version, settings) {
     options.debug = true;
     debug('error: ' + JSON.stringify(e));
     tryOtherUrl = true;
-    setTimeout(function() {
-      if (!$('#network_error').length) {
-        $('#top').append('<span class="link text" id="network_error" data-icon="j">Network error</span>');
-      }
-    }, 1000);
     clearTimeout(pingSchedule);
   };
 
   var onSuccess = function() {
-    $('#network_error').remove();
     nbConnects++;
     if (nbConnects == 1) {
       options.onFirstConnect();
