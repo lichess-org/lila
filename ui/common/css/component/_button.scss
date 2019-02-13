@@ -11,22 +11,16 @@
   padding: .7em 1em;
   border: none;
   cursor: pointer;
-  transition: all .3s ease-out;
+  transition: all .15s;
   white-space: nowrap;
   &,
   &:visited {
     color: $c-primary-over;
   }
-  &:hover:not(.disabled) {
+  &:not(.disabled):hover {
     @extend %button-raised-shadow;
     color: $c-primary-over;
     background: lighten($c-primary, 7);
-  }
-  &[disabled] {
-    cursor: default;
-    background: hsl(0, 0%, 80%);
-    color: hsl(0, 0%, 62%);
-    box-shadow: none;
   }
   &-no-upper {
     text-transform: none;
@@ -40,42 +34,54 @@
   }
   &-green {
     background: $c-secondary;
-    &:hover:not(.disabled) {
+    &:not(.disabled):hover {
       background: lighten($c-secondary, 4);
     }
   }
   &-red {
     background: $c-error;
-    &:hover:not(.disabled) {
+    &:not(.disabled):hover {
       background: lighten($c-error, 11);
-    }
-  }
-  &.button-metal {
-    @extend %metal;
-    color: $c-font;
-    &:hover:not(.disabled) {
-      @extend %metal-hover;
     }
   }
   &.active {
     @extend %active;
   }
   &.button-empty {
-    color: $c-primary;
+    transition: none;
+    &,
+    &:hover {
+      color: $c-primary;
+    }
     background: none;
     box-shadow: none;
+    &:not(.disabled):hover {
+      @extend %button-shadow;
+    }
     &,
     &.button-green,
     &.button-red {
-      &:hover:not(.disabled) {
-        @extend %button-shadow, %metal;
+      &:not(.disabled):hover {
+        @extend %metal;
       }
     }
-    &.button-red {
+    &.button-red,
+    &.button-red:hover {
       color: $c-error;
     }
-    &.button-green {
+    &.button-green,
+    &.button-green:hover {
       color: $c-secondary;
+    }
+  }
+  &.button-metal {
+    @extend %metal;
+    &,
+    &:hover {
+      color: $c-font;
+    }
+    &:not(.disabled):hover {
+      @extend %metal-hover;
     }
   }
   &.disabled {
