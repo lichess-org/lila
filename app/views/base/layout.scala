@@ -132,12 +132,7 @@ object layout {
           !responsive option fontStylesheets
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
-        if (responsive) frag(
-          ctx.zoom ifTrue zoomable map { z =>
-            raw(s"""<style>main{--zoom:$z}</style>""")
-          },
-          responsiveCssTag("site")
-        )
+        if (responsive) responsiveCssTag("site")
         else frag(
           responsive option cssTag("offline-fonts.css"),
           currentBgCss,
@@ -189,9 +184,10 @@ object layout {
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.map(_.value),
-        dataZoom := ctx.zoom.map(_.toString),
+        dataZoom := ctx.zoom.ifFalse(responsive).map(_.toString),
         dataResp := responsive.option(true),
-        dataTheme := responsive.option(ctx.currentBg)
+        dataTheme := responsive.option(ctx.currentBg),
+        style := (responsive && zoomable) option s"--zoom:${ctx.respZoom}"
       )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
@@ -204,7 +200,11 @@ object layout {
           playing option zenToggle,
           if (responsive) siteHeader.responsive(playing)
           else siteHeader.old(playing),
-          if (responsive) div(id := "main-wrap", cls := fullScreen.option("full-screen"))(body)
+          if (responsive) div(id := "main-wrap", cls := List(
+            "full-screen" -> fullScreen,
+            "is2d" -> ctx.pref.is2d,
+            "is3d" -> ctx.pref.is3d
+          ))(body)
           else div(cls := s"content ${if (ctx.pref.is3d) "is3d" else "is2d"}")(
             div(id := "site_header")(
               div(id := "notifications"),

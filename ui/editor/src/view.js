@@ -69,7 +69,7 @@ function controls(ctrl, fen) {
   };
   var selectedVariant = ctrl.data.variant;
   var looksLegit = ctrl.positionLooksLegit();
-  return m('div.editor-side', [
+  return m('div.board-editor__tools', [
     ctrl.embed ? null : m('div', [
       ctrl.data.positions ? m('select.positions', {
         onchange: function(e) {
@@ -210,7 +210,7 @@ function sparePieces(ctrl, color, orientation, position) {
   });
 
   return m('div', {
-    class: ['spare', position, 'orientation-' + orientation, color].join(' ')
+    class: ['spare', 'spare-' + position, 'orientation-' + orientation, color].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
@@ -298,7 +298,7 @@ module.exports = function(ctrl) {
   var color = ctrl.bottomColor();
   var opposite = color === 'white' ? 'black' : 'white';
 
-  return m('div.editor', {
+  return m('main.board-editor', {
     style: 'cursor: ' + makeCursor(ctrl.vm.selected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),

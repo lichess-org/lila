@@ -21,16 +21,16 @@ object editor {
     moreJs = frag(
       jsAt(s"compiled/lichess.editor${isProd ?? (".min")}.js"),
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
-LichessEditor(document.getElementById('board_editor'), data);""")
+LichessEditor(document.getElementById('main-wrap'), data);""")
     ),
-    moreCss = cssTag("boardEditor.css"),
+    moreCss = responsiveCssTag("editor"),
     chessground = false,
+    zoomable = true,
+    responsive = true,
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess board editor",
       url = s"$netBaseUrl${routes.Editor.index.url}",
       description = "Load opening positions or create your own chess position on a chess board editor"
     ).some
-  ) {
-      div(id := "board_editor", cls := "board_editor cg-512")
-    }
+  )(emptyFrag)
 }

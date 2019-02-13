@@ -12,6 +12,12 @@ body {
     --main-margin: #{$block-gap};
     margin-bottom: $block-gap;
   }
+
+  --board-scale: 1;
+  @include breakpoint($mq-zoom-enabled) {
+    // --zoom: 85; defined in the HTML, loaded from server
+    --board-scale: calc((var(--zoom) / 100) * 0.5 + 0.5);
+  }
 }
 
 #main-wrap {

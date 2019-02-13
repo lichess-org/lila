@@ -23,7 +23,7 @@ $user-list-width: 35ch;
     }
     & li {
       @extend %flex-between;
-      padding: 1rem 1.2rem 1rem .5rem;
+      padding: 1.2rem 1.2rem 1.2rem .5rem;
     }
     li:nth-child(even) {
       background: $c-bg-zebra;

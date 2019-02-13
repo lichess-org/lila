@@ -87,11 +87,13 @@ case class Pref(
 
   def isZen = zen == Zen.YES
 
+  def is2d = !is3d
+
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
     theme == "brown" &&
       pieceSet == "cburnett" &&
-      !is3d &&
+      is2d &&
       animation == Animation.NONE &&
       highlight &&
       coords == Coords.OUTSIDE

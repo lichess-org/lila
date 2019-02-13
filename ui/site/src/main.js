@@ -391,45 +391,49 @@ lichess.topMenuIntent = function() {
       var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 
       var setZoom = function(zoom) {
-
-        var boardPx = Math.round(zoom * 64) * 8;
-        currentZoom = zoom = boardPx / 512;
-
-        var $lichessGame = $('.lichess_game, .board_and_ground');
-        var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
-        var px = function(i) {
-          return Math.round(i) + 'px';
-        };
-
-        $('.underboard').css("width", px(boardPx + 242 + 15));
-        $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(boardPx));
-
-        if ($('body > .content').hasClass('is3d')) {
-          $boardWrap.css("height", px(464.5 * zoom));
-          $lichessGame.css({
-            height: px(476 * zoom),
-            paddingTop: px(50 * (zoom - 1))
-          });
-          $('#chat').css("height", px(300 + 529 * (zoom - 1)));
+        if (lichess.isResp) {
+          document.body.setAttribute('style', '--zoom:' + Math.round(100 * (zoom - 1)));
         } else {
-          $boardWrap.css("height", px(boardPx));
-          $lichessGame.css({
-            height: px(boardPx),
-            paddingTop: px(0)
+
+          var boardPx = Math.round(zoom * 64) * 8;
+          currentZoom = zoom = boardPx / 512;
+
+          var $lichessGame = $('.lichess_game, .board_and_ground');
+          var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
+          var px = function(i) {
+            return Math.round(i) + 'px';
+          };
+
+          $('.underboard').css("width", px(boardPx + 242 + 15));
+          $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(boardPx));
+
+          if ($('body > .content').hasClass('is3d')) {
+            $boardWrap.css("height", px(464.5 * zoom));
+            $lichessGame.css({
+              height: px(476 * zoom),
+              paddingTop: px(50 * (zoom - 1))
+            });
+            $('#chat').css("height", px(300 + 529 * (zoom - 1)));
+          } else {
+            $boardWrap.css("height", px(boardPx));
+            $lichessGame.css({
+              height: px(boardPx),
+              paddingTop: px(0)
+            });
+            $('#chat').css("height", px(335 + 510 * (zoom - 1)));
+          }
+
+          $('#trainer .overlay_container').css({
+            top: px((zoom - 1) * 250),
+            left: px((zoom - 1) * 250)
           });
-          $('#chat').css("height", px(335 + 510 * (zoom - 1)));
-        }
+          // doesn't vertical center score at the end, close enough
+          $('#trainer .score_container').css("top", px((zoom - 1) * 250));
 
-        $('#trainer .overlay_container').css({
-          top: px((zoom - 1) * 250),
-          left: px((zoom - 1) * 250)
-        });
-        // doesn't vertical center score at the end, close enough
-        $('#trainer .score_container').css("top", px((zoom - 1) * 250));
-
-        if ($lichessGame.length) {
-          // if on a board with a game
-          $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
+          if ($lichessGame.length) {
+            // if on a board with a game
+            $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
+          }
         }
 
         // reflow charts
