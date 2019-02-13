@@ -37,16 +37,30 @@
   &-fat {
     font-size: 1.6rem;
   }
-  &-green {
+  &.button-green {
     background: $c-secondary;
     &:hover {
       background: mix($c-bg-box, $c-secondary, 20);
     }
   }
-  &-red {
+  &.button-red {
     background: $c-error;
     &:hover {
       background: mix($c-bg-box, $c-error, 20);
+    }
+  }
+  &.button-metal {
+    @extend %metal;
+    color: $c-primary;
+    &:hover {
+      @extend %metal-hover;
+    }
+  }
+  &.active {
+    @extend %active;
+    &:hover {
+      @extend %active;
+      // @extend %active-hover;
     }
   }
   &-empty,
@@ -65,19 +79,5 @@
     &.button-green {
       color: $c-secondary;
     }
-  }
-}
-.button.button-metal {
-  @extend %metal;
-  color: $c-primary;
-  &:hover {
-    @extend %metal-hover;
-  }
-}
-.button.active {
-  @extend %active;
-  &:hover {
-    @extend %active;
-    // @extend %active-hover;
   }
 }
