@@ -39,4 +39,6 @@ trait DraughtsgroundHelper {
   }
 
   lazy val miniBoardContent = wrap("")
+
+  lazy val draughtsgroundSvg = wrap("<svg></svg>")
 }

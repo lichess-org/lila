@@ -10,10 +10,12 @@ $z-indexes: (
   'cg__piece': 2,
   'cg__piece.fading': 1,
 
-  'modal': 8,
+  'modal': 9,
+  'mselect': 9,
+  'topnav': 9,
+  'fullscreen-mask': 8,
   'dropdown': 7,
   'site-header': 6,
-  'mselect': 5,
   'default': 1
 );
 

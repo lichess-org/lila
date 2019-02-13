@@ -21,7 +21,7 @@ object editor {
     moreJs = frag(
       jsAt(s"compiled/lidraughts.editor${isProd ?? (".min")}.js"),
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;${isGranted(_.CreatePuzzles).??("data.puzzleEditor = true;")}
-LidraughtsEditor(document.getElementById('main-wrap'), data);""")
+LidraughtsEditor(document.getElementById('board-editor'), data);""")
     ),
     moreCss = responsiveCssTag("editor"),
     draughtsground = false,
@@ -32,5 +32,9 @@ LidraughtsEditor(document.getElementById('main-wrap'), data);""")
       url = s"$netBaseUrl${routes.Editor.index.url}",
       description = "Load opening positions or create your own draughts position on a draughts board editor"
     ).some
-  )(emptyFrag)
+  )(main(id := "board-editor")(
+      div(cls := "spare"),
+      draughtsgroundSvg,
+      div(cls := "spare")
+    ))
 }

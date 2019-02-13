@@ -1,0 +1,30 @@
+#modal {
+  &-overlay {
+    @extend %fullscreen-mask, %flex-center;
+    justify-content: center;
+  }
+  &-wrap {
+    @extend %box-radius, %popup-shadow;
+    background: $c-bg-popup;
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+    & .close {
+      position:absolute;
+      top: -12px;
+      right: -12px;
+      background: $c-bg-popup;
+      font-size: 16px;
+      line-height: 27px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    & .close:hover {
+      @extend %box-shadow;
+      background: $c-bad;
+      color: #fff;
+    }
+  }
+}
