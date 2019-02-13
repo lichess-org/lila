@@ -28,7 +28,7 @@ object list {
       description = "Best draughts players in bullet, blitz, rapid, classical, Frisian, Antidraughts and more draughts variants"
     ).some
   ) {
-      main(cls := "page-menu page-large")(
+      main(cls := "page-menu")(
         bits.communityMenu("leaderboard"),
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(

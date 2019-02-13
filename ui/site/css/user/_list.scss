@@ -1,5 +1,4 @@
 $c-lead: $c-brag;
-
 $user-list-width: 24ch;
 
 .community {
@@ -62,7 +61,7 @@ $user-list-width: 24ch;
         text-transform: uppercase;
         margin: 0;
         background: $c-lead;
-        color: white;
+        color: #fff;
         overflow: hidden;
         white-space: nowrap;
         & a {

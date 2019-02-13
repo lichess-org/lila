@@ -1,0 +1,35 @@
+$c-lead: $c-accent;
+$user-list-width: 30ch;
+
+.tournament-leaderboards {
+  @extend %box-radius;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
+  grid-gap: 1px;
+  border: 1px solid $c-lead;
+  background: $c-lead;
+
+  &__item {
+    background: $c-bg-box;
+    & h2 {
+      display: flex;
+      align-items: center;
+      font-size: 1.45em;
+      line-height: 2.5em;
+      padding-left: 0.8rem;
+      text-transform: uppercase;
+      margin: 0;
+      background: $c-lead;
+      color: #fff;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    & li {
+      @extend %flex-between;
+      padding: 1rem 1.2rem 1rem .5rem;
+    }
+    li:nth-child(even) {
+      background: $c-bg-zebra;
+    }
+  }
+}
