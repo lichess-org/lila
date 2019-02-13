@@ -48,6 +48,7 @@ object list {
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
+              
               userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
               tournamentWinners(tourneyWinners),
 
