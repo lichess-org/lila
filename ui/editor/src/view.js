@@ -24,10 +24,11 @@ function studyButton(ctrl, fen) {
     m('input[type=hidden][name=fen]', {
       value: fen
     }),
-    m('button.button.text', {
+    m('button.button.button-empty.text', {
       type: 'submit',
       'data-icon': '4',
-      disabled: !ctrl.positionLooksLegit()
+      disabled: !ctrl.positionLooksLegit(),
+      class: ctrl.positionLooksLegit() ? '' : 'disabled'
     },
     ctrl.trans('study'))
   ]);
@@ -77,7 +78,7 @@ function controls(ctrl, fen) {
         )*/
       ]) : null
     ]),
-    m('div.metadata.content_box', [
+    m('div.metadata', [
       m('div.color',
         m('select', {
           onchange: m.withAttr('value', ctrl.setColor)
@@ -113,31 +114,31 @@ function controls(ctrl, fen) {
         onclick: ctrl.clearBoard
       }, 'Empty board')
     ]) : [
-      m('div', [
-        m('a.button.text[data-icon=B]', {
+      m('div.actions', [
+        m('a.button.button-empty.text[data-icon=B]', {
           onclick: function() {
             ctrl.draughtsground.toggleOrientation();
           }
         }, ctrl.trans('flipBoard')),
-        looksLegit ? m('a.button.text[data-icon="A"]', {
+        looksLegit ? m('a.button.button-empty.text[data-icon="A"]', {
           href: editor.makeUrl('/analysis/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
           rel: 'nofollow'
-        }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
+        }, ctrl.trans('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
-        ctrl.data.puzzleEditor ? ((looksLegit && puzzleVariant) ? m('a.button.text[data-icon="-"]', {
+        ctrl.data.puzzleEditor ? ((looksLegit && puzzleVariant) ? m('a.button.button-empty.text[data-icon="-"]', {
           href: editor.makeUrl('/analysis/puzzle/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
           rel: 'nofollow'
-        }, 'Puzzle editor')  : m('span.button.disabled.text[data-icon="-"]', {
+        }, 'Puzzle editor')  : m('span.button.button-empty.disabled.text[data-icon="-"]', {
           rel: 'nofollow'
         }, 'Puzzle editor')) : null,
-        m('a.button', {
+        m('a.button.button-empty', {
           class: (looksLegit && ctrl.data.variant === 'standard') ? '' : 'disabled',
           onclick: function() {
             if (ctrl.positionLooksLegit() && ctrl.data.variant === 'standard') $.modal($('.continue_with'));
           }
         },
-        m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
+          m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
       m('div.continue_with', [
@@ -192,7 +193,7 @@ function sparePieces(ctrl, color, orientation, position) {
   var pieces = [[color, 'king'], [color, 'man'], ['', ''], ['', ''], [opposite, 'man'], [opposite, 'king']];
 
   return m('div', {
-    class: ['spare', 'spare-' + position, orientation, color].join(' ')
+    class: ['spare', 'spare-' + position, orientation, 'spare-' + color].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
@@ -205,33 +206,32 @@ function sparePieces(ctrl, color, orientation, position) {
       (
         (
           selectedClass === className &&
-            (
-              !ctrl.draughtsground ||
-              !ctrl.draughtsground.state.draggable.current ||
-              !ctrl.draughtsground.state.draggable.current.newPiece
-            ) &&
-            (!Array.isArray(s) || s[0] !== '')
-
+          (
+            !ctrl.draughtsground ||
+            !ctrl.draughtsground.state.draggable.current ||
+            !ctrl.draughtsground.state.draggable.current.newPiece
+          ) &&
+          (!Array.isArray(s) || s[0] !== '')
         ) ?
         ' selected-square' : ''
       );
 
-      if (s === 'trash') {
-        attrs['data-icon'] = 'q';
-        containerClass += ' trash';
-      } else if (s !== 'pointer') {
-        attrs['data-color'] = s[0];
-        attrs['data-role'] = s[1];
-      }
+    if (s === 'trash') {
+      attrs['data-icon'] = 'q';
+      containerClass += ' trash';
+    } else if (s !== 'pointer') {
+      attrs['data-color'] = s[0];
+      attrs['data-role'] = s[1];
+    }
 
-      return m('div', {
-        class: containerClass,
-        onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
-        ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
-        ontouchmove: function(e) {
-          lastTouchMovePos = eventPosition(e)
-        }
-      }, m('piece', attrs));
+    return m('div', {
+      class: containerClass,
+      onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
+      ontouchmove: function(e) {
+        lastTouchMovePos = eventPosition(e)
+      }
+    }, m('div', m('piece', attrs)));
   }));
 }
 

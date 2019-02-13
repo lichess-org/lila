@@ -387,6 +387,10 @@ lidraughts.topMenuIntent = function() {
         };
       })();
 
+      var resizeDraughtsground = function() {
+        lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
+      };
+
       // Zoom
       var currentZoom = (!lidraughts.isTrident && $('body').data('zoom') / 100) || 1;
 
@@ -438,12 +442,12 @@ lidraughts.topMenuIntent = function() {
 
         // reflow charts
         lidraughts.dispatchEvent(window, 'resize');
-
-        lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
+        resizeDraughtsground();
       };
       lidraughts.pubsub.on('reset_zoom', function() {
         if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
+      window.addEventListener('resize', resizeDraughtsground);
 
       // dasher
       (function() {

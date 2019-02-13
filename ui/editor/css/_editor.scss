@@ -3,7 +3,7 @@
   $board-width: calc(100vh * var(--board-scale) - #{$site-header-height});
 
   display: grid;
-  grid-template-columns: minmax(200px, $board-width) $block-gap minmax(200px, auto) 0;
+  grid-template-columns: minmax(200px, $board-width) 2rem minmax(200px, 300px) 0;
   grid-template-rows: auto $board-width auto;
   grid-template-areas:
   'spare-top    . .'
@@ -11,13 +11,76 @@
   'spare-bottom . .'
   'copyables    . .';
 
+  user-select: none;
+
   & .spare {
+    @extend %box-neat;
+    display: flex;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
     &-top {
       grid-area: spare-top;
+      margin-bottom: 15px;
     }
     &-bottom {
       grid-area: spare-bottom;
+      margin-top: 15px;
     }
+    &-black {
+      background: #888;
+    }
+    &-white {
+      background: #ccc;
+    }
+    & .selected-square {
+      background: fade-out($c-primary, .5);
+    }
+    & .no-square {
+      flex: 0 0 12.5%;
+      & div {
+        @extend %square;
+        position: relative;
+      }
+    }
+    .is3d & .no-square {
+      height: 58.102px;
+    }
+    & piece {
+      display: block;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .is3d & piece {
+      /* original size:
+      width: 140.625%;
+      height: 179.6875%; */
+  /* size on 3D board, with height/width = 90.78571% */
+  width: 100%;
+  height: 140.7465%;
+  left: 0;
+  top: -36%;
+}
+& piece.pointer {
+  background-image: img-url('icons/pointer.png');
+  width: 100%;
+  height: 100%;
+}
+& piece.trash {
+  font-size: 44px;
+  top: 0;
+  height: 100%;
+  &::before {
+    vertical-align: middle;
+  }
+}
+& .no-square.trash {
+  color: black;
+  text-align: center
+}
+.is3d & piece.pointer,
+.is3d & piece.trash {
+  top: -15%;
+}
   }
 
   & .cg-board-wrap {
@@ -27,6 +90,41 @@
 
   &__tools {
     grid-area: tools;
+    display: flex;
+    flex-flow: column;
+    & > * {
+      margin: .5rem 0;
+    }
+    & select {
+      width: 100%;
+      &.positions option:checked {
+        font-style: italic;
+      }
+    }
+    & .metadata {
+      @extend %box-neat;
+      background: $c-bg-box;
+      padding: 1rem;
+      white-space: nowrap;
+      & .color {
+        margin-bottom: 1em;
+      }
+      & .castling label,
+      & .castling input {
+        display:inline-block;
+        margin: 3px;
+        vertical-align: middle;
+      }
+    }
+    & .actions {
+      display: flex;
+      flex-flow: column;
+      justify-content: stretch;
+      & .button {
+        width: 100%;
+        text-align: left;
+      }
+    }
   }
 
   & .copyables {
@@ -34,119 +132,20 @@
   }
 }
 
-// #board_editor {
-//   position: relative;
-//   min-height: 600px;
-//   padding-top: 5px;
-//   -webkit-user-select: none;
+// #board_editor .copyables > p {
+//   margin-top: 7px;
 // }
-// #board_editor .manipulable .cg-board, #board_editor body.destination .cg-board square.move-dest {
-//   cursor: inherit;
+// #board_editor .copyables .name {
+//   font-size: 1.2em;
+//   display: inline-block;
+//   width: 40px;
 // }
-// #board_editor square.last-move {
-//   background-color: transparent;
+// #board_editor .copyable {
+//   width: 462px;
 // }
-// #board_editor .spare {
-//   height: 64px;
-//   width: 512px;
-//   border-radius: 3px;
-//   box-sizing: border-box;
-//   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
-// }
-// #board_editor .spare.black {
-//   background: #888;
-// }
-// #board_editor .spare.white {
-//   background: #ccc;
-// }
-// #board_editor .spare .selected-square {
-//   background: #3893E8;
-// }
-// body.dark #board_editor .spare.white {
-//   background: #aaa;
-// }
-// #board_editor .spare.top {
-//   margin-bottom: 15px;
-// }
-// #board_editor .spare.bottom {
-//   margin-top: 15px;
-// }
-// #board_editor .spare .no-square {
-//   position: relative;
-//   display:inline-block;
-//   width: 64px;
-//   height: 64px;
-// }
-// .is3d #board_editor .spare .no-square {
-//   height: 58.102px;
-// }
-// #board_editor .spare piece {
-//   cursor: pointer;
-//   width: 100%;
-//   height: 100%;
-// }
-// .is3d #board_editor .spare piece {
-//   /* original size:
-//      width: 140.625%;
-//      height: 179.6875%; */
-  //   /* size on 3D board, with height/width = 90.78571% */
-  //   width: 100%;
-  //   height: 140.7465%;
-  //   left: 0;
-  //   top: -36%;
-  // }
-  // #board_editor .editor-side {
-  //   position: absolute;
-  //   left: 552px;
-  //   top: 150px;
-  //   width: 228px;
-  // }
-  // #board_editor .editor-side > div {
-  //   margin-bottom: 3em;
-  //   text-align: center;
-  // }
-  // #board_editor .button {
-  //   display: block;
-  //   width: 100%;
-  //   box-sizing: border-box;
-  //   text-align: left;
-  //   margin-bottom: 1em;
-  // }
-  // #board_editor .button.disabled {
-  //   opacity: 0.5;
-  // }
-  // #board_editor .editor-side select.positions {
-  //   width: 100%;
-  // }
-  // #board_editor .editor-side select.positions option:checked {
-  //   font-style: italic;
-  // }
-  // #board_editor .copyables > p {
-  //   margin-top: 7px;
-  // }
-  // #board_editor .copyables .name {
-  //   font-size: 1.2em;
-  //   display: inline-block;
-  //   width: 40px;
-  // }
-  // #board_editor .copyable {
-  //   width: 462px;
-  // }
-  // #board_editor .editor-side > div.metadata {
-  //   white-space: nowrap;
-  // }
-  // #board_editor .editor-side > div.metadata div.color {
-  //   margin-bottom: 1em;
-  // }
-  // #board_editor .editor-side .castling label,
-  // #board_editor .editor-side .castling input {
-  //   display:inline-block;
-  //   margin: 3px;
-  //   vertical-align: middle;
-  // }
-  // /*
-  // http://www.flaticon.com/free-icon/clicker_99162
-  // */
+// /*
+// http://www.flaticon.com/free-icon/clicker_99162
+// */
   // #board_editor .spare piece.pointer {
   //   background-image: url('/assets/images/icons/pointer.png');
   //   width: 100%;

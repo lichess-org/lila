@@ -17,7 +17,7 @@
   &:visited {
     color: $c-primary-over;
   }
-  &:hover {
+  &:hover:not(.disabled) {
     @extend %button-raised-shadow;
     color: $c-primary-over;
     background: lighten($c-primary, 7);
@@ -40,28 +40,25 @@
   }
   &-green {
     background: $c-secondary;
-    &:hover {
+    &:hover:not(.disabled) {
       background: lighten($c-secondary, 4);
     }
   }
   &-red {
     background: $c-error;
-    &:hover {
+    &:hover:not(.disabled) {
       background: lighten($c-error, 11);
     }
   }
   &.button-metal {
     @extend %metal;
     color: $c-font;
-    &:hover {
+    &:hover:not(.disabled) {
       @extend %metal-hover;
     }
   }
   &.active {
-    &,
-    &:hover {
-      @extend %active;
-    }
+    @extend %active;
   }
   &.button-empty {
     color: $c-primary;
@@ -70,7 +67,7 @@
     &,
     &.button-green,
     &.button-red {
-      &:hover {
+      &:hover:not(.disabled) {
         @extend %button-shadow, %metal;
       }
     }
@@ -80,5 +77,9 @@
     &.button-green {
       color: $c-secondary;
     }
+  }
+  &.disabled {
+    opacity: .5;
+    cursor: not-allowed;
   }
 }
