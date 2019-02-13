@@ -35,14 +35,9 @@ build() {
   gulp $target
 }
 
-build_css() {
-  echo "build_css" "$@"
-  set -ev
-  cd ui
-  gulp "css-$target"
-}
 
-build_css
+echo "build css"
+(cd ui && gulp "css-$target")
 
 if type -p parallel; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then

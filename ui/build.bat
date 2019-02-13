@@ -6,6 +6,11 @@ set ts_apps=common draughts ceval game chat draughtsground tree nvui
 
 call yarn install
 
+call echo Building css
+call cd ui
+call gulp css-dev
+call cd ..
+
 for %%t in (%ts_apps%) do @(
     call echo Building TypeScript: %%t
     call cd ui\%%t
@@ -33,11 +38,3 @@ call echo Building: editor.min
 call cd ui\editor
 call gulp prod
 call cd ..\..
-
-set css_apps=site dasher challenge notify tournament
-for %%a in (%css_apps%) do @(
-  call echo Building css: %%a
-  call cd ui\%%a
-  call gulp css-dev
-  call cd ..\..
-)
