@@ -270,9 +270,9 @@ object layout {
   object siteHeader {
 
     private val topnavToggle = spaceless("""
-<input type="checkbox" id="topnav-toggle" class="topnav-toggle fullscreen-toggle" aria-label="Navigation">
-<label for="topnav-toggle" class="fullscreen-mask"></label>
-<label for="topnav-toggle" class="topnav-toggle-label hbg"><span class="hbg__in"></span></label>""")
+<input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" aria-label="Navigation">
+<label for="tn-tg" class="fullscreen-mask"></label>
+<label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""")
 
     private def reconnecting(implicit ctx: Context) =
       a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())

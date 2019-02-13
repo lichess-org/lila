@@ -40,11 +40,13 @@ const build = () => gulp.src(sourcesGlob)
 
 const setWatching = async () => { global.isWatching = true; };
 
+const startWatching = () => gulp.watch(sourcesGlob, build);
+
 gulp.task('css', gulp.series([
   createThemedBuilds,
   setWatching,
   build,
-  () => gulp.watch(sourcesGlob, build)
+  startWatching
 ]));
 
 gulp.task('css-dev', gulp.series([createThemedBuilds, build]));

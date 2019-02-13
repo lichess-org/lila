@@ -83,8 +83,9 @@ piece {
 }
 
 .cg-board-wrap {
+  @extend %square, %box-neat;
   position: relative;
-  overflow: hidden; /* prevents width issues with rank coords */
+  // overflow: hidden; /* prevents width issues with rank coords | but prevents dragging pieces in! */
   .mini_board & {
     width: 224px;
     height: 224px;

@@ -18,12 +18,10 @@ $c-report-high-over: white;
     margin-right: 15px;
     font-size: 1.2em;
     & a {
-      @extend %roboto;
+      @extend %roboto, %flex-column;
       color: $c-font-dim;
       text-transform: uppercase;
       padding: 0.5rem 1.4rem;
-      display: flex;
-      flex-flow: column;
       align-items: center;
       justify-content: center;
       &.new {

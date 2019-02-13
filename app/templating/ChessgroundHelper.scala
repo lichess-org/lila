@@ -41,4 +41,6 @@ trait ChessgroundHelper {
   }
 
   lazy val miniBoardContent = wrap("")
+
+  lazy val chessgroundSvg = wrap("<svg></svg>")
 }

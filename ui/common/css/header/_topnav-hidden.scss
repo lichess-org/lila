@@ -14,6 +14,7 @@
       flex-basis: 60px;
     }
     cursor: pointer;
+    z-index: z('topnav');
 
     &__in {
       &,
@@ -101,6 +102,7 @@
     @include breakpoint($mq-xx-small) {
       max-width: 70%;
     }
+    z-index: z('topnav');
 
     & section {
       flex: 1 0 50%;

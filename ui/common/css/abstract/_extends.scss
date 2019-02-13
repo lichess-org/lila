@@ -67,6 +67,10 @@
   justify-content: space-between;
   align-items: stretch;
 }
+%flex-column {
+  display: flex;
+  flex-flow: column;
+}
 %square {
   height: 0;
   padding-bottom: 100%;
@@ -74,6 +78,12 @@
 }
 %box-radius {
   @include box-radius;
+}
+%box-radius-left {
+  border-radius: $box-radius-size 0 0 $box-radius-size;
+}
+%box-radius-right {
+  border-radius: 0 $box-radius-size $box-radius-size 0;
 }
 %box-shadow {
   @include box-shadow;
@@ -91,4 +101,13 @@
   speak: none;
   content: attr(data-icon);
   opacity: 0.9;
+}
+%fullscreen-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: $c-page-mask;
+  z-index: z('fullscreen-mask');
 }

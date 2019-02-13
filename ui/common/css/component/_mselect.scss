@@ -26,13 +26,11 @@ $c-mselect: $c-primary;
     opacity: 0;
   }
   &__list {
-    @extend %base-font, %box-radius, %popup-shadow;
+    @extend %base-font, %box-radius, %popup-shadow, %flex-column;
     position:absolute;
-    z-index: z('mselect');
     top:0;
     left:0;
-    display: flex;
-    flex-flow: column;
+    z-index: z('mselect');
     background: $c-bg-popup;
     transform: scale(1, 0);
     transform-origin: top;

@@ -158,7 +158,7 @@ function controls(ctrl, fen) {
           m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
-      m('div.continue_with', [
+      m('div.continue_with', m('div', [
         m('a.button', {
           href: '/?fen=' + fen + '#ai',
           rel: 'nofollow'
@@ -168,7 +168,7 @@ function controls(ctrl, fen) {
           href: '/?fen=' + fen + '#friend',
           rel: 'nofollow'
         }, ctrl.trans('playWithAFriend'))
-      ])
+      ]))
     ]
   ]);
 }
@@ -178,7 +178,7 @@ function inputs(ctrl, fen) {
   if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
   return m('div.copyables', [
     m('p', [
-      m('strong.name', 'FEN'),
+      m('strong', 'FEN'),
       m('input.copyable.autoselect[spellCheck=false]', {
         value: fen,
         onchange: function(e) {
@@ -234,7 +234,6 @@ function sparePieces(ctrl, color, orientation, position) {
       );
 
     if (s === 'trash') {
-      attrs['data-icon'] = 'q';
       containerClass += ' trash';
     } else if (s !== 'pointer') {
       attrs['data-color'] = s[0];
@@ -299,7 +298,7 @@ module.exports = function(ctrl) {
   var color = ctrl.bottomColor();
   var opposite = color === 'white' ? 'black' : 'white';
 
-  return m('main.board-editor', {
+  return m('div.board-editor', {
     style: 'cursor: ' + makeCursor(ctrl.vm.selected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),

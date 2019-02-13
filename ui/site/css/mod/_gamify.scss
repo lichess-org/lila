@@ -6,9 +6,8 @@
   display: flex;
 }
 #mod-gamify .champ {
+  @extend %flex-column;
   flex: 0 0 33.333%;
-  display: flex;
-  flex-flow: column;
   align-items: center;
   & h2 {
     margin-top: .5rem;

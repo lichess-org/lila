@@ -21,7 +21,7 @@ object editor {
     moreJs = frag(
       jsAt(s"compiled/lichess.editor${isProd ?? (".min")}.js"),
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
-LichessEditor(document.getElementById('main-wrap'), data);""")
+LichessEditor(document.getElementById('board-editor'), data);""")
     ),
     moreCss = responsiveCssTag("editor"),
     chessground = false,
@@ -32,5 +32,9 @@ LichessEditor(document.getElementById('main-wrap'), data);""")
       url = s"$netBaseUrl${routes.Editor.index.url}",
       description = "Load opening positions or create your own chess position on a chess board editor"
     ).some
-  )(emptyFrag)
+  )(main(id := "board-editor")(
+      div(cls := "spare"),
+      chessgroundSvg,
+      div(cls := "spare")
+    ))
 }

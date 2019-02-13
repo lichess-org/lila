@@ -50,16 +50,10 @@
 }
 
 .fullscreen-mask {
+  @extend %fullscreen-mask;
   display: none;
   .fullscreen-toggle:checked ~ & {
     display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: $c-page-mask;
-    overflow-y: scroll;
   }
 }
 
