@@ -5,22 +5,22 @@
   box-shadow: 0 4px 10px 0px hsla(0, 0, 0, 0.225);
 }
 .button {
+  @extend %roboto-fat, %button-shadow, %box-radius;
+  background: $c-primary;
+  text-transform: uppercase;
+  padding: .7em 1em;
+  border: none;
+  cursor: pointer;
+  transition: all .3s ease-out;
+  white-space: nowrap;
   &,
   &:visited {
-    @extend %roboto-fat, %button-shadow, %box-radius;
-    background: $c-primary;
     color: $c-primary-over;
-    text-transform: uppercase;
-    padding: .6em 1em;
-    border: none;
-    cursor: pointer;
-    transition: all .3s ease-out;
-    white-space: nowrap;
   }
   &:hover {
     @extend %button-raised-shadow;
     color: $c-primary-over;
-    background: mix($c-bg-box, $c-primary, 20);
+    background: lighten($c-primary, 7);
   }
   &[disabled] {
     cursor: default;
@@ -32,46 +32,47 @@
     text-transform: none;
   }
   &-thin {
-    padding: 0 1em;
+    padding: .1em 1em;
+    font-size: 90%;
   }
   &-fat {
     font-size: 1.6rem;
   }
-  &.button-green {
+  &-green {
     background: $c-secondary;
     &:hover {
-      background: mix($c-bg-box, $c-secondary, 20);
+      background: lighten($c-secondary, 4);
     }
   }
-  &.button-red {
+  &-red {
     background: $c-error;
     &:hover {
-      background: mix($c-bg-box, $c-error, 20);
+      background: lighten($c-error, 11);
     }
   }
   &.button-metal {
     @extend %metal;
-    color: $c-primary;
+    color: $c-font;
     &:hover {
       @extend %metal-hover;
     }
   }
   &.active {
-    @extend %active;
+    &,
     &:hover {
       @extend %active;
-      // @extend %active-hover;
     }
   }
-  &-empty,
-  &-empty:visited {
+  &.button-empty {
     color: $c-primary;
     background: none;
     box-shadow: none;
-    &:hover {
-      @extend %button-shadow;
-      color: $c-primary;
-      background: $c-bg-page;
+    &,
+    &.button-green,
+    &.button-red {
+      &:hover {
+        @extend %button-shadow, %metal;
+      }
     }
     &.button-red {
       color: $c-error;
