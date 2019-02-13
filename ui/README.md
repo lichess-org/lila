@@ -5,6 +5,7 @@
 
 ```
 cd ui/
+yarn install # only the first time
 gulp css
 ```
 
