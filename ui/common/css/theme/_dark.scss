@@ -55,11 +55,14 @@ $c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
 $c-bg-box: $c-bg-high;
 $c-bg-input: c-light($c-bg-page, 13%);
 
-$c-bg-header-dropdown: $c-bg-low;
-$c-header-dropdown: $c-font-clear;
+$c-bg-popup: $c-bg-low;
+$c-popup: $c-font-clear;
 
-$c-bg-power-tip: $c-bg-low;
-$c-power-tip: $c-font-clear;
+$c-bg-header-dropdown: $c-bg-popup;
+$c-header-dropdown: $c-popup;
+
+$c-bg-power-tip: $c-bg-popup;
+$c-power-tip: $c-popup;
 
 $c-border: hsl(0, 0%, 25%);
 $border: $border-width $border-style $c-border;

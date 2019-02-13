@@ -1,15 +1,3 @@
-%data-icon {
-  font-size: 1.1em;
-  vertical-align: text-top;
-  font-family: "lichess" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  text-transform: none !important;
-  speak: none;
-  content: attr(data-icon);
-  opacity: 0.9;
-}
-
 .is::before,
 [data-icon]::before,
 .is-after::after {

@@ -24,6 +24,9 @@
 %dropdown-shadow {
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
+%popup-shadow {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 
 %box-padding {
   padding: 5vh var(--box-padding);
@@ -64,7 +67,6 @@
   justify-content: space-between;
   align-items: stretch;
 }
-
 %square {
   height: 0;
   padding-bottom: 100%;
@@ -78,4 +80,15 @@
 }
 %box-neat {
   @include box-neat;
+}
+%data-icon {
+  font-size: 1.1em;
+  vertical-align: text-top;
+  font-family: "lichess" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  text-transform: none !important;
+  speak: none;
+  content: attr(data-icon);
+  opacity: 0.9;
 }
