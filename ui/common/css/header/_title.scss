@@ -1,6 +1,7 @@
 .site-title {
-  font: 26px/#{$site-header-short-height - 3} 'Noto Sans';
-  font-weight: normal;
+  @extend %base-font;
+  font-size: 26px;
+  line-height: #{$site-header-short-height - 3};
   text-shadow: $text-shadow;
   white-space: nowrap;
   margin: 0 .5rem;
@@ -12,7 +13,7 @@
     font-size: 32px;
     line-height: #{$site-header-tall-height - 3};
   }
-  @include breakpoint($mq-site-header-tall $mq-topnav-visible) {
+  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
     line-height: #{$site-header-tall-height - 5};
     margin: 0 1rem;
   }
