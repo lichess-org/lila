@@ -49,6 +49,16 @@ $variant-height: 2.5rem;
     font-size: 7em;
   }
 
+  .buttons {
+    display: grid;
+    grid-gap: $block-gap;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    & .button {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   $font-colors: ('shade': $c-shade, 'dimmer': $c-font-dimmer, 'dim': $c-font-dim, '': $c-font, 'clear': $c-font-clear, 'clearer': $c-font-clearer);
   @each $k, $c in $font-colors {
     & .font-#{$k} {
@@ -59,8 +69,7 @@ $variant-height: 2.5rem;
 
 .palette {
   display: grid;
-  grid-column-gap: $block-gap;
-  grid-row-gap: $block-gap;
+  grid-gap: $block-gap;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   & *,
