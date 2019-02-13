@@ -58,7 +58,7 @@ function controls(ctrl, fen) {
   };
   var looksLegit = ctrl.positionLooksLegit();
   var puzzleVariant = (ctrl.data.variant === 'standard' || ctrl.data.variant === 'frisian');
-  return m('div.editor-side', [
+  return m('div.board-editor__tools', [
     ctrl.embed ? null : m('div', [
       ctrl.data.positions ? m('select.positions', {
         onchange: function(e) {
@@ -192,7 +192,7 @@ function sparePieces(ctrl, color, orientation, position) {
   var pieces = [[color, 'king'], [color, 'man'], ['', ''], ['', ''], [opposite, 'man'], [opposite, 'king']];
 
   return m('div', {
-    class: ['spare', position, orientation].join(' ')
+    class: ['spare', 'spare-' + position, orientation, color].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
@@ -281,7 +281,7 @@ module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.bottomColor();
 
-  return m('div.editor', {
+  return m('main.board-editor', {
     style: 'cursor: ' + makeCursor(ctrl.vm.selected())
   }, [
     sparePieces(ctrl, color, 'black', 'top'),
