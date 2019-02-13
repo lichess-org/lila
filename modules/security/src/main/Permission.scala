@@ -30,7 +30,6 @@ object Permission {
   case object SeeReport extends Permission("ROLE_SEE_REPORT")
   case object ModLog extends Permission("ROLE_MOD_LOG")
   case object SeeInsight extends Permission("ROLE_SEE_INSIGHT")
-  case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
   case object PracticeConfig extends Permission("ROLE_PRACTICE_CONFIG")
   case object Beta extends Permission("ROLE_BETA")
   case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
@@ -57,6 +56,10 @@ object Permission {
   case object Verified extends Permission("ROLE_VERIFIED")
   case object Prismic extends Permission("ROLE_PRISMIC")
 
+  case object LichessTeam extends Permission("ROLE_LICHESS_TEAM", List(
+    Prismic
+  ))
+
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster,
     UserSpy, UserEvaluate, SeeReport, ModLog, SeeInsight,
@@ -65,7 +68,7 @@ object Permission {
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
-    ChatTimeout, Shadowban, SetTitle, SetEmail, ModerateQa, StreamConfig,
+    ChatTimeout, Shadowban, SetTitle, SetEmail, ModerateQa,
     MessageAnyone, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
     PracticeConfig, RemoveRanking, ReportBan, DisapproveCoachReview,
     Relay, Streamers, DisableTwoFactor, Prismic
@@ -77,7 +80,7 @@ object Permission {
 
   lazy val allButSuperAdmin: List[Permission] = List(
     Admin, Hunter, Shadowban, ChatTimeout, ChangePermission, ViewBlurs, ModerateForum,
-    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
+    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, PracticeConfig,
     Beta, MessageAnyone, UserSearch, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
     PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan, Impersonate,
     Relay, Cli, Settings, Streamers, DisableTwoFactor, Verified, Prismic
