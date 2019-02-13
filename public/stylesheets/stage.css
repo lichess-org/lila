@@ -8,7 +8,7 @@ body {
   color: #fff!important;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   position: fixed;
   top: 0;
@@ -16,6 +16,7 @@ body {
   right: 0;
   z-index: 100;
   padding: 0 1rem;
+  white-space: nowrap;
 }
 #stage a {
   color: #fff!important;

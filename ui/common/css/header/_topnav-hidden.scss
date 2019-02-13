@@ -137,20 +137,6 @@
     }
   }
 
-  .topnav-mask {
-    display: none;
-    .topnav-toggle:checked ~ & {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: $c-page-mask;
-      overflow-y: scroll;
-    }
-  }
-
   body.masked {
     /* prevent scrolling while topnav is open */
     overflow: hidden;
