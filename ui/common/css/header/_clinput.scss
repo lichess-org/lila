@@ -7,7 +7,7 @@
     padding: 0;
     border: 0;
     width: 0;
-    transition: 0.2s width ease-in-out;
+    @include transition(width);
   }
   &.shown input {
     width: 20ch;

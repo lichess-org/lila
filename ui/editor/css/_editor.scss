@@ -41,7 +41,7 @@
     }
     & .no-square {
       flex: 0 0 12.5%;
-      transition: 0.15s;
+      @include transition();
       &:hover {
         background: fade-out($c-primary, .8);
       }

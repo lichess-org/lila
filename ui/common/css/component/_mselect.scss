@@ -22,7 +22,7 @@ $c-mselect: $c-primary;
     }
   }
   &__toggle:checked ~ .mselect__label {
-    transition: opacity 200ms;
+    @include transition(opacity);
     opacity: 0;
   }
   &__list {
@@ -34,12 +34,12 @@ $c-mselect: $c-primary;
     background: $c-bg-popup;
     transform: scale(1, 0);
     transform-origin: top;
-    transition: transform 200ms ease-in-out;
+    @include transition(transform);
     & > * {
       white-space: nowrap;
       display: block;
       padding: .3em 1em;
-      transition: 0.13s;
+      @include transition();
       color: $c-mselect;
       &:hover{
         background: $c-mselect;

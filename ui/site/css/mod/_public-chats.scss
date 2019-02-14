@@ -128,7 +128,7 @@ body.dark #communication .player_chats .game .title {
   position: absolute;
   top: 30px;
   right: 20px;
-  transition: 0.3s;
+    @include transition();
 }
 .public_chat #auto_refresh.active.hold {
   opacity: 0.4;

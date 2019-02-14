@@ -18,8 +18,8 @@
     @extend %box-neat;
     background: $c-bg-header-dropdown;
     margin-bottom: 5px;
-    transition: height 130ms;
-    transition-delay: 100ms;
+    @include transition(height);
+    transition-delay: #{$transition-duration * 2 / 3};
     position: relative;
     height: 67px;
     &:hover {
@@ -39,7 +39,7 @@
       top: 62px;
       left: 0px;
       width: 100%;
-      transition: opacity 130ms;
+      @include transition(opacity);
       transition-delay: 0ms;
     }
     &:hover .buttons {
@@ -63,7 +63,7 @@
       padding: 0;
       background: transparent;
       font-size: 1.6rem;
-      transition: 0.13s;
+      @include transition();
       box-shadow: none;
       border-radius: 0 0 $box-radius-size $box-radius-size;
     }
@@ -139,7 +139,7 @@
     margin: auto;
     background: rgba(56,147,232,0.5);
     color: rgba(255,255,255,0.6);
-    transition: 0.13s;
+    @include transition();
     border-radius: 0 0 3px 3px;
   }
   & .create:hover {

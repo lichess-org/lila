@@ -37,7 +37,7 @@
       padding: .7rem 2vw .7rem .8rem;
       border-bottom: $border;
       border-left: 1px solid transparent;
-      transition: 0.13s;
+      @include transition();
       &:hover {
         color: $c-link;
         background: mix($c-bg-high, $c-bg-page, 25%);

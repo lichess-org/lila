@@ -33,7 +33,7 @@ input.cmn-toggle + label::before {
   border-radius: 24px;
 }
 input.cmn-toggle:hover + label::before {
-  transition: background 0.2s;
+  @include transition(background);
 }
 input.cmn-toggle + label::after {
   @extend %metal;
@@ -43,7 +43,7 @@ input.cmn-toggle + label::after {
 }
 input.cmn-toggle:hover + label::after {
   @extend %metal-hover;
-  transition: margin 0.2s;
+  @include transition(margin);
 }
 input.cmn-toggle:checked + label::before {
   background-color: $c-good;
