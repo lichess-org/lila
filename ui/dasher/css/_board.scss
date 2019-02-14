@@ -18,7 +18,7 @@
   &.d3 .list span {
     width: 66px;
     height: 30px;
-    transition: transform 0.3s;
+    @include transition(transform);
   }
   & .list a:hover {
     filter: brightness(1.1);

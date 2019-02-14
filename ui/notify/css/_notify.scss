@@ -14,7 +14,7 @@
   }
 
   & .notifications {
-    transition: opacity 0.3s;
+    @include transition(opacity);
   }
   & .notifications.scrolling {
     opacity: 0.5;
@@ -68,7 +68,7 @@
     &:not(.disabled) {
       cursor: pointer;
       color: $c-link;
-      transition: 0.13s;
+      @include transition();
     }
     &:not(.disabled):hover {
       background: $c-primary;

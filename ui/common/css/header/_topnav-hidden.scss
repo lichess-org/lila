@@ -91,7 +91,7 @@
     background: $c-bg-high;
     transform: scale(0, 1);
     transform-origin: left;
-    transition: transform 200ms ease-in-out;
+    @include transition(transform, 200ms);
     padding: 0 0 1.2rem 1.2rem;
     overflow-y: auto;
     white-space: nowrap;
@@ -127,7 +127,7 @@
       color: $c-font;
       text-decoration: none;
       opacity: 0;
-      transition: opacity 75ms ease-in-out;
+      @include transition(opacity);
     }
 
     .topnav-toggle:checked ~ & {

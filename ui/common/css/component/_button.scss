@@ -11,7 +11,7 @@
   padding: .7em 1em;
   border: none;
   cursor: pointer;
-  transition: all .15s;
+  @include transition();
   white-space: nowrap;
   &,
   &:visited {
