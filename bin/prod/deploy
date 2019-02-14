@@ -100,7 +100,7 @@ fi
 
 if [ $FRONT_REMOTE ] && [ $FRONT_REMOTE_DIR ]; then
   lilalog "Deploy assets to $mode frontend server $FRONT_REMOTE:$FRONT_REMOTE_DIR"
-  rsync --archive --no-o --no-g --progress public $FRONT_REMOTE:$FRONT_REMOTE_DIR
+  rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $FRONT_REMOTE:$FRONT_REMOTE_DIR
 fi
 
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
