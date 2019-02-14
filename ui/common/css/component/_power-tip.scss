@@ -1,124 +1,123 @@
 #powerTip,
 #miniGame {
+  @extend %box-radius, %popup-shadow;
+  font-size: .9rem;
   width: 256px;
   min-height: 3em;
   cursor: default;
-  background-color: $c-bg-power-tip;
+  background-color: $c-bg-popup;
   border: $border;
+  border-bottom: 0;
   display: none;
   position: absolute;
-  z-index: 900000;
-  box-shadow: 0 0.5px 5px rgba(0, 0, 0, 0.25), 0 0.5px 8px rgba(0, 0, 0, 0.15);
+  z-index: z('powertip');
+}
+#powerTip {
+  & .mini_board {
+    border-width: 0 0 1px 0;
+  }
+}
+.upt {
+  &__info {
+    @extend %flex-column;
+    height: 83px;
+    padding: 4px 5px 4px 2px;
+    border-bottom: $border;
+    &__top {
+      @extend %flex-between;
+      & .user_link {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &__country {
+        @extend %flex-center;
+        font-size: .9em;
+        img {
+          margin-right: .3em;
+        }
+      }
+    }
+    &__ratings {
+      @extend %flex-between;
+      margin-top: 3px;
+      & > span {
+        flex: 0 0 20%;
+        padding: 2px 3px;
+        text-align: left;
+      }
+    }
+  }
+  &__score {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: center;
+    border-top: $border;
+  }
+  &__actions {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    & a {
+      @extend %flex-center, %metal;
+      justify-content: center;
+      flex: 0 0 18%;
+      letter-spacing: -1px;
+      text-align: center;
+      padding: 0 12px;
+      line-height: 2rem;
+      cursor: pointer;
+      border-right: $border;
+      color: $c-font;
+      &.relation-button {
+        flex: 1 1 auto;
+      }
+      &:hover {
+        @extend %metal-hover;
+      }
+      &:last-child {
+        border: 0;
+      }
+    }
+    & i {
+      font-style: normal;
+    }
+    & i::before {
+      font-size: 1.5em;
+    }
+  }
+  &__mod {
+    border-top: $border;
+    @extend %flex-between;
+    white-space: nowrap;
+    &__marks {
+      padding: 3px 5px;
+      background: $c-bad;
+      color: #fff;
+    }
+    & span {
+      padding: .2em .5em;
+      margin: 0;
+    }
+  }
+  & .confirm {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+  & > .game_legend {
+    text-align: center;
+    border-bottom: $border;
+    padding: 3px 0;
+  }
+  & .spinner {
+    margin: 20px auto;
+  }
 }
 #miniGame {
   min-height: 262px;
-}
-#powerTip signal {
-  float: right;
-  margin-right: 2px;
-}
-#powerTip > .title {
-  height: 62px;
-  padding: 5px 3px;
-  border-bottom: $border;
-}
-#powerTip > .title a.user_link {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#powerTip a.mini_board {
-  border-width: 0 0 1px 0;
-}
-#powerTip .mod_info_box {
-  position: relative;
-  padding: 5px;
-  background: #888;
-  color: #eee;
-  white-space: nowrap;
-}
-#powerTip .mod_marks {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 3px 5px;
-  background: $c-bad;
-}
-#powerTip .mod_marks i {
-  padding: 0px;
-}
-#powerTip .country {
-  float: right;
-  font-size: 0.9em;
-  padding-right: 3px;
-}
-#powerTip .ratings {
-  text-align: center;
-  margin-top: 3px;
-}
-#powerTip .ratings > span {
-  padding: 2px 3px;
-  width: 20%;
-  text-align: left;
-}
-#powerTip > .actions {
-  width: 100%;
-  display: flex;
-}
-#powerTip > .actions a {
-  flex: 0 0 auto;
-  margin: 0;
-  border-radius: 0;
-  font-size: 0.9em;
-  letter-spacing: -1px;
-  text-align: center;
-  padding: 0 12px;
-  height: 30px;
-  line-height: 30px;
-  cursor: pointer;
-  border-width: 0 1px 0 0;
-}
-#powerTip > .actions a.relation {
-  flex: 1 1 100%;
-  border-right: 0;
-}
-#powerTip > .actions i {
-  font-style: normal;
-}
-#powerTip > .actions i::before {
-  font-size: 1.5em;
-}
-#powerTip .confirm {
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-}
-#powerTip > .game_legend {
-  text-align: center;
-  border-bottom: $border;
-  padding: 3px 0;
-}
-#powerTip > .score {
-  display: block;
-  font-size: 1.1em;
-  text-align: center;
-  border-top: $border;
-  padding: 3px 0;
-}
-#powerTip > .info .title {
-  display: block;
-  padding: 10px 15px;
-  border-bottom: $border;
-  text-align: center;
-  text-transform: uppercase;
-}
-#powerTip > .info .content {
-  display: block;
-  padding: 15px 15px;
-}
-#powerTip .spinner {
-  margin: 20px auto;
-}
-#miniGame .spinner {
-  margin: 82px auto 0 auto;
+  & .spinner {
+    margin: 82px auto 0 auto;
+  }
 }
