@@ -302,7 +302,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeDisplayed = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeDisplayed || !!playerBars,
     intro = relayIntro(ctrl);
-  return h('div.analyse.cg-512', [
+  return h('div.analyse', [
     h(addChapterId(study, 'div'), {
       hook: {
         insert: _ => {

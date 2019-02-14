@@ -1,0 +1,57 @@
+.puzzle__side {
+  @extend %box-neat;
+  background: $c-bg-box;
+
+  & .side_box.metas {
+    padding: 0 7px;
+  }
+  & .game_infos {
+    margin-top: 14px!important;
+    padding-bottom: 14px!important;
+  }
+  & .header a {
+    color: $c-primary;
+  }
+  & .header .hidden {
+    opacity: 0.7;
+  }
+  & .game_infos.puzzle {
+    padding-left: 56px;
+  }
+  & .game_infos.puzzle::before {
+    font-size: 47px;
+  }
+  & .puzzle .header a {
+    font-size: 1.2em;
+  }
+  & .game_infos.game {
+    border: none;
+    padding-bottom: 0!important;
+  }
+  & .players {
+    padding-bottom: 14px;
+  }
+  & .players .color-icon::before {
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+  }
+
+  & .rating h2 {
+    padding: 7px;
+  }
+  & .rating .rp {
+    /* font-size: 1.2em; */
+  }
+  & .rating .rp.up {
+    color: $c-good;
+  }
+  & .rating .rp.down {
+    color: $c-bad;
+  }
+  @include breakpoint($mq-small) {
+    & canvas {
+      width: 194px!important;
+    }
+  }
+}

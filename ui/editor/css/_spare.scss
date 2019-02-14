@@ -1,0 +1,81 @@
+.editor .spare {
+  @extend %box-radius;
+  display: flex;
+  background: $c-font-dimmer;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.3) inset;
+  &-top {
+    grid-area: spare-top;
+    margin-bottom: 2vh;
+  }
+  &-bottom {
+    grid-area: spare-bottom;
+    margin-top: 2vh;
+  }
+  & .no-square {
+    flex: 0 0 12.5%;
+    @include transition();
+    &:hover {
+      background: fade-out($c-primary, .8);
+    }
+    &:first-child {
+      @extend %box-radius-left;
+    }
+    &:last-child {
+      @extend %box-radius-right;
+    }
+    &.selected-square {
+      background: fade-out($c-primary, .5);
+    }
+    & div {
+      @extend %square;
+      position: relative;
+    }
+    &:first-child {
+      &:hover {
+        background: fade-out($c-good, .8);
+      }
+      &.selected-square {
+        background: fade-out($c-good, .4);
+      }
+    }
+    & .pointer {
+      background-image: img-url('icons/pointer.svg');
+    }
+    &.trash {
+      background-image: img-url('icons/trash.svg');
+      &:hover {
+        background: fade-out($c-bad, .8);
+      }
+      &.selected-square {
+        background: fade-out($c-bad, .4);
+      }
+    }
+  }
+
+  .is3d & .no-square {
+    height: 58.102px;
+  }
+  & piece {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .is3d & piece {
+    /* original size: width: 140.625%; height: 179.6875%; size on 3D board, with height/width = 90.78571% */
+    width: 100%;
+    height: 140.7465%;
+    left: 0;
+    top: -36%;
+  }
+  & piece.pointer,
+  & piece.trash {
+    margin: 14%;
+    width: 72%;
+    height: 72%;
+  }
+  .is3d & piece.pointer,
+  .is3d & piece.trash {
+    top: -15%;
+  }
+}

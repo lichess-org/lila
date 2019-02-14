@@ -1,0 +1,33 @@
+.puzzle__history {
+  display: flex;
+  margin-top: 10px;
+  & > * {
+    flex: 1 0;
+    background: $c-shade;
+    color: #fff;
+    margin-left: 4px;
+    box-sizing: border-box;
+    opacity: 0.7;
+    height: 30px;
+    line-height: 30px;
+  }
+  & a {
+    @include transition(opacity);
+    &:first-child {
+      margin-left: 0;
+    }
+    &:hover {
+      color: #fff;
+      opacity: 1;
+    }
+    &.win {
+      background: $c-good;
+    }
+    &.loss {
+      background: $c-bad;
+    }
+    &.current {
+      background: $c-brag;
+    }
+  }
+}

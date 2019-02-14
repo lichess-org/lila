@@ -1,0 +1,28 @@
+.puzzle {
+
+  $board-width: calc(100vh * var(--board-scale) - #{$site-header-height});
+
+  grid-area: app;
+  display: grid;
+  grid-template-columns: 200px $block-gap minmax(30vmin, $board-width) 1rem $block-gap minmax(200px, 300px);
+  grid-template-rows: min-content auto min-content;
+  grid-template-areas:
+  'side . board   gauge . tools'
+  'side . history .     . .';
+
+  &__side {
+    grid-area: side;
+  }
+  &__board {
+    grid-area: board;
+  }
+  &__gauge {
+    grid-area: gauge;
+  }
+  &__tools {
+    grid-area: tools;
+  }
+  &__history {
+    grid-area: history;
+  }
+}

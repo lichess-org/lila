@@ -214,7 +214,7 @@ lidraughts.topMenuIntent = function() {
 
   $(function() {
     if (lidraughts.analyse) LidraughtsAnalyse.boot(document.getElementById('lidraughts'), lidraughts.analyse);
-    else if (lidraughts.user_analysis) startUserAnalysis(document.getElementById('lidraughts'), lidraughts.user_analysis);
+    else if (lidraughts.user_analysis) startUserAnalysis(document.getElementById('analyse-app'), lidraughts.user_analysis);
     else if (lidraughts.study) startStudy(document.getElementById('lidraughts'), lidraughts.study);
     else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
     else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
@@ -1152,8 +1152,7 @@ lidraughts.topMenuIntent = function() {
 
   function startPuzzle(cfg) {
     var puzzle;
-    cfg.element = document.querySelector('#puzzle');
-    cfg.sideElement = document.querySelector('#site_header .puzzle_side');
+    cfg.element = document.querySelector('.puzzle');
     lidraughts.socket = lidraughts.StrongSocket('/socket/v3', false, {
       options: {
         name: "puzzle"
