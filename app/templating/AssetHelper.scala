@@ -29,6 +29,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def responsiveCssTag(name: String)(implicit ctx: Context): Html =
     cssAt(s"css/lichess.$name.${ctx.currentBg}.${if (isProd) "min" else "dev"}.css")
 
+  def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Html =
+    cssAt(s"css/lichess.$name.${if (isProd) "min" else "dev"}.css")
+
   def cssTag(name: String): Html = cssAt("stylesheets/" + name)
 
   def cssTags(names: String*): Html = Html {

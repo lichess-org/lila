@@ -146,7 +146,7 @@ object layout {
         ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
-        isStage option cssTag("stage.css"),
+        isStage option responsiveCssTagNoTheme("stage"),
         moreCss,
         pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),

@@ -27,7 +27,10 @@
   opacity: 0;
 }
 body.offline #reconnecting {
-  display: block;
+  &, &::before {
+    font-size: 1rem;
+  }
+  display: inherit;
   opacity: 1;
   color: $c-error;
 }
