@@ -253,7 +253,7 @@ lichess.topMenuIntent = function() {
         }
       });
 
-      $('body').on('click', 'a.relation', function() {
+      $('body').on('click', 'a.relation-button', function() {
         var $a = $(this).addClass('processing').css('opacity', 0.3);
         $.ajax({
           url: $a.attr('href'),

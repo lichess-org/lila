@@ -14,18 +14,19 @@ object mini {
     followable: Boolean,
     relation: Option[lila.relation.Relation] = None
   )(implicit ctx: Context) = relation match {
-    case None if followable && !blocked =>
-      a(cls := "relation button", href := s"${routes.Relation.follow(userId)}?mini=1")(
-        iconTag("h", trans.follow())
-      )
+    case None if followable && !blocked => a(
+      cls := "relation-button text",
+      dataIcon := "h",
+      href := s"${routes.Relation.follow(userId)}?mini=1"
+    )(trans.follow.frag())
     case Some(true) => a(
-      cls := "relation button",
+      cls := "relation-button text",
       title := trans.unfollow.txt(),
       href := s"${routes.Relation.unfollow(userId)}?mini=1",
       dataIcon := "h"
     )(trans.following.frag())
     case Some(false) => a(
-      cls := "relation button hover_text",
+      cls := "relation-button hover_text text",
       title := trans.unblock.txt(),
       href := s"${routes.Relation.unblock(userId)}?mini=1",
       dataIcon := "k"

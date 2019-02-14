@@ -130,10 +130,7 @@ lichess.powertip = (function() {
   };
 
   var userPowertip = function(el, pos) {
-    if (!pos) {
-      if (elementIdContains('site_header', el)) pos = 'e';
-      else pos = el.getAttribute('data-pt-pos') || 'w';
-    }
+    pos = pos || el.getAttribute('data-pt-pos') || 's';
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
       placement: pos,
@@ -142,11 +139,11 @@ lichess.powertip = (function() {
     }).data('powertip', ' ').on({
       powerTipRender: onPowertipPreRender('powerTip', function(url) {
         var u = url.substr(3);
-        var preload = '<div class="title"><span class="user_link offline">' + $(el).html() + '</span></div><div class="actions">' +
-          '<a class="button" href="/@/' + u + '/tv"><i data-icon="1"></i></a>' +
-          '<a class="button" href="/inbox/new?user=' + u + '"><i data-icon="c"></i></a>' +
-          '<a class="button" href="/?user=' + u + '#friend"><i data-icon="U"></i></a>' +
-          '<a class="button relation" disabled></a></div>';
+  var preload = '<div class="upt__info"><div class="upt__info__top"><span class="user_link offline">' + $(el).html() + '</span></div></div><div class="upt__actions">' +
+          '<a href="/@/' + u + '/tv" i data-icon="1"></a>' +
+          '<a href="/inbox/new?user=' + u + '" i data-icon="c"></a>' +
+          '<a href="/?user=' + u + '#friend" i data-icon="U"></a>' +
+          '<a class="relation-button" disabled></a></div>';
         $('#powerTip').html(preload);
       })
     });

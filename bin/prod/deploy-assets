@@ -24,11 +24,16 @@ fi
 
 lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 
-./ui/build prod
+# ./ui/build prod
 
 lilalog "Rsync scripts"
-rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
+rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $REMOTE:$REMOTE_DIR
 
 lilalog "Deploy complete"
 
-xdg-open https://lichess.org/dev/cli
+if [ $mode = "main" ]; then
+  xdg-open https://lichess.org/dev/cli
+fi
+if [ $mode = "stage" ]; then
+  xdg-open https://listage.ovh/dev/cli
+fi
