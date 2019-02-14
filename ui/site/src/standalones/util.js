@@ -57,8 +57,8 @@ function buildStorage(storageKey) {
         listen: function(f) {
           window.addEventListener('storage', function(e) {
             if (e.key === k &&
-                e.storageArea === storage &&
-                e.newValue !== null) f(e);
+              e.storageArea === storage &&
+              e.newValue !== null) f(e);
           });
         }
       };
@@ -139,7 +139,7 @@ lichess.powertip = (function() {
     }).data('powertip', ' ').on({
       powerTipRender: onPowertipPreRender('powerTip', function(url) {
         var u = url.substr(3);
-  var preload = '<div class="upt__info"><div class="upt__info__top"><span class="user_link offline">' + $(el).html() + '</span></div></div><div class="upt__actions">' +
+        var preload = '<div class="upt__info"><div class="upt__info__top"><span class="user_link offline">' + $(el).html() + '</span></div></div><div class="upt__actions">' +
           '<a href="/@/' + u + '/tv" i data-icon="1"></a>' +
           '<a href="/inbox/new?user=' + u + '" i data-icon="c"></a>' +
           '<a href="/?user=' + u + '#friend" i data-icon="U"></a>' +
@@ -163,8 +163,10 @@ lichess.powertip = (function() {
   };
 
   var powerTipWith = function(el, ev, f) {
-    f(el);
-    $.powerTip.show(el, ev);
+    if (lichess.isHoverable()) {
+      f(el);
+      $.powerTip.show(el, ev);
+    }
   };
 
   function onIdleForAll(par, sel, fun) {
@@ -215,8 +217,11 @@ lichess.widget = function(name, prototype) {
   };
 };
 lichess.isResp = $('body').data('resp');
-lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
-lichess.isMS = lichess.isTrident || navigator.userAgent.indexOf('Edge/') > -1;
+lichess.isHoverable = function () {
+  if (typeof lichess.hoverable === 'undefined')
+    lichess.hoverable = !!getComputedStyle(document.body).getPropertyValue('--hoverable');
+  return lichess.hoverable;
+};
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetUrl = function(path, opts) {
   opts = opts || {};
@@ -414,7 +419,7 @@ lichess.reload = function() {
 };
 lichess.escapeHtml = function(str) {
   return /[&<>\"\']/.test(str) ?
-  str
+    str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

@@ -18,6 +18,10 @@ body {
     // --zoom: 85; defined in the HTML, loaded from server
     --board-scale: calc((var(--zoom) / 100) * 0.5 + 0.5);
   }
+
+  @media (hover: hover) {
+    --hoverable: 1;
+  }
 }
 
 #main-wrap {
