@@ -1,0 +1,75 @@
+#friend_box {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: z('friend-box');
+  background: $c-bg-popup;
+  border: $border;
+  border-right: 0;
+  border-top-left-radius: $box-radius-size;
+  font-size: .9rem;
+  min-width: 150px;
+  max-height: 95%;
+  /* improve scroll perfs */
+  backface-visibility: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
+  & .friend_box_title {
+    @extend %metal;
+    cursor: pointer;
+    padding: 3px 5px;
+    border-bottom: $border;
+    &:hover {
+      @extend %metal-hover;
+    }
+  }
+  & .content {
+    & div {
+      display: flex;
+    }
+    & a {
+      flex: 1 1 100%;
+      padding: 3px 0px;
+      display: block;
+      transition: background 0.13s;
+      &.user_link {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &.tv {
+        flex: 0 0 auto;
+        padding: 0 5px;
+      }
+      &.friend-study {
+        flex: 0 0 auto;
+        padding: 2px 5px 0 5px;
+      }
+      &:hover {
+        color: $c-font;
+        background: mix($c-secondary, $c-bg-popup, 10%);
+      }
+    }
+    & i.line {
+      opacity: 0.6;
+    }
+  }
+  & .nobody {
+    text-align: center;
+    height: 100%;
+    padding: 3px 5px;
+    & span {
+      display: block;
+      margin: 5px;
+    }
+  }
+  & a.find {
+    display: none;
+    margin: 7px;
+    font-style: normal;
+  }
+  & .nobody:hover a.find {
+    display: block;
+  }
+}
