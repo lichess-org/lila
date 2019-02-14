@@ -58,6 +58,22 @@
         @extend %square;
         position: relative;
       }
+      &:first-child {
+        &:hover {
+          background: fade-out($c-good, .8);
+        }
+        &.selected-square {
+          background: fade-out($c-good, .4);
+        }
+      }
+      &.trash {
+        &:hover {
+          background: fade-out($c-bad, .8);
+        }
+        &.selected-square {
+          background: fade-out($c-bad, .4);
+        }
+      }
     }
     .is3d & .no-square {
       height: 58.102px;
@@ -78,11 +94,17 @@
   left: 0;
   top: -36%;
 }
+& piece.pointer,
+& piece.trash {
+  margin: 14%;
+  width: 72%;
+  height: 72%;
+}
 & piece.pointer {
-  background-image: img-url('icons/pointer.png');
+  background-image: img-url('icons/pointer.svg');
 }
 & piece.trash {
-  background-image: img-url('icons/trash.png');
+  background-image: img-url('icons/trash.svg');
 }
 & .no-square.trash {
   color: black;
@@ -92,70 +114,70 @@
 .is3d & piece.trash {
   top: -15%;
 }
-  }
+}
 
-  & .cg-board-wrap {
-    grid-area: board;
-  }
-  & .cg-board {
-    cursor: inherit;
-  }
+& .cg-board-wrap {
+  grid-area: board;
+}
+& .cg-board {
+  cursor: inherit;
+}
 
-  &__tools {
-    @extend %flex-column;
-    grid-area: tools;
-    align-self: center;
-    & > * {
-      margin: .5rem 0;
-    }
-    & select {
-      width: 100%;
-      &.positions option:checked {
-        font-style: italic;
-      }
-    }
-    & .metadata {
-      @extend %box-neat;
-      background: $c-bg-box;
-      padding: 1rem;
-      white-space: nowrap;
-      & .color {
-        margin-bottom: 1em;
-      }
-      & .castling {
-        & div {
-          @extend %flex-between;
-        }
-        & label,
-        & input {
-          display:inline-block;
-          margin: 3px;
-          vertical-align: middle;
-        }
-      }
-    }
-    & .actions {
-      @extend %flex-column;
-      justify-content: stretch;
-      & .button {
-        width: 100%;
-        text-align: left;
-      }
+&__tools {
+  @extend %flex-column;
+  grid-area: tools;
+  align-self: center;
+  & > * {
+    margin: .5rem 0;
+  }
+  & select {
+    width: 100%;
+    &.positions option:checked {
+      font-style: italic;
     }
   }
-
-  & .copyables {
-    grid-area: copyables;
-    margin: 2rem 0 0 1rem;
-    & p {
-      display: flex;
-      align-items: center;
+  & .metadata {
+    @extend %box-neat;
+    background: $c-bg-box;
+    padding: 1rem;
+    white-space: nowrap;
+    & .color {
+      margin-bottom: 1em;
+    }
+    & .castling {
+      & div {
+        @extend %flex-between;
+      }
+      & label,
       & input {
-        margin-left: 1rem;
-        flex: 1 1 100%;
+        display:inline-block;
+        margin: 3px;
+        vertical-align: middle;
       }
     }
   }
+  & .actions {
+    @extend %flex-column;
+    justify-content: stretch;
+    & .button {
+      width: 100%;
+      text-align: left;
+    }
+  }
+}
+
+& .copyables {
+  grid-area: copyables;
+  margin: 2rem 0 0 1rem;
+  & p {
+    display: flex;
+    align-items: center;
+    & input {
+      margin-left: 1rem;
+      flex: 1 1 100%;
+    }
+  }
+}
 }
 
 .continue_with {

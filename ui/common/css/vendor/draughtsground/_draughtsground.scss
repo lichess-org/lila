@@ -1,6 +1,7 @@
 @import 'boards-2d';
 
 .cg-board {
+  @extend %box-neat;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -83,7 +84,7 @@ piece {
 }
 
 .cg-board-wrap {
-  @extend %square, %box-neat;
+  @extend %square;
   position: relative;
   // overflow: hidden; /* prevents width issues with rank coords | but prevents dragging pieces in! */
   .mini_board & {
