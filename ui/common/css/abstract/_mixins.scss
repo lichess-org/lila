@@ -30,6 +30,6 @@
   }
 }
 
-@mixin transition($prop: 'all', $dur: $transition-duration) {
+@mixin transition($prop: all, $dur: $transition-duration) {
   transition: $prop $dur;
 }
