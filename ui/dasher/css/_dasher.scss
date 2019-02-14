@@ -42,9 +42,6 @@
   & .head:hover::before {
     opacity: 1;
   }
-  & .slider .ui-slider-handle {
-    margin: 0 0 -9px -5.5px;
-  }
 
   & .langs {
     & form {
@@ -115,15 +112,15 @@
   }
   & .sound {
     & .content {
-      @extend %flex-wrap;
+      display: flex;
       margin: 5px 0 5px 5px;
     }
     & .selector a {
       border-radius: $box-radius-size 0 0 $box-radius-size;
     }
     & .slider {
-      flex: 0 0 8px;
-      margin: 1rem;
+      flex: 0 0 $slider-width;
+      margin: 1rem 1.3rem 1rem 1rem;
     }
     &.silent .slider {
       opacity: 0.2;
@@ -146,9 +143,8 @@
   }
 
   & .board .zoom {
-    margin: 0.5rem 0px;
     border-top: $border;
-    padding: 1rem;
+    padding: 1.5rem;
   }
   & .board .slider {
     margin-top: 1rem;

@@ -1,51 +1,53 @@
 $c-slider: $c-primary !default;
+$slider-width: 5px;
 
 .ui-slider {
-  background: $c-bg-high;
+  background: $c-slider;
   position: relative;
   text-align: left;
   cursor:pointer;
 }
 .ui-widget-header {
-  width: 8px;
+  @extend %box-radius;
+  width: $slider-width;
   bottom: 0;
   background: $c-slider;
 }
+.ui-widget-content {
+  @extend %box-radius;
+  background: c-dimmer($c-slider, 70%);
+}
 .ui-slider-handle {
+  background: $c-slider;
   position: absolute;
   z-index: 2;
-  width: 1.2em;
-  height: 1.2em;
+  width: 16px;
+  height: 16px;
   cursor:pointer;
-  margin: 0 0 -9px -5.5px;
+  margin: 0 0 -10px -5.5px;
   border-radius: 50%;
-  border-color: $c-slider;
-  background: linear-gradient(to bottom, hsl(0, 0, 95%) 0%, hsl(0, 0, 80%) 100%);
-}
-.ui-slider-handle,
-.ui-widget-content {
-  border: 1px solid c-clearer($c-slider);
-  border-radius: 2px;
-}
-.ui-slider-handle:hover {
-  border-color: #e2e2e2;
-  background: rgb(248, 248, 248);
-  background: linear-gradient(to bottom, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
+  &:hover,
+  &:active {
+    box-shadow: 0 0 0 9px fade-out($c-slider, .85);
+  }
+  &:focus {
+    outline: 0;
+  }
 }
 .ui-slider .ui-slider-range {
   position: absolute;
-  z-index: 1;
+  // z-index: 1;
   font-size: .7em;
   display: block;
   border: 0;
   background-position: 0 0;
 }
 .ui-slider-horizontal {
-  height: .8em;
+  height: $slider-width;
 }
 .ui-slider-horizontal .ui-slider-handle {
-  top: -.3em;
-  margin-left: -.6em;
+  top: -5.5px;
+  margin-left: -9px;
 }
 .ui-slider-horizontal .ui-slider-range {
   top: 0;
