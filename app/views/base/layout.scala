@@ -239,7 +239,7 @@ object layout {
               dataStudying := ctx.onlineFriends.studying.mkString(",")
             )(
                 div(cls := "friend_box_title")(
-                  strong(cls := "online")(" "),
+                  strong(cls := "online")("?"),
                   " ",
                   trans.onlineFriends.frag()
                 ),

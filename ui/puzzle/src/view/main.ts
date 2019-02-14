@@ -6,6 +6,7 @@ import { view as cevalView } from 'ceval';
 import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
+import sideView from './side';
 import { bind } from '../util';
 import { Controller } from '../interfaces';
 
@@ -88,36 +89,27 @@ export default function(ctrl: Controller): VNode {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;
   }
-  return h('div#puzzle.cg-512', [
-    h('div', {
-      hook: {
-        insert: _ => window.lichess.pubsub.emit('reset_zoom')()
-      },
+  return h('main.puzzle', [
+    h('div.puzzle__side', sideView(ctrl)),
+    h('div.puzzle__gauge', {
       class: { gauge_displayed: ctrl.showEvalGauge() }
-    }, [
-      h('div.lichess_game' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-        hook: {
-          insert: _ => window.lichess.pubsub.emit('content_loaded')()
-        }
-      }, [
-        visualBoard(ctrl),
-        h('div.lichess_ground', [
-          // we need the wrapping div here
-          // so the siblings are only updated when ceval is added
-          h('div', showCeval ? [
-            cevalView.renderCeval(ctrl),
-            cevalView.renderPvs(ctrl)
-          ] : []),
-          renderAnalyse(ctrl),
-          feedbackView(ctrl),
-          buttons(ctrl)
-        ])
-      ])
+    }),
+    h('div.puzzle__board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
+      hook: {
+        insert: _ => window.lichess.pubsub.emit('content_loaded')()
+      }
+    }, [visualBoard(ctrl)]),
+    h('div.puzzle__tools', [
+      // we need the wrapping div here
+      // so the siblings are only updated when ceval is added
+      h('div', showCeval ? [
+        cevalView.renderCeval(ctrl),
+        cevalView.renderPvs(ctrl)
+      ] : []),
+      renderAnalyse(ctrl),
+      feedbackView(ctrl),
+      buttons(ctrl)
     ]),
-    h('div.underboard', [
-      h('div.center', [
-        historyView(ctrl)
-      ])
-    ])
+    h('div.puzzle__history', [historyView(ctrl)])
   ]);
-};
+}

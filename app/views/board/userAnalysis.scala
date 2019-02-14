@@ -14,10 +14,10 @@ object userAnalysis {
 
   def apply(data: JsObject, pov: lila.game.Pov)(implicit ctx: Context) = views.html.base.layout(
     title = trans.analysis.txt(),
-    moreCss = cssTags(List(
-      "analyse.css" -> true,
-      "forecast.css" -> (!pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined)
-    )),
+    moreCss = frag(
+      responsiveCssTag("analyse"),
+      (!pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined) option cssTag("forecast.css")
+    ),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
@@ -38,6 +38,7 @@ object userAnalysis {
         }
       )
     ),
+    responsive = true,
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess analysis board",
@@ -46,6 +47,6 @@ object userAnalysis {
     ).some,
     zoomable = true
   ) {
-      div(cls := "analyse cg-512")(views.html.board.bits.domPreload(none))
+      main(id := "analyse-app")(div(cls := "analyse")(views.html.board.bits.domPreload(none)))
     }
 }

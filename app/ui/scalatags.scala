@@ -55,6 +55,7 @@ trait ScalatagsPrefix {
     val nav = tag("nav")
     val section = tag("section")
     val article = tag("article")
+    val aside = tag("aside")
   }
 }
 

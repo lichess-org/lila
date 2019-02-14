@@ -41,7 +41,7 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
 
 function gameInfos(ctrl: Controller, game, puzzle): VNode[] {
   return [
-    h('div.game_infos.game[data-icon="-"]', {
+    h('div.game_infos.game', {
       attrs: dataIcon(game.perf.icon)
     }, [
       h('div.header', [
@@ -116,7 +116,7 @@ function drawRatingChart(ctrl: Controller, vnode: VNode) {
 }
 
 export default function(ctrl: Controller): VNode {
-  return h('div.puzzle_side', [
+  return h('aside.puzzle__side', [
     puzzleBox(ctrl),
     userBox(ctrl)
   ]);

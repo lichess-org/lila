@@ -5,6 +5,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.common.String.html.safeJsonValue
 import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
@@ -21,7 +22,7 @@ object bits {
     dataLastmove := lastMove
   )(miniBoardContent)
 
-  def jsI18n(implicit ctx: Context) = toJsonFrag(i18nJsObject(translations))
+  def jsI18n(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
 
   private val translations = List(
     trans.training,

@@ -214,7 +214,7 @@ lichess.topMenuIntent = function() {
 
   $(function() {
     if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
-    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
+    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('analyse-app'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
     else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
@@ -1151,8 +1151,7 @@ lichess.topMenuIntent = function() {
 
   function startPuzzle(cfg) {
     var puzzle;
-    cfg.element = document.querySelector('#puzzle');
-    cfg.sideElement = document.querySelector('#site_header .puzzle_side');
+    cfg.element = document.querySelector('.puzzle');
     lichess.socket = lichess.StrongSocket('/socket/v4', false, {
       options: {
         name: "puzzle"

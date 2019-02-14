@@ -24,7 +24,7 @@ fi
 
 lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 
-# ./ui/build prod
+./ui/build prod
 
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $REMOTE:$REMOTE_DIR
