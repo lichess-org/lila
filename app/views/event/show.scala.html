@@ -13,7 +13,9 @@ title = e.title,
 moreCss = cssTag("event.css"),
 moreJs = moreJs) {
 <div id="event" class="content_box small_box">
-  <h1 data-icon="" class="text">@e.title</h1>
+  <h1 data-icon="" class="text lidraughts_title">@e.title
+    @absClientDateTime(e.startsAt)
+  </h1>
   <h2 class="headline">
     @e.headline
   </h2>
