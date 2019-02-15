@@ -98,8 +98,8 @@ $variant-height: 2.5rem;
     }
 
     &:before {
+      @extend %box-radius-bottom;
       background-color: $c-bg-high;
-      border-radius: 0 0 $box-radius-size $box-radius-size;
       font-weight: bold;
     }
 

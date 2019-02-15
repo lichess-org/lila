@@ -25,6 +25,7 @@ lichess.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i
       ),
       responsive = true,
       chessground = false,
+      fullScreen = true,
       openGraph = lila.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
         title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
@@ -37,7 +38,13 @@ lichess.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i
       zoomable = true
     ) {
         main(cls := "puzzle")(
-          views.html.board.bits.domPreload(none)
+          st.aside(cls := "puzzle__side")(
+            div(cls := "side-box metas")(spinner)
+          ),
+          div(cls := "puzzle__board main-board")(chessgroundSvg),
+          div(cls := "puzzle__tools"),
+          div(cls := "puzzle__controls"),
+          div(cls := "puzzle__history")
         )
       }
 }

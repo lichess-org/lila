@@ -6,7 +6,7 @@ import { view as cevalView } from 'ceval';
 import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
-import sideView from './side';
+import * as side from './side';
 import { bind } from '../util';
 import { Controller } from '../interfaces';
 
@@ -21,7 +21,7 @@ function renderOpeningBox(ctrl: Controller) {
 }
 
 function renderAnalyse(ctrl: Controller) {
-  return h('div.areplay', [
+  return h('div.puzzle__moves.areplay', [
     renderOpeningBox(ctrl),
     treeView(ctrl)
   ]);
@@ -38,13 +38,11 @@ function wheel(ctrl: Controller, e: WheelEvent) {
 }
 
 function visualBoard(ctrl: Controller) {
-  return h('div.lichess_board_wrap', [
-    h('div.lichess_board', {
-      hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
-    }, [
-      chessground(ctrl),
-      ctrl.promotion.view()
-    ])
+  return h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
+    hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
+  }, [
+    chessground(ctrl),
+    ctrl.promotion.view()
   ]);
 }
 
@@ -61,8 +59,8 @@ function jumpButton(icon, effect) {
   });
 }
 
-function buttons(ctrl: Controller) {
-  return h('div.game_control', {
+function controls(ctrl: Controller) {
+  return h('div.puzzle__controls.analyse-controls', {
     hook: bind('mousedown', e => {
       const action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
@@ -91,26 +89,23 @@ export default function(ctrl: Controller): VNode {
   return h('main.puzzle', {
     class: {with_gauge: ctrl.showEvalGauge()}
   }, [
-    h('div.puzzle__side', sideView(ctrl)),
-    h('div.puzzle__gauge', [cevalView.renderGauge(ctrl)]),
-    h('div.puzzle__board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-      hook: {
-        insert: _ => window.lichess.pubsub.emit('content_loaded')()
-      }
-    }, [visualBoard(ctrl)]),
-    h('div.puzzle__tools', [
-      h('div.puzzle__tools__box', [
-        // we need the wrapping div here
-        // so the siblings are only updated when ceval is added
-        h('div', showCeval ? [
-          cevalView.renderCeval(ctrl),
-          cevalView.renderPvs(ctrl)
-        ] : []),
-        renderAnalyse(ctrl),
-        feedbackView(ctrl)
-      ]),
-      buttons(ctrl)
+    h('aside.puzzle__side', [
+      side.puzzleBox(ctrl),
+      side.userBox(ctrl)
     ]),
+    h('div.puzzle__gauge', [cevalView.renderGauge(ctrl)]),
+    visualBoard(ctrl),
+    h('div.puzzle__tools', [
+      // we need the wrapping div here
+      // so the siblings are only updated when ceval is added
+      h('div', showCeval ? [
+        cevalView.renderCeval(ctrl),
+        cevalView.renderPvs(ctrl)
+      ] : []),
+      renderAnalyse(ctrl),
+      feedbackView(ctrl)
+    ]),
+    controls(ctrl),
     historyView(ctrl)
   ]);
 }

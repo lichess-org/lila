@@ -1,9 +1,8 @@
 .puzzle__history {
-  @extend %box-radius;
+  @extend %box-radius-force;
   background: $c-shade;
   display: flex;
-  margin-top: $block-gap;
-  height: 2rem;
+  height: $puzzle-history-height;
   & > * {
     @extend %flex-center;
     justify-content: center;
@@ -13,10 +12,6 @@
   }
   & a {
     @include transition(background);
-    &:first-child {
-      @extend %box-radius-left;
-      margin-left: 0;
-    }
     &:hover {
       color: #fff;
       opacity: 1;

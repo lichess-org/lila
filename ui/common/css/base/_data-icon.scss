@@ -3,7 +3,7 @@
 .is-after::after {
   @extend %data-icon;
 }
-// .is.text::before,
+.is.text::before,
 .text[data-icon]::before {
   margin-right: 0.4em;
 }

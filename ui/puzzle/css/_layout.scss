@@ -1,31 +1,56 @@
+@mixin columns-with-gauge-col2($board-width, $gauge-width) {
+  grid-template-columns: minmax(30vmin, $board-width) $gauge-width $block-gap minmax(200px, 300px);
+}
+@mixin columns-with-gauge-col3($board-width, $gauge-width) {
+  grid-template-columns: 1fr minmax(200px, 300px) $block-gap minmax(30vmin, $board-width) $gauge-width $block-gap minmax(200px, 300px) 1fr;
+}
+
 .puzzle {
   grid-area: main;
-
-  $board-width: calc(100vh * var(--board-scale) - #{$site-header-height});
-
   display: grid;
-  grid-template-columns: 200px $block-gap minmax(30vmin, $board-width) 0 $block-gap minmax(200px, 350px);
-  grid-template-rows: min-content auto min-content;
+
+  &__side { grid-area: side; }
+  &__board { grid-area: board; }
+  &__gauge { grid-area: gauge; }
+  &__tools { grid-area: tools; }
+  &__controls { grid-area: controls; }
+  &__history { grid-area: history; }
+
+  $board-width: calc(100vh * var(--board-scale) - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
+
+  @include columns-with-gauge-col2($board-width, 0);
   grid-template-areas:
-  'side . board   gauge . tools'
-  '.    . history .     . tools';
-  &.with_gauge {
-    grid-template-columns: 200px $block-gap minmax(30vmin, $board-width) 1rem $block-gap minmax(200px, 300px);
+  'board   gauge .    tools'
+  'history .     .    controls'
+  'side    side  side side';
+  grid-row-gap: $block-gap;
+
+  @include breakpoint($mq-large) {
+    grid-template-areas:
+    '. side    . board   gauge . tools .'
+    '. .       . history .     . controls .';
+    grid-template-rows: min-content;
+    @include columns-with-gauge-col3($board-width, 0);
+    &.with_gauge {
+      @include columns-with-gauge-col3($board-width, 1rem);
+    }
+    &__tools {
+      max-height: $board-width;
+    }
   }
 
   &__side {
-    grid-area: side;
-  }
-  &__board {
-    grid-area: board;
-  }
-  &__gauge {
-    grid-area: gauge;
-  }
-  &__tools {
-    grid-area: tools;
-  }
-  &__history {
-    grid-area: history;
+    display: grid;
+    grid-template-rows: min-content;
+    grid-template-areas:
+    'metas user';
+    @include breakpoint($mq-large) {
+      grid-template-areas:
+      'metas'
+      'user';
+    }
+    grid-gap: $block-gap;
+    &__metas { grid-area: metas; }
+    &__user { grid-area: user; }
   }
 }

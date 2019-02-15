@@ -1,5 +1,9 @@
 @import '../../../common/css/plugin';
+@import '../../../common/css/component/color-icon';
 @import '../../../tree/css/tree';
 @import '../../../chess/css/opening';
 @import '../../../chess/css/control';
+
+$puzzle-history-height: 2.5rem;
+
 @import '../puzzle';

@@ -79,6 +79,10 @@
 %box-radius {
   @include box-radius;
 }
+%box-radius-force {
+  @extend %box-radius;
+  overflow: hidden; /* helps with clipping background into border-radius */
+}
 %box-radius-left {
   border-radius: $box-radius-size 0 0 $box-radius-size;
 }
@@ -96,6 +100,10 @@
 }
 %box-neat {
   @include box-neat;
+}
+%box-neat-force {
+  @include box-neat;
+  overflow: hidden; /* helps with clipping background into border-radius */
 }
 %data-icon {
   font-size: 1.1em;
