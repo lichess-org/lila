@@ -100,15 +100,14 @@ function drawRatingChart(ctrl: Controller, vnode: VNode) {
   const points = ctrl.getData().user.recent.map(function(r) {
     return r[2] + r[1];
   });
-  window.lichess.raf(() => {
-    console.log($el.outerWidth());
-    $el['sparkline'](points, {
-      type: 'line',
-      width: Math.round($el.outerWidth()) + 'px',
-      height: '80px',
-      lineColor: dark ? '#4444ff' : '#0000ff',
-      fillColor: dark ? '#222255' : '#ccccff',
-      numberFormatter: (x: number) => { return x; }
-    });
+  const redraw = () => $el['sparkline'](points, {
+    type: 'line',
+    width: Math.round($el.outerWidth()) + 'px',
+    height: '80px',
+    lineColor: dark ? '#4444ff' : '#0000ff',
+    fillColor: dark ? '#222255' : '#ccccff',
+    numberFormatter: (x: number) => { return x; }
   });
+  window.lichess.raf(redraw);
+  window.addEventListener('resize', redraw);
 }

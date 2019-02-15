@@ -1,4 +1,8 @@
 #friend_box {
+  display: none;
+  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+    display: block;
+  }
   position: fixed;
   bottom: 0;
   right: 0;

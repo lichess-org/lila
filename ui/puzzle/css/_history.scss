@@ -1,7 +1,6 @@
 .puzzle__history {
   @extend %box-radius-force;
   background: $c-shade;
-  display: flex;
   height: $puzzle-history-height;
   & > * {
     @extend %flex-center;
