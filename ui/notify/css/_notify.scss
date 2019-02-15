@@ -1,8 +1,9 @@
 #notify_app {
+  @extend %box-radius-left;
+  overflow: hidden;
   width: 25rem;
   max-width: 100vw;
   right: 0;
-  border-radius: $box-radius-size 0 0 $box-radius-size;
 
   & .empty {
     text-align: center;
@@ -26,12 +27,6 @@
     background: $c-bg-header-dropdown;
     border-bottom: $border;
     position: relative;
-    &:first-child {
-      border-top-left-radius: $box-radius-size;
-    }
-    &:last-child {
-      border-bottom-left-radius: $box-radius-size;
-    }
     &:hover {
       background: $c-bg-zebra;
       & i {
@@ -76,10 +71,6 @@
     }
     &.prev {
       border-bottom: $border;
-      border-top-left-radius: $box-radius-size;
-    }
-    &.next {
-      border-bottom-left-radius: $box-radius-size;
     }
   }
 }

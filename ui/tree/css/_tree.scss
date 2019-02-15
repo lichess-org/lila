@@ -2,6 +2,7 @@
 
 .tview2 {
   white-space: normal;
+  overflow-y: auto;
   &.column {
     @extend %flex-wrap;
   }

@@ -15,7 +15,7 @@
     border: 0!important;
   }
   & .challenge {
-    @extend %box-neat;
+    @extend %box-radius-force, %dropdown-shadow;
     background: $c-bg-header-dropdown;
     margin-bottom: 5px;
     @include transition(height);
@@ -24,9 +24,10 @@
     height: 67px;
     &:hover {
       transition-delay: 0ms;
-      background: $c-bg-zebra;
       height: 103px;
-      // @extend %dropdown-shadow;
+      & > i {
+        color: $c-primary;
+      }
     }
     &.declined {
       height: 0;
@@ -65,7 +66,6 @@
       font-size: 1.6rem;
       @include transition();
       box-shadow: none;
-      border-radius: 0 0 $box-radius-size $box-radius-size;
     }
     & button,
     & .owner {
@@ -134,13 +134,13 @@
   }
 
   & .create {
+    @extend %box-radius-bottom;
     display: inline-block;
     padding: 0 28px 3px 28px;
     margin: auto;
     background: rgba(56,147,232,0.5);
     color: rgba(255,255,255,0.6);
     @include transition();
-    border-radius: 0 0 3px 3px;
   }
   & .create:hover {
     background: rgba(56,147,232,0.9);

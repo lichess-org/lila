@@ -13,7 +13,7 @@
   'copyables';
 
   @include breakpoint($mq-x-small) {
-    grid-template-columns: auto minmax(30vmin, $board-width) 2vmin minmax(200px, 300px) auto;
+    grid-template-columns: 1fr minmax(30vmin, $board-width) 2vmin minmax(200px, 300px) 1fr;
     grid-template-rows: min-content auto min-content;
     grid-template-areas:
     '. .            . tools .'

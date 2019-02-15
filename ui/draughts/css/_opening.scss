@@ -1,5 +1,5 @@
 .opening_box {
-  @extend %roboto, %box-radius-top;
+  @extend %roboto;
   padding: 5px;
   border-bottom: $border;
   white-space: nowrap;

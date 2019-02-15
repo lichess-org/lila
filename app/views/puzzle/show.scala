@@ -25,6 +25,7 @@ lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}
       ),
       responsive = true,
       draughtsground = false,
+      fullScreen = true,
       openGraph = lidraughts.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePngVariant(puzzle.id, puzzle.variant.key).url).some,
         title = s"Draughts tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
@@ -37,7 +38,13 @@ lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}
       zoomable = true
     ) {
         main(cls := "puzzle")(
-          views.html.board.bits.domPreload(none)
+          st.aside(cls := "puzzle__side")(
+            div(cls := "side-box metas")(spinner)
+          ),
+          div(cls := "puzzle__board main-board")(draughtsgroundSvg),
+          div(cls := "puzzle__tools"),
+          div(cls := "puzzle__controls"),
+          div(cls := "puzzle__history")
         )
       }
 }

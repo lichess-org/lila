@@ -3,10 +3,11 @@
 $mq-xx-small: (min-width 500px);
 $mq-x-small: (min-width 650px);
 $mq-small: (min-width 800px);
-$mq-not-small: (max-width 799px);
 $mq-medium: (min-width 1000px);
-$mq-not-medium: (max-width 999px);
 $mq-large: (min-width 1120px);
+
+$mq-not-small: (max-width 799px);
+$mq-not-medium: (max-width 999px);
 
 /* Heights */
 

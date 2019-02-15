@@ -1,57 +1,61 @@
 .puzzle__side {
-  @extend %box-neat;
-  background: $c-bg-box;
 
-  & .side_box.metas {
-    padding: 0 7px;
-  }
-  & .game_infos {
-    margin-top: 14px!important;
-    padding-bottom: 14px!important;
-  }
-  & .header a {
-    color: $c-primary;
-  }
-  & .header .hidden {
-    opacity: 0.7;
-  }
-  & .game_infos.puzzle {
-    padding-left: 56px;
-  }
-  & .game_infos.puzzle::before {
-    font-size: 47px;
-  }
-  & .puzzle .header a {
-    font-size: 1.2em;
-  }
-  & .game_infos.game {
-    border: none;
-    padding-bottom: 0!important;
-  }
-  & .players {
-    padding-bottom: 14px;
-  }
-  & .players .color-icon::before {
-    width: 30px;
-    display: inline-block;
-    text-align: center;
+  &__metas {
+    @extend %box-neat;
+    align-self: start;
+    background: $c-bg-box;
+    & .spinner {
+      margin: 4rem auto;
+    }
+    & p {
+      margin: 0;
+    }
+
+    padding: 2vmin;
+    & .infos {
+      @extend %flex-center;
+      &::before {
+        font-size: 3rem;
+        margin-right: 1rem;
+      }
+      &.puzzle {
+        padding-bottom: 2vh;
+        border-bottom: $border;
+        margin-bottom: 2vh;
+        & a {
+          font-size: 1.2em;
+        }
+        & .hidden {
+          opacity: 0.7;
+        }
+      }
+      & .players {
+        margin-top: .3rem;
+        font-size: 90%;
+      }
+    }
   }
 
-  & .rating h2 {
-    padding: 7px;
-  }
-  & .rating .rp {
-    /* font-size: 1.2em; */
-  }
-  & .rating .rp.up {
-    color: $c-good;
-  }
-  & .rating .rp.down {
-    color: $c-bad;
-  }
-  @include breakpoint($mq-small) {
+  &__user {
+    @extend %box-neat;
+    align-self: start;
+    background: $c-bg-box;
+    // overflow: hidden;
+    & h2 {
+      padding: 2vmin;
+      font-size: 1.2rem;
+    }
+    & .rp {
+      /* font-size: 1.2em; */
+    }
+    & .rp.up {
+      color: $c-good;
+    }
+    & .rp.down {
+      color: $c-bad;
+    }
     & canvas {
-      width: 194px!important;
+      width: 100%;
     }
   }
 }

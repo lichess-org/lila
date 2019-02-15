@@ -1,5 +1,5 @@
 .board-editor .spare {
-  @extend %box-radius;
+  @extend %box-radius-force;
   display: flex;
   background: $c-font-dimmer;
   box-shadow: 0 3px 5px rgba(0,0,0,0.3) inset;
@@ -16,12 +16,6 @@
     @include transition();
     &:hover {
       background: fade-out($c-primary, .8);
-    }
-    &:first-child {
-      @extend %box-radius-left;
-    }
-    &:last-child {
-      @extend %box-radius-right;
     }
     &.selected-square {
       background: fade-out($c-primary, .5);

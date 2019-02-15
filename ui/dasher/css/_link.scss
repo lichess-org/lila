@@ -12,10 +12,12 @@
     overflow: hidden;
   }
   & .links a:hover,
+  & .links a:hover::before,
   & .links button:hover,
   & .subs .sub:hover {
     background: $c-dasher;
     color: $c-dasher-over;
+    opacity: 1;
   }
   & .logout button:hover {
     background: $c-error;
