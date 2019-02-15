@@ -28,3 +28,14 @@ The structure of a CSS module is as follows:
     - forum.dark.scss   # generated
     - forum.transp.scss # generated
 ```
+
+## Browser support
+
+| Name            | Version | Notes |
+| --------------- | ------- | ----- |
+| Firefox         | last 10 | Full support |
+| Chromium/Chrome | last 10 | Full support |
+| Safari          | 10.1+   | Reasonable support |
+| Opera           | last 5  | Reasonable support |
+| Edge            | last 2  | Reasonable support |
+| IE              | none    | No support |
