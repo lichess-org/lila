@@ -1,14 +1,17 @@
 .puzzle {
+  grid-area: main;
 
   $board-width: calc(100vh * var(--board-scale) - #{$site-header-height});
 
-  grid-area: app;
   display: grid;
-  grid-template-columns: 200px $block-gap minmax(30vmin, $board-width) 1rem $block-gap minmax(200px, 300px);
+  grid-template-columns: 200px $block-gap minmax(30vmin, $board-width) 0 $block-gap minmax(200px, 350px);
   grid-template-rows: min-content auto min-content;
   grid-template-areas:
   'side . board   gauge . tools'
-  'side . history .     . .';
+  '.    . history .     . tools';
+  &.with_gauge {
+    grid-template-columns: 200px $block-gap minmax(30vmin, $board-width) 1rem $block-gap minmax(200px, 300px);
+  }
 
   &__side {
     grid-area: side;

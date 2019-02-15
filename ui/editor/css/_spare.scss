@@ -1,4 +1,4 @@
-.editor .spare {
+.board-editor .spare {
   @extend %box-radius;
   display: flex;
   background: $c-font-dimmer;
@@ -42,7 +42,9 @@
       background-image: img-url('icons/pointer.svg');
     }
     &.trash {
-      background-image: img-url('icons/trash.svg');
+      & piece {
+        background-image: img-url('icons/trash.svg');
+      }
       &:hover {
         background: fade-out($c-bad, .8);
       }

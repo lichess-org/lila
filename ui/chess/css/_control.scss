@@ -1,0 +1,49 @@
+.game_control {
+  @extend %flex-between;
+  border-top: $border;
+  justify-content: center;
+  font-size: 1.3em;
+  & button,
+  & a {
+    background: none;
+    border: none;
+    padding: 0 12px;
+    outline: none;
+    line-height: 36px;
+    margin: 0; /* safari */
+  }
+  & button.hidden {
+    visibility: hidden;
+  }
+  &  button.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  & a:hover,
+  & button:hover:not(.disabled) {
+    background: mix($c-primary, $c-bg-box, 80%);
+    color: #fff;
+  }
+  & button:active,
+  & button.active {
+    background: $c-primary;
+    color: #fff;
+  }
+  & .features {
+    white-space: nowrap; /* safari */
+  }
+  & .jumps {
+    display: flex;
+  }
+  & .jumps button:first-child,
+  & .jumps button:last-child {
+    font-size: 0.7em;
+    padding: 0 5px;
+  }
+  & .jumps button:nth-child(2) {
+    padding: 0 10px 0 14px;
+  }
+  & .jumps button:nth-child(3) {
+    padding: 0 14px 0 10px;
+  }
+}

@@ -1,0 +1,17 @@
+.puzzle__tools {
+  @extend %flex-column;
+
+  &__box {
+    @extend %box-neat, %flex-column;
+    flex: 1 1 100%;
+    background: $c-bg-box;
+  }
+
+  & .areplay {
+    flex: 1 1 auto;
+  }
+
+  & .game_control {
+    flex: 0 0 calc(2rem + #{$block-gap});
+  }
+}

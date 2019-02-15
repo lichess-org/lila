@@ -1,19 +1,20 @@
 .puzzle__history {
+  @extend %box-radius;
+  background: $c-shade;
   display: flex;
-  margin-top: 10px;
+  margin-top: $block-gap;
+  height: 2rem;
   & > * {
-    flex: 1 0;
-    background: $c-shade;
+    @extend %flex-center;
+    justify-content: center;
+    flex: 0 0 6.25%;
     color: #fff;
-    margin-left: 4px;
     box-sizing: border-box;
-    opacity: 0.7;
-    height: 30px;
-    line-height: 30px;
   }
   & a {
-    @include transition(opacity);
+    @include transition(background);
     &:first-child {
+      @extend %box-radius-left;
       margin-left: 0;
     }
     &:hover {
@@ -21,10 +22,16 @@
       opacity: 1;
     }
     &.win {
-      background: $c-good;
+      background: mix($c-good, $c-shade, 60%);
+      &:hover {
+        background: $c-good;
+      }
     }
     &.loss {
-      background: $c-bad;
+      background: mix($c-bad, $c-shade, 57%);
+      &:hover {
+        background: $c-bad;
+      }
     }
     &.current {
       background: $c-brag;
