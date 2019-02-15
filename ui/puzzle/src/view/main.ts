@@ -43,8 +43,7 @@ function visualBoard(ctrl: Controller) {
       hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       draughtsground(ctrl)
-    ]),
-    cevalView.renderGauge(ctrl)
+    ])
   ]);
 }
 
@@ -88,27 +87,29 @@ export default function(ctrl: Controller): VNode {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;
   }
-  return h('main.puzzle', [
+  return h('main.puzzle', {
+    class: {with_gauge: ctrl.showEvalGauge()}
+  }, [
     h('div.puzzle__side', sideView(ctrl)),
-    h('div.puzzle__gauge', {
-      class: { gauge_displayed: ctrl.showEvalGauge() }
-    }),
+    h('div.puzzle__gauge', [cevalView.renderGauge(ctrl)]),
     h('div.puzzle__board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: _ => window.lidraughts.pubsub.emit('content_loaded')()
       }
     }, [visualBoard(ctrl)]),
     h('div.puzzle__tools', [
-      // we need the wrapping div here
-      // so the siblings are only updated when ceval is added
-      h('div', showCeval ? [
-        cevalView.renderCeval(ctrl),
-        cevalView.renderPvs(ctrl)
-      ] : []),
-      renderAnalyse(ctrl),
-      feedbackView(ctrl),
+      h('div.puzzle__tools__box', [
+        // we need the wrapping div here
+        // so the siblings are only updated when ceval is added
+        h('div', showCeval ? [
+          cevalView.renderCeval(ctrl),
+          cevalView.renderPvs(ctrl)
+        ] : []),
+        renderAnalyse(ctrl),
+        feedbackView(ctrl)
+      ]),
       buttons(ctrl)
     ]),
-    h('div.puzzle__history', [historyView(ctrl)])
+    historyView(ctrl)
   ]);
 }

@@ -1,7 +1,6 @@
 .puzzle__feedback {
-  flex: 1 1 0;
-  border: 1px solid $border;
-  border-top: 0;
+  flex: 0 0 200px;
+  border-top: $border;
   background: $c-bg-high;
   @extend %flex-column;
   justify-content: center;
@@ -50,20 +49,13 @@
     100% { opacity: 0.8; }
   }
   & .view_solution {
-    margin-top: 5px;
-    margin-bottom: -5px;
+    margin-top: 1.5em;
     text-align: center;
-    opacity: 0;
     visibility: hidden;
   }
   & .view_solution.show {
     visibility: visible;
-    opacity: 0.8;
-    transition: opacity 0.13s;
     animation: reveal 1.5s;
-  }
-  & .view_solution:hover {
-    opacity: 1;
   }
 
   &.after .half {

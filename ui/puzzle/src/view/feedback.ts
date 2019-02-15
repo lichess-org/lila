@@ -6,7 +6,7 @@ function viewSolution(ctrl) {
   return h('div.view_solution', {
     class: { show: ctrl.vm.canViewSolution }
   }, [
-    h('a.button', {
+    h('a.button.button-empty', {
       hook: bind('click', ctrl.viewSolution)
     }, ctrl.trans.noarg('viewTheSolution'))
   ]);

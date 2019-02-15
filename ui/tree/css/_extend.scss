@@ -1,0 +1,10 @@
+%move {
+  font-family: 'ChessSansPiratf', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  body.piece_letter & {
+    font-family: 'Noto Sans';
+  }
+}

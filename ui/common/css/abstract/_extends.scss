@@ -85,6 +85,9 @@
 %box-radius-right {
   border-radius: 0 $box-radius-size $box-radius-size 0;
 }
+%box-radius-top {
+  border-radius: $box-radius-size $box-radius-size 0 0;
+}
 %box-radius-bottom {
   border-radius: 0 0 $box-radius-size $box-radius-size;
 }
