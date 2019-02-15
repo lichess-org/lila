@@ -13,10 +13,11 @@
 
     padding: 2vmin;
     & .infos {
-      @extend %flex-center;
+      display: flex;
+      align-items: center;
       &::before {
         font-size: 3rem;
-        margin-right: 1rem;
+        margin-right: 1vw;
       }
       &.puzzle {
         padding-bottom: 2vh;

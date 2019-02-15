@@ -2,7 +2,7 @@ var lidraughts = window.lidraughts = window.lidraughts || {};
 
 lidraughts.engineName = 'Scan 3.1';
 
-lidraughts.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
+lidraughts.raf = window.requestAnimationFrame;
 lidraughts.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lidraughts.dispatchEvent = function(el, eventName) {
   // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))

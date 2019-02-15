@@ -1,8 +1,8 @@
 @mixin columns-with-gauge-col2($board-width, $gauge-width) {
-  grid-template-columns: minmax(30vmin, $board-width) $gauge-width $block-gap minmax(200px, 300px);
+  grid-template-columns: 1fr minmax(30vmin, $board-width) $gauge-width $block-gap minmax(200px, 300px) 1fr;
 }
 @mixin columns-with-gauge-col3($board-width, $gauge-width) {
-  grid-template-columns: 1fr minmax(200px, 300px) $block-gap minmax(30vmin, $board-width) $gauge-width $block-gap minmax(200px, 300px) 1fr;
+  grid-template-columns: 1fr minmax(230px, 20vw) $block-gap minmax(30vmin, $board-width) $gauge-width $block-gap minmax(200px, 300px) 1fr;
 }
 
 .puzzle {
@@ -19,17 +19,17 @@
   $board-width: calc(100vh * var(--board-scale) - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
 
   @include columns-with-gauge-col2($board-width, 0);
+  grid-template-rows: fit-content(0);
   grid-template-areas:
-  'board   gauge .    tools'
-  'history .     .    controls'
-  'side    side  side side';
+  '. board   gauge .    tools .'
+  '. history .     .    controls .'
+  '. side    side  side side .';
   grid-row-gap: $block-gap;
 
-  @include breakpoint($mq-large) {
+  @include breakpoint($mq-x-large) {
     grid-template-areas:
     '. side    . board   gauge . tools .'
     '. .       . history .     . controls .';
-    grid-template-rows: min-content;
     @include columns-with-gauge-col3($board-width, 0);
     &.with_gauge {
       @include columns-with-gauge-col3($board-width, 1rem);
@@ -41,13 +41,14 @@
 
   &__side {
     display: grid;
-    grid-template-rows: min-content;
     grid-template-areas:
     'metas user';
-    @include breakpoint($mq-large) {
+    @include breakpoint($mq-x-large) {
       grid-template-areas:
       'metas'
       'user';
+      justify-self: end;
+      max-width: 350px;
     }
     grid-gap: $block-gap;
     &__metas { grid-area: metas; }
