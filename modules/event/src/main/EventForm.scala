@@ -16,7 +16,7 @@ object EventForm {
     "title" -> nonEmptyText(minLength = 3, maxLength = 40),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "description" -> optional(nonEmptyText(minLength = 5, maxLength = 4000)),
-    "homepageHours" -> number(min = 0, max = 24),
+    "homepageHours" -> number(min = 0, max = 336),
     "url" -> nonEmptyText,
     "lang" -> nonEmptyText.verifying(l => LangList.choices.exists(_._1 == l)),
     "enabled" -> boolean,

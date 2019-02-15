@@ -31,7 +31,7 @@ final class EventApi(
 
   def fetchPromotable: Fu[List[Event]] = coll.find($doc(
     "enabled" -> true,
-    "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
+    "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(14)
   )).sort($doc("startsAt" -> 1)).list[Event](10).map {
     _.filter(_.featureNow) take 3
   }
