@@ -1,0 +1,31 @@
+.pv_box {
+  background: $c-bg-box;
+  font-size: 13px;
+  & .pv {
+    & {
+      height: 2em;
+      line-height: 2em;
+      border: $border;
+      border-bottom: 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    &[data-uci]:hover {
+      background: mix($c-secondary, $c-bg-box, 20%);
+      cursor: pointer;
+    }
+    & strong {
+      display: inline-block;
+      width: 34px;
+      text-align: center;
+    }
+    & span {
+      margin-left: 4px;
+      font-family: 'ChessSansPiratf', sans-serif;
+      body.piece_letter & {
+        @extend %base-font;
+      }
+    }
+  }
+}

@@ -4,15 +4,17 @@
 }
 
 .puzzle__moves {
-  flex: 1 1 auto;
+  flex: 2 1 auto;
   overflow: auto;
+  border-top: $border;
+  border-bottom: $border;
 }
 
 .puzzle__feedback {
+  @extend %flex-column;
   flex: 1 0 11rem;
   border-top: $border;
   background: $c-bg-high;
-  @extend %flex-column;
   justify-content: center;
   & .player {
     display: flex;
@@ -68,78 +70,6 @@
     animation: reveal 1.5s;
   }
 
-  &.after .half {
-    flex: 1 1 50%;
-  }
-
-  &.after .half.top {
-    display: flex;
-    flex-flow: row nowrap;
-  }
-
-  &.after .complete {
-    flex: 1 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3em;
-    border: none;
-  }
-  &.after .complete.win {
-    align-items: flex-start;
-  }
-  &.after .vote {
-    display: flex;
-    flex-flow: column;
-    margin: 0 10px;
-    align-items: center;
-    justify-content: center;
-  }
-  &.after .vote a {
-    cursor: default;
-    cursor: pointer;
-    opacity: 0.7;
-  }
-  &.after .vote a::before {
-    font-size: 26px;
-    line-height: 22px;
-  }
-  &.after .vote a:hover,
-  &.after .vote a.active {
-    opacity: 1;
-    color: $c-accent;
-  }
-  &.after .vote span.count {
-    font-size: 15px;
-    line-height: 1;
-  }
-
-  &.after .continue {
-    @extend %flex-center;
-    justify-content: center;
-    font-size: 1.3em;
-    background: $c-primary;
-    color: $c-primary-over;
-    text-transform: uppercase;
-    padding: 0 10px;
-  }
-  &.after .continue:hover {
-    background: lighten($c-primary, 10%);
-  }
-  &.after .continue i::before {
-    font-size: 2.5em;
-    margin-right: 10px;
-  }
-  &.call {
-    flex: 1.9 1 0;
-  }
-  & .vote_call {
-    font-size: 1.1em;
-    text-align: right;
-    background: $c-good;
-    color: #fff;
-    padding: 8px 10px;
-  }
 }
 
 .puzzle__controls {

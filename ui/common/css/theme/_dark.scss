@@ -3,10 +3,10 @@
 $theme: 'dark';
 
 @function c-dimmer($color, $weight: 20%) {
-  @return mix(black, $color, $weight);
+  @return mix(#000, $color, $weight);
 }
 @function c-clearer($color, $weight: 20%) {
-  @return mix(white, $color, $weight);
+  @return mix(#fff, $color, $weight);
 }
 
 $c-bg-page: hsl(37%, 10%, 8%);
@@ -25,9 +25,14 @@ $c-font-clear: c-light($c-font, 79%);
 $c-font-clearer: c-light($c-font, 88%);
 $c-shade: c-light($c-font, 30%);
 
+/* Primary: blue */
 $c-primary: hsl(209, 79%, 56%);
 $c-primary-dim: c-dimmer($c-primary, 15%);
 $c-primary-clear: c-clearer($c-primary);
+
+/* Secondary: green */
+$c-secondary: hsl(88, 62%, 37%);
+$c-secondary-dim: c-dimmer($c-secondary);
 
 /* Brag: gold */
 $c-brag: hsl(37, 74%, 43%);
@@ -66,7 +71,7 @@ $c-bot: $c-fancy;
 $c-border: hsl(0, 0%, 25%);
 $border: $border-width $border-style $c-border;
 
-$c-font-shadow: black;
+$c-font-shadow: #000;
 $text-shadow: 0 1px 1px $c-font-shadow;
 
 %metal {

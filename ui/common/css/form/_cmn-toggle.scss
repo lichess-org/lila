@@ -11,15 +11,15 @@
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-input.cmn-toggle + label {
+.cmn-toggle + label {
   padding: 1px;
   width: 40px;
   height: 24px;
   background-color: $c-border;
   border-radius: 24px;
 }
-input.cmn-toggle + label::before,
-input.cmn-toggle + label::after {
+.cmn-toggle + label::before,
+.cmn-toggle + label::after {
   display: block;
   position: absolute;
   top: 1px;
@@ -27,27 +27,30 @@ input.cmn-toggle + label::after {
   bottom: 1px;
   content: "";
 }
-input.cmn-toggle + label::before {
+.cmn-toggle + label::before {
   right: 1px;
   background-color: $c-bad;
   border-radius: 24px;
 }
-input.cmn-toggle:hover + label::before {
+.cmn-toggle--subtle + label::before {
+  background-color: $c-font-dimmer;
+}
+.cmn-toggle:hover + label::before {
   @include transition(background);
 }
-input.cmn-toggle + label::after {
+.cmn-toggle + label::after {
   @extend %metal;
   width: 22px;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 }
-input.cmn-toggle:hover + label::after {
+.cmn-toggle:hover + label::after {
   @extend %metal-hover;
   @include transition(margin);
 }
-input.cmn-toggle:checked + label::before {
+.cmn-toggle:checked + label::before {
   background-color: $c-good;
 }
-input.cmn-toggle:checked + label::after {
+.cmn-toggle:checked + label::after {
   margin-left: 16px;
 }

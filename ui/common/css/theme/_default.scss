@@ -3,10 +3,10 @@
 /* Colors */
 
 @function c-dimmer($color, $weight: 17%) {
-  @return mix(white, $color, $weight);
+  @return mix(#fff, $color, $weight);
 }
 @function c-clearer($color, $weight: 17%) {
-  @return mix(black, $color, $weight);
+  @return mix(#000, $color, $weight);
 }
 
 $c-bg-page: hsl(37%, 10%, 92%); // hsl(210, 17%, 95%)
@@ -29,23 +29,24 @@ $c-shade: c-dimmer($c-font, 80%);
 $c-primary: hsl(209, 79%, 53%);
 $c-primary-dim: c-dimmer($c-primary);
 $c-primary-clear: c-clearer($c-primary);
-$c-primary-over: white; /* text over primary background */
+$c-primary-over: #fff; /* text over primary background */
 
 /* Secondary: green */
 $c-secondary: hsl(88, 62%, 37%);
-$c-secondary-over: white; /* text over secondary background */
+$c-secondary-dim: c-dimmer($c-secondary);
+$c-secondary-over: #fff; /* text over secondary background */
 
 /* Accent: orange */
 $c-accent: hsl(22, 100%, 42%);
-$c-accent-over: white; /* text over accent background */
+$c-accent-over: #fff; /* text over accent background */
 
 /* Brag: gold */
 $c-brag: hsl(37, 74%, 48%);
-$c-brag-over: white; /* text over brag background */
+$c-brag-over: #fff; /* text over brag background */
 
 /* Error: red */
 $c-error: hsl(0, 60%, 50%);
-$c-error-over: white; /* text over brag background */
+$c-error-over: #fff; /* text over brag background */
 
 /* Good: green */
 $c-good: $c-secondary;
