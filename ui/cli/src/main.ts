@@ -1,5 +1,5 @@
-export function app(wrap: HTMLElement, toggle: () => void) {
-  const $wrap = $(wrap), $input = $wrap.find('input');
+export function app($wrap: JQuery, toggle: () => void) {
+  const $input = $wrap.find('input');
   window.lichess.userAutocomplete($input, {
     focus: 1,
     friend: true,
@@ -8,7 +8,7 @@ export function app(wrap: HTMLElement, toggle: () => void) {
       $input.val('');
     }
   }).done(function() {
-    $input.on('blur', toggle);
+    $input.on('blur', () => $wrap.hasClass('shown') && toggle);
   });
 }
 
