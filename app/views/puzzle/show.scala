@@ -29,7 +29,7 @@ lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}
       openGraph = lidraughts.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePngVariant(puzzle.id, puzzle.variant.key).url).some,
         title = s"Draughts tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-        url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+        url = s"$netBaseUrl${routes.Puzzle.showVariant(puzzle.id, puzzle.variant.key).url}",
         description = s"Lidraughts tactic trainer: " + puzzle.color.fold(
           trans.findTheBestMoveForWhite,
           trans.findTheBestMoveForBlack
@@ -39,7 +39,7 @@ lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}
     ) {
         main(cls := "puzzle")(
           st.aside(cls := "puzzle__side")(
-            div(cls := "side-box metas")(spinner)
+            div(cls := "puzzle__side__metas")(spinner)
           ),
           div(cls := "puzzle__board main-board")(draughtsgroundSvg),
           div(cls := "puzzle__tools"),

@@ -1152,7 +1152,7 @@ lidraughts.topMenuIntent = function() {
 
   function startPuzzle(cfg) {
     var puzzle;
-    cfg.element = document.querySelector('.puzzle');
+    cfg.element = document.querySelector('main.puzzle');
     lidraughts.socket = lidraughts.StrongSocket('/socket/v3', false, {
       options: {
         name: "puzzle"
