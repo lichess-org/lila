@@ -79,6 +79,7 @@ $mq-col3: $mq-x-large;
       'metas'
       'user';
       justify-self: end;
+      min-width: 250px;
       max-width: 350px;
     }
     &__metas { grid-area: metas; }
