@@ -10,13 +10,6 @@ import controllers.routes
 
 object ratingDistribution {
 
-  private def mselect(id: String, current: Frag, items: List[Frag]) = div(cls := "mselect")(
-    input(tpe := "checkbox", cls := "mselect__toggle fullscreen-toggle", st.id := s"mselect-$id", aria.label := "Other variants"),
-    label(`for` := s"mselect-$id", cls := "mselect__label")(current),
-    label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-    st.nav(cls := "mselect__list")(items)
-  )
-
   def apply(perfType: PerfType, data: List[Int])(implicit ctx: Context) = views.html.base.layout(
     title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.name),
     moreCss = responsiveCssTag("user.rating.stats"),
@@ -33,7 +26,7 @@ object ratingDistribution {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
-          h1(trans.weeklyPerfTypeRatingDistribution.frag(mselect(
+          h1(trans.weeklyPerfTypeRatingDistribution.frag(views.html.base.bits.mselect(
             "variant-stats",
             span(perfType.name),
             PerfType.leaderboardable map { pt =>
