@@ -39,7 +39,7 @@ lichess.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i
     ) {
         main(cls := "puzzle")(
           st.aside(cls := "puzzle__side")(
-            div(cls := "side-box metas")(spinner)
+            div(cls := "puzzle__side__metas")(spinner)
           ),
           div(cls := "puzzle__board main-board")(chessgroundSvg),
           div(cls := "puzzle__tools"),

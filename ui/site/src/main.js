@@ -1151,7 +1151,7 @@ lichess.topMenuIntent = function() {
 
   function startPuzzle(cfg) {
     var puzzle;
-    cfg.element = document.querySelector('.puzzle');
+    cfg.element = document.querySelector('main.puzzle');
     lichess.socket = lichess.StrongSocket('/socket/v4', false, {
       options: {
         name: "puzzle"
