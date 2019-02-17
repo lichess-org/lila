@@ -1,4 +1,5 @@
 $mq-col2: ($mq-medium, $mq-landscape);
+$mq-col3: $mq-x-large;
 
 @mixin columns-with-gauge-col2($board-width, $gauge-width) {
   grid-template-columns: 1fr $board-width $gauge-width $block-gap minmax(200px, 400px) 1fr;
@@ -30,14 +31,11 @@ $mq-col2: ($mq-medium, $mq-landscape);
   'side';
   grid-row-gap: $block-gap;
 
-  &__moves, &__gauge, &__history { display: none; }
+  &__moves, &__gauge { display: none; }
 
   &__board {
     /* Make sure board fits in the viewport. */
     max-width: calc(100vh - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
-  }
-  @include breakpoint($mq-x-small) {
-    &__history { display: flex; }
   }
   @include breakpoint($mq-col2) {
     @include columns-with-gauge-col2($board-width, 0);
@@ -48,13 +46,9 @@ $mq-col2: ($mq-medium, $mq-landscape);
     '. side    side  side side     .';
     grid-row-gap: $block-gap;
     &__moves, &__gauge { display: block; }
-    &__history { display: none; }
-    @include breakpoint($mq-small $mq-short) {
-      &__history { display: flex; }
-    }
   }
 
-  @include breakpoint($mq-x-large) {
+  @include breakpoint($mq-col3) {
     grid-template-areas:
     '. side    . board   gauge . tools    .'
     '. .       . history .     . controls .';

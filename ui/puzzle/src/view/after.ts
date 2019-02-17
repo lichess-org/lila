@@ -40,7 +40,7 @@ export default function(ctrl) {
     ]) : (ctrl.thanks() ? h('div.vote_call',
       h('strong', ctrl.trans('thankYou'))
     ) : null),
-    h('div.half.top', [
+    h('div.half.half-top', [
       ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
         h('div.icon', '✓'),
         h('div.instruction', ctrl.trans.noarg('success'))

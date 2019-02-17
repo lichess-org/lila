@@ -6,20 +6,21 @@
 .puzzle__moves {
   flex: 2 1 auto;
   overflow: auto;
-  border-top: $border;
   border-bottom: $border;
 }
 
 .puzzle__feedback {
   @extend %flex-column;
-  flex: 1 0 11rem;
+  flex: 1 0 9rem;
+  @include breakpoint($mq-tall) {
+    flex: 1 0 11rem;
+  }
   border-top: $border;
   background: $c-bg-high;
   justify-content: center;
   & .player {
     display: flex;
     align-items: center;
-    margin-left: 10px;
   }
   & .no-square {
     flex: 0 0 64px;

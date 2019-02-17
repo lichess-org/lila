@@ -19,7 +19,6 @@ function render(ctrl: Controller): VNode {
       },
       attrs: { href: puzzleUrl(data.puzzle.variant.key) + s[0] }
     }, s[1] > 0 ? '+' + s[1] : s[1]);
-    return h('span', ' ');
   }));
 }
 

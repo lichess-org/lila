@@ -2,7 +2,7 @@
   @extend %metal;
   // background: $c-bg-zebra;
   height: 38px;
-  border-bottom: 0;
+  border-bottom: $border;
   position: relative;
   display: flex;
   align-items: stretch;

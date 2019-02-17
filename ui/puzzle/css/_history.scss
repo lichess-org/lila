@@ -1,13 +1,18 @@
 .puzzle__history {
   @extend %box-radius-force;
+  display: flex;
+  justify-content: flex-end;
   background: $c-shade;
   height: $puzzle-history-height;
   & > * {
     @extend %flex-center;
     justify-content: center;
-    flex: 0 0 6.25%;
     color: #fff;
     box-sizing: border-box;
+    flex: 0 0 12.5%;
+    @include breakpoint($mq-x-small $mq-short) {
+      flex: 0 0 6.25%;
+    }
   }
   & a {
     @include transition(background);

@@ -62,7 +62,7 @@ export default function (opts, redraw: () => void): Controller {
     } as Tree.Node));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     // play | try | view
-    vm.mode = 'view';
+    vm.mode = 'play';
     vm.loading = false;
     vm.round = undefined;
     vm.voted = undefined;
