@@ -45,7 +45,7 @@ export default function(opts, redraw: () => void): Controller {
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     // play | try | view
-    vm.mode = 'play';
+    vm.mode = 'view';
     vm.loading = false;
     vm.round = undefined;
     vm.voted = undefined;

@@ -1,0 +1,118 @@
+.ceval {
+  @extend %metal;
+  // background: $c-bg-zebra;
+  height: 38px;
+  border-bottom: 0;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  &.enabled {
+    padding-top: 2px;
+    height: 40px;
+  }
+  & .switch {
+    @extend %flex-center;
+    flex: 0 1 40px;
+    margin-right: 8px;
+  }
+  & pearl {
+    flex: 0 0 75px;
+    line-height: 38px;
+    font-size: 1.6em;
+    text-align: center;
+    font-weight: bold;
+  }
+  & help,
+  & .engine {
+    flex: 1 0;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 3px;
+    color: $c-font-dim;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  & .engine {
+    & .cloud {
+      @extend %box-radius;
+      margin-left: 4px;
+      background: $c-secondary-dim;
+      color: $c-secondary-over;
+      padding: 0px 3px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    & .info {
+      display: block;
+      white-space: nowrap;
+    }
+    & .deeper {
+      color: $c-primary;
+      margin-left: 4px;
+    }
+    & .deeper::before {
+      vertical-align: -2px;
+    }
+  }
+  & .native {
+    margin-left: 5px;
+    text-transform: uppercase;
+    color: $c-good;
+  }
+  & .asmjs {
+    margin-left: 5px;
+    text-transform: uppercase;
+  }
+  & .bar {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    top: 0px;
+  }
+  @keyframes bar-anim {
+    from { background-position: 0 0; }
+    to { background-position: 100000px 0; }
+  }
+  & .bar span {
+    display: block;
+    height: 3px;
+    width: 0;
+    background: $c-good;
+    transition: width 1s;
+  }
+  & .bar span.threat {
+    background: $c-bad;
+  }
+  &.computing .bar span {
+    background-image: img-url('bar-highlight.png');
+    animation: bar-anim 1000s linear infinite;
+  }
+  & .show-threat {
+    position: absolute;
+    right: -41px;
+    top: -1px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    /* background: #fff; */
+    border: $c-border;
+    border-left: 0;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    font-size: 17px;
+    line-height: 36px;
+  }
+  & .show-threat:hover:not(.hidden) {
+    background: $c-primary;
+    color: $c-primary-over;
+  }
+  & .show-threat.active {
+    background: $c-bad;
+    color: #fff;
+  }
+  & .show-threat.hidden {
+    opacity: 0.3;
+    cursor: default;
+  }
+}

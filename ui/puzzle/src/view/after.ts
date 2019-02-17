@@ -32,7 +32,7 @@ function renderVote(ctrl) {
 export default function(ctrl) {
   const data = ctrl.getData();
   const voteCall = !!data.user && ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
-  return h('div.feedback.after' + (voteCall ? '.call' : ''), [
+  return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [
     voteCall ? h('div.vote_call', [
       h('strong', ctrl.trans('wasThisPuzzleAnyGood')),
       h('br'),

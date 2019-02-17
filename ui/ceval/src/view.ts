@@ -183,7 +183,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
-    h('input#analyse-toggle-ceval.cmn-toggle', {
+    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
       attrs: {
         type: 'checkbox',
         checked: enabled
@@ -195,7 +195,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
   ])
 
-  return h('div.ceval_box' + (enabled ? '.enabled' : ''), {
+  return h('div.ceval' + (enabled ? '.enabled' : ''), {
     class: {
       computing: percent < 100 && instance.isComputing()
     }

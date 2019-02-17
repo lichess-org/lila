@@ -98,7 +98,7 @@ export default function(ctrl: Controller): VNode {
     h('div.puzzle__tools', [
       // we need the wrapping div here
       // so the siblings are only updated when ceval is added
-      h('div', showCeval ? [
+      h('div.ceval-wrap', showCeval ? [
         cevalView.renderCeval(ctrl),
         cevalView.renderPvs(ctrl)
       ] : []),
