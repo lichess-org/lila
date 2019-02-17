@@ -2,7 +2,7 @@ var lichess = window.lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 10+';
 
-lichess.raf = window.requestAnimationFrame;
+lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.dispatchEvent = function(el, eventName) {
   // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))
