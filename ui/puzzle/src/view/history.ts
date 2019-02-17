@@ -18,7 +18,6 @@ function render(ctrl: Controller): VNode {
       },
       attrs: { href: '/training/' + s[0] }
     }, s[1] > 0 ? '+' + s[1] : s[1]);
-    return h('span', ' ');
   }));
 }
 

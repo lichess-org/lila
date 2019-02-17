@@ -4,28 +4,3 @@
 @import 'history';
 @import 'review';
 @import 'after';
-
-#puzzle move {
-  justify-content: space-between;
-}
-#puzzle move.hist {
-  opacity: 0.7;
-}
-#puzzle move glyph {
-  font-size: 1.3em;
-  width: 25px;
-}
-#puzzle move.good glyph,
-#puzzle move.win glyph {
-  color: #759900;
-  font-size: 1.6em;
-}
-#puzzle move.fail glyph {
-  color: #dc322f;
-}
-#puzzle move.retry glyph {
-  color: #d59120;
-}
-#puzzle move:hover glyph {
-  color: #fff;
-}

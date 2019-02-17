@@ -3,8 +3,8 @@
     flex: 1 1 50%;
   }
 
-  & .half.top {
-    display: flex;
+  & .half-top {
+    @extend %flex-center;
     flex-flow: row nowrap;
   }
 
@@ -15,6 +15,7 @@
     justify-content: center;
     font-size: 1.3em;
     border: none;
+    white-space: nowrap;
   }
   & .complete.win {
     align-items: flex-start;
@@ -53,6 +54,10 @@
     color: $c-primary-over;
     text-transform: uppercase;
     padding: 0 10px;
+    order: -1;
+    @include breakpoint($mq-landscape) {
+      order: 0;
+    }
   }
   & .continue:hover {
     background: lighten($c-primary, 10%);
@@ -62,13 +67,14 @@
     margin-right: 10px;
   }
   &.call {
-    flex: 1.9 1 0;
+    flex: 17rem 1 0;
   }
   & .vote_call {
-    font-size: 1.1em;
     text-align: right;
     background: $c-good;
     color: #fff;
     padding: 8px 10px;
+    // display: none;
+    // @include breakpoint($
   }
 }
