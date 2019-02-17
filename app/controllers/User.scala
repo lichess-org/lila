@@ -155,6 +155,16 @@ object User extends LilaController {
     )
   }
 
+  def ratingHistory(username: String) = OpenBody { implicit ctx =>
+    EnabledUser(username) { u =>
+      negotiate(
+        html = notFound,
+        api = _ =>
+          Env.history.ratingChartApi(u) map { Ok(_) as JSON }
+      )
+    }
+  }
+
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10 minutes,
