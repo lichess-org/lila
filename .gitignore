@@ -11,7 +11,8 @@ logs
 data/*
 database
 project/target
-public/compiled
+public/compiled/
+public/css/
 target
 dist
 node_modules
