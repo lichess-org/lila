@@ -79,7 +79,7 @@ side = side.some) {
         <div class="review" data-action="@routes.Coach.approveReview(r.id)">
           <div class="user">
             @userIdLink(r.userId.some)
-            @barRating(selected = r.score.some, enabled = false)
+            review.barRating(selected = r.score.some, enabled = false).toHtml
             @momentFromNow(r.updatedAt)
           </div>
           <div class="content">

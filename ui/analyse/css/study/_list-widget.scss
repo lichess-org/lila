@@ -1,0 +1,74 @@
+.studies {
+  @extend %flex-wrap;
+  border-top: $border;
+  .study {
+    flex: 0 0 50%;
+    max-width: 50%;
+    border: $border;
+    border-width: 0 1px 1px 0;
+    padding: 1em .6em 1em 1.3em;
+    position: relative;
+    &:hover {
+      background: mix($c-accent, $c-bg-box, 12%);
+    }
+    & .overlay {
+      @extend %link-overlay;
+    }
+    & .body {
+      display: flex;
+    }
+    & ol.chapters {
+      flex: 0 0 58%;
+      max-width: 58%;
+    }
+    & ol.members {
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin-left: 2%;
+    }
+    & ol li {
+      color: $c-font-dim;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    & ol li::before {
+      color: $c-font-dimmer;
+    }
+    & .top {
+      @extend %roboto;
+      font-weight: normal;
+      display: block;
+      position: relative;
+      box-sizing: border-box;
+      height: 60px;
+      padding-left: 54px;
+      & .study-name {
+        font-size: 1.5em;
+        font-weight: normal;
+        color: $c-brag;
+        display: block;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      & span {
+        font-size: .9rem;
+        display: block;
+        color: $c-font-dim;
+      }
+      & .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      & .icon::before {
+        color: $c-brag;
+        font-size: 38px;
+        line-height: 45px;
+        opacity: 0.8;
+      }
+    }
+  }
+}

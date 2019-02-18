@@ -108,10 +108,10 @@
 %data-icon {
   font-size: 1.1em;
   vertical-align: text-top;
-  font-family: "lichess" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  text-transform: none !important;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
   speak: none;
   content: attr(data-icon);
   opacity: 0.9;
@@ -124,4 +124,12 @@
   right: 0;
   background: $c-page-mask;
   z-index: z('fullscreen-mask');
+}
+%link-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: z('link-overlay');
 }

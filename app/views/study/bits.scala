@@ -29,11 +29,11 @@ object bits {
     a(cls := "mineLikes" == active option "mineLikes", href := routes.Study.mineLikes(order.key))("Favourite studies")
   )
 
-  def widget(s: lila.study.Study.WithChaptersAndLiked)(implicit ctx: Context) = frag(
+  def widget(s: lila.study.Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) = frag(
     a(cls := "overlay", href := routes.Study.show(s.study.id.value)),
-    h2(
+    div(cls := "top")(
       iconTag("4")(cls := "icon"),
-      strong(s.study.name.value),
+      tag(cls := "study-name")(s.study.name.value),
       span(
         iconTag(if (s.liked) "" else ""),
         " ",
