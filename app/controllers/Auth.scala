@@ -281,7 +281,7 @@ object Auth extends LidraughtsController {
                 val newUserEmail = userEmail.copy(email = EmailAddress(email))
                 EmailConfirmRateLimit(newUserEmail, ctx.req) {
                   lidraughts.mon.email.types.fix()
-                  UserRepo.email(user.id, newUserEmail.email) >>
+                  UserRepo.setEmail(user.id, newUserEmail.email) >>
                     env.emailConfirm.send(user, newUserEmail.email) inject {
                       Redirect(routes.Auth.checkYourEmail) withCookies
                         lidraughts.security.EmailConfirm.cookie.make(user, newUserEmail.email)(ctx.req)

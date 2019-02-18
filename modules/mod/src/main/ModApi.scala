@@ -128,7 +128,7 @@ final class ModApi(
   }
 
   def setEmail(mod: String, username: String, email: EmailAddress): Funit = withUser(username) { user =>
-    UserRepo.email(user.id, email) >>
+    UserRepo.setEmail(user.id, email) >>
       UserRepo.setEmailConfirmed(user.id) >>
       logApi.setEmail(mod, user.id)
   }
