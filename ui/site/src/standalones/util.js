@@ -231,7 +231,7 @@ lichess.assetUrl = function(path, opts) {
 };
 lichess.cssPath = function(oldKey, respKey) {
   return lichess.isResp ?
-    'css/lichess.' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
+    'css/' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
     'stylesheets/' + oldKey + '.css';
 };
 lichess.loadedCss = {};
@@ -247,6 +247,9 @@ lichess.unloadCss = function(url) {
       .filter(function() { return this.href.indexOf(url) >= 0 })
       .remove();
   }
+}
+lichess.compiledScript = function(name) {
+  return 'compiled/lichess.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 }
 lichess.loadScript = function(url, opts) {
   return $.ajax({

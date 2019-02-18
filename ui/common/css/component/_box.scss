@@ -4,7 +4,6 @@ $vp-max-width: 1200px;
 .box {
   @extend %box-shadow;
   background: $c-bg-box;
-  min-height: 100%;
 
   @include fluid-size('--box-padding', 20px, 60px);
 

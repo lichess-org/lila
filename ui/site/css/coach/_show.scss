@@ -1,15 +1,11 @@
 .coach-show {
-  display: flex;
   &__side {
-    flex: 0 0 300px;
-    margin: 2rem 2rem 0 0;
     & > .button {
       display: block;
     }
   }
   &__main {
     @extend %box-neat-force;
-    flex: 1 1 auto;
   }
   & .coach-widget {
     @extend %metal;
@@ -21,22 +17,14 @@
   }
   &__sections {
     margin-top: 20px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-auto-flow: dense;
+    grid-gap: 3em;
+    margin: 3em;
     section {
       font-size: 1.2em;
-      box-sizing: border-box;
-      width: 50%;
-      padding: 1em 2em 1em 1em;
       text-align: justify;
-      &:nth-child(odd) {
-        padding: 1em 1em 1em 2em;
-      }
-      & .content {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
     }
   }
   & h2 {

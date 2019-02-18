@@ -65,7 +65,7 @@ gulp.task('css-dev', gulp.series([createThemedBuilds, build]));
   function renameAs(ext) {
     return rename(path => {
       path.dirname = '';
-      path.basename = `lichess.${path.basename}.${ext}`;
+      path.basename = `${path.basename}.${ext}`;
       return path;
     });
   }

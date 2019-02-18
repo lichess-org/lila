@@ -27,10 +27,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
   def responsiveCssTag(name: String)(implicit ctx: Context): Html =
-    cssAt(s"css/lichess.$name.${ctx.currentBg}.${if (isProd) "min" else "dev"}.css")
+    cssAt(s"css/$name.${ctx.currentBg}.${if (isProd) "min" else "dev"}.css")
 
   def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Html =
-    cssAt(s"css/lichess.$name.${if (isProd) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
   def cssTag(name: String): Html = cssAt("stylesheets/" + name)
 

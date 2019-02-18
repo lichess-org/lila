@@ -18,7 +18,7 @@ object index {
       moreJs = infiniteScrollTag
     ) {
         main(cls := "coach-list")(
-          st.aside(cls := "coach-list__side")(
+          st.aside(cls := "coach-list__side coach-side")(
             img(src := staticUrl("images/icons/certification.svg"), cls := "coach-list__certification"),
             h1("Certified coaches"),
             p("We have curated this list of the best online chess coaches."),
@@ -32,7 +32,7 @@ object index {
               "and we will review your application."
             )
           ),
-          div(cls := "coach-list__main box")(
+          div(cls := "coach-list__main coach-main box")(
             div(cls := "box__top")(
               h1("Top chess coaches"),
               div(cls := "box__top__actions")(

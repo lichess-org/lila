@@ -49,7 +49,7 @@ $('.coach-review-form form').show();
       ).some
     ) {
         main(cls := "coach-show")(
-          st.aside(cls := "coach-show__side")(
+          st.aside(cls := "coach-show__side coach-side")(
             a(cls := "button button-empty", href := routes.User.show(c.user.username))("View ", c.user.username, " lichess profile"),
             if (ctx.me.exists(c.coach.is)) frag(
               if (c.coach.isListed) "This page is now public."
@@ -62,7 +62,7 @@ $('.coach-review-form form').show();
             ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
             review.list(c, coachReviews)
           ),
-          div(cls := "coach-show__main box")(
+          div(cls := "coach-show__main coach-main box")(
             div(cls := "coach-widget")(widget(c, link = false)),
             div(cls := "coach-show__sections")(
               section("About me", profile.description),
