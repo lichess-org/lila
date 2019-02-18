@@ -335,7 +335,7 @@ object UserRepo {
       _.map { _.hashToken }
     }
 
-  def email(id: ID, email: EmailAddress): Funit =
+  def setEmail(id: ID, email: EmailAddress): Funit =
     coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
 
   def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)

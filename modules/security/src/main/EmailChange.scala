@@ -47,7 +47,7 @@ ${Mailgun.txt.serviceNote}
     tokener read token map (_.flatten) flatMap {
       _ ?? {
         case TokenPayload(userId, email) =>
-          UserRepo.email(userId, email).nevermind >> UserRepo.byId(userId)
+          UserRepo.setEmail(userId, email).nevermind >> UserRepo.byId(userId)
       }
     }
 
