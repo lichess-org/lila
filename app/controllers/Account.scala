@@ -145,7 +145,7 @@ object Account extends LidraughtsController {
           fuccess(html.account.email(me, err))
         } { data =>
           val email = Env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-          val newUserEmail = lidraughts.security.EmailConfirm.UserEmail(me.username, email)
+          val newUserEmail = lidraughts.security.EmailConfirm.UserEmail(me.username, email.normalized)
           controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
             Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
               s"${routes.Account.email}?check=1"
