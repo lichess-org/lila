@@ -58,6 +58,7 @@
   <string name="pawnMove">प्याद्याच्या चाली</string>
   <string name="capture">ताब्यात घेतले</string>
   <string name="close">बंद</string>
+  <string name="winning">जिंकणारा</string>
   <string name="losing">तोट्याचा</string>
   <string name="unknown">अज्ञात</string>
   <string name="database">माहितीसंच</string>
@@ -66,6 +67,7 @@
   <string name="recentGames">अलीकडचे खेळ</string>
   <string name="topGames">शीर्ष खेळ</string>
   <string name="noGameFound">कोणताही गेम सापडला नाही</string>
+  <string name="allSet">सर्व तयार!</string>
   <string name="importPgn">पीजीएन आयात करा</string>
   <string name="delete">काढून टाका</string>
   <string name="replayMode">रीप्ले मोड</string>
@@ -165,6 +167,8 @@
   <string name="mode">पध्दती</string>
   <string name="casual">नैमित्तिक</string>
   <string name="rated">दर्जा दिला</string>
+  <string name="casualTournament">उद्‍देशरहित</string>
+  <string name="ratedTournament">रेट केलेले</string>
   <string name="thisGameIsRated">या डावाचा दर्जा</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
@@ -176,6 +180,7 @@
   <string name="play">खेळा</string>
   <string name="inbox">इनबॉक्स</string>
   <string name="chatRoom">गप्पांची खोली</string>
+  <string name="youHaveBeenTimedOut">आपण कालबाह्य झाले आहे.</string>
   <string name="spectatorRoom">Drook kholli</string>
   <string name="composeMessage">संदेश लिहा</string>
   <string name="noNewMessages">Naveen sandesh nahit</string>
@@ -220,6 +225,7 @@
   <string name="tournamentPoints">स्पधेतील अंक</string>
   <string name="viewTournament">स्पर्धा पाहा</string>
   <string name="backToTournament">स्पर्धेत परत या</string>
+  <string name="thematic">विषयगत</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="teams">संघ</string>
   <plurals name="nbMembers">
