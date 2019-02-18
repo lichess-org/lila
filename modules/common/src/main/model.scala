@@ -58,8 +58,6 @@ object EmailAddress {
 
   def from(str: String): Option[EmailAddress] =
     regex.find(str) option EmailAddress(str)
-
-  private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
 
 case class Domain(value: String) extends AnyVal with StringValue {
