@@ -20,7 +20,7 @@ object index {
         main(cls := "coach-list")(
           st.aside(cls := "coach-list__side")(
             img(src := staticUrl("images/icons/certification.svg"), cls := "coach-list__certification"),
-            h2("Certified coaches"),
+            h1("Certified coaches"),
             p("We have curated this list of the best online chess coaches."),
             p("All of these renowned players have great chess skills, and a solid experience with teaching."),
             p("You cannot go wrong with them, so make your choice and enjoy learning chess!"),
@@ -47,11 +47,14 @@ object index {
             ),
             div(cls := "list infinitescroll")(
               pager.currentPageResults.map { c =>
-                div(cls := "coach paginated", attr("data-dedup") := c.coach.id.value)(st.article(widget(c)))
+                st.article(cls := "coach-widget paginated", attr("data-dedup") := c.coach.id.value)(widget(c, link = true))
               },
               pager.nextPage.map { np =>
-                div(cls := "pager none")(
-                  a(rel := "next", href := addQueryParameter(routes.Coach.all(order.key).toString, "page", np))("Next")
+                frag(
+                  div(cls := "pager none")(
+                    a(rel := "next", href := addQueryParameter(routes.Coach.all(order.key).toString, "page", np))("Next")
+                  ),
+                  div(cls := "none") // don't break the even/odd CSS flow
                 )
               }
             )

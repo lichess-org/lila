@@ -1,0 +1,71 @@
+.coach-show {
+  display: flex;
+  &__side {
+    flex: 0 0 300px;
+    margin: 2rem 2rem 0 0;
+    & > .button {
+      display: block;
+    }
+  }
+  &__main {
+    @extend %box-neat-force;
+    flex: 1 1 auto;
+  }
+  & .coach-widget {
+    @extend %metal;
+    height: auto;
+    border-bottom: $border;
+    & .overview {
+      padding-bottom: .5em;
+    }
+  }
+  &__sections {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    section {
+      font-size: 1.2em;
+      box-sizing: border-box;
+      width: 50%;
+      padding: 1em 2em 1em 1em;
+      text-align: justify;
+      &:nth-child(odd) {
+        padding: 1em 1em 1em 2em;
+      }
+      & .content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  & h2 {
+    margin: 0 0 12px 0;
+    color: $c-brag;
+    font-size: 1.6em;
+  }
+
+  &__youtube {
+    padding: 2em;
+    background: #000;
+    border: $border;
+    border-width: 0 1px 1px 1px;
+    & .list {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+    & iframe {
+      margin-bottom: 10px;
+      width: 256px;
+      height: 192px;
+      background: #000;
+    }
+  }
+  &__studies {
+    margin-top: 20px;
+    & h2 {
+      padding: 1em 0 0 2em;
+    }
+  }
+}

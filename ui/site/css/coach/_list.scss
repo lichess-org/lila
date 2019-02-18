@@ -1,14 +1,17 @@
 .coach-list {
   display: flex;
+  & .mselect {
+    font-size: 1.2em;
+  }
   &__side {
     flex: 0 0 300px;
     text-align: center;
-    margin-right: 2rem;
+    margin: 2rem 2rem 0 0;
     & img {
       width: 140px;
       height: 140px;
     }
-    & h2 {
+    & h1 {
       font: 1.95em Roboto;
       text-transform: uppercase;
       color: #639B24;
@@ -22,81 +25,18 @@
   }
   &__main {
     flex: 1 1 auto;
-    & > .top {
-      display: flex;
-      align-items: center;
-    }
-    & > .top h1 {
-      flex: 1 1 100%;
-    }
-    & > .top .orders {
-      white-space: nowrap;
-      margin-right: 20px;
-    }
-    .coach-add {
-      margin-top: 20px;
-      border-top: 1px solid #ccc;
-      padding-top: 20px;
-    }
-
-    & .coach {
-      border-top: 1px solid #ccc;
-      position: relative;
-      display: flex;
-    }
-    & .coach:hover {
-      background: rgba(191, 231, 255, 0.5);
-    }
-    & .coach a.overlay {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    & .coach img.picture {
-      flex: 0 0 250px;
-      background: #888;
-    }
-    & .overview {
-      margin: 20px 10px 0 20px;
-    }
-    & .coach h1 {
-      font-family: 'Roboto';
-      font-size: 32px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      padding: 0 0 11px 0!important;
-      text-shadow: none!important;
-    }
-    & .coach .headline {
-      font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
-      font-size: 17px;
-      padding: 0 0 20px 0!important;
-    }
-    & .coach .headline.medium {
-      font-size: 15px;
-      padding-bottom: 18px!important;
-    }
-    & .coach .headline.large {
-      font-size: 14px;
-      padding-bottom: 14px!important;
-    }
-    & .coach table {
-      line-height: 1.7;
-    }
-    & .coach table th {
-      opacity: 0.7;
-      padding-right: 20px;
-      text-align: right;
-    }
-    & .coach table .seen {
-      opacity: 0.7;
-    }
-    & .coach .rating td a > span {
-      margin-left: 4px;
-      display: inline-block;
+    & .coach-widget {
+      border-top: $border;
+      &:nth-child(even) {
+        background: $c-bg-zebra;
+        justify-content: space-between;
+        & .picture {
+          order: 3;
+        }
+      }
+      &:hover {
+        background: mix($c-accent, $c-bg-box, 12%);
+      }
     }
     @media (max-width: 1084px) {
       .coach-side {

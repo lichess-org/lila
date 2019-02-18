@@ -9,13 +9,13 @@ import lila.common.paginator.Paginator
 import controllers.routes
 
 object widget {
-  def apply(c: lila.coach.Coach.WithUser)(implicit ctx: Context) = {
+  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(implicit ctx: Context) = {
     val profile = c.user.profileOrDefault
     frag(
-      a(cls := "overlay", href := routes.Coach.show(c.user.username)),
-      pic(c, 250),
+      link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
+      pic(c, if (link) 300 else 350),
       div(cls := "overview")(
-        h1(
+        (if (link) h2 else h1)(cls := "coach-name")(
           c.user.title.map { t => s"t " },
           c.user.realNameOrUsername
         ),
