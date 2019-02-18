@@ -311,7 +311,7 @@ lidraughts.topMenuIntent = function() {
           var $el = $('#challenge_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           lidraughts.loadCss(lidraughts.cssPath('challengeApp', 'challenge'));
-          lidraughts.loadScript('compiled/lidraughts.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadScript(lidraughts.compiledScript('challenge')).done(function() {
             instance = LidraughtsChallenge.default($el[0], {
               data: data,
               show: function() {
@@ -350,7 +350,7 @@ lidraughts.topMenuIntent = function() {
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           lidraughts.loadCss(lidraughts.cssPath('notifyApp', 'notify'));
-          lidraughts.loadScript('compiled/lidraughts.notify' + (isDev ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadScript(lidraughts.compiledScript('notify')).done(function() {
             instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
               incoming: incoming,
@@ -459,7 +459,7 @@ lidraughts.topMenuIntent = function() {
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
           lidraughts.loadCss(lidraughts.cssPath('dasherApp', 'dasher'));
-          lidraughts.loadScript('compiled/lidraughts.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadScript(lidraughts.compiledScript('dasher')).done(function() {
             instance = LidraughtsDasher.default($el.empty()[0], {
               setZoom: setZoom,
               playing: isPlaying
@@ -477,7 +477,7 @@ lidraughts.topMenuIntent = function() {
           if (booted) return;
           booted = true;
           lidraughts.loadCss('stylesheets/cli.css');
-          lidraughts.loadScript('compiled/lidraughts.cli' + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadScript(lidraughts.compiledScript('cli')).done(function() {
             LidraughtsCli.app($wrap, toggle);
           });
         }

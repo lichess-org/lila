@@ -231,7 +231,7 @@ lidraughts.assetUrl = function(path, opts) {
 };
 lidraughts.cssPath = function(oldKey, respKey) {
   return lidraughts.isResp ?
-    'css/lidraughts.' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
+    'css/' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
     'stylesheets/' + oldKey + '.css';
 };
 lidraughts.loadedCss = {};
@@ -247,6 +247,9 @@ lidraughts.unloadCss = function(url) {
       .filter(function() { return this.href.indexOf(url) >= 0 })
       .remove();
   }
+}
+lidraughts.compiledScript = function(name) {
+  return 'compiled/lidraughts.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 }
 lidraughts.loadScript = function(url, opts) {
   return $.ajax({

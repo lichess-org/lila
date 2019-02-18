@@ -1,6 +1,6 @@
 $(function() {
 
-  var $editor = $('.coach_edit');
+  var $editor = $('.coach-edit');
 
   var todo = (function() {
 

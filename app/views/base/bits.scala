@@ -1,8 +1,8 @@
 package views.html.base
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lidraughts.api.Context
+import lidraughts.app.templating.Environment._
+import lidraughts.app.ui.ScalatagsTemplate._
 
 object bits {
 

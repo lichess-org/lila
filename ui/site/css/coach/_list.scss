@@ -1,12 +1,10 @@
 .coach-list {
-  display: flex;
   & .mselect {
     font-size: 1.2em;
   }
   &__side {
-    flex: 0 0 300px;
     text-align: center;
-    margin: 2rem 2rem 0 0;
+    margin-top: 2rem;
     & img {
       width: 140px;
       height: 140px;
@@ -24,7 +22,6 @@
     }
   }
   &__main {
-    flex: 1 1 auto;
     & .coach-widget {
       border-top: $border;
       &:nth-child(even) {
