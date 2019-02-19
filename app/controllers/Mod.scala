@@ -147,7 +147,7 @@ object Mod extends LilaController {
         err => BadRequest(err.toString).fuccess,
         rawEmail => {
           val email = Env.security.emailAddressValidator.validate(EmailAddress(rawEmail)) err s"Invalid email ${rawEmail}"
-          modApi.setEmail(me.id, user.id, email.normalized) inject redirect(user.username, mod = true)
+          modApi.setEmail(me.id, user.id, email.acceptable) inject redirect(user.username, mod = true)
         }
       )
     }
@@ -293,8 +293,8 @@ object Mod extends LilaController {
           case _ => fuccess(none)
         }
         email.?? { em =>
-          tryWith(em.normalized, em.normalized.value) orElse {
-            username ?? { tryWith(em.normalized, _) }
+          tryWith(em.acceptable, em.acceptable.value) orElse {
+            username ?? { tryWith(em.acceptable, _) }
           }
         } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).fuccess
     }

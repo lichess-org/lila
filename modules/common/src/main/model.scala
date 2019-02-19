@@ -40,12 +40,14 @@ object IpAddress {
   } option IpAddress(str)
 }
 
+case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
+
 case class EmailAddress(value: String) extends AnyVal with StringValue {
   def conceal = value split '@' match {
     case Array(user, domain) => s"${user take 3}*****@${domain}"
     case _ => value
   }
-  def normalize = EmailAddress {
+  def normalize = NormalizedEmailAddress {
     val lower = value.toLowerCase
     lower.split('@') match {
       case Array(name, domain) if domain == "gmail.com" || domain == "googlemail.com" => {
