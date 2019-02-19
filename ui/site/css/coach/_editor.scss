@@ -1,7 +1,8 @@
 @import 'layout';
 @import 'bar-rating';
 
-.coach-edit {
+.coach-edit,
+.coach-picture {
   & .top {
     display: flex;
     line-height: 2;
@@ -20,9 +21,9 @@
     width: 250px;
     height: 250px;
   }
-  .coach_picture .picture_wrap {
-    text-align: center;
-  }
+}
+
+.coach-edit {
 
   & .top .upload_picture {
     text-align: center;
@@ -57,22 +58,6 @@
   }
   & .material.form .form-group textarea {
     height: 12em;
-  }
-
-  .coach_picture form {
-    padding: 30px;
-    border-top: 1px solid #ccc;
-    text-align: center;
-  }
-  .coach_picture form.delete button {
-    color: red;
-  }
-  .coach_picture .cancel {
-    padding: 40px;
-    border-top: 1px solid #ccc;
-  }
-  .coach_picture .forms > *:first-child {
-    margin-top: 40px;
   }
 
   & .tabs {
