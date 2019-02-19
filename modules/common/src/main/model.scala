@@ -73,8 +73,10 @@ object EmailAddress {
 }
 
 case class Domain(value: String) extends AnyVal with StringValue {
-  // simplistic. Fails on foo.co.uk, foo.com.au, etc.
+  // heuristic to remove user controlled subdomain tails:
+  // tail.domain.com, tail.domain.co.uk, tail.edu.au, etc.
   def withoutSubdomain: Option[Domain] = value.split('.').toList.reverse match {
+    case tld :: sld :: tail :: _ if sld.length <= 3 => Domain(s"$tail.$sld.$tld").some
     case tld :: sld :: _ => Domain(s"$sld.$tld").some
     case _ => none
   }
