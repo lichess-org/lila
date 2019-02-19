@@ -107,7 +107,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     gaugeLast = ev;
   } else ev = gaugeLast;
   const height = 100 - (ev + 1) * 50;
-  return h('div.eval_gauge', {
+  return h('div.eval-gauge', {
     class: {
       empty: ev === null,
       reverse: ctrl.getOrientation() === 'black'

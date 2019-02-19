@@ -93,7 +93,7 @@ export default function(ctrl: Controller): VNode {
       side.puzzleBox(ctrl),
       side.userBox(ctrl)
     ]),
-    h('div.puzzle__gauge', [cevalView.renderGauge(ctrl)]),
+    cevalView.renderGauge(ctrl),
     visualBoard(ctrl),
     h('div.puzzle__tools', [
       // we need the wrapping div here

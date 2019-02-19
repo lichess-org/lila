@@ -14,10 +14,10 @@ $mq-col3: $mq-x-large;
 
   &__side { grid-area: side; }
   &__board { grid-area: board; }
-  &__gauge { grid-area: gauge; }
   &__tools { grid-area: tools; }
   &__controls { grid-area: controls; }
   &__history { grid-area: history; }
+  & .eval-gauge { grid-area: gauge; }
 
   $board-min-width: calc(70vmin * var(--board-scale));
   $board-max-width: calc(100vh * var(--board-scale) - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
@@ -31,7 +31,8 @@ $mq-col3: $mq-x-large;
   'side';
   grid-row-gap: $block-gap;
 
-  &__moves, &__gauge { display: none; }
+  &__moves,
+  & .eval-gauge { display: none; }
 
   &__board {
     /* Make sure board fits in the viewport. */
@@ -39,13 +40,17 @@ $mq-col3: $mq-x-large;
   }
   @include breakpoint($mq-col2) {
     @include columns-with-gauge-col2($board-width, 0);
+    &.with_gauge {
+      @include columns-with-gauge-col2($board-width, 1rem);
+    }
     grid-template-rows: fit-content(0);
     grid-template-areas:
     '. board   gauge .    tools    .'
     '. history .     .    controls .'
     '. side    side  side side     .';
     grid-row-gap: $block-gap;
-    &__moves, &__gauge { display: block; }
+    &__moves,
+    & .eval-gauge { display: block; }
   }
 
   @include breakpoint($mq-col3) {

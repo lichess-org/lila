@@ -1,0 +1,41 @@
+.eval-gauge {
+  background: #fff;
+  border-radius: 0 5px 5px 0;
+  overflow: hidden;
+  margin-left: -2px;
+  &.reverse {
+    transform: rotateX(180deg);
+  }
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.7) inset;
+    border-radius: 0 5px 5px 0;
+  }
+  & tick {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px ridge #eee;
+    opacity: 0.4;
+  }
+  & tick.zero {
+    top: 5px;
+    opacity: 1;
+    border-bottom: 7px solid fade-out($c-bad, 0.7);
+    margin-top: -3px;
+  }
+  & .black {
+    width: 100%;
+    height: 50%;
+    background: #888;
+    border-radius: 0 5px 0 0;
+    transition: height 1s;
+  }
+}
