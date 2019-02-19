@@ -20,7 +20,7 @@ moreJs = moreJs) {
       <div class="picture_wrap">
         @if(c.coach.hasPicture) {
         <a class="upload_picture" href="@routes.Coach.picture" title="Change/delete your profile picture">
-          @pic(c, 250)
+          @widget.pic(c, 250).toHtml
         </a>
         } else {
         <div class="upload_picture">
@@ -29,9 +29,7 @@ moreJs = moreJs) {
         }
       </div>
       <div class="overview">
-        <h1>
-          @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
-        </h1>
+        <h1>@widget.titleName(c).toHtml</h1>
         <div class="todo" data-profile="@c.user.profileOrDefault.isComplete">
           <h3>TODO list before publishing your coach profile</h3>
           <ul></ul>
