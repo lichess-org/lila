@@ -52,7 +52,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
         val normalizedName = name
           .replace(".", "") // remove all dots
           .takeWhile('+'!=) // skip everything after the first '+'
-        if (normalizedName.isEmpty) lower else s"$normalizedName@gmail.com"
+        if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
       }
       case _ => lower
     }
