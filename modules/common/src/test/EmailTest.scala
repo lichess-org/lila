@@ -6,11 +6,11 @@ class EmailTest extends Specification {
 
   "normalize" should {
     "handle gmail" in {
-      EmailAddress("Hello.World+suffix1+suffix2@gmail.com").normalize must_== EmailAddress("helloworld@gmail.com")
-      EmailAddress("foo.bar@googlemail.com").normalize must_== EmailAddress("foobar@googlemail.com")
+      EmailAddress("Hello.World+suffix1+suffix2@gmail.com").normalize must_== NormalizedEmailAddress("helloworld@gmail.com")
+      EmailAddress("foo.bar@googlemail.com").normalize must_== NormalizedEmailAddress("foobar@googlemail.com")
     }
     "lowercase emails" in {
-      EmailAddress("aBcDeFG@HOTMAIL.cOM").normalize must_== EmailAddress("abcdefg@hotmail.com")
+      EmailAddress("aBcDeFG@HOTMAIL.cOM").normalize must_== NormalizedEmailAddress("abcdefg@hotmail.com")
     }
   }
 

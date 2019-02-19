@@ -2,7 +2,7 @@ package lidraughts.user
 
 import scala.concurrent.duration._
 
-import lidraughts.common.{ LightUser, EmailAddress }
+import lidraughts.common.{ LightUser, EmailAddress, NormalizedEmailAddress }
 
 import lidraughts.rating.PerfType
 import org.joda.time.DateTime
@@ -165,7 +165,7 @@ object User {
 
   case class Active(user: User)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress])
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
