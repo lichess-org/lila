@@ -315,12 +315,12 @@ object UserRepo {
   def reopen(id: ID) = coll.updateField($id(id), F.enabled, true) >>
     coll.update(
       $id(id) ++ $doc(F.email $exists false),
-      $doc("$rename" -> $doc(F.prevEmail -> F.email))
+      $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++ $unset(F.verbatimEmail)
     ).recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
-    $set(F.enabled -> false) ++ $unset(F.roles) ++ {
+    $set(F.enabled -> false) ++ $unset(F.roles, F.verbatimEmail) ++ {
       if (keepEmail) $unset(F.mustConfirmEmail)
       else $doc("$rename" -> $doc(F.email -> F.prevEmail))
     }
@@ -332,10 +332,28 @@ object UserRepo {
       _.map { _.hashToken }
     }
 
-  def setEmail(id: ID, email: EmailAddress): Funit =
-    coll.update($id(id), $set(F.email -> email.normalize) ++ $unset(F.prevEmail)).void
+  def setEmail(id: ID, email: EmailAddress): Funit = {
+    val normalizedEmail = email.normalize
+    coll.update(
+      $id(id),
+      $set(F.email -> normalizedEmail) ++ $unset(F.prevEmail) ++ {
+        if (email.value == normalizedEmail.value) $unset(F.verbatimEmail)
+        else $set(F.verbatimEmail -> email)
+      }
+    ).void
+  }
 
-  def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email) // downgrade from normalized (#2509)
+  def email(id: ID): Fu[Option[EmailAddress]] = coll.find(
+    $id(id),
+    $doc(
+      F.email -> true,
+      F.verbatimEmail -> true
+    )
+  ).uno[Bdoc].map {
+      _ ?? { doc =>
+        doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
+      }
+    }
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll.find($doc(
@@ -345,7 +363,7 @@ object UserRepo {
       for {
         doc <- maybeDoc
         user = userBSONHandler read doc
-        storedEmail <- doc.getAs[EmailAddress](F.email) // downgrade
+        storedEmail <- doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
       } yield (user, storedEmail)
     }
 
@@ -355,7 +373,7 @@ object UserRepo {
         User.WithEmails(
           userBSONHandler read doc,
           User.Emails(
-            current = doc.getAs[EmailAddress](F.email), // downgrade
+            current = doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email),
             previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
           )
         ).some
@@ -477,10 +495,11 @@ object UserRepo {
     implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
+    val normalizedEmail = email.normalize
     $doc(
       F.id -> normalize(username),
       F.username -> username,
-      F.email -> email.normalize,
+      F.email -> normalizedEmail,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
       F.bpass -> passwordHash,
       F.perfs -> $empty,
@@ -491,6 +510,8 @@ object UserRepo {
       F.seenAt -> DateTime.now,
       F.playTime -> User.PlayTime(0, 0)
     ) ++ {
+        if (email.value != normalizedEmail.value) $doc(F.verbatimEmail -> email) else $empty
+      } ++ {
         if (blind) $doc("blind" -> true) else $empty
       }
   }

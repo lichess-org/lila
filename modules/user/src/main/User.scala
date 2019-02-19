@@ -220,6 +220,7 @@ object User {
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
     val email = "email"
+    val verbatimEmail = "verbatimEmail"
     val mustConfirmEmail = "mustConfirmEmail"
     val prevEmail = "prevEmail"
     val colorIt = "colorIt"
