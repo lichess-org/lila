@@ -58,7 +58,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
     }
   }
   def domain: Option[Domain] = value split '@' match {
-    case Array(_, domain) => Domain(domain).some
+    case Array(_, domain) => Domain(domain.toLowerCase).some
     case _ => none
   }
 }
