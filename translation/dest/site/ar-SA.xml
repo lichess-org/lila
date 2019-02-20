@@ -767,6 +767,9 @@
   <string name="mobileApp">تطبيق الجوال</string>
   <string name="webmasters">مدراء المواقع</string>
   <string name="about">عن</string>
+  <string name="aboutX">عن %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s هو (%2$s) خادم شطرنج مجاني، حر، بدون إعلانات، مفتوح المصدر.</string>
+  <string name="really">حقاً</string>
   <string name="contribute">ساهم</string>
   <string name="contact">اتصل بنا</string>
   <string name="termsOfService">شروط الخدمة</string>
