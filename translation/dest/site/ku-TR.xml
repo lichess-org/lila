@@ -30,4 +30,23 @@
   <string name="viewTheComputerAnalysis">Analîza kompîtûrê bibîne</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
   <string name="computerAnalysis">Analîza kompîtûr</string>
+  <string name="send">Bişeyne</string>
+  <string name="latestUpdates">Rojaneyên herî dawî</string>
+  <string name="tournamentWinners">Serkeftiyên Pêşbirkê</string>
+  <string name="name">Nav</string>
+  <string name="no">Na</string>
+  <string name="yes">Erê</string>
+  <string name="help">Alîkarî:</string>
+  <string name="createANewTopic">Mijareke nû çêke</string>
+  <string name="topics">Mijar</string>
+  <string name="views">Dîtin</string>
+  <string name="replies">Bersiv</string>
+  <string name="reply">Bibersivîne</string>
+  <string name="message">Peyam</string>
+  <string name="createTheTopic">Mijarê çêke</string>
+  <string name="reason">Sedem</string>
+  <string name="whatIsIheMatter">Pirsgirêk çiye?</string>
+  <string name="cheat">Hîle</string>
+  <string name="insult">Heqaret</string>
+  <string name="other">Wekî din</string>
 </resources>
