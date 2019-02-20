@@ -49,4 +49,6 @@
   <string name="cheat">Hîle</string>
   <string name="insult">Heqaret</string>
   <string name="other">Wekî din</string>
+  <string name="sound">Deng</string>
+  <string name="victory">Serkeftin</string>
 </resources>
