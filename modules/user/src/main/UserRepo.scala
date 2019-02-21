@@ -5,8 +5,7 @@ import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
-import lila.common.ApiVersion
-import lila.common.EmailAddress
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
@@ -36,13 +35,11 @@ object UserRepo {
 
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
-  def byEmail(email: EmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
-  def byPrevEmail(email: EmailAddress): Fu[List[User]] = coll.find($doc(F.prevEmail -> email)).list[User]()
+  def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
+  def byPrevEmail(email: NormalizedEmailAddress): Fu[List[User]] = coll.find($doc(F.prevEmail -> email)).list[User]()
 
-  def idByEmail(email: EmailAddress): Fu[Option[String]] =
+  def idByEmail(email: NormalizedEmailAddress): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
-
-  def enabledByEmail(email: EmailAddress): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
 
   def idCursor(
     selector: Bdoc,
@@ -336,9 +333,21 @@ object UserRepo {
     }
 
   def setEmail(id: ID, email: EmailAddress): Funit =
-    coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
+    coll.update($id(id), $set(F.email -> email.normalize) ++ $unset(F.prevEmail)).void
 
-  def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)
+  def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email) // downgrade from normalized (#2509)
+
+  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
+    coll.find($doc(
+      F.email -> email,
+      F.enabled -> true
+    )).uno[Bdoc].map { maybeDoc =>
+      for {
+        doc <- maybeDoc
+        user = userBSONHandler read doc
+        storedEmail <- doc.getAs[EmailAddress](F.email) // downgrade
+      } yield (user, storedEmail)
+    }
 
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
     coll.find($id(normalize(name))).uno[Bdoc].map {
@@ -346,8 +355,8 @@ object UserRepo {
         User.WithEmails(
           userBSONHandler read doc,
           User.Emails(
-            current = doc.getAs[EmailAddress](F.email),
-            previous = doc.getAs[EmailAddress](F.prevEmail)
+            current = doc.getAs[EmailAddress](F.email), // downgrade
+            previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
           )
         ).some
       }
@@ -471,7 +480,7 @@ object UserRepo {
     $doc(
       F.id -> normalize(username),
       F.username -> username,
-      F.email -> email,
+      F.email -> email.normalize,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
       F.bpass -> passwordHash,
       F.perfs -> $empty,

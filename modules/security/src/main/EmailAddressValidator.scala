@@ -20,7 +20,7 @@ final class EmailAddressValidator(
     }
 
   def validate(email: EmailAddress): Option[EmailAddressValidator.Acceptable] =
-    isAcceptable(email) option EmailAddressValidator.Acceptable(email.normalize)
+    isAcceptable(email) option EmailAddressValidator.Acceptable(email)
 
   /**
    * Returns true if an E-mail address is taken by another user.
@@ -30,7 +30,7 @@ final class EmailAddressValidator(
    * @return
    */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Boolean =
-    (lila.user.UserRepo.idByEmail(email) awaitSeconds 2, forUser) match {
+    (lila.user.UserRepo.idByEmail(email.normalize) awaitSeconds 2, forUser) match {
       case (None, _) => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _) => true
@@ -42,7 +42,7 @@ final class EmailAddressValidator(
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    if (isTakenBySomeoneElse(EmailAddress(e).normalize, forUser))
+    if (isTakenBySomeoneElse(EmailAddress(e), forUser))
       Invalid(ValidationError("error.email_unique"))
     else Valid
   }
@@ -82,5 +82,5 @@ final class EmailAddressValidator(
 }
 
 object EmailAddressValidator {
-  case class Acceptable(normalized: EmailAddress)
+  case class Acceptable(acceptable: EmailAddress)
 }
