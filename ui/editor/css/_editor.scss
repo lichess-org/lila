@@ -69,13 +69,6 @@
   }
 }
 
-.continue_with {
-  display: none;
-  & div {
-    @extend %flex-column;
-  }
-}
-
 // .is3d #board_editor .spare piece.pointer, .is3d #board_editor .spare piece.trash {
 //   top: -15%;
 // }

@@ -16,7 +16,7 @@ module.exports = (standalone, fileBaseName, dir) => {
     standalone: standalone,
     debug: debug
   });
-  const destination = () => gulp.dest(`../../public/compiled/`);
+  const destination = () => gulp.dest('../../public/compiled/');
 
   const prod = () => browserify(browserifyOpts(false))
     .plugin(tsify)

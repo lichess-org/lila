@@ -36,20 +36,20 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
   const g = ctrl.data.game;
   if (g.source === 'import' &&
     g.importedBy && g.importedBy === userId)
-  return h('form.delete', {
-    attrs: {
-      method: 'post',
-      action: '/' + g.id + '/delete'
-    },
-    hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
-  }, [
-    h('button.button.text.thin', {
+    return h('form.delete', {
       attrs: {
-        type: 'submit',
-        'data-icon': 'q'
-      }
-    }, ctrl.trans.noarg('delete'))
-  ]);
+        method: 'post',
+        action: '/' + g.id + '/delete'
+      },
+      hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
+    }, [
+      h('button.button.text.thin', {
+        attrs: {
+          type: 'submit',
+          'data-icon': 'q'
+        }
+      }, ctrl.trans.noarg('delete'))
+    ]);
   return;
 }
 
@@ -58,7 +58,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return h('div.autoplay', speeds.map(speed => {
-    return h('a.fbt', {
+    return h('a', {
       class: { active: ctrl.autoplay.active(speed.delay) },
       hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw)
     }, ctrl.trans.noarg(speed.name));
@@ -88,17 +88,13 @@ function hiddenInput(name: string, value: string) {
 }
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.fbt', {
+  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.button.button-empty', {
     attrs: {
       href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
-      target: '_blank'
+      target: '_blank',
+      'data-icon': '4'
     }
-  }, [
-    h('i.icon', {
-      attrs: dataIcon('4')
-    }),
-    ctrl.trans.noarg('openStudy')
-  ]);
+  }, ctrl.trans.noarg('openStudy'));
   if (ctrl.study || ctrl.ongoing) return;
   const realGame = !synthetic(ctrl.data);
   return h('form', {
@@ -115,15 +111,17 @@ function studyButton(ctrl: AnalyseCtrl) {
     hiddenInput('orientation', ctrl.draughtsground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
-    h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: dataIcon('4') }),
-      ctrl.trans.noarg('study')
-    ])
+    h('button.button.button-empty', {
+      attrs: {
+        type: 'submit',
+        'data-icon': '4'
+      }
+    }, ctrl.trans.noarg('study'))
   ]);
 }
 
 function puzzleIcon(ctrl: AnalyseCtrl) {
-  return ctrl.data.game.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-');
+  return ctrl.data.game.variant.key === 'frisian' ? '$' : '-';
 }
 
 function puzzleEditorButton(ctrl: AnalyseCtrl) {
@@ -139,10 +137,12 @@ function puzzleEditorButton(ctrl: AnalyseCtrl) {
     })
   }, [
     hiddenInput('pdn', ''),
-    h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: puzzleIcon(ctrl) }),
-      'Puzzle editor'
-    ])
+    h('button.button.button-empty', {
+      attrs: {
+        type: 'submit',
+        'data-icon': puzzleIcon(ctrl)
+      }
+    }, 'Puzzle editor')
   ]);
 }
 
@@ -153,38 +153,30 @@ export class Ctrl {
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-  noarg = ctrl.trans.noarg,
-  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard' && !d.puzzleEditor,
-  canPuzzleEditor = !d.puzzleEditor && d.toPuzzleEditor && (d.game.variant.key === 'standard' || d.game.variant.key === 'frisian'),
-  ceval = ctrl.getCeval(),
-  mandatoryCeval = ctrl.mandatoryCeval();
+    noarg = ctrl.trans.noarg,
+    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard' && !d.puzzleEditor,
+    canPuzzleEditor = !d.puzzleEditor && d.toPuzzleEditor && (d.game.variant.key === 'standard' || d.game.variant.key === 'frisian'),
+    ceval = ctrl.getCeval(),
+    mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
     h('div.tools', [
-      h('a.fbt', {
-        hook: bind('click', ctrl.flip)
-      }, [
-        h('i.icon', { attrs: dataIcon('B') }),
-        noarg('flipBoard')
-      ]),
-      ctrl.ongoing ? null : h('a.fbt', {
+      h('a.button.button-empty', {
+        hook: bind('click', ctrl.flip),
+        attrs: dataIcon('B')
+      }, noarg('flipBoard')),
+      ctrl.ongoing ? null : h('a.button.button-empty', {
         attrs: {
           href: (d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen) + (d.game.variant.key !== 'standard' ? "&variant=" + d.game.variant.key : ''),
           rel: 'nofollow',
-          target: ctrl.embed ? '_blank' : ''
+          target: ctrl.embed ? '_blank' : '',
+          'data-icon': 'm'
         }
-      }, [
-        h('i.icon', { attrs: dataIcon('m') }),
-        noarg('boardEditor')
-      ]),
-      canContinue ? h('a.fbt', {
-        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
-      }, [
-        h('i.icon', {
-          attrs: dataIcon('U')
-        }),
-        noarg('continueFromHere')
-      ]) : null,
+      }, noarg('boardEditor')),
+      canContinue ? h('a.button.button-empty', {
+        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id))),
+         attrs: dataIcon('U')
+        }, noarg('continueFromHere')) : null,
       !d.puzzleEditor ? studyButton(ctrl) : null,
       canPuzzleEditor ? puzzleEditorButton(ctrl) : null
     ])
@@ -203,10 +195,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const puzzleTools: MaybeVNodes = [
     h('h2', 'Puzzle editor'),
     h('div.tools', [
-      h('a.fbt', {
+      h('a.button.button-empty', {
         hook: bind('click', () => {
           if (missingAlts(ctrl.tree.root))
-            alert("There are missing alternative solutions! Click 'Expand alternatives' for all moves marked in red and try submitting again.");
+            alert('There are missing alternative solutions! Click \'Expand alternatives\' for all moves marked in red and try submitting again.');
           else $.ajax({
             url: '/training/api/puzzle?variant=' + (d.game.variant.key === 'fromPosition' ? 'standard' : d.game.variant.key),
             method: 'POST',
@@ -216,11 +208,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
             success: function (response) { alert('success: ' + response.toString().replace('https:', 'http:')); },
             error: function (response) { alert('error: ' + JSON.stringify(response)); }
           })
-        })
-      }, [
-          h('i.icon', { attrs: puzzleIcon(ctrl) }),
-          "Submit puzzle"
-        ])
+        }),
+        attrs: dataIcon(puzzleIcon(ctrl))
+      }, 'Submit puzzle')
     ])
   ];
 
@@ -329,7 +319,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ];
 
   const allTools = d.puzzleEditor ? tools.concat(puzzleTools) : tools;
-  return h('div.action_menu',
+  return h('div.action-menu',
     allTools
       .concat(notationConfig)
       .concat(cevalConfig)

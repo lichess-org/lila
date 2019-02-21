@@ -6,7 +6,8 @@
 .puzzle__moves {
   flex: 2 1 auto;
   overflow: auto;
-  border-bottom: $border;
+  border: $border;
+  border-width: 1px 0;
 }
 
 .puzzle__feedback {
@@ -77,4 +78,7 @@
   @extend %flex-center;
   height: $puzzle-history-height;
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
+  & .jumps {
+    flex: 1 1 auto;
+  }
 }

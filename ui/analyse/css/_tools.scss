@@ -1,0 +1,30 @@
+.analyse__tools {
+  @extend %box-neat-force, %flex-column;
+  background: $c-bg-box;
+}
+
+.analyse__moves {
+  flex: 2 1 auto;
+  overflow: auto;
+  border: $border;
+  border-width: 1px 0;
+}
+
+.analyse__controls {
+  height: 2.5rem;
+  align-items: stretch;
+  & div {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: stretch;
+  }
+  & .jumps {
+    flex: 3 1 auto;
+  }
+  & button {
+    flex: 0 0 2.5rem;
+  }
+  & ::before {
+    vertical-align: middle;
+  }
+}

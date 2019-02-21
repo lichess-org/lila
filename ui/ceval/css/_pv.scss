@@ -5,8 +5,7 @@
     & {
       height: 2em;
       line-height: 2em;
-      border: $border;
-      border-bottom: 0;
+      border-top: $border;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;

@@ -27,16 +27,12 @@ object userAnalysis {
         )
       },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
     ),
-    side = pov.game.synthetic option div(cls := "mselect")(
-      div(cls := "button", dataIcon := iconByVariant(pov.game.variant))(
-        pov.game.variant.name,
-        iconTag("u")
-      ),
-      div(cls := "list")(
-        draughts.variant.Variant.all.filterNot(draughts.variant.FromPosition ==).map { v =>
-          a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
-        }
-      )
+    side = pov.game.synthetic option views.html.base.bits.mselect(
+      "analyse-variant",
+      span(dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+      draughts.variant.Variant.all.filter(draughts.variant.FromPosition !=).map { v =>
+        a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
+      }
     ),
     responsive = true,
     draughtsground = false,
@@ -47,6 +43,11 @@ object userAnalysis {
     ).some,
     zoomable = true
   ) {
-      main(id := "analyse-app")(div(cls := "analyse")(views.html.board.bits.domPreload(none)))
+      main(cls := "analyse")(
+        st.aside(cls := "analyse__side")(spinner),
+        div(cls := "analyse__board main-board")(draughtsgroundSvg),
+        div(cls := "analyse__tools"),
+        div(cls := "analyse__controls")
+      )
     }
 }

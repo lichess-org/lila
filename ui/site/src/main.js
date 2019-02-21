@@ -214,7 +214,7 @@ lidraughts.topMenuIntent = function() {
 
   $(function() {
     if (lidraughts.analyse) LidraughtsAnalyse.boot(document.getElementById('lidraughts'), lidraughts.analyse);
-    else if (lidraughts.user_analysis) startUserAnalysis(document.getElementById('analyse-app'), lidraughts.user_analysis);
+    else if (lidraughts.user_analysis) startUserAnalysis(lidraughts.user_analysis);
     else if (lidraughts.study) startStudy(document.getElementById('lidraughts'), lidraughts.study);
     else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
     else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
@@ -392,7 +392,7 @@ lidraughts.topMenuIntent = function() {
       };
 
       // Zoom
-      var currentZoom = (!lidraughts.isTrident && $('body').data('zoom') / 100) || 1;
+      var currentZoom = $('body').data('zoom') / 100;
 
       var setZoom = function(zoom) {
         if (lidraughts.isResp) {
@@ -1036,14 +1036,14 @@ lidraughts.topMenuIntent = function() {
   // user_analysis.js //
   ////////////////
 
-  function startUserAnalysis(element, cfg) {
+  function startUserAnalysis(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
+    cfg.element = document.querySelector('main.analyse');
     cfg.trans = lidraughts.trans(cfg.i18n);
     lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
       options: {
-        name: "analyse"
+        name: 'analyse'
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);

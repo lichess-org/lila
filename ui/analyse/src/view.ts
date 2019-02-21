@@ -72,7 +72,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  return h('div.areplay', [
+  return h('div.analyse__moves.areplay', [
     renderChapterName(ctrl),
     renderOpeningBox(ctrl),
     renderTreeView(ctrl, concealOf),
@@ -127,21 +127,6 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-function visualBoard(ctrl: AnalyseCtrl, playerBars: VNode[] | undefined) {
-  return h('div.lidraughts_board_wrap' + (playerBars ? '.' + ctrl.bottomColor() : ''), [
-    ctrl.keyboardHelp ? keyboardView(ctrl) : null,
-    ctrl.study ? studyView.overboard(ctrl.study) : null,
-    playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
-    h('div.lidraughts_board.' + ctrl.data.game.variant.key, {
-      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
-    }, [
-        draughtsground.render(ctrl)
-      ]),
-    playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
-    cevalView.renderGauge(ctrl)
-  ]);
-}
-
 function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
   return h('button', {
     class: { disabled: !enabled },
@@ -171,13 +156,13 @@ function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   }, { once: true } as any);
 }
 
-function buttons(ctrl: AnalyseCtrl) {
+function controls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
     multiBoardMenu = ctrl.study && ctrl.study.relay && ctrl.study.members.canContribute() && ctrl.study.multiBoardMenu,
     noarg = ctrl.trans.noarg;
-  return h('div.game_control', {
+  return h('div.analyse__controls analyse-controls', {
     hook: bind('mousedown', e => {
       const action = dataAct(e);
       if (action === 'prev' || action === 'next') navClick(ctrl, action);
@@ -302,60 +287,62 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeDisplayed = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeDisplayed || !!playerBars,
     intro = relayIntro(ctrl);
-  return h('div.analyse', [
-    h(addChapterId(study, 'div'), {
-      hook: {
-        insert: _ => {
-          if (firstRender) {
-            firstRender = false;
-            if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
-          }
-          else li.pubsub.emit('reset_zoom')();
-          forceInnerCoords(ctrl, needsInnerCoords);
-        },
-        update(_, _2) {
-          forceInnerCoords(ctrl, needsInnerCoords);
+  return h(addChapterId(study, 'main.analyse'), {
+    hook: {
+      insert: _ => {
+        if (firstRender) {
+          firstRender = false;
+          if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
         }
+        else li.pubsub.emit('reset_zoom')();
+        forceInnerCoords(ctrl, needsInnerCoords);
       },
-      class: {
-        'gauge_displayed': gaugeDisplayed,
-        'no_computer': !ctrl.showComputer(),
-        'gb_edit': !!gamebookEditView,
-        'gb_play': !!gamebookPlayView,
-        'relay_edit': !!relayEdit,
-        'player_bars': !!playerBars,
+      update(_, _2) {
+        forceInnerCoords(ctrl, needsInnerCoords);
       }
-    }, intro ? [intro] : [
-        h('div.lidraughts_game', {
-          hook: {
-            insert: _ => li.pubsub.emit('content_loaded')()
-          }
-        }, [
-            visualBoard(ctrl, playerBars),
-            intro ? null : h('div.lidraughts_ground', gamebookPlayView || [
-              (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
-              (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-              ...(menuIsOpen ? [actionMenu(ctrl)] : (
-                multiBoardMenu && multiBoardMenuIsOpen ? [multiBoardMenu.view(ctrl.study)] : [
-                  cevalView.renderCeval(ctrl),
-                  showCevalPvs ? cevalView.renderPvs(ctrl) : null,
-                  renderAnalyse(ctrl, concealOf),
-                  gamebookEditView ? null : forkView(ctrl, concealOf),
-                  retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
-                ])),
-              (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-              buttons(ctrl),
-              gamebookEditView || relayEdit
-            ])
-          ])
-      ]),
-    (ctrl.embed || intro) ? null : h('div.underboard', {
-      class: { no_computer: !ctrl.showComputer() }
+    },
+    class: {
+      'gauge_displayed': gaugeDisplayed,
+      'no_computer': !ctrl.showComputer(),
+      'gb_edit': !!gamebookEditView,
+      'gb_play': !!gamebookPlayView,
+      'relay_edit': !!relayEdit,
+      'player_bars': !!playerBars,
+    }
+  }, [
+    h('aside.analyse__side', [
+      "side"
+    ]),
+    cevalView.renderGauge(ctrl),
+    ctrl.keyboardHelp ? keyboardView(ctrl) : null,
+    ctrl.study ? studyView.overboard(ctrl.study) : null,
+    playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
+    intro || h(addChapterId(study, 'div.analyse__board.main-board.' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor()), {
+      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
-        h('div.center', study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
-        h('div.right', [intro ? null : acplView(ctrl)])
-      ]),
-    ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
+      draughtsground.render(ctrl)
+    ]),
+    playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
+    h('div.analyse__tools', gamebookPlayView || [
+      (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
+      (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+      ...(menuIsOpen ? [actionMenu(ctrl)] : (
+        (multiBoardMenu && multiBoardMenuIsOpen) ? [multiBoardMenu.view(ctrl.study)] : [
+          cevalView.renderCeval(ctrl),
+          showCevalPvs ? cevalView.renderPvs(ctrl) : null,
+          renderAnalyse(ctrl, concealOf),
+          gamebookEditView ? null : forkView(ctrl, concealOf),
+          retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
+        ])),
+      (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+      gamebookEditView || relayEdit
+    ]),
+    controls(ctrl),
+    (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
+      class: { no_computer: !ctrl.showComputer() }
+    }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
+    intro ? null : h('div.analyse__acpl', [acplView(ctrl)]),
+    ctrl.embed || synthetic(ctrl.data) ? null : h('div.analyse__side', [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
       playable(ctrl.data) ? h('div.back_to_game',
         h('a.button.text', {

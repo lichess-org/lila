@@ -1,6 +1,6 @@
 .analyse-controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: stretch;
   font-size: 1.3rem;
   & button,
@@ -31,21 +31,14 @@
     white-space: nowrap; /* safari */
   }
   & .jumps {
-    flex: 1 1 100%;
     display: flex;
     & button {
-      flex: 1 1 35%;
+      flex: 1 1 30%;
       &:first-child,
       &:last-child {
-        flex: 1 1 15%;
+        flex: 1 1 20%;
         font-size: 0.7em;
       }
-    }
-    &:nth-child(2) {
-      padding: 0 10px 0 14px;
-    }
-    &:nth-child(3) {
-      padding: 0 14px 0 10px;
     }
   }
 }

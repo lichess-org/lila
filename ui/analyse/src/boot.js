@@ -208,8 +208,4 @@ module.exports = function(element, cfg) {
     });
     $(this).toggleClass('active');
   });
-  if (lidraughts.isMS) setTimeout(function() {
-    var prop = 'backgroundImage';
-    $('.cg-board').css(prop, $('.cg-board').css(prop).replace(')','?1)'));
-  }, 1000);
 };

@@ -1,0 +1,52 @@
+$mq-col2: ($mq-medium, $mq-landscape);
+$mq-col3: $mq-x-large;
+
+@mixin columns-with-gauge-col2($board-width, $gauge-width) {
+  grid-template-columns: 1fr $board-width $gauge-width $block-gap minmax(200px, 400px) 1fr;
+}
+@mixin columns-with-gauge-col3($board-width, $gauge-width) {
+  grid-template-columns: 1fr minmax(230px, 20vw) $block-gap $board-width $gauge-width $block-gap minmax(200px, 400px) 1fr;
+}
+
+.analyse {
+  grid-area: main;
+  display: grid;
+
+  &__side { grid-area: side; }
+  &__board { grid-area: board; }
+  &__tools { grid-area: tools; }
+  &__controls { grid-area: controls; }
+  &__underboard { grid-area: underboard; }
+  &__acpl { grid-area: acpl; }
+  &__side { grid-area: side; }
+  & .eval-gauge { grid-area: gauge; }
+
+  $board-min-width: calc(70vmin * var(--board-scale));
+  $board-max-width: calc(100vh * var(--board-scale) - 2 * #{$block-gap} - #{$site-header-height});
+  $board-width: minmax($board-min-width, $board-max-width);
+
+  @include breakpoint($mq-col2) {
+    @include columns-with-gauge-col2($board-width, 0);
+    &.gauge-on {
+      @include columns-with-gauge-col2($board-width, 1rem);
+    }
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+    '. board      gauge .    tools    .'
+    '. underboard .     .    controls .'
+    '. side       side  side acpl     .';
+    grid-row-gap: $block-gap;
+    &__moves { display: block; }
+  }
+
+  @include breakpoint($mq-col3) {
+    @include columns-with-gauge-col3($board-width, 0);
+    &.gauge-on {
+      @include columns-with-gauge-col3($board-width, 1rem);
+    }
+    grid-template-areas:
+    '. side    . board      gauge . tools    .'
+    '. .       . underboard .     . controls .'
+    '. .       . underboard .     . acpl     .';
+  }
+}

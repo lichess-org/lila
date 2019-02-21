@@ -1,0 +1,6 @@
+.continue_with {
+  display: none;
+  & div {
+    @extend %flex-column;
+  }
+}

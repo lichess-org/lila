@@ -2,7 +2,6 @@
   @extend %metal;
   // background: $c-bg-zebra;
   height: 38px;
-  border-bottom: $border;
   position: relative;
   display: flex;
   align-items: stretch;
@@ -34,13 +33,13 @@
   }
   & .engine {
     & .cloud {
-      @extend %box-radius;
+      @extend %roboto, %box-radius;
       margin-left: 4px;
       background: $c-secondary-dim;
       color: $c-secondary-over;
-      padding: 0px 3px;
+      padding: 1px 3px;
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 11px;
     }
     & .info {
       display: block;

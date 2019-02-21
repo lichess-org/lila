@@ -8,7 +8,7 @@ import scalatags.Text.all.{ genericAttr, attr, StringFrag }
 import scalatags.text.Builder
 import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Modifier, Cap, Aggregate, Attrs, Styles }
 
-// collection of lila attrs
+// collection of attrs
 trait ScalatagsAttrs {
   lazy val minlength = attr("minlength") // missing from scalatags atm
   lazy val dataTag = attr("data-tag")
@@ -23,7 +23,7 @@ trait ScalatagsAttrs {
   lazy val novalidate = attr("novalidate")
 }
 
-// collection of lila snippets
+// collection of snippets
 trait ScalatagsSnippets extends Cap {
   this: ScalatagsExtensions with ScalatagsAttrs =>
 

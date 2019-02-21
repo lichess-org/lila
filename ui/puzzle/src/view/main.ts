@@ -37,14 +37,6 @@ function wheel(ctrl: Controller, e: WheelEvent) {
   return false;
 }
 
-function visualBoard(ctrl: Controller) {
-  return h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-    hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
-  }, [
-    draughtsground(ctrl)
-  ]);
-}
-
 function dataAct(e) {
   return e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
 }
@@ -86,14 +78,18 @@ export default function(ctrl: Controller): VNode {
     cevalShown = showCeval;
   }
   return h('main.puzzle', {
-    class: {with_gauge: ctrl.showEvalGauge()}
+    class: {'gauge-on': ctrl.showEvalGauge()}
   }, [
     h('aside.puzzle__side', [
       side.puzzleBox(ctrl),
       side.userBox(ctrl)
     ]),
     cevalView.renderGauge(ctrl),
-    visualBoard(ctrl),
+    h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
+      hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
+    }, [
+      draughtsground(ctrl)
+    ]),
     h('div.puzzle__tools', [
       // we need the wrapping div here
       // so the siblings are only updated when ceval is added
