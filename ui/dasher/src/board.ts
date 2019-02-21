@@ -24,7 +24,7 @@ export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, re
 
   const saveZoom = window.lichess.fp.debounce(() => {
     $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
-  }, 500);
+  }, 1000);
 
   return {
     data,

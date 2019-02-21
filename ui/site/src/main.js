@@ -214,7 +214,7 @@ lichess.topMenuIntent = function() {
 
   $(function() {
     if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
-    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('analyse-app'), lichess.user_analysis);
+    else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
     else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
@@ -392,7 +392,7 @@ lichess.topMenuIntent = function() {
       };
 
       // Zoom
-      var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
+      var currentZoom = $('body').data('zoom') / 100;
 
       var setZoom = function(zoom) {
         if (lichess.isResp) {
@@ -1035,14 +1035,14 @@ lichess.topMenuIntent = function() {
   // user_analysis.js //
   ////////////////
 
-  function startUserAnalysis(element, cfg) {
+  function startUserAnalysis(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
+    cfg.element = document.querySelector('main.analyse');
     cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
       options: {
-        name: "analyse"
+        name: 'analyse'
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);

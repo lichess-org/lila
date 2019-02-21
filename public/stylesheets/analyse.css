@@ -190,7 +190,7 @@ div.eval_gauge .black {
   border-radius: 0 5px 0 0;
   transition: height 1s;
 }
-div.gauge_displayed div.lichess_game div.lichess_ground {
+div.gauge-on div.lichess_game div.lichess_ground {
   padding-left: 19px;
 }
 div.gauge_displayed .fork {

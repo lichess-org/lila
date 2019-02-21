@@ -36,20 +36,20 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
   const g = ctrl.data.game;
   if (g.source === 'import' &&
     g.importedBy && g.importedBy === userId)
-  return h('form.delete', {
-    attrs: {
-      method: 'post',
-      action: '/' + g.id + '/delete'
-    },
-    hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
-  }, [
-    h('button.button.text.thin', {
+    return h('form.delete', {
       attrs: {
-        type: 'submit',
-        'data-icon': 'q'
-      }
-    }, ctrl.trans.noarg('delete'))
-  ]);
+        method: 'post',
+        action: '/' + g.id + '/delete'
+      },
+      hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
+    }, [
+      h('button.button.text.thin', {
+        attrs: {
+          type: 'submit',
+          'data-icon': 'q'
+        }
+      }, ctrl.trans.noarg('delete'))
+    ]);
   return;
 }
 
@@ -58,7 +58,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return h('div.autoplay', speeds.map(speed => {
-    return h('a.fbt', {
+    return h('a', {
       class: { active: ctrl.autoplay.active(speed.delay) },
       hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw)
     }, ctrl.trans.noarg(speed.name));
@@ -88,17 +88,13 @@ function hiddenInput(name: string, value: string) {
 }
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.fbt', {
+  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.button.button-empty', {
     attrs: {
       href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
-      target: '_blank'
+      target: '_blank',
+      'data-icon': '4'
     }
-  }, [
-    h('i.icon', {
-      attrs: dataIcon('4')
-    }),
-    ctrl.trans.noarg('openStudy')
-  ]);
+  }, ctrl.trans.noarg('openStudy'));
   if (ctrl.study || ctrl.ongoing) return;
   const realGame = !synthetic(ctrl.data);
   return h('form', {
@@ -115,10 +111,12 @@ function studyButton(ctrl: AnalyseCtrl) {
     hiddenInput('orientation', ctrl.chessground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
-    h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: dataIcon('4') }),
-      'Study'
-    ])
+    h('button.button.button-empty', {
+      attrs: {
+        type: 'submit',
+        'data-icon': '4'
+      }
+    }, 'Study')
   ]);
 }
 
@@ -129,37 +127,29 @@ export class Ctrl {
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-  noarg = ctrl.trans.noarg,
-  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
-  ceval = ctrl.getCeval(),
-  mandatoryCeval = ctrl.mandatoryCeval();
+    noarg = ctrl.trans.noarg,
+    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+    ceval = ctrl.getCeval(),
+    mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
     h('div.tools', [
-      h('a.fbt', {
-    hook: bind('click', ctrl.flip)
-  }, [
-        h('i.icon', { attrs: dataIcon('B') }),
-        noarg('flipBoard')
-      ]),
-      ctrl.ongoing ? null : h('a.fbt', {
+      h('a.button.button-empty', {
+        hook: bind('click', ctrl.flip),
+        attrs: dataIcon('B')
+      }, noarg('flipBoard')),
+      ctrl.ongoing ? null : h('a.button.button-empty', {
         attrs: {
           href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
           rel: 'nofollow',
-          target: ctrl.embed ? '_blank' : ''
+          target: ctrl.embed ? '_blank' : '',
+          'data-icon': 'm'
         }
-      }, [
-        h('i.icon', { attrs: dataIcon('m') }),
-        noarg('boardEditor')
-      ]),
-      canContinue ? h('a.fbt', {
-        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
-      }, [
-        h('i.icon', {
-          attrs: dataIcon('U')
-        }),
-        noarg('continueFromHere')
-      ]) : null,
+      }, noarg('boardEditor')),
+      canContinue ? h('a.button.button-empty', {
+        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id))),
+        attrs: dataIcon('U')
+      }, noarg('continueFromHere')) : null,
       studyButton(ctrl)
     ])
   ];
@@ -253,44 +243,44 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ]))('analyse-memory') : null
     ] : []) : [];
 
-    const notationConfig = [
-      h('h2', noarg('preferences')),
-      ctrlBoolSetting({
-        name: noarg('inlineNotation'),
-        title: 'Shift+I',
-        id: 'inline',
-        checked: ctrl.treeView.inline(),
-        change(v) {
-          ctrl.treeView.set(v);
-          ctrl.actionMenu.toggle();
-        }
-      }, ctrl)
-    ];
+  const notationConfig = [
+    h('h2', noarg('preferences')),
+    ctrlBoolSetting({
+      name: noarg('inlineNotation'),
+      title: 'Shift+I',
+      id: 'inline',
+      checked: ctrl.treeView.inline(),
+      change(v) {
+        ctrl.treeView.set(v);
+        ctrl.actionMenu.toggle();
+      }
+    }, ctrl)
+  ];
 
-    return h('div.action_menu',
-      tools
-        .concat(notationConfig)
-        .concat(cevalConfig)
-        .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
-        .concat([
-          deleteButton(ctrl, ctrl.opts.userId),
-          canContinue ? h('div.continue_with.g_' + d.game.id, [
-            h('a.button', {
-              attrs: {
-                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow'
-              }
-            }, noarg('playWithTheMachine')),
-            h('br'),
-            h('a.button', {
-              attrs: {
-                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow'
-              }
-            }, noarg('playWithAFriend'))
-          ]) : null
-        ])
-    );
+  return h('div.action-menu',
+    tools
+    .concat(notationConfig)
+    .concat(cevalConfig)
+    .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
+    .concat([
+      deleteButton(ctrl, ctrl.opts.userId),
+      canContinue ? h('div.continue_with.g_' + d.game.id, [
+        h('a.button', {
+          attrs: {
+            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+            rel: 'nofollow'
+          }
+        }, noarg('playWithTheMachine')),
+        h('br'),
+        h('a.button', {
+          attrs: {
+            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+            rel: 'nofollow'
+          }
+        }, noarg('playWithAFriend'))
+      ]) : null
+    ])
+  );
 }
 
 function ctrlBoolSetting(o: BoolSetting, ctrl: AnalyseCtrl) {

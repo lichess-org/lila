@@ -70,33 +70,29 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
   opts.crosstableEl = element.querySelector('.crosstable') as HTMLElement;
 
   let $watchers: JQuery;
-  function letsGo() {
-    round = (window['LichessRound'] as RoundMain).app(opts);
-    if (opts.chat) {
-      if (opts.tour) {
-        opts.chat.plugin = tourStandingCtrl(opts.tour, opts.i18n.standing);
-        opts.chat.alwaysEnabled = true;
-      } else if (!data.simul) {
-        opts.chat.preset = getPresetGroup(opts.data);
-        opts.chat.parseMoves = true;
-      }
-      li.makeChat('chat', opts.chat, function(c) {
-        chat = c;
-      });
+  round = (window['LichessRound'] as RoundMain).app(opts);
+  if (opts.chat) {
+    if (opts.tour) {
+      opts.chat.plugin = tourStandingCtrl(opts.tour, opts.i18n.standing);
+      opts.chat.alwaysEnabled = true;
+    } else if (!data.simul) {
+      opts.chat.preset = getPresetGroup(opts.data);
+      opts.chat.parseMoves = true;
     }
-    $watchers = $('#site_header div.watchers').watchers();
-    startTournamentClock();
-    $('#now_playing').find('.move_on input').change(function() {
-      round.moveOn.toggle();
-    }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
-      li.hasToReload = true;
-      return true;
+    li.makeChat('chat', opts.chat, function(c) {
+      chat = c;
     });
-    if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
-      history.replaceState(null, '', '/' + data.game.id);
-    if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
-    $('#zentog').click(round.toggleZen);
-  };
-  if (li.isTrident) setTimeout(letsGo, 150);
-  else letsGo();
+  }
+  $watchers = $('#site_header div.watchers').watchers();
+  startTournamentClock();
+  $('#now_playing').find('.move_on input').change(function() {
+    round.moveOn.toggle();
+  }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
+    li.hasToReload = true;
+    return true;
+  });
+  if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
+  history.replaceState(null, '', '/' + data.game.id);
+  if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
+  $('#zentog').click(round.toggleZen);
 }
