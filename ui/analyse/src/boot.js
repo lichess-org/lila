@@ -1,6 +1,7 @@
 var defined = require('common').defined;
 
-module.exports = function(element, cfg) {
+module.exports = function(cfg) {
+  var element = document.getElementById('main-wrap');
   var data = cfg.data;
   var $watchers = $('#site_header div.watchers').watchers();
   var analyse, $panels;
@@ -87,15 +88,15 @@ module.exports = function(element, cfg) {
   };
   cfg.trans = lichess.trans(cfg.i18n);
   cfg.initialPly = 'url';
-  cfg.element = element.querySelector('.analyse');
+  cfg.element = element.querySelector('main.analyse');
   cfg.socketSend = lichess.socket.send;
   analyse = LichessAnalyse.start(cfg);
   cfg.jumpToIndex = analyse.jumpToIndex;
 
-  if (cfg.chat) {
-    cfg.chat.parseMoves = true;
-    lichess.makeChat('chat', cfg.chat);
-  }
+  // if (cfg.chat) {
+  //   cfg.chat.parseMoves = true;
+  //   lichess.makeChat('chat', cfg.chat);
+  // }
 
   $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
 

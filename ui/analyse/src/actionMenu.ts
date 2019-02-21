@@ -58,8 +58,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return h('div.autoplay', speeds.map(speed => {
-    return h('a', {
-      class: { active: ctrl.autoplay.active(speed.delay) },
+    return h('a.button.button-empty', {
       hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw)
     }, ctrl.trans.noarg(speed.name));
   }));
@@ -133,7 +132,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
-    h('div.tools', [
+    h('div.action-menu__tools', [
       h('a.button.button-empty', {
         hook: bind('click', ctrl.flip),
         attrs: dataIcon('B')
@@ -264,14 +263,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
     .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
     .concat([
       deleteButton(ctrl, ctrl.opts.userId),
-      canContinue ? h('div.continue_with.g_' + d.game.id, [
+      canContinue ? h('div.continue_with.none.g_' + d.game.id, [
         h('a.button', {
           attrs: {
             href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
             rel: 'nofollow'
           }
         }, noarg('playWithTheMachine')),
-        h('br'),
         h('a.button', {
           attrs: {
             href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,

@@ -190,7 +190,7 @@ div.eval_gauge .black {
   border-radius: 0 5px 0 0;
   transition: height 1s;
 }
-div.gauge-on div.lichess_game div.lichess_ground {
+div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 19px;
 }
 div.gauge_displayed .fork {
@@ -380,7 +380,7 @@ body.piece_letter .pv_box .pv span {
   display: block;
   cursor: pointer;
   padding: 0 15px;
-  display: flex!important;
+  display: flex;
   border-bottom: 1px solid #e4e4e4;
 }
 body.piece_letter .fork move {
@@ -865,9 +865,7 @@ body.piece_letter .tablebase td:first-child {
   font-weight: normal;
   font-size: 1.3em;
 }
-.retro_box .instruction move {
-  display: inline;
-  cursor: default;
+.retro_box .instruction glyph {
 }
 .retro_box .instruction glyph {
   font-weight: normal;
@@ -1068,7 +1066,6 @@ body.dark .practice_box .comment {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  text-transform: none;
 }
 .action_menu .tools form .fbt {
   width: 100%;
@@ -1227,6 +1224,296 @@ body.dark .aclocks .aclock.active {
   background: #303030;
 }
 
+.tview2 {
+  white-space: normal;
+}
+.tview2.column {
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 13.5px;
+  line-height: 1.25;
+}
+.tview2.inline {
+  padding: 7px 3px 7px 7px;
+  font-size: 16px;
+  line-height: 1em;
+}
+.lichess_ground move {
+  font-family: 'ChessSansPiratf', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+}
+body.piece_letter .lichess_ground move {
+  font-family: 'Noto Sans';
+}
+.tview2.column move {
+  font-size: 1.092em;
+  padding: 0 2px;
+}
+.tview2.inline move {
+  padding: 0.25em 0.17em;
+  white-space: nowrap;
+  font-weight: bold;
+}
+.tview2 move.parent,
+.tview2 comment a {
+  color: #3893e8!important;
+}
+.tview2 comment a {
+  vertical-align: top;
+}
+.tview2 move.current {
+  border: 1px solid #d85000!important;
+}
+.tview2 move.active {
+  color: #d85000;
+}
+.tview2 move.nongame {
+  font-style: italic;
+}
+.tview2 move:not(.empty):hover,
+.tview2 move:not(.empty):hover index,
+.tview2 move:not(.empty):hover eval {
+  background: #3893e8;
+  color: #fff!important;
+}
+.tview2.inline move:hover {
+  border-radius: 3px;
+}
+.tview2 move.empty {
+  color: #aaa;
+  cursor: default;
+}
+.tview2 move.context_menu {
+  background: #d85000!important;
+  color: #fff!important;
+}
+.tview2 move index {
+  font-size: 90%;
+  color: #999;
+}
+.tview2.column move index {
+  padding-left: 5px;
+}
+.tview2.column move index:first-child {
+  padding-left: 0;
+}
+.tview2.inline move index {
+  padding-right: 0.2em;
+  line-height: 111.11%
+}
+.tview2 line move {
+  color: #606060;
+}
+.tview2.column > move {
+  flex: 0 0 43.5%;
+  max-width: 43.5%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
+  display: flex;
+  box-sizing: border-box;
+  font-size: 1.185em;
+  line-height: 1.75em;
+  padding-left: 7px;
+  padding-right: 3px;
+}
+.tview2.column > index + move {
+  border-right: 1px solid #ddd;
+}
+.tview2 eval {
+  flex: 3 0 auto;
+  text-align: right;
+  font-size: 0.8em;
+  font-family: 'Roboto';
+  color: #999;
+}
+.tview2 glyph {
+  font-family: 'Noto Sans';
+  margin-left: 0.08em;
+}
+.tview2.column > move glyph {
+  flex: 0 1 auto;
+  text-align: center;
+  overflow: hidden;
+  font-size: 0.82em;
+}
+.tview2.column > index {
+  flex: 0 0 13%;
+  max-width: 13%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  background: #f8f8f8;
+  line-height: 2.07em;
+  color: #c0c0c0;
+}
+.tview2 > interrupt {
+  font-size: 95%;
+}
+.tview2.column > interrupt {
+  flex: 0 0 100%;
+  background: #f8f8f8;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.tview2.column > interrupt > comment {
+  display: block;
+  padding: 3px 5px;
+  word-wrap: break-word;
+}
+.tview2.inline comment {
+  vertical-align: 45%;
+  word-wrap: break-word;
+  margin: 0 0.2em 0 0.1em;
+  font-size: 0.9em;
+}
+.tview2 comment .by {
+  display: inline-block;
+  vertical-align: -0.3em;
+  white-space: nowrap;
+  font-family: 'Roboto';
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-right: 0.4em;
+  max-width: 9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tview2.column comment.white {
+  border-left: 3px solid;
+}
+.tview2.column comment.black {
+  border-right: 3px solid;
+  overflow-x: hidden;
+}
+.tview2.column comment.inaccuracy {
+  border-color: #56B4E9;
+}
+.tview2.column comment.mistake {
+  border-color: #E69F00;
+}
+.tview2.column comment.blunder {
+  border-color: #DF5353;
+}
+.tview2.column comment.undefined {
+  border-color: #66558C;
+}
+.tview2 line comment {
+  font-size: 90%;
+}
+.tview2.column line comment {
+  display: inline;
+  color: #808080;
+  word-wrap: break-word;
+  padding: 0 5px 0 3px;
+  vertical-align: top;
+}
+.tview2 line comment .by {
+  font-size: 1em;
+  vertical-align: top;
+}
+.tview2 lines {
+  display: block;
+  margin-top: 2px;
+  margin-left: 6px;
+  margin-bottom: 0.8em;
+  border-left: 2px solid #ccc;
+}
+.tview2 > interrupt > lines {
+  margin-left: 0px;
+}
+.tview2 lines.single {
+  border-left: none;
+}
+.tview2 lines:last-child {
+  margin-bottom: 0;
+}
+.tview2 line {
+  display: block;
+  padding-left: 7px;
+}
+.tview2.column line {
+  margin: 2px 0;
+}
+.tview2 lines lines move {
+  font-size: 13px;
+}
+.tview2 lines lines {
+  margin-left: 1px;
+}
+.tview2 lines lines::before {
+  content: ' ';
+  border-top: 2px solid #ccc;
+  position: absolute;
+  margin-left: -11px;
+  width: 9px;
+  height: 6px;
+}
+.tview2 lines line::before {
+  margin-top: 0.65em;
+  margin-left: -8px;
+  content: ' ';
+  border-top: 2px solid #ccc;
+  position: absolute;
+  width: 8px;
+  height: 6px;
+}
+.tview2 lines lines:last-child {
+  margin-bottom: 0;
+}
+.tview2 inline {
+  display: inline;
+  font-style: italic;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+.tview2 inline::before,
+.tview2 inline::after {
+  vertical-align: 0.4em;
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+.tview2 inline::before {
+  content: '(';
+  margin-left: 2px;
+}
+.tview2 inline::after {
+  content: ')';
+  margin-right: 2px;
+}
+.tview2.inline inline::before,
+.tview2.inline inline::after {
+  vertical-align: 0.7em;
+}
+.tview2 .conceal {
+  opacity: 0.4;
+}
+.tview2 .hide {
+  display: none;
+}
+body.dark .tview2 > index {
+  color: #6a6a6a;
+}
+body.dark .tview2 move {
+  color: #aaa;
+}
+body.dark .tview2 move.active {
+  color: #ff7729;
+}
+body.dark .tview2.column comment {
+  color: #999;
+}
+body.dark .tview2.column line comment {
+  color: #888;
+}
+body.dark .tview2 lines,
+body.dark .tview2 lines lines::before,
+body.dark .tview2 lines line::before {
+  border-color: #666;
+}
 .lichess_ground .areplay .result,
 .lichess_ground .areplay .status {
   background: #f8f8f8;

@@ -198,7 +198,7 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     currentPath: findCurrentPath(ctrl)
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
-  return h('div.tview2.column', {
+  return h('div.tview2.tview2-column', {
     hook: mainHook(ctrl)
   }, ([
     empty(commentTags) ? null : h('interrupt', commentTags),

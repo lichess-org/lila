@@ -213,7 +213,7 @@ lichess.topMenuIntent = function() {
   };
 
   $(function() {
-    if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
+    if (lichess.analyse) LichessAnalyse.boot(lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);

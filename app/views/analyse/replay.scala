@@ -44,7 +44,7 @@ object replay {
       side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked),
       chat = views.html.chat.frag.some,
       underchat = Some(views.html.round.bits underchat pov.game),
-      moreCss = cssTags("analyse.css", "chat.css"),
+      moreCss = responsiveCssTag("analyse"),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
@@ -54,8 +54,11 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
       ),
       openGraph = povOpenGraph(pov).some
     )(frag(
-        div(cls := "analyse cg-512")(
-          views.html.board.bits.domPreload(none)
+        main(cls := "analyse")(
+          st.aside(cls := "analyse__side")(spinner),
+          div(cls := "analyse__board main-board")(chessgroundSvg),
+          div(cls := "analyse__tools"),
+          div(cls := "analyse__controls")
         ),
         if (ctx.blind) div(cls := "blind_content none")(
           h2("PGN downloads"),

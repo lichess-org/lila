@@ -20,8 +20,8 @@
       text-align: center;
     }
     & span {
+      @extend %chess-font;
       margin-left: 4px;
-      font-family: 'ChessSansPiratf', sans-serif;
       body.piece_letter & {
         @extend %base-font;
       }

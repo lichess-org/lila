@@ -158,17 +158,16 @@ function controls(ctrl, fen) {
           m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
-      m('div.continue_with', m('div', [
+      m('div.continue_with.none', [
         m('a.button', {
           href: '/?fen=' + fen + '#ai',
           rel: 'nofollow'
-        }, ctrl.trans('playWithTheMachine')),
-        m('br'),
+        }, ctrl.trans.noarg('playWithTheMachine')),
         m('a.button', {
           href: '/?fen=' + fen + '#friend',
           rel: 'nofollow'
-        }, ctrl.trans('playWithAFriend'))
-      ]))
+        }, ctrl.trans.noarg('playWithAFriend'))
+      ])
     ]
   ]);
 }

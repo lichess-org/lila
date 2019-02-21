@@ -11,7 +11,7 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const clocks = renderClocks(ctrl);
   if (!clocks) return;
   if (ctrl.bottomIsWhite()) clocks.reverse();
-  return h('div.aclocks', clocks);
+  return h('div.analyse__clocks', clocks);
 }
 
 export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
@@ -41,7 +41,7 @@ export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 }
 
 function renderClock(centis: number | undefined, active: boolean, opts: ClockOpts): VNode {
-  return h('div.aclock', {
+  return h('div.analyse__clock', {
     class: { active },
   }, clockContent(centis, opts));
 }

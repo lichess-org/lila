@@ -61,7 +61,7 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
   const state = root.fork.state();
   if (!state.displayed) return;
   const isMainline = concealOf && root.onMainline;
-  return h('div.fork', {
+  return h('div.analyse__fork', {
     hook: {
       insert(vnode) {
         (vnode.elm as HTMLElement).addEventListener('click', e => {

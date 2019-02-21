@@ -34,6 +34,7 @@ object bits {
       underchat = underchat,
       moreCss = moreCss,
       moreJs = moreJs,
+      responsive = true,
       openGraph = openGraph,
       chessground = false,
       robots = false,

@@ -29,7 +29,7 @@
       left: 8px;
     }
   }
-  & .tools {
+  &__tools {
     flex: 0 0 auto;
     display: flex;
     flex-flow: row wrap;
@@ -42,6 +42,7 @@
       justify-content: center;
     }
     & .button {
+      color: $c-font;
       text-transform: none;
       &::before {
         display: block;
@@ -53,7 +54,9 @@
   }
   & .autoplay {
     display: flex;
-    .fbt {
+    a {
+      color: $c-font-dim;
+      font-size: .9em;
       flex: 1 1 auto;
       padding: 7px 0;
       text-align: center;

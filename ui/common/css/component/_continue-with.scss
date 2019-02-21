@@ -1,6 +1,6 @@
 .continue_with {
-  display: none;
-  & div {
-    @extend %flex-column;
+  @extend %flex-column;
+  & > *:not(:first-child) {
+    margin-top: 1em;
   }
 }

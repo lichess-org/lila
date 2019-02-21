@@ -3,20 +3,20 @@
 .tview2 {
   white-space: normal;
   overflow-y: auto;
-  &.column {
+  &-column {
     @extend %flex-wrap;
   }
-  &.inline {
+  &-inline {
     padding: 7px 3px 7px 7px;
   }
   & move {
     @extend %move;
   }
-  &.column move {
+  &-column move {
     font-size: 1.092em;
     padding: 0 2px;
   }
-  &.inline move {
+  &-inline move {
     padding: 0.25em 0.17em;
     white-space: nowrap;
     font-weight: bold;
@@ -34,7 +34,7 @@
     font-weight: bold;
     background: mix($c-primary, $c-bg-box, 20%);
   }
-  &.inline move.active {
+  &-inline move.active {
     @extend %box-radius;
   }
   & move.nongame {
@@ -48,7 +48,7 @@
       color: $c-primary-over;
     }
   }
-  &.inline move:hover {
+  &-inline move:hover {
     @extend %box-radius;
   }
   & move.empty {
@@ -63,20 +63,20 @@
     font-size: 90%;
     color: $c-font-dim;
   }
-  &.column move index {
+  &-column move index {
     padding-left: 5px;
   }
-  &.column move index:first-child {
+  &-column move index:first-child {
     padding-left: 0;
   }
-  &.inline move index {
+  &-inline move index {
     padding-right: 0.2em;
     line-height: 111.11%
   }
   & line move {
     color: $c-font;
   }
-  &.column > move {
+  &-column > move {
     flex: 0 0 43.5%;
     display: flex;
     box-sizing: border-box;
@@ -84,7 +84,7 @@
     line-height: 1.75em;
     padding: 0 .2em 0 .5em;
   }
-  &.column > index + move {
+  &-column > index + move {
     border-right: $c-border;
   }
   & eval {
@@ -98,13 +98,13 @@
     @extend %base-font;
     margin-left: 0.08em;
   }
-  &.column > move glyph {
+  &-column > move glyph {
     flex: 0 1 auto;
     text-align: center;
     overflow: hidden;
     font-size: 0.82em;
   }
-  &.column > index {
+  &-column > index {
     flex: 0 0 13%;
     // max-width: 13%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
     display: flex;
@@ -117,19 +117,19 @@
   & > interrupt {
     font-size: 95%;
   }
-  &.column > interrupt {
+  &-column > interrupt {
     flex: 0 0 100%;
     background: $c-bg-zebra;
     border-top: 1px solid $c-border;
     border-bottom: 1px solid $c-border;
     max-width: 100%;
   }
-  &.column > interrupt > comment {
+  &-column > interrupt > comment {
     @extend %break-word;
     display: block;
     padding: 3px 5px;
   }
-  &.inline comment {
+  &-inline comment {
     vertical-align: 45%;
     word-wrap: break-word;
     margin: 0 0.2em 0 0.1em;
@@ -147,29 +147,29 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  &.column comment.white {
+  &-column comment.white {
     border-left: 3px solid;
   }
-  &.column comment.black {
+  &-column comment.black {
     border-right: 3px solid;
     overflow-x: hidden;
   }
-  &.column comment.inaccuracy {
+  &-column comment.inaccuracy {
     border-color: #56B4E9;
   }
-  &.column comment.mistake {
+  &-column comment.mistake {
     border-color: #E69F00;
   }
-  &.column comment.blunder {
+  &-column comment.blunder {
     border-color: #DF5353;
   }
-  &.column comment.undefined {
+  &-column comment.undefined {
     border-color: #66558C;
   }
   & line comment {
     font-size: 90%;
   }
-  &.column line comment {
+  &-column line comment {
     display: inline;
     color: $c-font-dim;
     word-wrap: break-word;
@@ -199,8 +199,9 @@
   & line {
     display: block;
     padding-left: 7px;
+    position: relative;
   }
-  &.column line {
+  &-column line {
     margin: 2px 0;
   }
   & lines lines move {
@@ -249,8 +250,8 @@
     content: ')';
     margin-right: 2px;
   }
-  &.inline inline::before,
-  &.inline inline::after {
+  &-inline inline::before,
+  &-inline inline::after {
     vertical-align: 0.7em;
   }
   & .conceal {
