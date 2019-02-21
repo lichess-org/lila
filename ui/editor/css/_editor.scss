@@ -5,7 +5,7 @@
 
   user-select: none;
 
-  & .cg-board-wrap {
+  & .main-board {
     grid-area: board;
   }
   & .cg-board {
@@ -68,7 +68,3 @@
     }
   }
 }
-
-// .is3d #board_editor .spare piece.pointer, .is3d #board_editor .spare piece.trash {
-//   top: -15%;
-// }

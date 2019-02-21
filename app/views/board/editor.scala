@@ -35,7 +35,7 @@ LidraughtsEditor(document.getElementById('board-editor'), data);""")
     ).some
   )(main(id := "board-editor")(
       div(cls := "spare"),
-      draughtsgroundSvg,
+      div(cls := "main-board")(draughtsgroundSvg),
       div(cls := "spare")
     ))
 }

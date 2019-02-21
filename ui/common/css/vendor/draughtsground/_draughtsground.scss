@@ -1,19 +1,12 @@
-@import 'boards-2d';
+@import 'board-2d';
 
 .cg-board {
-  @extend %box-neat;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  @extend %box-neat, %abs-100;
   user-select: none;
   line-height: 0;
   background-size: cover;
   .manipulable & {
     cursor: pointer;
-  }
-  .is2d & {
-    top: 0;
-    height: 100%;
   }
 }
 square {
@@ -84,13 +77,8 @@ piece {
 }
 
 .cg-board-wrap {
-  @extend %square;
-  position: relative;
+  @extend %abs-100;
   // overflow: hidden; /* prevents width issues with rank coords | but prevents dragging pieces in! */
-  .mini_board & {
-    width: 224px;
-    height: 224px;
-  }
   & svg {
     overflow: hidden;
     position: absolute;
