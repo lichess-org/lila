@@ -38,9 +38,16 @@ object Global extends GlobalSettings {
     else if (HTTPRequest isFishnet req) lila.mon.http.request.fishnet()
     else if (HTTPRequest isBot req) lila.mon.http.request.bot()
     else lila.mon.http.request.page()
-    lila.i18n.Env.current.subdomainKiller(req) orElse
+
+    handleEarlyData(req) orElse
+      lila.i18n.Env.current.subdomainKiller(req) orElse
       super.onRouteRequest(req)
   }
+
+  private def handleEarlyData(req: RequestHeader): Option[Handler] =
+    if (req.headers.get("Early-Data").exists(_ == "1") && (HTTPRequest.isSocket(req) || !HTTPRequest.isSafe(req)))
+      Some(Action(Status(425))) // too early
+    else None
 
   private def niceError(req: RequestHeader): Boolean =
     req.method == "GET" &&
