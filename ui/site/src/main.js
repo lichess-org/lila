@@ -213,7 +213,7 @@ lidraughts.topMenuIntent = function() {
   };
 
   $(function() {
-    if (lidraughts.analyse) LidraughtsAnalyse.boot(document.getElementById('lidraughts'), lidraughts.analyse);
+    if (lidraughts.analyse) LidraughtsAnalyse.boot(lidraughts.analyse);
     else if (lidraughts.user_analysis) startUserAnalysis(lidraughts.user_analysis);
     else if (lidraughts.study) startStudy(document.getElementById('lidraughts'), lidraughts.study);
     else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);

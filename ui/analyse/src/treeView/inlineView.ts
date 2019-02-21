@@ -111,7 +111,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     currentPath: findCurrentPath(ctrl)
   };
   const commentTags = renderInlineCommentsOf(ctx, root);
-  return h('div.tview2.inline', {
+  return h('div.tview2.tview2-inline', {
     hook: mainHook(ctrl)
   }, [
       ...commentTags,

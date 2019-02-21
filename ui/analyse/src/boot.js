@@ -1,7 +1,8 @@
 var defined = require('common').defined;
 var tree = require("tree")
 
-module.exports = function(element, cfg) {
+module.exports = function(cfg) {
+  var element = document.getElementById('main-wrap');
   var data = cfg.data;
   var maxNodes = 200; // no analysis beyond ply 200
   var $watchers = $('#site_header div.watchers').watchers();
@@ -107,15 +108,15 @@ module.exports = function(element, cfg) {
   };
   cfg.trans = lidraughts.trans(cfg.i18n);
   cfg.initialPly = 'url';
-  cfg.element = element.querySelector('.analyse');
+  cfg.element = element.querySelector('main.analyse');
   cfg.socketSend = lidraughts.socket.send;
   analyse = LidraughtsAnalyse.start(cfg);
   cfg.jumpToIndex = analyse.jumpToIndex;
 
-  if (cfg.chat) {
-    cfg.chat.parseMoves = true;
-    lidraughts.makeChat('chat', cfg.chat);
-  }
+  // if (cfg.chat) {
+  //   cfg.chat.parseMoves = true;
+  //   lidraughts.makeChat('chat', cfg.chat);
+  // }
 
   $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
 

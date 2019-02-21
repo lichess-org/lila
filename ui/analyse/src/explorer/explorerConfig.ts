@@ -74,7 +74,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
     ]),
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
-      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2018'))
+      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2019'))
     ]) : h('div', [
       h('section.rating', [
         h('label', ctrl.trans.noarg('averageElo')),
@@ -100,7 +100,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       ])
     ]),
     h('section.save',
-      h('button.button.text', {
+      h('button.button.button-green.text', {
         attrs: dataIcon('E'),
         hook: bind('click', ctrl.toggleOpen)
       }, ctrl.trans.noarg('allSet'))

@@ -1,6 +1,12 @@
 .puzzle__tools {
   @extend %box-neat-force, %flex-column;
   background: $c-bg-box;
+  & .ceval-wrap {
+    flex: 0 0 38px;
+  }
+  & .ceval {
+    height: 38px;
+  }
 }
 
 .puzzle__moves {

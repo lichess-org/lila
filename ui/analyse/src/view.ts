@@ -9,7 +9,7 @@ import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
-import renderClocks from './clocks';
+//import renderClocks from './clocks';
 import * as pdnExport from './pdnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
@@ -162,7 +162,7 @@ function controls(ctrl: AnalyseCtrl) {
     menuIsOpen = ctrl.actionMenu.open,
     multiBoardMenu = ctrl.study && ctrl.study.relay && ctrl.study.members.canContribute() && ctrl.study.multiBoardMenu,
     noarg = ctrl.trans.noarg;
-  return h('div.analyse__controls analyse-controls', {
+  return h('div.analyse__controls.analyse-controls', {
     hook: bind('mousedown', e => {
       const action = dataAct(e);
       if (action === 'prev' || action === 'next') navClick(ctrl, action);
@@ -284,8 +284,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     relayEdit = study && study.relay && relayManager(study.relay),
     playerBars = renderPlayerBars(ctrl),
-    gaugeDisplayed = ctrl.showEvalGauge(),
-    needsInnerCoords = !!gaugeDisplayed || !!playerBars,
+    gaugeOn = ctrl.showEvalGauge(),
+    needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
   return h(addChapterId(study, 'main.analyse'), {
     hook: {
@@ -299,10 +299,16 @@ export default function(ctrl: AnalyseCtrl): VNode {
       },
       update(_, _2) {
         forceInnerCoords(ctrl, needsInnerCoords);
+      },
+      postpatch(old, vnode) {
+        if (old.data!.gaugeOn !== gaugeOn) {
+          window.lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
+        }
+        vnode.data!.gaugeOn = gaugeOn;
       }
     },
     class: {
-      'gauge_displayed': gaugeDisplayed,
+      'gauge-on': gaugeOn,
       'no_computer': !ctrl.showComputer(),
       'gb_edit': !!gamebookEditView,
       'gb_play': !!gamebookPlayView,
@@ -313,7 +319,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     h('aside.analyse__side', [
       "side"
     ]),
-    cevalView.renderGauge(ctrl),
+    (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
@@ -324,7 +330,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ]),
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
     h('div.analyse__tools', gamebookPlayView || [
-      (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
+      // (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
       (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
       ...(menuIsOpen ? [actionMenu(ctrl)] : (
         (multiBoardMenu && multiBoardMenuIsOpen) ? [multiBoardMenu.view(ctrl.study)] : [

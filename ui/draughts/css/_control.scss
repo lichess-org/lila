@@ -19,12 +19,12 @@
   }
   & a:hover,
   & button:hover:not(.disabled) {
-    background: mix($c-primary, $c-bg-box, 75%);
+    background: mix($c-secondary, $c-bg-box, 75%);
     color: #fff;
   }
   & button:active,
   & button.active {
-    background: $c-primary;
+    background: $c-secondary;
     color: #fff;
   }
   & .features {

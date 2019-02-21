@@ -163,24 +163,16 @@ function renderFeedback(root: AnalyseCtrl, fb) {
   return feedback[fb](ctrl);
 }
 
-function renderTitle(ctrl: RetroCtrl): VNode {
-  var completion = ctrl.completion();
-  return h('div.title', [
-    h('span', ctrl.trans.noarg('learnFromYourMistakes')),
-    h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
-    h('span.close', {
-      attrs: dataIcon('L'),
-      hook: bind('click', ctrl.close, ctrl.redraw)
-    })
-  ]);
-}
-
-export default function (root: AnalyseCtrl): VNode | undefined {
+export default function(root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
-  const fb = ctrl.feedback();
-  return h('div.retro_box', [
-    renderTitle(ctrl),
+  const fb = ctrl.feedback(),
+    completion = ctrl.completion();
+  return h('div.retro-box.training-box.sub-box', [
+    h('div.title', [
+      h('span', ctrl.trans.noarg('learnFromYourMistakes')),
+      h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1])
+    ]),
     h('div.feedback.' + fb, renderFeedback(root, fb))
   ]);
 };
