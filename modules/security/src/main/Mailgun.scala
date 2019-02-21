@@ -84,7 +84,7 @@ ${trans.common_contact.literalHtmlTo(lang, List("https://lichess.org/contact"))}
 
     def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}${trans.common_contact.literalHtmlTo(lang, List(noteContact))}</small>
+  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))} ${trans.common_contact.literalHtmlTo(lang, List(noteContact))}</small>
 </div>
 """
 
