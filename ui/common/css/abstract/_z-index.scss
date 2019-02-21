@@ -4,19 +4,20 @@
 /// @prop {String} key - Layer’s name
 /// @prop {Number} value - Z value mapped to the key
 $z-indexes: (
+  'cg__piece.dragging.3d': 70,
   'cg__piece.dragging': 4,
   'cg__piece.anim': 3,
   'cg__svg': 2,
   'cg__piece': 2,
   'cg__piece.fading': 1,
 
-  'powertip': 20,
-  'modal': 9,
-  'mselect': 9,
-  'topnav': 9,
-  'fullscreen-mask': 8,
-  'dropdown': 7,
-  'site-header': 6,
+  'powertip': 120,
+  'modal': 109,
+  'mselect': 109,
+  'topnav': 109,
+  'fullscreen-mask': 108,
+  'dropdown': 107,
+  'site-header': 106,
   'friend-box': 2,
   'link-overlay': 2,
   'default': 1

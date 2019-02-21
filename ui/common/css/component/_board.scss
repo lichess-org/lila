@@ -1,0 +1,11 @@
+.main-board {
+  @extend %square;
+  position: relative;
+}
+.mini-board {
+  @extend %square;
+  & .cg-board-wrap {
+    width: 224px;
+    height: 224px;
+  }
+}

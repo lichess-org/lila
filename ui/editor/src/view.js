@@ -232,9 +232,11 @@ function sparePieces(ctrl, color, orientation, position) {
         ' selected-square' : ''
       );
 
-    if (s === 'trash') {
+    if (s === 'pointer') {
+      containerClass += ' pointer';
+    } else if (s === 'trash') {
       containerClass += ' trash';
-    } else if (s !== 'pointer') {
+    } else {
       attrs['data-color'] = s[0];
       attrs['data-role'] = s[1];
     }
@@ -301,7 +303,7 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + makeCursor(ctrl.vm.selected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
-    chessground(ctrl),
+    m('div.main-board', chessground(ctrl)),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
     inputs(ctrl, fen)

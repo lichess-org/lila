@@ -132,17 +132,20 @@ object layout {
           !responsive option fontStylesheets
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
-        if (responsive) responsiveCssTag("site")
+        if (responsive) frag(
+          responsiveCssTag("site"),
+          ctx.pref.is3d option responsiveCssTag("board-3d")
+        )
         else frag(
           responsive option cssTag("offline-fonts.css"),
           currentBgCss,
           cssTag("common.css"),
           cssTag("board.css"),
+          ctx.pref.is3d option cssTag("board-3d.css"),
           ctx.zoom ifTrue zoomable map { z =>
             zoomStyle(z / 100f, ctx.pref.is3d)
           }
         ),
-        ctx.pref.is3d option cssTag("board-3d.css"),
         ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
