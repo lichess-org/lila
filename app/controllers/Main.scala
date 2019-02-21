@@ -54,7 +54,7 @@ object Main extends LilaController {
 
   def embed = Action { req =>
     Ok {
-      s"""document.write("<iframe src='${Env.api.Net.BaseUrl}?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: ${getInt("w", req) | 820}px; height: ${getInt("h", req) | 650}px;' title='Lichess free online chess'></iframe>");"""
+      s"""document.write('Sorry, embedding <a href="https://lichess.org">lichess.org</a> is now restricted to <a href="https://lichess.org/developers">selected widgets</a>, to prevent <a href="https://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.');"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
