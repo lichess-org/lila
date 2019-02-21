@@ -146,19 +146,22 @@ private final class PushApi(
 
   def newMessage(t: Thread, p: Post): Funit =
     lightUser(t.visibleSenderOf(p)) ?? { sender =>
-      pushToAll(t.receiverOf(p), _.message, PushApi.Data(
-        title = s"${sender.titleName}: ${t.name}",
-        body = p.text take 140,
-        stacking = Stacking.NewMessage,
-        payload = Json.obj(
-          "userId" -> t.receiverOf(p),
-          "userData" -> Json.obj(
-            "type" -> "newMessage",
-            "threadId" -> t.id,
-            "sender" -> sender
+      lila.user.UserRepo.isKid(t receiverOf p) flatMap {
+        case true => funit
+        case _ => pushToAll(t receiverOf p, _.message, PushApi.Data(
+          title = s"${sender.titleName}: ${t.name}",
+          body = p.text take 140,
+          stacking = Stacking.NewMessage,
+          payload = Json.obj(
+            "userId" -> t.receiverOf(p),
+            "userData" -> Json.obj(
+              "type" -> "newMessage",
+              "threadId" -> t.id,
+              "sender" -> sender
+            )
           )
-        )
-      ))
+        ))
+      }
     }
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
