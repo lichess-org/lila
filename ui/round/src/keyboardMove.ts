@@ -1,12 +1,18 @@
 import { h } from 'snabbdom'
+import { sanToRole } from 'chess'
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { valid as crazyValid } from './crazy/crazyCtrl';
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, possibleDrops?: string) => void;
+
+interface sanMap {
+  [key: string]: cg.Role;
+}
 
 export interface KeyboardMove {
-  drop(orig: cg.Key, piece: cg.Role): void
+  drop(orig: cg.Key, piece: string): void
   update(step: Step): void;
   registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;
@@ -28,23 +34,21 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   };
   let usedSan = false;
   const cgState = root.chessground.state;
-  console.log('Root data:', root.data)
   return {
-    drop(square,piece) {
-      root.chessground.newPiece({
-        role: piece,
-        color: 'black' // TODO: un-hardcode
-      }, square)
-      // Figure out how to update pocket (maybe automatic? :o)
-      return
+    drop(key, piece) {
+      const role = (sanToRole as sanMap)[piece]
+      if (!crazyValid(root.data, role, key)) return
+      root.chessground.cancelMove();
+      root.chessground.newPiece({ role, color: root.data.player.color }, key)
+      root.sendNewPiece(role, key, false)
     },
     update(step) {
-      if (handler) handler(step.fen, cgState.movable.dests);
+      if (handler) handler(step.fen, cgState.movable.dests, root.data.possibleDrops);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
+      if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests, root.data.possibleDrops);
     },
     hasFocus: () => focus,
     setFocus(v) {
@@ -75,7 +79,7 @@ export function render(ctrl: KeyboardMove) {
       },
       hook: {
         insert: vnode => {
-          window.lichess.loadScript('lichess.round.keyboardMove.min.js').then(() => {
+          window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
             ctrl.registerHandler(window.lichess.keyboardMove({
               input: vnode.elm,
               setFocus: ctrl.setFocus,

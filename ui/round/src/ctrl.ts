@@ -331,7 +331,7 @@ export default class RoundController {
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('white').offeringDraw = o.wDraw;
     this.playerByColor('black').offeringDraw = o.bDraw;
-    d.possibleMoves = activeColor ? o.dests : '9989789';
+    d.possibleMoves = activeColor ? o.dests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
     d.crazyhouse = o.crazyhouse;
     this.setTitle();

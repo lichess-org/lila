@@ -3,6 +3,7 @@ import { DecodedDests } from '../interfaces';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
+const crazyhouseRegex = /^\w@[a-h][1-8]$/;
 
 window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
@@ -25,9 +26,10 @@ window.lichess.keyboardMove = function(opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
-    } else if (drops && v in drops) {
+    } else if (drops && v.match(crazyhouseRegex) && drops.includes(v.slice(2))) {
       // Crazy house
-      opts.drop(v[0], v.slice(2)); // piece, square
+      opts.drop(v.slice(2), v[0].toUpperCase());
+      clear();
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
   };
@@ -36,9 +38,9 @@ window.lichess.keyboardMove = function(opts: any) {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: DecodedDests) {
-    // IDEA: Pass in root.possibleDrops from upstream keyboardMove.ts
-    sans = dests && Object.keys(dests).length ? sanWriter(fen,        destsToUcis(dests)) : null;
+  return function(fen: string, dests: DecodedDests, possibleDrops: string) {
+    sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
+    drops = possibleDrops
     submit(opts.input.value);
   };
 }

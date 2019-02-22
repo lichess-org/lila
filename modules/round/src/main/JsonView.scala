@@ -259,12 +259,11 @@ final class JsonView(
     (pov.game playableBy pov.player) option
       lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
 
-  // TODO: Fix this so it actually works lol
-  private def possibleDrops(pov: Pov): Option[String] = Some("Nh7,Nh6") /*{
+  private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
     pov.game.situation.drops map { drops =>
       JsString(drops.map(_.key).mkString)
     }
-  }*/
+  }
 
   private def animationFactor(pref: Pref): Float = pref.animation match {
     case 0 => 0
