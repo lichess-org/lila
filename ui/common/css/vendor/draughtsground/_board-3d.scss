@@ -1,24 +1,27 @@
-$td-height-ratio: 464.5 / 512;
-$td-height-percent: $td-height-ratio * 100%;
+$td-outer-height-ratio: 476 / 512;
+$td-inner-height-ratio: 464.5 / 512;
+$td-outer-height-percent: $td-outer-height-ratio * 100%;
+$td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 100%;
 
 .is3d .main-board {
-  padding-bottom: $td-height-percent;
+  padding-bottom: $td-outer-height-percent;
 }
-.is3d .cg-board-wrap coords.files {
-  bottom: calc(-12px - 3%);
-}
-.is3d .cg-board-wrap coords.ranks {
-  height: 100%;
+.is3d .cg-board-wrap {
+  height: $td-inner-relative-percent;
+  & coords.files {
+    bottom: calc(-12px - 3%);
+  }
+  & coords.ranks {
+    height: 100%;
+  }
 }
 .is3d piece {
-  /* original size:
-  width: 140.625%;
-  height: 179.6875%; */
-/* size on 3D board, with height/width = 90.78571% */
-width: 16.741%;
-height: 23.563%;
-left: -1.85%;
-top: -9.1%;
+  /* original size: width: 140.625%; height: 179.6875%; */
+  /* size on 3D board, with height/width = 90.78571% */
+  width: 16.741%;
+  height: 23.563%;
+  left: -1.85%;
+  top: -9.1%;
 }
 .is3d piece.dragging,
 .is3d #promotion_choice {
