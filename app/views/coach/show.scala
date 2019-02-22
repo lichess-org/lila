@@ -48,7 +48,7 @@ $('.coach-review-form form').show();
         image = c.coach.picturePath.map(p => dbImageUrl(p.value))
       ).some
     ) {
-        main(cls := "coach-show")(
+        main(cls := "coach-show coach-full-page")(
           st.aside(cls := "coach-show__side coach-side")(
             a(cls := "button button-empty", href := routes.User.show(c.user.username))("View ", c.user.username, " lichess profile"),
             if (ctx.me.exists(c.coach.is)) frag(

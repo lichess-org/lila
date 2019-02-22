@@ -1,26 +1,31 @@
 $mq-coach-col2: $mq-medium;
 
 main {
-  display: grid;
-  grid-template-areas:
-  'main'
-  'side';
 
   & .coach-main {
     grid-area: main;
   }
-  & .coach-side {
-    grid-area: side;
-    margin: 2em 2em 0 2em;
-  }
 
-  @include breakpoint($mq-coach-col2) {
-    grid-template-columns: 300px auto;
-    grid-template-areas:
-    'side main';
-    grid-gap: 2rem;
+  &.coach-full-page {
+
     & .coach-side {
-      margin: 4rem 0 0 0;
+      grid-area: side;
+      margin: 2em 2em 0 2em;
+    }
+
+    display: grid;
+    grid-template-areas:
+    'main'
+    'side';
+
+    @include breakpoint($mq-coach-col2) {
+      grid-template-columns: 300px auto;
+      grid-template-areas:
+      'side main';
+      grid-gap: 2rem;
+      & .coach-side {
+        margin: 4rem 0 0 0;
+      }
     }
   }
 }

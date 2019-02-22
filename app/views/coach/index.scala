@@ -17,7 +17,7 @@ object index {
       responsive = true,
       moreJs = infiniteScrollTag
     ) {
-        main(cls := "coach-list")(
+        main(cls := "coach-list coach-full-page")(
           st.aside(cls := "coach-list__side coach-side")(
             img(src := staticUrl("images/icons/certification.svg"), cls := "coach-list__certification"),
             h1("Certified coaches"),

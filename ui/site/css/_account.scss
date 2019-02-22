@@ -85,13 +85,10 @@
   }
   & form section {
     margin-bottom: 4rem;
-    & label {
-      font-size: 1.3em;
-    }
   }
   & h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5em;
+    margin-bottom: 1.3rem;
+    font-size: 1.3em;
     @include breakpoint($mq-x-small) {
       overflow: hidden;
       white-space: nowrap;

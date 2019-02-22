@@ -18,7 +18,6 @@ object layout {
     evenMoreJs: Html = emptyHtml
   )(body: Html)(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    menu = Some(frag()),
     moreCss = frag(responsiveCssTag("account"), evenMoreCss),
     responsive = true,
     moreJs = frag(jsTag("account.js"), evenMoreJs)
@@ -37,7 +36,7 @@ object layout {
           a(cls := active.activeO("editProfile"), href := routes.Account.profile())(
             trans.editProfile.frag()
           ),
-          isGranted(_.Coach) option a(href := routes.Coach.edit)("Coach profile"),
+          isGranted(_.Coach) option a(cls := active.activeO("coach"), href := routes.Coach.edit)("Coach profile"),
           div(cls := "sep"),
           a(cls := active.activeO("password"), href := routes.Account.passwd())(
             trans.changePassword.frag()
