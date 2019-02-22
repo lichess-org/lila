@@ -34,8 +34,10 @@ LichessEditor(document.getElementById('board-editor'), data);""")
       description = "Load opening positions or create your own chess position on a chess board editor"
     ).some
   )(main(id := "board-editor")(
-      div(cls := "spare"),
-      div(cls := "main-board")(chessgroundSvg),
-      div(cls := "spare")
+      div(cls := "board-editor")(
+        div(cls := "spare"),
+        div(cls := "main-board")(chessgroundSvg),
+        div(cls := "spare")
+      )
     ))
 }
