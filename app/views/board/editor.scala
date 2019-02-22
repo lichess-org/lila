@@ -34,8 +34,10 @@ LidraughtsEditor(document.getElementById('board-editor'), data);""")
       description = "Load opening positions or create your own draughts position on a draughts board editor"
     ).some
   )(main(id := "board-editor")(
-      div(cls := "spare"),
-      div(cls := "main-board")(draughtsgroundSvg),
-      div(cls := "spare")
+      div(cls := "board-editor")(
+        div(cls := "spare"),
+        div(cls := "main-board")(draughtsgroundSvg),
+        div(cls := "spare")
+      )
     ))
 }
