@@ -38,6 +38,7 @@ Files | Author(s) | License
 public/font70 | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
 ChessSansPiratf in public/font | the [pgn4web](http://pgn4web.casaschi.net/home.html) authors | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 public/images/staunton | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
+public/images/staunton/piece/CubesAndPi | CubesAndPi | AGPLv3+
 public/images/trophy | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces/tree/master/Trophies) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
 public/images/flags | [Go Squared Ltd.](https://www.gosquared.com/resources/flag-icons/) | [MIT](https://github.com/gosquared/flags/blob/master/LICENSE.txt)
 public/images/boards | the lila authors and [pirouetti](https://lichess.org/@/pirouetti) | AGPLv3+
@@ -68,7 +69,7 @@ public/piece/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess
 public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
 public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
-public/images/staunton/staunton/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
+public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 * The other sounds in public/sound.
 * The other artwork in public/images.

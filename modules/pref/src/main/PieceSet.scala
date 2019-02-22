@@ -39,6 +39,6 @@ object PieceSet3d extends PieceSetObject {
   val all = List(
     default.name, "Wood", "Metal", "RedVBlue",
     "ModernJade", "ModernWood", "Glass", "Trimmed",
-    "Experimental", "Staunton"
+    "Experimental", "Staunton", "CubesAndPi"
   ) map { name => new PieceSet(name) }
 }

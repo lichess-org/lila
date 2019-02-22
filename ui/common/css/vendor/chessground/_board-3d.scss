@@ -88,6 +88,7 @@ $piece-files: (
 'RedVBlue': true,
 'Trimmed': true,
 'Wood': true,
+'CubesAndPi': true,
 );
 @each $name, $flips in $piece-files {
   @each $color in ('White', 'Black') {
