@@ -43,8 +43,8 @@
     margin-bottom: 3rem;
   }
   &.erased {
-    background: rgba(128,128,128,0.2);
-    opacity: 0.5;
+    background: $c-shade;
+    opacity: 0.6;
   }
   &.erased .forum-post__message {
     font-style: italic;

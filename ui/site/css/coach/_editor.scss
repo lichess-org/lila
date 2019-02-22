@@ -5,15 +5,15 @@
 .coach-picture {
   & .top {
     display: flex;
-    line-height: 2;
   }
   & .top h1 {
     @extend %roboto;
     margin: 0;
     padding: 0!important;
-    font-size: 32px;
+    font-size: 2rem;
+    line-height: 2;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
   }
 
   & .top .picture_wrap {
@@ -37,12 +37,16 @@
     flex-flow: column;
   }
 
-  & .overview .todo,
-  & .overview.with_todo .analytics {
+  & .overview .todo {
     display: none;
   }
   & .overview.with_todo .todo {
-    display: block;
+    @extend %box-radius;
+    border-radius: 20px;
+    padding: 1rem;
+    background: mix($c-error, $c-bg-box, 15%);
+    border: 1px solid $c-error;
+    margin-bottom: 2rem;
   }
   & .overview .todo h3 {
     margin: 0;
