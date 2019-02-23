@@ -723,24 +723,20 @@ lidraughts.topMenuIntent = function() {
 
   lidraughts.widget("watchers", {
     _create: function() {
-      this.list = this.element.find("span.list");
-      this.number = this.element.find("span.number");
+      this.list = this.element.find(".list");
+      this.number = this.element.find(".number");
+      lidraughts.pubsub.on('socket.in.crowd', data => $('.chat__members').watchers("set", data.watchers));
     },
     set: function(data) {
-      var self = this;
-      if (!data) {
-        self.element.addClass('hidden');
-        return;
-      }
-      if (self.number.length) self.number.text(data.nb);
+      if (!data) return this.element.addClass('hidden');
+      if (this.number.length) this.number.text(data.nb);
       if (data.users) {
         var tags = data.users.map($.userLink);
         if (data.anons === 1) tags.push('Anonymous');
         else if (data.anons) tags.push('Anonymous(' + data.anons + ')');
-        self.list.html(tags.join(', '));
-      } else if (!self.number.length) self.list.html(data.nb + ' players in the chat');
-
-      self.element.removeClass('hidden');
+        this.list.html(tags.join(', '));
+      } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
+      this.element.removeClass('hidden');
     }
   });
 
@@ -906,6 +902,7 @@ lidraughts.topMenuIntent = function() {
 
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
+      $(".chat__members").watchers();
       $('div.captcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
@@ -965,17 +962,11 @@ lidraughts.topMenuIntent = function() {
 
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
-    var $watchers = $("div.watchers").watchers();
     var tournament;
     lidraughts.socket = lidraughts.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v3', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
-        },
-        events: {
-          crowd: function(data) {
-            $watchers.watchers("set", data);
-          }
         },
         options: {
           name: "tournament"
@@ -1011,17 +1002,11 @@ lidraughts.topMenuIntent = function() {
 
   function startSimul(element, cfg) {
     $('body').data('simul-id', cfg.data.id);
-    var $watchers = $("div.watchers").watchers();
     var simul;
     lidraughts.socket = lidraughts.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v3', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
-        },
-        events: {
-          crowd: function(data) {
-            $watchers.watchers("set", data);
-          }
         },
         options: {
           name: "simul"
@@ -1059,7 +1044,6 @@ lidraughts.topMenuIntent = function() {
   ////////////////
 
   function startStudy(element, cfg) {
-    var $watchers = $("div.watchers").watchers();
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
@@ -1070,11 +1054,6 @@ lidraughts.topMenuIntent = function() {
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
-      },
-      events: {
-        crowd: function(e) {
-          $watchers.watchers("set", e);
-        }
       }
     });
     cfg.socketSend = lidraughts.socket.send;
@@ -1116,7 +1095,6 @@ lidraughts.topMenuIntent = function() {
   ////////////////
 
   function startRelay(element, cfg) {
-    var $watchers = $("div.watchers").watchers();
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
@@ -1127,11 +1105,6 @@ lidraughts.topMenuIntent = function() {
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
-      },
-      events: {
-        crowd: function(e) {
-          $watchers.watchers("set", e);
-        }
       }
     });
     cfg.socketSend = lidraughts.socket.send;
