@@ -2,7 +2,7 @@ package lila.user
 
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, EmailAddress }
+import lila.common.{ LightUser, EmailAddress, NormalizedEmailAddress }
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -161,7 +161,7 @@ object User {
 
   case class Active(user: User)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress])
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
@@ -220,6 +220,7 @@ object User {
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
     val email = "email"
+    val verbatimEmail = "verbatimEmail"
     val mustConfirmEmail = "mustConfirmEmail"
     val prevEmail = "prevEmail"
     val colorIt = "colorIt"

@@ -581,6 +581,54 @@
 .Staunton .is3d .king.black {
   background-image: url(../images/staunton/piece/Staunton/Black-King.png);
 }
+.CubesAndPi .is3d .pawn.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Pawn.png);
+}
+.CubesAndPi .is3d .bishop.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Bishop.png);
+}
+.CubesAndPi .is3d .cg-512 .orientation-black .bishop.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Bishop-Flipped.png);
+}
+.CubesAndPi .is3d .knight.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Knight.png);
+}
+.CubesAndPi .is3d .cg-512 .orientation-black .knight.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Knight-Flipped.png);
+}
+.CubesAndPi .is3d .rook.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Rook.png);
+}
+.CubesAndPi .is3d .queen.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-Queen.png);
+}
+.CubesAndPi .is3d .king.white {
+  background-image: url(../images/staunton/piece/CubesAndPi/White-King.png);
+}
+.CubesAndPi .is3d .pawn.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Pawn.png);
+}
+.CubesAndPi .is3d .bishop.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Bishop.png);
+}
+.CubesAndPi .is3d .cg-512 .orientation-white .bishop.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Bishop-Flipped.png);
+}
+.CubesAndPi .is3d .knight.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Knight.png);
+}
+.CubesAndPi .is3d .cg-512 .orientation-white .knight.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Knight-Flipped.png);
+}
+.CubesAndPi .is3d .rook.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Rook.png);
+}
+.CubesAndPi .is3d .queen.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-Queen.png);
+}
+.CubesAndPi .is3d .king.black {
+  background-image: url(../images/staunton/piece/CubesAndPi/Black-King.png);
+}
 
 .is3d #promotion_choice piece {
   width: 140.625%;
