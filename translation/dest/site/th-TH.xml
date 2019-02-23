@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">เล่นกับเพื่อน</string>
   <string name="playWithTheMachine">เล่นกับคอมพิวเตอร์</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">โปรดให้ URL นี้ แก่ผู้ที่จะเชิญให้มาเล่น,</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ Link นี้เพื่อเชิญให้มาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
   <string name="waiting">กำลังรอ</string>

@@ -75,7 +75,7 @@
   <string name="averageRatingX">Ortalama puan: %s</string>
   <string name="recentGames">Son oyunlar</string>
   <string name="topGames">En yüksek puanlı oyunlar</string>
-  <string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FİDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
+  <string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FIDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s yarım hamle sonra mat</item>
     <item quantity="other">%s yarım hamle sonra mat</item>
@@ -160,8 +160,8 @@
     <item quantity="other">%s saat</item>
   </plurals>
   <string name="time">Zaman</string>
-  <string name="rating">Derece</string>
-  <string name="ratingStats">Puan İstatistikleri</string>
+  <string name="rating">Puan</string>
+  <string name="ratingStats">Puan istatistikleri</string>
   <string name="username">Kullanıcı adı</string>
   <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
   <string name="password">Şifre</string>
@@ -260,7 +260,7 @@
   </plurals>
   <string name="giveMoreTime">Süre ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını beklenmedik miktarlarda artırıyor/azaltıyor</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al.</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
