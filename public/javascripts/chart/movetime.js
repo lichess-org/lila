@@ -6,7 +6,7 @@ lichess.movetimeChart = function(data, trans) {
     lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
         lichess.movetimeChart.render = function() {
-          $('#movetimes_chart:not(.rendered)').each(function() {
+          $('#movetimes-chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
 
             var series = {

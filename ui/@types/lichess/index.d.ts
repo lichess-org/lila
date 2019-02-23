@@ -59,6 +59,8 @@ interface Lichess {
     render(ctrl: any): any;
   }
   playMusic(): void;
+  spinnerHtml: string;
+  movetimeChart: any;
 }
 
 interface Cookie {

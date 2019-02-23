@@ -28,6 +28,7 @@ import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import renderPlayerBars from './study/playerBars';
+import underboard from './underboard';
 
 const li = window.lichess;
 
@@ -283,7 +284,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
     },
     class: {
       'gauge-on': gaugeOn,
-      'no_computer': !ctrl.showComputer(),
       'gb_edit': !!gamebookEditView,
       'gb_play': !!gamebookPlayView,
       'relay_edit': !!relayEdit,
@@ -316,7 +316,12 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ]),
     controls(ctrl),
     ctrl.embed ? null : h('div.analyse__underboard', {
-      class: { no_computer: !ctrl.showComputer() }
+      class: { 'comp-off': !ctrl.showComputer() },
+      hook: {
+        insert(vnode) {
+          underboard(vnode.elm as HTMLElement, ctrl);
+        }
+      }
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     h('div.analyse__acpl', [acplView(ctrl)]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('aside.analyse__side', {

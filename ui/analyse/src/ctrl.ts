@@ -719,8 +719,8 @@ export default class AnalyseCtrl {
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
-    if (this.opts.onToggleComputer) this.opts.onToggleComputer(value);
     this.onToggleComputer();
+    li.pubsub.emit('analysis.comp.toggle')(value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {

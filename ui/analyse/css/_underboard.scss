@@ -1,0 +1,127 @@
+$panel-height: 220px;
+
+.analyse__underboard {
+  &__menu {
+    @extend %flex-center;
+    justify-content: center;
+    border-top: $border;
+    height: 21px;
+    & > span {
+      @extend %roboto, %box-radius-bottom;
+      text-transform: uppercase;
+      font-size: .9em;
+      padding: .4em 1em;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      &:hover {
+        background: mix($c-bg-box, $c-bg-page, 50%);
+      }
+      &.active {
+        background: $c-bg-box;
+        border-color: $c-accent;
+      }
+    }
+  }
+  &__panels {
+    & > div {
+      height: $panel-height;
+      display: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: left;
+    }
+    & > div.active {
+      display: block;
+    }
+    & .crosstable table {
+      margin-top: 60px;
+    }
+  }
+  &.comp-off .computer-analysis {
+    display: none;
+  }
+  & .computer-analysis {
+    position: relative;
+  }
+  & .game-analysis {
+    padding: 10px;
+    width: 492px;
+  }
+  & .future-game-analysis {
+    margin-top: 84px;
+    text-align: center;
+    & .button {
+      display: inline-block;
+      line-height: 24px;
+    }
+  }
+  & .fen-pgn {
+    font-size: .9em;
+    & > div {
+      margin: 0.6em 0;
+      display: flex;
+      align-items: center;
+    }
+    & .pgn {
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    & strong {
+      display: inline-block;
+      margin-right: 1em;
+    }
+    & .pgn-options {
+      & div {
+        @extend %flex-wrap;
+      }
+      & a {
+        flex: 0 0 50%;
+        line-height: 1.6em;
+      }
+    }
+  }
+  &__fen {
+    width: 100%;
+    border: 0;
+    background: none;
+    padding: .3em;
+  }
+}
+#adv-chart,
+#movetimes-chart {
+  height: $panel-height;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
+  overflow: hidden;
+}
+#adv-chart-loader {
+  position: absolute;
+  top: 76px;
+  left: -1px;
+  background: #fff;
+  padding: 7px 10px 7px 0;
+  line-height: 20px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 0 50px 50px 0;
+  & span {
+    margin-left: 7px;
+    opacity: 1;
+    transition: 0.5s;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 90px;
+    display: block;
+    .analyse__underboard:hover & {
+      margin-left: 0;
+      width: 0;
+      opacity: 0;
+    }
+  }
+  & .spinner {
+    width: 32px;
+    height: 32px;
+    display:inline-block;
+    margin-left: 10px;
+  }
+}
