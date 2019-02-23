@@ -1,5 +1,6 @@
 import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
+import * as tree from 'tree'
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
@@ -65,8 +66,22 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
     });
+    li.pubsub.on('socket.in.analysisProgress', d => {
+      const partial = partialTree(d.tree);
+      if (!li.advantageChart) startAdvantageChart();
+      else if (li.advantageChart.update) li.advantageChart.update({ game: data.game, treeParts: tree.ops.mainlineNodeList(tree.build(d.tree).root) }, partial);
+      if (!partial) {
+        li.pubsub.emit('analysis.server.complete')();
+        $("#adv-chart-loader").remove();
+      }
+    });
   }
 
+  var partialTree = function(n, c?) {
+    if (c === undefined) c = 0;
+    if (c > maxNodes) return false;
+    return n.children.length && (!n.eval || partialTree(n.children[0], c + 1));
+  }
   var partialList = function(n) {
     var count = 0;
     for (let i = 0; i < n.length - 2; i++) {
@@ -140,8 +155,10 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     let selection = window.getSelection();
     let range = document.createRange();
     range.selectNodeContents(this);
-    selection.removeAllRanges();
-    selection.addRange(range);
+    if (selection) {
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
   });
   $panels.on('click', '.embed-howto', function(this: HTMLElement) {
     var url = 'https://lidraughts.org/embed/' + data.game.id + location.hash;
@@ -152,5 +169,11 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       iframe + '<br /><br />' +
       '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'
     ));
+  });
+  $('button.cheat_list').on('click', function(this: HTMLElement) {
+    $.post({
+      url: $(this).data('src') + '?v=' + !$(this).hasClass('active')
+    });
+    $(this).toggleClass('active');
   });
 }

@@ -79,7 +79,7 @@ object side {
             game.winner.map { winner =>
               frag(
                 (game.status != draughts.Status.Mate).option(separator),
-                winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious()).frag()
+                winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious).frag()
               )
             }
           )
@@ -122,7 +122,7 @@ object side {
 
       simul.map { sim =>
         div(cls := "game__simul-link")(
-          a(href := routes.Simul.show(sim.id), dataIcon := "|", cls := "text")(sim.fullName)
+          a(href := routes.Simul.show(sim.id), dataIcon := "|", cls := "text")(sim.fullName),
           div(cls := "game__simul__infos")(
             div(cls := "simul_infos")(
               game.playerByUserId(sim.hostId).map { p =>
