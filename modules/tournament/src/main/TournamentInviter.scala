@@ -31,6 +31,7 @@ private final class TournamentInviter(
   /* Disabled until there actually are rating limited tournaments in the schedule
       !user.seenRecently &&
       !user.kid &&
+      !user.hasTitle &&
       user.count.rated > 50 &&
       user.toints < 10 &&
       bestRating(user).??(1700 >=) &&
