@@ -73,9 +73,7 @@ object replayBot {
                 div(cls := "pgn")(pgn)
               ),
               cross.map { c =>
-                div(cls := "panel crosstable")(
-                  views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-                )
+                views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
               }
             ),
             div(cls := "analysis_menu")(

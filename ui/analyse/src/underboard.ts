@@ -112,7 +112,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   var stored = storage.get();
   if (stored && $menu.children('.' + stored).length) setPanel(stored);
   else {
-    var $ct = $menu.children('.crosstable');
+    var $ct = $menu.children('.ctable');
     ($ct.length ? $ct : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {

@@ -39,8 +39,6 @@ $panel-height: 230px;
     & > div {
       height: $panel-height;
       display: none;
-      overflow-x: hidden;
-      overflow-y: auto;
       text-align: left;
     }
     & > div.active {
@@ -50,18 +48,22 @@ $panel-height: 230px;
       margin-top: 60px;
     }
   }
-  &.comp-off .computer-analysis {
-    display: none;
-  }
-  & .computer-analysis {
-    position: relative;
-  }
   & .game-analysis {
     padding: 10px;
     width: 492px;
   }
+  &.comp-off .computer-analysis {
+    display: none;
+  }
+  & .computer-analysis {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &.active {
+      display: flex;
+    }
+  }
   & .future-game-analysis {
-    margin-top: 84px;
     text-align: center;
     & .button {
       display: inline-block;
@@ -69,6 +71,8 @@ $panel-height: 230px;
     }
   }
   & .fen-pgn {
+    overflow-x: visible;
+    overflow-y: auto;
     font-size: .9em;
     & > div {
       margin: 0.6em 0;

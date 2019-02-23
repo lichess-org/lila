@@ -24,6 +24,7 @@ $c-font-dimmer: c-light($c-font, 70%);
 $c-font-clear: c-light($c-font, 12%);
 $c-font-clearer: c-light($c-font, 0%);
 $c-shade: c-dimmer($c-font, 80%);
+$c-font-page: $c-font;
 
 /* Primary: blue */
 $c-primary: hsl(209, 79%, 53%);

@@ -3,7 +3,7 @@ import AnalyseCtrl from './ctrl';
 
 import makeCtrl from './ctrl';
 import view from './view';
-import boot = require('./boot');
+import boot from './boot';
 import { Chessground } from 'chessground';
 import * as chat from 'chat';
 

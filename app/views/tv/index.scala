@@ -45,9 +45,7 @@ window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i
             div(cls := "underboard")(
               div(cls := "center")(
                 cross map { c =>
-                  div(cls := "crosstable")(
-                    views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
-                  )
+                  views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
                 }
               )
             )

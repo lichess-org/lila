@@ -70,7 +70,7 @@ object side {
     div(cls := "sides")(
       side(channel, champions, "/tv", pov.some),
       cross.map { c =>
-        div(cls := "crosstable")(views.html.game.crosstable(c, pov.gameId.some))
+        views.html.game.crosstable(c, pov.gameId.some)
       }
     )
 }

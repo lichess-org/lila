@@ -94,7 +94,7 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
                 game.turns > 1 option div(id := "movetimes-chart")
               ),
               cross.map { c =>
-                div(cls := "crosstable")(
+                div(cls := "ctable")(
                   views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
                 )
               }
@@ -108,7 +108,7 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
                 )(trans.computerAnalysis()),
               !game.isPgnImport option frag(
                 game.turns > 1 option span(dataPanel := "move-times", cls := "move-times")(trans.moveTimes()),
-                cross.isDefined option span(dataPanel := "crosstable", cls := "crosstable")(trans.crosstable())
+                cross.isDefined option span(dataPanel := "ctable", cls := "ctable")(trans.crosstable())
               ),
               span(dataPanel := "fen-pgn", cls := "fen-pgn")(raw("FEN &amp; PGN"))
             )
