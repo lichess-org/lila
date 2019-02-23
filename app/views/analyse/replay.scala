@@ -42,7 +42,6 @@ object replay {
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
       // chat = views.html.chat.frag.some,
-      // underchat = Some(views.html.round.bits underchat pov.game),
       moreCss = responsiveCssTag("analyse"),
       moreJs = frag(
         analyseTag,
@@ -65,53 +64,56 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
           h2("PGN downloads"),
           pgnLinks
         )
-        else div(cls := "analyse__underboard none")(
-          div(cls := "analyse__underboard__panels")(
-            game.analysable option div(cls := "computer-analysis")(
-              if (analysis.isDefined || analysisStarted) div(id := "adv-chart")
-              else form(
-                cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
-                action := routes.Analyse.requestAnalysis(gameId),
-                method := "post"
-              )(
-                  button(`type` := "submit", cls := "button text")(
-                    span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
+        else frag(
+          div(cls := "analyse__underboard none")(
+            div(cls := "analyse__underboard__panels")(
+              game.analysable option div(cls := "computer-analysis")(
+                if (analysis.isDefined || analysisStarted) div(id := "adv-chart")
+                else form(
+                  cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                  action := routes.Analyse.requestAnalysis(gameId),
+                  method := "post"
+                )(
+                    button(`type` := "submit", cls := "button text")(
+                      span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
+                    )
                   )
+              ),
+              div(cls := "fen-pgn")(
+                div(
+                  strong("FEN"),
+                  input(readonly := true, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
+                ),
+                div(cls := "pgn-options")(
+                  strong("PGN"),
+                  pgnLinks
+                ),
+                div(cls := "pgn")(pgn)
+              ),
+              div(cls := "move-times")(
+                game.turns > 1 option div(id := "movetimes-chart")
+              ),
+              cross.map { c =>
+                div(cls := "crosstable")(
+                  views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
                 )
+              }
             ),
-            div(cls := "fen-pgn")(
-              div(
-                strong("FEN"),
-                input(readonly := true, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
+            div(cls := "analyse__underboard__menu")(
+              game.analysable option
+                span(
+                  dataPanel := "computer-analysis",
+                  cls := "computer-analysis",
+                  title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
+                )(trans.computerAnalysis()),
+              !game.isPgnImport option frag(
+                game.turns > 1 option span(dataPanel := "move-times", cls := "move-times")(trans.moveTimes()),
+                cross.isDefined option span(dataPanel := "crosstable", cls := "crosstable")(trans.crosstable())
               ),
-              div(cls := "pgn-options")(
-                strong("PGN"),
-                pgnLinks
-              ),
-              div(cls := "pgn")(pgn)
-            ),
-            div(cls := "move-times")(
-              game.turns > 1 option div(id := "movetimes-chart")
-            ),
-            cross.map { c =>
-              div(cls := "crosstable")(
-                views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-              )
-            }
+              span(dataPanel := "fen-pgn", cls := "fen-pgn")(raw("FEN &amp; PGN"))
+            )
           ),
-          div(cls := "analyse__underboard__menu")(
-            game.analysable option
-              span(
-                dataPanel := "computer-analysis",
-                cls := "computer-analysis",
-                title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
-              )(trans.computerAnalysis()),
-            !game.isPgnImport option frag(
-              game.turns > 1 option span(dataPanel := "move-times", cls := "move-times")(trans.moveTimes()),
-              cross.isDefined option span(dataPanel := "crosstable", cls := "crosstable")(trans.crosstable())
-            ),
-            span(dataPanel := "fen-pgn", cls := "fen-pgn")(raw("FEN &amp; PGN"))
-          )
+          div(cls := "analyse__underchat none")(views.html.round.bits underchat pov.game)
         )
       ))
   }

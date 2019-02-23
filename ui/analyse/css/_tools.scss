@@ -10,7 +10,7 @@
       font-size: .9rem;
       line-height: 1.9em;
       background: mix($c-secondary, $c-bg-box, 40%);
-      padding-left: 7px;
+      padding: 0 7px;
     }
   }
 }
@@ -40,6 +40,7 @@
 
 .analyse__controls {
   height: $analyse-controls-height;
+  margin-top: #{-$block-gap};
   align-items: stretch;
   & div {
     display: flex;
@@ -51,6 +52,10 @@
   }
   & button {
     flex: 0 0 2.5rem;
+  }
+  & .active {
+    margin-top: -3px;
+    padding-top: 3px;
   }
   & ::before {
     vertical-align: middle;

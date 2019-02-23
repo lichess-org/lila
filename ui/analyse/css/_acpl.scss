@@ -1,0 +1,29 @@
+.advice-summary {
+  font-size: .9em;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  line-height: 1.15em;
+  & table {
+    width: 100%;
+  }
+  & td {
+    padding-right: .3em;
+    text-align: center;
+  }
+  & tbody td {
+    font-weight: bold;
+  }
+  & .color-icon::before {
+    vertical-align: text-bottom;
+  }
+  & tr.symbol {
+    cursor: pointer;
+  }
+  & tr.symbol:hover {
+    color: #3893E8;
+  }
+  & .button {
+    margin: $block-gap 0;
+  }
+}

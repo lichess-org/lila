@@ -19,7 +19,7 @@ object ui {
         h3("H3 header title"),
         h4("H4 header title"),
         div(cls := "buttons")(for {
-          state <- List("", "disabled")
+          state <- List("", "disabled", "active")
           full <- List("", "empty")
           size <- List("thin", "", "fat")
           color <- List("", "green", "red", "metal")

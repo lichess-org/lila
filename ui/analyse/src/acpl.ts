@@ -70,7 +70,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
 }
 
 function doRender(ctrl: AnalyseCtrl): VNode {
-  return h('div.advice_summary', {
+  return h('div.advice-summary', {
     hook: {
       insert: vnode => {
         $(vnode.elm as HTMLElement).on('click', 'tr.symbol', function(this: Element) {
@@ -98,5 +98,5 @@ export function render(ctrl: AnalyseCtrl): MaybeVNode {
   let cacheKey = '' + buster + !!ctrl.retro;
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
-  return thunk('div.advice_summary', doRender, [ctrl, cacheKey]);
+  return thunk('div.advice-summary', doRender, [ctrl, cacheKey]);
 }

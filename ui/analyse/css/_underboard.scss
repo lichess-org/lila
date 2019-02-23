@@ -1,4 +1,4 @@
-$panel-height: 220px;
+$panel-height: 230px;
 
 .analyse__underboard {
   &__menu {
@@ -8,12 +8,11 @@ $panel-height: 220px;
     height: 21px;
     & > span {
       @extend %roboto, %box-radius-bottom;
-      text-transform: uppercase;
       font-size: .9em;
       padding: .4em 1em;
       cursor: pointer;
       position: relative;
-      @include transition(color, .2s);
+      @include transition(color, .25s);
       &::after {
         content: "";
         background: fade-out($c-accent, .4);

@@ -30,6 +30,14 @@ export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
   }, redraw);
 }
 
+export function onInsert(f: (element: HTMLElement) => void): Hooks {
+  return {
+    insert: vnode => {
+      f(vnode.elm as HTMLElement)
+    }
+  };
+}
+
 export function readOnlyProp<A>(value: A): () => A {
   return function(): A {
     return value;

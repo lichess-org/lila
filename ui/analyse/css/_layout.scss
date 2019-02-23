@@ -23,6 +23,7 @@ $board-width: minmax($board-min-width, $board-max-width);
   &__underboard { grid-area: under; }
   &__acpl { grid-area: acpl; }
   &__side { grid-area: side; }
+  &__underchat { grid-area: uchat; }
   & .eval-gauge { grid-area: gauge; }
 
   @include breakpoint($mq-col2) {
@@ -48,7 +49,7 @@ $board-width: minmax($board-min-width, $board-max-width);
     grid-template-areas:
     '. side    . board gauge . tools    .'
     '. chat    . board gauge . tools    .'
-    '. .       . under under . controls .'
-    '. .       . under under . acpl     .';
+    '. uchat   . under under . controls .'
+    '. uchat   . under under . acpl     .';
   }
 }

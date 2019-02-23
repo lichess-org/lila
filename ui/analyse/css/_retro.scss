@@ -1,4 +1,8 @@
 .retro-box {
+  & .title {
+    display: flex;
+    justify-content: space-between;
+  }
   & .player.center {
     justify-content: center;
   }

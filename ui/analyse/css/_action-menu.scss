@@ -1,4 +1,5 @@
 .action-menu {
+  @extend %border-bottom-active;
   flex: 1 1 auto;
   display: flex;
   flex-flow: column;

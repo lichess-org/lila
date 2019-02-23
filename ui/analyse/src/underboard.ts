@@ -47,7 +47,6 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
       if ($timeChart.length) {
-        console.log(window.Highcharts);
         chart = window.Highcharts && $timeChart.highcharts();
         if (chart) {
           if (mainlinePly != chart.lastPly) {
