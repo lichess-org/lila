@@ -1,6 +1,8 @@
 @import 'default';
 
 $theme: 'dark';
+$theme-light: false;
+$theme-dark: true;
 
 @function c-dimmer($color, $weight: 20%) {
   @return mix(#000, $color, $weight);
@@ -80,6 +82,17 @@ $text-shadow: 0 1px 1px $c-font-shadow;
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsl(0, 0, 25), hsl(0, 0, 22) 100%);
 }
+
+@mixin scroll-shadows {
+  .scroll-shadow-soft,
+  .scroll-shadow-hard {
+    background: $c-bg-box linear-gradient(#262626 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #262626 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
+    background-attachment: local, local, scroll, scroll;
+  }
+}
+
 %metal {
   @include metal;
 }

@@ -71,7 +71,7 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   if (!group) return;
   const sets = groups[group];
   const said = ctrl.said();
-  return (sets && said.length < 2) ? h('div.presets', sets.map((p: Preset) => {
+  return (sets && said.length < 2) ? h('div.mchat__presets', sets.map((p: Preset) => {
     const disabled = said.indexOf(p.key) !== -1;
     return h('span', {
       class: {

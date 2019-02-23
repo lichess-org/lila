@@ -80,6 +80,7 @@ module.exports = function(cfg) {
       }
     }
   });
+  cfg.$side = $('.analyse__side').clone();
   cfg.onToggleComputer = function(v) {
     setTimeout(function() {
       if (v) $('div.analysis_menu a.computer_analysis').mousedown();
@@ -92,11 +93,6 @@ module.exports = function(cfg) {
   cfg.socketSend = lichess.socket.send;
   analyse = LichessAnalyse.start(cfg);
   cfg.jumpToIndex = analyse.jumpToIndex;
-
-  // if (cfg.chat) {
-  //   cfg.chat.parseMoves = true;
-  //   lichess.makeChat('chat', cfg.chat);
-  // }
 
   $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
 

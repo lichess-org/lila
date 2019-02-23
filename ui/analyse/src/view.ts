@@ -290,9 +290,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'player_bars': !!playerBars,
     }
   }, [
-    h('aside.analyse__side', [
-      "side"
-    ]),
     gaugeOn ? cevalView.renderGauge(ctrl) : null,
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
@@ -322,7 +319,13 @@ export default function(ctrl: AnalyseCtrl): VNode {
       class: { no_computer: !ctrl.showComputer() }
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     h('div.analyse__acpl', [acplView(ctrl)]),
-    ctrl.embed || synthetic(ctrl.data) ? null : h('div.analyse__side', [
+    ctrl.embed || synthetic(ctrl.data) ? null : h('aside.analyse__side', {
+      hook: {
+        insert(vnode) {
+          ctrl.opts.$side.length && $(vnode.elm as HTMLElement).replaceWith(ctrl.opts.$side);
+        }
+      }
+    }, [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
       playable(ctrl.data) ? h('div.back_to_game',
         h('a.button.text', {
@@ -330,8 +333,15 @@ export default function(ctrl: AnalyseCtrl): VNode {
             href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
             'data-icon': 'i'
           }
-        }, ctrl.trans('backToGame'))
+        }, ctrl.trans.noarg('backToGame'))
       ) : null
-    ])
+    ]),
+    ctrl.opts.chat && h('section.mchat', {
+      hook: {
+        insert(vnode) {
+          window.lichess.makeChat(vnode.elm as HTMLElement, {...ctrl.opts.chat, ...{parseMoves: true}});
+        }
+      }
+    })
   ]);
 }

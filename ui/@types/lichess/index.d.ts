@@ -40,7 +40,7 @@ interface Lichess {
   ab: any;
   challengeApp: any;
   hopscotch: any;
-  makeChat(id: string, data: any, callback?: (chat: any) => void): void;
+  makeChat(element: HTMLElement, data: any, callback?: (chat: any) => void): void;
   topMenuIntent(): void;
   timeago: {
     render(nodes: HTMLElement | HTMLElement[]): void;

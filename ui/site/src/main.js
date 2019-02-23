@@ -564,7 +564,7 @@ lichess.topMenuIntent = function() {
         return confirm($(this).attr('title') || 'Confirm this action?');
       });
 
-      $('div.content').on('click', 'a.bookmark', function() {
+      $('#main-wrap').on('click', 'a.bookmark', function() {
         var t = $(this).toggleClass("bookmarked");
         $.post(t.attr("href"));
         var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);

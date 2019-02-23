@@ -1,6 +1,10 @@
 $mq-col2: ($mq-medium, $mq-landscape);
 $mq-col3: $mq-x-large;
 
+$board-min-width: calc(70vmin * var(--board-scale));
+$board-max-width: calc(100vh * var(--board-scale) - #{$site-header-height} - 2 * #{$block-gap} - #{$analyse-controls-height});
+$board-width: minmax($board-min-width, $board-max-width);
+
 @mixin columns-with-gauge-col2($board-width, $gauge-width) {
   grid-template-columns: 1fr $board-width $gauge-width $block-gap minmax(200px, 400px) 1fr;
 }
@@ -21,10 +25,6 @@ $mq-col3: $mq-x-large;
   &__side { grid-area: side; }
   & .eval-gauge { grid-area: gauge; }
 
-  $board-min-width: calc(70vmin * var(--board-scale));
-  $board-max-width: calc(100vh * var(--board-scale) - 2 * #{$block-gap} - #{$site-header-height});
-  $board-width: minmax($board-min-width, $board-max-width);
-
   @include breakpoint($mq-col2) {
     @include columns-with-gauge-col2($board-width, 0);
     &.gauge-on {
@@ -40,12 +40,14 @@ $mq-col3: $mq-x-large;
   }
 
   @include breakpoint($mq-col3) {
+    grid-template-rows: max-content fit-content(0);
     @include columns-with-gauge-col3($board-width, 0);
     &.gauge-on {
       @include columns-with-gauge-col3($board-width, 1rem);
     }
     grid-template-areas:
     '. side    . board      gauge . tools    .'
+    '. chat    . board      gauge . tools    .'
     '. .       . underboard .     . controls .'
     '. .       . underboard .     . acpl     .';
   }

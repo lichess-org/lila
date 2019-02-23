@@ -248,6 +248,9 @@ lichess.unloadCss = function(url) {
       .remove();
   }
 }
+lichess.loadCssPath = function(path) {
+  lichess.loadCss(lichess.cssPath(path, path));
+}
 lichess.compiledScript = function(name) {
   return 'compiled/lichess.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 }
@@ -276,10 +279,10 @@ lichess.shepherd = function(f) {
     });
   });
 };
-lichess.makeChat = function(id, data, callback) {
-  lichess.requestIdleCallback(function() {
-    data.loadCss = lichess.loadCss;
-    (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
+lichess.makeChat = function(element, data, callback) {
+  lichess.raf(function() {
+    data.loadCss = lichess.loadCssPath;
+    (callback || $.noop)(LichessChat.default(element, data));
   });
 };
 

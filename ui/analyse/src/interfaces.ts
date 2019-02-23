@@ -100,6 +100,8 @@ export interface AnalyseOpts {
   practice?: StudyPracticeData;
   onToggleComputer?: (v: boolean) => void;
   relay?: RelayData;
+  $side: JQuery;
+  chat: any;
 }
 
 export interface CgDests {

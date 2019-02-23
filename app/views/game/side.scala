@@ -22,11 +22,11 @@ object side {
     bookmarked: Boolean
   )(implicit ctx: Context): Option[Frag] = ctx.noBlind option {
     import pov._
-    div(cls := "side")(
-      div(cls := "side_box padded")(
-        div(cls := "game_infos", dataIcon := bits.gameIcon(game))(
+    frag(
+      div(cls := "game__meta")(
+        div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
           div(cls := "header")(
-            span(cls := "setup")(
+            div(cls := "setup")(
               views.html.bookmark.toggle(game, bookmarked),
               if (game.imported) frag(
                 a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
@@ -66,7 +66,7 @@ object side {
             )
           }
         ),
-        div(cls := "players")(
+        div(cls := "game__meta__players")(
           game.players.map { p =>
             div(cls := s"player color-icon is ${p.color.name} text")(
               playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
@@ -79,7 +79,7 @@ object side {
             game.winner.map { winner =>
               frag(
                 separator,
-                winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+                winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious).frag()
               )
             }
           )
@@ -114,7 +114,7 @@ object side {
       },
 
       tour.map { t =>
-        div(cls := "game_tournament side_box no_padding scroll-shadow-soft")(
+        div(cls := "game__tournament scroll-shadow-soft")(
           p(cls := "top text", dataIcon := "g")(a(href := routes.Tournament.show(t.id))(t.fullName)),
           div(cls := "clock", dataTime := t.secondsToFinish)(
             div(cls := "time")(t.clockStatus)
@@ -122,15 +122,15 @@ object side {
         )
       } orElse {
         game.tournamentId map { tourId =>
-          div(cls := "game_tournament side_box no_padding")(
-            p(cls := "top text", dataIcon := "g")(a(href := routes.Tournament.show(tourId))(tournamentIdToName(tourId)))
+          div(cls := "game__tournament-link")(
+            a(href := routes.Tournament.show(tourId), dataIcon := "g", cls := "text")(tournamentIdToName(tourId))
           )
         }
       },
 
       simul.map { sim =>
-        div(cls := "game_simul side_box no_padding")(
-          p(cls := "top text", dataIcon := "|")(a(href := routes.Simul.show(sim.id))(sim.fullName))
+        div(cls := "game__simul-link")(
+          a(href := routes.Simul.show(sim.id), dataIcon := "|", cls := "text")(sim.fullName)
         )
       }
     )

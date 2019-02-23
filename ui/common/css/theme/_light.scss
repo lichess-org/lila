@@ -1,6 +1,8 @@
 @import 'default';
 
 $theme: 'light';
+$theme-light: true;
+$theme-dark: false;
 
 @mixin metal {
   background: linear-gradient(to bottom, hsl(0, 0, 96) 0%, hsl(0, 0, 93) 100%);
@@ -9,6 +11,21 @@ $theme: 'light';
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsl(0, 0, 98) 0%, hsl(0, 0, 95) 100%);
   text-shadow: 0 1px 0 #fff;
+}
+
+@mixin scroll-shadows {
+  .scroll-shadow-soft,
+  .scroll-shadow-hard {
+    background-repeat: no-repeat;
+    background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
+    background-attachment: local, local, scroll, scroll;
+  }
+  .scroll-shadow-soft {
+    background: $c-bg-box linear-gradient(#eee 30%, rgba(247, 247, 247, 0)), linear-gradient(rgba(247, 247, 247, 0), #eee 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  }
+  .scroll-shadow-hard {
+    background: $c-bg-box linear-gradient(#fff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  }
 }
 
 %metal {

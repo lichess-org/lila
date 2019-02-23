@@ -41,9 +41,8 @@ object replay {
 
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = views.html.chat.frag.some,
-      underchat = Some(views.html.round.bits underchat pov.game),
+      // chat = views.html.chat.frag.some,
+      // underchat = Some(views.html.round.bits underchat pov.game),
       moreCss = responsiveCssTag("analyse"),
       moreJs = frag(
         analyseTag,
@@ -55,7 +54,9 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
       openGraph = povOpenGraph(pov).some
     )(frag(
         main(cls := "analyse")(
-          st.aside(cls := "analyse__side")(spinner),
+          st.aside(cls := "analyse__side")(
+            views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)
+          ),
           div(cls := "analyse__board main-board")(chessgroundSvg),
           div(cls := "analyse__tools"),
           div(cls := "analyse__controls")

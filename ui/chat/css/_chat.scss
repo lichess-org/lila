@@ -1,0 +1,149 @@
+.mchat {
+  @extend %box-neat-force, %flex-column;
+  grid-area: chat;
+  body.kid & {
+    display: none;
+  }
+  &__tabs {
+    flex: 0 0 auto;
+    display: flex;
+    &:not(.nb_1) .mchat__tab-active {
+      border-bottom-color: transparent;
+    }
+  }
+  &__tab {
+    @extend %roboto, %box-radius-top;
+    flex: 1 1 auto;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px 10px;
+    // background: $c-shade;
+    opacity: 0.7;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+    &-active {
+      opacity: 1;
+      background: $c-bg-box;
+    }
+    & input {
+      cursor: pointer;
+      display: none;
+    }
+    &-active input {
+      display: block;
+    }
+    & span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+  &-optional .mchat__tab.discussion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__content {
+    @extend %flex-column;
+    background: $c-bg-box;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+  &__note textarea {
+    flex-grow: 1;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    color: #707070;
+    line-height: 1.7em;
+    outline: none;
+    resize: none;
+  }
+  &__messages {
+    @extend %break-word;
+    height: 100%;
+    overflow: hidden;
+    .mchat:hover & {
+      overflow-y: auto;
+    }
+    cursor: initial;
+    font-size: .9em;
+    & li {
+      padding: .5em 0 .5em 10px;
+      line-height: 1.2em;
+      overflow-y: hidden;
+      user-select: text;
+    }
+    & .deleted {
+      opacity: 0.5;
+    }
+    & .system {
+      display: block;
+      opacity: 0.8;
+      font-style: italic;
+      font-size: 0.8em;
+      margin-left: 0;
+      text-align: center;
+    }
+    & .color,
+    & .user_link {
+      font-weight: bold;
+      padding: 0;
+      color: $c-font-dim;
+      word-spacing: 0.3em;
+      letter-spacing: -1px;
+    }
+    & .title {
+      margin-right: 3px;
+    }
+    & a:not(.user_link) {
+      @extend %roboto;
+    }
+  }
+  &__say {
+    flex: 0 0 auto;
+    border: 0;
+    border-top: $border;
+    border-radius: 0;
+    padding: 3px 20px 3px 4px;
+    &.whisper {
+      color: $c-good;
+      font-weight: bold;
+      font-style: italic;
+    }
+  }
+  &__presets {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    flex-flow: row nowrap;
+    & span {
+      flex: 1 1 auto;
+      text-align: center;
+      display: block;
+      opacity: 0.7;
+      border: $border;
+      border-width: 1px 1px 0 0;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    & span:not(.disabled) {
+      cursor: pointer;
+    }
+    & span.disabled {
+      color: transparent;
+    }
+    & span:not(.disabled):hover {
+      background: $c-primary;
+      color: $c-primary-over;
+      opacity: 1;
+    }
+  }
+}

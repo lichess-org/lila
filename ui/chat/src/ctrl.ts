@@ -74,7 +74,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       send: li.pubsub.emit('socket.send'),
       redraw
     }) : undefined;
-    if (canMod()) opts.loadCss('stylesheets/chat.mod.css');
+    if (canMod()) opts.loadCss('chat.mod');
   }
   instanciateModeration();
 
@@ -116,7 +116,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat input.lichess_say').focus());
+      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat__say').focus());
       redraw();
     },
     moderation: () => moderation,

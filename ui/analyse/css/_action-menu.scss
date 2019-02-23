@@ -44,6 +44,7 @@
     & .button {
       color: $c-font;
       text-transform: none;
+      white-space: normal;
       &::before {
         display: block;
         font-size: 2em;

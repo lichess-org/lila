@@ -1,6 +1,6 @@
 $td-outer-height-ratio: 476 / 512;
-$td-inner-height-ratio: 464.5 / 512;
 $td-outer-height-percent: $td-outer-height-ratio * 100%;
+$td-inner-height-ratio: 464.5 / 512;
 $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 100%;
 
 .is3d .main-board {
@@ -128,4 +128,11 @@ $piece-files: (
   top: -6px;
   background-size: cover;
   background-position: 0 67%;
+}
+
+.is3d .analyse .main-board,
+.is3d .analyse .eval-gauge,
+.is3d .puzzle .main-board,
+.is3d .puzzle .eval-gauge {
+  margin-top: 5vmin;
 }
