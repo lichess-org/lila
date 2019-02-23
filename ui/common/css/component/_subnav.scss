@@ -31,22 +31,36 @@
   }
 
   @include breakpoint($mq-subnav-side) {
+    & {
+      margin-top: 5px;
+      z-index: z('subnav-side'); /* active border must go over the page content */
+    }
     & a {
       display: block;
       color: $c-font-dim;
       padding: .7rem 2vw .7rem .8rem;
-      border-bottom: $border;
-      border-left: 1px solid transparent;
+      // border-bottom: $border;
+      position: relative;
       @include transition();
+      &::after {
+        content: "";
+        background: fade-out($c-accent, .4);
+        width: 3px;
+        position: absolute;
+        height: 98%;
+        top: 1%;
+        right: -1px;
+        @include transition(all, .25s);
+        transform: scale(0);
+      }
+      &.active,
       &:hover {
-        color: $c-link;
-        background: mix($c-bg-high, $c-bg-page, 25%);
+        &::after {
+          transform: scale(1);
+        }
       }
       &.active {
-        color: $c-font;
-        border-radius: $box-radius-size 0 0 $box-radius-size;
-        border-left: $border;
-        background: $c-bg-high;
+        color: $c-accent;
       }
     }
     & .sep {
