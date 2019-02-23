@@ -45,9 +45,7 @@ window.onload = function() { ${pov ?? roundJs} }"""
             div(cls := "underboard")(
               div(cls := "center")(
                 cross map { c =>
-                  div(cls := "crosstable")(
-                    pov ?? { p => views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), p.gameId.some) }
-                  )
+                  pov ?? { p => views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), p.gameId.some) }
                 }
               )
             )

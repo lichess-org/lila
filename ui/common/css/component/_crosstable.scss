@@ -1,0 +1,91 @@
+.crosstable {
+  @extend %box-neat-force;
+  width: 100%;
+  display: flex;
+  line-height: 1.9em;
+  & fill,
+  & povs {
+    background: $c-bg-box;
+    flex: 1 1 auto;
+  }
+  & fill::before {
+    border-bottom: 1px solid $c-bg-page;
+    content: '';
+    height: 50%;
+    display: block;
+  }
+  & povs,
+  &__users,
+  &__score,
+  &__matchup {
+    @extend %flex-column;
+    text-align: center;
+    & > :first-child {
+      border-bottom: 1px solid $c-bg-page;
+    }
+  }
+  &__users,
+  &__score {
+    @extend %metal;
+    &,
+    & > :first-child {
+      border-color: $c-border;
+    }
+  }
+  &__users {
+    flex: 8 1 auto;
+    overflow: hidden;
+    text-align: left;
+    & a {
+      padding-left: $block-gap;
+    }
+  }
+  &__score {
+    flex: 0 0 auto;
+    font-weight: bold;
+    & span {
+      padding: 0 $block-gap;
+    }
+  }
+  &__matchup {
+    flex: 1 1 auto;
+    font-weight: bold;
+    background: mix($c-primary, $c-bg-box, 20%);
+    & span:first-child {
+      border-color: $c-primary;
+    }
+  }
+  & povs {
+    & a {
+      color: $c-font-dim;
+      flex: 0 0 50%;
+      @include transition();
+    }
+    &:hover a {
+      background: mix($c-accent, $c-bg-box, 12%);
+    }
+    &.current a {
+      background: mix($c-accent, $c-bg-box, 70%);
+      color: #fff;
+    }
+    &.new {
+      border: $c-border;
+    }
+  }
+  & .sep {
+    @extend %box-radius-left;
+    border-left: $border;
+    margin-left: .3em;
+  }
+  & .win {
+    font-weight: bold;
+    color: $c-good;
+  }
+  & .loss {
+    color: $c-bad;
+  }
+  & .unavailable {
+    margin-top: 40px;
+    opacity: 0.7;
+  }
+}
