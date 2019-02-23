@@ -49,6 +49,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
+  startedAtTurn: number;
   source: Source;
   speed: Speed;
   variant: Variant;
@@ -100,7 +101,6 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: StudyPracticeData;
-  onToggleComputer?: (v: boolean) => void;
   relay?: RelayData;
   $side: JQuery;
   chat: any;

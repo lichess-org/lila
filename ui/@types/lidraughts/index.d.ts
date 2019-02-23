@@ -59,6 +59,8 @@ interface Lidraughts {
     render(ctrl: any): any;
   }
   playMusic(): void;
+  spinnerHtml: string;
+  movetimeChart: any;
 }
 
 interface Cookie {

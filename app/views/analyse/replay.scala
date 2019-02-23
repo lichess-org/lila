@@ -37,7 +37,7 @@ object replay {
       a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
       a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(trans.downloadRaw()),
       game.isPdnImport option a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?imported=1")(trans.downloadImported()),
-      ctx.noBlind option a(dataIcon := "=", cls := "text embed_howto", target := "_blank")(trans.embedInYourWebsite())
+      ctx.noBlind option a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(trans.embedInYourWebsite())
     )
 
     bits.layout(
@@ -66,12 +66,12 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
           h2("PDN downloads"),
           pdnLinks
         )
-        else div(cls := "underboard_content none")(
-          div(cls := "analysis_panels")(
-            game.analysable option div(cls := "panel computer_analysis")(
-              if (analysis.isDefined || analysisStarted) div(id := "adv_chart")
+        else div(cls := "analyse__underboard none")(
+          div(cls := "analyse__underboard__panels")(
+            game.analysable option div(cls := "computer-analysis")(
+              if (analysis.isDefined || analysisStarted) div(id := "adv-chart")
               else form(
-                cls := s"future_game_analysis${ctx.isAnon ?? " must_login"}",
+                cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
                 action := routes.Analyse.requestAnalysis(gameId),
                 method := "post"
               )(
@@ -80,38 +80,38 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
                   )
                 )
             ),
-            div(cls := "panel fen_pdn")(
+            div(cls := "fen-pdn")(
               div(
                 strong("FEN"),
-                input(readonly := true, spellcheck := false, cls := "copyable autoselect fen")
+                input(readonly := true, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
               ),
-              div(cls := "pdn_options")(
+              div(cls := "pdn-options")(
                 strong("PDN"),
                 pdnLinks
               ),
               div(cls := "pdn")(pdn)
             ),
-            div(cls := "panel move_times")(
-              game.turns > 1 option div(id := "movetimes_chart")
+            div(cls := "move-times")(
+              game.turns > 1 option div(id := "movetimes-chart")
             ),
             cross.map { c =>
-              div(cls := "panel crosstable")(
+              div(cls := "crosstable")(
                 views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
               )
             }
           ),
-          div(cls := "analysis_menu")(
+          div(cls := "analyse__underboard__menu")(
             game.analysable option
-              a(
-                dataPanel := "computer_analysis",
-                cls := "computer_analysis",
+              span(
+                dataPanel := "computer-analysis",
+                cls := "computer-analysis",
                 title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
               )(trans.computerAnalysis()),
             !game.isPdnImport option frag(
-              game.turns > 1 option a(dataPanel := "move_times", cls := "move_times")(trans.moveTimes()),
-              cross.isDefined option a(dataPanel := "crosstable", cls := "crosstable")(trans.crosstable())
+              game.turns > 1 option span(dataPanel := "move-times", cls := "move-times")(trans.moveTimes()),
+              cross.isDefined option span(dataPanel := "crosstable", cls := "crosstable")(trans.crosstable())
             ),
-            a(dataPanel := "fen_pdn", cls := "fen_pdn")(raw("FEN &amp; PDN"))
+            span(dataPanel := "fen-pdn", cls := "fen-pdn")(raw("FEN &amp; PDN"))
           )
         )
       ))

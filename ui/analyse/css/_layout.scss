@@ -20,7 +20,7 @@ $board-width: minmax($board-min-width, $board-max-width);
   &__board { grid-area: board; }
   &__tools { grid-area: tools; }
   &__controls { grid-area: controls; }
-  &__underboard { grid-area: underboard; }
+  &__underboard { grid-area: under; }
   &__acpl { grid-area: acpl; }
   &__side { grid-area: side; }
   & .eval-gauge { grid-area: gauge; }
@@ -33,7 +33,7 @@ $board-width: minmax($board-min-width, $board-max-width);
     grid-template-rows: fit-content(0);
     grid-template-areas:
     '. board      gauge .    tools    .'
-    '. underboard .     .    controls .'
+    '. under      under .    controls .'
     '. side       side  side acpl     .';
     grid-row-gap: $block-gap;
     &__moves { display: block; }
@@ -46,9 +46,9 @@ $board-width: minmax($board-min-width, $board-max-width);
       @include columns-with-gauge-col3($board-width, 1rem);
     }
     grid-template-areas:
-    '. side    . board      gauge . tools    .'
-    '. chat    . board      gauge . tools    .'
-    '. .       . underboard .     . controls .'
-    '. .       . underboard .     . acpl     .';
+    '. side    . board gauge . tools    .'
+    '. chat    . board gauge . tools    .'
+    '. .       . under under . controls .'
+    '. .       . under under . acpl     .';
   }
 }
