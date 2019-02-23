@@ -85,7 +85,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
   return h('table.games', [
     h('thead', [
       h('tr', [
-        h('th', { attrs: { colspan: 4 } }, title)
+        h('th.title', { attrs: { colspan: 4 } }, title)
       ])
     ]),
     h('tbody', {

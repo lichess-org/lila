@@ -9,7 +9,7 @@
     .title {
       font-size: .9rem;
       line-height: 1.9em;
-      background: $c-secondary;
+      background: mix($c-secondary, $c-bg-box, 60%);
       color: $c-secondary-over;
       padding-left: 7px;
     }
@@ -40,7 +40,7 @@
 }
 
 .analyse__controls {
-  height: 2.5rem;
+  height: $analyse-controls-height;
   align-items: stretch;
   & div {
     display: flex;

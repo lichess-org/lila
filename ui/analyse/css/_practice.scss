@@ -5,8 +5,8 @@
     flex: 0 0 30px;
     display: flex;
     align-items: stretch;
-    background: #f8f8f8;
-    border-top: 1px solid #ddd;
+    background: $c-bg-zebra;
+    border-top: 1px solid $border;
     white-space: nowrap;
     line-height: 30px;
   }

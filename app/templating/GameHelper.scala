@@ -99,8 +99,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsText(game, withRatings)(lightUser)
 
-  val berserkIconSpan = """<span data-icon="`"></span>"""
-  val statusIconSpan = """<span class="status"></span>"""
+  val berserkIconSpan = """<i data-icon="`"></i>"""
+  val statusIconSpan = """<i class="status"></i>"""
 
   def playerLink(
     player: Player,
@@ -115,8 +115,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     link: Boolean = true
   )(implicit ctx: UserContext) = Html {
     val statusIcon =
-      if (withStatus) statusIconSpan
-      else if (withBerserk && player.berserk) berserkIconSpan
+      if (withStatus) s" $statusIconSpan"
+      else if (withBerserk && player.berserk) s" $berserkIconSpan"
       else ""
     player.userId.flatMap(lightUser) match {
       case None =>

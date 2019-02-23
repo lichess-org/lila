@@ -66,26 +66,29 @@
     display: inline-block;
     overflow: hidden;
     vertical-align: middle;
-    border: 0px solid $c-border;
+    border: 0 solid $c-border;
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;
     font-size: .9em;
   }
   & .white {
-    background: #fff;
-    box-shadow: 0 -5px 7px rgba(0,0,0,0.1) inset;
+    background: if($theme-light, #fff, #ccc);
+    box-shadow: 0 -5px 7px rgba(0,0,0,if($theme-light, .1, .25)) inset;
+    @if $theme-dark {
+      color: #222;
+    }
   }
   & .draws,
   & .black {
-    color: #fff;
-    box-shadow: 0 5px 7px rgba(255,255,255,0.2) inset;
+    color: if($theme-light, #fff, #ddd);
+    box-shadow: 0 5px 7px rgba(255,255,255, if($theme-light, .2, .1)) inset;
   }
   & .draws {
-    background: #a0a0a0;
+    background: if($theme-light, #a0a0a0, #666);
   }
   & .black {
-    background: #555;
+    background: if($theme-light, #555, #333);
     color: #ddd;
   }
   & .bar span:first-child {

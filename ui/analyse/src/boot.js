@@ -100,6 +100,7 @@ module.exports = function(cfg) {
       }
     }
   });
+  cfg.$side = $('.analyse__side').clone();
   cfg.onToggleComputer = function(v) {
     setTimeout(function() {
       if (v) $('div.analysis_menu a.computer_analysis').mousedown();
@@ -112,11 +113,6 @@ module.exports = function(cfg) {
   cfg.socketSend = lidraughts.socket.send;
   analyse = LidraughtsAnalyse.start(cfg);
   cfg.jumpToIndex = analyse.jumpToIndex;
-
-  // if (cfg.chat) {
-  //   cfg.chat.parseMoves = true;
-  //   lidraughts.makeChat('chat', cfg.chat);
-  // }
 
   $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
 

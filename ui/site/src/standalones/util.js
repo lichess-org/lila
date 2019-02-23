@@ -248,6 +248,9 @@ lidraughts.unloadCss = function(url) {
       .remove();
   }
 }
+lidraughts.loadCssPath = function(path) {
+  lidraughts.loadCss(lidraughts.cssPath(path, path));
+}
 lidraughts.compiledScript = function(name) {
   return 'compiled/lidraughts.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 }
@@ -276,10 +279,10 @@ lidraughts.shepherd = function(f) {
     });
   });
 };
-lidraughts.makeChat = function(id, data, callback) {
-  lidraughts.requestIdleCallback(function() {
-    data.loadCss = lidraughts.loadCss;
-    (callback || $.noop)(LidraughtsChat.default(document.getElementById(id), data));
+lidraughts.makeChat = function(element, data, callback) {
+  lidraughts.raf(function() {
+    data.loadCss = lidraughts.loadCssPath;
+    (callback || $.noop)(LidraughtsChat.default(element, data));
   });
 };
 

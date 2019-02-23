@@ -35,6 +35,7 @@ object bits {
       moreCss = moreCss,
       moreJs = moreJs,
       responsive = true,
+      fullScreen = true,
       openGraph = openGraph,
       draughtsground = false,
       robots = false,
