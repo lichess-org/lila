@@ -1,0 +1,9 @@
+.chat__members {
+  font-size: .9em;
+  // min-height: 5em;
+  // max-height: 9em;
+  overflow: hidden;
+  &.hidden {
+    visibility: hidden;
+  }
+}

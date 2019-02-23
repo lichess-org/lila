@@ -1,0 +1,47 @@
+.mchat {
+  &__tabs {
+    flex: 0 0 auto;
+    display: flex;
+    &:not(.nb_1) .mchat__tab-active {
+      border-bottom-color: transparent;
+    }
+  }
+  &__tab {
+    @extend %roboto, %box-radius-top;
+    flex: 1 1 auto;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px 10px;
+    // background: $c-shade;
+    opacity: 0.7;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+    &-active {
+      opacity: 1;
+      background: $c-bg-box;
+    }
+    & input {
+      cursor: pointer;
+      display: none;
+    }
+    &-active input {
+      display: block;
+    }
+    & span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+  &-optional .mchat__tab.discussion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
