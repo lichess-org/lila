@@ -15,15 +15,15 @@ object close {
   ) {
     div(cls := "account box box-pad")(
       h1(dataIcon := "j", cls := "text")(trans.closeAccount.frag()),
-          st.form(cls := "form3", action := routes.Account.closeConfirm, method := "POST")(
-            div(cls := "form-group")(trans.closeAccountExplanation.frag()),
-            div(cls := "form-group")("You will not be allowed to open a new account with the same name, even if the case if different."),
-            form3.passwordNoAutocomplete(form("passwd"), trans.password.frag()),
-            form3.actions(frag(
-              a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount.frag()),
-              form3.submit(
-                trans.closeAccount.frag(),
-                icon = "j".some,
+      st.form(cls := "form3", action := routes.Account.closeConfirm, method := "POST")(
+        div(cls := "form-group")(trans.closeAccountExplanation.frag()),
+        div(cls := "form-group")("You will not be allowed to open a new account with the same name, even if the case if different."),
+        form3.passwordNoAutocomplete(form("passwd"), trans.password.frag()),
+        form3.actions(frag(
+          a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount.frag()),
+          form3.submit(
+            trans.closeAccount.frag(),
+            icon = "j".some,
             confirm = "Closing is definitive. There is no going back. Are you sure?".some,
             klass = "button-red"
           )
