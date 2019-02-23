@@ -57,8 +57,5 @@
 .game__tournament,
 .game__tournament-link,
 .game__simul-link {
-  @extend %box-neat;
   margin-top: $block-gap;
-  background: $c-bg-box;
-  padding: #{$block-gap * 0.6} $block-gap;
 }
