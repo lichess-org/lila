@@ -1,4 +1,5 @@
 .explorer-box {
+  @extend %border-bottom-active;
   position: relative;
   flex: 2.5 1 0px;
   white-space: nowrap;

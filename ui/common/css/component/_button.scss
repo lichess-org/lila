@@ -44,9 +44,6 @@
       background: lighten($c-error, 11);
     }
   }
-  &.active {
-    @extend %active;
-  }
   &.button-empty {
     transition: none;
     &,
@@ -87,5 +84,11 @@
   &.disabled {
     opacity: .5;
     cursor: not-allowed;
+  }
+  &.active {
+    @extend %active;
+  }
+  &.active:not(.disabled):hover {
+    @extend %active-hover;
   }
 }

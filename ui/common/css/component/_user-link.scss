@@ -38,4 +38,13 @@
       color: $c-bot;
     }
   }
+  & .rp:before {
+    content: " ";
+  }
+  & .rp.up {
+    color: $c-good;
+  }
+  & .rp.down {
+    color: $c-bad;
+  }
 }

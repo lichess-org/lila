@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as draughtsground from './ground';
-import { synthetic, bind, dataIcon, spinner } from './util';
+import { synthetic, bind, onInsert, dataIcon, spinner } from './util';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -343,19 +343,13 @@ export default function(ctrl: AnalyseCtrl): VNode {
     controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },
-      hook: {
-        insert(vnode) {
-          underboard(vnode.elm as HTMLElement, ctrl);
-        }
-      }
+      hook: onInsert(elm => underboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     intro ? null : h('div.analyse__acpl', [acplView(ctrl)]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('aside.analyse__side', {
-      hook: {
-        insert(vnode) {
-          ctrl.opts.$side.length && $(vnode.elm as HTMLElement).replaceWith(ctrl.opts.$side);
-        }
-      }
+      hook: onInsert(elm => {
+        ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+      })
     }, [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
       playable(ctrl.data) ? h('div.back_to_game',
@@ -368,11 +362,15 @@ export default function(ctrl: AnalyseCtrl): VNode {
       ) : null
     ]),
     ctrl.opts.chat && h('section.mchat', {
-      hook: {
-        insert(vnode) {
-          window.lidraughts.makeChat(vnode.elm as HTMLElement, {...ctrl.opts.chat, ...{parseMoves: true}});
-        }
-      }
+      hook: onInsert(elm => {
+        ctrl.opts.chat.parseMoves = true;
+        window.lidraughts.makeChat(elm, ctrl.opts.chat);
+      })
+    }),
+    h('div.analyse__underchat', {
+      hook: onInsert(elm => {
+        $(elm).replaceWith($('.analyse__underchat.none').removeClass('none'));
+      })
     })
   ]);
 }

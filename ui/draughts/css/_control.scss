@@ -5,15 +5,15 @@
   font-size: 1.3rem;
   & button,
   & a {
-    @extend %box-radius;
+    @extend %box-radius-bottom;
     background: none;
     border: none;
     outline: none;
   }
-  & button.hidden {
+  & .hidden {
     visibility: hidden;
   }
-  &  button.disabled {
+  & .disabled {
     opacity: 0.5;
     cursor: default;
   }
@@ -22,9 +22,8 @@
     background: mix($c-secondary, $c-bg-box, 75%);
     color: #fff;
   }
-  & button:active,
-  & button.active {
-    background: $c-secondary;
+  & .active {
+    background: $c-secondary!important;
     color: #fff;
   }
   & .features {
@@ -37,7 +36,7 @@
       &:first-child,
       &:last-child {
         flex: 1 1 20%;
-        font-size: 0.7em;
+        font-size: .7em;
       }
     }
   }
