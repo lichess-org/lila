@@ -1,4 +1,4 @@
-import { AnalyseOpts } from './interfaces';
+import { AnalyseApi, AnalyseOpts } from './interfaces';
 import AnalyseCtrl from './ctrl';
 
 import makeCtrl from './ctrl';
@@ -14,7 +14,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 export const patch = init([klass, attributes]);
 
-export function start(opts: AnalyseOpts) {
+export function start(opts: AnalyseOpts): AnalyseApi {
 
   let vnode: VNode, ctrl: AnalyseCtrl;
 

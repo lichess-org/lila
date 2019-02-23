@@ -64,6 +64,15 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
     });
+    li.pubsub.on('socket.in.analysisProgress', d => {
+      const partial = !d.tree.eval;
+      if (!li.advantageChart) startAdvantageChart();
+      else if (li.advantageChart.update) li.advantageChart.update(data, partial);
+      if (!partial) {
+        li.pubsub.emit('analysis.server.complete')();
+        $("#adv-chart-loader").remove();
+      }
+    });
   }
 
   var chartLoader = function() {

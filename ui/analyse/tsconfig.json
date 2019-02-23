@@ -2,7 +2,7 @@
   "include": ["src/*.ts", "src/*.js"],
   "exclude": [],
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noEmitOnError": true,
