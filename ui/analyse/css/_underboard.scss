@@ -4,7 +4,7 @@ $panel-height: 220px;
   &__menu {
     @extend %flex-center;
     justify-content: center;
-    border-top: $border;
+    border-top: 2px solid $c-border;
     height: 21px;
     & > span {
       @extend %roboto, %box-radius-bottom;
@@ -12,13 +12,27 @@ $panel-height: 220px;
       font-size: .9em;
       padding: .4em 1em;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
+      position: relative;
+      @include transition(color, .2s);
+      &::after {
+        content: "";
+        background: fade-out($c-accent, .4);
+        height: 2px;
+        position: absolute;
+        width: 96%;
+        left: 2%;
+        top: -2px;
+        @include transition(all, .25s);
+        transform: scale(0);
+      }
+      &.active,
       &:hover {
-        background: mix($c-bg-box, $c-bg-page, 50%);
+        &::after {
+          transform: scale(1);
+        }
       }
       &.active {
-        background: $c-bg-box;
-        border-color: $c-accent;
+        color: $c-accent;
       }
     }
   }
