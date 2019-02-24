@@ -1,0 +1,159 @@
+$mq-room-for-moves: $mq-x-small $mq-short;
+
+$col1-player-clock-height: 60px;
+$col1-clock-height: 60px;
+$col1-controls-height: 60px;
+$col1-moves-height: 9rem;
+
+$col2-material-height: 40px;
+$col2-clock-height: auto;
+$col2-player-height: 40px;
+$col2-moves-height: auto;
+$col2-controls-height: auto;
+
+@mixin col2-grid-columns-with-gaps($sides, $center) {
+  grid-template-columns:
+  $sides
+  $board-width
+  $center
+  minmax(250px, 320px)
+  $sides;
+}
+
+@mixin col2-grid-rows-with-moves($moves) {
+  grid-template-rows:
+  auto
+  $col2-material-height
+  $col2-clock-height
+  $col2-player-height
+  $moves
+  $col2-controls-height
+  $col2-player-height
+  $col2-clock-height
+  $col2-material-height
+  auto;
+}
+
+.round__app {
+  display: grid;
+
+  grid-template-columns: 3fr 1fr;
+
+  grid-template-rows:
+  $col1-player-clock-height
+  auto
+  $col1-player-clock-height
+  $col1-controls-height
+  $col1-moves-height;
+
+  grid-template-areas:
+  "user-top clock-top"
+  "board   board"
+  "user-bottom clock-bottom"
+  "controls controls"
+  "moves   moves";
+
+  &__table {
+    display: none;
+  }
+
+  @include breakpoint($mq-col2) {
+    @include col2-grid-columns-with-gaps(auto, minmax($block-gap, auto));
+    @include col2-grid-rows-with-moves(0);
+    grid-template-areas:
+    ". board . ."
+    ". board . mat-top"
+    ". board . clock-top"
+    ". board . user-top"
+    ". board . ."
+    ". board . controls"
+    ". board . user-bottom"
+    ". board . clock-bottom"
+    ". board . mat-bottom"
+    ". board . .";
+    &__table {
+      display: block;
+      grid-area: 4 / 4 / 8 / 5;
+    }
+    @include breakpoint($mq-room-for-moves) {
+      @include col2-grid-rows-with-moves($col2-moves-height);
+      grid-template-areas:
+      ". board . ."
+      ". board . mat-top"
+      ". board . clock-top"
+      ". board . user-top"
+      ". board . moves"
+      ". board . controls"
+      ". board . user-bottom"
+      ". board . clock-bottom"
+      ". board . mat-bottom"
+      ". board . .";
+    }
+  }
+
+  @include breakpoint($mq-col3) {
+    @include col2-grid-columns-with-gaps(0, $block-gap);
+    grid-template-areas:
+    ". board . ."
+    ". board . mat-top"
+    ". board . clock-top"
+    ". board . user-top"
+    ". board . moves"
+    ". board . controls"
+    ". board . user-bottom"
+    ". board . clock-bottom"
+    ". board . mat-bottom"
+    ". board . .";
+  }
+
+  &__board {
+    grid-area: board;
+    @include breakpoint($mq-col2) {
+      /* Align vertically when zoomed out */
+      // display: flex;
+      // flex-flow: column;
+      // justify-content: center;
+    }
+    @include breakpoint($mq-portrait) {
+      /* In portrait single column, make sure both clocks and the board fit in the viewport. If they don't, limit the board width */
+      max-width: calc(100vh - #{$site-header-height} - #{$col1-clock-height * 2});
+    }
+    & .cg-board-wrap {
+      @extend %square;
+    }
+  }
+  & .material-top {
+    grid-area: mat-top;
+  }
+  & .material-bottom {
+    grid-area: mat-bottom;
+  }
+  &__user-top {
+    @extend %round__app__user;
+    grid-area: user-top;
+  }
+  &__user-bottom {
+    @extend %round__app__user;
+    grid-area: user-bottom;
+  }
+  .rclock-top { grid-area: clock-top; }
+  .rclock-bottom { grid-area: clock-bottom; }
+  &__moves {
+    grid-area: moves;
+    @include breakpoint($mq-col2) {
+      display: none;
+      @include breakpoint($mq-room-for-moves) {
+        height: 15vh;
+        display: flex;
+      }
+    }
+  }
+  &__controls { grid-area: controls; }
+}
+
+%round__app__user {
+  white-space: nowrap;
+  justify-content: left;
+  padding: 0.5rem;
+  text-transform: none;
+}

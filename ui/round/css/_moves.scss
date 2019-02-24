@@ -1,0 +1,77 @@
+.round__app__moves {
+  border: $border;
+  border-width: 1px 0;
+  overflow: auto;
+  position: relative;
+  will-change: scroll-position;
+  user-select: none;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  & index,
+  & move {
+    height: 25px;
+    line-height: 25px;
+  }
+  & index {
+    display: flex;
+    flex: 0 0 15%;
+    line-height: 27px;
+    background: #e6e6e6;
+    justify-content: center;
+    font-family: 'Roboto';
+    font-weight: 300;
+  }
+  & move {
+    @extend %chess-font;
+    flex: 0 0 42.5%;
+    font-size: 17px;
+    line-height: 28px;
+    padding-left: 8px;
+    body.piece_letter & {
+      @extend %base-font;
+      font-size: 15px;
+      line-height: 25px;
+    }
+    &:not(.empty) {
+      cursor: pointer;
+    }
+    &:not(.empty):hover {
+      background: #e6e6e6;
+    }
+    &.active {
+      font-weight: bold;
+      background: rgba(56,147,232,0.1)!important;
+    }
+  }
+  & .result_wrap {
+    width: 100%;
+  }
+  & .result,
+  & .status {
+    text-align: center;
+  }
+  & .result {
+    border-top: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 5px 0 3px 0;
+  }
+  & .status {
+    font-size: 1em;
+    font-style: italic;
+    padding-bottom: 7px;
+  }
+  & .buttons {
+    border-top: $border;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+  }
+  & .button {
+    padding: 5px 10px;
+  }
+  & .noop {
+    width: 30px;
+  }
+}

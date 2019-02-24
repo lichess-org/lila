@@ -2,10 +2,10 @@ $mq-col2: ($mq-medium, $mq-landscape);
 $mq-col3: $mq-x-large;
 
 @mixin columns-with-gauge-col2($board-width, $gauge-width) {
-  grid-template-columns: 1fr $board-width $gauge-width $block-gap minmax(200px, 400px) 1fr;
+  grid-template-columns: $board-width $gauge-width $block-gap minmax(200px, 400px);
 }
 @mixin columns-with-gauge-col3($board-width, $gauge-width) {
-  grid-template-columns: 1fr minmax(230px, 20vw) $block-gap $board-width $gauge-width $block-gap minmax(200px, 400px) 1fr;
+  grid-template-columns: minmax(230px, 20vw) $block-gap $board-width $gauge-width $block-gap minmax(200px, 400px);
 }
 
 .puzzle {
@@ -44,17 +44,17 @@ $mq-col3: $mq-x-large;
     }
     grid-template-rows: fit-content(0);
     grid-template-areas:
-    '. board   gauge .    tools    .'
-    '. history .     .    controls .'
-    '. side    side  side side     .';
+    'board   gauge .    tools'
+    'history .     .    controls'
+    'side    side  side side';
     grid-row-gap: $block-gap;
     &__moves { display: block; }
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-    '. side    . board   gauge . tools    .'
-    '. .       . history .     . controls .';
+    'side    . board   gauge . tools'
+    '.       . history .     . controls';
     @include columns-with-gauge-col3($board-width, 0);
     &.gauge-on {
       @include columns-with-gauge-col3($board-width, 1rem);

@@ -25,7 +25,7 @@ lichess.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i
       ),
       responsive = true,
       chessground = false,
-      fullScreen = true,
+      wrapClass = "full-screen",
       openGraph = lila.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
         title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",

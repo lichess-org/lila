@@ -974,7 +974,7 @@ lichess.topMenuIntent = function() {
     cfg.socketSend = lichess.socket.send;
     cfg.element = element;
     tournament = LichessTournament.start(cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat(cfg.chat);
   };
 
   ///////////////////
@@ -1013,7 +1013,7 @@ lichess.topMenuIntent = function() {
       });
     cfg.socketSend = lichess.socket.send;
     simul = LichessSimul(element, cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat(cfg.chat);
   };
 
   ////////////////
@@ -1062,7 +1062,7 @@ lichess.topMenuIntent = function() {
       lichess.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
       });
-      lichess.makeChat('chat', cfg.chat);
+      lichess.makeChat(cfg.chat);
     }
     lichess.topMenuIntent();
   }
@@ -1113,7 +1113,7 @@ lichess.topMenuIntent = function() {
       lichess.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
       });
-      lichess.makeChat('chat', cfg.chat);
+      lichess.makeChat(cfg.chat);
     }
     lichess.topMenuIntent();
   }

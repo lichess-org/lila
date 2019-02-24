@@ -1,0 +1,53 @@
+/* shared with analysis */
+.game__meta {
+  @extend %box-neat;
+  background: $c-bg-box;
+  padding: #{$block-gap * 0.6} $block-gap;
+  &__infos {
+    position: relative;
+    display: flex;
+    align-items: center;
+    &::before {
+      font-size: 3rem;
+      margin-right: 4%;
+    }
+    & p {
+      margin: 0;
+    }
+    & .setup {
+      display: flex;
+      align-items: center;
+    }
+    & time {
+      opacity: 1;
+    }
+  }
+  & .status {
+    text-align: center;
+  }
+  &__players {
+    margin-top: .3rem;
+    font-size: 90%;
+  }
+  & .bookmark {
+    position: absolute;
+    right: 0;
+    z-index: z('game-bookmark');
+    color: $c-font-dim;
+    ::before {
+      font-size: 1.3em;
+    }
+    &:not(.bookmarked) .on,
+    &.bookmarked .off {
+      display: none;
+    }
+  }
+}
+@media (hover: hover) {
+  .game__meta .bookmark {
+    display: none;
+  }
+  .game__meta:hover .bookmark {
+    display: block;
+  }
+}

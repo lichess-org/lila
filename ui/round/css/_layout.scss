@@ -1,0 +1,28 @@
+.round {
+  grid-area: main;
+  display: grid;
+  grid-gap: $block-gap;
+
+  &__app { grid-area: app; }
+  &__side { grid-area: side; }
+  &__underboard { grid-area: under; }
+  &__underchat { grid-area: uchat; }
+
+  &__underchat { display: none; }
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: 2fr 3fr;
+    grid-template-areas:
+    'app   app'
+    'side  side'
+    'under under';
+    &__app__moves { display: block; }
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-columns: minmax(200px, 300px) $board-width minmax(200px, 300px);
+    grid-template-areas:
+    'side  app   app'
+    'uchat under .  ';
+  }
+}

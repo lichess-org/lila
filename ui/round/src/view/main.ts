@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { playable } from 'game';
 import { plyStep } from '../round';
 import { renderTable } from './table';
 import * as promotion from '../promotion';
@@ -8,23 +9,24 @@ import { read as fenRead } from 'chessground/fen';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
-import { render as keyboardMove } from '../keyboardMove';
+// import { render as keyboardMove } from '../keyboardMove';
+import renderExpiration from './expiration';
 import RoundController from '../ctrl';
-import { MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
+import { Position, MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
 
-function renderMaterial(material: MaterialDiffSide, score: number, checks?: number) {
+function renderMaterial(material: MaterialDiffSide, score: number, position: Position, checks?: number) {
   const children: VNode[] = [];
   let role: string, i: number;
   for (role in material) {
     if (material[role] > 0) {
       const content: VNode[] = [];
-      for (i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
-      children.push(h('tomb', content));
+      for (i = 0; i < material[role]; i++) content.push(h('mpiece.' + role));
+      children.push(h('div', content));
     }
   }
-  if (checks) for (i = 0; i < checks; i++) children.push(h('tomb', h('mono-piece.king')));
+  if (checks) for (i = 0; i < checks; i++) children.push(h('div', h('mpiece.king')));
   if (score > 0) children.push(h('score', '+' + score));
-  return h('div.cemetery', children);
+  return h('div.material.material-' + position, children);
 }
 
 function wheel(ctrl: RoundController, e: WheelEvent): boolean {
@@ -57,37 +59,32 @@ export function main(ctrl: RoundController): VNode {
     util.countChecks(ctrl.data.steps, ctrl.ply) :
     util.noChecks;
 
-  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round.cg-512', [
-    h('div.lichess_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: {
-        insert: () => window.lichess.pubsub.emit('content_loaded')()
-      }
+  const expiration = playable(ctrl.data) && renderExpiration(ctrl);
+
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app', [
+    h('div.round__app__board.main-board.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
+      class: { 'with-expiration': !!expiration },
+      hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
-      h('div.lichess_board_wrap', [
-        h('div.lichess_board.' + d.game.variant.key, {
-          hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
-        }, [renderGround(ctrl)]),
-        promotion.view(ctrl)
-      ]),
-      h('div.lichess_ground', [
-        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, checks[topColor]),
-        renderTable(ctrl),
-        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, checks[bottomColor])
-      ])
+      renderGround(ctrl),
+      promotion.view(ctrl)
     ]),
-    h('div.underboard', [
-      h('div.center', {
-        hook: {
-          insert: vnode => {
-            if (ctrl.opts.crosstableEl) {
-              const el = (vnode.elm as HTMLElement);
-              el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
-            }
-          }
-        }
-      }, [
-        ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
-      ])
-    ])
-  ]);
+    crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
+    ...renderTable(ctrl, expiration),
+    crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor])
+  ])
+  // h('div.underboard', [
+  //   h('div.center', {
+  //     hook: {
+  //       insert: vnode => {
+  //         if (ctrl.opts.crosstableEl) {
+  //           const el = (vnode.elm as HTMLElement);
+  //           el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
+  //         }
+  //       }
+  //     }
+  //   }, [
+  //     ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
+  //   ])
+  // ])
 };

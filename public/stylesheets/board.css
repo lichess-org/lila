@@ -1141,21 +1141,3 @@ body.playing.zen .table_wrap .replay .buttons {
 body.playing.zen .table_wrap:hover .replay .buttons {
   opacity: 1!important;
 }
-#zentog {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 15px;
-  opacity: 0.5;
-  z-index: 3;
-  display: none;
-}
-body.playing.zen #zentog {
-  display: block;
-}
-#zentog::before {
-  font-size: 1.3em;
-}
-#zentog:hover {
-  opacity: 1;
-}

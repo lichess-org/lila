@@ -3,10 +3,10 @@ package round
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 import lila.common.HTTPRequest
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
-import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
@@ -29,9 +29,6 @@ object watcher {
 
     bits.layout(
       title = gameVsText(pov.game, withRatings = true),
-      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = chat.frag.some,
-      underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundNvuiTag,
         roundTag,
@@ -41,11 +38,38 @@ LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, cha
       moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       chessground = false
-    ) {
-        div(cls := "round cg-512")(
-          board.bits.domPreload(pov.some),
-          bits.underboard(pov.game, cross)
-        )
-      }
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked)
+          ),
+          div(cls := "round__app")(
+            div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+          )
+        ),
+        div(cls := "round__underboard")(
+          bits.crosstable(cross, pov.game)
+        ),
+        div(cls := "round__underchat")(bits underchat pov.game)
+      ))
   }
+
+  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit ctx: Context) =
+    bits.layout(
+      title = gameVsText(pov.game, withRatings = true),
+      openGraph = povOpenGraph(pov).some,
+      chessground = false
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
+            div(cls := "for-crawler")(
+              h1(titleGame(pov.game)),
+              p(describePov(pov)),
+              div(cls := "pgn")(pgn.render)
+            )
+          ),
+          div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+        )
+      ))
 }

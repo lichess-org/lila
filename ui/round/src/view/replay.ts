@@ -186,7 +186,7 @@ function racingKingsInit(d: RoundData) {
 }
 
 export default function(ctrl: RoundController): VNode | undefined {
-  return ctrl.nvui ? undefined : h('div.replay', [
+  return ctrl.nvui ? undefined : h('div.round__app__moves', [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {

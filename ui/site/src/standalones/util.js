@@ -279,10 +279,10 @@ lichess.shepherd = function(f) {
     });
   });
 };
-lichess.makeChat = function(element, data, callback) {
+lichess.makeChat = function(data, callback) {
   lichess.raf(function() {
     data.loadCss = lichess.loadCssPath;
-    (callback || $.noop)(LichessChat.default(element, data));
+    (callback || $.noop)(LichessChat.default(document.querySelector('.mchat'), data));
   });
 };
 

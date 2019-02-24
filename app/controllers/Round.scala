@@ -192,7 +192,7 @@ object Round extends LilaController with TheftPrevention {
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.gameId)
             pgn <- Env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-          } yield Ok(html.round.watcherBot(pov, initialFen, pgn))
+          } yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
           data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)

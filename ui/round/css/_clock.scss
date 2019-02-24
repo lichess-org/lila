@@ -1,0 +1,106 @@
+.rclock {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  &-turn {
+    height: 2em;
+    line-height: 2em;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+  }
+  & .bar {
+    @extend %box-radius-right;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: $c-good;
+    transform-origin: left;
+    .with-expiration & {
+      display: none;
+    }
+  }
+  &-top .bar {
+    bottom: -4px;
+  }
+  &-bottom .bar {
+    top: -4px;
+  }
+  &.berserk {
+    background: $c-bad;
+  }
+  & .time {
+    @extend %roboto-mono;
+    background: $c-bg-box;
+    border: $border;
+    font-size: 3em;
+    line-height: 1.3em;
+    padding: 0 $block-gap;
+    white-space: nowrap;
+    /* ensure updates don't redraw other parts of the document */
+    will-change: transform;
+  }
+  &.rclock-top .time {
+    @extend %box-radius-top;
+    border-bottom: 0;
+  }
+  &.rclock-bottom .time {
+    @extend %box-radius-bottom;
+    border-top: 0;
+  }
+  &-correspondence .time {
+    font-size: 20px;
+  }
+  & tenths {
+    font-size: 70%;
+    & sep {
+      vertical-align: baseline;
+    }
+  }
+  & huns {
+    font-size: 80%;
+  }
+  & sep {
+    opacity: 0.5;
+    font-size: 0.8em;
+    vertical-align: 4px;
+    margin-left: -1px;
+    &.low {
+      opacity: 0.15;
+    }
+  }
+  &.running .time {
+    background: #fff077;
+    color: #444;
+  }
+  &.running.emerg .time {
+    background-color: #eFAAAA;
+    color: #444;
+  }
+  &.outoftime .time {
+    background-color: #eFAAAA;
+    color: #444;
+  }
+  & .berserk.button {
+    font-size: 25px;
+    padding: 0 12px;
+  }
+  & .tournament_rank,
+  & .moretime,
+  & .berserked {
+    @extend %flex-center;
+    flex: 0 1 auto;
+    font-size: 20px;
+  }
+  & .moretime {
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  & .berserked {
+    font-size: 34px;
+    color: $c-accent;
+  }
+}

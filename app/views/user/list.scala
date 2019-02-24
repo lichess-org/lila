@@ -21,7 +21,7 @@ object list {
     title = trans.players.txt(),
     moreCss = responsiveCssTag("user.list"),
     responsive = true,
-    fullScreen = true,
+    wrapClass = "full-screen-force",
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess players and leaderboards",
       url = s"$netBaseUrl${routes.User.list.url}",

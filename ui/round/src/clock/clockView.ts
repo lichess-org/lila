@@ -23,7 +23,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     insert: (vnode) => update(vnode.elm as HTMLElement),
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
   };
-  return h('div.clock.clock_' + player.color + '.clock_' + position, {
+  return h('div.rclock.rclock-live.rclock-' + position, {
     class: {
       outoftime: millis <= 0,
       running: isRunning,
@@ -103,13 +103,13 @@ function showBerserk(ctrl: RoundController, color: Color): boolean {
 }
 
 function renderBerserk(ctrl: RoundController, color: Color, position: Position) {
-  return showBerserk(ctrl, color) ? h('div.berserk_alert.' + position, justIcon('`')) : null;
+  return showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('`')) : null;
 }
 
 function goBerserk(ctrl: RoundController) {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
-  return h('button.fbt.berserk', {
+  return h('button.button.button-empty.berserk', {
     attrs: {
       title: 'GO BERSERK! Half the time, no increment, bonus point',
       'data-icon': '`'
@@ -121,7 +121,7 @@ function goBerserk(ctrl: RoundController) {
 function tourRank(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
   return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ?
-    h('div.tournament_rank.' + position, {
+    h('div.tournament-rank.' + position, {
       attrs: {title: 'Current tournament rank'}
     }, '#' + d.tournament.ranks[color]) : null;
 }

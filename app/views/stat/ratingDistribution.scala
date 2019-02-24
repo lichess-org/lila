@@ -14,7 +14,7 @@ object ratingDistribution {
     title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.name),
     moreCss = responsiveCssTag("user.rating.stats"),
     responsive = true,
-    fullScreen = true,
+    wrapClass = "full-screen-force",
     moreJs = frag(
       jsTag("chart/ratingDistribution.js"),
       embedJs(s"""lichess.ratingDistributionChart({

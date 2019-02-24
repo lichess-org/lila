@@ -22,7 +22,6 @@
   @include breakpoint($mq-tall) {
     flex: 1 0 11rem;
   }
-  border-top: $border;
   background: $c-bg-high;
   justify-content: center;
   & .player {

@@ -295,7 +295,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
     h('div.analyse__board.main-board.' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
-      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)
@@ -336,9 +336,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
       ) : null
     ]),
     ctrl.opts.chat && h('section.mchat', {
-      hook: onInsert(elm => {
+      hook: onInsert(_ => {
         ctrl.opts.chat.parseMoves = true;
-        window.lichess.makeChat(elm, ctrl.opts.chat);
+        window.lichess.makeChat(ctrl.opts.chat);
       })
     }),
     h('div.analyse__underchat', {
