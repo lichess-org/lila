@@ -75,7 +75,7 @@ export interface Tv {
 }
 
 interface CrazyData {
-  pockets: CrazyPocket[];
+  pockets: [CrazyPocket, CrazyPocket];
 }
 
 interface CrazyPocket {
