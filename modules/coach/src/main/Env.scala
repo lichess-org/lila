@@ -33,7 +33,7 @@ final class Env(
   system.lilaBus.subscribeFun('adjustCheater, 'userActive, 'finishGame) {
     case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      api.toggleApproved(userId, true)
+      api.toggleApproved(userId, false)
       api.reviews deleteAllBy userId
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
