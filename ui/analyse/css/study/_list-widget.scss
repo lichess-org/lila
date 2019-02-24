@@ -11,31 +11,31 @@
     &:hover {
       background: mix($c-accent, $c-bg-box, 12%);
     }
-    & .overlay {
+    .overlay {
       @extend %link-overlay;
     }
-    & .body {
+    .body {
       display: flex;
     }
-    & ol.chapters {
+    ol.chapters {
       flex: 0 0 58%;
       max-width: 58%;
     }
-    & ol.members {
+    ol.members {
       flex: 0 0 40%;
       max-width: 40%;
       margin-left: 2%;
     }
-    & ol li {
+    ol li {
       color: $c-font-dim;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    & ol li::before {
+    ol li::before {
       color: $c-font-dimmer;
     }
-    & .top {
+    .top {
       @extend %roboto;
       font-weight: normal;
       display: block;
@@ -43,7 +43,7 @@
       box-sizing: border-box;
       height: 60px;
       padding-left: 54px;
-      & .study-name {
+      .study-name {
         font-size: 1.5em;
         font-weight: normal;
         color: $c-brag;
@@ -53,17 +53,17 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      & span {
+      span {
         font-size: .9rem;
         display: block;
         color: $c-font-dim;
       }
-      & .icon {
+      .icon {
         position: absolute;
         top: 0;
         left: 0;
       }
-      & .icon::before {
+      .icon::before {
         color: $c-brag;
         font-size: 38px;
         line-height: 45px;

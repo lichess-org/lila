@@ -1,9 +1,9 @@
 .mchat-mod {
 
-  & li {
+  li {
     position: relative;
   }
-  & i.mod {
+  i.mod {
     display: none;
     position: absolute;
     top: 5px;
@@ -17,15 +17,15 @@
       opacity: 1;
     }
   }
-  & li:hover {
+  li:hover {
     background: mix($c-accent, $c-bg-box, 7%);
-    & i.mod {
+    i.mod {
       display: block;
       text-shadow: 0 0 2px $c-bg-box, 0 0 5px $c-bg-box, 0 0 10px $c-bg-box;
     }
   }
 
-  & .top {
+  .top {
     @extend %flex-center;
     justify-content: space-between;
     flex: 0 0 auto;
@@ -33,35 +33,35 @@
     color: #fff;
     padding: .4em 10px;
     line-height: 1.4em;
-    & a {
+    a {
       color: #fff;
     }
   }
-  & .moderation {
+  .moderation {
     background: $c-bg-box;
     overflow: auto;
 
-    & .block {
+    .block {
       padding: 0 10px 10px 10px;
     }
-    & .history table {
+    .history table {
       width: 100%;
     }
-    & .history .reason {
+    .history .reason {
       text-transform: capitalize;
     }
-    & .history .mod,
-    & .history time {
+    .history .mod,
+    .history time {
       opacity: 0.8;
     }
-    & .infos {
+    .infos {
       padding-top: 10px;
     }
-    & .infos > * {
+    .infos > * {
       display: inline-block;
       margin-right: 5px;
     }
-    & .timeout a {
+    .timeout a {
       color: $c-accent;
       display: block;
       white-space: nowrap;
@@ -71,21 +71,21 @@
       @include transition();
       margin-left: -10px;
     }
-    & .timeout a::before {
+    .timeout a::before {
       opacity: 0;
       transition: 0.3s;
     }
-    & .timeout a:hover {
+    .timeout a:hover {
       margin-left: 0;
     }
-    & .timeout a:hover::before {
+    .timeout a:hover::before {
       opacity: 1;
       margin-right: 2px;
     }
-    & .shadowban {
+    .shadowban {
       margin-top: 10px;
     }
-    & .shadowban form {
+    .shadowban form {
       display: inline;
     }
   }

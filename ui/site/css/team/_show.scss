@@ -1,5 +1,5 @@
 .team-show {
-  & h1 em {
+  h1 em {
     color: $c-font-dim;
     font-size: 72%;
   }
@@ -48,49 +48,49 @@
   &__forum {
     grid-area: forum;
   }
-  & .requests {
+  .requests {
     margin-top: 1.5rem;
     font-size: 90%;
-    & h2,
-    & table {
+    h2,
+    table {
       margin: 0;
     }
-    & td {
+    td {
       padding: .5rem .7rem;
     }
   }
-  & h2 {
+  h2 {
     font-size: 1.6em;
     padding-bottom: .3rem;
     border-bottom: $border;
     margin-bottom: .8rem;
   }
-  & .userlist > li,
-  & .userlist > div.paginated {
+  .userlist > li,
+  .userlist > div.paginated {
     padding: 5px 0 5px 25px;
   }
   &__forum {
     width: 100%;
-    & article {
+    article {
       @extend %break-word;
       padding: 2rem 2vw;
       overflow: hidden;
     }
-    & article:nth-child(odd) {
+    article:nth-child(odd) {
       background: $c-bg-zebra;
     }
-    & .user_link {
+    .user_link {
       font-weight: bold;
       color: $c-font-dimmer;
     }
-    & .meta {
+    .meta {
       @extend %flex-between;
       margin-bottom: .5rem;
-      & > a {
+      > a {
         font-size: 120%;
       }
     }
-    & a.more {
+    a.more {
       display: block;
       text-align: right;
       margin: 10px 10px 0 0;

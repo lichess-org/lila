@@ -2,7 +2,7 @@
   @extend %border-bottom-active;
   flex: 0 0 135px;
   user-select: none;
-  & .comment {
+  .comment {
     flex: 0 0 30px;
     display: flex;
     align-items: stretch;
@@ -11,7 +11,7 @@
     white-space: nowrap;
     line-height: 30px;
   }
-  & .progress div {
+  .progress div {
     background: $c-shade;
   }
   &.goodMove .progress div {
@@ -30,15 +30,15 @@
     background: $c-bad;
     color: #fff;
   }
-  & .comment .wait {
+  .comment .wait {
     padding-left: 15px;
   }
-  & .verdict {
+  .verdict {
     font-weight: bold;
     margin-right: 10px;
     display: flex;
   }
-  & .verdict::before {
+  .verdict::before {
     width: 30px;
     height: 100%;
     color: #fff;
@@ -71,7 +71,7 @@
     background: $c-bad;
     content: '✗';
   }
-  & .comment move {
+  .comment move {
     margin-left: 5px;
     color: $c-link;
     transition: 0.3s;

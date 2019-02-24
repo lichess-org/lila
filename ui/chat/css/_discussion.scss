@@ -8,16 +8,16 @@
     }
     cursor: initial;
     font-size: .9em;
-    & li {
+    li {
       padding: .5em 0 .5em 10px;
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
     }
-    & .deleted {
+    .deleted {
       opacity: 0.5;
     }
-    & .system {
+    .system {
       display: block;
       opacity: 0.8;
       font-style: italic;
@@ -25,18 +25,18 @@
       margin-left: 0;
       text-align: center;
     }
-    & .color,
-    & .user_link {
+    .color,
+    .user_link {
       font-weight: bold;
       padding: 0;
       color: $c-font-dim;
       word-spacing: 0.3em;
       letter-spacing: -1px;
     }
-    & .title {
+    .title {
       margin-right: 3px;
     }
-    & a:not(.user_link) {
+    a:not(.user_link) {
       @extend %roboto;
     }
   }

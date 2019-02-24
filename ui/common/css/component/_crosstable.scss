@@ -3,24 +3,24 @@
   width: 100%;
   display: flex;
   line-height: 1.9em;
-  & fill,
-  & povs {
+  fill,
+  povs {
     background: $c-bg-box;
     flex: 1 1 auto;
   }
-  & fill::before {
+  fill::before {
     border-bottom: 1px solid $c-bg-page;
     content: '';
     height: 50%;
     display: block;
   }
-  & povs,
+  povs,
   &__users,
   &__score,
   &__matchup {
     @extend %flex-column;
     text-align: center;
-    & > :first-child {
+    > :first-child {
       border-bottom: 1px solid $c-bg-page;
     }
   }
@@ -28,7 +28,7 @@
   &__score {
     @extend %metal;
     &,
-    & > :first-child {
+    > :first-child {
       border-color: $c-border;
     }
   }
@@ -36,14 +36,14 @@
     flex: 8 1 auto;
     overflow: hidden;
     text-align: left;
-    & a {
+    a {
       padding-left: $block-gap;
     }
   }
   &__score {
     flex: 0 0 auto;
     font-weight: bold;
-    & span {
+    span {
       padding: 0 $block-gap;
     }
   }
@@ -51,12 +51,12 @@
     flex: 1 1 auto;
     font-weight: bold;
     background: mix($c-primary, $c-bg-box, 20%);
-    & span:first-child {
+    span:first-child {
       border-color: $c-primary;
     }
   }
-  & povs {
-    & a {
+  povs {
+    a {
       color: $c-font-dim;
       flex: 0 0 50%;
       @include transition();
@@ -72,19 +72,19 @@
       border: $c-border;
     }
   }
-  & .sep {
+  .sep {
     @extend %box-radius-left;
     border-left: $border;
     margin-left: .3em;
   }
-  & .win {
+  .win {
     font-weight: bold;
     color: $c-good;
   }
-  & .loss {
+  .loss {
     color: $c-bad;
   }
-  & .unavailable {
+  .unavailable {
     margin-top: 40px;
     opacity: 0.7;
   }

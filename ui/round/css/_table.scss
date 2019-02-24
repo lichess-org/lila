@@ -8,10 +8,10 @@
     margin: 20px auto 10px auto;
   }
   &__moves {
-    & .message {
+    .message {
       margin: 20px 10px;
     }
-    & .message::before {
+    .message::before {
       font-size: 3em;
       float: left;
       margin-right: 10px;
@@ -27,7 +27,7 @@
   &:hover {
     color: $c-font;
   }
-  & a {
+  a {
     color: $c-font;
     flex: 1 1 auto;
     overflow: hidden;
@@ -36,13 +36,13 @@
   &.long a {
     letter-spacing: -0.5px;
   }
-  & rating {
+  rating {
     flex: 0 0 auto;
     margin: 0 0.25em 0 0.3em;
     opacity: 0.6;
     letter-spacing: -0.5px;
   }
-  & .line {
+  .line {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,7 +55,7 @@
   &.connecting .line {
     animation: connecting 0.9s ease-in-out infinite;
   }
-  & .rp {
+  .rp {
     margin-right: 0.2em;
   }
 }

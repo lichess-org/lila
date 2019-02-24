@@ -124,7 +124,7 @@ $col2-controls-height: auto;
       /* In portrait single column, make sure both clocks and the board fit in the viewport. If they don't, limit the board width */
       max-width: calc(100vh - #{$site-header-height} - #{$col1-clock-height * 2});
     }
-    & .cg-board-wrap {
+    .cg-board-wrap {
       @extend %square;
     }
   }

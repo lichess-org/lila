@@ -13,7 +13,7 @@
     text-align: center;
     font-weight: bold;
   }
-  & .bar {
+  .bar {
     @extend %box-radius-right;
     display: block;
     position: absolute;
@@ -34,7 +34,7 @@
   &.berserk {
     background: $c-bad;
   }
-  & .time {
+  .time {
     @extend %roboto-mono, %box-shadow;
     background: $c-bg-box;
     border: $border;
@@ -60,16 +60,16 @@
   &-correspondence .time {
     font-size: 20px;
   }
-  & tenths {
+  tenths {
     font-size: 70%;
-    & sep {
+    sep {
       vertical-align: baseline;
     }
   }
-  & huns {
+  huns {
     font-size: 80%;
   }
-  & sep {
+  sep {
     opacity: 0.5;
     font-size: 0.8em;
     vertical-align: 4px;
@@ -90,24 +90,24 @@
     background-color: #eFAAAA;
     color: #444;
   }
-  & .berserk.button {
+  .berserk.button {
     font-size: 25px;
     padding: 0 12px;
   }
-  & .tournament_rank,
-  & .moretime,
-  & .berserked {
+  .tournament_rank,
+  .moretime,
+  .berserked {
     @extend %flex-center;
     flex: 0 1 auto;
     font-size: 20px;
   }
-  & .moretime {
+  .moretime {
     opacity: 0.4;
     &:hover {
       opacity: 1;
     }
   }
-  & .berserked {
+  .berserked {
     font-size: 34px;
     color: $c-accent;
   }

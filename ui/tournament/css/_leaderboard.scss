@@ -12,7 +12,7 @@ $user-list-width: 35ch;
 
   &__item {
     background: $c-bg-box;
-    & h2 {
+    h2 {
       @extend %metal;
       font-size: 1.45em;
       line-height: 2.5em;
@@ -21,7 +21,7 @@ $user-list-width: 35ch;
       margin: 0;
       white-space: nowrap;
     }
-    & li {
+    li {
       @extend %flex-between;
       padding: 1.2rem 1.2rem 1.2rem .5rem;
     }
@@ -39,7 +39,7 @@ $user-list-width: 35ch;
   position: relative;
   padding-left: 95px;
   border-bottom: $border;
-  & .shield_trophy {
+  .shield_trophy {
     position: absolute;
     top: -8px;
     left: 15px;

@@ -1,33 +1,33 @@
 .coach-list {
-  & .mselect {
+  .mselect {
     font-size: 1.2em;
   }
   &__side {
     text-align: center;
     margin-top: 2rem;
-    & img {
+    img {
       width: 140px;
       height: 140px;
     }
-    & h1 {
+    h1 {
       font: 1.95em Roboto;
       text-transform: uppercase;
       color: #639B24;
       white-space: nowrap;
       margin-bottom: 1em;
     }
-    & p {
+    p {
       margin-top: 1em;
       font-size: 1.1em;
     }
   }
   &__main {
-    & .coach-widget {
+    .coach-widget {
       border-top: $border;
       &:nth-child(even) {
         background: $c-bg-zebra;
         justify-content: space-between;
-        & .picture {
+        .picture {
           order: 3;
         }
       }

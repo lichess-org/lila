@@ -35,7 +35,7 @@ $c-mselect: $c-primary;
     transform: scale(1, 0);
     transform-origin: top;
     @include transition(transform);
-    & > * {
+    > * {
       white-space: nowrap;
       display: block;
       padding: .3em 1em;
@@ -49,7 +49,7 @@ $c-mselect: $c-primary;
     }
     .mselect__toggle:checked ~ & {
       transform: scale(1, 1);
-      & > * {
+      > * {
         opacity: 1;
         transition: opacity 125ms ease-in-out 125ms;
       }

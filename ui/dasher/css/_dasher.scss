@@ -6,49 +6,49 @@
   @extend %box-radius-left;
   width: 225px;
 
-  & .spinner {
+  .spinner {
     margin: 20px auto;
   }
-  & .status {
+  .status {
     display: block;
     position: relative;
     padding: 0.8rem;
     border-top: $border;
-    & signal {
+    signal {
       position: absolute;
       right: 1rem;
       top: 1rem;
       font-size: 1.7rem;
     }
-    & .ping,
-    & .server {
+    .ping,
+    .server {
       @extend %roboto-mono;
       display: block;
     }
-    & strong {
+    strong {
       padding: 0 5px;
     }
   }
 
-  & .head {
+  .head {
     display: block;
     padding: 1rem;
     border-bottom: $border;
   }
-  & .head::before {
+  .head::before {
     color: $c-dasher;
     opacity: 0.8;
   }
-  & .head:hover::before {
+  .head:hover::before {
     opacity: 1;
   }
 
-  & .langs {
-    & form {
+  .langs {
+    form {
       max-height: 400px;
       overflow: auto;
     }
-    & button {
+    button {
       display: block;
       padding: .7rem .7rem .7rem 1rem;
       border: none;
@@ -60,19 +60,19 @@
         background: $c-dasher-light;
       }
     }
-    & .accepted {
+    .accepted {
       border-left: 4px solid $c-dasher;
     }
-    & .current {
+    .current {
       background: $c-dasher!important;
       color: $c-dasher-over!important;
       border-left: none;
     }
   }
-  & .selector {
+  .selector {
     flex: 1 1 100%;
     margin: 0.5rem 0;
-    & a {
+    a {
       display: block;
       padding: 0.7rem 1rem;
       @include transition(background);
@@ -104,23 +104,23 @@
       padding: 1rem 1rem;
     }
   }
-  & .zen a::before {
+  .zen a::before {
     font-size: 18px;
     margin-right: 3px;
     opacity: 0.5;
   }
-  & .zen:hover a::before{
+  .zen:hover a::before{
     opacity: 1;
   }
-  & .sound {
-    & .content {
+  .sound {
+    .content {
       display: flex;
       margin: 5px 0 5px 5px;
     }
-    & .selector a {
+    .selector a {
       border-radius: $box-radius-size 0 0 $box-radius-size;
     }
-    & .slider {
+    .slider {
       flex: 0 0 $slider-width;
       margin: 1rem 1.3rem 1rem 1rem;
     }
@@ -129,12 +129,12 @@
     }
   }
 
-  & .background {
-    & .image p {
+  .background {
+    .image p {
       font-size: 0.9em;
       padding: 5px;
     }
-    & input {
+    input {
       padding: 5px;
       border: 1px solid #444;
       box-sizing: border-box;
@@ -144,11 +144,11 @@
     }
   }
 
-  & .board .zoom {
+  .board .zoom {
     border-top: $border;
     padding: 1.5rem;
   }
-  & .board .slider {
+  .board .slider {
     margin-top: 1rem;
   }
 }

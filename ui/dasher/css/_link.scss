@@ -1,37 +1,37 @@
 #dasher_app {
-  & .links,
-  & .subs {
+  .links,
+  .subs {
     padding: 5px 0;
   }
-  & .links a,
-  & .links button,
-  & .subs .sub {
+  .links a,
+  .links button,
+  .subs .sub {
     display: block;
     padding: 0.5rem 1rem;
     white-space: nowrap;
     overflow: hidden;
   }
-  & .links a:hover,
-  & .links a:hover::before,
-  & .links button:hover,
-  & .subs .sub:hover {
+  .links a:hover,
+  .links a:hover::before,
+  .links button:hover,
+  .subs .sub:hover {
     background: $c-dasher;
     color: $c-dasher-over;
     opacity: 1;
   }
-  & .logout button:hover {
+  .logout button:hover {
     background: $c-error;
   }
-  & .links button {
+  .links button {
     width: 100%;
     text-align: left;
     border: 0;
     background: none;
   }
-  & .subs {
+  .subs {
     border-top: $border;
   }
-  & .sub {
+  .sub {
     &::before {
       float: right;
       font-size: 80%;

@@ -1,10 +1,10 @@
 .rating-stats {
-  & .spinner {
+  .spinner {
     width: 150px;
     height: 150px;
     margin-top: 100px;
   }
-  & .desc {
+  .desc {
     @extend %flex-center;
     &::before {
       font-size: 4.5em;
@@ -12,11 +12,11 @@
       margin-right: 1rem;
     }
   }
-  & #rating_distribution_chart {
+  #rating_distribution_chart {
     height: 500px;
     margin-top: 2rem;
   }
-  & .mselect {
+  .mselect {
     display:inline-block;
     &__list > * {
       font-size: 1.3rem;

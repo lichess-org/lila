@@ -1,10 +1,10 @@
 .puzzle__tools {
   @extend %box-neat-force, %flex-column;
   background: $c-bg-box;
-  & .ceval-wrap {
+  .ceval-wrap {
     flex: 0 0 38px;
   }
-  & .ceval {
+  .ceval {
     height: 38px;
   }
 }
@@ -24,11 +24,11 @@
   }
   background: $c-bg-high;
   justify-content: center;
-  & .player {
+  .player {
     display: flex;
     align-items: center;
   }
-  & .no-square {
+  .no-square {
     flex: 0 0 64px;
     height: 64px;
     margin-right: 10px;
@@ -36,13 +36,13 @@
   .is3d & div.no-square {
     height: 82px;
   }
-  & piece {
+  piece {
     position: inherit;
     display: block;
     width: 100%;
     height: 100%;
   }
-  & .icon {
+  .icon {
     display: block;
     width: 64px;
     height: 64px;
@@ -57,22 +57,22 @@
   &.fail .icon {
     color: $c-bad;
   }
-  & .instruction > * {
+  .instruction > * {
     display: block;
   }
-  & .instruction strong {
+  .instruction strong {
     font-size: 1.5em;
   }
   @keyframes reveal {
     0% { opacity: 0; }
     100% { opacity: 0.8; }
   }
-  & .view_solution {
+  .view_solution {
     margin-top: 1.5em;
     text-align: center;
     visibility: hidden;
   }
-  & .view_solution.show {
+  .view_solution.show {
     visibility: visible;
     animation: reveal 1.5s;
   }
@@ -83,7 +83,7 @@
   @extend %flex-center;
   height: $puzzle-history-height;
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
-  & .jumps {
+  .jumps {
     flex: 1 1 auto;
   }
 }

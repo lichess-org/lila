@@ -1,10 +1,10 @@
 .analyse__tools {
   @extend %box-neat-force, %flex-column;
   background: $c-bg-box;
-  & .ceval {
+  .ceval {
     flex: 0 0 38px;
   }
-  & .sub-box {
+  .sub-box {
     user-select: none;
     .title {
       font-size: .9rem;
@@ -20,18 +20,18 @@
   overflow-y: auto;
   border: $border;
   border-width: 1px 0;
-  & .result,
-  & .status {
+  .result,
+  .status {
     background: $c-bg-zebra;
     text-align: center;
   }
-  & .result {
+  .result {
     border-top: $border;
     font-weight: bold;
     font-size: 1.2em;
     padding: 5px 0 3px 0;
   }
-  & .status {
+  .status {
     font-size: 1em;
     font-style: italic;
     padding-bottom: 7px;
@@ -42,22 +42,22 @@
   height: $analyse-controls-height;
   margin-top: #{-$block-gap};
   align-items: stretch;
-  & div {
+  div {
     display: flex;
     flex: 1 1 auto;
     align-items: stretch;
   }
-  & .jumps {
+  .jumps {
     flex: 3 1 auto;
   }
-  & button {
+  button {
     flex: 0 0 2.5rem;
   }
-  & .active {
+  .active {
     margin-top: -3px;
     padding-top: 3px;
   }
-  & ::before {
+  ::before {
     vertical-align: middle;
   }
 }

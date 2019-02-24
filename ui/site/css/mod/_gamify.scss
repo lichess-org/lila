@@ -9,45 +9,45 @@
   @extend %flex-column;
   flex: 0 0 33.333%;
   align-items: center;
-  & h2 {
+  h2 {
     margin-top: .5rem;
     font-size: 1.3em;
     text-transform: uppercase;
     opacity: 0.8;
   }
-  & .user_link {
+  .user_link {
     font-size: 3em;
     color: $c-brag;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 1rem 0 1.6rem 0;
   }
-  & table tr td {
+  table tr td {
     @extend %roboto;
     font-size: 1.5em;
     text-align: right;
     line-height: 50px;
   }
-  & table tr:first-child td {
+  table tr:first-child td {
     font-size: 2em;
   }
 }
 #mod-gamify .period table {
-  & tbody th {
+  tbody th {
     font-size: 1.2em;
   }
-  & td.score {
+  td.score {
     font-size: 1.2em;
   }
-  & thead th:nth-child(n+1),
-  & tr td {
+  thead th:nth-child(n+1),
+  tr td {
     text-align: right;
     padding-right: 25px;
   }
 }
 #mod-gamify .history {
   margin-top: 3rem;
-  & tr.year th {
+  tr.year th {
     @extend %roboto;
     font-style: italic;
     padding: 20px 0;

@@ -1,25 +1,25 @@
 .forum {
 
-  & form.search {
+  form.search {
     float: right;
     margin: 20px;
     font-size: 1.3em;
   }
 
-  & .search_results {
+  .search_results {
     margin-top: 1em;
-    & time {
+    time {
       font-size: 0.8em;
       white-space: nowrap;
       display: block;
     }
-    & a.post {
+    a.post {
       display: block;
       font-size: 1.1em;
       margin-bottom: 4px;
       padding-bottom: 5px;
     }
-    & td {
+    td {
       padding-bottom: 1em;
       padding-top: 1em;
     }

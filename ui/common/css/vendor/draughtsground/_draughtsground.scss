@@ -79,7 +79,7 @@ piece {
 .cg-board-wrap {
   @extend %abs-100;
   // overflow: hidden; /* prevents width issues with rank coords | but prevents dragging pieces in! */
-  & svg {
+  svg {
     overflow: hidden;
     position: absolute;
     top: 0px;
@@ -89,7 +89,7 @@ piece {
     pointer-events: none;
     z-index: z('cg__svg');
     opacity: 0.6;
-    & image {
+    image {
       opacity: 0.5;
     }
   }

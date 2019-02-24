@@ -8,10 +8,10 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
 }
 .is3d .cg-board-wrap {
   height: $td-inner-relative-percent;
-  & coords.files {
+  coords.files {
     bottom: calc(-12px - 3%);
   }
-  & coords.ranks {
+  coords.ranks {
     height: 100%;
   }
 }

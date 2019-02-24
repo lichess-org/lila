@@ -1,28 +1,28 @@
 .retro-box {
-  & .title {
+  .title {
     display: flex;
     justify-content: space-between;
   }
-  & .player.center {
+  .player.center {
     justify-content: center;
   }
   &:not(.find) .player {
     height: 100%;
   }
-  & .win .icon:not(.off) {
+  .win .icon:not(.off) {
     color: #759900;
   }
-  & .fail .icon:not(.off) {
+  .fail .icon:not(.off) {
     color: #dc322f;
   }
-  & .instruction glyph {
+  .instruction glyph {
     font-weight: normal;
     opacity: 0.7;
   }
-  & .half {
+  .half {
     flex: 1 1 50%;
   }
-  & .continue {
+  .continue {
     display: flex;
     font-size: 1.3em;
     background: rgba(56,147,232,0.8);
@@ -32,10 +32,10 @@
     text-transform: uppercase;
     padding: 0 10px;
   }
-  & .continue:hover {
+  .continue:hover {
     background: rgba(56,147,232,1);
   }
-  & .continue i::before {
+  .continue i::before {
     font-size: 2.5em;
     margin-right: 10px;
   }

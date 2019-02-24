@@ -1,8 +1,8 @@
 .forum .pagination {
   color: $c-font-dimmer;
   display: flex;
-  & a,
-  & span {
+  a,
+  span {
     width: 2rem;
     height: 2rem;
     @extend %box-radius;
@@ -12,24 +12,24 @@
     align-items: center;
     display: none;
   }
-  & :first-child,
-  & :last-child,
-  & .current {
+  :first-child,
+  :last-child,
+  .current {
     display: flex;
   }
   @include breakpoint($mq-x-small) {
-    & a,
-    & span {
+    a,
+    span {
       display: flex;
     }
   }
-  & span {
+  span {
     color: $c-font-dimmer;
   }
-  & a:hover {
+  a:hover {
     background: mix($c-primary, $c-bg-box, 10);
   }
-  & .current {
+  .current {
     background: $c-primary;
     color: $c-primary-over;
   }

@@ -23,14 +23,14 @@
       opacity: 1;
       background: $c-bg-box;
     }
-    & input {
+    input {
       cursor: pointer;
       display: none;
     }
     &-active input {
       display: block;
     }
-    & span {
+    span {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

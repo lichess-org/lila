@@ -53,7 +53,7 @@ $variant-height: 2.5rem;
     display: grid;
     grid-gap: $block-gap;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    & .button {
+    .button {
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -61,7 +61,7 @@ $variant-height: 2.5rem;
 
   $font-colors: ('shade': $c-shade, 'dimmer': $c-font-dimmer, 'dim': $c-font-dim, '': $c-font, 'clear': $c-font-clear, 'clearer': $c-font-clearer);
   @each $k, $c in $font-colors {
-    & .font-#{$k} {
+    .font-#{$k} {
       color: $c;
     }
   }
@@ -72,13 +72,13 @@ $variant-height: 2.5rem;
   grid-gap: $block-gap;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
-  & *,
-  & *:before,
-  & *:after {
+  *,
+  *:before,
+  *:after {
     position: relative;
   }
 
-  & .color {
+  .color {
     height: 16rem;
     display: block;
     @extend %box-neat;

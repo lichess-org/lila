@@ -1,17 +1,17 @@
 .coach-show {
   &__side {
-    & > .button {
+    > .button {
       display: block;
     }
   }
   &__main {
     @extend %box-neat-force;
   }
-  & .coach-widget {
+  .coach-widget {
     @extend %metal;
     height: auto;
     border-bottom: $border;
-    & .overview {
+    .overview {
       padding-bottom: .5em;
     }
   }
@@ -27,7 +27,7 @@
       text-align: justify;
     }
   }
-  & h2 {
+  h2 {
     margin: 0 0 12px 0;
     color: $c-brag;
     font-size: 1.6em;
@@ -38,12 +38,12 @@
     background: #000;
     border: $border;
     border-width: 0 1px 1px 1px;
-    & .list {
+    .list {
       display: flex;
       flex-flow: row wrap;
       justify-content: space-between;
     }
-    & iframe {
+    iframe {
       margin-bottom: 10px;
       width: 256px;
       height: 192px;
@@ -52,7 +52,7 @@
   }
   &__studies {
     margin-top: 20px;
-    & h2 {
+    h2 {
       padding: 1em 0 0 2em;
     }
   }

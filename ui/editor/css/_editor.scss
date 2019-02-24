@@ -5,10 +5,10 @@
 
   user-select: none;
 
-  & .main-board {
+  .main-board {
     grid-area: board;
   }
-  & .cg-board {
+  .cg-board {
     cursor: inherit;
   }
 
@@ -16,52 +16,52 @@
     @extend %flex-column;
     grid-area: tools;
     align-self: center;
-    & > * {
+    > * {
       margin: .5rem 0;
     }
-    & select {
+    select {
       width: 100%;
       &.positions option:checked {
         font-style: italic;
       }
     }
-    & .metadata {
+    .metadata {
       @extend %box-neat;
       background: $c-bg-box;
       padding: 1rem;
       white-space: nowrap;
-      & .color {
+      .color {
         margin-bottom: 1em;
       }
-      & .castling {
-        & div {
+      .castling {
+        div {
           @extend %flex-between;
         }
-        & label,
-        & input {
+        label,
+        input {
           display:inline-block;
           margin: 3px;
           vertical-align: middle;
         }
       }
     }
-    & .actions {
+    .actions {
       @extend %flex-column;
       justify-content: stretch;
-      & .button {
+      .button {
         width: 100%;
         text-align: left;
       }
     }
   }
 
-  & .copyables {
+  .copyables {
     grid-area: copyables;
     margin: 2rem 0 0 1rem;
-    & p {
+    p {
       display: flex;
       align-items: center;
-      & input {
+      input {
         margin-left: 1rem;
         flex: 1 1 100%;
       }

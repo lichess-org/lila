@@ -1,19 +1,19 @@
 .security {
-  & .revoke-all,
-  & .revoke-all button {
+  .revoke-all,
+  .revoke-all button {
     display: inline;
   }
-  & table .ua {
+  table .ua {
     font-size: 0.8em;
   }
-  & table .icon span {
+  table .icon span {
     font-size: 3.5em;
   }
-  & table .ip {
+  table .ip {
     font-weight: bold;
     font-family: monospace;
   }
-  & table .current {
+  table .current {
     color: $c-brag;
   }
 }
@@ -57,7 +57,7 @@
   div {
     @extend %flex-center;
     margin: 1rem 0;
-    & label {
+    label {
       margin-left: 1rem;
       cursor: pointer;
     }
@@ -83,10 +83,10 @@
   h1 {
     color: $c-accent;
   }
-  & form section {
+  form section {
     margin-bottom: 4rem;
   }
-  & h2 {
+  h2 {
     margin-bottom: 1.3rem;
     font-size: 1.3em;
     @include breakpoint($mq-x-small) {

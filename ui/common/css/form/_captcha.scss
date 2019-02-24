@@ -9,25 +9,25 @@
     border: 1px solid $c-error;
     background: mix($c-error, $c-bg-high, 10%);
   }
-  & .mini_board {
+  .mini_board {
     flex: 0 0 calc(224px + 2rem);
   }
-  & .captcha-explanation {
+  .captcha-explanation {
     flex: 1 1 auto;
     overflow: hidden;
   }
   &.is-invalid .captcha-explanation {
     padding: 1em;
   }
-  & .captcha-explanation .result {
+  .captcha-explanation .result {
     display: none;
     margin-top: 1rem;
     font-weight: bold;
   }
-  & .success {
+  .success {
     color: $c-good;
   }
-  & .failure {
+  .failure {
     color: $c-error;
   }
   &.success .success,

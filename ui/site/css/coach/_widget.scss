@@ -3,24 +3,24 @@
   position: relative;
   display: flex;
   @include transition();
-  & .overlay {
+  .overlay {
     @extend %link-overlay;
   }
-  & .picture {
+  .picture {
     flex: 0 0 300px;
     background: $c-bg-low;
   }
-  & .overview {
+  .overview {
     margin: 1.3em 1em 0 2em;
   }
-  & .coach-name {
+  .coach-name {
     @extend %roboto;
     font-size: 2em;
     text-transform: uppercase;
     letter-spacing: 3px;
     margin: 0 0 .6rem 0;
   }
-  & .headline {
+  .headline {
     font-style: italic;
     font-size: 1.2em;
     margin: 0 0 1em  0;
@@ -33,35 +33,35 @@
       margin-bottom: .7em;
     }
   }
-  & table {
+  table {
     line-height: 1.7;
-    & th {
+    th {
       color: $c-font-dim;
       padding-right: 1.2em;
       text-align: right;
     }
-    & .seen {
+    .seen {
       color: $c-font-dim;
       time {
         font-size: inherit;
         opacity: inherit;
       }
     }
-    & .rating td {
+    .rating td {
       @extend %flex-center;
-      & a {
+      a {
         display: flex;
         color: $c-font;
-        & span {
+        span {
           margin-left: .5em;
         }
       }
     }
-    & .flag {
+    .flag {
       margin-left: .5em;
       vertical-align: text-bottom;
     }
-    & [data-icon] {
+    [data-icon] {
       @extend %flex-center;
     }
   }

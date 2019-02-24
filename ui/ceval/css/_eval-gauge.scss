@@ -18,7 +18,7 @@
     box-shadow: 0 0 5px rgba(0,0,0,0.7) inset;
     border-radius: 0 5px 5px 0;
   }
-  & tick {
+  tick {
     position: absolute;
     top: 0;
     left: 0;
@@ -26,13 +26,13 @@
     border-bottom: 2px ridge if($theme-light,#eee,#a0a0a0);
     opacity: 0.4;
   }
-  & tick.zero {
+  tick.zero {
     top: 6px;
     opacity: 1;
     border-bottom: 7px solid fade-out($c-accent, 0.6);
     margin-top: -3px;
   }
-  & .black {
+  .black {
     width: 100%;
     height: 50%;
     background: if($theme-light,#888,#666);

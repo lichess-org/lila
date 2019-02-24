@@ -1,12 +1,12 @@
 .forum .slist {
 
-  & td {
+  td {
     @extend %break-word;
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
 
-  & td.right, & th.right {
+  td.right, & th.right {
     display: none;
     @include breakpoint($mq-small) {
       display: table-cell;
@@ -15,10 +15,10 @@
     }
   }
 
-  & td:last-child {
+  td:last-child {
     min-width: 150px;
     padding-right: 1em;
-    & time {
+    time {
       color: $c-link;
       font-size: 1em;
     }
@@ -27,7 +27,7 @@
       display: table-cell;
     }
   }
-  & thead {
+  thead {
     display: none;
     @include breakpoint($mq-xx-small) {
       display: table-header-group;
@@ -36,7 +36,7 @@
 
   &.topics {
     margin-bottom: 2rem;
-    & .subject {
+    .subject {
       font-size: 1.2em;
     }
   }

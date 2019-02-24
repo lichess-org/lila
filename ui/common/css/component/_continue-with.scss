@@ -1,6 +1,6 @@
 .continue_with {
   @extend %flex-column;
-  & > *:not(:first-child) {
+  > *:not(:first-child) {
     margin-top: 1em;
   }
 }
