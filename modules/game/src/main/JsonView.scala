@@ -72,7 +72,10 @@ object JsonView {
   }
 
   implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+    Json.obj("pockets" -> Json.obj(
+      "white" -> v.pockets.white,
+      "black" -> v.pockets.black
+    ))
   }
 
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>

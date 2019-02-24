@@ -196,7 +196,10 @@ object Node {
     )
   }
   private implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+    Json.obj("pockets" -> Json.obj(
+      "white" -> v.pockets.white,
+      "black" -> v.pockets.black
+    ))
   }
 
   implicit val openingWriter: OWrites[chess.opening.FullOpening] = OWrites { o =>

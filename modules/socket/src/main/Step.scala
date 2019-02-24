@@ -45,7 +45,10 @@ object Step {
     )
   }
   private implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+    Json.obj("pockets" -> Json.obj(
+      "white" -> v.pockets.white,
+      "black" -> v.pockets.black
+    ))
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
@@ -75,4 +78,3 @@ object Step {
   private def add[A: Writes](k: String, v: Option[A]): JsObject => JsObject =
     v.fold(identity[JsObject] _) { add(k, _, true) _ }
 }
-

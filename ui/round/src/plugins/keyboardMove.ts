@@ -9,7 +9,6 @@ window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let sans: any = null;
-  let drops: any = null;
   const submit = function(v: string, force?: boolean) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
@@ -26,7 +25,7 @@ window.lichess.keyboardMove = function(opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
-    } else if (drops && v.match(crazyhouseRegex) && drops.includes(v.slice(2))) {
+    } else if (v.match(crazyhouseRegex)) {
       // Crazy house
       opts.drop(v.slice(2), v[0].toUpperCase());
       clear();
@@ -38,9 +37,8 @@ window.lichess.keyboardMove = function(opts: any) {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: DecodedDests, possibleDrops: string) {
+  return function(fen: string, dests: DecodedDests) {
     sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
-    drops = possibleDrops
     submit(opts.input.value);
   };
 }
