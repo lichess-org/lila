@@ -6,8 +6,9 @@ import { updateSimulStanding, SimulStanding } from './simulStanding';
 
 const li = window.lidraughts;
 
-export default function (opts: RoundOpts, element: HTMLElement): void {
-  const data: RoundData = opts.data;
+export default function(opts: RoundOpts): void {
+  const element = document.querySelector('.round__app') as HTMLElement,
+  data: RoundData = opts.data;
 
   let round: RoundApi, chat: ChatCtrl | undefined;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
@@ -85,12 +86,11 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
     return;
   };
 
-  opts.element = element.querySelector('.round') as HTMLElement;
+  opts.element = element;
   opts.socketSend = li.socket.send;
   if (!opts.tour && !data.simul) opts.onChange = (d: RoundData) => {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
-  opts.crosstableEl = element.querySelector('.crosstable') as HTMLElement;
 
   let $watchers: JQuery;
   round = (window['LidraughtsRound'] as RoundMain).app(opts);
@@ -102,7 +102,7 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
       opts.chat.preset = getPresetGroup(opts.data);
       opts.chat.parseMoves = true;
     }
-    li.makeChat('chat', opts.chat, function (c) {
+    li.makeChat(opts.chat, function (c) {
       chat = c;
     });
   }

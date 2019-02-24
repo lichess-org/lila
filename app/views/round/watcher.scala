@@ -28,10 +28,7 @@ object watcher {
     }
 
     bits.layout(
-      title = s"${gameVsText(pov.game, withRatings = true)}",
-      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = chat.frag.some,
-      underchat = Some(bits underchat pov.game),
+      title = gameVsText(pov.game, withRatings = true),
       moreJs = frag(
         roundNvuiTag,
         roundTag,
@@ -41,18 +38,43 @@ LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, 
       moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            board.bits.domPreload(pov.some),
-            bits.underboard(pov.game, cross)
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked)
           ),
-          simul.map { s =>
-            div(cls := "other_games", id := "now_playing")(
-              h3()(simulStanding(s))
-            )
-          }
-        )
-      }
+          div(cls := "round__app")(
+            div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+          )
+        ),
+        div(cls := "round__underboard")(
+          bits.crosstable(cross, pov.game)
+        ),
+        simul.map { s =>
+          div(cls := "other_games", id := "now_playing")(
+            h3()(simulStanding(s))
+          )
+        },
+        div(cls := "round__underchat")(bits underchat pov.game)
+      ))
   }
+
+  def crawler(pov: Pov, initialFen: Option[draughts.format.FEN], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context) =
+    bits.layout(
+      title = gameVsText(pov.game, withRatings = true),
+      openGraph = povOpenGraph(pov).some,
+      draughtsground = false
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
+            div(cls := "for-crawler")(
+              h1(titleGame(pov.game)),
+              p(describePov(pov)),
+              div(cls := "pdn")(pdn.render)
+            )
+          ),
+          div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+        )
+      ))
 }

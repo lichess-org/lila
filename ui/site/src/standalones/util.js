@@ -279,10 +279,10 @@ lidraughts.shepherd = function(f) {
     });
   });
 };
-lidraughts.makeChat = function(element, data, callback) {
+lidraughts.makeChat = function(data, callback) {
   lidraughts.raf(function() {
     data.loadCss = lidraughts.loadCssPath;
-    (callback || $.noop)(LidraughtsChat.default(element, data));
+    (callback || $.noop)(LidraughtsChat.default(document.querySelector('.mchat'), data));
   });
 };
 

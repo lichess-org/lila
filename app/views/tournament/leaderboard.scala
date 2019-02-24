@@ -32,7 +32,7 @@ object leaderboard {
     title = "Tournament leaderboard",
     moreCss = responsiveCssTag("tournament.leaderboard"),
     responsive = true,
-    fullScreen = true
+    wrapClass = "full-screen-force"
   ) {
       def eliteWinners = section(
         h2(cls := "text", dataIcon := "C")("Elite Arena"),

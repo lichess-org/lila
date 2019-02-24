@@ -117,7 +117,7 @@ object layout {
     asyncJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
     responsive: Boolean = false,
-    fullScreen: Boolean = false
+    wrapClass: String = ""
   )(body: Html)(implicit ctx: Context) = frag(
     doctype,
     htmlTag(ctx)(
@@ -194,7 +194,7 @@ object layout {
           if (responsive) siteHeader.responsive(playing)
           else siteHeader.old(playing),
           if (responsive) div(id := "main-wrap", cls := List(
-            "full-screen" -> fullScreen,
+            wrapClass -> wrapClass.nonEmpty,
             "is2d" -> true
           ))(body)
           else div(cls := "content is2d")(

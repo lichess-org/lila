@@ -21,7 +21,7 @@ object list {
     title = trans.players.txt(),
     moreCss = responsiveCssTag("user.list"),
     responsive = true,
-    fullScreen = true,
+    wrapClass = "full-screen-force",
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Draughts players and leaderboards",
       url = s"$netBaseUrl${routes.User.list.url}",

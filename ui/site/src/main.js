@@ -975,7 +975,7 @@ lidraughts.topMenuIntent = function() {
     cfg.socketSend = lidraughts.socket.send;
     cfg.element = element;
     tournament = LidraughtsTournament.start(cfg);
-    if (cfg.chat) lidraughts.makeChat('chat', cfg.chat);
+    if (cfg.chat) lidraughts.makeChat(cfg.chat);
   };
 
   ///////////////////
@@ -1014,7 +1014,7 @@ lidraughts.topMenuIntent = function() {
       });
     cfg.socketSend = lidraughts.socket.send;
     simul = LidraughtsSimul(element, cfg);
-    if (cfg.chat) lidraughts.makeChat('chat', cfg.chat);
+    if (cfg.chat) lidraughts.makeChat(cfg.chat);
   };
 
   ////////////////
@@ -1063,7 +1063,7 @@ lidraughts.topMenuIntent = function() {
       lidraughts.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
       });
-      lidraughts.makeChat('chat', cfg.chat);
+      lidraughts.makeChat(cfg.chat);
     }
     lidraughts.topMenuIntent();
   }
@@ -1114,7 +1114,7 @@ lidraughts.topMenuIntent = function() {
       lidraughts.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
       });
-      lidraughts.makeChat('chat', cfg.chat);
+      lidraughts.makeChat(cfg.chat);
     }
     lidraughts.topMenuIntent();
   }

@@ -10,7 +10,7 @@ import lidraughts.i18n.I18nKeys
 
 object chat {
 
-  val frag = RawFrag("""<div id="chat" class="side_box"></div>""")
+  val frag = RawFrag("""<section class="mchat"></section>""")
 
   import lidraughts.chat.JsonView.chatIdWrites
 

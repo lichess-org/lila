@@ -1,4 +1,5 @@
-package views.html.tv
+package views.html
+package tv
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -20,8 +21,6 @@ object index {
   )(implicit ctx: Context) =
     views.html.round.bits.layout(
       title = s"${channel.name} TV: ${pov.fold(trans.noGameFound.txt())(p => s"${playerText(p.player)} vs ${playerText(p.opponent)}")}",
-      side = side(channel, champions, "/tv", pov),
-      underchat = Some(views.html.game.bits.watchers),
       moreJs = frag(
         roundTag,
         embedJs {
@@ -38,24 +37,22 @@ window.onload = function() { ${pov ?? roundJs} }"""
         url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
       ).some,
       robots = true
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            views.html.board.bits.domPreload(pov),
-            div(cls := "underboard")(
-              div(cls := "center")(
-                cross map { c =>
-                  pov ?? { p => views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), p.gameId.some) }
-                }
-              )
-            )
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            side(channel, champions, "/tv", pov)
           ),
+          div(cls := "round__board main-board")(board.bits.domPreload(pov))
+        ),
+        div(cls := "round__underboard none")(
+          pov ?? { p => round.bits.crosstable(cross, p.game) },
           div(cls := "game_list playing tv_history")(
             h2(trans.previouslyOnLidraughtsTV()),
             history.map { p =>
               div(views.html.game.bits.mini(p))
             }
           )
-        )
-      }
+        ),
+        div(cls := "round__underchat none")(views.html.game.bits.watchers)
+      ))
 }

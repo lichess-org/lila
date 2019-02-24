@@ -17,7 +17,7 @@ object shields {
       title = "Tournament shields",
       moreCss = responsiveCssTag("tournament.leaderboard"),
       responsive = true,
-      fullScreen = true
+      wrapClass = "full-screen-force"
     ) {
         main(cls := "page-menu")(
           views.html.user.bits.communityMenu("shield"),

@@ -1,0 +1,37 @@
+.material {
+  align-self: center;
+  display: none;
+  @include breakpoint($mq-col2) {
+    display: block;
+    flex: 0 0 32px;
+    line-height: 0;
+    white-space: nowrap;
+    line-height: 0;
+    height: 32px;
+    max-height: 32px; /* or else firefox bumps to 35px when adding <score> */
+    & div {
+      display: inline-block;
+      margin-left: 10px;
+    }
+    & mpiece {
+      margin-left: -10px;
+      width: 32px;
+      height: 32px;
+      background-size: cover;
+      display: inline-block;
+      &.man {
+        background-image: url(../piece/mono/M.svg);
+      }
+      &.king {
+        background-image: url(../piece/mono/K.svg);
+      }
+    }
+    & score {
+      font-family: 'Roboto';
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 35px;
+      vertical-align: top;
+    }
+  }
+}

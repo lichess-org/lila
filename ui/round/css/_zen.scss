@@ -1,0 +1,18 @@
+#zentog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 15px;
+  opacity: 0.5;
+  z-index: 3;
+  display: none;
+  body.playing.zen & {
+    display: block;
+  }
+  &::before {
+    font-size: 1.2em;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}

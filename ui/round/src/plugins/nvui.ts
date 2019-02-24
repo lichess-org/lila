@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
-import { renderInner as tableInner } from '../view/table';
+// import { renderInner as tableInner } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Draughtsground } from 'draughtsground';
 import renderCorresClock from '../corresClock/corresClockView';
@@ -104,7 +104,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         h('div.topc', anyClock(ctrl, 'top')),
         notify.render(),
         h('h2', 'Actions'),
-        h('div.actions', tableInner(ctrl)),
+        // h('div.actions', tableInner(ctrl)),
         h('h2', 'Board'),
         h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),

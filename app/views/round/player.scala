@@ -30,32 +30,38 @@ object player {
 
     bits.layout(
       title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
-      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
-      chat = chatOption.map(_ => chat.frag),
-      underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.customWS=true;window.onload=function(){
+        embedJs(s"""window.lidraughts=window.lidraughts||{};customWS=true;onload=function(){
 LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserId,chat:${jsOrNull(chatJson)}
 ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lidraughts.tournament.JsonView.top(top, lightUser))}")}
-}, document.getElementById('lidraughts'))}""")
+})}""")
       ),
-      moreCss = cssTag("chat.css"),
+      moreCss = responsiveCssTag("round"),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false,
       playing = true
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            board.bits.domPreload(pov.some),
-            bits.underboard(pov.game, cross)
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
+            chatOption.map(_ => chat.frag)
           ),
-          (playing.nonEmpty || simul.nonEmpty) option
-            div(id := "now_playing", cls := List("other_games" -> true, "blindfold" -> ctx.pref.isBlindfold))(
-              others(pov, playing, simul)
-            )
+          div(cls := "round__app")(
+            div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+          ),
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game),
+            (playing.nonEmpty || simul.nonEmpty) option
+              div(cls := List(
+                "round__now-playing" -> true,
+                "other_games" -> true,
+                "blindfold" -> ctx.pref.isBlindfold
+              ))(others(pov, playing, simul))
+          ),
+          div(cls := "round__underchat")(bits underchat pov.game)
         )
-      }
+      ))
   }
 }

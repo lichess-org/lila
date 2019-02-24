@@ -29,10 +29,8 @@ object bits {
 
   def domPreload(pov: Option[lidraughts.game.Pov])(implicit ctx: Context) = {
     val theme = ctx.currentTheme
-    div(cls := "lidraughts_game")(
-      div(cls := "lidraughts_board_wrap")(
-        div(cls := "lidraughts_board")(
-          raw(s"""<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+    frag(
+      raw(s"""<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
 <rect width="1000" height="1000" fill="#${theme.dark}"/>
 <g fill="#${theme.light}" id="a"><g id="b">
 <rect width="100" height="100" id="c"/>
@@ -46,9 +44,7 @@ object bits {
 <use y="600" xlink:href="#a"/>
 <use y="800" xlink:href="#a"/>
 </svg>"""),
-          pov.fold(miniBoardContent)(draughtsground)
-        )
-      )
+      pov.fold(draughtsgroundSvg)(draughtsground)
     )
   }
 
