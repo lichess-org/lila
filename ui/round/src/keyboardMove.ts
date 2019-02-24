@@ -28,12 +28,12 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
+  const cgState = root.chessground.state;
   const select = function(key: cg.Key): void {
-    if (root.chessground.state.selected === key) root.chessground.cancelMove();
+    if (cgState.selected === key) root.chessground.cancelMove();
     else root.chessground.selectSquare(key, true);
   };
   let usedSan = false;
-  const cgState = root.chessground.state;
   return {
     drop(key, piece) {
       const role = (sanToRole as SanMap)[piece];
@@ -42,7 +42,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       // Piece not in Pocket
       if (!role || !crazyData || !crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       // Square occupied
-      if (root.chessground.state.pieces[key]) return;
+      if (cgState.pieces[key]) return;
       if (!crazyValid(root.data, role, key)) return;
       root.chessground.cancelMove();
       root.chessground.newPiece({ role, color }, key);
@@ -68,7 +68,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       select(dest);
     },
     select,
-    hasSelected: () => root.chessground.state.selected,
+    hasSelected: () => cgState.selected,
     confirmMove() {
       root.submitMove(true);
     },
