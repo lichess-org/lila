@@ -3,6 +3,7 @@ import { DecodedDests } from '../interfaces';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
+const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
 
 window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
@@ -24,6 +25,11 @@ window.lichess.keyboardMove = function(opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
+    } else if (v.match(crazyhouseRegex)) {
+      // Crazyhouse
+      if (v.length === 3) v = 'P' + v;
+      opts.drop(v.slice(2), v[0].toUpperCase());
+      clear();
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
   };
