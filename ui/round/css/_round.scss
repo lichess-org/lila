@@ -13,3 +13,4 @@ $board-width: minmax($board-min-width, $board-max-width);
 @import 'table';
 @import 'clock';
 @import 'material';
+@import 'moves';

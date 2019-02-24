@@ -141,3 +141,21 @@
   width: 100%;
   height: 100%;
 }
+%fbt {
+  background: none;
+  border: none;
+  outline: none;
+  line-height: 1.5;
+  &:hover:not(.disabled) {
+    background: mix($c-secondary, $c-bg-box, 75%);
+    color: #fff;
+  }
+  &.active {
+    background: $c-secondary!important;
+    color: #fff;
+  }
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}

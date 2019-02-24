@@ -1,13 +1,27 @@
 .round__app__moves {
-  border: $border;
-  border-width: 1px 0;
-  overflow: auto;
-  position: relative;
-  will-change: scroll-position;
-  user-select: none;
-  display: flex;
-  flex-flow: row wrap;
-  align-content: flex-start;
+  flex-flow: column;
+  & .buttons {
+    @extend %flex-between;
+    flex: 0 0 auto;
+    border: $border;
+    background: $c-bg-zebra;
+    font-size: .9em;
+  }
+  & .fbt {
+    padding: 5px 10px;
+  }
+  & .noop {
+    width: 30px;
+  }
+  & .moves {
+    @extend %flex-wrap;
+    border: $border;
+    border-width: 0 1px;
+    overflow: auto;
+    position: relative;
+    will-change: scroll-position;
+    user-select: none;
+  }
   & index,
   & move {
     height: 25px;
@@ -61,17 +75,5 @@
     font-size: 1em;
     font-style: italic;
     padding-bottom: 7px;
-  }
-  & .buttons {
-    border-top: $border;
-    font-size: 11px;
-    display: flex;
-    justify-content: space-between;
-  }
-  & .button {
-    padding: 5px 10px;
-  }
-  & .noop {
-    width: 30px;
   }
 }

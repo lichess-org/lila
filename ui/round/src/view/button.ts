@@ -86,7 +86,7 @@ export function standard(
   const enabled = function() {
     return !condition || condition(ctrl.data);
   };
-  return h('button.button.' + socketMsg, {
+  return h('button.fbt.' + socketMsg, {
     attrs: {
       disabled: !enabled(),
       title: (hintArg ? ctrl.trans(hint, hintArg) : ctrl.trans.noarg(hint))

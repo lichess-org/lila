@@ -3,28 +3,11 @@
   justify-content: space-between;
   align-items: stretch;
   font-size: 1.3rem;
-  & button,
-  & a {
-    @extend %box-radius-bottom;
-    background: none;
-    border: none;
-    outline: none;
+  & button {
+    @extend %fbt, %box-radius-bottom;
   }
   & .hidden {
     visibility: hidden;
-  }
-  & .disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-  & a:hover,
-  & button:hover:not(.disabled) {
-    background: mix($c-secondary, $c-bg-box, 75%);
-    color: #fff;
-  }
-  & .active {
-    background: $c-secondary!important;
-    color: #fff;
   }
   & .features {
     white-space: nowrap; /* safari */
