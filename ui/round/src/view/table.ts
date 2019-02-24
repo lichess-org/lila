@@ -30,9 +30,7 @@ function loader() { return h('span.ddloader'); }
 function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [
     renderReplay(ctrl),
-    h('div.round__app__controls', [
-      h('div.control.buttons', buttons)
-    ])
+    h('div.round__app__controls', buttons)
   ];
 }
 
@@ -69,10 +67,10 @@ function renderTablePlay(ctrl: RoundController) {
   return [
     renderReplay(ctrl),
     h('div.round__app__controls', [
-      h('div.control.icons', {
+      h('div.ricons', {
         class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
       }, icons),
-      h('div.control.buttons', buttons)
+      ...buttons
     ])
   ];
 }
@@ -101,15 +99,15 @@ function anyClock(ctrl: RoundController, position: Position) {
 
 export function renderTable(ctrl: RoundController, expiration: [VNode, boolean] | undefined | false): MaybeVNodes {
   return [
-    h('div.round__app__table'),
     anyClock(ctrl, 'top'),
+    anyClock(ctrl, 'bottom'),
+    h('div.round__app__table'),
     expiration && !expiration[1] ? expiration[0] : null,
     renderPlayer(ctrl, 'top'),
     ...(ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
       game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
     )),
     renderPlayer(ctrl, 'bottom'),
-    expiration && expiration[1] ? expiration[0] : null,
-    anyClock(ctrl, 'bottom')
+    expiration && expiration[1] ? expiration[0] : null
   ];
 };

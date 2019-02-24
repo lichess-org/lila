@@ -2,6 +2,10 @@
   position: relative;
   display: flex;
   justify-content: space-between;
+  &-bottom {
+    /* over the table shadow */
+    z-index: 0;
+  }
   &-turn {
     height: 2em;
     line-height: 2em;
@@ -31,21 +35,25 @@
     background: $c-bad;
   }
   & .time {
-    @extend %roboto-mono;
+    @extend %roboto-mono, %box-shadow;
     background: $c-bg-box;
     border: $border;
-    font-size: 3em;
+    font-size: 3.3em;
     line-height: 1.3em;
     padding: 0 $block-gap;
     white-space: nowrap;
     /* ensure updates don't redraw other parts of the document */
     will-change: transform;
+    z-index: -1;
+    &.hour {
+      font-size: 2.8em;
+    }
   }
-  &.rclock-top .time {
+  &-top .time {
     @extend %box-radius-top;
     border-bottom: 0;
   }
-  &.rclock-bottom .time {
+  &-bottom .time {
     @extend %box-radius-bottom;
     border-top: 0;
   }

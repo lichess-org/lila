@@ -18,30 +18,21 @@
     border: $border;
     border-width: 0 1px;
     overflow: auto;
-    position: relative;
     will-change: scroll-position;
     user-select: none;
-  }
-  & index,
-  & move {
-    height: 25px;
-    line-height: 25px;
+    line-height: 1.7;
   }
   & index {
-    display: flex;
+    @extend %roboto;
     flex: 0 0 15%;
-    line-height: 27px;
-    background: #e6e6e6;
+    display: flex;
     justify-content: center;
-    font-family: 'Roboto';
-    font-weight: 300;
+    background: $c-bg-zebra;
   }
   & move {
     @extend %chess-font;
     flex: 0 0 42.5%;
-    font-size: 17px;
-    line-height: 28px;
-    padding-left: 8px;
+    padding-left: .7em;
     body.piece_letter & {
       @extend %base-font;
       font-size: 15px;
@@ -51,11 +42,12 @@
       cursor: pointer;
     }
     &:not(.empty):hover {
-      background: #e6e6e6;
+      background: $c-primary;
+      color: #fff;
     }
     &.active {
       font-weight: bold;
-      background: rgba(56,147,232,0.1)!important;
+      background: mix($c-primary, $c-bg-box, 20%);
     }
   }
   & .result_wrap {
