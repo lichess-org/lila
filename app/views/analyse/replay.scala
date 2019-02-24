@@ -103,14 +103,13 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
               game.analysable option
                 span(
                   dataPanel := "computer-analysis",
-                  cls := "computer-analysis",
                   title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
                 )(trans.computerAnalysis()),
               !game.isPgnImport option frag(
-                game.turns > 1 option span(dataPanel := "move-times", cls := "move-times")(trans.moveTimes()),
-                cross.isDefined option span(dataPanel := "ctable", cls := "ctable")(trans.crosstable())
+                game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
+                cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
               ),
-              span(dataPanel := "fen-pgn", cls := "fen-pgn")(raw("FEN &amp; PGN"))
+              span(dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
             )
           ),
           div(cls := "analyse__underchat none")(views.html.round.bits underchat pov.game)

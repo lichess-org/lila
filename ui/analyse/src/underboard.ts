@@ -94,7 +94,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   var storage = li.storage.make('analysis.panel');
   var setPanel = function(panel) {
-    $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
+    $menu.children('.active').removeClass('active').end().find(`[data-panel=${panel}`).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel == 'move-times' && !li.movetimeChart) try {
       li.loadScript('javascripts/chart/movetime.js').then(function() {
