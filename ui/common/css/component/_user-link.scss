@@ -4,7 +4,7 @@
   &:hover {
     color: $c-link;
   }
-  & .line {
+  .line {
     @extend %data-icon;
     color: $c-font;
     opacity: 0.4;
@@ -31,20 +31,20 @@
       opacity: 1;
     }
   }
-  & .title {
+  .title {
     color: $c-brag;
     font-weight: bold;
     &[data-bot] {
       color: $c-bot;
     }
   }
-  & .rp:before {
+  .rp:before {
     content: ' ';
   }
-  & .rp.up {
+  .rp.up {
     color: $c-good;
   }
-  & .rp.down {
+  .rp.down {
     color: $c-bad;
   }
 }

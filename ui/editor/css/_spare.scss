@@ -11,7 +11,7 @@
     grid-area: spare-bottom;
     margin-top: 2vh;
   }
-  & .no-square {
+  .no-square {
     flex: 0 0 12.5%;
     @include transition();
     &:hover {
@@ -20,7 +20,7 @@
     &.selected-square {
       background: fade-out($c-primary, .5);
     }
-    & div {
+    div {
       @extend %square;
       position: relative;
     }
@@ -32,7 +32,7 @@
       &.selected-square {
         background: fade-out($c-good, .4);
       }
-      & piece {
+      piece {
         background-image: img-url('icons/pointer.svg');
       }
     }
@@ -44,7 +44,7 @@
       &.selected-square {
         background: fade-out($c-bad, .4);
       }
-      & piece {
+      piece {
         background-image: img-url('icons/trash.svg');
       }
     }
@@ -53,7 +53,7 @@
   .is3d & .no-square div {
     padding-bottom: 90.72%;
   }
-  & piece {
+  piece {
     display: block;
     cursor: pointer;
     width: 100%;
@@ -66,8 +66,8 @@
       top: -34%;
     }
   }
-  & piece.pointer,
-  & piece.trash {
+  piece.pointer,
+  piece.trash {
     margin: 14%;
     width: 72%;
     height: 72%;

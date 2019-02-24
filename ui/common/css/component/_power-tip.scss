@@ -13,7 +13,7 @@
   z-index: z('powertip');
 }
 #powerTip {
-  & .mini_board {
+  .mini_board {
     border-width: 0 0 1px 0;
   }
 }
@@ -25,7 +25,7 @@
     border-bottom: $border;
     &__top {
       @extend %flex-between;
-      & .user_link {
+      .user_link {
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -41,7 +41,7 @@
     &__ratings {
       @extend %flex-between;
       margin-top: 3px;
-      & > span {
+      > span {
         flex: 0 0 20%;
         padding: 2px 3px;
         text-align: left;
@@ -59,7 +59,7 @@
     display: flex;
     justify-content: stretch;
     align-items: center;
-    & a {
+    a {
       @extend %flex-center, %metal;
       justify-content: center;
       flex: 0 0 18%;
@@ -80,10 +80,10 @@
         border: 0;
       }
     }
-    & i {
+    i {
       font-style: normal;
     }
-    & i::before {
+    i::before {
       font-size: 1.5em;
     }
   }
@@ -96,28 +96,28 @@
       background: $c-bad;
       color: #fff;
     }
-    & span {
+    span {
       padding: .2em .5em;
       margin: 0;
     }
   }
-  & .confirm {
+  .confirm {
     margin-top: 10px;
     width: 100%;
     text-align: center;
   }
-  & > .game_legend {
+  > .game_legend {
     text-align: center;
     border-bottom: $border;
     padding: 3px 0;
   }
-  & .spinner {
+  .spinner {
     margin: 20px auto;
   }
 }
 #miniGame {
   min-height: 262px;
-  & .spinner {
+  .spinner {
     margin: 82px auto 0 auto;
   }
 }

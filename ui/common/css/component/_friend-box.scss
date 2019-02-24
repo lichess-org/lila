@@ -19,7 +19,7 @@
   &:hover {
     overflow-y: auto;
   }
-  & .friend_box_title {
+  .friend_box_title {
     @extend %metal;
     cursor: pointer;
     padding: 3px 5px;
@@ -28,11 +28,11 @@
       @extend %metal-hover;
     }
   }
-  & .content {
-    & div {
+  .content {
+    div {
       display: flex;
     }
-    & a {
+    a {
       flex: 1 1 100%;
       padding: 3px 0px;
       display: block;
@@ -55,25 +55,25 @@
         background: mix($c-secondary, $c-bg-popup, 10%);
       }
     }
-    & i.line {
+    i.line {
       opacity: 0.6;
     }
   }
-  & .nobody {
+  .nobody {
     text-align: center;
     height: 100%;
     padding: 3px 5px;
-    & span {
+    span {
       display: block;
       margin: 5px;
     }
   }
-  & a.find {
+  a.find {
     display: none;
     margin: 7px;
     font-style: normal;
   }
-  & .nobody:hover a.find {
+  .nobody:hover a.find {
     display: block;
   }
 }

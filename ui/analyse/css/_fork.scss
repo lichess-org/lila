@@ -3,7 +3,7 @@ $c-fork: $c-primary;
 .analyse__fork {
   @extend %flex-center;
   flex: 0 0 auto;
-  & move {
+  move {
     @extend %chess-font;
     background: mix($c-fork, $c-bg-box, 20%);
     flex: 0 0 50%;
@@ -20,19 +20,19 @@ $c-fork: $c-primary;
   body.piece_letter & move {
     @extend %base-font;
   }
-  & move:last-child {
+  move:last-child {
     border-bottom: none;
   }
-  & move:hover,
+  move:hover,
   &:not(:hover) move.selected {
     background: mix($c-fork, $c-bg-box, 100%);
     color: #fff;
   }
-  & glyph {
+  glyph {
     font-family: 'Noto Sans';
     margin-left: 2px;
   }
-  & eval {
+  eval {
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.8em;

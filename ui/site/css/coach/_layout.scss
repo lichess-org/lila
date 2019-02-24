@@ -2,13 +2,13 @@ $mq-coach-col2: $mq-medium;
 
 main {
 
-  & .coach-main {
+  .coach-main {
     grid-area: main;
   }
 
   &.coach-full-page {
 
-    & .coach-side {
+    .coach-side {
       grid-area: side;
       margin: 2em 2em 0 2em;
     }
@@ -23,7 +23,7 @@ main {
       grid-template-areas:
       'side main';
       grid-gap: 2rem;
-      & .coach-side {
+      .coach-side {
         margin: 4rem 0 0 0;
       }
     }

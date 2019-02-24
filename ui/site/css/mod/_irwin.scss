@@ -1,35 +1,35 @@
 .irwin {
-  & h1 .up {
+  h1 .up {
     text-transform: uppercase;
     color: $c-good;
   }
-  & h1 .down {
+  h1 .down {
     color: $c-bad;
   }
-  & .little {
+  .little {
     font-size: .9em;
     color: $c-font-dim;
   }
-  & .slist {
+  .slist {
     white-space: nowrap;
     .activation {
       text-align: center;
     }
-    & strong {
+    strong {
       display: block;
     }
   }
-  & .green {
+  .green {
     /* actually blue */
     background-color: rgba(32, 119, 192, 0.3);
   }
-  & .yellow {
+  .yellow {
     background-color: rgba(221, 207, 63, 0.3);
   }
-  & .orange {
+  .orange {
     background-color: rgba(231, 155, 100, 0.3);
   }
-  & .red {
+  .red {
     background-color: rgba(231, 59, 56, 0.3);
   }
 }

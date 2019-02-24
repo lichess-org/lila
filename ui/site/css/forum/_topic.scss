@@ -2,7 +2,7 @@
 
   &.topic-form {
 
-    & .warning {
+    .warning {
       @extend %box-radius;
       border-radius: 20px;
       padding: 1rem;
@@ -11,12 +11,12 @@
       text-align: center;
       font-size: 1.3em;
       margin-bottom: 2rem;
-      & h2 {
+      h2 {
         font-weight: bold;
         color: $c-error;
       }
-      & h2,
-      & p {
+      h2,
+      p {
         margin: 1.5rem;
       }
     }
@@ -29,19 +29,19 @@
   &__actions {
     @extend %flex-between;
     margin-bottom: 3rem;
-    & div {
+    div {
       @extend %flex-wrap;
-      & .button {
+      .button {
         margin-left: 1rem;
       }
-      & .unsub.on .off,
-      & .unsub.off .on {
+      .unsub.on .off,
+      .unsub.off .on {
         display: none;
       }
     }
   }
 
-  & .reply label[for=form3-text] {
+  .reply label[for=form3-text] {
     display: none;
   }
 }

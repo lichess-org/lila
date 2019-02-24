@@ -3,18 +3,18 @@
   justify-content: space-between;
   align-items: stretch;
   font-size: 1.3rem;
-  & button {
+  button {
     @extend %fbt, %box-radius-bottom;
   }
-  & .hidden {
+  .hidden {
     visibility: hidden;
   }
-  & .features {
+  .features {
     white-space: nowrap; /* safari */
   }
-  & .jumps {
+  .jumps {
     display: flex;
-    & button {
+    button {
       flex: 1 1 30%;
       &:first-child,
       &:last-child {

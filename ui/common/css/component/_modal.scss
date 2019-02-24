@@ -9,7 +9,7 @@
     position: relative;
     padding: 2rem;
     text-align: center;
-    & .close {
+    .close {
       position:absolute;
       top: -12px;
       right: -12px;
@@ -21,7 +21,7 @@
       border-radius: 50%;
       cursor: pointer;
     }
-    & .close:hover {
+    .close:hover {
       @extend %box-shadow;
       background: $c-bad;
       color: #fff;

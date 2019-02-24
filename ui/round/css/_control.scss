@@ -1,7 +1,7 @@
 .round__app__controls {
   text-align: center;
   width: 100%;
-  & .disabled {
+  .disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
@@ -170,19 +170,19 @@
 .ricons {
   display: flex;
   justify-content: center;
-  & .fbt {
+  .fbt {
     font-size: 1.4em;
     padding: .1em 1em;
   }
   &.confirm > button {
     visibility: hidden;
   }
-  & .act_confirm {
+  .act_confirm {
     visibility: visible;
     position: relative;
     width: 60px;
   }
-  & .act_confirm .no {
+  .act_confirm .no {
     padding: 8px 0;
     width: 30px;
     text-align: center;
@@ -191,7 +191,7 @@
     right: -34px;
   }
 
-  & .act_confirm .yes  {
+  .act_confirm .yes  {
     position: absolute;
     right: 0;
     top: -3px;
@@ -204,10 +204,10 @@
     transition: all 0.1s;
     transform: translate(0px,0px);
   }
-  & .act_confirm .yes:hover {
+  .act_confirm .yes:hover {
     filter: brightness(1.06);
   }
-  & .act_confirm .yes:active {
+  .act_confirm .yes:active {
     transform: translate(0px,5px);
     border-bottom-width: 1px;
     text-shadow: 0 0 #759900;

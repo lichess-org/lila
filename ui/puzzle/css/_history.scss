@@ -4,7 +4,7 @@
   justify-content: flex-end;
   background: $c-shade;
   height: $puzzle-history-height;
-  & > * {
+  > * {
     @extend %flex-center;
     justify-content: center;
     color: #fff;
@@ -14,7 +14,7 @@
       flex: 0 0 6.25%;
     }
   }
-  & a {
+  a {
     @include transition(background);
     &:hover {
       color: #fff;

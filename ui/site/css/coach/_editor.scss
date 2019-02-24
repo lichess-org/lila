@@ -3,10 +3,10 @@
 
 .coach-edit,
 .coach-picture {
-  & .top {
+  .top {
     display: flex;
   }
-  & .top h1 {
+  .top h1 {
     @extend %roboto;
     margin: 0;
     padding: 0!important;
@@ -16,7 +16,7 @@
     letter-spacing: 3px;
   }
 
-  & .top .picture_wrap {
+  .top .picture_wrap {
     margin-right: 30px;
     width: 250px;
     height: 250px;
@@ -25,22 +25,22 @@
 
 .coach-edit {
 
-  & .top .upload_picture {
+  .top .upload_picture {
     text-align: center;
     margin-top: 80px;
   }
 
-  & .overview {
+  .overview {
     width: 100%;
     height: 250px;
     display: flex;
     flex-flow: column;
   }
 
-  & .overview .todo {
+  .overview .todo {
     display: none;
   }
-  & .overview.with_todo .todo {
+  .overview.with_todo .todo {
     @extend %box-radius;
     border-radius: 20px;
     padding: 1rem;
@@ -48,69 +48,69 @@
     border: 1px solid $c-error;
     margin-bottom: 2rem;
   }
-  & .overview .todo h3 {
+  .overview .todo h3 {
     margin: 0;
     color: #dc3545;
     font-weight: bold;
   }
-  & .overview .todo li {
+  .overview .todo li {
     list-style: disc inside;
   }
 
-  & .material.form {
+  .material.form {
     margin-top: 0;
   }
-  & .material.form .form-group textarea {
+  .material.form .form-group textarea {
     height: 12em;
   }
 
-  & .tabs {
+  .tabs {
     display: flex;
     cursor: pointer;
     margin: 40px 0;
     text-transform: uppercase;
   }
-  & .tabs > div {
+  .tabs > div {
     flex: 1 1 100%;
     padding: 10px 0;
     text-align: center;
     position: relative;
   }
-  & .tabs > div.data-count::after {
+  .tabs > div.data-count::after {
     padding: 2px 6px;
     font-size: 1.2em;
     height: auto;
     line-height: 1.2em;
     top: 6px;
   }
-  & .tabs > div:hover {
+  .tabs > div:hover {
     color: #3893E8;
   }
-  & .tabs > .active {
+  .tabs > .active {
     color: #3893E8;
     border-bottom: 3px solid #3893E8;
   }
-  & .panel {
+  .panel {
     display: none;
   }
-  & .panel.active {
+  .panel.active {
     display: block;
   }
 
-  & .status {
+  .status {
     opacity: 0;
     transition: 0.5s;
     text-align: center;
     color: #759900;
   }
-  & .status.saved {
+  .status.saved {
     opacity: 1;
   }
-  & .reviews .help {
+  .reviews .help {
     margin: -30px 0 20px 0;
     text-align: center;
   }
-  & .reviews .review {
+  .reviews .review {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,27 +118,27 @@
     border-top: 1px solid #ccc;
     margin-top: 40px;
   }
-  & .reviews .user > * {
+  .reviews .user > * {
     display: block;
   }
-  & .reviews .modded {
+  .reviews .modded {
     background: #dc322f;
     color: #fff;
     padding: 8px 10px;
     margin-bottom: 1em;
   }
-  & .reviews .content {
+  .reviews .content {
     margin: 0 20px;
     box-sizing: border-box;
     word-break: break-word;
   }
-  & .reviews .actions {
+  .reviews .actions {
     font-size: 30px;
     display: flex;
     align-items: center;
     text-align: center;
   }
-  & .reviews .actions a {
+  .reviews .actions a {
     flex: 0 0 50px;
     width: 50px;
     height: 50px;
@@ -147,20 +147,20 @@
     background: #f0f0f0;
     border: 1px solid #d0d0d0;
   }
-  & .reviews .actions .yes {
+  .reviews .actions .yes {
     color: #759900;
     border-radius: 3px 0 0 3px;
   }
-  & .reviews .actions .no {
+  .reviews .actions .no {
     color: #dc322f;
     border-radius: 0 3px 3px 0;
     border-left: 0;
   }
-  & .reviews .actions  a:hover {
+  .reviews .actions  a:hover {
     color: #fff;
     background: #759900!important;
   }
-  & .reviews .actions  a.no:hover {
+  .reviews .actions  a.no:hover {
     background: #dc322f!important;
   }
 }

@@ -1,24 +1,24 @@
 .coach-picture {
-  & .picture_wrap {
+  .picture_wrap {
     text-align: center;
   }
 
-  & form {
+  form {
     padding: 30px;
     border-top: $border;
     text-align: center;
-    & input[type="file"] {
+    input[type="file"] {
       margin-right: 1em;
     }
   }
-  & form.delete button {
+  form.delete button {
     color: red;
   }
-  & .cancel {
+  .cancel {
     padding: 40px;
     border-top: $border;
   }
-  & .forms > *:first-child {
+  .forms > *:first-child {
     margin-top: 40px;
   }
 }

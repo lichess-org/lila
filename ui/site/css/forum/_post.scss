@@ -5,22 +5,22 @@
   &__metas {
     @extend %flex-between;
     margin-bottom: 1.5rem;
-    & > div {
+    > div {
       @extend %flex-center;
     }
-    & .author {
+    .author {
       color: $c-font-dim;
       font-weight: bold;
       font-size: 1.2rem;
       margin-right: 1rem;
     }
-    & .anchor {
+    .anchor {
       @extend %break-nope;
       color: $c-link-dim;
       font-weight: bold;
     }
   }
-  & .mod {
+  .mod {
     @media (hover: hover) {
       visibility: hidden;
     }
@@ -56,18 +56,18 @@
     @extend %break-word;
   }
 
-  & .edit-buttons {
+  .edit-buttons {
     text-align: right;
     margin-top: 0.5em;
   }
-  & .edit-buttons a {
+  .edit-buttons a {
     margin-right: 1em;
   }
 
-  & .edit-post-form {
+  .edit-post-form {
     display: none;
     margin-top: 1.5em;
-    & textarea {
+    textarea {
       width: 100%;
     }
   }

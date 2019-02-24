@@ -13,7 +13,7 @@
     &.black {
       flex-flow: column;
     }
-    & coord {
+    coord {
       transform: translateY(39%);
     }
   }
@@ -29,7 +29,7 @@
       flex-flow: row-reverse;
     }
   }
-  & coord {
+  coord {
     flex: 1 1 auto;
   }
 }

@@ -1,15 +1,15 @@
 #dasher_app .theme {
-  & .list {
+  .list {
     @extend %flex-wrap;
     margin: 5px 0;
   }
-  & .list a {
+  .list a {
     flex: 0 0 50%;
     height: 44px;
     @extend %flex-center;
     justify-content: center;
   }
-  & .list span {
+  .list span {
     display: block;
     width: 64px;
     height: 32px;
@@ -20,13 +20,13 @@
     height: 30px;
     @include transition(transform);
   }
-  & .list a:hover {
+  .list a:hover {
     filter: brightness(1.1);
   }
-  & .list a:hover span {
+  .list a:hover span {
     transform: scale(1.05);
   }
-  & .list a.active {
+  .list a.active {
     background-color: $c-font;
   }
   &.d2 {
@@ -84,64 +84,64 @@
     }
   }
   &.d3 {
-    & .Black-White-Aluminium {
+    .Black-White-Aluminium {
       background-image: url(../images/staunton/board/Black-White-Aluminium.thumbnail.png);
     }
-    & .Brushed-Aluminium {
+    .Brushed-Aluminium {
       background-image: url(../images/staunton/board/Brushed-Aluminium.thumbnail.png);
     }
-    & .China-Blue {
+    .China-Blue {
       background-image: url(../images/staunton/board/China-Blue.thumbnail.png);
     }
-    & .China-Green {
+    .China-Green {
       background-image: url(../images/staunton/board/China-Green.thumbnail.png);
     }
-    & .China-Grey {
+    .China-Grey {
       background-image: url(../images/staunton/board/China-Grey.thumbnail.png);
     }
-    & .China-Scarlet {
+    .China-Scarlet {
       background-image: url(../images/staunton/board/China-Scarlet.thumbnail.png);
     }
-    & .China-Yellow {
+    .China-Yellow {
       background-image: url(../images/staunton/board/China-Yellow.thumbnail.png);
     }
-    & .Classic-Blue {
+    .Classic-Blue {
       background-image: url(../images/staunton/board/Classic-Blue.thumbnail.png);
     }
-    & .Transparent-Glass {
+    .Transparent-Glass {
       background-image: url(../images/staunton/board/Glass.thumbnail.png);
     }
-    & .Gold-Silver {
+    .Gold-Silver {
       background-image: url(../images/staunton/board/Gold-Silver.thumbnail.png);
     }
-    & .Green-Glass {
+    .Green-Glass {
       background-image: url(../images/staunton/board/Green-Glass.thumbnail.png);
     }
-    & .Light-Wood {
+    .Light-Wood {
       background-image: url(../images/staunton/board/Light-Wood.thumbnail.png);
     }
-    & .Power-Coated {
+    .Power-Coated {
       background-image: url(../images/staunton/board/Power-Coated.thumbnail.png);
     }
-    & .Purple-Black {
+    .Purple-Black {
       background-image: url(../images/staunton/board/Purple-Black.thumbnail.png);
     }
-    & .Rosewood {
+    .Rosewood {
       background-image: url(../images/staunton/board/Rosewood.thumbnail.png);
     }
-    & .Wood-Glass {
+    .Wood-Glass {
       background-image: url(../images/staunton/board/Wood-Glass.thumbnail.png);
     }
-    & .Wax {
+    .Wax {
       background-image: url(../images/staunton/board/Wax.thumbnail.png);
     }
-    & .Jade {
+    .Jade {
       background-image: url(../images/staunton/board/Jade.thumbnail.png);
     }
-    & .Marble {
+    .Marble {
       background-image: url(../images/board/3d/marble.thumbnail.png);
     }
-    & .Woodi {
+    .Woodi {
       background-image: url(../images/board/3d/woodi.thumbnail.png);
     }
   }

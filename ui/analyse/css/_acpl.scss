@@ -5,26 +5,26 @@
   flex-flow: column;
   align-items: center;
   line-height: 1.15em;
-  & table {
+  table {
     width: 100%;
   }
-  & td {
+  td {
     padding-right: .3em;
     text-align: center;
   }
-  & tbody td {
+  tbody td {
     font-weight: bold;
   }
-  & .color-icon::before {
+  .color-icon::before {
     vertical-align: text-bottom;
   }
-  & tr.symbol {
+  tr.symbol {
     cursor: pointer;
   }
-  & tr.symbol:hover {
+  tr.symbol:hover {
     color: #3893E8;
   }
-  & .button {
+  .button {
     margin: $block-gap 0;
   }
 }

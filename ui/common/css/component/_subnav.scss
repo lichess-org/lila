@@ -7,7 +7,7 @@
 
     background: $c-bg-page;
 
-    & a {
+    a {
       @include box-neat;
       display: flex;
       align-items: center;
@@ -25,17 +25,17 @@
         font-weight: bold;
       }
     }
-    & .sep {
+    .sep {
       display: none;
     }
   }
 
   @include breakpoint($mq-subnav-side) {
-    & {
+    {
       margin-top: 5px;
       z-index: z('subnav-side'); /* active border must go over the page content */
     }
-    & a {
+    a {
       display: block;
       color: $c-font-dim;
       padding: .7rem 2vw .7rem .8rem;
@@ -62,7 +62,7 @@
         color: $c-accent;
       }
     }
-    & .sep {
+    .sep {
       height: 2em;
     }
   }

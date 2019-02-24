@@ -9,22 +9,22 @@ $vp-max-width: 1200px;
 
   &-pad {
     @extend %box-padding;
-    & .box__top {
+    .box__top {
       padding: 0 0 var(--box-padding) 0;
     }
   }
 
   &__top {
     @extend %flex-between, %box-padding;
-    & h1 {
+    h1 {
       margin: 0;
     }
     &__actions {
       @extend %flex-wrap;
-      & .button {
+      .button {
         @extend %flex-center;
       }
-      & > :not(:first-child) {
+      > :not(:first-child) {
         margin-left: 1rem;
       }
     }

@@ -9,11 +9,11 @@
     line-height: 0;
     height: 32px;
     max-height: 32px; /* or else firefox bumps to 35px when adding <score> */
-    & div {
+    div {
       display: inline-block;
       margin-left: 10px;
     }
-    & mpiece {
+    mpiece {
       margin-left: -10px;
       width: 32px;
       height: 32px;
@@ -38,7 +38,7 @@
         background-image: url(../piece/mono/K.svg);
       }
     }
-    & score {
+    score {
       font-family: 'Roboto';
       font-weight: 300;
       font-size: 15px;

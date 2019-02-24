@@ -1,19 +1,19 @@
 .round__app__moves {
   flex-flow: column;
-  & .buttons {
+  .buttons {
     @extend %flex-between;
     flex: 0 0 auto;
     border: $border;
     background: $c-bg-zebra;
     font-size: .9em;
   }
-  & .fbt {
+  .fbt {
     padding: 5px 10px;
   }
-  & .noop {
+  .noop {
     width: 30px;
   }
-  & .moves {
+  .moves {
     @extend %flex-wrap;
     border: $border;
     border-width: 0 1px;
@@ -22,14 +22,14 @@
     user-select: none;
     line-height: 1.7;
   }
-  & index {
+  index {
     @extend %roboto;
     flex: 0 0 15%;
     display: flex;
     justify-content: center;
     background: $c-bg-zebra;
   }
-  & move {
+  move {
     @extend %chess-font;
     flex: 0 0 42.5%;
     padding-left: .7em;
@@ -50,20 +50,20 @@
       background: mix($c-primary, $c-bg-box, 20%);
     }
   }
-  & .result_wrap {
+  .result_wrap {
     width: 100%;
   }
-  & .result,
-  & .status {
+  .result,
+  .status {
     text-align: center;
   }
-  & .result {
+  .result {
     border-top: 1px solid #ddd;
     font-weight: bold;
     font-size: 1.3em;
     padding: 5px 0 3px 0;
   }
-  & .status {
+  .status {
     font-size: 1em;
     font-style: italic;
     padding-bottom: 7px;

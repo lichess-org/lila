@@ -9,7 +9,7 @@
   &-inline {
     padding: 7px 3px 7px 7px;
   }
-  & move {
+  move {
     @extend %move;
   }
   &-column move {
@@ -21,29 +21,29 @@
     white-space: nowrap;
     font-weight: bold;
   }
-  & move.parent {
+  move.parent {
     color: $c-primary;
   }
-  & comment a {
+  comment a {
     vertical-align: top;
   }
-  & move.current {
+  move.current {
     border: 1px solid $c-accent;
   }
-  & move.active {
+  move.active {
     font-weight: bold;
     background: mix($c-primary, $c-bg-box, 20%);
   }
   &-inline move.active {
     @extend %box-radius;
   }
-  & move.nongame {
+  move.nongame {
     font-style: italic;
   }
-  & move:not(.empty):hover {
+  move:not(.empty):hover {
     &,
-    & index,
-    & eval {
+    index,
+    eval {
       background: $c-primary;
       color: $c-primary-over;
     }
@@ -51,15 +51,15 @@
   &-inline move:hover {
     @extend %box-radius;
   }
-  & move.empty {
+  move.empty {
     color: $c-font-dimmer;
     cursor: default;
   }
-  & move.context_menu {
+  move.context_menu {
     background: $c-accent;
     color: $c-accent-over;
   }
-  & move index {
+  move index {
     font-size: 90%;
     color: $c-font-dim;
   }
@@ -73,7 +73,7 @@
     padding-right: 0.2em;
     line-height: 111.11%
   }
-  & line move {
+  line move {
     color: $c-font;
   }
   &-column > move {
@@ -87,14 +87,14 @@
   &-column > index + move {
     border-right: $c-border;
   }
-  & eval {
+  eval {
     @extend %roboto;
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.8em;
     color: $c-font-dim;
   }
-  & glyph {
+  glyph {
     @extend %base-font;
     margin-left: 0.08em;
   }
@@ -114,7 +114,7 @@
     line-height: 2.07em;
     color: $c-font-dimmer;
   }
-  & > interrupt {
+  > interrupt {
     font-size: 95%;
   }
   &-column > interrupt {
@@ -135,7 +135,7 @@
     margin: 0 0.2em 0 0.1em;
     font-size: 0.9em;
   }
-  & comment .by {
+  comment .by {
     @extend %roboto;
     display: inline-block;
     vertical-align: -0.3em;
@@ -166,7 +166,7 @@
   &-column comment.undefined {
     border-color: #66558C;
   }
-  & line comment {
+  line comment {
     font-size: 90%;
   }
   &-column line comment {
@@ -176,27 +176,27 @@
     padding: 0 5px 0 3px;
     vertical-align: top;
   }
-  & line comment .by {
+  line comment .by {
     font-size: 1em;
     vertical-align: top;
   }
-  & lines {
+  lines {
     display: block;
     margin-top: 2px;
     margin-left: 6px;
     margin-bottom: 0.8em;
     border-left: 2px solid $c-border;
   }
-  & > interrupt > lines {
+  > interrupt > lines {
     margin-left: 0px;
   }
-  & lines.single {
+  lines.single {
     border-left: none;
   }
-  & lines:last-child {
+  lines:last-child {
     margin-bottom: 0;
   }
-  & line {
+  line {
     display: block;
     padding-left: 7px;
     position: relative;
@@ -204,13 +204,13 @@
   &-column line {
     margin: 2px 0;
   }
-  & lines lines move {
+  lines lines move {
     font-size: 13px;
   }
-  & lines lines {
+  lines lines {
     margin-left: 1px;
   }
-  & lines lines::before {
+  lines lines::before {
     content: ' ';
     border-top: 2px solid $c-border;
     position: absolute;
@@ -218,7 +218,7 @@
     width: 9px;
     height: 6px;
   }
-  & lines line::before {
+  lines line::before {
     margin-top: 0.65em;
     margin-left: -8px;
     content: ' ';
@@ -227,26 +227,26 @@
     width: 8px;
     height: 6px;
   }
-  & lines lines:last-child {
+  lines lines:last-child {
     margin-bottom: 0;
   }
-  & inline {
+  inline {
     display: inline;
     font-style: italic;
     font-size: 0.9em;
     opacity: 0.8;
   }
-  & inline::before,
-  & inline::after {
+  inline::before,
+  inline::after {
     vertical-align: 0.4em;
     opacity: 0.7;
     font-size: 0.9em;
   }
-  & inline::before {
+  inline::before {
     content: '(';
     margin-left: 2px;
   }
-  & inline::after {
+  inline::after {
     content: ')';
     margin-right: 2px;
   }
@@ -254,10 +254,10 @@
   &-inline inline::after {
     vertical-align: 0.7em;
   }
-  & .conceal {
+  .conceal {
     opacity: 0.4;
   }
-  & .hide {
+  .hide {
     display: none;
   }
 }

@@ -17,7 +17,7 @@ $mq-col3: $mq-x-large;
   &__tools { grid-area: tools; }
   &__controls { grid-area: controls; }
   &__history { grid-area: history; }
-  & .eval-gauge { grid-area: gauge; }
+  .eval-gauge { grid-area: gauge; }
 
   $board-min-width: calc(70vmin * var(--board-scale));
   $board-max-width: calc(100vh * var(--board-scale) - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});

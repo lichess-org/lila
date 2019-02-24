@@ -11,25 +11,25 @@
       font-size: 3rem;
       margin-right: 4%;
     }
-    & p {
+    p {
       margin: 0;
     }
-    & .setup {
+    .setup {
       display: flex;
       align-items: center;
     }
-    & time {
+    time {
       opacity: 1;
     }
   }
-  & .status {
+  .status {
     text-align: center;
   }
   &__players {
     margin-top: .3rem;
     font-size: 90%;
   }
-  & .bookmark {
+  .bookmark {
     position: absolute;
     right: 0;
     z-index: z('game-bookmark');

@@ -4,15 +4,15 @@
     @extend %box-neat;
     align-self: start;
     background: $c-bg-box;
-    & .spinner {
+    .spinner {
       margin: 4rem auto;
     }
-    & p {
+    p {
       margin: 0;
     }
 
     padding: 2vmin;
-    & .infos {
+    .infos {
       display: flex;
       align-items: center;
       &::before {
@@ -23,14 +23,14 @@
         padding-bottom: 2vh;
         border-bottom: $border;
         margin-bottom: 2vh;
-        & a {
+        a {
           font-size: 1.2em;
         }
-        & .hidden {
+        .hidden {
           opacity: 0.7;
         }
       }
-      & .players {
+      .players {
         margin-top: .3rem;
         font-size: 90%;
       }
@@ -42,20 +42,20 @@
     align-self: start;
     background: $c-bg-box;
     // overflow: hidden;
-    & h2 {
+    h2 {
       padding: 2vmin;
       font-size: 1.2rem;
     }
-    & .rp {
+    .rp {
       /* font-size: 1.2em; */
     }
-    & .rp.up {
+    .rp.up {
       color: $c-good;
     }
-    & .rp.down {
+    .rp.down {
       color: $c-bad;
     }
-    & canvas {
+    canvas {
       width: 100%;
     }
   }

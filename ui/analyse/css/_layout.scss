@@ -24,7 +24,7 @@ $board-width: minmax($board-min-width, $board-max-width);
   &__acpl { grid-area: acpl; }
   &__side { grid-area: side; }
   &__underchat { grid-area: uchat; }
-  & .eval-gauge { grid-area: gauge; }
+  .eval-gauge { grid-area: gauge; }
 
   @include breakpoint($mq-col2) {
     @include columns-with-gauge-col2($board-width, 0);

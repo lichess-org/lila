@@ -1,7 +1,7 @@
 #clinput {
   display: flex;
   height: $site-header-height;
-  & input {
+  input {
     line-height: $site-header-height;
     background: none;
     padding: 0;
@@ -12,7 +12,7 @@
   &.shown input {
     width: 20ch;
   }
-  & input:focus {
+  input:focus {
     outline: none;
   }
 }

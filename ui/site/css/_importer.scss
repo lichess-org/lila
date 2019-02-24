@@ -3,41 +3,41 @@ main.importer {
     margin: 3vh 0;
     text-align: center;
   }
-  & form {
-    & label.pgn {
+  form {
+    label.pgn {
       display: block;
       margin-bottom: 1em;
     }
 
-    & label.pgn span {
+    label.pgn span {
       display: block;
       margin-bottom: 1em;
     }
 
-    & textarea {
+    textarea {
       width: 98%;
       height: 20vh!important;
       padding: 0.5em;
     }
 
-    & .analyse > span {
+    .analyse > span {
       float: left;
       margin-right: 10px;
     }
-    & .analyse > label {
+    .analyse > label {
       cursor: pointer;
     }
 
-    & button.submit {
+    button.submit {
       margin: 0 auto;
       display: block;
     }
 
-    & p.error {
+    p.error {
       margin: 10px 0;
       color: red;
     }
-    & .wait {
+    .wait {
       display: none;
     }
   }

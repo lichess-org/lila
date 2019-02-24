@@ -4,7 +4,7 @@
 }
 .mini-board {
   @extend %square;
-  & .cg-board-wrap {
+  .cg-board-wrap {
     width: 224px;
     height: 224px;
   }

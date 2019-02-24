@@ -13,26 +13,26 @@
       flex: 1 2 0px;
     }
   }
-  & .overlay {
+  .overlay {
     @extend %link-overlay;
     display: none;
   }
   &.loading .overlay {
     display: block;
   }
-  & tbody {
+  tbody {
     @include transition(opacity);
   }
   &.loading tbody {
     opacity: 0.4;
   }
-  & .empty {
+  .empty {
     text-align: center;
     display: flex;
     flex-flow: column;
     height: 100%;
   }
-  & tr {
+  tr {
     @include transition(background-color);
     &:nth-child(even) {
       background: $c-bg-zebra;
@@ -41,11 +41,11 @@
       background: mix($c-secondary, $c-bg-box, 20%);
     }
   }
-  & td {
+  td {
     cursor: pointer;
     padding-left: 7px;
   }
-  & .moves td:first-child {
+  .moves td:first-child {
     @extend %chess-font;
     line-height: 30px;
     padding-left: 7px;
@@ -54,15 +54,15 @@
     font-family: 'Noto Sans';
     font-size: 13px;
   }
-  & .moves td:nth-child(2) {
+  .moves td:nth-child(2) {
     font-size: .75em;
     text-align: right;
   }
-  & .moves td:last-child {
+  .moves td:last-child {
     width: 100%;
     padding-right: 7px;
   }
-  & .bar span {
+  .bar span {
     text-align: center;
     display: inline-block;
     overflow: hidden;
@@ -73,77 +73,77 @@
     line-height: 14px;
     font-size: .9em;
   }
-  & .white {
+  .white {
     background: if($theme-light, #fff, #ccc);
     box-shadow: 0 -5px 7px rgba(0,0,0,if($theme-light, .1, .25)) inset;
     @if $theme-dark {
       color: #222;
     }
   }
-  & .draws,
-  & .black {
+  .draws,
+  .black {
     color: if($theme-light, #fff, #ddd);
     box-shadow: 0 5px 7px rgba(255,255,255, if($theme-light, .2, .1)) inset;
   }
-  & .draws {
+  .draws {
     background: if($theme-light, #a0a0a0, #666);
   }
-  & .black {
+  .black {
     background: if($theme-light, #555, #333);
     color: #ddd;
   }
-  & .bar span:first-child {
+  .bar span:first-child {
     @extend %box-radius-left;
     border-left-width: 1px;
   }
-  & .bar span:last-child {
+  .bar span:last-child {
     @extend %box-radius-right;
     border-right-width: 1px;
   }
-  & .games {
+  .games {
     width: 100%;
   }
-  & .games td {
+  .games td {
     padding: 5px 0 5px 7px;
     max-width: 110px;
   }
-  & .games td span {
+  .games td span {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  & .games result {
+  .games result {
     display: block;
     text-align: center;
     padding: 3px 5px;
     border-radius: 3px;
     font-size: .9em;
   }
-  & .game_menu {
+  .game_menu {
     background: $c-secondary;
     cursor: default;
     padding: 0;
-    & .game_title {
+    .game_title {
       text-align: center;
       color: $c-secondary-over;
       margin: 3px 0 1px 0;
     }
-    & .menu {
+    .menu {
       display: flex;
       justify-content: space-between;
       text-transform: uppercase;
-      & a {
+      a {
         color: #fff;
         padding: 4px 8px;
       }
-      & a:hover {
+      a:hover {
         background: rgba(255,255,255,0.2);
       }
     }
   }
-  & .tablebase {
+  .tablebase {
     width: 100%;
-    & td:first-child {
+    td:first-child {
       @extend %chess-font;
       font-size: 14px;
       line-height: 30px;
@@ -152,18 +152,18 @@
         @extend %base-font;
       }
     }
-    & td:last-child {
+    td:last-child {
       padding-right: 7px;
       text-align: right;
     }
-    & result {
+    result {
       padding: 3px 5px;
       margin-left: 5px;
       border-radius: 3px;
       font-size: 0.9em;
     }
   }
-  & .toconf {
+  .toconf {
     position: absolute;
     top: 0;
     right: 0;
@@ -178,7 +178,7 @@
       opacity: 1;
     }
   }
-  & .message {
+  .message {
     text-align: center;
     font-style: italic;
     flex: 1 1 100%;
@@ -189,7 +189,7 @@
   &.reduced .message {
     justify-content: flex-start;
   }
-  & .message strong {
+  .message strong {
     font-weight: bold;
     margin: 1em 0;
   }
@@ -197,7 +197,7 @@
   &.reduced:hover .message h3 {
     font-weight: bold;
   }
-  & .message p {
+  .message p {
     white-space: normal;
     padding: 0 8px;
     margin: 0 0 8px 0;
@@ -210,29 +210,29 @@
   &.reduced:hover .message button {
     display: block;
   }
-  & .message button {
+  .message button {
     margin: 0 30px;
   }
-  & .message.masters i {
+  .message.masters i {
     font-size: 40px;
     margin: 10px 0;
   }
-  & .config {
-    & section {
+  .config {
+    section {
       margin: .4em $block-gap 0 $block-gap;
     }
-    & section.save {
+    section.save {
       text-align: center;
       padding: 15px 0 10px 0;
     }
-    & label {
+    label {
       font-weight: bold;
       display: block;
       line-height: 2em;
     }
-    & .choices {
+    .choices {
       display: flex;
-      & span {
+      span {
         flex-grow: 1;
         padding: 5px 0;
         text-align: center;

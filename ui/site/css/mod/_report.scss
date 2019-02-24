@@ -7,17 +7,17 @@ $c-report-high-over: white;
     @extend %flex-between-stretch;
     height: 4rem;
   }
-  & .header .icon {
+  .header .icon {
     flex: 1 1 auto;
     margin: .4rem .8rem;
     background: no-repeat url(../images/icons/octopus.svg) left center;
     opacity: 0.6;
   }
-  & .tabs {
+  .tabs {
     display: flex;
     margin-right: 15px;
     font-size: 1.2em;
-    & a {
+    a {
       @extend %roboto, %flex-column;
       color: $c-font-dim;
       text-transform: uppercase;
@@ -34,7 +34,7 @@ $c-report-high-over: white;
         background: $c-report-high;
         color: $c-report-high-over;
       }
-      & count {
+      count {
         font-size: 0.8em;
         display: block;
         height: 1.2em;
@@ -44,7 +44,7 @@ $c-report-high-over: white;
       }
     }
   }
-  & .score {
+  .score {
     display: inline-block;
     white-space: nowrap;
     font-weight: bold;
@@ -52,65 +52,65 @@ $c-report-high-over: white;
     padding: 0.3em 0.5em;
     border-radius: 0.3em;
   }
-  & .score.green {
+  .score.green {
     /* actually blue */
     background-color: rgba(32, 119, 192, 0.4);
   }
-  & .score.yellow {
+  .score.yellow {
     background-color: rgba(221, 207, 63, 0.4);
   }
-  & .score.orange {
+  .score.orange {
     background-color: rgba(231, 155, 100, 0.4);
   }
-  & .score.red {
+  .score.red {
     background-color: rgba(231, 59, 56, 0.4);
   }
-  & table.see {
+  table.see {
     @extend %break-word;
     border-top: 4px solid $c-report-high;
-    & .button {
+    .button {
       width: 6rem;
     }
-    & .button-metal {
+    .button-metal {
       box-sizing: border-box;
       box-shadow: none;
       border: $border;
     }
-    & .inquiry .button {
+    .inquiry .button {
       padding: 1rem 1.2rem;
       font-size: 1.4em;
     }
-    & .button-thin {
+    .button-thin {
       font-size: 0.8em;
     }
   }
-  & .atoms .atom {
+  .atoms .atom {
     font-size: 0.9em;
     margin-bottom: 1em;
   }
-  & .atoms .atom:last-child {
+  .atoms .atom:last-child {
     margin-bottom: 0;
   }
-  & .atoms .atom .head {
+  .atoms .atom .head {
     display: block;
   }
-  & .atoms .atom .score {
+  .atoms .atom .score {
     font-size: 0.9em;
     padding: 0.1em 0.4em;
   }
-  & table.see .perfs {
+  table.see .perfs {
     font-size: 0.9em;
     white-space: nowrap;
   }
-  & table.see .text {
+  table.see .text {
     max-height: 100px;
     overflow: hidden;
     font-size: 0.9em;
   }
-  & table.see .text.large {
+  table.see .text.large {
     font-size: 0.8em;
   }
-  & tr.new td:first-child {
+  tr.new td:first-child {
     border-left: 4px solid $c-report-high;
   }
   .user_marks i {

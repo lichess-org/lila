@@ -1,28 +1,28 @@
 .mobile {
-  & .sides {
+  .sides {
     @extend %flex-wrap;
   }
-  & .left-side {
+  .left-side {
     flex: 1 1 auto;
-    & .stores {
+    .stores {
       display: flex;
-      & a {
+      a {
         @extend %flex-center;
       }
     }
-    & h2 {
+    h2 {
       margin-top: 2rem;
     }
-    & .block {
+    .block {
       margin: 10px 0 20px 0;
     }
-    & li {
+    li {
       list-style-type: none;
       font-size: 1.2em;
       line-height: 1.5em;
       padding-left: 2em;
     }
-    & li:before {
+    li:before {
       vertical-align: middle;
       content:'\2713';
       display:inline-block;
@@ -31,10 +31,10 @@
       padding:0 6px 0 0;
     }
   }
-  & .right-side {
+  .right-side {
     flex: 0 0 264px;
     text-align: center;
-    & .qrcode {
+    .qrcode {
       margin-top: 20px;
     }
   }

@@ -17,17 +17,17 @@
     line-height: #{$site-header-tall-height - 5};
     margin: 0 1rem;
   }
-  & a {
+  a {
     color: $c-font;
     text-decoration: none;
     &:hover {
       color: $c-primary;
-      & span {
+      span {
         color: $c-primary-dim;
       }
     }
   }
-  & span {
+  span {
     color: $c-font-dim;
   }
 }

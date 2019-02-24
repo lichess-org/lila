@@ -1,6 +1,9 @@
 $c-lead: $c-brag;
 $user-list-width: 25ch;
 
+
+#main-wrap.full-screen {
+
 .community {
   display: grid;
   grid-gap: 2rem;
@@ -12,46 +15,46 @@ $user-list-width: 25ch;
     'online leaders'
     'online .';
   }
-  & h2 {
+  h2 {
     font-size: 1.7em;
     margin-bottom: 2rem;
   }
 
-  & .user_top {
-    & li {
+  .user_top {
+    li {
       width: 100%;
       display: flex;
       justify-content: space-between;
       line-height: 1.6em;
       white-space: nowrap;
     }
-    & .user_link {
+    .user_link {
       overflow: hidden;
       text-overflow: ellipsis;
     }
   }
   &__online {
     grid-area: online;
-    & li {
+    li {
       padding: .5rem 0;
     }
-    & .user_link {
+    .user_link {
       margin-right: 1em;
     }
   }
   &__leaders {
     grid-area: leaders;
-    & .leaderboards {
+    .leaderboards {
       @extend %box-radius;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
       grid-gap: 1px;
       border: 1px solid $c-lead;
       background: $c-lead;
-      & .user_top {
+      .user_top {
         background: $c-bg-box;
       }
-      & h2 {
+      h2 {
         display: flex;
         align-items: center;
         font-size: 1.45em;
@@ -64,11 +67,11 @@ $user-list-width: 25ch;
         color: #fff;
         overflow: hidden;
         white-space: nowrap;
-        & a {
+        a {
           color: #fff;
         }
       }
-      & li {
+      li {
         padding: .5rem 1.2rem .5rem .5rem;
       }
       li:nth-child(even) {
