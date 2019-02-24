@@ -7,11 +7,15 @@
   &__controls .ddloader {
     margin: 20px auto 10px auto;
   }
-  &__user {
+  .ruser {
     white-space: nowrap;
     display: flex;
-    margin: 0 3px;
-    font-size: 1.25em;
+    justify-content: left;
+    padding: .5em .5em .5em .3em;
+    font-size: 1.2em;
+    &:hover {
+      color: $c-font;
+    }
     & a {
       color: $c-font;
       flex: 1 1 auto;

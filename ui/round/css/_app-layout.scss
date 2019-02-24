@@ -7,8 +7,8 @@ $col1-moves-height: 9rem;
 
 $col2-material-height: 40px;
 $col2-clock-height: auto;
-$col2-player-height: 40px;
-$col2-moves-height: auto;
+$col2-player-height: auto;
+$col2-moves-height: 15vh;
 $col2-controls-height: auto;
 
 @mixin col2-grid-columns-with-gaps($sides, $center) {
@@ -75,6 +75,9 @@ $col2-controls-height: auto;
       display: block;
       grid-area: 4 / 4 / 8 / 5;
     }
+    &__moves {
+      display: none;
+    }
     @include breakpoint($mq-room-for-moves) {
       @include col2-grid-rows-with-moves($col2-moves-height);
       grid-template-areas:
@@ -88,6 +91,9 @@ $col2-controls-height: auto;
       ". board . clock-bottom"
       ". board . mat-bottom"
       ". board . .";
+      &__moves {
+        display: flex;
+      }
     }
   }
 
@@ -122,38 +128,14 @@ $col2-controls-height: auto;
       @extend %square;
     }
   }
-  & .material-top {
-    grid-area: mat-top;
-  }
-  & .material-bottom {
-    grid-area: mat-bottom;
-  }
-  &__user-top {
-    @extend %round__app__user;
-    grid-area: user-top;
-  }
-  &__user-bottom {
-    @extend %round__app__user;
-    grid-area: user-bottom;
-  }
+  .material-top { grid-area: mat-top; }
+  .material-bottom { grid-area: mat-bottom; }
+  .ruser-top { grid-area: user-top; }
+  .ruser-bottom { grid-area: user-bottom; }
   .rclock-top { grid-area: clock-top; }
   .rclock-bottom { grid-area: clock-bottom; }
   &__moves {
     grid-area: moves;
-    @include breakpoint($mq-col2) {
-      display: none;
-      @include breakpoint($mq-room-for-moves) {
-        height: 15vh;
-        display: flex;
-      }
-    }
   }
   &__controls { grid-area: controls; }
-}
-
-%round__app__user {
-  white-space: nowrap;
-  justify-content: left;
-  padding: 0.5rem;
-  text-transform: none;
 }

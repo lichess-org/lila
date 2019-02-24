@@ -1,0 +1,6 @@
+@keyframes glowed {
+  50% { background: rgba(56,147,232,0.3); }
+}
+&.glowed {
+  animation: glowed 1.5s ease-in-out infinite;
+}
