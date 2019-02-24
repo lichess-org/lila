@@ -5,9 +5,9 @@ import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, possibleDrops?: string) => void;
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
 
-interface sanMap {
+interface SanMap {
   [key: string]: cg.Role;
 }
 
@@ -36,11 +36,11 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   const cgState = root.chessground.state;
   return {
     drop(key, piece) {
-      const role = (sanToRole as sanMap)[piece]
+      const role = (sanToRole as SanMap)[piece]
       const crazyData = root.data.crazyhouse
       const color = root.data.player.color
       // Piece not in Pocket
-      if (!crazyData || !crazyData.pockets[color][role]) return
+      if (!role || !crazyData || !crazyData.pockets[color][role]) return
       // Square occupied
       if (root.chessground.state.pieces[key]) return
       if (!crazyValid(root.data, role, key)) return
