@@ -13,7 +13,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
   if (!step.crazy) return;
   const droppedRole = ctrl.justDropped,
   preDropRole = ctrl.preDrop,
-  pocket = step.crazy.pockets[color],
+  pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
   usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
   usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
   activeColor = color === ctrl.data.player.color;

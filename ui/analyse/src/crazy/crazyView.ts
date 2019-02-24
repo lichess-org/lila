@@ -10,7 +10,7 @@ type Position = 'top' | 'bottom';
 
 export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (!ctrl.node.crazy) return;
-  const pocket = ctrl.node.crazy.pockets[color];
+  const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;
   let captured = ctrl.justCaptured;
   if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
