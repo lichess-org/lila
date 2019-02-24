@@ -27,7 +27,7 @@ window.lichess.keyboardMove = function(opts: any) {
       // do nothing
     } else if (v.match(crazyhouseRegex)) {
       // Crazyhouse
-      if (v.length === 3) v = 'P' + v
+      if (v.length === 3) v = 'P' + v;
       opts.drop(v.slice(2), v[0].toUpperCase());
       clear();
     } else

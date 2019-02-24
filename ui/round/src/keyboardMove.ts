@@ -36,17 +36,17 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   const cgState = root.chessground.state;
   return {
     drop(key, piece) {
-      const role = (sanToRole as SanMap)[piece]
-      const crazyData = root.data.crazyhouse
-      const color = root.data.player.color
+      const role = (sanToRole as SanMap)[piece];
+      const crazyData = root.data.crazyhouse;
+      const color = root.data.player.color;
       // Piece not in Pocket
-      if (!role || !crazyData || !crazyData.pockets[color][role]) return
+      if (!role || !crazyData || !crazyData.pockets[color][role]) return;
       // Square occupied
-      if (root.chessground.state.pieces[key]) return
-      if (!crazyValid(root.data, role, key)) return
+      if (root.chessground.state.pieces[key]) return;
+      if (!crazyValid(root.data, role, key)) return;
       root.chessground.cancelMove();
-      root.chessground.newPiece({ role, color }, key)
-      root.sendNewPiece(role, key, false)
+      root.chessground.newPiece({ role, color }, key);
+      root.sendNewPiece(role, key, false);
     },
     update(step) {
       if (handler) handler(step.fen, cgState.movable.dests);
