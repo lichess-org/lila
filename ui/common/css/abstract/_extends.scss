@@ -146,6 +146,7 @@
   border: none;
   outline: none;
   line-height: 1.5;
+  @include transition();
   &:hover:not(.disabled) {
     background: mix($c-secondary, $c-bg-box, 75%);
     color: #fff;

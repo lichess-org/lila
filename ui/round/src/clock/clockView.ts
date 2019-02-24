@@ -23,7 +23,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     insert: (vnode) => update(vnode.elm as HTMLElement),
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
   };
-  return h('div.rclock.rclock-live.rclock-' + position, {
+  return h('div.rclock.rclock-' + position, {
     class: {
       outoftime: millis <= 0,
       running: isRunning,
@@ -38,6 +38,9 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     clock.showBar ? showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]) : undefined,
     h('div.time', {
       attrs: { title: `${player.color} clock` },
+      class: {
+        hour: millis > 3600 * 1000
+      },
       hook: timeHook
     }),
     renderBerserk(ctrl, player.color, position),
