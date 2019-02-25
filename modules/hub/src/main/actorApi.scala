@@ -72,6 +72,7 @@ package mod {
   case class ChatTimeout(mod: String, user: String, reason: String)
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
+  case class SetPermissions(userId: String, permissions: List[String])
 }
 
 package playban {
