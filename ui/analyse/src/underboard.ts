@@ -29,7 +29,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       }, 50);
     });
     li.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
-      var chart, point, $chart = $("#adv-chart");
+      let chart, point, $chart = $("#adv-chart");
       if (fen && fen !== lastFen) {
         inputFen.value = fen;
         lastFen = fen;
@@ -54,9 +54,9 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
             else {
-              var white = mainlinePly % 2 !== 0;
-              var serie = white ? 0 : 1;
-              var turn = Math.floor((mainlinePly - 1 - data.game.startedAtTurn) / 2);
+              const white = mainlinePly % 2 !== 0;
+              const serie = white ? 0 : 1;
+              const turn = Math.floor((mainlinePly - 1 - data.game.startedAtTurn) / 2);
               point = chart.series[serie].data[turn];
               if (defined(point)) point.select();
               else unselect(chart);
@@ -95,16 +95,16 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     }
     return false;
   }
-  var chartLoader = function() {
+  function chartLoader() {
     return '<div id="adv-chart-loader">' +
       '<span>' + li.engineName + '<br>server analysis</span>' +
       li.spinnerHtml +
       '</div>'
   };
-  var startAdvantageChart = function() {
+  function startAdvantageChart() {
     if (li.advantageChart || li.AnalyseNVUI) return;
-    var loading = partialList(data.treeParts);
-    var $panel = $panels.filter('.computer-analysis');
+    const loading = partialList(data.treeParts);
+    const $panel = $panels.filter('.computer-analysis');
     if (!$("#adv-chart").length) $panel.html('<div id="adv-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv-chart-loader").length) $panel.append(chartLoader());
     li.loadScript('javascripts/chart/acpl.js').then(function() {
@@ -112,8 +112,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   };
 
-  var storage = li.storage.make('analysis.panel');
-  var setPanel = function(panel) {
+  const storage = li.storage.make('analysis.panel');
+  const setPanel = function(panel) {
     $menu.children('.active').removeClass('active').end().find(`[data-panel=${panel}`).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel == 'move-times' && !li.movetimeChart) try {
@@ -125,16 +125,14 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function(this: HTMLElement) {
-    var panel = $(this).data('panel');
+    const panel = $(this).data('panel');
     storage.set(panel);
     setPanel(panel);
   });
-  var stored = storage.get();
-  if (stored && $menu.children('.' + stored).length) setPanel(stored);
-  else {
-    var $ct = $menu.children('.ctable');
-    ($ct.length ? $ct : $menu.children(':first-child')).trigger('mousedown');
-  }
+  const stored = storage.get();
+  const $menuCt = $menu.children('[data-panel=ctable]');
+  if (stored && $menuCt.length) setPanel(stored);
+  else ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').submit(function(this: HTMLElement) {
       if ($(this).hasClass('must-login')) {
@@ -152,8 +150,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   $panels.on('click', '.pdn', function(this: HTMLElement) {
-    let selection = window.getSelection();
-    let range = document.createRange();
+    const selection = window.getSelection(),
+      range = document.createRange();
     range.selectNodeContents(this);
     if (selection) {
       selection.removeAllRanges();
@@ -161,8 +159,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     }
   });
   $panels.on('click', '.embed-howto', function(this: HTMLElement) {
-    var url = 'https://lidraughts.org/embed/' + data.game.id + location.hash;
-    var iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
+    const url = 'https://lidraughts.org/embed/' + data.game.id + location.hash;
+    const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
     $.modal($(
       '<strong style="font-size:1.5em">' + $(this).html() + '</strong><br /><br />' +
       '<pre>' + li.escapeHtml(iframe) + '</pre><br />' +

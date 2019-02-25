@@ -7,6 +7,7 @@ import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
+const allRatings = [1600, 1800, 2000, 2200, 2500];
 
 export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigCtrl {
 
@@ -24,8 +25,8 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
       }
     },
     rating: {
-      available: [1600, 1800, 2000, 2200, 2500],
-      selected: storedJsonProp('explorer.rating', [1600, 1800, 2000, 2200, 2500])
+      available: allRatings,
+      selected: storedJsonProp('explorer.rating', allRatings)
     },
     speed: {
       available: allSpeeds,
