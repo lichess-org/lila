@@ -604,8 +604,8 @@ lidraughts.topMenuIntent = function() {
         return false;
       });
 
-      if (!getComputedStyle(document.body).getPropertyValue('--gride'))
-        $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend($(html)))
+      if (!getComputedStyle(document.body).getPropertyValue('--grid'))
+        $.get(lidraughts.assetUrl('oops/browser.html'), html => $('body').prepend(html))
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
