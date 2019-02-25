@@ -20,29 +20,16 @@
     background: $c-bg-box;
     flex: 1 1 auto;
   }
-  fill::before {
-    border-bottom: 1px solid $c-bg-page;
-    content: '';
-    height: 50%;
-    display: block;
-  }
   povs,
   &__users,
   &__score,
   &__matchup {
     @extend %flex-column;
     text-align: center;
-    > :first-child {
-      border-bottom: 1px solid $c-bg-page;
-    }
   }
   &__users,
   &__score {
     @extend %metal;
-    &,
-    > :first-child {
-      border-color: $c-border;
-    }
   }
   &__users {
     overflow: hidden;
@@ -62,9 +49,6 @@
     flex: 1 1 auto;
     font-weight: bold;
     background: mix($c-primary, $c-bg-box, 20%);
-    span:first-child {
-      border-color: $c-primary;
-    }
   }
   povs {
     a {
