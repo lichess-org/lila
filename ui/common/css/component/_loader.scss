@@ -37,7 +37,11 @@
   100% { background-position: right }
 }
 .ddloader {
-  background: img-url('loader/blackx1.png') no-repeat;
+  @if $theme-light {
+    background: img-url('loader/blackx1.png') no-repeat;
+  } @else {
+    background: img-url('loader/whitex1.png') no-repeat;
+  }
   animation: ddloader 0.5s steps(15) infinite;
   vertical-align: middle;
   display: inline-block;

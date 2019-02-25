@@ -1,5 +1,12 @@
 $mq-room-for-moves: $mq-x-small $mq-short;
 
+$material-height: 40px;
+$clock-height: auto;
+$expiration-height: min-content;
+$user-height: auto;
+$moves-height: auto;
+$controls-height: auto;
+
 $col1-player-clock-height: 50px;
 
 .round__app {
@@ -10,30 +17,47 @@ $col1-player-clock-height: 50px;
   grid-template-areas:
   "user-top clock-top"
   "board    board"
+  "expi-bot expi-bot"
   "user-bot clock-bot"
   "controls controls"
   "moves    moves";
 
+  &expiration- { display: none; }
   &__table { display: none; }
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $board-width minmax(250px, 320px);
-    grid-template-rows: repeat(10, auto);
+    grid-template-columns: $board-width $table-width;
+    grid-template-rows:
+    1fr
+    $material-height
+    $clock-height
+    $expiration-height
+    $user-height
+    $moves-height
+    $controls-height
+    $user-height
+    $expiration-height
+    $clock-height
+    $material-height
+    1fr;
+
     grid-template-areas:
     "board ."
     "board mat-top"
     "board clock-top"
+    "board expi-top"
     "board user-top"
     "board moves"
     "board controls"
     "board user-bot"
+    "board expi-bot"
     "board clock-bot"
     "board mat-bot"
     "board .";
     grid-column-gap: $block-gap;
     &__table {
       display: block;
-      grid-area: 4 / 2 / 8 / 3;
+      grid-area: 4 / 2 / 10 / 3;
     }
     .rmoves { display: none; }
     @include breakpoint($mq-room-for-moves) {
@@ -60,6 +84,8 @@ $col1-player-clock-height: 50px;
 .rcontrols { grid-area: controls; }
 .material-top { grid-area: mat-top; }
 .material-bottom { grid-area: mat-bot; }
+.expiration-top { grid-area: expi-top; }
+.expiration-bottom { grid-area: expi-bot; }
 .ruser-top { grid-area: user-top; }
 .ruser-bottom { grid-area: user-bot; }
 .rclock-top { grid-area: clock-top; }

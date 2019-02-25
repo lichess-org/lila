@@ -30,7 +30,7 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: minmax(200px, 300px) $board-width minmax(250px, 320px);
+    grid-template-columns: minmax(200px, 300px) $board-width $table-width;
     grid-template-rows: max-content fit-content(100%);
     grid-template-areas:
     'side  app   app'

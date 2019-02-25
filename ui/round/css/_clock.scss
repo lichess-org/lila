@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
+  user-select: none;
   @include breakpoint($mq-col2) {
     justify-content: space-between;
     &-bottom {

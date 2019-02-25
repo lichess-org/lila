@@ -25,6 +25,7 @@
   }
   .moves {
     @extend %flex-wrap;
+    align-content: start;
     border: $border;
     border-width: 0 1px;
     overflow: hidden;
@@ -49,15 +50,13 @@
     @include transition();
     body.piece_letter & {
       @extend %base-font;
-      font-size: 15px;
-      line-height: 25px;
     }
     &:not(.empty) {
       cursor: pointer;
-    }
-    &:not(.empty):hover {
-      background: $c-primary;
-      color: #fff;
+      &:hover {
+        background: $c-primary;
+        color: #fff;
+      }
     }
     &.active {
       font-weight: bold;
@@ -73,17 +72,14 @@
       margin-right: 12px;
     }
   }
-  .result_wrap {
+  .result-wrap {
     width: 100%;
-  }
-  .result,
-  .status {
     text-align: center;
   }
   .result {
-    border-top: 1px solid #ddd;
+    border-top: $border;
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.2em;
     padding: 5px 0 3px 0;
   }
   .status {
