@@ -19,9 +19,9 @@ body {
     --board-scale: calc((var(--zoom) / 100) * 0.5 + 0.5);
   }
 
-  @media (hover: hover) {
-    --hoverable: 1;
-  }
+  /* Feature detection for JS to read */
+  @media (hover: hover) { --hoverable: 1; }
+  @supports (display: grid) { --grid: 1; }
 }
 
 #main-wrap {
