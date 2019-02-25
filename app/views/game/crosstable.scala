@@ -20,9 +20,7 @@ object crosstable {
       (ct.nbGames min Crosstable.maxGames) - m.users.nbGames
     }
 
-    val fill = ct.fill.map { i =>
-      s"""<fill${(i == Crosstable.maxGames) ?? " class=\"last\""}></fill>"""
-    } mkString ""
+    val fill = (ct.fillSize > 0) ?? s"""<fill style="flex:${ct.fillSize * 0.75} 1 auto"></fill>"""
 
     val results = ct.results.zipWithIndex.map {
       case (r, i) =>

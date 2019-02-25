@@ -18,7 +18,7 @@ case class Crosstable(
 
   lazy val size = results.size
 
-  def fill = (1 to Crosstable.maxGames - size)
+  def fillSize = Crosstable.maxGames - size
 }
 
 object Crosstable {
