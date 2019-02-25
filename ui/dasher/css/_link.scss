@@ -6,10 +6,9 @@
   .links a,
   .links button,
   .subs .sub {
+    @extend %nowrap-hidden;
     display: block;
     padding: 0.5rem 1rem;
-    white-space: nowrap;
-    overflow: hidden;
   }
   .links a:hover,
   .links a:hover::before,

@@ -2,12 +2,11 @@
   background: $c-bg-box;
   font-size: 13px;
   .pv {
+    @extend %nowrap-hidden;
     height: 2em;
     line-height: 2em;
     border-top: $border;
     text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
     &[data-uci]:hover {
       background: mix($c-secondary, $c-bg-box, 20%);
       cursor: pointer;

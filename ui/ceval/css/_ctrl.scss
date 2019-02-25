@@ -21,13 +21,12 @@
   }
   help,
   .engine {
+    @extend %nowrap-hidden;
     flex: 1 0;
     font-size: 12px;
     line-height: 16px;
     margin-top: 3px;
     color: $c-font-dim;
-    white-space: nowrap;
-    overflow: hidden;
   }
   .engine {
     .cloud {

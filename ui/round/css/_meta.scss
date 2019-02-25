@@ -4,9 +4,8 @@
   background: $c-bg-box;
   padding: #{$block-gap * 0.6} $block-gap;
   &__infos {
+    @extend %flex-center-nowrap;
     position: relative;
-    display: flex;
-    align-items: center;
     &::before {
       font-size: 3rem;
       margin-right: 4%;
@@ -15,8 +14,7 @@
       margin: 0;
     }
     .setup {
-      display: flex;
-      align-items: center;
+      @extend %flex-center-nowrap, %nowrap-hidden;
     }
     time {
       opacity: 1;

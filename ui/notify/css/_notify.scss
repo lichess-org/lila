@@ -75,9 +75,8 @@
   }
 }
 .site_notification .content {
+  @extend %nowrap-hidden;
   flex: 0 1 100%;
-  white-space: nowrap;
-  overflow: hidden;
 }
 .site_notification .content span:first-child {
   @extend %flex-between;

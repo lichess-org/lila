@@ -1,9 +1,7 @@
 .ruser {
-  white-space: nowrap;
   display: flex;
   justify-content: left;
   font-size: 1.2em;
-  overflow: hidden;
   padding: 0 .3em;
   line-height: $col1-player-clock-height;
   @include breakpoint($mq-col2) {
@@ -29,9 +27,8 @@
     letter-spacing: -0.5px;
   }
   .line {
-    display: flex;
+    @extend %flex-center-nowrap;
     justify-content: center;
-    align-items: center;
   }
   @keyframes connecting {
     0% { opacity: 0.1; }

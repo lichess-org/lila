@@ -27,9 +27,8 @@
       margin-left: 2%;
     }
     ol li {
+      @extend %nowrap-hidden;
       color: $c-font-dim;
-      white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
     ol li::before {
@@ -44,13 +43,12 @@
       height: 60px;
       padding-left: 54px;
       .study-name {
+        @extend %nowrap-hidden;
         font-size: 1.5em;
         font-weight: normal;
         color: $c-brag;
         display: block;
         margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
         text-overflow: ellipsis;
       }
       span {

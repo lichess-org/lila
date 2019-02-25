@@ -25,12 +25,12 @@ h1 {
 h2 {
   @include fluid-size('font-size', 23px, 40px);
 }
-h3 {
-  font-weight: bold;
-  color: $c-font-dim;
-  @include fluid-size('font-size', 20px, 30px);
-}
-h4 {
-  color: $c-font-dim;
-  @include fluid-size('font-size', 20px, 26px);
-}
+// h3 {
+//   font-weight: bold;
+//   color: $c-font-dim;
+//   @include fluid-size('font-size', 20px, 30px);
+// }
+// h4 {
+//   color: $c-font-dim;
+//   @include fluid-size('font-size', 20px, 26px);
+// }

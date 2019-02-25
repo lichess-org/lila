@@ -1,6 +1,6 @@
 .user_link {
+  @extend %nowrap-hidden;
   color: $c-font;
-  white-space: nowrap;
   &:hover {
     color: $c-link;
   }
