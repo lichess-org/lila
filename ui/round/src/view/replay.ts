@@ -174,21 +174,20 @@ function renderButtons(ctrl: RoundController) {
   ]);
 }
 
-function racingKingsInit(d: RoundData) {
-  if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator) {
-    const yourTurn = d.player.color === 'white' ? [h('br'), h('strong', "it's your turn!")] : [];
-    return h('div.message', util.justIcon(''), [
-      h('span', "You have the " + d.player.color + " pieces"),
-      ...yourTurn
-    ]);
-  }
-  return;
+function initMessage(d: RoundData) {
+  return (d.game.turns === 0 && !d.player.spectator) ?
+    h('div.message', util.justIcon(''), [
+      h('div', [
+        `You play the ${d.player.color} pieces`,
+        ...(d.player.color === 'white' ? [h('br'), h('strong', "It's your turn!")] : [])
+      ])
+    ]) : null;
 }
 
 export default function(ctrl: RoundController): VNode | undefined {
-  return ctrl.nvui ? undefined : h('div.round__app__moves', [
+  return ctrl.nvui ? undefined : h('div.rmoves', [
     renderButtons(ctrl),
-    racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
+    initMessage(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {
         insert(vnode) {
           (vnode.elm as HTMLElement).addEventListener('mousedown', e => {

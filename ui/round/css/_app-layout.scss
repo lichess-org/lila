@@ -63,13 +63,9 @@ $col2-controls-height: auto;
       display: block;
       grid-area: 4 / 2 / 8 / 3;
     }
-    &__moves {
-      display: none;
-    }
+    .rmoves { display: none; }
     @include breakpoint($mq-room-for-moves) {
-      &__moves {
-        display: flex;
-      }
+      .rmoves { display: flex; }
     }
   }
 
@@ -86,9 +82,6 @@ $col2-controls-height: auto;
       max-width: calc(100vh - #{$site-header-height} - #{$col1-clock-height * 2});
     }
   }
-  &__moves {
-    grid-area: moves;
-  }
   &__controls { grid-area: controls; }
 }
 .material-top { grid-area: mat-top; }
@@ -97,3 +90,4 @@ $col2-controls-height: auto;
 .ruser-bottom { grid-area: user-bottom; }
 .rclock-top { grid-area: clock-top; }
 .rclock-bottom { grid-area: clock-bottom; }
+.rmoves { grid-area: moves; }

@@ -18,7 +18,6 @@
     'app   app'
     'chat  side'
     'under under';
-    &__app__moves { display: block; }
   }
 
   @include breakpoint($mq-col3) {
@@ -28,5 +27,6 @@
     'side  app   app'
     'chat  app   app'
     'uchat under .  ';
+    &__underchat { display: block; }
   }
 }

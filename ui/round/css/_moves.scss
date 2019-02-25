@@ -1,4 +1,4 @@
-.round__app__moves {
+.rmoves {
   flex-flow: column;
   .buttons {
     @extend %flex-between;
@@ -13,8 +13,11 @@
   .noop {
     width: 30px;
   }
-  .moves {
+  .moves,
+  .message {
     flex: 0 0 6.8em;
+  }
+  .moves {
     @extend %flex-wrap;
     border: $border;
     border-width: 0 1px;
@@ -53,6 +56,15 @@
     &.active {
       font-weight: bold;
       background: mix($c-primary, $c-bg-box, 20%);
+    }
+  }
+  .message {
+    @extend  %flex-center;
+    margin: 1em;
+    &::before {
+      color: $c-font-dim;
+      font-size: 3em;
+      margin-right: 12px;
     }
   }
   .result_wrap {
