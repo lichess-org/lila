@@ -31,10 +31,8 @@
   }
 
   @include breakpoint($mq-subnav-side) {
-    {
-      margin-top: 5px;
-      z-index: z('subnav-side'); /* active border must go over the page content */
-    }
+    margin-top: 5px;
+    z-index: z('subnav-side'); /* active border must go over the page content */
     a {
       display: block;
       color: $c-font-dim;

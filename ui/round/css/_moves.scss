@@ -14,13 +14,17 @@
     width: 30px;
   }
   .moves {
+    flex: 0 0 6.8em;
     @extend %flex-wrap;
     border: $border;
     border-width: 0 1px;
-    overflow: auto;
+    overflow: hidden;
     will-change: scroll-position;
     user-select: none;
     line-height: 1.7;
+    &:hover {
+      overflow-y: auto;
+    }
   }
   index {
     @extend %roboto;
@@ -33,6 +37,7 @@
     @extend %chess-font;
     flex: 0 0 42.5%;
     padding-left: .7em;
+    @include transition();
     body.piece_letter & {
       @extend %base-font;
       font-size: 15px;

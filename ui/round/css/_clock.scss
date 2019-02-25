@@ -35,18 +35,23 @@
     background: $c-bad;
   }
   .time {
-    @extend %roboto-mono, %box-shadow;
+    @extend %roboto, %box-shadow;
     background: $c-bg-box;
     border: $border;
-    font-size: 3.3em;
-    line-height: 1.3em;
+    font-size: 3.5em;
+    line-height: 1.2em;
+    letter-spacing: .12em;
+    font-weight: bold;
     padding: 0 $block-gap;
     white-space: nowrap;
     /* ensure updates don't redraw other parts of the document */
     will-change: transform;
     z-index: -1;
+    display: flex;
+    align-items: flex-end;
     &.hour {
-      font-size: 2.8em;
+      font-size: 2.9em;
+      letter-spacing: .1em;
     }
   }
   &-top .time {
@@ -58,37 +63,30 @@
     border-top: 0;
   }
   &-correspondence .time {
-    font-size: 20px;
+    font-size: 1.3em;
   }
   tenths {
     font-size: 70%;
-    sep {
-      vertical-align: baseline;
-    }
+    margin-bottom: -.18em;
   }
   huns {
     font-size: 80%;
   }
   sep {
     opacity: 0.5;
-    font-size: 0.8em;
-    vertical-align: 4px;
-    margin-left: -1px;
+    font-size: .8em;
     &.low {
       opacity: 0.15;
     }
   }
   &.running .time {
-    background: #fff077;
-    color: #444;
+    background: mix($c-secondary, $c-bg-box, 30%);
+    color: $c-font-clearer;
   }
-  &.running.emerg .time {
-    background-color: #eFAAAA;
-    color: #444;
-  }
+  &.emerg .time,
   &.outoftime .time {
-    background-color: #eFAAAA;
-    color: #444;
+    background-color: mix($c-bad, $c-bg-box, 40%);
+    color: $c-font-clearer;
   }
   .berserk.button {
     font-size: 25px;

@@ -5,24 +5,28 @@
 
   &__app { grid-area: app; }
   &__side { grid-area: side; }
+  .mchat { grid-area: chat; }
   &__underboard { grid-area: under; }
-  &__underchat { grid-area: uchat; }
-
-  &__underchat { display: none; }
+  &__underchat {
+    grid-area: uchat;
+    display: none;
+  }
 
   @include breakpoint($mq-col2) {
     grid-template-columns: 2fr 3fr;
     grid-template-areas:
     'app   app'
-    'side  side'
+    'chat  side'
     'under under';
     &__app__moves { display: block; }
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: minmax(200px, 300px) $board-width minmax(200px, 300px);
+    grid-template-columns: minmax(200px, 300px) $board-width minmax(250px, 320px);
+    grid-template-rows: max-content fit-content(100%);
     grid-template-areas:
     'side  app   app'
+    'chat  app   app'
     'uchat under .  ';
   }
 }

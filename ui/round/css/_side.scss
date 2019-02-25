@@ -1,8 +1,8 @@
 .round__side {
   @extend %flex-column;
+  // overflow: hidden; /* force long chat to fit on board height */
   .game__meta {
     flex: 0 0 auto;
-    margin-bottom: $block-gap;
   }
   .mchat {
     flex: 1 1 auto;
