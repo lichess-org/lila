@@ -1,0 +1,10 @@
+.mchat {
+  flex: 1 1 auto;
+  &__messages {
+    min-height: 10em;
+    max-height: 30vh;
+    @include breakpoint($mq-col3) {
+      max-height: none;
+    }
+  }
+}

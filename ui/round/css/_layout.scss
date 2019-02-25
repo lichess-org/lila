@@ -7,17 +7,26 @@
   &__side { grid-area: side; }
   .mchat { grid-area: chat; }
   &__underboard { grid-area: under; }
-  &__underchat {
-    grid-area: uchat;
-    display: none;
-  }
+  &__underchat { grid-area: uchat; }
+
+  grid-template-areas:
+  'app'
+  'side'
+  'chat'
+  'uchat'
+  'under';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto fit-content(0) fit-content(0);
     grid-template-areas:
     'app   app'
     'chat  side'
-    'under under';
+    'chat  under'
+    'chat  uchat';
+    &__app {
+      justify-self: center;
+    }
   }
 
   @include breakpoint($mq-col3) {
@@ -27,6 +36,6 @@
     'side  app   app'
     'chat  app   app'
     'uchat under .  ';
-    &__underchat { display: block; }
+    @include crosstable-large;
   }
 }

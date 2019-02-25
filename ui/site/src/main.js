@@ -730,10 +730,10 @@ lidraughts.topMenuIntent = function() {
     _create: function() {
       this.list = this.element.find(".list");
       this.number = this.element.find(".number");
-      lidraughts.pubsub.on('socket.in.crowd', data => $('.chat__members').watchers("set", data.watchers));
+      lidraughts.pubsub.on('socket.in.crowd', data => this.set(data.watchers));
     },
     set: function(data) {
-      if (!data) return this.element.addClass('hidden');
+      if (!data) return this.element.addClass('none');
       if (this.number.length) this.number.text(data.nb);
       if (data.users) {
         var tags = data.users.map($.userLink);
@@ -741,7 +741,7 @@ lidraughts.topMenuIntent = function() {
         else if (data.anons) tags.push('Anonymous(' + data.anons + ')');
         this.list.html(tags.join(', '));
       } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
-      this.element.removeClass('hidden');
+      this.element.removeClass('none');
     }
   });
 
@@ -907,7 +907,7 @@ lidraughts.topMenuIntent = function() {
 
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
-      $(".chat__members").watchers();
+      $('.chat__members').watchers();
       $('div.captcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
@@ -924,7 +924,7 @@ lidraughts.topMenuIntent = function() {
             color: cg.state.orientation,
             events: {
               after: function(orig, dest) {
-                $captcha.removeClass("success failure");
+                $captcha.removeClass('success failure');
                 submit(orig + ' ' + dest);
               }
             }

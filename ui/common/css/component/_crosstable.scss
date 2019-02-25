@@ -1,8 +1,20 @@
+@mixin crosstable-large {
+  .crosstable__users { flex: 7 1 auto; }
+}
+@mixin crosstable-small {
+  .crosstable__users { flex: 1 1 auto; }
+}
+
+@include crosstable-small;
+
 .crosstable {
   @extend %box-neat-force;
   width: 100%;
-  display: flex;
   line-height: 1.9em;
+  display: none;
+  @include breakpoint($mq-xx-small) {
+    display: flex;
+  }
   fill,
   povs {
     background: $c-bg-box;
@@ -33,7 +45,6 @@
     }
   }
   &__users {
-    flex: 8 1 auto;
     overflow: hidden;
     text-align: left;
     a {

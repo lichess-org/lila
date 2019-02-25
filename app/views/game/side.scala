@@ -97,12 +97,6 @@ object side {
         div(cls := "side_box")(
           h2(cls := "top user_tv text", dataUserTv := u.id, dataIcon := "1")(u.titleUsername)
         )
-      } orElse {
-        lidraughts.common.HTTPRequest.isMobile(ctx.req) option
-          a(cls := "side_box text deep_link", dataIcon := "", href := s"lidraughts://analyse/${pov.gameId}")(
-            "Open with ",
-            strong("Mobile app")
-          )
       },
 
       tour.map { t =>

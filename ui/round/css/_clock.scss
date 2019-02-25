@@ -1,10 +1,13 @@
 .rclock {
   position: relative;
   display: flex;
-  justify-content: space-between;
-  &-bottom {
-    /* over the table shadow */
-    z-index: 0;
+  justify-content: flex-end;
+  @include breakpoint($mq-col2) {
+    justify-content: space-between;
+    &-bottom {
+      /* over the table shadow */
+      z-index: 0;
+    }
   }
   &-turn {
     height: 2em;
@@ -14,22 +17,26 @@
     font-weight: bold;
   }
   .bar {
-    @extend %box-radius-right;
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background: $c-good;
-    transform-origin: left;
-    .with-expiration & {
-      display: none;
+    display: none;
+  }
+  @include breakpoint($mq-col2) {
+    .bar {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: $c-good;
+      transform-origin: left;
+      .with-expiration & {
+        display: none;
+      }
     }
-  }
-  &-top .bar {
-    bottom: -4px;
-  }
-  &-bottom .bar {
-    top: -4px;
+    &-top .bar {
+      bottom: -4px;
+    }
+    &-bottom .bar {
+      top: -4px;
+    }
   }
   &.berserk {
     background: $c-bad;
@@ -38,9 +45,8 @@
     @extend %roboto, %box-shadow;
     background: $c-bg-box;
     border: $border;
-    font-size: 3.5em;
-    line-height: 1.2em;
-    letter-spacing: .12em;
+    font-size: 2.8em;
+    line-height: $col1-player-clock-height;
     font-weight: bold;
     padding: 0 $block-gap;
     white-space: nowrap;
@@ -48,10 +54,20 @@
     will-change: transform;
     z-index: -1;
     display: flex;
-    align-items: flex-end;
     &.hour {
-      font-size: 2.9em;
-      letter-spacing: .1em;
+      font-size: 2.3em;
+    }
+    @include breakpoint($mq-col2) {
+      align-items: flex-end;
+      line-height: 1.2em;
+    }
+    @include breakpoint($mq-xx-small) {
+      font-size: 3.5em;
+      letter-spacing: .12em;
+      &.hour {
+        font-size: 2.9em;
+        letter-spacing: .1em;
+      }
     }
   }
   &-top .time {
@@ -96,8 +112,12 @@
   .moretime,
   .berserked {
     @extend %flex-center;
-    flex: 0 1 auto;
-    font-size: 20px;
+    display: none;
+    @include breakpoint($mq-col2) {
+      display: block;
+      flex: 0 1 auto;
+      font-size: 20px;
+    }
   }
   .moretime {
     opacity: 0.4;

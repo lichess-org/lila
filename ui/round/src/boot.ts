@@ -25,9 +25,6 @@ export default function(opts: RoundOpts): void {
         round.socketReceive(t, d);
       },
       events: {
-        crowd(e: { watchers: number }) {
-          $watchers.watchers("set", e.watchers);
-        },
         tvSelect(o: any) {
           if (data.tv && data.tv.channel == o.channel) li.reload();
           else $('#tv_channels a.' + o.channel + ' span').html(
@@ -95,7 +92,6 @@ export default function(opts: RoundOpts): void {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
 
-  let $watchers: JQuery;
   round = (window['LidraughtsRound'] as RoundMain).app(opts);
   if (opts.chat) {
     if (opts.tour) {
@@ -109,7 +105,6 @@ export default function(opts: RoundOpts): void {
       chat = c;
     });
   }
-  $watchers = $('#site_header div.watchers').watchers();
   startTournamentClock();
   $('#now_playing').find('.move_on input').change(function () {
     var t = round.moveOn.toggle();

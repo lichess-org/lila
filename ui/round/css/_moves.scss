@@ -1,11 +1,17 @@
 .rmoves {
+  display: flex;
   flex-flow: column;
+  background: $c-bg-box;
   .buttons {
     @extend %flex-between;
     flex: 0 0 auto;
     border: $border;
     background: $c-bg-zebra;
     font-size: .9em;
+    order: 2;
+    @include breakpoint($mq-col2) {
+      order: 0;
+    }
   }
   .fbt {
     padding: 5px 10px;
