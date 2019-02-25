@@ -21,7 +21,7 @@
   @include box-shadow;
 }
 %box-neat {
-  @include box-neat;
+  @extend %box-shadow, %box-radius;
 }
 %box-neat-force {
   @include box-neat;

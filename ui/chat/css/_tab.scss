@@ -7,12 +7,10 @@
     }
   }
   &__tab {
-    @extend %roboto, %box-radius-top;
+    @extend %roboto, %nowrap-hidden, %box-radius-top;
     flex: 1 1 auto;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 5px 10px;
+    padding: .4em 10px;
     // background: $c-shade;
     cursor: pointer;
     color: $c-font-page;
@@ -29,8 +27,7 @@
       display: block;
     }
     span {
-      white-space: nowrap;
-      overflow: hidden;
+      @extend %nowrap-hidden;
       text-overflow: ellipsis;
     }
     &:last-child {

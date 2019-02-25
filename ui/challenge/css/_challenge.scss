@@ -113,14 +113,13 @@
       font-size: 2.6em;
     }
     .content {
+      @extend %nowrap-hidden;
       position: absolute;
       top: 10px;
       left: 16px;
       display: block;
       width: 196px;
       text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
     .head {

@@ -121,11 +121,10 @@ $panel-height: 220px;
   border: $border;
   border-radius: 0 50% 50% 0;
   span {
+    @extend %nowrap-hidden;
     margin-left: 7px;
     opacity: 1;
     transition: 0.5s;
-    white-space: nowrap;
-    overflow: hidden;
     width: 100px;
     display: block;
     .analyse__underboard:hover & {

@@ -102,12 +102,11 @@
   }
   .rematch{
     &.button {
+      @extend %flex-center-nowrap;
+      justify-content: center;
       padding: 0;
       height: 56px;
       font-size: 1.2em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       text-transform: uppercase;
       transition: all .15s, height 0.5s ease;
       .variant_crazyhouse & {

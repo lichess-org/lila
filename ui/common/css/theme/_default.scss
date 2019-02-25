@@ -9,14 +9,16 @@
   @return mix(#000, $color, $weight);
 }
 
-$c-bg-page: hsl(37%, 10%, 92%); // hsl(210, 17%, 95%)
-$c-bg-high: hsl(0%, 0%, 100%);
+$c-site-hue: 37;
+
+$c-bg-page: hsl($c-site-hue, 10%, 92%); // hsl(210, 17%, 95%)
+$c-bg-high: hsl(0, 0%, 100%);
 $c-bg-low: hsl(0, 8%, 87%);
 
 /* even rows in list or tables, subtle shade of $c-bg-high */
-$c-bg-zebra: hsl(37%, 12%, 96.5%);
+$c-bg-zebra: hsl($c-site-hue, 12%, 96.5%);
 
-$c-body-gradient: hsl(37%, 12%, 84%);
+$c-body-gradient: hsl($c-site-hue, 12%, 84%);
 
 $c-font: hsl(0, 0%, 30%);
 $c-font-dim: c-light($c-font, 47%);
