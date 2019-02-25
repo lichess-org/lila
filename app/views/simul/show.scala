@@ -56,7 +56,7 @@ object show {
       }
     )),
     underchat = Some(div(
-      cls := "watchers hidden",
+      cls := "watchers none",
       aria.live := "off",
       aria.relevant := "additions removals text"
     )(span(cls := "list inline_userlist"))),

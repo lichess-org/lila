@@ -30,7 +30,7 @@ function loader() { return h('span.ddloader'); }
 function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [
     renderReplay(ctrl),
-    h('div.round__app__controls', buttons)
+    h('div.rcontrols', buttons)
   ];
 }
 
@@ -66,7 +66,7 @@ function renderTablePlay(ctrl: RoundController) {
     ]);
   return [
     renderReplay(ctrl),
-    h('div.round__app__controls', [
+    h('div.rcontrols', [
       h('div.ricons', {
         class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
       }, icons),

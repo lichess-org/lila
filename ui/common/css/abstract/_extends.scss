@@ -144,9 +144,11 @@
   outline: none;
   line-height: 1.5;
   @include transition();
-  &:hover:not(.disabled) {
-    background: mix($c-secondary, $c-bg-box, 75%);
-    color: #fff;
+  @media (hover: hover) {
+    &:hover:not(.disabled) {
+      background: mix($c-secondary, $c-bg-box, 75%);
+      color: #fff;
+    }
   }
   &.active {
     background: $c-secondary!important;

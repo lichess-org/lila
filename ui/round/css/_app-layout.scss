@@ -1,52 +1,24 @@
 $mq-room-for-moves: $mq-x-small $mq-short;
 
-$col1-player-clock-height: 60px;
-$col1-clock-height: 60px;
-$col1-controls-height: 60px;
-$col1-moves-height: 9rem;
-
-$col2-material-height: 40px;
-$col2-clock-height: auto;
-$col2-player-height: auto;
-$col2-moves-height: auto;
-$col2-controls-height: auto;
+$col1-player-clock-height: 50px;
 
 .round__app {
   display: grid;
 
-  grid-template-columns: 3fr 1fr;
-
-  grid-template-rows:
-  $col1-player-clock-height
-  auto
-  $col1-player-clock-height
-  $col1-controls-height
-  $col1-moves-height;
-
+  grid-template-columns: auto min-content;
+  grid-template-rows: $col1-player-clock-height auto $col1-player-clock-height;
   grid-template-areas:
   "user-top clock-top"
-  "board   board"
-  "user-bottom clock-bottom"
+  "board    board"
+  "user-bot clock-bot"
   "controls controls"
-  "moves   moves";
+  "moves    moves";
 
-  &__table {
-    display: none;
-  }
+  &__table { display: none; }
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $board-width minmax(250px, 320px);
-    grid-template-rows:
-    auto
-    $col2-material-height
-    $col2-clock-height
-    $col2-player-height
-    $col2-moves-height
-    $col2-controls-height
-    $col2-player-height
-    $col2-clock-height
-    $col2-material-height
-    auto;
+    grid-template-rows: repeat(10, auto);
     grid-template-areas:
     "board ."
     "board mat-top"
@@ -54,9 +26,9 @@ $col2-controls-height: auto;
     "board user-top"
     "board moves"
     "board controls"
-    "board user-bottom"
-    "board clock-bottom"
-    "board mat-bottom"
+    "board user-bot"
+    "board clock-bot"
+    "board mat-bot"
     "board .";
     grid-column-gap: $block-gap;
     &__table {
@@ -79,15 +51,15 @@ $col2-controls-height: auto;
     }
     @include breakpoint($mq-portrait) {
       /* In portrait single column, make sure both clocks and the board fit in the viewport. If they don't, limit the board width */
-      max-width: calc(100vh - #{$site-header-height} - #{$col1-clock-height * 2});
+      max-width: calc(100vh - #{$site-header-height} - #{$col1-player-clock-height * 2});
     }
   }
-  &__controls { grid-area: controls; }
 }
+.rcontrols { grid-area: controls; }
 .material-top { grid-area: mat-top; }
-.material-bottom { grid-area: mat-bottom; }
+.material-bottom { grid-area: mat-bot; }
 .ruser-top { grid-area: user-top; }
-.ruser-bottom { grid-area: user-bottom; }
+.ruser-bottom { grid-area: user-bot; }
 .rclock-top { grid-area: clock-top; }
-.rclock-bottom { grid-area: clock-bottom; }
+.rclock-bottom { grid-area: clock-bot; }
 .rmoves { grid-area: moves; }

@@ -1,0 +1,47 @@
+.ruser {
+  white-space: nowrap;
+  display: flex;
+  justify-content: left;
+  font-size: 1.2em;
+  overflow: hidden;
+  padding: 0 .3em;
+  line-height: $col1-player-clock-height;
+  @include breakpoint($mq-col2) {
+    padding: .5em .5em .5em .3em;
+    line-height: inherit;
+  }
+  &:hover {
+    color: $c-font;
+  }
+  a {
+    color: $c-font;
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &.long a {
+    letter-spacing: -0.5px;
+  }
+  rating {
+    flex: 0 0 auto;
+    margin: 0 0.25em 0 0.3em;
+    opacity: 0.6;
+    letter-spacing: -0.5px;
+  }
+  .line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes connecting {
+    0% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 0.1; }
+  }
+  &.connecting .line {
+    animation: connecting 0.9s ease-in-out infinite;
+  }
+  .rp {
+    margin-right: 0.2em;
+  }
+}

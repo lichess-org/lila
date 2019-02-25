@@ -26,7 +26,7 @@ object bits {
 
   def watchers(implicit ctx: Context): Frag =
     div(
-      cls := "chat__members hidden",
+      cls := "chat__members none",
       aria.live := "off",
       aria.relevant := "additions removals text"
     )(
