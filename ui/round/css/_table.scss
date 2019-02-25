@@ -7,16 +7,6 @@
   &__controls .ddloader {
     margin: 20px auto 10px auto;
   }
-  &__moves {
-    .message {
-      margin: 20px 10px;
-    }
-    .message::before {
-      font-size: 3em;
-      float: left;
-      margin-right: 10px;
-    }
-  }
 }
 .ruser {
   white-space: nowrap;

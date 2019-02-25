@@ -8,7 +8,7 @@ import { game as gameRoute } from 'game/router';
 import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
-import { Step, MaybeVNodes} from '../interfaces';
+import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
 function emptyMove() {
   return h('move.empty', '...');
@@ -175,10 +175,20 @@ function renderButtons(ctrl: RoundController) {
   ]);
 }
 
+function initMessage(d: RoundData) {
+  return (d.game.turns === 0 && !d.player.spectator) ?
+    h('div.message', util.justIcon(''), [
+      h('div', [
+        `You play the ${d.player.color} pieces`,
+        ...(d.player.color === 'white' ? [h('br'), h('strong', "It's your turn!")] : [])
+      ])
+    ]) : null;
+}
+
 export default function(ctrl: RoundController): VNode | undefined {
-  return ctrl.nvui ? undefined : h('div.round__app__moves', [
+  return ctrl.nvui ? undefined : h('div.rmoves', [
     renderButtons(ctrl),
-    (ctrl.replayEnabledByPref() ? h('div.moves', {
+    initMessage(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {
         insert(vnode) {
           (vnode.elm as HTMLElement).addEventListener('mousedown', e => {
