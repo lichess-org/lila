@@ -136,7 +136,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     pearl = '-';
     percent = 0;
   } else {
-    pearl = enabled ? h('span.ddloader') : h('span');
+    pearl = enabled ? h('i.ddloader') : h('i');
     percent = 0;
   }
   if (threatMode) {

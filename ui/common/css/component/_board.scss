@@ -1,6 +1,9 @@
 .main-board {
   @extend %square;
   position: relative;
+  &__preload {
+    position: absolute;
+  }
 }
 .mini-board {
   @extend %square;

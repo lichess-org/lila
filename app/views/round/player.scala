@@ -48,9 +48,7 @@ ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView
             game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked)
           ),
           chatOption.map(_ => chat.frag),
-          div(cls := "round__app")(
-            div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
-          ),
+          roundAppPreload(pov),
           div(cls := "round__underboard")(
             bits.crosstable(cross, pov.game),
             (playing.nonEmpty || simul.nonEmpty) option
@@ -64,4 +62,20 @@ ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView
         )
       ))
   }
+
+  private def roundAppPreload(pov: Pov)(implicit ctx: Context) =
+    div(cls := "round__app")(
+      div(cls := "round__app__board main-board")(board.bits.domPreload(pov.some)),
+      roundAppStatic
+    )
+
+  private val roundAppStatic = frag(
+    div(cls := "round__app__table"),
+    div(cls := "ruser ruser-top"),
+    div(cls := "ruser ruser-bottom"),
+    div(cls := "rclock rclock-top preload")(div(cls := "time")(nbsp)),
+    div(cls := "rclock rclock-bottom preload")(div(cls := "time")(nbsp)),
+    div(cls := "rmoves")(div(cls := "moves")),
+    div(cls := "rcontrols")(i(cls := "ddloader"))
+  )
 }
