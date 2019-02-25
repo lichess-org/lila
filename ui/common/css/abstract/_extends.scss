@@ -44,66 +44,10 @@
   word-break: normal;
 }
 
-%flex-wrap {
-  display: flex;
-  flex-flow: row wrap;
-}
-%flex-center {
-  /* extends %flex-wrap */
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
-%flex-between {
-  /* extends %flex-center */
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-}
-%flex-between-stretch {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: stretch;
-}
-%flex-column {
-  display: flex;
-  flex-flow: column;
-}
 %square {
   height: 0;
   padding-bottom: 100%;
   width: 100%;
-}
-%box-radius {
-  @include box-radius;
-}
-%box-radius-force {
-  @extend %box-radius;
-  overflow: hidden; /* helps with clipping background into border-radius */
-}
-%box-radius-left {
-  border-radius: $box-radius-size 0 0 $box-radius-size;
-}
-%box-radius-right {
-  border-radius: 0 $box-radius-size $box-radius-size 0;
-}
-%box-radius-top {
-  border-radius: $box-radius-size $box-radius-size 0 0;
-}
-%box-radius-bottom {
-  border-radius: 0 0 $box-radius-size $box-radius-size;
-}
-%box-shadow {
-  @include box-shadow;
-}
-%box-neat {
-  @include box-neat;
-}
-%box-neat-force {
-  @include box-neat;
-  overflow: hidden; /* helps with clipping background into border-radius */
 }
 %data-icon {
   font-size: 1.1em;

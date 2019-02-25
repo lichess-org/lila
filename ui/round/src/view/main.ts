@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { playable } from 'game';
 import { plyStep } from '../round';
 import { renderTable } from './table';
 import * as promotion from '../promotion';
@@ -10,7 +9,6 @@ import * as util from '../util';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 // import { render as keyboardMove } from '../keyboardMove';
-import renderExpiration from './expiration';
 import RoundController from '../ctrl';
 import { Position, MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
 
@@ -59,18 +57,15 @@ export function main(ctrl: RoundController): VNode {
     util.countChecks(ctrl.data.steps, ctrl.ply) :
     util.noChecks;
 
-  const expiration = playable(ctrl.data) && renderExpiration(ctrl);
-
   return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app', [
     h('div.round__app__board.main-board.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      class: { 'with-expiration': !!expiration },
       hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       renderGround(ctrl),
       promotion.view(ctrl)
     ]),
     crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
-    ...renderTable(ctrl, expiration),
+    ...renderTable(ctrl),
     crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor])
   ])
   // h('div.underboard', [

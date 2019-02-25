@@ -35,7 +35,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       hook: timeHook
     })
   ] : [
-    clock.showBar ? showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]) : undefined,
+    clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]) : undefined,
     h('div.time', {
       attrs: { title: `${player.color} clock` },
       class: {

@@ -6,6 +6,9 @@
     border-bottom: 0;
     border-top: $border;
   }
+  p {
+    margin: 0;
+  }
   .disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -16,31 +19,18 @@
   .suggestion,
   .pending,
   .negotiation {
-    padding: 8px 7px;
-    background: #d0d0d0;
+    padding: .5em 3%;
+    background: $c-bg-zebra;
+    border: $border;
+    border-width: 0 1px;
   }
-  .suggestion p {
-    margin-bottom: 7px;
-  }
-  .suggestion .button {
-    width: 100%;
-  }
-  .expiration {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &.emerg {
-      background: #dc322f!important;
-      color: #fff!important;
-    }
-    strong {
-      font-size: 1.3em;
-      margin-right: .3em;
+  .suggestion {
+    .button {
+      width: 100%;
     }
   }
   .pending {
-    display: flex;
-    align-items: center;
+    @extend %flex-center-nowrap;
     p {
       flex: 3 1;
       margin-right: 7px;
@@ -50,52 +40,49 @@
     }
   }
   .negotiation {
-    display: flex;
-    align-items: center;
+    @extend %flex-center-nowrap;
+    background: $c-accent;
+    color: #fff;
     p {
       flex: 1 1 auto;
       margin-right: 7px;
     }
     a {
-      flex: 0 0 50px;
-      height: 50px;
-      line-height: 44px;
-      font-size: 25px;
+      flex: 0 0 3rem;
+      height: 3rem;
+      font-size: 1.5em;
+      line-height: 1.7em;
       display: block;
-      background: #fff;
+      background: $c-bg-box;
     }
     .accept {
-      color: #759900;
-      border-right: 1px solid #d0d0d0;
-      border-radius: 3px 0 0 3px;
+      @extend %box-radius-left;
+      color: $c-good;
+      margin-right: 1px;
     }
     .decline {
-      color: #dc322f;
-      border-radius: 0 3px 3px 0;
+      @extend %box-radius-right;
+      color: $c-bad;
     }
     a:hover {
       color: #fff;
-      background: #759900!important;
+      background: $c-good;
     }
     a.decline:hover {
-      background: #dc322f!important;
+      background: $c-bad;
     }
   }
-  .follow_up {
+  .follow-up {
     position: relative;
     .button {
       display: block;
       width: 100%;
-      box-sizing: border-box;
       border-radius: 0;
       padding: 12px 0;
-      border-width: 1px 0 0 0;
+      margin-top: 1px;
     }
     > .button:first-child {
-      border-top-width: 0;
-    }
-    > .button:last-child {
-      border-bottom-width: 1px;
+      margin-top: 0;
     }
     .variant_crazyhouse & .button {
       padding: 9px 0;
@@ -122,7 +109,7 @@
       justify-content: center;
       align-items: center;
       text-transform: uppercase;
-      transition: height 0.5s ease;
+      transition: all .15s, height 0.5s ease;
       .variant_crazyhouse & {
         height: 60px;
       }
@@ -130,7 +117,7 @@
     &.me {
       background: rgba(56,147,232,0.8);
     }
-    @keyframes rubberBand {
+    @keyframes rubber-band {
       from { transform: scale3d(1, 1, 1); }
       6% { transform: scale3d(1.25, 0.75, 1); }
       8% { transform: scale3d(0.75, 1.25, 1); }
@@ -139,37 +126,32 @@
       15% { transform: scale3d(1.05, .95, 1); }
       20% { transform: scale3d(1, 1, 1); }
     }
-    &.them {
-      background: none;
-      animation: fbt-glowing 1.5s ease-in-out infinite;
-    }
-    &.them span {
-      animation: rubberBand 5s infinite;
+    &.glowing {
+      span {
+        animation: rubber-band 5s infinite;
+      }
     }
     &.button:not(.disabled):hover {
-      background: rgba(56,147,232,0.8);
-      color: #fff!important;
+      background: mix($c-link, $c-bg-box, 70%);
+      color: #fff;
       animation: none;
-      text-shadow: none;
     }
     &-decline {
+      @extend %flex-center-nowrap, %box-radius-right;
+      background: $c-bg-zebra;
+      justify-content: center;
       position: absolute;
       top: 0;
       right: -25px;
       width: 25px;
       height: 55px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid #ccc;
+      border: $border;
       border-left: 0;
-      border-radius: 0 5px 5px 0;
-      box-sizing: border-box;
       opacity: 0.7;
-      transition: 0.3s;
+      @include transition();
     }
     &-decline:hover {
-      background: #dc322f;
+      background: $c-bad;
       color: #fff;
       right: -36px;
       width: 35px;

@@ -1,11 +1,11 @@
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { Position, MaybeVNodes } from '../interfaces';
 import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import renderReplay from './replay';
+import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
@@ -97,17 +97,16 @@ function anyClock(ctrl: RoundController, position: Position) {
   else return whosTurn(ctrl, player.color, position);
 }
 
-export function renderTable(ctrl: RoundController, expiration: [VNode, boolean] | undefined | false): MaybeVNodes {
+export function renderTable(ctrl: RoundController): MaybeVNodes {
   return [
     anyClock(ctrl, 'top'),
     anyClock(ctrl, 'bottom'),
     h('div.round__app__table'),
-    expiration && !expiration[1] ? expiration[0] : null,
+    renderExpiration(ctrl),
     renderPlayer(ctrl, 'top'),
     ...(ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
       game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
     )),
     renderPlayer(ctrl, 'bottom'),
-    expiration && expiration[1] ? expiration[0] : null
   ];
 };

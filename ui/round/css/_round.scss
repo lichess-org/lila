@@ -5,6 +5,8 @@ $board-min-width: calc(70vmin * var(--board-scale));
 $board-max-width: calc(100vh * var(--board-scale) - #{$site-header-height} - #{$block-gap});
 $board-width: minmax($board-min-width, $board-max-width);
 
+$table-width: minmax(250px, 350px);
+
 @import 'layout';
 @import 'app-layout';
 @import 'zen';

@@ -51,8 +51,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
   }
   if (result || status.aborted(ctrl.data)) {
     const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    return h('div.result_wrap', [
-      result ? h('p.result', result) : null,
+    return h('div.result-wrap', [
+      h('p.result', result || ''),
       h('p.status', {
         hook: {
           insert: _ => {
@@ -175,7 +175,7 @@ function renderButtons(ctrl: RoundController) {
 }
 
 function initMessage(d: RoundData) {
-  return (d.game.turns === 0 && !d.player.spectator) ?
+  return (game.playable(d) && d.game.turns === 0 && !d.player.spectator) ?
     h('div.message', util.justIcon(''), [
       h('div', [
         `You play the ${d.player.color} pieces`,

@@ -641,7 +641,7 @@ export default class RoundController {
       } else if (v) {
         if (this.data.pref.confirmResign) this.drawConfirm = setTimeout(() => {
           this.offerDraw(false);
-        }, 3000);
+        }, 300000);
         else this.doOfferDraw();
       }
     }
