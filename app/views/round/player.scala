@@ -45,9 +45,9 @@ ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lidraughts.tournament.Js
     )(frag(
         main(cls := "round")(
           st.aside(cls := "round__side")(
-            game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
-            chatOption.map(_ => chat.frag)
+            game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked)
           ),
+          chatOption.map(_ => chat.frag),
           div(cls := "round__app")(
             div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
           ),

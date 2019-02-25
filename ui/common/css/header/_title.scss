@@ -1,6 +1,6 @@
 .site-title {
   @extend %base-font;
-  font-size: 26px;
+  font-size: 25px;
   line-height: #{$site-header-short-height - 3};
   text-shadow: $text-shadow;
   white-space: nowrap;
@@ -10,7 +10,7 @@
     display: block;
   }
   @include breakpoint($mq-site-header-tall) {
-    font-size: 32px;
+    font-size: 30px;
     line-height: #{$site-header-tall-height - 3};
   }
   @include breakpoint($mq-topnav-visible $mq-site-header-tall) {

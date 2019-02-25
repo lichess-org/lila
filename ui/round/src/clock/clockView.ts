@@ -96,8 +96,9 @@ export function updateElements(clock: ClockController, els: ClockElements, milli
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   if (els.bar) els.bar.style.transform = "scale(" + clock.timeRatio(millis) + ",1)";
   if (els.clock) {
-    if (millis < clock.emergMs) els.clock.classList.add('emerg');
-    else if (els.clock.classList.contains('emerg')) els.clock.classList.remove('emerg');
+    const cl = els.clock.classList;
+    if (millis < clock.emergMs) cl.add('emerg');
+    else if (cl.contains('emerg')) cl.remove('emerg');
   }
 }
 
