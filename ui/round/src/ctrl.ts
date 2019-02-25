@@ -588,7 +588,7 @@ export default class RoundController {
     } else if (v) {
       if (this.data.pref.confirmResign) this.resignConfirm = setTimeout(() => {
         this.resign(false);
-      }, 300000);
+      }, 3000);
       else this.socket.sendLoading('resign');
     }
     this.redraw();
