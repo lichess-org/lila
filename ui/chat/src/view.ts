@@ -10,7 +10,7 @@ export default function(ctrl: Ctrl): VNode {
 
   const mod = ctrl.moderation();
 
-  return h('div.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'), {
+  return h('section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'), {
     class: {
       'mchat-mod': !!mod
     }

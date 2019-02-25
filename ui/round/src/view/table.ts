@@ -25,7 +25,7 @@ function isLoading(ctrl: RoundController): boolean {
   return ctrl.loading || ctrl.redirecting;
 }
 
-function loader() { return h('span.ddloader'); }
+function loader() { return h('i.ddloader'); }
 
 function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [

@@ -18,6 +18,9 @@
   }
   .bar {
     display: none;
+    &.berserk {
+      background: $c-bad;
+    }
   }
   @include breakpoint($mq-col2) {
     .bar {
@@ -38,13 +41,11 @@
       top: -4px;
     }
   }
-  &.berserk {
-    background: $c-bad;
-  }
   .time {
     @extend %roboto, %box-shadow;
     background: $c-bg-box;
     border: $border;
+    min-width: 3em;
     font-size: 2.8em;
     line-height: $col1-player-clock-height;
     font-weight: bold;
@@ -114,9 +115,9 @@
     @extend %flex-center;
     display: none;
     @include breakpoint($mq-col2) {
-      display: block;
+      display: flex;
       flex: 0 1 auto;
-      font-size: 20px;
+      font-size: 1.7em;
     }
   }
   .moretime {
