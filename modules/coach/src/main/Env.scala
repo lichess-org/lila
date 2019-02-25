@@ -30,8 +30,11 @@ final class Env(
 
   lazy val pager = new CoachPager(coachColl)
 
-  system.lilaBus.subscribeFun('adjustCheater, 'userActive, 'finishGame) {
+  system.lilaBus.subscribeFun('adjustCheater, 'userActive, 'finishGame, 'shadowban) {
     case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
+    case lila.hub.actorApi.mod.Shadowban(userId, true) =>
+      api.toggleApproved(userId, false)
+      api.reviews deleteAllBy userId
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       api.toggleApproved(userId, false)
       api.reviews deleteAllBy userId
