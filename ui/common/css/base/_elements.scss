@@ -53,6 +53,11 @@ button, input, optgroup, select, textarea {
   font: inherit;
   color: $c-font;
 }
+option,
+optgroup {
+  background: $c-bg-box-opaque;
+  color: $c-font-clear;
+}
 input, textarea, select {
   @extend %box-radius;
   background: $c-bg-input;

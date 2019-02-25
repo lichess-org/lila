@@ -14,7 +14,6 @@ object twoFactor {
   def setup(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
     title = s"${u.username} - Two-factor authentication",
     active = "twofactor",
-    evenMoreCss = cssTag("form3.css"),
     evenMoreJs = frag(
       jsAt("javascripts/vendor/qrcode.min.js"),
       jsTag("twofactor.form.js")
