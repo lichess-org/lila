@@ -14,12 +14,10 @@
     overflow: hidden;
     padding: 5px 10px;
     // background: $c-shade;
-    opacity: 0.7;
     cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
+    color: $c-font-page;
     &-active {
+      color: $c-font;
       opacity: 1;
       background: $c-bg-box;
     }

@@ -35,7 +35,7 @@
     z-index: z('subnav-side'); /* active border must go over the page content */
     a {
       display: block;
-      color: $c-font-dim;
+      color: $c-font-page;
       padding: .7rem 2vw .7rem .8rem;
       position: relative;
       @include transition();

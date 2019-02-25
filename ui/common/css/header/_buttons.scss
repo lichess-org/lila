@@ -3,7 +3,7 @@
 
   .link {
     @extend %flex-center;
-    color: $c-font;
+    color: $c-font-page;
     font-size: 1.1rem;
     padding: 0 .7rem;
     &:hover {

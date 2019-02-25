@@ -61,6 +61,7 @@ $c-link-clear: $c-primary-clear;
 $c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
 
 $c-bg-box: $c-bg-high;
+$c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 13%);
 
 $c-bg-popup: $c-bg-low;

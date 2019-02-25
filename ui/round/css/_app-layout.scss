@@ -61,7 +61,10 @@ $col1-player-clock-height: 50px;
     }
     .rmoves { display: none; }
     @include breakpoint($mq-room-for-moves) {
-      .rmoves { display: flex; }
+      .rmoves {
+        display: flex;
+        background: none;
+      }
     }
   }
 
