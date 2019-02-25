@@ -412,6 +412,9 @@ body.fixed-scroll {
   /* prevents scroll bar flicker when dragging a piece out */
   overflow-y: scroll;
 }
+@supports (display: grid) {
+  body { --grid: 1; }
+}
 a,
 a:visited,
 button,
