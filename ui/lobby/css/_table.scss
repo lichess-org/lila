@@ -1,0 +1,15 @@
+.lobby__start {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  a {
+    margin: 1.2em 0;
+    font-size: 1.3em;
+    padding: 1em;
+    text-align: center;
+    letter-spacing: -1px;
+    &.disabled {
+      opacity: 0.2;
+    }
+  }
+}

@@ -185,10 +185,10 @@ lichess.topMenuIntent = function() {
       lichess.parseFen($elem);
     }, 500); // if not loaded yet
     if (!$elem || !$elem.jquery) {
-      $elem = $('.parse_fen');
+      $elem = $('.parse-fen');
     }
     $elem.each(function() {
-      var $this = $(this).removeClass('parse_fen');
+      var $this = $(this).removeClass('parse-fen');
       var lm = $this.data('lastmove');
       var lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
       var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
@@ -205,10 +205,7 @@ lichess.topMenuIntent = function() {
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
-      else {
-        this.innerHTML = '<div class="cg-board-wrap"></div>';
-        $this.data('chessground', Chessground(this.firstChild, config));
-      }
+      else $this.data('chessground', Chessground(this, config));
     });
   };
 

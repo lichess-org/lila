@@ -1,0 +1,24 @@
+.now-playing {
+  padding: 4px 0 0 4px;
+  display: flex;
+  flex-flow: row wrap;
+  > a {
+    flex: 0 0 33.33%;
+    padding: 4px;
+    @include transition(background);
+    background: rgba(255, 255, 255, 0.6);
+    &:hover {
+      background: rgba(191, 231, 255, 0.7);
+    }
+  }
+  .meta {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+  }
+  .indicator {
+    color: $c-accent;
+    margin-top: -3px;
+    display: block;
+  }
+}

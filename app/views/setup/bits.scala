@@ -24,11 +24,11 @@ private object bits {
           span(cls := "preview")(
             validFen.map { vf =>
               div(
-                cls := "mini_board parse_fen is2d",
+                cls := "mini-board cg-board-wrap parse-fen is2d",
                 dataColor := vf.color.name,
                 dataFen := vf.fen.value,
                 dataResizable := "1"
-              )(miniBoardContent)
+              )(div(cls := "cg-board"))
             }
           )
         )

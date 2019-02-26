@@ -21,7 +21,7 @@ object bits {
   }
 
   def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White) = Html {
-    s"""<div class="mini_board parse_fen is2d" data-color="${color.name}" data-fen="$fen">$miniBoardContent</div>"""
+    s"""<div class="mini-board parse-fen cg-board-wrap is2d" data-color="${color.name}" data-fen="$fen"><div class="cg-board"></div></div>"""
   }
 
   def watchers(implicit ctx: Context): Frag =

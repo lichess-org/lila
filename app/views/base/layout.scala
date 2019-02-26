@@ -103,7 +103,6 @@ object layout {
   def apply(
     title: String,
     fullTitle: Option[String] = None,
-    baseline: Option[Html] = None,
     side: Option[Html] = None,
     menu: Option[Html] = None,
     chat: Option[Frag] = None,
@@ -220,7 +219,6 @@ object layout {
                     span(cls := "extension")(if (isProd) ".org" else " dev")
                   )
                 ),
-                baseline,
                 menu map { sideMenu =>
                   div(cls := "side_menu")(sideMenu)
                 },

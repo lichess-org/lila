@@ -21,7 +21,7 @@ export function render(ctrl: LobbyController) {
   return ctrl.pools.map(pool => {
     const active = !!member && member.id === pool.id,
     transp = !!member && !active;
-    return h('div.pool', {
+    return h('div', {
       class: {
         active,
         transp: !active && transp

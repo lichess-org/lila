@@ -4,7 +4,7 @@ import LobbyController from '../ctrl';
 import { MaybeVNodes, Tab } from '../interfaces';
 
 function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes) {
-  return h('a', {
+  return h('span', {
     class: {
       active: key === active,
       glow: key !== active && key === 'pools' && !!ctrl.poolMember

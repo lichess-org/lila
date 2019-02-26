@@ -33,61 +33,18 @@ object home {
   )(implicit ctx: Context) = views.html.base.layout(
     title = "",
     fullTitle = Some("lichess.org • " + trans.freeOnlineChess.txt()),
-    baseline = Some(frag(
-      a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
-      a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-        trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
-      ),
-      ctx.isMobileBrowser option {
-        if (HTTPRequest isAndroid ctx.req) views.html.mobile.googlePlayButton
-        else if (HTTPRequest isIOS ctx.req) views.html.mobile.appleStoreButton
-        else emptyFrag
-      }
-    )),
-    side = Some(frag(
-      ctx.noKid option div(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
-      events map { bits.spotlight(_) },
-      !ctx.isBot option frag(
-        lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
-        simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
-      ),
-      ctx.me map { u =>
-        div(id := "timeline", dataHref := routes.Timeline.home)(
-          views.html.timeline entries userTimeline,
-          div(cls := "links")(
-            userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
-          )
-        )
-      } getOrElse {
-        div(cls := "about-side")(
-          trans.xIsAFreeYLibreOpenSourceChessServer.frag("Lichess", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
-          " ",
-          a(cls := "blue", href := "/about")(trans.aboutX.frag("lichess.org"), "...")
-        )
-      }
-    )),
     moreJs = frag(
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", async = true),
       embedJs {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val gameJs = currentGame.fold("null")(cg => safeJsonValue(cg.json))
         val transJs = safeJsonValue(i18nJsObject(translations))
-        s"""window.customWS = true; lichess_lobby = { data: ${safeJsonValue(data)}, playban: $playbanJs, currentGame: $gameJs, i18n: $transJs, }"""
+        s"""window.lichess=window.lichess||{};window.customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,currentGame:$gameJs,i18n:$transJs}"""
       }
     ),
-    moreCss = cssTag("home.css"),
-    underchat = Some(frag(
-      div(id := "featured_game")(
-        featured map { g =>
-          frag(
-            gameFen(Pov first g, tv = true),
-            views.html.game.bits.vstext(Pov first g)(ctx.some)
-          )
-        }
-      )
-    )),
+    moreCss = responsiveCssTag("lobby"),
     chessground = false,
+    responsive = true,
     openGraph = lila.app.ui.OpenGraph(
       image = staticUrl("images/large_tile.png").some,
       title = "The best free, adless Chess server",
@@ -96,16 +53,41 @@ object home {
     ).some,
     asyncJs = true
   ) {
-      frag(
+      main(cls := "lobby")(
+        div(cls := "lobby__side")(
+          ctx.noKid option st.section(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
+          events map { bits.spotlight(_) },
+          !ctx.isBot option frag(
+            lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
+            simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
+          ),
+          ctx.me map { u =>
+            div(id := "timeline", dataHref := routes.Timeline.home)(
+              views.html.timeline entries userTimeline,
+              div(cls := "links")(
+                userTimeline.size >= 8 option
+                  a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
+              )
+            )
+          } getOrElse {
+            div(cls := "about-side")(
+              trans.xIsAFreeYLibreOpenSourceChessServer.frag("Lichess", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
+              " ",
+              a(cls := "blue", href := "/about")(trans.aboutX.frag("lichess.org"), "...")
+            )
+          }
+        ),
         div(cls := List(
-          "lobby_and_ground" -> true,
+          "lobby__app" -> true,
           "playban" -> playban.isDefined,
-          "current_game" -> currentGame.isDefined
+          "current-game" -> currentGame.isDefined
         ))(
           currentGame map { bits.currentGameInfo(_) },
           div(id := "hooks_wrap"),
-          playban.map(ban => playbanInfo(ban.remainingSeconds)),
-          div(id := "start_buttons", cls := "lichess_ground")(
+          playban.map(ban => playbanInfo(ban.remainingSeconds))
+        ),
+        div(cls := "lobby__table")(
+          div(cls := "lobby__start")(
             a(href := routes.Setup.hookForm, cls := List(
               "fat button config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
@@ -118,10 +100,22 @@ object home {
               "fat button config_ai" -> true,
               "disabled" -> currentGame.isDefined
             ), trans.playWithTheMachine.frag())
+          ),
+          div(cls := "lobby__counters")(
+            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
+            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
+              trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
+            )
           )
         ),
+        featured map { g =>
+          div(cls := "lobby__tv")(
+            gameFen(Pov first g, tv = true),
+            views.html.game.bits.vstext(Pov first g)(ctx.some)
+          )
+        },
         puzzle map { p =>
-          div(id := "daily_puzzle", title := trans.clickToSolve.txt())(
+          div(cls := "lobby__puzzle", title := trans.clickToSolve.txt())(
             raw(p.html),
             div(cls := "vstext")(
               trans.puzzleOfTheDay.frag(),
@@ -131,19 +125,17 @@ object home {
           )
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option frag(
-          div(cls := "new_posts undertable")(
-            div(cls := "undertable_top")(
-              a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »"),
-              span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
-            ),
-            div(cls := "undertable_inner scroll-shadow-hard")(
-              div(cls := "content")(views.html.forum.post recent forumRecent)
-            )
+        ctx.noKid option div(cls := "lobby__forum")(
+          div(cls := "undertable_top")(
+            a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »"),
+            span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
+          ),
+          div(cls := "undertable_inner scroll-shadow-hard")(
+            div(cls := "content")(views.html.forum.post recent forumRecent)
           )
         ),
         bits.lastPosts(lastPost),
-        div(cls := "donation undertable")(
+        div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             strong("Lichess Patron"),
@@ -155,7 +147,7 @@ object home {
             span(trans.playChessInStyle.frag())
           )
         ),
-        div(cls := "about-footer")(a(href := "/about")(trans.aboutX.frag("lichess.org")))
+        div(cls := "lobby__about")(a(href := "/about")(trans.aboutX.frag("lichess.org")))
       )
     }
 
