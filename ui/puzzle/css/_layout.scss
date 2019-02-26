@@ -60,6 +60,14 @@ $mq-col3: $mq-col3-uniboard;
     }
   }
 
+  @include breakpoint($mq-portrait) {
+    &__board {
+      /* In portrait single column, make sure both controls and the board fit in the viewport. If they don't, limit the board width */
+      width: 100vw;
+      max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
+    }
+  }
+
   &__side {
     display: grid;
     grid-template-areas:

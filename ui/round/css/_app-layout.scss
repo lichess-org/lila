@@ -13,7 +13,7 @@ $col1-player-clock-height: 50px;
   display: grid;
 
   grid-template-columns: auto min-content;
-  grid-template-rows: $col1-player-clock-height auto $col1-player-clock-height;
+  grid-template-rows: $col1-player-clock-height auto $expiration-height $col1-player-clock-height;
   grid-template-areas:
   "user-top clock-top"
   "board    board"
