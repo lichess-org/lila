@@ -1,11 +1,10 @@
 /* shared with analysis */
 .game__meta {
-  @extend %box-neat;
+  @extend %box-neat-force;
   background: $c-bg-box;
   padding: #{$block-gap * 0.6} $block-gap;
   &__infos {
     @extend %flex-center-nowrap;
-    position: relative;
     &::before {
       font-size: 3rem;
       margin-right: 4%;

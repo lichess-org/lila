@@ -45,7 +45,6 @@ export interface DasherCtrl {
     theme: ThemeCtrl;
     piece: PieceCtrl;
   },
-  toggleZen(): void;
   opts: DasherOpts;
 }
 
@@ -77,13 +76,6 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     piece: pieceCtrl(data.piece, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
   };
 
-  function toggleZen() {
-    data.zen = data.zen ? 0 : 1;
-    $('body').toggleClass('zen', data.zen);
-    $.post('/pref/zen', { zen: data.zen });
-    redraw();
-  }
-
   return {
     mode,
     setMode,
@@ -91,7 +83,6 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     trans,
     ping,
     subs,
-    opts,
-    toggleZen
+    opts
   };
 };

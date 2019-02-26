@@ -135,6 +135,16 @@ export default class RoundController {
         });
       if (this.music && set !== 'music') this.music = undefined;
     });
+
+    li.pubsub.on('zen', () => {
+      if (this.isPlaying()) {
+        const zen = !$('body').hasClass('zen');
+        $('body').toggleClass('zen', zen);
+        li.dispatchEvent(window, 'resize');
+        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+      }
+    });
+
     if (li.ab && this.isPlaying()) li.ab.init(this);
   }
 
@@ -607,38 +617,38 @@ export default class RoundController {
   };
 
   setLoading = (v: boolean, duration: number = 1500) => {
-      clearTimeout(this.loadingTimeout);
-      if (v) {
-          this.loading = true;
-          this.loadingTimeout = setTimeout(() => {
-              this.loading = false;
-              this.redraw();
-          }, duration);
-          this.redraw();
-      } else if (this.loading) {
-          this.loading = false;
-          this.redraw();
-      }
+    clearTimeout(this.loadingTimeout);
+    if (v) {
+      this.loading = true;
+      this.loadingTimeout = setTimeout(() => {
+        this.loading = false;
+        this.redraw();
+      }, duration);
+      this.redraw();
+    } else if (this.loading) {
+      this.loading = false;
+      this.redraw();
+    }
   };
 
   setRedirecting = () => {
-      this.redirecting = true;
-      setTimeout(() => {
-          this.redirecting = false;
-          this.redraw();
-      }, 2500);
+    this.redirecting = true;
+    setTimeout(() => {
+      this.redirecting = false;
       this.redraw();
+    }, 2500);
+    this.redraw();
   };
 
   submitMove = (v: boolean): void => {
-      const toSubmit = this.moveToSubmit || this.dropToSubmit;
-      if (v && toSubmit) {
-          if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
-          else this.actualSendMove('drop', this.dropToSubmit);
-          li.sound.confirmation();
-      } else this.jump(this.ply);
-      this.cancelMove();
-      if (toSubmit) this.setLoading(true, 300);
+    const toSubmit = this.moveToSubmit || this.dropToSubmit;
+    if (v && toSubmit) {
+      if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
+      else this.actualSendMove('drop', this.dropToSubmit);
+      li.sound.confirmation();
+    } else this.jump(this.ply);
+    this.cancelMove();
+    if (toSubmit) this.setLoading(true, 300);
   };
 
   cancelMove = (): void => {
@@ -697,16 +707,6 @@ export default class RoundController {
     if (this.data.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
   };
-
-  toggleZen = () => {
-    if (this.isPlaying()) {
-      const zen = !$('body').hasClass('zen');
-      $('body').toggleClass('zen', zen);
-      $('#dasher_app .zen a').attr('data-icon', zen ? 'E' : 'K');
-      $('#dasher_app .zen a').toggleClass('active', zen);
-      $.post('/pref/zen', { zen: zen ? 1 : 0 });
-    }
-  }
 
   private delayedInit = () => {
     const d = this.data;

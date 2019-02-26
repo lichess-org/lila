@@ -1,3 +1,7 @@
+#main-wrap {
+  --main-max-width: auto;
+}
+
 .board-editor {
 
   $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-height});

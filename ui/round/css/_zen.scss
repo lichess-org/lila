@@ -3,19 +3,12 @@
     display: none;
   }
 }
-%zen-hide {
-  body.playing.zen & {
-    visibility: hidden;
-  }
-}
 
 #zentog {
   position: absolute;
-  top: 0;
-  left: 0;
   padding: .5em 1em;
   opacity: 0.5;
-  z-index: 3;
+  z-index: z('zen-toggle');
   display: none;
   border-bottom-right-radius: $box-radius-size;
   body.playing.zen & {
@@ -30,7 +23,12 @@ body.playing.zen {
   .ricons {
     margin: .5em 0 1em 0;
   }
+  #top {
+    justify-content: center;
+  }
 }
-#top {
-  @extend %zen-hide;
+#friend_box,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
 }

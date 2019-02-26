@@ -387,67 +387,17 @@ lidraughts.topMenuIntent = function() {
         };
       })();
 
-      var resizeDraughtsground = function() {
-        lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
-      };
-
       // Zoom
       var currentZoom = $('body').data('zoom') / 100;
 
       var setZoom = function(zoom) {
-        if (lidraughts.isResp) {
-          document.body.setAttribute('style', '--zoom:' + Math.round(100 * (zoom - 1)));
-        } else {
-
-          var boardPx = Math.round(zoom * 64) * 8;
-          currentZoom = zoom = boardPx / 512;
-
-          var $lidraughtsGame = $('.lidraughts_game, .board_and_ground');
-          var $boardWrap = $lidraughtsGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
-          var px = function(i) {
-            return Math.round(i) + 'px';
-          };
-
-          $('.underboard').css("width", px(boardPx + 242 + 15));
-          $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(boardPx));
-
-          if ($('body > .content').hasClass('is3d')) {
-            $boardWrap.css("height", px(464.5 * zoom));
-            $lidraughtsGame.css({
-              height: px(476 * zoom),
-              paddingTop: px(50 * (zoom - 1))
-            });
-            $('#chat').css("height", px(300 + 529 * (zoom - 1)));
-          } else {
-            $boardWrap.css("height", px(boardPx));
-            $lidraughtsGame.css({
-              height: px(boardPx),
-              paddingTop: px(0)
-            });
-            $('#chat').css("height", px(335 + 510 * (zoom - 1)));
-          }
-
-          $('#trainer .overlay_container').css({
-            top: px((zoom - 1) * 250),
-            left: px((zoom - 1) * 250)
-          });
-          // doesn't vertical center score at the end, close enough
-          $('#trainer .score_container').css("top", px((zoom - 1) * 250));
-
-          if ($lidraughtsGame.length) {
-            // if on a board with a game
-            $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
-          }
-        }
-
-        // reflow charts
+        document.body.setAttribute('style', '--zoom:' + Math.round(100 * (zoom - 1)));
         lidraughts.dispatchEvent(window, 'resize');
-        resizeDraughtsground();
       };
       lidraughts.pubsub.on('reset_zoom', function() {
         if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
-      window.addEventListener('resize', resizeDraughtsground);
+      window.addEventListener('resize', () => lidraughts.dispatchEvent(document.body, 'draughtsground.resize'));
 
       // dasher
       (function() {

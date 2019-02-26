@@ -14,7 +14,6 @@ import boot from './boot';
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
-  toggleZen(): void;
   trans: Trans;
   redraw: Redraw;
   draughtsResult: boolean;
@@ -26,28 +25,27 @@ export interface RoundMain {
 
 export function app(opts: RoundOpts): RoundApi {
 
-    const patch = init([klass, attributes]);
+  const patch = init([klass, attributes]);
 
-    let vnode: VNode, ctrl: RoundController;
+  let vnode: VNode, ctrl: RoundController;
 
-    function redraw() {
-        vnode = patch(vnode, view(ctrl));
-    }
+  function redraw() {
+      vnode = patch(vnode, view(ctrl));
+  }
 
-    ctrl = new RoundController(opts, redraw);
+  ctrl = new RoundController(opts, redraw);
 
-    const blueprint = view(ctrl);
-    opts.element.innerHTML = '';
-    vnode = patch(opts.element, blueprint);
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  vnode = patch(opts.element, blueprint);
 
-    return {
-        socketReceive: ctrl.socket.receive,
-        moveOn: ctrl.moveOn,
-        toggleZen: ctrl.toggleZen,
-        trans: ctrl.trans,
-        redraw: ctrl.redraw,
-        draughtsResult: ctrl.data.pref.draughtsResult
-    };
+  return {
+    socketReceive: ctrl.socket.receive,
+    moveOn: ctrl.moveOn,
+    trans: ctrl.trans,
+    redraw: ctrl.redraw,
+    draughtsResult: ctrl.data.pref.draughtsResult
+  };
 };
 
 export { boot };

@@ -63,7 +63,7 @@
       align-items: flex-end;
       line-height: 1.2em;
     }
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint($mq-xx-small $mq-tall) {
       font-size: 3.5em;
       letter-spacing: .12em;
       &.hour {
