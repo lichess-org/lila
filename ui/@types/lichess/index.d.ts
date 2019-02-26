@@ -51,7 +51,7 @@ interface Lichess {
     update(data: any, partial: boolean): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   }
-  dispatchEvent(el: HTMLElement, eventName: string): void;
+  dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   RoundNVUI(redraw: () => void): {
     render(ctrl: any): any;
   }

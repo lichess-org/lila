@@ -300,8 +300,8 @@ object layout {
           ),
           topmenu()
         ),
+        reconnecting,
         div(cls := "site-buttons")(
-          reconnecting,
           clinput,
           reports,
           teamRequests,

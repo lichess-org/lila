@@ -14,7 +14,6 @@ import boot from './boot';
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
-  toggleZen(): void;
 }
 
 export interface RoundMain {
@@ -39,8 +38,7 @@ export function app(opts: RoundOpts): RoundApi {
 
   return {
     socketReceive: ctrl.socket.receive,
-    moveOn: ctrl.moveOn,
-    toggleZen: ctrl.toggleZen
+    moveOn: ctrl.moveOn
   };
 };
 

@@ -120,6 +120,16 @@ export default class RoundController {
         });
       if (this.music && set !== 'music') this.music = undefined;
     });
+
+    li.pubsub.on('zen', () => {
+      if (this.isPlaying()) {
+        const zen = !$('body').hasClass('zen');
+        $('body').toggleClass('zen', zen);
+        li.dispatchEvent(window, 'resize');
+        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+      }
+    });
+
     if (li.ab && this.isPlaying()) li.ab.init(this);
   }
 
@@ -658,14 +668,6 @@ export default class RoundController {
     if (this.data.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
   };
-
-  toggleZen = () => {
-    if (this.isPlaying()) {
-      const zen = !$('body').hasClass('zen');
-      $('body').toggleClass('zen', zen);
-      $.post('/pref/zen', { zen: zen ? 1 : 0 });
-    }
-  }
 
   private delayedInit = () => {
     const d = this.data;

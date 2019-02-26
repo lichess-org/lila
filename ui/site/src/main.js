@@ -387,67 +387,17 @@ lichess.topMenuIntent = function() {
         };
       })();
 
-      var resizeChessground = function() {
-        lichess.dispatchEvent(document.body, 'chessground.resize');
-      };
-
       // Zoom
       var currentZoom = $('body').data('zoom') / 100;
 
       var setZoom = function(zoom) {
-        if (lichess.isResp) {
-          document.body.setAttribute('style', '--zoom:' + Math.round(100 * (zoom - 1)));
-        } else {
-
-          var boardPx = Math.round(zoom * 64) * 8;
-          currentZoom = zoom = boardPx / 512;
-
-          var $lichessGame = $('.lichess_game, .board_and_ground');
-          var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
-          var px = function(i) {
-            return Math.round(i) + 'px';
-          };
-
-          $('.underboard').css("width", px(boardPx + 242 + 15));
-          $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(boardPx));
-
-          if ($('body > .content').hasClass('is3d')) {
-            $boardWrap.css("height", px(464.5 * zoom));
-            $lichessGame.css({
-              height: px(476 * zoom),
-              paddingTop: px(50 * (zoom - 1))
-            });
-            $('#chat').css("height", px(300 + 529 * (zoom - 1)));
-          } else {
-            $boardWrap.css("height", px(boardPx));
-            $lichessGame.css({
-              height: px(boardPx),
-              paddingTop: px(0)
-            });
-            $('#chat').css("height", px(335 + 510 * (zoom - 1)));
-          }
-
-          $('#trainer .overlay_container').css({
-            top: px((zoom - 1) * 250),
-            left: px((zoom - 1) * 250)
-          });
-          // doesn't vertical center score at the end, close enough
-          $('#trainer .score_container').css("top", px((zoom - 1) * 250));
-
-          if ($lichessGame.length) {
-            // if on a board with a game
-            $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
-          }
-        }
-
-        // reflow charts
+        document.body.setAttribute('style', '--zoom:' + Math.round(100 * (zoom - 1)));
         lichess.dispatchEvent(window, 'resize');
-        resizeChessground();
       };
       lichess.pubsub.on('reset_zoom', function() {
         if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
-      window.addEventListener('resize', resizeChessground);
+      window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
 
       // dasher
       (function() {

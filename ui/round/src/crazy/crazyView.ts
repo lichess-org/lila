@@ -19,7 +19,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
   activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
   const captured = capturedPiece && (capturedPiece['promoted'] ? 'pawn' : capturedPiece.role);
-  return h('div.pocket.is2d.' + position, {
+  return h('div.pocket.is2d.pocket-' + position, {
     class: { usable },
     hook: {
       insert: vnode => {
@@ -36,13 +36,13 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
       if (droppedRole === role) nb--;
       if (captured === role) nb++;
     }
-    return h('piece.' + role + '.' + color, {
+    return h('div.pocket-c1', h('div.pocket-c2', h('piece.' + role + '.' + color, {
       class: { premove: activeColor && preDropRole === role },
       attrs: {
         'data-role': role,
         'data-color': color,
         'data-nb': nb,
       }
-    });
+    })));
   }));
 }

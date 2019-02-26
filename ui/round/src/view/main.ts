@@ -57,8 +57,8 @@ export function main(ctrl: RoundController): VNode {
     util.countChecks(ctrl.data.steps, ctrl.ply) :
     util.noChecks;
 
-  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app', [
-    h('div.round__app__board.main-board.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, [
+    h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       renderGround(ctrl),
