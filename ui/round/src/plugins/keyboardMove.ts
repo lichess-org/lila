@@ -4,6 +4,7 @@ import { DecodedDests } from '../interfaces';
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
 const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
+const promotionRegex = /^[a-h](1|8)=\w$/;
 
 window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
@@ -18,6 +19,9 @@ window.lichess.keyboardMove = function(opts: any) {
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
       // ambiguous UCI
       if (v.match(keyRegex) && opts.hasSelected()) opts.select(v);
+      // promotion -- wait for more information
+      // (at this point it must be a pawn move since no piece was selected)
+      if (v.match(/^[a-h](1|8)$/) && !force) return;
       else opts.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
@@ -25,8 +29,10 @@ window.lichess.keyboardMove = function(opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
+    } else if (sans && v.match(promotionRegex)) {
+      opts.promote(v.slice(0,2), v.slice(3).toUpperCase());
+      clear();
     } else if (v.match(crazyhouseRegex)) {
-      // Crazyhouse
       if (v.length === 3) v = 'P' + v;
       opts.drop(v.slice(2), v[0].toUpperCase());
       clear();
