@@ -2,6 +2,8 @@ package views.html.board
 
 import play.api.libs.json.JsObject
 
+import chess.variant.Crazyhouse
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -15,7 +17,10 @@ object userAnalysis {
   def apply(data: JsObject, pov: lila.game.Pov)(implicit ctx: Context) = views.html.base.layout(
     title = trans.analysis.txt(),
     moreCss = frag(
-      responsiveCssTag("analyse"),
+      responsiveCssTag {
+        if (pov.game.variant == Crazyhouse) "analyse.zh"
+        else "analyse"
+      },
       (!pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined) option cssTag("forecast.css")
     ),
     moreJs = frag(

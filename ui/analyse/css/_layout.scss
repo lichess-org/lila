@@ -16,7 +16,10 @@
   grid-area: main;
   display: grid;
 
-  &__side { grid-area: side; }
+  &__side {
+    grid-area: side;
+    justify-content: start;
+  }
   &__board { grid-area: board; }
   &__tools { grid-area: tools; }
   &__controls { grid-area: controls; }

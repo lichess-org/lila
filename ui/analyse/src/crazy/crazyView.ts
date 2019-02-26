@@ -16,7 +16,7 @@ export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
-  return h(`div.pocket.is2d.${position}.pos-${ctrl.bottomColor()}`, {
+  return h(`div.pocket.is2d.pocket-${position}.pos-${ctrl.bottomColor()}`, {
     class: { usable },
     hook: {
       insert: vnode => {
@@ -32,13 +32,12 @@ export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
       if (dropped === role) nb--;
       if (captured && captured.role === role) nb++;
     }
-    return h('piece.' + role + '.' + color, {
+    return h('div.pocket-c1', h('div.pocket-c2', h('piece.' + role + '.' + color, {
       attrs: {
         'data-role': role,
         'data-color': color,
         'data-nb': nb
       }
-    });
-  })
-  );
+    })));
+  }));
 }

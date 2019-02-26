@@ -301,9 +301,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
       renderPromotion(ctrl)
     ]),
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
+    menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     h('div.analyse__tools', gamebookPlayView || [
       // menuIsOpen || playerBars ? null : renderClocks(ctrl),
-      menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
       ...(menuIsOpen ? [actionMenu(ctrl)] : [
         cevalView.renderCeval(ctrl),
         showCevalPvs ? cevalView.renderPvs(ctrl) : null,
@@ -311,9 +311,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
         gamebookEditView ? null : forkView(ctrl, concealOf),
         retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
       ]),
-      menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
       gamebookEditView || relayEdit
     ]),
+    menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     controls(ctrl),
     ctrl.embed ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },

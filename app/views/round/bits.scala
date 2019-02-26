@@ -3,6 +3,7 @@ package round
 
 import play.twirl.api.Html
 
+import chess.variant.{ Variant, Crazyhouse }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -13,10 +14,11 @@ import controllers.routes
 object bits {
 
   def layout(
+    variant: Variant,
     title: String,
     moreJs: Html = emptyHtml,
     openGraph: Option[lila.app.ui.OpenGraph] = None,
-    moreCss: Html = emptyHtml,
+    moreCss: Html = emptyFrag,
     chessground: Boolean = true,
     playing: Boolean = false,
     robots: Boolean = false
@@ -25,7 +27,13 @@ object bits {
       title = title,
       openGraph = openGraph,
       moreJs = moreJs,
-      moreCss = moreCss,
+      moreCss = frag(
+        responsiveCssTag {
+          if (variant == Crazyhouse) "round.zh"
+          else "round"
+        },
+        moreCss
+      ),
       responsive = true,
       chessground = chessground,
       playing = playing,

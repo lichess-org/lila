@@ -2,6 +2,8 @@ package views.html.analyse
 
 import play.twirl.api.Html
 
+import chess.variant.Crazyhouse
+
 import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -41,7 +43,10 @@ object replay {
 
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      moreCss = responsiveCssTag("analyse"),
+      moreCss = responsiveCssTag {
+        if (pov.game.variant == Crazyhouse) "analyse.zh"
+        else "analyse"
+      },
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,

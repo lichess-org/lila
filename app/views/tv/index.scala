@@ -20,6 +20,7 @@ object index {
     history: List[lila.game.Pov]
   )(implicit ctx: Context) =
     views.html.round.bits.layout(
+      variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
         roundTag,

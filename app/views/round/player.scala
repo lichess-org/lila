@@ -29,6 +29,7 @@ object player {
     }
 
     bits.layout(
+      variant = pov.game.variant,
       title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
       moreJs = frag(
         roundNvuiTag,
@@ -38,7 +39,6 @@ LichessRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$
 ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView.top(top, lightUser))}")}
 })}""")
       ),
-      moreCss = responsiveCssTag("round"),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
       playing = true

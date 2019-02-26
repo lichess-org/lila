@@ -84,9 +84,6 @@
     > .button:first-child {
       margin-top: 0;
     }
-    .variant_crazyhouse & .button {
-      padding: 9px 0;
-    }
     .fbt.strong {
       display: block;
       padding: 2em 0;
@@ -104,13 +101,10 @@
     &.button {
       @extend %flex-center-nowrap;
       justify-content: center;
-      height: 56px;
+      height: 60px;
       font-size: 1.2em;
       text-transform: uppercase;
       @include transition();
-      .variant_crazyhouse & {
-        height: 60px;
-      }
     }
     &.me {
       background: rgba(56,147,232,0.8);
@@ -143,11 +137,15 @@
       top: 0;
       right: -25px;
       width: 25px;
-      height: 55px;
+      height: 59px;
       border: $border;
       border-left: 0;
       opacity: 0.7;
       @include transition();
+      display: none;
+      @include breakpoint($mq-col2) {
+        display: block;
+      }
     }
     &-decline:hover {
       background: $c-bad;

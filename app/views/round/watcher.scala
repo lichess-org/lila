@@ -28,6 +28,7 @@ object watcher {
     }
 
     bits.layout(
+      variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       moreJs = frag(
         roundNvuiTag,
@@ -35,7 +36,6 @@ object watcher {
         embedJs(s"""window.customWS = true; window.onload = function() {
 LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, chat: ${jsOrNull(chatJson)} }, document.getElementById('lichess'))}""")
       ),
-      moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       chessground = false
     )(frag(
@@ -56,6 +56,7 @@ LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, cha
 
   def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit ctx: Context) =
     bits.layout(
+      variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
       chessground = false
