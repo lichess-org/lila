@@ -1,7 +1,10 @@
 .round__side {
-  @extend %flex-column;
+  @extend %flex-column, %zen;
   // overflow: hidden; /* force long chat to fit on board height */
   .game__meta {
     flex: 0 0 auto;
   }
+}
+.mchat {
+  @extend %zen;
 }

@@ -145,6 +145,10 @@
   }
 
   .board .zoom {
+    display: none;
+    @include breakpoint($mq-col2-uniboard) {
+      display: block;
+    }
     border-top: $border;
     padding: 1.5rem;
   }

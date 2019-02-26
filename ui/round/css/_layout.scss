@@ -12,8 +12,14 @@
 
   &__app { grid-area: app; }
   &__side { grid-area: side; }
-  &__underboard { grid-area: under; }
-  &__underchat { grid-area: uchat; }
+  &__underboard {
+    @extend %zen;
+    grid-area: under;
+  }
+  &__underchat {
+    @extend %zen;
+    grid-area: uchat;
+  }
 
   grid-template-areas:
   'app'

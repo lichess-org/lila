@@ -120,7 +120,7 @@
   .tournament_rank,
   .moretime,
   .berserked {
-    @extend %flex-center;
+    @extend %flex-center, %zen;
     display: none;
     @include breakpoint($mq-col2) {
       display: flex;
