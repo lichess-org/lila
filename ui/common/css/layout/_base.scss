@@ -13,12 +13,6 @@ body {
     margin-bottom: $block-gap;
   }
 
-  --board-scale: 1;
-  @include breakpoint($mq-zoom-enabled) {
-    // --zoom: 85; defined in the HTML, loaded from server
-    --board-scale: calc((var(--zoom) / 100) * 0.5 + 0.5);
-  }
-
   /* Feature detection for JS to read */
   @media (hover: hover) { --hoverable: 1; }
   @supports (display: grid) { --grid: 1; }
@@ -41,8 +35,8 @@ body {
 
 main {
   grid-area: main;
-}
 
-main.page-small {
-  max-width: 1000px;
+  &.page-small {
+    max-width: 1000px;
+  }
 }

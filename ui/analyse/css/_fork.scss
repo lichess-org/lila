@@ -2,7 +2,11 @@ $c-fork: $c-primary;
 
 .analyse__fork {
   @extend %flex-center;
-  flex: 0 0 auto;
+  display: none;
+  @include breakpoint($mq-col2) {
+    flex: 0 0 auto;
+    display: block;
+  }
   move {
     @extend %chess-font;
     background: mix($c-fork, $c-bg-box, 20%);

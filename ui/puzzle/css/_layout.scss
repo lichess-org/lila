@@ -9,9 +9,9 @@ $mq-col3: $mq-col3-uniboard;
 }
 
 #main-wrap {
-  --main-max-width: auto;
-  @include breakpoint($mq-portrait) {
-    --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
   }
 }
 

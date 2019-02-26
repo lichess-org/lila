@@ -1,6 +1,6 @@
-<div class="upgrade">
+<div id="upgrade">
   <style>
-    .upgrade {
+    #upgrade {
       font-size: 1.6em;
       width: 100%;
       text-align: center;
@@ -8,20 +8,20 @@
       color: #fff;
       padding-top: 4em;
     }
-    .upgrade h1 {
+    #upgrade h1 {
       font-size: 2.5em;
       text-transform: uppercase;
     }
-    .upgrade .browsers {
+    #upgrade .browsers {
       max-width: 1000px;
       margin: 3em auto 0 auto;
       height: 300px;
       display: flex;
       flex-flow: row;
     }
-    .upgrade .browser,
-    .upgrade .browser:hover,
-    .upgrade .browser:visited {
+    #upgrade .browser,
+    #upgrade .browser:hover,
+    #upgrade .browser:visited {
       flex: 0 0 50%;
       display: flex;
       flex-flow: column;
@@ -30,10 +30,10 @@
       color: #fff;
       transition: all 0.15s;
     }
-    .upgrade .browser:hover {
+    #upgrade .browser:hover {
       background: hsl(209, 79%, 53%);
     }
-    .upgrade .browser span {
+    #upgrade .browser span {
       position: relative;
       width: 100px;
       height: 100px;
@@ -42,32 +42,32 @@
       background: url(//lichess1.org/assets/images/browsers-bg.png) no-repeat;
       background-size: auto 200px;
     }
-    .upgrade .chrome span {
+    #upgrade .chrome span {
       background-position: 0 0;
     }
-    .upgrade .chrome:hover span {
+    #upgrade .chrome:hover span {
       background-position: 0 -100px;
     }
-    .upgrade .firefox span {
+    #upgrade .firefox span {
       background-position: -100px 0;
     }
-    .upgrade .firefox:hover span {
+    #upgrade .firefox:hover span {
       background-position: -100px -100px;
     }
-    .upgrade .footer {
+    #upgrade .footer {
       background: hsl(37, 74%, 38%);
       margin-top: 2em;
       font-size: 1rem;
       padding: 1em;
       text-align: right;
     }
-    .upgrade .footer *,
-    .upgrade .footer *:hover,
-    .upgrade .footer *:visited {
+    #upgrade .footer *,
+    #upgrade .footer *:hover,
+    #upgrade .footer *:visited {
       margin-left: 1em;
       color: #fff;
     }
-    .upgrade .footer a {
+    #upgrade .footer a {
       text-decoration: underline;
     }
   </style>
@@ -91,3 +91,6 @@
     <a href="#">I can't get a better browser</a>
   </div>
 </div>
+<script>
+  if (getComputedStyle(document.body).getPropertyValue('--grid')) document.getElementById('upgrade').remove();
+</script>

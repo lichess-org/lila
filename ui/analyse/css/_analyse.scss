@@ -1,5 +1,12 @@
+$mq-col1: $mq-col1-uniboard;
+$mq-col2: $mq-col2-uniboard;
+$mq-col3: $mq-col3-uniboard;
+
 %border-bottom-active {
-  border-bottom: 3px solid $c-secondary;
+  border-bottom: $border;
+  @include breakpoint($mq-col2) {
+    border-bottom: 3px solid $c-secondary;
+  }
 }
 
 @import 'layout';
