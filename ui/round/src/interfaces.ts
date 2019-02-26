@@ -75,10 +75,7 @@ export interface Tv {
 }
 
 interface CrazyData {
-  pockets: {
-    white: CrazyPocket;
-    black: CrazyPocket;
-  };
+  pockets: [CrazyPocket, CrazyPocket];
 }
 
 interface CrazyPocket {

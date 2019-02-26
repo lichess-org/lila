@@ -3,7 +3,7 @@ const lilaGulpPlugins = require('../gulp/tsPlugins.js');
 
 lilaGulp('LichessRound', 'lichess.round', __dirname);
 
-// adds commands: KeyboardMoves, NVUI
+// adds commands: KeyboardMove, NVUI
 lilaGulpPlugins([
   {
     standalone: 'KeyboardMove',

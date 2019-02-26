@@ -1,11 +1,18 @@
 import { h } from 'snabbdom'
+import { sanToRole } from 'chess'
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { valid as crazyValid } from './crazy/crazyCtrl';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
 
+interface SanMap {
+  [key: string]: cg.Role;
+}
+
 export interface KeyboardMove {
+  drop(orig: cg.Key, piece: string): void
   update(step: Step): void;
   registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;
@@ -21,13 +28,26 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
+  const cgState = root.chessground.state;
   const select = function(key: cg.Key): void {
-    if (root.chessground.state.selected === key) root.chessground.cancelMove();
+    if (cgState.selected === key) root.chessground.cancelMove();
     else root.chessground.selectSquare(key, true);
   };
   let usedSan = false;
-  const cgState = root.chessground.state;
   return {
+    drop(key, piece) {
+      const role = (sanToRole as SanMap)[piece];
+      const crazyData = root.data.crazyhouse;
+      const color = root.data.player.color;
+      // Piece not in Pocket
+      if (!role || !crazyData || !crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
+      // Square occupied
+      if (cgState.pieces[key]) return;
+      if (!crazyValid(root.data, role, key)) return;
+      root.chessground.cancelMove();
+      root.chessground.newPiece({ role, color }, key);
+      root.sendNewPiece(role, key, false);
+    },
     update(step) {
       if (handler) handler(step.fen, cgState.movable.dests);
       else preHandlerBuffer = step.fen;
@@ -48,7 +68,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       select(dest);
     },
     select,
-    hasSelected: () => root.chessground.state.selected,
+    hasSelected: () => cgState.selected,
     confirmMove() {
       root.submitMove(true);
     },
@@ -72,7 +92,8 @@ export function render(ctrl: KeyboardMove) {
               select: ctrl.select,
               hasSelected: ctrl.hasSelected,
               confirmMove: ctrl.confirmMove,
-              san: ctrl.san
+              san: ctrl.san,
+              drop: ctrl.drop
             }));
           });
         }

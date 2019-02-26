@@ -26,12 +26,14 @@ description = shorten(t.description, 152)).some) {
         <p>@trans.teamLeader(): @userIdLink(t.createdBy.some)</p>
       </section>
       <section class="team-show__best">
+        @if(!info.bestUserIds.isEmpty) {
         <h2>@trans.teamBestPlayers()</h2>
         <ol class="userlist best_players">
           @info.bestUserIds.map { userId =>
           <li>@userIdLink(userId.some)</li>
           }
         </ol>
+        }
       </section>
       <section class="team-show__recent">
         <h2>@trans.teamRecentMembers()</h2>

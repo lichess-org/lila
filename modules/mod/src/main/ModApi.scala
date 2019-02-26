@@ -134,8 +134,10 @@ final class ModApi(
   }
 
   def setPermissions(mod: String, username: String, permissions: List[Permission]): Funit = withUser(username) { user =>
-    UserRepo.setRoles(user.id, permissions.map(_.name)) >>
+    UserRepo.setRoles(user.id, permissions.map(_.name)) >> {
+      lilaBus.publish(lila.hub.actorApi.mod.SetPermissions(user.id, permissions.map(_.name)), 'setPermissions)
       logApi.setPermissions(mod, user.id, permissions)
+    }
   }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {

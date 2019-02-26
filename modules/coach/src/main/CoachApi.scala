@@ -35,7 +35,7 @@ final class CoachApi(
   }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) ?? coachColl.exists($doc("listed" -> true))
+    Granter(_.Coach)(user) ?? coachColl.exists($id(user.id) ++ $doc("listed" -> true))
 
   def setSeenAt(user: User): Funit =
     Granter(_.Coach)(user) ?? coachColl.update($id(user.id), $set("user.seenAt" -> DateTime.now)).void
@@ -60,13 +60,13 @@ final class CoachApi(
     coachColl.update($id(id), $set("nbReviews" -> nb)).void
 
   private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
-    find(username) flatMap {
-      case None => fuccess("No such coach")
-      case Some(c) => coachColl.update(
-        $id(c.coach.id),
-        $set("approved" -> value)
-      ) inject "Done!"
-    }
+    coachColl.update(
+      $id(User.normalize(username)),
+      $set("approved" -> value)
+    ) map { result =>
+        if (result.n > 0) "Done!"
+        else "No such coach"
+      }
 
   def remove(userId: User.ID) = coachColl.updateField($id(userId), "listed", false)
 
