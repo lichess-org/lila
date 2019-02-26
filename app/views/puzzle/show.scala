@@ -25,7 +25,6 @@ lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}
       ),
       responsive = true,
       draughtsground = false,
-      wrapClass = "full-screen",
       openGraph = lidraughts.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePngVariant(puzzle.id, puzzle.variant.key).url).some,
         title = s"${if (puzzle.variant.standard) "Draughts" else puzzle.variant.name} tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",

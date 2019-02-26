@@ -7,8 +7,6 @@ $user-height: auto;
 $moves-height: auto;
 $controls-height: auto;
 
-$col1-player-clock-height: 50px;
-
 .round__app {
   display: grid;
 
@@ -22,7 +20,7 @@ $col1-player-clock-height: 50px;
   "controls controls"
   "moves    moves";
 
-  &expiration- { display: none; }
+  &expiration-top { display: none; }
   &__table { display: none; }
 
   @include breakpoint($mq-col2) {
@@ -68,21 +66,7 @@ $col1-player-clock-height: 50px;
     }
   }
 
-  &__board {
-    grid-area: board;
-    @include breakpoint($mq-col2) {
-      /* Align vertically when zoomed out */
-      // display: flex;
-      // flex-flow: column;
-      // justify-content: center;
-    }
-  }
-  @include breakpoint($mq-portrait) {
-    /* In portrait single column, make sure both clocks and the board fit in the viewport. If they don't, limit the board width */
-    width: 100vw;
-    max-width: calc(100vh - #{$site-header-height} - #{$col1-player-clock-height * 2});
-    justify-self: center;
-  }
+  &__board { grid-area: board; }
 }
 .rcontrols { grid-area: controls; }
 .material-top { grid-area: mat-top; }

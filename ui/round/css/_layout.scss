@@ -1,3 +1,10 @@
+#main-wrap {
+  --main-max-width: auto;
+  @include breakpoint($mq-portrait) {
+    --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-player-clock-height * 2});
+  }
+}
+
 .round {
   grid-area: main;
   display: grid;

@@ -26,14 +26,16 @@ body {
 
 #main-wrap {
   display: grid;
-  grid-template-columns: $main-margin 1fr minmax(auto, #{$main-max-width}) 1fr $main-margin;
   grid-template-areas: '. . main . .';
 
-  &.full-screen-force {
-    grid-template-columns: $main-margin 1fr minmax(auto, 100%) 1fr $main-margin;
-  }
+  --main-max-width: #{$main-max-width};
+  grid-template-columns: $main-margin 1fr minmax(auto, var(--main-max-width)) 1fr $main-margin;
+
   &.full-screen {
-    grid-template-columns: $main-margin 1fr auto 1fr $main-margin;
+    --main-max-width: auto;
+  }
+  &.full-screen-force {
+    --main-max-width: 100%;
   }
 }
 
