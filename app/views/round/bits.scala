@@ -27,7 +27,6 @@ object bits {
       moreJs = moreJs,
       moreCss = moreCss,
       responsive = true,
-      wrapClass = "full-screen",
       chessground = chessground,
       playing = playing,
       robots = robots,
