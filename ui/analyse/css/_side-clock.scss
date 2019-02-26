@@ -1,9 +1,9 @@
 .side-clocks {
+  @extend %roboto;
   position: absolute;
   right: -62px;
   width: 62px;
   top: calc(50% - 32px);
-  font-family: 'Roboto Mono', 'Roboto';
   box-sizing: border-box;
   line-height: 20px;
 }

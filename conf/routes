@@ -326,7 +326,6 @@ GET   /draughtsnet/key/$key<\w{8}>                controllers.Draughtsnet.keyExi
 GET   /draughtsnet/status                         controllers.Draughtsnet.status
 
 # Pref
-POST  /pref/zoom                       controllers.Pref.setZoom
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
 POST  /account/preferences             controllers.Pref.formApply

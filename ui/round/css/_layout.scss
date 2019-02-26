@@ -5,7 +5,6 @@
 
   &__app { grid-area: app; }
   &__side { grid-area: side; }
-  .mchat { grid-area: chat; }
   &__underboard { grid-area: under; }
   &__underchat { grid-area: uchat; }
 
@@ -30,7 +29,7 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: minmax(200px, 300px) $board-width $table-width;
+    grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
     grid-template-rows: max-content fit-content(100%);
     grid-template-areas:
     'side  app   app'

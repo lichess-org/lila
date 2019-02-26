@@ -1,4 +1,8 @@
+$gauge-on-container: #{$block-gap / 2};
+$gauge-on-width: calc(#{$block-gap} + 2px);
+
 .eval-gauge {
+  width: $gauge-on-width;
   position: relative;
   background: if($theme-light,#fff,#a0a0a0);
   border-radius: 0 5px 5px 0;

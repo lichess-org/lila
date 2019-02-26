@@ -26,7 +26,7 @@ $col1-player-clock-height: 50px;
   &__table { display: none; }
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $board-width $table-width;
+    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
     grid-template-rows:
     1fr
     $material-height
