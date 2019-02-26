@@ -3,6 +3,7 @@ package round
 
 import play.twirl.api.Html
 
+import draughts.variant.Variant
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -13,10 +14,11 @@ import controllers.routes
 object bits {
 
   def layout(
+    variant: Variant,
     title: String,
     moreJs: Html = emptyHtml,
     openGraph: Option[lidraughts.app.ui.OpenGraph] = None,
-    moreCss: Html = emptyHtml,
+    moreCss: Html = emptyFrag,
     draughtsground: Boolean = true,
     playing: Boolean = false,
     robots: Boolean = false
@@ -25,7 +27,10 @@ object bits {
       title = title,
       openGraph = openGraph,
       moreJs = moreJs,
-      moreCss = moreCss,
+      moreCss = frag(
+        responsiveCssTag("round"),
+        moreCss
+      ),
       responsive = true,
       draughtsground = draughtsground,
       playing = playing,

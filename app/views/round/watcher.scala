@@ -28,6 +28,7 @@ object watcher {
     }
 
     bits.layout(
+      variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       moreJs = frag(
         roundNvuiTag,
@@ -35,7 +36,6 @@ object watcher {
         embedJs(s"""window.customWS = true; window.onload = function() {
 LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, chat: ${jsOrNull(chatJson)} }, document.getElementById('lidraughts'))}""")
       ),
-      moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false
     )(frag(
@@ -61,6 +61,7 @@ LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, 
 
   def crawler(pov: Pov, initialFen: Option[draughts.format.FEN], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context) =
     bits.layout(
+      variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false

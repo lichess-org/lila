@@ -354,9 +354,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
       draughtsground.render(ctrl)
     ]),
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
+    (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     h('div.analyse__tools', gamebookPlayView || [
       // (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
-      (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
       ...(menuIsOpen ? [actionMenu(ctrl)] : (
         (multiBoardMenu && multiBoardMenuIsOpen) ? [multiBoardMenu.view(ctrl.study)] : [
           cevalView.renderCeval(ctrl),
@@ -365,9 +365,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
           gamebookEditView ? null : forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
         ])),
-      (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
       gamebookEditView || relayEdit
     ]),
+    (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },

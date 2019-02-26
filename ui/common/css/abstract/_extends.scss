@@ -90,6 +90,7 @@
   background: none;
   border: none;
   outline: none;
+  color: $c-font;
   line-height: 1.5;
   @include transition();
   @media (hover: hover) {

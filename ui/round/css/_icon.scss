@@ -1,11 +1,6 @@
 .ricons {
   display: flex;
   justify-content: center;
-  @include breakpoint($mq-col1) {
-    .variant-crazyhouse & {
-      justify-content: flex-end;
-    }
-  }
   .fbt {
     font-size: 1.4em;
     padding: .1em 1em;

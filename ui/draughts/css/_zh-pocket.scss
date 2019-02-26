@@ -2,22 +2,10 @@
   @extend %box-radius;
   display: flex;
   width: 62.5%;
-  &-top {
-    margin-bottom: -.5em;
-  }
-  &-bottom {
-    margin-top: -.5em;
-  }
-  @include breakpoint($mq-col2) {
+  @include breakpoint($mq-col2-uniboard) {
     width: 100%;
     box-shadow: 0 3px 5px rgba(0,0,0,0.3) inset;
     background: #888;
-    &-top {
-      margin-bottom: $block-gap;
-    }
-    &-bottom {
-      margin-top: $block-gap;
-    }
   }
   &-c1 {
     flex: 0 0 20%;

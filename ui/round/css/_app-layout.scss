@@ -69,18 +69,15 @@ $controls-height: auto;
       background: none;
     }
     @include breakpoint($mq-tall) {
-      &:not(.variant-crazyhouse) .rmoves { display: flex; }
-    }
-    @include breakpoint($mq-x-tall) {
-      .rmoves { display: flex; }
+      & .rmoves { display: flex; }
     }
   }
 
   &__board { grid-area: board; }
 }
 .rcontrols { grid-area: controls; }
-.material-top, .pocket-top { grid-area: mat-top; }
-.material-bottom, .pocket-bottom { grid-area: mat-bot; }
+.material-top { grid-area: mat-top; }
+.material-bottom { grid-area: mat-bot; }
 .expiration-top { grid-area: expi-top; }
 .expiration-bottom { grid-area: expi-bot; }
 .ruser-top { grid-area: user-top; }

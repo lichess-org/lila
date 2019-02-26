@@ -1,0 +1,51 @@
+.pocket {
+  &-top {
+    grid-area: mat-top;
+    margin-bottom: -.5em;
+  }
+  &-bottom {
+    grid-area: mat-bot;
+    margin-top: -.5em;
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    &-top {
+      margin-bottom: $block-gap;
+    }
+    &-bottom {
+      margin-top: $block-gap;
+    }
+  }
+}
+
+.round__app {
+  @include breakpoint($mq-col2) {
+    @include breakpoint($mq-tall) {
+      .rmoves { display: none; }
+    }
+    @include breakpoint($mq-x-tall) {
+      .rmoves { display: flex; }
+    }
+  }
+}
+
+.ricons {
+  @include breakpoint($mq-col1) {
+    justify-content: flex-end;
+  }
+}
+
+.rcontrols {
+  .follow-up {
+    & .button {
+      padding: 9px 0;
+    }
+  }
+  .rematch {
+    &.button {
+      height: 50px;
+    }
+    &-decline {
+      height: 49px;
+    }
+  }
+}
