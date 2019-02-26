@@ -1,6 +1,5 @@
 .rmoves {
-  display: flex;
-  flex-flow: column;
+  @extend %flex-column;
   background: $c-bg-box;
   .buttons {
     @extend %flex-between;

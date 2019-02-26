@@ -190,7 +190,7 @@ object layout {
         dataZoom := ctx.zoom.ifFalse(responsive).map(_.toString),
         dataResp := responsive.option(true),
         dataTheme := responsive.option(ctx.currentBg),
-        style := (responsive && zoomable) option s"--zoom:${ctx.respZoom}"
+        style := zoomable option s"--zoom:${ctx.respZoom}"
       )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },

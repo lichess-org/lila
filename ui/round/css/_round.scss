@@ -1,18 +1,11 @@
-$mq-col2: ($mq-medium, $mq-landscape);
-$mq-col3: $mq-x-large;
-
-$board-min-width: calc(70vmin * var(--board-scale));
-$board-max-width: calc(100vh * var(--board-scale) - #{$site-header-height} - #{$block-gap});
-$board-width: minmax($board-min-width, $board-max-width);
-
-$table-width: minmax(250px, 350px);
+$mq-col2: $mq-col2-uniboard;
+$mq-col3: $mq-col3-uniboard;
 
 @import 'layout';
 @import 'app-layout';
 @import 'zen';
 @import 'side';
 @import 'meta';
-@import 'chat';
 @import 'table';
 @import 'user';
 @import 'clock';

@@ -5,9 +5,6 @@
 .mchat {
   @extend %box-neat-force, %flex-column;
   grid-area: chat;
-  body.kid & {
-    display: none;
-  }
   &__content {
     @extend %flex-column;
     background: $c-bg-box;

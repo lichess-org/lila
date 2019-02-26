@@ -1,11 +1,11 @@
-$mq-col2: ($mq-medium, $mq-landscape);
-$mq-col3: $mq-x-large;
+$mq-col2: $mq-col2-uniboard;
+$mq-col3: $mq-col3-uniboard;
 
-@mixin columns-with-gauge-col2($board-width, $gauge-width) {
-  grid-template-columns: $board-width $gauge-width $block-gap minmax(200px, 400px);
+@mixin columns-with-gauge-col2($gauge-width) {
+  grid-template-columns: $col2-uniboard-width $gauge-width $block-gap $col2-uniboard-table;
 }
-@mixin columns-with-gauge-col3($board-width, $gauge-width) {
-  grid-template-columns: minmax(230px, 20vw) $block-gap $board-width $gauge-width $block-gap minmax(200px, 400px);
+@mixin columns-with-gauge-col3($gauge-width) {
+  grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-width $block-gap $col3-uniboard-table;
 }
 
 .puzzle {
@@ -19,10 +19,6 @@ $mq-col3: $mq-x-large;
   &__history { grid-area: history; }
   .eval-gauge { grid-area: gauge; }
 
-  $board-min-width: calc(70vmin * var(--board-scale));
-  $board-max-width: calc(100vh * var(--board-scale) - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
-  $board-width: minmax($board-min-width, $board-max-width);
-
   grid-template-areas:
   'board'
   'controls'
@@ -35,19 +31,19 @@ $mq-col3: $mq-x-large;
 
   &__board {
     /* Make sure board fits in the viewport. */
-    max-width: calc(100vh - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
+    // max-width: calc(100vh - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
   }
   @include breakpoint($mq-col2) {
-    @include columns-with-gauge-col2($board-width, 0);
+    @include columns-with-gauge-col2(0);
     &.gauge-on {
-      @include columns-with-gauge-col2($board-width, 1rem);
+      @include columns-with-gauge-col2($gauge-on-container);
     }
     grid-template-rows: fit-content(0);
     grid-template-areas:
     'board   gauge .    tools'
     'history .     .    controls'
     'side    side  side side';
-    grid-row-gap: $block-gap;
+
     &__moves { display: block; }
   }
 
@@ -55,9 +51,9 @@ $mq-col3: $mq-x-large;
     grid-template-areas:
     'side    . board   gauge . tools'
     '.       . history .     . controls';
-    @include columns-with-gauge-col3($board-width, 0);
+    @include columns-with-gauge-col3(0);
     &.gauge-on {
-      @include columns-with-gauge-col3($board-width, 1rem);
+      @include columns-with-gauge-col3($gauge-on-container);
     }
     &__tools {
       // max-height: $board-width;

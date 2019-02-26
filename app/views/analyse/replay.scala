@@ -55,8 +55,9 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
           st.aside(cls := "analyse__side")(
             views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)
           ),
+          chatOption.map(_ => views.html.chat.frag),
           div(cls := "analyse__board main-board")(chessgroundSvg),
-          div(cls := "analyse__tools"),
+          div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls")
         ),
         if (ctx.blind) div(cls := "blind_content none")(
