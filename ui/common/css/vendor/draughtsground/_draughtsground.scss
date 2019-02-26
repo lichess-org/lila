@@ -77,7 +77,6 @@ piece {
 }
 
 .cg-board-wrap {
-  @extend %abs-100;
   // overflow: hidden; /* prevents width issues with rank coords | but prevents dragging pieces in! */
   svg {
     overflow: hidden;

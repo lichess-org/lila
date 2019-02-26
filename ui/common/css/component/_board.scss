@@ -4,11 +4,16 @@
   &__preload {
     position: absolute;
   }
+  .cg-board-wrap {
+    @extend %abs-100;
+  }
 }
+
 .mini-board {
   @extend %square;
-  .cg-board-wrap {
-    width: 224px;
-    height: 224px;
-  }
+  position: relative;
+  // .cg-board-wrap {
+  //   width: 224px;
+  //   height: 224px;
+  // }
 }

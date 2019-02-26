@@ -28,7 +28,7 @@ export default function(ctrl: LobbyController) {
       break;
   }
   return h('div#hooks_wrap', [
-    h('div.tabs', renderTabs(ctrl)),
-    h('div.lobby_box.' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body)
+    h('div.lobby__app__tabs', renderTabs(ctrl)),
+    h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body)
   ]);
 };

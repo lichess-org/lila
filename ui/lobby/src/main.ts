@@ -45,5 +45,5 @@ export function start(opts: LobbyOpts) {
 window.Draughtsground = Draughtsground;
 
 window.onload = function() {
-  if (window['lidraughts_lobby']) boot(window['lidraughts_lobby'], document.getElementById('hooks_wrap'));
+  boot(window['lidraughts_lobby'], document.getElementById('hooks_wrap'));
 };

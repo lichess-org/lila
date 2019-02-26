@@ -1,0 +1,37 @@
+
+.lobby__app__tabs {
+  @extend %flex-center-nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 2px solid $c-border;
+  > span {
+    @extend %roboto, %box-radius-bottom;
+    flex: 1 1 0;
+    text-align: center;
+    font-size: .9em;
+    padding: .4em .1em;
+    cursor: pointer;
+    position: relative;
+    @include transition(color, .25s);
+    &::after {
+      content: "";
+      background: fade-out($c-accent, .4);
+      height: 2px;
+      position: absolute;
+      width: 96%;
+      left: 2%;
+      bottom: -2px;
+      @include transition(all, .25s);
+      transform: scale(0);
+    }
+    &.active,
+    &:hover {
+      &::after {
+        transform: scale(1);
+      }
+    }
+    &.active {
+      color: $c-accent;
+    }
+  }
+}

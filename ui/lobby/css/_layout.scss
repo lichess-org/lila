@@ -1,0 +1,73 @@
+$mq-col2: $mq-medium;
+$mq-col3: $mq-x-large;
+
+.lobby {
+  grid-area: main;
+  display: grid;
+
+  grid-template-rows: min-content minmax(400px, calc(80vh - #{$site-header-height} - 150px));
+  grid-template-areas:
+  'table'
+  'app'
+  'side'
+  'leader'
+  'tv'
+  'puzzle'
+  'winner'
+  'tours'
+  'simuls'
+  'forum'
+  'blog'
+  'support'
+  'about';
+  grid-gap: $block-gap;
+
+  @include breakpoint($mq-col2) {
+
+    grid-template-columns: repeat(3, minmax(150px, 350px));
+
+    grid-template-rows: min-content minmax(500px, calc(75vh - #{$site-header-height} - 200px));
+
+    grid-template-areas:
+    'table  app     app   '
+    'side   app     app   '
+    'tv     leader  winner'
+    'puzzle tours   tours '
+    '.      simuls  simuls'
+    '.      forum   forum '
+    '.      blog    blog  '
+    '.      support support'
+    '.      about   about ';
+  }
+
+  @include breakpoint($mq-col3) {
+
+    grid-template-columns: repeat(4, minmax(150px, 350px));
+
+    grid-template-rows: minmax(500px, calc(75vh - #{$site-header-height}));
+
+    grid-template-areas:
+    'side   app     app    table '
+    'tv     leader  winner puzzle'
+    '.      tours   tours  .     '
+    '.      simuls  simuls .     '
+    '.      forum   forum  .     '
+    '.      blog    blog   .     '
+    '.      support support .    '
+    '.      about   about  .     ';
+  }
+
+  &__side { grid-area: side; }
+  &__app { grid-area: app; }
+  &__table { grid-area: table; }
+  &__tv { grid-area: tv; }
+  &__leaderboard { grid-area: leader; }
+  &__winners { grid-area: winner; }
+  &__puzzle { grid-area: puzzle; }
+  &__tournaments { grid-area: tours; }
+  &__simuls { grid-area: simuls; }
+  &__forum { grid-area: forum; }
+  &__blog { grid-area: blog; }
+  &__support { grid-area: support; }
+  &__about  { grid-area: about ; }
+}

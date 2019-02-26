@@ -185,10 +185,10 @@ lidraughts.topMenuIntent = function() {
       lidraughts.parseFen($elem);
     }, 500); // if not loaded yet
     if (!$elem || !$elem.jquery) {
-      $elem = $('.parse_fen');
+      $elem = $('.parse-fen');
     }
     $elem.each(function() {
-      var $this = $(this).removeClass('parse_fen');
+      var $this = $(this).removeClass('parse-fen');
       var lm = $this.data('lastmove');
       var lastMove = lm && (lm[1] === '@' ? [lm.toString().slice(2)] : [lm.toString()[0] + lm.toString()[1], lm.toString()[2] + lm.toString()[3]]);
       var color = $this.data('color') || lidraughts.readServerFen($(this).data('y'));
@@ -205,10 +205,7 @@ lidraughts.topMenuIntent = function() {
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
-      else {
-        this.innerHTML = '<div class="cg-board-wrap"></div>';
-        $this.data('draughtsground', Draughtsground(this.firstChild, config));
-      }
+      else $this.data('draughtsground', Draughtsground(this, config));
     });
   };
 
