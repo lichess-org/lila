@@ -23,7 +23,7 @@
     flex: 0 0 6.8em;
   }
   .moves {
-    @extend %flex-wrap;
+    @extend %flex-wrap, %zen;
     align-content: start;
     border: $border;
     border-width: 0 1px;

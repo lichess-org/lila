@@ -1,4 +1,5 @@
 .ruser {
+  @extend %zen;
   display: flex;
   justify-content: left;
   font-size: 1.2em;
