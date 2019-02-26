@@ -1,6 +1,3 @@
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
-
 @mixin columns-with-gauge-col2($gauge-width) {
   grid-template-columns: $col2-uniboard-width $gauge-width $block-gap $col2-uniboard-table;
 }
@@ -9,9 +6,9 @@ $mq-col3: $mq-col3-uniboard;
 }
 
 #main-wrap {
-  --main-max-width: auto;
-  @include breakpoint($mq-portrait) {
-    --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
   }
 }
 
@@ -27,7 +24,23 @@ $mq-col3: $mq-col3-uniboard;
   &__acpl { grid-area: acpl; }
   &__side { grid-area: side; }
   &__underchat { grid-area: uchat; }
-  .eval-gauge { grid-area: gauge; }
+  .eval-gauge {
+    grid-area: gauge;
+    display: none;
+  }
+
+  grid-template-areas:
+  'board'
+  'controls'
+  'tools'
+  'side'
+  'acpl'
+  'under'
+  'chat'
+  'uchat';
+  grid-template-rows: auto auto 50vh;
+
+  grid-row-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
     @include columns-with-gauge-col2(0);
@@ -41,20 +54,21 @@ $mq-col3: $mq-col3-uniboard;
     'under      under .    acpl'
     'chat       chat  .    side'
     'uchat      uchat .    side';
-    grid-row-gap: $block-gap;
-    &__moves { display: block; }
+    .eval-gauge { display: block; }
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-rows: max-content fit-content(0);
     @include columns-with-gauge-col3(0);
     &.gauge-on {
       @include columns-with-gauge-col3($gauge-on-container);
     }
+    grid-template-rows: max-content fit-content(0);
     grid-template-areas:
     'side    . board gauge . tools'
     'chat    . board gauge . tools'
     'uchat   . under under . controls'
     'uchat   . under under . acpl';
+
+    @include crosstable-large;
   }
 }

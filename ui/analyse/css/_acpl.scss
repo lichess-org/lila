@@ -1,8 +1,7 @@
 .advice-summary {
+  @extend %flex-column;
   color: $c-font-page;
   font-size: .9em;
-  display: flex;
-  flex-flow: column;
   align-items: center;
   line-height: 1.15em;
   table {
@@ -26,5 +25,18 @@
   }
   .button {
     margin: $block-gap 0;
+  }
+  @include breakpoint($mq-col1) {
+    flex-flow: row wrap;
+    justify-content: center;
+    padding-bottom: $block-gap;
+    border-bottom: $border;
+    table {
+      flex: 0 0 calc(50% - #{$block-gap});
+      margin-left: $block-gap;
+    }
+    > a {
+      order: 1;
+    }
   }
 }

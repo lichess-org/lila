@@ -1,63 +1,79 @@
-.analyse__tools {
-  @extend %box-neat-force, %flex-column;
-  background: $c-bg-box;
-  .ceval {
-    flex: 0 0 38px;
-  }
-  .sub-box {
-    user-select: none;
-    .title {
-      font-size: .9rem;
-      line-height: 1.9em;
-      background: mix($c-secondary, $c-bg-box, 40%);
-      padding: 0 7px;
+.analyse {
+
+  &__tools {
+    @extend %box-neat-force, %flex-column;
+    background: $c-bg-box;
+    .ceval {
+      flex: 0 0 38px;
+    }
+    .sub-box {
+      @extend %border-bottom-active;
+      user-select: none;
+      .title {
+        font-size: .9rem;
+        line-height: 1.9em;
+        background: mix($c-secondary, $c-bg-box, 40%);
+        padding: 0 7px;
+      }
     }
   }
-}
 
-.analyse__moves {
-  flex: 2 1 0px;
-  overflow-y: auto;
-  border: $border;
-  border-width: 1px 0;
-  .result,
-  .status {
-    background: $c-bg-zebra;
-    text-align: center;
+  &__moves {
+    flex: 2 1 0px;
+    overflow-y: auto;
+    border: $border;
+    border-width: 1px 0;
+    .result,
+    .status {
+      background: $c-bg-zebra;
+      text-align: center;
+    }
+    .result {
+      border-top: $border;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 5px 0 3px 0;
+    }
+    .status {
+      font-size: 1em;
+      font-style: italic;
+      padding-bottom: 7px;
+    }
   }
-  .result {
-    border-top: $border;
-    font-weight: bold;
-    font-size: 1.2em;
-    padding: 5px 0 3px 0;
-  }
-  .status {
-    font-size: 1em;
-    font-style: italic;
-    padding-bottom: 7px;
-  }
-}
 
-.analyse__controls {
-  height: $col3-uniboard-controls;
-  margin-top: #{-$block-gap};
-  align-items: stretch;
-  div {
-    display: flex;
-    flex: 1 1 auto;
+  &__controls {
+    height: $col3-uniboard-controls;
+    margin-top: #{-$block-gap};
     align-items: stretch;
+    div {
+      display: flex;
+      flex: 1 1 auto;
+      align-items: stretch;
+    }
+    .jumps {
+      flex: 3 1 auto;
+    }
+    button {
+      flex: 0 0 2.5rem;
+    }
+    .active {
+      margin-top: -3px;
+      padding-top: 3px;
+    }
+    ::before {
+      vertical-align: middle;
+    }
   }
-  .jumps {
-    flex: 3 1 auto;
-  }
-  button {
-    flex: 0 0 2.5rem;
-  }
-  .active {
-    margin-top: -3px;
-    padding-top: 3px;
-  }
-  ::before {
-    vertical-align: middle;
+
+  @include breakpoint($mq-col1) {
+    .ceval {
+      order: 1;
+    }
+    .pv_box {
+      order: 2;
+    }
+    &__moves {
+      order: 3;
+    }
   }
 }

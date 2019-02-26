@@ -11,10 +11,8 @@
   @extend %box-neat-force;
   width: 100%;
   line-height: 1.9em;
-  display: none;
-  @include breakpoint($mq-xx-small) {
-    display: flex;
-  }
+  display: flex;
+
   fill,
   povs {
     background: $c-bg-box;

@@ -1,5 +1,6 @@
 /* Uniboard: keep the same page layout accross pages */
 
+$mq-col1-uniboard: $mq-not-medium $mq-portrait;
 $mq-col2-uniboard: ($mq-medium, $mq-landscape);
 $mq-col3-uniboard: $mq-x-large;
 
