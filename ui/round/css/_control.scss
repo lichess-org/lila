@@ -104,11 +104,10 @@
     &.button {
       @extend %flex-center-nowrap;
       justify-content: center;
-      padding: 0;
       height: 56px;
       font-size: 1.2em;
       text-transform: uppercase;
-      transition: all .15s, height 0.5s ease;
+      @include transition();
       .variant_crazyhouse & {
         height: 60px;
       }
@@ -127,6 +126,7 @@
     }
     &.glowing {
       span {
+        display: block;
         animation: rubber-band 5s infinite;
       }
     }
