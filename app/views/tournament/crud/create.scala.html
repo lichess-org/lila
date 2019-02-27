@@ -1,6 +1,6 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@layout(title = "New tournament") {
+@layout(title = "New tournament", css = "mod.form") {
 <div class="crud page-menu__content box box-pad">
   <h1>New tournament</h1>
   <form class="content_box_content form3" action="@routes.TournamentCrud.create" method="POST">

@@ -1,7 +1,19 @@
 @import 'layout';
 @import 'app/app';
 @import 'puzzle';
-@import 'side';
 @import 'table';
+@import 'stream';
 @import 'spotlight';
 @import 'timeline';
+@import 'box';
+@import 'support';
+
+.lobby__side {
+  @extend %flex-column;
+  margin-top: .3em;
+  overflow: hidden;
+}
+.lobby__about {
+  justify-self: center;
+  margin-top: .5em;
+}

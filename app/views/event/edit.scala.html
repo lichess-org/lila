@@ -1,6 +1,6 @@
 @(event: lila.event.Event, form: Form[_])(implicit ctx: Context)
 
-@layout(title = event.title) {
+@layout(title = event.title, css = "mod.form") {
 <div class="crud edit page-menu__content box box-pad">
   <h1>
     @event.title

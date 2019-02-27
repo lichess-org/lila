@@ -19,12 +19,12 @@ object bits {
     leaderboard: List[lila.user.User.LightPerf],
     tournamentWinners: List[lila.tournament.Winner]
   )(implicit ctx: Context) = frag(
-    div(cls := "lobby__leaderboard")(
-      div(cls := "undertable_top")(
-        a(cls := "more", href := routes.User.list)(trans.more(), " »"),
-        span(cls := "title text", dataIcon := "C")(trans.leaderboard())
+    div(cls := "lobby__leaderboard lobby__box")(
+      div(cls := "lobby__box__top")(
+        span(cls := "title text", dataIcon := "C")(trans.leaderboard.frag()),
+        a(cls := "more", href := routes.User.list)(trans.more.frag(), " »")
       ),
-      div(cls := "undertable_inner scroll-shadow-hard")(
+      div(cls := "lobby__box__content")(
         table(tbody(
           leaderboard map { l =>
             tr(
@@ -38,12 +38,12 @@ object bits {
         ))
       )
     ),
-    div(cls := "lobby__winners")(
-      div(cls := "undertable_top")(
-        a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »"),
-        span(cls := "title text", dataIcon := "g")(trans.tournamentWinners())
+    div(cls := "lobby__winners lobby__box")(
+      div(cls := "lobby__box__top")(
+        span(cls := "title text", dataIcon := "g")(trans.tournamentWinners.frag()),
+        a(cls := "more", href := routes.Tournament.leaderboard)(trans.more.frag(), " »")
       ),
-      div(cls := "undertable_inner scroll-shadow-hard")(
+      div(cls := "lobby__box__content")(
         table(tbody(
           tournamentWinners take 10 map { w =>
             tr(
@@ -54,39 +54,39 @@ object bits {
         ))
       )
     ),
-    div(cls := "lobby__tournaments")(
-      div(cls := "undertable_top")(
-        a(cls := "more", href := routes.Tournament.home())(frag(trans.more(), " »")),
-        span(cls := "title text", dataIcon := "g")(trans.openTournaments())
+    div(cls := "lobby__tournaments lobby__box")(
+      div(cls := "lobby__box__top")(
+        span(cls := "title text", dataIcon := "g")(trans.openTournaments.frag()),
+        a(cls := "more", href := routes.Tournament.home())(trans.more.frag(), " »")
       ),
-      div(id := "enterable_tournaments", cls := "enterable_list undertable_inner scroll-shadow-hard")(
+      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content scroll-shadow-hard")(
         views.html.tournament.enterable(tours)
       )
     ),
-    div(cls := List("lobby__simuls" -> true, "none" -> simuls.isEmpty))(
-      div(cls := "undertable_top")(
-        a(cls := "more", href := routes.Simul.home())(frag(trans.more(), " »")),
-        span(cls := "title text", dataIcon := "|")(trans.simultaneousExhibitions())
+    div(cls := "lobby__simuls lobby__box")(
+      div(cls := "lobby__box__top")(
+        span(cls := "title text", dataIcon := "|")(trans.simultaneousExhibitions.frag()),
+        a(cls := "more", href := routes.Simul.home())(trans.more.frag(), " »")
       ),
-      div(id := "enterable_simuls", cls := "enterable_list undertable_inner")(
+      div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
         views.html.simul.bits.allCreated(simuls)
       )
     )
   )
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = posts.nonEmpty option
-    div(cls := "lobby__forum")(
-      div(cls := "undertable_top")(
-        a(cls := "more", href := routes.Blog.index())(trans.more(), " »"),
-        span(cls := "title text", dataIcon := "6")(trans.latestUpdates())
+    div(cls := "lobby__blog lobby__box")(
+      div(cls := "lobby__box__top")(
+        span(cls := "title text", dataIcon := "6")(trans.latestUpdates.frag()),
+        a(cls := "more", href := routes.Blog.index())(trans.more.frag(), " »")
       ),
-      div(cls := "undertable_inner")(
+      div(cls := "lobby__box__content")(
         posts map { post =>
           a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
             img(src := post.image),
             span(cls := "text")(
-              span(cls := "title")(post.title),
-              p(cls := "shortlede")(post.shortlede)
+              strong(post.title),
+              span(post.shortlede)
             ),
             semanticDate(post.date)
           )
@@ -149,7 +149,7 @@ object bits {
   def spotlight(e: lila.event.Event)(implicit ctx: Context) = a(
     href := (if (e.isNow) e.url else routes.Event.show(e.id).url),
     cls := List(
-      s"tour_spotlight event_spotlight id_${e.id}" -> true,
+      s"tour-spotlight event-spotlight id_${e.id}" -> true,
       "invert" -> e.isNowOrSoon
     )
   )(

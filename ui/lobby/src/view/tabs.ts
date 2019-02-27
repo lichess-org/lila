@@ -24,7 +24,7 @@ export default function(ctrl: LobbyController) {
     ctrl.isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
     (active === 'now_playing' || ctrl.data.nbNowPlaying > 0 || ctrl.isBot) ? tab(ctrl, 'now_playing', active, [
       ctrl.trans.plural('nbGamesInPlay', ctrl.data.nbNowPlaying),
-      myTurnPovsNb > 0 ? h('span.unread', myTurnPovsNb) : null
+      myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb) : null
     ]) : null
   ];
 };

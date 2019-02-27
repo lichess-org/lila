@@ -11,7 +11,7 @@ object bits {
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
       a(cls := "stream highlight", href := routes.Streamer.show(s.streamer.id.value), title := s.status)(
-        span(cls := "text", dataIcon := "")(l titleName s),
+        strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
         s.status
       )

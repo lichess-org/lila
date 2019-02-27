@@ -1,4 +1,4 @@
-@(title: String, evenMoreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context)
+@(title: String, evenMoreJs: Html = emptyHtml, css: String = "mod.misc")(body: Html)(implicit ctx: Context)
 
 @moreJs = {
 @flatpickrTag
@@ -8,7 +8,7 @@
 
 @base.layout(
 title = title,
-moreCss = responsiveCssTag("mod.misc"),
+moreCss = responsiveCssTag(css),
 responsive = true,
 moreJs = moreJs) {
 <main class="page-menu">

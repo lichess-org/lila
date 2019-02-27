@@ -55,11 +55,13 @@ object home {
   ) {
       main(cls := "lobby")(
         div(cls := "lobby__side")(
-          ctx.noKid option st.section(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
-          events.map(bits.spotlight),
-          !ctx.isBot option frag(
-            lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
-            simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
+          ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
+          div(cls := "lobby__spotlights")(
+            events.map(bits.spotlight),
+            !ctx.isBot option frag(
+              lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map { views.html.tournament.homepageSpotlight(_) },
+              simuls.find(_.spotlightable).headOption map views.html.simul.bits.homepageSpotlight
+            )
           ),
           ctx.me map { u =>
             div(cls := "timeline", dataHref := routes.Timeline.home)(
@@ -117,26 +119,30 @@ object home {
           )
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option div(cls := "lobby__forum")(
-          div(cls := "undertable_top")(
-            a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »"),
-            span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
+        ctx.noKid option div(cls := "lobby__forum lobby__box")(
+          div(cls := "lobby__box__top")(
+            span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag()),
+            a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »")
           ),
-          div(cls := "undertable_inner scroll-shadow-hard")(
-            div(cls := "content")(views.html.forum.post recent forumRecent)
+          div(cls := "lobby__box__content scroll-shadow-hard")(
+            views.html.forum.post recent forumRecent
           )
         ),
         bits.lastPosts(lastPost),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
-            strong("Lichess Patron"),
-            span(trans.directlySupportLichess.frag())
+            span(cls := "lobby__support__text")(
+              strong("Lichess Patron"),
+              span(trans.directlySupportLichess.frag())
+            )
           ),
           a(href := routes.Page.swag)(
             iconTag(""),
-            strong("Swag Store"),
-            span(trans.playChessInStyle.frag())
+            span(cls := "lobby__support__text")(
+              strong("Swag Store"),
+              span(trans.playChessInStyle.frag())
+            )
           )
         ),
         div(cls := "lobby__about")(a(href := "/about")(trans.aboutX.frag("lichess.org")))

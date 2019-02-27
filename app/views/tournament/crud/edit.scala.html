@@ -1,6 +1,6 @@
 @(tour: lila.tournament.Tournament, form: Form[_])(implicit ctx: Context)
 
-@layout(title = tour.fullName) {
+@layout(title = tour.fullName, css = "mod.form") {
 <div class="crud edit page-menu__content box box-pad">
   <h1>
     <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>

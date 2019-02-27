@@ -83,33 +83,31 @@ object bits {
     }
 
   def vstext(pov: Pov)(ctxOption: Option[Context]) =
-    div(cls := "vstext clearfix")(
-      div(cls := "left user_link")(
+    div(cls := "vstext")(
+      div(cls := "vstext__pl user_link")(
         playerUsername(pov.player, withRating = false, withTitle = false),
         br,
         playerTitle(pov.player) map { t => frag(t, " ") },
         pov.player.rating,
         pov.player.provisional option "?"
       ),
-      div(cls := "right user_link")(
+      pov.game.clock map { c =>
+        div(cls := "vstext__clock")(shortClockName(c.config))
+      } orElse {
+        ctxOption flatMap { implicit ctx =>
+          pov.game.daysPerTurn map { days =>
+            div(cls := "vstext__clock")(
+              if (days == 1) trans.oneDay.frag() else trans.nbDays.pluralSame(days)
+            )
+          }
+        }
+      },
+      div(cls := "vstext__op user_link")(
         playerUsername(pov.opponent, withRating = false, withTitle = false),
         br,
         pov.opponent.rating,
         pov.opponent.provisional option "?",
         playerTitle(pov.opponent) map { t => frag(" ", t) }
-      ),
-      pov.game.clock map { c =>
-        div(cls := "center")(span(cls := "text", dataIcon := "p")(shortClockName(c.config)))
-      } orElse {
-        ctxOption flatMap { implicit ctx =>
-          pov.game.daysPerTurn map { days =>
-            div(cls := "center")(
-              span(title := trans.correspondence.txt())(
-                if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
-              )
-            )
-          }
-        }
-      }
+      )
     )
 }

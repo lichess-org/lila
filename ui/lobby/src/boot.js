@@ -31,7 +31,7 @@ module.exports = function(cfg, element) {
       return l.slice(0, 2).toLowerCase();
     });
     langs.push($('html').attr('lang'));
-    $('#streams_on_air a, .event-spotlight').each(function() {
+    $('.lobby__streams a, .event-spotlight').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
       if (match && langs.indexOf(match[1].toLowerCase()) === -1) $(this).hide();
     });
@@ -60,7 +60,7 @@ module.exports = function(cfg, element) {
           });
         },
         streams: function(html) {
-          $('#streams_on_air').html(html);
+          $('.lobby__streams').html(html);
           filterStreams();
         },
         featured: function(o) {

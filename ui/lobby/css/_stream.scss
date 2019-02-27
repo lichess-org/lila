@@ -1,0 +1,20 @@
+.lobby__streams {
+  a.stream {
+    @extend %roboto, %nowrap-hidden;
+    color: $c-font-page;
+    display: block;
+    text-overflow: ellipsis;
+    margin-bottom: .5em;
+    line-height: .9;
+    strong {
+      @extend %base-font;
+    }
+    &.highlight strong {
+      color: $c-brag;
+    }
+    strong:before {
+      font-size: 1.5em;
+      margin-right: .1rem;
+    }
+  }
+}

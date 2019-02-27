@@ -40,7 +40,7 @@ object bits {
     )
 
   def allCreated(simuls: List[lila.simul.Simul]) =
-    table(cls := "tournaments")(
+    table(
       simuls map { simul =>
         tr(
           td(cls := "name")(

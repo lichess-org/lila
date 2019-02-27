@@ -4,11 +4,11 @@
   justify-content: center;
   align-items: flex-start;
   border-bottom: 2px solid $c-border;
-  > span {
+  span {
     @extend %roboto, %box-radius-bottom;
-    flex: 1 1 0;
+    flex: 1 1 auto;
     text-align: center;
-    font-size: .9em;
+    // font-size: .9em;
     line-height: #{$app-tabs-height - 2px};
     padding: 0 .1em;
     cursor: pointer;
@@ -34,5 +34,8 @@
     &.active {
       color: $c-accent;
     }
+  }
+  .unread {
+    margin-left: .3em;
   }
 }

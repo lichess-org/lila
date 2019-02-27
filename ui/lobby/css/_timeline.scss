@@ -1,6 +1,7 @@
 .timeline {
   flex: 1 1 auto;
   margin-top: 1em;
+  color: $c-font-page;
   overflow: hidden;
   &:hover {
     overflow-y: auto;
@@ -9,7 +10,7 @@
     @extend %roboto;
     a {
       @extend %base-font;
-      color: $c-font;
+      color: $c-font-page;
     }
     &:hover a {
       color: $c-link;
