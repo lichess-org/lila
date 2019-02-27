@@ -1,9 +1,6 @@
 .user_link {
   @extend %nowrap-hidden;
   color: $c-font;
-  &:hover {
-    color: $c-link;
-  }
   .line {
     @extend %data-icon;
     color: $c-font;
@@ -47,4 +44,7 @@
   .rp.down {
     color: $c-bad;
   }
+}
+a.user_link:hover {
+  color: $c-link;
 }

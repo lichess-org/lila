@@ -73,6 +73,7 @@ final class LiveStreamApi(
   //      updatedAt = DateTime.now
   //    ))
   //  )))
+
   def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] = all.map { live =>
     Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
   }

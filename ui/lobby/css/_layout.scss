@@ -1,7 +1,6 @@
 $mq-col2: $mq-medium;
 $mq-col3: $mq-x-large;
 
-$col2-app-height: minmax(500px, 70vh);
 $app-tabs-height: 30px;
 
 .lobby {
@@ -27,20 +26,21 @@ $app-tabs-height: 30px;
 
   @include breakpoint($mq-col2) {
 
-    grid-template-columns: repeat(3, minmax(150px, 350px));
+    grid-template-columns:
+    minmax(150px, 350px)
+    minmax(150px, 400px)
+    minmax(150px, 400px);
 
-    grid-template-rows: min-content $col2-app-height;
+    grid-template-rows: max-content fit-content(0) fit-content(0) fit-content(0);
 
     grid-template-areas:
-    'table  app     app   '
-    'side   app     app   '
-    'tv     leader  winner'
-    'puzzle tours   tours '
-    '.      simuls  simuls'
-    '.      forum   forum '
-    '.      blog    blog  '
-    '.      support support'
-    '.      about   about ';
+    'table   app     app'
+    'side    app     app'
+    'tv      leader  winner'
+    'puzzle  tours   tours '
+    'about   simuls  simuls'
+    'support forum   forum '
+    '.       blog    blog';
   }
 
   @include breakpoint($mq-col3) {
@@ -51,17 +51,19 @@ $app-tabs-height: 30px;
     minmax(150px, 300px)
     minmax(150px, 350px);
 
-    grid-template-rows: $col2-app-height;
+    grid-template-rows: fit-content(0) fit-content(0);
 
     grid-template-areas:
-    'side   app     app    table '
+    'side   app     app    table'
     'tv     leader  winner puzzle'
-    '.      tours   tours  .     '
-    '.      simuls  simuls .     '
-    '.      forum   forum  .     '
-    '.      blog    blog   .     '
-    '.      support support .    '
-    '.      about   about  .     ';
+    'about  tours   tours  support'
+    '.      simuls  simuls .'
+    '.      forum   forum  .'
+    '.      blog    blog   .';
+
+    &__tournaments {
+      max-height: 20em;
+    }
   }
 
   &__side { grid-area: side; }

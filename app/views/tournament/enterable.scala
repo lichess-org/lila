@@ -14,10 +14,7 @@ object enterable {
       tours map { tour =>
         tr(
           td(cls := "name")(
-            a(cls := "text", href := routes.Tournament.show(tour.id))(
-              span(dataIcon := tournamentIconChar(tour)),
-              tour.name
-            )
+            a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(tour.name)
           ),
           tour.schedule.fold(td()) { s => td(momentFromNow(s.at)) },
           td(tour.durationString),

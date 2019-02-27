@@ -1,0 +1,95 @@
+.lobby {
+  &__box {
+    @extend %flex-column, %box-neat-force;
+    background: $c-bg-box;
+    &__top {
+      @extend %metal, %flex-between;
+      flex: 0 0 auto;
+      padding: .3em .5em;
+      .more {
+        color: $c-font-dim;
+      }
+      .title {
+        font-weight: bold;
+        color: $c-font-dim;
+        padding: .3em;
+      }
+    }
+    &__content {
+      overflow: hidden;
+      &:hover {
+        overflow-y: auto;
+      }
+    }
+    .user_link {
+      font-weight: bold;
+      color: $c-font-dim;
+    }
+    table {
+      width: 100%;
+      height: 100%;
+    }
+    td {
+      padding: .5em .4em;
+      border-top: $border;
+      white-space: nowrap;
+    }
+    tr:nth-child(even) {
+      background: $c-bg-zebra;
+    }
+  }
+  &__leaderboard,
+  &__winners {
+    td:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    td:last-child {
+      text-align: right;
+      padding-right: .7em;
+    }
+  }
+  &__forum .lobby__box__top,
+  &__blog .lobby__box__top {
+    border-bottom: $border;
+  }
+  &__forum {
+    max-height: 20em;
+    li {
+      margin: 0.6em 0;
+      padding-left: 9px;
+      line-height: 14px;
+      white-space: nowrap;
+    }
+    .extract {
+      font-weight: 300;
+    }
+  }
+  &__blog {
+    .post {
+      @extend %flex-between;
+      color: $c-font;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      padding: .2em .5em;
+      &:hover {
+        background: mix($c-link, $c-bg-box, 15%);
+      }
+      .text {
+        flex: 1 1 100%;
+      }
+      strong {
+        display: block;
+      }
+      img {
+        height: 4em;
+        width: 4em;
+        margin-right: .8em;
+      }
+      time {
+        color: $c-font-dim;
+        white-space: nowrap;
+      }
+    }
+  }
+}

@@ -8,22 +8,28 @@
     justify-content: center;
     flex: 1 1 auto;
     a {
-      margin: 1.2em 0;
       font-size: 1.3em;
-      padding: 1em;
       text-align: center;
       letter-spacing: -1px;
       &.disabled {
         opacity: 0.2;
       }
+      margin: .2em 0;
+      padding: .5em;
+      @include breakpoint($mq-col3) {
+        margin: 1.2em 0;
+        padding: 1em;
+      }
     }
   }
   &__counters {
-    position: absolute;
-    bottom: 0;
     @extend %flex-column;
+    @include breakpoint($mq-col3) {
+      position: absolute;
+      bottom: 0;
+    }
     a {
-      color: $c-font;
+      color: $c-font-page;
     }
   }
 }

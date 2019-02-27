@@ -3,6 +3,7 @@
 
 .lobby__app {
   @extend %flex-column;
+  height: 700px;
   user-select: none;
   &__content {
     flex: 1 1 100%;
