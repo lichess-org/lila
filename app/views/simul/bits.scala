@@ -34,7 +34,7 @@ object bits {
     else "img icon"
 
   def homepageSpotlight(s: lidraughts.simul.Simul)(implicit ctx: Context) =
-    a(href := routes.Simul.show(s.id), cls := "tour_spotlight little id_@s.id")(
+    a(href := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
       img(cls := imgClass(s.spotlight), src := staticUrl(imgUrl(s.spotlight))),
       span(cls := "content")(
         span(cls := "name")(s.fullName),

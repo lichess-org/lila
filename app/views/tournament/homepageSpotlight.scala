@@ -14,7 +14,7 @@ object homepageSpotlight {
       val distant = (tour.isDistant) ?? " distant little"
       s"${sched.freq} ${sched.speed} ${sched.variant.key}$invert$distant"
     }
-    val tourClass = s"tour_spotlight id_${tour.id} $schedClass"
+    val tourClass = s"tour-spotlight id_${tour.id} $schedClass"
     tour.spotlight map { spot =>
       a(href := routes.Tournament.show(tour.id), cls := tourClass)(
         frag(

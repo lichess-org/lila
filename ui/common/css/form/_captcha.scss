@@ -9,8 +9,9 @@
     border: 1px solid $c-error;
     background: mix($c-error, $c-bg-high, 10%);
   }
-  .mini_board {
-    flex: 0 0 calc(224px + 2rem);
+  .challenge {
+    flex: 0 0 250px;
+    margin-right: 2rem;
   }
   .captcha-explanation {
     flex: 1 1 auto;

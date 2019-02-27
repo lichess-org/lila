@@ -1,30 +1,31 @@
 .lpools {
-  @extend %square;
-  padding: 12px 12px 0 12px;
-  height: 60vh;
-  min-height: 500px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  font-family: Roboto;
-  -webkit-user-select: none;
+  @extend %roboto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 9px;
+  // padding: 12px 12px 0 12px;
+  // display: flex;
+  // flex-flow: row wrap;
+  // justify-content: space-between;
   > div {
-    @extend %box-radius, %box-shadow, %flex-column;
+    @extend %flex-column, %box-radius;
+    // @extend %box-radius, %box-shadow, %flex-column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 12px;
-    flex: 0 0 31%;
-    height: 31%;
+    // margin-bottom: 12px;
+    // flex: 0 0 31%;
+    // height: 31%;
     cursor: pointer;
-    background: fade-out($c-bg-box, .3);
+    background: fade-out($c-bg-box, .5);
     transition: background .15s, opacity 0.7s;
     &:hover {
       background: fade-out($c-accent, .8);
     }
-  }
-  .active {
-    @extend %box-shadow;
-    background: #fff;
+    &.active {
+      @extend %box-shadow;
+      background: #fff;
+    }
   }
   .transp {
     opacity: 0.5;

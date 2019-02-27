@@ -27,7 +27,7 @@ export default function(ctrl: LobbyController) {
       body = renderPlaying(ctrl);
       break;
   }
-  return h('div#hooks_wrap', [
+  return h('div.lobby__app', [
     h('div.lobby__app__tabs', renderTabs(ctrl)),
     h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body)
   ]);

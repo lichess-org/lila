@@ -1,0 +1,32 @@
+.timeline {
+  flex: 1 1 auto;
+  margin-top: 1em;
+  overflow: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
+  .entry {
+    @extend %roboto;
+    a {
+      @extend %base-font;
+      color: $c-font;
+    }
+    &:hover a {
+      color: $c-link;
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to left, $c-border 20%, $c-bg-page);
+      margin: .7em 0;
+    }
+  }
+  .more {
+    font-size: .9em;
+    margin: .5em;
+    display: block;
+    text-align: right;
+  }
+}
