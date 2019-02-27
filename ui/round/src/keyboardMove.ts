@@ -14,7 +14,7 @@ interface SanMap {
 
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void
-  promote(orig: cg.Key, piece: string): void
+  promote(dest: cg.Key, piece: string): void
   update(step: Step): void;
   registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;

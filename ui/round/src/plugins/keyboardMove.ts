@@ -19,8 +19,7 @@ window.lichess.keyboardMove = function(opts: any) {
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
       // ambiguous UCI
       if (v.match(keyRegex) && opts.hasSelected()) opts.select(v);
-      // promotion -- wait for more information
-      // (at this point it must be a pawn move since no piece was selected)
+      // ambiguous promotion (must be a pawn move at this point)
       if (v.match(/^[a-h](1|8)$/) && !force) return;
       else opts.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
