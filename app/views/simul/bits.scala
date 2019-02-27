@@ -27,7 +27,7 @@ object bits {
     }
 
   def homepageSpotlight(s: lila.simul.Simul)(implicit ctx: Context) =
-    a(href := routes.Simul.show(s.id), cls := "tour_spotlight little id_@s.id")(
+    a(href := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
       img(cls := "img icon", src := staticUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
         span(cls := "name")(s.name, " simul"),

@@ -76,7 +76,7 @@ $c-border: hsl(0, 0%, 25%);
 $border: $border-width $border-style $c-border;
 
 $c-font-shadow: #000;
-$text-shadow: 0 1px 1px $c-font-shadow;
+$text-shadow: none;
 
 @mixin metal {
   background: linear-gradient(to bottom, hsl(0, 0, 22), hsl(0, 0, 19) 100%);

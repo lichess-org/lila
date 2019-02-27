@@ -1,6 +1,6 @@
-
 .lobby__app__tabs {
   @extend %flex-center-nowrap;
+  flex: 0 0 $app-tabs-height;
   justify-content: center;
   align-items: flex-start;
   border-bottom: 2px solid $c-border;
@@ -9,7 +9,8 @@
     flex: 1 1 0;
     text-align: center;
     font-size: .9em;
-    padding: .4em .1em;
+    line-height: #{$app-tabs-height - 2px};
+    padding: 0 .1em;
     cursor: pointer;
     position: relative;
     @include transition(color, .25s);

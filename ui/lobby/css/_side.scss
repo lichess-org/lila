@@ -1,0 +1,4 @@
+.lobby__side {
+  @extend %flex-column;
+  padding-top: $app-tabs-height;
+}

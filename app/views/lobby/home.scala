@@ -56,18 +56,16 @@ object home {
       main(cls := "lobby")(
         div(cls := "lobby__side")(
           ctx.noKid option st.section(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
-          events map { bits.spotlight(_) },
+          events.map(bits.spotlight),
           !ctx.isBot option frag(
             lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
             simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
           ),
           ctx.me map { u =>
-            div(id := "timeline", dataHref := routes.Timeline.home)(
+            div(cls := "timeline", dataHref := routes.Timeline.home)(
               views.html.timeline entries userTimeline,
-              div(cls := "links")(
-                userTimeline.size >= 8 option
-                  a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
-              )
+              // userTimeline.size >= 8 option
+              a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
             )
           } getOrElse {
             div(cls := "about-side")(
@@ -77,15 +75,9 @@ object home {
             )
           }
         ),
-        div(cls := List(
-          "lobby__app" -> true,
-          "playban" -> playban.isDefined,
-          "current-game" -> currentGame.isDefined
-        ))(
-          currentGame map { bits.currentGameInfo(_) },
-          div(id := "hooks_wrap"),
-          playban.map(ban => playbanInfo(ban.remainingSeconds))
-        ),
+        currentGame.map(bits.currentGameInfo) orElse
+          playban.map(bits.playbanInfo) getOrElse
+          bits.lobbyApp,
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
             a(href := routes.Setup.hookForm, cls := List(

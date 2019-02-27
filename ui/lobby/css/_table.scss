@@ -1,15 +1,29 @@
-.lobby__start {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  a {
-    margin: 1.2em 0;
-    font-size: 1.3em;
-    padding: 1em;
-    text-align: center;
-    letter-spacing: -1px;
-    &.disabled {
-      opacity: 0.2;
+.lobby {
+  &__table {
+    @extend %flex-column;
+    position: relative;
+  }
+  &__start {
+    @extend %flex-column;
+    justify-content: center;
+    flex: 1 1 auto;
+    a {
+      margin: 1.2em 0;
+      font-size: 1.3em;
+      padding: 1em;
+      text-align: center;
+      letter-spacing: -1px;
+      &.disabled {
+        opacity: 0.2;
+      }
+    }
+  }
+  &__counters {
+    position: absolute;
+    bottom: 0;
+    @extend %flex-column;
+    a {
+      color: $c-font;
     }
   }
 }

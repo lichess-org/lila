@@ -29,13 +29,15 @@ object captcha {
         ),
         dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
       )(
-          div(
-            cls := "mini-board cg-board-wrap parse-fen is2d",
-            dataPlayable := "1",
-            dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
-            dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
-            dataZ := encodeFen(captcha.fen)
-          )(div(cls := "cg-board")),
+          div(cls := "challenge")(
+            div(
+              cls := "mini-board cg-board-wrap parse-fen is2d",
+              dataPlayable := "1",
+              dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
+              dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
+              dataZ := encodeFen(captcha.fen)
+            )(div(cls := "cg-board"))
+          ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(trans.colorPlaysCheckmateInOne.frag(
               (if (captcha.white) trans.white else trans.black).frag()

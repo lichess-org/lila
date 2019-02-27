@@ -8,6 +8,11 @@ import controllers.routes
 
 object bits {
 
+  val lobbyApp = div(cls := "lobby__app")(
+    div(cls := "lobby__app__tabs")(span(i(cls := "ddloader"))),
+    div(cls := "lobby__app__content")
+  )
+
   def underboards(
     tours: List[lila.tournament.Tournament],
     simuls: List[lila.simul.Simul],
@@ -86,6 +91,33 @@ object bits {
             semanticDate(post.date)
           )
         }
+      )
+    )
+
+  def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
+    div(cls := "lobby__playban")(
+      h2("Sorry :("),
+      p("We had to time you out for a ", (ban.remainingSeconds < 3600) ?? "little ", "while."),
+      br,
+      p("The timeout expires ", strong(secondsFromNow(ban.remainingSeconds)), "."),
+      h2("Why?"),
+      p(
+        "We aim to provide a pleasant chess experience for everyone.", br,
+        "To that effect, we must ensure that all players follow good practice.", br,
+        "When a potential problem is detected, we display this message."
+      ),
+      h2("How to avoid this?"),
+      ul(
+        li("Play every game you start"),
+        li("Try to win (or at least draw) every game you play"),
+        li("Resign lost games (don't let the clock run down)")
+      ),
+      br,
+      br,
+      p(
+        "We apologize for the temporary inconvenience,", br,
+        "and wish you great games on lichess.org.", br,
+        "Thank you for reading!"
       )
     )
 

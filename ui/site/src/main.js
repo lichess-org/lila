@@ -855,7 +855,7 @@ lichess.topMenuIntent = function() {
       $('.chat__members').watchers();
       $('div.captcha').each(function() {
         var $captcha = $(this);
-        var $board = $captcha.find('.mini_board');
+        var $board = $captcha.find('.mini-board');
         var $input = $captcha.find('input').val('');
         var cg = $board.data('chessground');
         var dests = JSON.parse(lichess.readServerFen($board.data('x')));
