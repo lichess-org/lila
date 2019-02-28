@@ -2,6 +2,9 @@
 
 $theme: 'transp';
 
+$c-bg-high: hsla(0, 0%, 0%, .6);
+$c-bg-low: hsla(0, 0%, 0%, .5);
+
 $c-font: hsl(0, 0%, 77%);
 $c-font-dim: c-light($c-font, 66%);
 $c-font-dimmer: c-light($c-font, 45%);
@@ -9,9 +12,18 @@ $c-font-clear: c-light($c-font, 86%);
 $c-font-clearer: c-light($c-font, 94%);
 $c-font-page: $c-font-clear;
 
-$c-bg-box: hsla(0, 0%, 0%, .6);
+$c-bg-box: $c-bg-high;
 $c-bg-zebra: hsla(0, 0%, 100%, .05);
 $c-bg-input: $c-bg-zebra;
+
+$c-bg-popup: $c-bg-high;
+
+@mixin metal {
+  background: linear-gradient(to bottom, hsla(0, 0, 0, .5), hsla(0, 0, 0, .6) 100%);
+}
+@mixin metal-hover {
+  background: linear-gradient(to bottom, hsla(0, 0, 0, .45), hsla(0, 0, 0, .55) 100%);
+}
 
 @mixin theme-style {
   body.transp {
@@ -29,4 +41,11 @@ $c-bg-input: $c-bg-zebra;
       z-index: -1;
     }
   }
+}
+
+%metal {
+  @include metal;
+}
+%metal-hover {
+  @include metal-hover;
 }

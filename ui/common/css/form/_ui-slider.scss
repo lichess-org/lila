@@ -27,10 +27,9 @@ $slider-width: 5px;
   margin: 0 0 -10px -5.5px;
   border-radius: 50%;
   &:hover,
-  &:active {
-    box-shadow: 0 0 0 9px fade-out($c-slider, .85);
-  }
+  &:active,
   &:focus {
+    box-shadow: 0 0 0 9px fade-out($c-slider, .85);
     outline: 0;
   }
 }

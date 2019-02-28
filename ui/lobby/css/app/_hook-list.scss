@@ -13,7 +13,7 @@
       background: fade-out($c-secondary, .6);
     }
     &.join:hover td {
-      background: fade-out($c-primary, .2);
+      background: fade-out($c-accent, .2);
       color: #fff;
       transition: none;
     }
