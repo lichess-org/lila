@@ -14,10 +14,8 @@
 
 .lobby__side {
   @extend %flex-column;
-  margin-top: .3em;
   overflow: hidden;
 }
 .lobby__about {
   justify-self: center;
-  margin-top: .5em;
 }

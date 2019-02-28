@@ -83,15 +83,15 @@ object home {
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
             a(href := routes.Setup.hookForm, cls := List(
-              "fat button config_hook" -> true,
+              "button button-metal config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
             ), trans.createAGame.frag()),
             a(href := routes.Setup.friendForm(none), cls := List(
-              "fat button config_friend" -> true,
+              "button button-metal config_friend" -> true,
               "disabled" -> currentGame.isDefined
             ), trans.playWithAFriend.frag()),
             a(href := routes.Setup.aiForm, cls := List(
-              "fat button config_ai" -> true,
+              "button button-metal config_ai" -> true,
               "disabled" -> currentGame.isDefined
             ), trans.playWithTheMachine.frag())
           ),

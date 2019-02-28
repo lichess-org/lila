@@ -1,5 +1,6 @@
-$mq-col2: $mq-medium;
-$mq-col3: $mq-x-large;
+$mq-col2: $mq-xx-small;
+$mq-col3: $mq-small;
+$mq-col4: $mq-x-large;
 
 $app-tabs-height: 30px;
 
@@ -7,24 +8,45 @@ $app-tabs-height: 30px;
   grid-area: main;
   display: grid;
 
-  grid-template-rows: min-content minmax(400px, calc(80vh - #{$site-header-height} - 150px));
   grid-template-areas:
   'table'
   'app'
   'side'
-  'leader'
   'tv'
   'puzzle'
+  'leader'
   'winner'
   'tours'
   'simuls'
   'forum'
   'blog'
   'support'
-  'about';
-  grid-gap: $block-gap;
+  'about'
+  '.';
+  grid-gap: $block-gap-h $block-gap-w;
+
+  &__counters {
+    margin-top: $block-gap;
+  }
 
   @include breakpoint($mq-col2) {
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto repeat(3, fit-content(0));
+    grid-template-areas:
+    'table  table'
+    'app    app'
+    'side   tv'
+    'side   puzzle'
+    'leader winner'
+    'tours  tours'
+    'simuls simuls'
+    'forum  forum'
+    'blog   blog'
+    'about  support';
+  }
+
+  @include breakpoint($mq-col3) {
 
     grid-template-columns: repeat(3, 1fr);
 
@@ -38,9 +60,25 @@ $app-tabs-height: 30px;
     'about   simuls  simuls'
     'support forum   forum '
     '.       blog    blog';
+
+    &__start {
+      flex-flow: column;
+      align-items: stretch;
+      justify-content: center;
+    }
+    &__counters {
+      margin: #{$block-gap / 2} 0 #{$block-gap / -2} 0;
+    }
+    &__about {
+      justify-self: center;
+      margin-top: .5em;
+    }
+    .timeline {
+      margin-left: 0;
+    }
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint($mq-col4) {
 
     grid-template-columns: repeat(4, 1fr);
 
@@ -56,6 +94,12 @@ $app-tabs-height: 30px;
 
     &__tournaments {
       max-height: 20em;
+    }
+    &__side {
+      margin-top: .3em;
+    }
+    &__counters {
+      margin: 0;
     }
   }
 

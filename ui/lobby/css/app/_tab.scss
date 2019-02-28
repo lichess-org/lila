@@ -13,6 +13,7 @@
     padding: 0 .1em;
     cursor: pointer;
     position: relative;
+    color: $c-font-page;
     @include transition(color, .25s);
     &::after {
       content: "";

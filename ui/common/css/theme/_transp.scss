@@ -5,26 +5,28 @@ $theme: 'transp';
 $c-font: hsl(0, 0%, 77%);
 $c-font-dim: c-light($c-font, 66%);
 $c-font-dimmer: c-light($c-font, 45%);
-$c-font-clear: c-light($c-font, 84%);
-$c-font-clearer: c-light($c-font, 92%);
+$c-font-clear: c-light($c-font, 86%);
+$c-font-clearer: c-light($c-font, 94%);
 $c-font-page: $c-font-clear;
 
 $c-bg-box: hsla(0, 0%, 0%, .6);
 $c-bg-zebra: hsla(0, 0%, 100%, .05);
 $c-bg-input: $c-bg-zebra;
 
-body.transp {
-  &::before {
-    content: ' ';
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    will-change: transform;
-    z-index: -1;
+@mixin theme-style {
+  body.transp {
+    &::before {
+      content: ' ';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      will-change: transform;
+      z-index: -1;
+    }
   }
 }

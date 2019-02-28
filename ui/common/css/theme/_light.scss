@@ -28,6 +28,8 @@ $theme-dark: false;
   }
 }
 
+@mixin theme-style { }
+
 %metal {
   @include metal;
 }
