@@ -62,7 +62,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
       }, [
         h('option', 'New tag'),
         ...types.map(t => {
-          if (!window.lichess.fp.contains(existingTypes, t)) return option(t, '', t);
+          if (!existingTypes.includes(t)) return option(t, '', t);
         })
       ]),
       editable('', (value, el) => {

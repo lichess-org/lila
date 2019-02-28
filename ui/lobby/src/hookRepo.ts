@@ -40,7 +40,7 @@ export function remove(ctrl: LobbyController, id) {
 }
 export function syncIds(ctrl: LobbyController, ids) {
   ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {
-    return ids.indexOf(h.id) !== -1;
+    return ids.includes(h.id);
   });
 }
 export function find(ctrl: LobbyController, id) {

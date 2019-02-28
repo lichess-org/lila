@@ -216,7 +216,7 @@ export default class RoundController {
     }
     this.chessground.set(config);
     if (s.san && isForwardStep) {
-      if (s.san.indexOf('x') !== -1) sound.capture();
+      if (s.san.includes('x')) sound.capture();
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
     }

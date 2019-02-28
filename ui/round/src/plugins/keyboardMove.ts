@@ -55,7 +55,7 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
    */
   opts.input.addEventListener('keyup', function(e: KeyboardEvent) {
     const v = (e.target as HTMLInputElement).value;
-    if (v.indexOf('/') > -1) {
+    if (v.includes('/')) {
       focusChat();
       clear();
     }
@@ -81,7 +81,7 @@ function sanToUci(san: string, sans: DecodedDests): Key[] | undefined {
 function sanCandidates(san: string, sans: DecodedDests) {
   const lowered = san.toLowerCase();
   return Object.keys(sans).filter(function(s) {
-    return s.toLowerCase().indexOf(lowered) === 0;
+    return s.toLowerCase().startsWith(lowered);
   });
 }
 

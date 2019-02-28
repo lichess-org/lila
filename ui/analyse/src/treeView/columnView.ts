@@ -170,9 +170,9 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
   return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
     let sel = 'comment' + colorClass;
-    if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
+    if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
+    else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
+    else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
     truncated = truncateComment(comment.text, 400, ctx);

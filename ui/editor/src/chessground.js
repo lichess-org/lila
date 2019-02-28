@@ -95,7 +95,7 @@ function onMouseEvent(ctrl) {
 
         if (
           e.type === 'contextmenu' &&
-            ['pointer', 'trash'].indexOf(sel) === -1 && sel.length >= 2
+            !['pointer', 'trash'].includes(sel) && sel.length >= 2
         ) {
           ctrl.chessground.cancelMove();
           sel[0] = util.opposite(sel[0]);

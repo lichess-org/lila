@@ -19,7 +19,7 @@ export function loadCss() {
 export function supportedVariant(key: string) {
   return [
     'standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'
-  ].indexOf(key) > -1;
+  ].includes(key);
 }
 
 export function styleSetting(): Setting<Style> {
@@ -38,10 +38,9 @@ export function styleSetting(): Setting<Style> {
 
 export function renderSan(san: San, uci: Uci | undefined, style: Style) {
   if (!san) return '';
-  const has = window.lichess.fp.contains;
   let move: string;
-  if (has(san, 'O-O-O')) move = 'long castling';
-  else if (has(san, 'O-O')) move = 'short castling';
+  if (san.includes('O-O-O')) move = 'long castling';
+  else if (san.includes('O-O')) move = 'short castling';
   else if (style === 'san') move = san.replace(/[\+#]/, '');
   else if (style === 'uci') move = uci || san;
   else {
@@ -56,8 +55,8 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style) {
       return roles[c] || c;
     }).join(' ');
   }
-  if (has(san, '+')) move += ' check';
-  if (has(san, '#')) move += ' checkmate';
+  if (san.includes('+')) move += ' check';
+  if (san.includes('#')) move += ' checkmate';
   return move;
 }
 
@@ -93,7 +92,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string): string {
   let res: string[] = [], piece: Piece | undefined;
   for (let k of allKeys) {
-    if (k.indexOf(rankOrFile) > -1) {
+    if (k.includes(rankOrFile)) {
       piece = pieces[k];
       res.push(piece ? `${piece.color} ${piece.role}` : (
         parseInt(k, 35) % 2 ? 'dark' : 'light'

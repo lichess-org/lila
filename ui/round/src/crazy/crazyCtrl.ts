@@ -29,5 +29,5 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   const drops = dropStr.match(/.{2}/g) || [];
 
-  return drops.indexOf(key) !== -1;
+  return drops.includes(key);
 }

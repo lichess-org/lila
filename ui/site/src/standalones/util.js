@@ -87,11 +87,7 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
-lichess.fp = {};
-lichess.fp.contains = function(list, needle) {
-  return list.indexOf(needle) !== -1;
-};
-lichess.fp.debounce = function(func, wait, immediate) {
+lichess.debounce = function(func, wait, immediate) {
   var timeout;
   var lastBounce = 0;
   return function() {
@@ -244,7 +240,7 @@ lichess.unloadCss = function(url) {
   if (lichess.loadedCss[url]) {
     lichess.loadedCss[url]  = false;
     $('head link[rel=stylesheet]')
-      .filter(function() { return this.href.indexOf(url) >= 0 })
+      .filter(function() { return this.href.includes(url) })
       .remove();
   }
 }
@@ -462,6 +458,7 @@ $.fn.scrollTo = function(target, offsetTop) {
   });
 };
 $.modal = function(html, cls, onClose) {
+  $.modal.close();
   if (!html.clone) html = $('<div>' + html + '</div>');
   var $wrap = $('<div id="modal-wrap">')
     .html(html.clone().removeClass('none'))
@@ -484,13 +481,3 @@ $.modal.close = function() {
     $(this).remove();
   });
 };
-
-// polyfills
-
-if (!Array.prototype.find) {
-  Object.defineProperty(Array.prototype, 'find', {
-    value: function(predicate) {
-      for (var i in this) if (predicate(this[i])) return this[i];
-    }
-  });
-}

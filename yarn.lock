@@ -1594,11 +1594,6 @@ default-resolution@^2.0.0:
   resolved "https://registry.yarnpkg.com/default-resolution/-/default-resolution-2.0.0.tgz#bcb82baa72ad79b426a76732f1a81ad6df26d684"
   integrity sha1-vLgrqnKtebQmp2cy8aga1t8m1oQ=
 
-defer-promise@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/defer-promise/-/defer-promise-1.0.2.tgz#b79521c59cadadaed2d305385d30f8b05cbf9196"
-  integrity sha512-5a0iWJvnon50nLLqHPW83pX45BLb4MmlSa1sIg05NBhZoK5EZGz1s8qoZ3888dVGGOT0Ni01NdETuAgdJUZknA==
-
 define-properties@^1.1.2:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.1.3.tgz#cf88da6cbee26fe6db7094f61d870cbd84cee9f1"

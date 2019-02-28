@@ -2,7 +2,7 @@ var lichess = window.lichess = window.lichess || {};
 
 lichess.trans = function(i18n) {
   var format = function(str, args) {
-    if (args.length && str.indexOf('$s') > -1)
+    if (args.length && str.includes('$s'))
       for (var i = 1; i < 4; i++)
         str = str.replace('%' + i + '$s', args[i - 1]);
     args.forEach(function(arg) {

@@ -58,7 +58,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
   config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = window.lichess.fp.debounce(function() {
+  const fetch = window.lichess.debounce(function() {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :

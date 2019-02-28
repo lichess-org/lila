@@ -321,7 +321,7 @@ export default class AnalyseCtrl {
   }
 
   playedLastMoveMyself = () =>
-    !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
+    !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
@@ -334,7 +334,7 @@ export default class AnalyseCtrl {
       if (isForwardStep) {
         if (!this.node.uci) this.sound.move(); // initial position
         else if (!playedMyself) {
-          if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
+          if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
         if (/\+|\#/.test(this.node.san!)) this.sound.check();

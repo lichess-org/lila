@@ -205,7 +205,7 @@ export default class LobbyController {
   private startWatching() {
     const newIds = this.data.nowPlaying
       .map(p => p.gameId)
-      .filter(id => this.alreadyWatching.indexOf(id) === -1);
+      .filter(id => !this.alreadyWatching.includes(id));
     if (newIds.length) {
       setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
       newIds.forEach(id => this.alreadyWatching.push(id));
@@ -235,7 +235,7 @@ export default class LobbyController {
 
   // after click on round "new opponent" button
   private onNewOpponent() {
-    if (location.hash.indexOf('#pool/') === 0) {
+    if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
       match = regex.exec(location.hash),
       member: any = { id: match![1], blocking: match![2] },

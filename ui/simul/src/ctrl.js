@@ -19,7 +19,7 @@ module.exports = function(env) {
     var newIds = this.data.pairings.map(function(p) {
       return p.game.id;
     }).filter(function(id) {
-      return alreadyWatching.indexOf(id) === -1;
+      return !alreadyWatching.includes(id);
     });
     if (newIds.length) {
       setTimeout(function() {

@@ -33,7 +33,7 @@ module.exports = function(cfg, element) {
     langs.push($('html').attr('lang'));
     $('.lobby__streams a, .event-spotlight').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
-      if (match && langs.indexOf(match[1].toLowerCase()) === -1) $(this).hide();
+      if (match && !langs.includes(match[1].toLowerCase())) $(this).hide();
     });
   };
   filterStreams();
@@ -210,7 +210,7 @@ module.exports = function(cfg, element) {
       var aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
       if (timeOk && ratedOk && aiOk) {
         $submits.toggleClass('nope', false);
-        $submits.filter(':not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
+        $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
       } else $submits.toggleClass('nope', true);
     };
     var showRating = function() {
@@ -359,7 +359,7 @@ module.exports = function(cfg, element) {
     }).trigger('change');
 
     var $fenInput = $fenPosition.find('input');
-    var validateFen = lichess.fp.debounce(function() {
+    var validateFen = lichess.debounce(function() {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
       if (fen) {
@@ -432,13 +432,12 @@ module.exports = function(cfg, element) {
       }
     });
     $(this).addClass('active').siblings().removeClass('active');
-    $.modal.close();
     return false;
   }).on('click', function() {
     return false;
   });
 
-  if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
+  if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons
       .find('.config_' + location.hash.replace('#', ''))
       .each(function() {

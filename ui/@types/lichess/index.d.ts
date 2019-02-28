@@ -21,11 +21,7 @@ interface Lichess {
   loadedCss: [string];
   escapeHtml(str: string): string
   toYouTubeEmbedUrl(url: string): string
-  fp: {
-    debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
-    contains<T>(list: T[], needle: T): boolean;
-    contains(str: string, c: string): boolean;
-  }
+  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   sound: any
   powertip: any
   userAutocomplete: any
@@ -124,14 +120,6 @@ interface LightUser {
   name: string
   title?: string
   patron?: boolean
-}
-
-interface Array<T> {
-  find(f: (t: T) => boolean): T | undefined;
-}
-
-interface Math {
-  log2?: (x: number) => number;
 }
 
 interface WebAssemblyStatic {

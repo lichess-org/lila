@@ -24,7 +24,7 @@ function loadZone() {
   streamLoad({
     node: $zone[0],
     url: $toggle.attr('href'),
-    callback: lichess.fp.debounce(function() {
+    callback: lichess.debounce(function() {
       userMod($zone);
     }, 300)
   });
@@ -35,7 +35,7 @@ $toggle.click(function() {
   else $zone.addClass('none');
   return false;
 });
-if (location.search.indexOf('mod') === 1) $toggle.click();
+if (location.search.startsWith('?mod')) $toggle.click();
 
 function userMod($zone) {
 

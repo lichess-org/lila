@@ -137,7 +137,7 @@ const analysisGlyphs = ['?!', '?', '??'];
 function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.indexOf(g.symbol) > -1));
+  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
     const acpl = anal[color].acpl;

@@ -274,7 +274,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return obj;
   }
 
-  const likeToggler = window.lichess.fp.debounce(() => send("like", { liked: data.liked }), 1000);
+  const likeToggler = li.debounce(() => send("like", { liked: data.liked }), 1000);
 
   const socketHandlers = {
     path(d) {

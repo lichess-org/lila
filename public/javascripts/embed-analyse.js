@@ -153,5 +153,5 @@ lichess.startEmbeddedAnalyse = function(opts) {
     lichess.dispatchEvent(document.body, 'chessground.resize');
   };
   onResize();
-  window.addEventListener('resize', lichess.fp.debounce(onResize, 500));
+  window.addEventListener('resize', lichess.debounce(onResize, 500));
 };

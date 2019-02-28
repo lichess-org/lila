@@ -6,7 +6,7 @@ function initialize(ctrl: LobbyController, el) {
   const $div = $(el),
     $ratingRange = $div.find('.rating-range');
 
-  const save = window.lichess.fp.debounce(function() {
+  const save = window.lichess.debounce(function() {
     const $form = $div.find('form');
     $.ajax({
       url: $form.attr('action'),

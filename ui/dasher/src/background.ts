@@ -80,7 +80,7 @@ function imageInput(ctrl: BackgroundCtrl) {
       },
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('change keyup paste', window.lichess.fp.debounce(function(this: HTMLElement) {
+          $(vnode.elm as HTMLElement).on('change keyup paste', window.lichess.debounce(function(this: HTMLElement) {
             ctrl.setImage($(this).val());
           }, 200));
         }

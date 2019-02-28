@@ -256,7 +256,7 @@ lichess.topMenuIntent = function() {
           url: $a.attr('href'),
           type: 'post',
           success: function(html) {
-            if (html.indexOf('relation_actions') > -1) $a.parent().html(html);
+            if (html.includes('relation_actions')) $a.parent().html(html);
             else $a.replaceWith(html);
           }
         });
@@ -477,7 +477,7 @@ lichess.topMenuIntent = function() {
             $(el).find('.paginated[data-dedup]').each(function() {
               var id = $(this).data('dedup');
               if (id) {
-                if (lichess.fp.contains(ids, id)) $(this).remove();
+                if (ids.includes(id)) $(this).remove();
                 else ids.push(id);
               }
             });
@@ -551,8 +551,12 @@ lichess.topMenuIntent = function() {
         return false;
       });
 
-      if (!getComputedStyle(document.body).getPropertyValue('--grid'))
-        $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend(html))
+      if (!lichess.storage.get('grid')) setTimeout(function() {
+        if (getComputedStyle(document.body).getPropertyValue('--grid'))
+          lichess.storage.set('grid', 1);
+        else
+          $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend(html))
+      }, 3000);
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
@@ -615,7 +619,7 @@ lichess.topMenuIntent = function() {
     var collection = new memoize(function(k) {
       var set = soundSet;
       if (set === 'music') {
-        if (lichess.fp.contains(['move', 'capture', 'check'], k)) return {
+        if (['move', 'capture', 'check'].includes(k)) return {
           play: $.noop
         };
         set = 'standard';

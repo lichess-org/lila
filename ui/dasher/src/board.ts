@@ -22,7 +22,7 @@ export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, re
 
   data.zoom = data.zoom || 100;
 
-  const saveZoom = window.lichess.fp.debounce(() => {
+  const saveZoom = window.lichess.debounce(() => {
     $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
   }, 1000);
 

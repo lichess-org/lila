@@ -82,7 +82,7 @@ function slidingMovesTo(s, deltas, board) {
 }
 
 function sanOf(board, uci) {
-  if (uci.indexOf('@') !== -1) return fixCrazySan(uci);
+  if (uci.includes('@')) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
   var from = square(move[0]);
@@ -139,8 +139,7 @@ export default function sanWriter(fen, ucis) {
   ucis.forEach(function(uci) {
     var san = sanOf(board, uci);
     sans[san] = uci;
-    if (san.indexOf('x') !== -1)
-      sans[san.replace('x', '')] = uci;
+    if (san.includes('x')) sans[san.replace('x', '')] = uci;
   });
   return sans;
 }
