@@ -54,6 +54,31 @@ object home {
     asyncJs = true
   ) {
       main(cls := "lobby")(
+        div(cls := "lobby__table")(
+          div(cls := "lobby__start")(
+            a(href := routes.Setup.hookForm, cls := List(
+              "button button-metal config_hook" -> true,
+              "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
+            ), trans.createAGame.frag()),
+            a(href := routes.Setup.friendForm(none), cls := List(
+              "button button-metal config_friend" -> true,
+              "disabled" -> currentGame.isDefined
+            ), trans.playWithAFriend.frag()),
+            a(href := routes.Setup.aiForm, cls := List(
+              "button button-metal config_ai" -> true,
+              "disabled" -> currentGame.isDefined
+            ), trans.playWithTheMachine.frag())
+          ),
+          div(cls := "lobby__counters")(
+            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
+            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
+              trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
+            )
+          )
+        ),
+        currentGame.map(bits.currentGameInfo) orElse
+          playban.map(bits.playbanInfo) getOrElse
+          bits.lobbyApp,
         div(cls := "lobby__side")(
           ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
           div(cls := "lobby__spotlights")(
@@ -76,31 +101,6 @@ object home {
               a(cls := "blue", href := "/about")(trans.aboutX.frag("lichess.org"), "...")
             )
           }
-        ),
-        currentGame.map(bits.currentGameInfo) orElse
-          playban.map(bits.playbanInfo) getOrElse
-          bits.lobbyApp,
-        div(cls := "lobby__table")(
-          div(cls := "lobby__start")(
-            a(href := routes.Setup.hookForm, cls := List(
-              "button button-metal config_hook" -> true,
-              "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
-            ), trans.createAGame.frag()),
-            a(href := routes.Setup.friendForm(none), cls := List(
-              "button button-metal config_friend" -> true,
-              "disabled" -> currentGame.isDefined
-            ), trans.playWithAFriend.frag()),
-            a(href := routes.Setup.aiForm, cls := List(
-              "button button-metal config_ai" -> true,
-              "disabled" -> currentGame.isDefined
-            ), trans.playWithTheMachine.frag())
-          ),
-          div(cls := "lobby__counters")(
-            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
-            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-              trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
-            )
-          )
         ),
         featured map { g =>
           div(cls := "lobby__tv")(
