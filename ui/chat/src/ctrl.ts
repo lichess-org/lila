@@ -21,7 +21,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
-    tab: allTabs.indexOf(storedTab) > -1 ? storedTab : allTabs[0],
+    tab: allTabs.includes(storedTab) ? storedTab : allTabs[0],
     enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,

@@ -27,5 +27,5 @@ export function valid(draughtsground: DraughtsgroundApi, possibleDrops: string |
 
   if (drops === null) return true;
 
-  return drops.indexOf(pos) !== -1;
+  return drops.includes(pos);
 }

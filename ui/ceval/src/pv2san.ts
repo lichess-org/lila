@@ -12,7 +12,7 @@ export default function (fen: string, threat: boolean, moves: string[], win?: nu
     if (turn) s = mvnr + '. ';
     else if (first) s = mvnr + '... ';
     first = false;
-    if (sm.indexOf('x') !== -1) {
+    if (sm.includes('x')) {
       const parts = sm.split('x');
       s += parts[0] + 'x' + parts[parts.length - 1];
     } else s += sm;

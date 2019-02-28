@@ -59,7 +59,7 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
       if (!group) return;
       const sets = groups[group];
       if (!sets) return;
-      if (said.indexOf(preset.key) !== -1) return;
+      if (said.includes(preset.key)) return;
       opts.post(preset.text);
       said.push(preset.key);
     }
@@ -72,7 +72,7 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const sets = groups[group];
   const said = ctrl.said();
   return (sets && said.length < 2) ? h('div.mchat__presets', sets.map((p: Preset) => {
-    const disabled = said.indexOf(p.key) !== -1;
+    const disabled = said.includes(p.key);
     return h('span', {
       class: {
         disabled

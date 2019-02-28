@@ -16,7 +16,7 @@ $(function() {
       src: '/study/embed/' + matches[1] + '/' + matches[2] + (matches[3] || '')
     };
     var matches = a.href.match(gameRegex);
-    if (matches && matches[1] && notGames.indexOf(matches[1]) === -1 && a.text.match(gameRegex)) {
+    if (matches && matches[1] && !notGames.includes(matches[1]) && a.text.match(gameRegex)) {
       var src = '/embed/' + matches[1];
       if (matches[2]) src += '/' + matches[2]; // orientation
       if (matches[3]) src += matches[3]; // ply hash
@@ -47,7 +47,7 @@ $(function() {
     var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', a.src);
     $(a.element).replaceWith($iframe);
     return $iframe.on('load', function() {
-      if (this.contentDocument.title.indexOf("404") === 0) this.style.height = '100px';
+      if (this.contentDocument.title.startsWith("404")) this.style.height = '100px';
     }).on('mouseenter', function() {
       $(this).focus();
     });

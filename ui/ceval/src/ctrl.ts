@@ -134,7 +134,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       // send fen after last capture and the following moves
       for (let i = 1; i < steps.length; i++) {
         let s = steps[i];
-        if (s.san!.indexOf('x') !== -1) {
+        if (s.san!.includes('x')) {
           work.moves = [];
           work.initialFen = s.fen;
         } else work.moves.push(s.uci!);

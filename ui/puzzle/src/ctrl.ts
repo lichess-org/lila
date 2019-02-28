@@ -403,7 +403,7 @@ export default function (opts, redraw: () => void): Controller {
     if (pathChanged) {
       if (!vm.node.uci) sound.move(); // initial position
       else if (forceSound || !playedLastMoveMyself()) {
-        if (vm.node.san!.indexOf('x') !== -1) sound.capture();
+        if (vm.node.san!.includes('x')) sound.capture();
         else sound.move();
       }
       threatMode(false);
