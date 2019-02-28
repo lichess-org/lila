@@ -69,7 +69,6 @@
   <string name="averageRatingX">Середня оцінка: %s</string>
   <string name="recentGames">Останні ігри</string>
   <string name="topGames">Кращі ігри</string>
-  <string name="masterDbExplanation">Два мільйони OTB ігор %1$s+ FIDE гравців рейтингу від %2$s до %3$s</string>
   <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з вкладки переваг?</string>
   <string name="openingExplorer">Перегляд дебютів</string>
