@@ -312,7 +312,7 @@ export default class AnalyseCtrl {
     li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
-  private updateHref: () => void = li.fp.debounce(() => {
+  private updateHref: () => void = li.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
