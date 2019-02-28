@@ -58,6 +58,7 @@ object forms {
           renderSelect(form("level"), lidraughts.setup.AiConfig.levelChoices)
         )
         else frag(
+          br,
           trans.level(),
           div(cls := "level buttons")(
             div(id := "config_level")(
@@ -104,24 +105,23 @@ object forms {
     route: Call,
     error: Option[Frag] = None
   )(fields: Frag)(implicit ctx: Context) =
-    div(
-      cls := s"""lidraughts_overboard game_config game_config_$typ${error.isDefined ?? " error"}""",
-      dataRandomColorVariants,
-      dataAnon := ctx.isAnon.option("1")
-    )(
-        a(href := routes.Lobby.home, cls := "close icon", st.title := trans.cancel.txt(), dataIcon := "L"),
-        h2(titleF),
-        error.map { e =>
-          frag(
-            p(cls := "error")(e),
-            br,
-            a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
-          )
-        }.getOrElse {
-          st.form(action := route, method := "post", novalidate := true)(
+    div(cls := error.isDefined option "error")(
+      a(href := routes.Lobby.home, cls := "close icon", st.title := trans.cancel.txt(), dataIcon := "L"),
+      h2(titleF),
+      error.map { e =>
+        frag(
+          p(cls := "error")(e),
+          br,
+          a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
+        )
+      }.getOrElse {
+        st.form(action := route, method := "post", novalidate := true,
+          dataRandomColorVariants,
+          dataType := typ,
+          dataAnon := ctx.isAnon.option("1"))(
             fields,
             if (ctx.blind) button(`type` := "submit", st.name := "color", value := "random")("Create the game")
-            else div(cls := "color_submits")(
+            else div(cls := "color-submits")(
               List(
                 "black" -> trans.black.txt(),
                 "random" -> trans.randomColor.txt(),
@@ -131,24 +131,24 @@ object forms {
                     disabled := typ == "hook" option true,
                     `type` := "submit",
                     title := name,
-                    cls := s"button $key",
+                    cls := s"color-submits__button button button-green $key",
                     st.name := "color",
                     value := key
                   )(i)
                 }
             )
           )
-        },
-        ctx.me.ifFalse(ctx.blind).map { me =>
-          div(cls := "ratings")(
-            lidraughts.rating.PerfType.nonPuzzle.map { perfType =>
-              div(cls := perfType.key)(
-                trans.perfRatingX.frag(
-                  Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
-                )
+      },
+      ctx.me.ifFalse(ctx.blind).map { me =>
+        div(cls := "ratings")(
+          lidraughts.rating.PerfType.nonPuzzle.map { perfType =>
+            div(cls := perfType.key)(
+              trans.perfRatingX.frag(
+                Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
               )
-            }
-          )
-        }
-      )
+            )
+          }
+        )
+      }
+    )
 }

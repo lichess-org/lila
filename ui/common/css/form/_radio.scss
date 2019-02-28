@@ -1,7 +1,6 @@
 group.radio {
   @extend %box-neat, %flex-wrap;
   overflow: hidden;
-  border: $border;
   div {
     flex: 1 1 auto;
     position: relative;

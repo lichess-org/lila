@@ -12,9 +12,9 @@
   font-family: 'ChessSansPiratf', 'Noto Sans';
 }
 %active {
-  color: $c-accent-over;
-  text-shadow: 0 1px 0 black;
   background: $c-accent;
+  color: #fff;
+  text-shadow: 0 1px 0 black;
   box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
 }
 %active-hover {
