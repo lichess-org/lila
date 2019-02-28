@@ -319,3 +319,7 @@ declare namespace PowerTip {
     closeEvents?: string[];
   }
 }
+
+interface Array<T> {
+  includes(t: T): boolean;
+}

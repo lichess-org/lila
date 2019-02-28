@@ -481,3 +481,14 @@ $.modal.close = function() {
     $(this).remove();
   });
 };
+
+// polyfills
+
+if (!Array.prototype.find) {
+  Object.defineProperty(Array.prototype, 'includes', {
+    value: function(v) {
+      for (var i in this) if (this[i] === v) return true;
+      return false;
+    }
+  });
+}
