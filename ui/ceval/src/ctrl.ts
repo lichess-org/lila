@@ -10,11 +10,11 @@ import { povChances } from './winningChances';
 const li = window.lichess;
 
 function sanIrreversible(variant: VariantKey, san: string): boolean {
-  if (san.indexOf('O-O') === 0) return true;
+  if (san.startsWith('O-O')) return true;
   if (variant === 'crazyhouse') return false;
-  if (san.indexOf('x') > 0) return true; // capture
+  if (san.includes('x')) return true; // capture
   if (san.toLowerCase() === san) return true; // pawn move
-  return variant === 'threeCheck' && san.indexOf('+') > 0;
+  return variant === 'threeCheck' && san.includes('+');
 }
 
 function officialStockfish(variant: VariantKey): boolean {
@@ -23,7 +23,7 @@ function officialStockfish(variant: VariantKey): boolean {
 
 function is64Bit(): boolean {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
-  for (const substr of x64) if (navigator.userAgent.indexOf(substr) >= 0) return true;
+  for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
   return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
 }
 

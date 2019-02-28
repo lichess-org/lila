@@ -20,7 +20,7 @@ lichess.advantageChart = function(data, trans, el) {
 
             if (node.eval && node.eval.mate) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
-            } else if (node.san.indexOf('#') > 0) {
+            } else if (node.san.includes('#')) {
               cp = color === 1 ? Infinity : -Infinity;
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {

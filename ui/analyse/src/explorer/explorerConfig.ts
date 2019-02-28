@@ -35,7 +35,7 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
   };
 
   const toggleMany = function(c, value) {
-    if (c().indexOf(value) === -1) c(c().concat([value]));
+    if (!c().includes(value)) c(c().concat([value]));
     else if (c().length > 1) c(c().filter(v => v !== value));
   };
 
@@ -82,7 +82,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
         h('div.choices',
           d.rating.available.map(function(r) {
             return h('span', {
-              class: { selected: d.rating.selected().indexOf(r) > -1 },
+              class: { selected: d.rating.selected().includes(r) },
               hook: bind('click', _ => ctrl.toggleRating(r), ctrl.redraw)
             }, r.toString());
           })
@@ -93,7 +93,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
         h('div.choices',
           d.speed.available.map(function(s) {
             return h('span', {
-              class: { selected: d.speed.selected().indexOf(s) > -1 },
+              class: { selected: d.speed.selected().includes(s) },
               hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw)
             }, s);
           })

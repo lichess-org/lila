@@ -25,7 +25,7 @@ function select(ctrl) {
       var selected = ctrl.vm.filters[dimension.key];
       return m('option', {
         value: value.key,
-        selected: selected && selected.indexOf(value.key) !== -1
+        selected: selected && selected.includes(value.key)
       }, value.name);
     }));
   };

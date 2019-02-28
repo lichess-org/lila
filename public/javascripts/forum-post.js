@@ -29,7 +29,7 @@ $(function() {
 
       var searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
-          return user.toLowerCase().indexOf(term.toLowerCase()) === 0;
+          return user.toLowerCase().startsWith(term.toLowerCase());
         });
       };
 

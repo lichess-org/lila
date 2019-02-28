@@ -350,8 +350,8 @@ export default function(opts, redraw: () => void): Controller {
     if (pathChanged) {
       if (isForwardStep) {
         if (!vm.node.uci) sound.move(); // initial position
-        else if (!vm.justPlayed || vm.node.uci.indexOf(vm.justPlayed) !== 0) {
-          if (vm.node.san!.indexOf('x') !== -1) sound.capture();
+        else if (!vm.justPlayed || vm.node.uci.includes(vm.justPlayed)) {
+          if (vm.node.san!.includes('x')) sound.capture();
           else sound.move();
         }
         if (/\+|\#/.test(vm.node.san!)) sound.check();

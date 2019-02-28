@@ -192,7 +192,7 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
   else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
-  else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
+  else if (move.zeroing) return move.san.includes('x') ?
   h('result.' + winnerOf(fen, move), trans('capture')) :
   h('result.' + winnerOf(fen, move), trans('pawnMove'));
   return h('result.' + winnerOf(fen, move), {
