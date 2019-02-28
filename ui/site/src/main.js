@@ -524,19 +524,6 @@ lidraughts.topMenuIntent = function() {
         return false;
       });
 
-      $('#ham-plate').one('mouseover click', function() {
-        if (!$('#fpmenu').length) {
-          $('body').append($('<div id=fpmenu>').load('/fpmenu', function() {
-            $(this)
-              .find('form[action="/login"]')
-              .attr('action', '/login?referrer=' + window.location.pathname);
-          }));
-        }
-        lidraughts.loadCss('stylesheets/fpmenu.css');
-      }).click(function() {
-        document.body.classList.toggle('fpmenu');
-      });
-
       // still bind esc even in form fields
       Mousetrap.prototype.stopCallback = function(e, el, combo) {
         return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
