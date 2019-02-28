@@ -5,10 +5,7 @@ lichess.engineName = 'Stockfish 10+';
 lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.dispatchEvent = function(el, eventName) {
-  // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))
-  var ev = document.createEvent('Event');
-  ev.initEvent(eventName, false, false);
-  el.dispatchEvent(ev);
+  el.dispatchEvent(new Event(eventName));
 };
 
 function buildStorage(storageKey) {
