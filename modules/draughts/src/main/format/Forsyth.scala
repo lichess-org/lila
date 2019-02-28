@@ -79,7 +79,8 @@ object Forsyth {
       if (line.nonEmpty)
         Color.apply(line.charAt(0)).fold() {
           color =>
-            for (field <- line.drop(1).split(',')) {
+            val fields = if (line.endsWith(".")) line.substring(1, line.length - 1) else line.drop(1)
+            for (field <- fields.split(',')) {
               if (field.nonEmpty)
                 field.charAt(0) match {
                   case 'K' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, King))) }
