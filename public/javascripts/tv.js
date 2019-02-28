@@ -4,7 +4,7 @@ function parseFen($elem) {
   }
   $elem.each(function() {
     var $this = $(this).removeClass('parse_fen');
-    var lm = $this.data('lastmove');
+    var lm = String($this.data('lastmove'));
     var color = $this.data('color');
     var ground = $this.data('draughtsground');
     var config = {
