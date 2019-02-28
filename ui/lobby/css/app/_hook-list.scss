@@ -1,82 +1,77 @@
 .hooks__list {
-  text-shadow: $text-shadow;
   width: 100%;
-  overflow: hidden;
+  tr {
+    &.disabled {
+      opacity: 0.4;
+      td {
+        cursor: default;
+        background: transparent;
+        border-color: transparent;
+      }
+    }
+    &.cancel td {
+      background: fade-out($c-secondary, .6);
+    }
+    &.join:hover td {
+      background: fade-out($c-primary, .2);
+      color: #fff;
+      transition: none;
+    }
+
+    &:not(.disabled):hover ::before {
+      opacity: 1;
+    }
+    &.variants td {
+      text-align: center;
+      padding: 3px 0;
+      background: none;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+  }
   th {
-    padding: 14px 12px;
-    border-bottom: transparent;
-    font-family: 'Roboto';
-    font-weight: 300;
-  }
-  th.sortable {
-    cursor: pointer;
-  }
-  th.sortable:hover,
-  th.sort {
-    font-weight: normal;
-  }
-  th.sort .is:before {
-    opacity: 0.7;
-    margin-right: 3px;
-    content: "R";
-  }
-  th.player {
-    width: 110px;
+    @extend %roboto;
+    padding: 1em;
+    &.sortable {
+      cursor: pointer;
+    }
+    &.sortable:hover,
+    &.sort {
+      font-weight: normal;
+    }
+    &.sort .is:before {
+      opacity: 0.7;
+      margin-right: 3px;
+      content: "R";
+    }
+    &.player {
+      width: 110px;
+    }
   }
   td {
-    padding: 9px 12px;
-    border-bottom: 1px solid #ccc;
+    @extend %nowrap-hidden;
+    padding: .5em .7em;
+    border-bottom: $border;
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.6);
+    @include transition();
+    background: fade-out($c-bg-box, .5);
+    &:first-child {
+      width: 16px;
+    }
+    &:first-child ::before {
+      font-size: 1.2em;
+      line-height: 1.3;
+    }
+    &:last-child ::before {
+      margin-right: 8px;
+      line-height: 0.9;
+      font-size: 1.6em;
+    }
+    ::before {
+      opacity: 0.6;
+    }
   }
   tbody.stepping {
     opacity: 0.7;
-  }
-  tr.disabled {
-    opacity: 0.4;
-  }
-  tr.disabled td {
-    cursor: default;
-    background: transparent!important;
-    border-color: transparent!important;
-  }
-  tr.cancel td {
-    background: rgba(200, 255, 200, 0.7);
-  }
-  tr.join:hover td {
-    background: rgba(191, 231, 255, 0.7);
-  }
-  td:first-child {
-    width: 16px;
-  }
-  td:first-child span {
-    display: block;
-    padding: 0;
-    width: 16px;
-    height: 16px;
-    opacity: 0.7;
-  }
-  .varicon::before {
-    margin-right: 8px;
-    line-height: 12px;
-    font-size: 20px;
-    opacity: 0.7;
-  }
-  tr:hover .varicon::before,
-  tr:hover td:first-child span {
-    opacity: 1;
-  }
-  tr.disabled:hover .varicon::before,
-  tr.disabled:hover td:first-child span {
-    opacity: 0.7;
-  }
-  tr.variants td {
-    text-align: center;
-    padding: 3px 0;
-    background: none;
-    text-transform: uppercase;
-    letter-spacing: 3px;
   }
 }
