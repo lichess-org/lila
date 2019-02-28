@@ -461,19 +461,28 @@ $.fn.scrollTo = function(target, offsetTop) {
     }
   });
 };
-$.modal = function(html) {
+$.modal = function(html, cls, onClose) {
   if (!html.clone) html = $('<div>' + html + '</div>');
-  var $wrap = $('<div id="modal-wrap">').html(html.clone().removeClass('none')).prepend('<span class="close" data-icon="L"></span>');
-  var $overlay = $('<div id="modal-overlay">').html($wrap);
+  var $wrap = $('<div id="modal-wrap">')
+    .html(html.clone().removeClass('none'))
+    .prepend('<span class="close" data-icon="L"></span>');
+  var $overlay = $('<div id="modal-overlay">')
+    .addClass(cls)
+    .data('onClose', onClose)
+    .html($wrap);
   $overlay.add($wrap.find('.close')).one('click', $.modal.close);
   $wrap.click(function(e) {
     e.stopPropagation();
   });
-  $('body').prepend($overlay);
+  $('body').addClass('overlayed').prepend($overlay);
   return $wrap;
 };
 $.modal.close = function() {
-  $('#modal-overlay').remove();
+  $('body').removeClass('overlayed');
+  $('#modal-overlay').each(function() {
+    ($(this).data('onClose') || $.noop)();
+    $(this).remove();
+  });
 };
 
 // polyfills

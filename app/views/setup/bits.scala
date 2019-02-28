@@ -17,8 +17,8 @@ private object bits {
     div(cls := "fen_position optional_config")(
       frag(
         div(cls := "fen_form", dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}""")(
-          a(cls := "button thin", dataIcon := "m", title := trans.boardEditor.txt(), href := url),
-          form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt())
+          form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
+          a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
         ),
         a(cls := "board_editor", href := url)(
           span(cls := "preview")(

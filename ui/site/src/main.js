@@ -542,7 +542,7 @@ lichess.topMenuIntent = function() {
         return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
       };
       Mousetrap.bind('esc', function() {
-        var $oc = $('.lichess_overboard .close');
+        var $oc = $('#modal-wrap .close');
         if ($oc[0]) $oc[0].click();
         else {
           $input = $(':focus');

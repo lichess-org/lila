@@ -99,7 +99,7 @@ module.exports = function(cfg, element) {
 
   var blindMode = $('body').hasClass('blind_mode');
 
-  var $startButtons = $('#start_buttons');
+  var $startButtons = $('.lobby__start');
 
   var sliderTimes = [
     0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
@@ -175,8 +175,8 @@ module.exports = function(cfg, element) {
     };
   }
 
-  function prepareForm() {
-    var $form = $('.lichess_overboard');
+  function prepareForm($modal) {
+    var $form = $modal.find('form');
     var $timeModeSelect = $form.find('#sf_timeMode');
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
@@ -188,10 +188,9 @@ module.exports = function(cfg, element) {
     var $incrementInput = $form.find('.increment_choice [name=increment]');
     var $daysInput = $form.find('.days_choice [name=days]');
     var typ = $form.data('type');
-    var $ratings = $form.find('.ratings > div');
+    var $ratings = $modal.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
-    var $submits = $form.find('.color_submits button');
-    var $formTag = $form.find('form');
+    var $submits = $form.find('.color-submits__button');
     var toggleButtons = function() {
       var variantId = $variantSelect.val();
       var timeMode = $timeModeSelect.val();
@@ -263,11 +262,11 @@ module.exports = function(cfg, element) {
           .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
-        var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);
-        $form.find('a.close').click();
+        var poolMember = hookToPoolMember(color, $form.serializeArray(), $ratings);
+        $.modal.close();
         var call = {
-          url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
-          data: $formTag.serialize() + "&color=" + color,
+          url: $form.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
+          data: $form.serialize() + "&color=" + color,
           type: 'post'
         };
         if (poolMember) {
@@ -281,10 +280,10 @@ module.exports = function(cfg, element) {
       $submits.click(function() {
         return ajaxSubmit($(this).val());
       }).attr('disabled', false);
-      $formTag.submit(function() {
+      $form.submit(function() {
         return ajaxSubmit('random');
       });
-    } else $formTag.one('submit', function() {
+    } else $form.one('submit', function() {
       $submits.hide().end().append(lichess.spinnerHtml);
     });
     if (blindMode) {
@@ -375,13 +374,13 @@ module.exports = function(cfg, element) {
             $fenPosition.find('a.board_editor').each(function() {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
-            $form.find('.color_submits button').removeClass('nope');
+            $submits.removeClass('nope');
             lichess.pubsub.emit('content_loaded')();
           },
           error: function() {
             $fenInput.addClass("failure");
             $fenPosition.find('.preview').html("");
-            $form.find('.color_submits button').addClass('nope');
+            $submits.addClass('nope');
           }
         });
       }
@@ -412,25 +411,19 @@ module.exports = function(cfg, element) {
         $infos.hide().filter('.sf_level_' + level).show();
       }).trigger('mouseout');
     });
-
-    $form.find('a.close.icon').click(function() {
-      $form.remove();
-      $startButtons.find('a.active').removeClass('active');
-      return false;
-    });
   }
 
   var clickEvent = blindMode ? 'click' : 'mousedown';
 
-  $startButtons.find('a').not('.disabled').on(clickEvent, function() {
-    lichess.loadCss('stylesheets/setup.css');
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
+    lichess.loadCssPath('lobby.setup');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
       success: function(html) {
-        $('.lichess_overboard').remove();
-        $('#hooks_wrap').prepend(html);
-        prepareForm();
+        prepareForm($.modal(html, 'game-setup', () => {
+          $startButtons.find('.active').removeClass('active');
+        }));
         lichess.pubsub.emit('content_loaded')();
       },
       error: function(res) {
@@ -439,7 +432,7 @@ module.exports = function(cfg, element) {
       }
     });
     $(this).addClass('active').siblings().removeClass('active');
-    $('.lichess_overboard').remove();
+    $.modal.close();
     return false;
   }).on('click', function() {
     return false;
@@ -447,7 +440,7 @@ module.exports = function(cfg, element) {
 
   if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
     $startButtons
-      .find('a.config_' + location.hash.replace('#', ''))
+      .find('.config_' + location.hash.replace('#', ''))
       .each(function() {
         $(this).attr("href", $(this).attr("href") + location.search);
       }).trigger(clickEvent);

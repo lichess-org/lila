@@ -13,7 +13,8 @@ object filter {
 
   import bits._
 
-  def apply(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context) =
+  def apply(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context) = frag(
+    responsiveCssTag("lobby.setup"),
     st.form(action := routes.Setup.filter(), novalidate := true)(
       table(
         tbody(
@@ -54,6 +55,7 @@ object filter {
         button(`type` := "submit", cls := "button button-green text", dataIcon := "E")(trans.apply())
       )
     )
+  )
 
   def renderCheckboxes(
     form: Form[_],
