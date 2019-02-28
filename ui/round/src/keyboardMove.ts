@@ -13,10 +13,10 @@ interface SanMap {
 }
 
 export interface KeyboardMove {
-  drop(key: cg.Key, piece: string): void
-  promote(dest: cg.Key, piece: string): void
+  drop(key: cg.Key, piece: string): void;
+  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
   update(step: Step): void;
-  registerHandler(h: KeyboardMoveHandler): void
+  registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
   san(orig: cg.Key, dest: cg.Key): void;
@@ -51,12 +51,11 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.chessground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);
     },
-    promote(dest, piece) {
+    promote(orig, dest, piece) {
       const role = sanMap[piece];
       if (!role || role == 'pawn') return;
       root.chessground.cancelMove();
-      const orig = dest.replace(/1/, '2').replace(/8/,'7');
-      sendPromotion(root, orig as cg.Key, dest, role, {premove: false});
+      sendPromotion(root, orig, dest, role, {premove: false});
     },
     update(step) {
       if (handler) handler(step.fen, cgState.movable.dests);
