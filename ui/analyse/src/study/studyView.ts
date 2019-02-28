@@ -47,6 +47,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
   canContribute = ctrl.members.canContribute(),
+  canAnalyze = (ctrl.data.chapter.setup.variant.key === 'standard' || ctrl.data.chapter.setup.variant.key === 'fromPosition'),
   showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study_buttons', [
     h('div.member_buttons', [
@@ -87,13 +88,13 @@ function buttons(root: AnalyseCtrl): VNode {
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
-      toolButton({
+      canAnalyze ? toolButton({
         ctrl,
         tab: 'serverEval',
         hint: root.trans.noarg('computerAnalysis'),
         icon: iconTag(''),
         count: root.data.analysis && '✓'
-      }),
+      }) : null,
       toolButton({
         ctrl,
         tab: 'share',
