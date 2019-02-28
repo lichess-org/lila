@@ -484,7 +484,7 @@ $.modal.close = function() {
 
 // polyfills
 
-if (!Array.prototype.find) {
+if (!Array.prototype.includes) {
   Object.defineProperty(Array.prototype, 'includes', {
     value: function(v) {
       for (var i in this) if (this[i] === v) return true;
