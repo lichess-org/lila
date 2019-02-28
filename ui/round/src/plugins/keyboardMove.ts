@@ -30,9 +30,9 @@ window.lichess.keyboardMove = function(opts: any) {
     } else if (sans && v.match(fileRegex)) {
       // do nothing
     } else if (sans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v.slice(0,- 2), sans);
+      const foundUci = sanToUci(v.slice(0, -2), sans);
       if (!foundUci) return;
-      opts.promote(foundUci.slice(0,2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      opts.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
       if (v.length === 3) v = 'P' + v;
