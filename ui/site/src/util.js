@@ -210,10 +210,10 @@ lidraughts.assetUrl = function(url, opts) {
   return baseUrl + url + (opts.noVersion ? '' : '?v=' + version);
 };
 lidraughts.loadedCss = {};
-lidraughts.loadCss = function(url) {
+lidraughts.loadCss = function(url, opts) {
   if (lidraughts.loadedCss[url]) return;
   lidraughts.loadedCss[url] = true;
-  $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lidraughts.assetUrl(url)));
+  $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lidraughts.assetUrl(url, opts)));
 };
 lidraughts.unloadCss = function(url) {
   if (lidraughts.loadedCss[url]) {

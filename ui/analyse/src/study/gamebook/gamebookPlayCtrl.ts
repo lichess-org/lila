@@ -14,9 +14,12 @@ export interface State {
 
 export default class GamebookPlayCtrl {
 
+  embed: boolean;
   state: State;
 
   constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {
+
+    this.embed = root.embed;
 
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones

@@ -16,7 +16,7 @@ interface Lidraughts {
   reloadOtherTabs(): void
   raf(f: () => void): void
   requestIdleCallback(f: () => void): void
-  loadCss(path: string): void
+  loadCss(path: string, opts?: AssetUrlOpts): void
   unloadCss(path: string): void
   loadedCss: [string];
   escapeHtml(str: string): string
