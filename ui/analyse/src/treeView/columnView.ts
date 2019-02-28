@@ -172,9 +172,9 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
   return node.comments!.map(comment => {
     if (comment.by === 'lidraughts' && !ctx.showComputer) return;
     let sel = 'comment' + colorClass;
-    if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
+    if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
+    else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
+    else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
     const commentAuthor = commentAuthorText(comment.by);
     const by = (node.comments![1] || (ctx.ctrl.study && comment.by != "lidraughts" && commentAuthor.toLowerCase() != ctx.ctrl.study.data.ownerId.toLowerCase())) ? `<span class="by">${commentAuthor}</span>` : '',

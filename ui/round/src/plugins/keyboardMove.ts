@@ -47,7 +47,7 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
    */
   opts.input.addEventListener('keyup', function(e: KeyboardEvent) {
     const v = (e.target as HTMLInputElement).value;
-    if (v.indexOf('/') > -1) {
+    if (v.includes('/')) {
       focusChat();
       clear();
     }
@@ -66,7 +66,7 @@ function sanToUci(san: string, sans: Sans): string | undefined {
   if (san in sans) return sans[san];
   if (san.length === 4 && Object.keys(sans).find(key => sans[key] === san)) return san;
   let lowered = san.toLowerCase().replace('x0', 'x').replace('-0', '-');
-  if (lowered.slice(0, 1) === '0') lowered = lowered.slice(1)
+  if (lowered.startsWith('0')) lowered = lowered.slice(1)
   if (lowered in sans) return sans[lowered];
   return undefined
 }
@@ -74,13 +74,13 @@ function sanToUci(san: string, sans: Sans): string | undefined {
 function sanCandidates(san: string, sans: Sans) {
   const lowered = san.toLowerCase();
   let cleanLowered = lowered.replace('x0', 'x').replace('-0', '-');
-  if (cleanLowered.slice(0, 1) === '0') cleanLowered = cleanLowered.slice(1)
+  if (cleanLowered.startsWith('0')) cleanLowered = cleanLowered.slice(1)
   var filterKeys = Object.keys(sans).filter(function(s) {
     const sLowered = s.toLowerCase();
-    return sLowered.indexOf(lowered) === 0 || sLowered.indexOf(cleanLowered) === 0;
+    return sLowered.startsWith(lowered) || sLowered.startsWith(cleanLowered);
   });
   return filterKeys.length ? filterKeys : Object.keys(sans).map(key => sans[key]).filter(function(s) {
-    return s.indexOf(lowered) === 0;
+    return s.startsWith(lowered);
   });
 }
 

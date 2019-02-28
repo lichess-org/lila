@@ -6,7 +6,7 @@ function initialize(ctrl: LobbyController, el) {
   const $div = $(el),
     $ratingRange = $div.find('.rating-range');
 
-  const save = window.lidraughts.fp.debounce(function() {
+  const save = window.lidraughts.debounce(function() {
     const $form = $div.find('form');
     $.ajax({
       url: $form.attr('action'),

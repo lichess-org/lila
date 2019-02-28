@@ -59,7 +59,7 @@ export function view(ctrl: SoundCtrl): VNode {
 }
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = window.lidraughts.fp.debounce(ctrl.volume, 50);
+  const setVolume = window.lidraughts.debounce(ctrl.volume, 50);
   window.lidraughts.slider().done(() => {
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',

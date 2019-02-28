@@ -407,7 +407,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.setPath(path, this.node, playedMyself);
       if (!this.node.uci) this.sound.move(); // initial position
       else if (!playedMyself) {
-        if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
+        if (this.node.san!.includes('x')) this.sound.capture();
         else this.sound.move();
       }
       this.threatMode(false);

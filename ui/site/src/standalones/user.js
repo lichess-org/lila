@@ -4,7 +4,7 @@ $(function() {
     $(this).click(function() {
       $("div.user_show .note_zone").toggle();
     });
-    if (location.search.indexOf('note') != -1) $(this).click();
+    if (location.search.includes('note')) $(this).click();
   });
 
   $("div.user_show .claim_title_zone").each(function() {

@@ -63,7 +63,7 @@ function toCeval(e) {
 export function make(opts): EvalCache {
   const fenFetched: string[] = [];
   function hasFetched(node): boolean {
-    return fenFetched.indexOf(node.fen) !== -1;
+    return fenFetched.includes(node.fen);
   };
   let upgradable = prop(false);
   return {

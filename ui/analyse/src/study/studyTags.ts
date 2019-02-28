@@ -62,7 +62,7 @@ function renderPdnTags(chapter: StudyChapter, submit, types: string[]): VNode {
       }, [
         h('option', 'New tag'),
         ...types.map(t => {
-          if (!window.lidraughts.fp.contains(existingTypes, t)) return option(t, '', t);
+          if (!existingTypes.includes(t)) return option(t, '', t);
         })
       ]),
       editable('', (value, el) => {

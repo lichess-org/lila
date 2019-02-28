@@ -28,7 +28,7 @@ function readFen(fen) {
 }
 
 function shorten(uci) {
-  return (uci && uci.slice(0, 1) === '0') ? uci.slice(1) : uci;
+  return (uci && uci.startsWith('0')) ? uci.slice(1) : uci;
 }
 
 function sanOf(board, uci, capture) {

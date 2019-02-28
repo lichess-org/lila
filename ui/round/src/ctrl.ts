@@ -215,43 +215,35 @@ export default class RoundController {
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
-  jump = (ply: Ply): boolean => {
-      
-      if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
-
-      const plyDiff = Math.abs(ply - this.ply);
-
-      this.ply = ply;
-
-      this.justDropped = undefined;
-      this.preDrop = undefined;
-      const s = round.plyStep(this.data, ply),
-        ghosts = countGhosts(s.fen),
-        config: CgConfig = {
-          fen: s.fen,
-          lastMove: util.uci2move(s.uci),
-          turnColor: (this.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black'
-        };
-
-      if (this.replaying()) this.draughtsground.stop();
-      else {
-          config.movable = {
-              color: this.isPlaying() ? this.data.player.color : undefined,
-              dests: util.parsePossibleMoves(this.data.possibleMoves)
-          }
-          config.captureLength = this.data.captureLength;
+  jump = (ply: Ply): boolean => {    
+    if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
+    const plyDiff = Math.abs(ply - this.ply);
+    this.ply = ply;
+    this.justDropped = undefined;
+    this.preDrop = undefined;
+    const s = round.plyStep(this.data, ply),
+      ghosts = countGhosts(s.fen),
+      config: CgConfig = {
+        fen: s.fen,
+        lastMove: util.uci2move(s.uci),
+        turnColor: (this.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black'
+      };
+    if (this.replaying()) this.draughtsground.stop();
+    else {
+      config.movable = {
+          color: this.isPlaying() ? this.data.player.color : undefined,
+          dests: util.parsePossibleMoves(this.data.possibleMoves)
       }
-      
-      this.draughtsground.set(config, plyDiff > 1);
-
-      if (s.san && plyDiff !== 0) {
-          if (s.san.indexOf('x') !== -1) sound.capture();
-          else sound.move();
-      }
-
-      this.autoScroll();
-      if (this.keyboardMove) this.keyboardMove.update(s);
-      return true;
+      config.captureLength = this.data.captureLength;
+    }
+    this.draughtsground.set(config, plyDiff > 1);
+    if (s.san && plyDiff !== 0) {
+      if (s.san.includes('x')) sound.capture();
+      else sound.move();
+    }
+    this.autoScroll();
+    if (this.keyboardMove) this.keyboardMove.update(s);
+    return true;
   };
 
   replayEnabledByPref = (): boolean => {
@@ -278,68 +270,68 @@ export default class RoundController {
   setTitle = () => title.set(this);
 
   actualSendMove = (type: string, action: any, meta: MoveMetadata = {}) => {
-      const socketOpts: SocketOpts = {
-          ackable: true
-      };
-      if (this.clock) {
-          socketOpts.withLag = !this.shouldSendMoveTime || !this.clock.isRunning;
-          if (meta.premove && this.shouldSendMoveTime) {
-              this.clock.hardStopClock();
-              socketOpts.millis = 0;
-          } else {
-              const moveMillis = this.clock.stopClock();
-              if (moveMillis !== undefined && this.shouldSendMoveTime) {
-                  socketOpts.millis = moveMillis;
-                  if (socketOpts.millis < 3) {
-                      // instant move, no premove? might be fishy
-                      $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + Math.round(socketOpts.millis));
-                  }
-              }
+    const socketOpts: SocketOpts = {
+      ackable: true
+    };
+    if (this.clock) {
+      socketOpts.withLag = !this.shouldSendMoveTime || !this.clock.isRunning;
+      if (meta.premove && this.shouldSendMoveTime) {
+        this.clock.hardStopClock();
+        socketOpts.millis = 0;
+      } else {
+        const moveMillis = this.clock.stopClock();
+        if (moveMillis !== undefined && this.shouldSendMoveTime) {
+          socketOpts.millis = moveMillis;
+          if (socketOpts.millis < 3) {
+            // instant move, no premove? might be fishy
+            $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + Math.round(socketOpts.millis));
           }
+        }
       }
-      this.socket.send(type, action, socketOpts);
+    }
+    this.socket.send(type, action, socketOpts);
 
-      this.justDropped = meta.justDropped;
-      this.justCaptured = meta.justCaptured;
-      this.preDrop = undefined;
-      this.redraw();
+    this.justDropped = meta.justDropped;
+    this.justCaptured = meta.justCaptured;
+    this.preDrop = undefined;
+    this.redraw();
   }
 
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
-      const move: SocketMove = {
-          u: orig + dest
-      };
-      //if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
-      if (prom) move.u += "";
-      if (blur.get()) move.b = 1;
-      this.resign(false);
-      if (this.data.pref.submitMove && !meta.premove) {
-          this.moveToSubmit = move;
-          this.redraw();
-      } else {
-          this.actualSendMove('move', move, {
-              justCaptured: meta.captured,
-              premove: meta.premove
-          })
-      }
+    const move: SocketMove = {
+        u: orig + dest
+    };
+    //if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
+    if (prom) move.u += "";
+    if (blur.get()) move.b = 1;
+    this.resign(false);
+    if (this.data.pref.submitMove && !meta.premove) {
+      this.moveToSubmit = move;
+      this.redraw();
+    } else {
+      this.actualSendMove('move', move, {
+        justCaptured: meta.captured,
+        premove: meta.premove
+      })
+    }
   };
 
   sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-      const drop: SocketDrop = {
-          role: role,
-          pos: key
-      };
-      if (blur.get()) drop.b = 1;
-      this.resign(false);
-      if (this.data.pref.submitMove && !isPredrop) {
-          this.dropToSubmit = drop;
-          this.redraw();
-      } else {
-          this.actualSendMove('drop', drop, {
-              justDropped: role,
-              premove: isPredrop
-          });
-      }
+    const drop: SocketDrop = {
+      role: role,
+      pos: key
+    };
+    if (blur.get()) drop.b = 1;
+    this.resign(false);
+    if (this.data.pref.submitMove && !isPredrop) {
+      this.dropToSubmit = drop;
+      this.redraw();
+    } else {
+      this.actualSendMove('drop', drop, {
+        justDropped: role,
+        premove: isPredrop
+      });
+    }
   };
 
   showYourMoveNotification = () => {

@@ -91,6 +91,6 @@ $(function() {
       $form.submit();
     };
     $form.find("select, input[type=checkbox]").change(submit);
-    $usernames.on("keyup", lidraughts.fp.debounce(submit, 1500));
+    $usernames.on("keyup", lidraughts.debounce(submit, 1500));
   }
 });

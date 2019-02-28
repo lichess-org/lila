@@ -46,7 +46,7 @@ export function renderSan(san: San, style: Style) {
   else if (style === 'notation') return san;
 
   const lowerSan = san.toLowerCase(),
-    isCapture = lowerSan.toLowerCase().indexOf('x') >= 0,
+    isCapture = lowerSan.toLowerCase().includes('x'),
     fields = lowerSan.split(isCapture ? 'x' : '-');
   if (fields.length <= 1) return san;
 

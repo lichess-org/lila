@@ -138,7 +138,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
         legalUcis = destsToUcis(ctrl.draughtsground.state.movable.dests!),
         sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis, ctrl.draughtsground.state.movable.captLen) as Sans,
         uci = sanToUci(input, sans) || input;
-      if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
+      if (legalUcis.includes(uci.toLowerCase())) ctrl.socket.send("move", {
         from: uci.substr(0, 2),
         to: uci.substr(2, 2)
       }, { ackable: true });

@@ -9,7 +9,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": false,
-    "target": "es5",
-    "lib": ["DOM", "ES5"]
+    "moduleResolution": "node",
+    "target": "es2016",
+    "lib": ["DOM", "es2016"]
   }
 }

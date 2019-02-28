@@ -12,6 +12,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "target": "es5"
+    "moduleResolution": "node",
+    "target": "es2016",
+    "lib": ["DOM", "es2016"]
   }
 }
