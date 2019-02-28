@@ -8,6 +8,10 @@
 @import 'box';
 @import 'support';
 
+#main-wrap {
+  --main-max-width: 1400px;
+}
+
 .lobby__side {
   @extend %flex-column;
   margin-top: .3em;

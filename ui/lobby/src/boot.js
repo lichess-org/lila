@@ -329,7 +329,7 @@ module.exports = function(cfg, element) {
           }
         }));
       });
-      $form.find('.rating_range').each(function() {
+      $form.find('.rating-range').each(function() {
         var $this = $(this);
         var $input = $this.find("input");
         var $span = $this.siblings("span.range");

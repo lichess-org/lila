@@ -36,12 +36,12 @@ function clockX(dur) {
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
   const bottom = Math.max(0, ratingY(hook.rating) - 7),
-  left = Math.max(0, clockX(hook.t) - 4),
-  klass = [
-    'plot.new',
-    hook.ra ? 'rated' : 'casual',
-    hook.action === 'cancel' ? 'cancel' : ''
-  ].join('.');
+    left = Math.max(0, clockX(hook.t) - 4),
+    klass = [
+      'plot.new',
+      hook.ra ? 'rated' : 'casual',
+      hook.action === 'cancel' ? 'cancel' : ''
+    ].join('.');
   return h('span#' + hook.id + '.' + klass, {
     key: hook.id,
     attrs: {
@@ -118,17 +118,15 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('span.mode_toggle', {
+  return h('i.toggle', {
     key: 'set-mode-list',
-    attrs: { title: ctrl.trans('list'), 'data-icon': '?' },
+    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': '?' },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw)
   });
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
-  return h('div.hooks_chart', {
-    key: 'chart'
-  }, [
+  return h('div.hooks__chart', [
     h('div.canvas', {
       hook: bind('click', e => {
         if ((e.target as HTMLElement).classList.contains('plot')) ctrl.clickHook((e.target as HTMLElement).id);

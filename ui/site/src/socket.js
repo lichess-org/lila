@@ -24,7 +24,7 @@ lichess.StrongSocket = function(url, version, settings) {
     autoReconnect = true;
     var params = $.param(settings.params);
     if (version !== false) params += (params ? '&' : '') + 'v=' + version;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
+    var fullUrl = options.protocol + '//' + baseUrl() + url + '?' + params;
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
