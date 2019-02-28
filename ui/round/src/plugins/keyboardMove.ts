@@ -4,6 +4,8 @@ import { DecodedDests } from '../interfaces';
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
 const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
+const ambiguousPromotionRegex = /^([a-h]x?)?[a-h](1|8)$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
@@ -18,6 +20,8 @@ window.lichess.keyboardMove = function(opts: any) {
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
       // ambiguous UCI
       if (v.match(keyRegex) && opts.hasSelected()) opts.select(v);
+      // ambiguous promotion (also check sans[v] here because bc8 could mean Bc8)
+      if (v.match(ambiguousPromotionRegex) && sans[v] && !force) return;
       else opts.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
@@ -25,8 +29,12 @@ window.lichess.keyboardMove = function(opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
+    } else if (sans && v.match(promotionRegex)) {
+      const foundUci = sanToUci(v.slice(0, -2), sans);
+      if (!foundUci) return;
+      opts.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      clear();
     } else if (v.match(crazyhouseRegex)) {
-      // Crazyhouse
       if (v.length === 3) v = 'P' + v;
       opts.drop(v.slice(2), v[0].toUpperCase());
       clear();
