@@ -18,6 +18,7 @@
     // height: 31%;
     cursor: pointer;
     background: fade-out($c-bg-box, .5);
+    color: $c-font-page;
     transition: background .15s, opacity 0.7s;
     &:hover {
       background: fade-out($c-accent, .8);

@@ -95,6 +95,8 @@ $text-shadow: none;
   }
 }
 
+@mixin theme-style { }
+
 %metal {
   @include metal;
 }

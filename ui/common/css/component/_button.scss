@@ -75,7 +75,7 @@
     @extend %metal;
     &,
     &:hover {
-      color: $c-font;
+      color: $c-font-dim;
     }
     &:not(.disabled):hover {
       @extend %metal-hover;
@@ -87,8 +87,10 @@
   }
   &.active {
     @extend %active;
+    color: #fff;
   }
   &.active:not(.disabled):hover {
     @extend %active-hover;
+    color: #fff;
   }
 }

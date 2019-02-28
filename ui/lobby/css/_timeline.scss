@@ -1,6 +1,6 @@
 .timeline {
   flex: 1 1 auto;
-  margin-top: 1em;
+  margin: 1em 0 0 $block-gap;
   color: $c-font-page;
   overflow: hidden;
   &:hover {

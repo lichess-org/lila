@@ -34,11 +34,3 @@
     }
   }
 }
-
-#top,
-#main-wrap,
-#friend_box {
-  body.overlayed & {
-    filter: blur(15px);
-  }
-}

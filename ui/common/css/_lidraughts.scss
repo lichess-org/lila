@@ -11,6 +11,8 @@
 @import 'base/unread';
 @import 'base/util';
 
+@include theme-style
+
 @import 'layout/base';
 @import 'layout/page-menu';
 
