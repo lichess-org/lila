@@ -23,7 +23,7 @@ $app-tabs-height: 30px;
   'support'
   'about'
   '.';
-  grid-gap: $block-gap-h $block-gap-w;
+  grid-gap: $block-gap;
 
   &__counters {
     margin-top: $block-gap;
@@ -68,10 +68,6 @@ $app-tabs-height: 30px;
     }
     &__counters {
       margin: #{$block-gap / 2} 0 #{$block-gap / -2} 0;
-    }
-    &__about {
-      justify-self: center;
-      margin-top: .5em;
     }
     .timeline {
       margin-left: 0;

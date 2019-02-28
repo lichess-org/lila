@@ -145,7 +145,21 @@ object home {
             )
           )
         ),
-        div(cls := "lobby__about")(a(href := "/about")(trans.aboutX.frag("lichess.org")))
+        div(cls := "lobby__about")(
+          a(href := "/about")(trans.aboutX.frag("lichess.org")),
+          a(href := "/contact")(trans.contact.frag()),
+          ctx.noKid option frag(
+            a(href := "/mobile")(trans.mobileApp.frag()),
+            a(href := "/developers")(trans.webmasters.frag()),
+            a(href := "/help/contribute")(trans.contribute.frag()),
+            a(href := "/patron")(trans.donate.frag())
+          ),
+          a(href := "/thanks")(trans.thankYou.frag()),
+          a(href := routes.Page.tos)(trans.termsOfService.frag()),
+          a(href := routes.Page.privacy)(trans.privacy.frag()),
+          a(href := "https://database.lichess.org/")(trans.database.frag()),
+          a(href := "https://github.com/ornicar/lila")(trans.sourceCode.frag())
+        )
       )
     }
 
