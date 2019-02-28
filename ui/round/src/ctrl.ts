@@ -688,7 +688,6 @@ export default class RoundController {
             !d.clock ||
             d.opponent.ai ||
             this.isSimulHost()) return;
-          document.body.classList.remove('fpmenu');
           this.socket.send('bye2');
           const msg = 'There is a game in progress!';
           (e || window.event).returnValue = msg;

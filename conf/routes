@@ -579,7 +579,6 @@ GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
-GET   /fpmenu                          controllers.Main.fpmenu
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
 

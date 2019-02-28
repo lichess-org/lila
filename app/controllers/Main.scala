@@ -153,10 +153,6 @@ Disallow: /games/export
     NotFound(html.base.notFound()(ctx))
   }
 
-  def fpmenu = Open { implicit ctx =>
-    Ok(html.base.fpmenu()).fuccess
-  }
-
   def getFishnet = Open { implicit ctx =>
     Ok(html.site.getFishnet()).fuccess
   }
