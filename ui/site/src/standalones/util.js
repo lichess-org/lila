@@ -5,10 +5,7 @@ lidraughts.engineName = 'Scan 3.1';
 lidraughts.raf = window.requestAnimationFrame.bind(window);
 lidraughts.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lidraughts.dispatchEvent = function(el, eventName) {
-  // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))
-  var ev = document.createEvent('Event');
-  ev.initEvent(eventName, false, false);
-  el.dispatchEvent(ev);
+  el.dispatchEvent(new Event(eventName));
 };
 
 function buildStorage(storageKey) {
