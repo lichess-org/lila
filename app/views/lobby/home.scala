@@ -147,7 +147,18 @@ object home {
             )
           )*/
         ),
-        div(cls := "lobby__about")(a(href := "/about")(trans.aboutX.frag("lidraughts.org")))
+        div(cls := "lobby__about")(
+          a(href := "/about")(trans.aboutX.frag("lidraughts.org")),
+          a(href := "/contact")(trans.contact.frag()),
+          ctx.noKid option frag(
+            a(href := "/mobile")(trans.mobileApp.frag()),
+            a(href := "/developers")(trans.webmasters.frag()),
+            a(href := "/patron")(trans.donate.frag())
+          ),
+          a(href := routes.Page.tos)(trans.termsOfService.frag()),
+          a(href := routes.Page.privacy)(trans.privacy.frag()),
+          a(href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode.frag())
+        )
       )
     }
 

@@ -17,5 +17,15 @@
   overflow: hidden;
 }
 .lobby__about {
-  justify-self: center;
+  display: flex;
+  align-content: start;
+  flex-flow: row wrap;
+  font-size: .85em;
+  margin: $block-gap 0 0 $block-gap;
+  a {
+    color: $c-font-dim;
+    font-weight: bold;
+    margin-right: 1.2em;
+    white-space: nowrap;
+  }
 }
