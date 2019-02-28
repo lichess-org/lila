@@ -46,9 +46,9 @@ function isNotMine(hook) {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('span.mode_toggle', {
+  return h('i.toggle', {
     key: 'set-mode-chart',
-    attrs: { title: ctrl.trans('graph'), 'data-icon': '9' },
+    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': '9' },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw)
   });
 }
@@ -75,9 +75,7 @@ export function render(ctrl: LobbyController, allHooks: Hook[]) {
     ...variants.map(render)
   ];
   if (mine) renderedHooks.unshift(render(mine));
-  return h('table.table_wrap', {
-    key: 'list'
-  }, [
+  return h('table.hooks__list', [
     h('thead',
       h('tr', [
         h('th'),

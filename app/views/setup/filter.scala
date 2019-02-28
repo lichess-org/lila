@@ -32,9 +32,9 @@ object filter {
           ctx.me.map { me =>
             tr(
               td(trans.ratingRange()),
-              td(cls := "rating_range_config")(
+              td(
                 label(cls := "range")("? - ?"),
-                div(cls := "rating_range")(
+                div(cls := "rating-range")(
                   renderInput(form("ratingRange"))(
                     dataMin := RatingRange.min,
                     dataMax := RatingRange.max
@@ -50,8 +50,8 @@ object filter {
         renderInput(form("ratingRange"))
       ),
       div(cls := "actions")(
-        button(`type` := "submit", cls := "reset button text", dataIcon := "k")(trans.reset()),
-        button(`type` := "submit", cls := "submit button text", dataIcon := "E")(trans.apply())
+        button(`type` := "submit", cls := "button button-empty button-red text", dataIcon := "k")(trans.reset()),
+        button(`type` := "submit", cls := "button button-green text", dataIcon := "E")(trans.apply())
       )
     )
 

@@ -26,12 +26,9 @@ $app-tabs-height: 30px;
 
   @include breakpoint($mq-col2) {
 
-    grid-template-columns:
-    minmax(150px, 350px)
-    minmax(150px, 400px)
-    minmax(150px, 400px);
+    grid-template-columns: repeat(3, 1fr);
 
-    grid-template-rows: max-content fit-content(0) fit-content(0) fit-content(0);
+    grid-template-rows: max-content repeat(3, fit-content(0));
 
     grid-template-areas:
     'table   app     app'
@@ -45,13 +42,9 @@ $app-tabs-height: 30px;
 
   @include breakpoint($mq-col3) {
 
-    grid-template-columns:
-    minmax(150px, 350px)
-    minmax(150px, 300px)
-    minmax(150px, 300px)
-    minmax(150px, 350px);
+    grid-template-columns: repeat(4, 1fr);
 
-    grid-template-rows: fit-content(0) fit-content(0);
+    grid-template-rows: repeat(2, fit-content(0));
 
     grid-template-areas:
     'side   app     app    table'

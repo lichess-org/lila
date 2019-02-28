@@ -31,11 +31,11 @@ object forms {
             renderRadios(form("mode"), translatedModeChoices)
           ),
           ctx.noBlind option div(cls := "optional_config")(
-            div(cls := "rating_range_config slider")(
+            div(cls := "rating-range-config slider")(
               trans.ratingRange(),
               ": ",
               span(cls := "range")("? - ?"),
-              div(cls := "rating_range")(
+              div(cls := "rating-range")(
                 renderInput(form("ratingRange"))(
                   dataMin := RatingRange.min,
                   dataMax := RatingRange.max
