@@ -15,10 +15,6 @@
       &.disabled {
         opacity: 0.2;
       }
-      &.active-g {
-        @extend %active;
-        background: $c-secondary;
-      }
     }
     @include breakpoint($mq-col4) {
       justify-content: center;
