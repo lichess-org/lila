@@ -7,6 +7,10 @@
   width: 100%;
   margin: auto;
 
+  @include breakpoint($mq-x-small) {
+    width: 40em;
+  }
+
   .button {
     width: 100%;
     padding: 1rem;
@@ -21,11 +25,6 @@
   &-login {
     @include breakpoint($mq-xx-small) {
       width: 30em;
-    }
-  }
-  &-signup {
-    @include breakpoint($mq-xx-small) {
-      width: 40em;
     }
   }
 }
