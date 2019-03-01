@@ -4,9 +4,9 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.hub.actorApi.timeline._
-import lila.common.String.html.escapeHtml
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.escapeHtml
+import lila.hub.actorApi.timeline._
 
 import controllers.routes
 
@@ -20,18 +20,22 @@ object timeline {
     )
 
   def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
-    base.layout(title = trans.timeline.txt(), moreCss = cssTag("timeline.css"))(
-      div(id := "timeline_more", cls := "content_box small_box no_padding")(
-        h1(trans.timeline()),
-        table(cls := "datatable")(
-          tbody(
-            filterEntries(entries) map { e =>
-              tr(td(entry(e)))
-            }
+    base.layout(
+      title = trans.timeline.txt(),
+      responsive = true,
+      moreCss = responsiveCssTag("slist")
+    )(
+        main(cls := "timeline page-small box")(
+          h1(trans.timeline.frag()),
+          table(cls := "slist slist-pad")(
+            tbody(
+              filterEntries(entries) map { e =>
+                tr(td(entry(e)))
+              }
+            )
           )
         )
       )
-    )
 
   private def filterEntries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
     if (ctx.noKid) entries

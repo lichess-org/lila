@@ -581,8 +581,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
