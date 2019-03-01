@@ -16,10 +16,7 @@
       }
     }
     &__content {
-      overflow: hidden;
-      &:hover {
-        overflow-y: auto;
-      }
+      @include hoverflow;
     }
     .user_link {
       font-weight: bold;

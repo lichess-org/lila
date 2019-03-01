@@ -33,3 +33,13 @@
 @mixin transition($prop: all, $dur: $transition-duration) {
   transition: $prop $dur;
 }
+
+@mixin hoverflow {
+  overflow-y: auto;
+  @media (hover: hover) {
+    overflow: hidden;
+    &:hover {
+      overflow-y: auto;
+    }
+  }
+}

@@ -10,7 +10,6 @@ import LobbyController from '../ctrl';
 
 export default function(ctrl: LobbyController) {
   let body, data: VNodeData = {};
-  if (ctrl.playban || ctrl.currentGame) return h('div#hooks_wrap');
   if (ctrl.redirecting) body = spinner();
   else switch (ctrl.tab) {
     case 'pools':

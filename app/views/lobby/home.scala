@@ -37,9 +37,8 @@ object home {
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", async = true),
       embedJs {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
-        val gameJs = currentGame.fold("null")(cg => safeJsonValue(cg.json))
         val transJs = safeJsonValue(i18nJsObject(translations))
-        s"""window.lichess=window.lichess||{};window.customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,currentGame:$gameJs,i18n:$transJs}"""
+        s"""window.lichess=window.lichess||{};window.customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
       }
     ),
     moreCss = responsiveCssTag("lobby"),
@@ -53,7 +52,10 @@ object home {
     ).some,
     asyncJs = true
   ) {
-      main(cls := "lobby")(
+      main(cls := List(
+        "lobby" -> true,
+        "lobby-nope" -> (playban.isDefined || currentGame.isDefined)
+      ))(
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
             a(href := routes.Setup.hookForm, cls := List(

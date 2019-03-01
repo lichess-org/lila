@@ -100,7 +100,8 @@ $app-tabs-height: 30px;
   }
 
   &__side { grid-area: side; }
-  &__app { grid-area: app; }
+  &__app,
+  &__nope { grid-area: app; }
   &__table { grid-area: table; }
   &__tv { grid-area: tv; }
   &__leaderboard { grid-area: leader; }
