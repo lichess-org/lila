@@ -5,7 +5,7 @@ $mq-col4: $mq-x-large;
 @mixin lobby-app-size {
   min-height: 300px;
   @include breakpoint($mq-col2) {
-  min-height: 400px;
+    min-height: 400px;
   }
   @include breakpoint($mq-col3) {
     height: 700px;
@@ -59,7 +59,10 @@ $mq-col4: $mq-x-large;
 
     grid-template-columns: repeat(3, 1fr);
 
-    grid-template-rows: max-content repeat(3, fit-content(0));
+    grid-template-rows: 10.5em repeat(3, fit-content(0));
+    @include proper-grid {
+      grid-template-rows: max-content repeat(3, fit-content(0));
+    }
 
     grid-template-areas:
     'table   app     app'
@@ -76,7 +79,7 @@ $mq-col4: $mq-x-large;
       justify-content: center;
     }
     &__counters {
-      margin: #{$block-gap / 2} 0 #{$block-gap / -2} 0;
+      margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
     }
     .timeline {
       margin-left: 0;
