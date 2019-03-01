@@ -8,11 +8,11 @@
   }
 
   .hbg {
-    position: relative;
-    flex: 0 0 40px;
-    @include breakpoint($mq-site-header-tall) {
-      flex-basis: 60px;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $site-header-height;
+    height: $site-header-height;
     cursor: pointer;
     z-index: z('topnav');
 
@@ -60,6 +60,7 @@
       }
     }
     .topnav-toggle:checked ~ & {
+      position: fixed;
       background: $c-bg-high;
       .hbg__in {
         transform: rotate(225deg);
@@ -94,6 +95,7 @@
     @include transition(transform, 200ms);
     padding: 0 0 1.2rem 1.2rem;
     overflow-y: auto;
+    overscroll-behavior: contain;
     white-space: nowrap;
     line-height: 40px;
     box-shadow: 2px 3px 6px hsla(0, 0, 0%, 0.3);
