@@ -2,8 +2,10 @@
   @extend %roboto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  /* 1fr doesn't scale vertically because of .lobby__app min-height */
+  grid-template-rows: repeat(3, calc(100% / 3 - 9px * 2 / 3));
   grid-gap: 9px;
+  @include fluid-size('font-size', 16px, 29px);
   > div {
     @extend %flex-column, %box-radius;
     justify-content: center;
@@ -16,28 +18,34 @@
       background: fade-out($c-accent, .8);
       opacity: 1;
     }
-    &.active {
-      @extend %popup-shadow;
-      background: $c-bg-popup;
+  }
+  .active {
+    @extend %popup-shadow;
+    background: $c-bg-popup;
+    .perf {
+      display: none;
+      @include breakpoint($mq-col3) {
+        display: block;
+      }
     }
   }
   .transp {
     opacity: 0.5;
   }
   .spinner {
-    margin: 14px 0 0 0;
+    flex: 0 0 auto;
+    margin: 0;
+    @include breakpoint($mq-col3) {
+      margin: .8em 0 0 0;
+    }
+    width: 2em;
+    height: 2em;
+    pointer-events: none;
   }
   .clock {
     display: block;
-    font-size: 2.5em;
-    line-height: 1.5em;
-    letter-spacing: 5px;
-  }
-  .perf,
-  .range {
     font-size: 1.5em;
-  }
-  .custom {
-    font-size: 1.5em;
+    line-height: 1.6em;
+    letter-spacing: .1em;
   }
 }

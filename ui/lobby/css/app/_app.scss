@@ -27,8 +27,8 @@
     @include hoverflow;
   }
 
-  .redir {
-    background: rgba(128,128,128,0.5);
+  .lredir {
+    background: $c-bg-box;
     display: flex;
     .spinner {
       width: 100px;

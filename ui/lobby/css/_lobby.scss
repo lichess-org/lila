@@ -1,8 +1,3 @@
-@mixin lobby-app-size {
-  height: 700px;
-  max-height: calc(100vh - #{$site-header-height} - #{$block-gap});
-}
-
 @import 'layout';
 @import 'app/app';
 @import 'puzzle';

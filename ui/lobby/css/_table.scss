@@ -15,7 +15,8 @@
       &.disabled {
         opacity: 0.2;
       }
-      &.active {
+      &.active-g {
+        @extend %active;
         background: $c-secondary;
       }
     }
