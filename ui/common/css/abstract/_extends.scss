@@ -14,7 +14,7 @@
 %active {
   background: $c-accent;
   color: #fff;
-  text-shadow: 0 1px 0 black;
+  text-shadow: 0 1px 0 black!important;
   box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
 }
 %active-hover {

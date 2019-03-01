@@ -1,22 +1,19 @@
 .lobby__app__tabs {
   @extend %flex-center-nowrap;
-  flex: 0 0 $app-tabs-height;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-end;
   border-bottom: 2px solid $c-border;
   span {
-    @extend %roboto, %box-radius-bottom;
+    @extend %roboto;
     flex: 1 1 auto;
     text-align: center;
-    // font-size: .9em;
-    line-height: #{$app-tabs-height - 2px};
-    padding: 0 .1em;
+    padding: .5em .2em;
     cursor: pointer;
     position: relative;
     color: $c-font-page;
     @include transition(color, .25s);
     &::after {
-      content: "";
+      content: '';
       background: fade-out($c-accent, .4);
       height: 2px;
       position: absolute;

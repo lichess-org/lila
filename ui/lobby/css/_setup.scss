@@ -2,6 +2,7 @@ $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
 .game-setup {
+  display: block;
   #modal-wrap {
     width: 30em;
     padding: 0;

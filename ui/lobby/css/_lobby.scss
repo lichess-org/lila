@@ -18,7 +18,7 @@
 }
 .lobby__about {
   display: flex;
-  align-content: start;
+  align-content: flex-start;
   flex-flow: row wrap;
   font-size: .85em;
   margin: $block-gap 0 0 $block-gap;
@@ -48,4 +48,7 @@
     list-style: disc outside;
     font-size: 1.1em;
   }
+}
+.game-setup {
+  display: none;
 }
