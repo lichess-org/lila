@@ -5,9 +5,12 @@
 
 .lobby__app {
   @extend %flex-column;
-  height: 700px;
-  max-height: 90vh;
+  @include lobby-app-size;
   user-select: none;
+
+  .lobby-nope & {
+    display: none;
+  }
 
   &__content {
     @extend %box-neat-force; // need hidden for hooks overflow scroll
@@ -21,10 +24,7 @@
       background: $c-bg-zebra url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMTAuMCAyMTAuMCI+PGcgb3BhY2l0eT0iLjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjYiPjxnIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Ik0gMTAsMTQwIGMgMCw2MCAxOTAsNjAgMTkwLDAgbCAwLC0zNSBsIC0xOTAsMCB6Ii8+PHBhdGggZD0iTSAxMCwxMDUgYyAwLDYwIDE5MCw2MCAxOTAsMCBsIDAsLTM1IGwgLTE5MCwwIHoiLz48cGF0aCBkPSJNIDEwLDcwIGMgMCw2MCAxOTAsNjAgMTkwLDAgYyAwLC02MCAtMTkwLC02MCAtMTkwLDAgeiIvPjwvZz48L2c+PC9zdmc+');
     }
     background-size: 100% 100%;
-    overflow: hidden;
-    &:hover {
-      overflow-y: auto;
-    }
+    @include hoverflow;
   }
 
   .redir {

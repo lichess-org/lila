@@ -2,10 +2,7 @@
   flex: 1 1 auto;
   margin: 1em 0 0 $block-gap;
   color: $c-font-page;
-  overflow: hidden;
-  &:hover {
-    overflow-y: auto;
-  }
+  @include hoverflow;
   .entry {
     @extend %roboto;
     a {

@@ -24,16 +24,13 @@
   }
   .moves {
     @extend %flex-wrap, %zen;
+    @include hoverflow;
     align-content: start;
     border: $border;
     border-width: 0 1px;
-    overflow: hidden;
     will-change: scroll-position;
     user-select: none;
     line-height: 1.7;
-    &:hover {
-      overflow-y: auto;
-    }
   }
   index {
     @extend %roboto;

@@ -64,6 +64,7 @@ $controls-height: auto;
       display: block;
       grid-area: 4 / 2 / 10 / 3;
     }
+    .expiration-top { display: flex; }
     .rmoves {
       display: none;
       background: none;

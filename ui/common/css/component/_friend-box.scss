@@ -16,9 +16,7 @@
   max-height: 95%;
   /* improve scroll perfs */
   backface-visibility: hidden;
-  &:hover {
-    overflow-y: auto;
-  }
+  @include hoverflow;
   .friend_box_title {
     @extend %metal;
     cursor: pointer;

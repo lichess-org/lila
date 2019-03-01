@@ -1,3 +1,8 @@
+@mixin lobby-app-size {
+  height: 700px;
+  max-height: 90vh;
+}
+
 @import 'layout';
 @import 'app/app';
 @import 'puzzle';
@@ -27,5 +32,25 @@
     font-weight: bold;
     margin-right: 1.2em;
     white-space: nowrap;
+  }
+}
+
+.lobby__nope {
+  @include lobby-app-size;
+  text-align: center;
+  .lobby__app__content {
+    @extend %flex-column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  ul {
+    margin: .6em auto;
+    display: inline-block;
+    text-align: left;
+  }
+  li {
+    list-style: disc outside;
+    font-size: 1.1em;
   }
 }

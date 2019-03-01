@@ -14,7 +14,6 @@ export default class LobbyController {
   opts: LobbyOpts;
   data: LobbyData;
   playban: any;
-  currentGame: any;
   isBot: boolean;
   socket: LobbySocket;
   stores: Stores;
@@ -40,7 +39,6 @@ export default class LobbyController {
     this.data.hooks = [];
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.currentGame = opts.currentGame;
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.redraw = redraw;
 
