@@ -95,9 +95,8 @@ object bits {
     )
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) = nopeInfo(
-    h2("Sorry :("),
+    h1("Sorry :("),
     p("We had to time you out for a ", (ban.remainingSeconds < 3600) ?? "little ", "while."),
-    br,
     p("The timeout expires ", strong(secondsFromNow(ban.remainingSeconds)), "."),
     h2("Why?"),
     p(
@@ -111,8 +110,6 @@ object bits {
       li("Try to win (or at least draw) every game you play"),
       li("Resign lost games (don't let the clock run down)")
     ),
-    br,
-    br,
     p(
       "We apologize for the temporary inconvenience,", br,
       "and wish you great games on lichess.org.", br,
@@ -121,7 +118,7 @@ object bits {
   )
 
   def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) = nopeInfo(
-    h2("Hang on!"),
+    h1("Hang on!"),
     p("You have a game in progress with ", strong(current.opponent), "."),
     br, br,
     a(cls := "text button button-fat", dataIcon := "G", href := routes.Round.player(current.pov.fullId))("Join the game"),
@@ -147,7 +144,7 @@ object bits {
   def nopeInfo(content: Modifier*) = frag(
     div(cls := "lobby__app"),
     div(cls := "lobby__nope")(
-      div(cls := "lobby__app__content")(content)
+      st.section(cls := "lobby__app__content")(content)
     )
   )
 

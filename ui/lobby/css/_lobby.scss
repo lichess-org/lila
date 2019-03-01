@@ -1,6 +1,6 @@
 @mixin lobby-app-size {
   height: 700px;
-  max-height: 90vh;
+  max-height: calc(100vh - #{$site-header-height} - #{$block-gap});
 }
 
 @import 'layout';
@@ -42,7 +42,7 @@
     @extend %flex-column;
     height: 100%;
     align-items: center;
-    justify-content: center;
+    padding-top: 2em;
   }
   ul {
     margin: .6em auto;
