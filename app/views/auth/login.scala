@@ -25,7 +25,7 @@ object login {
         h1(trans.signIn.frag()),
         st.form(
           cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.map { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}",
+          action := s"${routes.Auth.authenticate}${referrer.?? { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}",
           method := "post"
         )(
             div(cls := "one-factor")(

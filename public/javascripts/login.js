@@ -1,5 +1,7 @@
+var selector = '.auth-login form';
+
 $(function() {
-  load($('form.login'));
+  load($(selector));
 });
 
 function load($f) {
@@ -24,8 +26,8 @@ function load($f) {
         else lichess.redirect(res.startsWith('ok:') ? res.substr(3) : '/');
       },
       error: function(err) {
-        $f.replaceWith($(err.responseText).find('form.login'));
-        load($('form.login'));
+        $f.replaceWith($(err.responseText).find(selector));
+        load($(selector));
       }
     });
     return false;

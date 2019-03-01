@@ -31,7 +31,7 @@ object bits {
           )(
               form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")),
               views.html.base.captcha(form, captcha),
-              form3.action(form3.submit(trans.emailMeALink.frag(), icon = "F".some))
+              form3.action(form3.submit(trans.emailMeALink.frag()))
             )
         )
       }
