@@ -4,22 +4,28 @@
   margin-top: 2em;
 }
 .auth {
-  &-login {
+  width: 100%;
+  margin: auto;
+
+  .button {
     width: 100%;
+    padding: 1rem;
+  }
+
+  .alternative {
+    margin-top: 2rem;
+    font-size: .9em;
+    @extend %flex-between;
+  }
+
+  &-login {
     @include breakpoint($mq-xx-small) {
       width: 30em;
     }
-    margin: auto;
-
-    .button {
-      width: 100%;
-      padding: 1rem;
-    }
-
-    .alternative {
-      margin-top: 2rem;
-      font-size: .9em;
-      @extend %flex-between;
+  }
+  &-signup {
+    @include breakpoint($mq-xx-small) {
+      width: 40em;
     }
   }
 }

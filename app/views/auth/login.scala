@@ -21,29 +21,27 @@ object login {
     responsive = true,
     moreCss = responsiveCssTag("auth")
   ) {
-      main(cls := "auth")(
-        div(cls := "auth-login box box-pad")(
-          h1(trans.signIn.frag()),
-          st.form(
-            cls := "form3",
-            action := s"${routes.Auth.authenticate}${referrer.map { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}",
-            method := "post"
-          )(
-              div(cls := "one-factor")(
-                form3.globalError(form),
-                auth.formFields(form("username"), form("password"), none, register = false),
-                form3.submit(trans.signIn.frag(), icon = none)
-              ),
-              div(cls := "two-factor none")(
-                form3.group(form("token"), raw("Authentication code"), help = Some(twoFactorHelp))(form3.input(_)(autocomplete := "off", pattern := "[0-9]{6}")),
-                p(cls := "error none")("Invalid code."),
-                form3.submit(trans.signIn.frag(), icon = none)
-              )
+      main(cls := "auth auth-login box box-pad")(
+        h1(trans.signIn.frag()),
+        st.form(
+          cls := "form3",
+          action := s"${routes.Auth.authenticate}${referrer.map { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}",
+          method := "post"
+        )(
+            div(cls := "one-factor")(
+              form3.globalError(form),
+              auth.formFields(form("username"), form("password"), none, register = false),
+              form3.submit(trans.signIn.frag(), icon = none)
             ),
-          div(cls := "alternative")(
-            a(href := routes.Auth.signup())(trans.signUp.frag()),
-            a(href := routes.Auth.passwordReset())(trans.passwordReset.frag())
-          )
+            div(cls := "two-factor none")(
+              form3.group(form("token"), raw("Authentication code"), help = Some(twoFactorHelp))(form3.input(_)(autocomplete := "off", pattern := "[0-9]{6}")),
+              p(cls := "error none")("Invalid code."),
+              form3.submit(trans.signIn.frag(), icon = none)
+            )
+          ),
+        div(cls := "alternative")(
+          a(href := routes.Auth.signup())(trans.signUp.frag()),
+          a(href := routes.Auth.passwordReset())(trans.passwordReset.frag())
         )
       )
     }

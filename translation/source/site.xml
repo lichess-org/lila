@@ -163,7 +163,6 @@
   <string name="username">User name</string>
   <string name="usernameOrEmail">User name or email</string>
   <string name="password">Password</string>
-  <string name="haveAnAccount">Have an account?</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
