@@ -425,7 +425,7 @@ module.exports = function(cfg, element) {
       url: $(this).attr('href'),
       success: function(html) {
         prepareForm($.modal(html, 'game-setup', () => {
-          $startButtons.find('.active').removeClass('active');
+          $startButtons.find('.active-g').removeClass('active-g');
         }));
         lidraughts.pubsub.emit('content_loaded')();
       },
@@ -434,7 +434,7 @@ module.exports = function(cfg, element) {
         lidraughts.reload();
       }
     });
-    $(this).addClass('active').siblings().removeClass('active');
+    $(this).addClass('active-g').siblings().removeClass('active-g');
     return false;
   }).on('click', function() {
     return false;

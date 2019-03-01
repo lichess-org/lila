@@ -1,14 +1,16 @@
 .now-playing {
-  padding: 4px 0 0 4px;
-  display: flex;
-  flex-flow: row wrap;
-  > a {
-    flex: 0 0 33.33%;
-    padding: 4px;
+  padding: .3em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+  a {
+    color: $c-font;
+    padding: .3em;
     @include transition(background);
-    background: rgba(255, 255, 255, 0.6);
+    background: fade-out($c-bg-box, 0.6);
     &:hover {
-      background: rgba(191, 231, 255, 0.7);
+      @extend %box-radius;
+      background: fade-out($c-link, 0.6);
+      color: $c-font-clear;
     }
   }
   .meta {
