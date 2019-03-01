@@ -5,8 +5,8 @@ import play.twirl.api.Html
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.hub.actorApi.timeline._
 import lidraughts.common.String.html.escapeHtml
+import lidraughts.hub.actorApi.timeline._
 
 import controllers.routes
 
@@ -20,18 +20,22 @@ object timeline {
     )
 
   def more(entries: Vector[lidraughts.timeline.Entry])(implicit ctx: Context) =
-    base.layout(title = trans.timeline.txt(), moreCss = cssTag("timeline.css"))(
-      div(id := "timeline_more", cls := "content_box small_box no_padding")(
-        h1(trans.timeline()),
-        table(cls := "datatable")(
-          tbody(
-            filterEntries(entries) map { e =>
-              tr(td(entry(e)))
-            }
+    base.layout(
+      title = trans.timeline.txt(),
+      responsive = true,
+      moreCss = responsiveCssTag("slist")
+    )(
+        main(cls := "timeline page-small box")(
+          h1(trans.timeline.frag()),
+          table(cls := "slist slist-pad")(
+            tbody(
+              filterEntries(entries) map { e =>
+                tr(td(entry(e)))
+              }
+            )
           )
         )
       )
-    )
 
   private def filterEntries(entries: Vector[lidraughts.timeline.Entry])(implicit ctx: Context) =
     if (ctx.noKid) entries
