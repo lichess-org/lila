@@ -6,12 +6,14 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
+import controllers.routes
+
 object bits {
 
   def layout(
     title: String,
     moreJs: Html = emptyHtml,
-    moreCss: Html = emptyHtml,
+    moreCss: String,
     side: Option[Html] = None,
     chat: Option[Frag] = None,
     underchat: Option[Frag] = None,
@@ -20,7 +22,8 @@ object bits {
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("tournament.css"), moreCss),
+      responsive = true,
+      moreCss = responsiveCssTag(moreCss),
       moreJs = moreJs,
       side = side,
       chat = chat,
@@ -41,4 +44,18 @@ object bits {
       ))(gameEndStatus(pov.game))
     )
   )
+
+  def notFound()(implicit ctx: Context) =
+    views.html.base.layout(title = trans.tournamentNotFound.txt()) {
+      div(id := "tournament")(
+        div(cls := "content_box small_box faq_page")(
+          h1(trans.tournamentNotFound.frag()),
+          p(trans.tournamentDoesNotExist.frag()),
+          p(trans.tournamentMayHaveBeenCanceled.frag()),
+          br,
+          br,
+          a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage.frag())
+        )
+      )
+    }.toHtml
 }

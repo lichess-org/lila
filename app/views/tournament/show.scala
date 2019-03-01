@@ -40,7 +40,7 @@ chat: ${
           safeJsonValue(chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))
       }};""")
     ),
-    moreCss = cssTags(List("chat.css" -> true, "quote.css" -> tour.isCreated)),
+    moreCss = "tournament",
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",

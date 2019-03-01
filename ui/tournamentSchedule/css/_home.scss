@@ -1,0 +1,40 @@
+@import 'layout';
+@import 'side';
+@import 'schedule';
+
+#tournament_list table.slist {
+  line-height: 2.3em;
+}
+#tournament_list table.slist td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#tournament_list table.slist td.duration {
+  white-space: nowrap;
+}
+#tournament_list table.slist .header {
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  padding: 0!important;
+}
+#tournament_list table.slist .header:hover {
+  transform: translateX(3px);
+}
+#tournament_list table.slist .header a {
+  padding: 1em;
+  display: block;
+}
+#tournament_list table.slist .name {
+  letter-spacing: 3px;
+  font-size: 1.7em;
+  display: block;
+}
+#tournament_list .icon i {
+  font-size: 4em;
+  opacity: 0.6;
+}
+#tournament_list .scheduled .icon i {
+  color: #d59120;
+  opacity: 0.8;
+}

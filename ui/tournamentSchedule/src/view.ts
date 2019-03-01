@@ -208,13 +208,13 @@ export default function(ctrl) {
         .concat([userTours])
     ).filter(lane => lane.length > 0);
 
-    return h('div#tournament_schedule', [
-      h('div.schedule.dragscroll', {
+    return h('div.tour__schedule__chart', [
+      h('div.tour__schedule__chart__inner.dragscroll', {
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLElement;
             const bitLater = now + 15 * 60 * 1000;
-            el.scrollLeft = leftPos(bitLater - el.clientWidth / 2 / scale * 60 * 1000);
+            el.scrollLeft = leftPos(bitLater - el.clientWidth / 2.5 / scale * 60 * 1000);
           }
         }
       }, [
