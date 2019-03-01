@@ -16,7 +16,7 @@ interface Promoting {
 let promoting: Promoting | undefined;
 let prePromotionRole: cg.Role | undefined;
 
-function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key, role: cg.Role, meta: cg.MoveMetadata): boolean {
+export function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key, role: cg.Role, meta: cg.MoveMetadata): boolean {
   ground.promote(ctrl.chessground, dest, role);
   ctrl.sendMove(orig, dest, role, meta);
   return true;

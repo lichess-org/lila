@@ -4,6 +4,7 @@ import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
+import { sendPromotion } from './promotion'
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
 
@@ -12,9 +13,10 @@ interface SanMap {
 }
 
 export interface KeyboardMove {
-  drop(orig: cg.Key, piece: string): void
+  drop(key: cg.Key, piece: string): void;
+  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
   update(step: Step): void;
-  registerHandler(h: KeyboardMoveHandler): void
+  registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
   san(orig: cg.Key, dest: cg.Key): void;
@@ -29,6 +31,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   const cgState = root.chessground.state;
+  const sanMap = sanToRole as SanMap;
   const select = function(key: cg.Key): void {
     if (cgState.selected === key) root.chessground.cancelMove();
     else root.chessground.selectSquare(key, true);
@@ -36,17 +39,23 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let usedSan = false;
   return {
     drop(key, piece) {
-      const role = (sanToRole as SanMap)[piece];
+      const role = sanMap[piece];
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
-      // Piece not in Pocket
-      if (!role || !crazyData || !crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       // Square occupied
-      if (cgState.pieces[key]) return;
+      if (!role || !crazyData || cgState.pieces[key]) return;
+      // Piece not in Pocket
+      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       if (!crazyValid(root.data, role, key)) return;
       root.chessground.cancelMove();
       root.chessground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);
+    },
+    promote(orig, dest, piece) {
+      const role = sanMap[piece];
+      if (!role || role == 'pawn') return;
+      root.chessground.cancelMove();
+      sendPromotion(root, orig, dest, role, {premove: false});
     },
     update(step) {
       if (handler) handler(step.fen, cgState.movable.dests);
@@ -93,7 +102,8 @@ export function render(ctrl: KeyboardMove) {
               hasSelected: ctrl.hasSelected,
               confirmMove: ctrl.confirmMove,
               san: ctrl.san,
-              drop: ctrl.drop
+              drop: ctrl.drop,
+              promote: ctrl.promote
             }));
           });
         }
