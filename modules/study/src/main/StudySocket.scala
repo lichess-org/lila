@@ -77,7 +77,7 @@ final class StudySocket(
         pos.chapterId.value.some
       )
       notifyVersion("addNode", Json.obj(
-        "n" -> TreeBuilder.toBranch(node),
+        "n" -> TreeBuilder.toBranch(node, variant),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
