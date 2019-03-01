@@ -79,7 +79,7 @@ final class StudySocket(
         node.move.uci.uci.some
       )
       notifyVersion("addNode", Json.obj(
-        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node)),
+        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
