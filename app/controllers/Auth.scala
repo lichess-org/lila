@@ -344,7 +344,7 @@ object Auth extends LilaController {
 
   def passwordReset = Open { implicit ctx =>
     forms.passwordResetWithCaptcha map {
-      case (form, captcha) => Ok(html.auth.passwordReset(form, captcha))
+      case (form, captcha) => Ok(html.auth.bits.passwordReset(form, captcha))
     }
   }
 
@@ -352,7 +352,7 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     forms.passwordReset.bindFromRequest.fold(
       err => forms.anyCaptcha map { captcha =>
-        BadRequest(html.auth.passwordReset(err, captcha, false.some))
+        BadRequest(html.auth.bits.passwordReset(err, captcha, false.some))
       },
       data => {
         UserRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
@@ -363,7 +363,7 @@ object Auth extends LilaController {
           case _ => {
             lila.mon.user.auth.passwordResetRequest("no_email")()
             forms.passwordResetWithCaptcha map {
-              case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+              case (form, captcha) => BadRequest(html.auth.bits.passwordReset(form, captcha, false.some))
             }
           }
         }
