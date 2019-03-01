@@ -9,6 +9,10 @@
   @include breakpoint($mq-xx-small) {
     display: block;
   }
+  @include breakpoint($mq-topnav-hidden) {
+    /* move away from hamburger */
+    margin-left: calc(.5rem + #{$site-header-height});
+  }
   @include breakpoint($mq-site-header-tall) {
     font-size: 30px;
     line-height: #{$site-header-tall-height - 3};
