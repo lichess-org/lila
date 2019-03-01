@@ -98,13 +98,11 @@ object home {
               // userTimeline.size >= 8 option
               a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
             )
-          } getOrElse {
-            div(cls := "about-side")(
-              trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
-              " ",
-              a(cls := "blue", href := "/about")(trans.aboutX.frag("lidraughts.org"), "...")
-            )
-          }
+          } getOrElse div(cls := "about-side")(
+            trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
+            " ",
+            a(cls := "blue", href := "/about")(trans.aboutX.frag("lidraughts.org"), "...")
+          )
         ),
         featured map { g =>
           div(cls := "lobby__tv")(
