@@ -1,0 +1,156 @@
+.tour__schedule__chart {
+  min-height: 400px;
+  position: relative;
+  user-select: none;
+  .spinner {
+    width: 120px;
+    height: 120px;
+    padding-top: 120px;
+    opacity: 0.7;
+  }
+  &__inner {
+    position: relative;
+    overflow-x: scroll;
+    padding-top: 30px;
+    border-top: $border;
+    cursor: move;
+  }
+  .tournament {
+    @extend %box-neat, %flex-center;
+    position: absolute;
+    padding: 4px 0;
+    background-color: #303E43;
+    transition: filter 0.13s;
+    color: #fff;
+    white-space: nowrap;
+    font-size: 13px;
+  }
+  .tournament.joinable:hover {
+    filter: brightness(1.08);
+  }
+  .timeline {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+  .tournamentline {
+    position: relative;
+    height: 3em;
+  }
+  .tournamentline.large {
+    height: 5em;
+  }
+  .timeheader {
+    position: absolute;
+    display: inline;
+    box-sizing: border-box;
+    height: 100%;
+    border-left: 1px dashed #bbb;
+    padding: 2px 5px;
+  }
+  .timeheader.hour {
+    font-weight: bold;
+    border-left-style: solid;
+  }
+  .timeheader.now {
+    top: 1.7em;
+    height: calc(100% - 1.7em);
+    margin-left: 1px;
+    border-left: 2px dashed #d85000!important;
+  }
+  .tournament.finished {
+    opacity: 0.7;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+  }
+  .tournament.user-created {
+    background-color: #888;
+  }
+  .tournament.hourly {
+    background-color: #3D9333;
+  }
+  .tournament.daily,
+  .tournament.eastern {
+    background-color: #0072B2;
+  }
+  @keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 0 1000%; }
+  }
+  .tournament.weekly,
+  .tournament.weekend,
+  .tournament.monthly,
+  .tournament.marathon,
+  .tournament.yearly {
+    text-shadow: 0 0 2px rgba(0,0,0,0.7);
+    letter-spacing: 1px;
+    background-image: url(../images/grain.png);
+    animation: animatedBackground 50s linear infinite;
+  }
+  .tournament.weekly {
+    background-color: #D55E00;
+  }
+  .tournament.monthly {
+    background-color: #C93D3D;
+  }
+  .tournament.yearly,
+  .tournament.weekend {
+    background-color: #d59120;
+  }
+  .tournament.marathon {
+    background-color: #66558C;
+  }
+  .tournament.unique {
+    background-color: #d59120;
+  }
+  .tournament.max-rating {
+    background-color: #8572ff;
+  }
+  .tournament.short.thematic {
+    letter-spacing: -1px;
+  }
+  .tournament span {
+    margin-right: 4px;
+  }
+  .icon {
+    font-size: 1.3em;
+    margin: -4px 2px -1px 4px;
+  }
+  .tournament .body {
+    flex: 1 0;
+    margin-right: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .name {
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: top;
+    max-width: 66%;
+  }
+  .infos {
+    display: inline-flex;
+  }
+  .infos .text {
+    flex: 1 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .infos .nb-players {
+    flex: 0 0 auto;
+  }
+
+  .large .icon {
+    font-size: 2.4em;
+    margin: -6px 4px 0 4px;
+  }
+  .large .name {
+    display: block;
+    max-width: none;
+  }
+  .large .name {
+    display: flex;
+  }
+}

@@ -16,67 +16,74 @@ object home {
     winners: lidraughts.tournament.AllWinners,
     json: play.api.libs.json.JsObject
   )(implicit ctx: Context) =
-    bits.layout(
+    views.html.base.layout(
       title = trans.tournaments.txt(),
+      moreCss = responsiveCssTag("tournament.home"),
+      wrapClass = "full-screen-force",
+      responsive = true,
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lidraughts.tournamentSchedule${isProd ?? (".min")}.js"),
-        embedJs(s"""var app=LidraughtsTournamentSchedule.app(document.getElementById('tournament_schedule'), {
+        embedJs(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour__schedule__chart'), {
 data: ${safeJsonValue(json)},
 i18n: ${jsI18n()}
 });
 var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;""")
       ),
-      side = Some(frag(
-        div(cls := "tournament_home_side")(
-          div(cls := "tournament_links")(
-            a(dataIcon := "", cls := "text", href := routes.Tournament.help("arena".some))(trans.tournamentFAQ()),
-            br, br,
-            ctx.me map { me =>
-              frag(
-                a(href := routes.UserTournament.path(me.username, "created"))(trans.myTournaments()),
-                br
-              )
-            },
-            a(href := routes.Tournament.calendar)(trans.tournamentCalendar())
-          ),
-          h2(cls := "leaderboard_title")(
-            a(href := routes.Tournament.leaderboard)(trans.leaderboard())
-          )
-        ),
-        ul(cls := "tournament_leaderboard")(
-          winners.top.map { w =>
-            li(
-              userIdLink(w.userId.some),
-              a(title := w.tourName, href := routes.Tournament.show(w.tourId))(scheduledTournamentNameShortHtml(w.tourName))
-            )
-          }
-        ),
-        h2(cls := "leaderboard_title")(trans.lidraughtsTournaments()),
-        div(cls := "scheduled_tournaments")(
-          scheduled.map { tour =>
-            tour.schedule.filter(s => s.freq != lidraughts.tournament.Schedule.Freq.Hourly) map { s =>
-              a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
-                strong(tour.name),
-                momentFromNow(s.at)
-              )
-            }
-          }
-        )
-      )),
       openGraph = lidraughts.app.ui.OpenGraph(
         url = s"$netBaseUrl${routes.Tournament.home().url}",
         title = trans.tournamentHomeTitle.txt(),
         description = trans.tournamentHomeDescription.txt()
       ).some
     ) {
-        div(cls := "content_box tournament_box no_padding")(
-          div(cls := "create_tournament")(
-            ctx.isAuth option a(href := routes.Tournament.form(), cls := "button")(trans.createANewTournament())
+        main(cls := "tour-home")(
+          st.aside(cls := "tour-home__side")(
+            p(
+              ctx.me map { me =>
+                frag(
+                  a(href := routes.UserTournament.path(me.username, "created"))(trans.myTournaments()),
+                  br
+                )
+              },
+              a(href := "/tournament/calendar")(trans.tournamentCalendar()),
+              br,
+              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
+            ),
+            h2(
+              a(href := routes.Tournament.leaderboard)(trans.leaderboard.frag())
+            ),
+            ul(cls := "leaderboard")(
+              winners.top.map { w =>
+                li(
+                  userIdLink(w.userId.some),
+                  a(title := w.tourName, href := routes.Tournament.show(w.tourId))(scheduledTournamentNameShortHtml(w.tourName))
+                )
+              }
+            ),
+            h2(trans.lidraughtsTournaments.frag()),
+            div(cls := "scheduled")(
+              scheduled.map { tour =>
+                tour.schedule.filter(s => s.freq != lidraughts.tournament.Schedule.Freq.Hourly) map { s =>
+                  a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
+                    strong(tour.name),
+                    momentFromNow(s.at)
+                  )
+                }
+              }
+            )
           ),
-          h1(trans.tournaments()),
-          div(id := "tournament_schedule"),
-          div(id := "tournament_list")(
+          st.section(cls := "tour__schedule box")(
+            div(cls := "box__top")(
+              h1(trans.tournaments()),
+              ctx.isAuth option div(cls := "box__top__actions")(a(
+                href := routes.Tournament.form(),
+                cls := "button",
+                title := trans.createANewTournament.txt()
+              )("+"))
+            ),
+            div(cls := "tour__schedule__chart")
+          ),
+          div(id := "tournament_list", "tour__list")(
             table(cls := "slist finished")(
               thead(
                 tr(

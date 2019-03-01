@@ -8,9 +8,9 @@
 @jsTag("tournamentForm.js")
 }
 
-@tournament.bits.layout(
+@base.layout(
 title = trans.newTournament.txt(),
-moreCss = cssTags("flatpickr.css", "form3.css", "tournament.form.css"),
+moreCss = responsiveCssTag("tournament.form"),
 moreJs = moreJs) {
 <div id="tournament">
   <div class="content_box small_box tournament_box">
