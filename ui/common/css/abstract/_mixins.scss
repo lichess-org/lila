@@ -43,3 +43,10 @@
     }
   }
 }
+
+/* atm only chrome supports min-content, max-content */
+@mixin proper-grid {
+  @supports (height: max-content) {
+    @content;
+  }
+}

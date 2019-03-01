@@ -1,9 +1,18 @@
+.lobby__app-pools {
+  height: 300px;
+  @include breakpoint($mq-col2) {
+    height: 400px;
+  }
+  @include breakpoint($mq-col3) {
+    height: 700px;
+  }
+}
+
 .lpools {
   @extend %roboto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* 1fr doesn't scale vertically because of .lobby__app min-height */
-  grid-template-rows: repeat(3, calc(100% / 3 - 9px * 2 / 3));
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 9px;
   @include fluid-size('font-size', 16px, 29px);
   > div {

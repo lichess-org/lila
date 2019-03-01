@@ -4,7 +4,7 @@
   align-items: flex-end;
   border-bottom: 2px solid $c-border;
   span {
-    @extend %roboto;
+    @extend %roboto, %break-word;
     flex: 1 1 auto;
     text-align: center;
     padding: .5em .2em;
@@ -12,6 +12,11 @@
     position: relative;
     color: $c-font-page;
     @include transition(color, .25s);
+    min-width: 15%;
+    letter-spacing: -.5px;
+    @include breakpoint($mq-xx-small) {
+      letter-spacing: inherit;
+    }
     &::after {
       content: '';
       background: fade-out($c-accent, .4);
