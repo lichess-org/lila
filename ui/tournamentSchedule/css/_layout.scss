@@ -13,7 +13,7 @@
     grid-template-areas:
     'side schedule'
     'side finished'
-    '.    finished';
+    'side .';
   }
 
   &__side { grid-area: side }
