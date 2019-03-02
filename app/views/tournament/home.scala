@@ -24,7 +24,7 @@ object home {
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lidraughts.tournamentSchedule${isProd ?? (".min")}.js"),
-        embedJs(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour__schedule__chart'), {
+        embedJs(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour-chart'), {
 data: ${safeJsonValue(json)},
 i18n: ${jsI18n()}
 });
@@ -72,7 +72,7 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
               }
             )
           ),
-          st.section(cls := "tour__schedule box")(
+          st.section(cls := "tour-home__schedule box")(
             div(cls := "box__top")(
               h1(trans.tournaments()),
               ctx.isAuth option div(cls := "box__top__actions")(a(
@@ -81,10 +81,10 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
                 title := trans.createANewTournament.txt()
               )("+"))
             ),
-            div(cls := "tour__schedule__chart")
+            div(cls := "tour-chart")
           ),
-          div(cls := "tour__list box")(
-            table(cls := "slist finished")(
+          div(cls := "tour-home__list box")(
+            table(cls := "slist")(
               thead(
                 tr(
                   th(colspan := 2, cls := "large")(trans.finished()),

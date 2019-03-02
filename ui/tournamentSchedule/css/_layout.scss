@@ -1,22 +1,23 @@
 .tour-home {
   display: grid;
 
+  &__side { grid-area: side; margin: 0 $block-gap }
+  &__schedule { grid-area: schedule }
+  &__list { grid-area: list; display: none }
+
   grid-gap: $block-gap;
 
   grid-template-areas:
   'schedule'
-  'side'
-  'finished';
+  'side';
 
   @include breakpoint($mq-medium) {
     grid-template-columns: minmax(200px, 300px);
     grid-template-areas:
     'side schedule'
-    'side finished'
+    'side list'
     'side .';
+    &__side { margin: 0 }
+    &__list { display: block }
   }
-
-  &__side { grid-area: side }
-  &__schedule { grid-area: schedule }
-  &__finished { grid-area: finished }
 }
