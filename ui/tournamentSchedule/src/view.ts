@@ -207,8 +207,8 @@ export default function(ctrl) {
         .concat([userTours])
     ).filter(lane => lane.length > 0);
 
-    return h('div.tour__schedule__chart', [
-      h('div.tour__schedule__chart__inner.dragscroll', {
+    return h('div.tour-chart', [
+      h('div.tour-chart__inner.dragscroll', {
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLElement;
