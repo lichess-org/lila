@@ -14,7 +14,7 @@ function scoreTag(s) {
 
 function playerTr(ctrl: TournamentController, player) {
   const userId = player.name.toLowerCase(),
-  nbScores = player.sheet.scores.length;
+    nbScores = player.sheet.scores.length;
   return h('tr', {
     key: userId,
     class: {
@@ -83,24 +83,25 @@ function preloadUserTips(el: HTMLElement) {
   window.lichess.powertip.manualUserIn(el);
 }
 
-export function standing(ctrl: TournamentController, pag, klass?: string) {
+export function controls(ctrl: TournamentController, pag): VNode {
+  return h('div.tour__controls', [
+    h('div.pager', pagination.renderPager(ctrl, pag)),
+    button.joinWithdraw(ctrl)
+  ]);
+}
+
+export function standing(ctrl: TournamentController, pag, klass?: string): VNode {
   const tableBody = pag.currentPageResults ?
     pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
-  return h('div.standing_wrap', [
-    h('div.controls', [
-      h('div.pager', pagination.renderPager(ctrl, pag)),
-      button.joinWithdraw(ctrl)
-    ]),
-    h('table.slist.standing' + (klass ? '.' + klass : ''), {
-      class: { loading: !pag.currentPageResults },
-    }, [
-      h('tbody', {
-        hook: {
-          insert: vnode => preloadUserTips(vnode.elm as HTMLElement),
-          update(_, vnode) { preloadUserTips(vnode.elm as HTMLElement) }
-        }
-      }, tableBody)
-    ])
+  return h('table.slist.tour__standing' + (klass ? '.' + klass : ''), {
+    class: { loading: !pag.currentPageResults },
+  }, [
+    h('tbody', {
+      hook: {
+        insert: vnode => preloadUserTips(vnode.elm as HTMLElement),
+        update(_, vnode) { preloadUserTips(vnode.elm as HTMLElement) }
+      }
+    }, tableBody)
   ]);
 }

@@ -17,14 +17,10 @@ object side {
     streamers: Set[lila.user.User.ID],
     shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
   )(implicit ctx: Context) = frag(
-    div(cls := "side_box padded")(
-      div(cls := "game_infos", dataIcon := tour.perfType.map(_.iconChar.toString))(
-        div(cls := "header")(
-          isGranted(_.TerminateTournament) option
-            scalatags.Text.all.form(cls := "terminate", method := "post", action := routes.Tournament.terminate(tour.id), style := "float:right")(
-              button(dataIcon := "j", cls := "submit text fbt confirm", `type` := "submit", title := "Terminates the tournament immediately")
-            ),
-          span(cls := "setup")(
+    div(cls := "tour__meta")(
+      st.section(dataIcon := tour.perfType.map(_.iconChar.toString))(
+        div(
+          p(
             tour.clock.show,
             separator,
             if (tour.variant.exotic) {
@@ -37,15 +33,17 @@ object side {
             separator,
             tour.durationString
           ),
-          tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+          tour.mode.fold(trans.casualTournament, trans.ratedTournament).frag(),
           separator,
           systemName(tour.system).capitalize,
-          " ",
-          a(cls := "blue help", href := routes.Tournament.help(tour.system.toString.toLowerCase.some), dataIcon := "")
+          isGranted(_.TerminateTournament) option
+            scalatags.Text.all.form(cls := "terminate", method := "post", action := routes.Tournament.terminate(tour.id))(
+              button(dataIcon := "j", cls := "fbt fbt-red confirm", `type` := "submit", title := "Terminates the tournament immediately")
+            )
         )
       ),
       tour.spotlight map { s =>
-        div(cls := "game_infos spotlight")(
+        st.section(
           lila.common.String.html.markdownLinks(s.description),
           shieldOwner map { owner =>
             p(cls := "defender", dataIcon := "5")(
@@ -55,12 +53,12 @@ object side {
           }
         )
       },
-      verdicts.relevant option div(dataIcon := "7", cls := List(
-        "game_infos conditions" -> true,
+      verdicts.relevant option st.section(dataIcon := "7", cls := List(
+        "conditions" -> true,
         "accepted" -> (ctx.isAuth && verdicts.accepted),
         "refused" -> (ctx.isAuth && !verdicts.accepted)
-      ))(
-        (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
+      ))(div(
+        (verdicts.list.size < 2) option p(trans.conditionOfEntry.frag()),
         verdicts.list map { v =>
           p(cls := List(
             "condition text" -> true,
@@ -68,15 +66,13 @@ object side {
             "refused" -> !v.verdict.accepted
           ))(v.condition.name(ctx.lang))
         }
-      ),
+      )),
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
-      !tour.isStarted option absClientDateTime(tour.startsAt),
-      (!tour.position.initial) ?? frag(
-        br, br,
+      !tour.isScheduled option frag(trans.by.frag(usernameOrId(tour.createdBy)), br),
+      (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(tour.startsAt),
+      !tour.position.initial option p(
         a(target := "_blank", href := tour.position.url)(
-          strong(tour.position.eco),
-          s" ${tour.position.name}"
+          strong(tour.position.eco), " ", tour.position.name
         )
       )
     ),

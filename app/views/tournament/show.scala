@@ -20,10 +20,8 @@ object show {
     chatOption: Option[lila.chat.UserChat.Mine],
     streamers: Set[lila.user.User.ID],
     shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
-  )(implicit ctx: Context) = bits.layout(
+  )(implicit ctx: Context) = views.html.base.layout(
     title = s"${tour.fullName} #${tour.id}",
-    side = Some(tournament.side(tour, verdicts, streamers, shieldOwner)),
-    chat = chat.frag.some,
     underchat = Some(div(
       cls := "watchers hidden",
       aria.live := "off",
@@ -31,16 +29,17 @@ object show {
     )(span(cls := "list inline_userlist"))),
     moreJs = frag(
       jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
-      embedJs(s"""lichess = lichess || {}; lichess.tournament = {
-data: ${safeJsonValue(data)},
-i18n: ${jsI18n()},
-userId: ${jsUserIdString},
-chat: ${
+      embedJs(s"""lichess=lichess||{};lichess.tournament={
+data:${safeJsonValue(data)},
+i18n:${jsI18n()},
+userId:${jsUserIdString},
+chat:${
         chatOption.fold("null")(c =>
           safeJsonValue(chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))
       }};""")
     ),
-    moreCss = "tournament",
+    moreCss = responsiveCssTag("tournament.show"),
+    responsive = true,
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
@@ -52,15 +51,20 @@ chat: ${
         }
     ).some
   )(frag(
-      div(id := "tournament", cls := tour.schedule.map { sched =>
-        s"scheduled ${sched.freq.name} ${sched.speed.name} ${sched.variant.key} id_${tour.id}"
-      })(
-        div(cls := "content_box no_padding tournament_box tournament_show")(
-          div(cls := "content_box_content")(spinner)
+      main(cls := s"tour${
+        tour.schedule.?? { sched =>
+          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+        }
+      }")(
+        st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner)),
+        chatOption.map(_ => views.html.chat.frag),
+        div(cls := "tour__main box"),
+        div(cls := "tour__featured"),
+        div(cls := "tour__player box"),
+        tour.isCreated option div(cls := "tour__faq")(
+          faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
         )
       ),
-      tour.isCreated option div(id := "tournament_faq", cls := "none")(
-        faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
-      )
+      div(cls := "tour__underchat none")(views.html.game.bits.watchers)
     ))
 }

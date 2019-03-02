@@ -7,7 +7,7 @@ function miniGame(game) {
     m('a', {
       key: game.id,
       href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
-      class: 'mini_board live_' + game.id + ' parse_fen is2d',
+      class: 'mini-board live-' + game.id + ' parse-fen is2d',
       'data-color': game.color,
       'data-fen': game.fen,
       'data-lastmove': game.lastMove,

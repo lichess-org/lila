@@ -79,7 +79,7 @@ trait DateHelper { self: I18nHelper =>
     s"""<time class="timeago${if (once) " once" else ""}" datetime="${isoDate(date)}"></time>"""
   }
   def absClientDateTime(date: DateTime) = Html {
-    s"""<time class="timeago abs" datetime="${isoDate(date)}"></time>"""
+    s"""<time class="timeago abs" datetime="${isoDate(date)}">-</time>"""
   }
   def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
 

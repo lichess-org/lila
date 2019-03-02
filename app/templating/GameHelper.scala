@@ -217,7 +217,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val isLive = withLive && game.isBeingPlayed
     val href = withLink ?? s"""href="${gameLink(game, pov.color, ownerLink, tv)}""""
     val title = withTitle ?? s"""title="${gameTitle(game, pov.color)}""""
-    val cssClass = isLive ?? ("live live_" + game.id)
+    val cssClass = isLive ?? ("live live-" + game.id)
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.board
     val lastMove = ~game.lastMoveKeys
@@ -234,7 +234,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       blank ?? netBaseUrl,
       if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name),
       gameTitle(pov.game, pov.color),
-      isLive ?? ("live live_" + pov.gameId),
+      isLive ?? ("live live-" + pov.gameId),
       isLive ?? pov.gameId,
       pov.color.name,
       Forsyth exportBoard pov.game.board,

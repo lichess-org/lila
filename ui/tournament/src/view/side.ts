@@ -5,25 +5,24 @@ import { player as renderPlayer, miniBoard, bind, dataIcon } from './util';
 import { Duel, DuelPlayer, MaybeVNodes } from '../interfaces';
 import TournamentController from '../ctrl';
 
-function featuredPlayer(f, orientation) {
-  const p = f[orientation === 'top' ? opposite(f.color) : f.color];
-  return h('div.vstext.' + orientation, [
-    p.berserk ? h('i', {
+function featuredPlayer(player) {
+  return h('div.tour__featured__player', [
+    h('strong', '#' + player.rank),
+    renderPlayer(player, true, true, false),
+    player.berserk ? h('i', {
       attrs: {
         'data-icon': '`',
         title: 'Berserk'
       }
-    }) : null,
-    h('strong', '#' + p.rank),
-    renderPlayer(p, true, true, false)
+    }) : null
   ]);
 }
 
 function featured(f): VNode {
-  return h('div.featured', [
-    featuredPlayer(f, 'top'),
+  return h('div.tour__featured', [
+    featuredPlayer(f[opposite(f.color)]),
     miniBoard(f),
-    featuredPlayer(f, 'bottom')
+    featuredPlayer(f[f.color])
   ]);
 }
 

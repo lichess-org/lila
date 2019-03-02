@@ -36,7 +36,7 @@ function clock(d): VNode | undefined {
         }
       })
     ]);
-    return h('div.clock.created', {
+    return h('div.clock.clock-created', {
       hook: startClock(d.secondsToStart)
     }, [
       h('span.shy', 'Starting in '),
@@ -60,7 +60,7 @@ function image(d): VNode | undefined {
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
   if (hasFreq('marathon', d)) return h('h1', [
-    h('span.fire_trophy', '\\'),
+    h('i.fire_trophy', '\\'),
     d.fullName
   ]);
   if (hasFreq('shield', d)) return h('h1', [
@@ -87,7 +87,7 @@ function title(ctrl: TournamentController) {
 }
 
 export default function(ctrl: TournamentController): VNode {
-  return h('div.header', [
+  return h('div.tour__main__header', [
     image(ctrl.data),
     title(ctrl),
     clock(ctrl.data)
