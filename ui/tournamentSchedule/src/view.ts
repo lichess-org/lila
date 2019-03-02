@@ -90,17 +90,17 @@ function tournamentClass(tour) {
   const finished = tour.status === 30,
   userCreated = tour.createdBy !== 'lichess',
   classes = {
-    rated: tour.rated,
-    casual: !tour.rated,
-    finished,
-    joinable: !finished,
-    'user-created': userCreated,
-    'major': tour.major,
-    thematic: !!tour.position,
-    short: tour.minutes <= 30,
-    'max-rating': !userCreated && tour.hasMaxRating
+    'tsht-rated': tour.rated,
+    'tsht-casual': !tour.rated,
+    'tsht-finished': finished,
+    'tsht-joinable': !finished,
+    'tsht-user-created': userCreated,
+    'tsht-major': tour.major,
+    'tsht-thematic': !!tour.position,
+    'tsht-short': tour.minutes <= 30,
+    'tsht-max-rating': !userCreated && tour.hasMaxRating
   };
-  if (tour.schedule) classes[tour.schedule.freq] = true;
+  if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
   return classes;
 }
 
@@ -118,7 +118,7 @@ function renderTournament(ctrl, tour) {
       // cut right overflow to fit viewport and not widen it, for marathons
       width = Math.min(width, leftPos(stopTime) - left);
 
-      return h('a.tournament', {
+      return h('a.tsht', {
         class: tournamentClass(tour),
         attrs: {
           href: '/tournament/' + tour.id,
@@ -149,19 +149,18 @@ function renderTournament(ctrl, tour) {
 }
 
 function renderTimeline() {
-  var minutesBetween = 10;
-  var time = new Date(startTime);
+  const minutesBetween = 10;
+  const time = new Date(startTime);
   time.setSeconds(0);
   time.setMinutes(Math.floor(time.getMinutes() / minutesBetween) * minutesBetween);
 
-  var timeHeaders: VNode[] = [];
-  var count = (stopTime - startTime) / (minutesBetween * 60 * 1000);
-  for (var i = 0; i < count; i++) {
-    var str = timeString(time);
+  const timeHeaders: VNode[] = [];
+  const count = (stopTime - startTime) / (minutesBetween * 60 * 1000);
+  for (let i = 0; i < count; i++) {
     timeHeaders.push(h('div.timeheader', {
-      class: { hour: time.getMinutes() === 0 },
+      class: { hour: !time.getMinutes() },
       attrs: { style: 'left: ' + leftPos(time.getTime()) + 'px' }
-    }, str));
+    }, timeString(time)));
     time.setUTCMinutes(time.getUTCMinutes() + minutesBetween);
   }
   timeHeaders.push(h('div.timeheader.now', {

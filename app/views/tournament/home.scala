@@ -38,10 +38,6 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
     ) {
         main(cls := "tour-home")(
           st.aside(cls := "tour-home__side")(
-            p(
-              a(href := "/tournament/calendar")(trans.tournamentCalendar()), br,
-              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
-            ),
             h2(
               a(href := routes.Tournament.leaderboard)(trans.leaderboard.frag())
             ),
@@ -52,6 +48,10 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
                   a(title := w.tourName, href := routes.Tournament.show(w.tourId))(scheduledTournamentNameShortHtml(w.tourName))
                 )
               }
+            ),
+            p(cls := "tour__links")(
+              a(href := "/tournament/calendar")(trans.tournamentCalendar()), br,
+              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
             ),
             h2(trans.lichessTournaments.frag()),
             div(cls := "scheduled")(
@@ -70,13 +70,13 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
               h1(trans.tournaments()),
               ctx.isAuth option div(cls := "box__top__actions")(a(
                 href := routes.Tournament.form(),
-                cls := "button",
+                cls := "button button-green",
                 title := trans.createANewTournament.txt()
               )("+"))
             ),
             div(cls := "tour__schedule__chart")
           ),
-          div(id := "tournament_list", "tour__list")(
+          div(cls := "tour__list box")(
             table(cls := "slist finished")(
               thead(
                 tr(

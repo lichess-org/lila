@@ -218,6 +218,7 @@ module.exports = function(cfg, element) {
       var key;
       switch ($variantSelect.val()) {
         case '1':
+        case '3':
           if (timeMode == '1') {
             var time = $timeInput.val() * 60 + $incrementInput.val() * 40;
             if (time < 30) key = 'ultraBullet';
