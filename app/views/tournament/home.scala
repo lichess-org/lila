@@ -56,7 +56,7 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
                   br
                 )
               },
-              a(href := "/tournament/calendar")(trans.tournamentCalendar()), 
+              a(href := "/tournament/calendar")(trans.tournamentCalendar()),
               br,
               a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
             ),
