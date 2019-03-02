@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { standing } from './arena';
+import { controls, standing } from './arena';
 import header from './header';
 import tourSide from './side';
 import playerInfo from './playerInfo';
@@ -22,17 +22,19 @@ function joinTheGame(ctrl: TournamentController, gameId: string) {
 }
 
 function notice(ctrl: TournamentController): VNode {
-  return tour.willBePaired(ctrl) ? h('div.notice.wait',
+  return tour.willBePaired(ctrl) ? h('div.tour__notice.bar-glider',
     ctrl.trans('standByX', ctrl.data.me.username)
-  ) : h('div.notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
+  ) : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
 }
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const gameId = ctrl.myGameId();
+  const gameId = ctrl.myGameId(),
+    pag = pagination.players(ctrl);
   return [
     header(ctrl),
     gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),
-    standing(ctrl, pagination.players(ctrl))
+    controls(ctrl, pag),
+    standing(ctrl, pag, 'created'),
   ];
 }
 

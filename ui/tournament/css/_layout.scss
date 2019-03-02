@@ -1,0 +1,26 @@
+#main-wrap {
+  --main-max-width: auto;
+}
+
+.tour {
+
+  display: grid;
+
+  &__side { grid-area: side }
+  &__underchat { grid-area: uchat; }
+  &__featured { grid-area: featured }
+  &__main { grid-area: main }
+  &__player { grid-area: player }
+  &__games { grid-area: games }
+  &__faq { grid-area: faq }
+
+  grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
+
+  grid-template-areas:
+  'side  main featured'
+  'chat  main featured'
+  'chat  main games'
+  'uchat main games';
+
+  grid-gap: $block-gap;
+}

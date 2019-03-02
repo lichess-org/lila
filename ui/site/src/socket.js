@@ -264,7 +264,7 @@ lidraughts.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 lidraughts.StrongSocket.defaults = {
   events: {
     fen: function(e) {
-      $('.live_' + e.id).each(function() {
+      $('.live-' + e.id).each(function() {
         lidraughts.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
     },

@@ -216,7 +216,7 @@ lidraughts.topMenuIntent = function() {
     else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
     else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
     else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
-    else if (lidraughts.tournament) startTournament(document.getElementById('tournament'), lidraughts.tournament);
+    else if (lidraughts.tournament) startTournament(lidraughts.tournament);
     else if (lidraughts.simul) startSimul(document.getElementById('simul'), lidraughts.simul);
 
     // delay so round starts first (just for perceived perf)
@@ -671,7 +671,7 @@ lidraughts.topMenuIntent = function() {
     _create: function() {
       this.list = this.element.find(".list");
       this.number = this.element.find(".number");
-      lidraughts.pubsub.on('socket.in.crowd', data => this.set(data.watchers));
+      lidraughts.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
     },
     set: function(data) {
       if (!data) return this.element.addClass('none');
@@ -906,7 +906,8 @@ lidraughts.topMenuIntent = function() {
   // tournament.js //
   ///////////////////
 
-  function startTournament(element, cfg) {
+  function startTournament(cfg) {
+    var element = document.querySelector('main.tour');
     $('body').data('tournament-id', cfg.data.id);
     var tournament;
     lidraughts.socket = lidraughts.StrongSocket(
@@ -920,8 +921,8 @@ lidraughts.topMenuIntent = function() {
       });
     cfg.socketSend = lidraughts.socket.send;
     cfg.element = element;
+    cfg.$side = $('.tour__side').clone();
     tournament = LidraughtsTournament.start(cfg);
-    if (cfg.chat) lidraughts.makeChat(cfg.chat);
   };
 
   ///////////////////

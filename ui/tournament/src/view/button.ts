@@ -41,7 +41,7 @@ export function join(ctrl: TournamentController): VNode {
         hook: {
           insert(vnode) {
             const el = vnode.elm as HTMLElement;
-            el.style.animation = `delay ${delay}s linear`;
+            el.style.animation = `tour-delay ${delay}s linear`;
             setTimeout(() => {
               if (delay === ctrl.data.me.pauseDelay) {
                 ctrl.data.me.pauseDelay = 0;

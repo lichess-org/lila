@@ -19,7 +19,7 @@ function button(text: string, icon: string, click: () => void, enable: boolean, 
 }
 
 function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
-  if (ctrl.data.me) return h('button.fbt' + (ctrl.focusOnMe ? '.active-soft' : ''), {
+  if (ctrl.data.me) return h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
     attrs: {
       'data-icon': '7',
       title: 'Scroll to your player'

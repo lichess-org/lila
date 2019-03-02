@@ -15,6 +15,14 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
   };
 }
 
+export function onInsert(f: (element: HTMLElement) => void): Hooks {
+  return {
+    insert: vnode => {
+      f(vnode.elm as HTMLElement)
+    }
+  };
+}
+
 export function dataIcon(icon: string): Attrs {
   return {
     'data-icon': icon
@@ -22,7 +30,7 @@ export function dataIcon(icon: string): Attrs {
 }
 
 export function miniBoard(game) {
-  return h('a.mini_board.parse_fen.is2d.live_' + game.id, {
+  return h('a.mini-board.parse-fen.is2d.live-' + game.id, {
     key: game.id,
     attrs: {
       href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
