@@ -176,7 +176,6 @@ class ThreadedWasmWorker extends AbstractWorker {
       };
     });
     return ThreadedWasmWorker.global.then(global => {
-      console.log(global);
       this.instance = global.instance;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
       this.listener = protocol.received.bind(protocol);
