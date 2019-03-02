@@ -11,12 +11,13 @@
 @base.layout(
 title = trans.newTournament.txt(),
 moreCss = responsiveCssTag("tournament.form"),
+responsive = true,
 moreJs = moreJs) {
-<div id="tournament">
-  <div class="content_box small_box tournament_box">
+<main class="page-small">
+  <div class="tour__form box box-pad">
     <h1>@trans.createANewTournament()</h1>
 
-    <form class="form3 create content_box_content" action="@routes.Tournament.create" method="POST">
+    <form class="form3" action="@routes.Tournament.create" method="POST">
       @if(lila.tournament.DataForm.canPickName(me)) {
       @form3.group(form("name"), trans.name.frag()) { f =>
       <div>
@@ -65,8 +66,6 @@ moreJs = moreJs) {
       }
     </form>
   </div>
-  <div class="content_box small_box faq_box tournament_box">
-    <div class="content_box_content">@tournament.faq()</div>
-  </div>
-</div>
+  <div class="box box-pad tour__faq">@tournament.faq()</div>
+</main>
 }.toHtml

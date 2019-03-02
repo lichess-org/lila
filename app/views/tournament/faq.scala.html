@@ -5,36 +5,36 @@
 <article class="faq">
   @privateId.map { id =>
   <h2>@trans.arena.thisIsPrivate()</h2>
-  @trans.arena.shareUrl(netBaseUrl + routes.Tournament.show(id))
+  <p>@trans.arena.shareUrl(netBaseUrl + routes.Tournament.show(id))</p>
   }
-  @trans.arena.willBeNotified()
+  <p>@trans.arena.willBeNotified()</p>
 
   <h2>@trans.arena.isItRated()</h2>
   @rated.map { r =>
   @if(r) {
-  @trans.arena.isRated()
+  <p>@trans.arena.isRated()</p>
   } else {
-  @trans.arena.isNotRated()
+  <p>@trans.arena.isNotRated()</p>
   }
   }.getOrElse {
-  @trans.arena.someRated()
+  <p>@trans.arena.someRated()</p>
   }
 
   <h2>@trans.arena.howAreScoresCalculated()</h2>
-  @trans.arena.howAreScoresCalculatedAnswer()
+  <p>@trans.arena.howAreScoresCalculatedAnswer()</p>
 
   <h2>@trans.arena.berserk()</h2>
-  @trans.arena.berserkAnswer()
+  <p>@trans.arena.berserkAnswer()</p>
 
   <h2>@trans.arena.howIsTheWinnerDecided()</h2>
-  @trans.arena.howIsTheWinnerDecidedAnswer()
+  <p>@trans.arena.howIsTheWinnerDecidedAnswer()</p>
 
   <h2>@trans.arena.howDoesPairingWork()</h2>
-  @trans.arena.howDoesPairingWorkAnswer()
+  <p>@trans.arena.howDoesPairingWorkAnswer()</p>
 
   <h2>@trans.arena.howDoesItEnd()</h2>
-  @trans.arena.howDoesItEndAnswer()
+  <p>@trans.arena.howDoesItEndAnswer()</p>
 
   <h2>@trans.arena.otherRules()</h2>
-  @trans.arena.otherRulesAnswer()
+  <p>@trans.arena.otherRulesAnswer()</p>
 </article>
