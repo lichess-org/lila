@@ -9,7 +9,7 @@
     url("fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
-
+  font-display: block;
 }
 
 [data-icon]:before {
