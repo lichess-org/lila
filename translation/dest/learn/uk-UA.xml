@@ -6,7 +6,7 @@
   <string name="menu">Меню</string>
   <string name="progressX">Прогрес: %s</string>
   <string name="resetMyProgress">Скинути прогрес</string>
-  <string name="youWillLoseAllYourProgress">Весь ваш прогрес буде скинуто!</string>
+  <string name="youWillLoseAllYourProgress">Весь ваш прогрес буде втрачено!</string>
   <string name="play">грати!</string>
   <string name="chessPieces">Шахові фігури</string>
   <string name="theRook">Тура</string>
