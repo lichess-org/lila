@@ -8,3 +8,23 @@
     background: $c-primary;
   }
 }
+
+.tour__ur-playing {
+  @extend %flex-column;
+  text-align: center;
+  font-size: 1.5em;
+  position: relative;
+  &::before,
+  &::after {
+    content: 'U';
+    font-size: 2rem;
+    position: absolute;
+    top: 30px;
+  }
+  &::before {
+    left: 30px;
+  }
+  &::after {
+    right: 30px;
+  }
+}

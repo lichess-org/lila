@@ -77,8 +77,10 @@ function renderDuel(d: Duel): VNode {
 export default function(ctrl: TournamentController): MaybeVNodes {
   return [
     ...(ctrl.data.featured ? [featured(ctrl.data.featured)] : nextTournament(ctrl)),
-    ctrl.data.duels.length ? h('div.duels', {
+    ctrl.data.duels.length ? h('section.tour__duels', {
       hook: bind('click', _ => !ctrl.disableClicks)
-    }, [h('h3', 'Top games')].concat(ctrl.data.duels.map(renderDuel))) : null
+    }, [
+      h('h2', 'Top games')
+    ].concat(ctrl.data.duels.map(renderDuel)).concat(ctrl.data.duels.map(renderDuel)).concat(ctrl.data.duels.map(renderDuel))) : null
   ];
 };

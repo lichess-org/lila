@@ -86,25 +86,3 @@
   width: 100%;
   height: 100%;
 }
-%fbt {
-  background: none;
-  border: none;
-  outline: none;
-  color: $c-font;
-  line-height: 1.5;
-  @include transition();
-  @media (hover: hover) {
-    &:hover:not(.disabled) {
-      background: mix($c-secondary, $c-bg-box, 75%);
-      color: #fff;
-    }
-  }
-  &.active {
-    background: $c-secondary!important;
-    color: #fff;
-  }
-  &.disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-}

@@ -54,8 +54,8 @@ object bits {
     simul: Option[lila.simul.Simul],
     userTv: Option[lila.user.User] = None,
     bookmarked: Boolean
-  )(implicit ctx: Context) = div(cls := "sides")(
-    side(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
+  )(implicit ctx: Context) = div(
+    div(cls := "round__side")(side(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked)),
     cross.map { c =>
       div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
     }

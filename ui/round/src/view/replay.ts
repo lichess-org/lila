@@ -61,8 +61,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
           }
         }
       }, [
-        h('div', viewStatus(ctrl)),
-        winner ? h('div', ctrl.trans.noarg(winner.color + 'IsVictorious')) : null
+        viewStatus(ctrl),
+        winner ? ' • ' + ctrl.trans.noarg(winner.color + 'IsVictorious') : ''
       ])
     ]);
   }
@@ -99,7 +99,7 @@ function analyseButton(ctrl: RoundController) {
     forecastCount = ctrl.data.forecastCount;
   const data: VNodeData = {
     class: {
-      'glowed': showInfo,
+      'glowing': showInfo,
       'text': !!forecastCount
     },
     attrs: {
@@ -162,7 +162,7 @@ function renderButtons(ctrl: RoundController) {
     ].map((b, i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return h('button.fbt', {
-        class: { glowed: i === 3 && ctrl.isLate() },
+        class: { glowing: i === 3 && ctrl.isLate() },
         attrs: {
           disabled: !enabled,
           'data-icon': b[0],

@@ -1,5 +1,7 @@
-#main-wrap {
-  --main-max-width: auto;
+@include breakpoint($mq-col2) {
+  #main-wrap {
+    --main-max-width: auto;
+  }
 }
 
 .tour {
@@ -8,19 +10,40 @@
 
   &__side { grid-area: side }
   &__underchat { grid-area: uchat; }
-  &__featured { grid-area: featured }
+  &__featured, &__stats { grid-area: featured }
   &__main { grid-area: main }
   &__player { grid-area: player }
-  &__games { grid-area: games }
+  &__duels { grid-area: duels }
   &__faq { grid-area: faq }
 
-  grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
-
   grid-template-areas:
-  'side  main featured'
-  'chat  main featured'
-  'chat  main games'
-  'uchat main games';
+  'main'
+  'side'
+  'chat'
+  'uchat'
+  'featured'
+  'duels'
+  'faq';
 
   grid-gap: $block-gap;
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
+    grid-template-areas:
+    'main  side'
+    'main  chat'
+    'featured uchat'
+    'featured duels'
+    'faq faq';
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
+    grid-template-areas:
+    'side  main featured'
+    'chat  main featured'
+    'chat  main duels'
+    'chat  faq  duels'
+    'uchat faq  duels';
+  }
 }

@@ -72,7 +72,7 @@ let lastBody: MaybeVNodes | undefined;
 
 export function podium(ctrl: TournamentController) {
   const p = ctrl.data.podium || [];
-  return h('div.podium', [
+  return h('div.tour__podium', [
     podiumPosition(p[1], 'second', ctrl.trans),
     podiumPosition(p[0], 'first', ctrl.trans),
     podiumPosition(p[2], 'third', ctrl.trans)

@@ -31,8 +31,8 @@ export default function(opts: RoundOpts): void {
             url: [(data.tv ? '/tv/'  + data.tv.channel : ''), data.game.id, data.player.color, 'sides'].join('/'),
             success: function(html) {
               const $html = $(html);
-              $('#site_header div.side').replaceWith($html.find('.side'));
-              $('#lichess div.crosstable').replaceWith($html.find('.crosstable'));
+              $('.round__side').replaceWith($html.find('.round__side'));
+              $('.crosstable').replaceWith($html.find('.crosstable'));
               li.pubsub.emit('content_loaded')();
               startTournamentClock();
             }
@@ -48,9 +48,9 @@ export default function(opts: RoundOpts): void {
     });
 
   function startTournamentClock() {
-    $("div.game_tournament div.clock").each(function(this: HTMLElement) {
+    $('.game__tournament .clock').each(function(this: HTMLElement) {
       $(this).clock({
-        time: parseFloat($(this).data("time"))
+        time: parseFloat($(this).data('time'))
       });
     });
   };

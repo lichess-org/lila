@@ -3,7 +3,8 @@
   display: none;
   height: 40px;
   @include breakpoint($mq-col2) {
-    display: block;
+    display: flex;
+    align-items: center;
     line-height: 0;
     white-space: nowrap;
     div {

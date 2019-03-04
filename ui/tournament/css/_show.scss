@@ -1,5 +1,5 @@
 $mq-col1: $mq-col1-uniboard;
-$mq-col2: $mq-col2-uniboard;
+$mq-col2: $mq-small;
 $mq-col3: $mq-col3-uniboard;
 
 @import 'layout';
@@ -9,3 +9,19 @@ $mq-col3: $mq-col3-uniboard;
 @import 'app-notice';
 @import 'app-control';
 @import 'app-standing';
+@import 'podium';
+@import 'stats';
+@import 'duel';
+
+.tour {
+  .pull-quote {
+    margin-top: 30px;
+    width: 300px;
+  }
+}
+
+.tour__faq {
+  h2 {
+    margin: 1.5em 0 .5em 0;
+  }
+}

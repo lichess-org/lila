@@ -1,7 +1,7 @@
 .tour__main__header {
   @extend %flex-center;
   position: relative;
-  height: 5em;
+  min-height: 5em;
   h1 {
     font-size: 2.2rem;
     flex: 9 1 auto;
@@ -40,10 +40,13 @@
     letter-spacing: 3px;
   }
   .clock {
-    flex: 1 1 auto;
-    margin: 0 15px;
+    flex: 0 0 auto;
+    margin: 0 1em;
     font-weight: bold;
     color: $c-font-dim;
+    &-created {
+      @extend %flex-center;
+    }
   }
   .tour-sched & h1,
   .tour-sched & .img {
@@ -57,7 +60,7 @@
   }
   .time {
     @extend %roboto;
-    font-size: 20px;
+    font-size: 1.5em;
   }
   .shy {
     line-height: 20px;
@@ -67,15 +70,12 @@
     opacity: 0.6;
     white-space: nowrap;
   }
-  .clock-created .time {
-    font-size: 14px;
-  }
   .tour-sched-marathon & h1 {
     color: #4166a0!important;
     padding-left: 90px;
     letter-spacing: 2px;
   }
-  .tour-sched-marathon & .fire_trophy {
+  .tour-sched-marathon & .fire-trophy {
     position: absolute;
     top: 0;
     left: 10px;
@@ -83,9 +83,7 @@
     height: 80px;
     opacity: 0.7;
     transition: 1s;
-    font-family: "lichess" !important;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: "lichess";
     filter: hue-rotate(190deg);
     &:hover {
       opacity: 1;
@@ -97,14 +95,14 @@
       letter-spacing: 2px;
       .shield_trophy {
         position: absolute;
-        top: -15px;
-        left: 10px;
+        top: -8px;
+        left: 12px;
         display: block;
         width: 67px;
         height: 80px;
         background: url(../images/trophy/shield-gold.png) no-repeat;
         background-size: contain;
-        font-family: "lichess" !important;
+        font-family: "lichess";
         font-size: 40px;
         line-height: 80px;
         text-align: center;

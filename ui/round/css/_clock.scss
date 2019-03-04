@@ -113,20 +113,32 @@
     background-color: mix($c-bad, $c-bg-box, 40%);
     color: $c-font-clearer;
   }
-  .berserk.button {
-    font-size: 25px;
-    padding: 0 12px;
+  .go-berserk {
+    font-size: 1.6em;
+    padding: 0 .3em;
+    &:hover {
+      color: $c-accent!important;
+      background: none!important;
+    }
   }
-  .tournament_rank,
+  .tour-rank,
   .moretime,
   .berserked {
     @extend %flex-center, %zen;
     display: none;
-    @include breakpoint($mq-col2) {
+    @include breakpoint($mq-xx-small) {
+      order: -1;
       display: flex;
       flex: 0 1 auto;
       font-size: 1.7em;
+      padding: 0 .3em;
     }
+    @include breakpoint($mq-col2) {
+      order: inherit;
+    }
+  }
+  .tour-rank {
+    color: $c-font-dim;
   }
   .moretime {
     opacity: 0.4;
@@ -135,7 +147,7 @@
     }
   }
   .berserked {
-    font-size: 34px;
+    font-size: 1.6em;
     color: $c-accent;
   }
 }

@@ -19,7 +19,7 @@ object Tournament extends LilaController {
   private def env = Env.tournament
   private def repo = TournamentRepo
 
-  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
+  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = Env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
     name = "tournament.home",
