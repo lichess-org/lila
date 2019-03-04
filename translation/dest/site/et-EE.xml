@@ -323,8 +323,8 @@
   <string name="aConfirmationIsRequiredToJoin">Kinnitus on vajalik, et liituda</string>
   <string name="joiningPolicy">Ühinemisreeglid</string>
   <string name="teamLeader">Võistkonna juht</string>
-  <string name="teamBestPlayers">Võistkonna parimad mängiad</string>
-  <string name="teamRecentMembers">Võistkonna teised liikmed</string>
+  <string name="teamBestPlayers">Võistkonna parimad mängijad</string>
+  <string name="teamRecentMembers">Võistkonna värsked liikmed</string>
   <string name="xJoinedTeamY">%1$s ühines tiimiga %2$s</string>
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
   <string name="averageElo">Keskmine Elo</string>
