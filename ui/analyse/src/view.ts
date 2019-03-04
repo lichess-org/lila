@@ -129,7 +129,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
 }
 
 function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
-  return h('button', {
+  return h('button.fbt', {
     class: { disabled: !enabled },
     attrs: { 'data-act': effect, 'data-icon': icon }
   });
@@ -184,7 +184,7 @@ function controls(ctrl: AnalyseCtrl) {
     }, ctrl.redraw)
   }, [
       ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
-        h('a', {
+        h('a.fbt', {
           attrs: {
             title: noarg('analysis'),
             target: '_blank',
@@ -193,7 +193,7 @@ function controls(ctrl: AnalyseCtrl) {
           }
         })
       ] : [
-          /*h('button', {
+          /*h('button.fbt', {
             attrs: {
               title: noarg('openingExplorerAndTablebase'),
               'data-act': 'explorer',
@@ -204,7 +204,7 @@ function controls(ctrl: AnalyseCtrl) {
               active: ctrl.explorer.enabled()
             }
           }), null*/
-          /*ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button', {
+          /*ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
             attrs: {
               title: noarg('practiceWithComputer'),
               'data-act': 'practice',

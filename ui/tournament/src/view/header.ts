@@ -60,7 +60,7 @@ function image(d): VNode | undefined {
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
   if (hasFreq('marathon', d)) return h('h1', [
-    h('i.fire_trophy', '\\'),
+    h('i.fire-trophy', '\\'),
     d.fullName
   ]);
   if (hasFreq('shield', d)) return h('h1', [

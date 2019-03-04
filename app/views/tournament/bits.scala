@@ -46,9 +46,11 @@ object bits {
   )
 
   def notFound()(implicit ctx: Context) =
-    views.html.base.layout(title = trans.tournamentNotFound.txt()) {
-      div(id := "tournament")(
-        div(cls := "content_box small_box faq_page")(
+    views.html.base.layout(
+      title = trans.tournamentNotFound.txt(),
+      responsive = true
+    ) {
+        main(cls := "page-small box box-pad")(
           h1(trans.tournamentNotFound.frag()),
           p(trans.tournamentDoesNotExist.frag()),
           p(trans.tournamentMayHaveBeenCanceled.frag()),
@@ -56,6 +58,5 @@ object bits {
           br,
           a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage.frag())
         )
-      )
-    }.toHtml
+      }
 }

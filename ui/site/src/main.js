@@ -922,6 +922,7 @@ lidraughts.topMenuIntent = function() {
     cfg.socketSend = lidraughts.socket.send;
     cfg.element = element;
     cfg.$side = $('.tour__side').clone();
+    cfg.$faq = $('.tour__faq').clone();
     tournament = LidraughtsTournament.start(cfg);
   };
 

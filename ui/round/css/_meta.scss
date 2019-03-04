@@ -2,7 +2,12 @@
 .game__meta {
   @extend %box-neat-force;
   background: $c-bg-box;
-  padding: #{$block-gap * 0.6} $block-gap;
+  padding: #{$block-gap * 0.7} $block-gap;
+  section:not(:last-child) {
+    border-bottom: $border;
+    margin-bottom: #{$block-gap * 2 / 3};
+    padding-bottom: #{$block-gap * 2 / 3};
+  }
   &__infos {
     @extend %flex-center-nowrap;
     &::before {
@@ -38,6 +43,16 @@
     &.bookmarked .off {
       display: none;
     }
+  }
+  &:not(:last-child) {
+    margin-bottom: $block-gap;
+  }
+}
+.game__tournament {
+  .clock {
+    @extend %roboto;
+    font-size: 2em;
+    text-align: center;
   }
 }
 @media (hover: hover) {

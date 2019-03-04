@@ -19,7 +19,7 @@ export default function(ctrl: TournamentController) {
 
   return h('main.' + ctrl.opts.classes, [
     h('aside.analyse__side', {
-      hook: onInsert(elm => $(elm).replaceWith(ctrl.opts.$side))
+      hook: onInsert(el => $(el).replaceWith(ctrl.opts.$side))
     }),
     h('section.mchat', {
       hook: onInsert(_ => {
@@ -27,13 +27,16 @@ export default function(ctrl: TournamentController) {
       })
     }),
     h('div.tour__underchat', {
-      hook: onInsert(elm => {
-        $(elm).replaceWith($('.tour__underchat.none').removeClass('none'));
+      hook: onInsert(el => {
+        $(el).replaceWith($('.tour__underchat.none').removeClass('none'));
       })
     }),
     ...(side.length ? side : []),
     h('div.tour__main.box', {
       class: { 'tour__main-finished': ctrl.data.isFinished }
-    }, handler.main(ctrl))
+    }, handler.main(ctrl)),
+    ctrl.opts.$faq ? h('div', {
+      hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq))
+    }) : null
   ]);
 }

@@ -39,8 +39,8 @@ export default function(opts: RoundOpts): void {
             url: [(data.tv ? '/tv/' + data.tv.channel : ''), data.game.id, data.player.color, 'sides'].join('/'),
             success: function (html) {
               const $html = $(html);
-              $('#site_header div.side').replaceWith($html.find('.side'));
-              $('#lidraughts div.crosstable').replaceWith($html.find('.crosstable'));
+              $('.round__side').replaceWith($html.find('.round__side'));
+              $('.crosstable').replaceWith($html.find('.crosstable'));
               li.pubsub.emit('content_loaded')();
               startTournamentClock();
             }
@@ -72,9 +72,9 @@ export default function(opts: RoundOpts): void {
     });
 
   function startTournamentClock() {
-    $("div.game_tournament div.clock").each(function (this: HTMLElement) {
+    $('.game__tournament .clock').each(function(this: HTMLElement) {
       $(this).clock({
-        time: parseFloat($(this).data("time"))
+        time: parseFloat($(this).data('time'))
       });
     });
   };
@@ -101,19 +101,19 @@ export default function(opts: RoundOpts): void {
       opts.chat.preset = getPresetGroup(opts.data);
       opts.chat.parseMoves = true;
     }
-    li.makeChat(opts.chat, function (c) {
+    li.makeChat(opts.chat, function(c) {
       chat = c;
     });
   }
   startTournamentClock();
-  $('#now_playing').find('.move_on input').change(function () {
+  $('#now_playing').find('.move_on input').change(function() {
     var t = round.moveOn.toggle();
     $('#now_playing .move_seq').css('visibility', t ? 'visible' : 'collapse');
-  }).prop('checked', round.moveOn.get()).on('click', 'a', function () {
+  }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
     li.hasToReload = true;
     return true;
   });
-  $('#now_playing').find('.move_seq input').change(function () {
+  $('#now_playing').find('.move_seq input').change(function() {
     round.moveOn.toggleSeq();
   }).prop('checked', round.moveOn.getSeq())
   $('#now_playing .move_seq').css('visibility', round.moveOn.get() ? 'visible' : 'collapse');

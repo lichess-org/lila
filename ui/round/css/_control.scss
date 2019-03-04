@@ -73,19 +73,16 @@
     }
   }
   .follow-up {
-    position: relative;
-    .button {
-      display: block;
-      width: 100%;
-      border-radius: 0;
+    @extend %flex-column;
+    border-bottom: $border;
+    .fbt {
       padding: 12px 0;
-      margin-top: 1px;
+      margin: 1px 1px 0 1px;
     }
-    > .button:first-child {
+    > .fbt:first-child {
       margin-top: 0;
     }
     .fbt.strong {
-      display: block;
       padding: 2em 0;
       font-size: 1.2em;
     }
@@ -97,17 +94,15 @@
       opacity: 0.7;
     }
   }
-  .rematch{
-    &.button {
-      @extend %flex-center-nowrap;
-      justify-content: center;
-      height: 60px;
+  .rematch {
+    &.fbt {
+      @extend %metal;
       font-size: 1.2em;
-      text-transform: uppercase;
+      height: 5em;
       @include transition();
     }
     &.me {
-      background: rgba(56,147,232,0.8);
+      background: mix($c-primary, $c-bg-box, 80%);
     }
     @keyframes rubber-band {
       from { transform: scale3d(1, 1, 1); }
@@ -124,7 +119,7 @@
         animation: rubber-band 5s infinite;
       }
     }
-    &.button:not(.disabled):hover {
+    &.fbt:not(.disabled):hover {
       background: mix($c-link, $c-bg-box, 70%);
       color: #fff;
       animation: none;

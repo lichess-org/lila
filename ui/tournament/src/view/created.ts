@@ -14,16 +14,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     h('blockquote.pull-quote', [
       h('p', ctrl.data.quote.text),
       h('footer', ctrl.data.quote.author)
-    ]),
-    h('div.content_box_content', {
-      hook: {
-        insert: vnode => {
-          const faq = $('#tournament_faq').show();
-          (vnode.elm as HTMLElement).innerHTML = faq.html();
-          faq.remove();
-        }
-      }
-    })
+    ])
   ];
 }
 

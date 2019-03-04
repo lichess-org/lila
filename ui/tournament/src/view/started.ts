@@ -4,20 +4,17 @@ import { controls, standing } from './arena';
 import header from './header';
 import tourSide from './side';
 import playerInfo from './playerInfo';
-import { dataIcon } from './util';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
-  return h('a.is.is-after.pov.button.glowed', {
+  return h('a.tour__ur-playing.button.is.is-after.glowing', {
     attrs: { href: '/' + gameId }
   }, [
-    ctrl.trans('youArePlaying'),
-    h('span.text', {
-      attrs: dataIcon('G')
-    }, ctrl.trans('joinTheGame'))
+    ctrl.trans('youArePlaying'), h('br'),
+    ctrl.trans('joinTheGame')
   ]);
 }
 

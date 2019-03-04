@@ -42,7 +42,7 @@ function dataAct(e) {
 }
 
 function jumpButton(icon, effect) {
-  return h('button', {
+  return h('button.fbt', {
     attrs: {
       'data-act': effect,
       'data-icon': icon

@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
 import { TournamentData, MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
-import { standing, podium } from './arena';
+import { controls, standing, podium } from './arena';
 import header from './header';
 import tourSide from './side';
 import playerInfo from './playerInfo';
@@ -19,7 +19,7 @@ function confetti(data: TournamentData): VNode | undefined {
 }
 
 function stats(st, noarg) {
-  return h('div.stats.box', [
+  return h('div.tour__stats', [
     h('h2', noarg('tournamentComplete')),
     h('table', [
       numberRow(noarg('averageElo'), st.averageRating, 'raw'),
@@ -41,6 +41,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
       header(ctrl),
       podium(ctrl)
     ]),
+    controls(ctrl, pag),
     standing(ctrl, pag)
   ];
 }

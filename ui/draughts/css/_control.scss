@@ -4,7 +4,7 @@
   align-items: stretch;
   font-size: 1.3rem;
   button {
-    @extend %fbt, %box-radius-bottom;
+    @extend %box-radius-bottom;
   }
   .hidden {
     visibility: hidden;

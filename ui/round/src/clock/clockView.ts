@@ -113,7 +113,7 @@ function renderBerserk(ctrl: RoundController, color: Color, position: Position) 
 function goBerserk(ctrl: RoundController) {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
-  return h('button.button.button-empty.berserk', {
+  return h('button.fbt.go-berserk', {
     attrs: {
       title: 'GO BERSERK! Half the time, no increment, bonus point',
       'data-icon': '`'
@@ -125,7 +125,7 @@ function goBerserk(ctrl: RoundController) {
 function tourRank(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
   return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ?
-    h('div.tournament-rank.' + position, {
+    h('div.tour-rank.' + position, {
       attrs: {title: 'Current tournament rank'}
     }, '#' + d.tournament.ranks[color]) : null;
 }
