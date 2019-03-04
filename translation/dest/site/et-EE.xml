@@ -361,12 +361,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="unfollow">Katkesta jälgimine</string>
   <string name="block">Bloki</string>
   <string name="blocked">Blokeeritud</string>
-  <string name="unblock">Katkesta blokeering</string>
+  <string name="unblock">Tühista blokeering</string>
   <string name="followsYou">Jälgivad sind</string>
   <string name="xStartedFollowingY">%1$s hakkas jälgima%2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s jälgijad</item>
-    <item quantity="other">%s jälgijad</item>
+    <item quantity="one">%s jälgija</item>
+    <item quantity="other">%s jälgijat</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s jälgib</item>
