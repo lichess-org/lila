@@ -41,7 +41,7 @@
   line-height: 80px;
   text-align: center;
   letter-spacing: normal;
-  color: #333!important;
+  color: #333 !important;
   text-shadow: 0 0 6px #fff;
 }
 .winner_list li {
@@ -52,7 +52,7 @@
   line-height: 3.5em;
   font-size: 1.2em;
 }
-.winner_list li:hover a {
+.winner_list li a:hover {
   color: #3893E8;
 }
 .winner_list a.user_link {

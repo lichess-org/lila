@@ -71,6 +71,9 @@ div.side a.more {
   text-align: right;
   margin-top: 0.5em;
 }
+div.user_lists div.user_top a:hover {
+  color: #3893E8;
+}
 div.user_lists div.user_top > div {
   width: 100%;
   display: flex;

@@ -40,7 +40,7 @@
   line-height: 3.5em;
   font-size: 1.2em;
 }
-.winner_list li:hover a {
+.winner_list li a:hover {
   color: #3893E8;
 }
 .winner_list a.user_link {
