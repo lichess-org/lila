@@ -493,7 +493,7 @@
   <string name="inlineNotation">Notácia v riadkoch</string>
   <string name="watchLichessTV">Sledovať Lichess TV</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
-  <string name="onlinePlayers">Pripojený hráči</string>
+  <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activeToday">Dnešná aktivita</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
