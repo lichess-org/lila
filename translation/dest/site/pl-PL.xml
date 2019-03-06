@@ -27,7 +27,7 @@
   <string name="raceFinished">Wyścig zakończony</string>
   <string name="variantEnding">Wariant zakończony</string>
   <string name="newOpponent">Nowy przeciwnik</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Twój przeciwnik chce zagrać z Tobą nową partię</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Przeciwnik chce zagrać z Tobą nową partię</string>
   <string name="joinTheGame">Dołącz do gry</string>
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
