@@ -351,7 +351,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
-  <string name="reconnecting">Reconetando</string>
+  <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
