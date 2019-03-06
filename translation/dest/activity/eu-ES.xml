@@ -40,7 +40,7 @@
     <item quantity="other">Aldibereko partiden %s saio antolatu ditu</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Aldibireko saio %sen hartu du parte</item>
+    <item quantity="one">Aldibireko saio %sean hartu du parte</item>
     <item quantity="other">Aldibireko %s saiotan hartu du parte</item>
   </plurals>
   <plurals name="createdNbStudies">
@@ -48,8 +48,8 @@
     <item quantity="other">%s azterlan berri sortu ditu</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Txapelketa %sen hartu du parte</item>
-    <item quantity="other">%s txapelketatan hartu du parte</item>
+    <item quantity="one">Txapelketa %sean parte hartu du</item>
+    <item quantity="other">%s txapelketetan parte hartu du</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">%1$s. postua (%% %2$s onenen artean) partida %3$s jokatuta %4$s txapelketan</item>
