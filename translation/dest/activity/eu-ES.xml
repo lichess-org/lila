@@ -24,8 +24,8 @@
     <item quantity="other">%1$s jokaldi egin ditu posta-bidezko %2$s partidatan</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Posta bidezko partida %s osatu du</item>
-    <item quantity="other">Posta bidezko %s partida osatu ditu</item>
+    <item quantity="one">Posta bidezko partida %s jokatu du</item>
+    <item quantity="other">Posta bidezko %s partida jokatu ditu</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Jokalari %s jarraitzen hasi da</item>
