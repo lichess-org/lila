@@ -35,6 +35,7 @@ final class Cached(
     frisian ← top10Perf(PerfType.Frisian.id)
     frysk ← top10Perf(PerfType.Frysk.id)
     antidraughts ← top10Perf(PerfType.Antidraughts.id)
+    breakthrough ← top10Perf(PerfType.Breakthrough.id)
   } yield Perfs.Leaderboards(
     ultraBullet = ultraBullet,
     bullet = bullet,
@@ -43,7 +44,8 @@ final class Cached(
     classical = classical,
     frisian = frisian,
     frysk = frysk,
-    antidraughts = antidraughts
+    antidraughts = antidraughts,
+    breakthrough = breakthrough
   )
 
   val top10Perf = mongoCache[Perf.ID, List[LightPerf]](

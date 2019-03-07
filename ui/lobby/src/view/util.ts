@@ -30,7 +30,7 @@ export function spinner() {
 
 export const perfIcons = {
   'Blitz':')',
-  'Racing Kings':'',
+  'Breakthrough':'',
   'UltraBullet':'{',
   'Bullet':'T',
   'Classical':'+',

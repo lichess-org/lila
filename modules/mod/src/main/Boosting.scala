@@ -21,7 +21,8 @@ final class BoostingApi(
     variant.Standard,
     variant.Frisian,
     variant.Frysk,
-    variant.Antidraughts
+    variant.Antidraughts,
+    variant.Breakthrough
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =

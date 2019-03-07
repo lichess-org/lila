@@ -210,7 +210,8 @@ object User extends LidraughtsController {
             "classical" -> leaderboards.classical,
             "frisian" -> leaderboards.frisian,
             "frysk" -> leaderboards.frysk,
-            "antidraughts" -> leaderboards.antidraughts
+            "antidraughts" -> leaderboards.antidraughts,
+            "breakthrough" -> leaderboards.breakthrough
           ))
         }
       )

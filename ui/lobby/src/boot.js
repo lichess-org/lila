@@ -258,6 +258,8 @@ module.exports = function(cfg, element) {
           break;
         case '6':
           key = 'antidraughts'
+        case '9':
+          key = 'breakthrough'
           break;
       }
       $ratings.hide().filter('.' + key).show();

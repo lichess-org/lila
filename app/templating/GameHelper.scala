@@ -53,6 +53,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         case draughts.variant.Frisian => "Capture horizontally and vertically"
         case draughts.variant.Frysk => "Frisian draughts starting with 5 pieces"
         case draughts.variant.Antidraughts => "Lose all your pieces or run out of moves"
+        case draughts.variant.Breakthrough => "Promote to a king to win"
         case _ => "Variant ending"
       }
       case _ => "Game is still being played"

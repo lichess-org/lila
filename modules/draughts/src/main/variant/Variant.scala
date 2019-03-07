@@ -23,6 +23,7 @@ abstract class Variant(
   def frisian = this == Frisian
   def frysk = this == Frysk
   def antidraughts = this == Antidraughts
+  def breakthrough = this == Breakthrough
   def fromPosition = this == FromPosition
 
   def frisianVariant = frisian || frysk
@@ -212,7 +213,7 @@ abstract class Variant(
 
 object Variant {
 
-  val all = List(Standard, Frisian, Frysk, Antidraughts, FromPosition)
+  val all = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, FromPosition)
   val byId = all map { v => (v.id, v) } toMap
   val byKey = all map { v => (v.key, v) } toMap
 
@@ -233,13 +234,15 @@ object Variant {
 
   val openingSensibleVariants: Set[Variant] = Set(
     draughts.variant.Standard,
-    draughts.variant.Frisian
+    draughts.variant.Frisian,
+    draughts.variant.Breakthrough
   )
 
   val divisionSensibleVariants: Set[Variant] = Set(
     draughts.variant.Standard,
     draughts.variant.Frisian,
     draughts.variant.Antidraughts,
+    draughts.variant.Breakthrough,
     draughts.variant.FromPosition
   )
 

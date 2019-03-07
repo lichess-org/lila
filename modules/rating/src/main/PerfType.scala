@@ -97,6 +97,14 @@ object PerfType {
     iconChar = '@'
   )
 
+  case object Breakthrough extends PerfType(
+    17,
+    key = "breakthrough",
+    name = draughts.variant.Breakthrough.name,
+    title = "Breakthrough variant",
+    iconChar = ''
+  )
+
   case object Puzzle extends PerfType(
     20,
     key = "puzzle",
@@ -105,7 +113,7 @@ object PerfType {
     iconChar = '-'
   )
 
-  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Puzzle)
+  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Breakthrough, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -120,11 +128,11 @@ object PerfType {
 
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
-  val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Frysk, Antidraughts)
+  val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Frysk, Antidraughts, Breakthrough)
   val nonGame: List[PerfType] = List(Puzzle)
-  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Frisian, Frysk, Antidraughts)
-  val variants: List[PerfType] = List(Frisian, Frysk, Antidraughts)
-  val variantsPlus: List[PerfType] = List(Standard, Frisian, Frysk, Antidraughts)
+  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Frisian, Frysk, Antidraughts, Breakthrough)
+  val variants: List[PerfType] = List(Frisian, Frysk, Antidraughts, Breakthrough)
+  val variantsPlus: List[PerfType] = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
@@ -137,6 +145,7 @@ object PerfType {
     case Frisian => draughts.variant.Frisian
     case Frysk => draughts.variant.Frysk
     case Antidraughts => draughts.variant.Antidraughts
+    case Breakthrough => draughts.variant.Breakthrough
     case _ => draughts.variant.Standard
   }
 
@@ -144,6 +153,7 @@ object PerfType {
     case draughts.variant.Frisian => Frisian.some
     case draughts.variant.Frysk => Frysk.some
     case draughts.variant.Antidraughts => Antidraughts.some
+    case draughts.variant.Breakthrough => Breakthrough.some
     case _ => none
   }
 

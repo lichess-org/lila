@@ -33,7 +33,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Correspondence,
     PerfType.Frisian,
     PerfType.Frysk,
-    PerfType.Antidraughts
+    PerfType.Antidraughts,
+    PerfType.Breakthrough
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {

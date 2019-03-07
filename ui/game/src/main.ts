@@ -21,6 +21,7 @@ export const perf = {
     correspondence: ";",
     frisian: "'",
     frysk: "_",
-    antidraughts: "@"
+    antidraughts: "@",
+    breakthrough: ""
   }
 };

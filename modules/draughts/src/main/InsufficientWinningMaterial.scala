@@ -26,7 +26,7 @@ object InsufficientWinningMaterial {
         if (board.pieces.size == 3) 14.some
         else 4.some
       } else none
-    } else if (board.variant.antidraughts)
+    } else if (board.variant.antidraughts || board.variant.breakthrough)
       none
     else if (board.pieces.size <= 4) {
 

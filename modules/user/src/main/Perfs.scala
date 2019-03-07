@@ -11,6 +11,7 @@ case class Perfs(
     frisian: Perf,
     frysk: Perf,
     antidraughts: Perf,
+    breakthrough: Perf,
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -25,6 +26,7 @@ case class Perfs(
     "frisian" -> frisian,
     "frysk" -> frysk,
     "antidraughts" -> antidraughts,
+    "breakthrough" -> breakthrough,
     "ultraBullet" -> ultraBullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
@@ -88,6 +90,7 @@ case class Perfs(
     "frisian" -> frisian,
     "frysk" -> frysk,
     "antidraughts" -> antidraughts,
+    "breakthrough" -> breakthrough,
     "ultraBullet" -> ultraBullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
@@ -114,6 +117,7 @@ case class Perfs(
     case PerfType.Frisian => frisian
     case PerfType.Frysk => frysk
     case PerfType.Antidraughts => antidraughts
+    case PerfType.Breakthrough => breakthrough
     case PerfType.Puzzle => puzzle
   }
 
@@ -153,7 +157,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: draughts.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -161,6 +165,7 @@ case object Perfs {
     case draughts.variant.Frisian => Some(_.frisian)
     case draughts.variant.Frysk => Some(_.frysk)
     case draughts.variant.Antidraughts => Some(_.antidraughts)
+    case draughts.variant.Breakthrough => Some(_.breakthrough)
     case _ => none
   }
 
@@ -184,6 +189,7 @@ case object Perfs {
         frisian = perf("frisian"),
         frysk = perf("frysk"),
         antidraughts = perf("antidraughts"),
+        breakthrough = perf("breakthrough"),
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -201,6 +207,7 @@ case object Perfs {
       "frisian" -> notNew(o.frisian),
       "frysk" -> notNew(o.frysk),
       "antidraughts" -> notNew(o.antidraughts),
+      "breakthrough" -> notNew(o.breakthrough),
       "ultraBullet" -> notNew(o.ultraBullet),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
@@ -219,6 +226,7 @@ case object Perfs {
       classical: List[User.LightPerf],
       frisian: List[User.LightPerf],
       frysk: List[User.LightPerf],
-      antidraughts: List[User.LightPerf]
+      antidraughts: List[User.LightPerf],
+      breakthrough: List[User.LightPerf]
   )
 }

@@ -7,6 +7,7 @@ case class History(
     frisian: RatingsMap,
     frysk: RatingsMap,
     antidraughts: RatingsMap,
+    breakthrough: RatingsMap,
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
@@ -26,6 +27,7 @@ case class History(
     case PerfType.Frisian => frisian
     case PerfType.Frysk => frysk
     case PerfType.Antidraughts => antidraughts
+    case PerfType.Breakthrough => breakthrough
     case PerfType.Puzzle => puzzle
     case PerfType.UltraBullet => ultraBullet
     case x => sys error s"No history for perf $x"
@@ -52,6 +54,7 @@ object History {
         frisian = ratingsMap("frisian"),
         frysk = ratingsMap("frysk"),
         antidraughts = ratingsMap("antidraughts"),
+        breakthrough = ratingsMap("breakthrough"),
         ultraBullet = ratingsMap("ultraBullet"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),

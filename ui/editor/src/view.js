@@ -98,7 +98,8 @@ function controls(ctrl, fen) {
             variant2option('standard', 'Standard'),
             variant2option('frisian', 'Frisian'),
             variant2option('frysk', 'Frysk!'),
-            variant2option('antidraughts', 'Antidraughts')
+            variant2option('antidraughts', 'Antidraughts'),
+            variant2option('breakthrough', 'Breakthrough')
           ])
         ])
       ])
