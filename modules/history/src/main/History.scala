@@ -5,6 +5,7 @@ import lidraughts.rating.PerfType
 case class History(
     standard: RatingsMap,
     frisian: RatingsMap,
+    frysk: RatingsMap,
     antidraughts: RatingsMap,
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
@@ -23,6 +24,7 @@ case class History(
     case PerfType.Classical => classical
     case PerfType.Correspondence => correspondence
     case PerfType.Frisian => frisian
+    case PerfType.Frysk => frysk
     case PerfType.Antidraughts => antidraughts
     case PerfType.Puzzle => puzzle
     case PerfType.UltraBullet => ultraBullet
@@ -48,6 +50,7 @@ object History {
       History(
         standard = ratingsMap("standard"),
         frisian = ratingsMap("frisian"),
+        frysk = ratingsMap("frysk"),
         antidraughts = ratingsMap("antidraughts"),
         ultraBullet = ratingsMap("ultraBullet"),
         bullet = ratingsMap("bullet"),

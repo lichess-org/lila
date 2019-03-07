@@ -46,9 +46,9 @@ case class DraughtsHistory(
     copy(positionHashes = DraughtsHistory.spoofHashes(v + 1))
 
   /**
-   * Checks for threefold repetition, does not apply to frisian chess
+   * Checks for threefold repetition, does not apply to frisian draughts
    */
-  def threefoldRepetition: Boolean = !variant.frisian && halfMoveClock >= 8 && {
+  def threefoldRepetition: Boolean = !variant.frisianVariant && halfMoveClock >= 8 && {
     // compare only hashes for positions with the same side to move
     val positions = (positionHashes grouped Hash.size).sliding(1, 2).flatten.toList
     positions.headOption match {

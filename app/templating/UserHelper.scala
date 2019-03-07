@@ -32,6 +32,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Classical,
     PerfType.Correspondence,
     PerfType.Frisian,
+    PerfType.Frysk,
     PerfType.Antidraughts
   )
 

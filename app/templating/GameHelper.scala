@@ -51,6 +51,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Aborted) => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
         case draughts.variant.Frisian => "Capture horizontally and vertically"
+        case draughts.variant.Frysk => "Frisian draughts starting with 5 pieces"
         case draughts.variant.Antidraughts => "Lose all your pieces or run out of moves"
         case _ => "Variant ending"
       }

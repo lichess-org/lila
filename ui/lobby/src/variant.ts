@@ -1,5 +1,6 @@
 const variantConfirms = {
   'frisian': "This is a Frisian Draughts game!\n\nPieces can also be captured horizontally and vertically.",
+  'frysk': "This is a Frysk! game!\n\nFrisian draughts starting with 5 pieces each.",
   "antidraughts": "This is an Antidraughts game!\n\nThe game can be won by losing all your pieces, or running out of moves."
 };
 

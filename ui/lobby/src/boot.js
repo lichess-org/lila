@@ -253,6 +253,9 @@ module.exports = function(cfg, element) {
         case '10':
           key = 'frisian';
           break;
+        case '8':
+          key = 'frysk';
+          break;
         case '6':
           key = 'antidraughts'
           break;

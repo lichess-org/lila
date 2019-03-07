@@ -30,7 +30,7 @@ final class JsonView(
   import JsonView._
 
   private def kingMoves(game: Game, color: Color) =
-    (game.variant == draughts.variant.Frisian) option game.history.kingMoves(color)
+    (game.variant.frisianVariant) option game.history.kingMoves(color)
 
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json.obj(

@@ -281,7 +281,7 @@ case class Game(
     val events = Event.Move(move, game.situation, state, clockEvent) ::
       {
         // abstraction leak, I know.
-        updated.board.variant.frisian ?? List(Event.KingMoves(
+        updated.board.variant.frisianVariant ?? List(Event.KingMoves(
           white = updated.history.kingMoves.white,
           black = updated.history.kingMoves.black,
           whiteKing = updated.history.kingMoves.whiteKing,

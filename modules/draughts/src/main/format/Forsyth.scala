@@ -29,7 +29,7 @@ object Forsyth {
           positionHashes = Array.empty,
           variant = variant
         )
-        if (variant.frisian) {
+        if (variant.frisianVariant) {
           val kingMoves = fen.split(':').lastOption.flatMap(makeKingMoves)
           kingMoves.fold(history)(history.withKingMoves)
         } else history
@@ -120,7 +120,7 @@ object Forsyth {
       "H" + game.halfMoveClock.toString,
       "F" + game.fullMoveNumber.toString
     ) ::: {
-        if (game.board.variant == variant.Frisian) List(exportKingMoves(game.board))
+        if (game.board.variant.frisianVariant) List(exportKingMoves(game.board))
         else List()
       }
   } mkString ":"

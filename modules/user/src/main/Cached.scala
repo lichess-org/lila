@@ -33,6 +33,7 @@ final class Cached(
     rapid ← top10Perf(PerfType.Rapid.id)
     classical ← top10Perf(PerfType.Classical.id)
     frisian ← top10Perf(PerfType.Frisian.id)
+    frysk ← top10Perf(PerfType.Frysk.id)
     antidraughts ← top10Perf(PerfType.Antidraughts.id)
   } yield Perfs.Leaderboards(
     ultraBullet = ultraBullet,
@@ -41,6 +42,7 @@ final class Cached(
     rapid = rapid,
     classical = classical,
     frisian = frisian,
+    frysk = frysk,
     antidraughts = antidraughts
   )
 

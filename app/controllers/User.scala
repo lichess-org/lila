@@ -209,6 +209,7 @@ object User extends LidraughtsController {
             "rapid" -> leaderboards.rapid,
             "classical" -> leaderboards.classical,
             "frisian" -> leaderboards.frisian,
+            "frysk" -> leaderboards.frysk,
             "antidraughts" -> leaderboards.antidraughts
           ))
         }

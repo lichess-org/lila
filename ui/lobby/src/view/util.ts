@@ -37,7 +37,7 @@ export const perfIcons = {
   'Rapid':'#',
   'Three-check':'.',
   'Antidraughts':'@',
-  'Horde':'_',
+  'Frysk!':'_',
   'Atomic':'>',
   'Crazyhouse':'',
   'Frisian':'\'',

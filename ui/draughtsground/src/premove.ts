@@ -176,7 +176,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
 
   if (piece === undefined || isNaN(field)) return new Array<cg.Key>();
 
-  const frisian = (variant && variant === "frisian");
+  const frisianVariant = variant && (variant === "frisian" || variant === "frysk");
 
   const dests: cg.Key[] = new Array<cg.Key>();
   switch (piece.role) {
@@ -188,7 +188,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
       //enemy pieces can never land there because you only take pieces from the board after capture sequence is completed
       //
 
-      for (let i = 0; i < (frisian ? 3 : 2); i++) {
+      for (let i = 0; i < (frisianVariant ? 3 : 2); i++) {
         let f = movesUp[field][i];
         if (f != -1) {
 
@@ -205,7 +205,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
         }
       }
 
-      for (let i = 0; i < (frisian ? 3 : 2); i++) {
+      for (let i = 0; i < (frisianVariant ? 3 : 2); i++) {
         let f = movesDown[field][i];
         if (f != -1) {
 
@@ -222,7 +222,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
         }
       }
 
-      if (frisian) {
+      if (frisianVariant) {
         for (let i = 0; i < 2; i++) {
           let f = movesHorizontal[field][i];
           if (f != -1) {
@@ -246,7 +246,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
       //As far as I can tell there is no configuration of pieces that makes any square theoretically impossible to be premovable 
       //
 
-      for (let i = 0; i < (frisian ? 3 : 2); i++) {
+      for (let i = 0; i < (frisianVariant ? 3 : 2); i++) {
         let f = movesUp[field][i], k = 0;
         while (f != -1) {
           if (i < 2 || k > 0)
@@ -256,7 +256,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
         }
       }
 
-      for (let i = 0; i < (frisian ? 3 : 2); i++) {
+      for (let i = 0; i < (frisianVariant ? 3 : 2); i++) {
         let f = movesDown[field][i], k = 0;
         while (f != -1) {
           if (i < 2 || k > 0)
@@ -266,7 +266,7 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string
         }
       }
 
-      if (frisian) {
+      if (frisianVariant) {
         for (let i = 0; i < 2; i++) {
           let f = movesHorizontal[field][i], k = 0;
           while (f != -1) {

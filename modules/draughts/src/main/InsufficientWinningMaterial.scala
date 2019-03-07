@@ -21,7 +21,7 @@ object InsufficientWinningMaterial {
    * being able to win as informed by the traditional draughts rules material combinations (rules b and c).
    */
   def apply(board: Board): Option[Int] =
-    if (board.variant.frisian) {
+    if (board.variant.frisianVariant) {
       if (board.pieces.size <= 3 && board.roleCount(Man) == 0) {
         if (board.pieces.size == 3) 14.some
         else 4.some

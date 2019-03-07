@@ -36,7 +36,8 @@ object FilterConfig {
   val variants = List(
     draughts.variant.Standard,
     draughts.variant.Frisian,
-    draughts.variant.Antidraughts
+    draughts.variant.Antidraughts,
+    draughts.variant.Frysk
   )
 
   val modes = Mode.all

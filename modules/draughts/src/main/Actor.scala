@@ -26,14 +26,14 @@ case class Actor(
   private def noncaptureMoves(): List[Move] = piece.role match {
     case Man => shortRangeMoves(dirsOfColor)
     case King =>
-      if (board.variant.frisian && board.history.kingMoves(color) >= 3 && board.history.kingMoves.kingPos(color).fold(true)(_ == pos)) Nil
+      if (board.variant.frisianVariant && board.history.kingMoves(color) >= 3 && board.history.kingMoves.kingPos(color).fold(true)(_ == pos)) Nil
       else longRangeMoves(dirsAll)
     case _ => Nil
   }
 
   private def captureMoves(finalSquare: Boolean): List[Move] = piece.role match {
-    case Man => shortRangeCaptures(if (board.variant.frisian) dirsAllFrisian else dirsAll, finalSquare)
-    case King => longRangeCaptures(if (board.variant.frisian) dirsAllFrisian else dirsAll, finalSquare)
+    case Man => shortRangeCaptures(if (board.variant.frisianVariant) dirsAllFrisian else dirsAll, finalSquare)
+    case King => longRangeCaptures(if (board.variant.frisianVariant) dirsAllFrisian else dirsAll, finalSquare)
     case _ => Nil
   }
 
@@ -80,7 +80,7 @@ case class Actor(
                             move(landingPos, boardAfter.withouthGhosts(), newSquares, newTaken)
                           else
                             move(destPos.getOrElse(landingPos), destBoard.getOrElse(boardAfter), newSquares, newTaken)
-                        if (board.variant.frisian) {
+                        if (board.variant.frisianVariant) {
                           val lineValue = newMove.frisianValue
                           if (lineValue > bestValue) {
                             bestValue = lineValue
@@ -179,7 +179,7 @@ case class Actor(
           move(curPos, curBoard.withouthGhosts(), newSquares, allTaken)
         else
           move(destPos.getOrElse(curPos), destBoard.getOrElse(curBoard), newSquares, allTaken)
-      if (board.variant.frisian) {
+      if (board.variant.frisianVariant) {
         val lineValue = newMove.frisianValue
         if (lineValue > bestValue) {
           bestValue = lineValue

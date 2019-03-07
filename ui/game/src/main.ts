@@ -20,6 +20,7 @@ export const perf = {
     classical: "+",
     correspondence: ";",
     frisian: "'",
+    frysk: "_",
     antidraughts: "@"
   }
 };

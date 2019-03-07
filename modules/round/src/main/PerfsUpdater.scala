@@ -27,6 +27,8 @@ final class PerfsUpdater(
         game.ratingVariant match {
           case draughts.variant.Frisian =>
             updateRatings(ratingsW.frisian, ratingsB.frisian, result, system)
+          case draughts.variant.Frysk =>
+            updateRatings(ratingsW.frysk, ratingsB.frysk, result, system)
           case draughts.variant.Antidraughts =>
             updateRatings(ratingsW.antidraughts, ratingsB.antidraughts, result, system)
           case draughts.variant.Standard => game.speed match {
@@ -64,6 +66,7 @@ final class PerfsUpdater(
 
   private final case class Ratings(
       frisian: Rating,
+      frysk: Rating,
       antidraughts: Rating,
       ultraBullet: Rating,
       bullet: Rating,
@@ -75,6 +78,7 @@ final class PerfsUpdater(
 
   private def mkRatings(perfs: Perfs) = Ratings(
     frisian = perfs.frisian.toRating,
+    frysk = perfs.frysk.toRating,
     antidraughts = perfs.antidraughts.toRating,
     ultraBullet = perfs.ultraBullet.toRating,
     bullet = perfs.bullet.toRating,
@@ -113,6 +117,7 @@ final class PerfsUpdater(
       else perf
     val perfs1 = perfs.copy(
       frisian = addRatingIf(game.ratingVariant.frisian, perfs.frisian, ratings.frisian),
+      frysk = addRatingIf(game.ratingVariant.frysk, perfs.frysk, ratings.frysk),
       antidraughts = addRatingIf(game.ratingVariant.antidraughts, perfs.antidraughts, ratings.antidraughts),
       ultraBullet = addRatingIf(isStd && speed == Speed.UltraBullet, perfs.ultraBullet, ratings.ultraBullet),
       bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),

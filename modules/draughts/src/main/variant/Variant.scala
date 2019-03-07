@@ -21,8 +21,11 @@ abstract class Variant(
 
   def standard = this == Standard
   def frisian = this == Frisian
+  def frysk = this == Frysk
   def antidraughts = this == Antidraughts
   def fromPosition = this == FromPosition
+
+  def frisianVariant = frisian || frysk
 
   def exotic = !standard
 
@@ -51,7 +54,7 @@ abstract class Variant(
     for (actor <- situation.actors) {
       val capts = if (finalSquare) actor.capturesFinal else actor.captures
       if (capts.nonEmpty) {
-        if (frisian) {
+        if (frisianVariant) {
           val lineValue = capts.head.frisianValue
           if (lineValue > bestValue) {
             bestValue = lineValue
@@ -209,7 +212,7 @@ abstract class Variant(
 
 object Variant {
 
-  val all = List(Standard, Frisian, Antidraughts, FromPosition)
+  val all = List(Standard, Frisian, Frysk, Antidraughts, FromPosition)
   val byId = all map { v => (v.id, v) } toMap
   val byKey = all map { v => (v.key, v) } toMap
 
@@ -230,8 +233,7 @@ object Variant {
 
   val openingSensibleVariants: Set[Variant] = Set(
     draughts.variant.Standard,
-    draughts.variant.Frisian,
-    draughts.variant.Antidraughts
+    draughts.variant.Frisian
   )
 
   val divisionSensibleVariants: Set[Variant] = Set(
@@ -252,6 +254,17 @@ object Variant {
           case 7 => White - rank(x - 1)
           case 8 => White - rank(x - 1)
           case 9 => White - rank(x - 1)
+          case 10 => White - rank(x - 1)
+        })
+      }
+    }).flatten.toMap
+  }
+
+  private[variant] def symmetricBackrank(rank: IndexedSeq[Role]): Map[Pos, Piece] = {
+    (for (y ← Seq(1, 10); x ← 1 to 5) yield {
+      posAt(x, y) map { pos =>
+        (pos, y match {
+          case 1 => Black - rank(x - 1)
           case 10 => White - rank(x - 1)
         })
       }

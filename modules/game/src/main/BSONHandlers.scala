@@ -54,7 +54,7 @@ object BSONHandlers {
         history = DraughtsHistory(
           lastMove = decoded.lastMove,
           positionHashes = decoded.positionHashes,
-          kingMoves = if (gameVariant.frisian) {
+          kingMoves = if (gameVariant.frisianVariant) {
             val counts = r.intsD(F.kingMoves)
             KingMoves(~counts.headOption, ~counts.tailOption.flatMap(_.headOption), (counts.length > 2).fold(draughts.Pos.posAt(counts(2)), none), (counts.length > 3).fold(draughts.Pos.posAt(counts(3)), none))
           } else Game.emptyKingMoves,

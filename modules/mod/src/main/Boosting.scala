@@ -20,6 +20,7 @@ final class BoostingApi(
   private val variants = Set[variant.Variant](
     variant.Standard,
     variant.Frisian,
+    variant.Frysk,
     variant.Antidraughts
   )
 

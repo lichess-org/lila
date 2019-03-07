@@ -58,7 +58,7 @@ object Hash {
 
     // Hash in frisian kingmove-counter data
     val hkingMoves = board.variant match {
-      case variant.Frisian =>
+      case variant.Frisian | variant.Frysk =>
         val blackCount = math.min(situation.history.kingMoves.black, 3)
         val whiteCount = math.min(situation.history.kingMoves.white, 3)
         val hblackCount = if (blackCount > 0) hactors ^ table.kingMovesMasks(blackCount - 1) else hactors
