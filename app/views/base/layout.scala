@@ -126,11 +126,11 @@ object layout {
         charset,
         responsive option viewport,
         metaCsp(csp),
-        if (isProd) frag(
+        if (isProd && !isStage) frag(
           st.headTitle(fullTitle | s"$title • lichess.org"),
           !responsive option fontStylesheets
         )
-        else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
+        else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
         if (responsive) frag(
           responsiveCssTag("site"),
           ctx.pref.is3d option responsiveCssTag("board-3d")
@@ -216,7 +216,7 @@ object layout {
                     if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
                     else ctx.isBot option botImage,
                     "lichess",
-                    span(cls := "extension")(if (isProd) ".org" else ".dev")
+                    span(cls := "extension")(if (isProd && !isStage) ".org" else ".dev")
                   )
                 ),
                 menu map { sideMenu =>
@@ -293,7 +293,7 @@ object layout {
               if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")("😊")
               else ctx.isBot option botImage,
               "lichess",
-              span(if (isProd) ".org" else " dev")
+              span(if (isProd && !isStage) ".org" else ".dev")
             )
           ),
           topmenu()
