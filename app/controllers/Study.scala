@@ -291,7 +291,7 @@ object Study extends LilaController {
             val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root)
+                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
               }
             )
             val data = lila.study.JsonView.JsData(
