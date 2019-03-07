@@ -124,12 +124,12 @@ object layout {
       head(
         charset,
         metaCsp(csp),
-        if (isProd) frag(
+        if (isProd && !isStage) frag(
           titleTag(fullTitle | s"$title • lichess.org"),
           fontStylesheets
         )
         else frag(
-          titleTag(s"[dev] ${fullTitle | s"$title • lichess.org"}"),
+          titleTag(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
           cssAt("offline/font.noto.css"),
           cssAt("offline/font.roboto.mono.css")
         ),
@@ -221,7 +221,7 @@ object layout {
                     if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
                     else ctx.isBot option botImage,
                     "lichess",
-                    span(cls := "extension")(if (isProd) ".org" else ".dev")
+                    span(cls := "extension")(if (isProd && !isStage) ".org" else ".dev")
                   )
                 ),
                 baseline,
