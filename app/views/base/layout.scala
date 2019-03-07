@@ -221,7 +221,7 @@ object layout {
                     if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
                     else ctx.isBot option botImage,
                     "lichess",
-                    span(cls := "extension")(if (isProd) ".org" else " dev")
+                    span(cls := "extension")(if (isProd) ".org" else ".dev")
                   )
                 ),
                 baseline,
