@@ -18,7 +18,8 @@ case object Breakthrough extends Variant(
     situation.board.kingPosOf(White).isDefined || situation.board.kingPosOf(Black).isDefined
 
   override def winner(situation: Situation): Option[Color] =
-    if (situation.board.kingPosOf(White).isDefined) White.some
+    if (situation.checkMate) Some(!situation.color)
+    else if (situation.board.kingPosOf(White).isDefined) White.some
     else if (situation.board.kingPosOf(Black).isDefined) Black.some
     else None
 
