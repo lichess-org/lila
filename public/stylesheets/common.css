@@ -53,8 +53,8 @@ time {
 }
 @font-face {
   font-family: "lidraughts";
-  src: url("../font01/fonts/lidraughts.eot");
-  src: url("../font01/fonts/lidraughts.eot?#iefix") format("embedded-opentype"), url("../font01/fonts/lidraughts.woff") format("woff"), url("../font01/fonts/lidraughts.ttf") format("truetype");
+  src: url("../font02/fonts/lidraughts.eot");
+  src: url("../font02/fonts/lidraughts.eot?#iefix") format("embedded-opentype"), url("../font02/fonts/lidraughts.woff") format("woff"), url("../font02/fonts/lidraughts.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
