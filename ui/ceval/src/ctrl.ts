@@ -1,4 +1,5 @@
 import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
+import { parseVariant } from './scanProtocol';
 
 import Pool from './pool';
 import { median } from './math';
@@ -23,18 +24,19 @@ export default function(opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const enableStorage = li.storage.make(storageKey('client-eval-enabled'));
-  const allowed = prop(opts.variant.key === 'standard' || opts.variant.key === 'fromPosition');
+  const allowed = prop(opts.variant.key === 'standard' || opts.variant.key === 'fromPosition' || opts.variant.key === 'breakthrough');
   const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
+  const scanVariant = parseVariant(opts.variant.key);
   const scanPath = '/assets/vendor/scan/scan';
   const pool = new Pool({
-    asmjs: li.assetUrl(scanPath + '.js', {sameDomain: true}),
+    asmjs: li.assetUrl(scanPath + '_' + scanVariant + '.js', {sameDomain: true}),
     pnacl: pnaclSupported && li.assetUrl(scanPath + '.nmf'),
-    wasm: wasmSupported && li.assetUrl(scanPath + '.wasm.js', {sameDomain: true}),
+    wasm: wasmSupported && li.assetUrl(scanPath + '_' + scanVariant + '.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth,

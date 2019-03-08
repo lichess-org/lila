@@ -37,6 +37,15 @@ function scanFen(fen: string): string {
   return result;
 }
 
+export function parseVariant(variant: string): string {
+  let result = variant.toLowerCase();
+  if (result === "standard" || result === "fromposition")
+    return "normal";
+  else if (result === "breakthrough")
+    return "bt";
+  return result;
+}
+
 export default class Protocol {
   private send: (cmd: string) => void;
   private work: Work | null = null;
@@ -62,6 +71,8 @@ export default class Protocol {
     const newHashSize = this.opts.hashSize ? (this.opts.hashSize() as number) : 128;
     send('set-param name=tt-size value=' + Math.floor(Math.log(newHashSize * 1024 * 1024 / 16) / Math.log(2)));
     this.curHashSize = newHashSize;
+
+    send('set-param name=variant value=' + parseVariant(opts.variant));
 
     // prepare for analysis
     send('init');

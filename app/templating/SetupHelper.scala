@@ -58,6 +58,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedAiVariantChoices(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
+      variantTuple(draughts.variant.Breakthrough) :+
       variantTuple(draughts.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =

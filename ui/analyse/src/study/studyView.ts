@@ -47,7 +47,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
   canContribute = ctrl.members.canContribute(),
-  canAnalyze = (ctrl.data.chapter.setup.variant.key === 'standard' || ctrl.data.chapter.setup.variant.key === 'fromPosition'),
+  canAnalyze = (ctrl.data.chapter.setup.variant.key === 'standard' || ctrl.data.chapter.setup.variant.key === 'fromPosition' || ctrl.data.chapter.setup.variant.key === 'breakthrough'),
   showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study_buttons', [
     h('div.member_buttons', [
