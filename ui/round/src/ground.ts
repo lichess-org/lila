@@ -101,11 +101,7 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
 
 export function render(ctrl: RoundController) {
   return h('div.cg-board-wrap', {
-    hook: {
-      insert(vnode) {
-        ctrl.setDraughtsground(Draughtsground((vnode.elm as HTMLElement), makeConfig(ctrl)));
-      }
-    }
+    hook: util.onInsert(el => ctrl.setDraughtsground(Draughtsground(el, makeConfig(ctrl))))
   }, [
     h('div.cg-board')
   ]);

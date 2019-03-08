@@ -1,3 +1,11 @@
+.tour__side {
+  @extend %flex-column;
+
+  .mchat {
+    flex: 1 0 300px;
+    margin-top: $block-gap;
+  }
+}
 .tour__meta {
   @extend %box-neat-force;
   background: $c-bg-box;

@@ -2,10 +2,11 @@ import { h } from 'snabbdom'
 import * as ground from './ground';
 import * as cg from 'draughtsground/types';
 import { DrawShape } from 'draughtsground/draw';
-import xhr = require('./xhr');
+import * as xhr from './xhr';
 import { key2pos } from 'draughtsground/util';
 import { bind } from './util';
 import RoundController from './ctrl';
+import { onInsert } from './util';
 
 interface Promoting {
   move: [cg.Key, cg.Key];
@@ -24,12 +25,12 @@ function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key, role: 
 
 export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata = {} as cg.MoveMetadata): boolean {
   const d = ctrl.data,
-  piece = ctrl.draughtsground.state.pieces[dest],
-  premovePiece = ctrl.draughtsground.state.pieces[orig];
+    piece = ctrl.draughtsground.state.pieces[dest],
+    premovePiece = ctrl.draughtsground.state.pieces[orig];
   //if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
   if (((piece && piece.role === 'man') || (premovePiece && premovePiece.role === 'man')) && (
     (key2pos(dest)[1] === -1 && d.player.color === 'white') ||
-      (key2pos(dest)[1] === -1 && d.player.color === 'black'))) {
+    (key2pos(dest)[1] === -1 && d.player.color === 'black'))) {
     if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
     if (!meta.ctrlKey && !promoting) {// && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
       //if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
@@ -90,16 +91,13 @@ function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], 
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return h('div#promotion_choice.' + vertical, {
-    hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', () => cancel(ctrl));
-        el.addEventListener('contextmenu', e => {
-          e.preventDefault();
-          return false;
-        });
-      }
-    }
+    hook: onInsert(el => {
+      el.addEventListener('click', () => cancel(ctrl));
+      el.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        return false;
+      });
+    })
   }, roles.map((serverRole, i) => {
     var top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {

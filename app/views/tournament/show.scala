@@ -56,8 +56,7 @@ chat:${
           s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
         }
       }")(
-        st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner)),
-        chatOption.map(_ => views.html.chat.frag),
+        st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)),
         div(cls := "tour__main box"),
         div(cls := "tour__featured"),
         div(cls := "tour__player box"),

@@ -6,6 +6,7 @@
   }
   .form-split {
     @extend %flex-between;
+    align-items: inherit;
   }
   .form-half {
     flex: 1 1 48%;

@@ -963,7 +963,7 @@ lidraughts.topMenuIntent = function() {
     cfg.socketSend = lidraughts.socket.send;
     simul = LidraughtsSimul(element, cfg);
     if (cfg.chat) lidraughts.makeChat(cfg.chat);
-  };
+  }
 
   ////////////////
   // user_analysis.js //

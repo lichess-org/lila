@@ -16,7 +16,8 @@ object side {
     tour: lidraughts.tournament.Tournament,
     verdicts: lidraughts.tournament.Condition.All.WithVerdicts,
     streamers: Set[lidraughts.user.User.ID],
-    shieldOwner: Option[lidraughts.tournament.TournamentShield.OwnerId]
+    shieldOwner: Option[lidraughts.tournament.TournamentShield.OwnerId],
+    chat: Boolean
   )(implicit ctx: Context) = frag(
     div(cls := "tour__meta")(
       st.section(dataIcon := tour.perfType.map(_.iconChar.toString))(
@@ -89,6 +90,7 @@ object side {
         usernameOrId(id),
         " is streaming"
       )
-    }
+    },
+    chat option views.html.chat.frag
   )
 }

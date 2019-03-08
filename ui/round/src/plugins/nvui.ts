@@ -9,6 +9,7 @@ import { Draughtsground } from 'draughtsground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
+import { onInsert } from '../util';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
 import { Player } from 'game';
 import { Style, renderSan, loadCss, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
@@ -77,13 +78,11 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         ...(ctrl.isPlaying() ? [
           h('h2', 'Move form'),
           h('form', {
-            hook: {
-              insert(vnode) {
-                const $form = $(vnode.elm as HTMLFormElement),
-                  $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, $input));
-              }
-            }
+            hook: onInsert(el => {
+              const $form = $(el as HTMLFormElement),
+                $input = $form.find('.move').val('').focus();
+              $form.submit(onSubmit(ctrl, notify.set, $input));
+            })
           }, [
             h('label', [
               d.player.color === d.game.player ? 'Your move' : 'Waiting',

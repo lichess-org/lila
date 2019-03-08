@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import * as cg from 'draughtsground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { onInsert } from './util'
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, captLen?: number) => void;
 
@@ -63,20 +64,18 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: {
-        insert: vnode => {
-          window.lidraughts.loadScript('compiled/lidraughts.round.keyboardMove.min.js').then(() => {
-            ctrl.registerHandler(window.lidraughts.keyboardMove({
-              input: vnode.elm,
-              setFocus: ctrl.setFocus,
-              select: ctrl.select,
-              hasSelected: ctrl.hasSelected,
-              confirmMove: ctrl.confirmMove,
-              san: ctrl.san
-            }));
-          });
-        }
-      }
+      hook: onInsert(el => {
+        window.lidraughts.loadScript('compiled/lidraughts.round.keyboardMove.min.js').then(() => {
+          ctrl.registerHandler(window.lidraughts.keyboardMove({
+            input: el,
+            setFocus: ctrl.setFocus,
+            select: ctrl.select,
+            hasSelected: ctrl.hasSelected,
+            confirmMove: ctrl.confirmMove,
+            san: ctrl.san
+          }));
+        });
+      })
     }),
     ctrl.hasFocus() ?
     h('em', 'Enter moves (14x3, 5-10) or squares (1403, 0510), or type / to focus chat') :
