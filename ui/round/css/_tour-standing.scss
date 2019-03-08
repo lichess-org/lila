@@ -5,22 +5,15 @@
   table {
     border-bottom: none;
   }
-  td {
+  .slist td {
     @extend %nowrap-hidden;
     padding: .2em 1em;
     line-height: 2em;
     text-overflow: ellipsis;
   }
-  .slist td:first-child {
-    padding-left: .8em;
-  }
   .name span {
     display: inline-block;
     width: 1.5em;
-  }
-  .name span::before {
-    font-size: 0.8em;
-    opacity: 0.4;
   }
   .total {
     font-weight: bold;

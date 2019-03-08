@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { ChatPlugin } from 'chat'
-import { justIcon, onInsert } from './util'
+import { onInsert } from './util'
 
 export interface TourStandingCtrl extends ChatPlugin {
   set(data: TourPlayer[]): void;
@@ -29,7 +29,7 @@ export function tourStandingCtrl(data: TourPlayer[], name: string): TourStanding
         h('tbody', data.map((p: TourPlayer, i: number) => {
           return h('tr.' + p.n, [
             h('td.name', [
-              p.w ? h('span', justIcon('Z')) : h('span.rank', '' + (i + 1)),
+              h('span.rank', '' + (i + 1)),
               h('a.user_link.ulpt', {
                 attrs: { href: `/@/${p.n}` }
               }, (p.t ? p.t + ' ' : '') + p.n)
