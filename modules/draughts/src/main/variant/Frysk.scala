@@ -12,8 +12,16 @@ case object Frysk extends Variant(
 ) {
 
   def pieces = Variant.symmetricBackrank(standardRank)
+  override def initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
 
   override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = Frisian.finalizeBoard(board, uci, captured, remainingCaptures)
   override def updatePositionHashes(board: Board, move: Move, hash: draughts.PositionHash): PositionHash = Frisian.updatePositionHashes(board, move, hash)
+
+  override protected def validSide(board: Board, strict: Boolean)(color: Color) = {
+    val roles = board rolesOf color
+    (roles.count(_ == Man) > 0 || roles.count(_ == King) > 0) &&
+      (!strict || roles.size <= 5) &&
+      (!menOnPromotionRank(board, color) || board.ghosts != 0)
+  }
 
 }
