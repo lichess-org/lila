@@ -54,12 +54,10 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
     return h('div.result-wrap', [
       h('p.result', result || ''),
       h('p.status', {
-        hook: {
-          insert: _ => {
-            if (ctrl.autoScroll) ctrl.autoScroll();
-            else setTimeout(() => ctrl.autoScroll(), 200);
-          }
-        }
+        hook: util.onInsert(() => {
+          if (ctrl.autoScroll) ctrl.autoScroll();
+          else setTimeout(() => ctrl.autoScroll(), 200);
+        })
       }, [
         viewStatus(ctrl),
         winner ? ' • ' + ctrl.trans.noarg(winner.color + 'IsVictorious') : ''
@@ -108,16 +106,14 @@ function analyseButton(ctrl: RoundController) {
       'data-icon': 'A'
     }
   };
-  if (showInfo) data.hook = {
-    insert(vnode) {
-      setTimeout(() => {
-        $(vnode.elm as HTMLElement).powerTip({
-          closeDelay: 200,
-          placement: 'n'
-        }).data('powertipjq', $(vnode.elm as HTMLElement).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
-      }, 1000);
-    }
-  };
+  if (showInfo) data.hook = util.onInsert(
+    el => setTimeout(() => {
+      $(el).powerTip({
+        closeDelay: 200,
+        placement: 'n'
+      }).data('powertipjq', $(el).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
+    }, 1000)
+  );
   return [
     h('a.fbt.analysis', data, forecastCount ? ['' + forecastCount] : []),
     showInfo ? h('div.forecast-info.info.none', [
@@ -188,25 +184,23 @@ export default function(ctrl: RoundController): VNode | undefined {
   return ctrl.nvui ? undefined : h('div.rmoves', [
     renderButtons(ctrl),
     initMessage(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).addEventListener('mousedown', e => {
-            let node = e.target as HTMLElement, offset = -2;
-            if (node.tagName !== 'MOVE') return;
-            while(node = node.previousSibling as HTMLElement) {
-              offset++;
-              if (node.tagName === 'INDEX') {
-                ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
-                ctrl.redraw();
-                break;
-              }
+      hook: util.onInsert(el => {
+        el.addEventListener('mousedown', e => {
+          let node = e.target as HTMLElement, offset = -2;
+          if (node.tagName !== 'MOVE') return;
+          while(node = node.previousSibling as HTMLElement) {
+            offset++;
+            if (node.tagName === 'INDEX') {
+              ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
+              ctrl.redraw();
+              break;
             }
-          });
-          ctrl.autoScroll = () => autoScroll(vnode.elm as HTMLElement, ctrl); ;
-          ctrl.autoScroll();
-          window.addEventListener('load', ctrl.autoScroll);
-        }
-      }
+          }
+        });
+        ctrl.autoScroll = () => autoScroll(el, ctrl); ;
+        ctrl.autoScroll();
+        window.addEventListener('load', ctrl.autoScroll);
+      })
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
 }

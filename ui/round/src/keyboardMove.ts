@@ -5,6 +5,7 @@ import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { sendPromotion } from './promotion'
+import { onInsert } from './util'
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
 
@@ -92,22 +93,20 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: {
-        insert: vnode => {
-          window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
-            ctrl.registerHandler(window.lichess.keyboardMove({
-              input: vnode.elm,
-              setFocus: ctrl.setFocus,
-              select: ctrl.select,
-              hasSelected: ctrl.hasSelected,
-              confirmMove: ctrl.confirmMove,
-              san: ctrl.san,
-              drop: ctrl.drop,
-              promote: ctrl.promote
-            }));
-          });
-        }
-      }
+      hook: onInsert(el => {
+        window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
+          ctrl.registerHandler(window.lichess.keyboardMove({
+            input: el,
+            setFocus: ctrl.setFocus,
+            select: ctrl.select,
+            hasSelected: ctrl.hasSelected,
+            confirmMove: ctrl.confirmMove,
+            san: ctrl.san,
+            drop: ctrl.drop,
+            promote: ctrl.promote
+          }));
+        });
+      })
     }),
     ctrl.hasFocus() ?
     h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :

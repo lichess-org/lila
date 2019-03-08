@@ -1,7 +1,8 @@
 .tour__main__header {
   @extend %flex-center;
   position: relative;
-  min-height: 5em;
+  min-height: 7em;
+  padding: 0 #{$block-gap * 1.5};
   h1 {
     font-size: 2.2rem;
     flex: 9 1 auto;
@@ -17,7 +18,7 @@
     padding: 6px;
   }
   .img {
-    margin: 0 15px;
+    margin-right: 1rem;
   }
   i::before {
     font-size: 2.2rem;
@@ -41,7 +42,6 @@
   }
   .clock {
     flex: 0 0 auto;
-    margin: 0 1em;
     font-weight: bold;
     color: $c-font-dim;
     &-created {

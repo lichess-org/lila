@@ -19,10 +19,8 @@ export default function(ctrl: TournamentController) {
 
   return h('main.' + ctrl.opts.classes, [
     h('aside.analyse__side', {
-      hook: onInsert(el => $(el).replaceWith(ctrl.opts.$side))
-    }),
-    h('section.mchat', {
-      hook: onInsert(_ => {
+      hook: onInsert(el => {
+        $(el).replaceWith(ctrl.opts.$side);
         window.lichess.makeChat(ctrl.opts.chat);
       })
     }),

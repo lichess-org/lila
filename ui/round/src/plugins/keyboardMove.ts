@@ -104,6 +104,6 @@ function destsToUcis(dests: DecodedDests) {
 }
 
 function focusChat() {
-  const chatInput = document.querySelector('.mchat input.lichess_say') as HTMLInputElement;
+  const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;
   if (chatInput) chatInput.focus();
 }

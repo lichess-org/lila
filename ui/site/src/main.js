@@ -957,7 +957,7 @@ lichess.topMenuIntent = function() {
     cfg.socketSend = lichess.socket.send;
     simul = LichessSimul(element, cfg);
     if (cfg.chat) lichess.makeChat(cfg.chat);
-  };
+  }
 
   ////////////////
   // user_analysis.js //

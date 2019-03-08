@@ -3,6 +3,7 @@ import * as round from '../round';
 import { drag } from './crazyCtrl';
 import * as cg from 'chessground/types';
 import RoundController from '../ctrl';
+import { onInsert } from '../util';
 import { Position } from '../interfaces';
 
 const eventNames = ['mousedown', 'touchstart'];
@@ -12,24 +13,20 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
   const step = round.plyStep(ctrl.data, ctrl.ply);
   if (!step.crazy) return;
   const droppedRole = ctrl.justDropped,
-  preDropRole = ctrl.preDrop,
-  pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
-  usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
-  usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
-  activeColor = color === ctrl.data.player.color;
+    preDropRole = ctrl.preDrop,
+    pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
+    usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
+    usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
+    activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
   const captured = capturedPiece && (capturedPiece['promoted'] ? 'pawn' : capturedPiece.role);
   return h('div.pocket.is2d.pocket-' + position, {
     class: { usable },
-    hook: {
-      insert: vnode => {
-        eventNames.forEach(name => {
-          (vnode.elm as HTMLElement).addEventListener(name, (e: cg.MouchEvent) => {
-            if (position === (ctrl.flip ? 'top' : 'bottom')) drag(ctrl, e);
-          })
-        });
-      }
-    }
+    hook: onInsert(el => eventNames.forEach(
+      name => el.addEventListener(name, (e: cg.MouchEvent) => {
+        if (position === (ctrl.flip ? 'top' : 'bottom')) drag(ctrl, e);
+      })
+    ))
   }, pieceRoles.map(role => {
     let nb = pocket[role] || 0;
     if (activeColor) {

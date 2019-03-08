@@ -281,8 +281,6 @@ export function watcherFollowUp(ctrl: RoundController): VNode {
   ]);
 }
 
-const onSuggestionHook: Hooks = {
-  insert(vnode) {
-    window.lichess.pubsub.emit('round.suggestion')((vnode.elm as HTMLElement).textContent);
-  }
-};
+const onSuggestionHook: Hooks = util.onInsert(
+  el => window.lichess.pubsub.emit('round.suggestion')(el.textContent)
+);

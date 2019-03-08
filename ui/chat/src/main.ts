@@ -26,7 +26,9 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
 
   ctrl = makeCtrl(opts, redraw);
 
-  vnode = patch(element, view(ctrl));
+  const blueprint = view(ctrl);
+  element.innerHTML = '';
+  vnode = patch(element, blueprint);
 
   window.Mousetrap.bind('/', () => {
     (container.querySelector('.mchat__say') as HTMLElement).focus();
