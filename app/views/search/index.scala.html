@@ -2,9 +2,6 @@
 
 @import lila.gameSearch.{ Query, Sorting }
 
-@moreCss = {
-@cssTag("search.css")
-}
 @moreJs = {
 @jsTag("search.js")
 @infiniteScrollTag
@@ -13,14 +10,15 @@
 @base.layout(
 title = trans.advancedSearch.txt(),
 moreJs = moreJs,
-moreCss = moreCss,
+moreCss = responsiveCssTag("search"),
+responsive = true,
 openGraph = lila.app.ui.OpenGraph(
 title = s"Search in ${nbGames.localize} chess games",
 url = s"$netBaseUrl${routes.Search.index().url}",
 description = s"Search in ${nbGames.localize} chess games using advanced criterions").some) {
-<div class="content_box no_padding">
-  <h1 class="title">@trans.advancedSearch()</h1>
-  <form rel="nofollow" class="search" action="@routes.Search.index()" method="get"
+<main class="box page-small">
+  <h1>@trans.advancedSearch()</h1>
+  <form rel="nofollow" class="search box__pad" action="@routes.Search.index()" method="get"
     data-req-winner="@form("players")("winner").value"
     data-req-loser="@form("players")("loser").value"
     data-req-white="@form("players")("white").value"
@@ -29,7 +27,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     <table>
       <tr>
         <th>
-          <label>@trans.players() <span class="help" title="The name(s) of the player(s) you wish to search">(?)</span></label>
+          <label>@trans.players() <span class="help">(?)</span></label>
         </th>
         <td class="usernames">
           <div class="half">@form3.inputHtml(form("players")("a"))()</div>
