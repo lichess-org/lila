@@ -61,7 +61,7 @@ module.exports = (dir) => {
 
 function renameAs(ext) {
   return rename(path => {
-    path.basename = `lichess.${path.basename}.${ext}`;
+    path.basename = `${path.basename}.${ext}`;
     return path;
   });
 }

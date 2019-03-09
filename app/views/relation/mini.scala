@@ -26,7 +26,7 @@ object mini {
       dataIcon := "h"
     )(trans.following.frag())
     case Some(false) => a(
-      cls := "relation-button hover_text text",
+      cls := "relation-button text",
       title := trans.unblock.txt(),
       href := s"${routes.Relation.unblock(userId)}?mini=1",
       dataIcon := "k"

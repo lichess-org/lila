@@ -1,0 +1,8 @@
+.hover-text > .base,
+.hover-text:hover > .hover {
+  display: inline-block;
+}
+.hover-text > .hover,
+.hover-text:hover > .base {
+  display: none;
+}
