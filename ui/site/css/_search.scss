@@ -1,0 +1,88 @@
+form.search {
+
+  margin-bottom: 2em;
+
+  table {
+    width: 100%;
+  }
+
+  td {
+    padding: 5px 0;
+  }
+
+  .half {
+    float: left;
+    width: 49%;
+    padding-right: 1%;
+    text-align: right;
+  }
+
+  label {
+    margin-right: 10px;
+  }
+
+  input {
+    width: 86%;
+    padding: 3% 5%;
+  }
+
+  select {
+    padding: 0.5% 1%;
+    text-transform: capitalize;
+  }
+  .user_row select {
+    text-transform: none;
+  }
+
+  .single select {
+    width: 99%;
+  }
+
+  .half select {
+    width: 78%;
+  }
+
+  input.submit {
+    width: 99%;
+  }
+
+  div.level {
+    display: inline;
+  }
+
+  span.help {
+    color: $c-secondary;
+    text-decoration: underline $c-secondary;
+  }
+
+  .search_status {
+    margin-top: 10px;
+    padding: 10px 25px;
+    background: $c-bg-zebra;
+    border: $border;
+    border-width: 1px 0;
+  }
+
+  .error {
+    margin-left: 160px;
+    color: red;
+  }
+
+  .submit {
+    width: 100%;
+  }
+  .wait {
+    display: none;
+  }
+  .searching .spinner {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  .searching .wait {
+    display: block;
+  }
+  .searching .submit {
+    display: none;
+  }
+}
