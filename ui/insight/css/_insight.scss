@@ -86,13 +86,13 @@
     }
     .ms-choice {
       background: #444;
-      color: #ddd!important;
+      color: #ddd;
       border-color: #666;
     }
   }
   .meat {
-    background: #fff;
-    border: 1px solid #ccc;
+    background: $c-bg-box;
+    border: $border;
     border-top: 0;
     grid-area: meat;
   }
@@ -116,12 +116,13 @@
     top: 18px;
   }
   .axis-form .ms-drop {
+    color: $c-font;
     ul > li label input {
       display: none;
     }
     ul > li.selected label {
-      background: #d87500!important;
-      color: #fff!important;
+      background: $c-accent;
+      color: $c-accent-over;
     }
   }
 
@@ -215,9 +216,6 @@
     .ms-parent:hover .ms-choice {
       background: mix($c-accent, $c-bg-box, 20%);
     }
-    .ms-choice > span.placeholder {
-      color: #505050;
-    }
     .ms-choice span {
       text-align: right;
       line-height: 30px;
@@ -240,18 +238,13 @@
 
   .ms-parent,
   .ms-parent button {
-    color: #505050;
     user-select: none;
-  }
-  .ms-choice {
-    border-color: $c-border;
   }
   .ms-choice:focus,
   .ms-parent input:focus {
     outline: 0;
   }
   .ms-drop {
-    @extend %box-neat-force;
     font-size: .9em;
     ul {
       padding: 0;
@@ -260,14 +253,14 @@
     ul > li label:not(.optgroup) {
       padding: 4px 8px;
       cursor: pointer;
-      transition: background 0.13s;
+      @include transition();
       text-indent: 1em;
     }
     ul > li label:not(.optgroup):hover {
       background: mix($c-accent, $c-bg-box, 20%);
     }
     ul > li label.optgroup {
-      border-top: 1px solid #ccc;
+      border-top: $border;
       margin-top: 5px;
       text-indent: 0em;
       text-transform: uppercase;
