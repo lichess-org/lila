@@ -3,17 +3,17 @@
 @bits.layout(u,
 title = s"${u.username} tournaments",
 path = "chart") {
-<div class="content_box no_padding tournament-stats">
+<div class="tournament-stats">
   <h1>@userLink(u, withOnline = true) tournaments stats</h1>
-  <p>
+  <p class="box__pad">
     The rank avg is a percentage of your ranking. Lower is better.<br />
     For instance, being ranked 3 in a tournament of 100 players = 3%.
     Being ranked 10 in a tournament of 1000 players = 1%.
   </p>
-  <p>
+  <p class="box__pad">
     All averages on this page are <a href="http://dictionary.reference.com/help/faq/language/d72.html">medians</a>.
   </p>
-  <table class="slist perf_results">
+  <table class="slist slist-pad perf-results">
     <thead>
       <tr>
         <th></th>
