@@ -52,7 +52,7 @@ LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, 
         ),
         simul.map { s =>
           div(cls := "other_games", id := "now_playing")(
-            h3()(simulStanding(s))
+            h3(bits.simulStanding(s))
           )
         },
         div(cls := "round__underchat")(bits underchat pov.game)

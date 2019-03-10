@@ -64,4 +64,105 @@ object bits {
       }
     )
   )
+
+  private val wrap = tag("wrap")
+
+  def simulStanding(simul: lidraughts.simul.Simul)(implicit ctx: Context) =
+    span(cls := "simul")(
+      "SIMUL",
+      span(cls := "win")(wrap(id := s"simul_w_${simul.id}")(simul.wins, " W")), " / ",
+      span(cls := "draw")(wrap(id := s"simul_d_${simul.id}")(simul.draws, " D")), " / ",
+      span(cls := "loss")(wrap(id := s"simul_l_${simul.id}")(simul.losses, " L")), " / ",
+      trans.ongoing(Html(s"""<wrap id="simul_g_${simul.id}">${simul.ongoing}</wrap>""")),
+      simul.targetPct.map { pct =>
+        frag(
+          br,
+          span(cls := "simul-targets")(
+            trans.winningPercentage.frag(),
+            span(cls := s"pct simul_pct_${simul.id}")(simul.winningPercentageStr),
+            trans.withTarget.frag(),
+            span(cls := "pct")(s"$pct%")
+          ),
+          span(cls := "simul-targets")(
+            trans.toReachTarget.frag(),
+            wrap(id := s"simul_req_${simul.id}")(
+              if (simul.targetReached) span(cls := "win")(trans.succeeded())
+              else if (simul.targetFailed) span(cls := "loss")(trans.failed())
+              else frag(
+                simul.requiredWins.map { w => span(cls := "win req2")(trans.nbVictories.pluralSame(w)) },
+                simul.requiredDraws.map { d => span(cls := "draw req2")(trans.nbDraws.pluralSame(d)) }
+              )
+            )
+          )
+        )
+      }
+    )
+
+  def others(current: Pov, playing: List[Pov], simul: Option[lidraughts.simul.Simul])(implicit ctx: Context) = frag(
+    h3(
+      simul.map {
+        simulStanding(_)
+      } getOrElse trans.currentGames.frag(),
+      "round-toggle-autoswitch" |> { id =>
+        span(cls := "move_on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
+          label(`for` := id)(trans.autoSwitch.frag()),
+          span(cls := "switch")(
+            input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
+            label(`for` := id)
+          )
+        )
+      },
+      simul ?? { _.pairings.length >= 10 } option
+        "simul-toggle-sequential" |> { id =>
+          span(cls := "move_seq switcher", st.title := trans.switchGamesInSameOrder.txt())(
+            label(`for` := id)(trans.sequentialSwitch.frag()),
+            span(cls := "switch")(
+              input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
+              label(`for` := id)
+            )
+          )
+        }
+    ),
+    div(cls := "now-playing")(
+      playing.partition(_.game.isWithinTimeOut) |> {
+        case (inTimeOut, noTimeOut) => {
+          val main = noTimeOut.partition(_.isMyTurn) |> {
+            case (myTurn, otherTurn) =>
+              val povs = (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
+                a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+                  gameFen(pov, withLink = false, withTitle = false, withLive = simul.isDefined),
+                  span(cls := "meta")(
+                    playerText(pov.opponent, withRating = false),
+                    span(cls := "indicator")(
+                      if (pov.isMyTurn) pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
+                      else nbsp
+                    )
+                  )
+                )
+              }
+              if (simul.isDefined && povs.nonEmpty) {
+                val toMove = playing.count(_.isMyTurn) + (if (current.isMyTurn) 1 else 0)
+                h3(cls := "simul_tomove")(
+                  trans.yourTurnInX(Html(s"""<span>${trans.nbGames.pluralSameTxt(toMove)}</span>""")),
+                  div(cls := "tomove_count")(toMove)
+                ) :: povs
+              } else povs
+          }
+          main ::: (simul.isDefined && inTimeOut.nonEmpty).?? {
+            inTimeOut take 9 map { pov =>
+              a(href := routes.Round.player(pov.fullId), cls := "game_timeout " + ~pov.isMyTurn.option(" my_turn"))(
+                gameFen(pov, withLink = false, withTitle = false),
+                span(cls := "meta")(
+                  playerText(pov.opponent, withRating = false),
+                  span(cls := "indicator")(
+                    s"Timeout ${secondsFromNow(pov.game.timeOutRemaining, true)}"
+                  )
+                )
+              )
+            }
+          }
+        }
+      }
+    )
+  )
 }
