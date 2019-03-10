@@ -1,40 +1,32 @@
+h1 {
+  font-size: 2.5em;
+  margin: .7em 0;
+}
 .tournament-list {
   .slist {
-    line-height: 2.3em;
     white-space: nowrap;
-    h1 {
-      margin: .5em 0;
-    }
     .count {
+      @extend %roboto;
       vertical-align: center;
-      color: #d59120;
+      color: $c-brag;
       font-size: 40px;
-      font-family: 'Roboto';
-      font-weight: 300;
       text-align: center;
       line-height: 72px;
       width: 80px;
     }
-    td {
-      padding-top: 1em;
-      padding-bottom: 1em;
-    }
-    td.icon {
+    .icon {
       text-align: center;
+      span {
+        @extend %data-icon-middle;
+      }
     }
     .header {
       letter-spacing: 2px;
       cursor: pointer;
-      transition: transform 0.3s;
       padding: 0!important;
-      max-width: 400px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .header:hover {
-      transform: translateX(3px);
     }
     .header a {
+      color: $c-font;
       padding: 1em;
       display: block;
     }
@@ -54,23 +46,23 @@
     opacity: 0.7;
   }
   .scheduled .icon span {
-    color: #d59120;
+    color: $c-brag;
     opacity: 0.8;
   }
 }
 
 .tournament-stats {
-  p {
-    padding: 0 20px 20px 20px;
-  }
-  .perf_results {
-    height: 300px;
+  .perf-results {
+    margin-top: 3em;
     thead th,
     td {
       text-align: right;
     }
-    th span::before {
-      font-size: 2em;
+    th span {
+      @extend %data-icon-middle;
+      &::before {
+        font-size: 2em;
+      }
     }
   }
 }

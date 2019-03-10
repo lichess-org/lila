@@ -64,6 +64,11 @@
   content: attr(data-icon);
   opacity: 0.9;
 }
+%data-icon-middle {
+  &::before {
+    vertical-align: middle;
+  }
+}
 %fullscreen-mask {
   position: fixed;
   top: 0;
