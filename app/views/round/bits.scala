@@ -67,4 +67,44 @@ object bits {
       }
     )
   )
+
+  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(implicit ctx: Context) = frag(
+    h3(
+      simul.map { s =>
+        span(cls := "simul")(
+          "SIMUL",
+          span(cls := "win")(s.wins, " W"), " / ",
+          span(cls := "draw")(s.draws, " D"), " / ",
+          span(cls := "loss")(s.losses, " L"), " / ",
+          s.ongoing, " ongoing"
+        )
+      } getOrElse trans.currentGames.frag(),
+      "round-toggle-autoswitch" |> { id =>
+        span(cls := "move_on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
+          label(`for` := id)(trans.autoSwitch.frag()),
+          span(cls := "switch")(
+            input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
+            label(`for` := id)
+          )
+        )
+      }
+    ),
+    div(cls := "now-playing")(
+      playing.partition(_.isMyTurn) |> {
+        case (myTurn, otherTurn) =>
+          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
+            a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+              gameFen(pov, withLink = false, withTitle = false, withLive = false),
+              span(cls := "meta")(
+                playerText(pov.opponent, withRating = false),
+                span(cls := "indicator")(
+                  if (pov.isMyTurn) pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
+                  else nbsp
+                )
+              )
+            )
+          }
+      }
+    )
+  )
 }

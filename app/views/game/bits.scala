@@ -83,8 +83,8 @@ object bits {
     }
 
   def vstext(pov: Pov)(ctxOption: Option[Context]) =
-    div(cls := "vstext")(
-      div(cls := "vstext__pl user_link")(
+    span(cls := "vstext")(
+      span(cls := "vstext__pl user_link")(
         playerUsername(pov.player, withRating = false, withTitle = false),
         br,
         playerTitle(pov.player) map { t => frag(t, " ") },
@@ -92,17 +92,17 @@ object bits {
         pov.player.provisional option "?"
       ),
       pov.game.clock map { c =>
-        div(cls := "vstext__clock")(shortClockName(c.config))
+        span(cls := "vstext__clock")(shortClockName(c.config))
       } orElse {
         ctxOption flatMap { implicit ctx =>
           pov.game.daysPerTurn map { days =>
-            div(cls := "vstext__clock")(
+            span(cls := "vstext__clock")(
               if (days == 1) trans.oneDay.frag() else trans.nbDays.pluralSame(days)
             )
           }
         }
       },
-      div(cls := "vstext__op user_link")(
+      span(cls := "vstext__op user_link")(
         playerUsername(pov.opponent, withRating = false, withTitle = false),
         br,
         pov.opponent.rating,

@@ -10,7 +10,7 @@ function select(ctrl) {
         if (isUpdate && ctrl.vm.filters[dimension.key]) return;
         $(e).multipleSelect({
           placeholder: dimension.name,
-          width: '239px',
+          width: '100%',
           selectAll: false,
           filter: dimension.key === 'opening',
           single: single,

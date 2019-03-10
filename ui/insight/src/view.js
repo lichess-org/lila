@@ -57,10 +57,8 @@ module.exports = function(ctrl) {
             ctrl.setPanel('filter');
           }
         }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear', {
-          attrs: {
-            title: 'Clear all filters',
-          'data-icon': 'L'
-          },
+          title: 'Clear all filters',
+          'data-icon': 'L',
           onclick: ctrl.clearFilters
         }, 'CLEAR') : null,
       ]),
@@ -75,6 +73,6 @@ module.exports = function(ctrl) {
         'data-icon': '7'
       }, 'Chess Insights')
     ]),
-    m('div.meat', renderMeat(ctrl))
+    m('div.meat.box', renderMeat(ctrl))
   ]);
 };

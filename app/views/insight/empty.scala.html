@@ -1,16 +1,12 @@
 @(u: User)(implicit ctx: Context)
 
-@insight.layout(u,
+@base.layout(
 title = s"${u.username}'s chess insights",
-moreJs = jsTag("insight-refresh.js")) {
-
-<div class="content_box small_box">
-  <div class="head">
+moreJs = jsTag("insight-refresh.js"),
+responsive = true) {
+<main class="box box-pad page-small">
     <h1 class="text" data-icon="7">@u.username chess insights</h1>
-  </div>
-  <br /><br /><br />
   <p>@userLink(u) has no chess insights yet!</p>
-  <br /><br />
   @refreshForm(u, s"Generate ${u.username}'s chess insights")
-</div>
-}
+</main>
+}.toHtml

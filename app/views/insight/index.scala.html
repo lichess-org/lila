@@ -28,25 +28,16 @@ postUrl: "@routes.Insight.json(u.username)"
 }
 }
 
-@moreCss = {
-@cssTag("insight.css")
-@cssVendorTag("multiple-select/multiple-select.css")
-@ctx.currentBg match {
-case "dark" => { @cssTag("insight.dark.css") }
-case "transp" => { @cssTag("insight.dark.css")@cssTag("insight.transp.css") }
-case _ => {}
-}
-}
-
-@insight.layout(u,
+@base.layout(
 title = s"${u.username}'s chess insights",
 moreJs = moreJs,
-moreCss = moreCss) {
-<div id="insight"></div>
+moreCss = responsiveCssTag("insight"),
+responsive = true) {
+<main id="insight"></main>
 @if(stale) {
 <div class="insight-stale none">
   <p>There are new games to learn from!</p>
   @refreshForm(u, "Update insights")
 </div>
 }
-}
+}.toHtml

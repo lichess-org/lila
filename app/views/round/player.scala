@@ -54,9 +54,8 @@ ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView
             (playing.nonEmpty || simul.nonEmpty) option
               div(cls := List(
                 "round__now-playing" -> true,
-                "other_games" -> true,
                 "blindfold" -> ctx.pref.isBlindfold
-              ))(others(playing, simul))
+              ))(bits.others(playing, simul))
           ),
           div(cls := "round__underchat")(bits underchat pov.game)
         )

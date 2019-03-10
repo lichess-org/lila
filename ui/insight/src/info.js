@@ -15,7 +15,11 @@ module.exports = function(ctrl) {
       }, ctrl.user.name)
     ]),
     m('div.content', [
-      m('p', 'Insights over ' + ctrl.user.nbGames + ' rated games.'),
+      m('p', [
+        'Insights over ',
+        m('strong', ctrl.user.nbGames),
+        ' rated games.'
+      ]),
       m('p.share', ctrl.own ? m('a', {
         href: '/account/preferences/privacy',
         target: '_blank'
