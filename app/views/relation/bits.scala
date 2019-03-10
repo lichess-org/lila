@@ -50,7 +50,7 @@ object bits {
       pagTable(pag, routes.Relation.blocks())
     )
 
-  private def layout(title: String)(content: Modifier*)(implicit ctx: Context) =
+  def layout(title: String)(content: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       responsive = true,
