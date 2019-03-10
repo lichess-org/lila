@@ -1,0 +1,76 @@
+.tournament-list {
+  .slist {
+    line-height: 2.3em;
+    white-space: nowrap;
+    h1 {
+      margin: .5em 0;
+    }
+    .count {
+      vertical-align: center;
+      color: #d59120;
+      font-size: 40px;
+      font-family: 'Roboto';
+      font-weight: 300;
+      text-align: center;
+      line-height: 72px;
+      width: 80px;
+    }
+    td {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+    td.icon {
+      text-align: center;
+    }
+    .header {
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      padding: 0!important;
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header:hover {
+      transform: translateX(3px);
+    }
+    .header a {
+      padding: 1em;
+      display: block;
+    }
+    .name {
+      letter-spacing: 3px;
+      font-size: 1.7em;
+      display: block;
+    }
+    .games,
+    .score,
+    .rank {
+      font-size: 1.2em;
+    }
+  }
+  .icon span {
+    font-size: 4em;
+    opacity: 0.7;
+  }
+  .scheduled .icon span {
+    color: #d59120;
+    opacity: 0.8;
+  }
+}
+
+.tournament-stats {
+  p {
+    padding: 0 20px 20px 20px;
+  }
+  .perf_results {
+    height: 300px;
+    thead th,
+    td {
+      text-align: right;
+    }
+    th span::before {
+      font-size: 2em;
+    }
+  }
+}

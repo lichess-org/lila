@@ -1,9 +1,9 @@
 @(u: User, data: lila.tournament.LeaderboardApi.ChartData)(implicit ctx: Context)
 
-@layout(u,
+@bits.layout(u,
 title = s"${u.username} tournaments",
 path = "chart") {
-<div class="content_box no_padding stats">
+<div class="content_box no_padding tournament-stats">
   <h1>@userLink(u, withOnline = true) tournaments stats</h1>
   <p>
     The rank avg is a percentage of your ranking. Lower is better.<br />
@@ -47,4 +47,4 @@ path = "chart") {
     </tbody>
   </table>
 </div>
-}
+}.toHtml
