@@ -33,9 +33,15 @@ function laneGrouper(t) {
   } else if (t.variant.key === 'frisian') {
     if (t.fullName.endsWith('Bullet Arena'))
       return 0;   //frisian bullet among ordinary bullet
-    else return 1;  //all other timecontrols among blitz
+    else if (t.schedule.freq === 'daily')
+      return 2; // dailies below blitz
+    else
+      return 1;  //all other timecontrols among blitz
   } else if (t.variant.key !== 'standard') {
-    return 2; //other variants below blitz
+    if (t.schedule.freq === 'daily')
+        return 2; // dailies below blitz
+    else
+        return 3; // others below that
   //} else if (t.variant.key !== 'standard' || (t.perf.key === 'rapid' && t.schedule.freq === 'hourly')) {
   //  return 99;
   //} else if (t.perf.key === 'ultraBullet') {

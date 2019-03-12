@@ -148,6 +148,8 @@ Thank you all, you rock!"""
               },
 
             List( // monthly variant tournaments!
+              month.firstWeek.withDayOfWeek(MONDAY) -> Breakthrough,
+              month.firstWeek.withDayOfWeek(FRIDAY) -> Frysk,
               month.firstWeek.withDayOfWeek(SATURDAY) -> Antidraughts,
               month.firstWeek.withDayOfWeek(SUNDAY) -> Frisian
             ).flatMap {
@@ -173,6 +175,8 @@ Thank you all, you rock!"""
           },
 
         List( // weekly variant tournaments!
+          nextMonday -> Breakthrough,
+          nextFriday -> Frysk,
           nextSaturday -> Antidraughts,
           nextSunday -> Frisian
         ).flatMap {
@@ -187,8 +191,9 @@ Thank you all, you rock!"""
         ).flatten,
 
         List( // daily variant tournaments!
-          at(today, 20 - todayCET) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
-          at(today, 21 - todayCET) map { date => Schedule(Daily, SuperBlitz, Antidraughts, std, date |> orTomorrow).plan }
+          at(today, 20 - todayCET) map { date => Schedule(Daily, SuperBlitz, Frysk, std, date |> orTomorrow).plan },
+          at(today, 21 - todayCET) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
+          at(today, 22 - todayCET) map { date => Schedule(Daily, SuperBlitz, Antidraughts, std, date |> orTomorrow).plan }
         ).flatten,
 
         List( // eastern tournaments!
@@ -200,10 +205,11 @@ Thank you all, you rock!"""
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = if (hour % 3 == 0) HyperBullet else if (hour % 3 == 2) HippoBullet else Bullet
+          val bulletType = if (hour % 3 == 1) HyperBullet else if (hour % 3 == 2) HippoBullet else Bullet
           val blitzType = if (hour % 3 == 0) Blitz else SuperBlitz
           List(
-            at(date, hour) map { date => Schedule(Hourly, bulletType, if (hour % 3 == 1) Frisian else Standard, std, date).plan }, //Frisian bullet
+            //Frisian bullet, not during daily frisian or daily/eastern bullet
+            at(date, hour) map { date => Schedule(Hourly, bulletType, if (hour % 3 == 0 && hour != 21 - todayCET && hour != 17 - todayCET && hour != 5 - todayCET) Frisian else Standard, std, date).plan },
             at(date, hour, 30) collect { case date if bulletType != HippoBullet => Schedule(Hourly, Bullet, Standard, std, date).plan },
             //no hourly blitz during frisian
             at(date, hour) collect { case date if hour % 3 != 2 => Schedule(Hourly, blitzType, Standard, std, date).plan }
