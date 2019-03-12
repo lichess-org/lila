@@ -806,7 +806,7 @@
   <string name="getAHint">Λάβετε μια υπόδειξη</string>
   <string name="evaluatingYourMove">Αξιολογώντας την κίνηση σας...</string>
   <string name="whiteWinsGame">Κερδίζουν τα λευκά</string>
-  <string name="blackWinsGame">Τα μαύρα νικούν</string>
+  <string name="blackWinsGame">Κερδίζουν τα μαύρα</string>
   <string name="learnFromYourMistakes">Μάθετε από τα λάθη σας</string>
   <string name="learnFromThisMistake">Μάθετε από αυτό το λάθος</string>
   <string name="skipThisMove">Παραλείψτε αυτό το βήμα</string>
@@ -834,7 +834,7 @@
   </plurals>
   <string name="opening">Άνοιγμα</string>
   <string name="middlegame">Μέση φάση παιχνιδιού</string>
-  <string name="endgame">Τελευταία φάση παιχνιδιού</string>
+  <string name="endgame">Φινάλε</string>
   <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
   <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε %s.</string>
   <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
