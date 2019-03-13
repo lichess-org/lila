@@ -2,6 +2,8 @@ package lidraughts.puzzle
 
 import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
+import lidraughts.db.dsl.Coll
+import draughts.variant.{ Variant, Standard, Frisian }
 
 final class Env(
     config: Config,
@@ -14,6 +16,7 @@ final class Env(
 
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
+    val CollectionPuzzleFrisian = config getString "collection.puzzle_frisian"
     val CollectionRound = config getString "collection.round"
     val CollectionVote = config getString "collection.vote"
     val CollectionHead = config getString "collection.head"
@@ -33,7 +36,7 @@ final class Env(
   )
 
   lazy val api = new PuzzleApi(
-    puzzleColl = puzzleColl,
+    puzzleColl = puzzleColl(Standard),
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
@@ -44,18 +47,18 @@ final class Env(
 
   lazy val finisher = new Finisher(
     api = api,
-    puzzleColl = puzzleColl,
+    puzzleColl = puzzleColl(Standard),
     bus = system.lidraughtsBus
   )
 
   lazy val selector = new Selector(
-    puzzleColl = puzzleColl,
+    puzzleColl = puzzleColl(Standard),
     api = api,
     puzzleIdMin = PuzzleIdMin
   )
 
   lazy val batch = new PuzzleBatch(
-    puzzleColl = puzzleColl,
+    puzzleColl = puzzleColl(Standard),
     api = api,
     finisher = finisher,
     puzzleIdMin = PuzzleIdMin
@@ -66,7 +69,7 @@ final class Env(
   lazy val forms = DataForm
 
   lazy val daily = new Daily(
-    puzzleColl,
+    puzzleColl(Standard),
     renderer,
     asyncCache = asyncCache,
     system.scheduler
@@ -80,7 +83,7 @@ final class Env(
     }
   }
 
-  private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
+  private[puzzle] lazy val puzzleColl: Map[Variant, Coll] = Map(Standard -> db(CollectionPuzzle), Frisian -> db(CollectionPuzzleFrisian))
   private[puzzle] lazy val roundColl = db(CollectionRound)
   private[puzzle] lazy val voteColl = db(CollectionVote)
   private[puzzle] lazy val headColl = db(CollectionHead)
