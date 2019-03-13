@@ -30,7 +30,7 @@ $vp-max-width: 1200px;
     }
   }
 
-  &:not(.box-pad) h1 {
+  &:not(.box-pad) > h1 {
     @extend %box-padding;
     margin: 0;
   }

@@ -1,0 +1,108 @@
+.blog {
+  .atom {
+    font-size: 2.6em;
+    color: $c-accent;
+  }
+  .meta {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .meta span {
+    display:inline-block;
+    margin-right: 10px;
+  }
+  .illustration,
+  [data-oembed] {
+    text-align: center;
+  }
+  .illustration img {
+    max-height: 300px;
+  }
+  twitter-widget {
+    margin: 30px auto!important;
+  }
+  .post.no-icon .illustration {
+    display: none;
+  }
+  .shortlede {
+    display: block;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: normal;
+    font-style: italic;
+    margin: 20px 0;
+  }
+  .body {
+    font-size: 1.2em;
+    margin: 20px 0 60px 0;
+    cursor: initial;
+    strong {
+      font-weight: bold;
+    }
+    em {
+      font-style: italic;
+    }
+    .block-img {
+      text-align: center;
+    }
+    .block-img + p > em:first-child {
+      margin-top: -20px;
+      display: block;
+      font-size: 0.8em;
+      text-align: center;
+    }
+    ol,  ul {
+      margin: 25px;
+    }
+    li {
+      list-style: disc outside;
+    }
+    h2 {
+      font-size: 1.4em;
+      border-bottom: 1px solid #eee;
+      margin: 35px 0;
+    }
+    h3 {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 25px 0;
+    }
+    img {
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .study {
+      border: none;
+      margin: 1em 0;
+    }
+  }
+
+  .list {
+    article {
+      margin: 1em 0 5em 0;
+    }
+    h2 {
+      text-align: center;
+      border-bottom: $border;
+    }
+    .meta {
+      text-align: center;
+    }
+    .more {
+      text-align: center;
+    }
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 40px;
+  }
+}
+
+/* specific posts */
+#Vs0xMTAAAD4We4Ey [data-oembed] iframe,
+#V0KrLSkAAMo3hsi4 [data-oembed] iframe {
+  width: 744px;
+  height: 417px;
+}
