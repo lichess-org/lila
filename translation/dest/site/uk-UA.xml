@@ -110,7 +110,7 @@
   <string name="signUp">Зареєструватися</string>
   <string name="games">Партії</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
+  <string name="xPostedInForumY">%1$s відповів в темі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
   <string name="minutesPerSide">Хвилин на кожного</string>
@@ -252,7 +252,7 @@
   <string name="blocked">Заблокований</string>
   <string name="unblock">Розблокувати</string>
   <string name="followsYou">Спостерігає за вами</string>
-  <string name="xStartedFollowingY">%1$s розпочали спостерігати за %2$s</string>
+  <string name="xStartedFollowingY">%1$s розпочав спостерігати за %2$s</string>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
@@ -500,7 +500,7 @@
   <string name="simulHostExtraTime">Додатковий час для сеансера</string>
   <string name="lidraughtsTournaments">Турніри Lidraughts</string>
   <string name="tournamentFAQ">FAQ сторінки турнірів</string>
-  <string name="tournamentOfficial">Офіційні</string>
+  <string name="tournamentOfficial">Офіційний</string>
   <string name="timeBeforeTournamentStarts">Час до початку турніру</string>
   <string name="keyboardShortcuts">Поєднання клавіш</string>
   <string name="keyMoveBackwardOrForward">хід назад/вперед</string>
