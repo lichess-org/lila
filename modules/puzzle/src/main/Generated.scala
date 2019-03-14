@@ -2,6 +2,7 @@ package lidraughts.puzzle
 
 import draughts.Color
 import draughts.format.Forsyth
+import draughts.variant.Variant;
 import play.api.libs.json._
 
 private case class Generated(
@@ -14,7 +15,7 @@ private case class Generated(
 
   def colorFromFen = (Forsyth << last_pos).fold(Color.white)(!_.color)
 
-  def toPuzzle: PuzzleId => Puzzle = Puzzle.make(
+  def toPuzzle: (PuzzleId, Variant) => Puzzle = Puzzle.make(
     gameId = game_id,
     history = List(last_move),
     fen = last_pos,

@@ -158,6 +158,7 @@ export default function (opts, redraw: () => void): Controller {
   var getDests = throttle(800, function () {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
       socket.sendAnaDests({
+        variant: data.puzzle.variant,
         fen: vm.node.fen,
         path: vm.path
       });

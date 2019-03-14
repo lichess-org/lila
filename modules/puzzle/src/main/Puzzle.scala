@@ -9,6 +9,7 @@ import org.joda.time.DateTime
 
 case class Puzzle(
     id: PuzzleId,
+    variant: Variant,
     gameId: String,
     history: List[String],
     fen: String,
@@ -77,8 +78,9 @@ object Puzzle {
     color: Color,
     lines: Lines,
     mate: Boolean
-  )(id: PuzzleId) = new Puzzle(
+  )(id: PuzzleId, variant: Variant) = new Puzzle(
     id = id,
+    variant = variant,
     gameId = gameId,
     history = history,
     fen = fen,
@@ -124,6 +126,7 @@ object Puzzle {
 
   object BSONFields {
     val id = "_id"
+    val variant = "variant"
     val gameId = "gameId"
     val history = "history"
     val fen = "fen"
@@ -149,6 +152,7 @@ object Puzzle {
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
+      variant = r strO variant flatMap Variant.apply getOrElse Standard,
       gameId = r str gameId,
       history = r str history split ' ' toList,
       fen = r str fen,
@@ -164,6 +168,7 @@ object Puzzle {
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
+      variant -> o.variant.key,
       gameId -> o.gameId,
       history -> o.history.mkString(" "),
       fen -> o.fen,

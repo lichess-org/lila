@@ -20,6 +20,7 @@ final class Env(
     val CollectionRound = config getString "collection.round"
     val CollectionVote = config getString "collection.vote"
     val CollectionHead = config getString "collection.head"
+    val CollectionHeadFrisian = config getString "collection.head_frisian"
     val ApiToken = config getString "api.token"
     val AnimationDuration = config duration "animation.duration"
     val PuzzleIdMin = config getInt "selector.puzzle_id_min"
@@ -36,7 +37,7 @@ final class Env(
   )
 
   lazy val api = new PuzzleApi(
-    puzzleColl = puzzleColl(Standard),
+    puzzleColl = puzzleColl,
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
@@ -47,18 +48,18 @@ final class Env(
 
   lazy val finisher = new Finisher(
     api = api,
-    puzzleColl = puzzleColl(Standard),
+    puzzleColl = puzzleColl,
     bus = system.lidraughtsBus
   )
 
   lazy val selector = new Selector(
-    puzzleColl = puzzleColl(Standard),
+    puzzleColl = puzzleColl,
     api = api,
     puzzleIdMin = PuzzleIdMin
   )
 
   lazy val batch = new PuzzleBatch(
-    puzzleColl = puzzleColl(Standard),
+    puzzleColl = puzzleColl,
     api = api,
     finisher = finisher,
     puzzleIdMin = PuzzleIdMin
@@ -86,7 +87,7 @@ final class Env(
   private[puzzle] lazy val puzzleColl: Map[Variant, Coll] = Map(Standard -> db(CollectionPuzzle), Frisian -> db(CollectionPuzzleFrisian))
   private[puzzle] lazy val roundColl = db(CollectionRound)
   private[puzzle] lazy val voteColl = db(CollectionVote)
-  private[puzzle] lazy val headColl = db(CollectionHead)
+  private[puzzle] lazy val headColl: Map[Variant, Coll] = Map(Standard -> db(CollectionHead), Frisian -> db(CollectionHeadFrisian))
 }
 
 object Env {

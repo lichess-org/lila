@@ -67,7 +67,7 @@ object Export extends LidraughtsController {
     OnlyHumansAndFacebookOrTwitter {
       PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         lidraughts.mon.export.png.puzzle()
-        OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
+        OptionFuResult(Env.puzzle.api.puzzle.find(id, draughts.variant.Standard)) { puzzle =>
           env.pngExport(
             fen = draughts.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
             lastMove = puzzle.initialMove.uci.some,

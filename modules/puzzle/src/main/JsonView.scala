@@ -85,6 +85,7 @@ final class JsonView(
 
   private def puzzleJson(puzzle: Puzzle, isOldMobile: Boolean): JsObject = Json.obj(
     "id" -> puzzle.id,
+    "variant" -> puzzle.variant.key,
     "rating" -> puzzle.perf.intRating,
     "attempts" -> puzzle.attempts,
     "fen" -> puzzle.fen,
@@ -108,7 +109,7 @@ final class JsonView(
         fullSolution
       } //else if (fullSolution.size % 2 == 0) fullSolution.init
       else fullSolution
-    val init = draughts.DraughtsGame(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
+    val init = draughts.DraughtsGame(puzzle.variant.some, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(draughts.DraughtsGame, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
         val (game, move) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err

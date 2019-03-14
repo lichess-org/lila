@@ -4,21 +4,22 @@ import org.goochjs.glicko2._
 import org.joda.time.DateTime
 
 import draughts.Mode
+import draughts.variant.Variant
 import lidraughts.db.dsl._
 import lidraughts.rating.{ Glicko, PerfType }
 import lidraughts.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
-    puzzleColl: Coll,
+    puzzleColl: Map[Variant, Coll],
     bus: lidraughts.common.Bus
 ) {
 
   def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle.intRating
-    api.head.find(user) flatMap {
+    api.head.find(user, puzzle.variant) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
-        api.head.solved(user, puzzle.id) >> {
+        api.head.solved(user, puzzle.id, puzzle.variant) >> {
           val userRating = user.perfs.puzzle.toRating
           val puzzleRating = puzzle.perf.toRating
           updateRatings(userRating, puzzleRating, result.glicko)
@@ -34,7 +35,7 @@ private[puzzle] final class Finisher(
             ratingDiff = userPerf.intRating - formerUserRating
           )
           (api.round add a) >> {
-            puzzleColl.update(
+            puzzleColl(puzzle.variant).update(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
@@ -96,7 +97,7 @@ private[puzzle] final class Finisher(
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def incPuzzleAttempts(puzzle: Puzzle) =
-    puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
+    puzzleColl(puzzle.variant).incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
