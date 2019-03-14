@@ -1,25 +1,27 @@
+import { puzzleUrl } from './util';
+
 // do NOT set mobile API headers here
 // they trigger a compat layer
-export function round(puzzleId, win) {
+export function round(puzzleId, variant, win) {
   return $.ajax({
     method: 'POST',
-    url: '/training/' + puzzleId + '/round2',
+    url: puzzleUrl(variant) + puzzleId + '/round2',
     data: {
       win: win ? 1 : 0
     }
   });
 }
-export function vote(puzzleId, v) {
+export function vote(puzzleId, variant, v) {
   return $.ajax({
     method: 'POST',
-    url: '/training/' + puzzleId + '/vote',
+    url: puzzleUrl(variant) + puzzleId + '/vote',
     data: {
       vote: v ? 1 : 0
     }
   });
 }
-export function nextPuzzle() {
+export function nextPuzzle(variant) {
   return $.ajax({
-    url: '/training/new'
+    url: puzzleUrl(variant) + 'new'
   });
 }

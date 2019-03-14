@@ -38,7 +38,8 @@ function makeConfig(ctrl): CgConfig {
       move: ctrl.userMove
     },
     premovable: {
-      enabled: opts.premovable.enabled
+      enabled: opts.premovable.enabled,
+      variant: opts.premovable.variant
     },
     drawable: {
       enabled: true

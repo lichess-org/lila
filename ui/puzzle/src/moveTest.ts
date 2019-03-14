@@ -1,13 +1,6 @@
 import { path as pathOps } from 'tree';
 import { decomposeUci } from 'draughts';
 
-const altCastles = {
-    e1a1: 'e1c1',
-    e1h1: 'e1g1',
-    e8a8: 'e8c8',
-    e8h8: 'e8g8'
-};
-
 export default function (vm, puzzle) {
 
     return function () {
@@ -31,7 +24,7 @@ export default function (vm, puzzle) {
 
         var progress = puzzle.lines;
         for (var i in ucis) {
-            progress = progress[ucis[i]] || progress[altCastles[ucis[i]]];
+            progress = progress[ucis[i]];
             if (!progress)
                 progress = 'fail';
             if (typeof progress === 'string') break;
@@ -58,6 +51,7 @@ export default function (vm, puzzle) {
         var move: any = {
             orig: opponentUci[0],
             dest: opponentUci[1],
+            variant: puzzle.variant.key,
             fen: vm.node.fen,
             path: vm.path
         };

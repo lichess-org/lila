@@ -2,6 +2,7 @@ import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
 import { Controller } from '../interfaces';
+import { puzzleUrl } from '../util';
 
 const historySize = 15;
 
@@ -17,7 +18,7 @@ function render(ctrl: Controller): VNode {
           win: s[1] >= 0,
           loss: s[1] < 0
         },
-        attrs: { href: '/training/' + s[0] }
+        attrs: { href: puzzleUrl(data.puzzle.variant.key) + s[0] }
       }, s[1] > 0 ? '+' + s[1] : s[1]);
       return h('span', ' ');
     }))
