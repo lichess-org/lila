@@ -25,7 +25,7 @@ case class Puzzle(
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
-    fen.split(':').lastOption flatMap (m => parseIntOption(m.drop(1))) map { move =>
+    fen.split(':').find(_.startsWith("F")) flatMap (m => parseIntOption(m.drop(1))) map { move =>
       move * 2 - color.fold(0, 1)
     }
   } | 0
@@ -40,7 +40,7 @@ case class Puzzle(
       val rawUci = Uci.Move.apply(uci)
       if (rawUci.isEmpty) rawUci
       else
-        (Forsyth << fen).fold(rawUci) {
+        Forsyth.<<@(variant, fen).fold(rawUci) {
           _.validMoves.get(rawUci.get.orig).fold(rawUci)(
             _.find {
               move => move.dest == rawUci.get.dest
@@ -54,7 +54,7 @@ case class Puzzle(
 
   def fenAfterInitialMove: Option[String] = {
     for {
-      sit1 <- Forsyth << fen
+      sit1 <- Forsyth.<<@(variant, fen)
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
     } yield Forsyth >> SituationPlus(sit2, color.fold(2, 1))
   }

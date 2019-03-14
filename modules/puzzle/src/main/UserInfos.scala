@@ -2,6 +2,7 @@ package lidraughts.puzzle
 
 import reactivemongo.bson._
 
+import draughts.variant.Variant
 import lidraughts.db.dsl._
 import lidraughts.user.User
 
@@ -14,17 +15,17 @@ object UserInfos {
 
   import Round.RoundMiniBSONReader
 
-  def apply(roundColl: Coll) = new {
+  def apply(roundColl: Map[Variant, Coll]) = new {
 
-    def apply(user: User): Fu[UserInfos] = fetchRoundMinis(user.id) map {
+    def apply(user: User, variant: Variant): Fu[UserInfos] = fetchRoundMinis(user.id, variant) map {
       new UserInfos(user, _)
     }
 
-    def apply(user: Option[User]): Fu[Option[UserInfos]] =
-      user ?? { apply(_) map (_.some) }
+    def apply(user: Option[User], variant: Variant): Fu[Option[UserInfos]] =
+      user ?? { u => apply(u, variant) map (_.some) }
 
-    private def fetchRoundMinis(userId: String): Fu[List[Round.Mini]] =
-      roundColl.find(
+    private def fetchRoundMinis(userId: String, variant: Variant): Fu[List[Round.Mini]] =
+      roundColl(variant).find(
         $doc(Round.BSONFields.userId -> userId),
         $doc(
           "_id" -> false,

@@ -18,7 +18,9 @@ final class Env(
     val CollectionPuzzle = config getString "collection.puzzle"
     val CollectionPuzzleFrisian = config getString "collection.puzzle_frisian"
     val CollectionRound = config getString "collection.round"
+    val CollectionRoundFrisian = config getString "collection.round_frisian"
     val CollectionVote = config getString "collection.vote"
+    val CollectionVoteFrisian = config getString "collection.vote_frisian"
     val CollectionHead = config getString "collection.head"
     val CollectionHeadFrisian = config getString "collection.head_frisian"
     val ApiToken = config getString "api.token"
@@ -85,8 +87,8 @@ final class Env(
   }
 
   private[puzzle] lazy val puzzleColl: Map[Variant, Coll] = Map(Standard -> db(CollectionPuzzle), Frisian -> db(CollectionPuzzleFrisian))
-  private[puzzle] lazy val roundColl = db(CollectionRound)
-  private[puzzle] lazy val voteColl = db(CollectionVote)
+  private[puzzle] lazy val roundColl: Map[Variant, Coll] = Map(Standard -> db(CollectionRound), Frisian -> db(CollectionRoundFrisian))
+  private[puzzle] lazy val voteColl: Map[Variant, Coll] = Map(Standard -> db(CollectionVote), Frisian -> db(CollectionVoteFrisian))
   private[puzzle] lazy val headColl: Map[Variant, Coll] = Map(Standard -> db(CollectionHead), Frisian -> db(CollectionHeadFrisian))
 }
 

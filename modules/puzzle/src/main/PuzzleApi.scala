@@ -10,8 +10,8 @@ import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleApi(
     puzzleColl: Map[Variant, Coll],
-    roundColl: Coll,
-    voteColl: Coll,
+    roundColl: Map[Variant, Coll],
+    voteColl: Map[Variant, Coll],
     headColl: Map[Variant, Coll],
     puzzleIdMin: PuzzleId,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
@@ -71,15 +71,15 @@ private[puzzle] final class PuzzleApi(
 
   object round {
 
-    def add(a: Round) = roundColl insert a
+    def add(a: Round, variant: Variant) = roundColl(variant) insert a
   }
 
   object vote {
 
-    def value(id: PuzzleId, user: User): Fu[Option[Boolean]] =
-      voteColl.primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
+    def value(id: PuzzleId, variant: Variant, user: User): Fu[Option[Boolean]] =
+      voteColl(variant).primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
 
-    def find(id: PuzzleId, user: User): Fu[Option[Vote]] = voteColl.byId[Vote](Vote.makeId(id, user.id))
+    def find(id: PuzzleId, variant: Variant, user: User): Fu[Option[Vote]] = voteColl(variant).byId[Vote](Vote.makeId(id, user.id))
 
     def update(id: PuzzleId, variant: Variant, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] = puzzle.find(id, variant) flatMap {
       case None => fufail(s"Can't vote for non existing puzzle ${id}")
@@ -94,7 +94,7 @@ private[puzzle] final class PuzzleApi(
             Vote(Vote.makeId(id, user.id), v)
           )
         }
-        voteColl.update(
+        voteColl(variant).update(
           $id(v2.id),
           $set("v" -> v),
           upsert = true

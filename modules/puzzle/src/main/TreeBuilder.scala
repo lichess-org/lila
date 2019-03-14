@@ -8,7 +8,7 @@ import lidraughts.tree
 object TreeBuilder {
 
   def apply(game: Game, plies: Int): tree.Root = {
-    draughts.Replay.gameMoveWhileValid(game.pdnMoves take plies, Forsyth.initial, game.variant) match {
+    draughts.Replay.gameMoveWhileValid(game.pdnMoves take plies, game.variant.initialFen, game.variant) match {
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val fen = Forsyth >> init

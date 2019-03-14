@@ -85,7 +85,7 @@ final class JsonView(
 
   private def puzzleJson(puzzle: Puzzle, isOldMobile: Boolean): JsObject = Json.obj(
     "id" -> puzzle.id,
-    "variant" -> puzzle.variant.key,
+    "variant" -> puzzle.variant,
     "rating" -> puzzle.perf.intRating,
     "attempts" -> puzzle.attempts,
     "fen" -> puzzle.fen,
@@ -125,6 +125,15 @@ final class JsonView(
       case (None, branch) => branch.some
       case (Some(child), branch) => Some(branch addChild child)
     }
+  }
+
+  implicit val variantWriter: OWrites[draughts.variant.Variant] = OWrites { v =>
+    Json.obj(
+      "key" -> v.key,
+      "name" -> v.name,
+      "short" -> v.shortName,
+      "gameType" -> v.gameType
+    )
   }
 }
 

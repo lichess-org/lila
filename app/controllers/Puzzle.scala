@@ -33,7 +33,7 @@ object Puzzle extends LidraughtsController {
   )
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
-    env userInfos ctx.me flatMap { infos =>
+    env.userInfos(ctx.me, puzzle.variant) flatMap { infos =>
       renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
         views.html.puzzle.show(puzzle, data = json, pref = env.jsonView.pref(ctx.pref))
       }
@@ -91,7 +91,7 @@ object Puzzle extends LidraughtsController {
   }
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
-    env userInfos ctx.me flatMap { infos =>
+    env.userInfos(ctx.me, puzzle.variant) flatMap { infos =>
       renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)
     }
 
@@ -130,8 +130,8 @@ object Puzzle extends LidraughtsController {
           case Some(me) => for {
             (round, mode) <- env.finisher(puzzle, me, Result(resultInt == 1))
             me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
-            infos <- env userInfos me2
-            voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
+            infos <- env.userInfos(me2, variant)
+            voted <- ctx.me.?? { env.api.vote.value(puzzle.id, variant, _) }
           } yield {
             lidraughts.mon.puzzle.round.user()
             Ok(Json.obj(
@@ -160,7 +160,7 @@ object Puzzle extends LidraughtsController {
     implicit val req = ctx.body
     env.forms.vote.bindFromRequest.fold(
       err => fuccess(BadRequest(errorsAsJson(err))),
-      vote => env.api.vote.find(id, me) flatMap {
+      vote => env.api.vote.find(id, variant, me) flatMap {
         v => env.api.vote.update(id, variant, me, v, vote == 1)
       } map {
         case (p, a) =>
@@ -220,7 +220,7 @@ object Puzzle extends LidraughtsController {
       html = notFound,
       api = _ => for {
         puzzles <- env.batch.select(me, Standard, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
-        userInfo <- env userInfos me
+        userInfo <- env.userInfos(me, Standard)
         json <- env.jsonView.batch(puzzles, userInfo)
       } yield Ok(json) as JSON
     )

@@ -34,7 +34,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
-          (api.round add a) >> {
+          api.round.add(a, puzzle.variant) >> {
             puzzleColl(puzzle.variant).update(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
@@ -80,7 +80,7 @@ private[puzzle] final class Finisher(
       rating = formerUserRating,
       ratingDiff = userPerf.intRating - formerUserRating
     )
-    (api.round add a) >>
+    api.round.add(a, puzzle.variant) >>
       UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
       bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
