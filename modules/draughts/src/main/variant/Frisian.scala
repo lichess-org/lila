@@ -17,16 +17,29 @@ case object Frisian extends Variant(
     if (remainingCaptures > 0)
       board
     else {
-      val tookMan = captured.fold(false)(_.exists(_.role == Man))
-      (board.actorAt(uci.dest) match {
-        case Some(act) if board.count(Man, act.color) != 0 => board updateHistory { h =>
-          val threefold = act.piece.role == King && uci.promotion.isEmpty && captured.fold(true)(_.isEmpty)
-          val hist = if (threefold && act.color.fold(h.kingMoves.whiteKing, h.kingMoves.blackKing).fold(false)(_ != uci.orig)) h.withKingMove(act.color, none, false) else h
-          hist.withKingMove(act.color, uci.dest.some, threefold, tookMan && board.count(Man, !act.color) == 0)
+      board.actorAt(uci.dest).fold(board) { act =>
+        val tookLastMan = captured.fold(false)(_.exists(_.role == Man)) && board.count(Man, !act.color) == 0
+        val remainingMen = board.count(Man, act.color)
+        if (remainingMen != 0)
+          board updateHistory { h =>
+            val kingmove = act.piece.role == King && uci.promotion.isEmpty && captured.fold(true)(_.isEmpty)
+            val differentKing = kingmove && act.color.fold(h.kingMoves.whiteKing, h.kingMoves.blackKing).fold(false)(_ != uci.orig)
+            val hist = if (differentKing) h.withKingMove(act.color, none, false) else h
+            hist.withKingMove(act.color, uci.dest.some, kingmove, tookLastMan)
+          }
+        else {
+          val promotedLastMan = uci.promotion.nonEmpty
+          if (tookLastMan)
+            board updateHistory { h =>
+              val hist = if (promotedLastMan) h.withKingMove(act.color, none, false) else h
+              h.withKingMove(!act.color, none, false)
+            }
+          else if (promotedLastMan)
+            board updateHistory { _.withKingMove(act.color, none, false) }
+          else
+            board
         }
-        case Some(act) if tookMan && board.count(Man, !act.color) == 0 => board updateHistory { _.withKingMove(!act.color, none, false) }
-        case _ => board
-      }).withouthGhosts()
+      } withouthGhosts
     }
   }
 
