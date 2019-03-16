@@ -77,7 +77,7 @@
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii rankingowych graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s półruchu</item>
+    <item quantity="one">Mat w %s ruchu</item>
     <item quantity="few">Mat w %s ruchach</item>
     <item quantity="many">Mat w %s ruchach</item>
     <item quantity="other">Mat w %s ruchach</item>
@@ -557,7 +557,7 @@
   <string name="reportAUser">Zgłoś użytkownika</string>
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
-  <string name="whatIsIheMatter">O co chodzi?</string>
+  <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
   <string name="cheat">Oszustwo</string>
   <string name="insult">Znieważenie</string>
   <string name="troll">Naprzykrzanie się</string>
@@ -688,8 +688,8 @@
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
-  <string name="whiteCastlingKingside">O-O białych</string>
-  <string name="whiteCastlingQueenside">O-O-O białych</string>
+  <string name="whiteCastlingKingside">Białe O-O</string>
+  <string name="whiteCastlingQueenside">Białe O-O-O</string>
   <string name="blackCastlingKingside">O-O czarnych</string>
   <string name="blackCastlingQueenside">O-O-O czarnych</string>
   <plurals name="nbForumPosts">
@@ -729,7 +729,7 @@
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Utwórz</string>
   <string name="whenCreateSimul">W symultanie będziesz grał równocześnie z kilkoma przeciwnikami.</string>
-  <string name="simulVariantsHint">Każdy z graczy może będzie mógł wybrać spośród kilku wskazanych przez Cibie odmian gry.</string>
+  <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
