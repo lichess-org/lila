@@ -135,7 +135,7 @@ object Puzzle extends LidraughtsController {
           } yield {
             lidraughts.mon.puzzle.round.user()
             Ok(Json.obj(
-              "user" -> lidraughts.puzzle.JsonView.infos(false)(infos),
+              "user" -> lidraughts.puzzle.JsonView.infos(false, variant)(infos),
               "round" -> lidraughts.puzzle.JsonView.round(round),
               "voted" -> voted
             ))

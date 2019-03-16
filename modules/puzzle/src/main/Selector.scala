@@ -35,13 +35,13 @@ private[puzzle] final class Selector(
     }
   }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
     if (puzzle.vote.sum < -1000)
-      logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
+      logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle(variant).intRating.toString)})")
     else
       lidraughts.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
   private def newPuzzleForUser(user: User, variant: Variant, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
-    val rating = user.perfs.puzzle.intRating min 2300 max 900
+    val rating = user.perfs.puzzle(variant).intRating min 2300 max 900
     val step = toleranceStepFor(rating)
     api.puzzle.cachedLastId(variant).get flatMap { maxId =>
       val lastId = headOption match {

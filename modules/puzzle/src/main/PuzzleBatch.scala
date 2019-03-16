@@ -42,7 +42,7 @@ private[puzzle] final class PuzzleBatch(
     }.mon(_.puzzle.batch.selector.time)
 
     private def newPuzzlesForUser(user: User, variant: Variant, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
-      val rating = user.perfs.puzzle.intRating min 2300 max 900
+      val rating = user.perfs.puzzle(variant).intRating min 2300 max 900
       val step = toleranceStepFor(rating)
       api.puzzle.cachedLastId(variant).get flatMap { maxId =>
         val lastId = headOption match {

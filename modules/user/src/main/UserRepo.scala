@@ -156,9 +156,9 @@ object UserRepo {
     ).void
   }
 
-  def setPerf(userId: String, pt: PerfType, perf: Perf) =
-    coll.update($id(userId), $set(
-      s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perf)
+  def setPerf(userId: String, pt: Option[PerfType], perf: Perf) =
+    pt.nonEmpty ?? coll.update($id(userId), $set(
+      s"${F.perfs}.${pt.get.key}" -> Perf.perfBSONHandler.write(perf)
     )).void
 
   def setProfile(id: ID, profile: Profile): Funit =

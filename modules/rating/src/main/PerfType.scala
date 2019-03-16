@@ -1,7 +1,6 @@
 package lidraughts.rating
 
 import draughts.Centis
-
 import draughts.Speed
 
 sealed abstract class PerfType(
@@ -113,7 +112,15 @@ object PerfType {
     iconChar = '-'
   )
 
-  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Breakthrough, Puzzle)
+  case object PuzzleFrisian extends PerfType(
+    21,
+    key = "puzzlefrisian",
+    name = "Frisian training",
+    title = "Frisian training puzzles",
+    iconChar = '-'
+  )
+
+  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Breakthrough, Puzzle, PuzzleFrisian)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -129,7 +136,7 @@ object PerfType {
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
   val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Frysk, Antidraughts, Breakthrough)
-  val nonGame: List[PerfType] = List(Puzzle)
+  val nonGame: List[PerfType] = List(Puzzle, PuzzleFrisian)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Frisian, Frysk, Antidraughts, Breakthrough)
   val variants: List[PerfType] = List(Frisian, Frysk, Antidraughts, Breakthrough)
   val variantsPlus: List[PerfType] = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough)
@@ -159,6 +166,12 @@ object PerfType {
 
   def checkStandard(variant: draughts.variant.Variant): Option[PerfType] = variant match {
     case draughts.variant.Standard => Standard.some
+    case _ => none
+  }
+
+  def puzzlePerf(variant: draughts.variant.Variant): Option[PerfType] = variant match {
+    case draughts.variant.Standard => Puzzle.some
+    case draughts.variant.Frisian => PuzzleFrisian.some
     case _ => none
   }
 

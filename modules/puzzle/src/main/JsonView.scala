@@ -44,7 +44,7 @@ final class JsonView(
           )
         },
         "voted" -> voted,
-        "user" -> userInfos.map(JsonView.infos(isOldMobile)),
+        "user" -> userInfos.map(JsonView.infos(isOldMobile, puzzle.variant)),
         "difficulty" -> isOldMobile.option {
           Json.obj(
             "choices" -> Json.arr(
@@ -79,7 +79,7 @@ final class JsonView(
         }
     }.sequenceFu
   } yield Json.obj(
-    "user" -> JsonView.infos(false)(userInfos),
+    "user" -> JsonView.infos(false, draughts.variant.Standard)(userInfos),
     "puzzles" -> jsons
   )
 
@@ -139,8 +139,8 @@ final class JsonView(
 
 object JsonView {
 
-  def infos(isOldMobile: Boolean)(i: UserInfos): JsObject = Json.obj(
-    "rating" -> i.user.perfs.puzzle.intRating,
+  def infos(isOldMobile: Boolean, variant: draughts.variant.Variant)(i: UserInfos): JsObject = Json.obj(
+    "rating" -> i.user.perfs.puzzle(variant).intRating,
     "history" -> isOldMobile.option(i.history.map(_.rating)), // for mobile BC
     "recent" -> i.history.map { r =>
       Json.arr(r.puzzleId, r.ratingDiff, r.rating)

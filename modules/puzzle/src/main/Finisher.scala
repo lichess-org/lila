@@ -16,16 +16,16 @@ private[puzzle] final class Finisher(
 ) {
 
   def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
-    val formerUserRating = user.perfs.puzzle.intRating
+    val formerUserRating = user.perfs.puzzle(puzzle.variant).intRating
     api.head.find(user, puzzle.variant) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
         api.head.solved(user, puzzle.id, puzzle.variant) >> {
-          val userRating = user.perfs.puzzle.toRating
+          val userRating = user.perfs.puzzle(puzzle.variant).toRating
           val puzzleRating = puzzle.perf.toRating
           updateRatings(userRating, puzzleRating, result.glicko)
           val date = DateTime.now
           val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
-          val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
+          val userPerf = user.perfs.puzzle(puzzle.variant).addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
           val a = new Round(
             puzzleId = puzzle.id,
             userId = user.id,
@@ -39,7 +39,7 @@ private[puzzle] final class Finisher(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
-            ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
+            ) zip UserRepo.setPerf(user.id, PerfType.puzzlePerf(puzzle.variant), userPerf)
           } inject (a, Mode.Rated, formerUserRating, userPerf.intRating)
         }
       case _ =>
@@ -66,12 +66,12 @@ private[puzzle] final class Finisher(
    * only the user rating (we don't care about that one).
    * Returns the user with updated puzzle rating */
   def ratedUntrusted(puzzle: Puzzle, user: User, result: Result): Fu[User] = {
-    val formerUserRating = user.perfs.puzzle.intRating
-    val userRating = user.perfs.puzzle.toRating
+    val formerUserRating = user.perfs.puzzle(puzzle.variant).intRating
+    val userRating = user.perfs.puzzle(puzzle.variant).toRating
     val puzzleRating = puzzle.perf.toRating
     updateRatings(userRating, puzzleRating, result.glicko)
     val date = DateTime.now
-    val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
+    val userPerf = user.perfs.puzzle(puzzle.variant).addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
     val a = new Round(
       puzzleId = puzzle.id,
       userId = user.id,
@@ -81,12 +81,12 @@ private[puzzle] final class Finisher(
       ratingDiff = userPerf.intRating - formerUserRating
     )
     api.round.add(a, puzzle.variant) >>
-      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+      UserRepo.setPerf(user.id, PerfType.puzzlePerf(puzzle.variant), userPerf) >>-
       bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
         'finishPuzzle
       ) inject
-        user.copy(perfs = user.perfs.copy(puzzle = userPerf))
+        user.copy(perfs = user.perfs.copy(puzzle = user.perfs.puzzle.map { case (v, p) => if (v == puzzle.variant) v -> userPerf else v -> p }))
   } recover lidraughts.db.recoverDuplicateKey { _ =>
     logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
     user // has already been solved!
