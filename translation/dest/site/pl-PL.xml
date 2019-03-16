@@ -358,7 +358,7 @@
   <string name="allTeams">Wszystkie kluby</string>
   <string name="newTeam">Nowy klub</string>
   <string name="myTeams">Moje kluby</string>
-  <string name="noTeamFound">Nie znaleziono klubu</string>
+  <string name="noTeamFound">Nie należysz do żadnego klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
