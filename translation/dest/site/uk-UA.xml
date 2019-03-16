@@ -101,7 +101,19 @@
   <string name="claimADraw">Оголосити нічию</string>
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s гравець</item>
+    <item quantity="few">%s гравці</item>
+    <item quantity="many">%s гравців</item>
+    <item quantity="other">%s гравців</item>
+  </plurals>
   <string name="currentGames">Поточні партії</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s партія</item>
+    <item quantity="few">%s партії</item>
+    <item quantity="many">%s партії</item>
+    <item quantity="other">%s партії</item>
+  </plurals>
   <string name="viewInFullSize">Дивитися в повний розмір</string>
   <string name="logOut">Вийти</string>
   <string name="signIn">Увійти</string>
@@ -341,6 +353,12 @@
   <string name="retryThisPuzzle">Спробувати цю задачу ще раз</string>
   <string name="thisPuzzleIsCorrect">Ця задача є правильною та цікавою</string>
   <string name="thisPuzzleIsWrong">Ця задача є неправильною чи нудною</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s партія онлайн</item>
+    <item quantity="few">%s партії онлайн</item>
+    <item quantity="many">%s партії онлайн</item>
+    <item quantity="other">%s партії онлайн</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично перейти до наступної гри після ходу</string>
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Тактика</string>
