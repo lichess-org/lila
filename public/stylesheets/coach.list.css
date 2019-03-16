@@ -10,29 +10,9 @@
   margin-right: 20px;
 }
 .coach-side {
-  margin: 50px 0 0 -35px;
+  margin: 50px 40px 0 -35px;
   width: 226px;
   text-align: center;
-}
-.coach-intro img {
-  width: 140px;
-  height: 140px;
-}
-.coach-intro h2 {
-  font: 1.95em Roboto;
-  text-transform: uppercase;
-  color: #639B24;
-  white-space: nowrap;
-  margin-bottom: 1em;
-}
-.coach-intro p {
-  margin-top: 1em;
-  font-size: 1.1em;
-}
-.coach-add {
-  margin-top: 20px;
-  border-top: 1px solid #ccc;
-  padding-top: 20px;
 }
 
 .coaches .coach {
@@ -103,8 +83,7 @@
     font-size: 1.75em;
   }
 }
-body.dark .coaches .coach,
-body.dark .coach-add {
+body.dark .coaches .coach {
   border-color: #3d3d3d;
 }
 
