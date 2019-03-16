@@ -211,17 +211,18 @@ Thank you all, you rock!"""
             //Frisian bullet, not during daily frisian or daily/eastern bullet
             at(date, hour) map { date => Schedule(Hourly, bulletType, if (hour % 3 == 0 && hour != 21 - todayCET && hour != 17 - todayCET && hour != 5 - todayCET) Frisian else Standard, std, date).plan },
             at(date, hour, 30) collect { case date if bulletType != HippoBullet => Schedule(Hourly, Bullet, Standard, std, date).plan },
-            //no hourly blitz during frisian
-            at(date, hour) collect { case date if hour % 3 != 2 => Schedule(Hourly, blitzType, Standard, std, date).plan }
+            //no hourly blitz during frisian blitz, except at daily frisian
+            at(date, hour) collect { case date if hour % 3 != 2 || hour == 21 - todayCET => Schedule(Hourly, blitzType, Standard, std, date).plan }
           ).flatten
         },
 
-        // frisian tournaments every 3rd hour!
+        // frisian blitz tournaments every 3rd hour!
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
           val speed = if (hour % 6 == 2) SuperBlitz else Blitz
-          if (hour % 3 != 2) Nil
+          // no frisian blitz during daily/eastern blitz
+          if (hour % 3 != 2 || hour == 18 - todayCET || hour == 19 - todayCET || hour == 6 - todayCET || hour == 7 - todayCET) Nil
           else List(
             at(date, hour) map { date => Schedule(Hourly, speed, Frisian, std, date).plan }
           ).flatten
