@@ -39,7 +39,7 @@ case object Frisian extends Variant(
           else
             board
         }
-      } withouthGhosts
+      } withoutGhosts
     }
   }
 

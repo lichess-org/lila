@@ -74,7 +74,7 @@ case class Board(
     copy(pieces = pieces - at)
   }
 
-  def withouthGhosts(): Board = copy(pieces = pieces.filterValues(pc => {
+  def withoutGhosts(): Board = copy(pieces = pieces.filterValues(pc => {
     (pc.role != GhostMan) && (pc.role != GhostKing)
   }))
 

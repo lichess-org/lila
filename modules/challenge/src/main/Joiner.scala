@@ -14,13 +14,13 @@ private[challenge] final class Joiner(onStart: String => Unit) {
       case false =>
         c.challengerUserId.??(UserRepo.byId) flatMap { challengerUser =>
 
-          def makeChess(variant: draughts.variant.Variant): draughts.DraughtsGame =
+          def makeDraughts(variant: draughts.variant.Variant): draughts.DraughtsGame =
             draughts.DraughtsGame(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
           val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap {
             Forsyth.<<<@(draughts.variant.FromPosition, _)
           }
-          val (chessGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
+          val (draughtsGame, state) = baseState.fold(makeDraughts(c.variant) -> none[SituationPlus]) {
             case sit @ SituationPlus(s, _) =>
               val game = draughts.DraughtsGame(
                 situation = s,
@@ -28,16 +28,16 @@ private[challenge] final class Joiner(onStart: String => Unit) {
                 startedAtTurn = sit.turns,
                 clock = c.clock.map(_.config.toClock)
               )
-              if (Forsyth.>>(game) == Forsyth.initial) makeChess(draughts.variant.Standard) -> none
+              if (Forsyth.>>(game) == Forsyth.initial) makeDraughts(draughts.variant.Standard) -> none
               else game -> baseState
           }
           val perfPicker = (perfs: lidraughts.user.Perfs) => perfs(c.perfType)
           val game = Game.make(
-            draughts = chessGame,
+            draughts = draughtsGame,
             whitePlayer = Player.make(draughts.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
             blackPlayer = Player.make(draughts.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
-            mode = chessGame.board.variant.fromPosition.fold(Mode.Casual, c.mode),
-            source = chessGame.board.variant.fromPosition.fold(Source.Position, Source.Friend),
+            mode = draughtsGame.board.variant.fromPosition.fold(Mode.Casual, c.mode),
+            source = draughtsGame.board.variant.fromPosition.fold(Source.Position, Source.Friend),
             daysPerTurn = c.daysPerTurn,
             pdnImport = None
           ).copy(id = c.id).|> { g =>

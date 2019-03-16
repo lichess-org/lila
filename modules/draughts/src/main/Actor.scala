@@ -77,7 +77,7 @@ case class Actor(
                         val newTaken = nextPos :: allTaken
                         val newMove =
                           if (finalSquare)
-                            move(landingPos, boardAfter.withouthGhosts(), newSquares, newTaken)
+                            move(landingPos, boardAfter.withoutGhosts(), newSquares, newTaken)
                           else
                             move(destPos.getOrElse(landingPos), destBoard.getOrElse(boardAfter), newSquares, newTaken)
                         if (board.variant.frisianVariant) {
@@ -176,7 +176,7 @@ case class Actor(
       val newSquares = curPos :: allSquares
       val newMove =
         if (finalSquare)
-          move(curPos, curBoard.withouthGhosts(), newSquares, allTaken)
+          move(curPos, curBoard.withoutGhosts(), newSquares, allTaken)
         else
           move(destPos.getOrElse(curPos), destBoard.getOrElse(curBoard), newSquares, allTaken)
       if (board.variant.frisianVariant) {
