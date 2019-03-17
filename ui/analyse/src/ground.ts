@@ -47,7 +47,7 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
         orientation: ctrl.bottomColor(),
         coordinates: ctrl.embed ? 0 : pref.coords,
         addPieceZIndex: pref.is3d,
-        viewOnly: !!ctrl.embed,
+        viewOnly: !!ctrl.embed && !ctrl.gamebookPlay(),
         movable: {
             free: false,
             color: opts.movable!.color,
