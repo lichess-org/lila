@@ -26,13 +26,13 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
     ]) : undefined,
     h('div.floor', [
       renderFeedback(ctrl, state),
-      h('img.mascot', {
+      !ctrl.root.embed ? h('img.mascot', {
         attrs: {
           width: 120,
           height: 120,
-          src: window.lidraughts.assetUrl('/assets/images/mascot/octopus.svg', ctrl.embed ? { sameDomain: true, noVersion: true } : {})
+          src: window.lidraughts.assetUrl('/assets/images/mascot/octopus.svg')
         }
-      })
+      }) : null
     ])
   ]);
 }
@@ -70,7 +70,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
 
 function renderEnd(ctrl: GamebookPlayCtrl) {
   const study = ctrl.root.study!,
-  nextChapter = study.nextChapter();
+  nextChapter = !ctrl.root.embed && study.nextChapter();
   return h('div.feedback.end', [
     nextChapter ? h('a.next.text', {
       attrs: dataIcon('G'),
@@ -80,10 +80,10 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       attrs: dataIcon('P'),
       hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw)
     }, 'Play again'),
-    h('a.analyse', {
+    !ctrl.root.embed ? h('a.analyse', {
       attrs: dataIcon('A'),
       hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw)
-    }, 'Analyse')
+    }, 'Analyse') : null
   ]);
 }
 
