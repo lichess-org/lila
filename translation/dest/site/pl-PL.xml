@@ -37,8 +37,8 @@
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która skorzysta z tego odnośnika, rozegra z Tobą partię.</string>
-  <string name="whiteResigned">Białe zrezygnowały</string>
-  <string name="blackResigned">Czarne zrezygnowały</string>
+  <string name="whiteResigned">Białe poddały się</string>
+  <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe porzuciły partię</string>
   <string name="blackLeftTheGame">Czarne porzuciły partię</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres widzom, by mogli obserwować tę partię</string>
