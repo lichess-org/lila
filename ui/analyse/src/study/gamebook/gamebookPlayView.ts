@@ -16,7 +16,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   comment = state.comment || defaultComments[state.feedback];
 
   return h('div.gamebook', {
-    hook: { insert: _ => window.lidraughts.loadCss('/assets/stylesheets/gamebook.play.css', ctrl.embed ? { sameDomain: true, noVersion: true } : {}) }
+    hook: { insert: _ => window.lidraughts.loadCss('/assets/stylesheets/gamebook.play.css', ctrl.root.embed ? { sameDomain: true, noVersion: true } : {}) }
   }, [
     comment ? h('div.comment', {
       class: { hinted: state.showHint }
