@@ -2,7 +2,7 @@ body {
   overflow: hidden;
 }
 .is2d {
-  background: #fff;
+  background: #eee;
 }
 body.dark,
 body.dark .is2d {
@@ -34,6 +34,22 @@ div.game_control .jumps {
   border: 1px solid #ccc;
   border-width: 1px 1px 0 0;
   background: #f8f8f8;
+}
+.gb_play .feedback {
+  margin: 16px 4px 0px 4px;
+  height: 100px !important;
+}
+.gb_play .feedback.end a {
+  border-radius: 7px !important;
+}
+.gb_play .comment {
+  margin: 2px 4px 0px 4px;
+}
+.gb_play .comment .content {
+  padding: 4px 8px !important;
+}
+.gb_play .floor {
+  margin-top: 6px !important;
 }
 .pocket {
   border-radius: 0;

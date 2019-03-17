@@ -14,12 +14,9 @@ export interface State {
 
 export default class GamebookPlayCtrl {
 
-  embed: boolean;
   state: State;
 
   constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {
-
-    this.embed = root.embed;
 
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -69,6 +66,8 @@ export default class GamebookPlayCtrl {
     let path = this.root.path;
     while (path && !this.root.tree.pathIsMainline(path)) path = treePath.init(path);
     this.root.userJump(path);
+    if (this.root.embed && this.root.study)
+      this.root.study.onJump();
     this.redraw();
   }
 
@@ -78,6 +77,17 @@ export default class GamebookPlayCtrl {
       if (child) this.root.userJump(this.root.path + child.id);
     }
     this.redraw();
+  }
+
+  nextUci = () => {
+    const child = this.root.node.children[0];
+    return child ? child.uci : "";
+  }
+
+  peekUci = () => {
+    const child = this.root.node.children[0];
+    const nextChild = child ? child.children[0] : undefined;
+    return nextChild ? nextChild.uci : "";
   }
 
   onSpace = () => {
@@ -97,6 +107,24 @@ export default class GamebookPlayCtrl {
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 
   onJump = this.makeState;
+
+  tryJump = (uci: string) => {
+    const parPath = treePath.init(this.root.path),
+      parNode = this.root.tree.nodeAtPath(parPath);
+    const node = uci.length > 4 ? parNode : this.root.node;
+    for (const child of node.children) {
+      if (child.uci && child.uci.length >= uci.length && child.uci.slice(0, uci.length) === uci)
+        return child;
+    }
+    this.state = {
+      init: this.root.path === '',
+      comment: parNode.children[0].gamebook!.deviation,
+      showHint: false,
+      feedback: 'bad'
+    };
+    setTimeout(this.retry, 800);
+    return undefined;
+  }
 
   onShapeChange = shapes => {
     const node = this.root.node;

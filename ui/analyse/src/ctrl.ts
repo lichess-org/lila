@@ -1,4 +1,5 @@
 import { opposite } from 'draughtsground/util';
+import { countGhosts } from 'draughtsground/fen';
 import { Api as DraughtsgroundApi } from 'draughtsground/api';
 import { DrawShape } from 'draughtsground/draw';
 import * as cg from 'draughtsground/types';
@@ -29,6 +30,7 @@ import { compute as computeAutoShapes } from './autoShape';
 import { getCompChild, nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
+import { calcDests } from './study/gamebook/gamebookEmbed';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 
 const li = window.lidraughts;
@@ -161,12 +163,13 @@ export default class AnalyseCtrl {
 
     this.skipSteps = this.tree.getCurrentNodesAfterPly(this.nodeList, this.mainline, this.data.game.turns).length;
 
+    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay) : undefined;
+    this.studyPractice = this.study ? this.study.practice : undefined;
+
     this.showGround();
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
-    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay) : undefined;
-    this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
     else if (location.hash === '#menu') li.requestIdleCallback(this.actionMenu.toggle);
@@ -282,11 +285,24 @@ export default class AnalyseCtrl {
   }
 
   getDests: () => void = throttle(800, () => {
-    if (!this.embed && !defined(this.node.dests)) this.socket.sendAnaDests({
-      variant: this.data.game.variant.key,
-      fen: this.node.fen,
-      path: this.path
-    });
+    const gamebook = this.gamebookPlay();
+    if (this.embed && gamebook && !defined(this.node.dests)) {
+      let dests = calcDests(this.node.fen, this.data.game.variant.key);
+      if (dests.length > 1 && dests[0] === '#') {
+        const nextUci = gamebook.nextUci();
+        if (nextUci && nextUci.length >= 4) {
+          this.node.captLen = nextUci.length / 2 - 1;
+          dests = "#" + this.node.captLen.toString() + dests.substr(2);
+        }
+      }
+      this.addDests(dests, this.path);
+    }
+    else if (!this.embed && !defined(this.node.dests))
+      this.socket.sendAnaDests({
+        variant: this.data.game.variant.key,
+        fen: this.node.fen,
+        path: this.path
+      });
   });
 
   makeCgOpts(): DraughtsgroundConfig {
@@ -304,7 +320,7 @@ export default class AnalyseCtrl {
         fen: node.fen,
         turnColor: color,
         captureLength: captLen,
-        movable: this.embed ? {
+        movable: (this.embed && !this.gamebookPlay()) ? {
           color: undefined,
           dests: {} as CgDests
         } : {
@@ -479,6 +495,62 @@ export default class AnalyseCtrl {
     this.sendMove(orig, dest, capture);
   }
 
+  private gamebookMove(orig: Key, dest: Key, gamebook: GamebookPlayCtrl): void {
+    const key2id = (key: Key) => String.fromCharCode(35 + parseInt(key) - 1),
+      ghosts = countGhosts(this.node.fen);
+    const uci: string = (ghosts == 0 || !this.node.uci) ? (orig + dest) : (this.node.uci + dest);
+    let treeNode = gamebook.tryJump(uci)
+    if (treeNode) {
+      if (this.node.captLen && (ghosts != 0 || this.node.captLen > 1)) {
+        treeNode = treeOps.copyNode(ghosts == 0 ? treeNode : this.node);
+        treeNode.uci = uci.substr(uci.length - 4);
+        if (treeNode.san) {
+          const capt = treeNode.san.indexOf('x');
+          if (capt !== -1) {
+            if (ghosts == 0)
+              treeNode.san = treeNode.san.substr(0, capt + 1) + parseInt(uci.substr(uci.length - 2, 2)).toString();
+            else
+              treeNode.san = treeNode.san.substr(capt + 1) + "x" + parseInt(uci.substr(uci.length - 2, 2)).toString();
+          }
+        }
+        if (ghosts == 0) {
+          treeNode.id = treeNode.id.substr(0, 1) + key2id(dest);
+          treeNode.comments = undefined;
+        } else
+          treeNode.id = treeNode.id.substr(1, 1) + key2id(dest);
+        treeNode.captLen = this.node.captLen - 1;
+        if (treeNode.captLen == 0) {
+          treeNode.ply = this.node.ply + 1;
+          treeNode.displayPly = treeNode.ply;
+        } else {
+          treeNode.ply = this.node.ply;
+          treeNode.displayPly = treeNode.ply + 1;
+        }
+        const sideToMove = treeNode.captLen != 0 ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W');
+        const fenParts = treeNode.fen.split(':');
+        treeNode.fen = sideToMove + ":" + this.draughtsground.getFen();
+        if (fenParts.length > 3)
+          treeNode.fen += ":" + fenParts.slice(3).join(':');
+        if (treeNode.captLen > 0) {
+          treeNode.dests = calcDests(treeNode.fen, this.data.game.variant.key);
+          treeNode.dests = "#" + treeNode.captLen.toString() + treeNode.dests.substr(2);
+        } else
+          treeNode.dests = undefined;
+      }
+      if (!treeNode.dests) {
+        treeNode.dests = calcDests(treeNode.fen, this.data.game.variant.key);
+        if (treeNode.dests.length > 1 && treeNode.dests[0] === '#') {
+          const nextUci = gamebook.peekUci();
+          if (nextUci && nextUci.length >= 4) {
+            treeNode.captLen = nextUci.length / 2 - 1;
+            treeNode.dests = "#" + treeNode.captLen.toString() + treeNode.dests.substr(2);
+          }
+        }
+      }
+      this.addNode(treeNode, this.path);
+    }
+  }
+
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
     const move: any = {
       orig,
@@ -490,8 +562,13 @@ export default class AnalyseCtrl {
     if (capture) this.justCaptured = capture;
     if (prom) move.promotion = prom;
     if (this.practice) this.practice.onUserMove();
-    this.socket.sendAnaMove(move);
-    this.preparePremoving();
+    const gamebook = this.gamebookPlay();
+    if (this.embed && gamebook) {
+      this.gamebookMove(orig, dest, gamebook);
+    } else {
+      this.socket.sendAnaMove(move);
+      this.preparePremoving();
+    }
     this.redraw();
   }
 
