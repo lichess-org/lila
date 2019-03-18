@@ -232,6 +232,48 @@ final class JsonView(
     ).add("evalPut" -> me.??(evalCache.shouldPut))
   }
 
+  def puzzleEditorJson(
+                        pov: Pov,
+                        pref: Pref,
+                        initialFen: Option[FEN],
+                        orientation: draughts.Color,
+                        owner: Boolean,
+                        me: Option[User],
+                        division: Option[draughts.Division] = none
+                      ) = {
+    import pov._
+    val fen = Forsyth >> game.draughts
+    Json.obj(
+      "game" -> Json.obj(
+        "id" -> gameId,
+        "variant" -> game.variant,
+        "opening" -> game.opening,
+        "initialFen" -> initialFen.fold(draughts.format.Forsyth.initial)(_.value),
+        "fen" -> fen,
+        "turns" -> game.turns,
+        "player" -> game.turnColor.name,
+        "status" -> game.status
+      ).add("division", division),
+      "player" -> Json.obj(
+        "id" -> owner.option(pov.playerId),
+        "color" -> color.name
+      ),
+      "opponent" -> Json.obj(
+        "color" -> opponent.color.name,
+        "ai" -> opponent.aiLevel
+      ),
+      "orientation" -> orientation.name,
+      "pref" -> Json.obj(
+        "animationDuration" -> animationDuration(pov, pref),
+        "coords" -> pref.coords
+      ).add("highlight" -> (pref.highlight || pref.isBlindfold))
+        .add("destination" -> (pref.destination && !pref.isBlindfold)),
+      "path" -> pov.game.turns,
+      "userAnalysis" -> true,
+      "puzzleEditor" -> true
+    ).add("evalPut" -> me.??(evalCache.shouldPut))
+  }
+
   private def blurs(game: Game, player: lidraughts.game.Player) =
     !player.blurs.isEmpty option {
       blursWriter.writes(player.blurs) +

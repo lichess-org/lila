@@ -107,6 +107,7 @@ POST  /training/:variant/:id/round2    controllers.Puzzle.round2Variant(id: Int,
 # User Analysis
 GET   /analysis/socket                 controllers.UserAnalysis.socket
 GET   /analysis/help                   controllers.UserAnalysis.help
+GET   /analysis/puzzle                 controllers.UserAnalysis.puzzleEditor
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pdn                    controllers.UserAnalysis.pdn

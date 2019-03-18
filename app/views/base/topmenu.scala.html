@@ -47,6 +47,7 @@
     <div>
       <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
       <a href="@routes.Editor.index">@trans.boardEditor()</a>
+      @if(isGranted(_.CreatePuzzles)) { <a href="@routes.UserAnalysis.puzzleEditor">Puzzle editor</a> }
       <a href="@routes.Importer.importGame">@trans.importGame()</a>
       <a href="@routes.Search.index()">@trans.advancedSearch()</a>
     </div>
