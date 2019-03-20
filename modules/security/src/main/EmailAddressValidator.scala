@@ -60,12 +60,8 @@ final class EmailAddressValidator(
   private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] =
     if (isAcceptable(e)) e.domain ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
-      else {
-        dnsApi.a(domain) >>| {
-          domain.withoutSubdomain ?? dnsApi.a
-        }
-      } >>& dnsApi.mx(domain).map { domains =>
-        domains.nonEmpty && domains.forall { !disposable(_) }
+      else dnsApi.mx(domain).map { domains =>
+        domains.nonEmpty && !domains.exists { disposable(_) }
       }
     }
     else fuccess(false)
