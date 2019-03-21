@@ -33,6 +33,7 @@ trait ScalatagsSnippets extends Cap {
   def iconTag(icon: Char): Tag = iconTag(icon.toString)
   def iconTag(icon: String): Tag = i(dataIcon := icon)
   def iconTag(icon: String, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
+  val styleTag = tag("style")(`type` := "text/css")
 
   lazy val dataBotAttr = attr("data-bot").empty
 

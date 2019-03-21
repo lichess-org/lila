@@ -1,7 +1,7 @@
 package views.html
 package auth
 
-import play.api.data.Form
+import play.api.data.{ Form, Field }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -11,6 +11,19 @@ import lila.user.User
 import controllers.routes
 
 object bits {
+
+  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context) = frag(
+    form3.group(username, if (register) trans.username.frag() else trans.usernameOrEmail.frag()) { f =>
+      frag(
+        form3.input(f)(autofocus := true),
+        p(cls := "error exists none")(trans.usernameAlreadyUsed.frag())
+      )
+    },
+    form3.password(password, trans.password.frag()),
+    emailOption.map { email =>
+      form3.group(email, trans.email.frag())(form3.input(_, typ = "email"))
+    }
+  )
 
   def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
@@ -74,4 +87,48 @@ object bits {
           )
         )
       }
+
+  def checkYourEmailBanner(userEmail: lila.security.EmailConfirm.UserEmail) = frag(
+    styleTag("""
+body { margin-top: 45px; }
+#email_confirm {
+  height: 40px;
+  background: #3893E8;
+  color: #fff!important;
+  font-size: 1.3em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #666;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+#email_confirm a {
+  color: #fff!important;
+  text-decoration: underline;
+  margin-left: 1em;
+}
+"""),
+    div(id := "email_confirm")(
+      s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
+      a(href := routes.Auth.checkYourEmail)("Click here for help")
+    )
+  )
+
+  def tor()(implicit ctx: Context) =
+    views.html.base.layout(
+      responsive = true,
+      title = "Tor exit node"
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1(cls := "text", dataIcon := "2")("Ooops"),
+        p("Sorry, you can't signup to lichess through TOR!"),
+        p("As an Anonymous user, you can play, train, and use all lichess features.")
+      )
+    }
 }

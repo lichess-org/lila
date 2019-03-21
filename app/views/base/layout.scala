@@ -198,7 +198,7 @@ object layout {
             "This is an empty lichess preview website for developers. ",
             a(href := "https://lichess.org")("Go to lichess.org instead")
           ),
-          lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.emailConfirmBanner(_)),
+          lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
           if (responsive) siteHeader.responsive(playing)
           else siteHeader.old(playing),
