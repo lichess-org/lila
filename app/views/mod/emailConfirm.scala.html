@@ -2,7 +2,7 @@
 
 @js = {
 @embedJs {
-$('#mod-confirm form input').on('paste', function() {
+$('.mod-confirm form input').on('paste', function() {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
 }).each(function() {
 this.setSelectionRange(this.value.length, this.value.length);
@@ -17,7 +17,7 @@ responsive = true,
 moreJs = js) {
 <main class="page-menu">
   @mod.menu("email").toHtml
-  <div id="mod-confirm" class="page-menu__content box box-pad">
+  <div class="mod-confirm" class="page-menu__content box box-pad">
     <h1>Confirm a user email</h1>
     <p>
       If you provide an email, it will confirm the corresponding account, if any.<br />

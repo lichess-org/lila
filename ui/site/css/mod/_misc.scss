@@ -3,15 +3,37 @@
 @import "irwin";
 @import "dev";
 
-#mod-search form input,
-#mod-confirm form input {
+.mod-search {
+  form {
+    display: flex;
+    margin-bottom: 2em;
+    input {
+      flex: 1 1 100%;
+      margin-right: 1em;
+    }
+  }
+  .slist {
+    td {
+      word-break: normal;
+    }
+    email {
+      display: block;
+      font-size: .8em;
+    }
+    marked {
+      margin: 0 .3em;
+      font-size: .9em;
+    }
+  }
+}
+.mod-confirm form input {
   width: 100%;
   padding: 15px 25px;
   font-size: 1.2em;
   margin: .5rem 0 2rem 0;
   position: relative;
 }
-#mod-confirm form input {
+.mod-confirm form input {
   margin-top: 2rem;
 }
 
