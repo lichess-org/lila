@@ -36,7 +36,11 @@ object UserRepo {
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
-  def byPrevEmail(email: NormalizedEmailAddress): Fu[List[User]] = coll.find($doc(F.prevEmail -> email)).list[User]()
+  def byPrevEmail(
+    email: NormalizedEmailAddress,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): Fu[List[User]] =
+    coll.list[User]($doc(F.prevEmail -> email), readPreference)
 
   def idByEmail(email: NormalizedEmailAddress): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
@@ -277,26 +281,31 @@ object UserRepo {
         }
     }
 
-  def toggleEngine(id: ID): Funit =
+  private def setWatchList(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>
-      $set("engine" -> !u.engine)
+      $setBoolOrUnset(F.watchList, u.watchList)
     }
 
-  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v).void
+  def toggleEngine(id: ID): Funit =
+    coll.fetchUpdate[User]($id(id)) { u =>
+      $set(F.engine -> !u.engine)
+    } >> setWatchList(id)
 
-  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v).void
+  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v) >> setWatchList(id)
 
-  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v).void
+  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v) >> setWatchList(id)
 
-  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v).void
+  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v) >> setWatchList(id)
 
-  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v).void
+  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v) >> setWatchList(id)
+
+  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v) >> setWatchList(id)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), "kid", v)
 
   def isKid(id: ID) = coll.exists($id(id) ++ $doc("kid" -> true))
 
-  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll)
+  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll) >> setWatchList(user.id)
 
   def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))
 
@@ -379,6 +388,20 @@ object UserRepo {
         ).some
       }
     }
+
+  def withEmails(names: List[String]): Fu[List[User.WithEmails]] =
+    coll.find($inIds(names map normalize))
+      .list[Bdoc](none, ReadPreference.secondaryPreferred).map {
+        _ map { doc =>
+          User.WithEmails(
+            userBSONHandler read doc,
+            User.Emails(
+              current = doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email),
+              previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
+            )
+          )
+        }
+      }
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 

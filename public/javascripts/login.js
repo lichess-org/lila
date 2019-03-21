@@ -23,7 +23,7 @@ function load($f) {
           $f.find('.submit').attr('disabled', false);
           if (res === 'InvalidTotpToken') $f.find('.two-factor .error').show();
         }
-        else lichess.redirect(res.startsWith('ok:') ? res.substr(3) : '/');
+        else location.href = res.startsWith('ok:') ? res.substr(3) : '/';
       },
       error: function(err) {
         $f.replaceWith($(err.responseText).find(selector));

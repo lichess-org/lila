@@ -26,7 +26,7 @@ function progress(p) {
 module.exports = function(d) {
   return [
     m('h2', [
-      'Glicko2 rating: ',
+      'Rating: ',
       m('strong', {
         title: 'Yes, ratings have decimal accuracy.'
       }, d.perf.glicko.rating),
