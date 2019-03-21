@@ -96,10 +96,13 @@ final class Env(
     historyColl = db(CollectionGamingHistory)
   )
 
-  lazy val search = new UserSearch(
-    securityApi = securityApi,
-    emailValidator = emailValidator
-  )
+  lazy val search = lidraughts.user.UserRepo.withColl { userColl =>
+    new UserSearch(
+      securityApi = securityApi,
+      emailValidator = emailValidator,
+      userColl = userColl
+    )
+  }
 
   lazy val jsonView = new JsonView(
     assessApi = assessApi,

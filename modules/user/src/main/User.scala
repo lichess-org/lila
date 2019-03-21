@@ -82,6 +82,8 @@ case class User(
 
   def lameOrTroll = lame || troll
 
+  def watchList = booster || engine || troll || reportban || rankban || ipBan
+
   def lightPerf(key: String) = perfs(key) map { perf =>
     User.LightPerf(light, key, perf.intRating, perf.progress)
   }
@@ -165,7 +167,9 @@ object User {
 
   case class Active(user: User)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress])
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]) {
+    def list = current.toList ::: previous.toList
+  }
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
@@ -235,6 +239,7 @@ object User {
     val bpass = "bpass"
     val sha512 = "sha512"
     val totpSecret = "totp"
+    val watchList = "watchList"
   }
 
   import lidraughts.db.BSON
