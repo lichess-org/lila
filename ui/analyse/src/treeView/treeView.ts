@@ -72,6 +72,7 @@ export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
 export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
   return {
     active: path === ctx.ctrl.path,
+    first: ctx.ctrl.data.puzzleEditor && path.length == 2,
     context_menu: path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
     nongame: !ctx.currentPath && !!ctx.ctrl.gamePath && treePath.contains(path, ctx.ctrl.gamePath) && path !== ctx.ctrl.gamePath

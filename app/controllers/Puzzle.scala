@@ -198,16 +198,16 @@ object Puzzle extends LidraughtsController {
     }
   }
 
-  def importOne = Action.async(parse.json) { implicit req =>
-    Variant(~get("variant", req)) match {
+  def importOne = SecureBody(BodyParsers.parse.json)(lidraughts.security.Permission.CreatePuzzles) { implicit ctx => me =>
+    Variant(~get("variant", ctx.req)) match {
       case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) =>
-        env.api.puzzle.importOne(req.body, variant, ~get("token", req)) map { id =>
+        env.api.puzzle.importOne(ctx.body.body, variant) map { id =>
           val url = if (variant.exotic) s"https://lidraughts.org/training/${variant.key}/$id" else s"https://lidraughts.org/training/$id"
-          lidraughts.log("puzzle import").info(s"${req.remoteAddress} $url")
+          lidraughts.log("puzzle import").info(s"${ctx.req.remoteAddress} $url")
           Ok(s"kthxbye $url")
         } recover {
           case e =>
-            lidraughts.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
+            lidraughts.log("puzzle import").warn(s"${ctx.req.remoteAddress} ${e.getMessage}", e)
             BadRequest(e.getMessage)
         }
       case _ => fuccess(BadRequest("bad variant"))

@@ -233,14 +233,14 @@ final class JsonView(
   }
 
   def puzzleEditorJson(
-                        pov: Pov,
-                        pref: Pref,
-                        initialFen: Option[FEN],
-                        orientation: draughts.Color,
-                        owner: Boolean,
-                        me: Option[User],
-                        division: Option[draughts.Division] = none
-                      ) = {
+    pov: Pov,
+    pref: Pref,
+    initialFen: Option[FEN],
+    orientation: draughts.Color,
+    owner: Boolean,
+    me: Option[User],
+    division: Option[draughts.Division] = none
+  ) = {
     import pov._
     val fen = Forsyth >> game.draughts
     Json.obj(

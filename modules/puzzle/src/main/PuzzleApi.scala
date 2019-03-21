@@ -35,12 +35,10 @@ private[puzzle] final class PuzzleApi(
         expireAfter = _.ExpireAfterWrite(1 day)
       ))(breakOut)
 
-    def importOne(json: JsValue, variant: Variant, token: String): Fu[PuzzleId] =
-      if (token != apiToken) fufail(s"Invalid API token (expected $apiToken, received $token)")
-      else {
-        import Generated.generatedJSONRead
-        insertPuzzle(json.as[Generated], variant)
-      }
+    def importOne(json: JsValue, variant: Variant): Fu[PuzzleId] = {
+      import Generated.generatedJSONRead
+      insertPuzzle(json.as[Generated], variant)
+    }
 
     def insertPuzzle(generated: Generated, variant: Variant): Fu[PuzzleId] =
       lidraughts.db.Util findNextId puzzleColl(variant) flatMap { id =>

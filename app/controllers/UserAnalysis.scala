@@ -21,23 +21,15 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
 
   def index = load("", Standard)
 
-  def parse(arg: String) = arg.split("/", 3) match {
+  def parse(arg: String) = arg.split("/", 2) match {
     case Array(key) => Variant(key) match {
       case Some(variant) => load("", variant)
       case _ => load(arg, Standard)
-    }
-    case Array("puzzle", key) => Variant(key) match {
-      case Some(variant) if TrainingPuzzle.puzzleVariants.contains(variant) => loadPuzzle("", variant)
-      case _ => loadPuzzle(arg, Standard)
     }
     case Array(key, fen) => Variant.byKey get key match {
       case Some(variant) => load(fen, variant)
       case _ if fen == Standard.initialFen => load(arg, Standard)
       case _ => load(arg, FromPosition)
-    }
-    case Array("puzzle", key, fen) => Variant.byKey get key match {
-      case Some(variant) if TrainingPuzzle.puzzleVariants.contains(variant) => loadPuzzle(fen, variant)
-      case _ => loadPuzzle(arg, Standard)
     }
     case _ => load("", Standard)
   }
@@ -55,7 +47,19 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
 
   def puzzleEditor = loadPuzzle("", Standard)
 
-  def loadPuzzle(urlFen: String, variant: Variant)= Secure(_.CreatePuzzles) { implicit ctx => me =>
+  def parsePuzzle(arg: String) = arg.split("/", 2) match {
+    case Array(key) => Variant(key) match {
+      case Some(variant) if TrainingPuzzle.puzzleVariants.contains(variant) => loadPuzzle("", variant)
+      case _ => loadPuzzle(arg, Standard)
+    }
+    case Array(key, fen) => Variant.byKey get key match {
+      case Some(variant) if TrainingPuzzle.puzzleVariants.contains(variant) => loadPuzzle(fen, variant)
+      case _ => loadPuzzle(arg, Standard)
+    }
+    case _ => loadPuzzle("", Standard)
+  }
+
+  def loadPuzzle(urlFen: String, variant: Variant) = Secure(_.CreatePuzzles) { implicit ctx => me =>
     val decodedFen: Option[FEN] = lidraughts.common.String.decodeUriPath(urlFen)
       .map(_.replace("_", " ").trim).filter(_.nonEmpty)
       .orElse(get("fen")) map FEN.apply

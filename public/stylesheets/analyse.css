@@ -1269,6 +1269,10 @@ body.piece_letter .lidraughts_ground move {
 .tview2 move.current {
   border: 1px solid #d85000!important;
 }
+.tview2 move.first {
+  font-weight: bold;
+  background: rgba(80,220,20,0.31) !important;
+}
 .tview2 move.active {
   font-weight: bold;
   background: rgba(56,147,232,0.2);
