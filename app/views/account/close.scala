@@ -18,7 +18,7 @@ object close {
       st.form(cls := "form3", action := routes.Account.closeConfirm, method := "POST")(
         div(cls := "form-group")(trans.closeAccountExplanation.frag()),
         div(cls := "form-group")(trans.noNewAccountWithSameName.frag()),
-        form3.passwordNoAutocomplete(form("passwd"), trans.password.frag()),
+        form3.passwordModified(form("passwd"), trans.password.frag())(autocomplete := "off"),
         form3.actions(frag(
           a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount.frag()),
           form3.submit(
