@@ -39,3 +39,25 @@
     }
   }
 }
+
+.email-confirm-help {
+  form {
+    margin-top: 2em;
+  }
+  .form-split {
+    justify-content: flex-start;
+  }
+  .form-group:last-child {
+    display: flex;
+    align-items: center;
+  }
+  .button {
+    margin-left: 1em;
+  }
+  .replies {
+    font-size: 1.2em;
+  }
+  .replies p {
+    margin-bottom: 1em;
+  }
+}
