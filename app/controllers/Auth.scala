@@ -373,7 +373,7 @@ object Auth extends LilaController {
 
   def passwordResetSent(email: String) = Open { implicit ctx =>
     fuccess {
-      Ok(html.auth.passwordResetSent(email))
+      Ok(html.auth.bits.passwordResetSent(email))
     }
   }
 
@@ -386,7 +386,7 @@ object Auth extends LilaController {
       case Some(user) => {
         authLog(user.username, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("token_ok")()
-        fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
+        fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdReset, none))
       }
     }
   }
@@ -400,7 +400,7 @@ object Auth extends LilaController {
       case Some(user) =>
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
-          fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
+          fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>

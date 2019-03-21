@@ -185,11 +185,11 @@ trait FormHelper { self: I18nHelper =>
         `type` := "hidden"
       )
 
-    def password(field: Field, content: Html)(implicit ctx: Context): Frag =
+    def password(field: Field, content: Frag)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required := true))
 
-    def passwordNoAutocomplete(field: Field, content: Html)(implicit ctx: Context): Frag =
-      group(field, content)(input(_, typ = "password")(autocomplete := "off")(required := true))
+    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
+      group(field, content)(input(_, typ = "password")(required := true)(modifiers))
 
     def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
       form.globalError map { err =>
