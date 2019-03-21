@@ -1,8 +1,8 @@
 @(form: Form[_], captcha: lidraughts.common.Captcha, simulId: String)(implicit ctx: Context)
 
-@auth.layout(
+@base.layout(
 title = trans.exportSimulGames.txt(),
-formCss = true) {
+moreCss = cssTags(List("user-signup.css" -> true, "form3.css" -> true))) {
 <div class="content_box small_box signup">
   <div class="signup_box">
     <h1 class="lidraughts_title">@trans.exportSimulGames()</h1>

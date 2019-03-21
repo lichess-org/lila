@@ -188,7 +188,7 @@ object layout {
             "This is an empty lidraughts preview website for developers. ",
             a(href := "https://lidraughts.org")("Go to lidraughts.org instead")
           ),
-          lidraughts.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.emailConfirmBanner(_)),
+          lidraughts.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
           if (responsive) siteHeader.responsive(playing)
           else siteHeader.old(playing),

@@ -30,7 +30,7 @@ object login {
         )(
             div(cls := "one-factor")(
               form3.globalError(form),
-              auth.formFields(form("username"), form("password"), none, register = false),
+              auth.bits.formFields(form("username"), form("password"), none, register = false),
               form3.submit(trans.signIn.frag(), icon = none)
             ),
             div(cls := "two-factor none")(
