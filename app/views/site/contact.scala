@@ -244,7 +244,7 @@ object contact {
         Leaf("contact-other", "None of the above", frag(
           p(s"Please send us an email at $contactEmail."),
           p(
-            "Please explain your request clearly and thoroughly.",
+            "Please explain your request clearly and thoroughly. ",
             "State your lichess username, and any information that could help us help you."
           )
         ))
@@ -281,11 +281,12 @@ object contact {
 
   def apply()(implicit ctx: Context) = views.html.base.layout(
     title = "Contact",
-    moreCss = cssTags("contact.css"),
+    responsive = true,
+    moreCss = responsiveCssTag("contact"),
     moreJs = embedJs("""location=location.hash||"#help-root"""")
   )(
-      div(cls := "content_box small_box")(
-        h1(cls := "lichess_title")("Contact lichess"),
+      main(cls := "page-small box box-pad")(
+        h1("Contact lichess"),
         div(cls := "contact")(
           renderedMenu
         )
