@@ -234,11 +234,13 @@ object Mod extends LilaController {
     }
   }
 
-  def search = Secure(_.UserSearch) { implicit ctx => me =>
-    val query = (~get("q")).trim
-    Env.mod.search(query) map { users =>
-      html.mod.search(query, users)
-    }
+  def search = SecureBody(_.UserSearch) { implicit ctx => me =>
+    implicit def req = ctx.body
+    val f = lila.mod.UserSearch.form
+    f.bindFromRequest.fold(
+      err => BadRequest(html.mod.search(err, Nil)).fuccess,
+      query => Env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+    )
   }
 
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>
@@ -282,16 +284,17 @@ object Mod extends LilaController {
         val query = rawQuery.trim.split(' ').toList
         val email = query.headOption.map(EmailAddress.apply) flatMap Env.security.emailAddressValidator.validate
         val username = query lift 1
-        def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] = Env.mod.search(q) flatMap {
-          case List(user) => (!user.everLoggedIn).?? {
-            lila.mon.user.register.modConfirmEmail()
-            modApi.setEmail(me.id, user.id, setEmail)
-          } >>
-            UserRepo.email(user.id) map { email =>
-              Ok(html.mod.emailConfirm("", user.some, email)).some
-            }
-          case _ => fuccess(none)
-        }
+        def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
+          Env.mod.search(lila.mod.UserSearch.exact(q)) flatMap {
+            case List(UserModel.WithEmails(user, _)) => (!user.everLoggedIn).?? {
+              lila.mon.user.register.modConfirmEmail()
+              modApi.setEmail(me.id, user.id, setEmail)
+            } >>
+              UserRepo.email(user.id) map { email =>
+                Ok(html.mod.emailConfirm("", user.some, email)).some
+              }
+            case _ => fuccess(none)
+          }
         email.?? { em =>
           tryWith(em.acceptable, em.acceptable.value) orElse {
             username ?? { tryWith(em.acceptable, _) }

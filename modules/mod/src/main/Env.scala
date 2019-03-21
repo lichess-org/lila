@@ -91,10 +91,13 @@ final class Env(
     historyColl = db(CollectionGamingHistory)
   )
 
-  lazy val search = new UserSearch(
-    securityApi = securityApi,
-    emailValidator = emailValidator
-  )
+  lazy val search = lila.user.UserRepo.withColl { userColl =>
+    new UserSearch(
+      securityApi = securityApi,
+      emailValidator = emailValidator,
+      userColl = userColl
+    )
+  }
 
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
