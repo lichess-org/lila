@@ -348,7 +348,7 @@ private[controllers] trait LilaController
     negotiate(
       html = fuccess {
         implicit val req = ctx.req
-        Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
+        Redirect(routes.Auth.login) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
       },
       api = _ => ensureSessionId(ctx.req) {
         Unauthorized(jsonError("Login required"))
