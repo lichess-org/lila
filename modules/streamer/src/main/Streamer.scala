@@ -59,7 +59,7 @@ object Streamer {
     updatedAt = DateTime.now
   )
 
-  case class Id(value: User.ID) extends AnyVal with lila.base.LilaTypes.StringValue
+  case class Id(value: User.ID) extends AnyVal with StringValue
   case class Listed(value: Boolean) extends AnyVal
   case class Approval(
       requested: Boolean, // user requests a mod to approve
@@ -69,8 +69,7 @@ object Streamer {
       chatEnabled: Boolean // embed chat inside lichess
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
-  // why can't I just use StringValue?
-  case class Name(value: String) extends AnyVal with lila.base.LilaTypes.StringValue
+  case class Name(value: String) extends AnyVal with StringValue
   case class Headline(value: String) extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue
 
