@@ -17,6 +17,9 @@ elif [ $mode = "greco" ]; then
 elif [ $mode = "moore" ]; then
   REMOTE="moore"
   REMOTE_DIR="/home/lichess-deploy"
+elif [ $mode = "leess" ]; then
+  REMOTE="leess"
+  REMOTE_DIR="/home/lichess-deploy"
 else
   echo "Unknown deploy target $mode"
   exit 1
