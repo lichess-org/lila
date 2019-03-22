@@ -74,26 +74,28 @@ object Forsyth {
    * Only cares about pieces positions on the board (second and third part of FEN string)
    */
   def makeBoard(variant: Variant, rawSource: String): Option[Board] = read(rawSource) { fen =>
-    val allFields = new scala.collection.mutable.ArrayBuffer[(Pos, Piece)]
     val fenPieces = fen.split(':').drop(1)
     if (fenPieces.isEmpty) none
-    for (line <- fenPieces) {
-      if (line.nonEmpty)
-        Color.apply(line.charAt(0)).fold() {
-          color =>
-            val fields = if (line.endsWith(".")) line.substring(1, line.length - 1) else line.drop(1)
-            for (field <- fields.split(',')) {
-              if (field.nonEmpty)
-                field.charAt(0) match {
-                  case 'K' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, King))) }
-                  case 'G' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostMan))) }
-                  case 'P' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostKing))) }
-                  case _ => Pos.posAt(field).fold() { pos => allFields.+=((pos, Piece(color, Man))) }
-                }
-            }
-        }
+    else {
+      val allFields = new scala.collection.mutable.ArrayBuffer[(Pos, Piece)]
+      for (line <- fenPieces) {
+        if (line.nonEmpty)
+          Color.apply(line.charAt(0)).fold() {
+            color =>
+              val fields = if (line.endsWith(".")) line.substring(1, line.length - 1) else line.drop(1)
+              for (field <- fields.split(',')) {
+                if (field.nonEmpty)
+                  field.charAt(0) match {
+                    case 'K' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, King))) }
+                    case 'G' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostMan))) }
+                    case 'P' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostKing))) }
+                    case _ => Pos.posAt(field).fold() { pos => allFields.+=((pos, Piece(color, Man))) }
+                  }
+              }
+          }
+      }
+      Board(allFields, variant).some
     }
-    Board(allFields, variant).some
   }
 
   def countGhosts(rawSource: String): Int = read(rawSource) { fen =>
