@@ -32,7 +32,7 @@ object bits {
               lila.rating.PerfType(l.perfKey) map { pt =>
                 td(cls := "text", dataIcon := pt.iconChar)(l.rating)
               },
-              td(showProgress(l.progress, withTitle = false))
+              td(ratingProgress(l.progress))
             )
           }
         ))

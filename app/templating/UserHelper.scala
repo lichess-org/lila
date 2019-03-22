@@ -7,6 +7,7 @@ import controllers.routes
 import mashup._
 
 import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
 import lila.common.LightUser
 import lila.i18n.I18nKeys
 import lila.rating.{ PerfType, Perf }
@@ -14,14 +15,10 @@ import lila.user.{ User, Title, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
 
-  def showProgress(progress: Int, withTitle: Boolean = true) = Html {
-    val span = progress match {
-      case 0 => ""
-      case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
-      case p if p < 0 => s"""<span class="negative" data-icon="M">${math.abs(p)}</span>"""
-    }
-    val title = if (withTitle) """ title="Rating progression over the last twelve games"""" else ""
-    s"""<span$title class="progress">$span</span>"""
+  def ratingProgress(progress: Int) = raw {
+    if (progress > 0) s"""<span class="rp rp-up">$progress</span>"""
+    else if (progress < 0) s"""<span class="rp rp-down">${math.abs(progress)}</span>"""
+    else ""
   }
 
   val topBarSortedPerfTypes: List[PerfType] = List(

@@ -10,6 +10,21 @@
   }
 }
 
+.rp {
+  &::before {
+    @extend %data-icon, %data-icon-middle;
+    margin-right: .2em;
+  }
+  &-up {
+    color: $c-good;
+    &::before { content: 'N'; }
+  }
+  &-down {
+    color: $c-bad;
+    &::before { content: 'M'; }
+  }
+}
+
 /* infinite scroll */
 .inf-more {
   width: 100%;
