@@ -69,7 +69,7 @@ object Puzzle extends LidraughtsController {
   }
 
   def showOrVariant(something: String) = Variant(something) match {
-    case Some(variant) if puzzleVariants.contains(variant) => homeVariant(variant)
+    case Some(variant) if puzzleVariants.contains(variant) && !variant.frisian => homeVariant(variant)
     case _ => parseIntOption(something) match {
       case Some(id) => show(id, Standard)
       case _ => Open { implicit ctx => notFound(ctx) }
@@ -108,7 +108,7 @@ object Puzzle extends LidraughtsController {
   def newPuzzleStandard = newPuzzle(Standard)
 
   def newPuzzleVariant(key: String) = Variant(key) match {
-    case Some(variant) if puzzleVariants.contains(variant) => newPuzzle(variant)
+    case Some(variant) if puzzleVariants.contains(variant) && !variant.frisian => newPuzzle(variant)
     case _ => Open { implicit ctx => notFound(ctx) }
   }
 
@@ -124,7 +124,7 @@ object Puzzle extends LidraughtsController {
   def round2Standard(id: PuzzleId) = round2(id, Standard)
 
   def round2Variant(id: PuzzleId, key: String) = Variant(key) match {
-    case Some(variant) if puzzleVariants.contains(variant) => round2(id, variant)
+    case Some(variant) if puzzleVariants.contains(variant) && !variant.frisian => round2(id, variant)
     case _ => OpenBody { implicit ctx => fuccess(BadRequest("bad variant")) map (_ as JSON) }
   }
 
