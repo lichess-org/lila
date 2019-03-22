@@ -1,7 +1,5 @@
 package views.html.streamer
 
-import play.twirl.api.Html
-
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -74,7 +72,7 @@ object index {
       moreJs = infiniteScrollTag
     ) {
         main(cls := "page-menu")(
-          bits.menu("index", none),
+          bits.menu("index", none)(ctx)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
             h1(dataIcon := "", cls := "text")(title),
             !requests option div(cls := "list live")(

@@ -1,0 +1,129 @@
+.streamer-show {
+  .streamer-chat {
+    margin-right: $block-gap;
+    display: none;
+    @include breakpoint($mq-small) {
+      display: block;
+    }
+    iframe {
+      height: 500px;
+    }
+  }
+  .top {
+    display: flex;
+  }
+  .picture {
+    flex: 0 0 300px;
+  }
+  .overview {
+    margin: 20px 10px 0 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .metas {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+  }
+  .follow:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+  h1 {
+    @extend %roboto;
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: .7em;
+  }
+  .headline {
+    font-style: italic;
+  }
+  .headline.medium {
+    font-size: .95em;
+  }
+  .headline.large {
+    font-size: .9em;
+  }
+  .services {
+    margin: 5px 0;
+  }
+  .service {
+    display: flex;
+    font-size: 1.2em;
+    white-space: nowrap;
+    padding: 5px 0;
+  }
+  .service.live {
+    color: $c-brag;
+  }
+  .service svg {
+    width: 1.4em;
+    height: 1.4em;
+    margin-right: 0.4em;
+  }
+  a.service:hover svg path {
+    fill: $c-link;
+  }
+  .embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin-bottom: $block-gap;
+  }
+  .embed > * {
+    @extend %abs-100;
+    top: 0;
+    left: 0;
+    border: none;
+  }
+  .nostream {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    letter-spacing: 10px;
+  }
+  .description {
+    padding: 2.5em 50px 2.5em 65px;
+    font-size: 1.4em;
+  }
+  .services a:hover,
+  .description a {
+    color: #3893E8;
+  }
+  .ratings {
+    padding: 2em 50px 2em 58px;
+    font-size: 1.6em;
+    line-height: .9;
+    background: mix($c-brag, $c-bg-box, 20%);
+    color: $c-font;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    span::before {
+      font-size: 1.6em;
+      margin-right: 0.1em;
+    }
+  }
+
+  .blocker {
+    margin: $block-gap $block-gap 0 0;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    text-align: center;
+    font-weight: normal;
+    text-transform: none;
+  }
+  .blocker i {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+}
