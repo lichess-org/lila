@@ -109,6 +109,12 @@ trait SetupHelper { self: I18nHelper =>
     )
   }
 
+  def translatedSideChoices(implicit ctx: Context) = List(
+    ("black", trans.black.txt(), none),
+    ("random", trans.randomColor.txt(), none),
+    ("white", trans.white.txt(), none)
+  )
+
   def translatedAnimationChoices(implicit ctx: Context) = List(
     (Pref.Animation.NONE, trans.none.txt()),
     (Pref.Animation.FAST, trans.fast.txt()),
