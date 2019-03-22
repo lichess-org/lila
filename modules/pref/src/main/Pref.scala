@@ -1,5 +1,7 @@
 package lidraughts.pref
 
+import draughts.variant.{ Variant, Standard, Frisian }
+
 case class Pref(
     _id: String, // user id
     dark: Boolean,
@@ -32,6 +34,7 @@ case class Pref(
     keyboardMove: Int,
     zen: Int,
     moveEvent: Int,
+    puzzleVariant: Variant,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -56,6 +59,7 @@ case class Pref(
     case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
     case "soundSet" => SoundSet.allByKey get value map { s => copy(soundSet = s.name) }
     case "zen" => copy(zen = if (value == "1") 1 else 0).some
+    case "puzzleVariant" => copy(puzzleVariant = Variant(value).getOrElse(Standard)).some
     case _ => none
   }
 
@@ -270,6 +274,8 @@ object Pref {
   object Zen extends BooleanPref {
   }
 
+  val puzzleVariants: List[Variant] = List(Standard, Frisian)
+
   def create(id: String) = default.copy(_id = id)
 
   lazy val default = Pref(
@@ -304,6 +310,7 @@ object Pref {
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
     moveEvent = MoveEvent.BOTH,
+    puzzleVariant = Standard,
     tags = Map.empty
   )
 

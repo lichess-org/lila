@@ -30,7 +30,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
     <i data-icon="u"></i>
   </div>
   <div class="list">
-    @lidraughts.puzzle.Puzzle.puzzleVariants.map { v =>
+    @lidraughts.pref.Pref.puzzleVariants.map { v =>
     <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parsePuzzle(v.key)">@v.name</a>
     }
   </div>

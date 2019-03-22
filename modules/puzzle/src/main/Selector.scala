@@ -4,7 +4,7 @@ import scala.util.Random
 
 import lidraughts.db.dsl._
 import lidraughts.user.User
-import draughts.variant.Variant
+import draughts.variant.{ Variant, Standard, Frisian }
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
@@ -22,7 +22,7 @@ private[puzzle] final class Selector(
         puzzleColl(variant) // this query precisely matches a mongodb partial index
           .find($doc(F.voteNb $gte 1)) //original 50
           .sort($sort desc F.voteRatio)
-          .skip(Random nextInt anonSkipMax)
+          .skip(Random nextInt anonSkipMax(variant))
           .uno[Puzzle]
       case Some(user) =>
         api.head.find(user, variant) flatMap {
@@ -80,7 +80,7 @@ private final object Selector {
 
   val toleranceMax = 1000
 
-  val anonSkipMax = 500 //original 5000
+  val anonSkipMax: Map[Variant, Int] = Map(Standard -> 500, Frisian -> 1)
 
   def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {

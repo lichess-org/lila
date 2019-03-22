@@ -27,7 +27,8 @@ object RequestPref {
       theme = paramOrSession("theme") | default.theme,
       pieceSet = req.session.data.getOrElse("pieceSet", default.pieceSet),
       soundSet = req.session.data.getOrElse("soundSet", default.soundSet),
-      bgImg = req.session.data.get("bgImg")
+      bgImg = req.session.data.get("bgImg"),
+      puzzleVariant = draughts.variant.Variant(~req.session.data.get("puzzleVariant")).getOrElse(draughts.variant.Standard)
     )
   }
 

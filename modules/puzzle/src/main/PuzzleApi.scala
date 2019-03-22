@@ -28,9 +28,9 @@ private[puzzle] final class PuzzleApi(
     def findMany(ids: List[PuzzleId], variant: Variant): Fu[List[Option[Puzzle]]] =
       puzzleColl(variant).optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
 
-    val cachedLastId: Map[Variant, lidraughts.memo.AsyncCacheSingle[Int]] = Puzzle.puzzleVariants.map(variant =>
+    val cachedLastId: Map[Variant, lidraughts.memo.AsyncCacheSingle[Int]] = lidraughts.pref.Pref.puzzleVariants.map(variant =>
       variant -> asyncCache.single(
-        name = "puzzle.lastId",
+        name = "puzzle.lastId" + variant.key,
         f = lidraughts.db.Util findNextId puzzleColl(variant) map (_ - 1),
         expireAfter = _.ExpireAfterWrite(1 day)
       ))(breakOut)

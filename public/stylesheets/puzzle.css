@@ -217,6 +217,16 @@ body.dark #puzzle .timeline > * {
   padding: 0 7px;
 }
 
+.mselect {
+  margin-top: 12px;
+  margin-left: -30px;
+  width: 226px;
+  z-index: 1;
+}
+.mselect .button {
+  border: 1px solid #ccc;
+}
+
 .puzzle_side .game_infos {
   margin-top: 14px!important;
   padding-bottom: 14px!important;

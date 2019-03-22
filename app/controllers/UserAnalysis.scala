@@ -12,7 +12,7 @@ import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.game.{ GameRepo, Pov }
 import lidraughts.i18n.I18nKeys
-import lidraughts.puzzle.{ Puzzle => TrainingPuzzle }
+import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import lidraughts.round.JsonView.WithFlags
 import views._
@@ -49,11 +49,11 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
 
   def parsePuzzle(arg: String) = arg.split("/", 2) match {
     case Array(key) => Variant(key) match {
-      case Some(variant) if TrainingPuzzle.puzzleVariants.contains(variant) => loadPuzzle("", variant)
+      case Some(variant) if puzzleVariants.contains(variant) => loadPuzzle("", variant)
       case _ => loadPuzzle(arg, Standard)
     }
     case Array(key, fen) => Variant.byKey get key match {
-      case Some(variant) if TrainingPuzzle.puzzleVariants.contains(variant) => loadPuzzle(fen, variant)
+      case Some(variant) if puzzleVariants.contains(variant) => loadPuzzle(fen, variant)
       case _ => loadPuzzle(arg, Standard)
     }
     case _ => loadPuzzle("", Standard)

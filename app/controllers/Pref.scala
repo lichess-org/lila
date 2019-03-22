@@ -57,10 +57,11 @@ object Pref extends LidraughtsController {
     "soundSet" -> (forms.soundSet -> save("soundSet") _),
     "bg" -> (forms.bg -> save("bg") _),
     "bgImg" -> (forms.bgImg -> save("bgImg") _),
-    "zen" -> (forms.zen -> save("zen") _)
+    "zen" -> (forms.zen -> save("zen") _),
+    "puzzleVariant" -> (forms.puzzleVariant -> save("puzzleVariant") _)
   )
 
-  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
+  def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value, notifyChange = false)
     } inject LidraughtsCookie.session(name, value)(ctx.req)

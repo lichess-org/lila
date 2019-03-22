@@ -6,6 +6,7 @@ import play.api.mvc._
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.game.PdnDump
+import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import lidraughts.user.UserRepo
 import draughts.variant.{ Variant, Standard }
@@ -32,6 +33,11 @@ object Puzzle extends LidraughtsController {
     voted = voted
   )
 
+  private def renderVariant(variant: Variant, cookie: Option[Cookie])(implicit ctx: Context) =
+    env.selector(ctx.me, variant) flatMap { puzzle =>
+      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { h => cookie.fold(Ok(h))(c => Ok(h).withCookies(c)) }
+    }
+
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env.userInfos(ctx.me, puzzle.variant) flatMap { infos =>
       renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
@@ -50,16 +56,20 @@ object Puzzle extends LidraughtsController {
     }
   }
 
-  def home = homeVariant(Standard)
+  def home = Open { implicit ctx =>
+    renderVariant(ctx.pref.puzzleVariant, none)
+  }
 
   private def homeVariant(variant: Variant) = Open { implicit ctx =>
-    env.selector(ctx.me, variant) flatMap { puzzle =>
-      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
-    }
+    if (ctx.pref.puzzleVariant != variant)
+      controllers.Pref.save("puzzleVariant")(variant.key, ctx) flatMap {
+        cookie => renderVariant(variant, cookie.some)
+      }
+    else renderVariant(variant, none)
   }
 
   def showOrVariant(something: String) = Variant(something) match {
-    case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) => homeVariant(variant)
+    case Some(variant) if puzzleVariants.contains(variant) => homeVariant(variant)
     case _ => parseIntOption(something) match {
       case Some(id) => show(id, Standard)
       case _ => Open { implicit ctx => notFound(ctx) }
@@ -67,7 +77,7 @@ object Puzzle extends LidraughtsController {
   }
 
   def showVariant(id: PuzzleId, key: String) = Variant(key) match {
-    case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) => show(id, variant)
+    case Some(variant) if puzzleVariants.contains(variant) => show(id, variant)
     case _ => Open { implicit ctx => notFound(ctx) }
   }
 
@@ -80,7 +90,7 @@ object Puzzle extends LidraughtsController {
   def loadStandard(id: PuzzleId) = load(id, Standard)
 
   def loadVariant(id: PuzzleId, key: String) = Variant(key) match {
-    case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) => load(id, variant)
+    case Some(variant) if puzzleVariants.contains(variant) => load(id, variant)
     case _ => Open { implicit ctx => notFound(ctx) }
   }
 
@@ -98,7 +108,7 @@ object Puzzle extends LidraughtsController {
   def newPuzzleStandard = newPuzzle(Standard)
 
   def newPuzzleVariant(key: String) = Variant(key) match {
-    case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) => newPuzzle(variant)
+    case Some(variant) if puzzleVariants.contains(variant) => newPuzzle(variant)
     case _ => Open { implicit ctx => notFound(ctx) }
   }
 
@@ -114,7 +124,7 @@ object Puzzle extends LidraughtsController {
   def round2Standard(id: PuzzleId) = round2(id, Standard)
 
   def round2Variant(id: PuzzleId, key: String) = Variant(key) match {
-    case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) => round2(id, variant)
+    case Some(variant) if puzzleVariants.contains(variant) => round2(id, variant)
     case _ => OpenBody { implicit ctx => fuccess(BadRequest("bad variant")) map (_ as JSON) }
   }
 
@@ -152,7 +162,7 @@ object Puzzle extends LidraughtsController {
   def voteStandard(id: PuzzleId) = vote(id, Standard)
 
   def voteVariant(id: PuzzleId, key: String) = Variant(key) match {
-    case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) => vote(id, variant)
+    case Some(variant) if puzzleVariants.contains(variant) => vote(id, variant)
     case _ => AuthBody { implicit ctx => _ => fuccess(BadRequest("bad variant")) map (_ as JSON) }
   }
 
@@ -200,7 +210,7 @@ object Puzzle extends LidraughtsController {
 
   def importOne = SecureBody(BodyParsers.parse.json)(lidraughts.security.Permission.CreatePuzzles) { implicit ctx => me =>
     Variant(~get("variant", ctx.req)) match {
-      case Some(variant) if PuzzleModel.puzzleVariants.contains(variant) =>
+      case Some(variant) if puzzleVariants.contains(variant) =>
         env.api.puzzle.importOne(ctx.body.body, variant) map { id =>
           val url = if (variant.exotic) s"https://lidraughts.org/training/${variant.key}/$id" else s"https://lidraughts.org/training/$id"
           lidraughts.log("puzzle import").info(s"${ctx.req.remoteAddress} $url")

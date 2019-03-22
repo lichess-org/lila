@@ -59,6 +59,7 @@ final class PrefApi(
       keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
       zen = r.getD("zen", Pref.default.zen),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
+      puzzleVariant = r strO "puzzleVariant" flatMap draughts.variant.Variant.apply getOrElse draughts.variant.Standard,
       tags = r.getD("tags", Pref.default.tags)
     )
 
@@ -94,6 +95,7 @@ final class PrefApi(
       "keyboardMove" -> o.keyboardMove,
       "zen" -> o.zen,
       "moveEvent" -> o.moveEvent,
+      "puzzleVariant" -> o.puzzleVariant.key,
       "tags" -> o.tags
     )
   }

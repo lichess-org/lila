@@ -4,7 +4,7 @@ import scala.collection.breakOut
 import draughts.Color
 import draughts.format.Forsyth.SituationPlus
 import draughts.format.{ Forsyth, Uci }
-import draughts.variant.{ Variant, Standard, Frisian }
+import draughts.variant.{ Variant, Standard }
 import org.joda.time.DateTime
 
 case class Puzzle(
@@ -61,8 +61,6 @@ case class Puzzle(
 }
 
 object Puzzle {
-
-  val puzzleVariants: List[Variant] = List(Standard, Frisian)
 
   case class UserResult(
       puzzleId: PuzzleId,
