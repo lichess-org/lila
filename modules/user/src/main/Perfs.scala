@@ -3,6 +3,7 @@ package lidraughts.user
 import org.joda.time.DateTime
 
 import draughts.Speed
+import draughts.variant.{ Variant, Standard, Frisian }
 import lidraughts.db.BSON
 import lidraughts.rating.{ Perf, PerfType, Glicko }
 
@@ -18,7 +19,7 @@ case class Perfs(
     rapid: Perf,
     classical: Perf,
     correspondence: Perf,
-    puzzle: Perf
+    puzzle: Map[Variant, Perf]
 ) {
 
   def perfs = List(
@@ -33,7 +34,8 @@ case class Perfs(
     "rapid" -> rapid,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle
+    "puzzle" -> puzzle(Standard),
+    "puzzlefrisian" -> puzzle(Frisian)
   )
 
   def bestPerf: Option[(PerfType, Perf)] = {
@@ -97,7 +99,8 @@ case class Perfs(
     "rapid" -> rapid,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle
+    "puzzle" -> puzzle(Standard),
+    "puzzlefrisian" -> puzzle(Frisian)
   )
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
@@ -118,7 +121,8 @@ case class Perfs(
     case PerfType.Frysk => frysk
     case PerfType.Antidraughts => antidraughts
     case PerfType.Breakthrough => breakthrough
-    case PerfType.Puzzle => puzzle
+    case PerfType.Puzzle => puzzle(Standard)
+    case PerfType.PuzzleFrisian => puzzle(Frisian)
   }
 
   def inShort = perfs map {
@@ -157,7 +161,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, Map(Standard -> p, Frisian -> p))
   }
 
   def variantLens(variant: draughts.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -196,7 +200,7 @@ case object Perfs {
         rapid = perf("rapid"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = perf("puzzle")
+        puzzle = Map(Standard -> perf("puzzle"), Frisian -> perf("puzzlefrisian"))
       )
     }
 
@@ -214,7 +218,8 @@ case object Perfs {
       "rapid" -> notNew(o.rapid),
       "classical" -> notNew(o.classical),
       "correspondence" -> notNew(o.correspondence),
-      "puzzle" -> notNew(o.puzzle)
+      "puzzle" -> notNew(o.puzzle(Standard)),
+      "puzzlefrisian" -> notNew(o.puzzle(Frisian))
     )
   }
 

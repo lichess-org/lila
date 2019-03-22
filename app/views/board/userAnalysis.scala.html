@@ -56,8 +56,4 @@ zoomable = true) {
 <div class="analyse cg-512">
   @board.domPreload(none)
 </div>
-@if(isGranted(_.CreatePuzzles)) {
-<a class="fat button" style="text-align: center" onclick="$.ajax({ url: '/training/api/puzzle?token=secret', type: 'POST', data: JSON.stringify(window.mainlineUci()), dataType: 'text', contentType: 'application/json; charset=utf-8', success: function(response) { alert('success: ' + response.toString().replace('https:', 'http:')); }, error: function(response) { alert('error: ' + response.toString()); } });">Submit as puzzle</a>
-<a class="fat button" style="text-align: center" onclick="if (window.togglePuzzleMode()) alert('Puzzle mode enabled'); else alert('Puzzle mode disabled');">Split variations</a>
-}
 }

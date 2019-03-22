@@ -7,6 +7,7 @@ import keyboard from './keyboard';
 import socketBuild from './socket';
 import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
+import { puzzleUrl } from './util';
 import computeAutoShapes from './autoShape';
 import { prop, throttle, storedProp } from 'common';
 import * as xhr from './xhr';
@@ -92,7 +93,7 @@ export default function (opts, redraw: () => void): Controller {
 
     instanciateCeval();
 
-    history.replaceState(null, '', '/training/' + data.puzzle.id);
+    history.replaceState(null, '', puzzleUrl(data.puzzle.variant.key) + data.puzzle.id);
   };
 
   var makeCgOpts = function () {
@@ -113,7 +114,8 @@ export default function (opts, redraw: () => void): Controller {
       turnColor: color,
       movable: movable,
       premovable: {
-        enabled: false
+        enabled: false,
+        variant: data.puzzle.variant.key
       },
       check: !!node.check,
       lastMove: uciToLastMove(node.uci)
@@ -148,6 +150,7 @@ export default function (opts, redraw: () => void): Controller {
     const move: any = {
       orig: orig,
       dest: dest,
+      variant: data.puzzle.variant.key,
       fen: vm.node.fen,
       path: vm.path
     };
@@ -158,6 +161,7 @@ export default function (opts, redraw: () => void): Controller {
   var getDests = throttle(800, function () {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
       socket.sendAnaDests({
+        variant: data.puzzle.variant.key,
         fen: vm.node.fen,
         path: vm.path
       });
@@ -234,7 +238,7 @@ export default function (opts, redraw: () => void): Controller {
     if (vm.resultSent) return;
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
-    xhr.round(data.puzzle.id, win).then(function (res) {
+    xhr.round(data.puzzle.id, data.puzzle.variant.key, win).then(function (res) {
       data.user = res.user;
       vm.round = res.round;
       vm.voted = res.voted;
@@ -247,7 +251,7 @@ export default function (opts, redraw: () => void): Controller {
     vm.loading = true;
     socket.resetCache();
     redraw();
-    xhr.nextPuzzle().done(function (d) {
+    xhr.nextPuzzle(data.puzzle.variant.key).done(function (d) {
       vm.round = null;
       vm.loading = false;
       initiate(d);
@@ -273,12 +277,8 @@ export default function (opts, redraw: () => void): Controller {
       redraw,
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,
-      variant: {
-        short: 'Std',
-        name: 'Standard',
-        key: 'standard'
-      },
-      possible: true,
+      variant: data.puzzle.variant,
+      possible: data.puzzle.variant.key === 'standard',
       emit: function (ev, work) {
         tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
@@ -448,7 +448,7 @@ export default function (opts, redraw: () => void): Controller {
     if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
     vm.voted = v;
-    xhr.vote(data.puzzle.id, v).then(function (res) {
+    xhr.vote(data.puzzle.id, data.puzzle.variant.key, v).then(function (res) {
       data.puzzle.vote = res[1];
       redraw();
     });

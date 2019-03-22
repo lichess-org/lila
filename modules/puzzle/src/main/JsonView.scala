@@ -44,7 +44,7 @@ final class JsonView(
           )
         },
         "voted" -> voted,
-        "user" -> userInfos.map(JsonView.infos(isOldMobile)),
+        "user" -> userInfos.map(JsonView.infos(isOldMobile, puzzle.variant)),
         "difficulty" -> isOldMobile.option {
           Json.obj(
             "choices" -> Json.arr(
@@ -79,12 +79,13 @@ final class JsonView(
         }
     }.sequenceFu
   } yield Json.obj(
-    "user" -> JsonView.infos(false)(userInfos),
+    "user" -> JsonView.infos(false, draughts.variant.Standard)(userInfos),
     "puzzles" -> jsons
   )
 
   private def puzzleJson(puzzle: Puzzle, isOldMobile: Boolean): JsObject = Json.obj(
     "id" -> puzzle.id,
+    "variant" -> puzzle.variant,
     "rating" -> puzzle.perf.intRating,
     "attempts" -> puzzle.attempts,
     "fen" -> puzzle.fen,
@@ -108,7 +109,7 @@ final class JsonView(
         fullSolution
       } //else if (fullSolution.size % 2 == 0) fullSolution.init
       else fullSolution
-    val init = draughts.DraughtsGame(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
+    val init = draughts.DraughtsGame(puzzle.variant.some, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(draughts.DraughtsGame, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
         val (game, move) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
@@ -125,12 +126,21 @@ final class JsonView(
       case (Some(child), branch) => Some(branch addChild child)
     }
   }
+
+  implicit val variantWriter: OWrites[draughts.variant.Variant] = OWrites { v =>
+    Json.obj(
+      "key" -> v.key,
+      "name" -> v.name,
+      "short" -> v.shortName,
+      "gameType" -> v.gameType
+    )
+  }
 }
 
 object JsonView {
 
-  def infos(isOldMobile: Boolean)(i: UserInfos): JsObject = Json.obj(
-    "rating" -> i.user.perfs.puzzle.intRating,
+  def infos(isOldMobile: Boolean, variant: draughts.variant.Variant)(i: UserInfos): JsObject = Json.obj(
+    "rating" -> i.user.perfs.puzzle(variant).intRating,
     "history" -> isOldMobile.option(i.history.map(_.rating)), // for mobile BC
     "recent" -> i.history.map { r =>
       Json.arr(r.puzzleId, r.ratingDiff, r.rating)

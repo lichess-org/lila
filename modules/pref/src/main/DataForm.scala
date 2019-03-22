@@ -154,4 +154,8 @@ object DataForm {
     "zen" -> text.verifying(Set("0", "1") contains _)
   ))
 
+  val puzzleVariant = Form(single(
+    "puzzleVariant" -> nonEmptyText.verifying(key => draughts.variant.Variant(key).fold(false)(Pref.puzzleVariants contains _))
+  ))
+
 }

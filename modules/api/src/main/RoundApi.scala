@@ -100,6 +100,15 @@ private[api] final class RoundApi(
       }
     }
 
+  def puzzleEditorJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, owner: Boolean, me: Option[User], iteratedCapts: Boolean = false) =
+    owner.??(forecastApi loadForDisplay pov).map { fco =>
+      withForecast(pov, owner, fco) {
+        withTree(pov, analysis = none, initialFen, WithFlags(opening = true), iteratedCapts) {
+          jsonView.puzzleEditorJson(pov, pref, initialFen, orientation, owner = owner, me = me)
+        }
+      }
+    }
+
   def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, me: Option[User]) =
     withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
       jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me)

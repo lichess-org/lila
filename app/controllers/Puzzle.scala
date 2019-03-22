@@ -6,8 +6,10 @@ import play.api.mvc._
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.game.PdnDump
+import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import lidraughts.user.UserRepo
+import draughts.variant.{ Variant, Standard }
 import views._
 
 object Puzzle extends LidraughtsController {
@@ -31,8 +33,13 @@ object Puzzle extends LidraughtsController {
     voted = voted
   )
 
+  private def renderVariant(variant: Variant, cookie: Option[Cookie])(implicit ctx: Context) =
+    env.selector(ctx.me, variant) flatMap { puzzle =>
+      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { h => cookie.fold(Ok(h))(c => Ok(h).withCookies(c)) }
+    }
+
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
-    env userInfos ctx.me flatMap { infos =>
+    env.userInfos(ctx.me, puzzle.variant) flatMap { infos =>
       renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
         views.html.puzzle.show(puzzle, data = json, pref = env.jsonView.pref(ctx.pref))
       }
@@ -40,7 +47,7 @@ object Puzzle extends LidraughtsController {
 
   def daily = Open { implicit ctx =>
     OptionFuResult(env.daily.get flatMap {
-      _.map(_.id) ?? env.api.puzzle.find
+      _.map(_.id) ?? (id => env.api.puzzle.find(id, Standard))
     }) { puzzle =>
       negotiate(
         html = renderShow(puzzle, "play") map { Ok(_) },
@@ -50,41 +57,81 @@ object Puzzle extends LidraughtsController {
   }
 
   def home = Open { implicit ctx =>
-    env.selector(ctx.me) flatMap { puzzle =>
-      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+    renderVariant(ctx.pref.puzzleVariant, none)
+  }
+
+  private def homeVariant(variant: Variant) = Open { implicit ctx =>
+    if (ctx.pref.puzzleVariant != variant)
+      controllers.Pref.save("puzzleVariant")(variant.key, ctx) flatMap {
+        cookie => renderVariant(variant, cookie.some)
+      }
+    else renderVariant(variant, none)
+  }
+
+  def showOrVariant(something: String) = Variant(something) match {
+    case Some(variant) if puzzleVariants.contains(variant) => homeVariant(variant)
+    case _ => parseIntOption(something) match {
+      case Some(id) => show(id, Standard)
+      case _ => Open { implicit ctx => notFound(ctx) }
     }
   }
 
-  def show(id: PuzzleId) = Open { implicit ctx =>
-    OptionFuOk(env.api.puzzle find id) { puzzle =>
+  def showVariant(id: PuzzleId, key: String) = Variant(key) match {
+    case Some(variant) if puzzleVariants.contains(variant) => show(id, variant)
+    case _ => Open { implicit ctx => notFound(ctx) }
+  }
+
+  private def show(id: PuzzleId, variant: Variant) = Open { implicit ctx =>
+    OptionFuOk(env.api.puzzle.find(id, variant)) { puzzle =>
       renderShow(puzzle, "play")
     }
   }
 
-  def load(id: PuzzleId) = Open { implicit ctx =>
+  def loadStandard(id: PuzzleId) = load(id, Standard)
+
+  def loadVariant(id: PuzzleId, key: String) = Variant(key) match {
+    case Some(variant) if puzzleVariants.contains(variant) => load(id, variant)
+    case _ => Open { implicit ctx => notFound(ctx) }
+  }
+
+  private def load(id: PuzzleId, variant: Variant) = Open { implicit ctx =>
     XhrOnly {
-      OptionFuOk(env.api.puzzle find id)(puzzleJson) map (_ as JSON)
+      OptionFuOk(env.api.puzzle.find(id, variant))(puzzleJson) map (_ as JSON)
     }
   }
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
-    env userInfos ctx.me flatMap { infos =>
+    env.userInfos(ctx.me, puzzle.variant) flatMap { infos =>
       renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)
     }
 
+  def newPuzzleStandard = newPuzzle(Standard)
+
+  def newPuzzleVariant(key: String) = Variant(key) match {
+    case Some(variant) if puzzleVariants.contains(variant) => newPuzzle(variant)
+    case _ => Open { implicit ctx => notFound(ctx) }
+  }
+
   // XHR load next play puzzle
-  def newPuzzle = Open { implicit ctx =>
+  private def newPuzzle(variant: Variant) = Open { implicit ctx =>
     XhrOnly {
-      env.selector(ctx.me) flatMap puzzleJson map { json =>
+      env.selector(ctx.me, variant) flatMap puzzleJson map { json =>
         Ok(json) as JSON
       }
     }
   }
 
+  def round2Standard(id: PuzzleId) = round2(id, Standard)
+
+  def round2Variant(id: PuzzleId, key: String) = Variant(key) match {
+    case Some(variant) if puzzleVariants.contains(variant) => round2(id, variant)
+    case _ => OpenBody { implicit ctx => fuccess(BadRequest("bad variant")) map (_ as JSON) }
+  }
+
   // new API
-  def round2(id: PuzzleId) = OpenBody { implicit ctx =>
+  private def round2(id: PuzzleId, variant: Variant) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    OptionFuResult(env.api.puzzle find id) { puzzle =>
+    OptionFuResult(env.api.puzzle.find(id, variant)) { puzzle =>
       if (puzzle.mate) lidraughts.mon.puzzle.round.mate()
       else lidraughts.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
@@ -93,12 +140,12 @@ object Puzzle extends LidraughtsController {
           case Some(me) => for {
             (round, mode) <- env.finisher(puzzle, me, Result(resultInt == 1))
             me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
-            infos <- env userInfos me2
-            voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
+            infos <- env.userInfos(me2, variant)
+            voted <- ctx.me.?? { env.api.vote.value(puzzle.id, variant, _) }
           } yield {
             lidraughts.mon.puzzle.round.user()
             Ok(Json.obj(
-              "user" -> lidraughts.puzzle.JsonView.infos(false)(infos),
+              "user" -> lidraughts.puzzle.JsonView.infos(false, variant)(infos),
               "round" -> lidraughts.puzzle.JsonView.round(round),
               "voted" -> voted
             ))
@@ -112,12 +159,19 @@ object Puzzle extends LidraughtsController {
     }
   }
 
-  def vote(id: PuzzleId) = AuthBody { implicit ctx => me =>
+  def voteStandard(id: PuzzleId) = vote(id, Standard)
+
+  def voteVariant(id: PuzzleId, key: String) = Variant(key) match {
+    case Some(variant) if puzzleVariants.contains(variant) => vote(id, variant)
+    case _ => AuthBody { implicit ctx => _ => fuccess(BadRequest("bad variant")) map (_ as JSON) }
+  }
+
+  private def vote(id: PuzzleId, variant: Variant) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     env.forms.vote.bindFromRequest.fold(
       err => fuccess(BadRequest(errorsAsJson(err))),
-      vote => env.api.vote.find(id, me) flatMap {
-        v => env.api.vote.update(id, me, v, vote == 1)
+      vote => env.api.vote.find(id, variant, me) flatMap {
+        v => env.api.vote.update(id, variant, me, v, vote == 1)
       } map {
         case (p, a) =>
           if (vote == 1) lidraughts.mon.puzzle.vote.up()
@@ -154,15 +208,19 @@ object Puzzle extends LidraughtsController {
     }
   }
 
-  def importOne = Action.async(parse.json) { implicit req =>
-    env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
-      val url = s"https://lidraughts.org/training/$id"
-      lidraughts.log("puzzle import").info(s"${req.remoteAddress} $url")
-      Ok(s"kthxbye $url")
-    } recover {
-      case e =>
-        lidraughts.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
-        BadRequest(e.getMessage)
+  def importOne = SecureBody(BodyParsers.parse.json)(lidraughts.security.Permission.CreatePuzzles) { implicit ctx => me =>
+    Variant(~get("variant", ctx.req)) match {
+      case Some(variant) if puzzleVariants.contains(variant) =>
+        env.api.puzzle.importOne(ctx.body.body, variant) map { id =>
+          val url = if (variant.exotic) s"https://lidraughts.org/training/${variant.key}/$id" else s"https://lidraughts.org/training/$id"
+          lidraughts.log("puzzle import").info(s"${ctx.req.remoteAddress} $url")
+          Ok(s"kthxbye $url")
+        } recover {
+          case e =>
+            lidraughts.log("puzzle import").warn(s"${ctx.req.remoteAddress} ${e.getMessage}", e)
+            BadRequest(e.getMessage)
+        }
+      case _ => fuccess(BadRequest("bad variant"))
     }
   }
 
@@ -171,8 +229,8 @@ object Puzzle extends LidraughtsController {
     negotiate(
       html = notFound,
       api = _ => for {
-        puzzles <- env.batch.select(me, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
-        userInfo <- env userInfos me
+        puzzles <- env.batch.select(me, Standard, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
+        userInfo <- env.userInfos(me, Standard)
         json <- env.jsonView.batch(puzzles, userInfo)
       } yield Ok(json) as JSON
     )
@@ -185,7 +243,7 @@ object Puzzle extends LidraughtsController {
       err => BadRequest(err.toString).fuccess,
       data => negotiate(
         html = notFound,
-        api = _ => env.batch.solve(me, data)
+        api = _ => env.batch.solve(me, Standard, data)
       )
     )
   }

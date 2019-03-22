@@ -99,33 +99,9 @@ export default class AnalyseCtrl {
   // misc
   cgConfig: any; // latest draughtsground config (useful for revert)
   music?: any;
-  puzzleMode: Boolean;
   skipSteps: number;
 
   constructor(opts: AnalyseOpts, redraw: () => void) {
-
-    window.mainlineUci = () => {
-
-      const nodesUci = Array<string[]>();
-      treeOps.allVariationsNodeList(this.tree.root).map(variation => treeOps.expandMergedNodes(variation)).forEach(
-        moves => nodesUci.push(moves.map(move => move.uci!))
-      );
-
-      return {
-        category: "Puzzles",
-        last_pos: this.tree.root.fen,
-        last_move: nodesUci[0][0],
-        move_list: nodesUci.map(variation => variation.slice(1)),
-        game_id: "custom"
-      };
-
-    };
-
-    this.puzzleMode = false;
-    window.togglePuzzleMode = () => {
-      this.puzzleMode = !this.puzzleMode;
-      return this.puzzleMode;
-    };
 
     this.opts = opts;
     this.data = opts.data;
@@ -437,6 +413,8 @@ export default class AnalyseCtrl {
   }
 
   reloadData(data: AnalyseData, merge: boolean): void {
+    if (data.puzzleEditor === undefined)
+      data.puzzleEditor = this.data.puzzleEditor;
     this.initialize(data, merge);
     this.redirecting = false;
     this.setPath(treePath.root);
@@ -466,7 +444,7 @@ export default class AnalyseCtrl {
 
   changeFen(fen: Fen): void {
     this.redirecting = true;
-    window.location.href = '/analysis/' + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+    window.location.href = '/analysis/' + (this.data.puzzleEditor ? 'puzzle/' : '') + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
@@ -587,7 +565,7 @@ export default class AnalyseCtrl {
   }
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    const newPath = this.tree.addNode(node, path, this.puzzleMode);
+    const newPath = this.tree.addNode(node, path, this.data.puzzleEditor);
     if (!newPath) {
       console.log("Can't addNode", node, path);
       return this.redraw();

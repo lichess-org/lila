@@ -1,6 +1,6 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { dataIcon, innerHTML } from '../util';
+import { dataIcon, innerHTML, puzzleUrl } from '../util';
 import { Controller } from '../interfaces';
 
 // useful in translation arguments
@@ -21,13 +21,13 @@ function puzzleBox(ctrl: Controller) {
 }
 
 function puzzleInfos(ctrl: Controller, puzzle): VNode {
-
+  const data = ctrl.getData();
   return h('div.game_infos.puzzle', {
     attrs: dataIcon('-')
   }, [
     h('div.header', [
       h('a.title', {
-        attrs: { href: '/training/' + puzzle.id }
+        attrs: { href: puzzleUrl(data.puzzle.variant.key) + puzzle.id }
       }, ctrl.trans('puzzleId', puzzle.id)),
       h('p', {
         hook: innerHTML(ctrl.trans('ratingX', ctrl.vm.mode === 'play' ? hidden() : strong(puzzle.rating)))

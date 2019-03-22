@@ -20,6 +20,7 @@ export interface AnalyseData {
   takebackable: boolean;
   analysis?: Analysis;
   userAnalysis: boolean;
+  puzzleEditor: boolean;
   forecast?: ForecastData;
   treeParts: Tree.Node[];
   evalPut?: boolean;

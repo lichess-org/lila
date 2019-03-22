@@ -8,6 +8,7 @@ import AnalyseCtrl from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
 import * as pdnExport from './pdnExport';
+import { ops as treeOps } from 'tree';
 
 interface AutoplaySpeed {
   name: string;
@@ -130,7 +131,7 @@ export class Ctrl {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
   noarg = ctrl.trans.noarg,
-  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard' && !d.puzzleEditor,
   ceval = ctrl.getCeval(),
   mandatoryCeval = ctrl.mandatoryCeval();
 
@@ -160,11 +161,29 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }),
         noarg('continueFromHere')
       ]) : null,
-      studyButton(ctrl)
+      !d.puzzleEditor ? studyButton(ctrl) : null
     ])
   ];
 
-    const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
+  const puzzleTools: MaybeVNodes = [
+    h('h2', 'Puzzle editor'),
+    h('div.tools', [
+      h('a.fbt', {
+        hook: bind('click', () => $.ajax({
+          url: '/training/api/puzzle?variant=' + (d.game.variant.key === 'fromPosition' ? 'standard' : d.game.variant.key),
+          method: 'POST',
+          data: JSON.stringify(generatePuzzle(ctrl)), dataType: 'text', contentType: 'application/json; charset=utf-8',
+          success: function (response) { alert('success: ' + response.toString().replace('https:', 'http:')); },
+          error: function (response) { alert('error: ' + JSON.stringify(response)); }
+        }))
+      }, [
+          h('i.icon', { attrs: dataIcon('-') }),
+          "Submit puzzle"
+        ])
+    ])
+  ];
+
+  const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
     h('h2', noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
     ctrlBoolSetting({
@@ -252,46 +271,64 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ]))('analyse-memory') : null
     ] : []) : [];
 
-    const notationConfig = [
-      h('h2', noarg('preferences')),
-      ctrlBoolSetting({
-        name: noarg('inlineNotation'),
-        title: 'Shift+I',
-        id: 'inline',
-        checked: ctrl.treeView.inline(),
-        change(v) {
-          ctrl.treeView.set(v);
-          ctrl.actionMenu.toggle();
-        }
-      }, ctrl)
-    ];
+  const notationConfig = [
+    h('h2', noarg('preferences')),
+    ctrlBoolSetting({
+      name: noarg('inlineNotation'),
+      title: 'Shift+I',
+      id: 'inline',
+      checked: ctrl.treeView.inline(),
+      change(v) {
+        ctrl.treeView.set(v);
+        ctrl.actionMenu.toggle();
+      }
+    }, ctrl)
+  ];
 
-    return h('div.action_menu',
-      tools
-        .concat(notationConfig)
-        .concat(cevalConfig)
-        .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
-        .concat([
-          deleteButton(ctrl, ctrl.opts.userId),
-          canContinue ? h('div.continue_with.g_' + d.game.id, [
-            h('a.button', {
-              attrs: {
-                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow'
-              }
-            }, noarg('playWithTheMachine')),
-            h('br'),
-            h('a.button', {
-              attrs: {
-                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
-                rel: 'nofollow'
-              }
-            }, noarg('playWithAFriend'))
-          ]) : null
-        ])
-    );
+  const allTools = d.puzzleEditor ? tools.concat(puzzleTools) : tools;
+  return h('div.action_menu',
+    allTools
+      .concat(notationConfig)
+      .concat(cevalConfig)
+      .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
+      .concat([
+        deleteButton(ctrl, ctrl.opts.userId),
+        canContinue ? h('div.continue_with.g_' + d.game.id, [
+          h('a.button', {
+            attrs: {
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow'
+            }
+          }, noarg('playWithTheMachine')),
+          h('br'),
+          h('a.button', {
+            attrs: {
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow'
+            }
+          }, noarg('playWithAFriend'))
+        ]) : null
+      ])
+  );
 }
 
 function ctrlBoolSetting(o: BoolSetting, ctrl: AnalyseCtrl) {
   return boolSetting(o, ctrl.trans, ctrl.redraw);
 }
+
+function generatePuzzle(ctrl: AnalyseCtrl) {
+
+  const nodesUci = Array<string[]>();
+  treeOps.allVariationsNodeList(ctrl.tree.root).map(variation => treeOps.expandMergedNodes(variation)).forEach(
+    moves => nodesUci.push(moves.map(move => move.uci!))
+  );
+
+  return {
+    category: "Puzzles",
+    last_pos: ctrl.tree.root.fen,
+    last_move: nodesUci[0][0],
+    move_list: nodesUci.map(variation => variation.slice(1)),
+    game_id: "custom"
+  };
+
+};

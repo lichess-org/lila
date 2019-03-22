@@ -1,5 +1,7 @@
 @(puzzle: lidraughts.puzzle.Puzzle, data: play.api.libs.json.JsObject, pref: play.api.libs.json.JsObject)(implicit ctx: Context)
 
+@import lidraughts.rating.PerfType.iconByVariant
+
 @moreCss = {
 @cssTag("analyse.css")
 @cssTag("puzzle.css")
@@ -19,6 +21,17 @@ i18n: @jsI18n()
 }
 
 @side = {
+<div class="mselect">
+  <div class="button" data-icon="@iconByVariant(puzzle.variant)">
+    @{s"${puzzle.variant.name} ${trans.training.txt().toLowerCase}"}
+    <i data-icon="u"></i>
+  </div>
+  <div class="list">
+    @lidraughts.pref.Pref.puzzleVariants.map { v =>
+    <a data-icon="@iconByVariant(v)" href="@routes.Puzzle.showOrVariant(v.key)">@{s"${v.name} ${trans.training.txt().toLowerCase}"}</a>
+    }
+  </div>
+</div>
 <div class="puzzle_side"></div>
 }
 

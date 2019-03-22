@@ -35,6 +35,7 @@ private[api] final class RoundApiBalancer(
         withFlags: WithFlags,
         ctx: Context)
     case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, owner: Boolean, me: Option[User], iteratedCapts: Boolean)
+    case class PuzzleEditor(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, owner: Boolean, me: Option[User], iteratedCapts: Boolean)
     case class FreeStudy(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, me: Option[User])
 
     val router = system.actorOf(
@@ -58,6 +59,8 @@ private[api] final class RoundApiBalancer(
             api.review(pov, apiVersion, tv, analysis, initialFenO, withFlags)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner, me, iteratedCapts) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner, me, iteratedCapts)
+          case PuzzleEditor(pov, pref, initialFen, orientation, owner, me, iteratedCapts) =>
+            api.puzzleEditorJson(pov, pref, initialFen, orientation, owner, me, iteratedCapts)
           case FreeStudy(pov, pref, initialFen, orientation, me) =>
             fuccess(api.freeStudyJson(pov, pref, initialFen, orientation, me))
         }
@@ -91,6 +94,9 @@ private[api] final class RoundApiBalancer(
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, owner: Boolean, me: Option[User], iteratedCapts: Boolean = false): Fu[JsObject] =
     router ? UserAnalysis(pov, pref, initialFen, orientation, owner, me, iteratedCapts) mapTo manifest[JsObject]
+
+  def puzzleEditorJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, owner: Boolean, me: Option[User], iteratedCapts: Boolean = false): Fu[JsObject] =
+    router ? PuzzleEditor(pov, pref, initialFen, orientation, owner, me, iteratedCapts) mapTo manifest[JsObject]
 
   def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, me: Option[User]): Fu[JsObject] =
     router ? FreeStudy(pov, pref, initialFen, orientation, me) mapTo manifest[JsObject]

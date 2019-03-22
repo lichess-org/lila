@@ -4,10 +4,12 @@ import scala.collection.breakOut
 import draughts.Color
 import draughts.format.Forsyth.SituationPlus
 import draughts.format.{ Forsyth, Uci }
+import draughts.variant.{ Variant, Standard }
 import org.joda.time.DateTime
 
 case class Puzzle(
     id: PuzzleId,
+    variant: Variant,
     gameId: String,
     history: List[String],
     fen: String,
@@ -23,7 +25,7 @@ case class Puzzle(
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
-    fen.split(':').lastOption flatMap (m => parseIntOption(m.drop(1))) map { move =>
+    fen.split(':').find(_.startsWith("F")) flatMap (m => parseIntOption(m.drop(1))) map { move =>
       move * 2 - color.fold(0, 1)
     }
   } | 0
@@ -38,7 +40,7 @@ case class Puzzle(
       val rawUci = Uci.Move.apply(uci)
       if (rawUci.isEmpty) rawUci
       else
-        (Forsyth << fen).fold(rawUci) {
+        Forsyth.<<@(variant, fen).fold(rawUci) {
           _.validMoves.get(rawUci.get.orig).fold(rawUci)(
             _.find {
               move => move.dest == rawUci.get.dest
@@ -52,7 +54,7 @@ case class Puzzle(
 
   def fenAfterInitialMove: Option[String] = {
     for {
-      sit1 <- Forsyth << fen
+      sit1 <- Forsyth.<<@(variant, fen)
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
     } yield Forsyth >> SituationPlus(sit2, color.fold(2, 1))
   }
@@ -74,8 +76,9 @@ object Puzzle {
     color: Color,
     lines: Lines,
     mate: Boolean
-  )(id: PuzzleId) = new Puzzle(
+  )(id: PuzzleId, variant: Variant) = new Puzzle(
     id = id,
+    variant = variant,
     gameId = gameId,
     history = history,
     fen = fen,
@@ -121,6 +124,7 @@ object Puzzle {
 
   object BSONFields {
     val id = "_id"
+    val variant = "variant"
     val gameId = "gameId"
     val history = "history"
     val fen = "fen"
@@ -146,6 +150,7 @@ object Puzzle {
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
+      variant = r strO variant flatMap Variant.apply getOrElse Standard,
       gameId = r str gameId,
       history = r str history split ' ' toList,
       fen = r str fen,
@@ -161,6 +166,7 @@ object Puzzle {
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
+      variant -> o.variant.key,
       gameId -> o.gameId,
       history -> o.history.mkString(" "),
       fen -> o.fen,

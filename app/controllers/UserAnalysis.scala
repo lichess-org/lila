@@ -12,6 +12,7 @@ import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.game.{ GameRepo, Pov }
 import lidraughts.i18n.I18nKeys
+import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import lidraughts.round.JsonView.WithFlags
 import views._
@@ -41,6 +42,31 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
     val orientation = get("color").flatMap(draughts.Color.apply) | pov.color
     Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
       Ok(html.board.userAnalysis(data, pov))
+    }
+  }
+
+  def puzzleEditor = loadPuzzle("", Standard)
+
+  def parsePuzzle(arg: String) = arg.split("/", 2) match {
+    case Array(key) => Variant(key) match {
+      case Some(variant) if puzzleVariants.contains(variant) => loadPuzzle("", variant)
+      case _ => loadPuzzle(arg, Standard)
+    }
+    case Array(key, fen) => Variant.byKey get key match {
+      case Some(variant) if puzzleVariants.contains(variant) => loadPuzzle(fen, variant)
+      case _ => loadPuzzle(arg, Standard)
+    }
+    case _ => loadPuzzle("", Standard)
+  }
+
+  def loadPuzzle(urlFen: String, variant: Variant) = Secure(_.CreatePuzzles) { implicit ctx => me =>
+    val decodedFen: Option[FEN] = lidraughts.common.String.decodeUriPath(urlFen)
+      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
+      .orElse(get("fen")) map FEN.apply
+    val pov = makePov(decodedFen, variant)
+    val orientation = get("color").flatMap(draughts.Color.apply) | pov.color
+    Env.api.roundApi.puzzleEditorJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = me.some) map { data =>
+      Ok(html.board.puzzleEditor(data, pov))
     }
   }
 

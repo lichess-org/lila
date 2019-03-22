@@ -33,3 +33,7 @@ export function spinner() {
         attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
       })])]);
 }
+
+export function puzzleUrl(variant) {
+  return variant === 'standard' ? '/training/' : ('/training/' + variant + '/');
+}

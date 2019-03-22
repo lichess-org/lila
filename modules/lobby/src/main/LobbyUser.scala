@@ -30,7 +30,7 @@ private[lobby] object LobbyUser {
 
   private def perfMapOf(perfs: lidraughts.user.Perfs): PerfMap =
     perfs.perfs.collect {
-      case (key, perf) if key != PerfType.Puzzle.key && perf.nonEmpty =>
+      case (key, perf) if key != PerfType.Puzzle.key && key != PerfType.PuzzleFrisian.key && perf.nonEmpty =>
         key -> LobbyPerf(perf.intRating, perf.provisional)
     }(scala.collection.breakOut)
 }

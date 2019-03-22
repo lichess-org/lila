@@ -124,6 +124,10 @@ function controls(ctrl, fen) {
         }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
+        ctrl.data.puzzleEditor ? m('a.button.text[data-icon="-"]', {
+          href: editor.makeUrl('/analysis/puzzle/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
+          rel: 'nofollow'
+        }, 'Puzzle editor') : null,
         m('a.button', {
           class: (looksLegit && ctrl.data.variant === 'standard') ? '' : 'disabled',
           onclick: function() {

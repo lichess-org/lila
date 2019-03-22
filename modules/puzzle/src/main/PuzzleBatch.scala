@@ -1,24 +1,25 @@
 package lidraughts.puzzle
 
+import draughts.variant.Variant
 import lidraughts.db.dsl._
 import lidraughts.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleBatch(
-    puzzleColl: Coll,
+    puzzleColl: Map[Variant, Coll],
     api: PuzzleApi,
     finisher: Finisher,
     puzzleIdMin: Int
 ) {
 
-  def solve(originalUser: User, data: PuzzleBatch.SolveData): Funit = for {
-    puzzles <- api.puzzle findMany data.solutions.map(_.id)
+  def solve(originalUser: User, variant: Variant, data: PuzzleBatch.SolveData): Funit = for {
+    puzzles <- api.puzzle.findMany(data.solutions.map(_.id), variant)
     user <- lidraughts.common.Future.fold(data.solutions zip puzzles)(originalUser) {
       case (user, (solution, Some(puzzle))) => finisher.ratedUntrusted(puzzle, user, solution.result)
       case (user, _) => fuccess(user)
     }
     _ <- data.solutions.lastOption ?? { lastSolution =>
-      api.head.solved(user, lastSolution.id).void
+      api.head.solved(user, lastSolution.id, variant).void
     }
   } yield for {
     first <- puzzles.headOption.flatten
@@ -31,24 +32,25 @@ private[puzzle] final class PuzzleBatch(
 
     import Selector._
 
-    def apply(user: User, nb: Int): Fu[List[Puzzle]] = {
-      api.head.find(user) flatMap {
-        newPuzzlesForUser(user, _, nb)
+    def apply(user: User, variant: Variant, nb: Int): Fu[List[Puzzle]] = {
+      api.head.find(user, variant) flatMap {
+        newPuzzlesForUser(user, variant, _, nb)
       } flatMap { puzzles =>
         lidraughts.mon.puzzle.batch.selector.count(puzzles.size)
-        puzzles.lastOption.?? { p => api.head.addNew(user, p.id) } inject puzzles
+        puzzles.lastOption.?? { p => api.head.addNew(user, p.id, variant) } inject puzzles
       }
     }.mon(_.puzzle.batch.selector.time)
 
-    private def newPuzzlesForUser(user: User, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
-      val rating = user.perfs.puzzle.intRating min 2300 max 900
+    private def newPuzzlesForUser(user: User, variant: Variant, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
+      val rating = user.perfs.puzzle(variant).intRating min 2300 max 900
       val step = toleranceStepFor(rating)
-      api.puzzle.cachedLastId.get flatMap { maxId =>
+      api.puzzle.cachedLastId(variant).get flatMap { maxId =>
         val lastId = headOption match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
           case _ => puzzleIdMin
         }
         tryRange(
+          variant = variant,
           rating = rating,
           tolerance = step,
           step = step,
@@ -59,18 +61,20 @@ private[puzzle] final class PuzzleBatch(
     }
 
     private def tryRange(
+      variant: Variant,
       rating: Int,
       tolerance: Int,
       step: Int,
       idRange: Range,
       nb: Int
-    ): Fu[List[Puzzle]] = puzzleColl.find(rangeSelector(
+    ): Fu[List[Puzzle]] = puzzleColl(variant).find(rangeSelector(
       rating = rating,
       tolerance = tolerance,
       idRange = idRange
     )).list[Puzzle](nb) flatMap {
       case res if res.size < nb && (tolerance + step) <= toleranceMax =>
         tryRange(
+          variant = variant,
           rating = rating,
           tolerance = tolerance + step,
           step = step,

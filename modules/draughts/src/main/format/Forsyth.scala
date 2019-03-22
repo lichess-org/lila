@@ -75,7 +75,9 @@ object Forsyth {
    */
   def makeBoard(variant: Variant, rawSource: String): Option[Board] = read(rawSource) { fen =>
     val allFields = new scala.collection.mutable.ArrayBuffer[(Pos, Piece)]
-    for (line <- fen.split(':').drop(1)) {
+    val fenPieces = fen.split(':').drop(1)
+    if (fenPieces.isEmpty) none
+    for (line <- fenPieces) {
       if (line.nonEmpty)
         Color.apply(line.charAt(0)).fold() {
           color =>
@@ -91,7 +93,7 @@ object Forsyth {
             }
         }
     }
-    Some(Board(allFields, variant))
+    Board(allFields, variant).some
   }
 
   def countGhosts(rawSource: String): Int = read(rawSource) { fen =>
