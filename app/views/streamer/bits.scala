@@ -36,8 +36,8 @@ object bits {
           (ctx.is(st.user) || isGranted(_.Streamers)) option
             a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")("Edit streamer page")
         )
-      } getOrElse isGranted(_.Beta) ?? a(cls := routes.Streamer.edit)("Your streamer page")
-      /*a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")("Streamer community program"),
+      } getOrElse { isGranted(_.Beta) option a(cls := routes.Streamer.edit)("Your streamer page") }
+    /*a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")("Streamer community program"),
       a(href := "/about")("Download streamer kit")*/
     )
 
