@@ -37,7 +37,7 @@ object bits {
             a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")("Edit streamer page")
         )
       } getOrElse a(cls := routes.Streamer.edit)("Your streamer page"),
-      a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")("Streamer community program"),
+      a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")("Streamer community"),
       a(href := "/about")("Download streamer kit")
     )
 
