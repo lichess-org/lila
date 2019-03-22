@@ -27,7 +27,7 @@ object index {
         }
       ),
       stream.isDefined option span(cls := "ribbon")(span("LIVE!")),
-      bits.pic(s.streamer, s.user, 300),
+      bits.pic(s.streamer, s.user),
       div(cls := "overview")(
         h1(titleTag(s.user.title), stringValueFrag(s.streamer.name)),
         s.streamer.headline.map(_.value).map { d =>

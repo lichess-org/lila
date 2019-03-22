@@ -120,7 +120,7 @@ object Streamer extends LidraughtsController {
     if (!(isGranted(_.Beta) || isGranted(_.Streamers))) notFound
     else ctx.me.fold(notFound) { me =>
       api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
-        _.fold(Ok(html.streamer.create(me)).fuccess)(f)
+        _.fold(Ok(html.streamer.bits.create(me)).fuccess)(f)
       }
     }
 
