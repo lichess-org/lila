@@ -2,117 +2,121 @@
 @import lila.app.ui.ScalatagsTwirlForm._
 @modsOnly = @{ raw("Moderators only").some }
 
-@base.layout(title = s"${s.user.titleUsername} streamer page",
+@base.layout(
+title = s"${s.user.titleUsername} streamer page",
 moreCss = cssTags("form3.css", "streamer.show.css", "streamer.form.css"),
 moreJs = jsTag("streamer.form.js"),
-menu = menu("edit", s.withoutStream.some).some) {
-<div class="streamer edit content_box no_padding">
-  @if(ctx.is(s.user)) {
-  <div class="top">
-    <div class="picture_wrap">
-      @if(s.streamer.hasPicture) {
-      <a target="_blank" class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
-        @pic(s.streamer, s.user, 250)
-      </a>
-      } else {
-      <div class="upload_picture">
-        @if(ctx.is(s.user)) {
-        <a target="_blank" class="button" href="@routes.Streamer.picture">Upload a picture</a>
+responsive = true) {
+<main class="page-menu">
+  @bits.menu("edit", s.withoutStream.some).toHtml
+  <div class="page-menu__content box streamer streamer-edit">
+    @if(ctx.is(s.user)) {
+    <div class="top">
+      <div class="picture_wrap">
+        @if(s.streamer.hasPicture) {
+        <a target="_blank" class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
+          @bits.pic(s.streamer, s.user, 250)
+        </a>
+        } else {
+        <div class="upload_picture">
+          @if(ctx.is(s.user)) {
+          <a target="_blank" class="button" href="@routes.Streamer.picture">Upload a picture</a>
+          }
+        </div>
         }
       </div>
-      }
+      <div class="overview">
+        <h1>@s.streamer.name</h1>
+        @rules()
+      </div>
     </div>
-    <div class="overview">
-      <h1>@s.streamer.name</h1>
-      @rules()
-    </div>
-  </div>
-  } else {
-  @header(s, none)
-  }
-  @defining(s.streamer.approval.granted) { granted =>
-  @if(s.streamer.listed.value) {
-  <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
-    @if(granted) {
-    Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
     } else {
-    @if(s.streamer.approval.requested) {
-    Your stream is being reviewed by moderators, and will soon be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
-    } else {
-    @if(s.streamer.completeEnough) {
-    When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
-    <form method="post" action="@routes.Streamer.approvalRequest">
-      <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
-    </form>
-    } else {
-    Please fill in your streamer information, and upload a picture.
+    @header(s, none)
     }
-    }
-    }
-  </div>
-  <div class="status">
-    <strong>If your stream is in another language than English</strong>, include the correct language tag (<a class="blue" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">2-letter ISO 639-1 code</a> enclosed in square brackets) at the start of your stream title. As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc. If your stream is in English, there is no need to include a language tag.
-  </div>
-  }
-  @modData.map {
-  case (log, notes) => {
-  <div class="mod_log status">
-    <strong class="text" data-icon="!">Moderation history@if(log.isEmpty){: nothing to show.}</strong>
-    @if(log.nonEmpty) {
-    <ul>
-      @log.map { e =>
-      <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
-      }
-    </ul>
-    }
-    <br />
-    <strong class="text" data-icon="!">Moderator notes@if(notes.isEmpty){: nothing to show.}</strong>
-    @if(notes.nonEmpty) {
-    <ul>
-      @notes.map { note =>
-      <li>
-        <p class="meta">@userIdLink(note.from.some) @momentFromNow(note.date)</p>
-        <p class="text">@richText(note.text)</p>
-      </li>
-      }
-    </ul>
-    }
-  </div>
-  }
-  }
-  <form class="content_box_content form3" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
-    @if(isGranted(_.Streamers)) {
-    <div class="mod">
-      @form3.split {
-      @form3.checkbox(form("approval.granted"), raw("Publish on the streamers list"), help = modsOnly, half = true)
-      @form3.checkbox(form("approval.requested"), raw("Active approval request"), help = modsOnly, half = true)
-      }
-      @form3.split {
-      @form3.checkbox(form("approval.chat"), raw("Embed stream chat too"), help = modsOnly, half = true)
+    @defining(s.streamer.approval.granted) { granted =>
+    @if(s.streamer.listed.value) {
+    <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
       @if(granted) {
-      @form3.checkbox(form("approval.featured"), raw("Feature on lichess homepage"), help = modsOnly, half = true)
+      Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
       } else {
-      @form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
+      @if(s.streamer.approval.requested) {
+      Your stream is being reviewed by moderators, and will soon be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
+      } else {
+      @if(s.streamer.completeEnough) {
+      When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
+      <form method="post" action="@routes.Streamer.approvalRequest">
+        <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
+      </form>
+      } else {
+      Please fill in your streamer information, and upload a picture.
       }
       }
-      @form3.actionHtml(form3.submit(trans.apply.frag()))
+      }
+    </div>
+    <div class="status">
+      <strong>If your stream is in another language than English</strong>, include the correct language tag (<a class="blue" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">2-letter ISO 639-1 code</a> enclosed in square brackets) at the start of your stream title. As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc. If your stream is in English, there is no need to include a language tag.
     </div>
     }
-    @form3.split {
-    @form3.group(form("twitch"), raw("Your Twitch username or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
-    @form3.group(form("youTube"), raw("Your YouTube channel ID or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
+    @modData.map {
+    case (log, notes) => {
+    <div class="mod_log status">
+      <strong class="text" data-icon="!">Moderation history@if(log.isEmpty){: nothing to show.}</strong>
+      @if(log.nonEmpty) {
+      <ul>
+        @log.map { e =>
+        <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
+        }
+      </ul>
+      }
+      <br />
+      <strong class="text" data-icon="!">Moderator notes@if(notes.isEmpty){: nothing to show.}</strong>
+      @if(notes.nonEmpty) {
+      <ul>
+        @notes.map { note =>
+        <li>
+          <p class="meta">@userIdLink(note.from.some) @momentFromNow(note.date)</p>
+          <p class="text">@richText(note.text)</p>
+        </li>
+        }
+      </ul>
+      }
+    </div>
     }
-    @form3.split {
-    @form3.group(form("name"), raw("Your streamer name on lichess"), help = raw("Keep it short: 20 characters max").some, half = true)(form3.input(_))
-    @form3.checkbox(form("listed"), raw("Visible on the streamers page"), help = raw("When approved by moderators").some, half = true)
     }
-    @form3.group(form("headline"), raw("Headline"), help = raw("In one sentence, tell us about your stream").some)(form3.input(_))
-    @form3.group(form("description"), raw("Long description"))(form3.textarea(_)(*.rows := 10))
-    @form3.actionsHtml {
-    <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
-    @form3.submit(trans.apply.frag())
+    <form class="content_box_content form3" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
+      @if(isGranted(_.Streamers)) {
+      <div class="mod">
+        @form3.split {
+        @form3.checkbox(form("approval.granted"), raw("Publish on the streamers list"), help = modsOnly, half = true)
+        @form3.checkbox(form("approval.requested"), raw("Active approval request"), help = modsOnly, half = true)
+        }
+        @form3.split {
+        @form3.checkbox(form("approval.chat"), raw("Embed stream chat too"), help = modsOnly, half = true)
+        @if(granted) {
+        @form3.checkbox(form("approval.featured"), raw("Feature on lichess homepage"), help = modsOnly, half = true)
+        } else {
+        @form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
+        }
+        }
+        @form3.actionHtml(form3.submit(trans.apply.frag()))
+      </div>
+      }
+      @form3.split {
+      @form3.group(form("twitch"), raw("Your Twitch username or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
+      @form3.group(form("youTube"), raw("Your YouTube channel ID or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
+      }
+      @form3.split {
+      @form3.group(form("name"), raw("Your streamer name on lichess"), help = raw("Keep it short: 20 characters max").some, half = true)(form3.input(_))
+      @form3.checkbox(form("listed"), raw("Visible on the streamers page"), help = raw("When approved by moderators").some, half = true)
+      }
+      @form3.group(form("headline"), raw("Headline"), help = raw("In one sentence, tell us about your stream").some)(form3.input(_))
+      @form3.group(form("description"), raw("Long description"))(form3.textarea(_)(*.rows := 10))
+      @form3.actionsHtml {
+      <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
+      @form3.submit(trans.apply.frag())
+      }
+    </form>
     }
-  </form>
-  }
-</div>
+  </div>
+</main>
 }.toHtml

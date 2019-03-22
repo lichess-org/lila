@@ -1,6 +1,6 @@
 @(s: lila.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context)
 <div class="top">
-  @pic(s.streamer, s.user, 250)
+  @bits.pic(s.streamer, s.user, 250)
   <div class="overview">
     <h1>@titleTag(s.user.title)@s.streamer.name</h1>
     @s.streamer.headline.map(_.value).map { d =>

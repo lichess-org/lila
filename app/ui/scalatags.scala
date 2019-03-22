@@ -108,6 +108,14 @@ final class FragToHtml(private val self: Frag) extends AnyVal {
 // generic extensions
 trait ScalatagsExtensions {
 
+  // why can't I just use StringValue?
+  implicit def stringValueFrag(sv: lila.base.LilaTypes.StringValue): Frag = new StringFrag(sv.value)
+
+  implicit val stringValueAttr = new AttrValue[lila.base.LilaTypes.StringValue] {
+    def apply(t: scalatags.text.Builder, a: Attr, v: lila.base.LilaTypes.StringValue): Unit =
+      t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
+  }
+
   implicit val charAttr = genericAttr[Char]
 
   implicit val optionStringAttr = new AttrValue[Option[String]] {
