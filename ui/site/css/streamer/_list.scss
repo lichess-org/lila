@@ -1,124 +1,108 @@
-.streamers .streamer {
-  border-top: $border;
-  position: relative;
-  display: flex;
-}
-.streamers .streamer:hover {
-  background: rgba(191, 231, 255, 0.5);
-}
-.streamers .streamer a.overlay {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.streamers .streamer img.picture {
-  flex: 0 0 250px;
-}
-.streamers .streamer img.picture.default {
-  opacity: 0.3;
-}
-.streamers .overview {
-  margin: 20px 10px 0 20px;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
-  padding-bottom: 15px;
-}
-.streamers .streamer h1 {
-  font-family: 'Roboto';
-  font-size: 32px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  padding: 0!important;
-  text-shadow: none!important;
-}
-.streamers .streamer .headline {
-  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
-  font-size: 17px;
-  padding: 0!important;
-}
-.streamers .streamer .headline.medium {
-  font-size: 15px;
-}
-.streamers .streamer .headline.large {
-  font-size: 14px;
-}
-.streamers .streamer .services {
-  margin: 5px 0 10px 0;
-}
-.streamers .streamer .service {
-  display: flex;
-  font-size: 1.5em;
-  white-space: nowrap;
-  padding: 3px 0;
-}
-.streamers .streamer .service svg {
-  width: 1.4em;
-  height: 1.4em;
-  margin-right: 0.4em;
-  opacity: 0.7;
-}
-
-.streamer .ribbon {
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  z-index: 2;
-}
-.streamer .ribbon::before,
-.streamer .ribbon::after {
-  position: absolute;
-  z-index: 0;
-  content: '';
-  display: block;
-  border: 5px solid #2980b9;
-  border-top-color: transparent;
-  border-right-color: transparent;
-}
-.streamer .ribbon::before {
-  top: 0;
-  left: 0;
-}
-.streamer .ribbon::after {
-  bottom: 0;
-  right: 0;
-}
-.streamer .ribbon span {
-  position: absolute;
-  left: -25px;
-  top: 30px;
-  transform: rotate(45deg);
-  display: block;
-  width: 225px;
-  padding: 15px 0;
-  background-color: #3498db;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
-  color: #fff;
-  font: 700 18px/1 Roboto;
-  text-shadow: 0 1px 1px rgba(0,0,0,.2);
-  text-transform: uppercase;
-  text-align: center;
-}
-
-body.dark .streamers .streamer .service svg path {
-  fill: #aaa;
-}
-@media (max-width: 1084px) {
-  .streamer-side {
-    margin-left: 0!important;
-    width: 196px!important;
+.streamer-list {
+  .streamer {
+    border-top: $border;
+    position: relative;
+    display: flex;
+    @include transition();
+    &:hover {
+      background: mix($c-link, $c-bg-box, 15%);
+    }
+    h1 {
+      @extend %roboto;
+      font-size: 2.2rem;
+      margin-bottom: .7em;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
   }
-  .streamer-intro h2 {
-    font-size: 1.75em;
+  .overlay {
+    @extend %link-overlay;
   }
-}
-body.dark .streamers .streamer,
-body.dark .streamer-add {
-  border-color: #3d3d3d;
+  .picture {
+    flex: 0 0 300px;
+    display: none;
+    &.default {
+      opacity: 0.3;
+    }
+    @include breakpoint($mq-medium) {
+      display: block;
+    }
+  }
+  .overview {
+    margin: 20px 10px 0 1.6rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding-bottom: 15px;
+  }
+  .headline {
+    font-style: italic;
+  }
+  .headline.medium {
+    font-size: .95em;
+  }
+  .headline.large {
+    font-size: .9em;
+  }
+  .services {
+    margin: 5px 0 10px 0;
+  }
+  .service {
+    display: flex;
+    font-size: 1.2em;
+    white-space: nowrap;
+    padding: 3px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .service svg {
+    width: 1.4em;
+    height: 1.4em;
+    margin-right: 0.4em;
+    opacity: 0.7;
+  }
+
+  .ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 2;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    position: absolute;
+    z-index: 0;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+  .ribbon::before {
+    top: 0;
+    left: 0;
+  }
+  .ribbon::after {
+    bottom: 0;
+    right: 0;
+  }
+  .ribbon span {
+    position: absolute;
+    left: -25px;
+    top: 30px;
+    transform: rotate(45deg);
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    color: #fff;
+    font: 700 18px/1 Roboto;
+    text-shadow: 0 1px 1px rgba(0,0,0,.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
 }
