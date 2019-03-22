@@ -49,18 +49,15 @@
   margin-top: 3rem;
   tr.year th {
     @extend %roboto;
-    font-style: italic;
-    padding: 20px 0;
+    line-height: 2em;
   }
 
   tr.year th:first-child {
-    padding-left: 25px;
     font-size: 3rem;
   }
   tr.year th:nth-child(n+3),
   tr td {
     text-align: right;
-    padding-right: 25px;
   }
   a,
   .score {

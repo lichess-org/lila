@@ -27,7 +27,7 @@ responsive = true) {
       @champion(leaderboards.weekly.headOption, "reward2", Period.Week)
       @champion(leaderboards.monthly.headOption, "reward3", Period.Month)
     </div>
-    <table class="slist history">
+    <table class="slist slist-pad history">
       <tbody>
         @history.headOption.filterNot(_.date.getMonthOfYear == 12).map { h =>
         @yearHeader(h.date.getYear)
