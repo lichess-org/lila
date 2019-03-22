@@ -3,7 +3,7 @@
     @extend %break-word;
     flex: 1 1 auto;
     min-height: 10em;
-    max-height: 30vh;
+    // max-height: 30vh; /* why a max height? it breaks in tournament 2/3 col */
     @include breakpoint($mq-col3-uniboard) {
       max-height: none;
     }
