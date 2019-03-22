@@ -3,14 +3,31 @@ package views.html.streamer
 import play.twirl.api.Html
 
 import controllers.routes
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.api.Context
 import lila.user.User
 
 object bits {
 
-  def pic(s: lila.streamer.Streamer, u: User, size: Int)(implicit ctx: Context) = s.picturePath match {
+  def create(me: User)(implicit ctx: Context) = views.html.site.message(
+    title = "Become a lichess streamer",
+    icon = Some(""),
+    back = true,
+    moreCss = responsiveCssTag("streamer.form").some
+  )(
+      form(cls := "streamer-new", action := routes.Streamer.create, method := "POST")(
+        h2("Do you have a Twitch or YouTube stream, ", me.username, "?"),
+        br, br,
+        bits.rules(),
+        br, br,
+        p(
+          button(tpe := "submit", cls := "button button-fat text", dataIcon := "")("Here we go!")
+        )
+      )
+    )
+
+  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300)(implicit ctx: Context) = s.picturePath match {
     case Some(path) => img(
       width := size,
       height := size,
@@ -36,7 +53,7 @@ object bits {
           (ctx.is(st.user) || isGranted(_.Streamers)) option
             a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")("Edit streamer page")
         )
-      } getOrElse a(cls := routes.Streamer.edit)("Your streamer page"),
+      } getOrElse a(href := routes.Streamer.edit)("Your streamer page"),
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")("Streamer community"),
       a(href := "/about")("Download streamer kit")
     )
@@ -71,4 +88,11 @@ object bits {
 </svg>
 """)
   }
+
+  def rules = ul(cls := "streamer-rules")(
+    li("Be listed as a lichess streamer."),
+    li(title := "For example: Blitz battle on lichess.org")("Get bumped up the top of the list when you stream with the keyword \"lichess.org\" in the stream title."),
+    li("Notify your lichess followers when you start streaming."),
+    li("Promote your stream in your games and tournaments.")
+  )
 }

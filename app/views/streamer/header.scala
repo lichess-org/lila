@@ -8,8 +8,8 @@ import lila.app.ui.ScalatagsTemplate._
 object header {
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context) =
-    div(cls := "top")(
-      bits.pic(s.streamer, s.user, 300),
+    div(cls := "streamer-header")(
+      bits.pic(s.streamer, s.user),
       div(cls := "overview")(
         h1(
           titleTag(s.user.title),
