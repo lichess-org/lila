@@ -42,7 +42,7 @@ object side {
             else trans.nbGames(perf.nb, perf.nb.localize)
           ),
           " ",
-          showProgress(perf.progress, withTitle = false)
+          ratingProgress(perf.progress)
         ),
         rankMap.fold(rankUnavailable) { ranks =>
           ranks.get(perfType.key) map { rank =>

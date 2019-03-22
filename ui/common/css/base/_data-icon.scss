@@ -5,16 +5,16 @@
 }
 .is.text::before,
 .text[data-icon]::before {
-  margin-right: 0.4em;
+  margin-right: .4em;
 }
 
 .user_link.online .line,
 .is-green::before {
-  color: #759900;
+  color: $c-good;
 }
 .is-red::before {
-  color: #dc322f;
+  color: $c-bad;
 }
 .is-gold::before {
-  color: #d59120;
+  color: $c-brag;
 }
