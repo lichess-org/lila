@@ -32,7 +32,7 @@ object forms {
           ),
           ctx.noBlind option div(cls := "optional_config")(
             div(cls := "rating-range-config slider")(
-              trans.ratingRange(),
+              trans.ratingRange.frag(),
               ": ",
               span(cls := "range")("? - ?"),
               div(cls := "rating-range")(
@@ -48,25 +48,26 @@ object forms {
     }
 
   def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context) =
-    layout(form, "ai", trans.playWithTheMachine(), routes.Setup.ai) {
+    layout(form, "ai", trans.playWithTheMachine.frag(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), true, validFen),
         renderTimeMode(form, lila.setup.AiConfig),
         if (ctx.blind) frag(
-          renderLabel(form("level"), trans.level()),
-          renderSelect(form("level"), lila.setup.AiConfig.levelChoices)
+          renderLabel(form("level"), trans.level.frag()),
+          renderSelect(form("level"), lila.setup.AiConfig.levelChoices),
+          blindSideChoice(form)
         )
         else frag(
           br,
-          trans.level(),
+          trans.level.frag(),
           div(cls := "level buttons")(
             div(id := "config_level")(
               renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
             ),
             div(cls := "ai_info")(
               ratings.toList.map {
-                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel.frag("A.I.", level))
               }
             )
           )
@@ -95,8 +96,15 @@ object forms {
         renderTimeMode(form, lila.setup.FriendConfig),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)
-        )
+        ),
+        blindSideChoice(form)
       ))
+
+  private def blindSideChoice(form: Form[_])(implicit ctx: Context) =
+    ctx.blind option frag(
+      renderLabel(form("color"), trans.side.frag()),
+      renderSelect(form("color").copy(value = "random".some), translatedSideChoices)
+    )
 
   private def layout(
     form: Form[_],
@@ -120,22 +128,18 @@ object forms {
           dataType := typ,
           dataAnon := ctx.isAnon.option("1"))(
             fields,
-            if (ctx.blind) button(`type` := "submit", st.name := "color", value := "random")("Create the game")
+            if (ctx.blind) button(tpe := "submit")("Create the game")
             else div(cls := "color-submits")(
-              List(
-                "black" -> trans.black.txt(),
-                "random" -> trans.randomColor.txt(),
-                "white" -> trans.white.txt()
-              ).map {
-                  case (key, name) => button(
-                    disabled := typ == "hook" option true,
-                    `type` := "submit",
-                    title := name,
-                    cls := s"color-submits__button button button-green $key",
-                    st.name := "color",
-                    value := key
-                  )(i)
-                }
+              translatedSideChoices.map {
+                case (key, name, _) => button(
+                  disabled := typ == "hook" option true,
+                  tpe := "submit",
+                  title := name,
+                  cls := s"color-submits__button button button-green $key",
+                  st.name := "color",
+                  value := key
+                )(i)
+              }
             )
           )
       },
