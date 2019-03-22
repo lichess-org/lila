@@ -40,11 +40,7 @@ object index {
             )
           )
         },
-        pager.nextPage.map { np =>
-          div(cls := "pager none")(
-            a(rel := "next", href := routes.Blog.index(np, none))("Next")
-          )
-        }
+        pagerNext(pager, np => routes.Blog.index(np, none).url)
       )
     )
 }

@@ -49,13 +49,8 @@ object index {
               pager.currentPageResults.map { c =>
                 st.article(cls := "coach-widget paginated", attr("data-dedup") := c.coach.id.value)(widget(c, link = true))
               },
-              pager.nextPage.map { np =>
-                frag(
-                  div(cls := "pager none")(
-                    a(rel := "next", href := addQueryParameter(routes.Coach.all(order.key).toString, "page", np))("Next")
-                  ),
-                  div(cls := "none") // don't break the even/odd CSS flow
-                )
+              pagerNext(pager, np => addQueryParameter(routes.Coach.all(order.key).url, "page", np)).map {
+                frag(_, div(cls := "none")) // don't break the even/odd CSS flow
               }
             )
           )

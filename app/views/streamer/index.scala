@@ -85,11 +85,7 @@ object index {
               pager.currentPageResults.map { s =>
                 div(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
               },
-              pager.nextPage.map { np =>
-                div(cls := "pager none")(
-                  a(rel := "next", href := addQueryParameter(routes.Streamer.index().toString, "page", np))("Next")
-                )
-              }
+              pagerNext(pager, np => addQueryParameter(routes.Streamer.index().url, "page", np))
             )
           )
         )

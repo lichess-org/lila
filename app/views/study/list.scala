@@ -93,11 +93,7 @@ object list {
       pager.currentPageResults.map { s =>
         div(cls := "study paginated")(bits.widget(s))
       },
-      pager.nextPage.map { np =>
-        div(cls := "pager none")(
-          a(rel := "next", href := addQueryParameter(url.toString, "page", np))("Next")
-        )
-      }
+      pagerNext(pager, np => addQueryParameter(url.url, "page", np))
     )
 
   private def orderChoice(

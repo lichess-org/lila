@@ -40,6 +40,15 @@ trait ScalatagsSnippets extends Cap {
   def dataBot(title: lila.user.Title): Modifier =
     if (title == lila.user.Title.BOT) dataBotAttr
     else emptyModifier
+
+  def pagerNext(pager: lila.common.paginator.Paginator[_], url: Int => String): Option[Frag] =
+    pager.nextPage.map { np =>
+      div(cls := "pager none")(a(rel := "next", href := url(np))("Next"))
+    }
+  def pagerNextTable(pager: lila.common.paginator.Paginator[_], url: Int => String): Option[Frag] =
+    pager.nextPage.map { np =>
+      tr(th(cls := "pager none")(a(rel := "next", href := url(np))("Next")))
+    }
 }
 
 // basic imports from scalatags

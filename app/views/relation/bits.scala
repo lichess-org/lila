@@ -63,11 +63,7 @@ object bits {
     table(cls := "slist")(
       if (pager.nbResults > 0)
         tbody(cls := "infinitescroll")(
-        pager.nextPage.map { np =>
-          tr(th(cls := "pager none")(
-            a(rel := "next", href := s"${call.url}?page=$np")("Next")
-          ))
-        },
+        pagerNextTable(pager, np => addQueryParameter(call.url, "page", np)),
         pager.currentPageResults.map { r =>
           tr(cls := "paginated")(
             td(userLink(r.user)),
