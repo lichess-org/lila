@@ -34,7 +34,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         class: { done: isCommented }
       }, [
         iconTag('c'),
-        h('p', 'Help the player find the initial move, with a comment.')
+        h('p', ctrl.trans.noarg('helpPlayerInitialMove'))
       ]),
       renderHint(ctrl)
     ];
@@ -43,11 +43,11 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hook: commentHook
       }, [
         iconTag('c'),
-        h('p', 'Introduce the gamebook with a comment')
+        h('p', ctrl.trans.noarg('introduceLesson'))
       ]),
       h('div.legend.todo', { class: { done: !!ctrl.node.children[0] }}, [
         iconTag('G'),
-        h('p', 'Put the opponent\'s first move on the board.')
+        h('p', ctrl.trans.noarg('putOpponentsFirstMove'))
       ])
     ];
   }
@@ -58,7 +58,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         class: { done: isCommented }
       }, [
         iconTag('c'),
-        h('p', 'Explain the opponent move, and help the player find the next move, with a comment.')
+        h('p', ctrl.trans.noarg('explainOpponentMove'))
       ]),
       renderHint(ctrl)
     ];
@@ -67,13 +67,13 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hook: commentHook,
       }, [
         iconTag('c'),
-        h('p', 'You may reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.')
+        h('p', ctrl.trans.noarg('reflectOnCorrectMove'))
       ]),
       hasVariation ? null : h('div.legend.clickable', {
         hook: bind('click', () => control.prev(ctrl), ctrl.redraw)
       }, [
         iconTag('G'),
-        h('p', 'Add variation moves to explain why specific other moves are wrong.')
+        h('p', ctrl.trans.noarg('addVariationsWrongMoves'))
       ]),
       renderDeviation(ctrl)
     ];
@@ -84,10 +84,10 @@ export function render(ctrl: AnalyseCtrl): VNode {
       class: { done: isCommented }
     }, [
       iconTag('c'),
-      h('p', 'Explain why this move is wrong in a comment')
+      h('p', ctrl.trans.noarg('explainWhyThisMoveIsWrong'))
     ]),
     h('div.legend', [
-      h('p', 'Or promote it as the mainline if it is the right move.')
+      h('p', ctrl.trans.noarg('orPromoteItToMainline'))
     ])
   ];
 
@@ -103,10 +103,10 @@ function renderDeviation(ctrl: AnalyseCtrl): VNode {
   return h('div.deviation', [
     h('div.legend.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
       iconTag('c'),
-      h('p', 'When any other wrong move is played:')
+      h('p', ctrl.trans.noarg('anyOtherWrongMove'))
     ]),
     h('textarea', {
-      attrs: { placeholder: 'Explain why all other moves are wrong' },
+      attrs: { placeholder: ctrl.trans.noarg('explainWhyOtherMovesWrong') },
       hook: textareaHook(ctrl, field)
     })
   ]);
@@ -117,10 +117,10 @@ function renderHint(ctrl: AnalyseCtrl): VNode {
   return h('div.hint', [
     h('div.legend', [
       iconTag(''),
-      h('p', 'Optional, on-demand hint for the player:')
+      h('p', ctrl.trans.noarg('optionalHint'))
     ]),
     h('textarea', {
-      attrs: { placeholder: 'Give the player a tip so they can find the right move' },
+      attrs: { placeholder: ctrl.trans.noarg('giveThePlayerAHint') },
       hook: textareaHook(ctrl, field)
     })
   ]);

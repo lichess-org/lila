@@ -32,8 +32,6 @@ object JsData extends lidraughts.Lidraughtsisms {
       I18nKeys.loadPosition,
       I18nKeys.popularOpenings,
       I18nKeys.castling,
-      I18nKeys.whiteCastlingKingside,
-      I18nKeys.blackCastlingKingside,
       I18nKeys.whitePlays,
       I18nKeys.blackPlays,
       I18nKeys.continueFromHere,

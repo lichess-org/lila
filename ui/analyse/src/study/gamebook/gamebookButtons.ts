@@ -17,11 +17,11 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
       root.path ? h('a.fbt.text.back', {
         attrs: dataIcon('I'),
         hook: bind('click', () => root.userJump(''), ctrl.redraw)
-      }, 'Back') : null,
+      }, root.trans.noarg('back')) : null,
       myTurn ? h('a.fbt.text.solution', {
         attrs: dataIcon('G'),
         hook: bind('click', ctrl.solution, ctrl.redraw)
-      }, 'View the solution') : undefined,
+      }, root.trans.noarg('viewTheSolution')) : undefined,
       overrideButton(study)
     ])
   ]);
@@ -36,7 +36,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
       hook: bind('click', () => {
         study.setGamebookOverride(o === 'play' ? undefined : 'play');
       }, study.redraw)
-    }, 'Preview');
+    }, study.trans.noarg('preview'));
     else {
       const isAnalyse = o === 'analyse',
       ctrl = study.gamebookPlay();
@@ -46,7 +46,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         hook: bind('click', () => {
           study.setGamebookOverride(isAnalyse ? undefined : 'analyse');
         }, study.redraw)
-      }, 'Analyse');
+      }, study.trans.noarg('analyse'));
     }
   }
 }
