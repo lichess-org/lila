@@ -35,9 +35,6 @@
 #trainer > .side div.box p {
   padding: 10px;
 }
-body.dark #trainer > .side div.box {
-  border-color: #3d3d3d;
-}
 
 #trainer .right {
   display: flex;
@@ -159,11 +156,12 @@ form.color .color_3 i {
   font-size: 20px;
 }
 #trainer .score {
+  @extend %roboto;
+  font-weight: bold;
   position: absolute;
   top: 202px;
   left: 202px;
   z-index: 9;
-  font-family: 'Roboto Mono';
   font-size: 70px;
   display: block;
   margin: auto;
