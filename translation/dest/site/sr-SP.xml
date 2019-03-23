@@ -549,7 +549,7 @@
   <string name="gameDisplay">Приказ игре</string>
   <string name="pieceAnimation">Анимација фигура</string>
   <string name="materialDifference">Прикажи поједене фигуре</string>
-  <string name="closeAccount">Затвори налог</string>
+  <string name="closeAccount">Затворите налог</string>
   <string name="changedMindDoNotCloseAccount">Предомислио сам се, не затварај ми налог</string>
   <string name="closeAccountExplanation">Да ли сте сигурни да желите угасити налог? Гашење налога је трајна одлука. Више нећете моћи да се улогујете нити да приступите вашој профилној страници.</string>
   <string name="thisAccountIsClosed">Овај налог је затворен</string>
