@@ -224,27 +224,33 @@ object Study extends LidraughtsController {
     env.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(embedNotFound) {
         case WithChapter(study, chapter) => CanViewResult(study) {
-          env.jsonView(study.copy(
-            members = lidraughts.study.StudyMembers(Map.empty) // don't need no members
-          ), List(chapter.metadata), chapter, ctx.me) flatMap { studyJson =>
-            val setup = chapter.setup
-            val initialFen = chapter.root.fen.some
-            val pov = UserAnalysis.makePov(initialFen, setup.variant)
-            val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
-            val analysis = baseData ++ Json.obj(
-              "treeParts" -> partitionTreeJsonWriter.writes {
-                lidraughts.study.TreeBuilder.makeRoot(chapter.root)
+          val nextChapter = ~get("next", ctx.req)
+          (nextChapter.toLowerCase() == "true" && chapter.gamebook.getOrElse(false)).fold(
+            Env.study.chapterRepo.orderedGamebookMetadataByStudy(id),
+            fuccess(List(chapter.metadata))
+          ) flatMap { chapters =>
+              env.jsonView(study.copy(
+                members = lidraughts.study.StudyMembers(Map.empty) // don't need no members
+              ), chapters, chapter, ctx.me) flatMap { studyJson =>
+                val setup = chapter.setup
+                val initialFen = chapter.root.fen.some
+                val pov = UserAnalysis.makePov(initialFen, setup.variant)
+                val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
+                val analysis = baseData ++ Json.obj(
+                  "treeParts" -> partitionTreeJsonWriter.writes {
+                    lidraughts.study.TreeBuilder.makeRoot(chapter.root)
+                  }
+                )
+                val data = lidraughts.study.JsonView.JsData(
+                  study = studyJson,
+                  analysis = analysis
+                )
+                negotiate(
+                  html = Ok(html.study.embed(study, chapter, data)).fuccess,
+                  api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+                )
               }
-            )
-            val data = lidraughts.study.JsonView.JsData(
-              study = studyJson,
-              analysis = analysis
-            )
-            negotiate(
-              html = Ok(html.study.embed(study, chapter, data)).fuccess,
-              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-            )
-          }
+            }
         }
       }
     } map NoCache

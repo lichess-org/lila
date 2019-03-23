@@ -70,7 +70,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
 
 function renderEnd(ctrl: GamebookPlayCtrl) {
   const study = ctrl.root.study!,
-  nextChapter = !ctrl.root.embed && study.nextChapter();
+  nextChapter = study.nextChapter();
   return h('div.feedback.end', [
     nextChapter ? h('a.next.text', {
       attrs: dataIcon('G'),

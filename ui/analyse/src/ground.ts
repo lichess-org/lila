@@ -15,6 +15,8 @@ export function render(ctrl: AnalyseCtrl): VNode {
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.draughtsground.setShapes(ctrl.node.shapes as DrawShape[]);
         ctrl.cgVersion.dom = ctrl.cgVersion.js;
+        if (ctrl.embed)
+          window.lidraughts.dispatchEvent(window as any, 'resize');
       },
       destroy: _ => ctrl.draughtsground.destroy()
     }

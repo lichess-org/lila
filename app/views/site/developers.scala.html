@@ -108,6 +108,39 @@ src="https://lidraughts.org/study/embed/xGDc4tlJ/AqJhrQbk?theme=auto&bg=auto"
 <br />
 
 <div class="content_box small_box developers">
+  <h1 id="embed-study" class="lidraughts_title">Embed interactive lessons in your site</h1>
+
+  <div style="text-align: center;">
+    <iframe width=530 height=353 src="https://lidraughts.org/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto"
+            frameborder=0 style="margin-bottom:1em"></iframe>
+  </div>
+
+  <p>
+    Create <a href="@routes.Study.allDefault(1)">a study</a> with a chapter that has "Analysis mode" set to "Interactive lesson",
+    then click the share button to get the HTML code for that chapter.
+  </p>
+
+  <pre>@{"""<iframe width=600 height=397 frameborder=0
+src="https://lidraughts.org/study/embed/vxL8cJ67/fh6Ycb8X?next=true"
+></iframe>"""}</pre>
+
+  <p>
+    Parameters:
+  <ul>
+    <li>- <strong>next</strong>: When set to true, a "Next chapter" button appears at the end of the lesson. This loads the next Interactive lesson chapter from the same study.</li>
+    @themeParameters()
+  </ul>
+  </p>
+
+  <p>
+    The text is automatically translated to your visitor language.
+  </p>
+</div>
+
+<br />
+<br />
+
+<div class="content_box small_box developers">
   <h1 id="embed-game" class="lidraughts_title">Embed a draughts game in your site</h1>
 
   <div style="text-align: center;">

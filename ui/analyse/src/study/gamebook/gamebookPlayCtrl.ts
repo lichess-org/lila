@@ -118,11 +118,12 @@ export default class GamebookPlayCtrl {
     }
     this.state = {
       init: this.root.path === '',
-      comment: parNode.children[0].gamebook!.deviation,
+      comment: node.children[0].gamebook!.deviation,
       showHint: false,
       feedback: 'bad'
     };
-    setTimeout(this.retry, 800);
+    if (!this.state.comment)
+      setTimeout(this.retry, 800);
     return undefined;
   }
 

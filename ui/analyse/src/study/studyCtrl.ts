@@ -206,7 +206,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
   function xhrReload() {
     vm.loading = true;
     return xhr.reload(
-      practice ? 'practice/load' : 'study',
+      practice ? 'practice/load' : (ctrl.embed ? 'study/embed' : 'study'),
       data.id,
       vm.mode.sticky ? undefined : vm.chapterId
     ).then(onReload, li.reload);

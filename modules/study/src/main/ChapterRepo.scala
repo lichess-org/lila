@@ -33,6 +33,12 @@ final class ChapterRepo(coll: Coll) {
       noRootProjection
     ).sort($sort asc "order").list[Chapter.Metadata]()
 
+  def orderedGamebookMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
+    coll.find(
+      $doc("studyId" -> studyId, "gamebook" -> true),
+      noRootProjection
+    ).sort($sort asc "order").list[Chapter.Metadata]()
+
   // loads all study chapters in memory! only used for search indexing and cloning
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
     coll.find($studyId(studyId))
@@ -41,7 +47,7 @@ final class ChapterRepo(coll: Coll) {
       .gather[List]()
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
-    coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
+    coll.find($studyId(studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
       for {
         doc <- docs
         id <- doc.getAs[Chapter.Id]("_id")
