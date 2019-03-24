@@ -31,17 +31,11 @@ object coordinate {
     )(
         main(
           id := "trainer",
-          cls := "training init",
+          cls := "coord-trainer training init",
           attr("data-color-pref") := ctx.pref.coordColorName,
           attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score().url)
         )(
-            div(cls := "overlay_container")(
-              div(cls := "next_coord", id := "next_coord0"),
-              div(cls := "next_coord", id := "next_coord1"),
-              div(cls := "next_coord", id := "next_coord2"),
-              div(cls := "score_container")(strong(cls := "score")(0))
-            ),
-            div(cls := "side")(
+            div(cls := "coord-trainer__side")(
               div(cls := "box")(
                 h1(trans.coordinates.coordinates.frag()),
                 if (ctx.isAuth) scoreOption.map { score =>
@@ -71,22 +65,26 @@ object coordinate {
                 )
               )
             ),
-            div(cls := "board_and_ground")(
-              div(cls := "boards")(div(cls := "cg-board-wrap")),
-              div(cls := "right")(
-                div(cls := "explanation")(
-                  p(trans.coordinates.knowingTheChessBoard.frag()),
-                  ul(
-                    li(trans.coordinates.mostChessCourses.frag()),
-                    li(trans.coordinates.talkToYourChessFriends.frag()),
-                    li(trans.coordinates.youCanAnalyseAGameMoreEffectively.frag())
-                  ),
-                  p(trans.coordinates.aSquareNameAppears.frag())
-                ),
-                button(cls := "start button")(trans.coordinates.startTraining.frag())
-              )
+            div(cls := "coord-trainer__board main-board")(
+              div(cls := "next_coord", id := "next_coord0"),
+              div(cls := "next_coord", id := "next_coord1"),
+              div(cls := "next_coord", id := "next_coord2"),
+              chessgroundSvg
             ),
-            div(cls := "progress_bar_container")(div(cls := "progress_bar"))
+            div(cls := "coord-trainer__table")(
+              div(cls := "explanation")(
+                p(trans.coordinates.knowingTheChessBoard.frag()),
+                ul(
+                  li(trans.coordinates.mostChessCourses.frag()),
+                  li(trans.coordinates.talkToYourChessFriends.frag()),
+                  li(trans.coordinates.youCanAnalyseAGameMoreEffectively.frag())
+                ),
+                p(trans.coordinates.aSquareNameAppears.frag())
+              ),
+              button(cls := "start button button-fat")(trans.coordinates.startTraining.frag())
+            ),
+            div(cls := "coord-trainer__score")(0),
+            div(cls := "coord-trainer__progress")(div(cls := "progress_bar"))
           )
       )
 
