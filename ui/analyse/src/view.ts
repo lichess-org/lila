@@ -210,7 +210,7 @@ function controls(ctrl: AnalyseCtrl) {
       jumpButton('X', 'next', canJumpNext),
       jumpButton('V', 'last', canJumpNext)
     ]),
-    ctrl.studyPractice ? h('div.noop') : h('button', {
+    ctrl.studyPractice ? h('div.noop') : h('button.fbt', {
       class: { active: menuIsOpen },
       attrs: {
         title: noarg('menu'),
