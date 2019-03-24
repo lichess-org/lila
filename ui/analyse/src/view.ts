@@ -250,7 +250,7 @@ function controls(ctrl: AnalyseCtrl) {
         ])
       ]) : null,
       h('div.buttons', [
-        multiBoardMenu ? h('button', {
+        multiBoardMenu ? h('button.fbt', {
           class: { active: multiBoardMenu.open },
           attrs: {
             title: 'Multiboard',
@@ -258,7 +258,7 @@ function controls(ctrl: AnalyseCtrl) {
             'data-icon': ''
           }
         }) : null,
-        ctrl.studyPractice ? h('div.noop') : h('button', {
+        ctrl.studyPractice ? h('div.noop') : h('button.fbt', {
           class: { active: menuIsOpen },
           attrs: {
             title: noarg('menu'),
