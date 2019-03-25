@@ -1,0 +1,219 @@
+.plan {
+
+  grid-gap: $block-gap;
+
+  .all {
+    margin-top: 20px;
+    font-size: 1.2em;
+    width: 100%;
+    td, th {
+      border-top: $border;
+    }
+    td {
+      padding: 30px;
+      line-height: 1.7em;
+    }
+    th {
+      opacity: 0.8;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .switch.up {
+      color: #639B24;
+    }
+    .switch.down {
+      color: #ac524f;
+    }
+    .id {
+      font-family: monospace;
+      font-size: 10px;
+    }
+    .change form {
+      display: none;
+      margin-top: 1em;
+      padding: 1em;
+      background: $c-bg-zebra;
+    }
+    .change form input {
+      width: 5em;
+      padding: 3px 5px;
+    }
+    .change form p {
+      margin-bottom: 1em;
+    }
+    .change form button,
+    .change form a {
+      margin-left: 10px;
+    }
+    .change form.cancel button {
+      color: $c-bad;
+    }
+    .thanks {
+      color: $c-good;
+      display: block;
+    }
+  }
+
+  .payments {
+    font-size: 0.9em;
+    th {
+      text-align: left;
+      font-weight: bold;
+    }
+    th,
+    td {
+      padding: 10px 5px;
+    }
+  }
+
+  .banner {
+    @extend %box-radius-top, %flex-center-nowrap;
+    margin-bottom: 60px;
+    background: $c-good;
+    color: $c-good-over;
+    text-align: center;
+    font-size: 1.3em;
+    height: 200px;
+    justify-content: space-between;
+    > i {
+      font-size: 120px;
+      margin: 0 2rem;
+    }
+    > i:last-child {
+      transform: scale(-1, 1);
+    }
+    h1 {
+      margin: 0 0 20px 0;
+      padding: 0!important;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3em;
+  }
+
+  .text,
+  .content {
+    @extend %flex-center;
+    flex: 0 0 50%;
+  }
+  .text {
+    flex: 0 0 45%;
+    flex-flow: column nowrap;
+  }
+
+  .plan_checkout {
+    width: 100%;
+    h3 {
+      @extend %roboto;
+      display: block;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    group {
+      margin-bottom: 2em;
+      overflow: visible;
+    }
+    group input:checked + label,
+    .amount_fixed label,
+    .lifetime-check input + label {
+      background: $c-good;
+      border-color: $c-border;
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+      color: $c-good-over;
+      text-shadow: 0 1px 0 #000 !important;
+    }
+    group input:disabled + label {
+      opacity: 0.5;
+      cursor: default;
+    }
+    group.freq input:checked + label::before,
+    group .lifetime-check input + label::before {
+      content: "✓";
+      padding-right: 5px;
+    }
+    group .lifetime-check input + label {
+      background: #d59120!important;
+      opacity: 0.8;
+      cursor: default;
+    }
+    .service {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1em;
+    }
+    .service button {
+      flex: 1 1 auto;
+      font-weight: normal;
+    }
+    .service button:first-child {
+      margin-right: 1em;
+    }
+  }
+
+  .small_team {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3em;
+    margin-top: 40px;
+  }
+
+  .faq {
+    margin: 50px 0 40px 0;
+    padding: 30px 0;
+    border-top: $border;
+    border-bottom: $border;
+    display: flex;
+    justify-content: space-between;
+    a {
+      color: #3893E8!important;
+    }
+    dl {
+      flex: 0 0 29%;
+    }
+    dt {
+      font-size: 1.3em;
+      margin-bottom: 1em;
+    }
+    dt:nth-of-type(2) {
+      margin-top: 1.5em;
+    }
+    dd {
+      margin: 0;
+    }
+  }
+
+  .best_patrons {
+    h2 {
+      display: block;
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 30px;
+    }
+    .list {
+      display: flex;
+      flex-flow: row wrap;
+      font-size: 1.5em;
+    }
+    .list div {
+      flex: 0 0 33.3%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 7px 0;
+    }
+  }
+
+  .recent_patrons {
+    h2 {
+      font-size: 1.5em;
+      margin: 300px 0 .4em 0;
+      border-bottom: $border;
+    }
+    .list div {
+      padding: .5em 0;
+    }
+  }
+}
