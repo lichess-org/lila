@@ -17,12 +17,12 @@ object index {
     moreJs = frag(
       jsAt(s"compiled/lichess.learn${isProd ?? (".min")}.js"),
       embedJs(s"""$$(function() {
-LichessLearn(document.getElementById('learn_app'), {
+LichessLearn(document.getElementById('learn-app'), {
 data: ${data.fold("null")(safeJsonValue)},
-sideElement: document.getElementById('learn_side'),
 i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")
     ),
-    moreCss = cssTag("learn.css"),
+    moreCss = responsiveCssTag("learn"),
+    responsive = true,
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Learn chess by playing",
@@ -31,6 +31,6 @@ i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")
     ).some,
     zoomable = true
   ) {
-      div(id := "learn_app", cls := "learn cg-512")
+      main(id := "learn-app")
     }
 }

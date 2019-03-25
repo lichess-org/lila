@@ -34,7 +34,7 @@ module.exports = function(ctrl) {
   var level = ctrl.level;
 
   return m('div', {
-    class: 'lichess_game' + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass +
+    class: 'learn learn-run ' + stage.cssClass + ' ' + level.blueprint.cssClass +
     (level.vm.starting ? ' starting' : '') +
     (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +
     (level.vm.lastStep ? ' last-step' : '') +
