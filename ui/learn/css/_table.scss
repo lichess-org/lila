@@ -7,8 +7,8 @@
 
   .title {
     display: flex;
-    background: #3893E8;
-    color: #fff;
+    background: $c-primary;
+    color: $c-primary-over;
     h2,
     h3 {
       font-size: 2.3em;
@@ -26,28 +26,26 @@
   }
 
   .goal {
-    background: #fff;
+    @extend %flex-center;
+    background: $c-bg-box;
     border: $border;
     border-top: none;
     padding: $block-gap;
     text-align: center;
-    display: flex;
-    align-items: center;
     justify-content: center;
   }
   .result {
-    display: flex;
-    align-items: center;
+    @extend %flex-center;
     justify-content: center;
     flex-flow: column nowrap;
-    border: 1px solid #ccc;
+    border: $border;
     border-top: none;
     text-align: center;
     cursor: pointer;
-    transition: 0.3s;
+    @include transition();
     min-height: 135px;
     padding: 0;
-    font-size: 2em;
+    font-size: 1.7em;
 
     @keyframes shadow-glow {
       50% {
@@ -91,18 +89,18 @@
       animation: shadow-glow 1s infinite;
     }
     &.completed {
-      background: #4caf50;
-      color: #fff;
+      background: $c-good;
+      color: $c-good-over;
     }
     &.completed button {
-      color: #4caf50;
+      color: $c-good;
     }
     &.failed {
-      background: #dc322f;
-      color: #fff;
+      background: $c-bad;
+      color: $c-bad-over;
     }
     &.failed button {
-      color: #dc322f;
+      color: $c-bad;
     }
     @keyframes go-home {
       from {opacity: 1;}
@@ -114,23 +112,21 @@
   }
 
   .progress {
-    display: flex;
-    align-items: center;
+    @extend %flex-center-nowrap;
     text-align: center;
-    border: 1px solid #ccc;
-    border-top: 0px;
+    border: $border;
+    border-top: 0;
     a {
+      @extend %flex-center;
+      align-content: center;
       flex: 1 1 100%;
-      display: flex;
-      align-items: center;
       text-align: center;
-      background: #fff;
-      height: 40px;
-      font-size: 11px;
-      line-height: 11px;
-      border-left: 1px solid #ccc;
-      opacity: 0.8;
-      transition: all 0.13s;
+      background: $c-bg-high;
+      height: 3em;
+      font-size: .9em;
+      border-left: $border;
+      opacity: .8;
+      @include transition();
     }
     a:first-child {
       border-left: 0;
@@ -145,16 +141,13 @@
       display: block;
     }
     a.done {
-      background: #fdd835;
-    }
-    a.done {
-      color: #fff!important;
-      background: #4caf50!important;
+      color: $c-good-over;
+      background: $c-good;
     }
     a.active {
       opacity: 1;
-      color: #fff!important;
-      background: #3893E8!important;
+      color: $c-primary-over;
+      background: $c-primary;
     }
   }
 }

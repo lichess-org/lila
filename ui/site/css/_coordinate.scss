@@ -121,16 +121,11 @@ $mq-col3: $mq-col3-uniboard;
   #next_coord0 {
     user-select: none;
   }
-  .progress_bar_container {
-    margin: 10px 0 10px 0;
-    width: 514px;
-    height: 10px;
-  }
   .progress_bar {
+    @extend %box-radius;
     width: 100%;
     height: 10px;
-    background-color: #759900;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+    background-color: $c-secondary;
   }
   &__table {
     @extend %flex-center;

@@ -51,7 +51,7 @@
     height: 100%;
     background: #1566b2;
     border-radius: 0 5px 5px 0;
-    background-image: url(../images/grain.png);
+    background-image: img-url('grain.png');
     transform: translateX(-100px);
     animation: animatedBackground 50s linear infinite, animatedBar 1s forwards;
   }

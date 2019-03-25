@@ -30,33 +30,28 @@
     border-top: $border;
   }
   .categ > h2:hover {
-    background: rgba(56, 147, 232, 0.2);
+    background: fade-out($c-primary, .8);
   }
   .categ.active {
-    border: 1px solid #ccc;
+    border: $border;
     border-width: 0 1px;
-  }
-  body.dark  .categ.active {
-    border-color: #444;
   }
   .categ.active:last-child {
     border-bottom-width: 1px;
   }
   .categ.active > h2 {
     cursor: default;
-    background: rgba(56, 147, 232, 1);
-    color: #fff;
+    background: $c-primary;
+    color: $c-primary-over;
   }
   .categ:not(.active) .categ_stages {
     display: none;
   }
   .stage {
-    @extend %roboto;
-    display: flex;
-    align-items: center;
-    transition: 0.13s;
+    @extend %roboto, %flex-center;
+    @include transition();
     font-size: 1.1em;
-    opacity: 0.9;
+    opacity: .9;
     color: $c-font;
 
     img,
@@ -71,26 +66,27 @@
       font-size: 30px;
     }
     &.active {
-      background: rgba(56, 147, 232, 0.2);
+      background: fade-out($c-primary, .8);
     }
     &.active img {
-      background: rgba(56, 147, 232, 1);
+      background: $c-primary;
     }
     &.done:hover {
-      background: rgba(76, 175, 80, 0.2);
+      background: fade-out($c-good, .8);
     }
     &.done img {
-      background: #4caf50;
+      background: $c-good;
     }
     &.future:hover {
-      background: rgba(245, 124, 0, 0.2);
+      background: fade-out($c-primary, .8);
     }
     &.future img {
       opacity: 0.7;
-      background: rgba(245, 124, 0, 1);
+      background: $c-primary;
     }
     &:hover {
       filter: brightness(0.9);
+      color: $c-font-clearer;
     }
   }
 }
