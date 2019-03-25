@@ -13,15 +13,15 @@ object features {
 
   def apply()(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    side = side.some,
-    moreCss = cssTag("features.css"),
+    moreCss = responsiveCssTag("feature"),
+    responsive = true,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = title,
       url = s"$netBaseUrl${routes.Plan.features.url}",
       description = "All of Lidraughts features are free for all and forever. We do it for draughts!"
     ).some
   ) {
-      div(cls := "content_box features")(
+      main(cls := "box box-pad features")(
         table(
           header(h1(dataIcon := "")("Website")),
           tbody(
@@ -180,12 +180,6 @@ object features {
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
   private val title = "Lidraughts features"
-
-  private val side: Html =
-    div(cls := "features_side")(
-      h2("Free draughts for everyone, forever!"),
-      a(href := routes.Plan.index, cls := "button")("Support Lidraughts")
-    )
 
   private val engineName = "Scan 3.1"
 }
