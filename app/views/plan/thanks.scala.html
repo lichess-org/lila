@@ -1,15 +1,15 @@
 @(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(implicit ctx: Context)
 
 @base.layout(
-moreCss = cssTag("page.css"),
+moreCss = responsiveCssTag("page"),
+responsive = true,
 title = "Thank you for your support!") {
 
-<div class="content_box small_box doc_box">
+<main class="page-small page box box-pad">
 
   <h1 class="text" data-icon="@patronIconChar">Thank you for your support!</h1>
 
   <div class="body">
-    <br />
     <p>
       Thank you for helping us build Lichess. <strong>You rock!</strong>
     </p>
@@ -65,5 +65,5 @@ title = "Thank you for your support!") {
       Success! <a href="@routes.Lobby.home">Return to Lichess homepage</a>.
     </p>
   </div>
-</div>
+</main>
 }.toHtml

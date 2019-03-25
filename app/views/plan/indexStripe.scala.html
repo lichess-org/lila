@@ -2,10 +2,11 @@
 
 @base.layout(
 title = "Thank you for your support!",
-moreCss = cssTag("plan.css"),
+responsive = true,
+moreCss = responsiveCssTag("plan"),
 moreJs = jsTag("plan.js")) {
 
-<div class="content_box plan">
+<main class="box box-pad plan">
   <h1>@userLink(me) •
     @if(patron.isLifetime) {
     <strong>Lifetime Lichess Patron</strong>
@@ -42,7 +43,7 @@ moreJs = jsTag("plan.js")) {
           </form>
           <form class="cancel" action="@routes.Plan.cancel" method="POST">
             <p>Withdraw your credit card and stop payments:</p>
-            <button type="submit" class="button">No longer support Lichess</button>
+            <button type="submit" class="button button-red">No longer support Lichess</button>
             <a data-form="cancel">Nevermind :)</a>
           </form>
         </td>
@@ -82,5 +83,5 @@ moreJs = jsTag("plan.js")) {
       </tr>
     </tbody>
   </table>
-</div>
+</main>
 }.toHtml

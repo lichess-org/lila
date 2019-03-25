@@ -45,9 +45,6 @@
     .change form a {
       margin-left: 10px;
     }
-    .change form.cancel button {
-      color: $c-bad;
-    }
     .thanks {
       color: $c-good;
       display: block;
@@ -73,35 +70,37 @@
     color: $c-good-over;
     text-align: center;
     font-size: 1.3em;
-    height: 200px;
+    min-height: 200px;
+    padding: 1em 0;
     justify-content: space-between;
     > i {
-      font-size: 120px;
+      @include fluid-size('font-size', 60px, 120px);
       margin: 0 2rem;
     }
     > i:last-child {
       transform: scale(-1, 1);
     }
     h1 {
-      margin: 0 0 20px 0;
-      padding: 0!important;
+      font-size: 2em;
+      margin: 0 0 .5em 0;
+      padding: 0;
     }
   }
 
   .wrapper {
-    display: flex;
+    @extend %flex-center;
     justify-content: space-between;
-    align-items: center;
     font-size: 1.3em;
   }
 
   .text,
   .content {
     @extend %flex-center;
-    flex: 0 0 50%;
+    flex: 1 1 50%;
   }
   .text {
-    flex: 0 0 45%;
+    flex: 1 1 45%;
+    margin-right: 1em;
     flex-flow: column nowrap;
   }
 
@@ -162,17 +161,15 @@
   }
 
   .faq {
+    @extend %flex-center;
     margin: 50px 0 40px 0;
     padding: 30px 0;
     border-top: $border;
     border-bottom: $border;
-    display: flex;
     justify-content: space-between;
-    a {
-      color: #3893E8!important;
-    }
     dl {
-      flex: 0 0 29%;
+      flex: 1 1 29%;
+      margin-bottom: 1em;
     }
     dt {
       font-size: 1.3em;
@@ -194,19 +191,20 @@
       margin-bottom: 30px;
     }
     .list {
-      display: flex;
-      flex-flow: row wrap;
-      font-size: 1.5em;
+      @extend %flex-center;
+      font-size: 1.2em;
     }
     .list div {
-      flex: 0 0 33.3%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding: 7px 0;
+      flex: 1 1 33.3%;
+      padding: .5em 0;
     }
   }
 
   .recent_patrons {
+    display: none;
+    @include breakpoint($mq-medium) {
+      display: block;
+    }
     h2 {
       font-size: 1.5em;
       margin: 300px 0 .4em 0;
