@@ -9,25 +9,24 @@ title = s"${tagString}free, carefully curated chess videos",
 description = s"${videos.nbResults} curated chess videos${if(tagString.nonEmpty) " matching the tags " + tagString else " • "}free for all",
 url = s"$netBaseUrl${routes.Video.index}?${control.queryString}").some,
 control = control) {
-
-<div class="content_box_top">
-  @searchForm(control.query)
-  <h1 data-icon="" class="is4 text lichess_title">
+<div class="box__top">
+  <h1>
     @if(control.filter.tags.nonEmpty) {
     @pluralize("video", videos.nbResults) found
     } else {
     Free Chess video library
     }
   </h1>
+  @searchForm(control.query)
 </div>
 @if(control.filter.tags.isEmpty) {
-<p class="explain">
+<p class="explain box__pad">
   All videos are free for everyone.<br />
   Click one or many tags on the left to filter.<br />
   We have carefully selected <strong>@count</strong> videos so far!
 </p>
 }
-<div class="list infinitescroll">
+<div class="list box__pad infinitescroll">
   @videos.currentPageResults.map { video =>
   @card(video, control)
   }

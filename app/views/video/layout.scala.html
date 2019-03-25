@@ -1,37 +1,35 @@
 @(title: String, control: lila.video.UserControl, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
-@sideSection = {
-<div id="video_side">
-  <div class="tag_list">
-    @control.tags.map { t =>
-    @defining(control.filter.tags contains t.tag) { checked =>
-    <a class="@if(checked) {checked} @if(checked || t.nb > 0) {full} else {empty}"
-      @if(checked || t.nb > 0) {href="@routes.Video.index?@control.toggleTag(t.tag).queryString"}>
-      @if(t.nb > 0) {<em>@t.nb</em>}
-      @t.tag.capitalize
-    </a>
-    }
-    }
-  </div>
-  @if(control.filter.tags.nonEmpty) {
-  <div class="under_tags">
-    <a class="button" href="@routes.Video.index">Clear search</a>
-  </div>
-  } else {
-  <div class="under_tags">
-    <a data-icon="o" href="@routes.Video.tags">View more tags</a>
-  </div>
-  }
-</div>
-}
-
 @base.layout(
 title = title,
-moreCss = cssTag("video.css"),
+moreCss = responsiveCssTag("video"),
 moreJs = infiniteScrollTag,
-side = sideSection.some,
+responsive = true,
+wrapClass = "full-screen-force",
 openGraph = openGraph) {
-<div id="video" class="content_box no_padding">
-  @body
-</div>
+<main class="video page-menu">
+  <aside class="page-menu__menu">
+    <div class="subnav">
+      @control.tags.map { t =>
+      @defining(control.filter.tags contains t.tag) { checked =>
+      <a class="@if(checked) {checked} @if(checked || t.nb > 0) {full} else {empty}"
+        @if(checked || t.nb > 0) {href="@routes.Video.index?@control.toggleTag(t.tag).queryString"}>
+        @if(t.nb > 0) {<em>@t.nb</em>}
+        @t.tag.capitalize
+      </a>
+      }
+      }
+    </div>
+    @if(control.filter.tags.nonEmpty) {
+    <div class="under_tags">
+      <a class="button" href="@routes.Video.index">Clear search</a>
+    </div>
+    } else {
+    <div class="under_tags">
+      <a data-icon="o" href="@routes.Video.tags">View more tags</a>
+    </div>
+    }
+  </aside>
+  <div class="page-menu__content box">@body</div>
+</main>
 }.toHtml
