@@ -63,6 +63,7 @@ module.exports = function(opts, trans) {
   m.redraw.strategy("diff");
 
   return {
+    opts: opts,
     stage: stage,
     level: level,
     vm: vm,

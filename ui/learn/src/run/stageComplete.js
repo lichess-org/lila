@@ -13,12 +13,12 @@ module.exports = function(ctrl) {
   var stage = ctrl.stage;
   var next = ctrl.getNext();
   var score = ctrl.stageScore();
-  return m('div.screen-overlay', {
+  return m('div.learn__screen-overlay', {
       onclick: function(e) {
-        if (e.target.classList.contains('screen-overlay')) m.route('/');
+        if (e.target.classList.contains('learn__screen-overlay')) m.route('/');
       }
     },
-    m('div.screen', [
+    m('div.learn__screen', [
       m('div.stars', makeStars(scoring.getStageRank(stage, score))),
       m('h1', ctrl.trans('stageXComplete', stage.id)),
       m('span.score', [

@@ -36,7 +36,7 @@ function renderInStage(ctrl) {
                 m('img', {
                   src: s.image
                 }),
-                m('h3', ctrl.trans.noarg(s.title))
+                m('span', ctrl.trans.noarg(s.title))
               ]);
             }))
         ]);

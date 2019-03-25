@@ -3,7 +3,7 @@
   .back,
   .categ > h2 {
     display: block;
-    font-size: 1.5em;
+    font-size: 1.3em;
     height: 50px;
     line-height: 50px;
     text-indent: 15px;
@@ -12,14 +12,14 @@
   }
   .back {
     display: flex;
+    color: $c-font;
   }
   .back img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     opacity: 0.9;
     margin-right: 10px;
     padding: 10px;
-    /* background: rgba(56, 147, 232, 1); */
     background: rgba(120, 120, 120, 1);
     display: block;
   }
@@ -27,10 +27,7 @@
     background: rgba(120, 120, 120, 0.2);
   }
   .categ > h2 {
-    border-top: 1px solid #ccc;
-  }
-  body.dark  .categ > h2 {
-    border-color: #444;
+    border-top: $border;
   }
   .categ > h2:hover {
     background: rgba(56, 147, 232, 0.2);
@@ -54,45 +51,46 @@
     display: none;
   }
   .stage {
+    @extend %roboto;
     display: flex;
     align-items: center;
     transition: 0.13s;
-    font-size: 1.3em;
-    font-family: 'Roboto';
-    font-weight: 300;
+    font-size: 1.1em;
     opacity: 0.9;
-  }
-  .stage img,
-  .stage i {
-    width: 30px;
-    height: 30px;
-    opacity: 0.9;
-    margin-right: 10px;
-    padding: 10px;
-  }
-  .stage i::before {
-    font-size: 30px;
-  }
-  .stage.active {
-    background: rgba(56, 147, 232, 0.2);
-  }
-  .stage.active img {
-    background: rgba(56, 147, 232, 1);
-  }
-  .stage.done:hover {
-    background: rgba(76, 175, 80, 0.2);
-  }
-  .stage.done img {
-    background: #4caf50;
-  }
-  .stage.future:hover {
-    background: rgba(245, 124, 0, 0.2);
-  }
-  .stage.future img {
-    opacity: 0.7;
-    background: rgba(245, 124, 0, 1);
-  }
-  .stage:hover {
-    filter: brightness(0.9);
+    color: $c-font;
+
+    img,
+    i {
+      width: 50px;
+      height: 50px;
+      opacity: 0.9;
+      margin-right: 10px;
+      padding: 10px;
+    }
+    i::before {
+      font-size: 30px;
+    }
+    &.active {
+      background: rgba(56, 147, 232, 0.2);
+    }
+    &.active img {
+      background: rgba(56, 147, 232, 1);
+    }
+    &.done:hover {
+      background: rgba(76, 175, 80, 0.2);
+    }
+    &.done img {
+      background: #4caf50;
+    }
+    &.future:hover {
+      background: rgba(245, 124, 0, 0.2);
+    }
+    &.future img {
+      opacity: 0.7;
+      background: rgba(245, 124, 0, 1);
+    }
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 }

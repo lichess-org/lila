@@ -54,14 +54,12 @@
     }
     @keyframes soft-bright {
       50%{
-        filter: brightness(1.1);
+        filter: brightness(0.97);
       }
     }
     &.ongoing {
       background: $c-primary;
       filter: brightness(0.9);
-    }
-    &.ongoing {
       animation: 1.7s soft-bright ease-in-out infinite;
     }
     &.ongoing:hover {

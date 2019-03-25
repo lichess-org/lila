@@ -1,0 +1,160 @@
+.learn__table {
+  align-self: center;
+
+  .wrap {
+    @extend %box-neat, %box-radius-force;
+  }
+
+  .title {
+    display: flex;
+    background: #3893E8;
+    color: #fff;
+    h2,
+    h3 {
+      font-size: 2.3em;
+      margin: 15px 0 5px -3px;
+      white-space: nowrap;
+    }
+    img {
+      width: 80px;
+      height: 80px;
+      margin: 5px 8px 5px 5px;
+    }
+  }
+  .subtitle {
+    margin-bottom: 1em;
+  }
+
+  .goal {
+    background: #fff;
+    border: $border;
+    border-top: none;
+    padding: $block-gap;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+    border: 1px solid #ccc;
+    border-top: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    min-height: 135px;
+    padding: 0;
+    font-size: 2em;
+
+    @keyframes shadow-glow {
+      50% {
+        box-shadow: 0 0 10px 10px rgba(255,255,255,0.5);
+        transform: scale(1.05);
+      }
+    }
+    @keyframes text-shadow-glow {
+      50% {
+        text-shadow: 0 0 10px #fff;
+        transform: scale(1.05);
+      }
+    }
+    h2 {
+      animation: text-shadow-glow 1s 1;
+    }
+    &.failed h2,
+    &.next h2 {
+      margin-top: 15px;
+    }
+    &:hover {
+      filter: brightness(1.1);
+    }
+    .stars {
+      margin-top: 4px;
+    }
+    .stars i {
+      margin: 3px;
+      animation: text-shadow-glow 1s 1;
+    }
+    button {
+      margin: 15px auto 15px auto;
+      font-size: 30px;
+      font-weight: bold;
+      text-transform: uppercase;
+      background: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      box-shadow: 0 0 5px 5px rgba(255,255,255,0.5);
+      animation: shadow-glow 1s infinite;
+    }
+    &.completed {
+      background: #4caf50;
+      color: #fff;
+    }
+    &.completed button {
+      color: #4caf50;
+    }
+    &.failed {
+      background: #dc322f;
+      color: #fff;
+    }
+    &.failed button {
+      color: #dc322f;
+    }
+    @keyframes go-home {
+      from {opacity: 1;}
+      to {opacity: 0.1;}
+    }
+    &.completed:not(.no-go-home) piece {
+      animation: 0.7s ease-in-out 0.7s go-home;
+    }
+  }
+
+  .progress {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-top: 0px;
+    a {
+      flex: 1 1 100%;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      background: #fff;
+      height: 40px;
+      font-size: 11px;
+      line-height: 11px;
+      border-left: 1px solid #ccc;
+      opacity: 0.8;
+      transition: all 0.13s;
+    }
+    a:first-child {
+      border-left: 0;
+    }
+    a:hover {
+      opacity: 1;
+    }
+    a span {
+      margin: auto;
+    }
+    .st3 i:first-child {
+      display: block;
+    }
+    a.done {
+      background: #fdd835;
+    }
+    a.done {
+      color: #fff!important;
+      background: #4caf50!important;
+    }
+    a.active {
+      opacity: 1;
+      color: #fff!important;
+      background: #3893E8!important;
+    }
+  }
+}

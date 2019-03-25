@@ -2,10 +2,10 @@ var m = require('mithril');
 var util = require('../util');
 
 module.exports = function(ctrl) {
-  return m('div.screen-overlay', {
+  return m('div.learn__screen-overlay', {
       onclick: ctrl.hideStartingPane
     },
-    m('div.screen', [
+    m('div.learn__screen', [
       m('h1', ctrl.trans('stageX', ctrl.stage.id) + ': ' + ctrl.trans.noarg(ctrl.stage.title)),
       ctrl.stage.illustration,
       m('p', util.withLinebreaks(ctrl.trans.noarg(ctrl.stage.intro))),
