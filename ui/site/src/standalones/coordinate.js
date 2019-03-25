@@ -96,7 +96,7 @@ $(function() {
     };
 
     var advanceCoords = function() {
-      $coords[0].removeClass('nope');
+      $coord0.removeClass('nope');
       var lastElement = $coords.shift();
       $.each($coords, function(i, e) {
         e.attr('id', 'next_coord' + i);
@@ -137,10 +137,6 @@ $(function() {
       else stop();
     };
 
-    $score.click(function() {
-      $start.filter(':visible').click();
-    });
-
     $start.click(function() {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
@@ -180,7 +176,6 @@ $(function() {
         tick();
       }, 1000);
     });
-    // $start.click();
   });
 
 });
