@@ -13,15 +13,15 @@ object features {
 
   def apply()(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    side = side.some,
-    moreCss = cssTag("features.css"),
+    moreCss = responsiveCssTag("feature"),
+    responsive = true,
     openGraph = lila.app.ui.OpenGraph(
       title = title,
       url = s"$netBaseUrl${routes.Plan.features.url}",
-      description = "All of Lichess features are free for all and forever. We do it for chess!"
+      description = "All of Lichess features are free for all and forever. We do it for the chess!"
     ).some
   ) {
-      div(cls := "content_box features")(
+      main(cls := "box box-pad features")(
         table(
           header(h1(dataIcon := "")("Website")),
           tbody(
@@ -75,7 +75,7 @@ object features {
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),
-              " through Lichess 900 million games"
+              " through Lichess 1.5 billion games"
             ),
             tr(unlimited)(
               a(href := routes.Video.index)("Chess video library")
@@ -112,7 +112,7 @@ object features {
               a(href := routes.Tournament.home(1))("Arena tournaments")
             ),
             tr(check)(
-              "Board editor and analysis board with $engineName"
+              s"Board editor and analysis board with $engineName"
             ),
             tr(unlimited)(
               a(href := routes.Puzzle.home)("Tactics puzzles")
@@ -181,12 +181,6 @@ object features {
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
   private val title = "Lichess features"
-
-  private val side: Html =
-    div(cls := "features_side")(
-      h2("Free chess for everyone, forever!"),
-      a(href := routes.Plan.index, cls := "button")("Support Lichess")
-    )
 
   private val engineName = "Stockfish 10+"
 }

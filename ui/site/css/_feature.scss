@@ -1,0 +1,71 @@
+.features {
+  .check,
+  .unlimited,
+  .green {
+    color: $c-good;
+  }
+
+  table {
+    width: 100%;
+
+    h1 {
+      margin: 0;
+    }
+
+    h1::before {
+      margin-right: 10px;
+    }
+
+    td,
+    th {
+      padding: 10px 20px;
+      border-bottom: $border;
+    }
+
+    thead th {
+      padding-top: 30px;
+      color: #d59120;
+      font-weight: bold;
+      padding-bottom: 20px;
+    }
+    thead:first-child th {
+      padding-top: 10px;
+    }
+
+    tbody td .is::before {
+      font-size: 1.4em;
+    }
+
+    tbody th {
+      opacity: 0.9;
+    }
+    tbody td {
+      whitespace: nowrap;
+    }
+  }
+
+  .price {
+    font-size: 1.4em;
+  }
+  .price > * {
+    border: none;
+    padding-top: 30px;
+  }
+  .explanation {
+    @extend %box-radius;
+    margin: 60px 10% 20px 10%;
+    padding: 30px 40px 40px 40px;
+    background: $c-good;
+    color: $c-good-over;
+    font-size: 1.3em;
+  }
+  .explanation strong {
+    display: block;
+    text-align: center;
+  }
+
+  .button {
+    color: #fff;
+    text-transform: none;
+  }
+}
