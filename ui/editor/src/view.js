@@ -254,7 +254,7 @@ function sparePieces(ctrl, color, orientation, position) {
 
 function onSelectSparePiece(ctrl, s, upEvent) {
   return function(e) {
-    if (!['pointer', 'trash'].includes(s)) {
+    if (['pointer', 'trash'].includes(s)) {
       ctrl.vm.selected(s);
     } else {
       ctrl.vm.selected('pointer');
