@@ -1,0 +1,222 @@
+.video {
+  .box__top form {
+    position: relative;
+    span {
+      position: absolute;
+      left: 10px;
+      top: 4px;
+      font-size: 1.4em;
+      opacity: 0.6;
+    }
+    input {
+      text-indent: 23px;
+    }
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, auto));
+    grid-gap: $block-gap;
+  }
+
+  .card {
+    @extend %box-radius, %button-shadow;
+    position: relative;
+    overflow: hidden;
+    @include transition();
+    color: $c-font;
+    &:hover {
+      @extend %button-raised-shadow;
+    }
+    .img {
+      height: 200px;
+      display: block;
+      background-size: cover;
+      @include transition();
+    }
+    &:hover .img {
+      opacity: 0.5;
+    }
+    .info {
+      display: block;
+      padding: 10px 8px;
+      background: #f0f0f0 linear-gradient(to bottom, #fafafa 0%, #f0f0f0 100%);
+      text-shadow: 0 1px 0 #FFF;
+      border: 1px solid #ccc;
+      border-top: 0;
+    }
+    .title {
+      font-weight: bold;
+      display: block;
+      height: 30px;
+    }
+    .reveal {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      height: 80%;
+      background: #f0f0f0 linear-gradient(to bottom, #fafafa 0%, #f0f0f0 100%);
+      border-top: 1px solid #ccc;
+      box-sizing: border-box;
+      z-index: 1;
+      padding: 15px 10px 0 10px;
+      opacity: 0;
+      transition: transform 0.13s, opacity 0.13s;
+    }
+    &:hover .reveal {
+      transform: translateY(-100%);
+      opacity: 1;
+    }
+    .duration {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      z-index: 2;
+      opacity: 1;
+      padding: 0 2px;
+      background: rgba(255,255,255,0.7);
+    }
+    .view {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 2;
+      padding: 3px 5px;
+      background: rgba(0,0,0,0.7);
+      color: #ddd;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-radius: 3px;
+    }
+    .full-title {
+      font-weight: bold;
+      display: block;
+    }
+    .author {
+      display: block;
+      margin-bottom: 0.8em;
+      opacity: 0.8;
+    }
+    .target {
+      text-transform: uppercase;
+      text-align: center;
+      display: block;
+      margin-bottom: 0.8em;
+    }
+    .tags span {
+      display: block;
+    }
+  }
+
+  .show .meta {
+    padding: 0 25px 10px 25px;
+    .target {
+      display: block;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 1em;
+    }
+    .author {
+      font-size: 1.5em;
+      margin-right: 15px;
+      opacity: 0.7;
+    }
+    .tag {
+      white-space: nowrap;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 5px;
+      opacity: 0.7;
+      vertical-align: 2px;
+    }
+    .author:hover,
+    .tag:hover {
+      opacity: 1;
+    }
+    .description {
+      margin-top: 1em;
+    }
+  }
+}
+
+#video_side {
+  margin-top: 20px;
+  margin-left: -30px;
+  width: 241px;
+}
+@media (max-width: 1070px) {
+  #video_side {
+    margin-left: 0;
+    width: 211px;
+  }
+}
+#video_side .tag_list {
+  text-transform: capitalize;
+}
+#video_side .tag_list a {
+  display: block;
+  padding: 5px 10px 5px 5px;
+  border-left: 2px solid transparent;
+  transition: background 0.13s, border 0.13s;
+}
+#video_side .tag_list a.full:hover {
+  background: #f8f8f8;
+  border-color: #ccc;
+}
+#video_side .tag_list em {
+  float: right;
+  font-weight: bold;
+  opacity: 0.6;
+}
+#video_side .tag_list a.checked {
+  font-weight: bold;
+  background: #fff;
+  border-color: #d85000!important;
+}
+#video_side .tag_list a.empty {
+  opacity: 0.5;
+  cursor: default;
+}
+#video_side .under_tags {
+  margin-top: 2em;
+  text-align: center;
+}
+
+#video .tag_list {
+  margin: 10px;
+  text-align: justify;
+}
+#video .tag_list a {
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 3px 5px;
+  margin: 5px 5px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  text-transform: capitalize;
+}
+#video .tag_list a:hover {
+  background: #fff;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.16), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+#video .tag_list a em {
+  font-weight: bold;
+  opacity: 0.6;
+  color: #d59120;
+}
+
+#video .not_found {
+  margin-top: 200px;
+  text-align: center;
+}
+#video .not_much {
+  margin-top: 100px;
+  text-align: center;
+}
+#video .not_much.nb_0 {
+  margin-top: 200px;
+}
+#video .explain {
+  text-align: center;
+  margin: 50px 0 35px 0;
+}

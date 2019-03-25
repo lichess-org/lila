@@ -1,9 +1,3 @@
-%button-shadow {
-  box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
-}
-%button-raised-shadow {
-  box-shadow: 0 4px 10px 0px hsla(0, 0, 0, 0.225);
-}
 .button {
   @extend %roboto-fat, %button-shadow, %box-radius;
   background: $c-primary;
