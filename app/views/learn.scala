@@ -17,12 +17,12 @@ object index {
     moreJs = frag(
       jsAt(s"compiled/lidraughts.learn${isProd ?? (".min")}.js"),
       embedJs(s"""$$(function() {
-LidraughtsLearn(document.getElementById('learn_app'), {
+LidraughtsLearn(document.getElementById('learn-app'), {
 data: ${data.fold("null")(safeJsonValue)},
-sideElement: document.getElementById('learn_side'),
 i18n: ${safeJsonValue(i18nFullDbJsObject(lidraughts.i18n.I18nDb.Learn))}});});""")
     ),
-    moreCss = cssTag("learn.css"),
+    moreCss = responsiveCssTag("learn"),
+    responsive = true,
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Learn draughts by playing",
@@ -31,6 +31,6 @@ i18n: ${safeJsonValue(i18nFullDbJsObject(lidraughts.i18n.I18nDb.Learn))}});});""
     ).some,
     zoomable = true
   ) {
-      div(id := "learn_app", cls := "learn cg-512")
+      main(id := "learn-app")
     }
 }
