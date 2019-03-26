@@ -59,7 +59,7 @@ lazy val modules = Seq(
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, site, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref, // simulation,
-  evaluation, chat, puzzle, tv, coordinate, blog, qa,
+  evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push,
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
@@ -108,10 +108,6 @@ lazy val streamer = module("streamer", Seq(
 )
 
 lazy val coordinate = module("coordinate", Seq(common, db)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val qa = module("qa", Seq(common, db, memo, user, security, notifyModule)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 

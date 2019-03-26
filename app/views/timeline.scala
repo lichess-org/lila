@@ -51,9 +51,6 @@ object timeline {
       case TourJoin(userId, tourId, tourName) => trans.xCompetesInY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), escapeHtml(tourName))))
       case SimulCreate(userId, simulId, simulName) => trans.xHostsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
       case SimulJoin(userId, simulId, simulName) => trans.xJoinsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
-      case QaQuestion(userId, id, title) => trans.xAskedY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), escapeHtml(title))))
-      case QaAnswer(userId, id, title, answerId) => trans.xAnsweredY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s#answer-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), answerId, escapeHtml(title))))
-      case QaComment(userId, id, title, commentId) => trans.xCommentedY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, escapeHtml(title))))
       case GameEnd(playerId, opponent, win, perfKey) => lila.rating.PerfType(perfKey) map { perf =>
         trans.xVsYinZ(Html("""<a href="%s" data-icon="%s" class="glpt"> %s</a>""".format(routes.Round.player(playerId), perf.iconChar, win match {
           case Some(true) => trans.victory()

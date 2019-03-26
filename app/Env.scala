@@ -199,7 +199,6 @@ object Env {
   def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
   def blog = lila.blog.Env.current
-  def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current

@@ -93,18 +93,6 @@ final class ModlogApi(coll: Coll) {
     ))
   }
 
-  def deleteQaQuestion(mod: String, user: String, title: String) = add {
-    Modlog(mod, user.some, Modlog.deleteQaQuestion, details = Some(title take 140))
-  }
-
-  def deleteQaAnswer(mod: String, user: String, text: String) = add {
-    Modlog(mod, user.some, Modlog.deleteQaAnswer, details = Some(text take 140))
-  }
-
-  def deleteQaComment(mod: String, user: String, text: String) = add {
-    Modlog(mod, user.some, Modlog.deleteQaComment, details = Some(text take 140))
-  }
-
   def deleteTeam(mod: String, name: String, desc: String) = add {
     Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
   }

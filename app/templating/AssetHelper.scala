@@ -76,10 +76,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
-  val tagmanagerTag = Html {
-    s"""<script src="${staticUrl("vendor/tagmanager/tagmanager.js")}"></script>"""
-  }
-
   val typeaheadTag = Html {
     s"""<script src="${staticUrl("javascripts/vendor/typeahead.bundle.min.js")}"></script>"""
   }
