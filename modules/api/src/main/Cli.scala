@@ -15,7 +15,7 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
   }
 
   def process = {
-    case "uptime" :: Nil => fuccess(lila.common.PlayApp.uptime.toStandardSeconds.getSeconds.toString)
+    case "uptime" :: Nil => fuccess(lila.common.PlayApp.uptimeSeconds.toString)
     case "deploy" :: "pre" :: Nil => remindDeploy(lila.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>

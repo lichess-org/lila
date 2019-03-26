@@ -10,7 +10,7 @@ object PlayApp {
   val startedAt = DateTime.now
   val startedAtMillis = nowMillis
 
-  def uptime = new Period(startedAt, DateTime.now)
+  def uptimeSeconds = nowSeconds - startedAt.getSeconds
 
   def startedSinceMinutes(minutes: Int) =
     startedSinceSeconds(minutes * 60)
