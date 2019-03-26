@@ -29,8 +29,7 @@
       @extend %button-raised-shadow;
     }
     .img {
-      height: 200px;
-      display: block;
+      @extend %video;
       background-size: cover;
       @include transition();
     }
