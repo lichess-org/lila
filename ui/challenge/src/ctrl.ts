@@ -61,6 +61,22 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       });
     },
     redirecting: () => redirecting,
+    acceptRandom() {
+      if (data.in.length === 0) {
+        return;
+      }
+
+      redirecting = true;
+      li.raf(redraw);
+
+      const challenge = data.in[Math.floor(Math.random() * data.in.length)];
+
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = `/challenge/${challenge.id}/accept`;
+      document.body.appendChild(form);
+      form.submit();
+    },
     onRedirect() {
       redirecting = true;
       li.raf(redraw);

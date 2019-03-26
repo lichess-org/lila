@@ -13,6 +13,7 @@ export interface Ctrl {
   cancel(id: string): void
   onRedirect(): void
   redirecting(): boolean
+  acceptRandom(): void
 }
 
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';

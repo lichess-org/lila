@@ -35,7 +35,20 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
       insert: userPowertips,
       postpatch: userPowertips
     }
-  }, d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))));
+  }, [randomChallenge(ctrl, nb)].concat(d.in.map(challenge(ctrl, 'in'))).concat(d.out.map(challenge(ctrl, 'out'))));
+}
+
+function randomChallenge(ctrl: Ctrl, nb: number) {
+  return h('div.random_challenge', {
+    class: {hide: nb < 3},
+    hook: onClick(ctrl.acceptRandom),
+  }, [
+    h('div.content', [
+      h('span.head', 'Random'),
+      h('span.desc', 'Accept a random challenge'),
+    ]),
+    h('i', {attrs: {'data-icon': '\''}}),
+  ]);
 }
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {

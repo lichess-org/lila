@@ -9,7 +9,8 @@
   box-shadow: none!important;
   border: 0!important;
 }
-#challenge_app .challenge {
+#challenge_app .challenge,
+#challenge_app .random_challenge {
   padding: 10px 10px;
   margin-bottom: 5px;
   position: relative;
@@ -18,9 +19,15 @@
   background: #fff;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
 }
+#challenge_app .random_challenge.hide {
+  display: none;
+}
 #challenge_app .challenge:hover {
   height: 76px;
   box-shadow: 0 1px 13px rgba(0, 0, 0, 0.7);
+}
+#challenge_app .random_challenge:hover {
+  cursor: pointer;
 }
 #challenge_app .challenge.declined {
   height: 0;
@@ -94,14 +101,16 @@
 #challenge_app .challenge:last-child {
   border-bottom: none;
 }
-#challenge_app .challenge > i {
+#challenge_app .challenge > i,
+#challenge_app .random_challenge > i {
   position: absolute;
   top: 6px;
   right: 10px;
   display: block;
   font-size: 28px;
 }
-#challenge_app .challenge .content {
+#challenge_app .challenge .content,
+#challenge_app .random_challenge .content {
   position: absolute;
   top: 10px;
   left: 12px;
@@ -112,7 +121,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#challenge_app .challenge .head {
+#challenge_app .challenge .head,
+#challenge_app .random_challenge .head {
   display: block;
   font-weight: bold;
   margin-bottom: 3px;
