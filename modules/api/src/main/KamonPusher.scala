@@ -34,7 +34,7 @@ private final class KamonPusher(
     case Tick =>
       lidraughts.mon.jvm.thread(threadStats.getThreadCount)
       lidraughts.mon.jvm.daemon(threadStats.getDaemonThreadCount)
-      lidraughts.mon.jvm.uptime(app.uptime.toStandardSeconds.getSeconds)
+      lidraughts.mon.jvm.uptime(app.uptimeSeconds)
       lidraughts.mon.user.online(countUsers())
       scheduleTick
   }
