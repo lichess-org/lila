@@ -45,19 +45,6 @@ export const renderers: Renderers = {
     ]),
     text: n => userFullName(n.content.sender) + ': ' + n.content.text
   },
-  qaAnswer: {
-    html: n => {
-      const q = n.content.question;
-      return generic(n, "/qa/" + q.id + "/" + q.slug + "#" + "answer-" + n.content.answerId, '&', [
-        h('span', [
-          h('strong', userFullName(n.content.answerer)),
-          drawTime(n)
-        ]),
-        h('span', " answered « " + q.title + "  ».")
-      ]);
-    },
-    text: n => userFullName(n.content.answerer) + " answered « " + n.content.question.title + "  »."
-  },
   teamJoined: {
     html: n => generic(n, "/team/" + n.content.id, 'f', [
       h('span', [

@@ -128,15 +128,6 @@ package timeline {
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
     def userIds = List(userId)
   }
-  case class QaQuestion(userId: String, id: Int, title: String) extends Atom("qa", true) {
-    def userIds = List(userId)
-  }
-  case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom("qa", true) {
-    def userIds = List(userId)
-  }
-  case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom("qa", true) {
-    def userIds = List(userId)
-  }
   case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom("gameEnd", true) {
     def userIds = opponent.toList
   }

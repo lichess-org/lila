@@ -58,8 +58,7 @@ object topmenu {
           NotForKids(frag(
             a(href := routes.Team.home())(trans.teams.frag()),
             a(href := routes.ForumCateg.index)(trans.forum.frag())
-          )),
-          a(href := routes.QaQuestion.index())(trans.questionsAndAnswers.frag())
+          ))
         )
       ),
       section(

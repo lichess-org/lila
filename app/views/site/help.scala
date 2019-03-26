@@ -112,7 +112,6 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
       a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="0"></i>""")),
       a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", raw(""" <i data-icon="0"></i>""")),
       div(cls := "sep"),
-      a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
       a(href := routes.Main.lag)("Is Lichess lagging?")
     ))
   )(body)

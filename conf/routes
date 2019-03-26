@@ -462,28 +462,6 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
 GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
 
-# QA
-GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)
-GET    /qa/search                  controllers.QaQuestion.search
-GET    /qa/ask                     controllers.QaQuestion.ask
-POST   /qa/ask                     controllers.QaQuestion.doAsk
-GET    /qa/tag/:slug               controllers.QaQuestion.byTag(slug: String)
-GET    /qa/:id/:slug               controllers.QaQuestion.show(id: Int, slug: String)
-GET    /qa/:id/:slug/edit          controllers.QaQuestion.edit(id: Int, slug: String)
-POST   /qa/:id/edit                controllers.QaQuestion.doEdit(id: Int)
-POST   /qa/:id/vote                controllers.QaQuestion.vote(id: Int)
-POST   /qa/:id/rm                  controllers.QaQuestion.remove(id: Int)
-POST   /qa/:id/lock                controllers.QaQuestion.lock(id: Int)
-POST   /qa/:id/answer              controllers.QaAnswer.create(id: Int)
-POST   /qa/:id/:a/vote             controllers.QaAnswer.vote(id: Int, a: Int)
-POST   /qa/:id/:a/accept           controllers.QaAnswer.accept(id: Int, a: Int)
-POST   /qa/:id/:a/edit-answer      controllers.QaAnswer.doEdit(id: Int, a: Int)
-POST   /qa/:id/:a/rm-answer        controllers.QaAnswer.remove(id: Int, a: Int)
-POST   /qa/:id/:a/move             controllers.QaAnswer.moveTo(id: Int, a: Int)
-POST   /qa/:id/comment             controllers.QaComment.question(id: Int)
-POST   /qa/:id/:a/comment          controllers.QaComment.answer(id: Int, a: Int)
-POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: String)
-
 # Stats
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
 

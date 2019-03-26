@@ -6,7 +6,6 @@ import play.api.libs.json._
 final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 
   implicit val privateMessageThreadWrites = Json.writes[PrivateMessage.Thread]
-  implicit val qaQuestionWrites = Json.writes[QaAnswer.Question]
 
   implicit val notificationWrites: Writes[Notification] = new Writes[Notification] {
 
@@ -26,11 +25,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
           "sender" -> getLightUser(senderId.value),
           "thread" -> privateMessageThreadWrites.writes(thread),
           "text" -> text.value
-        )
-        case QaAnswer(answeredBy, question, answerId) => Json.obj(
-          "answerer" -> getLightUser(answeredBy.value),
-          "question" -> question,
-          "answerId" -> answerId.value
         )
         case TeamJoined(id, name) => Json.obj(
           "id" -> id.value,
