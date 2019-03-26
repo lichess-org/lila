@@ -22,12 +22,6 @@ object Page extends LidraughtsController {
     }
   }
 
-  def swag = Open { implicit ctx =>
-    OptionOk(Prismic getBookmark "swag") {
-      case (doc, resolver) => views.html.site.swag(doc, resolver)
-    }
-  }
-
   def variantHome = Open { implicit ctx =>
     import play.api.libs.json._
     negotiate(

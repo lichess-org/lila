@@ -635,7 +635,6 @@ GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
 GET   /about                           controllers.Page.about
 GET   /in-memoriam                     controllers.Page.tjalling
-GET   /swag                            controllers.Page.swag
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
