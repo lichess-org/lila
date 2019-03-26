@@ -55,11 +55,21 @@
 }
 
 %square {
+  position: relative;
   display: block;
   height: 0;
   padding-bottom: 100%;
   width: 100%;
 }
+
+%video {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 56.25%;;
+  width: 100%;
+}
+
 %data-icon {
   font-size: 1.1em;
   vertical-align: text-top;

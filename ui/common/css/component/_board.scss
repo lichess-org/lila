@@ -1,6 +1,5 @@
 .main-board {
   @extend %square;
-  position: relative;
   &__preload {
     position: absolute;
   }
@@ -11,9 +10,4 @@
 
 .mini-board {
   @extend %square;
-  position: relative;
-  // .cg-board-wrap {
-  //   width: 224px;
-  //   height: 224px;
-  // }
 }

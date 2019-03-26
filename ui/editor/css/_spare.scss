@@ -22,7 +22,6 @@
     }
     div {
       @extend %square;
-      position: relative;
     }
     &.pointer {
       @extend %box-radius-left;
