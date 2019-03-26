@@ -14,7 +14,7 @@ control = control) {
     @if(control.filter.tags.nonEmpty) {
     @pluralize("video", videos.nbResults) found
     } else {
-    Free Chess video library
+    Chess videos
     }
   </h1>
   @searchForm(control.query)
@@ -51,4 +51,4 @@ control = control) {
   </div>
   }
 </div>
-}
+}.toHtml

@@ -21,7 +21,6 @@ trait ScalatagsAttrs {
   lazy val dataFen = attr("data-fen")
   lazy val novalidate = attr("novalidate")
   object frame {
-    val frameborder = attr("frameborder")
     val scrolling = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen")
     val autoplay = attr("autoplay")

@@ -3,14 +3,11 @@
 @layout(
 title = s"${control.query.getOrElse("Search")} • Free Chess Videos",
 control = control) {
-
-<div class="content_box_top">
+<div class="box__top">
+  <h1>@pluralize("video", videos.nbResults) found</h1>
   @searchForm(control.query)
-  <h1 data-icon="" class="is4 text lichess_title">
-    @pluralize("video", videos.nbResults) found
-  </h1>
 </div>
-<div class="list infinitescroll">
+<div class="list infinitescroll box__pad">
   @videos.currentPageResults.map { video =>
   @card(video, control)
   }
@@ -33,4 +30,4 @@ control = control) {
   </div>
   }
 </div>
-}
+}.toHtml

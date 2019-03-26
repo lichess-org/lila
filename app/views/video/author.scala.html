@@ -3,14 +3,14 @@
 @layout(
 title = s"$author • Free Chess Videos",
 control = control) {
-
-<div class="content_box_top">
-  <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index?@control.queryString"></a>
-  <h1 class="lichess_title">
-    @author • @pluralize("video", videos.nbResults) found
+<div class="box__top">
+  <h1>
+    <a class="is4 text" data-icon="i" href="@routes.Video.index?@control.queryString"></a>
+    @author
   </h1>
+  <span>@pluralize("video", videos.nbResults) found</span>
 </div>
-<div class="list infinitescroll">
+<div class="list infinitescroll box__pad">
   @videos.currentPageResults.map { video =>
   @card(video, control)
   }
@@ -20,4 +20,4 @@ control = control) {
   </div>
   }
 </div>
-}
+}.toHtml

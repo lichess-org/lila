@@ -42,13 +42,13 @@ method:'post'
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
             s.stream match {
               case Some(YouTube.Stream(_, _, videoId, _)) => iframe(
-                frame.frameborder := "0",
+                st.frameBorder := "0",
                 frame.scrolling := "no",
                 src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
               )
               case _ => s.streamer.twitch.map { twitch =>
                 iframe(
-                  frame.frameborder := "0",
+                  st.frameBorder := "0",
                   frame.scrolling := "yes",
                   src := s"https://twitch.tv/embed/${twitch.userId}/chat${(ctx.currentBg != "light") ?? "?darkpopout"}"
                 )
@@ -70,7 +70,7 @@ method:'post'
             case Some(YouTube.Stream(_, _, videoId, _)) => div(cls := "box embed youTube")(
               iframe(
                 src := s"https://www.youtube.com/embed/$videoId?autoplay=1",
-                frame.frameborder := "0",
+                st.frameBorder := "0",
                 frame.allowfullscreen := true
               )
             )
