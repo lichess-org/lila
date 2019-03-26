@@ -66,14 +66,15 @@
   position: relative;
   display: block;
   height: 0;
-  padding-bottom: 56.25%;;
+  padding-bottom: 56.25%; /* 16/9 */
+  // padding-bottom: 75%; /* 4/3 */
   width: 100%;
 }
 
 %data-icon {
   font-size: 1.1em;
   vertical-align: text-top;
-  font-family: "lichess";
+  font-family: 'lichess';
   font-style: normal;
   font-weight: normal;
   text-transform: none;
