@@ -34,9 +34,9 @@ object topic {
             strong(a(href := routes.Report.form)("use the report form"))
           ),
           p(
-            "To ask a question about lidraughts or draughts rules,",
+            "To request support,",
             br,
-            strong(a(href := routes.QaQuestion.index())(raw("use the Question &amp; Answers site")))
+            strong(a(href := routes.Page.contact())(raw("try the contact page")))
           )
         ),
 

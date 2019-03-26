@@ -1,6 +1,0 @@
-@(title: String, url: Call, icon: String, cssClass: String = "")(implicit ctx: Context)
-@if(isGranted(_.ModerateQa)) {
-<form class="mod" action="@url" method="post">
-  <button type="submit" title="@title" class="@cssClass confirm button text" data-icon="@icon">@title</button>
-</form>
-}

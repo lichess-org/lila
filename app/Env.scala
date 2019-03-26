@@ -197,7 +197,6 @@ object Env {
   def coordinate = lidraughts.coordinate.Env.current
   def tv = lidraughts.tv.Env.current
   def blog = lidraughts.blog.Env.current
-  def qa = lidraughts.qa.Env.current
   def history = lidraughts.history.Env.current
   def playban = lidraughts.playban.Env.current
   def shutup = lidraughts.shutup.Env.current
