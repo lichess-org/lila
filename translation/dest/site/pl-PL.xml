@@ -299,7 +299,7 @@
   <string name="takebackPropositionAccepted">Ruch został wycofany</string>
   <string name="takebackPropositionCanceled">Anulowano prośbę o cofnięcie ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
-  <string name="bookmarkThisGame">Dodaj do zakładek</string>
+  <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
   <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
   <string name="tournament">Turniej</string>
@@ -479,7 +479,7 @@
   <string name="loadPosition">Wczytaj ustawienie</string>
   <string name="isPrivate">Prywatny</string>
   <string name="reportXToModerators">Zgłoś %s do moderatora</string>
-  <string name="profileCompletion">Zupełność profilu: %s</string>
+  <string name="profileCompletion">Kompletność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
   <string name="gameCompletionRate">Ukończonych gier: %s</string>
