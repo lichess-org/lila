@@ -301,7 +301,7 @@
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
-  <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
+  <string name="advancedSearch">Wyszukiwarka</string>
   <string name="tournament">Turniej</string>
   <string name="tournaments">Turnieje</string>
   <string name="tournamentPoints">Punkty turniejowe</string>
@@ -440,7 +440,7 @@
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turniejowy</string>
   <string name="conditionOfEntry">Warunki wstępu:</string>
-  <string name="advancedSettings">Zaawansowane</string>
+  <string name="advancedSettings">Ustawienia zaawansowane</string>
   <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
   <string name="inappropriateNameWarning">Nawet nieco nieodpowiednia nazwa może spowodować zamknięcie Twojego konta.</string>
   <string name="emptyTournamentName">Jeśli nie podasz nazwy turnieju, zostanie on nazwany od nazwiska losowo wybranego arcymistrza.</string>
@@ -690,8 +690,8 @@
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
   <string name="whiteCastlingQueenside">Białe O-O-O</string>
-  <string name="blackCastlingKingside">O-O czarnych</string>
-  <string name="blackCastlingQueenside">O-O-O czarnych</string>
+  <string name="blackCastlingKingside">Czarne O-O</string>
+  <string name="blackCastlingQueenside">Czarne O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
