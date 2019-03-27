@@ -57,11 +57,11 @@
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz ocenę lokalną</string>
   <string name="promoteVariation">Promuj ten wariant</string>
-  <string name="makeMainLine">Ustal jako przebieg</string>
+  <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrany</string>
-  <string name="variantWin">Wariant wygrany</string>
+  <string name="variantWin">Wariant wygrywający</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
   <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
@@ -101,7 +101,7 @@
   <string name="replayMode">Odtwarzanie</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
-  <string name="openStudy">Studiuj</string>
+  <string name="openStudy">Stwórz studium</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="evaluationGauge">Miernik oceny</string>
@@ -109,7 +109,7 @@
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Analiza nieskończona</string>
-  <string name="removesTheDepthLimit">Zdejmuje ograniczenie głębokości analizy utrzymując ciepło Twojego komputera</string>
+  <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
   <string name="blunders">Błędy</string>
   <string name="mistake">Pomyłka</string>
