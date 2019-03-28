@@ -28,6 +28,7 @@ object page {
       description = describeUser(u)
     ).some,
     moreJs = frag(
+      jsAt("compiled/user.js"),
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
@@ -44,7 +45,7 @@ object page {
   ) {
       main(cls := "page-menu user", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
-        div(cls := "page-menu__content")(
+        div(cls := "page-menu__content box")(
           header(u, info, Angle.Activity, social),
           div(cls := "angle_content")(views.html.activity(u, activities))
         )
@@ -61,6 +62,7 @@ object page {
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) "" else " - page " + games.currentPage}",
     moreJs = frag(
+      jsAt("compiled/user.js"),
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
