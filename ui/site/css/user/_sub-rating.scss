@@ -1,0 +1,65 @@
+.sub-ratings {
+  > a {
+    @extend %box-radius-left;
+    color: $c-font;
+    position: relative;
+    padding: .7em $block-gap .7em .4em;
+    white-space: nowrap;
+    display: block;
+    @include transition();
+    cursor: default;
+    &.empty {
+      opacity: 0.5;
+    }
+    &::before {
+      font-size: 40px;
+      float: left;
+      margin: -2px 5px 0 0;
+      opacity: 0.6;
+    }
+    &.game {
+      cursor: pointer;
+      &:hover {
+        background: #fafafa;
+      }
+      &.active {
+        background: #fff;
+        border: 1px solid #ccc;
+        border-right: 0;
+        margin-left: -10px;
+      }
+    }
+    > span {
+      display: block;
+    }
+    > i {
+      position: absolute;
+      top: calc(50% - 6px);
+      right: 12px;
+      font-size: 8px;
+      opacity: 0.2;
+    }
+    &:hover > i {
+      opacity: 0.6;
+    }
+    &.active > i {
+      display: none;
+    }
+    .shy {
+      font-size: 0.8em;
+      opacity: 0.6;
+      line-height: 1em;
+    }
+  }
+  h3 {
+    font-weight: 100;
+    font-size: 1em;
+    letter-spacing: 2px;
+    margin: 0;
+    display: inline-block;
+  }
+  strong {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+}
