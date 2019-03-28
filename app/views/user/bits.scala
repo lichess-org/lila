@@ -1,5 +1,4 @@
-package views.html
-package user
+package views.html.user
 
 import lila.api.Context
 import lila.app.templating.Environment._

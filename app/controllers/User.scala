@@ -68,7 +68,7 @@ object User extends LilaController {
         nbs ← Env.current.userNbGames(u, ctx)
         info ← Env.current.userInfo(u, nbs, ctx)
         social ← Env.current.socialInfo(u, ctx)
-      } yield status(html.user.show.activity(u, as, info, social))
+      } yield status(html.user.show.page.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
     else Env.activity.read.recent(u) map { as =>
       status(html.activity(u, as))
@@ -98,7 +98,7 @@ object User extends LilaController {
               _ <- Env.team.cached.nameCache preloadMany info.teamIds
               social ← Env.current.socialInfo(u, ctx)
               searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-            } yield html.user.show.games(u, info, pag, filters, searchForm, social)
+            } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
             else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
           } yield res,
           api = _ => apiGames(u, filter, page)
@@ -115,7 +115,7 @@ object User extends LilaController {
       case Some(u) => negotiate(
         html = UserRepo isErased u flatMap { erased =>
           if (erased.value) notFound
-          else NotFound(html.user.disabled(u)).fuccess
+          else NotFound(html.user.show.page.disabled(u)).fuccess
         },
         api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
       )
