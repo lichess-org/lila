@@ -1,5 +1,4 @@
-package views.html
-package user
+package views.html.user
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
