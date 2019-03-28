@@ -39,13 +39,15 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 }
 
 function randomChallenge(ctrl: Ctrl, nb: number) {
+  const trans = ctrl.trans();
+
   return h('div.random_challenge', {
     class: {hide: nb < 3},
     hook: onClick(ctrl.acceptRandom),
   }, [
     h('div.content', [
-      h('span.head', 'Random'),
-      h('span.desc', 'Accept a random challenge'),
+      h('span.head', trans('randomChallenge')),
+      h('span.desc', trans('randomChallengeDescription')),
     ]),
     h('i', {attrs: {'data-icon': '\''}}),
   ]);

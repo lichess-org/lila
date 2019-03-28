@@ -849,4 +849,6 @@ in %3$s</string>
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>
   </plurals>
+  <string name="randomChallenge">Random</string>
+  <string name="randomChallengeDescription">Accept a random challenge</string>
 </resources>
