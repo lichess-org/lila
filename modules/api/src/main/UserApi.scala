@@ -115,8 +115,16 @@ private[api] final class UserApi(
                   "following" -> relation.has(true),
                   "blocking" -> relation.has(false),
                   "followsYou" -> isFollowed,
-                  "twitchStream" -> streamer.flatMap(_.twitch.map(_.minUrl)),
-                  "youTubeStream" -> streamer.flatMap(_.youTube.map(_.minUrl))
+                  "stream" -> streamer.map { s =>
+                    Json.obj(
+                     "twitch" -> s.twitch.map { t =>
+                        Json.obj("url" -> t.minUrl)
+                      },
+                    "youTube" -> s.youTube.map {y =>
+                      Json.obj("url" -> y.minUrl)
+                    }
+                    )
+                  }
                 ))
             }.noNull
         }
