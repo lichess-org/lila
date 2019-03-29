@@ -57,7 +57,7 @@ object timeline {
           case _ => trans.draw()
         })), userIdLink(opponent, withOnline = false), perf.name)
       }
-      case StudyCreate(userId, studyId, studyName) => trans.xHostsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
+      case StudyCreate(userId, studyId, studyName) => trans.xCreatesStudyY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
       case StudyLike(userId, studyId, studyName) => trans.xLikesY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
       case PlanStart(userId) => frag(
         userIdLink(userId.some, withOnline = true),
