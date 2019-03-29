@@ -19,6 +19,7 @@ final class Env(
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
+    streamerApi: lila.streamer.StreamerApi,
     playBanApi: lila.playban.PlaybanApi,
     gamePgnDump: lila.game.PgnDump,
     gameCache: lila.game.Cached,
@@ -95,7 +96,8 @@ final class Env(
     isPlaying = isPlaying,
     isOnline = userEnv.onlineUserIdMemo.get,
     recentTitledUserIds = () => userEnv.recentTitledUserIdMemo.keys,
-    prefApi = prefApi
+    prefApi = prefApi,
+    streamerApi = streamerApi
   )(system)
 
   val gameApi = new GameApi(
@@ -174,6 +176,7 @@ object Env {
     crosstableApi = lila.game.Env.current.crosstableApi,
     playBanApi = lila.playban.Env.current.api,
     prefApi = lila.pref.Env.current.api,
+    streamerApi = lila.streamer.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,

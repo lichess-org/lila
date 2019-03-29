@@ -20,6 +20,7 @@ private[api] final class UserApi(
     playBanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
     prefApi: lila.pref.PrefApi,
+    streamerApi: lila.streamer.StreamerApi,
     isStreaming: User.ID => Boolean,
     isPlaying: User.ID => Boolean,
     isOnline: User.ID => Boolean,
@@ -76,6 +77,7 @@ private[api] final class UserApi(
         (as.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
         relationApi.countFollowing(u.id) zip
         relationApi.countFollowers(u.id) zip
+        streamerApi.find(u).map(_.map(_.streamer)) zip
         as.isDefined.?? { prefApi followable u.id } zip
         as.map(_.id).?? { relationApi.fetchRelation(_, u.id) } zip
         as.map(_.id).?? { relationApi.fetchFollows(u.id, _) } zip
@@ -83,7 +85,7 @@ private[api] final class UserApi(
         gameCache.nbPlaying(u.id) zip
         gameCache.nbImportedBy(u.id) zip
         playBanApi.completionRate(u.id).map(_.map { cr => math.round(cr * 100) }) map {
-          case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~
+          case gameOption ~ nbGamesWithMe ~ following ~ followers ~ streamer ~ followable ~ relation ~
             isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate =>
             jsonView(u) ++ {
               Json.obj(
@@ -112,7 +114,9 @@ private[api] final class UserApi(
                   "followable" -> followable,
                   "following" -> relation.has(true),
                   "blocking" -> relation.has(false),
-                  "followsYou" -> isFollowed
+                  "followsYou" -> isFollowed,
+                  "twitchStream" -> streamer.flatMap(_.twitch.map(_.minUrl)),
+                  "youTubeStream" -> streamer.flatMap(_.youTube.map(_.minUrl))
                 ))
             }.noNull
         }
