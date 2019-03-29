@@ -6,4 +6,7 @@
   <string name="emailConfirm_ignore">Si no t\'has registrat a Lichess, pots ignorar tranquil·lament aquest missatge.</string>
   <string name="passwordReset_subject">Restableix la teva contrasenya de lichess.org, %s</string>
   <string name="passwordReset_intro">Hem rebut una sol·licitud per restablir la contrasenya del teu compte.</string>
+  <string name="passwordReset_clickOrIgnore">Si has fet aquesta petició, clica l\'enllaç de sota. Sino, pots ignorar aquest correu.</string>
+  <string name="emailChange_subject">Confirma l\'adreça de correu electrònic, %s</string>
+  <string name="emailChange_intro">Heu demanat canviar el correu electrònic.</string>
 </resources>
