@@ -1,0 +1,31 @@
+.btn-rack {
+  @extend %box-radius;
+  display: flex;
+  align-items: center;
+  border: $border;
+  &__btn {
+    @extend %flex-center, %metal;
+    justify-content: center;
+    text-align: center;
+    padding: 0 12px;
+    line-height: 2rem;
+    cursor: pointer;
+    border-right: $border;
+    color: $c-font;
+    &:hover {
+      @extend %metal-hover;
+      color: $c-font;
+    }
+    &:first-child {
+      @extend %box-radius-left;
+    }
+    &:last-child {
+      @extend %box-radius-right;
+      border: 0;
+    }
+    i {
+      @extend %roboto, %data-icon-middle;
+      letter-spacing: -1px;
+    }
+  }
+}

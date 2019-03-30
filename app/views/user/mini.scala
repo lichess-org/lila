@@ -42,7 +42,7 @@ object mini {
     ),
     ctx.userId map { myId =>
       frag(
-        (myId != u.id && u.enabled) option div(cls := "upt__actions")(
+        (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
           a(dataIcon := "1", title := trans.watchGames.txt(), href := routes.User.tv(u.username)),
           !blocked option frag(
             a(dataIcon := "c", title := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}"),

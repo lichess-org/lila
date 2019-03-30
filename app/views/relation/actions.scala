@@ -22,37 +22,38 @@ object actions {
             a(
               title := trans.challengeToPlay.txt(),
               href := s"${routes.Lobby.home()}?user=$userId#friend",
-              cls := "button button-empty",
+              cls := "btn-rack__btn",
               dataIcon := "U"
             ),
             a(
               title := trans.composeMessage.txt(),
-              href := s"${routes.Message.form()}?user=$userId", cls := "button button-empty",
+              href := s"${routes.Message.form()}?user=$userId",
+              cls := "btn-rack__btn",
               dataIcon := "c"
             )
           ),
           relation match {
             case None => frag(
               followable && !blocked option a(
-                cls := "button button-empty relation-button",
+                cls := "btn-rack__btn relation-button",
                 href := routes.Relation.follow(userId),
                 title := trans.follow.txt(),
                 dataIcon := "h"
               ),
               a(
-                cls := "button button-empty relation-button",
+                cls := "btn-rack__btn relation-button",
                 href := routes.Relation.block(userId),
                 title := trans.block.txt(),
                 dataIcon := "k"
               )
             )
             case Some(true) =>
-              a(cls := "button button-empty relation-button hover-text", href := routes.Relation.unfollow(userId))(
+              a(cls := "btn-rack__btn relation-button hover-text", href := routes.Relation.unfollow(userId))(
                 iconTag("h")(cls := "base text")(trans.following()),
                 iconTag("h")(cls := "hover text")(trans.unfollow())
               )
             case Some(false) =>
-              a(cls := "button button-empty relation-button hover-text", href := routes.Relation.unblock(userId))(
+              a(cls := "btn-rack__btn relation-button hover-text", href := routes.Relation.unblock(userId))(
                 iconTag("k")(cls := "base text")(trans.blocked()),
                 iconTag("k")(cls := "hover text")(trans.unblock())
               )

@@ -3,28 +3,24 @@
 @import 'number-menu';
 
 .user-show {
-  .social {
+  &__social {
+    @extend %flex-between;
+    flex-flow: row nowrap;
     background: $c-bg-zebra;
-    border-top: 0;
-    padding: 0 0 5px 10px;
-    height: 52px;
     align-items: center;
-    justify-content: space-between;
-    .links {
-      display: flex;
-    }
     .user_actions {
-      font-size: 1.2em;
-      margin: 4px 15px 0 0;
+      margin: 0 1em;
     }
     .user_actions form {
       display: inline;
     }
-    .relation_actions {
-      display: inline;
+    .relation-actions {
+      @extend %flex-center-nowrap;
+      border-right: $border;
     }
   }
   #us_profile {
+    border-top: $border;
     height: 325px;
     position: relative;
   }

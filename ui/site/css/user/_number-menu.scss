@@ -1,18 +1,23 @@
 .number-menu {
+  background: $c-bg-zebra;
+  display: flex;
   .nm-item {
+    @extend %roboto;
     flex: 1 1 auto;
+    color: $c-font;
     text-align: center;
     line-height: 1.4em;
-    margin-top: 5px;
     padding: 0.5em 5px;
     text-transform: capitalize;
-    border: 1px solid transparent;
-    font-family: 'Roboto';
-    font-weight: 300;
     white-space: normal;
+    font-size: .9em;
+    &:hover {
+      color: $c-link;
+    }
   }
   &--tabs .nm-item {
     margin-top: 7px;
+    border: 1px solid transparent;
     border-bottom: none;
     padding-bottom: 0.8em;
     &:hover {
