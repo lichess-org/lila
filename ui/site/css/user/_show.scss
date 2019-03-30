@@ -1,1 +1,288 @@
 @import 'sub-rating';
+@import 'header';
+@import 'number-menu';
+
+.user-show {
+  .social {
+    background: $c-bg-zebra;
+    border-top: 0;
+    padding: 0 0 5px 10px;
+    height: 52px;
+    align-items: center;
+    justify-content: space-between;
+    .links {
+      display: flex;
+    }
+    .user_actions {
+      font-size: 1.2em;
+      margin: 4px 15px 0 0;
+    }
+    .user_actions form {
+      display: inline;
+    }
+    .relation_actions {
+      display: inline;
+    }
+  }
+  #us_profile {
+    height: 325px;
+    position: relative;
+  }
+  .engine_warning {
+    margin: 10px 0;
+  }
+  .rating_history {
+    position: absolute;
+    left: -10px;
+    display: block;
+    height: 350px;
+  }
+  .rating_history .spinner {
+    width: 90px;
+    height: 90px;
+    margin: 120px auto 0 auto;
+  }
+  .user-infos {
+    position: absolute;
+    top: 0;
+    left: 458px;
+    padding: 0 14px;
+    border-left: 1px solid #c0c0c0;
+    overflow: hidden;
+    width: 305px;
+    height: 325px;
+  }
+  .with_insights .user-infos {
+    height: 265px;
+  }
+  .user-infos:hover {
+    overflow-y: auto;
+  }
+  .insight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 14px;
+    width: 305px;
+    height: 60px;
+    border-top: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+  }
+  .insight .icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+  }
+  .insight .icon::before {
+    color: #3893E8;
+    font-size: 40px;
+    line-height: 60px;
+    opacity: 0.8;
+  }
+  .insight strong {
+    color: #3893E8;
+    display: block;
+    font-weight: normal;
+    font-size: 1.5em;
+    margin: 10px 0 1px 0;
+  }
+  .insight em {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 275px;
+  }
+  .insight:hover {
+    background: #3893E8;
+  }
+  .insight:hover,
+  .insight:hover *,
+  .insight:hover .icon::before {
+    transition: 0.13s;
+    color: #fff;
+  }
+
+  .name,
+  .bio,
+  .stats,
+  .tournament_points,
+  .social_links,
+  .teams {
+    display: block;
+    margin-top: 16px;
+  }
+  .col2 {
+    display: flex;
+    flex-flow: row wrap;
+    line-height: 1.7em;
+  }
+  .col2 > a {
+    flex: 0 0 50%;
+    color: #3893E8!important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .teams {
+    margin-bottom: 10px;
+  }
+  .bio {
+    font-style: italic;
+  }
+  div.games {
+    padding-top: 10px;
+  }
+  div.games.center {
+    text-align: center;
+  }
+  .profile {
+    margin-bottom: 1em;
+  }
+  .claim_title_zone {
+    padding: 30px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+  }
+  .claim_title_zone h2 {
+    font-size: 1.5em;
+  }
+  .claim_title_zone p {
+    margin: 2em 0;
+  }
+  .claim_title_zone .actions {
+    margin: 3em 0;
+    text-align: center;
+  }
+  .note_zone {
+    display: none;
+    margin: 1em 20px;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #ccc;
+  }
+  .note_zone textarea {
+    width: 98%;
+    margin-bottom: 5px;
+    padding: 5px 8px;
+    height: 5em;
+    resize: vertical;
+  }
+  .note_zone div {
+    padding-top: 1em;
+    border-top: 1px dotted #ccc;
+    margin-top: 1em;
+  }
+  .note_zone p.meta {
+    float: right;
+    text-align: right;
+    margin-left: 1em;
+    white-space: nowrap;
+  }
+  .note_zone p.text {
+    min-height: 2.7em;
+  }
+  .note_zone p.text a {
+    color: #3893E8;
+  }
+  div.content_box_inter.tabs {
+    margin-left: -8px;
+    padding-left: 30px;
+    width: 775px;
+    border: 1px solid #ccc;
+  }
+  div.crosstable {
+    margin: 25px 10px 15px 10px;
+  }
+  .results .aggregate {
+    font-weight: bold;
+    font-size: 1.4em;
+    text-align: center;
+    margin-left: -20px;
+    width: 50px;
+    transform: rotate(90deg);
+  }
+
+  .search {
+    white-space: nowrap;
+    margin: 10px 0;
+  }
+  .search table {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 20px;
+    width: 360px;
+  }
+  .search table tbody {
+    display: block;
+  }
+  .search table:first-child {
+    width: 400px;
+  }
+  .search .header {
+    font-size: 1.3em;
+  }
+  .search td {
+    padding: 5px 0;
+  }
+  .search label {
+    margin-right: 10px;
+  }
+  .search .single select {
+    width: 100%;
+  }
+  .search table .half {
+    float: left;
+    width: 49%;
+    padding-right: 1%;
+    text-align: right;
+  }
+  .search_status {
+    text-align: right;
+    padding: 10px 25px;
+    border-bottom: 1px solid #e4e4e4;
+  }
+  .new_player {
+    padding: 20px;
+  }
+  .new_player h2 {
+    font-size: 1.4em;
+  }
+  .new_player p {
+    margin: 1em 0;
+  }
+  .new_player li {
+    list-style: disc inside;
+    line-height: 1.5em;
+  }
+  .new_player a {
+    color: #3893E8;
+  }
+  div.content_box_inter {
+    display: flex!important;
+  }
+  div#games.content_box_inter {
+    border-top: none;
+  }
+  div.content_box_inter a.to_games.active,
+  div#games.content_box_inter {
+    background: #e8e8e8!important;
+  }
+  div.content_box_inter.angles .intertab {
+    font-size: 1.2em;
+    padding: 0.9em 5px;
+  }
+  div.content_box_inter .intertab.active {
+    border: 1px solid #ccc;
+    border-bottom: none;
+  }
+  div.content_box_inter .to_games .unread {
+    opacity: 0.7;
+    padding: 0 5px;
+  }
+  div.content_box_inter .to_playing {
+    color: #d85000!important;
+  }
+  div.content_box_inter .to_playing strong {
+    font-weight: bold;
+  }
+}

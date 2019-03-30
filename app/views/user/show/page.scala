@@ -43,9 +43,9 @@ object page {
     ),
     responsive = true
   ) {
-      main(cls := "page-menu user", dataUsername := u.username)(
+      main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
-        div(cls := "page-menu__content box")(
+        div(cls := "page-menu__content box user-show")(
           header(u, info, Angle.Activity, social),
           div(cls := "angle_content")(views.html.activity(u, activities))
         )
@@ -78,9 +78,9 @@ object page {
     ),
     responsive = true
   ) {
-      main(cls := "page-menu user", dataUsername := u.username)(
+      main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
-        div(cls := "page-menu__content")(
+        div(cls := "page-menu__content box user-show")(
           header(u, info, Angle.Games(searchForm), social),
           div(cls := "angle_content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
         )

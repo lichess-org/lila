@@ -44,5 +44,13 @@
 }
 @if(info.isCoach) {
 @*<a href="@routes.Coach.show(u.username)"
-  class="trophy award icon3d coach" title="Lidraughts Coach">:</a> *@
+  class="trophy award icon3d coach" title="Lidraughts Coach">:</a>*@
 }
+@if(info.isStreamer) {
+<a href="@routes.Streamer.show(u.username)"
+  class="trophy award icon3d streamer@if(isStreaming(u.id)){ streaming}"
+  title="@if(isStreaming(u.id)){Live now!}else{Lidraughts Streamer}"></a>
+}
+<a href="@routes.Streamer.show(u.username)"
+  class="trophy award icon3d streamer streaming"
+  title="Live now!"></a>
