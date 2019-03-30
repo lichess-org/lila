@@ -576,7 +576,7 @@ POST  /event/manager                   controllers.Event.create
 
 # Misc
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
-GET   /developers                      controllers.Main.developers
+GET   /developers                      controllers.Main.webmasters
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /fpmenu                          controllers.Main.fpmenu

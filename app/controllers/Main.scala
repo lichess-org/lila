@@ -52,10 +52,10 @@ object Main extends LilaController {
     }
   }
 
-  def developers = Open { implicit ctx =>
+  def webmasters = Open { implicit ctx =>
     pageHit
     fuccess {
-      html.site.developers()
+      html.site.help.webmasters()
     }
   }
 
