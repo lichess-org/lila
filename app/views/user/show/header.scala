@@ -81,7 +81,7 @@ object header {
         ctx.noKid option a(
           title := trans.reportXToModerators.txt(u.username),
           cls := "btn-rack__btn",
-          href := s"${routes.Report.form}username=${u.username}",
+          href := s"${routes.Report.form}?username=${u.username}",
           dataIcon := "!"
         ),
         (ctx is u) option
