@@ -22,7 +22,7 @@ object header {
     angle: lila.app.mashup.UserInfo.Angle,
     social: lila.app.mashup.UserInfo.Social
   )(implicit ctx: Context) = frag(
-    div(cls := "box__top")(
+    div(cls := "box__top user-show__header")(
       h1(cls := s"user_link ${if (isOnline(u.id)) "online" else "offline"}")(
         if (u.isPatron) frag(
           a(cls := routes.Plan.index)(raw(patronIcon)),
@@ -41,7 +41,7 @@ object header {
         a(href := routes.Plan.index, cls := "trophy award patron icon3d", title := s"Patron since ${showDate(u.plan.sinceDate)}")(patronIconChar),
       u.disabled option span(cls := "closed")("CLOSED")
     ),
-    div(cls := "social content_box_inter")(
+    div(cls := "user-show__social")(
       div(cls := "links")(
         a(cls := "intertab", href := routes.Relation.followers(u.username))(
           splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))
@@ -132,7 +132,7 @@ object header {
               ctx.is(u) option newPlayer(u)
             },
             div(cls := "user-infos scroll-shadow-hard")(
-              if (!ctx.is(u)) frag(
+              !ctx.is(u) option frag(
                 u.engine option div(cls := "warning engine_warning")(
                   span(dataIcon := "j", cls := "is4"),
                   trans.thisPlayerUsesChessComputerAssistance.frag()
@@ -145,10 +145,7 @@ Only visible to mods. A booster mark without any games is a way to
 prevent a player from ever playing (except against boosters/cheaters).
 It's useful against spambots. These marks are not visible to the public."""
                 )
-              )
-              else u.title.flatMap(lila.user.Title.names.get).map { title =>
-                p(dataIcon := "E", cls := "honorific title text")(title)
-              },
+              ),
               ctx.noKid option frag(
                 profile.nonEmptyRealName.map { name =>
                   strong(cls := "name")(name)
@@ -214,11 +211,11 @@ It's useful against spambots. These marks are not visible to the public."""
               )
           )
       },
-      div(cls := "content_box_inter angles tabs")(
+      div(cls := "angles number-menu number-menu--tabs")(
         a(
           dataTab := "activity",
           cls := List(
-            "intertab to_activity" -> true,
+            "nm-item to_activity" -> true,
             "active" -> (angle == Angle.Activity)
           ),
           href := routes.User.show(u.username)
@@ -226,7 +223,7 @@ It's useful against spambots. These marks are not visible to the public."""
         a(
           dataTab := "games",
           cls := List(
-            "intertab to_games" -> true,
+            "nm-item to_games" -> true,
             "active" -> (angle.key == "games")
           ),
           href := routes.User.gamesAll(u.username)

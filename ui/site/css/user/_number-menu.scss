@@ -1,0 +1,30 @@
+.number-menu {
+  .nm-item {
+    flex: 1 1 auto;
+    text-align: center;
+    line-height: 1.4em;
+    margin-top: 5px;
+    padding: 0.5em 5px;
+    text-transform: capitalize;
+    border: 1px solid transparent;
+    font-family: 'Roboto';
+    font-weight: 300;
+    white-space: normal;
+  }
+  &--tabs .nm-item {
+    margin-top: 7px;
+    border-bottom: none;
+    padding-bottom: 0.8em;
+    &:hover {
+      background: mix($c-link, $c-bg-box, 50%);
+    }
+    &.active {
+      margin-bottom: -1px;
+      background: #fff!important;
+    }
+  }
+  strong {
+    font-weight: normal;
+    font-size: 1.1em;
+  }
+}
