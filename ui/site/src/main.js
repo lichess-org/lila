@@ -256,7 +256,7 @@ lichess.topMenuIntent = function() {
           url: $a.attr('href'),
           type: 'post',
           success: function(html) {
-            if (html.includes('relation-actions')) $a.parent().html(html);
+            if (html.includes('relation-actions')) $a.parent().replaceWith(html);
             else $a.replaceWith(html);
           }
         });

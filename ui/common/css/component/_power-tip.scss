@@ -56,35 +56,12 @@
     border-top: $border;
   }
   &__actions {
-    display: flex;
     justify-content: stretch;
-    align-items: center;
     a {
-      @extend %flex-center, %metal;
-      justify-content: center;
       flex: 0 0 18%;
-      letter-spacing: -1px;
-      text-align: center;
-      padding: 0 12px;
-      line-height: 2rem;
-      cursor: pointer;
-      border-right: $border;
-      color: $c-font;
       &.relation-button {
         flex: 1 1 auto;
       }
-      &:hover {
-        @extend %metal-hover;
-      }
-      &:last-child {
-        border: 0;
-      }
-    }
-    i {
-      font-style: normal;
-    }
-    i::before {
-      font-size: 1.5em;
     }
   }
   &__mod {

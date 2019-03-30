@@ -3,6 +3,7 @@ package templating
 
 import play.twirl.api.Html
 
+import ui.ScalatagsTemplate._
 import lila.user.UserContext
 
 trait StringHelper { self: NumberHelper =>
@@ -30,16 +31,16 @@ trait StringHelper { self: NumberHelper =>
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex = """\s(\d++)$""".r.unanchored
-  def splitNumberUnsafe(s: String)(implicit ctx: UserContext): Html = Html {
+  def splitNumberUnsafe(s: String)(implicit ctx: UserContext): Frag = raw {
     s match {
       case NumberFirstRegex(number, text) =>
-        s"<strong>${(~parseIntOption(number)).localize}</strong><br />$text"
+        s"<strong>${(~parseIntOption(number)).localize}</strong><br>$text"
       case NumberLastRegex(n) if s.length > n.length + 1 =>
-        s"${s.dropRight(n.length + 1)}<br /><strong>${(~parseIntOption(n)).localize}</strong>"
-      case h => h.replaceIf('\n', "<br />")
+        s"${s.dropRight(n.length + 1)}<br><strong>${(~parseIntOption(n)).localize}</strong>"
+      case h => h.replaceIf('\n', "<br>")
     }
   }
-  def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumberUnsafe(s.body)
+  def splitNumber(s: Html)(implicit ctx: UserContext): Frag = splitNumberUnsafe(s.body)
 
   def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
 
