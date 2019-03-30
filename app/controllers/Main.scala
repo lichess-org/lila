@@ -52,12 +52,6 @@ object Main extends LilaController {
     }
   }
 
-  def embed = Action { req =>
-    Ok {
-      s"""document.write('Sorry, embedding <a href="https://lichess.org">lichess.org</a> is now restricted to <a href="https://lichess.org/developers">selected widgets</a>, to prevent <a href="https://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.');"""
-    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
-  }
-
   def developers = Open { implicit ctx =>
     pageHit
     fuccess {
