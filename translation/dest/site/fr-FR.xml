@@ -754,7 +754,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
-  <string name="xCreatesStudyY">%1$s a créé une étude %2$s</string>
+  <string name="xCreatesStudyY">%1$s crée l\'étude %2$s</string>
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
