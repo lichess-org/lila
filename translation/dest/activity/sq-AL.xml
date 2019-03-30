@@ -11,5 +11,13 @@
     <item quantity="one">Përfundove %s lojë me korrespondencë</item>
     <item quantity="other">Përfundove %s lojra me korrespondencë</item>
   </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Morre pjesë në %s kampjonat</item>
+    <item quantity="other">Morre pjesë në %s kampjonate</item>
+  </plurals>
   <string name="signedUp">Regjistruar nër lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Ju bashkove %s skuadre</item>
+    <item quantity="other">Ju bashkove %s skuadrave</item>
+  </plurals>
 </resources>
