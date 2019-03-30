@@ -817,6 +817,7 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
+  <string name="xCreatesStudyY">%1$s utworzył studium %2$s</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
