@@ -785,6 +785,7 @@
   <string name="xHostsY">%1$s saimnieko %2$s</string>
   <string name="xJoinsY">%1$s pievienojas %2$s</string>
   <string name="xLikesY">%1$s patīk %2$s</string>
+  <string name="xCreatesStudyY">%1$s izveido izpēti \"%2$s\"</string>
   <string name="quickPairing">Ātrais pāris</string>
   <string name="lobby">Vestibils</string>
   <string name="anonymous">Anonīms</string>
