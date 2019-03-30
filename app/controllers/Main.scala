@@ -58,19 +58,22 @@ object Main extends LidraughtsController {
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def developers = Open { implicit ctx =>
+  def webmasters = Open { implicit ctx =>
+    pageHit
     fuccess {
-      html.site.developers()
+      html.site.help.webmasters()
     }
   }
 
   def lag = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.lag()
     }
   }
 
   def mobile = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.mobile.home()
     }
