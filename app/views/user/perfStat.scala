@@ -3,6 +3,7 @@ package views.html.user
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.String.html.safeJsonValue
 import lidraughts.rating.PerfType
 import lidraughts.user.User
 
@@ -18,7 +19,6 @@ object perfStat {
     ratingChart: Option[String]
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${u.username} ${perfType.name} stats",
-    side = Some(show.side(u, rankMap.some, perfType.some)),
     robots = false,
     moreJs = frag(
       jsAt("compiled/user.js"),
@@ -29,34 +29,35 @@ object perfStat {
         )
       },
       jsAt(s"compiled/lidraughts.perfStat${isProd ?? (".min")}.js"),
-      embedJs("""$(function() {
-LidraughtsPerfStat(document.getElementById('perfStatContent'), {
-data: @toJsonHtml(data)
+      embedJs(s"""$$(function() {
+LidraughtsPerfStat(document.querySelector('.perf-stat__content'), {
+data: ${safeJsonValue(data)}
 });
 });""")
     ),
-    moreCss = cssTag("user-perf-stat.css")
+    moreCss = responsiveCssTag("perf-stat"),
+    responsive = true
   ) {
-      main(cls := s"page-menu ${perfType.key}", id := "perfStat")(
+      main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(u, rankMap.some, perfType.some)),
-        div(cls := "page-menu__content box")(
+        div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           div(cls := "box__top")(
-            u.perfs(perfType).nb > 0 option a(
-              cls := "button text view_games",
-              dataIcon := perfType.iconChar,
-              href := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
-            )(
-                "View the games"
-              ),
-            bits.perfTrophies(u, rankMap.filterKeys(perfType.key==).some),
             h1(
               a(href := routes.User.show(u.username), dataIcon := "I", cls := "text")(
                 u.username, " ", span(perfType.name, " stats")
               )
+            ),
+            div(
+              bits.perfTrophies(u, rankMap.filterKeys(perfType.key==).some),
+              u.perfs(perfType).nb > 0 option a(
+                cls := "button button-empty text",
+                dataIcon := perfType.iconChar,
+                href := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
+              )("View the games")
             )
           ),
           ratingChart.isDefined option div(cls := "rating_history")(spinner),
-          div(cls := "box__pad", id := "perfStatContent")
+          div(cls := "box__pad perf-stat__content")
         )
       )
     }

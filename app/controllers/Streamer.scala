@@ -46,7 +46,7 @@ object Streamer extends LidraughtsController {
   def create = AuthBody { implicit ctx => me =>
     isGranted(_.Beta) ?? NoLame {
       NoShadowban {
-        api.find(me) flatMap {
+        api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
           case _ => Redirect(routes.Streamer.edit).fuccess
         }

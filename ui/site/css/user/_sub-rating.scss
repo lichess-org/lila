@@ -1,48 +1,55 @@
 .sub-ratings {
   > a {
-    @extend %box-radius-left;
+    @extend %box-radius-left, %flex-center-nowrap;
     color: $c-font;
-    position: relative;
     padding: .7em $block-gap .7em .4em;
     white-space: nowrap;
-    display: block;
     @include transition();
     cursor: default;
     &.empty {
-      opacity: 0.5;
+      opacity: .5;
     }
     &::before {
-      font-size: 40px;
-      float: left;
-      margin: -2px 5px 0 0;
-      opacity: 0.6;
+      font-size: 3em;
+      opacity: .5;
+      margin-right: .2em;
+      @include transition();
     }
     &.game {
       cursor: pointer;
       &:hover {
-        background: #fafafa;
+        background: mix($c-bg-box, $c-bg-page, 50%);
+        &::before {
+          color: $c-link;
+          opacity: .7;
+        }
       }
       &.active {
-        background: #fff;
-        border: 1px solid #ccc;
-        border-right: 0;
-        margin-left: -10px;
+        @extend %box-shadow;
+        background: $c-bg-box;
+        &::before {
+          color: $c-accent;
+          opacity: .7;
+        }
       }
     }
     > span {
-      display: block;
+      flex: 1 1 100%;
+      @extend %flex-column;
     }
-    > i {
-      position: absolute;
-      top: calc(50% - 6px);
-      right: 12px;
-      font-size: 8px;
-      opacity: 0.2;
+    rating span,
+    .rank {
+      font-size: .9em;
     }
-    &:hover > i {
-      opacity: 0.6;
+    i {
+      font-size: .75em;
+      opacity: .2;
     }
-    &.active > i {
+    &:hover i {
+      color: $c-link;
+      opacity: .7;
+    }
+    &.active i {
       display: none;
     }
     .shy {
@@ -52,9 +59,9 @@
     }
   }
   h3 {
-    font-weight: 100;
-    font-size: 1em;
-    letter-spacing: 2px;
+    @extend %roboto;
+    font-size: 1.1em;
+    letter-spacing: .05em;
     margin: 0;
     display: inline-block;
   }
