@@ -10,7 +10,7 @@
   <string name="emailChange_subject">Konfirmo adresën tuaj e-mail. %s</string>
   <string name="emailChange_intro">Ju keni kërkuar të ndryshoni tuaj e-mail.</string>
   <string name="emailChange_click">Për të konfirmuar se ke qasje në këtë email, kliko link më poshtë:</string>
-  <string name="welcome_subject">Mirë se vini në lichess.org, %s</string>
+  <string name="welcome_subject">Mirësevini në lichess.org, %s</string>
   <string name="welcome_text">Ju keni krijuar me sukses accountin tuaj në https://lichess.org.
 
 Këtu është faqja e profilit tënd: %1$s. Ju mund ta personalizoni atë në %2$s.
