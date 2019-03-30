@@ -101,7 +101,7 @@
   <string name="replayMode">Način predvajanja</string>
   <string name="realtimeReplay">Realnočasovno</string>
   <string name="byCPL">Za stotinko kmeta</string>
-  <string name="openStudy">Odpri študijo</string>
+  <string name="openStudy">Odpri študij</string>
   <string name="enable">Omogoči</string>
   <string name="bestMoveArrow">Puščica najboljše poteze</string>
   <string name="evaluationGauge">Kazalnik ocene</string>
@@ -611,7 +611,7 @@
   <string name="privacy">Zasebnost</string>
   <string name="letOtherPlayersFollowYou">Dovolite da vam sledijo</string>
   <string name="letOtherPlayersChallengeYou">Dovolite da vas izzovejo na partijo</string>
-  <string name="letOtherPlayersInviteYouToStudy">Dovoli igralcem, da te povabijo na študijo</string>
+  <string name="letOtherPlayersInviteYouToStudy">Dovoli igralcem, da te povabijo na študij</string>
   <string name="sound">Zvok</string>
   <string name="yourPreferencesHaveBeenSaved">Nastavitve so bile shranjene.</string>
   <string name="none">Brez</string>
@@ -818,6 +818,7 @@ v %3$s</string>
   <string name="xHostsY">%1$s gostuje %2$s</string>
   <string name="xJoinsY">%1$s se pridruži %2$s</string>
   <string name="xLikesY">%1$s všečka %2$s</string>
+  <string name="xCreatesStudyY">%1$s je ustvaril študij %2$s</string>
   <string name="quickPairing">Hitri pari</string>
   <string name="lobby">Dvorana</string>
   <string name="anonymous">Anonimen</string>
