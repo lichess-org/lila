@@ -58,6 +58,7 @@ time {
   font-family: "lidraughts";
   src: url("/assets/font04/fonts/lidraughts.eot");
   src: url("/assets/font04/fonts/lidraughts.eot?#iefix") format("embedded-opentype"), url("/assets/font04/fonts/lidraughts.woff") format("woff"), url("/assets/font04/fonts/lidraughts.ttf") format("truetype");
+  font-display: block;
   font-weight: normal;
   font-style: normal;
 }
