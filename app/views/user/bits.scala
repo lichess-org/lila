@@ -40,20 +40,20 @@ object bits {
     rankMap.ifFalse(u.lame).map { ranks =>
       ranks.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf", title := s"${PerfType.name(perf)} Champion!")(
-            img(src := staticUrl("images/trophy/Big-Gold-Cup.png"), height := 80)
+          span(cls := "trophy perf", title := s"${~PerfType.name(perf)} Champion!")(
+            img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
           )
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf", title := s"${PerfType.name(perf)} Top 10!")(
-            img(src := staticUrl("images/trophy/Big-Silver-Cup.png"), height := 80)
+          span(cls := "trophy perf", title := s"${~PerfType.name(perf)} Top 10!")(
+            img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
           )
         case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf", title := s"${PerfType.name(perf)} Top 50 player!")(
-            img(src := staticUrl("images/trophy/Fancy-Gold.png"), height := 80)
+          span(cls := "trophy perf", title := s"${~PerfType.name(perf)} Top 50 player!")(
+            img(src := staticUrl("images/trophy/Fancy-Gold.png"))
           )
         case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${PerfType.name(perf)} Top 100 player!")(
-            img(src := staticUrl("images/trophy/Gold-Cup.png"), height := 80)
+          span(cls := "trophy perf", title := s"${~PerfType.name(perf)} Top 100 player!")(
+            img(src := staticUrl("images/trophy/Gold-Cup.png"))
           )
       }
     }

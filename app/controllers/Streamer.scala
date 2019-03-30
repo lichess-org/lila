@@ -47,7 +47,7 @@ object Streamer extends LilaController {
   def create = AuthBody { implicit ctx => me =>
     NoLame {
       NoShadowban {
-        api.find(me) flatMap {
+        api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
           case _ => Redirect(routes.Streamer.edit).fuccess
         }

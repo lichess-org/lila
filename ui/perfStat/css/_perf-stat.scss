@@ -1,0 +1,116 @@
+.perf-stat {
+  padding-bottom: 2em;
+  .box__top div {
+    @extend %flex-center;
+  }
+  h1 {
+    font-size: 2.4em;
+    a::before {
+      font-size: .9em;
+      line-height: 1.3;
+    }
+    span {
+      color: $c-font-dim;
+    }
+  }
+  .trophy {
+    margin-top: -4em;
+    img {
+      height: 8em;
+    }
+  }
+  h2 {
+    font-size: 2.1em;
+    .details {
+      opacity: .8;
+    }
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+  time {
+    display: inline;
+  }
+  green {
+    color: $c-good;
+  }
+  red {
+    color: $c-bad;
+  }
+  &__content [title] {
+    border-bottom: 1px dashed $c-link;
+    cursor: help;
+  }
+  section {
+    margin-top: 4em;
+  }
+  .half {
+    width: calc(50% - 3em);
+    display: inline-block;
+    &:first-child {
+      margin-right: 3em;
+    }
+  }
+  table {
+    width: 100%;
+  }
+  .glicko h2 {
+    margin-bottom: 1em;
+  }
+  .counter th {
+    text-indent: 1.5em;
+  }
+  .counter td {
+    text-align: right;
+    padding: .8em 1.2em;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .counter tr.full td:last-child {
+    background: $c-bg-zebra;
+  }
+  .counter tr:first-child {
+    border-bottom: $border;
+  }
+  .highlow a,
+  .highlow span {
+    text-indent: 20px;
+    display: inline-block;
+  }
+  .result th,
+  .result td {
+    padding: .8em 0;
+  }
+  .result td:first-child {
+    text-indent: 20px;
+    white-space: nowrap;
+  }
+  .result td:last-child {
+    text-align: right;
+  }
+  .result thead tr {
+    border-bottom: $border;
+  }
+  .resultStreak .streak,
+  .playStreak .streak {
+    margin: 1em 0 1em 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .playStreak {
+    white-space: nowrap;
+  }
+
+  .rating_history {
+    left: -10px;
+    display: block;
+    width: 100%;
+    height: 340px;
+  }
+  .rating_history .spinner {
+    width: 90px;
+    height: 90px;
+    margin: 120px auto 0 auto;
+  }
+}
