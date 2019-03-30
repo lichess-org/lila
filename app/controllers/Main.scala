@@ -52,12 +52,6 @@ object Main extends LidraughtsController {
     }
   }
 
-  def embed = Action { req =>
-    Ok {
-      s"""document.write('Sorry, embedding <a href="https://lidraughts.org">lidraughts.org</a> is now restricted, to prevent <a href="https://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.');"""
-    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
-  }
-
   def developers = Open { implicit ctx =>
     pageHit
     fuccess {
