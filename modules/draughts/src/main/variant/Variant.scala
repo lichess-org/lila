@@ -46,36 +46,25 @@ abstract class Variant(
         actor.pos -> actor.captures
     }(breakOut)
 
+  @inline
+  def captureValue(board: Board, taken: List[Pos]) = taken.length
+  @inline
+  def captureValue(board: Board, taken: Pos) = 1
+
   def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
 
-    var bestLength = 0
-    var bestValue = 0f
+    var bestLineValue = 0
     var captureMap = Map[Pos, List[Move]]()
     var captureKing = false
     for (actor <- situation.actors) {
       val capts = if (finalSquare) actor.capturesFinal else actor.captures
       if (capts.nonEmpty) {
-        if (frisianVariant) {
-          val lineValue = capts.head.frisianValue
-          if (lineValue > bestValue) {
-            bestValue = lineValue
-            captureMap = Map(actor.pos -> capts)
-            captureKing = actor.piece.role == King
-          } else if ((lineValue - bestValue).abs < 0.001) {
-            if (!captureKing && (actor.piece is King)) {
-              captureMap = Map(actor.pos -> capts)
-              captureKing = true
-            } else if (captureKing == (actor.piece is King))
-              captureMap = captureMap + (actor.pos -> capts)
-          }
-        } else {
-          val lineLength = capts.head.capture.fold(0)(_.length)
-          if (lineLength > bestLength) {
-            bestLength = lineLength
-            captureMap = Map(actor.pos -> capts)
-          } else if (lineLength == bestLength)
-            captureMap = captureMap + (actor.pos -> capts)
-        }
+        val lineValue = capts.head.taken.fold(0)(captureValue(situation.board, _))
+        if (lineValue > bestLineValue) {
+          bestLineValue = lineValue
+          captureMap = Map(actor.pos -> capts)
+        } else if (lineValue == bestLineValue)
+          captureMap = captureMap + (actor.pos -> capts)
       }
     }
 
@@ -207,6 +196,11 @@ abstract class Variant(
   lazy val rolesByPdn: Map[Char, Role] = roles.map { r => (r.pdn, r) }(breakOut)
 
   def isUnmovedPawn(color: Color, pos: Pos) = pos.y == color.fold(2, 7)
+
+  val captureDirs: Directions = List((Actor.UpLeft, _.moveUpLeft), (Actor.UpRight, _.moveUpRight), (Actor.DownLeft, _.moveDownLeft), (Actor.DownRight, _.moveDownRight))
+
+  val moveDirsColor: Map[Color, Directions] = Map(White -> List((Actor.UpLeft, _.moveUpLeft), (Actor.UpRight, _.moveUpRight)), Black -> List((Actor.DownLeft, _.moveDownLeft), (Actor.DownRight, _.moveDownRight)))
+  val moveDirsAll: Directions = moveDirsColor(White) ::: moveDirsColor(Black)
 
   override def toString = s"Variant($name)"
 }

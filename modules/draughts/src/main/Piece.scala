@@ -15,7 +15,13 @@ case class Piece(color: Color, role: Role) {
 
   def forsyth: Char = role.forsyth
 
-  def ghostRole(): Role = if (role == Man) GhostMan else GhostKing
+  def ghostRole =
+    if (isGhost)
+      role
+    else if (role == Man)
+      GhostMan
+    else
+      GhostKing
 
   override def toString = (color + "-" + role).toLowerCase
 }

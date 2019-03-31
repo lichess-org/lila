@@ -1,6 +1,8 @@
 package draughts
 package variant
 
+import scala.collection.breakOut
+
 case object Frisian extends Variant(
   id = 10,
   gameType = 40,
@@ -12,6 +14,54 @@ case object Frisian extends Variant(
 ) {
 
   def pieces = Standard.pieces
+
+  override val captureDirs: Directions = List((Actor.UpLeft, _.moveUpLeft), (Actor.UpRight, _.moveUpRight), (Actor.Up, _.moveUp), (Actor.DownLeft, _.moveDownLeft), (Actor.DownRight, _.moveDownRight), (Actor.Down, _.moveDown), (Actor.Left, _.moveLeft), (Actor.Right, _.moveRight))
+
+  @inline
+  override def captureValue(board: Board, taken: List[Pos]) = taken.foldLeft(0) {
+    (t, p) => t + captureValue(board, p)
+  }
+
+  @inline
+  override def captureValue(board: Board, taken: Pos) =
+    board(taken) match {
+      case Some(piece) if piece.role == King => 199
+      case Some(piece) if piece.role == Man => 100
+      case _ => 0
+    }
+
+  override def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
+
+    var bestLineValue = 0
+    var captureMap = Map[Pos, List[Move]]()
+    var captureKing = false
+    for (actor <- situation.actors) {
+      val capts = if (finalSquare) actor.capturesFinal else actor.captures
+      if (capts.nonEmpty) {
+        val lineValue = capts.head.taken.fold(0)(captureValue(situation.board, _))
+        if (lineValue > bestLineValue) {
+          bestLineValue = lineValue
+          captureMap = Map(actor.pos -> capts)
+          captureKing = actor.piece.role == King
+        } else if (lineValue == bestLineValue) {
+          if (!captureKing && (actor.piece is King)) {
+            captureMap = Map(actor.pos -> capts)
+            captureKing = true
+          } else if (captureKing == (actor.piece is King))
+            captureMap = captureMap + (actor.pos -> capts)
+        }
+      }
+    }
+
+    if (captureMap.nonEmpty)
+      captureMap
+    else
+      situation.actors.collect {
+        case actor if actor.noncaptures.nonEmpty =>
+          actor.pos -> actor.noncaptures
+      }(breakOut)
+
+  }
 
   override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = {
     if (remainingCaptures > 0)

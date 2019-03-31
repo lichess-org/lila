@@ -88,7 +88,7 @@ case class Board(
     piece ← pieces get orig
     if (pieces contains taking)
     taken ← pieces get taking
-  } yield copy(pieces = pieces - taking - orig + (dest -> piece) + (taking -> Piece(taken.color, taken.ghostRole())))
+  } yield copy(pieces = pieces - taking - orig + (dest -> piece) + (taking -> Piece(taken.color, taken.ghostRole)))
 
   def move(orig: Pos) = new {
     def to(dest: Pos): Valid[Board] = {

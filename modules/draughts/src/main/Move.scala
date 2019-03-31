@@ -75,18 +75,4 @@ case class Move(
 
   override def toString = s"$piece ${toUci.uci}"
 
-  def frisianValue = taken.fold(0f)(takes => {
-    var sum = 0f
-    var i = 0
-    while (i < takes.length) {
-      before(takes(i)) match {
-        case Some(p) if p.role == King => sum += 1.99f
-        case Some(p) if p.role == Man => sum += 1.0f
-        case _ =>
-      }
-      i += 1
-    }
-    sum
-  })
-
 }
