@@ -311,7 +311,7 @@
     <item quantity="many">%s punktów turniejowych</item>
     <item quantity="other">%s punktów turniejowych</item>
   </plurals>
-  <string name="viewTournament">Do turnieju</string>
+  <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
   <plurals name="moreThanNbRatedGames">
@@ -469,7 +469,7 @@
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="viewMoreTournaments">Zobacz więcej turniejów</string>
   <string name="averageOpponent">Przeciwnik średnio</string>
-  <string name="membersOnly">Tylko członkowie</string>
+  <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
@@ -502,7 +502,7 @@
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toTrackYourProgress">Śledź swoje postępy:</string>
-  <string name="trainingSignupExplanation">Lichess będzie proponował zadania dostosowane do twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
+  <string name="trainingSignupExplanation">Lichess będzie proponował zadania dostosowane do Twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby rozwiązać</string>
@@ -800,7 +800,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
-  <string name="phoneAndTablet">Telefon i tablet</string>
+  <string name="phoneAndTablet">Dostęp z telefonu i tabletu</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
@@ -914,7 +914,7 @@
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">i zapisz %s wariant warunkowy</item>
+    <item quantity="one">i zapisz wariant warunkowy</item>
     <item quantity="few">i zapisz warianty warunkowe</item>
     <item quantity="many">i zapisz warianty warunkowe</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
