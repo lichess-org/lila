@@ -78,15 +78,15 @@
   <string name="combatComplete">Вітаємо! Тепер ви знаєте, як боротися з шаховими фігурами!</string>
   <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атака на короля</string>
-  <string name="checkInOneIntro">Щоб оголосити шах, нападайте на короля супротивника. Він має буде захищатися!</string>
+  <string name="checkInOneIntro">Щоб оголосити шах, нападайте на короля супротивника. Він має захищатися!</string>
   <string name="checkInOneGoal">Нападіть на короля суперника
 за один хід!</string>
-  <string name="checkInOneComplete">Вітаємо! Ви поставили шах свого суперника, змусивши захищати свого короля!</string>
+  <string name="checkInOneComplete">Вітаємо! Ви поставили шах своєму супернику, змусивши захищати свого короля!</string>
   <string name="outOfCheck">Відхід з-під шаха</string>
   <string name="defendYourKing">Захистіть свого короля</string>
-  <string name="outOfCheckIntro">Вам шах! Ви маєте йти або блокувати атаку.</string>
+  <string name="outOfCheckIntro">Вам шах! Ви маєте рятуватись або блокувати атаку.</string>
   <string name="escapeWithTheKing">Втеча королем!</string>
-  <string name="theKingCannotEscapeButBlock">Король не може піти, але ви можете блокувати атаку!</string>
+  <string name="theKingCannotEscapeButBlock">Король не може врятуватись, але ви можете блокувати атаку!</string>
   <string name="youCanGetOutOfCheckByTaking">Ви можете піти від шаха,
 з\'ївши атакуючу фігуру.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Цей кінь ставить шах,
@@ -102,7 +102,7 @@
   <string name="intermediate">Проміжний етап</string>
   <string name="boardSetup">Позиція на дошці</string>
   <string name="howTheGameStarts">Початок шахової партії</string>
-  <string name="boardSetupIntro">Обидві армії б\'ються одна з однією, готові до битви.</string>
+  <string name="boardSetupIntro">Обидві армії стикаються одна з одною, готові до битви.</string>
   <string name="thisIsTheInitialPosition">Це - початкова позиція у шахах! Зробіть будь-який хід, щоб продовжити.</string>
   <string name="firstPlaceTheRooks">Спочатку розставте тури!
 Вони знаходяться по кутах.</string>
