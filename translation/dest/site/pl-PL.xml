@@ -432,8 +432,8 @@
   <string name="blackWins">Wygrana czarnych</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Następny turniej %s:</string>
-  <string name="viewMoreTournaments">Pokaż inne turnieje</string>
-  <string name="averageOpponent">Średni ranking przeciwnika</string>
+  <string name="viewMoreTournaments">Zobacz więcej turniejów</string>
+  <string name="averageOpponent">Przeciwnik średnio</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="popularOpenings">Popularne otwarcia</string>
@@ -464,8 +464,8 @@
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
-  <string name="toTrackYourProgress">Zarejestruj się aby śledzić swoje postępy</string>
-  <string name="trainingSignupExplanation">Lidraughts będzie dodawał zadania dostosowane do twoich umiejętności.</string>
+  <string name="toTrackYourProgress">Śledź swoje postępy:</string>
+  <string name="trainingSignupExplanation">Lidraughts będzie proponował zadania dostosowane do Twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby rozwiązać</string>
@@ -732,9 +732,10 @@
   <string name="asFreeAsLidraughts">Darmowa jak całe lidraughts</string>
   <string name="everybodyGetsAllFeaturesForFree">Pełna funkcjonalność za darmo dla wszystkich</string>
   <string name="zeroAdvertisement">Brak reklam</string>
-  <string name="fullFeatured">Pełna możliwości</string>
+  <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Dostęp z telefonu i tabletu</string>
-  <string name="onlineAndOfflinePlay">Graj offline i online</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
+  <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
   <string name="followAndChallengeFriends">Obserwuj i rzucaj wyzwania znajomym</string>
