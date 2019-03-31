@@ -106,15 +106,15 @@ src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
       a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
       a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
       a(cls := active.activeO("contact"), href := routes.Page.contact)(trans.contact()),
-      br,
+      div(cls := "sep"),
       a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
       a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
-      br,
+      div(cls := "sep"),
       a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
       /*a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="&quot;"></i>""")),
       a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="&quot;"></i>""")),*/
       a(cls := active.activeO("source"), href := "https://github.com/RoepStoep/lidraughts")("Source code", raw(""" <i data-icon="&quot;"></i>""")),
-      br,
+      div(cls := "sep"),
       a(cls := active.activeO("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
     ))
   )(body)
