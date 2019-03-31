@@ -39,7 +39,7 @@ case class Board(
     Color.Map(w, b)
   }
 
-  lazy val ghosts = pieces.values.count(p => p.role == GhostKing || p.role == GhostMan)
+  lazy val ghosts = pieces.values.count(_.isGhost)
 
   def roleCount(r: Role): Int = pieces.values.count(_.role == r)
 
@@ -74,9 +74,9 @@ case class Board(
     copy(pieces = pieces - at)
   }
 
-  def withoutGhosts(): Board = copy(pieces = pieces.filterValues(pc => {
-    (pc.role != GhostMan) && (pc.role != GhostKing)
-  }))
+  def withoutGhosts = copy(
+    pieces = pieces.filterValues(!_.isGhost)
+  )
 
   def move(orig: Pos, dest: Pos): Option[Board] =
     if (pieces contains dest) None

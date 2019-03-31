@@ -178,7 +178,7 @@ abstract class Variant(
     if (remainingCaptures > 0)
       board
     else
-      board.withoutGhosts()
+      board.withoutGhosts
   }
 
   protected def menOnPromotionRank(board: Board, color: Color) = {

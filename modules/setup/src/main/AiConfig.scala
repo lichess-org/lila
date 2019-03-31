@@ -26,7 +26,7 @@ case class AiConfig(
       makeDaysPerTurn
     )
     Game.make(
-      draughts = draughtsGame,
+      draughts = draughtsGame.copy(situation = draughtsGame.situation.withoutGhosts),
       whitePlayer = creatorColor.fold(
         Player.make(draughts.White, user, perfPicker),
         Player.make(draughts.White, level.some)

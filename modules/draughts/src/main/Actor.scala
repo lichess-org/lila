@@ -67,7 +67,7 @@ case class Actor(
       walkDir._2(curPos).fold() {
         nextPos =>
           curBoard(nextPos) match {
-            case Some(captPiece) if (captPiece isNot color) && (captPiece isNot GhostMan) && (captPiece isNot GhostKing) =>
+            case Some(captPiece) if (captPiece isNot color) && !captPiece.isGhost =>
               walkDir._2(nextPos) match {
                 case Some(landingPos) if curBoard(landingPos).isEmpty =>
                   curBoard.taking(curPos, landingPos, nextPos).fold() {
@@ -77,7 +77,7 @@ case class Actor(
                         val newTaken = nextPos :: allTaken
                         val newMove =
                           if (finalSquare)
-                            move(landingPos, boardAfter.withoutGhosts(), newSquares, newTaken)
+                            move(landingPos, boardAfter.withoutGhosts, newSquares, newTaken)
                           else
                             move(destPos.getOrElse(landingPos), destBoard.getOrElse(boardAfter), newSquares, newTaken)
                         if (board.variant.frisianVariant) {
@@ -159,7 +159,7 @@ case class Actor(
                 boardAfter =>
                   walkUntilCapture(walkDir, boardAfter, nextPos, destPos, destBoard, allSquares, allTaken)
               }
-            case Some(captPiece) if (captPiece isNot color) && (captPiece isNot GhostMan) && (captPiece isNot GhostKing) =>
+            case Some(captPiece) if (captPiece isNot color) && !captPiece.isGhost =>
               walkDir._2(nextPos) match {
                 case Some(landingPos) if curBoard(landingPos).isEmpty =>
                   curBoard.taking(curPos, landingPos, nextPos).fold() {
@@ -176,7 +176,7 @@ case class Actor(
       val newSquares = curPos :: allSquares
       val newMove =
         if (finalSquare)
-          move(curPos, curBoard.withoutGhosts(), newSquares, allTaken)
+          move(curPos, curBoard.withoutGhosts, newSquares, allTaken)
         else
           move(destPos.getOrElse(curPos), destBoard.getOrElse(curBoard), newSquares, allTaken)
       if (board.variant.frisianVariant) {

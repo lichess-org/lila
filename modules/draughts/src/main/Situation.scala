@@ -92,6 +92,10 @@ case class Situation(board: Board, color: Color) {
     board = board withVariant variant
   )
 
+  def withoutGhosts = copy(
+    board = board.withoutGhosts
+  )
+
   def unary_! = copy(color = !color)
 }
 

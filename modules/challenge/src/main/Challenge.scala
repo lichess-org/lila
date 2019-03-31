@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import lidraughts.game.PerfPicker
 import lidraughts.rating.PerfType
 import lidraughts.user.User
+import draughts.format.Forsyth
 
 case class Challenge(
     _id: String,
@@ -151,7 +152,7 @@ object Challenge {
       status = Status.Created,
       variant = variant,
       initialFen = (variant == FromPosition).fold(
-        initialFen,
+        initialFen.flatMap(fen => Forsyth << fen).map(sit => Forsyth >> sit.withoutGhosts),
         Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
       ),
       timeControl = timeControl,
