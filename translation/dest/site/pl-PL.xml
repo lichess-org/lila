@@ -563,8 +563,8 @@
   <string name="takebacksWithOpponentApproval">Cofnięcie ruchu (za zgodą przeciwnika)</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="privacy">Prywatność</string>
-  <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
-  <string name="letOtherPlayersChallengeYou">Inni gracze mogą rzucić Ci wyzwanie</string>
+  <string name="letOtherPlayersFollowYou">Zezwól na obserwowanie przez innych graczy</string>
+  <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
   <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do studium</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
