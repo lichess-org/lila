@@ -35,7 +35,7 @@ object help {
       title = "Webmasters",
       active = "webmasters"
     )(frag(
-      div(cls := "content_box small_box developers")(
+      div(cls := "box box-pad developers")(
         h1(id := "embed-tv", cls := "lichess_title")("Embed Lichess TV in your site"),
         raw("""<script src="/tv/embed?theme=wood&bg=light"></script>"""),
         p("Just add the following HTML to your site:"),
@@ -43,7 +43,7 @@ object help {
         parameters
       ),
       br,
-      div(cls := "content_box small_box developers")(
+      div(cls := "box box-pad developers")(
         h1(id := "embed-puzzle", cls := "lichess_title")("Embed the daily puzzle in your site"),
         raw("""<script src="/training/embed?theme=auto&bg=auto"></script>"""),
         p("Just add the following HTML to your site:"),
@@ -52,7 +52,7 @@ object help {
         p("The text is automatically translated to your visitor's language.")
       ),
       br,
-      div(cls := "content_box small_box developers")(
+      div(cls := "box box-pad developers")(
         h1("Embed a chess analysis in your site"),
         raw("""<iframe width=530 height=353 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
         p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), "then click the share button to get the HTML code for the current chapter."),
@@ -63,7 +63,7 @@ src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
         p("The text is automatically translated to your visitor's language.")
       ),
       br,
-      div(cls := "content_box small_box developers")(
+      div(cls := "box box-pad developers")(
         h1("Embed a chess game in your site"),
         raw("""<iframe width=530 height=353 src="https://lichess.org/embed/MPJcy1JW?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
         p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite(), "\".")),
@@ -74,12 +74,12 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
         p("The text is automatically translated to your visitor's language.")
       ),
       br,
-      div(cls := "content_box small_box developers")(
+      div(cls := "box box-pad developers")(
         h1("HTTP API"),
         p(raw("""Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""))
       ),
       br,
-      div(cls := "content_box small_box developers")(
+      div(cls := "box box-pad developers")(
         h1(id := "widgets", cls := "lichess_title")("Lichess Widgets"),
         p("Let your website/blog visitors know that you're playing on lichess!"),
         p(raw("""See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""))
