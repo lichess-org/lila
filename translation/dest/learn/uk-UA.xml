@@ -190,7 +190,7 @@
   <string name="awesome">Чудово!</string>
   <string name="excellent">Прекрасно!</string>
   <string name="greatJob">Відмінна робота!</string>
-  <string name="perfect">Відмінно!</string>
+  <string name="perfect">Ідеально!</string>
   <string name="outstanding">Добряче!</string>
   <string name="wayToGo">Вперед!</string>
   <string name="yesYesYes">Так, так, так!</string>
@@ -201,6 +201,6 @@
   <string name="yourScore">Ваш результат</string>
   <string name="next">Далі</string>
   <string name="backToMenu">Повернутися до меню</string>
-  <string name="puzzleFailed">Завдання не вирішено!</string>
+  <string name="puzzleFailed">Задачу не вирішено!</string>
   <string name="retry">Ще раз</string>
 </resources>
