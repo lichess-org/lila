@@ -16,9 +16,9 @@ object help {
     layout(
       title = title,
       active = active,
-      moreCss = cssTag("page.css")
-    )(div(cls := "page-small box box-pad page")(
-        h1(cls := "lidraughts_title")(title),
+      moreCss = responsiveCssTag("page")
+    )(main(cls := "page-small box box-pad page")(
+        h1(title),
         div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
       ))
   }
@@ -36,7 +36,7 @@ object help {
       active = "webmasters"
     )(frag(
       div(cls := "box box-pad developers")(
-        h1(id := "embed-tv", cls := "lidraughts_title")("Embed Lidraughts TV in your site"),
+        h1(id := "embed-tv")("Embed Lidraughts TV in your site"),
         raw(s"""<script src="$netBaseUrl/tv/embed?theme=wood&bg=light"></script>"""),
         p("Just add the following HTML to your site:"),
         pre(s"""<script src="$netBaseUrl/tv/embed?theme=auto&bg=auto"></script>"""),
@@ -44,7 +44,7 @@ object help {
       ),
       br,
       div(cls := "box box-pad developers")(
-        h1(id := "embed-puzzle", cls := "lidraughts_title")("Embed the daily puzzle in your site"),
+        h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
         raw("""<script src="/training/embed?theme=auto&bg=auto"></script>"""),
         p("Just add the following HTML to your site:"),
         pre(s"""<script src="$netBaseUrl/training/embed?theme=auto&bg=auto"></script>"""),
@@ -77,7 +77,7 @@ src="$netBaseUrl/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto"
       div(cls := "box box-pad developers")(
         h1("Embed a draughts game in your site"),
         raw(s"""<iframe width=530 height=353 src="$netBaseUrl/embed/JLuuVBv5?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite(), "\".")),
+        p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
         pre(s"""<iframe width="600" height="397" frameborder="0"
 src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
 ></iframe>"""),
@@ -101,21 +101,28 @@ src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
     title = title,
     moreCss = moreCss,
     moreJs = moreJs,
-    menu = Some(frag(
-      a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lidraughts.org")),
-      a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
-      a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
-      a(cls := active.activeO("contact"), href := routes.Page.contact)(trans.contact()),
-      div(cls := "sep"),
-      a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
-      a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
-      div(cls := "sep"),
-      a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-      /*a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="&quot;"></i>""")),
-      a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="&quot;"></i>""")),*/
-      a(cls := active.activeO("source"), href := "https://github.com/RoepStoep/lidraughts")("Source code", raw(""" <i data-icon="&quot;"></i>""")),
-      div(cls := "sep"),
-      a(cls := active.activeO("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
-    ))
-  )(body)
+    responsive = true
+  ) {
+    val sep = div(cls := "sep")
+    val external = frag(" ", i(dataIcon := "0"))
+    main(cls := "page-menu")(
+      st.nav(cls := "page-menu__menu subnav")(
+        a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lidraughts.org")),
+        a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
+        a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
+        a(cls := active.activeO("contact"), href := routes.Page.contact)(trans.contact()),
+        sep,
+        a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
+        a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
+        sep,
+        a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
+        /*a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), external),
+        a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", external),*/
+        a(cls := active.activeO("source"), href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode(), external),
+        sep,
+        a(cls := active.activeO("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
+      ),
+      div(cls := "page-menu__content")(body)
+    )
+  }
 }
