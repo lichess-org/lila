@@ -20,8 +20,8 @@
   <string name="black">Чорні</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
-  <string name="whiteIsVictorious">Білі перемогли</string>
-  <string name="blackIsVictorious">Чорні перемогли</string>
+  <string name="whiteIsVictorious">Перемога білих</string>
+  <string name="blackIsVictorious">Перемога чорних</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
