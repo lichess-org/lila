@@ -1,6 +1,7 @@
 package lidraughts.round
 
-import lidraughts.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
+import draughts.format.Forsyth
+import lidraughts.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lidraughts.pref.{ Pref, PrefApi }
 
 private[round] final class Takebacker(
@@ -78,12 +79,25 @@ private[round] final class Takebacker(
         }
     }
 
-  private def rewindPly(game: Game, fen: Option[String], initialPly: Int, takeBacker: draughts.Color, targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] =
-    if (prog.game.turns + (prog.game.situation.ghosts > 0).fold(1, 0) <= targetPly)
-      fuccess { uciMemo.drop(game, rewinds) } flatMap { _ => saveAndNotify(prog) }
+  private def rewindPly(game: Game, fen: Option[String], initialPly: Int, takeBacker: draughts.Color, targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] = {
+    if (rewinds > 10) {
+      logger.info(s"rewindPly $rewinds - initialPly: $initialPly, takeBacker: $takeBacker, targetPly: $targetPly, fen: $fen")
+      logger.info(s"rewindPly $rewinds - turns: ${prog.game.turns}, ghosts: ${prog.game.situation.ghosts}")
+      logger.info(s"rewindPly $rewinds - fen: ${Forsyth >> prog.game.situation}, prog: $prog")
+    }
+    if (rewinds > 20) {
+      logger.info(s"rewindPly Infinite rewinds - fen: ${Forsyth >> game.situation}, game $game")
+      fuccess {
+        uciMemo.drop(game, rewinds)
+      } flatMap { _ => saveAndNotify(prog) }
+    } else if (prog.game.turns + (prog.game.situation.ghosts > 0).fold(1, 0) <= targetPly)
+      fuccess {
+        uciMemo.drop(game, rewinds)
+      } flatMap { _ => saveAndNotify(prog) }
     else Rewind(prog.game, fen, initialPly, takeBacker, initialPly == targetPly).future map { progress =>
       prog withGame progress.game
     } flatMap { progn => rewindPly(game, fen, initialPly, takeBacker, targetPly, progn, rewinds + 1) }
+  }
 
   private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] = {
     val p2 = p1 + Event.Reload
