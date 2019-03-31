@@ -28,29 +28,29 @@
   <string name="queenComplete">Вітаємо! Ви навчилися ходити ферзем.</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Найважливіша фігура</string>
-  <string name="kingIntro">Ви - король. Якщо ви загинете в битві - гру програно.</string>
+  <string name="kingIntro">Ви - король. Якщо ви загинете в битві - гра програна.</string>
   <string name="theKingIsSlow">Король повільно пересувається.</string>
   <string name="lastOne">І останній!</string>
   <string name="kingComplete">Ви навчилися ходити королем!</string>
   <string name="theKnight">Кінь</string>
   <string name="itMovesInAnLShape">Він ходить літерою «Г»</string>
-  <string name="knightIntro">Ось вам завдання. Кінь — хитра фігура.</string>
+  <string name="knightIntro">Ось вам виклик. Кінь... хитра фігура.</string>
   <string name="knightsHaveAFancyWay">Коні мають химерний спосіб перестрибувати!</string>
   <string name="knightsCanJumpOverObstacles">Коні можуть стрибати через перешкоди!
-Виберетеся й зберіть всі зірки!</string>
+Виберіться та зберіть всі зірки!</string>
   <string name="knightComplete">Вітаємо! Ви освоїли фігуру \"Кінь\".</string>
   <string name="thePawn">Пішак</string>
-  <string name="itMovesForwardOnly">Ходить тільки вперед</string>
-  <string name="pawnIntro">Пішаки слабкі, але в них багато потенціалу.</string>
+  <string name="itMovesForwardOnly">Ходить лише вперед</string>
+  <string name="pawnIntro">Пішаки слабкі, але мають великий потенціал.</string>
   <string name="pawnsMoveOneSquareOnly">Пішаки ходять тільки на одну клітинку вперед. Але досягнувши іншого кінця дошки, вони перетворюються на сильну фігуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У більшості випадку пішака краще перетворити на ферзя. Але іноді перетворення в коня може бути вигідніше!</string>
   <string name="pawnsMoveForward">Пішаки рухаються вперед, але б\'ють по діагоналях!</string>
-  <string name="captureThenPromote">Побийте, потім перетворитеся!</string>
-  <string name="useAllThePawns">Використовуйте всі пішаки!
+  <string name="captureThenPromote">Побийте, потім перетворіться!</string>
+  <string name="useAllThePawns">Використовуйте всіх пішаків!
 Необов\'язково їх перетворювати.</string>
   <string name="aPawnOnTheSecondRank">Пішак на другому ряду може ходити на два поля за хід!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Зберіть всі зірки!
-Необов\'язково перетворювати пішаки.</string>
+Необов\'язково перетворювати пішаків.</string>
   <string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
   <string name="pawnPromotion">Перетворення пішака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пішак досяг краю дошки!</string>
@@ -66,11 +66,11 @@
   <string name="protection">Захист</string>
   <string name="keepYourPiecesSafe">Захищайте ваші фігури</string>
   <string name="protectionIntro">Визначте, які ваші фігури атакує противник, і захистіть їх!</string>
-  <string name="protectionComplete">Вітаємо! Фігура, яку ви не програли, це ваша перемога!</string>
+  <string name="protectionComplete">Вітаємо! Фігура, яку ви не втратили, це виграна фігура!</string>
   <string name="escape">Вас атакують! Усуньте загрозу!</string>
   <string name="noEscape">Це не вихід,
 Але ви можете захистити!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволяйте їм їсти
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозвольте їм з\'їсти
 будь-яку незахищену фігуру!</string>
   <string name="combat">Битва</string>
   <string name="captureAndDefendPieces">Взяття та захист фігур</string>
