@@ -5,10 +5,10 @@ import draughts.opening._
 import draughts.variant.Variant
 import play.api.libs.json._
 import scalaz.Validation.FlatMap._
-import lidraughts.tree.Branch
+import lidraughts.tree.{ Branch, Node }
 
 trait AnaAny {
-  def branch: Valid[Branch]
+  def branch(puzzle: Boolean): Valid[Branch]
   def json(b: Branch, applyAmbiguity: Int = 0): JsObject
   def chapterId: Option[String]
   def path: String
@@ -24,7 +24,7 @@ case class AnaMove(
     promotion: Option[draughts.PromotableRole]
 ) extends AnaAny {
 
-  def branch: Valid[Branch] = {
+  def branch(puzzle: Boolean): Valid[Branch] = {
     val oldGame = draughts.DraughtsGame(variant.some, fen.some)
     oldGame(orig, dest, promotion) flatMap {
       case (game, move) => {
@@ -34,6 +34,15 @@ case class AnaMove(
           val fen = draughts.format.Forsyth >> game
           val destinations = if (game.situation.ghosts > 0) Map(dest -> game.situation.destinationsFrom(dest)) else game.situation.allDestinations
           val captLen = if (game.situation.ghosts > 0) game.situation.captureLengthFrom(dest) else game.situation.allMovesCaptureLength
+          val alts =
+            if (puzzle && game.situation.ghosts == 0 && captLen.getOrElse(0) > 2)
+              game.situation.validMovesFinal.values.toList.flatMap(_.map { m =>
+                Node.Alternative(
+                  uci = m.toUci.uci,
+                  fen = draughts.format.Forsyth.exportBoard(m.after)
+                )
+              }).take(100).some
+            else none
           Branch(
             id = UciCharPair(uci),
             ply = game.turns,
@@ -44,7 +53,8 @@ case class AnaMove(
             opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
               FullOpeningDB findByFen fen
             },
-            drops = movable.fold(game.situation.drops, Some(Nil))
+            drops = movable.fold(game.situation.drops, Some(Nil)),
+            alternatives = alts
           )
         }
       }

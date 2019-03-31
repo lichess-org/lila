@@ -15,6 +15,7 @@ sealed trait Node {
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
   def captureLength: Option[Int]
+  def alternatives: Option[List[Node.Alternative]]
   def drops: Option[List[Pos]]
   def eval: Option[Eval]
   def shapes: Node.Shapes
@@ -45,6 +46,7 @@ case class Root(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     captureLength: Option[Int] = None,
+    alternatives: Option[List[Node.Alternative]] = None,
     drops: Option[List[Pos]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
@@ -77,6 +79,7 @@ case class Branch(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     captureLength: Option[Int] = None,
+    alternatives: Option[List[Node.Alternative]] = None,
     drops: Option[List[Pos]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
@@ -117,6 +120,8 @@ object Node {
   object Shapes {
     val empty = Shapes(Nil)
   }
+
+  case class Alternative(uci: String, fen: String)
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author) {
     def removeMeta = text.removeMeta map { t =>
@@ -227,6 +232,8 @@ object Node {
   implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
+  implicit val alternativeWriter = Json.writes[Node.Alternative]
+
   @inline implicit def toPimpedJsObject(jo: JsObject) = new lidraughts.base.PimpedJsObject(jo)
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
@@ -257,6 +264,7 @@ object Node {
         .add("drops", drops.map { drops =>
           JsString(drops.map(_.key).mkString)
         })
+        .add("alternatives", alternatives)
         .add("clock", clock)
         .add("comp", comp)
         .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)

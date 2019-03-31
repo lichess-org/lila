@@ -12,6 +12,7 @@ case class Situation(board: Board, color: Color) {
   lazy val ghosts = board.ghosts
 
   lazy val validMoves: Map[Pos, List[Move]] = board.variant.validMoves(this)
+  lazy val validMovesFinal: Map[Pos, List[Move]] = board.variant.validMoves(this, true)
 
   lazy val allCaptures: Map[Pos, List[Move]] = board.variant.allCaptures(this)
 
