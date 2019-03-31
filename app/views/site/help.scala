@@ -18,7 +18,7 @@ object help {
       active = active,
       moreCss = responsiveCssTag("page")
     )(main(cls := "page-small box box-pad page")(
-        h1(cls := "lichess_title")(title),
+        h1(title),
         div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
       ))
   }
@@ -36,7 +36,7 @@ object help {
       active = "webmasters"
     )(frag(
       div(cls := "box box-pad developers")(
-        h1(id := "embed-tv", cls := "lichess_title")("Embed Lichess TV in your site"),
+        h1(id := "embed-tv")("Embed Lichess TV in your site"),
         raw("""<script src="/tv/embed?theme=wood&bg=light"></script>"""),
         p("Just add the following HTML to your site:"),
         pre("""<script src="https://lichess.org/tv/embed?theme=auto&bg=auto"></script>"""),
@@ -44,7 +44,7 @@ object help {
       ),
       br,
       div(cls := "box box-pad developers")(
-        h1(id := "embed-puzzle", cls := "lichess_title")("Embed the daily puzzle in your site"),
+        h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
         raw("""<script src="/training/embed?theme=auto&bg=auto"></script>"""),
         p("Just add the following HTML to your site:"),
         pre("""<script src="https://lichess.org/training/embed?theme=auto&bg=auto"></script>"""),
@@ -66,7 +66,7 @@ src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
       div(cls := "box box-pad developers")(
         h1("Embed a chess game in your site"),
         raw("""<iframe width=530 height=353 src="https://lichess.org/embed/MPJcy1JW?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite(), "\".")),
+        p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
         pre("""<iframe width="600" height="397" frameborder="0"
 src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
 ></iframe>"""),
@@ -80,7 +80,7 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
       ),
       br,
       div(cls := "box box-pad developers")(
-        h1(id := "widgets", cls := "lichess_title")("Lichess Widgets"),
+        h1(id := "widgets")("Lichess Widgets"),
         p("Let your website/blog visitors know that you're playing on lichess!"),
         p(raw("""See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""))
       )
@@ -98,24 +98,25 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
     moreJs = moreJs,
     responsive = true
   ) {
+    val sep = div(cls := "sep")
+    val external = frag(" ", i(dataIcon := "0"))
     main(cls := "page-menu")(
       st.nav(cls := "page-menu__menu subnav")(
-        a(href := routes.Main.lag)("Is Lichess lagging?"),
-        div(cls := "sep"),
-        a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-        a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="&quot;"></i>""")),
-        a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="&quot;"></i>""")),
-        a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", raw(""" <i data-icon="&quot;"></i>""")),
-        div(cls := "sep"),
-        a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
-        a(cls := active.activeO("help"), href := routes.Page.help)(trans.contribute()),
-        a(cls := active.activeO("thanks"), href := routes.Page.thanks)(trans.thankYou()),
-        div(cls := "sep"),
-        a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
-        a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
-        div(cls := "sep"),
+        a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX.frag("lichess.org")),
+        a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact.frag()),
+        a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService.frag()),
+        a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy.frag()),
         a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
-        a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact())
+        sep,
+        a(cls := active.activeO("help"), href := routes.Page.help)(trans.contribute.frag()),
+        a(cls := active.activeO("thanks"), href := routes.Page.thanks)(trans.thankYou.frag()),
+        sep,
+        a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters.frag()),
+        a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database.frag(), external),
+        a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", external),
+        a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", external),
+        sep,
+        a(href := routes.Main.lag)("Is Lichess lagging?")
       ),
       div(cls := "page-menu__content")(body)
     )
