@@ -279,9 +279,9 @@ object contact {
   private def goBack(parent: Node): Frag =
     a(makeLink(parent.id), cls := "back", dataIcon := "I", title := "Go back")
 
-  def apply()(implicit ctx: Context) = views.html.base.layout(
+  def apply()(implicit ctx: Context) = help.layout(
     title = "Contact",
-    responsive = true,
+    active = "contact",
     moreCss = responsiveCssTag("contact"),
     moreJs = embedJs("""location=location.hash||"#help-root"""")
   )(
