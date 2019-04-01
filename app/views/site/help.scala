@@ -55,7 +55,7 @@ object help {
       div(cls := "content_box small_box developers")(
         h1("Embed a chess analysis in your site"),
         raw("""<iframe width=530 height=353 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), "then click the share button to get the HTML code for the current chapter."),
+        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
         pre("""<iframe width=600 height=397 frameborder=0
 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
 ></iframe>"""),
