@@ -66,7 +66,7 @@ object header {
             splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
           ),
         (ctx.isAuth && ctx.noKid && !ctx.is(u)) option
-          a(cls := "nm-item note_zone_toggle")(splitNumberUnsafe(social.notes.size + " Notes"))
+          a(cls := "nm-item note-zone-toggle")(splitNumberUnsafe(social.notes.size + " Notes"))
       ),
       div(cls := "user_actions btn-rack")(
         (ctx is u) option frag(
@@ -93,7 +93,7 @@ object header {
           )
       )
     ),
-    (ctx.noKid && !ctx.is(u)) option div(cls := "note_zone")(
+    (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
       form(action := s"${routes.User.writeNote(u.username)}?note", method := "post")(
         textarea(name := "text", placeholder := "Write a note about this user only you and your friends can read"),
         button(tpe := "submit", cls := "button")(trans.send.frag()),
@@ -133,84 +133,87 @@ object header {
           } getOrElse {
             ctx.is(u) option newPlayer(u)
           },
-          div(cls := "user-infos scroll-shadow-hard")(
-            !ctx.is(u) option frag(
-              u.engine option div(cls := "warning engine_warning")(
-                span(dataIcon := "j", cls := "is4"),
-                trans.thisPlayerUsesChessComputerAssistance.frag()
-              ),
-              (u.booster && (u.count.game > 0 || isGranted(_.Hunter))) option div(cls := "warning engine_warning")(
-                span(dataIcon := "j", cls := "is4"),
-                trans.thisPlayerArtificiallyIncreasesTheirRating.frag(),
-                (u.count.game == 0) option """
+          div(cls := "profile-side")(
+            div(cls := "user-infos scroll-shadow-hard")(
+              !ctx.is(u) option frag(
+                u.engine option div(cls := "warning engine_warning")(
+                  span(dataIcon := "j", cls := "is4"),
+                  trans.thisPlayerUsesChessComputerAssistance.frag()
+                ),
+                (u.booster && (u.count.game > 0 || isGranted(_.Hunter))) option div(cls := "warning engine_warning")(
+                  span(dataIcon := "j", cls := "is4"),
+                  trans.thisPlayerArtificiallyIncreasesTheirRating.frag(),
+                  (u.count.game == 0) option """
 Only visible to mods. A booster mark without any games is a way to
 prevent a player from ever playing (except against boosters/cheaters).
 It's useful against spambots. These marks are not visible to the public."""
-              )
-            ),
-            ctx.noKid option frag(
-              profile.nonEmptyRealName.map { name =>
-                strong(cls := "name")(name)
-              },
-              profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
-                p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
-              }
-            ),
-            div(cls := "stats")(
-              profile.officialRating.map { r =>
-                div(r.name.toUpperCase, " rating: ", strong(r.rating))
-              },
-              profile.nonEmptyLocation.ifTrue(ctx.noKid).map { l =>
-                span(cls := "location")(l)
-              },
-              profile.countryInfo.map { c =>
-                span(cls := "country")(
-                  img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
-                  " ",
-                  c.name
                 )
-              },
-              p(cls := "thin")(trans.memberSince.frag(), " ", showDate(u.createdAt)),
-              u.seenAt.map { seen =>
-                p(cls := "thin")(trans.lastSeenActive.frag(momentFromNow(seen)))
-              },
-              info.completionRatePercent.map { c =>
-                p(cls := "thin")(trans.gameCompletionRate.frag(s"$c%"))
-              },
-              (ctx is u) option frag(
-                a(href := routes.Account.profile, title := trans.editProfile.txt())(
-                  trans.profileCompletion.frag(s"${profile.completionPercent}%")
-                ),
-                br,
-                a(href := routes.User.opponents)(trans.favoriteOpponents.frag())
               ),
-              info.playTime.map { playTime =>
-                frag(
-                  br, br,
-                  p(trans.tpTimeSpentPlaying.frag(showPeriod(playTime.totalPeriod))),
-                  playTime.nonEmptyTvPeriod.map { tvPeriod =>
-                    p(trans.tpTimeSpentOnTV.frag(showPeriod(tvPeriod)))
+              ctx.noKid option frag(
+                profile.nonEmptyRealName.map { name =>
+                  strong(cls := "name")(name)
+                },
+                profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
+                  p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
+                }
+              ),
+              div(cls := "stats")(
+                profile.officialRating.map { r =>
+                  div(r.name.toUpperCase, " rating: ", strong(r.rating))
+                },
+                profile.nonEmptyLocation.ifTrue(ctx.noKid).map { l =>
+                  span(cls := "location")(l)
+                },
+                profile.countryInfo.map { c =>
+                  span(cls := "country")(
+                    img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                    " ",
+                    c.name
+                  )
+                },
+                p(cls := "thin")(trans.memberSince.frag(), " ", showDate(u.createdAt)),
+                u.seenAt.map { seen =>
+                  p(cls := "thin")(trans.lastSeenActive.frag(momentFromNow(seen)))
+                },
+                info.completionRatePercent.map { c =>
+                  p(cls := "thin")(trans.gameCompletionRate.frag(s"$c%"))
+                },
+                (ctx is u) option frag(
+                  a(href := routes.Account.profile, title := trans.editProfile.txt())(
+                    trans.profileCompletion.frag(s"${profile.completionPercent}%")
+                  ),
+                  br,
+                  a(href := routes.User.opponents)(trans.favoriteOpponents.frag())
+                ),
+                info.playTime.map { playTime =>
+                  frag(
+                    br, br,
+                    p(trans.tpTimeSpentPlaying.frag(showPeriod(playTime.totalPeriod))),
+                    playTime.nonEmptyTvPeriod.map { tvPeriod =>
+                      p(trans.tpTimeSpentOnTV.frag(showPeriod(tvPeriod)))
+                    }
+                  )
+                },
+                div(cls := "social_links col2")(
+                  profile.actualLinks.map { link =>
+                    a(href := link.url, target := "_blank", rel := "no-follow")(link.site.name)
+                  }
+                ),
+                div(cls := "teams col2")(
+                  info.teamIds.sorted.map { t =>
+                    teamLink(t, withIcon = false)
                   }
                 )
-              },
-              div(cls := "social_links col2")(
-                profile.actualLinks.map { link =>
-                  a(href := link.url, target := "_blank", rel := "no-follow")(link.site.name)
-                }
-              ),
-              div(cls := "teams col2")(
-                info.teamIds.sorted.map { t =>
-                  teamLink(t, withIcon = false)
-                }
               )
-            )
-          ),
-          info.insightVisible option
-            a(cls := "insight", href := routes.Insight.index(u.username))(
-              span(cls := "icon", dataIcon := "7"),
-              strong("Chess Insights"),
-              em("Analytics from ", if (ctx.is(u)) "your" else s"$u.username's", " games")
-            )
+            ),
+            info.insightVisible option
+              a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "7")(
+                span(
+                  strong("Chess Insights"),
+                  em("Analytics from ", if (ctx.is(u)) "your" else s"$u.username's", " games")
+                )
+              )
+          )
         )
     },
     div(cls := "angles number-menu number-menu--tabs")(
