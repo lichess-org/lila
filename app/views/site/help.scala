@@ -1,7 +1,4 @@
-package views
-package html.site
-
-import play.twirl.api.Html
+package views.html.site
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -90,8 +87,8 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
   def layout(
     title: String,
     active: String,
-    moreCss: Html = emptyHtml,
-    moreJs: Html = emptyHtml
+    moreCss: Frag = emptyFrag,
+    moreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = moreCss,
@@ -100,23 +97,24 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
   ) {
     val sep = div(cls := "sep")
     val external = frag(" ", i(dataIcon := "0"))
+    def activeCls(c: String) = cls := active.activeO(c)
     main(cls := "page-menu")(
       st.nav(cls := "page-menu__menu subnav")(
-        a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX.frag("lichess.org")),
-        a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact.frag()),
-        a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService.frag()),
-        a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy.frag()),
-        a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
+        a(activeCls("about"), href := routes.Page.about)(trans.aboutX.frag("lichess.org")),
+        a(activeCls("contact"), href := routes.Main.contact)(trans.contact.frag()),
+        a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService.frag()),
+        a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy.frag()),
+        a(activeCls("master"), href := routes.Page.master)("Title verification"),
         sep,
-        a(cls := active.activeO("help"), href := routes.Page.help)(trans.contribute.frag()),
-        a(cls := active.activeO("thanks"), href := routes.Page.thanks)(trans.thankYou.frag()),
+        a(activeCls("help"), href := routes.Page.help)(trans.contribute.frag()),
+        a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou.frag()),
         sep,
-        a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters.frag()),
-        a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database.frag(), external),
-        a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", external),
-        a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", external),
+        a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters.frag()),
+        a(activeCls("database"), href := "https://database.lichess.org")(trans.database.frag(), external),
+        a(activeCls("api"), href := "https://database.lichess.org")("API", external),
+        a(activeCls("source"), href := "https://github.com/ornicar/lila")("Source code", external),
         sep,
-        a(href := routes.Main.lag)("Is Lichess lagging?")
+        a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?")
       ),
       div(cls := "page-menu__content")(body)
     )

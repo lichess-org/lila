@@ -6,13 +6,13 @@
 @jsTag("lag.js")
 }
 
-@base.layout(
+@site.help.layout(
 title = "Is lichess lagging?",
-moreCss = cssTag("lag.css"),
+active = "lag",
+moreCss = responsiveCssTag("lag"),
 moreJs = moreJs) {
-
-<div class="content_box lag">
-  <h1 class="lichess_title">
+<main class="box box-pad lag">
+  <h1>
     Is lichess lagging?
     <span class="answer short">
       <span class="waiting">Measurements in progress...</span>
