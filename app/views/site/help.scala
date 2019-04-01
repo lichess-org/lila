@@ -1,7 +1,4 @@
-package views
-package html.site
-
-import play.twirl.api.Html
+package views.html.site
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -95,8 +92,8 @@ src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
   def layout(
     title: String,
     active: String,
-    moreCss: Html = emptyHtml,
-    moreJs: Html = emptyHtml
+    moreCss: Frag = emptyFrag,
+    moreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = moreCss,
@@ -105,22 +102,23 @@ src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
   ) {
     val sep = div(cls := "sep")
     val external = frag(" ", i(dataIcon := "0"))
+    def activeCls(c: String) = cls := active.activeO(c)
     main(cls := "page-menu")(
       st.nav(cls := "page-menu__menu subnav")(
-        a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lidraughts.org")),
+        a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lidraughts.org")),
         a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
-        a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
-        a(cls := active.activeO("contact"), href := routes.Page.contact)(trans.contact()),
+        a(activeCls("master"), href := routes.Page.master)("Title verification"),
+        a(activeCls("contact"), href := routes.Page.contact)(trans.contact()),
         sep,
-        a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
-        a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
+        a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
+        a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
         sep,
-        a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-        /*a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), external),
-        a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", external),*/
-        a(cls := active.activeO("source"), href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode(), external),
+        a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
+        /*a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
+        a(activeCls("api"), href := "https://database.lichess.org")("API", external),*/
+        a(activeCls("source"), href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode(), external),
         sep,
-        a(cls := active.activeO("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
+        a(activeCls("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
       ),
       div(cls := "page-menu__content")(body)
     )

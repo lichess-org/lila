@@ -81,6 +81,8 @@ $(function() {
   var buildChart = function(opt) {
     return {
       chart: {
+        width: 350,
+        height: 350,
         type: 'gauge',
         plotBackgroundColor: null,
         plotBackgroundImage: null,
