@@ -97,23 +97,22 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
     moreCss = moreCss,
     moreJs = moreJs,
     menu = Some(frag(
-      a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
-      a(href := routes.Main.lag)("Is Lichess lagging?"),
-      br,
-      a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-      a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="&quot;"></i>""")),
-      a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="&quot;"></i>""")),
-      a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", raw(""" <i data-icon="&quot;"></i>""")),
-      br,
       a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
-      a(cls := active.activeO("help"), href := routes.Page.help)(trans.contribute()),
-      a(cls := active.activeO("thanks"), href := routes.Page.thanks)(trans.thankYou()),
-      br,
+      a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact()),
       a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
       a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
-      br,
       a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
-      a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact())
+      div(cls := "sep"),
+      a(cls := active.activeO("help"), href := routes.Page.help)(trans.contribute()),
+      a(cls := active.activeO("thanks"), href := routes.Page.thanks)(trans.thankYou()),
+      div(cls := "sep"),
+      a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
+      a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="0"></i>""")),
+      a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="0"></i>""")),
+      a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", raw(""" <i data-icon="0"></i>""")),
+      div(cls := "sep"),
+      a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
+      a(href := routes.Main.lag)("Is Lichess lagging?")
     ))
   )(body)
 }
