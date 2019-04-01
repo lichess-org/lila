@@ -9,6 +9,7 @@ formCss = true) {
   <div class="content_box small_box team_box">
     <h1>@trans.newTeam()</h1>
     <form class="form3" action="@routes.Team.create()" method="POST">
+      @form3.globalError(form)
       @form3.group(form("name"), trans.name.frag())(form3.input(_))
       @form3.group(form("open"), trans.joiningPolicy.frag()) { f =>
       @form3.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
