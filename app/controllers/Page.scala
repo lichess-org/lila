@@ -21,7 +21,7 @@ object Page extends LidraughtsController {
   }
 
   val tjalling = bookmark("tjalling")
-  
+
   private def bookmark(name: String) = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark name) {

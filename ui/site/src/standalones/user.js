@@ -1,8 +1,8 @@
 $(function() {
 
-  $("div.user_show .note_zone_toggle").each(function() {
+  $("div.user_show .note-zone-toggle").each(function() {
     $(this).click(function() {
-      $("div.user_show .note_zone").toggle();
+      $("div.user_show .note-zone").toggle();
     });
     if (location.search.includes('note')) $(this).click();
   });

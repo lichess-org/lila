@@ -20,165 +20,111 @@
     }
   }
   #us_profile {
+    @extend %flex-center-nowrap;
     border-top: $border;
-    height: 325px;
-    position: relative;
+    height: 336px;
+    .engine_warning {
+      margin: 10px 0;
+    }
+    .rating_history {
+      flex: 1 1 62%;
+      margin-left: -10px;
+      height: 350px;
+    }
+    .rating_history .spinner {
+      width: 90px;
+      height: 90px;
+      margin: 120px auto 0 auto;
+    }
+    .profile-side {
+      @extend %flex-column;
+      border-left: $border;
+      height: 100%;
+    }
+    .user-infos {
+      @include hoverflow;
+      padding: .8em;
+      overflow: hidden;
+    }
+    .insight {
+      @extend %flex-center;
+      padding: .3em 1em;
+      border-top: $border;
+      color: $c-link;
+      strong {
+        display: block;
+        font-weight: normal;
+        font-size: 1.5em;
+      }
+      em {
+        display: block;
+      }
+      &::before {
+        font-size: 2.5em;
+        margin-right: 1rem;
+      }
+      &:hover,
+      &:hover::before {
+        @include transition();
+        background: $c-primary;
+        color: $c-primary-over;
+      }
+    }
+    .col2 {
+      display: flex;
+      flex-flow: row wrap;
+      > a {
+        flex: 0 0 50%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .bio {
+      font-style: italic;
+    }
   }
-  .engine_warning {
-    margin: 10px 0;
+  .claim-title {
+    @extend %box-padding;
+    border-top: $border;
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+    .actions {
+      @extend %flex-between;
+      margin: 3em 0 1em 0;
+    }
   }
-  .rating_history {
-    position: absolute;
-    left: -10px;
-    display: block;
-    height: 350px;
-  }
-  .rating_history .spinner {
-    width: 90px;
-    height: 90px;
-    margin: 120px auto 0 auto;
-  }
-  .user-infos {
-    position: absolute;
-    top: 0;
-    left: 458px;
-    padding: 0 14px;
-    border-left: 1px solid #c0c0c0;
-    overflow: hidden;
-    width: 305px;
-    height: 325px;
-  }
-  .with_insights .user-infos {
-    height: 265px;
-  }
-  .user-infos:hover {
-    overflow-y: auto;
-  }
-  .insight {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 0 14px;
-    width: 305px;
-    height: 60px;
-    border-top: 1px solid #c0c0c0;
-    border-left: 1px solid #c0c0c0;
-  }
-  .insight .icon {
-    position: absolute;
-    top: 0;
-    right: 10px;
-  }
-  .insight .icon::before {
-    color: #3893E8;
-    font-size: 40px;
-    line-height: 60px;
-    opacity: 0.8;
-  }
-  .insight strong {
-    color: #3893E8;
-    display: block;
-    font-weight: normal;
-    font-size: 1.5em;
-    margin: 10px 0 1px 0;
-  }
-  .insight em {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    width: 275px;
-  }
-  .insight:hover {
-    background: #3893E8;
-  }
-  .insight:hover,
-  .insight:hover *,
-  .insight:hover .icon::before {
-    transition: 0.13s;
-    color: #fff;
-  }
-
-  .name,
-  .bio,
-  .stats,
-  .tournament_points,
-  .social_links,
-  .teams {
-    display: block;
-    margin-top: 16px;
-  }
-  .col2 {
-    display: flex;
-    flex-flow: row wrap;
-    line-height: 1.7em;
-  }
-  .col2 > a {
-    flex: 0 0 50%;
-    color: #3893E8!important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .teams {
-    margin-bottom: 10px;
-  }
-  .bio {
-    font-style: italic;
-  }
-  div.games {
-    padding-top: 10px;
-  }
-  div.games.center {
-    text-align: center;
-  }
-  .profile {
-    margin-bottom: 1em;
-  }
-  .claim_title_zone {
-    padding: 30px;
-    font-size: 1.2em;
-    line-height: 1.5em;
-  }
-  .claim_title_zone h2 {
-    font-size: 1.5em;
-  }
-  .claim_title_zone p {
-    margin: 2em 0;
-  }
-  .claim_title_zone .actions {
-    margin: 3em 0;
-    text-align: center;
-  }
-  .note_zone {
+  .note-zone {
     display: none;
     margin: 1em 20px;
     padding-bottom: 1em;
     border-bottom: 1px solid #ccc;
-  }
-  .note_zone textarea {
-    width: 98%;
-    margin-bottom: 5px;
-    padding: 5px 8px;
-    height: 5em;
-    resize: vertical;
-  }
-  .note_zone div {
-    padding-top: 1em;
-    border-top: 1px dotted #ccc;
-    margin-top: 1em;
-  }
-  .note_zone p.meta {
-    float: right;
-    text-align: right;
-    margin-left: 1em;
-    white-space: nowrap;
-  }
-  .note_zone p.text {
-    min-height: 2.7em;
-  }
-  .note_zone p.text a {
-    color: #3893E8;
+    textarea {
+      width: 98%;
+      margin-bottom: 5px;
+      padding: 5px 8px;
+      height: 5em;
+      resize: vertical;
+    }
+    div {
+      padding-top: 1em;
+      border-top: 1px dotted #ccc;
+      margin-top: 1em;
+    }
+    p.meta {
+      float: right;
+      text-align: right;
+      margin-left: 1em;
+      white-space: nowrap;
+    }
+    p.text {
+      min-height: 2.7em;
+    }
+    p.text a {
+      color: #3893E8;
+    }
   }
   div.content_box_inter.tabs {
     margin-left: -8px;

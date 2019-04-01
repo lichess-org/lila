@@ -10,8 +10,8 @@ import controllers.routes
 object claimTitle {
 
   def apply(u: User)(implicit ctx: Context) =
-    div(cls := "claim_title_zone")(
-      h2(dataIcon := "C", cls := "text")("Congratulations for breaking the 2400 rating threshold!"),
+    div(cls := "claim-title")(
+      h2(dataIcon := "C", cls := "text")("Congratulations for breaking the 2200 rating threshold!"),
       p(
         "To ensure honest players aren't falsely accused of cheating, we request titled players ",
         "to identify themselves. For instance, ", a(href := routes.User.show("thunderstorm"))("thunderstorm"), " and ",
