@@ -200,12 +200,14 @@ declare namespace Tree {
     uci?: Uci;
     fen: Fen;
     children: Node[];
-	mergedNodes?: Node[];
+    mergedNodes?: Node[];
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
     captLen?: number;
     drops: string | undefined | null;
+    alternatives?: Alternative[];
+    missingAlts?: Alternative[]; // only used internally
     check?: boolean;
     threat?: ClientEval;
     ceval?: ClientEval;
@@ -230,6 +232,11 @@ declare namespace Tree {
 
   export interface CrazyPocket {
     [role: string]: number;
+  }
+
+  export interface Alternative {
+    uci: string,
+    fen: string
   }
 
   export interface Comment {

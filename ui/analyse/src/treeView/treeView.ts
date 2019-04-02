@@ -70,9 +70,16 @@ export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
 }
 
 export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
+  var alternatives = false;
+  if (ctx.ctrl.data.puzzleEditor) {
+    const pathNode = ctx.ctrl.tree.nodeAtPath(path);
+    if (pathNode && pathNode.missingAlts && pathNode.missingAlts.length > 0)
+      alternatives = true;
+  }
   return {
     active: path === ctx.ctrl.path,
     first: ctx.ctrl.data.puzzleEditor && path.length == 2,
+    alts: alternatives,
     context_menu: path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
     nongame: !ctx.currentPath && !!ctx.ctrl.gamePath && treePath.contains(path, ctx.ctrl.gamePath) && path !== ctx.ctrl.gamePath

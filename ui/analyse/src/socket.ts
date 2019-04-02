@@ -22,9 +22,9 @@ interface Req {
 export interface Socket {
   send: SocketSend;
   receive(type: string, data: any): boolean;
-  sendAnaMove(req: Req): void;
+  sendAnaMove(req: Req, puzzle?: boolean): void;
   sendAnaDrop(req: Req): void;
-  sendAnaDests(req: Req): void;
+  sendAnaDests(req: Req, puzzle?: boolean): void;
   sendForecasts(req: Req): void;
   clearCache(): void;
 }
@@ -93,7 +93,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaDestsTimeout);
       if (!data.ch || data.ch === currentChapterId()) {
         anaDestsCache[data.path] = data;
-        ctrl.addDests(data.dests, data.path, data.opening);
+        ctrl.addDests(data.dests, data.path, data.opening, data.alternatives);
       } else
       console.log('socket handler node got wrong chapter id', data);
     },
@@ -117,7 +117,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     if (obj.variant === 'standard') delete obj.variant;
   }
 
-  function sendAnaDests(req) {
+  function sendAnaDests(req, puzzle?: boolean) {
     clearTimeout(anaDestsTimeout);
     if (anaDestsCache[req.path]) setTimeout(function() {
       handlers.dests(anaDestsCache[req.path]);
@@ -125,20 +125,22 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     else {
       withoutStandardVariant(req);
       addStudyData(req);
+      if (puzzle) req.puzzle = true;
       send('anaDests', req);
       anaDestsTimeout = setTimeout(function() {
         console.log(req, 'resendAnaDests');
         sendAnaDests(req);
-      }, 3000);
+      }, 3500);
     }
   }
 
-  function sendAnaMove(req) {
+  function sendAnaMove(req, puzzle?: boolean) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     addStudyData(req, true);
+    if (puzzle) req.puzzle = true;
     send('anaMove', req);
-    anaMoveTimeout = setTimeout(() => sendAnaMove(req), 3000);
+    anaMoveTimeout = setTimeout(() => sendAnaMove(req, puzzle), 3500);
   }
 
   function sendAnaDrop(req) {
@@ -146,7 +148,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     withoutStandardVariant(req);
     addStudyData(req, true);
     send('anaDrop', req);
-    anaMoveTimeout = setTimeout(() => sendAnaDrop(req), 3000);
+    anaMoveTimeout = setTimeout(() => sendAnaDrop(req), 3500);
   }
 
   return {

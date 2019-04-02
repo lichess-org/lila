@@ -8,7 +8,7 @@ import scalaz.Validation.FlatMap._
 import lidraughts.tree.{ Branch, Node }
 
 trait AnaAny {
-  def branch(puzzle: Boolean): Valid[Branch]
+  def branch: Valid[Branch]
   def json(b: Branch, applyAmbiguity: Int = 0): JsObject
   def chapterId: Option[String]
   def path: String
@@ -21,10 +21,11 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[draughts.PromotableRole]
+    promotion: Option[draughts.PromotableRole],
+    puzzle: Option[Boolean]
 ) extends AnaAny {
 
-  def branch(puzzle: Boolean): Valid[Branch] = {
+  def branch: Valid[Branch] = {
     val oldGame = draughts.DraughtsGame(variant.some, fen.some)
     oldGame(orig, dest, promotion) flatMap {
       case (game, move) => {
@@ -35,7 +36,7 @@ case class AnaMove(
           val destinations = if (game.situation.ghosts > 0) Map(dest -> game.situation.destinationsFrom(dest)) else game.situation.allDestinations
           val captLen = if (game.situation.ghosts > 0) game.situation.captureLengthFrom(dest) else game.situation.allMovesCaptureLength
           val alts =
-            if (puzzle && game.situation.ghosts == 0 && captLen.getOrElse(0) > 2)
+            if (puzzle.getOrElse(false) && game.situation.ghosts == 0 && captLen.getOrElse(0) > 2)
               game.situation.validMovesFinal.values.toList.flatMap(_.map { m =>
                 Node.Alternative(
                   uci = m.toUci.uci,
@@ -83,6 +84,7 @@ object AnaMove {
     fen = fen,
     path = path,
     chapterId = d str "ch",
-    promotion = d str "promotion" flatMap draughts.Role.promotable
+    promotion = d str "promotion" flatMap draughts.Role.promotable,
+    puzzle = d boolean "puzzle"
   )
 }

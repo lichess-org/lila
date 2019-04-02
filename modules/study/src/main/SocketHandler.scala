@@ -39,7 +39,7 @@ final class SocketHandler(
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: Socket.Member) =
     AnaRateLimit(uid.value, member) {
-      m.branch(false) match {
+      m.branch match {
         case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
           member push makeMessage("node", m json branch)
           for {

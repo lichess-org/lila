@@ -73,7 +73,8 @@ private final class Socket(
         variant,
         node.fen,
         pos.path.toString,
-        pos.chapterId.value.some
+        pos.chapterId.value.some,
+        none
       )
       notifyVersion("addNode", Json.obj(
         "n" -> TreeBuilder.toBranch(node),

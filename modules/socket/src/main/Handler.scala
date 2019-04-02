@@ -47,17 +47,7 @@ object Handler {
       case ("anaMove", o) => AnaRateLimit(uid.value, member) {
         AnaMove parse o foreach { anaMove =>
           member push {
-            anaMove.branch(false) match {
-              case scalaz.Success(node) => makeMessage("node", anaMove json node)
-              case scalaz.Failure(err) => makeMessage("stepFailure", err.toString)
-            }
-          }
-        }
-      }
-      case ("puzzleMove", o) => AnaRateLimit(uid.value, member) {
-        AnaMove parse o foreach { anaMove =>
-          member push {
-            anaMove.branch(true) match {
+            anaMove.branch match {
               case scalaz.Success(node) => makeMessage("node", anaMove json node)
               case scalaz.Failure(err) => makeMessage("stepFailure", err.toString)
             }

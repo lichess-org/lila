@@ -13,9 +13,10 @@ export interface TreeWrapper {
   longestValidPath(path: string): Tree.Path;
   getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined;
   updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
+  setAmbs(node: Tree.Node, parent: Tree.Node): void;
   addNode(node: Tree.Node, path: Tree.Path, puzzleEditor: Boolean): Tree.Path | undefined;
   addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): MaybeNode;
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]): MaybeNode;
   setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
   setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
   deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
@@ -139,7 +140,7 @@ export function build(root: Tree.Node): TreeWrapper {
     return -1;
   }
 
-  function setAmbs(node: Tree.Node, parent: Tree.Node) {
+  function setAmbs(node: Tree.Node, parent: Tree.Node): void {
     //Hardcoded corresponding server ambiguity ids for studies, ugly solution but leads to displaying a path matching the server
     var ambs = 1
     do {
@@ -303,12 +304,14 @@ export function build(root: Tree.Node): TreeWrapper {
     longestValidPath: (path: string) => longestValidPathFrom(root, path),
     getOpening,
     updateAt,
+    setAmbs,
     addNode,
     addNodes,
-    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening) {
+    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]) {
       return updateAt(path, function (node: Tree.Node) {
         node.dests = dests;
         if (opening) node.opening = opening;
+        if (alternatives) node.alternatives = alternatives;
       });
     },
     setShapes(shapes: Tree.Shape[], path: Tree.Path) {

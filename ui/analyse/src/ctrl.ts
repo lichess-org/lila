@@ -278,7 +278,7 @@ export default class AnalyseCtrl {
         variant: this.data.game.variant.key,
         fen: this.node.fen,
         path: this.path
-      });
+      }, this.data.puzzleEditor);
   });
 
   makeCgOpts(): DraughtsgroundConfig {
@@ -544,7 +544,7 @@ export default class AnalyseCtrl {
     if (this.embed && gamebook) {
       this.gamebookMove(orig, dest, gamebook);
     } else {
-      this.socket.sendAnaMove(move);
+      this.socket.sendAnaMove(move, this.data.puzzleEditor);
       this.preparePremoving();
     }
     this.redraw();
@@ -564,6 +564,23 @@ export default class AnalyseCtrl {
     });
   }
 
+  private setAlternatives(node: Tree.Node, parent: Tree.Node) {
+    if (node.uci && node.uci.length > 6 && countGhosts(node.fen) === 0) {
+      if (parent.alternatives && parent.alternatives.length > 1) {
+        const alts = new Array<Tree.Alternative>();
+        for (const alt of parent.alternatives) {
+          if (draughtsUtil.fenCompare(node.fen.slice(0, 2) + alt.fen, node.fen) &&
+            !parent.children.find((c) => draughtsUtil.fenCompare(node.fen, c.fen) && alt.uci === c.uci)) {
+              alts.push(alt);
+          }
+        }
+        for (const c of parent.children)
+          if (draughtsUtil.fenCompare(node.fen, c.fen))
+            c.missingAlts = alts;
+      }
+    }
+  }
+
   addNode(node: Tree.Node, path: Tree.Path) {
     const newPath = this.tree.addNode(node, path, this.data.puzzleEditor);
     if (!newPath) {
@@ -571,16 +588,21 @@ export default class AnalyseCtrl {
       return this.redraw();
     }
     this.jump(newPath);
+    if (this.data.puzzleEditor && this.nodeList.length > 1)
+      this.setAlternatives(this.node, this.nodeList[this.nodeList.length - 2]);
     this.redraw();
     this.draughtsground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): void {
-    this.tree.addDests(dests, path, opening);
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]): void {
+    const node = this.tree.addDests(dests, path, opening, alternatives);
     if (path === this.path) {
       this.showGround();
-      // this.redraw();
       if (this.gameOver()) this.ceval.stop();
+    }
+    if (this.data.puzzleEditor && node && node.alternatives && node.alternatives.length > 1 && node.children.length > 0) {
+      node.children.forEach(child => this.setAlternatives(child, node));
+      this.redraw();
     }
     this.withCg(cg => cg.playPremove());
   }
@@ -593,9 +615,63 @@ export default class AnalyseCtrl {
       'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
     )) return;
     this.tree.deleteNodeAt(path);
+    if (this.data.puzzleEditor && this.nodeList.length > 1) {
+      const parent = this.tree.nodeAtPath(treePath.init(path));
+      if (parent)
+        this.setAlternatives(node, parent);
+    }
     if (treePath.contains(this.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.path);
     if (this.study) this.study.deleteNode(path);
+  }
+
+  generatePuzzleJson(): string {
+
+    const nodesUci = new Array<string[]>();
+    treeOps.allVariationsNodeList(this.tree.root).map(variation => treeOps.expandMergedNodes(variation)).forEach(
+      moves => {
+        const movesUci = new Array<string>(); // moves.map(move => move.uci!);
+        for (const move of moves) {
+          const uci = move.uci;
+          if (uci && uci.length > 0) {
+            if (uci.length > 4) {
+              for (let i = 0; i + 4 <= uci.length; i += 2) {
+                movesUci.push(uci.slice(i, i + 4));
+              }
+            } else {
+              movesUci.push(uci);
+            }
+          }
+        }
+        nodesUci.push(movesUci)
+      }
+    );
+
+    return JSON.stringify({
+      category: "Puzzles",
+      last_pos: this.tree.root.fen,
+      last_move: nodesUci[0][0],
+      move_list: nodesUci.map(variation => variation.slice(1)),
+      game_id: "custom"
+    });
+
+};
+
+  expandVariations(path: Tree.Path): void {
+    const node = this.tree.nodeAtPath(path);
+    if (!this.data.puzzleEditor || !node || !node.missingAlts || node.missingAlts.length == 0) return;
+    const parentPath = treePath.init(path), parent = this.tree.nodeAtPath(parentPath);
+    if (!parent) return;
+    for (const alt of node.missingAlts) {
+      var copy = treeOps.copyNode(node);
+      copy.uci = alt.uci;
+      copy.children = node.children;
+      this.tree.setAmbs(copy, parent);
+      this.tree.addNode(copy, parentPath, this.data.puzzleEditor);
+    }
+    for (const c of parent.children)
+      if (draughtsUtil.fenCompare(node.fen, c.fen))
+        c.missingAlts = [];
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {

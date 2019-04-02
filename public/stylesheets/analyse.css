@@ -1274,6 +1274,10 @@ body.piece_letter .lidraughts_ground move {
   background: rgba(80,220,20,0.31) !important;
   border: 1px solid #d85000!important;
 }
+.tview2 move.alts {
+  font-weight: bold;
+  color: red;
+}
 .tview2 move.active {
   font-weight: bold;
   background: rgba(56,147,232,0.2);

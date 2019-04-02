@@ -106,6 +106,7 @@ export function copyNode(node: Tree.Node, copyChildren: boolean = false): Tree.N
     gamebook: node.gamebook,
     dests: node.dests,
     captLen: node.captLen,
+    alternatives: node.alternatives,
     threat: node.threat,
     ceval: node.ceval,
     eval: node.eval,

@@ -69,6 +69,7 @@ function view(opts: Opts, coords: Coords): VNode {
     h('p.title', nodeFullName(node)),
     onMainline ? null : action('S', ctrl.trans.noarg('promoteVariation'), () => ctrl.promote(opts.path, false)),
     onMainline ? null : action('E', ctrl.trans.noarg('makeMainLine'), () => ctrl.promote(opts.path, true)),
+    (ctrl.data.puzzleEditor && node.missingAlts && node.missingAlts.length > 0) ? action('.', 'Expand alternatives', () => ctrl.expandVariations(opts.path)) : null,
     action('q', ctrl.trans.noarg('deleteFromHere'), () => ctrl.deleteNode(opts.path))
   ].concat(
     ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []

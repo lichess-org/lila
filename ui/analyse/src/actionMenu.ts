@@ -8,7 +8,6 @@ import AnalyseCtrl from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
 import * as pdnExport from './pdnExport';
-import { ops as treeOps } from 'tree';
 
 interface AutoplaySpeed {
   name: string;
@@ -165,17 +164,33 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ])
   ];
 
+  function missingAlts(node: Tree.Node): boolean {
+    if (node.missingAlts && node.missingAlts.length > 0)
+      return true;
+    for (const child of node.children) {
+      if (missingAlts(child))
+        return true;
+    }
+    return false;
+  }
+
   const puzzleTools: MaybeVNodes = [
     h('h2', 'Puzzle editor'),
     h('div.tools', [
       h('a.fbt', {
-        hook: bind('click', () => $.ajax({
-          url: '/training/api/puzzle?variant=' + (d.game.variant.key === 'fromPosition' ? 'standard' : d.game.variant.key),
-          method: 'POST',
-          data: JSON.stringify(generatePuzzle(ctrl)), dataType: 'text', contentType: 'application/json; charset=utf-8',
-          success: function (response) { alert('success: ' + response.toString().replace('https:', 'http:')); },
-          error: function (response) { alert('error: ' + JSON.stringify(response)); }
-        }))
+        hook: bind('click', () => {
+          if (missingAlts(ctrl.tree.root))
+            alert("There are missing alternative solutions! Click 'Expand alternatives' for all moves marked in red and try submitting again.");
+          else $.ajax({
+            url: '/training/api/puzzle?variant=' + (d.game.variant.key === 'fromPosition' ? 'standard' : d.game.variant.key),
+            method: 'POST',
+            data: ctrl.generatePuzzleJson(),
+            dataType: 'text',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) { alert('success: ' + response.toString().replace('https:', 'http:')); },
+            error: function (response) { alert('error: ' + JSON.stringify(response)); }
+          })
+        })
       }, [
           h('i.icon', { attrs: dataIcon('-') }),
           "Submit puzzle"
@@ -315,20 +330,3 @@ export function view(ctrl: AnalyseCtrl): VNode {
 function ctrlBoolSetting(o: BoolSetting, ctrl: AnalyseCtrl) {
   return boolSetting(o, ctrl.trans, ctrl.redraw);
 }
-
-function generatePuzzle(ctrl: AnalyseCtrl) {
-
-  const nodesUci = Array<string[]>();
-  treeOps.allVariationsNodeList(ctrl.tree.root).map(variation => treeOps.expandMergedNodes(variation)).forEach(
-    moves => nodesUci.push(moves.map(move => move.uci!))
-  );
-
-  return {
-    category: "Puzzles",
-    last_pos: ctrl.tree.root.fen,
-    last_move: nodesUci[0][0],
-    move_list: nodesUci.map(variation => variation.slice(1)),
-    game_id: "custom"
-  };
-
-};
