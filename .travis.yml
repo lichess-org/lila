@@ -1,5 +1,4 @@
 sudo: false
-
 notifications:
   irc:
     channels:
@@ -33,11 +32,14 @@ jobs:
   include:
     # Build server
     - stage: test
+      dist: trusty
       language: scala
       jdk: openjdk8
       before_install:
        - echo "autoformat=false" > $HOME/.scalariform.conf
-      script: sbt test:compile test stage
+      script:
+      - sbt test:compile test stage
+      - sonar-scanner
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
        - tar -zcf "lila-server-${TRAVIS_BRANCH}.tar.gz" target/universal/stage LICENSE COPYING.md README.md commit.txt
@@ -50,6 +52,10 @@ jobs:
           - $HOME/.ivy2/cache
           - $HOME/.sbt
       addons:
+        sonarcloud:
+          organization: "thomaskluiters-github"
+          token:
+            secure: "EGlyboPfMO8KbRRQuF4PMSjeFl7QzYxps9tDoWxZImA1T4pEtrpnVxdy0KVM/q5U7YV4T2tYQBcD/jPKntKnF5VidKl/8LXSB6bsPfSLU8kSsK/Ac7hug/oZQQXGEVkiskg1ZTDshsIzGh/iWbmPQQ0utAmE4F2F8iVMOgND65KAtJQZ39TXLvIvMLJLBrbyo6qNgZfXS5MROE/aYgo+HcKsVExdJAdnHxSAST90VMxCC8SR5StywupwoFGhL+aY2Q3gT/c5qaACcTvuk44LX+qoXnNpl1JLIAQePTmBYCERZxmhm/bUJK4RzPBBI0XtVuU0U1PBhF6W1znPg6KYak2tpzM8+x7Vq1eKDvpVaUlRgU1n3Jj89Ni6QTjoqrSRAWTKPwjpM8W4/qCgrMf9hAqg9TK6Ud2hvf1bWbQnVsrvnyEQRgdnxsyjecAUeno/GY4swT3r+2i67IqXdgp896xxko47hEsoCJ4I4fWM95N/QoLW3+WTpPxUWco78K2HjdBZPX/iKPM1TTtusfijqeNneNDqadWVCYoeCasjKnXsIxHHtMQ6kzH4ybAaqeY79Kt7j52ObuU+uXjqjtPMEDzxjGawl97FBeO+u+KDZZUlj9g0jaV2MV/Q++V9XwfPjnr1KWeFXmiexh4TTrzgyxmaeJxvCVwbHfJfzfuX42U="
         artifacts:
           bucket: lichess.org
           s3_region: eu-west-1
