@@ -25,6 +25,7 @@
   },
   "private": true,
   "workspaces": [
+    "ui",
     "ui/analyse",
     "ui/ceval",
     "ui/challenge",
