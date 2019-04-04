@@ -1,7 +1,9 @@
 import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
 import play.sbt.Play.autoImport._
-import sbt._, Keys._
+import sbt._
+import Keys._
 import scalariform.formatter.preferences._
+import scoverage.ScoverageKeys.{coverageHighlighting, coverageOutputCobertura, coverageOutputHTML}
 
 object BuildSettings {
 
@@ -22,7 +24,12 @@ object BuildSettings {
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
     publishArtifact in (Compile, packageSrc) := false,
-    scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
+    scalariformPreferences := scalariformPrefs(scalariformPreferences.value),
+
+    // we're not interested in html reports
+    coverageOutputHTML := false,
+    coverageOutputCobertura := false,
+    coverageHighlighting := false
   )
 
   def scalariformPrefs(prefs: IFormattingPreferences) = prefs
