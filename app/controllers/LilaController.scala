@@ -36,11 +36,6 @@ private[controllers] trait LilaController
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
-    ContentTypeOf[Frag](Some(ContentTypes.HTML))
-  protected implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
-    Writeable(frag => codec.encode(frag.render))
-
   protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
 
   protected implicit def LilaFragToResult(content: Frag): Result = Ok(content)
