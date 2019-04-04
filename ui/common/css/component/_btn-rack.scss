@@ -7,11 +7,11 @@
   .btn-rack { /* embedded racks */
     border: none;
   }
-  &__btn {
+  &__btn,
+  form {
     @extend %flex-center, %metal;
     justify-content: center;
     text-align: center;
-    padding: 0 12px;
     line-height: 2rem;
     cursor: pointer;
     border-right: $border;
@@ -31,5 +31,8 @@
       @extend %roboto, %data-icon-middle;
       letter-spacing: -1px;
     }
+  }
+  &__btn {
+    padding: 0 .6em;
   }
 }

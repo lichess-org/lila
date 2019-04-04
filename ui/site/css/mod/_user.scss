@@ -1,12 +1,12 @@
-.mod_zone {
+.mod-zone {
   display: flex;
   flex-flow: column;
   margin: 1em 20px;
 }
-.mod_zone.none {
+.mod-zone.none {
   display: none;
 }
-.mod_zone .spinner {
+.mod-zone .spinner {
   margin: 100px auto;
 }
 #mz_actions { order: 1; }
@@ -26,74 +26,75 @@
   top: 0;
   left: 0;
   padding: 0;
-}
-#mz_menu .inner {
-  position: absolute;
-  right: -137px;
-  top: 0;
-  margin-top: 20px;
-  display: flex;
-  flex-flow: column;
-}
-#mz_menu a {
-  padding: 7px 10px;
-}
-#mz_menu a.disabled {
-  opacity: 0.6;
-}
-#mz_menu a:not(.disabled):hover {
-  color: #3893E8;
+  .inner {
+    @extend %roboto;
+    position: absolute;
+    right: -156px;
+    top: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-flow: column;
+  }
+  a {
+    padding: 7px 10px;
+    color: $c-font;
+    &.disabled {
+      opacity: 0.6;
+    }
+    &:not(.disabled):hover {
+      color: $c-link;
+    }
+  }
 }
 
 #mz_actions {
+  @extend %flex-center;
   text-align: center;
-  padding: 10px 0;
+  padding-top: 0;
+  .btn-rack, > form {
+    margin: 1em 1em 0 0;
+  }
+  .btn-rack .active {
+  }
 }
 #mz_actions .inquiry {
-  border-radius: 3px;
-  height: 32px;
-  width: 32px;
+  height: 2em;
+  width: 2em;
   margin: 0;
   padding: 0;
   vertical-align: top;
   background: #484541;
+  i {
+    display: block;
+    height: 30px;
+    width: 30px;
+    background: no-repeat url(../images/icons/octopus.svg);
+    background-size: 80%;
+    background-position: 50% 50%;
+  }
 }
-#mz_actions .inquiry i {
-  display: block;
-  height: 30px;
-  width: 30px;
-  background: no-repeat url(../images/icons/octopus.svg);
-  background-size: 80%;
-  background-position: 50% 50%;
-}
-.mod_zone .second_mod_button_row {
-  margin: 5px 0 10px 0;
-}
-.mod_zone > * {
+.mod-zone > * {
   padding: 20px 0 0 0;
 }
-.mod_zone .neural strong {
+.mod-zone .neural strong {
   display: inline;
 }
-.mod_zone .slist {
-  border: 1px solid #ccc;
+.mod-zone .slist {
+  border: $border;
   border-top: none;
   font-size: 0.9em;
   margin-bottom: 1em;
 }
-body.dark .mod_zone .slist {
-  border-color: #3d3d3d;
-}
-.mod_zone .same {
+.mod-zone .same {
   font-style: italic;
   font-weight: bold;
   background: rgba(56,147,232,0.2)!important;
   border-left: 3px solid rgba(56,147,232,0.8)!important;
 }
-.mod_zone time {
+.mod-zone time {
   opacity: 0.7;
 }
-.mod_zone form {
+.mod-zone form {
   display: inline;
 }
 #mz_identification > div {
@@ -130,14 +131,14 @@ body.dark .mod_zone .slist {
   color: red;
   font-weight: bold;
 }
-.mod_zone .ip .intel {
+.mod-zone .ip .intel {
   margin-left: 10px;
 }
-.mod_zone strong {
+.mod-zone strong {
   display: block;
   margin-top: 0.5em;
 }
-.mod_zone strong.inline {
+.mod-zone strong.inline {
   display: inline;
 }
 #mz_plan ul {
@@ -209,11 +210,11 @@ body.dark .mod_zone .slist {
   /* orange */
 }
 #mz_assessments .sig_5 {
-  color: #E73B38;
+  color: $c-bad;
   /* red */
 }
 #mz_assessments .result_4 {
-  color: #E73B38;
+  color: $c-bad;
   /* red */
 }
 #mz_assessments .result_3 {
@@ -230,13 +231,13 @@ body.dark .mod_zone .slist {
 }
 #mz_assessments .match {
   font-weight: bold;
-  color: #759900;
+  color: $c-good;
 }
 
 #mz_irwin header {
   margin-top: 10px;
   display: flex;
-  border: 1px solid #ccc;
+  border: $border;
 }
 #mz_irwin header > * {
   flex: 1 1 100%;
@@ -245,19 +246,15 @@ body.dark .mod_zone .slist {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  border-left: 1px solid #ccc;
+  border-left: $border;
   padding: 5px 10px;
 }
 #mz_irwin header > *:first-child {
   border-left: none;
 }
-body.dark #mz_irwin header,
-body.dark #mz_irwin header > * {
-  border-color: #3d3d3d;
-}
 #mz_irwin header .title {
   flex-flow: row;
-  color: #3893E8;
+  color: $c-link;
   font-size: 1.4em;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -322,7 +319,7 @@ body.dark #mz_irwin header > * {
   color: #E79B64;
 }
 #mz_irwin .text .red {
-  color: #E73B38;
+  color: $c-bad;
 }
 #mz_irwin .moves .green {
   /* actually blue */
@@ -335,7 +332,7 @@ body.dark #mz_irwin header > * {
   background-color: #E79B64;
 }
 #mz_irwin .moves .red {
-  background-color: #E73B38;
+  background-color: $c-bad;
 }
 
 .mz_reports .score {

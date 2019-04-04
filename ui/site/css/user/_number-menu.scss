@@ -21,19 +21,24 @@
     margin-top: .7em;
     padding-bottom: 0.8em;
     @include transition();
+    border-bottom: $border;
     &:first-child {
-      box-radius-top-left: 0;
+      border-top-left-radius: 0;
+      border-left: 0!important;
     }
     &:last-child {
-      box-radius-top-right: 0;
+      border-top-right-radius: 0;
+      border-right: 0!important;
     }
     &:hover {
       background: mix($c-link, $c-bg-box, 10%);
+      color: $c-font-clear;
     }
     &.active {
-      color: $c-font;
-      margin-bottom: -1px;
-      background: #fff;
+      color: $c-font-clear;
+      border: $border;
+      border-bottom: 0;
+      background: $c-bg-box;
     }
   }
   strong {

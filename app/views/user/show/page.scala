@@ -39,7 +39,7 @@ object page {
     ),
     moreCss = frag(
       responsiveCssTag("user.show.activity"),
-      isGranted(_.UserSpy) option responsiveCssTag("user-mod")
+      isGranted(_.UserSpy) option responsiveCssTag("mod.user")
     ),
     responsive = true
   ) {
@@ -62,6 +62,7 @@ object page {
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) "" else " - page " + games.currentPage}",
     moreJs = frag(
+      infiniteScrollTag,
       jsAt("compiled/user.js"),
       info.ratingChart.map { ratingChart =>
         frag(
@@ -74,7 +75,8 @@ object page {
     ),
     moreCss = frag(
       responsiveCssTag("user.show.games"),
-      isGranted(_.UserSpy) option responsiveCssTag("user-mod")
+      info.nbs.crosstable.isDefined option responsiveCssTag("crosstable"),
+      isGranted(_.UserSpy) option responsiveCssTag("mod.user")
     ),
     responsive = true
   ) {

@@ -29,8 +29,8 @@ object gamesContent {
         )(userGameFilterTitle(u, nbs, f))
       }
     ),
-    filters.current.name == "me" option nbs.crosstable.map { c =>
-      div(cls := "crosstable")(views.html.game.crosstable(c, none))
+    nbs.crosstable.ifTrue(filters.current.name == "me").map {
+      views.html.game.crosstable(_, none)
     },
     div(cls := "search_result")(
       if (filterName == "search") {
