@@ -158,13 +158,7 @@ object UserInfo {
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
-              ranks = Map(
-                "bullet" -> 1,
-                "blitz" -> 2,
-                "rapid" -> 12,
-                "classical" -> 45,
-                "chess960" -> 99
-              ).some,
+              ranks = ranks,
               nbs = nbs,
               hasSimul = hasSimul,
               ratingChart = ratingChart,
