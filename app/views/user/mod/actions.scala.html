@@ -2,81 +2,86 @@
 
 <div id="mz_actions">
   @if(isGranted(_.UserEvaluate)) {
-  <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" title="Start an inquiry">
-    <button class="button inquiry" type="submit"><i></i></button>
-  </form>
-  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" title="Collect data and analyze if the user is suspicious.">
-    <input class="button" type="submit" value="Evaluate" />
-  </form>
-  @if(isGranted(_.Shadowban)) {
-  <a class="button" href="@routes.Mod.communicationPublic(u.id)" title="View communications">Comms</a>
+  <div class="btn-rack">
+    <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" title="Start an inquiry">
+      <button class="btn-rack__btn inquiry" type="submit"><i></i></button>
+    </form>
+    <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" title="Collect data and analyze if the user is suspicious.">
+      <button class="btn-rack__btn" type="submit">Evaluate</button>
+    </form>
+    @if(isGranted(_.Shadowban)) {
+    <a class="btn-rack__btn" href="@routes.Mod.communicationPublic(u.id)" title="View communications">Comms</a>
+    }
+    <form method="post" action="@routes.Mod.notifySlack(u.id)" title="Notify slack #tavern" class="xhr">
+      <button class="btn-rack__btn" type="submit">Slack</button>
+    </form>
+  </div>
   }
-  <form method="post" action="@routes.Mod.notifySlack(u.id)" title="Notify slack #tavern" class="xhr">
-    <input class="button" type="submit" value="Slack" />
-  </form>
-  •
-  }
-  @if(isGranted(_.MarkEngine)) {
-  <form method="post" action="@routes.Mod.engine(u.username, !u.engine)" title="This user is clearly cheating." class="xhr">
-    <input class="button@when(u.engine, " active")" type="submit" value="Engine" />
-  </form>
-  }
-  @if(isGranted(_.MarkBooster)) {
-  <form method="post" action="@routes.Mod.booster(u.username, !u.booster)" title="Marks the user as a booster or sandbagger." class="xhr">
-    <input class="button@when(u.booster, " active")" type="submit" value="Booster" />
-  </form>
-  }
-  @if(isGranted(_.Shadowban)) {
-  <form method="post" action="@routes.Mod.troll(u.username, !u.troll)" title="@if(u.troll){En}else{Dis}able communication features for this user." class="xhr">
-    <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
-  </form>
-  @if(u.troll) {
-  <form method="post" action="@routes.Mod.deletePmsAndChats(u.username)" title="Delete all PMs and public chat messages" class="xhr">
-    <input class="button confirm" type="submit" value="Clear PMs & chats" />
-  </form>
-  }
-  }
-  @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" class="xhr">
-    <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban" />
-  </form>
-  }
-  @if(u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) {
-  <form method="post" action="@routes.Mod.disableTwoFactor(u.username)" title="Disables two-factor authentication for this account." class="xhr">
-    <input class="button confirm" type="submit" value="Disable 2FA" />
-  </form>
-  }
-  @if(u.enabled) {
-  @if(isGranted(_.CloseAccount)) {
-  <form method="post" action="@routes.Mod.closeAccount(u.username)" title="Disables this account." class="xhr">
-    <input class="button" type="submit" value="Close" />
-  </form>
-  }
-  } else {
-  @if(erased.value) {
-  Erased
-  } else {
-  @if(isGranted(_.ReopenAccount)) {
-  <form method="post" action="@routes.Mod.reopenAccount(u.username)" title="Re-activates this account." class="xhr">
-    <input type="submit" class="button active" value="Closed" />
-  </form>
-  }
-  }
-  }
-  <div class="second_mod_button_row">
+  <div class="btn-rack">
+    @if(isGranted(_.MarkEngine)) {
+    <form method="post" action="@routes.Mod.engine(u.username, !u.engine)" title="This user is clearly cheating." class="xhr">
+      <button class="btn-rack__btn@when(u.engine, " active")" type="submit">Engine</button>
+    </form>
+    }
+    @if(isGranted(_.MarkBooster)) {
+    <form method="post" action="@routes.Mod.booster(u.username, !u.booster)" title="Marks the user as a booster or sandbagger." class="xhr">
+      <button class="btn-rack__btn@when(u.booster, " active")" type="submit">Booster</button>
+    </form>
+    }
+    @if(isGranted(_.Shadowban)) {
+    <form method="post" action="@routes.Mod.troll(u.username, !u.troll)" title="@if(u.troll){En}else{Dis}able communication features for this user." class="xhr">
+      <button class="btn-rack__btn@when(u.troll, " active")" type="submit">Shadowban</button>
+    </form>
+    @if(u.troll) {
+    <form method="post" action="@routes.Mod.deletePmsAndChats(u.username)" title="Delete all PMs and public chat messages" class="xhr">
+      <button class="btn-rack__btn confirm" type="submit">Clear PMs & chats</button>
+    </form>
+    }
+    }
     @if(isGranted(_.RemoveRanking)) {
     <form method="post" action="@routes.Mod.rankban(u.username, !u.rankban)" title="@if(u.rankban){In}else{Ex}cludes this user @if(u.rankban){from}else{in} the rankings." class="xhr">
-      <input class="button@when(u.rankban, " active")" type="submit" value="Ban from ranking" />
+      <button class="btn-rack__btn@when(u.rankban, " active")" type="submit">Rankban</button>
     </form>
     }
     @if(isGranted(_.ReportBan)) {
     <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" title="@if(u.reportban){En}else{Dis}able the report feature for this user." class="xhr">
-      <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+      <button class="btn-rack__btn@when(u.reportban, " active")" type="submit">Reportban</button>
+    </form>
+    }
+  </div>
+  <div class="btn-rack">
+    @if(isGranted(_.IpBan)) {
+    <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" class="xhr">
+      <button class="btn-rack__btn@when(u.ipBan, " active")" type="submit">IP ban</button>
+    </form>
+    }
+    @if(u.enabled) {
+    @if(isGranted(_.CloseAccount)) {
+    <form method="post" action="@routes.Mod.closeAccount(u.username)" title="Disables this account." class="xhr">
+      <button class="btn-rack__btn" type="submit">Close</button>
+    </form>
+    }
+    } else {
+    @if(erased.value) {
+    Erased
+    } else {
+    @if(isGranted(_.ReopenAccount)) {
+    <form method="post" action="@routes.Mod.reopenAccount(u.username)" title="Re-activates this account." class="xhr">
+      <button type="submit" class="btn-rack__btn active">Closed</button>
+    </form>
+    }
+    }
+    }
+  </div>
+  <div class="btn-rack">
+    @if(u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) {
+    <form method="post" action="@routes.Mod.disableTwoFactor(u.username)" title="Disables two-factor authentication for this account." class="xhr">
+      <button class="btn-rack__btn confirm" type="submit">Disable 2FA</button>
     </form>
     }
     @if(isGranted(_.Impersonate)) {
     <form method="post" action="@routes.Mod.impersonate(u.username)">
-      <input class="button" type="submit" value="Impersonate" />
+      <button class="btn-rack__btn" type="submit">Impersonate</button>
     </form>
     }
   </div>
@@ -88,7 +93,7 @@
   @if(isGranted(_.SetEmail)) {
   <form class="email" method="post" action="@routes.Mod.setEmail(u.username)">
     <input type="email" value="@emails.current" name="email" placeholder="Email address" />
-    <button type="submit" class="thin button" data-icon="E"></button>
+    <button type="submit" class="button" data-icon="E"></button>
   </form>
   @emails.previous.map { email =>
   Previously @email

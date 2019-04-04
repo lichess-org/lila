@@ -74,7 +74,7 @@ object header {
           a(cls := "btn-rack__btn", href := routes.Relation.blocks(), title := trans.listBlockedPlayers.txt(), dataIcon := "k")
         ),
         isGranted(_.UserSpy) option
-          a(cls := "btn-rack__btn mod_zone_toggle", href := routes.User.mod(u.username), title := "Mod zone", dataIcon := ""),
+          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), title := "Mod zone", dataIcon := ""),
         a(cls := "btn-rack__btn", href := routes.User.tv(u.username), title := trans.watchGames.txt(), dataIcon := "1"),
         (ctx.isAuth && !ctx.is(u)) option
           views.html.relation.actions(u.id, relation = social.relation, followable = social.followable, blocked = social.blocked),
@@ -122,7 +122,7 @@ object header {
       }
     ),
     ((ctx is u) && u.perfs.bestStandardRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle) option claimTitle(u),
-    isGranted(_.UserSpy) option div(cls := "mod_zone none"),
+    isGranted(_.UserSpy) option div(cls := "mod-zone none"),
     angle match {
       case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
       case _ =>

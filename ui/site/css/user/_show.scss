@@ -32,7 +32,7 @@
       margin: 10px 0;
     }
     .rating_history {
-      flex: 1 1 62%;
+      flex: 0 0 62%;
       margin-left: -10px;
       height: 350px;
     }
@@ -102,7 +102,8 @@
     }
   }
   .crosstable {
-    margin: 25px 10px 15px 10px;
+    margin: 2em 1em;
+    width: auto;
   }
   .new-player {
     padding: 1.5em;
@@ -137,5 +138,9 @@
       @extend %flex-center;
       justify-content: center;
     }
+  }
+
+  .activity {
+    margin-bottom: 2em;
   }
 }

@@ -16,8 +16,8 @@ function streamLoad(opts) {
   source.onerror = function() { source.close(); };
 }
 
-var $toggle = $('div.user_show .mod_zone_toggle');
-var $zone = $('div.user_show .mod_zone');
+var $toggle = $('.user-show .mod-zone-toggle');
+var $zone = $('.user-show .mod-zone');
 
 function loadZone() {
   $zone.html(lichess.spinnerHtml).removeClass('none');
