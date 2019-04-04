@@ -217,7 +217,7 @@ lidraughts.topMenuIntent = function() {
     else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
     else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
     else if (lidraughts.tournament) startTournament(lidraughts.tournament);
-    else if (lidraughts.simul) startSimul(document.getElementById('simul'), lidraughts.simul);
+    else if (lidraughts.simul) startSimul(lidraughts.simul);
 
     // delay so round starts first (just for perceived perf)
     lidraughts.requestIdleCallback(function() {
@@ -926,11 +926,11 @@ lidraughts.topMenuIntent = function() {
     tournament = LidraughtsTournament.start(cfg);
   };
 
-  function startSimul(element, cfg) {
+  function startSimul(cfg) {
     $('body').data('simul-id', cfg.data.id);
-    var simul;
+    var simul, element = document.querySelector('.simul__content');
     lidraughts.socket = lidraughts.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v3', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         },
@@ -939,6 +939,7 @@ lidraughts.topMenuIntent = function() {
         }
       });
     cfg.socketSend = lidraughts.socket.send;
+    cfg.$side = $('.simul__side').clone();
     simul = LidraughtsSimul(element, cfg);
     if (cfg.chat) lidraughts.makeChat(cfg.chat);
   }

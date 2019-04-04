@@ -37,71 +37,73 @@ userId: $jsUserIdString,
 chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))}}""")
     )
   ) {
-    main(cls := "simul page-menu")(
-      st.aside(cls := "page-menu__menu")(
-      div(cls := "simul__meta")(
-        div(cls := "game_infos")(
-          div(cls := List(
-            "variant-icons" -> true,
-            "rich" -> sim.variantRich
-          ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
-          span(cls := "clock")(sim.clock.config.show),
-          br,
-          div(cls := "setup")(
-            sim.variants.map(_.name).mkString(", "),
-            " • ",
-            trans.casual()
+      main(cls := "simul")(
+        st.aside(cls := "simul__side")(
+          div(cls := "simul__meta")(
+            div(cls := "game_infos")(
+              div(cls := List(
+                "variant-icons" -> true,
+                "rich" -> sim.variantRich
+              ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
+              span(cls := "clock")(sim.clock.config.show),
+              br,
+              div(cls := "setup")(
+                sim.variants.map(_.name).mkString(", "),
+                " • ",
+                trans.casual.frag()
+              ),
+              trans.simulHostExtraTime.frag(),
+              ": ",
+              pluralize("minute", sim.clock.hostExtraMinutes),
+              br,
+              trans.hostColorX.frag(sim.color match {
+                case Some("white") => trans.white.frag()
+                case Some("black") => trans.black.frag()
+                case _ => trans.randomColor.frag()
+              }),
+              sim.spotlight.flatMap(_.drawLimit).map { lim =>
+                frag(
+                  br,
+                  if (lim > 0) trans.drawOffersAfterX.frag(lim)
+                  else trans.drawOffersNotAllowed.frag()
+                )
+              },
+              sim.targetPct.map { target =>
+                frag(
+                  br,
+                  trans.targetWinningPercentage.frag(s"$target%")
+                )
+              },
+              (sim.chatmode.isDefined && !sim.chatmode.contains(lidraughts.simul.Simul.ChatMode.Everyone)) option {
+                frag(
+                  br,
+                  trans.chatAvailableForX.frag(sim.chatmode match {
+                    case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.spectatorsOnly.frag()
+                    case _ => trans.participantsOnly.frag()
+                  })
+                )
+              },
+              sim.allowed.filter(_.nonEmpty).map { allowed =>
+                frag(
+                  br,
+                  trans.simulParticipationLimited.frag(allowed.size)
+                )
+              }
+            ),
+            trans.by.frag(usernameOrId(sim.hostId)),
+            " ",
+            sim.spotlight.fold(momentFromNow(sim.createdAt)) { s => absClientDateTime(s.startsAt) }
           ),
-          trans.simulHostExtraTime(),
-          ": ",
-          pluralize("minute", sim.clock.hostExtraMinutes),
-          br,
-          trans.hostColorX(sim.color match {
-            case Some("white") => trans.white()
-            case Some("black") => trans.black()
-            case _ => trans.randomColor()
-          }),
-          sim.spotlight.flatMap(_.drawLimit).map { lim =>
-            frag(
-              br,
-              if (lim > 0) trans.drawOffersAfterX(lim)
-              else trans.drawOffersNotAllowed()
-            )
+          stream.map { s =>
+            a(
+              href := routes.Streamer.show(s.streamer.userId),
+              cls := "context-streamer text side_box",
+              dataIcon := ""
+            )(usernameOrId(s.streamer.userId), " is streaming")
           },
-          sim.targetPct.map { target =>
-            frag(
-              br,
-              trans.targetWinningPercentage(s"$target%")
-            )
-          },
-          (sim.chatmode.isDefined && !sim.chatmode.contains(lidraughts.simul.Simul.ChatMode.Everyone)) option {
-            frag(
-              br,
-              trans.chatAvailableForX(sim.chatmode match {
-                case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.spectatorsOnly()
-                case _ => trans.participantsOnly()
-              })
-            )
-          },
-          sim.allowed.filter(_.nonEmpty).map { allowed =>
-            frag(
-              br,
-              trans.simulParticipationLimited(allowed.size)
-            )
-          }
+          chatOption.isDefined option views.html.chat.frag
         ),
-        trans.by(usernameOrId(sim.hostId)),
-        " ",
-        sim.spotlight.fold(momentFromNow(sim.createdAt)) { s => absClientDateTime(s.startsAt) }
-      ),
-      stream.map { s =>
-        a(
-          href := routes.Streamer.show(s.streamer.userId),
-          cls := "context-streamer text side_box",
-          dataIcon := ""
-        )(usernameOrId(s.streamer.userId), " is streaming")
-      }
-        ),
-      div(cls := "page-menu__content simul__content")
+        div(cls := "simul__main box")(spinner)
+      )
     }
 }

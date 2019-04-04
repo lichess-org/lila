@@ -11,8 +11,8 @@ module.exports = function(ctrl) {
   else handler = created;
 
   return m('div', {
-      class: 'content_box no_padding simul_box simul_show'
-    },
+    class: 'page-menu__content simul__content box'
+  },
     handler(ctrl)
   );
 };
