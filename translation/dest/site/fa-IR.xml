@@ -749,6 +749,7 @@
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
   <string name="xLikesY">%1$s می پسندد %2$s</string>
+  <string name="xCreatesStudyY">%1$s بررسی ایجاد میکند %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">لابی</string>
   <string name="anonymous">ناشناس</string>
