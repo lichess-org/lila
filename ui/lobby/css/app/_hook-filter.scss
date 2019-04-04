@@ -19,6 +19,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    label, input {
+      vertical-align: middle;
+      cursor: pointer;
+    }
   }
   tr.variant td:last-child {
     display: flex;
@@ -26,11 +30,6 @@
   }
   tr.variant .checkable {
     width: 33.3%;
-  }
-  label.hover,
-  input {
-    vertical-align: middle;
-    cursor: pointer;
   }
   input {
     margin-right: .3em;

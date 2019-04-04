@@ -14,17 +14,16 @@ object bits {
   def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(baseTranslations))
 
   def notFound()(implicit ctx: Context) =
-    layout(title = trans.noSimulFound.txt()) {
-      div(id := "simul")(
-        div(cls := "content_box small_box faq_page")(
+    views.html.base.layout(
+      responsive = true,
+      title = trans.noSimulFound.txt()
+    ) {
+        main(cls := "page-small box box-pad")(
           h1(trans.noSimulFound.frag()),
-          br, br,
-          trans.noSimulExplanation.frag(),
-          br, br,
-          a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag())
+          p(trans.noSimulExplanation.frag()),
+          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag()))
         )
-      )
-    }
+      }
 
   def homepageSpotlight(s: lila.simul.Simul)(implicit ctx: Context) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
@@ -65,26 +64,6 @@ object bits {
       " • ",
       sim.variants.map(_.name).mkString(", ")
     )
-
-  private[simul] def layout(
-    title: String,
-    moreJs: Frag = emptyFrag,
-    moreCss: Frag = emptyFrag,
-    side: Option[Frag] = None,
-    chat: Option[Frag] = None,
-    underchat: Option[Frag] = None,
-    chessground: Boolean = true,
-    openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
-    title = title,
-    moreJs = moreJs,
-    moreCss = frag(cssTag("simul.css"), moreCss),
-    side = side.map(_.toHtml),
-    chat = chat.map(_.toHtml),
-    underchat = underchat.map(_.toHtml),
-    chessground = chessground,
-    openGraph = openGraph
-  )(body)
 
   private val baseTranslations = Vector(
     trans.finished,

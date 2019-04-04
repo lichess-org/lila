@@ -920,28 +920,6 @@ lichess.topMenuIntent = function() {
     tournament = LichessTournament.start(cfg);
   };
 
-  ///////////////////
-  // simul.js //
-  ///////////////////
-
-  $(function() {
-
-    var $simulList = $('#simul_list');
-    if ($simulList.length) {
-      // handle simul list
-      lichess.StrongSocket.defaults.params.flag = "simul";
-      lichess.StrongSocket.defaults.events.reload = function() {
-        $simulList.load($simulList.data("href"), function() {
-          lichess.pubsub.emit('content_loaded')();
-        });
-      };
-      $('#site_header .help a.more').click(function() {
-        $.modal($(this).parent().find('div.more')).addClass('card');
-      });
-      return;
-    }
-  });
-
   function startSimul(element, cfg) {
     $('body').data('simul-id', cfg.data.id);
     var simul;

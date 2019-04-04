@@ -15,9 +15,9 @@ object homeInner {
     starteds: List[lila.simul.Simul],
     finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) =
-    div(cls := "content_box simul_box no_padding")(
+    div(cls := "box")(
       h1(trans.simultaneousExhibitions.frag()),
-      table(cls := "slist")(
+      table(cls := "slist slist-pad")(
         thead(
           tr(
             th(colspan := 2, cls := "large")(trans.createdSimuls.frag()),
@@ -79,7 +79,7 @@ object homeInner {
 
   private def iconTd(sim: lila.simul.Simul) =
     td(cls := List(
-      "variant_icons" -> true,
+      "variant-icons" -> true,
       "rich" -> sim.variantRich
     ))(
       sim.perfTypes.map { pt =>
