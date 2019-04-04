@@ -1,0 +1,23 @@
+.note-zone {
+  display: none;
+  margin: 1em 1.5em;
+  padding-bottom: 1em;
+  textarea {
+    width: 100%;
+    height: 5em;
+  }
+  .note {
+    @extend %flex-between;
+    padding-top: 1em;
+    border-top: $border;
+    margin-top: 1em;
+    .meta {
+      text-align: right;
+      margin-left: 1em;
+      white-space: nowrap;
+    }
+    .text {
+      min-height: 2.7em;
+    }
+  }
+}

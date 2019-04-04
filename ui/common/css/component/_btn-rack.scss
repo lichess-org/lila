@@ -1,8 +1,12 @@
 .btn-rack {
   @extend %box-radius;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   border: $border;
+  user-select: none;
+  .btn-rack { /* embedded racks */
+    border: none;
+  }
   &__btn {
     @extend %flex-center, %metal;
     justify-content: center;

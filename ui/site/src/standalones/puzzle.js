@@ -1,4 +1,4 @@
-var elem = document.querySelector('#daily_puzzle .mini_board');
+var elem = document.querySelector('#daily_puzzle .mini-board');
 elem.target = '_blank';
 var lm = elem.getAttribute('data-lastmove');
 elem.innerHTML = '<div class="cg-board-wrap">';

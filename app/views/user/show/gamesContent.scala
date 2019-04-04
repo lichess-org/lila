@@ -21,10 +21,10 @@ object gamesContent {
     filterName: String
   )(implicit ctx: Context) = frag(
 
-    div(cls := "tabs", id := "games")(
+    div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
       filters.list.map { f =>
         a(
-          cls := s"intertab to_${f.name}${(filters.current == f) ?? " active"}",
+          cls := s"nm-item to-${f.name}${(filters.current == f) ?? " active"}",
           href := routes.User.games(u.username, f.name)
         )(userGameFilterTitle(u, nbs, f))
       }
@@ -35,7 +35,7 @@ object gamesContent {
     div(cls := "search_result")(
       if (filterName == "search") {
         if (pager.nbResults > 0) frag(
-          div(cls := "search_status")(
+          div(cls := "search-status")(
             strong(pager.nbResults.localize, " games found"),
             " • ",
             a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink"),
@@ -48,7 +48,7 @@ object gamesContent {
             views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
           )
         )
-        else div(cls := "search_status")(
+        else div(cls := "search-status")(
           "No game found - ",
           a(href := routes.User.games(u.username, filterName))("Permalink")
         )
@@ -57,9 +57,7 @@ object gamesContent {
           "games infinitescroll" -> true,
           "game_list playing center" -> (filterName == "playing" && pager.nbResults > 2)
         ))(
-          pager.nextPage.map { np =>
-            div(cls := "pager none")(a(href := routes.User.games(u.username, filterName, np))("Next"))
-          },
+          pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
           if (filterName == "playing" && pager.nbResults > 2)
             pager.currentPageResults.flatMap { Pov(_, u) }.map { p =>
             div(cls := "paginated")(

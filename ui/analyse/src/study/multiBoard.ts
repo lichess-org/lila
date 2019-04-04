@@ -142,7 +142,7 @@ function makePreview(study: StudyCtrl) {
       h('div.name', preview.name),
       makeCg(preview)
     ];
-    return h('a.mini_board.' + preview.id, {
+    return h('.mini-board.' + preview.id, {
       attrs: { title: preview.name },
       class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id && (!study.relay || !study.relay.intro.active) },
       hook: bind('mousedown', _ => study.setChapter(preview.id))

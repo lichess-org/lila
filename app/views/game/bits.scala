@@ -12,11 +12,11 @@ import controllers.routes
 
 object bits {
 
-  def featuredJs(pov: Pov) = Html {
+  def featuredJs(pov: Pov): Frag = raw {
     s"""${gameFenNoCtx(pov, tv = true)}${vstext(pov)(none)}"""
   }
 
-  def mini(pov: Pov)(implicit ctx: Context) = Html {
+  def mini(pov: Pov)(implicit ctx: Context): Frag = raw {
     s"""${gameFen(pov)}${vstext(pov)(ctx.some)}"""
   }
 

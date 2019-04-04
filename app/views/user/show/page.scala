@@ -39,7 +39,7 @@ object page {
     ),
     moreCss = frag(
       responsiveCssTag("user.show.activity"),
-      isGranted(_.UserSpy) option responsiveCssTag("user-mod.css")
+      isGranted(_.UserSpy) option responsiveCssTag("user-mod")
     ),
     responsive = true
   ) {
@@ -47,7 +47,7 @@ object page {
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
           header(u, info, Angle.Activity, social),
-          div(cls := "angle_content")(views.html.activity(u, activities))
+          div(cls := "angle-content")(views.html.activity(u, activities))
         )
       )
     }
@@ -74,7 +74,7 @@ object page {
     ),
     moreCss = frag(
       responsiveCssTag("user.show.games"),
-      isGranted(_.UserSpy) option responsiveCssTag("user-mod.css")
+      isGranted(_.UserSpy) option responsiveCssTag("user-mod")
     ),
     responsive = true
   ) {
@@ -82,7 +82,7 @@ object page {
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
           header(u, info, Angle.Games(searchForm), social),
-          div(cls := "angle_content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
+          div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
         )
       )
     }
