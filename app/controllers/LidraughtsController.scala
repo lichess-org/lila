@@ -7,7 +7,7 @@ import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
 import play.twirl.api.Html
-import scalatags.Text.{ TypedTag, Frag }
+import scalatags.Text.Frag
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
@@ -36,9 +36,7 @@ private[controllers] trait LidraughtsController
 
   protected implicit def LidraughtsHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit def LidraughtsScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
-
-  protected implicit def LidraughtsFragToResult(content: Frag): Result = Ok(content)
+  protected implicit def LidraughtsFragToResult(frag: Frag): Result = Ok(frag)
 
   protected implicit def makeApiVersion(v: Int) = ApiVersion(v)
 
