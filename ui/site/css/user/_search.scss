@@ -1,0 +1,39 @@
+.search {
+  white-space: nowrap;
+  margin: 10px 0;
+  table {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 20px;
+    width: 360px;
+  }
+  tbody {
+    display: block;
+  }
+  table:first-child {
+    width: 400px;
+  }
+  .header {
+    font-size: 1.3em;
+  }
+  td {
+    padding: 5px 0;
+  }
+  label {
+    margin-right: 10px;
+  }
+  .single select {
+    width: 100%;
+  }
+  table .half {
+    float: left;
+    width: 49%;
+    padding-right: 1%;
+    text-align: right;
+  }
+}
+.search-status {
+  text-align: right;
+  padding: 10px 25px;
+  border-bottom: $border;
+}

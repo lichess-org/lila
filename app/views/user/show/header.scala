@@ -105,7 +105,8 @@ object header {
       ),
       social.notes.isEmpty option div("No note yet"),
       social.notes.map { note =>
-        div(
+        div(cls := "note")(
+          p(cls := "text")(richText(note.text)),
           p(cls := "meta")(
             userIdLink(note.from.some),
             br,
@@ -116,8 +117,7 @@ object header {
                 button(tpe := "submit", cls := "thin confirm button text", style := "float:right", dataIcon := "q")("Delete")
               )
             )
-          ),
-          p(cls := "text")(richText(note.text))
+          )
         )
       }
     ),
@@ -127,7 +127,7 @@ object header {
       case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
       case _ =>
         val profile = u.profileOrDefault
-        div(id := "us_profile", cls := List("with_insights" -> info.insightVisible))(
+        div(id := "us_profile")(
           info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
             div(cls := "rating_history")(spinner)
           } getOrElse {
@@ -210,17 +210,17 @@ It's useful against spambots. These marks are not visible to the public."""
               a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "7")(
                 span(
                   strong("Chess Insights"),
-                  em("Analytics from ", if (ctx.is(u)) "your" else s"$u.username's", " games")
+                  em("Analytics from ", if (ctx.is(u)) "your" else s"${u.username}'s", " games")
                 )
               )
           )
         )
     },
-    div(cls := "angles number-menu number-menu--tabs")(
+    div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
       a(
         dataTab := "activity",
         cls := List(
-          "nm-item to_activity" -> true,
+          "nm-item to-activity" -> true,
           "active" -> (angle == Angle.Activity)
         ),
         href := routes.User.show(u.username)
@@ -228,7 +228,7 @@ It's useful against spambots. These marks are not visible to the public."""
       a(
         dataTab := "games",
         cls := List(
-          "nm-item to_games" -> true,
+          "nm-item to-games" -> true,
           "active" -> (angle.key == "games")
         ),
         href := routes.User.gamesAll(u.username)
@@ -239,8 +239,7 @@ It's useful against spambots. These marks are not visible to the public."""
               info.nbs.playing
             )
         )
-    ),
-    span(dataTab := "other", cls := List("nm-item" -> true, "active" -> (angle == Angle.Other)))
+    )
   )
 }
 

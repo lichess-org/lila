@@ -3,8 +3,8 @@ package game
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.game.{ Game, Pov, Player }
 import lila.app.ui.ScalatagsTemplate._
+import lila.game.{ Game, Pov, Player }
 
 import controllers.routes
 
@@ -20,36 +20,40 @@ object widgets {
   )(implicit ctx: Context): Frag = games map { g =>
     val fromPlayer = user flatMap g.player
     val firstPlayer = fromPlayer | g.firstPlayer
-    div(cls := "game_row paginated")(
-      gameFen(Pov(g, firstPlayer), ownerLink, withTitle = false),
-      a(cls := "game_link_overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
-      div(cls := "infos", dataIcon := bits.gameIcon(g))(
-        div(cls := "header")(
-          strong(
-            if (g.imported) frag(
-              span("IMPORT"),
-              g.pgnImport.flatMap(_.user).map { user =>
-                frag(" ", trans.by(userIdLink(user.some, None, false)))
-              },
-              separator,
-              if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
-              else g.variant.name.toUpperCase
-            )
-            else frag(
-              showClock(g),
-              separator,
-              g.perfType.fold(chess.variant.FromPosition.name)(_.name),
-              separator,
-              if (g.rated) trans.rated.txt() else trans.casual.txt()
-            )
-          ),
-          g.pgnImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
-          g.tournamentId map { tourId =>
-            frag(separator, tournamentLink(tourId))
-          },
-          g.simulId map { simulId =>
-            frag(separator, simulLink(simulId))
-          }
+    st.article(cls := "game-row paginated")(
+      a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
+      div(cls := "game-row__board")(
+        gameFen(Pov(g, firstPlayer), withLink = false, withTitle = false)
+      ),
+      div(cls := "game-row__infos")(
+        div(cls := "header", dataIcon := bits.gameIcon(g))(
+          div(cls := "header__text")(
+            strong(
+              if (g.imported) frag(
+                span("IMPORT"),
+                g.pgnImport.flatMap(_.user).map { user =>
+                  frag(" ", trans.by(userIdLink(user.some, None, false)))
+                },
+                separator,
+                if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
+                else g.variant.name.toUpperCase
+              )
+              else frag(
+                showClock(g),
+                separator,
+                g.perfType.fold(chess.variant.FromPosition.name)(_.name),
+                separator,
+                if (g.rated) trans.rated.txt() else trans.casual.txt()
+              )
+            ),
+            g.pgnImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
+            g.tournamentId map { tourId =>
+              frag(separator, tournamentLink(tourId))
+            },
+            g.simulId map { simulId =>
+              frag(separator, simulLink(simulId))
+            }
+          )
         ),
         div(cls := "versus")(
           gamePlayer(g.variant, g.whitePlayer),
@@ -59,7 +63,7 @@ object widgets {
         div(cls := "result")(
           if (g.isBeingPlayed) trans.playingRightNow() else {
             if (g.finishedOrAborted)
-              span(cls := g.winner.flatMap(w => fromPlayer.map(p => if (p == w) "up" else "down")))(
+              span(cls := g.winner.flatMap(w => fromPlayer.map(p => if (p == w) "win" else "loss")))(
                 gameEndStatus(g),
                 g.winner.map { winner =>
                   frag(
@@ -73,9 +77,9 @@ object widgets {
         ),
         if (g.turns > 0) {
           val pgnMoves = g.pgnMoves take 20
-          frag(
+          div(cls := "opening")(
             (!g.fromPosition ?? g.opening) map { opening =>
-              div(cls := "opening")(opening.opening.ecoName)
+              strong(opening.opening.ecoName)
             },
             div(cls := "pgn")(
               pgnMoves.take(6).grouped(2).zipWithIndex map {
@@ -87,15 +91,11 @@ object widgets {
             )
           )
         } else frag(br, br),
-        div(cls := "metadata")(
-          g.metadata.analysed option frag(
-            span(cls := "text", dataIcon := "")(trans.computerAnalysisAvailable()),
-            br
-          ),
-          g.pgnImport.flatMap(_.user).map { user =>
-            frag("PGN import by ", userIdLink(user.some), br)
-          }
-        )
+        g.metadata.analysed option
+          div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
+        g.pgnImport.flatMap(_.user).map { user =>
+          div(cls := "metadata")("PGN import by ", userIdLink(user.some))
+        }
       )
     )
   }

@@ -1,6 +1,7 @@
 .number-menu {
   background: $c-bg-zebra;
   display: flex;
+  user-select: none;
   .nm-item {
     @extend %roboto;
     flex: 1 1 auto;
@@ -16,16 +17,23 @@
     }
   }
   &--tabs .nm-item {
-    margin-top: 7px;
-    border: 1px solid transparent;
-    border-bottom: none;
+    @extend %box-radius-top;
+    margin-top: .7em;
     padding-bottom: 0.8em;
+    @include transition();
+    &:first-child {
+      box-radius-top-left: 0;
+    }
+    &:last-child {
+      box-radius-top-right: 0;
+    }
     &:hover {
-      background: mix($c-link, $c-bg-box, 50%);
+      background: mix($c-link, $c-bg-box, 10%);
     }
     &.active {
+      color: $c-font;
       margin-bottom: -1px;
-      background: #fff!important;
+      background: #fff;
     }
   }
   strong {

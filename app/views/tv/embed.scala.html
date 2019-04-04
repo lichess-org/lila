@@ -17,7 +17,7 @@
     style="width: 224px; height: 264px; overflow: hidden; background: none!important"
     data-stream-url="@routes.Tv.feed">
     <div id="featured_game" class="is2d highlight @bg @theme merida" title="lichess.org TV">
-      @gameFenNoCtx(pov, tv = true, blank = true)
+      @gameFenNoCtx(pov, tv = true, blank = true).toHtml
       @game.bits.vstext(pov)(none).toHtml
     </div>
     @jQueryTag

@@ -828,7 +828,7 @@ lichess.topMenuIntent = function() {
     function startWatching() {
       if (!socketOpened) return;
       var ids = [];
-      $('.mini_board.live').removeClass("live").each(function() {
+      $('.mini-board.live').removeClass("live").each(function() {
         ids.push(this.getAttribute("data-live"));
       });
       if (ids.length) {

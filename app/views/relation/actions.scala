@@ -15,7 +15,7 @@ object actions {
     blocked: Boolean,
     signup: Boolean = false
   )(implicit ctx: Context) =
-    div(cls := "relation-actions")(
+    div(cls := "relation-actions btn-rack")(
       ctx.userId map { myId =>
         (myId != userId) ?? frag(
           !blocked option frag(

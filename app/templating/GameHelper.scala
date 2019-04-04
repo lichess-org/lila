@@ -7,6 +7,7 @@ import controllers.routes
 import play.twirl.api.Html
 import scalatags.Text.Frag
 
+import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.escapeHtml
 import lila.game.{ Game, Player, Namer, Pov }
 import lila.i18n.{ I18nKeys, enLang }
@@ -212,7 +213,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withTitle: Boolean = true,
     withLink: Boolean = true,
     withLive: Boolean = true
-  )(implicit ctx: UserContext) = Html {
+  )(implicit ctx: UserContext): Frag = raw {
     val game = pov.game
     val isLive = withLive && game.isBeingPlayed
     val href = withLink ?? s"""href="${gameLink(game, pov.color, ownerLink, tv)}""""
@@ -227,7 +228,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"""<$tag $href $title class="$classes" data-live="$live" data-color="${pov.color.name}" data-fen="$fen" data-lastmove="$lastMove">$cgBoardStr</$tag>"""
   }
 
-  def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false) = Html {
+  def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = raw {
     val isLive = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
     s"""<a href="%s%s" title="%s" class="mini-board mini-board-${pov.gameId} cg-board-wrap parse-fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$cgBoardStr</a>""".format(

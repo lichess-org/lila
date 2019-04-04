@@ -12,7 +12,7 @@ import controllers.routes
 object newPlayer {
 
   def apply(u: User)(implicit ctx: Context) =
-    div(cls := "new_player")(
+    div(cls := "new-player")(
       h2("Welcome to lichess.org!"),
       p(
         "This is your profile page.",
