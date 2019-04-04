@@ -80,9 +80,9 @@ object filter {
     hint: Option[String],
     disabled: Boolean = false
   ) = frag(
-    label(cls := "hover", title := hint)(
+    label(title := hint)(
       input(
-        `type` := "checkbox",
+        tpe := "checkbox",
         name := s"${form(key).name}[$index]",
         st.value := value,
         checked := checks.has(value).option(true),

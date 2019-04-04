@@ -14,17 +14,16 @@ object bits {
   def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(baseTranslations))
 
   def notFound()(implicit ctx: Context) =
-    layout(title = trans.noSimulFound.txt()) {
-      div(id := "simul")(
-        div(cls := "content_box small_box faq_page")(
+    views.html.base.layout(
+      responsive = true,
+      title = trans.noSimulFound.txt()
+    ) {
+        main(cls := "page-small box box-pad")(
           h1(trans.noSimulFound.frag()),
-          br, br,
-          trans.noSimulExplanation.frag(),
-          br, br,
-          a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag())
+          p(trans.noSimulExplanation.frag()),
+          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag()))
         )
-      )
-    }
+      }
 
   private def imgUrl(spotlight: Option[lidraughts.simul.Spotlight]) =
     spotlight.flatMap(_.iconImg).getOrElse("images/fire-silhouette.svg")
@@ -82,26 +81,6 @@ object bits {
       " • ",
       sim.variants.map(_.name).mkString(", ")
     )
-
-  private[simul] def layout(
-    title: String,
-    moreJs: Frag = emptyFrag,
-    moreCss: Frag = emptyFrag,
-    side: Option[Frag] = None,
-    chat: Option[Frag] = None,
-    underchat: Option[Frag] = None,
-    draughtsground: Boolean = true,
-    openGraph: Option[lidraughts.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
-    title = title,
-    moreJs = moreJs,
-    moreCss = frag(cssTag("simul.css"), moreCss),
-    side = side.map(_.toHtml),
-    chat = chat.map(_.toHtml),
-    underchat = underchat.map(_.toHtml),
-    draughtsground = draughtsground,
-    openGraph = openGraph
-  )(body)
 
   private val baseTranslations = Vector(
     trans.finished,
