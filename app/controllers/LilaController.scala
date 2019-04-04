@@ -7,7 +7,7 @@ import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
 import play.twirl.api.Html
-import scalatags.Text.{ TypedTag, Frag }
+import scalatags.Text.Frag
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
@@ -36,9 +36,7 @@ private[controllers] trait LilaController
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
-
-  protected implicit def LilaFragToResult(content: Frag): Result = Ok(content)
+  protected implicit def LilaFragToResult(frag: Frag): Result = Ok(frag)
 
   protected implicit def makeApiVersion(v: Int) = ApiVersion(v)
 
