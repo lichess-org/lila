@@ -1,0 +1,87 @@
+$mq-col1: $mq-col1-uniboard;
+$mq-col2: $mq-small;
+$mq-col3: $mq-col3-uniboard;
+
+@import 'layout';
+
+.simul {
+  .halves {
+    @extend %flex-center;
+  }
+  .half {
+    flex: 0 0 50%;
+    margin-bottom: 20px;
+    &:first-child {
+      border-right: $border;
+    }
+    .variant::before {
+      font-size: 1.6em;
+      opacity: 0.8;
+    }
+    .user_link {
+      line-height: 2.5em;
+    }
+    tr.help th {
+      padding: 60px 20px;
+    }
+    td.action {
+      text-align: right;
+      opacity: 0.6;
+      transition: opacity 0.13s;
+    }
+    td.action:hover {
+      opacity: 1;
+    }
+    &.candidates tr.me {
+      border-left: 10px solid #d59120;
+    }
+    &.accepted tr.me {
+      border-right: 10px solid #d59120;
+    }
+  }
+  .pull-quote {
+    margin-top: 30px;
+    width: 300px;
+  }
+  .top_right {
+    float: right;
+    margin: 20px 25px 0 0;
+  }
+  .top_right.finished {
+    font-size: 20px;
+  }
+  .instructions {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  h1 .author {
+    margin-left: 1em;
+    font-size: 0.7em;
+  }
+  a.user_link em {
+    font-weight: bold;
+    padding-left: 5px;
+  }
+  .results > div {
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+  }
+  .results .number {
+    font-size: 3em;
+    font-weight: bold;
+  }
+  .results .text {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+  .game_list {
+    margin-top: 30px;
+    text-align: center;
+  }
+  .game_list .vstext {
+    transition: all 1s;
+  }
+}

@@ -37,43 +37,45 @@ userId: $jsUserIdString,
 chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))}}""")
     )
   ) {
-    main(cls := "simul page-menu")(
-      st.aside(cls := "page-menu__menu")(
-      div(cls := "simul__meta")(
-        div(cls := "game_infos")(
-          div(cls := List(
-            "variant-icons" -> true,
-            "rich" -> sim.variantRich
-          ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
-          span(cls := "clock")(sim.clock.config.show),
-          br,
-          div(cls := "setup")(
-            sim.variants.map(_.name).mkString(", "),
-            " • ",
-            trans.casual()
+      main(cls := "simul")(
+        st.aside(cls := "simul__side")(
+          div(cls := "simul__meta")(
+            div(cls := "game_infos")(
+              div(cls := List(
+                "variant-icons" -> true,
+                "rich" -> sim.variantRich
+              ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
+              span(cls := "clock")(sim.clock.config.show),
+              br,
+              div(cls := "setup")(
+                sim.variants.map(_.name).mkString(", "),
+                " • ",
+                trans.casual.frag()
+              ),
+              trans.simulHostExtraTime.frag(),
+              ": ",
+              pluralize("minute", sim.clock.hostExtraMinutes),
+              br,
+              trans.hostColorX.frag(sim.color match {
+                case Some("white") => trans.white.frag()
+                case Some("black") => trans.black.frag()
+                case _ => trans.randomColor.frag()
+              })
+            ),
+            trans.by.frag(usernameOrId(sim.hostId)),
+            " ",
+            momentFromNow(sim.createdAt)
           ),
-          trans.simulHostExtraTime(),
-          ": ",
-          pluralize("minute", sim.clock.hostExtraMinutes),
-          br,
-          trans.hostColorX(sim.color match {
-            case Some("white") => trans.white()
-            case Some("black") => trans.black()
-            case _ => trans.randomColor()
-          })
+          stream.map { s =>
+            a(
+              href := routes.Streamer.show(s.streamer.userId),
+              cls := "context-streamer text side_box",
+              dataIcon := ""
+            )(usernameOrId(s.streamer.userId), " is streaming")
+          },
+          chatOption.isDefined option views.html.chat.frag
         ),
-        trans.by(usernameOrId(sim.hostId)),
-        " ",
-        momentFromNow(sim.createdAt)
-      ),
-      stream.map { s =>
-        a(
-          href := routes.Streamer.show(s.streamer.userId),
-          cls := "context-streamer text side_box",
-          dataIcon := ""
-        )(usernameOrId(s.streamer.userId), " is streaming")
-      }
-        ),
-      div(cls := "page-menu__content simul__content")
+        div(cls := "simul__main box")(spinner)
+      )
     }
 }

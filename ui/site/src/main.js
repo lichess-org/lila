@@ -217,7 +217,7 @@ lichess.topMenuIntent = function() {
     else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(lichess.tournament);
-    else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
+    else if (lichess.simul) startSimul(lichess.simul);
 
     // delay so round starts first (just for perceived perf)
     lichess.requestIdleCallback(function() {
@@ -920,9 +920,9 @@ lichess.topMenuIntent = function() {
     tournament = LichessTournament.start(cfg);
   };
 
-  function startSimul(element, cfg) {
+  function startSimul(cfg) {
     $('body').data('simul-id', cfg.data.id);
-    var simul;
+    var simul, element = document.querySelector('.simul__content');
     lichess.socket = lichess.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
@@ -933,6 +933,7 @@ lichess.topMenuIntent = function() {
         }
       });
     cfg.socketSend = lichess.socket.send;
+    cfg.$side = $('.simul__side').clone();
     simul = LichessSimul(element, cfg);
     if (cfg.chat) lichess.makeChat(cfg.chat);
   }
