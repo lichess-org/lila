@@ -8,8 +8,10 @@ module.exports = function(ctrl) {
   return [
     util.arbiterOption(ctrl),
     util.exportGames(ctrl),
-    m('div.finished', ctrl.trans('finished')),
-    util.title(ctrl),
+    m('div.box__top', [
+      util.title(ctrl),
+      m('div.box__top__actions', m('div.finished', ctrl.trans('finished')))
+    ]),
     results(ctrl),
     arbiter(ctrl),
     pairings(ctrl)

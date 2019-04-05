@@ -10,21 +10,23 @@ $mq-col3: $mq-col3-uniboard;
 
 .simul {
 
-  .box__top {
-    h1 {
-      font-size: 2em;
-      .author {
-        margin-left: .7em;
-        font-size: .7em;
-      }
+  h1 {
+    font-size: 2.1em;
+    .author {
+      margin-left: .7em;
+      font-size: .7em;
     }
-    .finished {
-      font-size: 2em;
-    }
+  }
+  .finished {
+    font-size: 2em;
   }
 
   a.user_link em {
     font-weight: bold;
     padding-left: 5px;
+  }
+
+  .game-list {
+    margin: 2em var(--box-padding);
   }
 }
