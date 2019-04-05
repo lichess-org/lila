@@ -24,7 +24,7 @@
     grid-template-rows: auto max-content;
     grid-template-areas:
     'main side'
-    'main uchat';
+    '.    uchat';
   }
 
   @include breakpoint($mq-col3) {
@@ -33,6 +33,6 @@
     grid-template-areas:
     'side  main main'
     'side  main main'
-    'uchat main main';
+    'uchat .    .';
   }
 }

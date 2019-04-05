@@ -14,9 +14,11 @@ function miniPairing(ctrl) {
       : (pairing.winnerColor === 'black' ? (ctrl.pref.draughtsResult ? '0-2' : '0-1')
       : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
     ) : '*';
-    return m('div', { class: ctrl.evals !== undefined ? 'gauge_displayed' : '' }, [
-      m('a', {
-        href: '/' + game.id + '/' + game.orient,
+    return m('a', {
+      class: ctrl.evals !== undefined ? 'gauge_displayed' : '',
+      href: '/' + game.id + '/' + game.orient
+    }, [
+      m('span', {
         class: 'mini-board live-' + game.id + ' parse-fen is2d',
         'data-color': game.orient,
         'data-fen': game.fen,
@@ -25,15 +27,15 @@ function miniPairing(ctrl) {
           if (!isUpdate) lidraughts.parseFen($(el));
         }
       }, boardContent),
-      m('div', {
-        class: 'vstext clearfix' + (ctrl.data.host.gameId === game.id ? ' host' : '')
+      m('span', {
+        class: 'vstext' + (ctrl.data.host.gameId === game.id ? ' host' : '')
       }, [
-        m('div.left', [
+        m('span.vstext__pl', [
           util.playerVariant(ctrl, player).name,
           m('br'),
           result
         ]),
-        m('div.right', [
+        m('div.vstext__op', [
           player.username,
           m('br'),
           player.title ? player.title + ' ' : '',
@@ -46,5 +48,5 @@ function miniPairing(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.game_list.playing', ctrl.data.pairings.map(miniPairing(ctrl)));
+  return m('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 };

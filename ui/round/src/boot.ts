@@ -4,9 +4,8 @@ import { ChatCtrl } from 'chat';
 import { tourStandingCtrl, TourStandingCtrl, TourPlayer } from './tourStanding';
 import { updateSimulStanding, SimulStanding } from './simulStanding';
 
-const li = window.lidraughts;
-
 export default function(opts: RoundOpts): void {
+  const li = window.lidraughts;
   const element = document.querySelector('.round__app') as HTMLElement,
     data: RoundData = opts.data,
     socketParams: any = { userTv: data.userTv && data.userTv.id };
