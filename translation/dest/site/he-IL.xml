@@ -686,6 +686,7 @@
   <string name="xHostsY">%1$s מארח %2$s</string>
   <string name="xJoinsY">%1$s מצטרף %2$s</string>
   <string name="xLikesY">%1$s אוהב %2$s</string>
+  <string name="xCreatesStudyY">%1$s יוצר מחקר %2$s</string>
   <string name="quickPairing">הצטרפות מהירה</string>
   <string name="lobby">לובי</string>
   <string name="anonymous">אנונימי</string>
