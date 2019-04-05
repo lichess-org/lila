@@ -116,7 +116,7 @@ object side {
 
         simul.map { sim =>
           st.section(cls := "game__simul-link")(
-            a(href := routes.Simul.show(sim.id), dataIcon := "|", cls := "text")(sim.fullName)
+            a(href := routes.Simul.show(sim.id))(sim.fullName)
           )
         }
       ),

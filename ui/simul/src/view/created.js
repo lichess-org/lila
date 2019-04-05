@@ -66,16 +66,16 @@ module.exports = function(ctrl) {
           }, ctrl.trans('signIn'))
       ])
     ]),
-    simul.acceptedContainsMe(ctrl) ? m('div.instructions',
+    simul.acceptedContainsMe(ctrl) ? m('p.instructions',
       'You have been selected! Hold still, the simul is about to begin.'
     ) : (
-      (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('div.instructions',
+      (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('p.instructions',
         'Share this page URL to let people enter the simul!'
       ) : null
     ),
     m('div.halves',
       m('div.half.candidates',
-        m('table.slist.user_list',
+        m('table.slist.slist-pad',
           m('thead', m('tr', m('th', {
             colspan: 3
           }, [
@@ -124,7 +124,7 @@ module.exports = function(ctrl) {
               m('td.variant', {
                 'data-icon': variant.icon
               }),
-              m('td.action', isHost ? m('a.button', {
+              m('td.action', isHost ? m('a.button.button-red', {
                 'data-icon': 'L',
                 onclick: function(e) {
                   xhr.reject(applicant.player.id)(ctrl);
@@ -138,7 +138,7 @@ module.exports = function(ctrl) {
       m('p', ctrl.data.quote.text),
       m('footer', ctrl.data.quote.author)
     ]),
-    m('div.join_choice.block_buttons', ctrl.data.variants.map(function(variant) {
+    m('div.none', ctrl.data.variants.map(function(variant) {
       return m('a.button', {
         'data-variant': variant.key
       }, variant.name);

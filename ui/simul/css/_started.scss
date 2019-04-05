@@ -1,0 +1,26 @@
+.simul {
+  .results {
+    > div {
+      width: 25%;
+      display: inline-block;
+      text-align: center;
+    }
+    .number {
+      font-size: 3em;
+      font-weight: bold;
+    }
+    .text {
+      font-family: 'Roboto';
+      font-weight: 300;
+      font-size: 1.5em;
+      text-transform: uppercase;
+    }
+  }
+  .game_list {
+    margin-top: 30px;
+    text-align: center;
+    .vstext {
+      transition: all 1s;
+    }
+  }
+}

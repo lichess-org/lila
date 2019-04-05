@@ -17,7 +17,12 @@ object home {
   )(implicit ctx: Context) = views.html.base.layout(
     responsive = true,
     moreCss = responsiveCssTag("simul.list"),
-    moreJs = jsTag("simul-list.js"),
+    moreJs = embedJs(s"""$$(function() {
+  lichess.StrongSocket.defaults.params.flag = 'simul';
+  lichess.pubsub.on('socket.in.reload', () => {
+    $$('.simul-list__content').load('${routes.Simul.homeReload()}', lichess.pubsub.emit('content_loaded'));
+  });
+});"""),
     title = trans.simultaneousExhibitions.txt(),
     openGraph = lila.app.ui.OpenGraph(
       title = trans.simultaneousExhibitions.txt(),
@@ -35,7 +40,7 @@ object home {
             p(trans.aboutSimulSettings.frag())
           )
         ),
-        div(cls := "page-menu__content simul-list__content", dataHref := routes.Simul.homeReload())(
+        div(cls := "page-menu__content simul-list__content")(
           homeInner(opens, starteds, finisheds)
         )
       )

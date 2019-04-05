@@ -1,3 +1,10 @@
+.simul__side {
+  @extend %flex-column;
+  .mchat {
+    flex: 1 0 400px;
+    margin-top: $block-gap;
+  }
+}
 .simul__meta {
   @extend %box-neat-force;
   background: $c-bg-box;
@@ -19,5 +26,4 @@
     border-bottom: $border;
     margin-bottom: .5em;
   }
-  margin-bottom: $block-gap;
 }

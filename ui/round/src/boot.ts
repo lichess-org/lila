@@ -3,9 +3,9 @@ import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
 import { tourStandingCtrl, TourStandingCtrl, TourPlayer } from './tourStanding';
 
-const li = window.lichess;
 
 export default function(opts: RoundOpts): void {
+  const li = window.lichess;
   const element = document.querySelector('.round__app') as HTMLElement,
   data: RoundData = opts.data;
   let round: RoundApi, chat: ChatCtrl | undefined;
