@@ -623,6 +623,8 @@ export default class RoundController {
   forceResignable = (): boolean => {
     const d = this.data;
     return !d.opponent.ai &&
+      !game.isFriendGame(d) &&
+      !game.isRatedClassical(d) &&
       !!d.clock &&
       d.opponent.isGone &&
       !game.isPlayerTurn(d) &&
