@@ -64,7 +64,7 @@ object Tournament extends LilaController {
       case "arena" => System.Arena.some
       case _ => none
     }
-    Ok(html.tournament.faqPage(system)).fuccess
+    Ok(html.tournament.faq.page(system)).fuccess
   }
 
   def leaderboard = Open { implicit ctx =>
