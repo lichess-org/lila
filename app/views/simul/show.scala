@@ -40,17 +40,20 @@ chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, 
       main(cls := "simul")(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
-            div(cls := "game_infos")(
-              div(cls := List(
-                "variant-icons" -> true,
-                "rich" -> sim.variantRich
-              ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
-              span(cls := "clock")(sim.clock.config.show),
-              br,
-              div(cls := "setup")(
-                sim.variants.map(_.name).mkString(", "),
-                " • ",
-                trans.casual.frag()
+            div(cls := "game-infos")(
+              div(cls := "header")(
+                div(cls := List(
+                  "variant-icons" -> true,
+                  "rich" -> sim.variantRich
+                ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
+                div(
+                  span(cls := "clock")(sim.clock.config.show),
+                  div(cls := "setup")(
+                    sim.variants.map(_.name).mkString(", "),
+                    " • ",
+                    trans.casual.frag()
+                  )
+                )
               ),
               trans.simulHostExtraTime.frag(),
               ": ",

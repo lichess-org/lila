@@ -3,6 +3,8 @@ var simul = require('./simul');
 
 module.exports = function(env) {
 
+  this.env = env;
+
   this.data = env.data;
   this.arbiterData = undefined;
   this.evals = env.data.evals;

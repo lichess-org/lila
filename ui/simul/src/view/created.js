@@ -12,7 +12,7 @@ function byName(a, b) {
 }
 
 function randomButton(ctrl, candidates) {
-  return candidates.length ? m('a.button.top_right.text', {
+  return candidates.length ? m('a.button.text', {
     'data-icon': 'E',
     onclick: function() {
       var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
@@ -24,10 +24,10 @@ function randomButton(ctrl, candidates) {
 function startOrCancel(ctrl, accepted) {
   var canCancel = !ctrl.data.unique;
   return accepted.length > 1 ?
-    m('a.button.top_right.text.active', {
+    m('a.button.button-green.text', {
       'data-icon': 'G',
       onclick: function() { xhr.start(ctrl) }
-    }, 'Start') : (canCancel ? m('a.button.top_right.text', {
+    }, 'Start') : (canCancel ? m('a.button.button-red.text', {
       'data-icon': 'L',
       onclick: function() {
         if (confirm(ctrl.trans('deleteThisSimul'))) xhr.abort(ctrl);
@@ -156,35 +156,39 @@ module.exports = function(ctrl) {
         ])
       }))));
   return [
-    ctrl.userId ? (
-      (simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) ? [
-        startOrCancel(ctrl, accepted),
-        randomButton(ctrl, acceptable)
-      ] : (
-        simul.containsMe(ctrl) ? m('a.button.top_right', {
-          onclick: function() { xhr.withdraw(ctrl) }
-        }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
+    m('div.box__top', [
+      util.title(ctrl),
+      m('div.box__top__actions', [
+        ctrl.userId ? (
+          (simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) ? [
+            startOrCancel(ctrl, accepted),
+            randomButton(ctrl, acceptable)
+          ] : (
+            simul.containsMe(ctrl) ? m('a.button', {
+              onclick: function() { xhr.withdraw(ctrl) }
+            }, ctrl.trans('withdraw')) : m('a.button.text', {
+                'data-icon': 'G',
+                onclick: function() {
+                  if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
+                    alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
+                  else if (ctrl.data.variants.length === 1)
+                    xhr.join(ctrl.data.variants[0].key)(ctrl);
+                  else {
+                    $.modal($('#simul .join_choice'));
+                    $('#modal-wrap .join_choice a').click(function() {
+                      $.modal.close();
+                      xhr.join($(this).data('variant'))(ctrl);
+                    });
+                  }
+                }
+              },
+              ctrl.trans('join'))
+          )) : m('a.button.text', {
             'data-icon': 'G',
-            onclick: function() {
-              if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
-                alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
-              else if (ctrl.data.variants.length === 1)
-                xhr.join(ctrl.data.variants[0].key)(ctrl);
-              else {
-                $.modal($('#simul .join_choice'));
-                $('#modal-wrap .join_choice a').click(function() {
-                  $.modal.close();
-                  xhr.join($(this).data('variant'))(ctrl);
-                });
-              }
-            }
-          },
-          ctrl.trans('join'))
-      )) : m('a.button.top_right.text', {
-        'data-icon': 'G',
-        href: '/login?referrer=' + window.location.pathname
-      }, ctrl.trans('signIn')),
-    util.title(ctrl),
+            href: '/login?referrer=' + window.location.pathname
+          }, ctrl.trans('signIn'))
+      ])
+    ]),
     simul.acceptedContainsMe(ctrl) ? m('div.instructions',
       ctrl.trans('youHaveBeenSelected')
     ) : (

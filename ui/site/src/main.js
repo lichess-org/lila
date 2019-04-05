@@ -927,8 +927,9 @@ lidraughts.topMenuIntent = function() {
   };
 
   function startSimul(cfg) {
+    cfg.element = document.querySelector('main.simul');
     $('body').data('simul-id', cfg.data.id);
-    var simul, element = document.querySelector('.simul__content');
+    var simul;
     lidraughts.socket = lidraughts.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
@@ -940,8 +941,7 @@ lidraughts.topMenuIntent = function() {
       });
     cfg.socketSend = lidraughts.socket.send;
     cfg.$side = $('.simul__side').clone();
-    simul = LidraughtsSimul(element, cfg);
-    if (cfg.chat) lidraughts.makeChat(cfg.chat);
+    simul = LidraughtsSimul(cfg);
   }
 
   ////////////////

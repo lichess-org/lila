@@ -25,7 +25,7 @@ function playerHtml(p, rating, provisional, fmjd, href) {
 module.exports = {
   title: function(ctrl) {
     return m('div', [
-      m('h1.text[data-icon=|]', [
+      m('h1', [
         ctrl.data.fullName,
         m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host, ctrl.data.host.rating, ctrl.data.host.provisional, ctrl.data.host.officialRating)))), m('br'),
         (ctrl.data.arbiter && !ctrl.data.arbiter.hidden) ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null

@@ -8,7 +8,7 @@ module.exports = function(ctrl) {
   return [
     util.arbiterOption(ctrl),
     util.exportGames(ctrl),
-    m('div.top_right.finished', ctrl.trans('finished')),
+    m('div.finished', ctrl.trans('finished')),
     util.title(ctrl),
     results(ctrl),
     arbiter(ctrl),
