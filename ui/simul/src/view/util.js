@@ -11,7 +11,7 @@ function playerHtml(p) {
 
 module.exports = {
   title: function(ctrl) {
-    return m('h1.text[data-icon=|]', [
+    return m('h1', [
       ctrl.data.fullName,
       m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host))))
     ]);

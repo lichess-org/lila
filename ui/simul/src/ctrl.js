@@ -3,6 +3,8 @@ var simul = require('./simul');
 
 module.exports = function(env) {
 
+  this.env = env;
+
   this.data = env.data;
 
   this.userId = env.userId;

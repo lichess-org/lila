@@ -3,8 +3,24 @@ $mq-col2: $mq-small;
 $mq-col3: $mq-col3-uniboard;
 
 @import 'layout';
+@import 'side';
+@import 'variant-icons';
 
 .simul {
+
+  .box__top {
+    h1 {
+      font-size: 2em;
+      .author {
+        margin-left: .7em;
+        font-size: .7em;
+      }
+    }
+    .finished {
+      font-size: 2em;
+    }
+  }
+
   .halves {
     @extend %flex-center;
   }
@@ -43,20 +59,9 @@ $mq-col3: $mq-col3-uniboard;
     margin-top: 30px;
     width: 300px;
   }
-  .top_right {
-    float: right;
-    margin: 20px 25px 0 0;
-  }
-  .top_right.finished {
-    font-size: 20px;
-  }
   .instructions {
     text-align: center;
     margin-bottom: 1em;
-  }
-  h1 .author {
-    margin-left: 1em;
-    font-size: 0.7em;
   }
   a.user_link em {
     font-weight: bold;

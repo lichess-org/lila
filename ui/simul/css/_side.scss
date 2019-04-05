@@ -1,0 +1,23 @@
+.simul__meta {
+  @extend %box-neat-force;
+  background: $c-bg-box;
+  padding: #{$block-gap * 0.6} $block-gap;
+  .header {
+    @extend %flex-center;
+    flex-flow: row nowrap;
+    text-transform: uppercase;
+    .variant-icons {
+      margin-right: .5rem;
+    }
+    .clock {
+      display: block;
+      font-size: 1.5em;
+    }
+  }
+  .game-infos {
+    padding-bottom: .5em;
+    border-bottom: $border;
+    margin-bottom: .5em;
+  }
+  margin-bottom: $block-gap;
+}

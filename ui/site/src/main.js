@@ -921,8 +921,9 @@ lichess.topMenuIntent = function() {
   };
 
   function startSimul(cfg) {
+    cfg.element = document.querySelector('main.simul');
     $('body').data('simul-id', cfg.data.id);
-    var simul, element = document.querySelector('.simul__content');
+    var simul;
     lichess.socket = lichess.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
@@ -934,8 +935,7 @@ lichess.topMenuIntent = function() {
       });
     cfg.socketSend = lichess.socket.send;
     cfg.$side = $('.simul__side').clone();
-    simul = LichessSimul(element, cfg);
-    if (cfg.chat) lichess.makeChat(cfg.chat);
+    simul = LichessSimul(cfg);
   }
 
   ////////////////

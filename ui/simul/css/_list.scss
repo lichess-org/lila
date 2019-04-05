@@ -1,3 +1,5 @@
+@import 'variant-icons';
+
 .simul-list {
   &__help {
     color: $c-font-page;
@@ -38,20 +40,6 @@
     .create td {
       padding: 2em;
       text-align: center;
-    }
-  }
-  .variant-icons {
-    white-space: nowrap;
-    padding-right: 0;
-    span {
-      font-size: 3.5em;
-      text-shadow: 0 0 5px $c-bg-high, 0 0 10px $c-bg-high, 0 0 20px $c-bg-high;
-      &:not(:first-child) {
-        margin-left: -0.5em;
-      }
-    }
-    &.rich span:not(:first-child) {
-      margin-left: -.9em;
     }
   }
 }

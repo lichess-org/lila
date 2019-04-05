@@ -9,7 +9,7 @@
     url("fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
-  font-display: block;
+
 }
 
 [data-icon]:before {
@@ -289,9 +289,6 @@
 }
 .icon-keypad:before {
   content: "\5f";
-}
-.icon-arrows-in:before {
-  content: "\7c";
 }
 .icon-color-palette:before {
   content: "\7d";
