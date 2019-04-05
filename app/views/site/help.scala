@@ -14,7 +14,7 @@ object help {
       title = title,
       active = active,
       moreCss = responsiveCssTag("page")
-    )(main(cls := "page-small box box-pad page")(
+    )(main(cls := "page box box-pad")(
         h1(title),
         div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
       ))
