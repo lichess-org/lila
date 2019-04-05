@@ -80,7 +80,7 @@ object bits {
         )
       } getOrElse trans.currentGames.frag(),
       "round-toggle-autoswitch" |> { id =>
-        span(cls := "move_on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
+        span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
           label(`for` := id)(trans.autoSwitch.frag()),
           span(cls := "switch")(
             input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),

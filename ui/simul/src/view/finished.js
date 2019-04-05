@@ -5,8 +5,10 @@ var results = require('./results');
 
 module.exports = function(ctrl) {
   return [
-    m('div.finished', ctrl.trans('finished')),
-    util.title(ctrl),
+    m('div.box__top', [
+      util.title(ctrl),
+      m('div.box__top__actions', m('div.finished', ctrl.trans('finished')))
+    ]),
     results(ctrl),
     pairings(ctrl)
   ];

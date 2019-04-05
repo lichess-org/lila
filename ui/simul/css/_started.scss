@@ -1,8 +1,8 @@
 .simul {
   .results {
+    @extend %flex-center;
     > div {
-      width: 25%;
-      display: inline-block;
+      flex: 0 0 25%;
       text-align: center;
     }
     .number {
@@ -10,8 +10,7 @@
       font-weight: bold;
     }
     .text {
-      font-family: 'Roboto';
-      font-weight: 300;
+      @extend %roboto;
       font-size: 1.5em;
       text-transform: uppercase;
     }
