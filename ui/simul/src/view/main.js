@@ -12,7 +12,7 @@ module.exports = function(ctrl) {
 
   return [
     m('aside.simul__side', {
-      config(el, done) {
+      config: function(el, done) {
         if (!done) {
           $(el).replaceWith(ctrl.env.$side);
           ctrl.env.chat && window.lichess.makeChat(ctrl.env.chat);
