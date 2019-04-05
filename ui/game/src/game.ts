@@ -15,6 +15,14 @@ export function isPlayerTurn(data: GameData): boolean {
   return isPlayerPlaying(data) && data.game.player == data.player.color;
 }
 
+export function isFriendGame(data: GameData): boolean {
+  return data.game.source === 'friend';
+}
+
+export function isRatedClassical(data: GameData): boolean {
+  return data.game.rated === true && data.game.perf === 'classical';
+}
+
 export function mandatory(data: GameData): boolean {
   return !!data.tournament || !!data.simul;
 }
