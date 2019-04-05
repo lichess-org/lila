@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import actorApi._, round._
 import draughts.{ Color, Pos }
 import draughts.format.Uci
-import lidraughts.game.{ Event, Game, Pov, Progress }
+import lidraughts.game.{ Event, Game, Pov, Progress, Source }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
 import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign, AnalysisComplete }
@@ -94,7 +94,7 @@ private[round] final class Round(
     }
 
     case ResignForce(playerId) => handle(playerId) { pov =>
-      (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
+      (pov.forceResignable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
           case true => finisher.rageQuit(pov.game, Some(pov.color))
           case _ => fuccess(List(Event.Reload))
