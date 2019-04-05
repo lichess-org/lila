@@ -762,4 +762,5 @@
   <string name="registerToSendChallenges">הירשם על מנת לשלוח אתגרים.</string>
   <string name="youCannotChallengeX">לא ניתן לאתגר את %s.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל אתגרים.</string>
+  <string name="yourXRatingIsTooFarFromY">דירוג שלך %1$s רחוק מדי מ-%2$s.</string>
 </resources>
