@@ -19,12 +19,6 @@ object index {
     ) {
         main(cls := "coach-list coach-full-page")(
           st.aside(cls := "coach-list__side coach-side")(
-            img(src := staticUrl("images/icons/certification.svg"), cls := "coach-list__certification"),
-            h1("Certified coaches"),
-            p("We have curated this list of the best online chess coaches."),
-            p("All of these renowned players have great chess skills, and a solid experience with teaching."),
-            p("You cannot go wrong with them, so make your choice and enjoy learning chess!"),
-            hr,
             p(
               "Are you a great chess coach?", br,
               "Do you have a ", a(href := "https://lichess.org/help/master")("FIDE title"), "?", br,
