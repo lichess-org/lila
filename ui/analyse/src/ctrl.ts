@@ -77,7 +77,7 @@ export default class AnalyseCtrl {
   ongoing: boolean; // true if real game is ongoing
 
   // display flags
-  flipped: boolean = false;
+  flipped: boolean;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
@@ -110,6 +110,7 @@ export default class AnalyseCtrl {
     this.redraw = redraw;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
+    this.flipped = this.data.puzzleEditor;
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
