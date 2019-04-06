@@ -33,25 +33,24 @@ object watcher {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.lichess=window.lichess||{};window.customWS=true;window.onload=function(){
+        embedJs(s"""window.lichess=window.lichess||{};customWS=true;onload=function(){
 LichessRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},chat:${jsOrNull(chatJson)}})}""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false
-    )(frag(
+    )(
         main(cls := "round")(
           st.aside(cls := "round__side")(
             game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked)
           ),
-          div(cls := "round__app")(
-            div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
-          )
-        ),
-        div(cls := "round__underboard")(
-          bits.crosstable(cross, pov.game)
-        ),
-        div(cls := "round__underchat")(bits underchat pov.game)
-      ))
+          chatOption.map(_ => chat.frag),
+          bits.roundAppPreload(pov, false),
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game)
+          ),
+          div(cls := "round__underchat")(bits underchat pov.game)
+        )
+      )
   }
 
   def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit ctx: Context) =

@@ -42,13 +42,13 @@ ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView
       openGraph = povOpenGraph(pov).some,
       chessground = false,
       playing = true
-    )(frag(
+    )(
         main(cls := "round")(
           st.aside(cls := "round__side")(
             game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked)
           ),
           chatOption.map(_ => chat.frag),
-          roundAppPreload(pov),
+          bits.roundAppPreload(pov, true),
           div(cls := "round__underboard")(
             bits.crosstable(cross, pov.game),
             (playing.nonEmpty || simul.nonEmpty) option
@@ -59,22 +59,6 @@ ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView
           ),
           div(cls := "round__underchat")(bits underchat pov.game)
         )
-      ))
+      )
   }
-
-  private def roundAppPreload(pov: Pov)(implicit ctx: Context) =
-    div(cls := "round__app")(
-      div(cls := "round__app__board main-board")(board.bits.domPreload(pov.some)),
-      roundAppStatic
-    )
-
-  private val roundAppStatic = frag(
-    div(cls := "round__app__table"),
-    div(cls := "ruser ruser-top"),
-    div(cls := "ruser ruser-bottom"),
-    div(cls := "rclock rclock-top preload")(div(cls := "time")(nbsp)),
-    div(cls := "rclock rclock-bottom preload")(div(cls := "time")(nbsp)),
-    div(cls := "rmoves")(div(cls := "moves")),
-    div(cls := "rcontrols")(i(cls := "ddloader"))
-  )
 }
