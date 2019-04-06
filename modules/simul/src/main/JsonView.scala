@@ -121,7 +121,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
 
   def evalWithGame(simul: Simul, gameId: Game.ID, eval: JsObject) =
     GameRepo.game(gameId) map { game =>
-      eval.add("game" -> game ?? { g => gameJson(simul.hostId)(g).some })
+      eval.add("game" -> game ?? { g => gameJson(simul.hostId, g).some })
     }
 
   private def assessmentJson(assessment: PlayerAssessment) = {

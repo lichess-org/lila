@@ -16,13 +16,16 @@ object bits {
     s"""${gameFenNoCtx(pov, tv = true)}${vstext(pov)(none)}"""
   }
 
-  def mini(pov: Pov)(implicit ctx: Context): Frag = raw {
-    s"""${gameFen(pov)}${vstext(pov)(ctx.some)}"""
-  }
+  def mini(pov: Pov)(implicit ctx: Context): Frag = frag(
+    gameFen(pov, withLink = false),
+    vstext(pov)(ctx.some)
+  )
 
-  def miniBoard(fen: draughts.format.FEN, color: draughts.Color = draughts.White) = Html {
-    s"""<div class="mini-board parse-fen cg-board-wrap is2d" data-color="${color.name}" data-fen="$fen"><div class="cg-board"></div></div>"""
-  }
+  def miniBoard(fen: draughts.format.FEN, color: draughts.Color = draughts.White): Frag = div(
+    cls := "mini-board parse-fen cg-board-wrap is2d",
+    dataColor := color.name,
+    dataFen := fen.value
+  )(div(cls := "cg-board"))
 
   def watchers(implicit ctx: Context): Frag =
     div(
@@ -81,7 +84,7 @@ object bits {
       span(cls := "title", dataBot(t), title := Title titleName t)(t.value)
     }
 
-  def vstext(pov: Pov)(ctxOption: Option[Context]) =
+  def vstext(pov: Pov)(ctxOption: Option[Context]): Frag =
     span(cls := "vstext")(
       span(cls := "vstext__pl user_link")(
         playerUsername(pov.player, withRating = false, withTitle = false),

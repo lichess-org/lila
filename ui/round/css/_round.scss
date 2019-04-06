@@ -16,37 +16,4 @@ $col1-player-clock-height: 50px;
 @import 'moves';
 @import 'control';
 @import 'icon';
-
-.round {
-  &__now-playing {
-    h3 {
-      display: flex;
-      justify-content: space-between;
-      margin: 1em 0 .5em 0;
-    }
-    .simul {
-      span {
-        font-weight: bold;
-        margin: 0 .5em;
-      }
-      .win {
-        color: $c-good;
-      }
-      .draw {
-        color: $c-brag;
-      }
-      .loss {
-        color: $c-bad;
-      }
-    }
-    .switcher {
-      @extend %flex-center;
-      label {
-        cursor: pointer;
-      }
-      .switch {
-        margin-left: 10px;
-      }
-    }
-  }
-}
+@import 'now-playing';

@@ -70,7 +70,7 @@ object Tv extends LidraughtsController {
 
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
     (lidraughts.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
-      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 9) map {
+      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 12) map {
         case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lidraughts.game.Pov.first, champs))
         }
