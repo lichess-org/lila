@@ -12,6 +12,7 @@ object Page extends LidraughtsController {
   val privacy = helpBookmark("privacy")
   val about = helpBookmark("about")
   val master = helpBookmark("master")
+  val faq = helpBookmark("faq")
 
   private def helpBookmark(name: String) = Open { implicit ctx =>
     pageHit
