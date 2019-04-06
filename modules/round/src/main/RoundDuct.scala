@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import actorApi._, round._
 import chess.Color
-import lila.game.{ Game, Progress, Pov, Event }
+import lila.game.{ Game, Progress, Pov, Event, Source }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
@@ -74,10 +74,12 @@ private[round] final class Round(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
-          case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
-          case true => finisher.rageQuit(pov.game, None)
-          case _ => fuccess(List(Event.Reload))
+        pov.forceResignable ?? {
+          socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
+            case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
+            case true => finisher.rageQuit(pov.game, None)
+            case _ => fuccess(List(Event.Reload))
+          }
         }
       }
     }
