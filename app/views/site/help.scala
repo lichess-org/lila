@@ -98,6 +98,7 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
     moreJs = moreJs,
     menu = Some(frag(
       a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
+      a(cls := active.activeO("faq"), href := routes.Page.faq)("FAQ"),
       a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact()),
       a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
       a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),

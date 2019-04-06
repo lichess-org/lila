@@ -11,6 +11,7 @@ object Page extends LilaController {
   val tos = helpBookmark("tos")
   val privacy = helpBookmark("privacy")
   val master = helpBookmark("master")
+  val faq = helpBookmark("faq")
 
   private def helpBookmark(name: String) = Open { implicit ctx =>
     pageHit
