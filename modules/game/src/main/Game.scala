@@ -1,10 +1,10 @@
 package lila.game
 
-import chess.Color.{Black, White}
-import chess.format.{FEN, Uci}
-import chess.opening.{FullOpening, FullOpeningDB}
-import chess.variant.{FromPosition, Standard, Variant}
-import chess.{Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory}
+import chess.Color.{ Black, White }
+import chess.format.{ FEN, Uci }
+import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.variant.{ FromPosition, Standard, Variant }
+import chess.{ Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory }
 import org.joda.time.DateTime
 import lila.common.Sequence
 import lila.db.ByteArray
