@@ -1,15 +1,15 @@
 package lila.game
 
-import chess.Color.{ White, Black }
-import chess.format.{ Uci, FEN }
-import chess.opening.{ FullOpening, FullOpeningDB }
-import chess.variant.{ Variant, Standard, FromPosition }
-import chess.{ Speed, PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
+import chess.Color.{Black, White}
+import chess.format.{FEN, Uci}
+import chess.opening.{FullOpening, FullOpeningDB}
+import chess.variant.{FromPosition, Standard, Variant}
+import chess.{Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory}
 import org.joda.time.DateTime
-
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
+import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Game(
@@ -87,6 +87,7 @@ case class Game(
   def isTournament = tournamentId.isDefined
   def isSimul = simulId.isDefined
   def isMandatory = isTournament || isSimul
+  def isClassical = perfType contains Classical
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && !isSimul && nonAi
