@@ -23,6 +23,10 @@ export function isRatedClassical(data: GameData): boolean {
   return data.game.rated === true && data.game.perf === 'classical';
 }
 
+export function isForceResignable(data: GameData): boolean {
+  return !(isFriendGame(data) && isRatedClassical(data));
+}
+
 export function mandatory(data: GameData): boolean {
   return !!data.tournament || !!data.simul;
 }
