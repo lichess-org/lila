@@ -159,6 +159,11 @@ lidraughts.StrongSocket = function(url, version, settings) {
       case 'resync':
         lidraughts.reload();
         break;
+      case 'simultv':
+        var user = location.href.indexOf('/@/'), tv = location.href.lastIndexOf('/tv');
+        if (m.d && tv !== -1 && user !== -1)
+            lidraughts.redirect(location.href.slice(user, tv + 3) + '/' + m.d);
+        break;
       case 'ack':
         ackable.gotAck();
         break;

@@ -48,6 +48,11 @@ object GameRepo {
   def player(playerRef: PlayerRef): Fu[Option[Player]] =
     player(playerRef.gameId, playerRef.playerId)
 
+  def pov(gameId: ID, user: User): Fu[Option[Pov]] =
+    coll.byId[Game](gameId) map {
+      _ flatMap { Pov(_, user) }
+    }
+
   def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
     game(gameId) map2 { (game: Game) => Pov(game, game player color) }
 

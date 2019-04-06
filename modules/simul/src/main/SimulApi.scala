@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import draughts.variant.Variant
 import lidraughts.common.Debouncer
 import lidraughts.game.{ Game, GameRepo, PerfPicker }
+import lidraughts.game.actorApi.SimulNextGame
 import lidraughts.hub.actorApi.lobby.ReloadSimuls
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
@@ -119,6 +120,10 @@ final class SimulApi(
     user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
       sendTo(simul.id, actorApi.HostIsOn(game.id))
+      system.lidraughtsBus.publish(
+        SimulNextGame(simul.hostId, game),
+        Symbol(s"simulNextGame:${simul.hostId}")
+      )
     }
   }
 

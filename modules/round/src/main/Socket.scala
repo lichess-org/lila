@@ -11,7 +11,7 @@ import play.api.libs.json._
 import actorApi._
 import lidraughts.chat.Chat
 import lidraughts.common.LightUser
-import lidraughts.game.actorApi.{ StartGame, UserStartGame }
+import lidraughts.game.actorApi.{ SimulNextGame, StartGame, UserStartGame }
 import lidraughts.game.{ Game, GameRepo, Event }
 import lidraughts.hub.actorApi.Deploy
 import lidraughts.hub.actorApi.game.ChangeFeatured
@@ -95,7 +95,7 @@ private[round] final class Socket(
     }
 
     def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
-      lidraughtsBus.subscribe(self, Symbol(s"userStartGame:$userId"))
+      lidraughtsBus.subscribe(self, Symbol(s"userStartGame:$userId"), Symbol(s"simulNextGame:$userId"))
     }
 
     def chat = lidraughtsBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
@@ -206,6 +206,11 @@ private[round] final class Socket(
     case UserStartGame(userId, game) => foreachWatcher { m =>
       if (m.onUserTv(userId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
         m push makeMessage("resync")
+    }
+
+    case SimulNextGame(hostId, game) => foreachWatcher { m =>
+      if (m.onUserTv(hostId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
+        m push makeMessage("simultv", game.id)
     }
 
     case NotifyCrowd =>

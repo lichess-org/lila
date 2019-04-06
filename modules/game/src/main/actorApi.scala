@@ -20,4 +20,6 @@ case class AbortedBy(pov: Pov)
 
 case class CorresAlarmEvent(pov: Pov)
 
+case class SimulNextGame(hostId: String, game: Game)
+
 private[game] case object NewCaptcha

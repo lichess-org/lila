@@ -33,6 +33,16 @@ object User extends LidraughtsController {
     }
   }
 
+  def gameTv(username: String, gameId: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { user =>
+      GameRepo.pov(gameId, user) flatMap {
+        _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+          Round.watch(pov, userTv = user.some)
+        }
+      }
+    }
+  }
+
   def studyTv(username: String) = Open { implicit ctx =>
     OptionResult(UserRepo named username) { user =>
       Redirect {
