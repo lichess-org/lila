@@ -174,8 +174,8 @@ module.exports = function(ctrl) {
                   else if (ctrl.data.variants.length === 1)
                     xhr.join(ctrl.data.variants[0].key)(ctrl);
                   else {
-                    $.modal($('#simul .join_choice'));
-                    $('#modal-wrap .join_choice a').click(function() {
+                    $.modal($('.simul .continue-with'));
+                    $('#modal-wrap .continue-with a').click(function() {
                       $.modal.close();
                       xhr.join($(this).data('variant'))(ctrl);
                     });
@@ -234,7 +234,7 @@ module.exports = function(ctrl) {
       m('p', ctrl.data.quote.text),
       m('footer', ctrl.data.quote.author)
     ]),
-    m('div.none', ctrl.data.variants.map(function(variant) {
+    m('div.continue-with.none', ctrl.data.variants.map(function(variant) {
       return m('a.button', {
         'data-variant': variant.key
       }, variant.name);

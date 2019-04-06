@@ -1,13 +1,16 @@
 package lidraughts.simul
 
 import play.api.libs.json._
+
+import draughts.format.{ FEN, Forsyth }
 import lidraughts.common.LightUser
 import lidraughts.evalCache.JsonHandlers.gameEvalJson
 import lidraughts.evaluation.{ Display, PlayerAssessment }
 import lidraughts.game.{ Game, GameRepo, Rewind }
-import draughts.format.{ FEN, Forsyth }
-import Simul.ShowFmjdRating
 import lidraughts.pref.Pref
+import lidraughts.user.User
+
+import Simul.ShowFmjdRating
 
 final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
 
@@ -39,7 +42,11 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     lightHost <- getLightUser(simul.hostId)
     lightArbiter <- simul.arbiterId ?? getLightUser
     applicants <- simul.applicants.sortBy(p => -(if (simul.hasFmjd) p.player.officialRating.getOrElse(p.player.rating) else p.player.rating)).map(applicantJson(simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
-    pairings <- simul.pairings.sortBy(p => -(if (simul.hasFmjd) p.player.officialRating.getOrElse(p.player.rating) else p.player.rating)).map(pairingJson(games, simul.hostId, simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
+    pairingOptions <- simul.pairings
+      .sortBy(p => -(if (simul.hasFmjd) p.player.officialRating.getOrElse(p.player.rating) else p.player.rating))
+      .map(pairingJson(games, simul.hostId, simul.spotlight.flatMap(_.fmjdRating)))
+      .sequenceFu
+    pairings = pairingOptions.flatten
     allowed <- (~simul.allowed).map(allowedJson).sequenceFu
   } yield Json.obj(
     "id" -> simul.id,
@@ -185,7 +192,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       )
     }
 
-  private def gameJson(hostId: String)(g: Game) = Json.obj(
+  private def gameJson(hostId: User.ID, g: Game) = Json.obj(
     "id" -> g.id,
     "status" -> g.status.id,
     "fen" -> (draughts.format.Forsyth exportBoard g.board),
@@ -193,15 +200,17 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
 
-  private def pairingJson(games: List[Game], hostId: String, fmjd: Option[ShowFmjdRating])(p: SimulPairing): Fu[JsObject] =
-    playerJson(p.player, fmjd) map { player =>
-      Json.obj(
-        "player" -> player,
-        "hostColor" -> p.hostColor,
-        "winnerColor" -> p.winnerColor,
-        "wins" -> p.wins, // can't be normalized because BC
-        "game" -> games.find(_.id == p.gameId).map(gameJson(hostId))
-      )
+  private def pairingJson(games: List[Game], hostId: String, fmjd: Option[ShowFmjdRating])(p: SimulPairing): Fu[Option[JsObject]] =
+    games.find(_.id == p.gameId) ?? { game =>
+      playerJson(p.player, fmjd) map { player =>
+        Json.obj(
+          "player" -> player,
+          "hostColor" -> p.hostColor,
+          "winnerColor" -> p.winnerColor,
+          "wins" -> p.wins, // can't be normalized because BC
+          "game" -> gameJson(hostId, game)
+        ).some
+      }
     }
 
   private implicit val colorWriter: Writes[draughts.Color] = Writes { c =>

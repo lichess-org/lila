@@ -69,7 +69,7 @@ object bits {
 
   def simulStanding(simul: lidraughts.simul.Simul)(implicit ctx: Context) =
     span(cls := "simul")(
-      "SIMUL",
+      a(href := routes.Simul.show(simul.id))("SIMUL"),
       span(cls := "win")(wrap(id := s"simul_w_${simul.id}")(simul.wins, " W")), " / ",
       span(cls := "draw")(wrap(id := s"simul_d_${simul.id}")(simul.draws, " D")), " / ",
       span(cls := "loss")(wrap(id := s"simul_l_${simul.id}")(simul.losses, " L")), " / ",

@@ -7,12 +7,11 @@ import reactivemongo.core.commands._
 import draughts.Status
 import draughts.variant.Variant
 import lidraughts.db.BSON
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import lidraughts.db.dsl._
 
 private[simul] final class SimulRepo(simulColl: Coll) {
 
-  import lidraughts.db.BSON.BSONJodaDateTimeHandler
-  import reactivemongo.bson.Macros
   private implicit val SimulStatusBSONHandler = new BSONHandler[BSONInteger, SimulStatus] {
     def read(bsonInt: BSONInteger): SimulStatus = SimulStatus(bsonInt.value) err s"No such simul status: ${bsonInt.value}"
     def write(x: SimulStatus) = BSONInteger(x.id)

@@ -15,7 +15,7 @@ function miniPairing(ctrl) {
       : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
     ) : '*';
     return m('a', {
-      class: ctrl.evals !== undefined ? 'gauge_displayed' : '',
+      class: (ctrl.data.host.gameId === game.id ? 'host ' : '') + (ctrl.evals !== undefined ? 'gauge_displayed' : ''),
       href: '/' + game.id + '/' + game.orient
     }, [
       m('span', {
@@ -27,9 +27,7 @@ function miniPairing(ctrl) {
           if (!isUpdate) lidraughts.parseFen($(el));
         }
       }, boardContent),
-      m('span', {
-        class: 'vstext' + (ctrl.data.host.gameId === game.id ? ' host' : '')
-      }, [
+      m('span.vstext', [
         m('span.vstext__pl', [
           util.playerVariant(ctrl, player).name,
           m('br'),
