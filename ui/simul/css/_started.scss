@@ -15,11 +15,14 @@
       text-transform: uppercase;
     }
   }
-  .game_list {
-    margin-top: 30px;
-    text-align: center;
+  .game-list {
+    .host {
+      @extend %box-radius;
+      background: $c-accent;
+      box-shadow: 0 0 0 7px fade-out($c-accent, .7);
+    }
     .vstext {
-      transition: all 1s;
+      @extend %metal;
     }
   }
 }

@@ -12,7 +12,8 @@ function miniPairing(ctrl) {
       pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½/½')
     ) : '*';
     return m('a', {
-      href: '/' + game.id + '/' + game.orient
+      href: '/' + game.id + '/' + game.orient,
+      class: ctrl.data.host.gameId === game.id ? 'host' : ''
     }, [
       m('span', {
         class: 'mini-board live-' + game.id + ' parse-fen is2d',
@@ -23,9 +24,7 @@ function miniPairing(ctrl) {
           if (!isUpdate) lichess.parseFen($(el));
         }
       }, boardContent),
-      m('span', {
-        class: 'vstext' + (ctrl.data.host.gameId === game.id ? ' host' : '')
-      }, [
+      m('span.vstext', [
         m('span.vstext__pl', [
           util.playerVariant(ctrl, player).name,
           m('br'),

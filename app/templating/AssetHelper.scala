@@ -51,9 +51,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def jsTag(name: String, async: Boolean = false) =
     jsAt("javascripts/" + name, async = async)
 
+  /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
+   * we want defer only, to ensure scripts are executed in order of declaration,
+   * so that round.js doesn't run before site.js */
   def jsAt(path: String, async: Boolean = false): Html = Html {
     val src = assetUrl(path)
-    s"""<script${if (async) " async defer" else ""} src="$src"></script>"""
+    s"""<script${async ?? " defer"} src="$src"></script>"""
   }
 
   val jQueryTag = Html {
@@ -81,11 +84,11 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   val fingerprintTag = Html {
-    s"""<script async defer src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
+    s"""<script async src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
   }
 
   val flatpickrTag = Html {
-    s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
+    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
   def delayFlatpickrStart(implicit ctx: Context) = embedJs {
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""

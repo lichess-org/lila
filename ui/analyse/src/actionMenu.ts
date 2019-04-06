@@ -146,7 +146,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }
       }, noarg('boardEditor')),
       canContinue ? h('a.button.button-empty', {
-        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id))),
+        hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
         attrs: dataIcon('U')
       }, noarg('continueFromHere')) : null,
       studyButton(ctrl)
@@ -263,7 +263,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
     .concat([
       deleteButton(ctrl, ctrl.opts.userId),
-      canContinue ? h('div.continue_with.none.g_' + d.game.id, [
+      canContinue ? h('div.continue-with.none.g_' + d.game.id, [
         h('a.button', {
           attrs: {
             href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,

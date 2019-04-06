@@ -152,13 +152,13 @@ function controls(ctrl, fen) {
         m('a.button.button-empty', {
           class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
           onclick: function() {
-            if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue_with'));
+            if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue-with'));
           }
         },
           m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
-      m('div.continue_with.none', [
+      m('div.continue-with.none', [
         m('a.button', {
           href: '/?fen=' + fen + '#ai',
           rel: 'nofollow'

@@ -72,7 +72,7 @@ object bits {
     h3(
       simul.map { s =>
         span(cls := "simul")(
-          "SIMUL",
+          a(href := routes.Simul.show(s.id))("SIMUL"),
           span(cls := "win")(s.wins, " W"), " / ",
           span(cls := "draw")(s.draws, " D"), " / ",
           span(cls := "loss")(s.losses, " L"), " / ",
