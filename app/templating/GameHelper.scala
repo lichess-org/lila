@@ -204,6 +204,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }.toString
 
+  def gameLink(pov: Pov)(implicit ctx: UserContext): String = gameLink(pov.game, pov.color)
+
   private val cgBoardStr = """<div class="cg-board"></div>"""
 
   def gameFen(

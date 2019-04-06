@@ -48,7 +48,7 @@ moreCss = cssTag("challenge.css")) {
         }
         @c.initialFen.map { fen =>
         <br />
-        @views.html.game.bits.miniBoard(fen, color = c.finalColor)
+        @views.html.game.bits.miniBoard(fen, color = c.finalColor).toHtml
         }
       </div>
       }

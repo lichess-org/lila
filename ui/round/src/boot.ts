@@ -19,7 +19,7 @@ export default function(opts: RoundOpts): void {
       events: {
         tvSelect(o: any) {
           if (data.tv && data.tv.channel == o.channel) li.reload();
-          else $('#tv_channels a.' + o.channel + ' span').html(
+          else $('.tv-channels .' + o.channel + ' span').html(
             o.player ? [
               o.player.title,
               o.player.name,

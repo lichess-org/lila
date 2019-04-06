@@ -117,6 +117,7 @@ object layout {
     asyncJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
     responsive: Boolean = false,
+    // responsive: Boolean,
     wrapClass: String = ""
   )(body: Html)(implicit ctx: Context) = frag(
     doctype,

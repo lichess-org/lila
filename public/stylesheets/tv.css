@@ -44,33 +44,6 @@
   white-space: nowrap;
   display: block;
 }
-#tv_channels table {
-  width: 100%;
-}
-#tv_channels a.user_link {
-  font-weight: bold;
-  color: #a0a0a0;
-}
-#tv_channels a.icon {
-  font-size: 26px;
-  padding-left: 10px;
-  opacity: 0.7;
-  transition: opacity 0.3s;
-}
-#tv_channels tr:hover a.icon {
-  opacity: 1;
-}
-#tv_channels td {
-  padding: 4px 0;
-  border-top: 1px solid #eaeaea;
-  transition: background 0.13s;
-}
-#tv_channels tr:first-child td {
-  border-top: none;
-}
-#tv_channels tr:hover td {
-  background-color: #f8f8f8;
-}
 
 .tv_stream iframe {
   border: none;

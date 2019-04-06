@@ -62,7 +62,7 @@ object Tv extends LilaController {
 
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
     (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
-      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 9) map {
+      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 12) map {
         case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
         }
