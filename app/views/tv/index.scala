@@ -25,12 +25,12 @@ object index {
       moreJs = frag(
         roundTag,
         embedJs {
-          def roundJs(p: lidraughts.game.Pov) = s"""LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${views.html.round.jsI18n(p.game)} }, document.getElementById('lidraughts'))"""
-          s"""window.customWS = true;
-window.onload = function() { ${pov ?? roundJs} }"""
+          val transJs = views.html.round.jsI18n(pov.game)
+          s"""window.lidraughts=window.lidraughts||{};window.customWS=true;
+window.onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),
-      moreCss = cssTag("tv.css"),
+      moreCss = responsiveCssTag("tv.single"),
       draughtsground = false,
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lidraughts.org",
@@ -39,15 +39,15 @@ window.onload = function() { ${pov ?? roundJs} }"""
       ).some,
       robots = true
     )(frag(
-        main(cls := "round")(
+        main(cls := "round tv-single")(
           st.aside(cls := "round__side")(
             side(channel, champions, "/tv", pov)
           ),
           div(cls := "round__board main-board")(board.bits.domPreload(pov))
         ),
         div(cls := "round__underboard none")(
-          pov ?? { p => round.bits.crosstable(cross, p.game) },
-          div(cls := "game_list playing tv_history")(
+          round.bits.crosstable(cross, pov.game),
+          div(cls := "now-playing tv-history")(
             h2(trans.previouslyOnLidraughtsTV()),
             history.map { p =>
               div(views.html.game.bits.mini(p))
