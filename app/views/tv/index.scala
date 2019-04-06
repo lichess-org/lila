@@ -26,11 +26,11 @@ object index {
         roundTag,
         embedJs {
           val transJs = views.html.round.jsI18n(pov.game)
-          s"""window.customWS = true;
-window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: $transJs }, document.getElementById('lichess')) }"""
+          s"""window.lichess=window.lichess||{};window.customWS=true;
+window.onload=function(){LichessRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),
-      moreCss = cssTag("tv.css"),
+      moreCss = responsiveCssTag("tv.single"),
       chessground = false,
       openGraph = lila.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
@@ -39,7 +39,7 @@ window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i
       ).some,
       robots = true
     )(frag(
-        main(cls := "round")(
+        main(cls := "round tv-single")(
           st.aside(cls := "round__side")(
             side(channel, champions, "/tv", pov.some)
           ),
@@ -47,7 +47,7 @@ window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i
         ),
         div(cls := "round__underboard none")(
           round.bits.crosstable(cross, pov.game),
-          div(cls := "game_list playing tv_history")(
+          div(cls := "now-playing tv-history")(
             h2(trans.previouslyOnLichessTV()),
             history.map { p =>
               div(views.html.game.bits.mini(p))

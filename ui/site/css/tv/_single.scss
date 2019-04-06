@@ -1,0 +1,17 @@
+@import 'side';
+
+.tv-single {
+  .tv-history {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    h2 {
+      @extend %roboto;
+      font-size: 1.3em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      flex: 0 0 100%;
+      text-align: center;
+    }
+  }
+}

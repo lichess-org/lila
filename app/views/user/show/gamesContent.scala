@@ -55,7 +55,7 @@ object gamesContent {
       } else
         div(cls := List(
           "games infinitescroll" -> true,
-          "game_list playing center" -> (filterName == "playing" && pager.nbResults > 2)
+          "now-playing center" -> (filterName == "playing" && pager.nbResults > 2)
         ))(
           pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
           if (filterName == "playing" && pager.nbResults > 2)
