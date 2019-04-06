@@ -33,30 +33,29 @@ object watcher {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.lidraughts=window.lidraughts||{};window.customWS=true;window.onload=function(){
+        embedJs(s"""window.lidraughts=window.lidraughts||{};customWS=true;onload=function(){
 LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},chat:${jsOrNull(chatJson)}})}""")
       ),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false
-    )(frag(
+    )(
         main(cls := "round")(
           st.aside(cls := "round__side")(
             game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked)
           ),
-          div(cls := "round__app")(
-            div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
-          )
-        ),
-        div(cls := "round__underboard")(
-          bits.crosstable(cross, pov.game)
-        ),
-        simul.map { s =>
-          div(cls := "other_games", id := "now_playing")(
-            h3(bits.simulStanding(s))
-          )
-        },
-        div(cls := "round__underchat")(bits underchat pov.game)
-      ))
+          chatOption.map(_ => chat.frag),
+          bits.roundAppPreload(pov, false),
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game)
+          ),
+          simul.map { s =>
+            div(cls := "other_games", id := "now_playing")(
+              h3(bits.simulStanding(s))
+            )
+          },
+          div(cls := "round__underchat")(bits underchat pov.game)
+        )
+      )
   }
 
   def crawler(pov: Pov, initialFen: Option[draughts.format.FEN], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context) =

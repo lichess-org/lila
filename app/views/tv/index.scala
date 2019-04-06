@@ -25,7 +25,7 @@ object index {
       moreJs = frag(
         roundTag,
         embedJs {
-          val transJs = views.html.round.jsI18n(pov.game)
+          val transJs = pov.map { p => views.html.round.jsI18n(p.game) }
           s"""window.lidraughts=window.lidraughts||{};window.customWS=true;
 window.onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
@@ -46,7 +46,7 @@ window.onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:
           div(cls := "round__board main-board")(board.bits.domPreload(pov))
         ),
         div(cls := "round__underboard none")(
-          round.bits.crosstable(cross, pov.game),
+          pov.map { p => round.bits.crosstable(cross, p.game) },
           div(cls := "now-playing tv-history")(
             h2(trans.previouslyOnLidraughtsTV()),
             history.map { p =>
