@@ -1,9 +1,10 @@
 package lidraughts.round
 
 import lidraughts.game.{ Game, Event, Progress, Pov }
+import lidraughts.game.actorApi.GameDrawEvent
 import lidraughts.pref.{ Pref, PrefApi }
 
-import draughts.Centis
+import draughts.{ Centis, Color }
 
 private[round] final class Drawer(
     messenger: Messenger,
@@ -31,7 +32,7 @@ private[round] final class Drawer(
       finisher.other(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     case Pov(g, color) if g playerCanOfferDraw color => proxy.save {
       messenger.system(g, color.fold(_.whiteOffersDraw, _.blackOffersDraw))
-      Progress(g) map { g => g.updatePlayer(color, _ offerDraw g.turns) }
+      Progress(g) map publishToBot(pov, color, g => g.updatePlayer(color, _ offerDraw g.turns))
     } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
     case _ => fuccess(List(Event.ReloadOwner))
   }
@@ -39,13 +40,21 @@ private[round] final class Drawer(
   def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(g, color) if pov.player.isOfferingDraw => proxy.save {
       messenger.system(g, _.drawOfferCanceled)
-      Progress(g) map { g => g.updatePlayer(color, _.removeDrawOffer) }
+      Progress(g) map publishToBot(pov, color, g => g.updatePlayer(color, _.removeDrawOffer))
     } inject List(Event.DrawOffer(by = none))
     case Pov(g, color) if pov.opponent.isOfferingDraw => proxy.save {
       messenger.system(g, color.fold(_.whiteDeclinesDraw, _.blackDeclinesDraw))
-      Progress(g) map { g => g.updatePlayer(!color, _.removeDrawOffer) }
+      Progress(g) map publishToBot(pov, color, g => g.updatePlayer(!color, _.removeDrawOffer))
     } inject List(Event.DrawOffer(by = none))
     case _ => fuccess(List(Event.ReloadOwner))
+  }
+
+  def publishToBot(pov: Pov, color: Color, updater: Game => Game)(game: Game): Game = {
+    val updated = updater(game)
+    if (pov.opponent.userId.exists(isBotSync)) {
+      bus.publish(GameDrawEvent(updated), 'botDraw)
+    }
+    updated
   }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =

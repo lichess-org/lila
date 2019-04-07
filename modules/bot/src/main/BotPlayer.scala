@@ -1,6 +1,7 @@
 package lidraughts.bot
 
 import akka.actor._
+
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -9,6 +10,7 @@ import draughts.format.Uci
 import lidraughts.game.{ Game, Pov, GameRepo }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lidraughts.round.actorApi.round.{ DrawNo, DrawYes }
 import lidraughts.user.User
 
 final class BotPlayer(
@@ -80,4 +82,40 @@ final class BotPlayer(
       )
     }
     else fufail("This game cannot be resigned")
+
+  def acceptDraw(pov: Pov): Funit = {
+    if (pov.game.drawable) fuccess {
+      if (pov.opponent.isOfferingDraw) fuccess {
+        system.lidraughtsBus.publish(
+          Tell(pov.gameId, DrawYes(pov.playerId)),
+          'roundMapTell
+        )
+      }
+      else fufail("The opponent isn't offering a draw")
+    }
+    else fufail("This game cannot be drawn")
+  }
+
+  def declineDraw(pov: Pov): Funit = {
+    if (pov.game.drawable) {
+      if (pov.opponent.isOfferingDraw) fuccess {
+        system.lidraughtsBus.publish(
+          Tell(pov.gameId, DrawNo(pov.playerId)),
+          'roundMapTell
+        )
+      }
+      else fufail("The opponent isn't offering a draw")
+    } else fufail("This game cannot be drawn")
+  }
+
+  def offerDraw(pov: Pov): Funit =
+    if (pov.game.drawable) fuccess {
+      if (pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn) {
+        system.lidraughtsBus.publish(
+          Tell(pov.gameId, DrawYes(pov.playerId)),
+          'roundMapTell
+        )
+      } else fufail("You cannot offer a draw")
+    }
+    else fufail("This game cannot be drawn")
 }
