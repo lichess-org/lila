@@ -1,0 +1,42 @@
+.faq .question {
+  border-left: 5px solid white;
+  padding-left: 10px;
+}
+.faq .question .answer {
+  display: none;
+}
+.faq .question:target {
+  border-left: 5px solid rgba(128,128,128,0.2);
+}
+.faq .question:target .answer {
+  display: block;
+}
+.faq .question:target h3 {
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+.faq h1, .faq h2 {
+  margin-left: 15px;
+}
+.faq h2 {
+  font-size: 1.2em;
+  margin: 0 1em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(128,128,128,0.2);
+}
+.faq h3 {
+  font-size: 1.2em;
+  padding-bottom: 0.3em;
+}
+.faq .question, .faq p, .faq ul, .faq ol {
+  margin-bottom: 0.8em;
+}
+.faq a {
+  color: #3893e8;
+}
+.faq ul li {
+  list-style: disc inside;
+}
+.faq ol li {
+  list-style: decimal inside;
+}
