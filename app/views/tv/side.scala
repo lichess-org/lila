@@ -23,11 +23,11 @@ object side {
         span(dataIcon := c.icon)(
           span(
             strong(c.name),
-            span(
+            span(cls := "champion")(
               champions.get(c).fold[Frag](raw(" - ")) { p =>
                 frag(
                   p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
-                  nbsp,
+                  " ",
                   p.rating
                 )
               }
@@ -39,16 +39,13 @@ object side {
   )
 
   def sides(
-    channel: lidraughts.tv.Tv.Channel,
-    champions: lidraughts.tv.Tv.Champions,
     povOption: Option[lidraughts.game.Pov],
     cross: Option[lidraughts.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) =
     div(cls := "sides")(
-      side(channel, champions, "/tv"),
       povOption ?? { pov =>
-        cross.map { c =>
-          views.html.game.crosstable(c, pov.gameId.some)
+        cross.map {
+          views.html.game.crosstable(_, pov.gameId.some)
         }
       }
     )

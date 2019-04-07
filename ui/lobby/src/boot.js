@@ -199,8 +199,8 @@ module.exports = function(cfg, element) {
     var $timeInput = $form.find('.time_choice [name=time]');
     var $incrementInput = $form.find('.increment_choice [name=increment]');
     var $daysInput = $form.find('.days_choice [name=days]');
-    var isHook = $form.hasClass('game_config_hook');
     var typ = $form.data('type');
+    var isHook = typ === 'hook';
     var $ratings = $modal.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
     var $submits = $form.find('.color-submits__button');
@@ -212,20 +212,17 @@ module.exports = function(cfg, element) {
       var inc = $incrementInput.val();
       // no rated variants with less than 30s on the clock
       var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) || timeMode == 0;
-      if (cantBeRated) {
-        if (rated) {
-          $casual.click();
-          return toggleButtons();
-        }
+      if (cantBeRated && rated) {
+        $casual.click();
+        return toggleButtons();
       }
-      $rated.attr('disabled', cantBeRated);
+      $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
       var ratedOk = !isHook || !rated || timeMode != '0';
       if (timeOk && ratedOk) {
-        $form.find('.color_submits button').toggleClass('nope', false);
-        $form.find('.color_submits button:not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
-      } else
-        $form.find('.color_submits button').toggleClass('nope', true);
+        $submits.toggleClass('nope', false);
+        $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
+      } else $submits.toggleClass('nope', true);
     };
     var showRating = function() {
       var timeMode = $timeModeSelect.val();
@@ -258,7 +255,6 @@ module.exports = function(cfg, element) {
       $ratings.hide().filter('.' + key).show();
     };
     if (isHook) {
-      var $formTag = $form.find('form');
       if ($form.data('anon')) {
         $timeModeSelect.val(1)
           .children('.timeMode_2, .timeMode_0')
@@ -281,7 +277,7 @@ module.exports = function(cfg, element) {
         $.ajax(call);
         return false;
       };
-      $formTag.find('.color_submits button').click(function() {
+      $submits.click(function() {
         return ajaxSubmit($(this).val());
       }).attr('disabled', false);
       $form.submit(function() {
