@@ -25,7 +25,7 @@
   <string name="kingInTheCenter">Кароль у цэнтры</string>
   <string name="threeChecks">Тры шахі</string>
   <string name="raceFinished">Гонка скончаная</string>
-  <string name="variantEnding">Варыянтны канец</string>
+  <string name="variantEnding">Канчатковы варыянт</string>
   <string name="newOpponent">Новы супернік</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Супернік хоча згуляць з вамі ізноў</string>
   <string name="joinTheGame">Далучыцца да гульні</string>
@@ -712,10 +712,10 @@
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
   <string name="tournamentFAQ">FAQ турніру</string>
-  <string name="tournamentOfficial">Афіцыйна</string>
-  <string name="timeBeforeTournamentStarts">Час перад пачаткам турніру</string>
+  <string name="tournamentOfficial">Афіцыйны</string>
+  <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
-  <string name="keyboardShortcuts">хуткія клявішы</string>
+  <string name="keyboardShortcuts">Скароты</string>
   <string name="keyMoveBackwardOrForward">пахадзіць назад/наперад</string>
   <string name="keyGoToStartOrEnd">да пачатку/канцу</string>
   <string name="keyShowOrHideComments">паказаць/схаваць камэнтары</string>
