@@ -507,7 +507,7 @@
   </plurals>
   <string name="fromGameLink">З гульні %s</string>
   <string name="continueTraining">Працягнуць трэніроўку</string>
-  <string name="retryThisPuzzle">Паспрабаваць разьвязаць зноў</string>
+  <string name="retryThisPuzzle">Паспрабаваць яшчэ раз</string>
   <string name="thisPuzzleIsCorrect">Гэтая галаваломка правільная і цікавая</string>
   <string name="thisPuzzleIsWrong">Гэтая галаваломка няправільная або нудная</string>
   <plurals name="nbGamesInPlay">
@@ -517,9 +517,9 @@
     <item quantity="other">%s бягучых гульняў</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
-  <string name="autoSwitch">Аўтаперамыканьне</string>
-  <string name="puzzles">Загадкі</string>
-  <string name="latestUpdates">Апошнія абнаўлення</string>
+  <string name="autoSwitch">Аўтапераключэнне</string>
+  <string name="puzzles">Галаваломкі</string>
+  <string name="latestUpdates">Апошнія абнаўленні</string>
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
@@ -532,7 +532,7 @@
   <string name="lastPost">Апошні допіс</string>
   <string name="views">Прагляды</string>
   <string name="replies">Адказы</string>
-  <string name="replyToThisTopic">Адказаць на гэтую тэму</string>
+  <string name="replyToThisTopic">Адказаць у гэтую тэму</string>
   <string name="reply">Адказаць</string>
   <string name="message">Паведамленне</string>
   <string name="createTheTopic">Стварыць тэму</string>
@@ -540,8 +540,8 @@
   <string name="user">Карыстальнік</string>
   <string name="reason">Прычына</string>
   <string name="whatIsIheMatter">Што здарылася?</string>
-  <string name="cheat">Ашуканства</string>
-  <string name="insult">Знявага</string>
+  <string name="cheat">Чмуцтва</string>
+  <string name="insult">Абраза</string>
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
   <string name="reportDescriptionHelp">Устаўце спасылку на гульню(і) і растлумачце што не так ў паводзінах карыстальніка</string>
