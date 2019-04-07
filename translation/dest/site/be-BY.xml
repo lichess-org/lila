@@ -18,7 +18,7 @@
   <string name="stalemate">Пат</string>
   <string name="white">Белыя</string>
   <string name="black">Чорныя</string>
-  <string name="randomColor">Адвольны колер</string>
+  <string name="randomColor">Выпадковы колер</string>
   <string name="createAGame">Стварыць гульню</string>
   <string name="whiteIsVictorious">Белыя перамаглі</string>
   <string name="blackIsVictorious">Чорныя перамаглі</string>
@@ -35,14 +35,14 @@
   <string name="makeYourOpponentResign">Прымусіць суперніка здацца</string>
   <string name="forceResignation">Параза суперніка</string>
   <string name="forceDraw">Залічыць нічыю</string>
-  <string name="talkInChat">Паведамленьне</string>
+  <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Першы хто пройдзе па гэтай спасылцы зможа згуляць з вамі.</string>
   <string name="whiteResigned">Белыя здаліся</string>
   <string name="blackResigned">Чорныя здаліся</string>
   <string name="whiteLeftTheGame">Белыя пакінулі гульню</string>
   <string name="blackLeftTheGame">Чорныя пакінулі гульню</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Падзяліцца гэтай спасылкай каб дазволіць назіраць гульню</string>
-  <string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз ня ўдаўся</string>
+  <string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз не ўдаўся</string>
   <string name="viewTheComputerAnalysis">Прагледзець камп\'ютарны аналіз</string>
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарный аналіз</string>
   <string name="computerAnalysis">Кампутарны аналіз</string>
@@ -76,6 +76,12 @@
   <string name="recentGames">Апошнія гульні</string>
   <string name="topGames">Топ-партыі</string>
   <string name="masterDbExplanation">Два мільёны OTB гульняў %1$s+ FIDE гульцоў у рэйтынгу ад %2$s да %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Мат за %s паўход</item>
+    <item quantity="few">Мат за %s паўхады</item>
+    <item quantity="many">Мат за %s паўхадоў</item>
+    <item quantity="other">Мат за %s паўхадоў</item>
+  </plurals>
   <string name="noGameFound">Гульні ня знойдзеныя</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можа варта ўключыць больш гульняў з укладкі пераваг?</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
@@ -110,7 +116,25 @@
   <string name="claimADraw">Запатрабаваць нічыю</string>
   <string name="offerDraw">Прапанаваць нічыю</string>
   <string name="draw">Нічыя</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s гулец</item>
+    <item quantity="few">%s гульцы</item>
+    <item quantity="many">%s гульцоў</item>
+    <item quantity="other">%s гульцоў</item>
+  </plurals>
   <string name="currentGames">Дзейныя гульні</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s гульня</item>
+    <item quantity="few">%s гульні</item>
+    <item quantity="many">%s гульняў</item>
+    <item quantity="other">%s гульняў</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s закладка</item>
+    <item quantity="few">%s закладкі</item>
+    <item quantity="many">%s закладак</item>
+    <item quantity="other">%s закладак</item>
+  </plurals>
   <string name="viewInFullSize">Глядзець у поўным памеры</string>
   <string name="logOut">Выйсьці</string>
   <string name="signIn">Увайсьці</string>
@@ -131,6 +155,18 @@
   <string name="correspondence">Ліставаньне</string>
   <string name="daysPerTurn">Дзён на ход</string>
   <string name="oneDay">Aдзін дзень</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s дзень</item>
+    <item quantity="few">%s дні</item>
+    <item quantity="many">%s дзён</item>
+    <item quantity="other">%s дзён</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s гадзіна</item>
+    <item quantity="few">%s гадзіны</item>
+    <item quantity="many">%s гадзін</item>
+    <item quantity="other">%s гадзін</item>
+  </plurals>
   <string name="time">Час</string>
   <string name="rating">Рэйтынг</string>
   <string name="ratingStats">Статыстыка рэйтыгнаў</string>
@@ -627,6 +663,7 @@
   <string name="xHostsY">%1$s стварыў %2$s</string>
   <string name="xJoinsY">%1$s далучыўся да %2$s</string>
   <string name="xLikesY">%1$s адзначыў %2$s як упадабанае</string>
+  <string name="xCreatesStudyY">%1$s стварыў даследаванне %2$s</string>
   <string name="quickPairing">Хуткі старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Ананімна</string>
