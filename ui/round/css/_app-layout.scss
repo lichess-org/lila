@@ -24,6 +24,7 @@ $controls-height: auto;
   'expi-bot expi-bot'
   'user-bot clock-bot'
   'mat-bot  mat-bot'
+  'kb-move  kb-move'
   'controls controls'
   'moves    moves';
 
@@ -58,7 +59,8 @@ $controls-height: auto;
     'board expi-bot'
     'board clock-bot'
     'board mat-bot'
-    'board .';
+    'board .'
+    'kb-move .';
     grid-column-gap: $block-gap;
     &__table {
       display: block;
@@ -69,6 +71,9 @@ $controls-height: auto;
       display: none;
       background: none;
     }
+    .keyboard-move {
+      margin-top: $block-gap;
+    }
     @include breakpoint($mq-tall) {
       & .rmoves { display: flex; }
     }
@@ -76,13 +81,14 @@ $controls-height: auto;
 
   &__board { grid-area: board; }
 }
-.rcontrols { grid-area: controls; }
-.material-top { grid-area: mat-top; }
-.material-bottom { grid-area: mat-bot; }
-.expiration-top { grid-area: expi-top; }
-.expiration-bottom { grid-area: expi-bot; }
-.ruser-top { grid-area: user-top; }
-.ruser-bottom { grid-area: user-bot; }
-.rclock-top { grid-area: clock-top; }
-.rclock-bottom { grid-area: clock-bot; }
-.rmoves { grid-area: moves; }
+.rcontrols { grid-area: controls }
+.material-top { grid-area: mat-top }
+.material-bottom { grid-area: mat-bot }
+.expiration-top { grid-area: expi-top }
+.expiration-bottom { grid-area: expi-bot }
+.ruser-top { grid-area: user-top }
+.ruser-bottom { grid-area: user-bot }
+.rclock-top { grid-area: clock-top }
+.rclock-bottom { grid-area: clock-bot }
+.rmoves { grid-area: moves }
+.keyboard-move { grid-area: kb-move }
