@@ -6,12 +6,12 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Каб запрасіць суперніка да гульні, падзяліцеся гэтай спасылкай</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
-  <string name="waiting">Чакайце</string>
+  <string name="waiting">Чаканне</string>
   <string name="yourTurn">Ваша чарга</string>
   <string name="aiNameLevelAiLevel">%1$s узровень %2$s</string>
   <string name="level">Узровень</string>
-  <string name="toggleTheChat">Уключыць/выключыць чат</string>
-  <string name="toggleSound">Уключыць/выключыць гук</string>
+  <string name="toggleTheChat">Укл./адкл. чат</string>
+  <string name="toggleSound">Укл./адкл. гук</string>
   <string name="chat">Чат</string>
   <string name="resign">Здацца</string>
   <string name="checkmate">Мат</string>
@@ -41,7 +41,7 @@
   <string name="blackResigned">Чорныя здаліся</string>
   <string name="whiteLeftTheGame">Гулец з боку белых выйшаў з гульні</string>
   <string name="blackLeftTheGame">Гулец з боку чорных выйшаў з гульні</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Падзяліцца гэтай спасылкай каб дазволіць назіраць гульню</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Каб запрасіць назіральнікаў, падзяліцеся з імі гэтай спасылкай</string>
   <string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз не ўдаўся</string>
   <string name="viewTheComputerAnalysis">Прагледзець камп\'ютарны аналіз</string>
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарны аналіз</string>
@@ -49,20 +49,20 @@
   <string name="computerAnalysisAvailable">Даступны камп’ютарны аналіз</string>
   <string name="analysis">Аналіз</string>
   <string name="depthX">Глыбіня %s</string>
-  <string name="usingServerAnalysis">Выкарыстоўваецца сэрвэрны аналіз</string>
+  <string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
   <string name="loadingEngine">Загрузка рухавічка...</string>
   <string name="cloudAnalysis">Воблачны аналіз</string>
   <string name="goDeeper">Паглыбіць</string>
   <string name="showThreat">Паказваць пагрозы</string>
-  <string name="inLocalBrowser">у лякальным браўзэры</string>
-  <string name="toggleLocalEvaluation">Уключыць аналіз на кампутары</string>
-  <string name="promoteVariation">Прамоцыя варыянта</string>
+  <string name="inLocalBrowser">у вашым браўзеры</string>
+  <string name="toggleLocalEvaluation">Уключыць аналіз на камп’ютары</string>
+  <string name="promoteVariation">Узвысіць прыярытэт</string>
   <string name="makeMainLine">Зрабіць асноўным</string>
   <string name="deleteFromHere">Выдаліць адсюль</string>
   <string name="move">Ход</string>
-  <string name="variantLoss">Варыянт прайграць</string>
-  <string name="variantWin">Варыянт выйграць</string>
-  <string name="insufficientMaterial">Недастаткова месца</string>
+  <string name="variantLoss">Пройгрышны варыянт</string>
+  <string name="variantWin">Пераможны варыянт</string>
+  <string name="insufficientMaterial">Немагчыма паставіць мат</string>
   <string name="pawnMove">Ход пешкай</string>
   <string name="capture">Узяцце</string>
   <string name="close">Закрыць</string>
@@ -81,6 +81,12 @@
     <item quantity="few">Мат за %s паўхады</item>
     <item quantity="many">Мат за %s паўхадоў</item>
     <item quantity="other">Мат за %s паўхадоў</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Наступнае узяцце ці ход пешкай за %s паўход (Дыстанцыя да 50-га ходу)</item>
+    <item quantity="few">Наступнае узяцце ці ход пешкай за %s паўхады (Дыстанцыя да 50-га ходу)</item>
+    <item quantity="many">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
+    <item quantity="other">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
   </plurals>
   <string name="noGameFound">Гульні ня знойдзеныя</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можа варта ўключыць больш гульняў з укладкі пераваг?</string>
@@ -182,7 +188,19 @@
   <string name="rank">Ранг</string>
   <string name="rankX">Рэйтынг: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Рэйтынг абнаўляецца кожныя %s хвілін</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s галаваломка</item>
+    <item quantity="few">%s галаваломкі</item>
+    <item quantity="many">%s галаваломак</item>
+    <item quantity="other">%s галаваломак</item>
+  </plurals>
   <string name="gamesPlayed">Партый згуляна</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s партыя з вамі</item>
+    <item quantity="few">%s партыі з вамі</item>
+    <item quantity="many">%s партый з вамі</item>
+    <item quantity="other">%s партый з вамі</item>
+  </plurals>
   <string name="cancel">Скасаваць</string>
   <string name="timeOut">Час скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
@@ -232,8 +250,44 @@
   <string name="incrementInSeconds">Прырост у сэкундах</string>
   <string name="freeOnlineChess">Бясплатныя он-лайн шахматы</string>
   <string name="spectators">Назіральнікі:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s рэйтынгавая</item>
+    <item quantity="few">%s рэйтынгавыя</item>
+    <item quantity="many">%s рэйтынгавых</item>
+    <item quantity="other">%s рэйтынгавых</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s перамога</item>
+    <item quantity="few">%s перамогі</item>
+    <item quantity="many">%s перамог</item>
+    <item quantity="other">%s перамог</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s параза</item>
+    <item quantity="few">%s паразы</item>
+    <item quantity="many">%s паразаў</item>
+    <item quantity="other">%s паразаў</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s унічыю</item>
+    <item quantity="few">%s унічыю</item>
+    <item quantity="many">%s унічыю</item>
+    <item quantity="other">%s унічыю</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s у працэсе</item>
+    <item quantity="few">%s у працэсе</item>
+    <item quantity="many">%s у працэсе</item>
+    <item quantity="other">%s у працэсе</item>
+  </plurals>
   <string name="exportGames">Экспарт гульняў</string>
   <string name="ratingRange">Рэйтынг суперніка</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Даць %s секунду</item>
+    <item quantity="few">Даць %s секунды</item>
+    <item quantity="many">Даць %s секунд</item>
+    <item quantity="other">Даць %s секунд</item>
+  </plurals>
   <string name="giveMoreTime">Дадаць часу</string>
   <string name="thisPlayerUsesChessComputerAssistance">Гэты гулец выкарыстоўвае шахматную праграму</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Гэты гулец штучна павялічвае свой рэйтынг</string>
@@ -251,9 +305,21 @@
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніры</string>
   <string name="tournamentPoints">Турнірныя балы</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнірны бал</item>
+    <item quantity="few">%s турнірныя балы</item>
+    <item quantity="many">%s турнірных балаў</item>
+    <item quantity="other">%s турнірных балаў</item>
+  </plurals>
   <string name="viewTournament">Назіраць за турнірам</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
   <string name="thematic">Тэматычны</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s рэйтынгавая гульня</item>
+    <item quantity="few">%s рэйтынгавыя гульні</item>
+    <item quantity="many">%s рэйтынгавых гульняў</item>
+    <item quantity="other">%s рэйтынгавых гульняў</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш папярэдні рэйтынг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у %1$s (%2$s) занадта высокі</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш штотыднёвы рэйтынг %1$s рэйтынг (%2$s) занадта высокі</string>
@@ -265,6 +331,12 @@
   <string name="backToGame">Вярнуцца да гульні</string>
   <string name="siteDescription">Бясплатныя он-лайн шахматы. Гуляй у шахматы з зручным інтэрфэйсам. Без рэгістрацыі, без рэклямы, без дадатковых праграм. Гуляй у шахматы з камп\'ютарам, сябрамі ці выпадковым супернікам.</string>
   <string name="teams">Каманды</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s удзельнік</item>
+    <item quantity="few">%s удзельнікі</item>
+    <item quantity="many">%s удзельнікаў</item>
+    <item quantity="other">%s удзельнікаў</item>
+  </plurals>
   <string name="allTeams">Усе каманды</string>
   <string name="newTeam">Новая каманда</string>
   <string name="myTeams">Мае каманды</string>
