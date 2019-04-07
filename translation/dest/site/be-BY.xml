@@ -31,12 +31,12 @@
   <string name="joinTheGame">Далучыцца да гульні</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чорных</string>
-  <string name="opponentLeftChoices">Супернік пакінуў гульню. Можаш залічыць яму паразу ці пачакаць яго</string>
+  <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
   <string name="makeYourOpponentResign">Прымусіць суперніка здацца</string>
-  <string name="forceResignation">Параза суперніка</string>
+  <string name="forceResignation">Залічыць паразу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Першы хто пройдзе па гэтай спасылцы зможа згуляць з вамі.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Той, хто перайдзе па гэтай спасылцы, зможа згуляць з вамі.</string>
   <string name="whiteResigned">Белыя здаліся</string>
   <string name="blackResigned">Чорныя здаліся</string>
   <string name="whiteLeftTheGame">Гулец з боку белых выйшаў з гульні</string>
@@ -66,16 +66,16 @@
   <string name="pawnMove">Ход пешкай</string>
   <string name="capture">Узяцце</string>
   <string name="close">Закрыць</string>
-  <string name="winning">Перамога</string>
-  <string name="losing">Параза</string>
+  <string name="winning">Пераможны</string>
+  <string name="losing">Пройгрышны</string>
   <string name="drawn">Нічыя</string>
   <string name="unknown">Невядома</string>
-  <string name="database">Звесткі з</string>
+  <string name="database">База звестак</string>
   <string name="whiteDrawBlack">Белыя / нічыя / чорныя</string>
   <string name="averageRatingX">Сярэдні рэйтынг: %s</string>
   <string name="recentGames">Нядаўнія гульні</string>
-  <string name="topGames">Топ-партыі</string>
-  <string name="masterDbExplanation">Два мільёны OTB гульняў %1$s+ FIDE гульцоў у рэйтынгу ад %2$s да %3$s</string>
+  <string name="topGames">Лепшыя гульні</string>
+  <string name="masterDbExplanation">Два мільёны OTB-гульняў гульцоў з рэйтынгам FIDE %1$s+ ад %2$s да %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат за %s паўход</item>
     <item quantity="few">Мат за %s паўхады</item>
@@ -88,36 +88,36 @@
     <item quantity="many">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
     <item quantity="other">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
   </plurals>
-  <string name="noGameFound">Гульні ня знойдзеныя</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можа варта ўключыць больш гульняў з укладкі пераваг?</string>
+  <string name="noGameFound">Гульні не знойдзеныя</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
-  <string name="xOpeningExplorer">Адкрываем праваднік: %s</string>
-  <string name="winPreventedBy50MoveRule">Перамога папярэджана правілам 50-га ходу</string>
-  <string name="lossSavedBy50MoveRule">Параза выратавана правілам 50-га ходу</string>
+  <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
+  <string name="winPreventedBy50MoveRule">Перамога немагчымая: абмежавана правілам 50-га ходу</string>
+  <string name="lossSavedBy50MoveRule">Параза немагчымая: абмежавана правілам 50-га ходу</string>
   <string name="allSet">Усё гатова!</string>
   <string name="importPgn">Імпартаваць PGN</string>
   <string name="delete">Выдаліць</string>
-  <string name="deleteThisImportedGame">Выдаліць гэту імпартаваную гульню?</string>
+  <string name="deleteThisImportedGame">Выдаліць гэтую імпартаваную гульню?</string>
   <string name="replayMode">Рэжым паўтору</string>
   <string name="realtimeReplay">У рэальным часе</string>
   <string name="byCPL">Цікавае</string>
   <string name="openStudy">Пачаць даследаванне</string>
   <string name="enable">Уключыць</string>
-  <string name="bestMoveArrow">Стрэлка \"лепшы ход\"</string>
+  <string name="bestMoveArrow">Паказваць лепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
-  <string name="multipleLines">Колькасць стрэлак</string>
+  <string name="multipleLines">Лініі аналізу</string>
   <string name="cpus">Працэсары</string>
   <string name="memory">Памяць</string>
   <string name="infiniteAnalysis">Бясконцы аналіз</string>
-  <string name="removesTheDepthLimit">Падаляе абмежаванне на глыбіню (ваш кампутар будзе гарачым)</string>
+  <string name="removesTheDepthLimit">Здымае абмежаванне на глыбіню. Асцярожна, ваш камп’ютар можа перагрэцца!</string>
   <string name="blunder">Грубая памылка</string>
   <string name="blunders">Грубыя памылкі</string>
   <string name="mistake">Памылка</string>
   <string name="mistakes">Памылкі</string>
   <string name="inaccuracy">Недакладнасць</string>
-  <string name="inaccuracies">Недакладнасьці</string>
+  <string name="inaccuracies">Недакладнасці</string>
   <string name="moveTimes">Час на ход</string>
-  <string name="flipBoard">Разьвярнуць дошку</string>
+  <string name="flipBoard">Перавярнуць дошку</string>
   <string name="threefoldRepetition">Трохразовы паўтор</string>
   <string name="claimADraw">Запатрабаваць нічыю</string>
   <string name="offerDraw">Прапанаваць нічыю</string>
@@ -128,7 +128,7 @@
     <item quantity="many">%s гульцоў</item>
     <item quantity="other">%s гульцоў</item>
   </plurals>
-  <string name="currentGames">Дзейныя гульні</string>
+  <string name="currentGames">Бягучыя гульні</string>
   <plurals name="nbGames">
     <item quantity="one">%s гульня</item>
     <item quantity="few">%s гульні</item>
@@ -142,10 +142,10 @@
     <item quantity="other">%s закладак</item>
   </plurals>
   <string name="viewInFullSize">Глядзець у поўным памеры</string>
-  <string name="logOut">Выйсьці</string>
-  <string name="signIn">Увайсьці</string>
+  <string name="logOut">Выйсці</string>
+  <string name="signIn">Увайсці</string>
   <string name="newToLichess">Упершыню на Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Патрэбны акаўнт каб зрабіць гэта</string>
+  <string name="youNeedAnAccountToDoThat">Вам патрэбны ўліковы запіс, каб зрабіць гэта</string>
   <string name="signUp">Зарэгістравацца</string>
   <string name="computersAreNotAllowedToPlay">Камп\'ютары і гульцы якія карыстаюцца дапамогай камп\'ютару не дапускаюцца да гульні. Калі ласка, не карыстайцеся шахматнымі рухавікамі, базамі, або гульнямі іншых гульцоў.</string>
   <string name="games">Гульні</string>
@@ -369,7 +369,7 @@
     <item quantity="one">%s імпартаваная гульня</item>
     <item quantity="few">%s імпартаваныя гульні</item>
     <item quantity="many">%s імпартаваных гульняў</item>
-    <item quantity="other">%s Імпартаваных гульняў</item>
+    <item quantity="other">%s імпартаваных гульняў</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Гэта шахматны тэст.</string>
   <string name="clickOnTheBoardToMakeYourMove">Пстыркні па дошцы каб зрабіць ход, дакажы што ты чалавек.</string>
@@ -400,7 +400,7 @@
     <item quantity="one">падпісаны на %s гульца</item>
     <item quantity="few">падпісаны на %s гульцоў</item>
     <item quantity="many">падпісаны на %s гульцоў</item>
-    <item quantity="other">падпісаны на %s гульцоў</item>
+    <item quantity="other">%s назіраюць</item>
   </plurals>
   <string name="more">Больш</string>
   <string name="memberSince">Чалец ад</string>
