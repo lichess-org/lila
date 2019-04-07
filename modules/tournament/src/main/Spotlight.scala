@@ -7,7 +7,7 @@ import lidraughts.user.User
 case class Spotlight(
     headline: String,
     description: String,
-    homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
+    homepageHours: Option[Int] = None, // feature on homepage hours before start
     iconFont: Option[String] = None,
     iconImg: Option[String] = None
 )

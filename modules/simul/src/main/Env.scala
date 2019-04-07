@@ -53,6 +53,8 @@ final class Env(
     asyncCache = asyncCache
   )
 
+  lazy val crudApi = new crud.CrudApi(repo)
+
   lazy val forms = new DataForm
 
   lazy val jsonView = new JsonView(lightUser)

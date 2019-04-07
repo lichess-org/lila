@@ -50,12 +50,14 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     def read(bs: BSONString) = ChatMode.byKey get bs.value err s"Invalid chatmode ${bs.value}"
     def write(x: ChatMode) = BSONString(x.key)
   }
+  private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
   private implicit val SimulBSONHandler = Macros.handler[Simul]
 
   private val createdSelect = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect = $doc("status" -> SimulStatus.Started.id)
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
+  private val uniqueSelect = $doc("spotlight" -> $doc("$exists" -> true))
   private val createdSort = $doc("createdAt" -> -1)
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
@@ -66,6 +68,9 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def exists(id: Simul.ID): Fu[Boolean] =
     simulColl.exists($id(id))
+
+  def uniqueById(id: Simul.ID): Fu[Option[Simul]] =
+    simulColl.find($id(id) ++ uniqueSelect).uno[Simul]
 
   def createdByHostId(hostId: String): Fu[List[Simul]] =
     simulColl.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
@@ -93,6 +98,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def allNotFinished =
     simulColl.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
+
+  def uniques(max: Int): Fu[List[Simul]] =
+    simulColl.find(uniqueSelect)
+      .sort($doc("startsAt" -> -1))
+      .list[Simul](max)
 
   def create(simul: Simul): Funit =
     simulColl insert simul void

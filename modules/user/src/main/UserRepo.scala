@@ -30,6 +30,10 @@ object UserRepo {
     coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().gather[List](nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
+  def byId(idOption: Option[ID]): Fu[Option[User]] = idOption match {
+    case Some(id) => coll.byId[User](id)
+    case _ => fuccess(none)
+  }
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 

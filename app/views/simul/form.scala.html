@@ -1,6 +1,7 @@
 @(form: Form[lidraughts.simul.SimulSetup], config: lidraughts.simul.DataForm)(implicit ctx: Context)
 
 @import config._
+@import lidraughts.simul.DataForm._
 
 @simul.layout(
 title = trans.hostANewSimul.txt()) {
@@ -31,9 +32,9 @@ title = trans.hostANewSimul.txt()) {
         <tr class="time">
           <th><label>@trans.timeControl()</label></th>
           <td class="inline">
-            @base.form.select(form("clockTime"), config.clockTimeChoices)
+            @base.form.select(form("clockTime"), clockTimeChoices)
             +
-            @base.form.select(form("clockIncrement"), config.clockIncrementChoices)
+            @base.form.select(form("clockIncrement"), clockIncrementChoices)
           </td>
         </tr>
         <tr class="help">
@@ -43,11 +44,11 @@ title = trans.hostANewSimul.txt()) {
         </tr>
         <tr>
           <th><label for="@form("clockExtra").id">@trans.simulHostExtraTime()</label></th>
-          <td>@base.form.select(form("clockExtra"), config.clockExtraChoices)</td>
+          <td>@base.form.select(form("clockExtra"), clockExtraChoices)</td>
         </tr>
         <tr>
           <th><label for="@form("color").id">@trans.simulHostColor()</label></th>
-          <td>@base.form.select(form("color"), config.colorChoices)</td>
+          <td>@base.form.select(form("color"), colorChoices)</td>
         </tr>
         <tr class="help">
           <th colspan="2">
@@ -56,7 +57,7 @@ title = trans.hostANewSimul.txt()) {
         </tr>
         <tr>
           <th><label for="@form("chat").id">@trans.chatAvailableFor()</label></th>
-          <td>@base.form.select(form("chat"), config.chatChoices)</td>
+          <td>@base.form.select(form("chat"), chatChoices)</td>
         </tr>
         <tr>
           <th></th>

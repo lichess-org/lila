@@ -22,7 +22,9 @@ case class Simul(
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
     color: Option[String],
-    chatmode: Option[Simul.ChatMode]
+    chatmode: Option[Simul.ChatMode],
+    arbiterId: Option[String] = None,
+    spotlight: Option[Spotlight] = None
 ) {
 
   def id = _id
@@ -138,9 +140,12 @@ case class Simul(
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
   def spotlightable =
-    isCreated &&
-      (hostRating >= 2400 || hostTitle.isDefined) &&
-      applicants.size < 80
+    isCreated && (
+      spotlight.isDefined || (
+        (hostRating >= 2400 || hostTitle.isDefined) &&
+        applicants.size < 80
+      )
+    )
 
   def wins = pairings.count(p => p.finished && p.wins.has(false))
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)

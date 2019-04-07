@@ -97,7 +97,9 @@ time {
 .is4.text::before {
   margin-right: 10px;
 }
-.user_link.online .line,
+.user_link.online .line {
+ color: #759900!important;
+}
 .is-green::before {
   color: #759900;
 }

@@ -1,0 +1,68 @@
+h1.lidraughts_title {
+  text-align: center;
+  margin-bottom: 0!important;
+}
+h1.lidraughts_title a.new {
+  float: right;
+  color: #3893E8!important;
+}
+h1.lidraughts_title span {
+  display: block;
+  font-size: 0.35em;
+  opacity: 0.8;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+h1.lidraughts_title a {
+  color: #ddd!important;
+}
+.simul_crud.edit h1.lidraughts_title {
+  background: #303F9F;
+  color: #ddd;
+  letter-spacing: 0.1em;
+  padding: 30px!important;
+  font-size: 31px!important;
+}
+table.slist {
+  font-size: 1.2em;
+  width: 100%;
+}
+table.slist td {
+  padding: 20px 10px;
+}
+table.slist time {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+.material.form button {
+  font-size: 1.7em;
+  font-weight: normal;
+  padding: 10px 20px;
+}
+.material.form textarea {
+  height: 10em;
+}
+.simul_crud a {
+  color: #3893E8!important;
+}
+.simul_crud a.user_link {
+  color: #747474!important;
+}
+.simul_crud h2 {
+  font-size: 1.5em;
+  margin: 0px 0 30px 0;
+  text-align: center;
+}
+.simul_crud .error {
+  color: red !important;
+}
+.simul_crud .material.form .form-group .custom-label {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  top: -1rem;
+  left: 0;
+}
+.simul_crud .form-group.short-margin {
+  margin-bottom: 1rem;
+}

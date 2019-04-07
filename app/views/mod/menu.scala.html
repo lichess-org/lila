@@ -21,6 +21,9 @@
 @if(isGranted(_.ManageTournament)) {
 <a class="@active.active("tour")" href="@routes.TournamentCrud.index">Tournaments</a>
 }
+@if(isGranted(_.ManageSimul)) {
+<a class="@active.active("simul")" href="@routes.SimulCrud.index">Simuls</a>
+}
 @if(isGranted(_.ManageEvent)) {
 <a class="@active.active("event")" href="@routes.Event.manager">Events</a>
 }

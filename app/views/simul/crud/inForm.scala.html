@@ -1,0 +1,70 @@
+@(form: Form[lidraughts.simul.crud.CrudForm.Data])(implicit ctx: Context)
+
+@import lidraughts.simul.DataForm._
+@import lidraughts.simul.crud.CrudForm._
+@import lidraughts.rating.PerfType
+
+<div>
+  @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
+  @base.form.flatpickr(field)
+  }
+  @base.form.group(form("name"), Html("Name"), half = true) { field =>
+  @base.form.input(field)
+  }
+</div>
+<div>
+  @base.form.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true) { field =>
+  @base.form.input(field, "Ask first!".some)
+  }
+  @base.form.group(form("image"), Html("Custom icon"), half = true) { field =>
+  @base.form.select(field, imageChoices)
+  }
+</div>
+@base.form.group(form("headline"), Html("Homepage headline")) { field =>
+@base.form.input(field)
+}
+@base.form.group(form("description"), Html("Full description | Link: [text](url)")) { field =>
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
+}
+<div>
+  <div class="form-group@if(form("hostName").hasErrors){ has-error} half">
+    <label class="control-label custom-label">Host</label>
+    <input type="text" class="user-autocomplete" name="@form("hostName").name" id="@form("hostName").id" value="@form("hostName").value" data-tag="span">
+    <i class="bar"></i>
+  </div>
+  <div class="form-group@if(form("arbiterName").hasErrors){ has-error} half">
+    <label class="control-label custom-label">Arbiter (optional)</label>
+    <input type="text" class="user-autocomplete" name="@form("arbiterName").name" id="@form("arbiterName").id" value="@form("arbiterName").value" data-tag="span">
+    <i class="bar"></i>
+  </div>
+</div>
+<div>
+  @base.form.group(form("clockTime"), Html("Clock time"), half = true) { field =>
+  @base.form.select(field, clockTimeChoices)
+  }
+  @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) { field =>
+  @base.form.select(field, clockIncrementChoices)
+  }
+</div>
+<div>
+  @base.form.group(form("color"), Html("Host color"), half = true) { field =>
+  @base.form.select(field, colorChoices)
+  }
+  @base.form.group(form("clockExtra"), Html("Host extra time"), half = true) { field =>
+  @base.form.select(field, clockExtraChoices)
+  }
+</div>
+@base.form.group(form("chat"), Html("Chat is available for")) { field =>
+@base.form.select(field, chatChoices)
+}
+<div class="form-group">
+  <div class="form-group@if(form("variants").hasErrors){ has-error} half short-margin">
+    <label for="@form("variants").id" class="control-label custom-label" style="margin-top: 20%;">Variants</label>
+  </div>
+  <div class="form-group half short-margin">
+    @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
+    @errMsg(form("variants"))
+  </div>
+<i class="bar"></i>
+</div>
+@base.form.submit()

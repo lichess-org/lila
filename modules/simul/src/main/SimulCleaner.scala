@@ -14,7 +14,7 @@ private[simul] final class SimulCleaner(
 
   def apply: Unit = {
     repo.allCreated foreach { simuls =>
-      simuls.map { simul =>
+      simuls.filter(_.spotlight.isEmpty).map { simul =>
         socketHub ? Ask(simul.id, Socket.GetUserIds) mapTo
           manifest[Iterable[String]] map
           (_.toList contains simul.hostId) map {

@@ -52,7 +52,7 @@ final class SimulApi(
       chatmode = setup.chat
     )
     repo.createdByHostId(me.id) foreach {
-      _.filter(_.isNotBrandNew).map(_.id).foreach(abort)
+      _.filter(sim => sim.isNotBrandNew && sim.spotlight.isEmpty).map(_.id).foreach(abort)
     }
     (repo create simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)

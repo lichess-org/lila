@@ -7,6 +7,29 @@ import lidraughts.common.Form._
 
 final class DataForm {
 
+  import DataForm._
+
+  def create = Form(mapping(
+    "clockTime" -> numberIn(clockTimeChoices),
+    "clockIncrement" -> numberIn(clockIncrementChoices),
+    "clockExtra" -> numberIn(clockExtraChoices),
+    "variants" -> list {
+      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
+    }.verifying("At least one variant", _.nonEmpty),
+    "color" -> stringIn(colorChoices),
+    "chat" -> stringIn(chatChoices)
+  )(SimulSetup.apply)(SimulSetup.unapply)) fill SimulSetup(
+    clockTime = clockTimeDefault,
+    clockIncrement = clockIncrementDefault,
+    clockExtra = clockExtraDefault,
+    variants = List(draughts.variant.Standard.id),
+    color = colorDefault,
+    chat = chatDefault
+  )
+}
+
+object DataForm {
+
   val clockTimes = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
   val clockTimeDefault = 20
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
@@ -34,23 +57,6 @@ final class DataForm {
   )
   val chatDefault = "everyone"
 
-  def create = Form(mapping(
-    "clockTime" -> numberIn(clockTimeChoices),
-    "clockIncrement" -> numberIn(clockIncrementChoices),
-    "clockExtra" -> numberIn(clockExtraChoices),
-    "variants" -> list {
-      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
-    }.verifying("At least one variant", _.nonEmpty),
-    "color" -> stringIn(colorChoices),
-    "chat" -> stringIn(chatChoices)
-  )(SimulSetup.apply)(SimulSetup.unapply)) fill SimulSetup(
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
-    clockExtra = clockExtraDefault,
-    variants = List(draughts.variant.Standard.id),
-    color = colorDefault,
-    chat = chatDefault
-  )
 }
 
 case class SimulSetup(
