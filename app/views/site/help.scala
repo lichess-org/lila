@@ -52,7 +52,7 @@ object help {
       div(cls := "box box-pad developers")(
         h1("Embed a chess analysis in your site"),
         raw("""<iframe width=530 height=353 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), "then click the share button to get the HTML code for the current chapter."),
+        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
         pre("""<iframe width=600 height=397 frameborder=0
 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
 ></iframe>"""),
@@ -93,30 +93,24 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
     title = title,
     moreCss = moreCss,
     moreJs = moreJs,
-    responsive = true
-  ) {
-    val sep = div(cls := "sep")
-    val external = frag(" ", i(dataIcon := "0"))
-    def activeCls(c: String) = cls := active.activeO(c)
-    main(cls := "page-menu")(
-      st.nav(cls := "page-menu__menu subnav")(
-        a(activeCls("about"), href := routes.Page.about)(trans.aboutX.frag("lichess.org")),
-        a(activeCls("contact"), href := routes.Main.contact)(trans.contact.frag()),
-        a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService.frag()),
-        a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy.frag()),
-        a(activeCls("master"), href := routes.Page.master)("Title verification"),
-        sep,
-        a(activeCls("help"), href := routes.Page.help)(trans.contribute.frag()),
-        a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou.frag()),
-        sep,
-        a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters.frag()),
-        a(activeCls("database"), href := "https://database.lichess.org")(trans.database.frag(), external),
-        a(activeCls("api"), href := "https://database.lichess.org")("API", external),
-        a(activeCls("source"), href := "https://github.com/ornicar/lila")("Source code", external),
-        sep,
-        a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?")
-      ),
-      div(cls := "page-menu__content")(body)
-    )
-  }
+    menu = Some(frag(
+      a(cls := active.activeO("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
+      a(cls := active.activeO("faq"), href := routes.Page.faq)("FAQ"),
+      a(cls := active.activeO("contact"), href := routes.Main.contact)(trans.contact()),
+      a(cls := active.activeO("tos"), href := routes.Page.tos)(trans.termsOfService()),
+      a(cls := active.activeO("privacy"), href := routes.Page.privacy)(trans.privacy()),
+      a(cls := active.activeO("master"), href := routes.Page.master)("Title verification"),
+      div(cls := "sep"),
+      a(cls := active.activeO("help"), href := routes.Page.help)(trans.contribute()),
+      a(cls := active.activeO("thanks"), href := routes.Page.thanks)(trans.thankYou()),
+      div(cls := "sep"),
+      a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
+      a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="0"></i>""")),
+      a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="0"></i>""")),
+      a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", raw(""" <i data-icon="0"></i>""")),
+      div(cls := "sep"),
+      a(href := routes.QaQuestion.index(None))(trans.questionsAndAnswers()),
+      a(href := routes.Main.lag)("Is Lichess lagging?")
+    ))
+  )(body)
 }
