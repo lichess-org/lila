@@ -187,14 +187,14 @@
   <string name="forgotPassword">Забыліся на пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рэйтынг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рэйтынг абнаўляецца кожныя %s хвілін</string>
+  <string name="rankIsUpdatedEveryXMinutes">Рэйтынг абнаўляецца кожныя %s хв</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s галаваломка</item>
     <item quantity="few">%s галаваломкі</item>
     <item quantity="many">%s галаваломак</item>
     <item quantity="other">%s галаваломак</item>
   </plurals>
-  <string name="gamesPlayed">Партый згуляна</string>
+  <string name="gamesPlayed">Усяго гульняў</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партыя з вамі</item>
     <item quantity="few">%s партыі з вамі</item>
@@ -206,7 +206,7 @@
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferDeclined">Прапанова нічыі адхілена</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
-  <string name="drawOfferCanceled">У нічыёй адмоўлена</string>
+  <string name="drawOfferCanceled">Прапанова нічыі скасаваная</string>
   <string name="whiteOffersDraw">Белыя прапануюць нічыю</string>
   <string name="blackOffersDraw">Чорныя прапануюць нічыю</string>
   <string name="whiteDeclinesDraw">Белыя адхіляюць нічыю</string>
@@ -248,7 +248,7 @@
   <string name="recipient">Атрымальнік</string>
   <string name="send">Даслаць</string>
   <string name="incrementInSeconds">Прырост у сэкундах</string>
-  <string name="freeOnlineChess">Бясплатныя он-лайн шахматы</string>
+  <string name="freeOnlineChess">Бясплатныя шахматы онлайн</string>
   <string name="spectators">Назіральнікі:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рэйтынгавая</item>
@@ -281,7 +281,7 @@
     <item quantity="other">%s у працэсе</item>
   </plurals>
   <string name="exportGames">Экспарт гульняў</string>
-  <string name="ratingRange">Рэйтынг суперніка</string>
+  <string name="ratingRange">Дыяпазон рэйтынгу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Даць %s секунду</item>
     <item quantity="few">Даць %s секунды</item>
@@ -546,7 +546,7 @@
   <string name="other">Іншае</string>
   <string name="reportDescriptionHelp">Пакіньце ніжэй спасылку на гульню (ці гульні) і патлумачце, што вас непакоіць у паводзінах гэтага карыстальніка. Не пішыце нешта кшталту «ён чмут!» – патлумачце, як вы прыйшлі да гэтага выніку. Мы хутчэй разбярэмся ў сітуацыі, калі вы напішаце нам па-англійску.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку сама менш на адну гульню, дзе, на вашу думку, былі парушаны правілы.</string>
-  <string name="by">пакінуў %s</string>
+  <string name="by">аўтар: %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
   <string name="theming">Тэмы</string>
   <string name="donate">Ахвяраваць</string>
