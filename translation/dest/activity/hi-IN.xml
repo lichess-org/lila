@@ -6,6 +6,7 @@
     <item quantity="one">%s टूर्नामेंट में भाग लिया</item>
     <item quantity="other">%s टूर्नामेंट में भाग लिया</item>
   </plurals>
+  <string name="signedUp">lichess.org पर साइन किया गया</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s टीम में शामिल हुए</item>
     <item quantity="other">%s टीमों में शामिल हुए</item>

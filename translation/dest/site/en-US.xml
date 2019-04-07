@@ -755,6 +755,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s hosts %2$s</string>
   <string name="xJoinsY">%1$s joins %2$s</string>
   <string name="xLikesY">%1$s likes %2$s</string>
+  <string name="xCreatesStudyY">%1$s creates study %2$s</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>

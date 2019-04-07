@@ -64,10 +64,10 @@
     <item quantity="other">Sodeloval pri %s simultankah</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Ustvaril %s novo študijo</item>
+    <item quantity="one">Ustvaril %s nov študij</item>
     <item quantity="two">Ustvaril %s novi študiji</item>
     <item quantity="few">Ustvaril %s nove študije</item>
-    <item quantity="other">Ustvaril %s novih študij</item>
+    <item quantity="other">Ustvaril %s novih študijev</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Končal %s turnir</item>

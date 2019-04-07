@@ -881,6 +881,7 @@
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
+  <string name="xCreatesStudyY">%1$s انشاء دراسة %2$s</string>
   <string name="quickPairing">تزويج سريع</string>
   <string name="lobby">لوبي</string>
   <string name="anonymous">مجهول</string>

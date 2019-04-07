@@ -583,6 +583,7 @@
   <string name="webmasters">מנהלי אתרים</string>
   <string name="about">אודות</string>
   <string name="aboutX">אודות%s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חופשי (%2$s), קוד פתוח וללא מודעות.</string>
   <string name="really">באמת</string>
   <string name="contribute">לתרום</string>
   <string name="contact">צור קשר</string>
@@ -685,6 +686,7 @@
   <string name="xHostsY">%1$s מארח %2$s</string>
   <string name="xJoinsY">%1$s מצטרף %2$s</string>
   <string name="xLikesY">%1$s אוהב %2$s</string>
+  <string name="xCreatesStudyY">%1$s יוצר מחקר %2$s</string>
   <string name="quickPairing">הצטרפות מהירה</string>
   <string name="lobby">לובי</string>
   <string name="anonymous">אנונימי</string>
@@ -760,4 +762,7 @@
   <string name="registerToSendChallenges">הירשם על מנת לשלוח אתגרים.</string>
   <string name="youCannotChallengeX">לא ניתן לאתגר את %s.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל אתגרים.</string>
+  <string name="yourXRatingIsTooFarFromY">דירוג שלך %1$s רחוק מדי מ-%2$s.</string>
+  <string name="addCurrentVariation">תוסיף וריאציה הנוכחית</string>
+  <string name="playX">תשחק %s</string>
 </resources>

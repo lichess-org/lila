@@ -755,6 +755,7 @@ i %3$s</string>
   <string name="xHostsY">%1$s opprettet %2$s</string>
   <string name="xJoinsY">%1$s ble med på %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
+  <string name="xCreatesStudyY">%1$s oppretter studie %2$s</string>
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>

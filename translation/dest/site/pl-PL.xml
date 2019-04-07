@@ -27,7 +27,7 @@
   <string name="raceFinished">Wyścig zakończony</string>
   <string name="variantEnding">Wariant zakończony</string>
   <string name="newOpponent">Nowy przeciwnik</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Twój przeciwnik chce zagrać z Tobą nową partię</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Przeciwnik chce zagrać z Tobą nową partię</string>
   <string name="joinTheGame">Dołącz do gry</string>
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
@@ -37,8 +37,8 @@
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która skorzysta z tego odnośnika, rozegra z Tobą partię.</string>
-  <string name="whiteResigned">Białe zrezygnowały</string>
-  <string name="blackResigned">Czarne zrezygnowały</string>
+  <string name="whiteResigned">Białe poddały się</string>
+  <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe porzuciły partię</string>
   <string name="blackLeftTheGame">Czarne porzuciły partię</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres widzom, by mogli obserwować tę partię</string>
@@ -57,11 +57,11 @@
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz ocenę lokalną</string>
   <string name="promoteVariation">Promuj ten wariant</string>
-  <string name="makeMainLine">Ustal jako przebieg</string>
+  <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrany</string>
-  <string name="variantWin">Wariant wygrany</string>
+  <string name="variantWin">Wariant wygrywający</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
   <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
@@ -77,7 +77,7 @@
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii rankingowych graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s półruchu</item>
+    <item quantity="one">Mat w %s ruchu</item>
     <item quantity="few">Mat w %s ruchach</item>
     <item quantity="many">Mat w %s ruchach</item>
     <item quantity="other">Mat w %s ruchach</item>
@@ -101,7 +101,7 @@
   <string name="replayMode">Odtwarzanie</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
-  <string name="openStudy">Studiuj</string>
+  <string name="openStudy">Stwórz studium</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="evaluationGauge">Miernik oceny</string>
@@ -109,7 +109,7 @@
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Analiza nieskończona</string>
-  <string name="removesTheDepthLimit">Zdejmuje ograniczenie głębokości analizy utrzymując ciepło Twojego komputera</string>
+  <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
   <string name="blunders">Błędy</string>
   <string name="mistake">Pomyłka</string>
@@ -299,9 +299,9 @@
   <string name="takebackPropositionAccepted">Ruch został wycofany</string>
   <string name="takebackPropositionCanceled">Anulowano prośbę o cofnięcie ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
-  <string name="bookmarkThisGame">Dodaj do zakładek</string>
+  <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
-  <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
+  <string name="advancedSearch">Wyszukiwarka</string>
   <string name="tournament">Turniej</string>
   <string name="tournaments">Turnieje</string>
   <string name="tournamentPoints">Punkty turniejowe</string>
@@ -311,7 +311,7 @@
     <item quantity="many">%s punktów turniejowych</item>
     <item quantity="other">%s punktów turniejowych</item>
   </plurals>
-  <string name="viewTournament">Do turnieju</string>
+  <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
   <plurals name="moreThanNbRatedGames">
@@ -358,7 +358,7 @@
   <string name="allTeams">Wszystkie kluby</string>
   <string name="newTeam">Nowy klub</string>
   <string name="myTeams">Moje kluby</string>
-  <string name="noTeamFound">Nie znaleziono klubu</string>
+  <string name="noTeamFound">Nie należysz do żadnego klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
@@ -440,7 +440,7 @@
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turniejowy</string>
   <string name="conditionOfEntry">Warunki wstępu:</string>
-  <string name="advancedSettings">Zaawansowane</string>
+  <string name="advancedSettings">Ustawienia zaawansowane</string>
   <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
   <string name="inappropriateNameWarning">Nawet nieco nieodpowiednia nazwa może spowodować zamknięcie Twojego konta.</string>
   <string name="emptyTournamentName">Jeśli nie podasz nazwy turnieju, zostanie on nazwany od nazwiska losowo wybranego arcymistrza.</string>
@@ -469,7 +469,7 @@
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="viewMoreTournaments">Zobacz więcej turniejów</string>
   <string name="averageOpponent">Przeciwnik średnio</string>
-  <string name="membersOnly">Tylko członkowie</string>
+  <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
@@ -479,7 +479,7 @@
   <string name="loadPosition">Wczytaj ustawienie</string>
   <string name="isPrivate">Prywatny</string>
   <string name="reportXToModerators">Zgłoś %s do moderatora</string>
-  <string name="profileCompletion">Zupełność profilu: %s</string>
+  <string name="profileCompletion">Kompletność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
   <string name="gameCompletionRate">Ukończonych gier: %s</string>
@@ -502,7 +502,7 @@
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toTrackYourProgress">Śledź swoje postępy:</string>
-  <string name="trainingSignupExplanation">Lichess będzie proponował zadania dostosowane do twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
+  <string name="trainingSignupExplanation">Lichess będzie proponował zadania dostosowane do Twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby rozwiązać</string>
@@ -557,7 +557,7 @@
   <string name="reportAUser">Zgłoś użytkownika</string>
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
-  <string name="whatIsIheMatter">O co chodzi?</string>
+  <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
   <string name="cheat">Oszustwo</string>
   <string name="insult">Znieważenie</string>
   <string name="troll">Naprzykrzanie się</string>
@@ -611,7 +611,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Zezwól na obserwowanie przez innych graczy</string>
   <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
-  <string name="letOtherPlayersInviteYouToStudy">Zezwól na zaproszenia do studiowania od innych graczy</string>
+  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do studium</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -688,10 +688,10 @@
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
-  <string name="whiteCastlingKingside">O-O białych</string>
-  <string name="whiteCastlingQueenside">O-O-O białych</string>
-  <string name="blackCastlingKingside">O-O czarnych</string>
-  <string name="blackCastlingQueenside">O-O-O czarnych</string>
+  <string name="whiteCastlingKingside">Białe O-O</string>
+  <string name="whiteCastlingQueenside">Białe O-O-O</string>
+  <string name="blackCastlingKingside">Czarne O-O</string>
+  <string name="blackCastlingQueenside">Czarne O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
@@ -729,7 +729,7 @@
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Utwórz</string>
   <string name="whenCreateSimul">W symultanie będziesz grał równocześnie z kilkoma przeciwnikami.</string>
-  <string name="simulVariantsHint">Każdy z graczy może będzie mógł wybrać spośród kilku wskazanych przez Cibie odmian gry.</string>
+  <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
@@ -800,7 +800,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
-  <string name="phoneAndTablet">Telefon i tablet</string>
+  <string name="phoneAndTablet">Dostęp z telefonu i tabletu</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
@@ -817,6 +817,7 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
+  <string name="xCreatesStudyY">%1$s utworzył studium %2$s</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
@@ -913,7 +914,7 @@
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">i zapisz %s wariant warunkowy</item>
+    <item quantity="one">i zapisz wariant warunkowy</item>
     <item quantity="few">i zapisz warianty warunkowe</item>
     <item quantity="many">i zapisz warianty warunkowe</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>

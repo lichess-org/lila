@@ -753,6 +753,7 @@
   <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="xCreatesStudyY">%1$s erstellt Studie %2$s</string>
   <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>

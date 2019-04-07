@@ -618,6 +618,8 @@
   <string name="webmasters">Webmaster</string>
   <string name="about">Tentang</string>
   <string name="aboutX">Tentang %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s adalah server catur yang (%2$s) gratis, tanpa iklan, dan sumber terbuka.</string>
+  <string name="really">benar-benar</string>
   <string name="contribute">Kontribusi</string>
   <string name="contact">Kontak</string>
   <string name="termsOfService">Ketentuan Layanan (ToS)</string>
@@ -719,6 +721,7 @@
   <string name="xHostsY">%1$s tuan rumah %2$s</string>
   <string name="xJoinsY">%1$s bergabung %2$s</string>
   <string name="xLikesY">%1$s suka %2$s</string>
+  <string name="xCreatesStudyY">%1$s membuat pembelajaran %2$s</string>
   <string name="quickPairing">Pencarian lawan dengan cepat</string>
   <string name="lobby">Ruang Lobi</string>
   <string name="anonymous">Tanpa Nama</string>

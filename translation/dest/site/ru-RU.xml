@@ -817,6 +817,7 @@
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s поставил лайк студии %2$s</string>
+  <string name="xCreatesStudyY">%1$s создал студию %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Анонимно</string>
