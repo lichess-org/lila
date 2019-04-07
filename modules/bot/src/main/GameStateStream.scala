@@ -3,12 +3,13 @@ package lidraughts.bot
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import draughts.format.FEN
 
 import lidraughts.chat.Chat
 import lidraughts.chat.UserLine
-import lidraughts.game.actorApi.{ FinishGame, GameDrawEvent, AbortedBy, MoveGameEvent }
+import lidraughts.game.actorApi.{ FinishGame, AbortedBy, MoveGameEvent }
 import lidraughts.game.{ Game, GameRepo }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.MoveEvent
@@ -36,7 +37,7 @@ final class GameStateStream(
 
           private val classifiers = List(
             MoveGameEvent makeSymbol id,
-            'finishGame, 'abortGame, 'botDraw,
+            'finishGame, 'abortGame,
             Chat classify Chat.Id(id),
             Chat classify Chat.Id(s"$id/w")
           )
@@ -69,7 +70,6 @@ final class GameStateStream(
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
-            case GameDrawEvent(g) if g.id == id => pushState(g)
             case SetOnline =>
               setConnected(true)
               context.system.scheduler.scheduleOnce(6 second) {
