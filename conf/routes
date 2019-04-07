@@ -600,6 +600,7 @@ GET   /terms-of-service                controllers.Page.tos
 GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
+GET   /faq                             controllers.Main.faq
 GET   /swag                            controllers.Page.swag
 GET   /how-to-cheat                    controllers.Page.howToCheat
 
@@ -610,7 +611,6 @@ GET   /variant/:key                    controllers.Page.variant(key)
 # Help
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
-GET   /help/faq                        controllers.Page.faq
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
