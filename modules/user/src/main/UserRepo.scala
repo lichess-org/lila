@@ -181,6 +181,17 @@ object UserRepo {
       $set(F.profile -> Profile.profileBSONHandler.write(profile))
     ).void
 
+  def setUsernameCased(id: ID, username: String): Funit = {
+    if (id == username.toLowerCase) {
+      coll.update(
+        $id(id) ++ (F.changedCase $exists false),
+        $set(F.username -> username, F.changedCase -> true)
+      ) map { result =>
+          if (result.n == 0) fufail(s"You have already changed your username")
+        }
+    } else fufail(s"Proposed username does not match old username")
+  }
+
   def addTitle(id: ID, title: Title): Funit =
     coll.updateField($id(id), F.title, title).void
 
@@ -285,6 +296,9 @@ object UserRepo {
     coll.fetchUpdate[User]($id(id)) { u =>
       $setBoolOrUnset(F.watchList, u.watchList)
     }
+
+  private def setChangedCase(id: ID): Funit =
+    coll.updateField($id(id), F.changedCase, true).void
 
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>
