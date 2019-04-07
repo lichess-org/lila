@@ -706,10 +706,10 @@
   <string name="aboutSimulSettings">Паралельныя гульні заўсёды вядуцца ў бязрэйтынгавым рэжыме. Нельга скасоўваць хады ці дадаваць час, а таксама немагчыма запытаць рэванш.</string>
   <string name="create">Стварыць</string>
   <string name="whenCreateSimul">Калі вы створыце сеанс паралельнай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
-  <string name="simulVariantsHint">Калі ты выбіраеш колькі варыянтаў, кожны гулец мусіць абраць адзін для гульні.</string>
-  <string name="simulClockHint">Усталяваць гадзіньнік Фішэра. Чым больш гульцоў бярэш, тым больш часу табе спатрэбіцца.</string>
-  <string name="simulAddExtraTime">Ты можаш дадаць дадатковы час  да свайго гадзіньніка каб памагчы даць рады з САГ</string>
-  <string name="simulHostExtraTime">Дадатковы час гаспадара</string>
+  <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
+  <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
+  <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
+  <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
   <string name="tournamentFAQ">FAQ турніру</string>
   <string name="tournamentOfficial">Афіцыйна</string>
