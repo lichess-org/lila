@@ -8,7 +8,7 @@ import { read as fenRead } from 'chessground/fen';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
-// import { render as keyboardMove } from '../keyboardMove';
+import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 import { Position, MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
 
@@ -66,20 +66,7 @@ export function main(ctrl: RoundController): VNode {
     ]),
     crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
     ...renderTable(ctrl),
-    crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor])
+    crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor]),
+    ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
   ])
-  // h('div.underboard', [
-  //   h('div.center', {
-  //     hook: {
-  //       insert: vnode => {
-  //         if (ctrl.opts.crosstableEl) {
-  //           const el = (vnode.elm as HTMLElement);
-  //           el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
-  //         }
-  //       }
-  //     }
-  //   }, [
-  //     ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
-  //   ])
-  // ])
 };
