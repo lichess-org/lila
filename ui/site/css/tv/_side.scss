@@ -16,12 +16,12 @@
         display: block;
         text-transform: uppercase;
       }
-      span {
-        font-size: .9em;
-        white-space: nowrap;
-        display: block;
-      }
     }
+  }
+  .champion {
+    font-size: .9em;
+    white-space: nowrap;
+    display: block;
   }
   &.active > span::before {
     color: $c-accent;

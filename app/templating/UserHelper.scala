@@ -16,8 +16,8 @@ import lila.user.{ User, Title, UserContext }
 trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
 
   def ratingProgress(progress: Int) = raw {
-    if (progress > 0) s"""<span class="rp rp-up">$progress</span>"""
-    else if (progress < 0) s"""<span class="rp rp-down">${math.abs(progress)}</span>"""
+    if (progress > 0) s"""<good class="rp">$progress</good>"""
+    else if (progress < 0) s"""<bad class="rp">${math.abs(progress)}</bad>"""
     else ""
   }
 
@@ -36,36 +36,35 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     PerfType.Crazyhouse
   )
 
-  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context) = Html {
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context): Frag = raw {
     val title = s"$name rating over ${nb.localize} games"
     val number = if (nb > 0) s"$rating${if (provisional) "?" else ""}"
     else "&nbsp;&nbsp;&nbsp;-"
     s"""<span title="$title" data-icon="$icon">$number</span>"""
   }
 
-  def showPerfRating(perfType: PerfType, perf: Perf)(implicit ctx: Context): Html =
+  def showPerfRating(perfType: PerfType, perf: Perf)(implicit ctx: Context): Frag =
     showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar)
 
-  def showPerfRating(u: User, perfType: PerfType)(implicit ctx: Context): Html =
+  def showPerfRating(u: User, perfType: PerfType)(implicit ctx: Context): Frag =
     showPerfRating(perfType, u perfs perfType)
 
-  def showPerfRating(u: User, perfKey: String)(implicit ctx: Context): Option[Html] =
+  def showPerfRating(u: User, perfKey: String)(implicit ctx: Context): Option[Frag] =
     PerfType(perfKey) map { showPerfRating(u, _) }
 
-  def showBestPerf(u: User)(implicit ctx: Context): Option[Html] = u.perfs.bestPerf map {
+  def showBestPerf(u: User)(implicit ctx: Context): Option[Frag] = u.perfs.bestPerf map {
     case (pt, perf) => showPerfRating(pt, perf)
   }
-  def showBestPerfs(u: User, nb: Int)(implicit ctx: Context): Html = Html {
+  def showBestPerfs(u: User, nb: Int)(implicit ctx: Context): List[Frag] =
     u.perfs.bestPerfs(nb) map {
-      case (pt, perf) => showPerfRating(pt, perf).body
-    } mkString " "
-  }
+      case (pt, perf) => showPerfRating(pt, perf)
+    }
 
-  def showRatingDiff(diff: Int) = Html {
+  def showRatingDiff(diff: Int): Frag = raw {
     diff match {
-      case 0 => """<span class="rp rp-null">±0</span>"""
-      case d if d > 0 => s"""<span class="rp rp-up">+$d</span>"""
-      case d => s"""<span class="rp rp-down">−${-d}</span>"""
+      case 0 => """<span>±0</span>"""
+      case d if d > 0 => s"""<good>+$d</good>"""
+      case d => s"""<bad>−${-d}</bad>"""
     }
   }
 

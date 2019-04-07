@@ -24,7 +24,7 @@ GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Tv.channels
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
-GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
+GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 

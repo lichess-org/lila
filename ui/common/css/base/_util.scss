@@ -10,19 +10,20 @@
   }
 }
 
-.rp {
-  &::before {
-    @extend %data-icon, %data-icon-middle;
-    margin-right: .2em;
-    content: 'N';
-  }
-  &-up {
-    color: $c-good;
-  }
-  &-down {
-    color: $c-bad;
-    &::before { content: 'M'; }
-  }
+.rp::before {
+  @extend %data-icon, %data-icon-middle;
+  margin-right: .2em;
+  content: 'N';
+}
+bad.rp {
+  &::before { content: 'M'; }
+}
+
+good {
+  color: $c-good;
+}
+bad {
+  color: $c-bad;
 }
 
 /* infinite scroll */

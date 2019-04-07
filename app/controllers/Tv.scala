@@ -15,16 +15,11 @@ object Tv extends LilaController {
     (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessTv)
   }
 
-  def sides(chanKey: String, gameId: String, color: String) = Open { implicit ctx =>
-    lila.tv.Tv.Channel.byKey get chanKey match {
-      case None => notFound
-      case Some(channel) =>
-        OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-          Env.tv.tv.getChampions zip
-            Env.game.crosstableApi.withMatchup(pov.game) map {
-              case (champions, crosstable) => Ok(html.tv.side.sides(channel, champions, pov, crosstable))
-            }
-        }
+  def sides(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+      Env.game.crosstableApi.withMatchup(pov.game) map { ct =>
+        Ok(html.tv.side.sides(pov, ct))
+      }
     }
   }
 

@@ -13,9 +13,9 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd === 0 ? h('span.rp.null', '±0') : (
-      rd && rd > 0 ? h('span.rp.up', '+' + rd) : (
-        rd && rd < 0 ? h('span.rp.down', '−' + (-rd)) : undefined
+    ratingDiff = rd === 0 ? h('span', '±0') : (
+      rd && rd > 0 ? h('good', '+' + rd) : (
+        rd && rd < 0 ? h('bad', '−' + (-rd)) : undefined
       ));
 
   if (user) {

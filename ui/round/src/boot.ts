@@ -18,7 +18,7 @@ export default function(opts: RoundOpts): void {
       events: {
         tvSelect(o: any) {
           if (data.tv && data.tv.channel == o.channel) li.reload();
-          else $('.tv-channels .' + o.channel + ' span').html(
+          else $('.tv-channels .' + o.channel + ' .champion').html(
             o.player ? [
               o.player.title,
               o.player.name,
@@ -27,10 +27,10 @@ export default function(opts: RoundOpts): void {
         },
         end() {
           $.ajax({
-            url: [(data.tv ? '/tv/'  + data.tv.channel : ''), data.game.id, data.player.color, 'sides'].join('/'),
+            url: [(data.tv ? '/tv' : ''), data.game.id, data.player.color, 'sides'].join('/'),
             success: function(html) {
-              const $html = $(html);
-              $('.round__side').replaceWith($html.find('.round__side'));
+              const $html = $(html), $side = $html.find('.round__side');
+              $side.length && $('.round__side').replaceWith($side);
               $('.crosstable').replaceWith($html.find('.crosstable'));
               li.pubsub.emit('content_loaded')();
               startTournamentClock();

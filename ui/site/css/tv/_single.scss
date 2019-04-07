@@ -2,8 +2,8 @@
 
 .tv-single {
 
-  grid-template-areas: 
-  'side app   app' 
+  grid-template-areas:
+  'side app   app'
   'side under . ';
 
   .tv-history {
@@ -14,9 +14,13 @@
       @extend %roboto;
       font-size: 1.3em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin: $block-gap 0;
       flex: 0 0 100%;
       text-align: center;
+    }
+    .now-playing {
+      width: 100%;
+      grid-template-columns: 1fr 1fr;
     }
   }
 }
