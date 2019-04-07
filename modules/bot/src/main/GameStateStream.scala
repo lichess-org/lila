@@ -3,16 +3,17 @@ package lila.bot
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
+
 import scala.concurrent.duration._
-
 import chess.format.FEN
-
 import lila.chat.Chat
 import lila.chat.UserLine
-import lila.game.actorApi.{ FinishGame, AbortedBy, MoveGameEvent }
+import lila.game.Event.ReloadOwner
+import lila.game.actorApi.{ AbortedBy, FinishGame, GameDrawEvent, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.MoveEvent
+import lila.hub.actorApi.round.{ MoveEvent }
+import lila.round.actorApi.round.{ DrawNo, DrawYes }
 import lila.socket.actorApi.BotConnected
 import lila.user.User
 
@@ -37,7 +38,7 @@ final class GameStateStream(
 
           private val classifiers = List(
             MoveGameEvent makeSymbol id,
-            'finishGame, 'abortGame,
+            'finishGame, 'abortGame, 'botDraw,
             Chat classify Chat.Id(id),
             Chat classify Chat.Id(s"$id/w")
           )
@@ -70,7 +71,7 @@ final class GameStateStream(
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
-
+            case GameDrawEvent(g) if g.id == id => pushState(g)
             case SetOnline =>
               setConnected(true)
               context.system.scheduler.scheduleOnce(6 second) {
@@ -82,6 +83,7 @@ final class GameStateStream(
 
           def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map some map channel.push
           def pushChatLine(username: String, text: String, player: Boolean) = channel push jsonView.chatLine(username, text, player).some
+
           def onGameOver = {
             gameOver = true
             channel.eofAndEnd()

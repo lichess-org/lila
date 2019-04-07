@@ -54,6 +54,27 @@ object Bot extends LilaController {
           }
         }
       }
+      case Array("game", id, "draw", "offer") => WithBot(me) {
+        WithMyBotGame(id, me) { pov =>
+          Env.bot.player.offerDraw(pov) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(e.getMessage)
+          }
+        }
+      }
+      case Array("game", id, "draw", "accept") => WithBot(me) {
+        WithMyBotGame(id, me) { pov =>
+          Env.bot.player.acceptDraw(pov) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(e.getMessage)
+          }
+        }
+      }
+      case Array("game", id, "draw", "decline") => WithBot(me) {
+        WithMyBotGame(id, me) { pov =>
+          Env.bot.player.declineDraw(pov) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(e.getMessage)
+          }
+        }
+      }
       case _ => notFoundJson("No such command")
     }
   }
