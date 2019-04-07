@@ -19,6 +19,7 @@ për të marrë yllin!</string>
 aq më shumë pikë fitoni!</string>
   <string name="useTwoRooks">Përdorni dy rooks
 për të shpejtuar gjërat!</string>
+  <string name="rookComplete">Përgëzime! Ti zotërove me sukses torrin.</string>
   <string name="theBishop">Peshkopi</string>
   <string name="itMovesDiagonally">Ajo lëviz diagonalisht</string>
   <string name="bishopIntro">Tjetra ne do të mësojmë se si të manovrojmë një peshkop!</string>
@@ -31,6 +32,8 @@ për të shpejtuar gjërat!</string>
   <string name="lastOne">I fundit!</string>
   <string name="kingComplete">Tani mund të komandoni komandantin (mbretin)!</string>
   <string name="theKnight">Kalorësi</string>
+  <string name="itMovesInAnLShape">Lëviz në formën L</string>
   <string name="thePawn">Pengu</string>
   <string name="itMovesForwardOnly">Ajo lëviz vetëm përpara</string>
+  <string name="defendYourKing">Mbro mbrentin</string>
 </resources>

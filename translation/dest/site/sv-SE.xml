@@ -90,7 +90,7 @@
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
-  <string name="allSet">OK</string>
+  <string name="allSet">Klart!</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
   <string name="deleteThisImportedGame">Ta bort detta importerade parti?</string>
@@ -105,7 +105,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
-  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen, och håller datorn varm</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
   <string name="blunder">Blunder</string>
   <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
@@ -753,6 +753,7 @@
   <string name="xHostsY">%1$s är värd för %2$s</string>
   <string name="xJoinsY">%1$s deltar i %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>
+  <string name="xCreatesStudyY">%1$s skapar studiet %2$s</string>
   <string name="quickPairing">Snabb parning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>

@@ -20,8 +20,8 @@
   <string name="black">Чорні</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
-  <string name="whiteIsVictorious">Білі перемогли</string>
-  <string name="blackIsVictorious">Чорні перемогли</string>
+  <string name="whiteIsVictorious">Перемога білих</string>
+  <string name="blackIsVictorious">Перемога чорних</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
@@ -261,6 +261,12 @@
     <item quantity="few">%s перемога</item>
     <item quantity="many">%s перемога</item>
     <item quantity="other">%s виграно</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s грає</item>
+    <item quantity="few">%s грає</item>
+    <item quantity="many">%s грає</item>
+    <item quantity="other">%s грає</item>
   </plurals>
   <string name="exportGames">Експорт ігор</string>
   <string name="ratingRange">Діапазон рейтинґу</string>
@@ -693,6 +699,7 @@
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
+  <string name="xCreatesStudyY">%1$s створили навчання %2$s</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонімно</string>

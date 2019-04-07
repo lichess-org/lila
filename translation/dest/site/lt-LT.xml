@@ -627,6 +627,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xHostsY">%1$s veda %2$s</string>
   <string name="xJoinsY">%1$s prisijungė prie %2$s</string>
   <string name="xLikesY">%1$s patiko %2$s</string>
+  <string name="xCreatesStudyY">%1$s kuria „%2$s“ studiją</string>
   <string name="quickPairing">Greitas suporavimas</string>
   <string name="lobby">Laukiamasis</string>
   <string name="anonymous">Anonimas</string>

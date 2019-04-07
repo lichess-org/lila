@@ -753,6 +753,7 @@
   <string name="xHostsY">%1$s er vært for %2$s</string>
   <string name="xJoinsY">%1$s melder sig til %2$s</string>
   <string name="xLikesY">%1$s synes godt om %2$s</string>
+  <string name="xCreatesStudyY">%1$s opretter studie %2$s</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>

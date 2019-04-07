@@ -723,6 +723,7 @@
   <string name="xHostsY">%1$sが %2$s を作成しました</string>
   <string name="xJoinsY">%1$sが %2$s に参加しました</string>
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
+  <string name="xCreatesStudyY">%1$s が研究 %2$s を作成</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="anonymous">匿名</string>

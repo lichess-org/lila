@@ -350,7 +350,7 @@
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
-  <string name="reconnecting">Reconetando</string>
+  <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
@@ -753,6 +753,7 @@
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entra em %2$s</string>
   <string name="xLikesY">%1$s gosta de %2$s</string>
+  <string name="xCreatesStudyY">%1$s cria estudo %2$s</string>
   <string name="quickPairing">Emparelhamento rápido</string>
   <string name="lobby">Vestíbulo</string>
   <string name="anonymous">Anónimo</string>
