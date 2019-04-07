@@ -105,7 +105,7 @@
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць лепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
-  <string name="multipleLines">Лініі аналізу</string>
+  <string name="multipleLines">Дадатковыя хады</string>
   <string name="cpus">Працэсары</string>
   <string name="memory">Памяць</string>
   <string name="infiniteAnalysis">Бясконцы аналіз</string>
@@ -321,11 +321,11 @@
     <item quantity="other">≥%s рэйтынгавых гульняў</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рэйтынг у рэжыме %s не пацверджаны</string>
-  <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у рэжыме %1$s (%2$s) занадта высокі</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш штотыднёвы рэйтынг у рэжыме %1$s (%2$s) занадта высокі</string>
-  <string name="yourPerfRatingIsTooLow">Ваш рэйтынг у рэжыме %1$s (%2$s) занадта нізкі</string>
-  <string name="ratedMoreThanInPerf">Рэйтынг ≥ %1$s у рэжыме %2$s</string>
-  <string name="ratedLessThanInPerf">Рэйтынг ≤ %1$s у рэжыме %2$s</string>
+  <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш штотыднёвы рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рэйтынг у рэжыме «%1$s» (%2$s) занадта нізкі</string>
+  <string name="ratedMoreThanInPerf">Рэйтынг ≥ %1$s у рэжыме «%2$s»</string>
+  <string name="ratedLessThanInPerf">Рэйтынг ≤ %1$s у рэжыме «%2$s»</string>
   <string name="mustBeInTeam">Вы павінны быць удзельнікам каманды %s</string>
   <string name="youAreNotInTeam">Вы не ўдзельнік каманды %s</string>
   <string name="backToGame">Вярнуцца да гульні</string>
@@ -378,7 +378,7 @@
   <string name="retry">Яшчэ раз</string>
   <string name="reconnecting">Перападлучэнне</string>
   <string name="onlineFriends">Сябры на сайце</string>
-  <string name="noFriendsOnline">Няма сяброў на сайце</string>
+  <string name="noFriendsOnline">Няма сяброў анлайн</string>
   <string name="findFriends">Знайсці сяброў</string>
   <string name="favoriteOpponents">Пераважныя супернікі</string>
   <string name="follow">Падпісацца</string>
@@ -475,7 +475,7 @@
   <string name="inlineNotation">Убудаваная натацыя</string>
   <string name="watchLichessTV">Глядзець Lichess TV</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
-  <string name="onlinePlayers">Гульцы онлайн</string>
+  <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activeToday">Гулялі сёння</string>
   <string name="activePlayers">Актыўныя гульцы</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта гульня на рэйтынг, але без абмежавання часу!</string>
