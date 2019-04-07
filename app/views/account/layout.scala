@@ -33,6 +33,9 @@ object layout {
       ),
       isGranted(_.Coach) option a(href := routes.Coach.edit)("Coach profile"),
       div(cls := "sep"),
+      a(cls := active.activeO("username"), href := routes.Account.username())(
+        trans.changeUsername.frag()
+      ),
       a(cls := active.activeO("password"), href := routes.Account.passwd())(
         trans.changePassword.frag()
       ),
