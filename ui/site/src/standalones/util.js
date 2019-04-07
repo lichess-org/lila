@@ -103,10 +103,12 @@ lichess.debounce = function(func, wait, immediate) {
 };
 lichess.powertip = (function() {
 
-  var elementIdContains = function(id, contained) {
-    var el = document.getElementById(id);
-    return el && el.contains(contained);
-  };
+  function containedIn(el, container) {
+    return container && container.contains(el);
+  }
+  function inCrosstable(el) {
+    return containedIn(el, document.querySelector('.crosstable'));
+  }
 
   var onPowertipPreRender = function(id, preload) {
     return function() {
@@ -123,7 +125,9 @@ lichess.powertip = (function() {
   };
 
   var userPowertip = function(el, pos) {
-    pos = pos || el.getAttribute('data-pt-pos') || 's';
+    pos = pos || el.getAttribute('data-pt-pos') || (
+      inCrosstable(el) ? 'n' : 's'
+    );
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
       placement: pos,
@@ -145,7 +149,7 @@ lichess.powertip = (function() {
   var gamePowertip = function(el) {
     $(el).removeClass('glpt').powerTip({
       intentPollInterval: 200,
-      placement: 'w',
+      placement: inCrosstable(el) ? 'n' : 'w',
       smartPlacement: true,
       mouseOnToPopup: true,
       closeDelay: 200,

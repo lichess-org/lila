@@ -1,13 +1,9 @@
 #powerTip,
 #miniGame {
-  @extend %box-radius, %popup-shadow;
-  font-size: .9rem;
-  width: 256px;
+  @extend %box-radius-force, %popup-shadow;
+  width: 19em;
   min-height: 3em;
-  cursor: default;
-  background-color: $c-bg-popup;
-  border: $border;
-  border-bottom: 0;
+  background: $c-bg-popup;
   display: none;
   position: absolute;
   z-index: z('powertip');
@@ -55,8 +51,11 @@
     text-align: center;
     border-top: $border;
   }
-  &__actions {
+  &__actions.btn-rack {
+    width: 100%;
     justify-content: stretch;
+    border: 0;
+    border-radius: 0;
     a {
       flex: 0 0 18%;
       &.relation-button {
@@ -96,5 +95,8 @@
   min-height: 262px;
   .spinner {
     margin: 82px auto 0 auto;
+  }
+  .cg-board {
+    border-radius: 0;
   }
 }

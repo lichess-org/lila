@@ -43,10 +43,10 @@ object mini {
     ctx.userId map { myId =>
       frag(
         (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
-          a(dataIcon := "1", title := trans.watchGames.txt(), href := routes.User.tv(u.username)),
+          a(dataIcon := "1", cls := "btn-rack__btn", title := trans.watchGames.txt(), href := routes.User.tv(u.username)),
           !blocked option frag(
-            a(dataIcon := "c", title := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}"),
-            a(dataIcon := "U", title := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=${u.username}#friend")
+            a(dataIcon := "c", cls := "btn-rack__btn", title := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}"),
+            a(dataIcon := "U", cls := "btn-rack__btn", title := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=${u.username}#friend")
           ),
           views.html.relation.mini(u.id, blocked, followable, rel)
         ),

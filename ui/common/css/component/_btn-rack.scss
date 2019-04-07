@@ -9,7 +9,7 @@
   }
   &__btn,
   form {
-    @extend %flex-center, %metal;
+    @extend %flex-center-nowrap, %metal;
     justify-content: center;
     text-align: center;
     line-height: 2rem;
