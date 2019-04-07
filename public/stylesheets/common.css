@@ -405,6 +405,7 @@ body {
   overflow-x: hidden;
   cursor: default;
 }
+@supports (display: grid) { body { --grid: 1; } }
 body.no-select {
   -moz-user-select: none;
   -webkit-user-select: none;
