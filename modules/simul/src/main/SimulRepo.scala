@@ -17,7 +17,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     def read(bsonInt: BSONInteger): SimulStatus = SimulStatus(bsonInt.value) err s"No such simul status: ${bsonInt.value}"
     def write(x: SimulStatus) = BSONInteger(x.id)
   }
-  private implicit val ChessStatusBSONHandler = lidraughts.game.BSONHandlers.StatusBSONHandler
+  private implicit val DraughtsStatusBSONHandler = lidraughts.game.BSONHandlers.StatusBSONHandler
   private implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
     def read(bsonInt: BSONInteger): Variant = Variant(bsonInt.value) err s"No such variant: ${bsonInt.value}"
     def write(x: Variant) = BSONInteger(x.id)
@@ -44,6 +44,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
       "wins" -> o.wins,
       "hostColor" -> o.hostColor.name
     )
+  }
+  import Simul.ChatMode
+  private implicit val ChatModeHandler: BSONHandler[BSONString, ChatMode] = new BSONHandler[BSONString, ChatMode] {
+    def read(bs: BSONString) = ChatMode.byKey get bs.value err s"Invalid chatmode ${bs.value}"
+    def write(x: ChatMode) = BSONString(x.key)
   }
 
   private implicit val SimulBSONHandler = Macros.handler[Simul]

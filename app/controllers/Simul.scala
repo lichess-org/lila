@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
-
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
@@ -39,7 +38,7 @@ object Simul extends LidraughtsController {
         for {
           version <- env.version(sim.id)
           json <- env.jsonView(sim)
-          chat <- canHaveChat ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
+          chat <- canHaveChat(sim) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
           stream <- Env.streamer.liveStreamApi one sim.hostId
         } yield html.simul.show(sim, version, json, chat, stream)
@@ -47,9 +46,9 @@ object Simul extends LidraughtsController {
     } map NoCache
   }
 
-  private[controllers] def canHaveChat(implicit ctx: Context): Boolean = ctx.me ?? { u =>
-    if (ctx.kid) false
-    else Env.chat.panic allowed u
+  private[controllers] def canHaveChat(sim: Sim)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
+    if (ctx.kid || !Env.chat.panic.allowed(u)) false
+    else sim.canHaveChat(u.id)
   }
 
   def start(simulId: String) = Open { implicit ctx =>

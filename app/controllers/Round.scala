@@ -53,23 +53,24 @@ object Round extends LidraughtsController with TheftPrevention {
     html = pov.game.started.fold(
       PreventTheft(pov) {
         myTour(pov.game.tournamentId, true) flatMap { tour =>
-          Game.preloadUsers(pov.game) zip
-            (pov.game.simulId ?? Env.simul.repo.find) zip
-            getPlayerChat(pov.game, tour.map(_.tour)) zip
-            Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
-            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
-            Env.bookmark.api.exists(pov.game, ctx.me) zip
-            Env.api.roundApi.player(pov, lidraughts.api.Mobile.Api.currentVersion) map {
-              case _ ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
-                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                Ok(html.round.player(pov, data,
-                  tour = tour,
-                  simul = simul.filter(_ isHost ctx.me),
-                  cross = crosstable,
-                  playing = playing,
-                  chatOption = chatOption,
-                  bookmarked = bookmarked))
-            }
+          (pov.game.simulId ?? Env.simul.repo.find) flatMap { simul =>
+            Game.preloadUsers(pov.game) zip
+              getPlayerChat(pov.game, tour.map(_.tour), simul) zip
+              Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
+              (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+              Env.bookmark.api.exists(pov.game, ctx.me) zip
+              Env.api.roundApi.player(pov, lidraughts.api.Mobile.Api.currentVersion) map {
+                case _ ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+                  simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                  Ok(html.round.player(pov, data,
+                    tour = tour,
+                    simul = simul.filter(_ isHost ctx.me),
+                    cross = crosstable,
+                    playing = playing,
+                    chatOption = chatOption,
+                    bookmarked = bookmarked))
+              }
+          }
         }
       }.mon(_.http.response.player.website),
       notFound
@@ -78,7 +79,7 @@ object Round extends LidraughtsController with TheftPrevention {
       if (isTheft(pov)) fuccess(theftResponse)
       else Game.preloadUsers(pov.game) zip
         Env.api.roundApi.player(pov, apiVersion) zip
-        getPlayerChat(pov.game, none) map {
+        getPlayerChat(pov.game, none, none) map {
           case _ ~ data ~ chat => Ok {
             data.add("chat", chat.flatMap(_.game).map(c => lidraughts.chat.JsonView(c.chat)))
           }
@@ -214,7 +215,7 @@ object Round extends LidraughtsController with TheftPrevention {
     }
   }
 
-  private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
+  private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour], simul: Option[lidraughts.simul.Simul])(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
     (game.tournamentId, game.simulId) match {
       case (Some(tid), _) => {
         ctx.isAuth && tour.fold(true)(Tournament.canHaveChat)
@@ -222,7 +223,7 @@ object Round extends LidraughtsController with TheftPrevention {
         Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map { chat =>
           Chat.GameOrEvent(Right(chat truncate 50)).some
         }
-      case (_, Some(sid)) => game.simulId.?? { sid =>
+      case (_, Some(sid)) if simul.fold(false)(_.canHaveChat(ctx.me)) => game.simulId.?? { sid =>
         Env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map { chat =>
           Chat.GameOrEvent(Right(chat truncate 50)).some
         }

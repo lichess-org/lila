@@ -27,6 +27,13 @@ final class DataForm {
   )
   val colorDefault = "white"
 
+  val chatChoices = List(
+    "everyone" -> "Everyone",
+    "spectators" -> "Spectators only",
+    "participants" -> "Participants only"
+  )
+  val chatDefault = "everyone"
+
   def create = Form(mapping(
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
@@ -34,13 +41,15 @@ final class DataForm {
     "variants" -> list {
       number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
     }.verifying("At least one variant", _.nonEmpty),
-    "color" -> stringIn(colorChoices)
+    "color" -> stringIn(colorChoices),
+    "chat" -> stringIn(chatChoices)
   )(SimulSetup.apply)(SimulSetup.unapply)) fill SimulSetup(
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     clockExtra = clockExtraDefault,
     variants = List(draughts.variant.Standard.id),
-    color = colorDefault
+    color = colorDefault,
+    chat = chatDefault
   )
 }
 
@@ -49,5 +58,6 @@ case class SimulSetup(
     clockIncrement: Int,
     clockExtra: Int,
     variants: List[Int],
-    color: String
+    color: String,
+    chat: String
 )

@@ -21,7 +21,8 @@ case class Simul(
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
-    color: Option[String]
+    color: Option[String],
+    chatmode: Option[Simul.ChatMode]
 ) {
 
   def id = _id
@@ -36,11 +37,24 @@ case class Simul(
 
   def isRunning = status == SimulStatus.Started
 
+  def hasParticipant(userId: String) = hostId == userId || hasPairing(userId)
+
   def hasApplicant(userId: String) = applicants.exists(_ is userId)
 
   def hasPairing(userId: String) = pairings.exists(_ is userId)
 
   def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
+
+  def canHaveChat(user: Option[User]): Boolean = user ?? { u => canHaveChat(u.id) }
+
+  def canHaveChat(userId: String): Boolean = chatmode match {
+    case Some(mode) if isRunning && mode != Simul.ChatMode.Everyone =>
+      if (hasParticipant(userId))
+        mode == Simul.ChatMode.Participants
+      else
+        mode == Simul.ChatMode.Spectators
+    case _ => true
+  }
 
   def addApplicant(applicant: SimulApplicant) = Created {
     if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
@@ -140,6 +154,16 @@ object Simul {
 
   case class OnStart(simul: Simul)
 
+  sealed trait ChatMode {
+    lazy val key = toString.toLowerCase
+  }
+  object ChatMode {
+    case object Everyone extends ChatMode
+    case object Spectators extends ChatMode
+    case object Participants extends ChatMode
+    val byKey = List(Everyone, Spectators, Participants).map { v => v.key -> v }.toMap
+  }
+
   private def makeName(host: User) =
     if (host.title.isDefined) host.titleUsername
     else RandomName()
@@ -148,7 +172,8 @@ object Simul {
     host: User,
     clock: SimulClock,
     variants: List[Variant],
-    color: String
+    color: String,
+    chatmode: String
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -173,6 +198,7 @@ object Simul {
     startedAt = none,
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
-    color = color.some
+    color = color.some,
+    chatmode = ChatMode.byKey get chatmode
   )
 }
