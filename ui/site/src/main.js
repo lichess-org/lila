@@ -164,8 +164,8 @@ lichess.topMenuIntent = function() {
           suggestion: function(o) {
             var tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
-            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
-            '</' + tag + '>';
+              '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
+              '</' + tag + '>';
           }
         }
       }).on('typeahead:render', function() {
@@ -606,15 +606,49 @@ lichess.topMenuIntent = function() {
         return false;
       });
 
+      (function() {
+        var state = lichess.storage.get('grid');
+        var shown = false;
+        var show = function() {
+          if (shown) return;
+          shown = true;
+          $.get(lichess.assetUrl('oops/browser.html'), function(html) {
+            $('body').prepend(html);
+            $('#browser-upgrade .close').click(function() {
+              $('#browser-upgrade').remove();
+              schedule();
+            });
+            testSoon();
+          });
+        };
+        var testSoon = function() {
+          setTimeout(function() {
+            if (getComputedStyle(document.body).getPropertyValue('--grid%%%%%%%%%%%%%%%%%%%%%%%%%%%%')) {
+              $('#browser-upgrade').remove();
+              schedule();
+            }
+            else {
+              lichess.storage.set('grid', 'bad');
+              show();
+            }
+          }, 3000)
+        };
+        var schedule = function() {
+          lichess.storage.set('grid', Date.now() + 1000 * 3600 * 24 * 7);
+        };
+        if (state == 'bad') show();
+        else if (isNaN(state) || state < Date.now()) testSoon();
+      })();
+
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
-          new Fingerprint2({
-            excludeJsFonts: true
-          }).get(function(res) {
-            $i = $('#signup-fp-input');
-            if ($i.length) $i.val(res);
-            else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
-          });
+        new Fingerprint2({
+          excludeJsFonts: true
+        }).get(function(res) {
+          $i = $('#signup-fp-input');
+          if ($i.length) $i.val(res);
+          else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
+        });
       }, 500);
     });
   });
