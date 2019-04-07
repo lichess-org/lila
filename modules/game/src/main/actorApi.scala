@@ -27,9 +27,6 @@ case class MoveGameEvent(
     fen: String,
     move: String
 )
-case class GameDrawEvent(
-    game: Game
-)
 object MoveGameEvent {
   def makeSymbol(gameId: Game.ID) = Symbol(s"moveEvent:$gameId")
   def makeBusEvent(event: MoveGameEvent) = lila.common.Bus.Event(event, makeSymbol(event.game.id))

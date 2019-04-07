@@ -527,7 +527,7 @@ GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.Bot.gameStream(id: String)
-POST  /api/bot/game/:id/move/:uci      controllers.Bot.move(id: String, uci: String)
+POST  /api/bot/game/:id/move/:uci      controllers.Bot.move(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/bot/*cmd                    controllers.Bot.command(cmd: String)
 
 # Account

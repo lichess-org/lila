@@ -18,9 +18,9 @@ object Bot extends LilaController {
     }
   }
 
-  def move(id: String, uci: String) = Scoped(_.Bot.Play) { _ => me =>
+  def move(id: String, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ => me =>
     WithMyBotGame(id, me) { pov =>
-      Env.bot.player(pov, me, uci) inject jsonOkResult recover {
+      Env.bot.player(pov, me, uci, offeringDraw) inject jsonOkResult recover {
         case e: Exception => BadRequest(jsonError(e.getMessage))
       }
     }
@@ -50,27 +50,6 @@ object Bot extends LilaController {
       case Array("game", id, "resign") => WithBot(me) {
         WithMyBotGame(id, me) { pov =>
           Env.bot.player.resign(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
-          }
-        }
-      }
-      case Array("game", id, "draw", "offer") => WithBot(me) {
-        WithMyBotGame(id, me) { pov =>
-          Env.bot.player.offerDraw(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
-          }
-        }
-      }
-      case Array("game", id, "draw", "accept") => WithBot(me) {
-        WithMyBotGame(id, me) { pov =>
-          Env.bot.player.acceptDraw(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
-          }
-        }
-      }
-      case Array("game", id, "draw", "decline") => WithBot(me) {
-        WithMyBotGame(id, me) { pov =>
-          Env.bot.player.declineDraw(pov) inject jsonOkResult recover {
             case e: lila.base.LilaException => BadRequest(e.getMessage)
           }
         }
