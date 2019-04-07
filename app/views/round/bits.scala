@@ -166,7 +166,23 @@ object bits {
     )
   )
 
-  private[round] def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
+  private[round] def side(
+    pov: Pov,
+    data: play.api.libs.json.JsObject,
+    tour: Option[lidraughts.tournament.TourMiniView],
+    simul: Option[lidraughts.simul.Simul],
+    userTv: Option[lidraughts.user.User] = None,
+    bookmarked: Boolean
+  )(implicit ctx: Context) = views.html.game.side(
+    pov,
+    (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN),
+    tour.map(_.tour),
+    simul = simul,
+    userTv = userTv,
+    bookmarked = bookmarked
+  )
+
+  def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(board.bits.domPreload(pov.some)),
       div(cls := "round__app__table"),

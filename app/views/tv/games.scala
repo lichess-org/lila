@@ -16,7 +16,7 @@ object games {
     ) {
         main(cls := "page-menu tv-games")(
           st.aside(cls := "page-menu__menu")(
-            side(channel, champions, "/games", povOption = none)
+            side(channel, champions, "/games")
           ),
           div(cls := "page-menu__content now-playing")(
             povs.map { p =>

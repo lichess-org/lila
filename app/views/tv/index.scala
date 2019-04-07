@@ -26,8 +26,8 @@ object index {
         roundTag,
         embedJs {
           val transJs = pov.map { p => views.html.round.jsI18n(p.game) }
-          s"""window.lidraughts=window.lidraughts||{};window.customWS=true;
-window.onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
+          s"""window.lidraughts=window.lidraughts||{};customWS=true;
+onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),
       moreCss = responsiveCssTag("tv.single"),
@@ -38,22 +38,23 @@ window.onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:
         url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
       ).some,
       robots = true
-    )(frag(
+    )(
         main(cls := "round tv-single")(
-          st.aside(cls := "round__side")(
-            side(channel, champions, "/tv", pov)
-          ),
-          div(cls := "round__board main-board")(board.bits.domPreload(pov))
-        ),
-        div(cls := "round__underboard none")(
-          pov.map { p => round.bits.crosstable(cross, p.game) },
-          div(cls := "now-playing tv-history")(
-            h2(trans.previouslyOnLidraughtsTV()),
-            history.map { p =>
-              div(views.html.game.bits.mini(p))
-            }
-          )
-        ),
-        div(cls := "round__underchat none")(views.html.game.bits.watchers)
-      ))
+          st.aside(cls := "round__side")(side(channel, champions, "/tv")),
+          pov ?? { pv =>
+            frag(
+              views.html.round.bits.roundAppPreload(pv, false),
+              div(cls := "round__underboard")(
+                views.html.round.bits.crosstable(cross, pv.game),
+                div(cls := "now-playing tv-history")(
+                  h2(trans.previouslyOnLidraughtsTV.frag()),
+                  history.map { p =>
+                    div(views.html.game.bits.mini(p))
+                  }
+                )
+              )
+            )
+          }
+        )
+      )
 }

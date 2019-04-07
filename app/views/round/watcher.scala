@@ -40,14 +40,10 @@ LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},chat:
       draughtsground = false
     )(
         main(cls := "round")(
-          st.aside(cls := "round__side")(
-            game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked)
-          ),
+          st.aside(cls := "round__side")(bits.side(pov, data, tour, simul, userTv, bookmarked)),
           chatOption.map(_ => chat.frag),
           bits.roundAppPreload(pov, false),
-          div(cls := "round__underboard")(
-            bits.crosstable(cross, pov.game)
-          ),
+          div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
           simul.map { s =>
             div(cls := "other_games", id := "now_playing")(
               h3(bits.simulStanding(s))

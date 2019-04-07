@@ -1,6 +1,11 @@
 @import 'side';
 
 .tv-single {
+
+  grid-template-areas: 
+  'side app   app' 
+  'side under . ';
+
   .tv-history {
     display: flex;
     flex-flow: row wrap;
