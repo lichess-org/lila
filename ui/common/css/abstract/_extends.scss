@@ -12,7 +12,7 @@
   font-family: 'ChessSansPiratf', 'Noto Sans';
 }
 %san {
-  @extend %chess-font;
+  @extend %draughts-font;
   .piece-letter & {
     @extend %base-font;
   }

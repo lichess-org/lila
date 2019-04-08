@@ -154,8 +154,6 @@ object layout {
           ctx.currentTheme.cssClass -> true,
           // ctx.currentTheme.cssClass -> true,
           // (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true,
-          ctx.currentTheme3d.cssClass -> true,
-          ctx.currentPieceSet3d.toString -> true,
           "zen" -> ctx.pref.isZen,
           "blind_mode" -> ctx.blind,
           "kid" -> ctx.kid,

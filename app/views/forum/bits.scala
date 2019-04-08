@@ -21,7 +21,7 @@ object bits {
   )(body: Html)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      menu = menu,
+      //menu = menu,
       moreCss = responsiveCssTag("forum"),
       responsive = true,
       moreJs = moreJs,

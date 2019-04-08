@@ -24,17 +24,17 @@ object puzzleEditor {
         userAnalysisI18n(withForecast = false)
       },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
     ),
-    side = pov.game.synthetic option div(cls := "mselect")(
-      div(cls := "button", dataIcon := iconByVariant(pov.game.variant))(
-        if (pov.game.variant.fromPosition) draughts.variant.Standard.name else pov.game.variant.name,
-        iconTag("u")
-      ),
-      div(cls := "list")(
-        lidraughts.pref.Pref.puzzleVariants.map { v =>
-          a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parsePuzzle(v.key))(v.name)
-        }
-      )
-    ),
+    // side = pov.game.synthetic option div(cls := "mselect")(
+    //   div(cls := "button", dataIcon := iconByVariant(pov.game.variant))(
+    //     if (pov.game.variant.fromPosition) draughts.variant.Standard.name else pov.game.variant.name,
+    //     iconTag("u")
+    //   ),
+    //   div(cls := "list")(
+    //     lidraughts.pref.Pref.puzzleVariants.map { v =>
+    //       a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parsePuzzle(v.key))(v.name)
+    //     }
+    //   )
+    // ),
     draughtsground = false,
     zoomable = true
   ) {
