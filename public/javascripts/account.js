@@ -15,7 +15,7 @@ $(function() {
         data: $form.serialize(),
         success: function() {
           $form.find('.saved').fadeIn();
-          lichess.reloadOtherTabs();
+          lichess.storage.set('reload-round-tabs', Math.random());
         }
       });
     });

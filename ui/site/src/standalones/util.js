@@ -65,17 +65,7 @@ function buildStorage(storageKey) {
 };
 
 lichess.storage = buildStorage('localStorage');
-lichess.tempStorage = buildStorage('sessionStorage');
 
-lichess.reloadOtherTabs = (function() {
-  var storage = lichess.storage.make('reload-other-tabs');
-  storage.listen(function() {
-    lichess.reload();
-  });
-  return function() {
-    storage.set(1);
-  }
-})();
 lichess.once = function(key, mod) {
   if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
