@@ -13,7 +13,6 @@ interface Lidraughts {
   loadScript(url: string): any
   keyboardMove: any
   slider(): any
-  reloadOtherTabs(): void
   raf(f: () => void): void
   requestIdleCallback(f: () => void): void
   loadCss(path: string, opts?: AssetUrlOpts): void
