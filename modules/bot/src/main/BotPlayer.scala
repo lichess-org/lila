@@ -1,27 +1,32 @@
 package lila.bot
 
 import akka.actor._
+
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-
 import chess.format.Uci
-
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
+import lila.round.actorApi.round.{ DrawNo, DrawYes }
 import lila.user.User
 
 final class BotPlayer(
     chatActor: ActorSelection
 )(implicit system: ActorSystem) {
 
-  def apply(pov: Pov, me: User, uciStr: String): Funit =
+  def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lila.mon.bot.moves(me.username)()
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]
+          if (pov.player.isOfferingDraw && (offeringDraw contains false)) {
+            declineDraw(pov)
+          } else if (!pov.player.isOfferingDraw && (offeringDraw contains true)) {
+            offerDraw(pov)
+          }
           system.lilaBus.publish(
             Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
             'roundMapTell
@@ -80,4 +85,27 @@ final class BotPlayer(
       )
     }
     else fufail("This game cannot be resigned")
+
+  def declineDraw(pov: Pov): Funit = {
+    if (pov.game.drawable) {
+      if (pov.opponent.isOfferingDraw) fuccess {
+        system.lilaBus.publish(
+          Tell(pov.gameId, DrawNo(pov.playerId)),
+          'roundMapTell
+        )
+      }
+      else fufail("The opponent isn't offering a draw")
+    } else fufail("This game cannot be drawn")
+  }
+
+  def offerDraw(pov: Pov): Funit =
+    if (pov.game.drawable) fuccess {
+      if (pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn) {
+        system.lilaBus.publish(
+          Tell(pov.gameId, DrawYes(pov.playerId)),
+          'roundMapTell
+        )
+      } else fufail("You cannot offer a draw")
+    }
+    else fufail("This game cannot be drawn")
 }
