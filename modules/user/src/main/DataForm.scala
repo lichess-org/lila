@@ -15,6 +15,13 @@ final class DataForm(authenticator: Authenticator) {
 
   case class NoteData(text: String, mod: Boolean)
 
+  def username(user: User): Form[String] = Form(single(
+    "userName" -> text.verifying("usernameNotSame", name =>
+      name.toLowerCase == user.username.toLowerCase && name != user.username)
+  )).fill(user.username)
+
+  def usernameOf(user: User) = username(user) fill user.username
+
   val profile = Form(mapping(
     "country" -> optional(text.verifying(Countries.codeSet contains _)),
     "location" -> optional(nonEmptyText(maxLength = 80)),

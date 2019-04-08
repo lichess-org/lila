@@ -236,6 +236,7 @@ object User {
     val sha512 = "sha512"
     val totpSecret = "totp"
     val watchList = "watchList"
+    val changedCase = "changedCase"
   }
 
   import lila.db.BSON
