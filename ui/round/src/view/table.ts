@@ -13,7 +13,7 @@ import RoundController from '../ctrl';
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
   return ctrl.nvui ? undefined : (
-    player.ai ? h('div.user_link.online.ruser.ruser-' + position, [
+    player.ai ? h('div.user-link.online.ruser.ruser-' + position, [
       h('i.line'),
       h('name', renderUser.aiName(ctrl, player.ai))
     ]) :

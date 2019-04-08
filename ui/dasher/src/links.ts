@@ -12,7 +12,7 @@ export default function(ctrl: DasherCtrl): VNode {
   function userLinks(): VNode | null {
     return d.user ? h('div.links', [
       h(
-        'a.user_link.online.text.is-green',
+        'a.user-link.online.text.is-green',
         linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
         noarg('profile')),
 

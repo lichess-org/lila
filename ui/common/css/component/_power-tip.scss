@@ -21,7 +21,7 @@
     border-bottom: $border;
     &__top {
       @extend %flex-between;
-      .user_link {
+      .user-link {
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;

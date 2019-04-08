@@ -1,4 +1,4 @@
-.user_link {
+.user-link {
   @extend %nowrap-hidden;
   color: $c-font;
   .line {
@@ -36,6 +36,6 @@
     }
   }
 }
-a.user_link:hover {
+a.user-link:hover {
   color: $c-link;
 }

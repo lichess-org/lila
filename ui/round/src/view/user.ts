@@ -20,7 +20,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
-    return h(`div.ruser-${position}.ruser.user_link`, {
+    return h(`div.ruser-${position}.ruser.user-link`, {
       class: {
         online: player.onGame,
         offline: !player.onGame,
@@ -57,7 +57,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     ]);
   }
   const connecting = !player.onGame && ctrl.firstSeconds;
-  return h(`div.ruser-${position}.ruser.user_link`, {
+  return h(`div.ruser-${position}.ruser.user-link`, {
     class: {
       online: player.onGame,
       offline: !player.onGame,

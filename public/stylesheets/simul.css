@@ -43,7 +43,7 @@
 #simul .arbiter-panel .variant span {
   margin-left: 10px;
 }
-#simul .half .user_link {
+#simul .half .user-link {
   line-height: 2.5em;
 }
 #simul .half tr.help th {
@@ -93,7 +93,7 @@
   margin-left: 1.4em;
   font-size: 0.6em;
 }
-#simul a.user_link em {
+#simul a.user-link em {
   font-weight: bold;
   padding-left: 5px;
 }

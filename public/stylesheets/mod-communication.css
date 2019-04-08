@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
 }
-#communication .user_link {
+#communication .user-link {
   margin-left: -.5em;
 }
 #communication .actions {
@@ -21,7 +21,7 @@
   text-transform: capitalize;
   letter-spacing: 2px;
 }
-#communication .user_link {
+#communication .user-link {
   font-weight: bold;
 }
 #communication .public_chats,

@@ -112,7 +112,7 @@ div.mchat .messages .system {
   text-align: center;
 }
 div.mchat .messages .color,
-div.mchat .messages .user_link {
+div.mchat .messages .user-link {
   font-weight: bold;
   padding: 0;
   color: #888;
@@ -120,13 +120,13 @@ div.mchat .messages .user_link {
   letter-spacing: -1px;
 }
 body.dark div.mchat .messages .color,
-body.dark div.mchat .messages .user_link {
+body.dark div.mchat .messages .user-link {
   color: #777;
 }
 div.mchat .messages .title {
   margin-right: 3px;
 }
-div.mchat .messages a:not(.user_link) {
+div.mchat .messages a:not(.user-link) {
   font-family: 'Roboto';
   color: #3893E8;
 }

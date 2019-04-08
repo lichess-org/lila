@@ -4,7 +4,7 @@ var xhr = require('../xhr');
 
 function playerHtml(p, rating, provisional, fmjd, href) {
   var onlineStatus = p.online === undefined ? 'online' : (p.online ? 'online' : 'offline');
-  var html = '<a class="text ulpt user_link ' + onlineStatus;
+  var html = '<a class="text ulpt user-link ' + onlineStatus;
   if (href)
     html += '" href="' + href + '" target="_blank">';
   else

@@ -30,7 +30,7 @@ export function tourStandingCtrl(data: TourPlayer[], name: string): TourStanding
           return h('tr.' + p.n, [
             h('td.name', [
               h('span.rank', '' + (i + 1)),
-              h('a.user_link.ulpt', {
+              h('a.user-link.ulpt', {
                 attrs: { href: `/@/${p.n}` }
               }, (p.t ? p.t + ' ' : '') + p.n)
             ]),

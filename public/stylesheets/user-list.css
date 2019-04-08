@@ -80,11 +80,11 @@ div.user_lists div.user_top div div {
   line-height: 22px;
   white-space: nowrap;
 }
-div.user_lists div.user_top .user_link {
+div.user_lists div.user_top .user-link {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#site_header div.user_lists .user_link {
+#site_header div.user_lists .user-link {
   max-width: 160px;
 }
 

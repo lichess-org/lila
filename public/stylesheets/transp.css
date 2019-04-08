@@ -109,9 +109,9 @@ body.transp div.mselect div.list {
 body.transp div.user_show .trophy.icon3d,
 body.transp #timeline a,
 body.transp #chat span,
-body.transp #chat a.user_link,
-body.transp div.undertable a.user_link,
-body.transp #team .forum a.user_link,
+body.transp #chat a.user-link,
+body.transp div.undertable a.user-link,
+body.transp #team .forum a.user-link,
 body.transp div.user_show div.content_box_top > span,
 body.transp span.progress > .zero,
 body.transp div.undertable_top span.title {

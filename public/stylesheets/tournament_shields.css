@@ -55,7 +55,7 @@
 .winner_list li:hover a {
   color: #3893E8;
 }
-.winner_list a.user_link {
+.winner_list a.user-link {
   font-size: 1.2em;
   margin: 0 10px 0 -3px;
   overflow: hidden;

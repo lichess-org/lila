@@ -69,7 +69,7 @@ export function view(ctrl): VNode {
         'and who actively want to join this study.'
       ]),
       candidates.length ? h('div.users', candidates.map(function(username) {
-        return h('span.user_link.button', {
+        return h('span.user-link.button', {
           key: username,
           attrs: { 'data-href': '/@/' + username },
           hook: bind('click', _ => ctrl.invite(username))
