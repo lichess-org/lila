@@ -1,5 +1,5 @@
-lichess.topMenuIntent = function() {
-  $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
+lichess.topnavIntent = function() {
+  $('#topnav.hover').removeClass('hover').hoverIntent(function() {
     $(this).toggleClass('hover');
   });
 };
@@ -519,8 +519,8 @@ lichess.topMenuIntent = function() {
         return false;
       });
 
-      // minimal touchscreen support for topmenu
-      if ('ontouchstart' in window) $('#topmenu').on('click', 'section > a', function() {
+      // minimal touchscreen support for topnav
+      if ('ontouchstart' in window) $('#topnav').on('click', 'section > a', function() {
         return false;
       });
 
@@ -957,7 +957,7 @@ lichess.topMenuIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse.start(cfg);
-    lichess.topMenuIntent();
+    lichess.topnavIntent();
   }
 
   ////////////////
@@ -986,7 +986,7 @@ lichess.topMenuIntent = function() {
       });
       lichess.makeChat(cfg.chat);
     }
-    lichess.topMenuIntent();
+    lichess.topnavIntent();
   }
 
   ////////////////
@@ -1008,7 +1008,7 @@ lichess.topMenuIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse.start(cfg);
-    lichess.topMenuIntent();
+    lichess.topnavIntent();
   }
 
   ////////////////
@@ -1037,7 +1037,7 @@ lichess.topMenuIntent = function() {
       });
       lichess.makeChat(cfg.chat);
     }
-    lichess.topMenuIntent();
+    lichess.topnavIntent();
   }
 
   ////////////////
@@ -1057,7 +1057,7 @@ lichess.topMenuIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     puzzle = LichessPuzzle.default(cfg);
-    lichess.topMenuIntent();
+    lichess.topnavIntent();
   }
 
 })();

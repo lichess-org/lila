@@ -189,37 +189,12 @@ object layout {
           ),
           lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
-          if (responsive) siteHeader.responsive(playing)
-          else siteHeader.old(playing),
-          if (responsive) div(id := "main-wrap", cls := List(
+          siteHeader.responsive(playing),
+          div(id := "main-wrap", cls := List(
             wrapClass -> wrapClass.nonEmpty,
             "is2d" -> ctx.pref.is2d,
             "is3d" -> ctx.pref.is3d
-          ))(body)
-          else div(cls := s"content ${if (ctx.pref.is3d) "is3d" else "is2d"}")(
-            div(id := "site_header")(
-              div(id := "notifications"),
-              div(cls := "board_left")(
-                h1(
-                  a(id := "site_title", href := routes.Lobby.home)(
-                    if (ctx.kid) span(st.title := trans.kidMode.txt(), cls := "kiddo")("😊")
-                    else ctx.isBot option botImage,
-                    "lichess",
-                    span(cls := "extension")(if (isProd && !isStage) ".org" else ".dev")
-                  )
-                ),
-                menu map { sideMenu =>
-                  div(cls := "side_menu")(sideMenu)
-                },
-                side,
-                chat
-              ),
-              underchat map { g =>
-                div(cls := "under_chat")(g)
-              }
-            ),
-            div(id := "lichess")(body)
-          ),
+          ))(body),
           ctx.me.map { me =>
             div(
               id := "friend_box",
@@ -285,7 +260,7 @@ object layout {
               span(if (isProd && !isStage) ".org" else ".dev")
             )
           ),
-          topmenu()
+          topnav()
         ),
         reconnecting,
         div(cls := "site-buttons")(
@@ -296,23 +271,6 @@ object layout {
             frag(allNotifications, dasher(me))
           } getOrElse { !ctx.pageData.error option anonDasher(playing) }
         )
-      )
-
-    def old(playing: Boolean)(implicit ctx: Context) =
-      div(id := "top", cls := (if (ctx.pref.is3d) "is3d" else "is2d"))(
-        topmenu(),
-        div(id := "ham-plate", cls := "link", title := trans.menu.txt())(
-          div(id := "hamburger", dataIcon := "[")
-        ),
-        ctx.me map { me =>
-          frag(dasher(me), allNotifications)
-        } getOrElse {
-          !ctx.pageData.error option anonDasher(playing)
-        },
-        teamRequests,
-        reports,
-        clinput,
-        reconnecting
       )
   }
 }

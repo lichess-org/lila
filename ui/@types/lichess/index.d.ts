@@ -38,7 +38,7 @@ interface Lichess {
   challengeApp: any;
   hopscotch: any;
   makeChat(data: any, callback?: (chat: any) => void): void;
-  topMenuIntent(): void;
+  topnavIntent(): void;
   timeago: {
     render(nodes: HTMLElement | HTMLElement[]): void;
     format(date: number | Date): string;

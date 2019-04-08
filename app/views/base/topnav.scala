@@ -6,14 +6,13 @@ import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
-// #TODO rename to topnav
-object topmenu {
+object topnav {
 
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
     if (ctx.blind) h2(name) else a(href := url)(name)
 
   def apply()(implicit ctx: Context) = st.nav(
-    id := "topmenu",
+    id := "topnav",
     cls := (if (ctx.blind) "blind" else "hover")
   )(
       st.section(
@@ -34,7 +33,7 @@ object topmenu {
             a(href := routes.Learn.index)(trans.chessBasics.frag()),
             a(href := routes.Puzzle.home)(trans.training.frag()),
             a(href := routes.Practice.index)("Practice"),
-            a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
+            a(href := routes.Coordinate.home)(trans.coordinates.coordinates.frag())
           ),
           a(href := routes.Study.allDefault(1))("Study"),
           a(href := routes.Coach.allDefault(1))(trans.coaches.frag())
