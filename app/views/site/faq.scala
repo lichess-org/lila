@@ -154,6 +154,11 @@ object faq {
             "Why are ratings higher compared to other sites and organisations such as FIDE, USCF, the ICC, etc.?",
             p("It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings)."),
             p("""It's best to think of ratings as "relative" figures (as opposed to "absolute" figures). By this I mean: within a pool of players, their relative differences in ratings will help you estimate who will win/draw/loss, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.""")
+          ),
+          question(
+            "hide-ratings",
+            "How to hide ratings while playing?",
+            p("Enable Zen-mode by pressing ", em("z"), " during a game.")
           )
         )
       )
