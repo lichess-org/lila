@@ -13,6 +13,10 @@ body {
   background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
   color: $c-font;
   overflow-x: hidden;
+  &.fixed-scroll {
+    /* prevents scroll bar flicker when dragging a piece out */
+    overflow-y: scroll;
+  }
 }
 
 a {
