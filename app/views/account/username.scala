@@ -13,12 +13,12 @@ object username {
     title = s"${u.username} - ${trans.editProfile.txt()}",
     active = "username"
   ) {
-    div(cls := "content_box small_box")(
-      h1(cls := "lichess_title text", dataIcon := "*")(trans.editProfile()),
+    div(cls := "account box box-pad")(
+      h1(cls := "text", dataIcon := "*")(trans.changeUsername.frag()),
       st.form(cls := "form3", action := routes.Account.usernameApply, method := "POST")(
         form3.globalError(form),
-        form3.group(form("username"), trans.username.frag(), half = true, help = trans.changeUsernameDescription.frag().some)(form3.input(_)),
-        form3.actionHtml(form3.submit(trans.apply.frag()))
+        form3.group(form("username"), trans.username.frag(), help = trans.changeUsernameDescription.frag().some)(form3.input(_)),
+        form3.action(form3.submit(trans.apply.frag()))
       )
     )
   }
