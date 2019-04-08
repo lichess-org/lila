@@ -1,9 +1,3 @@
-lidraughts.topnavIntent = function() {
-  $('#topnav.hover').removeClass('hover').hoverIntent(function() {
-    $(this).toggleClass('hover');
-  });
-};
-
 (function() {
 
   /////////////
@@ -958,7 +952,6 @@ lidraughts.topnavIntent = function() {
     });
     cfg.socketSend = lidraughts.socket.send;
     analyse = LidraughtsAnalyse.start(cfg);
-    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -987,7 +980,6 @@ lidraughts.topnavIntent = function() {
       });
       lidraughts.makeChat(cfg.chat);
     }
-    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -1009,7 +1001,6 @@ lidraughts.topnavIntent = function() {
     });
     cfg.socketSend = lidraughts.socket.send;
     analyse = LidraughtsAnalyse.start(cfg);
-    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -1038,7 +1029,6 @@ lidraughts.topnavIntent = function() {
       });
       lidraughts.makeChat(cfg.chat);
     }
-    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -1058,7 +1048,6 @@ lidraughts.topnavIntent = function() {
     });
     cfg.socketSend = lidraughts.socket.send;
     puzzle = LidraughtsPuzzle.default(cfg);
-    lidraughts.topnavIntent();
   }
 
 })();
