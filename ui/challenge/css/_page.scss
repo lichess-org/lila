@@ -59,8 +59,16 @@ $c-challenge: $c-secondary;
       text-transform: uppercase;
     }
   }
-  .try-again .button {
+  .follow-up .button {
     display: block;
+    margin-top: 2em;
+  }
+}
+
+.challenge-theirs {
+  .button-fat {
+    display: block;
+    width: 100%;
     margin-top: 2em;
   }
 }

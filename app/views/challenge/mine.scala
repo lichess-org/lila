@@ -65,19 +65,19 @@ object mine {
                 )
               }
             )
-            case Status.Declined => div(cls := "try-again")(
+            case Status.Declined => div(cls := "follow-up")(
               h1("Challenge declined"),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent.frag())
             )
-            case Status.Accepted => div(cls := "accepted")(
+            case Status.Accepted => div(cls := "follow-up")(
               h1("Challenge accepted!"),
               bits.details(c),
-              a(id := "challenge_redirect", href := routes.Round.watcher(c.id, "white"), cls := "button")(
+              a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame.frag()
               )
             )
-            case Status.Canceled => div(cls := "try-again")(
+            case Status.Canceled => div(cls := "follow-up")(
               h1("Challenge canceled."),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent.frag())
