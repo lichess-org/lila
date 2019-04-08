@@ -36,8 +36,8 @@ object Account extends LilaController {
     implicit val req: Request[_] = ctx.body
     FormFuResult(env.forms.username(me)) { err =>
       fuccess(html.account.username(me, err))
-    } { change =>
-      UserRepo.setUsernameCased(me.id, change.userName) inject Redirect(routes.User show me.username)
+    } { username =>
+      UserRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username)
     }
   }
 

@@ -186,9 +186,10 @@ object UserRepo {
       coll.update(
         $id(id) ++ (F.changedCase $exists false),
         $set(F.username -> username, F.changedCase -> true)
-      ) map { result =>
+      ) flatMap { result =>
           if (result.n == 0) fufail(s"You have already changed your username")
-        }
+          else fuccess()
+      }
     } else fufail(s"Proposed username does not match old username")
   }
 
