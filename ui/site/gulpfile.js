@@ -88,7 +88,6 @@ function makeBundle(filename) {
       './dep/powertip.min.js',
       './dep/howler.min.js',
       './dep/mousetrap.min.js',
-      './dep/hoverintent.min.js',
       './dist/' + filename,
       ...(abFile ? ['./dist/ab.js'] : []),
       './dist/consolemsg.js',

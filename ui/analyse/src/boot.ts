@@ -28,6 +28,4 @@ export default function(cfg: AnalyseOpts) {
   cfg.element = element.querySelector('main.analyse') as HTMLElement;
   cfg.socketSend = li.socket.send;
   analyse = start(cfg);
-
-  li.topnavIntent();
 };

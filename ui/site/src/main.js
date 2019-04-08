@@ -1,9 +1,3 @@
-lichess.topnavIntent = function() {
-  $('#topnav.hover').removeClass('hover').hoverIntent(function() {
-    $(this).toggleClass('hover');
-  });
-};
-
 (function() {
 
   /////////////
@@ -952,7 +946,6 @@ lichess.topnavIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse.start(cfg);
-    lichess.topnavIntent();
   }
 
   ////////////////
@@ -981,7 +974,6 @@ lichess.topnavIntent = function() {
       });
       lichess.makeChat(cfg.chat);
     }
-    lichess.topnavIntent();
   }
 
   ////////////////
@@ -1003,7 +995,6 @@ lichess.topnavIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse.start(cfg);
-    lichess.topnavIntent();
   }
 
   ////////////////
@@ -1032,7 +1023,6 @@ lichess.topnavIntent = function() {
       });
       lichess.makeChat(cfg.chat);
     }
-    lichess.topnavIntent();
   }
 
   ////////////////
@@ -1052,7 +1042,6 @@ lichess.topnavIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     puzzle = LichessPuzzle.default(cfg);
-    lichess.topnavIntent();
   }
 
 })();
