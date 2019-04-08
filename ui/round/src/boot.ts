@@ -130,6 +130,8 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
             history.replaceState(null, '', '/' + data.game.id);
         if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
         $('#zentog').click(round.toggleZen);
+
+        li.storage.make('reload-round-tabs').listen(li.reload);
     };
 
     if (li.isTrident) setTimeout(letsGo, 150);
