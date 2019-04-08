@@ -11,11 +11,13 @@
     }
   }
   &-turn {
-    height: 2em;
-    line-height: 2em;
-    width: 100%;
-    text-align: center;
     font-weight: bold;
+    white-space: nowrap;
+    align-self: center;
+    @include breakpoint($mq-col2) {
+      height: 2.2em;
+      line-height: 2.2em;
+    }
   }
   .bar {
     display: none;
