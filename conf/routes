@@ -579,6 +579,8 @@ GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
+GET   /qa                              controllers.Main.legacyQa
+GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /swag                            controllers.Page.swag
 GET   /how-to-cheat                    controllers.Page.howToCheat
 
