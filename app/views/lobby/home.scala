@@ -39,7 +39,7 @@ object home {
       embedJs {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val transJs = safeJsonValue(i18nJsObject(translations))
-        s"""window.lidraughts=window.lidraughts||{};window.customWS=true;lidraughts_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
+        s"""lidraughts=window.lidraughts||{};customWS=true;lidraughts_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
       }
     ),
     moreCss = responsiveCssTag("lobby"),

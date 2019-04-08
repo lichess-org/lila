@@ -26,7 +26,7 @@ object index {
         roundTag,
         embedJs {
           val transJs = ~pov.map { p => views.html.round.jsI18n(p.game) }
-          s"""window.lidraughts=window.lidraughts||{};customWS=true;
+          s"""lidraughts=window.lidraughts||{};customWS=true;
 onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),

@@ -53,30 +53,6 @@ hr {
   background: $c-border;
 }
 
-button, input, optgroup, select, textarea {
-  font: inherit;
-  color: $c-font;
-}
-option,
-optgroup {
-  background: $c-bg-box-opaque;
-  color: $c-font-clear;
-}
-input, textarea, select {
-  @extend %box-radius;
-  background: $c-bg-input;
-  border: $border;
-  padding: .6em 1em;
-}
-textarea {
-  overflow: auto;
-  resize: vertical;
-  padding: .8em 1em;
-}
-button, a {
-  cursor: pointer;
-}
-
 table, tbody, tfoot, thead, tr, th, td {
   border: 0;
   font-size: 100%;

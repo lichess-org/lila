@@ -34,7 +34,7 @@ object player {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.lidraughts=window.lidraughts||{};customWS=true;onload=function(){
+        embedJs(s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){
 LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserId,chat:${jsOrNull(chatJson)}
 ${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lidraughts.tournament.JsonView.top(top, lightUser))}")}
 })}""")

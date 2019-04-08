@@ -1,4 +1,4 @@
-var lidraughts = window.lidraughts = window.lidraughts || {};
+lidraughts = window.lidraughts || {};
 
 lidraughts.engineName = 'Scan 3.1';
 

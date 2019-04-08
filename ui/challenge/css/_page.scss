@@ -5,7 +5,7 @@
   font-size: 1.2em;
   padding: 1em 0;
 }
-#ping_challenge .spinner {
+#ping-challenge .spinner {
   width: 80px;
   height: 80px;
   margin-bottom: 20px;
@@ -13,7 +13,4 @@
 .user-invite .friend-autocomplete {
   border: 1px solid #ccc;
   padding: 5px 8px;
-}
-body.dark .user-invite .friend-autocomplete {
-  border-color: #3d3d3d;
 }

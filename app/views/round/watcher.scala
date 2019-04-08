@@ -33,7 +33,7 @@ object watcher {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.lidraughts=window.lidraughts||{};customWS=true;onload=function(){
+        embedJs(s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){
 LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},chat:${jsOrNull(chatJson)}})}""")
       ),
       openGraph = povOpenGraph(pov).some,

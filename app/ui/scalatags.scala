@@ -20,6 +20,7 @@ trait ScalatagsAttrs {
   lazy val datatime24h = attr("data-time_24h")
   lazy val dataColor = attr("data-color")
   lazy val dataFen = attr("data-fen")
+  lazy val dataRel = attr("data-rel")
   lazy val novalidate = attr("novalidate")
   object frame {
     val scrolling = attr("scrolling")
@@ -42,6 +43,7 @@ trait ScalatagsSnippets extends Cap {
   val styleTag = tag("style")(`type` := "text/css")
   val ratingTag = tag("rating")
   val countTag = tag("count")
+  val badTag = tag("bad")
 
   lazy val dataBotAttr = attr("data-bot").empty
 
