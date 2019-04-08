@@ -167,5 +167,34 @@ Disallow: /games/export
     Ok(html.site.faq()).fuccess
   }
 
+  def legacyQa = Open { implicit ctx =>
+    MovedPermanently(routes.Main.faq.url).fuccess
+  }
+
+  def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>
+    MovedPermanently {
+      val faq = routes.Main.faq.url
+      id match {
+        case 103 => s"$faq#acpl"
+        case 258 => s"$faq#marks"
+        case 13 => s"$faq#titles"
+        case 87 => routes.Stat.ratingDistribution("blitz").url
+        case 110 => s"$faq#name"
+        case 29 => s"$faq#titles"
+        case 216 => routes.Main.mobile.url
+        case 340 => s"$faq#trophies"
+        case 6 => s"$faq#ratings"
+        case 207 => s"$faq#hide-ratings"
+        case 547 => s"$faq#leaving"
+        case 259 => s"$faq#trophies"
+        case 342 => s"$faq#provisional"
+        case 50 => routes.Page.help.url
+        case 46 => s"$faq#name"
+        case 122 => s"$faq#marks"
+        case _ => faq
+      }
+    }.fuccess
+  }
+
   def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)
 }
