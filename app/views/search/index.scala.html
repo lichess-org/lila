@@ -177,8 +177,8 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label>@trans.date()</label>
         </th>
         <td>
-          <div class="half">@trans.from() @form3.select(form("dateMin"), Query.dates, "".some)</div>
-          <div class="half">@trans.to() @form3.select(form("dateMax"), Query.dates, "".some)</div>
+          <div class="half">@trans.from() @form3.datepicker(form("dateMin"))</div>
+          <div class="half">@trans.to() @form3.datepicker(form("dateMax"))</div>
         </td>
       </tr>
       <tr>
