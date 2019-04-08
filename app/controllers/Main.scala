@@ -148,7 +148,7 @@ Disallow: /games/export
   }
 
   def getFishnet = Open { implicit ctx =>
-    Ok(html.site.getFishnet()).fuccess
+    Ok(html.site.bits.getFishnet()).fuccess
   }
 
   def costs = Open { implicit ctx =>
