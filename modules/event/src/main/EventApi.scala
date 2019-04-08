@@ -38,11 +38,6 @@ final class EventApi(
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
 
-  def recentEnabled = coll
-    .find($doc("enabled" -> true))
-    .sort($doc("startsAt" -> -1))
-    .list[Event](50)
-
   def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
 
   def one(id: String) = coll.byId[Event](id)
