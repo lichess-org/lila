@@ -3,18 +3,20 @@
   .revoke-all button {
     display: inline;
   }
-  table .ua {
-    font-size: 0.8em;
+  .ua {
+    font-size: .9em;
   }
-  table .icon span {
+  .icon span {
     font-size: 3.5em;
   }
-  table .ip {
+  .ip {
     font-weight: bold;
     font-family: monospace;
   }
-  table .current {
+  .current {
     color: $c-brag;
+    margin-left: 1em;
+    font-weight: bold;
   }
 }
 
@@ -80,6 +82,7 @@
 }
 
 .account {
+  min-height: 100%;
   h1 {
     color: $c-accent;
   }
