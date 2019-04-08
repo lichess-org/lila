@@ -6,7 +6,7 @@
     display: none;
   }
 
-  #topmenu {
+  #topnav {
     --nav-section: 26px;
     --nav-section-hover: 35px;
     @include breakpoint($mq-site-header-tall) {

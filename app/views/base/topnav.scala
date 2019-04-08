@@ -6,14 +6,13 @@ import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
-// #TODO rename to topnav
-object topmenu {
+object topnav {
 
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
     if (ctx.blind) h2(name) else a(href := url)(name)
 
   def apply()(implicit ctx: Context) = st.nav(
-    id := "topmenu",
+    id := "topnav",
     cls := (if (ctx.blind) "blind" else "hover")
   )(
       st.section(

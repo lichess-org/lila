@@ -1,5 +1,5 @@
-lidraughts.topMenuIntent = function() {
-  $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
+lidraughts.topnavIntent = function() {
+  $('#topnav.hover').removeClass('hover').hoverIntent(function() {
     $(this).toggleClass('hover');
   });
 };
@@ -519,8 +519,8 @@ lidraughts.topMenuIntent = function() {
         return false;
       });
 
-      // minimal touchscreen support for topmenu
-      if ('ontouchstart' in window) $('#topmenu').on('click', 'section > a', function() {
+      // minimal touchscreen support for topnav
+      if ('ontouchstart' in window) $('#topnav').on('click', 'section > a', function() {
         return false;
       });
 
@@ -963,7 +963,7 @@ lidraughts.topMenuIntent = function() {
     });
     cfg.socketSend = lidraughts.socket.send;
     analyse = LidraughtsAnalyse.start(cfg);
-    lidraughts.topMenuIntent();
+    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -992,7 +992,7 @@ lidraughts.topMenuIntent = function() {
       });
       lidraughts.makeChat(cfg.chat);
     }
-    lidraughts.topMenuIntent();
+    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -1014,7 +1014,7 @@ lidraughts.topMenuIntent = function() {
     });
     cfg.socketSend = lidraughts.socket.send;
     analyse = LidraughtsAnalyse.start(cfg);
-    lidraughts.topMenuIntent();
+    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -1043,7 +1043,7 @@ lidraughts.topMenuIntent = function() {
       });
       lidraughts.makeChat(cfg.chat);
     }
-    lidraughts.topMenuIntent();
+    lidraughts.topnavIntent();
   }
 
   ////////////////
@@ -1063,7 +1063,7 @@ lidraughts.topMenuIntent = function() {
     });
     cfg.socketSend = lidraughts.socket.send;
     puzzle = LidraughtsPuzzle.default(cfg);
-    lidraughts.topMenuIntent();
+    lidraughts.topnavIntent();
   }
 
 })();

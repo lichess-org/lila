@@ -30,5 +30,5 @@ export default function(cfg: AnalyseOpts) {
   cfg.socketSend = li.socket.send;
   analyse = start(cfg);
 
-  li.topMenuIntent();
+  li.topnavIntent();
 };
