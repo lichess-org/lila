@@ -38,7 +38,9 @@ object Account extends LidraughtsController {
     FormFuResult(env.forms.username(me)) { err =>
       fuccess(html.account.username(me, err))
     } { username =>
-      UserRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username)
+      UserRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
+        case e => fuccess(html.account.username(me, env.forms.username(me).withGlobalError(e.getMessage)))
+      }
     }
   }
 
