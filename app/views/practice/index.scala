@@ -11,24 +11,24 @@ import controllers.routes
 object index {
 
   def apply(data: lidraughts.practice.UserPractice)(implicit ctx: Context) = views.html.base.layout(
-    title = "Practice draughts positions",
-    side = Some(
-      div(id := "practice_side", cls := "side_box")(
-        div(cls := "home")(
-          i(cls := "fat"),
-          h1("Practice"),
-          h2("makes your draughts perfect"),
-          div(cls := "progress")(
-            div(cls := "text")("Progress: ", data.progressPercent, "%"),
-            div(cls := "bar", style := s"width: ${data.progressPercent}%")
-          )
-        /*form(id := "practice_reset", cls := "actions", action := routes.Practice.reset, method := "post")(
-              if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
-              else a(href := routes.Auth.signup)("Sign up to save your progress")
-            )*/
-        )
-      )
-    ),
+    title = "Practice chess positions",
+    // side = Some(
+    //   div(id := "practice_side", cls := "side_box")(
+    //     div(cls := "home")(
+    //       i(cls := "fat"),
+    //       h1("Practice"),
+    //       h2("makes your chess perfect"),
+    //       div(cls := "progress")(
+    //         div(cls := "text")("Progress: ", data.progressPercent, "%"),
+    //         div(cls := "bar", style := s"width: ${data.progressPercent}%")
+    //       ),
+    //       form(id := "practice_reset", cls := "actions", action := routes.Practice.reset, method := "post")(
+    //         if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
+    //         else a(href := routes.Auth.signup)("Sign up to save your progress")
+    //       )
+    //     )
+    //   )
+    // ),
     moreCss = cssTag("practice.css"),
     moreJs = embedJs(s"""$$('#practice_reset .do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
