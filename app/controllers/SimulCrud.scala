@@ -1,6 +1,7 @@
 package controllers
 
 import lidraughts.app._
+import lidraughts.simul.crud.CrudForm.{ empty => emptyForm }
 import lidraughts.user.UserRepo
 import views._
 
@@ -27,7 +28,13 @@ object SimulCrud extends LidraughtsController {
         UserRepo.byId(simul.arbiterId) flatMap { arbiter =>
           implicit val req = ctx.body
           crud.editForm(simul, host, arbiter).bindFromRequest.fold(
-            err => BadRequest(html.simul.crud.edit(simul, err)).fuccess,
+            err => BadRequest(html.simul.crud.edit(
+              simul,
+              crud.variantsForm.bindFromRequest.fold(
+                err2 => err,
+                data => err.copy(value = emptyForm.copy(variants = data.variants).some)
+              )
+            )).fuccess,
             data => UserRepo.named(data.hostName) flatMap {
               case Some(newHost) =>
                 UserRepo.named(data.arbiterName) flatMap { newArbiter =>
@@ -48,7 +55,12 @@ object SimulCrud extends LidraughtsController {
   def create = SecureBody(_.ManageSimul) { implicit ctx => me =>
     implicit val req = ctx.body
     crud.createForm.bindFromRequest.fold(
-      err => BadRequest(html.simul.crud.create(err)).fuccess,
+      err => BadRequest(html.simul.crud.create(
+        crud.variantsForm.bindFromRequest.fold(
+          err2 => err,
+          data => err.copy(value = emptyForm.copy(variants = data.variants).some)
+        )
+      )).fuccess,
       data => UserRepo.named(data.hostName) flatMap {
         case Some(host) =>
           UserRepo.named(data.arbiterName) flatMap { arbiter =>

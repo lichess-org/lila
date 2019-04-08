@@ -33,7 +33,17 @@ object CrudForm {
     }.verifying("At least one variant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
     "chat" -> stringIn(chatChoices)
-  )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill CrudForm.Data(
+  )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
+
+  lazy val applyVariants = Form(mapping(
+    "variants" -> list {
+      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
+    }
+  )(CrudForm.VariantsData.apply)(CrudForm.VariantsData.unapply)) fill CrudForm.VariantsData(
+    variants = List(draughts.variant.Standard.id)
+  )
+
+  val empty = CrudForm.Data(
     name = "",
     homepageHours = 0,
     date = DateTime.now plusDays 7,
@@ -65,6 +75,10 @@ object CrudForm {
       variants: List[Int],
       color: String,
       chat: String
+  )
+
+  case class VariantsData(
+      variants: List[Int]
   )
 
   val imageChoices = List(
