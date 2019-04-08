@@ -1,6 +1,7 @@
 button, input, optgroup, select, textarea {
   font: inherit;
   color: $c-font;
+  outline-color: $c-primary;
 }
 option,
 optgroup {

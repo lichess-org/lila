@@ -13,7 +13,7 @@ moreJs = bits.js(c, json, false)) {
     <div class="lichess_overboard padded">
       @userIdLink(c.challengerUserId)
       <br />
-      bits.explanation(c)
+      bits.details(c)
       @c.initialFen.map { fen =>
       <br />
       @views.html.game.bits.miniBoard(fen, color = !c.finalColor).toHtml

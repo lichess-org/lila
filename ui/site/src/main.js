@@ -126,7 +126,7 @@
 
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
-    lichess.loadCss('stylesheets/autocomplete.css');
+    lichess.loadCssPath('autocomplete');
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: opts.minLength || 3,
@@ -222,15 +222,16 @@
 
       $('#friend_box').friends();
 
-      $('#lichess').on('click', '.autoselect', function() {
-        $(this).select();
-      });
-
-      $('#lichess').on('click', 'button.copy', function() {
-        $('#' + $(this).data('rel')).select();
-        document.execCommand('copy');
-        $(this).attr('data-icon', 'E');
-      });
+      $('#main-wrap')
+        .on('click', '.autoselect', function() {
+          $(this).select();
+        })
+        .on('click', 'button.copy', function() {
+          console.log(this);
+          $('#' + $(this).data('rel')).select();
+          document.execCommand('copy');
+          $(this).attr('data-icon', 'E');
+        });
 
       $('body').on('click', 'a.relation-button', function() {
         var $a = $(this).addClass('processing').css('opacity', 0.3);
@@ -423,7 +424,7 @@
         });
       })();
 
-      $('input.user-autocomplete').each(function() {
+      $('.user-autocomplete').each(function() {
         var opts = {
           focus: 1,
           friend: $(this).data('friend'),
