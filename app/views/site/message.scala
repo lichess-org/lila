@@ -70,4 +70,8 @@ object message {
   def teamCreateLimit(implicit ctx: Context) = apply("Cannot create a team") {
     "You have already created a team this week."
   }
+
+  def authFailed(implicit ctx: Context) = apply("403 - Access denied!") {
+    "You tried to visit a page you're not authorized to access."
+  }
 }

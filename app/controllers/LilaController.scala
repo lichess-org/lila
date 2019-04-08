@@ -354,7 +354,7 @@ private[controllers] trait LilaController
     html =
       if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
         lila.mon.http.response.code403()
-        Forbidden(views.html.base.authFailed())
+        Forbidden(views.html.site.message.authFailed)
       }
       else fuccess(Results.Forbidden("Authorization failed")),
     api = _ => fuccess(forbiddenJsonResult)
