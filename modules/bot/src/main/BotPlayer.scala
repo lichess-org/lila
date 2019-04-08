@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import draughts.format.Uci
-
 import lidraughts.game.{ Game, Pov, GameRepo }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort, Resign }
@@ -24,11 +23,8 @@ final class BotPlayer(
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]
-          if (pov.player.isOfferingDraw && (offeringDraw contains false)) {
-            declineDraw(pov)
-          } else if (!pov.player.isOfferingDraw && (offeringDraw contains true)) {
-            offerDraw(pov)
-          }
+          if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
+          else if (!pov.player.isOfferingDraw && (offeringDraw contains true)) offerDraw(pov)
           system.lidraughtsBus.publish(
             Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
             'roundMapTell
@@ -88,26 +84,17 @@ final class BotPlayer(
     }
     else fufail("This game cannot be resigned")
 
-  def declineDraw(pov: Pov): Funit = {
-    if (pov.game.drawable) {
-      if (pov.opponent.isOfferingDraw) fuccess {
-        system.lidraughtsBus.publish(
-          Tell(pov.gameId, DrawNo(pov.playerId)),
-          'roundMapTell
-        )
-      }
-      else fufail("The opponent isn't offering a draw")
-    } else fufail("This game cannot be drawn")
-  }
+  def declineDraw(pov: Pov): Unit =
+    if (pov.game.drawable && pov.opponent.isOfferingDraw)
+      system.lidraughtsBus.publish(
+        Tell(pov.gameId, DrawNo(pov.playerId)),
+        'roundMapTell
+      )
 
-  def offerDraw(pov: Pov): Funit =
-    if (pov.game.drawable) fuccess {
-      if (pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn) {
-        system.lidraughtsBus.publish(
-          Tell(pov.gameId, DrawYes(pov.playerId)),
-          'roundMapTell
-        )
-      } else fufail("You cannot offer a draw")
-    }
-    else fufail("This game cannot be drawn")
+  def offerDraw(pov: Pov): Unit =
+    if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn)
+      system.lidraughtsBus.publish(
+        Tell(pov.gameId, DrawYes(pov.playerId)),
+        'roundMapTell
+      )
 }
