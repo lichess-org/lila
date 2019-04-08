@@ -622,6 +622,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
+  <string name="arbiter">Arbiter</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>

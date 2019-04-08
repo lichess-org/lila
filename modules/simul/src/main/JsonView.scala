@@ -14,6 +14,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
   def apply(simul: Simul): Fu[JsObject] = for {
     games <- fetchGames(simul)
     lightHost <- getLightUser(simul.hostId)
+    lightArbiter <- simul.arbiterId.??(getLightUser)
     applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
     pairings <- simul.pairings.sortBy(-_.player.rating).map(pairingJson(games, simul.hostId)).sequenceFu
   } yield Json.obj(
@@ -37,7 +38,14 @@ final class JsonView(getLightUser: LightUser.Getter) {
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
     "quote" -> lidraughts.quote.Quote.one(simul.id)
-  )
+  ).add("arbiter" -> lightArbiter.map { arbiter =>
+      Json.obj(
+        "id" -> arbiter.id,
+        "username" -> arbiter.name,
+        "patron" -> arbiter.isPatron,
+        "title" -> arbiter.title
+      )
+    })
 
   private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,
