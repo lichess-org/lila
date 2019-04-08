@@ -52,7 +52,7 @@
       overflow: hidden;
     }
     .insight {
-      @extend %flex-center;
+      @extend %flex-center-nowrap;
       padding: .3em 1em;
       border-top: $border;
       color: $c-link;
@@ -123,12 +123,6 @@
   #games.number-menu {
     background: $c-bg-low!important;
   }
-  .number-menu .to-playing {
-    color: $c-accent;
-    strong {
-      font-weight: bold;
-    }
-  }
   .angles {
     @extend %metal;
     font-size: 1.2em;
@@ -137,6 +131,9 @@
     .nm-item {
       @extend %flex-center;
       justify-content: center;
+    }
+    .unread {
+      margin-left: .5em;
     }
   }
 

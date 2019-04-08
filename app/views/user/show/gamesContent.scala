@@ -60,8 +60,8 @@ object gamesContent {
           pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
           if (filterName == "playing" && pager.nbResults > 2)
             pager.currentPageResults.flatMap { Pov(_, u) }.map { p =>
-            div(cls := "paginated")(
-              gameFen(p),
+            a(href := gameLink(p), cls := "paginated")(
+              gameFen(p, withLink = false),
               views.html.game.bits.vstext(p)(ctx.some)
             )
           }
