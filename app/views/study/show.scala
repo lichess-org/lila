@@ -19,20 +19,20 @@ object show {
     streams: List[lila.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
     title = s.name.value,
-    side = Some(div(cls := "side_box study_box")(
-      streams.map { s =>
-        a(
-          href := routes.Streamer.show(s.streamer.userId),
-          cls := "context-streamer text side_box",
-          dataIcon := ""
-        )(
-            usernameOrId(s.streamer.userId),
-            " is streaming"
-          )
-      }
-    )),
-    chat = views.html.chat.frag.some,
-    underchat = Some(views.html.game.bits.watchers),
+    // side = Some(div(cls := "side_box study_box")(
+    //   streams.map { s =>
+    //     a(
+    //       href := routes.Streamer.show(s.streamer.userId),
+    //       cls := "context-streamer text side_box",
+    //       dataIcon := ""
+    //     )(
+    //         usernameOrId(s.streamer.userId),
+    //         " is streaming"
+    //       )
+    //   }
+    // )),
+    // chat = views.html.chat.frag.some,
+    // underchat = Some(views.html.game.bits.watchers),
     moreCss = cssTags("analyse.css", "study.css", "chat.css"),
     moreJs = frag(
       analyseTag,

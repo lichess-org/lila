@@ -1,8 +1,6 @@
 package views
 package html.site
 
-import play.twirl.api.Html
-
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -15,7 +13,7 @@ object message {
     title: String,
     back: Boolean = true,
     icon: Option[String] = None,
-    moreCss: Option[Html] = None
+    moreCss: Option[Frag] = None
   )(message: Frag)(implicit ctx: Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss, responsive = true) {
       main(cls := "box box-pad")(

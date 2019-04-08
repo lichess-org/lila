@@ -121,14 +121,14 @@ object list {
     searchFilter: String
   )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    menu = Some(frag(
-      a(
-        cls := active.active("all"),
-        href := routes.Study.all(order.key)
-      )("All studies"),
-      ctx.me.map { bits.authLinks(_, active, order) },
-      a(cls := "text", dataIcon := "", href := "//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
-    )),
+    // menu = Some(frag(
+    //   a(
+    //     cls := active.active("all"),
+    //     href := routes.Study.all(order.key)
+    //   )("All studies"),
+    //   ctx.me.map { bits.authLinks(_, active, order) },
+    //   a(cls := "text", dataIcon := "", href := "//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
+    // )),
     moreCss = cssTag("studyList.css"),
     moreJs = infiniteScrollTag
   ) {

@@ -64,7 +64,7 @@ module.exports = function(cfg, element) {
           filterStreams();
         },
         featured: function(o) {
-          $('#featured_game').html(o.html);
+          $('.lobby__tv').html(o.html);
           lichess.pubsub.emit('content_loaded')();
         },
         redirect: function(e) {

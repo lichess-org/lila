@@ -15,7 +15,7 @@ object show {
     data: lila.practice.JsonView.JsData
   )(implicit ctx: Context) = views.html.base.layout(
     title = us.practiceStudy.name,
-    side = div(cls := "side_box study_box").toHtml.some,
+    // side = div(cls := "side_box study_box").toHtml.some,
     moreCss = cssTags("analyse.css", "study.css", "practice.css"),
     moreJs = frag(
       analyseTag,

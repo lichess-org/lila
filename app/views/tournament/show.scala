@@ -22,11 +22,11 @@ object show {
     shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${tour.fullName} #${tour.id}",
-    underchat = Some(div(
-      cls := "watchers hidden",
-      aria.live := "off",
-      aria.relevant := "additions removals text"
-    )(span(cls := "list inline_userlist"))),
+    // underchat = Some(div(
+    //   cls := "watchers hidden",
+    //   aria.live := "off",
+    //   aria.relevant := "additions removals text"
+    // )(span(cls := "list inline_userlist"))),
     moreJs = frag(
       jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
       embedJs(s"""lichess=lichess||{};lichess.tournament={

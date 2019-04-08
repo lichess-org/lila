@@ -21,12 +21,11 @@ object show {
     responsive = true,
     moreCss = responsiveCssTag("simul.show"),
     title = sim.fullName,
-    underchat = Some(div(
-      cls := "watchers none",
-      aria.live := "off",
-      aria.relevant := "additions removals text"
-    )(span(cls := "list inline_userlist"))),
-    chat = views.html.chat.frag.some,
+    // underchat = Some(div(
+    //   cls := "watchers none",
+    //   aria.live := "off",
+    //   aria.relevant := "additions removals text"
+    // )(span(cls := "list inline_userlist"))),
     moreJs = frag(
       jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),
       embedJs(s"""lichess.simul={

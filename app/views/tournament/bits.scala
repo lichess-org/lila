@@ -10,28 +10,6 @@ import controllers.routes
 
 object bits {
 
-  def layout(
-    title: String,
-    moreJs: Html = emptyHtml,
-    moreCss: String,
-    side: Option[Html] = None,
-    chat: Option[Frag] = None,
-    underchat: Option[Frag] = None,
-    chessground: Boolean = true,
-    openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = title,
-      responsive = true,
-      moreCss = responsiveCssTag(moreCss),
-      moreJs = moreJs,
-      side = side,
-      chat = chat,
-      underchat = underchat,
-      openGraph = openGraph,
-      chessground = chessground
-    )(body)
-
   def miniGame(pov: lila.game.Pov)(implicit ctx: Context) = frag(
     gameFen(pov),
     div(cls := "vstext")(

@@ -28,7 +28,7 @@ object embed {
         metaCsp(none),
         st.headTitle(s"${s.name} ${chapter.name}"),
         fontStylesheets,
-        currentBgCss,
+        // currentBgCss,
         cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
         pieceSprite
       ),
@@ -75,7 +75,7 @@ userId: null
         metaCsp(none),
         st.headTitle("404 - Study not available"),
         fontStylesheets,
-        currentBgCss,
+        // currentBgCss,
         cssTags("common.css", "analyse-embed.css")
       ),
       body(cls := bodyClass)(

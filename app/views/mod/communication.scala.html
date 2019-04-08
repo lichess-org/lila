@@ -2,20 +2,9 @@
 
 @import lila.hub.actorApi.shutup.PublicSource
 
-@moreCss = {
-@cssTag("mod-communication.css")
-}
-
-@side = {
-<br />
-<br />
-<a data-icon="i" class="text" href="@routes.Report.list">Return to the report list</a>
-}
-
 @base.layout(
 title = u.username + " communications",
-moreCss = moreCss,
-side = side.some) {
+moreCss = cssTag("mod-communication.css")) {
 
 <div id="communication" class="content_box">
   <h1>

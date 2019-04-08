@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 
 import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
 import lila.common.{ AssetVersion, ContentSecurityPolicy }
 
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
@@ -26,25 +27,25 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def responsiveCssTag(name: String)(implicit ctx: Context): Html =
-    cssAt(s"css/$name.${ctx.currentBg}.${if (isProd) "min" else "dev"}.css")
+  def responsiveCssTag(name: String)(implicit ctx: Context): Frag =
+    responsiveCssTagWithTheme(name, ctx.currentBg)
 
-  def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Html =
+  def responsiveCssTagWithTheme(name: String, theme: String): Frag =
+    cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
+
+  def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
-  def cssTag(name: String): Html = cssAt("stylesheets/" + name)
+  def cssTag(name: String): Frag = cssAt("stylesheets/" + name)
 
-  def cssTags(names: String*): Html = Html {
-    names.map { name =>
-      cssTag(name).body
-    } mkString ""
-  }
-  def cssTags(names: List[(String, Boolean)]): Html =
+  def cssTags(names: String*): Frag = names map cssTag
+
+  def cssTags(names: List[(String, Boolean)]): Frag =
     cssTags(names.collect { case (k, true) => k }: _*)
 
-  def cssVendorTag(name: String) = cssAt("vendor/" + name)
+  def cssVendorTag(name: String): Frag = cssAt("vendor/" + name)
 
-  def cssAt(path: String): Html = Html {
+  def cssAt(path: String): Frag = raw {
     s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
   }
 

@@ -17,17 +17,15 @@ object layout {
     val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
     val charset = raw("""<meta charset="utf-8">""")
     val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
-    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
+    def metaCsp(csp: ContentSecurityPolicy): Option[Frag] =
       cspEnabled() option raw(
-        s"""<meta http-equiv="Content-Security-Policy" content="${csp.getOrElse(defaultCsp)}">"""
+        s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
       )
-    def currentBgCss(implicit ctx: Context) = ctx.currentBg match {
-      case "dark" => cssTag("dark.css")
-      case "transp" => cssTags("dark.css", "transp.css")
-      case _ => emptyHtml
-    }
-    def pieceSprite(implicit ctx: Context) =
-      link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css"), `type` := "text/css", rel := "stylesheet")
+    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
+      metaCsp(csp.getOrElse(defaultCsp))
+    def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
+    def pieceSprite(ps: lila.pref.PieceSet): Frag =
+      link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/$ps.css"), tpe := "text/css", rel := "stylesheet")
     val fontStylesheets = raw(List(
       """<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">""",
       """<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">"""
@@ -103,13 +101,13 @@ object layout {
   def apply(
     title: String,
     fullTitle: Option[String] = None,
-    side: Option[Html] = None,
-    menu: Option[Html] = None,
-    chat: Option[Frag] = None,
-    underchat: Option[Frag] = None,
+    // side: Option[Html] = None,
+    // menu: Option[Html] = None,
+    // chat: Option[Frag] = None,
+    // underchat: Option[Frag] = None,
     robots: Boolean = isGloballyCrawlable,
-    moreCss: Html = emptyHtml,
-    moreJs: Html = emptyHtml,
+    moreCss: Frag = emptyFrag,
+    moreJs: Frag = emptyFrag,
     playing: Boolean = false,
     openGraph: Option[lila.app.ui.OpenGraph] = None,
     chessground: Boolean = true,
@@ -157,9 +155,9 @@ object layout {
       st.body(
         cls := List(
           "preload base" -> true,
-          ctx.currentTheme.cssClass -> true,
+          // ctx.currentTheme.cssClass -> true,
+          // (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true,
           ctx.currentTheme3d.cssClass -> true,
-          (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true,
           ctx.currentPieceSet3d.toString -> true,
           "piece_letter" -> ctx.pref.pieceNotationIsLetter,
           "zen" -> ctx.pref.isZen,

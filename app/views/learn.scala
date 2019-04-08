@@ -13,7 +13,6 @@ object index {
 
   def apply(data: Option[play.api.libs.json.JsValue])(implicit ctx: Context) = views.html.base.layout(
     title = s"${trans.learn.learnChess.txt()} - ${trans.learn.byPlaying.txt()}",
-    side = Some(div(id := "learn_side", cls := "side_box")),
     moreJs = frag(
       jsAt(s"compiled/lichess.learn${isProd ?? (".min")}.js"),
       embedJs(s"""$$(function() {
