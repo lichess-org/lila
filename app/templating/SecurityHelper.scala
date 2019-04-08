@@ -1,8 +1,7 @@
 package lidraughts.app
 package templating
 
-import play.twirl.api.Html
-
+import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.security.{ Permission, Granter }
 import lidraughts.user.{ User, UserContext }
 
@@ -23,10 +22,7 @@ trait SecurityHelper {
   def canViewRoles(user: User)(implicit ctx: UserContext): Boolean =
     isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
 
-  def reportScore(score: lidraughts.report.Report.Score) = Html {
+  def reportScore(score: lidraughts.report.Report.Score): Frag = raw {
     s"""<div class="score ${score.color}" title="Report score">${score.value.toInt}</div>"""
   }
-  // def reportScore(score: lidraughts.report.Report.Score) = Html {
-  //   s"""<div class="score"><i>Score</i><strong>${score.value.toInt}</strong></div>"""
-  // }
 }
