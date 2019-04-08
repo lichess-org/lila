@@ -22,43 +22,47 @@ object layout {
     responsive = true,
     moreJs = frag(jsTag("account.js"), evenMoreJs)
   ) {
+      def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
           lila.pref.PrefCateg.all.map { categ =>
-            a(cls := active.activeO(categ.slug), href := routes.Pref.form(categ.slug))(
+            a(activeCls(categ.slug), href := routes.Pref.form(categ.slug))(
               bits.categName(categ)
             )
           },
-          a(cls := active.activeO("kid"), href := routes.Account.kid())(
+          a(activeCls("kid"), href := routes.Account.kid())(
             trans.kidMode.frag()
           ),
           div(cls := "sep"),
-          a(cls := active.activeO("editProfile"), href := routes.Account.profile())(
+          a(activeCls("editProfile"), href := routes.Account.profile())(
             trans.editProfile.frag()
           ),
-          isGranted(_.Coach) option a(cls := active.activeO("coach"), href := routes.Coach.edit)("Coach profile"),
+          isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)("Coach profile"),
           div(cls := "sep"),
-          a(cls := active.activeO("password"), href := routes.Account.passwd())(
+          a(activeCls("password"), href := routes.Account.passwd())(
             trans.changePassword.frag()
           ),
-          a(cls := active.activeO("email"), href := routes.Account.email())(
+          a(activeCls("email"), href := routes.Account.email())(
             trans.changeEmail.frag()
           ),
-          a(cls := active.activeO("twofactor"), href := routes.Account.twoFactor())(
+          a(activeCls("username"), href := routes.Account.username())(
+            trans.changeUsername.frag()
+          ),
+          a(activeCls("twofactor"), href := routes.Account.twoFactor())(
             "Two-factor authentication"
           ),
-          a(cls := active.activeO("security"), href := routes.Account.security())(
+          a(activeCls("security"), href := routes.Account.security())(
             trans.security.frag()
           ),
           div(cls := "sep"),
           a(href := routes.Plan.index)("Patron"),
           div(cls := "sep"),
-          a(cls := active.activeO("oauth.token"), href := routes.OAuthToken.index)(
+          a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
             "API Access tokens"
           ),
-          ctx.noBot option a(cls := active.activeO("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),
+          ctx.noBot option a(activeCls("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),
           div(cls := "sep"),
-          a(cls := active.activeO("close"), href := routes.Account.close())(
+          a(activeCls("close"), href := routes.Account.close())(
             trans.closeAccount.frag()
           )
         ),
