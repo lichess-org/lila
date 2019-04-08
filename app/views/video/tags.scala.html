@@ -3,12 +3,13 @@
 @layout(
 title = s"Tags • Free Chess Videos",
 control = control) {
-
-<div class="content_box_top">
-  <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index?@control.queryString"></a>
-  <h1 class="lichess_title">All @ts.size video tags</h1>
+<div class="box__top">
+  <h1 class="lichess_title">
+    <a class="text" data-icon="i" href="@routes.Video.index?@control.queryString"></a>
+    All @ts.size video tags
+  </h1>
 </div>
-<div class="tag_list">
+<div class="tag-list box__pad">
   @ts.sortBy(_.tag).map { t =>
   <a class="tag" href="@routes.Video.index?tags=@t.tag">
     @t.tag.capitalize
