@@ -9,16 +9,16 @@ import controllers.routes
 
 object username {
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = s"${u.username} - ${trans.editProfile.txt()}",
+  def apply(u: lidraughts.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
+    title = s"${u.username} - ${trans.changeUsername.txt()}",
     active = "username"
   ) {
-    div(cls := "content_box small_box")(
-      h1(cls := "lidraughts_title text", dataIcon := "*")(trans.editProfile()),
+    div(cls := "account box box-pad")(
+      h1(cls := "text")(trans.changeUsername.frag()),
       st.form(cls := "form3", action := routes.Account.usernameApply, method := "POST")(
         form3.globalError(form),
-        form3.group(form("username"), trans.username.frag(), half = true, help = trans.changeUsernameDescription.frag().some)(form3.input(_)),
-        form3.actionHtml(form3.submit(trans.apply.frag()))
+        form3.group(form("username"), trans.username.frag(), help = trans.changeUsernameDescription.frag().some)(form3.input(_)),
+        form3.action(form3.submit(trans.apply.frag()))
       )
     )
   }
