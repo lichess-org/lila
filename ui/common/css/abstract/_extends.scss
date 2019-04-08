@@ -11,6 +11,12 @@
 %chess-font {
   font-family: 'ChessSansPiratf', 'Noto Sans';
 }
+%san {
+  @extend %chess-font;
+  .piece-letter & {
+    @extend %base-font;
+  }
+}
 %active {
   background: $c-accent;
   color: #fff;

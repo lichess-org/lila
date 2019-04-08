@@ -1,7 +1,6 @@
 @function local-font($path) {
   @return url(#{$font-path}/#{$path})
 }
-
 @font-face {
   font-family: "lichess";
   src: local-font("lichess/fonts/lichess.woff") format("woff");
@@ -9,7 +8,10 @@
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face {
+  font-family: 'ChessSansPiratf';
+  src: local-font("ChessSansPiratf.woff") format("woff");
+}
 /* cyrillic-ext */
 @font-face {
   font-family: 'Noto Sans';

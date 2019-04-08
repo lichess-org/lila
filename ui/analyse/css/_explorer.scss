@@ -45,13 +45,9 @@
     padding-left: 7px;
   }
   .moves td:first-child {
-    @extend %chess-font;
+    @extend %san;
     line-height: 30px;
     padding-left: 7px;
-  }
-  body.piece_letter & .moves td:first-child {
-    font-family: 'Noto Sans';
-    font-size: 13px;
   }
   .moves td:nth-child(2) {
     font-size: .75em;
@@ -143,13 +139,10 @@
   .tablebase {
     width: 100%;
     td:first-child {
-      @extend %chess-font;
+      @extend %san;
       font-size: 14px;
       line-height: 30px;
       padding-left: 7px;
-      body.piece_letter & {
-        @extend %base-font;
-      }
     }
     td:last-child {
       padding-right: 7px;

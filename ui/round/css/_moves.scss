@@ -40,13 +40,10 @@
     background: $c-bg-zebra;
   }
   move {
-    @extend %chess-font;
+    @extend %san;
     flex: 0 0 42.5%;
     padding-left: .7em;
     @include transition();
-    body.piece_letter & {
-      @extend %base-font;
-    }
     &:not(.empty) {
       cursor: pointer;
       &:hover {

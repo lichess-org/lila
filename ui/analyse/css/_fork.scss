@@ -8,7 +8,7 @@ $c-fork: $c-primary;
     display: block;
   }
   move {
-    @extend %chess-font;
+    @extend %san;
     background: mix($c-fork, $c-bg-box, 20%);
     flex: 0 0 50%;
     line-height: 28px;
@@ -20,9 +20,6 @@ $c-fork: $c-primary;
     &:nth-child(odd) {
       border-right: $border;
     }
-  }
-  body.piece_letter & move {
-    @extend %base-font;
   }
   move:last-child {
     border-bottom: none;

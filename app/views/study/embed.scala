@@ -34,7 +34,7 @@ object embed {
       ),
       body(cls := bodyClass ::: List(
         "highlight" -> true,
-        "piece_letter" -> ctx.pref.pieceNotationIsLetter
+        "piece-letter" -> ctx.pref.pieceNotationIsLetter
       ))(
         div(cls := "is2d")(
           div(cls := "embedded_study analyse cg-512")(miniBoardContent)

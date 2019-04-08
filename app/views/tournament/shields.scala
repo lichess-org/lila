@@ -28,7 +28,7 @@ object shields {
                 case (categ, awards) => {
                   section(
                     h2(
-                      span(cls := "shield_trophy")(categ.iconChar.toString),
+                      span(cls := "shield-trophy")(categ.iconChar.toString),
                       categ.name
                     ),
                     ul(

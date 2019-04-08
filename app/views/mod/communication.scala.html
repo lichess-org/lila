@@ -4,9 +4,9 @@
 
 @base.layout(
 title = u.username + " communications",
-moreCss = cssTag("mod-communication.css")) {
-
-<div id="communication" class="content_box">
+responsive = true,
+moreCss = responsiveCssTag("mod.communication")) {
+<main id="communication" class="box box-pad">
   <h1>
     <div class="title">
       @userLink(u) communications

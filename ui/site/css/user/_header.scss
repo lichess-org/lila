@@ -120,15 +120,15 @@
       animation: fire-trophy 1.25s ease-in-out infinite alternate;
     }
   }
-  .combo_trophy {
+  .combo-trophy {
     width: 60px;
     height: 60px;
     background-size: contain;
     background-repeat: no-repeat;
-    font-family: "lichess" !important;
+    font-family: 'lichess';
     text-align: center;
   }
-  .shield_trophy {
+  .shield-trophy {
     width: 50px;
     background-image: url(../images/trophy/shield-gold.png);
     font-size: 30px;

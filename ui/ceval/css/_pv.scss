@@ -17,11 +17,8 @@
       text-align: center;
     }
     span {
-      @extend %chess-font;
+      @extend %san;
       margin-left: 4px;
-      body.piece_letter & {
-        @extend %base-font;
-      }
     }
   }
 }
