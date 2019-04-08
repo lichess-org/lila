@@ -14,7 +14,7 @@ function randomButton(ctrl, candidates) {
       var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
       xhr.accept(randomCandidate.player.id)(ctrl);
     }
-  }, 'Accept random candidate') : null;
+  }, ctrl.trans('acceptRandomCandidate')) : null;
 }
 
 function startOrCancel(ctrl, accepted) {
@@ -25,7 +25,7 @@ function startOrCancel(ctrl, accepted) {
     }, 'Start') : m('a.button.top_right.text', {
       'data-icon': 'L',
       onclick: function() {
-        if (confirm('Delete this simul?')) xhr.abort(ctrl);
+        if (confirm(ctrl.trans('deleteThisSimul'))) xhr.abort(ctrl);
       }
     }, ctrl.trans('cancel'));
 }
@@ -63,10 +63,10 @@ module.exports = function(ctrl) {
       }, ctrl.trans('signIn')),
     util.title(ctrl),
     simul.acceptedContainsMe(ctrl) ? m('div.instructions',
-      'You have been selected! Hold still, the simul is about to begin.'
+      ctrl.trans('youHaveBeenSelected')
     ) : (
       (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('div.instructions',
-        'Share this page URL to let people enter the simul!'
+        ctrl.trans('shareSimulUrl')
       ) : null
     ),
     m('div.halves',
@@ -76,7 +76,7 @@ module.exports = function(ctrl) {
             colspan: 3
           }, [
             m('strong', candidates.length),
-            ' candidate players'
+            ctrl.trans('candidatePlayers')
           ]))),
           m('tbody', candidates.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);
@@ -90,7 +90,7 @@ module.exports = function(ctrl) {
               }),
               m('td.action', isHost ? m('a.button', {
                 'data-icon': 'E',
-                title: 'Accept',
+                title: ctrl.trans('accept'),
                 onclick: function(e) {
                   xhr.accept(applicant.player.id)(ctrl);
                 }
@@ -105,10 +105,10 @@ module.exports = function(ctrl) {
               colspan: 3
             }, [
               m('strong', accepted.length),
-              ' accepted players'
+              ctrl.trans('acceptedPlayers')
             ])), (simul.createdByMe(ctrl) && candidates.length && !accepted.length) ? m('tr.help',
               m('th',
-                'Now you get to accept some players, then start the simul')) : null
+                ctrl.trans('acceptSomePlayers'))) : null
           ]),
           m('tbody', accepted.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);

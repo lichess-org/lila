@@ -645,7 +645,14 @@ in %3$s</string>
   <string name="arbiter">Arbiter</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
+  <string name="shareSimulUrl">Share this page URL to let people enter the simul!</string>
+  <string name="candidatePlayers"> candidate players</string>
+  <string name="acceptedPlayers"> accepted players</string>
+  <string name="acceptSomePlayers">Now you get to accept some players, then start the simul</string>
+  <string name="acceptRandomCandidate">Accept random candidate</string>
+  <string name="youHaveBeenSelected">You have been selected! Hold still, the simul is about to begin.</string>
   <string name="noSimulFound">Simul not found</string>
+  <string name="deleteThisSimul">Delete this simul?</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>
   <string name="aboutSimul">Simuls involve a single player facing several players at once.</string>

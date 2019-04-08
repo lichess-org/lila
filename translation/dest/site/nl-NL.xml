@@ -625,7 +625,14 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="arbiter">Arbiter</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
+  <string name="shareSimulUrl">Deel de URL van deze pagina om mensen voor de simultaan uit te nodigen!</string>
+  <string name="candidatePlayers"> kandidaat spelers</string>
+  <string name="acceptedPlayers"> geaccepteerde spelers</string>
+  <string name="acceptSomePlayers">Je kunt nu spelers accepteren, en dan de simultaan starten</string>
+  <string name="acceptRandomCandidate">Accepteer willekeurige kandidaat</string>
+  <string name="youHaveBeenSelected">Je bent geaccepteerd als speler! Wacht af tot de simultaan begint.</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
+  <string name="deleteThisSimul">Deze simultaan verwijderen?</string>
   <string name="noSimulExplanation">Deze simultaan bestaat niet.</string>
   <string name="returnToSimulHomepage">Ga terug naar de Simultaan hoofdpagina</string>
   <string name="aboutSimul">Bij simultanen speelt één speler tegen meerdere spelers tegelijk.</string>
