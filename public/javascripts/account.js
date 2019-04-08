@@ -15,7 +15,7 @@ $(function() {
         data: $form.serialize(),
         success: function() {
           $form.find('.saved').fadeIn();
-          lidraughts.reloadOtherTabs();
+          lidraughts.storage.set('reload-round-tabs', Math.random());
         }
       });
     });

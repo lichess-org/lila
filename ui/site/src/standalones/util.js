@@ -65,17 +65,7 @@ function buildStorage(storageKey) {
 };
 
 lidraughts.storage = buildStorage('localStorage');
-lidraughts.tempStorage = buildStorage('sessionStorage');
 
-lidraughts.reloadOtherTabs = (function() {
-  var storage = lidraughts.storage.make('reload-other-tabs');
-  storage.listen(function() {
-    lidraughts.reload();
-  });
-  return function() {
-    storage.set(1);
-  }
-})();
 lidraughts.once = function(key, mod) {
   if (mod === 'always') return true;
   if (!lidraughts.storage.get(key)) {
