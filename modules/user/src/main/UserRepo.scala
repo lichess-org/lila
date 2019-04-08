@@ -188,8 +188,8 @@ object UserRepo {
         $set(F.username -> username, F.changedCase -> true)
       ) flatMap { result =>
           if (result.n == 0) fufail(s"You have already changed your username")
-          else fuccess()
-      }
+          else funit
+        }
     } else fufail(s"Proposed username $username does not match old username $id")
   }
 
