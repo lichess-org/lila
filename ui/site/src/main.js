@@ -519,11 +519,6 @@ lichess.topnavIntent = function() {
         return false;
       });
 
-      // minimal touchscreen support for topnav
-      if ('ontouchstart' in window) $('#topnav').on('click', 'section > a', function() {
-        return false;
-      });
-
       // still bind esc even in form fields
       Mousetrap.prototype.stopCallback = function(e, el, combo) {
         return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
