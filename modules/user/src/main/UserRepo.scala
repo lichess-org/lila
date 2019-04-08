@@ -297,9 +297,6 @@ object UserRepo {
       $setBoolOrUnset(F.watchList, u.watchList)
     }
 
-  private def setChangedCase(id: ID): Funit =
-    coll.updateField($id(id), F.changedCase, true).void
-
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>
       $set(F.engine -> !u.engine)
