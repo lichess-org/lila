@@ -19,12 +19,27 @@ object Account extends LilaController {
     Ok(html.account.profile(me, env.forms profileOf me)).fuccess
   }
 
+  def username = Auth { implicit ctx => me =>
+    Ok(html.account.username(me, env.forms usernameOf me)).fuccess
+  }
+
   def profileApply = AuthBody { implicit ctx => me =>
     implicit val req: Request[_] = ctx.body
     FormFuResult(env.forms.profile) { err =>
       fuccess(html.account.profile(me, err))
     } { profile =>
       UserRepo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
+    }
+  }
+
+  def usernameApply = AuthBody { implicit ctx => me =>
+    implicit val req: Request[_] = ctx.body
+    FormFuResult(env.forms.username(me)) { err =>
+      fuccess(html.account.username(me, err))
+    } { username =>
+      UserRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
+        case e => fuccess(html.account.username(me, env.forms.username(me).withGlobalError(e.getMessage)))
+      }
     }
   }
 

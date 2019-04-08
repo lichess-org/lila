@@ -159,5 +159,9 @@ Disallow: /games/export
     Ok(html.site.contact()).fuccess
   }
 
+  def faq = Open { implicit ctx =>
+    Ok(html.site.faq()).fuccess
+  }
+
   def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)
 }

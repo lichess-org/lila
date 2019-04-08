@@ -101,6 +101,7 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
     main(cls := "page-menu")(
       st.nav(cls := "page-menu__menu subnav")(
         a(activeCls("about"), href := routes.Page.about)(trans.aboutX.frag("lichess.org")),
+        a(activeCls("faq"), href := routes.Main.faq)("FAQ"),
         a(activeCls("contact"), href := routes.Main.contact)(trans.contact.frag()),
         a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService.frag()),
         a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy.frag()),
