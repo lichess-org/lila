@@ -15,7 +15,7 @@ final class DataForm {
     "clockExtra" -> numberIn(clockExtraChoices),
     "variants" -> list {
       number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
-    }.verifying("At least one variant", _.nonEmpty),
+    }.verifying("atLeastOneVariant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
     "chat" -> stringIn(chatChoices)
   )(SimulSetup.apply)(SimulSetup.unapply)) fill SimulSetup(
@@ -42,7 +42,6 @@ object DataForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
-  val colors = List("white", "random", "black")
   val colorChoices = List(
     "white" -> "White",
     "random" -> "Random",

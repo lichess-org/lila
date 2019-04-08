@@ -21,8 +21,8 @@
     @if(sim.chatmode.isDefined && !sim.chatmode.contains(lidraughts.simul.Simul.ChatMode.Everyone)) {
       <br />
       @trans.chatAvailableForX(sim.chatmode match {
-        case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.onlySpectators()
-        case _ => trans.onlyParticipants()
+        case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.spectatorsOnly()
+        case _ => trans.participantsOnly()
       })
     }
   </div>

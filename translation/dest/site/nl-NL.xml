@@ -641,9 +641,11 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="simulHostColor">Kleur simultaangever</string>
   <string name="simulChatRestrictionsHint">Beperkingen in de beschikbaarheid van de chat gelden alleen terwijl de simultaan gespeeld wordt.</string>
   <string name="chatAvailableFor">Chat is beschikbaar voor</string>
-  <string name="chatAvailableForX">Beschikbaarheid chat tijdens simultaan: %s</string>
-  <string name="onlySpectators">Alleen toeschouwers</string>
-  <string name="onlyParticipants">Alleen deelnemers</string>
+  <string name="chatAvailableForX">Chat tijdens simultaan: %s</string>
+  <string name="everyone">Iedereen</string>
+  <string name="spectatorsOnly">Alleen toeschouwers</string>
+  <string name="participantsOnly">Alleen deelnemers</string>
+  <string name="atLeastOneVariant">Kies ten minste één variant!</string>
   <string name="lidraughtsTournaments">Lidraughts toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="tournamentOfficial">Officieel</string>

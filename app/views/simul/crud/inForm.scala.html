@@ -65,6 +65,6 @@
     @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
     @errMsg(form("variants"))
   </div>
-<i class="bar"></i>
+  <i class="bar"></i>
 </div>
 @base.form.submit()

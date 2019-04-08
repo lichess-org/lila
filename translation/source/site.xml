@@ -662,8 +662,10 @@ in %3$s</string>
   <string name="simulChatRestrictionsHint">Chat restrictions only apply while the simultaneous exhibition is running.</string>
   <string name="chatAvailableFor">Chat is available for</string>
   <string name="chatAvailableForX">Chat restrictions during play: %s</string>
-  <string name="onlySpectators">Only spectators</string>
-  <string name="onlyParticipants">Only participants</string>
+  <string name="everyone">Everyone</string>
+  <string name="spectatorsOnly">Spectators only</string>
+  <string name="participantsOnly">Participants only</string>
+  <string name="atLeastOneVariant">Select at least one variant!</string>
   <string name="lidraughtsTournaments">Lidraughts tournaments</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
   <string name="tournamentOfficial">Official</string>

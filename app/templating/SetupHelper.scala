@@ -38,6 +38,18 @@ trait SetupHelper { self: I18nHelper =>
     System.Arena.id.toString -> "Arena"
   )
 
+  def translatedColorChoices(implicit ctx: Context) = List(
+    "white" -> I18nKeys.white.txt(),
+    "random" -> I18nKeys.randomColor.txt(),
+    "black" -> I18nKeys.black.txt()
+  )
+
+  def translatedChatChoices(implicit ctx: Context) = List(
+    "everyone" -> I18nKeys.everyone.txt(),
+    "spectators" -> I18nKeys.spectatorsOnly.txt(),
+    "participants" -> I18nKeys.participantsOnly.txt()
+  )
+
   private def variantTuple(variant: draughts.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =
     (variant.id.toString, variant.name, variant.title.some)
 
