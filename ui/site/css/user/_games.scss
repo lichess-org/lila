@@ -5,4 +5,7 @@
       font-weight: bold;
     }
   }
+  .now-playing {
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+  }
 }
