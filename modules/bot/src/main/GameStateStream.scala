@@ -38,7 +38,7 @@ final class GameStateStream(
 
           private val classifiers = List(
             MoveGameEvent makeSymbol id,
-            'finishGame, 'abortGame, 
+            'finishGame, 'abortGame,
             Chat classify Chat.Id(id),
             Chat classify Chat.Id(s"$id/w")
           )
