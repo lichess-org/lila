@@ -7,7 +7,7 @@ import { StudyCtrl } from './interfaces';
 function authorDom(author) {
   if (!author) return 'Unknown';
   if (!author.name) return author;
-  return h('span.user_link.ulpt', {
+  return h('span.user-link.ulpt', {
     attrs: { 'data-href': '/@/' + author.id }
   }, author.name);
 }

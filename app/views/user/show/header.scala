@@ -23,7 +23,7 @@ object header {
     social: lila.app.mashup.UserInfo.Social
   )(implicit ctx: Context) = frag(
     div(cls := "box__top user-show__header")(
-      h1(cls := s"user_link ${if (isOnline(u.id)) "online" else "offline"}")(
+      h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
         if (u.isPatron) frag(
           a(cls := routes.Plan.index)(raw(patronIcon)),
           userSpan(u, withPowerTip = false, withOnline = false)

@@ -128,8 +128,8 @@ object bits {
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(board.bits.domPreload(pov.some)),
       div(cls := "round__app__table"),
-      div(cls := "ruser ruser-top user_link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
-      div(cls := "ruser ruser-bottom user_link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),
+      div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
+      div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),
       div(cls := "rclock rclock-top preload")(div(cls := "time")(nbsp)),
       div(cls := "rclock rclock-bottom preload")(div(cls := "time")(nbsp)),
       div(cls := "rmoves")(div(cls := "moves")),

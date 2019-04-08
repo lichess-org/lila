@@ -119,7 +119,7 @@ div.underboard .notif.error {
 .study_comments .comment .edit:hover {
   opacity: 1;
 }
-.study_comments .user_link,
+.study_comments .user-link,
 .study_comments .node {
   font-weight: bold;
 }
@@ -163,7 +163,7 @@ div.underboard .notif.error {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-.study_box .elem .user_link,
+.study_box .elem .user-link,
 .study_box .elem.member .add_text {
   overflow: hidden;
   text-overflow: ellipsis;

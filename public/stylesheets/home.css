@@ -728,7 +728,7 @@ body.dark .tour_spotlight:hover .img {
 #timeline .entry:hover a {
   color: #3893E8;
 }
-#timeline a.user_link {
+#timeline a.user-link {
   padding-left: 0;
 }
 #timeline .links {

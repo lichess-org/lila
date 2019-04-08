@@ -41,7 +41,7 @@
   $.userLinkLimit = function(u, limit, klass) {
     var split = u.split(' ');
     var id = split.length == 1 ? split[0] : split[1];
-    return u ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+    return u ? '<a class="user-link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
 
   lichess.socket = null;
@@ -157,7 +157,7 @@
           pending: lichess.spinnerHtml,
           suggestion: function(o) {
             var tag = opts.tag || 'a';
-            return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
+            return '<' + tag + ' class="ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
               '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
               '</' + tag + '>';
           }
@@ -681,7 +681,7 @@
       var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
       var studyButton = user.studying ? '<a data-icon="4" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
       var rightButton = tvButton || studyButton;
-      return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
+      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
     };
     return {
       _create: function() {

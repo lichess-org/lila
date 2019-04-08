@@ -63,7 +63,7 @@ body.no-inquiry {
   flex-flow: row nowrap;
   align-items: center;
 }
-#inquiry h2 .user_link {
+#inquiry h2 .user-link {
   font-size: 1.3em;
 }
 #inquiry .docs {

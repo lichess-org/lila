@@ -68,7 +68,7 @@ time {
 }
 .is::before,
 [data-icon]::before,
-.user_link .line,
+.user-link .line,
 .is-after::after {
   font-size: 1.2em;
   vertical-align: middle;
@@ -98,7 +98,7 @@ time {
 .is4.text::before {
   margin-right: 10px;
 }
-.user_link.online .line,
+.user-link.online .line,
 .is-green::before {
   color: #759900;
 }
@@ -111,27 +111,27 @@ time {
 a.blue {
   color: #3893E8!important;
 }
-.user_link .line {
+.user-link .line {
   opacity: 0.4;
   display: inline-block;
   width: 1.5em;
   text-align: center;
   vertical-align: -0.15em;
 }
-.user_link.online .line,
-.user_link .line.patron {
+.user-link.online .line,
+.user-link .line.patron {
   opacity: 0.8;
 }
-.user_link.online .line.patron {
+.user-link.online .line.patron {
   opacity: 1;
 }
-.user_link .line::before {
+.user-link .line::before {
   content: '';
 }
-.user_link .line.patron::before {
+.user-link .line.patron::before {
   content: '';
 }
-.user_link .line.moderator::before {
+.user-link .line.moderator::before {
   content: '';
 }
 
@@ -281,7 +281,7 @@ group.radio input:checked + label {
   padding: 5px 3px;
   border-bottom: 1px solid #c0c0c0;
 }
-#powerTip > .title a.user_link {
+#powerTip > .title a.user-link {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -993,7 +993,7 @@ span.progress > .negative {
   display: block;
   transition: background 0.13s;
 }
-#friend_box .content a.user_link {
+#friend_box .content a.user-link {
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1029,23 +1029,23 @@ span.progress > .negative {
 #friend_box div.nobody:hover a.find {
   display: block;
 }
-.user_link {
+.user-link {
   white-space: nowrap;
 }
-.user_link span.rp:before {
+.user-link span.rp:before {
   content: " ";
 }
-.user_link span.rp.up {
+.user-link span.rp.up {
   color: #759900;
 }
-.user_link span.rp.down {
+.user-link span.rp.down {
   color: #ac524f;
 }
-.user_link span.title {
+.user-link span.title {
   color: #d59120;
   font-weight: bold;
 }
-.user_link span.title[data-bot] {
+.user-link span.title[data-bot] {
   color: #cd63d9;
 }
 div.warning {
@@ -1308,7 +1308,7 @@ div.undertable_inner {
 .undertable_inner:hover {
   overflow-y: auto;
 }
-.undertable a.user_link {
+.undertable a.user-link {
   font-weight: bold;
   color: #a0a0a0;
 }

@@ -43,7 +43,7 @@ function playerTr(ctrl: TournamentController, player) {
 }
 
 function podiumUsername(p) {
-  return h('a.text.ulpt.user_link', {
+  return h('a.text.ulpt.user-link', {
     attrs: { href: '/@/' + p.name }
   }, playerName(p));
 }

@@ -30,7 +30,7 @@
       text-align: center;
     }
     .color,
-    .user_link {
+    .user-link {
       font-weight: bold;
       padding: 0;
       color: $c-font-dim;
@@ -40,7 +40,7 @@
     .title {
       margin-right: 3px;
     }
-    a:not(.user_link) {
+    a:not(.user-link) {
       @extend %roboto;
     }
   }

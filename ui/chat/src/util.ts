@@ -6,7 +6,7 @@ export function userLink(u: string, title?: string) {
   return h('a', {
     // can't be inlined because of thunks
     class: {
-      user_link: true,
+      user-link: true,
       ulpt: true
     },
     attrs: {

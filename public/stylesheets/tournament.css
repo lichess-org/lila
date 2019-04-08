@@ -171,7 +171,7 @@ div.create_tournament {
   margin: 0 auto 8px auto;
   background-size: contain!important;
 }
-#tournament .podium .user_link {
+#tournament .podium .user-link {
   font-weight: bold;
   letter-spacing: -1px;
 }
@@ -376,17 +376,17 @@ body.dark #tournament .delay button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#tournament table.standing .user_link {
+#tournament table.standing .user-link {
   white-space: normal;
 }
-#tournament table.standing .user_link.long {
+#tournament table.standing .user-link.long {
   letter-spacing: -0.7px;
 }
-#tournament table.standing .user_link .rating {
+#tournament table.standing .user-link .rating {
   font-style: italic;
   font-size: 0.8em;
 }
-#tournament table.standing tr.long .user_link .rating {
+#tournament table.standing tr.long .user-link .rating {
   display: block;
   padding-left: 0px;
 }
@@ -606,7 +606,7 @@ body.dark #tournament_side .player,
 body.dark #tournament_side .featured {
   box-shadow: 0 1px 2px #000;
 }
-#tournament_side .user_link .name {
+#tournament_side .user-link .name {
   padding-right: 5px;
 }
 #tournament_side .player close {
@@ -855,7 +855,7 @@ div.faq_box {
   line-height: 2em;
   white-space: nowrap;
 }
-.tournament_leaderboard a.user_link {
+.tournament_leaderboard a.user-link {
   margin: 0 5px 0 -3px;
   overflow: hidden;
   text-overflow: ellipsis;

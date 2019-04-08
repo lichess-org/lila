@@ -18,7 +18,7 @@
     &__content {
       @include hoverflow;
     }
-    .user_link {
+    .user-link {
       font-weight: bold;
       color: $c-font-dim;
     }

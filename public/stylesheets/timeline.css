@@ -8,7 +8,7 @@
   font-weight: bold;
   text-decoration: none;
 }
-#timeline_more a.user_link {
+#timeline_more a.user-link {
   background: none;
   padding-left: 0;
   display: inline-block;

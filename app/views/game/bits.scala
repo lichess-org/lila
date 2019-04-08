@@ -87,7 +87,7 @@ object bits {
 
   def vstext(pov: Pov)(ctxOption: Option[Context]): Frag =
     span(cls := "vstext")(
-      span(cls := "vstext__pl user_link")(
+      span(cls := "vstext__pl user-link")(
         playerUsername(pov.player, withRating = false, withTitle = false),
         br,
         playerTitle(pov.player) map { t => frag(t, " ") },
@@ -105,7 +105,7 @@ object bits {
           }
         }
       },
-      span(cls := "vstext__op user_link")(
+      span(cls := "vstext__op user-link")(
         playerUsername(pov.opponent, withRating = false, withTitle = false),
         br,
         pov.opponent.rating,

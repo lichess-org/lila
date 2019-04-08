@@ -51,7 +51,7 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode {
     ]),
     h('div.players', game.players.map(function(p) {
       return h('div.player.color-icon.is.text.' + p.color,
-        p.userId ? h('a.user_link.ulpt', {
+        p.userId ? h('a.user-link.ulpt', {
           attrs: { href: '/@/' + p.userId }
         }, p.name) : p.name
       );

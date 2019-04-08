@@ -250,7 +250,7 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     val online = if (withOnline) {
       if (isOnline(userId)) " online" else " offline"
     } else ""
-    s"""class="user_link${addClass(cssClass)}${addClass(withPowerTip option "ulpt")}$online""""
+    s"""class="user-link${addClass(cssClass)}${addClass(withPowerTip option "ulpt")}$online""""
   }
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext) =

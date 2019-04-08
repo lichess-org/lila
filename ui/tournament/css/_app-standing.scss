@@ -12,14 +12,14 @@
       text-overflow: ellipsis;
     }
   }
-  .user_link.long {
+  .user-link.long {
     letter-spacing: -0.7px;
   }
-  .user_link .rating {
+  .user-link .rating {
     font-style: italic;
     font-size: 0.8em;
   }
-  tr.long .user_link .rating {
+  tr.long .user-link .rating {
     display: block;
     padding-left: 0px;
   }

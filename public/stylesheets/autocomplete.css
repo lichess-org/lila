@@ -28,7 +28,7 @@ span.tt-suggestion {
   background: #3893E8!important;
   color: #fff!important;
 }
-.tt-suggestion.user_link i {
+.tt-suggestion.user-link i {
   margin-right: 3px;
 }
 .tt-hint {

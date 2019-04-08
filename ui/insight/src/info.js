@@ -10,7 +10,7 @@ module.exports = function(ctrl) {
         title: 'How does this work?',
         onclick: lichess.startInsightTour
       }, '?'),
-      m('a.username.user_link.insight-ulpt', {
+      m('a.username.user-link.insight-ulpt', {
         href: '/@/' + ctrl.user.name
       }, ctrl.user.name)
     ]),

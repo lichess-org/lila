@@ -130,7 +130,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case (_, Some(name)) => escapeHtml(name).body
           case _ => User.anonymous
         }
-        s"""<span class="user_link$klass">$content$statusIcon</span>"""
+        s"""<span class="user-link$klass">$content$statusIcon</span>"""
       case Some(user) =>
         val klass = userClass(user.id, cssClass, withOnline)
         val href = s"${routes.User show user.name}${if (mod) "?mod" else ""}"
