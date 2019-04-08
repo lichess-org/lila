@@ -144,7 +144,7 @@ Disallow: /games/export
   }
 
   def getDraughtsnet = Open { implicit ctx =>
-    Ok(html.site.getDraughtsnet()).fuccess
+    Ok(html.site.bits.getDraughtsnet()).fuccess
   }
 
   def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)
