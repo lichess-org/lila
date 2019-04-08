@@ -1,7 +1,5 @@
 package views.html.base
 
-import play.twirl.api.Html
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -101,10 +99,6 @@ object layout {
   def apply(
     title: String,
     fullTitle: Option[String] = None,
-    // side: Option[Html] = None,
-    // menu: Option[Html] = None,
-    // chat: Option[Frag] = None,
-    // underchat: Option[Frag] = None,
     robots: Boolean = isGloballyCrawlable,
     moreCss: Frag = emptyFrag,
     moreJs: Frag = emptyFrag,
@@ -117,7 +111,7 @@ object layout {
     responsive: Boolean = false,
     // responsive: Boolean,
     wrapClass: String = ""
-  )(body: Html)(implicit ctx: Context) = frag(
+  )(body: Frag)(implicit ctx: Context) = frag(
     doctype,
     htmlTag(ctx)(
       topComment,
