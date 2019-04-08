@@ -64,7 +64,7 @@ function title(ctrl: TournamentController) {
     d.fullName
   ]);
   if (hasFreq('shield', d)) return h('h1', [
-    h('a.shield_trophy', {
+    h('a.shield-trophy', {
       attrs: { href: '/tournament/shields' }
     }, d.perf.icon),
     d.fullName

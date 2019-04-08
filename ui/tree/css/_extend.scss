@@ -1,9 +1,5 @@
 %move {
-  @extend %nowrap-hidden;
-  font-family: 'ChessSansPiratf', sans-serif;
+  @extend %san, %nowrap-hidden;
   display: inline-block;
   cursor: pointer;
-  body.piece_letter & {
-    @extend %base-font;
-  }
 }

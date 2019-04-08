@@ -150,7 +150,8 @@ object layout {
       ),
       st.body(
         cls := List(
-          "preload base" -> true,
+          "base" -> true,
+          ctx.currentTheme.cssClass -> true,
           // ctx.currentTheme.cssClass -> true,
           // (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true,
           ctx.currentTheme3d.cssClass -> true,
