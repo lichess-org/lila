@@ -190,7 +190,7 @@ object UserRepo {
           if (result.n == 0) fufail(s"You have already changed your username")
           else fuccess()
       }
-    } else fufail(s"Proposed username does not match old username")
+    } else fufail(s"Proposed username $username does not match old username $id")
   }
 
   def addTitle(id: ID, title: Title): Funit =
