@@ -131,16 +131,7 @@ object layout {
           !responsive option fontStylesheets
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
-        if (responsive) responsiveCssTag("site")
-        else frag(
-          responsive option cssTag("offline-fonts.css"),
-          currentBgCss,
-          cssTag("common.css"),
-          cssTag("board.css"),
-          ctx.zoom ifTrue zoomable map { z =>
-            zoomStyle(z / 100f, false)
-          }
-        ),
+        responsiveCssTag("site"),
         ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
