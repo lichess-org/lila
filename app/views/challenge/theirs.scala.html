@@ -6,14 +6,14 @@
 variant = c.variant,
 title = challengeTitle(c),
 openGraph = challengeOpenGraph(c).some,
-moreJs = js(c, json, false)) {
+moreJs = bits.js(c, json, false)) {
 <div class="lichess_game" id="challenge">
   <div class="lichess_board_wrap cg-512">
     <div class="lichess_board"></div>
     <div class="lichess_overboard padded">
       @userIdLink(c.challengerUserId)
       <br />
-      @explanation(c)
+      bits.explanation(c)
       @c.initialFen.map { fen =>
       <br />
       @views.html.game.bits.miniBoard(fen, color = !c.finalColor).toHtml

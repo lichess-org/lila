@@ -227,21 +227,9 @@
       });
 
       $('#lichess').on('click', 'button.copy', function() {
-        var prev = $('#' + $(this).data('rel'));
-        if (!prev) return;
-        var usePrompt = function() {
-          prompt('Your browser does not support automatic copying. Copy this text manually with Ctrl + C:', prev.val());
-        };
-        try {
-          if (document.queryCommandSupported('copy')) {
-            // Awesome! Done in five seconds, can go home.
-            prev.select();
-            document.execCommand('copy');
-          } else throw '';
-          $(this).attr('data-icon', 'E');
-        } catch (e) {
-          usePrompt();
-        }
+        $('#' + $(this).data('rel')).select();
+        document.execCommand('copy');
+        $(this).attr('data-icon', 'E');
       });
 
       $('body').on('click', 'a.relation-button', function() {

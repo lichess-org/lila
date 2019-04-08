@@ -26,7 +26,7 @@ object index {
         roundTag,
         embedJs {
           val transJs = views.html.round.jsI18n(pov.game)
-          s"""window.lichess=window.lichess||{};customWS=true;
+          s"""lichess=window.lichess||{};customWS=true;
 onload=function(){LichessRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),

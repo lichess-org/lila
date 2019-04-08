@@ -5,13 +5,14 @@
 @import 'abstract/all';
 
 @import 'base/elements';
+@import 'base/form';
 @import 'base/fonts';
 @import 'base/typography';
 @import 'base/data-icon';
 @import 'base/unread';
 @import 'base/util';
 
-@include theme-style
+@include theme-style;
 
 @import 'layout/base';
 @import 'layout/page-menu';

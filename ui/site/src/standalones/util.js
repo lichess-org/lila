@@ -1,4 +1,4 @@
-var lichess = window.lichess = window.lichess || {};
+lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 10+';
 

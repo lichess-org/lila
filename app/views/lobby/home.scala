@@ -38,7 +38,7 @@ object home {
       embedJs {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val transJs = safeJsonValue(i18nJsObject(translations))
-        s"""window.lichess=window.lichess||{};window.customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
+        s"""lichess=window.lichess||{};customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
       }
     ),
     moreCss = responsiveCssTag("lobby"),
