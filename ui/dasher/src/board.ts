@@ -31,10 +31,7 @@ export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, re
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, () => {
-        window.lichess.reloadOtherTabs();
-        window.lichess.reload();
-      });
+      $.post('/pref/is3d', { is3d: v }, window.lichess.reload);
       redraw();
     },
     setZoom(v: number) {

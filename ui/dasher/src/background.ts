@@ -101,7 +101,6 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     const prev = $('body').data('theme');
     $('body').data('theme', key);
     $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
-      console.log($(this).attr('href'));
       $(this).attr('href', $(this).attr('href').replace('.' + prev + '.', '.' + key + '.')).appendTo('head');
     });
   } else {
@@ -130,5 +129,4 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
 function reloadAllTheThings() {
   if (window.Highcharts) window.lichess.reload();
-  window.lichess.reloadOtherTabs();
 }

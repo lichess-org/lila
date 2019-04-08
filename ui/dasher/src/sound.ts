@@ -33,7 +33,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     set(k: Key) {
       api.changeSet(k);
       api.genericNotify();
-      $.post('/pref/soundSet', { set: k }, window.lichess.reloadOtherTabs);
+      $.post('/pref/soundSet', { set: k });
       redraw();
     },
     volume(v: number) {
