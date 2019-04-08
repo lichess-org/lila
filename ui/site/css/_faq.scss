@@ -1,0 +1,41 @@
+.faq {
+  .question {
+    border-left: 5px solid white;
+    padding-left: 10px;
+  }
+  .question .answer {
+    display: none;
+  }
+  .question:target {
+    border-left: 5px solid rgba(128,128,128,0.2);
+  }
+  .question:target .answer {
+    display: block;
+  }
+  .question:target h3 {
+    font-weight: bold;
+    margin-bottom: 0.3em;
+  }
+  h1, h2 {
+    margin-left: 15px;
+  }
+  h2 {
+    font-size: 1.2em;
+    margin: 0 1em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid rgba(128,128,128,0.2);
+  }
+  h3 {
+    font-size: 1.2em;
+    padding-bottom: 0.3em;
+  }
+  .question, p, ul, ol {
+    margin-bottom: 0.8em;
+  }
+  ul li {
+    list-style: disc inside;
+  }
+  ol li {
+    list-style: decimal inside;
+  }
+}
