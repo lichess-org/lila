@@ -52,6 +52,9 @@
   }
   &__studies {
     margin-top: 20px;
+    .studies {
+      border-top: $border;
+    }
     h2 {
       padding: 1em 0 0 2em;
     }
