@@ -15,8 +15,8 @@ object userAnalysis {
   def apply(data: JsObject, pov: lidraughts.game.Pov)(implicit ctx: Context) = views.html.base.layout(
     title = trans.analysis.txt(),
     moreCss = frag(
-      responsiveCssTag("analyse"),
-      (!pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined) option cssTag("forecast.css")
+      responsiveCssTag("analyse.free"),
+      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("forecast")
     ),
     moreJs = frag(
       analyseTag,

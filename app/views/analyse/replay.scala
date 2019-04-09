@@ -42,7 +42,7 @@ object replay {
 
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      moreCss = responsiveCssTag("analyse"),
+      moreCss = responsiveCssTag("analyse.round"),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
