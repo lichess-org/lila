@@ -60,7 +60,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script${async ?? " defer"} src="$src"></script>"""
   }
 
-  val jQueryTag = Html {
+  val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
@@ -121,9 +121,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ctx.nonce.fold(csp)(csp.withNonce(_))
   }
 
-  def embedJsUnsafe(js: Frag)(implicit ctx: Context): Frag = raw {
+  def embedJsUnsafe(js: String)(implicit ctx: Context): Frag = raw {
     val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
-    s"""<script$nonce>${js.render}</script>"""
+    s"""<script$nonce>$js</script>"""
   }
 
   def embedJs(js: Frag)(implicit ctx: Context): Frag = embedJsUnsafe(js.render)
