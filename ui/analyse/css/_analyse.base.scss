@@ -1,6 +1,4 @@
-$mq-col1: $mq-col1-uniboard;
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
+@import 'variables';
 
 %border-bottom-active {
   border-bottom: $border;
@@ -18,6 +16,4 @@ $mq-col3: $mq-col3-uniboard;
 @import 'retro';
 @import 'fork';
 @import 'side';
-@import 'underboard';
-@import 'acpl';
 // @import 'side-clock';

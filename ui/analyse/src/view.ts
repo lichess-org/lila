@@ -28,7 +28,7 @@ import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import renderPlayerBars from './study/playerBars';
-import underboard from './underboard';
+import serverSideUnderboard from './serverSideUnderboard';
 
 const li = window.lichess;
 
@@ -93,7 +93,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.redirecting) return spinner();
   return h('div.copyables', [
     h('label.name', 'FEN'),
-    h('input.copyable.autoselect', {
+    h('input.copyable.autoselect.analyse__underboard__fen', {
       attrs: {
         spellCheck: false,
         value: ctrl.node.fen
@@ -317,7 +317,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     controls(ctrl),
     ctrl.embed ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },
-      hook: onInsert(elm => underboard(elm, ctrl))
+      hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     h('div.analyse__acpl', [acplView(ctrl)]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('aside.analyse__side', {

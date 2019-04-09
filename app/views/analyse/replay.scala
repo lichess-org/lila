@@ -43,10 +43,10 @@ object replay {
 
     bits.layout(
       title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      moreCss = responsiveCssTag {
-        if (pov.game.variant == Crazyhouse) "analyse.zh"
-        else "analyse"
-      },
+      moreCss = frag(
+        responsiveCssTag("analyse.round"),
+        pov.game.variant == Crazyhouse option responsiveCssTag("analyse.zh")
+      ),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
