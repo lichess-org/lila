@@ -8,7 +8,7 @@
       @reportScore(atom.score)
       @userIdLink(atom.by.value.some, withOnline = false).toHtml
       for <strong>@r.reason.name</strong>,
-      @momentFromNow(atom.at)
+      @momentFromNow(atom.at).toHtml
     </h3>
     <p>@richText(atom.simplifiedText)</p>
   </div>
@@ -18,7 +18,7 @@
 
 @renderNote(r: lila.user.Note) = {
 <div class="doc note">
-  <h3>by @userIdLink(r.from.some, withOnline = false).toHtml, @momentFromNow(r.date)</h3>
+  <h3>by @userIdLink(r.from.some, withOnline = false).toHtml, @momentFromNow(r.date).toHtml</h3>
   <p>@richText(r.text)</p>
 </div>
 }
@@ -47,7 +47,7 @@
       <div>
         <ul>
           @in.history.map { e =>
-          <li>@userIdLink(e.mod.some, withOnline = false).toHtml <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
+          <li>@userIdLink(e.mod.some, withOnline = false).toHtml <b>@e.showAction</b> @e.details @momentFromNow(e.date).toHtml</li>
           }
         </ul>
       </div>

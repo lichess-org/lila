@@ -11,7 +11,7 @@ import lila.common.base.StringUtils.{ safeJsonString, escapeHtml => escapeHtmlRa
 final object String {
 
   val erased = "<deleted>"
-  val erasedHtml = Html("&lt;deleted&gt;")
+  val erasedHtml = RawFrag("&lt;deleted&gt;")
 
   private[this] val slugR = """[^\w-]""".r
   private[this] val slugMultiDashRegex = """-{2,}""".r

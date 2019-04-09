@@ -11,7 +11,6 @@ object Environment
   with StringHelper
   with JsonHelper
   with AssetHelper
-  with RequestHelper
   with DateHelper
   with NumberHelper
   with PaginatorHelper
@@ -25,7 +24,6 @@ object Environment
   with SecurityHelper
   with TeamHelper
   with TournamentHelper
-  with SimulHelper
   with ChessgroundHelper
   with ui.ScalatagsTwirl {
 

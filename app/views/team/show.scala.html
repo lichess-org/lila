@@ -87,7 +87,7 @@ description = shorten(t.description, 152)).some) {
             <a href="@routes.ForumPost.redirect(p.postId)">@p.topicName</a>
             <em>
               @userIdLink(p.userId, withOnline = false).toHtml,
-              @momentFromNow(p.createdAt)
+              @momentFromNow(p.createdAt).toHtml
             </em>
           </p>
           <p>@shorten(p.text, 200)</p>

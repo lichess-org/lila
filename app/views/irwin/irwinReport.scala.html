@@ -15,7 +15,7 @@ case _ => {red}
       Hunter
     </a>
     <div class="infos">
-      <p>Updated @momentFromNow(report.report.date)</p>
+      <p>Updated @momentFromNow(report.report.date).toHtml</p>
     </div>
     <div class="assess text">
       <strong class="@percentClass(report.report.activation)">@report.report.activation%</strong>
@@ -38,8 +38,8 @@ case _ => {red}
             <br />
             @if(pov.game.isTournament) { <span data-icon="g"></span> }
             @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
-            @shortClockName(pov.game.clock.map(_.config)) -
-            @momentFromNowOnce(pov.game.createdAt)
+            @shortClockName(pov.game.clock.map(_.config)).toHtml -
+            @momentFromNowOnce(pov.game.createdAt).toHtml
           </a>
         </td>
         <td>

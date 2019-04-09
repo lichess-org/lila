@@ -78,7 +78,7 @@ active = "coach") {
           <div class="user">
             @userIdLink(r.userId.some).toHtml
             review.barRating(selected = r.score.some, enabled = false).toHtml
-            @momentFromNow(r.updatedAt)
+            @momentFromNow(r.updatedAt).toHtml
           </div>
           <div class="content">
             @if(r.moddedAt.isDefined) {

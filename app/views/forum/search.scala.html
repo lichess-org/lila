@@ -27,7 +27,7 @@ moreJs = infiniteScrollTag
         <p>@nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200))</p>
       </td>
       <td class="info">
-        @momentFromNow(view.post.createdAt) by @authorLink(view.post)
+        @momentFromNow(view.post.createdAt).toHtml by @authorLink(view.post)
       </td>
     </tr>
     }

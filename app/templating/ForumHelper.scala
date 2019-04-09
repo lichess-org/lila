@@ -1,8 +1,6 @@
 package lila.app
 package templating
 
-import play.twirl.api.Html
-
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.forum.Post
@@ -32,7 +30,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     withOnline: Boolean = true,
     modIcon: Boolean = false
   ): Frag =
-    if (post.erased) raw(s"""<span class="author">${lila.common.String.erasedHtml}</span>""")
+    if (post.erased) span(cls := "author")(lila.common.String.erasedHtml)
     else post.userId.fold(frag(lila.user.User.anonymous)) { userId =>
       userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
     }

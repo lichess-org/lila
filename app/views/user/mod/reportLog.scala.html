@@ -7,7 +7,7 @@
   @r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
   <form action="@routes.Report.inquiry(r.id)" method="post">
     <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
-    @userIdLink(r.user.some).toHtml, @momentFromNowOnce(atom.at): @shorten(atom.text, 200)
+    @userIdLink(r.user.some).toHtml, @momentFromNowOnce(atom.at).toHtml: @shorten(atom.text, 200)
   </form>
   }
   }
@@ -22,7 +22,7 @@
     <div class="atoms">
       @r.bestAtoms(3).map { atom =>
       <div class="atom">
-        By @userIdLink(atom.by.value.some).toHtml, @momentFromNowOnce(atom.at): @shorten(atom.text, 200)
+        By @userIdLink(atom.by.value.some).toHtml, @momentFromNowOnce(atom.at).toHtml: @shorten(atom.text, 200)
       </div>
       }
       @if(r.atoms.size > 3) { (and @{r.atoms.size - 3} more) }

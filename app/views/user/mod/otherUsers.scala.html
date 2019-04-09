@@ -31,8 +31,8 @@
           }
           @userMarks(o, bans.get(o.id))
         </td>
-        <td data-sort="@o.createdAt.getMillis">@momentFromNowOnce(o.createdAt)</td>
-        <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNowOnce)</td>
+        <td data-sort="@o.createdAt.getMillis">@momentFromNowOnce(o.createdAt).toHtml</td>
+        <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNowOnce).map(_.toHtml)</td>
       </tr>
       }
       }

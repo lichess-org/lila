@@ -18,7 +18,7 @@ responsive = true) {
     <p>
       Current state:
       @state.map { s =>
-      <strong class="text" data-icon="E" style="color:#759900">ENABLED</strong>. Expires in @momentFromNow(s)
+      <strong class="text" data-icon="E" style="color:#759900">ENABLED</strong>. Expires in @momentFromNow(s).toHtml
       }.getOrElse {
       <strong class="text" data-icon="L">DISABLED</strong>
       }

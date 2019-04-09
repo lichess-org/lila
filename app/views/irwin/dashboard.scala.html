@@ -22,7 +22,7 @@ responsive = true) {
         } else {
         <span class="down">
           @dashboard.lastSeenAt.map { seenAt =>
-          Last seen @momentFromNow(seenAt)
+          Last seen @momentFromNow(seenAt).toHtml
           }.getOrElse {
           Unknown
           }
@@ -49,7 +49,7 @@ responsive = true) {
             @userIdLink(rep.suspectId.value.some, params = "?mod").toHtml
           </td>
           <td class="little completed">
-            @momentFromNow(rep.date)
+            @momentFromNow(rep.date).toHtml
           </td>
           <td>@rep.owner</td>
           <td class="little activation @percentClass(rep.activation)">
