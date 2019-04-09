@@ -89,28 +89,12 @@ object list {
       iconTag("4"),
       p("None yet.")
     )
-    else div(cls := "list infinitescroll")(
+    else div(cls := "studies list infinitescroll")(
       pager.currentPageResults.map { s =>
         div(cls := "study paginated")(bits.widget(s))
       },
       pagerNext(pager, np => addQueryParameter(url.url, "page", np))
     )
-
-  private def orderChoice(
-    url: lila.study.Order => Call,
-    order: lila.study.Order,
-    orders: List[lila.study.Order] = lila.study.Order.all
-  )(implicit ctx: Context) = div(cls := "orders mselect")(
-    div(cls := "button")(
-      order.name,
-      iconTag("u")
-    ),
-    div(cls := "list")(
-      orders.map { o =>
-        a(href := url(o))(o.name)
-      }
-    )
-  )
 
   private def layout(
     title: String,
@@ -121,27 +105,33 @@ object list {
     searchFilter: String
   )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    // menu = Some(frag(
-    //   a(
-    //     cls := active.active("all"),
-    //     href := routes.Study.all(order.key)
-    //   )("All studies"),
-    //   ctx.me.map { bits.authLinks(_, active, order) },
-    //   a(cls := "text", dataIcon := "", href := "//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
-    // )),
-    moreCss = cssTag("studyList.css"),
+    moreCss = responsiveCssTag("study.index"),
+    responsive = true,
     moreJs = infiniteScrollTag
   ) {
-      div(cls := "content_box no_padding studies")(
-        div(cls := "top")(
-          form(cls := "search", action := routes.Study.search(), method := "get")(
-            input(name := "q", placeholder := title, value := s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
-            button(`type` := "submit", cls := "submit button", dataIcon := "y")
-          ),
-          orderChoice(o => url(o.key), order, if (active == "all") lila.study.Order.allButOldest else lila.study.Order.all),
-          bits.newForm()
+      main(cls := "page-menu")(
+        st.aside(cls := "page-menu__menu subnav")(
+          a(cls := active.active("all"), href := routes.Study.all(order.key))("All studies"),
+          ctx.me.map { bits.authLinks(_, active, order) },
+          a(cls := "text", dataIcon := "", href := "//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
         ),
-        paginate(pag, url(order.key))
+        main(cls := "page-menu__content study-index box")(
+          div(cls := "box__top")(
+            form(cls := "search", action := routes.Study.search(), method := "get")(
+              input(name := "q", placeholder := title, value := s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
+              button(`type` := "submit", cls := "submit button", dataIcon := "y")
+            ),
+            views.html.base.bits.mselect(
+              "orders",
+              span(order.name),
+              (if (active == "all") lila.study.Order.allButOldest else lila.study.Order.all) map { o =>
+                a(href := url(o.key))(o.name)
+              }
+            ),
+            bits.newForm()
+          ),
+          paginate(pag, url(order.key))
+        )
       )
     }
 }

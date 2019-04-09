@@ -2,13 +2,15 @@ $c-mselect: $c-primary;
 
 .mselect {
   position: relative;
+  white-space: nowrap;
   &__toggle {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
   &__label {
-    @extend %box-neat, %metal, %flex-center, %flex-between;
+    @extend %box-neat, %metal, %flex-between;
+    flex-flow: row nowrap;
     padding: .3rem .3rem .3rem 1rem;
     cursor: pointer;
     &:hover {

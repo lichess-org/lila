@@ -1,52 +1,52 @@
+$c-study: $c-primary;
 .studies {
-  @extend %flex-wrap;
-  border-top: $border;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   .study {
-    flex: 0 0 50%;
-    max-width: 50%;
     border: $border;
     border-width: 0 1px 1px 0;
     padding: 1em .6em 1em 1.3em;
     position: relative;
+    @include transition();
     &:hover {
-      background: mix($c-accent, $c-bg-box, 12%);
+      background: mix($c-study, $c-bg-box, 10%);
     }
     .overlay {
       @extend %link-overlay;
     }
     .body {
       display: flex;
+      font-size: .9em;
     }
-    ol.chapters {
+    .chapters {
       flex: 0 0 58%;
       max-width: 58%;
     }
-    ol.members {
+    .members {
       flex: 0 0 40%;
       max-width: 40%;
       margin-left: 2%;
     }
-    ol li {
+    li {
       @extend %nowrap-hidden;
       color: $c-font-dim;
       text-overflow: ellipsis;
-    }
-    ol li::before {
-      color: $c-font-dimmer;
+      &::before {
+        color: $c-font-dimmer;
+      }
     }
     .top {
       @extend %roboto;
       font-weight: normal;
       display: block;
       position: relative;
-      box-sizing: border-box;
       height: 60px;
       padding-left: 54px;
       .study-name {
         @extend %nowrap-hidden;
         font-size: 1.5em;
         font-weight: normal;
-        color: $c-brag;
+        color: $c-study;
         display: block;
         margin: 0;
         text-overflow: ellipsis;
@@ -62,10 +62,10 @@
         left: 0;
       }
       .icon::before {
-        color: $c-brag;
+        color: $c-study;
         font-size: 38px;
         line-height: 45px;
-        opacity: 0.8;
+        opacity: .8;
       }
     }
   }
