@@ -1,7 +1,7 @@
 @(u: User, cache: lila.insight.UserCache, prefId: Int, ui: play.api.libs.json.JsObject, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
 
 @moreJs = {
-@highchartsLatestTag
+@highchartsLatestTag.toHtml
 @jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lichess.insight${isProd??(".min")}.js")
 @jsTag("insight-refresh.js")
@@ -25,7 +25,7 @@ pageUrl: "@routes.Insight.index(u.username)",
 postUrl: "@routes.Insight.json(u.username)"
 });
 });
-}
+}.toHtml
 }
 
 @base.layout(

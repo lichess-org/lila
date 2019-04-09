@@ -7,7 +7,7 @@ setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
 }).each(function() {
 this.setSelectionRange(this.value.length, this.value.length);
 });
-}
+}.toHtml
 }
 
 @base.layout(

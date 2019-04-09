@@ -72,23 +72,19 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def analyseNvuiTag(implicit ctx: Context) = ctx.blind option
     jsAt(s"compiled/lichess.analyse.nvui.min.js")
 
-  val highchartsLatestTag = Html {
+  val highchartsLatestTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
   }
 
-  val highchartsMoreTag = Html {
+  val highchartsMoreTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
-  val typeaheadTag = Html {
-    s"""<script src="${staticUrl("javascripts/vendor/typeahead.bundle.min.js")}"></script>"""
-  }
-
-  val fingerprintTag = Html {
+  val fingerprintTag = raw {
     s"""<script async src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
   }
 
-  val flatpickrTag = Html {
+  val flatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
   def delayFlatpickrStart(implicit ctx: Context) = embedJs {
@@ -97,9 +93,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
 
-  def prismicJs(implicit ctx: Context) = Html {
+  def prismicJs(implicit ctx: Context): Frag = raw {
     isGranted(_.Prismic) ?? {
-      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").body ++
+      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
         """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
     }
   }
@@ -125,15 +121,11 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ctx.nonce.fold(csp)(csp.withNonce(_))
   }
 
-  def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {
+  def embedJsUnsafe(js: Frag)(implicit ctx: Context): Frag = raw {
     val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
-    s"""<script$nonce>$js</script>"""
-  }
-  def embedJsUnsafe(js: scalatags.Text.RawFrag)(implicit ctx: Context): scalatags.Text.RawFrag = scalatags.Text.all.raw {
-    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
-    s"""<script$nonce>$js</script>"""
+    s"""<script$nonce>${js.render}</script>"""
   }
 
-  def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
-  def embedJs(js: String)(implicit ctx: Context): Html = embedJsUnsafe(js)
+  def embedJs(js: Frag)(implicit ctx: Context): Frag = embedJsUnsafe(js.render)
+  def embedJs(js: String)(implicit ctx: Context): Frag = embedJsUnsafe(js)
 }
