@@ -13,16 +13,17 @@ object calendar {
     title = "Tournament calendar",
     moreJs = frag(
       jsAt(s"compiled/lichess.tournamentCalendar${isProd ?? (".min")}.js"),
-      embedJs(s"""LichessTournamentCalendar.app(document.getElementById('tournament_calendar'), {
+      embedJs(s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), {
 data: ${safeJsonValue(json)},
 i18n: ${jsI18n()}
 });""")
     ),
-    moreCss = cssTag("tournament_calendar.css")
+    moreCss = responsiveCssTag("tournament.calendar"),
+    responsive = true
   ) {
-      div(cls := "content_box no_padding tournament_calendar")(
+      main(cls := "box")(
         h1("Tournament calendar"),
-        div(id := "tournament_calendar")
+        div(id := "tournament-calendar")
       )
     }
 }
