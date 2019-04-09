@@ -206,7 +206,7 @@
   $(function() {
     if (lichess.analyse) LichessAnalyse.boot(lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
-    else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
+    else if (lichess.study) startStudy(lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
     else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
@@ -942,10 +942,10 @@
   // study.js //
   ////////////////
 
-  function startStudy(element, cfg) {
+  function startStudy(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
+    cfg.element = document.querySelector('main.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
