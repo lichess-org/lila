@@ -76,6 +76,7 @@ object Tv extends LilaController {
       }
   }
 
+  /* for BC */
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
@@ -91,7 +92,7 @@ object Tv extends LilaController {
       case Some(game) => Ok(views.html.tv.embed(
         Pov first game,
         get("bg", req) | "light",
-        lila.pref.Theme(~get("theme", req)).cssClass
+        lila.pref.Theme(~get("board", req)).cssClass
       ))
     }
   }
