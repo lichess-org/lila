@@ -1,6 +1,37 @@
 /* free analysis on /analysis */
 @import 'analyse.base';
 
-.analyse__underboard {
+.copyables {
 
+  .pair {
+    @extend %flex-center;
+  }
+  .name {
+    flex: 0 0 5ch;
+    font-weight: bold;
+    color: $c-font-dim;
+  }
+  .copyable {
+    flex: 1 1 auto;
+  }
+  .pgn {
+    margin: 1em 0;
+    textarea {
+      min-height: 6em;
+      white-space: pre-wrap;
+      overflow-x: hidden;
+    }
+    .action {
+      opacity: 0;
+      text-align: right;
+      margin-top: -2px;
+      @include transition();
+      button {
+        @extend %box-radius-bottom;
+      }
+    }
+    &:hover .action {
+      opacity: 1;
+    }
+  }
 }

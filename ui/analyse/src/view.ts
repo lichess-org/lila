@@ -92,29 +92,33 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
   return h('div.copyables', [
-    h('label.name', 'FEN'),
-    h('input.copyable.autoselect.analyse__underboard__fen', {
-      attrs: {
-        spellCheck: false,
-        value: ctrl.node.fen
-      },
-      hook: bind('change', e => {
-        const value = (e.target as HTMLInputElement).value;
-        if (value !== ctrl.node.fen) ctrl.changeFen(value);
+    h('div.pair', [
+      h('label.name', 'FEN'),
+      h('input.copyable.autoselect.analyse__underboard__fen', {
+        attrs: {
+          spellCheck: false,
+          value: ctrl.node.fen
+        },
+        hook: bind('change', e => {
+          const value = (e.target as HTMLInputElement).value;
+          if (value !== ctrl.node.fen) ctrl.changeFen(value);
+        })
       })
-    }),
+    ]),
     h('div.pgn', [
-      h('label.name', 'PGN'),
-      h('textarea.copyable.autoselect', {
-        attrs: { spellCheck: false },
-        hook: {
-          postpatch: (_, vnode) => {
-            (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
+      h('div.pair', [
+        h('label.name', 'PGN'),
+        h('textarea.copyable.autoselect', {
+          attrs: { spellCheck: false },
+          hook: {
+            postpatch: (_, vnode) => {
+              (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
+            }
           }
-        }
-      }),
+        })
+      ]),
       h('div.action', [
-        h('button.button.text', {
+        h('button.button.button-thin.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
             const pgn = $('.copyables .pgn textarea').val();
