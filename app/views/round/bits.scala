@@ -1,8 +1,6 @@
 package views.html
 package round
 
-import play.twirl.api.Html
-
 import chess.variant.{ Variant, Crazyhouse }
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -16,13 +14,13 @@ object bits {
   def layout(
     variant: Variant,
     title: String,
-    moreJs: Html = emptyHtml,
+    moreJs: Frag = emptyFrag,
     openGraph: Option[lila.app.ui.OpenGraph] = None,
-    moreCss: Html = emptyFrag,
+    moreCss: Frag = emptyFrag,
     chessground: Boolean = true,
     playing: Boolean = false,
     robots: Boolean = false
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       openGraph = openGraph,

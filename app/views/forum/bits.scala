@@ -2,7 +2,6 @@ package views.html
 package forum
 
 import play.api.mvc.Call
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -15,9 +14,9 @@ object bits {
 
   def layout(
     title: String,
-    moreJs: Html = emptyHtml,
+    moreJs: Frag = emptyFrag,
     openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("forum"),

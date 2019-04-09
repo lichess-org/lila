@@ -11,7 +11,7 @@ import lila.i18n.I18nKeys
 import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, Title, UserContext }
 
-trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with NumberHelper =>
+trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def ratingProgress(progress: Int) = raw {
     if (progress > 0) s"""<good class="rp">$progress</good>"""

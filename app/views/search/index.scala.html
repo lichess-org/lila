@@ -203,7 +203,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
         <td class="simple action">
           <button type="submit" class="submit button">@trans.search()</button>
           <div class="wait">
-            @spinner
+            @spinner.toHtml
             Searching in @nbGames.localize games
           </div>
         </td>

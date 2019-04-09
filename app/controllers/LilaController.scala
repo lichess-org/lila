@@ -28,8 +28,6 @@ private[controllers] trait LilaController
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
-  protected implicit val LilaHtmlMonoid = lila.app.templating.Environment.LilaHtmlMonoid
-
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
   }

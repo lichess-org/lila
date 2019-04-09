@@ -33,7 +33,7 @@ object bits {
       list(u, "recent", pager, "Recently played", pager.nbResults.toString)
     }
 
-  def layout(u: User, title: String, path: String, moreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context) =
+  def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       responsive = true,
