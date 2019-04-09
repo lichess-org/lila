@@ -2,7 +2,7 @@
 
 <div id="impersonate">
   <div class="meat">
-    You are impersonating @Html(userLink(user, withOnline = false).body.replace("<a ", "<a data-pt-pos=\"se\" "))
+    You are impersonating @Html(userLink(user, withOnline = false).render.replace("<a ", "<a data-pt-pos=\"se\" "))
   </div>
   <div class="actions">
     <form method="post" action="@routes.Mod.impersonate("-")">

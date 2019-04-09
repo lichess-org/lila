@@ -2,11 +2,11 @@ package lidraughts.app
 package templating
 
 import controllers.routes
-import play.twirl.api.Html
 
 import lidraughts.api.Context
+import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.String.frag.escapeHtml
 import lidraughts.team.Env.{ current => teamEnv }
-import lidraughts.common.String.html.escapeHtml
 
 trait TeamHelper {
 
@@ -15,12 +15,12 @@ trait TeamHelper {
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ctx.me.??(me => api.syncBelongsTo(teamId, me.id))
 
-  def teamIdToName(id: String): Html = escapeHtml(api teamName id getOrElse id)
+  def teamIdToName(id: String): Frag = escapeHtml(api teamName id getOrElse id)
 
-  def teamLink(id: String, withIcon: Boolean = true): Html =
+  def teamLink(id: String, withIcon: Boolean = true): Frag =
     teamLink(id, teamIdToName(id), withIcon)
 
-  def teamLink(id: String, name: Html, withIcon: Boolean): Html = Html {
+  def teamLink(id: String, name: Frag, withIcon: Boolean): Frag = raw {
     val href = routes.Team.show(id)
     val icon = if (withIcon) """ data-icon="f"""" else ""
     val space = if (withIcon) "&nbsp;" else ""

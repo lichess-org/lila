@@ -4,6 +4,7 @@ package templating
 import play.twirl.api.Html
 
 import lidraughts.api.Context
+import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.forum.Post
 
 trait ForumHelper { self: UserHelper with StringHelper =>
@@ -25,7 +26,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
 
   def authorName(post: Post) = post.userId match {
     case Some(userId) => userIdSpanMini(userId, withOnline = true)
-    case None => Html(lidraughts.user.User.anonymous)
+    case None => frag(lidraughts.user.User.anonymous)
   }
 
   def authorLink(
@@ -33,9 +34,9 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     modIcon: Boolean = false
-  ) =
-    if (post.erased) Html(s"""<span class="author">${lidraughts.common.String.erasedHtml}</span>""")
-    else post.userId.fold(Html(lidraughts.user.User.anonymous)) { userId =>
+  ): Frag =
+    if (post.erased) raw(s"""<span class="author">${lidraughts.common.String.erasedHtml}</span>""")
+    else post.userId.fold(frag(lidraughts.user.User.anonymous)) { userId =>
       userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
     }
 }
