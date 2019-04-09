@@ -37,7 +37,7 @@ object help {
       contentCls = "page"
     )(frag(
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameBorder="0""""
           frag(
             h1(id := "embed-tv")("Embed Lichess TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=wood" $args></iframe>""")),
@@ -55,7 +55,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameBorder="0""""
           frag(
             h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=wood" $args></iframe>""")),
@@ -73,27 +73,27 @@ object help {
           )
         },
         br,
-        div(cls := "box box-pad developers")(
-          h1("Embed a chess analysis in your site"),
-          raw(s"""<iframe width=530 height=353 src="$baseUrl/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-          p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
-          pre(s"""<iframe width=600 height=397 frameborder=0
-src="$baseUrl/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
-></iframe>"""),
-          parameters,
-          p("The text is automatically translated to your visitor's language.")
-        ),
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          frag(
+            h1("Embed a chess analysis in your site"),
+            raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
+            p("Create ", a(href := routes.Study.allDefault(1))("a study"), ", then click the share button to get the HTML code for the current chapter."),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
         br,
-        div(cls := "box box-pad developers body")(
-          h1("Embed a chess game in your site"),
-          raw(s"""<iframe width=530 height=353 src="$baseUrl/embed/MPJcy1JW?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-          p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
-          pre(s"""<iframe width="600" height="397" frameborder="0"
-src="$baseUrl/embed/MPJcy1JW?theme=auto&bg=auto"
-></iframe>"""),
-          parameters,
-          p("The text is automatically translated to your visitor's language.")
-        ),
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          frag(
+            h1("Embed a chess game in your site"),
+            raw(s"""<iframe src="/embed/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
+            p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
         br,
         div(cls := "box box-pad developers body")(
           h1("HTTP API"),
