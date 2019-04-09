@@ -136,5 +136,5 @@ function makeGroups(days: Date[]): Date[][] {
 export default function(ctrl) {
   const days = eachDay(new Date(ctrl.data.since), new Date(ctrl.data.to));
   const groups = makeGroups(days);
-  return h('div#tournament_calendar', h('groups', groups.map(renderGroup(ctrl))));
+  return h('div#tournament-calendar', h('groups', groups.map(renderGroup(ctrl))));
 }
