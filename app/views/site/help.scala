@@ -13,14 +13,16 @@ object help {
     layout(
       title = title,
       active = active,
+      contentCls = "page box box-pad",
       moreCss = responsiveCssTag("page")
-    )(main(cls := "page box box-pad")(
+    )(frag(
         h1(title),
         div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
       ))
   }
 
   def webmasters()(implicit ctx: Context) = {
+    val baseUrl = "https://lichess.org"
     val parameters = frag(
       p("Parameters:"),
       ul(
@@ -30,63 +32,86 @@ object help {
     )
     layout(
       title = "Webmasters",
-      active = "webmasters"
+      active = "webmasters",
+      moreCss = responsiveCssTag("page"),
+      contentCls = "page"
     )(frag(
-      div(cls := "box box-pad developers")(
-        h1(id := "embed-tv")("Embed Lichess TV in your site"),
-        raw("""<script src="/tv/embed?theme=wood&bg=light"></script>"""),
-        p("Just add the following HTML to your site:"),
-        pre("""<script src="https://lichess.org/tv/embed?theme=auto&bg=auto"></script>"""),
-        parameters
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
-        raw("""<script src="/training/embed?theme=auto&bg=auto"></script>"""),
-        p("Just add the following HTML to your site:"),
-        pre("""<script src="https://lichess.org/training/embed?theme=auto&bg=auto"></script>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1("Embed a chess analysis in your site"),
-        raw("""<iframe width=530 height=353 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
-        pre("""<iframe width=600 height=397 frameborder=0
-src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          frag(
+            h1(id := "embed-tv")("Embed Lichess TV in your site"),
+            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=wood" $args></iframe>""")),
+            p("Add the following HTML to your site:"),
+            p(cls := "copy-zone")(
+              input(
+                id := "tv-embed-src",
+                cls := "copyable autoselect",
+                value := s"""<iframe src="$baseUrl/tv/frame?theme=wood&bg=light" $args></iframe>"""
+              ),
+              button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "\"")
+            ),
+            parameters
+          )
+        },
+        br,
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          frag(
+            h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
+            div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=wood" $args></iframe>""")),
+            p("Add the following HTML to your site:"),
+            p(cls := "copy-zone")(
+              input(
+                id := "puzzle-embed-src",
+                cls := "copyable autoselect",
+                value := s"""<iframe src="$baseUrl/training/frame?theme=wood&bg=light" $args></iframe>"""
+              ),
+              button(title := "Copy code", cls := "copy button", dataRel := "puzzle-embed-src", dataIcon := "\"")
+            ),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
+        br,
+        div(cls := "box box-pad developers")(
+          h1("Embed a chess analysis in your site"),
+          raw(s"""<iframe width=530 height=353 src="$baseUrl/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
+          p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
+          pre(s"""<iframe width=600 height=397 frameborder=0
+src="$baseUrl/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
 ></iframe>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1("Embed a chess game in your site"),
-        raw("""<iframe width=530 height=353 src="https://lichess.org/embed/MPJcy1JW?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
-        pre("""<iframe width="600" height="397" frameborder="0"
-src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
+          parameters,
+          p("The text is automatically translated to your visitor's language.")
+        ),
+        br,
+        div(cls := "box box-pad developers body")(
+          h1("Embed a chess game in your site"),
+          raw(s"""<iframe width=530 height=353 src="$baseUrl/embed/MPJcy1JW?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
+          p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
+          pre(s"""<iframe width="600" height="397" frameborder="0"
+src="$baseUrl/embed/MPJcy1JW?theme=auto&bg=auto"
 ></iframe>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1("HTTP API"),
-        p(raw("""Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""))
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1(id := "widgets")("Lichess Widgets"),
-        p("Let your website/blog visitors know that you're playing on lichess!"),
-        p(raw("""See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""))
-      )
-    ))
+          parameters,
+          p("The text is automatically translated to your visitor's language.")
+        ),
+        br,
+        div(cls := "box box-pad developers body")(
+          h1("HTTP API"),
+          p(raw("""Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""))
+        ),
+        br,
+        div(cls := "box box-pad developers body")(
+          h1(id := "widgets")("Lichess Widgets"),
+          p("Let your website/blog visitors know that you're playing on lichess!"),
+          p(raw("""See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""))
+        )
+      ))
   }
 
   def layout(
     title: String,
     active: String,
+    contentCls: String = "",
     moreCss: Frag = emptyFrag,
     moreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
@@ -112,12 +137,12 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
         sep,
         a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters.frag()),
         a(activeCls("database"), href := "https://database.lichess.org")(trans.database.frag(), external),
-        a(activeCls("api"), href := "https://database.lichess.org")("API", external),
+        a(activeCls("api"), href := routes.Api.index)("API", external),
         a(activeCls("source"), href := "https://github.com/ornicar/lila")("Source code", external),
         sep,
         a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?")
       ),
-      div(cls := "page-menu__content")(body)
+      div(cls := s"page-menu__content $contentCls")(body)
     )
   }
 }

@@ -19,7 +19,7 @@ object embed {
       head(
         bits.charset,
         bits.metaCsp(basicCsp),
-        st.headTitle("lichess.org TV"),
+        st.headTitle("lichess.org chess TV"),
         bits.pieceSprite(lila.pref.PieceSet.default),
         responsiveCssTagWithTheme("tv.embed", bg)
       ),
@@ -27,7 +27,7 @@ object embed {
         cls := s"base $board merida",
         dataStreamUrl := routes.Tv.feed
       )(
-          div(id := "featured-game", title := "lichess.org TV")(
+          div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
             gameFenNoCtx(pov, tv = true, blank = true),
             views.html.game.bits.vstext(pov)(none)
           ),
