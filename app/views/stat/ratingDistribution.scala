@@ -30,7 +30,7 @@ object ratingDistribution {
             "variant-stats",
             span(perfType.name),
             PerfType.leaderboardable map { pt =>
-              a(cls := "text", dataIcon := pt.iconChar, href := routes.Stat.ratingDistribution(pt.key))(pt.name)
+              a(dataIcon := pt.iconChar, href := routes.Stat.ratingDistribution(pt.key))(pt.name)
             }
           ))),
           div(cls := "desc", dataIcon := perfType.iconChar)(

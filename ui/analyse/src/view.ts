@@ -330,7 +330,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       })
     }, [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-      playable(ctrl.data) ? h('div.back_to_game',
+      (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
         h('a.button.text', {
           attrs: {
             href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),

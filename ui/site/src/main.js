@@ -934,6 +934,7 @@
       }
     });
     cfg.socketSend = lichess.socket.send;
+    cfg.$side = $('.analyse__side').clone();
     analyse = LichessAnalyse.start(cfg);
   }
 

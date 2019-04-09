@@ -40,14 +40,15 @@ object userAnalysis {
     zoomable = true
   ) {
       main(cls := "analyse")(
-        st.aside(cls := "analyse__side")(spinner),
-        // side = pov.game.synthetic option views.html.base.bits.mselect(
-        //   "analyse-variant",
-        //   span(dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-        //   chess.variant.Variant.all.filter(chess.variant.FromPosition !=).map { v =>
-        //     a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
-        //   }
-        // ),
+        st.aside(cls := "analyse__side")(
+          pov.game.synthetic option views.html.base.bits.mselect(
+            "analyse-variant",
+            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+            chess.variant.Variant.all.filter(chess.variant.FromPosition !=).map { v =>
+              a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
+            }
+          )
+        ),
         div(cls := "analyse__board main-board")(chessgroundSvg),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
