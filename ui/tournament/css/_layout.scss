@@ -9,12 +9,12 @@
   display: grid;
 
   &__side { grid-area: side }
-  &__underchat { grid-area: uchat; }
   &__featured, &__stats { grid-area: featured }
   &__main { grid-area: main }
   &__player { grid-area: player }
   &__duels { grid-area: duels }
   &__faq { grid-area: faq }
+  .chat__members { grid-area: uchat; }
 
   grid-template-areas:
   'main'
