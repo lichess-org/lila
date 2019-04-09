@@ -288,7 +288,7 @@
           booted = true;
           var $el = $('#challenge_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss(lidraughts.cssPath('challengeApp', 'challenge'));
+          lidraughts.loadCssPath('challenge');
           lidraughts.loadScript(lidraughts.compiledScript('challenge')).done(function() {
             instance = LidraughtsChallenge.default($el[0], {
               data: data,
@@ -327,7 +327,7 @@
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss(lidraughts.cssPath('notifyApp', 'notify'));
+          lidraughts.loadCssPath('notify');
           lidraughts.loadScript(lidraughts.compiledScript('notify')).done(function() {
             instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
@@ -376,7 +376,7 @@
           var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lidraughts.loadCss(lidraughts.cssPath('dasherApp', 'dasher'));
+          lidraughts.loadCssPath('dasher');
           lidraughts.loadScript(lidraughts.compiledScript('dasher')).done(function() {
             instance = LidraughtsDasher.default($el.empty()[0], {
               playing: isPlaying
