@@ -65,7 +65,7 @@ object layout {
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${currentPath}" class="signin button">${trans.signIn.txt()}</a>""")
+<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button">${trans.signIn.txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 
@@ -134,7 +134,7 @@ object layout {
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
         noTranslate,
-        openGraph.map(_.frag),
+        openGraph.map(_.frags),
         link(href := routes.Blog.atom, `type` := "application/atom+xml", rel := "alternate", st.title := trans.blog.txt()),
         ctx.transpBgImg map { img =>
           raw(s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>""")

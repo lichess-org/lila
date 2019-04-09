@@ -43,10 +43,10 @@
       </td>
       <td class="date">
         @t.createdAt.map { created =>
-        Created @momentFromNow(created)<br />
+        Created @momentFromNow(created).toHtml<br />
         }
         @t.usedAt.map { used =>
-        Last used @momentFromNow(used)
+        Last used @momentFromNow(used).toHtml
         }
       </td>
       <td class="action">

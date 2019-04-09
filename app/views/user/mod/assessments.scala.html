@@ -63,7 +63,7 @@
             @p.game.perfType.map { pt =>
             <span data-icon="@pt.iconChar"></span>
             }
-            @shortClockName(p.game.clock.map(_.config))
+            @shortClockName(p.game.clock.map(_.config)).toHtml
           </a>
           }
         </td>

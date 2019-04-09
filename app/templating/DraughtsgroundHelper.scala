@@ -3,13 +3,12 @@ package templating
 
 import draughts.{ Color, Board, Pos }
 import lidraughts.api.Context
-import play.twirl.api.Html
-
+import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.game.Pov
 
 trait DraughtsgroundHelper {
 
-  def draughtsground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Html = wrap {
+  def draughtsground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag = wrap {
     def addX(p: Pos) = if (p.y % 2 != 0) -0.5 else -1.0
     def top(p: Pos) = orient.fold(p.y - 1, 10 - p.y) * 10.0
     def left(p: Pos) = orient.fold(addX(p) + p.x, 4.5 - (addX(p) + p.x)) * 20.0
@@ -26,7 +25,7 @@ trait DraughtsgroundHelper {
     s"$highlights$pieces"
   }
 
-  def draughtsground(pov: Pov)(implicit ctx: Context): Html = draughtsground(
+  def draughtsground(pov: Pov)(implicit ctx: Context): Frag = draughtsground(
     board = pov.game.board,
     orient = pov.color,
     lastMove = pov.game.history.lastMove.map(_.origDest) ?? {
@@ -34,7 +33,7 @@ trait DraughtsgroundHelper {
     }
   )
 
-  private def wrap(content: String) = Html {
+  private def wrap(content: String): Frag = raw {
     s"""<div class="cg-board-wrap"><div class="cg-board">$content</div></div>"""
   }
 

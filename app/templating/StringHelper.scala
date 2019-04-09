@@ -1,8 +1,6 @@
 package lidraughts.app
 package templating
 
-import play.twirl.api.Html
-
 import lidraughts.user.UserContext
 import ui.ScalatagsTemplate._
 

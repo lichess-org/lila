@@ -14,7 +14,7 @@ trait FormHelper { self: I18nHelper =>
   def errMsg(form: Form[_])(implicit ctx: Context): Html = errMsg(form.errors)
 
   def errMsg(error: FormError)(implicit ctx: Context): Html = Html {
-    s"""<p class="error">${transKey(error.message, I18nDb.Site, error.args)}</p>"""
+    s"""<p class="error">${transKey(error.message, I18nDb.Site, error.args).render}</p>"""
   }
 
   def errMsg(errors: Seq[FormError])(implicit ctx: Context): Html = Html {

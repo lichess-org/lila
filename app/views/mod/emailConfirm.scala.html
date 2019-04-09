@@ -52,8 +52,8 @@ moreJs = js) {
             @if(u.ipBan){IPBAN}
             @if(u.disabled){CLOSED}
           </td>
-          <td>@momentFromNow(u.createdAt)</td>
-          <td>@u.seenAt.map(momentFromNow(_))</td>
+          <td>@momentFromNow(u.createdAt).toHtml</td>
+          <td>@u.seenAt.map(momentFromNow(_).toHtml)</td>
           <td style="font-size:2em">
             @if(!u.everLoggedIn) {
             <i class="is-green" data-icon="E"></i>

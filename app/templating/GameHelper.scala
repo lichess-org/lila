@@ -4,11 +4,9 @@ package templating
 import draughts.format.Forsyth
 import draughts.{ Status => S, Color, Clock, Mode }
 import controllers.routes
-import play.twirl.api.Html
-import scalatags.Text.Frag
 
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.String.html.escapeHtml
+import lidraughts.common.String.frag.escapeHtml
 import lidraughts.game.{ Game, Player, Namer, Pov }
 import lidraughts.i18n.{ I18nKeys, enLang }
 import lidraughts.user.{ User, UserContext }
@@ -76,10 +74,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case v => v.name
   }
 
-  def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Html =
-    clock.fold(I18nKeys.unlimited())(shortClockName)
+  def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Frag =
+    clock.fold[Frag](I18nKeys.unlimited.frag())(shortClockName)
 
-  def shortClockName(clock: Clock.Config): Html = Html(clock.show)
+  def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
     case Mode.Casual => I18nKeys.casual.txt()
@@ -114,7 +112,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withBerserk: Boolean = false,
     mod: Boolean = false,
     link: Boolean = true
-  )(implicit ctx: UserContext) = Html {
+  )(implicit ctx: UserContext) = raw {
     val statusIcon =
       if (withStatus) s" $statusIconSpan"
       else if (withBerserk && player.berserk) s" $berserkIconSpan"
@@ -123,8 +121,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case None =>
         val klass = cssClass.??(" " + _)
         val content = (player.aiLevel, player.name) match {
-          case (Some(level), _) => aiNameHtml(level, withRating).body
-          case (_, Some(name)) => escapeHtml(name).body
+          case (Some(level), _) => aiNameFrag(level, withRating).render
+          case (_, Some(name)) => escapeHtml(name).render
           case _ => User.anonymous
         }
         s"""<span class="user-link$klass">$content$statusIcon</span>"""

@@ -51,7 +51,7 @@ object widgets {
               frag(separator, tournamentLink(tourId))
             },
             g.simulId map { simulId =>
-              frag(separator, simulLink(simulId))
+              frag(separator, views.html.simul.bits.link(simulId))
             }
           )
         ),

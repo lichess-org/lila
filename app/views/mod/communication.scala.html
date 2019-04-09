@@ -27,7 +27,7 @@ moreCss = responsiveCssTag("mod.communication")) {
   <div class="history">
     @history.map { e =>
     <div>
-      @userIdLink(e.mod.some).toHtml <b>@e.showAction</b> @u.username @e.details @momentFromNowOnce(e.date)
+      @userIdLink(e.mod.some).toHtml <b>@e.showAction</b> @u.username @e.details @momentFromNowOnce(e.date).toHtml
     </div>
     }
   </div>
@@ -38,7 +38,7 @@ moreCss = responsiveCssTag("mod.communication")) {
   <div class="notes">
     @notes.map { note =>
     <div>
-      @userIdLink(note.from.some).toHtml @momentFromNowOnce(note.date): @richText(note.text)
+      @userIdLink(note.from.some).toHtml @momentFromNowOnce(note.date).toHtml: @richText(note.text)
     </div>
     }
   </div>
@@ -51,10 +51,10 @@ moreCss = responsiveCssTag("mod.communication")) {
   <ul class="public_chats">
     @publicLines.reverse.map { line =>
     <li>
-      @line.date.map(momentFromNowOnce(_)).getOrElse("[OLD]")
+      @line.date.map(momentFromNowOnce(_).toHtml).getOrElse("[OLD]")
       @line.from.map {
-      case PublicSource.Tournament(id) => { @tournamentLink(id) }
-      case PublicSource.Simul(id) => { @simulLink(id) }
+      case PublicSource.Tournament(id) => { @tournamentLink(id).toHtml }
+      case PublicSource.Simul(id) => { @views.html.simul.bits.link(id).toHtml }
       case PublicSource.Watcher(id) => { <a href="@routes.Round.watcher(id, "white")">Game #@id</a> }
       case PublicSource.Study(id) => { <a href="@routes.Study.show(id)">Study #@id</a> }
       }
@@ -77,7 +77,7 @@ moreCss = responsiveCssTag("mod.communication")) {
           class="title"
         }
         >
-        @usernameOrAnon(pov.opponent.userId) – @momentFromNowOnce(pov.game.movedAt)
+        @usernameOrAnon(pov.opponent.userId) – @momentFromNowOnce(pov.game.movedAt).toHtml
       </a>
       <div class="chat">
         @chat.lines.map { line =>
@@ -98,7 +98,7 @@ moreCss = responsiveCssTag("mod.communication")) {
     <div class="thread">
       <p class="title">
         <strong>@thread.name</strong>
-        @momentFromNowOnce(thread.createdAt)
+        @momentFromNowOnce(thread.createdAt).toHtml
         @userIdLink(thread.creatorId.some).toHtml -&gt; @userIdLink(thread.invitedId.some)
       </p>
       @thread.posts.map { post =>
@@ -143,7 +143,7 @@ moreCss = responsiveCssTag("mod.communication")) {
           </td>
           <td>@if(o.ipBan){IPBAN}</td>
           <td>@if(o.disabled){CLOSED}</td>
-          <td>@momentFromNowOnce(o.createdAt)</td>
+          <td>@momentFromNowOnce(o.createdAt).toHtml</td>
         </tr>
         }
         }

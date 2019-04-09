@@ -42,7 +42,7 @@ evenMoreJs = infiniteScrollTag
         <td>@{tour.minutes}m</td>
         <td>
           @showDateTimeUTC(tour.startsAt)
-          @momentFromNow(tour.startsAt)
+          @momentFromNow(tour.startsAt).toHtml
         </td>
         <td><a href="@routes.Tournament.show(tour.id)" data-icon="v" title="View on site"></a></td>
       </tr>

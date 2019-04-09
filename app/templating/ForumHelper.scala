@@ -1,8 +1,6 @@
 package lidraughts.app
 package templating
 
-import play.twirl.api.Html
-
 import lidraughts.api.Context
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.forum.Post
@@ -35,7 +33,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     withOnline: Boolean = true,
     modIcon: Boolean = false
   ): Frag =
-    if (post.erased) raw(s"""<span class="author">${lidraughts.common.String.erasedHtml}</span>""")
+    if (post.erased) span(cls := "author")(lidraughts.common.String.erasedHtml)
     else post.userId.fold(frag(lidraughts.user.User.anonymous)) { userId =>
       userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
     }

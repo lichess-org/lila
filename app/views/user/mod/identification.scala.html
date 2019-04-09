@@ -10,7 +10,7 @@
           @ips.map { ip =>
           <li class="ip">
             <a class="address @if(ip.blocked){blocked}" href="@{routes.Mod.search}?q=@ip.ip.value">
-              <ip>@ip.ip.value.value</ip> @momentFromNowOnce(ip.ip.date)
+              <ip>@ip.ip.value.value</ip> @momentFromNowOnce(ip.ip.date).toHtml
             </a>
           </li>
           }
@@ -23,7 +23,7 @@
   <div class="spy_uas">
     <strong>@spy.uas.size User agent(s)</strong> <ul>@spy.uas.sorted.map { ua =>
       <li>
-        @ua.value @momentFromNowOnce(ua.date)
+        @ua.value @momentFromNowOnce(ua.date).toHtml
       </li>
       }</ul>
   </div>
@@ -31,7 +31,7 @@
     <strong>@pluralize("Fingerprint", spy.prints.size)</strong> <ul>@spy.prints.sorted.map { fp =>
       <li>
         <a href="@{routes.Mod.search}?q=@{java.net.URLEncoder.encode(fp.value.value, "US-ASCII")}">
-          @fp.value.value @momentFromNowOnce(fp.date)
+          @fp.value.value @momentFromNowOnce(fp.date).toHtml
         </a>
       </li>
       }

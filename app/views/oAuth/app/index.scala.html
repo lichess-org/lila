@@ -28,7 +28,7 @@
       </td>
       <td class="date">
         @t.homepageUri<br />
-        Created @momentFromNow(t.createdAt)
+        Created @momentFromNow(t.createdAt).toHtml
       </td>
       <td class="action">
         <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button" title="Edit this app" data-icon="m"></a>

@@ -28,11 +28,11 @@
         </a></td>
         <td>
           @showDateTimeUTC(e.startsAt)
-          @momentFromNow(e.startsAt)
+          @momentFromNow(e.startsAt).toHtml
         </td>
         <td>
           @showDateTimeUTC(e.finishesAt)
-          @momentFromNow(e.finishesAt)
+          @momentFromNow(e.finishesAt).toHtml
         </td>
         <td><a class="text"href="@routes.Event.show(e.id)" data-icon="v"></a></td>
       </tr>

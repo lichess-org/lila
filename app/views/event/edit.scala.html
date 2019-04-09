@@ -4,7 +4,7 @@
 <div class="crud edit page-menu__content box box-pad">
   <h1>
     @event.title
-    <span>Created by @usernameOrId(event.createdBy.value) @momentFromNow(event.createdAt)</span>
+    <span>Created by @usernameOrId(event.createdBy.value) @momentFromNow(event.createdAt).toHtml</span>
   </h1>
   <form class="content_box_content form3" action="@routes.Event.update(event.id)" method="POST">
     @inForm(form)
