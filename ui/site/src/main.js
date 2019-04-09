@@ -231,20 +231,19 @@
           $('#' + $(this).data('rel')).select();
           document.execCommand('copy');
           $(this).attr('data-icon', 'E');
+        })
+        .on('click', 'a.relation-button', function() {
+          var $a = $(this).addClass('processing').css('opacity', 0.3);
+          $.ajax({
+            url: $a.attr('href'),
+            type: 'post',
+            success: function(html) {
+              if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+              else $a.replaceWith(html);
+            }
+          });
+          return false;
         });
-
-      $('body').on('click', 'a.relation-button', function() {
-        var $a = $(this).addClass('processing').css('opacity', 0.3);
-        $.ajax({
-          url: $a.attr('href'),
-          type: 'post',
-          success: function(html) {
-            if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-            else $a.replaceWith(html);
-          }
-        });
-        return false;
-      });
 
       $('.mselect .button').on('click', function() {
         var $p = $(this).parent();
@@ -367,16 +366,6 @@
         };
       })();
 
-      // Zoom
-      var currentZoom = $('body').data('zoom') / 100;
-
-      var setZoom = function(zoom) {
-        document.body.setAttribute('style', '--zoom:' + Math.round(100 * (zoom - 1)));
-        lichess.dispatchEvent(window, 'resize');
-      };
-      lichess.pubsub.on('reset_zoom', function() {
-        if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
-      });
       window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
 
       // dasher
@@ -391,7 +380,6 @@
           lichess.loadCss(lichess.cssPath('dasherApp', 'dasher'));
           lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
             instance = LichessDasher.default($el.empty()[0], {
-              setZoom: setZoom,
               playing: isPlaying
             });
           });

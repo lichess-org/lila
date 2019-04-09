@@ -6,9 +6,9 @@ import { Redraw, Close, bind, header } from './util'
 export interface BoardCtrl {
   data: BoardData
   trans: Trans
-  setIs3d(v: boolean): void
-  setZoom(v: number): void
-  close(): void
+  setIs3d(v: boolean): void;
+  setZoom(v: number): void;
+  close(): void;
 }
 
 export interface BoardData {
@@ -18,7 +18,7 @@ export interface BoardData {
 
 export type PublishZoom = (v: number) => void;
 
-export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, redraw: Redraw, close: Close): BoardCtrl {
+export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
 
   data.zoom = data.zoom || 100;
 
@@ -36,7 +36,8 @@ export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, re
     },
     setZoom(v: number) {
       data.zoom = v;
-      publishZoom(v / 100);
+      document.body.setAttribute('style', '--zoom:' + (v - 100));
+      window.lichess.dispatchEvent(window, 'resize');
       saveZoom();
     },
     close

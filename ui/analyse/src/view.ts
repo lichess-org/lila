@@ -273,7 +273,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
           firstRender = false;
           if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
         }
-        else li.pubsub.emit('reset_zoom')();
         forceInnerCoords(ctrl, needsInnerCoords);
       },
       update(_, _2) {
