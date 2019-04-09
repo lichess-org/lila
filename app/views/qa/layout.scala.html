@@ -1,4 +1,4 @@
-@(title: String, side: Option[Html] = None, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, moreJs: Html = emptyHtml, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, moreJs: Html = Html(""), formCss: Boolean = false)(body: Html)(implicit ctx: Context)
 
 @sideSection = {
 <div class="side">

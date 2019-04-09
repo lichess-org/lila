@@ -64,7 +64,7 @@ object categ {
 
     bits.layout(
       title = categ.name,
-      menu = mod.menu("forum").toHtml.some.ifTrue(categ.isStaff),
+      menu = mod.menu("forum").some.ifTrue(categ.isStaff),
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Forum: ${categ.name}",
         url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",

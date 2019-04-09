@@ -28,8 +28,6 @@ private[controllers] trait LidraughtsController
 
   protected implicit val LidraughtsResultZero = Zero.instance[Result](Results.NotFound)
 
-  protected implicit val LidraughtsHtmlMonoid = lidraughts.app.templating.Environment.LidraughtsHtmlMonoid
-
   protected implicit final class LidraughtsPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
   }

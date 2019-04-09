@@ -2,7 +2,6 @@ package views.html
 package forum
 
 import play.api.mvc.Call
-import play.twirl.api.Html
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -15,10 +14,10 @@ object bits {
 
   def layout(
     title: String,
-    menu: Option[Html] = None,
-    moreJs: Html = emptyHtml,
+    menu: Option[Frag] = None,
+    moreJs: Frag = emptyFrag,
     openGraph: Option[lidraughts.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       //menu = menu,

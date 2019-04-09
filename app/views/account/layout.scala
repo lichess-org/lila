@@ -14,9 +14,9 @@ object layout {
   def apply(
     title: String,
     active: String,
-    evenMoreCss: Html = emptyHtml,
-    evenMoreJs: Html = emptyHtml
-  )(body: Html)(implicit ctx: Context) = views.html.base.layout(
+    evenMoreCss: Frag = emptyFrag,
+    evenMoreJs: Frag = emptyFrag
+  )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = frag(responsiveCssTag("account"), evenMoreCss),
     responsive = true,

@@ -180,7 +180,7 @@ object bits {
           span(cls := "name")(splitName.head),
           span(cls := "headline")(description),
           span(cls := "more")(
-            if (r.hasStarted) trans.eventInProgress() else r.startsAt.fold(emptyHtml)(momentFromNow(_))
+            if (r.hasStarted) trans.eventInProgress.frag() else r.startsAt.fold(emptyFrag)(momentFromNow(_))
           )
         )
       )

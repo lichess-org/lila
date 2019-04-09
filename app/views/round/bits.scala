@@ -1,8 +1,6 @@
 package views.html
 package round
 
-import play.twirl.api.Html
-
 import draughts.variant.Variant
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -16,13 +14,13 @@ object bits {
   def layout(
     variant: Variant,
     title: String,
-    moreJs: Html = emptyHtml,
+    moreJs: Frag = emptyFrag,
     openGraph: Option[lidraughts.app.ui.OpenGraph] = None,
-    moreCss: Html = emptyFrag,
+    moreCss: Frag = emptyFrag,
     draughtsground: Boolean = true,
     playing: Boolean = false,
     robots: Boolean = false
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       openGraph = openGraph,
@@ -73,7 +71,7 @@ object bits {
       span(cls := "win")(wrap(id := s"simul_w_${simul.id}")(simul.wins, " W")), " / ",
       span(cls := "draw")(wrap(id := s"simul_d_${simul.id}")(simul.draws, " D")), " / ",
       span(cls := "loss")(wrap(id := s"simul_l_${simul.id}")(simul.losses, " L")), " / ",
-      trans.ongoing(Html(s"""<wrap id="simul_g_${simul.id}">${simul.ongoing}</wrap>""")),
+      trans.ongoing(wrap(id := s"simul_g_${simul.id}")(simul.ongoing)),
       simul.targetPct.map { pct =>
         frag(
           br,
@@ -143,7 +141,7 @@ object bits {
               if (simul.isDefined && povs.nonEmpty) {
                 val toMove = playing.count(_.isMyTurn) + (if (current.isMyTurn) 1 else 0)
                 h3(cls := "simul_tomove")(
-                  trans.yourTurnInX(Html(s"""<span>${trans.nbGames.pluralSameTxt(toMove)}</span>""")),
+                  trans.yourTurnInX(span(trans.nbGames.pluralSameTxt(toMove))),
                   div(cls := "tomove_count")(toMove)
                 ) :: povs
               } else povs

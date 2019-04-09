@@ -13,7 +13,7 @@ import lidraughts.game.{ Game, Player, Namer, Pov }
 import lidraughts.i18n.{ I18nKeys, enLang }
 import lidraughts.user.{ User, UserContext }
 
-trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with HtmlHelper with DraughtsgroundHelper =>
+trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with DraughtsgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
