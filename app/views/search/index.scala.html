@@ -3,9 +3,10 @@
 @import lidraughts.gameSearch.{ Query, Sorting }
 
 @moreCss = {
-@cssTags("search.css", "form3.css")
+@cssTags("search.css", "form3.css", "flatpickr.css")
 }
 @moreJs = {
+@nonAsyncFlatpickrTag
 @jsTag("search.js")
 @infiniteScrollTag
 }
@@ -177,8 +178,8 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label>@trans.date()</label>
         </th>
         <td>
-          <div class="half">@trans.from() @form3.datepicker(form("dateMin"))</div>
-          <div class="half">@trans.to() @form3.datepicker(form("dateMax"))</div>
+          <div class="half">@trans.from() @form3.flatpickr(form("dateMin"))</div>
+          <div class="half">@trans.to() @form3.flatpickr(form("dateMax"))</div>
         </td>
       </tr>
       <tr>
