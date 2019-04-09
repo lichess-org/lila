@@ -9,8 +9,8 @@
   display: grid;
 
   &__side { grid-area: side }
-  &__underchat { grid-area: uchat; }
   &__main { grid-area: main }
+  .chat__members { grid-area: uchat; }
 
   grid-template-areas:
   'main'
@@ -31,7 +31,6 @@
     grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
     grid-template-rows: auto fit-content(0);
     grid-template-areas:
-    'side  main main'
     'side  main main'
     'uchat .    .';
   }

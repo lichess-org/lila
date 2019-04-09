@@ -19,6 +19,7 @@ module.exports = function(ctrl) {
         }
       }
     }),
-    m('div.simul__main.box', handler(ctrl))
+    m('div.simul__main.box', handler(ctrl)),
+    m('div.chat__members.none', m('span.list'))
   ];
 };
