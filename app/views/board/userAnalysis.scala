@@ -37,14 +37,15 @@ object userAnalysis {
     zoomable = true
   ) {
       main(cls := "analyse")(
-        st.aside(cls := "analyse__side")(spinner),
-        // side = pov.game.synthetic option views.html.base.bits.mselect(
-        //   "analyse-variant",
-        //   span(dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-        //   draughts.variant.Variant.all.filter(draughts.variant.FromPosition !=).map { v =>
-        //     a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
-        //   }
-        // ),
+        st.aside(cls := "analyse__side")(
+          pov.game.synthetic option views.html.base.bits.mselect(
+            "analyse-variant",
+            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+            draughts.variant.Variant.all.filter(draughts.variant.FromPosition !=).map { v =>
+              a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
+            }
+          )
+        ),
         div(cls := "analyse__board main-board")(draughtsgroundSvg),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")

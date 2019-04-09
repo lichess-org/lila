@@ -939,6 +939,7 @@
       }
     });
     cfg.socketSend = lidraughts.socket.send;
+    cfg.$side = $('.analyse__side').clone();
     analyse = LidraughtsAnalyse.start(cfg);
   }
 

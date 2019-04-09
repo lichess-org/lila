@@ -8,7 +8,7 @@ $c-mselect: $c-primary;
     left: -9999px;
   }
   &__label {
-    @extend %box-neat, %metal, %flex-center;
+    @extend %box-neat, %metal, %flex-center, %flex-between;
     padding: .3rem .3rem .3rem 1rem;
     cursor: pointer;
     &:hover {
@@ -19,6 +19,9 @@ $c-mselect: $c-primary;
       content: 'u';
       font-size: 70%;
       color: $c-mselect;
+    }
+    > * {
+      @extend %data-icon-middle;
     }
   }
   &__toggle:checked ~ .mselect__label {
@@ -36,6 +39,7 @@ $c-mselect: $c-primary;
     transform-origin: top;
     @include transition(transform);
     > * {
+      @extend %data-icon-middle;
       white-space: nowrap;
       display: block;
       padding: .3em 1em;
@@ -44,6 +48,9 @@ $c-mselect: $c-primary;
       &:hover{
         background: $c-mselect;
         color: #fff;
+      }
+      &::before {
+        margin-right: .4em;
       }
       opacity: 0;
     }
