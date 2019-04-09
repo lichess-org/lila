@@ -3,9 +3,10 @@
 @import lila.gameSearch.{ Query, Sorting }
 
 @moreCss = {
-@cssTag("search.css")
+@cssTags("search.css", "flatpickr.css")
 }
 @moreJs = {
+@nonAsyncFlatpickrTag
 @jsTag("search.js")
 @infiniteScrollTag
 }
@@ -177,8 +178,8 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <label>Date</label>
         </th>
         <td>
-          <div class="half">From @base.form.datepicker(form("dateMin"))</div>
-          <div class="half">To @base.form.datepicker(form("dateMax"))</div>
+          <div class="half">From @form3.flatpickr(form("dateMin"))</div>
+          <div class="half">To @form3.flatpickr(form("dateMax"))</div>
         </td>
       </tr>
       <tr>

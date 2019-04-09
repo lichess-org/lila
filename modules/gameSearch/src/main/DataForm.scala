@@ -51,7 +51,7 @@ private[gameSearch] final class DataForm {
 }
 
 private[gameSearch] object DataForm {
-  val dateField = optional(jodaDate("yyyy-MM-dd"))
+  val dateField = optional(ISODateOrTimestamp.isoDateOrTimestamp)
 }
 
 private[gameSearch] case class SearchData(
