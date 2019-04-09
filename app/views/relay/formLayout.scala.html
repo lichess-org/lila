@@ -1,8 +1,8 @@
 @(title: String)(body: Html)(implicit ctx: Context)
 
 @moreJs = {
-@flatpickrTag
-@delayFlatpickrStart
+@flatpickrTag.toHtml
+@delayFlatpickrStart.toHtml
 }
 
 @base.layout(

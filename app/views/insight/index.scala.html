@@ -1,7 +1,7 @@
 @(u: User, cache: lidraughts.insight.UserCache, prefId: Int, ui: play.api.libs.json.JsObject, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
 
 @moreJs = {
-@highchartsLatestTag
+@highchartsLatestTag.toHtml
 @jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lidraughts.insight${isProd??(".min")}.js")
 @jsTag("insight-refresh.js")
@@ -25,7 +25,7 @@ shareId: @prefId
 postUrl: "@routes.Insight.json(u.username)"*@
 });
 });
-}
+}.toHtml
 }
 
 @base.layout(
