@@ -51,40 +51,40 @@ gulp.task('css', gulp.series([
 
 gulp.task('css-dev', gulp.series([createThemedBuilds, build]));
 
-  gulp.task('css-prod', () => gulp
-    .src(buildsGlob)
-    .pipe(sass({
-      ...sassOptions,
-      ...{ outputStyle: 'compressed' }
-    }).on('error', sass.logError))
-    .pipe(autoprefixer(autoprefixerOptions))
-    .pipe(renameAs('min'))
-    .pipe(destination())
-  );
+gulp.task('css-prod', () => gulp
+  .src(buildsGlob)
+  .pipe(sass({
+    ...sassOptions,
+    ...{ outputStyle: 'compressed' }
+  }).on('error', sass.logError))
+  .pipe(autoprefixer(autoprefixerOptions))
+  .pipe(renameAs('min'))
+  .pipe(destination())
+);
 
-  function renameAs(ext) {
-    return rename(path => {
-      path.dirname = '';
-      path.basename = `${path.basename}.${ext}`;
-      return path;
-    });
-  }
+function renameAs(ext) {
+  return rename(path => {
+    path.dirname = '';
+    path.basename = `${path.basename}.${ext}`;
+    return path;
+  });
+}
 
-  function createThemedBuilds(cb) {
-    glob(buildsGlob, {}, (err, files) => {
-      files
-        .filter(file => file.match(/\/_.+\.scss$/))
-        .forEach(file => {
-          themes.forEach(theme => {
-            const themed = file.replace(/\/_(.+)\.scss$/, `/$1.${theme}.scss`);
-            if (!fs.existsSync(themed)) {
-              const buildName = file.replace(/.+\/_(.+)\.scss$/, '$1');
-              const code = `@import '../../../common/css/theme/${theme}';\n@import '${buildName}';\n`;
-              console.log(`Create missing SCSS themed build: ${themed}`);
-              fs.writeFileSync(themed, code);
-            }
-          });
+function createThemedBuilds(cb) {
+  glob(buildsGlob, {}, (err, files) => {
+    files
+      .filter(file => file.match(/\/_.+\.scss$/))
+      .forEach(file => {
+        themes.forEach(theme => {
+          const themed = file.replace(/\/_(.+)\.scss$/, `/$1.${theme}.scss`);
+          if (!fs.existsSync(themed)) {
+            const buildName = file.replace(/.+\/_(.+)\.scss$/, '$1');
+            const code = `@import '../../../common/css/theme/${theme}';\n@import '${buildName}';\n`;
+            console.log(`Create missing SCSS themed build: ${themed}`);
+            fs.writeFileSync(themed, code);
+          }
         });
-      cb();
-    });
-  }
+      });
+    cb();
+  });
+}
