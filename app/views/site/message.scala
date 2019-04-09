@@ -21,9 +21,7 @@ object message {
         p(message),
         br,
         back option embedJsUnsafe {
-          raw {
-            """if (document.referrer) document.write('<a class="button text" data-icon="I" href="' + document.referrer + '">Go Back</a>');"""
-          }
+          """if (document.referrer) document.write('<a class="button text" data-icon="I" href="' + document.referrer + '">Go Back</a>');"""
         }
       )
     }
