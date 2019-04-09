@@ -36,10 +36,10 @@ object help {
       contentCls = "page"
     )(frag(
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameBorder="0""""
           frag(
             h1(id := "embed-tv")("Embed Lidraughts TV in your site"),
-            div(cls := "center")(raw(s"""<iframe src="$netBaseUrl/tv/frame?theme=maple" $args></iframe>""")),
+            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=maple" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
@@ -54,10 +54,10 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameBorder="0""""
           frag(
             h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
-            div(cls := "center")(raw(s"""<iframe src="$netBaseUrl/training/frame?theme=maple" $args></iframe>""")),
+            div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=maple" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
@@ -72,38 +72,38 @@ object help {
           )
         },
         br,
-        div(cls := "box box-pad developers")(
-          h1("Embed a draughts analysis in your site"),
-          raw(s"""<iframe width=530 height=353 src="$netBaseUrl/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-          p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
-          pre(s"""<iframe width=600 height=397 frameborder=0
-src="$netBaseUrl/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto"
-></iframe>"""),
-          parameters,
-          p("The text is automatically translated to your visitor's language.")
-        ),
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          frag(
+            h1("Embed a draughts analysis in your site"),
+            raw(s"""<iframe src="/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" $args></iframe>"""),
+            p("Create ", a(href := routes.Study.allDefault(1))("a study"), ", then click the share button to get the HTML code for the current chapter."),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
         br,
-        div(cls := "box box-pad developers")(
-          h1("Embed an interactive lesson in your site"),
-          raw(s"""<iframe width=530 height=353 src="$netBaseUrl/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-          p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), " with a chapter of type \"Interactive lesson\", then click the share button to get the HTML code for that chapter."),
-          pre(s"""<iframe width=600 height=397 frameborder=0
-src="$netBaseUrl/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto"
-></iframe>"""),
-          parameters,
-          p("The text is automatically translated to your visitor's language.")
-        ),
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          frag(
+            h1("Embed an interactive lesson in your site"),
+            raw(s"""<iframe src="/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto" $args></iframe>"""),
+            p("Create ", a(href := routes.Study.allDefault(1))("a study"), " with a chapter of type \"Interactive lesson\", then click the share button to get the HTML code for that chapter."),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
         br,
-        div(cls := "box box-pad developers body")(
-          h1("Embed a draughts game in your site"),
-          raw(s"""<iframe width=530 height=353 src="$netBaseUrl/embed/JLuuVBv5?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-          p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
-          pre(s"""<iframe width="600" height="397" frameborder="0"
-src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
-></iframe>"""),
-          parameters,
-          p("The text is automatically translated to your visitor's language.")
-        )
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          frag(
+            h1("Embed a draughts game in your site"),
+            raw(s"""<iframe src="/embed/JLuuVBv5?bg=auto&theme=auto" $args></iframe>"""),
+            p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        }
       /*br,
       div(cls := "box box-pad developers body")(
         h1("HTTP API"),
