@@ -33,6 +33,7 @@ export default function(ctrl: TournamentController) {
     h('div.tour__main.box', {
       class: { 'tour__main-finished': ctrl.data.isFinished }
     }, handler.main(ctrl)),
+    h('div.chat__members.none', h('span.list')),
     ctrl.opts.$faq ? h('div', {
       hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq))
     }) : null

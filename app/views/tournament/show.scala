@@ -63,7 +63,6 @@ chat:${
         tour.isCreated option div(cls := "tour__faq box box-pad")(
           faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
         )
-      ),
-      div(cls := "tour__underchat none")(views.html.game.bits.watchers)
+      )
     ))
 }
