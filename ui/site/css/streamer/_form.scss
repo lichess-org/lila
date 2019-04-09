@@ -53,18 +53,14 @@
 }
 
 .streamer-picture {
-
   form {
     padding: 30px;
-    border-top: 1px solid #ccc;
+    border-top: $border;
     text-align: center;
-  }
-  form.delete button {
-    color: red;
   }
   .cancel {
     padding: 40px;
-    border-top: 1px solid #ccc;
+    border-top: $border;
   }
   .forms > *:first-child {
     margin-top: 40px;

@@ -65,7 +65,7 @@ object bits {
     ),
     div(cls := "lobby__simuls lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "|")(trans.simultaneousExhibitions.frag()),
+        span(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions.frag()),
         a(cls := "more", href := routes.Simul.home())(trans.more.frag(), " »")
       ),
       div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(

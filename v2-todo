@@ -1,6 +1,6 @@
 analysis replay-bot
 all embeds
-user analysis variant selection
 relay
 practice
 study
+board zoom slider bug (with empty default value?)
