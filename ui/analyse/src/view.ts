@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
-import { synthetic, bind, onInsert, dataIcon, spinner } from './util';
+import { bind, onInsert, dataIcon, spinner } from './util';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -324,7 +324,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     h('div.analyse__acpl', [acplView(ctrl)]),
-    ctrl.embed || synthetic(ctrl.data) ? null : h('aside.analyse__side', {
+    ctrl.embed ? null : h('aside.analyse__side', {
       hook: onInsert(elm => {
         ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
       })

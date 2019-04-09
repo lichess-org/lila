@@ -6,7 +6,7 @@ import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { synthetic, enrichText, innerHTML } from '../util';
+import { enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
@@ -81,7 +81,7 @@ export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
 }
 
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
-  return (!synthetic(c.data) && playable(c.data) && c.initialPath) || (
+  return (!c.synthetic && playable(c.data) && c.initialPath) || (
     c.retro && c.retro.current() && c.retro.current().prev.path
   ) || (
     c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path

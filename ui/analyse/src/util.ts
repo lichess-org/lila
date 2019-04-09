@@ -2,7 +2,6 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
-import { AnalyseData } from './interfaces';
 
 export function plyColor(ply: number): Color {
   return (ply % 2 === 0) ? 'white' : 'black';
@@ -56,10 +55,6 @@ export function iconTag(icon: string) {
 
 export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
-}
-
-export function synthetic(data: AnalyseData): boolean {
-  return data.game.id === 'synthetic';
 }
 
 export function nodeFullName(node: Tree.Node) {

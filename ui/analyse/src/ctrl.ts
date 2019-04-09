@@ -174,7 +174,7 @@ export default class AnalyseCtrl {
 
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
-    this.synthetic = util.synthetic(data);
+    this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && game.playable(data as game.GameData);
 
     const prevTree = merge && this.tree.root;
