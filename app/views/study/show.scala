@@ -33,11 +33,12 @@ object show {
     // )),
     // chat = views.html.chat.frag.some,
     // underchat = Some(views.html.game.bits.watchers),
-    moreCss = cssTags("analyse.css", "study.css", "chat.css"),
+    responsive = true,
+    moreCss = responsiveCssTag("analyse.study"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lidraughts=lidraughts||{};lidraughts.study={
+      embedJs(s"""lidraughts=window.lidraughts||{};lidraughts.study={
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},
 i18n: ${views.html.board.userAnalysisI18n()},
@@ -70,6 +71,6 @@ socketVersion: $socketVersion
       description = s"A draughts study by ${usernameOrId(s.ownerId)}"
     ).some
   ) {
-      div(cls := "analyse cg-512")(views.html.board.bits.domPreload(none))
+      main(cls := "analyse") // (views.html.board.bits.domPreload(none))
     }
 }

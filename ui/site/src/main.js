@@ -206,7 +206,7 @@
   $(function() {
     if (lidraughts.analyse) LidraughtsAnalyse.boot(lidraughts.analyse);
     else if (lidraughts.user_analysis) startUserAnalysis(lidraughts.user_analysis);
-    else if (lidraughts.study) startStudy(document.getElementById('lidraughts'), lidraughts.study);
+    else if (lidraughts.study) startStudy(lidraughts.study);
     else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
     else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
     else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
@@ -947,10 +947,10 @@
   // study.js //
   ////////////////
 
-  function startStudy(element, cfg) {
+  function startStudy(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
+    cfg.element = document.querySelector('main.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
