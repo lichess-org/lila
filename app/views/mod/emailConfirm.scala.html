@@ -42,7 +42,7 @@ moreJs = js) {
       </thead>
       <tbody>
         <tr>
-          <td>@userLink(u, withBestRating = true, params = "?mod")</td>
+          <td>@userLink(u, withBestRating = true, params = "?mod").toHtml</td>
           <td>@email.getOrElse("-")</td>
           <td>@u.count.game.localize</td>
           <td>

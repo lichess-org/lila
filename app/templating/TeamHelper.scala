@@ -2,11 +2,11 @@ package lila.app
 package templating
 
 import controllers.routes
-import play.twirl.api.Html
 
 import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.frag.escapeHtml
 import lila.team.Env.{ current => teamEnv }
-import lila.common.String.html.escapeHtml
 
 trait TeamHelper {
 
@@ -15,9 +15,9 @@ trait TeamHelper {
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ctx.me.??(me => api.syncBelongsTo(teamId, me.id))
 
-  def teamIdToName(id: String): Html = escapeHtml(api teamName id getOrElse id)
+  def teamIdToName(id: String): Frag = escapeHtml(api teamName id getOrElse id)
 
-  def teamLink(id: String, withIcon: Boolean = true): Html = Html {
+  def teamLink(id: String, withIcon: Boolean = true): Frag = raw {
     val href = routes.Team.show(id)
     val content = teamIdToName(id)
     val icon = if (withIcon) """ data-icon="f"""" else ""

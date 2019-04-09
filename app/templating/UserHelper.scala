@@ -1,8 +1,6 @@
 package lila.app
 package templating
 
-import play.twirl.api.Html
-
 import controllers.routes
 import mashup._
 
@@ -88,7 +86,7 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     truncate: Option[Int] = None,
     params: String = "",
     modIcon: Boolean = false
-  ): Html = Html {
+  ): Frag = raw {
     userIdOption.flatMap(lightUser).fold(User.anonymous) { user =>
       userIdNameLink(
         userId = user.id,
@@ -111,7 +109,7 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     withTitle: Boolean = true,
     truncate: Option[Int] = None,
     params: String = ""
-  ): Html = Html {
+  ): Frag = raw {
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -128,14 +126,14 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
   def userIdLink(
     userId: String,
     cssClass: Option[String]
-  ): Html = userIdLink(userId.some, cssClass)
+  ): Frag = userIdLink(userId.some, cssClass)
 
-  def titleTag(title: Option[Title]) = Html {
-    title.fold("") { t =>
+  def titleTag(title: Option[Title]): Frag = raw {
+    title ?? { t =>
       s"""<span class="title"${(t == Title.BOT) ?? " data-bot"} title="${Title titleName t}">$t</span>&nbsp;"""
     }
   }
-  def titleTag(lu: LightUser): Html = titleTag(lu.title map Title.apply)
+  def titleTag(lu: LightUser): Frag = titleTag(lu.title map Title.apply)
 
   private def userIdNameLink(
     userId: String,
@@ -151,7 +149,7 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
-    val titleS = titleTag(title).body
+    val titleS = titleTag(title).render
     val icon = withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
     s"""<a $klass $href>$icon$titleS$content</a>"""
   }
@@ -166,32 +164,14 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
     params: String = ""
-  ): Html = Html {
+  ): Frag = raw {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, params)
     val content = text | user.username
-    val titleS = if (withTitle) titleTag(user.title).body else ""
+    val titleS = if (withTitle) titleTag(user.title).render else ""
     val rating = userRating(user, withPerfRating, withBestRating)
     val icon = withOnline ?? lineIcon(user)
     s"""<a $klass $href>$icon$titleS$content$rating</a>"""
-  }
-
-  def userInfosLink(
-    userId: String,
-    rating: Option[Int],
-    cssClass: Option[String] = None,
-    withPowerTip: Boolean = true,
-    withTitle: Boolean = false,
-    withOnline: Boolean = true
-  ) = {
-    val user = lightUser(userId)
-    val name = user.fold(userId)(_.name)
-    val klass = userClass(userId, cssClass, withOnline, withPowerTip)
-    val href = userHref(name)
-    val rat = rating ?? { r => s" ($r)" }
-    val titleS = withTitle ?? user ?? (u => titleTag(u).body)
-    val icon = withOnline ?? lineIcon(user)
-    Html(s"""<a $klass $href>$icon$titleS$name$rat</a>""")
   }
 
   def userSpan(
@@ -203,21 +183,21 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None
-  ) = Html {
+  ): Frag = raw {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = s"data-${userHref(user.username)}"
     val content = text | user.username
-    val titleS = if (withTitle) titleTag(user.title).body else ""
+    val titleS = if (withTitle) titleTag(user.title).render else ""
     val rating = userRating(user, withPerfRating, withBestRating)
     val icon = withOnline ?? lineIcon(user)
     s"""<span $klass $href>$icon$titleS$content$rating</span>"""
   }
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false) = Html {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false): Frag = raw {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val content = user.fold(userId)(_.name)
-    val titleS = user.??(u => titleTag(u.title map Title.apply).body)
+    val titleS = user.??(u => titleTag(u.title map Title.apply).render)
     val klass = userClass(userId, none, withOnline)
     val href = s"data-${userHref(name)}"
     val icon = withOnline ?? lineIcon(user)
@@ -253,20 +233,20 @@ trait UserHelper { self: I18nHelper with StringHelper with HtmlHelper with Numbe
     s"""class="user-link${addClass(cssClass)}${addClass(withPowerTip option "ulpt")}$online""""
   }
 
-  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext) =
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Frag =
     splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
-  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
-    case GameFilter.All => I18nKeys.nbGames.pluralSame(u.count.game)
-    case GameFilter.Me => nbs.withMe ?? I18nKeys.nbGamesWithYou.pluralSame
-    case GameFilter.Rated => I18nKeys.nbRated.pluralSame(u.count.rated)
-    case GameFilter.Win => I18nKeys.nbWins.pluralSame(u.count.win)
-    case GameFilter.Loss => I18nKeys.nbLosses.pluralSame(u.count.loss)
-    case GameFilter.Draw => I18nKeys.nbDraws.pluralSame(u.count.draw)
-    case GameFilter.Playing => I18nKeys.nbPlaying.pluralSame(nbs.playing)
-    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSame(nbs.bookmark)
-    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSame(nbs.imported)
-    case GameFilter.Search => I18nKeys.advancedSearch()
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): String = (filter match {
+    case GameFilter.All => I18nKeys.nbGames.pluralSameTxt(u.count.game)
+    case GameFilter.Me => nbs.withMe ?? I18nKeys.nbGamesWithYou.pluralSameTxt
+    case GameFilter.Rated => I18nKeys.nbRated.pluralSameTxt(u.count.rated)
+    case GameFilter.Win => I18nKeys.nbWins.pluralSameTxt(u.count.win)
+    case GameFilter.Loss => I18nKeys.nbLosses.pluralSameTxt(u.count.loss)
+    case GameFilter.Draw => I18nKeys.nbDraws.pluralSameTxt(u.count.draw)
+    case GameFilter.Playing => I18nKeys.nbPlaying.pluralSameTxt(nbs.playing)
+    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSameTxt(nbs.bookmark)
+    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSameTxt(nbs.imported)
+    case GameFilter.Search => I18nKeys.advancedSearch.txt()
   })
 
   def describeUser(user: User) = {

@@ -16,7 +16,7 @@
       @spy.withMeSorted(u).map {
       case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
       <tr @if(o == u){class="same"}>
-        <td data-sort="@o.id">@userLink(o, withBestRating = true, params = "?mod")</td>
+        <td data-sort="@o.id">@userLink(o, withBestRating = true, params = "?mod").toHtml</td>
         <td>
           @if(o == u) { - } else {
           @List(byIp option "IP", byFp option "Print").flatten.mkString(", ")

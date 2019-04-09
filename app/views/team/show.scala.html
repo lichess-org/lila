@@ -23,14 +23,14 @@ description = shorten(t.description, 152)).some) {
     <div class="team-show__content">
       <section class="team-show__meta">
         <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
-        <p>@trans.teamLeader(): @userIdLink(t.createdBy.some)</p>
+        <p>@trans.teamLeader(): @userIdLink(t.createdBy.some).toHtml</p>
       </section>
       <section class="team-show__best">
         @if(!info.bestUserIds.isEmpty) {
         <h2>@trans.teamBestPlayers()</h2>
         <ol class="userlist best_players">
           @info.bestUserIds.map { userId =>
-          <li>@userIdLink(userId.some)</li>
+          <li>@userIdLink(userId.some).toHtml</li>
           }
         </ol>
         }
@@ -42,7 +42,7 @@ description = shorten(t.description, 152)).some) {
           <div class="pager none"><a rel="next" href="@routes.Team.show(t.id, np)">Next</a></div>
           }
           @members.currentPageResults.map { member =>
-          <div class="paginated">@userLink(member.user)</div>
+          <div class="paginated">@userLink(member.user).toHtml</div>
           }
         </div>
       </section>
@@ -86,7 +86,7 @@ description = shorten(t.description, 152)).some) {
           <p class="meta">
             <a href="@routes.ForumPost.redirect(p.postId)">@p.topicName</a>
             <em>
-              @userIdLink(p.userId, withOnline = false),
+              @userIdLink(p.userId, withOnline = false).toHtml,
               @momentFromNow(p.createdAt)
             </em>
           </p>

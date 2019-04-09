@@ -38,7 +38,7 @@ responsive = true) {
         }
         <tr>
           <th>@h.date.monthOfYear.getAsText</th>
-          <th>@userIdLink(h.champion.modId.some, withOnline = false)</th>
+          <th>@userIdLink(h.champion.modId.some, withOnline = false).toHtml</th>
           <td class="score">@h.champion.score.localize</td>
           <td>@h.champion.action.localize</td>
           <td>@h.champion.report.localize</td>

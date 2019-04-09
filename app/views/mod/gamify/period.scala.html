@@ -28,7 +28,7 @@ responsive = true) {
           case (m, i) => {
           <tr>
             <th>@(i + 1)</th>
-            <th>@userIdLink(m.modId.some, withOnline = false)</th>
+            <th>@userIdLink(m.modId.some, withOnline = false).toHtml</th>
             <td>@m.action.localize</td>
             <td>@m.report.localize</td>
             <td class="score">@m.score.localize</td>

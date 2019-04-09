@@ -170,7 +170,7 @@ object activity {
             if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
             else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
             subTag(
-              htmlList(f.ids.map(id => userIdLink(id.some))),
+              fragList(f.ids.map(id => userIdLink(id.some))),
               f.nb.map { nb =>
                 frag(" and ", nb - maxSubEntries, " more")
               }
@@ -223,7 +223,7 @@ object activity {
       iconTag("f"),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
-        subTag(htmlList(teams.value.map(id => teamLink(id))))
+        subTag(fragList(teams.value.map(id => teamLink(id))))
       )
     )
 

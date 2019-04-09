@@ -9,7 +9,7 @@ moreCss = responsiveCssTag("mod.communication")) {
 <main id="communication" class="box box-pad">
   <h1>
     <div class="title">
-      @userLink(u) communications
+      @userLink(u).toHtml communications
     </div>
     <div class="actions">
       @if(isGranted(_.ViewPrivateComms)) {
@@ -27,7 +27,7 @@ moreCss = responsiveCssTag("mod.communication")) {
   <div class="history">
     @history.map { e =>
     <div>
-      @userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @e.details @momentFromNowOnce(e.date)
+      @userIdLink(e.mod.some).toHtml <b>@e.showAction</b> @u.username @e.details @momentFromNowOnce(e.date)
     </div>
     }
   </div>
@@ -38,7 +38,7 @@ moreCss = responsiveCssTag("mod.communication")) {
   <div class="notes">
     @notes.map { note =>
     <div>
-      @userIdLink(note.from.some) @momentFromNowOnce(note.date): @richText(note.text)
+      @userIdLink(note.from.some).toHtml @momentFromNowOnce(note.date): @richText(note.text)
     </div>
     }
   </div>
@@ -82,7 +82,7 @@ moreCss = responsiveCssTag("mod.communication")) {
       <div class="chat">
         @chat.lines.map { line =>
         <div class="line @if(line.author.toLowerCase == u.id) { author }">
-          @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+          @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false).toHtml
           @richText(line.text)
         </div>
         }
@@ -99,11 +99,11 @@ moreCss = responsiveCssTag("mod.communication")) {
       <p class="title">
         <strong>@thread.name</strong>
         @momentFromNowOnce(thread.createdAt)
-        @userIdLink(thread.creatorId.some) -&gt; @userIdLink(thread.invitedId.some)
+        @userIdLink(thread.creatorId.some).toHtml -&gt; @userIdLink(thread.invitedId.some)
       </p>
       @thread.posts.map { post =>
       <div class="post @if(thread.isWrittenBy(post, u)) { author }">
-        @userIdLink(thread.senderOf(post).some)
+        @userIdLink(thread.senderOf(post).some).toHtml
         @richText(post.text)
       </div>
       }
@@ -129,7 +129,7 @@ moreCss = responsiveCssTag("mod.communication")) {
         @spy.withMeSorted(u).map {
         case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
         <tr @if(o == u){class="same"}>
-          <td>@userLink(o, withBestRating = true, params = "?mod")</td>
+          <td>@userLink(o, withBestRating = true, params = "?mod").toHtml</td>
           <td>
             @if(o == u) { - } else {
             @List(byIp option "IP", byFp option "Print").flatten.mkString(", ")

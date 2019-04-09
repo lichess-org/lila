@@ -6,7 +6,7 @@ moreJs = jsTag("insight-refresh.js"),
 responsive = true) {
 <main class="box box-pad page-small">
     <h1 class="text" data-icon="7">@u.username chess insights</h1>
-  <p>@userLink(u) has no chess insights yet!</p>
+  <p>@userLink(u).toHtml has no chess insights yet!</p>
   @refreshForm(u, s"Generate ${u.username}'s chess insights")
 </main>
 }.toHtml

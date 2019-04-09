@@ -63,7 +63,7 @@ responsive = true) {
         @if(log.nonEmpty) {
         <ul>
           @log.map { e =>
-          <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
+          <li>@userIdLink(e.mod.some, withTitle=false).toHtml <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
           }
         </ul>
         }
@@ -73,7 +73,7 @@ responsive = true) {
         <ul>
           @notes.map { note =>
           <li>
-            <p class="meta">@userIdLink(note.from.some) @momentFromNow(note.date)</p>
+            <p class="meta">@userIdLink(note.from.some).toHtml @momentFromNow(note.date)</p>
             <p class="text">@richText(note.text)</p>
           </li>
           }

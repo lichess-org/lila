@@ -6,7 +6,7 @@
   <div class="atom">
     <h3>
       @reportScore(atom.score)
-      @userIdLink(atom.by.value.some, withOnline = false)
+      @userIdLink(atom.by.value.some, withOnline = false).toHtml
       for <strong>@r.reason.name</strong>,
       @momentFromNow(atom.at)
     </h3>
@@ -18,7 +18,7 @@
 
 @renderNote(r: lila.user.Note) = {
 <div class="doc note">
-  <h3>by @userIdLink(r.from.some, withOnline = false), @momentFromNow(r.date)</h3>
+  <h3>by @userIdLink(r.from.some, withOnline = false).toHtml, @momentFromNow(r.date)</h3>
   <p>@richText(r.text)</p>
 </div>
 }
@@ -31,7 +31,7 @@
   <i title="Costello the Inquiry Octopus" class="costello"></i>
   <div class="meat">
     <h2 class="user">
-      @repositionTooltipUnsafe(userLink(in.user, withBestRating = true, params = "?mod"), "se")
+      @repositionTooltipUnsafe(userLink(in.user, withBestRating = true, params = "?mod"), "se").toHtml
     </h2>
     <div class="docs reports">
       <div class="expendable">
@@ -47,7 +47,7 @@
       <div>
         <ul>
           @in.history.map { e =>
-          <li>@userIdLink(e.mod.some, withOnline = false) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
+          <li>@userIdLink(e.mod.some, withOnline = false).toHtml <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
           }
         </ul>
       </div>

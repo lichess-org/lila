@@ -21,9 +21,9 @@ responsive = true) {
       <tbody>
         @logs.map { log =>
         <tr>
-          <td>@userIdLink(log.mod.some)<br />@momentFromNow(log.date)</td>
+          <td>@userIdLink(log.mod.some).toHtml<br />@momentFromNow(log.date)</td>
           <td>@log.showAction.capitalize @log.user.map { u =>
-            @userIdLink(u.some, params="?mod")
+            @userIdLink(u.some, params="?mod").toHtml
             }</td>
           <td>@log.details</td>
         </tr>

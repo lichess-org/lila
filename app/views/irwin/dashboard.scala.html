@@ -46,7 +46,7 @@ responsive = true) {
         @dashboard.recent.map { rep =>
         <tr class="report">
           <td>
-            @userIdLink(rep.suspectId.value.some, params = "?mod")
+            @userIdLink(rep.suspectId.value.some, params = "?mod").toHtml
           </td>
           <td class="little completed">
             @momentFromNow(rep.date)

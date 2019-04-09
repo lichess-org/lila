@@ -5,7 +5,7 @@
   @if(history.nonEmpty) {
   <ul>
     @history.map { e =>
-    <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNowOnce(e.date)</li>
+    <li>@userIdLink(e.mod.some, withTitle=false).toHtml <b>@e.showAction</b> @e.details @momentFromNowOnce(e.date)</li>
     }
   </ul>
   <br>

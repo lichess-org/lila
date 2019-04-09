@@ -4,6 +4,7 @@ package templating
 import play.twirl.api.Html
 
 import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
 import lila.forum.Post
 
 trait ForumHelper { self: UserHelper with StringHelper =>
@@ -22,7 +23,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
 
   def authorName(post: Post) = post.userId match {
     case Some(userId) => userIdSpanMini(userId, withOnline = true)
-    case None => Html(lila.user.User.anonymous)
+    case None => frag(lila.user.User.anonymous)
   }
 
   def authorLink(
@@ -30,9 +31,9 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     modIcon: Boolean = false
-  ) =
-    if (post.erased) Html(s"""<span class="author">${lila.common.String.erasedHtml}</span>""")
-    else post.userId.fold(Html(lila.user.User.anonymous)) { userId =>
+  ): Frag =
+    if (post.erased) raw(s"""<span class="author">${lila.common.String.erasedHtml}</span>""")
+    else post.userId.fold(frag(lila.user.User.anonymous)) { userId =>
       userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
     }
 }

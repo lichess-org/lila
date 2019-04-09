@@ -7,7 +7,7 @@ moreCss = responsiveCssTag("plan"),
 moreJs = jsTag("plan.js")) {
 
 <main class="box box-pad plan">
-  <h1>@userLink(me) •
+  <h1>@userLink(me).toHtml •
     @if(patron.isLifetime) {
     <strong>Lifetime Lichess Patron</strong>
     } else {

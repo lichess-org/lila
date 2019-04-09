@@ -5,7 +5,7 @@ moreJs = jsTag("streamer.form.js"),
 moreCss = cssTags("form3.css", "streamer.form.css")) {
 <div class="streamer-picture content_box small_box no_padding">
   <h1 class="lichess_title">
-    @userLink(s.user) streamer picture
+    @userLink(s.user).toHtml streamer picture
   </h1>
   <div class="picture_wrap">
     @bits.pic(s.streamer, s.user, 250)

@@ -4,7 +4,7 @@
 title = s"${u.username} tournaments",
 path = "chart") {
 <div class="tournament-stats">
-  <h1 class="box__pad">@userLink(u, withOnline = true) tournaments stats</h1>
+  <h1 class="box__pad">@userLink(u, withOnline = true).toHtml tournaments stats</h1>
   <p class="box__pad">
     The rank avg is a percentage of your ranking. Lower is better.<br />
     For instance, being ranked 3 in a tournament of 100 players = 3%.

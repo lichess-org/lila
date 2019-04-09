@@ -20,7 +20,7 @@ responsive = true)  {
         <div class="chat">
           @chat.lines.filter(_.isVisible).map { line =>
           <div class="line">
-            @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+            @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false).toHtml
             @richText(line.text)
           </div>
           }
@@ -42,7 +42,7 @@ responsive = true)  {
           <div class="chat">
             @chat.lines.filter(_.isVisible).map { line =>
             <div class="line">
-              @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+              @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false).toHtml
               @richText(line.text)
             </div>
             }
