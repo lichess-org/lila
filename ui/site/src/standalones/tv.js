@@ -24,11 +24,10 @@ function parseFen($elem) {
   });
 }
 
-function resize($featured) {
-  var win = Math.floor($(window).height());
-  if ($featured.height() > win) {
-    $featured.css('maxWidth', (win - $('.vstext')[0].offsetHeight) + 'px');
-  }
+function resize() {
+  var el = document.querySelector('#featured-game');
+  if (el.offsetHeight > window.innerHeight)
+    el.style.maxWidth = (window.innerHeight - el.querySelector('.vstext').offsetHeight) + 'px';
 }
 
 $(function() {
@@ -48,6 +47,6 @@ $(function() {
       parseFen(board().data("fen", data.d.fen).data("lastmove", data.d.lm));
     }
   }, false);
-  resize($featured);
-  $(window).on('resize', function() { resize($featured); });
+  resize();
+  window.addEventListener('resize', resize);
 });

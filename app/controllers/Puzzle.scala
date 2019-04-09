@@ -282,6 +282,7 @@ object Puzzle extends LidraughtsController {
     )
   }
 
+  /* For BC */
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
@@ -291,9 +292,15 @@ object Puzzle extends LidraughtsController {
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def frame = Open { implicit ctx =>
-    OptionOk(env.daily.get) { daily =>
-      html.puzzle.embed(daily)
+  def frame = Action.async { implicit req =>
+    implicit val lang = lidraughts.i18n.I18nLangPicker(req, none)
+    env.daily.get map {
+      case None => NotFound
+      case Some(daily) => html.puzzle.embed(
+        daily,
+        get("bg", req) | "light",
+        lidraughts.pref.Theme(~get("theme", req)).cssClass
+      )
     }
   }
 }

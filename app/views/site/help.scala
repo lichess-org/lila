@@ -13,8 +13,9 @@ object help {
     layout(
       title = title,
       active = active,
+      contentCls = "page box box-pad",
       moreCss = responsiveCssTag("page")
-    )(main(cls := "page box box-pad")(
+    )(frag(
         h1(title),
         div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
       ))
@@ -30,68 +31,91 @@ object help {
     )
     layout(
       title = "Webmasters",
-      active = "webmasters"
+      active = "webmasters",
+      moreCss = responsiveCssTag("page"),
+      contentCls = "page"
     )(frag(
-      div(cls := "box box-pad developers")(
-        h1(id := "embed-tv")("Embed Lidraughts TV in your site"),
-        raw(s"""<script src="$netBaseUrl/tv/embed?theme=wood&bg=light"></script>"""),
-        p("Just add the following HTML to your site:"),
-        pre(s"""<script src="$netBaseUrl/tv/embed?theme=auto&bg=auto"></script>"""),
-        parameters
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
-        raw("""<script src="/training/embed?theme=auto&bg=auto"></script>"""),
-        p("Just add the following HTML to your site:"),
-        pre(s"""<script src="$netBaseUrl/training/embed?theme=auto&bg=auto"></script>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1("Embed a draughts analysis in your site"),
-        raw(s"""<iframe width=530 height=353 src="$netBaseUrl/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
-        pre(s"""<iframe width=600 height=397 frameborder=0
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          frag(
+            h1(id := "embed-tv")("Embed Lidraughts TV in your site"),
+            div(cls := "center")(raw(s"""<iframe src="$netBaseUrl/tv/frame?theme=maple" $args></iframe>""")),
+            p("Add the following HTML to your site:"),
+            p(cls := "copy-zone")(
+              input(
+                id := "tv-embed-src",
+                cls := "copyable autoselect",
+                value := s"""<iframe src="$netBaseUrl/tv/frame?theme=maple&bg=light" $args></iframe>"""
+              ),
+              button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "\"")
+            ),
+            parameters
+          )
+        },
+        br,
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 400px; height: 440px;" allowtransparency="true" frameBorder="0""""
+          frag(
+            h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
+            div(cls := "center")(raw(s"""<iframe src="$netBaseUrl/training/frame?theme=maple" $args></iframe>""")),
+            p("Add the following HTML to your site:"),
+            p(cls := "copy-zone")(
+              input(
+                id := "puzzle-embed-src",
+                cls := "copyable autoselect",
+                value := s"""<iframe src="$netBaseUrl/training/frame?theme=maple&bg=light" $args></iframe>"""
+              ),
+              button(title := "Copy code", cls := "copy button", dataRel := "puzzle-embed-src", dataIcon := "\"")
+            ),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
+        br,
+        div(cls := "box box-pad developers")(
+          h1("Embed a draughts analysis in your site"),
+          raw(s"""<iframe width=530 height=353 src="$netBaseUrl/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
+          p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), ", then click the share button to get the HTML code for the current chapter."),
+          pre(s"""<iframe width=600 height=397 frameborder=0
 src="$netBaseUrl/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto"
 ></iframe>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1("Embed an interactive lesson in your site"),
-        raw(s"""<iframe width=530 height=353 src="$netBaseUrl/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), " with a chapter of type \"Interactive lesson\", then click the share button to get the HTML code for that chapter."),
-        pre(s"""<iframe width=600 height=397 frameborder=0
+          parameters,
+          p("The text is automatically translated to your visitor's language.")
+        ),
+        br,
+        div(cls := "box box-pad developers")(
+          h1("Embed an interactive lesson in your site"),
+          raw(s"""<iframe width=530 height=353 src="$netBaseUrl/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
+          p("Create ", a(href := routes.Study.allDefault(1), cls := "blue")("a study"), " with a chapter of type \"Interactive lesson\", then click the share button to get the HTML code for that chapter."),
+          pre(s"""<iframe width=600 height=397 frameborder=0
 src="$netBaseUrl/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto"
 ></iframe>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      ),
-      br,
-      div(cls := "box box-pad developers")(
-        h1("Embed a draughts game in your site"),
-        raw(s"""<iframe width=530 height=353 src="$netBaseUrl/embed/JLuuVBv5?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
-        p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
-        pre(s"""<iframe width="600" height="397" frameborder="0"
+          parameters,
+          p("The text is automatically translated to your visitor's language.")
+        ),
+        br,
+        div(cls := "box box-pad developers body")(
+          h1("Embed a draughts game in your site"),
+          raw(s"""<iframe width=530 height=353 src="$netBaseUrl/embed/JLuuVBv5?bg=auto&theme=auto" frameborder=0 style="margin-bottom: 1em"></iframe>"""),
+          p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
+          pre(s"""<iframe width="600" height="397" frameborder="0"
 src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
 ></iframe>"""),
-        parameters,
-        p("The text is automatically translated to your visitor's language.")
-      )
-    /*br,
-      div(cls := "box box-pad developers")(
+          parameters,
+          p("The text is automatically translated to your visitor's language.")
+        )
+      /*br,
+      div(cls := "box box-pad developers body")(
         h1("HTTP API"),
         p(raw("""Lidraughts exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""))
       )*/
-    ))
+      ))
   }
 
   def layout(
     title: String,
     active: String,
+    contentCls: String = "",
     moreCss: Frag = emptyFrag,
     moreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
@@ -115,12 +139,12 @@ src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
         sep,
         a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
         /*a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
-        a(activeCls("api"), href := "https://database.lichess.org")("API", external),*/
+        a(activeCls("api"), href := routes.Api.index)("API", external),*/
         a(activeCls("source"), href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode(), external),
         sep,
         a(activeCls("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
       ),
-      div(cls := "page-menu__content")(body)
+      div(cls := s"page-menu__content $contentCls")(body)
     )
   }
 }

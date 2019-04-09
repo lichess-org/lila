@@ -19,15 +19,15 @@ object embed {
       head(
         bits.charset,
         bits.metaCsp(basicCsp),
-        st.headTitle("lidraughts.org TV"),
+        st.headTitle("lidraughts.org draughts TV"),
         bits.pieceSprite(lidraughts.pref.PieceSet.default),
         responsiveCssTagWithTheme("tv.embed", bg)
       ),
       body(
-        cls := s"base $board merida",
+        cls := s"base $board wide_crown",
         dataStreamUrl := routes.Tv.feed
       )(
-          div(id := "featured-game", title := "lidraughts.org TV")(
+          div(id := "featured-game", cls := "embedded", title := "lidraughts.org TV")(
             gameFenNoCtx(pov, tv = true, blank = true),
             views.html.game.bits.vstext(pov)(none)
           ),
