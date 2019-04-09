@@ -13,7 +13,7 @@ object embed {
 
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(pov: lidraughts.game.Pov, bg: String, theme: String)(implicit req: RequestHeader) = frag(
+  def apply(pov: lidraughts.game.Pov, bg: String, board: String)(implicit req: RequestHeader) = frag(
     bits.doctype,
     html(
       head(
@@ -23,15 +23,18 @@ object embed {
         bits.pieceSprite(lidraughts.pref.PieceSet.default),
         responsiveCssTagWithTheme("tv.embed", bg)
       ),
-      body(cls := "base", dataStreamUrl := routes.Tv.feed)(
-        div(id := "featured_game", title := "lidraughts.org TV")(
-          gameFenNoCtx(pov, tv = true, blank = true),
-          views.html.game.bits.vstext(pov)(none)
-        ),
-        jQueryTag,
-        jsAt("javascripts/vendor/draughtsground.min.js", false),
-        jsAt("compiled/tv.js", false)
-      )
+      body(
+        cls := s"base $board merida",
+        dataStreamUrl := routes.Tv.feed
+      )(
+          div(id := "featured-game", title := "lidraughts.org TV")(
+            gameFenNoCtx(pov, tv = true, blank = true),
+            views.html.game.bits.vstext(pov)(none)
+          ),
+          jQueryTag,
+          jsAt("javascripts/vendor/draughtsground.min.js", false),
+          jsAt("compiled/tv.js", false)
+        )
     )
   )
 }

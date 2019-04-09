@@ -84,6 +84,7 @@ object Tv extends LidraughtsController {
       }
   }
 
+  /* for BC */
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
@@ -99,7 +100,7 @@ object Tv extends LidraughtsController {
       case Some(game) => Ok(views.html.tv.embed(
         Pov first game,
         get("bg", req) | "light",
-        lidraughts.pref.Theme(~get("theme", req)).cssClass
+        lidraughts.pref.Theme(~get("board", req)).cssClass
       ))
     }
   }

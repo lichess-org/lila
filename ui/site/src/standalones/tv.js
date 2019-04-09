@@ -23,6 +23,14 @@ function parseFen($elem) {
     }
   });
 }
+
+function resize($featured) {
+  var win = Math.floor($(window).height());
+  if ($featured.height() > win) {
+    $featured.css('maxWidth', (win - $('.vstext')[0].offsetHeight) + 'px');
+  }
+}
+
 $(function() {
   var $featured = $('#featured-game');
   var board = function() {
@@ -34,10 +42,12 @@ $(function() {
   source.addEventListener('message', function(e) {
     var data = JSON.parse(e.data);
     if (data.t == "featured") {
-      $('#featured-game').html(data.d.html).find('a').attr('target', '_blank');
+      $featured.html(data.d.html).find('a').attr('target', '_blank');
       parseFen(board());
     } else if (data.t == "fen") {
       parseFen(board().data("fen", data.d.fen).data("lastmove", data.d.lm));
     }
   }, false);
+  resize($featured);
+  $(window).on('resize', function() { resize($featured); });
 });
