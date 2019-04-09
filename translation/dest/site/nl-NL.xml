@@ -181,6 +181,7 @@
   <string name="yourOpponentOffersADraw">Je tegenstander biedt remise aan</string>
   <string name="accept">Accepteren</string>
   <string name="decline">Afwijzen</string>
+  <string name="startingSoon"> - Binnenkort van start - </string>
   <string name="playingRightNow">Nu aan het spelen</string>
   <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>

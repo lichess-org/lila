@@ -139,13 +139,17 @@ case class Simul(
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
-  def spotlightable =
-    isCreated && (
-      spotlight.isDefined || (
-        (hostRating >= 2400 || hostTitle.isDefined) &&
-        applicants.size < 80
-      )
-    )
+  def spotlightable = featureUnique ||
+    (isCreated && (
+      (hostRating >= 2400 || hostTitle.isDefined) &&
+      applicants.size < 80
+    ))
+
+  private def featureUnique = spotlight match {
+    case Some(spot) if isRunning => true
+    case Some(spot) if isCreated => spot.startsAt minusHours ~spot.homepageHours isBefore DateTime.now
+    case _ => false
+  }
 
   def wins = pairings.count(p => p.finished && p.wins.has(false))
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)

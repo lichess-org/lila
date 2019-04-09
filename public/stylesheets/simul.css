@@ -97,6 +97,10 @@
   margin-top: 30px;
   width: 300px;
 }
+#simul .description {
+  display: block;
+  padding: 0px 42px 30px 42px;
+}
 #simul .top_right {
   float: right;
   margin: 20px 25px 0 0;

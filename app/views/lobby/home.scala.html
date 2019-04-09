@@ -21,7 +21,7 @@
 @lidraughts.tournament.Spotlight.select(tours, ctx.me, 3).map { tour =>
 @tournament.homepageSpotlight(tour)
 }
-@simuls.find(_.spotlightable).take(2).map { s =>
+@simuls.filter(_.spotlightable).take(2).map { s =>
 @simul.homepageSpotlight(s)
 }
 @ctx.me.map { u =>

@@ -189,6 +189,7 @@
   <string name="yourOpponentOffersADraw">Your opponent offers a draw</string>
   <string name="accept">Accept</string>
   <string name="decline">Decline</string>
+  <string name="startingSoon"> - Starting soon - </string>
   <string name="playingRightNow">Playing right now</string>
   <string name="eventInProgress">Playing right now</string>
   <string name="finished">Finished</string>

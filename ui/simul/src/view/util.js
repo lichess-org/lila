@@ -11,10 +11,13 @@ function playerHtml(p) {
 
 module.exports = {
   title: function(ctrl) {
-    return m('h1.text[data-icon=|]', [
-      ctrl.data.fullName,
-      m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host)))), m('br'),
-      ctrl.data.arbiter ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
+    return m('div', [
+      m('h1.text[data-icon=|]', [
+        ctrl.data.fullName,
+        m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host)))), m('br'),
+        ctrl.data.arbiter ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
+      ]),
+      ctrl.data.description ? m('span.description', m.trust(ctrl.data.description)) : null
     ]);
   },
   player: function(p) {

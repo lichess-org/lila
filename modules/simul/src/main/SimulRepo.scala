@@ -57,7 +57,8 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   private val createdSelect = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect = $doc("status" -> SimulStatus.Started.id)
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
-  private val uniqueSelect = $doc("spotlight" -> $doc("$exists" -> true))
+  private val notFinishedSelect = $doc("status" $ne SimulStatus.Finished.id)
+  private val uniqueSelect = $doc("spotlight" $exists true)
   private val createdSort = $doc("createdAt" -> -1)
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
@@ -88,6 +89,12 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(20))
   ).sort(createdSort).list[Simul]()
 
+  def allUniqueFeaturable: Fu[List[Simul]] = simulColl.find(
+    notFinishedSelect ++ uniqueSelect ++ $doc(
+      "spotlight.startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(14)
+    )
+  ).sort($doc("spotlight.startsAt" -> 1)).list[Simul]()
+
   def allStarted: Fu[List[Simul]] = simulColl.find(
     startedSelect
   ).sort(createdSort).list[Simul]()
@@ -97,7 +104,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   ).sort(createdSort).list[Simul](max)
 
   def allNotFinished =
-    simulColl.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
+    simulColl.find(notFinishedSelect).list[Simul]()
 
   def uniques(max: Int): Fu[List[Simul]] =
     simulColl.find(uniqueSelect)

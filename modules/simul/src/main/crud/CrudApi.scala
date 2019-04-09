@@ -87,7 +87,6 @@ final class CrudApi(simulRepo: SimulRepo) {
         description = description,
         startsAt = date,
         homepageHours = homepageHours.some.filterNot(0 ==),
-        iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some
     )

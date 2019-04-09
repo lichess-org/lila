@@ -26,7 +26,7 @@
       })
     }
   </div>
-  @trans.by(usernameOrId(sim.hostId)), @momentFromNow(sim.createdAt)
+  @trans.by(usernameOrId(sim.hostId)), @sim.spotlight.map { spot =>@absClientDateTime(spot.startsAt) }.getOrElse {@momentFromNow(sim.createdAt) }
 </div>
 @stream.map { s =>
 @*<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>*@

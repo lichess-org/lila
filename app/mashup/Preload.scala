@@ -34,13 +34,15 @@ final class Preload(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Tournament]],
     events: Fu[List[Event]],
-    simuls: Fu[List[Simul]]
+    simulsUnique: Fu[List[Simul]],
+    simulsCreated: Fu[List[Simul]]
   )(implicit ctx: Context): Fu[Response] =
     lobbyApi(ctx) zip
       posts zip
       tours zip
       events zip
-      simuls zip
+      simulsUnique zip
+      simulsCreated zip
       tv.getBestGame zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(()) zip
@@ -48,14 +50,14 @@ final class Preload(
       dailyPuzzle() zip
       liveStreams().dmap(_.autoFeatured.withTitles(lightUserApi)) zip
       (ctx.userId ?? getPlayban) flatMap {
-        case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
+        case (data, povs) ~ posts ~ tours ~ events ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
           val currentGame = ctx.me ?? Preload.currentGame(povs, lightUserApi.sync) _
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
               entries.flatMap(_.userIds).toList
           } inject
-            (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
+            (data, entries, posts, tours, events, simulsUnique ::: simulsCreated, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
       }
 }
 

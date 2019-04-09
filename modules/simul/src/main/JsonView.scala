@@ -46,6 +46,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
         "title" -> arbiter.title
       )
     })
+    .add("description" -> simul.spotlight.map { s => lidraughts.common.String.html.markdownLinks(s.description).toString })
 
   private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,

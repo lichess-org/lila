@@ -7,6 +7,8 @@ case class Spotlight(
     description: String,
     startsAt: DateTime,
     homepageHours: Option[Int] = None, // feature on homepage hours before start
-    iconFont: Option[String] = None,
     iconImg: Option[String] = None
-)
+) {
+
+  def isNow = startsAt.isBefore(DateTime.now)
+}

@@ -27,6 +27,7 @@ final class Env(
     val CollectionSimul = config getString "collection.simul"
     val SequencerTimeout = config duration "sequencer.timeout"
     val CreatedCacheTtl = config duration "created.cache.ttl"
+    val UniqueCacheTtl = config duration "unique.cache.ttl"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
@@ -106,6 +107,12 @@ final class Env(
     name = "simul.allCreatedFeaturable",
     repo.allCreatedFeaturable,
     expireAfter = _.ExpireAfterWrite(CreatedCacheTtl)
+  )
+
+  val allUniqueFeaturable = asyncCache.single(
+    name = "simul.allUniqueFeaturable",
+    repo.allUniqueFeaturable,
+    expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
   )
 
   def version(tourId: String): Fu[Int] =

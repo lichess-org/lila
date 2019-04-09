@@ -14,7 +14,7 @@ object CrudForm {
   import DataForm._
   import lidraughts.common.Form.UTCDate._
 
-  val maxHomepageHours = 72
+  val maxHomepageHours = 336
 
   lazy val apply = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 40),
