@@ -289,7 +289,7 @@
           booted = true;
           var $el = $('#challenge_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss(lichess.cssPath('challengeApp', 'challenge'));
+          lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
             instance = LichessChallenge.default($el[0], {
               data: data,
@@ -328,7 +328,7 @@
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss(lichess.cssPath('notifyApp', 'notify'));
+          lichess.loadCssPath('notify');
           lichess.loadScript(lichess.compiledScript('notify')).done(function() {
             instance = LichessNotify.default($el.empty()[0], {
               data: data,
@@ -377,7 +377,7 @@
           var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lichess.loadCss(lichess.cssPath('dasherApp', 'dasher'));
+          lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
             instance = LichessDasher.default($el.empty()[0], {
               playing: isPlaying

@@ -203,7 +203,6 @@ lichess.widget = function(name, prototype) {
     return returnValue;
   };
 };
-lichess.isResp = $('body').data('resp');
 lichess.isHoverable = function () {
   if (typeof lichess.hoverable === 'undefined')
     lichess.hoverable = !!getComputedStyle(document.body).getPropertyValue('--hoverable');
@@ -215,11 +214,6 @@ lichess.assetUrl = function(path, opts) {
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
-};
-lichess.cssPath = function(oldKey, respKey) {
-  return lichess.isResp ?
-    'css/' + respKey + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css' :
-    'stylesheets/' + oldKey + '.css';
 };
 lichess.loadedCss = {};
 lichess.loadCss = function(url) {
@@ -235,8 +229,8 @@ lichess.unloadCss = function(url) {
       .remove();
   }
 }
-lichess.loadCssPath = function(path) {
-  lichess.loadCss(lichess.cssPath(path, path));
+lichess.loadCssPath = function(key) {
+  lichess.loadCss('css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css');
 }
 lichess.compiledScript = function(name) {
   return 'compiled/lichess.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
@@ -253,7 +247,6 @@ lichess.hopscotch = function(f) {
   lichess.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lichess.slider = function() {
-  if (!lichess.isResp) lichess.loadCss('stylesheets/jquery-ui.css');
   return lichess.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
 lichess.shepherd = function(f) {
