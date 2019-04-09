@@ -1,4 +1,3 @@
-import { synthetic } from './util';
 import { initial as initialBoardFen } from 'draughtsground/fen';
 import AnalyseCtrl from './ctrl';
 import * as draughtsUtil from 'draughts';
@@ -51,7 +50,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   clearCache();
 
   // forecast mode: reload when opponent moves
-  if (!synthetic(ctrl.data)) setTimeout(function() {
+  if (!ctrl.synthetic) setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 
@@ -77,12 +76,11 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaMoveTimeout);
       // no strict equality here!
       if (data.ch == currentChapterId()) {
-          const treeNode = data.node as Tree.Node;
-          if (treeNode.dests !== undefined && treeNode.dests.length > 1 && treeNode.dests[0] === '#')
-              treeNode.captLen = draughtsUtil.readCaptureLength(treeNode.dests);
-          ctrl.addNode(data.node, data.path);
-      }
-      else
+        const treeNode = data.node as Tree.Node;
+        if (treeNode.dests !== undefined && treeNode.dests.length > 1 && treeNode.dests[0] === '#')
+          treeNode.captLen = draughtsUtil.readCaptureLength(treeNode.dests);
+        ctrl.addNode(data.node, data.path);
+      } else 
         console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure() {
@@ -95,7 +93,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
         anaDestsCache[data.path] = data;
         ctrl.addDests(data.dests, data.path, data.opening, data.alternatives, data.destsUci);
       } else
-      console.log('socket handler node got wrong chapter id', data);
+        console.log('socket handler node got wrong chapter id', data);
     },
     destsFailure(data) {
       console.log(data);

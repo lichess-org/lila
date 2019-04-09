@@ -6,7 +6,7 @@ import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
-import { synthetic, bind, dataIcon } from './util';
+import { bind, dataIcon } from './util';
 import * as pdnExport from './pdnExport';
 
 interface AutoplaySpeed {
@@ -95,7 +95,6 @@ function studyButton(ctrl: AnalyseCtrl) {
     }
   }, ctrl.trans.noarg('openStudy'));
   if (ctrl.study || ctrl.ongoing) return;
-  const realGame = !synthetic(ctrl.data);
   return h('form', {
     attrs: {
       method: 'post',
@@ -106,7 +105,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       if (pdnInput) pdnInput.value = pdnExport.renderFullTxt(ctrl);
     })
   }, [
-    realGame ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pdn', ''),
+    !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pdn', ''),
     hiddenInput('orientation', ctrl.draughtsground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
