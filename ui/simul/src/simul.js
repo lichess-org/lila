@@ -16,6 +16,9 @@ module.exports = {
   createdByMe: function(ctrl) {
     return ctrl.userId && ctrl.userId === ctrl.data.host.id;
   },
+  amArbiter: function(ctrl) {
+    return ctrl.data.arbiter && ctrl.userId && ctrl.userId === ctrl.data.arbiter.id;
+  },
   containsMe: function(ctrl) {
     return ctrl.userId && (applicantsContainMe(ctrl) || pairingsContainMe(ctrl));
   },

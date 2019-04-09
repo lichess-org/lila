@@ -18,25 +18,26 @@ function randomButton(ctrl, candidates) {
 }
 
 function startOrCancel(ctrl, accepted) {
+  var canCancel = !ctrl.data.unique;
   return accepted.length > 1 ?
     m('a.button.top_right.text.active', {
       'data-icon': 'G',
       onclick: function() { xhr.start(ctrl) }
-    }, 'Start') : m('a.button.top_right.text', {
+    }, 'Start') : (canCancel ? m('a.button.top_right.text', {
       'data-icon': 'L',
       onclick: function() {
         if (confirm(ctrl.trans('deleteThisSimul'))) xhr.abort(ctrl);
       }
-    }, ctrl.trans('cancel'));
+    }, ctrl.trans('cancel')) : null);
 }
 
 module.exports = function(ctrl) {
   var candidates = simul.candidates(ctrl).sort(byName);
   var accepted = simul.accepted(ctrl).sort(byName);
-  var isHost = simul.createdByMe(ctrl);
+  var isHost = simul.createdByMe(ctrl) || simul.amArbiter(ctrl);
   return [
     ctrl.userId ? (
-      simul.createdByMe(ctrl) ? [
+      (simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) ? [
         startOrCancel(ctrl, accepted),
         randomButton(ctrl, candidates)
       ] : (
@@ -65,7 +66,7 @@ module.exports = function(ctrl) {
     simul.acceptedContainsMe(ctrl) ? m('div.instructions',
       ctrl.trans('youHaveBeenSelected')
     ) : (
-      (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('div.instructions',
+      ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && ctrl.data.applicants.length < 6) ? m('div.instructions',
         ctrl.trans('shareSimulUrl')
       ) : null
     ),
@@ -106,7 +107,7 @@ module.exports = function(ctrl) {
             }, [
               m('strong', accepted.length),
               ctrl.trans('acceptedPlayers')
-            ])), (simul.createdByMe(ctrl) && candidates.length && !accepted.length) ? m('tr.help',
+            ])), ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && candidates.length && !accepted.length) ? m('tr.help',
               m('th',
                 ctrl.trans('acceptSomePlayers'))) : null
           ]),

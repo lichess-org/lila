@@ -52,28 +52,28 @@ object Simul extends LidraughtsController {
   }
 
   def start(simulId: String) = Open { implicit ctx =>
-    AsHost(simulId) { simul =>
+    AsHostOrArbiter(simulId) { simul =>
       env.api start simul.id
       Ok(Json.obj("ok" -> true)) as JSON
     }
   }
 
   def abort(simulId: String) = Open { implicit ctx =>
-    AsHost(simulId) { simul =>
+    AsHostOrArbiter(simulId) { simul =>
       env.api abort simul.id
       Ok(Json.obj("ok" -> true)) as JSON
     }
   }
 
   def accept(simulId: String, userId: String) = Open { implicit ctx =>
-    AsHost(simulId) { simul =>
+    AsHostOrArbiter(simulId) { simul =>
       env.api.accept(simul.id, userId, true)
       Ok(Json.obj("ok" -> true)) as JSON
     }
   }
 
   def reject(simulId: String, userId: String) = Open { implicit ctx =>
-    AsHost(simulId) { simul =>
+    AsHostOrArbiter(simulId) { simul =>
       env.api.accept(simul.id, userId, false)
       Ok(Json.obj("ok" -> true)) as JSON
     }
@@ -121,10 +121,10 @@ object Simul extends LidraughtsController {
     }
   }
 
-  private def AsHost(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
+  private def AsHostOrArbiter(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
     env.repo.find(simulId) flatMap {
       case None => notFound
-      case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
+      case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(u => simul.arbiterId.??(u ==)) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
 }
