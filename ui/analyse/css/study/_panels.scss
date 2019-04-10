@@ -1,0 +1,33 @@
+.study__metadata {
+  text-align: left;
+  h2 {
+    font-size: 1.3em;
+    padding: 7px 12px 7px 12px;
+    font-weight: normal;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &::before {
+        font-size: 1.3em;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
+    }
+    .liking {
+      padding-left: 12px;
+      margin-left: 12px;
+      border-left: 1px solid #ccc;
+      font-weight: bold;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+    .liking:hover {
+      opacity: 1;
+      color: #dc322f!important;
+    }
+  }
+}

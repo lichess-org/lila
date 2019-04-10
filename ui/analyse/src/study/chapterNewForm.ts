@@ -28,9 +28,9 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
 
   const vm = {
     variants: [],
-    open: true,
+    open: false,
     initial: prop(false),
-    tab: storedProp('study.form.tab', 'editor'),
+    tab: storedProp('study.form.tab', 'init'),
     editor: null,
     editorFen: prop(null)
   };
