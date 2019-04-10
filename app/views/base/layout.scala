@@ -149,9 +149,8 @@ object layout {
       st.body(
         cls := List(
           "base" -> true,
+          ctx.currentBg -> true,
           ctx.currentTheme.cssClass -> true,
-          // ctx.currentTheme.cssClass -> true,
-          // (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true,
           ctx.currentTheme3d.cssClass -> true,
           ctx.currentPieceSet3d.toString -> true,
           "piece-letter" -> ctx.pref.pieceNotationIsLetter,
