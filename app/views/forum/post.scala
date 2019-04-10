@@ -58,7 +58,7 @@ object post {
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),
       p(cls := "forum-post__message")(
-        if (post.erased) lila.common.String.erasedHtml
+        if (post.erased) "<erased>"
         else richText(post.text)
       ),
       ctx.userId.exists(post.shouldShowEditForm(_)) option
