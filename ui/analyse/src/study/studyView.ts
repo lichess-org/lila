@@ -49,8 +49,8 @@ function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
   canContribute = ctrl.members.canContribute(),
   showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
-  return h('div.study_buttons', [
-    h('div.member_buttons', [
+  return h('div.study__buttons', [
+    h('div.member-buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky ? h('a.mode.sync', {
         attrs: { title: 'All sync members remain on the same position' },
@@ -121,8 +121,8 @@ function helpButton(ctrl: StudyCtrl) {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data;
-  return h('div.study_metadata.undertable', [
-    h('h2.undertable_top', [
+  return h('div.study__metadata', [
+    h('h2', [
       h('span.name', [
         d.name,
         ': ' + ctrl.currentChapter().name
@@ -154,7 +154,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const tabs = h('div.tabs-horiz', [
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     makeTab('members', plural('Member', ctrl.members.size())),
-    ctrl.members.isOwner() ? h('a.more', {
+    ctrl.members.isOwner() ? h('span.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ iconTag('[') ]) : null
     ]);

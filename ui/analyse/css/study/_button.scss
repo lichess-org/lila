@@ -1,0 +1,55 @@
+$c-study-button: $c-secondary;
+
+.study__buttons {
+  @extend %flex-between, %box-radius-top;
+  align-items: stretch;
+  height: 2.6em;
+  background: $c-bg-box;
+  border: $border;
+  border-bottom: 2px solid $c-study-button;
+  .member-buttons {
+    display: flex;
+    justify-content: stretch;
+  }
+  .behind {
+    background: $c-bad;
+    color: $c-bad-over;
+    padding: 0 5px;
+    border-radius: 9px;
+    margin-right: 4px;
+  }
+  .fbt {
+    @extend %flex-center;
+    justify-content: center;
+    padding: 0;
+    width: 3em;
+    .data-count::after {
+      background: $c-study-button;
+    }
+  }
+  .mode {
+    @extend %flex-center;
+    color: $c-font;
+    padding: 0 .7em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    i::before {
+      font-size: 19px;
+      content: 'L';
+      color: $c-bad;
+      margin-right: 4px;
+    }
+    &.on i::before {
+      content: 'E';
+      color: $c-good;
+    }
+    &:hover {
+      background: $c-bg-zebra;
+      opacity: 1;
+    }
+  }
+  .glyph-icon::before {
+    content: '⁉';
+    font-size: 1.3em;
+  }
+}

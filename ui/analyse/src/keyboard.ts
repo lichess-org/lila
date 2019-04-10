@@ -92,8 +92,8 @@ export function bind(ctrl: AnalyseCtrl): void {
         });
       }));
     };
-    keyToMousedown('c', '.study_buttons a.comments');
-    keyToMousedown('g', '.study_buttons a.glyphs');
+    keyToMousedown('c', '.study__buttons a.comments');
+    keyToMousedown('g', '.study__buttons a.glyphs');
   }
 }
 

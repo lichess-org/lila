@@ -66,12 +66,12 @@ lichess.studyTour = function(study) {
         title: "Comment on a position",
         text: "With the <i data-icon='c'></i> button, or a right click on the move list on the right.<br>" +
           "Comments are shared and persisted.",
-        attachTo: "#lichess .member_buttons .comments top"
+        attachTo: "#lichess .member-buttons .comments top"
       } : null, study.isContrib ? {
         title: "Annotate a position",
         text: "With the !? button, or a right click on the move list on the right.<br>" +
           "Annotation glyphs are shared and persisted.",
-        attachTo: "#lichess .member_buttons .glyphs top"
+        attachTo: "#lichess .member-buttons .glyphs top"
       } : null, {
         title: "Thanks for your time",
         text: "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
