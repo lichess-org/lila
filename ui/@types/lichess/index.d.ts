@@ -4,7 +4,6 @@ interface Lichess {
   numberFormat(n: number): string
   once(key: string): boolean
   quietMode: boolean
-  desktopNotification(txt: string | (() => string)): void
   engineName: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper

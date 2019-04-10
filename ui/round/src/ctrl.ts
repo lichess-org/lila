@@ -2,6 +2,7 @@ import * as round from './round';
 import * as game from 'game';
 import * as status from 'game/status';
 import * as ground from './ground';
+import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
@@ -309,7 +310,7 @@ export default class RoundController {
 
   showYourMoveNotification = () => {
     const d = this.data;
-    if (game.isPlayerTurn(d)) li.desktopNotification(() => {
+    if (game.isPlayerTurn(d)) notify(() => {
       let txt = this.trans('yourTurn'),
         opponent = renderUser.userTxt(this, d.opponent);
       if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
@@ -321,7 +322,7 @@ export default class RoundController {
       }
       return txt;
     });
-    else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
+    else if (this.isPlaying() && this.ply < 1) notify(() => {
       return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
     });
   };

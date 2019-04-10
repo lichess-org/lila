@@ -1,5 +1,6 @@
 import * as game from 'game';
 import throttle from 'common/throttle';
+import notify from 'common/notification';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
@@ -49,7 +50,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       const fromOp = ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
-      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentProposesATakeback'));
+      if (fromOp) notify(ctrl.trans('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -82,7 +83,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       const fromOp = ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
-      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou'));
+      if (fromOp) notify(ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
@@ -93,7 +94,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
       const fromOp = ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
-      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentOffersADraw'));
+      if (fromOp) notify(ctrl.trans('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
     berserk(color: Color) {

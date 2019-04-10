@@ -1,6 +1,6 @@
-import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces'
-
-import { asText } from './view'
+import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+import notify from 'common/notification';
+import { asText } from './view';
 
 const li = window.lichess;
 
@@ -36,12 +36,12 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function notifyNew() {
     if (!data || data.pager.currentPage !== 1) return;
-    var notif = data.pager.currentPageResults.find(n => !n.read);
+    const notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
     if (!li.quietMode) li.sound.newPM();
-    var text = asText(notif);
-    if (text) li.desktopNotification(text);
+    const text = asText(notif);
+    if (text) notify(text);
   }
 
   function loadPage(page: number) {
