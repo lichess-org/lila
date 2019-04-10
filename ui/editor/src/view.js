@@ -112,31 +112,31 @@ function controls(ctrl, fen) {
         ])
       ])
     ]),
-    m('div', [
-      m('select#variants', {
-        onchange: function(e) {
-          ctrl.changeVariant(e.target.value);
-        }
-      }, [
-        ['standard', 'Standard'],
-        ['antichess', 'Antichess'],
-        ['atomic', 'Atomic'],
-        ['crazyhouse', 'Crazyhouse'],
-        ['horde', 'Horde'],
-        ['kingOfTheHill', 'King of the Hill'],
-        ['racingKings', 'Racing Kings'],
-        ['threeCheck', 'Three-check']
-      ].map(function(x) { return variant2option(x[0], x[1], ctrl) })
-      )
-    ]),
-    ctrl.embed ? m('div', [
-      m('a.button.frameless', {
+    ctrl.embed ? m('div.actions', [
+      m('a.button.button-empty', {
         onclick: ctrl.startPosition
       }, 'Initial position'),
-      m('a.button.frameless', {
+      m('a.button.button-empty', {
         onclick: ctrl.clearBoard
       }, 'Empty board')
     ]) : [
+      m('div', [
+        m('select#variants', {
+          onchange: function(e) {
+            ctrl.changeVariant(e.target.value);
+          }
+        }, [
+          ['standard', 'Standard'],
+          ['antichess', 'Antichess'],
+          ['atomic', 'Atomic'],
+          ['crazyhouse', 'Crazyhouse'],
+          ['horde', 'Horde'],
+          ['kingOfTheHill', 'King of the Hill'],
+          ['racingKings', 'Racing Kings'],
+          ['threeCheck', 'Three-check']
+        ].map(function(x) { return variant2option(x[0], x[1], ctrl) })
+        )
+      ]),
       m('div.actions', [
         m('a.button.button-empty.text[data-icon=B]', {
           onclick: function() {
