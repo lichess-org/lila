@@ -199,6 +199,8 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
   if (newNode.captLen)
     curNode.captLen = newNode.captLen;
 
+  curNode.alternatives = newNode.alternatives;
+
   curNode.clock = newNode.clock;
   curNode.parentClock = newNode.parentClock;
   curNode.puzzle = newNode.puzzle;
