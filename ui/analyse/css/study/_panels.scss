@@ -30,7 +30,7 @@
   border: none;
   th {
     font-weight: bold;
-    color: $c-font-dimmer;
+    color: $c-font-dim;
     width: 1px;
     padding: 0 .3em 0 1em!important;
   }
@@ -38,9 +38,9 @@
     padding: 0;
   }
   input,
-  span,
-  pre {
-    padding-left: .7em;
+  span {
+    display: block;
+    padding: .6em 1em .6em .7em;
     line-height: 1.7;
   }
   input {
@@ -57,5 +57,44 @@
     border: none;
     background: none;
     padding: 0;
+  }
+}
+
+.study__comments {
+  form p {
+    margin: 1em 0;
+  }
+  #comment-text {
+    @extend %box-shadow;
+    height: 12em;
+  }
+}
+.study__comment {
+  @extend %box-neat;
+  background: $c-bg-box;
+  padding: .8em 1em;
+  margin-bottom: .8em;
+  .text {
+    @extend %break-word;
+    margin-top: .3em;
+    width: 100%;
+    overflow: hidden;
+    display: inline-block;
+  }
+  .edit {
+    float: right;
+    margin-left: 8px;
+    opacity: 0.7;
+    display: none;
+  }
+  &:hover .edit {
+    display: block;
+  }
+  .edit:hover {
+    opacity: 1;
+  }
+  .user-link,
+  .node {
+    font-weight: bold;
   }
 }

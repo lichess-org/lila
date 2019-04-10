@@ -23,7 +23,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   });
 }
 
-function fixed(text) {
+function fixed(text: string) {
   return h('span', text);
 }
 
