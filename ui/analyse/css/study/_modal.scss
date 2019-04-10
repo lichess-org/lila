@@ -1,0 +1,36 @@
+.study__modal {
+  .form3 {
+    text-align: left;
+    .editor {
+      margin: -30px 0 30px 0;
+      .spinner {
+        padding-top: 80px;
+      }
+    }
+  }
+  h2 {
+    margin-bottom: .5em;
+    i {
+      margin-left: 10px;
+      opacity: 0.5;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+        color: $c-primary;
+      }
+    }
+  }
+  .destructive {
+    text-align: left;
+    font-size: .9em;
+    form {
+      display:inline-block;
+    }
+    button {
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

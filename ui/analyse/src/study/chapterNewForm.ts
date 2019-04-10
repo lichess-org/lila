@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
 import { storedProp } from 'common/storage';
-import { bind, bindSubmit, spinner, option } from '../util';
+import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPdn } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
@@ -127,16 +127,13 @@ export function view(ctrl): VNode {
                 minlength: 2,
                 maxlength: 80
               },
-              hook: {
-                insert: vnode => {
-                  const el = vnode.elm as HTMLInputElement;
-                  if (!el.value) {
-                    el.value = 'Chapter ' + (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1));
-                    el.select();
-                    el.focus();
-                  }
+              hook: onInsert<HTMLInputElement>(el => {
+                if (!el.value) {
+                  el.value = 'Chapter ' + (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1));
+                  el.select();
+                  el.focus();
                 }
-              }
+              })
             }),
             h('label.control-label', {
               attrs: { for: 'chapter-name' }
@@ -257,13 +254,12 @@ export function view(ctrl): VNode {
 
 export function descriptionGroup(desc?: string) {
   return h('div.form-group', [
-    h('select#chapter-description', [
-      ['', 'None'],
-      ['1', 'Right under the board']
-    ].map(v => option(v[0], desc ? '1' : '', v[1]))),
-    h('label.control-label', {
+    h('label.form-label', {
       attrs: { for: 'chapter-description' }
     }, descTitle(true)),
-    h('i.bar')
+    h('select#chapter-description.form-control', [
+      ['', 'None'],
+      ['1', 'Right under the board']
+    ].map(v => option(v[0], desc ? '1' : '', v[1])))
   ]);
 }

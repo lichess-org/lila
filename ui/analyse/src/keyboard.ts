@@ -1,6 +1,6 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { bind as bindEvent, dataIcon, spinner } from './util';
+import { bind as bindEvent, dataIcon, spinner, onInsert } from './util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -115,12 +115,10 @@ export function bind(ctrl: AnalyseCtrl): void {
 export function view(ctrl: AnalyseCtrl): VNode {
 
   return h('div.lidraughts_overboard.keyboard_help', {
-    hook: {
-      insert: vnode => {
-        window.lidraughts.loadCss('stylesheets/keyboard.css')
-        $(vnode.elm as HTMLElement).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
-      }
-    }
+    hook: onInsert(el => {
+      window.lidraughts.loadCss('stylesheets/keyboard.css')
+      $(el).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
+    })
   }, [
     h('a.close.icon', {
       attrs: dataIcon('L'),

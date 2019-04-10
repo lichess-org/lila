@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { StudyCtrl } from './interfaces';
-import { bind, richHTML } from '../util';
+import { bind, richHTML, onInsert } from '../util';
 
 export type Save = (string) => void;
 
@@ -80,16 +80,13 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
     h('form.material.form', [
       h('div.form-group', [
         h('textarea#desc-text.' + id, {
-          hook: {
-            insert(vnode: VNode) {
-              const el = vnode.elm as HTMLInputElement;
-              el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
-              el.onkeyup = el.onpaste = () => {
-                ctrl.save(el.value.trim());
-              };
-              el.focus();
-            }
-          }
+          hook: onInsert<HTMLInputElement>(el => {
+            el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
+            el.onkeyup = el.onpaste = () => {
+              ctrl.save(el.value.trim());
+            };
+            el.focus();
+          })
         }),
         h('i.bar')
       ])
