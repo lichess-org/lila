@@ -11,11 +11,15 @@
   h2 {
     margin-bottom: .5em;
     i {
-      margin-left: 10px;
-      opacity: 0.5;
+      font-size: .6em;
+      &, &::before {
+        vertical-align: top;
+      }
+      margin-left: 1rem;
+      opacity: .5;
       cursor: pointer;
       &:hover {
-        opacity: 0.7;
+        opacity: .7;
         color: $c-primary;
       }
     }
@@ -32,5 +36,9 @@
         opacity: 1;
       }
     }
+  }
+
+  &.chapter-new .tabs-horiz {
+    margin: -1em 0 1.6em 0;
   }
 }

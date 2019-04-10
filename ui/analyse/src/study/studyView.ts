@@ -145,13 +145,13 @@ export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab();
 
   const makeTab = function(key: Tab, name: string) {
-    return h('a.' + key, {
+    return h('span.' + key, {
       class: { active: activeTab === key },
       hook: bind('mousedown', () => ctrl.vm.tab(key), ctrl.redraw)
     }, name);
   };
 
-  const tabs = h('div.study__tabs', [
+  const tabs = h('div.tabs-horiz', [
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     makeTab('members', plural('Member', ctrl.members.size())),
     ctrl.members.isOwner() ? h('a.more', {
