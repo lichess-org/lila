@@ -33,7 +33,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     withOnline: Boolean = true,
     modIcon: Boolean = false
   ): Frag =
-    if (post.erased) span(cls := "author")(lidraughts.common.String.erasedHtml)
+    if (post.erased) span(cls := "author")("<erased>")
     else post.userId.fold(frag(lidraughts.user.User.anonymous)) { userId =>
       userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
     }
