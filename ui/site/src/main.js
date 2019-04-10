@@ -934,7 +934,6 @@
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = document.querySelector('main.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
         name: "study"
@@ -946,12 +945,7 @@
     cfg.socketSend = lichess.socket.send;
     cfg.trans = lichess.trans(cfg.i18n);
     analyse = LichessAnalyse.start(cfg);
-    if (cfg.chat) {
-      lichess.pubsub.on('chat.enabled', function(v) {
-        $('#site_header .board_left').toggleClass('no_chat', !v);
-      });
-      lichess.makeChat(cfg.chat);
-    }
+    if (cfg.chat) lichess.makeChat(cfg.chat);
   }
 
   ////////////////
@@ -995,12 +989,7 @@
     cfg.socketSend = lichess.socket.send;
     cfg.trans = lichess.trans(cfg.i18n);
     analyse = LichessAnalyse.start(cfg);
-    if (cfg.chat) {
-      lichess.pubsub.on('chat.enabled', function(v) {
-        $('#site_header .board_left').toggleClass('no_chat', !v);
-      });
-      lichess.makeChat(cfg.chat);
-    }
+    if (cfg.chat) lichess.makeChat(cfg.chat);
   }
 
   ////////////////

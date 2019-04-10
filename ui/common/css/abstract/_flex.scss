@@ -20,6 +20,13 @@
   align-items: center;
   justify-content: space-between;
 }
+%flex-between-nowrap {
+  /* extends %flex-center */
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
 %flex-between-stretch {
   display: flex;
   flex-flow: row wrap;

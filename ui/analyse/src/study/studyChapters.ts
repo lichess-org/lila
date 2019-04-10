@@ -73,7 +73,7 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 
 export function view(ctrl: StudyCtrl): VNode {
 
-  const configButton = ctrl.members.canContribute() ? h('i.action.config', { attrs: dataIcon('%') }) : null;
+  const configButton = ctrl.members.canContribute() ? h('act', { attrs: dataIcon('%') }) : null;
   const current = ctrl.currentChapter();
 
   function update(vnode: VNode) {
@@ -104,14 +104,14 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
-  return h('div.list.chapters', {
+  return h('div.study__chapters', {
     hook: {
       insert(vnode) {
         (vnode.elm as HTMLElement).addEventListener('click', e => {
           const target = e.target as HTMLElement;
           const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
           if (!id) return;
-          if (target.classList.contains('config')) ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
+          if (target.tagName === 'ACT') ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
           else ctrl.setChapter(id);
         });
         vnode.data!.li = {};
@@ -131,22 +131,22 @@ export function view(ctrl: StudyCtrl): VNode {
     const editing = ctrl.chapters.editForm.isEditing(chapter.id),
     loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
     active = !ctrl.vm.loading && current && current.id === chapter.id;
-    return h('div.elem.chapter.draggable', {
+    return h('div.draggable', {
       key: chapter.id,
       attrs: { 'data-id': chapter.id },
       class: { active, editing, loading }
     }, [
-      h('span.status', loading ? h('span.ddloader') : ['' + (i + 1)]),
+      h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
       h('h3', chapter.name),
       configButton
     ]);
   }).concat(
     ctrl.members.canContribute() ? [
-      h('div.elem.chapter.add', {
+      h('div.add', {
         hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
       }, [
-        h('span.status', iconTag('O')),
-        h('h3.add_text', 'Add a new chapter')
+        h('span', iconTag('O')),
+        h('h3.add', 'Add a new chapter')
       ])
     ] : []
   ));

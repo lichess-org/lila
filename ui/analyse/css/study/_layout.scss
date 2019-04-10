@@ -1,0 +1,16 @@
+
+.analyse {
+  @include breakpoint($mq-col3) {
+    grid-template-areas:
+    'side    . pl-top gauge . tools'
+    'side    . board  gauge . tools'
+    'chat    . board  gauge . tools'
+    'chat    . pl-bot gauge . tools'
+    'uchat   . under  under . controls'
+    'uchat   . under  under . acpl';
+  }
+}
+.study {
+  &__player-top { grid-area: pl-top; }
+  &__player-bot { grid-area: pl-bot; }
+}

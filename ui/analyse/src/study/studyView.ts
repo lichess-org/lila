@@ -140,7 +140,7 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-export function main(ctrl: StudyCtrl): VNode {
+export function side(ctrl: StudyCtrl): VNode {
 
   const activeTab = ctrl.vm.tab();
 
@@ -151,21 +151,17 @@ export function main(ctrl: StudyCtrl): VNode {
     }, name);
   };
 
-  const tabs = h('div.study_tabs', [
-    makeTab('members', plural('Member', ctrl.members.size())),
+  const tabs = h('div.study__tabs', [
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
+    makeTab('members', plural('Member', ctrl.members.size())),
     ctrl.members.isOwner() ? h('a.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ iconTag('[') ]) : null
     ]);
 
-  let panel;
-  if (activeTab === 'members') panel = memberView(ctrl);
-  else if (activeTab === 'chapters') panel = chapterView(ctrl);
-
-  return h('div.side_box.study_box', [
+  return h('div.study__side', [
     tabs,
-    panel
+    (activeTab === 'members' ? memberView : chapterView)(ctrl)
   ]);
 }
 

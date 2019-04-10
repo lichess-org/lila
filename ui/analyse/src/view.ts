@@ -289,8 +289,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'gauge-on': gaugeOn,
       'gb_edit': !!gamebookEditView,
       'gb_play': !!gamebookPlayView,
-      'relay_edit': !!relayEdit,
-      'player_bars': !!playerBars,
+      'relay_edit': !!relayEdit
     }
   }, [
     gaugeOn ? cevalView.renderGauge(ctrl) : null,
@@ -325,18 +324,20 @@ export default function(ctrl: AnalyseCtrl): VNode {
     h('div.analyse__acpl', [acplView(ctrl)]),
     ctrl.embed ? null : h('aside.analyse__side', {
       hook: onInsert(elm => {
-        ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+        ctrl.opts.$side && $(elm).replaceWith(ctrl.opts.$side);
       })
     }, [
-      ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-      (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
-        h('a.button.text', {
-          attrs: {
-            href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
-            'data-icon': 'i'
-          }
-        }, ctrl.trans.noarg('backToGame'))
-      ) : null
+      ctrl.study ? studyView.side(ctrl.study) : (
+        ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+        (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
+          h('a.button.text', {
+            attrs: {
+              href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
+              'data-icon': 'i'
+            }
+          }, ctrl.trans.noarg('backToGame'))
+        ) : null
+      )
     ]),
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {

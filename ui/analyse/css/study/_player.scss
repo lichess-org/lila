@@ -1,0 +1,4 @@
+.study__player {
+  @extend %flex-between-nowrap, %metal;
+  font-weight: bold;
+}
