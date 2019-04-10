@@ -1,3 +1,13 @@
+function loadShepherd(f) {
+  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
+  lidraughts.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+  lidraughts.loadCss('stylesheets/shepherd.css');
+  lidraughts.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
+    lidraughts.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
+      f(theme);
+    });
+  });
+};
 lidraughts.studyTour = function(study) {
   lidraughts.shepherd(function(theme) {
     var onTab = function(tab) {
@@ -19,7 +29,7 @@ lidraughts.studyTour = function(study) {
         text: "This is a shared analysis board.<br><br>" +
           "Use it to analyse and annotate games,<br>" +
           "discuss positions with friends,<br>" +
-          "and of course for chess lessons!<br><br>" +
+          "and of course for draughts lessons!<br><br>" +
           "It's a powerful tool, let's take some time to see how it works.",
         attachTo: "#lidraughts .analyse .help top"
       }, {

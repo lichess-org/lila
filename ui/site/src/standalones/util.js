@@ -249,16 +249,6 @@ lidraughts.hopscotch = function(f) {
 lidraughts.slider = function() {
   return lidraughts.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
-lidraughts.shepherd = function(f) {
-  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-  lidraughts.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
-  lidraughts.loadCss('stylesheets/shepherd.css');
-  lidraughts.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
-    lidraughts.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
-      f(theme);
-    });
-  });
-};
 lidraughts.makeChat = function(data, callback) {
   lidraughts.raf(function() {
     data.loadCss = lidraughts.loadCssPath;

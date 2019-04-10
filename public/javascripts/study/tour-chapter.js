@@ -1,5 +1,15 @@
+function loadShepherd(f) {
+  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
+  lidraughts.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+  lidraughts.loadCss('stylesheets/shepherd.css');
+  lidraughts.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
+    lidraughts.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
+      f(theme);
+    });
+  });
+};
 lidraughts.studyTourChapter = function(study) {
-  lidraughts.shepherd(function(theme) {
+  loadShepherd(function(theme) {
     var onTab = function(tab) {
       return {
         'before-show': function() {
@@ -55,13 +65,13 @@ lidraughts.studyTourChapter = function(study) {
     }, {
       title: "Studies support variants",
       text: "Yes, you can study frisian draughts,<br>" +
-        "and all lidraughts variants!",
+        "and all other lidraughts variants!",
       attachTo: '.study_overboard label[for=chapter-variant] left',
       when: onTab('init')
     }, {
       title: "Thanks for your time",
       text: "Chapters are saved forever.<br>" +
-        "Have fun organizing your chess content!",
+        "Have fun organizing your draughts content!",
       buttons: [{
         text: 'Done',
         action: tour.next
