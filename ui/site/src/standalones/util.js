@@ -249,16 +249,6 @@ lichess.hopscotch = function(f) {
 lichess.slider = function() {
   return lichess.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
-lichess.shepherd = function(f) {
-  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-  lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
-  lichess.loadCss('stylesheets/shepherd.css');
-  lichess.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
-    lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
-      f(theme);
-    });
-  });
-};
 lichess.makeChat = function(data, callback) {
   lichess.raf(function() {
     data.loadCss = lichess.loadCssPath;

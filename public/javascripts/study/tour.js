@@ -1,3 +1,13 @@
+function loadShepherd(f) {
+  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
+  lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+  lichess.loadCss('stylesheets/shepherd.css');
+  lichess.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
+    lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
+      f(theme);
+    });
+  });
+};
 lichess.studyTour = function(study) {
   lichess.shepherd(function(theme) {
     var onTab = function(tab) {
