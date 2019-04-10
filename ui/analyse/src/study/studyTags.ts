@@ -71,7 +71,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
     ]);
   }
 
-  return h('table.tags.slist', h('tbody', rows.map(function(r) {
+  return h('table.study__tags.slist', h('tbody', rows.map(function(r) {
     return h('tr', {
       key: '' + r[0]
     }, [

@@ -32,7 +32,7 @@ interface ToolButtonOpts {
 }
 
 function toolButton(opts: ToolButtonOpts): VNode {
-  return h('a.fbt.' + opts.tab, {
+  return h('span.' + opts.tab, {
     attrs: { title: opts.hint },
     class: { active: opts.tab === opts.ctrl.vm.toolTab() },
     hook: bind('mousedown', () => {
@@ -47,10 +47,10 @@ function toolButton(opts: ToolButtonOpts): VNode {
 
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
-  canContribute = ctrl.members.canContribute(),
-  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+    canContribute = ctrl.members.canContribute(),
+    showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study__buttons', [
-    h('div.member-buttons', [
+    h('div.left-buttons.tabs-horiz', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky ? h('a.mode.sync', {
         attrs: { title: 'All sync members remain on the same position' },
@@ -106,17 +106,14 @@ function buttons(root: AnalyseCtrl): VNode {
         tab: 'share',
         hint: 'Share & export',
         icon: iconTag('$')
+      }),
+      h('span.help', {
+        attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
+        hook: bind('click', ctrl.startTour)
       })
     ]),
-    gbOverrideButton(ctrl) || helpButton(ctrl)
+    gbOverrideButton(ctrl)
   ]);
-}
-
-function helpButton(ctrl: StudyCtrl) {
-  return h('span.fbt.help', {
-    attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
-    hook: bind('click', ctrl.startTour)
-  });
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
@@ -157,7 +154,7 @@ export function side(ctrl: StudyCtrl): VNode {
     ctrl.members.isOwner() ? h('span.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ iconTag('[') ]) : null
-    ]);
+  ]);
 
   return h('div.study__side', [
     tabs,
@@ -211,7 +208,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
             'Press RECORD to comment moves' :
             'Only the study members can comment on moves')
         );
-        break;
+      break;
     case 'glyphs':
       panel = ctrl.path ? (
         study.vm.mode.write ?
