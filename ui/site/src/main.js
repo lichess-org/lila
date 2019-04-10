@@ -939,7 +939,6 @@
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = document.querySelector('main.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
         name: "study"
@@ -951,12 +950,7 @@
     cfg.socketSend = lidraughts.socket.send;
     cfg.trans = lidraughts.trans(cfg.i18n);
     analyse = LidraughtsAnalyse.start(cfg);
-    if (cfg.chat) {
-      lidraughts.pubsub.on('chat.enabled', function(v) {
-        $('#site_header .board_left').toggleClass('no_chat', !v);
-      });
-      lidraughts.makeChat(cfg.chat);
-    }
+    if (cfg.chat) lidraughts.makeChat(cfg.chat);
   }
 
   ////////////////
@@ -1000,12 +994,7 @@
     cfg.socketSend = lidraughts.socket.send;
     cfg.trans = lidraughts.trans(cfg.i18n);
     analyse = LidraughtsAnalyse.start(cfg);
-    if (cfg.chat) {
-      lidraughts.pubsub.on('chat.enabled', function(v) {
-        $('#site_header .board_left').toggleClass('no_chat', !v);
-      });
-      lidraughts.makeChat(cfg.chat);
-    }
+    if (cfg.chat) lidraughts.makeChat(cfg.chat);
   }
 
   ////////////////

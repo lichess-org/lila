@@ -142,7 +142,7 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-export function main(ctrl: StudyCtrl): VNode {
+export function side(ctrl: StudyCtrl): VNode {
 
   const activeTab = ctrl.vm.tab(),
     intro = ctrl.relay && ctrl.relay.intro;
@@ -162,7 +162,7 @@ export function main(ctrl: StudyCtrl): VNode {
     hook: bind('mousedown', () => { intro.active = true }, ctrl.redraw)
   }, [iconTag('')]) : null;
 
-  const tabs = h('div.study_tabs', [
+  const tabs = h('div.study__tabs', [
     introTab,
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     makeTab('members', plural('Member', ctrl.members.size())),
@@ -171,13 +171,9 @@ export function main(ctrl: StudyCtrl): VNode {
     }, [ iconTag('[') ]) : null
     ]);
 
-  let panel;
-  if (activeTab === 'members') panel = memberView(ctrl);
-  else if (activeTab === 'chapters') panel = chapterView(ctrl);
-
-  return h('div.side_box.study_box', [
+  return h('div.study__side', [
     tabs,
-    panel
+    (activeTab === 'members' ? memberView : chapterView)(ctrl)
   ]);
 }
 
