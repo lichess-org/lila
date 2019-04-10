@@ -65,7 +65,10 @@
     &.gauge-on {
       @include columns-with-gauge-col3($gauge-on-container);
     }
-    grid-template-rows: max-content fit-content(0);
+    grid-template-rows: 8em fit-content(100%);
+    @include proper-grid {
+      grid-template-rows: max-content fit-content(100%);
+    }
     grid-template-areas:
     'side    . board gauge . tools'
     'chat    . board gauge . tools'

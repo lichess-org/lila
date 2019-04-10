@@ -343,19 +343,20 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'gauge-on': gaugeOn,
       'gb_edit': !!gamebookEditView,
       'gb_play': !!gamebookPlayView,
-      'relay_edit': !!relayEdit
+      'relay_edit': !!relayEdit,
+      'has-players': !!playerBars
     }
   }, [
     (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
-    playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
     intro || h(addChapterId(study, 'div.analyse__board.main-board.' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor()), {
       hook: ctrl.gamebookPlay() ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
-      draughtsground.render(ctrl)
+      playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
+      draughtsground.render(ctrl),
+      playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null
     ]),
-    playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
     (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     h('div.analyse__tools', gamebookPlayView || [
       // (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
