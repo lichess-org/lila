@@ -49,11 +49,7 @@ export function view(ctrl): VNode {
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }
-  return h('div.study_share.underboard_form.box', {
-    hook: {
-      insert() { window.lichess.loadCss('stylesheets/material.form.css') }
-    }
-  }, [
+  return h('div.study_share.underboard_form.box', [
     h('div.downloads', [
       ctrl.cloneable ? h('a.button.text', {
         attrs: {
