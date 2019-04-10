@@ -1,15 +1,15 @@
-$c-study-button: $c-secondary;
+$c-study-button: $c-accent;
 
 .study__buttons {
-  @extend %flex-between, %box-radius-top;
-  align-items: stretch;
-  height: 2.6em;
-  background: $c-bg-box;
-  border: $border;
-  border-bottom: 2px solid $c-study-button;
-  .member-buttons {
-    display: flex;
-    justify-content: stretch;
+  @extend %flex-between;
+  border-bottom: 2px solid $c-border;
+  span {
+    font-size: 1.1em;
+  }
+  .left-buttons {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    border-bottom: 0;
   }
   .behind {
     background: $c-bad;
@@ -18,17 +18,9 @@ $c-study-button: $c-secondary;
     border-radius: 9px;
     margin-right: 4px;
   }
-  .fbt {
-    @extend %flex-center;
-    justify-content: center;
-    padding: 0;
-    width: 3em;
-    .data-count::after {
-      background: $c-study-button;
-    }
-  }
   .mode {
-    @extend %flex-center;
+    @extend %flex-center-nowrap, %box-radius-top;
+    align-self: stretch;
     color: $c-font;
     padding: 0 .7em;
     text-transform: uppercase;
@@ -48,8 +40,11 @@ $c-study-button: $c-secondary;
       opacity: 1;
     }
   }
+  .glyphs {
+    padding-bottom: .35em;
+  }
   .glyph-icon::before {
     content: '⁉';
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 }
