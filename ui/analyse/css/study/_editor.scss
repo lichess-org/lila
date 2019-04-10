@@ -1,0 +1,33 @@
+.board-editor-wrap {
+  min-height: 280px;
+  margin-bottom: 2em;
+  .spinner {
+    padding-top: 90px;
+  }
+}
+
+.board-editor {
+  display: grid;
+  grid-template-columns: 300px 2vmin 200px;
+  grid-template-rows: min-content auto min-content;
+  grid-template-areas:
+  '.              . e-tools'
+  'e-spare-top    . e-tools'
+  'e-board        . e-tools'
+  'e-spare-bottom . e-tools'
+  '.              . e-tools';
+  .main-board {
+    grid-area: e-board;
+  }
+  &__tools {
+    grid-area: e-tools;
+  }
+  &-top {
+    grid-area: spare-top;
+    margin-bottom: .5em;
+  }
+  &-bottom {
+    grid-area: spare-bottom;
+    margin-top: .5em;
+  }
+}

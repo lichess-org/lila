@@ -5,7 +5,7 @@
   }
   &-wrap {
     @extend %box-radius, %popup-shadow, %flex-column;
-    background: $c-bg-popup;
+    background: $c-bg-box;
     position: relative;
     padding: 2rem;
     text-align: center;

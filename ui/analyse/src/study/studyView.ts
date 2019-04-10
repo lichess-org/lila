@@ -148,7 +148,7 @@ export function side(ctrl: StudyCtrl): VNode {
     intro = ctrl.relay && ctrl.relay.intro;
 
   const makeTab = function(key: Tab, name: string) {
-    return h('a.' + key, {
+    return h('span.' + key, {
       class: { active: (!intro || !intro.active) && activeTab === key },
       hook: bind('mousedown', () => {
         if (intro) intro.disable();
@@ -157,12 +157,12 @@ export function side(ctrl: StudyCtrl): VNode {
     }, name);
   };
 
-  const introTab = intro && intro.exists ? h('a.intro', {
+  const introTab = intro && intro.exists ? h('span.intro', {
     class: { active: intro.active },
     hook: bind('mousedown', () => { intro.active = true }, ctrl.redraw)
   }, [iconTag('')]) : null;
 
-  const tabs = h('div.study__tabs', [
+  const tabs = h('div.tabs-horiz', [
     introTab,
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     makeTab('members', plural('Member', ctrl.members.size())),

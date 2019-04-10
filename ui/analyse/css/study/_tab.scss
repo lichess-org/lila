@@ -3,7 +3,10 @@
   justify-content: center;
   align-items: flex-end;
   border-bottom: 2px solid $c-border;
-  a {
+  @include breakpoint($mq-not-xx-small) {
+    font-size: .9em;
+  }
+  span {
     @extend %roboto;
     flex: 1 1 auto;
     text-align: center;
