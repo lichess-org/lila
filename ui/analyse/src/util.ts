@@ -3,24 +3,22 @@ import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
 
+export const emptyRedButton = 'button.button.button-red.button-empty';
+
 export function plyColor(ply: number): Color {
   return (ply % 2 === 0) ? 'white' : 'black';
 }
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
-  return {
-    insert: vnode => {
-      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        const res = f(e);
-        if (res === false) {
-          if (e.preventDefault) e.preventDefault();
-          else e.returnValue = false; // ie
-        }
-        if (redraw) redraw();
-        return res;
-      });
+  return onInsert(el => el.addEventListener(eventName, e => {
+    const res = f(e);
+    if (res === false) {
+      if (e.preventDefault) e.preventDefault();
+      else e.returnValue = false; // ie
     }
-  };
+    if (redraw) redraw();
+    return res;
+  }));
 }
 export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
   return bind('submit', e => {
@@ -29,11 +27,9 @@ export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
   }, redraw);
 }
 
-export function onInsert(f: (element: HTMLElement) => void): Hooks {
+export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
-    insert: vnode => {
-      f(vnode.elm as HTMLElement)
-    }
+    insert: vnode => f(vnode.elm as A)
   };
 }
 

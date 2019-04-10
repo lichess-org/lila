@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, titleNameToId } from '../util';
+import { bind, titleNameToId, onInsert } from '../util';
 import { prop, Prop } from 'common';
 import * as dialog from './dialog';
 import { StudyMemberMap } from './interfaces';
@@ -19,7 +19,7 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       const existing = members();
       return followings.concat(spectators).filter(function(elem, idx, arr) {
         return arr.indexOf(elem) >= idx && // remove duplicates
-        !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
+          !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
       }).sort();
     },
     members,
@@ -78,20 +78,17 @@ export function view(ctrl): VNode {
       h('div.input-wrapper', [ // because typeahead messes up with snabbdom
         h('input', {
           attrs: { placeholder: 'Search by username' },
-          hook: {
-            insert: vnode => {
-              const el = vnode.elm as HTMLInputElement;
-              window.lichess.userAutocomplete($(el), {
-                tag: 'span',
-                onSelect(v) {
-                  ctrl.invite(v.name);
-                  $(el).typeahead('close');
-                  el.value = '';
-                  ctrl.redraw();
-                }
-              });
-            }
-          }
+          hook: onInsert<HTMLInputElement>(el => {
+            window.lichess.userAutocomplete($(el), {
+              tag: 'span',
+              onSelect(v) {
+                ctrl.invite(v.name);
+                $(el).typeahead('close');
+                el.value = '';
+                ctrl.redraw();
+              }
+            });
+          })
         })
       ])
     ]

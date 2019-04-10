@@ -1,7 +1,7 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import throttle from 'common/throttle';
-import { option } from '../util';
+import { option, onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapter } from './interfaces';
 
@@ -12,17 +12,14 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
       spellcheck: false,
       value
     },
-    hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLInputElement;
-        el.onblur = function() {
-          submit(el.value, el);
-        };
-        el.onkeypress = function(e) {
-          if ((e.keyCode || e.which) == 13) el.blur();
-        }
+    hook: onInsert<HTMLInputElement>(el => {
+      el.onblur = function() {
+        submit(el.value, el);
+      };
+      el.onkeypress = function(e) {
+        if ((e.keyCode || e.which) == 13) el.blur();
       }
-    }
+    })
   });
 }
 
@@ -37,7 +34,7 @@ type TagRow = (string | VNode)[];
 function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard')
-  rows.push(['Variant', fixed(chapter.setup.variant.name)]);
+    rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(chapter.tags.map(tag => [
     tag[0],
     submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])
@@ -111,7 +108,7 @@ function doRender(root: StudyCtrl): VNode {
 
 export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
-  tagKey = chapter.tags.map(t => t[1]).join(','),
-  key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
+    tagKey = chapter.tags.map(t => t[1]).join(','),
+    key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk('div.undertable_inner.' + chapter.id, doRender, [root, key]);
 }

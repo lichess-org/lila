@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { titleNameToId, bind, dataIcon, iconTag } from '../util';
+import { titleNameToId, bind, dataIcon, iconTag, onInsert } from '../util';
 import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
@@ -178,13 +178,13 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && member.user.id !== ctrl.members.myId)
-    return h('act', {
-      key: 'cfg-' + member.user.id,
-      attrs: dataIcon('%'),
-      hook: bind('click', _ => {
-        ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
-      }, ctrl.redraw)
-    });
+      return h('act', {
+        key: 'cfg-' + member.user.id,
+        attrs: dataIcon('%'),
+        hook: bind('click', _ => {
+          ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
+        }, ctrl.redraw)
+      });
     if (!isOwner && member.user.id === ctrl.members.myId)
       return h('span.action.leave', {
         key: 'leave',
@@ -200,11 +200,7 @@ export function view(ctrl: StudyCtrl): VNode {
     const roleId = 'member-role';
     return h('m-config', {
       key: member.user.id + '-config',
-      hook: {
-        insert: vnode => {
-          $(vnode.elm as HTMLElement).parent('.members').scrollTo(vnode.elm as HTMLElement, 200);
-        }
-      }
+      hook: onInsert(el => $(el).parent('.members').scrollTo(el, 200))
     }, [
       h('div.role', [
         h('div.switch', [

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../ctrl';
-import { spinner, bind } from '../util';
+import { spinner, bind, onInsert } from '../util';
 import { Prop, prop, defined } from 'common';
 
 export interface ServerEvalCtrl {
@@ -74,17 +74,15 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
   return h('div.server_eval.ready.' + analysis.id, {
-    hook: {
-      insert(vnode) {
+    hook: onInsert(el => {
         ctrl.lastPly(false);
         li.requestIdleCallback(() => {
           li.loadScript('javascripts/chart/acpl.js').then(() => {
-            li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
-            ctrl.chartEl(vnode.elm as HTMLElement);
+            li.advantageChart(ctrl.root.data, ctrl.root.trans, el);
+            ctrl.chartEl(el);
           });
         });
-      }
-    }
+    })
   }, [h('div.message', spinner())]);
 }
 

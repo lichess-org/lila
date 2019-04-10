@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { StudyCtrl } from './interfaces';
-import { bind, enrichText, innerHTML } from '../util';
+import { bind, enrichText, innerHTML, onInsert } from '../util';
 
 export type Save = (string) => void;
 
@@ -29,7 +29,7 @@ export const title = 'Chapter pinned comment';
 
 export function view(study: StudyCtrl): VNode | undefined {
   const desc = study.desc,
-  contrib = study.members.canContribute() && !study.gamebookPlay();
+    contrib = study.members.canContribute() && !study.gamebookPlay();
   if (desc.edit) return edit(desc, study.data.chapter.id);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
@@ -80,16 +80,13 @@ function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
     h('form.material.form', [
       h('div.form-group', [
         h('textarea#desc-text.' + chapterId, {
-          hook: {
-            insert(vnode: VNode) {
-              const el = vnode.elm as HTMLInputElement;
-              el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
-              el.onkeyup = el.onpaste = () => {
-                ctrl.save(el.value.trim());
-              };
-              el.focus();
-            }
-          }
+          hook: onInsert<HTMLInputElement>(el => {
+            el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
+            el.onkeyup = el.onpaste = () => {
+              ctrl.save(el.value.trim());
+            };
+            el.focus();
+          })
         }),
         h('i.bar')
       ])

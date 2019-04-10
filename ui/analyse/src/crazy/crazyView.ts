@@ -1,6 +1,7 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom'
 import { MouchEvent } from 'chessground/types';
+import { onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
@@ -18,14 +19,12 @@ export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
   const usable = !ctrl.embed && activeColor;
   return h(`div.pocket.is2d.pocket-${position}.pos-${ctrl.bottomColor()}`, {
     class: { usable },
-    hook: {
-      insert: vnode => {
-        if (ctrl.embed) return;
-        eventNames.forEach(name => {
-          (vnode.elm as HTMLElement).addEventListener(name, e => drag(ctrl, color, e as MouchEvent));
-        });
-      }
-    }
+    hook: onInsert(el => {
+      if (ctrl.embed) return;
+      eventNames.forEach(name => {
+        el.addEventListener(name, e => drag(ctrl, color, e as MouchEvent));
+      });
+    })
   }, oKeys.map(role => {
     let nb = pocket[role] || 0;
     if (activeColor) {

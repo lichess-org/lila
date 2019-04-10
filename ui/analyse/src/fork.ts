@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { renderIndexAndMove } from './moveView';
 import { defined } from 'common';
 import { ConcealOf } from './interfaces';
+import { onInsert } from './util';
 import AnalyseCtrl from './ctrl';
 
 export interface ForkCtrl {
@@ -10,7 +11,7 @@ export interface ForkCtrl {
     selected: number;
     displayed: boolean;
   },
-  next: () => boolean | undefined;
+    next: () => boolean | undefined;
   prev: () => boolean | undefined;
   proceed: (it?: number) => boolean | undefined;
 }
@@ -62,30 +63,28 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
   if (!state.displayed) return;
   const isMainline = concealOf && root.onMainline;
   return h('div.analyse__fork', {
-    hook: {
-      insert(vnode) {
-        (vnode.elm as HTMLElement).addEventListener('click', e => {
-          const target = e.target as HTMLElement,
+    hook: onInsert(el => {
+      el.addEventListener('click', e => {
+        const target = e.target as HTMLElement,
           it = parseInt(
             (target.parentNode as HTMLElement).getAttribute('data-it') ||
             target.getAttribute('data-it') || ''
           );
-          root.fork.proceed(it);
-          root.redraw();
-        });
-      }
-    }
+        root.fork.proceed(it);
+        root.redraw();
+      });
+    })
   },
-  state.node.children.map((node, it) => {
-    const conceal = isMainline && concealOf!(true)(root.path + node.id, node);
-    if (!conceal) return h('move', {
-      class: { selected: it === state.selected },
-      attrs: { 'data-it': it }
-    }, renderIndexAndMove({
-      withDots: true,
-      showEval: root.showComputer(),
-      showGlyphs: root.showComputer()
-    }, node));
-  })
+    state.node.children.map((node, it) => {
+      const conceal = isMainline && concealOf!(true)(root.path + node.id, node);
+      if (!conceal) return h('move', {
+        class: { selected: it === state.selected },
+        attrs: { 'data-it': it }
+      }, renderIndexAndMove({
+        withDots: true,
+        showEval: root.showComputer(),
+        showGlyphs: root.showComputer()
+      }, node));
+    })
   );
 }

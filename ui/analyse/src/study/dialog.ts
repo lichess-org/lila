@@ -10,21 +10,23 @@ interface Dialog {
 }
 
 export function form(d: Dialog): VNode {
-  return h('div.lichess_overboard.study_overboard.' + d.class, {
-    hook: {
-      insert() { window.lichess.loadCss('stylesheets/material.form.css') }
-    }
-  }, ([
-    h('a.close.icon', {
-      attrs: { 'data-icon': 'L' },
-      hook: bind('click', d.onClose)
-    })
-  ] as MaybeVNodes).concat(d.content));
+  return h('div#modal-overlay', {
+    hook: bind('click', d.onClose)
+  }, [
+    h('div#modal-wrap.study__modal.' + d.class, {
+      hook: bind('click', e => e.stopPropagation())
+    }, ([
+      h('a.close.icon', {
+        attrs: { 'data-icon': 'L' },
+        hook: bind('click', d.onClose)
+      })
+    ] as MaybeVNodes).concat(d.content))
+  ]);
 }
 
 export function button(name: string): VNode {
-  return h('div.button-container',
-    h('button.submit.button', {
+  return h('div.form-actions.single',
+    h('button.button', {
       attrs: { type: 'submit' },
     }, name)
   );
