@@ -106,11 +106,11 @@ function controls(ctrl, fen) {
         ])
       ])
     ]),
-    ctrl.embed ? m('div', [
-      m('a.button.frameless', {
+    ctrl.embed ? m('div.actions', [
+      m('a.button.button-empty', {
         onclick: ctrl.startPosition
       }, 'Initial position'),
-      m('a.button.frameless', {
+      m('a.button.button-empty', {
         onclick: ctrl.clearBoard
       }, 'Empty board')
     ]) : [
