@@ -256,43 +256,6 @@ lidraughts.makeChat = function(data, callback) {
   });
 };
 
-lidraughts.desktopNotification = (function() {
-  var notifications = [];
-  function closeAll() {
-    notifications.forEach(function(n) {
-      n.close();
-    });
-    notifications = [];
-  };
-  window.addEventListener('focus', closeAll);
-  var storage = lidraughts.storage.make('just-notified');
-  function notify(msg) {
-    var now = Date.now();
-    if (document.hasFocus() || now - storage.get() < 1000) return;
-    storage.set(now);
-    if ($.isFunction(msg)) msg = msg();
-    var notification = new Notification('lidraughts.org', {
-      icon: '//lidraughts.org/assets/images/logo.256.png',
-      body: msg
-    });
-    notification.onclick = function() {
-      window.focus();
-    };
-    notifications.push(notification);
-  };
-  return function(msg) {
-    if (document.hasFocus() || !('Notification' in window)) return;
-    if (Notification.permission === 'granted') {
-      // increase chances that the first tab can put a local storage lock
-      setTimeout(notify, 10 + Math.random() * 500, msg);
-    } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission(function(p) {
-        if (p === 'granted') notify(msg);
-      });
-    };
-  };
-})();
-
 lidraughts.numberFormat = (function() {
   var formatter = false;
   return function(n) {
