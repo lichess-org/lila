@@ -167,6 +167,7 @@ object home {
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lidraughts")),
+          a(href := "/faq")("FAQ"),
           a(href := "/contact")(trans.contact()),
           a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
