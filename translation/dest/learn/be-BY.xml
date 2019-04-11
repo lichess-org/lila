@@ -60,50 +60,49 @@
   <string name="capture">Узяцце</string>
   <string name="takeTheEnemyPieces">Забярыце фігуры суперніка</string>
   <string name="captureIntro">Знайдзіце неабароненыя фігуры суперніка і забярыце іх!</string>
-  <string name="takeTheBlackPieces">З\'ешце чорныя фігуры!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">З\'ешце ўсе чорныя фігуры! І не страцьце свае.</string>
-  <string name="captureComplete">Віншуем! Зараз вы ведаеце, як ваяваць з шахматнымі фігурамі!</string>
+  <string name="takeTheBlackPieces">Забярыце чорныя фігуры!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Забярыце ўсе чорныя фігуры! І не страцьце свае.</string>
+  <string name="captureComplete">Віншуем! Цяпер вы ведаеце, як браць фігуры!</string>
   <string name="protection">Абарона</string>
   <string name="keepYourPiecesSafe">Бараніце вашы фігуры</string>
-  <string name="protectionIntro">Вызначыце, якія вашы фігуры атакуе супернік, і абароніце іх!</string>
-  <string name="protectionComplete">Віншуем! Фігура, якую вы не прайгралі, гэта ваша перамога!</string>
+  <string name="protectionIntro">Вызначыце, якія вашы фігуры атакуе супернік, і абараніце іх!</string>
+  <string name="protectionComplete">Віншуем! Кожная абароненая фігура – крок да перамогі!</string>
   <string name="escape">Вас атакуюць! Ухіліце пагрозу!</string>
-  <string name="noEscape">Гэта не выйсце,
-Але вы можаце абараніць!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не дазваляйце ім з\'ядаць
-кожную неабароненую фігуру!</string>
-  <string name="combat">Бітва</string>
+  <string name="noEscape">Няма куды бегчы,
+але вы можаце абараніцца!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дайце ім забраць
+ніводнай неабароненай фігуры!</string>
+  <string name="combat">Бой</string>
   <string name="captureAndDefendPieces">Узяцце і абарона фігур</string>
-  <string name="combatIntro">Добры ваяр ведае як атаку, так і абарону!</string>
-  <string name="combatComplete">Віншуем! Зараз вы ведаеце, як ваяваць з шахматнымі фігурамі!</string>
-  <string name="checkInOne">Шах</string>
-  <string name="attackTheOpponentsKing">Атака на караля</string>
-  <string name="checkInOneIntro">Каб абвясціць шах, нападайце на караля суперніка. Ён павінен будзе бараніцца!</string>
+  <string name="combatIntro">Добры ваяр ведае і як нападаць, і як абараняцца!</string>
+  <string name="combatComplete">Віншуем! Цяпер вы ведаеце, як ідзе бой у шахматах!</string>
+  <string name="checkInOne">Шах у адзін ход</string>
+  <string name="attackTheOpponentsKing">Атакуйце караля суперніка</string>
+  <string name="checkInOneIntro">Каб абвясціць шах, нападайце на караля суперніка. Ён вымушаны будзе бараніцца!</string>
   <string name="checkInOneGoal">Нападзіце на караля суперніка
 за адзін ход!</string>
-  <string name="checkInOneComplete">Віншуем! Вы паставілі шах свайму суперніку, вымусіўшы бараніць свайго караля!</string>
+  <string name="checkInOneComplete">Віншуем! Вы паставілі шах свайму суперніку, вымусіўшы яго бараніць свайго караля!</string>
   <string name="outOfCheck">Сыход з-пад шаха</string>
-  <string name="defendYourKing">Абароніце свайго караля</string>
+  <string name="defendYourKing">Абараніце свайго караля</string>
   <string name="outOfCheckIntro">Вам шах! Вы павінны сыходзіць ці блакаваць атаку.</string>
-  <string name="escapeWithTheKing">Уцёкі каралём!</string>
-  <string name="theKingCannotEscapeButBlock">Кароль не можа пайсці, але вы можаце блакаваць атаку!</string>
-  <string name="youCanGetOutOfCheckByTaking">Вы можаце пайсці ад шаха,
-з\'еўшы атакоўную фігуру.</string>
+  <string name="escapeWithTheKing">Адводзьце свайго караля!</string>
+  <string name="theKingCannotEscapeButBlock">Кароль не можа збегчы, але вы можаце заблакіраваць атаку!</string>
+  <string name="youCanGetOutOfCheckByTaking">Вы можаце забраць фігуру, якая ставіць шах.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Гэты конь ставіць шах,
-абыходзячы тваю абарону!</string>
+абыходзячы вашую абарону!</string>
   <string name="escapeOrBlock">Адвядзіце караля
 ці зачыніцеся!</string>
-  <string name="outOfCheckComplete">Віншуем! Ваш кароль не зможа быць узяты, пераканаецеся, што вы можаце абараніць яго ад шаха!</string>
+  <string name="outOfCheckComplete">Віншуем! Цяпер вы ведаеце, як абараніць свайго караля ад шаха!</string>
   <string name="mateInOne">Мат у адзін ход</string>
-  <string name="defeatTheOpponentsKing">Параза караля суперніка</string>
-  <string name="mateInOneIntro">Вы выйграяце, калі ваш апанент не можа бараніцца ад шаха.</string>
+  <string name="defeatTheOpponentsKing">Вазьміце верх над каралём суперніка</string>
+  <string name="mateInOneIntro">Вы перамагаеце, калі ваш супернік не можа абараніць караля ад шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйце караля вашага суперніка такім чынам, каб яго няможна было абараніць!</string>
-  <string name="mateInOneComplete">Віншуем! Такім чынам вы выйграеце ў шахматы!</string>
+  <string name="mateInOneComplete">Віншуем! Вось так перамагаюць у шахматах!</string>
   <string name="intermediate">Прамежкавы этап</string>
   <string name="boardSetup">Пазіцыя на дошцы</string>
   <string name="howTheGameStarts">Пачатак шахматнай партыі</string>
-  <string name="boardSetupIntro">Абое войскі ваююць адзін з адным, гатовыя да бітвы.</string>
-  <string name="thisIsTheInitialPosition">Гэта - пачатковая пазіцыя ў шахматах! Зрабіце кожны ход, каб працягнуць.</string>
+  <string name="boardSetupIntro">Абодва войскі сустракаюцца адно з адным, гатовыя да бітвы.</string>
+  <string name="thisIsTheInitialPosition">Гэта - пачатковая пазіцыя ў шахматах! Зрабіце любы ход, каб працягнуць.</string>
   <string name="firstPlaceTheRooks">Спачатку расстаўце ладдзі!
 Яны знаходзяцца па кутах.</string>
   <string name="thenPlaceTheKnights">Потым расстаўце коней!
