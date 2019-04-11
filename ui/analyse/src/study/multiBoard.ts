@@ -68,12 +68,12 @@ export class MultiBoardCtrl {
   };
 }
 
-export function view(ctrl: MultiBoardCtrl, study: StudyCtrl, tiny?: boolean): VNode | undefined {
+export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
 
-  return h('div.multi_board' + (tiny ? '.tiny' : ''), {
+  return h('div.study__multiboard', {
     class: { loading: ctrl.loading },
     hook: {
-      insert() { ctrl.reload(true); }
+      insert() { ctrl.reload(true) }
     }
   }, ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()]);
 }
@@ -85,7 +85,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
       renderPagerNav(pager, ctrl),
       study.relay ? renderPlayingToggle(ctrl) : null
     ]),
-    h('div#now_playing', pager.currentPageResults.map(makePreview(study)))
+    h('div.now-playing', pager.currentPageResults.map(makePreview(study)))
   ];
 }
 
@@ -120,7 +120,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
 }
 
 function pagerButton(text: string, icon: string, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
-  return h('button.fbt.is', {
+  return h('button.fbt', {
     attrs: {
       'data-icon': icon,
       disabled: !enable,
@@ -142,7 +142,7 @@ function makePreview(study: StudyCtrl) {
       h('div.name', preview.name),
       makeCg(preview)
     ];
-    return h('.mini-board.' + preview.id, {
+    return h('a.' + preview.id, {
       attrs: { title: preview.name },
       class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id && (!study.relay || !study.relay.intro.active) },
       hook: bind('mousedown', _ => study.setChapter(preview.id))
@@ -162,7 +162,7 @@ function uciToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeCg(preview: ChapterPreview): VNode {
-  return h('div.cg-board-wrap', {
+  return h('div.mini-board.cg-board-wrap', {
     hook: {
       insert(vnode) {
         const cg = Draughtsground(vnode.elm as HTMLElement, {
@@ -193,5 +193,5 @@ function makeCg(preview: ChapterPreview): VNode {
 export class MultiBoardMenuCtrl {
   open: boolean = false;
   toggle = () => this.open = !this.open;
-  view = (study?: StudyCtrl) => study && h('div.action_menu.multi_board_menu', [view(study.multiBoard, study, true)]);
+  view = (study?: StudyCtrl) => study && h('div.action_menu.multi_board_menu', [view(study.multiBoard, study)]);
 }
