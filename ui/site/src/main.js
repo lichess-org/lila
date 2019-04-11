@@ -207,7 +207,7 @@
     if (lichess.analyse) LichessAnalyse.boot(lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
     else if (lichess.study) startStudy(lichess.study);
-    else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
+    else if (lichess.practice) startPractice(lichess.practice);
     else if (lichess.relay) startRelay(lichess.relay);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(lichess.tournament);
@@ -782,10 +782,6 @@
     }
   });
 
-  /////////////////
-  // gamelist.js //
-  /////////////////
-
   $(function() {
     lichess.pubsub.on('content_loaded', lichess.parseFen);
 
@@ -810,10 +806,9 @@
     lichess.requestIdleCallback(function() {
       lichess.parseFen();
       $('.chat__members').watchers();
+      if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
+        $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lichess.reload);
     });
-
-    if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
-      $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lichess.reload);
   });
 
   ///////////////////
@@ -828,9 +823,6 @@
       '/tournament/' + cfg.data.id + '/socket/v4', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
-        },
-        options: {
-          name: "tournament"
         }
       });
     cfg.socketSend = lichess.socket.send;
@@ -848,9 +840,6 @@
       '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
-        },
-        options: {
-          name: "simul"
         }
       });
     cfg.socketSend = lichess.socket.send;
@@ -865,12 +854,8 @@
   function startUserAnalysis(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = document.querySelector('main.analyse');
     cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
-      options: {
-        name: 'analyse'
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -887,11 +872,7 @@
   function startStudy(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = document.querySelector('main.analyse');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      options: {
-        name: "study"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -906,15 +887,10 @@
   // practice.js //
   ////////////////
 
-  function startPractice(element, cfg) {
+  function startPractice(cfg) {
     var analyse;
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
-      options: {
-        name: "practice"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -930,11 +906,7 @@
   function startRelay(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = document.querySelector('main.analyse');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      options: {
-        name: 'relay'
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -953,9 +925,6 @@
     var puzzle;
     cfg.element = document.querySelector('main.puzzle');
     lichess.socket = lichess.StrongSocket('/socket/v4', false, {
-      options: {
-        name: "puzzle"
-      },
       receive: function(t, d) {
         puzzle.socketReceive(t, d);
       }
@@ -963,5 +932,4 @@
     cfg.socketSend = lichess.socket.send;
     puzzle = LichessPuzzle.default(cfg);
   }
-
 })();
