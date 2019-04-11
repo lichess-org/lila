@@ -16,7 +16,6 @@ object form {
     import config._
 
     views.html.base.layout(
-      responsive = true,
       title = trans.hostANewSimul.txt(),
       moreCss = responsiveCssTag("simul.form")
     ) {

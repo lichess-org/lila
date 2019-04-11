@@ -27,7 +27,7 @@ object embed {
         charset,
         metaCsp(none),
         st.headTitle(s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"),
-        fontStylesheets,
+        // fontStylesheets, // use proper stylesheets instead
         // currentBgCss,
         cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
         pieceSprite
@@ -74,7 +74,7 @@ i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = fals
         charset,
         metaCsp(none),
         st.headTitle("404 - Game not found"),
-        fontStylesheets,
+        // fontStylesheets, // use proper stylesheets instead
         // currentBgCss,
         cssTags("common.css", "analyse-embed.css")
       ),

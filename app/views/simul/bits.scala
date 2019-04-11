@@ -18,7 +18,6 @@ object bits {
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
-      responsive = true,
       title = trans.noSimulFound.txt()
     ) {
         main(cls := "page-small box box-pad")(

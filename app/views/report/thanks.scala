@@ -29,7 +29,7 @@ $button.find('span').text('Blocked!');
 });
 """)
 
-    views.html.base.layout(title = title, moreJs = moreJs, responsive = true) {
+    views.html.base.layout(title = title, moreJs = moreJs) {
       main(cls := "page-small box box-pad")(
         h1(title),
         p("The moderators will review it very soon, and take appropriate action."),

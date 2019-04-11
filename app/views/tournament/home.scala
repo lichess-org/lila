@@ -20,7 +20,6 @@ object home {
       title = trans.tournaments.txt(),
       moreCss = responsiveCssTag("tournament.home"),
       wrapClass = "full-screen-force",
-      responsive = true,
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lichess.tournamentSchedule${isProd ?? (".min")}.js"),

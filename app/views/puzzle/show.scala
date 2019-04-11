@@ -23,7 +23,6 @@ object show {
 lichess = lichess || {};
 lichess.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i18n: ${bits.jsI18n} };""")
       ),
-      responsive = true,
       chessground = false,
       openGraph = lila.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,

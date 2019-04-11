@@ -30,7 +30,6 @@ object userAnalysis {
         )
       },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
     ),
-    responsive = true,
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess analysis board",

@@ -15,7 +15,6 @@ object home {
     starteds: List[lila.simul.Simul],
     finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) = views.html.base.layout(
-    responsive = true,
     moreCss = responsiveCssTag("simul.list"),
     moreJs = embedJs(s"""$$(function() {
   lichess.StrongSocket.defaults.params.flag = 'simul';

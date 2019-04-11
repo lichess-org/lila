@@ -14,7 +14,6 @@ object index {
     views.html.base.layout(
       title = "Lichess coaches",
       moreCss = responsiveCssTag("coach"),
-      responsive = true,
       moreJs = infiniteScrollTag
     ) {
         main(cls := "coach-list coach-full-page")(

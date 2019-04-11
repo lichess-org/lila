@@ -20,7 +20,6 @@ object bits {
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("forum"),
-      responsive = true,
       moreJs = moreJs,
       openGraph = openGraph
     )(body)

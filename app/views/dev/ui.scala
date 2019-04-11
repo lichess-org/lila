@@ -10,8 +10,7 @@ object ui {
 
   def apply(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) = views.html.base.layout(
     title = "UI test",
-    moreCss = responsiveCssTag("palette"),
-    responsive = true
+    moreCss = responsiveCssTag("palette")
   ) {
       main(cls := "ui-test box box-pad")(
         h1("H1 header title"),

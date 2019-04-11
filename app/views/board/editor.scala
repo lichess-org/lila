@@ -26,7 +26,6 @@ LichessEditor(document.getElementById('board-editor'), data);""")
     moreCss = responsiveCssTag("editor"),
     chessground = false,
     zoomable = true,
-    responsive = true,
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess board editor",
       url = s"$netBaseUrl${routes.Editor.index.url}",

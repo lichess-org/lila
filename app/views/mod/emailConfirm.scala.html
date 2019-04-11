@@ -13,7 +13,6 @@ this.setSelectionRange(this.value.length, this.value.length);
 @base.layout(
 title = "Email confirmation" ,
 moreCss = responsiveCssTag("mod.misc"),
-responsive = true,
 moreJs = js) {
 <main class="page-menu">
   @mod.menu("email").toHtml
@@ -26,44 +25,44 @@ moreJs = js) {
     </p>
     <form class="search" action="@routes.Mod.emailConfirm" method="GET">
       <input name="q" placeholder="<email> <username (optional)>" value="@query" autofocus />
-    </form>
-    @user.map { u =>
-    <table class="slist">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Email</th>
-          <th>Games</th>
-          <th>Marks</th>
-          <th>Created</th>
-          <th>Active</th>
-          <th>Confirmed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>@userLink(u, withBestRating = true, params = "?mod").toHtml</td>
-          <td>@email.getOrElse("-")</td>
-          <td>@u.count.game.localize</td>
-          <td>
-            @if(u.engine){ENGINE}
-            @if(u.booster){BOOSTER}
-            @if(u.troll){SHADOWBAN}
-            @if(u.ipBan){IPBAN}
-            @if(u.disabled){CLOSED}
-          </td>
-          <td>@momentFromNow(u.createdAt).toHtml</td>
-          <td>@u.seenAt.map(momentFromNow(_).toHtml)</td>
-          <td style="font-size:2em">
-            @if(!u.everLoggedIn) {
-            <i class="is-green" data-icon="E"></i>
-            } else {
-            <i class="is-red" data-icon="L"></i>
-            }
-          </td>
-        </tr>
-    </tbody></table>
-    }
-  </div>
-</main>
-}.toHtml
+        </form>
+        @user.map { u =>
+        <table class="slist">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Games</th>
+              <th>Marks</th>
+              <th>Created</th>
+              <th>Active</th>
+              <th>Confirmed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>@userLink(u, withBestRating = true, params = "?mod").toHtml</td>
+              <td>@email.getOrElse("-")</td>
+              <td>@u.count.game.localize</td>
+              <td>
+                @if(u.engine){ENGINE}
+                @if(u.booster){BOOSTER}
+                @if(u.troll){SHADOWBAN}
+                @if(u.ipBan){IPBAN}
+                @if(u.disabled){CLOSED}
+              </td>
+              <td>@momentFromNow(u.createdAt).toHtml</td>
+              <td>@u.seenAt.map(momentFromNow(_).toHtml)</td>
+              <td style="font-size:2em">
+                @if(!u.everLoggedIn) {
+                <i class="is-green" data-icon="E"></i>
+                } else {
+                <i class="is-red" data-icon="L"></i>
+                }
+              </td>
+            </tr>
+        </tbody></table>
+        }
+      </div>
+    </main>
+    }.toHtml

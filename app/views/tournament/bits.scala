@@ -25,8 +25,7 @@ object bits {
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.tournamentNotFound.txt(),
-      responsive = true
+      title = trans.tournamentNotFound.txt()
     ) {
         main(cls := "page-small box box-pad")(
           h1(trans.tournamentNotFound.frag()),

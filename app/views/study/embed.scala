@@ -27,7 +27,7 @@ object embed {
         charset,
         metaCsp(none),
         st.headTitle(s"${s.name} ${chapter.name}"),
-        fontStylesheets,
+        // fontStylesheets, // use proper stylesheets instead
         // currentBgCss,
         cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
         pieceSprite
@@ -74,7 +74,7 @@ userId: null
         charset,
         metaCsp(none),
         st.headTitle("404 - Study not available"),
-        fontStylesheets,
+        // fontStylesheets, // use proper stylesheets instead
         // currentBgCss,
         cssTags("common.css", "analyse-embed.css")
       ),

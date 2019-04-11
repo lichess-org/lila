@@ -10,7 +10,6 @@ object swag {
   def apply(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = responsiveCssTag("swag"),
-      responsive = true,
       title = "Lichess Swag",
       wrapClass = "full-screen-force",
       openGraph = lila.app.ui.OpenGraph(

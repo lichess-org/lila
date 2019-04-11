@@ -13,7 +13,6 @@ object inbox {
     views.html.base.layout(
       title = trans.inbox.txt(),
       moreCss = responsiveCssTag("message"),
-      responsive = true,
       moreJs = frag(infiniteScrollTag, jsTag("message.js"))
     ) {
         main(cls := "message-list box")(

@@ -4,9 +4,9 @@ package userTournament
 import play.twirl.api.Html
 
 import lila.api.Context
-import lila.common.paginator.Paginator
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.paginator.Paginator
 import lila.user.User
 
 import controllers.routes
@@ -36,7 +36,6 @@ object bits {
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      responsive = true,
       moreCss = responsiveCssTag("user-tournament"),
       moreJs = moreJs
     ) {

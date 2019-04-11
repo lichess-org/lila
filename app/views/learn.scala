@@ -21,7 +21,6 @@ data: ${data.fold("null")(safeJsonValue)},
 i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")
     ),
     moreCss = responsiveCssTag("learn"),
-    responsive = true,
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Learn chess by playing",

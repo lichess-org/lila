@@ -11,8 +11,7 @@ object picture {
     views.html.base.layout(
       title = s"${s.user.titleUsername} streamer picture",
       moreJs = jsTag("streamer.form.js"),
-      moreCss = responsiveCssTag("streamer.form"),
-      responsive = true
+      moreCss = responsiveCssTag("streamer.form")
     ) {
         main(cls := "streamer-picture small-page box")(
           h1(userLink(s.user), " streamer picture"),

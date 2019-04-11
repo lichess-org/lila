@@ -39,7 +39,6 @@ chat:${
       }};""")
     ),
     moreCss = responsiveCssTag("tournament.show"),
-    responsive = true,
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",

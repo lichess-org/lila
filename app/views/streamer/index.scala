@@ -67,7 +67,6 @@ object index {
 
     views.html.base.layout(
       title = title,
-      responsive = true,
       moreCss = responsiveCssTag("streamer.list"),
       moreJs = infiniteScrollTag
     ) {

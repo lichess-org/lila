@@ -28,7 +28,6 @@ object bits {
   def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
-      responsive = true,
       moreCss = responsiveCssTag("auth"),
       moreJs = captchaTag
     ) {
@@ -53,8 +52,7 @@ object bits {
 
   def passwordResetSent(email: String)(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.passwordReset.txt(),
-      responsive = true
+      title = trans.passwordReset.txt()
     ) {
         main(cls := "page-small box box-pad")(
           h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail.frag()),
@@ -66,7 +64,6 @@ object bits {
   def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      responsive = true,
       moreCss = responsiveCssTag("form3")
     ) {
         main(cls := "page-small box box-pad")(
@@ -123,7 +120,6 @@ body { margin-top: 45px; }
 
   def tor()(implicit ctx: Context) =
     views.html.base.layout(
-      responsive = true,
       title = "Tor exit node"
     ) {
       main(cls := "page-small box box-pad")(

@@ -4,8 +4,7 @@
 @views.html.base.layout(
 title = trans.newTeam.txt(),
 moreCss = responsiveCssTag("team"),
-moreJs = frag(infiniteScrollTag, captchaTag),
-responsive = true) {
+moreJs = frag(infiniteScrollTag, captchaTag)) {
 <main class="page-menu page-small">
   @bits.menu("form".some).toHtml
   <div class="page-menu__content box box-pad">

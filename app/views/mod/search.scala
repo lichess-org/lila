@@ -16,8 +16,7 @@ object search {
   def apply(form: Form[_], users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
-      moreCss = responsiveCssTag("mod.misc"),
-      responsive = true
+      moreCss = responsiveCssTag("mod.misc")
     ) {
         main(cls := "page-menu")(
           views.html.mod.menu("search"),

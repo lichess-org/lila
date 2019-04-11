@@ -31,7 +31,6 @@ object leaderboard {
   def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) = views.html.base.layout(
     title = "Tournament leaderboard",
     moreCss = responsiveCssTag("tournament.leaderboard"),
-    responsive = true,
     wrapClass = "full-screen-force"
   ) {
       def eliteWinners = section(

@@ -4,7 +4,6 @@
 
 @base.layout(
 title = u.username + " communications",
-responsive = true,
 moreCss = responsiveCssTag("mod.communication")) {
 <main id="communication" class="box box-pad">
   <h1>
@@ -72,9 +71,9 @@ moreCss = responsiveCssTag("mod.communication")) {
     <div class="game">
       <a href="@routes.Round.player(pov.fullId)"
         @if(pov.game.fromFriend) {
-          class="title friend_title" title="Friend"
+        class="title friend_title" title="Friend"
         } else {
-          class="title"
+        class="title"
         }
         >
         @usernameOrAnon(pov.opponent.userId) – @momentFromNowOnce(pov.game.movedAt).toHtml

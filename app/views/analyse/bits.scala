@@ -2,10 +2,10 @@ package views.html.analyse
 
 import play.twirl.api.Html
 
+import lila.analyse.Advice.Judgement
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.analyse.Advice.Judgement
 
 object bits {
 
@@ -28,7 +28,6 @@ object bits {
       title = title,
       moreCss = moreCss,
       moreJs = moreJs,
-      responsive = true,
       openGraph = openGraph,
       chessground = false,
       robots = false,

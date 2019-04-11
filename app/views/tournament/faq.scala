@@ -10,8 +10,7 @@ import controllers.routes
 object faq {
 
   def page(system: Option[lila.tournament.System])(implicit ctx: Context) = views.html.base.layout(
-    title = "Tournament FAQ",
-    responsive = true
+    title = "Tournament FAQ"
   ) {
     main(cls := "page-small box box-pad")(
       h1(

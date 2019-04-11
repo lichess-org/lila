@@ -32,7 +32,6 @@ object bits {
         },
         moreCss
       ),
-      responsive = true,
       chessground = chessground,
       playing = playing,
       robots = robots,

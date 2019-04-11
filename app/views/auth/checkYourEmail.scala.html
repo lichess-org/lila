@@ -2,7 +2,6 @@
 
 @base.layout(
 title = "Check your email",
-responsive = true,
 moreCss = responsiveCssTag("email-confirm")
 ) {
 <main class="page-small box box-pad email-confirm @if(form.exists(_.hasErrors)){error}else{anim}">

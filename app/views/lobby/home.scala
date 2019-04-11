@@ -43,7 +43,6 @@ object home {
     ),
     moreCss = responsiveCssTag("lobby"),
     chessground = false,
-    responsive = true,
     openGraph = lila.app.ui.OpenGraph(
       image = staticUrl("images/large_tile.png").some,
       title = "The best free, adless Chess server",

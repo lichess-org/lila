@@ -12,8 +12,7 @@ object show {
   def apply(e: lila.event.Event)(implicit ctx: Context) = views.html.base.layout(
     title = e.title,
     moreCss = responsiveCssTag("event"),
-    moreJs = jsTag("event-countdown.js"),
-    responsive = true
+    moreJs = jsTag("event-countdown.js")
   ) {
       main(cls := "page-small event box box-pad")(
         h1(dataIcon := "", cls := "text")(e.title),

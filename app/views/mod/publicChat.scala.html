@@ -4,8 +4,7 @@ simulChats: List[(lila.simul.Simul, lila.chat.UserChat)])(implicit ctx: Context)
 @base.layout(
 title = "Public Chats",
 moreCss = responsiveCssTag("mod.communication"),
-moreJs = jsTag("public-chat.js"),
-responsive = true)  {
+moreJs = jsTag("public-chat.js"))  {
 <main class="page-menu">
   @mod.menu("public-chat").toHtml
   <div id="communication" class="page-menu__content public_chat box box-pad">

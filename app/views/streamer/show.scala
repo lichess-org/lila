@@ -15,7 +15,6 @@ object show {
     following: Boolean
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${s.titleName} streams chess",
-    responsive = true,
     moreCss = responsiveCssTag("streamer.show"),
     moreJs = embedJs("""
 $(function() {

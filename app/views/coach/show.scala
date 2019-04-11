@@ -39,7 +39,6 @@ $('.coach-review-form form').show();
 });""")
       ),
       moreCss = responsiveCssTag("coach"),
-      responsive = true,
       openGraph = lila.app.ui.OpenGraph(
         title = title,
         description = shorten(~(c.coach.profile.headline), 152),

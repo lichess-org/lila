@@ -20,8 +20,7 @@ object importGame {
       title = "Paste PGN chess game",
       url = s"$netBaseUrl${routes.Importer.importGame.url}",
       description = trans.importGameExplanation.txt()
-    ).some,
-    responsive = true
+    ).some
   ) {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),

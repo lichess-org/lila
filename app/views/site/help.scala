@@ -117,8 +117,7 @@ object help {
   )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = moreCss,
-    moreJs = moreJs,
-    responsive = true
+    moreJs = moreJs
   ) {
     val sep = div(cls := "sep")
     val external = frag(" ", i(dataIcon := "0"))

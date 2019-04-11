@@ -22,7 +22,6 @@ object timeline {
   def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
     base.layout(
       title = trans.timeline.txt(),
-      responsive = true,
       moreCss = responsiveCssTag("slist")
     )(
         main(cls := "timeline page-small box")(

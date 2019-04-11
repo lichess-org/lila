@@ -31,8 +31,7 @@ postUrl: "@routes.Insight.json(u.username)"
 @base.layout(
 title = s"${u.username}'s chess insights",
 moreJs = moreJs,
-moreCss = responsiveCssTag("insight"),
-responsive = true) {
+moreCss = responsiveCssTag("insight")) {
 <main id="insight"></main>
 @if(stale) {
 <div class="insight-stale none">

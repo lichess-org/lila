@@ -20,7 +20,6 @@ object thread {
     views.html.base.layout(
       title = thread.name,
       moreCss = responsiveCssTag("message"),
-      responsive = true,
       moreJs = frag(jsTag("message.js"), jsTag("embed-analyse.js"))
     ) {
         main(cls := List(

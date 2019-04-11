@@ -23,7 +23,6 @@ object form {
     views.html.base.layout(
       title = trans.composeMessage.txt(),
       moreCss = responsiveCssTag("message"),
-      responsive = true,
       moreJs = jsTag("message.js")
     ) {
         main(cls := "message-new box box-pad")(

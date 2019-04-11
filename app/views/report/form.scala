@@ -15,8 +15,7 @@ object form {
     views.html.base.layout(
       title = trans.reportAUser.txt(),
       moreCss = responsiveCssTag("form3-captcha"),
-      moreJs = captchaTag,
-      responsive = true
+      moreJs = captchaTag
     ) {
         main(cls := "page-small box box-pad report")(
           h1(trans.reportAUser.frag()),

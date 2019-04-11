@@ -12,7 +12,6 @@ object layout {
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag(css),
-      responsive = true,
       moreJs = frag(
         flatpickrTag,
         delayFlatpickrStart,

@@ -11,7 +11,6 @@ object bits {
   def getFishnet()(implicit ctx: Context) =
     views.html.base.layout(
       title = "fishnet API key request",
-      responsive = true,
       csp = defaultCsp.withGoogleForm.some
     ) {
       main(

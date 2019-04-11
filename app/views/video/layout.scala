@@ -19,7 +19,6 @@ object layout {
       title = title,
       moreCss = responsiveCssTag("video"),
       moreJs = infiniteScrollTag,
-      responsive = true,
       wrapClass = "full-screen-force",
       openGraph = openGraph
     ) {
