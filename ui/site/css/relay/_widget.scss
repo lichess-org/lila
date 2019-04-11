@@ -1,0 +1,27 @@
+.relay-widget {
+  @extend %flex-center-nowrap;
+  border-bottom: $border;
+  padding: 2em var(--box-padding);
+  position: relative;
+  @include transition();
+  &::before {
+    color: $c-link;
+    font-size: 5em;
+    margin-right: .4em;
+  }
+  &:hover {
+    background: mix($c-link, $c-bg-box, 10%);
+  }
+  .overlay {
+    @extend %link-overlay
+  }
+  h3 {
+    @extend %nowrap-hidden;
+    font-size: 2.3em;
+    color: $c-link;
+    text-overflow: ellipsis;
+  }
+  p {
+    margin: .5em 0 0 0;
+  }
+}
