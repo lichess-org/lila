@@ -54,9 +54,9 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
 };
 
 export function view(ctrl): VNode {
-  const candidates = ctrl.candidates();
+  const candidates = ctrl.candidates().concat(ctrl.candidates().concat(ctrl.candidates())).concat(ctrl.candidates());
   return dialog.form({
-    class: 'study_invite',
+    class: 'study__invite',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
@@ -69,9 +69,8 @@ export function view(ctrl): VNode {
         'and who actively want to join this study.'
       ]),
       candidates.length ? h('div.users', candidates.map(function(username) {
-        return h('span.user-link.button', {
+        return h('span.button.button-metal', {
           key: username,
-          attrs: { 'data-href': '/@/' + username },
           hook: bind('click', _ => ctrl.invite(username))
         }, username);
       })) : undefined,
