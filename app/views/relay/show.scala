@@ -72,4 +72,13 @@ socketVersion: $socketVersion
         board.bits.domPreload(none)
       )
     }
+
+  def widget(r: lila.relay.Relay.WithStudyAndLiked, extraCls: String = "")(implicit ctx: Context) =
+    div(cls := s"relay-widget $extraCls", dataIcon := "")(
+      a(cls := "overlay", href := routes.Relay.show(r.relay.slug, r.relay.id.value)),
+      div(
+        h3(r.relay.name),
+        p(r.relay.description)
+      )
+    )
 }
