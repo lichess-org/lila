@@ -16,6 +16,8 @@ export const patch = init([klass, attributes]);
 
 export function start(opts: AnalyseOpts): AnalyseApi {
 
+  opts.element = document.querySelector('main.analyse') as HTMLElement;
+
   let vnode: VNode, ctrl: AnalyseCtrl;
 
   function redraw() {
