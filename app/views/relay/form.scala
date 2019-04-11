@@ -38,7 +38,7 @@ object form {
 
   private def inner(form: Form[_], url: play.api.mvc.Call)(implicit ctx: Context) =
     st.form(cls := "form3", action := url, method := "POST")(
-      form3.group(form("name"), frag("Event name"))(form3.input(_)),
+      form3.group(form("name"), frag("Event name"))(form3.input(_)(autofocus := true)),
       form3.group(form("description"), raw("Event description"))(form3.textarea(_)(rows := 6)),
       if (isGranted(_.Relay))
         form3.checkbox(form("official"), raw("Official lichess broadcast"), help = raw("Feature on /broadcast - for admins only").some)
