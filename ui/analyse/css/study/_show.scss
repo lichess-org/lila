@@ -1,4 +1,6 @@
 @import '../analyse.base';
+@import '../acpl';
+
 @import 'layout';
 @import 'tab';
 @import 'list';
@@ -13,3 +15,4 @@
 @import 'panel/glyph';
 @import 'panel/share';
 @import 'panel/multiboard';
+@import 'panel/server-eval';
