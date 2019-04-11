@@ -20,8 +20,8 @@ const li = window.lichess;
 export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl {
 
   const requested = prop(false),
-  lastPly = prop<number | false>(false),
-  chartEl = prop<HTMLElement | null>(null);
+    lastPly = prop<number | false>(false),
+    chartEl = prop<HTMLElement | null>(null);
 
   function unselect(chart) {
     chart.getSelectedPoints().forEach(p => p.select(false));
@@ -30,7 +30,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
   li.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
     if (!li.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
-    el = chartEl();
+      el = chartEl();
     if (el && window.Highcharts) {
       const $chart = $(el);
       if ($chart.length) {
@@ -73,42 +73,41 @@ export function view(ctrl: ServerEvalCtrl): VNode {
 
   if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
-  return h('div.server_eval.ready.' + analysis.id, {
+  return h('div.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
-        ctrl.lastPly(false);
-        li.requestIdleCallback(() => {
-          li.loadScript('javascripts/chart/acpl.js').then(() => {
-            li.advantageChart(ctrl.root.data, ctrl.root.trans, el);
-            ctrl.chartEl(el);
-          });
+      ctrl.lastPly(false);
+      li.requestIdleCallback(() => {
+        li.loadScript('javascripts/chart/acpl.js').then(() => {
+          li.advantageChart(ctrl.root.data, ctrl.root.trans, el);
+          ctrl.chartEl(el);
         });
+      });
     })
   }, [h('div.message', spinner())]);
 }
 
 function requested(): VNode {
-  return h('div.server_eval.requested',
+  return h('div.study__server-eval.requested',
     h('div.message', spinner()));
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
 
-  return h('div.server_eval', [
-    h('div.message',
-      ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : (
-        !ctrl.root.study!.members.canContribute() ? h('p', 'Only the study contributors can request a computer analysis') : [
-          h('p', [
-            'Get a full server-side computer analysis of the main line.',
-            h('br'),
-            'Make sure the chapter is complete, for you can only request analysis once.'
-          ]),
-          h('a.button.text.request', {
-            attrs: {
-              'data-icon': '',
-              disabled: ctrl.root.mainline.length < 5
-            },
-            hook: bind('click', ctrl.request, ctrl.root.redraw)
-          }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
-        ])
-    )]);
+  return h('div.study__server-eval.message',
+    ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : (
+      !ctrl.root.study!.members.canContribute() ? h('p', 'Only the study contributors can request a computer analysis') : [
+        h('p', [
+          'Get a full server-side computer analysis of the main line.',
+          h('br'),
+          'Make sure the chapter is complete, for you can only request analysis once.'
+        ]),
+        h('a.button.text', {
+          attrs: {
+            'data-icon': '',
+            disabled: ctrl.root.mainline.length < 5
+          },
+          hook: bind('click', ctrl.request, ctrl.root.redraw)
+        }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
+      ])
+  );
 }
