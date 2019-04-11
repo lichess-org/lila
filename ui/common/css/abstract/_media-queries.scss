@@ -10,7 +10,6 @@ $mq-x-large: (min-width 1260px);
 $mq-not-xx-small: (max-width 499px);
 $mq-not-small: (max-width 799px);
 $mq-not-medium: (max-width 979px);
-$mq-not-x-large: (max-width 1259px);
 
 /* Heights */
 
@@ -32,8 +31,8 @@ $mq-hover-no: (hover none);
 
 $mq-main-margin: $mq-small;
 
-$mq-topnav-visible: $mq-x-large;
-$mq-topnav-hidden: $mq-not-x-large;
+$mq-topnav-visible: $mq-medium;
+$mq-topnav-hidden: $mq-not-medium;
 
 $mq-site-header-tall: $mq-short;
 
