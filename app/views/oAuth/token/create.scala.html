@@ -37,10 +37,10 @@ active = "oauth.token"
       }
     </div>
 
-    @form3.actionsHtml {
+    @form3.actions {
     <a href="@routes.OAuthToken.index">Cancel</a>
     @form3.submit(trans.apply.frag())
-    }
+    }.toHtml
   </form>
 </div>
 }.toHtml

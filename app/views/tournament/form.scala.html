@@ -59,10 +59,10 @@ moreJs = moreJs) {
           @form3.group(form("startDate"), raw("Custom start date"), help = raw("""This overrides the "Time before tournament starts" setting""").some)(form3.flatpickr(_))
         </div>
       </fieldset>
-      @form3.actionsHtml {
+      @form3.actions {
       <a href="@routes.Tournament.home()">@trans.cancel()</a>
       @form3.submit(trans.createANewTournament.frag(), icon = "g".some)
-      }
+      }.toHtml
     </form>
   </div>
   <div class="box box-pad tour__faq">@tournament.faq().toHtml</div>

@@ -152,10 +152,7 @@ trait FormHelper { self: I18nHelper =>
       )(validationModifiers(field))(modifiers)(~field.value)
 
     val actions = div(cls := "form-actions")
-    def actionsHtml(html: Frag): Html = actions(html)
-
     val action = div(cls := "form-actions single")
-    def actionHtml(html: Frag): Html = div(cls := "form-actions single")(html)
 
     def submit(
       content: Frag,
