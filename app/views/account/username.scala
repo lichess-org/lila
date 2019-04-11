@@ -17,7 +17,7 @@ object username {
       h1(cls := "text", dataIcon := "*")(trans.changeUsername.frag()),
       st.form(cls := "form3", action := routes.Account.usernameApply, method := "POST")(
         form3.globalError(form),
-        form3.group(form("username"), trans.username.frag(), help = trans.changeUsernameDescription.frag().some)(form3.input(_)),
+        form3.group(form("username"), trans.username.frag(), help = trans.changeUsernameDescription.frag().some)(form3.input(_)(required := true)),
         form3.action(form3.submit(trans.apply.frag()))
       )
     )
