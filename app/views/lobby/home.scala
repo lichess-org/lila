@@ -147,6 +147,7 @@ object home {
         ),
         div(cls := "lobby__about")(
           a(href := "/about")(trans.aboutX.frag("lichess.org")),
+          a(href := "/faq")("FAQ"),
           a(href := "/contact")(trans.contact.frag()),
           ctx.noKid option frag(
             a(href := "/mobile")(trans.mobileApp.frag()),
