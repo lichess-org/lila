@@ -53,9 +53,12 @@
       color: #fff;
     }
   }
-  .action.leave {
-    opacity: 0.6;
+  .leave {
     color: $c-bad;
+    opacity: .7;
+  }
+  > div:hover .leave:hover {
+    background-color: $c-bad;
   }
   .add {
     @extend %roboto;

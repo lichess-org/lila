@@ -27,7 +27,7 @@
     @include transition();
   }
   > div:hover act {
-    opacity: .6;
+    opacity: .7;
     &:hover {
       background: $c-primary;
       color: $c-primary-over;
