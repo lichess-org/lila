@@ -313,8 +313,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         renderAnalyse(ctrl, concealOf),
         gamebookEditView ? null : forkView(ctrl, concealOf),
         retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
-      ]),
-      gamebookEditView || relayEdit
+      ])
     ]),
     menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     controls(ctrl),
@@ -340,6 +339,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
         ) : null
       )
     ]),
+    relayEdit,
+    gamebookEditView,
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
         ctrl.opts.chat.parseMoves = true;

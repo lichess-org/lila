@@ -74,7 +74,7 @@
     }
     grid-template-rows: 8em fit-content(100%);
     @include proper-grid {
-      grid-template-rows: max-content fit-content(100%);
+      grid-template-rows: max-content fit-content(100%) max-content;
     }
     grid-template-areas:
     'side    . board gauge . tools'
