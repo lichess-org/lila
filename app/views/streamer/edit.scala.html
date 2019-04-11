@@ -96,7 +96,7 @@ moreJs = jsTag("streamer.form.js")) {
           @form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
           }
           }
-          @form3.actionHtml(form3.submit(trans.apply.frag()))
+          @form3.action(form3.submit(trans.apply.frag())).toHtml
         </div>
         }
         @form3.split {
@@ -109,10 +109,10 @@ moreJs = jsTag("streamer.form.js")) {
         }
         @form3.group(form("headline"), raw("Headline"), help = raw("In one sentence, tell us about your stream").some)(form3.input(_))
         @form3.group(form("description"), raw("Long description"))(form3.textarea(_)(*.rows := 10))
-        @form3.actionsHtml {
+        @form3.actions {
         <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
         @form3.submit(trans.apply.frag())
-        }
+        }.toHtml
       </form>
       }
     </div>

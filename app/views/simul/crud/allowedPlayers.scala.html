@@ -13,7 +13,7 @@
     <div class="form-group form-half">
       <label class="form-label" for="player">Add player</label>
       <input type="text" class="form-control user-autocomplete" name="player" id="player" placeholder="Enter username" data-tag="span"@if(running){ disabled}>
-      @form3.actionHtml(allowButton)
+      @form3.action(allowButton).toHtml
     </div>
     <div class="players form-group form-half">
       <table class="slist">

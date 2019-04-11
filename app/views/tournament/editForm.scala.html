@@ -64,10 +64,10 @@ moreJs = moreJs) {
           }
         </div>
       </fieldset>
-      @form3.actionsHtml {
+      @form3.actions {
       <a href="@routes.Tournament.show(tour.id)">@trans.cancel()</a>
       @form3.submit(trans.save.frag(), icon = "g".some)
-      }
+      }.toHtml
     </form>
     <form class="terminate" action="@routes.Tournament.terminate(tour.id)" method="POST">
       @form3.submit(trans.cancelTheTournament.frag(), icon = "j".some)

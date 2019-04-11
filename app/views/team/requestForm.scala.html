@@ -16,10 +16,10 @@ moreJs = frag(infiniteScrollTag, captchaTag)) {
       @form3.group(form("message"), raw("Message"))(form3.textarea(_)())
       <p>Your join request will be reviewed by the team leader.</p>
       @base.captcha(form, captcha).toHtml
-      @form3.actionsHtml {
+      @form3.actions {
       <a href="@routes.Team.show(t.slug)">@trans.cancel()</a>
       @form3.submit(trans.joinTeam.frag())
-      }
+      }.toHtml
     </form>
   </div>
 </main>

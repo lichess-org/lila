@@ -49,4 +49,4 @@
 
 @form3.group(form("variants"), raw("Variants"))(_ => views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running).toHtml)
 
-@form3.actionHtml(form3.submit(trans.apply.frag()))
+@form3.action(form3.submit(trans.apply.frag())).toHtml
