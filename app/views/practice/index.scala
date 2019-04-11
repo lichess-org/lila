@@ -12,25 +12,9 @@ object index {
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) = views.html.base.layout(
     title = "Practice chess positions",
-    // side = Some(
-    //   div(id := "practice_side", cls := "side_box")(
-    //     div(cls := "home")(
-    //       i(cls := "fat"),
-    //       h1("Practice"),
-    //       h2("makes your chess perfect"),
-    //       div(cls := "progress")(
-    //         div(cls := "text")("Progress: ", data.progressPercent, "%"),
-    //         div(cls := "bar", style := s"width: ${data.progressPercent}%")
-    //       ),
-    //       form(id := "practice_reset", cls := "actions", action := routes.Practice.reset, method := "post")(
-    //         if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
-    //         else a(href := routes.Auth.signup)("Sign up to save your progress")
-    //       )
-    //     )
-    //   )
-    // ),
-    moreCss = cssTag("practice.css"),
-    moreJs = embedJs(s"""$$('#practice_reset .do-reset').on('click', function() {
+    responsive = true,
+    moreCss = responsiveCssTag("practice.index"),
+    moreJs = embedJs(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),
     openGraph = lila.app.ui.OpenGraph(
@@ -39,31 +23,46 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
       url = s"$netBaseUrl${routes.Practice.index}"
     ).some
   ) {
-      div(id := "practice_app")(
-        div(cls := "sections")(
-          data.structure.sections.map { section =>
-            div(cls := "section")(
-              h2(section.name),
-              div(cls := "studies")(
-                section.studies.map { stud =>
-                  val prog = data.progressOn(stud.id)
-                  a(
-                    cls := s"study ${if (prog.complete) "done" else "ongoing"}",
-                    href := routes.Practice.show(section.id, stud.slug, stud.id.value)
-                  )(
-                      ctx.isAuth option span(cls := "ribbon-wrapper")(
-                        span(cls := "ribbon")(prog.done, " / ", prog.total)
-                      ),
-                      i(cls := s"practice icon ${stud.id}"),
-                      span(cls := "text")(
-                        h3(stud.name),
-                        em(stud.desc)
+      main(cls := "page-menu")(
+        st.aside(cls := "page-menu__menu practice-side")(
+          i(cls := "fat"),
+          h1("Practice"),
+          h2("makes your chess perfect"),
+          div(cls := "progress")(
+            div(cls := "text")("Progress: ", data.progressPercent, "%"),
+            div(cls := "bar", style := s"width: ${data.progressPercent}%")
+          ),
+          form(action := routes.Practice.reset, method := "post")(
+            if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
+            else a(href := routes.Auth.signup)("Sign up to save your progress")
+          )
+        ),
+        div(cls := "page-menu__content practice-app")(
+          div(cls := "sections")(
+            data.structure.sections.map { section =>
+              div(cls := "section")(
+                h2(section.name),
+                div(cls := "studies")(
+                  section.studies.map { stud =>
+                    val prog = data.progressOn(stud.id)
+                    a(
+                      cls := s"study ${if (prog.complete) "done" else "ongoing"}",
+                      href := routes.Practice.show(section.id, stud.slug, stud.id.value)
+                    )(
+                        ctx.isAuth option span(cls := "ribbon-wrapper")(
+                          span(cls := "ribbon")(prog.done, " / ", prog.total)
+                        ),
+                        i(cls := s"practice icon ${stud.id}"),
+                        span(cls := "text")(
+                          h3(stud.name),
+                          em(stud.desc)
+                        )
                       )
-                    )
-                }
+                  }
+                )
               )
-            )
-          }
+            }
+          )
         )
       )
     }
