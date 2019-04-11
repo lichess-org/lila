@@ -20,7 +20,7 @@ export type PublishZoom = (v: number) => void;
 
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
 
-  data.zoom = data.zoom || 100;
+  data.zoom = data.zoom || 180;
 
   const saveZoom = window.lichess.debounce(() => {
     $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
