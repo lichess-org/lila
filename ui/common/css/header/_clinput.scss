@@ -7,12 +7,25 @@
     padding: 0;
     border: 0;
     width: 0;
-    @include transition(width);
-  }
-  &.shown input {
-    width: 20ch;
+    @include breakpoint($mq-x-large) {
+      @include transition(width);
+    }
+    #top.clinput & {
+      width: 20ch;
+    }
   }
   input:focus {
     outline: none;
+  }
+}
+#top.clinput {
+  @include breakpoint($mq-not-x-large) {
+    #topnav { display: none }
+  }
+  @include breakpoint($mq-not-x-small) {
+    .site-title { display: none }
+  }
+  @include breakpoint($mq-not-xx-small) {
+    .site-buttons > *:not(#clinput) { display: none }
   }
 }

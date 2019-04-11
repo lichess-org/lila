@@ -401,10 +401,10 @@
         }
         var toggle = function() {
           boot();
-          $wrap.toggleClass('shown');
-          if ($wrap.hasClass('shown')) $wrap.find('input').focus();
+          $('#top').toggleClass('clinput');
+          if ($('#top').hasClass('clinput')) $wrap.find('input').focus();
         };
-        $wrap.children('a').on('mouseover click', function(e) {
+        $wrap.find('a').on('mouseover click', function(e) {
           (e.type === 'mouseover' ? boot : toggle)();
         });
         Mousetrap.bind('s', function() {
