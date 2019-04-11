@@ -8,7 +8,7 @@ export function app($wrap: JQuery, toggle: () => void) {
       $input.val('');
     }
   }).done(function() {
-    $input.on('blur', () => $wrap.hasClass('shown') && toggle());
+    $input.on('blur', () => $('#top').hasClass('clinput') && toggle());
   });
 }
 
