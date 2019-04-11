@@ -208,7 +208,7 @@
     else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
     else if (lichess.study) startStudy(lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
-    else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
+    else if (lichess.relay) startRelay(lichess.relay);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(lichess.tournament);
     else if (lichess.simul) startSimul(lichess.simul);
@@ -973,14 +973,13 @@
   // relay.js //
   ////////////////
 
-  function startRelay(element, cfg) {
+  function startRelay(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
+    cfg.element = document.querySelector('main.analyse');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
-        name: "relay"
+        name: 'relay'
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
