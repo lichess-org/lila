@@ -31,11 +31,12 @@ object show {
     // )),
     // chat = chat.frag.some,
     // underchat = Some(views.html.game.bits.watchers),
-    moreCss = cssTags("analyse.css", "study.css", "relay.css", "chat.css"),
+    responsive = true,
+    moreCss = responsiveCssTag("analyse.relay"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lidraughts = lidraughts || {}; lidraughts.relay = {
+      embedJs(s"""lidraughts=window.lidraughts||{};lidraughts.relay={
 relay: ${safeJsonValue(data.relay)},
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},
@@ -69,9 +70,7 @@ socketVersion: $socketVersion
       description = shorten(r.description, 152)
     ).some
   ) {
-      div(cls := "analyse cg-512")(
-        board.bits.domPreload(none)
-      )
+      main(cls := "analyse")
     }
 
   def widget(r: lidraughts.relay.Relay.WithStudyAndLiked, extraCls: String = "")(implicit ctx: Context) =

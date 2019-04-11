@@ -208,7 +208,7 @@
     else if (lidraughts.user_analysis) startUserAnalysis(lidraughts.user_analysis);
     else if (lidraughts.study) startStudy(lidraughts.study);
     else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
-    else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
+    else if (lidraughts.relay) startRelay(lidraughts.relay);
     else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
     else if (lidraughts.tournament) startTournament(lidraughts.tournament);
     else if (lidraughts.simul) startSimul(lidraughts.simul);
@@ -978,14 +978,13 @@
   // relay.js //
   ////////////////
 
-  function startRelay(element, cfg) {
+  function startRelay(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
+    cfg.element = document.querySelector('main.analyse');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
-        name: "relay"
+        name: 'relay'
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
