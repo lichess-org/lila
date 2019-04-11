@@ -283,13 +283,12 @@ object contact {
     title = "Contact",
     active = "contact",
     moreCss = responsiveCssTag("contact"),
-    moreJs = embedJs("""location=location.hash||"#help-root"""")
-  )(
-      main(cls := "page-small box box-pad")(
-        h1("Contact lichess"),
-        div(cls := "contact")(
-          renderedMenu
-        )
+    moreJs = embedJs("""location=location.hash||"#help-root""""),
+    contentCls = "page box box-pad"
+  )(frag(
+      h1("Contact lichess"),
+      div(cls := "contact")(
+        renderedMenu
       )
-    )
+    ))
 }
