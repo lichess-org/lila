@@ -7,6 +7,7 @@ import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
+import { CommentForm } from './commentForm';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
 import { MultiBoardCtrl, MultiBoardMenuCtrl } from './multiBoard';
@@ -23,7 +24,7 @@ export interface StudyCtrl {
   members: any;
   chapters: StudyChaptersCtrl;
   notif: NotifCtrl;
-  commentForm: any;
+  commentForm: CommentForm;
   glyphForm: GlyphCtrl;
   serverEval: ServerEvalCtrl;
   share: any;

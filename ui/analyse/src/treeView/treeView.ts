@@ -33,7 +33,7 @@ export interface Opts {
 
 export interface NodeClasses {
   active: boolean;
-  context_menu: boolean;
+  'context-menu': boolean;
   current: boolean;
   nongame: boolean;
   [key: string]: boolean;
@@ -82,7 +82,7 @@ export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
     active: path === ctx.ctrl.path,
     first: ctx.ctrl.data.puzzleEditor && path.length == 2,
     alts: alternatives,
-    context_menu: path === ctx.ctrl.contextMenuPath,
+    'context-menu': path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
     nongame: !ctx.currentPath && !!ctx.ctrl.gamePath && treePath.contains(path, ctx.ctrl.gamePath) && path !== ctx.ctrl.gamePath
   };

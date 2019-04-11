@@ -29,7 +29,7 @@
     right: 0;
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
-    z-index: 3;
+    z-index: z('dropdown');
     .initiating .spinner {
       padding: 10px 30px;
     }

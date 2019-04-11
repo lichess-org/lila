@@ -84,9 +84,9 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
 }
 
 export function viewDisabled(root: AnalyseCtrl, why: string): VNode {
-  return h('div.study_comment_form', [
+  return h('div.study__comments', [
     currentComments(root, true),
-    h('div.message', h('span', why))
+    h('div.message', why)
   ]);
 }
 

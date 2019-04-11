@@ -47,7 +47,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
           title: 'Edit'
         },
         hook: bind('click', _ => {
-          study.commentForm.open(chapter.id, ctrl.path, node);
+          study.commentForm.start(chapter.id, ctrl.path, node);
         }, ctrl.redraw)
       }) : null,
       authorDom(by),
