@@ -15,13 +15,13 @@ object bits {
   def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context) = frag(
     form3.group(username, if (register) trans.username.frag() else trans.usernameOrEmail.frag()) { f =>
       frag(
-        form3.input(f)(autofocus := true),
+        form3.input(f)(autofocus := true, required := true),
         p(cls := "error exists none")(trans.usernameAlreadyUsed.frag())
       )
     },
     form3.password(password, trans.password.frag()),
     emailOption.map { email =>
-      form3.group(email, trans.email.frag())(form3.input(_, typ = "email"))
+      form3.group(email, trans.email.frag())(form3.input(_, typ = "email")(required := true))
     }
   )
 
