@@ -27,15 +27,15 @@ object faq {
         question(
           "name",
           "Why is Lichess called Lichess?",
-          p("Lichess is a combination of live/light/libre and chess. It is pronounced 'lee-chess.'"),
-          p("Live because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites."),
+          p("Lichess is a combination of live/light/libre and chess. It is pronounced ", em("lee-chess"), "."),
+          p("Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites."),
           p("Similarly, the source code for Lichess, ", a(href := "https://github.com/ornicar/lila")("lila"), ", stands for li[chess in sca]la, seeing as the bulk of Lichess is written in ", a(href := "https://www.scala-lang.org/")("Scala"), ", an intuitive programming language.")
         ),
         question(
           "contributing",
           "How can I contribute to Lichess?",
           p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
-          p("You can find out more about being a patron ", a(href := routes.Plan.index())("here"), " (including a breakdown of our costs). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ", listed in detail here.")
+          p("You can find out more about ", a(href := routes.Plan.index())("being a patron"), " (including a ", a(href := routes.Main.costs())("breakdown of our costs"), "). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ".")
         ),
         h2("Fair Play"),
         question(
@@ -46,12 +46,12 @@ object faq {
         question(
           "rating-refund",
           "When am I eligible for the automatic rating refund from cheaters?",
-          p("One minute after a user is marked as engine, their 30 latest rated wins are taken (but only the games played in the latest 3 days). If you are the opponent in one of these games, you get a rating refund if your rating was not provisional. The rating refund will not be the full number of points lost if it would exceed ", em("(your rating at the start of cheated game + points lost to cheater + 100)"), " (so, if you earned much rating after the games against the cheater, you might get no or only a partial refund). A refund will never exceed 200 points.")
+          p("One minute after a user is marked as engine, their 30 latest rated wins are taken (but only the games played in the latest 3 days). If you are the opponent in one of these games, you get a rating refund if your rating was not provisional. The rating refund will not be the full number of points lost if it would exceed ", em("your rating at the start of cheated game + points lost to cheater + 100"), ". (So, if you earned much rating after the games against the cheater, you might get no or only a partial refund). A refund will never exceed 200 points.")
         ),
         question(
           "leaving",
           "What is done about players leaving games without resigning?",
-          p("""If your opponent frequently aborts/leaves games, they get "play banned" which means they're temporarily banned from playing games. There is no "public" banner on the profile, however, that marks the user as someone who aborts/leaves games. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure.""")
+          p("""If your opponent frequently aborts/leaves games, they get "play banned", which means they're temporarily banned from playing games. This is not publically indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure.""")
         ),
         question(
           "mod-application",
@@ -68,14 +68,15 @@ object faq {
           "acpl",
           """What is "average centipawn loss"?""",
           p("The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions."),
-          p("A perfect move will lose zero centipawns, but lesser moves will result in a deterioration of the position, measured in centipawns."),
+          p("The top computer move will lose zero centipawns, but lesser moves will result in a deterioration of the position, measured in centipawns."),
           p("This value can be used as an indicator of the quality of play. The fewer centipawns one loses per move, the stronger the play."),
-          p("These numbers are provided by the computer analysis, which is powered by Stockfish.")
+          p("The computer analysis on Lichess is powered by Stockfish.")
         ),
         question(
           "timeout",
           "Losing on time, drawing and insufficient material",
-          p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player’s king by any possible series of legal moves. ", a(href := "https://www.fide.com/fide/handbook.html?id=208&view=article")("FIDE handbook (6.9)"))
+          p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player’s king by any possible series of legal moves (", a(href := "https://www.fide.com/fide/handbook.html?id=208&view=article")("FIDE handbook §6.9"), ")."),
+          p("Note that it can be possible to mate with a single knight or bishop if the opponent has pieces that could block the king.")
         ),
         question(
           "en-passant",
@@ -89,7 +90,7 @@ object faq {
         question(
           "titles",
           "What titles are there on Lichess?",
-          p("Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as many national master titles. The full list of FIDE titles is available here and is as follows:"),
+          p("Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as many national master titles. Here is a list of FIDE titles:"),
           ul(
             li("Grandmaster (GM)"),
             li("International Master (IM)"),
@@ -101,7 +102,7 @@ object faq {
             li("Woman Candidate Master (WCM)")
           ),
           p("Other titles currently recognised by Lichess are listed ", a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("here"), "."),
-          p("If you have an OTB title, you can apply to have this displayed on your account by completing the ", a(href := "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")("verification form"), " here including a clear image of an identifying document/card and a selfie of you holding the document/card."),
+          p("If you have an OTB title, you can apply to have this displayed on your account by completing the ", a(href := "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")("verification form"), ", including a clear image of an identifying document/card and a selfie of you holding the document/card."),
           p("Verifying as a titled player on Lichess gives access to play in the Titled Arena events."),
           h4("Other titles: LM"),
           p("""LM means "Lichess Master". This honorific title is unofficial and only exists on Lichess."""),
@@ -119,17 +120,17 @@ object faq {
           p("That trophy is unique in the history of Lichess, nobody other than ", a(href := "https://lichess.org/@/hiimgosu")("hiimgosu"), " will ever have it."),
           p("To get it, hiimgosu challenged himself to berserk and win 100% games of ", a(href := "https://lichess.org/tournament/cDyjj1nL")("a hourly bullet tournament"), "."),
           h4("The Golden Zee"),
-          p("That trophy is unique in the history of Lichess, nobody other than ZugAddict will ever have it."),
+          p("That trophy is unique in the history of Lichess, nobody other than ", a(href := "https://lichess.org/@/ZugAddict")("ZugAddict"), " will ever have it."),
           p("ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he'd get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.")
         ),
         h2("Lichess ratings"),
         question(
           "ratings",
           "What rating system does Lichess use?",
-          p("Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant amount of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system)."),
+          p("Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system)."),
           p("""Fundamentally, Glicko ratings use "confidence intervals" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval."""),
-          p("Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after several games, the confidence interval will narrow, and the amount of points gained/lost after each game will lessen."),
-          p("""Another thing to note is that the confidence interval changes over time. If you win or lose many games (or rather "points") in a row, the confidence interval will increase allowing you to gain/lose points points more rapidly. This is because a winning/losing streak means that you are incorrectly rated/seeded and the rating system should compensate for that.""")
+          p("Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease."),
+          p("""Another point to note is that the confidence interval changes over time. If you win or lose many games (or rather "points") in a row, the confidence interval will increase allowing you to gain/lose points points more rapidly. This is because a winning/losing streak means that you are incorrectly rated/seeded and the rating system should compensate for that.""")
         ),
         question(
           "provisional",
@@ -140,7 +141,7 @@ object faq {
         question(
           "leaderboards",
           "How do ranks and leaderboards work?",
-          p("In order to get on the rating leaderboards at lichess.org/player, you must:"),
+          p("In order to get on the ", a(href := routes.User.list())("rating leaderboards"), ", you must:"),
           ol(
             li("have played at least 30 rated games in a given rating,"),
             li("have played a rated game within the last week for this rating,"),
@@ -150,9 +151,9 @@ object faq {
         ),
         question(
           "high-ratings",
-          "Why are ratings higher compared to other sites and organisations such as FIDE, USCF, the ICC, etc.?",
+          "Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?",
           p("It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings)."),
-          p("""It's best to think of ratings as "relative" figures (as opposed to "absolute" figures). By this I mean: within a pool of players, their relative differences in ratings will help you estimate who will win/draw/loss, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.""")
+          p("""It's best to think of ratings as "relative" figures (as opposed to "absolute" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/loss, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.""")
         ),
         question(
           "hide-ratings",
