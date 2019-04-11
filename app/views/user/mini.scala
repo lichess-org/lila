@@ -1,7 +1,5 @@
 package views.html.user
 
-import play.twirl.api.Html
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -55,7 +53,7 @@ object mini {
             cls := "upt__score",
             href := s"${routes.User.games(u.username, "me")}#games",
             title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
-          )(trans.yourScore(Html(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross.showOpponentScore(myId)}</strong>""")))
+          )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross.showOpponentScore(myId)}</strong>""")))
         }
       )
     },

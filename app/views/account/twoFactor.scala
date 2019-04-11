@@ -33,7 +33,7 @@ object twoFactor {
           form3.password(form("passwd"), trans.password.frag()),
           form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required := "")),
           form3.globalError(form),
-          form3.actionHtml(form3.submit(raw("Enable two-factor authentication")))
+          form3.action(form3.submit(raw("Enable two-factor authentication")))
         )
       )
     }
@@ -53,7 +53,7 @@ object twoFactor {
           p("You need your password and an authentication code from your authenticator app to disable two-factor authentication."),
           form3.password(form("passwd"), trans.password.frag()),
           form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required := "")),
-          form3.actionHtml(form3.submit(raw("Disable two-factor authentication"), icon = None))
+          form3.action(form3.submit(raw("Disable two-factor authentication"), icon = None))
         )
       )
     }

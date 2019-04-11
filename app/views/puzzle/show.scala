@@ -1,7 +1,6 @@
 package views.html.puzzle
 
 import play.api.libs.json.JsObject
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._

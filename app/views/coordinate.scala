@@ -1,7 +1,6 @@
 package views.html
 
 import play.api.libs.json.Json
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -91,7 +90,7 @@ object coordinate {
     List((trans.coordinates.averageScoreAsWhiteX, score.white), (trans.coordinates.averageScoreAsBlackX, score.black)).map {
       case (averageScoreX, s) => div(cls := "chart_container")(
         s.nonEmpty option frag(
-          p(averageScoreX(Html(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+          p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
           div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
         )
       )

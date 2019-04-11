@@ -2,7 +2,6 @@ package views.html.setup
 
 import play.api.data.Form
 import play.api.mvc.Call
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -86,7 +85,7 @@ object forms {
       "friend",
       (if (user.isDefined) trans.challengeToPlay else trans.playWithAFriend)(),
       routes.Setup.friend(user map (_.id)),
-      error.map(e => Html(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
+      error.map(e => raw(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
     )(frag(
         user.map { u =>
           userLink(u, cssClass = "target".some)
@@ -148,7 +147,7 @@ object forms {
           lila.rating.PerfType.nonPuzzle.map { perfType =>
             div(cls := perfType.key)(
               trans.perfRatingX.frag(
-                Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
+                raw(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
               )
             )
           }

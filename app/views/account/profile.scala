@@ -46,7 +46,7 @@ object profile {
         form3.group(form("links"), raw("Social media links "), help = Some(linksHelp)) { f =>
           form3.textarea(f)(rows := 5)
         },
-        form3.actionHtml(form3.submit(trans.apply.frag()))
+        form3.action(form3.submit(trans.apply.frag()))
       )
     )
   }

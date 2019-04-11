@@ -1,7 +1,5 @@
 package views.html.analyse
 
-import play.twirl.api.Html
-
 import chess.variant.Crazyhouse
 
 import bits.dataPanel

@@ -1,8 +1,6 @@
 package views
 package html.puzzle
 
-import play.twirl.api.Html
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.common.String.html.safeJsonValue

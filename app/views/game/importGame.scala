@@ -34,5 +34,5 @@ object importGame {
           form3.action(form3.submit(trans.importGame.frag(), "/".some))
         )
       )
-    }.toHtml
+    }
 }

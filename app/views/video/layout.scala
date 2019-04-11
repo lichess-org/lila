@@ -1,7 +1,5 @@
 package views.html.video
 
-import play.twirl.api.Html
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -14,7 +12,7 @@ object layout {
     title: String,
     control: lila.video.UserControl,
     openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("video"),

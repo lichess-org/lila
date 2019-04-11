@@ -1,7 +1,5 @@
 package views.html.analyse
 
-import play.twirl.api.Html
-
 import lila.analyse.Advice.Judgement
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -23,7 +21,7 @@ object bits {
     moreCss: Frag = emptyFrag,
     moreJs: Frag = emptyFrag,
     openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context): Frag =
+  )(body: Frag)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,

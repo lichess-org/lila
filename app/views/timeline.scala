@@ -1,7 +1,5 @@
 package views.html
 
-import play.twirl.api.Html
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -45,20 +43,20 @@ object timeline {
       case Follow(u1, u2) => playHtmlToFrag(trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false)))
       case TeamJoin(userId, teamId) => trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
       case TeamCreate(userId, teamId) => trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
-      case ForumPost(userId, topicId, topicName, postId) => trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeHtml(topicName), shorten(topicName, 30))))
+      case ForumPost(userId, topicId, topicName, postId) => trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), raw("""<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeHtml(topicName), shorten(topicName, 30))))
       case NoteCreate(fromId, toId) => trans.xLeftANoteOnY(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))
-      case TourJoin(userId, tourId, tourName) => trans.xCompetesInY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), escapeHtml(tourName))))
-      case SimulCreate(userId, simulId, simulName) => trans.xHostsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
-      case SimulJoin(userId, simulId, simulName) => trans.xJoinsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
+      case TourJoin(userId, tourId, tourName) => trans.xCompetesInY(userIdLink(userId.some, withOnline = false), raw("""<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), escapeHtml(tourName))))
+      case SimulCreate(userId, simulId, simulName) => trans.xHostsY(userIdLink(userId.some, withOnline = false), raw(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
+      case SimulJoin(userId, simulId, simulName) => trans.xJoinsY(userIdLink(userId.some, withOnline = false), raw(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
       case GameEnd(playerId, opponent, win, perfKey) => lila.rating.PerfType(perfKey) map { perf =>
-        trans.xVsYinZ(Html("""<a href="%s" data-icon="%s" class="glpt"> %s</a>""".format(routes.Round.player(playerId), perf.iconChar, win match {
+        trans.xVsYinZ(raw("""<a href="%s" data-icon="%s" class="glpt"> %s</a>""".format(routes.Round.player(playerId), perf.iconChar, win match {
           case Some(true) => trans.victory()
           case Some(false) => trans.defeat()
           case _ => trans.draw()
         })), userIdLink(opponent, withOnline = false), perf.name)
       }
-      case StudyCreate(userId, studyId, studyName) => trans.xCreatesStudyY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
-      case StudyLike(userId, studyId, studyName) => trans.xLikesY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
+      case StudyCreate(userId, studyId, studyName) => trans.xCreatesStudyY(userIdLink(userId.some, withOnline = false), raw(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
+      case StudyLike(userId, studyId, studyName) => trans.xLikesY(userIdLink(userId.some, withOnline = false), raw(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
       case PlanStart(userId) => frag(
         userIdLink(userId.some, withOnline = true),
         " became a ",
