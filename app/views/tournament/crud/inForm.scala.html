@@ -32,4 +32,4 @@
 <h2>Conditions of entry</h2>
 @tournament.conditionForm(form, auto = false, Nil)
 @form3.group(form("password"), raw("Password (optional)"))(form3.input(_))
-@form3.actionHtml(form3.submit(trans.apply.frag()))
+@form3.action(form3.submit(trans.apply.frag()))

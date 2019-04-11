@@ -1,7 +1,5 @@
 package views.html.analyse
 
-import play.twirl.api.Html
-
 import bits.dataPanel
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._

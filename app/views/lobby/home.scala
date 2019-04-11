@@ -1,7 +1,6 @@
 package views.html.lobby
 
 import play.api.libs.json.{ Json, JsObject }
-import play.twirl.api.Html
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._

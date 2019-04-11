@@ -1,8 +1,6 @@
 package views.html
 package team
 
-import play.twirl.api.Html
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -56,7 +54,7 @@ object bits {
     tab = "all"
   )
 
-  def layout(title: String, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context) =
+  def layout(title: String, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("team"),

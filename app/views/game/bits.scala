@@ -1,7 +1,5 @@
 package views.html.game
 
-import play.twirl.api.Html
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._

@@ -1,7 +1,5 @@
 package views.html.analyse
 
-import play.twirl.api.Html
-
 import lidraughts.analyse.Advice.Judgement
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -23,7 +21,7 @@ object bits {
     moreCss: Frag = emptyFrag,
     moreJs: Frag = emptyFrag,
     openGraph: Option[lidraughts.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context): Frag =
+  )(body: Frag)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,
