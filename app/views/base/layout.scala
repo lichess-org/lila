@@ -252,7 +252,7 @@ object layout {
           ctx.requiresFingerprint option fingerprintTag,
           jsAt(s"compiled/lidraughts.site${isProd ?? ".min"}.js", async = asyncJs),
           moreJs,
-          embedJs(s"""lidraughts.quantity=${lidraughts.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript;"""),
+          embedJs(s"""lidraughts.quantity=${lidraughts.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
         )
     )
