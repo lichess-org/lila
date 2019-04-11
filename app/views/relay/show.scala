@@ -32,7 +32,7 @@ object show {
     // chat = chat.frag.some,
     // underchat = Some(views.html.game.bits.watchers),
     responsive = true,
-    moreCss = responsiveCssTag("analyse.relay"),
+    moreCss = responsiveCssTag("analyse.study"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,

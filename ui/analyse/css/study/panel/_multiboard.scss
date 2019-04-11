@@ -31,7 +31,7 @@
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     a {
       @extend %box-radius;
       color: $c-font;
@@ -56,9 +56,12 @@
       }
     }
     .player {
-      @extend %flex-between;
+      @extend %flex-between-nowrap;
       height: 1.5em;
       white-space: nowrap;
+      span {
+        margin-left: .5em;
+      }
     }
     .name {
       @extend %flex-center;
