@@ -29,7 +29,8 @@ object bits {
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       responsive = true,
-      moreCss = responsiveCssTag("auth")
+      moreCss = responsiveCssTag("auth"),
+      moreJs = captchaTag
     ) {
         main(cls := "auth auth-signup box box-pad")(
           h1(
