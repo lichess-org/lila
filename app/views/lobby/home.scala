@@ -74,7 +74,7 @@ object home {
           div(cls := "lobby__counters")(
             a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-              trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
+              trans.nbGamesInPlay.pluralFrag(nbRounds, strong(nbRounds))
             )
           )
         ),
