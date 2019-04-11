@@ -218,7 +218,7 @@ object layout {
           ctx.requiresFingerprint option fingerprintTag,
           jsAt(s"compiled/lichess.site${isProd ?? ".min"}.js", async = asyncJs),
           moreJs,
-          embedJs(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript;"""),
+          embedJs(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
         )
     )
