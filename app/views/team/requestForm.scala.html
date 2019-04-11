@@ -3,7 +3,11 @@
 
 @title = @{ trans.joinTeam.txt() + " " + t.name }
 
-@bits.layout(title = title) {
+@views.html.base.layout(
+title = title,
+moreCss = responsiveCssTag("team"),
+moreJs = frag(infiniteScrollTag, captchaTag),
+responsive = true) {
 <main class="page-menu page-small">
   @bits.menu("requests".some).toHtml
   <div class="page-menu__content box box-pad">

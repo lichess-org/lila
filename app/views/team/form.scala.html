@@ -1,7 +1,11 @@
 @(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 @import lila.app.ui.ScalatagsTwirlForm._
 
-@bits.layout(title = trans.newTeam.txt()) {
+@views.html.base.layout(
+title = trans.newTeam.txt(),
+moreCss = responsiveCssTag("team"),
+moreJs = frag(infiniteScrollTag, captchaTag),
+responsive = true) {
 <main class="page-menu page-small">
   @bits.menu("form".some).toHtml
   <div class="page-menu__content box box-pad">

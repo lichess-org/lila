@@ -13,7 +13,10 @@ import controllers.routes
 object topic {
 
   def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
-    bits.layout(title = "New forum topic", moreJs = jsTag("forum-post.js")) {
+    bits.layout(title = "New forum topic", moreJs = frag(
+      jsTag("forum-post.js"),
+      captchaTag
+    )) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         h1(
           a(
