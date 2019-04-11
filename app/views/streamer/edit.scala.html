@@ -5,8 +5,7 @@
 @base.layout(
 title = s"${s.user.titleUsername} streamer page",
 moreCss = responsiveCssTag("streamer.form"),
-moreJs = jsTag("streamer.form.js"),
-responsive = true) {
+moreJs = jsTag("streamer.form.js")) {
 <main class="page-menu">
   @bits.menu("edit", s.withoutStream.some).toHtml
   <div class="page-menu__content box streamer-edit">

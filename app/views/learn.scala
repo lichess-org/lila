@@ -21,7 +21,6 @@ data: ${data.fold("null")(safeJsonValue)},
 i18n: ${safeJsonValue(i18nFullDbJsObject(lidraughts.i18n.I18nDb.Learn))}});});""")
     ),
     moreCss = responsiveCssTag("learn"),
-    responsive = true,
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Learn draughts by playing",

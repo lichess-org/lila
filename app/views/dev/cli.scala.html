@@ -5,8 +5,7 @@
 
 @base.layout(
 title = title,
-moreCss = responsiveCssTag("mod.misc"),
-responsive = true) {
+moreCss = responsiveCssTag("mod.misc")) {
 <main class="page-menu">
   @mod.menu("cli").toHtml
   <div id="dev-cli" class="page-menu__content box box-pad">
@@ -16,7 +15,7 @@ responsive = true) {
       Only use if you know exactly what you're doing.
     </p>
     @res.map { r =>
-      <h2>Result:</h2>
+    <h2>Result:</h2>
       <pre>@r</pre>
     }
     <form action="@routes.Dev.cliPost" method="POST">@form3.inputHtml(form("command"))(*.autofocus := true)</form>

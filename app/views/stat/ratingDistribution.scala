@@ -13,7 +13,6 @@ object ratingDistribution {
   def apply(perfType: PerfType, data: List[Int])(implicit ctx: Context) = views.html.base.layout(
     title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.name),
     moreCss = responsiveCssTag("user.rating.stats"),
-    responsive = true,
     wrapClass = "full-screen-force",
     moreJs = frag(
       jsTag("chart/ratingDistribution.js"),

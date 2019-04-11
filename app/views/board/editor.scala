@@ -26,7 +26,6 @@ LidraughtsEditor(document.getElementById('board-editor'), data);""")
     moreCss = responsiveCssTag("editor"),
     draughtsground = false,
     zoomable = true,
-    responsive = true,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Draughts board editor",
       url = s"$netBaseUrl${routes.Editor.index.url}",

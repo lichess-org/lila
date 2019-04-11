@@ -106,7 +106,6 @@ object list {
   )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = responsiveCssTag("study.index"),
-    responsive = true,
     moreJs = infiniteScrollTag
   ) {
       main(cls := "page-menu")(

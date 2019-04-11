@@ -21,7 +21,6 @@ object signup {
         recaptcha.enabled option recaptchaScript,
         fingerprintTag
       ),
-      responsive = true,
       moreCss = responsiveCssTag("auth"),
       csp = defaultCsp.withRecaptcha.some
     ) {

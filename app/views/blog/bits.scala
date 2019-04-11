@@ -14,7 +14,6 @@ object bits {
       title = title,
       moreCss = responsiveCssTag("blog"),
       moreJs = frag(prismicJs, moreJs),
-      responsive = true,
       openGraph = openGraph,
       csp = defaultCsp.withPrismic(isGranted(_.Prismic)).some
     ) {

@@ -11,7 +11,6 @@ object bits {
   def getDraughtsnet()(implicit ctx: Context) =
     views.html.base.layout(
       title = "Draughtsnet API key request",
-      responsive = true,
       csp = defaultCsp.withGoogleForm.some
     ) {
       main(

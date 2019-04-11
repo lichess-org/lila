@@ -15,7 +15,6 @@ object home {
     starteds: List[lidraughts.simul.Simul],
     finisheds: List[lidraughts.simul.Simul]
   )(implicit ctx: Context) = views.html.base.layout(
-    responsive = true,
     moreCss = responsiveCssTag("simul.list"),
     moreJs = embedJs(s"""$$(function() {
   lidraughts.StrongSocket.defaults.params.flag = 'simul';

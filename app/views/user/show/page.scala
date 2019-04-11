@@ -40,8 +40,7 @@ object page {
     moreCss = frag(
       responsiveCssTag("user.show.activity"),
       isGranted(_.UserSpy) option responsiveCssTag("mod.user")
-    ),
-    responsive = true
+    )
   ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
@@ -75,10 +74,8 @@ object page {
     ),
     moreCss = frag(
       responsiveCssTag("user.show.games"),
-      info.nbs.crosstable.isDefined option responsiveCssTag("crosstable"),
-      isGranted(_.UserSpy) option responsiveCssTag("mod.user")
-    ),
-    responsive = true
+      info.nbs.crosstable.isDefined option responsiveCssTag("crosstable")
+    )
   ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
@@ -90,7 +87,7 @@ object page {
     }
 
   def disabled(u: User)(implicit ctx: Context) =
-    views.html.base.layout(title = u.username, robots = false, responsive = true) {
+    views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
         h1(u.username),
         p(trans.thisAccountIsClosed.frag())

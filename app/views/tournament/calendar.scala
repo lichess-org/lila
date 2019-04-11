@@ -18,8 +18,7 @@ data: ${safeJsonValue(json)},
 i18n: ${jsI18n()}
 });""")
     ),
-    moreCss = responsiveCssTag("tournament.calendar"),
-    responsive = true
+    moreCss = responsiveCssTag("tournament.calendar")
   ) {
       main(cls := "box")(
         h1("Tournament calendar"),

@@ -16,8 +16,7 @@ object list {
     streamers: Int
   )(implicit ctx: Context) = views.html.base.layout(
     title = "Reports",
-    moreCss = responsiveCssTag("mod.report"),
-    responsive = true
+    moreCss = responsiveCssTag("mod.report")
   ) {
       main(cls := "page-menu")(
         views.html.mod.menu("report"),

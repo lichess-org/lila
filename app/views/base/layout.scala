@@ -24,10 +24,6 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lidraughts.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/$ps.css"), tpe := "text/css", rel := "stylesheet")
-    val fontStylesheets = raw(List(
-      """<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">""",
-      """<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">"""
-    ).mkString)
   }
   import bits._
 
@@ -89,7 +85,6 @@ object layout {
   private val dataNonce = attr("data-nonce")
   private val dataZoom = attr("data-zoom")
   private val dataTheme = attr("data-theme")
-  private val dataResp = attr("data-resp")
   private val dataPreload = attr("data-preload")
   private val dataPlaying = attr("data-playing")
   private val dataPatrons = attr("data-patrons")
@@ -107,8 +102,6 @@ object layout {
     zoomable: Boolean = false,
     asyncJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
-    responsive: Boolean = false,
-    // responsive: Boolean,
     wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context) = frag(
     doctype,
@@ -116,11 +109,10 @@ object layout {
       topComment,
       head(
         charset,
-        responsive option viewport,
+        viewport,
         metaCsp(csp),
-        if (isProd) frag(
-          st.headTitle(fullTitle | s"$title • lidraughts.org"),
-          !responsive option fontStylesheets
+        if (isProd && !isStage) frag(
+          st.headTitle(fullTitle | s"$title • lidraughts.org")
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
         responsiveCssTag("site"),
@@ -162,9 +154,7 @@ object layout {
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.map(_.value),
-        dataZoom := ctx.zoom.ifFalse(responsive).map(_.toString),
-        dataResp := responsive.option(true),
-        dataTheme := responsive.option(ctx.currentBg),
+        dataTheme := ctx.currentBg,
         style := zoomable option s"--zoom:${ctx.respZoom}"
       )(
           blindModeForm,
@@ -176,7 +166,7 @@ object layout {
           ),
           lidraughts.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
-          siteHeader.responsive(playing),
+          siteHeader(playing),
           div(id := "main-wrap", cls := List(
             wrapClass -> wrapClass.nonEmpty,
             "is2d" -> true
@@ -234,7 +224,7 @@ object layout {
     private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
       a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests, dataIcon := "f", title := trans.teams.txt())
 
-    def responsive(playing: Boolean)(implicit ctx: Context) =
+    def apply(playing: Boolean)(implicit ctx: Context) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           topnavToggle,

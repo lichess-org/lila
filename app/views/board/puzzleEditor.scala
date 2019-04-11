@@ -20,7 +20,6 @@ object puzzleEditor {
       analyseNvuiTag,
       embedJs(s"""lidraughts=lidraughts||{};lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${userAnalysisI18n()},explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
     ),
-    responsive = true,
     draughtsground = false,
     zoomable = true
   ) {

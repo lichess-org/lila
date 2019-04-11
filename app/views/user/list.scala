@@ -20,7 +20,6 @@ object list {
   )(implicit ctx: Context) = views.html.base.layout(
     title = trans.players.txt(),
     moreCss = responsiveCssTag("user.list"),
-    responsive = true,
     wrapClass = "full-screen-force",
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Draughts players and leaderboards",

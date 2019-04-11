@@ -27,7 +27,6 @@ object userAnalysis {
         )
       },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
     ),
-    responsive = true,
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Draughts analysis board",

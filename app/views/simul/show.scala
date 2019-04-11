@@ -18,7 +18,6 @@ object show {
     chatOption: Option[lidraughts.chat.UserChat.Mine],
     stream: Option[lidraughts.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
-    responsive = true,
     moreCss = responsiveCssTag("simul.show"),
     title = sim.fullName,
     moreJs = frag(

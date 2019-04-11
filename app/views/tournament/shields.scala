@@ -16,7 +16,6 @@ object shields {
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = responsiveCssTag("tournament.leaderboard"),
-      responsive = true,
       wrapClass = "full-screen-force"
     ) {
         main(cls := "page-menu")(

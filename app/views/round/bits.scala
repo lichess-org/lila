@@ -29,7 +29,6 @@ object bits {
         responsiveCssTag("round"),
         moreCss
       ),
-      responsive = true,
       draughtsground = draughtsground,
       playing = playing,
       robots = robots,

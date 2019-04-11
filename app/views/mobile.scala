@@ -10,8 +10,7 @@ object mobile {
 
   def apply()(implicit ctx: Context) = base.layout(
     title = "Mobile",
-    moreCss = responsiveCssTag("mobile"),
-    responsive = true
+    moreCss = responsiveCssTag("mobile")
   ) {
       main(
         div(cls := "mobile page-small box box-pad")(

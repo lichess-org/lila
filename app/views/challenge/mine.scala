@@ -19,7 +19,6 @@ object mine {
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      responsive = true,
       moreJs = bits.js(c, json, true),
       moreCss = responsiveCssTag("challenge.page")
     ) {

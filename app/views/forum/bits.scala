@@ -22,7 +22,6 @@ object bits {
       title = title,
       //menu = menu,
       moreCss = responsiveCssTag("forum"),
-      responsive = true,
       moreJs = moreJs,
       openGraph = openGraph
     )(body)

@@ -44,7 +44,6 @@ object home {
     ),
     moreCss = responsiveCssTag("lobby"),
     draughtsground = false,
-    responsive = true,
     openGraph = lidraughts.app.ui.OpenGraph(
       image = staticUrl("images/large_tile.png").some,
       title = "The best free, adless draughts server",

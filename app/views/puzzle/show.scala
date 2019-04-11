@@ -23,7 +23,6 @@ object show {
 lidraughts = lidraughts || {};
 lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i18n: ${bits.jsI18n} };""")
       ),
-      responsive = true,
       draughtsground = false,
       openGraph = lidraughts.app.ui.OpenGraph(
         image = cdnUrl(routes.Export.puzzlePngVariant(puzzle.id, puzzle.variant.key).url).some,

@@ -39,7 +39,6 @@ chat:${
       }};""")
     ),
     moreCss = responsiveCssTag("tournament.show"),
-    responsive = true,
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",

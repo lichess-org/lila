@@ -4,9 +4,9 @@ package userTournament
 import play.twirl.api.Html
 
 import lidraughts.api.Context
-import lidraughts.common.paginator.Paginator
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.paginator.Paginator
 import lidraughts.user.User
 
 import controllers.routes
@@ -36,7 +36,6 @@ object bits {
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      responsive = true,
       moreCss = responsiveCssTag("user-tournament"),
       moreJs = moreJs
     ) {

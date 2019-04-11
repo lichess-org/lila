@@ -61,7 +61,6 @@ object bits {
       title = title,
       moreCss = responsiveCssTag("team"),
       moreJs = infiniteScrollTag,
-      openGraph = openGraph,
-      responsive = true
+      openGraph = openGraph
     )(body)
 }

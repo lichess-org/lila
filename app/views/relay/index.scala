@@ -27,7 +27,6 @@ object index {
 
     views.html.base.layout(
       title = "Live tournament broadcasts",
-      responsive = true,
       moreCss = responsiveCssTag("relay.index"),
       moreJs = infiniteScrollTag
     ) {
