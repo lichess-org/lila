@@ -55,13 +55,16 @@
     color: $c-font-dimmer;
     cursor: default;
   }
-  move.context_menu {
-    background: $c-accent;
-    color: $c-accent-over;
-  }
   move index {
     font-size: 90%;
     color: $c-font-dim;
+  }
+  move.context-menu {
+    background: $c-accent;
+    color: $c-accent-over;
+    index {
+      color: $c-accent-over;
+    }
   }
   &-column move index {
     padding-left: 5px;

@@ -39,11 +39,10 @@ $c-study-button: $c-accent;
       opacity: 1;
     }
   }
-  .glyphs {
-    padding-bottom: .35em;
-  }
-  .glyph-icon::before {
-    content: '⁉';
-    font-size: 1.2em;
-  }
+}
+
+/* reused by context menu */
+.glyph-icon::before {
+  content: '⁉';
+  font-size: 1.2em;
 }

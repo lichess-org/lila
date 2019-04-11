@@ -164,14 +164,14 @@ export function side(ctrl: StudyCtrl): VNode {
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
   return ctrl.vm.mode.write ? [
-    h('a.action', {
+    h('a', {
       attrs: dataIcon('c'),
       hook: bind('click', () => {
         ctrl.vm.toolTab('comments');
-        ctrl.commentForm.set(ctrl.currentChapter()!.id, path, node);
+        ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
       })
     }, 'Comment this move'),
-    h('a.action.glyph-icon', {
+    h('a.glyph-icon', {
       hook: bind('click', () => {
         ctrl.vm.toolTab('glyphs');
         ctrl.userJump(path);
