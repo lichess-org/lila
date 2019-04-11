@@ -22,14 +22,13 @@ $c-study-button: $c-accent;
     @extend %flex-center-nowrap, %box-radius-top;
     align-self: stretch;
     color: $c-font;
-    padding: 0 .7em;
-    text-transform: uppercase;
-    opacity: 0.8;
+    padding: 0 .4em;
+    opacity: .8;
     i::before {
-      font-size: 19px;
+      font-size: 1.4em;
       content: 'L';
       color: $c-bad;
-      margin-right: 4px;
+      margin-right: .2rem;
     }
     &.on i::before {
       content: 'E';
