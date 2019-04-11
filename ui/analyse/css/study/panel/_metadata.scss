@@ -3,7 +3,7 @@
   background: $c-bg-box;
   text-align: left;
   h2 {
-    @extend %metal, %flex-between;
+    @extend %metal, %flex-between-nowrap;
     font-size: 1.3em;
     padding: .8rem 1rem;
     white-space: nowrap;

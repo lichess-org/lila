@@ -58,13 +58,13 @@ function buttons(root: AnalyseCtrl): VNode {
         hook: bind('click', ctrl.toggleSticky)
       }, [
         ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'),
-        'Sync'
+        'SYNC'
       ]) : null,
       ctrl.members.canContribute() ? h('a.mode.write', {
         attrs: { title: 'Write changes to the server' },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
-      }, [ h('i.is'), 'Record' ]) : null,
+      }, [ h('i.is'), 'REC' ]) : null,
       toolButton({
         ctrl,
         tab: 'tags',
@@ -205,7 +205,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       panel = study.vm.mode.write ?
         commentForm.view(ctrl) : (
           commentForm.viewDisabled(ctrl, study.members.canContribute() ?
-            'Press RECORD to comment moves' :
+            'Press REC to comment moves' :
             'Only the study members can comment on moves')
         );
       break;
@@ -213,7 +213,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       panel = ctrl.path ? (
         study.vm.mode.write ?
         glyphForm.view(study.glyphForm) :
-        glyphForm.viewDisabled('Press RECORD to annotate moves')
+        glyphForm.viewDisabled('Press REC to annotate moves')
       ) : glyphForm.viewDisabled('Select a move to annotate');
       break;
     case 'serverEval':

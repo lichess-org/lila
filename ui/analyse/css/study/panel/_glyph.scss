@@ -7,7 +7,7 @@
     flex: 1 0 30%;
   }
   a {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
     @include transition();
     color: $c-font;
     height: 2.3em;

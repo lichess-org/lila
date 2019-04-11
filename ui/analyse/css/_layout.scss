@@ -55,8 +55,15 @@
     'board      gauge .    tools'
     'under      under .    controls'
     'under      under .    acpl'
+    'under      under .    side'
     'chat       chat  .    side'
     'uchat      uchat .    side';
+    grid-row-gap: 0;
+    &__underboard,
+    &__side,
+    .mchat {
+      margin-top: $block-gap;
+    }
     .eval-gauge { display: block; }
   }
 
@@ -74,6 +81,10 @@
     'chat    . board gauge . tools'
     'uchat   . under under . controls'
     'uchat   . under under . acpl';
+
+    &__side {
+      margin-top: 0;
+    }
 
     @include crosstable-large;
   }
