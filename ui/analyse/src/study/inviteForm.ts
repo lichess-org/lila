@@ -54,7 +54,7 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
 };
 
 export function view(ctrl): VNode {
-  const candidates = ctrl.candidates().concat(ctrl.candidates().concat(ctrl.candidates())).concat(ctrl.candidates());
+  const candidates = ctrl.candidates();
   return dialog.form({
     class: 'study__invite',
     onClose() {
