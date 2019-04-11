@@ -186,7 +186,7 @@ export function view(ctrl: StudyCtrl): VNode {
         }, ctrl.redraw)
       });
     if (!isOwner && member.user.id === ctrl.members.myId)
-      return h('span.action.leave', {
+      return h('act.leave', {
         key: 'leave',
         attrs: {
           'data-icon': 'F',
