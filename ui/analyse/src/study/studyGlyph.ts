@@ -65,7 +65,7 @@ export function ctrl(root: AnalyseCtrl) {
 
 export function viewDisabled(why: string): VNode {
   return h('div.study__glyphs', [
-    h('div.message', h('span', why))
+    h('div.message', why)
   ]);
 }
 
@@ -73,7 +73,7 @@ export function view(ctrl: GlyphCtrl): VNode {
 
   const all = ctrl.all(), node = ctrl.root.node;
 
-  return h('div.study__glyphs', {
+  return h('div.study__glyphs' + (all ? '' : '.empty'), {
     hook: { insert: ctrl.loadGlyphs }
   },
     all ? [
