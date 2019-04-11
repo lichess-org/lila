@@ -315,7 +315,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gamebookPlay = ctrl.gamebookPlay(),
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
-    relayEdit = study && study.relay && relayManager(study.relay),
     playerBars = renderPlayerBars(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
@@ -343,7 +342,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'gauge-on': gaugeOn,
       'gb_edit': !!gamebookEditView,
       'gb_play': !!gamebookPlayView,
-      'relay_edit': !!relayEdit,
       'has-players': !!playerBars
     }
   }, [
@@ -393,7 +391,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         ) : null
       )
     ]),
-    relayEdit,
+    study && study.relay && relayManager(study.relay),
     gamebookEditView,
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {

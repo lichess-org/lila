@@ -207,7 +207,7 @@
     if (lidraughts.analyse) LidraughtsAnalyse.boot(lidraughts.analyse);
     else if (lidraughts.user_analysis) startUserAnalysis(lidraughts.user_analysis);
     else if (lidraughts.study) startStudy(lidraughts.study);
-    else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
+    else if (lidraughts.practice) startPractice(lidraughts.practice);
     else if (lidraughts.relay) startRelay(lidraughts.relay);
     else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
     else if (lidraughts.tournament) startTournament(lidraughts.tournament);
@@ -786,10 +786,6 @@
     }
   });
 
-  /////////////////
-  // gamelist.js //
-  /////////////////
-
   $(function() {
     lidraughts.pubsub.on('content_loaded', lidraughts.parseFen);
 
@@ -814,10 +810,9 @@
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
       $('.chat__members').watchers();
+      if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
+        $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lidraughts.reload);
     });
-
-    if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
-      $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lidraughts.reload);
   });
 
   ///////////////////
@@ -832,9 +827,6 @@
       '/tournament/' + cfg.data.id + '/socket/v3', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
-        },
-        options: {
-          name: "tournament"
         }
       });
     cfg.socketSend = lidraughts.socket.send;
@@ -852,9 +844,6 @@
       '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
-        },
-        options: {
-          name: "simul"
         }
       });
     cfg.socketSend = lidraughts.socket.send;
@@ -869,12 +858,8 @@
   function startUserAnalysis(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = document.querySelector('main.analyse');
     cfg.trans = lidraughts.trans(cfg.i18n);
     lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
-      options: {
-        name: 'analyse'
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -891,11 +876,7 @@
   function startStudy(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = document.querySelector('main.analyse');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      options: {
-        name: "study"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -910,15 +891,10 @@
   // practice.js //
   ////////////////
 
-  function startPractice(element, cfg) {
+  function startPractice(cfg) {
     var analyse;
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     cfg.trans = lidraughts.trans(cfg.i18n);
     lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
-      options: {
-        name: "practice"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -934,11 +910,7 @@
   function startRelay(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = document.querySelector('main.analyse');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      options: {
-        name: 'relay'
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -957,9 +929,6 @@
     var puzzle;
     cfg.element = document.querySelector('main.puzzle');
     lidraughts.socket = lidraughts.StrongSocket('/socket/v3', false, {
-      options: {
-        name: "puzzle"
-      },
       receive: function(t, d) {
         puzzle.socketReceive(t, d);
       }
@@ -967,5 +936,4 @@
     cfg.socketSend = lidraughts.socket.send;
     puzzle = LidraughtsPuzzle.default(cfg);
   }
-
 })();

@@ -15,12 +15,12 @@ object show {
     data: lidraughts.practice.JsonView.JsData
   )(implicit ctx: Context) = views.html.base.layout(
     title = us.practiceStudy.name,
-    // side = div(cls := "side_box study_box").toHtml.some,
-    moreCss = cssTags("analyse.css", "study.css", "practice.css"),
+    responsive = true,
+    moreCss = responsiveCssTag("analyse.practice"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lidraughts = lidraughts || {}; lidraughts.practice = {
+      embedJs(s"""lidraughts=window.lidraughts||{};lidraughts.practice={
 practice: ${safeJsonValue(data.practice)},
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},
@@ -33,6 +33,6 @@ tablebaseEndpoint: "$tablebaseEndpoint"
     draughtsground = false,
     zoomable = true
   ) {
-      div(cls := "analyse cg-512")(miniBoardContent)
+      main(cls := "analyse")
     }
 }
