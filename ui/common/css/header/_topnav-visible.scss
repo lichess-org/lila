@@ -48,7 +48,7 @@
       position: absolute;
       left: 0;
       background: $c-bg-header-dropdown;
-      width: 10rem;
+      min-width: 10rem;
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;
       border-left: 2px solid $c-primary;
