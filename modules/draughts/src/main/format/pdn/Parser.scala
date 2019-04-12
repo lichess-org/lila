@@ -94,12 +94,19 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     }
 
     //val moveRegex = """0\-0\-0|0\-0|[PQKRBNOoa-h@][QKRBNa-h1-8xOo\-=\+\#\@]{1,6}[\?!□]{0,2}""".r
-    val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])[\?!□⨀]{0,2}""".r
+    val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])(x(50|[1-4][0-9]|0?[1-9]))*[\?!□⨀]{0,2}""".r
 
     def strMove: Parser[StrMove] = as("move") {
       ((number | commentary)*) ~> (moveRegex ~ nagGlyphs ~ rep(commentary) ~ rep(variation)) <~ (moveExtras*) ^^ {
-        case san ~ glyphs ~ comments ~ variations => StrMove(san.trim(), glyphs, cleanComments(comments), variations)
+        case san ~ glyphs ~ comments ~ variations => StrMove(collapsedSan(san.trim()), glyphs, cleanComments(comments), variations)
       }
+    }
+
+    private def collapsedSan(san: String) = {
+      val capts = san.split('x');
+      if (capts.length > 2)
+        s"${capts.head}x${capts.last}"
+      else san
     }
 
     def number: Parser[String] = """[1-9]\d*\.+\s*""".r
