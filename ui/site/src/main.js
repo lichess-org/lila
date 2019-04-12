@@ -623,7 +623,7 @@ lichess.topMenuIntent = function() {
         };
         var testSoon = function() {
           setTimeout(function() {
-            if (getComputedStyle(document.body).getPropertyValue('--grid%%%%%%%%%%%%%%%%%%%%%%%%%%%%')) {
+            if (getComputedStyle(document.body).getPropertyValue('--grid')) {
               $('#browser-upgrade').remove();
               schedule();
             }
