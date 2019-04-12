@@ -1,16 +1,11 @@
 @(playing: List[Pov], simul: Option[lidraughts.simul.Simul])(implicit ctx: Context)
 <h3>
   @simul.map { s =>
-  <span class="simul">
-    SIMUL
-    <span class="win">@s.wins W</span>/
-    <span class="draw">@s.draws D</span>/
-    <span class="loss">@s.losses L</span>/
-    @s.ongoing ongoing
-  </span>
+  @simulStandings(s)
   }.getOrElse {
   @trans.currentGames()
   }
+  @if(simul.fold(true)(_.isHost(ctx.me))) {
   @defining("round-toggle-autoswitch") { id =>
   <span class="move_on switcher hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
     <label for="@id">@trans.autoSwitch()</label>
@@ -20,7 +15,9 @@
     </span>
   </span>
   }
+  }
 </h3>
+@if(simul.fold(true)(_.isHost(ctx.me))) {
 @defining(playing.partition(_.isMyTurn)) {
 case (myTurn, otherTurn) => {
 @defining(myTurn ++ otherTurn.take(6 - myTurn.size)) { povs =>
@@ -36,6 +33,7 @@ case (myTurn, otherTurn) => {
     </span>
   </span>
 </a>
+}
 }
 }
 }

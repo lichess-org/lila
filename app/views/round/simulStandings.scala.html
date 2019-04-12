@@ -1,0 +1,8 @@
+@(s: lidraughts.simul.Simul)(implicit ctx: Context)
+<span class="simul">
+  SIMUL
+  <span class="win">@s.wins W</span>/
+  <span class="draw">@s.draws D</span>/
+  <span class="loss">@s.losses L</span>/
+  @s.ongoing ongoing
+</span>
