@@ -48,7 +48,7 @@ object crosstable {
     }
 
     val users = ct.users.toList.map { u =>
-      userIdLink(u.id.some, withOnline = false)
+      userIdLink(u.id.some, withOnline = false).render
     }
     val usersDiv = s"""<div class="crosstable__users">${users mkString ""}</div>"""
 
