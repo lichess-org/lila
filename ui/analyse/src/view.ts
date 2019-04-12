@@ -22,6 +22,7 @@ import practiceView from './practice/practiceView';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
 import * as studyView from './study/studyView';
+import * as studyPracticeView from './study/practice/studyPracticeView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
@@ -325,16 +326,18 @@ export default function(ctrl: AnalyseCtrl): VNode {
         ctrl.opts.$side && $(elm).replaceWith(ctrl.opts.$side);
       })
     }, [
-      ctrl.study ? studyView.side(ctrl.study) : (
-        ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-        (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
-          h('a.button.text', {
-            attrs: {
-              href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
-              'data-icon': 'i'
-            }
-          }, ctrl.trans.noarg('backToGame'))
-        ) : null
+      ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (
+        ctrl.study ? studyView.side(ctrl.study) : (
+          ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+          (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
+            h('a.button.text', {
+              attrs: {
+                href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
+                'data-icon': 'i'
+              }
+            }, ctrl.trans.noarg('backToGame'))
+          ) : null
+        )
       )
     ]),
     study && study.relay && relayManager(study.relay),

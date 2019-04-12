@@ -11,6 +11,7 @@ h3,
 h4 {
   @extend %roboto;
   font-weight: normal;
+  font-size: 1em;
 }
 h1 {
   @include fluid-size('font-size', 27px, 52px);

@@ -97,20 +97,20 @@ export function underboard(ctrl: StudyCtrl): VNode | undefined {
   }
 }
 
-export function main(ctrl: StudyCtrl): VNode {
+export function side(ctrl: StudyCtrl): VNode {
 
   const current = ctrl.currentChapter(),
   data = ctrl.practice!.data;
 
-  return h('div.side_box.study_box', [
-    h('div.title', [
-      h('i.practice.icon.' + data.study.id),
+  return h('div.practice__side', [
+    h('div.practice__side__title', [
+      h('i.icon.' + data.study.id),
       h('div.text', [
         h('h1', data.study.name),
         h('em', data.study.desc)
       ])
     ]),
-    h('div.list.chapters', {
+    h('div.practice__side__chapters', {
       hook: bind('click', e => {
         e.preventDefault();
         const target = e.target as HTMLElement,
@@ -123,7 +123,7 @@ export function main(ctrl: StudyCtrl): VNode {
       active = !ctrl.vm.loading && current && current.id === chapter.id,
       completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
       return [
-        h('a.elem.chapter', {
+        h('a.ps__chapter', {
           key: chapter.id,
           attrs: {
             href: data.url + '/' + chapter.id,
