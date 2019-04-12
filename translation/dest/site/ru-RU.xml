@@ -248,7 +248,7 @@
   <string name="recipient">Получатель</string>
   <string name="send">Отправить</string>
   <string name="incrementInSeconds">Добавление секунд на ход</string>
-  <string name="freeOnlineChess">свободные шахматы онлайн</string>
+  <string name="freeOnlineChess">Бесплатные шахматы онлайн</string>
   <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтинговая</item>
@@ -347,7 +347,7 @@
   <string name="mustBeInTeam">Вы должны быть членом клуба %s</string>
   <string name="youAreNotInTeam">Вы не член клуба %s</string>
   <string name="backToGame">Вернуться к игре</string>
-  <string name="siteDescription">Свободный и бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
+  <string name="siteDescription">Бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Клубы</string>
   <plurals name="nbMembers">
     <item quantity="one">%s член клуба</item>
@@ -795,7 +795,7 @@
   <string name="alternativelyYouCanX">Также вы можете %s.</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
-  <string name="asFreeAsLichess">Свободен, как Lichess</string>
+  <string name="asFreeAsLichess">Бесплатен, как Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">С любовью к шахматам, а не к деньгам</string>
   <string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
   <string name="zeroAdvertisement">Никакой рекламы</string>
