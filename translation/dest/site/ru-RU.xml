@@ -727,7 +727,7 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
   <string name="alternativelyYouCanX">Также вы можете %s.</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
-  <string name="asFreeAsLidraughts">Свободен, как Lidraughts</string>
+  <string name="asFreeAsLichess">Бесплатен, как Lidraughts</string>
   <string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
   <string name="zeroAdvertisement">Никакой рекламы</string>
   <string name="fullFeatured">Максимальная функциональность</string>
