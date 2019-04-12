@@ -1,5 +1,5 @@
 .practice__side {
-  @extend %box-neat-force;
+  @extend %box-neat-force, %flex-column;
   background: $c-bg-box;
   &__title {
     @extend %flex-center-nowrap, %nowrap-hidden;
@@ -22,8 +22,7 @@
     }
   }
   &__chapters {
-    border-top: 0;
-    max-height: 800px;
+    overflow-y: auto;
   }
 }
 .ps__chapter {
