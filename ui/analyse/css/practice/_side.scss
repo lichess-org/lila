@@ -1,0 +1,72 @@
+.practice__side {
+  @extend %box-neat-force;
+  background: $c-bg-box;
+  &__title {
+    @extend %flex-center-nowrap, %nowrap-hidden;
+    padding: .7em;
+    background: $c-primary;
+    color: $c-primary-over;
+    .icon {
+      flex: 0 0 3.5em;
+      height: 3.5em;
+      margin-right: .6rem;
+      opacity: .9;
+    }
+    h1 {
+      font-size: 1.2em;
+      margin: 0;
+    }
+    em {
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+  }
+  &__chapters {
+    border-top: 0;
+    max-height: 800px;
+  }
+}
+.ps__chapter {
+  @extend %flex-center-nowrap;
+  border-bottom: $border;
+  align-items: stretch;
+  height: 3em;
+  color: $c-font;
+  @include transition();
+  h3 {
+    @extend %flex-center;
+    margin-left: .3rem;
+  }
+  .status {
+    @extend %flex-center;
+    justify-content: center;
+    opacity: 1;
+    font-size: 1.25em;
+    width: 2.3em;
+    color: $c-shade;
+    &.done {
+      color: $c-primary;
+    }
+  }
+  &:hover {
+    background: mix($c-primary, $c-bg-box, 10%);
+  }
+  &.active {
+    background: mix($c-primary, $c-bg-box, 10%);
+    .status {
+      background: $c-primary;
+      color: $c-primary-over;
+    }
+  }
+}
+.finally {
+  @extend %flex-center-nowrap;
+  padding: .7em .7em .7em 0;
+  background: $c-bg-low;
+  .back {
+    width: 2em;
+    text-align: center;
+    margin-right: .3rem;
+    font-size: 1.25em;
+  }
+}
