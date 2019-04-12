@@ -124,7 +124,7 @@ object Simul extends LidraughtsController {
   private def AsHostOrArbiter(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
     env.repo.find(simulId) flatMap {
       case None => notFound
-      case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(u => simul.arbiterId.??(u ==)) => fuccess(f(simul))
+      case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(simul.isArbiter) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
 }

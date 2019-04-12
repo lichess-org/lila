@@ -40,6 +40,8 @@ case class Simul(
 
   def isRunning = status == SimulStatus.Started
 
+  def isArbiter(userId: String) = arbiterId.??(userId ==)
+
   def hasParticipant(userId: String) = hostId == userId || hasPairing(userId)
 
   def hasApplicant(userId: String) = applicants.exists(_ is userId)
@@ -52,7 +54,8 @@ case class Simul(
 
   def canHaveChat(userId: String): Boolean = chatmode match {
     case Some(mode) if isRunning && mode != Simul.ChatMode.Everyone =>
-      if (hasParticipant(userId))
+      if (isArbiter(userId)) true
+      else if (hasParticipant(userId))
         mode == Simul.ChatMode.Participants
       else
         mode == Simul.ChatMode.Spectators
