@@ -97,28 +97,11 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     .removeClass(list.map(b => b.key).join(' '))
     .addClass(key === 'transp' ? 'transp dark' : key);
 
-  if ($('body').data('resp')) {
-    const prev = $('body').data('theme');
-    $('body').data('theme', key);
-    $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
-      $(this).attr('href', $(this).attr('href').replace('.' + prev + '.', '.' + key + '.')).appendTo('head');
-    });
-  } else {
-
-    if ((key === 'dark' || key === 'transp') && !$('link[href*="dark.css"]').length) {
-
-      $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
-        $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
-      });
-    }
-
-    if (key === 'transp' && !$('link[href*="transp.css"]').length) {
-
-      $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
-        $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
-      });
-    }
-  }
+  const prev = $('body').data('theme');
+  $('body').data('theme', key);
+  $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
+    $(this).attr('href', $(this).attr('href').replace('.' + prev + '.', '.' + key + '.')).appendTo('head');
+  });
 
   if (key === 'transp') {
     const bgData = document.getElementById('bg-data');
