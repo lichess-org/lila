@@ -38,5 +38,5 @@ if [ $mode = "main" ]; then
   xdg-open https://lichess.org/dev/cli
 fi
 if [ $mode = "stage" ]; then
-  xdg-open https://listage.ovh/dev/cli
+  xdg-open https://lichess.dev/dev/cli
 fi
