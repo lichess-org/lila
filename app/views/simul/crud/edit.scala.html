@@ -7,8 +7,8 @@
         @*<span>Created by @usernameOrId(simul.createdBy) on @showDate(simul.createdAt)</span>*@
     </h1>
     <form class="content_box_content material form" action="@routes.SimulCrud.update(simul.id)" method="POST">
-        @inForm(form)
+        @inForm(form, simul.isRunning || simul.isFinished)
     </form>
-    @allowedPlayers(simul)
+    @allowedPlayers(simul, simul.isRunning || simul.isFinished)
 </div>
 }

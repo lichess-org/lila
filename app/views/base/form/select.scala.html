@@ -1,6 +1,7 @@
-@(field: play.api.data.Field, options: Iterable[(Any,String)], default: Option[String] = None)
+@(field: play.api.data.Field, options: Iterable[(Any,String)], default: Option[String] = None, disabled: Boolean = false)
 
-<select name="@field.name">
+<select name="@field.name"
+@if(disabled){ disabled}>
   @default.map { d =>
   <option value="">@d</option>
   }
@@ -8,3 +9,9 @@
   <option value="@v._1" @(if(field.value == Some(v._1.toString)) "selected" else "")>@v._2</option>
   }
 </select>
+@if(disabled) {
+<input
+  type="hidden"
+  name="@field.name"
+  value="@field.value" />
+}

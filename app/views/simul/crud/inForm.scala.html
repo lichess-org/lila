@@ -1,4 +1,4 @@
-@(form: Form[lidraughts.simul.crud.CrudForm.Data])(implicit ctx: Context)
+@(form: Form[lidraughts.simul.crud.CrudForm.Data], running: Boolean = false)(implicit ctx: Context)
 
 @import lidraughts.simul.DataForm._
 @import lidraughts.simul.crud.CrudForm._
@@ -29,7 +29,8 @@
 <div>
   <div class="form-group@if(form("hostName").hasErrors){ has-error} half">
     <label class="control-label custom-label">Host</label>
-    <input type="text" class="user-autocomplete" name="@form("hostName").name" id="@form("hostName").id" value="@form("hostName").value" data-tag="span">
+    <input type="text" class="user-autocomplete"@if(running){ disabled} name="@form("hostName").name" id="@form("hostName").id" value="@form("hostName").value" data-tag="span">
+    @if(running) {<input type="hidden" name="@form("hostName").name" value="@form("hostName").value" />}
     <i class="bar"></i>
   </div>
   <div class="form-group@if(form("arbiterName").hasErrors){ has-error} half">
@@ -40,18 +41,18 @@
 </div>
 <div>
   @base.form.group(form("clockTime"), Html("Clock time"), half = true) { field =>
-  @base.form.select(field, clockTimeChoices)
+  @base.form.select(field, clockTimeChoices, disabled = running)
   }
   @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) { field =>
-  @base.form.select(field, clockIncrementChoices)
+  @base.form.select(field, clockIncrementChoices, disabled = running)
   }
 </div>
 <div>
   @base.form.group(form("color"), Html("Host color"), half = true) { field =>
-  @base.form.select(field, colorChoices)
+  @base.form.select(field, colorChoices, disabled = running)
   }
   @base.form.group(form("clockExtra"), Html("Host extra time"), half = true) { field =>
-  @base.form.select(field, clockExtraChoices)
+  @base.form.select(field, clockExtraChoices, disabled = running)
   }
 </div>
 @base.form.group(form("chat"), Html("Chat is available for")) { field =>
@@ -62,7 +63,7 @@
     <label for="@form("variants").id" class="control-label custom-label" style="margin-top: 20%;">Variants</label>
   </div>
   <div class="form-group half short-margin">
-    @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
+    @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running)
     @errMsg(form("variants"))
   </div>
   <i class="bar"></i>

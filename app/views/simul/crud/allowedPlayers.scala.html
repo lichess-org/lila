@@ -1,4 +1,4 @@
-@(simul: lidraughts.simul.Simul)(implicit ctx: Context)
+@(simul: lidraughts.simul.Simul, running: Boolean = false)(implicit ctx: Context)
 
 <div class="simul_crud edit content_box small_box no_padding">
   <h2 class="lidraughts_title">
@@ -7,9 +7,9 @@
   <form class="content_box_content material form" action="#" method="POST">
     <div class="form-group half">
       <label class="control-label custom-label">Add player</label>
-      <input type="text" class="user-autocomplete" name="player" id="player" placeholder="Enter username" data-tag="span">
+      <input type="text" class="user-autocomplete" name="player" id="player" placeholder="Enter username" data-tag="span"@if(running){ disabled}>
       <i class="bar"></i>
-      <button type="button" id="submit_player" class="small button text" data-icon="E">Allow player in simul</button>
+      <button type="button" id="submit_player" class="small button text" data-icon="E"@if(running){ disabled}>Allow player in simul</button>
     </div>
     <div class="players form-group half">
       <table class="slist">

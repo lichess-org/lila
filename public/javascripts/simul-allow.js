@@ -10,20 +10,22 @@ $(function() {
       userlink = $('<span>');
     } else {
       userlink = $('<a>');
-      deleteBtn = $('<a data-icon="L" class="button" title="Remove">');
-      deleteBtn.on('click', function() {
-        $('#player').val('');
-        $.ajax({
-          method: 'post',
-          url: location.href + '/remove/' + username,
-          success: function(result) {
-            if (result == "ok")
-              setTimeout(400, refreshPlayerTable());
-            else
-              alert(result);
-         }
+      if (!$('#submit_player').prop('disabled')) {
+        deleteBtn = $('<a data-icon="L" class="button" title="Remove">');
+        deleteBtn.on('click', function() {
+          $('#player').val('');
+          $.ajax({
+            method: 'post',
+            url: location.href + '/remove/' + username,
+            success: function(result) {
+              if (result == "ok")
+                setTimeout(400, refreshPlayerTable());
+              else
+                alert(result);
+           }
+          });
         });
-      });
+      }
     }
     userlink.addClass('user_link').append(username);
     $table.append(
