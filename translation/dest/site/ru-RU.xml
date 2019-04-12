@@ -609,9 +609,9 @@
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="privacy">Приватность</string>
-  <string name="letOtherPlayersFollowYou">Позволить другим игрокам становиться вашими подписчиками</string>
-  <string name="letOtherPlayersChallengeYou">Другие игроки могут вызывать вас на игру</string>
-  <string name="letOtherPlayersInviteYouToStudy">Позволить другим игрокам приглашать вас в студию</string>
+  <string name="letOtherPlayersFollowYou">Разрешить другим игрокам подписываться на вас</string>
+  <string name="letOtherPlayersChallengeYou">Разрешить другим игрокам вызывать вас на игру</string>
+  <string name="letOtherPlayersInviteYouToStudy">Разрешить другим игрокам приглашать вас в студию</string>
   <string name="sound">Звук</string>
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
   <string name="none">Нет</string>
@@ -682,7 +682,7 @@
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
-  <string name="moveConfirmation">Подтвердить ход</string>
+  <string name="moveConfirmation">Подтверждать ход</string>
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>
@@ -708,8 +708,8 @@
   <string name="webmasters">Разработчикам</string>
   <string name="about">О сайте</string>
   <string name="aboutX">О %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — свободный (%2$s) шахматный сервер с открытым исходным кодом, бесплатный и без рекламы.</string>
-  <string name="really">действительно</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) шахматный сервер с открытым исходным кодом без рекламы.</string>
+  <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="contact">Контакты</string>
   <string name="termsOfService">Пользовательское соглашение</string>
@@ -776,7 +776,7 @@
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с клавиатуры</string>
-  <string name="letOtherPlayersMessageYou">Позволить присылать вам сообщения</string>
+  <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Способ рокировки</string>
   <string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
   <string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
@@ -820,7 +820,7 @@
   <string name="xCreatesStudyY">%1$s создал студию %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
-  <string name="anonymous">Анонимно</string>
+  <string name="anonymous">Аноним</string>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
   <string name="background">Фон</string>
