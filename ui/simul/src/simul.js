@@ -32,6 +32,11 @@ module.exports = {
       return a.accepted;
     });
   },
+  allowed: function(ctrl) {
+    return !ctrl.data.allowed ? [] : ctrl.data.allowed.filter(function(a) {
+      return !ctrl.data.applicants.find(p => p.accepted && p.player.id === a.id);
+    });
+  },
   acceptedContainsMe: function(ctrl) {
     return ctrl.data.applicants.filter(function(a) {
       return a.accepted && a.player.id === ctrl.userId;

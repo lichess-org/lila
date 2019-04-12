@@ -58,7 +58,7 @@ final class Env(
 
   lazy val forms = new DataForm
 
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val jsonView = new JsonView(lightUser, isOnline)
 
   private val socketHub = system.actorOf(
     Props(new lidraughts.socket.SocketHubActor.Default[Socket] {

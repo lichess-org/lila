@@ -5,7 +5,7 @@ import play.api.libs.json._
 import lidraughts.common.LightUser
 import lidraughts.game.{ Game, GameRepo }
 
-final class JsonView(getLightUser: LightUser.Getter) {
+final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
@@ -17,12 +17,14 @@ final class JsonView(getLightUser: LightUser.Getter) {
     lightArbiter <- simul.arbiterId.??(getLightUser)
     applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
     pairings <- simul.pairings.sortBy(-_.player.rating).map(pairingJson(games, simul.hostId)).sequenceFu
+    allowed <- (~simul.allowed).map(allowedJson).sequenceFu
   } yield Json.obj(
     "id" -> simul.id,
     "host" -> lightHost.map { host =>
       Json.obj(
         "id" -> host.id,
         "username" -> host.name,
+        "online" -> isOnline(host.id),
         "patron" -> host.isPatron,
         "title" -> host.title,
         "rating" -> simul.hostRating,
@@ -42,12 +44,14 @@ final class JsonView(getLightUser: LightUser.Getter) {
       Json.obj(
         "id" -> arbiter.id,
         "username" -> arbiter.name,
+        "online" -> isOnline(arbiter.id),
         "patron" -> arbiter.isPatron,
         "title" -> arbiter.title
       )
     })
     .add("unique" -> simul.spotlight.map { s => true })
     .add("description" -> simul.spotlight.map { s => lidraughts.common.String.html.markdownLinks(s.description).toString })
+    .add("allowed" -> (if (allowed.nonEmpty) allowed.some else none))
 
   private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,
@@ -59,11 +63,22 @@ final class JsonView(getLightUser: LightUser.Getter) {
     getLightUser(player.user) map { light =>
       Json.obj(
         "id" -> player.user,
+        "online" -> isOnline(player.user),
         "variant" -> player.variant.key,
         "rating" -> player.rating
       ).add("username" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("provisional" -> player.provisional.filter(identity))
+        .add("patron" -> light.??(_.isPatron))
+    }
+
+  private def allowedJson(userId: String): Fu[JsObject] =
+    getLightUser(userId) map { light =>
+      Json.obj(
+        "id" -> userId,
+        "online" -> isOnline(userId)
+      ).add("username" -> light.map(_.name))
+        .add("title" -> light.map(_.title))
         .add("patron" -> light.??(_.isPatron))
     }
 

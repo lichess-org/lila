@@ -4,7 +4,11 @@ var util = require('./util');
 var xhr = require('../xhr');
 
 function byName(a, b) {
-  return a.player.username > b.player.username
+  if (a.player.id < b.player.id)
+    return -1;
+  else if (a.player.id > b.player.id)
+    return 1;
+  return 0;
 }
 
 function randomButton(ctrl, candidates) {
@@ -12,7 +16,7 @@ function randomButton(ctrl, candidates) {
     'data-icon': 'E',
     onclick: function() {
       var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
-      xhr.accept(randomCandidate.player.id)(ctrl);
+      xhr.accept(randomCandidate.player ? randomCandidate.player.id : randomCandidate.id)(ctrl);
     }
   }, ctrl.trans('acceptRandomCandidate')) : null;
 }
@@ -35,18 +39,89 @@ module.exports = function(ctrl) {
   var candidates = simul.candidates(ctrl).sort(byName);
   var accepted = simul.accepted(ctrl).sort(byName);
   var isHost = simul.createdByMe(ctrl) || simul.amArbiter(ctrl);
+  var isCandidate = (c) => candidates.find(p => p.player.id === c.id);
+  var allowed = simul.allowed(ctrl).sort(function(a, b) {
+    var ca = isCandidate(a), cb = isCandidate(b);
+    if (ca && !cb)
+      return -1;
+    else if (!ca && cb)
+      return 1;
+    else if (a.id < b.id)
+      return -1;
+    else if (a.id > b.id)
+      return 1;
+    return 0;
+  });
+  var acceptable = !ctrl.data.allowed ? candidates : allowed.filter(a => isCandidate(a));
+  var mCandidates = m('div.half.candidates',
+    m('table.slist.user_list',
+      m('thead', m('tr', m('th', {
+         colspan: 3
+      }, [
+        m('strong', candidates.length),
+        ctrl.trans('candidatePlayers')
+      ]))),
+      m('tbody', candidates.map(function(applicant) {
+        var variant = util.playerVariant(ctrl, applicant.player);
+        return m('tr', {
+          key: applicant.player.id,
+          class: ctrl.userId === applicant.player.id ? 'me' : ''
+        }, [
+          m('td', util.player(applicant.player)),
+          m('td.variant', {
+            'data-icon': variant.icon
+          }),
+          m('td.action', isHost ? m('a.button', {
+            'data-icon': 'E',
+            title: ctrl.trans('accept'),
+            onclick: function(e) {
+              xhr.accept(applicant.player.id)(ctrl);
+            }
+          }) : null)
+        ])
+      }))));
+  var mAllowed = m('div.half.candidates',
+    m('table.slist.user_list',
+      m('thead', m('tr', m('th', {
+         colspan: 3
+      }, [
+        ctrl.trans('allowedPlayers'),
+        m('strong', allowed.length),
+        ctrl.trans('candidatePlayers')
+      ]))),
+      m('tbody', allowed.map(function(allowed) {
+        var candidate = isCandidate(allowed);
+        return m('tr', {
+          key: allowed.id,
+          class: ((ctrl.userId === allowed.id ? 'me' : '') + (!candidate ? ' absent' : '')).trim()
+        }, [
+          m('td', candidate ? util.player(allowed, candidate.player.rating, candidate.player.provisional) : util.player(allowed)),
+          m('td.variant', candidate ? {
+            'data-icon': util.playerVariant(ctrl, candidate.player).icon
+          } : null),
+          m('td.action', (isHost && candidate) ? m('a.button', {
+            'data-icon': 'E',
+            title: ctrl.trans('accept'),
+            onclick: function(e) {
+              xhr.accept(allowed.id)(ctrl);
+            }
+          }) : null)
+        ])
+      }))));
   return [
     ctrl.userId ? (
       (simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) ? [
         startOrCancel(ctrl, accepted),
-        randomButton(ctrl, candidates)
+        randomButton(ctrl, acceptable)
       ] : (
         simul.containsMe(ctrl) ? m('a.button.top_right', {
           onclick: function() { xhr.withdraw(ctrl) }
         }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
             'data-icon': 'G',
             onclick: function() {
-              if (ctrl.data.variants.length === 1)
+              if (ctrl.data.allowed && !ctrl.data.allowed.find(u => u.id === ctrl.userId))
+                alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
+              else if (ctrl.data.variants.length === 1)
                 xhr.join(ctrl.data.variants[0].key)(ctrl);
               else {
                 $.modal($('#simul .join_choice'));
@@ -71,34 +146,7 @@ module.exports = function(ctrl) {
       ) : null
     ),
     m('div.halves',
-      m('div.half.candidates',
-        m('table.slist.user_list',
-          m('thead', m('tr', m('th', {
-            colspan: 3
-          }, [
-            m('strong', candidates.length),
-            ctrl.trans('candidatePlayers')
-          ]))),
-          m('tbody', candidates.map(function(applicant) {
-            var variant = util.playerVariant(ctrl, applicant.player);
-            return m('tr', {
-              key: applicant.player.id,
-              class: ctrl.userId === applicant.player.id ? 'me' : ''
-            }, [
-              m('td', util.player(applicant.player)),
-              m('td.variant', {
-                'data-icon': variant.icon
-              }),
-              m('td.action', isHost ? m('a.button', {
-                'data-icon': 'E',
-                title: ctrl.trans('accept'),
-                onclick: function(e) {
-                  xhr.accept(applicant.player.id)(ctrl);
-                }
-              }) : null)
-            ])
-          })))
-      ),
+      !ctrl.data.allowed ? mCandidates : mAllowed,
       m('div.half.accepted', [
         m('table.slist.user_list',
           m('thead', [
@@ -107,7 +155,7 @@ module.exports = function(ctrl) {
             }, [
               m('strong', accepted.length),
               ctrl.trans('acceptedPlayers')
-            ])), ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && candidates.length && !accepted.length) ? m('tr.help',
+            ])), ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && acceptable.length && !accepted.length) ? m('tr.help',
               m('th',
                 ctrl.trans('acceptSomePlayers'))) : null
           ]),

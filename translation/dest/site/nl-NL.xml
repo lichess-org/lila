@@ -628,6 +628,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
   <string name="shareSimulUrl">Deel de URL van deze pagina om mensen voor de simultaan uit te nodigen!</string>
   <string name="candidatePlayers"> kandidaat spelers</string>
+  <string name="allowedPlayers">Deelname is beperkt tot de volgende </string>
   <string name="acceptedPlayers"> geaccepteerde spelers</string>
   <string name="acceptSomePlayers">Je kunt nu spelers accepteren, en dan de simultaan starten</string>
   <string name="acceptRandomCandidate">Accepteer willekeurige kandidaat</string>
@@ -649,6 +650,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
   <string name="simulHostColor">Kleur simultaangever</string>
   <string name="simulChatRestrictionsHint">Beperkingen in de beschikbaarheid van de chat gelden alleen terwijl de simultaan gespeeld wordt.</string>
+  <string name="simulParticipationLimited">Deelname is beperkt tot %s van tevoren geselecteerde spelers.</string>
   <string name="chatAvailableFor">Chat is beschikbaar voor</string>
   <string name="chatAvailableForX">Chat tijdens simultaan: %s</string>
   <string name="everyone">Iedereen</string>

@@ -13,6 +13,7 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
+    allowed: Option[List[String]] = None,
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
@@ -73,6 +74,23 @@ case class Simul(
       case a if a is userId => a.copy(accepted = v)
       case a => a
     })
+  }
+
+  def canJoin(userId: String) = allowed match {
+    case Some(allowedList) if allowedList.nonEmpty => allowedList.exists(userId ==)
+    case _ => true
+  }
+
+  def allow(userId: String) = Created {
+    val currentIds = ~allowed
+    if (!currentIds.exists(userId ==))
+      copy(allowed = (currentIds :+ userId).some)
+    else this
+  }
+
+  def disallow(userId: String) = Created {
+    val newIds = ~allowed filterNot (userId ==)
+    copy(allowed = if (newIds.isEmpty) none else newIds.some)
   }
 
   def removePairing(userId: String) =

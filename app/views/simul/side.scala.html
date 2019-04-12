@@ -25,6 +25,12 @@
         case _ => trans.participantsOnly()
       })
     }
+    @sim.allowed.map { allowed =>
+      @if(allowed.nonEmpty) {
+        <br />
+        @trans.simulParticipationLimited(allowed.size)
+      }
+    }
   </div>
   @trans.by(usernameOrId(sim.hostId)), @sim.spotlight.map { spot =>@absClientDateTime(spot.startsAt) }.getOrElse {@momentFromNow(sim.createdAt) }
 </div>

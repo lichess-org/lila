@@ -1,0 +1,29 @@
+@(simul: lidraughts.simul.Simul)(implicit ctx: Context)
+
+<div class="simul_crud edit content_box small_box no_padding">
+  <h2 class="lidraughts_title">
+    Optionally restrict the simul to the usernames listed below
+  </h2>
+  <form class="content_box_content material form" action="#" method="POST">
+    <div class="form-group half">
+      <label class="control-label custom-label">Add player</label>
+      <input type="text" class="user-autocomplete" name="player" id="player" placeholder="Enter username" data-tag="span">
+      <i class="bar"></i>
+      <button type="button" id="submit_player" class="small button text" data-icon="E">Allow player in simul</button>
+    </div>
+    <div class="players form-group half">
+      <table class="slist">
+        <thead>
+        <tr>
+          <th colspan="2">Allowed players (userid)</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+
+@jQueryTag
+@jsAt("javascripts/simul-allow.js")

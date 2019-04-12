@@ -62,6 +62,7 @@ final class SimulApi(
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Unit = {
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted >= Game.maxPlayingRealtime) simul
+      else if (!simul.canJoin(user.id)) simul
       else {
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
         Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
@@ -89,6 +90,14 @@ final class SimulApi(
     UserRepo byId userId foreach {
       _ foreach { user =>
         WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
+      }
+    }
+  }
+
+  def allow(simulId: Simul.ID, userId: String, v: Boolean): Unit = {
+    UserRepo byId userId foreach {
+      _ foreach { user =>
+        WithSimul(repo.uniqueById, simulId) { if (v) _.allow(user.id) else _.disallow(user.id) }
       }
     }
   }

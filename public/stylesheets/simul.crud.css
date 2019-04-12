@@ -23,12 +23,50 @@ h1.lidraughts_title a {
   padding: 30px!important;
   font-size: 31px!important;
 }
+.simul_crud.edit h2.lidraughts_title {
+  letter-spacing: 0.1em;
+  padding: 30px!important;
+}
+.simul_crud .results table {
+  margin-top: 10px;
+}
 table.slist {
   font-size: 1.2em;
   width: 100%;
 }
+.simul_crud div.players {
+  top: -1rem;
+}
+.simul_crud .players .slist {
+  border: 1px solid #ccc;
+  border-top: none;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+}
+.material.form button.small {
+  font-size: 1.2em;
+  width: 100%;
+  margin-top: 10px;
+}
+body.dark .simul_crud .players .slist {
+  border-color: #3d3d3d;
+}
+.simul_crud .players table.slist td {
+  padding: 0.6em;
+}
+.simul_crud .players table.slist td:first-child {
+  padding-left: 1em;
+}
+.simul_crud .players table.slist td a.button {
+  padding: 3px 6px;
+}
 table.slist td {
   padding: 20px 10px;
+}
+table.slist td.action {
+  text-align: right;
+  opacity: 0.6;
+  transition: opacity 0.13s;
 }
 table.slist time {
   display: block;
