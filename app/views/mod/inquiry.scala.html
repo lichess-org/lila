@@ -5,7 +5,7 @@
   @r.bestAtoms(10).toList.map { atom =>
   <div class="atom">
     <h3>
-      @reportScore(atom.score)
+      @reportScore(atom.score).toHtml
       @userIdLink(atom.by.value.some, withOnline = false).toHtml
       for <strong>@r.reason.name</strong>,
       @momentFromNow(atom.at).toHtml

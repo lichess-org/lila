@@ -6,7 +6,7 @@
   @reports.by.map { r =>
   @r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
   <form action="@routes.Report.inquiry(r.id)" method="post">
-    <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+    <button type="submit">@reportScore(r.score).toHtml <strong>@r.reason.name</strong></button>
     @userIdLink(r.user.some).toHtml, @momentFromNowOnce(atom.at).toHtml: @shorten(atom.text, 200)
   </form>
   }
@@ -18,7 +18,7 @@
   @if(reports.about.nonEmpty) {
   @reports.about.map { r =>
   <form action="@routes.Report.inquiry(r.id)" method="post">
-    <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+    <button type="submit">@reportScore(r.score).toHtml <strong>@r.reason.name</strong></button>
     <div class="atoms">
       @r.bestAtoms(3).map { atom =>
       <div class="atom">
