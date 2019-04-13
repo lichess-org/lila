@@ -86,6 +86,7 @@
       }
     }
     .bio {
+      @extend %break-word;
       font-style: italic;
     }
   }
