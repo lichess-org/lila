@@ -30,6 +30,6 @@
 
 <hr>
 <h2>Conditions of entry</h2>
-@tournament.conditionForm(form, auto = false, Nil)
+@tournament.form.condition(form, auto = false, Nil).toHtml
 @form3.group(form("password"), raw("Password (optional)"))(form3.input(_))
 @form3.action(form3.submit(trans.apply.frag()))
