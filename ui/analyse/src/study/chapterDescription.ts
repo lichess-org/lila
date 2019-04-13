@@ -33,7 +33,7 @@ export function view(study: StudyCtrl): VNode | undefined {
   if (desc.edit) return edit(desc, study.data.chapter.id);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h('div.chapter_desc', [
+  return h('div.chapter-desc' + (isEmpty ? '.empty' : ''), [
     contrib && !isEmpty ? h('div.contrib', [
       h('span', title),
       isEmpty ? null : h('a', {
@@ -53,7 +53,7 @@ export function view(study: StudyCtrl): VNode | undefined {
         })
       })
     ]) : null,
-    isEmpty ? h('a.text.empty.button', {
+    isEmpty ? h('a.text.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
     }, title) : h('div.text', {
       hook: innerHTML(desc.text, text => enrichText(text, true))
@@ -62,13 +62,9 @@ export function view(study: StudyCtrl): VNode | undefined {
 }
 
 function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
-  return h('div.chapter_desc_form.underboard_form', {
-    hook: {
-      insert: _ => window.lichess.loadCss('stylesheets/material.form.css')
-    }
-  }, [
+  return h('div.chapter-desc-form', [
     h('p.title', [
-      h('button.button.frameless.close', {
+      h('button.button-empty.close', {
         attrs: {
           'data-icon': 'L',
           title: 'Close'
@@ -77,9 +73,9 @@ function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
       }),
       title,
     ]),
-    h('form.material.form', [
+    h('form.form3', [
       h('div.form-group', [
-        h('textarea#desc-text.' + chapterId, {
+        h('textarea#form-control.desc-text.' + chapterId, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
             el.onkeyup = el.onpaste = () => {
@@ -87,8 +83,7 @@ function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
             };
             el.focus();
           })
-        }),
-        h('i.bar')
+        })
       ])
     ])
   ]);

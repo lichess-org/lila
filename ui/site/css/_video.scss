@@ -111,9 +111,6 @@
       @extend %video, %box-radius-top;
       overflow: hidden;
       margin-bottom: 2em;
-      iframe {
-        @extend %abs-100;
-      }
     }
     .meta {
       padding: 0 25px 10px 25px;

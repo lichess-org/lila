@@ -92,9 +92,9 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
   };
 }
 
-export function toYouTubeEmbed(url: string, height: number = 300): string | undefined {
+export function toYouTubeEmbed(url: string): string | undefined {
   const embedUrl = window.lichess.toYouTubeEmbedUrl(url);
-  if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
+  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
 }
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
