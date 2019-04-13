@@ -35,7 +35,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h(`div.study_desc${chapter ? '.chapter_desc' : ''}`, [
+  return h(`div.study-desc${chapter ? '.chapter-desc' : ''}`, [
     contrib && !isEmpty ? h('div.contrib', [
       h('span', descTitle(chapter)),
       isEmpty ? null : h('a', {
@@ -55,20 +55,16 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
         })
       })
     ]) : null,
-    isEmpty ? h('a.text.empty.button', {
+    isEmpty ? h('a.text.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
     }, descTitle(chapter)) : h('div.text', { hook: richHTML(desc.text) })
   ]);
 }
 
 function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
-  return h('div.study_desc_form.underboard_form', {
-    hook: {
-      insert: _ => window.lidraughts.loadCss('stylesheets/material.form.css')
-    }
-  }, [
+  return h('div.study-desc-form.underboard_form', [
     h('p.title', [
-      h('button.button.frameless.close', {
+      h('button.button-empty.close', {
         attrs: {
           'data-icon': 'L',
           title: 'Close'
@@ -77,9 +73,9 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
       }),
       descTitle(chapter),
     ]),
-    h('form.material.form', [
+    h('form.form3', [
       h('div.form-group', [
-        h('textarea#desc-text.' + id, {
+        h('textarea#form-control.desc-text.' + id, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
             el.onkeyup = el.onpaste = () => {
@@ -87,8 +83,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
             };
             el.focus();
           })
-        }),
-        h('i.bar')
+        })
       ])
     ])
   ]);

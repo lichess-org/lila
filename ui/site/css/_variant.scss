@@ -6,9 +6,6 @@
   }
   [data-oembed] {
     @extend %video;
-    iframe {
-      @extend %abs-100;
-    }
   }
 }
 

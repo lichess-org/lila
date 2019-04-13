@@ -75,6 +75,10 @@
   padding-bottom: 56.25%; /* 16/9 */
   // padding-bottom: 75%; /* 4/3 */
   width: 100%;
+  > * {
+    @extend %abs-100;
+    border: none;
+  }
 }
 
 %data-icon {

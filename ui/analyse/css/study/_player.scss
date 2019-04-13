@@ -4,8 +4,10 @@ $player-height: 1.7rem;
   .cg-board {
     border-radius: 0;
   }
-  .study__buttons {
-    margin-top: $player-height;
+  .analyse__underboard {
+    @include breakpoint($mq-col2) {
+      margin-top: calc(#{$player-height} + #{$block-gap});
+    }
   }
 }
 
