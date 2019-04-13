@@ -28,7 +28,7 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private val fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lidraughts/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lidraughts/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
   private val manifests = raw(List(
     s"""<link rel="manifest" href="${staticUrl("manifest.json")}" />"""
   ).mkString)
