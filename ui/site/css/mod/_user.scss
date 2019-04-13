@@ -82,8 +82,11 @@
 .mod-zone .slist {
   border: $border;
   border-top: none;
-  font-size: 0.9em;
+  font-size: .9em;
   margin-bottom: 1em;
+  td {
+    padding: .5em;
+  }
 }
 .mod-zone .same {
   font-style: italic;
