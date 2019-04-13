@@ -25,7 +25,7 @@
 @form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, clockTimeChoices))
 @form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, clockIncrementChoices))
 }
-@form3.group(form("position"), trans.startPosition.frag())(tournament.startingPosition(_))
+@form3.group(form("position"), trans.startPosition.frag())(tournament.form.startingPosition(_).toHtml)
 
 <hr>
 <h2>Conditions of entry</h2>

@@ -41,7 +41,7 @@ object form {
             st.input(`type` := "hidden", name := form("rated").name, value := "false"), // hack allow disabling rated
             form3.group(form("variant"), trans.variant.frag(), half = true)(form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2)))
           ),
-          form3.group(form("position"), trans.startPosition.frag(), klass = "position")(tournament.startingPosition(_)),
+          form3.group(form("position"), trans.startPosition.frag(), klass = "position")(startingPosition(_)),
           form3.split(
             form3.group(form("clockTime"), raw("Clock initial time"), half = true)(form3.select(_, DataForm.clockTimeChoices)),
             form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, DataForm.clockIncrementChoices))
@@ -110,4 +110,22 @@ object form {
       form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
     }
   )
+
+  def startingPosition(field: Field)(implicit ctx: Context) = st.select(
+    id := form3.id(field),
+    name := field.name,
+    cls := "form-control"
+  )(
+      option(
+        value := chess.StartingPosition.initial.fen,
+        selected := field.value == chess.StartingPosition.initial.fen
+      )(chess.StartingPosition.initial.name),
+      chess.StartingPosition.categories.map { categ =>
+        optgroup(attr("label") := categ.name)(
+          categ.positions.map { v =>
+            option(value := v.fen, selected := field.value == v.fen)(v.fullName)
+          }
+        )
+      }
+    )
 }
