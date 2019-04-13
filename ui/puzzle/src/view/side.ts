@@ -23,7 +23,7 @@ function puzzleBox(ctrl: Controller) {
 function puzzleInfos(ctrl: Controller, puzzle): VNode {
   const data = ctrl.getData();
   return h('div.game_infos.puzzle', {
-    attrs: dataIcon('-')
+    attrs: puzzle.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-')
   }, [
     h('div.header', [
       h('a.title', {

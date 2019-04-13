@@ -192,7 +192,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           })
         })
       }, [
-          h('i.icon', { attrs: dataIcon('-') }),
+          h('i.icon', { attrs: d.game.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-') }),
           "Submit puzzle"
         ])
     ])
