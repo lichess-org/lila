@@ -51,7 +51,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                         ctx.isAuth option span(cls := "ribbon-wrapper")(
                           span(cls := "ribbon")(prog.done, " / ", prog.total)
                         ),
-                        i(cls := s"practice icon ${stud.id}"),
+                        i(cls := s"${stud.id}"),
                         span(cls := "text")(
                           h3(stud.name),
                           em(stud.desc)

@@ -189,7 +189,7 @@ export function overboard(ctrl: StudyCtrl) {
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];
-  if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
+  if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!, toolTab = study.vm.toolTab();
   if (study.gamebookPlay()) return [
     gbPlayButtons(ctrl),

@@ -1,0 +1,60 @@
+.feedback {
+  @extend %box-neat, %flex-center;
+  background: $c-bg-box;
+  justify-content: center;
+  padding: 1em;
+  &.win,
+  &.fail {
+    background: $c-good;
+    color: $c-good-over;
+    animation: 1.7s soft-bright ease-in-out infinite;
+    opacity: .8;
+    @include transition();
+  }
+  &.fail {
+    background: $c-bad;
+  }
+  &:hover {
+    opacity: 1;
+  }
+  span {
+    margin-right: .8em;
+  }
+  strong {
+    margin-left: .2em;
+  }
+  &.ongoing {
+    align-items: flex-start;
+    flex-flow: column;
+    text-align: left;
+  }
+  .goal {
+    margin-bottom: .8em;
+    text-align: center;
+    font-size: 1.2em;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .comment {
+    width: 100%;
+    display: block;
+    iframe {
+      margin: 10px 0;
+    }
+  }
+}
+
+.analyse__underboard {
+  .setting {
+    margin-top: 1em;
+    text-align: left;
+    line-height: 22px;
+    display: flex;
+    > label {
+      order: 1;
+      flex: 1 0;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  }
+}

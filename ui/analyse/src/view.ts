@@ -321,25 +321,28 @@ export default function(ctrl: AnalyseCtrl): VNode {
       hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     h('div.analyse__acpl', [acplView(ctrl)]),
-    ctrl.embed ? null : h('aside.analyse__side', {
-      hook: onInsert(elm => {
-        ctrl.opts.$side && $(elm).replaceWith(ctrl.opts.$side);
-      })
-    }, [
-      ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (
-        ctrl.study ? studyView.side(ctrl.study) : (
-          ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-          (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
-            h('a.button.text', {
-              attrs: {
-                href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
-                'data-icon': 'i'
-              }
-            }, ctrl.trans.noarg('backToGame'))
-          ) : null
+    ctrl.embed ? null : (
+      ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) :
+      h('aside.analyse__side', {
+        hook: onInsert(elm => {
+          ctrl.opts.$side && $(elm).replaceWith(ctrl.opts.$side);
+        })
+      }, [
+        ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (
+          ctrl.study ? studyView.side(ctrl.study) : (
+            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
+              h('a.button.text', {
+                attrs: {
+                  href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
+                  'data-icon': 'i'
+                }
+              }, ctrl.trans.noarg('backToGame'))
+            ) : null
+          )
         )
-      )
-    ]),
+      ])
+    ),
     study && study.relay && relayManager(study.relay),
     gamebookEditView,
     ctrl.opts.chat && h('section.mchat', {
