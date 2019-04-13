@@ -34,7 +34,7 @@ case _ => {red}
         </td>
         <td>
           <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-            @playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+            @playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false).toHtml
             <br />
             @if(pov.game.isTournament) { <span data-icon="g"></span> }
             @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
