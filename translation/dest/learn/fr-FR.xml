@@ -11,7 +11,7 @@
   <string name="chessPieces">Les pièces</string>
   <string name="theRook">La Tour</string>
   <string name="itMovesInStraightLines">Il se déplace sur une ligne droite</string>
-  <string name="rookIntro">La Tour est une pièce puissante, Prêt à jouer ?</string>
+  <string name="rookIntro">La Tour est une pièce puissante. Es-tu prêt à la jouer ?</string>
   <string name="rookGoal">Cliquez sur la Tour pour la faire parvenir jusqu\'aux étoiles!</string>
   <string name="grabAllTheStars">Collectez toutes les étoiles !</string>
   <string name="theFewerMoves">Moins vous effectuez de déplacement, plus vous gagnez de points!</string>
