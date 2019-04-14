@@ -56,6 +56,7 @@
   <string name="showThreat">Покажи закана</string>
   <string name="inLocalBrowser">на вашиот прелистувач (локално)</string>
   <string name="toggleLocalEvaluation">Вклчи локална еваулација</string>
+  <string name="promoteVariation">Варијација на промовирање</string>
   <string name="makeMainLine">Избери главна линија</string>
   <string name="deleteFromHere">Избриши одовде</string>
   <string name="move">Потег</string>
