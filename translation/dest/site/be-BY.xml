@@ -177,7 +177,10 @@
   <string name="rating">Рэйтынг</string>
   <string name="ratingStats">Статыстыка па рэйтынгу</string>
   <string name="username">Імя карыстальніка</string>
+  <string name="usernameNotSame">Імя, якое вы ўвялі, не падыходзіць – можна толькі змяняць рэгістр літар ва ўжо існым імені.</string>
   <string name="usernameOrEmail">Імя карыстальніка ці адрас электроннай пошты</string>
+  <string name="usernameDescription">Вы можаце змяніць рэгістр літар у вашым імені карыстальніка. Зрабіць гэта можна толькі адзін раз.</string>
+  <string name="changeUsername">Змяніць імя карыстальніка</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Ужо маеце ўліковы запіс?</string>
   <string name="changePassword">Змяніць пароль</string>
@@ -319,6 +322,18 @@
     <item quantity="few">≥%s рэйтынгавыя гульні</item>
     <item quantity="many">%s рэйтынгавых гульняў</item>
     <item quantity="other">≥%s рэйтынгавых гульняў</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s рэйтынгавая гульня ў рэжыме «%2$s»</item>
+    <item quantity="few">≥ %1$s рэйтынгавыя гульні ў рэжыме «%2$s»</item>
+    <item quantity="many">≥ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
+    <item quantity="other">≥ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Вы павінны згуляць яшчэ %1$s рэйтынгавую гульню ў рэжыме «%2$s»</item>
+    <item quantity="few">Вы павінны згуляць яшчэ %1$s рэйтынгавыя гульні ў рэжыме «%2$s»</item>
+    <item quantity="many">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў у рэжыме «%2$s»</item>
+    <item quantity="other">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рэйтынг у рэжыме %s не пацверджаны</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
@@ -629,6 +644,12 @@
     <item quantity="few">Максімум: %s сімвалы.</item>
     <item quantity="many">Максімум: %s сімвалаў.</item>
     <item quantity="other">Максімум: %s сімвалаў.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s заблакіраваны гулец</item>
+    <item quantity="few">%s заблакіраваных гульцы</item>
+    <item quantity="many">%s заблакіраваных гульцоў</item>
+    <item quantity="other">%s заблакіраваных гульцоў</item>
   </plurals>
   <string name="listBlockedPlayers">Спіс гульцоў, якіх вы заблакіравалі</string>
   <string name="human">Чалавек</string>
