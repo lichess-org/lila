@@ -62,16 +62,16 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
 }
 
 function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
-  return h('div.study-desc-form.underboard_form', [
-    h('p.title', [
-      h('button.button-empty.close', {
+  return h('div.study-desc-form', [
+    h('div.title', [
+      descTitle(chapter),
+      h('button.button-empty.button-red', {
         attrs: {
           'data-icon': 'L',
           title: 'Close'
         },
         hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
-      }),
-      descTitle(chapter),
+      })
     ]),
     h('form.form3', [
       h('div.form-group', [

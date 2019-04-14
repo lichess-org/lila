@@ -112,7 +112,9 @@ function buttons(root: AnalyseCtrl): VNode {
         hook: bind('click', ctrl.startTour)
       })
     ]),
-    gbOverrideButton(ctrl)
+    h('div.right', [
+      gbOverrideButton(ctrl)
+    ])
   ]);
 }
 
