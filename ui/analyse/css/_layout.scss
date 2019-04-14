@@ -5,6 +5,11 @@
   grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-width $block-gap $col3-uniboard-table;
 }
 
+body {
+  /* prevents scroll bar flicker on page height changes */
+  overflow-y: scroll;
+}
+
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
   @include breakpoint($mq-col2) {

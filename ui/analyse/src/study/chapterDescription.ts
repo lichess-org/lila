@@ -63,15 +63,15 @@ export function view(study: StudyCtrl): VNode | undefined {
 
 function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
   return h('div.chapter-desc-form', [
-    h('p.title', [
-      h('button.button-empty.close', {
+    h('div.title', [
+      title,
+      h('button.button.button-empty.button-red', {
         attrs: {
           'data-icon': 'L',
           title: 'Close'
         },
         hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
-      }),
-      title,
+      })
     ]),
     h('form.form3', [
       h('div.form-group', [
