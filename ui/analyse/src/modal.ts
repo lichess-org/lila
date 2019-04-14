@@ -1,20 +1,24 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { MaybeVNodes } from '../interfaces';
-import { bind } from '../util';
+import { MaybeVNodes } from './interfaces';
+import { bind, onInsert } from './util';
 
-interface Dialog {
+interface Modal {
   class?: string;
   content: MaybeVNodes;
+  onInsert?: (el: HTMLElement) => void;
   onClose(): void;
 }
 
-export function form(d: Dialog): VNode {
+export function modal(d: Modal): VNode {
   return h('div#modal-overlay', {
     hook: bind('click', d.onClose)
   }, [
     h('div#modal-wrap.study__modal.' + d.class, {
-      hook: bind('click', e => e.stopPropagation())
+      hook: onInsert(el => {
+        el.addEventListener('click', e => e.stopPropagation());
+        d.onInsert && d.onInsert(el);
+      })
     }, ([
       h('a.close.icon', {
         attrs: { 'data-icon': 'L' },

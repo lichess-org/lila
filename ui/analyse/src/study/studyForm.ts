@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import * as dialog from './dialog';
+import * as modal from '../modal';
 import { prop, Prop } from 'common';
 import { bind, bindSubmit, emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
@@ -96,7 +96,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       el.focus();
     }
   }
-  return dialog.form({
+  return modal.modal({
     class: 'study-edit',
     onClose: function () {
       ctrl.open(false);
@@ -117,75 +117,75 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ctrl.save(obj, isNew);
         }, ctrl.redraw)
       }, [
-          h('div.form-group' + (ctrl.relay ? '.none' : ''), [
-            h('label.form-label', { attrs: { 'for': 'study-name' } }, 'Name'),
-            h('input#study-name.form-control', {
-              attrs: {
-                minlength: 3,
-                maxlength: 100
-              },
-              hook: {
-                insert: vnode => updateName(vnode, false),
-                postpatch: (_, vnode) => updateName(vnode, true)
-              }
-            })
-          ]),
-          h('div.form-split', [
-            h('div.form-group.form-half', select({
-              key: 'visibility',
-              name: 'Visibility',
-              choices: visibilityChoices,
-              selected: data.visibility
-            })),
-            h('div.form-group.form-half', select({
-              key: 'cloneable',
-              name: 'Allow cloning',
-              choices: userSelectionChoices,
-              selected: data.settings.cloneable
-            }))
-          ]),
-          h('div.form-split', [
-            h('div.form-group.form-half', select({
-              key: 'computer',
-              name: 'Computer analysis',
-              choices: userSelectionChoices,
-              selected: data.settings.computer
-            })),
-            /*h('div.form-group.form-half', select({
-              key: 'explorer',
-              name: 'Opening explorer',
-              choices: userSelectionChoices,
-              selected: data.settings.explorer
-            })),*/
-            h('div.form-group.form-half', select({
-              key: 'chat',
-              name: 'Chat',
-              choices: userSelectionChoices,
-              selected: data.settings.chat
-            }))
-          ]),
-          h('div.form-split', [
-            h('div.form-group.form-half', select({
-              key: 'sticky',
-              name: 'Enable sync',
-              choices: [
-                ['true', 'Yes: keep everyone on the same position'],
-                ['false', 'No: let people browse freely']
-              ],
-              selected: '' + data.settings.sticky
-            })),
-            h('div.form-group.form-half', select({
-              key: 'description',
-              name: 'Study pinned comment',
-              choices: [
-                ['false', 'None'],
-                ['true', 'Right under the board']
-              ],
-              selected: '' + data.settings.description
-            }))
-          ]),
-          dialog.button(isNew ? 'Start' : 'Save')
+        h('div.form-group' + (ctrl.relay ? '.none' : ''), [
+          h('label.form-label', { attrs: { 'for': 'study-name' } }, 'Name'),
+          h('input#study-name.form-control', {
+            attrs: {
+              minlength: 3,
+              maxlength: 100
+            },
+            hook: {
+              insert: vnode => updateName(vnode, false),
+              postpatch: (_, vnode) => updateName(vnode, true)
+            }
+          })
         ]),
+        h('div.form-split', [
+          h('div.form-group.form-half', select({
+            key: 'visibility',
+            name: 'Visibility',
+            choices: visibilityChoices,
+            selected: data.visibility
+          })),
+          h('div.form-group.form-half', select({
+            key: 'cloneable',
+            name: 'Allow cloning',
+            choices: userSelectionChoices,
+            selected: data.settings.cloneable
+          }))
+        ]),
+        h('div.form-split', [
+          h('div.form-group.form-half', select({
+            key: 'computer',
+            name: 'Computer analysis',
+            choices: userSelectionChoices,
+            selected: data.settings.computer
+          })),
+          /*h('div.form-group.form-half', select({
+            key: 'explorer',
+            name: 'Opening explorer',
+            choices: userSelectionChoices,
+            selected: data.settings.explorer
+          })),*/
+          h('div.form-group.form-half', select({
+            key: 'chat',
+            name: 'Chat',
+            choices: userSelectionChoices,
+            selected: data.settings.chat
+          }))
+        ]),
+        h('div.form-split', [
+          h('div.form-group.form-half', select({
+            key: 'sticky',
+            name: 'Enable sync',
+            choices: [
+              ['true', 'Yes: keep everyone on the same position'],
+              ['false', 'No: let people browse freely']
+            ],
+            selected: '' + data.settings.sticky
+          })),
+          h('div.form-group.form-half', select({
+            key: 'description',
+            name: 'Study pinned comment',
+            choices: [
+              ['false', 'None'],
+              ['true', 'Right under the board']
+            ],
+            selected: '' + data.settings.description
+          }))
+        ]),
+        modal.button(isNew ? 'Start' : 'Save')
+      ]),
       h('div.destructive', [
         isNew ? null : h('form', {
           attrs: {

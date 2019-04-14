@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop } from 'common';
 import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';
-import * as dialog from './dialog';
+import * as modal from '../modal';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterMeta } from './interfaces';
 
@@ -63,7 +63,7 @@ export function view(ctrl): VNode | undefined {
   const isLoaded = !!data.orientation;
   const mode = data.practice ? 'practice' : (!isNaN(data.conceal) ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
 
-  return dialog.form({
+  return modal.modal({
     class: 'edit-' + data.id, // full redraw when changing chapter
     onClose() {
       ctrl.current(null);
@@ -120,7 +120,7 @@ export function view(ctrl): VNode | undefined {
             ])
           ]),
           chapterForm.descriptionGroup(data.description),
-          dialog.button('Save chapter')
+          modal.button('Save chapter')
         ] : [spinner()]
       )),
       h('div.destructive', [

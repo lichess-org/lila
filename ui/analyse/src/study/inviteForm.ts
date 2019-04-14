@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { bind, titleNameToId, onInsert } from '../util';
 import { prop, Prop } from 'common';
-import * as dialog from './dialog';
+import { modal } from '../modal';
 import { StudyMemberMap } from './interfaces';
 
 export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void) {
@@ -55,7 +55,7 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
 
 export function view(ctrl): VNode {
   const candidates = ctrl.candidates();
-  return dialog.form({
+  return modal({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);
