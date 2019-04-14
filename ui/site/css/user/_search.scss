@@ -1,39 +1,39 @@
 .search {
-  white-space: nowrap;
-  margin: 10px 0;
-  table {
-    display: inline-block;
-    box-sizing: border-box;
-    margin-left: 20px;
-    width: 360px;
+  &__form {
+    @extend %flex-center;
+    font-size: .9em;
+    white-space: nowrap;
+    margin: 1em 1em 1em 0;
+    table {
+      flex: 0 1 48%;
+      margin-left: 2%;
+    }
+    td {
+      padding: .4em 0;
+    }
+    input[type="text"],
+    select {
+      padding: .3em 1em!important;
+    }
+    label {
+      margin-right: 10px;
+    }
+    .single select {
+      width: 100%;
+    }
+    table .half {
+      float: left;
+      width: 49%;
+      padding-right: 1%;
+      text-align: right;
+    }
+    .action {
+      text-align: right;
+    }
   }
-  tbody {
-    display: block;
-  }
-  table:first-child {
-    width: 400px;
-  }
-  .header {
-    font-size: 1.3em;
-  }
-  td {
-    padding: 5px 0;
-  }
-  label {
-    margin-right: 10px;
-  }
-  .single select {
-    width: 100%;
-  }
-  table .half {
-    float: left;
-    width: 49%;
-    padding-right: 1%;
+  &__status {
     text-align: right;
+    padding: 1.5em;
+    border-bottom: $border;
   }
-}
-.search-status {
-  text-align: right;
-  padding: 10px 25px;
-  border-bottom: $border;
 }

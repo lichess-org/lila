@@ -18,7 +18,6 @@ $(function() {
     var options = ["<option value=''></option>"];
     var isSelected = function(row, rowClassName, user, dataKey) {
       var player = $form.data(dataKey);
-      console.log($form[0], dataKey, player);
       return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
     }
     getUsernames().forEach(function(user) {
@@ -68,7 +67,6 @@ $(function() {
     var $next = $(this).find(".pager a");
     if (!$next.length) return;
     $next.attr("href", $next.attr("href") + "&" + serialized);
-    console.log($next.attr("href"));
     $(this).infinitescroll({
       navSelector: ".pager",
       nextSelector: $next,

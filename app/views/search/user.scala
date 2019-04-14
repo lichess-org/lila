@@ -17,12 +17,11 @@ object user {
     import commons._
     st.form(
       rel := "nofollow",
-      cls := "search",
+      cls := "search__form",
       action := routes.User.games(u.username, "search"),
       method := "GET"
     )(dataReqs)(
         table(
-          tr(cls := "header")(th(colspan := 2)(trans.advancedSearch())),
           date,
           rating,
           turns,
@@ -40,7 +39,7 @@ object user {
             th(label(`for` := form3.id(form("players")("b")))("Opponent name")),
             td(cls := "usernames")(
               st.input(tpe := "hidden", value := u.id, name := "players.a"),
-              form3.input(form("players")("b"))
+              form3.input(form("players")("b"))(tpe := "text")
             )
           ),
           winner(hide = false),
@@ -49,7 +48,11 @@ object user {
           status,
           winnerColor,
           sort,
-          analysed
+          analysed,
+          tr(cls := "action")(
+            th,
+            td(button(cls := "button")(trans.search()))
+          )
         )
       )
   }

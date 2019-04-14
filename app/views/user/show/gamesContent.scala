@@ -32,26 +32,21 @@ object gamesContent {
     nbs.crosstable.ifTrue(filters.current.name == "me").map {
       views.html.game.crosstable(_, none)
     },
-    div(cls := "search_result")(
+    div(cls := "search__result")(
       if (filterName == "search") {
+        val permalink = a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink")
         if (pager.nbResults > 0) frag(
-          div(cls := "search-status")(
+          div(cls := "search__status")(
             strong(pager.nbResults.localize, " games found"),
             " • ",
-            a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink"),
-            " • "
+            permalink
           ),
-          div(cls := "search_infinitescroll")(
-            pager.nextPage.map { n =>
-              div(cls := "pager none")(a(rel := "next", href := routes.User.games(u.username, filterName, n))("Next"))
-            } getOrElse div(cls := "none"),
+          div(cls := "search__rows")(
+            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
             views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
           )
         )
-        else div(cls := "search-status")(
-          "No game found - ",
-          a(href := routes.User.games(u.username, filterName))("Permalink")
-        )
+        else div(cls := "search__status")(strong("No game found"), " • ", permalink)
       } else
         div(cls := List(
           "games infinitescroll" -> true,

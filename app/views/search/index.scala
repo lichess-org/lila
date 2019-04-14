@@ -77,7 +77,7 @@ object index {
             ),
           div(cls := "search__result", id := "results")(
             paginator.map { pager =>
-              val permalink = a(cls := "permalink", href := routes.Search.index())("Permalink")
+              val permalink = a(cls := "permalink", href := routes.Search.index(), rel := "nofollow")("Permalink")
               if (pager.nbResults > 0) frag(
                 div(cls := "search__status box__pad")(
                   strong(pager.nbResults.localize, " games found"), " • ",
