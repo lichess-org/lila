@@ -119,7 +119,6 @@ object layout {
         ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
-        isStage option responsiveCssTagNoTheme("stage"),
         moreCss,
         pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
@@ -160,10 +159,7 @@ object layout {
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
           ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
-          isStage option div(id := "stage")(
-            "This is an empty lidraughts preview website for developers. ",
-            a(href := "https://lidraughts.org")("Go to lidraughts.org instead")
-          ),
+          isStage option views.html.base.bits.stage,
           lidraughts.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
           siteHeader(playing),
