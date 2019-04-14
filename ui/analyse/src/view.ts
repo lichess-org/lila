@@ -341,8 +341,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     },
     class: {
       'gauge-on': gaugeOn,
-      'gb_edit': !!gamebookEditView,
-      'gb_play': !!gamebookPlayView,
+      // 'gb-edit': !!gamebookEditView,
+      // 'gb-play': !!gamebookPlayView,
       'has-players': !!playerBars
     }
   }, [
@@ -357,7 +357,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null
     ]),
     (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-    h('div.analyse__tools', gamebookPlayView || [
+    gamebookPlayView || h('div.analyse__tools', [
       // (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
       ...(menuIsOpen ? [actionMenu(ctrl)] : (
         (multiBoardMenu && multiBoardMenuIsOpen) ? [multiBoardMenu.view(ctrl.study)] : [
@@ -369,7 +369,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         ]))
     ]),
     (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    controls(ctrl),
+    gamebookPlayView ? null : controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },
       hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
