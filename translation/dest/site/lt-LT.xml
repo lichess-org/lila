@@ -135,7 +135,10 @@
   <string name="rating">Reitingas</string>
   <string name="ratingStats">Įvertinimų statistika</string>
   <string name="username">Vartotojo vardas</string>
+  <string name="usernameNotSame">Įvestas naudotojo vardas neatitinka jūsų esamo.</string>
   <string name="usernameOrEmail">Vartotojo vardas</string>
+  <string name="usernameDescription">Pasikeiskite naudotojo vardą: tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
+  <string name="changeUsername">Keisti naudotojo vardą</string>
   <string name="password">Slaptažodis</string>
   <string name="haveAnAccount">Turite paskyrą?</string>
   <string name="changePassword">Pasikeisti slaptažodį</string>
