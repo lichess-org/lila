@@ -404,10 +404,10 @@ module.exports = function(cfg, element) {
 
     $form.find('div.level').each(function() {
       var $infos = $(this).find('.ai_info > div');
-      $(this).find('label').mouseenter(function() {
+      $(this).find('label').on('mouseenter', function() {
         $infos.hide().filter('.' + $(this).attr('for')).show();
       });
-      $(this).find('#config_level').mouseleave(function() {
+      $(this).find('#config_level').on('mouseleave', function() {
         var level = $(this).find('input:checked').val();
         $infos.hide().filter('.sf_level_' + level).show();
       }).trigger('mouseout');

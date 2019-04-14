@@ -168,7 +168,7 @@
       if (opts.focus) $input.focus();
       if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
         opts.onSelect(sel);
-      }).keypress(function(e) {
+      }).on('keypress', function(e) {
         if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
       });
     });
@@ -499,7 +499,7 @@
         if ($oc[0]) $oc[0].click();
         else {
           $input = $(':focus');
-          if ($input.length) $input.blur();
+          if ($input.length) $input.trigger('blur');
         }
         return false;
       });
