@@ -178,6 +178,9 @@
   <string name="ratingStats">Розподіл за рейтинґом</string>
   <string name="username">Псевдонім</string>
   <string name="usernameOrEmail">Ім’я користувача</string>
+  <string name="changeUsername">Змінити ім\'я користувача</string>
+  <string name="changeUsernameNotSame">Можна змінити лише регістр букв. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Змінити своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено змінити регістр вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже зареєстровані?</string>
   <string name="changePassword">Змінити пароль</string>
