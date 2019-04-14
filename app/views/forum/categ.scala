@@ -10,16 +10,20 @@ import controllers.routes
 
 object categ {
 
-  def index(categs: List[lidraughts.forum.CategView])(implicit ctx: Context) = bits.layout(
+  def index(categs: List[lila.forum.CategView])(implicit ctx: Context) = views.html.base.layout(
     title = trans.forum.txt(),
-    openGraph = lidraughts.app.ui.OpenGraph(
+    moreCss = responsiveCssTag("forum"),
+    openGraph = lila.app.ui.OpenGraph(
       title = "Lidraughts community forum",
       url = s"$netBaseUrl${routes.ForumCateg.index.url}",
       description = "Draughts discussions and feedback about lidraughts development"
     ).some
   ) {
       main(cls := "forum index box")(
-        h1(dataIcon := "d", cls := "text")("Lidraughts Forum"),
+        div(cls := "box__top")(
+          h1(dataIcon := "d", cls := "text")("Lidraughts Forum"),
+          bits.searchForm()
+        ),
         showCategs(categs.filterNot(_.categ.isTeam)),
         if (categs.exists(_.categ.isTeam)) frag(
           h1("Your teams boards"),
@@ -52,7 +56,7 @@ object categ {
               momentFromNow(post.createdAt)
             ),
             br,
-            trans.by.frag(authorLink(post))
+            authorLink(post)
           )
         }
       )
@@ -62,10 +66,11 @@ object categ {
       newTopicButton
     )
 
-    bits.layout(
+    views.html.base.layout(
       title = categ.name,
-      menu = mod.menu("forum").some.ifTrue(categ.isStaff),
-      openGraph = lidraughts.app.ui.OpenGraph(
+      // menu = mod.menu("forum").some.ifTrue(categ.isStaff),
+      moreCss = responsiveCssTag("forum"),
+      openGraph = lila.app.ui.OpenGraph(
         title = s"Forum: ${categ.name}",
         url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
         description = categ.desc

@@ -60,7 +60,7 @@ object bits {
         a(cls := "more", href := routes.Tournament.home())(trans.more.frag(), " »")
       ),
       div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content scroll-shadow-hard")(
-        views.html.tournament.enterable(tours)
+        views.html.tournament.bits.enterable(tours)
       )
     ),
     div(cls := "lobby__simuls lobby__box")(
