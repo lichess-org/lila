@@ -163,7 +163,10 @@
   <string name="rating">Classement</string>
   <string name="ratingStats">Statistiques de classement</string>
   <string name="username">Nom d\'utilisateur</string>
+  <string name="usernameNotSame">Le nom d\'utilisateur fourni n\'a pas la même forme majuscules/minuscules que votre nom d\'utilisateur.</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
+  <string name="usernameDescription">Changer votre nom d\'utilisateur. Cela ne peut être fait qu\'une seule fois et vous n\'êtes autorisé à modifier que la casse de votre nom.</string>
+  <string name="changeUsername">Changer de nom d\'utilisateur</string>
   <string name="password">Mot de passe</string>
   <string name="haveAnAccount">Déjà inscrit ?</string>
   <string name="changePassword">Changer votre mot de passe</string>
