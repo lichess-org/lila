@@ -165,6 +165,8 @@
   <string name="username">Nom d\'utilisateur</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
   <string name="changeUsername">Modifier le nom d\'utilisateur</string>
+  <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
+  <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seules les majuscules/minuscules peuvent être modifiées.</string>
   <string name="password">Mot de passe</string>
   <string name="haveAnAccount">Déjà inscrit ?</string>
   <string name="changePassword">Changer votre mot de passe</string>
