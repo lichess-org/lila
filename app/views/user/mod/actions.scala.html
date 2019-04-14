@@ -87,7 +87,7 @@
   </div>
   @if(isGranted(_.SetTitle)) {
   <form class="fide_title" method="post" action="@routes.Mod.setTitle(u.username)">
-    @base.form.select(lila.user.DataForm.title.fill(u.title.map(_.value))("title"), lila.user.Title.all, "No title".some)
+    @form3.select(lila.user.DataForm.title.fill(u.title.map(_.value))("title"), lila.user.Title.all, "No title".some)
   </form>
   }
   @if(isGranted(_.SetEmail)) {
