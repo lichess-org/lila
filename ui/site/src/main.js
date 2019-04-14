@@ -5,7 +5,7 @@
   /////////////
   $.ajaxSetup({
     cache: false,
-    scriptAttrs: {}
+    scriptAttrs: {} // force script tag transport, even on same domain
   });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
