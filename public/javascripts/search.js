@@ -1,9 +1,9 @@
 $(function() {
 
-  var $form = $("form.search");
+  var $form = $(".search__form");
   var $usernames = $form.find(".usernames input");
-  var $userRows = $form.find(".user_row");
-  var $result = $(".search_result");
+  var $userRows = $form.find(".user-row");
+  var $result = $(".search__result");
 
   function getUsernames() {
     var us = [];
@@ -18,6 +18,7 @@ $(function() {
     var options = ["<option value=''></option>"];
     var isSelected = function(row, rowClassName, user, dataKey) {
       var player = $form.data(dataKey);
+      console.log($form[0], dataKey, player);
       return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
     }
     getUsernames().forEach(function(user) {
@@ -63,14 +64,15 @@ $(function() {
     var s = $(this).hasClass('download') ? serialize(true) : serialized;
     $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
   });
-  $result.find('.search_infinitescroll').each(function() {
+  $result.find('.search__rows').each(function() {
     var $next = $(this).find(".pager a");
     if (!$next.length) return;
     $next.attr("href", $next.attr("href") + "&" + serialized);
+    console.log($next.attr("href"));
     $(this).infinitescroll({
       navSelector: ".pager",
       nextSelector: $next,
-      itemSelector: ".search_infinitescroll .paginated",
+      itemSelector: ".search__rows .paginated",
       loading: {
         msgText: "",
         finishedMsg: "---"

@@ -12,12 +12,12 @@ private object bits {
   def of(form: Form[_])(implicit ctx: Context) = new {
 
     def dataReqs = List("winner", "loser", "white", "black").map { f =>
-      data(s"req-$f") := form("players")(f).value
+      data(s"req-$f") := ~form("players")(f).value
     }
 
     def colors(hide: Boolean) =
       chess.Color.all.map { color =>
-        tr(cls := List(s"${color.name}User user_row" -> true, "none" -> hide))(
+        tr(cls := List(s"${color.name}User user-row" -> true, "none" -> hide))(
           th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.white, trans.black)())),
           td(cls := "single")(
             st.select(id := form3.id(form("players")(color.name)), name := form("players")(color.name).name)(
@@ -27,7 +27,7 @@ private object bits {
         )
       }
 
-    def winner(hide: Boolean) = tr(cls := List("winner user_row" -> true, "none" -> hide))(
+    def winner(hide: Boolean) = tr(cls := List("winner user-row" -> true, "none" -> hide))(
       th(label(`for` := form3.id(form("players")("winner")))(trans.winner())),
       td(cls := "single")(
         st.select(id := form3.id(form("players")("winner")), name := form("players")("winner").name)(
@@ -36,7 +36,7 @@ private object bits {
       )
     )
 
-    def loser(hide: Boolean) = tr(cls := List("loser user_row" -> true, "none" -> hide))(
+    def loser(hide: Boolean) = tr(cls := List("loser user-row" -> true, "none" -> hide))(
       th(label(`for` := form3.id(form("players")("loser")))("Loser")),
       td(cls := "single")(
         st.select(id := form3.id(form("players")("loser")), name := form("players")("loser").name)(
@@ -129,7 +129,7 @@ private object bits {
       th(label("Date")),
       td(
         div(cls := "half")("From ", form3.select(form("dateMin"), Query.dates, "".some)),
-        div(cls := "half")("To ", form3.select(form("dateMin"), Query.dates, "".some))
+        div(cls := "half")("To ", form3.select(form("dateMax"), Query.dates, "".some))
       )
     )
 
@@ -141,11 +141,22 @@ private object bits {
       )
     )
 
-    def analysed = tr(
-      th(label(`for` := form3.id(form("analysed")))("Analysis ", span(cls := "help", title := "Whether computer analysis is available or not")("(?)"))),
-      td(cls := "single")(
-        st.input(tpe := "checkbox", id := form3.id(form("analysed")), name := form("analysed").name, value := "1", checked := form("analysed").value.has("1"))
+    def analysed = {
+      val field = form("analysed")
+      tr(
+        th(label(`for` := form3.id(field))("Analysis ", span(cls := "help", title := "Only games where a computer analysis is available")("(?)"))),
+        td(cls := "single")(
+          st.input(
+            tpe := "checkbox",
+            cls := "cmn-toggle",
+            id := form3.id(field),
+            name := field.name,
+            value := "1",
+            checked := field.value.has("1")
+          ),
+          label(`for` := form3.id(field))
+        )
       )
-    )
+    }
   }
 }

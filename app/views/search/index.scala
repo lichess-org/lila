@@ -29,20 +29,20 @@ object index {
         description = s"Search in ${nbGames.localize} chess games using advanced criterions"
       ).some
     ) {
-        main(cls := "box page-small")(
+        main(cls := "box page-small search")(
           h1(trans.advancedSearch()),
           st.form(
             rel := "nofollow",
-            cls := "search box__pad",
-            action := routes.Search.index(),
+            cls := "box__pad search__form",
+            action := s"${routes.Search.index()}#results",
             method := "GET"
           )(dataReqs)(
               globalError(form),
               table(
                 tr(
-                  th(label(trans.players(), " ", span(cls := "help")("(?)"))),
+                  th(label(trans.players())),
                   td(cls := "usernames")(List("a", "b").map { p =>
-                    div(cls := "half")(form3.input(form("players")(p))())
+                    div(cls := "half")(form3.input(form("players")(p))(tpe := "text"))
                   })
                 ),
                 colors(hide = true),
@@ -65,8 +65,8 @@ object index {
                 analysed,
                 tr(
                   th,
-                  td("simple action")(
-                    button(tpe := "submit", cls := "submit button")(trans.search()),
+                  td(cls := "action")(
+                    button(tpe := "submit", cls := "button")(trans.search()),
                     div(cls := "wait")(
                       spinner,
                       "Searching in ", nbGames.localize, " games"
@@ -75,22 +75,20 @@ object index {
                 )
               )
             ),
-          div(cls := "search_result")(
+          div(cls := "search__result", id := "results")(
             paginator.map { pager =>
+              val permalink = a(cls := "permalink", href := routes.Search.index())("Permalink")
               if (pager.nbResults > 0) frag(
-                div(cls := "search_status")(
+                div(cls := "search__status box__pad")(
                   strong(pager.nbResults.localize, " games found"), " • ",
-                  a(cls := "permalink", href := routes.Search.index())("Permalink"), " • "
+                  permalink
                 ),
-                div(cls := "search_infinitescroll")(
+                div(cls := "search__rows")(
                   pagerNext(pager, np => routes.Search.index(np).url),
                   views.html.game.widgets(pager.currentPageResults)
                 )
               )
-              else div(cls := "search_status")(
-                "No game found - ",
-                a(cls := "permalink", href := routes.Search.index())("Permalink")
-              )
+              else div(cls := "search__status box__pad")(strong("No game found"), " • ", permalink)
             }
           )
         )
