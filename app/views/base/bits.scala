@@ -12,4 +12,20 @@ object bits {
     label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
     st.nav(cls := "mselect__list")(items)
   )
+
+  lazy val stage = a(
+    href := "https://lichess.org",
+    style := """
+background: #7f1010;
+color: #fff;
+position: fixed;
+bottom: 0;
+left: 0;
+padding: .5em 1em;
+border-top-right-radius: 3px;
+z-index: 99;
+"""
+  )(
+      "This is an empty lichess preview website, go to lichess.org instead"
+    )
 }
