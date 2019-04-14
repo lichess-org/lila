@@ -85,14 +85,6 @@ $(function() {
 
   $form.submit(function() {
     $form.find("input,select").filter(function() { return !this.value; }).attr("disabled", "disabled");
-    $(this).addClass('searching');
+    $form.addClass('searching');
   });
-
-  if ($form.hasClass('realtime')) {
-    var submit = function() {
-      $form.submit();
-    };
-    $form.find("select, input[type=checkbox]").change(submit);
-    $usernames.on("keyup", lichess.debounce(submit, 1500));
-  }
 });

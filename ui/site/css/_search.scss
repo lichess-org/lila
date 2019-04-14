@@ -64,6 +64,9 @@
       color: red;
     }
 
+    .action {
+      text-align: center;
+    }
     .button {
       width: 100%;
     }
@@ -71,7 +74,7 @@
       display: none;
     }
 
-    .searching {
+    &.searching {
       .spinner {
         display: inline-block;
         vertical-align: middle;

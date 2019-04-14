@@ -17,7 +17,7 @@ object user {
     import commons._
     st.form(
       rel := "nofollow",
-      cls := "search realtime",
+      cls := "search",
       action := routes.User.games(u.username, "search"),
       method := "GET"
     )(dataReqs)(
