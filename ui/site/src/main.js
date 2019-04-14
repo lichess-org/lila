@@ -5,9 +5,7 @@
   /////////////
   $.ajaxSetup({
     cache: false,
-    scriptAttrs: {
-      nonce: document.body.getAttribute('data-nonce')
-    }
+    scriptAttrs: {}
   });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);

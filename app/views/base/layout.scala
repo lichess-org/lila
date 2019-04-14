@@ -83,7 +83,6 @@ object layout {
   private val dataSocketDomain = attr("data-socket-domain")
   private val dataAssetUrl = attr("data-asset-url")
   private val dataAssetVersion = attr("data-asset-version")
-  private val dataNonce = attr("data-nonce")
   private val dataZoom = attr("data-zoom")
   private val dataTheme = attr("data-theme")
   private val dataPreload = attr("data-preload")
@@ -157,7 +156,6 @@ object layout {
         dataSocketDomain := socketDomain,
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
-        dataNonce := ctx.nonce.map(_.value),
         dataTheme := ctx.currentBg,
         style := zoomable option s"--zoom:${ctx.respZoom}"
       )(
