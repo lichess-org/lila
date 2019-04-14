@@ -163,7 +163,10 @@
   <string name="rating">Punteggio</string>
   <string name="ratingStats">Statistiche punteggi</string>
   <string name="username">Nome utente</string>
+  <string name="usernameNotSame">Il nome utente fornito non corrisponde al nome utente esistente.</string>
   <string name="usernameOrEmail">Nome utente o email</string>
+  <string name="usernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e ti consente di modificare soltanto le maiuscole/minuscole del tuo nome utente.</string>
+  <string name="changeUsername">Cambia nome utente</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">Hai già un account?</string>
   <string name="changePassword">Cambia password</string>
