@@ -8,6 +8,11 @@
 @import 'box';
 @import 'support';
 
+body {
+  /* improves preload */
+  overflow-y: scroll;
+}
+
 #main-wrap {
   --main-max-width: 1400px;
 }
