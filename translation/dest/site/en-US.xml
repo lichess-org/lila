@@ -164,6 +164,9 @@
   <string name="ratingStats">Rating stats</string>
   <string name="username">User name</string>
   <string name="usernameOrEmail">User name or email</string>
+  <string name="changeUsername">Change username</string>
+  <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of your username.</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">Have an account?</string>
   <string name="changePassword">Change password</string>
