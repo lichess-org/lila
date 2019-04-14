@@ -164,6 +164,8 @@
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Brugernavn</string>
   <string name="usernameOrEmail">Brugernavn eller e-mail</string>
+  <string name="usernameDescription">Ændr dit brugernavn, dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelse.</string>
+  <string name="changeUsername">Ændr brugernavn</string>
   <string name="password">Adgangskode</string>
   <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Skift adgangskode</string>
