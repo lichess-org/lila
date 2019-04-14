@@ -91,7 +91,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">Гэты конь ставіць шах,
 абыходзячы вашую абарону!</string>
   <string name="escapeOrBlock">Адвядзіце караля
-ці зачыніцеся!</string>
+ці бараніцеся!</string>
   <string name="outOfCheckComplete">Віншуем! Цяпер вы ведаеце, як абараніць свайго караля ад шаха!</string>
   <string name="mateInOne">Мат у адзін ход</string>
   <string name="defeatTheOpponentsKing">Вазьміце верх над каралём суперніка</string>
@@ -173,7 +173,7 @@
   <string name="whatNext">Што далей?</string>
   <string name="youKnowHowToPlayChess">Вы ўмееце гуляць у шахматы, віншуем! Вы хочаце стаць мацнейшым гульцом?</string>
   <string name="register">Рэгістрацыя</string>
-  <string name="getAFreeLichessAccount">Стварыце дармовы акаўнт</string>
+  <string name="getAFreeLichessAccount">Стварыце бясплатны ўліковы запіс</string>
   <string name="practice">Практыка</string>
   <string name="learnCommonChessPositions">Вучыце асноўныя пазіцыі</string>
   <string name="puzzles">Заданні</string>
