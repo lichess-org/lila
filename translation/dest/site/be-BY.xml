@@ -177,9 +177,7 @@
   <string name="rating">Рэйтынг</string>
   <string name="ratingStats">Статыстыка па рэйтынгу</string>
   <string name="username">Імя карыстальніка</string>
-  <string name="usernameNotSame">Імя, якое вы ўвялі, не падыходзіць – можна толькі змяняць рэгістр літар ва ўжо існым імені.</string>
   <string name="usernameOrEmail">Імя карыстальніка ці адрас электроннай пошты</string>
-  <string name="usernameDescription">Вы можаце змяніць рэгістр літар у вашым імені карыстальніка. Зрабіць гэта можна толькі адзін раз.</string>
   <string name="changeUsername">Змяніць імя карыстальніка</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Ужо маеце ўліковы запіс?</string>
