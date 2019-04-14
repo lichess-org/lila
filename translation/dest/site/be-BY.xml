@@ -414,7 +414,7 @@
     <item quantity="one">падпісаны на %s гульца</item>
     <item quantity="few">падпісаны на %s гульцоў</item>
     <item quantity="many">падпісаны на %s гульцоў</item>
-    <item quantity="other">%s назіраюць</item>
+    <item quantity="other">падпісаны на %s гульцоў</item>
   </plurals>
   <string name="more">Яшчэ</string>
   <string name="memberSince">Далучыўся</string>
