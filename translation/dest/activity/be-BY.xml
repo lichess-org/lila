@@ -3,5 +3,53 @@
 <resources>
   <string name="activity">Актыўнасць</string>
   <string name="supportedNbMonths">Падтрымліваў lichess на працягу %1$s месяцаў як %2$s</string>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Вырашана %s галаваломка</item>
+    <item quantity="few">Вырашана %s галаваломкі</item>
+    <item quantity="many">Вырашана %s галаваломак</item>
+    <item quantity="other">Вырашана %s галаваломак</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Згуляна %s гульня па ліставанні</item>
+    <item quantity="few">Згуляна %s гульняў па ліставанні</item>
+    <item quantity="many">Згуляна %s гульняў па ліставанні</item>
+    <item quantity="other">Згуляна %s гульняў па ліставанні</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Падпісаўся на %s гульца</item>
+    <item quantity="few">Падпісаўся на %s гульцоў</item>
+    <item quantity="many">Падпісаўся на %s гульцоў</item>
+    <item quantity="other">Падпісаўся на %s гульцоў</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s новы падпісчык</item>
+    <item quantity="few">%s новых падпісчыкі</item>
+    <item quantity="many">%s новых падпісчыкаў</item>
+    <item quantity="other">%s новых падпісчыкаў</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Правёў %s сеанс паралельнай гульні</item>
+    <item quantity="few">Правёў %s сеансы паралельнай гульні</item>
+    <item quantity="many">Правёў %s сеансаў паралельнай гульні</item>
+    <item quantity="other">Правёў %s сеансаў паралельнай гульні</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Браў удзел у %s сеансе паралельнай гульні</item>
+    <item quantity="few">Браў удзел у %s сеансах паралельнай гульні</item>
+    <item quantity="many">Браў удзел у %s сеансах паралельнай гульні</item>
+    <item quantity="other">Браў удзел у %s сеансах паралельнай гульні</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Стварыў %s новае даследаванне</item>
+    <item quantity="few">Стварыў %s новыя даследаванні</item>
+    <item quantity="many">Стварыў %s новых даследаванняў</item>
+    <item quantity="other">Стварыў %s новых даследаванняў</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Паўдзельнічаў у %s турніры</item>
+    <item quantity="few">Паўдзельнічаў у %s турнірах</item>
+    <item quantity="many">Паўдзельнічаў у %s турнірах</item>
+    <item quantity="other">Паўдзельнічаў у %s турнірах</item>
+  </plurals>
   <string name="signedUp">Зарэгістраваўся на lichess</string>
 </resources>
