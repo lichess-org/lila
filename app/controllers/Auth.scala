@@ -405,6 +405,7 @@ object Auth extends LidraughtsController {
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
               UserRepo.setEmailConfirmed(user.id) >>
+              UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
               authenticateUser(user) >>-
               lidraughts.mon.user.auth.passwordResetConfirm("success")()
