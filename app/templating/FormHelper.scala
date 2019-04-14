@@ -86,7 +86,7 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name := field.name,
         value := field.value,
-        `type` := typ.nonEmpty.option(typ),
+        tpe := typ.nonEmpty.option(typ),
         cls := List("form-control" -> true, klass -> klass.nonEmpty),
         st.disabled := disabled.option(true)
       )(validationModifiers(field))
@@ -111,7 +111,7 @@ trait FormHelper { self: I18nHelper =>
               st.id := id(field),
               name := field.name,
               value := "true",
-              `type` := "checkbox",
+              tpe := "checkbox",
               cls := "form-control cmn-toggle",
               checked := field.value.has("true").option(true),
               st.disabled := disabled.option(true)
@@ -166,7 +166,7 @@ trait FormHelper { self: I18nHelper =>
       klass: String = "",
       confirm: Option[String] = None
     ): Html = button(
-      `type` := "submit",
+      tpe := "submit",
       dataIcon := icon,
       name := nameValue.map(_._1),
       value := nameValue.map(_._2),
@@ -184,7 +184,7 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name := field.name,
         st.value := value.orElse(field.value),
-        `type` := "hidden"
+        tpe := "hidden"
       )
 
     def password(field: Field, content: Frag)(implicit ctx: Context): Frag =
@@ -205,8 +205,8 @@ trait FormHelper { self: I18nHelper =>
       )
 
     object file {
-      def image(name: String): Html = st.input(`type` := "file", st.name := name, accept := "image/*")
-      def pdn(name: String): Html = st.input(`type` := "file", st.name := name, accept := ".pdn")
+      def image(name: String): Html = st.input(tpe := "file", st.name := name, accept := "image/*")
+      def pdn(name: String): Html = st.input(tpe := "file", st.name := name, accept := ".pdn")
     }
   }
 }
