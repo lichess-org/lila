@@ -836,7 +836,7 @@
   <string name="usernameSuffixInvalid">Імя карыстальніка павінна сканчацца на лічбу або літару.</string>
   <string name="usernameCharsInvalid">Імя карыстальніка можа ўтрымліваць толькі літары, лічбы, ніжнія падкрэсліванні і злучок.</string>
   <string name="usernameUnacceptable">Недапушчальнае імя карыстальніка.</string>
-  <string name="directlySupportLichess">Падтрымлівае Lichess</string>
+  <string name="directlySupportLichess">Падтрымайце Lichess</string>
   <string name="playChessInStyle">Гуляйце стылёва!</string>
   <string name="chessBasics">Асновы шахмат</string>
   <string name="coaches">Трэнеры</string>
