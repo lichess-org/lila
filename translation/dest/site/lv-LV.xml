@@ -172,6 +172,8 @@
   <string name="username">Lietotājvārds</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
   <string name="changeUsername">Mainīt lietotājvārdu</string>
+  <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"johndoe\" var mainīt uz \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai burtu lielumu (lielie/mazie burti) lietotājvārdā.</string>
   <string name="password">Parole</string>
   <string name="haveAnAccount">Jau ir konts?</string>
   <string name="changePassword">Mainīt paroli</string>
