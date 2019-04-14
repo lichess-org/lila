@@ -164,6 +164,7 @@
   <string name="ratingStats">Puan istatistikleri</string>
   <string name="username">Kullanıcı adı</string>
   <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
+  <string name="changeUsername">Kullanıcı adını değiştir</string>
   <string name="password">Şifre</string>
   <string name="haveAnAccount">Üye misiniz?</string>
   <string name="changePassword">Şifre değiştir</string>
