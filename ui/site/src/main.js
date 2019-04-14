@@ -1,11 +1,7 @@
 (function() {
 
-  /////////////
-  // ctrl.js //
-  /////////////
   $.ajaxSetup({
     cache: false,
-    scriptAttrs: {} // force script tag transport, even on same domain
   });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
