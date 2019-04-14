@@ -310,7 +310,7 @@
   <string name="mustBeInTeam">Kailangang miyembro ng %s na team</string>
   <string name="youAreNotInTeam">Ikaw ay hindi miyembro ng %s na team</string>
   <string name="backToGame">Bumalik sa laro</string>
-  <string name="siteDescription">Libreng Online na Server ng Chess. Magalro ng Chess ngayon sa isang malinis na interface. Walang rehistrsyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o sinong mga kalaban.</string>
+  <string name="siteDescription">Libreng online na server ng chess. Maglaro ng Chess ngayon sa isang malinis na interface. Walang rehistrasyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o kahit sinong mga kalaban.</string>
   <string name="teams">Mga Koponan</string>
   <plurals name="nbMembers">
     <item quantity="one">%s miyembro</item>
