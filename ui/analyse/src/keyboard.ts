@@ -1,6 +1,7 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { bind as bindEvent, dataIcon, spinner, onInsert } from './util';
+import { spinner } from './util';
+import { modal } from './modal';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -98,17 +99,18 @@ export function bind(ctrl: AnalyseCtrl): void {
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
-
-  return h('div.lichess_overboard.keyboard_help', {
-    hook: onInsert(el => {
-      window.lichess.loadCss('stylesheets/keyboard.css')
+  return modal({
+    class: 'keyboard-help',
+    onInsert(el: HTMLElement) {
+      window.lichess.loadCssPath('analyse.keyboard')
       $(el).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
-    })
-  }, [
-    h('a.close.icon', {
-      attrs: dataIcon('L'),
-      hook: bindEvent('click', () => ctrl.keyboardHelp = false, ctrl.redraw)
-    }),
-    h('div.scrollable', spinner())
-  ]);
+    },
+    onClose() {
+      ctrl.keyboardHelp = false;
+      ctrl.redraw();
+    },
+    content: [
+      h('div.scrollable', spinner())
+    ]
+  });
 }

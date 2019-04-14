@@ -4,7 +4,7 @@ import { prop, Prop } from 'common';
 import { storedProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPgn } from './studyXhr';
-import * as dialog from './dialog';
+import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
 import { title as descTitle } from './chapterDescription';
@@ -95,7 +95,7 @@ export function view(ctrl): VNode {
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
   const currentChapterSetup = ctrl.root.study.data.chapter.setup;
 
-  return dialog.form({
+  return modal.modal({
     class: 'chapter-new',
     onClose() {
       ctrl.close();
@@ -237,7 +237,7 @@ export function view(ctrl): VNode {
           }, 'Analysis mode'),
           h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], '', c[1])))
         ]),
-        dialog.button('Create chapter')
+        modal.button('Create chapter')
       ])
     ]
   });

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import * as dialog from './dialog';
+import * as modal from '../modal';
 import { prop, Prop } from 'common';
 import { bind, bindSubmit, emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
@@ -96,7 +96,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       el.focus();
     }
   }
-  return dialog.form({
+  return modal.modal({
     class: 'study-edit',
     onClose: function() {
       ctrl.open(false);
@@ -172,7 +172,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
             selected: '' + data.settings.sticky
           }))
         ]),
-        dialog.button(isNew ? 'Start' : 'Save')
+        modal.button(isNew ? 'Start' : 'Save')
       ]),
       h('div.destructive', [
         isNew ? null : h('form', {
