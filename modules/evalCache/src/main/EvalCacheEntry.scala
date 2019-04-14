@@ -1,6 +1,6 @@
 package lidraughts.evalCache
 
-import draughts.format.{ Forsyth, FEN, Uci }
+import draughts.format.{ Forsyth, FEN }
 import draughts.variant.Variant
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
@@ -54,7 +54,7 @@ object EvalCacheEntry {
 
     def bestPv: Pv = pvs.head
 
-    def bestMove: Uci = bestPv.moves.value.head
+    def bestMove: String = bestPv.moves.value.head
 
     def looksValid = pvs.toList.forall(_.looksValid) && {
       pvs.toList.forall(_.score.winFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
@@ -89,7 +89,7 @@ object EvalCacheEntry {
     def truncate = copy(moves = moves.truncate)
   }
 
-  case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
+  case class Moves(value: NonEmptyList[String]) extends AnyVal {
 
     def truncate = copy(value = NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
@@ -105,13 +105,11 @@ object EvalCacheEntry {
   object SmallFen {
     private[evalCache] def raw(str: String) = new SmallFen(str)
     def make(variant: Variant, fen: FEN) = {
-      val base = fen.value.split(' ').take(4).mkString("").filter { c =>
-        c != '/' && c != '-' && c != 'w'
+      val base = Forsyth.<<@(variant, fen.value).fold(fen.value.split(':').take(3).mkString("").filter { c => c != 'W' }) { sit =>
+        val boardStr = Forsyth.compressedBoard(sit.board)
+        sit.color.fold(boardStr, "0" + boardStr)
       }
-      val str = variant match {
-        //case draughts.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
-        case _ => base
-      }
+      val str = variant.frisianVariant.fold(base + ~fen.value.split(':').lift(5), base)
       new SmallFen(str)
     }
     def validate(variant: Variant, fen: FEN): Option[SmallFen] =

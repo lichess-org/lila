@@ -6,10 +6,11 @@ private object Validator {
 
   def apply(in: EvalCacheEntry.Input): Option[Error] =
     in.eval.pvs.list.foldLeft(none[Error]) {
-      case (None, pv) => draughts.Replay.boardsFromUci(
+      case (None, pv) => draughts.Replay.boards(
         pv.moves.value.toList,
         in.fen.some,
-        in.id.variant
+        in.id.variant,
+        finalSquare = true
       ).fold(err => Error(err.shows).some, _ => none)
       case (error, _) => error
     }

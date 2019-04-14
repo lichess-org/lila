@@ -3,7 +3,6 @@ package lidraughts.evalCache
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
-import draughts.format.Uci
 import lidraughts.db.dsl._
 import lidraughts.tree.Eval._
 
@@ -19,9 +18,9 @@ private object BSONHandlers {
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") parseIntOption(str drop 1) map { m => Score win Win(m) }
       else parseIntOption(str) map { c => Score cp Cp(c) }
-    private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
+    private def movesWrite(moves: Moves): String = moves.value.toList mkString " "
     private def movesRead(str: String): Option[Moves] =
-      Uci readListPiotr str flatMap (_.toNel) map Moves.apply
+      str.split(' ').toList.toNel.map(Moves.apply)
     private val scoreSeparator = ':'
     private val pvSeparator = '/'
     private val pvSeparatorStr = pvSeparator.toString

@@ -148,12 +148,21 @@ object Replay {
     }
   }
 
-  private def recursiveSituations(sit: Situation, sans: List[San]): Valid[List[Situation]] =
+  private def recursiveUcis(sit: Situation, sans: List[San], finalSquare: Boolean = false): Valid[List[Uci]] =
     sans match {
       case Nil => success(Nil)
-      case san :: rest => san(sit) flatMap { moveOrDrop =>
+      case san :: rest => san(sit, finalSquare) flatMap { move =>
+        val after = Situation(move.afterWithLastMove, !sit.color)
+        recursiveUcis(after, rest, finalSquare) map { move.toUci :: _ }
+      }
+    }
+
+  private def recursiveSituations(sit: Situation, sans: List[San], finalSquare: Boolean = false): Valid[List[Situation]] =
+    sans match {
+      case Nil => success(Nil)
+      case san :: rest => san(sit, finalSquare) flatMap { moveOrDrop =>
         val after = Situation(moveOrDrop.afterWithLastMove, !sit.color)
-        recursiveSituations(after, rest) map { after :: _ }
+        recursiveSituations(after, rest, finalSquare) map { after :: _ }
       }
     }
 
@@ -181,17 +190,28 @@ object Replay {
   def boards(
     moveStrs: Traversable[String],
     initialFen: Option[FEN],
-    variant: draughts.variant.Variant
-  ): Valid[List[Board]] = situations(moveStrs, initialFen, variant) map (_ map (_.board))
+    variant: draughts.variant.Variant,
+    finalSquare: Boolean = false
+  ): Valid[List[Board]] = situations(moveStrs, initialFen, variant, finalSquare) map (_ map (_.board))
+
+  def ucis(
+    moveStrs: Traversable[String],
+    initialSit: Situation,
+    finalSquare: Boolean = false
+  ): Valid[List[Uci]] =
+    Parser.moves(moveStrs, initialSit.board.variant) flatMap { moves =>
+      recursiveUcis(initialSit, moves.value, finalSquare)
+    }
 
   def situations(
     moveStrs: Traversable[String],
     initialFen: Option[FEN],
-    variant: draughts.variant.Variant
+    variant: draughts.variant.Variant,
+    finalSquare: Boolean = false
   ): Valid[List[Situation]] = {
     val sit = initialFenToSituation(initialFen, variant)
     Parser.moves(moveStrs, sit.board.variant) flatMap { moves =>
-      recursiveSituations(sit, moves.value) map { sit :: _ }
+      recursiveSituations(sit, moves.value, finalSquare) map { sit :: _ }
     }
   }
 

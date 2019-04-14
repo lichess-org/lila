@@ -141,26 +141,50 @@ object Forsyth {
   private implicit val posOrdering = Ordering.by[Pos, Int](_.x)
 
   def exportBoard(board: Board): String = {
-
     val fenW = new scala.collection.mutable.StringBuilder(60)
     val fenB = new scala.collection.mutable.StringBuilder(60)
     fenW.append(White.letter)
     fenB.append(Black.letter)
-
     for (f <- 1 to 50) {
       board(f).fold() { piece =>
-        if (piece.color.white) {
+        if (piece is White) {
           if (fenW.length > 1) fenW append ','
-          if (piece.forsyth != ' ') fenW append piece.forsyth.toString
-          fenW append f.toString
+          if (piece isNot Man) fenW append piece.forsyth
+          fenW append f
         } else {
           if (fenB.length > 1) fenB append ','
-          if (piece.forsyth != ' ') fenB append piece.forsyth.toString
-          fenB append f.toString
+          if (piece isNot Man) fenB append piece.forsyth
+          fenB append f
         }
       }
     }
     fenW append ':'
+    fenW append fenB
+    fenW.toString
+  }
+
+  def compressedBoard(board: Board): String = {
+    // roles as numbers to prevent conflict with position piotrs
+    def roleId(piece: Piece) = piece.role match {
+      case Man => '1'
+      case King => '2'
+      case GhostMan => '3'
+      case GhostKing => '4'
+    }
+    val fenW = new scala.collection.mutable.StringBuilder(30)
+    val fenB = new scala.collection.mutable.StringBuilder(30)
+    fenB.append('0')
+    for (f <- 1 to 50) {
+      board(f).fold() { piece =>
+        if (piece is White) {
+          if (piece isNot Man) fenW append roleId(piece)
+          fenW append Pos.posAt(f).get.piotr
+        } else {
+          if (piece isNot Man) fenB append roleId(piece)
+          fenB append Pos.posAt(f).get.piotr
+        }
+      }
+    }
     fenW append fenB
     fenW.toString
   }

@@ -17,10 +17,17 @@ private final class DraughtsnetEvalCache(
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
     rawEvals(work.game) map {
       _.map {
-        case (i, eval) =>
+        case (i, eval, sit) =>
           val pv = eval.pvs.head
+          val ucis = draughts.Replay.ucis(pv.moves.value.toList, sit, true).fold(
+            err => {
+              logger.warn(s"DraughtsnetEvalCache: Could not parse ${work.game.variant.key} pv: ${pv.moves.value.toList.mkString(" ")}")
+              Nil
+            },
+            suc => suc
+          )
           i -> Evaluation(
-            pv = pv.moves.value.toList,
+            pv = ucis,
             score = Evaluation.Score(
               cp = pv.score.cp,
               win = pv.score.win
@@ -33,7 +40,7 @@ private final class DraughtsnetEvalCache(
       }.toMap
     }
 
-  private def rawEvals(game: Work.Game): Fu[List[(Int, lidraughts.evalCache.EvalCacheEntry.Eval)]] =
+  private def rawEvals(game: Work.Game): Fu[List[(Int, lidraughts.evalCache.EvalCacheEntry.Eval, draughts.Situation)]] =
     draughts.Replay.situationsFromUci(
       game.uciList.take(maxPlies - 1),
       game.initialFen,
@@ -47,7 +54,7 @@ private final class DraughtsnetEvalCache(
               game.variant,
               FEN(Forsyth >> sit)
             ) map2 { (eval: lidraughts.evalCache.EvalCacheEntry.Eval) =>
-                index -> eval
+                (index, eval, sit)
               }
         }.sequenceFu.map(_.flatten)
       )

@@ -57,7 +57,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
   def objMoves(strMoves: List[StrMove], variant: Variant): Valid[Sans] =
     strMoves.map {
       case StrMove(san, glyphs, comments, variations) => (
-        MoveParser(san, variant) map { m =>
+        MoveParser(MovesParser.collapsedSan(san), variant) map { m =>
           m withComments comments withVariations {
             variations.map { v =>
               objMoves(v, variant) | Sans.empty
@@ -102,7 +102,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
     }
 
-    private def collapsedSan(san: String) = {
+    def collapsedSan(san: String) = {
       val capts = san.split('x');
       if (capts.length > 2)
         s"${capts.head}x${capts.last}"

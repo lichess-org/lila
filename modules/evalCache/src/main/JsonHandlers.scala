@@ -2,7 +2,7 @@ package lidraughts.evalCache
 
 import play.api.libs.json._
 
-import draughts.format.{ Uci, FEN }
+import draughts.format.FEN
 import EvalCacheEntry._
 import lidraughts.common.PimpedJson._
 import lidraughts.tree.Eval._
@@ -21,7 +21,7 @@ object JsonHandlers {
   )
 
   private def writePv(pv: Pv) = Json.obj(
-    "moves" -> pv.moves.value.toList.map(_.uci).mkString(" ")
+    "moves" -> pv.moves.value.toList.mkString(" ")
   )
     .add("cp", pv.score.cp)
     .add("win", pv.score.win)
@@ -44,8 +44,8 @@ object JsonHandlers {
 
   private def parsePv(d: JsObject): Option[Pv] = for {
     movesStr <- d str "moves"
-    moves <- movesStr.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).foldLeft(List.empty[Uci].some) {
-      case (Some(ucis), str) => Uci(str) map (_ :: ucis)
+    moves <- movesStr.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).foldLeft(List.empty[String].some) {
+      case (Some(mvs), str) => (str :: mvs).some
       case _ => None
     }.flatMap(_.reverse.toNel) map Moves.apply
     cp = d int "cp" map Cp.apply
