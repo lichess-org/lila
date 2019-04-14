@@ -164,7 +164,6 @@
   <string name="ratingStats">Reitingu statistika</string>
   <string name="username">Kasutaja nimi</string>
   <string name="usernameOrEmail">Kasutajanimi või email</string>
-  <string name="usernameDescription">Muuda oma kasutajanime, seda saad teha ainult 1 kord ning muuta on võimalik ainult kasutajanime tõstutundlikkust.</string>
   <string name="changeUsername">Muuda kasutajanime</string>
   <string name="password">Salasõna</string>
   <string name="haveAnAccount">Kas sul on kasutaja?</string>
