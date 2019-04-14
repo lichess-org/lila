@@ -179,6 +179,8 @@
   <string name="username">Užívateľské meno</string>
   <string name="usernameOrEmail">Meno používateľa alebo email</string>
   <string name="changeUsername">Zmeniť užívateľské meno</string>
+  <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
+  <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
   <string name="password">Heslo</string>
   <string name="haveAnAccount">Máte účet?</string>
   <string name="changePassword">Zmeniť heslo</string>
