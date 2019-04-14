@@ -114,6 +114,9 @@ lichess.powertip = (function() {
     };
   };
 
+  var uptA = function(url, icon) {
+    return '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+  }
   var userPowertip = function(el, pos) {
     pos = pos || el.getAttribute('data-pt-pos') || (
       inCrosstable(el) ? 'n' : 's'
@@ -126,12 +129,11 @@ lichess.powertip = (function() {
     }).data('powertip', ' ').on({
       powerTipRender: onPowertipPreRender('powerTip', function(url) {
         var u = url.substr(3);
-        var preload = '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + $(el).html() + '</span></div></div><div class="upt__actions btn-rack">' +
-          '<a href="/@/' + u + '/tv" data-icon="1"></a>' +
-          '<a href="/inbox/new?user=' + u + '" data-icon="c"></a>' +
-          '<a href="/?user=' + u + '#friend" data-icon="U"></a>' +
-          '<a class="relation-button" disabled></a></div>';
-        $('#powerTip').html(preload);
+        $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + $(el).html() + '</span></div></div><div class="upt__actions btn-rack">' +
+          uptA('/@/' + u + '/tv', '1') +
+          uptA('/inbox/new?user=' + u, 'c') +
+          uptA('/?user=' + u + '#friend', 'U') +
+          '<a class="btn-rack__btn relation-button" disabled></a></div>');
       })
     });
   };
