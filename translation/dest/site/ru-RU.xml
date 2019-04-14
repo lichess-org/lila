@@ -177,7 +177,10 @@
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Распределение рейтингов</string>
   <string name="username">Имя пользователя</string>
+  <string name="usernameNotSame">Указанное имя пользователя отличается от исходного не только регистром.</string>
   <string name="usernameOrEmail">Логин или электронная почта</string>
+  <string name="usernameDescription">Изменить имя пользователя можно только один раз, при этом можно изменить только регистр символов.</string>
+  <string name="changeUsername">Изменить имя пользователя</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже есть учётная запись?</string>
   <string name="changePassword">Сменить пароль</string>
