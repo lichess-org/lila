@@ -164,6 +164,7 @@
   <string name="ratingStats">Wertungsstatistiken</string>
   <string name="username">Benutzername</string>
   <string name="usernameOrEmail">Benutzername oder E-Mail</string>
+  <string name="changeUsername">Benutzernamen ändern</string>
   <string name="password">Passwort</string>
   <string name="haveAnAccount">Hast du schon ein Benutzerkonto?</string>
   <string name="changePassword">Passwort ändern</string>
