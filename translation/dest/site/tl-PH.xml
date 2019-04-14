@@ -394,6 +394,10 @@
   <string name="tournamentCalendar">Kalendaryo ng mga paligsahan</string>
   <string name="conditionOfEntry">Kondisyon para makapasok:</string>
   <string name="safeTournamentName">Pumili ka ng angkop na pangalan ng paligsahan.</string>
+  <string name="inappropriateNameWarning">Maaaring masara ang iyong account kapag naglagay ka ng kahit anong hindi naaangkop na bagay.</string>
+  <string name="emptyTournamentName">Pabayaang walang laman upang pangalanan ang paligsahang ito sa isang Grandmaster.</string>
+  <string name="recommendNotTouching">Payo naming huwag pakialaman ang mga ito.</string>
+  <string name="fewerPlayers">Kung maglagay ka ng mga kondisyon upang makapasok, kakaunti ang mga maglalaro ng iyong paligsahan.</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
   <string name="points">Punto</string>
@@ -506,6 +510,7 @@
   <string name="troll">Awitin</string>
   <string name="other">Iba pa</string>
   <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
+  <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
   <string name="by">sa pamamagitan ng %s</string>
   <string name="thisTopicIsNowClosed">Ang paksang itp ay sarado na.</string>
   <string name="theming">Pagtetema</string>
@@ -523,6 +528,7 @@
   <string name="thisAccountIsClosed">Ang akawnt na ito ay sarado.</string>
   <string name="invalidUsernameOrPassword">Maling username o password</string>
   <string name="incorrectPassword">Maling password</string>
+  <string name="invalidAuthenticationCode">Ang pagpapatunay ng code ay imbalido</string>
   <string name="emailMeALink">I-email mo sa akin ang link</string>
   <string name="currentPassword">Kasalukuyang password</string>
   <string name="newPassword">Bagong password</string>
