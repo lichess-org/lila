@@ -163,9 +163,9 @@
   <string name="rating">Classement</string>
   <string name="ratingStats">Statistiques de classement</string>
   <string name="username">Nom d\'utilisateur</string>
-  <string name="usernameNotSame">Le nom d\'utilisateur fourni n\'a pas la même forme majuscules/minuscules que votre nom d\'utilisateur.</string>
+  <string name="usernameNotSame">Le nom d\'utilisateur fourni n\'a pas les mêmes majuscules/minuscules que votre nom d\'utilisateur.</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
-  <string name="usernameDescription">Changez la forme majuscules/minuscules de votre nom d\'utilisateur. Vous pouvez faire ce changement une fois seulement. Seule la forme majuscules/minuscules peut être modifiée.</string>
+  <string name="usernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seules les majuscules/minuscules peuvent être modifiées.</string>
   <string name="changeUsername">Modifier le nom d\'utilisateur</string>
   <string name="password">Mot de passe</string>
   <string name="haveAnAccount">Déjà inscrit ?</string>
