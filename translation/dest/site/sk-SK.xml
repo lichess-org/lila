@@ -178,6 +178,8 @@
   <string name="ratingStats">Štatistika ratingov</string>
   <string name="username">Užívateľské meno</string>
   <string name="usernameOrEmail">Meno používateľa alebo email</string>
+  <string name="usernameDescription">Zmeniť užívateľské meno, tento úkon je možné vykonať iba raz a je povolené zmeniť len veľké a malé písmená.</string>
+  <string name="changeUsername">Zmeniť užívateľské meno</string>
   <string name="password">Heslo</string>
   <string name="haveAnAccount">Máte účet?</string>
   <string name="changePassword">Zmeniť heslo</string>
