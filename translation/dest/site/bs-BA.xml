@@ -168,6 +168,7 @@
   <string name="ratingStats">Statistike rejtinga</string>
   <string name="username">Korisničko ime</string>
   <string name="usernameOrEmail">Korisničko ime</string>
+  <string name="changeUsername">Promijenite korisničko ime</string>
   <string name="password">Lozinka</string>
   <string name="haveAnAccount">Već imate račun?</string>
   <string name="changePassword">Promjena lozinke</string>
