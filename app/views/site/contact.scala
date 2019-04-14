@@ -81,6 +81,13 @@ object contact {
             " with the email address you signed up with."
           )
         )),
+        Leaf("lost-2fa", "I lost access to my two-factor authentication codes", frag(
+          p(
+            "Do a ",
+            a(href := routes.Auth.passwordReset)("password reset"),
+            " to remove your second factor."
+          )
+        )),
         reopenLeaf("login"),
         Leaf("dns", "\"This site can’t be reached\"", frag(
           p("If you can't reach lichess, and your browser says something like:"),
