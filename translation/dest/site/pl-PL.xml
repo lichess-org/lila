@@ -178,6 +178,8 @@
   <string name="ratingStats">Statystyki rankingowe</string>
   <string name="username">Nazwa użytkownika</string>
   <string name="usernameOrEmail">Nazwa użytkownika lub e-mail</string>
+  <string name="changeUsername">Zmień nazwę użytkownika</string>
+  <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
   <string name="password">Hasło</string>
   <string name="haveAnAccount">Masz już konto?</string>
   <string name="changePassword">Zmień hasło</string>
