@@ -171,6 +171,7 @@
   <string name="ratingStats">Vērtējumu statistika</string>
   <string name="username">Lietotājvārds</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
+  <string name="changeUsername">Mainīt lietotājvārdu</string>
   <string name="password">Parole</string>
   <string name="haveAnAccount">Jau ir konts?</string>
   <string name="changePassword">Mainīt paroli</string>
