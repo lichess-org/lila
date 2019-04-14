@@ -137,6 +137,8 @@
   <string name="username">Vartotojo vardas</string>
   <string name="usernameOrEmail">Vartotojo vardas</string>
   <string name="changeUsername">Keisti naudotojo vardą</string>
+  <string name="changeUsernameNotSame">Galima keisti tik raidžių dydį. Pvz., „vardaspav“ į „VardasPav“.</string>
+  <string name="changeUsernameDescription">Pasikeiskite naudotojo vardą. Tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
   <string name="password">Slaptažodis</string>
   <string name="haveAnAccount">Turite paskyrą?</string>
   <string name="changePassword">Pasikeisti slaptažodį</string>
