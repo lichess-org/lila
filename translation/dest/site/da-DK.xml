@@ -165,7 +165,7 @@
   <string name="username">Brugernavn</string>
   <string name="usernameOrEmail">Brugernavn eller e-mail</string>
   <string name="changeUsername">Ændr brugernavn</string>
-  <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"holgerdanske\" til HolgerDanske\".</string>
+  <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"holgerdanske\" til \"HolgerDanske\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
   <string name="password">Adgangskode</string>
   <string name="haveAnAccount">Har du en konto?</string>
