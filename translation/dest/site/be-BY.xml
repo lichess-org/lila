@@ -215,8 +215,8 @@
   <string name="whiteDeclinesDraw">Белыя адхіляюць нічыю</string>
   <string name="blackDeclinesDraw">Чорныя адхіляюць нічыю</string>
   <string name="yourOpponentOffersADraw">Супернік прапануе нічыю</string>
-  <string name="accept">Пагадзіцца</string>
-  <string name="decline">Адмовіцца</string>
+  <string name="accept">Ухваліць</string>
+  <string name="decline">Адхіліць</string>
   <string name="playingRightNow">Бягучая гульня</string>
   <string name="eventInProgress">Бягучая гульня</string>
   <string name="finished">Скончана</string>
