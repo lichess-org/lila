@@ -231,8 +231,8 @@
           $('#' + $(this).data('rel')).select();
           document.execCommand('copy');
           $(this).attr('data-icon', 'E');
-        })
-        .on('click', 'a.relation-button', function() {
+        });
+        $('body').on('click', 'a.relation-button', function() {
           var $a = $(this).addClass('processing').css('opacity', 0.3);
           $.ajax({
             url: $a.attr('href'),
