@@ -164,6 +164,7 @@
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
   <string name="usernameOrEmail">Användarnamn eller email</string>
+  <string name="changeUsername">Ändra användarnamn</string>
   <string name="password">Lösenord</string>
   <string name="haveAnAccount">Har du ett konto?</string>
   <string name="changePassword">Ändra lösenord</string>
