@@ -11,18 +11,16 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const state = ctrl.state,
     fb = state.feedback,
     myTurn = fb === 'play';
-  return h('div.study__buttons', [
-    h('div.gamebook-buttons', [
-      root.path ? h('a.fbt.text.back', {
-        attrs: dataIcon('I'),
-        hook: bind('click', () => root.userJump(''), ctrl.redraw)
-      }, 'Back') : null,
-      myTurn ? h('a.fbt.text.solution', {
-        attrs: dataIcon('G'),
-        hook: bind('click', ctrl.solution, ctrl.redraw)
-      }, 'View the solution') : undefined,
-      overrideButton(study)
-    ])
+  return h('div.gamebook-buttons', [
+    root.path ? h('a.fbt.text.back', {
+      attrs: dataIcon('I'),
+      hook: bind('click', () => root.userJump(''), ctrl.redraw)
+    }, 'Back') : null,
+    myTurn ? h('a.fbt.text.solution', {
+      attrs: dataIcon('G'),
+      hook: bind('click', ctrl.solution, ctrl.redraw)
+    }, 'View the solution') : undefined,
+    overrideButton(study)
   ]);
 }
 

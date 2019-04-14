@@ -91,11 +91,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
     ])
   ];
 
-  return h('div.gamebook_wrap', {
+  return h('div.gamebook-edit', {
     hook: { insert: _ => window.lichess.loadCssPath('analyse.gamebook.edit') }
-  }, [
-    h('div.gamebook', content)
-  ]);
+  }, content);
 }
 
 function renderDeviation(ctrl: AnalyseCtrl): VNode {
