@@ -32,7 +32,7 @@ object Study extends LilaController {
         }
       else Env.studySearch(ctx.me)(text, page) flatMap { pag =>
         negotiate(
-          html = Ok(html.study.search(pag, text)).fuccess,
+          html = Ok(html.study.list.search(pag, text)).fuccess,
           api = _ => apiStudies(pag)
         )
       }
