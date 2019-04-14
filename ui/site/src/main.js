@@ -829,7 +829,7 @@
     cfg.element = element;
     cfg.$side = $('.tour__side').clone();
     cfg.$faq = $('.tour__faq').clone();
-    tournament = LichessTournament.start(cfg);
+    tournament = LichessTournament(cfg);
   };
 
   function startSimul(cfg) {
