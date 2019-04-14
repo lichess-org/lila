@@ -405,6 +405,7 @@ object Auth extends LilaController {
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
               UserRepo.setEmailConfirmed(user.id) >>
+              UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
               authenticateUser(user) >>-
               lila.mon.user.auth.passwordResetConfirm("success")()

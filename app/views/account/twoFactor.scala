@@ -34,6 +34,7 @@ object twoFactor {
           form3.password(form("passwd"), trans.password.frag()),
           form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required := "")),
           form3.globalError(form),
+          div(cls := "form-group")("Note: If you lose access to your two-factor authentication codes, you can do a password reset via email."),
           form3.actionHtml(form3.submit(raw("Enable two-factor authentication")))
         )
       )
@@ -51,7 +52,10 @@ object twoFactor {
         ),
         p(cls := "explanation")("Your account is protected with two-factor authentication."),
         st.form(cls := "form3", action := routes.Account.disableTwoFactor, method := "POST")(
-          p(cls := "explanation")("You need your password and an authentication code from your authenticator app to disable two-factor authentication."),
+          p(cls := "explanation")(
+            "You need your password and an authentication code from your authenticator app to disable two-factor authentication. ",
+            "If you lost access to your authentication codes, you can also do a password reset via email."
+          ),
           form3.password(form("passwd"), trans.password.frag()),
           form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required := "")),
           form3.actionHtml(form3.submit(raw("Disable two-factor authentication"), icon = None))
