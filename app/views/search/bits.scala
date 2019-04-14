@@ -103,7 +103,7 @@ private object bits {
       th(label("Clock initial time")),
       td(
         div(cls := "half")("From ", form3.select(form("clock")("initMin"), Query.clockInits, "".some)),
-        div(cls := "half")("From ", form3.select(form("clock")("initMax"), Query.clockInits, "".some))
+        div(cls := "half")("To ", form3.select(form("clock")("initMax"), Query.clockInits, "".some))
       )
     )
 
@@ -111,7 +111,7 @@ private object bits {
       th(label("Clock increment")),
       td(
         div(cls := "half")("From ", form3.select(form("clock")("incMin"), Query.clockIncs, "".some)),
-        div(cls := "half")("From ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
+        div(cls := "half")("To ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
       )
     )
 
@@ -152,7 +152,7 @@ private object bits {
             id := form3.id(field),
             name := field.name,
             value := "1",
-            checked := field.value.has("1")
+            checked := field.value.has("1").option(true)
           ),
           label(`for` := form3.id(field))
         )

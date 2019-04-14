@@ -66,15 +66,16 @@ object page {
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);"),
-          filters.current.name == "search" option jsTag("search.js")
+          embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
         )
       },
+      filters.current.name == "search" option jsTag("search.js"),
       isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
     ),
     moreCss = frag(
       responsiveCssTag("user.show.games"),
-      info.nbs.crosstable.isDefined option responsiveCssTag("crosstable")
+      if (filters.current.name == "search") responsiveCssTag("user.show.search")
+      else info.nbs.crosstable.isDefined option responsiveCssTag("crosstable")
     )
   ) {
       main(cls := "page-menu", dataUsername := u.username)(

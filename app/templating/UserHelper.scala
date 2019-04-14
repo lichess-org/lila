@@ -7,7 +7,7 @@ import mashup._
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LightUser
-import lila.i18n.I18nKeys
+import lila.i18n.{ I18nKeys => trans }
 import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, Title, UserContext }
 
@@ -234,19 +234,20 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   }
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Frag =
-    splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
+    if (filter == GameFilter.Search) frag(br, trans.advancedSearch.frag())
+    else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): String = (filter match {
-    case GameFilter.All => I18nKeys.nbGames.pluralSameTxt(u.count.game)
-    case GameFilter.Me => nbs.withMe ?? I18nKeys.nbGamesWithYou.pluralSameTxt
-    case GameFilter.Rated => I18nKeys.nbRated.pluralSameTxt(u.count.rated)
-    case GameFilter.Win => I18nKeys.nbWins.pluralSameTxt(u.count.win)
-    case GameFilter.Loss => I18nKeys.nbLosses.pluralSameTxt(u.count.loss)
-    case GameFilter.Draw => I18nKeys.nbDraws.pluralSameTxt(u.count.draw)
-    case GameFilter.Playing => I18nKeys.nbPlaying.pluralSameTxt(nbs.playing)
-    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSameTxt(nbs.bookmark)
-    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSameTxt(nbs.imported)
-    case GameFilter.Search => I18nKeys.advancedSearch.txt()
+    case GameFilter.All => trans.nbGames.pluralSameTxt(u.count.game)
+    case GameFilter.Me => nbs.withMe ?? trans.nbGamesWithYou.pluralSameTxt
+    case GameFilter.Rated => trans.nbRated.pluralSameTxt(u.count.rated)
+    case GameFilter.Win => trans.nbWins.pluralSameTxt(u.count.win)
+    case GameFilter.Loss => trans.nbLosses.pluralSameTxt(u.count.loss)
+    case GameFilter.Draw => trans.nbDraws.pluralSameTxt(u.count.draw)
+    case GameFilter.Playing => trans.nbPlaying.pluralSameTxt(nbs.playing)
+    case GameFilter.Bookmark => trans.nbBookmarks.pluralSameTxt(nbs.bookmark)
+    case GameFilter.Imported => trans.nbImportedGames.pluralSameTxt(nbs.imported)
+    case GameFilter.Search => trans.advancedSearch.txt()
   })
 
   def describeUser(user: User) = {
