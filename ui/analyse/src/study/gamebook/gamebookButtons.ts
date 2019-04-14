@@ -6,14 +6,13 @@ import { StudyCtrl } from '../interfaces';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
-  ctrl = study.gamebookPlay();
+    ctrl = study.gamebookPlay();
   if (!ctrl) return;
   const state = ctrl.state,
-  fb = state.feedback,
-  myTurn = fb === 'play';
+    fb = state.feedback,
+    myTurn = fb === 'play';
   return h('div.study__buttons', [
-    h('div.member-buttons'),
-    h('div.gb_buttons', [
+    h('div.gamebook-buttons', [
       root.path ? h('a.fbt.text.back', {
         attrs: dataIcon('I'),
         hook: bind('click', () => root.userJump(''), ctrl.redraw)
@@ -39,7 +38,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
     }, 'Preview');
     else {
       const isAnalyse = o === 'analyse',
-      ctrl = study.gamebookPlay();
+        ctrl = study.gamebookPlay();
       if (isAnalyse || (ctrl && ctrl.state.feedback === 'end')) return h('a.fbt.text.preview', {
         class: { active: isAnalyse },
         attrs: dataIcon('A'),

@@ -287,8 +287,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     },
     class: {
       'gauge-on': gaugeOn,
-      'gb_edit': !!gamebookEditView,
-      'gb_play': !!gamebookPlayView,
+      // 'gb-edit': !!gamebookEditView,
+      // 'gb-play': !!gamebookPlayView,
       'has-players': !!playerBars
     }
   }, [
@@ -304,7 +304,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       renderPromotion(ctrl)
     ]),
     menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-    h('div.analyse__tools', gamebookPlayView || [
+    gamebookPlayView || h('div.analyse__tools', [
       // menuIsOpen || playerBars ? null : renderClocks(ctrl),
       ...(menuIsOpen ? [actionMenu(ctrl)] : [
         cevalView.renderCeval(ctrl),
@@ -315,7 +315,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       ])
     ]),
     menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    controls(ctrl),
+    gamebookPlayView ? null : controls(ctrl),
     ctrl.embed ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },
       hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
