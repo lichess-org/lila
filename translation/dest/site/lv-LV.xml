@@ -170,6 +170,7 @@
   <string name="rating">Vērtējums</string>
   <string name="ratingStats">Vērtējumu statistika</string>
   <string name="username">Lietotājvārds</string>
+  <string name="usernameNotSame">Ievadītais lietotājvārds nesakrīt ar jūsu lietotājvārdu, mainot tikai burtu lielumu.</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
   <string name="usernameDescription">Mainīt lietotājvārdu; to var izdarīt tikai vienreiz, un ir atļauts mainīt tikai burtu lielumu (lielie/mazie burti) lietotājvārdā.</string>
   <string name="changeUsername">Mainīt lietotājvārdu</string>
