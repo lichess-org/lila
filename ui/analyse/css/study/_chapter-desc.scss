@@ -18,6 +18,7 @@
     background: mix($c-accent, $c-bg-box, 10%);
     padding: .5em .8em;
     display: none;
+    z-index: 1;
   }
   &:hover .contrib {
     display: block;

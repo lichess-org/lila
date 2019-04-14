@@ -16,7 +16,6 @@
     font-size: 1.1em;
     background: $c-bg-box;
     border-radius: 1rem;
-    overflow: hidden;
     position: relative;
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
@@ -49,6 +48,7 @@
       padding: .8em 1em;
       background: $c-primary;
       color: $c-primary-over;
+      border-radius: 0 0 1rem 1rem;
       cursor: pointer;
       font-size: .9em;
       z-index: 2;
@@ -163,20 +163,13 @@
       }
     }
   }
-  kbd {
-    padding: 4px 5px;
-    margin: 15px auto 0 auto;
-    font-family: monospace;
-    font-size: 12px;
-    line-height: 10px;
-    color: #444;
-    background-color: #fcfcfc;
-    border: solid 1px #ccc;
-    border-bottom-color: #bbb;
-    border-radius: 3px;
-    box-shadow: inset 0 -1px 0 #bbb;
-  }
 }
-.gamebook-buttons .button {
-  margin-left: 10px;
+.gamebook-buttons {
+  @extend %flex-center;
+  justify-content: flex-end;
+  .fbt {
+    @extend %box-radius-top;
+    padding: .2em .5em;
+    margin-left: .7em;
+  }
 }

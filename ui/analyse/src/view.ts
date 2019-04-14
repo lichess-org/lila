@@ -341,8 +341,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
     },
     class: {
       'gauge-on': gaugeOn,
-      // 'gb-edit': !!gamebookEditView,
-      // 'gb-play': !!gamebookPlayView,
       'has-players': !!playerBars
     }
   }, [
@@ -364,7 +362,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
           cevalView.renderCeval(ctrl),
           showCevalPvs ? cevalView.renderPvs(ctrl) : null,
           renderAnalyse(ctrl, concealOf),
-          gamebookEditView ? null : forkView(ctrl, concealOf),
+          gamebookEditView || forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
         ]))
     ]),
@@ -398,7 +396,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
       ])
     ),
     study && study.relay && relayManager(study.relay),
-    gamebookEditView,
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
         ctrl.opts.chat.parseMoves = true;
