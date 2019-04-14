@@ -63,7 +63,7 @@ object topic {
     canModCateg: Boolean
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
-    menu = categ.isStaff.option(mod.menu("forum")),
+    // menu = categ.isStaff.option(mod.menu("forum")),
     moreJs = frag(
       jsTag("forum-post.js"),
       jsTag("embed-analyse.js")

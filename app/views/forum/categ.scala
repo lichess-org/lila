@@ -10,10 +10,10 @@ import controllers.routes
 
 object categ {
 
-  def index(categs: List[lila.forum.CategView])(implicit ctx: Context) = views.html.base.layout(
+  def index(categs: List[lidraughts.forum.CategView])(implicit ctx: Context) = views.html.base.layout(
     title = trans.forum.txt(),
     moreCss = responsiveCssTag("forum"),
-    openGraph = lila.app.ui.OpenGraph(
+    openGraph = lidraughts.app.ui.OpenGraph(
       title = "Lidraughts community forum",
       url = s"$netBaseUrl${routes.ForumCateg.index.url}",
       description = "Draughts discussions and feedback about lidraughts development"
@@ -68,9 +68,9 @@ object categ {
 
     views.html.base.layout(
       title = categ.name,
-      // menu = mod.menu("forum").some.ifTrue(categ.isStaff),
+      // menu = categ.isStaff.option(mod.menu("forum")),
       moreCss = responsiveCssTag("forum"),
-      openGraph = lila.app.ui.OpenGraph(
+      openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Forum: ${categ.name}",
         url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
         description = categ.desc
