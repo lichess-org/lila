@@ -51,5 +51,17 @@
     <item quantity="many">Паўдзельнічаў у %s турнірах</item>
     <item quantity="other">Паўдзельнічаў у %s турнірах</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульні</item>
+    <item quantity="few">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
+    <item quantity="many">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
+    <item quantity="other">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
+  </plurals>
   <string name="signedUp">Зарэгістраваўся на lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Далучыўся да %s каманды</item>
+    <item quantity="few">Далучыўся да %s каманд</item>
+    <item quantity="many">Далучыўся да %s каманд</item>
+    <item quantity="other">Далучыўся да %s каманд</item>
+  </plurals>
 </resources>
