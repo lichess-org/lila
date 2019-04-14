@@ -13,46 +13,46 @@ import controllers.routes
 object topic {
 
   def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
-    bits.layout(title = "New forum topic", moreJs = frag(
-      jsTag("forum-post.js"),
-      captchaTag
-    )) {
-      main(cls := "forum forum-topic topic-form page-small box box-pad")(
-        h1(
-          a(
-            href := routes.ForumCateg.show(categ.slug),
-            dataIcon := "I",
-            cls := "text"
+    views.html.base.layout(
+      title = "New forum topic",
+      moreCss = responsiveCssTag("forum"),
+      moreJs = frag(
+        jsTag("forum-post.js"),
+        captchaTag
+      )
+    ) {
+        main(cls := "forum forum-topic topic-form page-small box box-pad")(
+          h1(
+            a(href := routes.ForumCateg.show(categ.slug), dataIcon := "I", cls := "text"),
+            categ.name
           ),
-          categ.name
-        ),
-        st.section(cls := "warning")(
-          h2(dataIcon := "!", cls := "text")("Important"),
-          p(
-            "To report a user for cheating or bad behaviour,",
-            br,
-            strong(a(href := routes.Report.form)("use the report form"))
+          st.section(cls := "warning")(
+            h2(dataIcon := "!", cls := "text")("Important"),
+            p(
+              "To report a user for cheating or bad behaviour,",
+              br,
+              strong(a(href := routes.Report.form)("use the report form"))
+            ),
+            p(
+              "To request support,",
+              br,
+              strong(a(href := routes.Main.contact())(raw("try the contact page")))
+            )
           ),
-          p(
-            "To request support,",
-            br,
-            strong(a(href := routes.Main.contact())(raw("try the contact page")))
-          )
-        ),
 
-        st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST", novalidate := true)(
-          form3.group(form("name"), trans.subject.frag())(form3.input(_)(autofocus := true)),
-          form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
-          views.html.base.captcha(form("post"), captcha),
-          form3.actions(
-            a(href := routes.ForumCateg.show(categ.slug))(trans.cancel.frag()),
-            isGranted(_.PublicMod) option
-              form3.submit(frag("Create as mod"), nameValue = (form("post")("modIcon").name, "true").some, icon = "".some),
-            form3.submit(trans.createTheTopic.frag())
+          st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST", novalidate := true)(
+            form3.group(form("name"), trans.subject.frag())(form3.input(_)(autofocus := true)),
+            form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
+            views.html.base.captcha(form("post"), captcha),
+            form3.actions(
+              a(href := routes.ForumCateg.show(categ.slug))(trans.cancel.frag()),
+              isGranted(_.PublicMod) option
+                form3.submit(frag("Create as mod"), nameValue = (form("post")("modIcon").name, "true").some, icon = "".some),
+              form3.submit(trans.createTheTopic.frag())
+            )
           )
         )
-      )
-    }
+      }
 
   def show(
     categ: lila.forum.Categ,
@@ -61,12 +61,13 @@ object topic {
     formWithCaptcha: Option[FormWithCaptcha],
     unsub: Option[Boolean],
     canModCateg: Boolean
-  )(implicit ctx: Context) = bits.layout(
+  )(implicit ctx: Context) = views.html.base.layout(
     title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
     moreJs = frag(
       jsTag("forum-post.js"),
       jsTag("embed-analyse.js")
     ),
+    moreCss = responsiveCssTag("forum"),
     openGraph = lila.app.ui.OpenGraph(
       title = topic.name,
       url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",

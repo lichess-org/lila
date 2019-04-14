@@ -15,7 +15,7 @@ private[app] final class Renderer extends Actor {
       sender ! V.game.bits.featuredJs(Pov first game).render
 
     case lila.tournament.actorApi.TournamentTable(tours) =>
-      sender ! V.tournament.enterable(tours).render
+      sender ! V.tournament.bits.enterable(tours).render
 
     case lila.simul.actorApi.SimulTable(simuls) =>
       sender ! V.simul.bits.allCreated(simuls).render

@@ -29,7 +29,7 @@ object show {
       jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
       embedJs(s"""lichess=lichess||{};lichess.tournament={
 data:${safeJsonValue(data)},
-i18n:${jsI18n()},
+i18n:${bits.jsI18n()},
 userId:${jsUserIdString},
 chat:${
         chatOption.fold("null")(c =>

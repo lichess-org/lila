@@ -15,7 +15,7 @@ object calendar {
       jsAt(s"compiled/lichess.tournamentCalendar${isProd ?? (".min")}.js"),
       embedJs(s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), {
 data: ${safeJsonValue(json)},
-i18n: ${jsI18n()}
+i18n: ${bits.jsI18n()}
 });""")
     ),
     moreCss = responsiveCssTag("tournament.calendar")

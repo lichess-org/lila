@@ -38,7 +38,7 @@ object form {
           },
           form3.split(
             form3.checkbox(form("rated"), trans.rated.frag(), help = raw("Games are rated<br>and impact players ratings").some),
-            st.input(`type` := "hidden", name := form("rated").name, value := "false"), // hack allow disabling rated
+            st.input(tpe := "hidden", name := form("rated").name, value := "false"), // hack allow disabling rated
             form3.group(form("variant"), trans.variant.frag(), half = true)(form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2)))
           ),
           form3.group(form("position"), trans.startPosition.frag(), klass = "position")(startingPosition(_)),
@@ -59,12 +59,12 @@ object form {
               " ",
               trans.fewerPlayers(),
               " ",
-              a(cls := "show blue")(trans.showAdvancedSettings())
+              a(cls := "show")(trans.showAdvancedSettings())
             ),
             div(cls := "form")(
               form3.group(form("password"), trans.password.frag(), help = raw("Make the tournament private, and restrict access with a password").some)(form3.input(_)),
               condition(form, auto = true, teams = teams),
-              input(`type` := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
+              input(tpe := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
               form3.group(form("startDate"), raw("Custom start date"), help = raw("""This overrides the "Time before tournament starts" setting""").some)(form3.flatpickr(_))
             )
           ),

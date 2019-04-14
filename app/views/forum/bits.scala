@@ -12,18 +12,6 @@ import controllers.routes
 
 object bits {
 
-  def layout(
-    title: String,
-    moreJs: Frag = emptyFrag,
-    openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = title,
-      moreCss = responsiveCssTag("forum"),
-      moreJs = moreJs,
-      openGraph = openGraph
-    )(body)
-
   def searchForm(search: String = "")(implicit ctx: Context) =
     form(cls := "search", action := routes.ForumPost.search())(
       input(name := "text", value := search, placeholder := trans.search.txt())

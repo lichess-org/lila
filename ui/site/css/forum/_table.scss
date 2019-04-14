@@ -2,8 +2,8 @@
 
   td {
     @extend %break-word;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   td.right, & th.right {
@@ -16,7 +16,7 @@
   }
 
   td:last-child {
-    min-width: 150px;
+    white-space: nowrap;
     padding-right: 1em;
     time {
       color: $c-link;

@@ -25,7 +25,7 @@ object home {
         jsAt(s"compiled/lichess.tournamentSchedule${isProd ?? (".min")}.js"),
         embedJs(s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), {
 data: ${safeJsonValue(json)},
-i18n: ${jsI18n()}
+i18n: ${bits.jsI18n()}
 });
 var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;""")
       ),
