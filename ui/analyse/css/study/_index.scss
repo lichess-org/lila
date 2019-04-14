@@ -1,36 +1,46 @@
 @import 'list-widget';
 
+$top-height: 3.2rem;
+
 .study-index {
   .box__top {
     @extend %flex-center;
     .search {
       flex: 1 1 auto;
       display: flex;
-    }
-    .search input {
-      flex: 1 1 100%;
-      font-size: 1.2em;
-    }
-    .search .submit {
-      padding: 0 30px;
-      border-radius: 0 3px 3px 0;
-      border-left: 0;
+      input {
+        @extend %box-radius-left;
+        flex: 1 1 100%;
+        height: $top-height;
+        font-size: 1.2em;
+      }
+      .button {
+        @extend %box-radius-right;
+        padding: 0 1.5em;
+        border-left: 0;
+      }
     }
     .mselect {
-      margin: 0 1em;
       font-size: 1.2em;
       &__label::after {
         margin-left: .6em;
       }
     }
-    .new_study,
-    .orders {
+    .new-study,
+    .mselect {
+      height: $top-height;
+      margin-left: 1rem;
       white-space: nowrap;
-      margin-right: 10px;
     }
-    .new_study .button i::before {
-      color: #759900;
-      font-size: 40px;
+    .mselect__label {
+      height: 100%;
+    }
+    .new-study .button{
+      height: $top-height;
+      padding: 0 1em;
+      &::before {
+        font-size: 2em;
+      }
     }
   }
   .list {
