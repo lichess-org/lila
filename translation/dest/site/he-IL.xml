@@ -570,14 +570,11 @@
   <string name="menu">תפריט</string>
   <string name="castling">הצרחה</string>
   <string name="whiteCastlingKingside">הצרחה קצרה לצד לבן</string>
-  <string name="whiteCastlingQueenside">הצרחה ארוכה לצד לבן</string>
   <string name="blackCastlingKingside">הצרחה קצרה לצד שחור</string>
-  <string name="blackCastlingQueenside">הצרחה ארוכה לצד שחור</string>
   <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
   <string name="watchGames">לצפות במשחקים</string>
   <string name="tpTimeSpentOnTV">: %s זמן בטלוויזיה</string>
   <string name="watch">צפה</string>
-  <string name="internationalEvents">אירועים בינלאומיים</string>
   <string name="videoLibrary">ספריית וידאו</string>
   <string name="mobileApp">אפליקציית מובייל</string>
   <string name="webmasters">מנהלי אתרים</string>
