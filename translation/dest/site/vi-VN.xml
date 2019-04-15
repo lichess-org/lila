@@ -601,9 +601,7 @@ trong %3$s</string>
   <string name="menu">Trình đơn</string>
   <string name="castling">Nhập thành</string>
   <string name="whiteCastlingKingside">Trắng O-O</string>
-  <string name="whiteCastlingQueenside">Trắng O-O-O</string>
   <string name="blackCastlingKingside">Đen O-O</string>
-  <string name="blackCastlingQueenside">Đen O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Bài Viết Diễn Đàn</item>
   </plurals>
@@ -611,7 +609,6 @@ trong %3$s</string>
   <string name="watchGames">Xem các ván đấu</string>
   <string name="tpTimeSpentOnTV">Thời gian xem Lichess TV: %s</string>
   <string name="watch">Xem</string>
-  <string name="internationalEvents">Các sự kiện quốc tế</string>
   <string name="videoLibrary">Thư viện video</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
   <string name="webmasters">Các quản trị</string>
