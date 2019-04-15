@@ -602,9 +602,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Putih 0-0</string>
-  <string name="whiteCastlingQueenside">Putih 0-0-0</string>
   <string name="blackCastlingKingside">Hitam 0-0</string>
-  <string name="blackCastlingQueenside">Hitam 0-0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Postingan Forum</item>
   </plurals>
@@ -612,7 +610,6 @@
   <string name="watchGames">Menonton permainan</string>
   <string name="tpTimeSpentOnTV">Waktu pada TV: %s</string>
   <string name="watch">Tonton</string>
-  <string name="internationalEvents">Turnamen Internasioal</string>
   <string name="videoLibrary">Pustaka Video</string>
   <string name="mobileApp">Aplikasi Mobile</string>
   <string name="webmasters">Webmaster</string>
