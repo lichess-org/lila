@@ -20,6 +20,7 @@
   &__content {
     grid-area: content;
     height: 100%;
+    overflow: hidden; /* fixes crazy text overflow on Fx */
   }
 
   &__content.box {
