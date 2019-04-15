@@ -629,9 +629,7 @@ in %3$s</string>
   <string name="menu">പട്ടിക</string>
   <string name="castling">കേസ്‌ലിങ്</string>
   <string name="whiteCastlingKingside">വെള്ള O-O</string>
-  <string name="whiteCastlingQueenside">വെള്ള O-O-O</string>
   <string name="blackCastlingKingside">കറുപ്പ് O-O</string>
-  <string name="blackCastlingQueenside">കറുപ്പ് O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">ഫോറം കുറിപ്പുകൾ %s</item>
     <item quantity="other">ഫോറം കുറിപ്പുകൾ %s</item>
@@ -640,7 +638,6 @@ in %3$s</string>
   <string name="watchGames">കളികൾ കാണാം</string>
   <string name="tpTimeSpentOnTV">ടീവിയിൽ സമയം: %s</string>
   <string name="watch">നോക്കാം</string>
-  <string name="internationalEvents">അന്താരാഷ്ട്ര പരമ്പരകൾ</string>
   <string name="videoLibrary">വീഡിയോ ശേഖരം</string>
   <string name="mobileApp">മൊബൈൽ ആപ്പ്</string>
   <string name="webmasters">വെബ് മാസ്റ്റേഴ്സ്</string>
