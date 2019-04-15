@@ -164,6 +164,9 @@
   <string name="ratingStats">Ratingstatistikk</string>
   <string name="username">Brukernavn</string>
   <string name="usernameOrEmail">Brukernavn eller e-post</string>
+  <string name="changeUsername">Endre brukernavn</string>
+  <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanormann\" til \"OlaNormann\".</string>
+  <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
   <string name="password">Passord</string>
   <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Bytt passord</string>
