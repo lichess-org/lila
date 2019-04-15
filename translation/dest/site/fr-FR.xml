@@ -635,9 +635,7 @@ en %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Blancs O-O</string>
-  <string name="whiteCastlingQueenside">Blancs O-O-O</string>
   <string name="blackCastlingKingside">Noirs O-O</string>
-  <string name="blackCastlingQueenside">Noirs O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s message posté</item>
     <item quantity="other">%s messages postés</item>
@@ -646,7 +644,6 @@ en %3$s</string>
   <string name="watchGames">Regarder les parties</string>
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
-  <string name="internationalEvents">Évènements internationaux</string>
   <string name="videoLibrary">Vidéothèque</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
