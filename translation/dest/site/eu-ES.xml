@@ -634,9 +634,7 @@
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>
   <string name="whiteCastlingKingside">Zuriak O-O</string>
-  <string name="whiteCastlingQueenside">Zuriak O-O-O</string>
   <string name="blackCastlingKingside">Beltzak O-O</string>
-  <string name="blackCastlingQueenside">Beltzak O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">Foroko mezu %s</item>
     <item quantity="other">Foroko %s mezu</item>
@@ -645,7 +643,6 @@
   <string name="watchGames">Partidak ikusi</string>
   <string name="tpTimeSpentOnTV">TV ikusten egondako denbora: %s</string>
   <string name="watch">Ikusi</string>
-  <string name="internationalEvents">Nazioarteko ekitaldiak</string>
   <string name="videoLibrary">Bideo-bilduma</string>
   <string name="mobileApp">Aplikazio mugikorra</string>
   <string name="webmasters">Web-orriko administratzaileak</string>
