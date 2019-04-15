@@ -1,9 +1,6 @@
 function parseFen($elem) {
-  if (!$elem || !$elem.jquery) {
-    $elem = $('.parse_fen');
-  }
   $elem.each(function() {
-    var $this = $(this).removeClass('parse_fen');
+    var $this = $(this).removeClass('parse-fen');
     var lm = $this.data('lastmove');
     var color = $this.data('color');
     var ground = $this.data('chessground');
