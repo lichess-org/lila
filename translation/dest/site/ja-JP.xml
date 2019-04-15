@@ -604,9 +604,7 @@
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
   <string name="whiteCastlingKingside">白　o-o</string>
-  <string name="whiteCastlingQueenside">白　o-o-o</string>
   <string name="blackCastlingKingside">黒　o-o</string>
-  <string name="blackCastlingQueenside">黒　o-o-o</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s フォーラム投稿</item>
   </plurals>
@@ -614,7 +612,6 @@
   <string name="watchGames">ゲームを見る</string>
   <string name="tpTimeSpentOnTV">TVに映った時間:%s</string>
   <string name="watch">見る</string>
-  <string name="internationalEvents">国際イベント</string>
   <string name="videoLibrary">チェスの動画集</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>
