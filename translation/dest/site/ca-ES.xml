@@ -632,9 +632,7 @@ en %3$s</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroc</string>
   <string name="whiteCastlingKingside">Blanques O-O</string>
-  <string name="whiteCastlingQueenside">Blanques O-O-O</string>
   <string name="blackCastlingKingside">Negres O-O</string>
-  <string name="blackCastlingQueenside">Negres O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Missatges al Fòrum</item>
     <item quantity="other">%s Missatges al Fòrum</item>
@@ -643,7 +641,6 @@ en %3$s</string>
   <string name="watchGames">Visualitza\'n les partides</string>
   <string name="tpTimeSpentOnTV">Temps pasat a la TV: %s</string>
   <string name="watch">Visualitza</string>
-  <string name="internationalEvents">Esdeveniments internacionals</string>
   <string name="videoLibrary">Col·lecció de vídeos</string>
   <string name="mobileApp">Aplicació mòbil</string>
   <string name="webmasters">Webmasters</string>
