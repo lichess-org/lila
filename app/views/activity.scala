@@ -1,7 +1,5 @@
 package views.html
 
-import play.twirl.api.Html
-
 import lidraughts.activity.activities._
 import lidraughts.activity.model._
 import lidraughts.api.Context
