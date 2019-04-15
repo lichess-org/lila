@@ -603,9 +603,7 @@
   <string name="menu">เมนู</string>
   <string name="castling">การเข้าป้อม</string>
   <string name="whiteCastlingKingside">ขาว O-O</string>
-  <string name="whiteCastlingQueenside">ขาว O-O-O</string>
   <string name="blackCastlingKingside">ดำ O-O</string>
-  <string name="blackCastlingQueenside">ดำ O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s โพสต์อภิปราย</item>
   </plurals>
@@ -613,7 +611,6 @@
   <string name="watchGames">รับชมเกม</string>
   <string name="tpTimeSpentOnTV">เวลาบน TV: %s</string>
   <string name="watch">รับชม</string>
-  <string name="internationalEvents">การแข่งขันนานาชาติ</string>
   <string name="videoLibrary">คลังวิดีโอ</string>
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>
