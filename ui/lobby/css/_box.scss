@@ -30,6 +30,7 @@
       padding: .5em .4em;
       border-top: $border;
       white-space: nowrap;
+      max-width: 168px; /* prevent leaderboard overflow due to long usernames */
     }
     tr:nth-child(even) {
       background: $c-bg-zebra;
