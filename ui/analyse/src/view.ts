@@ -247,7 +247,16 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   const pref = ctrl.data.pref.coords;
   if (!pref) return;
   if (v) li.loadCss(innerCoordsCss);
-  else if (pref === 2) li.unloadCss(innerCoordsCss);
+  else if (pref === 2) unloadCss(innerCoordsCss);
+}
+
+function unloadCss(url) {
+  if (li.loadedCss[url]) {
+    delete li.loadedCss[url];
+    $('head link[rel=stylesheet]')
+      .filter(function(this: HTMLLinkElement) { return this.href.includes(url) })
+      .remove();
+  }
 }
 
 let firstRender = true;
@@ -280,7 +289,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       },
       postpatch(old, vnode) {
         if (old.data!.gaugeOn !== gaugeOn) {
-          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+          li.dispatchEvent(document.body, 'chessground.resize');
         }
         vnode.data!.gaugeOn = gaugeOn;
       }
@@ -345,7 +354,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
         ctrl.opts.chat.parseMoves = true;
-        window.lichess.makeChat(ctrl.opts.chat);
+        li.makeChat(ctrl.opts.chat);
       })
     }),
     h('div.analyse__underchat', {

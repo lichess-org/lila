@@ -223,14 +223,6 @@ lichess.loadCss = function(url) {
   lichess.loadedCss[url] = true;
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 };
-lichess.unloadCss = function(url) {
-  if (lichess.loadedCss[url]) {
-    lichess.loadedCss[url]  = false;
-    $('head link[rel=stylesheet]')
-      .filter(function() { return this.href.includes(url) })
-      .remove();
-  }
-}
 lichess.loadCssPath = function(key) {
   lichess.loadCss('css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css');
 }
