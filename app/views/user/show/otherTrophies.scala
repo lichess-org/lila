@@ -12,7 +12,7 @@ import controllers.routes
 object otherTrophies {
 
   def apply(u: User, info: lila.app.mashup.UserInfo)(implicit ctx: Context) = frag(
-    info.allTrophies.filter(_.kind.klass.has("fire_trophy")).some.filter(_.nonEmpty) map { trophies =>
+    info.allTrophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
       div(cls := "stacked")(
         trophies.sorted.map { trophy =>
           trophy.kind.icon.map { iconChar =>

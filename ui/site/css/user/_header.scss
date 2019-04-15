@@ -35,6 +35,9 @@
     img {
       height: 80px;
     }
+    &.top1 {
+      filter: drop-shadow(0 0 6px $c-brag);
+    }
   }
   .stacked {
     height: 40px;
@@ -46,7 +49,7 @@
     height: 60px;
     font-size: 60px;
   }
-  .fire_trophy {
+  .fire-trophy {
     @extend %fire-trophy-shadow;
     color: $c-font-dim;
     opacity: 0.9;
@@ -136,6 +139,7 @@
     color: #333!important;
     text-shadow: 0 0 6px #fff;
     margin-top: -20px;
+    filter: drop-shadow(0 0 6px $c-brag);
   }
   .revol_trophy {
     background-image: url(../images/trophy/round-star.png);
