@@ -483,12 +483,9 @@
   <string name="menu">Մենյու</string>
   <string name="castling">Փոխատեղում</string>
   <string name="whiteCastlingKingside">Սպիտակները О-О</string>
-  <string name="whiteCastlingQueenside">Սպիտակները О-О-О</string>
   <string name="blackCastlingKingside">Սեւերը О-О</string>
-  <string name="blackCastlingQueenside">Սեւերը О-О-О</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
-  <string name="internationalEvents">Միջազգային իրադարձություննեռր</string>
   <string name="videoLibrary">Տեսագրադարան</string>
   <string name="webmasters">Վեբմաստեր</string>
   <string name="contact">Կապ</string>
