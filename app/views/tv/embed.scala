@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import views.html.base.layout.bits
+import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
@@ -13,15 +13,15 @@ object embed {
 
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(pov: lila.game.Pov, config: lila.app.ui.EmbedConfig)(implicit req: RequestHeader) = frag(
-    bits.doctype,
-    html(
+  def apply(pov: lila.game.Pov)(implicit config: lila.app.ui.EmbedConfig) = frag(
+    layout.doctype,
+    layout.htmlTag(config.lang)(
       head(
-        bits.charset,
-        bits.viewport,
-        bits.metaCsp(basicCsp),
+        layout.charset,
+        layout.viewport,
+        layout.metaCsp(basicCsp(config.req)),
         st.headTitle("lichess.org chess TV"),
-        bits.pieceSprite(lila.pref.PieceSet.default),
+        layout.pieceSprite(lila.pref.PieceSet.default),
         responsiveCssTagWithTheme("tv.embed", config.bg)
       ),
       body(

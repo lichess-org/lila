@@ -88,7 +88,7 @@ object Tv extends LilaController {
   def frame = Action.async { implicit req =>
     Env.tv.tv.getBestGame map {
       case None => NotFound
-      case Some(game) => Ok(views.html.tv.embed(Pov first game, ui.EmbedConfig(req)))
+      case Some(game) => Ok(views.html.tv.embed(Pov first game))
     }
   }
 }
