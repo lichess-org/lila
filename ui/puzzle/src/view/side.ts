@@ -65,16 +65,15 @@ export function userBox(ctrl: Controller) {
   let ratingHtml = data.user.rating;
   if (ctrl.vm.round) {
     let diff = ctrl.vm.round.ratingDiff,
-      klass = '';
-    if (diff >= 0) {
-      diff = '+' + diff;
-      if (diff > 0) klass = 'up';
-    } else if (diff === 0) diff = '+0';
-    else {
-      diff = '−' + (-diff);
-      klass = 'down';
+      tag = 'bad';
+    if (diff) {
+      if (diff > 0) {
+        diff = '+' + diff;
+        tag = 'good';
+      }
+      else diff = '−' + (-diff);
+      ratingHtml += ` <${tag} class="rp">${diff}</${tag}>`;
     }
-    ratingHtml += ' <span class="rp ' + klass + '">' + diff + '</span>';
   }
   const hash = ctrl.recentHash();
   return h('div.puzzle__side__user', [
