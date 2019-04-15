@@ -633,9 +633,7 @@ em %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Roque curto das Brancas</string>
-  <string name="whiteCastlingQueenside">Roque longo das Brancas</string>
   <string name="blackCastlingKingside">Roque curto das Pretas</string>
-  <string name="blackCastlingQueenside">Roque longo das Pretas</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Postagens no Forum</item>
     <item quantity="other">%s Postagens no Forum</item>
@@ -644,7 +642,6 @@ em %3$s</string>
   <string name="watchGames">Observar jogos</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Observar</string>
-  <string name="internationalEvents">Eventos Internacionais</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
