@@ -93,8 +93,27 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
 }
 
 export function toYouTubeEmbed(url: string): string | undefined {
-  const embedUrl = window.lichess.toYouTubeEmbedUrl(url);
+  const embedUrl = toYouTubeEmbedUrl(url);
   if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
+}
+
+function toYouTubeEmbedUrl(url) {
+  if (!url) return;
+  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
+  if (!m) return;
+  var start = 1;
+  m[2].split('&').forEach(function(p) {
+    var s = p.split('=');
+    if (s[0] === 't' || s[0] === 'start') {
+      if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
+      else {
+        var n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
+        start = (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0);
+      }
+    }
+  });
+  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 }
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;

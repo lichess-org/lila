@@ -20,7 +20,6 @@ interface Lichess {
     [key: string]: boolean;
   }
   escapeHtml(str: string): string
-  toYouTubeEmbedUrl(url: string): string
   debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   sound: any
   powertip: any
