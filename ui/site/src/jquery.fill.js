@@ -43,9 +43,7 @@
   };
   $.fn.animate = function(prop, speed, easing, callback) {
     $.fn.css(prop);
-    [speed, easing, callback].forEach(function(f) {
-      if ($.isFunction(f)) f();
-    });
+    if ($.isFunction(callback)) callback();
     return this;
   };
   $.fn.position = function() {
