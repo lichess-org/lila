@@ -1,7 +1,5 @@
 package views.html
 
-import play.twirl.api.Html
-
 import lila.activity.activities._
 import lila.activity.model._
 import lila.api.Context

@@ -14,7 +14,7 @@ object message {
     back: Boolean = true,
     icon: Option[String] = None,
     moreCss: Option[Frag] = None
-  )(message: Frag)(implicit ctx: Context) =
+  )(message: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss) {
       main(cls := "box box-pad")(
         h1(cls := List("text" -> icon.isDefined), dataIcon := icon)(title),
