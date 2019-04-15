@@ -632,9 +632,7 @@
   <string name="menu">Valikko</string>
   <string name="castling">Linnoitus</string>
   <string name="whiteCastlingKingside">Valkea O-O</string>
-  <string name="whiteCastlingQueenside">Valkea O-O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
-  <string name="blackCastlingQueenside">Musta O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s foorumiviesti</item>
     <item quantity="other">%s foorumiviestiä</item>
@@ -643,7 +641,6 @@
   <string name="watchGames">Katso pelejä</string>
   <string name="tpTimeSpentOnTV">Aika TV:ssä: %s</string>
   <string name="watch">Katso</string>
-  <string name="internationalEvents">Kansainväliset tapahtumat</string>
   <string name="videoLibrary">Videokirjasto</string>
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
