@@ -65,6 +65,7 @@ body {
     grid-row-gap: 0;
     &__underboard,
     &__side,
+    &__underchat,
     .mchat {
       margin-top: $block-gap;
     }
