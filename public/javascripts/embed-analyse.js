@@ -133,25 +133,5 @@ lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   opts.initialPly = 'url';
   opts.trans = lichess.trans(opts.i18n);
-  var container = opts.element.parentNode;
   LichessAnalyse.start(opts);
-
-  var onResize = function() {
-    var board = container.querySelector('.cg-board-wrap');
-    var ground = container.querySelector('.lichess_ground');
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    var boardSize = h - 26;
-    var gr = 1.618;
-    if (boardSize > w / gr) boardSize = w / gr;
-    var groundSize = Math.min(700, Math.max(120, w - boardSize));
-    board.style.width = boardSize + 'px';
-    board.style.height = boardSize + 'px';
-    ground.style.width = groundSize + 'px';
-    ground.style.maxWidth = groundSize + 'px';
-    ground.style.height = boardSize + 'px';
-    lichess.dispatchEvent(document.body, 'chessground.resize');
-  };
-  onResize();
-  window.addEventListener('resize', lichess.debounce(onResize, 500));
-};
+}

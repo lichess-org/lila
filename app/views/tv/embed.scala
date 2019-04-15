@@ -18,6 +18,7 @@ object embed {
     html(
       head(
         bits.charset,
+        bits.viewport,
         bits.metaCsp(basicCsp),
         st.headTitle("lichess.org chess TV"),
         bits.pieceSprite(lila.pref.PieceSet.default),

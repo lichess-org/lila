@@ -13,31 +13,24 @@ object embed {
 
   import views.html.base.layout.bits._
 
-  private def bodyClass(implicit ctx: Context) = List(
-    "base" -> true,
-    ctx.currentTheme.cssClass -> true,
-    (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true
-  )
-
   def apply(pov: lila.game.Pov, data: play.api.libs.json.JsObject)(implicit ctx: Context) = frag(
     doctype,
     htmlTag(ctx)(
       topComment,
       head(
         charset,
+        viewport,
         metaCsp(none),
-        st.headTitle(s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"),
-        // fontStylesheets, // use proper stylesheets instead
-        // currentBgCss,
-        cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
-        pieceSprite
+        st.headTitle(replay titleOf pov),
+        pieceSprite(lila.pref.PieceSet.default),
+        responsiveCssTag("analyse.round.embed")
       ),
-      body(cls := bodyClass ::: List(
-        "highlight" -> true,
+      body(cls := List(
+        s"highlight ${ctx.currentBg} ${ctx.currentTheme.cssClass}" -> true,
         "piece-letter" -> ctx.pref.pieceNotationIsLetter
       ))(
         div(cls := "is2d")(
-          div(cls := "embedded_analyse analyse cg-512")(miniBoardContent)
+          main(cls := "analyse")
         ),
         footer {
           val url = routes.Round.watcher(pov.gameId, pov.color.name)
@@ -57,7 +50,6 @@ object embed {
         analyseTag,
         jsTag("embed-analyse.js"),
         embedJs(s"""lichess.startEmbeddedAnalyse({
-element: document.querySelector('.embedded_analyse'),
 data: ${safeJsonValue(data)},
 embed: true,
 i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
@@ -72,14 +64,13 @@ i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = fals
       topComment,
       head(
         charset,
+        viewport,
         metaCsp(none),
         st.headTitle("404 - Game not found"),
-        // fontStylesheets, // use proper stylesheets instead
-        // currentBgCss,
-        cssTags("common.css", "analyse-embed.css")
+        responsiveCssTag("analyse.round.embed")
       ),
-      body(cls := bodyClass)(
-        div(cls := "not_found")(
+      body(cls := ctx.currentBg)(
+        div(cls := "not-found")(
           h1("Game not found")
         )
       )

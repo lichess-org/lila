@@ -138,11 +138,7 @@ object layout {
       ),
       st.body(
         cls := List(
-          "base" -> true,
-          ctx.currentBg -> true,
-          ctx.currentTheme.cssClass -> true,
-          ctx.currentTheme3d.cssClass -> true,
-          ctx.currentPieceSet3d.toString -> true,
+          s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString}" -> true,
           "piece-letter" -> ctx.pref.pieceNotationIsLetter,
           "zen" -> ctx.pref.isZen,
           "blind_mode" -> ctx.blind,

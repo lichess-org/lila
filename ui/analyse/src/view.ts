@@ -73,7 +73,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   return h('div.analyse__moves.areplay', [
-    renderChapterName(ctrl),
+    (ctrl.embed && ctrl.study) ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
     renderOpeningBox(ctrl),
     renderTreeView(ctrl, concealOf),
   ].concat(renderResult(ctrl)));
@@ -237,10 +237,6 @@ function renderOpeningBox(ctrl: AnalyseCtrl) {
   ]);
 }
 
-function renderChapterName(ctrl: AnalyseCtrl) {
-  if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
-}
-
 const innerCoordsCss = 'stylesheets/board.coords.inner.css';
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
@@ -326,7 +322,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       class: { 'comp-off': !ctrl.showComputer() },
       hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
-    h('div.analyse__acpl', [acplView(ctrl)]),
+    acplView(ctrl),
     ctrl.embed ? null : (
       ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) :
       h('aside.analyse__side', {
