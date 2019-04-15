@@ -634,9 +634,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvid O-O</string>
-  <string name="whiteCastlingQueenside">Hvid O-O-O</string>
   <string name="blackCastlingKingside">Sort O-O</string>
-  <string name="blackCastlingQueenside">Sort O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum-opslag</item>
     <item quantity="other">%s forum-opslag</item>
@@ -645,7 +643,6 @@
   <string name="watchGames">Se partier</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Se</string>
-  <string name="internationalEvents">Internationale begivenheder</string>
   <string name="videoLibrary">Video bibliotek</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>
