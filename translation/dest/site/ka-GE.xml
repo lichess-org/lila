@@ -598,9 +598,7 @@
   <string name="menu">მენიუ</string>
   <string name="castling">როქი</string>
   <string name="whiteCastlingKingside">თეთრების O-O</string>
-  <string name="whiteCastlingQueenside">თეთრების O-O-O</string>
   <string name="blackCastlingKingside">შავების O-O</string>
-  <string name="blackCastlingQueenside">შავების O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s გამოხმაურება ფორუმზე</item>
     <item quantity="other">%s გამოხმაურება ფორუმზე</item>
@@ -609,7 +607,6 @@
   <string name="watchGames">თამაშების თვალის მიდევნება</string>
   <string name="tpTimeSpentOnTV">თამაშების ყურებაში დახარჯული დრო: %s</string>
   <string name="watch">თვალის მიდევნება</string>
-  <string name="internationalEvents">საერთაშორისო ღონისძიებები</string>
   <string name="videoLibrary">ვიდეოთეკა</string>
   <string name="mobileApp">მობილური აპლიკაცია</string>
   <string name="webmasters">ვებმასტერები</string>
