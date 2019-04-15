@@ -532,9 +532,7 @@
   <string name="menu">Index</string>
   <string name="castling">Adroccare</string>
   <string name="whiteCastlingKingside">Albus O-O</string>
-  <string name="whiteCastlingQueenside">Albus O-O-O</string>
   <string name="blackCastlingKingside">Niger O-O</string>
-  <string name="blackCastlingQueenside">Niger O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Nuntii Fori</item>
     <item quantity="other">%s Nuntii Fori</item>
@@ -543,7 +541,6 @@
   <string name="watchGames">Spectare ludos</string>
   <string name="tpTimeSpentOnTV">Tempus in TV: %s</string>
   <string name="watch">Specta</string>
-  <string name="internationalEvents">Res internationales</string>
   <string name="videoLibrary">Libraria pellicularum</string>
   <string name="mobileApp">Programma portabile</string>
   <string name="webmasters">Dominus telae</string>
