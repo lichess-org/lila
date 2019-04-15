@@ -33,8 +33,8 @@ object Trophy {
       key = "wayOfBerserk",
       name = "The way of Berserk",
       icon = "`".some,
-      url = "//lidraughts.org/qa/340/way-of-berserk-trophy".some,
-      klass = "fire_trophy".some,
+      url = "//lichess.org/qa/340/way-of-berserk-trophy".some,
+      klass = "fire-trophy".some,
       order = 2
     )
 
@@ -43,7 +43,7 @@ object Trophy {
       name = "Marathon Winner",
       icon = "\\".some,
       url = none,
-      klass = "fire_trophy".some,
+      klass = "fire-trophy".some,
       order = 3
     )
 
@@ -52,7 +52,7 @@ object Trophy {
       name = "Marathon Top 10",
       icon = "\\".some,
       url = none,
-      klass = "fire_trophy".some,
+      klass = "fire-trophy".some,
       order = 4
     )
 
@@ -61,7 +61,7 @@ object Trophy {
       name = "Marathon Top 50",
       icon = "\\".some,
       url = none,
-      klass = "fire_trophy".some,
+      klass = "fire-trophy".some,
       order = 5
     )
 
@@ -70,7 +70,7 @@ object Trophy {
       name = "Marathon Top 100",
       icon = "\\".some,
       url = none,
-      klass = "fire_trophy".some,
+      klass = "fire-trophy".some,
       order = 6
     )
 
@@ -78,8 +78,8 @@ object Trophy {
       key = "marathonSurvivor",
       name = "Marathon #1 survivor",
       icon = ",".some,
-      url = "//lidraughts.org/blog/VXF45yYAAPQgLH4d/draughts-marathon-1".some,
-      klass = "fire_trophy".some,
+      url = "//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
+      klass = "fire-trophy".some,
       order = 7
     )
 
@@ -87,8 +87,8 @@ object Trophy {
       key = "bongcloudWarrior",
       name = "Bongcloud Warrior",
       icon = "~".some,
-      url = "//lidraughts.org/forum/lidraughts-feedback/bongcloud-trophy".some,
-      klass = "fire_trophy".some,
+      url = "//lichess.org/forum/lichess-feedback/bongcloud-trophy".some,
+      klass = "fire-trophy".some,
       order = 8
     )
 
