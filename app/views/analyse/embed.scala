@@ -47,8 +47,8 @@ object embed {
         jsTag("vendor/mousetrap.js"),
         jsAt("compiled/util.js"),
         jsAt("compiled/trans.js"),
+        jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        jsTag("embed-analyse.js"),
         embedJs(s"""lidraughts.startEmbeddedAnalyse({
 data: ${safeJsonValue(data)},
 embed: true,

@@ -66,7 +66,8 @@ object topic {
     // menu = categ.isStaff.option(mod.menu("forum")),
     moreJs = frag(
       jsTag("forum-post.js"),
-      jsTag("embed-analyse.js")
+      formWithCaptcha.isDefined option captchaTag,
+      jsAt("compiled/embed-analyse.js")
     ),
     moreCss = responsiveCssTag("forum"),
     openGraph = lidraughts.app.ui.OpenGraph(
