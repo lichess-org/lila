@@ -586,9 +586,7 @@
   <string name="menu">Цэс</string>
   <string name="castling">Ноён тэргийн байр солилт</string>
   <string name="whiteCastlingKingside">Цагаан O-O</string>
-  <string name="whiteCastlingQueenside">Цагаан O-O-O</string>
   <string name="blackCastlingKingside">Хар O-O</string>
-  <string name="blackCastlingQueenside">Хар O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Бичлэгийн тоо</item>
     <item quantity="other">%s Бичлэгийн тоо</item>
@@ -597,7 +595,6 @@
   <string name="watchGames">Өрөг үзэх</string>
   <string name="tpTimeSpentOnTV">Сувагт зарцуулсан хугацаа: %s</string>
   <string name="watch">Үзэх</string>
-  <string name="internationalEvents">Олон улсын тэмцээнүүд</string>
   <string name="videoLibrary">Бичлэгийн сан</string>
   <string name="mobileApp">Гар утасны програм</string>
   <string name="webmasters">Цахим хуудсыг хөгжүүлэгчид</string>
