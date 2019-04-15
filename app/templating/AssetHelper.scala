@@ -7,7 +7,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ AssetVersion, ContentSecurityPolicy }
+import lila.common.{ Nonce, AssetVersion, ContentSecurityPolicy }
 
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
@@ -135,4 +135,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def embedJs(js: Frag)(implicit ctx: Context): Frag = embedJsUnsafe(js.render)
   def embedJs(js: String)(implicit ctx: Context): Frag = embedJsUnsafe(js)
+
+  def embedJs(js: String, nonce: Nonce): Frag = raw {
+    s"""<script nonce="$nonce">$js</script>"""
+  }
 }

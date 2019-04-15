@@ -147,12 +147,12 @@ object User extends LilaController {
     }
   }
 
-  def online = Open { implicit req =>
+  def online = Action.async { implicit req =>
     val max = 50
     negotiate(
-      html = notFound,
+      html = notFoundJson(),
       api = _ => env.cached.getTop50Online map { list =>
-        Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
+        Ok(Json.toJson(list.take(getInt("nb", req).fold(10)(_ min max)).map(env.jsonView(_))))
       }
     )
   }

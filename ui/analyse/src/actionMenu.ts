@@ -94,7 +94,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       'data-icon': '4'
     }
   }, ctrl.trans.noarg('openStudy'));
-  if (ctrl.study || ctrl.ongoing) return;
+  if (ctrl.study || ctrl.ongoing || ctrl.embed) return;
   return h('form', {
     attrs: {
       method: 'post',

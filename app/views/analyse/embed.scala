@@ -1,10 +1,13 @@
 package views.html.analyse
 
-import play.api.libs.json.Json
+import play.api.libs.json.JsObject
+import play.api.mvc.RequestHeader
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.Lang
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
@@ -12,22 +15,22 @@ import controllers.routes
 object embed {
 
   import views.html.base.layout.bits._
+  import EmbedConfig.implicits._
 
-  def apply(pov: lila.game.Pov, data: play.api.libs.json.JsObject)(implicit ctx: Context) = frag(
+  def apply(pov: lila.game.Pov, data: JsObject)(implicit config: EmbedConfig) = frag(
     doctype,
-    htmlTag(ctx)(
+    htmlTag(config.lang)(
       topComment,
       head(
         charset,
         viewport,
-        metaCsp(none),
+        metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(replay titleOf pov),
         pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTag("analyse.round.embed")
+        responsiveCssTagWithTheme("analyse.round.embed", config.bg)
       ),
       body(cls := List(
-        s"highlight ${ctx.currentBg} ${ctx.currentTheme.cssClass}" -> true,
-        "piece-letter" -> ctx.pref.pieceNotationIsLetter
+        s"highlight ${config.bg} ${config.board}" -> true
       ))(
         div(cls := "is2d")(
           main(cls := "analyse")
@@ -53,23 +56,23 @@ object embed {
 data: ${safeJsonValue(data)},
 embed: true,
 i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
-});""")
+});""", config.nonce)
       )
     )
   )
 
-  def notFound()(implicit ctx: Context) = frag(
+  def notFound(implicit config: EmbedConfig) = frag(
     doctype,
-    htmlTag(ctx)(
+    htmlTag(config.lang)(
       topComment,
       head(
         charset,
         viewport,
-        metaCsp(none),
+        metaCsp(basicCsp),
         st.headTitle("404 - Game not found"),
-        responsiveCssTag("analyse.round.embed")
+        responsiveCssTagWithTheme("analyse.round.embed", "dark")
       ),
-      body(cls := ctx.currentBg)(
+      body(cls := "dark")(
         div(cls := "not-found")(
           h1("Game not found")
         )

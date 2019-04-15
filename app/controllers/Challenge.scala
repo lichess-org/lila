@@ -93,7 +93,6 @@ object Challenge extends LilaController {
     cond ?? {
       GameRepo.game(c.id).map {
         _ map { game =>
-          implicit val req = ctx.req
           LilaCookie.cookie(
             AnonCookie.name,
             game.player(if (owner) c.finalColor else !c.finalColor).id,

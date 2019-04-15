@@ -42,13 +42,12 @@ object Auth extends LilaController {
   }
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
-    implicit val req = ctx.req
     if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
     else api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
           val redirectTo = get("referrer").filter(goodReferrer) orElse
-            req.session.get(api.AccessUri) getOrElse
+            ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home.url
           result.fold(Redirect(redirectTo))(_(redirectTo))
         },
@@ -118,8 +117,7 @@ object Auth extends LilaController {
   }
 
   def logout = Open { implicit ctx =>
-    implicit val req = ctx.req
-    req.session get "sessionId" foreach lila.security.Store.delete
+    ctxReq.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
       html = Redirect(routes.Main.mobile).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
@@ -128,11 +126,10 @@ object Auth extends LilaController {
 
   // mobile app BC logout with GET
   def logoutGet = Open { implicit ctx =>
-    implicit val req = ctx.req
     negotiate(
       html = notFound,
       api = _ => {
-        req.session get "sessionId" foreach lila.security.Store.delete
+        ctxReq.session get "sessionId" foreach lila.security.Store.delete
         Ok(Json.obj("ok" -> true)).withCookies(LilaCookie.newSession).fuccess
       }
     )
@@ -317,7 +314,6 @@ object Auth extends LilaController {
   }
 
   private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
-    implicit val req = ctx.req
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,

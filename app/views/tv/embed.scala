@@ -13,7 +13,7 @@ object embed {
 
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(pov: lila.game.Pov, bg: String, board: String)(implicit req: RequestHeader) = frag(
+  def apply(pov: lila.game.Pov, config: lila.app.ui.EmbedConfig)(implicit req: RequestHeader) = frag(
     bits.doctype,
     html(
       head(
@@ -22,10 +22,10 @@ object embed {
         bits.metaCsp(basicCsp),
         st.headTitle("lichess.org chess TV"),
         bits.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("tv.embed", bg)
+        responsiveCssTagWithTheme("tv.embed", config.bg)
       ),
       body(
-        cls := s"base $board merida",
+        cls := s"base ${config.board}",
         dataStreamUrl := routes.Tv.feed
       )(
           div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(

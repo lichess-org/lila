@@ -3,7 +3,7 @@ package views.html.base
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.ContentSecurityPolicy
+import lila.common.{ Lang, ContentSecurityPolicy }
 
 import controllers.routes
 
@@ -11,7 +11,7 @@ object layout {
 
   object bits {
     val doctype = raw("<!doctype html>")
-    def htmlTag(implicit ctx: Context) = html(st.lang := ctx.lang.language)
+    def htmlTag(implicit lang: Lang) = html(st.lang := lang.language)
     val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
     val charset = raw("""<meta charset="utf-8">""")
     val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
@@ -105,7 +105,7 @@ object layout {
     wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context) = frag(
     doctype,
-    htmlTag(ctx)(
+    htmlTag(ctx.lang)(
       topComment,
       head(
         charset,

@@ -6,6 +6,7 @@ import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.Lang
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
@@ -13,7 +14,7 @@ import controllers.routes
 
 object replay {
 
-  private[analyse] def titleOf(pov: Pov)(implicit ctx: Context) =
+  private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   def apply(

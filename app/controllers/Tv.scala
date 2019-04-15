@@ -79,9 +79,8 @@ object Tv extends LilaController {
   /* for BC */
   def embed = Action { req =>
     Ok {
-      val bg = get("bg", req) | "light"
-      val theme = get("theme", req) | "brown"
-      val url = s"""${req.domain + routes.Tv.frame}?bg=$bg&theme=$theme"""
+      val config = ui.EmbedConfig(req)
+      val url = s"""${req.domain + routes.Tv.frame}?bg=${config.bg}&theme=${config.board}"""
       s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-tv-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
@@ -89,11 +88,7 @@ object Tv extends LilaController {
   def frame = Action.async { implicit req =>
     Env.tv.tv.getBestGame map {
       case None => NotFound
-      case Some(game) => Ok(views.html.tv.embed(
-        Pov first game,
-        get("bg", req) | "light",
-        lila.pref.Theme(~get("theme", req)).cssClass
-      ))
+      case Some(game) => Ok(views.html.tv.embed(Pov first game, ui.EmbedConfig(req)))
     }
   }
 }
