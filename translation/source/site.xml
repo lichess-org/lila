@@ -648,7 +648,7 @@ One URL per line</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
-  <string name="biographyDescription">Tell about you, what you like in draughts, your favourite openings, games, players…</string>
+  <string name="biographyDescription">Talk about yourself, your interests, what you like in draughts, your favorite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
@@ -657,7 +657,7 @@ One URL per line</string>
     <item quantity="one">%s block</item>
     <item quantity="other">%s blocks</item>
   </plurals>
-  <string name="listBlockedPlayers">List players that you have blocked</string>
+  <string name="listBlockedPlayers">List players you have blocked</string>
   <string name="human">Human</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
@@ -699,7 +699,6 @@ One URL per line</string>
   <string name="watchGames">Watch games</string>
   <string name="tpTimeSpentOnTV">Time on TV: %s</string>
   <string name="watch">Watch</string>
-  <string name="internationalEvents">International events</string>
   <string name="videoLibrary">Video library</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
