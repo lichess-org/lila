@@ -636,9 +636,7 @@ i %3$s</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Kvit O-O</string>
-  <string name="whiteCastlingQueenside">Kvit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
-  <string name="blackCastlingQueenside">Svart O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s foruminnlegg</item>
     <item quantity="other">%s foruminnlegg</item>
@@ -647,7 +645,6 @@ i %3$s</string>
   <string name="watchGames">Sjå parti</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Sjå</string>
-  <string name="internationalEvents">Internasjonale hendingar</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webadministratorar</string>
