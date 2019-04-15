@@ -47,7 +47,7 @@ $(function() {
   };
 
   var expandYoutube = function(a) {
-    var $iframe = $('<iframe>').addClass('video ' + a.type).attr('src', a.src);
+    var $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   };
