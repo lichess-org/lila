@@ -268,14 +268,13 @@ export default function(ctrl: AnalyseCtrl): VNode {
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
     menuIsOpen = ctrl.actionMenu.open,
     chapter = study && study.data.chapter,
-    studyStateClass = chapter ? chapter.id + study!.vm.loading : 'nostudy',
     gamebookPlay = ctrl.gamebookPlay(),
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     playerBars = renderPlayerBars(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars;
-  return h('main.analyse.' + studyStateClass, {
+  return h('main.analyse' + (chapter ? '.' + chapter.id + study!.vm.loading : ''), {
     hook: {
       insert: _ => {
         if (firstRender) {

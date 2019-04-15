@@ -21,6 +21,7 @@ export default function(cfg: AnalyseOpts) {
       }
     });
   cfg.$side = $('.analyse__side').clone();
+  cfg.$underboard = $('.analyse__underboard').clone();
   cfg.trans = li.trans(cfg.i18n);
   cfg.initialPly = 'url';
   cfg.socketSend = li.socket.send;

@@ -5,7 +5,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   const li = window.lichess;
 
-  $(element).replaceWith($('.analyse__underboard.none').removeClass('none'));
+  $(element).replaceWith(ctrl.opts.$underboard!);
 
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),

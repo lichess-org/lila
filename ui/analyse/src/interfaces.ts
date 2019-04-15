@@ -112,7 +112,8 @@ export interface AnalyseOpts {
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
-  $side: JQuery;
+  $side?: JQuery;
+  $underboard?: JQuery;
   i18n: any;
   chat: any;
 }
