@@ -632,9 +632,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Pag-enrock</string>
   <string name="whiteCastlingKingside">Puti O-O</string>
-  <string name="whiteCastlingQueenside">Puti O-O-O</string>
   <string name="blackCastlingKingside">Itim O-O</string>
-  <string name="blackCastlingQueenside">Itim O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post ng forum</item>
     <item quantity="other">%s mga post ng forum</item>
@@ -643,7 +641,6 @@
   <string name="watchGames">Manood ng mga laro</string>
   <string name="tpTimeSpentOnTV">Oras sa TV: %s</string>
   <string name="watch">Manood</string>
-  <string name="internationalEvents">Internasyonal na mga pangyayari</string>
   <string name="videoLibrary">Lalagyan ng mga Video</string>
   <string name="mobileApp">Aplikasyon sa Mobile</string>
   <string name="webmasters">Webmasters</string>
