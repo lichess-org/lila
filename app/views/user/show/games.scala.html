@@ -4,6 +4,7 @@
 
 @evenMoreJs = {
 @if(filters.current.name == "search") {
+@nonAsyncFlatpickrTag
 @jsTag("search.js")
 }
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {

@@ -49,9 +49,9 @@ form.search .half select {
 }
 
 form.search .half .flatpickr {
-  width: 74.93%; /* this will make the date picker just as large as the select */
+  width: 70%; /* this will make the date picker just as large as the select */
   border: 1px solid rgb(169, 169, 169);
-  padding: 0.5% 1%;
+  display: inline-block;
 }
 
 form.search input.submit {
