@@ -632,9 +632,7 @@
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>
   <string name="whiteCastlingKingside">Beyaz O-O</string>
-  <string name="whiteCastlingQueenside">Beyaz O-O-O</string>
   <string name="blackCastlingKingside">Siyah O-O</string>
-  <string name="blackCastlingQueenside">Siyah O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum Mesajları</item>
     <item quantity="other">%s Forum Mesajları</item>
@@ -643,7 +641,6 @@
   <string name="watchGames">Oyunları izle</string>
   <string name="tpTimeSpentOnTV">TV\'de izlenme süresi: %s</string>
   <string name="watch">İzle</string>
-  <string name="internationalEvents">Uluslararası karşılaşmalar</string>
   <string name="videoLibrary">Video kütüphanesi</string>
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>
