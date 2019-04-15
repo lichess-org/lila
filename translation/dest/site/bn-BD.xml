@@ -633,9 +633,7 @@
   <string name="menu">মেনু</string>
   <string name="castling">কাস্টেলিং</string>
   <string name="whiteCastlingKingside">সাদা O-O</string>
-  <string name="whiteCastlingQueenside">সাদা O-O-O</string>
   <string name="blackCastlingKingside">কালো O-O</string>
-  <string name="blackCastlingQueenside">কালো O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s ফোরাম পোষ্ট</item>
     <item quantity="other">%s ফোরাম পোষ্ট</item>
@@ -644,7 +642,6 @@
   <string name="watchGames">খেলাগুলো দেখুন</string>
   <string name="tpTimeSpentOnTV">টিভির সময়: %s</string>
   <string name="watch">দেখুন</string>
-  <string name="internationalEvents">আন্তর্জাতিক ঘটনাগুলো</string>
   <string name="videoLibrary">ভিডিও লাইব্রেরি</string>
   <string name="mobileApp">মোবাইল অ্যাপ</string>
   <string name="webmasters">ওয়েবমাস্টারগুলো</string>
