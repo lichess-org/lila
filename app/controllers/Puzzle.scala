@@ -295,7 +295,7 @@ object Puzzle extends LidraughtsController {
   def frame = Action.async { implicit req =>
     env.daily.get map {
       case None => NotFound
-      case Some(daily) => html.puzzle.embed(daily)(ui.EmbedConfig(req))
+      case Some(daily) => html.puzzle.embed(daily)
     }
   }
 }

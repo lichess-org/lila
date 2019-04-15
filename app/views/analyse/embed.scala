@@ -9,24 +9,23 @@ import lidraughts.app.ui.EmbedConfig
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.Lang
 import lidraughts.common.String.html.safeJsonValue
+import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
 object embed {
 
-  import views.html.base.layout.bits._
   import EmbedConfig.implicits._
 
   def apply(pov: lidraughts.game.Pov, data: JsObject)(implicit config: EmbedConfig) = frag(
-    doctype,
-    htmlTag(config.lang)(
-      topComment,
+    layout.doctype,
+    layout.htmlTag(config.lang)(
       head(
-        charset,
-        viewport,
-        metaCsp(basicCsp withNonce config.nonce),
+        layout.charset,
+        layout.viewport,
+        layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(replay titleOf pov),
-        pieceSprite(lidraughts.pref.PieceSet.default),
+        layout.pieceSprite(lidraughts.pref.PieceSet.default),
         responsiveCssTagWithTheme("analyse.round.embed", config.bg)
       ),
       body(cls := List(
@@ -62,13 +61,12 @@ i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = fals
   )
 
   def notFound(implicit config: EmbedConfig) = frag(
-    doctype,
-    htmlTag(config.lang)(
-      topComment,
+    layout.doctype,
+    layout.htmlTag(config.lang)(
       head(
-        charset,
-        viewport,
-        metaCsp(basicCsp),
+        layout.charset,
+        layout.viewport,
+        layout.metaCsp(basicCsp),
         st.headTitle("404 - Game not found"),
         responsiveCssTagWithTheme("analyse.round.embed", "dark")
       ),

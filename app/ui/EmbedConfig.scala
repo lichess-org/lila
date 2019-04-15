@@ -15,7 +15,7 @@ object EmbedConfig {
   }
 
   def apply(req: RequestHeader): EmbedConfig = EmbedConfig(
-    bg = get("bg", req) | "light",
+    bg = get("bg", req).filterNot("auto" ==) | "light",
     board = lidraughts.pref.Theme(~get("theme", req)).cssClass,
     lang = lidraughts.i18n.I18nLangPicker(req, none),
     req = req,

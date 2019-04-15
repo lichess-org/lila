@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import views.html.base.layout.bits
+import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
@@ -13,15 +13,15 @@ object embed {
 
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(pov: lidraughts.game.Pov, config: lidraughts.app.ui.EmbedConfig)(implicit req: RequestHeader) = frag(
-    bits.doctype,
-    html(
+  def apply(pov: lidraughts.game.Pov)(implicit config: lidraughts.app.ui.EmbedConfig) = frag(
+    layout.doctype,
+    layout.htmlTag(config.lang)(
       head(
-        bits.charset,
-        bits.viewport,
-        bits.metaCsp(basicCsp),
+        layout.charset,
+        layout.viewport,
+        layout.metaCsp(basicCsp(config.req)),
         st.headTitle("lidraughts.org draughts TV"),
-        bits.pieceSprite(lidraughts.pref.PieceSet.default),
+        layout.pieceSprite(lidraughts.pref.PieceSet.default),
         responsiveCssTagWithTheme("tv.embed", config.bg)
       ),
       body(
