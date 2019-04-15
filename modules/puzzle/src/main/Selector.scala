@@ -43,9 +43,11 @@ private[puzzle] final class Selector(
   private def newPuzzleForUser(user: User, variant: Variant, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle(variant).intRating min 2300 max 900
     val step = toleranceStepFor(rating)
+    val skipMax = if (variant.frisian) 40 else 80
+    val idStep = if (variant.frisian) 20 else 40
     api.puzzle.cachedLastId(variant).get flatMap { maxId =>
       val lastId = headOption match {
-        case Some(PuzzleHead(_, _, l)) if l < maxId - 80 => l //original - 500
+        case Some(PuzzleHead(_, _, l)) if l < maxId - skipMax => l //original - 500
         case _ => puzzleIdMin
       }
       tryRange(
@@ -53,7 +55,7 @@ private[puzzle] final class Selector(
         rating = rating,
         tolerance = step,
         step = step,
-        idRange = Range(lastId, lastId + 40) //original + 200
+        idRange = Range(lastId, lastId + idStep) //original + 200
       )
     }
   }
@@ -80,7 +82,7 @@ private final object Selector {
 
   val toleranceMax = 1000
 
-  val anonSkipMax: Map[Variant, Int] = Map(Standard -> 500, Frisian -> 1)
+  val anonSkipMax: Map[Variant, Int] = Map(Standard -> 500, Frisian -> 250)
 
   def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {
