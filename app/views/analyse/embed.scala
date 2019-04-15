@@ -3,11 +3,9 @@ package views.html.analyse
 import play.api.libs.json.JsObject
 import play.api.mvc.RequestHeader
 
-import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.EmbedConfig
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.Lang
 import lidraughts.common.String.html.safeJsonValue
 import views.html.base.layout.{ bits => layout }
 
@@ -26,7 +24,7 @@ object embed {
         layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(replay titleOf pov),
         layout.pieceSprite(lidraughts.pref.PieceSet.default),
-        responsiveCssTagWithTheme("analyse.round.embed", config.bg)
+        responsiveCssTagWithTheme("analyse.embed", config.bg)
       ),
       body(cls := List(
         s"highlight ${config.bg} ${config.board}" -> true

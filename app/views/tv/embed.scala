@@ -2,7 +2,6 @@ package views.html.tv
 
 import play.api.mvc.RequestHeader
 
-import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import views.html.base.layout.{ bits => layout }

@@ -317,7 +317,7 @@ object Study extends LidraughtsController {
   }
 
   private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
-    fuccess(NotFound(html.study.embed.notFound()))
+    fuccess(NotFound(html.study.embed.notFound))
 
   def cloneStudy(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.api.byId(id)) { study =>
