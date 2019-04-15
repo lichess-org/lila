@@ -635,9 +635,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="menu">Menýu</string>
   <string name="castling">Rakirowka</string>
   <string name="whiteCastlingKingside">Aklar O-O</string>
-  <string name="whiteCastlingQueenside">Aklar O-O-O</string>
   <string name="blackCastlingKingside">Garalar O-O</string>
-  <string name="blackCastlingQueenside">Garalar O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum neşiri</item>
     <item quantity="other">%s forum neşiri</item>
@@ -646,7 +644,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="watchGames">Oýunlara tomaşa et</string>
   <string name="tpTimeSpentOnTV">TW-de geçirlen wagt: %s</string>
   <string name="watch">Tomaşa et</string>
-  <string name="internationalEvents">Halkara wakalar</string>
   <string name="videoLibrary">Wideolar ambary</string>
   <string name="mobileApp">Mobil goýma</string>
   <string name="webmasters">Web ussatlary</string>
