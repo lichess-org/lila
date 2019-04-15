@@ -1,10 +1,9 @@
 footer {
   @extend  %flex-center-nowrap, %metal;
   font-size: .9em;
-  display: flex;
   border: $border;
   border-top: none;
-  height: 3rem;
+  height: 2.5rem;
   padding: 0 2vw;
   .left {
     @extend %nowrap-hidden;

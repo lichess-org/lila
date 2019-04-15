@@ -3,11 +3,9 @@ package views.html.analyse
 import play.api.libs.json.JsObject
 import play.api.mvc.RequestHeader
 
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.Lang
 import lila.common.String.html.safeJsonValue
 import views.html.base.layout.{ bits => layout }
 
@@ -26,7 +24,7 @@ object embed {
         layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(replay titleOf pov),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("analyse.round.embed", config.bg)
+        responsiveCssTagWithTheme("analyse.embed", config.bg)
       ),
       body(cls := List(
         s"highlight ${config.bg} ${config.board}" -> true
