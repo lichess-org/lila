@@ -12,7 +12,7 @@
   </strong>
   <ul>
     @charges.map { c =>
-    <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date)</li>
+    <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date).toHtml</li>
     }
   </ul>
   <br>
