@@ -627,9 +627,7 @@
   <string name="menu">मेनू</string>
   <string name="castling">केस्लिंग</string>
   <string name="whiteCastlingKingside">सफ़ेद O-O</string>
-  <string name="whiteCastlingQueenside">काला O-O-O</string>
   <string name="blackCastlingKingside">काला O-O</string>
-  <string name="blackCastlingQueenside">काला O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s जनसभा (फोरम) ब्योरे (पोस्ट्स)</item>
     <item quantity="other">%s जनसभा (फोरम) ब्योरे (पोस्ट्स)</item>
@@ -638,7 +636,6 @@
   <string name="watchGames">खेल देखें</string>
   <string name="tpTimeSpentOnTV">TV पर समय: %s</string>
   <string name="watch">देखें</string>
-  <string name="internationalEvents">अंतर्राष्ट्रीय खेल</string>
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
   <string name="mobileApp">मोबाइल ऐप्प</string>
   <string name="webmasters">वेबमास्टर्स</string>
