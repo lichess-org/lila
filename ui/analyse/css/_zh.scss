@@ -21,10 +21,4 @@ $pocket-height: 60px;
     'uchat   . under under . controls'
     'uchat   . under under . acpl';
   }
-  @include breakpoint($mq-col2-uniboard) {
-    &__tools {
-      margin-top: #{-$block-gap};
-      margin-bottom: #{-$block-gap};
-    }
-  }
 }
