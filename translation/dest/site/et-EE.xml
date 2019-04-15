@@ -633,9 +633,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="menu">Menüü</string>
   <string name="castling">Vangerdus</string>
   <string name="whiteCastlingKingside">Valge O-O</string>
-  <string name="whiteCastlingQueenside">Valge O-O-O</string>
   <string name="blackCastlingKingside">Must O-O</string>
-  <string name="blackCastlingQueenside">Must O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foorumi postitused</item>
     <item quantity="other">%s Foorumi postitused</item>
@@ -644,7 +642,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="watchGames">Vaata mänge</string>
   <string name="tpTimeSpentOnTV">Aeg kulutatud TV: %s</string>
   <string name="watch">Vaata</string>
-  <string name="internationalEvents">Rahvusvahelised sündmused</string>
   <string name="videoLibrary">Videod</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>
