@@ -690,9 +690,7 @@ v %3$s</string>
   <string name="menu">Meni</string>
   <string name="castling">Rokada</string>
   <string name="whiteCastlingKingside">Beli O-O</string>
-  <string name="whiteCastlingQueenside">Beli O-O-O</string>
   <string name="blackCastlingKingside">Črni O-O</string>
-  <string name="blackCastlingQueenside">Črni O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s zapis na forumu</item>
     <item quantity="two">%s zapisa na forumu</item>
@@ -703,7 +701,6 @@ v %3$s</string>
   <string name="watchGames">Glej partije</string>
   <string name="tpTimeSpentOnTV">Čas na TV: %s</string>
   <string name="watch">Glej</string>
-  <string name="internationalEvents">Mednarodni turnirji</string>
   <string name="videoLibrary">Videoteka</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Razvijalci</string>
