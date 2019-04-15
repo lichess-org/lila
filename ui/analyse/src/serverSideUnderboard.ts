@@ -6,7 +6,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   const li = window.lidraughts;
 
-  $(element).replaceWith($('.analyse__underboard.none').removeClass('none'));
+  $(element).replaceWith(ctrl.opts.$underboard!);
 
   const data = ctrl.data,
     maxNodes = 200, // no analysis beyond ply 200
