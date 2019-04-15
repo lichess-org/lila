@@ -692,9 +692,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
-  <string name="whiteCastlingQueenside">Białe O-O-O</string>
   <string name="blackCastlingKingside">Czarne O-O</string>
-  <string name="blackCastlingQueenside">Czarne O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
@@ -705,7 +703,6 @@
   <string name="watchGames">Oglądaj partie</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
-  <string name="internationalEvents">Turnieje międzynarodowe</string>
   <string name="videoLibrary">Wideoteka</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
