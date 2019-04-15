@@ -631,9 +631,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Rokeren</string>
   <string name="whiteCastlingKingside">Wit O-O</string>
-  <string name="whiteCastlingQueenside">Wit O-O-O</string>
   <string name="blackCastlingKingside">Zwart O-O</string>
-  <string name="blackCastlingQueenside">Zwart O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forumbericht</item>
     <item quantity="other">%s Forumberichten</item>
@@ -642,7 +640,6 @@
   <string name="watchGames">Bekijk partijen</string>
   <string name="tpTimeSpentOnTV">Tijd op TV: %s</string>
   <string name="watch">Kijken</string>
-  <string name="internationalEvents">Internationale toernooien</string>
   <string name="videoLibrary">Videobibliotheek</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="webmasters">Webmasters</string>
