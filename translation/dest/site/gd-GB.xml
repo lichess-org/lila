@@ -378,14 +378,11 @@
   <string name="onlyFriends">Caraidean a-mhàin</string>
   <string name="menu">Clàr-taice</string>
   <string name="whiteCastlingKingside">Geal O-O</string>
-  <string name="whiteCastlingQueenside">Geal O-O-O</string>
   <string name="blackCastlingKingside">Dubh O-O</string>
-  <string name="blackCastlingQueenside">Dubh O-O-O</string>
   <string name="tpTimeSpentPlaying">Ùine a\' cluich: %s</string>
   <string name="watchGames">Coimhead geamannan</string>
   <string name="tpTimeSpentOnTV">Ùine air tbh: %s</string>
   <string name="watch">Coimhead</string>
-  <string name="internationalEvents">Tachartasan eadar-nàiseanta</string>
   <string name="videoLibrary">Cruinneachadh bhidiothan</string>
   <string name="mobileApp">Aplacaid mobile</string>
   <string name="webmasters">Maighstirean-lìn</string>
