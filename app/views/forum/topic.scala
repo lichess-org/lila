@@ -65,7 +65,8 @@ object topic {
     title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
     moreJs = frag(
       jsTag("forum-post.js"),
-      jsTag("embed-analyse.js")
+      formWithCaptcha.isDefined option captchaTag,
+      jsAt("compiled/embed-analyse.js")
     ),
     moreCss = responsiveCssTag("forum"),
     openGraph = lila.app.ui.OpenGraph(

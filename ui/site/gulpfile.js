@@ -108,7 +108,7 @@ const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdo
 });
 
 const standalonesJs = () => gulp.src([
-  'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js'
+  'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
   .pipe(uglify())

@@ -20,7 +20,10 @@ object thread {
     views.html.base.layout(
       title = thread.name,
       moreCss = responsiveCssTag("message"),
-      moreJs = frag(jsTag("message.js"), jsTag("embed-analyse.js"))
+      moreJs = frag(
+        jsTag("message.js"),
+        jsAt("compiled/embed-analyse.js")
+      )
     ) {
         main(cls := List(
           "message-thread box box-pad" -> true,

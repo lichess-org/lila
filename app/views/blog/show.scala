@@ -11,7 +11,7 @@ object show {
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     bits.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
-      moreJs = jsTag("embed-analyse.js"),
+      moreJs = jsAt("compiled/embed-analyse.js"),
       openGraph = lila.app.ui.OpenGraph(
         `type` = "article",
         image = doc.getImage("blog.image", "main").map(_.url),

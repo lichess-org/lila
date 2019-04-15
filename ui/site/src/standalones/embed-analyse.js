@@ -1,3 +1,22 @@
+function toYouTubeEmbedUrl(url) {
+  if (!url) return;
+  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
+  if (!m) return;
+  var start = 1;
+  m[2].split('&').forEach(function(p) {
+    var s = p.split('=');
+    if (s[0] === 't' || s[0] === 'start') {
+      if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
+      else {
+        var n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
+        start = (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0);
+      }
+    }
+  });
+  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
+}
+
 $(function() {
 
   var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
@@ -5,7 +24,7 @@ $(function() {
   var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
   var parseLink = function(a) {
-    var yt = lichess.toYouTubeEmbedUrl(a.href);
+    var yt = toYouTubeEmbedUrl(a.href);
     if (yt) return {
       type: 'youtube',
       src: yt
