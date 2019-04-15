@@ -629,9 +629,7 @@ ne %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Rrokada</string>
   <string name="whiteCastlingKingside">I bardhi O-O</string>
-  <string name="whiteCastlingQueenside">I bardhi O-O-O</string>
   <string name="blackCastlingKingside">I ziu O-O</string>
-  <string name="blackCastlingQueenside">I ziu O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Postime në Forum</item>
     <item quantity="other">%s Postime në Forum</item>
@@ -640,7 +638,6 @@ ne %3$s</string>
   <string name="watchGames">Shiko lojërat</string>
   <string name="tpTimeSpentOnTV">Koha në TV: %s</string>
   <string name="watch">Shiko</string>
-  <string name="internationalEvents">Ngjarje ndërkombëtare</string>
   <string name="videoLibrary">Videoteka</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>
