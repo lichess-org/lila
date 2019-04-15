@@ -240,6 +240,10 @@
     <item quantity="one">%s draw</item>
     <item quantity="other">%s draws</item>
   </plurals>
+  <plurals name="nbVictories">
+    <item quantity="one">%s victory</item>
+    <item quantity="other">%s victories</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s playing</item>
     <item quantity="other">%s playing</item>
@@ -653,6 +657,13 @@ in %3$s</string>
   <string name="acceptSomePlayers">Now you get to accept some players, then start the simul</string>
   <string name="acceptRandomCandidate">Accept random candidate</string>
   <string name="youHaveBeenSelected">You have been selected! Hold still, the simul is about to begin.</string>
+  <string name="ongoing">%s ongoing</string>
+  <string name="winningPercentage">Winning percentage</string>
+  <string name="withTarget">with target</string>
+  <string name="distanceToTarget">Distance to target:</string>
+  <string name="targetWinningPercentageX">Target winning percentage for host: %s</string>
+  <string name="succeeded">succeeded!</string>
+  <string name="failed">failed</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="deleteThisSimul">Delete this simul?</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
@@ -668,7 +679,7 @@ in %3$s</string>
   <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra time to your clock to help cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra clock time</string>
-  <string name="simulHostColor">Host color for each game</string>
+  <string name="simulHostColor">Host colour for each game</string>
   <string name="simulChatRestrictionsHint">Chat restrictions only apply while the simultaneous exhibition is running.</string>
   <string name="simulParticipationLimited">Participation is limited to %s preselected players.</string>
   <string name="chatAvailableFor">Chat is available for</string>

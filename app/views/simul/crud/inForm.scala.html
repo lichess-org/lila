@@ -55,6 +55,11 @@
   @base.form.select(field, clockExtraChoices, disabled = running)
   }
 </div>
+<div>
+  @base.form.group(form("percentage"), Html("Target percentage (optional, min 50%)")) { field =>
+  @base.form.input(field)
+  }
+</div>
 @base.form.group(form("chat"), Html("Chat is available for")) { field =>
 @base.form.select(field, chatChoices)
 }

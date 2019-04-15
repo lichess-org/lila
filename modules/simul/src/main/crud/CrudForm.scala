@@ -32,7 +32,9 @@ object CrudForm {
       number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
     }.verifying("atLeastOneVariant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
-    "chat" -> stringIn(chatChoices)
+    "chat" -> stringIn(chatChoices),
+    "percentage" -> text(minLength = 0, maxLength = 2)
+      .verifying("Enter a number between 50 and 100", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
 
   lazy val applyVariants = Form(mapping(
@@ -57,7 +59,8 @@ object CrudForm {
     clockExtra = clockExtraDefault,
     variants = List(draughts.variant.Standard.id),
     color = colorDefault,
-    chat = chatDefault
+    chat = chatDefault,
+    percentage = ""
   )
 
   case class Data(
@@ -74,7 +77,8 @@ object CrudForm {
       clockExtra: Int,
       variants: List[Int],
       color: String,
-      chat: String
+      chat: String,
+      percentage: String
   )
 
   case class VariantsData(

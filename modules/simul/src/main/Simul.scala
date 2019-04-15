@@ -25,7 +25,8 @@ case class Simul(
     color: Option[String],
     chatmode: Option[Simul.ChatMode],
     arbiterId: Option[String] = None,
-    spotlight: Option[Spotlight] = None
+    spotlight: Option[Spotlight] = None,
+    targetPct: Option[Int] = None
 ) {
 
   def id = _id
@@ -176,6 +177,42 @@ case class Simul(
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)
   def losses = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
+  def finished = pairings.count(_.finished)
+
+  def currentPct =
+    if (finished == 0) 0
+    else 100 * (wins + draws * 0.5) / finished
+  def currentPctStr = {
+    val pct = currentPct
+    val pctDec = pct - Math.floor(pct)
+    if (pctDec < 0.05 || pctDec > 0.95)
+      "%.0f".format(pct)
+    else
+      "%.1f".format(pct)
+  }
+
+  private def requiredPoints(target: Double) = pairings.length * (target / 100d) - (wins + draws * 0.5)
+  def targetReached = targetPct.fold(false)(requiredPoints(_) <= 0)
+  def targetFailed = targetPct.fold(false)(requiredPoints(_) > ongoing)
+
+  def requiredWins = targetPct flatMap { target =>
+    val remaining = requiredPoints(target)
+    if (remaining > 0.5) {
+      val remainingDecimal = remaining - Math.floor(remaining)
+      if (remainingDecimal > 0.5)
+        Math.ceil(remaining).toInt.some
+      else
+        Math.floor(remaining).toInt.some
+    } else none
+  }
+  def requiredDraws = targetPct flatMap { target =>
+    val remaining = requiredPoints(target)
+    if (remaining > 0) {
+      val remainingDecimal = remaining - Math.floor(remaining)
+      (remainingDecimal > 0.5).fold(0, 1).some
+    } else none
+  }
+
 }
 
 object Simul {

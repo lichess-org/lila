@@ -232,6 +232,10 @@
     <item quantity="one">%s remise</item>
     <item quantity="other">%s remise</item>
   </plurals>
+  <plurals name="nbVictories">
+    <item quantity="one">%s overwinning</item>
+    <item quantity="other">%s overwinningen</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s bezig</item>
     <item quantity="other">%s bezig</item>
@@ -633,6 +637,13 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="acceptSomePlayers">Je kunt nu spelers accepteren, en dan de simultaan starten</string>
   <string name="acceptRandomCandidate">Accepteer willekeurige kandidaat</string>
   <string name="youHaveBeenSelected">Je bent geaccepteerd als speler! Wacht af tot de simultaan begint.</string>
+  <string name="ongoing">%s lopende</string>
+  <string name="winningPercentage">Winst percentage </string>
+  <string name="withTarget">met als doel</string>
+  <string name="distanceToTarget">Afstand tot doel:</string>
+  <string name="targetWinningPercentageX">Doel winstpercentage simultaangever: %s</string>
+  <string name="succeeded">geslaagd!</string>
+  <string name="failed">mislukt</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
   <string name="deleteThisSimul">Deze simultaan verwijderen?</string>
   <string name="noSimulExplanation">Deze simultaan bestaat niet.</string>

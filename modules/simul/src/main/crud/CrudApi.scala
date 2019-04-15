@@ -31,7 +31,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     clockExtra = simul.clock.hostExtraTime / 60,
     variants = simul.variants.map(_.id),
     color = simul.color.getOrElse(DataForm.colorDefault),
-    chat = simul.chatmode.fold(DataForm.chatDefault)(_.key)
+    chat = simul.chatmode.fold(DataForm.chatDefault)(_.key),
+    percentage = ~simul.targetPct.map(_.toString)
   )
 
   def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) =
@@ -80,6 +81,7 @@ final class CrudApi(simulRepo: SimulRepo) {
       hostTitle = host.title,
       variants = variantList,
       color = color.some,
+      targetPct = parseIntOption(percentage),
       chatmode = Simul.ChatMode.byKey.get(chat),
       arbiterId = arbiter map { _.id },
       spotlight = Spotlight(
