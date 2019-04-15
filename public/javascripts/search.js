@@ -85,4 +85,11 @@ $(function() {
     $form.find("input,select").filter(function() { return !this.value; }).attr("disabled", "disabled");
     $form.addClass('searching');
   });
+
+  $form.find(".flatpickr").flatpickr({
+    maxDate: 'today',
+    dateFormat: 'Z',
+    altInput: true,
+    altFormat: 'Y-m-d h:i K'
+  });
 });

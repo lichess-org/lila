@@ -89,6 +89,11 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   val flatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
+
+  val nonAsyncFlatpickrTag = Html {
+    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
+  }
+
   def delayFlatpickrStart(implicit ctx: Context) = embedJs {
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
   }
