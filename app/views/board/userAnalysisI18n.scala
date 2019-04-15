@@ -3,6 +3,7 @@ package views.html.board
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.common.String.html.safeJsonValue
+import lidraughts.common.Lang
 import lidraughts.i18n.{ I18nKeys => trans }
 
 object userAnalysisI18n {
@@ -11,7 +12,7 @@ object userAnalysisI18n {
     withCeval: Boolean = true,
     withExplorer: Boolean = true,
     withForecast: Boolean = false
-  )(implicit ctx: Context) = safeJsonValue(i18nJsObject(
+  )(implicit lang: Lang) = safeJsonValue(i18nJsObject(
     baseTranslations ++ {
       withCeval ?? cevalTranslations
     } ++ {

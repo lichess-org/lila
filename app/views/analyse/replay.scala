@@ -4,6 +4,7 @@ import bits.dataPanel
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.Lang
 import lidraughts.common.String.html.safeJsonValue
 import lidraughts.game.Pov
 
@@ -11,7 +12,7 @@ import controllers.routes
 
 object replay {
 
-  private[analyse] def titleOf(pov: Pov)(implicit ctx: Context) =
+  private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   def apply(

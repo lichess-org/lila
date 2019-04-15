@@ -171,6 +171,7 @@ object mon {
     object api {
       val player = rec("round.api.player")
       val watcher = rec("round.api.watcher")
+      val embed = rec("round.api.embed")
     }
     object actor {
       val count = rec("round.actor.count")

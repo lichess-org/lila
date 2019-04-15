@@ -134,4 +134,7 @@ lidraughts.startEmbeddedAnalyse = function(opts) {
   opts.initialPly = 'url';
   opts.trans = lidraughts.trans(opts.i18n);
   LidraughtsAnalyse.start(opts);
+  window.addEventListener('resize', function() {
+    lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
+  });
 }

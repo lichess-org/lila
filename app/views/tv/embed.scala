@@ -13,7 +13,7 @@ object embed {
 
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(pov: lidraughts.game.Pov, bg: String, board: String)(implicit req: RequestHeader) = frag(
+  def apply(pov: lidraughts.game.Pov, config: lidraughts.app.ui.EmbedConfig)(implicit req: RequestHeader) = frag(
     bits.doctype,
     html(
       head(
@@ -22,10 +22,10 @@ object embed {
         bits.metaCsp(basicCsp),
         st.headTitle("lidraughts.org draughts TV"),
         bits.pieceSprite(lidraughts.pref.PieceSet.default),
-        responsiveCssTagWithTheme("tv.embed", bg)
+        responsiveCssTagWithTheme("tv.embed", config.bg)
       ),
       body(
-        cls := s"base $board wide_crown",
+        cls := s"base ${config.board}",
         dataStreamUrl := routes.Tv.feed
       )(
           div(id := "featured-game", cls := "embedded", title := "lidraughts.org TV")(

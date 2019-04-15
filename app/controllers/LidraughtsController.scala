@@ -47,7 +47,9 @@ private[controllers] trait LidraughtsController
       api = _ => fuccess(jsonOkResult)
     )
 
-  implicit def lang(implicit ctx: Context) = ctx.lang
+  implicit def ctxLang(implicit ctx: Context) = ctx.lang
+  implicit def ctxReq(implicit ctx: Context) = ctx.req
+  implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
@@ -338,8 +340,7 @@ private[controllers] trait LidraughtsController
   protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
-        implicit val req = ctx.req
-        Redirect(routes.Auth.signup) withCookies LidraughtsCookie.session(Env.security.api.AccessUri, req.uri)
+        Redirect(routes.Auth.signup) withCookies LidraughtsCookie.session(Env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ => ensureSessionId(ctx.req) {
         Unauthorized(jsonError("Login required"))
@@ -362,8 +363,8 @@ private[controllers] trait LidraughtsController
     if (req.session.data.contains(LidraughtsCookie.sessionId)) res
     else res withCookies LidraughtsCookie.makeSessionId(req)
 
-  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    lidraughts.api.Mobile.Api.requestVersion(ctx.req).fold(html) { v =>
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit req: RequestHeader): Fu[Result] =
+    lidraughts.api.Mobile.Api.requestVersion(req).fold(html) { v =>
       api(v) dmap (_ as JSON)
     }.dmap(_.withHeaders("Vary" -> "Accept"))
 

@@ -93,7 +93,6 @@ object Challenge extends LidraughtsController {
     cond ?? {
       GameRepo.game(c.id).map {
         _ map { game =>
-          implicit val req = ctx.req
           LidraughtsCookie.cookie(
             AnonCookie.name,
             game.player(if (owner) c.finalColor else !c.finalColor).id,

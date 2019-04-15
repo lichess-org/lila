@@ -280,11 +280,11 @@ object Study extends LidraughtsController {
     }
   }
 
-  def embed(id: String, chapterId: String) = Open { implicit ctx =>
-    env.api.byIdWithChapter(id, chapterId) flatMap {
+  def embed(id: String, chapterId: String) = Action.async { implicit req =>
+    env.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) {
-        case WithChapter(study, chapter) => CanViewResult(study) {
-          val nextChapter = ~get("next", ctx.req)
+        case WithChapter(study, chapter) =>
+          val nextChapter = ~get("next", req)
           val chaptersFuture =
             if (nextChapter.toLowerCase() == "true" && chapter.gamebook.getOrElse(false))
               Env.study.chapterRepo.orderedGamebookMetadataByStudy(id)
@@ -292,11 +292,11 @@ object Study extends LidraughtsController {
           chaptersFuture flatMap { chapters =>
             env.jsonView(study.copy(
               members = lidraughts.study.StudyMembers(Map.empty) // don't need no members
-            ), chapters, chapter, ctx.me) flatMap { studyJson =>
+            ), chapters, chapter, none) flatMap { studyJson =>
               val setup = chapter.setup
               val initialFen = chapter.root.fen.some
               val pov = UserAnalysis.makePov(initialFen, setup.variant)
-              val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
+              val baseData = Env.round.jsonView.userAnalysisJson(pov, lidraughts.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
               val analysis = baseData ++ Json.obj(
                 "treeParts" -> partitionTreeFullUciJsonWriter.writes {
                   lidraughts.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
@@ -312,12 +312,11 @@ object Study extends LidraughtsController {
               )
             }
           }
-        }
       }
     } map NoCache
   }
 
-  private def embedNotFound(implicit ctx: Context): Fu[Result] =
+  private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound()))
 
   def cloneStudy(id: String) = Auth { implicit ctx => me =>

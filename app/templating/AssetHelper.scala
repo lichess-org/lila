@@ -7,7 +7,7 @@ import play.twirl.api.Html
 
 import lidraughts.api.Context
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.{ AssetVersion, ContentSecurityPolicy }
+import lidraughts.common.{ Nonce, AssetVersion, ContentSecurityPolicy }
 
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
@@ -139,4 +139,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def embedJs(js: Frag)(implicit ctx: Context): Frag = embedJsUnsafe(js.render)
   def embedJs(js: String)(implicit ctx: Context): Frag = embedJsUnsafe(js)
+
+  def embedJs(js: String, nonce: Nonce): Frag = raw {
+    s"""<script nonce="$nonce">$js</script>"""
+  }
 }

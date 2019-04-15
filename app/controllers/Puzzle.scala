@@ -293,14 +293,9 @@ object Puzzle extends LidraughtsController {
   }
 
   def frame = Action.async { implicit req =>
-    implicit val lang = lidraughts.i18n.I18nLangPicker(req, none)
     env.daily.get map {
       case None => NotFound
-      case Some(daily) => html.puzzle.embed(
-        daily,
-        get("bg", req) | "light",
-        lidraughts.pref.Theme(~get("theme", req)).cssClass
-      )
+      case Some(daily) => html.puzzle.embed(daily)(ui.EmbedConfig(req))
     }
   }
 }

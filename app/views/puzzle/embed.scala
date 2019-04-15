@@ -5,27 +5,29 @@ import play.api.mvc.RequestHeader
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.Lang
+import lidraughts.app.ui.EmbedConfig
 import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
 object embed {
 
+  import EmbedConfig.implicits._
+
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(daily: lidraughts.puzzle.DailyPuzzle, bg: String, board: String)(implicit req: RequestHeader, lang: Lang) = frag(
+  def apply(daily: lidraughts.puzzle.DailyPuzzle)(implicit config: EmbedConfig) = frag(
     layout.doctype,
-    html(
+    layout.htmlTag(config.lang)(
       head(
         layout.charset,
         layout.metaCsp(basicCsp),
         st.headTitle("lidraughts.org draughts puzzle"),
         layout.pieceSprite(lidraughts.pref.PieceSet.default),
-        responsiveCssTagWithTheme("tv.embed", bg)
+        responsiveCssTagWithTheme("tv.embed", config.bg)
       ),
       body(
-        cls := s"base $board wide_crown",
+        cls := s"base ${config.board}",
         dataStreamUrl := routes.Tv.feed
       )(
           div(id := "daily-puzzle", cls := "embedded", title := trans.clickToSolve.txt())(
