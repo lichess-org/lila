@@ -605,9 +605,7 @@
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
   <string name="whiteCastlingKingside">白方短易位</string>
-  <string name="whiteCastlingQueenside">白方长易位</string>
   <string name="blackCastlingKingside">黑方短易位</string>
-  <string name="blackCastlingQueenside">黑方长易位</string>
   <plurals name="nbForumPosts">
     <item quantity="other">发了%s个论坛帖子</item>
   </plurals>
@@ -615,7 +613,6 @@
   <string name="watchGames">观看对局</string>
   <string name="tpTimeSpentOnTV">在Lichess直播上的时间：%s</string>
   <string name="watch">观看</string>
-  <string name="internationalEvents">国际赛事</string>
   <string name="videoLibrary">视频库</string>
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
