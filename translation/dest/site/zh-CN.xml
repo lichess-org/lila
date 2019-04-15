@@ -724,6 +724,7 @@
   <string name="xHostsY">%1$s 主持 %2$s</string>
   <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
+  <string name="xCreatesStudyY">%1$s创建课程%2$s</string>
   <string name="quickPairing">快速配对</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
