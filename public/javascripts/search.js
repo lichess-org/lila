@@ -93,4 +93,11 @@ $(function() {
     $form.find("select, input[type=checkbox]").change(submit);
     $usernames.on("keyup", lichess.fp.debounce(submit, 1500));
   }
+
+  $("form.search .flatpickr").flatpickr({
+    maxDate: 'today',
+    dateFormat: 'Z',
+    altInput: true,
+    altFormat: 'Y-m-d h:i K'
+  });
 });
