@@ -671,6 +671,7 @@ Een URL per regel</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyFriends">Alleen vrienden</string>
+  <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forumbericht</item>
     <item quantity="other">%s Forumberichten</item>
@@ -679,7 +680,6 @@ Een URL per regel</string>
   <string name="watchGames">Bekijk partijen</string>
   <string name="tpTimeSpentOnTV">Tijd op TV: %s</string>
   <string name="watch">Kijken</string>
-  <string name="internationalEvents">Internationale toernooien</string>
   <string name="videoLibrary">Videobibliotheek</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="about">Over</string>
