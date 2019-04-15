@@ -488,14 +488,11 @@
   <string name="menu">Мени</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Белиот мала рокада</string>
-  <string name="whiteCastlingQueenside">Белиот голема рокада</string>
   <string name="blackCastlingKingside">Црниот мала рокада</string>
-  <string name="blackCastlingQueenside">Црниот голема рокада</string>
   <string name="tpTimeSpentPlaying">Време поминато во игра: %s</string>
   <string name="watchGames">Гледајте Игри</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Гледај</string>
-  <string name="internationalEvents">Меѓународни настани</string>
   <string name="videoLibrary">Видеа</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">ВебМастер</string>
