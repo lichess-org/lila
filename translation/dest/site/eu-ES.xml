@@ -164,6 +164,9 @@
   <string name="ratingStats">Estatistikak</string>
   <string name="username">Izena</string>
   <string name="usernameOrEmail">Erabiltzaile-izena</string>
+  <string name="changeUsername">Erabiltzaile izena aldatu</string>
+  <string name="changeUsernameNotSame">Hizkien izaera bakarrik aldatu daiteke (larriak vs. xeheak). Adibidez: jatorrizko \"urlia\" \"UrLiA\" bihurtu daiteke.</string>
+  <string name="changeUsernameDescription">Zure erabiltzaile-izena aldatu. Hau behin bakarrik egin daiteke eta hizkien izaera bakarrik aldatu dezakezu (hizki larriak vs. xeheak).</string>
   <string name="password">Pasahitza</string>
   <string name="haveAnAccount">Erabiltzaile-kontua duzu?</string>
   <string name="changePassword">Pasahitza aldatu</string>
@@ -753,6 +756,7 @@
   <string name="xHostsY">%1$s erabiltzaileak %2$s antolatu du</string>
   <string name="xJoinsY">%1$s %2$sra sartu da</string>
   <string name="xLikesY">%1$sk %2$s gogoko du</string>
+  <string name="xCreatesStudyY">%1$s erabiltzaileak %2$s azterlana sortu du</string>
   <string name="quickPairing">Parekatze azkarra</string>
   <string name="lobby">Egongela</string>
   <string name="anonymous">Anonimoa</string>
