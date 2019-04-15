@@ -662,9 +662,7 @@
   <string name="menu">Опције</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели О-О</string>
-  <string name="whiteCastlingQueenside">Бели О-О-О</string>
   <string name="blackCastlingKingside">Црни О-О</string>
-  <string name="blackCastlingQueenside">Црни О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s коментар на форуму</item>
     <item quantity="few">%s коментара на форуму</item>
@@ -674,7 +672,6 @@
   <string name="watchGames">Посматрај партије</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Посматрај</string>
-  <string name="internationalEvents">Интернеационална дешавања</string>
   <string name="videoLibrary">Видео библиотека</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
