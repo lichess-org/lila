@@ -36,6 +36,12 @@ body {
     display: none;
   }
 
+  --meta-height: 8em;
+  @include proper-grid {
+    --meta-height: max-content;
+  }
+
+  grid-template-rows: auto auto 50vh;
   grid-template-areas:
   'board'
   'controls'
@@ -45,7 +51,6 @@ body {
   'under'
   'chat'
   'uchat';
-  grid-template-rows: auto auto 50vh;
 
   grid-row-gap: $block-gap;
 
@@ -77,10 +82,7 @@ body {
     &.gauge-on {
       @include columns-with-gauge-col3($gauge-on-container);
     }
-    grid-template-rows: 8em fit-content(100%);
-    @include proper-grid {
-      grid-template-rows: max-content fit-content(100%) max-content;
-    }
+    grid-template-rows: $meta-height $chat-height max-content;
     grid-template-areas:
     'side    . board gauge . tools'
     'chat    . board gauge . tools'

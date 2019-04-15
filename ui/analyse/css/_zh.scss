@@ -11,8 +11,32 @@ $pocket-height: 60px;
 }
 
 .analyse {
+  grid-template-rows: $pocket-height auto $pocket-height auto 50vh;
+  grid-template-areas:
+  'pocket-top'
+  'board'
+  'pocket-bot'
+  'controls'
+  'tools'
+  'side'
+  'acpl'
+  'under'
+  'chat'
+  'uchat';
+  @include breakpoint($mq-col2) {
+    grid-template-rows: $pocket-height auto $pocket-height;
+    grid-template-areas:
+    'board      gauge .    pocket-top'
+    'board      gauge .    tools'
+    'board      gauge .    pocket-bot'
+    'under      under .    controls'
+    'under      under .    acpl'
+    'under      under .    side'
+    'chat       chat  .    side'
+    'uchat      uchat .    side';
+  }
   @include breakpoint($mq-col3) {
-    grid-template-rows: $pocket-height max-content fit-content(0) $pocket-height;
+    grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;
     grid-template-areas:
     'side    . board gauge . pocket-top'
     'side    . board gauge . tools'
