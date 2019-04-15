@@ -20,7 +20,7 @@ object homeInner {
       table(cls := "slist slist-pad")(
         thead(
           tr(
-            th(colspan := 2, cls := "large")(trans.createdSimuls.frag()),
+            th(trans.createdSimuls.frag()),
             th(trans.host.frag()),
             th(trans.players.frag())
           )
@@ -28,7 +28,6 @@ object homeInner {
         tbody(
           createds.map { sim =>
             tr(cls := "scheduled")(
-              iconTd(sim),
               simTd(sim),
               simHost(sim),
               td(cls := "text", dataIcon := "r")(sim.applicants.size)
@@ -43,14 +42,13 @@ object homeInner {
         starteds.nonEmpty option (frag(
           thead(
             tr(
-              th(colspan := 2, cls := "large")(trans.eventInProgress.frag()),
+              th(trans.eventInProgress.frag()),
               th(trans.host.frag()),
               th(trans.players.frag())
             )
           ),
           starteds.map { sim =>
             tr(
-              iconTd(sim),
               simTd(sim),
               simHost(sim),
               td(cls := "text", dataIcon := "r")(sim.pairings.size)
@@ -59,7 +57,7 @@ object homeInner {
         )),
         thead(
           tr(
-            th(colspan := 2, cls := "large")(trans.finished.frag()),
+            th(trans.finished.frag()),
             th(trans.host.frag()),
             th(trans.players.frag())
           )
@@ -67,7 +65,6 @@ object homeInner {
         tbody(
           finisheds.map { sim =>
             tr(
-              iconTd(sim),
               simTd(sim),
               simHost(sim),
               td(cls := "text", dataIcon := "r")(sim.pairings.size)
@@ -75,16 +72,6 @@ object homeInner {
           }
         )
       )
-    )
-
-  private def iconTd(sim: lila.simul.Simul) =
-    td(cls := List(
-      "variant-icons" -> true,
-      "rich" -> sim.variantRich
-    ))(
-      sim.perfTypes.map { pt =>
-        span(cls := "is-gold", dataIcon := pt.iconChar)
-      }
     )
 
   private def simTd(sim: lila.simul.Simul)(implicit ctx: Context) =
