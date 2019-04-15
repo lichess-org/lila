@@ -223,14 +223,6 @@ lidraughts.loadCss = function(url, opts) {
   lidraughts.loadedCss[url] = true;
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lidraughts.assetUrl(url, opts)));
 };
-lidraughts.unloadCss = function(url) {
-  if (lidraughts.loadedCss[url]) {
-    lidraughts.loadedCss[url]  = false;
-    $('head link[rel=stylesheet]')
-      .filter(function() { return this.href.includes(url) })
-      .remove();
-  }
-}
 lidraughts.loadCssPath = function(key) {
   lidraughts.loadCss('css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css');
 }
