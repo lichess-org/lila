@@ -631,9 +631,7 @@
   <string name="menu">Menü</string>
   <string name="castling">Sáncolás</string>
   <string name="whiteCastlingKingside">Világos rövidre sáncolhat</string>
-  <string name="whiteCastlingQueenside">Világos hosszúra sáncolhat</string>
   <string name="blackCastlingKingside">Sötét rövidre sáncolhat</string>
-  <string name="blackCastlingQueenside">Sötét hosszúra sáncolhat</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s fórumbejegyzés</item>
     <item quantity="other">%s fórumbejegyzés</item>
@@ -642,7 +640,6 @@
   <string name="watchGames">Játszmák nézése</string>
   <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
   <string name="watch">Néznivaló</string>
-  <string name="internationalEvents">Nemzetközi események</string>
   <string name="videoLibrary">Videó könyvtár</string>
   <string name="mobileApp">Mobil alkalmazás</string>
   <string name="webmasters">Webmester</string>
