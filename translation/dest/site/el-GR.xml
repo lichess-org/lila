@@ -633,9 +633,7 @@
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
   <string name="whiteCastlingKingside">Λευκά Ο-Ο</string>
-  <string name="whiteCastlingQueenside">Λευκά Ο-Ο-Ο</string>
   <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
-  <string name="blackCastlingQueenside">Μαύρα Ο-Ο-Ο</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s δημοσίευση φόρουμ</item>
     <item quantity="other">%s δημοσιεύσεις φόρουμ</item>
@@ -644,7 +642,6 @@
   <string name="watchGames">Παρακολουθήστε παιχνίδια</string>
   <string name="tpTimeSpentOnTV">Χρόνος στην Τηλεόραση: %s</string>
   <string name="watch">Παρακολουθήστε</string>
-  <string name="internationalEvents">Διεθνείς εκδηλώσεις</string>
   <string name="videoLibrary">Βιβλιοθήκη τηλεοπτικού υλικού</string>
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
