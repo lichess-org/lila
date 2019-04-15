@@ -93,6 +93,7 @@ GET   /training/frame                  controllers.Puzzle.frame
 #GET   /training/api/game.pdn           controllers.Puzzle.recentGame
 POST  /training/api/puzzle             controllers.Puzzle.importOne
 GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
+GET   /training/export/png/:variant/:id.png     controllers.Export.puzzlePngVariant(id: Int, variant: String)
 GET   /training/batch                  controllers.Puzzle.batchSelect
 POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/:something             controllers.Puzzle.showOrVariant(something: String)

@@ -4,7 +4,9 @@ import scala.concurrent.duration._
 
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
+import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.game.{ Game => GameModel, GameRepo, PdnDump }
+import draughts.variant.{ Variant, Standard }
 
 object Export extends LidraughtsController {
 
@@ -63,11 +65,18 @@ object Export extends LidraughtsController {
     }
   }
 
-  def puzzlePng(id: Int) = Open { implicit ctx =>
+  def puzzlePng(id: Int) = doPuzzlePng(id, Standard)
+
+  def puzzlePngVariant(id: Int, key: String) = Variant(key) match {
+    case Some(variant) if puzzleVariants.contains(variant) => doPuzzlePng(id, variant)
+    case _ => Open { implicit ctx => notFound(ctx) }
+  }
+
+  private def doPuzzlePng(id: Int, variant: Variant) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
       PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         lidraughts.mon.export.png.puzzle()
-        OptionFuResult(Env.puzzle.api.puzzle.find(id, draughts.variant.Standard)) { puzzle =>
+        OptionFuResult(Env.puzzle.api.puzzle.find(id, variant)) { puzzle =>
           env.pngExport(
             fen = draughts.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
             lastMove = puzzle.initialMove.uci.some,
@@ -84,4 +93,5 @@ object Export extends LidraughtsController {
       }
     }
   }
+
 }
