@@ -801,7 +801,7 @@
     cfg.element = element;
     cfg.$side = $('.tour__side').clone();
     cfg.$faq = $('.tour__faq').clone();
-    tournament = LidraughtsTournament(cfg);
+    tournament = LidraughtsTournament.start(cfg);
   };
 
   function startSimul(cfg) {
