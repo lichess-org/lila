@@ -632,9 +632,7 @@
   <string name="menu">Meny</string>
   <string name="castling">Rockad</string>
   <string name="whiteCastlingKingside">Vit O-O</string>
-  <string name="whiteCastlingQueenside">Vit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
-  <string name="blackCastlingQueenside">Svart O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminlägg</item>
     <item quantity="other">%s Foruminlägg</item>
@@ -643,7 +641,6 @@
   <string name="watchGames">Titta på spel</string>
   <string name="tpTimeSpentOnTV">Total TV-tid: %s</string>
   <string name="watch">Titta</string>
-  <string name="internationalEvents">Internationella evenemang</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
