@@ -164,6 +164,9 @@
   <string name="ratingStats">Reýting statistikalary</string>
   <string name="username">Ulanyjy ady</string>
   <string name="usernameOrEmail">Ulanyjy ady ýa-da email</string>
+  <string name="changeUsername">Ulanyjy ady çalyş</string>
+  <string name="changeUsernameNotSame">Harplaryň diňe ululygy-kiçiligi özgerdilip biliner. Mysal üçin \"johndoe - JohnDoe.\"</string>
+  <string name="changeUsernameDescription">Ulanyjy adyňyzy üýtgediň. Bu diňe bir gezek amala aşyrlyp biliner we siz diňe ulanyjy adyňyzdaky harplaryň baş harp - kiçi harp hökmünde üýtgedip bilersiňiz.</string>
   <string name="password">Açarsöz</string>
   <string name="haveAnAccount">Hasabyňyz barmy?</string>
   <string name="changePassword">Açarsözi üýtget</string>
