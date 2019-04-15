@@ -165,6 +165,8 @@
   <string name="username">Brukarnamn</string>
   <string name="usernameOrEmail">Brukarnamn eller e-post</string>
   <string name="changeUsername">Endre brukarnamn</string>
+  <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
+  <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
   <string name="password">Passord</string>
   <string name="haveAnAccount">Har du ein konto her?</string>
   <string name="changePassword">Endre passord</string>
