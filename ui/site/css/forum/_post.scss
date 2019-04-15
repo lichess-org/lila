@@ -54,6 +54,10 @@
 
   &__message {
     @extend %break-word;
+    .embed {
+      @extend %video;
+      margin-bottom: $block-gap;
+    }
   }
 
   .edit-buttons {
