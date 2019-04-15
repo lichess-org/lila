@@ -618,9 +618,7 @@
   <string name="menu">Menuo</string>
   <string name="castling">Arokado</string>
   <string name="whiteCastlingKingside">Blanko O-O</string>
-  <string name="whiteCastlingQueenside">Blanko O-O-O</string>
   <string name="blackCastlingKingside">Nigro O-O</string>
-  <string name="blackCastlingQueenside">Nigro O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forumaj Afiŝoj</item>
     <item quantity="other">%s Forumaj Afiŝoj</item>
@@ -629,7 +627,6 @@
   <string name="watchGames">Spekti ludojn</string>
   <string name="tpTimeSpentOnTV">Tempo pasinta ĉe TV: %s</string>
   <string name="watch">Spekti</string>
-  <string name="internationalEvents">Internaciaj eventoj</string>
   <string name="videoLibrary">Filmaro</string>
   <string name="mobileApp">Poŝtelefona Aplikaĵo</string>
   <string name="webmasters">Retejestroj</string>
