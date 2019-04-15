@@ -8,7 +8,7 @@ $(function() {
   function getUsernames() {
     var us = [];
     $usernames.each(function() {
-      var u = $.trim($(this).val());
+      var u = $(this).val().trim();
       if (u) us.push(u);
     });
     return us;
