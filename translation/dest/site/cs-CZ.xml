@@ -690,9 +690,7 @@ v %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Bílá O-O</string>
-  <string name="whiteCastlingQueenside">Bílá O-O-O</string>
   <string name="blackCastlingKingside">Černá O-O</string>
-  <string name="blackCastlingQueenside">Černá O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s příspěvek na fóru</item>
     <item quantity="few">%s příspěvky na fóru</item>
@@ -703,7 +701,6 @@ v %3$s</string>
   <string name="watchGames">Sledujte hry</string>
   <string name="tpTimeSpentOnTV">Čas v TV: %s</string>
   <string name="watch">Sledujte</string>
-  <string name="internationalEvents">Mezinárodní turnaje</string>
   <string name="videoLibrary">Video knihovna</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
