@@ -1,0 +1,22 @@
+@import '../../../common/css/plugin';
+
+@import '../../../common/css/abstract/all';
+
+@import '../../../common/css/base/elements';
+@import '../../../common/css/base/fonts';
+@import '../../../common/css/base/typography';
+@import '../../../common/css/base/data-icon';
+
+@include theme-style;
+
+@import '../../../common/css/vendor/draughtsground/draughtsground';
+
+@import '../../../common/css/component/board';
+
+@import '../../../common/css/component/fbt';
+@import '../../../common/css/form/cmn-toggle';
+@import '../../../tree/css/tree';
+@import '../../../draughts/css/opening';
+@import '../../../draughts/css/control';
+
+@import '../embed/round';

@@ -134,11 +134,7 @@ object layout {
       ),
       st.body(
         cls := List(
-          "base" -> true,
-          ctx.currentBg -> true,
-          ctx.currentTheme.cssClass -> true,
-          // ctx.currentTheme.cssClass -> true,
-          // (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true,
+          s"${ctx.currentBg} ${ctx.currentTheme.cssClass}" -> true,
           "zen" -> ctx.pref.isZen,
           "blind_mode" -> ctx.blind,
           "kid" -> ctx.kid,

@@ -1,0 +1,29 @@
+footer {
+  @extend  %flex-center-nowrap, %metal;
+  font-size: .9em;
+  display: flex;
+  border: $border;
+  border-top: none;
+  height: 3rem;
+  padding: 0 2vw;
+  .left {
+    @extend %nowrap-hidden;
+    flex: 1 1 100%;
+    text-overflow: ellipsis;
+  }
+  h1 {
+    @extend %base-font;
+    display: inline;
+    font-size: 1em;
+  }
+  .open {
+    flex: 0 0 auto;
+  }
+  > * {
+    opacity: .8;
+    @include transition();
+  }
+  &:hover > * {
+    opacity: 1;
+  }
+}

@@ -18,6 +18,7 @@ object embed {
     html(
       head(
         bits.charset,
+        bits.viewport,
         bits.metaCsp(basicCsp),
         st.headTitle("lidraughts.org draughts TV"),
         bits.pieceSprite(lidraughts.pref.PieceSet.default),

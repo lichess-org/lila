@@ -133,25 +133,5 @@ lidraughts.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   opts.initialPly = 'url';
   opts.trans = lidraughts.trans(opts.i18n);
-  var container = opts.element.parentNode;
   LidraughtsAnalyse.start(opts);
-
-  lidraughts.embeddedResize = function() {
-    var board = container.querySelector('.cg-board-wrap');
-    var ground = container.querySelector('.lidraughts_ground');
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    var boardSize = h - 26;
-    var gr = 1.618;
-    if (boardSize > w / gr) boardSize = w / gr;
-    var groundSize = Math.min(700, Math.max(120, w - boardSize));
-    board.style.width = boardSize + 'px';
-    board.style.height = boardSize + 'px';
-    ground.style.width = groundSize + 'px';
-    ground.style.maxWidth = groundSize + 'px';
-    ground.style.height = boardSize + 'px';
-    lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
-  };
-  lidraughts.embeddedResize();
-  window.addEventListener('resize', lidraughts.debounce(lidraughts.embeddedResize, 500));
-};
+}
