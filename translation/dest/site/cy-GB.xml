@@ -511,14 +511,11 @@
   <string name="menu">Dewislen</string>
   <string name="castling">Castellu</string>
   <string name="whiteCastlingKingside">0-0 gwyn</string>
-  <string name="whiteCastlingQueenside">0-0-0 gwyn</string>
   <string name="blackCastlingKingside">0-0 du</string>
-  <string name="blackCastlingQueenside">0-0-0 du</string>
   <string name="tpTimeSpentPlaying">Chwaraeodd am: %s</string>
   <string name="watchGames">Gwylio gêmau</string>
   <string name="tpTimeSpentOnTV">Edrychodd ar TV: %s</string>
   <string name="watch">Gwylio</string>
-  <string name="internationalEvents">Cystadleuaethau rhwngwladol</string>
   <string name="videoLibrary">Llyfrgell fideo</string>
   <string name="mobileApp">Rhaglen symudol</string>
   <string name="webmasters">Gwefeistrau</string>
