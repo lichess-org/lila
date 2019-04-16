@@ -20,12 +20,13 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background: fade-out($c-bg-box, .5);
-    color: $c-font-page;
+    @if $theme-light {
+      background: fade-out($c-bg-box, .5);
+    } @else {
+      background: fade-out($c-font, .95);
+    }
+    color: $c-font;
     @include transition();
-    // &:nth-child(even) {
-    //   background: fade-out($c-bg-zebra, .5);
-    // }
     &:hover {
       background: fade-out($c-accent, .8);
       opacity: 1;
