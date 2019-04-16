@@ -27,13 +27,7 @@ object list {
             )
           ),
           tbody(cls := "infinitescroll")(
-            pager.nextPage.map { np =>
-              tr(
-                th(cls := "pager none")(
-                  a(rel := "next", href := routes.UserTournament.path(u.username, path, np))("Next")
-                )
-              )
-            },
+            pagerNextTable(pager, np => routes.UserTournament.path(u.username, path, np).url),
             pager.currentPageResults.map { e =>
               tr(cls := List("paginated" -> true, "scheduled" -> e.tour.isScheduled))(
                 td(cls := "icon")(iconTag(tournamentIconChar(e.tour))),
