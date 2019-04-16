@@ -2,7 +2,7 @@ body {
   --board-scale: 1;
   @include breakpoint($mq-zoom-enabled) {
     // --zoom: 80; defined in the HTML, loaded from server
-    --board-scale: calc((var(--zoom) / 100) * 0.5 + 0.5);
+    --board-scale: calc((var(--zoom) / 100) * 0.7 + 0.3);
   }
 }
 
