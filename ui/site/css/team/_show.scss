@@ -13,8 +13,7 @@
     'meta'
     'actions'
     'forum'
-    'best'
-    'recent';
+    'members';
     @include breakpoint($mq-small) {
       grid-column-gap: var(--box-padding);
       grid-template-columns: 25% 75%;
@@ -22,19 +21,15 @@
       grid-template-areas:
       'meta    desc'
       'actions desc'
-      'best    forum'
-      'recent  forum';
+      'members    forum';
     }
   }
   &__meta {
     grid-area: meta;
     color: $c-font-dim;
   }
-  &__best {
-    grid-area: best;
-  }
-  &__recent {
-    grid-area: recent;
+  &__members {
+    grid-area: members;
   }
   &__desc {
     grid-area: desc;
@@ -47,6 +42,9 @@
   }
   &__forum {
     grid-area: forum;
+  }
+  .best-members {
+    margin-bottom: 1.5rem;
   }
   .requests {
     margin-top: 1.5rem;
