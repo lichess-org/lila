@@ -165,8 +165,8 @@
   <string name="username">Nome utente</string>
   <string name="usernameOrEmail">Nome utente o email</string>
   <string name="changeUsername">Cambia nome utente</string>
-  <string name="changeUsernameNotSame">Solo la formattazione delle lettere può cambiare (maiuscolo, minuscolo). Per esempio da \"johndoe\" a \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente la formattazione del tuo nome utente (maiuscolo, minuscolo).</string>
+  <string name="changeUsernameNotSame">Può cambiare solamente il maiuscolo/minuscolo delle lettere. Per esempio da \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">Hai già un account?</string>
   <string name="changePassword">Cambia password</string>
