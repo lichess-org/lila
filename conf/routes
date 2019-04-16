@@ -566,7 +566,6 @@ POST  /dev/cli                         controllers.Dev.cliPost
 POST  /cli                             controllers.Dev.command
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
-GET   /dev/ui                          controllers.Dev.ui
 
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
