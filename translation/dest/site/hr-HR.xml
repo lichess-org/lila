@@ -171,6 +171,7 @@
   <string name="ratingStats">Statistike rejtinga</string>
   <string name="username">Korisničko ime</string>
   <string name="usernameOrEmail">Korisničko ime ili email</string>
+  <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="password">Lozinka</string>
   <string name="haveAnAccount">Imaš li korisnički račun?</string>
   <string name="changePassword">Promijeni lozinku</string>
