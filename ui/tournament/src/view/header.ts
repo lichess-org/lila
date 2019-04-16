@@ -39,7 +39,7 @@ function clock(d): VNode | undefined {
     return h('div.clock.clock-created', {
       hook: startClock(d.secondsToStart)
     }, [
-      h('span.shy', 'Starting in '),
+      h('span.shy', 'Starting in'),
       h('span.time.text')
     ]);
   }
