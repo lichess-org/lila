@@ -231,6 +231,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Hic lusor computatralium scaccorum auxilio utitur</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hic lusor statum falso crescit/decrescit</string>
+  <string name="openingExplorerAndTablebase">Explicatio initiorum et finitium</string>
   <string name="takeback">Reversio motus</string>
   <string name="proposeATakeback">Motus reversionem offere</string>
   <string name="takebackPropositionSent">Missa est motus reversionis conditio</string>
