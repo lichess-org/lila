@@ -14,12 +14,14 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 9px;
+  padding: 9px;
   @include fluid-size('font-size', 16px, 29px);
   > div {
     @extend %flex-column, %box-radius;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border: $border;
     @if $theme-light {
       background: fade-out($c-bg-box, .5);
     } @else {
