@@ -1,5 +1,5 @@
-$c-slider: $c-secondary !default;
-$slider-width: 5px;
+$c-slider: mix($c-secondary, $c-bg-box, 90%) !default;
+$slider-width: 12px;
 
 .ui-slider {
   background: $c-slider;
@@ -21,8 +21,8 @@ $slider-width: 5px;
   background: $c-slider;
   position: absolute;
   z-index: 2;
-  width: 16px;
-  height: 16px;
+  width: 23px;
+  height: 23px;
   cursor:pointer;
   margin: 0 0 -10px -5.5px;
   border-radius: 50%;
