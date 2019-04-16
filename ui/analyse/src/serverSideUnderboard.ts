@@ -132,8 +132,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);
-    selection.removeAllRanges();
-    selection.addRange(range);
+    selection!.removeAllRanges();
+    selection!.addRange(range);
   });
   $panels.on('click', '.embed-howto', function(this: HTMLElement) {
     const url = 'https://lichess.org/embed/' + data.game.id + location.hash;
