@@ -13,7 +13,6 @@
     display: block;
     width: 64px;
     height: 32px;
-    box-sizing: border-box;
   }
   &.d3 .list span {
     width: 66px;
@@ -84,65 +83,32 @@
     }
   }
   &.d3 {
-    .Black-White-Aluminium {
-      background-image: url(../images/staunton/board/Black-White-Aluminium.thumbnail.png);
-    }
-    .Brushed-Aluminium {
-      background-image: url(../images/staunton/board/Brushed-Aluminium.thumbnail.png);
-    }
-    .China-Blue {
-      background-image: url(../images/staunton/board/China-Blue.thumbnail.png);
-    }
-    .China-Green {
-      background-image: url(../images/staunton/board/China-Green.thumbnail.png);
-    }
-    .China-Grey {
-      background-image: url(../images/staunton/board/China-Grey.thumbnail.png);
-    }
-    .China-Scarlet {
-      background-image: url(../images/staunton/board/China-Scarlet.thumbnail.png);
-    }
-    .China-Yellow {
-      background-image: url(../images/staunton/board/China-Yellow.thumbnail.png);
-    }
-    .Classic-Blue {
-      background-image: url(../images/staunton/board/Classic-Blue.thumbnail.png);
-    }
-    .Transparent-Glass {
-      background-image: url(../images/staunton/board/Glass.thumbnail.png);
-    }
-    .Gold-Silver {
-      background-image: url(../images/staunton/board/Gold-Silver.thumbnail.png);
-    }
-    .Green-Glass {
-      background-image: url(../images/staunton/board/Green-Glass.thumbnail.png);
-    }
-    .Light-Wood {
-      background-image: url(../images/staunton/board/Light-Wood.thumbnail.png);
-    }
-    .Power-Coated {
-      background-image: url(../images/staunton/board/Power-Coated.thumbnail.png);
-    }
-    .Purple-Black {
-      background-image: url(../images/staunton/board/Purple-Black.thumbnail.png);
-    }
-    .Rosewood {
-      background-image: url(../images/staunton/board/Rosewood.thumbnail.png);
-    }
-    .Wood-Glass {
-      background-image: url(../images/staunton/board/Wood-Glass.thumbnail.png);
-    }
-    .Wax {
-      background-image: url(../images/staunton/board/Wax.thumbnail.png);
-    }
-    .Jade {
-      background-image: url(../images/staunton/board/Jade.thumbnail.png);
-    }
-    .Marble {
-      background-image: url(../images/board/3d/marble.thumbnail.png);
-    }
-    .Woodi {
-      background-image: url(../images/board/3d/woodi.thumbnail.png);
+    $board-files: (
+    'Black-White-Aluminium',
+    'Brushed-Aluminium',
+    'China-Blue',
+    'China-Green',
+    'China-Grey',
+    'China-Scarlet',
+    'China-Yellow',
+    'Classic-Blue',
+    'Transparent-Glass',
+    'Gold-Silver',
+    'Green-Glass',
+    'Light-Wood',
+    'Power-Coated',
+    'Purple-Black',
+    'Rosewood',
+    'Wood-Glass',
+    'Wax',
+    'Jade',
+    'Marble',
+    'Woodi',
+    );
+    @each $name in $board-files {
+      .#{$name} {
+        background-image: img-url('staunton/board/#{$name}.thumbnail.png');
+      }
     }
   }
 }
