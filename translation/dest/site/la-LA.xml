@@ -76,6 +76,7 @@
   <string name="recentGames">Recentes ludi</string>
   <string name="topGames">Capitales ludi</string>
   <string name="masterDbExplanation">Duae millio ludi tabulae de %1$s+ FIDE lusoribus de %2$s ad %3$s</string>
+  <string name="noGameFound">Nulla ludum inventa</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
@@ -86,12 +87,13 @@
   <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
   <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
+  <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
   <string name="blunder">Peccatus</string>
   <string name="blunders">Gravia errata</string>
   <string name="mistake">Erratum</string>
   <string name="mistakes">Errata</string>
-  <string name="inaccuracy">Minusculum erratum</string>
+  <string name="inaccuracy">Menda</string>
   <string name="inaccuracies">Minuscula errata</string>
   <string name="moveTimes">Duratio actionum</string>
   <string name="flipBoard">Tabulam vertere</string>
