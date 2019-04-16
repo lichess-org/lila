@@ -78,7 +78,8 @@ object page {
     moreCss = frag(
       responsiveCssTag("user.show.games"),
       if (filters.current.name == "search") responsiveCssTag("user.show.search")
-      else info.nbs.crosstable.isDefined option responsiveCssTag("crosstable")
+      else info.nbs.crosstable.isDefined option responsiveCssTag("crosstable"),
+      isGranted(_.UserSpy) option responsiveCssTag("mod.user")
     )
   ) {
       main(cls := "page-menu", dataUsername := u.username)(
