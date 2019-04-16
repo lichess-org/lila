@@ -66,8 +66,8 @@
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
   <string name="close">Kapat</string>
-  <string name="winning">Kazanıyor</string>
-  <string name="losing">Kaybediyor</string>
+  <string name="winning">Kazanan</string>
+  <string name="losing">Kaybeden</string>
   <string name="drawn">Berabere</string>
   <string name="unknown">Belirsiz</string>
   <string name="database">Veritabanı</string>
