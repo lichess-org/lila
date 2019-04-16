@@ -38,6 +38,7 @@ trait ScalatagsSnippets extends Cap {
   val amp = raw("&amp;")
   def iconTag(icon: Char): Tag = iconTag(icon.toString)
   def iconTag(icon: String): Tag = i(dataIcon := icon)
+  def iconTag(icon: Char, text: Frag): Tag = iconTag(icon.toString, text)
   def iconTag(icon: String, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
   val styleTag = tag("style")(`type` := "text/css")
   val ratingTag = tag("rating")
