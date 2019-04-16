@@ -47,7 +47,7 @@
     }
     grid-template-areas:
     'side  app   app'
-    'uchat under under';
+    'uchat under .';
     @include crosstable-large;
   }
 }
