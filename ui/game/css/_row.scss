@@ -62,6 +62,8 @@
     }
     a {
       font-weight: bold;
+      position: relative;
+      z-index: z('above-link-overlay');
     }
     .anon {
       line-height: 2em;
