@@ -157,6 +157,9 @@
   <string name="ratingStats">レーティングの統計</string>
   <string name="username">アカウント名</string>
   <string name="usernameOrEmail">ユーザー名</string>
+  <string name="changeUsername">ユーザー名の変更</string>
+  <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
+  <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="password">パスワード</string>
   <string name="haveAnAccount">アカウントをお持ちですか？</string>
   <string name="changePassword">パスワードの変更</string>
