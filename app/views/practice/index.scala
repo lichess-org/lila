@@ -37,7 +37,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
           )
         ),
         div(cls := "page-menu__content practice-app")(
-          div(cls := "sections")(
+          st.section(
             data.structure.sections.map { section =>
               div(cls := "section")(
                 h2(section.name),

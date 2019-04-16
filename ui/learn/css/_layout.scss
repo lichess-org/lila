@@ -16,26 +16,38 @@ $mq-col3: $mq-col3-uniboard;
   &__main { grid-area: main; }
   &__table { grid-area: table; }
 
-  grid-template-areas:
-  'main'
-  'table'
-  'side';
+  &--run {
+    grid-template-areas:
+    'main'
+    'table'
+    'side';
+  }
+  &--map {
+    grid-template-areas:
+    'side'
+    'main';
+  }
   grid-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-    grid-template-rows: fit-content(0);
-    grid-template-areas:
-    'main table'
-    'side .';
+    &--run {
+      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+      grid-template-rows: fit-content(0);
+      grid-template-areas:
+      'main table'
+      'side .';
+    }
     &--map {
-      grid-template-areas: 'main side';
+      grid-template-columns: $col3-uniboard-side auto;
+      grid-template-areas: 'side main';
     }
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
-    grid-template-areas:
-    'side main table';
+    &--run {
+      grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+      grid-template-areas:
+      'side main table';
+    }
   }
 }

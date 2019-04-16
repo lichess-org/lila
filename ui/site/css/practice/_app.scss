@@ -1,5 +1,5 @@
 .practice-app {
-  .section {
+  section {
     > h2 {
       @extend %roboto;
       color: $c-font-dim;

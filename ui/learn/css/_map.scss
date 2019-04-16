@@ -11,19 +11,15 @@
     text-align: center;
   }
   .categ_stages {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    margin: 10px 0 36px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-gap: 1em;
+    margin: .8em 0 3em 0;
   }
   .stage {
-    @extend %box-radius;
+    @extend %box-radius, %flex-center-nowrap;
     @include transition();
-    display: flex;
-    align-items: center;
     position: relative;
-    flex: 0 0 49%;
-    width: 49%;
     height: 90px;
     color: #fff;
     margin-top: 13px;
