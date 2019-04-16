@@ -35,15 +35,16 @@ $(function() {
   var presets = window.lichess_mod_presets;
   if (presets) {
 
-    var toggle = $root.find('input[name=mod]');
-    var select = $root.find('select[name=preset]');
+    var toggle = $('#form3-mod');
+    var select = $('#form3-preset');
+    select.append('<option></option>');
     presets.forEach(function(p, i) {
       select.append('<option value=' + i + '>' + p[0] + '</option>');
     });
     select.on('change', function() {
       var p = presets[$(this).val()] || ['', ''];
-      $root.find('input[name=subject]').val(p[0]);
-      $root.find('textarea[name=text]').val(p[1]);
+      $('#form3-subject').val(p[0]);
+      $('#form3-text').val(p[1]);
     });
 
     var toggleSelect = function() {
