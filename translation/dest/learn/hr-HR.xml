@@ -15,8 +15,8 @@
   <string name="rookGoal">Klikni na topa
 da ga dovedeš do zvjezdice!</string>
   <string name="grabAllTheStars">Pokupi sve zvjezdice!</string>
-  <string name="theFewerMoves">Čim manje poteza napraviš,
-tim više poteza osvajaš!</string>
+  <string name="theFewerMoves">Što manje poteza napraviš,
+to više poteza osvajaš!</string>
   <string name="useTwoRooks">Koristi dva topa
 da ubrzaš stvari!</string>
   <string name="rookComplete">Čestitke! Uspješno si ovladao/la topom.</string>
@@ -25,8 +25,8 @@ da ubrzaš stvari!</string>
   <string name="bishopIntro">Sada ćemo naučiti kako manevrirati lovcem!</string>
   <string name="youNeedBothBishops">Jedan svijetlopoljni lovac,
 jedan tamnopoljni lovac.
-Trebaš oboje!</string>
-  <string name="bishopComplete">Čestitke! Možeš vladati lovcem.</string>
+Trebaš oba!</string>
+  <string name="bishopComplete">Čestitke! Znaš vladati lovcem.</string>
   <string name="theQueen">Dama</string>
   <string name="queenCombinesRookAndBishop">Dama = top + lovac</string>
   <string name="queenIntro">Ulazi najjača šahovska figura. Njezino visočanstvo dama!</string>
@@ -41,7 +41,7 @@ Trebaš oboje!</string>
   <string name="itMovesInAnLShape">Kreće se u obliku slova L</string>
   <string name="knightIntro">Evo izazova za tebe. Skakač je... škakljiva figura.</string>
   <string name="knightsHaveAFancyWay">Skakači imaju elegantan način
-skakanja okolo!</string>
+skakanja uokolo!</string>
   <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
 Pobjegni i savladaj zvijezde!</string>
   <string name="knightComplete">Čestitke! Uspješno si ovladao/la skakačem.</string>
