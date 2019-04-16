@@ -8,7 +8,7 @@ import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.frag.escapeHtml
 import lidraughts.team.Env.{ current => teamEnv }
 
-trait TeamHelper {
+trait TeamHelper extends ui.ScalatagsTwirl {
 
   private def api = teamEnv.api
 
@@ -20,12 +20,10 @@ trait TeamHelper {
   def teamLink(id: String, withIcon: Boolean = true): Frag =
     teamLink(id, teamIdToName(id), withIcon)
 
-  def teamLink(id: String, name: Frag, withIcon: Boolean): Frag = raw {
-    val href = routes.Team.show(id)
-    val icon = if (withIcon) """ data-icon="f"""" else ""
-    val space = if (withIcon) "&nbsp;" else ""
-    s"""<a$icon href="$href">$space$name</a>"""
-  }
+  def teamLink(id: String, name: Frag, withIcon: Boolean): Frag = a(
+    href := routes.Team.show(id),
+    dataIcon := withIcon.option("f")
+  )(withIcon option nbsp, name)
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
 }
