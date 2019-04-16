@@ -11,7 +11,7 @@ import controllers.routes
 object widget {
 
   def titleName(c: lila.coach.Coach.WithUser) = frag(
-    c.user.title.map { t => s"t " },
+    c.user.title.map { t => s"$t " },
     c.user.realNameOrUsername
   )
 
