@@ -31,7 +31,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     header(ctrl),
     gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),
     controls(ctrl, pag),
-    standing(ctrl, pag, 'created'),
+    standing(ctrl, pag, 'started'),
   ];
 }
 
