@@ -59,7 +59,7 @@ export default function(vm: Vm, getGround, redraw: () => void) {
 
     const vertical = color === orientation ? 'top' : 'bottom';
 
-    return h('div#promotion_choice.' + vertical, {
+    return h('div#promotion-choice.' + vertical, {
       hook: {
         insert: vnode => {
           const el = (vnode.elm as HTMLElement);

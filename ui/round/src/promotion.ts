@@ -89,7 +89,7 @@ function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], 
   if (orientation === 'white') left = 87.5 - left;
   var vertical = color === orientation ? 'top' : 'bottom';
 
-  return h('div#promotion_choice.' + vertical, {
+  return h('div#promotion-choice.' + vertical, {
     hook: onInsert(el => {
       el.addEventListener('click', () => cancel(ctrl));
       el.addEventListener('contextmenu', e => {

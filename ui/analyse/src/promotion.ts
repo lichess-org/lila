@@ -59,7 +59,7 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces, color: Color, ori
 
   const vertical = color === orientation ? 'top' : 'bottom';
 
-  return h('div#promotion_choice.' + vertical, {
+  return h('div#promotion-choice.' + vertical, {
     hook: onInsert(el => {
       el.addEventListener('click', _ => cancel(ctrl));
       el.oncontextmenu = () => false;
