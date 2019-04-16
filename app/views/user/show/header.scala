@@ -129,7 +129,7 @@ object header {
         val profile = u.profileOrDefault
         div(id := "us_profile")(
           info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
-            div(cls := "rating_history")(spinner)
+            div(cls := "rating-history")(spinner)
           } getOrElse {
             ctx.is(u) option newPlayer(u)
           },
