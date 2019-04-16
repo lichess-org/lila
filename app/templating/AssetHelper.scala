@@ -117,7 +117,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
       connectSrc = List("'self'", assets, socket, lidraughts.api.Env.current.ExplorerEndpoint, lidraughts.api.Env.current.TablebaseEndpoint),
-      styleSrc = List("'self'", "'unsafe-inline'", assets, "https://fonts.googleapis.com"),
+      styleSrc = List("'self'", "'unsafe-inline'", assets),
       fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
