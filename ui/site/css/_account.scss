@@ -24,61 +24,64 @@
   list-style: decimal;
 }
 
-.oauth table em,
-.oauth table .date {
-  font-size: 90%;
-}
-.oauth table .action {
-  display: flex;
-  justify-content: flex-end;
-}
+.oauth {
+  table em,
+  table .date {
+    font-size: 90%;
+  }
+  table .action {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-.oauth .codes {
-  display: block;
-  margin: 10px 0 20px 0;
-  padding: 10px 20px;
-  background: rgba(128,128,128,0.1);
-}
-.oauth .codes td {
-  padding: 0.5em 1em;
-  font-family: monospace;
-}
-
-.oauth .scopes {
-  @extend %box-neat;
-  background: mix($c-accent, $c-bg-box, 10);
-  padding: 1em 1.5em;
-  margin-bottom: 4em;
-}
-
-.oauth h2 {
-  font-size: 1.2em;
-  margin: -1em 0 0.5em 0;
-}
-.oauth .scopes {
-  div {
-    @extend %flex-center;
-    margin: 1rem 0;
-    label {
-      margin-left: 1rem;
-      cursor: pointer;
+  .codes {
+    display: block;
+    margin: 10px 0 20px 0;
+    padding: 10px 20px;
+    background: rgba(128,128,128,0.1);
+    td {
+      padding: 0.5em 1em;
+      font-family: monospace;
     }
   }
-}
 
-.oauth .brand {
-  margin: 20px;
-  display: flex;
-}
-.oauth .brand i {
-  font-size: 45px;
-  margin-right: 15px;
-}
-.oauth .brand code {
-  font-weight: bold;
-  font-size: 1.5em;
-  margin-top: 10px;
-  display: block;
+  .scopes,
+  .brand {
+    @extend %box-neat;
+    background: mix($c-accent, $c-bg-box, 10);
+    padding: 1em 1.5em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    margin: -1em 0 0.5em 0;
+  }
+  .scopes {
+    margin-bottom: 4em;
+    div {
+      @extend %flex-center;
+      margin: 1rem 0;
+      label {
+        margin-left: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .brand {
+    margin: 20px;
+    display: flex;
+    i {
+      font-size: 45px;
+      margin-right: 15px;
+    }
+    code {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-top: 10px;
+      display: block;
+    }
+  }
 }
 
 .account {
