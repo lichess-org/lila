@@ -244,6 +244,10 @@
   <string name="tournament">Certamen</string>
   <string name="tournaments">Certamina</string>
   <string name="tournamentPoints">Certaminis puncta</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s certaminis punctum</item>
+    <item quantity="other">%s certaminis puncta</item>
+  </plurals>
   <string name="viewTournament">Certamen videre</string>
   <string name="backToTournament">Referre ad torneamento</string>
   <string name="thematic">Thematicus</string>
@@ -356,6 +360,7 @@
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="youArePlaying">Ludis!</string>
+  <string name="viewMoreTournaments">Certamen videre</string>
   <string name="membersOnly">Sola membra</string>
   <string name="boardEditor">Moderator tabularis</string>
   <string name="startPosition">Prima positio</string>
