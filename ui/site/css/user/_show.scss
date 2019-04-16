@@ -4,6 +4,9 @@
 @import 'note-zone';
 
 .user-show {
+
+  // overflow: hidden; /* this fixes profile overflow, but cuts out the trophies */
+
   &__social {
     @extend %flex-between;
     flex-flow: row nowrap;
@@ -99,6 +102,9 @@
     .bio {
       @extend %break-word;
       font-style: italic;
+      img {
+        max-width: 100%;
+      }
     }
   }
   .claim-title {
