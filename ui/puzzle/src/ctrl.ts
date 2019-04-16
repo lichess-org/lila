@@ -124,9 +124,8 @@ export default function(opts, redraw: () => void): Controller {
     if (!vm.node.dests) getDests();
   };
 
-  function userMove(orig, dest, capture) {
+  function userMove(orig, dest) {
     vm.justPlayed = orig;
-    sound[capture ? 'capture' : 'move']();
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
