@@ -152,7 +152,8 @@ object layout {
           "blind_mode" -> ctx.blind,
           "kid" -> ctx.kid,
           "mobile" -> ctx.isMobileBrowser,
-          "playing fixed-scroll" -> playing
+          "playing fixed-scroll" -> playing,
+          "coords-out" -> (ctx.pref.coords == Pref.Coords.OUTSIDE)
         ),
         dataDev := (!isProd).option("true"),
         dataUser := ctx.userId,
