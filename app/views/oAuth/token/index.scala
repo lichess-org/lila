@@ -27,8 +27,8 @@ object index {
           " that you can directly use in API requests.", br, br,
           "Be careful, these tokens are like passwords so you should guard them carefully. ",
           "The advantage to using a token over putting your password into a script is that a token can be revoked, ",
-          "and you can generate lots of them.", br, br,
-          /*"Here's a ",
+          "and you can generate lots of them.", br, br
+        /*"Here's a ",
           a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")("personal token app example"),
           " and the ",
           a(href := routes.Api.index)("API documentation"), "."*/
