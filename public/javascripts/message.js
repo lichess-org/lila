@@ -1,5 +1,5 @@
 $(function() {
-  $root = $('main.message');
+  $root = $('.message-list');
   $root.find('select.select').change(function() {
     $root.find('input[name=threads]').prop('checked', false);
     switch ($(this).val()) {
