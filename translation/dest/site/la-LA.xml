@@ -157,6 +157,10 @@
   <string name="rank">Ordo</string>
   <string name="rankX">Locus: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Locus fit novus singulae %s munitae</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s exercitus</item>
+    <item quantity="other">%s exercitii</item>
+  </plurals>
   <string name="gamesPlayed">Lusi lusiones</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludi tecum</item>
@@ -176,6 +180,7 @@
   <string name="accept">Accipere</string>
   <string name="decline">Recusare</string>
   <string name="playingRightNow">Nunc ludendus</string>
+  <string name="eventInProgress">Nunc ludendus</string>
   <string name="finished">Perfectus</string>
   <string name="abortGame">Lusionem tollere</string>
   <string name="gameAborted">Sublata lusio</string>
@@ -341,6 +346,7 @@
   <string name="winner">Victor</string>
   <string name="standing">Status</string>
   <string name="createANewTournament">Facere certamen novum</string>
+  <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
   <string name="points">Puncta</string>
@@ -637,6 +643,7 @@
   <string name="xHostsY">%1$s exercituum %2$s</string>
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
+  <string name="xCreatesStudyY">%1$s studium %2$s creavit</string>
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Praecinctio</string>
   <string name="yourScore">Status tibi: %s</string>
