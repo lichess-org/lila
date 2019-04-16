@@ -23,19 +23,17 @@
 
   grid-template-areas:
   'app'
+  'under'
   'side'
-  'chat'
-  'uchat'
-  'under';
+  'uchat';
 
   @include breakpoint($mq-col2) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto fit-content(0) fit-content(0);
     grid-template-areas:
     'app   app'
-    'chat  side'
-    'chat  under'
-    'chat  uchat';
+    'under side'
+    'under uchat';
     &__app {
       justify-self: center;
     }
@@ -49,8 +47,7 @@
     }
     grid-template-areas:
     'side  app   app'
-    'chat  app   app'
-    'uchat under .  ';
+    'uchat under under';
     @include crosstable-large;
   }
 }
