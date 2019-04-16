@@ -179,6 +179,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Privata</string>
   <string name="rated">Ordinata(e)</string>
+  <string name="casualTournament">Privata</string>
+  <string name="ratedTournament">Censita</string>
   <string name="thisGameIsRated">Haec est lusio ordinata</string>
   <string name="rematch">Iterum ludere</string>
   <string name="rematchOfferSent">Missa est novae lusionis conditio</string>
