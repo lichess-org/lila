@@ -35,21 +35,23 @@ object show {
                 p(trans.teamLeader(), ": ", userIdLink(t.createdBy.some))
               ),
 
-              !info.bestUserIds.isEmpty option st.section(cls := "team-show__best")(
-                h2(trans.teamBestPlayers()),
-                ol(cls := "userlist best_players")(
-                  info.bestUserIds.map { userId =>
-                    li(userIdLink(userId.some))
-                  }
-                )
-              ),
-              st.section(cls := "team-show__recent")(
-                h2(trans.teamRecentMembers()),
-                div(cls := "userlist infinitescroll")(
-                  pagerNext(members, np => routes.Team.show(t.id, np).url),
-                  members.currentPageResults.map { member =>
-                    div(cls := "paginated")(userLink(member.user))
-                  }
+              div(cls := "team-show__members")(
+                !info.bestUserIds.isEmpty option st.section(cls := "best-members")(
+                  h2(trans.teamBestPlayers()),
+                  ol(cls := "userlist best_players")(
+                    info.bestUserIds.map { userId =>
+                      li(userIdLink(userId.some))
+                    }
+                  )
+                ),
+                st.section(cls := "recent-members")(
+                  h2(trans.teamRecentMembers()),
+                  div(cls := "userlist infinitescroll")(
+                    pagerNext(members, np => routes.Team.show(t.id, np).url),
+                    members.currentPageResults.map { member =>
+                      div(cls := "paginated")(userLink(member.user))
+                    }
+                  )
                 )
               ),
               st.section(cls := "team-show__desc")(
