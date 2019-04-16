@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
-  <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
+  <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
