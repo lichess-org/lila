@@ -1,0 +1,16 @@
+@import 'inner';
+
+coord { text-shadow: none; }
+
+.orientation-white .files coords:nth-child(2n+1),
+.orientation-white .ranks coords:nth-child(2n),
+.orientation-black .files coords:nth-child(2n),
+.orientation-black .ranks coords:nth-child(2n+1) {
+  color: #FFFFDD;
+}
+.orientation-white .files coord:nth-child(2n),
+.orientation-white .ranks coord:nth-child(2n+1),
+.orientation-black .files coord:nth-child(2n+1),
+.orientation-black .ranks coord:nth-child(2n) {
+  color: #6d8753;
+}

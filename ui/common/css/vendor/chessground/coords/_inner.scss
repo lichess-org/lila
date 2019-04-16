@@ -1,0 +1,30 @@
+coords {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+  font-size: 12px;
+  font-weight: bold;
+  &.files {
+    bottom: 0px;
+    left: 4px;
+    text-align: left;
+  }
+  &.ranks {
+    top: 1px;
+    right: -2px;
+    & coord {
+      transform: none;
+    }
+  }
+}
+
+/* negate inner coords colors */
+.is3d .cg-board-wrap coords coord {
+  color: #fff!important;
+  text-shadow: 0 1px 2px #000!important;
+}
+.is3d .cg-board-wrap coords.files {
+  bottom: calc(1px - 2.5%);
+  coord {
+    padding-left: 3px;
+  }
+}

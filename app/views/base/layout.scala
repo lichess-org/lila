@@ -4,6 +4,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.{ Lang, ContentSecurityPolicy }
+import lila.pref.Pref
 
 import controllers.routes
 
@@ -24,6 +25,13 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/$ps.css"), tpe := "text/css", rel := "stylesheet")
+    def innerCoordsCss(implicit ctx: Context) = {
+      val color = ctx.currentTheme.cssClass match {
+        case "brown" | "blue" | "green" => ctx.currentTheme.cssClass
+        case _ => "other"
+      }
+      responsiveCssTagNoTheme(s"coords.inner.$color")
+    }
   }
   import bits._
 
@@ -117,11 +125,11 @@ object layout {
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
         responsiveCssTag("site"),
         ctx.pref.is3d option responsiveCssTag("board-3d"),
-        ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
         moreCss,
         pieceSprite,
+        ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
         link(id := "favicon", rel := "shortcut icon", href := staticUrl("images/favicon-32-white.png"), `type` := "image/x-icon"),
         link(rel := "mask-icon", href := staticUrl("favicon.svg"), color := "black"),
