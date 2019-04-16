@@ -102,15 +102,15 @@
     white-space: nowrap;
   }
 
-  .rating_history {
+  .rating-history {
     left: -10px;
     display: block;
     width: 100%;
     height: 340px;
-  }
-  .rating_history .spinner {
-    width: 90px;
-    height: 90px;
-    margin: 120px auto 0 auto;
+    .spinner {
+      width: 90px;
+      height: 90px;
+      margin: 120px auto 0 auto;
+    }
   }
 }

@@ -1,7 +1,9 @@
 lichess.ratingHistoryChart = function(data, singlePerfName) {
+  var $el = $('div.rating-history');
+  var $profile = $('#us_profile');
   var singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && data[singlePerfIndex].points.length === 0) {
-    $('div.rating_history').hide();
+    $el.hide();
     return;
   }
   var indexFilter = function(_, i) {
@@ -9,13 +11,15 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
   };
   lichess.loadScript('javascripts/chart/common.js').done(function() {
     lichess.chartCommon('highstock').done(function() {
+      // support: Fx when user bio overflows
+      var origWidth = $profile.width();
       var disabled = {
         enabled: false
       };
       var noText = {
         text: null
       };
-      $('div.rating_history').each(function() {
+      $el.each(function() {
         var dashStyles = [
           // order of perfs from RatingChartApi.scala
           'Solid', // Bullet
@@ -80,6 +84,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           })
         });
       });
+      $profile.width(origWidth + 'px');
     });
   });
 };

@@ -55,7 +55,7 @@ data: ${safeJsonValue(data)}
               )("View the games")
             )
           ),
-          ratingChart.isDefined option div(cls := "rating_history")(spinner),
+          ratingChart.isDefined option div(cls := "rating-history")(spinner),
           div(cls := "box__pad perf-stat__content")
         )
       )
