@@ -99,6 +99,7 @@
   glyph {
     @extend %base-font;
     margin-left: 0.08em;
+    vertical-align: bottom;
   }
   &-column > move glyph {
     flex: 0 1 auto;
