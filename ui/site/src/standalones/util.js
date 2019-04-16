@@ -380,8 +380,10 @@ $.modal = function(html, cls, onClose) {
     .addClass(cls)
     .data('onClose', onClose)
     .html($wrap);
-  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
-  $wrap.click(function(e) {
+  $overlay.add($wrap.find('.close')).one('mousedown', function() {
+    $.modal.close();
+  });
+  $wrap.on('mousedown', function(e) {
     e.stopPropagation();
   });
   $('body').addClass('overlayed').prepend($overlay);
