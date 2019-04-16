@@ -51,7 +51,7 @@
     text-align: center;
   }
   &.good .icon,
-  &.win .icon {
+  .win .icon {
     color: $c-good;
   }
   &.fail .icon {

@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.frag.escapeHtml
 import lila.team.Env.{ current => teamEnv }
 
-trait TeamHelper {
+trait TeamHelper extends ui.ScalatagsTwirl {
 
   private def api = teamEnv.api
 
@@ -17,13 +17,10 @@ trait TeamHelper {
 
   def teamIdToName(id: String): Frag = escapeHtml(api teamName id getOrElse id)
 
-  def teamLink(id: String, withIcon: Boolean = true): Frag = raw {
-    val href = routes.Team.show(id)
-    val content = teamIdToName(id)
-    val icon = if (withIcon) """ data-icon="f"""" else ""
-    val space = if (withIcon) "&nbsp;" else ""
-    s"""<a$icon href="$href">$space$content</a>"""
-  }
+  def teamLink(id: String, withIcon: Boolean = true): Frag = a(
+    href := routes.Team.show(id),
+    dataIcon := withIcon.option("f")
+  )(withIcon option nbsp, teamIdToName(id))
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
 }

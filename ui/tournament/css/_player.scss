@@ -73,7 +73,7 @@
       border-color: $c-bad;
     }
     td:nth-child(2) {
-      @extend %hidden-nowrap;
+      @extend %nowrap-hidden;
       max-width: 200px;
       text-overflow: ellipsis;
     }
