@@ -34,7 +34,7 @@ object bits {
   </head>
   <body>
     <redoc spec-url="https://raw.githubusercontent.com/lichess-org/api/master/doc/specs/lichess-api.yaml"></redoc>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@@next/bundles/redoc.standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
   </body>
 </html>""")
 }
