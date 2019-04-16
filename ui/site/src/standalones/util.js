@@ -124,6 +124,7 @@ lichess.powertip = (function() {
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
       placement: pos,
+      smartPlacement: true,
       mouseOnToPopup: true,
       closeDelay: 200
     }).data('powertip', ' ').on({
