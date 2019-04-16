@@ -12,13 +12,13 @@
   <string name="level">Razina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
   <string name="toggleSound">Uključi/isključi zvuk</string>
-  <string name="chat">Pričaonica</string>
+  <string name="chat">Chat</string>
   <string name="resign">Predaj partiju</string>
   <string name="checkmate">Šah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Bijeli</string>
   <string name="black">Crni</string>
-  <string name="randomColor">Slučajna boja</string>
+  <string name="randomColor">Nasumična boja</string>
   <string name="createAGame">Kreiraj igru</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
