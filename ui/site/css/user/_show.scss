@@ -27,6 +27,17 @@
     display: flex;
     border-top: $border;
     height: 336px;
+    .warning {
+      @extend %box-radius, %flex-center-nowrap;
+      padding: .7em;
+      background: mix($c-bad, $c-bg-box, 10%);
+      border: 1px solid mix($c-bad, $c-bg-box, 30%);
+      color: $c-bad;
+      span {
+        margin-right: .2em;
+        font-size: 2.7em;
+      }
+    }
     .engine_warning {
       margin: 10px 0;
     }
