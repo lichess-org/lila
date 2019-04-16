@@ -4,6 +4,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.{ Lang, ContentSecurityPolicy }
+import lidraughts.pref.Pref
 
 import controllers.routes
 
@@ -24,6 +25,13 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lidraughts.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/$ps.css"), tpe := "text/css", rel := "stylesheet")
+    def innerCoordsCss(implicit ctx: Context) = {
+      val color = ctx.currentTheme.cssClass match {
+        case "brown" | "blue" | "green" => ctx.currentTheme.cssClass
+        case _ => "other"
+      }
+      responsiveCssTagNoTheme(s"coords.inner.$color")
+    }
   }
   import bits._
 
@@ -115,11 +123,11 @@ object layout {
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
         responsiveCssTag("site"),
-        ctx.pref.coords == 1 option cssTag("board.coords.inner.css"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
         ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
         moreCss,
         pieceSprite,
+        ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),

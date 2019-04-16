@@ -1,8 +1,8 @@
-.cg-board-wrap coords {
+coords {
   position: absolute;
   display: flex;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: .8;
   font-size: 10px;
   &.ranks {
     right: -15px;
@@ -14,7 +14,7 @@
       flex-flow: column;
     }
     coord {
-      transform: translateY(39%);
+      transform: translateY(42%);
     }
   }
   &.files {
