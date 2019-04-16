@@ -145,7 +145,7 @@ export function view(ctrl): VNode {
           makeTab('fen', 'FEN', 'Load a FEN position'),
           makeTab('pgn', 'PGN', 'Load a PGN game')
         ]),
-        activeTab === 'edit' ? h('div.board-editor-wrap.is2d', {
+        activeTab === 'edit' ? h('div.board-editor-wrap', {
           hook: {
             insert: vnode => {
               $.when(
