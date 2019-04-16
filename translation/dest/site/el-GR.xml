@@ -72,7 +72,7 @@
   <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
-  <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
+  <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="delete">Διαγραφή</string>
