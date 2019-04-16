@@ -34,5 +34,9 @@
   }
   &__btn {
     padding: 0 .6em;
+    &.active {
+      @extend %active;
+      color: #fff;
+    }
   }
 }
