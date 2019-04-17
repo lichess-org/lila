@@ -114,7 +114,7 @@ object irwin {
                   frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
                 },
                 td(
-                  pov.player.holdAlert.??(_.suspicious) ?? frag(strong(cls := percentClass(50))("Bot?"))
+                  pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
                 )
               )
           }
