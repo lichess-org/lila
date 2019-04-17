@@ -63,11 +63,12 @@
     }
     .user-infos {
       @include hoverflow;
+      flex: 1 1 auto;
       padding: .8em;
-      overflow: hidden;
     }
     .insight {
       @extend %flex-center-nowrap;
+      flex: 0 0 auto;
       padding: .3em 1em;
       border-top: $border;
       color: $c-link;
