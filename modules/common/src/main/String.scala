@@ -64,6 +64,7 @@ final object String {
     def escapeHtml(s: String) = Html {
       escapeHtmlRaw(s)
     }
+    def escapeString(s: String) = escapeHtmlRaw(s)
 
     def markdownLinks(text: String) = Html {
       RawHtml.markdownLinks(text)
