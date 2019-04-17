@@ -19,12 +19,13 @@ export function modal(d: Modal): VNode {
         el.addEventListener('click', e => e.stopPropagation());
         d.onInsert && d.onInsert(el);
       })
-    }, ([
+    }, [
       h('a.close.icon', {
         attrs: { 'data-icon': 'L' },
         hook: bind('click', d.onClose)
-      })
-    ] as MaybeVNodes).concat(d.content))
+      }),
+      h('div', d.content)
+    ])
   ]);
 }
 

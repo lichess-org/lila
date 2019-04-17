@@ -1,4 +1,14 @@
 .study__modal {
+
+  &#modal-wrap {
+    padding: 1rem;
+  }
+
+  > div {
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
   .form3 {
     text-align: left;
     .editor {
@@ -7,7 +17,6 @@
         padding-top: 80px;
       }
     }
-    overflow-y: auto;
   }
   h2 {
     margin-bottom: .5em;
@@ -37,6 +46,7 @@
         opacity: 1;
       }
     }
+    overflow: hidden;
   }
 
   &.chapter-new .tabs-horiz {
