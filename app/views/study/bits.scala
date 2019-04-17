@@ -60,4 +60,11 @@ object bits {
       )
     )
   )
+
+  def streamers(streams: List[lila.streamer.Stream]) =
+    streams.nonEmpty option div(cls := "streamers none")(
+      streams.map { s =>
+        views.html.streamer.bits.contextual(s.streamer.userId)
+      }
+    )
 }

@@ -328,6 +328,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       h('aside.analyse__side', {
         hook: onInsert(elm => {
           ctrl.opts.$side && $(elm).replaceWith(ctrl.opts.$side);
+          $(elm).append($('.streamers').clone().removeClass('none'));
         })
       }, [
         ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (

@@ -56,9 +56,10 @@ socketVersion: $socketVersion
       url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
       description = shorten(r.description, 152)
     ).some
-  ) {
-      main(cls := "analyse")
-    }
+  )(frag(
+      main(cls := "analyse"),
+      views.html.study.bits.streamers(streams)
+    ))
 
   def widget(r: lila.relay.Relay.WithStudyAndLiked, extraCls: String = "")(implicit ctx: Context) =
     div(cls := s"relay-widget $extraCls", dataIcon := "")(
