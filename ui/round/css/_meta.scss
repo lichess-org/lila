@@ -42,9 +42,6 @@
       display: none;
     }
   }
-  &:not(:last-child) {
-    margin-bottom: $block-gap;
-  }
 }
 .game__tournament {
   .clock {
