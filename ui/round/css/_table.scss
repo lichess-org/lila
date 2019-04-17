@@ -4,6 +4,10 @@
     background: $c-bg-box;
     border: $border;
   }
+  .draw-yes span::before {
+    transform: translateY(-1px) rotate(-90deg);
+    display: inline-block; /* somehow that's required */
+  }
 }
 .expiration {
   @extend %flex-center;
