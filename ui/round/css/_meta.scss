@@ -18,9 +18,6 @@
     p {
       margin: 0;
     }
-    .setup {
-      @extend %flex-center-nowrap, %nowrap-hidden;
-    }
     time {
       opacity: 1;
     }
