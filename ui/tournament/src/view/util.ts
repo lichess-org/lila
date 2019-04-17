@@ -67,7 +67,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
     }
   }, [
     h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
-    withRating ? h('span.rating', p.rating + (p.provisional ? '?' : '')) : null
+    withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }
 
