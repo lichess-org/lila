@@ -106,15 +106,15 @@ object header {
       social.notes.isEmpty option div("No note yet"),
       social.notes.map { note =>
         div(cls := "note")(
-          p(cls := "text")(richText(note.text)),
-          p(cls := "meta")(
+          p(cls := "note__text")(richText(note.text)),
+          p(cls := "note__meta")(
             userIdLink(note.from.some),
             br,
             momentFromNow(note.date),
             (ctx.me.exists(note.isFrom) && !note.mod) option frag(
               br,
               form(action := routes.User.deleteNote(note._id), method := "post")(
-                button(tpe := "submit", cls := "thin confirm button text", style := "float:right", dataIcon := "q")("Delete")
+                button(tpe := "submit", cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
               )
             )
           )

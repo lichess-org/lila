@@ -11,12 +11,13 @@
     padding-top: 1em;
     border-top: $border;
     margin-top: 1em;
-    .meta {
+    &__meta {
       text-align: right;
-      margin-left: 1em;
+      margin: 0 1em;
       white-space: nowrap;
     }
-    .text {
+    &__text {
+      flex: 1 1 auto;
       min-height: 2.7em;
     }
   }
