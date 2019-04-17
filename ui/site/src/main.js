@@ -264,7 +264,7 @@
                 if (!$('#challenge_app').is(':visible')) $toggle.click();
               },
               setCount: function(nb) {
-                $toggle.attr('data-count', nb);
+                $toggle.find('span').attr('data-count', nb);
               },
               pulse: function() {
                 $toggle.addClass('pulse');
