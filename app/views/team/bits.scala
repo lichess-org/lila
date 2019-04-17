@@ -1,5 +1,4 @@
-package views.html
-package team
+package views.html.team
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -30,31 +29,20 @@ object bits {
     )
   }
 
-  def teamTr(t: lila.team.Team)(implicit ctx: Context) =
-    tr(cls := "paginated")(
-      td(cls := "subject")(
-        a(cls := "team-name", href := routes.Team.show(t.id))(
-          iconTag("f")(cls := List(
-            "is-green" -> myTeam(t.id),
-            "text" -> true
-          )),
-          t.name
-        ),
-        shorten(t.description, 200)
-      ),
-      td(cls := "info")(
-        p(trans.nbMembers.pluralFrag(t.nbMembers, t.nbMembers.localize))
-      )
+  private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) = tr(cls := "paginated")(
+    td(cls := "subject")(
+      a(dataIcon := "f", cls := List(
+        "team-name text" -> true,
+        "mine" -> myTeam(t.id)
+      ), href := routes.Team.show(t.id))(t.name),
+      shorten(t.description, 200)
+    ),
+    td(cls := "info")(
+      p(trans.nbMembers.plural(t.nbMembers, t.nbMembers.localize))
     )
-
-  def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) = team.list(
-    name = trans.teams.txt(),
-    teams = teams,
-    next = teams.nextPage map { n => routes.Team.all(n) },
-    tab = "all"
   )
 
-  def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Frag)(implicit ctx: Context) =
+  private[team] def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("team"),

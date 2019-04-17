@@ -61,7 +61,7 @@ object show {
                 },
                 info.hasRequests option div(cls := "requests")(
                   h2(info.requests.size, " join requests"),
-                  views.html.team.requests(info.requests, t.some)
+                  views.html.team.request.list(info.requests, t.some)
                 )
               ),
               st.section(cls := "team-show__actions")(

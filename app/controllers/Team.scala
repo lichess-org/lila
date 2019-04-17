@@ -19,7 +19,7 @@ object Team extends LilaController {
 
   def all(page: Int) = Open { implicit ctx =>
     NotForKids {
-      paginator popularTeams page map { html.team.bits.all(_) }
+      paginator popularTeams page map { html.team.list.all(_) }
     }
   }
 
@@ -40,8 +40,8 @@ object Team extends LilaController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
-      if (text.trim.isEmpty) paginator popularTeams page map { html.team.bits.all(_) }
-      else Env.teamSearch(text, page) map { html.team.search(text, _) }
+      if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
+      else Env.teamSearch(text, page) map { html.team.list.search(text, _) }
     }
   }
 
@@ -68,7 +68,7 @@ object Team extends LilaController {
 
   def edit(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
-      Owner(team) { fuccess(html.team.edit(team, forms edit team)) }
+      Owner(team) { fuccess(html.team.form.edit(team, forms edit team)) }
     }
   }
 
@@ -77,7 +77,7 @@ object Team extends LilaController {
       Owner(team) {
         implicit val req = ctx.body
         forms.edit(team).bindFromRequest.fold(
-          err => BadRequest(html.team.edit(team, err)).fuccess,
+          err => BadRequest(html.team.form.edit(team, err)).fuccess,
           data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id))
         )
       }
@@ -88,7 +88,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.kick(team, userIds - me.id)
+          html.team.admin.kick(team, userIds - me.id)
         }
       }
     }
@@ -98,7 +98,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value.pp ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
       }
     }
   }
@@ -107,7 +107,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.changeOwner(team, userIds - team.createdBy)
+          html.team.admin.changeOwner(team, userIds - team.createdBy)
         }
       }
     }
@@ -134,7 +134,7 @@ object Team extends LilaController {
     NotForKids {
       OnePerWeek(me) {
         forms.anyCaptcha map { captcha =>
-          Ok(html.team.form(forms.create, captcha))
+          Ok(html.team.form.create(forms.create, captcha))
         }
       }
     }
@@ -145,7 +145,7 @@ object Team extends LilaController {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
         err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.form(err, captcha))
+          BadRequest(html.team.form.create(err, captcha))
         },
         data => api.create(data, me) ?? {
           _ map { team => Redirect(routes.Team.show(team.id)): Result }
@@ -155,7 +155,7 @@ object Team extends LilaController {
   }
 
   def mine = Auth { implicit ctx => me =>
-    api mine me map { html.team.mine(_) }
+    api mine me map { html.team.list.mine(_) }
   }
 
   def join(id: String) = Auth { implicit ctx => implicit me =>
@@ -168,12 +168,12 @@ object Team extends LilaController {
 
   def requests = Auth { implicit ctx => me =>
     Env.team.cached.nbRequests invalidate me.id
-    api requestsWithUsers me map { html.team.allRequests(_) }
+    api requestsWithUsers me map { html.team.request.all(_) }
   }
 
   def requestForm(id: String) = Auth { implicit ctx => me =>
     OptionFuOk(api.requestable(id, me)) { team =>
-      forms.anyCaptcha map { html.team.requestForm(team, forms.request, _) }
+      forms.anyCaptcha map { html.team.request.requestForm(team, forms.request, _) }
     }
   }
 
@@ -182,7 +182,7 @@ object Team extends LilaController {
       implicit val req = ctx.body
       forms.request.bindFromRequest.fold(
         err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.requestForm(team, err, captcha))
+          BadRequest(html.team.request.requestForm(team, err, captcha))
         },
         setup => api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id))
       )
