@@ -12,9 +12,9 @@ function streak(s, title, display) {
 }
 
 function streaks(s, display) {
-  return m('div', [
-    m('div.half', streak(s.max, 'Longest streak', display)),
-    m('div.half', streak(s.cur, 'Current streak', display))
+  return m('div.split', [
+    m('div', streak(s.max, 'Longest streak', display)),
+    m('div', streak(s.cur, 'Current streak', display))
   ]);
 }
 

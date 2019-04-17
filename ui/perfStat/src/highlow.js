@@ -15,7 +15,7 @@ function ratingAt(title, opt, color) {
 
 module.exports = function(d) {
   return [
-    m('div.half', ratingAt('Highest rating', d.stat.highest, util.green)),
-    m('div.half', ratingAt('Lowest rating', d.stat.lowest, util.red))
+    m('div', ratingAt('Highest rating', d.stat.highest, util.green)),
+    m('div', ratingAt('Lowest rating', d.stat.lowest, util.red))
   ];
 };

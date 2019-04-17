@@ -15,7 +15,7 @@ function resultTable(results, title) {
 
 module.exports = function(d) {
   return [
-    m('div.half', resultTable(d.stat.bestWins.results, 'Best rated victories')),
-    m('div.half', resultTable(d.stat.worstLosses.results, 'Worst rated defeats'))
+    m('div', resultTable(d.stat.bestWins.results, 'Best rated victories')),
+    m('div', resultTable(d.stat.worstLosses.results, 'Worst rated defeats'))
   ];
 };

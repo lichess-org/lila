@@ -20,13 +20,13 @@
     }
   }
   h2 {
-    font-size: 2.1em;
+    font-size: 2em;
     .details {
       opacity: .8;
     }
   }
   h3 {
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   time {
     display: inline;
@@ -44,11 +44,13 @@
   section {
     margin-top: 4em;
   }
-  .half {
-    width: calc(50% - 3em);
-    display: inline-block;
-    &:first-child {
-      margin-right: 3em;
+  .split {
+    @extend %flex-center;
+    > div {
+      flex: 0 0 49%;
+      &:first-child {
+        margin-right: 2%;
+      }
     }
   }
   table {

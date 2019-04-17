@@ -12,7 +12,7 @@ module.exports = function(d) {
     return percent(x, y || c.all) + '%';
   };
   return [
-    m('div.half', m('table', m('tbody', [
+    m('div', m('table', m('tbody', [
       m('tr', [
         m('th', 'Total games'),
         m('td', c.all),
@@ -38,7 +38,7 @@ module.exports = function(d) {
         m('td[colspan=2]', util.formatSeconds(c.seconds, 'short'))
       ]) : null
     ]))),
-    m('div.half', m('table', m('tbody', [
+    m('div', m('table', m('tbody', [
       m('tr', [
         m('th', 'Average opponent'),
         m('td', c.opAvg),
