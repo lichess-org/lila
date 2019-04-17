@@ -29,8 +29,8 @@ export default function(opts: RoundOpts): void {
           $.ajax({
             url: [(data.tv ? '/tv' : ''), data.game.id, data.player.color, 'sides'].join('/'),
             success: function(html) {
-              const $html = $(html), $side = $html.find('.round__side');
-              $side.length && $('.round__side').replaceWith($side);
+              const $html = $(html), $meta = $html.find('.game__meta');
+              $meta.length && $('.game__meta').replaceWith($meta);
               $('.crosstable').replaceWith($html.find('.crosstable'));
               li.pubsub.emit('content_loaded')();
               startTournamentClock();
