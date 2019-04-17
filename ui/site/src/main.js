@@ -256,7 +256,6 @@
           if (booted) return;
           booted = true;
           var $el = $('#challenge_app').html(lichess.initiatingHtml);
-          var isDev = $('body').data('dev');
           lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
             instance = LichessChallenge.default($el[0], {
@@ -295,7 +294,6 @@
           if (booted) return;
           booted = true;
           var $el = $('#notify_app').html(initiatingHtml);
-          var isDev = $('body').data('dev');
           lichess.loadCssPath('notify');
           lichess.loadScript(lichess.compiledScript('notify')).done(function() {
             instance = LichessNotify.default($el.empty()[0], {
@@ -343,7 +341,6 @@
           if (booted) return;
           booted = true;
           var $el = $('#dasher_app').html(initiatingHtml);
-          var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
