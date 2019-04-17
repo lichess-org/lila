@@ -65,7 +65,8 @@ export function view(ctrl: BoardCtrl): VNode {
       h('p', [
         ctrl.trans.noarg('boardSize'),
         ': ',
-        (ctrl.data.zoom - 100)
+        (ctrl.data.zoom - 100),
+        '%'
       ]),
       h('div.slider', {
         hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
