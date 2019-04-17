@@ -44,15 +44,20 @@
     .block {
       padding: 0 10px 10px 10px;
     }
-    .history table {
-      width: 100%;
-    }
-    .history .reason {
-      text-transform: capitalize;
-    }
-    .history .mod,
-    .history time {
-      opacity: 0.8;
+    .history {
+      td {
+        padding: .3rem .5rem .3rem 0;
+      }
+      table {
+        width: 100%;
+      }
+      .reason {
+        text-transform: capitalize;
+      }
+      .mod,
+      time {
+        opacity: 0.8;
+      }
     }
     .infos {
       padding-top: 10px;
