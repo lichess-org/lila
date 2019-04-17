@@ -7,7 +7,7 @@ export default function(ctrl: Ctrl): VNode {
 
   const d = ctrl.data();
 
-  return h('div#notify_app.links.dropdown',
+  return h('div#notify-app.links.dropdown',
     d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]);
 }
 

@@ -468,111 +468,111 @@ export default class RoundController {
   };
 
   private playPredrop = () => {
-      return this.draughtsground.playPredrop(drop => {
-          return crazyValid(this.data, drop.role, drop.key);
-      });
+    return this.draughtsground.playPredrop(drop => {
+      return crazyValid(this.data, drop.role, drop.key);
+    });
   };
 
   private clearJust() {
-      this.justDropped = undefined;
-      this.justCaptured = undefined;
-      this.preDrop = undefined;
+    this.justDropped = undefined;
+    this.justCaptured = undefined;
+    this.preDrop = undefined;
   }
 
   reload = (d: RoundData): void => {
-      d.steps = round.mergeSteps(d.steps);
-      if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
-      round.massage(d);
-      this.data = d;
-      this.clearJust();
-      this.shouldSendMoveTime = false;
-      if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
-      if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
-      if (!this.replaying()) ground.reload(this);
-      this.setTitle();
-      this.moveOn.next();
-      this.setQuietMode();
-      this.redraw();
-      this.autoScroll();
-      this.onChange();
-      this.setLoading(false);
-      if (this.keyboardMove) this.keyboardMove.update(d.steps[d.steps.length - 1]);
+    d.steps = round.mergeSteps(d.steps);
+    if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
+    round.massage(d);
+    this.data = d;
+    this.clearJust();
+    this.shouldSendMoveTime = false;
+    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
+    if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
+    if (!this.replaying()) ground.reload(this);
+    this.setTitle();
+    this.moveOn.next();
+    this.setQuietMode();
+    this.redraw();
+    this.autoScroll();
+    this.onChange();
+    this.setLoading(false);
+    if (this.keyboardMove) this.keyboardMove.update(d.steps[d.steps.length - 1]);
   };
 
   endWithData = (o: ApiEnd): void => {
-      const d = this.data;
-      d.game.winner = o.winner;
-      d.game.status = o.status;
-      d.game.boosted = o.boosted;
-      this.userJump(round.lastPly(d));
-      this.draughtsground.stop();
-      if (o.ratingDiff) {
-          d.player.ratingDiff = o.ratingDiff[d.player.color];
-          d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
-      }
-      if (!d.player.spectator && d.game.turns > 1)
-          li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
-      this.clearJust();
-      this.setTitle();
-      this.moveOn.next();
-      this.setQuietMode();
-      this.setLoading(false);
-      if (this.clock && o.clock) this.clock.setClock(d, o.clock.wc * .01, o.clock.bc * .01);
-      this.redraw();
-      this.autoScroll();
-      this.onChange();
-      if (d.tv) setTimeout(li.reload, 10000);
+    const d = this.data;
+    d.game.winner = o.winner;
+    d.game.status = o.status;
+    d.game.boosted = o.boosted;
+    this.userJump(round.lastPly(d));
+    this.draughtsground.stop();
+    if (o.ratingDiff) {
+      d.player.ratingDiff = o.ratingDiff[d.player.color];
+      d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
+    }
+    if (!d.player.spectator && d.game.turns > 1)
+      li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+    this.clearJust();
+    this.setTitle();
+    this.moveOn.next();
+    this.setQuietMode();
+    this.setLoading(false);
+    if (this.clock && o.clock) this.clock.setClock(d, o.clock.wc * .01, o.clock.bc * .01);
+    this.redraw();
+    this.autoScroll();
+    this.onChange();
+    if (d.tv) setTimeout(li.reload, 10000);
   };
 
   challengeRematch = (): void => {
-      this.challengeRematched = true;
-      xhr.challengeRematch(this.data.game.id).then(() => {
-          li.challengeApp.open();
-          if (li.once('rematch-challenge')) setTimeout(() => {
-              li.hopscotch(function () {
-                  window.hopscotch.configure({
-                      i18n: { doneBtn: 'OK, got it' }
-                  }).startTour({
-                      id: "rematch-challenge",
-                      showPrevButton: true,
-                      steps: [{
-                          title: "Challenged to a rematch",
-                          content: 'Your opponent is offline, but they can accept this challenge later!',
-                          target: "#challenge_app",
-                          placement: "bottom"
-                      }]
-                  });
-              });
-          }, 1000);
-      }, _ => {
-          this.challengeRematched = false;
-      });
+    this.challengeRematched = true;
+    xhr.challengeRematch(this.data.game.id).then(() => {
+      li.challengeApp.open();
+      if (li.once('rematch-challenge')) setTimeout(() => {
+        li.hopscotch(function () {
+          window.hopscotch.configure({
+            i18n: { doneBtn: 'OK, got it' }
+          }).startTour({
+            id: "rematch-challenge",
+            showPrevButton: true,
+            steps: [{
+              title: "Challenged to a rematch",
+              content: 'Your opponent is offline, but they can accept this challenge later!',
+              target: "#challenge-app",
+              placement: "bottom"
+            }]
+          });
+        });
+      }, 1000);
+    }, _ => {
+      this.challengeRematched = false;
+    });
   };
 
   private makeCorrespondenceClock = (): void => {
-      if (this.data.correspondence && !this.corresClock)
-          this.corresClock = makeCorresClock(
-              this,
-              this.data.correspondence,
-              this.socket.outoftime
-          );
+    if (this.data.correspondence && !this.corresClock)
+      this.corresClock = makeCorresClock(
+        this,
+        this.data.correspondence,
+        this.socket.outoftime
+      );
   };
 
   private corresClockTick = (): void => {
-      if (this.corresClock && game.playable(this.data))
-          this.corresClock.tick(this.data.game.player);
+    if (this.corresClock && game.playable(this.data))
+      this.corresClock.tick(this.data.game.player);
   };
 
   private setQuietMode = () => {
-      const was = li.quietMode;
-      const is = this.isPlaying();
-      if (was !== is) {
-          li.quietMode = is;
-          $('body')
-              .toggleClass('playing', is)
-              .toggleClass('no-select',
-              is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
-      }
+    const was = li.quietMode;
+    const is = this.isPlaying();
+    if (was !== is) {
+      li.quietMode = is;
+      $('body')
+        .toggleClass('playing', is)
+        .toggleClass('no-select',
+        is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+    }
   };
 
   takebackYes = () => {
