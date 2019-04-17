@@ -64,7 +64,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
   else if (p.ratingDiff < 0) ratingDiff = h('span.negative', {
     attrs: { 'data-icon': 'M' }
   }, '' + -p.ratingDiff);
-  const rating = p.rating + (p.provisional ? '?' : ''),
+  const rating = ' ' + p.rating + (p.provisional ? '?' : ''),
   fullName = playerName(p);
 
   return h('a.ulpt.user-link' + (fullName.length > 15 ? '.long' : ''), {
