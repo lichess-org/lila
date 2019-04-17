@@ -39,6 +39,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
       document.body.setAttribute('style', '--zoom:' + (v - 100));
       window.lichess.dispatchEvent(window, 'resize');
       saveZoom();
+      redraw();
     },
     close
   };
@@ -61,7 +62,11 @@ export function view(ctrl: BoardCtrl): VNode {
       }, '3D')
     ]),
     h('div.zoom', [
-      h('p', ctrl.trans.noarg('boardSize')),
+      h('p', [
+        ctrl.trans.noarg('boardSize'),
+        ': ',
+        (ctrl.data.zoom - 100)
+      ]),
       h('div.slider', {
         hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
       })
