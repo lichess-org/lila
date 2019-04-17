@@ -847,7 +847,7 @@ en %3$s</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">et enregistrer %s variante de précoups</item>
+    <item quantity="one">et enregistrer %s variantes</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
 </resources>
