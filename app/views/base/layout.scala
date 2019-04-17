@@ -51,17 +51,17 @@ object layout {
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
-  private def allNotifications(implicit ctx: Context) = spaceless(s"""<div class="challenge_notifications">
-  <a id="challenge_notifications_tag" class="toggle link">
+  private def allNotifications(implicit ctx: Context) = spaceless(s"""<div>
+  <a id="challenge-toggle" class="toggle link">
     <span title="${trans.challenges.txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
   </a>
-  <div id="challenge_app" class="dropdown"></div>
+  <div id="challenge-app" class="dropdown"></div>
 </div>
-<div class="site_notifications">
-  <a id="site_notifications_tag" class="toggle link">
+<div>
+  <a id="notify-toggle" class="toggle link">
     <span title="${trans.notifications.txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""</span>
   </a>
-  <div id="notify_app" class="dropdown"></div>
+  <div id="notify-app" class="dropdown"></div>
 </div>""")
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">

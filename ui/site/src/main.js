@@ -37,7 +37,7 @@
         $('#friend_box').friends('study_leave', name);
       },
       new_notification: function(e) {
-        $('#site_notifications_tag').attr('data-count', e.unread || 0);
+        $('#notify-toggle').attr('data-count', e.unread || 0);
         lichess.sound.newPM();
       },
       redirect: function(o) {
@@ -248,20 +248,20 @@
 
       lichess.challengeApp = (function() {
         var instance, booted;
-        var $toggle = $('#challenge_notifications_tag');
+        var $toggle = $('#challenge-toggle');
         $toggle.one('mouseover click', function() {
           load();
         });
         var load = function(data) {
           if (booted) return;
           booted = true;
-          var $el = $('#challenge_app').html(lichess.initiatingHtml);
+          var $el = $('#challenge-app').html(lichess.initiatingHtml);
           lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
             instance = LichessChallenge.default($el[0], {
               data: data,
               show: function() {
-                if (!$('#challenge_app').is(':visible')) $toggle.click();
+                if (!$('#challenge-app').is(':visible')) $toggle.click();
               },
               setCount: function(nb) {
                 $toggle.find('span').attr('data-count', nb);
@@ -285,15 +285,15 @@
 
       lichess.notifyApp = (function() {
         var instance, booted;
-        var $toggle = $('#site_notifications_tag');
+        var $toggle = $('#notify-toggle');
         var isVisible = function() {
-          return $('#notify_app').is(':visible');
+          return $('#notify-app').is(':visible');
         };
 
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
-          var $el = $('#notify_app').html(initiatingHtml);
+          var $el = $('#notify-app').html(initiatingHtml);
           lichess.loadCssPath('notify');
           lichess.loadScript(lichess.compiledScript('notify')).done(function() {
             instance = LichessNotify.default($el.empty()[0], {

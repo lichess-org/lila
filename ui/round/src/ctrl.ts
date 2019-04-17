@@ -510,7 +510,7 @@ export default class RoundController {
             steps: [{
               title: "Challenged to a rematch",
               content: 'Your opponent is offline, but they can accept this challenge later!',
-              target: "#challenge_app",
+              target: "#challenge-app",
               placement: "bottom"
             }]
           });
