@@ -65,6 +65,11 @@ object bits {
       )
     }
 
+  def contextual(userId: User.ID): Frag =
+    a(cls := "context-streamer text", dataIcon := "", href := routes.Streamer.show(userId))(
+      usernameOrId(userId), " is streaming"
+    )
+
   object svg {
 
     val twitch = raw("""

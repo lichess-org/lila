@@ -56,6 +56,13 @@ socketVersion: $socketVersion
       description = s"A draughts study by ${usernameOrId(s.ownerId)}"
     ).some
   ) {
-      main(cls := "analyse") // (views.html.board.bits.domPreload(none))
+      main(cls := "analyse")(
+        div(cls := "analyse__side")(
+          div(cls := "study__side"),
+          streams.map { s =>
+            views.html.streamer.bits.contextual(s.streamer.userId)
+          }
+        )
+      )
     }
 }
