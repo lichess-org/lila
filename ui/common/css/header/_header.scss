@@ -21,25 +21,3 @@
   display: flex;
   justify-content: flex-start;
 }
-
-#reconnecting {
-  display: none;
-  opacity: 0;
-}
-body.offline #reconnecting {
-  line-height: var(--site-header-height);
-  display: inherit;
-  opacity: 1;
-  color: $c-error;
-}
-@keyframes reconnected {
-  0% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-15px); }
-}
-body.online.reconnected #reconnecting {
-  color: $c-good;
-  animation: reconnected 2s ease-out 1s backwards;
-}
-body.online #reconnecting::before {
-  content: 'J'
-}

@@ -3,8 +3,8 @@ package views.html.base
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.common.String.html.escapeString
+import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.pref.Pref
 
 import controllers.routes
@@ -204,6 +204,7 @@ object layout {
                 )
               )
           },
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag()),
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           jsAt(s"compiled/lichess.site${isProd ?? ".min"}.js", async = asyncJs),
@@ -220,9 +221,6 @@ object layout {
 <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" aria-label="Navigation">
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""")
-
-    private def reconnecting(implicit ctx: Context) =
-      a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
       a(cls := "link data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
@@ -244,7 +242,6 @@ object layout {
           ),
           topnav()
         ),
-        reconnecting,
         div(cls := "site-buttons")(
           clinput,
           reports,
