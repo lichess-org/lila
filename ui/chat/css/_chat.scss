@@ -23,4 +23,8 @@
       resize: none;
     }
   }
+  min-height: 15em;
+  @include breakpoint($mq-col3-uniboard) {
+    min-height: auto;
+  }
 }

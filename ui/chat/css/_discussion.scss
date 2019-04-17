@@ -1,5 +1,4 @@
 .mchat {
-  min-height: 10em;
   &__messages {
     @extend %break-word;
     flex: 1 1 auto;
