@@ -157,6 +157,8 @@
   <string name="ratingStats">Statistik rating</string>
   <string name="username">Nama pengguna</string>
   <string name="usernameOrEmail">Nama pengguna atau email</string>
+  <string name="changeUsername">Ganti nama pengguna</string>
+  <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
   <string name="password">Kata sandi</string>
   <string name="haveAnAccount">Punya akun?</string>
   <string name="changePassword">Ganti kata sandi</string>
