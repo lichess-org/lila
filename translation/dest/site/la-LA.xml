@@ -78,6 +78,7 @@
   <string name="masterDbExplanation">Duae millio ludi tabulae de %1$s+ FIDE lusoribus de %2$s ad %3$s</string>
   <string name="noGameFound">Nulla ludum inventa</string>
   <string name="openingExplorer">Aperis indagatorem</string>
+  <string name="xOpeningExplorer">%s aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
@@ -229,6 +230,7 @@
     <item quantity="one">Da %s secundas</item>
     <item quantity="other">Da %s secundas</item>
   </plurals>
+  <string name="giveMoreTime">Da tempus</string>
   <string name="thisPlayerUsesChessComputerAssistance">Hic lusor computatralium scaccorum auxilio utitur</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hic lusor statum falso crescit/decrescit</string>
   <string name="openingExplorerAndTablebase">Explicatio initiorum et finitium</string>
@@ -361,6 +363,7 @@
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="youArePlaying">Ludis!</string>
+  <string name="draws">Indutiae</string>
   <string name="viewMoreTournaments">Certamen videre</string>
   <string name="membersOnly">Sola membra</string>
   <string name="boardEditor">Moderator tabularis</string>
@@ -398,6 +401,7 @@
   <string name="keepGoing">Perge...</string>
   <string name="puzzleFailed">Cadis in problemate</string>
   <string name="butYouCanKeepTrying">Tamen rursum contendere potes.</string>
+  <string name="success">Victoria</string>
   <string name="wasThisPuzzleAnyGood">Fuitne bonum hoc problema?</string>
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
