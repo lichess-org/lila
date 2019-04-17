@@ -12,7 +12,6 @@ lidraughts.ratingHistoryChart = function(data, singlePerfName) {
   lidraughts.loadScript('javascripts/chart/common.js').done(function() {
     lidraughts.chartCommon('highstock').done(function() {
       // support: Fx when user bio overflows
-      var origWidth = $profile.width();
       var disabled = {
         enabled: false
       };
@@ -84,7 +83,6 @@ lidraughts.ratingHistoryChart = function(data, singlePerfName) {
           })
         });
       });
-      $profile.width(origWidth + 'px');
     });
   });
 };
