@@ -301,7 +301,7 @@
               incoming: incoming,
               isVisible: isVisible,
               setCount: function(nb) {
-                $toggle.attr('data-count', nb);
+                $toggle.find('span').attr('data-count', nb);
               },
               show: function() {
                 if (!isVisible()) $toggle.click();
