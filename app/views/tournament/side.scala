@@ -77,12 +77,7 @@ object side {
         )
       )
     ),
-    streamers.toList map { id =>
-      a(href := routes.Streamer.show(id), cls := "context-streamer text side_box", dataIcon := "")(
-        usernameOrId(id),
-        " is streaming"
-      )
-    },
+    streamers.toList map views.html.streamer.bits.contextual,
     chat option views.html.chat.frag
   )
 }

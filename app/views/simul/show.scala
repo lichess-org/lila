@@ -63,11 +63,7 @@ chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, 
             momentFromNow(sim.createdAt)
           ),
           stream.map { s =>
-            a(
-              href := routes.Streamer.show(s.streamer.userId),
-              cls := "context-streamer text side_box",
-              dataIcon := ""
-            )(usernameOrId(s.streamer.userId), " is streaming")
+            views.html.streamer.bits.contextual(s.streamer.userId)
           },
           chatOption.isDefined option views.html.chat.frag
         ),
