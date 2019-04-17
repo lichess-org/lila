@@ -159,6 +159,7 @@
   <string name="usernameOrEmail">Nama pengguna atau email</string>
   <string name="changeUsername">Ganti nama pengguna</string>
   <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
+  <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
   <string name="password">Kata sandi</string>
   <string name="haveAnAccount">Punya akun?</string>
   <string name="changePassword">Ganti kata sandi</string>
