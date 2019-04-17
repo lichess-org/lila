@@ -41,10 +41,7 @@
 
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
-    grid-template-rows: 8em fit-content(100%);
-    @include proper-grid {
-      grid-template-rows: max-content fit-content(100%);
-    }
+    grid-template-rows: fit-content(0);
     grid-template-areas:
     'side  app   app'
     'uchat under .';
