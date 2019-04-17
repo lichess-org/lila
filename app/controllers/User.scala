@@ -297,7 +297,7 @@ object User extends LilaController {
         }
         val irwin = Env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
-            html.irwin.irwinReport(reps).some
+            Html(html.irwin.report(reps).render).some
           }
         }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
