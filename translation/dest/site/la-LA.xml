@@ -148,6 +148,7 @@
   <string name="ratingStats">Informatio ordinis</string>
   <string name="username">Nomen interretiarii</string>
   <string name="usernameOrEmail">Nomen interretiarii vel email</string>
+  <string name="changeUsername">Mutare nomen usoris</string>
   <string name="password">Verba quae licet uno inire</string>
   <string name="haveAnAccount">Nonne inscriptus es?</string>
   <string name="changePassword">Tesseram mutare</string>
@@ -681,4 +682,5 @@
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
+  <string name="opening">Principium</string>
 </resources>
