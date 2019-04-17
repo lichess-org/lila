@@ -39,6 +39,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
       document.body.setAttribute('style', '--zoom:' + (v - 100));
       window.lidraughts.dispatchEvent(window, 'resize');
       saveZoom();
+      redraw();
     },
     close
   };
@@ -48,6 +49,11 @@ export function view(ctrl: BoardCtrl): VNode {
   return h('div.sub.board', [
     header(ctrl.trans.noarg('boardSize'), ctrl.close),
     h('div.zoom', [
+      h('p', [
+        ctrl.trans.noarg('boardSize'),
+        ': ',
+        (ctrl.data.zoom - 100)
+      ]),
       h('div.slider', {
         hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
       })
