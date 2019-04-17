@@ -3,8 +3,8 @@ package views.html.base
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.{ Lang, ContentSecurityPolicy }
 import lidraughts.common.String.html.escapeString
+import lidraughts.common.{ Lang, ContentSecurityPolicy }
 import lidraughts.pref.Pref
 
 import controllers.routes
@@ -198,6 +198,7 @@ object layout {
                 )
               )
           },
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag()),
           draughtsground option jsTag("vendor/draughtsground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           jsAt(s"compiled/lidraughts.site${isProd ?? ".min"}.js", async = asyncJs),
@@ -214,9 +215,6 @@ object layout {
 <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" aria-label="Navigation">
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""")
-
-    private def reconnecting(implicit ctx: Context) =
-      a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag())
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
       a(cls := "link data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
@@ -238,7 +236,6 @@ object layout {
           ),
           topnav()
         ),
-        reconnecting,
         div(cls := "site-buttons")(
           clinput,
           reports,
