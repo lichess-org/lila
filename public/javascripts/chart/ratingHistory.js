@@ -12,7 +12,6 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
   lichess.loadScript('javascripts/chart/common.js').done(function() {
     lichess.chartCommon('highstock').done(function() {
       // support: Fx when user bio overflows
-      var origWidth = $profile.width();
       var disabled = {
         enabled: false
       };
@@ -36,7 +35,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           'ShortDot', // Racing Kings
           'Dash', // Crazyhouse
           'Dash', // Puzzle
-          'Dash' // Ultrabullet 
+          'Dash' // Ultrabullet
         ].filter(indexFilter);
         $(this).highcharts('StockChart', {
           yAxis: {
@@ -84,7 +83,6 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           })
         });
       });
-      $profile.width(origWidth + 'px');
     });
   });
 };
