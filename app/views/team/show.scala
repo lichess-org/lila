@@ -90,6 +90,7 @@ object show {
                       a(href := routes.ForumPost.redirect(post.postId))(post.topicName),
                       em(
                         userIdLink(post.userId, withOnline = false),
+                        " ",
                         momentFromNow(post.createdAt)
                       )
                     ),
