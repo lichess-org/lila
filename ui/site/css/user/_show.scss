@@ -5,7 +5,7 @@
 
 .user-show {
 
-  // overflow: hidden; /* this fixes profile overflow, but cuts out the trophies */
+  overflow: hidden; /* this fixes profile overflow, but cuts out the trophies */
 
   &__social {
     @extend %flex-between;
@@ -45,7 +45,7 @@
       margin: 10px 0;
     }
     .rating-history {
-      flex: 0 0 62%;
+      flex: 1 1 58%;
       margin-left: -10px;
       height: 350px;
       .spinner {
@@ -56,6 +56,7 @@
     }
     .profile-side {
       @extend %flex-column;
+      flex: 1 1 42%;
       border-left: $border;
       height: 100%;
       overflow: hidden;
