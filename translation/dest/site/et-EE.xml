@@ -174,7 +174,6 @@
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Koht</string>
   <string name="rankX">Koht: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Kohta uuendatakse iga %s minuti tagant</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
     <item quantity="other">%s ülesannet</item>
