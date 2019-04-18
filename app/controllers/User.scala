@@ -157,11 +157,7 @@ object User extends LilaController {
 
   def ratingHistory(username: String) = OpenBody { implicit ctx =>
     EnabledUser(username) { u =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          Env.history.ratingChartApi(u) map { Ok(_) as JSON }
-      )
+      Env.history.ratingChartApi(u) map { Ok(_) as JSON }
     }
   }
 
