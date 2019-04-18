@@ -173,7 +173,6 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="rank">Renditja</string>
   <string name="rankX">Klasifikimi: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Klasifikimi azhornohet cdo %s minuta</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ushtrimi</item>
     <item quantity="other">%s ushtrime</item>
