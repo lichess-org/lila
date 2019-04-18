@@ -94,7 +94,7 @@ private[round] final class Round(
     }
 
     case ResignForce(playerId) => handle(playerId) { pov =>
-      (pov.forceResignable && !pov.game.hasAi && pov.game.hasClock) ?? {
+      (pov.forceResignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
         socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
           case true => finisher.rageQuit(pov.game, Some(pov.color))
           case _ => fuccess(List(Event.Reload))
