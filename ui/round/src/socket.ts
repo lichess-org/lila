@@ -135,6 +135,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       }
     },
     simulEnd(simul: game.Simul) {
+      li.loadCssPath('modal');
       $.modal($(
         '<p>' + ctrl.trans('xComplete', simul.name) + '</p><br /><br />' +
         '<a class="button" href="/simul/' + simul.id + '">' + ctrl.trans('backToSimul') + '</a>'
