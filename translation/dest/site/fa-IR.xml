@@ -169,7 +169,6 @@
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
-  <string name="rankIsUpdatedEveryXMinutes">رتبه در هر %s دقیقه به روز رسانی می شود</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s معما</item>
     <item quantity="other">%s معما</item>
