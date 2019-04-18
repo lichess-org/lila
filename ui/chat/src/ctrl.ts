@@ -29,6 +29,10 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     writeable: opts.writeable
   };
 
+  /* If discussion is disabled, and we have another chat tab,
+   * then select that tab over discussion */
+  if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat')) vm.tab = allTabs[1];
+
   const post = function(text: string): void {
     text = text.trim();
     if (!text) return;
