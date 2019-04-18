@@ -176,7 +176,6 @@
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ang ranggo ay na update bawat %s mga minuto</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s palaisipan</item>
     <item quantity="other">%s mga palaisipan</item>
