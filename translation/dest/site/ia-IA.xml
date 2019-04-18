@@ -173,7 +173,6 @@
   <string name="forgotPassword">Io ha oblidate mi contrasigno.</string>
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Classification es actualisate cata %s minutas</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s enigmas</item>
     <item quantity="other">%s enigmas</item>
