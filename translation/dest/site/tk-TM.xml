@@ -176,7 +176,6 @@
   <string name="forgotPassword">Açarsözi unutdyňyz?</string>
   <string name="rank">Orun</string>
   <string name="rankX">Orun: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Orunlar her %s minutdan täzelenýär</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s tapmaça</item>
     <item quantity="other">%s tapmaça</item>
