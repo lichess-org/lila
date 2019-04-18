@@ -190,7 +190,6 @@
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="rank">Priečka</string>
   <string name="rankX">Rank: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Poradie je aktualizované každých %s minút</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s úloha</item>
     <item quantity="few">%s úlohy</item>
