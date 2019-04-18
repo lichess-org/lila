@@ -14,6 +14,7 @@
   overflow: auto;
   border: $border;
   border-width: 1px 0;
+  position: relative; /* required by line::before */
 }
 
 .puzzle__feedback {
