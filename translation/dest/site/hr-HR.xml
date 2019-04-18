@@ -400,14 +400,14 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="other">%s prati</item>
   </plurals>
   <string name="more">Više</string>
-  <string name="memberSince">član od</string>
+  <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja aktivnost %s</string>
   <string name="challengeToPlay">Poziv na partiju</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Manje od minute</item>
+    <item quantity="one">Manje od %s minute</item>
     <item quantity="few">Manje od %s minuta</item>
     <item quantity="other">Manje od %s minuta</item>
   </plurals>
@@ -415,13 +415,13 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Pobjednik</string>
-  <string name="standing">Stanje</string>
+  <string name="standing">Poredak</string>
   <string name="createANewTournament">Kreiraj novi turnir</string>
   <string name="tournamentCalendar">Kalendar turnira</string>
   <string name="conditionOfEntry">Uvjet za sudjelovanje:</string>
   <string name="advancedSettings">Napredne postavke</string>
-  <string name="safeTournamentName">Odaberite veoma siguran naziv za turnir.</string>
-  <string name="inappropriateNameWarning">I najmanja nakarada može trajno zatvoriti vaš profil.</string>
+  <string name="safeTournamentName">Odaberi vrlo siguran naziv za turnir.</string>
+  <string name="inappropriateNameWarning">Sve imalo neprikladno može trajno zatvoriti vaš profil.</string>
   <string name="emptyTournamentName">Ako ostavite prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
   <string name="recommendNotTouching">Preporučamo da ne dirate ovo.</string>
   <string name="fewerPlayers">Ako postavite uvjet za sudjelovanje, vaš turnir će imati manje igrača.</string>
@@ -431,14 +431,14 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="points">Bodovi</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
-  <string name="winStreak">Pobjednički niz</string>
+  <string name="winStreak">Niz pobjeda</string>
   <string name="createdBy">Kreirao</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="youArePlaying">Igraš!</string>
-  <string name="winRate">Stopa pobjede</string>
-  <string name="berserkRate">Stopa berserka</string>
+  <string name="winRate">Postotak pobjeda</string>
+  <string name="berserkRate">Postotak berserka</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnir završen</string>
   <string name="movesPlayed">Poteza igrano</string>
