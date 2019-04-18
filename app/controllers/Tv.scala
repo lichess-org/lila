@@ -81,7 +81,7 @@ object Tv extends LilaController {
     Ok {
       val config = ui.EmbedConfig(req)
       val url = s"""${req.domain + routes.Tv.frame}?bg=${config.bg}&theme=${config.board}"""
-      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-tv-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
+      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-tv-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 

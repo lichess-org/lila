@@ -78,7 +78,8 @@ trait ScalatagsPrefix {
     val article = tag("article")
     val aside = tag("aside")
     val rating = tag("rating")
-    val frameBorder = attr("frameBorder")
+
+    val frameborder = attr("frameborder")
   }
 }
 
