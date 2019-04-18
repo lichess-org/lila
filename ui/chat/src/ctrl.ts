@@ -16,7 +16,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   if (opts.plugin) allTabs.push(opts.plugin.tab.key);
 
   const tabStorage = li.storage.make('chat.tab'),
-  storedTab = tabStorage.get();
+    storedTab = tabStorage.get();
 
   let moderation: ModerationCtrl | undefined;
 
@@ -29,15 +29,14 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     writeable: opts.writeable
   };
 
-  const post = function(text: string): boolean {
+  const post = function(text: string): void {
     text = text.trim();
-    if (!text) return false;
+    if (!text) return;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
-      return false;
+      return;
     }
     pubsub.emit('socket.send')('talk', text);
-    return false;
   };
 
   const onTimeout = function(username: string) {

@@ -34,19 +34,19 @@ function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   ];
 }
 
-function renderTableEnd(ctrl: RoundController) {
+export function renderTableEnd(ctrl: RoundController) {
   return renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : (button.backToTournament(ctrl) || button.followUp(ctrl))
   ]);
 }
 
-function renderTableWatch(ctrl: RoundController) {
+export function renderTableWatch(ctrl: RoundController) {
   return renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : button.watcherFollowUp(ctrl)
   ]);
 }
 
-function renderTablePlay(ctrl: RoundController) {
+export function renderTablePlay(ctrl: RoundController) {
   const d = ctrl.data,
     loading = isLoading(ctrl),
     submit = button.submitMove(ctrl),

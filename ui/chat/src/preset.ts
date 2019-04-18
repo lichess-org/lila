@@ -27,7 +27,7 @@ export interface PresetGroups {
 export interface PresetOpts {
   initialGroup?: string
   redraw: Redraw
-  post(text: string): boolean
+  post(text: string): void
 }
 
 const groups: PresetGroups = {
