@@ -157,7 +157,6 @@
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
   <string name="rankX">דירוג: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">הדירוג מתעדכן כל %s דקות</string>
   <string name="gamesPlayed">משחקים ששוחקו</string>
   <string name="cancel">בטל</string>
   <string name="timeOut">נגמר הזמן</string>
