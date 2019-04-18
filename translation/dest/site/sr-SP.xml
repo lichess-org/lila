@@ -180,7 +180,6 @@
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ранг се ажурира сваких %s минута</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s тактика</item>
     <item quantity="few">%s тактике</item>
