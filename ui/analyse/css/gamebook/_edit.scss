@@ -6,7 +6,7 @@
     justify-content: flex-end;
   }
   .preview {
-    @extend %flex-center, %box-radius-top;
+    @extend %flex-center-nowrap, %box-radius-top;
     padding: 0 .5em;
   }
 }
