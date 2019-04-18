@@ -143,7 +143,6 @@
   <string name="forgotPassword">கடவுச்சொல்லை மறந்து விட்டீர்களா?</string>
   <string name="rank">வரிசை</string>
   <string name="rankX">மதிப்பீடு: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">மதிப்பெண் %s நிமிடங்களுக்கு ஒருமுறை புதுப்பிக்கப்படும்</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s புதிர்</item>
     <item quantity="other">%s புதிர்கள்</item>
