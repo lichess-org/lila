@@ -178,6 +178,7 @@
   <string name="ratingStats">Statistika ratinga</string>
   <string name="username">Uporabniško ime</string>
   <string name="usernameOrEmail">Uporabniško ime ali elektronski naslov</string>
+  <string name="changeUsernameDescription">Spremenite svoje uporabniško ime. To je mogoče opraviti le enkrat in spremiti samo velikost tiskanih črk v male ali velike.</string>
   <string name="password">Geslo</string>
   <string name="haveAnAccount">Že imate račun?</string>
   <string name="changePassword">Zamenjaj geslo</string>
