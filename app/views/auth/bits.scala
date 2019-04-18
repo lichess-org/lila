@@ -15,13 +15,13 @@ object bits {
   def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context) = frag(
     form3.group(username, if (register) trans.username.frag() else trans.usernameOrEmail.frag()) { f =>
       frag(
-        form3.input(f)(autofocus := true, required := true),
+        form3.input(f)(autofocus, required),
         p(cls := "error exists none")(trans.usernameAlreadyUsed.frag())
       )
     },
     form3.password(password, trans.password.frag()),
     emailOption.map { email =>
-      form3.group(email, trans.email.frag())(form3.input(_, typ = "email")(required := true))
+      form3.group(email, trans.email.frag())(form3.input(_, typ = "email")(required))
     }
   )
 
@@ -43,7 +43,7 @@ object bits {
             action := routes.Auth.passwordResetApply,
             method := "post"
           )(
-              form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")(autofocus := true)),
+              form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")(autofocus)),
               views.html.base.captcha(form, captcha),
               form3.action(form3.submit(trans.emailMeALink.frag()))
             )
@@ -78,7 +78,7 @@ object bits {
           ),
           st.form(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token), method := "POST")(
             form3.hidden(form("token")),
-            form3.passwordModified(form("newPasswd1"), trans.newPassword.frag())(autofocus := true),
+            form3.passwordModified(form("newPasswd1"), trans.newPassword.frag())(autofocus),
             form3.password(form("newPasswd2"), trans.newPasswordAgain.frag()),
             form3.globalError(form),
             form3.action(form3.submit(trans.changePassword.frag()))

@@ -69,7 +69,7 @@ object thread {
               else replyForm.map { form =>
                 st.form(action := routes.Message.answer(thread.id), method := "post")(
                   div(cls := "field_body")(
-                    form3.textarea(form("text"))(required := true),
+                    form3.textarea(form("text"))(required),
                     errMsg(form("text"))
                   ),
                   div(cls := "actions")(

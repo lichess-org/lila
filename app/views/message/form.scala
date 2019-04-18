@@ -50,11 +50,11 @@ object form {
                     )
                   } getOrElse input(
                     cls := "form-control user-autocomplete",
-                    required := "required",
+                    required,
                     name := f.name,
                     id := form3.id(f),
                     value := f.value,
-                    autofocus := "1",
+                    autofocus,
                     dataTag := "span"
                   )
                 },
@@ -66,17 +66,17 @@ object form {
                 form3.group(form("subject"), trans.subject.frag()) { f =>
                   input(
                     cls := "form-control",
-                    required := "required",
+                    required,
                     minlength := 3,
                     maxlength := 100,
                     name := f.name,
                     id := form3.id(f),
                     value := f.value.filter(_.nonEmpty).orElse(reqTitle),
-                    autofocus := reqUser.isDefined.option("1")
+                    reqUser.isDefined option autofocus
                   )
                 },
                 form3.group(form("text"), frag("Message"), klass = "message-text") { f =>
-                  form3.textarea(f)(required := true)
+                  form3.textarea(f)(required)
                 },
                 form3.actions(
                   a(cls := "cancel", href := routes.Message.inbox())(trans.cancel.frag()),

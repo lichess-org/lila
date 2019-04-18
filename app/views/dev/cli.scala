@@ -30,7 +30,7 @@ object cli {
               pre(r)
             },
             st.form(action := routes.Dev.cliPost, method := "POST")(
-              form3.input(form("command"))(autofocus := true)
+              form3.input(form("command"))(autofocus)
             ),
             h2("Command examples:"),
             pre("""change asset version

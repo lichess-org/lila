@@ -32,7 +32,7 @@ object checkYourEmail {
                   input(
                     id := "new-email",
                     tpe := "email",
-                    required := "required",
+                    required,
                     name := "email",
                     value := form.flatMap(_("email").value).getOrElse(email.value),
                     pattern := s"^((?!^${email.value}$$).)*$$"
