@@ -15,7 +15,7 @@ export interface RoundSocket extends Untyped {
   outoftime(): void;
   berserk(): void;
   sendLoading(typ: string, data?: any): void
-  receive(typ: string, data: any): boolean;
+    receive(typ: string, data: any): boolean;
 }
 
 interface Incoming {
@@ -116,9 +116,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.opts.userId &&
         ctrl.data.simul &&
         ctrl.opts.userId == ctrl.data.simul.hostId &&
-          gameId !== ctrl.data.game.id &&
-          ctrl.moveOn.get() &&
-          ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
+        gameId !== ctrl.data.game.id &&
+        ctrl.moveOn.get() &&
+        ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
         ctrl.setRedirecting();
         sound.move();
         li.hasToReload = true;
