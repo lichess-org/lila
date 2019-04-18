@@ -178,7 +178,6 @@
   <string name="forgotPassword">Zaboravljena lozinka?</string>
   <string name="rank">Poredak</string>
   <string name="rankX">Rejting: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rang se ažurira svakih %s minuta</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problem</item>
     <item quantity="few">%s problema</item>
