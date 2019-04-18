@@ -162,7 +162,6 @@
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="rank">რანგი</string>
   <string name="rankX">რეიტინგი: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">რეიტინგი ახლდება ყოველ %s წუთში</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ეტიუდი</item>
     <item quantity="other">%s ეტიუდები</item>
