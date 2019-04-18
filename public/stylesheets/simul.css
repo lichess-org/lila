@@ -132,6 +132,13 @@
   display: inline-block;
   text-align: center;
 }
+#simul div.partial {
+  text-align: center;
+}
+#simul .results div.target {
+  width: 30%;
+  margin-top: 18px;
+}
 #simul .results .number {
   font-size: 3em;
   font-weight: bold;
@@ -141,6 +148,24 @@
   font-weight: 300;
   font-size: 1.5em;
   text-transform: uppercase;
+}
+#simul div.targets {
+  font-size: 1.5em;
+  padding: 12px 30px 24px 30px;
+  text-align: center;
+}
+#simul .targets .req {
+  font-weight: bold;
+  margin: 0 0 0 .5em;
+}
+#simul .targets .win {
+  color: #759900;
+}
+#simul .targets .draw {
+  color: #bf811d;
+}
+#simul .targets .loss {
+  color: #ac524f;
 }
 #simul .game_list {
   margin-top: 30px;

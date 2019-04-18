@@ -14,8 +14,8 @@
     } else { @if(s.targetFailed) {
       <span class="loss">@trans.failed()</span>
     } else {
-      @s.requiredWins.map { w =><span class="win">@w</span>@trans.nbVictories.pluralTxt(w, "").trim()}
-      @s.requiredDraws.map { d =><span class="draw">@d</span>@trans.nbDraws.pluralTxt(d, "").trim()}
+      @s.requiredWins.map { w =><span class="win req">@trans.nbVictories.pluralSame(w)</span>}
+      @s.requiredDraws.map { d =><span class="draw req">@trans.nbDraws.pluralSame(d)</span>}
     }}
   }
 </span>

@@ -659,6 +659,7 @@ in %3$s</string>
   <string name="youHaveBeenSelected">You have been selected! Hold still, the simul is about to begin.</string>
   <string name="ongoing">%s ongoing</string>
   <string name="winningPercentage">Winning percentage</string>
+  <string name="targetPercentage">Target percentage</string>
   <string name="withTarget">with target</string>
   <string name="distanceToTarget">Distance to target:</string>
   <string name="targetWinningPercentageX">Target winning percentage for host: %s</string>

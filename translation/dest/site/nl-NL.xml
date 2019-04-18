@@ -638,7 +638,8 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="acceptRandomCandidate">Accepteer willekeurige kandidaat</string>
   <string name="youHaveBeenSelected">Je bent geaccepteerd als speler! Wacht af tot de simultaan begint.</string>
   <string name="ongoing">%s lopende</string>
-  <string name="winningPercentage">Winst percentage </string>
+  <string name="winningPercentage">Winstpercentage</string>
+  <string name="targetPercentage">Doel percentage</string>
   <string name="withTarget">met als doel</string>
   <string name="distanceToTarget">Afstand tot doel:</string>
   <string name="targetWinningPercentageX">Doel winstpercentage simultaangever: %s</string>
