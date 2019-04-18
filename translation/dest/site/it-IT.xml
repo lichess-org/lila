@@ -176,7 +176,6 @@
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">La posizione viene aggiornata ogni %s minuti</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzle</item>
