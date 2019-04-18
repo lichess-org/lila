@@ -61,6 +61,10 @@
       height: 100%;
       overflow: hidden;
     }
+    .country img {
+      vertical-align: text-bottom;
+      margin: 0 .3em;
+    }
     .user-infos {
       @include hoverflow;
       flex: 1 1 auto;
