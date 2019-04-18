@@ -19,7 +19,8 @@ object userAnalysis {
     moreCss = frag(
       responsiveCssTag("analyse.free"),
       pov.game.variant == Crazyhouse option responsiveCssTag("analyse.zh"),
-      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("forecast")
+      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("forecast"),
+      ctx.blind option responsiveCssTag("round.nvui")
     ),
     moreJs = frag(
       analyseTag,

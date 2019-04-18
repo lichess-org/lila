@@ -47,7 +47,8 @@ object replay {
       title = titleOf(pov),
       moreCss = frag(
         responsiveCssTag("analyse.round"),
-        pov.game.variant == Crazyhouse option responsiveCssTag("analyse.zh")
+        pov.game.variant == Crazyhouse option responsiveCssTag("analyse.zh"),
+        ctx.blind option responsiveCssTag("round.nvui")
       ),
       moreJs = frag(
         analyseTag,
