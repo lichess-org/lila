@@ -148,7 +148,6 @@
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="rank">Rangas</string>
   <string name="rankX">Reitingas: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Reitingas atnaujinamas kas %s minučių</string>
   <string name="gamesPlayed">sužaistos partijos</string>
   <string name="cancel">Atšaukti</string>
   <string name="timeOut">Baigėsi laikas</string>
