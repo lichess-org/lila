@@ -82,7 +82,7 @@ object filter {
       tpe := "checkbox",
       name := s"${form(key).name}[$index]",
       st.value := value,
-      checked := checks.has(value).option(true)
+      checks.has(value) option checked
     )(content)
   )
 }

@@ -55,7 +55,7 @@ object coordinate {
                         st.id := s"coord_color_$id",
                         name := "coord_color",
                         value := id,
-                        checked := (id == ctx.pref.coordColor).option(true)
+                        (id == ctx.pref.coordColor) option checked
                       ),
                       label(`for` := s"coord_color_$id", cls := s"color color_$id")(i)
                     )

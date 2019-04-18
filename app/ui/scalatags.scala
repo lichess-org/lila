@@ -146,11 +146,6 @@ trait ScalatagsExtensions {
     }
   }
 
-  implicit val optionBooleanAttr = new AttrValue[Option[Boolean]] {
-    def apply(t: scalatags.text.Builder, a: Attr, v: Option[Boolean]): Unit =
-      if (~v) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource("true"))
-  }
-
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   implicit val classesAttr = new AttrValue[List[(String, Boolean)]] {
     def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {

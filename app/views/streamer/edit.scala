@@ -65,7 +65,7 @@ object edit {
                             "When you are ready to be listed on ",
                             a(href := routes.Streamer.index())("lichess streamers list"), ", ",
                             st.form(method := "post", action := routes.Streamer.approvalRequest)(
-                              button(tpe := "submmit", cls := "button", disabled := (!ctx.is(s.user)).option(true))(
+                              button(tpe := "submmit", cls := "button", (!ctx.is(s.user)) option disabled)(
                                 "request a moderator review"
                               )
                             )

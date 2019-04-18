@@ -112,8 +112,8 @@ trait FormHelper { self: I18nHelper =>
               value := "true",
               tpe := "checkbox",
               cls := "form-control cmn-toggle",
-              checked := field.value.has("true").option(true),
-              st.disabled := disabled.option(true)
+              field.value.has("true") option checked,
+              disabled option st.disabled
             ),
             label(`for` := id(field))
           ),
@@ -136,7 +136,7 @@ trait FormHelper { self: I18nHelper =>
           options.toSeq map {
             case (value, name) => option(
               st.value := value.toString,
-              selected := field.value.has(value.toString).option(true)
+              field.value.has(value.toString) option selected
             )(name)
           }
         )

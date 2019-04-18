@@ -23,7 +23,7 @@ object pref {
         div(
           input(
             st.id := s"$prefix$id",
-            st.checked := checked option true,
+            checked option st.checked,
             cls := checked option "active",
             `type` := "radio",
             value := v._1.toString,

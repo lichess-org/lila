@@ -30,7 +30,7 @@ $('button.clear').on('click', function() {
               lila.security.Permission.allButSuperAdmin.sortBy(_.name).map { p =>
                 option(
                   value := p.name,
-                  selected := u.roles.contains(p.name).option(true),
+                  u.roles.contains(p.name) option selected,
                   title := p.children.mkString(", ")
                 )(p.toString)
               }
