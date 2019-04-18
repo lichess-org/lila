@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { onInsert } from './util'
 import { ChatPlugin } from 'chat'
 
 export interface TourStandingCtrl extends ChatPlugin {
@@ -22,7 +23,11 @@ export function tourStandingCtrl(data: TourPlayer[], name: string): TourStanding
       name: name
     },
     view(): VNode {
-      return h('table.slist', [
+      return h('table.slist', {
+        hook: onInsert(_ => {
+          window.lichess.loadCssPath('round.tour-standing');
+        })
+      }, [
         h('tbody', data.map((p: TourPlayer, i: number) => {
           return h('tr.' + p.n, [
             h('td.name', [
