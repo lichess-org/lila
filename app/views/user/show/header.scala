@@ -78,19 +78,18 @@ object header {
         a(cls := "btn-rack__btn", href := routes.User.tv(u.username), title := trans.watchGames.txt(), dataIcon := "1"),
         (ctx.isAuth && !ctx.is(u)) option
           views.html.relation.actions(u.id, relation = social.relation, followable = social.followable, blocked = social.blocked),
-        ctx.noKid option a(
+        if (ctx is u) a(
+          cls := "btn-rack__btn",
+          href := routes.Game.exportByUser(u.username),
+          title := trans.exportGames.txt(),
+          dataIcon := "x"
+        )
+        else ctx.noKid option a(
           title := trans.reportXToModerators.txt(u.username),
           cls := "btn-rack__btn",
           href := s"${routes.Report.form}?username=${u.username}",
           dataIcon := "!"
-        ),
-        (ctx is u) option
-          a(
-            cls := "btn-rack__btn",
-            href := routes.Game.exportByUser(u.username),
-            title := trans.exportGames.txt(),
-            dataIcon := "x"
-          )
+        )
       )
     ),
     (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
