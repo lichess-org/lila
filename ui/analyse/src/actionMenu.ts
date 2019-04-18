@@ -58,7 +58,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const speeds = [
     ...baseSpeeds,
-    ...(empty(d.game.moveCentis) ? [] : [realtimeSpeed]),
+    ...(d.game.speed !== 'correspondence' && !empty(d.game.moveCentis) ? [realtimeSpeed] : []),
     ...(d.analysis ? [cplSpeed] : [])
   ];
   return h('div.autoplay', speeds.map(speed => {
