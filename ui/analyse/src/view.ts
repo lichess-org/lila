@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner } from './util';
 import { getPlayer, playable } from 'game';
+import * as router from 'game/router';
 import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
@@ -325,13 +326,21 @@ export default function(ctrl: AnalyseCtrl): VNode {
       ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) :
       h('aside.analyse__side', {
         hook: onInsert(elm => {
-          ctrl.opts.$side && $(elm).replaceWith(ctrl.opts.$side);
+          ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
           $(elm).append($('.streamers').clone().removeClass('none'));
         })
       }, [
         ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (
           ctrl.study ? studyView.side(ctrl.study) : (
-            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null
+            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
+              h('a.button.button-empty.text', {
+                attrs: {
+                  href: router.game(ctrl.data),
+                  'data-icon': 'i'
+                }
+              }, ctrl.trans.noarg('backToGame'))
+            ) : null
           )
         )
       ])

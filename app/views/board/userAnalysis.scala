@@ -19,7 +19,7 @@ object userAnalysis {
     moreCss = frag(
       responsiveCssTag("analyse.free"),
       pov.game.variant == Crazyhouse option responsiveCssTag("analyse.zh"),
-      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("forecast"),
+      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("analyse.forecast"),
       ctx.blind option responsiveCssTag("round.nvui")
     ),
     moreJs = frag(
@@ -40,19 +40,13 @@ object userAnalysis {
     zoomable = true
   ) {
       main(cls := "analyse")(
-        st.aside(cls := List(
-          "analyse__side" -> true,
-          "back-to-game" -> !pov.game.synthetic
-        ))(
-          if (pov.game.synthetic) views.html.base.bits.mselect(
+        pov.game.synthetic option st.aside(cls := "analyse__side")(
+          views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
             chess.variant.Variant.all.filter(chess.variant.FromPosition !=).map { v =>
               a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
             }
-          )
-          else a(cls := "button button-empty text", href := gameLink(pov), dataIcon := "i")(
-            trans.backToGame()
           )
         ),
         div(cls := "analyse__board main-board")(chessgroundSvg),
