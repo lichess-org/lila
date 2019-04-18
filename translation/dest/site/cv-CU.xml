@@ -116,7 +116,6 @@
   <string name="forgotPassword">Кӗме сӑмаха мансан</string>
   <string name="rank">Хаклав</string>
   <string name="rankX">Рейтинг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рейтинг %s минут сиктерсе ҫӗнелет</string>
   <string name="gamesPlayed">вӑйӑ выљанӑ</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
