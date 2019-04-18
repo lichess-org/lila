@@ -166,6 +166,7 @@
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar nome de usuário</string>
   <string name="changeUsernameNotSame">Pode-se apenas trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Altere seu nome de usuário. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Senha</string>
   <string name="haveAnAccount">Tem uma conta?</string>
   <string name="changePassword">Alterar senha</string>
