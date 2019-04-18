@@ -352,10 +352,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
         li.makeChat(ctrl.opts.chat);
       })
     }),
-    h('div.analyse__underchat', {
-      hook: onInsert(elm => {
-        $(elm).replaceWith($('.analyse__underchat.none').removeClass('none'));
-      })
-    })
+    h('div.chat__members.none', h('span.list'))
   ]);
 }

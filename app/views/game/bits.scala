@@ -26,18 +26,6 @@ object bits {
     dataFen := fen.value
   )(div(cls := "cg-board"))
 
-  def watchers(implicit ctx: Context): Frag = div(
-    cls := "chat__members none",
-    aria.live := "off",
-    aria.relevant := "additions removals text"
-  )(
-      span(cls := "number")(nbsp),
-      " ",
-      trans.spectators.txt().replace(":", ""),
-      " ",
-      span(cls := "list")
-    )
-
   def gameIcon(game: Game): Char = game.perfType match {
     case _ if game.fromPosition => '*'
     case _ if game.imported => '/'
