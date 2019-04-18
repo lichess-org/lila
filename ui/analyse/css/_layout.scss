@@ -30,7 +30,7 @@ body {
   &__controls { grid-area: controls; }
   &__underboard { grid-area: under; }
   &__acpl { grid-area: acpl; }
-  &__underchat { grid-area: uchat; }
+  .chat__members { grid-area: uchat; }
   .eval-gauge {
     grid-area: gauge;
     display: none;
@@ -70,7 +70,7 @@ body {
     grid-row-gap: 0;
     &__underboard,
     &__side,
-    &__underchat,
+    .chat__members,
     .mchat {
       margin-top: $block-gap;
     }
