@@ -173,7 +173,6 @@
   <string name="forgotPassword">Забравена парола?</string>
   <string name="rank">Звание</string>
   <string name="rankX">Класация: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Класацията се обновява на %s минути</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пъзел</item>
     <item quantity="other">%s пъзели</item>
