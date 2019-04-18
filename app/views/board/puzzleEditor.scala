@@ -24,8 +24,8 @@ object puzzleEditor {
     zoomable = true
   ) {
       main(cls := "analyse")(
-        st.aside(cls := "analyse__side")(
-          pov.game.synthetic option views.html.base.bits.mselect(
+        pov.game.synthetic option st.aside(cls := "analyse__side")(
+          views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(if (pov.game.variant.fromPosition) draughts.variant.Standard.name else pov.game.variant.name),
             lidraughts.pref.Pref.puzzleVariants.map { v =>

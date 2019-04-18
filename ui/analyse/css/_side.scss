@@ -1,8 +1,11 @@
 .analyse__side {
   align-self: start;
-  &.back-to-game {
-    @extend %flex-center;
-    justify-content: center;
+
+  .back-to-game {
     margin-top: 10vh;
+    text-align: center;
+    .button {
+      margin: 0 auto;
+    }
   }
 }
