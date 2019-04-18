@@ -178,6 +178,8 @@
   <string name="ratingStats">Statistika ratinga</string>
   <string name="username">Uporabniško ime</string>
   <string name="usernameOrEmail">Uporabniško ime ali elektronski naslov</string>
+  <string name="changeUsername">Spremenite uporabniško ime</string>
+  <string name="changeUsernameNotSame">Črkam je mogoče le zamenjati velikost v male ali velike tiskane. Naprimer \"janeznovak\" v \"JanezNovak\".</string>
   <string name="changeUsernameDescription">Spremenite svoje uporabniško ime. To je mogoče opraviti le enkrat in spremiti samo velikost tiskanih črk v male ali velike.</string>
   <string name="password">Geslo</string>
   <string name="haveAnAccount">Že imate račun?</string>
@@ -186,8 +188,14 @@
   <string name="email">E-poštni naslov</string>
   <string name="passwordReset">Ponovna nastavitev gesla</string>
   <string name="forgotPassword">Ste pozabili geslo?</string>
-  <string name="rank">Rang</string>
-  <string name="rankX">Rank: %s</string>
+  <string name="rank">Uvrstitev</string>
+  <string name="rankX">Uvrstitev: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Uvrstitev se posodablja vsako minuto</item>
+    <item quantity="two">Uvrstitev se posodablja vsaki %s minuti</item>
+    <item quantity="few">Uvrstitev se posodablja vsake %s minute</item>
+    <item quantity="other">Uvrstitev se posodablja vsakih %s minut</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problem</item>
     <item quantity="two">%s problema</item>
