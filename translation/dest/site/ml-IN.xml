@@ -173,7 +173,6 @@
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="rank">റാങ്ക്</string>
   <string name="rankX">റാങ്ക്: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">ഓരോ %s മിനിട്ടിലും റാങ്ക് അപ്ഡേറ്റ് ചെയ്യപ്പെടുന്നു</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzles</item>
