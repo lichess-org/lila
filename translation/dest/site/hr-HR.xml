@@ -332,8 +332,8 @@
   <string name="siteDescription">Besplatni internetski šah. Igraj odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igraj šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Timovi</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s član</item>
-    <item quantity="few">%s članova</item>
+    <item quantity="one">%s člana</item>
+    <item quantity="few">%s člana</item>
     <item quantity="other">%s članova</item>
   </plurals>
   <string name="allTeams">Svi timovi</string>
@@ -377,7 +377,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
   <string name="onlineFriends">Prijatelji</string>
-  <string name="noFriendsOnline">Nema prijatelja na vezi</string>
+  <string name="noFriendsOnline">Nema online prijatelja</string>
   <string name="findFriends">Nađi prijatelje</string>
   <string name="favoriteOpponents">Omiljeni protivnici</string>
   <string name="follow">Prati</string>
@@ -389,14 +389,14 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="followsYou">Prati te</string>
   <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s pratitelj</item>
+    <item quantity="one">%s pratitelja</item>
     <item quantity="few">%s pratitelja</item>
     <item quantity="other">%s pratitelja</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s prati</item>
-    <item quantity="few">%s prati</item>
-    <item quantity="other">%s prati</item>
+    <item quantity="one">Prati %s</item>
+    <item quantity="few">Prati %s</item>
+    <item quantity="other">Prati %s</item>
   </plurals>
   <string name="more">Više</string>
   <string name="memberSince">Član od</string>
@@ -407,7 +407,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Manje od %s minute</item>
-    <item quantity="few">Manje od %s minuta</item>
+    <item quantity="few">Manje od %s minute</item>
     <item quantity="other">Manje od %s minuta</item>
   </plurals>
   <string name="required">Obvezno.</string>
@@ -420,10 +420,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="conditionOfEntry">Uvjet za sudjelovanje:</string>
   <string name="advancedSettings">Napredne postavke</string>
   <string name="safeTournamentName">Odaberi vrlo siguran naziv za turnir.</string>
-  <string name="inappropriateNameWarning">Sve imalo neprikladno može trajno zatvoriti vaš profil.</string>
+  <string name="inappropriateNameWarning">Sve imalo neprikladno može trajno zatvoriti tvoj profil.</string>
   <string name="emptyTournamentName">Ako ostavite prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
-  <string name="recommendNotTouching">Preporučamo da ne dirate ovo.</string>
-  <string name="fewerPlayers">Ako postavite uvjet za sudjelovanje, vaš turnir će imati manje igrača.</string>
+  <string name="recommendNotTouching">Preporučamo da ne ovo ne dira.</string>
+  <string name="fewerPlayers">Ako se postavi uvjet za sudjelovanje, turnir će imati manje igrača.</string>
   <string name="showAdvancedSettings">Prikaži napredne postavke</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Odustani</string>
