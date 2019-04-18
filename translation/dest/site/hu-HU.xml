@@ -173,7 +173,6 @@
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s.</string>
-  <string name="rankIsUpdatedEveryXMinutes">A rang %s percenként frissül</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s feladvány</item>
     <item quantity="other">%s feladvány</item>
