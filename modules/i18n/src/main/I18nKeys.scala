@@ -967,8 +967,8 @@ val `retry` = new Translated("retry", Learn)
 
 object activity {
 val `activity` = new Translated("activity", Activity)
-val `supportedNbMonths` = new Translated("supportedNbMonths", Activity)
 val `signedUp` = new Translated("signedUp", Activity)
+val `supportedNbMonths` = new Translated("supportedNbMonths", Activity)
 val `practicedNbPositions` = new Translated("practicedNbPositions", Activity)
 val `solvedNbPuzzles` = new Translated("solvedNbPuzzles", Activity)
 val `playedNbGames` = new Translated("playedNbGames", Activity)
