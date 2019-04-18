@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prva osoba koja dođe na ovaj URL će igrati s tobom</string>
   <string name="whiteResigned">Bijeli predaje</string>
   <string name="blackResigned">Crni predaje</string>
-  <string name="whiteLeftTheGame">Bijeli je napustio igru</string>
-  <string name="blackLeftTheGame">Crni je napustio igru</string>
+  <string name="whiteLeftTheGame">Bijeli je napustio partiju</string>
+  <string name="blackLeftTheGame">Crni je napustio partiju</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podijeli ovaj URL ukoliko želiš da gledatelji vide ovu partiju</string>
   <string name="theComputerAnalysisHasFailed">Računalna analiza nije uspjela</string>
   <string name="viewTheComputerAnalysis">Pogledaj računalnu analizu</string>
@@ -56,7 +56,7 @@
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
-  <string name="promoteVariation">Promicanje varijacija</string>
+  <string name="promoteVariation">Promakni varijaciju</string>
   <string name="makeMainLine">Napravi glavnu liniju</string>
   <string name="deleteFromHere">Obriši s popisa</string>
   <string name="move">Potez</string>
@@ -88,7 +88,7 @@
   </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
-  <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
+  <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
@@ -109,7 +109,7 @@
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
   <string name="blunder">Gruba greška</string>
-  <string name="blunders">Previdi</string>
+  <string name="blunders">Grube greške</string>
   <string name="mistake">Pogreška</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracy">Netočnost</string>
