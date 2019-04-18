@@ -91,7 +91,7 @@ $('.coach-review-form form').show();
               ),
               div(cls := "list")(
                 profile.youtubeUrls.map { url =>
-                  iframe(width := "256", height := "192", src := url.value, attr("frameborder") := "0", attr("allowfullscreen") := true)
+                  iframe(width := "256", height := "192", src := url.value, attr("frameborder") := "0", frame.allowfullscreen)
                 }
               )
             )

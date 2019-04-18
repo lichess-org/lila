@@ -24,7 +24,7 @@ trait ScalatagsAttrs {
   lazy val novalidate = attr("novalidate").empty
   object frame {
     val scrolling = attr("scrolling")
-    val allowfullscreen = attr("allowfullscreen")
+    val allowfullscreen = attr("allowfullscreen").empty
     val autoplay = attr("autoplay")
   }
 }

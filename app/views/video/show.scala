@@ -30,7 +30,7 @@ object show {
           div(cls := "embed")(
             iframe(id := "ytplayer", tpe := "text/html",
               src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
-              st.frameBorder := "0", frame.allowfullscreen := true)
+              st.frameBorder := "0", frame.allowfullscreen)
           ),
           h1(cls := "box__pad")(
             a(cls := "is4 text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}"),

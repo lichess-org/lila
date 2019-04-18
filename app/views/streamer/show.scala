@@ -70,14 +70,14 @@ method:'post'
               iframe(
                 src := s"https://www.youtube.com/embed/$videoId?autoplay=1",
                 st.frameBorder := "0",
-                frame.allowfullscreen := true
+                frame.allowfullscreen
               )
             )
             case _ => s.streamer.twitch.map { twitch =>
               div(cls := "box embed twitch")(
                 iframe(
                   src := s"https://player.twitch.tv/?channel=${twitch.userId}",
-                  frame.allowfullscreen := true,
+                  frame.allowfullscreen,
                   frame.autoplay := true
                 )
               )
