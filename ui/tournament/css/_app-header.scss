@@ -45,7 +45,8 @@
     font-weight: bold;
     color: $c-font-dim;
     &-created {
-      @extend %flex-center;
+      @extend %flex-column;
+      text-align: right;
     }
   }
   .tour-sched & h1,
