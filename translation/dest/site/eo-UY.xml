@@ -173,7 +173,6 @@
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
   <string name="rankX">Rango: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rango ĝisdatigita ĉiujn %s minutojn</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
     <item quantity="other">%s puzloj</item>
