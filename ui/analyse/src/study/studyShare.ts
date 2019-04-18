@@ -5,7 +5,7 @@ import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 
-const baseUrl = 'https://lichess.org/study/';
+const baseUrl = `${window.location.protocol}//${window.location.host}/study/`;
 
 function fromPly(ctrl): VNode {
   var node = ctrl.currentNode();
