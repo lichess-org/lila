@@ -173,7 +173,6 @@
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
   <string name="rank">Κατάταξη</string>
   <string name="rankX">Κατάταξη: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Η κατάταξη ενημερώνεται κάθε %s λεπτά</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s γρίφος</item>
     <item quantity="other">%s γρίφοι</item>
