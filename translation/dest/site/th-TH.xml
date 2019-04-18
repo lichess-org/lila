@@ -166,7 +166,6 @@
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="rank">อันดับ</string>
   <string name="rankX">อันดับ: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">อันดับถูกอัพเดตทุก %s นาที</string>
   <plurals name="nbPuzzles">
     <item quantity="other">%s ปริศนา</item>
   </plurals>
