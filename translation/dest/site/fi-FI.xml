@@ -173,7 +173,6 @@
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="rank">Sijoitus</string>
   <string name="rankX">Sijoitus: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sijoitus päivittyy joka %s minuutti</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s tehtävä</item>
     <item quantity="other">%s tehtävää</item>
