@@ -323,40 +323,40 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
   <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najviši tjedni %1$s rejting (%2$s) je previsok</string>
-  <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najviši tjedni %1$s rejting (%2$s) je previsok</string>
+  <string name="yourPerfRatingIsTooLow">Tvoj %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Rangirano %1$s u %2$s</string>
   <string name="mustBeInTeam">Moraš biti u timu %s</string>
   <string name="youAreNotInTeam">Nisi u timu %s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
-  <string name="teams">Ekipe</string>
+  <string name="teams">Timovi</string>
   <plurals name="nbMembers">
     <item quantity="one">%s član</item>
     <item quantity="few">%s članova</item>
     <item quantity="other">%s članova</item>
   </plurals>
-  <string name="allTeams">Sve ekipe</string>
-  <string name="newTeam">Nova ekipa</string>
-  <string name="myTeams">Moje ekipe</string>
-  <string name="noTeamFound">Nijedna ekipa nije pronađena</string>
-  <string name="joinTeam">Priključi se ekipi</string>
-  <string name="quitTeam">Izađi iz ekipe</string>
+  <string name="allTeams">Svi timovi</string>
+  <string name="newTeam">Novi tim</string>
+  <string name="myTeams">Moji timovi</string>
+  <string name="noTeamFound">Nijedan tim nije pronađen</string>
+  <string name="joinTeam">Priključi se timu</string>
+  <string name="quitTeam">Napusti tim</string>
   <string name="anyoneCanJoin">Slobodno za sve</string>
-  <string name="aConfirmationIsRequiredToJoin">Potvrda je potrebna za priključenje</string>
-  <string name="joiningPolicy">Pravila priključivanja</string>
-  <string name="teamLeader">Vođa ekipe</string>
-  <string name="teamBestPlayers">Najbolji igrači ekipe</string>
-  <string name="teamRecentMembers">Nedavni članovi ekipe</string>
-  <string name="xJoinedTeamY">%1$s se priključio ekipi %2$s</string>
-  <string name="xCreatedTeamY">%1$s je osnovao ekipu %2$s</string>
+  <string name="aConfirmationIsRequiredToJoin">Za priključenje je potrebna potvrda</string>
+  <string name="joiningPolicy">Pravila priključenja</string>
+  <string name="teamLeader">Vođa tima</string>
+  <string name="teamBestPlayers">Najbolji igrači tima</string>
+  <string name="teamRecentMembers">Nedavni članovi tima</string>
+  <string name="xJoinedTeamY">%1$s se priključio timu %2$s</string>
+  <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
   <string name="settings">Postavke</string>
   <string name="filterGames">Filtriraj partije</string>
   <string name="reset">Resetiraj postavke na originalne</string>
-  <string name="apply">Primjeni</string>
+  <string name="apply">Primijeni</string>
   <string name="leaderboard">Ljestvica</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
@@ -364,7 +364,7 @@
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="importGame">Uvezi partiju</string>
   <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
-računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
+računalnu analizu, chat partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
