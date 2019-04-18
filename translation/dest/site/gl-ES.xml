@@ -173,7 +173,6 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A clasificación actualízase cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
