@@ -162,7 +162,6 @@
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранк: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ранкот се обновува на секои %s минути</string>
   <string name="gamesPlayed">Одиграни партии</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игри со тебе</item>
