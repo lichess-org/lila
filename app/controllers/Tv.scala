@@ -89,7 +89,7 @@ object Tv extends LidraughtsController {
     Ok {
       val config = ui.EmbedConfig(req)
       val url = s"""${req.domain + routes.Tv.frame}?bg=${config.bg}&theme=${config.board}"""
-      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lidraughts-tv-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lidraughts free online draughts'></iframe>");"""
+      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lidraughts-tv-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lidraughts free online draughts'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 

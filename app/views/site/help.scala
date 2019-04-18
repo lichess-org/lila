@@ -36,7 +36,7 @@ object help {
       contentCls = "page"
     )(frag(
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameBorder="0""""
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
             h1(id := "embed-tv")("Embed Lidraughts TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=maple" $args></iframe>""")),
@@ -54,7 +54,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameBorder="0""""
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
             h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=maple" $args></iframe>""")),
@@ -73,7 +73,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1("Embed a draughts analysis in your site"),
             raw(s"""<iframe src="/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" $args></iframe>"""),
@@ -84,7 +84,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1("Embed an interactive lesson in your site"),
             raw(s"""<iframe src="/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto" $args></iframe>"""),
