@@ -173,7 +173,7 @@ export default class AnalyseCtrl {
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
-    this.ongoing = !this.synthetic && game.playable(data as game.GameData);
+    this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
