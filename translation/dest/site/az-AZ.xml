@@ -169,7 +169,6 @@
   <string name="forgotPassword">Parolu unutdun?</string>
   <string name="rank">Təsnifat</string>
   <string name="rankX">Sıralama: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sıralama hər %s dəqiqədən bir güncəlləşir</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s məsələ</item>
     <item quantity="other">%s məsələ</item>
