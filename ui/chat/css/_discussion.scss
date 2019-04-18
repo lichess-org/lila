@@ -5,7 +5,7 @@
     @include breakpoint($mq-col3-uniboard) {
       max-height: none;
     }
-    @include hoverflow;
+    overflow-y: auto;
     overflow-x: hidden;
     cursor: initial;
     font-size: .9em;
