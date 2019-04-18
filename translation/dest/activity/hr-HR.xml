@@ -48,7 +48,7 @@
     <item quantity="other">Sudjelovao/la u %s simultanki</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Kreirao/la %s novih studija</item>
+    <item quantity="one">Kreirao/la %s novu studiju</item>
     <item quantity="few">Kreirao/la %s nove studije</item>
     <item quantity="other">Kreirao/la %s novih studija</item>
   </plurals>
