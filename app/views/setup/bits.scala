@@ -56,7 +56,7 @@ private object bits {
       case (value, name, title) => option(
         st.value := value,
         st.title := title,
-        selected := field.value.exists(v => compare(v, value)).option(true)
+        field.value.exists(v => compare(v, value)) option selected
       )(name)
     }
   )
@@ -70,7 +70,7 @@ private object bits {
             id := s"$prefix${field.id}_${key}",
             st.name := field.name,
             value := key,
-            checked := field.value.has(key).option(true)
+            field.value.has(key) option checked
           ),
           label(
             cls := "required",

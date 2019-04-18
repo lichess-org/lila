@@ -88,7 +88,7 @@ trait FormHelper { self: I18nHelper =>
         value := field.value,
         tpe := typ.nonEmpty.option(typ),
         cls := List("form-control" -> true, klass -> klass.nonEmpty),
-        st.disabled := disabled.option(true)
+        disabled option st.disabled
       )(validationModifiers(field))
 
     def inputHtml(field: Field, typ: String = "", klass: String = "", disabled: Boolean = false)(modifiers: Modifier*): Html =
@@ -113,8 +113,8 @@ trait FormHelper { self: I18nHelper =>
               value := "true",
               tpe := "checkbox",
               cls := "form-control cmn-toggle",
-              checked := field.value.has("true").option(true),
-              st.disabled := disabled.option(true)
+              field.value.has("true") option checked,
+              disabled option st.disabled
             ),
             label(`for` := id(field))
           ),
@@ -133,13 +133,13 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name := field.name,
         cls := "form-control",
-        st.disabled := disabled.option(true)
+        disabled option st.disabled
       )(validationModifiers(field))(
           default map { option(value := "")(_) },
           options.toSeq map {
             case (value, name) => option(
               st.value := value.toString,
-              selected := field.value.has(value.toString).option(true)
+              field.value.has(value.toString) option selected
             )(name)
           }
         ),

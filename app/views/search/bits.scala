@@ -152,7 +152,7 @@ private object bits {
             id := form3.id(field),
             name := field.name,
             value := "1",
-            checked := field.value.has("1").option(true)
+            field.value.has("1") option checked
           ),
           label(`for` := form3.id(field))
         )

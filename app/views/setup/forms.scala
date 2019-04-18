@@ -131,7 +131,7 @@ object forms {
             else div(cls := "color-submits")(
               translatedSideChoices.map {
                 case (key, name, _) => button(
-                  disabled := typ == "hook" option true,
+                  (typ == "hook") option disabled,
                   tpe := "submit",
                   title := name,
                   cls := s"color-submits__button button button-green $key",

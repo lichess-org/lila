@@ -35,8 +35,7 @@ object create {
               val id = s"oauth-scope-${scope.key.replace(":", "_")}"
               div(
                 span(
-                  input(st.id := id, cls := "cmn-toggle", tpe := "checkbox", name := s"${form("scopes").name}[]", value := scope.key,
-                    st.disabled := disabled.option(true)),
+                  input(st.id := id, cls := "cmn-toggle", tpe := "checkbox", name := s"${form("scopes").name}[]", value := scope.key, disabled option st.disabled),
                   label(`for` := id)
                 ),
                 label(`for` := id, st.title := disabled.option("You already have played games!"))(scope.name)
