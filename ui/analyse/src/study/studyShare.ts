@@ -1,11 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind } from '../util';
+import { bind, baseUrl } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
-
-const baseUrl = `${window.location.protocol}//${window.location.host}/study/`;
 
 function fromPly(ctrl): VNode {
   var node = ctrl.currentNode();
@@ -41,8 +39,8 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
 
 export function view(ctrl): VNode {
   const studyId = ctrl.studyId, chapter = ctrl.chapter();
-  let fullUrl = baseUrl + studyId + '/' + chapter.id;
-  let embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
+  let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`;
+  let embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
     const p = ctrl.currentNode().ply;
@@ -76,7 +74,7 @@ export function view(ctrl): VNode {
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
-            value: baseUrl + studyId
+            value: `${baseUrl()}/study/${studyId}`
           }
         })
       ]),

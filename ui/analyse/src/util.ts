@@ -92,6 +92,10 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
   };
 }
 
+export function baseUrl() {
+  return `${window.location.protocol}//${window.location.host}`;
+}
+
 export function toYouTubeEmbed(url: string): string | undefined {
   const embedUrl = toYouTubeEmbedUrl(url);
   if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
