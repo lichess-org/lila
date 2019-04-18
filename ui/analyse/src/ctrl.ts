@@ -24,7 +24,6 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
-import { make as makeFork, ForkCtrl } from './fork';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
@@ -62,7 +61,6 @@ export default class AnalyseCtrl {
   explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
   retro?: RetroCtrl;
-  fork: ForkCtrl;
   practice?: PracticeCtrl;
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
@@ -188,7 +186,6 @@ export default class AnalyseCtrl {
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
     treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-    this.fork = makeFork(this);
   }
 
   private setPath = (path: Tree.Path): void => {
