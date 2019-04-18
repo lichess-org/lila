@@ -173,7 +173,6 @@
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
   <string name="rankX">Puntuació: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">La classificació s\'actualitza cada %s minuts</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemes</item>
