@@ -149,7 +149,12 @@
   <string name="forgotPassword">Забули пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рейтинг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рейтинг оновлюється кожні %s хвилин</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s пазл</item>
+    <item quantity="few">%s пазлів</item>
+    <item quantity="many">%s пазлів</item>
+    <item quantity="other">%s пазлів</item>
+  </plurals>
   <string name="gamesPlayed">Партій зіграно</string>
   <string name="cancel">Скасувати</string>
   <string name="timeOut">Збіг час</string>
