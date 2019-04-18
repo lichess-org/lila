@@ -14,7 +14,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   var lines = fcs.filter(function(fc) {
     return fc.length > 1;
   });
-  return h('button.on-my-turn.add.button.text', {
+  return h('button.on-my-turn.add.fbt.text', {
     attrs: dataIcon('E'),
     hook: bind('click', _ => fctrl.playAndSave(firstNode))
   }, [
@@ -58,7 +58,7 @@ export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           h('sans', renderNodesHtml(nodes))
         ])
       })),
-      h('button.add.button.text', {
+      h('span.add.fbt.text', {
         class: { enabled: isCandidate },
         attrs: dataIcon(isCandidate ? 'O' : ""),
         hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw)

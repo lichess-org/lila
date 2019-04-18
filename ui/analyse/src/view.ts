@@ -329,9 +329,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
           ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
           $(elm).append($('.streamers').clone().removeClass('none'));
         })
-      }, [
-        ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (
-          ctrl.study ? studyView.side(ctrl.study) : (
+      },
+        ctrl.studyPractice ? [studyPracticeView.side(ctrl.study!)] : (
+          ctrl.study ? [studyView.side(ctrl.study)] : [
             ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
             (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
               h('a.button.button-empty.text', {
@@ -341,9 +341,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
                 }
               }, ctrl.trans.noarg('backToGame'))
             ) : null
-          )
+          ]
         )
-      ])
+      )
     ),
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {
