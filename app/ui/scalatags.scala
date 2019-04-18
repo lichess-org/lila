@@ -25,7 +25,6 @@ trait ScalatagsAttrs {
   object frame {
     val scrolling = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
-    val autoplay = attr("autoplay")
   }
 }
 

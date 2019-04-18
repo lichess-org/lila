@@ -77,8 +77,7 @@ method:'post'
               div(cls := "box embed twitch")(
                 iframe(
                   src := s"https://player.twitch.tv/?channel=${twitch.userId}",
-                  frame.allowfullscreen,
-                  frame.autoplay := true
+                  frame.allowfullscreen
                 )
               )
             } getOrElse div(cls := "box embed")(div(cls := "nostream")("OFFLINE"))
