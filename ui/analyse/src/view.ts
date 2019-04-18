@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode'
 import * as draughtsground from './ground';
 import { bind, onInsert, dataIcon, spinner } from './util';
 import { getPlayer, playable } from 'game';
-import * as router from 'game/router';
 import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
@@ -374,7 +373,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gamebookPlayView ? null : controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       class: { 'comp-off': !ctrl.showComputer() },
-      hook: ctrl.synthetic ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
+      hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     intro || acplView(ctrl),
     ctrl.embed ? null : (
@@ -387,15 +386,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       }, [
         ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) : (
           ctrl.study ? studyView.side(ctrl.study) : (
-            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back_to_game',
-              h('a.button.text', {
-                attrs: {
-                  href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
-                  'data-icon': 'i'
-                }
-              }, ctrl.trans.noarg('backToGame'))
-            ) : null
+            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null
           )
         )
       ])
