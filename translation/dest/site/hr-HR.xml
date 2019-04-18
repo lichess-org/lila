@@ -111,7 +111,7 @@
   <string name="blunder">Gruba greška</string>
   <string name="blunders">Grube greške</string>
   <string name="mistake">Pogreška</string>
-  <string name="mistakes">Greške</string>
+  <string name="mistakes">Pogreške</string>
   <string name="inaccuracy">Netočnost</string>
   <string name="inaccuracies">Nepreciznosti</string>
   <string name="moveTimes">Vrijeme za potez</string>
@@ -140,7 +140,7 @@
   <string name="logOut">Odjavi se</string>
   <string name="signIn">Prijavi se</string>
   <string name="newToLichess">Nov(a) na Lichessu?</string>
-  <string name="youNeedAnAccountToDoThat">Treba ti račun za to</string>
+  <string name="youNeedAnAccountToDoThat">Za ovo trebaš korisnički račun</string>
   <string name="signUp">Registriraj se</string>
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
   <string name="games">Partije</string>
@@ -232,8 +232,8 @@
   <string name="viewRematch">Pogledaj revanš</string>
   <string name="play">Igraj</string>
   <string name="inbox">Dolazna pošta</string>
-  <string name="chatRoom">Pričaonica</string>
-  <string name="loginToChat">Prijavi se da bi chattao/la</string>
+  <string name="chatRoom">Chat soba</string>
+  <string name="loginToChat">Prijavi se za chat</string>
   <string name="youHaveBeenTimedOut">Trenutno ne možeš pričati u chatu.</string>
   <string name="spectatorRoom">Pričaonica za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
@@ -245,7 +245,7 @@
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
   <string name="spectators">Gledatelji:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s Za bodove</item>
+    <item quantity="one">%s za bodove</item>
     <item quantity="few">%s Za bodove</item>
     <item quantity="other">%s Za bodove</item>
   </plurals>
