@@ -122,7 +122,9 @@ object activity {
     entryTag(
       iconTag(";"),
       div(
-        trans.activity.playedNbMoves.plural(nb, nb, subCount(povs.size)),
+        trans.activity.playedNbMoves.pluralSame(nb),
+        " ",
+        trans.activity.inNbCorrespondenceGames.plural(povs.size, subCount(povs.size)),
         subTag(
           povs.map { pov =>
             frag(
