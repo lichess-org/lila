@@ -41,7 +41,7 @@ object review {
         barRating(selected = mine.map(_.score), enabled = true),
         textarea(
           name := "text",
-          required := true,
+          required,
           minlength := 3,
           maxlength := 2000,
           placeholder := "Describe your coaching experience with ", c.user.realNameOrUsername
@@ -54,10 +54,10 @@ object review {
 
   private def barRating(selected: Option[Int], enabled: Boolean) =
     if (enabled)
-      select(cls := "bar-rating", name := "score", required := true)(
+      select(cls := "bar-rating", name := "score", required)(
         option(value := ""),
         List(1, 2, 3, 4, 5).map { score =>
-          option(value := score, st.selected := selected.contains(score))(score)
+          option(value := score, selected.contains(score) option st.selected)(score)
         }
       )
     else div(cls := "br-wrapper")(

@@ -41,7 +41,7 @@ object topic {
           ),
 
           st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST")(
-            form3.group(form("name"), trans.subject.frag())(form3.input(_)(autofocus := true)),
+            form3.group(form("name"), trans.subject.frag())(form3.input(_)(autofocus)),
             form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
             views.html.base.captcha(form("post"), captcha),
             form3.actions(

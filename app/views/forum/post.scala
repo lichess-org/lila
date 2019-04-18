@@ -68,7 +68,7 @@ object post {
             name := "changes",
             cls := "post-text-area edit-post-box",
             minlength := 3,
-            required := true
+            required
           )(post.text),
           div(cls := "edit-buttons")(
             a(cls := "edit-post-cancel", href := routes.ForumPost.redirect(post.id), style := "margin-left:20px")(

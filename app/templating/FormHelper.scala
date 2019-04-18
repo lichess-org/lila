@@ -47,7 +47,7 @@ trait FormHelper { self: I18nHelper =>
          * such as `optional(nonEmptyText)`.
          * And we can't tell from the Field whether it's optional or not :(
          */
-      // case ("constraint.required", _) => required := true
+      // case ("constraint.required", _) => required
       case ("constraint.minLength", Seq(m: Int)) => minlength := m
       case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
       case ("constraint.min", Seq(m: Int)) => min := m
@@ -183,10 +183,10 @@ trait FormHelper { self: I18nHelper =>
       )
 
     def password(field: Field, content: Frag)(implicit ctx: Context): Frag =
-      group(field, content)(input(_, typ = "password")(required := true))
+      group(field, content)(input(_, typ = "password")(required))
 
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
-      group(field, content)(input(_, typ = "password")(required := true)(modifiers))
+      group(field, content)(input(_, typ = "password")(required)(modifiers))
 
     def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
       form.globalError map { err =>

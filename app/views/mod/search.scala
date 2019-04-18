@@ -23,7 +23,7 @@ object search {
           div(cls := "mod-search page-menu__content box")(
             h1("Search users"),
             st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
-              input(name := "q", autofocus := true, placeholder := "Search by IP, email, or username", value := form("q").value),
+              input(name := "q", autofocus, placeholder := "Search by IP, email, or username", value := form("q").value),
               form3.select(form("as"), lila.mod.UserSearch.asChoices)
             ),
             users.nonEmpty option table(cls := "slist slist-pad")(

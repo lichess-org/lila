@@ -41,7 +41,7 @@ object mine {
                       id := "challenge-id",
                       cls := "copyable autoselect",
                       spellcheck := "false",
-                      readonly := "true",
+                      readonly,
                       value := s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
                     ),
                     button(title := "Copy URL", cls := "copy button", dataRel := "challenge-id", dataIcon := "\"")

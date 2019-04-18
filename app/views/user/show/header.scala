@@ -97,7 +97,7 @@ object header {
         textarea(name := "text", placeholder := "Write a note about this user only you and your friends can read"),
         button(tpe := "submit", cls := "button")(trans.send.frag()),
         if (isGranted(_.ModNote)) label(style := "margin-left: 1em;")(
-          input(tpe := "checkbox", name := "mod", checked := "true", value := "true", style := "vertical-align: middle;"),
+          input(tpe := "checkbox", name := "mod", checked, value := "true", style := "vertical-align: middle;"),
           "For moderators only"
         )
         else input(tpe := "hidden", name := "mod", value := "false")

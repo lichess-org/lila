@@ -38,7 +38,7 @@ object replayBot {
               div(cls := "fen-pgn active")(
                 div(
                   strong("FEN"),
-                  input(readonly := true, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
+                  input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
                 ),
                 div(cls := "pgn")(pgn)
               ),

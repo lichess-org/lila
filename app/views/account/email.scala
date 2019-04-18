@@ -21,7 +21,7 @@ object email {
         ),
         st.form(cls := "form3", action := routes.Account.emailApply, method := "POST")(
           form3.password(form("passwd"), trans.password.frag()),
-          form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")(required := true)),
+          form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")(required)),
           form3.action(form3.submit(trans.apply.frag()))
         )
       )

@@ -26,7 +26,7 @@ $('button.clear').on('click', function() {
           h1(userLink(u), " permissions"),
           p("Use Ctrl+click to select multiple permissions"),
           form(cls := "form3", action := routes.Mod.permissions(u.username), method := "post")(
-            select(name := "permissions[]", multiple := true)(
+            select(name := "permissions[]", multiple)(
               lila.security.Permission.allButSuperAdmin.sortBy(_.name).map { p =>
                 option(
                   value := p.name,
