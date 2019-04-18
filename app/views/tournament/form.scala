@@ -118,12 +118,12 @@ object form {
   )(
       option(
         value := chess.StartingPosition.initial.fen,
-        selected := field.value.has(chess.StartingPosition.initial.fen)
+        field.value.has(chess.StartingPosition.initial.fen) option selected
       )(chess.StartingPosition.initial.name),
       chess.StartingPosition.categories.map { categ =>
         optgroup(attr("label") := categ.name)(
           categ.positions.map { v =>
-            option(value := v.fen, selected := field.value.has(v.fen))(v.fullName)
+            option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)
           }
         )
       }
