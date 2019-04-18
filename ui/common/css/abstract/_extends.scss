@@ -38,6 +38,12 @@
 %button-raised-shadow {
   box-shadow: 0 4px 10px 0px hsla(0, 0, 0, 0.225);
 }
+%button-none {
+  background: none;
+  border: none;
+  outline: none;
+  color: $c-font;
+}
 
 %nowrap-hidden {
   white-space: nowrap;

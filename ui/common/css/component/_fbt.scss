@@ -1,8 +1,5 @@
 .fbt {
-  background: none;
-  border: none;
-  outline: none;
-  color: $c-font;
+  @extend %button-none;
   text-transform: uppercase;
   line-height: 1.5;
   @include transition();

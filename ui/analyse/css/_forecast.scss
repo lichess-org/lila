@@ -1,5 +1,4 @@
 .forecast {
-  @extend %box-neat-force;
   user-select: none;
   @include transition();
   position: relative;
@@ -10,71 +9,87 @@
   .overlay {
     @extend %link-overlay, %flex-center;
   }
+  .box {
+    @extend %box-neat-force;
+  }
   .top {
     @extend %metal;
     border-bottom: $border;
     padding: .5em .7em;
   }
   .entry {
+    @extend %flex-center-nowrap;
     padding: .7em .1em .7em .6em;
     margin-left: -.1em;
     @include transition();
     position: relative;
-    cursor: pointer;
+    border-bottom: $border;
     &::before {
       margin-left: -.6em;
       opacity: .4;
     }
     .del {
+      @extend %button-shadow;
       position: absolute;
       right: 5px;
       top: 8px;
-      width: .8em;
-      height: .8em;
+      width: 1.5em;
+      height: 1.5em;
       line-height: .8em;
       text-align: center;
       display: block;
       font-size: .9em;
       opacity: 0;
       @include transition();
-      background: #fff;
-      padding: 5px;
+      background: $c-bad;
+      color: $c-bad-over;
+      padding: .25em;
       border-radius: 50%;
-      color: $c-bad;
+      z-index: 1;
     }
     &:hover .del {
-      opacity: .8;
-      &:hover .del:hover {
-        opacity: 1;
-      }
+      opacity: .6;
+    }
+    .del:hover {
+      opacity: 1;
     }
   }
-  .fbt {
-    text-transform: none;
-    padding: .3em .7em;
-    cursor: pointer;
-  }
   .add {
-    @extend %flex-center-nowrap;
+    @extend %button-none, %flex-center-nowrap;
     width: 100%;
+    padding: .7em;
+    text-align: left;
+    color: $c-font-dim;
+    cursor: inherit;
     &::before {
       font-size: 2.2em;
       opacity: .6;
     }
-    &.enabled::before {
-      color: $c-good;
+    &.enabled {
+      @extend %metal;
+      cursor: pointer;
+      color: $c-font;
+      @include transition();
+      &::before {
+        opacity: .7;
+        color: $c-good;
+      }
+      &:hover {
+        @extend %metal-hover;
+        &::before {
+          opacity: 1;
+        }
+      }
     }
-    &:hover::before {
-      opacity: .9;
-    }
-    span {
-      display: block;
-      white-space: normal;
-      font-weight: normal;
+    > span {
+      font-size: .9em;
+      > span {
+        color: $c-font-dim;
+      }
     }
   }
   sans {
-    @extend %roboto;
+    @extend %roboto, %flex-center;
   }
   san {
     @extend %san;
@@ -87,9 +102,20 @@
     @extend %flex-wrap;
   }
   .on-my-turn {
+    @extend %flex-center-nowrap;
     margin-top: 1.3em;
-  }
-  .on-my-turn::before {
-    color: $c-good;
+    text-transform: none;
+    text-align: left;
+    font-weight: normal;
+    width: 100%;
+    &::before {
+      font-size: 2.2em;
+    }
+    strong {
+      font-weight: bold;
+    }
+    > span {
+      @extend %flex-column;
+    }
   }
 }
