@@ -57,6 +57,6 @@ export default function(ctrl: TournamentController): MaybeVNodes {
       hook: bind('click', _ => !ctrl.disableClicks)
     }, [
       h('h2', 'Top games')
-    ].concat(ctrl.data.duels.map(renderDuel)).concat(ctrl.data.duels.map(renderDuel)).concat(ctrl.data.duels.map(renderDuel))) : null
+    ].concat(ctrl.data.duels.map(renderDuel))) : null
   ];
 };
