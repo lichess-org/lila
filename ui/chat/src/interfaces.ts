@@ -61,7 +61,7 @@ export interface Ctrl {
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined
-  post(text: string): boolean
+  post(text: string): void
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
