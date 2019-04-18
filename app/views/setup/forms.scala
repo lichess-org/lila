@@ -122,7 +122,7 @@ object forms {
           a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
         )
       }.getOrElse {
-        st.form(action := route, method := "post", novalidate := true,
+        st.form(action := route, method := "post", novalidate,
           dataRandomColorVariants,
           dataType := typ,
           dataAnon := ctx.isAnon.option("1"))(

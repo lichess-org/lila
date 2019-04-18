@@ -6,7 +6,8 @@ import ornicar.scalalib.Zero
 import play.twirl.api.Html
 import scalatags.Text.all.{ genericAttr, attr, StringFrag }
 import scalatags.text.Builder
-import scalatags.Text.{ Frag, RawFrag, Attr, AttrValue, Modifier, Cap, Aggregate, Attrs, Styles }
+import scalatags.Text.{ Aggregate, Cap }
+import scalatags.Text.all._
 
 // collection of lila attrs
 trait ScalatagsAttrs {
@@ -20,7 +21,7 @@ trait ScalatagsAttrs {
   lazy val dataColor = attr("data-color")
   lazy val dataFen = attr("data-fen")
   lazy val dataRel = attr("data-rel")
-  lazy val novalidate = attr("novalidate")
+  lazy val novalidate = attr("novalidate") := "novalidate"
   object frame {
     val scrolling = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen")

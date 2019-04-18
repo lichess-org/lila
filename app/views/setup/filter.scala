@@ -15,7 +15,7 @@ object filter {
 
   def apply(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context) = frag(
     responsiveCssTag("lobby.setup"),
-    st.form(action := routes.Setup.filter(), novalidate := true)(
+    st.form(action := routes.Setup.filter(), novalidate)(
       table(
         tbody(
           tr(cls := "variant")(

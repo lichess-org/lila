@@ -40,7 +40,7 @@ object topic {
             )
           ),
 
-          st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST", novalidate := true)(
+          st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST")(
             form3.group(form("name"), trans.subject.frag())(form3.input(_)(autofocus := true)),
             form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
             views.html.base.captcha(form("post"), captcha),
@@ -141,7 +141,7 @@ object topic {
             cls := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             method := "POST",
-            novalidate := true
+            novalidate
           )(
               form3.group(form("text"), trans.message.frag()) { f =>
                 form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
