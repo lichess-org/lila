@@ -20,6 +20,9 @@
   <plurals name="playedNbMoves">
     <item quantity="other">Dimainkan %1$s langkah</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="other">dalam %1$s permainan korespondensi</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">Komplit %s permainan korespondensi</item>
   </plurals>
