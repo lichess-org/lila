@@ -234,7 +234,7 @@
   <string name="chatRoom">Chat soba</string>
   <string name="loginToChat">Prijavi se za chat</string>
   <string name="youHaveBeenTimedOut">Trenutno ne možeš pričati u chatu.</string>
-  <string name="spectatorRoom">Pričaonica za gledatelje</string>
+  <string name="spectatorRoom">Soba za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
   <string name="noNewMessages">Nema novih poruka</string>
   <string name="subject">Tema</string>
@@ -250,7 +250,7 @@
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s pobjeda</item>
-    <item quantity="few">%s pobjeda</item>
+    <item quantity="few">%s pobjede</item>
     <item quantity="other">%s pobjeda</item>
   </plurals>
   <plurals name="nbLosses">
@@ -320,16 +320,16 @@
     <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
     <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
+  <string name="yourPerfRatingIsProvisional">Tvoj %s rejting je privremen</string>
   <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najviši tjedni %1$s rejting (%2$s) je previsok</string>
   <string name="yourPerfRatingIsTooLow">Tvoj %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">Rangirano %1$s u %2$s</string>
+  <string name="ratedLessThanInPerf">%2$s rejting ≤ %1$s</string>
   <string name="mustBeInTeam">Moraš biti u timu %s</string>
   <string name="youAreNotInTeam">Nisi u timu %s</string>
   <string name="backToGame">Natrag na partiju</string>
-  <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
+  <string name="siteDescription">Besplatni internetski šah. Igraj odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igraj šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Timovi</string>
   <plurals name="nbMembers">
     <item quantity="one">%s član</item>
