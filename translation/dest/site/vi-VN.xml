@@ -166,7 +166,6 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="rank">Xếp hạng</string>
   <string name="rankX">Hạng: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Thứ hạng sẽ được cập nhật mỗi %s phút</string>
   <plurals name="nbPuzzles">
     <item quantity="other">%s thế cờ</item>
   </plurals>
