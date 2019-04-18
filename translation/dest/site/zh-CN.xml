@@ -169,7 +169,6 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="rank">排名</string>
   <string name="rankX">排名：%s</string>
-  <string name="rankIsUpdatedEveryXMinutes">每%s分钟更新排名</string>
   <plurals name="nbPuzzles">
     <item quantity="other">训练题%s题</item>
   </plurals>
