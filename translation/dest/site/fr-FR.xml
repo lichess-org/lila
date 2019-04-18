@@ -685,7 +685,7 @@ en %3$s</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
   <string name="newTournament">Nouveau tournoi</string>
-  <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
+  <string name="tournamentHomeTitle">Tournois mettant en jeu diverses variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
   <string name="tournamentNotFound">Tournoi inexistant</string>
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
@@ -824,7 +824,7 @@ en %3$s</string>
   <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
   <string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs des Blancs</string>
   <string name="doneReviewingBlackMistakes">Fin d\'examen des erreurs des Noirs</string>
-  <string name="doItAgain">Essayer encore</string>
+  <string name="doItAgain">Recommencer</string>
   <string name="reviewWhiteMistakes">Revoir les erreurs des Blancs</string>
   <string name="reviewBlackMistakes">Revoir les erreurs des Noirs</string>
   <string name="advantage">Avantage</string>
