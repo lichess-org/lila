@@ -32,8 +32,9 @@ function initialize(ctrl: LobbyController, el) {
       s.slider('values', values);
       changeRatingRange(values);
     });
+    return false;
   });
-  $div.find('button').click(function() {
+  $div.find('button.apply').click(function() {
     ctrl.toggleFilter();
     ctrl.redraw();
     return false;
