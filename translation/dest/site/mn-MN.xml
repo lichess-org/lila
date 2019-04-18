@@ -162,7 +162,6 @@
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
   <string name="rank">Зэрэг</string>
   <string name="rankX">Үнэлгээ: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Үнэлгээ %s минут тутамд шинэчлэгддэг</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s бодлогууд</item>
     <item quantity="other">%s бодлого</item>
