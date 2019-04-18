@@ -112,7 +112,6 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
-  <string name="rankIsUpdatedEveryXMinutes">Uasdátaítear an rátáil gach %s nóiméid</string>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
   <string name="timeOut">As am</string>
