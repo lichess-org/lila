@@ -91,7 +91,8 @@ function doRender(ctrl: AnalyseCtrl): VNode {
 
 export function render(ctrl: AnalyseCtrl): MaybeVNode {
 
-  if (ctrl.embed || !ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')) return;
+  if (ctrl.embed || !ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
+    return h('div.analyse__acpl');
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
