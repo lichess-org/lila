@@ -145,7 +145,6 @@
   <string name="forgotPassword">Wedi anghofio\'r cyfrinair?</string>
   <string name="rank">Safle</string>
   <string name="rankX">Safle: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Mae\'r safle yn cael ei diweddaru bob %s munud</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
   <string name="cancel">Canslo</string>
   <string name="timeOut">Amser wedi dod i\'w ben</string>
