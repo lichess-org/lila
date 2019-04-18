@@ -24,7 +24,7 @@
   }
   .moves {
     @extend %flex-wrap, %zen;
-    @include hoverflow;
+    overflow-y: auto;
     align-content: start;
     border: $border;
     border-width: 0 1px;
