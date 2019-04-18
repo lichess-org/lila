@@ -5,8 +5,8 @@
   table {
     border-bottom: none;
   }
-  .slist td {
-    @extend %nowrap-hidden;
+  td {
+    @extend %nowrap-hidden, %data-icon-middle;
     padding: .2em 1em;
     line-height: 2em;
     text-overflow: ellipsis;
