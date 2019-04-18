@@ -173,7 +173,6 @@
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="rankX">रैंक: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">रैंक हर %s मिनटों में अपडेट किया जाता है</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s पहेली</item>
     <item quantity="other">%s पहेली</item>
