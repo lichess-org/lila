@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="learnDraughts">学习国际跳棋</string>
+  <string name="byPlaying">用玩的方式！</string>
+  <string name="menu">菜单</string>
+  <string name="progressX">进度：%s</string>
+  <string name="resetMyProgress">重置我的进度</string>
+  <string name="youWillLoseAllYourProgress">请注意: 您的进度将被清空！</string>
+  <string name="play">玩吧!</string>
+  <string name="draughtsPieces">棋子</string>
+  <string name="theMen">兵</string>
+  <string name="theKing">王</string>
+  <string name="fundamentals">基础教程</string>
+  <string name="capture">吃子</string>
+  <string name="takeTheEnemyPieces">吃掉对方棋子</string>
+  <string name="takeTheBlackPieces">吃掉黑棋棋子！</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">吃掉黑棋棋子！
+并保持自己不要丢子。</string>
+  <string name="captureComplete">恭喜！您已经学会如何吃棋了！</string>
+  <string name="protection">保护棋子</string>
+  <string name="keepYourPiecesSafe">确保您的棋子安全</string>
+  <string name="protectionIntro">请找到被对手威胁的棋子并保护它们！</string>
+  <string name="protectionComplete">恭喜！保护好一个棋子等同与吃掉对方一个棋子！</string>
+  <string name="escape">您有棋子会被吃掉！
+请移开受到威胁的棋子！</string>
+  <string name="noEscape">您有棋子无法直接逃脱，
+但是您可以用别的棋子去保护它。</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">请不要让对方吃掉
+任何不被保护的棋子！</string>
+  <string name="combat">攻防</string>
+  <string name="captureAndDefendPieces">吃子与保护棋子</string>
+  <string name="combatIntro">一位优秀棋手应如同战士一般同时懂得进攻和防御！</string>
+  <string name="combatComplete">恭喜！您已经懂得如何用棋子去战斗！</string>
+  <string name="intermediate">中级教程</string>
+  <string name="boardSetup">开局</string>
+  <string name="howTheGameStarts">棋局是怎么开始的</string>
+  <string name="boardSetupIntro">两军对峙，准备战斗。</string>
+  <string name="thisIsTheInitialPosition">这是国际跳棋开局时的棋子摆法。
+请走任意棋子继续。</string>
+  <string name="boardSetupComplete">恭喜！您已经懂得如何开局摆棋。</string>
+  <string name="theGameIsADraw">本局是和棋</string>
+  <string name="advanced">高级教程</string>
+  <string name="whatNext">接下来做些什么？</string>
+  <string name="youKnowHowToPlayDraughts">恭喜您！您已经学会怎么下国际跳棋了！您想要成为一位更出色的棋手吗？</string>
+  <string name="register">注册</string>
+  <string name="getAFreeLidraughtsAccount">获得一个免费的Lidraughts账户</string>
+  <string name="practice">练习</string>
+  <string name="learnCommonDraughtsPositions">学习常见的国际跳棋局面</string>
+  <string name="puzzles">训练题</string>
+  <string name="exerciseYourTacticalSkills">练习您的国际跳棋战术</string>
+  <string name="videos">观看视频</string>
+  <string name="watchInstructiveDraughtsVideos">观看国际跳棋教学视频</string>
+  <string name="playPeople">找人下棋</string>
+  <string name="opponentsFromAroundTheWorld">来自世界各地的对手</string>
+  <string name="playMachine">找机器下棋</string>
+  <string name="testYourSkillsWithTheComputer">看看你有多强</string>
+  <string name="letsGo">开始吧!</string>
+  <string name="stageX">级别%s</string>
+  <string name="awesome">棒极了！</string>
+  <string name="excellent">非常好！</string>
+  <string name="greatJob">做的好！</string>
+  <string name="perfect">完美！</string>
+  <string name="outstanding">优秀！</string>
+  <string name="wayToGo">就该这么做！</string>
+  <string name="yesYesYes">对！</string>
+  <string name="youreGoodAtThis">您很擅长下棋！</string>
+  <string name="nailedIt">正确！</string>
+  <string name="rightOn">不错！</string>
+  <string name="stageXComplete">级别%s完成</string>
+  <string name="yourScore">您的得分</string>
+  <string name="next">下一个</string>
+  <string name="backToMenu">返回菜单</string>
+  <string name="puzzleFailed">解题失败！</string>
+  <string name="retry">重试</string>
+</resources>

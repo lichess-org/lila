@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="activity">用户活动</string>
+  <string name="supportedNbMonths">该用户作为%2$s已支持lidraughts.org%1$s个月</string>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">在%2$s里练习了%1$s个局面</item>
+    <item quantity="other">在%2$s里练习了%1$s个局面</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">解决了%s道训练题</item>
+    <item quantity="other">解决了%s道训练题</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">下了%1$s盘%2$s跳棋</item>
+    <item quantity="other">下了%1$s盘%2$s跳棋</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">在%2$s发布了%1$s条消息</item>
+    <item quantity="other">在%2$s发布了%1$s条消息</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">下了%2$s盘棋共计%1$s步</item>
+    <item quantity="other">下了%2$s盘棋共计%1$s步</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">下完了%s盘棋</item>
+    <item quantity="other">下完了%s盘棋</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">关注了%s位棋手</item>
+    <item quantity="other">关注了%s位棋手</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">新增了%s位关注者</item>
+    <item quantity="other">新增了%s位关注者</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">摆擂了%s场车轮赛</item>
+    <item quantity="other">摆擂了%s场车轮赛</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">参与了%s场车轮赛</item>
+    <item quantity="other">参与了%s场车轮赛</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">创建了%s个学习课程</item>
+    <item quantity="other">创建了%s个学习课程</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">参与了%s场锦标赛</item>
+    <item quantity="other">参与了%s场锦标赛</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">在锦标赛%4$s里下了%3$s盘棋，排名第%1$s(前%2$s%%)</item>
+    <item quantity="other">在锦标赛%4$s里下了%3$s盘棋，排名第%1$s(前%2$s%%)</item>
+  </plurals>
+  <string name="signedUp">在lidraughts.org上注册账户</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">已加入%s团队</item>
+    <item quantity="other">已加入%s团队</item>
+  </plurals>
+</resources>

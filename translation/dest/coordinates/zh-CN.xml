@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="coordinates">棋盘坐标</string>
+  <string name="coordinateTraining">棋盘坐标训练</string>
+  <string name="averageScoreAsWhiteX">白方平均得分：%s</string>
+  <string name="averageScoreAsBlackX">黑方平均得分：%s</string>
+  <string name="knowingTheDraughtsBoard">了解国际跳棋棋盘坐标是一门很重要的技能：</string>
+  <string name="mostDraughtsCourses">国际跳棋课程普遍使用棋格坐标记谱法。</string>
+  <string name="talkToYourDraughtsFriends">这能让您更便捷地与棋友交谈，因为你们都懂这门“跳棋语言”。</string>
+  <string name="youCanAnalyseAGameMoreEffectively">在熟知棋盘上每个棋格坐标值后，能帮助您高效地分析对局。</string>
+  <string name="aSquareNameAppears">棋盘中间出现格子的坐标名称之后，您必须点击正确的格子。您有30秒的时间认出尽可能多的棋格！</string>
+  <string name="startTraining">开始训练</string>
+</resources>
