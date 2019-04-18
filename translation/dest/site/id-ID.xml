@@ -169,6 +169,9 @@
   <string name="forgotPassword">Lupa kata sandi?</string>
   <string name="rank">Peringkat</string>
   <string name="rankX">Rating: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">Peringkat update setiap %s menit</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s</item>
   </plurals>
