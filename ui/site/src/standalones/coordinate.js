@@ -6,9 +6,8 @@ $(function() {
     var $side = $('.coord-trainer__side');
     var $right = $('.coord-trainer__table');
     var $bar = $trainer.find('.progress_bar');
-    var $coord0 = $('#next_coord0');
     var $coords = [
-      $coord0,
+      $('#next_coord0'),
       $('#next_coord1'),
       $('#next_coord2')
     ];
@@ -101,7 +100,7 @@ $(function() {
     };
 
     var advanceCoords = function() {
-      $coord0.removeClass('nope');
+      $('#next_coord0').removeClass('nope');
       var lastElement = $coords.shift();
       $.each($coords, function(i, e) {
         e.attr('id', 'next_coord' + i);
@@ -163,9 +162,9 @@ $(function() {
                 $score.text(score);
                 advanceCoords();
               } else {
-                $coord0.addClass('nope');
+                $('#next_coord0').addClass('nope');
                 setTimeout(function() {
-                  $coord0.removeClass('nope');
+                  $('#next_coord0').removeClass('nope');
                 }, 500);
               }
               $trainer.toggleClass('wrong', !hit);
