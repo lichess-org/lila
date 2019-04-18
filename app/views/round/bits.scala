@@ -27,6 +27,7 @@ object bits {
       moreJs = moreJs,
       moreCss = frag(
         responsiveCssTag("round"),
+        ctx.blind option responsiveCssTag("round.nvui"),
         moreCss
       ),
       draughtsground = draughtsground,
