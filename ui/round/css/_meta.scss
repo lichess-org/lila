@@ -42,6 +42,11 @@
       display: none;
     }
   }
+  .user-tv {
+    @extend %nowrap-hidden;
+    font-size: 1.2em;
+    text-overflow: ellipsis;
+  }
 }
 .game__tournament {
   .clock {
