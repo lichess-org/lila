@@ -26,7 +26,9 @@ final class PgnDump(
   def ofChapter(study: Study, chapter: Chapter) = Pgn(
     tags = makeTags(study, chapter),
     turns = toTurns(chapter.root),
-    initial = Initial(chapter.root.comments.list.map(_.text.value))
+    initial = Initial(
+      chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+    )
   )
 
   private val fileR = """[\s,]""".r

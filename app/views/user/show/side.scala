@@ -47,7 +47,7 @@ object side {
           ),
           rankMap.fold(rankUnavailable) { ranks =>
             ranks.get(perfType.key) map { rank =>
-              span(cls := "rank", title := trans.rankIsUpdatedEveryXMinutes.txt(15))(trans.rankX(rank.localize))
+              span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(trans.rankX(rank.localize))
             }
           }
         ),
