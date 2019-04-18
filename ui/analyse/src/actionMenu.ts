@@ -1,3 +1,4 @@
+import { empty } from 'common';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
@@ -22,15 +23,15 @@ const baseSpeeds: AutoplaySpeed[] = [{
   delay: 5000
 }];
 
-const allSpeeds = baseSpeeds.concat({
+const realtimeSpeed: AutoplaySpeed = {
   name: 'realtimeReplay',
   delay: 'realtime'
-});
+};
 
-const cplSpeeds: AutoplaySpeed[] = [{
+const cplSpeed: AutoplaySpeed = {
   name: 'byCPL',
-  delay: 'cpl_slow'
-}];
+  delay: 'cpl'
+};
 
 function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefined {
   const g = ctrl.data.game;
@@ -55,8 +56,11 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
 
 function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
-  let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
-  speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
+  const speeds = [
+    ...baseSpeeds,
+    ...(empty(d.game.moveCentis) ? [] : [realtimeSpeed]),
+    ...(d.analysis ? [cplSpeed] : [])
+  ];
   return h('div.autoplay', speeds.map(speed => {
     return h('a.fbt', {
       class: { active: ctrl.autoplay.active(speed.delay) },
