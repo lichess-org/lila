@@ -592,11 +592,11 @@ en %3$s</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
   <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractère.</item>
+    <item quantity="one">Maximum : %s caractères.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueur bloqué</item>
+    <item quantity="one">%s joueurs bloqués</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
