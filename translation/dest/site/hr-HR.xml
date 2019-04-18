@@ -19,7 +19,7 @@
   <string name="white">Bijeli</string>
   <string name="black">Crni</string>
   <string name="randomColor">Nasumična boja</string>
-  <string name="createAGame">Kreiraj igru</string>
+  <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
   <string name="kingInTheCenter">Kralj na centru</string>
@@ -27,11 +27,11 @@
   <string name="raceFinished">Utrka je završena</string>
   <string name="variantEnding">Kraj varijacije</string>
   <string name="newOpponent">Novi protivnik</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Tvoj protivnik želi novu igru s tobom</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Tvoj protivnik želi novu partiju s tobom</string>
   <string name="joinTheGame">Pridruži se igri</string>
   <string name="whitePlays">Bijeli je na potezu</string>
   <string name="blackPlays">Crni je na potezu</string>
-  <string name="opponentLeftChoices">Drugi igrač je napustio igru. Možeš proglasiti pobjedu, proglasiti partiju remijem ili ga pričekati.</string>
+  <string name="opponentLeftChoices">Drugi igrač je napustio partiju. Možeš proglasiti pobjedu, proglasiti partiju remijem ili ga pričekati.</string>
   <string name="makeYourOpponentResign">Forsiraj pobjedu</string>
   <string name="forceResignation">Proglasi pobjedu</string>
   <string name="forceDraw">Forsiranje remija</string>
