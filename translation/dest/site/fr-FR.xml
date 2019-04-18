@@ -159,7 +159,10 @@
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Le classement est mis à jour toutes les %s minutes</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzles</item>
+  </plurals>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partie avec vous</item>
