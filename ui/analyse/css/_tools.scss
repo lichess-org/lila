@@ -23,6 +23,7 @@
     overflow-y: auto;
     border: $border;
     border-width: 1px 0;
+    position: relative; /* required so line::before scrolls along the moves! */
     .result,
     .status {
       background: $c-bg-zebra;
