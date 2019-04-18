@@ -34,7 +34,7 @@ lidraughts.studyTour = function(study) {
         attachTo: "#site_header .study_box right",
         when: onTab('members')
       },
-      study.isContrib ? {
+      study.isOwner ? {
         title: "Invite members",
         text: "By clicking the <i data-icon='O'></i> button.<br>" +
           "Then decide who can contribute or not.",
