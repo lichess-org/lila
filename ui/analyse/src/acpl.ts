@@ -1,6 +1,5 @@
 import { h, thunk } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
-import { MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
@@ -89,7 +88,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-export function render(ctrl: AnalyseCtrl): MaybeVNode {
+export function render(ctrl: AnalyseCtrl): VNode {
 
   if (ctrl.embed || !ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
     return h('div.analyse__acpl');

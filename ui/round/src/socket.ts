@@ -15,7 +15,7 @@ export interface RoundSocket extends Untyped {
   outoftime(): void;
   berserk(): void;
   sendLoading(typ: string, data?: any): void
-    receive(typ: string, data: any): boolean;
+  receive(typ: string, data: any): boolean;
 }
 
 interface Incoming {
