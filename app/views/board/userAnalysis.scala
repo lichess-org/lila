@@ -16,7 +16,8 @@ object userAnalysis {
     title = trans.analysis.txt(),
     moreCss = frag(
       responsiveCssTag("analyse.free"),
-      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("forecast")
+      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option responsiveCssTag("forecast"),
+      ctx.blind option responsiveCssTag("round.nvui")
     ),
     moreJs = frag(
       analyseTag,

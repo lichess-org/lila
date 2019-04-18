@@ -44,7 +44,10 @@ object replay {
 
     bits.layout(
       title = titleOf(pov),
-      moreCss = responsiveCssTag("analyse.round"),
+      moreCss = frag(
+        responsiveCssTag("analyse.round"),
+        ctx.blind option responsiveCssTag("round.nvui")
+      ),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
