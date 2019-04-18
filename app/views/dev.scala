@@ -1,4 +1,4 @@
-package views.html.dev
+package views.html
 
 import play.api.data.Form
 
@@ -8,11 +8,37 @@ import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
-object cli {
+object dev {
 
-  val title = "Command Line Interface"
+  def settings(settings: List[lila.memo.SettingStore[_]])(implicit ctx: Context) = {
+    val title = "Settings"
+    views.html.base.layout(
+      title = title,
+      moreCss = responsiveCssTag("mod.misc")
+    )(
+        main(cls := "page-menu")(
+          mod.menu("setting"),
+          div(id := "settings", cls := "page-menu__content box box-pad")(
+            h1(title),
+            p("Tread lightly."),
+            settings.map { s =>
+              form(action := routes.Dev.settingsPost(s.id), method := "POST")(
+                p(s.text | s.id),
+                input(name := "v", value := (s.form.value match {
+                  case None => ""
+                  case Some(x) => x.toString
+                  case x => x.toString
+                })),
+                button(tpe := "submit", cls := "button", dataIcon := "E")
+              )
+            }
+          )
+        )
+      )
+  }
 
-  def apply(form: Form[_], res: Option[String])(implicit ctx: Context) =
+  def cli(form: Form[_], res: Option[String])(implicit ctx: Context) = {
+    val title = "Command Line Interface"
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("mod.misc")
@@ -44,4 +70,5 @@ patron month {username}""")
           )
         )
       }
+  }
 }
