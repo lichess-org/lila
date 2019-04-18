@@ -600,7 +600,7 @@
       lichess.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
     },
     set: function(data) {
-      if (!data) return this.element.addClass('none');
+      if (!data || !data.nb) return this.element.addClass('none');
       if (this.number.length) this.number.text(data.nb);
       if (data.users) {
         var tags = data.users.map($.userLink);
