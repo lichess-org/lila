@@ -26,6 +26,12 @@
     <item quantity="few">Objavil %1$s sporočila v %2$s</item>
     <item quantity="other">Objavil %1$s sporočil v %2$s</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">v %1$s dopisni partiji</item>
+    <item quantity="two">v %1$s dopisnih partijah</item>
+    <item quantity="few">v %1$s dopisnih partijah</item>
+    <item quantity="other">v %1$s dopisnih partijah</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Končal %s dopisno partijo</item>
     <item quantity="two">Končal %s dopisni partiji</item>
