@@ -166,7 +166,6 @@
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="rank">순위</string>
   <string name="rankX">랭킹: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">랭킹은 %s분마다 업데이트 됩니다.</string>
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
   </plurals>
