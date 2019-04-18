@@ -52,7 +52,7 @@ gulp.task('css', gulp.series([
 gulp.task('css-dev', gulp.series([createThemedBuilds, build]));
 
 gulp.task('css-prod', () => gulp
-  .src(buildsGlob)
+  .src(sourcesGlob)
   .pipe(sass({
     ...sassOptions,
     ...{ outputStyle: 'compressed' }
