@@ -176,7 +176,6 @@
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
   <string name="rankX">Sıralama: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sıralama her %s dakikada bir güncellenir</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s bulmaca</item>
     <item quantity="other">%s bulmaca</item>
