@@ -153,7 +153,6 @@
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="rank">Деңгей</string>
   <string name="rankX">Дәреже: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Дәреже әрбір %s минут ішінде жаңартылып тұрады</string>
   <string name="gamesPlayed">Ойындар ойналған</string>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
