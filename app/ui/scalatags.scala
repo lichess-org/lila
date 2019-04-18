@@ -21,7 +21,7 @@ trait ScalatagsAttrs {
   lazy val dataColor = attr("data-color")
   lazy val dataFen = attr("data-fen")
   lazy val dataRel = attr("data-rel")
-  lazy val novalidate = attr("novalidate") := "novalidate"
+  lazy val novalidate = attr("novalidate").empty
   object frame {
     val scrolling = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen")
