@@ -1,5 +1,4 @@
-package views.html
-package coach
+package views.html.coach
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -52,7 +51,7 @@ object review {
       )
     )
 
-  private def barRating(selected: Option[Int], enabled: Boolean) =
+  def barRating(selected: Option[Int], enabled: Boolean) =
     if (enabled)
       select(cls := "bar-rating", name := "score", required)(
         option(value := ""),

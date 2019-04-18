@@ -1,5 +1,4 @@
-package views.html
-package account
+package views.html.account
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -14,7 +13,7 @@ object layout {
     active: String,
     evenMoreCss: Frag = emptyFrag,
     evenMoreJs: Frag = emptyFrag
-  )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
+  )(body: Frag)(implicit ctx: Context): Frag = views.html.base.layout(
     title = title,
     moreCss = frag(responsiveCssTag("account"), evenMoreCss),
     moreJs = frag(jsTag("account.js"), evenMoreJs)
