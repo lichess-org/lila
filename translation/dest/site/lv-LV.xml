@@ -183,7 +183,6 @@
   <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="rank">Rangs</string>
   <string name="rankX">Rangs: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rangs tiek atjaunots ik pēc %s minūtēm</string>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s puzles</item>
     <item quantity="one">%s puzle</item>
