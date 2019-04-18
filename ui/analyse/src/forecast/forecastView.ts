@@ -14,14 +14,16 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   var lines = fcs.filter(function(fc) {
     return fc.length > 1;
   });
-  return h('button.on-my-turn.add.fbt.text', {
+  return h('button.on-my-turn.button.text', {
     attrs: dataIcon('E'),
     hook: bind('click', _ => fctrl.playAndSave(firstNode))
   }, [
-    h('span', h('strong', ctrl.trans('playX', fixCrazySan(cNodes[0].san)))),
-    lines.length ?
-    h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length)) :
-    h('span', ctrl.trans.noarg('noConditionalPremoves'))
+    h('span', [
+      h('strong', ctrl.trans('playX', fixCrazySan(cNodes[0].san))),
+      lines.length ?
+      h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length)) :
+      h('span', ctrl.trans.noarg('noConditionalPremoves'))
+    ])
   ]);
 }
 
@@ -58,14 +60,15 @@ export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           h('sans', renderNodesHtml(nodes))
         ])
       })),
-      h('span.add.fbt.text', {
+      h('button.add.text', {
         class: { enabled: isCandidate },
         attrs: dataIcon(isCandidate ? 'O' : ""),
         hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw)
-      }, isCandidate ? [
-        h('span', ctrl.trans.noarg('addCurrentVariation')),
-        h('sans', renderNodesHtml(cNodes))
-      ] : [
+      }, [
+        isCandidate ? h('span', [
+          h('span', ctrl.trans.noarg('addCurrentVariation')),
+          h('sans', renderNodesHtml(cNodes))
+        ]) :
         h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves'))
       ])
     ]),
