@@ -165,6 +165,8 @@
   <string name="username">Kullanıcı adı</string>
   <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
   <string name="changeUsername">Kullanıcı adını değiştir</string>
+  <string name="changeUsernameNotSame">Yalnızca büyük / küçük harf değiştirebilirsiniz. Örneğin \"johndoe\" \"JohnDoe\" için.</string>
+  <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu yalnızca bir kez yapılabilir ve yalnızca kullanıcı adınızı olgusu değiştirmek için izin verilir.</string>
   <string name="password">Şifre</string>
   <string name="haveAnAccount">Üye misiniz?</string>
   <string name="changePassword">Şifre değiştir</string>
