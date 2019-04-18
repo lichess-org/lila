@@ -1,6 +1,7 @@
 import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
 import * as tree from 'tree'
+import { baseUrl } from './util';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
@@ -158,7 +159,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     }
   });
   $panels.on('click', '.embed-howto', function(this: HTMLElement) {
-    const url = 'https://lidraughts.org/embed/' + data.game.id + location.hash;
+    const url = `${baseUrl()}/embed/${data.game.id}${location.hash}`;
     const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
     $.modal($(
       '<strong style="font-size:1.5em">' + $(this).html() + '</strong><br /><br />' +
