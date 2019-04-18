@@ -158,7 +158,6 @@
   <string name="forgotPassword">Tessera oblita?</string>
   <string name="rank">Ordo</string>
   <string name="rankX">Locus: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Locus fit novus singulae %s munitae</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s exercitus</item>
     <item quantity="other">%s exercitii</item>
