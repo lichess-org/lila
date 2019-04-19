@@ -30,7 +30,7 @@ object theirs {
                 ))),
               bits.details(c),
               c.initialFen.map { fen =>
-                views.html.game.bits.miniBoard(fen, color = !c.finalColor)
+                div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = !c.finalColor))
               },
               if (!c.mode.rated || ctx.isAuth) frag(
                 (c.mode.rated && c.unlimited) option

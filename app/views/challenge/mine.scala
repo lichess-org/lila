@@ -56,13 +56,13 @@ object mine {
                   )
                 )
               ),
-              cancelForm,
               c.initialFen.map { fen =>
                 frag(
                   br,
-                  views.html.game.bits.miniBoard(fen, color = c.finalColor)
+                  div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = c.finalColor))
                 )
-              }
+              },
+              cancelForm
             )
             case Status.Declined => div(cls := "follow-up")(
               h1("Challenge declined"),

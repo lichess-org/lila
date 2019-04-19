@@ -63,6 +63,10 @@ $c-challenge: $c-secondary;
     display: block;
     margin-top: 2em;
   }
+  .board-preview {
+    margin: 0 auto;
+    max-width: 300px;
+  }
 }
 
 .challenge-theirs {
