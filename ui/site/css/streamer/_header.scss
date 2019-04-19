@@ -15,9 +15,16 @@
     justify-content: space-between;
     align-content: center;
   }
-  .follow:disabled {
-    cursor: default;
-    opacity: 1;
+  .follow {
+    @extend %flex-center-nowrap;
+    justify-content: center;
+    .active-yes,
+    &.active .active-no {
+      display: none
+    }
+    &.active .active-yes {
+      display: block;
+    }
   }
   h1 {
     @extend %roboto;

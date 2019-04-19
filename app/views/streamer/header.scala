@@ -58,11 +58,12 @@ object header {
         ),
         following.map { f =>
           (ctx.isAuth && !ctx.is(s.user)) option
-            button(attr("data-user") := s.user.id, cls := List(
-              "follow icon button" -> true,
+            button(attr("data-user") := s.user.id, dataIcon := "h", cls := List(
+              "follow button text" -> true,
               "active" -> f
             ), tpe := "submit")(
-              span(cls := "text", dataIcon := "h")(trans.follow.frag())
+              span(cls := "active-no")(trans.follow.frag()),
+              span(cls := "active-yes")(trans.following.frag())
             )
         }
       )
