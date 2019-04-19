@@ -15,6 +15,28 @@
   border: $border;
   border-width: 1px 0;
   position: relative; /* required by line::before */
+
+  .tview2 > move {
+    justify-content: space-between;
+    glyph {
+      font-size: 1.6em;
+    }
+  }
+  move {
+    glyph {
+      vertical-align: middle;
+    }
+    &.fail glyph {
+      color: $c-bad;
+    }
+    &.good glyph,
+    &.win glyph {
+      color: $c-good;
+    }
+    &:hover glyph {
+      color: #fff;
+    }
+  }
 }
 
 .puzzle__feedback {
