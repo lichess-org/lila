@@ -15,7 +15,7 @@ object RelayForm {
   val form = Form(mapping(
     "name" -> text(minLength = 3, maxLength = 80),
     "description" -> text(minLength = 3, maxLength = 4000),
-    "official" -> boolean,
+    "official" -> optional(boolean),
     "syncUrl" -> nonEmptyText,
     "startsAt" -> optional(utcDate),
     "throttle" -> optional(number(min = 2, max = 60))
@@ -28,7 +28,7 @@ object RelayForm {
   case class Data(
       name: String,
       description: String,
-      official: Boolean,
+      official: Option[Boolean],
       syncUrl: String,
       startsAt: Option[DateTime],
       throttle: Option[Int]
@@ -43,7 +43,7 @@ object RelayForm {
     def update(relay: Relay, user: User) = relay.copy(
       name = name,
       description = description,
-      official = official && Granter(_.Relay)(user),
+      official = ~official && Granter(_.Relay)(user),
       sync = makeSync,
       startsAt = startsAt,
       finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
@@ -66,7 +66,7 @@ object RelayForm {
       likes = lila.study.Study.Likes(1),
       createdAt = DateTime.now,
       finished = false,
-      official = official && Granter(_.Relay)(user),
+      official = ~official && Granter(_.Relay)(user),
       startsAt = startsAt,
       startedAt = none
     )
@@ -77,7 +77,7 @@ object RelayForm {
     def make(relay: Relay) = Data(
       name = relay.name,
       description = relay.description,
-      official = relay.official,
+      official = relay.official option true,
       syncUrl = relay.sync.upstream.url,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay
