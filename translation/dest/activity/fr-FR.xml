@@ -23,7 +23,7 @@
     <item quantity="other">A posté %1$s messages dans %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">A joué %1$s coup</item>
+    <item quantity="one">A joué %1$s coup(s)</item>
     <item quantity="other">A joué %1$s coups</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
