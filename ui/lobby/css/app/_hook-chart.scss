@@ -3,7 +3,8 @@
   bottom: 0;
   right: 0;
   .label {
-    font-size: 9px;
+    color: $c-font-dim;
+    font-size: .7em;
     position: absolute;
     left: 3px;
     bottom: 1px;
@@ -32,18 +33,17 @@
     position: absolute;
     cursor: pointer;
     z-index: 1;
-    font-size: 1.4em;
-    text-shadow: 0 0 3px #fff;
-    opacity: 0.7;
-    transition: 0.5s;
+    font-size: 1.6em;
+    opacity: .7;
+    @include transition();
     transform: scale(1);
     &.rated {
       opacity: 0.9;
-      color: #d59120!important;
+      color: $c-brag;
     }
     &.cancel {
       opacity: 0.9;
-      color: #0b9c1e!important;
+      color: $c-good;
     }
     &.new {
       transform: translateY(-7px);
@@ -52,32 +52,25 @@
     &:hover {
       z-index: 2;
       opacity: 1;
-      transform: scale(1.2);
+      transform: scale(1.15);
     }
   }
 }
 #hook {
-  @extend %box-neat-force;
+  @extend %box-radius-force, %popup-shadow;
   display: none;
   background: $c-bg-box;
-  cursor: default;
   position: absolute;
   z-index: z('popup');
   .inner {
     @extend %flex-column;
     text-align: center;
-    padding-bottom: 5px;
+    padding-bottom: .5em;
   }
   .opponent {
-    background: $c-secondary;
-    color: #fff;
+    @extend %metal;
     min-width: 120px;
-    padding: .3em .6em;
-    margin-bottom: .3em;
-    line-height: 1.4;
-  }
-  .opponent,
-  span {
-    display: block;
+    padding: .5em .7em;
+    margin-bottom: .5em;
   }
 }
