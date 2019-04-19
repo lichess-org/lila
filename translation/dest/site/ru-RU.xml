@@ -190,6 +190,12 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Место: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Рейтинг обновляется ежеминутно</item>
+    <item quantity="few">Рейтинг обновляется каждые %s минуты</item>
+    <item quantity="many">Рейтинг обновляется каждые %s минут</item>
+    <item quantity="other">Рейтинг обновляется каждые %s минут</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s задача</item>
     <item quantity="few">%s задачи</item>
