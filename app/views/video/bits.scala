@@ -71,4 +71,22 @@ object bits {
       iconTag("y"),
       input(placeholder := trans.search.txt(), tpe := "text", name := "q", value := query)
     )
+
+  def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =
+    layout(title = s"Tags • Free Chess Videos", control = control)(frag(
+      div(cls := "box__top")(
+        h1(cls := "lichess_title"),
+        a(cls := "text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}")(
+          "All ", ts.size, " video tags"
+        )
+      ),
+      div(cls := "tag-list box__pad")(
+        ts.sortBy(_.tag).map { t =>
+          a(cls := "tag", href := s"${routes.Video.index}?tags=${t.tag}")(
+            t.tag.capitalize,
+            em(t.nb)
+          )
+        }
+      )
+    ))
 }
