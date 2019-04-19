@@ -3,18 +3,16 @@
   justify-content: space-between;
   align-items: stretch;
   font-size: 1.3rem;
-  button {
+  .fbt {
     @extend %box-radius-bottom;
+    text-align: center;
   }
   .hidden {
     visibility: hidden;
   }
-  .features {
-    white-space: nowrap; /* safari */
-  }
   .jumps {
     display: flex;
-    button {
+    .fbt {
       flex: 1 1 30%;
       &:first-child,
       &:last-child {
