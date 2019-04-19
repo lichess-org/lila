@@ -53,15 +53,60 @@ module.exports = function(ctrl) {
     return 0;
   });
   var acceptable = !ctrl.data.allowed ? candidates : allowed.filter(a => isCandidate(a));
+  var mEditCandidates = !ctrl.data.unique ? null : m('tbody', { 'style': { 'visibility': ctrl.toggleCandidates ? 'visible' : 'collapse' } }, [
+    m(ctrl.toggleCandidates ? 'tr.allowed' : 'tr', [
+      m('td', { colspan: 2 }, [
+        m('label', 'Add allowed player: '),
+        m('input.user-autocomplete', {
+          'id': 'add-candidate',
+          'type': 'text',
+          'placeholder': 'Enter username',
+          'data-tag': 'span'
+        }),
+      ]),
+      m('td.action', m('a.button', {
+        'data-icon': 'E',
+        'title': 'Add to list of allowed candidate players',
+        onclick: function(e) {
+          var candidate = $('#add-candidate').val();
+          if (candidate && candidate.length > 2) {
+            xhr.allow(candidate.toLowerCase())(ctrl);
+            $('#add-candidate').val('');
+          }
+        }
+      }))
+    ]),
+    allowed.map(function(allowed) {
+      return m('tr', [
+        m('td', { colspan: 2 }, util.player(allowed)),
+        m('td.action', m('a.button', {
+          'data-icon': 'L',
+          title: 'Remove from list of allowed candidate players',
+          onclick: function(e) {
+            xhr.disallow(allowed.id)(ctrl);
+          }
+        }))
+      ])
+    })
+  ])
+  var mEditCandidatesOption = (ctrl.data.unique && (simul.createdByMe(ctrl) || simul.amArbiter(ctrl))) ? m('span.option', {
+    'data-icon': '%',
+    'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : 'Back to simul',
+    onclick: function(e) {
+      ctrl.toggleCandidates = !ctrl.toggleCandidates;
+    }
+  }) : null
   var mCandidates = m('div.half.candidates',
     m('table.slist.user_list',
-      m('thead', m('tr', m('th', {
-         colspan: 3
-      }, [
-        m('strong', candidates.length),
-        ctrl.trans('candidatePlayers')
-      ]))),
-      m('tbody', candidates.map(function(applicant) {
+      m('thead', m('tr', m('th', { colspan: 3 },
+        ctrl.toggleCandidates ? 'Edit allowed candidates' : [
+          m('strong', candidates.length),
+          ctrl.trans('candidatePlayers')
+        ],
+        mEditCandidatesOption
+      ))),
+      mEditCandidates,
+      m('tbody', { 'style': { 'visibility': !ctrl.toggleCandidates ? 'visible' : 'collapse' } }, candidates.map(function(applicant) {
         var variant = util.playerVariant(ctrl, applicant.player);
         return m('tr', {
           key: applicant.player.id,
@@ -82,14 +127,16 @@ module.exports = function(ctrl) {
       }))));
   var mAllowed = m('div.half.candidates',
     m('table.slist.user_list',
-      m('thead', m('tr', m('th', {
-         colspan: 3
-      }, [
-        ctrl.trans('allowedPlayers'),
-        m('strong', allowed.length),
-        ctrl.trans('candidatePlayers')
-      ]))),
-      m('tbody', allowed.map(function(allowed) {
+      m('thead', m('tr', m('th', { colspan: 3 },
+        ctrl.toggleCandidates ? 'Edit allowed candidates' : [
+          ctrl.trans('allowedPlayers'),
+          m('strong', allowed.length),
+          ctrl.trans('candidatePlayers')
+        ],
+        mEditCandidatesOption
+      ))),
+      mEditCandidates,
+      m('tbody', { 'style': { 'visibility': !ctrl.toggleCandidates ? 'visible' : 'collapse' } }, allowed.map(function(allowed) {
         var candidate = isCandidate(allowed);
         return m('tr', {
           key: allowed.id,

@@ -80,6 +80,20 @@ object Simul extends LidraughtsController {
     }
   }
 
+  def allow(simulId: String, userId: String) = Open { implicit ctx =>
+    AsHostOrArbiter(simulId) { simul =>
+      env.api.allow(simul.id, userId, true)
+      Ok(Json.obj("ok" -> true)) as JSON
+    }
+  }
+
+  def disallow(simulId: String, userId: String) = Open { implicit ctx =>
+    AsHostOrArbiter(simulId) { simul =>
+      env.api.allow(simul.id, userId, false)
+      Ok(Json.obj("ok" -> true)) as JSON
+    }
+  }
+
   def form = Auth { implicit ctx => me =>
     NoEngine {
       Ok(html.simul.form(env.forms.create, env.forms)).fuccess

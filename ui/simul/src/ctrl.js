@@ -5,6 +5,7 @@ module.exports = function(env) {
 
   this.data = env.data;
 
+  this.toggleCandidates = false;
   this.userId = env.userId;
 
   this.socket = new socket(env.socketSend, this);

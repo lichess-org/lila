@@ -32,5 +32,11 @@ module.exports = {
   },
   reject: function(user) {
     return partial(simulAction, 'reject/' + user)
+  },
+  allow: function(user) {
+    return partial(simulAction, 'allow/' + user)
+  },
+  disallow: function(user) {
+    return partial(simulAction, 'disallow/' + user)
   }
 };
