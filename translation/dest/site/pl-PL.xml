@@ -234,7 +234,7 @@
   <string name="rated">Rankingowa</string>
   <string name="casualTournament">Towarzyska</string>
   <string name="ratedTournament">Rankingowa</string>
-  <string name="thisGameIsRated">Gra rankingowa</string>
+  <string name="thisGameIsRated">Partia rankingowa</string>
   <string name="rematch">Rewanż</string>
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
   <string name="rematchOfferSentWhite">Białe proponują rewanż</string>
@@ -779,7 +779,7 @@
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
-  <string name="confirmResignationAndDrawOffers">Potwierdzaj propozycje poddań i remisów</string>
+  <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>
