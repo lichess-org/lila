@@ -32,7 +32,7 @@ body {
     --main-max-width: 100%;
   }
 
-  margin-top: 1em;
+  margin-top: $site-header-margin;
 }
 
 main {
