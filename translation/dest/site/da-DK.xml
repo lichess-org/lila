@@ -177,7 +177,7 @@
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Ranking opdateres hvert %s minut</item>
+    <item quantity="one">Ranking opdateres hvert minut</item>
     <item quantity="other">Ranking opdateres hvert %s minut</item>
   </plurals>
   <plurals name="nbPuzzles">
