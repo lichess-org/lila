@@ -4,10 +4,10 @@
   }
 }
 .feedback {
-  @extend %box-neat, %flex-center;
+  @extend %box-neat;
+  display: flex;
   background: $c-bg-box;
   justify-content: center;
-  padding: 1em 1.5em;
   &.win,
   &.fail {
     padding: 2em 1.5em;
