@@ -4,8 +4,8 @@ import LobbyController from '../../ctrl';
 import { Hook } from '../../interfaces';
 import { bind, perfIcons } from '../util';
 
-function px(v) {
-  return v + 'px';
+function percents(v) {
+  return v + '%';
 }
 
 function ratingLog(a) {
@@ -23,15 +23,16 @@ function ratingY(e) {
   } else {
     ratio = mid - (ratingLog(1500 - rating) / ratingLog(500)) * mid;
   }
-  return Math.round(ratio * 489);
+  return Math.round(ratio * 100);
 }
+
+const clockMax = 2000;
 
 function clockX(dur) {
   function durLog(a) {
     return Math.log((a - 30) / 200 + 1);
   }
-  var max = 2000;
-  return Math.round(durLog(Math.min(max, dur || max)) / durLog(max) * 489);
+  return Math.round(durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax) * 100);
 }
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
@@ -46,7 +47,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
     key: hook.id,
     attrs: {
       'data-icon': perfIcons[hook.perf],
-      style: `bottom:${px(bottom)};left:${px(left)}`
+      style: `bottom:${percents(bottom)};left:${percents(left)}`
     },
     hook: {
       insert(vnode) {
@@ -89,13 +90,13 @@ const xMarks = [1, 2, 3, 5, 7, 10, 15, 20, 30];
 
 function renderXAxis() {
   const tags: VNode[] = [];
-  xMarks.forEach(function(v) {
+  xMarks.forEach(v => {
     const l = clockX(v * 60);
     tags.push(h('span.x.label', {
-      attrs: { style: 'left:' + px(l) }
+      attrs: { style: 'left:' + percents(l) }
     }, '' + v));
     tags.push(h('div.grid.vert', {
-      attrs: { style: 'width:' + px(l + 7) }
+      attrs: { style: 'width:' + percents(l + 1.5) }
     }));
   });
   return tags;
@@ -108,10 +109,10 @@ function renderYAxis() {
   yMarks.forEach(function(v) {
     const b = ratingY(v);
     tags.push(h('span.y.label', {
-      attrs: { style: 'bottom:' + px(b + 5) }
+      attrs: { style: 'bottom:' + percents(b + 1) }
     }, '' + v));
     tags.push(h('div.grid.horiz', {
-      attrs: { style: 'height:' + px(b + 4) }
+      attrs: { style: 'height:' + percents(b + 0.8) }
     }));
   });
   return tags;
