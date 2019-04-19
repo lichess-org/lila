@@ -106,7 +106,7 @@ lichess.movetimeChart = function(data, trans) {
                     click: function(event) {
                       if (event.point) {
                         event.point.select();
-                        lichess.analyse.jumpToIndex(event.point.x);
+                        lichess.pubsub.emit('analysis.chart.click')(event.point.x);
                       }
                     }
                   },

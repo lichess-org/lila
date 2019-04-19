@@ -18,7 +18,6 @@ export interface NvuiPlugin {
 
 export interface AnalyseApi {
   socketReceive(type: string, data: any): boolean;
-  jumpToIndex(index: number): void;
   path(): Tree.Path;
   setChapter(id: string): void;
 }
