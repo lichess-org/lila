@@ -32,10 +32,6 @@ export function start(opts: AnalyseOpts): AnalyseApi {
 
   return {
     socketReceive: ctrl.socket.receive,
-    jumpToIndex(index: number): void {
-      ctrl.jumpToIndex(index);
-      redraw();
-    },
     path: () => ctrl.path,
     setChapter(id: string) {
       if (ctrl.study) ctrl.study.setChapter(id);

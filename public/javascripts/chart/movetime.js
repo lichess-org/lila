@@ -129,7 +129,7 @@ lidraughts.movetimeChart = function(data, trans) {
                     click: function(event) {
                       if (event.point) {
                         event.point.select();
-                        lidraughts.analyse.jumpToIndex(event.point.x);
+                        lidraughts.pubsub.emit('analysis.chart.click')(event.point.x);
                       }
                     }
                   },
