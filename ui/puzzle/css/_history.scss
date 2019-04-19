@@ -11,7 +11,7 @@
     box-sizing: border-box;
     flex: 0 0 12.5%;
     @include breakpoint($mq-x-small $mq-short) {
-      flex: 0 0 6.25%;
+      flex: 0 0 6.6667%;
     }
   }
   a {
