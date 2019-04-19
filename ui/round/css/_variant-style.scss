@@ -1,5 +1,3 @@
-/* Racing Kings board decorations */
-
 .variant-racingKings .cg-board-wrap {
 
   &.cg-board-wrap::before {
@@ -20,4 +18,16 @@
   &.orientation-black::before {
     bottom: 0;
   }
+}
+
+.variant-kingOfTheHill .cg-board-wrap::before {
+  width: 25%;
+  height: 25%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  background: hsla(0, 0%, 90%, .2);
+  content: '';
+  position: absolute;
+  top: 37.5%;
+  left: 37.5%;
+  z-index: 1;
 }
