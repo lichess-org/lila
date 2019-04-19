@@ -16,7 +16,7 @@ function miniPairing(ctrl) {
       class: ctrl.data.host.gameId === game.id ? 'host' : ''
     }, [
       m('span', {
-        class: 'mini-board live-' + game.id + ' parse-fen is2d',
+        class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
         'data-color': game.orient,
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,

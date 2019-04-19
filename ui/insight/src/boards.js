@@ -6,7 +6,7 @@ function miniGame(game) {
     href: '/' + game.id + (game.color === 'white' ? '' : '/black')
   }, [
     m('span', {
-      class: 'mini-board cg-board-wrap live-' + game.id + ' parse-fen is2d',
+      class: 'mini-board cg-board-wrap mini-board-' + game.id + ' parse-fen is2d',
       'data-color': game.color,
       'data-fen': game.fen,
       'data-lastmove': game.lastMove,
