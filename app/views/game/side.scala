@@ -37,46 +37,44 @@ object side {
     div(cls := "game__meta")(
       st.section(
         div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
-          div(cls := "header")(
-            div(cls := "setup")(
-              views.html.bookmark.toggle(game, bookmarked),
-              if (game.imported) frag(
-                a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
-                separator,
-                if (game.variant.exotic)
-                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
-                else
-                  game.variant.name.toUpperCase
-              )
-              else frag(
-                widgets showClock game,
-                separator,
-                if (game.rated) trans.rated.txt() else trans.casual.txt(),
-                separator,
-                if (game.variant.exotic)
-                  bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
-                else
-                  game.perfType.map { pt =>
-                    span(title := pt.title)(pt.shortName)
-                  }
-              )
-            ),
-            game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
-              frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
-            }
-          ),
-          game.pgnImport.flatMap(_.date).map { date =>
-            frag(
-              "Imported",
-              game.pgnImport.flatMap(_.user).map { user =>
-                frag(
-                  " by ",
-                  userIdLink(user.some, None, false),
-                  br
+          div(
+            div(cls := "header")(
+              div(cls := "setup")(
+                views.html.bookmark.toggle(game, bookmarked),
+                if (game.imported) div(
+                  a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
+                  separator,
+                  if (game.variant.exotic)
+                    bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
+                  else
+                    game.variant.name.toUpperCase
                 )
+                else frag(
+                  widgets showClock game,
+                  separator,
+                  if (game.rated) trans.rated.txt() else trans.casual.txt(),
+                  separator,
+                  if (game.variant.exotic)
+                    bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
+                  else
+                    game.perfType.map { pt =>
+                      span(title := pt.title)(pt.shortName)
+                    }
+                )
+              ),
+              game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
+                frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
               }
-            )
-          }
+            ),
+            game.pgnImport.flatMap(_.date).map { date =>
+              small(
+                "Imported ",
+                game.pgnImport.flatMap(_.user).map { user =>
+                  trans.by(userIdLink(user.some, None, false))
+                }
+              )
+            }
+          )
         ),
         div(cls := "game__meta__players")(
           game.players.map { p =>
