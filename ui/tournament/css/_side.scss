@@ -2,8 +2,9 @@
   @extend %flex-column;
 
   .mchat {
-    flex: 1 0 400px;
+    flex: 1 1 7em;
     margin-top: $block-gap;
+    min-height: inherit;
   }
 }
 .tour__meta {

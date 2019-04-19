@@ -44,5 +44,8 @@
     'side  main duels'
     'uchat faq  duels'
     '.     faq  duels';
+    &__side {
+      max-height: calc(100vh - #{$site-header-height} - #{$site-header-margin} - #{$block-gap});
+    }
   }
 }
