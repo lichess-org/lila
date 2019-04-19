@@ -101,7 +101,7 @@ function analyseButton(ctrl: RoundController) {
       'text': !!forecastCount
     },
     attrs: {
-      title: ctrl.trans.noarg('analysis'),
+      title: showInfo ? '' : ctrl.trans.noarg('analysis'),
       href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
       'data-icon': 'A'
     }
@@ -110,13 +110,13 @@ function analyseButton(ctrl: RoundController) {
     el => setTimeout(() => {
       $(el).powerTip({
         closeDelay: 200,
-        placement: 'n'
+        placement: 'w'
       }).data('powertipjq', $(el).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
     }, 1000)
   );
   return [
     h('a.fbt.analysis', data, forecastCount ? ['' + forecastCount] : []),
-    showInfo ? h('div.forecast-info.info.none', [
+    showInfo ? h('div.forecast-info.none', [
       h('strong.title.text', util.justIcon(''), 'Speed up your game!'),
       h('span.content', 'Use the analysis board to create conditional premoves.')
     ]) : null
