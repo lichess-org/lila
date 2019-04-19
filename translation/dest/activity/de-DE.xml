@@ -18,6 +18,14 @@
     <item quantity="one">Hat %1$s Nachricht in %2$s geschrieben</item>
     <item quantity="other">Hat %1$s Nachrichten in %2$s geschrieben</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Machte %1$s Zug</item>
+    <item quantity="other">Machte %1$s Züge</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">in %1$s Fernschachpartie</item>
+    <item quantity="other">in %1$s Fernschachpartien</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Hat %s Fernschachpartie gespielt</item>
     <item quantity="other">Hat %s Fernschachpartien gespielt</item>
