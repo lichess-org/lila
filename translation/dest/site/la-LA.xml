@@ -88,6 +88,7 @@
   <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
   <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
+  <string name="multipleLines">Plures lineae</string>
   <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
   <string name="blunder">Peccatus</string>
