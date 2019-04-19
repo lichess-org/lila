@@ -1,5 +1,5 @@
 #main-wrap {
-  min-height: calc(95vh - #{$site-header-height} - 4em);
+  min-height: calc(95vh - #{$site-header-outer-height} - 4em);
   align-content: center;
   margin-top: 2em;
 }

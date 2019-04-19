@@ -9,7 +9,7 @@ $mq-col3: $mq-col3-uniboard;
 }
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
@@ -36,10 +36,6 @@ $mq-col3: $mq-col3-uniboard;
 
   &__moves { display: none; }
 
-  &__board {
-    /* Make sure board fits in the viewport. */
-    // max-width: calc(100vh - #{$puzzle-history-height} - 2 * #{$block-gap} - #{$site-header-height});
-  }
   @include breakpoint($mq-col2) {
     @include columns-with-gauge-col2(0);
     &.gauge-on {
