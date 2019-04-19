@@ -8,6 +8,12 @@
     flex: 9 1 auto;
     margin: 0;
     overflow: hidden;
+    a { /* GM wikipedia */
+      color: mix($c-link, $c-font, 35%);
+      &:hover {
+        color: $c-link;
+      }
+    }
   }
   img {
     flex: 0 0 60px;
