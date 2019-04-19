@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="activity">用户活动</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="other">该用户作为%2$s已赞助lidraughts.org%1$s个月</item>
+  </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">在%2$s里练习了%1$s个局面</item>
     <item quantity="other">在%2$s里练习了%1$s个局面</item>
@@ -16,6 +19,9 @@
   <plurals name="postedNbMessages">
     <item quantity="one">在%2$s发布了%1$s条消息</item>
     <item quantity="other">在%2$s发布了%1$s条消息</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="other">已被尝试%1$s次</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">下完了%s盘棋</item>
