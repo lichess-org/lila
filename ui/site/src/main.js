@@ -146,9 +146,7 @@
     if (!window.Draughtsground) return setTimeout(function() {
       lidraughts.parseFen($elem);
     }, 500); // if not loaded yet
-    if (!$elem || !$elem.jquery) {
-      $elem = $('.parse-fen');
-    }
+    if (!$elem) $elem = $('.parse-fen');
     $elem.each(function() {
       var $this = $(this).removeClass('parse-fen');
       var lm = $this.data('lastmove');
@@ -199,18 +197,18 @@
           document.execCommand('copy');
           $(this).attr('data-icon', 'E');
         });
-        $('body').on('click', 'a.relation-button', function() {
-          var $a = $(this).addClass('processing').css('opacity', 0.3);
-          $.ajax({
-            url: $a.attr('href'),
-            type: 'post',
-            success: function(html) {
-              if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-              else $a.replaceWith(html);
-            }
-          });
-          return false;
+      $('body').on('click', 'a.relation-button', function() {
+        var $a = $(this).addClass('processing').css('opacity', 0.3);
+        $.ajax({
+          url: $a.attr('href'),
+          type: 'post',
+          success: function(html) {
+            if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+            else $a.replaceWith(html);
+          }
         });
+        return false;
+      });
 
       $('.mselect .button').on('click', function() {
         var $p = $(this).parent();
@@ -762,9 +760,7 @@
       $('.mini-board.live').removeClass("live").each(function() {
         ids.push(this.getAttribute("data-live"));
       });
-      if (ids.length) {
-        lidraughts.socket.send("startWatching", ids.join(" "));
-      }
+      if (ids.length) lidraughts.socket.send("startWatching", ids.join(" "));
     }
     lidraughts.pubsub.on('content_loaded', startWatching);
     lidraughts.pubsub.on('socket.open', function() {
