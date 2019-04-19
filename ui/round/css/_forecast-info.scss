@@ -1,13 +1,15 @@
 #powerTip {
-  .title {
-    @extend %metal;
-    display: block;
-    padding: .7em;
-    border-bottom: $border;
-    text-align: center;
-  }
-  .content {
-    display: block;
-    padding: 1em;
+  .forecast-info {
+    .title {
+      @extend %metal;
+      display: block;
+      padding: .7em;
+      border-bottom: $border;
+      text-align: center;
+    }
+    .content {
+      display: block;
+      padding: 1em;
+    }
   }
 }
