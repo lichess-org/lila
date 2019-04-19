@@ -47,7 +47,7 @@ object show {
             }
           ),
           div(cls := "similar list box__pad")(
-            similar.map { card(_, control) }
+            similar.map { bits.card(_, control) }
           )
         )
       }

@@ -17,7 +17,7 @@ control = control) {
     Chess videos
     }
   </h1>
-  @searchForm(control.query)
+  bits.searchForm(control.query)
 </div>
 @if(control.filter.tags.isEmpty) {
 <p class="explain box__pad">
@@ -28,7 +28,7 @@ control = control) {
 }
 <div class="list box__pad infinitescroll">
   @videos.currentPageResults.map { video =>
-  @card(video, control)
+  bits.card(video, control)
   }
   @if(videos.currentPageResults.size < 4) {
   <div class="not_much nb_@videos.nbResults">

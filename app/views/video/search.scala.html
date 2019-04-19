@@ -5,11 +5,11 @@ title = s"${control.query.getOrElse("Search")} • Free Chess Videos",
 control = control) {
 <div class="box__top">
   <h1>@pluralize("video", videos.nbResults) found</h1>
-  @searchForm(control.query)
+  bits.searchForm(control.query)
 </div>
 <div class="list infinitescroll box__pad">
   @videos.currentPageResults.map { video =>
-  @card(video, control)
+  bit.card(video, control)
   }
   @if(videos.currentPageResults.size < 4) {
   <div class="not_much nb_@videos.nbResults">
