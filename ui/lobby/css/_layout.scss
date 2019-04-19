@@ -9,7 +9,7 @@ $mq-col4: $mq-x-large;
   }
   @include breakpoint($mq-col3) {
     height: 700px;
-    max-height: calc(100vh - #{$site-header-height} - #{$block-gap});
+    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
   }
 }
 

@@ -4,7 +4,7 @@
 
 .board-editor {
 
-  $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-height});
+  $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
 
   display: grid;
 

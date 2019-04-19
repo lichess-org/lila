@@ -1,5 +1,5 @@
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-height} - #{$col1-player-clock-height * 2});
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2});
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
