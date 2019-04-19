@@ -22,6 +22,14 @@
     <item quantity="one">A posté %1$s message dans %2$s</item>
     <item quantity="other">A posté %1$s messages dans %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">A joué %1$s coup</item>
+    <item quantity="other">A joué %1$s coups</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">dans %1$s partie par correspondance</item>
+    <item quantity="other">dans %1$s parties par correspondance</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">%s partie par correspondance terminée</item>
     <item quantity="other">%s parties par correspondance terminées</item>
