@@ -23,12 +23,12 @@
     <item quantity="other">Har skrevet %1$s innlegg i %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Spilt %1$s trekk</item>
-    <item quantity="other">Spilt %1$s trekk</item>
+    <item quantity="one">Har spilt %1$s trekk</item>
+    <item quantity="other">Har spilt %1$s trekk</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">i %1$s korrespondanseparti</item>
-    <item quantity="other">i %1$s korrespondansepartier</item>
+    <item quantity="one">i %1$s fjernsjakkparti</item>
+    <item quantity="other">i %1$s fjernsjakkpartier</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Har spilt ferdig %s fjernsjakkparti</item>
