@@ -210,7 +210,7 @@
   <string name="rated">Rankingowa</string>
   <string name="casualTournament">Towarzyska</string>
   <string name="ratedTournament">Rankingowa</string>
-  <string name="thisGameIsRated">Gra rankingowa</string>
+  <string name="thisGameIsRated">Partia rankingowa</string>
   <string name="rematch">Rewanż</string>
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
   <string name="rematchOfferAccepted">Propozycja rewanżu została przyjęta</string>
@@ -468,7 +468,6 @@
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
-  <string name="training">Zadania szachowe</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
@@ -672,7 +671,6 @@
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do symultany</string>
   <string name="aboutSimul">Symultana pozwala symultaniście grać z wieloma przeciwnikami równocześnie.</string>
-  <string name="aboutSimulImage">Sijbrands grając na 169 szachownicach wygrał 115 partii, 43 zremisował i 11 przegrał.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy nicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
@@ -718,7 +716,7 @@
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane partie</string>
   <string name="printFriendlyPDF">PDF do druku</string>
-  <string name="crosstable">Tabela wyników</string>
+  <string name="crosstable">Wyniki spotkań</string>
   <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="letOtherPlayersMessageYou">Inni gracze mogą pisać do Ciebie</string>
@@ -767,7 +765,6 @@
   <string name="dark">Ciemne</string>
   <string name="transparent">Przezroczyste</string>
   <string name="backgroundImageUrl">Link do obrazka w tle:</string>
-  <string name="boardGeometry">Szachownica</string>
   <string name="boardTheme">Kolory pól</string>
   <string name="pieceSet">Zestaw figur</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
