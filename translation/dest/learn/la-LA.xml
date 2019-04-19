@@ -32,6 +32,8 @@ Ambōbus tibi opus est!</string>
   <string name="thePawn">Lātrunculus</string>
   <string name="itMovesForwardOnly">Tantum prōrsus movētur</string>
   <string name="capture">Captura</string>
+  <string name="takeTheEnemyPieces">Captum partes hostes</string>
+  <string name="protection">Custodia</string>
   <string name="combat">Pugna</string>
   <string name="stalemate">Rex impeditus</string>
   <string name="pieceValue">Pretii partes</string>
