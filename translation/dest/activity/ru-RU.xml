@@ -40,15 +40,15 @@
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">в %1$s дневной игре</item>
-    <item quantity="few">в %1$s играх по переписке</item>
-    <item quantity="many">в %1$s играх по переписке</item>
-    <item quantity="other">в %1$s играх по переписке</item>
+    <item quantity="few">в %1$s дневных играх</item>
+    <item quantity="many">в %1$s дневных играх</item>
+    <item quantity="other">в %1$s дневных играх</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Завершил %s игру по переписке</item>
-    <item quantity="few">Завершил %s игры по переписке</item>
-    <item quantity="many">Завершил %s игр по переписке</item>
-    <item quantity="other">Завершил %s игр по переписке</item>
+    <item quantity="one">Завершил %s дневную игру</item>
+    <item quantity="few">Завершил %s дневные игры</item>
+    <item quantity="many">Завершил %s дневных игр</item>
+    <item quantity="other">Завершил %s дневных игр</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Подписался на %s игрока</item>
