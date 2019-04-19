@@ -19,7 +19,7 @@ function miniPairing(ctrl) {
       href: '/' + game.id + '/' + game.orient
     }, [
       m('span', {
-        class: 'mini-board live-' + game.id + ' parse-fen is2d',
+        class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
         'data-color': game.orient,
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,
