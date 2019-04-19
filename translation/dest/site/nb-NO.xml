@@ -176,6 +176,10 @@
   <string name="forgotPassword">Glemt passord?</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rangering vert oppdatert kvart minutt</item>
+    <item quantity="other">Rangering vert oppdatert kvart %s. minutt</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s nøtt</item>
     <item quantity="other">%s nøtter</item>
