@@ -698,8 +698,10 @@ export default class RoundController {
 
   setDraughtsground = (dg: DgApi) => {
     this.draughtsground = dg;
-    if (this.data.pref.keyboardMove)
+    if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
+      li.raf(this.redraw);
+    }
   };
 
   private delayedInit = () => {
