@@ -72,6 +72,9 @@
       background: $c-bad;
     }
   }
+  .glowing:hover {
+    animation: none;
+  }
   .follow-up {
     @extend %flex-column;
     border-bottom: $border;
