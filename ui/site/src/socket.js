@@ -285,7 +285,7 @@ lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {
-      $('.live-' + e.id).each(function() {
+      $('.mini-board-' + e.id).each(function() {
         lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
     },
