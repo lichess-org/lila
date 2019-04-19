@@ -10,7 +10,7 @@ import controllers.routes
 object search {
 
   def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context) =
-    layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(frag(
+    layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(
       div(cls := "box__top")(
         h1(pluralize("video", videos.nbResults), " found"),
         bits.searchForm(control.query)
@@ -26,5 +26,5 @@ object search {
         ),
         pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )
-    ))
+    )
 }

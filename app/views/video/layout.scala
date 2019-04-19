@@ -12,7 +12,7 @@ object layout {
     title: String,
     control: lila.video.UserControl,
     openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context) =
+  )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = responsiveCssTag("video"),

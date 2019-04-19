@@ -21,7 +21,7 @@ object index {
         url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
       ).some,
       control = control
-    )(frag(
+    )(
         div(cls := "box__top")(
           h1(
             if (control.filter.tags.nonEmpty) frag(pluralize("video", videos.nbResults), " found")
@@ -47,6 +47,6 @@ object index {
           ),
           pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
         )
-      ))
+      )
   }
 }

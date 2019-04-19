@@ -33,7 +33,7 @@ object bits {
     layout(
       title = s"$name • Free Chess Videos",
       control = control
-    )(frag(
+    )(
       div(cls := "box__top")(
         h1(
           a(cls := "is4 text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}"),
@@ -52,10 +52,10 @@ object bits {
           )
         }
       )
-    ))
+    )
 
   def notFound(control: lila.video.UserControl)(implicit ctx: Context) =
-    layout(title = "Video not found", control = control)(frag(
+    layout(title = "Video not found", control = control)(
       div(cls := "content_box_top")(
         a(cls := "is4 text lichess_title", dataIcon := "i", href := routes.Video.index)("Video library")
       ),
@@ -64,7 +64,7 @@ object bits {
         br, br,
         a(cls := "big button text", dataIcon := "i", href := routes.Video.index)("Return to the video library")
       )
-    ))
+    )
 
   def searchForm(query: Option[String])(implicit ctx: Context) =
     form(cls := "search", method := "GET", action := routes.Video.index)(
@@ -73,7 +73,7 @@ object bits {
     )
 
   def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =
-    layout(title = s"Tags • Free Chess Videos", control = control)(frag(
+    layout(title = s"Tags • Free Chess Videos", control = control)(
       div(cls := "box__top")(
         h1(cls := "lichess_title"),
         a(cls := "text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}")(
@@ -88,5 +88,5 @@ object bits {
           )
         }
       )
-    ))
+    )
 }
