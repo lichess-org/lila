@@ -177,8 +177,8 @@
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rangering vert oppdatert kvart minutt</item>
-    <item quantity="other">Rangering vert oppdatert kvart %s. minutt</item>
+    <item quantity="one">Rangering blir oppdatert hvert minutt</item>
+    <item quantity="other">Rangering blir oppdatert hvert %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s nøtt</item>
