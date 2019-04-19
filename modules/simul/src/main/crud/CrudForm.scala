@@ -33,17 +33,9 @@ object CrudForm {
     }.verifying("atLeastOneVariant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
     "chat" -> stringIn(chatChoices),
-    "percentage" -> text(minLength = 0, maxLength = 2)
-      .verifying("Enter a number between 50 and 100", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
+    "percentage" -> text(minLength = 0, maxLength = 3)
+      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
-
-  lazy val applyVariants = Form(mapping(
-    "variants" -> list {
-      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
-    }
-  )(CrudForm.VariantsData.apply)(CrudForm.VariantsData.unapply)) fill CrudForm.VariantsData(
-    variants = List(draughts.variant.Standard.id)
-  )
 
   val empty = CrudForm.Data(
     name = "",
@@ -79,10 +71,6 @@ object CrudForm {
       color: String,
       chat: String,
       percentage: String
-  )
-
-  case class VariantsData(
-      variants: List[Int]
   )
 
   val imageChoices = List(

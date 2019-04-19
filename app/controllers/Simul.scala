@@ -6,6 +6,7 @@ import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
 import lidraughts.simul.{ Simul => Sim }
+import lidraughts.simul.DataForm.{ empty => emptyForm }
 import lidraughts.chat.Chat
 import views._
 
@@ -89,7 +90,13 @@ object Simul extends LidraughtsController {
     NoEngine {
       implicit val req = ctx.body
       env.forms.create.bindFromRequest.fold(
-        err => BadRequest(html.simul.form(err, env.forms)).fuccess,
+        err => BadRequest(html.simul.form(
+          env.forms.applyVariants.bindFromRequest.fold(
+            err2 => err,
+            data => err.copy(value = emptyForm.copy(variants = data.variants).some)
+          ),
+          env.forms
+        )).fuccess,
         setup => env.api.create(setup, me) map { simul =>
           Redirect(routes.Simul.show(simul.id))
         }

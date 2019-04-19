@@ -30,7 +30,7 @@ function winningPercentage(pairings) {
   var wins = pairings.filter(filterWins).length,
     draws = pairings.filter(filterDraws).length,
     finished = pairings.length - pairings.filter(filterPlaying).length;
-  return 100 * (wins + 0.5 * draws) / finished;
+  return finished == 0 ? 0 : (100 * (wins + 0.5 * draws) / finished);
 }
 
 function requiredPoints(pairings, target) {
@@ -90,7 +90,7 @@ module.exports = function(ctrl) {
       ])
     ]) : null,
     ctrl.data.targetPct ? m('div.targets', [
-      m('span', ctrl.trans('distanceToTarget', '')),
+      m('span', ctrl.trans('toReachTarget', '')),
       targetDistance(ctrl.data.pairings, ctrl.data.targetPct, ctrl.trans)
     ]) : null
   ];

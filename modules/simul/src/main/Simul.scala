@@ -240,7 +240,8 @@ object Simul {
     clock: SimulClock,
     variants: List[Variant],
     color: String,
-    chatmode: String
+    chatmode: String,
+    targetPct: Option[Int]
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -266,6 +267,7 @@ object Simul {
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
     color = color.some,
-    chatmode = ChatMode.byKey get chatmode
+    chatmode = ChatMode.byKey get chatmode,
+    targetPct = targetPct
   )
 }

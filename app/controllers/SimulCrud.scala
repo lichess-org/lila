@@ -32,7 +32,7 @@ object SimulCrud extends LidraughtsController {
           crud.editForm(simul, host, arbiter).bindFromRequest.fold(
             err => BadRequest(html.simul.crud.edit(
               simul,
-              crud.variantsForm.bindFromRequest.fold(
+              env.forms.applyVariants.bindFromRequest.fold(
                 err2 => err,
                 data => err.copy(value = emptyForm.copy(variants = data.variants).some)
               )
@@ -72,7 +72,7 @@ object SimulCrud extends LidraughtsController {
     implicit val req = ctx.body
     crud.createForm.bindFromRequest.fold(
       err => BadRequest(html.simul.crud.create(
-        crud.variantsForm.bindFromRequest.fold(
+        env.forms.applyVariants.bindFromRequest.fold(
           err2 => err,
           data => err.copy(value = emptyForm.copy(variants = data.variants).some)
         )

@@ -17,18 +17,25 @@ final class DataForm {
       number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
     }.verifying("atLeastOneVariant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
-    "chat" -> stringIn(chatChoices)
-  )(SimulSetup.apply)(SimulSetup.unapply)) fill SimulSetup(
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
-    clockExtra = clockExtraDefault,
-    variants = List(draughts.variant.Standard.id),
-    color = colorDefault,
-    chat = chatDefault
+    "chat" -> stringIn(chatChoices),
+    "targetPct" -> text(minLength = 0, maxLength = 3)
+      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
+  )(SimulSetup.apply)(SimulSetup.unapply)) fill empty
+
+  lazy val applyVariants = Form(mapping(
+    "variants" -> list {
+      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
+    }
+  )(VariantsData.apply)(VariantsData.unapply)) fill VariantsData(
+    variants = List(draughts.variant.Standard.id)
   )
 }
 
 object DataForm {
+
+  case class VariantsData(
+      variants: List[Int]
+  )
 
   val clockTimes = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
   val clockTimeDefault = 20
@@ -56,6 +63,15 @@ object DataForm {
   )
   val chatDefault = "everyone"
 
+  val empty = SimulSetup(
+    clockTime = clockTimeDefault,
+    clockIncrement = clockIncrementDefault,
+    clockExtra = clockExtraDefault,
+    variants = List(draughts.variant.Standard.id),
+    color = colorDefault,
+    chat = chatDefault,
+    targetPct = zero[String]
+  )
 }
 
 case class SimulSetup(
@@ -64,5 +80,6 @@ case class SimulSetup(
     clockExtra: Int,
     variants: List[Int],
     color: String,
-    chat: String
+    chat: String,
+    targetPct: String
 )

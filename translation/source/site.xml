@@ -661,7 +661,7 @@ in %3$s</string>
   <string name="winningPercentage">Winning percentage</string>
   <string name="targetPercentage">Target percentage</string>
   <string name="withTarget">with target</string>
-  <string name="distanceToTarget">Distance to target:</string>
+  <string name="toReachTarget">To reach target:</string>
   <string name="targetWinningPercentageX">Target winning percentage for host: %s</string>
   <string name="succeeded">succeeded!</string>
   <string name="failed">failed</string>
@@ -682,6 +682,7 @@ in %3$s</string>
   <string name="simulHostExtraTime">Host extra clock time</string>
   <string name="simulHostColor">Host colour for each game</string>
   <string name="simulChatRestrictionsHint">Chat restrictions only apply while the simultaneous exhibition is running.</string>
+  <string name="simulTargetPercentageHint">Optionally, you can set a target winning percentage that the host should score, calculated as (wins + 0.5 * draws) / (number of games). Enter a percentage between 50 and 100, or leave empty to not set a target.</string>
   <string name="simulParticipationLimited">Participation is limited to %s preselected players.</string>
   <string name="chatAvailableFor">Chat is available for</string>
   <string name="chatAvailableForX">Chat restrictions during play: %s</string>
@@ -689,6 +690,7 @@ in %3$s</string>
   <string name="spectatorsOnly">Spectators only</string>
   <string name="participantsOnly">Participants only</string>
   <string name="atLeastOneVariant">Select at least one variant!</string>
+  <string name="invalidTargetPercentage">Enter a value between 50 and 100, or leave empty</string>
   <string name="lidraughtsTournaments">Lidraughts tournaments</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
   <string name="tournamentOfficial">Official</string>

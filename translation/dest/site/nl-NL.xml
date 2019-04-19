@@ -641,7 +641,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="winningPercentage">Winstpercentage</string>
   <string name="targetPercentage">Doel percentage</string>
   <string name="withTarget">met als doel</string>
-  <string name="distanceToTarget">Afstand tot doel:</string>
+  <string name="toReachTarget">Te behalen doel:</string>
   <string name="targetWinningPercentageX">Doel winstpercentage simultaangever: %s</string>
   <string name="succeeded">geslaagd!</string>
   <string name="failed">mislukt</string>
@@ -662,6 +662,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
   <string name="simulHostColor">Kleur simultaangever</string>
   <string name="simulChatRestrictionsHint">Beperkingen in de beschikbaarheid van de chat gelden alleen terwijl de simultaan gespeeld wordt.</string>
+  <string name="simulTargetPercentageHint">(Optioneel) Je kan een winstpercentage instellen als doel dat de simultaangever moet behalen, berekend als (overwinningen + 0.5 * remises) / (aantal partijen). Geef een percentage tussen de 50 en 100 op, of laat leeg om geen doel in te stellen.</string>
   <string name="simulParticipationLimited">Deelname is beperkt tot %s van tevoren geselecteerde spelers.</string>
   <string name="chatAvailableFor">Chat is beschikbaar voor</string>
   <string name="chatAvailableForX">Chat tijdens simultaan: %s</string>
@@ -669,6 +670,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="spectatorsOnly">Alleen toeschouwers</string>
   <string name="participantsOnly">Alleen deelnemers</string>
   <string name="atLeastOneVariant">Kies ten minste één variant!</string>
+  <string name="invalidTargetPercentage">Geef een waarde tussen de 50 en 100 op, of laat dit veld leeg</string>
   <string name="lidraughtsTournaments">Lidraughts toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="tournamentOfficial">Officieel</string>

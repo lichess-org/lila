@@ -1092,7 +1092,7 @@ div.underboard a {
   margin: 0 .5em;
 }
 #now_playing .simul span.req {
-  margin: 0 0 0 .5em;
+  margin: 0 .1em 0 .4em;
 }
 #now_playing .simul .win {
   color: #759900;

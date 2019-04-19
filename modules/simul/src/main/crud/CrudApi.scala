@@ -40,8 +40,6 @@ final class CrudApi(simulRepo: SimulRepo) {
 
   def createForm = CrudForm.apply
 
-  def variantsForm = CrudForm.applyVariants
-
   def create(data: CrudForm.Data, host: User, arbiter: Option[User]): Fu[Simul] = {
     val simul = updateSimul(empty(host), data, host, arbiter)
     simulRepo create simul inject simul
@@ -55,7 +53,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     ),
     variants = Nil,
     color = DataForm.colorDefault,
-    chatmode = DataForm.chatDefault
+    chatmode = DataForm.chatDefault,
+    targetPct = None
   )
 
   private def updateSimul(simul: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {

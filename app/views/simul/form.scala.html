@@ -52,6 +52,18 @@ title = trans.hostANewSimul.txt()) {
         </tr>
         <tr class="help">
           <th colspan="2">
+            @trans.simulTargetPercentageHint()
+          </th>
+        </tr>
+        <tr>
+          <th><label for="@form("targetPct").id">@trans.winningPercentage()</label></th>
+          <td>
+            @base.form.input(form("targetPct"), trans.targetPercentage.txt().some, "number", maxLength = 3)
+            @errMsg(form("targetPct"))
+          </td>
+        </tr>
+        <tr class="help">
+          <th colspan="2">
             @trans.simulChatRestrictionsHint()
           </th>
         </tr>

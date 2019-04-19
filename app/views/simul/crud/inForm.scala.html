@@ -56,8 +56,8 @@
   }
 </div>
 <div>
-  @base.form.group(form("percentage"), Html("Target percentage (optional, min 50%)")) { field =>
-  @base.form.input(field)
+  @base.form.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)")) { field =>
+  @base.form.input(field, typ = "number")
   }
 </div>
 @base.form.group(form("chat"), Html("Chat is available for")) { field =>
