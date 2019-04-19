@@ -20,7 +20,7 @@
   @include transition();
   &.tt-cursor,
   &:hover {
-    color: $c-font-clear;
+    color: $c-font-clear !important;
     background: mix($c-link, $c-bg-box, 20%);
   }
 }
