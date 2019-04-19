@@ -10,16 +10,17 @@ import controllers.routes
 object faq {
 
   def page(system: Option[lila.tournament.System])(implicit ctx: Context) = views.html.base.layout(
-    title = "Tournament FAQ"
+    title = "Tournament FAQ",
+    moreCss = responsiveCssTag("page")
   ) {
-    main(cls := "page-small box box-pad")(
-      h1(
-        a(href := routes.Tournament.home(), dataIcon := "I", cls := "text"),
-        system.??(_.toString), " Tournament FAQ"
-      ),
-      div(cls := "body")(apply(system = system))
-    )
-  }
+      main(cls := "page-small box box-pad page")(
+        h1(
+          a(href := routes.Tournament.home(), dataIcon := "I", cls := "text"),
+          system.??(_.toString), " Tournament FAQ"
+        ),
+        div(cls := "body")(apply(system = system))
+      )
+    }
 
   def apply(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)(implicit ctx: Context) = frag(
     privateId.map { id =>
