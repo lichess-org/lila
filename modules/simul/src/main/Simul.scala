@@ -51,17 +51,17 @@ case class Simul(
 
   def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
 
+  def isPlaying(userId: String) = hostId == userId || pairings.exists(p => p.ongoing && p.is(userId))
+
   def canHaveChat(user: Option[User]): Boolean = user ?? { u => canHaveChat(u.id) }
 
-  def canHaveChat(userId: String): Boolean = chatmode match {
-    case Some(mode) if isRunning && mode != Simul.ChatMode.Everyone =>
-      if (isArbiter(userId)) true
-      else if (hasParticipant(userId))
-        mode == Simul.ChatMode.Participants
-      else
-        mode == Simul.ChatMode.Spectators
-    case _ => true
-  }
+  def canHaveChat(userId: String): Boolean =
+    if (!isRunning || isArbiter(userId)) true
+    else chatmode match {
+      case Some(Simul.ChatMode.Participants) => hasParticipant(userId)
+      case Some(Simul.ChatMode.Spectators) => !isPlaying(userId)
+      case _ => true
+    }
 
   def addApplicant(applicant: SimulApplicant) = Created {
     if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
