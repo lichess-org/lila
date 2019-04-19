@@ -26,6 +26,10 @@
     <item quantity="one">Spilt %1$s trekk</item>
     <item quantity="other">Spilt %1$s trekk</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">i %1$s korrespondanseparti</item>
+    <item quantity="other">i %1$s korrespondansepartier</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Har spilt ferdig %s fjernsjakkparti</item>
     <item quantity="other">Har spilt ferdig %s fjernsjakkpartier</item>
