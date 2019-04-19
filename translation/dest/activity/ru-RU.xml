@@ -32,6 +32,18 @@
     <item quantity="many">Опубликовал %1$s сообщений в теме %2$s</item>
     <item quantity="other">Опубликовал %1$s сообщений в теме %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Сделал %1$s ход</item>
+    <item quantity="few">Сделал %1$s хода</item>
+    <item quantity="many">Сделал %1$s ходов</item>
+    <item quantity="other">Сделал %1$s ходов</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">в %1$s дневной игре</item>
+    <item quantity="few">в %1$s играх по переписке</item>
+    <item quantity="many">в %1$s играх по переписке</item>
+    <item quantity="other">в %1$s играх по переписке</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Завершил %s игру по переписке</item>
     <item quantity="few">Завершил %s игры по переписке</item>
