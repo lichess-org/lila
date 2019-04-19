@@ -361,6 +361,8 @@
   <string name="standing">Status</string>
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
+  <string name="advancedSettings">Occasus provectus</string>
+  <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
   <string name="points">Puncta</string>
