@@ -1,7 +1,7 @@
 package lidraughts.challenge
 
 import draughts.format.FEN
-import draughts.variant.{ Variant, FromPosition }
+import draughts.variant.{ Variant, FromPosition, Frysk }
 import draughts.{ Mode, Speed }
 import org.joda.time.DateTime
 
@@ -62,6 +62,11 @@ case class Challenge(
   )
 
   def speed = speedOf(timeControl)
+
+  def notableInitialFen: Option[FEN] = variant match {
+    case FromPosition | Frysk => initialFen
+    case _ => none
+  }
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }

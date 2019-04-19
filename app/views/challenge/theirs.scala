@@ -29,7 +29,7 @@ object theirs {
                   " (", u.perfs(c.perfType).glicko.display, ")"
                 ))),
               bits.details(c),
-              c.initialFen.map { fen =>
+              c.notableInitialFen.map { fen =>
                 div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = !c.finalColor))
               },
               if (!c.mode.rated || ctx.isAuth) frag(
