@@ -7,6 +7,7 @@ const watchify = require('watchify');
 const browserify = require('browserify');
 const uglify = require('gulp-uglify');
 const size = require('gulp-size');
+const typescript = require('gulp-typescript');
 const tsify = require('tsify');
 const concat = require('gulp-concat');
 const exec = require('child_process').exec;
@@ -125,6 +126,12 @@ const standalonesJs = () => gulp.src([
   .pipe(uglify())
   .pipe(destination());
 
+const standalonesTs = () => gulp.src([
+  'service-worker.ts'
+].map(f => `src/standalones/${f}`))
+  .pipe(typescript())
+  .js.pipe(destination());
+
 const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
   .bundle()
   .pipe(source('user-mod.js'))
@@ -134,10 +141,10 @@ const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
 
 const deps = makeDependencies('lichess.deps.js');
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs, deps];
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, standalonesTs, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs, deps];
 
 const dev = gulp.series(tasks.concat([devSource]));
 
 gulp.task('prod', gulp.series(tasks, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
 gulp.task('dev', gulp.series(tasks, dev));
-gulp.task('default', gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev)));
+gulp.task('default', gulp.series(tasks, dev, () => gulp.watch(['src/**/*.js', 'src/**/*.ts'], dev)));

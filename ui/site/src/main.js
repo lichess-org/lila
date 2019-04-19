@@ -920,4 +920,14 @@
     cfg.socketSend = lichess.socket.send;
     puzzle = LichessPuzzle.default(cfg);
   }
+
+  ////////////////////
+  // service worker //
+  // /////////////////
+
+  if ('serviceWorker' in navigator) {
+    lichess.serviceWorker = navigator.serviceWorker.register(lichess.assetUrl('compiled/service-worker.js', {noVersion: true}), {
+      scope: '/'
+    });
+  }
 })();
