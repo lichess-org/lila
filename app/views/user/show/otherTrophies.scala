@@ -42,20 +42,20 @@ object otherTrophies {
     info.allTrophies.find(_.kind == Kind.ZugMiracle).map { t =>
       frag(
         styleTag("""
-.user-show .trophy.zugMiracle {
+.trophy.zugMiracle {
   display: flex;
   align-items: flex-end;
   height: 40px;
   margin: 0 8px!important;
   transition: 2s;
 }
-.user-show .trophy.zugMiracle img {
+.trophy.zugMiracle img {
   height: 60px;
 }
 @keyframes psyche {
   100% { filter: hue-rotate(360deg); }
 }
-.user-show .trophy.zugMiracle:hover {
+.trophy.zugMiracle:hover {
   transform: translateY(-9px);
   animation: psyche 0.3s ease-in-out infinite alternate;
 }"""),
