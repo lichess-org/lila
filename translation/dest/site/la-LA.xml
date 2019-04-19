@@ -159,6 +159,10 @@
   <string name="forgotPassword">Tessera oblita?</string>
   <string name="rank">Ordo</string>
   <string name="rankX">Locus: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Gradus fit novus munitae singulae</item>
+    <item quantity="other">Gradus fit novus munitae singulae %s</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s exercitus</item>
     <item quantity="other">%s exercitii</item>
@@ -196,6 +200,8 @@
   <string name="thisGameIsRated">Haec est lusio censita</string>
   <string name="rematch">Iterum ludere</string>
   <string name="rematchOfferSent">Missa est novae lusionis conditio</string>
+  <string name="rematchOfferSentWhite">Albus provocationem proponit</string>
+  <string name="rematchOfferSentBlack">Niger provocationem proponit</string>
   <string name="rematchOfferAccepted">Accepta est novae lusionis conditio</string>
   <string name="rematchOfferCanceled">Sublata est novae lusionis conditio</string>
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
@@ -364,6 +370,7 @@
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="youArePlaying">Ludis!</string>
+  <string name="winRate">Victoriarum proportio</string>
   <string name="draws">Indutiae</string>
   <string name="viewMoreTournaments">Certamen videre</string>
   <string name="membersOnly">Sola membra</string>
