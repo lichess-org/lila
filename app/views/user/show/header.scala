@@ -35,10 +35,10 @@ object header {
         "packed" -> (info.countTrophiesAndPerfCups > 7)
       ))(
         views.html.user.bits.perfTrophies(u, info.ranks),
-        otherTrophies(u, info)
+        otherTrophies(u, info),
+        u.plan.active option
+          a(href := routes.Plan.index, cls := "trophy award patron icon3d", title := s"Patron since ${showDate(u.plan.sinceDate)}")(patronIconChar)
       ),
-      u.plan.active option
-        a(href := routes.Plan.index, cls := "trophy award patron icon3d", title := s"Patron since ${showDate(u.plan.sinceDate)}")(patronIconChar),
       u.disabled option span(cls := "closed")("CLOSED")
     ),
     div(cls := "user-show__social")(
