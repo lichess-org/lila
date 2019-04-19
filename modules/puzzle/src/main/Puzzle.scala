@@ -64,6 +64,7 @@ object Puzzle {
 
   case class UserResult(
       puzzleId: PuzzleId,
+      variant: Variant,
       userId: lidraughts.user.User.ID,
       result: Result,
       rating: (Int, Int)

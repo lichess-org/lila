@@ -57,7 +57,7 @@ private[puzzle] final class Finisher(
   } map {
     case (round, mode, ratingBefore, ratingAfter) =>
       if (mode.rated)
-        bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
+        bus.publish(Puzzle.UserResult(puzzle.id, puzzle.variant, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
       round -> mode
   }
 
@@ -83,7 +83,7 @@ private[puzzle] final class Finisher(
     api.round.add(a, puzzle.variant) >>
       UserRepo.setPerf(user.id, PerfType.puzzlePerf(puzzle.variant), userPerf) >>-
       bus.publish(
-        Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+        Puzzle.UserResult(puzzle.id, puzzle.variant, user.id, result, formerUserRating -> userPerf.intRating),
         'finishPuzzle
       ) inject
         user.copy(perfs = user.perfs.copy(puzzle = user.perfs.puzzle.map { case (v, p) => if (v == puzzle.variant) v -> userPerf else v -> p }))

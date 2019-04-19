@@ -40,6 +40,17 @@
 </div>
 }
 
+@renderFrisianPuzzles(p: Puzzles) = {
+<div class="entry">
+  <i data-icon="$"></i>
+  @scoreHtml(p.score)
+  <div>
+    @trans.activity.solvedNbFrisianPuzzles.pluralSame(p.score.size)
+    @p.score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
+  </div>
+</div>
+}
+
 @renderGames(games: Games) = {
 @games.value.toList.sortBy(-_._2.size).map {
 case (pt, score) => {
@@ -237,6 +248,7 @@ case (pt, score) => {
       @a.patron.map(renderPatron)
       @a.practice.map(renderPractice)
       @a.puzzles.map(renderPuzzles)
+      @a.puzzlesFrisian.map(renderFrisianPuzzles)
       @a.games.map(renderGames)
       @a.posts.map(renderPosts)
       @a.corresMoves.map {

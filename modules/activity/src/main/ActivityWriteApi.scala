@@ -47,7 +47,13 @@ final class ActivityWriteApi(
     getOrCreate(res.userId) flatMap { a =>
       coll.update(
         $id(a.id),
-        $set(ActivityFields.puzzles -> {
+        if (res.variant.frisian) $set(ActivityFields.puzzlesFrisian -> {
+          ~a.puzzlesFrisian + Score.make(
+            res = res.result.win.some,
+            rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+          )
+        })
+        else $set(ActivityFields.puzzles -> {
           ~a.puzzles + Score.make(
             res = res.result.win.some,
             rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some

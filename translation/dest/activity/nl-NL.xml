@@ -11,6 +11,10 @@
     <item quantity="one">%s tactische puzzel opgelost</item>
     <item quantity="other">%s tactische puzzels opgelost</item>
   </plurals>
+  <plurals name="solvedNbFrisianPuzzles">
+    <item quantity="one">%s puzzel Fries dammen opgelost</item>
+    <item quantity="other">%s puzzels Fries dammen opgelost</item>
+  </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Speelde %1$s %2$s partij</item>
     <item quantity="other">Speelde %1$s %2$s partijen</item>
