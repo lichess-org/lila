@@ -75,7 +75,7 @@
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
-  <string name="masterDbExplanation">Dwa miliony partii rankingowych graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
+  <string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s ruchu</item>
     <item quantity="few">Mat w %s ruchach</item>
