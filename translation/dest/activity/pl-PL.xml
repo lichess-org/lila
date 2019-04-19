@@ -4,7 +4,7 @@
   <string name="activity">Aktywność</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Wspomógł Lichess przez miesiąc jako %2$s</item>
-    <item quantity="few">Wspomógł Lichess przez %1$s miesięce jako %2$s</item>
+    <item quantity="few">Wspomógł Lichess przez %1$s miesiące jako %2$s</item>
     <item quantity="many">Wspomógł Lichess przez %1$s miesięcy jako %2$s</item>
     <item quantity="other">Wspomógł Lichess przez %1$s miesięcy jako %2$s</item>
   </plurals>
