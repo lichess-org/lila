@@ -67,7 +67,7 @@ $controls-height: auto;
       grid-area: 4 / 2 / 10 / 3;
     }
     .expiration-top { display: flex; }
-    .rmoves {
+    .rmoves .moves {
       display: none;
       background: none;
     }
@@ -75,7 +75,7 @@ $controls-height: auto;
       margin-top: $block-gap;
     }
     @include breakpoint($mq-tall) {
-      & .rmoves { display: flex; }
+      & .rmoves .moves { display: flex; }
     }
   }
 
