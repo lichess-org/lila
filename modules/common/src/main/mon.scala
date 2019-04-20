@@ -171,6 +171,9 @@ object mon {
     object distribution {
       def byPerfAndRating(perfKey: String, rating: Int): Rate = rate(s"rating.distribution.$perfKey.$rating")
     }
+    object regulator {
+      def micropoints(perfKey: String) = rec(s"rating.regulator.$perfKey")
+    }
   }
 
   object round {
