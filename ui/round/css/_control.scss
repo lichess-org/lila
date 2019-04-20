@@ -78,6 +78,7 @@
   .follow-up {
     @extend %flex-column;
     border-bottom: $border;
+    position: relative; /* for rematch-decline */
     .fbt {
       padding: 12px 0;
       margin: 1px 1px 0 1px;
@@ -104,7 +105,7 @@
     &.fbt {
       @extend %metal;
       font-size: 1.2em;
-      height: 5em;
+      height: 6rem;
       @include transition();
     }
     &.me {
@@ -131,28 +132,28 @@
       animation: none;
     }
     &-decline {
-      @extend %flex-center-nowrap, %box-radius-right;
+      @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
       background: $c-bg-zebra;
       justify-content: center;
       position: absolute;
       top: 0;
       right: -25px;
       width: 25px;
-      height: 59px;
-      border: $border;
-      border-left: 0;
+      height: 6rem;
+      border: 0;
       opacity: 0.7;
+      background: mix($c-bad, $c-bg-box, 50%);
       @include transition();
       display: none;
       @include breakpoint($mq-col2) {
         display: block;
       }
-    }
-    &-decline:hover {
-      background: $c-bad;
-      color: #fff;
-      right: -36px;
-      width: 35px;
+      &:hover {
+        background: $c-bad;
+        color: $c-bad-over;
+        right: -36px;
+        width: 35px;
+      }
     }
   }
 }
