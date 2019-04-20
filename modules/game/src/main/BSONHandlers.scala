@@ -124,6 +124,7 @@ object BSONHandlers {
           pdnImport = r.getO[PdnImport](F.pdnImport)(PdnImport.pdnImportBSONHandler),
           tournamentId = r strO F.tournamentId,
           simulId = r strO F.simulId,
+          simulPairing = r intO F.simulPairing,
           tvAt = r dateO F.tvAt,
           analysed = r boolD F.analysed
         )
@@ -154,6 +155,7 @@ object BSONHandlers {
       F.pdnImport -> o.metadata.pdnImport,
       F.tournamentId -> o.metadata.tournamentId,
       F.simulId -> o.metadata.simulId,
+      F.simulPairing -> o.metadata.simulPairing,
       F.tvAt -> o.metadata.tvAt.map(w.date),
       F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {

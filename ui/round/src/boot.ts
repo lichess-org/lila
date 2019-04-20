@@ -96,11 +96,16 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
         $watchers = $('#site_header div.watchers').watchers();
         startTournamentClock();
         $('#now_playing').find('.move_on input').change(function () {
-            round.moveOn.toggle();
+            var t = round.moveOn.toggle();
+            $('#now_playing .move_seq').css('visibility', t ? 'visible' : 'collapse');
         }).prop('checked', round.moveOn.get()).on('click', 'a', function () {
             li.hasToReload = true;
             return true;
         });
+        $('#now_playing').find('.move_seq input').change(function () {
+            round.moveOn.toggleSeq();
+        }).prop('checked', round.moveOn.getSeq())
+        $('#now_playing .move_seq').css('visibility', round.moveOn.get() ? 'visible' : 'collapse');
         if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
             history.replaceState(null, '', '/' + data.game.id);
         if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();

@@ -605,7 +605,7 @@ case class Game(
 
   def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
 
-  def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
+  def withSimul(id: String, pairing: Int) = copy(metadata = metadata.copy(simulId = id.some, simulPairing = pairing.some))
 
   def withId(newId: String) = copy(id = newId)
 
@@ -705,6 +705,7 @@ object Game {
         pdnImport = pdnImport,
         tournamentId = none,
         simulId = none,
+        simulPairing = none,
         tvAt = none,
         analysed = false
       ),
@@ -747,6 +748,7 @@ object Game {
     val pdnImport = "pdni"
     val tournamentId = "tid"
     val simulId = "sid"
+    val simulPairing = "sp"
     val tvAt = "tv"
     val winnerColor = "w"
     val winnerId = "wid"

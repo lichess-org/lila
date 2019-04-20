@@ -102,10 +102,27 @@ object Round extends LidraughtsController with TheftPrevention {
     }
   }
 
+  private def otherPovsSeq(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
+    GameRepo urgentGamesSeq user map {
+      _ filter { pov =>
+        pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul && game.isSimul && pov.game.metadata.simulId == game.metadata.simulId
+      }
+    }
+  }
+
   private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
     povs find { pov =>
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
     }
+
+  private def getNextSeq(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) = currentGame.metadata.simulPairing.flatMap { index =>
+    val validPovs = povs filter { pov =>
+      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+    }
+    validPovs.find(_.game.metadata.simulPairing.??(_ > index)).fold(
+      validPovs.find(_.game.metadata.simulPairing.??(_ < index))
+    )(_.some)
+  }
 
   def whatsNext(fullId: String) = Open { implicit ctx =>
     OptionFuResult(proxyPov(fullId)) { currentPov =>
@@ -121,6 +138,20 @@ object Round extends LidraughtsController with TheftPrevention {
   def next(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game gameId) { currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
+        _ orElse Pov(currentGame, me)
+      } flatMap {
+        case Some(next) => renderPlayer(next)
+        case None => fuccess(Redirect(currentGame.simulId match {
+          case Some(simulId) => routes.Simul.show(simulId)
+          case None => routes.Round.watcher(gameId, "white")
+        }))
+      }
+    }
+  }
+
+  def nextSequential(gameId: String) = Auth { implicit ctx => me =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovsSeq(currentGame) map getNextSeq(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
         case Some(next) => renderPlayer(next)

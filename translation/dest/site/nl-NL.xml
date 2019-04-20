@@ -472,7 +472,9 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
     <item quantity="other">%s partijen bezig</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisch doorgaan naar de volgende partij na je zet</string>
+  <string name="switchGamesInSameOrder">Ga door de partijen in een vaste volgorde</string>
   <string name="autoSwitch">Automatische switch</string>
+  <string name="sequentialSwitch">Vaste volgorde</string>
   <string name="puzzles">Puzzels</string>
   <string name="latestUpdates">Laatste updates</string>
   <string name="tournamentWinners">Toernooiwinnaars</string>

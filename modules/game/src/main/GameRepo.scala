@@ -150,6 +150,17 @@ object GameRepo {
       }
     }
 
+  def urgentGamesSeq(user: User): Fu[List[Pov]] =
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map { games =>
+      val povs = games flatMap { Pov(_, user) }
+      try {
+        povs.sortBy(_.game.metadata.simulPairing.getOrElse(Int.MaxValue))
+      } catch {
+        case e: IllegalArgumentException =>
+          povs sortBy (-_.game.movedAt.getSeconds)
+      }
+    }
+
   // gets most urgent game to play
   def mostUrgentGame(user: User): Fu[Option[Pov]] = urgentGames(user) map (_.headOption)
 

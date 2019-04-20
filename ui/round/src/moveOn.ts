@@ -4,12 +4,13 @@ import RoundController from './ctrl';
 
 export default class MoveOn {
 
-  value: boolean = window.lidraughts.storage.get(this.key) === '1';
+  value: boolean = window.lidraughts.storage.get(this.key) === '1' || window.lidraughts.storage.get(this.key) === '2';
+  seq: boolean = window.lidraughts.storage.get(this.key) === '2';
 
   constructor(private ctrl: RoundController, private key: string) {
   }
 
-  store = () => window.lidraughts.storage.set(this.key, this.value ? '1' : '0');
+  store = () => window.lidraughts.storage.set(this.key, this.value ? (this.seq ? '2' : '1') : '0');
 
   toggle = (): boolean => {
     this.value = !this.value;
@@ -18,7 +19,14 @@ export default class MoveOn {
     return this.value;
   };
 
+  toggleSeq = (): boolean => {
+    this.seq = !this.seq;
+    this.store();
+    return this.seq;
+  };
+
   get = () => this.value;
+  getSeq = () => this.seq;
 
   set = (v: boolean) => {
     this.value = v;
@@ -36,8 +44,10 @@ export default class MoveOn {
     if (!this.value || d.player.spectator || !game.isSwitchable(d) || game.isPlayerTurn(d)) return;
     if (force) this.redirect('/round-next/' + d.game.id);
     else if (d.simul) {
-      if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1)
-        this.redirect('/round-next/' + d.game.id);
+      if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1) {
+        if (this.seq) this.redirect('/round-next-seq/' + d.game.id);
+        else this.redirect('/round-next/' + d.game.id);
+      }
     } else xhr.whatsNext(this.ctrl).then(data => {
       if (data.next) this.redirect('/' + data.next);
     });

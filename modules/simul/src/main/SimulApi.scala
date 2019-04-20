@@ -109,7 +109,9 @@ final class SimulApi(
         _ ?? { simul =>
           simul.start ?? { started =>
             UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
-              started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
+              started.pairings.zipWithIndex.map {
+                case (p, i) => makeGame(started, host)(p, i)
+              }.sequenceFu map { games =>
                 games.headOption foreach {
                   case (game, _) => sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
                 }
@@ -196,7 +198,7 @@ final class SimulApi(
   def idToName(id: Simul.ID): Fu[Option[String]] =
     repo find id map2 { (simul: Simul) => simul.fullName }
 
-  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, draughts.Color)] = for {
+  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing, index: Int): Fu[(Game, draughts.Color)] = for {
     user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
@@ -215,7 +217,7 @@ final class SimulApi(
       pdnImport = None
     )
     game2 = game1
-      .withSimulId(simul.id)
+      .withSimul(simul.id, index)
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-

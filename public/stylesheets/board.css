@@ -1066,6 +1066,9 @@ div.underboard a {
 #now_playing.other_games {
   width: 512px;
 }
+#now_playing .move_seq {
+  float: right;
+}
 #now_playing .switcher {
   font-size: 0.7em;
   display: flex;

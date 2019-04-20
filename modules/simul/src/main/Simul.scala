@@ -53,6 +53,8 @@ case class Simul(
 
   def isPlaying(userId: String) = hostId == userId || pairings.exists(p => p.ongoing && p.is(userId))
 
+  def isUnique = spotlight.isDefined
+
   def canHaveChat(user: Option[User]): Boolean = user ?? { u => canHaveChat(u.id) }
 
   def canHaveChat(userId: String): Boolean =

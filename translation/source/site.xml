@@ -482,7 +482,9 @@ One URL per line</string>
     <item quantity="other">%s games in play</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
+  <string name="switchGamesInSameOrder">Go through the games in a fixed order</string>
   <string name="autoSwitch">Auto switch</string>
+  <string name="sequentialSwitch">Fixed order</string>
   <string name="puzzles">Puzzles</string>
   <string name="latestUpdates">Latest updates</string>
   <string name="tournamentWinners">Tournament winners</string>
