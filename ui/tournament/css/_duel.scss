@@ -1,5 +1,15 @@
 .tour__duels {
-  margin-top: $block-gap;
+
+  margin: $block-gap 0 0 0;
+
+  @include breakpoint($mq-col2) {
+    margin: 0 0 0 $block-gap;
+  }
+
+  @include breakpoint($mq-col3) {
+    margin: $block-gap 0 0 0;
+  }
+
   h2 {
     font-size: 1.5em;
     margin-bottom: .2em;
