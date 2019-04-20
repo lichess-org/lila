@@ -94,7 +94,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   const storage = li.storage.make('analysis.panel');
   const setPanel = function(panel) {
-    $menu.children('.active').removeClass('active').end().find(`[data-panel=${panel}`).addClass('active');
+    $menu.children('.active').removeClass('active').end().find(`[data-panel="${panel}"]`).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel == 'move-times' && !li.movetimeChart) try {
       li.loadScript('javascripts/chart/movetime.js').then(function() {
@@ -110,7 +110,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     setPanel(panel);
   });
   const stored = storage.get();
-  const $menuCt = $menu.children('[data-panel=ctable]');
+  const $menuCt = $menu.children('[data-panel="ctable"]');
   if (stored && $menuCt.length) setPanel(stored);
   else ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   if (!data.analysis) {
