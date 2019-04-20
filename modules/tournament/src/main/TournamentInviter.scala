@@ -28,13 +28,14 @@ private final class TournamentInviter private (
       }
   }
 
-  def qualifies(user: User) =
-    !user.seenRecently &&
+  def qualifies(user: User) = false
+  /* Disabled until there actually are rating limited tournaments in the schedule
+      !user.seenRecently &&
       !user.kid &&
       user.count.rated > 50 &&
       user.toints < 10 &&
       bestRating(user).??(1700 >=) &&
-      firstTime(user)
+      firstTime(user)*/
 
   def firstTime(user: User) =
     if (notifiedCache get user.id) false
