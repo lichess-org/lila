@@ -51,7 +51,7 @@ $('.coach-review-form form').show();
           st.aside(cls := "coach-show__side coach-side")(
             a(cls := "button button-empty", href := routes.User.show(c.user.username))("View ", c.user.username, " lichess profile"),
             if (ctx.me.exists(c.coach.is)) frag(
-              if (c.coach.isListed) "This page is now public."
+              if (c.coach.isListed) p("This page is now public.")
               else "This page is not public yet.",
               a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile")
             )
