@@ -43,16 +43,16 @@ data: ${safeJsonValue(data)}
           div(cls := "box__top")(
             h1(
               a(href := routes.User.show(u.username), dataIcon := "I", cls := "text")(
-                u.username, " ", span(perfType.name, " stats")
+                span(u.username, span(perfType.name, " stats"))
               )
             ),
-            div(
-              bits.perfTrophies(u, rankMap.filterKeys(perfType.key==).some),
+            div(cls := "box__top__actions")(
               u.perfs(perfType).nb > 0 option a(
                 cls := "button button-empty text",
                 dataIcon := perfType.iconChar,
                 href := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
-              )("View the games")
+              )("View the games"),
+              bits.perfTrophies(u, rankMap.filterKeys(perfType.key==).some)
             )
           ),
           ratingChart.isDefined option div(cls := "rating-history")(spinner),
