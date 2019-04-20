@@ -207,7 +207,12 @@ object layout {
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag()),
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
-          jsAt(s"compiled/lichess.site${isProd ?? ".min"}.js", async = asyncJs),
+          if (isProd)
+            jsAt(s"compiled/lichess.site.min.js", async = asyncJs)
+          else frag(
+            jsAt(s"compiled/lichess.deps.js", async = asyncJs),
+            jsAt(s"compiled/lichess.site.js", async = asyncJs)
+          ),
           moreJs,
           embedJs(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)

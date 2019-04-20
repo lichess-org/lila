@@ -19,7 +19,8 @@ const browserifyOpts = (entries, debug) => ({
   standalone: 'Lichess',
   debug: debug
 });
-const destination = () => gulp.dest('../../public/compiled/');
+const destinationPath = '../../public/compiled/';
+const destination = () => gulp.dest(destinationPath);
 const fileBaseName = 'lichess.site';
 
 const abFile = process.env.LILA_AB_FILE;
@@ -77,20 +78,30 @@ const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
 const devSource = () => browserify(browserifyOpts('src/index.ts', true))
   .plugin(tsify)
   .bundle()
-  .pipe(source(`${fileBaseName}.source.js`))
-  .pipe(gulp.dest('./dist'));
+  .pipe(source(`${fileBaseName}.js`))
+  .pipe(destination());
+
+function makeDependencies(filename) {
+  return function bundleDeps() {
+    return gulp.src([
+  '../../public/javascripts/vendor/jquery.min.js',
+  './dist/jquery.fill.js',
+  './dep/powertip.min.js',
+  './dep/howler.min.js',
+  './dep/mousetrap.min.js',
+  './dist/consolemsg.js',
+  ...(abFile ? ['./dist/ab.js'] : []),
+])
+      .pipe(concat(filename))
+      .pipe(destination());
+  };
+}
 
 function makeBundle(filename) {
   return function bundleItAll() {
     return gulp.src([
-      '../../public/javascripts/vendor/jquery.min.js',
-      './dist/jquery.fill.js',
-      './dep/powertip.min.js',
-      './dep/howler.min.js',
-      './dep/mousetrap.min.js',
+      destinationPath + 'lichess.deps.js',
       './dist/' + filename,
-      ...(abFile ? ['./dist/ab.js'] : []),
-      './dist/consolemsg.js',
     ])
       .pipe(concat(filename.replace('source.', '')))
       .pipe(destination());
@@ -102,7 +113,7 @@ const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdo
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   var date = new Date().toISOString().split('.')[0];
   fs.writeFileSync('./dist/consolemsg.js',
-    'console.info("Lichess is open source! https://github.com/ornicar/lila");' +
+    'window.lichess=window.lichess||{};console.info("Lichess is open source! https://github.com/ornicar/lila");' +
     `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`);
   cb();
 });
@@ -123,8 +134,12 @@ const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
 
 const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs];
 
-const dev = gulp.series(tasks.concat([devSource, makeBundle(`${fileBaseName}.source.js`)]));
+const dev = gulp.series(tasks.concat([devSource]));
 
-gulp.task('prod', gulp.series(tasks.concat([prodSource, makeBundle(`${fileBaseName}.source.min.js`)])));
-gulp.task('dev', dev);
+const deps = makeDependencies('lichess.deps.js');
+
+gulp.task('prod', gulp.series(deps, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
+gulp.task('dev', gulp.series(deps, dev));
 gulp.task('default', gulp.series(dev, () => gulp.watch('src/**/*.js', dev)));
+
+gulp.task('deps', makeDependencies('lichess.deps.js'));
