@@ -11,11 +11,11 @@
   <string name="emailChange_intro">Zahtevali ste promjenu e-mail adrese.</string>
   <string name="emailChange_click">Potvrdite da imate pristup ovoj e-pošti klikom na link ispod:</string>
   <string name="welcome_subject">Dobrodošli na lichess.org,  %</string>
-  <string name="welcome_text">Vaš račun na https://lichess.org je uspešno kreiran.
+  <string name="welcome_text">Tvoj račun na https://lichess.org je uspješno kreiran.
 
-Ovo je vaš profil: %1$s. Možete unositi promjene za povezivanje %2$s.
+Ovo je tvoj profil: %1$s. Možeš ga mijenjati na %2$s.
 
-Uživajte i pustite da vaši likovi uvek pronađu put do neprijatelja!</string>
+Uživaj, i neka tvoje figure uvijek pronađu put do protivničkog kralja!</string>
   <string name="common_orPaste">(Kliknite na vezu ne radi - Pokušajte da ga nalepite u svoj pregledač!)</string>
   <string name="common_note">Ovo je e-mail servis koji je povezan sa vašom upotrebom stranice %s.</string>
 </resources>
