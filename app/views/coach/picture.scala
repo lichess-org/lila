@@ -27,7 +27,7 @@ object picture {
             error.map { e =>
               p(cls := "error")(e)
             },
-            st.form(action := routes.Coach.pictureApply, enctype := "multipart/form-data", cls := "upload")(
+            st.form(action := routes.Coach.pictureApply, enctype := "multipart/form-data", method := "post", cls := "upload")(
               p("Max size: ", lila.db.Photographer.uploadMaxMb, "MB."),
               form3.file.image("picture"),
               button(tpe := "submit", cls := "button")("Upload profile picture")
