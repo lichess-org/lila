@@ -227,8 +227,8 @@
   <string name="thisGameIsRated">Ovo je partija za bodove</string>
   <string name="rematch">Revanš</string>
   <string name="rematchOfferSent">Ponuda za revanš poslana</string>
-  <string name="rematchOfferSentWhite">Bijeli nudi remi</string>
-  <string name="rematchOfferSentBlack">Crni nudi remi</string>
+  <string name="rematchOfferSentWhite">Bijeli nudi revanš</string>
+  <string name="rematchOfferSentBlack">Crni nudi revanš</string>
   <string name="rematchOfferAccepted">Ponuda za revanš prihvaćena</string>
   <string name="rematchOfferCanceled">Ponuda za revanš otkazana</string>
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
@@ -276,7 +276,7 @@
   <string name="exportGames">Izvoz partija</string>
   <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dodaj protivniku %s sekundi</item>
+    <item quantity="one">Dodaj protivniku %s sekundu</item>
     <item quantity="few">Dodaj protivniku %s sekundi</item>
     <item quantity="other">Dodaj protivniku %s sekundi</item>
   </plurals>
@@ -290,7 +290,7 @@
   <string name="takebackPropositionDeclined">Ponuda o vraćanju poteza odbijena</string>
   <string name="takebackPropositionAccepted">Ponuda o vraćanju poteza prihvaćena</string>
   <string name="takebackPropositionCanceled">Ponuda o vraćanju poteza prekinuta</string>
-  <string name="yourOpponentProposesATakeback">Vaš protivnik predlaže vraćanje poteza</string>
+  <string name="yourOpponentProposesATakeback">Tvoj protivnik predlaže vraćanje poteza</string>
   <string name="bookmarkThisGame">Spremi ovu partiju u favorite</string>
   <string name="search">Traži</string>
   <string name="advancedSearch">Napredno pretraživanje</string>
@@ -306,7 +306,7 @@
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ jedne partije za bodove</item>
+    <item quantity="one">≥ %s partije za bodove</item>
     <item quantity="few">≥ %s partije za bodove</item>
     <item quantity="other">≥ %s partija za bodove</item>
   </plurals>
@@ -526,8 +526,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
   <string name="createANewTopic">Kreiraj novu temu</string>
-  <string name="topics">Tema</string>
-  <string name="posts">Objava</string>
+  <string name="topics">Teme</string>
+  <string name="posts">Objave</string>
   <string name="lastPost">Zadnja objava</string>
   <string name="views">Pregleda</string>
   <string name="replies">Odgovora</string>
