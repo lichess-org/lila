@@ -118,8 +118,8 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
           )
         ),
         if (ctx.blind) div(cls := "blind-content none")(
-          h2("PGN downloads"),
-          pgnLinks
+          h2("PDN downloads"),
+          pdnLinks
         )
       ))
   }

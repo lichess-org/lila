@@ -242,7 +242,10 @@ lidraughts.hopscotch = function(f) {
   lidraughts.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lidraughts.slider = function() {
-  return lidraughts.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
+  return lidraughts.loadScript(
+    'javascripts/vendor/jquery-ui.slider' + ('ontouchstart' in window ? '.touch' : '') + '.min.js',
+    {noVersion:true}
+  );
 };
 lidraughts.makeChat = function(data, callback) {
   lidraughts.raf(function() {

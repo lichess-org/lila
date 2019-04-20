@@ -37,7 +37,7 @@ private object PdnStorage {
       val decoded = Encoder.decode(bytes.value, plies)
       val unmovedRooks = asScalaSet(decoded.unmovedRooks.flatMap(chessPos)).toSet
       Decoded(
-        pdnMoves = decoded.pgnMoves.toVector,
+        pdnMoves = decoded.pdnMoves.toVector,
         pieces = mapAsScalaMap(decoded.pieces).flatMap {
           case (k, v) => chessPos(k).map(_ -> chessPiece(v))
         }.toMap,

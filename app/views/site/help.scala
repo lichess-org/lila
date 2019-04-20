@@ -99,7 +99,7 @@ object help {
           frag(
             h1("Embed a draughts game in your site"),
             raw(s"""<iframe src="/embed/JLuuVBv5?bg=auto&theme=auto" $args></iframe>"""),
-            p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
+            p(raw("""On a game analysis page, click the <em>"FEN &amp; PDN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
             parameters,
             p("The text is automatically translated to your visitor's language.")
           )
