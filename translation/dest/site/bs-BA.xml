@@ -56,6 +56,8 @@
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="promoteVariation">Promakni varijaciju</string>
+  <string name="makeMainLine">Napravi glavnom linijom</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
@@ -169,6 +171,8 @@
   <string name="username">Korisničko ime</string>
   <string name="usernameOrEmail">Korisničko ime</string>
   <string name="changeUsername">Promijenite korisničko ime</string>
+  <string name="changeUsernameNotSame">Može se promijeniti samo veličina slova. Na primjer, \"johndoe\" u \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo se može uraditi samo jednom i možeš samo promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="password">Lozinka</string>
   <string name="haveAnAccount">Već imate račun?</string>
   <string name="changePassword">Promjena lozinke</string>
