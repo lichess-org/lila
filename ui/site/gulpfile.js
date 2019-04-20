@@ -138,8 +138,8 @@ const dev = gulp.series(tasks.concat([devSource]));
 
 const deps = makeDependencies('lichess.deps.js');
 
-gulp.task('prod', gulp.series(deps, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
-gulp.task('dev', gulp.series(deps, dev));
-gulp.task('default', gulp.series(dev, () => gulp.watch('src/**/*.js', dev)));
+gulp.task('prod', gulp.series(tasks, deps, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
+gulp.task('dev', dev, deps);
+gulp.task('default', gulp.series(dev, deps, () => gulp.watch('src/**/*.js', dev)));
 
-gulp.task('deps', makeDependencies('lichess.deps.js'));
+gulp.task('deps', gulp.series(tasks, deps));
