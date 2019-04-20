@@ -5,13 +5,14 @@ import org.goochjs.glicko2._
 
 import lila.game.{ GameRepo, Game, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
-import lila.rating.{ Glicko, Perf }
+import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, PerfType => PT }
 import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
 final class PerfsUpdater(
     historyApi: HistoryApi,
     rankingApi: RankingApi,
-    botFarming: BotFarming
+    botFarming: BotFarming,
+    ratingFactors: () => RatingFactors
 ) {
 
   private val VOLATILITY = Glicko.default.volatility
@@ -160,6 +161,22 @@ final class PerfsUpdater(
         classical = addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),
         correspondence = addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence)
       )
-      if (isStd) perfs1.updateStandard else perfs1
+      val r = RatingRegulator(ratingFactors()) _
+      val perfs2 = perfs1.copy(
+        chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),
+        kingOfTheHill = r(PT.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
+        threeCheck = r(PT.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
+        antichess = r(PT.Antichess, perfs.antichess, perfs1.antichess),
+        atomic = r(PT.Atomic, perfs.atomic, perfs1.atomic),
+        horde = r(PT.Horde, perfs.horde, perfs1.horde),
+        racingKings = r(PT.RacingKings, perfs.racingKings, perfs1.racingKings),
+        crazyhouse = r(PT.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
+        bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
+        blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
+        rapid = r(PT.Rapid, perfs.blitz, perfs1.blitz),
+        classical = r(PT.Classical, perfs.classical, perfs1.classical),
+        correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
+      )
+      if (isStd) perfs2.updateStandard else perfs2
   }
 }

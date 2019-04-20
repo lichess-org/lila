@@ -225,4 +225,5 @@ object Env {
   def oAuth = lila.oauth.Env.current
   def bot = lila.bot.Env.current
   def evalCache = lila.evalCache.Env.current
+  def rating = lila.rating.Env.current
 }
