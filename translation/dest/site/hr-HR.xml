@@ -245,8 +245,8 @@
   <string name="spectators">Gledatelji:</string>
   <plurals name="nbRated">
     <item quantity="one">%s za bodove</item>
-    <item quantity="few">%s Za bodove</item>
-    <item quantity="other">%s Za bodove</item>
+    <item quantity="few">%s za bodove</item>
+    <item quantity="other">%s za bodove</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s pobjeda</item>
