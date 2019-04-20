@@ -1,0 +1,296 @@
+body, #mz_menu .inner {
+  margin-top: 53px!important;
+}
+
+#inquiry {
+  height: 48px;
+  background: #484541;
+  color: #f0f0f0!important;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border-bottom: 1px solid #666;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: z('inquiry');
+}
+@keyframes octopus {
+  50% { transform: scale(1.03); background-color: #4a4a4a; }
+  100% { transform: scale(1); background-color: #484541; }
+}
+#inquiry > .costello {
+  flex: 0 0 160px;
+  height: 160px;
+  width: 160px;
+  margin: -80px 0 0 -80px;
+  background: #484541 no-repeat url(../images/icons/octopus.svg);
+  background-size: 35% 35%;
+  background-position: 81% 81%;
+  border-radius: 0 0 50% 0;
+  border: 2px solid #666;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+#inquiry > .costello:hover {
+  animation: octopus 0.5s ease-in-out;
+}
+#inquiry.hidden {
+  transition: height 0.3s;
+  height: 0;
+  border: none;
+}
+#inquiry.hidden > div {
+  display: none;
+}
+#inquiry.hidden > .costello {
+  transition: opacity 0.3s;
+  opacity: 0.5;
+}
+body.no-inquiry {
+  transition: margin 0.3s;
+  margin-top: 0;
+}
+#inquiry a {
+  color: #f0f0f0!important;
+}
+#inquiry .meat {
+  flex: 1 1 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+#inquiry h2 .user-link {
+  font-size: 1.3em;
+}
+#inquiry .docs {
+  position: relative;
+  flex: 0 0 43%;
+  height: 100%;
+  margin-left: 10px;
+  overflow: hidden;
+  color: #ccc;
+}
+#inquiry .reports {
+  flex: 4 1 auto;
+}
+#inquiry .counter {
+  margin-left: 0.3em;
+  flex: 0 0 auto;
+}
+#inquiry .docs .expendable {
+  padding: 4px 20px 20px 20px;
+  background: #555;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+#inquiry .docs:hover {
+  overflow: visible;
+}
+#inquiry .docs:hover .expendable {
+  z-index: 2;
+  border-bottom: 1px solid #666;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
+  max-height: 500px;
+  overflow-y: auto;
+}
+#inquiry .doc:not(:last-child) {
+  padding-bottom: 8px;
+  border-bottom: 1px dotted #777;
+  margin-bottom: 8px;
+}
+#inquiry .docs h2 {
+  line-height: 35px;
+  margin-bottom: 5px;
+}
+#inquiry .doc h3 {
+  margin: 0;
+}
+#inquiry .report .atom {
+  margin-bottom: 0.8em;
+  border-bottom: 1px solid #777;
+  padding-bottom: 0.8em;
+}
+#inquiry .report .atom:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+#inquiry .score {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.1em 0.5em;
+  border-radius: 0.3em;
+}
+#inquiry .score.green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.4);
+}
+#inquiry .score.yellow {
+  background-color: rgba(221, 207, 63, 0.4);
+}
+#inquiry .score.orange {
+  background-color: rgba(231, 155, 100, 0.4);
+}
+#inquiry .score.red {
+  background-color: rgba(231, 59, 56, 0.4);
+}
+#inquiry form.note textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 5px;
+  height: 80px;
+}
+#inquiry form.note .submission {
+  text-align: right;
+}
+#inquiry .actions,
+#inquiry .links {
+  margin-right: 10px;
+  white-space: nowrap;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: center;
+}
+#inquiry .actions:not(.close),
+#inquiry .links {
+  padding-right: 10px;
+  border-right: 1px solid #666;
+}
+#inquiry .actions > form {
+  height: 100%;
+}
+#inquiry .fbt {
+  height: 100%;
+  color: #f0f0f0!important;
+  background: transparent;
+}
+#inquiry .fbt:hover {
+  background: rgba(56,147,232,0.8);
+}
+#inquiry .fbt.icon::before,
+#inquiry .warn span::before {
+  font-size: 1.7em;
+}
+#inquiry .fbt.active {
+  color: #fff!important;
+}
+#inquiry .links {
+  padding: 0 10px;
+  border-left: 1px solid #666;
+}
+#inquiry .links a {
+  padding: 0 13px;
+}
+#inquiry .links a:hover,
+#inquiry .report a:hover {
+  color: #3893E8!important;
+}
+#inquiry .process button {
+  background: #555;
+  font-size: 1.8em;
+  padding: 0 25px;
+}
+#inquiry .process button:hover {
+  background: #639B24;
+}
+#inquiry .cancel button {
+  margin-left: 5px;
+  font-size: 0.8em;
+  padding: 0 8px;
+}
+#inquiry .accuracy {
+  float: right;
+}
+#inquiry .dropper {
+  position: relative;
+  height: 100%;
+}
+#inquiry .dropper > span {
+  display: block;
+  height: 100%;
+  padding: 0 10px;
+}
+#inquiry .dropper > div {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #555;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+#inquiry .dropper:hover > span {
+  background: #555;
+}
+#inquiry .dropper:hover div {
+  display: block;
+}
+#inquiry .dropper input {
+  width: 100%;
+  text-align: left;
+}
+#inquiry .dropper > span.icon {
+  line-height: 40px;
+}
+#inquiry .dropper.warn input {
+  padding: 6px 20px;
+  text-transform: initial;
+}
+
+#inquiry .dropper.counter > span {
+  font-family: Roboto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+#inquiry .dropper.counter.empty > span {
+  opacity: 0.5;
+}
+#inquiry .dropper.counter:not(.empty) > span {
+  background: #555;
+}
+#inquiry .dropper.counter > span count {
+  font-size: 1.2em;
+  display: block;
+  height: 1.1em;
+}
+#inquiry .dropper.counter > div {
+  padding: 4px 20px 20px 20px;
+}
+#inquiry .dropper.counter > div,
+#inquiry .dropper.warn > div {
+  box-sizing: border-box;
+  width: 360px;
+  right: -155px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+#inquiry .history li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 0;
+}
+
+#inquiry .switcher {
+  margin-left: -10px;
+}
+#inquiry .switcher label {
+  transform: scale(0.6);
+}
+#inquiry .switcher label::before {
+  background-color: #999;
+}
+#inquiry .switcher .cmn-toggle:checked + label::before {
+  background-color: rgba(117, 153, 0, 1)!important;
+}
