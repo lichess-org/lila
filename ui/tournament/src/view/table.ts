@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer, miniBoard, bind } from './util';
-import { Duel, DuelPlayer, MaybeVNodes } from '../interfaces';
+import { Duel, DuelPlayer } from '../interfaces';
 import TournamentController from '../ctrl';
 
 function featuredPlayer(player) {
@@ -50,13 +50,13 @@ function renderDuel(d: Duel): VNode {
   ]);
 }
 
-export default function(ctrl: TournamentController): MaybeVNodes {
-  return [
+export default function(ctrl: TournamentController): VNode {
+  return h('div.tour__table', [
     ctrl.data.featured ? featured(ctrl.data.featured) : null,
     ctrl.data.duels.length ? h('section.tour__duels', {
       hook: bind('click', _ => !ctrl.disableClicks)
     }, [
       h('h2', 'Top games')
     ].concat(ctrl.data.duels.map(renderDuel))) : null
-  ];
+  ]);
 };

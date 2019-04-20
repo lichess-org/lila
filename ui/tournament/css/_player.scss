@@ -2,6 +2,7 @@
   @extend %box-neat-force;
   background: $c-bg-box;
   position: relative;
+  align-self: flex-start;
 
   .close {
     position: absolute;
