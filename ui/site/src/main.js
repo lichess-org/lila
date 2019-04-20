@@ -146,7 +146,8 @@
     if (!window.Draughtsground) return setTimeout(function() {
       lidraughts.parseFen($elem);
     }, 500); // if not loaded yet
-    if (!$elem) $elem = $('.parse-fen');
+    // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
+    if (!$elem || !$elem.each) $elem = $('.parse-fen');
     $elem.each(function() {
       var $this = $(this).removeClass('parse-fen');
       var lm = $this.data('lastmove');
