@@ -19,11 +19,6 @@ private final class DnsApi(
     mxCache get domain
   }
 
-  // only valid email domains that are not whitelisted should make it here
-  def a(domain: Domain): Fu[Boolean] = failsafe(domain, true) {
-    aCache get domain
-  }
-
   private val mxCache: AsyncLoadingCache[Domain, List[Domain]] = Scaffeine()
     .expireAfterWrite(2 days)
     .buildAsyncFuture(domain => {
@@ -40,15 +35,6 @@ private final class DnsApi(
       }
     }.mon(_.security.dnsApi.mx.time) addFailureEffect { _ =>
       lila.mon.security.dnsApi.mx.error()
-    })
-
-  private val aCache: AsyncLoadingCache[Domain, Boolean] = Scaffeine()
-    .expireAfterWrite(2 days)
-    .buildAsyncFuture(domain => {
-      lila.mon.security.dnsApi.a.count()
-      fetch(domain, "a") { _.nonEmpty }
-    }.mon(_.security.dnsApi.a.time) addFailureEffect { _ =>
-      lila.mon.security.dnsApi.a.error()
     })
 
   private def fetch[A](domain: Domain, tpe: String)(f: List[JsObject] => A): Fu[A] =
