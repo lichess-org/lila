@@ -4,17 +4,26 @@
     @extend %flex-center;
   }
   h1 {
-    font-size: 2.4em;
-    a::before {
-      font-size: .9em;
-      line-height: 1.3;
-    }
-    span {
-      color: $c-font-dim;
+    font-size: 2.6em;
+    a{
+      @extend %flex-center;
+      &::before {
+        font-size: .9em;
+        line-height: 1.3;
+      }
+      > span {
+        @extend %flex-column;
+        span {
+          color: $c-font-dim;
+        }
+      }
     }
   }
   .trophy {
     margin-top: -4em;
+    &.top1 {
+      filter: drop-shadow(0 0 6px $c-brag);
+    }
     img {
       height: 8em;
     }
