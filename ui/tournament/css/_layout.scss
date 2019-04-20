@@ -9,9 +9,8 @@
   display: grid;
 
   &__side { grid-area: side }
-  &__featured, &__stats { grid-area: featured }
+  &__featured, &__stats, &__player { grid-area: featured }
   &__main { grid-area: main }
-  &__player { grid-area: player }
   &__duels { grid-area: duels }
   &__faq { grid-area: faq }
   .chat__members { grid-area: uchat; }
@@ -28,7 +27,7 @@
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
-    grid-template-rows: auto max-content;
+    grid-template-rows: auto fit-content(0);
     grid-template-areas:
     'main  side'
     'featured uchat'
@@ -45,7 +44,7 @@
     'uchat faq  duels'
     '.     faq  duels';
     &__side {
-      max-height: calc(100vh - #{$site-header-outer-height} - #{$site-header-margin} - #{$block-gap});
+      height: calc(100vh - #{$site-header-outer-height} - #{$site-header-margin} - #{$block-gap});
     }
   }
 }
