@@ -18,7 +18,7 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
   if (p.user) return h('a.user-link.ulpt', {
     attrs: { href: '/@/' + p.user.username }
   }, [
-    h('span', p.user.username),
+    p.user.username, ' ',
     renderRatingDiff(p.ratingDiff)
   ]);
   return h('span',
