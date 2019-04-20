@@ -25,7 +25,7 @@ export function tourStandingCtrl(data: TourPlayer[], name: string): TourStanding
     view(): VNode {
       return h('table.slist', {
         hook: onInsert(_ => {
-          window.lichess.loadCssPath('round.tour-standing');
+          window.lidraughts.loadCssPath('round.tour-standing');
         })
       }, [
         h('tbody', data.map((p: TourPlayer, i: number) => {
