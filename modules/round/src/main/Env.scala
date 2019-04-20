@@ -32,7 +32,8 @@ final class Env(
     divider: lidraughts.game.Divider,
     prefApi: lidraughts.pref.PrefApi,
     historyApi: lidraughts.history.HistoryApi,
-    evalCache: lidraughts.evalCache.EvalCacheApi,evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
+    evalCache: lidraughts.evalCache.EvalCacheApi,
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     isBotSync: lidraughts.common.LightUser.IsBotSync,
     ratingFactors: () => lidraughts.rating.RatingFactors
 ) {

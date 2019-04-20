@@ -556,7 +556,7 @@
   <string name="pieceDestinations">Podświetlaj możliwe pola docelowe (ruchy zwykłe i planowane)</string>
   <string name="boardCoordinates">Współrzędne pól (1-50)</string>
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
-  <string name="tenthsOfSeconds">Pokaż dziesiętne części sekundy</string>
+  <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
   <string name="never">Nigdy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Pokaż poziomy zielony pasek odpowiadający czasowi gry</string>
