@@ -86,7 +86,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     simulColl.find(createdSelect).sort(createdSort).list[Simul]()
 
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
-    createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(20))
+    createdSelect ++ $doc("spotlight" $exists false) ++ $doc("createdAt" $gte DateTime.now.minusMinutes(20))
   ).sort(createdSort).list[Simul]()
 
   def allUniqueFeaturable: Fu[List[Simul]] = simulColl.find(
