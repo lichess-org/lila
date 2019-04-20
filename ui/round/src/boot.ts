@@ -2,6 +2,7 @@ import { RoundOpts, RoundData } from './interfaces';
 import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
 import { tourStandingCtrl, TourStandingCtrl, TourPlayer } from './tourStanding';
+import { updateSimulStanding, SimulStanding } from './simulStanding';
 
 const li = window.lidraughts;
 
@@ -48,6 +49,11 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
                     if (opts.chat && opts.chat.plugin && chat) {
                         (opts.chat.plugin as TourStandingCtrl).set(s);
                         chat.redraw();
+                    }
+                },
+                simulStanding(s: SimulStanding) {
+                    if (s && data.simul) {
+                        updateSimulStanding(data.simul.id, s, round.trans);
                     }
                 }
             }

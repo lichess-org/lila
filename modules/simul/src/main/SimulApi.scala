@@ -30,6 +30,8 @@ final class SimulApi(
     asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
+  private val bus = system.lidraughtsBus
+
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 
   def byIds = repo.byIds _
@@ -120,7 +122,7 @@ final class SimulApi(
                 }
               }
             } flatMap { s =>
-              system.lidraughtsBus.publish(Simul.OnStart(s), 'startSimul)
+              bus.publish(Simul.OnStart(s), 'startSimul)
               update(s) >>- currentHostIdsCache.refresh
             }
           }
@@ -133,7 +135,7 @@ final class SimulApi(
     user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
       sendTo(simul.id, actorApi.HostIsOn(game.id))
-      system.lidraughtsBus.publish(
+      bus.publish(
         SimulNextGame(simul.hostId, game),
         Symbol(s"simulNextGame:${simul.hostId}")
       )
@@ -160,6 +162,8 @@ final class SimulApi(
               _.finish(game.status, game.winnerUserId, game.turns)
             )
             update(simul2) >>- {
+              socketStanding(simul2)
+            } >>- {
               if (simul2.isFinished) onComplete(simul2)
             }
           }
@@ -263,5 +267,26 @@ final class SimulApi(
 
   private def socketReload(simulId: Simul.ID): Unit = {
     sendTo(simulId, actorApi.Reload)
+  }
+
+  def socketStanding(simul: Simul): Unit = {
+    def reqWins =
+      if (simul.targetReached)
+        10000.some
+      else if (simul.targetFailed)
+        (-10000).some
+      else
+        simul.requiredWins
+    bus.publish(
+      lidraughts.hub.actorApi.round.SimulStanding(Json.obj(
+        "w" -> simul.wins,
+        "d" -> simul.draws,
+        "l" -> simul.losses,
+        "g" -> simul.ongoing
+      ).add("pct" -> simul.targetPct.fold(none[String])(_ => simul.currentPctStr.some))
+        .add("rw" -> reqWins)
+        .add("rd" -> simul.requiredDraws)),
+      Symbol(s"simul-standing-${simul.id}")
+    )
   }
 }

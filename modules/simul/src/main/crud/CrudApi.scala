@@ -35,8 +35,12 @@ final class CrudApi(simulRepo: SimulRepo) {
     percentage = ~simul.targetPct.map(_.toString)
   )
 
-  def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) =
-    simulRepo update updateSimul(old, data, host, arbiter)
+  def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {
+    val upd = updateSimul(old, data, host, arbiter)
+    simulRepo.update(upd) >>- {
+      Env.current.api.socketStanding(upd)
+    }
+  }
 
   def createForm = CrudForm.apply
 

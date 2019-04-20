@@ -247,6 +247,7 @@ package round {
   sealed trait SocketEvent
   case class DraughtsnetPlay(uci: draughts.format.Uci, taken: String, currentFen: draughts.format.FEN)
   case class TourStanding(json: JsArray)
+  case class SimulStanding(json: JsObject)
 }
 
 package evaluation {

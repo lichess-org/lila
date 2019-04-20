@@ -15,7 +15,7 @@ import lidraughts.game.actorApi.{ SimulNextGame, StartGame, UserStartGame }
 import lidraughts.game.{ Game, GameRepo, Event }
 import lidraughts.hub.actorApi.Deploy
 import lidraughts.hub.actorApi.game.ChangeFeatured
-import lidraughts.hub.actorApi.round.{ IsOnGame, TourStanding }
+import lidraughts.hub.actorApi.round.{ IsOnGame, TourStanding, SimulStanding }
 import lidraughts.hub.actorApi.tv.{ Select => TvSelect }
 import lidraughts.hub.TimeBomb
 import lidraughts.socket._
@@ -40,6 +40,7 @@ private[round] final class Socket(
     pub = Chat.Id(s"$gameId/w")
   )
   private var tournamentId = none[String] // until set, to listen to standings
+  private var simulId = none[String]
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -92,6 +93,7 @@ private[round] final class Socket(
       tv
       chat
       tournament
+      simul
     }
 
     def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
@@ -102,6 +104,10 @@ private[round] final class Socket(
 
     def tournament = tournamentId foreach { id =>
       lidraughtsBus.subscribe(self, Symbol(s"tour-standing-$id"))
+    }
+
+    def simul = simulId foreach { id =>
+      lidraughtsBus.subscribe(self, Symbol(s"simul-standing-$id"))
     }
   }
 
@@ -119,6 +125,10 @@ private[round] final class Socket(
       game.tournamentId foreach { tourId =>
         tournamentId = tourId.some
         buscriptions.tournament
+      }
+      game.simulId foreach { simId =>
+        simulId = simId.some
+        buscriptions.simul
       }
     case SetGame(None) => self ! PoisonPill // should never happen but eh
 
@@ -225,6 +235,7 @@ private[round] final class Socket(
       }
 
     case TourStanding(json) => notifyOwners("tourStanding", json)
+    case SimulStanding(json) => notifyAll("simulStanding", json)
 
   }: Actor.Receive) orElse lidraughts.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)

@@ -188,9 +188,9 @@ case class Simul(
     val pct = currentPct
     val pctDec = pct - Math.floor(pct)
     if (pctDec < 0.05 || pctDec > 0.95)
-      "%.0f".format(pct)
+      "%.0f".format(pct) + '%'
     else
-      "%.1f".format(pct)
+      "%.1f".format(pct) + '%'
   }
 
   private def requiredPoints(target: Double) = pairings.length * (target / 100d) - (wins + draws * 0.5)

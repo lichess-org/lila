@@ -61,4 +61,9 @@ trans.variantEnding
 trans.backToTournament,
 trans.viewTournament,
 trans.standing
+), Json.obj()) ++ g.isSimul.fold(i18nJsObject(
+trans.nbVictories,
+trans.nbDraws,
+trans.succeeded,
+trans.failed
 ), Json.obj()))
