@@ -97,7 +97,7 @@
   <string name="allSet">Gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
-  <string name="deleteThisImportedGame">Chcesz usunąć tę zaimportowaną partię?</string>
+  <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
   <string name="replayMode">Odtwarzanie</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
@@ -544,7 +544,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
-  <string name="puzzles">Zadania</string>
+  <string name="puzzles">Zadania szachowe</string>
   <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
@@ -607,7 +607,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
-  <string name="gameBehavior">Zachowanie</string>
+  <string name="gameBehavior">Interfejs</string>
   <string name="howDoYouMovePieces">W jaki sposób przesuwasz bierki?</string>
   <string name="clickTwoSquares">Wskazuję dwa pola</string>
   <string name="dragPiece">Przeciągam bierkę</string>
