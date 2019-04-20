@@ -21,6 +21,10 @@ trait LilaTypes extends ValidTypes {
     def value: Boolean
     override def toString = value.toString
   }
+  trait DoubleValue extends Any {
+    def value: Double
+    override def toString = value.toString
+  }
 
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]

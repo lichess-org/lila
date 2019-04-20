@@ -35,7 +35,8 @@ final class Env(
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     isBotSync: lila.common.LightUser.IsBotSync,
-    slackApi: lila.slack.SlackApi
+    slackApi: lila.slack.SlackApi,
+    ratingFactors: () => lila.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -154,7 +155,7 @@ final class Env(
 
   private lazy val botFarming = new BotFarming(crosstableApi, isBotSync)
 
-  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi, botFarming)
+  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi, botFarming, ratingFactors)
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
@@ -276,6 +277,7 @@ object Env {
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
-    slackApi = lila.slack.Env.current.api
+    slackApi = lila.slack.Env.current.api,
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
   )
 }

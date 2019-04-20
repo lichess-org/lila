@@ -18,7 +18,8 @@ object Dev extends LilaController {
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.api.cspEnabledSetting,
-    Env.streamer.alwaysFeaturedSetting
+    Env.streamer.alwaysFeaturedSetting,
+    Env.rating.ratingFactorsSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
