@@ -169,6 +169,9 @@
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">順位は %s 分ごとに更新</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s タクティクス</item>
   </plurals>
