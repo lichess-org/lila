@@ -42,7 +42,7 @@ $(function() {
       });
       $el.find('ul').html(points);
       var fail = !!points.length;
-      $overview.toggleClass('with_todo', fail);
+      $overview.toggleClass('with-todo', fail);
       if (fail) $checkbox.prop('checked', false);
       $checkbox.attr('disabled', fail);
     };
