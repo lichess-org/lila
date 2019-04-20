@@ -602,7 +602,7 @@
   <string name="chessPieceSymbol">Symbole bierek</string>
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="chessClock">Zegar szachowy</string>
-  <string name="tenthsOfSeconds">Dziesiętne sekundy</string>
+  <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
   <string name="never">Nigdy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
