@@ -762,7 +762,7 @@
     <item quantity="other">支持%s种语言！</item>
   </plurals>
   <string name="gameAnalysis">棋局分析</string>
-  <string name="xHostsY">%1$摆擂%2$s</string>
+  <string name="xHostsY">%1$s摆擂%2$s</string>
   <string name="xJoinsY">%1$s参加%2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
   <string name="quickPairing">快速配对</string>
