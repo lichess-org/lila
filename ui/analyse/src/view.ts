@@ -344,6 +344,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       }
     },
     class: {
+      'comp-off': !ctrl.showComputer(),
       'gauge-on': gaugeOn,
       'has-players': !!playerBars
     }
@@ -373,10 +374,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
     (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     gamebookPlayView ? null : controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
-      class: { 'comp-off': !ctrl.showComputer() },
       hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
-    intro || acplView(ctrl),
+    intro ? null : acplView(ctrl),
     ctrl.embed ? null : (
       ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) :
       h('aside.analyse__side', {
