@@ -84,7 +84,7 @@ object header {
           title := trans.exportGames.txt(),
           dataIcon := "x"
         )
-        else ctx.noKid option a(
+        else (ctx.isAuth && ctx.noKid) option a(
           title := trans.reportXToModerators.txt(u.username),
           cls := "btn-rack__btn",
           href := s"${routes.Report.form}?username=${u.username}",
