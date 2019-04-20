@@ -242,7 +242,10 @@ lichess.hopscotch = function(f) {
   lichess.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lichess.slider = function() {
-  return lichess.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
+  return lichess.loadScript(
+    'javascripts/vendor/jquery-ui.slider' + ('ontouchstart' in window ? '.touch' : '') + '.min.js',
+    {noVersion:true}
+  );
 };
 lichess.makeChat = function(data, callback) {
   lichess.raf(function() {
