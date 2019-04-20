@@ -171,6 +171,9 @@
   <string name="ratingStats">Статистика рејтинга</string>
   <string name="username">Корисничко име</string>
   <string name="usernameOrEmail">Корисничко име или е-пошта</string>
+  <string name="changeUsername">Промените корисничко име</string>
+  <string name="changeUsernameNotSame">Само се величина слова може променити. На пример \"johndoe\" у \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Промените ваше корисничко име. Можете променити ваше корисничко име само једном и то само величину слова.</string>
   <string name="password">Лозинка</string>
   <string name="haveAnAccount">Имате налог?</string>
   <string name="changePassword">Промените лозинку</string>
@@ -180,6 +183,11 @@
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Ранг се ажурира сваки минут</item>
+    <item quantity="few">Ранг се ажурира сваке %s минуте</item>
+    <item quantity="other">Ранг се ажурира сваких %s минута</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s тактика</item>
     <item quantity="few">%s тактике</item>
