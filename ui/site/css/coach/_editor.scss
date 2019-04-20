@@ -40,8 +40,9 @@
   .overview .todo {
     display: none;
   }
-  .overview.with_todo .todo {
+  .overview.with-todo .todo {
     @extend %box-radius;
+    display: block;
     border-radius: 20px;
     padding: 1rem;
     background: mix($c-error, $c-bg-box, 15%);
