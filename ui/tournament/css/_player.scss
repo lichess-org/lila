@@ -4,6 +4,10 @@
   position: relative;
   align-self: flex-start;
 
+  .spinner {
+    margin: 5em auto;
+  }
+
   .close {
     position: absolute;
     top: 4px;
