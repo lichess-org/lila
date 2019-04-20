@@ -112,7 +112,7 @@ final class RankingApi(
       keyToString = _.toString
     )
 
-    // from 800 to 2500 by Stat.group
+    // from 800 to 2800 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregateList(
@@ -140,9 +140,31 @@ final class RankingApi(
             }(scala.collection.breakOut)
             (800 to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
-            }(scala.collection.breakOut)
-          }
+            }.toList
+          } addEffect monitorRatingDistribution(perfId) _
       }
+
+    /* monitors cumulated ratio of players in each rating group, for a perf
+     *
+     * rating.distribution.bullet.800 => 0.0012
+     * rating.distribution.bullet.825 => 0.0057
+     * rating.distribution.bullet.850 => 0.0102
+     * ...
+     * rating.distribution.bullet.1500 => 0.5 (hopefully)
+     * ...
+     * rating.distribution.bullet.2800 => 0.9997
+     */
+    private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
+      val total = nbUsersList.foldLeft(0)(_ + _)
+      (800 to 2800 by Stat.group).toList.zip(nbUsersList.toList).foldLeft(0) {
+        case (prev, (rating, nbUsers)) =>
+          val acc = prev + nbUsers
+          PerfType(perfId) foreach { pt =>
+            lila.mon.rating.distribution.byPerfAndRating(pt.key, rating)(acc.toDouble / total)
+          }
+          acc
+      }
+    }
   }
 }
 
