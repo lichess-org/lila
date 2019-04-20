@@ -394,7 +394,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="followsYou">Prati te</string>
   <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s pratitelja</item>
+    <item quantity="one">%s pratitelj</item>
     <item quantity="few">%s pratitelja</item>
     <item quantity="other">%s pratitelja</item>
   </plurals>
@@ -426,7 +426,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="advancedSettings">Napredne postavke</string>
   <string name="safeTournamentName">Odaberi vrlo siguran naziv za turnir.</string>
   <string name="inappropriateNameWarning">Sve imalo neprikladno može trajno zatvoriti tvoj profil.</string>
-  <string name="emptyTournamentName">Ako ostavite prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
+  <string name="emptyTournamentName">Ako ostaviš prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
   <string name="recommendNotTouching">Preporučamo da ne ovo ne dira.</string>
   <string name="fewerPlayers">Ako se postavi uvjet za sudjelovanje, turnir će imati manje igrača.</string>
   <string name="showAdvancedSettings">Prikaži napredne postavke</string>
