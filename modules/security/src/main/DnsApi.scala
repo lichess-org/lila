@@ -10,7 +10,7 @@ import lila.base.LilaException
 import lila.common.{ Chronometer, Domain }
 
 private final class DnsApi(
-    baseUrl: String,
+    resolverUrl: String,
     fetchTimeout: FiniteDuration
 )(implicit system: akka.actor.ActorSystem) {
 
@@ -38,7 +38,8 @@ private final class DnsApi(
     })
 
   private def fetch[A](domain: Domain, tpe: String)(f: List[JsObject] => A): Fu[A] =
-    WS.url(baseUrl.replace("{name}", domain.value).replace("{type}", tpe))
+    WS.url(resolverUrl)
+      .withQueryString("name" -> domain.value, "type" -> tpe)
       .withHeaders("Accept" -> "application/dns-json")
       .get withTimeout fetchTimeout map {
         case res if res.status == 200 || res.status == 404 => (res.json \ "Answer").asOpt[List[JsObject]] match {
