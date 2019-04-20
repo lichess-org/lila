@@ -29,28 +29,31 @@
   .content {
     div {
       display: flex;
+      &:hover {
+        background: mix($c-secondary, $c-bg-popup, 10%);
+      }
     }
     a {
       flex: 1 1 100%;
       padding: 3px 0px;
       display: block;
       transition: background 0.13s;
+      &:hover {
+        color: $c-font;
+      }
       &.user-link {
         max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       &.tv {
+        @extend %data-icon-middle;
         flex: 0 0 auto;
         padding: 0 5px;
       }
       &.friend-study {
         flex: 0 0 auto;
         padding: 2px 5px 0 5px;
-      }
-      &:hover {
-        color: $c-font;
-        background: mix($c-secondary, $c-bg-popup, 10%);
       }
     }
     i.line {
