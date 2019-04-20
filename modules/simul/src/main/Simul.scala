@@ -211,7 +211,7 @@ case class Simul(
     val remaining = requiredPoints(target)
     if (remaining > 0) {
       val remainingDecimal = remaining - Math.floor(remaining)
-      (remainingDecimal > 0.5).fold(0, 1).some
+      (remainingDecimal > 0.5).fold(none, 1.some)
     } else none
   }
 
