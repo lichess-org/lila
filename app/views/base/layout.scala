@@ -201,7 +201,12 @@ object layout {
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag()),
           draughtsground option jsTag("vendor/draughtsground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
-          jsAt(s"compiled/lidraughts.site${isProd ?? ".min"}.js", async = asyncJs),
+          if (isProd)
+            jsAt(s"compiled/lidraughts.site.min.js", async = asyncJs)
+          else frag(
+            jsAt(s"compiled/lidraughts.deps.js", async = asyncJs),
+            jsAt(s"compiled/lidraughts.site.js", async = asyncJs)
+          ),
           moreJs,
           embedJs(s"""lidraughts.quantity=${lidraughts.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
