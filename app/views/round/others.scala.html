@@ -16,6 +16,7 @@
     </span>
   </span>
   }
+  @if(simul.fold(false)(_.pairings.length >= 10)) {
   @defining("simul-toggle-sequential") { id =>
   <br>
   <span class="move_seq switcher hint--bottom-left" data-hint="@trans.switchGamesInSameOrder()" style="visibility: collapse">
@@ -25,6 +26,7 @@
       <label for="@id"></label>
     </span>
   </span>
+  }
   }
   </span>
   }
