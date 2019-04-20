@@ -14,10 +14,6 @@ trait StringHelper { self: NumberHelper =>
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
-  def repositionTooltipUnsafe(link: Frag, position: String): Frag = raw {
-    link.render.replace("<a ", s"""<a data-pt-pos="$position" """)
-  }
-
   def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
   implicit def lilaRichString(str: String) = new {
