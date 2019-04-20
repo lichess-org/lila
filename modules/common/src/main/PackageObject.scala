@@ -46,6 +46,9 @@ trait PackageObject extends Lilaisms {
   def parseLongOption(str: String): Option[Long] =
     Try(java.lang.Long.parseLong(str)).toOption
 
+  def parseDoubleOption(str: String): Option[Double] =
+    Try(java.lang.Double.parseDouble(str)).toOption
+
   def intBox(in: Range.Inclusive)(v: Int): Int =
     math.max(in.start, math.min(v, in.end))
 
