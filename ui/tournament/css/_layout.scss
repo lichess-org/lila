@@ -49,8 +49,12 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     'side  main table'
     'uchat main table'
     '.     faq  table';
-    &__side {
-      // height: calc(100vh - #{$site-header-outer-height} - #{$site-header-margin} - #{$block-gap});
+
+    &__table {
+      flex-flow: column;
+      > * {
+        flex: inherit;
+      }
     }
   }
 }
