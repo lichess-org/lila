@@ -183,6 +183,11 @@
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rang se ažurira svake %s minute</item>
+    <item quantity="few">Rang se ažurira svake %s minute</item>
+    <item quantity="other">Rang se ažurira svakih %s minuta</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problem</item>
     <item quantity="few">%s problema</item>
@@ -311,7 +316,7 @@
     <item quantity="other">≥ %1$s %2$s partija</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Trebaš igrati još %1$s %2$s partija za bodove</item>
+    <item quantity="one">Trebaš igrati još jednu %2$s partiju za bodove</item>
     <item quantity="few">Trebaš igrati još %1$s %2$s partije za bodove</item>
     <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
   </plurals>
@@ -862,7 +867,7 @@ u %3$s</string>
   <string name="reviewBlackMistakes">Pregled grešaka crnog</string>
   <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
-    <item quantity="one">%s sekundi</item>
+    <item quantity="one">%s sekunda</item>
     <item quantity="few">%s sekunde</item>
     <item quantity="other">%s sekundi</item>
   </plurals>
