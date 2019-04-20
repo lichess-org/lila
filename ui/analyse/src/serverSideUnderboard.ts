@@ -23,7 +23,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   if (!li.AnalyseNVUI) {
     li.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       setTimeout(function() {
-        (v ? $menu.find('a.computer-analysis') : $menu.find('a:eq(1)')).trigger('mousedown');
+        (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown');
       }, 50);
     });
     li.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {

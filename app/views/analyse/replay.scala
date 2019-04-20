@@ -109,6 +109,7 @@ explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}"
             div(cls := "analyse__underboard__menu")(
               game.analysable option
                 span(
+                  cls := "computer-analysis",
                   dataPanel := "computer-analysis",
                   title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
                 )(trans.computerAnalysis()),

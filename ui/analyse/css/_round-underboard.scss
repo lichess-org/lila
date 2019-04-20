@@ -1,6 +1,10 @@
 $col1-panel-height: 30vh;
 $col2-panel-height: 240px;
 
+.comp-off .computer-analysis {
+  display: none !important;
+}
+
 .analyse__underboard {
   &__menu {
     @extend %flex-center-nowrap;
@@ -54,9 +58,6 @@ $col2-panel-height: 240px;
     .crosstable table {
       margin-top: 60px;
     }
-  }
-  &.comp-off .computer-analysis {
-    display: none;
   }
   .computer-analysis,
   .ctable {
