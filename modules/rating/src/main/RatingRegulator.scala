@@ -12,7 +12,7 @@ case object RatingRegulator {
       (after.nb == before.nb + 1) && // after playing one game
         (after.glicko.rating > before.glicko.rating) // and gaining rating
     }) {
-      val diff = (after.glicko.rating - before.glicko.rating).abs
+      val diff = after.glicko.rating - before.glicko.rating
       val extra = diff * factor.value
       lila.mon.rating.regulator.micropoints(perfType.key)((extra * 1000 * 1000).toLong)
       after.copy(
