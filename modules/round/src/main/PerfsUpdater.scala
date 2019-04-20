@@ -173,7 +173,7 @@ final class PerfsUpdater(
         crazyhouse = r(PT.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
         bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
         blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
-        rapid = r(PT.Rapid, perfs.blitz, perfs1.blitz),
+        rapid = r(PT.Rapid, perfs.rapid, perfs1.rapid),
         classical = r(PT.Classical, perfs.classical, perfs1.classical),
         correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
       )
