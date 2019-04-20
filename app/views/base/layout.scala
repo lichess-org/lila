@@ -124,7 +124,7 @@ object layout {
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
         responsiveCssTag("site"),
-        ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
+        ctx.pageData.inquiry.isDefined option responsiveCssTagNoTheme("mod.inquiry"),
         ctx.userContext.impersonatedBy.isDefined option responsiveCssTagNoTheme("mod.impersonate"),
         moreCss,
         pieceSprite,
