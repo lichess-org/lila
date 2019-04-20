@@ -167,6 +167,12 @@ object mon {
       }
     }
   }
+  object rating {
+    object distribution {
+      def byPerfAndRating(perfKey: String, rating: Int): Rate = rate(s"rating.distribution.$perfKey.$rating")
+    }
+  }
+
   object round {
     object api {
       val player = rec("round.api.player")
