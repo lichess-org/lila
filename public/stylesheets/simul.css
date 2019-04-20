@@ -185,6 +185,23 @@
   vertical-align: top;
   margin-top: 4px;
 }
+#simul .arbiter-panel {
+  padding: 20px 25px;
+}
+#simul .arbiter-panel a.button {
+ padding: 3px 5px;
+}
+#simul .arbiter-panel div.time {
+  font-family: 'Roboto Mono', 'Roboto';
+}
+#simul .arbiter-panel table.slist td:last-child,
+#simul .arbiter-panel table.slist th:last-child {
+  border-right: 1px solid #d4d4d4;
+}
+#simul .arbiter-panel table.slist td:first-child,
+#simul .arbiter-panel table.slist th:first-child {
+  border-left: 1px solid #d4d4d4;
+}
 .variant_icons {
   white-space: nowrap;
 }
@@ -221,7 +238,7 @@ div.side_box .game_infos {
 #simul table.slist td:first-child {
   padding-left: 1em;
 }
-#simul table.slist th span.option {
+#simul .option {
   float: right;
   cursor: pointer;
 }

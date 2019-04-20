@@ -5,6 +5,7 @@ import play.api.mvc._
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
+import lidraughts.game.{ GameRepo, Pov }
 import lidraughts.simul.{ Simul => Sim }
 import lidraughts.simul.DataForm.{ empty => emptyForm }
 import lidraughts.chat.Chat
@@ -94,6 +95,25 @@ object Simul extends LidraughtsController {
     }
   }
 
+  def arbiter(simulId: String) = Open { implicit ctx =>
+    AsArbiterOnly(simulId) { simul =>
+      GameRepo.gamesFromPrimary(simul.pairings.map(_.gameId)).map { games =>
+        val playerData = simul.pairings.map(pairing => {
+          val game = games.find(_.id == pairing.gameId)
+          val blurs = game.map(_.playerBlurPercent(!pairing.hostColor))
+          val clock = game.flatMap(_.clock).map(_.remainingTime(!pairing.hostColor).roundSeconds)
+          val hostClock = game.flatMap(_.clock).map(_.remainingTime(pairing.hostColor).roundSeconds)
+          Json.obj(
+            "id" -> pairing.player.user
+          ).add("blurs" -> blurs)
+            .add("clock" -> clock)
+            .add("hostClock" -> hostClock)
+        })
+        Ok(JsArray(playerData)) as JSON
+      }
+    }
+  }
+
   def form = Auth { implicit ctx => me =>
     NoEngine {
       Ok(html.simul.form(env.forms.create, env.forms)).fuccess
@@ -146,6 +166,13 @@ object Simul extends LidraughtsController {
     env.repo.find(simulId) flatMap {
       case None => notFound
       case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(simul.isArbiter) => fuccess(f(simul))
+      case _ => fuccess(Unauthorized)
+    }
+
+  private def AsArbiterOnly(simulId: Sim.ID)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    env.repo.find(simulId) flatMap {
+      case None => notFound
+      case Some(simul) if ctx.userId.exists(simul.isArbiter) => f(simul)
       case _ => fuccess(Unauthorized)
     }
 }

@@ -1,4 +1,6 @@
 var m = require('mithril');
+var simul = require('../simul');
+var xhrConfig = require('../xhr').xhrConfig;
 
 function playerHtml(p, rating, provisional) {
   var onlineStatus = p.online === undefined ? 'online' : (p.online ? 'online' : 'offline');
@@ -20,7 +22,7 @@ module.exports = {
         m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host)))), m('br'),
         ctrl.data.arbiter ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
       ]),
-      ctrl.data.description ? m('span.description', m.trust(ctrl.data.description)) : null
+      (ctrl.data.description && !ctrl.toggleArbiter) ? m('span.description', m.trust(ctrl.data.description)) : null
     ]);
   },
   player: function(p, r, pr) {
@@ -30,5 +32,22 @@ module.exports = {
     return ctrl.data.variants.find(function(v) {
       return v.key === p.variant;
     });
+  },
+  arbiterOption: function(ctrl) {
+    return simul.amArbiter(ctrl) ? m('div.top_right.option', {
+      'data-icon': '%',
+      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : 'Back to simul',
+      onclick: function(e) {
+        if (ctrl.toggleArbiter) ctrl.toggleArbiter = false;
+        else m.request({
+          method: 'GET',
+          url: '/simul/' + ctrl.data.id + '/arbiter',
+          config: xhrConfig
+        }).then(function(d) {
+          ctrl.arbiterData = d;
+          ctrl.toggleArbiter = true;
+        });
+      }
+    }) : null;
   }
 };

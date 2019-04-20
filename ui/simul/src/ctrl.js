@@ -4,8 +4,10 @@ var simul = require('./simul');
 module.exports = function(env) {
 
   this.data = env.data;
+  this.arbiterData = undefined;
 
   this.toggleCandidates = false;
+  this.toggleArbiter = false;
   this.userId = env.userId;
 
   this.socket = new socket(env.socketSend, this);

@@ -72,7 +72,7 @@ function targetDistance(pairings, target, trans) {
 }
 
 module.exports = function(ctrl) {
-  return [
+  return ctrl.toggleArbiter ? null : [
     m('div.results', [
       m('div', trans(ctrl, 'nbPlaying', filterPlaying)),
       m('div', trans(ctrl, 'nbWins', filterWins)),
