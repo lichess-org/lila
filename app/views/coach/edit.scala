@@ -13,7 +13,7 @@ import controllers.routes
 object edit {
 
   private val dataTab = attr("data-tab")
-  private val dataValue = attr("dataValue")
+  private val dataValue = attr("data-value")
 
   def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) = {
     views.html.account.layout(
