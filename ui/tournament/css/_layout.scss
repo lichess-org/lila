@@ -37,11 +37,11 @@
 
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
-    grid-template-rows: auto fit-content(0);
+    grid-template-rows: min-content fit-content(0);
     grid-template-areas:
     'side  main featured'
     'side  main duels'
-    'uchat faq  duels'
+    'uchat main duels'
     '.     faq  duels';
     &__side {
       height: calc(100vh - #{$site-header-outer-height} - #{$site-header-margin} - #{$block-gap});
