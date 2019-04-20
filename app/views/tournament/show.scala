@@ -50,8 +50,6 @@ chat:${
       }")(
         st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)),
         div(cls := "tour__main box"),
-        div(cls := "tour__featured"),
-        div(cls := "tour__player box"),
         tour.isCreated option div(cls := "tour__faq box box-pad")(
           faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
         )

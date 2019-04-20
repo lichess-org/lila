@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';
@@ -9,13 +10,11 @@ import { MaybeVNodes } from '../interfaces';
 export default function(ctrl: TournamentController) {
   let handler: {
     main(ctrl: TournamentController): MaybeVNodes;
-    side(ctrl: TournamentController): MaybeVNodes;
+    table(ctrl: TournamentController): VNode | undefined;
   };
   if (ctrl.data.isFinished) handler = finished;
   else if (ctrl.data.isStarted) handler = started;
   else handler = created;
-
-  const side: MaybeVNodes = handler.side(ctrl);
 
   return h('main.' + ctrl.opts.classes, [
     h('aside.analyse__side', {
@@ -29,7 +28,7 @@ export default function(ctrl: TournamentController) {
         $(el).replaceWith($('.tour__underchat.none').removeClass('none'));
       })
     }),
-    ...(side.length ? side : []),
+    handler.table(ctrl),
     h('div.tour__main.box', {
       class: { 'tour__main-finished': ctrl.data.isFinished }
     }, handler.main(ctrl)),

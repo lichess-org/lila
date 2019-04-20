@@ -5,7 +5,6 @@ import { TournamentData, MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
 import { controls, standing, podium } from './arena';
 import header from './header';
-import tourSide from './side';
 import playerInfo from './playerInfo';
 import { numberRow } from './util';
 
@@ -18,7 +17,7 @@ function confetti(data: TournamentData): VNode | undefined {
   });
 }
 
-function stats(st, noarg) {
+function stats(st, noarg): VNode {
   return h('div.tour__stats', [
     h('h2', noarg('tournamentComplete')),
     h('table', [
@@ -46,9 +45,8 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   ];
 }
 
-export function side(ctrl: TournamentController): MaybeVNodes {
-  return ctrl.playerInfo.id ? [playerInfo(ctrl)] : [
-    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : null,
-    ...tourSide(ctrl)
-  ];
+export function table(ctrl: TournamentController): VNode {
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : (
+    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : h('div')
+  );
 }
