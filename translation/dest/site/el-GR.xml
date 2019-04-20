@@ -164,6 +164,7 @@
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
+  <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
   <string name="password">Κωδικός</string>
   <string name="haveAnAccount">Έχετε λογαριασμό;</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
