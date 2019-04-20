@@ -125,7 +125,7 @@ object layout {
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lidraughts.org"}"),
         responsiveCssTag("site"),
         ctx.pageData.inquiry.isDefined option cssTag("inquiry.css"),
-        ctx.userContext.impersonatedBy.isDefined option cssTag("impersonate.css"),
+        ctx.userContext.impersonatedBy.isDefined option responsiveCssTagNoTheme("mod.impersonate"),
         moreCss,
         pieceSprite,
         ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,
