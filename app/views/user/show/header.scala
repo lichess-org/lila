@@ -68,7 +68,7 @@ object header {
         (ctx.isAuth && ctx.noKid && !ctx.is(u)) option
           a(cls := "nm-item note-zone-toggle")(splitNumberUnsafe(social.notes.size + " Notes"))
       ),
-      div(cls := "user_actions btn-rack")(
+      div(cls := "user-actions btn-rack")(
         (ctx is u) option frag(
           a(cls := "btn-rack__btn", href := routes.Account.profile, title := trans.editProfile.txt(), dataIcon := "%"),
           a(cls := "btn-rack__btn", href := routes.Relation.blocks(), title := trans.listBlockedPlayers.txt(), dataIcon := "k")

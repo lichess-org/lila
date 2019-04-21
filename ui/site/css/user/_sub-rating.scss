@@ -1,4 +1,7 @@
 .sub-ratings {
+  @include breakpoint($mq-not-medium) {
+    display: none;
+  }
   > a {
     @extend %box-radius-left, %flex-center-nowrap;
     color: $c-font;
