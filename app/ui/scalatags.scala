@@ -47,6 +47,7 @@ trait ScalatagsSnippets extends Cap {
   val badTag = tag("bad")
 
   lazy val dataBotAttr = attr("data-bot").empty
+  lazy val deferAttr = attr("defer").empty
 
   def dataBot(title: lila.user.Title): Modifier =
     if (title == lila.user.Title.BOT) dataBotAttr
