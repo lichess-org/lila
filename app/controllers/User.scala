@@ -304,7 +304,7 @@ object User extends LilaController {
         import play.api.libs.EventSource
         implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
         Ok.chunked {
-          (Enumerator(html.user.mod.menu(user)) interleave
+          (Enumerator(Html(html.user.mod2.menu(user).render)) interleave
             futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave
             futureToEnumerator(actions.logTimeIfGt(s"$username actions", 2 seconds)) interleave
             futureToEnumerator(others.logTimeIfGt(s"$username others", 2 seconds)) interleave
