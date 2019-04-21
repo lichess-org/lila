@@ -128,7 +128,7 @@ object mod2 { // TODO: rename to mod
     mod.prefs(u, pref),
     plan(u, charges),
     modLog(u, history),
-    mod.reportLog(u, reports)
+    reportLog(u, reports)
   )
 
   def roles(u: User)(implicit ctx: Context) = canViewRoles(u) option div(cls := "mz_roles")(
@@ -171,6 +171,41 @@ object mod2 { // TODO: rename to mod
         }
       ),
       br
+    )
+  )
+
+  def reportLog(u: User, reports: lila.report.Report.ByAndAbout)(implicit ctx: Context) = frag(
+    div(id := "mz_reports_out", cls := "mz_reports")(
+      strong(cls := "text", dataIcon := "!")(
+        s"Reports sent by ${u.username}",
+        reports.by.isEmpty option ": nothing to show."
+      ),
+      reports.by.map { r =>
+        r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
+          st.form(action := routes.Report.inquiry(r.id), method := "POST")(
+            button(tpe := "submit")(reportScore(r.score), " ", strong(r.reason.name)), " ",
+            userIdLink(r.user.some), " ", momentFromNowOnce(atom.at), ": ", shorten(atom.text, 200)
+          )
+        }
+      }
+    ),
+    div(id := "mz_reports_in", cls := "mz_reports")(
+      strong(cls := "text", dataIcon := "!")(
+        s"Reports concerning ${u.username}",
+        reports.about.isEmpty option ": nothing to show."
+      ),
+      reports.about.map { r =>
+        st.form(action := routes.Report.inquiry(r.id), method := "POST")(
+          button(tpe := "submit")(reportScore(r.score), " ", strong(r.reason.name)),
+          div(cls := "atoms")(
+            r.bestAtoms(3).map { atom =>
+              div(cls := "atom")(
+                "By ", userIdLink(atom.by.value.some), " ", momentFromNowOnce(atom.at), ": ", shorten(atom.text, 200)
+              )
+            }(r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
+          )
+        )
+      }
     )
   )
 
