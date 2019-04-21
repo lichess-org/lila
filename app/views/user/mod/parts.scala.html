@@ -1,6 +1,6 @@
 @(u: User, history: List[lidraughts.mod.Modlog], charges: List[lidraughts.plan.Charge], reports: lidraughts.report.Report.ByAndAbout, pref: lidraughts.pref.Pref)(implicit ctx: Context)
 
-@roles(u)
+@views.html.user.mod2.roles(u).??(_.toHtml)
 @prefs(u, pref)
 @user.mod.plan(u, charges)
 @modLog(u, history)
