@@ -39,9 +39,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def cssTagNoTheme(name: String)(implicit ctx: Context): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
-  def cssVendorTag(name: String): Frag = cssAt("vendor/" + name)
-
-  def cssAt(path: String): Frag = raw {
+  private def cssAt(path: String): Frag = raw {
     s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
   }
 
