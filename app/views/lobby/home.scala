@@ -122,7 +122,7 @@ object home {
             span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag()),
             a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »")
           ),
-          div(cls := "lobby__box__content scroll-shadow-hard")(
+          div(cls := "lobby__box__content")(
             views.html.forum.post recent forumRecent
           )
         ),
