@@ -298,7 +298,7 @@ object User extends LilaController {
         }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
           _ ?? { as =>
-            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
+            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject Html(html.user.mod2.assessments(as).render).some
           }
         }
         import play.api.libs.EventSource

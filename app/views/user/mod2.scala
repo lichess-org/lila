@@ -4,6 +4,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
+import lila.evaluation.Display
 
 import controllers.routes
 
@@ -219,6 +220,92 @@ object mod2 { // TODO: rename to mod
           )
         )
       }
+    )
+  )
+
+  def assessments(pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit ctx: Context) = div(id := "mz_assessments")(
+    pag.pag.sfAvgBlurs.map { blursYes =>
+      p(cls := "text", dataIcon := "j")(
+        "ACPL in games with blurs is ", strong(blursYes),
+        pag.pag.sfAvgNoBlurs ?? { blursNo =>
+          frag(" against ", strong(blursNo), " in games without blurs.")
+        }
+      )
+    },
+    pag.pag.sfAvgLowVar.map { lowVar =>
+      p(cls := "text", dataIcon := "j")(
+        "ACPL in games with consistent move times is ", strong(lowVar),
+        pag.pag.sfAvgHighVar ?? { highVar =>
+          frag(" against ", strong(highVar), " in games with random move times.")
+        }
+      )
+    },
+    pag.pag.sfAvgHold.map { holdYes =>
+      p(cls := "text", dataIcon := "j")(
+        "ACPL in games with bot signature ", strong(holdYes),
+        pag.pag.sfAvgNoHold.map { holdNo =>
+          frag(" against ", strong(holdNo), " in games without bot signature.")
+        }
+      )
+    },
+    table(cls := "slist")(
+      thead(
+        tr(
+          th("Opponent"),
+          th("Game"),
+          th("Centi-Pawn", br, "(Avg ± SD)"),
+          th("Move Times", br, "(Avg ± SD)"),
+          th(span(title := "The frequency of which the user leaves the game page.")("Blurs")),
+          th(span(title := "Bot detection using grid click analysis.")("Bot")),
+          th(span(title := "Aggregate match")(raw("&Sigma;")))
+        )
+      ),
+      tbody(
+        pag.pag.playerAssessments.sortBy(-_.assessment.id).take(15).map { result =>
+          tr(
+            td(
+              a(href := routes.Round.watcher(result.gameId, result.color.name))(
+                pag.pov(result) match {
+                  case None => result.gameId
+                  case Some(p) => playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+                }
+              )
+            ),
+            td(
+              pag.pov(result).map { p =>
+                a(href := routes.Round.watcher(p.gameId, p.color.name))(
+                  p.game.isTournament option iconTag("g"),
+                  p.game.perfType.map { pt => iconTag(pt.iconChar) },
+                  shortClockName(p.game.clock.map(_.config))
+                )
+              }
+            ),
+            td(
+              span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := "J"),
+              s" ${result.sfAvg} ± ${result.sfSd}"
+            ),
+            td(
+              span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := "J"),
+              s" ${result.mtAvg / 10} ± ${result.mtSd / 10}",
+              (~result.mtStreak) ?? frag(br, "STREAK")
+            ),
+            td(
+              span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := "J"),
+              s" ${result.blurs}%",
+              (~result.blurStreak >= 8) ?? frag(br, s"STREAK ${result.blurStreak}/12")
+            ),
+            td(
+              span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := "J"),
+              if (result.hold) "Yes" else "No"
+            ),
+            td(
+              div(cls := "aggregate")(
+                span(cls := s"sig sig_${result.assessment.id}")(result.assessment.emoticon)
+              )
+            )
+          )
+        }
+      )
     )
   )
 
