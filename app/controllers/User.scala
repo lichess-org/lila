@@ -275,21 +275,21 @@ object User extends LilaController {
             Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) flatMap {
               case history ~ charges ~ reports ~ pref =>
                 Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
-                  Html(html.user.mod2.parts(user, history, charges, reports, pref).render).some
+                  Html(html.user.mod.parts(user, history, charges, reports, pref).render).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
-          Html(html.user.mod2.actions(user, emails, erased).render).some
+          Html(html.user.mod.actions(user, emails, erased).render).some
         }
         val spyFu = Env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
           Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds) zip
             Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) map {
-              case notes ~ bans => Html(html.user.mod2.otherUsers(user, spy, notes, bans).render).some
+              case notes ~ bans => Html(html.user.mod.otherUsers(user, spy, notes, bans).render).some
             }
         }
         val identification = spyFu map { spy =>
-          html.user.mod.identification(user, spy).some
+          Html(html.user.mod.identification(user, spy).render).some
         }
         val irwin = Env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
@@ -298,13 +298,13 @@ object User extends LilaController {
         }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
           _ ?? { as =>
-            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject Html(html.user.mod2.assessments(as).render).some
+            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject Html(html.user.mod.assessments(as).render).some
           }
         }
         import play.api.libs.EventSource
         implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
         Ok.chunked {
-          (Enumerator(Html(html.user.mod2.menu(user).render)) interleave
+          (Enumerator(Html(html.user.mod.menu(user).render)) interleave
             futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave
             futureToEnumerator(actions.logTimeIfGt(s"$username actions", 2 seconds)) interleave
             futureToEnumerator(others.logTimeIfGt(s"$username others", 2 seconds)) interleave
@@ -320,7 +320,7 @@ object User extends LilaController {
     UserRepo withEmails username flatten s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         UserRepo.isErased(user) map { erased =>
-          Ok(html.user.mod2.actions(user, emails, erased))
+          Ok(html.user.mod.actions(user, emails, erased))
         }
     }
 

@@ -8,7 +8,7 @@ import lila.evaluation.Display
 
 import controllers.routes
 
-object mod2 { // TODO: rename to mod
+object mod {
 
   def menu(u: User)(implicit ctx: Context) = div(id := "mz_menu")(
     div(cls := "inner")(
@@ -344,6 +344,50 @@ object mod2 { // TODO: rename to mod
               td(attr("data-sort") := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowOnce))
             )
           }
+        }
+      )
+    )
+  )
+
+  def identification(u: User, spy: lila.security.UserSpy)(implicit ctx: Context) = div(id := "mz_identification")(
+    div(cls := "spy_ips")(
+      strong(spy.ips.size, " IP addresses"),
+      ul(
+        spy.ipsByLocations.map {
+          case (location, ips) => {
+            li(
+              p(location.toString),
+              ul(
+                ips.map { ip =>
+                  li(cls := "ip")(
+                    a(cls := List("address" -> true, "blocked" -> ip.blocked), href := s"${routes.Mod.search}?q=${ip.ip.value}")(
+                      tag("ip")(ip.ip.value.value), " ", momentFromNowOnce(ip.ip.date)
+                    )
+                  )
+                }
+              )
+            )
+          }
+        }
+      )
+    ),
+    div(cls := "spy_uas")(
+      strong(spy.uas.size, " User agent(s)"),
+      ul(
+        spy.uas.sorted.map { ua =>
+          li(ua.value, " ", momentFromNowOnce(ua.date))
+        }
+      )
+    ),
+    div(cls := "spy_fps")(
+      strong(pluralize("Fingerprint", spy.prints.size)),
+      ul(
+        spy.prints.sorted.map { fp =>
+          li(
+            a(href := s"${routes.Mod.search}?q=${java.net.URLEncoder.encode(fp.value.value, "US-ASCII")}")(
+              fp.value.value, " ", momentFromNowOnce(fp.date)
+            )
+          )
         }
       )
     )
