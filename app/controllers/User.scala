@@ -285,7 +285,7 @@ object User extends LilaController {
           val familyUserIds = user.id :: spy.otherUserIds.toList
           Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds) zip
             Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) map {
-              case notes ~ bans => html.user.mod.otherUsers(user, spy, notes, bans).some
+              case notes ~ bans => Html(html.user.mod2.otherUsers(user, spy, notes, bans).render).some
             }
         }
         val identification = spyFu map { spy =>

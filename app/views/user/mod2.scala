@@ -309,6 +309,46 @@ object mod2 { // TODO: rename to mod
     )
   )
 
+  def otherUsers(u: User, spy: lila.security.UserSpy, notes: List[lila.user.Note], bans: Map[String, Int])(implicit ctx: Context) = div(id := "mz_others")(
+    table(cls := "slist")(
+      thead(
+        tr(
+          th(spy.otherUsers.size, " similar user(s)"),
+          th("Same"),
+          th(attr("data-sort-method") := "number")("Games"),
+          th("Status"),
+          th(attr("data-sort-method") := "number")("Created"),
+          th(attr("data-sort-method") := "number")("Active")
+        )
+      ),
+      tbody(
+        spy.withMeSorted(u).map {
+          case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
+            tr((o == u) option (cls := "same"))(
+              td(attr("data-sort") := o.id)(userLink(o, withBestRating = true, params = "?mod")),
+              td(
+                if (o == u) "-"
+                else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
+              ),
+              td(attr("data-sort") := o.count.game)(o.count.game.localize),
+              td(cls := "i") {
+                val ns = notes.filter(_.to == o.id)
+                frag(
+                  ns.nonEmpty option {
+                    a(href := s"${routes.User.show(o.username)}?notes")(i(title := s"Notes from ${ns.map(_.from).map(usernameOrId).mkString(", ")}", dataIcon := "m", cls := "is-green"), ns.size)
+                  },
+                  userMarks(o, bans.get(o.id))
+                )
+              },
+              td(attr("data-sort") := o.createdAt.getMillis)(momentFromNowOnce(o.createdAt)),
+              td(attr("data-sort") := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowOnce))
+            )
+          }
+        }
+      )
+    )
+  )
+
   def userMarks(o: User, playbans: Option[Int])(implicit ctx: Context) = div(cls := "user_marks")(
     playbans.map { nb => iconTag("p", nb.toString)(title := "Playban") },
     o.troll option iconTag("c")(title := "Shadowban"),
