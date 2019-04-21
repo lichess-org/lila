@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { controls, standing } from './arena';
 import header from './header';
-import tourSide from './side';
+import tourTable from './table';
 import playerInfo from './playerInfo';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
@@ -35,6 +35,6 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   ];
 }
 
-export function side(ctrl: TournamentController): MaybeVNodes {
-  return ctrl.playerInfo.id ? [playerInfo(ctrl)] : tourSide(ctrl);
+export function table(ctrl: TournamentController): VNode {
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : tourTable(ctrl);
 }

@@ -4,7 +4,9 @@
   .mchat {
     flex: 1 1 7em;
     margin-top: $block-gap;
-    min-height: inherit;
+    @include breakpoint($mq-col2) {
+      min-height: inherit;
+    }
   }
 }
 .tour__meta {
@@ -57,5 +59,11 @@
         color: $c-bad;
       }
     }
+  }
+}
+.chat__members {
+  overflow: visible; /* fixes invisible spectators on firefox, col2 */
+  @include breakpoint($mq-col1) {
+    margin: 0 $block-gap;
   }
 }

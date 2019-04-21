@@ -71,6 +71,7 @@
     content: '✗';
   }
   .comment move {
+    cursor: pointer;
     margin-left: 5px;
     color: $c-link;
     transition: 0.3s;

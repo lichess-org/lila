@@ -13,7 +13,7 @@ import controllers.routes
 object edit {
 
   private val dataTab = attr("data-tab")
-  private val dataValue = attr("dataValue")
+  private val dataValue = attr("data-value")
 
   def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) = {
     views.html.account.layout(
@@ -100,10 +100,10 @@ object edit {
                       ),
                       richText(r.text)
                     ),
-                    div(cls := "actions")(
+                    div(cls := "actions btn-rack")(
                       r.moddedAt.fold(true)(_.isBefore(r.updatedAt)) option
-                        a(dataValue := "1", cls := "yes", dataIcon := "E"),
-                      a(dataValue := "0", cls := "no", dataIcon := "L")
+                        a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := "E"),
+                      a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "L")
                     )
                   )
                 }

@@ -4,15 +4,15 @@
   }
 }
 
+$chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 3rem);
+
 .tour {
 
   display: grid;
 
   &__side { grid-area: side }
-  &__featured, &__stats { grid-area: featured }
+  &__table, &__stats, &__player { grid-area: table }
   &__main { grid-area: main }
-  &__player { grid-area: player }
-  &__duels { grid-area: duels }
   &__faq { grid-area: faq }
   .chat__members { grid-area: uchat; }
 
@@ -20,32 +20,41 @@
   'main'
   'side'
   'uchat'
-  'featured'
-  'duels'
+  'table'
   'faq';
 
   grid-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
-    grid-template-rows: auto max-content;
+    grid-template-rows: $chat-optimal-size min-content;
     grid-template-areas:
     'main  side'
-    'featured uchat'
-    'featured duels'
-    'faq faq';
+    'main  uchat'
+    'table table'
+    'faq   faq';
+
+    &__table {
+      display: flex;
+      > * {
+        flex: 0 0 50%;
+      }
+    }
   }
 
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
-    grid-template-rows: auto fit-content(0);
+    grid-template-rows: $chat-optimal-size auto;
     grid-template-areas:
-    'side  main featured'
-    'side  main duels'
-    'uchat faq  duels'
-    '.     faq  duels';
-    &__side {
-      max-height: calc(100vh - #{$site-header-outer-height} - #{$site-header-margin} - #{$block-gap});
+    'side  main table'
+    'uchat main table'
+    '.     faq  table';
+
+    &__table {
+      flex-flow: column;
+      > * {
+        flex: inherit;
+      }
     }
   }
 }

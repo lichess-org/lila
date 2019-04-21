@@ -90,8 +90,7 @@
     bottom: 0;
     left: 0;
     background: $c-bg-high;
-    transform: scale(0, 1);
-    transform-origin: left;
+    transform: translateX(calc(-100% - 10px));
     @include transition(transform, 200ms);
     padding: 0 0 1.2rem 1.2rem;
     overflow-y: auto;
@@ -133,7 +132,7 @@
     }
 
     .topnav-toggle:checked ~ & {
-      transform: scale(1, 1);
+      transform: translateX(0);
       a {
         opacity: 1;
         transition: opacity 125ms ease-in-out 125ms;

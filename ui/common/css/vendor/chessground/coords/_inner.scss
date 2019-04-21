@@ -1,4 +1,7 @@
 coords {
+  /* bypass display: none on $mq-col1-uniboard
+   * mobile can only have inside coords */
+  display: flex !important;
   color: #fff;
   text-shadow: 0 1px 2px #000;
   font-size: 12px;

@@ -1,7 +1,12 @@
-.tournament__player {
+.tour__player {
   @extend %box-neat-force;
   background: $c-bg-box;
   position: relative;
+  align-self: flex-start;
+
+  .spinner {
+    margin: 5em auto;
+  }
 
   .close {
     position: absolute;

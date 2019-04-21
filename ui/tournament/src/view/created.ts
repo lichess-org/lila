@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
@@ -18,6 +19,6 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   ];
 }
 
-export function side(_): MaybeVNodes {
-  return [];
+export function table(_: TournamentController): VNode | undefined {
+  return;
 }

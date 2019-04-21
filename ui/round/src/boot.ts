@@ -33,7 +33,6 @@ export default function(opts: RoundOpts): void {
               $meta.length && $('.game__meta').replaceWith($meta);
               $('.crosstable').replaceWith($html.find('.crosstable'));
               li.pubsub.emit('content_loaded')();
-              startTournamentClock();
             }
           });
         },

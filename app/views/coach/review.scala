@@ -43,7 +43,7 @@ object review {
           required,
           minlength := 3,
           maxlength := 2000,
-          placeholder := "Describe your coaching experience with ", c.user.realNameOrUsername
+          placeholder := s"Describe your coaching experience with ${c.user.realNameOrUsername}"
         )(
             mine.map(_.text)
           ),

@@ -45,13 +45,13 @@ module.exports = function(ctrl) {
     m('div.left-side', [
       info(ctrl),
       m('div.panel-tabs', [
-        m('a[data-panel=preset]', {
+        m('a[data-panel="preset"]', {
           class: 'tab preset' + (ctrl.vm.panel === 'preset' ? ' active' : ''),
           onclick: function() {
             ctrl.setPanel('preset');
           }
         }, 'Presets'),
-        m('a[data-panel=filter]', {
+        m('a[data-panel="filter"]', {
           class: 'tab filter' + (ctrl.vm.panel === 'filter' ? ' active' : ''),
           onclick: function() {
             ctrl.setPanel('filter');

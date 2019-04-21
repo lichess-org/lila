@@ -277,6 +277,12 @@ export default function(ctrl: AnalyseCtrl): VNode {
           if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
         }
         forceInnerCoords(ctrl, needsInnerCoords);
+        if (!!playerBars != $('body').hasClass('header-margin')) {
+          li.raf(() => {
+            $('body').toggleClass('header-margin', !!playerBars);
+            ctrl.redraw();
+          });
+        }
       },
       update(_, _2) {
         forceInnerCoords(ctrl, needsInnerCoords);

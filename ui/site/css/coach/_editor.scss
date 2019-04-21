@@ -51,7 +51,7 @@
   }
   .overview .todo h3 {
     margin: 0;
-    color: #dc3545;
+    color: $c-bad;
     font-weight: bold;
   }
   .overview .todo li {
@@ -85,11 +85,11 @@
     top: 6px;
   }
   .tabs > div:hover {
-    color: #3893E8;
+    color: $c-primary;
   }
   .tabs > .active {
-    color: #3893E8;
-    border-bottom: 3px solid #3893E8;
+    color: $c-primary;
+    border-bottom: 3px solid $c-primary;
   }
   .panel {
     display: none;
@@ -102,66 +102,53 @@
     opacity: 0;
     transition: 0.5s;
     text-align: center;
-    color: #759900;
+    color: $c-good;
   }
   .status.saved {
     opacity: 1;
   }
-  .reviews .help {
-    margin: -30px 0 20px 0;
-    text-align: center;
-  }
-  .reviews .review {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 40px;
-    border-top: 1px solid #ccc;
-    margin-top: 40px;
-  }
-  .reviews .user > * {
-    display: block;
-  }
-  .reviews .modded {
-    background: #dc322f;
-    color: #fff;
-    padding: 8px 10px;
-    margin-bottom: 1em;
-  }
-  .reviews .content {
-    margin: 0 20px;
-    box-sizing: border-box;
-    word-break: break-word;
-  }
-  .reviews .actions {
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-  }
-  .reviews .actions a {
-    flex: 0 0 50px;
-    width: 50px;
-    height: 50px;
-    line-height: 44px;
-    font-size: 25px;
-    background: #f0f0f0;
-    border: 1px solid #d0d0d0;
-  }
-  .reviews .actions .yes {
-    color: #759900;
-    border-radius: 3px 0 0 3px;
-  }
-  .reviews .actions .no {
-    color: #dc322f;
-    border-radius: 0 3px 3px 0;
-    border-left: 0;
-  }
-  .reviews .actions  a:hover {
-    color: #fff;
-    background: #759900!important;
-  }
-  .reviews .actions  a.no:hover {
-    background: #dc322f!important;
+  .reviews {
+    .help {
+      text-align: center;
+    }
+    .review {
+      @extend %flex-center;
+      justify-content: space-between;
+      padding-top: 40px;
+      border-top: $border;
+      margin-top: 40px;
+      .br-readonly a {
+        font-size: 1.5em;
+      }
+    }
+    .modded {
+      background: $c-bad;
+      color: $c-bad-over;
+      padding: 8px 10px;
+      margin-bottom: 1em;
+    }
+    .content {
+      @extend %break-word;
+      margin: 0 20px;
+    }
+    .actions {
+      font-size: 1.4em;
+      a {
+        padding: .5em .7em;
+      }
+      .yes {
+        color: $c-good;
+      }
+      .no {
+        color: $c-bad;
+      }
+      a:hover {
+        color: $c-good-over;
+        background: $c-good;
+      }
+      a.no:hover {
+        background: $c-bad;
+      }
+    }
   }
 }

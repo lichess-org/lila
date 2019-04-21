@@ -31,7 +31,7 @@ object mini {
               hasRoomForNameText option c.shortName
             )
         },
-        ping.orElse(200.some) map bits.signalBars
+        ping map bits.signalBars
       ),
       if (u.engine && !ctx.me.has(u) && !isGranted(_.UserSpy))
         div(cls := "upt__info__warning", dataIcon := "j")(trans.thisPlayerUsesChessComputerAssistance())
