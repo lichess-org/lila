@@ -58,9 +58,7 @@ trait FormHelper { self: I18nHelper =>
      * because twirl just calls toString on scalatags frags
      * and that escapes the content :( */
 
-    def split(html: Html): Html = div(cls := "form-split")(html)
-
-    def split(frags: Frag*): Html = div(cls := "form-split")(frags)
+    val split = div(cls := "form-split")
 
     def group(
       field: Field,

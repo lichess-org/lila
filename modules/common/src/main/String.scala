@@ -66,6 +66,7 @@ final object String {
     }
     def unescapeHtml(html: String): String =
       org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4(html)
+
     def escapeString(s: String) = escapeHtmlRaw(s)
 
     def markdownLinks(text: String) = Html {

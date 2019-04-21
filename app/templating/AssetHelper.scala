@@ -3,7 +3,6 @@ package templating
 
 import controllers.routes
 import play.api.mvc.RequestHeader
-import play.twirl.api.Html
 
 import lidraughts.api.Context
 import lidraughts.app.ui.ScalatagsTemplate._
