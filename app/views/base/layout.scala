@@ -97,6 +97,7 @@ object layout {
   private val dataPlaying = attr("data-playing")
   private val dataPatrons = attr("data-patrons")
   private val dataStudying = attr("data-studying")
+  private val dataNonce = attr("data-nonce")
 
   def apply(
     title: String,
@@ -157,6 +158,7 @@ object layout {
         dataSocketDomain := socketDomain,
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
+        dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
         dataTheme := ctx.currentBg,
         style := zoomable option s"--zoom:${ctx.respZoom}"
       )(
