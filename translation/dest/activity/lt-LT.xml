@@ -68,5 +68,35 @@
     <item quantity="many">Organizavo %s simulų</item>
     <item quantity="other">Organizavo %s simulų</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Dalyvavo %s-me simule</item>
+    <item quantity="few">Dalyvavo %s-se simuluose</item>
+    <item quantity="many">Dalyvavo %s-yje simulų</item>
+    <item quantity="other">Dalyvavo %s-yje simulų</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Sukūrė %s naują studiją</item>
+    <item quantity="few">Sukūrė %s naujas studijas</item>
+    <item quantity="many">Sukūrė %s naujų studijų</item>
+    <item quantity="other">Sukūrė %s naujų studijų</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Varžėsi %s-ame turnyre</item>
+    <item quantity="few">Varžėsi %s-uose turnyruose</item>
+    <item quantity="many">Varžėsi %s-yje turnyrų</item>
+    <item quantity="other">Varžėsi %s-yje turnyrų</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partija, žaidžiant „%4$s“</item>
+    <item quantity="few">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijomis, žaidžiant „%4$s“</item>
+    <item quantity="many">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijų, žaidžiant „%4$s“</item>
+    <item quantity="other">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijų, žaidžiant „%4$s“</item>
+  </plurals>
   <string name="signedUp">Užsiregistravo „Lichess“</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Prisijungė prie %s komandos</item>
+    <item quantity="few">Prisijungė prie %s komandų</item>
+    <item quantity="many">Prisijungė prie %s komandų</item>
+    <item quantity="other">Prisijungė prie %s komandų</item>
+  </plurals>
 </resources>
