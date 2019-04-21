@@ -3,7 +3,7 @@
 @base.layout(
 title = "Thank you for your support!",
 moreCss = cssTag("plan"),
-moreJs = jsTag("plan.js")) {
+moreJs = jsTag("plan.js").toHtml) {
 
 <main class="box box-pad plan">
   <h1>@userLink(me).toHtml •

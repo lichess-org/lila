@@ -43,16 +43,16 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
   }
 
-  def jsTag(name: String, defer: Boolean = false) =
+  def jsTag(name: String, defer: Boolean = false): Frag =
     jsAt("javascripts/" + name, defer = defer)
 
   /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
    * we want defer only, to ensure scripts are executed in order of declaration,
    * so that round.js doesn't run before site.js */
-  def jsAt(path: String, defer: Boolean = false): Html = Html {
-    val src = assetUrl(path)
-    s"""<script${defer ?? " defer"} src="$src"></script>"""
-  }
+  def jsAt(path: String, defer: Boolean = false): Frag = script(
+    defer option deferAttr,
+    src := assetUrl(path)
+  )
 
   val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
