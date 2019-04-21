@@ -70,7 +70,7 @@ object list {
                       userLink(sus.user, params = "?mod"),
                       br,
                       p(cls := "perfs")(showBestPerfs(sus.user, 2)),
-                      views.html.user.mod2.userMarks(sus.user, none)
+                      views.html.user.mod.userMarks(sus.user, none)
                     ),
                     td(cls := "atoms")(
                       r.bestAtoms(3).map { atom =>
