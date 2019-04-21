@@ -125,7 +125,7 @@ object mod2 { // TODO: rename to mod
 
   def parts(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref)(implicit ctx: Context) = frag(
     roles(u),
-    mod.prefs(u, pref),
+    prefs(u, pref),
     plan(u, charges),
     modLog(u, history),
     reportLog(u, reports)
@@ -135,6 +135,18 @@ object mod2 { // TODO: rename to mod
     (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
       strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
       if (u.roles.isEmpty) "Add some" else u.roles.mkString(", ")
+    )
+  )
+
+  def prefs(u: User, pref: lila.pref.Pref)(implicit ctx: Context) = div(id := "mz_preferences")(
+    strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+    ul(
+      (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
+      pref.botCompatible option li(
+        strong(
+          a(cls := "text", dataIcon := "j", href := lila.common.String.base64.decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s"))("BOT-COMPATIBLE SETTINGS")
+        )
+      )
     )
   )
 
@@ -202,7 +214,8 @@ object mod2 { // TODO: rename to mod
               div(cls := "atom")(
                 "By ", userIdLink(atom.by.value.some), " ", momentFromNowOnce(atom.at), ": ", shorten(atom.text, 200)
               )
-            }(r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
+            },
+            (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
           )
         )
       }
