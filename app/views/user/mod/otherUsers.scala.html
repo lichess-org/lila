@@ -29,7 +29,7 @@
           <a href="@routes.User.show(o.username)?notes"><i title="Notes from @ns.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@ns.size</a>
           }
           }
-          @userMarks(o, bans.get(o.id))
+          @views.html.user.mod2.userMarks(o, bans.get(o.id)).toHtml
         </td>
         <td data-sort="@o.createdAt.getMillis">@momentFromNowOnce(o.createdAt).toHtml</td>
         <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNowOnce).map(_.toHtml)</td>

@@ -62,7 +62,7 @@ object mini {
         trans.nbGames.plural(u.count.game, u.count.game.localize),
         " ", momentFromNowOnce(u.createdAt)
       ),
-      (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
+      (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod2.userMarks(u, None))
     ),
     (!ctx.pref.isBlindfold) ?? playing map { pov =>
       frag(

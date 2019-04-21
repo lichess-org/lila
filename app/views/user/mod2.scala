@@ -106,4 +106,14 @@ object mod2 { // TODO: rename to mod
         }
       )
     )
+
+  def userMarks(o: User, playbans: Option[Int])(implicit ctx: Context) = div(cls := "user_marks")(
+    playbans.map { nb => iconTag("p", nb.toString)(title := "Playban") },
+    o.troll option iconTag("c")(title := "Shadowban"),
+    o.booster option iconTag("9")(title := "Boosting"),
+    o.engine option iconTag("n")(title := "Engine"),
+    o.ipBan option iconTag("2")(title := "IP ban", cls := "is-red"),
+    o.disabled option iconTag("k")(title := "Closed"),
+    o.reportban option iconTag("!")(title := "Reportban")
+  )
 }
