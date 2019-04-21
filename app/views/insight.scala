@@ -33,7 +33,7 @@ lidraughts.insight = LidraughtsInsight(document.getElementById('insight'), {
 ui: ${safeJsonValue(ui)},
 initialQuestion: ${safeJsonValue(question)},
 i18n: {},
-myUserId: $jsUserId,
+myUserId: $jsUserIdString,
 user: { id: "${u.id}", name: "${u.username}", nbGames: ${cache.count}, stale: ${stale}, shareId: ${prefId} },
 pageUrl: "${routes.Lobby.home}",
 postUrl: "${routes.Lobby.home}"
