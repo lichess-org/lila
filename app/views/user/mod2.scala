@@ -126,7 +126,7 @@ object mod2 { // TODO: rename to mod
   def parts(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref)(implicit ctx: Context) = frag(
     roles(u),
     mod.prefs(u, pref),
-    mod.plan(u, charges),
+    plan(u, charges),
     modLog(u, history),
     mod.reportLog(u, reports)
   )
@@ -138,8 +138,27 @@ object mod2 { // TODO: rename to mod
     )
   )
 
+  def plan(u: User, charges: List[lila.plan.Charge])(implicit ctx: Context) = charges.headOption.map { firstCharge =>
+    div(id := "mz_plan")(
+      strong(cls := "text", dataIcon := patronIconChar)(
+        "Patron payments",
+        isGranted(_.PayPal) option {
+          firstCharge.payPal.flatMap(_.subId).map { subId =>
+            frag(" - ", a(href := s"https://www.paypal.com/fr/cgi-bin/webscr?cmd=_profile-recurring-payments&encrypted_profile_id=$subId")("[PayPal sub]"))
+          }
+        }
+      ),
+      ul(
+        charges.map { c =>
+          li(c.cents.usd.toString, " with ", c.serviceName, " on ", absClientDateTime(c.date))
+        }
+      ),
+      br
+    )
+  }
+
   def modLog(u: User, history: List[lila.mod.Modlog])(implicit ctx: Context) = div(id := "mz_mod_log")(
-    strong(cls := "text", dataIcon := "!")("Moderation history:", history.isEmpty option " nothing to show"),
+    strong(cls := "text", dataIcon := "!")("Moderation history", history.isEmpty option ": nothing to show"),
     history.nonEmpty ?? frag(
       ul(
         history.map { e =>
