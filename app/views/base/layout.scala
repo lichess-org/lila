@@ -110,7 +110,7 @@ object layout {
     openGraph: Option[lila.app.ui.OpenGraph] = None,
     chessground: Boolean = true,
     zoomable: Boolean = false,
-    asyncJs: Boolean = false,
+    deferJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
     wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context) = frag(
@@ -210,14 +210,14 @@ object layout {
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           if (isProd)
-            jsAt(s"compiled/lichess.site.min.js", async = asyncJs)
+            jsAt(s"compiled/lichess.site.min.js", defer = deferJs)
           else frag(
-            jsAt(s"compiled/lichess.deps.js", async = asyncJs),
-            jsAt(s"compiled/lichess.site.js", async = asyncJs)
+            jsAt(s"compiled/lichess.deps.js", defer = deferJs),
+            jsAt(s"compiled/lichess.site.js", defer = deferJs)
           ),
           moreJs,
           embedJs(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
-          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
+          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
     )
   )

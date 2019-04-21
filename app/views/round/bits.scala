@@ -33,7 +33,7 @@ object bits {
       chessground = chessground,
       playing = playing,
       robots = robots,
-      asyncJs = true,
+      deferJs = true,
       zoomable = true
     )(body)
 

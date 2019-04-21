@@ -52,24 +52,24 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
   }
 
-  def jsTag(name: String, async: Boolean = false) =
-    jsAt("javascripts/" + name, async = async)
+  def jsTag(name: String, defer: Boolean = false) =
+    jsAt("javascripts/" + name, defer = defer)
 
   /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
    * we want defer only, to ensure scripts are executed in order of declaration,
    * so that round.js doesn't run before site.js */
-  def jsAt(path: String, async: Boolean = false): Html = Html {
+  def jsAt(path: String, defer: Boolean = false): Html = Html {
     val src = assetUrl(path)
-    s"""<script${async ?? " defer"} src="$src"></script>"""
+    s"""<script${defer ?? " defer"} src="$src"></script>"""
   }
 
   val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
+  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) = ctx.blind option
-    jsAt(s"compiled/lichess.round.nvui.min.js", async = true)
+    jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
 
   def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js")
   def analyseNvuiTag(implicit ctx: Context) = ctx.blind option
