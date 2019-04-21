@@ -25,7 +25,7 @@ object gamify {
     ) {
         main(cls := "page-menu")(
           views.html.mod.menu("gamify"),
-          div(cls := "mod-gamify", cls := "page-menu__content index box")(
+          div(id := "mod-gamify", cls := "page-menu__content index box")(
             h1(title),
             div(cls := "champs")(
               champion(leaderboards.daily.headOption, "reward1", Period.Day),
