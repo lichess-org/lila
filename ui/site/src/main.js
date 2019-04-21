@@ -92,19 +92,18 @@
         });
       },
       tournamentReminder: function(data) {
-        if ($('#tournament_reminder').length || $('body').data("tournament-id") == data.id) return;
+        if ($('#tour-reminder').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;
-        $('#notifications').append(
-          '<div id="tournament_reminder" class="notification glowed">' +
-          '<div class="inner">' +
-          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a> in progress!' +
+        $('body').append(
+          '<div id="tour-reminder">' +
+          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>in progress!' +
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
           '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
-          '</div></div></div>'
+          '</div></div>'
         ).find("a.withdraw").click(function() {
           $.post($(this).attr("href"));
-          $('#tournament_reminder').remove();
+          $('#tour-reminder').remove();
           return false;
         });
       }
@@ -223,7 +222,6 @@
           $(this).select();
         })
         .on('click', 'button.copy', function() {
-          console.log(this);
           $('#' + $(this).data('rel')).select();
           document.execCommand('copy');
           $(this).attr('data-icon', 'E');
