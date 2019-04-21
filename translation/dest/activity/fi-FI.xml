@@ -18,6 +18,14 @@
     <item quantity="one">Lähetti %1$s viestin alueelle %2$s</item>
     <item quantity="other">Lähetti %1$s viestiä alueelle %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Pelasi %1$s siirtoa</item>
+    <item quantity="other">Pelasi %1$s siirtoa</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s: ssa kirjeshakkipelissä</item>
+    <item quantity="other">%1$s: ssa kirjeshakkipeleissä</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Pelasi %s kirjeshakkipelin</item>
     <item quantity="other">Pelasi %s kirjeshakkipeliä</item>
