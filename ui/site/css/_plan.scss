@@ -200,7 +200,7 @@
     }
   }
 
-  .recent_patrons {
+  .recent-patrons {
     display: none;
     @include breakpoint($mq-medium) {
       display: block;
@@ -212,6 +212,9 @@
     }
     .list div {
       padding: .5em 0;
+    }
+    a {
+      color: $c-font-page;
     }
   }
 }
