@@ -33,7 +33,7 @@ object bits {
       draughtsground = draughtsground,
       playing = playing,
       robots = robots,
-      asyncJs = true,
+      deferJs = true,
       zoomable = true
     )(body)
 

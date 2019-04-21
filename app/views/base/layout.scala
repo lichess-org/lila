@@ -109,7 +109,7 @@ object layout {
     openGraph: Option[lidraughts.app.ui.OpenGraph] = None,
     draughtsground: Boolean = true,
     zoomable: Boolean = false,
-    asyncJs: Boolean = false,
+    deferJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
     wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context) = frag(
@@ -204,14 +204,14 @@ object layout {
           draughtsground option jsTag("vendor/draughtsground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           if (isProd)
-            jsAt(s"compiled/lidraughts.site.min.js", async = asyncJs)
+            jsAt(s"compiled/lidraughts.site.min.js", defer = deferJs)
           else frag(
-            jsAt(s"compiled/lidraughts.deps.js", async = asyncJs),
-            jsAt(s"compiled/lidraughts.site.js", async = asyncJs)
+            jsAt(s"compiled/lidraughts.deps.js", defer = deferJs),
+            jsAt(s"compiled/lidraughts.site.js", defer = deferJs)
           ),
           moreJs,
           embedJs(s"""lidraughts.quantity=${lidraughts.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
-          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
+          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
     )
   )

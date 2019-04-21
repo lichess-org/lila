@@ -34,7 +34,7 @@ object home {
     title = "",
     fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
     moreJs = frag(
-      jsAt(s"compiled/lidraughts.lobby${isProd ?? (".min")}.js", async = true),
+      jsAt(s"compiled/lidraughts.lobby${isProd ?? (".min")}.js", defer = true),
       embedJs {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val transJs = safeJsonValue(i18nJsObject(translations))
@@ -49,7 +49,7 @@ object home {
       url = netBaseUrl,
       description = trans.siteDescription.txt()
     ).some,
-    asyncJs = true
+    deferJs = true
   ) {
       main(cls := List(
         "lobby" -> true,
