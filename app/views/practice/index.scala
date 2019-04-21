@@ -12,7 +12,7 @@ object index {
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) = views.html.base.layout(
     title = "Practice chess positions",
-    moreCss = responsiveCssTag("practice.index"),
+    moreCss = cssTag("practice.index"),
     moreJs = embedJs(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),

@@ -22,7 +22,7 @@ object index {
         jsTag("search.js"),
         infiniteScrollTag
       ),
-      moreCss = responsiveCssTag("search"),
+      moreCss = cssTag("search"),
       openGraph = lila.app.ui.OpenGraph(
         title = s"Search in ${nbGames.localize} chess games",
         url = s"$netBaseUrl${routes.Search.index().url}",

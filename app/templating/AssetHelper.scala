@@ -30,13 +30,13 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def responsiveCssTag(name: String)(implicit ctx: Context): Frag =
-    responsiveCssTagWithTheme(name, ctx.currentBg)
+  def cssTag(name: String)(implicit ctx: Context): Frag =
+    cssTagWithTheme(name, ctx.currentBg)
 
-  def responsiveCssTagWithTheme(name: String, theme: String): Frag =
+  def cssTagWithTheme(name: String, theme: String): Frag =
     cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
 
-  def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Frag =
+  def cssTagNoTheme(name: String)(implicit ctx: Context): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
   def cssVendorTag(name: String): Frag = cssAt("vendor/" + name)

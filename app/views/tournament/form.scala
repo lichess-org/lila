@@ -15,7 +15,7 @@ object form {
 
   def apply(form: Form[_], config: DataForm, me: User, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context) = views.html.base.layout(
     title = trans.newTournament.txt(),
-    moreCss = responsiveCssTag("tournament.form"),
+    moreCss = cssTag("tournament.form"),
     moreJs = frag(
       flatpickrTag,
       jsTag("tournamentForm.js")

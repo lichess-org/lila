@@ -23,7 +23,7 @@ object editor {
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
 LichessEditor(document.getElementById('board-editor'), data);""")
     ),
-    moreCss = responsiveCssTag("editor"),
+    moreCss = cssTag("editor"),
     chessground = false,
     zoomable = true,
     openGraph = lila.app.ui.OpenGraph(

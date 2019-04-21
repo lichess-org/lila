@@ -35,7 +35,7 @@ object event {
 
   def show(e: lila.event.Event)(implicit ctx: Context) = views.html.base.layout(
     title = e.title,
-    moreCss = responsiveCssTag("event"),
+    moreCss = cssTag("event"),
     moreJs = jsTag("event-countdown.js")
   ) {
       main(cls := "page-small event box box-pad")(
@@ -119,7 +119,7 @@ object event {
   private def layout(title: String, css: String = "mod.misc")(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag(css),
+      moreCss = cssTag(css),
       moreJs = frag(
         flatpickrTag,
         delayFlatpickrStart

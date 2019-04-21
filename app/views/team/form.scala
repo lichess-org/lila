@@ -13,7 +13,7 @@ object form {
   def create(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.newTeam.txt(),
-      moreCss = responsiveCssTag("team"),
+      moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, captchaTag)
     ) {
         main(cls := "page-menu page-small")(

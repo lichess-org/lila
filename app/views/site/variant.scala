@@ -52,7 +52,7 @@ object variant {
     openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Modifier*)(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    moreCss = responsiveCssTag("variant"),
+    moreCss = cssTag("variant"),
     openGraph = openGraph
   )(
       main(cls := "page-menu")(

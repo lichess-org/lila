@@ -18,7 +18,7 @@ object edit {
   def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) = {
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",
-      evenMoreCss = responsiveCssTag("coach.editor"),
+      evenMoreCss = cssTag("coach.editor"),
       evenMoreJs = frag(
         jsAt("vendor/jquery.form.min.js"),
         jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),

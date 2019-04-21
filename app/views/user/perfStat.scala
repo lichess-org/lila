@@ -35,7 +35,7 @@ data: ${safeJsonValue(data)}
 });
 });""")
     ),
-    moreCss = responsiveCssTag("perf-stat")
+    moreCss = cssTag("perf-stat")
   ) {
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(u, rankMap.some, perfType.some)),

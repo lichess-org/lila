@@ -15,7 +15,7 @@ object shields {
   def apply(history: lila.tournament.TournamentShield.History)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Tournament shields",
-      moreCss = responsiveCssTag("tournament.leaderboard"),
+      moreCss = cssTag("tournament.leaderboard"),
       wrapClass = "full-screen-force"
     ) {
         main(cls := "page-menu")(

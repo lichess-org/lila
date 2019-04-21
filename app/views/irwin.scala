@@ -17,7 +17,7 @@ object irwin {
 
   def dashboard(dashboard: lila.irwin.IrwinDashboard)(implicit ctx: Context) = base.layout(
     title = "Irwin dashboard",
-    moreCss = responsiveCssTag("mod.misc")
+    moreCss = cssTag("mod.misc")
   ) {
       main(cls := "page-menu")(
         mod.menu("irwin"),

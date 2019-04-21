@@ -17,7 +17,7 @@ object form {
 
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
-      moreCss = responsiveCssTag("simul.form")
+      moreCss = cssTag("simul.form")
     ) {
         main(cls := "box box-pad page-small simul-form")(
           h1(trans.hostANewSimul.frag()),

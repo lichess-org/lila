@@ -30,7 +30,7 @@ object index {
 onload=function(){LichessRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),
-      moreCss = responsiveCssTag("tv.single"),
+      moreCss = cssTag("tv.single"),
       chessground = false,
       openGraph = lila.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",

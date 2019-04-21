@@ -22,7 +22,7 @@ object form {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.composeMessage.txt(),
-      moreCss = responsiveCssTag("message"),
+      moreCss = cssTag("message"),
       moreJs = jsTag("message.js")
     ) {
         main(cls := "message-new box box-pad")(

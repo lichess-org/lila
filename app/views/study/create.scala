@@ -20,7 +20,7 @@ object create {
       title = "Study",
       icon = Some("4"),
       back = true,
-      moreCss = responsiveCssTag("study.create").some
+      moreCss = cssTag("study.create").some
     ) {
         div(cls := "study-create")(
           form(action := routes.Study.create, method := "POST")(

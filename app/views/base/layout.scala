@@ -31,7 +31,7 @@ object layout {
         case "brown" | "blue" | "green" => ctx.currentTheme.cssClass
         case _ => "other"
       }
-      responsiveCssTagNoTheme(s"coords.inner.$color")
+      cssTagNoTheme(s"coords.inner.$color")
     }
   }
   import bits._
@@ -125,10 +125,10 @@ object layout {
           st.headTitle(fullTitle | s"$title • lichess.org")
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
-        responsiveCssTag("site"),
-        ctx.pref.is3d option responsiveCssTag("board-3d"),
-        ctx.pageData.inquiry.isDefined option responsiveCssTagNoTheme("mod.inquiry"),
-        ctx.userContext.impersonatedBy.isDefined option responsiveCssTagNoTheme("mod.impersonate"),
+        cssTag("site"),
+        ctx.pref.is3d option cssTag("board-3d"),
+        ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
+        ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
         moreCss,
         pieceSprite,
         ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,

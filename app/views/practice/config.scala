@@ -13,7 +13,7 @@ object config {
   def apply(structure: lila.practice.PracticeStructure, form: Form[_])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Practice structure",
-      moreCss = responsiveCssTag("mod.misc")
+      moreCss = cssTag("mod.misc")
     )(
         main(cls := "page-menu")(
           views.html.mod.menu("practice"),

@@ -26,8 +26,8 @@ object bits {
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        responsiveCssTag { if (variant == Crazyhouse) "round.zh" else "round" },
-        ctx.blind option responsiveCssTag("round.nvui"),
+        cssTag { if (variant == Crazyhouse) "round.zh" else "round" },
+        ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
       chessground = chessground,

@@ -15,7 +15,7 @@ object coordinate {
   def home(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
-      moreCss = responsiveCssTag("coordinate"),
+      moreCss = cssTag("coordinate"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
         jsAt("compiled/coordinate.js")

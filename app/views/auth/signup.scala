@@ -21,7 +21,7 @@ object signup {
         recaptcha.enabled option recaptchaScript,
         fingerprintTag
       ),
-      moreCss = responsiveCssTag("auth"),
+      moreCss = cssTag("auth"),
       csp = defaultCsp.withRecaptcha.some
     ) {
         main(cls := "auth auth-signup box box-pad")(

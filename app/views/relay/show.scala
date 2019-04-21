@@ -20,7 +20,7 @@ object show {
     streams: List[lila.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
     title = r.name,
-    moreCss = responsiveCssTag("analyse.study"),
+    moreCss = cssTag("analyse.study"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,

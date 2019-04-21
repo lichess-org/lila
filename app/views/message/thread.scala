@@ -19,7 +19,7 @@ object thread {
   )(implicit ctx: Context, me: lila.user.User) =
     views.html.base.layout(
       title = thread.name,
-      moreCss = responsiveCssTag("message"),
+      moreCss = cssTag("message"),
       moreJs = frag(
         jsTag("message.js"),
         jsAt("compiled/embed-analyse.js")

@@ -21,7 +21,7 @@ object gamify {
 
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("mod.gamify")
+      moreCss = cssTag("mod.gamify")
     ) {
         main(cls := "page-menu")(
           views.html.mod.menu("gamify"),
@@ -60,7 +60,7 @@ object gamify {
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("mod.gamify")
+      moreCss = cssTag("mod.gamify")
     ) {
         main(cls := "page-menu")(
           views.html.mod.menu("gamify"),

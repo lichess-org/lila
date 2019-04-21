@@ -15,7 +15,7 @@ object show {
     following: Boolean
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${s.titleName} streams chess",
-    moreCss = responsiveCssTag("streamer.show"),
+    moreCss = cssTag("streamer.show"),
     moreJs = embedJs("""
 $(function() {
 $('button.follow').click(function() {

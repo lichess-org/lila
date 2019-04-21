@@ -24,7 +24,7 @@ object embed {
         layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(replay titleOf pov),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("analyse.embed", config.bg)
+        cssTagWithTheme("analyse.embed", config.bg)
       ),
       body(cls := List(
         s"highlight ${config.bg} ${config.board}" -> true
@@ -66,7 +66,7 @@ i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = fals
         layout.viewport,
         layout.metaCsp(basicCsp),
         st.headTitle("404 - Game not found"),
-        responsiveCssTagWithTheme("analyse.round.embed", "dark")
+        cssTagWithTheme("analyse.round.embed", "dark")
       ),
       body(cls := "dark")(
         div(cls := "not-found")(

@@ -12,7 +12,7 @@ object bits {
   def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None, moreJs: Frag = emptyFrag)(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("blog"),
+      moreCss = cssTag("blog"),
       moreJs = frag(prismicJs, moreJs),
       openGraph = openGraph,
       csp = defaultCsp.withPrismic(isGranted(_.Prismic)).some

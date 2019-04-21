@@ -11,7 +11,7 @@ object features {
 
   def apply()(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    moreCss = responsiveCssTag("feature"),
+    moreCss = cssTag("feature"),
     openGraph = lila.app.ui.OpenGraph(
       title = title,
       url = s"$netBaseUrl${routes.Plan.features.url}",

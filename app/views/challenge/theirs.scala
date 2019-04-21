@@ -18,7 +18,7 @@ object theirs {
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
       moreJs = bits.js(c, json, false),
-      moreCss = responsiveCssTag("challenge.page")
+      moreCss = cssTag("challenge.page")
     ) {
         main(cls := "page-small challenge-page challenge-theirs box box-pad")(
           c.status match {

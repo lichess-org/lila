@@ -27,7 +27,7 @@ object index {
 
     views.html.base.layout(
       title = "Live tournament broadcasts",
-      moreCss = responsiveCssTag("relay.index"),
+      moreCss = cssTag("relay.index"),
       moreJs = infiniteScrollTag
     ) {
         main(cls := "relay-index page-small box")(

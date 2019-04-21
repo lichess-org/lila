@@ -23,7 +23,7 @@ object embed {
         layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(s"${s.name} ${chapter.name}"),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("analyse.embed", config.bg)
+        cssTagWithTheme("analyse.embed", config.bg)
       ),
       body(cls := List(
         s"highlight ${config.bg} ${config.board}" -> true
@@ -68,7 +68,7 @@ userId: null
         layout.viewport,
         layout.metaCsp(basicCsp),
         st.headTitle("404 - Study not found"),
-        responsiveCssTagWithTheme("analyse.round.embed", "dark")
+        cssTagWithTheme("analyse.round.embed", "dark")
       ),
       body(cls := "dark")(
         div(cls := "not-found")(

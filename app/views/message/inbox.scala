@@ -12,7 +12,7 @@ object inbox {
   def apply(me: lila.user.User, threads: Paginator[lila.message.Thread])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.inbox.txt(),
-      moreCss = responsiveCssTag("message"),
+      moreCss = cssTag("message"),
       moreJs = frag(infiniteScrollTag, jsTag("message.js"))
     ) {
         main(cls := "message-list box")(

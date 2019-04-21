@@ -40,7 +40,7 @@ object home {
         s"""lichess=window.lichess||{};customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
       }
     ),
-    moreCss = responsiveCssTag("lobby"),
+    moreCss = cssTag("lobby"),
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       image = staticUrl("images/large_tile.png").some,

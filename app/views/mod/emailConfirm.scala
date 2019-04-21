@@ -11,7 +11,7 @@ object emailConfirm {
   def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Email confirmation",
-      moreCss = responsiveCssTag("mod.misc"),
+      moreCss = cssTag("mod.misc"),
       moreJs = embedJs("""$('.mod-confirm form input').on('paste', function() {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
 }).each(function() {

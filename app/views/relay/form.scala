@@ -26,7 +26,7 @@ object form {
   private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("relay.form"),
+      moreCss = cssTag("relay.form"),
       moreJs = frag(
         flatpickrTag,
         delayFlatpickrStart

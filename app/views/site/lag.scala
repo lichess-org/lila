@@ -10,7 +10,7 @@ object lag {
   def apply()(implicit ctx: Context) = help.layout(
     title = "Is lichess lagging?",
     active = "lag",
-    moreCss = responsiveCssTag("lag"),
+    moreCss = cssTag("lag"),
     moreJs = frag(
       highchartsLatestTag,
       highchartsMoreTag,

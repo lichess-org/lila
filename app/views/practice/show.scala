@@ -15,7 +15,7 @@ object show {
     data: lila.practice.JsonView.JsData
   )(implicit ctx: Context) = views.html.base.layout(
     title = us.practiceStudy.name,
-    moreCss = responsiveCssTag("analyse.practice"),
+    moreCss = cssTag("analyse.practice"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,

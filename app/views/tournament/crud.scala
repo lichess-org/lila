@@ -18,7 +18,7 @@ object crud {
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag(css),
+      moreCss = cssTag(css),
       moreJs = frag(
         flatpickrTag,
         delayFlatpickrStart,

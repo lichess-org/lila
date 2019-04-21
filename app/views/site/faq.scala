@@ -19,7 +19,7 @@ object faq {
   def apply()(implicit ctx: Context) = help.layout(
     title = "Frequently Asked Questions",
     active = "faq",
-    moreCss = responsiveCssTag("faq")
+    moreCss = cssTag("faq")
   ) {
       main(cls := "faq small-page box box-pad")(
         h1(cls := "lichess_title")("Frequently Asked Questions"),

@@ -20,7 +20,7 @@ LichessLearn(document.getElementById('learn-app'), {
 data: ${data.fold("null")(safeJsonValue)},
 i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")
     ),
-    moreCss = responsiveCssTag("learn"),
+    moreCss = cssTag("learn"),
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Learn chess by playing",

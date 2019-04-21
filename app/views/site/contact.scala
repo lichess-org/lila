@@ -289,7 +289,7 @@ object contact {
   def apply()(implicit ctx: Context) = help.layout(
     title = "Contact",
     active = "contact",
-    moreCss = responsiveCssTag("contact"),
+    moreCss = cssTag("contact"),
     moreJs = embedJs("""location=location.hash||"#help-root""""),
     contentCls = "page box box-pad"
   )(frag(

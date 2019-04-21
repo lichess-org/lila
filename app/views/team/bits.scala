@@ -45,7 +45,7 @@ object bits {
   private[team] def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("team"),
+      moreCss = cssTag("team"),
       moreJs = infiniteScrollTag,
       openGraph = openGraph
     )(body)

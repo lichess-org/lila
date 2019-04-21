@@ -38,8 +38,8 @@ object page {
       isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
     ),
     moreCss = frag(
-      responsiveCssTag("user.show.activity"),
-      isGranted(_.UserSpy) option responsiveCssTag("mod.user")
+      cssTag("user.show.activity"),
+      isGranted(_.UserSpy) option cssTag("mod.user")
     )
   ) {
       main(cls := "page-menu", dataUsername := u.username)(
@@ -76,10 +76,10 @@ object page {
       isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
     ),
     moreCss = frag(
-      responsiveCssTag("user.show.games"),
-      if (filters.current.name == "search") responsiveCssTag("user.show.search")
-      else info.nbs.crosstable.isDefined option responsiveCssTag("crosstable"),
-      isGranted(_.UserSpy) option responsiveCssTag("mod.user")
+      cssTag("user.show.games"),
+      if (filters.current.name == "search") cssTag("user.show.search")
+      else info.nbs.crosstable.isDefined option cssTag("crosstable"),
+      isGranted(_.UserSpy) option cssTag("mod.user")
     )
   ) {
       main(cls := "page-menu", dataUsername := u.username)(

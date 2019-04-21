@@ -19,7 +19,7 @@ object list {
     nbAllTime: List[User.LightCount]
   )(implicit ctx: Context) = views.html.base.layout(
     title = trans.players.txt(),
-    moreCss = responsiveCssTag("user.list"),
+    moreCss = cssTag("user.list"),
     wrapClass = "full-screen-force",
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess players and leaderboards",

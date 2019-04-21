@@ -11,7 +11,7 @@ object faq {
 
   def page(system: Option[lila.tournament.System])(implicit ctx: Context) = views.html.base.layout(
     title = "Tournament FAQ",
-    moreCss = responsiveCssTag("page")
+    moreCss = cssTag("page")
   ) {
       main(cls := "page-small box box-pad page")(
         h1(

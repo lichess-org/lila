@@ -14,7 +14,7 @@ object form {
   def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),
-      moreCss = responsiveCssTag("form3-captcha"),
+      moreCss = cssTag("form3-captcha"),
       moreJs = captchaTag
     ) {
         main(cls := "page-small box box-pad report")(

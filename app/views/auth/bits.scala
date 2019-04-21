@@ -28,7 +28,7 @@ object bits {
   def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
-      moreCss = responsiveCssTag("auth"),
+      moreCss = cssTag("auth"),
       moreJs = captchaTag
     ) {
         main(cls := "auth auth-signup box box-pad")(
@@ -64,7 +64,7 @@ object bits {
   def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      moreCss = responsiveCssTag("form3")
+      moreCss = cssTag("form3")
     ) {
         main(cls := "page-small box box-pad")(
           (ok match {

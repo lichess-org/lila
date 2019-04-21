@@ -18,7 +18,7 @@ object home {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournaments.txt(),
-      moreCss = responsiveCssTag("tournament.home"),
+      moreCss = cssTag("tournament.home"),
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,

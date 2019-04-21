@@ -14,7 +14,7 @@ object help {
       title = title,
       active = active,
       contentCls = "page box box-pad",
-      moreCss = responsiveCssTag("page")
+      moreCss = cssTag("page")
     )(frag(
         h1(title),
         div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
@@ -33,7 +33,7 @@ object help {
     layout(
       title = "Webmasters",
       active = "webmasters",
-      moreCss = responsiveCssTag("page"),
+      moreCss = cssTag("page"),
       contentCls = "page"
     )(frag(
         div(cls := "box box-pad developers body") {

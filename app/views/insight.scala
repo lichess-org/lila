@@ -40,7 +40,7 @@ postUrl: "${routes.Insight.json(u.username)}"
 });
 });""")
       ),
-      moreCss = responsiveCssTag("insight")
+      moreCss = cssTag("insight")
     )(frag(
         main(id := "insight"),
         stale option div(cls := "insight-stale none")(
@@ -53,7 +53,7 @@ postUrl: "${routes.Insight.json(u.username)}"
     views.html.base.layout(
       title = s"${u.username}'s chess insights",
       moreJs = jsTag("insight-refresh.js"),
-      moreCss = responsiveCssTag("insight")
+      moreCss = cssTag("insight")
     )(
         main(cls := "box box-pad page-small")(
           h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),

@@ -12,7 +12,7 @@ object bits {
     title = "Become a lichess streamer",
     icon = Some(""),
     back = false,
-    moreCss = responsiveCssTag("streamer.form").some
+    moreCss = cssTag("streamer.form").some
   )(
       form(cls := "streamer-new", action := routes.Streamer.create, method := "POST")(
         h2("Do you have a Twitch or YouTube stream, ", me.username, "?"),

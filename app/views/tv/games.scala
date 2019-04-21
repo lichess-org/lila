@@ -11,7 +11,7 @@ object games {
   def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${channel.name} • ${trans.currentGames.txt()}",
-      moreCss = responsiveCssTag("tv.games")
+      moreCss = cssTag("tv.games")
     ) {
         main(cls := "page-menu tv-games")(
           st.aside(cls := "page-menu__menu")(

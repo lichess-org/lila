@@ -15,7 +15,7 @@ object topic {
   def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = "New forum topic",
-      moreCss = responsiveCssTag("forum"),
+      moreCss = cssTag("forum"),
       moreJs = frag(
         jsTag("forum-post.js"),
         captchaTag
@@ -68,7 +68,7 @@ object topic {
       formWithCaptcha.isDefined option captchaTag,
       jsAt("compiled/embed-analyse.js")
     ),
-    moreCss = responsiveCssTag("forum"),
+    moreCss = cssTag("forum"),
     openGraph = lila.app.ui.OpenGraph(
       title = topic.name,
       url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
