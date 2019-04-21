@@ -138,9 +138,9 @@ object inquiry {
         div(cls := "dropper more")(
           span(cls := "icon", dataIcon := "u"),
           div(
-            form(method := "post", action := routes.Mod.notifySlack(in.user.id))(
+            /*form(method := "post", action := routes.Mod.notifySlack(in.user.id))(
               input(cls := "fbt", tpe := "submit", value := "Notify Slack")
-            ),
+            ),*/
             form(method := "post", action := routes.Report.xfiles(in.report.id))(
               input(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")), tpe := "submit", value := "Move to X-Files"),
               autoNextInput
