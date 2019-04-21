@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
-import { bind, onInsert, dataIcon, spinner } from './util';
+import { bind, onInsert, dataIcon, spinner, hasTouchEvents, bindMobileMousedown } from './util';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -144,7 +144,7 @@ function dataAct(e: Event): string | null {
 }
 
 
-function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
+function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   const repeat = function() {
     control[action](ctrl);
     ctrl.redraw();
@@ -154,9 +154,8 @@ function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  document.addEventListener('mouseup', function() {
-    clearTimeout(timeout);
-  }, {once: true} as any);
+  const eventName = hasTouchEvents ? 'touchend' : 'mouseup';
+  document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
 }
 
 function controls(ctrl: AnalyseCtrl) {
@@ -165,15 +164,17 @@ function controls(ctrl: AnalyseCtrl) {
     menuIsOpen = ctrl.actionMenu.open,
     noarg = ctrl.trans.noarg;
   return h('div.analyse__controls.analyse-controls', {
-    hook: bind('mousedown', e => {
-      const action = dataAct(e);
-      if (action === 'prev' || action === 'next') navClick(ctrl, action);
-      else if (action === 'first') control.first(ctrl);
-      else if (action === 'last') control.last(ctrl);
-      else if (action === 'explorer') ctrl.toggleExplorer();
-      else if (action === 'practice') ctrl.togglePractice();
-      else if (action === 'menu') ctrl.actionMenu.toggle();
-    }, ctrl.redraw)
+    hook: onInsert(el => {
+      bindMobileMousedown(el, e => {
+        const action = dataAct(e);
+        if (action === 'prev' || action === 'next') repeater(ctrl, action);
+        else if (action === 'first') control.first(ctrl);
+        else if (action === 'last') control.last(ctrl);
+        else if (action === 'explorer') ctrl.toggleExplorer();
+        else if (action === 'practice') ctrl.togglePractice();
+        else if (action === 'menu') ctrl.actionMenu.toggle();
+      }, ctrl.redraw);
+    })
   }, [
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
       h('a.fbt', {

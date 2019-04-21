@@ -354,6 +354,7 @@ export default class AnalyseCtrl {
   }
 
   userJump = (path: Tree.Path): void => {
+
     this.autoplay.stop();
     this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
