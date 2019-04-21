@@ -133,7 +133,7 @@ object header {
             ctx.is(u) option newPlayer(u)
           },
           div(cls := "profile-side")(
-            div(cls := "user-infos scroll-shadow-hard")(
+            div(cls := "user-infos")(
               !ctx.is(u) option frag(
                 u.engine option div(cls := "warning engine_warning")(
                   span(dataIcon := "j", cls := "is4"),

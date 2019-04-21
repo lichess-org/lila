@@ -23,7 +23,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
   },
   m = ctrl.moderation();
   const vnodes = [
-    h('ol.mchat__messages.scroll-shadow-soft', {
+    h('ol.mchat__messages', {
       attrs: {
         role: 'log',
         'aria-live': 'polite',

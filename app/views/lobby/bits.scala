@@ -59,7 +59,7 @@ object bits {
         span(cls := "title text", dataIcon := "g")(trans.openTournaments.frag()),
         a(cls := "more", href := routes.Tournament.home())(trans.more.frag(), " »")
       ),
-      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content scroll-shadow-hard")(
+      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
         views.html.tournament.bits.enterable(tours)
       )
     ),

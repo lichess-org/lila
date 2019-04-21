@@ -67,7 +67,7 @@ export default function(ctrl: TournamentController): VNode {
           ] : [])
       ])
     ]),
-    h('div.scroll-shadow-soft', [
+    h('div', [
       h('table.pairings', {
         hook: bind('click', e => {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
