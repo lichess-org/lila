@@ -10,7 +10,7 @@ import controllers.routes
 
 object mod2 { // TODO: rename to mod
 
-  def menu(u: User)(implicit ctx: Context) = div("mz_menu")(
+  def menu(u: User)(implicit ctx: Context) = div(id := "mz_menu")(
     div(cls := "inner")(
       a(href := "#mz_actions")("Actions"),
       canViewRoles(u) option a(href := "#mz_roles")("Roles"),
