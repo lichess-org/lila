@@ -74,6 +74,8 @@ position: relative;
       @include hoverflow;
       flex: 1 1 auto;
       padding: .8em;
+      max-height: 332px;
+      overflow: auto;
     }
     .insight {
       @extend %flex-center-nowrap;
