@@ -9,6 +9,22 @@ import controllers.routes
 
 object mod2 { // TODO: rename to mod
 
+  def menu(u: User)(implicit ctx: Context) = div("mz_menu")(
+    div(cls := "inner")(
+      a(href := "#mz_actions")("Actions"),
+      canViewRoles(u) option a(href := "#mz_roles")("Roles"),
+      a(href := "#mz_irwin")("Irwin"),
+      a(href := "#mz_assessments")("Evaluation"),
+      a(href := "#mz_plan", cls := "mz_plan")("Patron"),
+      a(href := "#mz_mod_log")("Mod log"),
+      a(href := "#mz_reports_out")("Reports sent"),
+      a(href := "#mz_reports_in")("Reports received"),
+      a(href := "#mz_others")("Accounts"),
+      a(href := "#mz_identification")("Identification"),
+      a(href := "#us_profile")("Profile")
+    )
+  )
+
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context) =
     div(id := "mz_actions")(
       isGranted(_.UserEvaluate) option div(cls := "btn-rack")(
@@ -111,7 +127,7 @@ object mod2 { // TODO: rename to mod
     roles(u),
     mod.prefs(u, pref),
     mod.plan(u, charges),
-    mod.modLog(u, history),
+    modLog(u, history),
     mod.reportLog(u, reports)
   )
 
@@ -119,6 +135,23 @@ object mod2 { // TODO: rename to mod
     (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
       strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
       if (u.roles.isEmpty) "Add some" else u.roles.mkString(", ")
+    )
+  )
+
+  def modLog(u: User, history: List[lila.mod.Modlog])(implicit ctx: Context) = div(id := "mz_mod_log")(
+    strong(cls := "text", dataIcon := "!")("Moderation history:", history.isEmpty option " nothing to show"),
+    history.nonEmpty ?? frag(
+      ul(
+        history.map { e =>
+          li(
+            userIdLink(e.mod.some, withTitle = false), " ",
+            b(e.showAction), " ",
+            e.details, " ",
+            momentFromNowOnce(e.date)
+          )
+        }
+      ),
+      br
     )
   )
 
@@ -130,21 +163,5 @@ object mod2 { // TODO: rename to mod
     o.ipBan option iconTag("2")(title := "IP ban", cls := "is-red"),
     o.disabled option iconTag("k")(title := "Closed"),
     o.reportban option iconTag("!")(title := "Reportban")
-  )
-
-  def menu(u: User)(implicit ctx: Context) = div("mz_menu")(
-    div(cls := "inner")(
-      a(href := "#mz_actions")("Actions"),
-      canViewRoles(u) option a(href := "#mz_roles")("Roles"),
-      a(href := "#mz_irwin")("Irwin"),
-      a(href := "#mz_assessments")("Evaluation"),
-      a(href := "#mz_plan", cls := "mz_plan")("Patron"),
-      a(href := "#mz_mod_log")("Mod log"),
-      a(href := "#mz_reports_out")("Reports sent"),
-      a(href := "#mz_reports_in")("Reports received"),
-      a(href := "#mz_others")("Accounts"),
-      a(href := "#mz_identification")("Identification"),
-      a(href := "#us_profile")("Profile")
-    )
   )
 }
