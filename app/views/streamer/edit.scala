@@ -22,7 +22,7 @@ object edit {
 
     views.html.base.layout(
       title = s"${s.user.titleUsername} streamer page",
-      moreCss = responsiveCssTag("streamer.form"),
+      moreCss = cssTag("streamer.form"),
       moreJs = jsTag("streamer.form.js")
     ) {
         main(cls := "page-menu")(

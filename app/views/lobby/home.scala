@@ -41,7 +41,7 @@ object home {
         s"""lidraughts=window.lidraughts||{};customWS=true;lidraughts_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
       }
     ),
-    moreCss = responsiveCssTag("lobby"),
+    moreCss = cssTag("lobby"),
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       image = staticUrl("images/large_tile.png").some,

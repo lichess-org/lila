@@ -12,7 +12,7 @@ object categ {
 
   def index(categs: List[lidraughts.forum.CategView])(implicit ctx: Context) = views.html.base.layout(
     title = trans.forum.txt(),
-    moreCss = responsiveCssTag("forum"),
+    moreCss = cssTag("forum"),
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Lidraughts community forum",
       url = s"$netBaseUrl${routes.ForumCateg.index.url}",
@@ -69,7 +69,7 @@ object categ {
     views.html.base.layout(
       title = categ.name,
       // menu = categ.isStaff.option(mod.menu("forum")),
-      moreCss = responsiveCssTag("forum"),
+      moreCss = cssTag("forum"),
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Forum: ${categ.name}",
         url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",

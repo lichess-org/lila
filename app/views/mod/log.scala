@@ -14,7 +14,7 @@ object log {
 
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("mod.misc")
+      moreCss = cssTag("mod.misc")
     ) {
         main(cls := "page-menu")(
           views.html.mod.menu("log"),

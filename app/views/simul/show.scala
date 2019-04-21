@@ -18,7 +18,7 @@ object show {
     chatOption: Option[lidraughts.chat.UserChat.Mine],
     stream: Option[lidraughts.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
-    moreCss = responsiveCssTag("simul.show"),
+    moreCss = cssTag("simul.show"),
     title = sim.fullName,
     moreJs = frag(
       jsAt(s"compiled/lidraughts.simul${isProd ?? (".min")}.js"),

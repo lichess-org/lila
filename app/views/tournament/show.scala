@@ -31,7 +31,7 @@ chat:${
           safeJsonValue(chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))
       }};""")
     ),
-    moreCss = responsiveCssTag("tournament.show"),
+    moreCss = cssTag("tournament.show"),
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",

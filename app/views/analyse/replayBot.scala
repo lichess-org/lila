@@ -23,7 +23,7 @@ object replayBot {
 
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
-      moreCss = responsiveCssTag("analyse.round"),
+      moreCss = cssTag("analyse.round"),
       openGraph = povOpenGraph(pov).some
     ) {
         main(cls := "analyse")(

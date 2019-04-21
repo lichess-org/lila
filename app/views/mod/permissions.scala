@@ -14,8 +14,8 @@ object permissions {
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
-        responsiveCssTag("mod.communication"),
-        responsiveCssTag("form3")
+        cssTag("mod.communication"),
+        cssTag("form3")
       ),
       moreJs = embedJs("""$(function() {
 $('button.clear').on('click', function() {

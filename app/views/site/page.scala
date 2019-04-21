@@ -8,7 +8,7 @@ object page {
 
   def apply(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = responsiveCssTag("page"),
+      moreCss = cssTag("page"),
       title = s"${~doc.getText("doc.title")}"
     ) {
         main(cls := "page-small box box-pad page")(

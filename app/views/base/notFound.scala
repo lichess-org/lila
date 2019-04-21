@@ -12,7 +12,7 @@ object notFound {
   def apply()(implicit ctx: Context) = layout(
     title = "Page not found",
     moreJs = prismicJs,
-    moreCss = responsiveCssTag("not-found"),
+    moreCss = cssTag("not-found"),
     csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)
   ) {
       main(cls := "not-found page-small box box-pad")(

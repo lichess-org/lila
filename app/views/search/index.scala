@@ -23,7 +23,7 @@ object index {
         infiniteScrollTag,
         nonAsyncFlatpickrTag
       ),
-      moreCss = responsiveCssTag("search"),
+      moreCss = cssTag("search"),
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Search in ${nbGames.localize} draughts games",
         url = s"$netBaseUrl${routes.Search.index().url}",

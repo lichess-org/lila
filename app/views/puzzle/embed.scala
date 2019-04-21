@@ -23,7 +23,7 @@ object embed {
         layout.metaCsp(basicCsp),
         st.headTitle("lidraughts.org draughts puzzle"),
         layout.pieceSprite(lidraughts.pref.PieceSet.default),
-        responsiveCssTagWithTheme("tv.embed", config.bg)
+        cssTagWithTheme("tv.embed", config.bg)
       ),
       body(
         cls := s"base ${config.board}",

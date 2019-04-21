@@ -30,7 +30,7 @@ object index {
 onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
         }
       ),
-      moreCss = responsiveCssTag("tv.single"),
+      moreCss = cssTag("tv.single"),
       draughtsground = false,
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lidraughts.org",

@@ -15,7 +15,7 @@ object layout {
     evenMoreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context): Frag = views.html.base.layout(
     title = title,
-    moreCss = frag(responsiveCssTag("account"), evenMoreCss),
+    moreCss = frag(cssTag("account"), evenMoreCss),
     moreJs = frag(jsTag("account.js"), evenMoreJs)
   ) {
       def activeCls(c: String) = cls := active.activeO(c)

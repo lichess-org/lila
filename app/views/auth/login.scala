@@ -18,7 +18,7 @@ object login {
   def apply(form: Form[_], referrer: Option[String])(implicit ctx: Context) = views.html.base.layout(
     title = trans.signIn.txt(),
     moreJs = jsTag("login.js"),
-    moreCss = responsiveCssTag("auth")
+    moreCss = cssTag("auth")
   ) {
       main(cls := "auth auth-login box box-pad")(
         h1(trans.signIn.frag()),

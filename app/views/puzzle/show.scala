@@ -14,7 +14,7 @@ object show {
   def apply(puzzle: lidraughts.puzzle.Puzzle, data: JsObject, pref: JsObject)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.training.txt(),
-      moreCss = responsiveCssTag("puzzle"),
+      moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
         jsAt(s"compiled/lidraughts.puzzle${isProd ?? (".min")}.js"),

@@ -23,7 +23,7 @@ object editor {
       embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;${isGranted(_.CreatePuzzles).??("data.puzzleEditor = true;")}
 LidraughtsEditor(document.getElementById('board-editor'), data);""")
     ),
-    moreCss = responsiveCssTag("editor"),
+    moreCss = cssTag("editor"),
     draughtsground = false,
     zoomable = true,
     openGraph = lidraughts.app.ui.OpenGraph(

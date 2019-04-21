@@ -14,7 +14,7 @@ object puzzleEditor {
 
   def apply(data: JsObject, pov: lidraughts.game.Pov)(implicit ctx: Context) = views.html.base.layout(
     title = "Puzzle editor",
-    moreCss = responsiveCssTag("analyse.free"),
+    moreCss = cssTag("analyse.free"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,

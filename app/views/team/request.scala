@@ -17,7 +17,7 @@ object request {
 
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("team"),
+      moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, captchaTag)
     ) {
         main(cls := "page-menu page-small")(

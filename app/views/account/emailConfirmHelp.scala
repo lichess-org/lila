@@ -16,7 +16,7 @@ object emailConfirmHelp {
 
   def apply(form: Form[_], status: Option[Status])(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    moreCss = responsiveCssTag("email-confirm"),
+    moreCss = cssTag("email-confirm"),
     moreJs = jsTag("emailConfirmHelp.js")
   )(frag(
       main(cls := "page-small box box-pad email-confirm-help")(

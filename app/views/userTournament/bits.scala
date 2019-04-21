@@ -34,7 +34,7 @@ object bits {
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("user-tournament"),
+      moreCss = cssTag("user-tournament"),
       moreJs = moreJs
     ) {
         main(cls := "page-menu")(
