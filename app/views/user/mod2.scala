@@ -107,6 +107,13 @@ object mod2 { // TODO: rename to mod
       )
     )
 
+  def roles(u: User)(implicit ctx: Context) = canViewRoles(u) option div(cls := "mz_roles")(
+    (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
+      strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
+      if (u.roles.isEmpty) "Add some" else u.roles.mkString(", ")
+    )
+  )
+
   def userMarks(o: User, playbans: Option[Int])(implicit ctx: Context) = div(cls := "user_marks")(
     playbans.map { nb => iconTag("p", nb.toString)(title := "Playban") },
     o.troll option iconTag("c")(title := "Shadowban"),
