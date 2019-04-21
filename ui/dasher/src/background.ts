@@ -104,11 +104,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     link.type = 'text/css';
     link.rel = 'stylesheet';
     link.href = $(this).attr('href').replace('.' + prev + '.', '.' + key + '.');
-    link.onload = () => {
-      var selector = this.getAttribute('href');
-      if (selector) selector = selector.split(/(light|dark|transp)/)[2];
-      setTimeout(() => this.remove(), 100);
-    }
+    link.onload = () => setTimeout(() => this.remove(), 100);
     document.head.appendChild(link);
   });
 
