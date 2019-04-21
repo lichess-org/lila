@@ -100,7 +100,12 @@ function applyBackground(data: BackgroundData, list: Background[]) {
   const prev = $('body').data('theme');
   $('body').data('theme', key);
   $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
-    $(this).attr('href', $(this).attr('href').replace('.' + prev + '.', '.' + key + '.')).appendTo('head');
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = $(this).attr('href').replace('.' + prev + '.', '.' + key + '.');
+    link.onload = () => setTimeout(() => this.remove(), 100);
+    document.head.appendChild(link);
   });
 
   if (key === 'transp') {
