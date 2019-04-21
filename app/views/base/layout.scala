@@ -230,7 +230,7 @@ object layout {
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""")
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
-      a(cls := "link data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
+      a(cls := "link data-count mod", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
 
     private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
       a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests, dataIcon := "f", title := trans.teams.txt())
