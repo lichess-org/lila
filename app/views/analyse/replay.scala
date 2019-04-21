@@ -54,7 +54,7 @@ object replay {
         analyseTag,
         analyseNvuiTag,
         embedJs(s"""lichess=lichess||{};
-lichess.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserId,chat:${jsOrNull(chatJson)},
+lichess.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserIdString,chat:${jsOrNull(chatJson)},
 explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
       ),
       openGraph = povOpenGraph(pov).some

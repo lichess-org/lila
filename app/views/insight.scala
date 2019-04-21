@@ -33,7 +33,7 @@ lichess.insight = LichessInsight(document.getElementById('insight'), {
 ui: ${safeJsonValue(ui)},
 initialQuestion: ${safeJsonValue(question)},
 i18n: {},
-myUserId: $jsUserId,
+myUserId: $jsUserIdString,
 user: { id: "${u.id}", name: "${u.username}", nbGames: ${cache.count}, stale: ${stale}, shareId: ${prefId} },
 pageUrl: "${routes.Insight.index(u.username)}",
 postUrl: "${routes.Insight.json(u.username)}"
