@@ -41,24 +41,23 @@ object twoFactor {
 
   def disable(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
     title = s"${u.username} - Two-factor authentication",
-    active = "twofactor",
-    evenMoreCss = cssTag("form3.css")
+    active = "twofactor"
   ) {
-      div(cls := "account twofactor box box-pad")(
-        h1(
-          i(cls := "is-green", dataIcon := "E"),
-          " Two-factor authentication enabled"
+    div(cls := "account twofactor box box-pad")(
+      h1(
+        i(cls := "is-green", dataIcon := "E"),
+        " Two-factor authentication enabled"
+      ),
+      p("Your account is protected with two-factor authentication."),
+      st.form(cls := "form3", action := routes.Account.disableTwoFactor, method := "POST")(
+        p(
+          "You need your password and an authentication code from your authenticator app to disable two-factor authentication. ",
+          "If you lost access to your authentication codes, you can also do a password reset via email."
         ),
-        p("Your account is protected with two-factor authentication."),
-        st.form(cls := "form3", action := routes.Account.disableTwoFactor, method := "POST")(
-          p(
-            "You need your password and an authentication code from your authenticator app to disable two-factor authentication. ",
-            "If you lost access to your authentication codes, you can also do a password reset via email."
-          ),
-          form3.password(form("passwd"), trans.password.frag()),
-          form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required)),
-          form3.action(form3.submit(raw("Disable two-factor authentication"), icon = None))
-        )
+        form3.password(form("passwd"), trans.password.frag()),
+        form3.group(form("token"), raw("Authentication code"))(form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required)),
+        form3.action(form3.submit(raw("Disable two-factor authentication"), icon = None))
       )
-    }
+    )
+  }
 }

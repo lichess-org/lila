@@ -25,7 +25,7 @@ object layout {
       metaCsp(csp.getOrElse(defaultCsp))
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
-      link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/$ps.css"), tpe := "text/css", rel := "stylesheet")
+      link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
     def innerCoordsCss(implicit ctx: Context) = {
       val color = ctx.currentTheme.cssClass match {
         case "brown" | "blue" | "green" => ctx.currentTheme.cssClass

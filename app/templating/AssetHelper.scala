@@ -39,13 +39,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
-  def cssTag(name: String): Frag = cssAt("stylesheets/" + name)
-
-  def cssTags(names: String*): Frag = names map cssTag
-
-  def cssTags(names: List[(String, Boolean)]): Frag =
-    cssTags(names.collect { case (k, true) => k }: _*)
-
   def cssVendorTag(name: String): Frag = cssAt("vendor/" + name)
 
   def cssAt(path: String): Frag = raw {
