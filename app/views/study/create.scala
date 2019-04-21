@@ -17,30 +17,32 @@ object create {
 
   def apply(data: lidraughts.study.DataForm.importGame.Data, owner: List[Study.IdName], contrib: List[Study.IdName])(implicit ctx: Context) =
     views.html.site.message(
-      title = "Study",
+      title = trans.study.txt(),
       icon = Some("4"),
       back = true,
-      moreCss = cssTag("study-create.css").some
+      moreCss = responsiveCssTag("study.create").some
     ) {
-        form(action := routes.Study.create, method := "POST")(
-          input(`type` := "hidden", name := "gameId", value := data.gameId),
-          input(`type` := "hidden", name := "orientation", value := data.orientationStr),
-          input(`type` := "hidden", name := "fen", value := data.fenStr),
-          input(`type` := "hidden", name := "pdn", value := data.pdnStr),
-          input(`type` := "hidden", name := "variant", value := data.variantStr),
-          h2("So, where do you want to study that?"),
-          p(
-            button(name := "as", value := "study",
-              `type` := "submit", cls := "submit button large new text", dataIcon := "4")("New study")
-          ),
-          div(cls := "studies")(
-            div(
-              h2("My studies"),
-              owner map studyButton
+        div(cls := "study-create")(
+          form(action := routes.Study.create, method := "POST")(
+            input(tpe := "hidden", name := "gameId", value := data.gameId),
+            input(tpe := "hidden", name := "orientation", value := data.orientationStr),
+            input(tpe := "hidden", name := "fen", value := data.fenStr),
+            input(tpe := "hidden", name := "pdn", value := data.pdnStr),
+            input(tpe := "hidden", name := "variant", value := data.variantStr),
+            h2("So, where do you want to study that?"),
+            p(
+              button(name := "as", value := "study",
+                tpe := "submit", cls := "submit button large new text", dataIcon := "4")("New study")
             ),
-            div(
-              h2("Studies I contribute to"),
-              contrib map studyButton
+            div(cls := "studies")(
+              div(
+                h2("My studies"),
+                owner map studyButton
+              ),
+              div(
+                h2("Studies I contribute to"),
+                contrib map studyButton
+              )
             )
           )
         )

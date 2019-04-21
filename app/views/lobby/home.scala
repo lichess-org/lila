@@ -155,7 +155,7 @@ object home {
           ),
           a(href := routes.Page.tos)(trans.termsOfService.frag()),
           a(href := routes.Page.privacy)(trans.privacy.frag()),
-          a(href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode.frag())
+          a(href := "https://github.com/roepstoep/lidraughts")(trans.sourceCode.frag())
         )
       )
     }
