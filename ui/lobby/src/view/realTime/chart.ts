@@ -36,8 +36,8 @@ function clockX(dur) {
 }
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
-  const bottom = Math.max(0, ratingY(hook.rating) - 7),
-    left = Math.max(0, clockX(hook.t) - 4),
+  const bottom = Math.max(0, ratingY(hook.rating) - 2),
+    left = Math.max(0, clockX(hook.t) - 2),
     klass = [
       'plot.new',
       hook.ra ? 'rated' : 'casual',
@@ -93,10 +93,10 @@ function renderXAxis() {
   xMarks.forEach(v => {
     const l = clockX(v * 60);
     tags.push(h('span.x.label', {
-      attrs: { style: 'left:' + percents(l) }
+      attrs: { style: 'left:' + percents(l - 1.5) }
     }, '' + v));
     tags.push(h('div.grid.vert', {
-      attrs: { style: 'width:' + percents(l + 1.5) }
+      attrs: { style: 'width:' + percents(l) }
     }));
   });
   return tags;
