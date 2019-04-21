@@ -108,14 +108,12 @@ const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
   .pipe(uglify())
   .pipe(destination());
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod];
+const deps = makeDependencies('lidraughts.deps.js');
+
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, deps];
 
 const dev = gulp.series(tasks.concat([devSource]));
 
-const deps = makeDependencies('lidraughts.deps.js');
-
-gulp.task('prod', gulp.series(tasks, deps, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
-gulp.task('dev', gulp.series(deps, dev));
-gulp.task('default', gulp.series(deps, dev, () => gulp.watch('src/**/*.js', dev)));
-
-gulp.task('deps', gulp.series(tasks, deps));
+gulp.task('prod', gulp.series(tasks, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
+gulp.task('dev', gulp.series(tasks, dev));
+gulp.task('default', gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev)));
