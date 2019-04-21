@@ -32,6 +32,11 @@
     <item quantity="few">Одиграо\ла %1$s потеза</item>
     <item quantity="other">Одиграо\ла %1$s потеза</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">у %1$s дописној партији</item>
+    <item quantity="few">у %1$s дописне партије</item>
+    <item quantity="other">у %1$s дописних партија</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Завршили %s кореспондску партију</item>
     <item quantity="few">Завршили %s кореспондске партије</item>
