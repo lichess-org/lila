@@ -125,7 +125,7 @@ object mod2 { // TODO: rename to mod
 
   def parts(u: User, history: List[lidraughts.mod.Modlog], charges: List[lidraughts.plan.Charge], reports: lidraughts.report.Report.ByAndAbout, pref: lidraughts.pref.Pref)(implicit ctx: Context) = frag(
     roles(u),
-    mod.prefs(u, pref),
+    prefs(u, pref),
     plan(u, charges),
     modLog(u, history),
     mod.reportLog(u, reports)
@@ -135,6 +135,18 @@ object mod2 { // TODO: rename to mod
     (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
       strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
       if (u.roles.isEmpty) "Add some" else u.roles.mkString(", ")
+    )
+  )
+
+  def prefs(u: User, pref: lidraughts.pref.Pref)(implicit ctx: Context) = div(id := "mz_preferences")(
+    strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+    ul(
+      (pref.keyboardMove != lidraughts.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
+      pref.botCompatible option li(
+        strong(
+          a(cls := "text", dataIcon := "j", href := lidraughts.common.String.base64.decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s"))("BOT-COMPATIBLE SETTINGS")
+        )
+      )
     )
   )
 
@@ -171,6 +183,42 @@ object mod2 { // TODO: rename to mod
         }
       ),
       br
+    )
+  )
+
+  def reportLog(u: User, reports: lidraughts.report.Report.ByAndAbout)(implicit ctx: Context) = frag(
+    div(id := "mz_reports_out", cls := "mz_reports")(
+      strong(cls := "text", dataIcon := "!")(
+        s"Reports sent by ${u.username}",
+        reports.by.isEmpty option ": nothing to show."
+      ),
+      reports.by.map { r =>
+        r.atomBy(lidraughts.report.ReporterId(u.id)).map { atom =>
+          st.form(action := routes.Report.inquiry(r.id), method := "POST")(
+            button(tpe := "submit")(reportScore(r.score), " ", strong(r.reason.name)), " ",
+            userIdLink(r.user.some), " ", momentFromNowOnce(atom.at), ": ", shorten(atom.text, 200)
+          )
+        }
+      }
+    ),
+    div(id := "mz_reports_in", cls := "mz_reports")(
+      strong(cls := "text", dataIcon := "!")(
+        s"Reports concerning ${u.username}",
+        reports.about.isEmpty option ": nothing to show."
+      ),
+      reports.about.map { r =>
+        st.form(action := routes.Report.inquiry(r.id), method := "POST")(
+          button(tpe := "submit")(reportScore(r.score), " ", strong(r.reason.name)),
+          div(cls := "atoms")(
+            r.bestAtoms(3).map { atom =>
+              div(cls := "atom")(
+                "By ", userIdLink(atom.by.value.some), " ", momentFromNowOnce(atom.at), ": ", shorten(atom.text, 200)
+              )
+            },
+            (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
+          )
+        )
+      }
     )
   )
 
