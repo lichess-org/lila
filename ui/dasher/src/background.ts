@@ -107,10 +107,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     link.onload = () => {
       var selector = this.getAttribute('href');
       if (selector) selector = selector.split(/(light|dark|transp)/)[2];
-      setTimeout(() => {
-        var prevLink = document.querySelector("link[href$=\'light"+selector+"\'], link[href$=\'dark"+selector+"\'], link[href$=\'transp"+selector+"\']");
-        if (prevLink) prevLink.remove();
-      }, 100);
+      setTimeout(() => this.remove(), 100);
     }
     document.head.appendChild(link);
   });
