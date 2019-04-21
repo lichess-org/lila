@@ -791,6 +791,7 @@
   <string name="xHostsY">%1$s домаћини %2$s</string>
   <string name="xJoinsY">%1$s учествује у %2$s</string>
   <string name="xLikesY">%1$s каже да му се свиђа %2$s</string>
+  <string name="xCreatesStudyY">%1$s креира студију %2$s</string>
   <string name="quickPairing">Брзо упаривање</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Непознати играч</string>
