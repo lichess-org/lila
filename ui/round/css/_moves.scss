@@ -24,6 +24,7 @@
   }
   .moves {
     @extend %flex-wrap, %zen;
+    position: relative; /* required by autoScroll */
     overflow-y: auto;
     align-content: start;
     border: $border;
