@@ -278,7 +278,7 @@ object User extends LilaController {
                   html.user.mod.parts(user, history, charges, reports, pref).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
-          html.user.mod.actions(user, emails, erased).some
+          Html(html.user.mod2.actions(user, emails, erased).render).some
         }
         val spyFu = Env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
         val others = spyFu flatMap { spy =>
@@ -320,7 +320,7 @@ object User extends LilaController {
     UserRepo withEmails username flatten s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         UserRepo.isErased(user) map { erased =>
-          Ok(html.user.mod.actions(user, emails, erased))
+          Ok(html.user.mod2.actions(user, emails, erased))
         }
     }
 
