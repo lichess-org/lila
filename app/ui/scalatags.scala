@@ -44,6 +44,7 @@ trait ScalatagsSnippets extends Cap {
   val styleTag = tag("style")(`type` := "text/css")
   val ratingTag = tag("rating")
   val countTag = tag("count")
+  val goodTag = tag("good")
   val badTag = tag("bad")
 
   lazy val dataBotAttr = attr("data-bot").empty
