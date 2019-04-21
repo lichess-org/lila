@@ -107,6 +107,14 @@ object mod2 { // TODO: rename to mod
       )
     )
 
+  def parts(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref)(implicit ctx: Context) = frag(
+    roles(u),
+    mod.prefs(u, pref),
+    mod.plan(u, charges),
+    mod.modLog(u, history),
+    mod.reportLog(u, reports)
+  )
+
   def roles(u: User)(implicit ctx: Context) = canViewRoles(u) option div(cls := "mz_roles")(
     (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
       strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),

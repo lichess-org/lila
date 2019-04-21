@@ -1,7 +1,0 @@
-@(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref)(implicit ctx: Context)
-
-@views.html.user.mod2.roles(u).??(_.toHtml)
-@prefs(u, pref)
-@user.mod.plan(u, charges)
-@modLog(u, history)
-@reportLog(u, reports)

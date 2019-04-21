@@ -275,7 +275,7 @@ object User extends LilaController {
             Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) flatMap {
               case history ~ charges ~ reports ~ pref =>
                 Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
-                  html.user.mod.parts(user, history, charges, reports, pref).some
+                  Html(html.user.mod2.parts(user, history, charges, reports, pref).render).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
           Html(html.user.mod2.actions(user, emails, erased).render).some
