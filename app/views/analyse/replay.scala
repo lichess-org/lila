@@ -1,5 +1,7 @@
 package views.html.analyse
 
+import play.api.libs.json.Json
+
 import chess.variant.Crazyhouse
 
 import bits.dataPanel
@@ -53,9 +55,18 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=lichess||{};
-lichess.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserIdString,chat:${jsOrNull(chatJson)},
-explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
+        embedJsUnsafe(s"""lichess=lichess||{};lichess.analyse=${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n.json(),
+            "userId" -> ctx.userId,
+            "chat" -> chatJson,
+            "explorer" -> Json.obj(
+              "endpoint" -> explorerEndpoint,
+              "tablebaseEndpoint" -> tablebaseEndpoint
+            )
+          ))
+        }""")
       ),
       openGraph = povOpenGraph(pov).some
     )(frag(

@@ -7,7 +7,9 @@ import lila.i18n.{ I18nKeys => trans }
 
 private object jsI18n {
 
-  def apply()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  def json()(implicit ctx: Context) = i18nJsObject(translations)
+
+  def apply()(implicit ctx: Context) = safeJsonValue(json)
 
   private val translations = List(
     trans.flipBoard,
