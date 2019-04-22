@@ -90,6 +90,7 @@
   .wrapper {
     @extend %flex-center;
     justify-content: space-between;
+    align-items: flex-start;
     font-size: 1.3em;
   }
 

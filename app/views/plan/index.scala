@@ -138,7 +138,8 @@ object index {
   <input type="hidden" name="currency_code" value="EUR">
 </form>"""),
 
-                      patron.exists(_.isLifetime) option p(style := "text-align:center;margin-bottom:1em")("Make an extra donation?"),
+                      patron.exists(_.isLifetime) option
+                        p(style := "text-align:center;margin-bottom:1em")("Make an extra donation?"),
 
                       st.group(cls := "radio buttons freq")(
                         div(
@@ -178,19 +179,19 @@ object index {
                               value := "other"),
                             label(`for` := "plan_other")("Other")
                           )
-                        ),
-                        div(cls := "amount_fixed none")(
-                          st.group(cls := "radio buttons amount")(
-                            div {
-                              val cents = lidraughts.plan.Cents.lifetime
-                              label(`for` := s"plan_${cents.value}")(cents.usd.toString)
-                            }
-                          )
-                        ),
-                        div(cls := "service")(
-                          // button(cls := "stripe button")("Credit Card"),
-                          button(cls := "paypal button")("Donate with PayPal")
                         )
+                      ),
+                      div(cls := "amount_fixed none")(
+                        st.group(cls := "radio buttons amount")(
+                          div {
+                            val cents = lidraughts.plan.Cents.lifetime
+                            label(`for` := s"plan_${cents.value}")(cents.usd.toString)
+                          }
+                        )
+                      ),
+                      div(cls := "service")(
+                        // button(cls := "stripe button")("Credit Card"),
+                        button(cls := "paypal button")("Donate with PayPal")
                       )
                     )
                 )
