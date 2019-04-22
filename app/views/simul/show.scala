@@ -22,7 +22,7 @@ object show {
     title = sim.fullName,
     moreJs = frag(
       jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),
-      embedJs(s"""lichess.simul={
+      embedJsUnsafe(s"""lichess.simul={
 data:${safeJsonValue(data)},
 i18n:${bits.jsI18n()},
 socketVersion:${socketVersion.value},

@@ -25,7 +25,7 @@ object index {
       moreJs = frag(
         script(src := "https://checkout.stripe.com/checkout.js"),
         jsTag("checkout.js"),
-        embedJs(s"""lichess.checkout("$stripePublicKey");""")
+        embedJsUnsafe(s"""lichess.checkout("$stripePublicKey");""")
       ),
       openGraph = lila.app.ui.OpenGraph(
         title = title,

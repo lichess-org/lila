@@ -290,7 +290,7 @@ object contact {
     title = "Contact",
     active = "contact",
     moreCss = cssTag("contact"),
-    moreJs = embedJs("""location=location.hash||"#help-root""""),
+    moreJs = embedJsUnsafe("""location=location.hash||"#help-root""""),
     contentCls = "page box box-pad"
   )(frag(
       h1("Contact lichess"),

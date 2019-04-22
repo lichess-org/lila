@@ -29,7 +29,7 @@ object perfStat {
         )
       },
       jsAt(s"compiled/lichess.perfStat${isProd ?? (".min")}.js"),
-      embedJs(s"""$$(function() {
+      embedJsUnsafe(s"""$$(function() {
 LichessPerfStat(document.querySelector('.perf-stat__content'), {
 data: ${safeJsonValue(data)}
 });

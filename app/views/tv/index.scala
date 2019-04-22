@@ -24,7 +24,7 @@ object index {
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
         roundTag,
-        embedJs {
+        embedJsUnsafe {
           val transJs = views.html.round.jsI18n(pov.game)
           s"""lichess=window.lichess||{};customWS=true;
 onload=function(){LichessRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""

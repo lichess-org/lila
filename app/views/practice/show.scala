@@ -19,7 +19,7 @@ object show {
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lichess=window.lichess||{};lichess.practice={
+      embedJsUnsafe(s"""lichess=window.lichess||{};lichess.practice={
 practice: ${safeJsonValue(data.practice)},
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},

@@ -26,7 +26,7 @@ object insight {
         jsAt(s"compiled/lichess.insight${isProd ?? (".min")}.js"),
         jsTag("insight-refresh.js"),
         jsTag("insight-tour.js"),
-        embedJs(s"""
+        embedJsUnsafe(s"""
 $$(function() {
 lichess = lichess || {};
 lichess.insight = LichessInsight(document.getElementById('insight'), {

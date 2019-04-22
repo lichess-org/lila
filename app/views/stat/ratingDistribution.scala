@@ -16,7 +16,7 @@ object ratingDistribution {
     wrapClass = "full-screen-force",
     moreJs = frag(
       jsTag("chart/ratingDistribution.js"),
-      embedJs(s"""lichess.ratingDistributionChart({
+      embedJsUnsafe(s"""lichess.ratingDistributionChart({
   freq: ${data.mkString("[", ",", "]")},
   myRating: ${ctx.me.fold("null")(_.perfs(perfType).intRating.toString)}
 });""")

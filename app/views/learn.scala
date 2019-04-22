@@ -15,7 +15,7 @@ object index {
     title = s"${trans.learn.learnChess.txt()} - ${trans.learn.byPlaying.txt()}",
     moreJs = frag(
       jsAt(s"compiled/lichess.learn${isProd ?? (".min")}.js"),
-      embedJs(s"""$$(function() {
+      embedJsUnsafe(s"""$$(function() {
 LichessLearn(document.getElementById('learn-app'), {
 data: ${data.fold("null")(safeJsonValue)},
 i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")

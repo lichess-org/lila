@@ -17,7 +17,7 @@ object permissions {
         cssTag("mod.communication"),
         cssTag("form3")
       ),
-      moreJs = embedJs("""$(function() {
+      moreJs = embedJsUnsafe("""$(function() {
 $('button.clear').on('click', function() {
   $('#permissions option:selected').prop('selected', false);
 });});""")

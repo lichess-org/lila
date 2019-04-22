@@ -16,7 +16,7 @@ object home {
     finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) = views.html.base.layout(
     moreCss = cssTag("simul.list"),
-    moreJs = embedJs(s"""$$(function() {
+    moreJs = embedJsUnsafe(s"""$$(function() {
   lichess.StrongSocket.defaults.params.flag = 'simul';
   lichess.pubsub.on('socket.in.reload', () => {
     $$('.simul-list__content').load('${routes.Simul.homeReload()}', lichess.pubsub.emit('content_loaded'));

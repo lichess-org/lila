@@ -87,7 +87,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
-  def delayFlatpickrStart(implicit ctx: Context) = embedJs {
+  def delayFlatpickrStart(implicit ctx: Context) = embedJsUnsafe {
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
   }
 
@@ -126,10 +126,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script$nonce>$js</script>"""
   }
 
-  def embedJs(js: Frag)(implicit ctx: Context): Frag = embedJsUnsafe(js.render)
-  def embedJs(js: String)(implicit ctx: Context): Frag = embedJsUnsafe(js)
-
-  def embedJs(js: String, nonce: Nonce): Frag = raw {
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw {
     s"""<script nonce="$nonce">$js</script>"""
   }
 }

@@ -61,7 +61,7 @@ object form {
                 isGranted(_.ModMessage) option frag(
                   form3.checkbox(form("mod"), frag("Send as mod")),
                   form3.group(form("preset"), frag("Preset")) { form3.select(_, Nil) },
-                  embedJs(s"""lichess_mod_presets=${safeJsonValue(lila.message.ModPreset.asJson)}""")
+                  embedJsUnsafe(s"""lichess_mod_presets=${safeJsonValue(lila.message.ModPreset.asJson)}""")
                 ),
                 form3.group(form("subject"), trans.subject.frag()) { f =>
                   input(

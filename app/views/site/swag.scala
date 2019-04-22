@@ -34,7 +34,7 @@ object swag {
                 "."
               )
             ),
-            embedJs("""
+            embedJsUnsafe("""
     var spread_shop_config = {
       shopName: 'lichess-org',
         locale: 'us_US',

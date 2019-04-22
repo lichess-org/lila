@@ -34,7 +34,7 @@ object home {
     fullTitle = Some("lichess.org • " + trans.freeOnlineChess.txt()),
     moreJs = frag(
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", defer = true),
-      embedJs {
+      embedJsUnsafe {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val transJs = safeJsonValue(i18nJsObject(translations))
         s"""lichess=window.lichess||{};customWS=true;lichess_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""

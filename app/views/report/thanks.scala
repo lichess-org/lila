@@ -15,7 +15,7 @@ object thanks {
 
     val title = "Thanks for the report"
 
-    val moreJs = embedJs("""
+    val moreJs = embedJsUnsafe("""
 $('button.report-block').one('click', function() {
 var $button = $(this);
 $button.find('span').text('Blocking...');

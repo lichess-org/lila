@@ -53,7 +53,7 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJs(s"""lichess=lichess||{};
+        embedJsUnsafe(s"""lichess=lichess||{};
 lichess.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserIdString,chat:${jsOrNull(chatJson)},
 explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
       ),

@@ -33,7 +33,7 @@ object watcher {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""lichess=window.lichess||{};customWS=true;onload=function(){
+        embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
 LichessRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},chat:${jsOrNull(chatJson)}})}""")
       ),
       openGraph = povOpenGraph(pov).some,

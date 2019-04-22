@@ -25,7 +25,7 @@ object userAnalysis {
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lichess=lichess||{};lichess.user_analysis={data:${safeJsonValue(data)},i18n:${
+      embedJsUnsafe(s"""lichess=lichess||{};lichess.user_analysis={data:${safeJsonValue(data)},i18n:${
         userAnalysisI18n(
           withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
         )

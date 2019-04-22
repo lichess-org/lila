@@ -216,7 +216,7 @@ object layout {
             jsAt(s"compiled/lichess.site.js", defer = deferJs)
           ),
           moreJs,
-          embedJs(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
+          embedJsUnsafe(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
     )

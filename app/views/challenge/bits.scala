@@ -13,7 +13,7 @@ object bits {
   def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context) =
     frag(
       jsTag("challenge.js", defer = true),
-      embedJs(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = {
+      embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = {
 socketUrl: '${routes.Challenge.websocket(c.id, apiVersion.value)}',
 xhrUrl: '${routes.Challenge.show(c.id)}',
 owner: $owner,
