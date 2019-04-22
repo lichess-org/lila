@@ -2,7 +2,7 @@ package lila.i18n
 
 import scalatags.Text.all._
 
-import lila.common.String.frag.escapeHtml
+import lila.common.String.html.escapeHtml
 
 private sealed trait Translation
 
