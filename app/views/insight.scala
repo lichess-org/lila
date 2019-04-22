@@ -1,5 +1,7 @@
 package views.html
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -29,16 +31,23 @@ object insight {
         embedJsUnsafe(s"""
 $$(function() {
 lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), {
-ui: ${safeJsonValue(ui)},
-initialQuestion: ${safeJsonValue(question)},
-i18n: {},
-myUserId: $jsUserIdString,
-user: { id: "${u.id}", name: "${u.username}", nbGames: ${cache.count}, stale: ${stale}, shareId: ${prefId} },
-pageUrl: "${routes.Insight.index(u.username)}",
-postUrl: "${routes.Insight.json(u.username)}"
-});
-});""")
+lichess.insight = LichessInsight(document.getElementById('insight'), ${
+          safeJsonValue(Json.obj(
+            "ui" -> ui,
+            "initialQuestion" -> question,
+            "i18n" -> Json.obj(),
+            "myUserId" -> ctx.userId,
+            "user" -> Json.obj(
+              "id" -> u.id,
+              "name" -> u.username,
+              "nbGames" -> cache.count,
+              "stale" -> stale,
+              "shareId" -> prefId
+            ),
+            "pageUrl" -> routes.Insight.index(u.username).url,
+            "postUrl" -> routes.Insight.json(u.username).url
+          ))
+        })""")
       ),
       moreCss = cssTag("insight")
     )(frag(

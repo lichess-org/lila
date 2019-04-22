@@ -1,6 +1,8 @@
 package views.html
 package round
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -34,7 +36,13 @@ object watcher {
         roundNvuiTag,
         roundTag,
         embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
-LichessRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},chat:${jsOrNull(chatJson)}})}""")
+LichessRound.boot(${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(pov.game),
+            "chat" -> chatJson
+          ))
+        })}""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false

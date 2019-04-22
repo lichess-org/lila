@@ -1,6 +1,6 @@
 package views.html.learn
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -16,9 +16,12 @@ object index {
     moreJs = frag(
       jsAt(s"compiled/lichess.learn${isProd ?? (".min")}.js"),
       embedJsUnsafe(s"""$$(function() {
-LichessLearn(document.getElementById('learn-app'), {
-data: ${data.fold("null")(safeJsonValue)},
-i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")
+LichessLearn(document.getElementById('learn-app'), ${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> i18nFullDbJsObject(lila.i18n.I18nDb.Learn)
+        ))
+      })})""")
     ),
     moreCss = cssTag("learn"),
     chessground = false,

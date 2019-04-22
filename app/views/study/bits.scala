@@ -4,7 +4,6 @@ package study
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.user.User
 
 import controllers.routes

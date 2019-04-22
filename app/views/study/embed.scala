@@ -1,5 +1,6 @@
 package views.html.study
 
+import play.api.libs.json.Json
 import play.api.mvc.RequestHeader
 
 import lila.app.templating.Environment._
@@ -48,14 +49,15 @@ object embed {
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse({
-element: document.querySelector('.embedded_study'),
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-embed: true,
-i18n: ${views.html.board.userAnalysisI18n()},
-userId: null
-});""", config.nonce)
+        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
+          safeJsonValue(Json.obj(
+            "study" -> data.study,
+            "data" -> data.analysis,
+            "embed" -> true,
+            "i18n" -> views.html.board.userAnalysisI18n(),
+            "userId" -> none[String]
+          ))
+        })""", config.nonce)
       )
     )
   )

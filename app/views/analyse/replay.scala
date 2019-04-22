@@ -58,7 +58,7 @@ object replay {
         embedJsUnsafe(s"""lichess=lichess||{};lichess.analyse=${
           safeJsonValue(Json.obj(
             "data" -> data,
-            "i18n" -> jsI18n.json(),
+            "i18n" -> jsI18n(),
             "userId" -> ctx.userId,
             "chat" -> chatJson,
             "explorer" -> Json.obj(

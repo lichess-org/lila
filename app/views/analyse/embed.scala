@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 import play.api.mvc.RequestHeader
 
 import lila.app.templating.Environment._
@@ -49,11 +49,13 @@ object embed {
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse({
-data: ${safeJsonValue(data)},
-embed: true,
-i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
-});""", config.nonce)
+        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "embed" -> true,
+            "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+          ))
+        })""", config.nonce)
       )
     )
   )
