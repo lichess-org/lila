@@ -22,12 +22,17 @@ object show {
     title = sim.fullName,
     moreJs = frag(
       jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),
-      embedJsUnsafe(s"""lichess.simul={
-data:${safeJsonValue(data)},
-i18n:${bits.jsI18n()},
-socketVersion:${socketVersion.value},
-userId: $jsUserIdString,
-chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))}}""")
+      embedJsUnsafe(s"""lichess.simul=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> bits.jsI18n(),
+          "socketVersion" -> socketVersion.value,
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+          }
+        ))
+      }""")
     )
   ) {
       main(cls := "simul")(

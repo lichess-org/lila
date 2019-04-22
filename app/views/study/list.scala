@@ -7,7 +7,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.study.Order
 import lila.study.Study.WithChaptersAndLiked
 import lila.user.User

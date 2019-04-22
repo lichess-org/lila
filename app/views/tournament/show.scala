@@ -1,6 +1,8 @@
 package views.html
 package tournament
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -22,14 +24,16 @@ object show {
     title = s"${tour.fullName} #${tour.id}",
     moreJs = frag(
       jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
-      embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament={
-data:${safeJsonValue(data)},
-i18n:${bits.jsI18n()},
-userId:${jsUserIdString},
-chat:${
-        chatOption.fold("null")(c =>
-          safeJsonValue(chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))
-      }};""")
+      embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> bits.jsI18n(),
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+          }
+        ))
+      }""")
     ),
     moreCss = cssTag("tournament.show"),
     chessground = false,

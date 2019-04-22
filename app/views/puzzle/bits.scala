@@ -3,7 +3,6 @@ package html.puzzle
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.common.String.html.safeJsonValue
 import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
@@ -20,7 +19,7 @@ object bits {
     dataLastmove := lastMove
   )(div(cls := "cg-board"))
 
-  def jsI18n(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
     trans.training,

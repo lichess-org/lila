@@ -1,5 +1,7 @@
 package views.html.tournament
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -23,10 +25,12 @@ object home {
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lichess.tournamentSchedule${isProd ?? (".min")}.js"),
-        embedJsUnsafe(s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), {
-data: ${safeJsonValue(json)},
-i18n: ${bits.jsI18n()}
-});
+        embedJsUnsafe(s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), ${
+          safeJsonValue(Json.obj(
+            "data" -> json,
+            "i18n" -> bits.jsI18n()
+          ))
+        });
 var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;""")
       ),
       openGraph = lila.app.ui.OpenGraph(

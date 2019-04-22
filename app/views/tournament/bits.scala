@@ -3,7 +3,6 @@ package views.html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.i18n.{ I18nKeys => trans }
 
 import controllers.routes
@@ -51,7 +50,7 @@ object bits {
       }
     )
 
-  def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
     trans.standing,
