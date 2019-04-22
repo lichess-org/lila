@@ -25,7 +25,7 @@ object header {
     div(cls := "box__top user-show__header")(
       h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
         if (u.isPatron) frag(
-          a(cls := routes.Plan.index)(raw(patronIcon)),
+          a(cls := routes.Plan.index)(patronIcon),
           userSpan(u, withPowerTip = false, withOnline = false)
         )
         else userSpan(u, withPowerTip = false)
