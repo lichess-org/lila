@@ -180,11 +180,11 @@
   <string name="usernameOrEmail">Ім’я користувача</string>
   <string name="changeUsername">Змінити ім\'я користувача</string>
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам лише дозволено змінити регістр вашого імені користувача.</string>
+  <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже зареєстровані?</string>
   <string name="changePassword">Змінити пароль</string>
-  <string name="changeEmail">Змінити email</string>
+  <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Email</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
