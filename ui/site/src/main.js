@@ -385,7 +385,6 @@
         var boot = function() {
           if (booted) return;
           booted = true;
-          lidraughts.loadCss('stylesheets/cli.css');
           lidraughts.loadScript(lidraughts.compiledScript('cli')).done(function() {
             LidraughtsCli.app($wrap, toggle);
           });

@@ -33,3 +33,9 @@ bad {
 #infscr-loading .spinner {
   margin: 10px auto;
 }
+
+#clinput .tt-menu {
+  .empty, .spinner {
+    display: none;
+  }
+}
