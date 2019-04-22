@@ -254,7 +254,7 @@ lazy val learn = module("learn", Seq(common, db, user)).settings(
 )
 
 lazy val streamer = module("streamer", Seq(common, hub, db, user, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val evalCache = module("evalCache", Seq(common, db, user, security, socket, tree)).settings(
