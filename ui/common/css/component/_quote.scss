@@ -17,7 +17,7 @@
       height: 15px;
       background: $c-bg-box;
       border-left: 2px solid $c-border;
-      border-bottom: 1px solid #aaa;
+      border-bottom: 1px solid $c-border;
       transform: skew(45deg) rotate(-45deg);
     }
   }
