@@ -385,7 +385,6 @@
         var boot = function() {
           if (booted) return;
           booted = true;
-          lichess.loadCss('stylesheets/cli.css');
           lichess.loadScript(lichess.compiledScript('cli')).done(function() {
             LichessCli.app($wrap, toggle);
           });
