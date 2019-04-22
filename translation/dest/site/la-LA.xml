@@ -677,6 +677,9 @@
   <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
+  <string name="light">Albens</string>
+  <string name="dark">Niger</string>
+  <string name="transparent">Perlucidus</string>
   <string name="boardGeometry">Geometria tabula</string>
   <string name="boardTheme">Thema tabulae</string>
   <string name="boardSize">Tabula magnitudine</string>
@@ -698,5 +701,8 @@
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
+  <string name="whiteWinsGame">Est victor Albus</string>
+  <string name="blackWinsGame">Est victor Niger</string>
+  <string name="next">Posterus</string>
   <string name="opening">Principium</string>
 </resources>
