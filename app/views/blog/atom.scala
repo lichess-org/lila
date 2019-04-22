@@ -42,6 +42,7 @@ object atom {
         tag("tag")("media:thumbnail")(attr("url") := doc.getImage(s"blog.image", "main").map(_.url)),
         tag("author")(tag("name")(doc.getText("blog.author")))
       )
-    }
+    },
+    raw("</feed>")
   )
 }
