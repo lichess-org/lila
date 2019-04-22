@@ -86,8 +86,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     truncate: Option[Int] = None,
     params: String = "",
     modIcon: Boolean = false
-  ): Frag = raw {
-    userIdOption.flatMap(lightUser).fold(User.anonymous) { user =>
+  ): Frag =
+    userIdOption.flatMap(lightUser).fold[Frag](User.anonymous) { user =>
       userIdNameLink(
         userId = user.id,
         username = user.name,
@@ -100,7 +100,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
         modIcon = modIcon
       )
     }
-  }
 
   def lightUserLink(
     user: LightUser,
@@ -109,19 +108,17 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withTitle: Boolean = true,
     truncate: Option[Int] = None,
     params: String = ""
-  ): Frag = raw {
-    userIdNameLink(
-      userId = user.id,
-      username = user.name,
-      isPatron = user.isPatron,
-      title = withTitle ?? user.title map Title.apply,
-      cssClass = cssClass,
-      withOnline = withOnline,
-      truncate = truncate,
-      params = params,
-      modIcon = false
-    )
-  }
+  ): Frag = userIdNameLink(
+    userId = user.id,
+    username = user.name,
+    isPatron = user.isPatron,
+    title = withTitle ?? user.title map Title.apply,
+    cssClass = cssClass,
+    withOnline = withOnline,
+    truncate = truncate,
+    params = params,
+    modIcon = false
+  )
 
   def userIdLink(
     userId: String,
@@ -145,14 +142,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     title: Option[Title],
     params: String,
     modIcon: Boolean
-  ): String = {
-    val klass = userClass(userId, cssClass, withOnline)
-    val href = userHref(username, params = params)
-    val content = truncate.fold(username)(username.take)
-    val titleS = titleTag(title).render
-    val icon = withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
-    s"""<a $klass $href>$icon$titleS$content</a>"""
-  }
+  ): Frag = a(
+    cls := userClass(userId, cssClass, withOnline),
+    href := userUrl(username, params = params)
+  )(
+      withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron)),
+      titleTag(title),
+      withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
+    )
 
   def userLink(
     user: User,
@@ -164,15 +161,15 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
     params: String = ""
-  ): Frag = raw {
-    val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
-    val href = userHref(user.username, params)
-    val content = text | user.username
-    val titleS = if (withTitle) titleTag(user.title).render else ""
-    val rating = userRating(user, withPerfRating, withBestRating)
-    val icon = withOnline ?? lineIcon(user)
-    s"""<a $klass $href>$icon$titleS$content$rating</a>"""
-  }
+  ): Frag = a(
+    cls := userClass(user.id, cssClass, withOnline, withPowerTip),
+    href := userUrl(user.username, params)
+  )(
+      withOnline ?? lineIcon(user),
+      withTitle option titleTag(user.title),
+      userRating(user, withPerfRating, withBestRating),
+      text | user.username
+    )
 
   def userSpan(
     user: User,
@@ -183,31 +180,34 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None
-  ): Frag = raw {
-    val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
-    val href = s"data-${userHref(user.username)}"
-    val content = text | user.username
-    val titleS = if (withTitle) titleTag(user.title).render else ""
-    val rating = userRating(user, withPerfRating, withBestRating)
-    val icon = withOnline ?? lineIcon(user)
-    s"""<span $klass $href>$icon$titleS$content$rating</span>"""
-  }
+  ): Frag = span(
+    cls := userClass(user.id, cssClass, withOnline, withPowerTip),
+    dataHref := userUrl(user.username)
+  )(
+      withOnline ?? lineIcon(user),
+      withTitle option titleTag(user.title),
+      text | user.username,
+      userRating(user, withPerfRating, withBestRating)
+    )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false): Frag = raw {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false): Frag = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
-    val content = user.fold(userId)(_.name)
-    val titleS = user.??(u => titleTag(u.title map Title.apply).render)
-    val klass = userClass(userId, none, withOnline)
-    val href = s"data-${userHref(name)}"
-    val icon = withOnline ?? lineIcon(user)
-    s"""<span $klass $href>$icon$titleS$content</span>"""
+    span(
+      cls := userClass(userId, none, withOnline),
+      dataHref := userUrl(name)
+    )(
+        withOnline ?? lineIcon(user),
+        user.??(u => titleTag(u.title map Title.apply)),
+        name
+      )
   }
 
-  private def renderRating(perf: Perf) =
+  private def renderRating(perf: Perf): Frag = raw {
     s"&nbsp;(${perf.intRating}${if (perf.provisional) "?" else ""})"
+  }
 
-  private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean) =
+  private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean): Frag =
     withPerfRating match {
       case Some(perfType) => renderRating(user.perfs(perfType))
       case _ if withBestRating => user.perfs.bestPerf ?? {
@@ -216,22 +216,20 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case _ => ""
     }
 
-  private def userHref(username: String, params: String = "") =
-    s"""href="${routes.User.show(username)}$params""""
-
-  private def addClass(cls: Option[String]) = cls.fold("")(" " + _)
+  private def userUrl(username: String, params: String = "") =
+    s"""${routes.User.show(username)}$params"""
 
   protected def userClass(
     userId: String,
     cssClass: Option[String],
     withOnline: Boolean,
     withPowerTip: Boolean = true
-  ): String = {
-    val online = if (withOnline) {
-      if (isOnline(userId)) " online" else " offline"
-    } else ""
-    s"""class="user-link${addClass(cssClass)}${addClass(withPowerTip option "ulpt")}$online""""
-  }
+  ): List[(String, Boolean)] =
+    (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
+      "user-link" -> true,
+      ~cssClass -> cssClass.isDefined,
+      "ulpt" -> withPowerTip
+    )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Frag =
     if (filter == GameFilter.Search) frag(br, trans.advancedSearch())
@@ -263,12 +261,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   val patronIconChar = ""
   val lineIconChar = ""
 
-  val lineIcon: String = """<i class="line"></i>"""
-  val patronIcon: String = """<i class="line patron" title="lichess Patron"></i>"""
-  val moderatorIcon: String = """<i class="line moderator" title="lichess Moderator"></i>"""
-  private def lineIcon(patron: Boolean): String = if (patron) patronIcon else lineIcon
-  private def lineIcon(user: Option[LightUser]): String = lineIcon(user.??(_.isPatron))
-  def lineIcon(user: LightUser): String = lineIcon(user.isPatron)
-  def lineIcon(user: User): String = lineIcon(user.isPatron)
-  def lineIconChar(user: User): String = if (user.isPatron) patronIconChar else lineIconChar
+  val lineIcon: Frag = i(cls := "line")
+  val patronIcon: Frag = i(cls := "line patron", title := "Lichess Patron")
+  val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
+  private def lineIcon(patron: Boolean): Frag = if (patron) patronIcon else lineIcon
+  private def lineIcon(user: Option[LightUser]): Frag = lineIcon(user.??(_.isPatron))
+  def lineIcon(user: LightUser): Frag = lineIcon(user.isPatron)
+  def lineIcon(user: User): Frag = lineIcon(user.isPatron)
+  def lineIconChar(user: User): Frag = if (user.isPatron) patronIconChar else lineIconChar
 }

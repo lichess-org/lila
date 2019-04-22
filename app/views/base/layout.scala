@@ -71,7 +71,7 @@ object layout {
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button">${escapeString(trans.signIn.txt())}</a>""")
+<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button">${escapeString(trans.signIn.txt()).render}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 
