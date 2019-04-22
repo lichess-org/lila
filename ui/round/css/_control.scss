@@ -25,8 +25,13 @@
     border-width: 0 1px;
   }
   .suggestion {
-    .button {
+    @extend %flex-center;
+    justify-content: space-around;
+    p {
       width: 100%;
+    }
+    .button {
+      margin: .5em 0 0 0;
     }
   }
   .pending {
