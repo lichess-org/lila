@@ -60,10 +60,7 @@ $menu-transition: .1s linear .1s;
       border-left: 2px solid $c-primary;
       a {
         display: block;
-        padding: .4rem .7rem;
-        @media (hover: none) {
-          padding: .5rem .7rem;
-        }
+        padding: .6rem .7rem;
         color: $c-header-dropdown;
         &:hover {
           background: $c-primary;
