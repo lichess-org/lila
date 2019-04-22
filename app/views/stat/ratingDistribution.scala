@@ -25,7 +25,7 @@ object ratingDistribution {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
-          h1(trans.weeklyPerfTypeRatingDistribution.frag(views.html.base.bits.mselect(
+          h1(trans.weeklyPerfTypeRatingDistribution(views.html.base.bits.mselect(
             "variant-stats",
             span(perfType.name),
             PerfType.leaderboardable map { pt =>

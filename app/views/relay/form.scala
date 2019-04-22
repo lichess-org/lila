@@ -65,8 +65,8 @@ object form {
       if (isGranted(_.Admin)) form3.group(form("credit"), raw("Credit the source"), half = true)(form3.input(_))
       else form3.hidden(form("credit")),
       form3.actions(
-        a(href := routes.Relay.index(1))(trans.cancel.frag()),
-        form3.submit(trans.apply.frag())
+        a(href := routes.Relay.index(1))(trans.cancel()),
+        form3.submit(trans.apply())
       )
     )
 }

@@ -33,10 +33,10 @@ object home {
         st.aside(cls := "page-menu__menu simul-list__help")(
           p(trans.aboutSimul()),
           img(src := staticUrl("images/sijbrands-simul.jpg"), alt := "Simul IRL with Ton Sijbrands")(
-            em("[1967] ", trans.aboutSimulImage.frag()),
-            p(trans.aboutSimulRealLife.frag()),
-            p(trans.aboutSimulRules.frag()),
-            p(trans.aboutSimulSettings.frag())
+            em("[1967] ", trans.aboutSimulImage()),
+            p(trans.aboutSimulRealLife()),
+            p(trans.aboutSimulRules()),
+            p(trans.aboutSimulSettings())
           )
         ),
         div(cls := "page-menu__content simul-list__content")(

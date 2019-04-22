@@ -14,33 +14,33 @@ object mobile {
   ) {
       main(
         div(cls := "mobile page-small box box-pad")(
-          h1(trans.playDraughtsEverywhere.frag()),
+          h1(trans.playDraughtsEverywhere()),
           div(cls := "sides")(
             div(cls := "left-side")(
               div(cls := "stores")(
                 googlePlayButton,
                 appleStoreButton
               ),
-              h2(trans.asFreeAsLidraughts.frag()),
+              h2(trans.asFreeAsLidraughts()),
               ul(cls := "block")(
-                li(trans.builtForTheLoveOfDraughtsNotMoney.frag()),
-                li(trans.everybodyGetsAllFeaturesForFree.frag()),
-                li(trans.zeroAdvertisement.frag()),
+                li(trans.builtForTheLoveOfDraughtsNotMoney()),
+                li(trans.everybodyGetsAllFeaturesForFree()),
+                li(trans.zeroAdvertisement()),
                 li("Entirely ", a(href := "https://github.com/RoepStoep/lidrobile")("Open Source"))
               ),
-              h2(trans.fullFeatured.frag()),
+              h2(trans.fullFeatured()),
               ul(cls := "block")(
-                li(trans.phoneAndTablet.frag()),
-                li(trans.bulletBlitzClassical.frag()),
-                li(trans.correspondenceDraughts.frag()),
-                li(trans.onlineAndOfflinePlay.frag()),
-                li(trans.tournaments.frag()),
-                li(trans.puzzles.frag()),
-                li(trans.gameAnalysis.frag()),
-                li(trans.boardEditor.frag()),
+                li(trans.phoneAndTablet()),
+                li(trans.bulletBlitzClassical()),
+                li(trans.correspondenceDraughts()),
+                li(trans.onlineAndOfflinePlay()),
+                li(trans.tournaments()),
+                li(trans.puzzles()),
+                li(trans.gameAnalysis()),
+                li(trans.boardEditor()),
                 li("Lidraughts TV"),
-                li(trans.followAndChallengeFriends.frag()),
-                li(trans.availableInNbLanguages.pluralSameFrag(16))
+                li(trans.followAndChallengeFriends()),
+                li(trans.availableInNbLanguages.pluralSame(16))
               )
             ),
             div(cls := "right-side")(

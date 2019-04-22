@@ -13,7 +13,7 @@ object finishedPaginator {
     tbody(cls := "infinitescroll")(
       finished.nextPage.map { np =>
         tr(th(cls := "pager none")(
-          a(rel := "next", href := routes.Tournament.home(np))(trans.next.frag())
+          a(rel := "next", href := routes.Tournament.home(np))(trans.next())
         ))
       },
       finished.currentPageResults.map { t =>

@@ -20,9 +20,9 @@ object bits {
       title = trans.noSimulFound.txt()
     ) {
         main(cls := "page-small box box-pad")(
-          h1(trans.noSimulFound.frag()),
-          p(trans.noSimulExplanation.frag()),
-          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag()))
+          h1(trans.noSimulFound()),
+          p(trans.noSimulExplanation()),
+          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
         )
       }
 
@@ -42,8 +42,8 @@ object bits {
           frag(
             span(cls := "headline")(spot.headline),
             span(cls := "more")(
-              if (s.isRunning) trans.eventInProgress.frag()
-              else if (spot.isNow) trans.startingSoon.frag()
+              if (s.isRunning) trans.eventInProgress()
+              else if (spot.isNow) trans.startingSoon()
               else momentFromNow(spot.startsAt)
             )
           )).getOrElse(

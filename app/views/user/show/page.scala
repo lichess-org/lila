@@ -95,7 +95,7 @@ object page {
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
         h1(u.username),
-        p(trans.thisAccountIsClosed.frag())
+        p(trans.thisAccountIsClosed())
       )
     }
 

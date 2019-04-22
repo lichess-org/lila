@@ -49,49 +49,49 @@ object show {
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
-                    trans.casual.frag()
+                    trans.casual()
                   )
                 )
               ),
-              trans.simulHostExtraTime.frag(),
+              trans.simulHostExtraTime(),
               ": ",
               pluralize("minute", sim.clock.hostExtraMinutes),
               br,
-              trans.hostColorX.frag(sim.color match {
-                case Some("white") => trans.white.frag()
-                case Some("black") => trans.black.frag()
-                case _ => trans.randomColor.frag()
+              trans.hostColorX(sim.color match {
+                case Some("white") => trans.white()
+                case Some("black") => trans.black()
+                case _ => trans.randomColor()
               }),
               sim.spotlight.flatMap(_.drawLimit).map { lim =>
                 frag(
                   br,
-                  if (lim > 0) trans.drawOffersAfterX.frag(lim)
-                  else trans.drawOffersNotAllowed.frag()
+                  if (lim > 0) trans.drawOffersAfterX(lim)
+                  else trans.drawOffersNotAllowed()
                 )
               },
               sim.targetPct.map { target =>
                 frag(
                   br,
-                  trans.targetWinningPercentage.frag(s"$target%")
+                  trans.targetWinningPercentage(s"$target%")
                 )
               },
               (sim.chatmode.isDefined && !sim.chatmode.contains(lidraughts.simul.Simul.ChatMode.Everyone)) option {
                 frag(
                   br,
-                  trans.chatAvailableForX.frag(sim.chatmode match {
-                    case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.spectatorsOnly.frag()
-                    case _ => trans.participantsOnly.frag()
+                  trans.chatAvailableForX(sim.chatmode match {
+                    case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.spectatorsOnly()
+                    case _ => trans.participantsOnly()
                   })
                 )
               },
               sim.allowed.filter(_.nonEmpty).map { allowed =>
                 frag(
                   br,
-                  trans.simulParticipationLimited.frag(allowed.size)
+                  trans.simulParticipationLimited(allowed.size)
                 )
               }
             ),
-            trans.by.frag(usernameOrId(sim.hostId)),
+            trans.by(usernameOrId(sim.hostId)),
             " ",
             sim.spotlight.fold(momentFromNow(sim.createdAt)) { s => absClientDateTime(s.startsAt) }
           ),

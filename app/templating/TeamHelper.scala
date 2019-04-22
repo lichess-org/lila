@@ -8,7 +8,7 @@ import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.frag.escapeHtml
 import lidraughts.team.Env.{ current => teamEnv }
 
-trait TeamHelper extends ui.ScalatagsTwirl {
+trait TeamHelper {
 
   private def api = teamEnv.api
 

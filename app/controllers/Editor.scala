@@ -4,7 +4,7 @@ import draughts.format.Forsyth
 import draughts.Situation
 import draughts.variant.{ Standard, Variant }
 import play.api.libs.json._
-import play.twirl.api.Html
+
 import lidraughts.app._
 import lidraughts.game.GameRepo
 import views._

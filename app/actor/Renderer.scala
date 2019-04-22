@@ -2,7 +2,6 @@ package lidraughts.app
 package actor
 
 import akka.actor._
-import play.twirl.api.Html
 
 import lidraughts.game.Pov
 import views.{ html => V }

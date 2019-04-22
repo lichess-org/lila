@@ -77,13 +77,13 @@ object crud {
       form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, DataForm.clockTimeChoices)),
       form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, DataForm.clockIncrementChoices))
     ),
-    form3.group(form("position"), trans.startPosition.frag())(tournament.form.startingPosition(_)),
+    form3.group(form("position"), trans.startPosition())(tournament.form.startingPosition(_)),
 
     hr,
     h2("Conditions of entry"),
     tournament.form.condition(form, auto = false, Nil),
     form3.group(form("password"), raw("Password (optional)"))(form3.input(_)),
-    form3.action(form3.submit(trans.apply.frag()))
+    form3.action(form3.submit(trans.apply()))
   )
 
   def index(tours: Paginator[Tournament])(implicit ctx: Context) = layout(

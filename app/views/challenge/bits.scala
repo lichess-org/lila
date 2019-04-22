@@ -35,8 +35,8 @@ object bits {
         br,
         span(cls := "clock")(
           c.daysPerTurn map { days =>
-            if (days == 1) trans.oneDay.frag()
-            else trans.nbDays.pluralSameFrag(days)
+            if (days == 1) trans.oneDay()
+            else trans.nbDays.pluralSame(days)
           } getOrElse shortClockName(c.clock.map(_.config))
         )
       )

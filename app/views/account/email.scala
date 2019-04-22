@@ -15,14 +15,14 @@ object email {
   ) {
       div(cls := "account box box-pad")(
         h1(
-          trans.changeEmail.frag(),
+          trans.changeEmail(),
           ctx.req.queryString.contains("ok") option
             frag(" ", i(cls := "is-green", dataIcon := "E"))
         ),
         st.form(cls := "form3", action := routes.Account.emailApply, method := "POST")(
-          form3.password(form("passwd"), trans.password.frag()),
-          form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")(required)),
-          form3.action(form3.submit(trans.apply.frag()))
+          form3.password(form("passwd"), trans.password()),
+          form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(required)),
+          form3.action(form3.submit(trans.apply()))
         )
       )
     }

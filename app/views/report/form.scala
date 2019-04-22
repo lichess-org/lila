@@ -18,28 +18,28 @@ object form {
       moreJs = captchaTag
     ) {
         main(cls := "page-small box box-pad report")(
-          h1(trans.reportAUser.frag()),
+          h1(trans.reportAUser()),
           st.form(
             cls := "form3",
             action := s"${routes.Report.create()}${reqUser.??(u => "?username=" + u.username)}",
             method := "post"
           )(
               form3.globalError(form),
-              form3.group(form("username"), trans.user.frag(), klass = "field_to") { f =>
+              form3.group(form("username"), trans.user(), klass = "field_to") { f =>
                 reqUser.map { user =>
                   frag(userLink(user), form3.hidden(f, user.id.some))
                 }.getOrElse {
                   div(form3.input(f, klass = "user-autocomplete")(dataTag := "span"))
                 }
               },
-              form3.group(form("reason"), trans.reason.frag()) { f =>
+              form3.group(form("reason"), trans.reason()) { f =>
                 form3.select(f, translatedReasonChoices, trans.whatIsIheMatter.txt().some)
               },
-              form3.group(form("text"), trans.description.frag(), help = trans.reportDescriptionHelp.frag().some)(form3.textarea(_)(rows := 8)),
+              form3.group(form("text"), trans.description(), help = trans.reportDescriptionHelp().some)(form3.textarea(_)(rows := 8)),
               views.html.base.captcha(form, captcha),
               form3.actions(
-                a(href := routes.Lobby.home())(trans.cancel.frag()),
-                form3.submit(trans.send.frag())
+                a(href := routes.Lobby.home())(trans.cancel()),
+                form3.submit(trans.send())
               )
             )
         )

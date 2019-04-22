@@ -26,7 +26,7 @@ object show {
               h1(cls := "text", dataIcon := "f")(t.name, " ", em("TEAM")),
               div(
                 if (t.disabled) span(cls := "staff")("CLOSED")
-                else trans.nbMembers.pluralFrag(t.nbMembers, raw("<strong>" + t.nbMembers.localize + "</strong>"))
+                else trans.nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
               )
             ),
             (info.mine || t.enabled) option div(cls := "team-show__content")(

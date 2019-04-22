@@ -35,7 +35,7 @@ object side {
             separator,
             tour.durationString
           ),
-          tour.mode.fold(trans.casualTournament, trans.ratedTournament).frag(),
+          tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           systemName(tour.system).capitalize,
           (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && tour.isCreated)) option frag(
@@ -63,7 +63,7 @@ object side {
         "accepted" -> (ctx.isAuth && verdicts.accepted),
         "refused" -> (ctx.isAuth && !verdicts.accepted)
       ))(div(
-        (verdicts.list.size < 2) option p(trans.conditionOfEntry.frag()),
+        (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
         verdicts.list map { v =>
           p(cls := List(
             "condition text" -> true,

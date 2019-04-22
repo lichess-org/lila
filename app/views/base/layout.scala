@@ -184,7 +184,7 @@ object layout {
                 div(cls := "friend_box_title")(
                   strong(cls := "online")("?"),
                   " ",
-                  trans.onlineFriends.frag()
+                  trans.onlineFriends()
                 ),
                 div(cls := "content_wrap")(
                   div(cls := "content list"),
@@ -192,15 +192,15 @@ object layout {
                     "nobody" -> true,
                     "none" -> ctx.onlineFriends.users.nonEmpty
                   ))(
-                    span(trans.noFriendsOnline.frag()),
+                    span(trans.noFriendsOnline()),
                     a(cls := "find button", href := routes.User.opponents)(
-                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends.frag())
+                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
                     )
                   )
                 )
               )
           },
-          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag()),
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           draughtsground option jsTag("vendor/draughtsground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           if (isProd)

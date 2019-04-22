@@ -35,14 +35,14 @@ object coordinate {
         )(
             div(cls := "coord-trainer__side")(
               div(cls := "box")(
-                h1(trans.coordinates.coordinates.frag()),
+                h1(trans.coordinates.coordinates()),
                 if (ctx.isAuth) scoreOption.map { score =>
                   div(cls := "scores")(scoreCharts(score))
                 }
                 else div(cls := "register")(
-                  p(trans.toTrackYourProgress.frag()),
+                  p(trans.toTrackYourProgress()),
                   p(cls := "signup")(
-                    a(cls := "button", href := routes.Auth.signup)(trans.signUp.frag())
+                    a(cls := "button", href := routes.Auth.signup)(trans.signUp())
                   )
                 )
               ),
@@ -71,15 +71,15 @@ object coordinate {
             ),
             div(cls := "coord-trainer__table")(
               div(cls := "explanation")(
-                p(trans.coordinates.knowingTheDraughtsBoard.frag()),
+                p(trans.coordinates.knowingTheDraughtsBoard()),
                 ul(
-                  li(trans.coordinates.mostDraughtsCourses.frag()),
-                  li(trans.coordinates.talkToYourDraughtsFriends.frag()),
-                  li(trans.coordinates.youCanAnalyseAGameMoreEffectively.frag())
+                  li(trans.coordinates.mostDraughtsCourses()),
+                  li(trans.coordinates.talkToYourDraughtsFriends()),
+                  li(trans.coordinates.youCanAnalyseAGameMoreEffectively())
                 ),
-                p(trans.coordinates.aSquareNameAppears.frag())
+                p(trans.coordinates.aSquareNameAppears())
               ),
-              button(cls := "start button button-fat")(trans.coordinates.startTraining.frag())
+              button(cls := "start button button-fat")(trans.coordinates.startTraining())
             ),
             div(cls := "coord-trainer__score")(0),
             div(cls := "coord-trainer__progress")(div(cls := "progress_bar"))

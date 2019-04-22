@@ -86,13 +86,13 @@ object bits {
         frag(
           br,
           span(cls := "simul-targets")(
-            trans.winningPercentage.frag(),
+            trans.winningPercentage(),
             span(cls := s"pct simul_pct_${simul.id}")(simul.winningPercentageStr),
-            trans.withTarget.frag(),
+            trans.withTarget(),
             span(cls := "pct")(s"$pct%")
           ),
           span(cls := "simul-targets")(
-            trans.toReachTarget.frag(),
+            trans.toReachTarget(),
             wrap(id := s"simul_req_${simul.id}")(
               if (simul.targetReached) span(cls := "win")(trans.succeeded())
               else if (simul.targetFailed) span(cls := "loss")(trans.failed())
@@ -117,10 +117,10 @@ object bits {
     h3(
       simul.map {
         simulStanding(_)
-      } getOrElse trans.currentGames.frag(),
+      } getOrElse trans.currentGames(),
       "round-toggle-autoswitch" |> { id =>
         span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
-          label(`for` := id)(trans.autoSwitch.frag()),
+          label(`for` := id)(trans.autoSwitch()),
           span(cls := "switch")(
             input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
             label(`for` := id)
@@ -130,7 +130,7 @@ object bits {
       simul ?? { _.pairings.length >= 10 } option
         "simul-toggle-sequential" |> { id =>
           span(cls := "move_seq switcher", st.title := trans.switchGamesInSameOrder.txt())(
-            label(`for` := id)(trans.sequentialSwitch.frag()),
+            label(`for` := id)(trans.sequentialSwitch()),
             span(cls := "switch")(
               input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
               label(`for` := id)
@@ -149,7 +149,7 @@ object bits {
                   span(cls := "meta")(
                     playerText(pov.opponent, withRating = false),
                     span(cls := "indicator")(
-                      if (pov.isMyTurn) pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
+                      if (pov.isMyTurn) pov.remainingSeconds.fold(frag(trans.yourTurn()))(secondsFromNow(_, true))
                       else nbsp
                     )
                   )

@@ -6,7 +6,6 @@ import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
-import play.twirl.api.Html
 import scalatags.Text.Frag
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
@@ -31,8 +30,6 @@ private[controllers] trait LidraughtsController
   protected implicit final class LidraughtsPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
   }
-
-  protected implicit def LidraughtsHtmlToResult(content: Html): Result = Ok(content)
 
   protected implicit def LidraughtsFragToResult(frag: Frag): Result = Ok(frag)
 

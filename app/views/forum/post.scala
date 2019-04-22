@@ -72,9 +72,9 @@ object post {
           )(post.text),
           div(cls := "edit-buttons")(
             a(cls := "edit-post-cancel", href := routes.ForumPost.redirect(post.id), style := "margin-left:20px")(
-              trans.cancel.frag()
+              trans.cancel()
             ),
-            button(`type` := "submit", cls := "button")(trans.apply.frag())
+            button(`type` := "submit", cls := "button")(trans.apply())
           )
         )
     )

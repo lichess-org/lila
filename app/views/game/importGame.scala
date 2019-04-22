@@ -26,7 +26,7 @@ object importGame {
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(
-          form3.group(form("pdn"), trans.pasteThePdnStringHere.frag())(form3.textarea(_)()),
+          form3.group(form("pdn"), trans.pasteThePdnStringHere())(form3.textarea(_)()),
           form("pdn").value.flatMap { pdn =>
             lidraughts.importer.ImportData(pdn, none).preprocess(none).fold(
               err => div(cls := "error")(err.toList mkString "\n").some,
@@ -36,8 +36,8 @@ object importGame {
           form3.group(form("pdnFile"), raw("Or upload a PDN file"), klass = "upload") { f =>
             frag(" ", form3.file.pdn(f.name))
           },
-          form3.checkbox(form("analyse"), trans.requestAComputerAnalysis.frag(), help = Some(analyseHelp), disabled = ctx.isAnon),
-          form3.action(form3.submit(trans.importGame.frag(), "/".some))
+          form3.checkbox(form("analyse"), trans.requestAComputerAnalysis(), help = Some(analyseHelp), disabled = ctx.isAnon),
+          form3.action(form3.submit(trans.importGame(), "/".some))
         )
       )
     }

@@ -14,15 +14,15 @@ object close {
     active = "close"
   ) {
     div(cls := "account box box-pad")(
-      h1(dataIcon := "j", cls := "text")(trans.closeAccount.frag()),
+      h1(dataIcon := "j", cls := "text")(trans.closeAccount()),
       st.form(cls := "form3", action := routes.Account.closeConfirm, method := "POST")(
-        div(cls := "form-group")(trans.closeAccountExplanation.frag()),
-        div(cls := "form-group")(trans.noNewAccountWithSameName.frag()),
-        form3.passwordModified(form("passwd"), trans.password.frag())(autocomplete := "off"),
+        div(cls := "form-group")(trans.closeAccountExplanation()),
+        div(cls := "form-group")(trans.noNewAccountWithSameName()),
+        form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),
         form3.actions(frag(
-          a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount.frag()),
+          a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount()),
           form3.submit(
-            trans.closeAccount.frag(),
+            trans.closeAccount(),
             icon = "j".some,
             confirm = trans.closingIsDefinitive.txt().some,
             klass = "button-red"

@@ -89,10 +89,10 @@ object filter {
         disabled option st.disabled
       )(content)
     ),
-    (disabled && checks.has(value)) ?? st.input(
+    (disabled && checks.has(value)) option st.input(
       name := s"${form(key).name}[$index]",
       st.value := value,
       `type` := "hidden"
-    ).toHtml
+    )
   )
 }

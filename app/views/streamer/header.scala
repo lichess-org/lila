@@ -50,7 +50,7 @@ object header {
               strong(s.status)
             )
           } getOrElse frag(
-            p(cls := "at")(trans.lastSeenActive.frag(momentFromNow(s.streamer.seenAt))),
+            p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
             s.streamer.liveAt.map { liveAt =>
               p(cls := "at")("Last stream ", momentFromNow(liveAt))
             }
@@ -62,8 +62,8 @@ object header {
               "follow button text" -> true,
               "active" -> f
             ), tpe := "submit")(
-              span(cls := "active-no")(trans.follow.frag()),
-              span(cls := "active-yes")(trans.following.frag())
+              span(cls := "active-no")(trans.follow()),
+              span(cls := "active-yes")(trans.following())
             )
         }
       )

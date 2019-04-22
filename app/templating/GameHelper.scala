@@ -9,7 +9,7 @@ import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.frag.escapeHtml
 import lidraughts.game.{ Game, Player, Namer, Pov }
 import lidraughts.i18n.{ I18nKeys, enLang }
-import lidraughts.user.{ User, UserContext }
+import lidraughts.user.{ User, UserContext, Title }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with DraughtsgroundHelper =>
 
@@ -75,7 +75,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Frag =
-    clock.fold[Frag](I18nKeys.unlimited.frag())(shortClockName)
+    clock.fold[Frag](I18nKeys.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
@@ -89,8 +89,17 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case Mode.Rated => I18nKeys.rated.literalTxtTo(enLang)
   }
 
-  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true) =
-    Namer.player(player, withRating, withTitle)(lightUser)
+  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag = raw {
+    player.aiLevel.fold(
+      player.userId.flatMap(lightUser).fold(lidraughts.user.User.anonymous) { user =>
+        val title = withTitle ?? user.title ?? { t =>
+          s"""<span class="title"${(Title(t) == Title.BOT) ?? " data-bot"} title="${Title titleName Title(t)}">$t</span>&nbsp;"""
+        }
+        if (withRating) s"$title${user.name}&nbsp;(${lidraughts.game.Namer ratingString player})"
+        else s"$title${user.name}"
+      }
+    ) { level => s"A.I. level $level" }
+  }
 
   def playerText(player: Player, withRating: Boolean = false) =
     Namer.playerText(player, withRating)(lightUser)

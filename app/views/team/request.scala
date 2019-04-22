@@ -31,7 +31,7 @@ object request {
               views.html.base.captcha(form, captcha),
               form3.actions(
                 a(href := routes.Team.show(t.slug))(trans.cancel()),
-                form3.submit(trans.joinTeam.frag())
+                form3.submit(trans.joinTeam())
               )
             )
           )

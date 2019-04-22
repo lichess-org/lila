@@ -14,7 +14,7 @@ object opponents {
       h1(
         userLink(u, withOnline = false),
         " ",
-        trans.favoriteOpponents.frag()
+        trans.favoriteOpponents()
       ),
       table(cls := "slist")(
         tbody(
@@ -25,7 +25,7 @@ object opponents {
               td(
                 r.nbGames.filter(_ > 0).map { nbGames =>
                   a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}", title := "Games count over your last 1000 games")(
-                    trans.nbGames.pluralSameFrag(nbGames)
+                    trans.nbGames.pluralSame(nbGames)
                   )
                 }
               ),

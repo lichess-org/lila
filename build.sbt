@@ -3,7 +3,6 @@ import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
-import play.twirl.sbt.Import._
 import PlayKeys._
 
 import BuildSettings._
@@ -35,17 +34,6 @@ libraryDependencies ++= Seq(
   maxmind, prismic, netty, guava, markdown,
   kamon.core, kamon.influxdb, scalatags,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
-)
-TwirlKeys.templateImports ++= Seq(
-  "lidraughts.game.{ Game, Player, Pov }",
-  "lidraughts.tournament.Tournament",
-  "lidraughts.user.{ User, UserContext }",
-  "lidraughts.security.Permission",
-  "lidraughts.app.templating.Environment._",
-  "lidraughts.api.Context",
-  "lidraughts.i18n.{ I18nKeys => trans }",
-  "lidraughts.common.paginator.Paginator",
-  "lidraughts.common.String.html._"
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
@@ -95,7 +83,7 @@ lazy val i18n = module("i18n", Seq(common, db, user, hub)).settings(
 
 lazy val insight = module("insight", Seq(common, game, user, analyse, relation, pref, socket, round, security)
 ).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees, scalatags)
 )
 
 lazy val draughts = module("draughts", Seq()).settings(
@@ -137,7 +125,7 @@ lazy val perfStat = module("perfStat", Seq(common, db, user, game, rating)).sett
 )
 
 lazy val history = module("history", Seq(common, db, memo, game, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val db = module("db", Seq(common)).settings(
@@ -226,7 +214,7 @@ lazy val tournament = module("tournament", Seq(common, hub, socket, game, round,
 )
 
 lazy val simul = module("simul", Seq(common, hub, socket, game, round, chat, memo, quote, evaluation)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, scalatags)
 )
 
 lazy val draughtsnet = module("draughtsnet", Seq(common, game, analyse, db, evalCache)).settings(

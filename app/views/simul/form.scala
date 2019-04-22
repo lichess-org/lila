@@ -21,32 +21,32 @@ object form {
       moreCss = cssTag("simul.form")
     ) {
         main(cls := "box box-pad page-small simul-form")(
-          h1(trans.hostANewSimul.frag()),
+          h1(trans.hostANewSimul()),
           st.form(cls := "form3", action := routes.Simul.create(), method := "POST")(
             br, br,
-            p(cls := "help")(trans.whenCreateSimul.frag()),
+            p(cls := "help")(trans.whenCreateSimul()),
             br, br,
             globalError(form),
-            form3.group(form("variant"), trans.simulVariantsHint.frag()) { _ =>
+            form3.group(form("variant"), trans.simulVariantsHint()) { _ =>
               div(cls := "variants")(
                 views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
               )
             },
             form3.split(
-              form3.group(form("clockTime"), trans.clockInitialTime.frag(), help = trans.simulClockHint.frag().some, half = true)(form3.select(_, clockTimeChoices)),
-              form3.group(form("clockIncrement"), trans.increment.frag(), half = true)(form3.select(_, clockIncrementChoices))
+              form3.group(form("clockTime"), trans.clockInitialTime(), help = trans.simulClockHint().some, half = true)(form3.select(_, clockTimeChoices)),
+              form3.group(form("clockIncrement"), trans.increment(), half = true)(form3.select(_, clockIncrementChoices))
             ),
             form3.split(
-              form3.group(form("clockExtra"), trans.simulHostExtraTime.frag(), help = trans.simulAddExtraTime.frag().some, half = true)(form3.select(_, clockExtraChoices)),
-              form3.group(form("color"), trans.simulHostColor.frag(), half = true)(form3.select(_, translatedColorChoices))
+              form3.group(form("clockExtra"), trans.simulHostExtraTime(), help = trans.simulAddExtraTime().some, half = true)(form3.select(_, clockExtraChoices)),
+              form3.group(form("color"), trans.simulHostColor(), half = true)(form3.select(_, translatedColorChoices))
             ),
-            form3.group(form("targetPct"), trans.winningPercentage.frag(), help = trans.simulTargetPercentageHint.frag().some)(
+            form3.group(form("targetPct"), trans.winningPercentage(), help = trans.simulTargetPercentageHint().some)(
               form3.input(_, typ = "number")(st.placeholder := trans.targetPercentage.txt(), st.min := 50, st.max := 100)
             ),
-            form3.group(form("chat"), trans.chatAvailableFor.frag(), help = trans.simulChatRestrictionsHint.frag().some)(form3.select(_, translatedChatChoices)),
+            form3.group(form("chat"), trans.chatAvailableFor(), help = trans.simulChatRestrictionsHint().some)(form3.select(_, translatedChatChoices)),
             form3.actions(
-              a(href := routes.Simul.home())(trans.cancel.frag()),
-              form3.submit(trans.hostANewSimul.frag(), icon = "g".some)
+              a(href := routes.Simul.home())(trans.cancel()),
+              form3.submit(trans.hostANewSimul(), icon = "g".some)
             )
           )
         )

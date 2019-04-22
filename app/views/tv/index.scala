@@ -54,7 +54,7 @@ object index {
               div(cls := "round__underboard")(
                 views.html.round.bits.crosstable(cross, pv.game),
                 div(cls := "tv-history")(
-                  h2(trans.previouslyOnLidraughtsTV.frag()),
+                  h2(trans.previouslyOnLidraughtsTV()),
                   div(cls := "now-playing")(
                     history.map { p =>
                       a(href := gameLink(p))(views.html.game.bits.mini(p))

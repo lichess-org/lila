@@ -69,20 +69,20 @@ object home {
             a(href := routes.Setup.hookForm, cls := List(
               "button button-metal config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
-            ), trans.createAGame.frag()),
+            ), trans.createAGame()),
             a(href := routes.Setup.friendForm(none), cls := List(
               "button button-metal config_friend" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithAFriend.frag()),
+            ), trans.playWithAFriend()),
             a(href := routes.Setup.aiForm, cls := List(
               "button button-metal config_ai" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithTheMachine.frag())
+            ), trans.playWithTheMachine())
           ),
           div(cls := "lobby__counters")(
-            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
+            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers(nbPlayersPlaceholder)),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-              trans.nbGamesInPlay.pluralFrag(nbRounds, strong(nbRounds))
+              trans.nbGamesInPlay.plural(nbRounds, strong(nbRounds))
             )
           )
         ),
@@ -103,12 +103,12 @@ object home {
             div(cls := "timeline", dataHref := routes.Timeline.home)(
               views.html.timeline entries userTimeline,
               // userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
+              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
             )
           } getOrElse div(cls := "about-side")(
-            trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
+            trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
             " ",
-            a(cls := "blue", href := "/about")(trans.aboutX.frag("lidraughts.org"), "...")
+            a(cls := "blue", href := "/about")(trans.aboutX("lidraughts.org"), "...")
           )
         ),
         featured map { g =>
@@ -121,7 +121,7 @@ object home {
           div(cls := "lobby__puzzle", title := trans.clickToSolve.txt())(
             raw(p.html),
             div(cls := "vstext")(
-              trans.puzzleOfTheDay.frag(),
+              trans.puzzleOfTheDay(),
               br,
               p.color.fold(trans.whitePlays, trans.blackPlays)()
             )
@@ -130,8 +130,8 @@ object home {
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box", dataUrl := routes.ForumPost.recent)(
           div(cls := "lobby__box__top")(
-            span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag()),
-            a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »")
+            span(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
+            a(cls := "more", href := routes.ForumCateg.index)(trans.more(), " »")
           ),
           div(cls := "lobby__box__content")(
             views.html.forum.post recent forumRecent
@@ -143,28 +143,28 @@ object home {
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong("Lidraughts Patron"),
-              span(trans.directlySupportLidraughts.frag())
+              span(trans.directlySupportLidraughts())
             )
           )
         /*a(href := routes.Page.swag)(
             iconTag(""),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),
-              span(trans.playDraughtsInStyle.frag())
+              span(trans.playDraughtsInStyle())
             )
           )*/
         ),
         div(cls := "lobby__about")(
-          a(href := "/about")(trans.aboutX.frag("lidraughts.org")),
-          a(href := "/contact")(trans.contact.frag()),
+          a(href := "/about")(trans.aboutX("lidraughts.org")),
+          a(href := "/contact")(trans.contact()),
           ctx.noKid option frag(
-            a(href := "/mobile")(trans.mobileApp.frag()),
-            a(href := "/developers")(trans.webmasters.frag()),
-            a(href := "/patron")(trans.donate.frag())
+            a(href := "/mobile")(trans.mobileApp()),
+            a(href := "/developers")(trans.webmasters()),
+            a(href := "/patron")(trans.donate())
           ),
-          a(href := routes.Page.tos)(trans.termsOfService.frag()),
-          a(href := routes.Page.privacy)(trans.privacy.frag()),
-          a(href := "https://github.com/roepstoep/lidraughts")(trans.sourceCode.frag())
+          a(href := routes.Page.tos)(trans.termsOfService()),
+          a(href := routes.Page.privacy)(trans.privacy()),
+          a(href := "https://github.com/roepstoep/lidraughts")(trans.sourceCode())
         )
       )
     }

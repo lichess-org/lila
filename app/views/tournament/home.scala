@@ -42,7 +42,7 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
         main(cls := "tour-home")(
           st.aside(cls := "tour-home__side")(
             h2(
-              a(href := routes.Tournament.leaderboard)(trans.leaderboard.frag())
+              a(href := routes.Tournament.leaderboard)(trans.leaderboard())
             ),
             ul(cls := "leaderboard")(
               winners.top.map { w =>
@@ -61,9 +61,9 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
               },
               a(href := "/tournament/calendar")(trans.tournamentCalendar()),
               br,
-              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
+              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
             ),
-            h2(trans.lidraughtsTournaments.frag()),
+            h2(trans.lidraughtsTournaments()),
             div(cls := "scheduled")(
               scheduled.map { tour =>
                 tour.schedule.filter(s => s.freq != lidraughts.tournament.Schedule.Freq.Hourly) map { s =>

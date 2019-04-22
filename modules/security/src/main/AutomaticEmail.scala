@@ -1,6 +1,6 @@
 package lidraughts.security
 
-import play.twirl.api.Html
+import scalatags.Text.all.raw
 
 import lidraughts.common.{ Lang, EmailAddress }
 import lidraughts.common.String.html.nl2brUnsafe
@@ -38,7 +38,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = Html(s"""
+      htmlBody = raw(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${nl2brUnsafe(body)}</p>
   ${Mailgun.html.serviceNote}
@@ -67,7 +67,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-          htmlBody = Html(s"""
+          htmlBody = raw(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${nl2brUnsafe(body)}</p>
   ${Mailgun.html.serviceNote}
@@ -107,7 +107,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = Html(s"""
+      htmlBody = raw(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${nl2brUnsafe(body)}</p>
   ${Mailgun.html.serviceNote}

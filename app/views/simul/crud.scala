@@ -53,7 +53,7 @@ object crud {
         span("Created on ", showDate(simul.createdAt))
       ),
       st.form(cls := "content_box_content form3", action := routes.SimulCrud.update(simul.id), method := "POST")(inForm(form, limitedEdit)),
-      allowedPlayers.toHtml
+      allowedPlayers
     )
   }
 
@@ -150,7 +150,7 @@ object crud {
       form3.group(form("variants"), raw("Variants")) { _ =>
         setup.filter.renderCheckboxes(form, "variants", form.value.map(f => f.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = limitedEdit)
       },
-      form3.action(form3.submit(trans.apply.frag()))
+      form3.action(form3.submit(trans.apply()))
     )
   }
 

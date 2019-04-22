@@ -39,19 +39,19 @@ object captcha {
             )(div(cls := "cg-board"))
           ),
           div(cls := "captcha-explanation")(
-            label(cls := "form-label")(trans.colorPlaysCapture.frag(
-              (if (captcha.white) trans.white else trans.black).frag()
+            label(cls := "form-label")(trans.colorPlaysCapture(
+              if (captcha.white) trans.white.txt() else trans.black.txt()
             )),
             br, br,
-            trans.thisIsADraughtsCaptcha.frag(),
+            trans.thisIsADraughtsCaptcha(),
             br,
-            trans.clickOnTheBoardToMakeYourMove.frag(),
+            trans.clickOnTheBoardToMakeYourMove(),
             br, br,
-            trans.help.frag(),
+            trans.help(),
             " ",
             a(title := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
-            div(cls := "result success text", dataIcon := "E")(trans.success.frag()),
-            div(cls := "result failure text", dataIcon := "k")(trans.notTheBestCapture.frag()),
+            div(cls := "result success text", dataIcon := "E")(trans.success()),
+            div(cls := "result failure text", dataIcon := "k")(trans.notTheBestCapture()),
             form3.hidden(form("move"))
           )
         )
