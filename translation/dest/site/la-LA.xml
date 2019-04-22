@@ -712,4 +712,5 @@
   <string name="next">Posterus</string>
   <string name="youCanDoBetter">Melius agere potes</string>
   <string name="opening">Principium</string>
+  <string name="playX">Lude %s</string>
 </resources>
