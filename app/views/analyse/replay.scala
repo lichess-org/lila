@@ -1,5 +1,7 @@
 package views.html.analyse
 
+import play.api.libs.json.Json
+
 import bits.dataPanel
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -51,9 +53,18 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lidraughts=lidraughts||{};
-lidraughts.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserIdString,chat:${jsOrNull(chatJson)},
-explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
+        embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.analyse=${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n.json(),
+            "userId" -> ctx.userId,
+            "chat" -> chatJson,
+            "explorer" -> Json.obj(
+              "endpoint" -> explorerEndpoint,
+              "tablebaseEndpoint" -> tablebaseEndpoint
+            )
+          ))
+        }""")
       ),
       openGraph = povOpenGraph(pov).some
     )(frag(
