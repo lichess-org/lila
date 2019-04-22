@@ -4,20 +4,9 @@
     @extend %flex-center;
   }
   h1 {
+    @extend %flex-center;
     font-size: 2.6em;
-    a{
-      @extend %flex-center;
-      &::before {
-        font-size: .9em;
-        line-height: 1.3;
-      }
-      > span {
-        @extend %flex-column;
-        span {
-          color: $c-font-dim;
-        }
-      }
-    }
+    span { margin-left: .4em; }
   }
   .trophy {
     margin-top: -4em;
