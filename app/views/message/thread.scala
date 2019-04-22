@@ -73,8 +73,8 @@ object thread {
                     errMsg(form("text"))
                   ),
                   div(cls := "actions")(
-                    a(cls := "cancel", href := routes.Message.inbox(1))(trans.cancel.frag()),
-                    button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send.frag())
+                    a(cls := "cancel", href := routes.Message.inbox(1))(trans.cancel()),
+                    button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send())
                   )
                 )
               }

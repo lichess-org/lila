@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
@@ -275,36 +274,36 @@ object User extends LilaController {
             Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) flatMap {
               case history ~ charges ~ reports ~ pref =>
                 Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
-                  Html(html.user.mod.parts(user, history, charges, reports, pref).render).some
+                  html.user.mod.parts(user, history, charges, reports, pref).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
-          Html(html.user.mod.actions(user, emails, erased).render).some
+          html.user.mod.actions(user, emails, erased).some
         }
         val spyFu = Env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
           Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds) zip
             Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) map {
-              case notes ~ bans => Html(html.user.mod.otherUsers(user, spy, notes, bans).render).some
+              case notes ~ bans => html.user.mod.otherUsers(user, spy, notes, bans).some
             }
         }
         val identification = spyFu map { spy =>
-          Html(html.user.mod.identification(user, spy).render).some
+          html.user.mod.identification(user, spy).some
         }
         val irwin = Env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
-            Html(html.irwin.report(reps).render).some
+            html.irwin.report(reps).some
           }
         }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
           _ ?? { as =>
-            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject Html(html.user.mod.assessments(as).render).some
+            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
           }
         }
         import play.api.libs.EventSource
-        implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
+        implicit val extractor = EventSource.EventDataExtractor[scalatags.Text.Frag](_.render)
         Ok.chunked {
-          (Enumerator(Html(html.user.mod.menu(user).render)) interleave
+          (Enumerator(html.user.mod.menu(user)) interleave
             futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave
             futureToEnumerator(actions.logTimeIfGt(s"$username actions", 2 seconds)) interleave
             futureToEnumerator(others.logTimeIfGt(s"$username others", 2 seconds)) interleave

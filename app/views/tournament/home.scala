@@ -38,7 +38,7 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
         main(cls := "tour-home")(
           st.aside(cls := "tour-home__side")(
             h2(
-              a(href := routes.Tournament.leaderboard)(trans.leaderboard.frag())
+              a(href := routes.Tournament.leaderboard)(trans.leaderboard())
             ),
             ul(cls := "leaderboard")(
               winners.top.map { w =>
@@ -50,9 +50,9 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             ),
             p(cls := "tour__links")(
               a(href := "/tournament/calendar")(trans.tournamentCalendar()), br,
-              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
+              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
             ),
-            h2(trans.lichessTournaments.frag()),
+            h2(trans.lichessTournaments()),
             div(cls := "scheduled")(
               scheduled.map { tour =>
                 tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>

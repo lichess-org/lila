@@ -32,8 +32,8 @@ object embed {
           div(id := "daily-puzzle", cls := "embedded", title := trans.clickToSolve.txt())(
             raw(daily.html),
             div(cls := "vstext", style := "text-align: center; justify-content: center")(
-              trans.puzzleOfTheDay.frag(), br,
-              daily.color.fold(trans.whitePlays, trans.blackPlays).frag()
+              trans.puzzleOfTheDay(), br,
+              daily.color.fold(trans.whitePlays, trans.blackPlays)()
             )
           ),
           jQueryTag,

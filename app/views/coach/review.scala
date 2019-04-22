@@ -47,7 +47,7 @@ object review {
         )(
             mine.map(_.text)
           ),
-        button(tpe := "submit", cls := "button")(trans.apply.frag())
+        button(tpe := "submit", cls := "button")(trans.apply())
       )
     )
 

@@ -49,8 +49,8 @@ object form {
           form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := routes.Relay.index(1))(trans.cancel.frag()),
-        form3.submit(trans.apply.frag())
+        a(href := routes.Relay.index(1))(trans.cancel()),
+        form3.submit(trans.apply())
       )
     )
 }

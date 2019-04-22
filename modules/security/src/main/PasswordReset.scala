@@ -1,6 +1,6 @@
 package lila.security
 
-import play.twirl.api.Html
+import scalatags.Text.all._
 
 import lila.common.{ Lang, EmailAddress }
 import lila.user.{ User, UserRepo }
@@ -30,10 +30,10 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 
 ${Mailgun.txt.serviceNote}
 """,
-        htmlBody = Html(s"""
+        htmlBody = raw(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${trans.passwordReset_intro.literalHtmlTo(lang)}</p>
-  <p>${trans.passwordReset_clickOrIgnore.literalHtmlTo(lang)}</p>
+  <p itemprop="description">${trans.passwordReset_intro.literalTo(lang).render}</p>
+  <p>${trans.passwordReset_clickOrIgnore.literalTo(lang).render}</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
     <meta itemprop="name" content="Reset password">
     ${Mailgun.html.url(url)}

@@ -21,9 +21,9 @@ object bits {
       title = trans.noSimulFound.txt()
     ) {
         main(cls := "page-small box box-pad")(
-          h1(trans.noSimulFound.frag()),
-          p(trans.noSimulExplanation.frag()),
-          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag()))
+          h1(trans.noSimulFound()),
+          p(trans.noSimulExplanation()),
+          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
         )
       }
 

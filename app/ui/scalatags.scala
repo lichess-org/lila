@@ -3,8 +3,6 @@ package ui
 
 import ornicar.scalalib.Zero
 
-import play.twirl.api.Html
-import scalatags.Text.all.{ genericAttr, attr, StringFrag }
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
 import scalatags.Text.all._
@@ -95,38 +93,12 @@ trait ScalatagsTemplate extends Styles
 
   val trans = lila.i18n.I18nKeys
   def main = scalatags.Text.tags2.main
-}
-
-object ScalatagsTemplate extends ScalatagsTemplate
-
-// what to import in all twirl templates
-trait ScalatagsTwirl extends ScalatagsPlay
-
-// what to import in twirl templates containing scalatags forms
-// Allows `*.rows := 5`
-trait ScalatagsTwirlForm extends ScalatagsPlay with Cap with Aggregate {
-  object * extends Cap with Attrs with ScalatagsAttrs
-}
-object ScalatagsTwirlForm extends ScalatagsTwirlForm
-
-// interop with play
-trait ScalatagsPlay {
-
-  /* Feed frags back to twirl by converting them to rendered Html */
-  implicit def fragToPlayHtml(frag: Frag): Html = Html(frag.render)
-
-  /* Use play Html inside tags without double-encoding */
-  implicit def playHtmlToFrag(html: Html): Frag = RawFrag(html.body)
 
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]
-
-  @inline implicit def fragToHtml(frag: Frag) = new FragToHtml(frag)
 }
 
-final class FragToHtml(private val self: Frag) extends AnyVal {
-  def toHtml: Html = Html(self.render)
-}
+object ScalatagsTemplate extends ScalatagsTemplate
 
 // generic extensions
 trait ScalatagsExtensions {

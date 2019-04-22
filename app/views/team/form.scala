@@ -22,16 +22,16 @@ object form {
             h1(trans.newTeam()),
             st.form(cls := "form3", action := routes.Team.create(), method := "POST")(
               form3.globalError(form),
-              form3.group(form("name"), trans.name.frag())(form3.input(_)),
-              form3.group(form("open"), trans.joiningPolicy.frag()) { f =>
+              form3.group(form("name"), trans.name())(form3.input(_)),
+              form3.group(form("open"), trans.joiningPolicy()) { f =>
                 form3.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
               },
-              form3.group(form("location"), trans.location.frag())(form3.input(_)),
-              form3.group(form("description"), trans.description.frag())(form3.textarea(_)(rows := 10)),
+              form3.group(form("location"), trans.location())(form3.input(_)),
+              form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
               views.html.base.captcha(form, captcha),
               form3.actions(
                 a(href := routes.Team.home(1))(trans.cancel()),
-                form3.submit(trans.newTeam.frag())
+                form3.submit(trans.newTeam())
               )
             )
           )
@@ -50,14 +50,14 @@ object form {
               a(cls := "button button-empty", href := routes.Team.kick(t.id))("Kick someone out of the team"),
               a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))("Appoint another team owner")
             ),
-            form3.group(form("open"), trans.joiningPolicy.frag()) { f =>
+            form3.group(form("open"), trans.joiningPolicy()) { f =>
               form3.select(f, Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
             },
-            form3.group(form("location"), trans.location.frag())(form3.input(_)),
-            form3.group(form("description"), trans.description.frag())(form3.textarea(_)(rows := 10)),
+            form3.group(form("location"), trans.location())(form3.input(_)),
+            form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
-              form3.submit(trans.apply.frag())
+              form3.submit(trans.apply())
             )
           ),
           hr,

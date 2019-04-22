@@ -26,13 +26,13 @@ object emailConfirmHelp {
           form3.split(
             form3.group(
               form("username"),
-              trans.username.frag(),
+              trans.username(),
               help = raw("What username did you create?").some
             ) { f =>
                 form3.input(f)(pattern := lila.user.User.newUsernameRegex.regex)
               },
             div(cls := "form-group")(
-              form3.submit(trans.apply.frag())
+              form3.submit(trans.apply())
             )
           )
         ),

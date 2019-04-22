@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.frag.escapeHtml
 import lila.team.Env.{ current => teamEnv }
 
-trait TeamHelper extends ui.ScalatagsTwirl {
+trait TeamHelper {
 
   private def api = teamEnv.api
 

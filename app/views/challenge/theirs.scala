@@ -34,9 +34,9 @@ object theirs {
               },
               if (!c.mode.rated || ctx.isAuth) frag(
                 (c.mode.rated && c.unlimited) option
-                  badTag(trans.bewareTheGameIsRatedButHasNoClock.frag()),
+                  badTag(trans.bewareTheGameIsRatedButHasNoClock()),
                 form(cls := "accept", action := routes.Challenge.accept(c.id), method := "post")(
-                  button(tpe := "submit", cls := "text button button-fat", dataIcon := "G")(trans.joinTheGame.frag())
+                  button(tpe := "submit", cls := "text button button-fat", dataIcon := "G")(trans.joinTheGame())
                 )
               )
               else frag(
@@ -45,7 +45,7 @@ object theirs {
                   p("This game is rated"),
                   p(
                     "You must ",
-                    a(cls := "button", href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}")(trans.signIn.frag()),
+                    a(cls := "button", href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}")(trans.signIn()),
                     " to join it."
                   )
                 )
@@ -54,19 +54,19 @@ object theirs {
             case Status.Declined => div(cls := "follow-up")(
               h1("Challenge declined"),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent.frag())
+              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
             case Status.Accepted => div(cls := "follow-up")(
               h1("Challenge accepted!"),
               bits.details(c),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button button-fat")(
-                trans.joinTheGame.frag()
+                trans.joinTheGame()
               )
             )
             case Status.Canceled => div(cls := "follow-up")(
               h1("Challenge canceled."),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent.frag())
+              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
           }
         )

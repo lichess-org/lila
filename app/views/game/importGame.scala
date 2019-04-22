@@ -26,12 +26,12 @@ object importGame {
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(
-          form3.group(form("pgn"), trans.pasteThePgnStringHere.frag())(form3.textarea(_)()),
+          form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form3.group(form("pgnFile"), raw("Or upload a PGN file"), klass = "upload") { f =>
             form3.file.pgn(f.name)
           },
-          form3.checkbox(form("analyse"), trans.requestAComputerAnalysis.frag(), help = Some(analyseHelp), disabled = ctx.isAnon),
-          form3.action(form3.submit(trans.importGame.frag(), "/".some))
+          form3.checkbox(form("analyse"), trans.requestAComputerAnalysis(), help = Some(analyseHelp), disabled = ctx.isAnon),
+          form3.action(form3.submit(trans.importGame(), "/".some))
         )
       )
     }

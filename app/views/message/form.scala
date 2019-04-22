@@ -26,7 +26,7 @@ object form {
       moreJs = jsTag("message.js")
     ) {
         main(cls := "message-new box box-pad")(
-          h1(trans.composeMessage.frag()),
+          h1(trans.composeMessage()),
           reqUser.ifFalse(canMessage).map { u =>
             frag(
               br, br, hr, br,
@@ -42,7 +42,7 @@ object form {
               action := s"${routes.Message.create()}${reqUser.??(u => "?username=" + u.username)}",
               method := "post"
             )(
-                form3.group(form("username"), trans.recipient.frag()) { f =>
+                form3.group(form("username"), trans.recipient()) { f =>
                   reqUser map { user =>
                     frag(
                       userLink(user),
@@ -63,7 +63,7 @@ object form {
                   form3.group(form("preset"), frag("Preset")) { form3.select(_, Nil) },
                   embedJsUnsafe(s"""lichess_mod_presets=${safeJsonValue(lila.message.ModPreset.asJson)}""")
                 ),
-                form3.group(form("subject"), trans.subject.frag()) { f =>
+                form3.group(form("subject"), trans.subject()) { f =>
                   input(
                     cls := "form-control",
                     required,
@@ -79,8 +79,8 @@ object form {
                   form3.textarea(f)(required)
                 },
                 form3.actions(
-                  a(cls := "cancel", href := routes.Message.inbox())(trans.cancel.frag()),
-                  button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send.frag())
+                  a(cls := "cancel", href := routes.Message.inbox())(trans.cancel()),
+                  button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send())
                 )
               )
           }

@@ -41,7 +41,7 @@ object categ {
 
     val newTopicButton = canWrite option
       a(href := routes.ForumTopic.form(categ.slug), cls := "button button-empty button-green text", dataIcon := "m")(
-        trans.createANewTopic.frag()
+        trans.createANewTopic()
       )
     def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) = tr(cls := List("sticky" -> sticky))(
       td(cls := "subject")(
@@ -89,9 +89,9 @@ object categ {
             thead(
               tr(
                 th,
-                th(cls := "right")(trans.views.frag()),
-                th(cls := "right")(trans.replies.frag()),
-                th(trans.lastPost.frag())
+                th(cls := "right")(trans.views()),
+                th(cls := "right")(trans.replies()),
+                th(trans.lastPost())
               )
             ),
             tbody(
@@ -109,9 +109,9 @@ object categ {
       thead(
         tr(
           th,
-          th(cls := "right")(trans.topics.frag()),
-          th(cls := "right")(trans.posts.frag()),
-          th(trans.lastPost.frag())
+          th(cls := "right")(trans.topics()),
+          th(cls := "right")(trans.posts()),
+          th(trans.lastPost())
         )
       ),
       tbody(
@@ -130,7 +130,7 @@ object categ {
                     momentFromNow(post.createdAt)
                   ),
                   br,
-                  trans.by.frag(authorName(post))
+                  trans.by(authorName(post))
                 )
               }
             )

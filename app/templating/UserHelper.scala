@@ -234,7 +234,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   }
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Frag =
-    if (filter == GameFilter.Search) frag(br, trans.advancedSearch.frag())
+    if (filter == GameFilter.Search) frag(br, trans.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): String = (filter match {

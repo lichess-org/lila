@@ -2,7 +2,6 @@ package lila.app
 package actor
 
 import akka.actor._
-import play.twirl.api.Html
 
 import lila.game.Pov
 import views.{ html => V }

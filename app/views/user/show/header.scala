@@ -95,7 +95,7 @@ object header {
     (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
       form(action := s"${routes.User.writeNote(u.username)}?note", method := "post")(
         textarea(name := "text", placeholder := "Write a note about this user only you and your friends can read"),
-        button(tpe := "submit", cls := "button")(trans.send.frag()),
+        button(tpe := "submit", cls := "button")(trans.send()),
         if (isGranted(_.ModNote)) label(style := "margin-left: 1em;")(
           input(tpe := "checkbox", name := "mod", checked, value := "true", style := "vertical-align: middle;"),
           "For moderators only"
@@ -137,11 +137,11 @@ object header {
               !ctx.is(u) option frag(
                 u.engine option div(cls := "warning engine_warning")(
                   span(dataIcon := "j", cls := "is4"),
-                  trans.thisPlayerUsesChessComputerAssistance.frag()
+                  trans.thisPlayerUsesChessComputerAssistance()
                 ),
                 (u.booster && (u.count.game > 0 || isGranted(_.Hunter))) option div(cls := "warning engine_warning")(
                   span(dataIcon := "j", cls := "is4"),
-                  trans.thisPlayerArtificiallyIncreasesTheirRating.frag(),
+                  trans.thisPlayerArtificiallyIncreasesTheirRating(),
                   (u.count.game == 0) option """
 Only visible to mods. A booster mark without any games is a way to
 prevent a player from ever playing (except against boosters/cheaters).
@@ -170,26 +170,26 @@ It's useful against spambots. These marks are not visible to the public."""
                     c.name
                   )
                 },
-                p(cls := "thin")(trans.memberSince.frag(), " ", showDate(u.createdAt)),
+                p(cls := "thin")(trans.memberSince(), " ", showDate(u.createdAt)),
                 u.seenAt.map { seen =>
-                  p(cls := "thin")(trans.lastSeenActive.frag(momentFromNow(seen)))
+                  p(cls := "thin")(trans.lastSeenActive(momentFromNow(seen)))
                 },
                 info.completionRatePercent.map { c =>
-                  p(cls := "thin")(trans.gameCompletionRate.frag(s"$c%"))
+                  p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
                 },
                 (ctx is u) option frag(
                   a(href := routes.Account.profile, title := trans.editProfile.txt())(
-                    trans.profileCompletion.frag(s"${profile.completionPercent}%")
+                    trans.profileCompletion(s"${profile.completionPercent}%")
                   ),
                   br,
-                  a(href := routes.User.opponents)(trans.favoriteOpponents.frag())
+                  a(href := routes.User.opponents)(trans.favoriteOpponents())
                 ),
                 info.playTime.map { playTime =>
                   frag(
                     br, br,
-                    p(trans.tpTimeSpentPlaying.frag(showPeriod(playTime.totalPeriod))),
+                    p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
                     playTime.nonEmptyTvPeriod.map { tvPeriod =>
-                      p(trans.tpTimeSpentOnTV.frag(showPeriod(tvPeriod)))
+                      p(trans.tpTimeSpentOnTV(showPeriod(tvPeriod)))
                     }
                   )
                 },
@@ -223,7 +223,7 @@ It's useful against spambots. These marks are not visible to the public."""
           "active" -> (angle == Angle.Activity)
         ),
         href := routes.User.show(u.username)
-      )(trans.activity.activity.frag()),
+      )(trans.activity.activity()),
       a(
         dataTab := "games",
         cls := List(
@@ -232,7 +232,7 @@ It's useful against spambots. These marks are not visible to the public."""
         ),
         href := routes.User.gamesAll(u.username)
       )(
-          trans.nbGames.pluralFrag(info.user.count.game, info.user.count.game.localize),
+          trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
           info.nbs.playing > 0 option
             span(cls := "unread", title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize))(
               info.nbs.playing

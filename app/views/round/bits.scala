@@ -83,10 +83,10 @@ object bits {
           span(cls := "loss")(s.losses, " L"), " / ",
           s.ongoing, " ongoing"
         )
-      } getOrElse trans.currentGames.frag(),
+      } getOrElse trans.currentGames(),
       "round-toggle-autoswitch" |> { id =>
         span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
-          label(`for` := id)(trans.autoSwitch.frag()),
+          label(`for` := id)(trans.autoSwitch()),
           span(cls := "switch")(
             input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
             label(`for` := id)
@@ -103,7 +103,7 @@ object bits {
               span(cls := "meta")(
                 playerText(pov.opponent, withRating = false),
                 span(cls := "indicator")(
-                  if (pov.isMyTurn) pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
+                  if (pov.isMyTurn) pov.remainingSeconds.fold[Frag](trans.yourTurn())(secondsFromNow(_, true))
                   else nbsp
                 )
               )

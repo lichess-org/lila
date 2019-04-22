@@ -124,7 +124,7 @@ object edit {
                       else
                         form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
                     ),
-                    form3.action(form3.submit(trans.apply.frag()))
+                    form3.action(form3.submit(trans.apply()))
                   ),
                   form3.split(
                     form3.group(form("twitch"), raw("Your Twitch username or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_)),
@@ -138,7 +138,7 @@ object edit {
                   form3.group(form("description"), raw("Long description"))(form3.textarea(_)(rows := 10)),
                   form3.actions(
                     a(href := routes.Streamer.show(s.user.username))("Cancel"),
-                    form3.submit(trans.apply.frag())
+                    form3.submit(trans.apply())
                   )
                 )
               )

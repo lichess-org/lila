@@ -12,14 +12,14 @@ object security {
   def apply(u: lila.user.User, sessions: List[lila.security.LocatedSession], curSessionId: String)(implicit ctx: Context) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security box")(
-        h1(trans.security.frag()),
+        h1(trans.security()),
         div(cls := "box__pad")(
-          p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount.frag()),
+          p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
           sessions.length > 1 option div(
-            trans.alternativelyYouCanX.frag {
+            trans.alternativelyYouCanX {
               form(cls := "revoke-all", action := routes.Account.signout("all"), method := "POST")(
                 button(tpe := "submit", cls := "button button-empty button-red confirm")(
-                  trans.revokeAllSessions.frag()
+                  trans.revokeAllSessions()
                 )
               )
             }

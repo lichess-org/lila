@@ -24,8 +24,7 @@ object Environment
   with SecurityHelper
   with TeamHelper
   with TournamentHelper
-  with ChessgroundHelper
-  with ui.ScalatagsTwirl {
+  with ChessgroundHelper {
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

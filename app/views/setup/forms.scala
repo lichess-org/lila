@@ -19,7 +19,7 @@ object forms {
   def hook(form: Form[_])(implicit ctx: Context) = layout(
     form,
     "hook",
-    trans.createAGame.frag(),
+    trans.createAGame(),
     routes.Setup.hook("uid-placeholder")
   ) {
       frag(
@@ -31,7 +31,7 @@ object forms {
           ),
           ctx.noBlind option div(cls := "optional_config")(
             div(cls := "rating-range-config slider")(
-              trans.ratingRange.frag(),
+              trans.ratingRange(),
               ": ",
               span(cls := "range")("? - ?"),
               div(cls := "rating-range")(
@@ -47,26 +47,26 @@ object forms {
     }
 
   def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context) =
-    layout(form, "ai", trans.playWithTheMachine.frag(), routes.Setup.ai) {
+    layout(form, "ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), true, validFen),
         renderTimeMode(form, lila.setup.AiConfig),
         if (ctx.blind) frag(
-          renderLabel(form("level"), trans.level.frag()),
+          renderLabel(form("level"), trans.level()),
           renderSelect(form("level"), lila.setup.AiConfig.levelChoices),
           blindSideChoice(form)
         )
         else frag(
           br,
-          trans.level.frag(),
+          trans.level(),
           div(cls := "level buttons")(
             div(id := "config_level")(
               renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
             ),
             div(cls := "ai_info")(
               ratings.toList.map {
-                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel.frag("A.I.", level))
+                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
               }
             )
           )
@@ -101,7 +101,7 @@ object forms {
 
   private def blindSideChoice(form: Form[_])(implicit ctx: Context) =
     ctx.blind option frag(
-      renderLabel(form("color"), trans.side.frag()),
+      renderLabel(form("color"), trans.side()),
       renderSelect(form("color").copy(value = "random".some), translatedSideChoices)
     )
 
@@ -146,7 +146,7 @@ object forms {
         div(cls := "ratings")(
           lila.rating.PerfType.nonPuzzle.map { perfType =>
             div(cls := perfType.key)(
-              trans.perfRatingX.frag(
+              trans.perfRatingX(
                 raw(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
               )
             )

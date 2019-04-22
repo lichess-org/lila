@@ -64,7 +64,7 @@ object irwin {
       )
     }
 
-  def report(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context) =
+  def report(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context): Frag =
     div(id := "mz_irwin")(
       header(
         a(cls := "title", href := routes.Irwin.dashboard)(

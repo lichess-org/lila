@@ -6,7 +6,6 @@ import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
-import play.twirl.api.Html
 import scalatags.Text.Frag
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
@@ -31,8 +30,6 @@ private[controllers] trait LilaController
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
   }
-
-  protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
   protected implicit def LilaFragToResult(frag: Frag): Result = Ok(frag)
 

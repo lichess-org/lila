@@ -89,7 +89,7 @@ object help {
           frag(
             h1("Embed a chess game in your site"),
             raw(s"""<iframe src="/embed/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
-            p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite.frag(), "\".")),
+            p(raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """), "\"", em(trans.embedInYourWebsite(), "\".")),
             parameters,
             p("The text is automatically translated to your visitor's language.")
           )
@@ -124,18 +124,18 @@ object help {
     def activeCls(c: String) = cls := active.activeO(c)
     main(cls := "page-menu")(
       st.nav(cls := "page-menu__menu subnav")(
-        a(activeCls("about"), href := routes.Page.about)(trans.aboutX.frag("lichess.org")),
+        a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
         a(activeCls("faq"), href := routes.Main.faq)("FAQ"),
-        a(activeCls("contact"), href := routes.Main.contact)(trans.contact.frag()),
-        a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService.frag()),
-        a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy.frag()),
+        a(activeCls("contact"), href := routes.Main.contact)(trans.contact()),
+        a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
+        a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
         a(activeCls("master"), href := routes.Page.master)("Title verification"),
         sep,
-        a(activeCls("help"), href := routes.Page.help)(trans.contribute.frag()),
-        a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou.frag()),
+        a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
+        a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou()),
         sep,
-        a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters.frag()),
-        a(activeCls("database"), href := "https://database.lichess.org")(trans.database.frag(), external),
+        a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
+        a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
         a(activeCls("api"), href := routes.Api.index)("API", external),
         a(activeCls("source"), href := "https://github.com/ornicar/lila")("Source code", external),
         sep,

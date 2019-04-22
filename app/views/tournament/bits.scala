@@ -28,12 +28,12 @@ object bits {
       title = trans.tournamentNotFound.txt()
     ) {
         main(cls := "page-small box box-pad")(
-          h1(trans.tournamentNotFound.frag()),
-          p(trans.tournamentDoesNotExist.frag()),
-          p(trans.tournamentMayHaveBeenCanceled.frag()),
+          h1(trans.tournamentNotFound()),
+          p(trans.tournamentDoesNotExist()),
+          p(trans.tournamentMayHaveBeenCanceled()),
           br,
           br,
-          a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage.frag())
+          a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
         )
       }
 

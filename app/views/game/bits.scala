@@ -86,7 +86,7 @@ object bits {
         ctxOption flatMap { implicit ctx =>
           pov.game.daysPerTurn map { days =>
             span(cls := "vstext__clock")(
-              if (days == 1) trans.oneDay.frag() else trans.nbDays.pluralSame(days)
+              if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
             )
           }
         }

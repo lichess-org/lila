@@ -44,117 +44,117 @@ object pref {
       st.form(cls := "autosubmit", action := routes.Pref.formApply, method := "POST")(
         categFieldset(PrefCateg.GameDisplay, categ)(
           setting(
-            trans.pieceAnimation.frag(),
+            trans.pieceAnimation(),
             radios(form("display.animation"), translatedAnimationChoices)
           ),
           setting(
-            trans.materialDifference.frag(),
+            trans.materialDifference(),
             radios(form("display.captured"), booleanChoices)
           ),
           setting(
-            trans.boardHighlights.frag(),
+            trans.boardHighlights(),
             radios(form("display.highlight"), booleanChoices)
           ),
           setting(
-            trans.pieceDestinations.frag(),
+            trans.pieceDestinations(),
             radios(form("display.destination"), booleanChoices)
           ),
           setting(
-            trans.boardCoordinates.frag(),
+            trans.boardCoordinates(),
             radios(form("display.coords"), translatedBoardCoordinateChoices)
           ),
           setting(
-            trans.moveListWhilePlaying.frag(),
+            trans.moveListWhilePlaying(),
             radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
           ),
           setting(
-            trans.pgnPieceNotation.frag(),
+            trans.pgnPieceNotation(),
             radios(form("display.pieceNotation"), translatedPieceNotationChoices)
           ),
           setting(
-            trans.zenMode.frag(),
+            trans.zenMode(),
             radios(form("display.zen"), booleanChoices)
           ),
           setting(
-            trans.blindfoldChess.frag(),
+            trans.blindfoldChess(),
             radios(form("display.blindfold"), translatedBlindfoldChoices)
           )
         ),
         categFieldset(PrefCateg.ChessClock, categ)(
           setting(
-            trans.tenthsOfSeconds.frag(),
+            trans.tenthsOfSeconds(),
             radios(form("clockTenths"), translatedClockTenthsChoices)
           ),
           setting(
-            trans.horizontalGreenProgressBars.frag(),
+            trans.horizontalGreenProgressBars(),
             radios(form("clockBar"), booleanChoices)
           ),
           setting(
-            trans.soundWhenTimeGetsCritical.frag(),
+            trans.soundWhenTimeGetsCritical(),
             radios(form("clockSound"), booleanChoices)
           )
         ),
         categFieldset(PrefCateg.GameBehavior, categ)(
           setting(
-            trans.howDoYouMovePieces.frag(),
+            trans.howDoYouMovePieces(),
             radios(form("behavior.moveEvent"), translatedMoveEventChoices)
           ),
           setting(
-            trans.premovesPlayingDuringOpponentTurn.frag(),
+            trans.premovesPlayingDuringOpponentTurn(),
             radios(form("behavior.premove"), booleanChoices)
           ),
           setting(
-            trans.takebacksWithOpponentApproval.frag(),
+            trans.takebacksWithOpponentApproval(),
             radios(form("behavior.takeback"), translatedTakebackChoices)
           ),
           setting(
-            trans.promoteToQueenAutomatically.frag(),
+            trans.promoteToQueenAutomatically(),
             radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
           ),
           setting(
-            trans.claimDrawOnThreefoldRepetitionAutomatically.frag(),
+            trans.claimDrawOnThreefoldRepetitionAutomatically(),
             radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices)
           ),
           setting(
-            trans.moveConfirmation.frag(),
+            trans.moveConfirmation(),
             radios(form("behavior.submitMove"), submitMoveChoices)
           ),
           setting(
-            trans.confirmResignationAndDrawOffers.frag(),
+            trans.confirmResignationAndDrawOffers(),
             radios(form("behavior.confirmResign"), confirmResignChoices)
           ),
           setting(
-            trans.inputMovesWithTheKeyboard.frag(),
+            trans.inputMovesWithTheKeyboard(),
             radios(form("behavior.keyboardMove"), booleanChoices)
           ),
           setting(
-            trans.castleByMovingTheKingTwoSquaresOrOntoTheRook.frag(),
+            trans.castleByMovingTheKingTwoSquaresOrOntoTheRook(),
             radios(form("behavior.rookCastle"), translatedRookCastleChoices)
           )
         ),
         categFieldset(PrefCateg.Privacy, categ)(
           setting(
-            trans.letOtherPlayersFollowYou.frag(),
+            trans.letOtherPlayersFollowYou(),
             radios(form("follow"), booleanChoices)
           ),
           setting(
-            trans.letOtherPlayersChallengeYou.frag(),
+            trans.letOtherPlayersChallengeYou(),
             radios(form("challenge"), translatedChallengeChoices)
           ),
           setting(
-            trans.letOtherPlayersMessageYou.frag(),
+            trans.letOtherPlayersMessageYou(),
             radios(form("message"), translatedMessageChoices)
           ),
           setting(
-            trans.letOtherPlayersInviteYouToStudy.frag(),
+            trans.letOtherPlayersInviteYouToStudy(),
             radios(form("studyInvite"), translatedStudyInviteChoices)
           ),
           setting(
-            trans.shareYourInsightsData.frag(),
+            trans.shareYourInsightsData(),
             radios(form("insightShare"), translatedInsightSquareChoices)
           )
         ),
-        p(cls := "saved text none", dataIcon := "E")(trans.yourPreferencesHaveBeenSaved.frag())
+        p(cls := "saved text none", dataIcon := "E")(trans.yourPreferencesHaveBeenSaved())
       )
     )
   }

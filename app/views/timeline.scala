@@ -23,7 +23,7 @@ object timeline {
       moreCss = cssTag("slist")
     )(
         main(cls := "timeline page-small box")(
-          h1(trans.timeline.frag()),
+          h1(trans.timeline()),
           table(cls := "slist slist-pad")(
             tbody(
               filterEntries(entries) map { e =>
@@ -40,7 +40,7 @@ object timeline {
 
   private def entry(e: lila.timeline.Entry)(implicit ctx: Context) = frag(
     e.decode.map[Frag] {
-      case Follow(u1, u2) => playHtmlToFrag(trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false)))
+      case Follow(u1, u2) => trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false))
       case TeamJoin(userId, teamId) => trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
       case TeamCreate(userId, teamId) => trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
       case ForumPost(userId, topicId, topicName, postId) => trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), raw("""<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeHtml(topicName), shorten(topicName, 30))))
