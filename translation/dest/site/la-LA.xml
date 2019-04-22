@@ -76,6 +76,10 @@
   <string name="recentGames">Recentes ludi</string>
   <string name="topGames">Capitales ludi</string>
   <string name="masterDbExplanation">Duae millio ludi tabulae de %1$s+ FIDE lusoribus de %2$s ad %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mattum in %s semissis</item>
+    <item quantity="other">Mattum in %s semissibus</item>
+  </plurals>
   <string name="noGameFound">Nulla ludum inventa</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="xOpeningExplorer">%s aperis indagatorem</string>
@@ -219,6 +223,10 @@
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s ordinatus</item>
+    <item quantity="other">%s ordinati</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victoriae</item>
     <item quantity="other">%s victoriae</item>
