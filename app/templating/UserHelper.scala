@@ -148,7 +148,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   )(
       withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
-      withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
+      truncate.fold(username)(username.take)
     )
 
   def userLink(
