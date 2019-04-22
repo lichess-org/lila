@@ -48,7 +48,7 @@ object embed {
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        embedJs(s"""lidraughts.startEmbeddedAnalyse({
+        embedJsUnsafe(s"""lidraughts.startEmbeddedAnalyse({
 element: document.querySelector('.embedded_study'),
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},

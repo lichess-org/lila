@@ -16,7 +16,7 @@ object home {
     finisheds: List[lidraughts.simul.Simul]
   )(implicit ctx: Context) = views.html.base.layout(
     moreCss = cssTag("simul.list"),
-    moreJs = embedJs(s"""$$(function() {
+    moreJs = embedJsUnsafe(s"""$$(function() {
   lidraughts.StrongSocket.defaults.params.flag = 'simul';
   lidraughts.pubsub.on('socket.in.reload', () => {
     $$('.simul-list__content').load('${routes.Simul.homeReload()}', lidraughts.pubsub.emit('content_loaded'));

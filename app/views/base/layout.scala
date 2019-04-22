@@ -210,7 +210,7 @@ object layout {
             jsAt(s"compiled/lidraughts.site.js", defer = deferJs)
           ),
           moreJs,
-          embedJs(s"""lidraughts.quantity=${lidraughts.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
+          embedJsUnsafe(s"""lidraughts.quantity=${lidraughts.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
     )

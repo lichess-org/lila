@@ -51,7 +51,7 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJs(s"""lidraughts=lidraughts||{};
+        embedJsUnsafe(s"""lidraughts=lidraughts||{};
 lidraughts.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserIdString,chat:${jsOrNull(chatJson)},
 explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
       ),

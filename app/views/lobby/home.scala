@@ -35,7 +35,7 @@ object home {
     fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
     moreJs = frag(
       jsAt(s"compiled/lidraughts.lobby${isProd ?? (".min")}.js", defer = true),
-      embedJs {
+      embedJsUnsafe {
         val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
         val transJs = safeJsonValue(i18nJsObject(translations))
         s"""lidraughts=window.lidraughts||{};customWS=true;lidraughts_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""

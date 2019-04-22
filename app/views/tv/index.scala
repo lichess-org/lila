@@ -24,7 +24,7 @@ object index {
       title = s"${channel.name} TV: ${pov.fold(trans.noGameFound.txt())(p => s"${playerText(p.player)} vs ${playerText(p.opponent)}")}",
       moreJs = frag(
         roundTag,
-        embedJs {
+        embedJsUnsafe {
           val transJs = ~pov.map { p => views.html.round.jsI18n(p.game) }
           s"""lidraughts=window.lidraughts||{};customWS=true;
 onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""

@@ -23,7 +23,7 @@ object home {
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lidraughts.tournamentSchedule${isProd ?? (".min")}.js"),
-        embedJs(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour-chart'), {
+        embedJsUnsafe(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour-chart'), {
 data: ${safeJsonValue(json)},
 i18n: ${bits.jsI18n()}
 });

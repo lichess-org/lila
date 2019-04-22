@@ -22,7 +22,7 @@ object userAnalysis {
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lidraughts=lidraughts||{};lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${
+      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${
         userAnalysisI18n(
           withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
         )

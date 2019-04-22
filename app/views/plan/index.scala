@@ -25,7 +25,7 @@ object index {
       moreJs = frag(
         script(src := "https://checkout.stripe.com/checkout.js"),
         jsTag("checkout.js"),
-        embedJs(s"""lidraughts.checkout("$stripePublicKey");""")
+        embedJsUnsafe(s"""lidraughts.checkout("$stripePublicKey");""")
       ),
       openGraph = lidraughts.app.ui.OpenGraph(
         title = title,

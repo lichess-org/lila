@@ -23,7 +23,7 @@ object show {
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lidraughts=window.lidraughts||{};lidraughts.study={
+      embedJsUnsafe(s"""lidraughts=window.lidraughts||{};lidraughts.study={
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},
 i18n: ${views.html.board.userAnalysisI18n()},

@@ -29,7 +29,7 @@ object perfStat {
         )
       },
       jsAt(s"compiled/lidraughts.perfStat${isProd ?? (".min")}.js"),
-      embedJs(s"""$$(function() {
+      embedJsUnsafe(s"""$$(function() {
 LidraughtsPerfStat(document.querySelector('.perf-stat__content'), {
 data: ${safeJsonValue(data)}
 });

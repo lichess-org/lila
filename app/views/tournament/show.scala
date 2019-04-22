@@ -22,7 +22,7 @@ object show {
     title = s"${tour.fullName} #${tour.id}",
     moreJs = frag(
       jsAt(s"compiled/lidraughts.tournament${isProd ?? (".min")}.js"),
-      embedJs(s"""lidraughts=lidraughts||{};lidraughts.tournament={
+      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.tournament={
 data:${safeJsonValue(data)},
 i18n:${bits.jsI18n()},
 userId:${jsUserIdString},

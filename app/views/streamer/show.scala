@@ -16,7 +16,7 @@ object show {
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${s.titleName} streams draughts",
     moreCss = cssTag("streamer.show"),
-    moreJs = embedJs("""
+    moreJs = embedJsUnsafe("""
 $(function() {
 $('button.follow').click(function() {
 var klass = 'active';

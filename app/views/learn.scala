@@ -15,7 +15,7 @@ object index {
     title = s"${trans.learn.learnDraughts.txt()} - ${trans.learn.byPlaying.txt()}",
     moreJs = frag(
       jsAt(s"compiled/lidraughts.learn${isProd ?? (".min")}.js"),
-      embedJs(s"""$$(function() {
+      embedJsUnsafe(s"""$$(function() {
 LidraughtsLearn(document.getElementById('learn-app'), {
 data: ${data.fold("null")(safeJsonValue)},
 i18n: ${safeJsonValue(i18nFullDbJsObject(lidraughts.i18n.I18nDb.Learn))}});});""")

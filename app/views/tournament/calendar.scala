@@ -13,7 +13,7 @@ object calendar {
     title = "Tournament calendar",
     moreJs = frag(
       jsAt(s"compiled/lidraughts.tournamentCalendar${isProd ?? (".min")}.js"),
-      embedJs(s"""LidraughtsTournamentCalendar.app(document.getElementById('tournament-calendar'), {
+      embedJsUnsafe(s"""LidraughtsTournamentCalendar.app(document.getElementById('tournament-calendar'), {
 data: ${safeJsonValue(json)},
 i18n: ${bits.jsI18n()}
 });""")

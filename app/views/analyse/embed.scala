@@ -49,7 +49,7 @@ object embed {
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        embedJs(s"""lidraughts.startEmbeddedAnalyse({
+        embedJsUnsafe(s"""lidraughts.startEmbeddedAnalyse({
 data: ${safeJsonValue(data)},
 embed: true,
 i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}

@@ -26,7 +26,7 @@ object insight {
         jsAt(s"compiled/lidraughts.insight${isProd ?? (".min")}.js"),
         jsTag("insight-refresh.js"),
         jsTag("insight-tour.js"),
-        embedJs(s"""
+        embedJsUnsafe(s"""
 $$(function() {
 lidraughts = lidraughts || {};
 lidraughts.insight = LidraughtsInsight(document.getElementById('insight'), {

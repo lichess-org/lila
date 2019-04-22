@@ -61,7 +61,7 @@ object form {
                 isGranted(_.ModMessage) option frag(
                   form3.checkbox(form("mod"), frag("Send as mod")),
                   form3.group(form("preset"), frag("Preset")) { form3.select(_, Nil) },
-                  embedJs(s"""lidraughts_mod_presets=${safeJsonValue(lidraughts.message.ModPreset.asJson)}""")
+                  embedJsUnsafe(s"""lidraughts_mod_presets=${safeJsonValue(lidraughts.message.ModPreset.asJson)}""")
                 ),
                 form3.group(form("subject"), trans.subject.frag()) { f =>
                   input(

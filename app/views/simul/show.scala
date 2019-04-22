@@ -22,7 +22,7 @@ object show {
     title = sim.fullName,
     moreJs = frag(
       jsAt(s"compiled/lidraughts.simul${isProd ?? (".min")}.js"),
-      embedJs(s"""lidraughts.simul={
+      embedJsUnsafe(s"""lidraughts.simul={
 data:${safeJsonValue(data)},
 i18n:${bits.jsI18n()},
 socketVersion:${socketVersion.value},
