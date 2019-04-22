@@ -4,7 +4,6 @@ $c-support: $c-brag;
   a {
     @extend %flex-center-nowrap, %box-neat;
     background: $c-bg-box;
-    box-sizing: border-box;
     font-size: 1.3em;
     margin-bottom: $block-gap;
     padding: .2em .5em;
