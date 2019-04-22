@@ -489,6 +489,7 @@
   <string name="pieceDestinations">Destinationes scaccorum (motus et praemotus rati)</string>
   <string name="boardCoordinates">Coordinatae tabulae (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Index motuum</string>
+  <string name="chessPieceSymbol">Signum scaccarii</string>
   <string name="pgnLetter">Ars (K, Q, R, B, N)</string>
   <string name="chessClock">Horologium lantruncularium</string>
   <string name="tenthsOfSeconds">Decimas secundarum</string>
@@ -567,6 +568,7 @@
   <string name="error.email_acceptable">Litterae electronicae non licent</string>
   <string name="error.email_unique">Litterae electronicae iam captae sunt</string>
   <string name="blindfoldChess">Scacci obligati (calculi cryptici)</string>
+  <string name="zenMode">Modus Zenonis</string>
   <string name="moveConfirmation">Confirmatio motu</string>
   <string name="inCorrespondenceGames">Ludi longinqui</string>
   <string name="ifRatingIsPlusMinusX">Si ± %s status est</string>
@@ -586,6 +588,7 @@
   <string name="videoLibrary">Libraria pellicularum</string>
   <string name="mobileApp">Programma portabile</string>
   <string name="webmasters">Dominus telae</string>
+  <string name="really">vero</string>
   <string name="contribute">Adiuvare</string>
   <string name="contact">Directorius</string>
   <string name="termsOfService">ToS</string>
@@ -675,6 +678,7 @@
   <string name="xCreatesStudyY">%1$s studium %2$s creavit</string>
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Praecinctio</string>
+  <string name="anonymous">Sine nomine</string>
   <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
@@ -698,6 +702,7 @@
   <string name="error.maxLength">Maximum est longitudinem %s</string>
   <string name="error.min">%s paribus maius esse</string>
   <string name="error.max">%s paribus minor est</string>
+  <string name="error.unknown">Culpa</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
@@ -705,5 +710,6 @@
   <string name="whiteWinsGame">Est victor Albus</string>
   <string name="blackWinsGame">Est victor Niger</string>
   <string name="next">Posterus</string>
+  <string name="youCanDoBetter">Melius agere potes</string>
   <string name="opening">Principium</string>
 </resources>
