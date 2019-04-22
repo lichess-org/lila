@@ -164,6 +164,9 @@
   <string name="ratingStats">Vahvuuslukutilastot</string>
   <string name="username">Käyttäjänimi</string>
   <string name="usernameOrEmail">Käyttäjätunnus tai sähköpostiosoite</string>
+  <string name="changeUsername">Muuta käyttäjänimeä</string>
+  <string name="changeUsernameNotSame">Vain se, onko kirjain iso vai pieni voi muuttua.</string>
+  <string name="changeUsernameDescription">Vaihda käyttäjänimi. Tämän voi tehdä vain kerran ja sen jälkeen voit vain muuttaa käyttäjänimesi kirjoitusasua.</string>
   <string name="password">Salasana</string>
   <string name="haveAnAccount">Onko sinulla jo tili?</string>
   <string name="changePassword">Vaihda salasana</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="rank">Sijoitus</string>
   <string name="rankX">Sijoitus: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sijoitus päivittyy joka %s minuutti</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Sijoitus päivitetään %s minuutin välein</item>
+    <item quantity="other">Sijoitus päivitetään %s minuutin välein</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s tehtävä</item>
     <item quantity="other">%s tehtävää</item>
@@ -632,9 +638,7 @@
   <string name="menu">Valikko</string>
   <string name="castling">Linnoitus</string>
   <string name="whiteCastlingKingside">Valkea O-O</string>
-  <string name="whiteCastlingQueenside">Valkea O-O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
-  <string name="blackCastlingQueenside">Musta O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s foorumiviesti</item>
     <item quantity="other">%s foorumiviestiä</item>
@@ -643,11 +647,13 @@
   <string name="watchGames">Katso pelejä</string>
   <string name="tpTimeSpentOnTV">Aika TV:ssä: %s</string>
   <string name="watch">Katso</string>
-  <string name="internationalEvents">Kansainväliset tapahtumat</string>
   <string name="videoLibrary">Videokirjasto</string>
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
+  <string name="aboutX">Tietoa %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa, manokseton, avoimen lähdekoodin shakkipalvelin.</string>
+  <string name="really">todella</string>
   <string name="contribute">Osallistu</string>
   <string name="contact">Kontakti</string>
   <string name="termsOfService">Käyttöehdot</string>

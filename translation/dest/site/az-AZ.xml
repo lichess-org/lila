@@ -169,7 +169,6 @@
   <string name="forgotPassword">Parolu unutdun?</string>
   <string name="rank">Təsnifat</string>
   <string name="rankX">Sıralama: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sıralama hər %s dəqiqədən bir güncəlləşir</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s məsələ</item>
     <item quantity="other">%s məsələ</item>
@@ -550,9 +549,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Qalaqurma</string>
   <string name="whiteCastlingKingside">Ağlar O-O</string>
-  <string name="whiteCastlingQueenside">Ağlar O-O-O</string>
   <string name="blackCastlingKingside">Qaralar O-O</string>
-  <string name="blackCastlingQueenside">Qaralar O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum Mesajları</item>
     <item quantity="other">%s Forum Mesajları</item>
@@ -561,7 +558,6 @@
   <string name="watchGames">Oyunları izlə</string>
   <string name="tpTimeSpentOnTV">TV-də keçirilimiş zaman: %s</string>
   <string name="watch">Bax</string>
-  <string name="internationalEvents">Beynəlxalq hadisələr</string>
   <string name="videoLibrary">Video kitabxana</string>
   <string name="mobileApp">Mobil proqram</string>
   <string name="webmasters">Web-ustalar</string>

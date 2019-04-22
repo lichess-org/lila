@@ -178,6 +178,9 @@
   <string name="ratingStats">Розподіл за рейтинґом</string>
   <string name="username">Псевдонім</string>
   <string name="usernameOrEmail">Ім’я користувача</string>
+  <string name="changeUsername">Змінити ім\'я користувача</string>
+  <string name="changeUsernameNotSame">Можна змінити лише регістр букв. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам лише дозволено змінити регістр вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже зареєстровані?</string>
   <string name="changePassword">Змінити пароль</string>
@@ -187,7 +190,6 @@
   <string name="forgotPassword">Забули пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рейтинг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рейтинг оновлюється кожні %s хвилин</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пазл</item>
     <item quantity="few">%s пазлів</item>
@@ -589,14 +591,11 @@
   <string name="menu">Меню</string>
   <string name="castling">Рокіровка</string>
   <string name="whiteCastlingKingside">Білі O-O</string>
-  <string name="whiteCastlingQueenside">Білі O-O-O</string>
   <string name="blackCastlingKingside">Чорні O-O</string>
-  <string name="blackCastlingQueenside">Чорні O-O-O</string>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Перегляд партій</string>
   <string name="tpTimeSpentOnTV">Час на ТБ: %s</string>
   <string name="watch">Перегляд</string>
-  <string name="internationalEvents">Міжнародні турніри</string>
   <string name="videoLibrary">Відеоархів</string>
   <string name="mobileApp">Мобільний додаток</string>
   <string name="webmasters">Розробникам</string>

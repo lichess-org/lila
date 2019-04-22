@@ -526,9 +526,7 @@
   <string name="menu">Valmynd</string>
   <string name="castling">Hrókering</string>
   <string name="whiteCastlingKingside">Hvítur O-O</string>
-  <string name="whiteCastlingQueenside">Hvítur O-O-O</string>
   <string name="blackCastlingKingside">Svartur O-O</string>
-  <string name="blackCastlingQueenside">Svartur O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s póstar á spjallborði</item>
     <item quantity="other">%s póstar á spjallborði</item>
@@ -537,7 +535,6 @@
   <string name="watchGames">Horfa á leiki</string>
   <string name="tpTimeSpentOnTV">Tími á sjónvarpi: %s</string>
   <string name="watch">Horfa</string>
-  <string name="internationalEvents">Alþjóðlegir viðburðir</string>
   <string name="videoLibrary">Myndbandasafn</string>
   <string name="mobileApp">App</string>
   <string name="webmasters">Vefstjórar</string>

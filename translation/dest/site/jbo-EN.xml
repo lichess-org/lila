@@ -503,14 +503,11 @@
   <string name="menu">cuxna uidje</string>
   <string name="castling">nolraitru joi sonci kelka\'u</string>
   <string name="whiteCastlingKingside">lo blabi ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
-  <string name="whiteCastlingQueenside">lo blabi ka\'e pei nolraitru joi sonci barda bo kelka\'u muvgau</string>
   <string name="blackCastlingKingside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
-  <string name="blackCastlingQueenside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
   <string name="tpTimeSpentPlaying">jvikei ze\'a la\'o temci. %s .temci</string>
   <string name="watchGames">zgana lo selkei</string>
   <string name="tpTimeSpentOnTV">jai se tivni ze\'a la\'o temci. %s .temci</string>
   <string name="watch">zgana</string>
-  <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
   <string name="webmasters">lo kibystuja\'a</string>
   <string name="about">srana la .litces.</string>

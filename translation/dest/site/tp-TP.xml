@@ -344,9 +344,7 @@
   <string name="playOnline">o musi kepeken linja</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="whiteCastlingKingside">walo O-O</string>
-  <string name="whiteCastlingQueenside">walo O-O-O</string>
   <string name="blackCastlingKingside">pimeja O-O</string>
-  <string name="blackCastlingQueenside">pimeja O-O-O</string>
   <string name="tpTimeSpentPlaying">tenpo musi: %s</string>
   <string name="watchGames">o lukin e musi pi jan ni</string>
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>

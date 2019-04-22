@@ -56,6 +56,7 @@
   <string name="showThreat">Покажи закана</string>
   <string name="inLocalBrowser">на вашиот прелистувач (локално)</string>
   <string name="toggleLocalEvaluation">Вклчи локална еваулација</string>
+  <string name="promoteVariation">Варијација на промовирање</string>
   <string name="makeMainLine">Избери главна линија</string>
   <string name="deleteFromHere">Избриши одовде</string>
   <string name="move">Потег</string>
@@ -161,7 +162,6 @@
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранк: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ранкот се обновува на секои %s минути</string>
   <string name="gamesPlayed">Одиграни партии</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игри со тебе</item>
@@ -487,14 +487,11 @@
   <string name="menu">Мени</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Белиот мала рокада</string>
-  <string name="whiteCastlingQueenside">Белиот голема рокада</string>
   <string name="blackCastlingKingside">Црниот мала рокада</string>
-  <string name="blackCastlingQueenside">Црниот голема рокада</string>
   <string name="tpTimeSpentPlaying">Време поминато во игра: %s</string>
   <string name="watchGames">Гледајте Игри</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Гледај</string>
-  <string name="internationalEvents">Меѓународни настани</string>
   <string name="videoLibrary">Видеа</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">ВебМастер</string>

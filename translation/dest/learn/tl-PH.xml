@@ -167,4 +167,14 @@ Pawn = 1
 Ang hari ay napakahalaga! Kapag nawal to ay ibig sabihin talo kana sa laro.</string>
   <string name="queenOverBishop">Kunin ang piraso na may pinakamataas na halaga!
 Reyna &gt; Bishop</string>
+  <string name="takeThePieceWithTheHighestValue">Kainin ang piece na
+may pinakamataas na halaga!</string>
+  <string name="pieceValueComplete">Binabati kita! Alam mo na ang halaga ng mga materyal!
+Reyna = 9
+Rook = 5
+Bishop = 3
+Kabayo = 3
+Pawn = 1</string>
+  <string name="checkInTwo">Nacheck sa dalawa</string>
+  <string name="retry">Subukang muli</string>
 </resources>
