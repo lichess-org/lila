@@ -496,6 +496,7 @@
   <string name="horizontalGreenProgressBars">Regula progressus viridis</string>
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="gameBehavior">Optiones ludi</string>
+  <string name="clickTwoSquares">Clige duorum quadratorum</string>
   <string name="premovesPlayingDuringOpponentTurn">Praemotus (cum adversarius ludit)</string>
   <string name="takebacksWithOpponentApproval">Receptus (si adversarius probeat)</string>
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
