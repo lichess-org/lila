@@ -124,8 +124,9 @@
     opts = opts || {};
     lichess.loadCssPath('autocomplete');
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
-      $input.typeahead(null, {
+      $input.typeahead({
         minLength: opts.minLength || 3,
+      }, {
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
