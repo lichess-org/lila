@@ -103,10 +103,10 @@ export function forceResign(ctrl: RoundController) {
   const noarg = ctrl.trans.noarg;
   return ctrl.forceResignable() ? h('div.suggestion', [
     h('p', { hook: onSuggestionHook }, noarg('opponentLeftChoices')),
-    h('button.fbt', {
+    h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
     }, noarg('forceResignation')),
-    h('button.fbt', {
+    h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force'))
     }, noarg('forceDraw'))
   ]) : null;
