@@ -35,11 +35,20 @@ object home {
     fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
     moreJs = frag(
       jsAt(s"compiled/lidraughts.lobby${isProd ?? (".min")}.js", defer = true),
-      embedJsUnsafe {
-        val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
-        val transJs = safeJsonValue(i18nJsObject(translations))
-        s"""lidraughts=window.lidraughts||{};customWS=true;lidraughts_lobby={data:${safeJsonValue(data)},playban:$playbanJs,i18n:$transJs}"""
-      }
+      embedJsUnsafe(
+        s"""lidraughts=window.lidraughts||{};customWS=true;lidraughts_lobby=${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "playban" -> playban.map { pb =>
+              Json.obj(
+                "minutes" -> pb.mins,
+                "remainingSeconds" -> (pb.remainingSeconds + 3)
+              )
+            },
+            "i18n" -> i18nJsObject(translations)
+          ))
+        }"""
+      )
     ),
     moreCss = cssTag("lobby"),
     draughtsground = false,

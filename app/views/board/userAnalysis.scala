@@ -1,6 +1,6 @@
 package views.html.board
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -22,11 +22,18 @@ object userAnalysis {
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${
-        userAnalysisI18n(
-          withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
-        )
-      },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
+      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.user_analysis=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> userAnalysisI18n(
+            withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
+          ),
+          "explorer" -> Json.obj(
+            "endpoint" -> explorerEndpoint,
+            "tablebaseEndpoint" -> tablebaseEndpoint
+          )
+        ))
+      }""")
     ),
     draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(

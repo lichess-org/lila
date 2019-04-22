@@ -1,6 +1,8 @@
 package views.html
 package round
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -35,9 +37,16 @@ object player {
         roundNvuiTag,
         roundTag,
         embedJsUnsafe(s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){
-LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserIdString,chat:${jsOrNull(chatJson)}
-${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lidraughts.tournament.JsonView.top(top, lightUser))}")}
-})}""")
+LidraughtsRound.boot(${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(pov.game),
+            "userId" -> ctx.userId,
+            "chat" -> chatJson
+          ) ++ tour.flatMap(_.top).??(top => Json.obj(
+              "tour" -> lidraughts.tournament.JsonView.top(top, lightUser)
+            )))
+        })}""")
       ),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false,

@@ -1,6 +1,8 @@
 package views.html
 package tv
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -24,11 +26,16 @@ object index {
       title = s"${channel.name} TV: ${pov.fold(trans.noGameFound.txt())(p => s"${playerText(p.player)} vs ${playerText(p.opponent)}")}",
       moreJs = frag(
         roundTag,
-        embedJsUnsafe {
-          val transJs = ~pov.map { p => views.html.round.jsI18n(p.game) }
-          s"""lidraughts=window.lidraughts||{};customWS=true;
-onload=function(){LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
-        }
+        embedJsUnsafe(
+          pov ?? { p =>
+            s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){LidraughtsRound.boot(${
+              safeJsonValue(Json.obj(
+                "data" -> data,
+                "i18n" -> views.html.round.jsI18n(p.game)
+              ))
+            })}"""
+          }
+        )
       ),
       moreCss = cssTag("tv.single"),
       draughtsground = false,

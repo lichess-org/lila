@@ -53,7 +53,7 @@ element: document.querySelector('.embedded_study'),
 study: ${safeJsonValue(data.study)},
 data: ${safeJsonValue(data.analysis)},
 embed: true,
-i18n: ${views.html.board.userAnalysisI18n()},
+i18n: ${safeJsonValue(views.html.board.userAnalysisI18n())},
 userId: null
 });""", config.nonce)
       )

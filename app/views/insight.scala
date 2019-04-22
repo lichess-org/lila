@@ -1,5 +1,7 @@
 package views.html
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -29,16 +31,23 @@ object insight {
         embedJsUnsafe(s"""
 $$(function() {
 lidraughts = lidraughts || {};
-lidraughts.insight = LidraughtsInsight(document.getElementById('insight'), {
-ui: ${safeJsonValue(ui)},
-initialQuestion: ${safeJsonValue(question)},
-i18n: {},
-myUserId: $jsUserIdString,
-user: { id: "${u.id}", name: "${u.username}", nbGames: ${cache.count}, stale: ${stale}, shareId: ${prefId} },
-pageUrl: "${routes.Lobby.home}",
-postUrl: "${routes.Lobby.home}"
-});
-});""")
+lidraughts.insight = LidraughtsInsight(document.getElementById('insight'), ${
+          safeJsonValue(Json.obj(
+            "ui" -> ui,
+            "initialQuestion" -> question,
+            "i18n" -> Json.obj(),
+            "myUserId" -> ctx.userId,
+            "user" -> Json.obj(
+              "id" -> u.id,
+              "name" -> u.username,
+              "nbGames" -> cache.count,
+              "stale" -> stale,
+              "shareId" -> prefId
+            ),
+            "pageUrl" -> routes.Lobby.home.url,
+            "postUrl" -> routes.Lobby.home.url
+          ))
+        })""")
       ),
       moreCss = cssTag("insight")
     )(frag(

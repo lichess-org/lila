@@ -1,6 +1,6 @@
 package views.html.puzzle
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -20,7 +20,13 @@ object show {
         jsAt(s"compiled/lidraughts.puzzle${isProd ?? (".min")}.js"),
         embedJsUnsafe(s"""
 lidraughts = lidraughts || {};
-lidraughts.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i18n: ${bits.jsI18n} };""")
+lidraughts.puzzle = ${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "pref" -> pref,
+            "i18n" -> bits.jsI18n()
+          ))
+        }""")
       ),
       draughtsground = false,
       openGraph = lidraughts.app.ui.OpenGraph(

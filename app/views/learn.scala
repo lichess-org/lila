@@ -1,6 +1,6 @@
 package views.html.learn
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -16,9 +16,12 @@ object index {
     moreJs = frag(
       jsAt(s"compiled/lidraughts.learn${isProd ?? (".min")}.js"),
       embedJsUnsafe(s"""$$(function() {
-LidraughtsLearn(document.getElementById('learn-app'), {
-data: ${data.fold("null")(safeJsonValue)},
-i18n: ${safeJsonValue(i18nFullDbJsObject(lidraughts.i18n.I18nDb.Learn))}});});""")
+LidraughtsLearn(document.getElementById('learn-app'), ${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> i18nFullDbJsObject(lidraughts.i18n.I18nDb.Learn)
+        ))
+      })})""")
     ),
     moreCss = cssTag("learn"),
     draughtsground = false,

@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -14,7 +13,7 @@ object bits {
   def link(simulId: lidraughts.simul.Simul.ID): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(baseTranslations))
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(baseTranslations)
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(

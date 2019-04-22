@@ -1,5 +1,7 @@
 package views.html.challenge
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -13,12 +15,14 @@ object bits {
   def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context) =
     frag(
       jsTag("challenge.js", defer = true),
-      embedJsUnsafe(s"""lidraughts=window.lidraughts||{};customWs=true;lidraughts_challenge = {
-socketUrl: '${routes.Challenge.websocket(c.id, apiVersion.value)}',
-xhrUrl: '${routes.Challenge.show(c.id)}',
-owner: $owner,
-data: ${safeJsonValue(json)}
-};""")
+      embedJsUnsafe(s"""lidraughts=window.lidraughts||{};customWs=true;lidraughts_challenge = ${
+        safeJsonValue(Json.obj(
+          "socketUrl" -> routes.Challenge.websocket(c.id, apiVersion.value).url,
+          "xhrUrl" -> routes.Challenge.show(c.id).url,
+          "owner" -> owner,
+          "data" -> json
+        ))
+      }""")
     )
 
   def details(c: Challenge)(implicit ctx: Context) = div(cls := "details")(

@@ -1,5 +1,7 @@
 package views.html.tournament
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -23,10 +25,12 @@ object home {
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lidraughts.tournamentSchedule${isProd ?? (".min")}.js"),
-        embedJsUnsafe(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour-chart'), {
-data: ${safeJsonValue(json)},
-i18n: ${bits.jsI18n()}
-});
+        embedJsUnsafe(s"""var app=LidraughtsTournamentSchedule.app(document.querySelector('.tour-chart'), ${
+          safeJsonValue(Json.obj(
+            "data" -> json,
+            "i18n" -> bits.jsI18n()
+          ))
+        });
 var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;""")
       ),
       openGraph = lidraughts.app.ui.OpenGraph(

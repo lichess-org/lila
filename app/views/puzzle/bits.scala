@@ -3,7 +3,6 @@ package html.puzzle
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.common.String.html.safeJsonValue
 import lidraughts.app.ui.ScalatagsTemplate._
 
 import controllers.routes
@@ -20,7 +19,7 @@ object bits {
     dataLastmove := lastMove
   )(div(cls := "cg-board"))
 
-  def jsI18n(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
     trans.training,

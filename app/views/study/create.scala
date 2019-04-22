@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.String.html.safeJsonValue
 import lidraughts.study.Study
 
 import controllers.routes

@@ -1,6 +1,8 @@
 package views.html
 package tournament
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -22,14 +24,16 @@ object show {
     title = s"${tour.fullName} #${tour.id}",
     moreJs = frag(
       jsAt(s"compiled/lidraughts.tournament${isProd ?? (".min")}.js"),
-      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.tournament={
-data:${safeJsonValue(data)},
-i18n:${bits.jsI18n()},
-userId:${jsUserIdString},
-chat:${
-        chatOption.fold("null")(c =>
-          safeJsonValue(chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))
-      }};""")
+      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.tournament=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> bits.jsI18n(),
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+          }
+        ))
+      }""")
     ),
     moreCss = cssTag("tournament.show"),
     draughtsground = false,

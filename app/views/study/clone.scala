@@ -1,7 +1,5 @@
 package views.html.study
 
-import play.api.libs.json.Json
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._

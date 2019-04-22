@@ -9,7 +9,6 @@ import lidraughts.app.ui.ScalatagsTemplate._
 object Environment
   extends lidraughts.Lidraughtsisms
   with StringHelper
-  with JsonHelper
   with AssetHelper
   with DateHelper
   with NumberHelper

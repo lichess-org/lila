@@ -7,7 +7,6 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.paginator.Paginator
-import lidraughts.common.String.html.safeJsonValue
 import lidraughts.study.Order
 import lidraughts.study.Study.WithChaptersAndLiked
 import lidraughts.user.User
