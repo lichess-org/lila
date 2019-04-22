@@ -123,8 +123,8 @@
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s гравців</item>
-    <item quantity="few">%s гравців</item>
+    <item quantity="one">%s гравець</item>
+    <item quantity="few">%s гравці</item>
     <item quantity="many">%s гравців</item>
     <item quantity="other">%s гравців</item>
   </plurals>
