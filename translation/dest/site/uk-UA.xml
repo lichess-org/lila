@@ -20,7 +20,7 @@
   <string name="black">Чорні</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
-  <string name="whiteIsVictorious">Перемога білих</string>
+  <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Перемога чорних</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
@@ -179,7 +179,7 @@
   <string name="username">Псевдонім</string>
   <string name="usernameOrEmail">Ім’я користувача</string>
   <string name="changeUsername">Змінити ім\'я користувача</string>
-  <string name="changeUsernameNotSame">Можна змінити лише регістр букв. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам лише дозволено змінити регістр вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже зареєстровані?</string>
