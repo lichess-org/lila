@@ -4,7 +4,6 @@ import scalatags.Text.all._
 
 import lidraughts.common.Lang
 import lidraughts.common.String.html.escapeHtml
-import lidraughts.common.String.frag.{ escapeHtml => escapeFrag }
 
 object Translator {
 
@@ -35,7 +34,7 @@ object Translator {
       }
 
     private def escapeArgs(args: Seq[Any]): Seq[RawFrag] = args.map {
-      case s: String => escapeFrag(s)
+      case s: String => escapeHtml(s)
       case r: RawFrag => r
       case a => RawFrag(a.toString)
     }

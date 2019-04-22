@@ -2,7 +2,7 @@ package lidraughts.i18n
 
 import scalatags.Text.all._
 
-import lidraughts.common.String.frag.escapeHtml
+import lidraughts.common.String.html.escapeHtml
 
 private sealed trait Translation
 

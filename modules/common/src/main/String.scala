@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scalatags.Text.all._
 
 import lidraughts.base.RawHtml
-import lidraughts.common.base.StringUtils.{ safeJsonString, escapeHtml => escapeHtmlRaw }
+import lidraughts.common.base.StringUtils.{ safeJsonString, escapeHtmlRaw }
 
 final object String {
 
@@ -60,13 +60,11 @@ final object String {
 
     def nl2br(text: String): Frag = nl2brUnsafe(escapeHtmlRaw(text))
 
-    def escapeHtml(s: String): Frag = raw {
+    def escapeHtml(s: String): RawFrag = raw {
       escapeHtmlRaw(s)
     }
     def unescapeHtml(html: String): String =
       org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4(html)
-
-    def escapeString(s: String): Frag = escapeHtmlRaw(s)
 
     def markdownLinks(text: String): Frag = raw {
       RawHtml.markdownLinks(text)
@@ -91,11 +89,4 @@ final object String {
 
     def safeJsonHtml(jsValue: JsValue): Frag = raw(safeJsonValue(jsValue))
   }
-
-  object frag {
-    def escapeHtml(s: String) = RawFrag {
-      escapeHtmlRaw(s)
-    }
-  }
-
 }

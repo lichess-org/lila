@@ -34,7 +34,7 @@ object atom {
           doc.getText("blog.shortlede"),
           "<br>", // yes, scalatags encodes it.
           doc.getImage("blog.image", "main").map { img =>
-            s"""<img src="${img.url}"/>"""
+            st.img(src := img.url).render
           },
           "<br>",
           lidraughts.blog.ProtocolFix.add(doc.getStructuredText("blog.body") ?? lidraughts.blog.BlogApi.extract)

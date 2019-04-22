@@ -6,7 +6,6 @@ import draughts.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.String.frag.escapeHtml
 import lidraughts.game.{ Game, Player, Namer, Pov }
 import lidraughts.i18n.{ I18nKeys, enLang }
 import lidraughts.user.{ User, UserContext, Title }
@@ -140,15 +139,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
-        val content = (player.aiLevel, player.name) match {
-          case (Some(level), _) => aiNameFrag(level, withRating).render
-          case (_, Some(name)) => escapeHtml(name).render
-          case _ => User.anonymous
-        }
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level, withRating).render
-            case (_, Some(name)) => escapeHtml(name).render
+            case (Some(level), _) => aiNameFrag(level, withRating)
+            case (_, Some(name)) => name
             case _ => User.anonymous
           },
           statusIcon
