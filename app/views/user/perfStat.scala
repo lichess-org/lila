@@ -42,9 +42,8 @@ data: ${safeJsonValue(data)}
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           div(cls := "box__top")(
             h1(
-              a(href := routes.User.show(u.username), dataIcon := "I", cls := "text")(
-                span(u.username, span(perfType.name, " stats"))
-              )
+              a(href := routes.User.show(u.username))(u.username),
+              span(perfType.name, " stats")
             ),
             div(cls := "box__top__actions")(
               u.perfs(perfType).nb > 0 option a(
