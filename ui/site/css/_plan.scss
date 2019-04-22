@@ -161,15 +161,17 @@
   }
 
   .faq {
-    @extend %flex-center;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
     margin: 50px 0 40px 0;
     padding: 30px 0;
     border-top: $border;
     border-bottom: $border;
     justify-content: space-between;
     dl {
-      flex: 1 1 29%;
-      margin-bottom: 1em;
+      flex: 1 0 200px;
+      margin: 0 .2em 1em .2em;
     }
     dt {
       font-size: 1.3em;
@@ -180,6 +182,9 @@
     }
     dd {
       margin: 0;
+    }
+    code {
+      font-size: .9em;
     }
   }
 

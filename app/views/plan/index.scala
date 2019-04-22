@@ -225,13 +225,13 @@ object index {
       dd(
         "First of all, powerful servers.", br,
         "Then we pay a full-time developer: ", userIdLink("thibault".some), ", the founder of Lichess.", br,
-        "See the ", a(href := "/costs", target := "_blank")("detailed cost breakdown."),
-        dt("Is Lichess an official non-profit?"),
-        dd(
-          "Yes, here's the ", a(href := "http://www.journal-officiel.gouv.fr/association/index.php?ACTION=Rechercher&WHAT=lichess.org")(
-            "act of creation (FR)"
-          ), "."
-        )
+        "See the ", a(href := "/costs", target := "_blank")("detailed cost breakdown.")
+      ),
+      dt("Is Lichess an official non-profit?"),
+      dd(
+        "Yes, here's the ", a(href := "http://www.journal-officiel.gouv.fr/association/index.php?ACTION=Rechercher&WHAT=lichess.org")(
+          "act of creation (FR)"
+        ), "."
       )
     ),
     dl(
