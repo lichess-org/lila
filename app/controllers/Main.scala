@@ -177,6 +177,7 @@ Disallow: /games/export
         case 87 => routes.Stat.ratingDistribution("blitz").url
         case 110 => s"$faq#name"
         case 29 => s"$faq#titles"
+        case 4811 => s"$faq#lm"
         case 216 => routes.Main.mobile.url
         case 340 => s"$faq#trophies"
         case 6 => s"$faq#ratings"

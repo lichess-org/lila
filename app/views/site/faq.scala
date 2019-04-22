@@ -90,7 +90,11 @@ object faq {
         question(
           "titles",
           "What titles are there on Lichess?",
-          p("Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as many national master titles. Here is a list of FIDE titles:"),
+          p(
+            "Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as ",
+            a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("many national master titles"), ".",
+            "Here is a list of FIDE titles:"
+          ),
           ul(
             li("Grandmaster (GM)"),
             li("International Master (IM)"),
@@ -101,11 +105,14 @@ object faq {
             li("Woman FIDE Master (WFM)"),
             li("Woman Candidate Master (WCM)")
           ),
-          p("Other titles currently recognised by Lichess are listed ", a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("here"), "."),
           p("If you have an OTB title, you can apply to have this displayed on your account by completing the ", a(href := "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")("verification form"), ", including a clear image of an identifying document/card and a selfie of you holding the document/card."),
           p("Verifying as a titled player on Lichess gives access to play in the Titled Arena events."),
-          h4("Other titles: LM"),
-          p("""LM means "Lichess Master". This honorific title is unofficial and only exists on Lichess."""),
+          p("Finally there is an honorary ", a(href := "#lm")("Lichess Master (LM)"), " title.")
+        ),
+        question(
+          "lm",
+          "How do I get the Lichess Master (LM) title?",
+          p("This honorific title is unofficial and only exists on Lichess."),
           p("We award it to highly notable players who are good citizens of Lichess, at our discretion. You don't get the LM title, the LM title gets to you. If you qualify, you will get a message from us regarding it and the choice to accept or decline.")
         ),
         question(
@@ -134,9 +141,13 @@ object faq {
         ),
         question(
           "provisional",
-          "Why is there a question mark (?) next to my rating?",
-          p("The question mark means the rating is provisional, because you have not yet played enough games in that category to have a reliable rating."),
-          p("Concretely, that means the Glicko-2 deviation is larger than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.")
+          "Why is there a question mark (?) next to a rating?",
+          p("The question mark means the rating is provisional. Reasons include:"),
+          ul(
+            li("The player has not yet finished enough rated games against ", em("opponents of similar strength"), " in the rating category."),
+            li("The player's strength has recently improved or dropped significantly.")
+          ),
+          p("Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.")
         ),
         question(
           "leaderboards",
@@ -158,7 +169,7 @@ object faq {
         question(
           "hide-ratings",
           "How to hide ratings while playing?",
-          p("Enable Zen-mode by pressing ", em("z"), " during a game.")
+          p("Enable Zen-mode in the display preferences or by pressing ", em("z"), " during a game.")
         )
       )
     }
