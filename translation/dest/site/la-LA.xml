@@ -373,6 +373,9 @@
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>
+  <string name="performance">Gressus</string>
+  <string name="whiteWins">Est victor Albus</string>
+  <string name="blackWins">Est victor Niger</string>
   <string name="draws">Indutiae</string>
   <string name="viewMoreTournaments">Certamen videre</string>
   <string name="membersOnly">Sola membra</string>
@@ -384,6 +387,7 @@
   <string name="loadPosition">Legere positionem</string>
   <string name="isPrivate">Privatis</string>
   <string name="reportXToModerators">Referre %s moderatoribus</string>
+  <string name="xRating">Gradus %s</string>
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
   <string name="firstName">Praenomen</string>
@@ -475,6 +479,8 @@
   <string name="closeAccountExplanation">Esne certus te velle rationem tuam claudere? Claudere rationem tuam est consultum perpetuum. Dehinc inire non poteris atque pagina bibliographica tua non patebit.</string>
   <string name="thisAccountIsClosed">Haec ratio clausa est.</string>
   <string name="invalidUsernameOrPassword">Irritum nomen vel tessera usuarii</string>
+  <string name="incorrectPassword">Tessera falsa</string>
+  <string name="invalidAuthenticationCode">Codex authenticus invalidus</string>
   <string name="emailMeALink">Mitte mihi inscriptionem</string>
   <string name="currentPassword">Tessera praesens</string>
   <string name="newPassword">Tessera nova</string>
