@@ -136,6 +136,9 @@
   <string name="ratingStats">Įvertinimų statistika</string>
   <string name="username">Vartotojo vardas</string>
   <string name="usernameOrEmail">Vartotojo vardas</string>
+  <string name="changeUsername">Keisti naudotojo vardą</string>
+  <string name="changeUsernameNotSame">Galima keisti tik raidžių dydį. Pvz., „vardaspav“ į „VardasPav“.</string>
+  <string name="changeUsernameDescription">Pasikeiskite naudotojo vardą. Tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
   <string name="password">Slaptažodis</string>
   <string name="haveAnAccount">Turite paskyrą?</string>
   <string name="changePassword">Pasikeisti slaptažodį</string>
@@ -145,7 +148,6 @@
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="rank">Rangas</string>
   <string name="rankX">Reitingas: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Reitingas atnaujinamas kas %s minučių</string>
   <string name="gamesPlayed">sužaistos partijos</string>
   <string name="cancel">Atšaukti</string>
   <string name="timeOut">Baigėsi laikas</string>
@@ -517,14 +519,11 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rokiruotė</string>
   <string name="whiteCastlingKingside">Baltieji O-O</string>
-  <string name="whiteCastlingQueenside">Baltieji O-O-O</string>
   <string name="blackCastlingKingside">Juodieji O-O</string>
-  <string name="blackCastlingQueenside">Juodieji O-O-O</string>
   <string name="tpTimeSpentPlaying">Laikas, praleistas žaidžiant: %s</string>
   <string name="watchGames">Stebėti žaidimus</string>
   <string name="tpTimeSpentOnTV">Laikas, praleistas stebint: %s</string>
   <string name="watch">Žiūrėk</string>
-  <string name="internationalEvents">Tarptautiniai turnyrai</string>
   <string name="videoLibrary">Video biblioteka</string>
   <string name="mobileApp">Mobilioji programėlė</string>
   <string name="webmasters">Svetainių kūrėjams</string>

@@ -169,7 +169,6 @@
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
-  <string name="rankIsUpdatedEveryXMinutes">رتبه در هر %s دقیقه به روز رسانی می شود</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s معما</item>
     <item quantity="other">%s معما</item>
@@ -627,9 +626,7 @@
   <string name="menu">فهرست</string>
   <string name="castling">قلعه رفتن</string>
   <string name="whiteCastlingKingside">سفید O-O</string>
-  <string name="whiteCastlingQueenside">سفید O-O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
-  <string name="blackCastlingQueenside">سیاه O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s پست ها در انجمن</item>
     <item quantity="other">%s پست ها در انجمن</item>
@@ -638,7 +635,6 @@
   <string name="watchGames">تماشای بازی ها</string>
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
-  <string name="internationalEvents">رویدادهای بین المللی</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>

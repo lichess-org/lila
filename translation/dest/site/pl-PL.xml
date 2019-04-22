@@ -60,7 +60,7 @@
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="move">Ruch</string>
-  <string name="variantLoss">Wariant przegrany</string>
+  <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
   <string name="pawnMove">Ruch pionem</string>
@@ -75,7 +75,7 @@
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
-  <string name="masterDbExplanation">Dwa miliony partii rankingowych graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
+  <string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s ruchu</item>
     <item quantity="few">Mat w %s ruchach</item>
@@ -97,7 +97,7 @@
   <string name="allSet">Gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
-  <string name="deleteThisImportedGame">Chcesz usunąć tę zaimportowaną partię?</string>
+  <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
   <string name="replayMode">Odtwarzanie</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
@@ -178,6 +178,9 @@
   <string name="ratingStats">Statystyki rankingowe</string>
   <string name="username">Nazwa użytkownika</string>
   <string name="usernameOrEmail">Nazwa użytkownika lub e-mail</string>
+  <string name="changeUsername">Zmień nazwę użytkownika</string>
+  <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. \"JanNowak\" zamiast \"jannowak\".</string>
+  <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
   <string name="password">Hasło</string>
   <string name="haveAnAccount">Masz już konto?</string>
   <string name="changePassword">Zmień hasło</string>
@@ -187,7 +190,12 @@
   <string name="forgotPassword">Zapomniałeś hasła?</string>
   <string name="rank">Miejsce</string>
   <string name="rankX">Ranking: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ranking jest aktualizowany co %s minut</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Ranking jest aktualizowany co minutę</item>
+    <item quantity="few">Ranking jest aktualizowany co %s minuty</item>
+    <item quantity="many">Ranking jest aktualizowany co %s minut</item>
+    <item quantity="other">Ranking jest aktualizowany co %s minut</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s zadanie</item>
     <item quantity="few">%s zadania</item>
@@ -202,7 +210,7 @@
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
-  <string name="timeOut">Koniec czasu</string>
+  <string name="timeOut">Przekroczenie limitu czasu</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferDeclined">Propozycja remisu została odrzucona</string>
   <string name="drawOfferAccepted">Propozycja remisu została przyjęta</string>
@@ -226,7 +234,7 @@
   <string name="rated">Rankingowa</string>
   <string name="casualTournament">Towarzyska</string>
   <string name="ratedTournament">Rankingowa</string>
-  <string name="thisGameIsRated">Gra rankingowa</string>
+  <string name="thisGameIsRated">Partia rankingowa</string>
   <string name="rematch">Rewanż</string>
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
   <string name="rematchOfferSentWhite">Białe proponują rewanż</string>
@@ -536,7 +544,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
-  <string name="puzzles">Zadania</string>
+  <string name="puzzles">Zadania szachowe</string>
   <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
@@ -594,12 +602,12 @@
   <string name="chessPieceSymbol">Symbole bierek</string>
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="chessClock">Zegar szachowy</string>
-  <string name="tenthsOfSeconds">Dziesiętne sekundy</string>
+  <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
   <string name="never">Nigdy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
-  <string name="gameBehavior">Zachowanie</string>
+  <string name="gameBehavior">Interfejs</string>
   <string name="howDoYouMovePieces">W jaki sposób przesuwasz bierki?</string>
   <string name="clickTwoSquares">Wskazuję dwa pola</string>
   <string name="dragPiece">Przeciągam bierkę</string>
@@ -689,9 +697,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
-  <string name="whiteCastlingQueenside">Białe O-O-O</string>
   <string name="blackCastlingKingside">Czarne O-O</string>
-  <string name="blackCastlingQueenside">Czarne O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
@@ -702,7 +708,6 @@
   <string name="watchGames">Oglądaj partie</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
-  <string name="internationalEvents">Turnieje międzynarodowe</string>
   <string name="videoLibrary">Wideoteka</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
@@ -774,7 +779,7 @@
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
-  <string name="confirmResignationAndDrawOffers">Potwierdzaj propozycje poddań i remisów</string>
+  <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>

@@ -178,6 +178,9 @@
   <string name="ratingStats">Распределение рейтингов</string>
   <string name="username">Имя пользователя</string>
   <string name="usernameOrEmail">Логин или электронная почта</string>
+  <string name="changeUsername">Изменить имя пользователя</string>
+  <string name="changeUsernameNotSame">Можно изменить только регистр символов. Например, поменять «Johndoe» на «JohnDoe».</string>
+  <string name="changeUsernameDescription">Изменить имя пользователя. Это можно сделать только один раз, при этом можно изменить только регистр символов.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже есть учётная запись?</string>
   <string name="changePassword">Сменить пароль</string>
@@ -187,7 +190,12 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Место: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Места в списке обновляются каждые %s минут</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Рейтинг обновляется ежеминутно</item>
+    <item quantity="few">Рейтинг обновляется каждые %s минуты</item>
+    <item quantity="many">Рейтинг обновляется каждые %s минут</item>
+    <item quantity="other">Рейтинг обновляется каждые %s минут</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s задача</item>
     <item quantity="few">%s задачи</item>
@@ -689,9 +697,7 @@
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
   <string name="whiteCastlingKingside">Белые О-О</string>
-  <string name="whiteCastlingQueenside">Белые О-О-О</string>
   <string name="blackCastlingKingside">Чёрные О-О</string>
-  <string name="blackCastlingQueenside">Чёрные О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщение на форуме</item>
     <item quantity="few">%s сообщения на форуме</item>
@@ -702,7 +708,6 @@
   <string name="watchGames">Смотреть игры</string>
   <string name="tpTimeSpentOnTV">Времени за просмотром TV: %s</string>
   <string name="watch">Просмотр</string>
-  <string name="internationalEvents">Международные события</string>
   <string name="videoLibrary">Видеотека</string>
   <string name="mobileApp">Мобильное приложение</string>
   <string name="webmasters">Разработчикам</string>

@@ -25,6 +25,17 @@ ut rēs accelerēs!</string>
 alter epīscopus fuscī quadrī.
 Ambōbus tibi opus est!</string>
   <string name="bishopComplete">Tibi grātulor! Epīscopō imperāre potes.</string>
+  <string name="theQueen">Regina</string>
+  <string name="theKing">Rex</string>
+  <string name="theKingIsSlow">Rex lentum est.</string>
+  <string name="theKnight">Eques</string>
   <string name="thePawn">Lātrunculus</string>
   <string name="itMovesForwardOnly">Tantum prōrsus movētur</string>
+  <string name="capture">Captura</string>
+  <string name="takeTheEnemyPieces">Captum partes hostes</string>
+  <string name="protection">Custodia</string>
+  <string name="combat">Pugna</string>
+  <string name="stalemate">Rex impeditus</string>
+  <string name="pieceValue">Pretii partes</string>
+  <string name="register">Inscribere</string>
 </resources>

@@ -164,6 +164,9 @@
   <string name="ratingStats">Reýting statistikalary</string>
   <string name="username">Ulanyjy ady</string>
   <string name="usernameOrEmail">Ulanyjy ady ýa-da email</string>
+  <string name="changeUsername">Ulanyjy ady çalyş</string>
+  <string name="changeUsernameNotSame">Harplaryň diňe ululygy-kiçiligi özgerdilip biliner. Mysal üçin \"johndoe - JohnDoe.\"</string>
+  <string name="changeUsernameDescription">Ulanyjy adyňyzy üýtgediň. Bu diňe bir gezek amala aşyrlyp biliner we siz diňe ulanyjy adyňyzdaky harplaryň baş harp - kiçi harp hökmünde üýtgedip bilersiňiz.</string>
   <string name="password">Açarsöz</string>
   <string name="haveAnAccount">Hasabyňyz barmy?</string>
   <string name="changePassword">Açarsözi üýtget</string>
@@ -173,7 +176,6 @@
   <string name="forgotPassword">Açarsözi unutdyňyz?</string>
   <string name="rank">Orun</string>
   <string name="rankX">Orun: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Orunlar her %s minutdan täzelenýär</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s tapmaça</item>
     <item quantity="other">%s tapmaça</item>
@@ -632,9 +634,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="menu">Menýu</string>
   <string name="castling">Rakirowka</string>
   <string name="whiteCastlingKingside">Aklar O-O</string>
-  <string name="whiteCastlingQueenside">Aklar O-O-O</string>
   <string name="blackCastlingKingside">Garalar O-O</string>
-  <string name="blackCastlingQueenside">Garalar O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum neşiri</item>
     <item quantity="other">%s forum neşiri</item>
@@ -643,7 +643,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="watchGames">Oýunlara tomaşa et</string>
   <string name="tpTimeSpentOnTV">TW-de geçirlen wagt: %s</string>
   <string name="watch">Tomaşa et</string>
-  <string name="internationalEvents">Halkara wakalar</string>
   <string name="videoLibrary">Wideolar ambary</string>
   <string name="mobileApp">Mobil goýma</string>
   <string name="webmasters">Web ussatlary</string>

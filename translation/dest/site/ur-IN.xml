@@ -466,9 +466,7 @@
   <string name="menu">فہرست</string>
   <string name="castling">قلعہ بندی</string>
   <string name="whiteCastlingKingside">سفید O-O</string>
-  <string name="whiteCastlingQueenside">سفید O-O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
-  <string name="blackCastlingQueenside">سیاه O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">فورم میں شمولیت کا شمار %s</item>
     <item quantity="other">فورم میں شمولیت کا شمار %s</item>
@@ -477,7 +475,6 @@
   <string name="watchGames">کھیل ملاحظہ کریں</string>
   <string name="tpTimeSpentOnTV">ٹی وی پر صرف وقت: %s</string>
   <string name="watch">ملاحظہ</string>
-  <string name="internationalEvents">عالمی منظرنامہ</string>
   <string name="videoLibrary">ویڈیو گھر</string>
   <string name="mobileApp">موبائیل ایپ</string>
   <string name="webmasters">مدیران کے لیے</string>

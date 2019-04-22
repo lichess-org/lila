@@ -56,6 +56,8 @@
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="promoteVariation">Promakni varijaciju</string>
+  <string name="makeMainLine">Napravi glavnom linijom</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
@@ -168,6 +170,9 @@
   <string name="ratingStats">Statistike rejtinga</string>
   <string name="username">Korisničko ime</string>
   <string name="usernameOrEmail">Korisničko ime</string>
+  <string name="changeUsername">Promijenite korisničko ime</string>
+  <string name="changeUsernameNotSame">Može se promijeniti samo veličina slova. Na primjer, \"johndoe\" u \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo se može uraditi samo jednom i možeš samo promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="password">Lozinka</string>
   <string name="haveAnAccount">Već imate račun?</string>
   <string name="changePassword">Promjena lozinke</string>
@@ -177,7 +182,6 @@
   <string name="forgotPassword">Zaboravljena lozinka?</string>
   <string name="rank">Poredak</string>
   <string name="rankX">Rejting: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rang se ažurira svakih %s minuta</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problem</item>
     <item quantity="few">%s problema</item>
@@ -580,9 +584,7 @@ u %3$s</string>
   <string name="menu">Izbornik</string>
   <string name="castling">Rokada</string>
   <string name="whiteCastlingKingside">Bijeli O-O</string>
-  <string name="whiteCastlingQueenside">Bijeli O-O-O</string>
   <string name="blackCastlingKingside">Crni O-O</string>
-  <string name="blackCastlingQueenside">Crni O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forumskih poruka</item>
     <item quantity="few">%s forumskih poruka</item>
@@ -592,7 +594,6 @@ u %3$s</string>
   <string name="watchGames">Gledaj partije</string>
   <string name="tpTimeSpentOnTV">Vrijeme na TV-u: %s</string>
   <string name="watch">Gledaj</string>
-  <string name="internationalEvents">Međunarodni događaji</string>
   <string name="videoLibrary">Video biblioteka</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>

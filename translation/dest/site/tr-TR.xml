@@ -66,8 +66,8 @@
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
   <string name="close">Kapat</string>
-  <string name="winning">Kazanıyor</string>
-  <string name="losing">Kaybediyor</string>
+  <string name="winning">Kazanan</string>
+  <string name="losing">Kaybeden</string>
   <string name="drawn">Berabere</string>
   <string name="unknown">Belirsiz</string>
   <string name="database">Veritabanı</string>
@@ -164,6 +164,9 @@
   <string name="ratingStats">Puan istatistikleri</string>
   <string name="username">Kullanıcı adı</string>
   <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
+  <string name="changeUsername">Kullanıcı adını değiştir</string>
+  <string name="changeUsernameNotSame">Yalnızca büyük / küçük harf değiştirebilirsiniz. Örneğin \"johndoe\" \"JohnDoe\" için.</string>
+  <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu yalnızca bir kez yapılabilir ve yalnızca kullanıcı adınızı olgusu değiştirmek için izin verilir.</string>
   <string name="password">Şifre</string>
   <string name="haveAnAccount">Üye misiniz?</string>
   <string name="changePassword">Şifre değiştir</string>
@@ -173,7 +176,6 @@
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
   <string name="rankX">Sıralama: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sıralama her %s dakikada bir güncellenir</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s bulmaca</item>
     <item quantity="other">%s bulmaca</item>
@@ -631,9 +633,7 @@
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>
   <string name="whiteCastlingKingside">Beyaz O-O</string>
-  <string name="whiteCastlingQueenside">Beyaz O-O-O</string>
   <string name="blackCastlingKingside">Siyah O-O</string>
-  <string name="blackCastlingQueenside">Siyah O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum Mesajları</item>
     <item quantity="other">%s Forum Mesajları</item>
@@ -642,7 +642,6 @@
   <string name="watchGames">Oyunları izle</string>
   <string name="tpTimeSpentOnTV">TV\'de izlenme süresi: %s</string>
   <string name="watch">İzle</string>
-  <string name="internationalEvents">Uluslararası karşılaşmalar</string>
   <string name="videoLibrary">Video kütüphanesi</string>
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>

@@ -165,8 +165,9 @@
   <string name="username">User name</string>
   <string name="usernameNotSame">Only the case of the letters can change. For example "johndoe" -> "JohnDoe".</string>
   <string name="usernameOrEmail">User name or email</string>
-  <string name="usernameDescription">Change your username, this can only be done once and you are only allowed to change the case of your username.</string>
   <string name="changeUsername">Change username</string>
+  <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of your username.</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">Have an account?</string>
   <string name="changePassword">Change password</string>
@@ -176,7 +177,10 @@
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rank is updated every %s minutes</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rank is updated every %s minute(s)</item>
+    <item quantity="other">Rank is updated every %s minute(s)</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzles</item>
@@ -636,9 +640,7 @@ in %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
   <string name="whiteCastlingKingside">White O-O</string>
-  <string name="whiteCastlingQueenside">White O-O-O</string>
   <string name="blackCastlingKingside">Black O-O</string>
-  <string name="blackCastlingQueenside">Black O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum post</item>
     <item quantity="other">%s forum posts</item>
@@ -647,7 +649,6 @@ in %3$s</string>
   <string name="watchGames">Watch games</string>
   <string name="tpTimeSpentOnTV">Time on TV: %s</string>
   <string name="watch">Watch</string>
-  <string name="internationalEvents">International events</string>
   <string name="videoLibrary">Video library</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>

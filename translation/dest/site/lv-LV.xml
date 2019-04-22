@@ -171,6 +171,9 @@
   <string name="ratingStats">Vērtējumu statistika</string>
   <string name="username">Lietotājvārds</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
+  <string name="changeUsername">Mainīt lietotājvārdu</string>
+  <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"johndoe\" var mainīt uz \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai burtu lielumu (lielie/mazie burti) lietotājvārdā.</string>
   <string name="password">Parole</string>
   <string name="haveAnAccount">Jau ir konts?</string>
   <string name="changePassword">Mainīt paroli</string>
@@ -180,7 +183,6 @@
   <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="rank">Rangs</string>
   <string name="rankX">Rangs: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rangs tiek atjaunots ik pēc %s minūtēm</string>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s puzles</item>
     <item quantity="one">%s puzle</item>
@@ -660,9 +662,7 @@
   <string name="menu">Izvēlne</string>
   <string name="castling">Rokāde</string>
   <string name="whiteCastlingKingside">Baltajiem O-O</string>
-  <string name="whiteCastlingQueenside">Baltajiem O-O-O</string>
   <string name="blackCastlingKingside">Melnajiem O-O</string>
-  <string name="blackCastlingQueenside">Melnajiem O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">%s foruma ieraksti</item>
     <item quantity="one">%s foruma ieraksts</item>
@@ -672,7 +672,6 @@
   <string name="watchGames">Skatīties spēles</string>
   <string name="tpTimeSpentOnTV">TV laiks: %s</string>
   <string name="watch">Skaties</string>
-  <string name="internationalEvents">Starptautiskie notikumi</string>
   <string name="videoLibrary">Video bibliotēka</string>
   <string name="mobileApp">Mobilā aplikācija</string>
   <string name="webmasters">Tīmekļa pārziņi</string>

@@ -171,6 +171,9 @@
   <string name="ratingStats">Статистика рејтинга</string>
   <string name="username">Корисничко име</string>
   <string name="usernameOrEmail">Корисничко име или е-пошта</string>
+  <string name="changeUsername">Промените корисничко име</string>
+  <string name="changeUsernameNotSame">Само се величина слова може променити. На пример \"johndoe\" у \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Промените ваше корисничко име. Можете променити ваше корисничко име само једном и то само величину слова.</string>
   <string name="password">Лозинка</string>
   <string name="haveAnAccount">Имате налог?</string>
   <string name="changePassword">Промените лозинку</string>
@@ -180,7 +183,11 @@
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ранг се ажурира сваких %s минута</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Ранг се ажурира сваки минут</item>
+    <item quantity="few">Ранг се ажурира сваке %s минуте</item>
+    <item quantity="other">Ранг се ажурира сваких %s минута</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s тактика</item>
     <item quantity="few">%s тактике</item>
@@ -662,9 +669,7 @@
   <string name="menu">Опције</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели О-О</string>
-  <string name="whiteCastlingQueenside">Бели О-О-О</string>
   <string name="blackCastlingKingside">Црни О-О</string>
-  <string name="blackCastlingQueenside">Црни О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s коментар на форуму</item>
     <item quantity="few">%s коментара на форуму</item>
@@ -674,7 +679,6 @@
   <string name="watchGames">Посматрај партије</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Посматрај</string>
-  <string name="internationalEvents">Интернеационална дешавања</string>
   <string name="videoLibrary">Видео библиотека</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
@@ -787,6 +791,7 @@
   <string name="xHostsY">%1$s домаћини %2$s</string>
   <string name="xJoinsY">%1$s учествује у %2$s</string>
   <string name="xLikesY">%1$s каже да му се свиђа %2$s</string>
+  <string name="xCreatesStudyY">%1$s креира студију %2$s</string>
   <string name="quickPairing">Брзо упаривање</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Непознати играч</string>
