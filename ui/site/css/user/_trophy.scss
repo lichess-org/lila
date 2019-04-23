@@ -25,6 +25,12 @@
     filter: drop-shadow(0 0 6px $c-brag);
   }
 }
+.trophy, .shield-trophy {
+  @include transition(transform, 0.2s);
+  &:not(.patron):hover {
+    transform: translateY(-3px);
+  }
+}
 .stacked {
   height: 40px;
   display: flex;
