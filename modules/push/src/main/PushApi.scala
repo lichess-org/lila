@@ -203,19 +203,6 @@ private final class PushApi(
       ))
     }
 
-  def testMessage(userId: User.ID): Funit =
-    pushToAll(userId, _.testMessage, PushApi.Data(
-      title = "Hello there!",
-      body = "You will now receive push notifications.",
-      stacking = Stacking.Test,
-      payload = Json.obj(
-        "userId" -> userId,
-        "userData" -> Json.obj(
-          "type" -> "test"
-        )
-      )
-    ))
-
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =

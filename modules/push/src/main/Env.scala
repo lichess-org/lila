@@ -53,8 +53,6 @@ final class Env(
     scheduler = scheduler
   )
 
-  def testMessage = pushApi.testMessage _
-
   system.lilaBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
     case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
