@@ -59,10 +59,7 @@ $mq-col4: $mq-x-large;
 
     grid-template-columns: repeat(3, 1fr);
 
-    grid-template-rows: 10.5em repeat(3, fit-content(0));
-    @include proper-grid {
-      grid-template-rows: max-content repeat(3, fit-content(0));
-    }
+    grid-template-rows: 12em repeat(2, fit-content(0));
 
     grid-template-areas:
     'table   app     app'
