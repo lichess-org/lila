@@ -923,11 +923,28 @@
 
   ////////////////////
   // service worker //
-  // /////////////////
+  ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    navigator.serviceWorker.register(lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true}), {
-      scope: '/'
+    var workerUrl = lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
+    navigator.serviceWorker.register(workerUrl, {scope: '/'}).then(reg => {
+      var vapid = document.body.getAttribute('data-vapid');
+      if (vapid && Notification.permission === 'granted') return reg.pushManager.getSubscription().then(sub => {
+        var padding = '='.repeat((4 - vapid.length % 4) % 4);
+        var applicationServerKey = Uint8Array.from(atob(vapid.replace(/_/g, '/').replace(/-/g, '+') + padding), c => c.charCodeAt(0));
+        if (!sub) return reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: applicationServerKey
+        }).then(sub => fetch('/push/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(sub)
+        }).then(res => {
+          if (!res.ok) throw Error(response.statusText);
+        }).catch(() => sub.unsubscribe()));
+      });
     });
   }
 })();

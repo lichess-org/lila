@@ -15,6 +15,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   val siteDomain = lila.api.Env.current.Net.Domain
   val assetDomain = lila.api.Env.current.Net.AssetDomain
   val socketDomain = lila.api.Env.current.Net.SocketDomain
+  val vapidPublicKey = lila.push.Env.current.VapidPublicKey
 
   val sameAssetDomain = siteDomain == assetDomain
 

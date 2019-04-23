@@ -19,8 +19,8 @@ final class Env(
   private val OneSignalKey = config getString "onesignal.key"
 
   private val VapidSubject = config getString "vapid.subject"
-  val VapidPublicKey = config getString "vapid.public_key"
   private val VapidPrivateKey = config getString "vapid.private_key"
+  val VapidPublicKey = config getString "vapid.public_key"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
   private lazy val webSubscriptionApi = new WebSubscriptionApi(db(CollectionSubscription))

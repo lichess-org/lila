@@ -571,7 +571,6 @@ POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform: String, deviceId: String)
 POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
-GET   /account/notifications           controllers.Push.notifications
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
