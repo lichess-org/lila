@@ -13,25 +13,25 @@ object mine {
 
     val cancelForm =
       form(method := "post", action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
-        button(tpe := "submit", cls := "button button-red text", dataIcon := "L")(trans.cancel.frag())
+        button(tpe := "submit", cls := "button button-red text", dataIcon := "L")(trans.cancel())
       )
 
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
       moreJs = bits.js(c, json, true),
-      moreCss = responsiveCssTag("challenge.page")
+      moreCss = cssTag("challenge.page")
     ) {
         main(cls := "page-small challenge-page box box-pad")(
           c.status match {
             case Status.Created | Status.Offline => div(id := "ping-challenge")(
-              h1(trans.challengeToPlay.frag()),
+              h1(trans.challengeToPlay()),
               bits.details(c),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
                   spinner,
-                  p(trans.waitingForOpponent.frag())
+                  p(trans.waitingForOpponent())
                 )
               } getOrElse div(cls := "invite")(
                 div(
@@ -46,7 +46,7 @@ object mine {
                     ),
                     button(title := "Copy URL", cls := "copy button", dataRel := "challenge-id", dataIcon := "\"")
                   ),
-                  p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou.frag())
+                  p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                 ),
                 ctx.isAuth option div(
                   p("Or invite a lichess user:"),
@@ -67,19 +67,19 @@ object mine {
             case Status.Declined => div(cls := "follow-up")(
               h1("Challenge declined"),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent.frag())
+              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
             case Status.Accepted => div(cls := "follow-up")(
               h1("Challenge accepted!"),
               bits.details(c),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
-                trans.joinTheGame.frag()
+                trans.joinTheGame()
               )
             )
             case Status.Canceled => div(cls := "follow-up")(
               h1("Challenge canceled."),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent.frag())
+              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
           }
         )

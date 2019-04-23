@@ -13,7 +13,7 @@ object index {
   def apply(pager: Paginator[lila.coach.Coach.WithUser], order: lila.coach.CoachPager.Order)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Lichess coaches",
-      moreCss = responsiveCssTag("coach"),
+      moreCss = cssTag("coach"),
       moreJs = infiniteScrollTag
     ) {
         main(cls := "coach-list coach-full-page")(

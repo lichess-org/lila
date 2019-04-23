@@ -12,11 +12,11 @@ object ratingDistribution {
 
   def apply(perfType: PerfType, data: List[Int])(implicit ctx: Context) = views.html.base.layout(
     title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.name),
-    moreCss = responsiveCssTag("user.rating.stats"),
+    moreCss = cssTag("user.rating.stats"),
     wrapClass = "full-screen-force",
     moreJs = frag(
       jsTag("chart/ratingDistribution.js"),
-      embedJs(s"""lichess.ratingDistributionChart({
+      embedJsUnsafe(s"""lichess.ratingDistributionChart({
   freq: ${data.mkString("[", ",", "]")},
   myRating: ${ctx.me.fold("null")(_.perfs(perfType).intRating.toString)}
 });""")
@@ -25,7 +25,7 @@ object ratingDistribution {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
-          h1(trans.weeklyPerfTypeRatingDistribution.frag(views.html.base.bits.mselect(
+          h1(trans.weeklyPerfTypeRatingDistribution(views.html.base.bits.mselect(
             "variant-stats",
             span(perfType.name),
             PerfType.leaderboardable map { pt =>

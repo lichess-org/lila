@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
-  <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
+  <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
@@ -164,6 +164,7 @@
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
+  <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
   <string name="password">Κωδικός</string>
   <string name="haveAnAccount">Έχετε λογαριασμό;</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
@@ -173,7 +174,6 @@
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
   <string name="rank">Κατάταξη</string>
   <string name="rankX">Κατάταξη: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Η κατάταξη ενημερώνεται κάθε %s λεπτά</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s γρίφος</item>
     <item quantity="other">%s γρίφοι</item>
@@ -633,9 +633,7 @@
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
   <string name="whiteCastlingKingside">Λευκά Ο-Ο</string>
-  <string name="whiteCastlingQueenside">Λευκά Ο-Ο-Ο</string>
   <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
-  <string name="blackCastlingQueenside">Μαύρα Ο-Ο-Ο</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s δημοσίευση φόρουμ</item>
     <item quantity="other">%s δημοσιεύσεις φόρουμ</item>
@@ -644,7 +642,6 @@
   <string name="watchGames">Παρακολουθήστε παιχνίδια</string>
   <string name="tpTimeSpentOnTV">Χρόνος στην Τηλεόραση: %s</string>
   <string name="watch">Παρακολουθήστε</string>
-  <string name="internationalEvents">Διεθνείς εκδηλώσεις</string>
   <string name="videoLibrary">Βιβλιοθήκη τηλεοπτικού υλικού</string>
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>

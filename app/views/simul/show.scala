@@ -18,16 +18,21 @@ object show {
     chatOption: Option[lila.chat.UserChat.Mine],
     stream: Option[lila.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
-    moreCss = responsiveCssTag("simul.show"),
+    moreCss = cssTag("simul.show"),
     title = sim.fullName,
     moreJs = frag(
       jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),
-      embedJs(s"""lichess.simul={
-data:${safeJsonValue(data)},
-i18n:${bits.jsI18n()},
-socketVersion:${socketVersion.value},
-userId: $jsUserIdString,
-chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))}}""")
+      embedJsUnsafe(s"""lichess.simul=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> bits.jsI18n(),
+          "socketVersion" -> socketVersion.value,
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+          }
+        ))
+      }""")
     )
   ) {
       main(cls := "simul")(
@@ -44,21 +49,21 @@ chat: ${chatOption.fold("null")(c => safeJsonValue(views.html.chat.json(c.chat, 
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
-                    trans.casual.frag()
+                    trans.casual()
                   )
                 )
               ),
-              trans.simulHostExtraTime.frag(),
+              trans.simulHostExtraTime(),
               ": ",
               pluralize("minute", sim.clock.hostExtraMinutes),
               br,
-              trans.hostColorX.frag(sim.color match {
-                case Some("white") => trans.white.frag()
-                case Some("black") => trans.black.frag()
-                case _ => trans.randomColor.frag()
+              trans.hostColorX(sim.color match {
+                case Some("white") => trans.white()
+                case Some("black") => trans.black()
+                case _ => trans.randomColor()
               })
             ),
-            trans.by.frag(usernameOrId(sim.hostId)),
+            trans.by(usernameOrId(sim.hostId)),
             " ",
             momentFromNow(sim.createdAt)
           ),

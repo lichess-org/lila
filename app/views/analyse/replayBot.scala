@@ -1,7 +1,5 @@
 package views.html.analyse
 
-import play.twirl.api.Html
-
 import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -23,7 +21,7 @@ object replayBot {
 
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
-      moreCss = responsiveCssTag("analyse.round"),
+      moreCss = cssTag("analyse.round"),
       openGraph = povOpenGraph(pov).some
     ) {
         main(cls := "analyse")(

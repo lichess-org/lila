@@ -1,5 +1,7 @@
 package views.html.tournament
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -18,15 +20,17 @@ object home {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournaments.txt(),
-      moreCss = responsiveCssTag("tournament.home"),
+      moreCss = cssTag("tournament.home"),
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,
         jsAt(s"compiled/lichess.tournamentSchedule${isProd ?? (".min")}.js"),
-        embedJs(s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), {
-data: ${safeJsonValue(json)},
-i18n: ${bits.jsI18n()}
-});
+        embedJsUnsafe(s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), ${
+          safeJsonValue(Json.obj(
+            "data" -> json,
+            "i18n" -> bits.jsI18n()
+          ))
+        });
 var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;""")
       ),
       openGraph = lila.app.ui.OpenGraph(
@@ -38,7 +42,7 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
         main(cls := "tour-home")(
           st.aside(cls := "tour-home__side")(
             h2(
-              a(href := routes.Tournament.leaderboard)(trans.leaderboard.frag())
+              a(href := routes.Tournament.leaderboard)(trans.leaderboard())
             ),
             ul(cls := "leaderboard")(
               winners.top.map { w =>
@@ -50,9 +54,9 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             ),
             p(cls := "tour__links")(
               a(href := "/tournament/calendar")(trans.tournamentCalendar()), br,
-              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ.frag())
+              a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
             ),
-            h2(trans.lichessTournaments.frag()),
+            h2(trans.lichessTournaments()),
             div(cls := "scheduled")(
               scheduled.map { tour =>
                 tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>

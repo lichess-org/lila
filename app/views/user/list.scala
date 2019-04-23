@@ -19,7 +19,7 @@ object list {
     nbAllTime: List[User.LightCount]
   )(implicit ctx: Context) = views.html.base.layout(
     title = trans.players.txt(),
-    moreCss = responsiveCssTag("user.list"),
+    moreCss = cssTag("user.list"),
     wrapClass = "full-screen-force",
     openGraph = lila.app.ui.OpenGraph(
       title = "Chess players and leaderboards",
@@ -31,8 +31,8 @@ object list {
         bits.communityMenu("leaderboard"),
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(
-            h2(trans.onlinePlayers.frag()),
-            ol(cls := "user_top")(online map { u =>
+            h2(trans.onlinePlayers()),
+            ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
                 showBestPerf(u)
@@ -40,7 +40,7 @@ object list {
             })
           ),
           div(cls := "community__leaders")(
-            h2(trans.leaderboard.frag()),
+            h2(trans.leaderboard()),
             div(cls := "leaderboards")(
               userTopPerf(leaderboards.bullet, PerfType.Bullet),
               userTopPerf(leaderboards.blitz, PerfType.Blitz),
@@ -66,9 +66,9 @@ object list {
     }
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
-    st.section(cls := "user_top")(
+    st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := "g")(
-        a(href := routes.Tournament.leaderboard)(trans.tournament.frag())
+        a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
       ol(winners take 10 map { w =>
         li(
@@ -81,7 +81,7 @@ object list {
     )
 
   private def userTopPerf(users: List[User.LightPerf], perfType: PerfType) =
-    st.section(cls := "user_top")(
+    st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.name)
       ),
@@ -93,9 +93,9 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Any, icon: Option[Char] = None)(implicit ctx: Context) =
-    st.section(cls := "user_top")(
-      h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle.toString),
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char] = None)(implicit ctx: Context) =
+    st.section(cls := "user-top")(
+      h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>
         li(
           lightUserLink(u.user),

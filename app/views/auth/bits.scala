@@ -13,22 +13,22 @@ import controllers.routes
 object bits {
 
   def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit ctx: Context) = frag(
-    form3.group(username, if (register) trans.username.frag() else trans.usernameOrEmail.frag()) { f =>
+    form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
       frag(
         form3.input(f)(autofocus, required),
-        p(cls := "error exists none")(trans.usernameAlreadyUsed.frag())
+        p(cls := "error exists none")(trans.usernameAlreadyUsed())
       )
     },
-    form3.password(password, trans.password.frag()),
+    form3.password(password, trans.password()),
     emailOption.map { email =>
-      form3.group(email, trans.email.frag())(form3.input(_, typ = "email")(required))
+      form3.group(email, trans.email())(form3.input(_, typ = "email")(required))
     }
   )
 
   def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
-      moreCss = responsiveCssTag("auth"),
+      moreCss = cssTag("auth"),
       moreJs = captchaTag
     ) {
         main(cls := "auth auth-signup box box-pad")(
@@ -36,16 +36,16 @@ object bits {
             ok.map { r =>
               span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
             },
-            trans.passwordReset.frag()
+            trans.passwordReset()
           ),
           st.form(
             cls := "form3",
             action := routes.Auth.passwordResetApply,
             method := "post"
           )(
-              form3.group(form("email"), trans.email.frag())(form3.input(_, typ = "email")(autofocus)),
+              form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
               views.html.base.captcha(form, captcha),
-              form3.action(form3.submit(trans.emailMeALink.frag()))
+              form3.action(form3.submit(trans.emailMeALink()))
             )
         )
       }
@@ -55,16 +55,16 @@ object bits {
       title = trans.passwordReset.txt()
     ) {
         main(cls := "page-small box box-pad")(
-          h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail.frag()),
-          p(trans.weHaveSentYouAnEmailTo.frag(email)),
-          p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces.frag())
+          h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
+          p(trans.weHaveSentYouAnEmailTo(email)),
+          p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
         )
       }
 
   def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      moreCss = responsiveCssTag("form3")
+      moreCss = cssTag("form3")
     ) {
         main(cls := "page-small box box-pad")(
           (ok match {
@@ -74,14 +74,14 @@ object bits {
           })(
             userLink(u, withOnline = false),
             " - ",
-            trans.changePassword.frag()
+            trans.changePassword()
           ),
           st.form(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token), method := "POST")(
             form3.hidden(form("token")),
-            form3.passwordModified(form("newPasswd1"), trans.newPassword.frag())(autofocus),
-            form3.password(form("newPasswd2"), trans.newPasswordAgain.frag()),
+            form3.passwordModified(form("newPasswd1"), trans.newPassword())(autofocus),
+            form3.password(form("newPasswd2"), trans.newPasswordAgain()),
             form3.globalError(form),
-            form3.action(form3.submit(trans.changePassword.frag()))
+            form3.action(form3.submit(trans.changePassword()))
           )
         )
       }

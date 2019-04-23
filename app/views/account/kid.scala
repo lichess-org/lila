@@ -14,8 +14,8 @@ object kid {
     active = "kid"
   ) {
     div(cls := "account box box-pad")(
-      h1(trans.kidMode.frag()),
-      p(trans.kidModeExplanation.frag()),
+      h1(trans.kidMode()),
+      p(trans.kidModeExplanation()),
       br,
       br,
       br,
@@ -31,7 +31,7 @@ object kid {
       ),
       br,
       br,
-      p(trans.inKidModeTheLichessLogoGetsIconX.frag(raw(s"""<span title="${trans.kidMode()}" class="kiddo">😊</span>""")))
+      p(trans.inKidModeTheLichessLogoGetsIconX(raw(s"""<span title="${trans.kidMode()}" class="kiddo">😊</span>""")))
     )
   }
 }

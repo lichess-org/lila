@@ -28,11 +28,14 @@
     font-weight: bold;
   }
 
-  ul li {
-    list-style: disc inside;
-  }
   ol li {
-    list-style: decimal inside;
+    list-style: decimal outside;
+  }
+  ul li {
+    list-style: disc outside;
+  }
+  ol, ul {
+    margin-left: 2em;
   }
   em {
     font-style: italic;

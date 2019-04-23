@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 import play.api.mvc.RequestHeader
 
 import lila.app.templating.Environment._
@@ -24,7 +24,7 @@ object embed {
         layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(replay titleOf pov),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("analyse.embed", config.bg)
+        cssTagWithTheme("analyse.embed", config.bg)
       ),
       body(cls := List(
         s"highlight ${config.bg} ${config.board}" -> true
@@ -49,11 +49,13 @@ object embed {
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        embedJs(s"""lichess.startEmbeddedAnalyse({
-data: ${safeJsonValue(data)},
-embed: true,
-i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)}
-});""", config.nonce)
+        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "embed" -> true,
+            "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+          ))
+        })""", config.nonce)
       )
     )
   )
@@ -66,7 +68,7 @@ i18n: ${views.html.board.userAnalysisI18n(withCeval = false, withExplorer = fals
         layout.viewport,
         layout.metaCsp(basicCsp),
         st.headTitle("404 - Game not found"),
-        responsiveCssTagWithTheme("analyse.round.embed", "dark")
+        cssTagWithTheme("analyse.round.embed", "dark")
       ),
       body(cls := "dark")(
         div(cls := "not-found")(

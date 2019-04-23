@@ -16,7 +16,7 @@ object emailConfirmHelp {
 
   def apply(form: Form[_], status: Option[Status])(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    moreCss = responsiveCssTag("email-confirm"),
+    moreCss = cssTag("email-confirm"),
     moreJs = jsTag("emailConfirmHelp.js")
   )(frag(
       main(cls := "page-small box box-pad email-confirm-help")(
@@ -26,13 +26,13 @@ object emailConfirmHelp {
           form3.split(
             form3.group(
               form("username"),
-              trans.username.frag(),
+              trans.username(),
               help = raw("What username did you create?").some
             ) { f =>
                 form3.input(f)(pattern := lila.user.User.newUsernameRegex.regex)
               },
             div(cls := "form-group")(
-              form3.submit(trans.apply.frag())
+              form3.submit(trans.apply())
             )
           )
         ),

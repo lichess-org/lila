@@ -15,7 +15,7 @@ object topic {
   def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = "New forum topic",
-      moreCss = responsiveCssTag("forum"),
+      moreCss = cssTag("forum"),
       moreJs = frag(
         jsTag("forum-post.js"),
         captchaTag
@@ -41,14 +41,14 @@ object topic {
           ),
 
           st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST")(
-            form3.group(form("name"), trans.subject.frag())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.message.frag())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
+            form3.group(form("name"), trans.subject())(form3.input(_)(autofocus)),
+            form3.group(form("post")("text"), trans.message())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
             views.html.base.captcha(form("post"), captcha),
             form3.actions(
-              a(href := routes.ForumCateg.show(categ.slug))(trans.cancel.frag()),
+              a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
               isGranted(_.PublicMod) option
                 form3.submit(frag("Create as mod"), nameValue = (form("post")("modIcon").name, "true").some, icon = "".some),
-              form3.submit(trans.createTheTopic.frag())
+              form3.submit(trans.createTheTopic())
             )
           )
         )
@@ -68,7 +68,7 @@ object topic {
       formWithCaptcha.isDefined option captchaTag,
       jsAt("compiled/embed-analyse.js")
     ),
-    moreCss = responsiveCssTag("forum"),
+    moreCss = cssTag("forum"),
     openGraph = lila.app.ui.OpenGraph(
       title = topic.name,
       url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
@@ -104,8 +104,8 @@ object topic {
           else if (topic.isOld)
             p("This topic has been archived and can no longer be replied to.")
           else if (formWithCaptcha.isDefined)
-            h2(id := "reply")(trans.replyToThisTopic.frag())
-          else if (topic.closed) p(trans.thisTopicIsNowClosed.frag())
+            h2(id := "reply")(trans.replyToThisTopic())
+          else if (topic.closed) p(trans.thisTopicIsNowClosed())
           else categ.team.filterNot(myTeam).map { teamId =>
             p(
               a(href := routes.Team.show(teamId)),
@@ -143,15 +143,15 @@ object topic {
             method := "POST",
             novalidate
           )(
-              form3.group(form("text"), trans.message.frag()) { f =>
+              form3.group(form("text"), trans.message()) { f =>
                 form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
               },
               views.html.base.captcha(form, captcha),
               form3.actions(
-                a(href := routes.ForumCateg.show(categ.slug))(trans.cancel.frag()),
+                a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
                 isGranted(_.PublicMod) option
                   form3.submit(frag("Reply as mod"), nameValue = (form("modIcon").name, "true").some, icon = "".some),
-                form3.submit(trans.reply.frag())
+                form3.submit(trans.reply())
               )
             )
         }

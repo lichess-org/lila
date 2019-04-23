@@ -1,6 +1,6 @@
 package views.html.puzzle
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -14,13 +14,19 @@ object show {
   def apply(puzzle: lila.puzzle.Puzzle, data: JsObject, pref: JsObject)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.training.txt(),
-      moreCss = responsiveCssTag("puzzle"),
+      moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
         jsAt(s"compiled/lichess.puzzle${isProd ?? (".min")}.js"),
-        embedJs(s"""
+        embedJsUnsafe(s"""
 lichess = lichess || {};
-lichess.puzzle = { data: ${safeJsonValue(data)}, pref: ${safeJsonValue(pref)}, i18n: ${bits.jsI18n} };""")
+lichess.puzzle = ${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "pref" -> pref,
+            "i18n" -> bits.jsI18n()
+          ))
+        }""")
       ),
       chessground = false,
       openGraph = lila.app.ui.OpenGraph(

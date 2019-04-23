@@ -1,25 +1,9 @@
 package lila.game
 
 import lila.common.LightUser
-import lila.user.{ User, Title }
-import play.twirl.api.Html
+import lila.user.User
 
 object Namer {
-
-  def players(game: Game, withRatings: Boolean = true)(implicit lightUser: LightUser.GetterSync): (Html, Html) =
-    player(game.firstPlayer, withRatings) -> player(game.secondPlayer, withRatings)
-
-  def player(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) = Html {
-    p.aiLevel.fold(
-      p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
-        val title = withTitle ?? user.title ?? { t =>
-          s"""<span class="title"${(Title(t) == Title.BOT) ?? " data-bot"} title="${Title titleName Title(t)}">$t</span>&nbsp;"""
-        }
-        if (withRating) s"$title${user.name}&nbsp;(${ratingString(p)})"
-        else s"$title${user.name}"
-      }
-    ) { level => s"A.I. level $level" }
-  }
 
   def playerText(player: Player, withRating: Boolean = false)(implicit lightUser: LightUser.GetterSync): String =
     player.aiLevel.fold(
@@ -31,7 +15,7 @@ object Namer {
   def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.GetterSync): String =
     s"${playerText(game.whitePlayer, withRatings)} - ${playerText(game.blackPlayer, withRatings)}"
 
-  private def ratingString(p: Player) = p.rating match {
+  def ratingString(p: Player) = p.rating match {
     case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
     case _ => "?"
   }

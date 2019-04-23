@@ -17,14 +17,14 @@ object bits {
         ),
       ctx.me.??(_.canTeam) option
         a(cls := tab.active("mine"), href := routes.Team.mine())(
-          trans.myTeams.frag()
+          trans.myTeams()
         ),
       a(cls := tab.active("all"), href := routes.Team.all())(
-        trans.allTeams.frag()
+        trans.allTeams()
       ),
       ctx.me.??(_.canTeam) option
         a(cls := tab.active("form"), href := routes.Team.form())(
-          trans.newTeam.frag()
+          trans.newTeam()
         )
     )
   }
@@ -45,7 +45,7 @@ object bits {
   private[team] def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("team"),
+      moreCss = cssTag("team"),
       moreJs = infiniteScrollTag,
       openGraph = openGraph
     )(body)

@@ -1,0 +1,28 @@
+#tour-reminder {
+  @extend %flex-center-nowrap, %popup-shadow;
+  font-size: 1.4em;
+  position: fixed;
+  background: $c-primary;
+  color: $c-primary-over;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 2.5em;
+  padding: 0 1rem;
+  border-top-right-radius: 3px;
+  z-index: z('tour-reminder');
+
+  a {
+    @extend %data-icon-middle;
+    color: $c-primary-over;
+    margin: 0 .5em;
+  }
+
+  .actions {
+    margin-left: 1em;
+    a {
+      font-weight: bold;
+      margin-left: 1em;
+    }
+  }
+}

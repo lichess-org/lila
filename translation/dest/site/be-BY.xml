@@ -178,6 +178,9 @@
   <string name="ratingStats">Статыстыка па рэйтынгу</string>
   <string name="username">Імя карыстальніка</string>
   <string name="usernameOrEmail">Імя карыстальніка ці адрас электроннай пошты</string>
+  <string name="changeUsername">Змяніць імя карыстальніка</string>
+  <string name="changeUsernameNotSame">Можна мяняць толькі рэгістр літар, да прыкладу, \"janlucevich\" na \"JanLucevich\".</string>
+  <string name="changeUsernameDescription">Вы можаце змяніць рэгістр літар у вашым імені карыстальніка. Зрабіць гэта можна толькі адзін раз.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Ужо маеце ўліковы запіс?</string>
   <string name="changePassword">Змяніць пароль</string>
@@ -187,7 +190,6 @@
   <string name="forgotPassword">Забыліся на пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рэйтынг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рэйтынг абнаўляецца кожныя %s хв</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s галаваломка</item>
     <item quantity="few">%s галаваломкі</item>
@@ -212,8 +214,8 @@
   <string name="whiteDeclinesDraw">Белыя адхіляюць нічыю</string>
   <string name="blackDeclinesDraw">Чорныя адхіляюць нічыю</string>
   <string name="yourOpponentOffersADraw">Супернік прапануе нічыю</string>
-  <string name="accept">Пагадзіцца</string>
-  <string name="decline">Адмовіцца</string>
+  <string name="accept">Ухваліць</string>
+  <string name="decline">Адхіліць</string>
   <string name="playingRightNow">Бягучая гульня</string>
   <string name="eventInProgress">Бягучая гульня</string>
   <string name="finished">Скончана</string>
@@ -320,6 +322,18 @@
     <item quantity="many">%s рэйтынгавых гульняў</item>
     <item quantity="other">≥%s рэйтынгавых гульняў</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s рэйтынгавая гульня ў рэжыме «%2$s»</item>
+    <item quantity="few">≥ %1$s рэйтынгавыя гульні ў рэжыме «%2$s»</item>
+    <item quantity="many">≥ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
+    <item quantity="other">≥ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Вы павінны згуляць яшчэ %1$s рэйтынгавую гульню ў рэжыме «%2$s»</item>
+    <item quantity="few">Вы павінны згуляць яшчэ %1$s рэйтынгавыя гульні ў рэжыме «%2$s»</item>
+    <item quantity="many">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў у рэжыме «%2$s»</item>
+    <item quantity="other">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рэйтынг у рэжыме %s не пацверджаны</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш штотыднёвы рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
@@ -399,7 +413,7 @@
     <item quantity="one">падпісаны на %s гульца</item>
     <item quantity="few">падпісаны на %s гульцоў</item>
     <item quantity="many">падпісаны на %s гульцоў</item>
-    <item quantity="other">%s назіраюць</item>
+    <item quantity="other">падпісаны на %s гульцоў</item>
   </plurals>
   <string name="more">Яшчэ</string>
   <string name="memberSince">Далучыўся</string>
@@ -630,6 +644,12 @@
     <item quantity="many">Максімум: %s сімвалаў.</item>
     <item quantity="other">Максімум: %s сімвалаў.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s заблакіраваны гулец</item>
+    <item quantity="few">%s заблакіраваных гульцы</item>
+    <item quantity="many">%s заблакіраваных гульцоў</item>
+    <item quantity="other">%s заблакіраваных гульцоў</item>
+  </plurals>
   <string name="listBlockedPlayers">Спіс гульцоў, якіх вы заблакіравалі</string>
   <string name="human">Чалавек</string>
   <string name="computer">Камп\'ютар</string>
@@ -666,9 +686,7 @@
   <string name="menu">Меню</string>
   <string name="castling">Ракіроўка</string>
   <string name="whiteCastlingKingside">Белыя O-O</string>
-  <string name="whiteCastlingQueenside">Белыя O-O-O</string>
   <string name="blackCastlingKingside">Чорныя O-O</string>
-  <string name="blackCastlingQueenside">Чорныя O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s допіс на форуме</item>
     <item quantity="few">%s допісы на форуме</item>
@@ -679,7 +697,6 @@
   <string name="watchGames">Назіраць за гульнямі</string>
   <string name="tpTimeSpentOnTV">Час у TV: %s</string>
   <string name="watch">Прагляд</string>
-  <string name="internationalEvents">Міжнародныя падзеі</string>
   <string name="videoLibrary">Відэатэка</string>
   <string name="mobileApp">Мабільная праграма</string>
   <string name="webmasters">Для распрацоўнікаў</string>
@@ -815,7 +832,7 @@
   <string name="usernameSuffixInvalid">Імя карыстальніка павінна сканчацца на лічбу або літару.</string>
   <string name="usernameCharsInvalid">Імя карыстальніка можа ўтрымліваць толькі літары, лічбы, ніжнія падкрэсліванні і злучок.</string>
   <string name="usernameUnacceptable">Недапушчальнае імя карыстальніка.</string>
-  <string name="directlySupportLichess">Падтрымлівае Lichess</string>
+  <string name="directlySupportLichess">Падтрымайце Lichess</string>
   <string name="playChessInStyle">Гуляйце стылёва!</string>
   <string name="chessBasics">Асновы шахмат</string>
   <string name="coaches">Трэнеры</string>

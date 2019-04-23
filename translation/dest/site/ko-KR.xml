@@ -166,7 +166,6 @@
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="rank">순위</string>
   <string name="rankX">랭킹: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">랭킹은 %s분마다 업데이트 됩니다.</string>
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
   </plurals>
@@ -603,9 +602,7 @@
   <string name="menu">메뉴</string>
   <string name="castling">캐슬링</string>
   <string name="whiteCastlingKingside">흰색 킹 사이드</string>
-  <string name="whiteCastlingQueenside">흰색 퀸 사이드</string>
   <string name="blackCastlingKingside">검은색 킹 사이드</string>
-  <string name="blackCastlingQueenside">검은색 퀸 사이드</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s 포럼 글</item>
   </plurals>
@@ -613,7 +610,6 @@
   <string name="watchGames">관람</string>
   <string name="tpTimeSpentOnTV">Lichess TV에 나온 시간 : %s</string>
   <string name="watch">중계</string>
-  <string name="internationalEvents">국제 이벤트</string>
   <string name="videoLibrary">비디오 라이브러리</string>
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>

@@ -19,7 +19,7 @@ object help {
   private def k(str: String) = raw(s"""<kbd>$str</kbd>""")
 
   def apply(isStudy: Boolean)(implicit ctx: Context) = frag(
-    h2(trans.keyboardShortcuts.frag()),
+    h2(trans.keyboardShortcuts()),
     table(
       tbody(
         header("Navigate the move tree"),
@@ -49,8 +49,8 @@ object help {
         tr(
           td(cls := "mouse", colspan := 2)(
             ul(
-              li(trans.youCanAlsoScrollOverTheBoardToMoveInTheGame.frag()),
-              li(trans.analysisShapesHowTo.frag())
+              li(trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
+              li(trans.analysisShapesHowTo())
             )
           )
         )

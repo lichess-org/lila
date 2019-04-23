@@ -49,7 +49,7 @@ object Blog extends LilaController {
     blogApi context req flatMap { implicit prismic =>
       blogApi.recent(prismic.api, none, 1, lila.common.MaxPerPage(50)) map {
         _ ?? { docs =>
-          Ok(views.xml.blog.atom(docs)) as XML
+          Ok(views.html.blog.atom(docs)) as XML
         }
       }
     }

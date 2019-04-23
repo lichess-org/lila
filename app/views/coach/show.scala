@@ -30,7 +30,7 @@ object show {
       title = title,
       moreJs = frag(
         jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
-        ctx.isAuth option embedJs("""$(function() {
+        ctx.isAuth option embedJsUnsafe("""$(function() {
 $(".bar-rating").barrating();
 $('.coach-review-form .toggle').click(function() {
 $(this).remove();
@@ -38,7 +38,7 @@ $('.coach-review-form form').show();
 });
 });""")
       ),
-      moreCss = responsiveCssTag("coach"),
+      moreCss = cssTag("coach"),
       openGraph = lila.app.ui.OpenGraph(
         title = title,
         description = shorten(~(c.coach.profile.headline), 152),
@@ -52,7 +52,7 @@ $('.coach-review-form form').show();
             a(cls := "button button-empty", href := routes.User.show(c.user.username))("View ", c.user.username, " lichess profile"),
             if (ctx.me.exists(c.coach.is)) frag(
               if (c.coach.isListed) p("This page is now public.")
-              else "This page is not public yet.",
+              else "This page is not public yet. ",
               a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile")
             )
             else a(cls := "text button button-empty", dataIcon := "c", href := s"${routes.Message.form}?user=${c.user.username}")(

@@ -29,22 +29,21 @@ object perfStat {
         )
       },
       jsAt(s"compiled/lichess.perfStat${isProd ?? (".min")}.js"),
-      embedJs(s"""$$(function() {
+      embedJsUnsafe(s"""$$(function() {
 LichessPerfStat(document.querySelector('.perf-stat__content'), {
 data: ${safeJsonValue(data)}
 });
 });""")
     ),
-    moreCss = responsiveCssTag("perf-stat")
+    moreCss = cssTag("perf-stat")
   ) {
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(u, rankMap.some, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           div(cls := "box__top")(
             h1(
-              a(href := routes.User.show(u.username), dataIcon := "I", cls := "text")(
-                span(u.username, span(perfType.name, " stats"))
-              )
+              a(href := routes.User.show(u.username))(u.username),
+              span(perfType.name, " stats")
             ),
             div(cls := "box__top__actions")(
               u.perfs(perfType).nb > 0 option a(

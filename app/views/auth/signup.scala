@@ -21,11 +21,11 @@ object signup {
         recaptcha.enabled option recaptchaScript,
         fingerprintTag
       ),
-      moreCss = responsiveCssTag("auth"),
+      moreCss = cssTag("auth"),
       csp = defaultCsp.withRecaptcha.some
     ) {
         main(cls := "auth auth-signup box box-pad")(
-          h1(trans.signUp.frag()),
+          h1(trans.signUp()),
           st.form(
             id := "signup_form",
             cls := "form3",
@@ -35,16 +35,16 @@ object signup {
               auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
               input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
               div(cls := "form-group text", dataIcon := "")(
-                trans.computersAreNotAllowedToPlay.frag(), br,
-                small(trans.byRegisteringYouAgreeToBeBoundByOur.frag(a(href := routes.Page.tos)(trans.termsOfService.frag())))
+                trans.computersAreNotAllowedToPlay(), br,
+                small(trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())))
               ),
               if (recaptcha.enabled)
                 button(
                 cls := "g-recaptcha submit button text big",
                 attr("data-sitekey") := recaptcha.key,
                 attr("data-callback") := "signupSubmit"
-              )(trans.signUp.frag())
-              else form3.submit(trans.signUp.frag(), icon = none, klass = "big")
+              )(trans.signUp())
+              else form3.submit(trans.signUp(), icon = none, klass = "big")
             )
         )
       }

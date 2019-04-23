@@ -10,11 +10,11 @@ object mobile {
 
   def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = base.layout(
     title = "Mobile",
-    moreCss = responsiveCssTag("mobile")
+    moreCss = cssTag("mobile")
   ) {
       main(
         div(cls := "mobile page-small box box-pad")(
-          h1(trans.playChessEverywhere.frag()),
+          h1(trans.playChessEverywhere()),
           div(cls := "sides")(
             div(cls := "left-side")(
               div(cls := "stores")(
@@ -24,26 +24,26 @@ object mobile {
               div(cls := "apk")(
                 raw(~apkDoc.getHtml("doc.content", resolver))
               ),
-              h2(trans.asFreeAsLichess.frag()),
+              h2(trans.asFreeAsLichess()),
               ul(cls := "block")(
-                li(trans.builtForTheLoveOfChessNotMoney.frag()),
-                li(trans.everybodyGetsAllFeaturesForFree.frag()),
-                li(trans.zeroAdvertisement.frag()),
+                li(trans.builtForTheLoveOfChessNotMoney()),
+                li(trans.everybodyGetsAllFeaturesForFree()),
+                li(trans.zeroAdvertisement()),
                 li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
               ),
-              h2(trans.fullFeatured.frag()),
+              h2(trans.fullFeatured()),
               ul(cls := "block")(
-                li(trans.phoneAndTablet.frag()),
-                li(trans.bulletBlitzClassical.frag()),
-                li(trans.correspondenceChess.frag()),
-                li(trans.onlineAndOfflinePlay.frag()),
-                li(trans.tournaments.frag()),
-                li(trans.puzzles.frag()),
-                li(trans.gameAnalysis.frag()),
-                li(trans.boardEditor.frag()),
+                li(trans.phoneAndTablet()),
+                li(trans.bulletBlitzClassical()),
+                li(trans.correspondenceChess()),
+                li(trans.onlineAndOfflinePlay()),
+                li(trans.tournaments()),
+                li(trans.puzzles()),
+                li(trans.gameAnalysis()),
+                li(trans.boardEditor()),
                 li("Lichess TV"),
-                li(trans.followAndChallengeFriends.frag()),
-                li(trans.availableInNbLanguages.pluralSameFrag(80))
+                li(trans.followAndChallengeFriends()),
+                li(trans.availableInNbLanguages.pluralSame(80))
               )
             ),
             div(cls := "right-side")(

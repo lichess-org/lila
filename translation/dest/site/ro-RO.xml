@@ -180,7 +180,6 @@
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
   <string name="rankX">Loc în clasament: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Locul în clasament este actualizat la fiecare %s minute</string>
   <plurals name="nbPuzzles">
     <item quantity="one">O poziție</item>
     <item quantity="few">%s poziții</item>
@@ -661,9 +660,7 @@
   <string name="menu">Meniu</string>
   <string name="castling">Rocada</string>
   <string name="whiteCastlingKingside">Alb O-O</string>
-  <string name="whiteCastlingQueenside">Alb O-O-O</string>
   <string name="blackCastlingKingside">Negru O-O</string>
-  <string name="blackCastlingQueenside">Negru O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s postare pe forum</item>
     <item quantity="few">%s postări pe forum</item>
@@ -673,7 +670,6 @@
   <string name="watchGames">Vezi partide</string>
   <string name="tpTimeSpentOnTV">Timp la TV: %s</string>
   <string name="watch">Privește</string>
-  <string name="internationalEvents">Evenimente internaționale</string>
   <string name="videoLibrary">Librărie video</string>
   <string name="mobileApp">Aplicație mobilă</string>
   <string name="webmasters">Webmasteri</string>

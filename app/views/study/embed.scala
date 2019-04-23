@@ -1,5 +1,6 @@
 package views.html.study
 
+import play.api.libs.json.Json
 import play.api.mvc.RequestHeader
 
 import lila.app.templating.Environment._
@@ -23,7 +24,7 @@ object embed {
         layout.metaCsp(basicCsp withNonce config.nonce),
         st.headTitle(s"${s.name} ${chapter.name}"),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("analyse.embed", config.bg)
+        cssTagWithTheme("analyse.embed", config.bg)
       ),
       body(cls := List(
         s"highlight ${config.bg} ${config.board}" -> true
@@ -48,14 +49,15 @@ object embed {
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
         analyseTag,
-        embedJs(s"""lichess.startEmbeddedAnalyse({
-element: document.querySelector('.embedded_study'),
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-embed: true,
-i18n: ${views.html.board.userAnalysisI18n()},
-userId: null
-});""", config.nonce)
+        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
+          safeJsonValue(Json.obj(
+            "study" -> data.study,
+            "data" -> data.analysis,
+            "embed" -> true,
+            "i18n" -> views.html.board.userAnalysisI18n(),
+            "userId" -> none[String]
+          ))
+        })""", config.nonce)
       )
     )
   )
@@ -68,7 +70,7 @@ userId: null
         layout.viewport,
         layout.metaCsp(basicCsp),
         st.headTitle("404 - Study not found"),
-        responsiveCssTagWithTheme("analyse.round.embed", "dark")
+        cssTagWithTheme("analyse.round.embed", "dark")
       ),
       body(cls := "dark")(
         div(cls := "not-found")(

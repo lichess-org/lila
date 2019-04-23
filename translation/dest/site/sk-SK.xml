@@ -178,6 +178,9 @@
   <string name="ratingStats">Štatistika ratingov</string>
   <string name="username">Užívateľské meno</string>
   <string name="usernameOrEmail">Meno používateľa alebo email</string>
+  <string name="changeUsername">Zmeniť užívateľské meno</string>
+  <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
+  <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
   <string name="password">Heslo</string>
   <string name="haveAnAccount">Máte účet?</string>
   <string name="changePassword">Zmeniť heslo</string>
@@ -187,7 +190,6 @@
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="rank">Priečka</string>
   <string name="rankX">Rank: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Poradie je aktualizované každých %s minút</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s úloha</item>
     <item quantity="few">%s úlohy</item>
@@ -689,9 +691,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Biely O-O</string>
-  <string name="whiteCastlingQueenside">Biely O-O-O</string>
   <string name="blackCastlingKingside">Čierny O-O</string>
-  <string name="blackCastlingQueenside">Čierny O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s príspevok vo fóre</item>
     <item quantity="few">%s príspevky vo fóre</item>
@@ -702,7 +702,6 @@
   <string name="watchGames">Sledovať hry</string>
   <string name="tpTimeSpentOnTV">Čas strávený na TV: %s</string>
   <string name="watch">Sledovať</string>
-  <string name="internationalEvents">Medzinárodné podujatia</string>
   <string name="videoLibrary">Video knižnica</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>

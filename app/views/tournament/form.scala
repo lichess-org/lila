@@ -15,7 +15,7 @@ object form {
 
   def apply(form: Form[_], config: DataForm, me: User, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context) = views.html.base.layout(
     title = trans.newTournament.txt(),
-    moreCss = responsiveCssTag("tournament.form"),
+    moreCss = cssTag("tournament.form"),
     moreJs = frag(
       flatpickrTag,
       jsTag("tournamentForm.js")
@@ -25,7 +25,7 @@ object form {
         h1(trans.createANewTournament()),
         st.form(cls := "form3", action := routes.Tournament.create, method := "POST")(
           DataForm.canPickName(me) ?? {
-            form3.group(form("name"), trans.name.frag()) { f =>
+            form3.group(form("name"), trans.name()) { f =>
               div(
                 form3.input(f), " Arena", br,
                 small(cls := "form-help")(
@@ -37,18 +37,18 @@ object form {
             }
           },
           form3.split(
-            form3.checkbox(form("rated"), trans.rated.frag(), help = raw("Games are rated<br>and impact players ratings").some),
+            form3.checkbox(form("rated"), trans.rated(), help = raw("Games are rated<br>and impact players ratings").some),
             st.input(tpe := "hidden", name := form("rated").name, value := "false"), // hack allow disabling rated
-            form3.group(form("variant"), trans.variant.frag(), half = true)(form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2)))
+            form3.group(form("variant"), trans.variant(), half = true)(form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2)))
           ),
-          form3.group(form("position"), trans.startPosition.frag(), klass = "position")(startingPosition(_)),
+          form3.group(form("position"), trans.startPosition(), klass = "position")(startingPosition(_)),
           form3.split(
             form3.group(form("clockTime"), raw("Clock initial time"), half = true)(form3.select(_, DataForm.clockTimeChoices)),
             form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, DataForm.clockIncrementChoices))
           ),
           form3.split(
-            form3.group(form("minutes"), trans.duration.frag(), half = true)(form3.select(_, DataForm.minuteChoices)),
-            form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts.frag(), half = true)(form3.select(_, DataForm.waitMinuteChoices))
+            form3.group(form("minutes"), trans.duration(), half = true)(form3.select(_, DataForm.minuteChoices)),
+            form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(form3.select(_, DataForm.waitMinuteChoices))
           ),
           form3.globalError(form),
           fieldset(cls := "conditions")(
@@ -62,7 +62,7 @@ object form {
               a(cls := "show")(trans.showAdvancedSettings())
             ),
             div(cls := "form")(
-              form3.group(form("password"), trans.password.frag(), help = raw("Make the tournament private, and restrict access with a password").some)(form3.input(_)),
+              form3.group(form("password"), trans.password(), help = raw("Make the tournament private, and restrict access with a password").some)(form3.input(_)),
               condition(form, auto = true, teams = teams),
               input(tpe := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
               form3.group(form("startDate"), raw("Custom start date"), help = raw("""This overrides the "Time before tournament starts" setting""").some)(form3.flatpickr(_))
@@ -70,7 +70,7 @@ object form {
           ),
           form3.actions(
             a(href := routes.Tournament.home())(trans.cancel()),
-            form3.submit(trans.createANewTournament.frag(), icon = "g".some)
+            form3.submit(trans.createANewTournament(), icon = "g".some)
           )
         )
       ),

@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -14,16 +13,16 @@ object bits {
   def link(simulId: lila.simul.Simul.ID): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(baseTranslations))
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(baseTranslations)
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.noSimulFound.txt()
     ) {
         main(cls := "page-small box box-pad")(
-          h1(trans.noSimulFound.frag()),
-          p(trans.noSimulExplanation.frag()),
-          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag()))
+          h1(trans.noSimulFound()),
+          p(trans.noSimulExplanation()),
+          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
         )
       }
 

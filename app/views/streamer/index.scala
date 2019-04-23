@@ -56,7 +56,7 @@ object index {
               strong(s.status)
             )
           } getOrElse frag(
-            p(cls := "at")(trans.lastSeenActive.frag(momentFromNow(s.streamer.seenAt))),
+            p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
             s.streamer.liveAt.map { liveAt =>
               p(cls := "at")("Last stream ", momentFromNow(liveAt))
             }
@@ -67,7 +67,7 @@ object index {
 
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("streamer.list"),
+      moreCss = cssTag("streamer.list"),
       moreJs = infiniteScrollTag
     ) {
         main(cls := "page-menu")(

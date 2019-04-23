@@ -16,13 +16,13 @@ object homeInner {
     finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) =
     div(cls := "box")(
-      h1(trans.simultaneousExhibitions.frag()),
+      h1(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
         thead(
           tr(
-            th(trans.createdSimuls.frag()),
-            th(trans.host.frag()),
-            th(trans.players.frag())
+            th(trans.createdSimuls()),
+            th(trans.host()),
+            th(trans.players())
           )
         ),
         tbody(
@@ -35,16 +35,16 @@ object homeInner {
           },
           ctx.isAuth option tr(cls := "create")(
             td(colspan := "4")(
-              a(href := routes.Simul.form(), cls := "action button text")(trans.hostANewSimul.frag())
+              a(href := routes.Simul.form(), cls := "action button text")(trans.hostANewSimul())
             )
           )
         ),
         starteds.nonEmpty option (frag(
           thead(
             tr(
-              th(trans.eventInProgress.frag()),
-              th(trans.host.frag()),
-              th(trans.players.frag())
+              th(trans.eventInProgress()),
+              th(trans.host()),
+              th(trans.players())
             )
           ),
           starteds.map { sim =>
@@ -57,9 +57,9 @@ object homeInner {
         )),
         thead(
           tr(
-            th(trans.finished.frag()),
-            th(trans.host.frag()),
-            th(trans.players.frag())
+            th(trans.finished()),
+            th(trans.host()),
+            th(trans.players())
           )
         ),
         tbody(

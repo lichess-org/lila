@@ -4,7 +4,6 @@ package practice
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -12,8 +11,8 @@ object index {
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) = views.html.base.layout(
     title = "Practice chess positions",
-    moreCss = responsiveCssTag("practice.index"),
-    moreJs = embedJs(s"""$$('.do-reset').on('click', function() {
+    moreCss = cssTag("practice.index"),
+    moreJs = embedJsUnsafe(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),
     openGraph = lila.app.ui.OpenGraph(

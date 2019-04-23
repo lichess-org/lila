@@ -21,7 +21,7 @@ object embed {
         layout.metaCsp(basicCsp(config.req)),
         st.headTitle("lichess.org chess TV"),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("tv.embed", config.bg)
+        cssTagWithTheme("tv.embed", config.bg)
       ),
       body(
         cls := s"base ${config.board}",

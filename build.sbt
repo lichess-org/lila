@@ -3,7 +3,6 @@ import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
-import play.twirl.sbt.Import._
 import PlayKeys._
 
 import BuildSettings._
@@ -35,17 +34,6 @@ libraryDependencies ++= Seq(
   maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb, scalatags,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
-)
-TwirlKeys.templateImports ++= Seq(
-  "lila.game.{ Game, Player, Pov }",
-  "lila.tournament.Tournament",
-  "lila.user.{ User, UserContext }",
-  "lila.security.Permission",
-  "lila.app.templating.Environment._",
-  "lila.api.Context",
-  "lila.i18n.{ I18nKeys => trans }",
-  "lila.common.paginator.Paginator",
-  "lila.common.String.html._"
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
@@ -140,7 +128,7 @@ lazy val perfStat = module("perfStat", Seq(common, db, user, game, rating)).sett
 )
 
 lazy val history = module("history", Seq(common, db, memo, game, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val db = module("db", Seq(common)).settings(
@@ -238,7 +226,7 @@ lazy val insight = module(
   Seq(common, game, user, analyse, relation, pref, socket, round, security)
 ).settings(
     libraryDependencies ++= provided(
-      play.api, reactivemongo.driver, reactivemongo.iteratees
+      play.api, reactivemongo.driver, reactivemongo.iteratees, scalatags
     )
   )
 

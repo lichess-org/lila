@@ -1,6 +1,8 @@
 package views.html
 package tv
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -24,13 +26,16 @@ object index {
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
         roundTag,
-        embedJs {
-          val transJs = views.html.round.jsI18n(pov.game)
-          s"""lichess=window.lichess||{};customWS=true;
-onload=function(){LichessRound.boot({data:${safeJsonValue(data)},i18n:$transJs})}"""
-        }
+        embedJsUnsafe(
+          s"""lichess=window.lichess||{};customWS=true;onload=function(){LichessRound.boot(${
+            safeJsonValue(Json.obj(
+              "data" -> data,
+              "i18n" -> views.html.round.jsI18n(pov.game)
+            ))
+          })}"""
+        )
       ),
-      moreCss = responsiveCssTag("tv.single"),
+      moreCss = cssTag("tv.single"),
       chessground = false,
       openGraph = lila.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
@@ -45,7 +50,7 @@ onload=function(){LichessRound.boot({data:${safeJsonValue(data)},i18n:$transJs})
           div(cls := "round__underboard")(
             views.html.round.bits.crosstable(cross, pov.game),
             div(cls := "tv-history")(
-              h2(trans.previouslyOnLichessTV.frag()),
+              h2(trans.previouslyOnLichessTV()),
               div(cls := "now-playing")(
                 history.map { p =>
                   a(href := gameLink(p))(views.html.game.bits.mini(p))

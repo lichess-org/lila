@@ -17,7 +17,7 @@ object top {
 
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("slist"),
+      moreCss = cssTag("slist"),
       openGraph = lila.app.ui.OpenGraph(
         title = s"Leaderboard of ${perfType.name}",
         url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",

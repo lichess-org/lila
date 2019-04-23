@@ -1,6 +1,6 @@
 package views.html.learn
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -15,12 +15,15 @@ object index {
     title = s"${trans.learn.learnChess.txt()} - ${trans.learn.byPlaying.txt()}",
     moreJs = frag(
       jsAt(s"compiled/lichess.learn${isProd ?? (".min")}.js"),
-      embedJs(s"""$$(function() {
-LichessLearn(document.getElementById('learn-app'), {
-data: ${data.fold("null")(safeJsonValue)},
-i18n: ${safeJsonValue(i18nFullDbJsObject(lila.i18n.I18nDb.Learn))}});});""")
+      embedJsUnsafe(s"""$$(function() {
+LichessLearn(document.getElementById('learn-app'), ${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> i18nFullDbJsObject(lila.i18n.I18nDb.Learn)
+        ))
+      })})""")
     ),
-    moreCss = responsiveCssTag("learn"),
+    moreCss = cssTag("learn"),
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Learn chess by playing",

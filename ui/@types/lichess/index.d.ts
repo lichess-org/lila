@@ -10,6 +10,7 @@ interface Lichess {
   reload(): void;
   redirect(o: string | { url: string, cookie: Cookie }): void;
   loadScript(url: string, opts?: AssetUrlOpts): any
+  compiledScript(path: string): string
   keyboardMove: any
   slider(): any
   raf(f: () => void): void

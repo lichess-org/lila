@@ -12,12 +12,12 @@ object inbox {
   def apply(me: lila.user.User, threads: Paginator[lila.message.Thread])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.inbox.txt(),
-      moreCss = responsiveCssTag("message"),
+      moreCss = cssTag("message"),
       moreJs = frag(infiniteScrollTag, jsTag("message.js"))
     ) {
         main(cls := "message-list box")(
           div(cls := "box__top")(
-            h1(trans.inbox.frag()),
+            h1(trans.inbox()),
             threads.nbResults > 0 option div(cls := "box__top__actions")(
               select(cls := "select")(
                 option(value := "")("Select"),
@@ -32,7 +32,7 @@ object inbox {
                 option(value := "read")("Mark as read"),
                 option(value := "delete")("Delete")
               ),
-              a(href := routes.Message.form, cls := "button button-green text", dataIcon := "m")(trans.composeMessage.frag())
+              a(href := routes.Message.form, cls := "button button-green text", dataIcon := "m")(trans.composeMessage())
             )
           ),
           table(cls := "slist slist-pad")(
@@ -51,7 +51,7 @@ object inbox {
                 )
               }
             )
-            else tbody(tr(td(trans.noNewMessages.frag())))
+            else tbody(tr(td(trans.noNewMessages())))
           )
         )
       }

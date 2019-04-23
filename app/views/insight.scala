@@ -1,5 +1,7 @@
 package views.html
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -26,21 +28,28 @@ object insight {
         jsAt(s"compiled/lichess.insight${isProd ?? (".min")}.js"),
         jsTag("insight-refresh.js"),
         jsTag("insight-tour.js"),
-        embedJs(s"""
+        embedJsUnsafe(s"""
 $$(function() {
 lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), {
-ui: ${safeJsonValue(ui)},
-initialQuestion: ${safeJsonValue(question)},
-i18n: {},
-myUserId: $jsUserId,
-user: { id: "${u.id}", name: "${u.username}", nbGames: ${cache.count}, stale: ${stale}, shareId: ${prefId} },
-pageUrl: "${routes.Insight.index(u.username)}",
-postUrl: "${routes.Insight.json(u.username)}"
-});
-});""")
+lichess.insight = LichessInsight(document.getElementById('insight'), ${
+          safeJsonValue(Json.obj(
+            "ui" -> ui,
+            "initialQuestion" -> question,
+            "i18n" -> Json.obj(),
+            "myUserId" -> ctx.userId,
+            "user" -> Json.obj(
+              "id" -> u.id,
+              "name" -> u.username,
+              "nbGames" -> cache.count,
+              "stale" -> stale,
+              "shareId" -> prefId
+            ),
+            "pageUrl" -> routes.Insight.index(u.username).url,
+            "postUrl" -> routes.Insight.json(u.username).url
+          ))
+        })""")
       ),
-      moreCss = responsiveCssTag("insight")
+      moreCss = cssTag("insight")
     )(frag(
         main(id := "insight"),
         stale option div(cls := "insight-stale none")(
@@ -53,7 +62,7 @@ postUrl: "${routes.Insight.json(u.username)}"
     views.html.base.layout(
       title = s"${u.username}'s chess insights",
       moreJs = jsTag("insight-refresh.js"),
-      moreCss = responsiveCssTag("insight")
+      moreCss = cssTag("insight")
     )(
         main(cls := "box box-pad page-small")(
           h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),

@@ -15,8 +15,8 @@ object home {
     starteds: List[lila.simul.Simul],
     finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) = views.html.base.layout(
-    moreCss = responsiveCssTag("simul.list"),
-    moreJs = embedJs(s"""$$(function() {
+    moreCss = cssTag("simul.list"),
+    moreJs = embedJsUnsafe(s"""$$(function() {
   lichess.StrongSocket.defaults.params.flag = 'simul';
   lichess.pubsub.on('socket.in.reload', () => {
     $$('.simul-list__content').load('${routes.Simul.homeReload()}', lichess.pubsub.emit('content_loaded'));
@@ -33,10 +33,10 @@ object home {
         st.aside(cls := "page-menu__menu simul-list__help")(
           p(trans.aboutSimul()),
           img(src := staticUrl("images/fischer-simul.jpg"), alt := "Simul IRL with Bobby Fischer")(
-            em("[1964] ", trans.aboutSimulImage.frag()),
-            p(trans.aboutSimulRealLife.frag()),
-            p(trans.aboutSimulRules.frag()),
-            p(trans.aboutSimulSettings.frag())
+            em("[1964] ", trans.aboutSimulImage()),
+            p(trans.aboutSimulRealLife()),
+            p(trans.aboutSimulRules()),
+            p(trans.aboutSimulSettings())
           )
         ),
         div(cls := "page-menu__content simul-list__content")(

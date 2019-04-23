@@ -3,7 +3,6 @@ package templating
 
 import controllers.routes
 import play.api.mvc.RequestHeader
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
@@ -30,46 +29,37 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def responsiveCssTag(name: String)(implicit ctx: Context): Frag =
-    responsiveCssTagWithTheme(name, ctx.currentBg)
+  def cssTag(name: String)(implicit ctx: Context): Frag =
+    cssTagWithTheme(name, ctx.currentBg)
 
-  def responsiveCssTagWithTheme(name: String, theme: String): Frag =
+  def cssTagWithTheme(name: String, theme: String): Frag =
     cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
 
-  def responsiveCssTagNoTheme(name: String)(implicit ctx: Context): Frag =
+  def cssTagNoTheme(name: String)(implicit ctx: Context): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
-  def cssTag(name: String): Frag = cssAt("stylesheets/" + name)
-
-  def cssTags(names: String*): Frag = names map cssTag
-
-  def cssTags(names: List[(String, Boolean)]): Frag =
-    cssTags(names.collect { case (k, true) => k }: _*)
-
-  def cssVendorTag(name: String): Frag = cssAt("vendor/" + name)
-
-  def cssAt(path: String): Frag = raw {
+  private def cssAt(path: String): Frag = raw {
     s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
   }
 
-  def jsTag(name: String, async: Boolean = false) =
-    jsAt("javascripts/" + name, async = async)
+  def jsTag(name: String, defer: Boolean = false): Frag =
+    jsAt("javascripts/" + name, defer = defer)
 
   /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
    * we want defer only, to ensure scripts are executed in order of declaration,
    * so that round.js doesn't run before site.js */
-  def jsAt(path: String, async: Boolean = false): Html = Html {
-    val src = assetUrl(path)
-    s"""<script${async ?? " defer"} src="$src"></script>"""
-  }
+  def jsAt(path: String, defer: Boolean = false): Frag = script(
+    defer option deferAttr,
+    src := assetUrl(path)
+  )
 
   val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
+  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) = ctx.blind option
-    jsAt(s"compiled/lichess.round.nvui.min.js", async = true)
+    jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
 
   def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js")
   def analyseNvuiTag(implicit ctx: Context) = ctx.blind option
@@ -97,7 +87,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
-  def delayFlatpickrStart(implicit ctx: Context) = embedJs {
+  def delayFlatpickrStart(implicit ctx: Context) = embedJsUnsafe {
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
   }
 
@@ -136,10 +126,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script$nonce>$js</script>"""
   }
 
-  def embedJs(js: Frag)(implicit ctx: Context): Frag = embedJsUnsafe(js.render)
-  def embedJs(js: String)(implicit ctx: Context): Frag = embedJsUnsafe(js)
-
-  def embedJs(js: String, nonce: Nonce): Frag = raw {
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw {
     s"""<script nonce="$nonce">$js</script>"""
   }
 }

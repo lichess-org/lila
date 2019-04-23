@@ -9,7 +9,7 @@
    * for the trophies
    * this gorgeous hack bypasses the .user-show overflow: hidden
    * */
-  position: relative;
+position: relative;
 }
 
 .user-show {
@@ -18,17 +18,15 @@
 
   &__social {
     @extend %flex-between;
-    flex-flow: row nowrap;
     background: $c-bg-zebra;
-    align-items: center;
     .number-menu {
       margin: 0 0 .2em 1em;
     }
-    .user_actions {
-      margin: 0 1em;
-    }
-    .user_actions form {
-      display: inline;
+    .user-actions {
+      margin: 1em;
+      form {
+        display: inline;
+      }
     }
     .relation-actions {
       @extend %flex-center-nowrap;
@@ -36,9 +34,8 @@
     }
   }
   #us_profile {
-    display: flex;
+    @extend %flex-center;
     border-top: $border;
-    height: 336px;
     .warning {
       @extend %box-radius, %flex-center-nowrap;
       padding: .7em;
@@ -55,7 +52,7 @@
     }
     .rating-history {
       flex: 1 1 58%;
-      margin-left: -10px;
+      margin: -10px 0 -14px -8px;
       height: 350px;
       .spinner {
         width: 90px;
@@ -65,9 +62,8 @@
     }
     .profile-side {
       @extend %flex-column;
-      flex: 1 1 42%;
+      flex: 1 0 300px;
       border-left: $border;
-      height: 100%;
       overflow: hidden;
     }
     .country img {
@@ -78,9 +74,15 @@
       @include hoverflow;
       flex: 1 1 auto;
       padding: .8em;
+      max-height: 332px;
+      overflow: auto;
     }
     .insight {
       @extend %flex-center-nowrap;
+      /* no point linking to insights on devices that can't properly display it */
+      @include breakpoint($mq-not-medium) {
+        display: none;
+      }
       flex: 0 0 auto;
       padding: .3em 1em;
       border-top: $border;

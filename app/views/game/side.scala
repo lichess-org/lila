@@ -90,7 +90,7 @@ object side {
           game.winner.map { winner =>
             frag(
               separator,
-              winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious).frag()
+              winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
             )
           }
         )

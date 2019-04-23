@@ -19,7 +19,7 @@ object thread {
   )(implicit ctx: Context, me: lila.user.User) =
     views.html.base.layout(
       title = thread.name,
-      moreCss = responsiveCssTag("message"),
+      moreCss = cssTag("message"),
       moreJs = frag(
         jsTag("message.js"),
         jsAt("compiled/embed-analyse.js")
@@ -73,8 +73,8 @@ object thread {
                     errMsg(form("text"))
                   ),
                   div(cls := "actions")(
-                    a(cls := "cancel", href := routes.Message.inbox(1))(trans.cancel.frag()),
-                    button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send.frag())
+                    a(cls := "cancel", href := routes.Message.inbox(1))(trans.cancel()),
+                    button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send())
                   )
                 )
               }

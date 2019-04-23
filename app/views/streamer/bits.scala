@@ -11,15 +11,15 @@ object bits {
   def create(me: User)(implicit ctx: Context) = views.html.site.message(
     title = "Become a lichess streamer",
     icon = Some(""),
-    back = true,
-    moreCss = responsiveCssTag("streamer.form").some
+    back = false,
+    moreCss = cssTag("streamer.form").some
   )(
       form(cls := "streamer-new", action := routes.Streamer.create, method := "POST")(
         h2("Do you have a Twitch or YouTube stream, ", me.username, "?"),
         br, br,
         bits.rules(),
         br, br,
-        p(
+        p(style := "text-align: center")(
           button(tpe := "submit", cls := "button button-fat text", dataIcon := "")("Here we go!")
         )
       )

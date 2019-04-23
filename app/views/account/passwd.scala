@@ -15,15 +15,15 @@ object passwd {
   ) {
       div(cls := "account box box-pad")(
         h1(
-          trans.changePassword.frag(),
+          trans.changePassword(),
           ctx.req.queryString.contains("ok") option
             frag(" ", i(cls := "is-green", dataIcon := "E"))
         ),
         st.form(cls := "form3", action := routes.Account.passwdApply, method := "POST")(
-          form3.password(form("oldPasswd"), trans.currentPassword.frag()),
-          form3.password(form("newPasswd1"), trans.newPassword.frag()),
-          form3.password(form("newPasswd2"), trans.newPasswordAgain.frag()),
-          form3.action(form3.submit(trans.apply.frag()))
+          form3.password(form("oldPasswd"), trans.currentPassword()),
+          form3.password(form("newPasswd1"), trans.newPassword()),
+          form3.password(form("newPasswd2"), trans.newPasswordAgain()),
+          form3.action(form3.submit(trans.apply()))
         )
       )
     }

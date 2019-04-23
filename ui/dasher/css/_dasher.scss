@@ -48,14 +48,14 @@
       max-height: 400px;
       overflow: auto;
     }
-    button {
+    button,
+    a {
       display: block;
       padding: .7rem .7rem .7rem 1rem;
       border: none;
       background: none;
       width: 100%;
       text-align: left;
-      box-sizing: border-box;
       &:hover {
         background: $c-dasher-light;
       }
@@ -137,7 +137,6 @@
     input {
       padding: 5px;
       border: 1px solid #444;
-      box-sizing: border-box;
       width: 100%;
       background-color: #3e3e3e;
       color: #fff;

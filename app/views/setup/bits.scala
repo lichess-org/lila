@@ -38,7 +38,7 @@ private object bits {
 
   def renderVariant(form: Form[_], variants: List[SelectChoice])(implicit ctx: Context) =
     div(cls := "variant label_select")(
-      renderLabel(form("variant"), trans.variant.frag()),
+      renderLabel(form("variant"), trans.variant()),
       renderSelect(form("variant"), variants.filter {
         case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
       })

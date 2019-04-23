@@ -5,7 +5,6 @@ import lila.activity.model._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.escapeHtml
 import lila.user.User
 
 import controllers.routes
@@ -46,7 +45,9 @@ object activity {
   private def renderPatron(p: Patron)(implicit ctx: Context) =
     div(cls := "entry plan")(
       iconTag(""),
-      div(trans.activity.supportedNbMonths.plural(p.months, p.months, raw(s"""<a href="${routes.Plan.index}">Patron</a>""")))
+      div(
+        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
+      )
     )
 
   private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(implicit ctx: Context) = {
@@ -67,7 +68,7 @@ object activity {
     case (study, nb) =>
       val href = routes.Practice.show("-", study.slug, study.id.value)
       frag(
-        trans.activity.practicedNbPositions.plural(nb, nb, raw(s"""<a href="$href">${study.name}</a>""")),
+        trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
         br
       )
   }
@@ -102,9 +103,8 @@ object activity {
         posts.toSeq.map {
           case (topic, posts) =>
             val url = routes.ForumTopic.show(topic.categId, topic.slug)
-            val content = escapeHtml(shorten(topic.name, 70))
             frag(
-              trans.activity.postedNbMessages.plural(posts.size, posts.size, raw(s"""<a href="$url">$content</a>""")),
+              trans.activity.postedNbMessages.plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
               subTag(
                 posts.map { post =>
                   div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
@@ -242,7 +242,7 @@ object activity {
               ),
               dataIcon := (t.rank <= 3).option("g")
             )(
-                trans.activity.rankedInTournament.plural(t.nbGames, raw(s"""<strong>${t.rank}</strong>"""), (t.rankRatio.value * 100).toInt atLeast 1, t.nbGames, link),
+                trans.activity.rankedInTournament.plural(t.nbGames, strong(t.rank), (t.rankRatio.value * 100).toInt atLeast 1, t.nbGames, link),
                 br
               )
           }

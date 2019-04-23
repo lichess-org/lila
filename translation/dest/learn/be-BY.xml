@@ -34,18 +34,18 @@
   <string name="kingComplete">Вы навучыліся хадзіць каралём!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Ён ходзіць літарай \"Г\"</string>
-  <string name="knightIntro">Вось вам заданне. Конь — хітрая фігура.</string>
+  <string name="knightIntro">Асвоіць каня не так проста, бо ён — хітрая фігура.</string>
   <string name="knightsHaveAFancyWay">Коні маюць мудрагелісты спосаб пераскокваць!</string>
   <string name="knightsCanJumpOverObstacles">Коні могуць скакаць праз перашкоды!
 Выберацеся і збярыце ўсе зоркі!</string>
-  <string name="knightComplete">Віншуем! Вы асвоілі фігуру \"Конь\".</string>
+  <string name="knightComplete">Віншуем! Вы навучыліся хадзіць канём!</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">Ходзіць толькі наперад</string>
   <string name="pawnIntro">Пешкі слабыя, але ў іх шмат патэнцыялу.</string>
   <string name="pawnsMoveOneSquareOnly">Пешкі ходзяць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў моцную фігуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадку пешку лепш ператварыць у фярзя. Але часам ператварэнне ў каня можа быць выгадней!</string>
   <string name="pawnsMoveForward">Пешкі рухаюцца наперад, але б\'юць па дыяганалях!</string>
-  <string name="captureThenPromote">Пабіце, потым ператворыцеся!</string>
+  <string name="captureThenPromote">Пабіце, потым ператварыцеся!</string>
   <string name="useAllThePawns">Скарыстайце ўсе пешкі!
 Неабавязкова іх ператвараць.</string>
   <string name="aPawnOnTheSecondRank">Пешка на другім шэрагу можа хадзіць на два палі за ход!</string>
@@ -54,8 +54,8 @@
   <string name="pawnComplete">Віншуем! У пешак няма сакрэтаў для вас.</string>
   <string name="pawnPromotion">Ператварэнне пешкі</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка дасягнула краю дошкі!</string>
-  <string name="itNowPromotesToAStrongerPiece">Цяпер яна ператвараецца ў фігуру пасільней.</string>
-  <string name="selectThePieceYouWant">Выберыце фігуру, якую хочаце!</string>
+  <string name="itNowPromotesToAStrongerPiece">Цяпер яна можа стаць любой іншай фігурай.</string>
+  <string name="selectThePieceYouWant">Абірайце якую хочаце!</string>
   <string name="fundamentals">Асновы</string>
   <string name="capture">Узяцце</string>
   <string name="takeTheEnemyPieces">Забярыце фігуры суперніка</string>
@@ -84,14 +84,14 @@
   <string name="checkInOneComplete">Віншуем! Вы паставілі шах свайму суперніку, вымусіўшы яго бараніць свайго караля!</string>
   <string name="outOfCheck">Сыход з-пад шаха</string>
   <string name="defendYourKing">Абараніце свайго караля</string>
-  <string name="outOfCheckIntro">Вам шах! Вы павінны сыходзіць ці блакаваць атаку.</string>
+  <string name="outOfCheckIntro">Вам шах! Вы павінны сыходзіць ці бараніцца ад атакі.</string>
   <string name="escapeWithTheKing">Адводзьце свайго караля!</string>
-  <string name="theKingCannotEscapeButBlock">Кароль не можа збегчы, але вы можаце заблакіраваць атаку!</string>
+  <string name="theKingCannotEscapeButBlock">Каралю няма куды бегчы, але можна абараніцца!</string>
   <string name="youCanGetOutOfCheckByTaking">Вы можаце забраць фігуру, якая ставіць шах.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Гэты конь ставіць шах,
 абыходзячы вашую абарону!</string>
   <string name="escapeOrBlock">Адвядзіце караля
-ці зачыніцеся!</string>
+ці бараніцеся!</string>
   <string name="outOfCheckComplete">Віншуем! Цяпер вы ведаеце, як абараніць свайго караля ад шаха!</string>
   <string name="mateInOne">Мат у адзін ход</string>
   <string name="defeatTheOpponentsKing">Вазьміце верх над каралём суперніка</string>
@@ -173,7 +173,7 @@
   <string name="whatNext">Што далей?</string>
   <string name="youKnowHowToPlayChess">Вы ўмееце гуляць у шахматы, віншуем! Вы хочаце стаць мацнейшым гульцом?</string>
   <string name="register">Рэгістрацыя</string>
-  <string name="getAFreeLichessAccount">Стварыце дармовы акаўнт</string>
+  <string name="getAFreeLichessAccount">Стварыце бясплатны ўліковы запіс</string>
   <string name="practice">Практыка</string>
   <string name="learnCommonChessPositions">Вучыце асноўныя пазіцыі</string>
   <string name="puzzles">Заданні</string>
@@ -194,7 +194,7 @@
   <string name="wayToGo">Наперад!</string>
   <string name="yesYesYes">Так, так, так!</string>
   <string name="youreGoodAtThis">Вы малайчына!</string>
-  <string name="nailedIt">Поспех.</string>
+  <string name="nailedIt">Усё так!</string>
   <string name="rightOn">Слушна!</string>
   <string name="stageXComplete">Этап %s завершаны</string>
   <string name="yourScore">Ваш вынік</string>

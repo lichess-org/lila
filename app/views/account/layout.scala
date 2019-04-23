@@ -15,7 +15,7 @@ object layout {
     evenMoreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context): Frag = views.html.base.layout(
     title = title,
-    moreCss = frag(responsiveCssTag("account"), evenMoreCss),
+    moreCss = frag(cssTag("account"), evenMoreCss),
     moreJs = frag(jsTag("account.js"), evenMoreJs)
   ) {
       def activeCls(c: String) = cls := active.activeO(c)
@@ -27,28 +27,28 @@ object layout {
             )
           },
           a(activeCls("kid"), href := routes.Account.kid())(
-            trans.kidMode.frag()
+            trans.kidMode()
           ),
           div(cls := "sep"),
           a(activeCls("editProfile"), href := routes.Account.profile())(
-            trans.editProfile.frag()
+            trans.editProfile()
           ),
           isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)("Coach profile"),
           div(cls := "sep"),
           a(activeCls("password"), href := routes.Account.passwd())(
-            trans.changePassword.frag()
+            trans.changePassword()
           ),
           a(activeCls("email"), href := routes.Account.email())(
-            trans.changeEmail.frag()
+            trans.changeEmail()
           ),
           a(activeCls("username"), href := routes.Account.username())(
-            trans.changeUsername.frag()
+            trans.changeUsername()
           ),
           a(activeCls("twofactor"), href := routes.Account.twoFactor())(
             "Two-factor authentication"
           ),
           a(activeCls("security"), href := routes.Account.security())(
-            trans.security.frag()
+            trans.security()
           ),
           div(cls := "sep"),
           a(href := routes.Plan.index)("Patron"),
@@ -59,7 +59,7 @@ object layout {
           ctx.noBot option a(activeCls("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close())(
-            trans.closeAccount.frag()
+            trans.closeAccount()
           )
         ),
         div(cls := "page-menu__content")(body)

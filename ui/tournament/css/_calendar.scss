@@ -35,7 +35,6 @@
     @extend %box-radius, %flex-center;
     position: absolute;
     top: 0;
-    box-sizing: border-box;
     padding: 4px 0;
     background-color: #303E43;
     box-shadow: 0 3px 10px rgba(0,0,0,0.5);
@@ -108,7 +107,6 @@
   .timeheader {
     position: absolute;
     display: inline;
-    box-sizing: border-box;
     height: 100%;
     border-left: 1px dashed $c-border;
     padding: 2px 5px;

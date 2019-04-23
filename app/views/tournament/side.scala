@@ -34,7 +34,7 @@ object side {
             separator,
             tour.durationString
           ),
-          tour.mode.fold(trans.casualTournament, trans.ratedTournament).frag(),
+          tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           systemName(tour.system).capitalize,
           isGranted(_.TerminateTournament) option
@@ -59,7 +59,7 @@ object side {
         "accepted" -> (ctx.isAuth && verdicts.accepted),
         "refused" -> (ctx.isAuth && !verdicts.accepted)
       ))(div(
-        (verdicts.list.size < 2) option p(trans.conditionOfEntry.frag()),
+        (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
         verdicts.list map { v =>
           p(cls := List(
             "condition text" -> true,
@@ -69,7 +69,7 @@ object side {
         }
       )),
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      !tour.isScheduled option frag(trans.by.frag(usernameOrId(tour.createdBy)), br),
+      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
       (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(tour.startsAt),
       !tour.position.initial option p(
         a(target := "_blank", href := tour.position.url)(

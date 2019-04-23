@@ -289,8 +289,8 @@ object contact {
   def apply()(implicit ctx: Context) = help.layout(
     title = "Contact",
     active = "contact",
-    moreCss = responsiveCssTag("contact"),
-    moreJs = embedJs("""location=location.hash||"#help-root""""),
+    moreCss = cssTag("contact"),
+    moreJs = embedJsUnsafe("""location=location.hash||"#help-root""""),
     contentCls = "page box box-pad"
   )(frag(
       h1("Contact lichess"),

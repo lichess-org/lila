@@ -92,19 +92,18 @@
         });
       },
       tournamentReminder: function(data) {
-        if ($('#tournament_reminder').length || $('body').data("tournament-id") == data.id) return;
+        if ($('#tour-reminder').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;
-        $('#notifications').append(
-          '<div id="tournament_reminder" class="notification glowed">' +
-          '<div class="inner">' +
-          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a> in progress!' +
+        $('body').append(
+          '<div id="tour-reminder">' +
+          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>in progress!' +
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
           '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
-          '</div></div></div>'
+          '</div></div>'
         ).find("a.withdraw").click(function() {
           $.post($(this).attr("href"));
-          $('#tournament_reminder').remove();
+          $('#tour-reminder').remove();
           return false;
         });
       }
@@ -125,12 +124,13 @@
     opts = opts || {};
     lichess.loadCssPath('autocomplete');
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
-      $input.typeahead(null, {
+      $input.typeahead({
         minLength: opts.minLength || 3,
+      }, {
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
-          $.ajax({
+          if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i)) $.ajax({
             url: '/player/autocomplete',
             cache: true,
             data: {
@@ -223,7 +223,6 @@
           $(this).select();
         })
         .on('click', 'button.copy', function() {
-          console.log(this);
           $('#' + $(this).data('rel')).select();
           document.execCommand('copy');
           $(this).attr('data-icon', 'E');
@@ -372,7 +371,7 @@
           var isPlaying = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
-            instance = LichessDasher.default($el.empty()[0], {
+            LichessDasher.default($el.empty()[0], {
               playing: isPlaying
             });
           });
@@ -387,7 +386,6 @@
         var boot = function() {
           if (booted) return;
           booted = true;
-          lichess.loadCss('stylesheets/cli.css');
           lichess.loadScript(lichess.compiledScript('cli')).done(function() {
             LichessCli.app($wrap, toggle);
           });

@@ -5,21 +5,33 @@ import { fixCrazySan } from 'chess';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
+export const hasTouchEvents = 'ontouchstart' in window;
+
 export function plyColor(ply: number): Color {
   return (ply % 2 === 0) ? 'white' : 'black';
 }
 
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
-  return onInsert(el => el.addEventListener(eventName, e => {
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
+  el.addEventListener(hasTouchEvents ? 'touchstart' : 'mousedown', e => {
+    f(e);
+    e.preventDefault();
+    if (redraw) redraw();
+  })
+}
+
+function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => any, redraw?: () => void) {
+  el.addEventListener(eventName, e => {
     const res = f(e);
-    if (res === false) {
-      if (e.preventDefault) e.preventDefault();
-      else e.returnValue = false; // ie
-    }
+    if (res === false) e.preventDefault();
     if (redraw) redraw();
     return res;
-  }));
+  })
 }
+
+export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+  return onInsert(el => listenTo(el, eventName, f, redraw));
+}
+
 export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
   return bind('submit', e => {
     e.preventDefault();

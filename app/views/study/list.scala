@@ -7,7 +7,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.study.Order
 import lila.study.Study.WithChaptersAndLiked
 import lila.user.User
@@ -89,7 +88,7 @@ object list {
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
     views.html.base.layout(
       title = text,
-      moreCss = responsiveCssTag("study.index"),
+      moreCss = cssTag("study.index"),
       moreJs = infiniteScrollTag
     ) {
         main(cls := "page-menu")(
@@ -138,7 +137,7 @@ object list {
     searchFilter: String
   )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    moreCss = responsiveCssTag("study.index"),
+    moreCss = cssTag("study.index"),
     moreJs = infiniteScrollTag
   ) {
       main(cls := "page-menu")(

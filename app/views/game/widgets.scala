@@ -112,7 +112,6 @@ object widgets {
     }
   }
 
-  private val berserkIconSpanFrag = raw(berserkIconSpan)
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 
   private def gamePlayer(variant: chess.variant.Variant, player: Player)(implicit ctx: Context) =
@@ -121,7 +120,7 @@ object widgets {
         frag(
           userIdLink(playerUser.id.some, withOnline = false),
           br,
-          player.berserk option berserkIconSpanFrag,
+          player.berserk option berserkIconSpan,
           playerUser.rating,
           player.provisional option "?",
           playerUser.ratingDiff map { d => frag(" ", showRatingDiff(d)) }

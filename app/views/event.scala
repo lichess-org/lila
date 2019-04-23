@@ -35,7 +35,7 @@ object event {
 
   def show(e: lila.event.Event)(implicit ctx: Context) = views.html.base.layout(
     title = e.title,
-    moreCss = responsiveCssTag("event"),
+    moreCss = cssTag("event"),
     moreJs = jsTag("event-countdown.js")
   ) {
       main(cls := "page-small event box box-pad")(
@@ -46,7 +46,7 @@ object event {
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else {
-          if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress.frag())
+          if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
           else ul(cls := "countdown", dataSeconds := ~e.secondsToStart)(
             List("Days", "Hours", "Minutes", "Seconds") map { t =>
               li(span(cls := t.toLowerCase), t)
@@ -113,13 +113,13 @@ object event {
       form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
       form3.group(form("homepageHours"), raw("Hours on homepage (0 to 24)"), half = true, help = raw("Ask on slack first!").some)(form3.input(_, typ = "number"))
     ),
-    form3.action(form3.submit(trans.apply.frag()))
+    form3.action(form3.submit(trans.apply()))
   )
 
   private def layout(title: String, css: String = "mod.misc")(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag(css),
+      moreCss = cssTag(css),
       moreJs = frag(
         flatpickrTag,
         delayFlatpickrStart

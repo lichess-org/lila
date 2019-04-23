@@ -5,7 +5,6 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -26,7 +25,7 @@ object form {
   private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("relay.form"),
+      moreCss = cssTag("relay.form"),
       moreJs = frag(
         flatpickrTag,
         delayFlatpickrStart
@@ -49,8 +48,8 @@ object form {
           form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := routes.Relay.index(1))(trans.cancel.frag()),
-        form3.submit(trans.apply.frag())
+        a(href := routes.Relay.index(1))(trans.cancel()),
+        form3.submit(trans.apply())
       )
     )
 }

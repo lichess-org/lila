@@ -2,12 +2,11 @@ package views.html.analyse
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.common.String.html.safeJsonValue
 import lila.i18n.{ I18nKeys => trans }
 
 private object jsI18n {
 
-  def apply()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  def apply()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
     trans.flipBoard,

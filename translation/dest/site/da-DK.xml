@@ -164,6 +164,9 @@
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Brugernavn</string>
   <string name="usernameOrEmail">Brugernavn eller e-mail</string>
+  <string name="changeUsername">Ændr brugernavn</string>
+  <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"holgerdanske\" til \"HolgerDanske\".</string>
+  <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
   <string name="password">Adgangskode</string>
   <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Skift adgangskode</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rang opdateres hvert %s minut</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Ranking opdateres hvert minut</item>
+    <item quantity="other">Ranking opdateres hvert %s minut</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s taktikøvelse</item>
     <item quantity="other">%s taktikøvelser</item>
@@ -631,9 +637,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvid O-O</string>
-  <string name="whiteCastlingQueenside">Hvid O-O-O</string>
   <string name="blackCastlingKingside">Sort O-O</string>
-  <string name="blackCastlingQueenside">Sort O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum-opslag</item>
     <item quantity="other">%s forum-opslag</item>
@@ -642,7 +646,6 @@
   <string name="watchGames">Se partier</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Se</string>
-  <string name="internationalEvents">Internationale begivenheder</string>
   <string name="videoLibrary">Video bibliotek</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>

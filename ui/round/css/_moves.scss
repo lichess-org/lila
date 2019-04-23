@@ -20,10 +20,11 @@
   }
   .moves,
   .message {
-    flex: 0 0 6.8em;
+    flex: 0 0 7.3em;
   }
   .moves {
     @extend %flex-wrap, %zen;
+    position: relative; /* required by autoScroll */
     overflow-y: auto;
     align-content: start;
     border: $border;
@@ -37,12 +38,14 @@
     flex: 0 0 15%;
     display: flex;
     justify-content: center;
+    align-items: flex-end;
     background: $c-bg-zebra;
   }
   move {
     @extend %san;
     flex: 0 0 42.5%;
     padding-left: .7em;
+    font-size: 1.1em;
     @include transition();
     &:not(.empty) {
       cursor: pointer;

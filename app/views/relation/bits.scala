@@ -18,9 +18,9 @@ object bits {
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(
-          trans.nbFollowers.pluralSameFrag(pag.nbResults),
+          trans.nbFollowers.pluralSame(pag.nbResults),
           " ", amp, " ",
-          a(href := routes.Relation.following(u.username))(trans.nbFollowing.pluralSameFrag(nbFollowing))
+          a(href := routes.Relation.following(u.username))(trans.nbFollowing.pluralSame(nbFollowing))
         )
       ),
       pagTable(pag, routes.Relation.followers(u.username))
@@ -31,9 +31,9 @@ object bits {
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(
-          trans.nbFollowing.pluralSameFrag(pag.nbResults),
+          trans.nbFollowing.pluralSame(pag.nbResults),
           " ", amp, " ",
-          a(href := routes.Relation.followers(u.username))(trans.nbFollowers.pluralSameFrag(nbFollowers))
+          a(href := routes.Relation.followers(u.username))(trans.nbFollowers.pluralSame(nbFollowers))
         )
       ),
       pagTable(pag, routes.Relation.following(u.username))
@@ -44,7 +44,7 @@ object bits {
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(
-          trans.blocks.pluralSameFrag(pag.nbResults)
+          trans.blocks.pluralSame(pag.nbResults)
         )
       ),
       pagTable(pag, routes.Relation.blocks())
@@ -53,7 +53,7 @@ object bits {
   def layout(title: String)(content: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = responsiveCssTag("relation")
+      moreCss = cssTag("relation")
     ) {
         main(cls := "box page-small")(content)
       }
@@ -67,7 +67,7 @@ object bits {
           tr(cls := "paginated")(
             td(userLink(r.user)),
             td(showBestPerf(r.user)),
-            td(trans.nbGames.pluralSameFrag(r.user.count.game)),
+            td(trans.nbGames.pluralSame(r.user.count.game)),
             td(actions(r.user.id, relation = r.relation, followable = r.followable, blocked = false))
           )
         }

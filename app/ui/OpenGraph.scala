@@ -2,7 +2,6 @@ package lila.app
 package ui
 
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.base.StringUtils.escapeHtml
 
 case class OpenGraph(
     title: String,
@@ -22,7 +21,7 @@ case class OpenGraph(
 
     private def tag(name: String, value: String) = meta(
       property := s"og:$name",
-      content := escapeHtml(value)
+      content := value
     )
 
     private val tupledTag = (tag _).tupled
@@ -42,7 +41,7 @@ case class OpenGraph(
 
     private def tag(name: String, value: String) = meta(
       st.name := s"twitter:$name",
-      content := escapeHtml(value)
+      content := value
     )
 
     private val tupledTag = (tag _).tupled

@@ -23,7 +23,7 @@ object embed {
         layout.metaCsp(basicCsp),
         st.headTitle("lichess.org chess puzzle"),
         layout.pieceSprite(lila.pref.PieceSet.default),
-        responsiveCssTagWithTheme("tv.embed", config.bg)
+        cssTagWithTheme("tv.embed", config.bg)
       ),
       body(
         cls := s"base ${config.board}",
@@ -32,8 +32,8 @@ object embed {
           div(id := "daily-puzzle", cls := "embedded", title := trans.clickToSolve.txt())(
             raw(daily.html),
             div(cls := "vstext", style := "text-align: center; justify-content: center")(
-              trans.puzzleOfTheDay.frag(), br,
-              daily.color.fold(trans.whitePlays, trans.blackPlays).frag()
+              trans.puzzleOfTheDay(), br,
+              daily.color.fold(trans.whitePlays, trans.blackPlays)()
             )
           ),
           jQueryTag,

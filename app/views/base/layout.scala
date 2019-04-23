@@ -3,7 +3,6 @@ package views.html.base
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.escapeString
 import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.pref.Pref
 
@@ -25,13 +24,13 @@ object layout {
       metaCsp(csp.getOrElse(defaultCsp))
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
-      link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/$ps.css"), tpe := "text/css", rel := "stylesheet")
+      link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
     def innerCoordsCss(implicit ctx: Context) = {
       val color = ctx.currentTheme.cssClass match {
         case "brown" | "blue" | "green" => ctx.currentTheme.cssClass
         case _ => "other"
       }
-      responsiveCssTagNoTheme(s"coords.inner.$color")
+      cssTagNoTheme(s"coords.inner.$color")
     }
   }
   import bits._
@@ -54,24 +53,24 @@ object layout {
 
   private def allNotifications(implicit ctx: Context) = spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
-    <span title="${escapeString(trans.challenges.txt())}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
+    <span title="${trans.challenges().render}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
   </a>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <a id="notify-toggle" class="toggle link">
-    <span title="${escapeString(trans.notifications.txt())}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""</span>
+    <span title="${trans.notifications().render}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""</span>
   </a>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
-    <span title="${escapeString(trans.preferences.txt())}" data-icon="%"</span>
+    <span title="${trans.preferences().render}" data-icon="%"</span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button">${escapeString(trans.signIn.txt())}</a>""")
+<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button">${trans.signIn().render}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 
@@ -110,7 +109,7 @@ object layout {
     openGraph: Option[lila.app.ui.OpenGraph] = None,
     chessground: Boolean = true,
     zoomable: Boolean = false,
-    asyncJs: Boolean = false,
+    deferJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
     wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context) = frag(
@@ -125,10 +124,10 @@ object layout {
           st.headTitle(fullTitle | s"$title • lichess.org")
         )
         else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
-        responsiveCssTag("site"),
-        ctx.pref.is3d option responsiveCssTag("board-3d"),
-        ctx.pageData.inquiry.isDefined option responsiveCssTagNoTheme("mod.inquiry"),
-        ctx.userContext.impersonatedBy.isDefined option responsiveCssTagNoTheme("mod.impersonate"),
+        cssTag("site"),
+        ctx.pref.is3d option cssTag("board-3d"),
+        ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
+        ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
         moreCss,
         pieceSprite,
         ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,
@@ -190,7 +189,7 @@ object layout {
                 div(cls := "friend_box_title")(
                   strong(cls := "online")("?"),
                   " ",
-                  trans.onlineFriends.frag()
+                  trans.onlineFriends()
                 ),
                 div(cls := "content_wrap")(
                   div(cls := "content list"),
@@ -198,26 +197,26 @@ object layout {
                     "nobody" -> true,
                     "none" -> ctx.onlineFriends.users.nonEmpty
                   ))(
-                    span(trans.noFriendsOnline.frag()),
+                    span(trans.noFriendsOnline()),
                     a(cls := "find button", href := routes.User.opponents)(
-                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends.frag())
+                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
                     )
                   )
                 )
               )
           },
-          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting.frag()),
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           if (isProd)
-            jsAt(s"compiled/lichess.site.min.js", async = asyncJs)
+            jsAt(s"compiled/lichess.site.min.js", defer = deferJs)
           else frag(
-            jsAt(s"compiled/lichess.deps.js", async = asyncJs),
-            jsAt(s"compiled/lichess.site.js", async = asyncJs)
+            jsAt(s"compiled/lichess.deps.js", defer = deferJs),
+            jsAt(s"compiled/lichess.site.js", defer = deferJs)
           ),
           moreJs,
-          embedJs(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
-          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", async = asyncJs)
+          embedJsUnsafe(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
+          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
     )
   )
@@ -230,10 +229,10 @@ object layout {
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""")
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
-      a(cls := "link data-count", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
+      a(cls := "link data-count link-center", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
 
     private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
-      a(cls := "link data-count", href := routes.Team.requests, dataCount := ctx.teamNbRequests, dataIcon := "f", title := trans.teams.txt())
+      a(cls := "link data-count link-center", href := routes.Team.requests, dataCount := ctx.teamNbRequests, dataIcon := "f", title := trans.teams.txt())
 
     def apply(playing: Boolean)(implicit ctx: Context) =
       header(id := "top")(

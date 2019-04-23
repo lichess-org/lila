@@ -9,7 +9,6 @@ import lila.app.ui.ScalatagsTemplate._
 object Environment
   extends lila.Lilaisms
   with StringHelper
-  with JsonHelper
   with AssetHelper
   with DateHelper
   with NumberHelper
@@ -24,8 +23,7 @@ object Environment
   with SecurityHelper
   with TeamHelper
   with TournamentHelper
-  with ChessgroundHelper
-  with ui.ScalatagsTwirl {
+  with ChessgroundHelper {
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

@@ -1,8 +1,14 @@
+%top-icon {
+  display: block;
+  height: $site-header-height;
+  line-height: $site-header-height;
+}
+
 .site-buttons {
   @extend %flex-center;
 
   .link {
-    @extend %flex-center;
+    @extend %top-icon;
     color: $c-font-page;
     font-size: 1.1rem;
     padding: 0 .7rem;
@@ -14,13 +20,7 @@
     }
   }
   .toggle {
-    display: block;
-    // height: $site-header-height;
-    line-height: $site-header-height;
-    // padding: 0 0.5rem;
-  }
-  .toggle:hover {
-    // color: ;
+    @extend %top-icon;
   }
   .dropdown {
     @extend %dropdown-shadow;
@@ -49,6 +49,11 @@
   }
   .signin {
     margin: 0 1rem;
+  }
+  .link-center {
+    margin-top: 5px;
+    height: inherit;
+    line-height: inherit;
   }
 }
 #user_tag {

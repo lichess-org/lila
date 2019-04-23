@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
@@ -293,7 +292,7 @@ object User extends LilaController {
         }
         val irwin = Env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
-            Html(html.irwin.report(reps).render).some
+            html.irwin.report(reps).some
           }
         }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
@@ -302,7 +301,7 @@ object User extends LilaController {
           }
         }
         import play.api.libs.EventSource
-        implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
+        implicit val extractor = EventSource.EventDataExtractor[scalatags.Text.Frag](_.render)
         Ok.chunked {
           (Enumerator(html.user.mod.menu(user)) interleave
             futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave

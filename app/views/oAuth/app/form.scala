@@ -61,7 +61,7 @@ object form {
     ),
     form3.actions(
       a(href := routes.OAuthApp.index)("Cancel"),
-      form3.submit(trans.apply.frag())
+      form3.submit(trans.apply())
     )
   )
 }

@@ -173,7 +173,6 @@
   <string name="forgotPassword">Забравена парола?</string>
   <string name="rank">Звание</string>
   <string name="rankX">Класация: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Класацията се обновява на %s минути</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пъзел</item>
     <item quantity="other">%s пъзели</item>
@@ -633,9 +632,7 @@
   <string name="menu">Меню</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели O-O</string>
-  <string name="whiteCastlingQueenside">Бели O-O-O</string>
   <string name="blackCastlingKingside">Черни O-O</string>
-  <string name="blackCastlingQueenside">Черни O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Съобщения във форума</item>
     <item quantity="other">%s Съобщения във форума</item>
@@ -644,7 +641,6 @@
   <string name="watchGames">Гледай на живо</string>
   <string name="tpTimeSpentOnTV">Време пред TV: %s</string>
   <string name="watch">Гледай</string>
-  <string name="internationalEvents">Международни събития</string>
   <string name="videoLibrary">Видео хранилище</string>
   <string name="mobileApp">Мобилно Приложение</string>
   <string name="webmasters">Управители</string>

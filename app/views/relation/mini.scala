@@ -18,19 +18,19 @@ object mini {
       cls := "btn-rack__btn relation-button text",
       dataIcon := "h",
       href := s"${routes.Relation.follow(userId)}?mini=1"
-    )(trans.follow.frag())
+    )(trans.follow())
     case Some(true) => a(
       cls := "btn-rack__btn relation-button text",
       title := trans.unfollow.txt(),
       href := s"${routes.Relation.unfollow(userId)}?mini=1",
       dataIcon := "h"
-    )(trans.following.frag())
+    )(trans.following())
     case Some(false) => a(
       cls := "btn-rack__btn relation-button text",
       title := trans.unblock.txt(),
       href := s"${routes.Relation.unblock(userId)}?mini=1",
       dataIcon := "k"
-    )(trans.blocked.frag())
+    )(trans.blocked())
     case _ => emptyFrag
   }
 }

@@ -1,6 +1,8 @@
 package views.html
 package relay
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -20,34 +22,34 @@ object show {
     streams: List[lila.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
     title = r.name,
-    moreCss = responsiveCssTag("analyse.study"),
+    moreCss = cssTag("analyse.study"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lichess=window.lichess||{};lichess.relay={
-relay: ${safeJsonValue(data.relay)},
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-i18n: ${board.userAnalysisI18n()},
-tagTypes: '${lila.study.PgnTags.typesToString}',
-userId: $jsUserIdString,
-chat: ${
-        chatOption.fold("null")(c => safeJsonValue(chat.json(
-          c.chat,
-          name = trans.chatRoom.txt(),
-          timeout = c.timeout,
-          writeable = ctx.userId.??(s.canChat),
-          public = false,
-          localMod = ctx.userId.??(s.canContribute)
-        )))
-      },
-explorer: {
-endpoint: "$explorerEndpoint",
-tablebaseEndpoint: "$tablebaseEndpoint"
-},
-socketUrl: "${routes.Relay.websocket(s.id.value, apiVersion.value)}",
-socketVersion: $socketVersion
-};""")
+      embedJsUnsafe(s"""lichess=window.lichess||{};lichess.relay=${
+        safeJsonValue(Json.obj(
+          "relay" -> data.relay,
+          "study" -> data.study,
+          "data" -> data.analysis,
+          "i18n" -> board.userAnalysisI18n(),
+          "tagTypes" -> lila.study.PgnTags.typesToString,
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map(c => chat.json(
+            c.chat,
+            name = trans.chatRoom.txt(),
+            timeout = c.timeout,
+            writeable = ctx.userId.??(s.canChat),
+            public = false,
+            localMod = ctx.userId.??(s.canContribute)
+          )),
+          "explorer" -> Json.obj(
+            "endpoint" -> explorerEndpoint,
+            "tablebaseEndpoint" -> tablebaseEndpoint
+          ),
+          "socketUrl" -> routes.Relay.websocket(s.id.value, apiVersion.value).url,
+          "socketVersion" -> socketVersion.value
+        ))
+      }""")
     ),
     chessground = false,
     zoomable = true,

@@ -16,7 +16,7 @@ object checkYourEmail {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Check your email",
-      moreCss = responsiveCssTag("email-confirm")
+      moreCss = cssTag("email-confirm")
     ) {
         main(cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}")(
           h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
@@ -37,7 +37,7 @@ object checkYourEmail {
                     value := form.flatMap(_("email").value).getOrElse(email.value),
                     pattern := s"^((?!^${email.value}$$).)*$$"
                   ),
-                  embedJs("""
+                  embedJsUnsafe("""
 var email = document.getElementById("new-email");
 var currentError = "This is already your current email.";
 email.setCustomValidity(currentError);

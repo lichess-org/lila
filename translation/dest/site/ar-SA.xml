@@ -201,7 +201,6 @@
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">يتم تحديث الترتيب كل %s دقيقة</string>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s لغز</item>
     <item quantity="one">%s لغز</item>
@@ -747,9 +746,7 @@
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
   <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
-  <string name="whiteCastlingQueenside">تبييت طويل للأبيض</string>
   <string name="blackCastlingKingside">تبييت قصير للأسود</string>
-  <string name="blackCastlingQueenside">تبييت طويل للأسود</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">منشورات المنتدى %s</item>
     <item quantity="one">منشورات المنتدى %s</item>
@@ -762,7 +759,6 @@
   <string name="watchGames">شاهد الألعاب</string>
   <string name="tpTimeSpentOnTV">الوقت في المشاهدة:  %s</string>
   <string name="watch">شاهد</string>
-  <string name="internationalEvents">أحداث عالمية</string>
   <string name="videoLibrary">مكتبة الفيديو</string>
   <string name="mobileApp">تطبيق الجوال</string>
   <string name="webmasters">مدراء المواقع</string>

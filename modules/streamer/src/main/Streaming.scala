@@ -4,7 +4,6 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lila.db.dsl._

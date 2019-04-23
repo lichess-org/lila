@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import akka.actor.ActorSystem
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
-import play.twirl.api.Html
+import scalatags.Text.all._
 
 import lila.common.String.html.escapeHtml
 import lila.common.{ Lang, EmailAddress }
@@ -33,7 +33,7 @@ final class Mailgun(
         "subject" -> Seq(msg.subject),
         "text" -> Seq(msg.text)
       ) ++ msg.htmlBody.?? { body =>
-          Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).body))
+          Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
         }).void addFailureEffect {
         case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
         case _ =>
@@ -58,7 +58,7 @@ object Mailgun {
       to: EmailAddress,
       subject: String,
       text: String,
-      htmlBody: Option[Html] = none,
+      htmlBody: Option[Frag] = none,
       from: Option[String] = none,
       replyTo: Option[String] = none,
       tag: Option[String] = none,
@@ -68,33 +68,33 @@ object Mailgun {
   object txt {
 
     def serviceNote(implicit lang: Lang) = s"""
-${trans.common_note.literalHtmlTo(lang, List("https://lichess.org"))}
+${trans.common_note.literalTo(lang, List("https://lichess.org")).render}
 
-${trans.common_contact.literalHtmlTo(lang, List("https://lichess.org/contact"))}"""
+${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).render}"""
   }
 
   object html {
 
-    val noteLink = Html {
+    val noteLink = raw {
       """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
     }
-    val noteContact = Html {
+    val noteContact = raw {
       """<a itemprop="url" href="https://lichess.org/contact"><span itemprop="name">lichess.org/contact</span></a>"""
     }
 
     def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))} ${trans.common_contact.literalHtmlTo(lang, List(noteContact))}</small>
+  <small>${trans.common_note.literalTo(lang, List(noteLink)).render} ${trans.common_contact.literalTo(lang, List(noteContact)).render}</small>
 </div>
 """
 
     def url(u: String)(implicit lang: Lang) = s"""
 <meta itemprop="url" content="$u">
 <p><a itemprop="target" href="$u">$u</a></p>
-<p>${trans.common_orPaste.literalHtmlTo(lang)}</p>
+<p>${trans.common_orPaste.literalTo(lang).render}</p>
 """
 
-    private[Mailgun] def wrap(subject: String, body: Html) = Html {
+    private[Mailgun] def wrap(subject: String, body: Frag) = raw {
       s"""<!doctype html>
 <html>
   <head>

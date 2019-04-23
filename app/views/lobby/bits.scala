@@ -21,8 +21,8 @@ object bits {
   )(implicit ctx: Context) = frag(
     div(cls := "lobby__leaderboard lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "C")(trans.leaderboard.frag()),
-        a(cls := "more", href := routes.User.list)(trans.more.frag(), " »")
+        span(cls := "title text", dataIcon := "C")(trans.leaderboard()),
+        a(cls := "more", href := routes.User.list)(trans.more(), " »")
       ),
       div(cls := "lobby__box__content")(
         table(tbody(
@@ -40,8 +40,8 @@ object bits {
     ),
     div(cls := "lobby__winners lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "g")(trans.tournamentWinners.frag()),
-        a(cls := "more", href := routes.Tournament.leaderboard)(trans.more.frag(), " »")
+        span(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
+        a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
       ),
       div(cls := "lobby__box__content")(
         table(tbody(
@@ -56,17 +56,17 @@ object bits {
     ),
     div(cls := "lobby__tournaments lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "g")(trans.openTournaments.frag()),
-        a(cls := "more", href := routes.Tournament.home())(trans.more.frag(), " »")
+        span(cls := "title text", dataIcon := "g")(trans.openTournaments()),
+        a(cls := "more", href := routes.Tournament.home())(trans.more(), " »")
       ),
-      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content scroll-shadow-hard")(
+      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
         views.html.tournament.bits.enterable(tours)
       )
     ),
     div(cls := "lobby__simuls lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions.frag()),
-        a(cls := "more", href := routes.Simul.home())(trans.more.frag(), " »")
+        span(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
+        a(cls := "more", href := routes.Simul.home())(trans.more(), " »")
       ),
       div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
         views.html.simul.bits.allCreated(simuls)
@@ -77,8 +77,8 @@ object bits {
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = posts.nonEmpty option
     div(cls := "lobby__blog lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "6")(trans.latestUpdates.frag()),
-        a(cls := "more", href := routes.Blog.index())(trans.more.frag(), " »")
+        span(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
+        a(cls := "more", href := routes.Blog.index())(trans.more(), " »")
       ),
       div(cls := "lobby__box__content")(
         posts map { post =>

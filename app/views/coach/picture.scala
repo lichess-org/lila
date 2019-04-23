@@ -13,7 +13,7 @@ object picture {
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach picture",
       evenMoreJs = jsTag("coach.form.js"),
-      evenMoreCss = responsiveCssTag("coach.editor"),
+      evenMoreCss = cssTag("coach.editor"),
       active = "coach"
     ) {
         div(cls := "account coach-edit coach-picture box")(

@@ -1,5 +1,7 @@
 package views.html.analyse
 
+import play.api.libs.json.Json
+
 import chess.variant.Crazyhouse
 
 import bits.dataPanel
@@ -46,16 +48,25 @@ object replay {
     bits.layout(
       title = titleOf(pov),
       moreCss = frag(
-        responsiveCssTag("analyse.round"),
-        pov.game.variant == Crazyhouse option responsiveCssTag("analyse.zh"),
-        ctx.blind option responsiveCssTag("round.nvui")
+        cssTag("analyse.round"),
+        pov.game.variant == Crazyhouse option cssTag("analyse.zh"),
+        ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJs(s"""lichess=lichess||{};
-lichess.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserId,chat:${jsOrNull(chatJson)},
-explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
+        embedJsUnsafe(s"""lichess=lichess||{};lichess.analyse=${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(),
+            "userId" -> ctx.userId,
+            "chat" -> chatJson,
+            "explorer" -> Json.obj(
+              "endpoint" -> explorerEndpoint,
+              "tablebaseEndpoint" -> tablebaseEndpoint
+            )
+          ))
+        }""")
       ),
       openGraph = povOpenGraph(pov).some
     )(frag(

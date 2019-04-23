@@ -44,7 +44,7 @@ object create {
           ),
           form3.actions(
             a(href := routes.OAuthToken.index)("Cancel"),
-            form3.submit(trans.apply.frag())
+            form3.submit(trans.apply())
           )
         )
       )
