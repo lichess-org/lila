@@ -116,7 +116,7 @@ Nejprve musíte uvolnit místo mezi králem a věží.</string>
 Zabraňte šachu, a pak udělejte rošádu!</string>
   <string name="findAWayToCastleKingSide">Najděte cestu k malé rošádě!</string>
   <string name="findAWayToCastleQueenSide">Najděte cestu k velké rošádě!</string>
-  <string name="castlingComplete">Blahopřejeme! V reálné hře byste vždy měli dělat rochádu.</string>
+  <string name="castlingComplete">Blahopřejeme! V reálné hře byste téměř vždy měli dělat rošádu.</string>
   <string name="enPassant">Braní mimochodem</string>
   <string name="theSpecialPawnMove">Speciální tah pěšcem</string>
   <string name="enPassantIntro">Když soupeř táhne pěšcem o dvě pole, můžete ho sebrat tak, jakoby táhl jen o jedno.</string>
