@@ -285,6 +285,7 @@
     <item quantity="one">Tibi %s plus censitus ludus ludendus</item>
     <item quantity="other">Tibi %s plures censiti ludi ludendi</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Gradus %s tuus incertus est</string>
   <string name="yourPerfRatingIsTooHigh">Tuus %1$s indictio (%2$s) altissimus est</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tuus maximus %1$s indictio hebdomade (%2$s) altissimus est</string>
   <string name="backToGame">Referre ad ludo</string>
@@ -662,6 +663,7 @@
   <string name="shareYourInsightsData">Data tua mentis partiri.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>
   <string name="kidMode">Modus puerilis</string>
+  <string name="security">Cautionis</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
   <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
   <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>
@@ -699,6 +701,7 @@
   <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
+  <string name="usernamePrefixInvalid">Nomen usoris cum littera coependum.</string>
   <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">Lude scacos moris</string>
