@@ -8,10 +8,10 @@ import lila.pref.PrefCateg
 
 object bits {
 
-  def categName(categ: lila.pref.PrefCateg)(implicit ctx: Context) = categ match {
-    case PrefCateg.GameDisplay => trans.gameDisplay()
-    case PrefCateg.ChessClock => trans.chessClock()
-    case PrefCateg.GameBehavior => trans.gameBehavior()
-    case PrefCateg.Privacy => trans.privacy()
+  def categName(categ: lila.pref.PrefCateg)(implicit ctx: Context): String = categ match {
+    case PrefCateg.GameDisplay => trans.gameDisplay.txt()
+    case PrefCateg.ChessClock => trans.chessClock.txt()
+    case PrefCateg.GameBehavior => trans.gameBehavior.txt()
+    case PrefCateg.Privacy => trans.privacy.txt()
   }
 }
