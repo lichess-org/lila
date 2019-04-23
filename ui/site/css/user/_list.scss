@@ -47,7 +47,7 @@ $user-list-width: 25ch;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
       border: 1px solid $c-lead;
       .user_top {
-        background: $c-bg-box;
+        border-left: 1px solid $c-lead;
       }
       h2 {
         @extend %flex-center-nowrap, %nowrap-hidden;
