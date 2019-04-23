@@ -219,10 +219,7 @@ private final class PushApi(
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
-    webPush(userId) {
-      monitor(lila.mon.push.send)("web")
-      data
-    } >> oneSignalPush(userId) {
+    webPush(userId)(data) >> oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
       data
     }
