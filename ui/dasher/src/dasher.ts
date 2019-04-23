@@ -44,8 +44,8 @@ export interface DasherCtrl {
     board: BoardCtrl;
     theme: ThemeCtrl;
     piece: PieceCtrl;
-  },
-    opts: DasherOpts;
+  };
+  opts: DasherOpts;
 }
 
 export interface DasherOpts {
