@@ -45,9 +45,7 @@ $user-list-width: 25ch;
       @extend %box-radius;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
-      grid-gap: 1px;
       border: 1px solid $c-lead;
-      background: $c-lead;
       .user_top {
         background: $c-bg-box;
       }
