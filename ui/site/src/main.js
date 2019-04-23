@@ -347,6 +347,7 @@
           load();
         }).click(function() {
           setTimeout(function() {
+            lichess.pushSubscribe(true);
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
