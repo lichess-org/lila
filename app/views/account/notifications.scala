@@ -14,6 +14,8 @@ object notifications {
   ) {
       div(cls := "account box box-pad")(
         h1("Notifications"),
+        "VAPID:", st.input(tpe := "text", id := "vapid", value := lila.app.Env.push.VapidPublicKey),
+        br,
         st.input(tpe := "checkbox", id := "subscribed", disabled), " Subscribed"
       )
     }

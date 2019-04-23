@@ -11,6 +11,7 @@ object Dependencies {
     val awesomepom = "awesomepom" at "https://raw.githubusercontent.com/jibs/maven-repo-scala/master"
     val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
+    val mavenCentral = "maven central" at "http://central.maven.org/maven2/"
 
     val commons = Seq(
       sonatypeS,
@@ -18,7 +19,8 @@ object Dependencies {
       sonatype,
       awesomepom,
       typesafe,
-      prismic
+      prismic,
+      mavenCentral
     )
   }
 
@@ -43,6 +45,8 @@ object Dependencies {
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
   val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
+  val webpush = "nl.martijndwars" % "web-push" % "5.0.2"
+  val bouncycastle = "org.bouncycastle" % "bcprov-jdk15on" % "1.61"
 
   object reactivemongo {
     val version = "0.12.4"

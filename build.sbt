@@ -33,7 +33,7 @@ libraryDependencies ++= Seq(
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb, scalatags,
-  java8compat, semver, scrimage, scalaConfigs, scaffeine
+  java8compat, semver, scrimage, scalaConfigs, scaffeine, webpush, bouncycastle
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
@@ -304,7 +304,7 @@ lazy val playban = module("playban", Seq(common, db, game, message, chat)).setti
 )
 
 lazy val push = module("push", Seq(common, db, user, game, challenge, message)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, webpush, bouncycastle)
 )
 
 lazy val slack = module("slack", Seq(common, hub, user)).settings(
