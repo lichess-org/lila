@@ -371,7 +371,7 @@
           var isPlaying = $('body').hasClass('playing');
           lidraughts.loadCssPath('dasher');
           lidraughts.loadScript(lidraughts.compiledScript('dasher')).done(function() {
-            instance = LidraughtsDasher.default($el.empty()[0], {
+            LidraughtsDasher.default($el.empty()[0], {
               playing: isPlaying
             });
           });
