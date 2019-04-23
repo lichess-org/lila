@@ -20,7 +20,7 @@ private final class WebPush(
     vapidSubject: String,
     vapidPublicKey: String,
     vapidPrivateKey: String
-)(implicit system: akka.actor.ActorSystem) {
+) {
 
   java.security.Security.addProvider(new BouncyCastleProvider())
 

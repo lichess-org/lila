@@ -1,7 +1,5 @@
 package lila.push
 
-//import org.joda.time.DateTime
-
 import reactivemongo.bson._
 
 import lila.db.dsl._
@@ -24,5 +22,12 @@ private final class WebSubscriptionApi(coll: Coll) {
       "auth" -> subscription.auth,
       "p256dh" -> subscription.p256dh
     ), upsert = true).void
+  }
+
+  def unsubscribe(user: User, subscription: WebSubscription) = {
+    coll.remove($doc(
+      "_id" -> user.id,
+      "auth" -> subscription.auth
+    ))
   }
 }

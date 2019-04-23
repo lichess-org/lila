@@ -16,7 +16,7 @@ object notifications {
         h1("Notifications"),
         "VAPID:", st.input(tpe := "text", id := "vapid", value := lila.app.Env.push.VapidPublicKey),
         br,
-        st.input(tpe := "checkbox", id := "subscribed", disabled), " Subscribed"
+        "Click this:", st.input(tpe := "checkbox", id := "subscribed", disabled), " Subscribed"
       )
     }
 }

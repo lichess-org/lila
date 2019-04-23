@@ -238,10 +238,6 @@ object Account extends LilaController {
     }
   }
 
-  def notifications = Auth { implicit ctx => me =>
-    Ok(html.account.notifications(me)).fuccess
-  }
-
   def close = Auth { implicit ctx => me =>
     Env.security.forms closeAccount me map { form =>
       Ok(html.account.close(me, form))

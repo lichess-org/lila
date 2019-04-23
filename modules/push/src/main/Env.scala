@@ -29,6 +29,7 @@ final class Env(
   def unregisterDevices = deviceApi.unregister _
 
   def webSubscribe = webSubscriptionApi.subscribe _
+  def webUnsubscribe = webSubscriptionApi.unsubscribe _
 
   private lazy val oneSignalPush = new OneSignalPush(
     deviceApi.findLastManyByUserId("onesignal", 3) _,
@@ -42,7 +43,7 @@ final class Env(
     vapidSubject = VapidSubject,
     vapidPublicKey = VapidPublicKey,
     vapidPrivateKey = VapidPrivateKey
-  )(system)
+  )
 
   private lazy val pushApi = new PushApi(
     oneSignalPush,

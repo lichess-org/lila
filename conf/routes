@@ -525,7 +525,6 @@ POST  /account/kid                     controllers.Account.kidPost
 GET   /account/twofactor               controllers.Account.twoFactor
 POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
 POST  /account/twofactor/disable       controllers.Account.disableTwoFactor
-GET   /account/notifications           controllers.Account.notifications
 # App BC
 POST  /account/kidConfirm              controllers.Account.kidToggle
 GET   /account/security                controllers.Account.security
@@ -572,6 +571,7 @@ POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform: String, deviceId: String)
 POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
+GET   /account/notifications           controllers.Push.notifications
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
