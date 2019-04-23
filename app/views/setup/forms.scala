@@ -133,7 +133,7 @@ object forms {
                   (typ == "hook") option disabled,
                   tpe := "submit",
                   title := name,
-                  cls := s"color-submits__button button button-green $key",
+                  cls := s"color-submits__button button button-metal $key",
                   st.name := "color",
                   value := key
                 )(i)
