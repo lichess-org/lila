@@ -88,9 +88,11 @@ function doRender(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-export function render(ctrl: AnalyseCtrl): VNode {
+export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
-  if (ctrl.embed || !ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
+  if (ctrl.studyPractice || ctrl.embed) return;
+
+  if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
     return h('div.analyse__acpl');
 
   // don't cache until the analysis is complete!
