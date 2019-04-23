@@ -9,7 +9,7 @@ import controllers.routes
 object bits {
 
   val lobbyApp = div(cls := "lobby__app")(
-    div(cls := "lobby__app__tabs")(span(i(cls := "ddloader"))),
+    div(cls := "tabs-horiz")(span(nbsp)),
     div(cls := "lobby__app__content")
   )
 
