@@ -12,14 +12,18 @@ final class Env(
 ) {
 
   private val CollectionDevice = config getString "collection.device"
+  private val CollectionSubscription = config getString "collection.subscription"
   private val OneSignalUrl = config getString "onesignal.url"
   private val OneSignalAppId = config getString "onesignal.app_id"
   private val OneSignalKey = config getString "onesignal.key"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
+  private lazy val webSubscriptionApi = new WebSubscriptionApi(db(CollectionSubscription))
 
   def registerDevice = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
+
+  def webSubscribe = webSubscriptionApi.subscribe _
 
   private lazy val oneSignalPush = new OneSignalPush(
     deviceApi.findLastManyByUserId("onesignal", 3) _,
@@ -28,12 +32,19 @@ final class Env(
     key = OneSignalKey
   )
 
+  private lazy val webPush = new WebPush(
+    webSubscriptionApi.getSubscriptions _
+  )
+
   private lazy val pushApi = new PushApi(
     oneSignalPush,
+    webPush,
     getLightUser,
     bus = system.lilaBus,
     scheduler = scheduler
   )
+
+  def testMessage = pushApi.testMessage _
 
   system.lilaBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
     case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game

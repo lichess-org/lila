@@ -9,12 +9,14 @@ import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
+import lila.user.User
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
     oneSignalPush: OneSignalPush,
+    webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
     bus: lila.common.Bus,
     scheduler: lila.common.Scheduler
@@ -201,10 +203,26 @@ private final class PushApi(
       ))
     }
 
+  def testMessage(userId: User.ID): Funit =
+    pushToAll(userId, _.testMessage, PushApi.Data(
+      title = "Hello there!",
+      body = "You will now receive push notifications.",
+      stacking = Stacking.Test,
+      payload = Json.obj(
+        "userId" -> userId,
+        "userData" -> Json.obj(
+          "type" -> "test"
+        )
+      )
+    ))
+
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
-  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data): Funit =
-    oneSignalPush(userId) {
+  private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
+    webPush(userId) {
+      monitor(lila.mon.push.send)("web")
+      data
+    } >> oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
       data
     }
