@@ -10,6 +10,7 @@ import lila.user.User
 private final class WebSubscriptionApi(coll: Coll) {
 
   // TODO: Support multiple subscriptions
+  // TODO: Unsubscribe
 
   private implicit val WebSubscriptionBSONHandler = Macros.handler[WebSubscription]
 
@@ -24,5 +25,4 @@ private final class WebSubscriptionApi(coll: Coll) {
       "p256dh" -> subscription.p256dh
     ), upsert = true).void
   }
-
 }

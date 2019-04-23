@@ -32,27 +32,26 @@ private final class WebPush(
     }
 
   private def send(sub: WebSubscription, data: PushApi.Data): Funit = {
-    try {
-      val notification = new Notification(
-        sub.endpoint,
-        sub.p256dh,
-        sub.auth,
-        ""
-      )
+    val notification = new Notification(
+      sub.endpoint,
+      sub.p256dh,
+      sub.auth,
+      Json.obj(
+        "title" -> data.title,
+        "body" -> data.body,
+        "stacking" -> data.stacking.key,
+        "payload" -> data.payload
+      ).toString
+    )
 
-      val pushService = new PushService()
-      pushService.setPublicKey(vapidPublicKey)
-      pushService.setPrivateKey(vapidPrivateKey)
+    val pushService = new PushService()
+    pushService.setPublicKey(vapidPublicKey)
+    pushService.setPrivateKey(vapidPrivateKey)
 
-      val javaFuture = pushService.sendAsync(notification)
+    val javaFuture = pushService.sendAsync(notification)
 
-      FutureConverters.toScala(CompletableFuture.supplyAsync(new Supplier[Unit] {
-        override def get(): Unit = javaFuture.get
-      }))
-    } catch {
-      case e: Throwable =>
-        println(e)
-        throw e
-    }
+    FutureConverters.toScala(CompletableFuture.supplyAsync(new Supplier[Unit] {
+      override def get(): Unit = javaFuture.get
+    }))
   }
 }

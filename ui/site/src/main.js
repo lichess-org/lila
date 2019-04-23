@@ -926,7 +926,7 @@
   // /////////////////
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(lichess.assetUrl('compiled/service-worker.js', {noVersion: true, sameDomain: true}), {
+    navigator.serviceWorker.register(lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true}), {
       scope: '/'
     });
   }
