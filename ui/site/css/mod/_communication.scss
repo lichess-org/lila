@@ -16,7 +16,7 @@
   h2 {
     font-size: 1.6em;
     margin-top: 1.6em;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $border;
     text-transform: capitalize;
     letter-spacing: 2px;
   }
@@ -30,7 +30,7 @@
     max-height: 150px;
     overflow-y: auto;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $border;
   }
   .player_chats {
     overflow: hidden;
@@ -38,16 +38,13 @@
   .public_chats li {
     list-style: inside disc;
   }
-  .public_chats a {
-    color: #3893E8;
-  }
   .player_chats .game {
     display: block;
     float: left;
     width: 33.33%;
   }
   .player_chats .game:nth-child(odd) {
-    background: #f0f0f0;
+    background: $c-bg-zebra;
   }
   .player_chats .game .title,
   .player_chats .game .chat {
@@ -60,7 +57,7 @@
   }
   .player_chats .game .title {
     text-align: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: $border;
   }
   .player_chats .game .chat {
     padding-top: 0;
@@ -93,7 +90,7 @@
     display: block;
   }
   .thread:nth-child(even) {
-    background: #f0f0f0;
+    background: $c-bg-zebra;
   }
   .post {
     margin: 1em 0;
