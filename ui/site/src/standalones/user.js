@@ -55,7 +55,6 @@ $(function() {
       });
       $('.user-show').on('click', '#games a', function() {
         if ($('#games .to-search').hasClass('active') || $(this).hasClass('to-search')) return true;
-        $filters = $(this).parent();
         $(this).addClass('active');
         browseTo($(this).attr('href'));
         return false;
