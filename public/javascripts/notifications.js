@@ -19,7 +19,7 @@ $(function() {
 
   const $btn = $('#subscribed');
 
-  lichess.serviceWorker.then(serviceWorker => {
+  navigator.serviceWorker.ready.then(serviceWorker => {
     serviceWorker.pushManager.getSubscription().then(function(subscription) {
       console.log('status:', JSON.stringify(subscription));
       $btn
@@ -33,10 +33,17 @@ $(function() {
               applicationServerKey: publicKey
             }).then(sub => {
               subscription = sub;
+              fetch('/push/subscribe', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(sub)
+              });
               console.log(JSON.stringify(subscription));
               $btn.attr('disabled', false);
             }).catch(err => {
-              console.error('failed to subscribe', err);
+              console.error('failed to subscribe', err.message);
               $btn.attr('disabled', false).prop('checked', false);
             });
           } else {

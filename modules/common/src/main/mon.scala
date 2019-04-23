@@ -553,6 +553,7 @@ object mon {
       def corresAlarm(platform: String) = inc(s"push.send.$platform.corresAlarm")()
       def finish(platform: String) = inc(s"push.send.$platform.finish")()
       def message(platform: String) = inc(s"push.send.$platform.message")()
+      def testMessage(platform: String) = inc(s"push.send.$platform.testMessage")()
       object challenge {
         def create(platform: String) = inc(s"push.send.$platform.challenge_create")()
         def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
