@@ -4,7 +4,7 @@ self.addEventListener('push', event => {
     notifications.forEach(notification => {
       if (notification.tag === data.stack) notification.close();
     });
-    self.registration.showNotification(data.title, {
+    return self.registration.showNotification(data.title, {
       badge: 'https://lichess1.org/assets/images/logo.256.png',
       icon: 'https://lichess1.org/assets/images/logo.256.png',
       body: data.body,
