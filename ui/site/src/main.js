@@ -398,7 +398,7 @@
         $wrap.find('a').on('mouseover click', function(e) {
           (e.type === 'mouseover' ? boot : toggle)();
         });
-        Mousetrap.bind('s', function() {
+        Mousetrap.bind('/', function() {
           setTimeout(toggle, 100);
         });
       })();

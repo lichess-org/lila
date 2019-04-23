@@ -273,7 +273,7 @@ interface JQueryStatic {
 }
 
 interface LichessModal {
-  (html: string | JQuery): JQuery;
+  (html: string | JQuery, cls: string): JQuery;
   close(): void;
 }
 

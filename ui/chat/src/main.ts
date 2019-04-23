@@ -30,7 +30,7 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
   element.innerHTML = '';
   vnode = patch(element, blueprint);
 
-  window.Mousetrap.bind('/', () => {
+  window.Mousetrap.bind('c', () => {
     (container.querySelector('.mchat__say') as HTMLElement).focus();
     return false;
   });

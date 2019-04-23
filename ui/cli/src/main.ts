@@ -4,8 +4,8 @@ export function app($wrap: JQuery, toggle: () => void) {
     focus: 1,
     friend: true,
     onSelect(q: any) {
-      execute(q.name || q);
       $input.val('');
+      execute(q.name || q.trim());
     }
   }).done(function() {
     $input.on('blur', () => $('#top').hasClass('clinput') && toggle());
@@ -14,27 +14,47 @@ export function app($wrap: JQuery, toggle: () => void) {
 
 function execute(q: string) {
   if (!q) return;
-  if (q[0] == '/' || q[1] == '!') command(q.slice(1));
+  if (q[0] == '/' || q[0] == '!') return command(q.slice(1));
   else location.href = '/@/' + q;
 }
 
 function command(q: string) {
   var parts = q.split(' '), exec = parts[0];
 
-  if (exec == 'tv' || exec == 'follow') 
+  const is = function(commands: string) {
+    return commands.split(' ').includes(exec);
+  };
+
+  if (is('tv follow'))
     location.href = '/@/' + parts[1] + '/tv';
 
-  else if (exec == 'play' || exec == 'challenge' || exec == 'match') 
+  else if (is('play challenge match'))
     location.href = '/?user=' + parts[1] + '#friend';
 
-  else if (exec == 'light' || exec == 'dark' || exec == 'transp') 
+  else if (is('light dark transp'))
     getDasher(dasher => dasher.subs.background.set(exec));
 
-  else if (exec === 'commands')
-    alert('/tv <username>\n/follow <username>\n/play <username>\n/challenge <username>\n/match <username>\n/light\n/dark\n/transp');
+  else if (is('help commands')) help();
 
-  else 
-    alert('Unknown command: ' + q);
+  else alert(`Unknown command: "${q}". Type /help for the list of commands`);
+}
+
+function commandHelp(aliases: string, args: string, desc: string) {
+  return '<div class="command"><div>' +
+    aliases.split(' ').map(a => `<p>/${a} ${window.lichess.escapeHtml(args)}</p>`).join('') +
+    `</div> ${desc}</div>`;
+}
+
+function help() {
+  window.lichess.loadCssPath('clinput.help')
+  $.modal(
+    '<h3>Commands</h3>' +
+    commandHelp('tv follow', ' <user>', 'Watch someone play') +
+    commandHelp('play challenge match', ' <user>', 'Challenge someone to play') +
+    commandHelp('light dark transp', '', 'Change the background theme') +
+    commandHelp('help commands', '', 'Display this help'),
+    'clinput-help'
+  );
 }
 
 function getDasher(cb: (dasher: any) => void) {
