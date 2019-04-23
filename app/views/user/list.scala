@@ -93,9 +93,9 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Any, icon: Option[Char] = None)(implicit ctx: Context) =
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char] = None)(implicit ctx: Context) =
     st.section(cls := "user_top")(
-      h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle.toString),
+      h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>
         li(
           lightUserLink(u.user),
