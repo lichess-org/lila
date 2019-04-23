@@ -8,7 +8,7 @@ import play.api.data.validation.Constraints
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
-import lila.common.Form.ISODate._
+import lila.common.Form.ISODateTime._
 import lila.user.User
 
 final class DataForm {

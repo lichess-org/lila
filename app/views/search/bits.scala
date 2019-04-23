@@ -1,6 +1,8 @@
 package views.html.search
 
 import play.api.data.Form
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -8,6 +10,10 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.gameSearch.{ Query, Sorting }
 
 private object bits {
+
+  private val dateFormatter = DateTimeFormat.forPattern("YYYY-MM-dd");
+  private val dateMin = "2011-01-01"
+  private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now))
 
   def of(form: Form[_])(implicit ctx: Context) = new {
 
@@ -128,8 +134,8 @@ private object bits {
     def date = tr(
       th(label("Date")),
       td(
-        div(cls := "half")("From ", form3.select(form("dateMin"), Query.dates, "".some)),
-        div(cls := "half")("To ", form3.select(form("dateMax"), Query.dates, "".some))
+        div(cls := "half")("From ", form3.input(form("dateMin"), "date")(dateMinMax: _*)),
+        div(cls := "half")("To ", form3.input(form("dateMax"), "date")(dateMinMax: _*))
       )
     )
 

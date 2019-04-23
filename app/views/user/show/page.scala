@@ -69,10 +69,7 @@ object page {
           embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
         )
       },
-      filters.current.name == "search" option frag(
-        nonAsyncFlatpickrTag,
-        jsTag("search.js")
-      ),
+      filters.current.name == "search" option frag(jsTag("search.js")),
       isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
     ),
     moreCss = frag(
