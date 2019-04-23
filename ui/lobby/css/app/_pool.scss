@@ -3,9 +3,6 @@
   @include breakpoint($mq-col2) {
     height: 400px;
   }
-  @include breakpoint($mq-col3) {
-    height: 700px;
-  }
 }
 
 .lpools {
