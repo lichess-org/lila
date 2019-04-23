@@ -1,12 +1,16 @@
-// TODO: Check out https://developers.google.com/web/fundamentals/push-notifications/common-notification-patterns
-
 self.addEventListener('push', event => {
   var data = event.data.json();
-  event.waitUntil(self.registration.showNotification(data.title, {
-    icon: 'https://lichess1.org/assets/images/logo.256.png',
-    body: data.body,
-    tag: data.stack,
-    data: data.payload
+  event.waitUntil(self.registration.getNotifications().then(notifications => {
+    notifications.forEach(notification => {
+      if (notification.tag === data.stack) notification.close();
+    });
+    self.registration.showNotification(data.title, {
+      badge: 'https://lichess1.org/assets/images/logo.256.png',
+      icon: 'https://lichess1.org/assets/images/logo.256.png',
+      body: data.body,
+      tag: data.stack,
+      data: data.payload
+    });
   }));
 });
 
@@ -18,6 +22,10 @@ self.addEventListener('notificationclick', event => {
       includeUncontrolled: true
     });
   }).then(windowClients => {
+    var data = event.notification.data.userData;
+    if (data.fullId) return clients.openWindow('/' + data.fullId);
+    if (data.threadId) return clients.openWindow('/inbox/' + data.threadId + '#bottom');
+    if (data.challengeId) return clients.openWindow('/' + data.challengeId);
     if (windowClients.length) windowClients[0].focus();
     else return clients.openWindow('/');
   }));
