@@ -60,7 +60,7 @@ object message {
   )(frag(
     "Before using chess insights,",
     userLink(u),
-    "has to play at least one rated game."
+    " has to play at least one rated game."
   ))
 
   def teamCreateLimit(implicit ctx: Context) = apply("Cannot create a team") {
