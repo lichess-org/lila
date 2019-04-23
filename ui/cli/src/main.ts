@@ -34,6 +34,9 @@ function command(q: string) {
   else if (is('light dark transp'))
     getDasher(dasher => dasher.subs.background.set(exec));
 
+  else if (is('stream'))
+    location.href = '/streamer/' + parts[1];
+
   else if (is('help commands')) help();
 
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
@@ -52,6 +55,7 @@ function help() {
     commandHelp('tv follow', ' <user>', 'Watch someone play') +
     commandHelp('play challenge match', ' <user>', 'Challenge someone to play') +
     commandHelp('light dark transp', '', 'Change the background theme') +
+    commandHelp('stream', '<user>', 'Watch someone stream') +
     commandHelp('help commands', '', 'Display this help'),
     'clinput-help'
   );
