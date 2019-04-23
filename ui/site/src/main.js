@@ -925,7 +925,7 @@
   // service worker //
   // /////////////////
 
-  if ('serviceWorker' in navigator && 'PushManager' in window) {
+  if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
     navigator.serviceWorker.register(lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true}), {
       scope: '/'
     });
