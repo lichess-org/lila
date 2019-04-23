@@ -25,16 +25,16 @@ function command(q: string) {
     return commands.split(' ').includes(exec);
   };
 
-  if (is('tv follow'))
+  if (is('tv follow') && parts[1])
     location.href = '/@/' + parts[1] + '/tv';
 
-  else if (is('play challenge match'))
+  else if (is('play challenge match') && parts[1])
     location.href = '/?user=' + parts[1] + '#friend';
 
   else if (is('light dark transp'))
     getDasher(dasher => dasher.subs.background.set(exec));
 
-  else if (is('stream'))
+  else if (is('stream') && parts[1])
     location.href = '/streamer/' + parts[1];
 
   else if (is('help commands')) help();
