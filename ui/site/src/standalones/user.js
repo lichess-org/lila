@@ -35,7 +35,7 @@ $(function() {
       });
     });
 
-    $('.content_box_inter.angles').each(function() {
+    $('.user-show .angles').each(function() {
       var $angles = $(this),
       $content = $('.angle-content');
       function browseTo(path) {
@@ -51,7 +51,6 @@ $(function() {
         $angles.find('.active').removeClass('active');
         $(this).addClass('active');
         browseTo($(this).attr('href'));
-        if ($(this).data('tab') === 'activity') lichess.loadCss('stylesheets/activity.css');
         return false;
       });
       $('.user-show').on('click', '#games a', function() {
