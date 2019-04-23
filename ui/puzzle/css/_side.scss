@@ -1,7 +1,7 @@
 .puzzle__side {
 
   &__metas {
-    @extend %box-neat;
+    @extend %box-neat-force;
     align-self: start;
     background: $c-bg-box;
     .spinner {
@@ -13,8 +13,8 @@
 
     padding: 2vmin;
     .infos {
-      display: flex;
-      align-items: center;
+      @extend %flex-center;
+      overflow: hidden;
       &::before {
         font-size: 3rem;
         margin-right: 1vw;
