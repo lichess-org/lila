@@ -371,7 +371,7 @@
           var isPlaying = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
-            instance = LichessDasher.default($el.empty()[0], {
+            LichessDasher.default($el.empty()[0], {
               playing: isPlaying
             });
           });
