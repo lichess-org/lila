@@ -36,6 +36,13 @@
   }
 }
 
+@mixin hide {
+  display: none;
+  .blind_mode & {
+    display: inherit;
+  }
+}
+
 @mixin crosstable-large {
   .crosstable__users { flex: 7 1 auto; }
 }

@@ -4,9 +4,7 @@ $c-mselect: $c-primary;
   position: relative;
   white-space: nowrap;
   &__toggle {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+    @include hide;
   }
   &__label {
     @extend %box-neat, %metal, %flex-between;
