@@ -11,7 +11,7 @@
 .data-count::after {
   content: attr(data-count);
   top: -5px;
-  right: -5px;
+  right: 0;
   position: absolute;
   padding: 0 3px;
   height: 15px;
