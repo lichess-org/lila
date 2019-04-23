@@ -1,3 +1,5 @@
+// TODO: This file is just a dirty hack to get going.
+
 function base64(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)
@@ -14,8 +16,8 @@ function base64(base64String) {
 }
 
 $(function() {
-  const publicKey = base64('BO7W5UeO4UMvWtQmKRVFODWNmxj1or2aqPzYo8J3wRM9FgJIvpwOjWfn2B3I_JVhR3ciH-ZDx13be5cMNHYVCns');
-  const privateKey = 'Sp21Z0befCFo4yOK4Lavl2HQwvKoft8YlDkWbAVygW4';
+  const publicKey = base64($('#vapid').val());
+  console.log('public key:', publicKey);
 
   const $btn = $('#subscribed');
 
