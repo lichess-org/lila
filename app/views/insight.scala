@@ -47,7 +47,8 @@ lidraughts.insight = LidraughtsInsight(document.getElementById('insight'), ${
             "pageUrl" -> routes.Lobby.home.url,
             "postUrl" -> routes.Lobby.home.url
           ))
-        })""")
+        });
+});""")
       ),
       moreCss = cssTag("insight")
     )(frag(
