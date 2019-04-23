@@ -29,6 +29,10 @@ lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $REMOTE:$REMOTE_DIR
 
+SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR"
+echo $SSH_COMMAND
+ssh $REMOTE $SSH_COMMAND
+
 lilalog "Deploy complete"
 
 if [ $mode = "main" ]; then
