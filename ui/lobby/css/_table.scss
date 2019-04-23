@@ -9,7 +9,7 @@
     flex: 1 1 auto;
     margin: -1em 1em 0 1em;
     @include breakpoint($mq-col2) {
-      margin: 0;
+      margin: 2em 0 0 0;
     }
     a {
       font-size: 1.1em;
