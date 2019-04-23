@@ -94,18 +94,19 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
 <p>${trans.common_orPaste.literalTo(lang).render}</p>
 """
 
-    private[Mailgun] def wrap(subject: String, body: Frag) = raw {
-      s"""<!doctype html>
+    private[Mailgun] def wrap(subject: String, body: Frag): Frag = frag(
+      raw(s"""<!doctype html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>${escapeHtml(subject)}</title>
   </head>
-  <body>
-    $body
+  <body>"""),
+      body,
+      raw("""
   </body>
-</html>"""
-    }
+</html>""")
+    )
   }
 }
