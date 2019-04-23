@@ -135,6 +135,8 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
   };
 }
 
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
     const input = castlingFlavours($input.val());
@@ -142,12 +144,17 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     else {
       const d = ctrl.data,
         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
-        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans,
-        uci = sanToUci(input, sans) || input;
+        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
+      let uci = sanToUci(input, sans) || input,
+        promotion = '';
+
+      if (input.match(promotionRegex)) {
+        uci = sanToUci(input.slice(0, -2), sans) || input;
+        promotion = input.slice(-1).toLowerCase();
+      }
+
       if (legalUcis.includes(uci.toLowerCase())) ctrl.socket.send("move", {
-        from: uci.substr(0, 2),
-        to: uci.substr(2, 2),
-        promotion: uci.substr(4, 1)
+        u: uci + promotion
       }, { ackable: true });
       else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
     }
