@@ -16,16 +16,28 @@
       padding: .3em 1em!important;
     }
     label {
-      margin-right: 10px;
+      margin-right: .5em;
+      white-space: normal;
     }
     .single select {
       width: 100%;
     }
-    table .half {
-      float: left;
-      width: 49%;
-      padding-right: 1%;
-      text-align: right;
+    table {
+      .half {
+        @extend %flex-center;
+        float: left;
+        width: 50%;
+        text-align: right;
+        justify-content: flex-end;
+        select, input {
+          margin-left: .3em;
+        }
+      }
+      .date {
+        input {
+          width: 100%;
+        }
+      }
     }
     .action {
       text-align: right;

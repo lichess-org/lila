@@ -131,7 +131,7 @@ private object bits {
       td(cls := "single")(form3.select(form("winnerColor"), Query.winnerColors, "".some))
     )
 
-    def date = tr(
+    def date = tr(cls := "date")(
       th(label("Date")),
       td(
         div(cls := "half")("From ", form3.input(form("dateMin"), "date")(dateMinMax: _*)),
