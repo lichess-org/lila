@@ -68,7 +68,6 @@ object bits {
 
   def searchForm(query: Option[String])(implicit ctx: Context) =
     form(cls := "search", method := "GET", action := routes.Video.index)(
-      iconTag("y"),
       input(placeholder := trans.search.txt(), tpe := "text", name := "q", value := query)
     )
 
