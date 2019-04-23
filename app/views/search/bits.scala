@@ -1,6 +1,8 @@
 package views.html.search
 
 import play.api.data.Form
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -8,6 +10,10 @@ import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.gameSearch.{ Query, Sorting }
 
 private object bits {
+
+  private val dateFormatter = DateTimeFormat.forPattern("YYYY-MM-dd");
+  private val dateMin = "2018-08-13"
+  private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now))
 
   def of(form: Form[_])(implicit ctx: Context) = new {
 
@@ -128,8 +134,8 @@ private object bits {
     def date = tr(
       th(label(trans.date())),
       td(
-        div(cls := "half")(trans.from(), " ", form3.flatpickr(form("dateMin"))),
-        div(cls := "half")(trans.to(), " ", form3.flatpickr(form("dateMin")))
+        div(cls := "half")(trans.from(), " ", form3.input(form("dateMin"), "date")(dateMinMax: _*)),
+        div(cls := "half")(trans.to(), " ", form3.input(form("dateMax"), "date")(dateMinMax: _*))
       )
     )
 

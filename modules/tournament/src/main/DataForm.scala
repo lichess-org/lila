@@ -8,7 +8,7 @@ import play.api.data.validation.Constraints
 import draughts.Mode
 import draughts.StartingPosition
 import lidraughts.common.Form._
-import lidraughts.common.Form.ISODate._
+import lidraughts.common.Form.ISODateTime._
 import lidraughts.user.User
 
 final class DataForm {
