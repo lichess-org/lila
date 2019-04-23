@@ -38,7 +38,7 @@ object page {
       isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
     ),
     moreCss = frag(
-      cssTag("user.show.activity"),
+      cssTag("user.show"),
       isGranted(_.UserSpy) option cssTag("mod.user")
     )
   ) {
@@ -76,7 +76,7 @@ object page {
       isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
     ),
     moreCss = frag(
-      cssTag("user.show.games"),
+      cssTag("user.show"),
       if (filters.current.name == "search") cssTag("user.show.search")
       else info.nbs.crosstable.isDefined option cssTag("crosstable"),
       isGranted(_.UserSpy) option cssTag("mod.user")
