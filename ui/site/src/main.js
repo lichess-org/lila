@@ -130,7 +130,7 @@
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
-          $.ajax({
+          if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i)) $.ajax({
             url: '/player/autocomplete',
             cache: true,
             data: {
