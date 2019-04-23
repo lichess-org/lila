@@ -27,7 +27,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
           opts.show();
           li.sound.newChallenge();
         }
-        c.challenger && notify(showUser(c.challenger) + ' challenges you!');
+        !('PushManager' in window) && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
     });
