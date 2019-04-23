@@ -113,7 +113,6 @@ object forms {
     error: Option[Frag] = None
   )(fields: Frag)(implicit ctx: Context) =
     div(cls := error.isDefined option "error")(
-      a(href := routes.Lobby.home, cls := "close icon", st.title := trans.cancel.txt(), dataIcon := "L"),
       h2(titleF),
       error.map { e =>
         frag(
