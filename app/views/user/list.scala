@@ -32,7 +32,7 @@ object list {
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(
             h2(trans.onlinePlayers()),
-            ol(cls := "user_top")(online map { u =>
+            ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
                 showBestPerf(u)
@@ -66,7 +66,7 @@ object list {
     }
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
-    st.section(cls := "user_top")(
+    st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := "g")(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
@@ -81,7 +81,7 @@ object list {
     )
 
   private def userTopPerf(users: List[User.LightPerf], perfType: PerfType) =
-    st.section(cls := "user_top")(
+    st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.name)
       ),
@@ -94,7 +94,7 @@ object list {
     )
 
   private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char] = None)(implicit ctx: Context) =
-    st.section(cls := "user_top")(
+    st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>
         li(

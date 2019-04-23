@@ -17,7 +17,7 @@ $user-list-width: 25ch;
     margin-bottom: 2rem;
   }
 
-  .user_top {
+  .user-top {
     li {
       width: 100%;
       display: flex;
@@ -46,7 +46,7 @@ $user-list-width: 25ch;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
       border: 1px solid $c-lead;
-      .user_top {
+      .user-top {
         border-left: 1px solid $c-lead;
       }
       h2 {
