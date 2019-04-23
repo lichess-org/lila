@@ -25,10 +25,8 @@ private final class WebPush(
   java.security.Security.addProvider(new BouncyCastleProvider())
 
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
-    getSubscriptions(userId) flatMap {
-      case Nil => funit
-      case subscription :: _ =>
-        send(subscription, data) // TODO: Support multiple subscriptions
+    getSubscriptions(userId) flatMap { subscriptions: List[WebSubscription] =>
+      subscriptions.map(send(_, data)).sequenceFu.void
     }
 
   private def send(sub: WebSubscription, data: PushApi.Data): Funit = {
