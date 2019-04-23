@@ -48,6 +48,7 @@ private final class WebPush(
 
     val javaFuture = pushService.sendAsync(notification)
 
+    // TODO: Is this acceptable?
     FutureConverters.toScala(CompletableFuture.supplyAsync(new Supplier[Unit] {
       override def get(): Unit = javaFuture.get
     }))
