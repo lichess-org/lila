@@ -30,6 +30,9 @@ function command(q: string) {
   else if (exec == 'light' || exec == 'dark' || exec == 'transp') 
     getDasher(dasher => dasher.subs.background.set(exec));
 
+  else if (exec === 'commands')
+    alert('/tv <username>\n/follow <username>\n/play <username>\n/challenge <username>\n/match <username>\n/light\n/dark\n/transp');
+
   else 
     alert('Unknown command: ' + q);
 }
