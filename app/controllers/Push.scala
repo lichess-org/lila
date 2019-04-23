@@ -21,12 +21,10 @@ object Push extends LilaController {
   def webSubscribe = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     ctx.body.body.validate[WebSubscription].fold(
       err => BadRequest(err.toString).fuccess,
-      data => Env.push.webSubscribe(me, data) >> {
-        Env.push.testMessage(me.id)
-      } /* Env.current.scheduler.after(2 seconds) {
+      data => Env.push.webSubscribe(me, data) >> Env.current.scheduler.after(2 seconds) {
         Env.push.testMessage(me.id)
         NoContent
-      } */
+      }
     )
   }
 }
