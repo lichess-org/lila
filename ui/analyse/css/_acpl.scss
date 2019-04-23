@@ -8,8 +8,10 @@
     width: 100%;
   }
   td {
-    padding-right: .3em;
     text-align: center;
+    &:first-child {
+      width: 5ch;
+    }
   }
   tbody td {
     font-weight: bold;
