@@ -59,7 +59,7 @@ export function main(ctrl: RoundController): VNode {
 
   return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: util.hasTouchEvents ? undefined : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       renderGround(ctrl),
       promotion.view(ctrl)
