@@ -8,7 +8,7 @@ $mq-col4: $mq-x-large;
     min-height: 400px;
   }
   @include breakpoint($mq-col3) {
-    height: 700px;
+    height: 600px;
     max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
   }
 }
