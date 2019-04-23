@@ -38,7 +38,7 @@
 
 @mixin hide {
   display: none;
-  .blind_mode & {
+  .blind-mode & {
     display: inherit;
   }
 }

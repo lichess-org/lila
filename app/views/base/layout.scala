@@ -46,7 +46,7 @@ object layout {
       s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}">"""
     } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("images/favicon-32-white.png")}" sizes="32x32">""")
   }
-  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind_mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
+  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lidraughts.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
@@ -145,7 +145,7 @@ object layout {
         cls := List(
           s"${ctx.currentBg} ${ctx.currentTheme.cssClass}" -> true,
           "zen" -> ctx.pref.isZen,
-          "blind_mode" -> ctx.blind,
+          "blind-mode" -> ctx.blind,
           "kid" -> ctx.kid,
           "mobile" -> ctx.isMobileBrowser,
           "playing fixed-scroll" -> playing,
