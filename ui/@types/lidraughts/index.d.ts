@@ -282,7 +282,7 @@ interface JQueryStatic {
 }
 
 interface LidraughtsModal {
-  (html: string | JQuery): JQuery;
+  (html: string | JQuery, cls: string): JQuery;
   close(): void;
 }
 

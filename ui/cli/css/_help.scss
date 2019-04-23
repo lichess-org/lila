@@ -1,0 +1,24 @@
+.clinput-help {
+  > div > div {
+    @extend %flex-column;
+  }
+  h3 {
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+  .command {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1em 0;
+    border-top: $border;
+    p {
+      font-family: monospace;
+      margin: 0;
+    }
+    > div {
+      flex: 0 0 50%;
+    }
+  }
+}
