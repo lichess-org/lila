@@ -41,6 +41,8 @@ unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS"
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
 
+routesGenerator := LidraughtsRoutesGenerator 
+
 lazy val modules = Seq(
   common, db, draughts, rating, user, security, hub, socket,
   message, notifyModule, i18n, game, bookmark, search,
