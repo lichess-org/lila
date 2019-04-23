@@ -661,6 +661,9 @@
   <string name="analysisShapesHowTo">Perge shift+click aut right+click ut circulos sagittasque in tabula pingas.</string>
   <string name="letOtherPlayersMessageYou">Sinire lusores alios tecum communicare.</string>
   <string name="shareYourInsightsData">Data tua mentis partiri.</string>
+  <string name="withNobody">Nullus est</string>
+  <string name="withFriends">Cum amicis</string>
+  <string name="withEverybody">In omnibus</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>
   <string name="kidMode">Modus puerilis</string>
   <string name="security">Cautionis</string>
