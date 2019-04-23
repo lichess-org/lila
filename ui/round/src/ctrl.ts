@@ -109,8 +109,6 @@ export default class RoundController {
 
     setTimeout(this.showExpiration, 350);
 
-    setTimeout(this.showYourMoveNotification, 500);
-
     // at the end:
     li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
 
