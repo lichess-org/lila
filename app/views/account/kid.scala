@@ -31,7 +31,7 @@ object kid {
       ),
       br,
       br,
-      p(trans.inKidModeTheLidraughtsLogoGetsIconX(raw(s"""<span title="${trans.kidMode()}" class="kiddo">😊</span>""")))
+      p(trans.inKidModeTheLidraughtsLogoGetsIconX(span(cls := "kiddo", title := trans.kidMode.txt())("😊")))
     )
   }
 }
