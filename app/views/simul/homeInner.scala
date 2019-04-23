@@ -21,8 +21,8 @@ object homeInner {
         thead(
           tr(
             th(trans.createdSimuls()),
-            th(trans.host()),
-            th(trans.players())
+            th(cls := "host")(trans.host()),
+            th(cls := "players")(trans.players())
           )
         ),
         tbody(
@@ -30,7 +30,7 @@ object homeInner {
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "text", dataIcon := "r")(sim.applicants.size)
+              td(cls := "players text", dataIcon := "r")(sim.applicants.size)
             )
           },
           ctx.isAuth option tr(cls := "create")(
@@ -43,23 +43,23 @@ object homeInner {
           thead(
             tr(
               th(trans.eventInProgress()),
-              th(trans.host()),
-              th(trans.players())
+              th(cls := "host")(trans.host()),
+              th(cls := "players")(trans.players())
             )
           ),
           starteds.map { sim =>
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "text", dataIcon := "r")(sim.pairings.size)
+              td(cls := "players text", dataIcon := "r")(sim.pairings.size)
             )
           }
         )),
         thead(
           tr(
             th(trans.finished()),
-            th(trans.host()),
-            th(trans.players())
+            th(cls := "host")(trans.host()),
+            th(cls := "players")(trans.players())
           )
         ),
         tbody(
@@ -67,7 +67,7 @@ object homeInner {
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "text", dataIcon := "r")(sim.pairings.size)
+              td(cls := "players text", dataIcon := "r")(sim.pairings.size)
             )
           }
         )
