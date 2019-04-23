@@ -1,7 +1,7 @@
-#blind_mode {
+#blind-mode {
   margin-left: -99999px;
   height: 0;
-  body.blind_mode & {
+  .blind-mode & {
     text-align: center;
     padding: 5px 0;
     background: #888;
@@ -9,10 +9,12 @@
     height: auto;
   }
 }
-body.blind_mode .is::before,
-body.blind_mode .is::after,
-body.blind_mode [data-icon]::before {
-  content: none;
-  display: none;
-  visibility: hidden;
+.blind-mode {
+  .is::before,
+  .is::after,
+  [data-icon]::before {
+    content: none;
+    display: none;
+    visibility: hidden;
+  }
 }

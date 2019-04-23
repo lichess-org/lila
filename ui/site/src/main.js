@@ -795,7 +795,7 @@
     lichess.requestIdleCallback(function() {
       lichess.parseFen();
       $('.chat__members').watchers();
-      if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
+      if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind-mode'))
         $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lichess.reload);
     });
   });

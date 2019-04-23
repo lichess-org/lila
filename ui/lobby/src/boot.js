@@ -97,7 +97,7 @@ module.exports = function(cfg, element) {
   cfg.pools = pools;
   lobby = LichessLobby.start(cfg);
 
-  var blindMode = $('body').hasClass('blind_mode');
+  var blindMode = $('body').hasClass('blind-mode');
 
   var $startButtons = $('.lobby__start');
 
