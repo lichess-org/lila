@@ -360,7 +360,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     intro || h(addChapterId(study, 'div.analyse__board.main-board.' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor()), {
-      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: (hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
       draughtsground.render(ctrl),
