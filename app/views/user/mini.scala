@@ -67,7 +67,7 @@ object mini {
     (!ctx.pref.isBlindfold) ?? playing map { pov =>
       frag(
         gameFen(pov),
-        div(cls := "game_legend")(
+        div(cls := "upt__game-legend")(
           playerText(pov.opponent, withRating = true),
           pov.game.clock map { c =>
             frag(" • ", c.config.show)
