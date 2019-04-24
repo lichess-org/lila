@@ -24,6 +24,7 @@
     border: $border;
     border-width: 1px 0;
     position: relative; /* required so line::before scrolls along the moves! */
+    overflow: hidden;
     .result,
     .status {
       background: $c-bg-zebra;
