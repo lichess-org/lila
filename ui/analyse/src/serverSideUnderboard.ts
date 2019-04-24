@@ -110,9 +110,11 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     setPanel(panel);
   });
   const stored = storage.get();
-  const $menuCt = $menu.children('[data-panel="ctable"]');
-  if (stored && $menuCt.length) setPanel(stored);
-  else ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
+  if (stored && $menu.children(`[data-panel="${stored}"]`).length) setPanel(stored);
+  else {
+    const $menuCt = $menu.children('[data-panel="ctable"]');
+    ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
+  }
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').submit(function(this: HTMLElement) {
       if ($(this).hasClass('must-login')) {
