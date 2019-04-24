@@ -9,6 +9,7 @@ import { MaybeVNodes } from '../interfaces';
 
 export default function(ctrl: TournamentController) {
   let handler: {
+    name: string;
     main(ctrl: TournamentController): MaybeVNodes;
     table(ctrl: TournamentController): VNode | undefined;
   };
@@ -30,7 +31,7 @@ export default function(ctrl: TournamentController) {
     }),
     handler.table(ctrl),
     h('div.tour__main',
-      h('div.box', {
+      h('div.box.' + handler.name, {
         class: { 'tour__main-finished': ctrl.data.isFinished }
       }, handler.main(ctrl))
     ),

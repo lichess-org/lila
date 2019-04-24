@@ -19,6 +19,9 @@ $mq-col3: $mq-col3-uniboard;
     margin-top: 30px;
     width: 300px;
   }
+  .box.created {
+    padding-bottom: 2em; /* as quote margin */
+  }
 }
 
 .tour__faq {

@@ -6,6 +6,8 @@ import * as pagination from '../pagination';
 import { controls, standing } from './arena';
 import header from './header';
 
+export const name = 'created';
+
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [

@@ -32,6 +32,8 @@ function stats(st, noarg): VNode {
   ]);
 }
 
+export const name = 'finished';
+
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [

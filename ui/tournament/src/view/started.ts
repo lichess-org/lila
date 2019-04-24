@@ -24,6 +24,8 @@ function notice(ctrl: TournamentController): VNode {
   ) : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
 }
 
+export const name = 'started';
+
 export function main(ctrl: TournamentController): MaybeVNodes {
   const gameId = ctrl.myGameId(),
     pag = pagination.players(ctrl);
