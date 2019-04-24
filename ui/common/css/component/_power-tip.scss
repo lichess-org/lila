@@ -77,18 +77,9 @@
       margin: 0;
     }
   }
-  .confirm {
-    margin-top: 10px;
-    width: 100%;
+  &__game-legend {
     text-align: center;
-  }
-  > .game_legend {
-    text-align: center;
-    border-bottom: $border;
-    padding: 3px 0;
-  }
-  .spinner {
-    margin: 20px auto;
+    padding: .2em 0;
   }
 }
 #miniGame {
