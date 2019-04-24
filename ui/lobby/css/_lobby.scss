@@ -28,7 +28,10 @@ body {
   align-content: flex-start;
   flex-flow: row wrap;
   font-size: .85em;
-  margin: $block-gap 0 0 $block-gap;
+  margin-left: $block-gap;
+  @include breakpoint($mq-col3) {
+    margin: 0;
+  }
   a {
     color: $c-font-dim;
     font-weight: bold;
