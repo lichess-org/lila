@@ -817,6 +817,7 @@ v %3$s</string>
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s se přidal k %2$s</string>
   <string name="xLikesY">%1$s lajknul %2$s</string>
+  <string name="xCreatesStudyY">%1$s vytvořil studii %2$s</string>
   <string name="quickPairing">Rychlá hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>
