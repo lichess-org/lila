@@ -14,7 +14,7 @@
   padding: 9px;
   @include fluid-size('font-size', 16px, 29px);
   > div {
-    @extend %flex-column, %box-radius;
+    @extend %flex-column, %box-radius, %break-word;
     justify-content: center;
     align-items: center;
     cursor: pointer;
