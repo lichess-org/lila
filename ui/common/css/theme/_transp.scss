@@ -22,6 +22,10 @@ $c-bg-header-dropdown: hsla(0, 0%, 0%, .75);
 
 $text-shadow: 0 0 2px #000, 0 0 5px #000;
 
+%base-font-shadow {
+  text-shadow: $text-shadow;
+}
+
 @mixin metal {
   background: linear-gradient(to bottom, hsla(0, 0, 0, .5), hsla(0, 0, 0, .6) 100%);
 }
