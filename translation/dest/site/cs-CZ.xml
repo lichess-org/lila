@@ -178,6 +178,9 @@
   <string name="ratingStats">Statistiky hodnocení</string>
   <string name="username">Uživatelské jméno</string>
   <string name="usernameOrEmail">Uživatelské jméno</string>
+  <string name="changeUsername">Změnit uživatelské jméno</string>
+  <string name="changeUsernameNotSame">Můžete změnit pouze velikost písmen. Např. z \"petrnovak\" na \"PetrNovak\".</string>
+  <string name="changeUsernameDescription">Změňte své uživatelské jméno. To lze provést pouze jednou, a můžete změnit pouze velikost písmen.</string>
   <string name="password">Heslo</string>
   <string name="haveAnAccount">Máte již účet?</string>
   <string name="changePassword">Změnit heslo</string>
@@ -814,6 +817,7 @@ v %3$s</string>
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s se přidal k %2$s</string>
   <string name="xLikesY">%1$s lajknul %2$s</string>
+  <string name="xCreatesStudyY">%1$s vytvořil studii %2$s</string>
   <string name="quickPairing">Rychlá hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>
