@@ -164,6 +164,7 @@
   <string name="ratingStats">Estadísticas de puntuación</string>
   <string name="username">Nombre de usuario</string>
   <string name="usernameOrEmail">Nombre de usuario o correo</string>
+  <string name="changeUsername">Cambiar nombre de usuario</string>
   <string name="password">Contraseña</string>
   <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
