@@ -7,7 +7,7 @@
     @extend %flex-column;
     justify-content: stretch;
     flex: 1 1 auto;
-    margin: -1em 1em 0 1em;
+    margin: 0 1em 0 1em;
     @include breakpoint($mq-col2) {
       margin: 2em 0 0 0;
     }
