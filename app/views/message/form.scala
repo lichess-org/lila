@@ -25,7 +25,7 @@ object form {
       moreCss = cssTag("message"),
       moreJs = jsTag("message.js")
     ) {
-        main(cls := "message-new box box-pad")(
+        main(cls := "message-new box box-pad page-small")(
           h1(trans.composeMessage()),
           reqUser.ifFalse(canMessage).map { u =>
             frag(
