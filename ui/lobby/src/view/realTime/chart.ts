@@ -102,7 +102,7 @@ function renderXAxis() {
   return tags;
 }
 
-const yMarks = [1000, 1200, 1400, 1500, 1600, 1800, 2000];
+const yMarks = [1000, 1200, 1400, 1500, 1600, 1800];
 
 function renderYAxis() {
   const tags: VNode[] = [];
