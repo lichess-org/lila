@@ -44,7 +44,7 @@ function command(q: string) {
 
 function commandHelp(aliases: string, args: string, desc: string) {
   return '<div class="command"><div>' +
-    aliases.split(' ').map(a => `<p>/${a} ${window.lichess.escapeHtml(args)}</p>`).join('') +
+    aliases.split(' ').map(a => `<p>${a} ${window.lichess.escapeHtml(args)}</p>`).join('') +
     `</div> ${desc}</div>`;
 }
 
@@ -52,11 +52,15 @@ function help() {
   window.lichess.loadCssPath('clinput.help')
   $.modal(
     '<h3>Commands</h3>' +
-    commandHelp('tv follow', ' <user>', 'Watch someone play') +
-    commandHelp('play challenge match', ' <user>', 'Challenge someone to play') +
-    commandHelp('light dark transp', '', 'Change the background theme') +
-    commandHelp('stream', '<user>', 'Watch someone stream') +
-    commandHelp('help commands', '', 'Display this help'),
+    commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
+    commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
+    commandHelp('/light /dark /transp', '', 'Change the background theme') +
+    commandHelp('/stream', '<user>', 'Watch someone stream') +
+    commandHelp('/help /commands', '', 'Display this help') +
+    '<h3>Global hotkeys</h3>' +
+    commandHelp('s', '', 'Search for a user') +
+    commandHelp('/', '', 'Type a command') +
+    commandHelp('esc', '', 'Close modals like this one'),
     'clinput-help'
   );
 }
