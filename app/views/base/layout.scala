@@ -36,7 +36,7 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lichess-v2.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff")}" as="font" type="font/woff" crossorigin/>""")
   private val manifests = raw(List(
     """<link rel="manifest" href="/manifest.json" />""",
     """<meta name="twitter:site" content="@lichess" />"""
