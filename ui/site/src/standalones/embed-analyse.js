@@ -19,8 +19,10 @@ function toYouTubeEmbedUrl(url) {
 
 $(function() {
 
-  var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
-  var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
+  var domain = window.location.host;
+
+  var studyRegex = new RegExp(domain + '\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b');
+  var gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b');
   var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
   var parseLink = function(a) {
@@ -63,8 +65,9 @@ $(function() {
   };
 
   var expand = function(a) {
-    var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', a.src);
-    $(a.element).replaceWith($iframe);
+    var src = a.src + '?bg=' + $('body').data('theme');
+    var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', src);
+    $(a.element).replaceWith($('<div class="embed"></div>').html($iframe));
     return $iframe.on('load', function() {
       if (this.contentDocument.title.startsWith("404")) this.style.height = '100px';
     }).on('mouseenter', function() {
