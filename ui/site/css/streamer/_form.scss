@@ -15,7 +15,7 @@
   }
 
   .status {
-    @extend %box-radius, %data-icon-middle;
+    @extend %box-radius;
     padding: 1em 1.5em;
     margin-bottom: 2em;
     background: $c-bg-zebra;

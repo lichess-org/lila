@@ -237,7 +237,6 @@ body.no-inquiry {
     text-align: left;
   }
   .dropper > span.icon {
-    @extend %data-icon-middle;
     line-height: 40px;
   }
   .dropper.warn,

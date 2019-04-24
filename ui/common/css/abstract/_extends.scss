@@ -89,7 +89,7 @@
 
 %data-icon {
   font-size: 1.1em;
-  vertical-align: text-top;
+  vertical-align: middle;
   font-family: 'lichess';
   font-style: normal;
   font-weight: normal;
@@ -98,9 +98,9 @@
   content: attr(data-icon);
   opacity: 0.9;
 }
-%data-icon-middle {
+%data-icon-top {
   &::before {
-    vertical-align: middle;
+    vertical-align: text-top;
   }
 }
 %fullscreen-mask {

@@ -6,7 +6,7 @@
     border-bottom: none;
   }
   td {
-    @extend %nowrap-hidden, %data-icon-middle;
+    @extend %nowrap-hidden;
     padding: .2em 1em;
     line-height: 2em;
     text-overflow: ellipsis;

@@ -150,9 +150,6 @@
     a:hover {
       filter: brightness(0.9);
     }
-    [data-icon] {
-      @extend %data-icon-middle;
-    }
   }
   piece {
     width: 100%;
