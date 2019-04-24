@@ -17,6 +17,12 @@
     @extend %base-font;
   }
 }
+
+/* text printed directly on the page background
+ * deserves special treatment (transp theme) */
+%base-text {
+  @extend %base-font, %base-font-shadow !optional;
+}
 %active {
   background: $c-accent;
   color: #fff;

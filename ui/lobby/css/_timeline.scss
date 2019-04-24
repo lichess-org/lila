@@ -4,9 +4,9 @@
   color: $c-font-page;
   @include hoverflow;
   .entry {
-    @extend %roboto;
+    @extend %roboto, %base-text;
     a {
-      @extend %base-font;
+      @extend %base-text;
       color: $c-font-page;
     }
     &:hover a {
