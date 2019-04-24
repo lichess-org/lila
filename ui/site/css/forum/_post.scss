@@ -1,6 +1,7 @@
 .forum-post {
+  font-size: 1.1em;
   border-top: $border;
-  padding: 4rem 0;
+  padding: 2rem 0;
 
   &__metas {
     @extend %flex-between;
@@ -11,7 +12,7 @@
     .author {
       color: $c-font-dim;
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.1em;
       margin-right: 1rem;
     }
     .anchor {
@@ -24,7 +25,7 @@
     @media (hover: hover) {
       visibility: hidden;
     }
-    font-size: 90%;
+    font-size: .9em;
     &.postip {
       margin-left: 1rem;
       max-width: 50vw;
@@ -54,9 +55,12 @@
 
   &__message {
     @extend %break-word;
-    .embed {
+    .embed:not(img) {
       @extend %video;
-      margin-bottom: $block-gap;
+      margin: $block-gap auto;
+    }
+    img {
+      max-width: 100%;
     }
   }
 
