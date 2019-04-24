@@ -24,7 +24,6 @@ LichessLearn(document.getElementById('learn-app'), ${
       })})""")
     ),
     moreCss = cssTag("learn"),
-    chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = "Learn chess by playing",
       description = "You don't know anything about chess? Excellent! Let's have fun and learn to play chess!",
