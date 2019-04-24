@@ -26,7 +26,7 @@ object thread {
       )
     ) {
         main(cls := List(
-          "message-thread box box-pad" -> true,
+          "message-thread box box-pad page-small" -> true,
           "mod" -> thread.asMod
         ))(
           div(cls := "box__top")(
@@ -43,7 +43,7 @@ object thread {
               div(cls := "infos")(
                 div(
                   userIdLink(thread.visibleSenderOf(post), none),
-                  iconTag("H"),
+                  iconTag("H")(cls := "to"),
                   userIdLink(thread.visibleReceiverOf(post), "inline".some)
                 ),
                 momentFromNow(post.createdAt)
