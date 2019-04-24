@@ -47,4 +47,10 @@
     'uchat under .';
     @include crosstable-large;
   }
+
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    .crosstable {
+      display: none;
+    }
+  }
 }
