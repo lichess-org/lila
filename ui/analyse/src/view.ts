@@ -237,13 +237,19 @@ function renderOpeningBox(ctrl: AnalyseCtrl) {
   ]);
 }
 
-const innerCoordsCss = 'stylesheets/board.coords.inner.css';
+function innerCoordsCss() {
+  let board = 'other';
+  ['brown', 'green', 'blue'].forEach(b => {
+    if ($('body').hasClass(b)) board = b;
+  });
+  return `css/coords.inner.${board}.min.css`;
+}
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   const pref = ctrl.data.pref.coords;
   if (!pref) return;
-  if (v) li.loadCss(innerCoordsCss);
-  else if (pref === 2) unloadCss(innerCoordsCss);
+  if (v) li.loadCss(innerCoordsCss());
+  else if (pref === 2) unloadCss(innerCoordsCss());
 }
 
 function unloadCss(url) {
@@ -275,7 +281,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       insert: _ => {
         if (firstRender) {
           firstRender = false;
-          if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
+          if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss()] = true;
         }
         forceInnerCoords(ctrl, needsInnerCoords);
         if (!!playerBars != $('body').hasClass('header-margin')) {
