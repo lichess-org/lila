@@ -9,6 +9,7 @@
     position: absolute;
     left: 0;
     z-index: 1;
+    pointer-events: none;
   }
 
   &.orientation-white::before {
@@ -30,4 +31,5 @@
   top: 37.5%;
   left: 37.5%;
   z-index: 1;
+  pointer-events: none;
 }
