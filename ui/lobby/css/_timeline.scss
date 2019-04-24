@@ -6,7 +6,7 @@
   .entry {
     @extend %roboto;
     a {
-      @extend %base-font;
+      @extend %base-font, %data-icon-middle;
       color: $c-font-page;
     }
     &:hover a {
