@@ -9,20 +9,22 @@ import lidraughts.game.Pov
 trait DraughtsgroundHelper {
 
   def draughtsground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag = wrap {
-    def addX(p: Pos) = if (p.y % 2 != 0) -0.5 else -1.0
-    def top(p: Pos) = orient.fold(p.y - 1, 10 - p.y) * 10.0
-    def left(p: Pos) = orient.fold(addX(p) + p.x, 4.5 - (addX(p) + p.x)) * 20.0
-    val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
-      s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
-    } mkString ""
-    val pieces =
-      if (ctx.pref.isBlindfold) ""
-      else board.pieces.map {
-        case (pos, piece) =>
-          val klass = s"${piece.color.name} ${piece.role.name}"
-          s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
+    raw {
+      def addX(p: Pos) = if (p.y % 2 != 0) -0.5 else -1.0
+      def top(p: Pos) = orient.fold(p.y - 1, 10 - p.y) * 10.0
+      def left(p: Pos) = orient.fold(addX(p) + p.x, 4.5 - (addX(p) + p.x)) * 20.0
+      val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
+        s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
       } mkString ""
-    s"$highlights$pieces"
+      val pieces =
+        if (ctx.pref.isBlindfold) ""
+        else board.pieces.map {
+          case (pos, piece) =>
+            val klass = s"${piece.color.name} ${piece.role.name}"
+            s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
+        } mkString ""
+      s"$highlights$pieces"
+    }
   }
 
   def draughtsground(pov: Pov)(implicit ctx: Context): Frag = draughtsground(
