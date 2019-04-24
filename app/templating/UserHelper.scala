@@ -170,8 +170,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   )(
       withOnline ?? lineIcon(user),
       withTitle option titleTag(user.title),
-      userRating(user, withPerfRating, withBestRating),
-      text | user.username
+      text | user.username,
+      userRating(user, withPerfRating, withBestRating)
     )
 
   def userSpan(
@@ -208,8 +208,10 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   private def renderRating(perf: Perf): Frag = frag(
     nbsp,
+    "(",
     perf.intRating,
-    perf.provisional option "?"
+    perf.provisional option "?",
+    ")"
   )
 
   private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean): Frag =
