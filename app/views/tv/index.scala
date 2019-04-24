@@ -52,9 +52,7 @@ object index {
             div(cls := "tv-history")(
               h2(trans.previouslyOnLichessTV()),
               div(cls := "now-playing")(
-                history.map { p =>
-                  a(href := gameLink(p))(views.html.game.bits.mini(p))
-                }
+                history map views.html.game.bits.mini
               )
             )
           )
