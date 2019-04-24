@@ -131,14 +131,7 @@ object bits {
       )
     ),
     br,
-    p("You can't start a new game until this one is finished."),
-    br, br,
-    p(
-      "If you want to play several games simultaneously,",
-      br,
-      a(href := routes.Simul.home)("create a simultaneous exhibition event"),
-      "!"
-    )
+    p("You can't start a new game until this one is finished.")
   )
 
   def nopeInfo(content: Modifier*) = frag(
