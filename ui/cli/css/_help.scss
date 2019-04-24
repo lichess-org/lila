@@ -4,7 +4,10 @@
   }
   h3 {
     font-size: 2em;
-    margin-bottom: 1em;
+    margin: .5em 0 .2em 0;
+    &:first-child {
+      margin-top: 0;
+    }
   }
   .command {
     display: flex;
