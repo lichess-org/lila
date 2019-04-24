@@ -45,6 +45,9 @@
         max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
+        .line::before {
+          content: '';
+        }
       }
       &.tv {
         @extend %data-icon-middle;
