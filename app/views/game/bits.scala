@@ -15,10 +15,11 @@ object bits {
     vstext(pov)(none)
   )
 
-  def mini(pov: Pov)(implicit ctx: Context): Frag = frag(
-    gameFen(pov, withLink = false),
-    vstext(pov)(ctx.some)
-  )
+  def mini(pov: Pov)(implicit ctx: Context): Frag =
+    a(href := gameLink(pov))(
+      gameFen(pov, withLink = false),
+      vstext(pov)(ctx.some)
+    )
 
   def miniBoard(fen: draughts.format.FEN, color: draughts.Color = draughts.White): Frag = div(
     cls := "mini-board parse-fen cg-board-wrap is2d",

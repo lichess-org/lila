@@ -2,6 +2,7 @@
   @extend %flex-between-nowrap, %nowrap-hidden, %box-neat;
   background: $c-bg-box;
   padding: .3em .6em;
+  color: $c-font;
   &__center {
     text-align: center;
   }
