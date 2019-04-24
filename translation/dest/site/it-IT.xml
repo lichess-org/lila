@@ -545,7 +545,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
   <string name="pgnPieceNotation">Notazione mossa</string>
   <string name="chessPieceSymbol">Simbolo del pezzo</string>
-  <string name="pgnLetter">Lettera (R, D, T, A, C)</string>
+  <string name="pgnLetter">Lettera (K, Q, R, B, N)</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
   <string name="never">Mai</string>
@@ -790,7 +790,7 @@ in %3$s</string>
   <string name="error.min">Deve essere più grande o uguale a %s</string>
   <string name="error.max">Deve essere minore o uguale a %s</string>
   <string name="error.unknown">Errore</string>
-  <string name="custom">Altro/Personalizza</string>
+  <string name="custom">Personalizzato</string>
   <string name="notifications">Notifiche</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>

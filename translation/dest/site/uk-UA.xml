@@ -20,7 +20,7 @@
   <string name="black">Чорні</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
-  <string name="whiteIsVictorious">Перемога білих</string>
+  <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Перемога чорних</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
@@ -123,8 +123,8 @@
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s гравців</item>
-    <item quantity="few">%s гравців</item>
+    <item quantity="one">%s гравець</item>
+    <item quantity="few">%s гравці</item>
     <item quantity="many">%s гравців</item>
     <item quantity="other">%s гравців</item>
   </plurals>
@@ -179,12 +179,12 @@
   <string name="username">Псевдонім</string>
   <string name="usernameOrEmail">Ім’я користувача</string>
   <string name="changeUsername">Змінити ім\'я користувача</string>
-  <string name="changeUsernameNotSame">Можна змінити лише регістр букв. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам лише дозволено змінити регістр вашого імені користувача.</string>
+  <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже зареєстровані?</string>
   <string name="changePassword">Змінити пароль</string>
-  <string name="changeEmail">Змінити email</string>
+  <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Email</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>

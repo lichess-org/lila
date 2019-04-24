@@ -35,7 +35,14 @@ Ambōbus tibi opus est!</string>
   <string name="takeTheEnemyPieces">Captum partes hostes</string>
   <string name="protection">Custodia</string>
   <string name="combat">Pugna</string>
+  <string name="castling">Adroccare</string>
   <string name="stalemate">Rex impeditus</string>
+  <string name="advanced">Provectus</string>
   <string name="pieceValue">Pretii partes</string>
   <string name="register">Inscribere</string>
+  <string name="puzzles">Exercitii</string>
+  <string name="stageX">Scaena n%s</string>
+  <string name="awesome">Felix!</string>
+  <string name="next">Posterus</string>
+  <string name="retry">Adparare iterum</string>
 </resources>

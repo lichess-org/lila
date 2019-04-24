@@ -49,8 +49,8 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Dobio/la %s novog pratitelja</item>
-    <item quantity="few">Dobio %s novih pratitelja</item>
-    <item quantity="other">Dobio %s novih pratitelja</item>
+    <item quantity="few">Dobio/la %s nova pratitelja</item>
+    <item quantity="other">Dobio/la %s novih pratitelja</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Bio domaćin %s simultanke</item>
