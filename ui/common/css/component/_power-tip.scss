@@ -25,6 +25,9 @@
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
+        .line {
+          vertical-align: middle;
+        }
       }
       &__country {
         @extend %flex-center;
