@@ -7,7 +7,7 @@ import controllers.routes
 
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.game.{ Game, Player, Namer, Pov }
-import lidraughts.i18n.{ I18nKeys, enLang }
+import lidraughts.i18n.{ I18nKeys => trans, enLang }
 import lidraughts.user.{ User, UserContext, Title }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with DraughtsgroundHelper =>
@@ -67,30 +67,30 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def variantName(variant: draughts.variant.Variant)(implicit ctx: UserContext) = variant match {
-    case draughts.variant.Standard => I18nKeys.standard.txt()
-    case draughts.variant.FromPosition => I18nKeys.fromPosition.txt()
+    case draughts.variant.Standard => trans.standard.txt()
+    case draughts.variant.FromPosition => trans.fromPosition.txt()
     case v => v.name
   }
 
   def variantNameNoCtx(variant: draughts.variant.Variant) = variant match {
-    case draughts.variant.Standard => I18nKeys.standard.literalTxtTo(enLang)
-    case draughts.variant.FromPosition => I18nKeys.fromPosition.literalTxtTo(enLang)
+    case draughts.variant.Standard => trans.standard.literalTxtTo(enLang)
+    case draughts.variant.FromPosition => trans.fromPosition.literalTxtTo(enLang)
     case v => v.name
   }
 
   def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Frag =
-    clock.fold[Frag](I18nKeys.unlimited())(shortClockName)
+    clock.fold[Frag](trans.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
-    case Mode.Casual => I18nKeys.casual.txt()
-    case Mode.Rated => I18nKeys.rated.txt()
+    case Mode.Casual => trans.casual.txt()
+    case Mode.Rated => trans.rated.txt()
   }
 
   def modeNameNoCtx(mode: Mode): String = mode match {
-    case Mode.Casual => I18nKeys.casual.literalTxtTo(enLang)
-    case Mode.Rated => I18nKeys.rated.literalTxtTo(enLang)
+    case Mode.Casual => trans.casual.literalTxtTo(enLang)
+    case Mode.Rated => trans.rated.literalTxtTo(enLang)
   }
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag =
@@ -163,29 +163,29 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def gameEndStatus(game: Game)(implicit ctx: UserContext): String = game.status match {
-    case S.Aborted => I18nKeys.gameAborted.txt()
+    case S.Aborted => trans.gameAborted.txt()
     case S.Mate => ""
     case S.Resign => game.loser match {
-      case Some(p) if p.color.white => I18nKeys.whiteResigned.txt()
-      case _ => I18nKeys.blackResigned.txt()
+      case Some(p) if p.color.white => trans.whiteResigned.txt()
+      case _ => trans.blackResigned.txt()
     }
-    case S.UnknownFinish => I18nKeys.finished.txt()
-    case S.Stalemate => I18nKeys.stalemate.txt()
+    case S.UnknownFinish => trans.finished.txt()
+    case S.Stalemate => trans.stalemate.txt()
     case S.Timeout => game.loser match {
-      case Some(p) if p.color.white => I18nKeys.whiteLeftTheGame.txt()
-      case Some(_) => I18nKeys.blackLeftTheGame.txt()
-      case None => I18nKeys.draw.txt()
+      case Some(p) if p.color.white => trans.whiteLeftTheGame.txt()
+      case Some(_) => trans.blackLeftTheGame.txt()
+      case None => trans.draw.txt()
     }
-    case S.Draw => I18nKeys.draw.txt()
-    case S.Outoftime => I18nKeys.timeOut.txt()
+    case S.Draw => trans.draw.txt()
+    case S.Outoftime => trans.timeOut.txt()
     case S.NoStart => {
       val color = game.loser.fold(Color.white)(_.color).name.capitalize
       s"$color didn't move"
     }
     case S.Cheat => "Cheat detected"
     case S.VariantEnd => game.variant match {
-      case draughts.variant.Breakthrough => I18nKeys.promotion.txt()
-      case _ => I18nKeys.variantEnding.txt()
+      case draughts.variant.Breakthrough => trans.promotion.txt()
+      case _ => trans.variantEnding.txt()
     }
     case _ => ""
   }

@@ -61,9 +61,8 @@ trait DateHelper { self: I18nHelper =>
   def showEnglishDate(date: DateTime): String =
     englishDateFormatter print date
 
-  def semanticDate(date: DateTime)(implicit ctx: Context): Frag = raw {
-    s"""<time datetime="${isoDate(date)}">${showDate(date)}</time>"""
-  }
+  def semanticDate(date: DateTime)(implicit ctx: Context): Frag =
+    timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
   def showPeriod(period: Period)(implicit ctx: Context): String =
     periodFormatter(ctx) print period.normalizedStandard(periodType)
@@ -74,13 +73,15 @@ trait DateHelper { self: I18nHelper =>
   def isoDate(date: DateTime): String = isoFormatter print date
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
-  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag = raw {
+
+  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag = {
     if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
-    s"""<time class="timeago${if (once) " once" else ""}" datetime="${isoDate(date)}"></time>"""
+    else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))
   }
-  def absClientDateTime(date: DateTime): Frag = raw {
-    s"""<time class="timeago abs" datetime="${isoDate(date)}">-</time>"""
-  }
+
+  def absClientDateTime(date: DateTime): Frag =
+    timeTag(cls := "timeago abs", datetimeAttr := isoDate(date))("-")
+
   def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false)(implicit ctx: Context) =
