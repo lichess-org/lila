@@ -7,7 +7,7 @@ import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
 import * as side from './side';
-import { bind } from '../util';
+import { onInsert, bind, bindMobileMousedown, hasTouchEvents } from '../util';
 import { Controller } from '../interfaces';
 
 function renderOpeningBox(ctrl: Controller) {
@@ -52,13 +52,15 @@ function jumpButton(icon, effect) {
 
 function controls(ctrl: Controller) {
   return h('div.puzzle__controls.analyse-controls', {
-    hook: bind('mousedown', e => {
+    hook: onInsert(el => {
+      bindMobileMousedown(el, e => {
       const action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
       else if (action === 'next') control.next(ctrl);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
-    }, ctrl.redraw)
+      }, ctrl.redraw);
+    })
   }, [
     h('div.jumps', [
       jumpButton('W', 'first'),
@@ -95,7 +97,7 @@ export default function(ctrl: Controller): VNode {
     ]),
     cevalView.renderGauge(ctrl),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-      hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground(ctrl),
       ctrl.promotion.view()
