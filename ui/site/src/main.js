@@ -384,14 +384,16 @@
         if (!$wrap.length) return;
         var booted;
         var boot = function() {
-          if (booted) return;
+          if (booted) return $.Deferred().resolve();
           booted = true;
-          lidraughts.loadScript(lidraughts.compiledScript('cli')).done(function() {
+          return lidraughts.loadScript(lidraughts.compiledScript('cli')).done(function() {
             LidraughtsCli.app($wrap, toggle);
           });
         }
-        var toggle = function() {
-          boot();
+        var toggle = function(txt) {
+          boot().done(function() {
+            $wrap.find('input').val(txt || '');
+          });
           $('#top').toggleClass('clinput');
           if ($('#top').hasClass('clinput')) $wrap.find('input').focus();
         };
@@ -399,7 +401,10 @@
           (e.type === 'mouseover' ? boot : toggle)();
         });
         Mousetrap.bind('/', function() {
-          setTimeout(toggle, 100);
+          lidraughts.raf(function() { toggle('/') });
+        });
+        Mousetrap.bind('s', function() {
+          lidraughts.raf(function() { toggle() });
         });
       })();
 
