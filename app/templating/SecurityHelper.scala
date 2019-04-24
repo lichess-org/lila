@@ -22,7 +22,6 @@ trait SecurityHelper {
   def canViewRoles(user: User)(implicit ctx: UserContext): Boolean =
     isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
 
-  def reportScore(score: lila.report.Report.Score): Frag = raw {
-    s"""<div class="score ${score.color}" title="Report score">${score.value.toInt}</div>"""
-  }
+  def reportScore(score: lila.report.Report.Score): Frag =
+    div(cls := s"score ${score.color}", title := "Report score")(score.value.toInt)
 }

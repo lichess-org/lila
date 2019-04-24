@@ -13,11 +13,10 @@ import lila.user.{ User, Title, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
-  def ratingProgress(progress: Int) = raw {
-    if (progress > 0) s"""<good class="rp">$progress</good>"""
-    else if (progress < 0) s"""<bad class="rp">${math.abs(progress)}</bad>"""
-    else ""
-  }
+  def ratingProgress(progress: Int) =
+    if (progress > 0) goodTag(cls := "rp")(progress)
+    else if (progress < 0) badTag(cls := "rp")(math.abs(progress))
+    else emptyFrag
 
   val topBarSortedPerfTypes: List[PerfType] = List(
     PerfType.Bullet,
@@ -34,12 +33,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Crazyhouse
   )
 
-  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context): Frag = raw {
-    val title = s"$name rating over ${nb.localize} games"
-    val number = if (nb > 0) s"$rating${if (provisional) "?" else ""}"
-    else "&nbsp;&nbsp;&nbsp;-"
-    s"""<span title="$title" data-icon="$icon">$number</span>"""
-  }
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context): Frag =
+    span(
+      title := s"$name rating over ${nb.localize} games",
+      dataIcon := icon
+    )(
+        if (nb > 0) frag(rating, provisional option "?")
+        else frag(nbsp, nbsp, nbsp, "-")
+      )
 
   def showPerfRating(perfType: PerfType, perf: Perf)(implicit ctx: Context): Frag =
     showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar)
@@ -58,12 +59,10 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case (pt, perf) => showPerfRating(pt, perf)
     }
 
-  def showRatingDiff(diff: Int): Frag = raw {
-    diff match {
-      case 0 => """<span>±0</span>"""
-      case d if d > 0 => s"""<good>+$d</good>"""
-      case d => s"""<bad>−${-d}</bad>"""
-    }
+  def showRatingDiff(diff: Int): Frag = diff match {
+    case 0 => span("±0")
+    case d if d > 0 => goodTag(s"+$d")
+    case d => badTag(s"−${-d}")
   }
 
   def lightUser(userId: String): Option[LightUser] = Env.user lightUserSync userId
@@ -125,10 +124,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     cssClass: Option[String]
   ): Frag = userIdLink(userId.some, cssClass)
 
-  def titleTag(title: Option[Title]): Frag = raw {
-    title ?? { t =>
-      s"""<span class="title"${(t == Title.BOT) ?? " data-bot"} title="${Title titleName t}">$t</span>&nbsp;"""
-    }
+  def titleTag(title: Option[Title]): Option[Frag] = title map { t =>
+    frag(
+      span(
+        cls := s"title${(t == Title.BOT) ?? " data-bot"}",
+        st.title := Title.titleName(t)
+      )(t),
+      nbsp
+    )
   }
   def titleTag(lu: LightUser): Frag = titleTag(lu.title map Title.apply)
 
@@ -203,9 +206,11 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       )
   }
 
-  private def renderRating(perf: Perf): Frag = raw {
-    s"&nbsp;(${perf.intRating}${if (perf.provisional) "?" else ""})"
-  }
+  private def renderRating(perf: Perf): Frag = frag(
+    nbsp,
+    perf.intRating,
+    perf.provisional option "?"
+  )
 
   private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean): Frag =
     withPerfRating match {
