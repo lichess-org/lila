@@ -67,7 +67,7 @@ object timeline {
           a(
             href := routes.Round.player(playerId),
             dataIcon := perf.iconChar,
-            cls := "glpt"
+            cls := "text glpt"
           )(win match {
               case Some(true) => trans.victory()
               case Some(false) => trans.defeat()
