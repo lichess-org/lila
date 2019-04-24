@@ -18,8 +18,8 @@ object inquiry {
             h3(
               reportScore(atom.score),
               userIdLink(atom.by.value.some, withOnline = false),
-              "for ", strong(r.reason.name),
-              momentFromNow(atom.at)
+              " for ", strong(r.reason.name),
+              " ", momentFromNow(atom.at)
             ),
             p(richText(atom.simplifiedText))
           )
@@ -100,14 +100,14 @@ object inquiry {
           div(
             lila.message.ModPreset.all.map { preset =>
               form(method := "post", action := routes.Mod.warn(in.user.username, preset.subject))(
-                input(cls := "fbt", tpe := "submit", value := preset.subject),
+                button(cls := "fbt", tpe := "submit")(preset.subject),
                 autoNextInput
               )
             },
             form(method := "get", action := routes.Message.form)(
               input(tpe := "hidden", name := "mod", value := "1"),
               input(tpe := "hidden", name := "user", value := "@in.user.id"),
-              input(cls := "fbt", tpe := "submit", value := "Custom message")
+              button(cls := "fbt", tpe := "submit")("Custom message")
             )
           )
         ),
@@ -139,10 +139,10 @@ object inquiry {
           span(cls := "icon", dataIcon := "u"),
           div(
             form(method := "post", action := routes.Mod.notifySlack(in.user.id))(
-              input(cls := "fbt", tpe := "submit", value := "Notify Slack")
+              button(cls := "fbt", tpe := "submit")("Notify Slack")
             ),
             form(method := "post", action := routes.Report.xfiles(in.report.id))(
-              input(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")), tpe := "submit", value := "Move to X-Files"),
+              button(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")), tpe := "submit")("Move to X-Files"),
               autoNextInput
             )
           )
