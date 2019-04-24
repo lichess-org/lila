@@ -193,7 +193,7 @@ object activity {
 
   private def renderSimuls(u: User)(simuls: List[lidraughts.simul.Simul])(implicit ctx: Context) =
     entryTag(
-      iconTag("|"),
+      iconTag("f"),
       div(
         simuls.groupBy(_.isHost(u.some)).toSeq.map {
           case (isHost, simuls) => frag(
