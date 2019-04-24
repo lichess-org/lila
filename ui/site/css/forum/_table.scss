@@ -1,7 +1,9 @@
 .forum .slist {
 
   td {
-    @extend %break-word;
+    &.topics {
+      @extend %break-word;
+    }
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
