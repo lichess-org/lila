@@ -178,6 +178,9 @@
   <string name="ratingStats">Statistiky hodnocení</string>
   <string name="username">Uživatelské jméno</string>
   <string name="usernameOrEmail">Uživatelské jméno</string>
+  <string name="changeUsername">Změnit uživatelské jméno</string>
+  <string name="changeUsernameNotSame">Můžete změnit pouze velikost písmen. Např. z \"petrnovak\" na \"PetrNovak\".</string>
+  <string name="changeUsernameDescription">Změňte své uživatelské jméno. To lze provést pouze jednou, a můžete změnit pouze velikost písmen.</string>
   <string name="password">Heslo</string>
   <string name="haveAnAccount">Máte již účet?</string>
   <string name="changePassword">Změnit heslo</string>
