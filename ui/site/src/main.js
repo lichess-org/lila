@@ -402,6 +402,7 @@
         });
         Mousetrap.bind('/', function() {
           lichess.raf(function() { toggle('/') });
+          return false;
         });
         Mousetrap.bind('s', function() {
           lichess.raf(function() { toggle() });
