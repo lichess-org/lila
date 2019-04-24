@@ -28,7 +28,7 @@
       border: 0;
     }
     i {
-      @extend %roboto, %data-icon-middle;
+      @extend %roboto;
       letter-spacing: -1px;
     }
   }

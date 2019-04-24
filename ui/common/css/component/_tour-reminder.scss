@@ -13,7 +13,6 @@
   z-index: z('tour-reminder');
 
   a {
-    @extend %data-icon-middle;
     color: $c-primary-over;
     margin: 0 .5em;
   }

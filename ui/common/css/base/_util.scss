@@ -11,7 +11,7 @@
 }
 
 .rp::before {
-  @extend %data-icon, %data-icon-middle;
+  @extend %data-icon;
   margin-right: .2em;
   content: 'N';
 }

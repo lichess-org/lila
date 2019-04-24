@@ -16,9 +16,6 @@ h1 {
     }
     .icon {
       text-align: center;
-      span {
-        @extend %data-icon-middle;
-      }
     }
     .header {
       letter-spacing: 2px;
@@ -59,7 +56,6 @@ h1 {
       text-align: right;
     }
     th span {
-      @extend %data-icon-middle;
       &::before {
         font-size: 2em;
       }
