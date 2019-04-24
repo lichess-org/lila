@@ -21,7 +21,7 @@ $(function() {
 
   var domain = window.location.host;
 
-  var studyRegex = new RegExp(domain + '\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b');
+  var studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b');
   var gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b');
   var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
@@ -65,8 +65,7 @@ $(function() {
   };
 
   var expand = function(a) {
-    var src = a.src + '?bg=' + $('body').data('theme');
-    var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', src);
+    var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', a.src);
     $(a.element).replaceWith($('<div class="embed"></div>').html($iframe));
     return $iframe.on('load', function() {
       if (this.contentDocument.title.startsWith("404")) this.style.height = '100px';
@@ -121,6 +120,13 @@ $(function() {
     });
   };
 
+  var configureSrc = function(url) {
+    if (url.includes('://')) return url; // youtube, img, etc
+    var parsed = new URL(location.protocol + '//' + location.host + url);
+    parsed.searchParams.append('bg', $('body').data('theme'));
+    return parsed.href;
+  }
+
   var as = $('div.embed_analyse a').toArray().map(function(el) {
     var parsed = parseLink(el);
     if (!parsed) return false;
@@ -128,7 +134,7 @@ $(function() {
       element: el,
       parent: el.parentNode,
       type: parsed.type,
-      src: parsed.src
+      src: configureSrc(parsed.src)
     };
   }).filter(function(a) {
     return a;
