@@ -36,20 +36,14 @@
     background: $c-bg-popup;
     .perf {
       display: none;
-      @include breakpoint($mq-col3) {
-        display: block;
-      }
     }
   }
   .transp {
-    opacity: 0.5;
+    opacity: 0.4;
   }
   .spinner {
     flex: 0 0 auto;
-    margin: 0;
-    @include breakpoint($mq-col3) {
-      margin: .8em 0 0 0;
-    }
+    margin: .1em 0 .6em 0;
     width: 2em;
     height: 2em;
     pointer-events: none;
