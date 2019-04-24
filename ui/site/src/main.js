@@ -402,6 +402,7 @@
         });
         Mousetrap.bind('/', function() {
           lidraughts.raf(function() { toggle('/') });
+          return false;
         });
         Mousetrap.bind('s', function() {
           lidraughts.raf(function() { toggle() });
