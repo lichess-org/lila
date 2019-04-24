@@ -1,6 +1,8 @@
+const li = window.lichess;
+
 export function app($wrap: JQuery, toggle: () => void) {
   const $input = $wrap.find('input');
-  window.lichess.userAutocomplete($input, {
+  li.userAutocomplete($input, {
     focus: 1,
     friend: true,
     onSelect(q: any) {
@@ -14,7 +16,7 @@ export function app($wrap: JQuery, toggle: () => void) {
 
 function execute(q: string) {
   if (!q) return;
-  if (q[0] == '/' || q[0] == '!') return command(q.slice(1));
+  if (q[0] == '/') return command(q.slice(1));
   else location.href = '/@/' + q;
 }
 
@@ -44,12 +46,12 @@ function command(q: string) {
 
 function commandHelp(aliases: string, args: string, desc: string) {
   return '<div class="command"><div>' +
-    aliases.split(' ').map(a => `<p>${a} ${window.lichess.escapeHtml(args)}</p>`).join('') +
+    aliases.split(' ').map(a => `<p>${a} ${li.escapeHtml(args)}</p>`).join('') +
     `</div> ${desc}</div>`;
 }
 
 function help() {
-  window.lichess.loadCssPath('clinput.help')
+  li.loadCssPath('clinput.help')
   $.modal(
     '<h3>Commands</h3>' +
     commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
@@ -66,7 +68,7 @@ function help() {
 }
 
 function getDasher(cb: (dasher: any) => void) {
-  window.lichess.loadScript(window.lichess.compiledScript('dasher')).done(function() {
+  li.loadScript(li.compiledScript('dasher')).done(function() {
     window['LichessDasher'].default(document.createElement('div'), {
       playing: $('body').hasClass('playing')
     }).then(cb);
