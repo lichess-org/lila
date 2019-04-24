@@ -47,7 +47,7 @@ object header {
           splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))
         ),
         info.nbBlockers.map { nb =>
-          a(cls := "nm-item")(splitNumberUnsafe(nb + " Blockers"))
+          a(cls := "nm-item")(splitNumber(nb + " Blockers"))
         },
         u.noBot option a(
           href := routes.UserTournament.path(u.username, "recent"),
@@ -57,7 +57,7 @@ object header {
             splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
           ),
         a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-          splitNumberUnsafe(info.nbStudies + " studies")
+          splitNumber(info.nbStudies + " studies")
         ),
         a(
           cls := "nm-item",
@@ -66,7 +66,7 @@ object header {
             splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
           ),
         (ctx.isAuth && ctx.noKid && !ctx.is(u)) option
-          a(cls := "nm-item note-zone-toggle")(splitNumberUnsafe(social.notes.size + " Notes"))
+          a(cls := "nm-item note-zone-toggle")(splitNumber(social.notes.size + " Notes"))
       ),
       div(cls := "user-actions btn-rack")(
         (ctx is u) option frag(
