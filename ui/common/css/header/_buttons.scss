@@ -5,7 +5,7 @@
 }
 
 .site-buttons {
-  @extend %flex-center;
+  @extend %flex-center-nowrap;
 
   .link {
     @extend %top-icon;
@@ -58,4 +58,5 @@
 }
 #user_tag {
   padding-right: 1rem;
+  white-space: nowrap;
 }
