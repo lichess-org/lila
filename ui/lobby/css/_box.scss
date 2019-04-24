@@ -16,7 +16,8 @@
       }
     }
     &__content {
-      @include hoverflow;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     .user-link {
       font-weight: bold;
@@ -50,44 +51,5 @@
   &__forum .lobby__box__top,
   &__blog .lobby__box__top {
     border-bottom: $border;
-  }
-  &__forum {
-    max-height: 20em;
-    li {
-      margin: 0.6em 0;
-      padding-left: 9px;
-      line-height: 14px;
-      white-space: nowrap;
-    }
-    .extract {
-      font-weight: 300;
-    }
-  }
-  &__blog {
-    .post {
-      @extend %flex-between;
-      color: $c-font;
-      flex-wrap: nowrap;
-      overflow: hidden;
-      padding: .2em .5em;
-      &:hover {
-        background: mix($c-link, $c-bg-box, 15%);
-      }
-      .text {
-        flex: 1 1 100%;
-      }
-      strong {
-        display: block;
-      }
-      img {
-        height: 4em;
-        width: 4em;
-        margin-right: .8em;
-      }
-      time {
-        color: $c-font-dim;
-        white-space: nowrap;
-      }
-    }
   }
 }

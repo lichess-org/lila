@@ -6,7 +6,6 @@
     white-space: nowrap;
   }
   .extract {
-    font-family: 'Roboto';
-    font-weight: 300;
+    @extend %roboto;
   }
 }
