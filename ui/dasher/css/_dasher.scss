@@ -145,7 +145,7 @@
 
   .board .zoom {
     display: none;
-    @include breakpoint($mq-col2-uniboard) {
+    @include breakpoint($mq-board-resizable) {
       display: block;
     }
     border-top: $border;
