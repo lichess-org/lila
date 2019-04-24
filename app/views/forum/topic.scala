@@ -29,14 +29,13 @@ object topic {
           st.section(cls := "warning")(
             h2(dataIcon := "!", cls := "text")("Important"),
             p(
-              "To report a user for cheating or bad behaviour,",
-              br,
-              strong(a(href := routes.Report.form)("use the report form"))
+              "Your question may already have an answer ", strong(a(href := routes.Main.faq)("in the F.A.Q."))
             ),
             p(
-              "To request support,",
-              br,
-              strong(a(href := routes.Main.contact())(raw("try the contact page")))
+              "To report a user for cheating or bad behaviour, ", strong(a(href := routes.Report.form)("use the report form"))
+            ),
+            p(
+              "To request support, ", strong(a(href := routes.Main.contact())(raw("try the contact page")))
             )
           ),
 
