@@ -12,15 +12,13 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redra
 }
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
-  return {
-    insert: vnode => {
-      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        const res = f(e);
-        if (redraw) redraw();
-        return res;
-      });
-    }
-  };
+  return onInsert(el =>
+    el.addEventListener(eventName, e => {
+      const res = f(e);
+      if (redraw) redraw();
+      return res;
+    })
+  );
 }
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
