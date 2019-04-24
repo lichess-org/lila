@@ -36,11 +36,11 @@ trait ChessgroundHelper {
     }
   )
 
-  private def wrap(content: String): Frag = raw {
-    s"""<div class="cg-board-wrap"><div class="cg-board">$content</div></div>"""
-  }
+  private def wrap(content: Frag): Frag = div(cls := "cg-board-wrap")(
+    div(cls := "cg-board")(content)
+  )
 
   lazy val miniBoardContent = wrap("")
 
-  lazy val chessgroundSvg = wrap("<svg></svg>")
+  lazy val chessgroundSvg = wrap(raw("<svg></svg>"))
 }

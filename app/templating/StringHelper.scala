@@ -25,16 +25,23 @@ trait StringHelper { self: NumberHelper =>
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex = """\s(\d++)$""".r.unanchored
-  def splitNumberUnsafe(s: String)(implicit ctx: UserContext): Frag = raw {
-    s match {
-      case NumberFirstRegex(number, text) =>
-        s"<strong>${(~parseIntOption(number)).localize}</strong><br>$text"
-      case NumberLastRegex(n) if s.length > n.length + 1 =>
-        s"${s.dropRight(n.length + 1)}<br><strong>${(~parseIntOption(n)).localize}</strong>"
-      case h => h.replaceIf('\n', "<br>")
+
+  def splitNumber(s: Frag)(implicit ctx: UserContext): Frag = {
+    val rendered = s.render
+    rendered match {
+      case NumberFirstRegex(number, html) => frag(
+        strong((~parseIntOption(number)).localize),
+        br,
+        raw(html)
+      )
+      case NumberLastRegex(n) if rendered.length > n.length + 1 => frag(
+        raw(rendered.dropRight(n.length + 1)),
+        br,
+        strong((~parseIntOption(n)).localize)
+      )
+      case h => raw(h.replaceIf('\n', "<br>"))
     }
   }
-  def splitNumber(s: Frag)(implicit ctx: UserContext): Frag = splitNumberUnsafe(s.render)
 
   def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
 

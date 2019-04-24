@@ -42,7 +42,7 @@ object Environment
 
   def contactEmail = apiEnv.Net.Email
 
-  def contactEmailLink = raw(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
+  def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)
 
   def cspEnabled = apiEnv.cspEnabledSetting.get _
 
