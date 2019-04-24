@@ -40,10 +40,7 @@ object show {
           div(cls := "simul__meta")(
             div(cls := "game-infos")(
               div(cls := "header")(
-                div(cls := List(
-                  "variant-icons" -> true,
-                  "rich" -> sim.variantRich
-                ))(sim.perfTypes.map { pt => span(dataIcon := pt.iconChar) }),
+                iconTag("f"),
                 div(
                   span(cls := "clock")(sim.clock.config.show),
                   div(cls := "setup")(
