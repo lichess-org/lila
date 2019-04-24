@@ -18,9 +18,9 @@
     width: 25%;
   }
   /* ratios:
-    $first-ratio: 1.3;
-    $trophy-ratio: 1.1056;
-  */
+  $first-ratio: 1.3;
+  $trophy-ratio: 1.1056;
+   */
   .first .trophy {
     height: 150px;
     width: 195px;
@@ -40,6 +40,11 @@
   .trophy {
     margin: 0 auto 8px auto;
     background-size: contain!important;
+  }
+  @include breakpoint($mq-not-xx-small) {
+    .trophy {
+      display: none;
+    }
   }
   .user-link {
     font-weight: bold;
