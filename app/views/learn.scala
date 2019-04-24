@@ -24,7 +24,6 @@ LidraughtsLearn(document.getElementById('learn-app'), ${
       })})""")
     ),
     moreCss = cssTag("learn"),
-    draughtsground = false,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Learn draughts by playing",
       description = "You don't know anything about draughts? Excellent! Let's have fun and learn to play draughts!",
