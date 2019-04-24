@@ -77,7 +77,7 @@ object topic {
   ) {
       val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = false)
 
-      main(cls := "forum forum-topic box box-pad")(
+      main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
             href := routes.ForumCateg.show(categ.slug),
