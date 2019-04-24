@@ -5,6 +5,9 @@ $mq-col1-uniboard: $mq-not-medium $mq-portrait;
 $mq-col2-uniboard: ($mq-medium, $mq-landscape);
 $mq-col3-uniboard: $mq-x-large;
 
+/* when the width is appropriate for col1, but landscape prevents it */
+$mq-col2-uniboard-squeeze: $mq-not-medium $mq-landscape;
+
 $col3-uniboard-side: minmax(230px, 20vw);
 $col3-uniboard-table: minmax(240px, 400px);
 $col3-uniboard-controls: 2.5rem;
@@ -22,5 +25,8 @@ $col2-uniboard-table: $col3-uniboard-table;
 $col2-uniboard-controls: $col3-uniboard-controls;
 $col2-uniboard-width: $col3-uniboard-width;
 $col2-uniboard-default-width: $col3-uniboard-default-width;
+
+$col2-uniboard-squeeze-table: minmax(200px, 240px);
+$col2-uniboard-squeeze-width: minmax(calc(55vmin), calc(100vh - #{$site-header-outer-height}));
 
 $col1-uniboard-controls: $col2-uniboard-controls;

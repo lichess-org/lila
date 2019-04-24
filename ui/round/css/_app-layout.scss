@@ -79,6 +79,10 @@ $controls-height: auto;
     }
   }
 
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
+  }
+
   &__board { grid-area: board; }
 }
 .rcontrols { grid-area: controls }
