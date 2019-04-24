@@ -122,7 +122,7 @@ $(function() {
 
   var configureSrc = function(url) {
     if (url.includes('://')) return url; // youtube, img, etc
-    var parsed = new URL(location.protocol + '//' + location.host + url);
+    var parsed = new URL(url, window.location.href);
     parsed.searchParams.append('bg', $('body').data('theme'));
     return parsed.href;
   }
