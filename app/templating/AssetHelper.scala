@@ -38,9 +38,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def cssTagNoTheme(name: String)(implicit ctx: Context): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
-  private def cssAt(path: String): Frag = raw {
-    s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
-  }
+  private def cssAt(path: String): Frag =
+    link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
 
   def jsTag(name: String, defer: Boolean = false): Frag =
     jsAt("javascripts/" + name, defer = defer)
