@@ -26,12 +26,16 @@
 .message-thread {
 
   &__message {
-    margin-bottom: 3em;
+    font-size: 1.1em;
+    margin-bottom: 2em;
     border-bottom: $border;
-    padding-bottom: 3em;
+    padding-bottom: 2em;
     .infos {
       @extend %flex-between;
       margin-bottom: 1em;
+      .to {
+        margin: 0 1em;
+      }
     }
     &__body iframe.analyse {
       margin: 1.5em 0;
