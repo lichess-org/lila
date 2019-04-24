@@ -9,17 +9,20 @@ import scalatags.Text.all._
 
 // collection of lila attrs
 trait ScalatagsAttrs {
-  lazy val minlength = attr("minlength") // missing from scalatags atm
-  lazy val dataTag = attr("data-tag")
-  lazy val dataIcon = attr("data-icon")
-  lazy val dataHref = attr("data-href")
-  lazy val dataCount = attr("data-count")
-  lazy val dataEnableTime = attr("data-enable-time")
-  lazy val datatime24h = attr("data-time_24h")
-  lazy val dataColor = attr("data-color")
-  lazy val dataFen = attr("data-fen")
-  lazy val dataRel = attr("data-rel")
-  lazy val novalidate = attr("novalidate").empty
+  val minlength = attr("minlength") // missing from scalatags atm
+  val dataTag = attr("data-tag")
+  val dataIcon = attr("data-icon")
+  val dataHref = attr("data-href")
+  val dataCount = attr("data-count")
+  val dataEnableTime = attr("data-enable-time")
+  val datatime24h = attr("data-time_24h")
+  val dataColor = attr("data-color")
+  val dataFen = attr("data-fen")
+  val dataRel = attr("data-rel")
+  val novalidate = attr("novalidate").empty
+  val datetimeAttr = attr("datetime")
+  val dataBotAttr = attr("data-bot").empty
+  val deferAttr = attr("defer").empty
   object frame {
     val scrolling = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
@@ -43,9 +46,7 @@ trait ScalatagsSnippets extends Cap {
   val countTag = tag("count")
   val goodTag = tag("good")
   val badTag = tag("bad")
-
-  lazy val dataBotAttr = attr("data-bot").empty
-  lazy val deferAttr = attr("defer").empty
+  val timeTag = tag("time")
 
   def dataBot(title: lila.user.Title): Modifier =
     if (title == lila.user.Title.BOT) dataBotAttr
