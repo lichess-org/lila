@@ -4,7 +4,7 @@
   .line {
     @extend %data-icon;
     color: $c-font;
-    opacity: 0.4;
+    opacity: 0.5;
     display: inline-block;
     width: 1.5em;
     text-align: center;
@@ -12,18 +12,21 @@
       opacity: 0.8;
     }
     &::before {
-      content: '';
+      content: 'K';
     }
     &.patron::before {
-      content: '';
+      content: '' !important;
     }
     &.moderator::before {
       content: '';
     }
   }
   &.online .line {
+    &::before {
+      content: '';
+    }
     color: $c-good;
-    opacity: 0.8;
+    opacity: .9;
     &.patron {
       opacity: 1;
     }
