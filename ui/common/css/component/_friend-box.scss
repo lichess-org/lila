@@ -46,6 +46,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         .line::before {
+          color: $c-good;
           content: '';
         }
       }
