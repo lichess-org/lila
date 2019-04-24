@@ -72,13 +72,22 @@ function controls(ctrl: Controller) {
 let cevalShown = false;
 
 export default function(ctrl: Controller): VNode {
-  const showCeval = ctrl.vm.showComputer();
+  const showCeval = ctrl.vm.showComputer(),
+    gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;
   }
   return h('main.puzzle', {
-    class: {'gauge-on': ctrl.showEvalGauge()}
+    class: {'gauge-on': gaugeOn},
+    hook: {
+      postpatch(old, vnode) {
+        if (old.data!.gaugeOn !== gaugeOn) {
+          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+        }
+        vnode.data!.gaugeOn = gaugeOn;
+      }
+    }
   }, [
     h('aside.puzzle__side', [
       side.puzzleBox(ctrl),
