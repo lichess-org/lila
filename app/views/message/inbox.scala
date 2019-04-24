@@ -18,19 +18,21 @@ object inbox {
         main(cls := "message-list box")(
           div(cls := "box__top")(
             h1(trans.inbox()),
-            threads.nbResults > 0 option div(cls := "box__top__actions")(
-              select(cls := "select")(
-                option(value := "")("Select"),
-                option(value := "all")("All"),
-                option(value := "none")("None"),
-                option(value := "unread")("Unread"),
-                option(value := "read")("Read")
-              ),
-              select(cls := "action")(
-                option(value := "")("Do"),
-                option(value := "unread")("Mark as unread"),
-                option(value := "read")("Mark as read"),
-                option(value := "delete")("Delete")
+            div(cls := "box__top__actions")(
+              threads.nbResults > 0 option frag(
+                select(cls := "select")(
+                  option(value := "")("Select"),
+                  option(value := "all")("All"),
+                  option(value := "none")("None"),
+                  option(value := "unread")("Unread"),
+                  option(value := "read")("Read")
+                ),
+                select(cls := "action")(
+                  option(value := "")("Do"),
+                  option(value := "unread")("Mark as unread"),
+                  option(value := "read")("Mark as read"),
+                  option(value := "delete")("Delete")
+                )
               ),
               a(href := routes.Message.form, cls := "button button-green text", dataIcon := "m")(trans.composeMessage())
             )
@@ -51,7 +53,7 @@ object inbox {
                 )
               }
             )
-            else tbody(tr(td(trans.noNewMessages())))
+            else tbody(tr(td(trans.noNewMessages(), br, br)))
           )
         )
       }
