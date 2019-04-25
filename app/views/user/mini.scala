@@ -20,17 +20,19 @@ object mini {
   )(implicit ctx: Context) = frag(
     div(cls := "upt__info")(
       div(cls := "upt__info__top")(
-        userLink(u, withPowerTip = false),
-        u.profileOrDefault.countryInfo map { c =>
-          val hasRoomForNameText = u.username.size + c.shortName.size < 20
-          span(
-            cls := "upt__info__top__country",
-            title := (!hasRoomForNameText).option(c.name)
-          )(
-              img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
-              hasRoomForNameText option c.shortName
-            )
-        },
+        div(cls := "left")(
+          userLink(u, withPowerTip = false),
+          u.profileOrDefault.countryInfo map { c =>
+            val hasRoomForNameText = u.username.size + c.shortName.size < 20
+            span(
+              cls := "upt__info__top__country",
+              title := (!hasRoomForNameText).option(c.name)
+            )(
+                img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                hasRoomForNameText option c.shortName
+              )
+          }
+        ),
         ping map bits.signalBars
       ),
       if (u.engine && !ctx.me.has(u) && !isGranted(_.UserSpy))
