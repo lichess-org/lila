@@ -32,7 +32,7 @@ object bits {
     "i18n" -> i18nJsObject(translations)(ctxLang(ctx))
   )
 
-  def domPreload(pov: Option[lila.game.Pov])(implicit ctx: Context) = {
+  def domPreload(pov: Option[lila.game.Pov])(implicit ctx: Context): Frag = {
     val theme = ctx.currentTheme
     frag(
       (!ctx.pref.is3d) option raw(s"""<svg class="main-board__preload" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
