@@ -2,11 +2,8 @@
   @extend %flex-column;
   color: $c-font-page;
   font-size: .9em;
-  align-items: center;
+  align-items: flex-start;
   line-height: 1.15em;
-  table {
-    width: 100%;
-  }
   td {
     text-align: center;
     &:first-child {
