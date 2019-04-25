@@ -312,16 +312,13 @@ function unloadCss(url) {
 
 let firstRender = true;
 
-function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
-  return cssClass + ((study && study.data.chapter) ? '.' + study.data.chapter.id + study.vm.loading : '.nostudy');
-}
-
 export default function(ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
     menuIsOpen = ctrl.actionMenu.open,
+    chapter = study && study.data.chapter,
     multiBoardMenu = ctrl.study && ctrl.study.multiBoardMenu,
     multiBoardMenuIsOpen = multiBoardMenu && multiBoardMenu.open && ctrl.study && ctrl.study.members.canContribute(),
     gamebookPlay = ctrl.gamebookPlay(),
@@ -331,7 +328,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
-  return h(addChapterId(study, 'main.analyse'), {
+  return h('main.analyse' + (chapter ? '.' + chapter.id : ''), {
     hook: {
       insert: _ => {
         if (firstRender) {
@@ -365,7 +362,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
-    intro || h(addChapterId(study, 'div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor()), {
+    intro || h('div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
       hook: (window.lidraughts.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
