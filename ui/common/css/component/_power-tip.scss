@@ -21,6 +21,12 @@
     border-bottom: $border;
     &__top {
       @extend %flex-between;
+      .left {
+        @extend %flex-center-nowrap;
+      }
+      &__country {
+        margin-left: .5em;
+      }
       .user-link {
         display: block;
         overflow: hidden;
