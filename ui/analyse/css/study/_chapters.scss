@@ -2,7 +2,6 @@ $span-width: 1.7em;
 
 .study__chapters {
   @extend %study-list;
-  @include hoverflow;
   max-height: 18em;
   h3 {
     @extend %break-word;
