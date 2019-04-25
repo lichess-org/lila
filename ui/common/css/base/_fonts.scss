@@ -3,7 +3,7 @@
 }
 @font-face {
   font-family: "lichess";
-  src: local-font("lichess.woff") format("woff");
+  src: local-font("lichess.woff2") format("woff2"), local-font("lichess.woff") format("woff");
   font-display: block;
   font-weight: normal;
   font-style: normal;
