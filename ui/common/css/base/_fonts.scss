@@ -9,8 +9,8 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'ChessSansPiratf';
-  src: local-font("ChessSansPiratf.woff") format("woff");
+  font-family: 'Noto Chess';
+  src: local-font("lichess.chess.woff2") format("woff2"), local-font("lichess.chess.woff") format("woff");
 }
 /* cyrillic-ext */
 @font-face {
