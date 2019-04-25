@@ -276,7 +276,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     playerBars = renderPlayerBars(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars;
-  return h('main.analyse' + (chapter ? '.' + chapter.id + study!.vm.loading : ''), {
+  return h('main.analyse' + (chapter ? '.' + chapter.id : ''), {
     hook: {
       insert: _ => {
         if (firstRender) {
