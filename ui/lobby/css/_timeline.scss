@@ -1,12 +1,12 @@
 .timeline {
+  @extend %page-text;
   flex: 1 1 auto;
   margin: 1em 0 0 $block-gap;
-  color: $c-font-page;
   @include hoverflow;
   .entry {
-    @extend %roboto, %base-text;
+    @extend %roboto;
     a {
-      @extend %base-text;
+      @extend %base-font;
       color: $c-font-page;
     }
     &:hover a {
