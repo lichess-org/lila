@@ -119,7 +119,7 @@ object list {
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(order.key))("All studies"),
       ctx.me.map { bits.authLinks(_, active, order) },
-      a(cls := "text", dataIcon := "", href := "//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
+      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
     )
 
   private[study] def searchForm(placeholder: String, value: String) =
