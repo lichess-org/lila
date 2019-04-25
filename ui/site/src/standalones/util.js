@@ -247,7 +247,7 @@ lidraughts.hopscotch = function(f) {
 }
 lidraughts.slider = function() {
   return lidraughts.loadScript(
-    'javascripts/vendor/jquery-ui.slider' + (hasTouchEvents ? '.touch' : '') + '.min.js',
+    'javascripts/vendor/jquery-ui.slider' + (lidraughts.hasTouchEvents ? '.touch' : '') + '.min.js',
     {noVersion:true}
   );
 };
