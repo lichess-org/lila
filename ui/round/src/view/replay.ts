@@ -31,10 +31,9 @@ const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
 
 function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
   if (!step) return orEmpty ? emptyMove() : nullMove();
-  const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
   return h('move', {
     class: { active: step.ply === curPly }
-  }, san);
+  }, step.san[0] === 'P' ? step.san.slice(1) : step.san);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
