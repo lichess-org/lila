@@ -29,6 +29,7 @@
     }
   }
   .now-playing {
+    @extend %page-text;
     padding: .3em;
   }
 }

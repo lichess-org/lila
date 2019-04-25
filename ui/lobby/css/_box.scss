@@ -1,7 +1,6 @@
 .lobby {
   &__box {
     @extend %flex-column, %box-neat-force;
-    background: $c-bg-box;
     &__top {
       @extend %metal, %flex-between;
       flex: 0 0 auto;
@@ -16,6 +15,7 @@
       }
     }
     &__content {
+      background: $c-bg-box;
       overflow-x: hidden;
       overflow-y: auto;
     }
