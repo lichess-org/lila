@@ -37,7 +37,7 @@ var placeDelete;
 
 function onMouseEvent(ctrl) {
   return function(e) {
-    var sel = ctrl.vm.selected();
+    var sel = ctrl.selected();
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
       if (

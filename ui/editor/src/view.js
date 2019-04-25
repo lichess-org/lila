@@ -157,7 +157,6 @@ function controls(ctrl, fen) {
 
 function inputs(ctrl, fen) {
   if (ctrl.embed) return;
-  if (ctrl.vm.redirecting) return m.trust(lidraughts.spinnerHtml);
   return m('div.copyables', [
     m('p', [
       m('strong', 'FEN'),
@@ -186,7 +185,7 @@ var lastTouchMovePos;
 
 function sparePieces(ctrl, color, orientation, position) {
 
-  var selectedClass = selectedToClass(ctrl.vm.selected());
+  var selectedClass = selectedToClass(ctrl.selected());
 
   var opposite = color === 'white' ? 'black' : 'white';
   var pieces = [[color, 'king'], [color, 'man'], ['', ''], ['', ''], [opposite, 'man'], [opposite, 'king']];
@@ -238,9 +237,9 @@ function sparePieces(ctrl, color, orientation, position) {
 function onSelectSparePiece(ctrl, s, upEvent) {
   return function(e) {
     if (['pointer', 'trash'].includes(s)) {
-      ctrl.vm.selected(s);
+      ctrl.selected(s);
     } else {
-      ctrl.vm.selected('pointer');
+      ctrl.selected('pointer');
 
       if (e.type === 'touchstart') {
         e.preventDefault();
@@ -255,9 +254,9 @@ function onSelectSparePiece(ctrl, s, upEvent) {
         var eventPos = eventPosition(e) || lastTouchMovePos;
 
         if (eventPos && ctrl.draughtsground.getKeyAtDomPos(eventPos)) {
-          ctrl.vm.selected('pointer');
+          ctrl.selected('pointer');
         } else {
-          ctrl.vm.selected(s);
+          ctrl.selected(s);
         }
         m.redraw();
       }, {once: true});
@@ -282,7 +281,7 @@ module.exports = function(ctrl) {
   var color = ctrl.bottomColor();
 
   return m('div.board-editor', {
-    style: 'cursor: ' + makeCursor(ctrl.vm.selected())
+    style: 'cursor: ' + makeCursor(ctrl.selected())
   }, [
     sparePieces(ctrl, color, 'black', 'top'),
     m('div.main-board', draughtsground(ctrl)),
