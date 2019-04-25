@@ -67,6 +67,7 @@ export interface Ctrl {
   setEnabled(v: boolean): void
   plugin?: ChatPlugin
   redraw: Redraw
+  destroy(): void;
 }
 
 export interface ViewModel {
