@@ -186,7 +186,6 @@ It's useful against spambots. These marks are not visible to the public."""
                 ),
                 info.playTime.map { playTime =>
                   frag(
-                    br, br,
                     p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
                     playTime.nonEmptyTvPeriod.map { tvPeriod =>
                       p(trans.tpTimeSpentOnTV(showPeriod(tvPeriod)))
