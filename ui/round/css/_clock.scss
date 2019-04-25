@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-end;
   user-select: none;
-  overflow: hidden;
+  /* overflow: hidden; is not possible because of clock bars and shadows */
   @include breakpoint($mq-col2) {
     justify-content: space-between;
     &-bottom {
