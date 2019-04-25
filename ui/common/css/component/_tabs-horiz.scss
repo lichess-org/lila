@@ -21,7 +21,7 @@
     }
     &::after {
       content: '';
-      background: fade-out($c-accent, .4);
+      background: fade-out($c-accent, .3);
       height: 2px;
       position: absolute;
       width: 96%;
