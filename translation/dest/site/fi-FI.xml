@@ -652,8 +652,8 @@
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
   <string name="aboutX">Tietoa %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa, manokseton, avoimen lähdekoodin shakkipalvelin.</string>
-  <string name="really">todella</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
+  <string name="really">oikeasti</string>
   <string name="contribute">Osallistu</string>
   <string name="contact">Kontakti</string>
   <string name="termsOfService">Käyttöehdot</string>
@@ -757,6 +757,7 @@
   <string name="xHostsY">%1$s isännöi %2$s</string>
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
+  <string name="xCreatesStudyY">%1$s loi tutkielman %2$s</string>
   <string name="quickPairing">Nopea paritus</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
