@@ -21,8 +21,6 @@ const pieceScores = {
   ghostking: 0
 };
 
-export const hasTouchEvents = 'ontouchstart' in window;
-
 export function justIcon(icon: string): VNodeData {
   return {
     attrs: { 'data-icon': icon }

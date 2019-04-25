@@ -56,6 +56,8 @@ interface Lidraughts {
   playMusic(): void;
   spinnerHtml: string;
   movetimeChart: any;
+  hasTouchEvents: boolean;
+  mousedownEvent: 'mousedown' | 'touchstart';
 }
 
 interface Cookie {

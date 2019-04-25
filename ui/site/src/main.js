@@ -493,7 +493,7 @@
       };
       Mousetrap.bind('esc', function() {
         var $oc = $('#modal-wrap .close');
-        if ($oc.length) $oc.trigger('mousedown');
+        if ($oc.length) $oc.trigger('click');
         else {
           $input = $(':focus');
           if ($input.length) $input.trigger('blur');

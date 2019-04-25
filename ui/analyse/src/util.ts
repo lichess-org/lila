@@ -4,14 +4,12 @@ import { Attrs } from 'snabbdom/modules/attributes'
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
-export const hasTouchEvents = 'ontouchstart' in window;
-
 export function plyColor(ply: number): Color {
   return (ply % 2 === 0) ? 'white' : 'black';
 }
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
-  el.addEventListener(hasTouchEvents ? 'touchstart' : 'mousedown', e => {
+  el.addEventListener(window.lidraughts.mousedownEvent, e => {
     f(e);
     e.preventDefault();
     if (redraw) redraw();
