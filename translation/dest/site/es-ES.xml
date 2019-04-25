@@ -164,6 +164,7 @@
   <string name="ratingStats">Estadísticas de puntuación</string>
   <string name="username">Nombre de usuario</string>
   <string name="usernameOrEmail">Nombre de usuario o correo</string>
+  <string name="changeUsername">Cambiar nombre de usuario</string>
   <string name="password">Contraseña</string>
   <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
@@ -173,7 +174,6 @@
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
   <string name="rank">Posición</string>
   <string name="rankX">Clasificación: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">La clasificación se actualiza cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ejercicio</item>
     <item quantity="other">%s ejercicios</item>
@@ -631,9 +631,7 @@
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
   <string name="whiteCastlingKingside">Blancas O-O</string>
-  <string name="whiteCastlingQueenside">Blancas O-O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
-  <string name="blackCastlingQueenside">Negras O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s aporte en el foro</item>
     <item quantity="other">%s aportes en el foro</item>
@@ -642,7 +640,6 @@
   <string name="watchGames">Ver partidas</string>
   <string name="tpTimeSpentOnTV">Tiempo pasado en TV: %s</string>
   <string name="watch">Observar</string>
-  <string name="internationalEvents">Eventos internacionales</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicación para móviles</string>
   <string name="webmasters">Webmaster</string>

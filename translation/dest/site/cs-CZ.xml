@@ -178,6 +178,9 @@
   <string name="ratingStats">Statistiky hodnocení</string>
   <string name="username">Uživatelské jméno</string>
   <string name="usernameOrEmail">Uživatelské jméno</string>
+  <string name="changeUsername">Změnit uživatelské jméno</string>
+  <string name="changeUsernameNotSame">Můžete změnit pouze velikost písmen. Např. z \"petrnovak\" na \"PetrNovak\".</string>
+  <string name="changeUsernameDescription">Změňte své uživatelské jméno. To lze provést pouze jednou, a můžete změnit pouze velikost písmen.</string>
   <string name="password">Heslo</string>
   <string name="haveAnAccount">Máte již účet?</string>
   <string name="changePassword">Změnit heslo</string>
@@ -187,7 +190,6 @@
   <string name="forgotPassword">Zapomněl jste heslo?</string>
   <string name="rank">Pořadí</string>
   <string name="rankX">Pořadí: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Pořadí je aktualizováno každých %s minut</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s taktická úloha</item>
     <item quantity="few">%s taktické úlohy</item>
@@ -690,9 +692,7 @@ v %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Bílá O-O</string>
-  <string name="whiteCastlingQueenside">Bílá O-O-O</string>
   <string name="blackCastlingKingside">Černá O-O</string>
-  <string name="blackCastlingQueenside">Černá O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s příspěvek na fóru</item>
     <item quantity="few">%s příspěvky na fóru</item>
@@ -703,7 +703,6 @@ v %3$s</string>
   <string name="watchGames">Sledujte hry</string>
   <string name="tpTimeSpentOnTV">Čas v TV: %s</string>
   <string name="watch">Sledujte</string>
-  <string name="internationalEvents">Mezinárodní turnaje</string>
   <string name="videoLibrary">Video knihovna</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
@@ -818,6 +817,7 @@ v %3$s</string>
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s se přidal k %2$s</string>
   <string name="xLikesY">%1$s lajknul %2$s</string>
+  <string name="xCreatesStudyY">%1$s vytvořil studii %2$s</string>
   <string name="quickPairing">Rychlá hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>

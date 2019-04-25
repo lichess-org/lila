@@ -157,6 +157,9 @@
   <string name="ratingStats">Statistik rating</string>
   <string name="username">Nama pengguna</string>
   <string name="usernameOrEmail">Nama pengguna atau email</string>
+  <string name="changeUsername">Ganti nama pengguna</string>
+  <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
+  <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
   <string name="password">Kata sandi</string>
   <string name="haveAnAccount">Punya akun?</string>
   <string name="changePassword">Ganti kata sandi</string>
@@ -166,7 +169,9 @@
   <string name="forgotPassword">Lupa kata sandi?</string>
   <string name="rank">Peringkat</string>
   <string name="rankX">Rating: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Peringkat diupdate setiap %s menit</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">Peringkat update setiap %s menit</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s</item>
   </plurals>
@@ -602,9 +607,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Putih 0-0</string>
-  <string name="whiteCastlingQueenside">Putih 0-0-0</string>
   <string name="blackCastlingKingside">Hitam 0-0</string>
-  <string name="blackCastlingQueenside">Hitam 0-0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Postingan Forum</item>
   </plurals>
@@ -612,7 +615,6 @@
   <string name="watchGames">Menonton permainan</string>
   <string name="tpTimeSpentOnTV">Waktu pada TV: %s</string>
   <string name="watch">Tonton</string>
-  <string name="internationalEvents">Turnamen Internasioal</string>
   <string name="videoLibrary">Pustaka Video</string>
   <string name="mobileApp">Aplikasi Mobile</string>
   <string name="webmasters">Webmaster</string>

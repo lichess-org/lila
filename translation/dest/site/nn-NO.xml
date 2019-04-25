@@ -164,6 +164,9 @@
   <string name="ratingStats">Ratingstatistikk</string>
   <string name="username">Brukarnamn</string>
   <string name="usernameOrEmail">Brukarnamn eller e-post</string>
+  <string name="changeUsername">Endre brukarnamn</string>
+  <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
+  <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
   <string name="password">Passord</string>
   <string name="haveAnAccount">Har du ein konto her?</string>
   <string name="changePassword">Endre passord</string>
@@ -173,7 +176,6 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Plasseringa blir oppdatert kvart %s minutt</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s sjakkproblem</item>
     <item quantity="other">%s sjakkproblem</item>
@@ -633,9 +635,7 @@ i %3$s</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Kvit O-O</string>
-  <string name="whiteCastlingQueenside">Kvit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
-  <string name="blackCastlingQueenside">Svart O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s foruminnlegg</item>
     <item quantity="other">%s foruminnlegg</item>
@@ -644,7 +644,6 @@ i %3$s</string>
   <string name="watchGames">Sjå parti</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Sjå</string>
-  <string name="internationalEvents">Internasjonale hendingar</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webadministratorar</string>

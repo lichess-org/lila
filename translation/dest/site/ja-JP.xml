@@ -157,6 +157,9 @@
   <string name="ratingStats">レーティングの統計</string>
   <string name="username">アカウント名</string>
   <string name="usernameOrEmail">ユーザー名</string>
+  <string name="changeUsername">ユーザー名の変更</string>
+  <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
+  <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="password">パスワード</string>
   <string name="haveAnAccount">アカウントをお持ちですか？</string>
   <string name="changePassword">パスワードの変更</string>
@@ -166,7 +169,9 @@
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">ランクは %s 分ごとに更新します。</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">順位は %s 分ごとに更新</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s タクティクス</item>
   </plurals>
@@ -604,9 +609,7 @@
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
   <string name="whiteCastlingKingside">白　o-o</string>
-  <string name="whiteCastlingQueenside">白　o-o-o</string>
   <string name="blackCastlingKingside">黒　o-o</string>
-  <string name="blackCastlingQueenside">黒　o-o-o</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s フォーラム投稿</item>
   </plurals>
@@ -614,7 +617,6 @@
   <string name="watchGames">ゲームを見る</string>
   <string name="tpTimeSpentOnTV">TVに映った時間:%s</string>
   <string name="watch">見る</string>
-  <string name="internationalEvents">国際イベント</string>
   <string name="videoLibrary">チェスの動画集</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>

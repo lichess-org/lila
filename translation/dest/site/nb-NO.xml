@@ -164,6 +164,9 @@
   <string name="ratingStats">Ratingstatistikk</string>
   <string name="username">Brukernavn</string>
   <string name="usernameOrEmail">Brukernavn eller e-post</string>
+  <string name="changeUsername">Endre brukernavn</string>
+  <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanormann\" til \"OlaNormann\".</string>
+  <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
   <string name="password">Passord</string>
   <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Bytt passord</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Glemt passord?</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Plassering oppdateres hvert %s minutt</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rangering blir oppdatert hvert minutt</item>
+    <item quantity="other">Rangering blir oppdatert hvert %s. minutt</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s nøtt</item>
     <item quantity="other">%s nøtter</item>
@@ -633,9 +639,7 @@ i %3$s</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvit 0-0</string>
-  <string name="whiteCastlingQueenside">Hvit 0-0-0</string>
   <string name="blackCastlingKingside">Svart 0-0</string>
-  <string name="blackCastlingQueenside">Svart 0-0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminnlegg</item>
     <item quantity="other">%s Foruminnlegg</item>
@@ -644,7 +648,6 @@ i %3$s</string>
   <string name="watchGames">Observer partier</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Observer</string>
-  <string name="internationalEvents">Internasjonale hendelser</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapplikasjon</string>
   <string name="webmasters">Webadministratorer</string>

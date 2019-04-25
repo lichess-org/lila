@@ -76,7 +76,13 @@
   <string name="recentGames">Recentes ludi</string>
   <string name="topGames">Capitales ludi</string>
   <string name="masterDbExplanation">Duae millio ludi tabulae de %1$s+ FIDE lusoribus de %2$s ad %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mattum in %s semissis</item>
+    <item quantity="other">Mattum in %s semissibus</item>
+  </plurals>
+  <string name="noGameFound">Nulla ludum inventa</string>
   <string name="openingExplorer">Aperis indagatorem</string>
+  <string name="xOpeningExplorer">%s aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
@@ -86,9 +92,14 @@
   <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
   <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
+  <string name="multipleLines">Plures lineae</string>
+  <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
+  <string name="blunder">Peccatus</string>
   <string name="blunders">Gravia errata</string>
+  <string name="mistake">Erratum</string>
   <string name="mistakes">Errata</string>
+  <string name="inaccuracy">Menda</string>
   <string name="inaccuracies">Minuscula errata</string>
   <string name="moveTimes">Duratio actionum</string>
   <string name="flipBoard">Tabulam vertere</string>
@@ -142,6 +153,7 @@
   <string name="ratingStats">Informatio ordinis</string>
   <string name="username">Nomen interretiarii</string>
   <string name="usernameOrEmail">Nomen interretiarii vel email</string>
+  <string name="changeUsername">Mutare nomen usoris</string>
   <string name="password">Verba quae licet uno inire</string>
   <string name="haveAnAccount">Nonne inscriptus es?</string>
   <string name="changePassword">Tesseram mutare</string>
@@ -151,7 +163,14 @@
   <string name="forgotPassword">Tessera oblita?</string>
   <string name="rank">Ordo</string>
   <string name="rankX">Locus: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Locus fit novus singulae %s munitae</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Gradus fit novus munitae singulae</item>
+    <item quantity="other">Gradus fit novus munitae singulae %s</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s exercitus</item>
+    <item quantity="other">%s exercitii</item>
+  </plurals>
   <string name="gamesPlayed">Lusi lusiones</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludi tecum</item>
@@ -171,6 +190,7 @@
   <string name="accept">Accipere</string>
   <string name="decline">Recusare</string>
   <string name="playingRightNow">Nunc ludendus</string>
+  <string name="eventInProgress">Nunc ludendus</string>
   <string name="finished">Perfectus</string>
   <string name="abortGame">Lusionem tollere</string>
   <string name="gameAborted">Sublata lusio</string>
@@ -178,10 +198,14 @@
   <string name="unlimited">Infinita</string>
   <string name="mode">Modus</string>
   <string name="casual">Privata</string>
-  <string name="rated">Ordinata(e)</string>
-  <string name="thisGameIsRated">Haec est lusio ordinata</string>
+  <string name="rated">Censitae</string>
+  <string name="casualTournament">Privata</string>
+  <string name="ratedTournament">Censita</string>
+  <string name="thisGameIsRated">Haec est lusio censita</string>
   <string name="rematch">Iterum ludere</string>
   <string name="rematchOfferSent">Missa est novae lusionis conditio</string>
+  <string name="rematchOfferSentWhite">Albus provocationem proponit</string>
+  <string name="rematchOfferSentBlack">Niger provocationem proponit</string>
   <string name="rematchOfferAccepted">Accepta est novae lusionis conditio</string>
   <string name="rematchOfferCanceled">Sublata est novae lusionis conditio</string>
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
@@ -199,6 +223,10 @@
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s ordinatus</item>
+    <item quantity="other">%s ordinati</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victoriae</item>
     <item quantity="other">%s victoriae</item>
@@ -217,8 +245,10 @@
     <item quantity="one">Da %s secundas</item>
     <item quantity="other">Da %s secundas</item>
   </plurals>
+  <string name="giveMoreTime">Da tempus</string>
   <string name="thisPlayerUsesChessComputerAssistance">Hic lusor computatralium scaccorum auxilio utitur</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hic lusor statum falso crescit/decrescit</string>
+  <string name="openingExplorerAndTablebase">Explicatio initiorum et finitium</string>
   <string name="takeback">Reversio motus</string>
   <string name="proposeATakeback">Motus reversionem offere</string>
   <string name="takebackPropositionSent">Missa est motus reversionis conditio</string>
@@ -232,6 +262,10 @@
   <string name="tournament">Certamen</string>
   <string name="tournaments">Certamina</string>
   <string name="tournamentPoints">Certaminis puncta</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s certaminis punctum</item>
+    <item quantity="other">%s certaminis puncta</item>
+  </plurals>
   <string name="viewTournament">Certamen videre</string>
   <string name="backToTournament">Referre ad torneamento</string>
   <string name="thematic">Thematicus</string>
@@ -251,6 +285,7 @@
     <item quantity="one">Tibi %s plus censitus ludus ludendus</item>
     <item quantity="other">Tibi %s plures censiti ludi ludendi</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Gradus %s tuus incertus est</string>
   <string name="yourPerfRatingIsTooHigh">Tuus %1$s indictio (%2$s) altissimus est</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tuus maximus %1$s indictio hebdomade (%2$s) altissimus est</string>
   <string name="backToGame">Referre ad ludo</string>
@@ -334,6 +369,9 @@
   <string name="winner">Victor</string>
   <string name="standing">Status</string>
   <string name="createANewTournament">Facere certamen novum</string>
+  <string name="tournamentCalendar">Tabula certaminum</string>
+  <string name="advancedSettings">Occasus provectus</string>
+  <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
   <string name="points">Puncta</string>
@@ -343,14 +381,22 @@
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="youArePlaying">Ludis!</string>
+  <string name="winRate">Victoriarum proportio</string>
+  <string name="performance">Gressus</string>
+  <string name="whiteWins">Est victor Albus</string>
+  <string name="blackWins">Est victor Niger</string>
+  <string name="draws">Indutiae</string>
+  <string name="viewMoreTournaments">Certamen videre</string>
   <string name="membersOnly">Sola membra</string>
   <string name="boardEditor">Moderator tabularis</string>
+  <string name="setTheBoard">Constare tabulam</string>
   <string name="startPosition">Prima positio</string>
   <string name="clearBoard">Radere alveum</string>
   <string name="savePosition">Servare positionem</string>
   <string name="loadPosition">Legere positionem</string>
   <string name="isPrivate">Privatis</string>
   <string name="reportXToModerators">Referre %s moderatoribus</string>
+  <string name="xRating">Gradus %s</string>
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
   <string name="firstName">Praenomen</string>
@@ -379,6 +425,7 @@
   <string name="keepGoing">Perge...</string>
   <string name="puzzleFailed">Cadis in problemate</string>
   <string name="butYouCanKeepTrying">Tamen rursum contendere potes.</string>
+  <string name="success">Victoria</string>
   <string name="wasThisPuzzleAnyGood">Fuitne bonum hoc problema?</string>
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
@@ -441,6 +488,8 @@
   <string name="closeAccountExplanation">Esne certus te velle rationem tuam claudere? Claudere rationem tuam est consultum perpetuum. Dehinc inire non poteris atque pagina bibliographica tua non patebit.</string>
   <string name="thisAccountIsClosed">Haec ratio clausa est.</string>
   <string name="invalidUsernameOrPassword">Irritum nomen vel tessera usuarii</string>
+  <string name="incorrectPassword">Tessera falsa</string>
+  <string name="invalidAuthenticationCode">Codex authenticus invalidus</string>
   <string name="emailMeALink">Mitte mihi inscriptionem</string>
   <string name="currentPassword">Tessera praesens</string>
   <string name="newPassword">Tessera nova</string>
@@ -449,6 +498,8 @@
   <string name="pieceDestinations">Destinationes scaccorum (motus et praemotus rati)</string>
   <string name="boardCoordinates">Coordinatae tabulae (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Index motuum</string>
+  <string name="chessPieceSymbol">Signum scaccarii</string>
+  <string name="pgnLetter">Ars (K, Q, R, B, N)</string>
   <string name="chessClock">Horologium lantruncularium</string>
   <string name="tenthsOfSeconds">Decimas secundarum</string>
   <string name="never">Numquam</string>
@@ -456,6 +507,7 @@
   <string name="horizontalGreenProgressBars">Regula progressus viridis</string>
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="gameBehavior">Optiones ludi</string>
+  <string name="clickTwoSquares">Clige duorum quadratorum</string>
   <string name="premovesPlayingDuringOpponentTurn">Praemotus (cum adversarius ludit)</string>
   <string name="takebacksWithOpponentApproval">Receptus (si adversarius probeat)</string>
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
@@ -525,6 +577,7 @@
   <string name="error.email_acceptable">Litterae electronicae non licent</string>
   <string name="error.email_unique">Litterae electronicae iam captae sunt</string>
   <string name="blindfoldChess">Scacci obligati (calculi cryptici)</string>
+  <string name="zenMode">Modus Zenonis</string>
   <string name="moveConfirmation">Confirmatio motu</string>
   <string name="inCorrespondenceGames">Ludi longinqui</string>
   <string name="ifRatingIsPlusMinusX">Si ± %s status est</string>
@@ -532,9 +585,7 @@
   <string name="menu">Index</string>
   <string name="castling">Adroccare</string>
   <string name="whiteCastlingKingside">Albus O-O</string>
-  <string name="whiteCastlingQueenside">Albus O-O-O</string>
   <string name="blackCastlingKingside">Niger O-O</string>
-  <string name="blackCastlingQueenside">Niger O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Nuntii Fori</item>
     <item quantity="other">%s Nuntii Fori</item>
@@ -543,10 +594,10 @@
   <string name="watchGames">Spectare ludos</string>
   <string name="tpTimeSpentOnTV">Tempus in TV: %s</string>
   <string name="watch">Specta</string>
-  <string name="internationalEvents">Res internationales</string>
   <string name="videoLibrary">Libraria pellicularum</string>
   <string name="mobileApp">Programma portabile</string>
   <string name="webmasters">Dominus telae</string>
+  <string name="really">vero</string>
   <string name="contribute">Adiuvare</string>
   <string name="contact">Directorius</string>
   <string name="termsOfService">ToS</string>
@@ -610,8 +661,12 @@
   <string name="analysisShapesHowTo">Perge shift+click aut right+click ut circulos sagittasque in tabula pingas.</string>
   <string name="letOtherPlayersMessageYou">Sinire lusores alios tecum communicare.</string>
   <string name="shareYourInsightsData">Data tua mentis partiri.</string>
+  <string name="withNobody">Nullus est</string>
+  <string name="withFriends">Cum amicis</string>
+  <string name="withEverybody">In omnibus</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>
   <string name="kidMode">Modus puerilis</string>
+  <string name="security">Cautionis</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
   <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
   <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>
@@ -633,17 +688,23 @@
   <string name="xHostsY">%1$s exercituum %2$s</string>
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
+  <string name="xCreatesStudyY">%1$s studium %2$s creavit</string>
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Praecinctio</string>
+  <string name="anonymous">Sine nomine</string>
   <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
+  <string name="light">Albens</string>
+  <string name="dark">Niger</string>
+  <string name="transparent">Perlucidus</string>
   <string name="boardGeometry">Geometria tabula</string>
   <string name="boardTheme">Thema tabulae</string>
   <string name="boardSize">Tabula magnitudine</string>
   <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
+  <string name="usernamePrefixInvalid">Nomen usoris cum littera coependum.</string>
   <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">Lude scacos moris</string>
@@ -655,8 +716,15 @@
   <string name="error.maxLength">Maximum est longitudinem %s</string>
   <string name="error.min">%s paribus maius esse</string>
   <string name="error.max">%s paribus minor est</string>
+  <string name="error.unknown">Culpa</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
+  <string name="whiteWinsGame">Est victor Albus</string>
+  <string name="blackWinsGame">Est victor Niger</string>
+  <string name="next">Posterus</string>
+  <string name="youCanDoBetter">Melius agere potes</string>
+  <string name="opening">Principium</string>
+  <string name="playX">Lude %s</string>
 </resources>

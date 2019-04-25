@@ -164,6 +164,7 @@
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
   <string name="usernameOrEmail">Användarnamn eller email</string>
+  <string name="changeUsername">Byt användarnamn</string>
   <string name="password">Lösenord</string>
   <string name="haveAnAccount">Har du ett konto?</string>
   <string name="changePassword">Ändra lösenord</string>
@@ -173,7 +174,6 @@
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Placeringen uppdateras varje %s minuter</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s schackproblem</item>
     <item quantity="other">%s schackproblem</item>
@@ -631,9 +631,7 @@
   <string name="menu">Meny</string>
   <string name="castling">Rockad</string>
   <string name="whiteCastlingKingside">Vit O-O</string>
-  <string name="whiteCastlingQueenside">Vit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
-  <string name="blackCastlingQueenside">Svart O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminlägg</item>
     <item quantity="other">%s Foruminlägg</item>
@@ -642,7 +640,6 @@
   <string name="watchGames">Titta på spel</string>
   <string name="tpTimeSpentOnTV">Total TV-tid: %s</string>
   <string name="watch">Titta</string>
-  <string name="internationalEvents">Internationella evenemang</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>

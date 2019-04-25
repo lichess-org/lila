@@ -164,6 +164,7 @@
   <string name="ratingStats">Reitingu statistika</string>
   <string name="username">Kasutaja nimi</string>
   <string name="usernameOrEmail">Kasutajanimi või email</string>
+  <string name="changeUsername">Muuda kasutajanime</string>
   <string name="password">Salasõna</string>
   <string name="haveAnAccount">Kas sul on kasutaja?</string>
   <string name="changePassword">Muuda salasõna</string>
@@ -173,7 +174,6 @@
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Koht</string>
   <string name="rankX">Koht: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Kohta uuendatakse iga %s minuti tagant</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
     <item quantity="other">%s ülesannet</item>
@@ -632,9 +632,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="menu">Menüü</string>
   <string name="castling">Vangerdus</string>
   <string name="whiteCastlingKingside">Valge O-O</string>
-  <string name="whiteCastlingQueenside">Valge O-O-O</string>
   <string name="blackCastlingKingside">Must O-O</string>
-  <string name="blackCastlingQueenside">Must O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foorumi postitused</item>
     <item quantity="other">%s Foorumi postitused</item>
@@ -643,7 +641,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="watchGames">Vaata mänge</string>
   <string name="tpTimeSpentOnTV">Aeg kulutatud TV: %s</string>
   <string name="watch">Vaata</string>
-  <string name="internationalEvents">Rahvusvahelised sündmused</string>
   <string name="videoLibrary">Videod</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>

@@ -164,6 +164,9 @@
   <string name="ratingStats">Wertungsstatistiken</string>
   <string name="username">Benutzername</string>
   <string name="usernameOrEmail">Benutzername oder E-Mail</string>
+  <string name="changeUsername">Benutzernamen ändern</string>
+  <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
+  <string name="changeUsernameDescription">Anpassung deines Benutzernamens. Dies ist nur einmalig möglich, wobei lediglich Anpassungen der Groß-/Kleinschreibung möglich sind.</string>
   <string name="password">Passwort</string>
   <string name="haveAnAccount">Hast du schon ein Benutzerkonto?</string>
   <string name="changePassword">Passwort ändern</string>
@@ -173,7 +176,6 @@
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Platzierung wird alle %s Minuten aktualisiert</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s Aufgabe</item>
     <item quantity="other">%s Aufgaben</item>
@@ -631,9 +633,7 @@
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
   <string name="whiteCastlingKingside">Weiß O-O</string>
-  <string name="whiteCastlingQueenside">Weiß O-O-O</string>
   <string name="blackCastlingKingside">Schwarz O-O</string>
-  <string name="blackCastlingQueenside">Schwarz O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forenbeitrag</item>
     <item quantity="other">%s Forenbeiträge</item>
@@ -642,7 +642,6 @@
   <string name="watchGames">Partien ansehen</string>
   <string name="tpTimeSpentOnTV">Gesamtzeit TV: %s</string>
   <string name="watch">Zuschauen</string>
-  <string name="internationalEvents">Internationale Events</string>
   <string name="videoLibrary">Video-Bibliothek</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>

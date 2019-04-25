@@ -173,7 +173,6 @@
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s quebra-cabeças</item>
@@ -631,9 +630,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Roque curto das Brancas</string>
-  <string name="whiteCastlingQueenside">Roque longo das Brancas</string>
   <string name="blackCastlingKingside">Roque curto das Pretas</string>
-  <string name="blackCastlingQueenside">Roque longo das Pretas</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s artigo no fórum</item>
     <item quantity="other">%s artigos no fórum</item>
@@ -642,7 +639,6 @@
   <string name="watchGames">Observar jogos</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Observar</string>
-  <string name="internationalEvents">Eventos Internacionais</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>

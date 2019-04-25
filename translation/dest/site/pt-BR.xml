@@ -164,6 +164,9 @@
   <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
+  <string name="changeUsername">Alterar nome de usuário</string>
+  <string name="changeUsernameNotSame">Pode-se apenas trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Altere seu nome de usuário. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Senha</string>
   <string name="haveAnAccount">Tem uma conta?</string>
   <string name="changePassword">Alterar senha</string>
@@ -173,7 +176,6 @@
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Rank</string>
   <string name="rankX">Classificação: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s problemas</item>
@@ -633,9 +635,7 @@ em %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Roque curto das Brancas</string>
-  <string name="whiteCastlingQueenside">Roque longo das Brancas</string>
   <string name="blackCastlingKingside">Roque curto das Pretas</string>
-  <string name="blackCastlingQueenside">Roque longo das Pretas</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Postagens no Forum</item>
     <item quantity="other">%s Postagens no Forum</item>
@@ -644,7 +644,6 @@ em %3$s</string>
   <string name="watchGames">Observar jogos</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Observar</string>
-  <string name="internationalEvents">Eventos Internacionais</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>

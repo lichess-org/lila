@@ -164,6 +164,9 @@
   <string name="ratingStats">Statistiques de classement</string>
   <string name="username">Nom d\'utilisateur</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
+  <string name="changeUsername">Modifier le nom d\'utilisateur</string>
+  <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
+  <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seules les majuscules/minuscules peuvent être modifiées.</string>
   <string name="password">Mot de passe</string>
   <string name="haveAnAccount">Déjà inscrit ?</string>
   <string name="changePassword">Changer votre mot de passe</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Le classement est mis à jour toutes les %s minutes</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Le classement est mis à jour toutes les minutes</item>
+    <item quantity="other">Le classement est mis à jour toutes les %s minutes</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzles</item>
@@ -589,11 +595,11 @@ en %3$s</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
   <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractère.</item>
+    <item quantity="one">Maximum : %s caractères.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueur bloqué</item>
+    <item quantity="one">%s joueurs bloqués</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
@@ -632,9 +638,7 @@ en %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Blancs O-O</string>
-  <string name="whiteCastlingQueenside">Blancs O-O-O</string>
   <string name="blackCastlingKingside">Noirs O-O</string>
-  <string name="blackCastlingQueenside">Noirs O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s message posté</item>
     <item quantity="other">%s messages postés</item>
@@ -643,7 +647,6 @@ en %3$s</string>
   <string name="watchGames">Regarder les parties</string>
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
-  <string name="internationalEvents">Évènements internationaux</string>
   <string name="videoLibrary">Vidéothèque</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
@@ -685,7 +688,7 @@ en %3$s</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
   <string name="newTournament">Nouveau tournoi</string>
-  <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
+  <string name="tournamentHomeTitle">Tournois mettant en jeu diverses variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
   <string name="tournamentNotFound">Tournoi inexistant</string>
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
@@ -824,7 +827,7 @@ en %3$s</string>
   <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
   <string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs des Blancs</string>
   <string name="doneReviewingBlackMistakes">Fin d\'examen des erreurs des Noirs</string>
-  <string name="doItAgain">Essayer encore</string>
+  <string name="doItAgain">Recommencer</string>
   <string name="reviewWhiteMistakes">Revoir les erreurs des Blancs</string>
   <string name="reviewBlackMistakes">Revoir les erreurs des Noirs</string>
   <string name="advantage">Avantage</string>
@@ -847,7 +850,7 @@ en %3$s</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">et enregistrer %s variante de précoups</item>
+    <item quantity="one">et enregistrer %s variantes</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
 </resources>

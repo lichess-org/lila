@@ -164,6 +164,9 @@
   <string name="ratingStats">Istats ng marka</string>
   <string name="username">Pangalan ng gumamit</string>
   <string name="usernameOrEmail">Pangalan ng gumamit o email</string>
+  <string name="changeUsername">Palitan ang iyong pangalan</string>
+  <string name="changeUsernameNotSame">Ang laki o liit lang ng mga letra ang pwedeng baguhin. Halimbawa, pwedeng gawing \"JohnDoe\" ang \"johndoe\".</string>
+  <string name="changeUsernameDescription">Palitan ang iyong pangalan. Maaari mo lang itong gawin ng isang beses at maaari mo lang baguhin ang laki o liit ng mga letra sa pangalan mo.</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">May account ka ba?</string>
   <string name="changePassword">Palitan ang password</string>
@@ -173,7 +176,6 @@
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Ang ranggo ay na update bawat %s mga minuto</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s palaisipan</item>
     <item quantity="other">%s mga palaisipan</item>
@@ -211,6 +213,8 @@
   <string name="thisGameIsRated">Ang laro ay namarkahan</string>
   <string name="rematch">Mag-laro muli</string>
   <string name="rematchOfferSent">Naipadala na ang alok na makipaglabang muli</string>
+  <string name="rematchOfferSentWhite">Nag-aalok ng rematch ang Puti</string>
+  <string name="rematchOfferSentBlack">Nag-aalok ng rematch ang Itim</string>
   <string name="rematchOfferAccepted">Tinanggap ang alok na pakikibaglaban muli</string>
   <string name="rematchOfferCanceled">Nakansela ang alok ng pakikipaglabang muli</string>
   <string name="rematchOfferDeclined">Tinanggihan ang alok ng paglalabang muli</string>
@@ -302,8 +306,10 @@
   <string name="yourPerfRatingIsTooLow">Ang iyong %1$s marka (%2$s) ay masyadong mababa</string>
   <string name="ratedMoreThanInPerf">Namarka ≥ %1$s sa %2$s</string>
   <string name="ratedLessThanInPerf">Namarka ≤ %1$s sa %2$s</string>
+  <string name="mustBeInTeam">Kailangang miyembro ng %s na team</string>
+  <string name="youAreNotInTeam">Ikaw ay hindi miyembro ng %s na team</string>
   <string name="backToGame">Bumalik sa laro</string>
-  <string name="siteDescription">Libreng Online na Server ng Chess. Magalro ng Chess ngayon sa isang malinis na interface. Walang rehistrsyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o sinong mga kalaban.</string>
+  <string name="siteDescription">Libreng online na server ng chess. Maglaro ng Chess ngayon sa isang malinis na interface. Walang rehistrasyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o kahit sinong mga kalaban.</string>
   <string name="teams">Mga Koponan</string>
   <plurals name="nbMembers">
     <item quantity="one">%s miyembro</item>
@@ -384,6 +390,13 @@
   <string name="winner">Nanalo</string>
   <string name="standing">Katayuan</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
+  <string name="tournamentCalendar">Kalendaryo ng mga paligsahan</string>
+  <string name="conditionOfEntry">Kondisyon para makapasok:</string>
+  <string name="safeTournamentName">Pumili ka ng angkop na pangalan ng paligsahan.</string>
+  <string name="inappropriateNameWarning">Maaaring masara ang iyong account kapag naglagay ka ng kahit anong hindi naaangkop na bagay.</string>
+  <string name="emptyTournamentName">Pabayaang walang laman upang pangalanan ang paligsahang ito sa isang Grandmaster.</string>
+  <string name="recommendNotTouching">Payo naming huwag pakialaman ang mga ito.</string>
+  <string name="fewerPlayers">Kung maglagay ka ng mga kondisyon upang makapasok, kakaunti ang mga maglalaro ng iyong paligsahan.</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
   <string name="points">Punto</string>
@@ -496,6 +509,7 @@
   <string name="troll">Awitin</string>
   <string name="other">Iba pa</string>
   <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
+  <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
   <string name="by">sa pamamagitan ng %s</string>
   <string name="thisTopicIsNowClosed">Ang paksang itp ay sarado na.</string>
   <string name="theming">Pagtetema</string>
@@ -513,6 +527,7 @@
   <string name="thisAccountIsClosed">Ang akawnt na ito ay sarado.</string>
   <string name="invalidUsernameOrPassword">Maling username o password</string>
   <string name="incorrectPassword">Maling password</string>
+  <string name="invalidAuthenticationCode">Ang pagpapatunay ng code ay imbalido</string>
   <string name="emailMeALink">I-email mo sa akin ang link</string>
   <string name="currentPassword">Kasalukuyang password</string>
   <string name="newPassword">Bagong password</string>
@@ -616,9 +631,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Pag-enrock</string>
   <string name="whiteCastlingKingside">Puti O-O</string>
-  <string name="whiteCastlingQueenside">Puti O-O-O</string>
   <string name="blackCastlingKingside">Itim O-O</string>
-  <string name="blackCastlingQueenside">Itim O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post ng forum</item>
     <item quantity="other">%s mga post ng forum</item>
@@ -627,10 +640,10 @@
   <string name="watchGames">Manood ng mga laro</string>
   <string name="tpTimeSpentOnTV">Oras sa TV: %s</string>
   <string name="watch">Manood</string>
-  <string name="internationalEvents">Internasyonal na mga pangyayari</string>
   <string name="videoLibrary">Lalagyan ng mga Video</string>
   <string name="mobileApp">Aplikasyon sa Mobile</string>
   <string name="webmasters">Webmasters</string>
+  <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="contact">Kontak</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
@@ -750,6 +763,9 @@
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
   <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>
+  <string name="usernamePrefixInvalid">Kailangang magsimula ang iyong pangalan gamit ang kahit anong letra.</string>
+  <string name="usernameSuffixInvalid">Kailangang tapusin ang iyong pangalan gamit ang kahit anong letra o numero.</string>
+  <string name="usernameCharsInvalid">Maaari lang maglaman ang iyong pangalan ng mga letra, numero, salungguhit, at gitling.</string>
   <string name="usernameUnacceptable">Ang username na ito ay hindi matatanggap.</string>
   <string name="directlySupportLichess">Direktang sumusuporta sa Lichess</string>
   <string name="playChessInStyle">Maglaro ng chess na may istilo</string>

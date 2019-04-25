@@ -164,6 +164,9 @@
   <string name="ratingStats">Statistiche punteggi</string>
   <string name="username">Nome utente</string>
   <string name="usernameOrEmail">Nome utente o email</string>
+  <string name="changeUsername">Cambia nome utente</string>
+  <string name="changeUsernameNotSame">Può cambiare solamente il maiuscolo/minuscolo delle lettere. Per esempio da \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">Hai già un account?</string>
   <string name="changePassword">Cambia password</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">La posizione viene aggiornata ogni %s minuti</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Il ranking viene aggiornato ogni minuto</item>
+    <item quantity="other">Il ranking viene aggiornato %s minuti</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzle</item>
@@ -539,7 +545,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
   <string name="pgnPieceNotation">Notazione mossa</string>
   <string name="chessPieceSymbol">Simbolo del pezzo</string>
-  <string name="pgnLetter">Lettera (R, D, T, A, C)</string>
+  <string name="pgnLetter">Lettera (K, Q, R, B, N)</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
   <string name="never">Mai</string>
@@ -633,9 +639,7 @@ in %3$s</string>
   <string name="menu">Menù</string>
   <string name="castling">Arrocco</string>
   <string name="whiteCastlingKingside">Bianco O-O</string>
-  <string name="whiteCastlingQueenside">Bianco O-O-O</string>
   <string name="blackCastlingKingside">Nero O-O</string>
-  <string name="blackCastlingQueenside">Nero O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post nel forum</item>
     <item quantity="other">%s post nel forum</item>
@@ -644,7 +648,6 @@ in %3$s</string>
   <string name="watchGames">Guarda le partite</string>
   <string name="tpTimeSpentOnTV">Tempo in TV: %s</string>
   <string name="watch">Guarda</string>
-  <string name="internationalEvents">Eventi internazionali</string>
   <string name="videoLibrary">Libreria video</string>
   <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
@@ -787,7 +790,7 @@ in %3$s</string>
   <string name="error.min">Deve essere più grande o uguale a %s</string>
   <string name="error.max">Deve essere minore o uguale a %s</string>
   <string name="error.unknown">Errore</string>
-  <string name="custom">Altro/Personalizza</string>
+  <string name="custom">Personalizzato</string>
   <string name="notifications">Notifiche</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>

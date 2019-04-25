@@ -112,7 +112,6 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
-  <string name="rankIsUpdatedEveryXMinutes">Uasdátaítear an rátáil gach %s nóiméid</string>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
   <string name="timeOut">As am</string>
@@ -172,9 +171,7 @@
   <string name="playOffline">Imir as líne</string>
   <string name="castling">Caisleáil</string>
   <string name="whiteCastlingKingside">Bán O-O</string>
-  <string name="whiteCastlingQueenside">Bán O-O-O</string>
   <string name="blackCastlingKingside">Dubh O-O</string>
-  <string name="blackCastlingQueenside">Dubh O-O-O</string>
   <string name="tpTimeSpentPlaying">Am caite ag imirt: %s</string>
   <string name="watchGames">Féach ar chluichí</string>
   <string name="watch">Féach</string>

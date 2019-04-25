@@ -116,7 +116,6 @@
   <string name="forgotPassword">Кӗме сӑмаха мансан</string>
   <string name="rank">Хаклав</string>
   <string name="rankX">Рейтинг: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рейтинг %s минут сиктерсе ҫӗнелет</string>
   <string name="gamesPlayed">вӑйӑ выљанӑ</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
@@ -471,9 +470,7 @@
   <string name="menu">Менӳ</string>
   <string name="castling">Роклани</string>
   <string name="whiteCastlingKingside">Шурӑ O-O</string>
-  <string name="whiteCastlingQueenside">Шурӑ O-O-O</string>
   <string name="blackCastlingKingside">Хура O-O</string>
-  <string name="blackCastlingQueenside">Хура O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Форумра ҫырни</item>
   </plurals>
@@ -481,7 +478,6 @@
   <string name="watchGames">Вӑййисене тишкер</string>
   <string name="tpTimeSpentOnTV">TV курнӑ вӑхӑт: %s</string>
   <string name="watch">Тишкерӳ</string>
-  <string name="internationalEvents">Халӑх хушшинчи пулӑмсем</string>
   <string name="videoLibrary">Курма пуххи</string>
   <string name="mobileApp">Мобиллӗ хушӑм</string>
   <string name="webmasters">Веб маҫтӑрсем</string>
