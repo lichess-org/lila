@@ -5,12 +5,12 @@ $theme: 'transp';
 $c-bg-high: hsla(0, 0%, 0%, .6);
 $c-bg-low: hsla(0, 0%, 0%, .5);
 
-$c-font: hsl(0, 0%, 77%);
-$c-font-dim: c-light($c-font, 66%);
-$c-font-dimmer: c-light($c-font, 45%);
-$c-font-clear: c-light($c-font, 86%);
-$c-font-clearer: c-light($c-font, 94%);
-$c-font-page: $c-font-clear;
+$c-font: hsl(0, 0%, 80%);
+$c-font-dim: c-light($c-font, 69%);
+$c-font-dimmer: c-light($c-font, 48%);
+$c-font-clear: c-light($c-font, 89%);
+$c-font-clearer: c-light($c-font, 97%);
+$c-font-page: $c-font-clearer;
 
 $c-bg-box: $c-bg-high;
 $c-bg-zebra: hsla(0, 0%, 100%, .05);
@@ -20,9 +20,9 @@ $c-bg-popup: $c-bg-high;
 
 $c-bg-header-dropdown: hsla(0, 0%, 0%, .75);
 
-$text-shadow: 0 0 2px #000, 0 0 5px #000;
+$text-shadow: 0 0 3px #000;
 
-%page-font-shadow {
+%page-text-shadow {
   text-shadow: $text-shadow;
 }
 

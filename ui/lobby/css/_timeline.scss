@@ -6,8 +6,7 @@
   .entry {
     @extend %roboto;
     a {
-      @extend %base-font;
-      color: $c-font-page;
+      @extend %base-font, %page-font;
     }
     &:hover a {
       color: $c-link;

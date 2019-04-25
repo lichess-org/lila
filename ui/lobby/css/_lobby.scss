@@ -23,6 +23,7 @@ body {
   @extend %flex-column;
   overflow: hidden;
 }
+
 .lobby__about {
   display: flex;
   align-content: flex-start;
@@ -33,7 +34,7 @@ body {
     margin: 0;
   }
   a {
-    color: $c-font-dim;
+    @extend %page-text;
     font-weight: bold;
     margin-right: 1.2em;
     white-space: nowrap;

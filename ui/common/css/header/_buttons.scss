@@ -8,12 +8,11 @@
   @extend %flex-center-nowrap;
 
   .link {
-    @extend %top-icon;
-    color: $c-font-page;
+    @extend %top-icon, %page-text;
     font-size: 1.1rem;
     padding: 0 .7rem;
     &:hover {
-      color: $c-link;
+      color: $c-font-clearer;
     }
     span::before {
       vertical-align: middle;

@@ -20,9 +20,11 @@
 
 /* text printed directly on the page background
  * deserves special treatment (transp theme) */
-%page-text {
-  @extend %page-font-shadow !optional;
+%page-font {
   color: $c-font-page;
+}
+%page-text {
+  @extend %page-font, %page-text-shadow !optional;
 }
 %active {
   background: $c-accent;

@@ -29,7 +29,7 @@
     }
   }
   &__counters {
-    @extend %flex-between;
+    @extend %flex-between, %page-text;
     background: $c-bg-zebra;
     padding: $block-gap #{$block-gap * 2};
     @include breakpoint($mq-col3) {

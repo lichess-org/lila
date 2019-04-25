@@ -3,8 +3,7 @@
     display: none;
   }
   > a {
-    @extend %box-radius-left, %flex-center-nowrap;
-    color: $c-font;
+    @extend %box-radius-left, %flex-center-nowrap, %page-text;
     padding: .7em $block-gap .7em .4em;
     white-space: nowrap;
     @include transition();
