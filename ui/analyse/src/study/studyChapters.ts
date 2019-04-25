@@ -90,7 +90,7 @@ export function view(ctrl: StudyCtrl): VNode {
       if (ch.length) $(el).scrollTo(ch, 200);
     }
     vData.count = newCount;
-    if (ctrl.members.canContribute() && newCount > 1 && !vData.sortable) {
+    if (!window.lichess.hasTouchEvents && ctrl.members.canContribute() && newCount > 1 && !vData.sortable) {
       const makeSortable = function() {
         vData.sortable = window['Sortable'].create(el, {
           draggable: '.draggable',
