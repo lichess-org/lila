@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
-import { bind, onInsert, dataIcon, spinner, hasTouchEvents, bindMobileMousedown } from './util';
+import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -154,7 +154,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  const eventName = hasTouchEvents ? 'touchend' : 'mouseup';
+  const eventName = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
 }
 
@@ -311,7 +311,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     h('div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
-      hook: (hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
       chessground.render(ctrl),

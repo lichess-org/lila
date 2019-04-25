@@ -20,7 +20,7 @@ export function modal(d: Modal): VNode {
         d.onInsert && d.onInsert(el);
       })
     }, [
-      h('a.close.icon', {
+      h('span.close', {
         attrs: { 'data-icon': 'L' },
         hook: bind('click', d.onClose)
       }),

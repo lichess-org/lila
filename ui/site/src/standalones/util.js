@@ -8,6 +8,10 @@ lichess.dispatchEvent = function(el, eventName) {
   el.dispatchEvent(new Event(eventName));
 };
 
+
+lichess.hasTouchEvents = 'ontouchstart' in window;
+lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
+
 function buildStorage(storageKey) {
   try {
     // just accessing localStorage can throw an exception...
@@ -243,7 +247,7 @@ lichess.hopscotch = function(f) {
 }
 lichess.slider = function() {
   return lichess.loadScript(
-    'javascripts/vendor/jquery-ui.slider' + ('ontouchstart' in window ? '.touch' : '') + '.min.js',
+    'javascripts/vendor/jquery-ui.slider' + (hasTouchEvents ? '.touch' : '') + '.min.js',
     {noVersion:true}
   );
 };
@@ -384,10 +388,8 @@ $.modal = function(html, cls, onClose) {
     .addClass(cls)
     .data('onClose', onClose)
     .html($wrap);
-  $overlay.add($wrap.find('.close')).one('mousedown', function() {
-    $.modal.close();
-  });
-  $wrap.on('mousedown', function(e) {
+  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
+  $wrap.on('click', function(e) {
     e.stopPropagation();
   });
   $('body').addClass('overlayed').prepend($overlay);
