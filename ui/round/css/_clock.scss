@@ -141,7 +141,8 @@
     }
   }
   .tour-rank {
-    color: $c-font-dim;
+    @extend %page-text;
+    opacity: .65;
   }
   .moretime {
     opacity: 0.4;

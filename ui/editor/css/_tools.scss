@@ -7,6 +7,7 @@
       margin: .5rem 0;
     }
     select {
+      @extend %page-link !optional;
       width: 100%;
       &.positions option:checked {
         font-style: italic;
@@ -36,6 +37,7 @@
       @extend %flex-column;
       justify-content: stretch;
       .button {
+        @extend %page-link !optional;
         width: 100%;
         text-align: left;
       }

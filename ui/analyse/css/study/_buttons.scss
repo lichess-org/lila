@@ -23,9 +23,8 @@ $c-study-button: $c-accent;
     margin-right: 4px;
   }
   .mode {
-    @extend %flex-center-nowrap, %box-radius-top;
+    @extend %flex-center-nowrap, %box-radius-top, %page-text;
     align-self: stretch;
-    color: $c-font;
     padding: 0 .4em;
     opacity: .8;
     i::before {

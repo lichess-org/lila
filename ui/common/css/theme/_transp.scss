@@ -25,6 +25,9 @@ $text-shadow: 0 0 3px #000;
 %page-text-shadow {
   text-shadow: $text-shadow;
 }
+%page-link-font {
+  color: $c-font-clearer;
+}
 
 @mixin metal {
   background: linear-gradient(to bottom, hsla(0, 0, 0, .5), hsla(0, 0, 0, .6) 100%);

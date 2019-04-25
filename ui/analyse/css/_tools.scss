@@ -55,6 +55,7 @@
       flex: 3 1 auto;
     }
     .fbt {
+      @extend %page-text;
       flex: 0 0 2.5rem;
     }
     .active {
