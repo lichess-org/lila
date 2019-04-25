@@ -3,6 +3,7 @@
     font-size: 1.2em;
   }
   &__side {
+    @extend %page-text;
     text-align: center;
     margin-top: 2rem;
     img {

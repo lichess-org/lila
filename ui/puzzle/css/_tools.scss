@@ -113,4 +113,7 @@
   .jumps {
     flex: 1 1 auto;
   }
+  .fbt {
+    @extend %page-text;
+  }
 }

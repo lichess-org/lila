@@ -26,6 +26,11 @@
 %page-text {
   @extend %page-font, %page-text-shadow !optional;
 }
+%page-link {
+  @extend %page-link-font !optional;
+  @extend %page-text-shadow !optional;
+}
+
 %active {
   background: $c-accent;
   color: #fff;

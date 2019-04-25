@@ -1,8 +1,8 @@
 coords {
+  @extend %page-text;
   position: absolute;
   display: flex;
   pointer-events: none;
-  opacity: .8;
   font-size: 1.3vmin;
   &.ranks {
     right: -15px;

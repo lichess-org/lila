@@ -57,6 +57,9 @@
     }
     canvas {
       width: 100%;
+      @if $theme == 'transp' {
+        opacity: .5;
+      }
     }
   }
 }
