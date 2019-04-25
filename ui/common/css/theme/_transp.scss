@@ -30,7 +30,7 @@ $text-shadow: 0 0 3px #000;
 }
 
 @mixin metal {
-  background: linear-gradient(to bottom, hsla(0, 0, 0, .5), hsla(0, 0, 0, .6) 100%);
+  background: linear-gradient(to bottom, hsla(0, 0, 0, .4), hsla(0, 0, 0, .5) 100%);
 }
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsla(0, 0, 0, .45), hsla(0, 0, 0, .55) 100%);

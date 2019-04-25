@@ -12,7 +12,7 @@ $theme-dark: true;
 }
 
 $c-bg-page: hsl($c-site-hue, 10%, 8%);
-$c-bg-high: hsl($c-site-hue, 5%, 16%);
+$c-bg-high: hsl($c-site-hue, 5%, 14%);
 $c-bg-low: hsl($c-site-hue, 7%, 22%);
 
 /* even rows in list or tables, subtle shade of $c-bg-high */
@@ -81,10 +81,10 @@ $c-font-shadow: #000;
 $text-shadow: none;
 
 @mixin metal {
-  background: linear-gradient(to bottom, hsl(0, 0, 22), hsl(0, 0, 19) 100%);
+  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
 }
 @mixin metal-hover {
-  background: linear-gradient(to bottom, hsl(0, 0, 25), hsl(0, 0, 22) 100%);
+  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
   color: $c-font-clear;
 }
 
