@@ -21,11 +21,11 @@ $c-bg-zebra2: hsl($c-site-hue, 5%, 23%);
 
 $c-body-gradient: hsl($c-site-hue, 12%, 16%);
 
-$c-font: hsl(0, 0%, 72%);
-$c-font-dim: c-light($c-font, 58%);
-$c-font-dimmer: c-light($c-font, 40%);
-$c-font-clear: c-light($c-font, 79%);
-$c-font-clearer: c-light($c-font, 88%);
+$c-font: hsl(0, 0%, 73%);
+$c-font-dim: c-light($c-font, 60%);
+$c-font-dimmer: c-light($c-font, 42%);
+$c-font-clear: c-light($c-font, 80%);
+$c-font-clearer: c-light($c-font, 89%);
 $c-shade: c-light($c-font, 30%);
 $c-font-page: $c-font-dim;
 
