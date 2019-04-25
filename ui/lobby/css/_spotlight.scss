@@ -1,22 +1,19 @@
 .lobby__spotlights {
-  @extend %box-radius-force;
+  @extend %box-neat-force;
   flex: 0 0 auto;
 }
 .tour-spotlight {
-  @extend %flex-center-nowrap, %nowrap-hidden;
+  @extend %flex-center-nowrap, %nowrap-hidden, %page-metal;
   flex: 0 0 auto;
   padding: .3em;
   opacity: 0.8;
   @include transition();
-  background: $c-bg-low;
   text-shadow: $text-shadow;
   color: $c-font;
-  border-bottom: 1px solid $c-bg-page;
   &.invert,
   &.event-spotlight,
   &:hover {
-    background: $c-primary;
-    color: $c-primary-over;
+    @extend %page-metal-hover;
     text-shadow: none;
   }
   &:hover {
@@ -36,7 +33,9 @@
   i.img::before {
     color: #fff;
     font-size: 50px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    @if $theme-light {
+      text-shadow: 1px 1px 2px $c-link;
+    }
   }
   .name {
     margin-top: 1px;

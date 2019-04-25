@@ -31,6 +31,20 @@
   @extend %page-text-shadow !optional;
 }
 
+
+%metal {
+  @include metal;
+}
+%metal-hover {
+  @include metal-hover;
+}
+%page-metal {
+  @include page-metal;
+}
+%page-metal-hover {
+  @include page-metal;
+}
+
 %active {
   background: $c-accent;
   color: #fff;

@@ -85,13 +85,14 @@ $text-shadow: none;
 }
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsl(0, 0, 25), hsl(0, 0, 22) 100%);
+  color: $c-font-clear;
+}
+
+@mixin page-metal {
+  @include metal;
+}
+@mixin page-metal-hover {
+  @include metal-hover;
 }
 
 @mixin theme-style { }
-
-%metal {
-  @include metal;
-}
-%metal-hover {
-  @include metal-hover;
-}

@@ -36,6 +36,13 @@ $text-shadow: 0 0 3px #000;
   background: linear-gradient(to bottom, hsla(0, 0, 0, .45), hsla(0, 0, 0, .55) 100%);
 }
 
+@mixin page-metal {
+  @include metal;
+}
+@mixin page-metal-hover {
+  @include metal-hover;
+}
+
 @mixin theme-style {
   body.transp {
     &::before {
@@ -52,11 +59,4 @@ $text-shadow: 0 0 3px #000;
       z-index: -1;
     }
   }
-}
-
-%metal {
-  @include metal;
-}
-%metal-hover {
-  @include metal-hover;
 }
