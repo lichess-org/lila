@@ -25,6 +25,11 @@ $mq-col3: $mq-col3-uniboard;
 }
 
 .tour__faq {
+  padding: 4em var(--box-padding);
+  display: none;
+  @include breakpoint($mq-col2) {
+    display: block;
+  }
   h2 {
     margin: 1.5em 0 .5em 0;
   }

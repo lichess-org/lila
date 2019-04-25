@@ -4,6 +4,7 @@ import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
 import { controls, standing } from './arena';
+import { onInsert } from './util';
 import header from './header';
 
 export const name = 'created';
@@ -17,7 +18,10 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     h('blockquote.pull-quote', [
       h('p', ctrl.data.quote.text),
       h('footer', ctrl.data.quote.author)
-    ])
+    ]),
+    ctrl.opts.$faq ? h('div', {
+      hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq))
+    }) : null
   ];
 }
 
