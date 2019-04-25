@@ -1,4 +1,7 @@
 .study__invite {
+  > div {
+    overflow: visible !important; // required by user autocomplete
+  }
   .info {
     @extend %box-radius, %flex-center-nowrap;
     background: $c-accent;
