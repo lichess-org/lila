@@ -21,6 +21,6 @@ final class TrophyApi(coll: Coll) {
 
   def awardMarathonWinner(userId: String): Funit = award(userId, Trophy.Kind.MarathonWinner)
 
-  def findByUser(user: User, max: Int = 12): Fu[List[Trophy]] =
+  def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.find($doc("user" -> user.id)).list[Trophy](max)
 }
