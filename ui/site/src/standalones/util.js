@@ -247,7 +247,7 @@ lichess.hopscotch = function(f) {
 }
 lichess.slider = function() {
   return lichess.loadScript(
-    'javascripts/vendor/jquery-ui.slider' + (hasTouchEvents ? '.touch' : '') + '.min.js',
+    'javascripts/vendor/jquery-ui.slider' + (lichess.hasTouchEvents ? '.touch' : '') + '.min.js',
     {noVersion:true}
   );
 };
