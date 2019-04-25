@@ -37,10 +37,7 @@ object layout {
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
   private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin/>""")
-  private val manifests = raw(List(
-    """<link rel="manifest" href="/manifest.json" />""",
-    """<meta name="twitter:site" content="@lichess" />"""
-  ).mkString)
+  private val manifests = raw("""<link rel="manifest" href="/manifest.json" /><meta name="twitter:site" content="@lichess" />""")
 
   private val favicons = raw {
     List(256, 128, 64) map { px =>
