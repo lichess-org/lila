@@ -1,5 +1,5 @@
 .tabs-horiz {
-  @extend %flex-center-nowrap;
+  @extend %flex-center-nowrap, %page-text;
   justify-content: center;
   align-items: flex-end;
   border-bottom: 2px solid $c-border;
@@ -13,7 +13,6 @@
     padding: .5em .2em;
     cursor: pointer;
     position: relative;
-    color: $c-font-page;
     @include transition(color, .25s);
     min-width: 15%;
     letter-spacing: -.5px;

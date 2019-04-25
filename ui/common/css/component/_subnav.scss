@@ -1,6 +1,6 @@
 .subnav {
   a {
-    @extend %nowrap-hidden;
+    @extend %nowrap-hidden, %page-text;
   }
 
   @include breakpoint($mq-subnav-top) {

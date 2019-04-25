@@ -1,6 +1,6 @@
 .lobby__streams {
-  a.stream {
-    @extend %roboto, %nowrap-hidden;
+  .stream {
+    @extend %roboto, %nowrap-hidden, %page-text;
     color: $c-font-page;
     display: block;
     text-overflow: ellipsis;
