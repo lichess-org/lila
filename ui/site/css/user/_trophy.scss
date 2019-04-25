@@ -1,6 +1,6 @@
 .trophies {
   position: absolute;
-  top: 30px;
+  top: 35px;
   right: 1.5em;
   height: 40px;
   display: flex;
@@ -37,9 +37,9 @@
   align-items: flex-end;
 }
 .stacked .trophy {
-  width: 60px;
-  height: 60px;
-  font-size: 60px;
+  width: 65px;
+  height: 65px;
+  font-size: 65px;
 }
 .fire-trophy {
   @extend %fire-trophy-shadow;
@@ -56,11 +56,12 @@
   &.marathonTopFifty,
   &.marathonTopHundred {
     filter: hue-rotate(190deg);
+    color: adjust-color($c-link, $hue: -190deg, $saturation: -70%);
   }
   &.marathonTopTen {
     font-size: 58px;
-    width: 58px;
-    height: 58px;
+    width: 55px;
+    height: 55px;
     margin-top: 22px;
   }
   &.marathonTopFifty,
@@ -80,6 +81,7 @@
   }
   &.bongcloudWarrior {
     filter: hue-rotate(70deg);
+    color: adjust-color($c-link, $hue: -70deg, $saturation: -70%);
   }
 }
 .packed .trophy {
