@@ -7,6 +7,7 @@ import lidraughts.app.mashup.UserInfo.Angle
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.paginator.Paginator
+import lidraughts.app.mashup.UserInfo
 import lidraughts.game.Game
 import lidraughts.user.User
 
@@ -17,8 +18,8 @@ object page {
   def activity(
     u: User,
     activities: Vector[lidraughts.activity.ActivityView],
-    info: lidraughts.app.mashup.UserInfo,
-    social: lidraughts.app.mashup.UserInfo.Social
+    info: UserInfo,
+    social: UserInfo.Social
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${u.username} : ${trans.activity.activity.txt()}",
     openGraph = lidraughts.app.ui.OpenGraph(
@@ -27,16 +28,7 @@ object page {
       url = s"$netBaseUrl${routes.User.show(u.username).url}",
       description = describeUser(u)
     ).some,
-    moreJs = frag(
-      jsAt("compiled/user.js"),
-      info.ratingChart.map { ratingChart =>
-        frag(
-          jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lidraughts.ratingHistoryChart($ratingChart);")
-        )
-      },
-      isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
-    ),
+    moreJs = moreJs(info),
     moreCss = frag(
       cssTag("user.show"),
       isGranted(_.UserSpy) option cssTag("mod.user")
@@ -53,25 +45,14 @@ object page {
 
   def games(
     u: User,
-    info: lidraughts.app.mashup.UserInfo,
+    info: UserInfo,
     games: Paginator[Game],
     filters: lidraughts.app.mashup.GameFilterMenu,
     searchForm: Option[Form[_]],
     social: lidraughts.app.mashup.UserInfo.Social
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) "" else " - page " + games.currentPage}",
-    moreJs = frag(
-      infiniteScrollTag,
-      jsAt("compiled/user.js"),
-      info.ratingChart.map { ratingChart =>
-        frag(
-          jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lidraughts.ratingHistoryChart($ratingChart);")
-        )
-      },
-      filters.current.name == "search" option frag(jsTag("search.js")),
-      isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
-    ),
+    moreJs = moreJs(info, filters.current.name == "search"),
     moreCss = frag(
       cssTag("user.show"),
       if (filters.current.name == "search") cssTag("user.show.search")
@@ -87,6 +68,19 @@ object page {
         )
       )
     }
+
+  private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) = frag(
+    infiniteScrollTag,
+    jsAt("compiled/user.js"),
+    info.ratingChart.map { ratingChart =>
+      frag(
+        jsTag("chart/ratingHistory.js"),
+        embedJsUnsafe(s"lidraughts.ratingHistoryChart($ratingChart);")
+      )
+    },
+    withSearch option frag(jsTag("search.js")),
+    isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+  )
 
   def disabled(u: User)(implicit ctx: Context) =
     views.html.base.layout(title = u.username, robots = false) {
