@@ -18,6 +18,14 @@
     <item quantity="one">Postade %1$s inlägg i %2$s</item>
     <item quantity="other">Postade %1$s inlägg i %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Spelade %1$s drag</item>
+    <item quantity="other">Spelade %1$s drag</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">i %1$s korrespondensparti</item>
+    <item quantity="other">i %1$s korrespondenspartier</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Avslutade %s korrespondensparti</item>
     <item quantity="other">Avslutade %s korrespondenspartier</item>
