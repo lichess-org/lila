@@ -81,8 +81,11 @@ interface Trans {
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
 }
 
+type PubsubCallback = (...data: any[]) => void;
+
 interface Pubsub {
-  on(msg: string, f: (...data: any[]) => void): void
+  on(msg: string, f: PubsubCallback): void
+  off(msg: string, f: PubsubCallback): void
   emit(msg: string): (...args: any[]) => void
 }
 

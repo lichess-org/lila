@@ -9,8 +9,6 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
 
-  const pubsub = li.pubsub;
-
   const allTabs: Tab[] = ['discussion'];
   if (opts.noteId) allTabs.push('note');
   if (opts.plugin) allTabs.push(opts.plugin.tab.key);
@@ -40,7 +38,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return;
     }
-    pubsub.emit('socket.send')('talk', text);
+    li.pubsub.emit('socket.send')('talk', text);
   };
 
   const onTimeout = function(username: string) {
@@ -63,6 +61,18 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     data.lines.push(line);
     redraw();
   };
+
+  const onWriteable = function(v: boolean) {
+    vm.writeable = v;
+    redraw();
+  }
+
+  const onPermissions = function(obj: Permissions) {
+    let p: keyof Permissions;
+    for (p in obj) opts.permissions[p] = obj[p];
+    instanciateModeration();
+    redraw();
+  }
 
   const trans = li.trans(opts.i18n);
 
@@ -93,21 +103,20 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw
   });
 
-  pubsub.on('socket.in.message', onMessage);
-  pubsub.on('socket.in.chat_timeout', onTimeout);
-  pubsub.on('socket.in.chat_reinstate', onReinstate);
-  pubsub.on('chat.writeable', function(v: boolean) {
-    vm.writeable = v;
-    redraw();
-  });
-  pubsub.on('chat.permissions', function(obj: Permissions) {
-    let p: keyof Permissions;
-    for (p in obj) opts.permissions[p] = obj[p];
-    instanciateModeration();
-    redraw();
-  });
+  const subs: [string, PubsubCallback][]  = [
+    ['socket.in.message', onMessage],
+    ['socket.in.chat_timeout', onTimeout],
+    ['socket.in.chat_reinstate', onReinstate],
+    ['chat.writeable', onWriteable],
+    ['chat.permissions', onPermissions]
+  ];
+  subs.forEach(([eventName, callback]) => li.pubsub.on(eventName, callback));
 
-  const emitEnabled = () => pubsub.emit('chat.enabled')(vm.enabled);
+  const destroy = () => {
+    subs.forEach(([eventName, callback]) => li.pubsub.off(eventName, callback));
+  };
+
+  const emitEnabled = () => li.pubsub.emit('chat.enabled')(vm.enabled);
   emitEnabled();
 
   return {
@@ -135,6 +144,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       else li.storage.remove('nochat');
       redraw();
     },
-    redraw
+    redraw,
+    destroy
   };
 };

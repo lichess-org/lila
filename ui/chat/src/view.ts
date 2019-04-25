@@ -13,6 +13,9 @@ export default function(ctrl: Ctrl): VNode {
   return h('section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'), {
     class: {
       'mchat-mod': !!mod
+    },
+    hook: {
+      destroy: ctrl.destroy
     }
   }, moderationView(mod) || normalView(ctrl))
 }
