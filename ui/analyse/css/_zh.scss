@@ -1,5 +1,6 @@
 @import 'variables';
 
+$pocket-col1-height: auto;
 $pocket-height: 60px;
 
 .pocket {
@@ -11,7 +12,7 @@ $pocket-height: 60px;
 }
 
 .analyse {
-  grid-template-rows: $pocket-height auto $pocket-height auto 50vh;
+  grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto 50vh;
   grid-template-areas:
   'pocket-top'
   'board'
@@ -44,5 +45,12 @@ $pocket-height: 60px;
     'chat    . board gauge . pocket-bot'
     'uchat   . under under . controls'
     'uchat   . under under . acpl';
+  }
+}
+
+@include breakpoint($mq-col1) {
+  .pocket {
+    &-top { margin-bottom: #{-$block-gap}; }
+    &-bottom { margin-top: #{-$block-gap}; }
   }
 }
