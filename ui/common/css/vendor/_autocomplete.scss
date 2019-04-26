@@ -2,7 +2,6 @@
   @extend %box-radius, %popup-shadow;
   width: 14em;
   background-color: $c-bg-box;
-  border: $border;
 }
 .tt-menu .empty {
   padding: .5em 0 .5em 1em;
