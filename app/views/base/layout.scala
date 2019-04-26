@@ -43,6 +43,8 @@ object layout {
   }
   private val manifests = raw("""<link rel="manifest" href="/manifest.json" /><meta name="twitter:site" content="@lichess" />""")
 
+  private val jsLicense = raw("""<link rel="jslicense" href="/source"/>""")
+
   private val favicons = raw {
     List(256, 128, 64) map { px =>
       s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}"/>"""
@@ -144,7 +146,8 @@ object layout {
           raw(s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>""")
         },
         fontPreload,
-        manifests
+        manifests,
+        jsLicense
       ),
       st.body(
         cls := List(
