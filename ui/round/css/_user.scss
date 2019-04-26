@@ -5,16 +5,11 @@
   font-size: 1.2em;
   padding: 0 .3em;
   line-height: $col1-player-clock-height;
-  @include breakpoint($mq-col2) {
-    padding: .5em .5em .5em .3em;
-    line-height: inherit;
-  }
   &:hover {
     color: $c-font;
   }
   a {
     color: $c-font;
-    flex: 1 1 auto;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -45,5 +40,13 @@
   }
   .rp {
     margin-right: 0.2em;
+  }
+
+  @include breakpoint($mq-col2) {
+    padding: .5em .5em .5em .3em;
+    line-height: inherit;
+    a {
+      flex: 1 1 auto;
+    }
   }
 }
