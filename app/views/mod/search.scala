@@ -43,7 +43,7 @@ object search {
                   case lila.user.User.WithEmails(u, emails) => tr(
                     td(
                       userLink(u, withBestRating = true, params = "?mod"),
-                      email(emails.list.mkString(", "))
+                      email(emails.list.map(_.value).mkString(", "))
                     ),
                     td(u.count.game.localize),
                     td(
