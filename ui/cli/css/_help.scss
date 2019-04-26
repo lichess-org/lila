@@ -1,10 +1,9 @@
 .clinput-help {
-  > div > div {
-    @extend %flex-column;
-  }
+  width: auto;
   h3 {
     font-size: 2em;
-    margin: .5em 0 .2em 0;
+    margin: .5em 0;
+    color: $c-accent;
     &:first-child {
       margin-top: 0;
     }
@@ -13,15 +12,21 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
-    text-align: left;
-    padding: 1em 0;
+    padding: .7em 0;
     border-top: $border;
     p {
+      text-align: left;
       font-family: monospace;
-      margin: 0;
+      margin: 0 2em 0 0;
+      color: $c-accent;
+      font-weight: bold;
     }
-    > div {
-      flex: 0 0 50%;
+    span {
+      text-align: right;
+      white-space: nowrap;
+    }
+    > * {
+      flex: 1 1 50%;
     }
   }
 }
