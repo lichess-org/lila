@@ -18,6 +18,7 @@ case class Simul(
     hostId: String,
     hostRating: Int,
     hostTitle: Option[String],
+    hostOfficialRating: Option[Int],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
@@ -259,6 +260,7 @@ object Simul {
         )
       }
     },
+    hostOfficialRating = host.profile.flatMap(_.fmjdRating),
     hostTitle = host.title,
     hostGameId = none,
     createdAt = DateTime.now,

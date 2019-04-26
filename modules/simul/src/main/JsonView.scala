@@ -15,8 +15,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     games <- fetchGames(simul)
     lightHost <- getLightUser(simul.hostId)
     lightArbiter <- simul.arbiterId.??(getLightUser)
-    applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
-    pairings <- simul.pairings.sortBy(-_.player.rating).map(pairingJson(games, simul.hostId)).sequenceFu
+    applicants <- simul.applicants.sortBy(p => -simul.isUnique.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(applicantJson(simul.isUnique)).sequenceFu
+    pairings <- simul.pairings.sortBy(p => -simul.isUnique.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(pairingJson(games, simul.hostId, simul.isUnique)).sequenceFu
     allowed <- (~simul.allowed).map(allowedJson).sequenceFu
   } yield Json.obj(
     "id" -> simul.id,
@@ -29,7 +29,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
-      )
+      ).add("officialRating" -> simul.isUnique.fold(simul.hostOfficialRating, none))
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
@@ -60,7 +60,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "name" -> v.name
   )
 
-  private def playerJson(player: SimulPlayer): Fu[JsObject] =
+  private def playerJson(player: SimulPlayer, unique: Boolean): Fu[JsObject] =
     getLightUser(player.user) map { light =>
       Json.obj(
         "id" -> player.user,
@@ -71,6 +71,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         .add("title" -> light.map(_.title))
         .add("provisional" -> player.provisional.filter(identity))
         .add("patron" -> light.??(_.isPatron))
+        .add("officialRating" -> unique.fold(player.officialRating, none))
     }
 
   private def allowedJson(userId: String): Fu[JsObject] =
@@ -83,8 +84,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         .add("patron" -> light.??(_.isPatron))
     }
 
-  private def applicantJson(app: SimulApplicant): Fu[JsObject] =
-    playerJson(app.player) map { player =>
+  private def applicantJson(unique: Boolean)(app: SimulApplicant): Fu[JsObject] =
+    playerJson(app.player, unique) map { player =>
       Json.obj(
         "player" -> player,
         "accepted" -> app.accepted
@@ -99,8 +100,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
 
-  private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[JsObject] =
-    playerJson(p.player) map { player =>
+  private def pairingJson(games: List[Game], hostId: String, unique: Boolean)(p: SimulPairing): Fu[JsObject] =
+    playerJson(p.player, unique) map { player =>
       Json.obj(
         "player" -> player,
         "hostColor" -> p.hostColor,

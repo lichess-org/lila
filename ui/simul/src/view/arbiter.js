@@ -31,8 +31,8 @@ module.exports = function(ctrl) {
   return (ctrl.toggleArbiter && ctrl.arbiterData && simul.amArbiter(ctrl)) ? [ m('div.arbiter-panel', [
     m('table.slist.user_list',
       m('thead', m('tr', [
-        m('th', 'Arbiter control panel'),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Variant type and game result.' }, 'Result')),
+        m('th', { colspan: 2 }, 'Arbiter control panel'),
+        m('th', m('span.hint--top-left', { 'data-hint': 'The FMJD rating set on the user\'s profile.' }, 'FMJD')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Simul participant clock time remaining.' }, 'Player clock')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Simul host clock time remaining.' }, 'Host clock')),
         m('th', m('span.hint--top-left', { 'data-hint': 'The percentage of moves in which the user left the game page.' }, 'Blurs')),
@@ -46,8 +46,9 @@ module.exports = function(ctrl) {
         pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½-½')
       ) : '*';
       return m('tr', [
-        m('td', util.player(pairing.player)),
+        m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '')),
         m('td.variant', { 'data-icon': variant.icon }, m('span', result)),
+        m('td', pairing.player.officialRating ? pairing.player.officialRating : '-'),
         m('td', (data && data.clock !== undefined) ? m(
           (playing && pairing.hostColor !== data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.clock))

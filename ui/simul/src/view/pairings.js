@@ -34,7 +34,7 @@ function miniPairing(ctrl) {
           player.username,
           m('br'),
           player.title ? player.title + ' ' : '',
-          player.rating
+          player.officialRating ? ('FMJD ' + player.officialRating) : player.rating
         ])
       ])
     ]);

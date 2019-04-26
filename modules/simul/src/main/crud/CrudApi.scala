@@ -81,6 +81,7 @@ final class CrudApi(simulRepo: SimulRepo) {
           )
         }
       },
+      hostOfficialRating = host.profile.flatMap(_.fmjdRating),
       hostTitle = host.title,
       variants = variantList,
       color = color.some,

@@ -142,7 +142,7 @@ module.exports = function(ctrl) {
           key: allowed.id,
           class: ((ctrl.userId === allowed.id ? 'me' : '') + (!candidate ? ' absent' : '')).trim()
         }, [
-          m('td', candidate ? util.player(allowed, candidate.player.rating, candidate.player.provisional) : util.player(allowed)),
+          m('td', candidate ? util.player(allowed, candidate.player.rating, candidate.player.provisional, candidate.player.officialRating) : util.player(allowed)),
           m('td.variant', candidate ? {
             'data-icon': util.playerVariant(ctrl, candidate.player).icon
           } : null),

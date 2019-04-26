@@ -8,7 +8,8 @@ private[simul] case class SimulPlayer(
     user: User.ID,
     variant: Variant,
     rating: Int,
-    provisional: Option[Boolean]
+    provisional: Option[Boolean],
+    officialRating: Option[Int]
 ) {
 
   def is(userId: User.ID): Boolean = user == userId
@@ -22,7 +23,8 @@ private[simul] object SimulPlayer {
       user = user.id,
       variant = variant,
       rating = perf.intRating,
-      provisional = perf.provisional.some
+      provisional = perf.provisional.some,
+      officialRating = user.profile.flatMap(_.fmjdRating)
     )
   }
 }
