@@ -630,13 +630,15 @@
     return api;
   })();
 
-  lidraughts.widget("watchers", {
+  lidraughts.widget('watchers', {
     _create: function() {
       this.list = this.element.find(".list");
       this.number = this.element.find(".number");
       lidraughts.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
+      lidraughts.watchersData && this.set(lidraughts.watchersData);
     },
     set: function(data) {
+      lidraughts.watchersData = data;
       if (!data || !data.nb) return this.element.addClass('none');
       if (this.number.length) this.number.text(data.nb);
       if (data.users) {
