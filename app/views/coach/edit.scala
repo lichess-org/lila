@@ -63,10 +63,10 @@ object edit {
                   form3.checkbox(form("listed"), raw("Publish on the coaches list"), help = raw("Enable when your profile is ready").some, half = true),
                   form3.checkbox(form("available"), raw("Currently available for lessons"), help = raw("Enable to get more students").some, half = true)
                 ),
-                form3.group(form("profile.headline"), raw("Short and inspiring headline"), help = raw("Just one sentence to make students want to choose you").some)(form3.input(_)),
+                form3.group(form("profile.headline"), raw("Short and inspiring headline"), help = raw("Just one sentence to make students want to choose you (3 to 170 chars)").some)(form3.input(_)),
                 form3.split(
-                  form3.group(form("profile.languages"), raw("Languages spoken"), help = raw("Which languages can you give lessons in?").some, half = true)(form3.input(_)),
-                  form3.group(form("profile.hourlyRate"), raw("Hourly rate"), help = raw("Indicative, non-contractual").some, half = true)(form3.input(_))
+                  form3.group(form("profile.languages"), raw("Languages spoken"), help = raw("Which languages can you give lessons in? (3 to 140 chars)").some, half = true)(form3.input(_)),
+                  form3.group(form("profile.hourlyRate"), raw("Hourly rate"), help = raw("Indicative, non-contractual (3 to 140 chars)").some, half = true)(form3.input(_))
                 )
               ),
               div(cls := "panel texts")(
