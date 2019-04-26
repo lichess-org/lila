@@ -6,12 +6,15 @@
   .overlay {
     @extend %link-overlay;
   }
-  .picture {
-    flex: 0 0 300px;
-    background: $c-bg-low;
+  img {
+    display: none;
+    @include breakpoint($mq-small) {
+      display: block;
+      margin-right: 1em;
+    }
   }
   .overview {
-    margin: 1.3em 1em 0 2em;
+    margin: 1.3em 1em 0 1em;
   }
   .coach-name {
     @extend %roboto;
