@@ -10,7 +10,6 @@ object Page extends LilaController {
   val about = helpBookmark("about")
   val tos = helpBookmark("tos")
   val privacy = helpBookmark("privacy")
-  val source = helpBookmark("source")
   val master = helpBookmark("master")
 
   private def helpBookmark(name: String) = Open { implicit ctx =>
@@ -26,6 +25,13 @@ object Page extends LilaController {
     pageHit
     OptionOk(Prismic getBookmark name) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
+    }
+  }
+
+  def source = Open { implicit ctx =>
+    pageHit
+    OptionOk(Prismic getBookmark "source") {
+      case (doc, resolver) => views.html.site.help.source(doc, resolver)
     }
   }
 
