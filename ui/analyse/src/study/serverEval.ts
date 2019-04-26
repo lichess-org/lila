@@ -87,8 +87,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
 }
 
 function requested(): VNode {
-  return h('div.study__server-eval.requested',
-    h('div.study__message', spinner()));
+  return h('div.study__server-eval.requested', spinner());
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
