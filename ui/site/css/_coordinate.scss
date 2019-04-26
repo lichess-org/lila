@@ -1,5 +1,6 @@
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
+$mq-col1: $mq-not-medium;
+$mq-col2: $mq-medium;
+$mq-col3: $mq-x-large;
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
@@ -11,6 +12,8 @@ $mq-col3: $mq-col3-uniboard;
 .coord-trainer {
   grid-area: main;
   display: grid;
+
+  overflow: hidden; // coords cause mobile to have horiz scrolling
 
   &__side { grid-area: side; }
   &__board { grid-area: board; }
@@ -148,9 +151,6 @@ $mq-col3: $mq-col3-uniboard;
     color: $c-secondary-over;
     @include transition();
   }
-  &.init .coord-trainer__score {
-    opacity: 0;
-  }
   &.wrong .progress_bar,
   &.wrong .coord-trainer__score {
     background-color: $c-bad;
@@ -162,6 +162,24 @@ $mq-col3: $mq-col3-uniboard;
   }
   &.play #next_coord {
     display: block;
+  }
+
+  &.init {
+    @include breakpoint($mq-col1) {
+      .coord-trainer__score {
+        display: none;
+      }
+      .explanation {
+        order: 2;
+        margin-top: 1em;
+      }
+    }
+    .coord-trainer__score {
+      opacity: 0;
+    }
+    form.color {
+      margin-bottom: $block-gap;
+    }
   }
 }
 
