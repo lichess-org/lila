@@ -5,11 +5,10 @@
 
 .mod-search {
   form {
-    display: flex;
-    margin-bottom: 2em;
-    input {
-      flex: 1 1 100%;
-      margin-right: 1em;
+    @extend %flex-center;
+    input, select {
+      flex: 1 1 auto;
+      margin: 0 1em 2em 0;
     }
   }
   .slist {
