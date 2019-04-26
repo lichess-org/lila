@@ -46,8 +46,7 @@ $player-height: 1.7rem;
   &-bot .analyse__clock {
     border-radius: 0 0 4px 0;
   }
-  // &.ticking .analyse__clock {
-  & .analyse__clock {
+  &.ticking .analyse__clock {
     background: $c-secondary;
     color: $c-secondary-over;
     text-shadow: none;
