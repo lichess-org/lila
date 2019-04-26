@@ -66,6 +66,30 @@
         background: mix($c-primary, $c-bg-box, 20%);
       }
     }
+    .message {
+      display: flex;
+      align-items: center;
+      margin: 1em;
+      &::before {
+        color: $c-font-dim;
+        font-size: 3em;
+        margin-right: 12px;
+      }
+    }
+    .result-wrap {
+      width: 100%;
+      text-align: center;
+    }
+    .result {
+      border-top: $border;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 5px 0 3px 0;
+    }
+    .status {
+      font-style: italic;
+      margin-bottom: .5em;
+    }
   }
   @include breakpoint($mq-col1) {
     .moves {
@@ -84,7 +108,8 @@
       --horiz: 1;
     }
     index,
-    move {
+    move,
+    .result {
       display: inline-block;
       padding: .6rem .5rem;
     }
@@ -105,28 +130,19 @@
     .buttons {
       border-top: 0;
     }
-  }
-  .message {
-    @extend  %flex-center;
-    margin: 1em;
-    &::before {
-      color: $c-font-dim;
-      font-size: 3em;
-      margin-right: 12px;
+    .result {
+      padding: .6rem 1rem;
+      margin: 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      background: mix($c-primary, $c-bg-box, 20%);
     }
-  }
-  .result-wrap {
-    width: 100%;
-    text-align: center;
-  }
-  .result {
-    border-top: $border;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 5px 0 3px 0;
-  }
-  .status {
-    font-style: italic;
-    margin-bottom: .5em;
+    .message,
+    .status {
+      display: none;
+    }
+    .result-wrap {
+      display: inline;
+    }
   }
 }
