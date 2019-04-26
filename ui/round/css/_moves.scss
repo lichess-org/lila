@@ -92,9 +92,13 @@
     }
   }
   @include breakpoint($mq-col1) {
+    $moves-height: 2.5em;
     .moves {
-      flex: 0 0 auto;
-      display: block;
+      flex: 0 0 $moves-height;
+      display: flex;
+      flex-flow: row;
+      align-items: stretch;
+      justify-content: flex-end;
       white-space: nowrap;
       width: 100vw;
       overflow-x: scroll;
@@ -109,12 +113,14 @@
     }
     index,
     move,
-    .result {
-      display: inline-block;
-      padding: .6rem .5rem;
+    .result-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 .4rem;
     }
     index {
-      padding-right: .2em;
+      padding-right: .15em;
     }
     move {
       font-size: 1.1em;
@@ -131,18 +137,26 @@
       display: none;
     }
     .result {
-      padding: .6rem 1rem;
       margin: 0;
       font-weight: bold;
       font-size: 1.1em;
-      background: mix($c-primary, $c-bg-box, 20%);
     }
-    .message,
+    .message {
+      flex: 0 0 $moves-height;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      br { display: none; }
+      strong { margin-left: .5em; }
+      &::before {
+        margin-right: .3em;
+      }
+    }
     .status {
       display: none;
     }
     .result-wrap {
-      display: inline;
     }
   }
 }
