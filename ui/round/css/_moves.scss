@@ -98,7 +98,6 @@
       display: flex;
       flex-flow: row;
       align-items: stretch;
-      justify-content: flex-end;
       white-space: nowrap;
       width: 100vw;
       overflow-x: scroll;
@@ -108,6 +107,9 @@
       }
       &::-webkit-scrollbar-thumb {
         background: $c-accent;
+      }
+      > :first-child {
+        margin-left: auto !important;
       }
       --horiz: 1;
     }
