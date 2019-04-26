@@ -13,7 +13,7 @@
     border-bottom: $border;
   }
   .state {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
     border-bottom: $border;
     min-height: 3.5em;
     @include transition();
