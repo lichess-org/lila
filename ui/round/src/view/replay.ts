@@ -17,16 +17,33 @@ function nullMove() {
   return h('move.empty', '');
 }
 
+let isHorizMovesCache: boolean | undefined;
+
+function isHorizMoves() {
+  if (typeof isHorizMovesCache == 'undefined')
+    isHorizMovesCache = !!getComputedStyle(document.querySelector('.round__app .rmoves .moves')!).getPropertyValue('--horiz');
+  return isHorizMovesCache;
+}
+
 const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
   if (ctrl.data.steps.length < 7) return;
   let st: number | undefined = undefined;
   if (ctrl.ply < 3) st = 0;
-  else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+  else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 99999;
   else {
     const plyEl = el.querySelector('.active') as HTMLElement | undefined;
-    if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    if (plyEl) {
+      if (isHorizMoves()) {
+        st = plyEl.offsetLeft - el.offsetWidth / 2 + plyEl.offsetWidth / 2;
+      } else {
+        st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+      }
+    }
   }
-  if (st !== undefined) el.scrollTop = st;
+  if (st !== undefined) {
+    if (isHorizMoves()) el.scrollLeft = st;
+    else el.scrollTop = st;
+  }
 });
 
 function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
