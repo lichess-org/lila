@@ -368,6 +368,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
         });
       })
     }),
-    h('div.chat__members.none', h('span.list'))
+    h('div.chat__members.none', {
+      hook: onInsert(el => $(el).watchers())
+    }, [h('span.list')])
   ]);
 }

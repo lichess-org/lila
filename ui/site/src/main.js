@@ -625,13 +625,15 @@
     return api;
   })();
 
-  lichess.widget("watchers", {
+  lichess.widget('watchers', {
     _create: function() {
       this.list = this.element.find(".list");
       this.number = this.element.find(".number");
       lichess.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
+      lichess.watchersData && this.set(lichess.watchersData);
     },
     set: function(data) {
+      lichess.watchersData = data;
       if (!data || !data.nb) return this.element.addClass('none');
       if (this.number.length) this.number.text(data.nb);
       if (data.users) {
