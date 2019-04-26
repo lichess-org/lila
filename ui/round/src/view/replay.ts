@@ -216,6 +216,7 @@ export default function(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl); ;
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
+        window.requestAnimationFrame(ctrl.autoScroll);
       })
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
