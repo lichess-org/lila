@@ -131,6 +131,17 @@ private[round] final class Round(
       }
     }
 
+    case ArbiterDraw => handle { game =>
+      (game.isSimul && game.playable) ?? {
+        finisher.other(game, _.Draw, None, Some(_.arbiterDraw))
+      }
+    }
+    case ArbiterResign(color) => handle { game =>
+      (game.isSimul && game.playable) ?? {
+        finisher.other(game, _.Resign, Some(!color), Some(_.arbiterResign))
+      }
+    }
+
     // checks if any player can safely (grace) be flagged
     case QuietFlag => handle { game =>
       game.outoftime(withGrace = true) ?? finisher.outOfTime(game)

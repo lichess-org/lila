@@ -17,6 +17,8 @@ object Simul extends LidraughtsController {
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.notFound())
 
+  private val settleResultOptions = Set("hostwin", "hostloss", "draw")
+
   val home = Open { implicit ctx =>
     fetchSimuls map {
       case ((created, started), finished) =>
@@ -95,6 +97,15 @@ object Simul extends LidraughtsController {
     }
   }
 
+  def settle(simulId: String, userId: String, result: String) = Open { implicit ctx =>
+    AsArbiterOnly(simulId) { simul =>
+      if (simul.hasPairing(userId) && settleResultOptions.contains(result)) {
+        env.api.settle(simul.id, userId, result)
+        fuccess(Ok(Json.obj("ok" -> true)) as JSON)
+      } else fuccess(BadRequest)
+    }
+  }
+
   def arbiter(simulId: String) = Open { implicit ctx =>
     AsArbiterOnly(simulId) { simul =>
       GameRepo.gamesFromPrimary(simul.pairings.map(_.gameId)).map { games =>
@@ -108,6 +119,7 @@ object Simul extends LidraughtsController {
           ).add("blurs" -> blurs)
             .add("clock" -> clock)
             .add("hostClock" -> hostClock)
+            .add("turnColor" -> game.map(_.turnColor.name))
         })
         Ok(JsArray(playerData)) as JSON
       }

@@ -8,7 +8,7 @@ function miniPairing(ctrl) {
   return function(pairing) {
     var game = pairing.game;
     var player = pairing.player;
-    var result = pairing.game.status >= status.ids.mate ? (
+    var result = pairing.game.status >= status.ids.aborted ? (
       pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½/½')
     ) : '*';
     return m('div', [

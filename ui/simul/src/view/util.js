@@ -1,6 +1,6 @@
 var m = require('mithril');
 var simul = require('../simul');
-var xhrConfig = require('../xhr').xhrConfig;
+var xhr = require('../xhr');
 
 function playerHtml(p, rating, provisional) {
   var onlineStatus = p.online === undefined ? 'online' : (p.online ? 'online' : 'offline');
@@ -36,17 +36,18 @@ module.exports = {
   arbiterOption: function(ctrl) {
     return simul.amArbiter(ctrl) ? m('div.top_right.option', {
       'data-icon': '%',
-      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : 'Back to simul',
+      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : 'Close arbiter panel',
       onclick: function(e) {
-        if (ctrl.toggleArbiter) ctrl.toggleArbiter = false;
-        else m.request({
-          method: 'GET',
-          url: '/simul/' + ctrl.data.id + '/arbiter',
-          config: xhrConfig
-        }).then(function(d) {
-          ctrl.arbiterData = d;
-          ctrl.toggleArbiter = true;
-        });
+        if (ctrl.toggleArbiter) {
+          clearInterval(ctrl.arbiterInterval);
+          ctrl.toggleArbiter = false;
+        } else {
+          xhr.arbiterData(ctrl);
+          if (ctrl.data.isFinished) clearInterval(ctrl.arbiterInterval);
+          else ctrl.arbiterInterval = setInterval(function() {
+            xhr.arbiterData(ctrl);
+          }, 1000);
+        }
       }
     }) : null;
   }

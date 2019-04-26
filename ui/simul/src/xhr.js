@@ -38,5 +38,18 @@ module.exports = {
   },
   disallow: function(user) {
     return partial(simulAction, 'disallow/' + user)
+  },
+  settle: function(user, result) {
+    return partial(simulAction, 'settle/' + user + '/' + result)
+  },
+  arbiterData: function(ctrl) {
+    m.request({
+      method: 'GET',
+      url: '/simul/' + ctrl.data.id + '/arbiter',
+      config: xhrConfig
+    }).then(function(d) {
+      ctrl.arbiterData = d;
+      ctrl.toggleArbiter = true;
+    });
   }
 };

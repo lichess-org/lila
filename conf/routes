@@ -264,6 +264,7 @@ POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: Strin
 POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: String, user: String)
 POST  /simul/$id<\w{8}>/allow/:user           controllers.Simul.allow(id: String, user: String)
 POST  /simul/$id<\w{8}>/disallow/:user        controllers.Simul.disallow(id: String, user: String)
+POST  /simul/$id<\w{8}>/settle/:user/:res     controllers.Simul.settle(id: String, user: String, res: String)
 POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String)
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)

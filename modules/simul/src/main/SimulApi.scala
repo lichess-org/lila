@@ -12,6 +12,7 @@ import lidraughts.game.actorApi.SimulNextGame
 import lidraughts.hub.actorApi.lobby.ReloadSimuls
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lidraughts.round.actorApi.round.{ ArbiterDraw, ArbiterResign }
 import lidraughts.socket.actorApi.SendToFlag
 import lidraughts.user.{ User, UserRepo }
 import makeTimeout.short
@@ -21,6 +22,7 @@ final class SimulApi(
     sequencers: ActorRef,
     onGameStart: Game.ID => Unit,
     socketHub: ActorRef,
+    roundMap: ActorRef,
     site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -194,6 +196,23 @@ final class SimulApi(
               }
             }
           }
+        }
+      }
+    }
+  }
+
+  def settle(simulId: Simul.ID, userId: String, result: String): Unit = {
+    Sequence(simulId) {
+      repo.findStarted(simulId) map {
+        _ ?? {
+          _.pairings.find(_.player.user == userId)
+        } map { pairing =>
+          result match {
+            case "draw" => roundMap ! Tell(pairing.gameId, ArbiterDraw)
+            case "hostwin" => roundMap ! Tell(pairing.gameId, ArbiterResign(!pairing.hostColor))
+            case "hostloss" => roundMap ! Tell(pairing.gameId, ArbiterResign(pairing.hostColor))
+          }
+          funit
         }
       }
     }

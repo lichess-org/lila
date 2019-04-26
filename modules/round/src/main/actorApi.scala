@@ -123,6 +123,8 @@ package round {
   case class DrawClaim(playerId: String)
   case class DrawYes(playerId: String)
   case class DrawNo(playerId: String)
+  case object ArbiterDraw
+  case class ArbiterResign(color: Color)
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
   case class TakebackYes(playerId: String)

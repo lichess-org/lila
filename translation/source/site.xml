@@ -178,6 +178,8 @@
   </plurals>
   <string name="cancel">Cancel</string>
   <string name="timeOut">Time out</string>
+  <string name="arbiterDraw">Settled as a draw by simul arbiter</string>
+  <string name="arbiterResign">Settled as a win by simul arbiter</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferDeclined">Draw offer declined</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
