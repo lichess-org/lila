@@ -24,39 +24,86 @@
   }
   .moves {
     @extend %flex-wrap, %zen;
-    position: relative; /* required by autoScroll */
-    overflow-y: auto;
-    align-content: start;
-    border: $border;
-    border-width: 0 1px;
-    will-change: scroll-position;
-    user-select: none;
-    line-height: 1.7;
   }
   index {
     @extend %roboto;
-    flex: 0 0 15%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    background: $c-bg-zebra;
   }
   move {
     @extend %san;
-    flex: 0 0 42.5%;
-    padding-left: .7em;
-    font-size: 1.1em;
-    @include transition();
-    &:not(.empty) {
-      cursor: pointer;
-      &:hover {
-        background: $c-primary;
-        color: #fff;
+  }
+  @include breakpoint($mq-col2) {
+    .moves {
+      position: relative; /* required by autoScroll */
+      overflow-y: auto;
+      align-content: start;
+      border: $border;
+      border-width: 0 1px;
+      will-change: scroll-position;
+      user-select: none;
+      line-height: 1.7;
+    }
+    index {
+      flex: 0 0 15%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      background: $c-bg-zebra;
+    }
+    move {
+      flex: 0 0 42.5%;
+      padding-left: .7em;
+      font-size: 1.1em;
+      @include transition();
+      &:not(.empty) {
+        cursor: pointer;
+        &:hover {
+          background: $c-primary;
+          color: #fff;
+        }
+      }
+      &.active {
+        font-weight: bold;
+        background: mix($c-primary, $c-bg-box, 20%);
       }
     }
-    &.active {
-      font-weight: bold;
-      background: mix($c-primary, $c-bg-box, 20%);
+  }
+  @include breakpoint($mq-col1) {
+    .moves {
+      flex: 0 0 auto;
+      display: block;
+      white-space: nowrap;
+      width: 100vw;
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        height: 1px;
+        background: $c-border;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $c-accent;
+      }
+      --horiz: 1;
+    }
+    index,
+    move {
+      display: inline-block;
+      padding: .9rem .5rem;
+    }
+    index {
+      padding-right: .2em;
+    }
+    move {
+      font-size: 1.1em;
+      @include transition();
+      &.active {
+        font-weight: bold;
+        background: mix($c-primary, $c-bg-box, 20%);
+      }
+      &.empty {
+        display: none;
+      }
+    }
+    .buttons {
+      border-top: 0;
     }
   }
   .message {
