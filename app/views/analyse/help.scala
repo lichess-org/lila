@@ -37,7 +37,7 @@ object help {
         row(frag(k("x")), "Show threat"),
         row(frag(k("e")), "Opening/endgame explorer"),
         row(frag(k("f")), trans.flipBoard.txt()),
-        row(frag(k("/")), "Focus chat"),
+        row(frag(k("c")), "Focus chat"),
         row(frag(k("shift"), k("C")), trans.keyShowOrHideComments.txt()),
         row(frag(k("?")), "Show this help dialog"),
         isStudy option frag(

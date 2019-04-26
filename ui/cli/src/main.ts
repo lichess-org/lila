@@ -39,7 +39,7 @@ function command(q: string) {
   else if (is('stream') && parts[1])
     location.href = '/streamer/' + parts[1];
 
-  else if (is('help commands')) help();
+  else if (is('help')) help();
 
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
 }
@@ -47,7 +47,7 @@ function command(q: string) {
 function commandHelp(aliases: string, args: string, desc: string) {
   return '<div class="command"><div>' +
     aliases.split(' ').map(a => `<p>${a} ${li.escapeHtml(args)}</p>`).join('') +
-    `</div> ${desc}</div>`;
+    `</div> <span>${desc}<span></div>`;
 }
 
 function help() {
@@ -58,10 +58,10 @@ function help() {
     commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
     commandHelp('/light /dark /transp', '', 'Change the background theme') +
     commandHelp('/stream', '<user>', 'Watch someone stream') +
-    commandHelp('/help /commands', '', 'Display this help') +
     '<h3>Global hotkeys</h3>' +
     commandHelp('s', '', 'Search for a user') +
     commandHelp('/', '', 'Type a command') +
+    commandHelp('c', '', 'Focus the chat input') +
     commandHelp('esc', '', 'Close modals like this one'),
     'clinput-help'
   );
