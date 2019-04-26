@@ -159,7 +159,7 @@ object home {
           a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),
-          a(href := "https://github.com/ornicar/lila")(trans.sourceCode())
+          a(href := routes.Page.source)(trans.sourceCode())
         )
       )
     }

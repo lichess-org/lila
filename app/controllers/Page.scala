@@ -10,6 +10,7 @@ object Page extends LilaController {
   val about = helpBookmark("about")
   val tos = helpBookmark("tos")
   val privacy = helpBookmark("privacy")
+  val source = helpBookmark("source")
   val master = helpBookmark("master")
 
   private def helpBookmark(name: String) = Open { implicit ctx =>
