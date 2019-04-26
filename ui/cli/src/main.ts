@@ -10,7 +10,10 @@ export function app($wrap: JQuery, toggle: () => void) {
       execute(q.name || q.trim());
     }
   }).done(function() {
-    $input.on('blur', () => $('#top').hasClass('clinput') && toggle());
+    $input.on('blur', () => {
+      $input.val('');
+      $('#top').hasClass('clinput') && toggle()
+    });
   });
 }
 
