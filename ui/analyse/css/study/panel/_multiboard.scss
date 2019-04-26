@@ -1,11 +1,11 @@
 .study__multiboard {
   @extend %box-neat;
   background: $c-bg-box;
-  .spinner {
-    margin: 50px auto;
-  }
   &.loading {
     opacity: 0.7;
+  }
+  &.nopager {
+    padding: 2em;
   }
   .top {
     @extend %flex-between;

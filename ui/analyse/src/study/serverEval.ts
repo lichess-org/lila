@@ -83,19 +83,19 @@ export function view(ctrl: ServerEvalCtrl): VNode {
         });
       });
     })
-  }, [h('div.message', spinner())]);
+  }, [h('div.study__message', spinner())]);
 }
 
 function requested(): VNode {
   return h('div.study__server-eval.requested',
-    h('div.message', spinner()));
+    h('div.study__message', spinner()));
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
 
-  return h('div.study__server-eval.message',
+  return h('div.study__message',
     ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : (
-      !ctrl.root.study!.members.canContribute() ? h('p', 'Only the study contributors can request a computer analysis') : [
+      !ctrl.root.study!.members.canContribute() ? ['Only the study contributors can request a computer analysis'] : [
         h('p', [
           'Get a full server-side computer analysis of the main line.',
           h('br'),

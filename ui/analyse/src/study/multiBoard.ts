@@ -60,7 +60,7 @@ export class MultiBoardCtrl {
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
 
   return h('div.study__multiboard', {
-    class: { loading: ctrl.loading },
+    class: { loading: ctrl.loading, nopager: !ctrl.pager },
     hook: {
       insert() { ctrl.reload(true) }
     }
