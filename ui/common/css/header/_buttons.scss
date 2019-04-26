@@ -8,7 +8,13 @@
   @extend %flex-center-nowrap;
 
   .link {
-    @extend %top-icon, %page-text;
+    @extend %top-icon;
+    /* we don't want a lighter dark font in the top gradient */
+    @if $theme == 'transp' {
+      @extend %page-text;
+    } @else {
+      color: $c-font;
+    }
     font-size: 1.1rem;
     padding: 0 .7rem;
     &:hover {
