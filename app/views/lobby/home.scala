@@ -155,13 +155,9 @@ object home {
           )*/
         ),
         div(cls := "lobby__about")(
-          a(href := "/about")(trans.aboutX("lidraughts.org")),
+          a(href := "/about")(trans.aboutX("Lidraughts")),
           a(href := "/contact")(trans.contact()),
-          ctx.noKid option frag(
-            a(href := "/mobile")(trans.mobileApp()),
-            a(href := "/developers")(trans.webmasters()),
-            a(href := "/patron")(trans.donate())
-          ),
+          a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),
           a(href := "https://github.com/roepstoep/lidraughts")(trans.sourceCode())
