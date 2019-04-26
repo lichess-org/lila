@@ -2,6 +2,10 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
@@ -108,7 +112,7 @@ object Simul extends LidraughtsController {
 
   def arbiter(simulId: String) = Open { implicit ctx =>
     AsArbiterOnly(simulId) { simul =>
-      GameRepo.gamesFromPrimary(simul.pairings.map(_.gameId)).map { games =>
+      GameRepo.gamesFromPrimary(simul.gameIds).map { games =>
         val playerData = simul.pairings.map(pairing => {
           val game = games.find(_.id == pairing.gameId)
           val blurs = game.map(_.playerBlurPercent(!pairing.hostColor))
@@ -168,11 +172,46 @@ object Simul extends LidraughtsController {
     }
   }
 
+  def exportForm(id: String) = Auth { implicit ctx => me =>
+    Env.security.forms.emptyWithCaptcha map {
+      case (form, captcha) => Ok(html.simul.export(form, captcha, id))
+    }
+  }
+
+  def exportConfirm(id: String) = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.security.forms.empty.bindFromRequest.fold(
+      err => Env.security.forms.anyCaptcha map { captcha =>
+        BadRequest(html.simul.export(err, captcha, id))
+      },
+      _ => env.repo.find(id) flatMap {
+        case Some(simul) if simul.isFinished => fuccess(streamGamesPdn(me, simul.gameIds, id))
+        case _ => fuccess(BadRequest)
+      }
+    )
+  }
+
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
       env.socketHandler.join(id, uid, ctx.me)
     }
   }
+
+  private val ExportRateLimitPerUser = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
+    credits = 20,
+    duration = 1 hour,
+    name = "simul export per user",
+    key = "simul_export.user"
+  )
+
+  private def streamGamesPdn(user: lidraughts.user.User, gameIds: List[String], simulId: String) =
+    ExportRateLimitPerUser(user.id, cost = 1) {
+      val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+      Ok.chunked(Env.api.pdnDump.exportGamesFromIds(gameIds)).withHeaders(
+        CONTENT_TYPE -> pdnContentType,
+        CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_simul_$simulId.pdn")
+      )
+    }
 
   private def AsHostOrArbiter(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
     env.repo.find(simulId) flatMap {

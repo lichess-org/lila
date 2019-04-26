@@ -251,6 +251,7 @@
     <item quantity="other">%s playing</item>
   </plurals>
   <string name="exportGames">Export games</string>
+  <string name="exportSimulGames">Export simul games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Give %s second</item>
@@ -279,6 +280,7 @@
   </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
+  <string name="backToSimul">Back to simul</string>
   <string name="thematic">Thematic</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rated game</item>

@@ -47,6 +47,9 @@ button {
   font-size: inherit;
   font-weight: inherit;
 }
+button.button-right {
+  margin-left: 14px;
+}
 time {
   display: inline-block;
   white-space: nowrap;

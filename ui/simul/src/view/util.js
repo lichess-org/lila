@@ -37,6 +37,13 @@ module.exports = {
       return v.key === p.variant;
     });
   },
+  exportGames: function(ctrl) {
+    return m('a.top_right.option', {
+      'data-icon': 'x',
+      'href': '/simul/' + ctrl.data.id + '/export',
+      'title': ctrl.trans('exportSimulGames')
+    });
+  },
   arbiterOption: function(ctrl) {
     return simul.amArbiter(ctrl) ? m('div.top_right.option', {
       'data-icon': '%',

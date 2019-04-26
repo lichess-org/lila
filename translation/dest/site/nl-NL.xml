@@ -243,6 +243,7 @@
     <item quantity="other">%s bezig</item>
   </plurals>
   <string name="exportGames">Partijen exporteren</string>
+  <string name="exportSimulGames">Partijen simultaan exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Geef %s seconde</item>
@@ -271,6 +272,7 @@
   </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
+  <string name="backToSimul">Terug naar simultaan</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partij met rating</item>
