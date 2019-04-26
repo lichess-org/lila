@@ -13,36 +13,37 @@ object freeJs {
 
   private val uiModules = List("site", "chat", "cli", "challenge", "notify", "learn", "insight", "editor", "puzzle", "round", "analyse", "lobby", "tournament", "tournamentSchedule", "tournamentCalendar", "simul", "perfStat", "dasher")
 
-  def apply(implicit ctx: Context) = message(
-    title = "LibreJS Validation Table",
-    back = false
+  private val title = "LibreJS Validation Table"
+
+  def apply(implicit ctx: Context) = help.layout(
+    title = title,
+    active = "freeJs",
+    moreCss = cssTag("slist")
   ) {
-    frag(
-      p(
-        "Here's the ",
-        a(cls := "blue", href := "https://www.gnu.org/licenses/javascript-labels.en.html")(
-          "JavaScript License Web Labels"
+      main(cls := "small-page box box-pad")(
+        h1(
+          a(cls := "blue", href := "https://www.gnu.org/licenses/javascript-labels.en.html")(
+            "JavaScript License Web Labels"
+          ),
+          " table"
         ),
-        " table,",
-        br,
-        "where you can find the source code for the website' scripts."
-      ),
-      br, br,
-      table(id := "jslicense-labels1", cls := "slist")(
-        thead(
-          tr(List("Script File", "License", "Source Code").map(th(_)))
-        ),
-        tbody(
-          uiModules map { module =>
-            val file = s"lichess.$module.min.js"
-            tr(
-              td(a(href := assetUrl(s"compiled/$file"), cls := "blue")(file)),
-              td(agpl),
-              td(github(s"ui/$module/src"))
-            )
-          }
+        p("where you can find the source code for the website' scripts."),
+        br, br,
+        table(id := "jslicense-labels1", cls := "slist")(
+          thead(
+            tr(List("Script File", "License", "Source Code").map(th(_)))
+          ),
+          tbody(
+            uiModules map { module =>
+              val file = s"lichess.$module.min.js"
+              tr(
+                td(a(href := assetUrl(s"compiled/$file"), cls := "blue")(file)),
+                td(agpl),
+                td(github(s"ui/$module/src"))
+              )
+            }
+          )
         )
       )
-    )
-  }
+    }
 }
