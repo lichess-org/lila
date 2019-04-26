@@ -204,8 +204,7 @@ lichess.widget = function(name, prototype) {
       returnValue = instance[method].apply(instance, args);
     });
     else this.each(function() {
-      if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
-      $.data(this, name, new constructor(method, this));
+      if (!$.data(this, name)) $.data(this, name, new constructor(method, this));
     });
     return returnValue;
   };
