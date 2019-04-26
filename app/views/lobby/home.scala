@@ -153,19 +153,12 @@ object home {
           )
         ),
         div(cls := "lobby__about")(
-          a(href := "/about")(trans.aboutX("lichess.org")),
+          a(href := "/about")(trans.aboutX("Lichess")),
           a(href := "/faq")("FAQ"),
           a(href := "/contact")(trans.contact()),
-          ctx.noKid option frag(
-            a(href := "/mobile")(trans.mobileApp()),
-            a(href := "/developers")(trans.webmasters()),
-            a(href := "/help/contribute")(trans.contribute()),
-            a(href := "/patron")(trans.donate())
-          ),
-          a(href := "/thanks")(trans.thankYou()),
+          a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),
-          a(href := "https://database.lichess.org/")(trans.database()),
           a(href := "https://github.com/ornicar/lila")(trans.sourceCode())
         )
       )
