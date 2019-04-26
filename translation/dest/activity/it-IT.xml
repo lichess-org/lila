@@ -27,8 +27,8 @@
     <item quantity="other">Ha giocato %1$s mosse</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">%1$s partita per corrispondenza</item>
-    <item quantity="other">%1$s partite per corrispondenza</item>
+    <item quantity="one">in %1$s partita per corrispondenza</item>
+    <item quantity="other">in %1$s partite per corrispondenza</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Ha concluso %s partita per corrispondenza</item>
