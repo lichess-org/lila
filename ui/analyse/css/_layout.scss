@@ -21,7 +21,10 @@ body {
   &__board { grid-area: board; }
   &__tools { grid-area: tools; }
   &__controls { grid-area: controls; }
-  &__underboard { grid-area: under; }
+  &__underboard {
+    grid-area: under;
+    overflow: hidden; // helps truncating long study names
+  }
   &__acpl { grid-area: acpl; }
   .chat__members { grid-area: uchat; }
   .eval-gauge {
