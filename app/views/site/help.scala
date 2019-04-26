@@ -21,6 +21,23 @@ object help {
       ))
   }
 
+  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = {
+    val title = ~doc.getText("doc.title")
+    layout(
+      title = title,
+      active = "source",
+      moreCss = frag(cssTag("page"), cssTag("slist")),
+      contentCls = "page"
+    )(frag(
+        div(cls := "box box-pad body")(
+          h1(title),
+          raw(~doc.getHtml("doc.content", resolver))
+        ),
+        br,
+        div(cls := "box box-pad")(freeJs())
+      ))
+  }
+
   def webmasters()(implicit ctx: Context) = {
     val baseUrl = "https://lichess.org"
     val parameters = frag(
@@ -132,7 +149,6 @@ object help {
         a(activeCls("master"), href := routes.Page.master)("Title verification"),
         sep,
         a(activeCls("source"), href := routes.Page.source)("Source code"),
-        a(activeCls("freeJs"), href := routes.Main.freeJs)("Free JS"),
         a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
         a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou()),
         sep,

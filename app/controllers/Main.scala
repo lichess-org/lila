@@ -135,10 +135,6 @@ Disallow: /games/export
     }
   }
 
-  val freeJs = Open { implicit ctx =>
-    Ok(html.site.freeJs(ctx)).fuccess
-  }
-
   def renderNotFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map renderNotFound
 
