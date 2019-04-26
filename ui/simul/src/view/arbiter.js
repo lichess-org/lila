@@ -43,7 +43,7 @@ module.exports = function(ctrl) {
       var data = ctrl.arbiterData.find( (d) => d.id == pairing.player.id)
       var playing = pairing.game.status < status.ids.aborted;
       var result = !playing ? (
-        pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½/½')
+        pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½-½')
       ) : '*';
       return m('tr', [
         m('td', util.player(pairing.player)),

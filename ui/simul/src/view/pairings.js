@@ -9,7 +9,7 @@ function miniPairing(ctrl) {
     var game = pairing.game;
     var player = pairing.player;
     var result = pairing.game.status >= status.ids.aborted ? (
-      pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½/½')
+      pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½-½')
     ) : '*';
     return m('div', [
       m('a', {
