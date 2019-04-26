@@ -50,7 +50,7 @@ function requiredDraws(pairings, target) {
   var remaining = requiredPoints(pairings, target);
   if (remaining <= 0) return false;
   var remainingDec = remaining - Math.floor(remaining)
-  return remainingDec > 0.5 ? 0 : 1;
+  return (remainingDec == 0 || remainingDec > 0.5) ? 0 : 1;
 }
 
 function targetDistance(pairings, target, trans) {

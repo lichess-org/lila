@@ -182,7 +182,7 @@ case class Simul(
   def finished = pairings.count(_.finished)
 
   def currentPct =
-    if (finished == 0) 0
+    if (finished == 0) 0.0
     else 100 * (wins + draws * 0.5) / finished
   def currentPctStr = {
     val pct = currentPct
@@ -211,7 +211,7 @@ case class Simul(
     val remaining = requiredPoints(target)
     if (remaining > 0) {
       val remainingDecimal = remaining - Math.floor(remaining)
-      (remainingDecimal > 0.5).fold(none, 1.some)
+      (remainingDecimal == 0 || remainingDecimal > 0.5).fold(none, 1.some)
     } else none
   }
 
