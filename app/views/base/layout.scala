@@ -36,7 +36,11 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin/>""")
+  private def fontPreload(implicit ctx: Context) = raw {
+    s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin/>""" +
+      !ctx.pref.pieceNotationIsLetter ??
+      s"""<link rel="preload" href="${assetUrl(s"font/lichess.chess.woff2")}" as="font" type="font/woff2" crossorigin/>"""
+  }
   private val manifests = raw("""<link rel="manifest" href="/manifest.json" /><meta name="twitter:site" content="@lichess" />""")
 
   private val favicons = raw {
