@@ -1,14 +1,6 @@
 .study__server-eval {
   @extend %box-neat;
   background: $c-bg-box;
-  &.message {
-    padding: 2em;
-    text-align: center;
-    .button {
-      display: inline-block;
-      margin: 1em auto;
-    }
-  }
   &.requested {
     padding: 4em;
   }

@@ -65,7 +65,7 @@ export function ctrl(root: AnalyseCtrl) {
 
 export function viewDisabled(why: string): VNode {
   return h('div.study__glyphs', [
-    h('div.message', why)
+    h('div.study__message', why)
   ]);
 }
 
@@ -80,6 +80,6 @@ export function view(ctrl: GlyphCtrl): VNode {
       h('div.move', all.move.map(renderGlyph(ctrl, node))),
       h('div.position', all.position.map(renderGlyph(ctrl, node))),
       h('div.observation', all.observation.map(renderGlyph(ctrl, node)))
-    ] : [h('div.message', spinner())]
+    ] : [h('div.study__message', spinner())]
   );
 }
