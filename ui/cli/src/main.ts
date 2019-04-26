@@ -6,8 +6,9 @@ export function app($wrap: JQuery, toggle: () => void) {
     focus: 1,
     friend: true,
     onSelect(q: any) {
-      $input.val('');
+      $input.val('').blur();
       execute(q.name || q.trim());
+      $('#top').hasClass('clinput') && toggle()
     }
   }).done(function() {
     $input.on('blur', () => {
