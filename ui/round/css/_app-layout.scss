@@ -11,6 +11,7 @@ $controls-height: auto;
 
   grid-template-columns: auto min-content;
   grid-template-rows:
+  auto
   $col1-pocket-height
   $col1-player-clock-height
   auto
@@ -18,6 +19,7 @@ $controls-height: auto;
   $col1-player-clock-height
   $col1-pocket-height;
   grid-template-areas:
+  'moves    moves'
   'mat-top  mat-top'
   'user-top clock-top'
   'board    board'
@@ -25,11 +27,11 @@ $controls-height: auto;
   'user-bot clock-bot'
   'mat-bot  mat-bot'
   'kb-move  kb-move'
-  'controls controls'
-  'moves    moves';
+  'controls controls';
 
   .expiration-top { display: none; }
   &__table { display: none; }
+  .rmoves { margin-bottom: $block-gap }
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
@@ -67,9 +69,12 @@ $controls-height: auto;
       grid-area: 4 / 2 / 10 / 3;
     }
     .expiration-top { display: flex; }
-    .rmoves .moves {
-      display: none;
-      background: none;
+    .rmoves {
+      margin-bottom: 0;
+      .moves {
+        display: none;
+        background: none;
+      }
     }
     .keyboard-move {
       margin-top: $block-gap;
