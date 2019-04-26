@@ -165,7 +165,7 @@
   <string name="username">Nome utente</string>
   <string name="usernameOrEmail">Nome utente o email</string>
   <string name="changeUsername">Cambia nome utente</string>
-  <string name="changeUsernameNotSame">Può cambiare solamente il maiuscolo/minuscolo delle lettere. Per esempio da \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Puoi cambiare solamente il maiuscolo/minuscolo delle lettere (per esempio da \"mariorossi\" a \"MarioRossi\").</string>
   <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="password">Password</string>
   <string name="haveAnAccount">Hai già un account?</string>
@@ -758,7 +758,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s ospita %2$s</string>
   <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
-  <string name="xCreatesStudyY">%1$s crea uno studio %2$s</string>
+  <string name="xCreatesStudyY">%1$s ha creato uno studio %2$s</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonimo</string>
