@@ -387,7 +387,12 @@ $.modal = function(html, cls, onClose) {
     .addClass(cls)
     .data('onClose', onClose)
     .html($wrap);
-  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
+  $wrap.find('.close').on('click', $.modal.close);
+  $overlay.on('click', function(e) {
+    // disgusting hack
+    // dragging slider out of a modal closes the modal
+    if (!$('.ui-slider-handle.ui-state-focus').length) $.modal.close();
+  });
   $wrap.on('click', function(e) {
     e.stopPropagation();
   });
