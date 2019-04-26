@@ -4,15 +4,22 @@
     position: relative;
     display: flex;
     @include transition();
-    &:hover {
-      background: mix($c-link, $c-bg-box, 15%);
-    }
     h1 {
       @extend %roboto;
       font-size: 2.2rem;
       margin-bottom: .7em;
       text-transform: uppercase;
       letter-spacing: 3px;
+    }
+    &:nth-child(even) {
+      background: $c-bg-zebra;
+      justify-content: space-between;
+      .picture {
+        order: 3;
+      }
+    }
+    &:hover {
+      background: mix($c-link, $c-bg-box, 15%);
     }
   }
   .overlay {
