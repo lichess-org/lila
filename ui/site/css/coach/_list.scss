@@ -36,11 +36,5 @@
         background: mix($c-accent, $c-bg-box, 12%);
       }
     }
-    @media (max-width: 1084px) {
-      .coach-side {
-        margin-left: 0!important;
-        width: 196px!important;
-      }
-    }
   }
 }
