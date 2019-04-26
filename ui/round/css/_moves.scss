@@ -23,7 +23,7 @@
     flex: 0 0 7.3em;
   }
   .moves {
-    @extend %flex-wrap, %zen;
+    @extend %zen;
   }
   index {
     @extend %roboto;
@@ -33,6 +33,9 @@
   }
   @include breakpoint($mq-col2) {
     .moves {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
       position: relative; /* required by autoScroll */
       overflow-y: auto;
       align-content: start;
@@ -96,7 +99,6 @@
     .moves {
       flex: 0 0 $moves-height;
       display: flex;
-      flex-flow: row;
       align-items: stretch;
       white-space: nowrap;
       width: 100vw;
@@ -108,6 +110,7 @@
       &::-webkit-scrollbar-thumb {
         background: $c-accent;
       }
+
       > :first-child {
         margin-left: auto !important;
       }

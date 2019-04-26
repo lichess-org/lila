@@ -105,6 +105,9 @@
     form .fbt {
       width: 100%;
     }
+    @include breakpoint($mq-col1) {
+      margin-top: $block-gap;
+    }
   }
   .rematch {
     &.fbt {
