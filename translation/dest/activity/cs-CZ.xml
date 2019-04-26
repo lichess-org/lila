@@ -26,6 +26,12 @@
     <item quantity="many">Odehráno %1$s %2$s her</item>
     <item quantity="other">Odehráno %1$s %2$s her</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Hrán %1$s tah</item>
+    <item quantity="few">Hrán %1$s tahy</item>
+    <item quantity="many">Hrán %1$s tahů</item>
+    <item quantity="other">Hrán %1$s tahů</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Vytvořena %s studie</item>
     <item quantity="few">Vytvořeny %s studie</item>
