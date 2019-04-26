@@ -1,10 +1,3 @@
-@mixin columns-with-gauge-col2($gauge-width) {
-  grid-template-columns: $col2-uniboard-width $gauge-width $block-gap $col2-uniboard-table;
-}
-@mixin columns-with-gauge-col3($gauge-width) {
-  grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-width $block-gap $col3-uniboard-table;
-}
-
 body {
   /* prevents scroll bar flicker on page height changes */
   overflow-y: scroll;
@@ -54,11 +47,13 @@ body {
 
   grid-row-gap: $block-gap;
 
+  --gauge-width: 0px;
+  &.gauge-on {
+    --gauge-width: #{$gauge-on-container};
+  }
+
   @include breakpoint($mq-col2) {
-    @include columns-with-gauge-col2(0);
-    &.gauge-on {
-      @include columns-with-gauge-col2($gauge-on-container);
-    }
+    grid-template-columns: $col2-uniboard-width var(--gauge-width) $block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
     'board      gauge .    tools'
@@ -78,10 +73,7 @@ body {
   }
 
   @include breakpoint($mq-col3) {
-    @include columns-with-gauge-col3(0);
-    &.gauge-on {
-      @include columns-with-gauge-col3($gauge-on-container);
-    }
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-width) $block-gap $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height max-content;
     grid-template-areas:
     'side    . board gauge . tools'
