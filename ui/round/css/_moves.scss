@@ -1,6 +1,5 @@
 .rmoves {
   @extend %flex-column;
-  background: $c-bg-box;
   .buttons {
     @extend %flex-between;
     flex: 0 0 auto;
@@ -32,13 +31,14 @@
     @extend %san;
   }
   @include breakpoint($mq-col2) {
+    background: $c-bg-box;
     .moves {
       display: flex;
       flex-flow: row wrap;
       align-items: center;
       position: relative; /* required by autoScroll */
       overflow-y: auto;
-      align-content: start;
+      align-content: flex-start;
       border: $border;
       border-width: 0 1px;
       will-change: scroll-position;
@@ -103,13 +103,21 @@
       white-space: nowrap;
       width: 100vw;
       overflow-x: scroll;
+      color: $c-font-page;
+      @if $theme-light {
+        background: hsl($c-site-hue, 15%, 82%);
+        box-shadow: 0 4px 4px c-light($c-bg-page, 74%) inset;
+      } @else {
+        background: hsla(0, 0%, 0%, 0.2);
+        box-shadow: 0 4px 12px #000 inset;
+      }
       &::-webkit-scrollbar {
-        height: 1px;
-        background: $c-border;
+        height: 0px;
+        // background: $c-border;
       }
-      &::-webkit-scrollbar-thumb {
-        background: $c-accent;
-      }
+      // &::-webkit-scrollbar-thumb {
+      //   background: $c-accent;
+      // }
 
       > :first-child {
         margin-left: auto !important;
@@ -122,7 +130,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 .4rem;
+      padding: 0 .3rem;
     }
     index {
       padding-right: .15em;
@@ -132,7 +140,13 @@
       @include transition();
       &.active {
         font-weight: bold;
-        background: mix($c-primary, $c-bg-box, 20%);
+        @if $theme-light {
+          // background: mix($c-primary, $c-bg-box, 20%);
+          background: hsl($c-site-hue, 20%, 90%);
+          background: $c-bg-page;
+        } @else {
+          background: $c-bg-zebra;
+        }
       }
       &.empty {
         display: none;
