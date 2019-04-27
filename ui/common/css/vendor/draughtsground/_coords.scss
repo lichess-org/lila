@@ -4,6 +4,7 @@ coords {
   display: flex;
   pointer-events: none;
   font-size: 1.3vmin;
+  user-select: none;
   &.ranks {
     right: -15px;
     top: 0;
