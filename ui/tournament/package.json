@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "chat": "2.0.0",
-    "chessground": "^7.4",
+    "chessground": "^7.5",
     "common": "1.0.0",
     "game": "1.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
