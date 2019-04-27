@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import * as round from '../round';
 import throttle from 'common/throttle';
+import isHorizMoves from './horizontalMoves';
 import * as game from 'game';
 import * as status from 'game/status';
 import { game as gameRoute } from 'game/router';
@@ -17,32 +18,24 @@ function nullMove() {
   return h('move.empty', '');
 }
 
-let isHorizMovesCache: boolean | undefined;
-
-function isHorizMoves() {
-  if (typeof isHorizMovesCache == 'undefined')
-    isHorizMovesCache = !!getComputedStyle(document.querySelector('.round__app .rmoves .moves')!).getPropertyValue('--horiz');
-  return isHorizMovesCache;
-}
-
-const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
+const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
   if (ctrl.data.steps.length < 7) return;
   let st: number | undefined = undefined;
   if (ctrl.ply < 3) st = 0;
   else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 99999;
   else {
-    const plyEl = el.querySelector('.active') as HTMLElement | undefined;
+    const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
     if (plyEl) {
       if (isHorizMoves()) {
-        st = plyEl.offsetLeft - el.offsetWidth / 2 + plyEl.offsetWidth / 2;
+        st = plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2;
       } else {
-        st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+        st = plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
       }
     }
   }
   if (st !== undefined) {
-    if (isHorizMoves()) el.scrollLeft = st;
-    else el.scrollTop = st;
+    if (isHorizMoves()) movesEl.scrollLeft = st;
+    else movesEl.scrollTop = st;
   }
 });
 
