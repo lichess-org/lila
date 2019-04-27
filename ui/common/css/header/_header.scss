@@ -10,9 +10,9 @@
   position: relative;
   z-index: z('site-header');
 
-  --dropdown-top: 35px;
+  --dropdown-top: 40px;
   @include breakpoint($mq-site-header-tall) {
-    --dropdown-top: 53px;
+    --dropdown-top: 60px;
   }
 }
 
