@@ -25,14 +25,12 @@
 #top.clinput {
   @include breakpoint($mq-not-x-large) {
     #topnav { display: none }
-    #clinput {
-      width: 80vw;
-    }
   }
   @include breakpoint($mq-not-x-small) {
     .site-title { display: none }
   }
   @include breakpoint($mq-not-xx-small) {
     .site-buttons > *:not(#clinput) { display: none }
+    #clinput { width: 75vw; }
   }
 }
