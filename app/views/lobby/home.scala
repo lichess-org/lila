@@ -106,7 +106,7 @@ object home {
           } getOrElse div(cls := "about-side")(
             trans.xIsAFreeYLibreOpenSourceChessServer("Lichess", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
             " ",
-            a(cls := "blue", href := "/about")(trans.aboutX("lichess.org"), "...")
+            a(href := "/about")(trans.aboutX("Lichess"), "...")
           )
         ),
         featured map { g =>
