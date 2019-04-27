@@ -31,7 +31,10 @@
       padding: .5em .4em;
       border-top: $border;
       white-space: nowrap;
-      max-width: 168px; /* prevent leaderboard overflow due to long usernames */
+      max-width: 21ch; /* prevent leaderboard overflow due to long usernames */
+      &:first-child {
+        padding-left: .7em;
+      }
     }
     tr:nth-child(even) {
       background: $c-bg-zebra;
