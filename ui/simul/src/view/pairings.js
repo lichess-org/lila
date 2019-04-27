@@ -1,5 +1,6 @@
 var m = require('mithril');
 var util = require('./util');
+var ceval = require('./ceval');
 var status = require('game').status;
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
@@ -11,7 +12,7 @@ function miniPairing(ctrl) {
     var result = pairing.game.status >= status.ids.aborted ? (
       pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½-½')
     ) : '*';
-    return m('div', [
+    return m('div', { class: ctrl.evals !== undefined ? 'gauge_displayed' : '' }, [
       m('a', {
         href: '/' + game.id + '/' + game.orient,
         class: 'mini_board live_' + game.id + ' parse_fen is2d',
@@ -36,7 +37,8 @@ function miniPairing(ctrl) {
           player.title ? player.title + ' ' : '',
           player.officialRating ? ('FMJD ' + player.officialRating) : player.rating
         ])
-      ])
+      ]),
+      ctrl.evals !== undefined ? ceval.renderGauge(game, ctrl.evals) : null
     ]);
   };
 }

@@ -15,6 +15,7 @@ final class Env(
     config: Config,
     system: ActorSystem,
     scheduler: lidraughts.common.Scheduler,
+    evalCacheApi: lidraughts.evalCache.EvalCacheApi,
     db: lidraughts.db.Env,
     hub: lidraughts.hub.Env,
     roundMap: ActorRef,
@@ -55,6 +56,8 @@ final class Env(
     sequencers = sequencerMap,
     asyncCache = asyncCache
   )
+
+  def evalCache = evalCacheApi
 
   lazy val crudApi = new crud.CrudApi(repo)
 
@@ -137,6 +140,7 @@ object Env {
     config = lidraughts.common.PlayApp loadConfig "simul",
     system = lidraughts.common.PlayApp.system,
     scheduler = lidraughts.common.PlayApp.scheduler,
+    evalCacheApi = lidraughts.evalCache.Env.current.api,
     db = lidraughts.db.Env.current,
     hub = lidraughts.hub.Env.current,
     roundMap = lidraughts.round.Env.current.roundMap,

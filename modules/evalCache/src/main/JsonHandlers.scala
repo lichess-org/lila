@@ -22,8 +22,7 @@ object JsonHandlers {
 
   private def writePv(pv: Pv) = Json.obj(
     "moves" -> pv.moves.value.toList.mkString(" ")
-  )
-    .add("cp", pv.score.cp)
+  ).add("cp", pv.score.cp)
     .add("win", pv.score.win)
 
   def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] = for {

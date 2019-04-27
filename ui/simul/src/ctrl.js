@@ -5,6 +5,7 @@ module.exports = function(env) {
 
   this.data = env.data;
   this.arbiterData = undefined;
+  this.evals = this.data.evals;
 
   this.toggleCandidates = false;
   this.toggleArbiter = false;

@@ -63,6 +63,9 @@
 @base.form.group(form("chat"), Html("Chat is available for")) { field =>
 @base.form.select(field, chatChoices)
 }
+@base.form.group(form("ceval"), Html("Computer analysis in lobby")) { field =>
+@base.form.select(field, cevalChoices)
+}
 <div class="form-group">
   <div class="form-group@if(form("variants").hasErrors){ has-error} half short-margin">
     <label for="@form("variants").id" class="control-label custom-label" style="margin-top: 20%;">Variants</label>

@@ -50,6 +50,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     def read(bs: BSONString) = ChatMode.byKey get bs.value err s"Invalid chatmode ${bs.value}"
     def write(x: ChatMode) = BSONString(x.key)
   }
+  import Simul.EvalSetting
+  private implicit val EvalSettingHandler: BSONHandler[BSONString, EvalSetting] = new BSONHandler[BSONString, EvalSetting] {
+    def read(bs: BSONString) = EvalSetting.byKey get bs.value err s"Invalid evalsetting ${bs.value}"
+    def write(x: EvalSetting) = BSONString(x.key)
+  }
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
   private implicit val SimulBSONHandler = Macros.handler[Simul]

@@ -45,7 +45,7 @@ object Simul extends LidraughtsController {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
           version <- env.version(sim.id)
-          json <- env.jsonView(sim)
+          json <- env.jsonView(sim, sim.canHaveCeval(ctx.me))
           chat <- canHaveChat(sim) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
           stream <- Env.streamer.liveStreamApi one sim.hostId
@@ -111,22 +111,8 @@ object Simul extends LidraughtsController {
   }
 
   def arbiter(simulId: String) = Open { implicit ctx =>
-    AsArbiterOnly(simulId) { simul =>
-      GameRepo.gamesFromPrimary(simul.gameIds).map { games =>
-        val playerData = simul.pairings.map(pairing => {
-          val game = games.find(_.id == pairing.gameId)
-          val blurs = game.map(_.playerBlurPercent(!pairing.hostColor))
-          val clock = game.flatMap(_.clock).map(_.remainingTime(!pairing.hostColor).roundSeconds)
-          val hostClock = game.flatMap(_.clock).map(_.remainingTime(pairing.hostColor).roundSeconds)
-          Json.obj(
-            "id" -> pairing.player.user
-          ).add("blurs" -> blurs)
-            .add("clock" -> clock)
-            .add("hostClock" -> hostClock)
-            .add("turnColor" -> game.map(_.turnColor.name))
-        })
-        Ok(JsArray(playerData)) as JSON
-      }
+    AsArbiterOnly(simulId) { sim =>
+      env.jsonView.arbiterJson(sim) map { Ok(_) as JSON }
     }
   }
 

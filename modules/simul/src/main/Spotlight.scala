@@ -7,7 +7,8 @@ case class Spotlight(
     description: String,
     startsAt: DateTime,
     homepageHours: Option[Int] = None, // feature on homepage hours before start
-    iconImg: Option[String] = None
+    iconImg: Option[String] = None,
+    ceval: Option[Simul.EvalSetting] = None
 ) {
 
   def isNow = startsAt.isBefore(DateTime.now)

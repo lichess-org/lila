@@ -32,6 +32,7 @@ final class CrudApi(simulRepo: SimulRepo) {
     variants = simul.variants.map(_.id),
     color = simul.color.getOrElse(DataForm.colorDefault),
     chat = simul.chatmode.fold(DataForm.chatDefault)(_.key),
+    ceval = simul.spotlight.flatMap(_.ceval).map(_.key).getOrElse(CrudForm.cevalDefault),
     percentage = ~simul.targetPct.map(_.toString)
   )
 
@@ -93,7 +94,8 @@ final class CrudApi(simulRepo: SimulRepo) {
         description = description,
         startsAt = date,
         homepageHours = homepageHours.some.filterNot(0 ==),
-        iconImg = image.some.filter(_.nonEmpty)
+        iconImg = image.some.filter(_.nonEmpty),
+        ceval = Simul.EvalSetting.byKey.get(ceval)
       ).some
     )
   }

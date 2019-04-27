@@ -66,6 +66,15 @@ case class Simul(
       case _ => true
     }
 
+  def canHaveCeval(user: Option[User]): Boolean = spotlight.flatMap(_.ceval) match {
+    case Some(Simul.EvalSetting.Everyone) => true
+    case Some(Simul.EvalSetting.Arbiter) => user ?? { u => isArbiter(u.id) }
+    case Some(Simul.EvalSetting.Spectators) => user.fold(true)(u => isArbiter(u.id) || !isPlaying(u.id))
+    case _ => false
+  }
+
+  def hasCeval = spotlight.flatMap(_.ceval) ?? { Simul.EvalSetting.Disabled != }
+
   def addApplicant(applicant: SimulApplicant) = Created {
     if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
       copy(applicants = applicants :+ applicant)
@@ -232,6 +241,17 @@ object Simul {
     case object Spectators extends ChatMode
     case object Participants extends ChatMode
     val byKey = List(Everyone, Spectators, Participants).map { v => v.key -> v }.toMap
+  }
+
+  sealed trait EvalSetting {
+    lazy val key = toString.toLowerCase
+  }
+  object EvalSetting {
+    case object Disabled extends EvalSetting
+    case object Arbiter extends EvalSetting
+    case object Spectators extends EvalSetting
+    case object Everyone extends EvalSetting
+    val byKey = List(Disabled, Arbiter, Spectators, Everyone).map { v => v.key -> v }.toMap
   }
 
   private def makeName(host: User) =

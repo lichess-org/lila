@@ -2,6 +2,7 @@ var m = require('mithril');
 var simul = require('../simul');
 var util = require('./util');
 var xhr = require('../xhr');
+var ceval = require('./ceval');
 var status = require('game').status;
 
 function pad2(num) {
@@ -27,6 +28,10 @@ function formatClockTime(seconds) {
   return baseStr;
 }
 
+function evalDesc(eval) {
+  return eval ? ('Depth ' + eval.depth + ':\n' + eval.moves) : '';
+}
+
 module.exports = function(ctrl) {
   return (ctrl.toggleArbiter && ctrl.arbiterData && simul.amArbiter(ctrl)) ? [ m('div.arbiter-panel', [
     m('table.slist.user_list',
@@ -35,6 +40,7 @@ module.exports = function(ctrl) {
         m('th', m('span.hint--top-left', { 'data-hint': 'The FMJD rating set on the user\'s profile.' }, 'FMJD')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Simul participant clock time remaining.' }, 'Player clock')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Simul host clock time remaining.' }, 'Host clock')),
+        m('th', m('span.hint--top-left', { 'data-hint': 'Scan 3.0 evaluation of the current position.' }, 'Eval')),
         m('th', m('span.hint--top-left', { 'data-hint': 'The percentage of moves in which the user left the game page.' }, 'Blurs')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Stop the game by settling it as a win, draw or loss.' }, 'Settle'))
       ])),
@@ -57,6 +63,7 @@ module.exports = function(ctrl) {
           (playing && pairing.hostColor === data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.hostClock))
         ) : '-'),
+        m('td', m('span', { title: evalDesc(data.ceval) }, ceval.renderEval(data.ceval))),
         m('td', (data && data.blurs !== undefined) ? (data.blurs + '%') : '-' ),
         m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
           'data-icon': '2',

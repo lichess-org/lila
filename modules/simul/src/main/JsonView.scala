@@ -1,9 +1,10 @@
 package lidraughts.simul
 
 import play.api.libs.json._
-
 import lidraughts.common.LightUser
+import lidraughts.evalCache.EvalCacheEntry.Eval
 import lidraughts.game.{ Game, GameRepo }
+import draughts.format.{ FEN, Forsyth }
 
 final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
 
@@ -11,10 +12,19 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
     else GameRepo gamesFromPrimary simul.gameIds
 
-  def apply(simul: Simul): Fu[JsObject] = for {
+  private def fetchEvals(games: List[Game]) =
+    games map { game =>
+      Env.current.evalCache.getSinglePvEval(
+        game.variant,
+        FEN(Forsyth >> game.situation)
+      ) map { (game.id, _) }
+    } sequenceFu
+
+  def apply(simul: Simul, ceval: Boolean): Fu[JsObject] = for {
     games <- fetchGames(simul)
+    evals <- ceval ?? fetchEvals(games)
     lightHost <- getLightUser(simul.hostId)
-    lightArbiter <- simul.arbiterId.??(getLightUser)
+    lightArbiter <- simul.arbiterId ?? getLightUser
     applicants <- simul.applicants.sortBy(p => -simul.isUnique.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(applicantJson(simul.isUnique)).sequenceFu
     pairings <- simul.pairings.sortBy(p => -simul.isUnique.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(pairingJson(games, simul.hostId, simul.isUnique)).sequenceFu
     allowed <- (~simul.allowed).map(allowedJson).sequenceFu
@@ -53,6 +63,22 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     .add("description" -> simul.spotlight.map { s => lidraughts.common.String.html.markdownLinks(s.description).toString })
     .add("allowed" -> (if (allowed.nonEmpty) allowed.some else none))
     .add("targetPct" -> simul.targetPct)
+    .add("evals" -> ceval.fold(evals.flatMap(eval => eval._2 ?? { ev => (eval._1, ev).some }).map(evalJson).some, none))
+
+  def arbiterJson(simul: Simul): Fu[JsArray] = for {
+    games <- fetchGames(simul)
+    evals <- simul.hasCeval ?? fetchEvals(games)
+  } yield JsArray(simul.pairings.map(pairing => {
+    val game = games.find(_.id == pairing.gameId)
+    val clock = game.flatMap(_.clock)
+    Json.obj(
+      "id" -> pairing.player.user
+    ).add("blurs" -> game.map(_.playerBlurPercent(!pairing.hostColor)))
+      .add("clock" -> clock.map(_.remainingTime(!pairing.hostColor).roundSeconds))
+      .add("hostClock" -> clock.map(_.remainingTime(pairing.hostColor).roundSeconds))
+      .add("turnColor" -> game.map(_.turnColor.name))
+      .add("ceval" -> evals.find(_._1 == pairing.gameId).flatMap(eval => eval._2 ?? { ev => (eval._1, ev).some }).map(evalJson))
+  }))
 
   private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,
@@ -99,6 +125,16 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "lastMove" -> ~g.lastMoveKeys,
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
+
+  private def evalJson(eval: (Game.ID, Eval)) = {
+    val pv = eval._2.pvs.head
+    Json.obj(
+      "id" -> eval._1,
+      "moves" -> pv.moves.value.toList.mkString(" "),
+      "depth" -> eval._2.depth
+    ).add("cp", pv.score.cp.map(_.value))
+      .add("win", pv.score.win.map(_.value))
+  }
 
   private def pairingJson(games: List[Game], hostId: String, unique: Boolean)(p: SimulPairing): Fu[JsObject] =
     playerJson(p.player, unique) map { player =>

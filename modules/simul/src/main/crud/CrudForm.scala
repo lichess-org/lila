@@ -33,27 +33,10 @@ object CrudForm {
     }.verifying("atLeastOneVariant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
     "chat" -> stringIn(chatChoices),
+    "ceval" -> stringIn(cevalChoices),
     "percentage" -> text(minLength = 0, maxLength = 3)
       .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
-
-  val empty = CrudForm.Data(
-    name = "",
-    homepageHours = 0,
-    date = DateTime.now plusDays 7,
-    image = "",
-    headline = "",
-    description = "",
-    hostName = "",
-    arbiterName = "",
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
-    clockExtra = clockExtraDefault,
-    variants = List(draughts.variant.Standard.id),
-    color = colorDefault,
-    chat = chatDefault,
-    percentage = ""
-  )
 
   case class Data(
       name: String,
@@ -70,6 +53,7 @@ object CrudForm {
       variants: List[Int],
       color: String,
       chat: String,
+      ceval: String,
       percentage: String
   )
 
@@ -80,4 +64,31 @@ object CrudForm {
     "bitchess.logo.png" -> "Bitchess"
   )
   val imageDefault = ""
+
+  val cevalChoices = List(
+    "disabled" -> "Disabled",
+    "arbiter" -> "Arbiter only",
+    "spectators" -> "Spectators only",
+    "everyone" -> "Everyone"
+  )
+  val cevalDefault = "disabled"
+
+  val empty = CrudForm.Data(
+    name = "",
+    homepageHours = 0,
+    date = DateTime.now plusDays 7,
+    image = imageDefault,
+    headline = "",
+    description = "",
+    hostName = "",
+    arbiterName = "",
+    clockTime = clockTimeDefault,
+    clockIncrement = clockIncrementDefault,
+    clockExtra = clockExtraDefault,
+    variants = List(draughts.variant.Standard.id),
+    color = colorDefault,
+    chat = chatDefault,
+    ceval = cevalDefault,
+    percentage = ""
+  )
 }
