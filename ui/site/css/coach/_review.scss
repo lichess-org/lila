@@ -22,8 +22,8 @@
     text-overflow: ellipsis;
   }
   .content {
+    @extend %page-text;
     font-style: italic;
-    color: $c-font-dim;
     max-height: 10.7em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -35,7 +35,6 @@
   &:hover {
     .content {
       max-height: 50em;
-      color: $c-font;
     }
     .disapprove {
       display: block;
