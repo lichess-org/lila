@@ -12,7 +12,7 @@ export default function resizeHandle(el: HTMLElement) {
 
       const delta = move.clientX - start.clientX + move.clientY - start.clientY;
 
-      zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 5)));
+      zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
       document.body.setAttribute('style', '--zoom:' + zoom);
       window.lichess.dispatchEvent(window, 'resize');
