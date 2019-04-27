@@ -99,8 +99,6 @@ function anyClock(ctrl: RoundController, position: Position) {
 
 export function renderTable(ctrl: RoundController): MaybeVNodes {
   return [
-    anyClock(ctrl, 'top'),
-    anyClock(ctrl, 'bottom'),
     h('div.round__app__table'),
     renderExpiration(ctrl),
     renderPlayer(ctrl, 'top'),
@@ -108,5 +106,11 @@ export function renderTable(ctrl: RoundController): MaybeVNodes {
       game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
     )),
     renderPlayer(ctrl, 'bottom'),
+    /* render clocks after players so they display on top of them in col1,
+     * since they occupy the same grid cell. This is required to avoid
+     * having two columns with min-content, which causes the horizontal moves
+     * to overflow: it couldn't be contained in the parent anymore */
+    anyClock(ctrl, 'top'),
+    anyClock(ctrl, 'bottom'),
   ];
 };
