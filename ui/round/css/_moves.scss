@@ -95,7 +95,7 @@
     }
   }
   @include breakpoint($mq-col1) {
-    overflow-x: scroll;
+    overflow: hidden;
     $moves-height: 2.5em;
     .moves {
       flex: 0 0 $moves-height;
@@ -137,9 +137,7 @@
       &.active {
         font-weight: bold;
         @if $theme-light {
-          // background: mix($c-primary, $c-bg-box, 20%);
-          background: hsl($c-site-hue, 20%, 90%);
-          background: $c-bg-page;
+          background: hsl($c-site-hue, 20%, 70%);
         } @else {
           background: $c-bg-zebra;
         }
