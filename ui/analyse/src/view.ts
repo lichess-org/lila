@@ -6,6 +6,7 @@ import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
+import resizeHandle from 'common/resize';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
@@ -367,7 +368,10 @@ export default function(ctrl: AnalyseCtrl): VNode {
     }, [
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
       draughtsground.render(ctrl),
-      playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null
+      playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
+      h('div.board-resize', {
+        hook: onInsert(resizeHandle)
+      })
     ]),
     (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || h('div.analyse__tools', [

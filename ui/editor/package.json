@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "draughtsground": "^7.2",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "mithril": "github:ornicar/mithril.js#lila-1",
+    "common": "1.0.0"
   }
 }

@@ -1,6 +1,7 @@
 var draughtsground = require('./draughtsground');
 var dragNewPiece = require('draughtsground/drag').dragNewPiece;
 var eventPosition = require('draughtsground/util').eventPosition;
+var resizeHandle = require('common/resize').default;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -284,7 +285,14 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + makeCursor(ctrl.selected())
   }, [
     sparePieces(ctrl, color, 'black', 'top'),
-    m('div.main-board', draughtsground(ctrl)),
+    m('div.main-board', [
+      draughtsground(ctrl),
+      m('div.board-resize', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) resizeHandle(el);
+        }
+      })
+    ]),
     controls(ctrl, fen),
     inputs(ctrl, fen)
   ]);
