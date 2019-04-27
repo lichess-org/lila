@@ -95,6 +95,7 @@
     }
   }
   @include breakpoint($mq-col1) {
+    overflow-x: scroll;
     $moves-height: 2.5em;
     .moves {
       flex: 0 0 $moves-height;

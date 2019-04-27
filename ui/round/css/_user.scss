@@ -21,10 +21,6 @@
     margin: 0 0.25em 0 0.3em;
     color: $c-font-dim;
     letter-spacing: -0.5px;
-    display: none;
-    @include breakpoint($mq-xx-small) {
-      display: block;
-    }
   }
   .line {
     @extend %flex-center-nowrap;
