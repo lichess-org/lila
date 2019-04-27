@@ -32,7 +32,9 @@ object home {
     nbRounds: Int
   )(implicit ctx: Context) = views.html.base.layout(
     title = "",
-    fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
+    fullTitle = Some {
+      s"lidraughts.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineDraughts.txt()}"
+    },
     moreJs = frag(
       jsAt(s"compiled/lidraughts.lobby${isProd ?? (".min")}.js", defer = true),
       embedJsUnsafe(
