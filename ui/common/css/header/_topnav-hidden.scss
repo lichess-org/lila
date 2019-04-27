@@ -92,7 +92,7 @@
     background: $c-bg-high;
     transform: translateX(calc(-100% - 10px));
     @include transition(transform, 200ms);
-    padding: 0 0 1.2rem 1.2rem;
+    padding-bottom: 1.2rem;
     overflow-y: auto;
     overscroll-behavior: contain;
     white-space: nowrap;
@@ -109,18 +109,20 @@
       flex: 1 0 50%;
       margin-top: 1rem;
       > a {
+        padding-left: 1.2rem;
         font-weight: bold;
+        display: block;
       }
       div {
         display: flex;
         flex-flow: column;
         a {
-          padding: 0 1.2rem;
-          &:hover {
-            background: $c-primary;
-            color: #fff;
-          }
+          padding: 0 2.4rem;
         }
+      }
+      a:active {
+        background: $c-primary;
+        color: $c-primary-over;
       }
     }
 
