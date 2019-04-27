@@ -1,3 +1,7 @@
+body.resizing {
+  user-select: none;
+}
+
 .board-resize {
   $resize-width: 30px;
   display: none;
