@@ -43,14 +43,7 @@ object bits {
     table(
       simuls map { simul =>
         tr(
-          td(cls := "name")(
-            a(cls := "text", href := routes.Simul.show(simul.id))(
-              simul.perfTypes map { pt =>
-                span(dataIcon := pt.iconChar)
-              },
-              simul.fullName
-            )
-          ),
+          td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
           td(cls := "text", dataIcon := "p")(simul.clock.config.show),
           td(cls := "text", dataIcon := "r")(simul.applicants.size),
