@@ -101,7 +101,6 @@
       display: flex;
       align-items: stretch;
       white-space: nowrap;
-      width: 100vw;
       overflow-x: scroll;
       color: $c-font-page;
       @if $theme-light {
