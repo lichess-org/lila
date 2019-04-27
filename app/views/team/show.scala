@@ -57,7 +57,7 @@ object show {
               st.section(cls := "team-show__desc")(
                 richText(t.description),
                 t.location.map { loc =>
-                  frag(br, trans.location(), ":", richText(loc))
+                  frag(br, trans.location(), ": ", richText(loc))
                 },
                 info.hasRequests option div(cls := "requests")(
                   h2(info.requests.size, " join requests"),
