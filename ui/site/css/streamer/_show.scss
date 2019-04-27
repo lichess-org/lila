@@ -1,12 +1,34 @@
+$mq-picture: $mq-large;
+
 .streamer-show {
+  .page-menu__content {
+    overflow: hidden; /* help with responsive overflow of activity */
+  }
+  h1 {
+    @extend %roboto;
+    @include fluid-size('font-size', 23px, 40px);
+    &::before {
+      display: inline;
+      margin-right: .2em;
+      @include breakpoint($mq-picture) {
+        display: none;
+      }
+    }
+  }
   .streamer-chat {
     margin-right: $block-gap;
     display: none;
-    @include breakpoint($mq-small) {
+    @include breakpoint($mq-medium) {
       display: block;
     }
     iframe {
       height: 500px;
+    }
+  }
+  .picture {
+    display: none;
+    @include breakpoint($mq-picture) {
+      display: block;
     }
   }
   .embed {
@@ -25,36 +47,47 @@
     padding: 2.5em 50px 2.5em 65px;
     font-size: 1.4em;
   }
+  .services {
+    display: none;
+    @include breakpoint($mq-large) {
+      display: block;
+    }
+  }
   .services a:hover,
   .description a {
     color: #3893E8;
   }
   .ratings {
-    padding: 2em 50px 2em 58px;
+    @extend %flex-center;
+    justify-content: space-between;
+    padding: 2em 50px 1em 58px;
     font-size: 1.6em;
     line-height: .9;
     background: mix($c-brag, $c-bg-box, 20%);
     color: $c-font;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1em;
-    span::before {
-      font-size: 1.6em;
-      margin-right: 0.1em;
+    span {
+      margin-bottom: 1em;
+      &::before {
+        font-size: 1.6em;
+        margin-right: 0.1em;
+      }
     }
   }
 
   .blocker {
     margin: $block-gap $block-gap 0 0;
-    display: flex;
     flex-flow: column;
     align-items: center;
     text-align: center;
     font-weight: normal;
     text-transform: none;
-  }
-  .blocker i {
-    font-size: 40px;
-    margin-bottom: 10px;
+    display: none;
+    @include breakpoint($mq-small) {
+      display: flex;
+    }
+    i {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
   }
 }
