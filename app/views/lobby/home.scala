@@ -108,7 +108,7 @@ object home {
           } getOrElse div(cls := "about-side")(
             trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
             " ",
-            a(cls := "blue", href := "/about")(trans.aboutX("lidraughts.org"), "...")
+            a(href := "/about")(trans.aboutX("Lidraughts"), "...")
           )
         ),
         featured map { g =>
