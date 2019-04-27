@@ -1,5 +1,5 @@
 html {
-  @extend %base-font;
+  @extend %base-font-fallback;
   @include fluid-size('font-size', 13px, 15px);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
