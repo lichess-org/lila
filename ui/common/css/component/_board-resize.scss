@@ -1,28 +1,32 @@
-$resize-width: 30px;
 .board-resize {
-  position: absolute;
-  right: -15px;
-  bottom: -15px;
-  width: $resize-width;
-  height: $resize-width;
-  cursor: nwse-resize;
-  background: hsla(0%,0%,0%,.1);
-  &::before, &::after {
-    background: $c-font;
-    content: '';
+  $resize-width: 30px;
+  display: none;
+  @include breakpoint($mq-col2-uniboard) {
+    display: block;
     position: absolute;
+    right: -15px;
+    bottom: -15px;
     width: $resize-width;
-    height: 1px;
-  }
-  &::before {
-    width: #{$resize-width * 3/4};
-    transform: 
-    translate(13px, 16px)
-    rotate(-45deg);
-  }
-  &::after {
-    transform: 
-    translate(16px, 18px)
-    rotate(-45deg);
+    height: $resize-width;
+    cursor: nwse-resize;
+    background: hsla(0%,0%,0%,.1);
+    &::before, &::after {
+      background: $c-font;
+      content: '';
+      position: absolute;
+      width: $resize-width;
+      height: 1px;
+    }
+    &::before {
+      width: #{$resize-width * 3/4};
+      transform:
+      translate(13px, 16px)
+      rotate(-45deg);
+    }
+    &::after {
+      transform:
+      translate(16px, 18px)
+      rotate(-45deg);
+    }
   }
 }
