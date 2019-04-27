@@ -5,6 +5,7 @@ import { renderTable } from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'draughtsground/fen';
+import resizeHandle from 'common/resize';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
@@ -59,7 +60,10 @@ export function main(ctrl: RoundController): VNode {
       hook: window.lidraughts.hasTouchEvents ? undefined : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       renderGround(ctrl),
-      promotion.view(ctrl)
+      promotion.view(ctrl),
+      h('div.board-resize', {
+        hook: util.onInsert(resizeHandle)
+      })
     ]),
     crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top'),
     ...renderTable(ctrl),

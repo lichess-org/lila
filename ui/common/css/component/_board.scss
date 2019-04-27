@@ -1,3 +1,7 @@
+body.resizing {
+  user-select: none;
+}
+
 .main-board {
   @extend %square;
   &__preload {

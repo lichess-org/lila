@@ -1,0 +1,9 @@
+.board-resize {
+  position: absolute;
+  right: -15px;
+  bottom: -15px;
+  width: 30px;
+  height: 30px;
+  background: red;
+  cursor: nwse-resize;
+}
