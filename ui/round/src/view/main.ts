@@ -64,7 +64,7 @@ export function main(ctrl: RoundController): VNode {
     }, [
       renderGround(ctrl),
       promotion.view(ctrl),
-      h('div.board-resize', {
+      ctrl.ply > 1 ? undefined : h('div.board-resize', {
         hook: util.onInsert(resizeHandle)
       })
     ]),
