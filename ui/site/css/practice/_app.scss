@@ -10,8 +10,12 @@
     }
   }
   .studies {
+    --min-width: 100vw;
+    @include breakpoint($mq-xx-small) {
+      --min-width: 400px;
+    }
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100vw, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em;
     margin: .8em 0 3em 0;
   }
