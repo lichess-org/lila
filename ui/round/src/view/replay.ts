@@ -18,23 +18,26 @@ function nullMove() {
   return h('move.empty', '');
 }
 
+const scrollMax = 99999;
+
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
   if (ctrl.data.steps.length < 7) return;
   let st: number | undefined = undefined;
   if (ctrl.ply < 3) st = 0;
-  else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 99999;
+  else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
   else {
     const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
     if (plyEl) {
-      if (isHorizMoves()) {
+      if (isHorizMoves(movesEl)) {
         st = plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2;
       } else {
         st = plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
       }
     }
   }
-  if (st !== undefined) {
-    if (isHorizMoves()) movesEl.scrollLeft = st;
+  if (st) {
+    if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+    else if (isHorizMoves(movesEl)) movesEl.scrollLeft = st;
     else movesEl.scrollTop = st;
   }
 });
