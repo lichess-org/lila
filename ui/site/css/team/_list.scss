@@ -15,5 +15,9 @@
   .info {
     font-size: 0.9em;
     white-space: nowrap;
+    display: none;
+    @include breakpoint($mq-x-small) {
+      display: table-cell;
+    }
   }
 }
