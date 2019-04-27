@@ -31,7 +31,9 @@ object home {
     nbRounds: Int
   )(implicit ctx: Context) = views.html.base.layout(
     title = "",
-    fullTitle = Some("lichess.org • " + trans.freeOnlineChess.txt()),
+    fullTitle = Some {
+      s"lichess.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+    },
     moreJs = frag(
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", defer = true),
       embedJsUnsafe(
