@@ -11,7 +11,7 @@
   }
   .studies {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100vw, 1fr));
     grid-gap: 1em;
     margin: .8em 0 3em 0;
   }
@@ -24,6 +24,10 @@
     @include transition();
     white-space: nowrap;
     font-size: 1.2em;
+    overflow-x: hidden;
+    @include breakpoint($mq-main-margin) {
+      overflow-x: visible; /* ribbon */
+    }
     i {
       flex: 0 0 80px;
       height: 80px;
