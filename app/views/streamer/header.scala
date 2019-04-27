@@ -11,7 +11,7 @@ object header {
     div(cls := "streamer-header")(
       bits.pic(s.streamer, s.user),
       div(cls := "overview")(
-        h1(
+        h1(dataIcon := "")(
           titleTag(s.user.title),
           s.streamer.name
         ),
