@@ -30,7 +30,9 @@
     &.berserk {
       background: $c-bad;
     }
-    @include breakpoint($mq-col2) {
+  }
+  @include breakpoint($mq-col2) {
+    .bar {
       display: block;
       position: absolute;
       width: 100%;
@@ -40,12 +42,12 @@
       .with-expiration & {
         display: none;
       }
-      &-top .bar {
-        bottom: -4px;
-      }
-      &-bottom .bar {
-        top: -4px;
-      }
+    }
+    &-top .bar {
+      bottom: -4px;
+    }
+    &-bottom .bar {
+      top: -4px;
     }
   }
   .time {
