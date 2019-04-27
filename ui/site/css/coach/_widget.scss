@@ -6,7 +6,7 @@
   .overlay {
     @extend %link-overlay;
   }
-  img {
+  .picture {
     display: none;
     @include breakpoint($mq-small) {
       display: block;
