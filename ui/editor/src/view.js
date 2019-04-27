@@ -1,6 +1,7 @@
 var chessground = require('./chessground');
 var dragNewPiece = require('chessground/drag').dragNewPiece;
 var eventPosition = require('chessground/util').eventPosition;
+var resizeHandle = require('common/resize').default;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -302,7 +303,14 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + makeCursor(ctrl.selected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
-    m('div.main-board', chessground(ctrl)),
+    m('div.main-board', [
+      chessground(ctrl),
+      m('div.board-resize', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) resizeHandle(el);
+        }
+      })
+    ]),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
     inputs(ctrl, fen)

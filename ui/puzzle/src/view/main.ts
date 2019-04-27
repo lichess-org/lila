@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import chessground from './chessground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
+import resizeHandle from 'common/resize';
 import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
@@ -100,7 +101,10 @@ export default function(ctrl: Controller): VNode {
       hook: hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground(ctrl),
-      ctrl.promotion.view()
+      ctrl.promotion.view(),
+      h('div.board-resize', {
+        hook: onInsert(resizeHandle)
+      })
     ]),
     h('div.puzzle__tools', [
       // we need the wrapping div here
