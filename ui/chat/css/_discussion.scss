@@ -2,6 +2,7 @@
   &__messages {
     @extend %break-word;
     flex: 1 1 auto;
+    max-height: 50vh;
     @include breakpoint($mq-col3-uniboard) {
       max-height: none;
     }
