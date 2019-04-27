@@ -109,10 +109,12 @@
       flex: 1 0 50%;
       margin-top: 1rem;
       > a {
+        font-size: 1.2em;
         padding-left: 1.2rem;
         font-weight: bold;
         display: block;
       }
+      .play { display: none }
       div {
         display: flex;
         flex-flow: column;

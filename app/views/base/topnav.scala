@@ -16,7 +16,10 @@ object topnav {
     cls := (if (ctx.blind) "blind" else "hover")
   )(
       st.section(
-        linkTitle("/", trans.play()),
+        linkTitle("/", frag(
+          span(cls := "play")(trans.play()),
+          span(cls := "home")("lichess.org")
+        )),
         div(role := "group")(
           if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
