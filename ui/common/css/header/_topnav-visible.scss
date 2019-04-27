@@ -33,6 +33,7 @@ $menu-transition-immediate: .1s linear;
           pointer-events: none;
         }
       }
+      .home { display: none }
       &:hover,
       &:active {
         > a {
