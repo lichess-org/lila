@@ -58,7 +58,9 @@ export function main(ctrl: RoundController): VNode {
     util.countChecks(ctrl.data.steps, ctrl.ply) :
     util.noChecks;
 
-  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, [
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
+    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) }
+  }, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: window.lichess.hasTouchEvents ? undefined : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
