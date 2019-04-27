@@ -450,7 +450,7 @@
               }
             });
           }).find('div.pager').hide().end();
-          $scroller.parent().append($('<button class="inf-more">More</button>').on('click', function() {
+          $scroller.parent().append($('<button class="inf-more button button-empty">More</button>').on('click', function() {
             $scroller.infinitescroll('retrieve');
           }));
         });
