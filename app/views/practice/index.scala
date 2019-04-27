@@ -36,31 +36,29 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
           )
         ),
         div(cls := "page-menu__content practice-app")(
-          st.section(
-            data.structure.sections.map { section =>
-              div(cls := "section")(
-                h2(section.name),
-                div(cls := "studies")(
-                  section.studies.map { stud =>
-                    val prog = data.progressOn(stud.id)
-                    a(
-                      cls := s"study ${if (prog.complete) "done" else "ongoing"}",
-                      href := routes.Practice.show(section.id, stud.slug, stud.id.value)
-                    )(
-                        ctx.isAuth option span(cls := "ribbon-wrapper")(
-                          span(cls := "ribbon")(prog.done, " / ", prog.total)
-                        ),
-                        i(cls := s"${stud.id}"),
-                        span(cls := "text")(
-                          h3(stud.name),
-                          em(stud.desc)
-                        )
+          data.structure.sections.map { section =>
+            st.section(
+              h2(section.name),
+              div(cls := "studies")(
+                section.studies.map { stud =>
+                  val prog = data.progressOn(stud.id)
+                  a(
+                    cls := s"study ${if (prog.complete) "done" else "ongoing"}",
+                    href := routes.Practice.show(section.id, stud.slug, stud.id.value)
+                  )(
+                      ctx.isAuth option span(cls := "ribbon-wrapper")(
+                        span(cls := "ribbon")(prog.done, " / ", prog.total)
+                      ),
+                      i(cls := s"${stud.id}"),
+                      span(cls := "text")(
+                        h3(stud.name),
+                        em(stud.desc)
                       )
-                  }
-                )
+                    )
+                }
               )
-            }
-          )
+            )
+          }
         )
       )
     }
