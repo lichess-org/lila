@@ -8,6 +8,9 @@ $gauge-on-width: calc(#{$block-gap} + 2px);
   border-radius: 0 5px 5px 0;
   overflow: hidden;
   margin-left: -2px;
+  @include breakpoint($mq-col1-uniboard) {
+    display: none;
+  }
   &.reverse {
     transform: rotateX(180deg);
   }
