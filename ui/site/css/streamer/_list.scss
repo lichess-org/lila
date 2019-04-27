@@ -1,15 +1,39 @@
+$mq-picture: $mq-medium;
+
 .streamer-list {
+  h1 {
+    &::before {
+      display: none;
+      @include breakpoint($mq-picture) {
+        display: inline;
+      }
+    }
+  }
   .streamer {
     border-top: $border;
     position: relative;
     display: flex;
     @include transition();
+    @include breakpoint($mq-subnav-top) {
+      overflow-x: hidden;
+    }
     h1 {
       @extend %roboto;
-      font-size: 2.2rem;
       margin-bottom: .7em;
-      text-transform: uppercase;
-      letter-spacing: 3px;
+      @include fluid-size('font-size', 23px, 40px);
+      @include breakpoint($mq-small) {
+        letter-spacing: 2px;
+      }
+      @include breakpoint($mq-large) {
+        letter-spacing: 3px;
+      }
+      &::before {
+        display: inline;
+        margin-right: .2em;
+        @include breakpoint($mq-picture) {
+          display: none;
+        }
+      }
     }
     &:nth-child(even) {
       background: $c-bg-zebra;
@@ -31,7 +55,7 @@
     &.default {
       opacity: 0.3;
     }
-    @include breakpoint($mq-medium) {
+    @include breakpoint($mq-picture) {
       display: block;
     }
   }
@@ -53,6 +77,10 @@
   }
   .services {
     margin: 5px 0 10px 0;
+    display: none;
+    @include breakpoint($mq-large) {
+      display: block;
+    }
   }
   .service {
     display: flex;
@@ -61,12 +89,12 @@
     padding: 3px 0;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  .service svg {
-    width: 1.4em;
-    height: 1.4em;
-    margin-right: 0.4em;
-    opacity: 0.7;
+    svg {
+      width: 1.4em;
+      height: 1.4em;
+      margin-right: 0.4em;
+      opacity: 0.7;
+    }
   }
 
   .ribbon {
@@ -77,39 +105,43 @@
     top: -10px;
     right: -10px;
     z-index: 2;
-  }
-  .ribbon::before,
-  .ribbon::after {
-    position: absolute;
-    z-index: 0;
-    content: '';
-    display: block;
-    border: 5px solid #2980b9;
-    border-top-color: transparent;
-    border-right-color: transparent;
-  }
-  .ribbon::before {
-    top: 0;
-    left: 0;
-  }
-  .ribbon::after {
-    bottom: 0;
-    right: 0;
-  }
-  .ribbon span {
-    position: absolute;
-    left: -25px;
-    top: 30px;
-    transform: rotate(45deg);
-    display: block;
-    width: 225px;
-    padding: 15px 0;
-    background-color: #3498db;
-    box-shadow: 0 5px 10px rgba(0,0,0,.1);
-    color: #fff;
-    font: 700 18px/1 Roboto;
-    text-shadow: 0 1px 1px rgba(0,0,0,.2);
-    text-transform: uppercase;
-    text-align: center;
+    @include breakpoint($mq-not-xx-small) {
+      transform: scale(0.7);
+      transform-origin: top right;
+    }
+    &::before,
+    &::after {
+      position: absolute;
+      z-index: 0;
+      content: '';
+      display: block;
+      border: 5px solid #2980b9;
+      border-top-color: transparent;
+      border-right-color: transparent;
+    }
+    &::before {
+      top: 0;
+      left: 0;
+    }
+    &::after {
+      bottom: 0;
+      right: 0;
+    }
+    span {
+      position: absolute;
+      left: -20px;
+      top: 35px;
+      transform: rotate(45deg);
+      display: block;
+      width: 225px;
+      padding: 15px 0;
+      background-color: $c-primary;
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+      color: $c-primary-over;
+      font: 700 18px/1 Roboto;
+      text-shadow: 0 1px 1px rgba(0,0,0,.2);
+      text-transform: uppercase;
+      text-align: center;
+    }
   }
 }
