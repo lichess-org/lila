@@ -5,7 +5,7 @@
 
   @include breakpoint($mq-subnav-top) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
     grid-gap: 3px;
 
     background: $c-bg-page;
