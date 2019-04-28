@@ -2,7 +2,7 @@ export type MouchEvent = MouseEvent & TouchEvent;
 
 export default function resizeHandle(el: HTMLElement) {
 
-  const mousemoveEvent = window.lidraughts.hasTouchEvents ? 'touchmove' : 'mousedown';
+  const mousemoveEvent = window.lidraughts.hasTouchEvents ? 'touchmove' : 'mousemove';
   const mouseupEvent = window.lidraughts.hasTouchEvents ? 'touchend' : 'mouseup';
 
   el.addEventListener(window.lidraughts.mousedownEvent, (start: MouchEvent) => {
