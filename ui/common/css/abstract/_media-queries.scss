@@ -15,9 +15,12 @@ $mq-not-x-large: (max-width 1259px);
 
 /* Heights */
 
+$mq-x-short: (min-height 400px);
 $mq-short: (min-height 500px);
 $mq-tall: (min-height 600px);
 $mq-x-tall: (min-height 700px);
+
+$mq-not-x-short: (max-height 399px);
 
 /* Orientations */
 
