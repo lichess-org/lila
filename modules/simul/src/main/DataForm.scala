@@ -74,6 +74,8 @@ object DataForm {
     targetPct = zero[String],
     text = ""
   )
+
+  def setText = Form(single("text" -> text))
 }
 
 case class SimulSetup(

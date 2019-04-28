@@ -37,6 +37,14 @@ $box-padding: var(--box-padding);
     padding: 1.5em 2.5em;
     background: $c-bg-zebra;
     width: 70%;
+
+    textarea {
+      width: 100%;
+      height: 10em;
+    }
+    .save {
+      width: 100%;
+    }
   }
 
   .spinner {

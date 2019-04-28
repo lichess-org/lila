@@ -8,12 +8,12 @@ import org.joda.time.format.DateTimeFormat
 
 import lidraughts.api.{ Context, GameApiV2 }
 import lidraughts.app._
+import lidraughts.chat.Chat
 import lidraughts.common.HTTPRequest
 import lidraughts.game.GameRepo
 import lidraughts.game.PdnDump.WithFlags
 import lidraughts.simul.{ Simul => Sim }
 import lidraughts.simul.DataForm.{ empty => emptyForm }
-import lidraughts.chat.Chat
 import views._
 
 object Simul extends LidraughtsController {
@@ -63,28 +63,41 @@ object Simul extends LidraughtsController {
   def start(simulId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api start simul.id
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
     }
   }
 
   def abort(simulId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api abort simul.id
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
     }
   }
 
   def accept(simulId: String, userId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api.accept(simul.id, userId, true)
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
     }
   }
 
   def reject(simulId: String, userId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api.accept(simul.id, userId, false)
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
+    }
+  }
+
+  def setText(simulId: String) = OpenBody { implicit ctx =>
+    AsHostOrArbiter(simulId) { simul =>
+      implicit val req = ctx.body
+      env.forms.setText.bindFromRequest.fold(
+        err => BadRequest,
+        text => {
+          env.api.setText(simul.id, text)
+          jsonOkResult
+        }
+      )
     }
   }
 

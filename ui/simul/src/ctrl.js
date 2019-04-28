@@ -1,5 +1,6 @@
 var socket = require('./socket');
 var simul = require('./simul');
+var text = require('./text');
 
 module.exports = function(env) {
 
@@ -42,6 +43,7 @@ module.exports = function(env) {
   }
 
   this.socket = new socket(env.socketSend, this);
+  this.text = text.ctrl();
 
   this.reload = function(data) {
     this.data = data;

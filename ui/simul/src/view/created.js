@@ -1,6 +1,7 @@
 var m = require('mithril');
 var simul = require('../simul');
 var util = require('./util');
+var text = require('../text');
 var xhr = require('../xhr');
 
 function byName(a, b) {
@@ -189,7 +190,7 @@ module.exports = function(ctrl) {
           }, ctrl.trans('signIn'))
       ])
     ]),
-    util.simulText(ctrl.data),
+    text.view(ctrl),
     simul.acceptedContainsMe(ctrl) ? m('p.instructions',
       ctrl.trans('youHaveBeenSelected')
     ) : (
