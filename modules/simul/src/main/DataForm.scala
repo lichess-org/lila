@@ -46,6 +46,8 @@ final class DataForm {
     color = colorDefault,
     text = ""
   )
+
+  def setText = Form(single("text" -> text))
 }
 
 case class SimulSetup(

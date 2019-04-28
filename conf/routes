@@ -258,6 +258,7 @@ POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
+POST  /simul/$id<\w{8}>/set-text              controllers.Simul.setText(id: String)
 
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)

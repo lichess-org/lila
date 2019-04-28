@@ -131,6 +131,16 @@ final class SimulApi(
     }
   }
 
+  def setText(simulId: Simul.ID, text: String): Unit = {
+    Sequence(simulId) {
+      repo.find(simulId) flatMap {
+        _ ?? { simul =>
+          repo.setText(simul, text) >>- socketReload(simulId)
+        }
+      }
+    }
+  }
+
   def finishGame(game: Game): Unit = game.simulId foreach { simulId =>
     Sequence(simulId) {
       repo.findStarted(simulId) flatMap {

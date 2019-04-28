@@ -107,6 +107,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     $set("hostSeenAt" -> DateTime.now)
   ).void
 
+  def setText(simul: Simul, text: String) = simulColl.update(
+    $id(simul.id),
+    $set("text" -> text)
+  ).void
+
   def cleanup = simulColl.remove(
     createdSelect ++ $doc(
       "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
