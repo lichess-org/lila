@@ -3,29 +3,31 @@
     .answer {
       display: none;
     }
-  }
-  .question:target {
-    .answer {
-      display: block;
-    }
-    h3 {
-      border-bottom: 1px solid #eee;
-    }
-    h3 a {
-      color: $c-font;
+    &:target {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+      padding: 2em 3em 1em 3em;
+      margin-top: 1em;
+      .answer {
+        display: block;
+      }
+      h3 {
+        padding-top: 0;
+        font-weight: bold;
+        a {
+          color: $c-accent;
+        }
+      }
     }
   }
 
   h2 {
-    margin-top: 1.3em;
+    margin: 1.3em 0 .3em 0;
   }
 
-  h3, h4, p {
-    margin-top: 1em;
-  }
-
-  h4 {
-    font-weight: bold;
+  h3 {
+    font-size: 1.3em;
+    padding: 1em 0;
   }
 
   ol li {
