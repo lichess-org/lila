@@ -3,34 +3,38 @@ body.resizing {
 }
 
 .board-resize {
-  $resize-width: 30px;
+  $resize-width: 20px;
   display: none;
   @include breakpoint($mq-col2-uniboard) {
     display: block;
     position: absolute;
-    right: -15px;
-    bottom: -15px;
+    right: #{13px - $resize-width};
+    bottom: #{13px - $resize-width};
     width: $resize-width;
     height: $resize-width;
     cursor: nwse-resize;
-    background: hsla(0%,0%,0%,.1);
     &::before, &::after {
-      background: $c-font;
+      background: #333;
       content: '';
       position: absolute;
-      width: $resize-width;
+      width: 12px;
       height: 1px;
     }
     &::before {
-      width: #{$resize-width * 3/4};
+      width: 5px;
       transform:
-      translate(13px, 16px)
-      rotate(-45deg);
+        translate(7px, 8px)
+        rotate(-45deg);
     }
     &::after {
       transform:
-      translate(16px, 18px)
-      rotate(-45deg);
+        translate(1px, 6px)
+        rotate(-45deg);
+    }
+    &:hover,
+    &:active {
+      border-radius: 50%;
+      background: fade-out($c-accent, 0.5);
     }
   }
 }
