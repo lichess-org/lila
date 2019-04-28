@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
+import lila.common.{ HTTPRequest, IpAddress, MaxPerSecond }
 import lila.game.PgnDump
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import lila.user.UserRepo
@@ -231,4 +232,21 @@ object Puzzle extends LilaController {
       case Some(daily) => html.puzzle.embed(daily)
     }
   }
+
+  def activity = Scoped(_.Puzzle.Read) { req => me =>
+    Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      Api.GlobalLinearLimitPerUserOption(me.some) {
+        val config = lila.puzzle.PuzzleActivity.Config(
+          user = me,
+          max = getInt("max", req) map (_ atLeast 1),
+          perSecond = MaxPerSecond(20)
+        )
+        Ok.chunked(env.activity.stream(config)).withHeaders(
+          noProxyBufferHeader,
+          CONTENT_TYPE -> ndJsonContentType
+        ).fuccess
+      }
+    }
+  }
+
 }

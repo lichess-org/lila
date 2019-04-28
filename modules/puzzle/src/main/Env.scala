@@ -77,6 +77,11 @@ final class Env(
     system.scheduler
   )
 
+  lazy val activity = new PuzzleActivity(
+    puzzleColl = puzzleColl,
+    roundColl = roundColl
+  )(system)
+
   def cli = new lila.common.Cli {
     def process = {
       case "puzzle" :: "disable" :: id :: Nil => parseIntOption(id) ?? { id =>
