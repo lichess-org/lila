@@ -97,7 +97,7 @@ lazy val common = module("common", Seq(draughts)).settings(
 )
 
 lazy val puzzle = module("puzzle", Seq(common, memo, hub, history, db, user, rating, pref, tree, game)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val quote = module("quote", Seq())

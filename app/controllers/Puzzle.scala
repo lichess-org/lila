@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import lidraughts.api.Context
 import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, IpAddress, MaxPerSecond }
 import lidraughts.game.PdnDump
 import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
@@ -298,4 +299,21 @@ object Puzzle extends LidraughtsController {
       case Some(daily) => html.puzzle.embed(daily)
     }
   }
+
+  def activity = Scoped(_.Puzzle.Read) { req => me =>
+    Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      Api.GlobalLinearLimitPerUserOption(me.some) {
+        val config = lidraughts.puzzle.PuzzleActivity.Config(
+          user = me,
+          max = getInt("max", req) map (_ atLeast 1),
+          perSecond = MaxPerSecond(20)
+        )
+        Ok.chunked(env.activity.stream(config)).withHeaders(
+          noProxyBufferHeader,
+          CONTENT_TYPE -> ndJsonContentType
+        ).fuccess
+      }
+    }
+  }
+
 }
