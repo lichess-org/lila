@@ -64,7 +64,7 @@ $c-tour-max-rating: #8572ff;
   background-color: $c-tour;
   white-space: nowrap;
   color: #fff;
-  &:hover {
+  &:hover, &:focus {
     color: #fff;
   }
   &-joinable:hover {
