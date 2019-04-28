@@ -133,6 +133,7 @@
     }
     move {
       font-size: 1.1em;
+      cursor: pointer;
       @include transition();
       &.active {
         font-weight: bold;
