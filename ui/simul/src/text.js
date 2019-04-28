@@ -6,16 +6,16 @@ function enrichText(text) {
   return m.trust(autolink(lichess.escapeHtml(text), toLink).replace(newLineRegex, '<br>'));
 }
 function autolink(str, callback) {
-  return str.replace(linkRegex, (_, space, url) => space + callback(url));
+  return str.replace(linkRegex, function(_, space, url) { return space + callback(url) });
 }
 function toLink(url) {
   if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
-  const show = imageTag(url) || url.replace(/https?:\/\//, '');
+  var show = imageTag(url) || url.replace(/https?:\/\//, '');
   return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
 }
 // from ui/analyse
-const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
-const newLineRegex = /\n/g;
+var linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+var newLineRegex = /\n/g;
 
 function editor(ctrl) {
   return m('div.editor', [
