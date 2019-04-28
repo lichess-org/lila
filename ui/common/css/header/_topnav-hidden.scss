@@ -95,7 +95,7 @@
     padding-bottom: 1.2rem;
     overflow-y: auto;
     overscroll-behavior: contain;
-    box-shadow: 2px 3px 6px hsla(0, 0, 0%, 0.3);
+    box-shadow: 2px 5px 7px hsla(0, 0, 0%, 0.5);
     border-radius: 0 3px 0 0;
     max-width: 80%;
     @include breakpoint($mq-xx-small) {
