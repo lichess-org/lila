@@ -35,10 +35,13 @@ object form {
               form3.group(form("clockTime"), raw("Clock initial time"), help = trans.simulClockHint().some, half = true)(form3.select(_, clockTimeChoices)),
               form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, clockIncrementChoices))
             ),
-            form3.group(form("clockExtra"), trans.simulHostExtraTime(), help = trans.simulAddExtraTime().some)(
-              form3.select(_, clockExtraChoices)
+            form3.split(
+              form3.group(form("clockExtra"), trans.simulHostExtraTime(), help = trans.simulAddExtraTime().some, half = true)(
+                form3.select(_, clockExtraChoices)
+              ),
+              form3.group(form("color"), raw("Host color for each game"), half = true)(form3.select(_, colorChoices))
             ),
-            form3.group(form("color"), raw("Host color for each game"))(form3.select(_, colorChoices)),
+            form3.group(form("text"), raw("Simul description"), help = frag("Anything you want to tell the participants?").some)(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Simul.home())(trans.cancel()),
               form3.submit(trans.hostANewSimul(), icon = "g".some)

@@ -45,7 +45,8 @@ final class SimulApi(
       ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
-      color = setup.color
+      color = setup.color,
+      text = setup.text
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(_.isNotBrandNew).map(_.id).foreach(abort)

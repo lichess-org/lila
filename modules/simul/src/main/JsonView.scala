@@ -41,7 +41,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
     "isCreated" -> simul.isCreated,
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
-    "quote" -> lila.quote.Quote.one(simul.id)
+    "quote" -> lila.quote.Quote.one(simul.id),
+    "text" -> simul.text
   )
 
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(

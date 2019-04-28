@@ -21,7 +21,8 @@ case class Simul(
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
-    color: Option[String]
+    color: Option[String],
+    text: String
 ) {
 
   def id = _id
@@ -148,7 +149,8 @@ object Simul {
     host: User,
     clock: SimulClock,
     variants: List[Variant],
-    color: String
+    color: String,
+    text: String
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -173,6 +175,7 @@ object Simul {
     startedAt = none,
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
-    color = color.some
+    color = color.some,
+    text = text
   )
 }
