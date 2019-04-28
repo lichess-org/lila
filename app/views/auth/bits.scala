@@ -21,7 +21,7 @@ object bits {
     },
     form3.password(password, trans.password()),
     emailOption.map { email =>
-      form3.group(email, trans.email())(form3.input(_, typ = "email")(required))
+      form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(form3.input(_, typ = "email")(required))
     }
   )
 
