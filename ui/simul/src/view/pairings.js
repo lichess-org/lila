@@ -38,7 +38,7 @@ function miniPairing(ctrl) {
           player.officialRating ? ('FMJD ' + player.officialRating) : player.rating
         ])
       ]),
-      ctrl.evals !== undefined ? ceval.renderGauge(game, ctrl.evals) : null
+      ctrl.evals !== undefined ? ceval.renderGauge(pairing, ctrl.evals) : null
     ]);
   };
 }

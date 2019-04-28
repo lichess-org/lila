@@ -78,7 +78,7 @@ module.exports = function(ctrl) {
           (playing && pairing.hostColor === data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.hostClock))
         ) : '-'),
-        m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval))),
+        m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval, pairing))),
         m('td', (data && data.blurs !== undefined) ? (data.blurs + '%') : '-' ),
         m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
           'data-icon': '2',

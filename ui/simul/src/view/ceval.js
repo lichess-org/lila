@@ -1,5 +1,6 @@
 var m = require('mithril');
 var renderEval = require('draughts').renderEval;
+var status = require('game').status;
 
 var gaugeTicks = [1, 2, 3, 4, 5, 6, 7].map(function(i) {
   return m(i === 4 ? 'tick.zero' : 'tick', {
@@ -37,18 +38,22 @@ function povChances(color, ev) {
 }
 
 module.exports = {
-  renderGauge: function(game, evals) {
-    var eval = evals.find(e => e.id === game.id),
-      ev = povChances('white', eval),
-      height = 100 - (ev + 1) * 50;
+  renderGauge: function(pairing, evals) {
+    var eval = evals.find(e => e.id === pairing.game.id),
+      ev = povChances('white', eval);
+    if (!eval && pairing.game.status === status.ids.mate && pairing.winnerColor)
+      ev = pairing.winnerColor === 'white' ? 1 : -1;
+    var height = 100 - (ev + 1) * 50;
     return m('div.eval_gauge', {
-      class: game.orient === 'black' ? 'reverse' : ''
+      class: pairing.game.orient === 'black' ? 'reverse' : ''
     }, [
       m('div.black', { style: 'height: ' + height + '%' })
     ].concat(gaugeTicks));
   },
-  renderEval: function(eval) {
-    if (eval && eval.cp !== undefined)
+  renderEval: function(eval, pairing) {
+    if (!eval && pairing && pairing.game.status === status.ids.mate && pairing.winnerColor)
+      return pairing.winnerColor === 'white' ? '1-0' : '0-1';
+    else if (eval && eval.cp !== undefined)
       return renderEval(eval.cp);
     else if (eval && eval.win !== undefined)
       return '#' + eval.win;
