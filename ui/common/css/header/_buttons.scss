@@ -27,6 +27,12 @@
   .toggle {
     @extend %top-icon;
   }
+  .initiating {
+    @extend %flex-center;
+    justify-content: center;
+    height: 300px;
+    width: 225px;
+  }
   .dropdown {
     @extend %dropdown-shadow;
     display: none;
@@ -35,12 +41,6 @@
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
-    .initiating {
-      @extend %flex-center;
-      justify-content: center;
-      width: 225px;
-      height: 300px;
-    }
     a,
     button {
       color: $c-header-dropdown;
@@ -67,4 +67,7 @@
 #user_tag {
   padding-right: 1rem;
   white-space: nowrap;
+}
+#notify-app  .initiating {
+  width: 25rem;
 }
