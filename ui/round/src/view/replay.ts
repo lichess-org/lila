@@ -35,7 +35,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
       }
     }
   }
-  if (st) {
+  if (typeof st == 'number') {
     if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
     else if (isHorizMoves(movesEl)) movesEl.scrollLeft = st;
     else movesEl.scrollTop = st;
