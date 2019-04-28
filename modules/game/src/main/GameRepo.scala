@@ -347,10 +347,7 @@ object GameRepo {
     coll.primitiveOne[String]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[String]] =
-    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) map {
-      //case None if game.variant == draughts.variant.Chess960 => Forsyth.initial.some
-      case fen => fen
-    }
+    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id)
     else fuccess(none)
 
   def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] = game(gameId) flatMap {

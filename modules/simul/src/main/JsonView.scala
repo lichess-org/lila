@@ -2,8 +2,8 @@ package lidraughts.simul
 
 import play.api.libs.json._
 import lidraughts.common.LightUser
-import lidraughts.evalCache.EvalCacheEntry.Eval
-import lidraughts.game.{ Game, GameRepo }
+import lidraughts.evalCache.JsonHandlers.gameEvalJson
+import lidraughts.game.{ Game, GameRepo, Rewind }
 import draughts.format.{ FEN, Forsyth }
 
 final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
@@ -14,10 +14,12 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
 
   private def fetchEvals(games: List[Game]) =
     games map { game =>
-      Env.current.evalCache.getSinglePvEval(
-        game.variant,
-        FEN(Forsyth >> game.situation)
-      ) map { (game.id, _) }
+      Rewind.rewindCapture(game) flatMap { situation =>
+        Env.current.evalCache.getSinglePvEval(
+          game.variant,
+          FEN(Forsyth >> situation)
+        )
+      } map { (game.id, _) }
     } sequenceFu
 
   def apply(simul: Simul, ceval: Boolean): Fu[JsObject] = for {
@@ -61,9 +63,9 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     })
     .add("unique" -> simul.spotlight.map { s => true })
     .add("description" -> simul.spotlight.map { s => lidraughts.common.String.html.markdownLinks(s.description).toString })
-    .add("allowed" -> (if (allowed.nonEmpty) allowed.some else none))
+    .add("allowed" -> allowed.nonEmpty ?? allowed.some)
     .add("targetPct" -> simul.targetPct)
-    .add("evals" -> ceval.fold(evals.flatMap(eval => eval._2 ?? { ev => (eval._1, ev).some }).map(evalJson).some, none))
+    .add("evals" -> ceval ?? evals.flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }).some)
 
   def arbiterJson(simul: Simul): Fu[JsArray] = for {
     games <- fetchGames(simul)
@@ -77,8 +79,13 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       .add("clock" -> clock.map(_.remainingTime(!pairing.hostColor).roundSeconds))
       .add("hostClock" -> clock.map(_.remainingTime(pairing.hostColor).roundSeconds))
       .add("turnColor" -> game.map(_.turnColor.name))
-      .add("ceval" -> evals.find(_._1 == pairing.gameId).flatMap(eval => eval._2 ?? { ev => (eval._1, ev).some }).map(evalJson))
+      .add("ceval" -> evals.find(_._1 == pairing.gameId).flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }))
   }))
+
+  def evalWithGame(simul: Simul, gameId: Game.ID, eval: JsObject) =
+    GameRepo.game(gameId) map { game =>
+      eval.add("game" -> game ?? { g => gameJson(simul.hostId)(g).some })
+    }
 
   private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,
@@ -125,16 +132,6 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "lastMove" -> ~g.lastMoveKeys,
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
-
-  private def evalJson(eval: (Game.ID, Eval)) = {
-    val pv = eval._2.pvs.head
-    Json.obj(
-      "id" -> eval._1,
-      "moves" -> pv.moves.value.toList.mkString(" "),
-      "depth" -> eval._2.depth
-    ).add("cp", pv.score.cp.map(_.value))
-      .add("win", pv.score.win.map(_.value))
-  }
 
   private def pairingJson(games: List[Game], hostId: String, unique: Boolean)(p: SimulPairing): Fu[JsObject] =
     playerJson(p.player, unique) map { player =>

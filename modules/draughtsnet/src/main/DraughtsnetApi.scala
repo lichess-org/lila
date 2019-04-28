@@ -12,6 +12,7 @@ import lidraughts.hub.FutureSequencer
 final class DraughtsnetApi(
     repo: DraughtsnetRepo,
     moveDb: MoveDB,
+    commentDb: CommentDB,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
     sequencer: FutureSequencer,
@@ -42,8 +43,9 @@ final class DraughtsnetApi(
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
     case Skill.Move => acquireMove(client)
-    case Skill.Analysis => acquireAnalysis(client)
-    case Skill.All => acquireMove(client) orElse acquireAnalysis(client)
+    case Skill.Analysis => acquireCommentary(client) orElse acquireAnalysis(client)
+    case Skill.Commentary => acquireCommentary(client)
+    case Skill.All => acquireMove(client) orElse acquireCommentary(client) orElse acquireAnalysis(client)
   }).chronometer
     .mon(_.draughtsnet.acquire time client.skill.key)
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
@@ -60,6 +62,9 @@ final class DraughtsnetApi(
 
   private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
     moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
+
+  private def acquireCommentary(client: Client): Fu[Option[JsonApi.Work]] =
+    commentDb.acquire(client) map { _ map JsonApi.commentaryFromWork }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(
@@ -79,6 +84,10 @@ final class DraughtsnetApi(
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
     val measurement = lidraughts.mon.startMeasurement(_.draughtsnet.move.post)
     moveDb.postResult(workId, client, data, measurement)
+  }
+
+  def postCommentary(workId: Work.Id, client: Client, data: JsonApi.Request.PostCommentary): Funit = fuccess {
+    commentDb.postResult(workId, client, data)
   }
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] =

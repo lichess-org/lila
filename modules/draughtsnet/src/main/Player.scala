@@ -28,6 +28,7 @@ final class Player(
             id = game.id,
             initialFen = initialFen map FEN.apply,
             studyId = none,
+            simulId = game.simulId,
             variant = game.variant,
             moves = moves.toList
           ),

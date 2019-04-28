@@ -53,9 +53,16 @@ final class Env(
 
   private val analysisBuilder = new AnalysisBuilder(evalCache)
 
+  private val commentDb = new CommentDB(
+    evalCache = evalCache,
+    bus = bus,
+    system = system
+  )
+
   val api = new DraughtsnetApi(
     repo = repo,
     moveDb = moveDb,
+    commentDb = commentDb,
     analysisBuilder = analysisBuilder,
     analysisColl = analysisColl,
     sequencer = sequencer,
@@ -91,11 +98,20 @@ final class Env(
     limiter = limiter
   )
 
+  val commentator = new Commentator(
+    bus = bus,
+    commentDb = commentDb,
+    uciMemo = uciMemo,
+    evalCacheApi = evalCacheApi,
+    maxPlies = MovePlies
+  )
+
   val aiPerfApi = new AiPerfApi
 
   new Cleaner(
     repo = repo,
     moveDb = moveDb,
+    commentDb = commentDb,
     analysisColl = analysisColl,
     monitor = monitor,
     scheduler = scheduler

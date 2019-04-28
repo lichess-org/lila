@@ -100,6 +100,10 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     )
   ).sort($doc("spotlight.startsAt" -> 1)).list[Simul]()
 
+  def allUniqueWithCommentaryIds: Fu[List[Simul.ID]] = simulColl.find(
+    notFinishedSelect ++ uniqueSelect
+  ).sort($doc("spotlight.startsAt" -> 1)).list[Simul]().map(_ filter (_.hasCeval) map (_.id))
+
   def allStarted: Fu[List[Simul]] = simulColl.find(
     startedSelect
   ).sort(createdSort).list[Simul]()

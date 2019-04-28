@@ -1,14 +1,48 @@
 package lidraughts.draughtsnet
 
-import draughts.format.{ Forsyth, FEN }
-
 import JsonApi.Request.Evaluation
+import draughts.DraughtsGame
+import draughts.format.{ FEN, Forsyth }
+import lidraughts.evalCache.EvalCacheEntry._
+import lidraughts.tree.Eval.Score
+import scalaz.NonEmptyList
 
 private final class DraughtsnetEvalCache(
     evalCacheApi: lidraughts.evalCache.EvalCacheApi
 ) {
 
   val maxPlies = 15
+
+  def putEval(work: Work.Commentary, result: JsonApi.Request.Evaluation) = {
+    val game = DraughtsGame(work.game.variant.some, work.currentFen.value.some)
+    UciToPdn(game.situation, result.pv).fold(
+      err => none,
+      moveList => {
+        val scorePov = result.score.invertIf(game.situation.color.black) // draughtsnet evals are from POV
+        val score = Score(Either.cond(scorePov.win.nonEmpty, scorePov.win.get, scorePov.cp.get))
+        val candidate = for {
+          moves <- moveList.toNel
+          pv <- List(Pv(score, Moves(moves))).toNel
+          user <- work.acquired.map(_.userId.value)
+          depth <- result.depth
+        } yield Input.Candidate(
+          variant = work.game.variant,
+          fen = work.currentFen.value,
+          eval = Eval(
+            pvs = pv,
+            knodes = Knodes(result.nodes.getOrElse(1)),
+            depth = depth,
+            by = user,
+            trust = Trust(1)
+          )
+        )
+        candidate.foreach { c =>
+          evalCacheApi.put(c.eval.by, c)
+        }
+        candidate.map(_.eval)
+      }
+    )
+  }
 
   // indexes of positions to skip
   def skipPositions(game: Work.Game): Fu[List[Int]] =
@@ -42,7 +76,8 @@ private final class DraughtsnetEvalCache(
 
   private def rawEvals(game: Work.Game): Fu[List[(Int, lidraughts.evalCache.EvalCacheEntry.Eval, draughts.Situation)]] =
     draughts.Replay.situationsFromUci(
-      game.uciList.take(maxPlies - 1),
+      // check entire game for simuls, as they could be analysed entirely from evalcache
+      game.uciList.take(game.simulId.isDefined.fold(Env.current.analyser.maxPlies, maxPlies - 1)),
       game.initialFen,
       game.variant,
       finalSquare = true

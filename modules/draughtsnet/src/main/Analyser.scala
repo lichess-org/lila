@@ -64,6 +64,7 @@ final class Analyser(
                 id = chapterId,
                 initialFen = initialFen,
                 studyId = studyId.some,
+                simulId = none,
                 variant = variant,
                 moves = moves take maxPlies map (_.uci),
                 finalSquare = true
@@ -97,6 +98,7 @@ final class Analyser(
             id = game.id,
             initialFen = initialFen map FEN.apply,
             studyId = none,
+            simulId = game.simulId,
             variant = game.variant,
             moves = moveList.dropRight(if (game.imported && dropMoves > 1) 1 else dropMoves).toList,
             finalSquare = game.imported

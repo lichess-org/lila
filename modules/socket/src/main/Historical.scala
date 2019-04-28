@@ -16,6 +16,18 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketActor[M] =>
     members foreachValue send
   }
 
+  def notifyVersionIf[A: Writes](t: String, data: A, metadata: Metadata)(condition: M => Boolean): Unit = {
+    val vmsg = history.+=(makeMessage(t, data), metadata)
+    val send = sendMessageIf(vmsg, condition) _
+    members foreachValue send
+  }
+
+  def sendMessageIf(message: Message, condition: M => Boolean)(member: M): Unit =
+    member push {
+      if (shouldSkipMessageFor(message, member) || !condition(member)) message.skipMsg
+      else message.fullMsg
+    }
+
   def sendMessage(message: Message)(member: M): Unit =
     member push {
       if (shouldSkipMessageFor(message, member)) message.skipMsg

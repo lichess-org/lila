@@ -2,7 +2,7 @@ package lidraughts.simul
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 import scala.concurrent.duration._
 
 import draughts.variant.Variant
@@ -286,6 +286,10 @@ final class SimulApi(
 
   private def socketReload(simulId: Simul.ID): Unit = {
     sendTo(simulId, actorApi.Reload)
+  }
+
+  def socketCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
+    sendTo(simulId, actorApi.ReloadEval(gameId, json))
   }
 
   def socketStanding(simul: Simul): Unit = {

@@ -18,6 +18,7 @@ final class Env(
     evalCacheApi: lidraughts.evalCache.EvalCacheApi,
     db: lidraughts.db.Env,
     hub: lidraughts.hub.Env,
+    draughtsnetCommentator: lidraughts.draughtsnet.Commentator,
     roundMap: ActorRef,
     lightUser: lidraughts.common.LightUser.Getter,
     onGameStart: String => Unit,
@@ -97,8 +98,14 @@ final class Env(
           opponentUserId,
           lidraughts.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
         )
+        allUniqueWithCommentaryIds.get.foreach { ids =>
+          if (ids.contains(simulId))
+            draughtsnetCommentator(move.gameId)
+        }
+      case lidraughts.hub.actorApi.draughtsnet.CommentaryEvent(gameId, simulId, json) if simulId.isDefined =>
+        api.socketCommentary(simulId.get, gameId, json)
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul)
+  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul, 'draughtsnetComment)
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
@@ -117,6 +124,12 @@ final class Env(
   val allUniqueFeaturable = asyncCache.single(
     name = "simul.allUniqueFeaturable",
     repo.allUniqueFeaturable,
+    expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
+  )
+
+  val allUniqueWithCommentaryIds = asyncCache.single(
+    name = "simul.allUniqueWithCommentaryIds",
+    repo.allUniqueWithCommentaryIds,
     expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
   )
 
@@ -143,6 +156,7 @@ object Env {
     evalCacheApi = lidraughts.evalCache.Env.current.api,
     db = lidraughts.db.Env.current,
     hub = lidraughts.hub.Env.current,
+    draughtsnetCommentator = lidraughts.draughtsnet.Env.current.commentator,
     roundMap = lidraughts.round.Env.current.roundMap,
     lightUser = lidraughts.user.Env.current.lightUser,
     onGameStart = lidraughts.game.Env.current.onStart,

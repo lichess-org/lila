@@ -45,7 +45,7 @@ object Simul extends LidraughtsController {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
           version <- env.version(sim.id)
-          json <- env.jsonView(sim, sim.canHaveCeval(ctx.me))
+          json <- env.jsonView(sim, sim.canHaveCevalUser(ctx.me))
           chat <- canHaveChat(sim) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
           stream <- Env.streamer.liveStreamApi one sim.hostId

@@ -2,7 +2,6 @@ package lidraughts.hub
 package actorApi
 
 import org.joda.time.DateTime
-
 import play.api.libs.json._
 
 case class SendTo(userId: String, message: JsObject)
@@ -213,6 +212,11 @@ package draughtsnet {
       variant: draughts.variant.Variant,
       moves: List[draughts.format.Uci],
       userId: Option[String]
+  )
+  case class CommentaryEvent(
+      gameId: String,
+      simulId: Option[String],
+      evalJson: JsObject
   )
 }
 

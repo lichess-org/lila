@@ -62,6 +62,15 @@ private[simul] final class Socket(
         }
       }
 
+    case ReloadEval(gameId, json) =>
+      getSimul(simulId) foreach {
+        _ foreach { simul =>
+          jsonView.evalWithGame(simul, gameId, json) foreach { obj =>
+            notifyVersionIf("ceval", obj, Messadata())(m => simul.canHaveCeval(m.userId))
+          }
+        }
+      }
+
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
     case Ping(uid, Some(v), c) => {

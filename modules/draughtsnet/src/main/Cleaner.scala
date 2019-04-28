@@ -10,6 +10,7 @@ import lidraughts.db.dsl._
 private final class Cleaner(
     repo: DraughtsnetRepo,
     moveDb: MoveDB,
+    commentDb: CommentDB,
     analysisColl: Coll,
     monitor: Monitor,
     scheduler: lidraughts.common.Scheduler
@@ -21,6 +22,15 @@ private final class Cleaner(
   private def analysisTimeoutBase = analysisTimeout(20)
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
+
+  private def cleanCommentary: Unit = commentDb.clean map { moves =>
+    moves foreach { comment =>
+      logger.info(s"Timeout comment $comment")
+      comment.acquired foreach { ack =>
+        logger.info(s"Timeout acquired ${ack.userId}")
+      }
+    }
+  }
 
   private def cleanMoves: Unit = moveDb.clean map { moves =>
     moves foreach { move =>
@@ -44,5 +54,6 @@ private final class Cleaner(
   }
 
   scheduler.effect(3 seconds, "draughtsnet clean moves")(cleanMoves)
+  scheduler.effect(5 seconds, "draughtsnet clean commentary")(cleanCommentary)
   scheduler.effect(10 seconds, "draughtsnet clean analysis")(cleanAnalysis)
 }

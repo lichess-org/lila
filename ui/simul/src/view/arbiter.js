@@ -45,9 +45,24 @@ module.exports = function(ctrl) {
         m('th', m('span.hint--top-left', { 'data-hint': 'Stop the game by settling it as a win, draw or loss.' }, 'Settle'))
       ])),
       m('tbody', ctrl.data.pairings.map(function(pairing) {
-      var variant = util.playerVariant(ctrl, pairing.player);
-      var data = ctrl.arbiterData.find( (d) => d.id == pairing.player.id)
-      var playing = pairing.game.status < status.ids.aborted;
+      var variant = util.playerVariant(ctrl, pairing.player),
+        playing = pairing.game.status < status.ids.aborted,
+        data = ctrl.arbiterData.find(d => d.id == pairing.player.id)
+        oldeval = (ctrl.evals && ctrl.evals.length) ? ctrl.evals.find(e => e.id === pairing.game.id) : undefined,
+        eval = data.ceval;
+      if (data.ceval) {
+        if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(e => e.id === pairing.game.id)) {
+          ctrl.evals = ctrl.evals.map(function(e) {
+            return e.id === pairing.game.id ? data.ceval : e;
+          });
+        } else if (ctrl.evals && ctrl.evals.length) {
+          ctrl.evals.push(data.ceval);
+        } else {
+          ctrl.evals = [data.ceval];
+        }
+      } else if (oldeval) {
+        eval = oldeval;
+      }
       var result = !playing ? (
         pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½-½')
       ) : '*';
@@ -63,7 +78,7 @@ module.exports = function(ctrl) {
           (playing && pairing.hostColor === data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.hostClock))
         ) : '-'),
-        m('td', m('span', { title: evalDesc(data.ceval) }, ceval.renderEval(data.ceval))),
+        m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval))),
         m('td', (data && data.blurs !== undefined) ? (data.blurs + '%') : '-' ),
         m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
           'data-icon': '2',

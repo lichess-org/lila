@@ -25,6 +25,11 @@ object Draughtsnet extends LidraughtsController {
       api.acquire(client).map(Right.apply)
   }
 
+  def commentary(workId: String) = ClientAction[JsonApi.Request.PostCommentary] { data => client =>
+    api.postCommentary(Work.Id(workId), client, data) >>
+      api.acquire(client).map(Right.apply)
+  }
+
   def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
     import lidraughts.draughtsnet.DraughtsnetApi._
     def acquireNext = api acquire client map Right.apply

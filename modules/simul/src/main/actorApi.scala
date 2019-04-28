@@ -1,6 +1,8 @@
 package lidraughts.simul
 package actorApi
 
+import play.api.libs.json.JsObject
+
 import lidraughts.game.Game
 import lidraughts.socket.Socket.Uid
 import lidraughts.socket.SocketMember
@@ -27,6 +29,7 @@ private[simul] case class Talk(tourId: String, u: String, t: String, troll: Bool
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)
 private[simul] case class HostIsOn(gameId: String)
+private[simul] case class ReloadEval(gameId: String, json: JsObject)
 private[simul] case object Reload
 private[simul] case object Aborted
 private[simul] case class Connected(enumerator: JsEnumerator, member: Member)

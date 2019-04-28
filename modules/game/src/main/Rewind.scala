@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scalaz.Validation.FlatMap._
 
 import draughts.format.{ pdn => draughtsPdn }
+import draughts.Situation
 
 object Rewind {
 
@@ -53,4 +54,18 @@ object Rewind {
         Progress(game, newGame)
       }
   }
+
+  def rewindCapture(game: Game): Fu[Situation] =
+    if (game.situation.ghosts == 0) fuccess(game.situation)
+    else GameRepo initialFen game map { fen => rewindCapture(game, fen) getOrElse game.situation }
+
+  def rewindCapture(game: Game, initialFen: Option[String]): Option[Situation] =
+    if (game.situation.ghosts == 0) game.situation.some
+    else draughtsPdn.Reader.movesWithSans(
+      moveStrs = game.pdnMoves,
+      op = sans => draughtsPdn.Sans(sans.value.dropRight(game.situation.ghosts)),
+      tags = createTags(initialFen, game)
+    ).flatMap(_.valid) map { replay =>
+        replay.state.situation
+      } toOption
 }

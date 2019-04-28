@@ -66,10 +66,12 @@ case class Simul(
       case _ => true
     }
 
-  def canHaveCeval(user: Option[User]): Boolean = spotlight.flatMap(_.ceval) match {
+  def canHaveCevalUser(user: Option[User]): Boolean = canHaveCeval(user.map(_.id))
+
+  def canHaveCeval(userId: Option[String]): Boolean = spotlight.flatMap(_.ceval) match {
     case Some(Simul.EvalSetting.Everyone) => true
-    case Some(Simul.EvalSetting.Arbiter) => user ?? { u => isArbiter(u.id) }
-    case Some(Simul.EvalSetting.Spectators) => user.fold(true)(u => isArbiter(u.id) || !isPlaying(u.id))
+    case Some(Simul.EvalSetting.Arbiter) => userId ?? { u => isArbiter(u) }
+    case Some(Simul.EvalSetting.Spectators) => userId.fold(true)(u => isArbiter(u) || !isPlaying(u))
     case _ => false
   }
 

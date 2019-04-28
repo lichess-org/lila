@@ -72,6 +72,12 @@ object JsonApi {
       def uci: Option[Uci] = Uci(bestmove)
     }
 
+    case class PostCommentary(
+        draughtsnet: Draughtsnet,
+        scan: BaseEngine,
+        commentary: Evaluation
+    ) extends Request with Result
+
     case class PostAnalysis(
         draughtsnet: Draughtsnet,
         scan: FullEngine,
@@ -165,11 +171,17 @@ object JsonApi {
     val id: String
     val game: Game
   }
+
   case class Move(
       id: String,
       level: Int,
       game: Game,
       clock: Option[Work.Clock]
+  ) extends Work
+
+  case class Commentary(
+      id: String,
+      game: Game
   ) extends Work
 
   case class Analysis(
@@ -180,6 +192,8 @@ object JsonApi {
   ) extends Work
 
   def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)
+
+  def commentaryFromWork(m: Work.Commentary) = Commentary(m.id.value, fromGame(m.game))
 
   def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(
     id = m.id.value,
@@ -220,6 +234,7 @@ object JsonApi {
         else EvaluationReads reads obj map Right.apply map some
     }
     implicit val PostAnalysisReads: Reads[Request.PostAnalysis] = Json.reads[Request.PostAnalysis]
+    implicit val PostCommentReads = Json.reads[Request.PostCommentary]
   }
 
   object writers {
@@ -234,6 +249,12 @@ object JsonApi {
           "work" -> Json.obj("type" -> "analysis", "id" -> a.id),
           "nodes" -> a.nodes,
           "skipPositions" -> a.skipPositions
+        )
+        case c: Commentary => Json.obj(
+          "work" -> Json.obj(
+            "type" -> "commentary",
+            "id" -> c.id
+          )
         )
         case m: Move => Json.obj(
           "work" -> Json.obj(

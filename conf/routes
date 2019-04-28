@@ -312,6 +312,7 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 # Draughtsnet
 POST  /draughtsnet/acquire                        controllers.Draughtsnet.acquire
 POST  /draughtsnet/move/$workId<\w{8}>            controllers.Draughtsnet.move(workId: String)
+POST  /draughtsnet/commentary/$workId<\w{8}>      controllers.Draughtsnet.commentary(workId: String)
 POST  /draughtsnet/analysis/$workId<\w{8}>        controllers.Draughtsnet.analysis(workId: String)
 POST  /draughtsnet/abort/$workId<\w{8}>           controllers.Draughtsnet.abort(workId: String)
 GET   /draughtsnet/key/$key<\w{8}>                controllers.Draughtsnet.keyExists(key: String)

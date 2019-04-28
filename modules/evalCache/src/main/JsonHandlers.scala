@@ -3,11 +3,11 @@ package lidraughts.evalCache
 import play.api.libs.json._
 
 import draughts.format.FEN
-import EvalCacheEntry._
 import lidraughts.common.PimpedJson._
 import lidraughts.tree.Eval._
 
 object JsonHandlers {
+  import EvalCacheEntry._
 
   private implicit val cpWriter = intAnyValWriter[Cp](_.value)
   private implicit val winWriter = intAnyValWriter[Win](_.value)
@@ -19,6 +19,16 @@ object JsonHandlers {
     "depth" -> e.depth,
     "pvs" -> e.pvs.toList.map(writePv)
   )
+
+  def gameEvalJson(gameId: String, eval: Eval): JsObject = {
+    val pv = eval.pvs.head
+    Json.obj(
+      "id" -> gameId,
+      "moves" -> pv.moves.value.toList.mkString(" "),
+      "depth" -> eval.depth
+    ).add("cp", pv.score.cp.map(_.value))
+      .add("win", pv.score.win.map(_.value))
+  }
 
   private def writePv(pv: Pv) = Json.obj(
     "moves" -> pv.moves.value.toList.mkString(" ")

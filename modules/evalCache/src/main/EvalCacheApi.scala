@@ -29,7 +29,10 @@ final class EvalCacheApi(
     }
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
-    candidate.input ?? { put(trustedUser, _) }
+    candidate.input ?? { put(trustedUser.user.id, _) }
+
+  def put(trustedUserId: String, candidate: Input.Candidate): Funit =
+    candidate.input ?? { put(trustedUserId, _) }
 
   def shouldPut = truster shouldPut _
 
@@ -60,9 +63,9 @@ final class EvalCacheApi(
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 
-  private def put(trustedUser: TrustedUser, input: Input): Funit = Validator(input) match {
+  private def put(trustedUserId: String, input: Input): Funit = Validator(input) match {
     case Some(error) =>
-      logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
+      logger.info(s"Invalid from $trustedUserId $error ${input.fen}")
       funit
     case None => getEntry(input.id) map {
       case None =>

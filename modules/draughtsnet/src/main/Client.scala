@@ -77,8 +77,9 @@ object Client {
   object Skill {
     case object Move extends Skill
     case object Analysis extends Skill
+    case object Commentary extends Skill
     case object All extends Skill
-    val all = List(Move, Analysis, All)
+    val all = List(Move, Analysis, Commentary, All)
     def byKey(key: String) = all.find(_.key == key)
   }
 
