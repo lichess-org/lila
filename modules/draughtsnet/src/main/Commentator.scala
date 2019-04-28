@@ -15,7 +15,8 @@ final class Commentator(
 ) {
 
   def apply(game: Game): Funit =
-    Rewind.rewindCapture(game) flatMap { situation =>
+    if (!(game.variant.standard || game.variant.fromPosition || game.variant.breakthrough)) funit
+    else Rewind.rewindCapture(game) flatMap { situation =>
       evalCacheApi.getSinglePvEval(
         game.variant,
         FEN(Forsyth >> situation)
