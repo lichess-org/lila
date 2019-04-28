@@ -149,6 +149,9 @@
         font-weight: bold;
         color: $c-font-dim;
         margin-left: 1em;
+        @include breakpoint($mq-subnav-top) {
+          display: none;
+        }
       }
       &.full span::before {
         content: '+';
@@ -164,6 +167,10 @@
         span::before {
           content: '-';
         }
+        @include breakpoint($mq-subnav-top) {
+          background: $c-accent;
+          color: $c-accent-over;
+        }
       }
       &.empty {
         color: $c-font-dimmer;
@@ -176,7 +183,7 @@
   }
 
   .under-tags {
-    margin-top: 2em;
+    margin: 1em 0;
     text-align: center;
   }
 
