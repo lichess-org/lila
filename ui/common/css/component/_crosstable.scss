@@ -23,7 +23,9 @@
     @extend %metal;
   }
   &__users {
+    max-width: 40vw;
     overflow: hidden;
+    text-overflow: ellipsis;
     text-align: left;
     a {
       padding-left: $block-gap;
@@ -56,6 +58,12 @@
     }
     &.new {
       border: $c-border;
+    }
+    @include breakpoint($mq-not-x-small) {
+      display: none;
+      &:nth-last-child(-n+12) {
+        display: flex;
+      }
     }
   }
   .sep {
