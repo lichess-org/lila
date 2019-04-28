@@ -52,7 +52,7 @@ object TreeBuilder {
     val withClocks = withFlags.clocks ?? clocks
     draughts.Replay.gameMoveWhileValid(pdnmoves, initialFen.value, variant, iteratedCapts) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logDraughtsError(id)
         val openingOf: OpeningOf =
           if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
           else _ => None
@@ -94,7 +94,8 @@ object TreeBuilder {
               }
             }
           )
-          advices.get(g.displayTurns + 1).flatMap { adv =>
+          if (g.situation.ghosts != 0) branch
+          else advices.get(g.displayTurns + 1).flatMap { adv =>
             games.lift(index - 1).map {
               case (fromGame, _) =>
                 val fromFen = FEN(Forsyth >> fromGame)
@@ -138,7 +139,7 @@ object TreeBuilder {
     }
     draughts.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant, true) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logDraughtsError(id)
         games.zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest => root addChild rest.foldLeft(makeBranch(i + 1, g, m)) {
@@ -148,6 +149,6 @@ object TreeBuilder {
     }
   }
 
-  private val logChessError = (id: String) => (err: String) =>
+  private val logDraughtsError = (id: String) => (err: String) =>
     logger.warn(s"round.TreeBuilder https://lidraughts.org/$id ${err.lines.toList.headOption}")
 }

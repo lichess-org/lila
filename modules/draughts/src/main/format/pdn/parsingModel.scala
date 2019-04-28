@@ -59,7 +59,7 @@ case class Std(
       else m
     case (m, _) => m
   } match {
-    case None => s"No move found: $this\n$situation".failureNel
+    case None => s"No move found ($iteratedCapts): $this - in situation $situation".failureNel
     case Some(move) => Some(move) toValid s"Invalide move: $move"
   }
 

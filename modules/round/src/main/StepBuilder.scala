@@ -18,7 +18,7 @@ object StepBuilder {
   ): JsArray = {
     draughts.Replay.gameMoveWhileValid(pdnmoves, initialFen, variant) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logDraughtsError(id)
         JsArray {
           val initStep = Step(
             ply = init.turns,
@@ -42,7 +42,7 @@ object StepBuilder {
     }
   }
 
-  private val logChessError = (id: String) => (err: String) => {
+  private val logDraughtsError = (id: String) => (err: String) => {
     val path = if (id == "synthetic") "analysis" else id
     logger.info(s"https://lidraughts.org/$path ${err.lines.toList.headOption | "?"}")
   }

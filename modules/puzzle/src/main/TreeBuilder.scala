@@ -10,7 +10,7 @@ object TreeBuilder {
   def apply(game: Game, plies: Int): tree.Root = {
     draughts.Replay.gameMoveWhileValid(game.pdnMoves take plies, game.variant.initialFen, game.variant) match {
       case (init, games, error) =>
-        error foreach logChessError(game.id)
+        error foreach logDraughtsError(game.id)
         val fen = Forsyth >> init
         val root = tree.Root(
           ply = init.turns,
@@ -38,6 +38,6 @@ object TreeBuilder {
     }
   }
 
-  private val logChessError = (id: String) => (err: String) =>
+  private val logDraughtsError = (id: String) => (err: String) =>
     logger.warn(s"TreeBuilder https://lidraughts.org/$id ${err.lines.toList.headOption}")
 }
