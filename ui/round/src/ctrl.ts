@@ -621,12 +621,6 @@ export default class RoundController {
     this.dropToSubmit = undefined;
   };
 
-  forecastInfo = (): boolean => {
-    const d = this.data;
-    return this.isPlaying() && d.correspondence && !d.opponent.ai &&
-      !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
-  }
-
   private onChange = () => {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
