@@ -80,6 +80,7 @@ object index {
               }
             ),
             div(cls := "list infinitescroll")(
+              (live.size % 2 == 1) option div(cls := "none"),
               pager.currentPageResults.map { s =>
                 st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
               },
