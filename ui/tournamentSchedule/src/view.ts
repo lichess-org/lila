@@ -88,18 +88,18 @@ function splitOverlaping(lanes) {
 
 function tournamentClass(tour) {
   const finished = tour.status === 30,
-  userCreated = tour.createdBy !== 'lichess',
-  classes = {
-    'tsht-rated': tour.rated,
-    'tsht-casual': !tour.rated,
-    'tsht-finished': finished,
-    'tsht-joinable': !finished,
-    'tsht-user-created': userCreated,
-    'tsht-major': tour.major,
-    'tsht-thematic': !!tour.position,
-    'tsht-short': tour.minutes <= 30,
-    'tsht-max-rating': !userCreated && tour.hasMaxRating
-  };
+    userCreated = tour.createdBy !== 'lichess',
+    classes = {
+      'tsht-rated': tour.rated,
+      'tsht-casual': !tour.rated,
+      'tsht-finished': finished,
+      'tsht-joinable': !finished,
+      'tsht-user-created': userCreated,
+      'tsht-major': tour.major,
+      'tsht-thematic': !!tour.position,
+      'tsht-short': tour.minutes <= 30,
+      'tsht-max-rating': !userCreated && tour.hasMaxRating
+    };
   if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
   return classes;
 }
@@ -108,6 +108,8 @@ function iconOf(tour, perfIcon) {
   return (tour.schedule && tour.schedule.freq === 'shield') ? '5' : perfIcon;
 }
 
+let mousedownAt: number[] | undefined;
+
 function renderTournament(ctrl, tour) {
   let width = tour.minutes * scale;
   const left = leftPos(tour.startsAt);
@@ -115,37 +117,37 @@ function renderTournament(ctrl, tour) {
   const paddingLeft = tour.minutes < 90 ? 0 : Math.max(0,
     Math.min(width - 250, // max padding, reserved text space
       leftPos(now) - left - 380)); // distance from Now
-      // cut right overflow to fit viewport and not widen it, for marathons
-      width = Math.min(width, leftPos(stopTime) - left);
+  // cut right overflow to fit viewport and not widen it, for marathons
+  width = Math.min(width, leftPos(stopTime) - left);
 
-      return h('a.tsht', {
-        class: tournamentClass(tour),
-        attrs: {
-          href: '/tournament/' + tour.id,
-          style: 'width: ' + width + 'px; left: ' + left + 'px; padding-left: ' + paddingLeft + 'px'
-        },
-      }, [
-        h('span.icon', tour.perf ? {
-          attrs: {
-            'data-icon': iconOf(tour, tour.perf.icon),
-            title: tour.perf.name
-          }
-        } : {}),
-        h('span.body', [
-          h('span.name', tour.fullName),
-          h('span.infos', [
-            h('span.text', [
-              displayClock(tour.clock) + ' ',
-              tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
-              tour.position ? 'Thematic ' : null,
-              tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament')
-            ]),
-            tour.nbPlayers ? h('span.nb-players', {
-              attrs: { 'data-icon': 'r' }
-            }, tour.nbPlayers) : null
-          ])
-        ])
-      ]);
+  return h('a.tsht', {
+    class: tournamentClass(tour),
+    attrs: {
+      href: '/tournament/' + tour.id,
+      style: 'width: ' + width + 'px; left: ' + left + 'px; padding-left: ' + paddingLeft + 'px'
+    }
+  }, [
+    h('span.icon', tour.perf ? {
+      attrs: {
+        'data-icon': iconOf(tour, tour.perf.icon),
+        title: tour.perf.name
+      }
+    } : {}),
+    h('span.body', [
+      h('span.name', tour.fullName),
+      h('span.infos', [
+        h('span.text', [
+          displayClock(tour.clock) + ' ',
+          tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
+          tour.position ? 'Thematic ' : null,
+          tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament')
+        ]),
+        tour.nbPlayers ? h('span.nb-players', {
+          attrs: { 'data-icon': 'r' }
+        }, tour.nbPlayers) : null
+      ])
+    ])
+  ]);
 }
 
 function renderTimeline() {
@@ -187,8 +189,8 @@ export default function(ctrl) {
   const data = ctrl.data();
 
   const systemTours: any[] = [],
-  majorTours: any[] = [],
-  userTours: any[] = [];
+    majorTours: any[] = [],
+    userTours: any[] = [];
 
   data.finished
     .concat(data.started)
@@ -200,29 +202,40 @@ export default function(ctrl) {
       else userTours.push(t);
     });
 
-    // group system tournaments into dedicated lanes for PerfType
-    const tourLanes = splitOverlaping(
-      group(systemTours, laneGrouper)
-        .concat([majorTours])
-        .concat([userTours])
-    ).filter(lane => lane.length > 0);
+  // group system tournaments into dedicated lanes for PerfType
+  const tourLanes = splitOverlaping(
+    group(systemTours, laneGrouper)
+    .concat([majorTours])
+    .concat([userTours])
+  ).filter(lane => lane.length > 0);
 
-    return h('div.tour-chart', [
-      h('div.tour-chart__inner.dragscroll', {
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLElement;
-            const bitLater = now + 15 * 60 * 1000;
-            el.scrollLeft = leftPos(bitLater - el.clientWidth / 2.5 / scale * 60 * 1000);
-          }
+  return h('div.tour-chart', [
+    h('div.tour-chart__inner.dragscroll.', {
+      hook: {
+        insert: vnode => {
+          const el = vnode.elm as HTMLElement;
+          const bitLater = now + 15 * 60 * 1000;
+          el.scrollLeft = leftPos(bitLater - el.clientWidth / 2.5 / scale * 60 * 1000);
+
+          el.addEventListener('mousedown', e => {
+            mousedownAt = [e.clientX, e.clientY];
+          });
+          el.addEventListener('click', e => {
+            if (mousedownAt && Math.pow(e.clientX - mousedownAt[0], 2) + Math.pow(e.clientY - mousedownAt[1], 2)) {
+              e.preventDefault();
+              return false;
+            }
+            return true;
+          });
         }
-      }, [
-        renderTimeline(),
-        ...tourLanes.map(lane => {
-          const large = lane.find(t => isSystemTournament(t) || t.major);
-          return h('div.tournamentline' + (large ? '.large' : ''), lane.map(tour =>
-            renderTournament(ctrl, tour)))
-        })
-      ])
-    ]);
+      }
+    }, [
+      renderTimeline(),
+      ...tourLanes.map(lane => {
+        const large = lane.find(t => isSystemTournament(t) || t.major);
+        return h('div.tournamentline' + (large ? '.large' : ''), lane.map(tour =>
+          renderTournament(ctrl, tour)))
+      })
+    ])
+  ]);
 }
