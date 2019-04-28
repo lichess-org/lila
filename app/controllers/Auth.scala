@@ -119,7 +119,7 @@ object Auth extends LilaController {
   def logout = Open { implicit ctx =>
     ctxReq.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
-      html = Redirect(routes.Main.mobile).fuccess,
+      html = Redirect(routes.Auth.login).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LilaCookie.newSession)
   }
