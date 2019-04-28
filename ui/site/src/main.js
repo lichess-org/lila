@@ -910,7 +910,6 @@
     cfg.socketSend = lichess.socket.send;
     cfg.trans = lichess.trans(cfg.i18n);
     analyse = LichessAnalyse.start(cfg);
-    if (cfg.chat) lichess.makeChat(cfg.chat);
   }
 
   ////////////////
