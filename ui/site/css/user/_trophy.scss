@@ -7,6 +7,9 @@
   flex-flow: row wrap;
   align-items: flex-start;
   justify-content: flex-end;
+  @include breakpoint($mq-not-small) {
+    display: none;
+  }
 }
 .trophy.award {
   font-family: 'lichess';
