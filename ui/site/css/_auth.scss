@@ -26,3 +26,9 @@
     }
   }
 }
+
+/* presumably the keyboard is up */
+@include breakpoint($mq-not-x-short) {
+  #top { display: none; }
+  .form-group { margin-bottom: 1rem; }
+}
