@@ -37,6 +37,9 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
         flex: 0 0 50%;
       }
     }
+    .mchat__messages {
+      max-height: inherit;
+    }
   }
 
   @include breakpoint($mq-col3) {
