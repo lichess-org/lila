@@ -27,7 +27,8 @@ case class Simul(
     chatmode: Option[Simul.ChatMode],
     arbiterId: Option[String] = None,
     spotlight: Option[Spotlight] = None,
-    targetPct: Option[Int] = None
+    targetPct: Option[Int] = None,
+    text: String
 ) {
 
   def id = _id
@@ -296,7 +297,8 @@ object Simul {
     variants: List[Variant],
     color: String,
     chatmode: String,
-    targetPct: Option[Int]
+    targetPct: Option[Int],
+    text: String
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -324,6 +326,7 @@ object Simul {
     hostSeenAt = DateTime.now.some,
     color = color.some,
     chatmode = ChatMode.byKey get chatmode,
-    targetPct = targetPct
+    targetPct = targetPct,
+    text = text
   )
 }

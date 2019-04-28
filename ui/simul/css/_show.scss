@@ -2,6 +2,8 @@ $mq-col1: $mq-col1-uniboard;
 $mq-col2: $mq-small;
 $mq-col3: $mq-col3-uniboard;
 
+$box-padding: var(--box-padding);
+
 @import 'layout';
 @import 'side';
 @import 'created';
@@ -26,7 +28,15 @@ $mq-col3: $mq-col3-uniboard;
   }
 
   .game-list {
-    margin: 2em var(--box-padding);
+    margin: 2em $box-padding;
+  }
+
+  .simul-text {
+    @extend %box-neat;
+    margin: 0 auto 2em auto;
+    padding: 1.5em 2.5em;
+    background: $c-bg-zebra;
+    width: 70%;
   }
 
   .spinner {

@@ -78,7 +78,8 @@ final class SimulApi(
       host = me,
       color = setup.color,
       chatmode = setup.chat,
-      targetPct = parseIntOption(setup.targetPct)
+      targetPct = parseIntOption(setup.targetPct),
+      text = setup.text
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(sim => sim.isNotBrandNew && sim.spotlight.isEmpty).map(_.id).foreach(abort)

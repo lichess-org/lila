@@ -19,7 +19,8 @@ final class DataForm {
     "color" -> stringIn(colorChoices),
     "chat" -> stringIn(chatChoices),
     "targetPct" -> text(minLength = 0, maxLength = 3)
-      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
+      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100)),
+      "text"-> text
   )(SimulSetup.apply)(SimulSetup.unapply)) fill empty
 
   lazy val applyVariants = Form(mapping(
@@ -70,7 +71,8 @@ object DataForm {
     variants = List(draughts.variant.Standard.id),
     color = colorDefault,
     chat = chatDefault,
-    targetPct = zero[String]
+    targetPct = zero[String],
+    text = ""
   )
 }
 
@@ -81,5 +83,6 @@ case class SimulSetup(
     variants: List[Int],
     color: String,
     chat: String,
-    targetPct: String
+    targetPct: String,
+    text: String
 )
