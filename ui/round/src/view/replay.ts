@@ -1,5 +1,5 @@
 import { h } from 'snabbdom'
-import { VNode, VNodeData } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode'
 import * as round from '../round';
 import throttle from 'common/throttle';
 import isHorizMoves from './horizontalMoves';
@@ -105,33 +105,18 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 }
 
 function analyseButton(ctrl: RoundController) {
-  const showInfo = ctrl.forecastInfo(),
-    forecastCount = ctrl.data.forecastCount;
-  const data: VNodeData = {
-    class: {
-      'glowing': showInfo,
-      'text': !!forecastCount
-    },
-    attrs: {
-      title: showInfo ? '' : ctrl.trans.noarg('analysis'),
-      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-      'data-icon': 'A'
-    }
-  };
-  if (showInfo) data.hook = util.onInsert(
-    el => setTimeout(() => {
-      $(el).powerTip({
-        closeDelay: 200,
-        placement: 'w'
-      }).data('powertipjq', $(el).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
-    }, 1000)
-  );
+  const forecastCount = ctrl.data.forecastCount;
   return [
-    h('a.fbt.analysis', data, forecastCount ? ['' + forecastCount] : []),
-    showInfo ? h('div.forecast-info.none', [
-      h('strong.title.text', util.justIcon(''), 'Speed up your game!'),
-      h('span.content', 'Use the analysis board to create conditional premoves.')
-    ]) : null
+    h('a.fbt.analysis', {
+      class: {
+        'text': !!forecastCount
+      },
+      attrs: {
+        title: ctrl.trans.noarg('analysis'),
+        href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+        'data-icon': 'A'
+      }
+    }, forecastCount ? ['' + forecastCount] : [])
   ];
 }
 
