@@ -63,7 +63,7 @@ trait Positional { self: Config =>
     val baseState = fen ifTrue (variant.fromPosition) flatMap {
       Forsyth.<<<@(FromPosition, _)
     }
-    val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
+    val (draughtsGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit @ SituationPlus(s, _) =>
         val game = DraughtsGame(
           situation = s,
@@ -74,7 +74,7 @@ trait Positional { self: Config =>
         if (Forsyth.>>(game) == Forsyth.initial) makeGame(draughts.variant.Standard) -> none
         else game -> baseState
     }
-    val game = builder(chessGame)
+    val game = builder(draughtsGame)
     state.fold(game) {
       case sit @ SituationPlus(Situation(board, _), _) => game.copy(
         draughts = game.draughts.copy(
