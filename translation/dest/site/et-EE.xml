@@ -165,6 +165,8 @@
   <string name="username">Kasutaja nimi</string>
   <string name="usernameOrEmail">Kasutajanimi või email</string>
   <string name="changeUsername">Muuda kasutajanime</string>
+  <string name="changeUsernameNotSame">Muuta saab ainult tähe rõhku. Näiteks \"karlsuur\" \"KarlSuur\"\'ks.</string>
+  <string name="changeUsernameDescription">Muuda oma kasutajanime, seda saad teha ainult 1 korra ning muuta on võimalik ainult kasutajanime tõstutundlikkust.</string>
   <string name="password">Salasõna</string>
   <string name="haveAnAccount">Kas sul on kasutaja?</string>
   <string name="changePassword">Muuda salasõna</string>
@@ -174,6 +176,10 @@
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Koht</string>
   <string name="rankX">Koht: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Reitingut uuendatakse iga minuti tagant</item>
+    <item quantity="other">Reitingut uuendatakse iga %s minuti tagant</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
     <item quantity="other">%s ülesannet</item>
@@ -319,8 +325,8 @@
   <string name="noTeamFound">Võistkonda ei leitud</string>
   <string name="joinTeam">Ühine võistkonnaga</string>
   <string name="quitTeam">Lahku võistkonnast</string>
-  <string name="anyoneCanJoin">Liituda võivad kõik</string>
-  <string name="aConfirmationIsRequiredToJoin">Kinnitus on vajalik, et liituda</string>
+  <string name="anyoneCanJoin">Vaba liituvusega</string>
+  <string name="aConfirmationIsRequiredToJoin">Et liituda, on vajalik kinnitus</string>
   <string name="joiningPolicy">Ühinemisreeglid</string>
   <string name="teamLeader">Võistkonna juht</string>
   <string name="teamBestPlayers">Võistkonna parimad mängijad</string>
@@ -751,6 +757,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xHostsY">%1$s liitub %2$s</string>
   <string name="xJoinsY">%1$s liitub %2$s</string>
   <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
+  <string name="xCreatesStudyY">%1$s tegi tiimi %2$s</string>
   <string name="quickPairing">Kiirelt mängu</string>
   <string name="lobby">Puhketuba</string>
   <string name="anonymous">Anonüümne</string>
