@@ -24,7 +24,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
          * to prevent the mobile app from thinking it's complete
          * https://github.com/veloce/lichobile/issues/722
          */
-      val cached = if (isPartial) cachedFull - 0 else cachedFull
+      //val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       val uciList = work.game.uciList
       draughts.Replay(uciList, work.game.initialFen.map(_.value), work.game.variant, true).fold(
@@ -32,7 +32,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
         replay => UciToPdn(replay, Analysis(
           id = work.game.id,
           studyId = work.game.studyId,
-          infos = makeInfos(mergeEvalsAndCached(work, evals, cached), uciList, work.startPly),
+          infos = makeInfos(mergeEvalsAndCached(work, evals, cachedFull), uciList, work.startPly),
           startPly = work.startPly,
           uid = work.sender.userId,
           by = !client.Lidraughts option client.userId.value,
