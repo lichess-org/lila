@@ -1,7 +1,13 @@
 export type MouchEvent = MouseEvent & TouchEvent;
 
 export default function resizeHandle(el: HTMLElement) {
+
+  const mousemoveEvent = window.lichess.hasTouchEvents ? 'touchmove' : 'mousedown';
+  const mouseupEvent = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
+
   el.addEventListener(window.lichess.mousedownEvent, (start: MouchEvent) => {
+
+    start.preventDefault();
 
     const startPos = eventPosition(start)!;
     const initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
@@ -14,9 +20,9 @@ export default function resizeHandle(el: HTMLElement) {
     const resize = (move: MouchEvent) => {
 
       const pos = eventPosition(move)!;
-      const distance = Math.pow(pos[0] - startPos[0], 2) + Math.pow(pos[1] - startPos[1], 2);
+      const delta = pos[0] - startPos[0] + pos[1] - startPos[1];
 
-      zoom = Math.round(Math.min(100, Math.max(0, initialZoom + distance / 8)));
+      zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
       document.body.setAttribute('style', '--zoom:' + zoom);
       window.lichess.dispatchEvent(window, 'resize');
@@ -26,10 +32,10 @@ export default function resizeHandle(el: HTMLElement) {
 
     document.body.classList.add('resizing');
 
-    document.addEventListener('mousemove', resize);
+    document.addEventListener(mousemoveEvent, resize);
 
-    document.addEventListener('mouseup', () => {
-      document.removeEventListener('mousemove', resize);
+    document.addEventListener(mouseupEvent, () => {
+      document.removeEventListener(mousemoveEvent, resize);
       document.body.classList.remove('resizing');
     }, { once: true });
   });
