@@ -245,7 +245,7 @@ object Auth extends LilaController {
 
   private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) = {
     garbageCollect(user, email)
-    env.welcomeEmail(user, email)
+    env.automaticEmail.welcome(user, email)
   }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =

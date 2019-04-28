@@ -1,6 +1,6 @@
 package lila.security
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.{ span => _, _ }
 
 import akka.actor.ActorSystem
 import play.api.libs.ws.{ WS, WSAuthScheme }
@@ -8,6 +8,7 @@ import play.api.Play.current
 import scalatags.Text.all._
 
 import lila.common.String.html.escapeHtml
+import lila.common.String.html.nl2brUnsafe
 import lila.common.{ Lang, EmailAddress }
 import lila.i18n.I18nKeys.{ emails => trans }
 
@@ -67,7 +68,7 @@ object Mailgun {
 
   object txt {
 
-    def serviceNote(implicit lang: Lang) = s"""
+    def serviceNote(implicit lang: Lang): String = s"""
 ${trans.common_note.literalTo(lang, List("https://lichess.org")).render}
 
 ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).render}"""
@@ -75,24 +76,42 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
 
   object html {
 
-    val noteLink = raw {
-      """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
-    }
-    val noteContact = raw {
-      """<a itemprop="url" href="https://lichess.org/contact"><span itemprop="name">lichess.org/contact</span></a>"""
-    }
+    val itemscope = attr("itemscope").empty
+    val itemtype = attr("itemtype")
+    val itemprop = attr("itemprop")
+    val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
+    val pDesc = p(itemprop := "description")
+    val potentialAction = div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
+    def metaName(cont: String) = meta(itemprop := "name", content := cont)
+    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
+      span(itemprop := "name")("lichess.org/contact")
+    )
 
-    def serviceNote(implicit lang: Lang) = s"""
-<div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalTo(lang, List(noteLink)).render} ${trans.common_contact.literalTo(lang, List(noteContact)).render}</small>
-</div>
-"""
+    def serviceNote(implicit lang: Lang) = publisher(
+      small(
+        trans.common_note.literalTo(lang, List(Mailgun.html.noteLink)),
+        " ",
+        trans.common_contact.literalTo(lang, List(noteContact))
+      )
+    )
 
-    def url(u: String)(implicit lang: Lang) = s"""
-<meta itemprop="url" content="$u">
-<p><a itemprop="target" href="$u">$u</a></p>
-<p>${trans.common_orPaste.literalTo(lang).render}</p>
-"""
+    def standardEmail(body: String)(implicit lang: Lang): Frag =
+      emailMessage(
+        pDesc(nl2brUnsafe(body)),
+        publisher
+      )
+
+    val noteLink = a(
+      itemprop := "url",
+      href := "https://lichess.org/"
+    )(span(itemprop := "name")("lichess.org"))
+
+    def url(u: String)(implicit lang: Lang) = frag(
+      meta(itemprop := "url", content := u),
+      p(a(itemprop := "target", href := u)(u)),
+      p(trans.common_orPaste.literalTo(lang))
+    )
 
     private[Mailgun] def wrap(subject: String, body: Frag): Frag = frag(
       raw(s"""<!doctype html>

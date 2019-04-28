@@ -3,14 +3,16 @@ package lila.security
 import scalatags.Text.all._
 
 import lila.common.{ Lang, EmailAddress }
-import lila.user.{ User, UserRepo }
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
     mailgun: Mailgun,
     baseUrl: String,
     tokenerSecret: String
 ) {
+
+  import Mailgun.html._
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make user.id flatMap { token =>
@@ -30,16 +32,12 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 
 ${Mailgun.txt.serviceNote}
 """,
-        htmlBody = raw(s"""
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${trans.passwordReset_intro.literalTo(lang).render}</p>
-  <p>${trans.passwordReset_clickOrIgnore.literalTo(lang).render}</p>
-  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
-    <meta itemprop="name" content="Reset password">
-    ${Mailgun.html.url(url)}
-  </div>
-  ${Mailgun.html.serviceNote}
-</div>""").some
+        htmlBody = emailMessage(
+          pDesc(trans.passwordReset_intro.literalTo(lang)),
+          p(trans.passwordReset_clickOrIgnore.literalTo(lang)),
+          potentialAction(metaName("Reset password"), Mailgun.html.url(url)),
+          serviceNote
+        ).some
       )
     }
 
