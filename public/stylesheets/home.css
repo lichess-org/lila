@@ -362,6 +362,11 @@ body.dark #hooks_wrap .hook_filter {
   font-size: 1.25em;
   padding-bottom: 5px;
 }
+#hook .inner .clock,
+#hook .inner .varicon
+{
+  cursor: pointer;
+}
 #hook .opponent {
   background: #666;
   color: #eee;

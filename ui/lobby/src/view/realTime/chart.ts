@@ -56,7 +56,10 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
           mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'hook'
-        }).data('powertipjq', $(renderHook(ctrl, hook)));
+        }).data('powertipjq', $(renderHook(ctrl, hook)).on('click', (e) => {
+          if (!e.target.classList.contains('varicon') || e.target.classList.contains('clock')) ctrl.clickHook(hook.id);
+          if (ctrl.redraw) ctrl.redraw();
+        }));
         setTimeout(function() {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
