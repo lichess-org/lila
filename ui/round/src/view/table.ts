@@ -78,13 +78,13 @@ export function renderTablePlay(ctrl: RoundController) {
 function whosTurn(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
   if (status.finished(d) || status.aborted(d)) return;
-  return h('div.rclock.rclock-turn.rclock-' + position,
-    d.game.player === color ? (
+  return h('div.rclock.rclock-turn.rclock-' + position, [
+    d.game.player === color ? h('div.rclock-turn__text',
       d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
         d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
       )
-    ) : ''
-  );
+    ) : null
+  ]);
 }
 
 function anyClock(ctrl: RoundController, position: Position) {

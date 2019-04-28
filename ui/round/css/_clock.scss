@@ -17,9 +17,16 @@
     }
   }
   &-turn {
-    font-weight: bold;
-    white-space: nowrap;
     align-self: center;
+    line-height: $col1-player-clock-height;
+    @include breakpoint($mq-col1-uniboard) {
+      &__text {
+        background: $c-bg-box;
+        padding: 0 $block-gap;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+    }
     @include breakpoint($mq-col2) {
       height: 2.2em;
       line-height: 2.2em;
