@@ -95,8 +95,6 @@
     padding-bottom: 1.2rem;
     overflow-y: auto;
     overscroll-behavior: contain;
-    white-space: nowrap;
-    line-height: 40px;
     box-shadow: 2px 3px 6px hsla(0, 0, 0%, 0.3);
     border-radius: 0 3px 0 0;
     max-width: 80%;
@@ -104,6 +102,14 @@
       max-width: 70%;
     }
     z-index: z('topnav');
+
+    a {
+      color: $c-font;
+      text-decoration: none;
+      padding: .7em 0;
+      opacity: 0;
+      @include transition(opacity);
+    }
 
     section {
       flex: 1 0 50%;
@@ -119,20 +125,13 @@
         display: flex;
         flex-flow: column;
         a {
-          padding: 0 2.4rem;
+          padding-left: 2.4rem;
         }
       }
       a:active {
         background: $c-primary;
         color: $c-primary-over;
       }
-    }
-
-    a {
-      color: $c-font;
-      text-decoration: none;
-      opacity: 0;
-      @include transition(opacity);
     }
 
     .topnav-toggle:checked ~ & {
