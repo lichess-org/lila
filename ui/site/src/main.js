@@ -915,7 +915,6 @@
     cfg.socketSend = lidraughts.socket.send;
     cfg.trans = lidraughts.trans(cfg.i18n);
     analyse = LidraughtsAnalyse.start(cfg);
-    if (cfg.chat) lidraughts.makeChat(cfg.chat);
   }
 
   ////////////////
