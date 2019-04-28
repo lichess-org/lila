@@ -127,3 +127,10 @@ $piece-files: (
 .main-board, .eval-gauge {
   margin-top: 4vh;
 }
+
+.board-resize {
+  $resize-width: 20px;
+  @include breakpoint($mq-col2-uniboard) {
+    bottom: #{28px - $resize-width}!important;
+  }
+}
