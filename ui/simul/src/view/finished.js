@@ -12,6 +12,7 @@ module.exports = function(ctrl) {
       util.title(ctrl),
       m('div.box__top__actions', m('div.finished', ctrl.trans('finished')))
     ]),
+    util.simulText(ctrl.data),
     results(ctrl),
     arbiter(ctrl),
     pairings(ctrl)

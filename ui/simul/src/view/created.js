@@ -189,7 +189,7 @@ module.exports = function(ctrl) {
           }, ctrl.trans('signIn'))
       ])
     ]),
-    ctrl.data.text ? m('div.simul-text', enrichText(ctrl.data.text)) : null,
+    util.simulText(ctrl.data),
     simul.acceptedContainsMe(ctrl) ? m('p.instructions',
       ctrl.trans('youHaveBeenSelected')
     ) : (
@@ -242,19 +242,3 @@ module.exports = function(ctrl) {
     }))
   ];
 };
-
-
-function enrichText(text) {
-  return m.trust(autolink(lidraughts.escapeHtml(text), toLink).replace(newLineRegex, '<br>'));
-}
-function autolink(str, callback) {
-  return str.replace(linkRegex, (_, space, url) => space + callback(url));
-}
-function toLink(url) {
-  if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
-  const show = imageTag(url) || url.replace(/https?:\/\//, '');
-  return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
-}
-// from ui/analyse
-const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
-const newLineRegex = /\n/g;

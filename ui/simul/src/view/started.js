@@ -9,6 +9,7 @@ module.exports = function(ctrl) {
     util.arbiterOption(ctrl),
     util.hostTv(ctrl),
     util.title(ctrl),
+    util.simulText(ctrl.data),
     results(ctrl),
     arbiter(ctrl),
     pairings(ctrl)
