@@ -19,7 +19,7 @@
   }
   .moves,
   .message {
-    flex: 0 0 7.3em;
+    flex: 0 0 7.4rem;
   }
   .moves {
     @extend %zen;
@@ -44,6 +44,7 @@
       will-change: scroll-position;
       user-select: none;
       line-height: 1.7;
+      font-size: 1.1em;
     }
     index {
       flex: 0 0 15%;
@@ -55,7 +56,6 @@
     move {
       flex: 0 0 42.5%;
       padding-left: .7em;
-      font-size: 1.1em;
       @include transition();
       &:not(.empty) {
         cursor: pointer;
