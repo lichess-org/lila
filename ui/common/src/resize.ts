@@ -2,7 +2,7 @@ export type MouchEvent = MouseEvent & TouchEvent;
 
 export default function resizeHandle(el: HTMLElement) {
 
-  const mousemoveEvent = window.lichess.hasTouchEvents ? 'touchmove' : 'mousedown';
+  const mousemoveEvent = window.lichess.hasTouchEvents ? 'touchmove' : 'mousemove';
   const mouseupEvent = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
 
   el.addEventListener(window.lichess.mousedownEvent, (start: MouchEvent) => {
