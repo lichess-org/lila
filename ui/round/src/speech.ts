@@ -2,29 +2,40 @@ import RoundController from './ctrl';
 import { Step } from './interfaces';
 import viewStatus from 'game/view/status';
 
-export function onSpeechChange(ctrl: RoundController) {
+export function setup(ctrl: RoundController) {
+  window.lichess.pubsub.on('speech.enabled', onSpeechChange(ctrl));
+  onSpeechChange(ctrl)(window.lichess.sound.speech());
+}
+
+function onSpeechChange(ctrl: RoundController) {
   return function(enabled: boolean) {
-    if (!window.Speech && enabled)
-      window.lichess.loadScript('compiled/lichess.round.speech.min.js').then(() => status(ctrl));
-    else if (window.Speech && !enabled) window.Speech = undefined;
+    if (!window.LichessSpeech && enabled)
+      window.lichess.loadScript(
+        window.lichess.compiledScript('speech')
+      ).then(() => status(ctrl));
+    else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
   };
 }
 
 export function status(ctrl: RoundController) {
   const s = viewStatus(ctrl);
-  if (s == 'playingRightNow') window.Speech!.step(ctrl.stepAt(ctrl.ply), false);
+  if (s == 'playingRightNow') window.LichessSpeech!.step(ctrl.stepAt(ctrl.ply), false);
   else {
-    window.Speech!.say(s);
+    withSpeech(speech => speech.say(s, false));
     const w = ctrl.data.game.winner;
-    if (w) window.Speech!.say(ctrl.trans.noarg(w + 'IsVictorious'), false)
+    if (w) withSpeech(speech => speech.say(ctrl.trans.noarg(w + 'IsVictorious'), false));
   }
 }
 
 
 export function userJump(ctrl: RoundController, ply: Ply) {
-  if (window.Speech) window.Speech.step(ctrl.stepAt(ply), true);
+  withSpeech(s => s.step(ctrl.stepAt(ply), true));
 }
 
 export function step(step: Step) {
-  if (window.Speech) window.Speech.step(step, false);
+  withSpeech(s => s.step(step, false));
+}
+
+export function withSpeech(f: (speech: LichessSpeech) => void) {
+  if (window.LichessSpeech) f(window.LichessSpeech);
 }

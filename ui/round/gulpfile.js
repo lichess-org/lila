@@ -11,11 +11,6 @@ lilaGulpPlugins([
     target: 'lichess.round.keyboardMove.min.js'
   },
   {
-    standalone: 'Speech',
-    entries: ['src/plugins/speech.ts'],
-    target: 'lichess.round.speech.min.js'
-  },
-  {
     standalone: 'NVUI',
     entries: ['src/plugins/nvui.ts'],
     target: 'lichess.round.nvui.min.js'

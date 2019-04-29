@@ -13,10 +13,10 @@ interface Lichess {
   compiledScript(path: string): string
   keyboardMove: any
   slider(): any
-  raf(f: () => void): void
-  requestIdleCallback(f: () => void): void
-  loadCss(path: string): void
-  loadCssPath(path: string): void
+  raf(f: () => void): void;
+  requestIdleCallback(f: () => void): void;
+  loadCss(path: string): void;
+  loadCssPath(path: string): void;
   loadedCss: {
     [key: string]: boolean;
   }
@@ -54,14 +54,16 @@ interface Lichess {
     render(ctrl: any): any;
   }
   playMusic(): any;
-  Speech?: {
-    say(t: string, cut: boolean): void;
-    step(s: { san?: San }, cut: boolean): void;
-  };
+  LichessSpeech?: LichessSpeech;
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
   mousedownEvent: 'mousedown' | 'touchstart';
+}
+
+interface LichessSpeech {
+  say(t: string, cut: boolean): void;
+  step(s: { san?: San }, cut: boolean): void;
 }
 
 interface Cookie {
@@ -88,9 +90,9 @@ interface Trans {
 type PubsubCallback = (...data: any[]) => void;
 
 interface Pubsub {
-  on(msg: string, f: PubsubCallback): void
-  off(msg: string, f: PubsubCallback): void
-  emit(msg: string): (...args: any[]) => void
+  on(msg: string, f: PubsubCallback): void;
+  off(msg: string, f: PubsubCallback): void;
+  emit(msg: string): (...args: any[]) => void;
 }
 
 interface LichessStorageHelper {

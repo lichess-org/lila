@@ -710,8 +710,7 @@ export default class RoundController {
 
       if (!this.nvui) keyboard.init(this);
 
-      li.pubsub.on('speech.enabled', speech.onSpeechChange(this));
-      speech.onSpeechChange(this)(li.sound.speech());
+      speech.setup(this);
 
       this.onChange();
     });

@@ -37,6 +37,7 @@
     "ui/editor",
     "ui/game",
     "ui/nvui",
+    "ui/speech",
     "ui/insight",
     "ui/learn",
     "ui/lobby",
