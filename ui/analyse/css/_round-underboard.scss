@@ -76,9 +76,8 @@ $col2-panel-height: 240px;
     overflow-y: auto;
     font-size: .9em;
     > div {
-      margin: 0.6em 0;
-      display: flex;
-      align-items: center;
+      @extend %flex-center-nowrap;
+      margin-bottom: 1em;
     }
     .pgn {
       white-space: pre-wrap;
