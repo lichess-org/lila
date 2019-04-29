@@ -7,14 +7,7 @@ interface ClockOpts {
   tenths: boolean;
 }
 
-export default function(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
-  const clocks = renderClocks(ctrl);
-  if (!clocks) return;
-  if (ctrl.bottomIsWhite()) clocks.reverse();
-  return clocks;
-}
-
-export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
+export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
 
@@ -38,8 +31,8 @@ export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   };
 
   return [
-    renderClock(centis[0], isWhiteTurn, whitePov ? 'top' : 'bottom', opts),
-    renderClock(centis[1], !isWhiteTurn,  whitePov ? 'bottom' : 'top', opts)
+    renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', opts),
+    renderClock(centis[1], !isWhiteTurn,  whitePov ? 'top' : 'bottom', opts)
   ];
 }
 
