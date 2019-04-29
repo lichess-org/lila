@@ -74,8 +74,8 @@
     padding: 1em 0;
     justify-content: space-between;
     > i {
-      @include fluid-size('font-size', 60px, 120px);
-      margin: 0 2rem;
+      @include fluid-size('font-size', 40px, 120px);
+      margin: 0 .4em;
     }
     > i:last-child {
       transform: scale(-1, 1);
@@ -198,10 +198,11 @@
     }
     .list {
       @extend %flex-center;
-      font-size: 1.2em;
+      font-size: 1.1em;
     }
     .list div {
-      flex: 1 1 33.3%;
+      flex: 1 1 25%;
+      min-width: 17ch;
       padding: .5em 0;
     }
   }
