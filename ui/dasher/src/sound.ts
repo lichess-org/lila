@@ -13,12 +13,12 @@ export interface SoundData {
 }
 
 export interface SoundCtrl {
-  list: Sound[]
-  api: any,
-  set(k: Key): void
-  volume(v: number): void
-  trans: Trans
-  close: Close
+  makeList(): Sound[];
+  api: any;
+  set(k: Key): void;
+  volume(v: number): void;
+  trans: Trans;
+  close: Close;
 }
 
 export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close): SoundCtrl {
@@ -28,7 +28,10 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const api = window.lichess.sound;
 
   return {
-    list,
+    makeList() {
+      const canSpeech = window.speechSynthesis && window.speechSynthesis.getVoices().length;
+      return list.filter(s => s[0] != 'speech' || canSpeech);
+    },
     api,
     set(k: Key) {
       api.changeSet(k);
@@ -53,7 +56,7 @@ export function view(ctrl: SoundCtrl): VNode {
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
       h('div.selector', {
         attrs: { method: 'post', action: '/pref/soundSet' }
-      }, ctrl.list.map(soundView(ctrl, ctrl.api.set())))
+      }, ctrl.makeList().map(soundView(ctrl, ctrl.api.set())))
     ])
   ]);
 }

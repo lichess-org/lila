@@ -53,7 +53,8 @@ interface Lichess {
   AnalyseNVUI(redraw: () => void): {
     render(ctrl: any): any;
   }
-  playMusic(): void;
+  playMusic(): any;
+  RoundSpeech(): any;
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
@@ -133,8 +134,6 @@ interface WebAssemblyStatic {
 }
 
 declare var WebAssembly: WebAssemblyStatic | undefined;
-declare var SharedArrayBuffer: any | undefined;
-declare var Atomics: any | undefined;
 
 declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
 

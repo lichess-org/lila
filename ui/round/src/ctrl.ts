@@ -69,6 +69,7 @@ export default class RoundController {
   nvui?: NvuiPlugin;
 
   private music?: any;
+  private speech?: any;
 
   constructor(opts: RoundOpts, redraw: Redraw) {
 
@@ -120,6 +121,12 @@ export default class RoundController {
           this.music = li.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
+
+      if (!this.speech && set === 'speech')
+        li.loadScript('compiled/lichess.round.speech.min.js').then(() => {
+          this.speech = li.RoundSpeech();
+        });
+      if (this.speech && set !== 'speech') this.speech = undefined;
     });
 
     li.pubsub.on('zen', () => {
@@ -221,6 +228,7 @@ export default class RoundController {
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
     }
+    if (this.speech) this.speech.jump(s);
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
     return true;
@@ -438,6 +446,7 @@ export default class RoundController {
     this.onChange();
     if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
+    if (this.speech) this.speech.jump(step);
   };
 
   private playPredrop = () => {
