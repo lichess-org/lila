@@ -701,12 +701,10 @@
         var self = this;
         var el = self.element;
 
-        var hideStorage = lidraughts.storage.make('friends-hide');
+        var hideStorage = lidraughts.storage.makeBoolean('friends-hide');
         var $friendBoxTitle = el.find('.friend_box_title').click(function() {
-          var show = hideStorage.get() == 1;
-          el.find('.content_wrap').toggleNone(show);
-          if (show) hideStorage.remove();
-          else hideStorage.set(1);
+          el.find('.content_wrap').toggleNone(hideStorage.get());
+          hideStorage.toggle();
         });
         if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
 

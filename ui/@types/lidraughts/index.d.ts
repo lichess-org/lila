@@ -95,6 +95,7 @@ interface Pubsub {
 
 interface LidraughtsStorageHelper {
   make(k: string): LidraughtsStorage;
+  makeBoolean(k: string): LidraughtsBooleanStorage;
   get(k: string): string;
   set(k: string, v: string): string;
   remove(k: string): void;
@@ -105,6 +106,12 @@ interface LidraughtsStorage {
   set(v: string): string;
   remove(): void;
   listen(f: (e: StorageEvent) => void): void;
+}
+
+interface LidraughtsBooleanStorage {
+  get(): boolean;
+  set(v: string): boolean;
+  toggle(): void;
 }
 
 interface Window {
