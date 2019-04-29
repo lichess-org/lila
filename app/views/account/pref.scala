@@ -76,6 +76,10 @@ object pref {
             radios(form("display.zen"), booleanChoices)
           ),
           setting(
+            "Display board resize handle",
+            radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
+          ),
+          setting(
             trans.blindfoldChess(),
             radios(form("display.blindfold"), translatedBlindfoldChoices)
           )
@@ -124,12 +128,12 @@ object pref {
             radios(form("behavior.confirmResign"), confirmResignChoices)
           ),
           setting(
-            trans.inputMovesWithTheKeyboard(),
-            radios(form("behavior.keyboardMove"), booleanChoices)
-          ),
-          setting(
             trans.castleByMovingTheKingTwoSquaresOrOntoTheRook(),
             radios(form("behavior.rookCastle"), translatedRookCastleChoices)
+          ),
+          setting(
+            trans.inputMovesWithTheKeyboard(),
+            radios(form("behavior.keyboardMove"), booleanChoices)
           )
         ),
         categFieldset(PrefCateg.Privacy, categ)(

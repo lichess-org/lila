@@ -38,6 +38,7 @@ case class Pref(
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
+    resizeHandle: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -324,6 +325,18 @@ object Pref {
     )
   }
 
+  object ResizeHandle {
+    val NEVER = 0
+    val INITIAL = 1
+    val ALWAYS = 2
+
+    val choices = Seq(
+      NEVER -> "Never",
+      INITIAL -> "On initial position",
+      ALWAYS -> "Always"
+    )
+  }
+
   object Zen extends BooleanPref {
   }
 
@@ -367,6 +380,7 @@ object Pref {
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
+    resizeHandle = ResizeHandle.INITIAL,
     tags = Map.empty
   )
 

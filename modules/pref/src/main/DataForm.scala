@@ -5,36 +5,40 @@ import play.api.data.Forms._
 
 object DataForm {
 
+  private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
+    choice => choices.exists(_._1 == choice)
+
   val pref = Form(mapping(
     "display" -> mapping(
       "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
       "captured" -> number.verifying(Pref.BooleanPref.verify),
       "highlight" -> number.verifying(Pref.BooleanPref.verify),
       "destination" -> number.verifying(Pref.BooleanPref.verify),
-      "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
-      "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
+      "coords" -> number.verifying(containedIn(Pref.Coords.choices)),
+      "replay" -> number.verifying(containedIn(Pref.Replay.choices)),
       "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
+      "resizeHandle" -> optional(number.verifying(containedIn(Pref.ResizeHandle.choices))),
+      "blindfold" -> number.verifying(containedIn(Pref.Blindfold.choices))
     )(DisplayData.apply)(DisplayData.unapply),
     "behavior" -> mapping(
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
       "premove" -> number.verifying(Pref.BooleanPref.verify),
-      "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
-      "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-      "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
-      "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
-      "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
+      "takeback" -> number.verifying(containedIn(Pref.Takeback.choices)),
+      "autoQueen" -> number.verifying(containedIn(Pref.AutoQueen.choices)),
+      "autoThreefold" -> number.verifying(containedIn(Pref.AutoThreefold.choices)),
+      "submitMove" -> number.verifying(containedIn(Pref.SubmitMove.choices)),
+      "confirmResign" -> number.verifying(containedIn(Pref.ConfirmResign.choices)),
       "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
     )(BehaviorData.apply)(BehaviorData.unapply),
-    "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
+    "clockTenths" -> number.verifying(containedIn(Pref.ClockTenths.choices)),
     "clockBar" -> number.verifying(Pref.BooleanPref.verify),
     "clockSound" -> number.verifying(Pref.BooleanPref.verify),
     "follow" -> number.verifying(Pref.BooleanPref.verify),
-    "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
-    "message" -> number.verifying(Pref.Message.choices.toMap contains _),
-    "studyInvite" -> optional(number.verifying(Pref.StudyInvite.choices.toMap contains _)),
+    "challenge" -> number.verifying(containedIn(Pref.Challenge.choices)),
+    "message" -> number.verifying(containedIn(Pref.Message.choices)),
+    "studyInvite" -> optional(number.verifying(containedIn(Pref.StudyInvite.choices))),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -47,6 +51,7 @@ object DataForm {
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
+      resizeHandle: Option[Int],
       blindfold: Int
   )
 
@@ -99,6 +104,7 @@ object DataForm {
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       zen = display.zen | pref.zen,
+      resizeHandle = display.resizeHandle | pref.resizeHandle,
       rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent
@@ -116,6 +122,7 @@ object DataForm {
         captured = if (pref.captured) 1 else 0,
         blindfold = pref.blindfold,
         zen = pref.zen.some,
+        resizeHandle = pref.resizeHandle.some,
         pieceNotation = pref.pieceNotation.some
       ),
       behavior = BehaviorData(

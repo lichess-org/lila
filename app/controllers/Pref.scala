@@ -31,8 +31,7 @@ object Pref extends LilaController {
   }
 
   def formApply = AuthBody { implicit ctx => me =>
-    def onSuccess(data: lila.pref.DataForm.PrefData) =
-      api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
+    def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
       err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.body)).fold(
@@ -75,6 +74,6 @@ object Pref extends LilaController {
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
-      api.setPrefString(_, name, value, notifyChange = false)
+      api.setPrefString(_, name, value)
     } inject LilaCookie.session(name, value)(ctx.req)
 }

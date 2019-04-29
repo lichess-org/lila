@@ -64,6 +64,7 @@ final class PrefApi(
       zen = r.getD("zen", Pref.default.zen),
       rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
       pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
+      resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
       tags = r.getD("tags", Pref.default.tags)
     )
@@ -106,6 +107,7 @@ final class PrefApi(
       "rookCastle" -> o.rookCastle,
       "moveEvent" -> o.moveEvent,
       "pieceNotation" -> o.pieceNotation,
+      "resizeHandle" -> o.resizeHandle,
       "tags" -> o.tags
     )
   }
@@ -144,18 +146,18 @@ final class PrefApi(
   def followables(userIds: List[String]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables => userIds map followables.contains }
 
-  def setPref(pref: Pref, notifyChange: Boolean): Funit =
+  def setPref(pref: Pref): Funit =
     coll.update($id(pref.id), pref, upsert = true).void >>- {
       cache refresh pref.id
     }
 
-  def setPref(user: User, change: Pref => Pref, notifyChange: Boolean): Funit =
-    getPref(user) map change flatMap { setPref(_, notifyChange) }
+  def setPref(user: User, change: Pref => Pref): Funit =
+    getPref(user) map change flatMap setPref
 
-  def setPref(userId: String, change: Pref => Pref, notifyChange: Boolean): Funit =
-    getPref(userId) map change flatMap { setPref(_, notifyChange) }
+  def setPref(userId: String, change: Pref => Pref): Funit =
+    getPref(userId) map change flatMap setPref
 
-  def setPrefString(user: User, name: String, value: String, notifyChange: Boolean): Funit =
+  def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten
-      s"Bad pref ${user.id} $name -> $value" flatMap { setPref(_, notifyChange) }
+      s"Bad pref ${user.id} $name -> $value" flatMap setPref
 }

@@ -211,6 +211,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())
   )
 
+  def translatedBoardResizeHandleChoices(implicit ctx: Context) = List(
+    (Pref.ResizeHandle.NEVER, trans.never.txt()),
+    (Pref.ResizeHandle.INITIAL, "Only on initial position"),
+    (Pref.ResizeHandle.ALWAYS, trans.always.txt())
+  )
+
   def translatedBlindfoldChoices(implicit ctx: Context) = List(
     Pref.Blindfold.NO -> trans.no.txt(),
     Pref.Blindfold.YES -> trans.yes.txt()

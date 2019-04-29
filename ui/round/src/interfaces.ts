@@ -179,6 +179,7 @@ export interface Pref {
   rookCastle: boolean;
   showCaptured: boolean;
   submitMove: boolean;
+  resizeHandle: 0 | 1 | 2;
 }
 
 export interface MoveMetadata {

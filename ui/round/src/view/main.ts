@@ -37,6 +37,13 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   return false;
 }
 
+function resizeHandleFor(ctrl: RoundController) {
+  const pref = ctrl.data.pref.resizeHandle;
+  return (pref == 2 || pref == 1 && ctrl.ply < 2) ? h('div.board-resize', {
+    hook: util.onInsert(resizeHandle)
+  }) : undefined;
+}
+
 const emptyMaterialDiff: MaterialDiff = {
   white: {},
   black: {}
@@ -66,9 +73,7 @@ export function main(ctrl: RoundController): VNode {
     }, [
       renderGround(ctrl),
       promotion.view(ctrl),
-      ctrl.ply > 1 ? undefined : h('div.board-resize', {
-        hook: util.onInsert(resizeHandle)
-      })
+      resizeHandleFor(ctrl)
     ]),
     crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
     ...renderTable(ctrl),
