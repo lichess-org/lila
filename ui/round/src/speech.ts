@@ -36,6 +36,6 @@ export function step(step: Step) {
   withSpeech(s => s.step(step, false));
 }
 
-export function withSpeech(f: (speech: LidraughtsSpeech) => void) {
+function withSpeech(f: (speech: LidraughtsSpeech) => void) {
   if (window.LidraughtsSpeech) f(window.LidraughtsSpeech);
 }

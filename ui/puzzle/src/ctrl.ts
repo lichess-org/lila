@@ -14,6 +14,7 @@ import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
+import * as speech from './speech';
 import { sound } from './sound';
 import { Api as CgApi } from 'draughtsground/api';
 import { Vm, Controller } from './interfaces';
@@ -200,6 +201,7 @@ export default function (opts, redraw: () => void): Controller {
       var progress = moveTest();
       if (progress) applyProgress(progress, ghosts);
       redraw();
+      speech.node(node, false);
     }
   };
 
@@ -265,6 +267,7 @@ export default function (opts, redraw: () => void): Controller {
       vm.round = res.round;
       vm.voted = res.voted;
       redraw();
+      if (win) speech.success();
     });
   };
 
@@ -419,6 +422,7 @@ export default function (opts, redraw: () => void): Controller {
       g.selectSquare(null);
     });
     jump(path, forceSound);
+    speech.node(vm.node, true);
   };
 
   function viewSolution() {
@@ -500,6 +504,8 @@ export default function (opts, redraw: () => void): Controller {
   });
 
   const getCevalNode = () => (vm.nodeList.length > 1 && vm.node.displayPly && vm.node.displayPly !== vm.node.ply) ? vm.nodeList[vm.nodeList.length - 2] : vm.node;
+  
+  speech.setup();
 
   return {
     vm,
