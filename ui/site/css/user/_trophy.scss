@@ -45,7 +45,6 @@
   font-size: 65px;
 }
 .fire-trophy {
-  @extend %fire-trophy-shadow;
   color: $c-font-dim;
   opacity: 0.9;
   transition: opacity 0.8s;
