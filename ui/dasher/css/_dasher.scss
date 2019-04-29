@@ -104,13 +104,13 @@
       padding: 1rem 1rem;
     }
   }
-  .zen a::before {
-    font-size: 18px;
-    margin-right: 3px;
-    opacity: 0.5;
-  }
-  .zen:hover a::before{
-    opacity: 1;
+  .zen {
+    a::before {
+      opacity: .5;
+    }
+    &:hover a::before{
+      opacity: 1;
+    }
   }
   .sound {
     .content {

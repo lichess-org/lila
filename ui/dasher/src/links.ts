@@ -80,7 +80,7 @@ export default function(ctrl: DasherCtrl): VNode {
     noarg('pieceSet'))
 
   const zenToggle = ctrl.opts.playing ? h('div.zen.selector', [
-    h('a', {
+    h('a.text', {
       attrs: {
         'data-icon': 'K',
         title: 'Keyboard: z'
