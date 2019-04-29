@@ -12,6 +12,6 @@
     "noUnusedParameters": true,
     "moduleResolution": "node",
     "target": "ES5",
-    "lib": ["DOM", "ES5", "es2015.core", "es2015.Promise", "ES2017"]
+    "lib": ["DOM", "ES5", "es2015.core", "es2015.Promise"]
   }
 }
