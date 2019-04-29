@@ -61,6 +61,7 @@ final class PrefApi(
       keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
       fullCapture = r.getD("fullCapture", Pref.default.fullCapture),
       zen = r.getD("zen", Pref.default.zen),
+      resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
       puzzleVariant = r strO "puzzleVariant" flatMap draughts.variant.Variant.apply getOrElse draughts.variant.Standard,
       tags = r.getD("tags", Pref.default.tags)
@@ -102,6 +103,7 @@ final class PrefApi(
       "zen" -> o.zen,
       "moveEvent" -> o.moveEvent,
       "puzzleVariant" -> o.puzzleVariant.key,
+      "resizeHandle" -> o.resizeHandle,
       "tags" -> o.tags
     )
   }
@@ -140,18 +142,18 @@ final class PrefApi(
   def followables(userIds: List[String]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables => userIds map followables.contains }
 
-  def setPref(pref: Pref, notifyChange: Boolean): Funit =
+  def setPref(pref: Pref): Funit =
     coll.update($id(pref.id), pref, upsert = true).void >>- {
       cache refresh pref.id
     }
 
-  def setPref(user: User, change: Pref => Pref, notifyChange: Boolean): Funit =
-    getPref(user) map change flatMap { setPref(_, notifyChange) }
+  def setPref(user: User, change: Pref => Pref): Funit =
+    getPref(user) map change flatMap setPref
 
-  def setPref(userId: String, change: Pref => Pref, notifyChange: Boolean): Funit =
-    getPref(userId) map change flatMap { setPref(_, notifyChange) }
+  def setPref(userId: String, change: Pref => Pref): Funit =
+    getPref(userId) map change flatMap setPref
 
-  def setPrefString(user: User, name: String, value: String, notifyChange: Boolean): Funit =
+  def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten
-      s"Bad pref ${user.id} $name -> $value" flatMap { setPref(_, notifyChange) }
+      s"Bad pref ${user.id} $name -> $value" flatMap setPref
 }

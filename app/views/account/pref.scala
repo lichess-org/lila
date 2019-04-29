@@ -80,6 +80,10 @@ object pref {
             radios(form("display.zen"), booleanChoices)
           ),
           setting(
+            "Display board resize handle",
+            radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
+          ),
+          setting(
             trans.blindfoldDraughts(),
             radios(form("display.blindfold"), translatedBlindfoldChoices)
           )

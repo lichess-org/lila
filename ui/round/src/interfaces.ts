@@ -186,6 +186,7 @@ export interface Pref {
   showCaptured: boolean;
   showKingMoves: boolean;
   submitMove: boolean;
+  resizeHandle: 0 | 1 | 2;
 }
 
 export interface MoveMetadata {

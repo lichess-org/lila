@@ -31,8 +31,7 @@ object Pref extends LidraughtsController {
   }
 
   def formApply = AuthBody { implicit ctx => me =>
-    def onSuccess(data: lidraughts.pref.DataForm.PrefData) =
-      api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
+    def onSuccess(data: lidraughts.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
       err => forms.pref.bindFromRequest(lidraughts.pref.FormCompatLayer(ctx.body)).fold(
@@ -73,6 +72,6 @@ object Pref extends LidraughtsController {
 
   def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
-      api.setPrefString(_, name, value, notifyChange = false)
+      api.setPrefString(_, name, value)
     } inject LidraughtsCookie.session(name, value)(ctx.req)
 }
