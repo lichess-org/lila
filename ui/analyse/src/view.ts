@@ -11,7 +11,7 @@ import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
-// import renderClocks from './clocks';
+import renderClocks from './clocks';
 import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
@@ -275,6 +275,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     playerBars = renderPlayerBars(ctrl),
+    clocks = renderClocks(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars;
   return h('main.analyse' + (chapter ? '.' + chapter.id : ''), {
@@ -314,6 +315,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     h('div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
       hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
+      ...(clocks || []),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
       chessground.render(ctrl),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
@@ -324,7 +326,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ]),
     menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || h('div.analyse__tools', [
-      // menuIsOpen || playerBars ? null : renderClocks(ctrl),
       ...(menuIsOpen ? [actionMenu(ctrl)] : [
         cevalView.renderCeval(ctrl),
         showCevalPvs ? cevalView.renderPvs(ctrl) : null,

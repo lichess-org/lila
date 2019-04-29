@@ -1,0 +1,25 @@
+.analyse__clock {
+  @extend %flex-between-nowrap, %metal, %box-shadow;
+
+  position: absolute;
+  right: 0;
+  padding: 0 .5em;
+
+  font-weight: bold;
+  text-align: center;
+
+  &.top {
+    @extend %box-radius-top;
+    top: -20px;
+  }
+  &.bottom {
+    @extend %box-radius-bottom;
+    bottom: -20px;
+  }
+  &.active {
+    background: mix($c-primary, $c-bg-box, 30%);
+  }
+  tenths {
+    font-size: 80%;
+  }
+}

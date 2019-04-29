@@ -7,11 +7,11 @@ interface ClockOpts {
   tenths: boolean;
 }
 
-export default function(ctrl: AnalyseCtrl): VNode | undefined {
+export default function(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const clocks = renderClocks(ctrl);
   if (!clocks) return;
   if (ctrl.bottomIsWhite()) clocks.reverse();
-  return h('div.analyse__clocks', clocks);
+  return clocks;
 }
 
 export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
@@ -35,13 +35,13 @@ export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   };
 
   return [
-    renderClock(centis[0], isWhiteTurn, opts),
-    renderClock(centis[1], !isWhiteTurn, opts)
+    renderClock(centis[0], isWhiteTurn, ctrl.bottomIsWhite() ? 'top' : 'bottom', opts),
+    renderClock(centis[1], !isWhiteTurn,  ctrl.bottomIsWhite() ? 'bottom' : 'top', opts)
   ];
 }
 
-function renderClock(centis: number | undefined, active: boolean, opts: ClockOpts): VNode {
-  return h('div.analyse__clock', {
+function renderClock(centis: number | undefined, active: boolean, cls: string, opts: ClockOpts): VNode {
+  return h('div.analyse__clock.' + cls, {
     class: { active },
   }, clockContent(centis, opts));
 }
