@@ -90,6 +90,20 @@
   @simul.map { sim =>
   <div class="game_simul side_box no_padding">
     <p class="top text" data-icon="|"><a href="@routes.Simul.show(sim.id)">@sim.fullName</a></p>
+    @if(sim.hasFmjd) {
+      <div class="padded">
+      @game.playerByUserId(sim.hostId).map { p =>
+      @sim.hostOfficialRating.map { r =>
+        @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
+      }
+      }
+      @game.opponentByUserId(sim.hostId).map { p =>
+      @p.userId.flatMap(id => sim.pairings.find(_ is id)).flatMap(_.player.officialRating).map { r =>
+        @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
+      }
+      }
+      </div>
+    }
   </div>
   }
 </div>
