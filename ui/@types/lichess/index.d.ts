@@ -112,7 +112,7 @@ interface LichessStorage {
 
 interface LichessBooleanStorage {
   get(): boolean;
-  set(v: string): boolean;
+  set(v: boolean): boolean;
   toggle(): void;
 }
 
