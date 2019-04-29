@@ -9,8 +9,12 @@ function onSpeechChange(enabled: boolean) {
   else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
 }
 
-export function node(n: Tree.Node) {
-  withSpeech(s => s.step(n, true));
+export function node(n: Tree.Node, cut: boolean) {
+  withSpeech(s => s.step(n, cut));
+}
+
+export function success() {
+  withSpeech(s => s.say("Success!", false));
 }
 
 function withSpeech(f: (speech: LichessSpeech) => void) {

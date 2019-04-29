@@ -12,6 +12,7 @@ import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
+import * as speech from './speech';
 import { sound } from './sound';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
@@ -162,6 +163,7 @@ export default function(opts, redraw: () => void): Controller {
     var progress = moveTest();
     if (progress) applyProgress(progress);
     redraw();
+    speech.node(node, false);
   };
 
   function reorderChildren(path: Tree.Path, recursive?: boolean) {
@@ -222,6 +224,7 @@ export default function(opts, redraw: () => void): Controller {
       vm.round = res.round;
       vm.voted = res.voted;
       redraw();
+      if (win) speech.success();
     });
   };
 
@@ -369,6 +372,7 @@ export default function(opts, redraw: () => void): Controller {
       g.selectSquare(null);
     });
     jump(path);
+    speech.node(vm.node, true);
   };
 
   function viewSolution() {
@@ -449,6 +453,8 @@ export default function(opts, redraw: () => void): Controller {
       jump(vm.path);
     });
   });
+
+  speech.setup();
 
   return {
     vm,
