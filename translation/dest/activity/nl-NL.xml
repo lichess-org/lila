@@ -26,6 +26,10 @@
     <item quantity="one">Speelde %1$s zet</item>
     <item quantity="other">Speelde %1$s zet</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">in %1$s correspondentiepartij</item>
+    <item quantity="other">in %1$s correspondentiepartijen</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Voltooide %s correspondentiepartij</item>
     <item quantity="other">Voltooide %s correspondentiepartijen</item>
