@@ -22,6 +22,7 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
+import viewStatus from 'game/view/status';
 import * as keyboard from './keyboard';
 import { decSimulToMove } from './simulStanding';
 import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, NvuiPlugin } from './interfaces';
@@ -75,7 +76,6 @@ export default class RoundController {
   nvui?: NvuiPlugin;
 
   private music?: any;
-  private speech?: any;
 
   constructor(opts: RoundOpts, redraw: Redraw) {
 
@@ -137,11 +137,17 @@ export default class RoundController {
         });
       if (this.music && set !== 'music') this.music = undefined;
 
-      if (!this.speech && set === 'speech')
+      if (!window.Speech && set === 'speech')
         li.loadScript('compiled/lidraughts.round.speech.min.js').then(() => {
-          this.speech = li.RoundSpeech();
+          const s = viewStatus(this);
+          if (s == 'playingRightNow') window.Speech!.step(this.stepAt(this.ply), false);
+          else {
+            window.Speech!.say(s);
+            const w = this.data.game.winner;
+            if (w) window.Speech!.say(this.trans.noarg(w + 'IsVictorious'))
+          }
         });
-      if (this.speech && set !== 'speech') this.speech = undefined;
+      if (window.Speech && set !== 'music') window.Speech = undefined;
     });
 
     li.pubsub.on('zen', () => {
@@ -219,7 +225,7 @@ export default class RoundController {
     this.cancelMove();
     this.draughtsground.selectSquare(null);
     if (!this.jump(ply)) this.redraw();
-    if (this.speech) this.speech.jump(round.plyStep(this.data, ply));
+    if (window.Speech) window.Speech.step(this.stepAt(ply));
   };
 
   isPlaying = () => game.isPlayerPlaying(this.data);
@@ -230,7 +236,7 @@ export default class RoundController {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = round.plyStep(this.data, ply),
+    const s = this.stepAt(ply),
       ghosts = countGhosts(s.fen),
       config: CgConfig = {
         fen: s.fen,
@@ -473,7 +479,7 @@ export default class RoundController {
     this.onChange();
     if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
-    if (this.speech) this.speech.jump(step, true);
+    if (window.Speech) window.Speech.step(step, true);
   };
 
   private playPredrop = () => {
@@ -702,14 +708,16 @@ export default class RoundController {
   setDraughtsground = (dg: DgApi) => {
     this.draughtsground = dg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
+      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
       li.raf(this.redraw);
     }
   };
 
+  private stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+
   private delayedInit = () => {
     const d = this.data;
-    if (this.isPlaying() && !li.sound.say('ready') && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
+    if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
       li.sound.genericNotify();
     }
     li.requestIdleCallback(() => {
