@@ -14,7 +14,7 @@ export function renderSan(san: San) {
     if (c == '@') return 'at';
     const code = c.charCodeAt(0);
     if (code > 48 && code < 58) return c; // 1-8
-    if (code > 96 && code < 105) return c;
+    if (code > 96 && code < 105) return c + ' ';
     return roles[c] || c;
   }).join(' ');
   if (san.includes('+')) move += ' check';
@@ -35,8 +35,6 @@ window.lichess.RoundSpeech = function() {
     synth.cancel();
     synth.speak(msg);
   }
-
-  say('ready');
 
   return {
     jump(s: Step) {

@@ -17,6 +17,7 @@ export interface SoundCtrl {
   api: any;
   set(k: Key): void;
   volume(v: number): void;
+  redraw: Redraw;
   trans: Trans;
   close: Close;
 }
@@ -26,6 +27,13 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const list: Sound[] = raw.map(s => s.split(' '));
 
   const api = window.lichess.sound;
+
+  function say(text: string) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.volume = parseFloat(window.lichess.storage.get('sound-volume'));
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msg);
+  }
 
   return {
     makeList() {
@@ -38,11 +46,14 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       api.genericNotify();
       $.post('/pref/soundSet', { set: k });
       redraw();
+      if (k == 'speech') say('Speech synthesis ready');
     },
     volume(v: number) {
       api.setVolume(v);
-      api.move(true);
+      if (api.set() == 'speech') say('knight c3');
+      else api.move(true);
     },
+    redraw,
     trans,
     close
   };
@@ -50,7 +61,13 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
 export function view(ctrl: SoundCtrl): VNode {
 
-  return h('div.sub.sound.' + ctrl.api.set(), [
+  return h('div.sub.sound.' + ctrl.api.set(), {
+    hook: {
+      insert() {
+        window.speechSynthesis.onvoiceschanged = ctrl.redraw;
+      }
+    }
+  }, [
     header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
