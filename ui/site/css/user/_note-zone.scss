@@ -7,7 +7,7 @@
     height: 5em;
   }
   .note {
-    @extend %flex-between;
+    @extend %flex-between-nowrap, %break-word;
     padding-top: 1em;
     border-top: $border;
     margin-top: 1em;
