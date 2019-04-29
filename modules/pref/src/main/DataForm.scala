@@ -8,37 +8,43 @@ object DataForm {
   private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
     choice => choices.exists(_._1 == choice)
 
+  private def checkedNumber(choices: Seq[(Int, String)]) =
+    number.verifying(containedIn(choices))
+
+  private lazy val booleanNumber =
+    number.verifying(Pref.BooleanPref.verify)
+
   val pref = Form(mapping(
     "display" -> mapping(
       "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-      "captured" -> number.verifying(Pref.BooleanPref.verify),
-      "highlight" -> number.verifying(Pref.BooleanPref.verify),
-      "destination" -> number.verifying(Pref.BooleanPref.verify),
-      "coords" -> number.verifying(containedIn(Pref.Coords.choices)),
-      "replay" -> number.verifying(containedIn(Pref.Replay.choices)),
-      "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "resizeHandle" -> optional(number.verifying(containedIn(Pref.ResizeHandle.choices))),
-      "blindfold" -> number.verifying(containedIn(Pref.Blindfold.choices))
+      "captured" -> booleanNumber,
+      "highlight" -> booleanNumber,
+      "destination" -> booleanNumber,
+      "coords" -> checkedNumber(Pref.Coords.choices),
+      "replay" -> checkedNumber(Pref.Replay.choices),
+      "pieceNotation" -> optional(booleanNumber),
+      "zen" -> optional(booleanNumber),
+      "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+      "blindfold" -> checkedNumber(Pref.Blindfold.choices)
     )(DisplayData.apply)(DisplayData.unapply),
     "behavior" -> mapping(
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
-      "premove" -> number.verifying(Pref.BooleanPref.verify),
-      "takeback" -> number.verifying(containedIn(Pref.Takeback.choices)),
-      "autoQueen" -> number.verifying(containedIn(Pref.AutoQueen.choices)),
-      "autoThreefold" -> number.verifying(containedIn(Pref.AutoThreefold.choices)),
-      "submitMove" -> number.verifying(containedIn(Pref.SubmitMove.choices)),
-      "confirmResign" -> number.verifying(containedIn(Pref.ConfirmResign.choices)),
-      "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
+      "premove" -> booleanNumber,
+      "takeback" -> checkedNumber(Pref.Takeback.choices),
+      "autoQueen" -> checkedNumber(Pref.AutoQueen.choices),
+      "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
+      "submitMove" -> checkedNumber(Pref.SubmitMove.choices),
+      "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+      "keyboardMove" -> optional(booleanNumber),
+      "rookCastle" -> optional(booleanNumber)
     )(BehaviorData.apply)(BehaviorData.unapply),
-    "clockTenths" -> number.verifying(containedIn(Pref.ClockTenths.choices)),
-    "clockBar" -> number.verifying(Pref.BooleanPref.verify),
-    "clockSound" -> number.verifying(Pref.BooleanPref.verify),
-    "follow" -> number.verifying(Pref.BooleanPref.verify),
-    "challenge" -> number.verifying(containedIn(Pref.Challenge.choices)),
-    "message" -> number.verifying(containedIn(Pref.Message.choices)),
-    "studyInvite" -> optional(number.verifying(containedIn(Pref.StudyInvite.choices))),
+    "clockTenths" -> checkedNumber(Pref.ClockTenths.choices),
+    "clockBar" -> booleanNumber,
+    "clockSound" -> booleanNumber,
+    "follow" -> booleanNumber,
+    "challenge" -> checkedNumber(Pref.Challenge.choices),
+    "message" -> checkedNumber(Pref.Message.choices),
+    "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
