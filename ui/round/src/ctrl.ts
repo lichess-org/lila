@@ -7,6 +7,7 @@ import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
+import * as speech from './speech';
 import * as cg from 'draughtsground/types';
 import { Config as CgConfig } from 'draughtsground/config';
 import { Api as DgApi } from 'draughtsground/api';
@@ -22,7 +23,6 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
-import viewStatus from 'game/view/status';
 import * as keyboard from './keyboard';
 import { decSimulToMove } from './simulStanding';
 import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, NvuiPlugin } from './interfaces';
@@ -136,18 +136,7 @@ export default class RoundController {
             this.music = li.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
-
-      if (!window.Speech && set === 'speech')
-        li.loadScript('compiled/lidraughts.round.speech.min.js').then(() => {
-          const s = viewStatus(this);
-          if (s == 'playingRightNow') window.Speech!.step(this.stepAt(this.ply), false);
-          else {
-            window.Speech!.say(s);
-            const w = this.data.game.winner;
-            if (w) window.Speech!.say(this.trans.noarg(w + 'IsVictorious'))
-          }
-        });
-      if (window.Speech && set !== 'music') window.Speech = undefined;
+      speech.onSoundSet(this, set);
     });
 
     li.pubsub.on('zen', () => {
@@ -224,9 +213,7 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.draughtsground.selectSquare(null);
-    if (this.jump(ply)) {
-      if (window.Speech) window.Speech.step(this.stepAt(ply));
-    }
+    if (this.jump(ply)) speech.userJump(this, ply);
     else this.redraw();
   };
 
@@ -481,7 +468,7 @@ export default class RoundController {
     this.onChange();
     if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
-    if (window.Speech) window.Speech.step(step, false);
+    speech.step(step);
   };
 
   private playPredrop = () => {
@@ -715,7 +702,7 @@ export default class RoundController {
     }
   };
 
-  private stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+  stepAt = (ply: Ply) => round.plyStep(this.data, ply);
 
   private delayedInit = () => {
     const d = this.data;
