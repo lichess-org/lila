@@ -497,6 +497,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     if (d.tv) setTimeout(li.reload, 10000);
+    speech.status(this);
   };
 
   challengeRematch = (): void => {
