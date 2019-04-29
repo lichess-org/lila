@@ -3,12 +3,17 @@ const lidraughtsGulpPlugins = require('../gulp/tsPlugins.js');
 
 lidraughtsGulp('LidraughtsRound', 'lidraughts.round', __dirname);
 
-// adds commands: KeyboardMoves, NVUI
+// adds commands: KeyboardMove, Speech, NVUI
 lidraughtsGulpPlugins([
   {
     standalone: 'KeyboardMove',
     entries: ['src/plugins/keyboardMove.ts'],
     target: 'lidraughts.round.keyboardMove.min.js'
+  },
+  {
+    standalone: 'Speech',
+    entries: ['src/plugins/speech.ts'],
+    target: 'lidraughts.round.speech.min.js'
   },
   {
     standalone: 'NVUI',

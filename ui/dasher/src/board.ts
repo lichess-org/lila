@@ -73,4 +73,5 @@ function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
       value: ctrl.readZoom(),
       slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
     });
+  });
 }

@@ -75,6 +75,7 @@ export default class RoundController {
   nvui?: NvuiPlugin;
 
   private music?: any;
+  private speech?: any;
 
   constructor(opts: RoundOpts, redraw: Redraw) {
 
@@ -135,6 +136,12 @@ export default class RoundController {
             this.music = li.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
+
+      if (!this.speech && set === 'speech')
+        li.loadScript('compiled/lidraughts.round.speech.min.js').then(() => {
+          this.speech = li.RoundSpeech();
+        });
+      if (this.speech && set !== 'speech') this.speech = undefined;
     });
 
     li.pubsub.on('zen', () => {
@@ -242,6 +249,7 @@ export default class RoundController {
       if (s.san.includes('x')) sound.capture();
       else sound.move();
     }
+    if (this.speech) this.speech.jump(s);
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
     return true;
@@ -358,113 +366,114 @@ export default class RoundController {
     this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): void => {
-      const d = this.data,
-          playing = this.isPlaying();
+    const d = this.data,
+      playing = this.isPlaying();
 
-      const ghosts = countGhosts(o.fen);
+    const ghosts = countGhosts(o.fen);
 
-      d.game.turns = o.ply;
-      d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
+    d.game.turns = o.ply;
+    d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
 
-      const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-          activeColor = d.player.color === d.game.player;
+    const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
+      activeColor = d.player.color === d.game.player;
 
-      if (o.status) d.game.status = o.status;
-      if (o.winner) d.game.winner = o.winner;
+    if (o.status) d.game.status = o.status;
+    if (o.winner) d.game.winner = o.winner;
 
-      this.playerByColor('white').offeringDraw = o.wDraw;
-      this.playerByColor('black').offeringDraw = o.bDraw;
+    this.playerByColor('white').offeringDraw = o.wDraw;
+    this.playerByColor('black').offeringDraw = o.bDraw;
 
-      d.possibleMoves = activeColor ? o.dests : undefined;
-      d.possibleDrops = activeColor ? o.drops : undefined;
-      d.captureLength = o.captLen;
+    d.possibleMoves = activeColor ? o.dests : undefined;
+    d.possibleDrops = activeColor ? o.drops : undefined;
+    d.captureLength = o.captLen;
 
-      this.setTitle();
+    this.setTitle();
 
-      if (!this.replaying()) {
+    if (!this.replaying()) {
 
-          //Show next ply if we're following the head of the line (not replaying)
-          this.ply = d.game.turns + (ghosts > 0 ? 1 : 0);
+      //Show next ply if we're following the head of the line (not replaying)
+      this.ply = d.game.turns + (ghosts > 0 ? 1 : 0);
 
-          if (o.role) this.draughtsground.newPiece({
-              role: o.role,
-              color: playedColor
-          }, o.uci.substr(o.uci.length - 2, 2) as cg.Key);
-          else {
-              const keys = util.uci2move(o.uci);
-              this.draughtsground.move(keys![0], keys![1]);
-          }
-          if (o.enpassant) {
-              const p = o.enpassant, pieces: cg.PiecesDiff = {};
-              pieces[p.key] = undefined;
-              this.draughtsground.setPieces(pieces);
-              if (d.game.variant.key === 'atomic') {
-                  atomic.enpassant(this, p.key, p.color);
-                  sound.explode();
-              } else sound.capture();
-          }
-          if (o.promotion) ground.promote(this.draughtsground, o.promotion.key, o.promotion.pieceClass);
-          this.draughtsground.set({
-              turnColor: d.game.player,
-              movable: {
-                  dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
-              },
-              captureLength: d.captureLength
-          });
-          if (o.check) sound.check();
-          blur.onMove();
+      if (o.role) this.draughtsground.newPiece({
+        role: o.role,
+        color: playedColor
+      }, o.uci.substr(o.uci.length - 2, 2) as cg.Key);
+      else {
+        const keys = util.uci2move(o.uci);
+        this.draughtsground.move(keys![0], keys![1]);
       }
-      d.game.threefold = !!o.threefold;
-
-      const step = round.addStep(d.steps, {
-          ply: d.game.turns,
-          fen: o.fen,
-          san: o.san,
-          uci: o.uci,
-          check: o.check,
-          crazy: o.crazyhouse
+      if (o.enpassant) {
+        const p = o.enpassant, pieces: cg.PiecesDiff = {};
+        pieces[p.key] = undefined;
+        this.draughtsground.setPieces(pieces);
+        if (d.game.variant.key === 'atomic') {
+          atomic.enpassant(this, p.key, p.color);
+          sound.explode();
+        } else sound.capture();
+      }
+      if (o.promotion) ground.promote(this.draughtsground, o.promotion.key, o.promotion.pieceClass);
+      this.draughtsground.set({
+        turnColor: d.game.player,
+        movable: {
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
+        },
+        captureLength: d.captureLength
       });
+      if (o.check) sound.check();
+      blur.onMove();
+    }
+    d.game.threefold = !!o.threefold;
 
-      this.justDropped = undefined;
-      this.justCaptured = undefined;
-      game.setOnGame(d, playedColor, true);
-      this.data.forecastCount = undefined;
-      if (o.clock) {
-          const oc = o.clock;
-          this.shouldSendMoveTime = true;
-          const delay = (playing && activeColor) ? 0 : (oc.lag || 1);
-          if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
-          else if (this.corresClock) this.corresClock.update(
-              oc.white,
-              oc.black);
-      }
-      if (this.data.expiration) {
-          if (this.data.steps.length > 2) this.data.expiration = undefined;
-          else this.data.expiration.movedAt = Date.now();
-      }
-      this.redraw();
-      if (playing && playedColor === d.player.color) {
-          this.moveOn.next();
-          cevalSub.publish(d, o);
-          if (this.data.simul && !this.redirecting)
-            decSimulToMove(this.trans);
-      }
-      if (!this.replaying() && playedColor !== d.player.color) {
-          // atrocious hack to prevent race condition
-          // with explosions and premoves
-          // https://github.com/ornicar/lila/issues/343
-          const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
-          setTimeout(() => {
-              if (!this.draughtsground.playPremove() && !this.playPredrop()) {
-                  promotion.cancel(this);
-                  this.showYourMoveNotification();
-              }
-          }, premoveDelay);
-      }
-      this.autoScroll();
-      this.onChange();
-      if (this.keyboardMove) this.keyboardMove.update(step);
-      if (this.music) this.music.jump(o);
+    const step = round.addStep(d.steps, {
+      ply: d.game.turns,
+      fen: o.fen,
+      san: o.san,
+      uci: o.uci,
+      check: o.check,
+      crazy: o.crazyhouse
+    });
+
+    this.justDropped = undefined;
+    this.justCaptured = undefined;
+    game.setOnGame(d, playedColor, true);
+    this.data.forecastCount = undefined;
+    if (o.clock) {
+      const oc = o.clock;
+      this.shouldSendMoveTime = true;
+      const delay = (playing && activeColor) ? 0 : (oc.lag || 1);
+      if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
+      else if (this.corresClock) this.corresClock.update(
+        oc.white,
+        oc.black);
+    }
+    if (this.data.expiration) {
+      if (this.data.steps.length > 2) this.data.expiration = undefined;
+      else this.data.expiration.movedAt = Date.now();
+    }
+    this.redraw();
+    if (playing && playedColor === d.player.color) {
+      this.moveOn.next();
+      cevalSub.publish(d, o);
+      if (this.data.simul && !this.redirecting)
+        decSimulToMove(this.trans);
+    }
+    if (!this.replaying() && playedColor !== d.player.color) {
+      // atrocious hack to prevent race condition
+      // with explosions and premoves
+      // https://github.com/ornicar/lila/issues/343
+      const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
+      setTimeout(() => {
+        if (!this.draughtsground.playPremove() && !this.playPredrop()) {
+          promotion.cancel(this);
+          this.showYourMoveNotification();
+        }
+      }, premoveDelay);
+    }
+    this.autoScroll();
+    this.onChange();
+    if (this.keyboardMove) this.keyboardMove.update(step);
+    if (this.music) this.music.jump(o);
+    if (this.speech) this.speech.jump(step);
   };
 
   private playPredrop = () => {

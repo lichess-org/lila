@@ -569,7 +569,7 @@
     };
     var collection = new memoize(function(k) {
       var set = soundSet;
-      if (set === 'music') {
+      if (set === 'music' || set === 'speech') {
         if (['move', 'capture', 'check'].includes(k)) return {
           play: $.noop
         };

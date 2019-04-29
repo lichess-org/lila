@@ -21,7 +21,6 @@ import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
-import { StudyCtrl } from './study/interfaces';
 import * as studyView from './study/studyView';
 import * as studyPracticeView from './study/practice/studyPracticeView';
 import { render as acplView } from './acpl'

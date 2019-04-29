@@ -53,7 +53,8 @@ interface Lidraughts {
   AnalyseNVUI(redraw: () => void): {
     render(ctrl: any): any;
   }
-  playMusic(): void;
+  playMusic(): any;
+  RoundSpeech(): any;
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
