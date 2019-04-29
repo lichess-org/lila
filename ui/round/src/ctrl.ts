@@ -224,8 +224,10 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.draughtsground.selectSquare(null);
-    if (!this.jump(ply)) this.redraw();
-    if (window.Speech) window.Speech.step(this.stepAt(ply));
+    if (this.jump(ply)) {
+      if (window.Speech) window.Speech.step(this.stepAt(ply));
+    }
+    else this.redraw();
   };
 
   isPlaying = () => game.isPlayerPlaying(this.data);
@@ -479,7 +481,7 @@ export default class RoundController {
     this.onChange();
     if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
-    if (window.Speech) window.Speech.step(step, true);
+    if (window.Speech) window.Speech.step(step, false);
   };
 
   private playPredrop = () => {
