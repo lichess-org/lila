@@ -63,6 +63,16 @@ function buildStorage(storageKey) {
           });
         }
       };
+    },
+    makeBoolean: function(k) {
+      return {
+        get: function() {
+          return storageObj.get(k) == '1';
+        },
+        set: function(v) {
+          return storageObj.set(k, v ? 1 : 0);
+        }
+      };
     }
   };
   return storageObj;
