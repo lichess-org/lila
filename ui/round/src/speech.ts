@@ -13,7 +13,7 @@ export function onSpeechChange(ctrl: RoundController) {
         else {
           window.Speech!.say(s);
           const w = ctrl.data.game.winner;
-          if (w) window.Speech!.say(ctrl.trans.noarg(w + 'IsVictorious'))
+          if (w) window.Speech!.say(ctrl.trans.noarg(w + 'IsVictorious'), false)
         }
       });
     else if (window.Speech && !enabled) window.Speech = undefined;
@@ -22,7 +22,7 @@ export function onSpeechChange(ctrl: RoundController) {
 
 
 export function userJump(ctrl: RoundController, ply: Ply) {
-  if (window.Speech) window.Speech.step(ctrl.stepAt(ply));
+  if (window.Speech) window.Speech.step(ctrl.stepAt(ply), true);
 }
 
 export function step(step: Step) {
