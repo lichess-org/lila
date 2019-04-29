@@ -74,6 +74,8 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     piece: pieceCtrl(data.piece, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
   };
 
+  window.lichess.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));
+
   return {
     mode,
     setMode,

@@ -461,6 +461,7 @@
         var $p = $(this).parent();
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
+        lichess.pubsub.emit('top.toggle.' + $(this).attr('id'))();
         setTimeout(function() {
           var handler = function(e) {
             if ($.contains($p[0], e.target)) return;
