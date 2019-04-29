@@ -118,4 +118,10 @@
     background: mix($c-good, $c-bg-box, 10);
     padding: 2rem;
   }
+
+  group.radio {
+    input:checked + label {
+      @extend %active-soft;
+    }
+  }
 }
