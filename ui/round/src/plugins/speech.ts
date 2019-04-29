@@ -14,7 +14,7 @@ export function renderSan(san: San) {
     if (c == '@') return 'at';
     const code = c.charCodeAt(0);
     if (code > 48 && code < 58) return c; // 1-8
-    if (code > 96 && code < 105) return c + ' ';
+    if (code > 96 && code < 105) return c.toUpperCase();
     return roles[c] || c;
   }).join(' ');
   if (san.includes('+')) move += ' check';
