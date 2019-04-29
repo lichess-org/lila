@@ -11,7 +11,7 @@ object chat {
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
-      div(cls := "mchat__tab")(i(cls := "ddloader"))
+      div(cls := "mchat__tab")(nbsp)
     ),
     div(cls := "mchat__content")
   )
