@@ -1,0 +1,33 @@
+{
+  "name": "speech",
+  "version": "1.0.0",
+  "description": "lidraughts.org speech synthesis",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts"
+  },
+  "keywords": [
+    "draughts",
+    "lidraughts",
+    "non-visual",
+    "speech synthesis",
+    "accessibility"
+  ],
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
+  "homepage": "https://github.com/roepstoep/lidraughts",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "@types/lidraughts": "1.0.0",
+    "typescript": "^3"
+  },
+  "dependencies": {
+  }
+}

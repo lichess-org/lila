@@ -11,11 +11,6 @@ lidraughtsGulpPlugins([
     target: 'lidraughts.round.keyboardMove.min.js'
   },
   {
-    standalone: 'Speech',
-    entries: ['src/plugins/speech.ts'],
-    target: 'lidraughts.round.speech.min.js'
-  },
-  {
     standalone: 'NVUI',
     entries: ['src/plugins/nvui.ts'],
     target: 'lidraughts.round.nvui.min.js'

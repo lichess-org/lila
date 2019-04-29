@@ -29,6 +29,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { getCompChild, nextGlyphSymbol } from './nodeFinder';
+import * as speech from './speech';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, DgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { calcDests } from './study/gamebook/gamebookEmbed';
@@ -185,6 +186,8 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
+
+    speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -410,6 +413,7 @@ export default class AnalyseCtrl {
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
+      speech.node(this.node);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();

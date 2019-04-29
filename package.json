@@ -43,6 +43,7 @@
     "ui/editor",
     "ui/game",
     "ui/nvui",
+    "ui/speech",
     "ui/lobby",
     "ui/notify",
     "ui/perfstat",
