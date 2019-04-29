@@ -275,7 +275,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     playerBars = renderPlayerBars(ctrl),
-    clocks = renderClocks(ctrl),
+    clocks = !playerBars && renderClocks(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars;
   return h('main.analyse' + (chapter ? '.' + chapter.id : ''), {
@@ -306,7 +306,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     class: {
       'comp-off': !ctrl.showComputer(),
       'gauge-on': gaugeOn,
-      'has-players': !!playerBars
+      'has-players': !!playerBars,
+      'has-clocks': !!clocks
     }
   }, [
     gaugeOn ? cevalView.renderGauge(ctrl) : null,

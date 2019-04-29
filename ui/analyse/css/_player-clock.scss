@@ -1,3 +1,16 @@
+$clock-height: 20px;
+
+.analyse.has-clocks {
+  .cg-board {
+    border-radius: 0 3px 3px 0;
+  }
+  @include breakpoint($mq-col1) {
+    .analyse__controls {
+      margin-top: #{$clock-height * 1/2};
+    }
+  }
+}
+
 .analyse__clock {
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
@@ -5,16 +18,19 @@
   right: 0;
   padding: 0 .5em;
 
+  height: $clock-height;
+  line-height: $clock-height;
+
   font-weight: bold;
   text-align: center;
 
   &.top {
     @extend %box-radius-top;
-    top: -20px;
+    top: #{-$clock-height};
   }
   &.bottom {
     @extend %box-radius-bottom;
-    bottom: -20px;
+    bottom: #{-$clock-height};
   }
   &.active {
     background: mix($c-primary, $c-bg-box, 30%);

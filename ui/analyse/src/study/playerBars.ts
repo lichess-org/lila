@@ -21,7 +21,7 @@ export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
   if (!playerNames.white || !playerNames.black) return;
   const clocks = renderClocks(ctrl),
   ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
-  return (['white', 'black'] as Color[]).map(color => 
+  return (['white', 'black'] as Color[]).map(color =>
     renderPlayer(tags, clocks, playerNames, color, ticking === color, ctrl.bottomColor() !== color));
 }
 
