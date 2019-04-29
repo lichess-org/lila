@@ -586,13 +586,26 @@
     var enabled = function() {
       return soundSet !== 'silent';
     };
+    var getVolume = function() {
+      return parseFloat(api.volumeStorage.get() || api.defaultVolume);
+    }
     Object.keys(names).forEach(function(name) {
-      api[name] = function() {
+      api[name] = function(text) {
         if (!enabled()) return;
-        Howler.volume(api.volumeStorage.get() || api.defaultVolume);
-        collection(name).play();
+        if (!text || !api.say(text)) {
+          Howler.volume(getVolume());
+          collection(name).play();
+        }
       }
     });
+    api.say = function(text) {
+      if (soundSet != 'speech') return false;
+      var msg = new SpeechSynthesisUtterance(text);
+      msg.volume = getVolume();
+      speechSynthesis.cancel();
+      speechSynthesis.speak(msg);
+      return true;
+    };
     api.load = function(name) {
       if (enabled() && name in names) collection(name);
     };

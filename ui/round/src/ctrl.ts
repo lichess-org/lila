@@ -678,7 +678,7 @@ export default class RoundController {
 
   private delayedInit = () => {
     const d = this.data;
-    if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
+    if (this.isPlaying() && !li.sound.say('ready') && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
       li.sound.genericNotify();
     }
     li.requestIdleCallback(() => {

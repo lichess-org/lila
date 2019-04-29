@@ -28,13 +28,6 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
   const api = window.lichess.sound;
 
-  function say(text: string) {
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.volume = parseFloat(window.lichess.storage.get('sound-volume'));
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(msg);
-  }
-
   return {
     makeList() {
       const canSpeech = window.speechSynthesis && window.speechSynthesis.getVoices().length;
@@ -46,12 +39,11 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       api.genericNotify();
       $.post('/pref/soundSet', { set: k });
       redraw();
-      if (k == 'speech') say('Speech synthesis ready');
+      api.say('Speech synthesis ready');
     },
     volume(v: number) {
       api.setVolume(v);
-      if (api.set() == 'speech') say('knight c3');
-      else api.move(true);
+      api.move('knight c3');
     },
     redraw,
     trans,
