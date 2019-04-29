@@ -328,7 +328,7 @@
   }
   .boards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     a {
       @extend %box-radius;
       @include transition(background);
