@@ -28,17 +28,19 @@ window.lichess.RoundSpeech = function() {
 
   const volumeStorage = window.lichess.storage.make('sound-volume');
 
-  function say(text: string) {
+  function say(text: string, queue: boolean = false) {
+    // console.log(`%c${text} ${queue}`, 'color: red');
     const msg = new SpeechSynthesisUtterance(text);
     msg.rate = 1.2;
     msg.volume = parseFloat(volumeStorage.get());
-    synth.cancel();
+    if (!queue) synth.cancel();
     synth.speak(msg);
   }
 
   return {
-    jump(s: Step) {
-      say(s.san ? renderSan(s.san) : 'Game starts');
+    jump(s: Step, queue: boolean = false) {
+      if (!s) return;
+      say(s.san ? renderSan(s.san) : 'Game starts', queue);
     }
   };
 }
