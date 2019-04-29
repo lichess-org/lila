@@ -3,7 +3,7 @@ body.resizing {
 }
 
 .board-resize {
-  $resize-width: 20px;
+  $resize-width: 22px;
   display: none;
   @include breakpoint($mq-col2-uniboard) {
     display: block;
@@ -14,7 +14,7 @@ body.resizing {
     height: $resize-width;
     cursor: nwse-resize;
     &::before, &::after {
-      background: #333;
+      background: #000;
       content: '';
       position: absolute;
       width: 12px;
