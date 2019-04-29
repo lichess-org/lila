@@ -71,6 +71,9 @@ function buildStorage(storageKey) {
         },
         set: function(v) {
           return storageObj.set(k, v ? 1 : 0);
+        },
+        toggle: function(v) {
+          return storageObj.set(k, storageObj.get() ? 0 : 1);
         }
       };
     }

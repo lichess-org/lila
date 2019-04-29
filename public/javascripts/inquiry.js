@@ -8,9 +8,9 @@ window.requestIdleCallback(function() {
       $('body').toggleClass('no-inquiry');
     });
 
-    var nextStore = lichess.storage.make('inquiry-auto-next');
+    var nextStore = lichess.storage.makeBoolean('inquiry-auto-next');
     var next = function() {
-      return nextStore.get() !== '';
+      return nextStore.get();
     };
 
     if (!next()) {
@@ -19,7 +19,7 @@ window.requestIdleCallback(function() {
     }
 
     $('#inquiry .switcher input').on('change', function() {
-      nextStore.set(next() ? '' : '1');
+      nextStore.set(next());
       $('#inquiry input.auto-next').val(next() ? '1' : '0');
     });
   });

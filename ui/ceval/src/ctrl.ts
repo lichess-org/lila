@@ -73,9 +73,9 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.make(storageKey('client-eval-enabled'));
+  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
+  const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -246,7 +246,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       stop();
       enabled(!enabled());
       if (document.visibilityState !== 'hidden')
-        enableStorage.set(enabled() ? '1' : '0');
+        enableStorage.set(enabled());
     },
     curDepth(): number {
       return curEval ? curEval.depth : 0;

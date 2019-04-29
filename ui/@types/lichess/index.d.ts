@@ -95,6 +95,7 @@ interface Pubsub {
 
 interface LichessStorageHelper {
   make(k: string): LichessStorage;
+  makeBoolean(k: string): LichessBooleanStorage;
   get(k: string): string;
   set(k: string, v: string): string;
   remove(k: string): void;
@@ -105,6 +106,12 @@ interface LichessStorage {
   set(v: string): string;
   remove(): void;
   listen(f: (e: StorageEvent) => void): void;
+}
+
+interface LichessBooleanStorage {
+  get(): boolean;
+  set(v: string): boolean;
+  toggle(): void;
 }
 
 interface Window {
