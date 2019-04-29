@@ -62,7 +62,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       result = '½-½';
   }
   if (result || status.aborted(ctrl.data)) {
-    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
+    const winner = ctrl.data.game.winner;
     return h('div.result-wrap', [
       h('p.result', result || ''),
       h('p.status', {
@@ -72,7 +72,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         })
       }, [
         viewStatus(ctrl),
-        winner ? ' • ' + ctrl.trans.noarg(winner.color + 'IsVictorious') : ''
+        winner ? ' • ' + ctrl.trans.noarg(winner + 'IsVictorious') : ''
       ])
     ]);
   }

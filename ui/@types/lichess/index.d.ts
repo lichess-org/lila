@@ -54,7 +54,10 @@ interface Lichess {
     render(ctrl: any): any;
   }
   playMusic(): any;
-  RoundSpeech(): any;
+  Speech?: {
+    say(t: string, cut?: boolean): void;
+    step(s: { san?: San }, cut?: boolean): void;
+  };
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;

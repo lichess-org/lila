@@ -43,7 +43,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     },
     volume(v: number) {
       api.setVolume(v);
-      api.move('knight c3');
+      api.move('knight F 7');
     },
     redraw,
     trans,

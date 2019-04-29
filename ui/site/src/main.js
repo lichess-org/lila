@@ -586,24 +586,22 @@
     var enabled = function() {
       return soundSet !== 'silent';
     };
-    var getVolume = function() {
-      return parseFloat(api.volumeStorage.get() || api.defaultVolume);
-    }
     Object.keys(names).forEach(function(name) {
       api[name] = function(text) {
         if (!enabled()) return;
         if (!text || !api.say(text)) {
-          Howler.volume(getVolume());
+          Howler.volume(api.getVolume());
           collection(name).play();
         }
       }
     });
-    api.say = function(text) {
+    api.say = function(text, cut) {
       if (soundSet != 'speech') return false;
-      var msg = new SpeechSynthesisUtterance(text);
-      msg.volume = getVolume();
-      speechSynthesis.cancel();
+      var msg = text.text ? text : new SpeechSynthesisUtterance(text);
+      msg.volume = api.getVolume();
+      if (cut) speechSynthesis.cancel();
       speechSynthesis.speak(msg);
+      console.log(`%c${msg.text}`, 'color: blue');
       return true;
     };
     api.load = function(name) {
@@ -612,6 +610,9 @@
     api.setVolume = function(v) {
       api.volumeStorage.set(v);
       Howler.volume(v);
+    };
+    api.getVolume = function() {
+      return api.volumeStorage.get() || api.defaultVolume;
     };
 
     var publish = function() {

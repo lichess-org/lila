@@ -1,8 +1,6 @@
-import { Step } from '../interfaces';
-
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 
-export function renderSan(san: San) {
+function renderSan(san: San) {
   let move: string;
   if (san.includes('O-O-O')) move = 'long castle';
   else if (san.includes('O-O')) move = 'short castle';
@@ -22,25 +20,13 @@ export function renderSan(san: San) {
   return move;
 }
 
-window.lichess.RoundSpeech = function() {
+export function say(text: string, cut: boolean = false) {
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.rate = 1.2;
+  if (cut) speechSynthesis.cancel();
+  window.lichess.sound.say(msg);
+}
 
-  const synth = window.speechSynthesis;
-
-  const volumeStorage = window.lichess.storage.make('sound-volume');
-
-  function say(text: string, queue: boolean = false) {
-    // console.log(`%c${text} ${queue}`, 'color: red');
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.rate = 1.2;
-    msg.volume = parseFloat(volumeStorage.get());
-    if (!queue) synth.cancel();
-    synth.speak(msg);
-  }
-
-  return {
-    jump(s: Step, queue: boolean = false) {
-      if (!s) return;
-      say(s.san ? renderSan(s.san) : 'Game starts', queue);
-    }
-  };
+export function step(s: { san?: San}, cut: boolean = true) {
+  say(s.san ? renderSan(s.san) : 'Game start', cut);
 }
