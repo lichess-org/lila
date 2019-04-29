@@ -193,7 +193,7 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.chessground.selectSquare(null);
-    if (this.jump(ply)) speech.userJump(this, ply);
+    if (ply != this.ply && this.jump(ply)) speech.userJump(this, ply);
     else this.redraw();
   };
 
