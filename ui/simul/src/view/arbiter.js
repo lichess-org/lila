@@ -69,7 +69,7 @@ module.exports = function(ctrl) {
       return m('tr', [
         m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '')),
         m('td.variant', { 'data-icon': variant.icon }, m('span', result)),
-        m('td', pairing.player.officialRating ? pairing.player.officialRating : '-'),
+        m('td', data.officialRating ? data.officialRating : '-'),
         m('td', (data && data.clock !== undefined) ? m(
           (playing && pairing.hostColor !== data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.clock))

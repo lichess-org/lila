@@ -35,7 +35,8 @@ object CrudForm {
     "chat" -> stringIn(chatChoices),
     "ceval" -> stringIn(cevalChoices),
     "percentage" -> text(minLength = 0, maxLength = 3)
-      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
+      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100)),
+    "fmjd" -> stringIn(fmjdChoices)
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
 
   case class Data(
@@ -54,7 +55,8 @@ object CrudForm {
       color: String,
       chat: String,
       ceval: String,
-      percentage: String
+      percentage: String,
+      fmjd: String
   )
 
   val imageChoices = List(
@@ -73,6 +75,13 @@ object CrudForm {
   )
   val cevalDefault = "disabled"
 
+  val fmjdChoices = List(
+    "never" -> "Lidraughts rating",
+    "available" -> "FMJD when available",
+    "always" -> "FMJD only"
+  )
+  val fmjdDefault = "never"
+
   val empty = CrudForm.Data(
     name = "",
     homepageHours = 0,
@@ -89,6 +98,7 @@ object CrudForm {
     color = colorDefault,
     chat = chatDefault,
     ceval = cevalDefault,
-    percentage = ""
+    percentage = "",
+    fmjd = fmjdDefault
   )
 }

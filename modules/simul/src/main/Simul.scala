@@ -76,6 +76,7 @@ case class Simul(
   }
 
   def hasCeval = spotlight.flatMap(_.ceval) ?? { Simul.EvalSetting.Disabled != }
+  def hasFmjd = spotlight.flatMap(_.fmjdRating) ?? { Simul.ShowFmjdRating.Never != }
 
   def addApplicant(applicant: SimulApplicant) = Created {
     if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
@@ -254,6 +255,16 @@ object Simul {
     case object Spectators extends EvalSetting
     case object Everyone extends EvalSetting
     val byKey = List(Disabled, Arbiter, Spectators, Everyone).map { v => v.key -> v }.toMap
+  }
+
+  sealed trait ShowFmjdRating {
+    lazy val key = toString.toLowerCase
+  }
+  object ShowFmjdRating {
+    case object Never extends ShowFmjdRating
+    case object Available extends ShowFmjdRating
+    case object Always extends ShowFmjdRating
+    val byKey = List(Never, Available, Always).map { v => v.key -> v }.toMap
   }
 
   private def makeName(host: User) =

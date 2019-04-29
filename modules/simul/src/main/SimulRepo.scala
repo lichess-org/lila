@@ -55,6 +55,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     def read(bs: BSONString) = EvalSetting.byKey get bs.value err s"Invalid evalsetting ${bs.value}"
     def write(x: EvalSetting) = BSONString(x.key)
   }
+  import Simul.ShowFmjdRating
+  private implicit val ShowFmjdRatingHandler: BSONHandler[BSONString, ShowFmjdRating] = new BSONHandler[BSONString, ShowFmjdRating] {
+    def read(bs: BSONString) = ShowFmjdRating.byKey get bs.value err s"Invalid fmjd setting ${bs.value}"
+    def write(x: ShowFmjdRating) = BSONString(x.key)
+  }
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
   private implicit val SimulBSONHandler = Macros.handler[Simul]

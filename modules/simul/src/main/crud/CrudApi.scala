@@ -32,8 +32,9 @@ final class CrudApi(simulRepo: SimulRepo) {
     variants = simul.variants.map(_.id),
     color = simul.color.getOrElse(DataForm.colorDefault),
     chat = simul.chatmode.fold(DataForm.chatDefault)(_.key),
-    ceval = simul.spotlight.flatMap(_.ceval).map(_.key).getOrElse(CrudForm.cevalDefault),
-    percentage = ~simul.targetPct.map(_.toString)
+    ceval = simul.spotlight.flatMap(_.ceval).fold(CrudForm.cevalDefault)(_.key),
+    percentage = ~simul.targetPct.map(_.toString),
+    fmjd = simul.spotlight.flatMap(_.fmjdRating).fold(CrudForm.fmjdDefault)(_.key)
   )
 
   def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {
@@ -95,7 +96,8 @@ final class CrudApi(simulRepo: SimulRepo) {
         startsAt = date,
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconImg = image.some.filter(_.nonEmpty),
-        ceval = Simul.EvalSetting.byKey.get(ceval)
+        ceval = Simul.EvalSetting.byKey.get(ceval),
+        fmjdRating = Simul.ShowFmjdRating.byKey.get(fmjd)
       ).some
     )
   }

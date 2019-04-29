@@ -5,6 +5,7 @@ import lidraughts.common.LightUser
 import lidraughts.evalCache.JsonHandlers.gameEvalJson
 import lidraughts.game.{ Game, GameRepo, Rewind }
 import draughts.format.{ FEN, Forsyth }
+import Simul.ShowFmjdRating
 
 final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
 
@@ -27,8 +28,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     evals <- ceval ?? fetchEvals(games)
     lightHost <- getLightUser(simul.hostId)
     lightArbiter <- simul.arbiterId ?? getLightUser
-    applicants <- simul.applicants.sortBy(p => -simul.isUnique.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(applicantJson(simul.isUnique)).sequenceFu
-    pairings <- simul.pairings.sortBy(p => -simul.isUnique.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(pairingJson(games, simul.hostId, simul.isUnique)).sequenceFu
+    applicants <- simul.applicants.sortBy(p => -simul.hasFmjd.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(applicantJson(simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
+    pairings <- simul.pairings.sortBy(p => -simul.hasFmjd.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(pairingJson(games, simul.hostId, simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
     allowed <- (~simul.allowed).map(allowedJson).sequenceFu
   } yield Json.obj(
     "id" -> simul.id,
@@ -41,7 +42,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
-      ).add("officialRating" -> simul.isUnique.fold(simul.hostOfficialRating, none))
+      ).add("officialRating" -> simul.hasFmjd.fold(simul.hostOfficialRating, none))
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
@@ -80,6 +81,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       .add("hostClock" -> clock.map(_.remainingTime(pairing.hostColor).roundSeconds))
       .add("turnColor" -> game.map(_.turnColor.name))
       .add("ceval" -> evals.find(_._1 == pairing.gameId).flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }))
+      .add("officialRating" -> pairing.player.officialRating)
   }))
 
   def evalWithGame(simul: Simul, gameId: Game.ID, eval: JsObject) =
@@ -93,19 +95,28 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "name" -> v.name
   )
 
-  private def playerJson(player: SimulPlayer, unique: Boolean): Fu[JsObject] =
+  private def playerJson(player: SimulPlayer, fmjd: Option[ShowFmjdRating]): Fu[JsObject] = {
+    val rating = fmjd match {
+      case Some(ShowFmjdRating.Always) => none
+      case _ => player.rating.some
+    }
+    val officialRating = fmjd ?? {
+      case ShowFmjdRating.Never => none
+      case _ => player.officialRating
+    }
     getLightUser(player.user) map { light =>
       Json.obj(
         "id" -> player.user,
         "online" -> isOnline(player.user),
-        "variant" -> player.variant.key,
-        "rating" -> player.rating
+        "variant" -> player.variant.key
       ).add("username" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("provisional" -> player.provisional.filter(identity))
         .add("patron" -> light.??(_.isPatron))
-        .add("officialRating" -> unique.fold(player.officialRating, none))
+        .add("rating" -> rating)
+        .add("officialRating" -> officialRating)
     }
+  }
 
   private def allowedJson(userId: String): Fu[JsObject] =
     getLightUser(userId) map { light =>
@@ -117,8 +128,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         .add("patron" -> light.??(_.isPatron))
     }
 
-  private def applicantJson(unique: Boolean)(app: SimulApplicant): Fu[JsObject] =
-    playerJson(app.player, unique) map { player =>
+  private def applicantJson(fmjd: Option[ShowFmjdRating])(app: SimulApplicant): Fu[JsObject] =
+    playerJson(app.player, fmjd) map { player =>
       Json.obj(
         "player" -> player,
         "accepted" -> app.accepted
@@ -133,8 +144,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
 
-  private def pairingJson(games: List[Game], hostId: String, unique: Boolean)(p: SimulPairing): Fu[JsObject] =
-    playerJson(p.player, unique) map { player =>
+  private def pairingJson(games: List[Game], hostId: String, fmjd: Option[ShowFmjdRating])(p: SimulPairing): Fu[JsObject] =
+    playerJson(p.player, fmjd) map { player =>
       Json.obj(
         "player" -> player,
         "hostColor" -> p.hostColor,

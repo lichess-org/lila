@@ -63,6 +63,9 @@
 @base.form.group(form("chat"), Html("Chat is available for")) { field =>
 @base.form.select(field, chatChoices)
 }
+@base.form.group(form("fmjd"), Html("Official rating visibility")) { field =>
+@base.form.select(field, fmjdChoices)
+}
 @base.form.group(form("ceval"), Html("Computer analysis in lobby")) { field =>
 @base.form.select(field, cevalChoices)
 }
