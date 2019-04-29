@@ -526,6 +526,12 @@
     var api = {};
     var soundSet = $('body').data('sound-set');
 
+    var speechStorage = lichess.storage.makeBoolean('speech.enabled');
+    api.speech = function(v) {
+      if (typeof v == 'undefined') return speechStorage.get();
+      speechStorage.set(v);
+      collection.clear();
+    };
     api.volumeStorage = lichess.storage.make('sound-volume');
     api.defaultVolume = 0.7;
 
@@ -569,7 +575,7 @@
     };
     var collection = new memoize(function(k) {
       var set = soundSet;
-      if (set === 'music' || set === 'speech') {
+      if (set === 'music' || speechStorage.get()) {
         if (['move', 'capture', 'check'].includes(k)) return {
           play: $.noop
         };
@@ -596,7 +602,7 @@
       }
     });
     api.say = function(text, cut) {
-      if (soundSet != 'speech') return false;
+      if (!speechStorage.get()) return false;
       var msg = text.text ? text : new SpeechSynthesisUtterance(text);
       msg.volume = api.getVolume();
       if (cut) speechSynthesis.cancel();

@@ -35,14 +35,19 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     },
     api,
     set(k: Key) {
-      api.changeSet(k);
-      api.genericNotify();
-      $.post('/pref/soundSet', { set: k });
+      api.speech(k == 'speech');
+      window.lichess.pubsub.emit('speech.enabled')(api.speech());
+      if (api.speech()) api.say('Speech synthesis ready');
+      else {
+        api.changeSet(k);
+        api.genericNotify();
+        $.post('/pref/soundSet', { set: k });
+      }
       redraw();
-      api.say('Speech synthesis ready');
     },
     volume(v: number) {
       api.setVolume(v);
+      // plays a move sound if speech is off
       api.move('knight F 7');
     },
     redraw,
@@ -52,6 +57,8 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 }
 
 export function view(ctrl: SoundCtrl): VNode {
+
+  const current = ctrl.api.speech() ? 'speech' : ctrl.api.set();
 
   return h('div.sub.sound.' + ctrl.api.set(), {
     hook: {
@@ -65,7 +72,7 @@ export function view(ctrl: SoundCtrl): VNode {
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
       h('div.selector', {
         attrs: { method: 'post', action: '/pref/soundSet' }
-      }, ctrl.makeList().map(soundView(ctrl, ctrl.api.set())))
+      }, ctrl.makeList().map(soundView(ctrl, current)))
     ])
   ]);
 }

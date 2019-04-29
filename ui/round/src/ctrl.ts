@@ -121,7 +121,6 @@ export default class RoundController {
           this.music = li.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
-      speech.onSoundSet(this, set);
     });
 
     li.pubsub.on('zen', () => {
@@ -710,8 +709,10 @@ export default class RoundController {
 
       if (!this.nvui) keyboard.init(this);
 
-      this.onChange();
+      li.pubsub.on('speech.enabled', speech.onSpeechChange(this));
+      speech.onSpeechChange(this)(li.sound.speech());
 
+      this.onChange();
     });
   };
 }
