@@ -28,6 +28,7 @@
   .profile-side {
     @extend %flex-column;
     flex: 1 0 300px;
+    height: 332px;
     border-left: $border;
     overflow: hidden;
   }
@@ -39,7 +40,6 @@
     @include hoverflow;
     flex: 1 1 auto;
     padding: .8em;
-    max-height: 332px;
     overflow: auto;
   }
   .insight {
