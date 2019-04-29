@@ -48,15 +48,28 @@
   @include page-metal;
 }
 
+%active-inset-shadow {
+  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+}
+
 %active {
+  @extend %active-inset-shadow;
   background: $c-accent;
   color: #fff;
-  text-shadow: 0 1px 0 black!important;
-  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+  text-shadow: 0 1px 1px black!important;
 }
 %active-hover {
   background: mix(white, $c-accent, 20%);
 }
+
+%active-soft {
+  @extend %active-inset-shadow;
+  background: $c-shade;
+  color: $c-font-clearer;
+  text-shadow: 1px 1px 1px $c-font-shadow!important;
+  font-weight: bold;
+}
+
 %dropdown-shadow {
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
