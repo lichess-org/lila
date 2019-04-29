@@ -24,8 +24,6 @@ window.lidraughts.RoundSpeech = function() {
     synth.speak(msg);
   }
 
-  say('ready');
-
   return {
     jump(s: Step) {
       say(s.san ? renderSan(s.san) : 'Game starts');
