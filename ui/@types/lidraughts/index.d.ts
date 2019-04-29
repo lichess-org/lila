@@ -55,8 +55,8 @@ interface Lidraughts {
   }
   playMusic(): any;
   Speech?: {
-    say(t: string, cut?: boolean): void;
-    step(s: { san?: San }, cut?: boolean): void;
+    say(t: string, cut: boolean): void;
+    step(s: { san?: San }, cut: boolean): void;
   };
   spinnerHtml: string;
   movetimeChart: any;

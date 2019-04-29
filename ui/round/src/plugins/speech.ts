@@ -9,13 +9,13 @@ function renderSan(san: San) {
   else return fields.join(' ');
 }
 
-export function say(text: string, cut: boolean = false) {
+export function say(text: string, cut: boolean) {
   const msg = new SpeechSynthesisUtterance(text);
   msg.rate = 1.2;
   if (cut) speechSynthesis.cancel();
   window.lidraughts.sound.say(msg);
 }
 
-export function step(s: { san?: San}, cut: boolean = true) {
+export function step(s: { san?: San}, cut: boolean) {
   say(s.san ? renderSan(s.san) : 'Game start', cut);
 }
