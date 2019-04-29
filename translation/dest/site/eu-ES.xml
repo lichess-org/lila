@@ -176,6 +176,10 @@
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
   <string name="rank">Maila</string>
   <string name="rankX">Sailkapena: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Sailkapena minutuero eguneratzen da</item>
+    <item quantity="other">Sailkapena %s minuturo eguneratzen da</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">Puzzle %s</item>
     <item quantity="other">%s ariketa</item>
