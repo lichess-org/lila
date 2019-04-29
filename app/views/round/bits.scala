@@ -58,7 +58,7 @@ object bits {
       game.players.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
         div(
           playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true),
-          s"${p.blurs.nb}/${game.playerMoves(p.color)} blurs",
+          s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",
           strong(game.playerBlurPercent(p.color), "%")
         )
       },
