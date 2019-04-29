@@ -17,12 +17,14 @@ export default function(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
-  const study = ctrl.study,
-  relay = study && study.data.chapter.relay,
-  runningRelay = relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter),
-  parentClock = (runningRelay && relay && relay.runningClock) ? relay.runningClock : ctrl.tree.getParentClock(node, ctrl.path),
-  isWhiteTurn = node.ply % 2 === 0,
-  centis: Array<number | undefined> = [parentClock, clock];
+  const whitePov = ctrl.bottomIsWhite(),
+    study = ctrl.study,
+    relay = study && study.data.chapter.relay,
+    runningRelay = relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter),
+    parentClock = (runningRelay && relay && relay.runningClock) ? relay.runningClock : ctrl.tree.getParentClock(node, ctrl.path),
+    isWhiteTurn = node.ply % 2 === 0,
+    centis: Array<number | undefined> = [parentClock, clock];
+
   if (!isWhiteTurn) centis.reverse();
 
   if (relay && relay.lastMoveAt && runningRelay) {
@@ -36,8 +38,8 @@ export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   };
 
   return [
-    renderClock(centis[0], isWhiteTurn, ctrl.bottomIsWhite() ? 'top' : 'bottom', opts),
-    renderClock(centis[1], !isWhiteTurn,  ctrl.bottomIsWhite() ? 'bottom' : 'top', opts)
+    renderClock(centis[0], isWhiteTurn, whitePov ? 'top' : 'bottom', opts),
+    renderClock(centis[1], !isWhiteTurn,  whitePov ? 'bottom' : 'top', opts)
   ];
 }
 
