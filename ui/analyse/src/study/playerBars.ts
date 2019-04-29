@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import { TagArray } from './interfaces';
-import { renderClocks } from '../clocks';
+import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
 import { isFinished, findTag, resultOf } from './studyChapters';
 
