@@ -1,3 +1,5 @@
+$mq-picture: $mq-large;
+
 .streamer-edit {
 
   .streamer-header {
@@ -11,6 +13,12 @@
     .upload_picture .button {
       text-align: center;
       margin: 100px 30px 0 30px;
+    }
+    .picture {
+      display: none;
+      @include breakpoint($mq-picture) {
+        display: block;
+      }
     }
   }
 
