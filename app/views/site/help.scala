@@ -148,7 +148,7 @@ object help {
         a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
         a(activeCls("master"), href := routes.Page.master)("Title verification"),
         sep,
-        a(activeCls("source"), href := routes.Page.source)("Source code"),
+        a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
         a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
         a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou()),
         sep,
