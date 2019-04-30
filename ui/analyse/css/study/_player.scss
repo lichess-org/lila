@@ -6,7 +6,7 @@ $player-height: 1.6rem;
   }
   @include breakpoint($mq-col2) {
     .analyse__underboard {
-      margin-top: calc(#{$player-height / 2} + #{$block-gap});
+      margin-top: calc(#{$player-height / 2} + #{$block-gap / 2});
     }
   }
   @include breakpoint($mq-col1) {

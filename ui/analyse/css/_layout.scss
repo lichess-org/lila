@@ -75,9 +75,7 @@ body {
       margin-top: $block-gap;
     }
 
-    &__underboard {
-      margin-top: #{$block-gap / 2};
-    }
+    &__underboard { margin-top: $block-gap; }
 
     .eval-gauge { display: block; }
   }
