@@ -240,7 +240,7 @@ object index {
       dt("Are some features reserved to Patrons?"),
       dd(
         a(href := routes.Plan.features, target := "_blank")("No"), ", because ",
-        "Lidraughts is entirely free, forever, and for everyone. That's a promise.",
+        "Lidraughts is entirely free, forever, and for everyone. That's a promise. ",
         "But Patrons get bragging rights with a cool new profile icon.", br,
         "See the ", a(href := routes.Plan.features, target := "_blank")("detailed features comparison"), "."
       )
