@@ -1,6 +1,3 @@
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
-
 @mixin columns-with-gauge-col2($gauge-width) {
   grid-template-columns: $col2-uniboard-width $gauge-width $block-gap $col2-uniboard-table;
 }
