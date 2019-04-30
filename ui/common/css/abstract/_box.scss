@@ -24,6 +24,5 @@
   @extend %box-shadow, %box-radius;
 }
 %box-neat-force {
-  @include box-neat;
-  overflow: hidden; /* helps with clipping background into border-radius */
+  @extend %box-shadow, %box-radius-force;
 }
