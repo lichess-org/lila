@@ -110,5 +110,5 @@ export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
     tagKey = chapter.tags.map(t => t[1]).join(','),
     key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
-  return thunk('div' + chapter.id, doRender, [root, key]);
+  return thunk('div.' + chapter.id, doRender, [root, key]);
 }
