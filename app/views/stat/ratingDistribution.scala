@@ -29,7 +29,11 @@ object ratingDistribution {
             "variant-stats",
             span(perfType.name),
             PerfType.leaderboardable map { pt =>
-              a(dataIcon := pt.iconChar, href := routes.Stat.ratingDistribution(pt.key))(pt.name)
+              a(
+                dataIcon := pt.iconChar,
+                cls := (perfType == pt).option("current"),
+                href := routes.Stat.ratingDistribution(pt.key)
+              )(pt.name)
             }
           ))),
           div(cls := "desc", dataIcon := perfType.iconChar)(

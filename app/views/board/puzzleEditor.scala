@@ -37,7 +37,11 @@ object puzzleEditor {
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(if (pov.game.variant.fromPosition) draughts.variant.Standard.name else pov.game.variant.name),
             lidraughts.pref.Pref.puzzleVariants.map { v =>
-              a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
+              a(
+                dataIcon := iconByVariant(v),
+                cls := (pov.game.variant == v).option("current"),
+                href := routes.UserAnalysis.parsePuzzle(v.key)
+              )(v.name)
             }
           )
         ),

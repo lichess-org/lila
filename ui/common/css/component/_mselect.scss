@@ -57,6 +57,8 @@ $c-mselect: $c-primary;
       &::after {
         @extend %data-icon;
         content: 'E';
+        flex: 1 1 100%;
+        text-align: right;
       }
     }
     .mselect__toggle:checked ~ & {
