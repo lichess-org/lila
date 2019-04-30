@@ -1,5 +1,7 @@
 $mq-picture: $mq-large;
 
+@import 'header';
+
 .streamer-show {
   .page-menu__content {
     overflow: hidden; /* help with responsive overflow of activity */
@@ -7,9 +9,14 @@ $mq-picture: $mq-large;
   h1 {
     @extend %roboto;
     @include fluid-size('font-size', 23px, 40px);
+    text-overflow: ellipsis;
+    overflow: hidden;
     &::before {
-      display: inline;
       margin-right: .2em;
+      display: none;
+      @include breakpoint($mq-xx-small) {
+        display: inline;
+      }
       @include breakpoint($mq-picture) {
         display: none;
       }
