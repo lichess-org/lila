@@ -109,7 +109,7 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
       div(cls := "sep"),
       a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
       a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="0"></i>""")),
-      a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="0"></i>""")),
+      a(cls := active.activeO("api"), href := routes.Api.index)("API", raw(""" <i data-icon="0"></i>""")),
       a(cls := active.activeO("source"), href := "https://github.com/ornicar/lila")("Source code", raw(""" <i data-icon="0"></i>""")),
       div(cls := "sep"),
       a(href := routes.Main.lag)("Is Lichess lagging?")
