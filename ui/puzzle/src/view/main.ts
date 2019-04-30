@@ -96,7 +96,6 @@ export default function(ctrl: Controller): VNode {
       side.puzzleBox(ctrl),
       side.userBox(ctrl)
     ]),
-    cevalView.renderGauge(ctrl),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
@@ -106,6 +105,7 @@ export default function(ctrl: Controller): VNode {
         hook: onInsert(resizeHandle)
       })
     ]),
+    cevalView.renderGauge(ctrl),
     h('div.puzzle__tools', [
       // we need the wrapping div here
       // so the siblings are only updated when ceval is added
