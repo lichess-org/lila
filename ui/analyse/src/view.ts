@@ -30,6 +30,7 @@ import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
+import * as gridHack from './gridHack';
 
 const li = window.lichess;
 
@@ -366,12 +367,13 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ),
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {
-      hook: onInsert(_ => {
+      hook: onInsert(el => {
         if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
         ctrl.opts.chat.parseMoves = true;
         li.makeChat(ctrl.opts.chat, chat => {
           ctrl.opts.chat.instance = chat;
         });
+        gridHack.start(el.parentNode as HTMLElement);
       })
     }),
     h('div.chat__members.none', {

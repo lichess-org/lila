@@ -229,7 +229,10 @@ export function view(ctrl: StudyCtrl): VNode {
 
   return h('div.study__members', {
     hook: {
-      insert: _ => window.lichess.pubsub.emit('content_loaded')()
+      insert: _ => {
+        window.lichess.pubsub.emit('content_loaded')();
+        window.lichess.pubsub.emit('analyse.grid-hack')();
+      }
     }
   }, [
     ...ordered.map(function(member) {

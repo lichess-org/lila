@@ -116,6 +116,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
         vnode.data!.li = {};
         update(vnode);
+        window.lichess.pubsub.emit('analyse.grid-hack')();
       },
       postpatch(old, vnode) {
         vnode.data!.li = old.data!.li;
