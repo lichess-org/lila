@@ -123,6 +123,7 @@ $controls-height: auto;
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
     grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
+    grid-column-gap: #{$block-gap * 3/2};
   }
 
   &__board { grid-area: board; }
