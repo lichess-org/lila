@@ -8,6 +8,7 @@
     display: inline-block;
     width: 1.5em;
     text-align: center;
+    vertical-align: text-top; /* not sure about that */
     &.patron {
       opacity: 0.8;
     }
