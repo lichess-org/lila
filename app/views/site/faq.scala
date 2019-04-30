@@ -169,7 +169,11 @@ object faq {
         question(
           "hide-ratings",
           "How to hide ratings while playing?",
-          p("Enable Zen-mode in the display preferences or by pressing ", em("z"), " during a game.")
+          p(
+            "Enable Zen-mode in the ",
+            a(href := routes.Pref.form("game-display"))("display preferences"),
+            " or by pressing ", em("z"), " during a game."
+          )
         )
       )
     }
