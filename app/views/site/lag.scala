@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 object lag {
 
   def apply()(implicit ctx: Context) = help.layout(
-    title = "Is lichess lagging?",
+    title = "Is Lichess lagging?",
     active = "lag",
     moreCss = cssTag("lag"),
     moreJs = frag(
@@ -19,7 +19,7 @@ object lag {
   ) {
       main(cls := "box box-pad lag")(
         h1(
-          "Is lichess lagging?",
+          "Is Lichess lagging?",
           span(cls := "answer short")(
             span(cls := "waiting")("Measurements in progress..."),
             span(cls := "nope-nope none")(strong("No."), " And your network is good."),
@@ -37,17 +37,17 @@ object lag {
             p(
               "The time it takes to process a move on the server. ",
               "It's the ", strong("same for everybody"), ", and only depends on the server load. ",
-              "The more players and the higher it gets, but lichess developers ",
+              "The more players and the higher it gets, but Lichess developers ",
               "do their best to keep it low. It rarely exceeds 10ms."
             )
           ),
           st.section(cls := "network")(
-            h2("Network between lichess and you"),
+            h2("Network between Lichess and you"),
             div(cls := "meter"),
             p(
-              "The time it takes to send a move from your computer to lichess server, ",
+              "The time it takes to send a move from your computer to Lichess server, ",
               "and get the response back.",
-              "It's specific to your ", strong("distance to lichess (France)"), ", and ",
+              "It's specific to your ", strong("distance to Lichess (France)"), ", and ",
               "to the ", strong("quality of your Internet connection"), ". ",
               "Lichess developers can not fix your wifi or make light go faster."
             )
