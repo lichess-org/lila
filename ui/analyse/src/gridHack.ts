@@ -5,7 +5,7 @@ let booted = false;
 
 export function start(container: HTMLElement) {
 
-  const resize = throttle(500, () => {
+  const resize = throttle(100, () => {
     window.requestAnimationFrame(() => {
       const chat = container.querySelector('.mchat') as HTMLElement;
       const board = container.querySelector('.analyse__board') as HTMLElement;
