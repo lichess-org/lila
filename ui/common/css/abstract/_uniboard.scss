@@ -1,12 +1,12 @@
 /* Uniboard: keep the same page layout accross pages */
 
 $mq-board-resizable: $mq-small;
-$mq-col1-uniboard: $mq-not-medium $mq-portrait;
-$mq-col2-uniboard: ($mq-medium, $mq-landscape);
+$mq-col1-uniboard: $mq-not-small $mq-portrait;
+$mq-col2-uniboard: ($mq-small, $mq-landscape);
 $mq-col3-uniboard: $mq-x-large;
 
 /* when the width is appropriate for col1, but landscape prevents it */
-$mq-col2-uniboard-squeeze: $mq-not-medium $mq-landscape;
+$mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
 
 $col3-uniboard-side: minmax(230px, 20vw);
 $col3-uniboard-table: minmax(240px, 400px);
