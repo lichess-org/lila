@@ -97,9 +97,9 @@
   }
   @include breakpoint($mq-col1) {
     overflow: hidden;
-    $moves-height: 2.5em;
     .moves {
-      flex: 0 0 $moves-height;
+      flex: 0 0 $col1-moves-height;
+      margin-bottom: $col1-moves-margin;
       display: flex;
       align-items: stretch;
       white-space: nowrap;
@@ -157,7 +157,7 @@
       font-size: 1.1em;
     }
     .message {
-      flex: 0 0 $moves-height;
+      flex: 0 0 $col1-moves-height;
       display: flex;
       align-items: center;
       justify-content: center;

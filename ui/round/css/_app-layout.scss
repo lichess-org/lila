@@ -54,7 +54,6 @@ $controls-height: auto;
     .cg-board { box-shadow: none; }
     .expiration-top { display: none; }
     &__table { display: none; }
-    .rmoves { margin-bottom: $block-gap }
 
     &.move-confirm {
       // replace move list with move confirmation
