@@ -102,7 +102,7 @@ export default class RoundController {
 
     this.setQuietMode();
 
-    this.moveOn = new MoveOn(this, 'lichess.move_on');
+    this.moveOn = new MoveOn(this, 'move-on');
 
     this.trans = li.trans(opts.i18n);
 
