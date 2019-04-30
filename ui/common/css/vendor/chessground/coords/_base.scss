@@ -3,7 +3,7 @@ coords {
   position: absolute;
   display: flex;
   pointer-events: none;
-  font-size: 1.3vmin;
+  @include fluid-size('font-size', 8px, 12px);
   user-select: none;
   &.ranks {
     right: -15px;
