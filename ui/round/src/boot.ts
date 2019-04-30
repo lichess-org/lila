@@ -78,9 +78,10 @@ export default function(opts: RoundOpts): void {
     });
   }
   startTournamentClock();
-  $('.round__now-playing .move-on input').change(function() {
-    round.moveOn.toggle();
-  }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
+  $('.round__now-playing .move-on input')
+  .change(round.moveOn.toggle)
+  .prop('checked', round.moveOn.get())
+  .on('click', 'a', function() {
     li.hasToReload = true;
     return true;
   });
