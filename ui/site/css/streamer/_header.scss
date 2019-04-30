@@ -4,7 +4,10 @@
     flex: 0 0 300px;
   }
   .overview {
-    margin: 20px 10px 0 20px;
+    margin: 20px var(--box-padding) 0 var(--box-padding);
+    @include breakpoint($mq-picture) {
+      margin: 20px 10px 0 2em;
+    }
     display: flex;
     flex-flow: column;
     justify-content: space-between;
