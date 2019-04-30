@@ -12,48 +12,22 @@ lichess.dispatchEvent = function(el, eventName) {
 lichess.hasTouchEvents = 'ontouchstart' in window;
 lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
-function buildStorage(storageKey) {
-  try {
-    // just accessing localStorage can throw an exception...
-    var storage = window[storageKey];
-  } catch (e) {}
-  var withStorage = storage ? function(f) {
-    // this can throw exceptions as well.
-    try { return f(storage); }
-    catch (e) {}
-  } : function() {};
+lichess.storage = (function() {
+  var storage = window.localStorage;
   var storageObj = {
-    get: function(k) {
-      return withStorage(function(s) {
-        return s.getItem(k);
-      });
-    },
-    set: function(k, v) {
-      withStorage(function(s) {
-        try {
-          s.setItem(k, v);
-        } catch (e) {
-          // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
-          s.removeItem(k);
-          s.setItem(k, v);
-        }
-      });
-    },
-    remove: function(k) {
-      withStorage(function(s) {
-        s.removeItem(k);
-      });
-    },
+    get: storage.getItem,
+    set: storage.setItem,
+    remove: storage.removeItem,
     make: function(k) {
       return {
         get: function() {
           return storageObj.get(k);
         },
         set: function(v) {
-          return storageObj.set(k, v);
+          storageObj.set(k, v);
         },
         remove: function() {
-          return storageObj.remove(k);
+          storageObj.remove(k);
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
@@ -70,18 +44,16 @@ function buildStorage(storageKey) {
           return storageObj.get(k) == '1';
         },
         set: function(v) {
-          return storageObj.set(k, v ? 1 : 0);
+          storageObj.set(k, v ? 1 : 0);
         },
         toggle: function(v) {
-          return storageObj.set(k, storageObj.get() ? 0 : 1);
+          storageObj.set(k, storageObj.get() ? 0 : 1);
         }
       };
     }
   };
   return storageObj;
-};
-
-lichess.storage = buildStorage('localStorage');
+})();
 
 lichess.once = function(key, mod) {
   if (mod === 'always') return true;
