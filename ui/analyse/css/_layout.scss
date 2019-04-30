@@ -76,7 +76,7 @@ body {
 
     &__underboard { margin-top: $block-gap; }
 
-    .eval-gauge { display: block; }
+    .eval-gauge { display: block }
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
@@ -92,9 +92,8 @@ body {
     'uchat   . under under . controls'
     'uchat   . under under . acpl';
 
-    &__side {
-      margin-top: 0;
-    }
+    &__side { margin-top: 0 }
+    .mchat { min-height: 10em }
 
     @include crosstable-large;
   }
