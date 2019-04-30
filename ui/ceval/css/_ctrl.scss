@@ -9,7 +9,7 @@
   }
   .switch {
     @extend %flex-center;
-    flex: 0 1 40px;
+    flex: 0 0 40px;
     margin-right: 8px;
   }
   pearl {
@@ -22,7 +22,7 @@
   help,
   .engine {
     @extend %nowrap-hidden;
-    flex: 1 0;
+    flex: 1 1 auto;
     font-size: 12px;
     line-height: 16px;
     margin-top: 3px;
@@ -75,38 +75,28 @@
     width: 0;
     background: $c-good;
     transition: width 1s;
-  }
-  .bar span.threat {
-    background: $c-bad;
+    &.threat {
+      background: $c-bad;
+    }
   }
   &.computing .bar span {
     background-image: img-url('bar-highlight.png');
     animation: bar-anim 1000s linear infinite;
   }
   .show-threat {
-    position: absolute;
-    right: -41px;
-    top: -1px;
-    display: block;
-    width: 40px;
-    height: 40px;
-    border: $c-border;
-    border-left: 0;
-    border-radius: 0 5px 5px 0;
-    text-align: center;
-    font-size: 17px;
-    line-height: 36px;
-  }
-  .show-threat:hover:not(.hidden) {
-    background: $c-primary;
-    color: $c-primary-over;
-  }
-  .show-threat.active {
-    background: $c-bad;
-    color: #fff;
-  }
-  .show-threat.hidden {
-    opacity: 0.3;
-    cursor: default;
+    flex: 0 99 auto;
+    line-height: 38px;
+    color: $c-font-dim;
+    font-size: .9em;
+    padding-right: .5em;
+    overflow: hidden;
+    &:hover:not(.hidden),
+    &.active {
+      color: $c-red;
+    }
+    &.hidden {
+      opacity: 0.3;
+      cursor: default;
+    }
   }
 }

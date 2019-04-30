@@ -202,8 +202,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   }, [
     progressBar,
     ...body,
-    switchButton,
-    threatButton(ctrl)
+    threatButton(ctrl),
+    switchButton
   ]);
 }
 
