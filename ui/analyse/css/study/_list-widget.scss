@@ -1,16 +1,18 @@
 $c-study: $c-primary;
+
 .studies {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax($viewport-min-width, 1fr));
+  @include breakpoint($mq-medium) {
+    grid-template-columns: repeat(auto-fill, minmax(45ch, 1fr));
+  }
   .study {
+    position: relative;
     border: $border;
     border-width: 0 1px 1px 0;
     padding: 1em .6em 1em 1.3em;
-    position: relative;
+    overflow: hidden;
     @include transition();
-    &:hover {
-      background: mix($c-study, $c-bg-box, 10%);
-    }
     .overlay {
       @extend %link-overlay;
     }
@@ -36,12 +38,7 @@ $c-study: $c-primary;
       }
     }
     .top {
-      @extend %roboto;
-      font-weight: normal;
-      display: block;
-      position: relative;
-      height: 60px;
-      padding-left: 54px;
+      @extend %flex-center-nowrap, %break-word, %roboto;
       .study-name {
         @extend %nowrap-hidden;
         font-size: 1.5em;
@@ -56,16 +53,20 @@ $c-study: $c-primary;
         display: block;
         color: $c-font-dim;
       }
-      .icon {
-        position: absolute;
-        top: 0;
-        left: 0;
+      &::before {
+        color: mix($c-link, $c-bg-box, 80%);
+        font-size: 4em;
+        margin-right: .2em;
+        @include transition();
+        @include breakpoint($mq-not-xx-small) {
+          display: none;
+        }
       }
-      .icon::before {
-        color: $c-study;
-        font-size: 38px;
-        line-height: 45px;
-        opacity: .8;
+    }
+    &:hover {
+      background: mix($c-study, $c-bg-box, 10%);
+      .top::before {
+        color: mix($c-link, $c-bg-box, 100%);
       }
     }
   }

@@ -33,17 +33,18 @@ object bits {
 
   def widget(s: lila.study.Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) = frag(
     a(cls := "overlay", href := routes.Study.show(s.study.id.value)),
-    div(cls := "top")(
-      iconTag("4")(cls := "icon"),
-      tag(cls := "study-name")(s.study.name.value),
-      span(
-        iconTag(if (s.liked) "" else ""),
-        " ",
-        s.study.likes.value,
-        " • ",
-        usernameOrId(s.study.ownerId),
-        " • ",
-        momentFromNow(s.study.createdAt)
+    div(cls := "top", dataIcon := "4")(
+      div(
+        tag(cls := "study-name")(s.study.name.value),
+        span(
+          iconTag(if (s.liked) "" else ""),
+          " ",
+          s.study.likes.value,
+          " • ",
+          usernameOrId(s.study.ownerId),
+          " • ",
+          momentFromNow(s.study.createdAt)
+        )
       )
     ),
     div(cls := "body")(
