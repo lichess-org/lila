@@ -68,12 +68,17 @@ body {
     'chat       chat  .    side'
     'uchat      uchat .    side';
     grid-row-gap: 0;
-    &__underboard,
+
     &__side,
     .chat__members,
     .mchat {
       margin-top: $block-gap;
     }
+
+    &__underboard {
+      margin-top: #{$block-gap / 2};
+    }
+
     .eval-gauge { display: block; }
   }
 
