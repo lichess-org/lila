@@ -13,8 +13,10 @@ import controllers.routes
 object bits {
 
   def searchForm(search: String = "")(implicit ctx: Context) =
-    form(cls := "search", action := routes.ForumPost.search())(
-      input(name := "text", value := search, placeholder := trans.search.txt())
+    div(cls := "box__top__actions")(
+      form(cls := "search", action := routes.ForumPost.search())(
+        input(name := "text", value := search, placeholder := trans.search.txt())
+      )
     )
 
   def pagination(route: Call, pager: Paginator[_], showPost: Boolean) = pager.hasToPaginate option {

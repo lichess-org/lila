@@ -15,17 +15,24 @@ $vp-max-width: 1200px;
   }
 
   &__top {
-    @extend %flex-between, %box-padding;
+    @extend %flex-between;
+
+    padding: calc(5vh - 1rem) var(--box-padding);
 
     h1 {
       margin: 0;
     }
+
+    /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
+    > h1, > div, > form { margin-top: 1rem; }
+    /* end of flex gutter hack */
+
     &__actions {
       @extend %flex-wrap;
 
       /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-      margin-bottom:  -1em;
-      > * { margin: 0 0 1em 1em; }
+      margin-left:  -1rem;
+      > * { margin-left: 1rem; }
       /* end of flex gutter hack */
 
       .button {
