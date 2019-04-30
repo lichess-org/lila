@@ -38,4 +38,11 @@
 
 .mselect {
   font-size: 1.5em;
+  label span,
+  a {
+    @extend %flex-center-nowrap;
+    &::before {
+      line-height: 0;
+    }
+  }
 }
