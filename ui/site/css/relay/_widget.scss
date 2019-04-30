@@ -5,15 +5,19 @@
   position: relative;
   @include transition();
   &::before {
-    color: $c-link;
+    color: mix($c-link, $c-bg-box, 80%);
     font-size: 5em;
     margin-right: .4em;
+    @include transition();
     @include breakpoint($mq-not-xx-small) {
       display: none;
     }
   }
   &:hover {
     background: mix($c-link, $c-bg-box, 10%);
+    &::before {
+      color: mix($c-link, $c-bg-box, 100%);
+    }
   }
   .overlay {
     @extend %link-overlay

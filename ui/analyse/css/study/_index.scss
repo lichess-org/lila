@@ -6,13 +6,16 @@ $top-height: 3.2rem;
   .box__top {
     @extend %flex-center;
     .search {
-      flex: 1 1 auto;
+      flex: 2 1 auto;
       display: flex;
       input {
         @extend %box-radius-left;
         flex: 1 1 100%;
         height: $top-height;
-        font-size: 1.2em;
+        font-size: 1.1em;
+        @include breakpoint($mq-xx-small) {
+          font-size: 1.2em;
+        }
       }
       .button {
         @extend %box-radius-right;
@@ -21,6 +24,7 @@ $top-height: 3.2rem;
       }
     }
     .mselect {
+      flex: 1 1 auto;
       font-size: 1.2em;
       &__label::after {
         margin-left: .6em;
@@ -35,7 +39,7 @@ $top-height: 3.2rem;
     .mselect__label {
       height: 100%;
     }
-    .new-study .button{
+    .new-study .button {
       height: $top-height;
       padding: 0 1em;
       &::before {
