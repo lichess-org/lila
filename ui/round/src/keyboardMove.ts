@@ -28,7 +28,7 @@ export interface KeyboardMove {
 }
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
-  let focus = false;
+  let focus = true;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   const cgState = root.chessground.state;
@@ -91,7 +91,8 @@ export function render(ctrl: KeyboardMove) {
     h('input', {
       attrs: {
         spellcheck: false,
-        autocomplete: false
+        autocomplete: false,
+        autofocus: true
       },
       hook: onInsert(el => {
         window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
