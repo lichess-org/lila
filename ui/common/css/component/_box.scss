@@ -17,16 +17,17 @@ $vp-max-width: 1200px;
   &__top {
     @extend %flex-between, %box-padding;
 
-    /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-    margin:  0 0 -1em -1em;
-    > * { margin: 0 0 1em 1em; }
-    /* end of flex gutter hack */
-
     h1 {
       margin: 0;
     }
     &__actions {
       @extend %flex-wrap;
+
+      /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
+      margin-bottom:  -1em;
+      > * { margin: 0 0 1em 1em; }
+      /* end of flex gutter hack */
+
       .button {
         @extend %flex-center;
       }
