@@ -1,5 +1,5 @@
 .relay-widget {
-  @extend %flex-center-nowrap;
+  @extend %flex-center-nowrap, %break-word;
   border-bottom: $border;
   padding: 2em var(--box-padding);
   position: relative;
@@ -8,6 +8,9 @@
     color: $c-link;
     font-size: 5em;
     margin-right: .4em;
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
+    }
   }
   &:hover {
     background: mix($c-link, $c-bg-box, 10%);
@@ -16,10 +19,8 @@
     @extend %link-overlay
   }
   h3 {
-    @extend %nowrap-hidden;
-    font-size: 2.3em;
+    @include fluid-size('font-size', 23px, 35px);
     color: $c-link;
-    text-overflow: ellipsis;
   }
   p {
     margin: .5em 0 0 0;
