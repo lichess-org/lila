@@ -54,7 +54,7 @@ object index {
                   )
                   else p.expiresAt.map { expires =>
                     frag(
-                      "You have a Patron account until ", showDate(expires), br,
+                      "You have a Patron account until ", showDate(expires), ".", br,
                       "If not renewed, you will then be downgraded to free."
                     )
                   }
