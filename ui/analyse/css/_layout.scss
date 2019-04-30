@@ -17,6 +17,7 @@ body {
   &__side {
     grid-area: side;
     justify-content: start;
+    margin: $block-gap;
   }
   &__board { grid-area: board; }
   &__tools { grid-area: tools; }
@@ -50,8 +51,6 @@ body {
   'chat'
   'uchat';
 
-  grid-row-gap: $block-gap;
-
   --gauge-width: 0px;
   &.gauge-on {
     --gauge-width: #{$gauge-on-container};
@@ -72,7 +71,7 @@ body {
     &__side,
     .chat__members,
     .mchat {
-      margin-top: $block-gap;
+      margin: $block-gap 0 0 0;
     }
 
     &__underboard { margin-top: $block-gap; }
