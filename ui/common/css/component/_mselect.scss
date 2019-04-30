@@ -36,6 +36,16 @@ $c-mselect: $c-primary;
     transform: scale(1, 0);
     transform-origin: top;
     @include transition(transform);
+    .current {
+      background: $c-bg-zebra;
+      @extend %flex-between-nowrap;
+      &::after {
+        @extend %data-icon;
+        content: 'E';
+        flex: 1 1 100%;
+        text-align: right;
+      }
+    }
     > * {
       white-space: nowrap;
       display: block;
@@ -50,16 +60,6 @@ $c-mselect: $c-primary;
         margin-right: .4em;
       }
       opacity: 0;
-    }
-    .current {
-      background: $c-bg-zebra;
-      @extend %flex-between-nowrap;
-      &::after {
-        @extend %data-icon;
-        content: 'E';
-        flex: 1 1 100%;
-        text-align: right;
-      }
     }
     .mselect__toggle:checked ~ & {
       transform: scale(1, 1);
