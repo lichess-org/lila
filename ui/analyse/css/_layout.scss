@@ -56,11 +56,11 @@ body {
     grid-template-rows: fit-content(0);
     grid-template-areas:
     'board      gauge tools'
-    'under      under controls'
-    'under      under acpl'
-    'under      under side'
-    'chat       chat  side'
-    'uchat      uchat side';
+    'under      .     controls'
+    'under      .     acpl'
+    'under      .     side'
+    'chat       .      side'
+    'uchat      .     side';
     grid-row-gap: 0;
 
     &__side,
