@@ -103,6 +103,7 @@
 
 %break-word {
   overflow-wrap: break-word;
+  word-break: break-all; /* support: firefox */
   word-break: break-word;
 }
 %break-nope {
