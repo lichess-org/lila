@@ -30,6 +30,7 @@ $c-mselect: $c-primary;
     position:absolute;
     top:0;
     left:0;
+    min-width: 100%;
     z-index: z('mselect');
     background: $c-bg-popup;
     transform: scale(1, 0);
