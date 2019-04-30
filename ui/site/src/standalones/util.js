@@ -8,26 +8,25 @@ lichess.dispatchEvent = function(el, eventName) {
   el.dispatchEvent(new Event(eventName));
 };
 
-
 lichess.hasTouchEvents = 'ontouchstart' in window;
 lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
 lichess.storage = (function() {
   var storage = window.localStorage;
-  var storageObj = {
-    get: storage.getItem,
-    set: storage.setItem,
-    remove: storage.removeItem,
+  var api = {
+    get: function(k) { return storage.getItem(k) },
+    set: function(k, v) { storage.setItem(k, v) },
+    remove: function(k) { storage.removeItem(k) },
     make: function(k) {
       return {
         get: function() {
-          return storageObj.get(k);
+          return api.get(k);
         },
         set: function(v) {
-          storageObj.set(k, v);
+          api.set(k, v);
         },
         remove: function() {
-          storageObj.remove(k);
+          api.remove(k);
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
@@ -41,18 +40,18 @@ lichess.storage = (function() {
     makeBoolean: function(k) {
       return {
         get: function() {
-          return storageObj.get(k) == '1';
+          return api.get(k) == 1;
         },
         set: function(v) {
-          storageObj.set(k, v ? 1 : 0);
+          api.set(k, v ? 1 : 0);
         },
         toggle: function(v) {
-          storageObj.set(k, storageObj.get() ? 0 : 1);
+          api.set(k, api.get(k) == 1 ? 0 : 1);
         }
       };
     }
   };
-  return storageObj;
+  return api;
 })();
 
 lichess.once = function(key, mod) {
