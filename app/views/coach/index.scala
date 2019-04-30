@@ -33,7 +33,7 @@ object index {
                   "coach-sort",
                   order.name,
                   lila.coach.CoachPager.Order.all map { o =>
-                    a(href := routes.Coach.all(o.key))(o.name)
+                    a(href := routes.Coach.all(o.key), cls := (order == o).option("current"))(o.name)
                   }
                 )
               )
