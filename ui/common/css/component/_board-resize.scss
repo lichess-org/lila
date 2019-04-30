@@ -5,7 +5,7 @@ body.resizing {
 .board-resize {
   $resize-width: 22px;
   display: none;
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint($mq-board-resizable) {
     display: block;
     position: absolute;
     right: #{13px - $resize-width};
