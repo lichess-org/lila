@@ -9,7 +9,10 @@
     justify-content: center;
     color: #fff;
     flex: 0 0 12.5%;
-    @include breakpoint($mq-x-small $mq-short) {
+    @include breakpoint($mq-small $mq-short) {
+      flex: 0 0 10%;
+    }
+    @include breakpoint($mq-medium $mq-short) {
       flex: 0 0 6.6667%;
     }
   }
