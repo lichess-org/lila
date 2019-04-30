@@ -1,9 +1,10 @@
 .study__members {
   @extend %study-list;
   .left {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
     align-items: stretch;
     flex: 0 1 auto;
+    overflow: hidden;
   }
   .user-link {
     overflow: hidden;
@@ -13,7 +14,7 @@
   .status {
     @extend %flex-center;
     justify-content: center;
-    width: 2.2em;
+    width: 2.4em;
     margin-right: .1em;
     transition: 2.5s;
   }
