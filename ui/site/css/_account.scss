@@ -124,4 +124,8 @@
       @extend %active-soft;
     }
   }
+
+  @include breakpoint($mq-not-xx-small) {
+    td.icon { display: none }
+  }
 }
