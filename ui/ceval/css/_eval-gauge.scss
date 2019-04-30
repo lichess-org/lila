@@ -1,13 +1,20 @@
-$gauge-on-container: #{$block-gap / 2};
-$gauge-on-width: calc(#{$block-gap} + 2px);
+$gauge-on-container: 0.5vw;
+$gauge-on-width: $block-gap-w-half;
+
+main {
+  @include fluid-size('--gauge-width', 8px, 17px);
+  --gauge-gap: #{$block-gap};
+  &.gauge-on {
+    --gauge-gap: calc(var(--gauge-width) * 3/2);
+  }
+}
 
 .eval-gauge {
-  width: $gauge-on-width;
+  width: var(--gauge-width);
   position: relative;
   background: if($theme-light,#fff,#a0a0a0);
   border-radius: 0 5px 5px 0;
   overflow: hidden;
-  margin-left: -2px;
   @include breakpoint($mq-col1-uniboard) {
     display: none;
   }

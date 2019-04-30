@@ -1,10 +1,3 @@
-@mixin columns-with-gauge-col2($gauge-width) {
-  grid-template-columns: $col2-uniboard-width $gauge-width $block-gap $col2-uniboard-table;
-}
-@mixin columns-with-gauge-col3($gauge-width) {
-  grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-width $block-gap $col3-uniboard-table;
-}
-
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
   @include breakpoint($mq-col2) {
@@ -34,30 +27,21 @@
   &__moves { display: none; }
 
   @include breakpoint($mq-col2) {
-    @include columns-with-gauge-col2(0);
-    &.gauge-on {
-      @include columns-with-gauge-col2($gauge-on-container);
-    }
+    grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-    'board   gauge .    tools'
-    'history .     .    controls'
-    'side    side  side side';
+    'board   gauge tools'
+    'history .     controls'
+    'side    side  side';
 
     &__moves { display: block; }
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-    'side    . board   gauge . tools'
-    '.       . history .     . controls';
-    @include columns-with-gauge-col3(0);
-    &.gauge-on {
-      @include columns-with-gauge-col3($gauge-on-container);
-    }
-    &__tools {
-      // max-height: $board-width;
-    }
+    'side    . board   gauge tools'
+    '.       . history .     controls';
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
 
   &__side {
