@@ -51,6 +51,14 @@ $c-mselect: $c-primary;
       }
       opacity: 0;
     }
+    .current {
+      background: $c-bg-zebra;
+      @extend %flex-between-nowrap;
+      &::after {
+        @extend %data-icon;
+        content: 'E';
+      }
+    }
     .mselect__toggle:checked ~ & {
       transform: scale(1, 1);
       @include breakpoint($mq-not-small) {
