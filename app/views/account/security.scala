@@ -36,6 +36,7 @@ object security {
               ),
               td(cls := "info")(
                 span(cls := "ip")(s.session.ip),
+                " ",
                 span(cls := "location")(s.location.map(_.toString)),
                 p(cls := "ua")(s.session.ua),
                 s.session.date.map { date =>
