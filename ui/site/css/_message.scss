@@ -12,6 +12,9 @@
   time {
     white-space: nowrap;
   }
+  td {
+    @extend %break-word;
+  }
 }
 
 .message-new .message-text {
