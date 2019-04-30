@@ -7,6 +7,7 @@
   flex-flow: row wrap;
   align-items: flex-start;
   justify-content: flex-end;
+  margin-top: 0 !important;
   @include breakpoint($mq-not-small) {
     display: none;
   }
