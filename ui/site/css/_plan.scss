@@ -65,7 +65,7 @@
 
   .banner {
     @extend %box-radius-top, %flex-center-nowrap;
-    margin-bottom: 60px;
+    margin-bottom: 2.5em;
     background: $c-good;
     color: $c-good-over;
     text-align: center;
