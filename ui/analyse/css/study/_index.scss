@@ -6,7 +6,7 @@ $top-height: 3.2rem;
   .box__top {
     @extend %flex-center;
     .search {
-      flex: 2 1 auto;
+      flex: 3 1 auto;
       display: flex;
       input {
         @extend %box-radius-left;
