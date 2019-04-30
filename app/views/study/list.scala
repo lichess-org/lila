@@ -138,6 +138,7 @@ object list {
   )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = cssTag("study.index"),
+    wrapClass = "full-screen-force",
     moreJs = infiniteScrollTag
   ) {
       main(cls := "page-menu")(
