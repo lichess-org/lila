@@ -1,6 +1,3 @@
-$gauge-on-container: 0.5vw;
-$gauge-on-width: $block-gap-w-half;
-
 main {
   @include fluid-size('--gauge-width', 8px, 17px);
   --gauge-gap: #{$block-gap};

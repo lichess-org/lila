@@ -51,21 +51,16 @@ body {
   'chat'
   'uchat';
 
-  --gauge-width: 0px;
-  &.gauge-on {
-    --gauge-width: #{$gauge-on-container};
-  }
-
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width var(--gauge-width) $block-gap $col2-uniboard-table;
+    grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-    'board      gauge .    tools'
-    'under      under .    controls'
-    'under      under .    acpl'
-    'under      under .    side'
-    'chat       chat  .    side'
-    'uchat      uchat .    side';
+    'board      gauge tools'
+    'under      under controls'
+    'under      under acpl'
+    'under      under side'
+    'chat       chat  side'
+    'uchat      uchat side';
     grid-row-gap: 0;
 
     &__side,
@@ -80,17 +75,17 @@ body {
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-width) $block-gap $col2-uniboard-squeeze-table;
+    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-width) $block-gap $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height max-content;
     grid-template-areas:
-    'side    . board gauge . tools'
-    'chat    . board gauge . tools'
-    'uchat   . under under . controls'
-    'uchat   . under under . acpl';
+    'side    . board gauge tools'
+    'chat    . board gauge tools'
+    'uchat   . under under controls'
+    'uchat   . under under acpl';
 
     &__side { margin-top: 0 }
     .mchat { min-height: 10em }
