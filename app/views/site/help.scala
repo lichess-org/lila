@@ -34,7 +34,7 @@ object help {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
-        div(cls := "box box-pad")(freeJs())
+        div(cls := "box")(freeJs())
       ))
   }
 

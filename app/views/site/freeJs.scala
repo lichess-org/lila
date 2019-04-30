@@ -14,15 +14,17 @@ object freeJs {
   private val uiModules = List("site", "chat", "cli", "challenge", "notify", "learn", "insight", "editor", "puzzle", "round", "analyse", "lobby", "tournament", "tournamentSchedule", "tournamentCalendar", "simul", "perfStat", "dasher")
 
   def apply(): Frag = frag(
-    h1("JavaScript modules"),
-    p(
+    div(cls := "box__top")(
+      h1("JavaScript modules")
+    ),
+    p(cls := "box__pad")(
       "Here are all frontend modules from ",
       a(href := "https://github.com/ornicar/lila/tree/master/ui")("ornicar/lila ui"),
       " in ",
       a(href := "https://www.gnu.org/licenses/javascript-labels.en.html")("Web Labels"),
       " compatible format:"
     ),
-    table(id := "jslicense-labels1", cls := "slist")(
+    table(id := "jslicense-labels1", cls := "slist slist-pad")(
       thead(
         tr(List("Script File", "License", "Source Code").map(th(_)))
       ),
