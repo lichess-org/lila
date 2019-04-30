@@ -15,6 +15,17 @@
   td {
     @extend %break-word;
   }
+  @include breakpoint($mq-not-medium) {
+    .date { display: none }
+    .author {
+      max-width: 22ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  @include breakpoint($mq-not-small) {
+    .check, .select, .action { display: none }
+  }
 }
 
 .message-new .message-text {
