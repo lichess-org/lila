@@ -15,7 +15,7 @@
   td {
     @extend %break-word;
   }
-  @include breakpoint($mq-not-medium) {
+  @include breakpoint($mq-not-small) {
     .date { display: none }
     .author {
       max-width: 22ch;
@@ -23,7 +23,7 @@
       text-overflow: ellipsis;
     }
   }
-  @include breakpoint($mq-not-small) {
+  @include breakpoint($mq-not-xx-small) {
     .check, .select, .action { display: none }
   }
 }
