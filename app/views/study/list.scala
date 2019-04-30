@@ -150,7 +150,7 @@ object list {
               "orders",
               span(order.name),
               (if (active == "all") Order.allButOldest else Order.all) map { o =>
-                a(href := url(o.key))(o.name)
+                a(href := url(o.key), cls := (order == o).option("current"))(o.name)
               }
             ),
             bits.newForm()
