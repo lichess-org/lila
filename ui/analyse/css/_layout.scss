@@ -84,6 +84,7 @@ body {
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-width) $block-gap $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height max-content;
+    // grid-template-rows: auto $chat-height  auto;
     grid-template-areas:
     'side    . board gauge . tools'
     'chat    . board gauge . tools'
@@ -92,6 +93,12 @@ body {
 
     &__side {
       margin-top: 0;
+    }
+
+    /* firefox support: grid sizing hack */
+    .mchat {
+      // height: 200px;
+      align-self: end;
     }
 
     @include crosstable-large;
