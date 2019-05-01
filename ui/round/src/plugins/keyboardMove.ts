@@ -19,27 +19,27 @@ window.lichess.keyboardMove = function(opts: any) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
       // ambiguous UCI
-      if (v.match(keyRegex) && opts.hasSelected()) opts.select(v);
+      if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
       // ambiguous promotion (also check sans[v] here because bc8 could mean Bc8)
       if (v.match(ambiguousPromotionCaptureRegex) && sans[v] && !force) return;
-      else opts.san(foundUci.slice(0, 2), foundUci.slice(2));
+      else opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
-      opts.select(v);
+      opts.ctrl.select(v);
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
     } else if (sans && v.match(promotionRegex)) {
       const foundUci = sanToUci(v.replace('=', '').slice(0, -1), sans);
       if (!foundUci) return;
-      opts.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      opts.ctrl.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
       if (v.length === 3) v = 'P' + v;
-      opts.drop(v.slice(2), v[0].toUpperCase());
+      opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
       clear();
     } else if (v.startsWith('clock')) {
-      readClocks(opts.clock());
+      readClocks(opts.ctrl.clock());
       clear();
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
@@ -70,18 +70,18 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
       focusChat();
       clear();
     }
-    else if (v === '' && e.which == 13) opts.confirmMove();
-    else if (e.which == 37) opts.jump(-1);
-    else if (e.which == 38) opts.jump(-999);
-    else if (e.which == 39) opts.jump(1);
-    else if (e.which == 40) opts.jump(999);
+    else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
+    else if (e.which == 37) opts.ctrl.jump(-1);
+    else if (e.which == 38) opts.ctrl.jump(-999);
+    else if (e.which == 39) opts.ctrl.jump(1);
+    else if (e.which == 40) opts.ctrl.jump(999);
     else submit(v, e.which === 13);
   });
   opts.input.addEventListener('focus', function() {
-    opts.setFocus(true);
+    opts.ctrl.setFocus(true);
   });
   opts.input.addEventListener('blur', function() {
-    opts.setFocus(false);
+    opts.ctrl.setFocus(false);
   });
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', function(e: KeyboardEvent) {

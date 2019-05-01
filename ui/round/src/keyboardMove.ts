@@ -105,15 +105,7 @@ export function render(ctrl: KeyboardMove) {
         window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
           ctrl.registerHandler(window.lichess.keyboardMove({
             input: el,
-            setFocus: ctrl.setFocus,
-            select: ctrl.select,
-            hasSelected: ctrl.hasSelected,
-            confirmMove: ctrl.confirmMove,
-            san: ctrl.san,
-            drop: ctrl.drop,
-            promote: ctrl.promote,
-            jump: ctrl.jump,
-            clock: ctrl.clock
+            ctrl
           }));
         });
       })
