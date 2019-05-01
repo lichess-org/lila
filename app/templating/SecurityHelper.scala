@@ -19,6 +19,8 @@ trait SecurityHelper {
   def isGranted(permission: Permission, user: User): Boolean =
     Granter(permission)(user)
 
+  def canGrant = Granter.canGrant _
+
   def canViewRoles(user: User)(implicit ctx: UserContext): Boolean =
     isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
 

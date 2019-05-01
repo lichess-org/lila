@@ -27,8 +27,8 @@ $('button.clear').on('click', function() {
           p("Use Ctrl+click to select multiple permissions"),
           form(cls := "form3", action := routes.Mod.permissions(u.username), method := "post")(
             select(name := "permissions[]", multiple)(
-              lila.security.Permission.allButSuperAdmin.sortBy(_.name).map { p =>
-                option(
+              lila.security.Permission.allButSuperAdmin.sortBy(_.name).flatMap { p =>
+                ctx.me.exists(canGrant(_, p)) option option(
                   value := p.name,
                   u.roles.contains(p.name) option selected,
                   title := p.children.mkString(", ")
