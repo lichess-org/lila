@@ -23,7 +23,7 @@ object notFound {
             p(
               "Return to ",
               a(href := routes.Lobby.home)("the homepage"),
-              span(cls := "or-play")(", or play this mini-game")
+              span(cls := "or-play")(" or play this mini-game")
             )
           )
         ),
