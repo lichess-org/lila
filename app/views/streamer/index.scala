@@ -84,9 +84,16 @@ object index {
               pager.currentPageResults.map { s =>
                 st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
               },
-              pagerNext(pager, np => addQueryParameter(routes.Streamer.index().url, "page", np)).map {
-                frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-              }
+              pagerNext(
+                pager,
+                np => addQueryParameter(
+                  addQueryParameter(routes.Streamer.index().url, "page", np),
+                  "requests",
+                  if (requests) 1 else 0
+                )
+              ).map {
+                  frag(_, div(cls := "none")) // don't break the even/odd CSS flow
+                }
             )
           )
         )
