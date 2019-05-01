@@ -158,7 +158,7 @@ object features {
           strong("all features are free for everybody, forever!"),
           br,
           "If you love Lichess, ",
-          a(cls := "button", href := routes.Plan.index)("support us with a Patron account!")
+          a(cls := "button", href := routes.Plan.index)("Support us with a Patron account!")
         )
       )
     }
