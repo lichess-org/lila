@@ -13,9 +13,6 @@ private final class DeviceApi(coll: Coll) {
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
     coll.find($id(deviceId)).uno[Device]
 
-  private[push] def findByUserId(userId: String): Fu[List[Device]] =
-    coll.find($doc("userId" -> userId)).cursor[Device]().gather[List]()
-
   private[push] def findLastManyByUserId(platform: String, max: Int)(userId: String): Fu[List[Device]] =
     coll.find($doc(
       "platform" -> platform,
