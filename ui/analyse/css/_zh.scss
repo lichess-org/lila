@@ -27,24 +27,24 @@ $pocket-height: 60px;
   @include breakpoint($mq-col2) {
     grid-template-rows: $pocket-height auto $pocket-height;
     grid-template-areas:
-    'board      gauge .    pocket-top'
-    'board      gauge .    tools'
-    'board      gauge .    pocket-bot'
-    'under      under .    controls'
-    'under      under .    acpl'
-    'under      under .    side'
-    'chat       chat  .    side'
-    'uchat      uchat .    side';
+    'board      gauge pocket-top'
+    'board      gauge tools'
+    'board      gauge pocket-bot'
+    'under      under controls'
+    'under      under acpl'
+    'under      under side'
+    'chat       chat  side'
+    'uchat      uchat side';
   }
   @include breakpoint($mq-col3) {
     grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;
     grid-template-areas:
-    'side    . board gauge . pocket-top'
-    'side    . board gauge . tools'
-    'chat    . board gauge . tools'
-    'chat    . board gauge . pocket-bot'
-    'uchat   . under under . controls'
-    'uchat   . under under . acpl';
+    'side    . board gauge pocket-top'
+    'side    . board gauge tools'
+    'chat    . board gauge tools'
+    'chat    . board gauge pocket-bot'
+    'uchat   . under under controls'
+    'uchat   . under under acpl';
   }
 }
 
