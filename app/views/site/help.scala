@@ -26,7 +26,7 @@ object help {
     layout(
       title = title,
       active = "source",
-      moreCss = frag(cssTag("page"), cssTag("slist")),
+      moreCss = frag(cssTag("source")),
       contentCls = "page"
     )(frag(
         div(cls := "box box-pad body")(
