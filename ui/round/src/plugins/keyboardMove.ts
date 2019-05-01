@@ -22,6 +22,9 @@ window.lidraughts.keyboardMove = function(opts: any) {
         clear();
       } else
         opts.input.classList.remove('wrong');
+    } else if (v.startsWith('clock')) {
+      readClocks(opts.clock());
+      clear();
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
   };
@@ -105,4 +108,21 @@ function destsToUcis(dests: DecodedDests) {
 function focusChat() {
   const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;
   if (chatInput) chatInput.focus();
+}
+
+function readClocks(clockCtrl: any | undefined) {
+  if (!clockCtrl) return;
+  const msgs = ['white', 'black'].map(color => {
+    const time = clockCtrl.millisOf(color);
+    const date = new Date(time);
+    const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') + ' ' +
+      simplePlural(date.getUTCMinutes(), 'minute') +  ' ' +
+      simplePlural(date.getUTCSeconds(), 'seconds');
+    return `${color}: ${msg}`;
+  });
+    window.lidraughts.sound.say(msgs.join('. '));
+}
+
+function simplePlural(nb: number, word: string) {
+  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }

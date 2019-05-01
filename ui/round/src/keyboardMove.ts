@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import * as cg from 'draughtsground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { ClockController } from './clock/clockCtrl';
 import { onInsert } from './util'
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, captLen?: number) => void;
@@ -17,6 +18,7 @@ export interface KeyboardMove {
   confirmMove(): void;
   usedSan: boolean;
   jump(delta: number): void;
+  clock(): ClockController | undefined;
 }
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
@@ -58,7 +60,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     jump(delta: number) {
       root.userJump(root.ply + delta);
       redraw();
-    }
+    },
+    clock: () => root.clock
   };
 }
 
@@ -78,7 +81,8 @@ export function render(ctrl: KeyboardMove) {
             hasSelected: ctrl.hasSelected,
             confirmMove: ctrl.confirmMove,
             san: ctrl.san,
-            jump: ctrl.jump
+            jump: ctrl.jump,
+            clock: ctrl.clock
           }));
         });
       })
