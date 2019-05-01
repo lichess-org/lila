@@ -14,16 +14,16 @@ window.lidraughts.keyboardMove = function(opts: any) {
   const submit = function(v: string, force?: boolean) {
     const foundUci = v.length >= 3 && sans && sanToUci(v, sans);
     if (foundUci) {
-      opts.san(foundUci.slice(0, 2), foundUci.slice(2));
+      opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
       if (force) {
-        opts.select(v.length === 1 ? ('0' + v) : v);
+        opts.ctrl.select(v.length === 1 ? ('0' + v) : v);
         clear();
       } else
         opts.input.classList.remove('wrong');
     } else if (v.startsWith('clock')) {
-      readClocks(opts.clock());
+      readClocks(opts.ctrl.clock());
       clear();
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
@@ -54,18 +54,18 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
       focusChat();
       clear();
     }
-    else if (v === '' && e.which == 13) opts.confirmMove();
-    else if (e.which == 37) opts.jump(-1);
-    else if (e.which == 38) opts.jump(-999);
-    else if (e.which == 39) opts.jump(1);
-    else if (e.which == 40) opts.jump(999);
+    else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
+    else if (e.which == 37) opts.ctrl.jump(-1);
+    else if (e.which == 38) opts.ctrl.jump(-999);
+    else if (e.which == 39) opts.ctrl.jump(1);
+    else if (e.which == 40) opts.ctrl.jump(999);
     else submit(v, e.which === 13);
   });
   opts.input.addEventListener('focus', function() {
-    opts.setFocus(true);
+    opts.ctrl.setFocus(true);
   });
   opts.input.addEventListener('blur', function() {
-    opts.setFocus(false);
+    opts.ctrl.setFocus(false);
   });
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', function(e: KeyboardEvent) {

@@ -76,13 +76,7 @@ export function render(ctrl: KeyboardMove) {
         window.lidraughts.loadScript('compiled/lidraughts.round.keyboardMove.min.js').then(() => {
           ctrl.registerHandler(window.lidraughts.keyboardMove({
             input: el,
-            setFocus: ctrl.setFocus,
-            select: ctrl.select,
-            hasSelected: ctrl.hasSelected,
-            confirmMove: ctrl.confirmMove,
-            san: ctrl.san,
-            jump: ctrl.jump,
-            clock: ctrl.clock
+            ctrl
           }));
         });
       })
