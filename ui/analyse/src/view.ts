@@ -117,10 +117,8 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
             }
           }
-        })
-      ]),
-      h('div.action', [
-        h('button.button.button-thin.text', {
+        }),
+        h('button.button.button-thin.action.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
             const pgn = $('.copyables .pgn textarea').val();

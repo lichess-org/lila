@@ -5,6 +5,19 @@
 
   .pair {
     @extend %flex-center;
+    position: relative;
+    .action {
+      @extend %box-radius-bottom;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      text-align: right;
+      opacity: 0;
+      @include transition();
+    }
+    textarea:focus ~ .action {
+      opacity: 1;
+    }
   }
   .name {
     flex: 0 0 5ch;
@@ -20,18 +33,6 @@
       min-height: 6em;
       white-space: pre-wrap;
       overflow-x: hidden;
-    }
-    .action {
-      opacity: 0;
-      text-align: right;
-      margin-top: -2px;
-      @include transition();
-      button {
-        @extend %box-radius-bottom;
-      }
-    }
-    &:hover .action {
-      opacity: 1;
     }
   }
 }
