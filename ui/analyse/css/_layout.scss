@@ -84,8 +84,8 @@ body {
     grid-template-areas:
     'side    . board gauge tools'
     'chat    . board gauge tools'
-    'uchat   . under under controls'
-    'uchat   . under under acpl';
+    'uchat   . under .     controls'
+    'uchat   . under .     acpl';
 
     &__side { margin-top: 0 }
     .mchat { min-height: 10em }
