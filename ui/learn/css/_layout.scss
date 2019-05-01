@@ -38,8 +38,11 @@ $mq-col3: $mq-col3-uniboard;
       'side .';
     }
     &--map {
-      grid-template-columns: $col3-uniboard-side auto;
       grid-template-areas: 'side main';
+      grid-template-columns: 240px auto;
+      @include breakpoint($mq-x-large) {
+        grid-template-columns: 240px 960px;
+      }
     }
   }
 
