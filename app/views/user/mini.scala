@@ -70,10 +70,10 @@ object mini {
       frag(
         gameFen(pov),
         div(cls := "upt__game-legend")(
-          playerText(pov.opponent, withRating = true),
-          pov.game.clock map { c =>
-            frag(" • ", c.config.show)
-          }
+          i(dataIcon := pov.game.perfType.map(_.iconChar.toString), cls := "text")(
+            pov.game.clock.map(_.config.show)
+          ),
+          playerText(pov.opponent, withRating = true)
         )
       )
     }
