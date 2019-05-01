@@ -20,8 +20,14 @@ function renderSan(san: San) {
   return move;
 }
 
+function hackFix(msg: string): string {
+
+  return msg
+    .replace("A takes", "A, takes"); // "a takes" is mispronounced
+}
+
 export function say(text: string, cut: boolean) {
-  const msg = new SpeechSynthesisUtterance(text);
+  const msg = new SpeechSynthesisUtterance(hackFix(text));
   msg.rate = 1.2;
   if (cut) speechSynthesis.cancel();
   window.lichess.sound.say(msg);
