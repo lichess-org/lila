@@ -3,6 +3,7 @@ import { sanToRole } from 'chess'
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { sendPromotion } from './promotion'
 import { onInsert } from './util'
@@ -26,6 +27,7 @@ export interface KeyboardMove {
   confirmMove(): void;
   usedSan: boolean;
   jump(delta: number): void;
+  clock(): ClockController | undefined;
 }
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
@@ -87,7 +89,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     jump(delta: number) {
       root.userJump(root.ply + delta);
       redraw();
-    }
+    },
+    clock: () => root.clock
   };
 }
 
@@ -109,7 +112,8 @@ export function render(ctrl: KeyboardMove) {
             san: ctrl.san,
             drop: ctrl.drop,
             promote: ctrl.promote,
-            jump: ctrl.jump
+            jump: ctrl.jump,
+            clock: ctrl.clock
           }));
         });
       })
