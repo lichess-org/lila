@@ -11,7 +11,7 @@ function key2piotr(key: Key) {
   return "";
 }
 
-export function calcDests(fen: string, variant?: string) {
+export function calcDests(fen: string, variant?: string): string {
 
   const pieces = read(fen),
     turnColor: Color = fen.substr(0, 1).toUpperCase() === 'W' ? 'white' : 'black',

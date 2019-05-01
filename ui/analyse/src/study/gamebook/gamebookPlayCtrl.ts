@@ -1,6 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import { path as treePath, ops as treeOps } from 'tree';
 import { makeShapesFromUci } from '../../autoShape';
+import { fenCompare } from 'draughts'
 
 type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -84,10 +85,13 @@ export default class GamebookPlayCtrl {
     return child ? child.uci : "";
   }
 
-  peekUci = () => {
+  peekChild = () => {
+    return this.root.node.children.length ? this.root.node.children[0] : undefined;
+  }
+
+  peekNextChild = () => {
     const child = this.root.node.children[0];
-    const nextChild = child ? child.children[0] : undefined;
-    return nextChild ? nextChild.uci : "";
+    return (child && child.children.length) ? child.children[0] : undefined;
   }
 
   onSpace = () => {
@@ -108,12 +112,12 @@ export default class GamebookPlayCtrl {
 
   onJump = this.makeState;
 
-  tryJump = (uci: string) => {
+  tryJump = (uci: string, fen: string) => {
     const parPath = treePath.init(this.root.path),
       parNode = this.root.tree.nodeAtPath(parPath);
     const node = uci.length > 4 ? parNode : this.root.node;
     for (const child of node.children) {
-      if (child.uci && child.uci.length >= uci.length && child.uci.slice(0, uci.length) === uci)
+      if (fenCompare(child.fen, fen))
         return child;
     }
     this.state = {

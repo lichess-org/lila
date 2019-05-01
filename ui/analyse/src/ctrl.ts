@@ -474,40 +474,53 @@ export default class AnalyseCtrl {
     this.sendMove(orig, dest, capture);
   }
 
-  private gamebookMove(orig: Key, dest: Key, gamebook: GamebookPlayCtrl): void {
+  private moreCaptures(boardFen: string): boolean {
+     const fenParts = this.node.fen.split(':');
+     var fen = this.node.fen[0] + ":" + boardFen;
+     if (fenParts.length > 3) fen += ":" + fenParts.slice(3).join(':');
+     const dests = calcDests(fen, this.data.game.variant.key);
+     return dests.length > 1 && dests[0] === "#";
+  }
+
+  private gamebookMove(orig: Key, dest: Key, gamebook: GamebookPlayCtrl, capture?: JustCaptured): void {
     const key2id = (key: Key) => String.fromCharCode(35 + parseInt(key) - 1),
-      ghosts = countGhosts(this.node.fen);
-    const uci: string = (ghosts == 0 || !this.node.uci) ? (orig + dest) : (this.node.uci + dest);
-    let treeNode = gamebook.tryJump(uci)
+      ghosts = countGhosts(this.node.fen),
+      uci: string = (ghosts == 0 || !this.node.uci) ? (orig + dest) : (this.node.uci + dest),
+      boardFen = this.draughtsground.getFen(),
+      continueCapture = capture && this.moreCaptures(boardFen),
+      nextColor = continueCapture ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W') ,
+      nextFen = nextColor + ":" +  boardFen;
+
+    let treeNode = continueCapture ? (ghosts === 0 ? gamebook.peekChild() : this.node) : gamebook.tryJump(uci, nextFen);
     if (treeNode) {
       if (this.node.captLen && (ghosts != 0 || this.node.captLen > 1)) {
-        treeNode = treeOps.copyNode(ghosts == 0 ? treeNode : this.node);
+        treeNode = treeOps.copyNode(treeNode);
         treeNode.uci = uci.substr(uci.length - 4);
         if (treeNode.san) {
           const capt = treeNode.san.indexOf('x');
           if (capt !== -1) {
-            if (ghosts == 0)
+            if (!ghosts)
               treeNode.san = treeNode.san.substr(0, capt + 1) + parseInt(uci.substr(uci.length - 2, 2)).toString();
             else
               treeNode.san = treeNode.san.substr(capt + 1) + "x" + parseInt(uci.substr(uci.length - 2, 2)).toString();
           }
         }
-        if (ghosts == 0) {
+        if (!ghosts) {
           treeNode.id = treeNode.id.substr(0, 1) + key2id(dest);
           treeNode.comments = undefined;
         } else
           treeNode.id = treeNode.id.substr(1, 1) + key2id(dest);
         treeNode.captLen = this.node.captLen - 1;
-        if (treeNode.captLen == 0) {
+        if (!treeNode.captLen) {
           treeNode.ply = this.node.ply + 1;
           treeNode.displayPly = treeNode.ply;
         } else {
           treeNode.ply = this.node.ply;
           treeNode.displayPly = treeNode.ply + 1;
         }
-        const sideToMove = treeNode.captLen != 0 ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W');
+        const sideToMove = treeNode.captLen ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W');
         const fenParts = treeNode.fen.split(':');
-        treeNode.fen = sideToMove + ":" + this.draughtsground.getFen();
+        treeNode.fen = sideToMove + ":" + boardFen;
         if (fenParts.length > 3)
           treeNode.fen += ":" + fenParts.slice(3).join(':');
         if (treeNode.captLen > 0) {
@@ -519,9 +532,9 @@ export default class AnalyseCtrl {
       if (!treeNode.dests) {
         treeNode.dests = calcDests(treeNode.fen, this.data.game.variant.key);
         if (treeNode.dests.length > 1 && treeNode.dests[0] === '#') {
-          const nextUci = gamebook.peekUci();
-          if (nextUci && nextUci.length >= 4) {
-            treeNode.captLen = nextUci.length / 2 - 1;
+          const nextChild = gamebook.peekNextChild();
+          if (nextChild && nextChild.uci && nextChild.uci.length > 4) {
+            treeNode.captLen = nextChild.uci.length / 2 - 1;
             treeNode.dests = "#" + treeNode.captLen.toString() + treeNode.dests.substr(2);
           }
         }
@@ -543,7 +556,7 @@ export default class AnalyseCtrl {
     if (this.practice) this.practice.onUserMove();
     const gamebook = this.gamebookPlay();
     if (this.embed && gamebook) {
-      this.gamebookMove(orig, dest, gamebook);
+      this.gamebookMove(orig, dest, gamebook, capture);
     } else {
       this.socket.sendAnaMove(move, this.data.puzzleEditor);
       this.preparePremoving();
