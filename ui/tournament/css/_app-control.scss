@@ -1,8 +1,6 @@
 .tour__controls {
-  @extend %metal, %flex-between;
+  @extend %metal, %flex-between, %box-shadow;
   padding: 0 0px;
-  border: $border;
-  border-width: 1px 0;
   position: relative;
   .fbt {
     padding: .6em .8em;
