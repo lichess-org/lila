@@ -797,17 +797,17 @@ en %3$s</string>
     <item quantity="one">%s seconde pour jouer le premier coup</item>
     <item quantity="other">%s secondes pour jouer le premier coup</item>
   </plurals>
-  <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
+  <string name="practiceWithComputer">S\'entraîner avec un ordinateur</string>
   <string name="anotherWasX">Un autre était %s</string>
   <string name="bestWasX">Meilleur était %s</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
-  <string name="resumePractice">Reprendre l\'entrainement</string>
+  <string name="resumePractice">Reprendre l\'entraînement</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
   <string name="computerThinking">L’ordinateur réfléchit ...</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
-  <string name="evaluatingYourMove">Evaluation de votre coup...</string>
+  <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
@@ -822,7 +822,7 @@ en %3$s</string>
   <string name="tryAnotherMoveForWhite">Essayez un autre coup pour les Blancs</string>
   <string name="tryAnotherMoveForBlack">Essayez un autre coup pour les Noirs</string>
   <string name="solution">Solution</string>
-  <string name="waitingForAnalysis">En attente d\'analyse</string>
+  <string name="waitingForAnalysis">En cours d\'analyse</string>
   <string name="noMistakesFoundForWhite">Pas d\'erreur trouvée pour les Blancs</string>
   <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
   <string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs des Blancs</string>
@@ -843,14 +843,14 @@ en %3$s</string>
   <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
   <string name="yourXRatingIsTooFarFromY">Votre classement de %1$s est trop différent de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Défier est impossible à cause du classement %s provisoire.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis d’amis.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses amis.</string>
   <string name="conditionalPremoves">Précoups conditionnels</string>
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">et enregistrer %s variantes</item>
+    <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
 </resources>
