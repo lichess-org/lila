@@ -155,7 +155,8 @@ export function build(root: Tree.Node): TreeWrapper {
     var newPath = path + newNode.id;
     var existing = nodeAtPathOrNull(newPath);
 
-    if (existing && countGhosts(newNode.fen) > 0) {
+    const newGhosts = countGhosts(newNode.fen);
+    if (existing && newGhosts > 0) {
       //new node might be an immediate ambiguity
       const parent = nodeAtPathOrNull(path);
       if (parent && parent.children.some(child => child.san === newNode.san && child.fen !== newNode.fen)) {
@@ -172,7 +173,7 @@ export function build(root: Tree.Node): TreeWrapper {
       return newPath;
     }
 
-    if (countGhosts(newNode.fen) > 0)
+    if (newGhosts > 0)
       newNode.displayPly = newNode.ply + 1;
 
     const curNode = nodeAtPathOrNull(path);
@@ -216,6 +217,18 @@ export function build(root: Tree.Node): TreeWrapper {
       else
         return path.substr(0, path.length - 2) + curNode.id;
 
+    } else if (!curNode && path.length >= 2) {
+      const parent = nodeAtPathOrNull(path.substr(0, path.length - 2));
+      if (parent && parent.captLen && parent.captLen > 1 && parent.children.length != 0) {
+        // verify node was previously delivered and merged already
+        existing = parent.children.find(function(c) { return c.fen === newNode.fen && c.san === newNode.san; });
+        if (existing) {
+          if (defined(newNode.dests) && !defined(existing.dests)) existing.dests = newNode.dests;
+          if (defined(newNode.drops) && !defined(existing.drops)) existing.drops = newNode.drops;
+          if (defined(newNode.clock) && !defined(existing.clock)) existing.clock = newNode.clock;
+          return path.substr(0, path.length - 2) + existing.id;
+        }
+      }
     }
 
     return updateAt(path, function (parent: Tree.Node) {

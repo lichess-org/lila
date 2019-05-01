@@ -261,6 +261,7 @@ object Node {
             case _ => destStr
           }
         }))
+        .add("captLen", captureLength)
         .add("drops", drops.map { drops =>
           JsString(drops.map(_.key).mkString)
         })
