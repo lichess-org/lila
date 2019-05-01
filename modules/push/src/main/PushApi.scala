@@ -12,9 +12,11 @@ import lidraughts.game.{ Game, GameRepo, Pov, Namer }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lidraughts.message.{ Thread, Post }
+import lidraughts.user.User
 
 private final class PushApi(
     oneSignalPush: OneSignalPush,
+    webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
     bus: lidraughts.common.Bus,
     scheduler: lidraughts.common.Scheduler
@@ -203,8 +205,8 @@ private final class PushApi(
 
   private type MonitorType = lidraughts.mon.push.send.type => (String => Unit)
 
-  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data): Funit =
-    oneSignalPush(userId) {
+  private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
+    webPush(userId)(data) >> oneSignalPush(userId) {
       monitor(lidraughts.mon.push.send)("onesignal")
       data
     }

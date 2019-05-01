@@ -60,6 +60,7 @@ interface Lidraughts {
   hasTouchEvents: boolean;
   mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
+  pushSubscribe(ask: boolean): void;
 }
 
 interface LidraughtsSpeech {

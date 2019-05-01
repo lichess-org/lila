@@ -15,6 +15,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   val siteDomain = lidraughts.api.Env.current.Net.Domain
   val assetDomain = lidraughts.api.Env.current.Net.AssetDomain
   val socketDomain = lidraughts.api.Env.current.Net.SocketDomain
+  val vapidPublicKey = lidraughts.push.Env.current.WebVapidPublicKey
 
   val sameAssetDomain = siteDomain == assetDomain
 
