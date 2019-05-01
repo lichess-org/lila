@@ -77,12 +77,10 @@ $mq-picture: $mq-medium;
     }
   }
   .service {
+    @extend %nowrap-ellipsis;
     display: flex;
     font-size: 1.2em;
-    white-space: nowrap;
     padding: 3px 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
     svg {
       width: 1.4em;
       height: 1.4em;

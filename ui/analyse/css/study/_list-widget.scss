@@ -30,9 +30,8 @@ $c-study: $c-primary;
       margin-left: 2%;
     }
     li {
-      @extend %nowrap-hidden;
+      @extend %nowrap-ellipsis;
       color: $c-font-dim;
-      text-overflow: ellipsis;
       &::before {
         color: $c-font-dimmer;
       }
@@ -40,13 +39,12 @@ $c-study: $c-primary;
     .top {
       @extend %flex-center-nowrap, %break-word, %roboto;
       .study-name {
-        @extend %nowrap-hidden;
+        @extend %nowrap-ellipsis;
         font-size: 1.5em;
         font-weight: normal;
         color: $c-study;
         display: block;
         margin: 0;
-        text-overflow: ellipsis;
       }
       span {
         font-size: .9rem;

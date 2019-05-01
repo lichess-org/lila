@@ -8,8 +8,7 @@
   }
   &__pl,
   &__op {
-    text-overflow: ellipsis;
-    overflow: hidden;
+    @extend %ellipsis;
     max-width: 45%;
   }
   &__pl {

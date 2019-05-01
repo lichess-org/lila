@@ -78,9 +78,8 @@
       border-color: $c-bad;
     }
     td:nth-child(2) {
-      @extend %nowrap-hidden;
+      @extend %nowrap-ellipsis;
       max-width: 200px;
-      text-overflow: ellipsis;
     }
     td:last-child {
       font-weight: bold;

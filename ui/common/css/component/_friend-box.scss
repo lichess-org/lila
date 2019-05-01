@@ -42,9 +42,8 @@
         color: $c-font;
       }
       &.user-link {
+        @extend %ellipsis;
         max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
         .line::before {
           color: $c-good;
           content: '';

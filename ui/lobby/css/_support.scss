@@ -39,8 +39,7 @@ $c-support: $c-brag;
       display: block;
     }
     span {
-      @extend %nowrap-hidden;
-      text-overflow: ellipsis;
+      @extend %nowrap-ellipsis;
       display: block;
       font-size: .8em;
     }

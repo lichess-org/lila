@@ -42,12 +42,11 @@
     @extend %flex-between;
   }
   strong {
+    @extend %ellipsis;
     font-size: 1.2em;
     color: $c-font-dim;
     display: block;
     max-width: 60%;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .title {
     color: $c-brag;

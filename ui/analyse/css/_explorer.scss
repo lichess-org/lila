@@ -103,9 +103,8 @@
     max-width: 110px;
   }
   .games td span {
+    @extend %ellipsis;
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .games result {
     display: block;

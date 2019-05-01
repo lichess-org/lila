@@ -23,9 +23,8 @@
     @extend %metal;
   }
   &__users {
+    @extend %ellipsis;
     max-width: 40vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
     text-align: left;
     a {
       padding-left: $block-gap;

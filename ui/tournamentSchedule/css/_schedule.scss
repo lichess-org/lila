@@ -134,8 +134,7 @@ $c-tour-max-rating: #8572ff;
     }
   }
   .name, .body {
-    @extend %nowrap-hidden;
-    text-overflow: ellipsis;
+    @extend %nowrap-ellipsis;
   }
   .name {
     display: inline-block;
@@ -150,9 +149,8 @@ $c-tour-max-rating: #8572ff;
     display: inline-flex;
   }
   .infos .text {
+    @extend %ellipsis;
     flex: 1 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .infos .nb-players {
     flex: 0 0 auto;

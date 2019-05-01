@@ -81,9 +81,8 @@
   @extend %flex-between;
 }
 .site_notification .content span:last-child {
+  @extend %ellipsis;
   display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 .site_notification .content time {
   @extend %roboto;

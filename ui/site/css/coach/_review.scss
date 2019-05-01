@@ -18,15 +18,13 @@
     margin-bottom: 5px;
   }
   .top .user-link {
+    @extend %ellipsis;
     margin-left: -4px;
-    text-overflow: ellipsis;
   }
   .content {
-    @extend %page-text;
+    @extend %page-text, %ellipsis;
     font-style: italic;
     max-height: 10.7em;
-    overflow: hidden;
-    text-overflow: ellipsis;
     @include transition();
   }
   .disapprove {

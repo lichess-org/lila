@@ -9,8 +9,7 @@
     white-space: nowrap;
     border-bottom: $border;
     .name {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @extend %ellipsis;
     }
     .liking {
       margin-left: 1rem;

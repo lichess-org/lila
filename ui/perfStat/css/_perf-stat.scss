@@ -93,10 +93,9 @@
   }
   .resultStreak .streak,
   .playStreak .streak {
+    @extend %ellipsis;
     margin: 1em 0 1em 1.5em;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .playStreak {
     white-space: nowrap;

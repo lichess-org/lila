@@ -7,8 +7,7 @@
     overflow: hidden;
   }
   .user-link {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
     margin: .5em 0;
   }
   .status {
