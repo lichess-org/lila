@@ -36,7 +36,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context): Frag =
     span(
       title := s"$name rating over ${nb.localize} games",
-      dataIcon := icon
+      dataIcon := icon,
+      cls := "text"
     )(
         if (nb > 0) frag(rating, provisional option "?")
         else frag(nbsp, nbsp, nbsp, "-")
