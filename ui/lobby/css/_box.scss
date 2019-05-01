@@ -32,6 +32,8 @@
       border-top: $border;
       white-space: nowrap;
       max-width: 21ch; /* prevent leaderboard overflow due to long usernames */
+      overflow: hidden;
+      text-overflow: ellipsis;
       &:first-child {
         padding-left: .7em;
       }
