@@ -32,10 +32,8 @@ $col2-panel-height: 240px;
         transform: scale(0);
       }
       &.active,
-      &:hover {
-        &::after {
-          transform: scale(1);
-        }
+      &:hover::after {
+        transform: scale(1);
       }
       &.active {
         color: $c-accent;
