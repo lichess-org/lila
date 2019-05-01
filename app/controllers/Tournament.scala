@@ -284,9 +284,17 @@ object Tournament extends LilaController {
 
   def shields = Open { implicit ctx =>
     for {
-      history <- env.shieldApi.history
+      history <- env.shieldApi.history(5.some)
       _ <- Env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
+  }
+
+  def categShields(k: String) = Open { implicit ctx =>
+    OptionFuOk(env.shieldApi.byCategKey(k)) {
+      case (categ, awards) =>
+        Env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+          html.tournament.shields.byCateg(categ, awards)
+    }
   }
 
   def calendar = Open { implicit ctx =>

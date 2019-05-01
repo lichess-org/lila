@@ -4,7 +4,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.PerfType
-import lila.tournament.Tournament
+import lila.tournament.TournamentShield
 
 import controllers.routes
 
@@ -12,7 +12,7 @@ object shields {
 
   private val section = st.section(cls := "tournament-shields__item")
 
-  def apply(history: lila.tournament.TournamentShield.History)(implicit ctx: Context) =
+  def apply(history: TournamentShield.History)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = cssTag("tournament.leaderboard"),
@@ -27,21 +27,44 @@ object shields {
                 case (categ, awards) => {
                   section(
                     h2(
-                      span(cls := "shield-trophy")(categ.iconChar.toString),
-                      categ.name
+                      a(href := routes.Tournament.categShields(categ.key))(
+                        span(cls := "shield-trophy")(categ.iconChar.toString),
+                        categ.name
+                      )
                     ),
-                    ul(
-                      awards.map { aw =>
-                        li(
-                          userIdLink(aw.owner.value.some),
-                          a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
-                        )
-                      }
-                    )
+                    ol(awards.map { aw =>
+                      li(
+                        userIdLink(aw.owner.value.some),
+                        a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+                      )
+                    })
                   )
                 }
               }
             )
+          )
+        )
+      }
+
+  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Tournament shields",
+      moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))
+    ) {
+        main(cls := "page-menu page-small tournament-categ-shields")(
+          views.html.user.bits.communityMenu("shield"),
+          div(cls := "page-menu__content box")(
+            h1(
+              a(href := routes.Tournament.shields, dataIcon := "I", cls := "text"),
+              categ.name, " shields"
+            ),
+            ol(awards.map { aw =>
+              li(
+                span(cls := "shield-trophy")(categ.iconChar.toString),
+                userIdLink(aw.owner.value.some),
+                a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+              )
+            })
           )
         )
       }
