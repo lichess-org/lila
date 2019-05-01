@@ -41,6 +41,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     opts.pulse();
     if (!li.quietMode) li.sound.newPM();
     const text = asText(notif);
+    if ('PushManager' in window) return;
     if (text) notify(text);
   }
 

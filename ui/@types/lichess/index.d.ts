@@ -60,6 +60,7 @@ interface Lichess {
   hasTouchEvents: boolean;
   mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
+  pushSubscribe(ask: boolean): void;
 }
 
 interface LichessSpeech {
