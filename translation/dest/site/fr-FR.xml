@@ -181,7 +181,7 @@
     <item quantity="other">Le classement est mis à jour toutes les %s minutes</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s puzzle</item>
+    <item quantity="one">%s problème</item>
     <item quantity="other">%s puzzles</item>
   </plurals>
   <string name="gamesPlayed">Parties jouées</string>
@@ -283,7 +283,7 @@
   <string name="tournamentPoints">Score de tournoi</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s point en tournoi</item>
-    <item quantity="other">%s points en tournoi</item>
+    <item quantity="other">%s points de tournoi</item>
   </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
@@ -293,12 +293,12 @@
     <item quantity="other">≥ %s parties classées</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s partie %2$s classée</item>
-    <item quantity="other">≥ %1$s parties %2$s classées</item>
+    <item quantity="one">≥ %1$s partie de %2$s classée</item>
+    <item quantity="other">≥ %1$s parties de %2$s classées</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Vous devez jouer encore %1$s partie classée en %2$s</item>
-    <item quantity="other">Vous devez encore jouer %1$s parties classées</item>
+    <item quantity="one">Vous devez encore jouer %1$s partie de %2$s classée</item>
+    <item quantity="other">Vous devez encore jouer %1$s parties de %2$s classées</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Vous devez encore jouer %s partie classée</item>
@@ -472,7 +472,7 @@
   <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
-  <string name="ratingX">Classement : %s</string>
+  <string name="ratingX">Cote : %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
