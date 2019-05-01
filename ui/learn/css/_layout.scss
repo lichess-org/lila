@@ -6,9 +6,6 @@ $mq-col3: $mq-col3-uniboard;
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
-  &.learn-full {
-    --main-max-width: 100%;
-  }
 }
 
 .learn {

@@ -34,9 +34,6 @@ module.exports = function(ctrl) {
   var level = ctrl.level;
 
   return m('div', {
-    config: function(_, isUpdate) {
-      if (!isUpdate) $('#main-wrap').removeClass('learn-full');
-    },
     class: 'learn learn--run ' + stage.cssClass + ' ' + level.blueprint.cssClass +
     (level.vm.starting ? ' starting' : '') +
     (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +

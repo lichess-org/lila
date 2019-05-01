@@ -68,11 +68,7 @@ function titleVerbosityClass(title) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.learn.learn--map', {
-    config: function(_, isUpdate) {
-      if (!isUpdate) $('#main-wrap').addClass('learn-full');
-    }
-  }, [
+  return m('div.learn.learn--map', [
     m('div.learn__side', ctrl.opts.side.view()),
     m('div.learn__main.learn-stages', [
       stages.categs.map(function(categ) {
