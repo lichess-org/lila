@@ -715,7 +715,7 @@ en %3$s</string>
   <string name="printFriendlyPDF">PDF pour l\'impression</string>
   <string name="crosstable">Historique des parties</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour voir la partie</string>
-  <string name="analysisShapesHowTo">Shift+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
+  <string name="analysisShapesHowTo">Utilisez maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
   <string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
@@ -730,8 +730,8 @@ en %3$s</string>
   <string name="kidMode">Mode enfant</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les scolaires, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
-  <string name="enableKidMode">Activer le mode enfant</string>
-  <string name="disableKidMode">Désactiver le mode enfant</string>
+  <string name="enableKidMode">Activer le mode enfants</string>
+  <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
   <string name="alternativelyYouCanX">Vous pouvez également %s.</string>
@@ -753,7 +753,7 @@ en %3$s</string>
     <item quantity="one">Disponible en %s langue !</item>
     <item quantity="other">Disponible en %s langues !</item>
   </plurals>
-  <string name="gameAnalysis">Analyse d\'une partie</string>
+  <string name="gameAnalysis">Analyse de la partie</string>
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
