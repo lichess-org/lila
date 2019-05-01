@@ -514,7 +514,7 @@
   <string name="insult">Insulte</string>
   <string name="troll">Troll</string>
   <string name="other">Autre</string>
-  <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié.</string>
+  <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié. Ne dites pas juste \"il triche\", mais expliquez comment vous êtes arrivé à cette conclusion. Votre rapport sera traité plus vite s\'il est écrit en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
   <string name="by">par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
@@ -590,16 +590,16 @@
   <string name="xVsYinZ">%1$s contre %2$s
 en %3$s</string>
   <string name="timeline">Activité</string>
-  <string name="starting">Démarrage :</string>
+  <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
-  <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
+  <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs préférés, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractères.</item>
+    <item quantity="one">Maximum : %s caractère.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueurs bloqués</item>
+    <item quantity="one">%s joueur bloqué</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
@@ -610,7 +610,7 @@ en %3$s</string>
   <string name="unauthorizedError">Accès non autorisé.</string>
   <string name="noInternetConnection">Pas de connexion à Internet. Vous pouvez cependant jouer hors ligne à partir du menu.</string>
   <string name="connectedToLichess">Vous êtes maintenant connecté à lichess.org</string>
-  <string name="signedOut">Vous vous êtes déconnecté</string>
+  <string name="signedOut">Vous avez été déconnecté</string>
   <string name="loginSuccessful">Vous êtes connecté</string>
   <string name="playOnTheBoardOffline">Jouer hors ligne, avec un ami</string>
   <string name="playOfflineComputer">Jouer hors ligne, avec l\'ordinateur</string>
@@ -673,7 +673,7 @@ en %3$s</string>
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
-  <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
+  <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur peut choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
   <string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
@@ -699,22 +699,22 @@ en %3$s</string>
     <item quantity="one">Un joueur de %2$s cette semaine.</item>
     <item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Votre classement en %1$s est de %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
   <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à notre %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
   <string name="networkLagBetweenYouAndLichess">Latence du réseau entre vous et lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Temps nécessaire au traitement d\'un coup sur un serveur lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Temps nécessaire au traitement d\'un coup sur le serveur lichess</string>
   <string name="downloadAnnotated">Télécharger le PGN annoté</string>
   <string name="downloadRaw">Télécharger le PGN brut</string>
   <string name="downloadImported">Télécharger le PGN importé</string>
   <string name="printFriendlyPDF">PDF pour l\'impression</string>
   <string name="crosstable">Historique des parties</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour voir la partie</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour faire défiler la partie.</string>
   <string name="analysisShapesHowTo">Utilisez maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
   <string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
