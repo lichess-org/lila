@@ -87,8 +87,8 @@
     }
   }
   &__game-legend {
-    text-align: center;
-    padding: .2em 0;
+    @extend %flex-between;
+    padding: .2em 1em;
   }
 }
 #miniGame {
