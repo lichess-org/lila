@@ -1,0 +1,10 @@
+table td {
+  max-width: 50vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @include breakpoint($mq-not-x-small) {
+    &:last-child {
+      display: none;
+    }
+  }
+}
