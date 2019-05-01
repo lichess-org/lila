@@ -271,7 +271,7 @@ object Mod extends LidraughtsController {
       )).bindFromRequest.fold(
         err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
-          modApi.setPermissions(me.id, user.username, Permission(permissions)) >> {
+          modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
             (Permission(permissions) diff Permission(user.roles) contains Permission.Coach) ??
               Env.security.automaticEmail.onBecomeCoach(user)
           } inject redirect(user.username, true)

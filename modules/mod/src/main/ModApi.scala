@@ -2,7 +2,7 @@ package lidraughts.mod
 
 import lidraughts.common.{ IpAddress, EmailAddress }
 import lidraughts.report.{ Mod, ModId, Suspect, SuspectId, Room }
-import lidraughts.security.Permission
+import lidraughts.security.{ Permission, Granter }
 import lidraughts.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lidraughts.user.{ User, UserRepo, Title, LightUserApi }
 
@@ -133,10 +133,16 @@ final class ModApi(
       logApi.setEmail(mod, user.id)
   }
 
-  def setPermissions(mod: String, username: String, permissions: List[Permission]): Funit = withUser(username) { user =>
-    UserRepo.setRoles(user.id, permissions.map(_.name)) >> {
-      lidraughtsBus.publish(lidraughts.hub.actorApi.mod.SetPermissions(user.id, permissions.map(_.name)), 'setPermissions)
-      logApi.setPermissions(mod, user.id, permissions)
+  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit = withUser(username) { user =>
+    val finalPermissions = Permission(user.roles).filter { p =>
+      // only remove permissions the mod can actually grant
+      permissions.contains(p) || !Granter.canGrant(mod.user, p)
+    } ++
+      // only add permissions the mod can actually grant
+      permissions.filter(Granter.canGrant(mod.user, _))
+    UserRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
+      lidraughtsBus.publish(lidraughts.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList), 'setPermissions)
+      logApi.setPermissions(mod, user.id, permissions.toList)
     }
   }
 

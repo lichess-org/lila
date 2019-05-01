@@ -61,6 +61,7 @@ object Permission {
   ))
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
+    LidraughtsTeam,
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
     UserSpy, UserEvaluate, SeeReport, ModLog, SeeInsight,
     UserSearch, ModNote, RemoveRanking, ModMessage
@@ -71,11 +72,11 @@ object Permission {
     ChatTimeout, Shadowban, SetTitle, SetEmail,
     MessageAnyone, ManageTeam, ManageTournament, ManageEvent, ManageSimul,
     PracticeConfig, RemoveRanking, ReportBan, DisapproveCoachReview,
-    Relay, Streamers, CreatePuzzles, DisableTwoFactor, Prismic
+    Relay, Streamers, CreatePuzzles, DisableTwoFactor, ChangePermission
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, Developer, Impersonate, PayPal, Cli, Settings
+    Admin, Developer, Impersonate, PayPal, Cli, Settings
   ))
 
   lazy val allButSuperAdmin: List[Permission] = List(
@@ -92,7 +93,7 @@ object Permission {
 
   def apply(name: String): Option[Permission] = allByName get name
 
-  def apply(names: List[String]): List[Permission] = names flatMap { apply(_) }
+  def apply(names: List[String]): Set[Permission] = names flatMap { apply(_) } toSet
 
   def exists(name: String) = allByName contains name
 }
