@@ -25,6 +25,7 @@ export interface KeyboardMove {
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
   usedSan: boolean;
+  jump(delta: number): void;
 }
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
@@ -82,7 +83,11 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     confirmMove() {
       root.submitMove(true);
     },
-    usedSan
+    usedSan,
+    jump(delta: number) {
+      root.userJump(root.ply + delta);
+      redraw();
+    }
   };
 }
 
@@ -103,7 +108,8 @@ export function render(ctrl: KeyboardMove) {
             confirmMove: ctrl.confirmMove,
             san: ctrl.san,
             drop: ctrl.drop,
-            promote: ctrl.promote
+            promote: ctrl.promote,
+            jump: ctrl.jump
           }));
         });
       })

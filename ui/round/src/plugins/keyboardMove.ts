@@ -67,7 +67,11 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
       focusChat();
       clear();
     }
-    else if (v === '' && e.which === 13) opts.confirmMove();
+    else if (v === '' && e.which == 13) opts.confirmMove();
+    else if (e.which == 37) opts.jump(-1);
+    else if (e.which == 38) opts.jump(-999);
+    else if (e.which == 39) opts.jump(1);
+    else if (e.which == 40) opts.jump(999);
     else submit(v, e.which === 13);
   });
   opts.input.addEventListener('focus', function() {
@@ -75,6 +79,10 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
   });
   opts.input.addEventListener('blur', function() {
     opts.setFocus(false);
+  });
+  // prevent default on arrow keys: they only replay moves
+  opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
+    if (e.which > 36 && e.which < 41) e.preventDefault();
   });
 }
 
