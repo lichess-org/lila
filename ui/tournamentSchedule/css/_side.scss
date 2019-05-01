@@ -24,9 +24,8 @@
     color: $c-font;
   }
   .user-link {
+    @extend %ellipsis;
     margin: 0 5px 0 -3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   span {
     opacity: 0.7;

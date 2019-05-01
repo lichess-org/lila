@@ -1,9 +1,8 @@
 .tour__podium {
   > div {
+    @extend %ellipsis;
     display: inline-block;
     text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .first {
     width: 44%;

@@ -43,6 +43,11 @@
   }
 }
 
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin crosstable-large {
   .crosstable__users { flex: 7 1 auto; }
 }

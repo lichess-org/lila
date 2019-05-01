@@ -9,9 +9,8 @@
     color: $c-font;
   }
   a {
+    @extend %ellipsis;
     color: $c-font;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   &.long a {
     letter-spacing: -0.5px;

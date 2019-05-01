@@ -6,10 +6,9 @@
     border-bottom: none;
   }
   td {
-    @extend %nowrap-hidden;
+    @extend %nowrap-ellipsis;
     padding: .2em 1em;
     line-height: 2em;
-    text-overflow: ellipsis;
   }
   .name span {
     display: inline-block;

@@ -27,8 +27,7 @@
       display: block;
     }
     span {
-      @extend %nowrap-hidden;
-      text-overflow: ellipsis;
+      @extend %nowrap-ellipsis;
     }
     &:last-child {
       border-right: none;

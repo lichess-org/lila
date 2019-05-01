@@ -43,9 +43,8 @@
     }
   }
   .user-tv {
-    @extend %nowrap-hidden;
+    @extend %nowrap-ellipsis;
     font-size: 1.2em;
-    text-overflow: ellipsis;
   }
 }
 .game__tournament {

@@ -274,9 +274,7 @@ body.no-inquiry {
     overflow-y: auto;
   }
   .history li {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %nowrap-ellipsis;
     padding: 6px 0;
   }
 

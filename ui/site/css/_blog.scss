@@ -106,12 +106,11 @@
     font-size: 1.3em;
     margin-bottom: 40px;
     .button {
+      @extend %ellipsis;
       margin: auto;
       text-transform: none;
-      overflow: hidden;
       max-width: 90vw;
       display: block;
-      text-overflow: ellipsis;
       &::before {
         vertical-align: bottom;
       }

@@ -18,9 +18,8 @@
     @extend %flex-between;
     margin-bottom: 2em;
     .button {
+      @extend %ellipsis;
       flex: 0 0 48%;
-      overflow: hidden;
-      text-overflow: ellipsis;
       margin-bottom: .7em;
       text-transform: none;
     }

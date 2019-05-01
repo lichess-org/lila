@@ -7,10 +7,8 @@ $mq-picture: $mq-large;
     overflow: hidden; /* help with responsive overflow of activity */
   }
   h1 {
-    @extend %roboto;
+    @extend %roboto, %ellipsis;
     @include fluid-size('font-size', 23px, 40px);
-    text-overflow: ellipsis;
-    overflow: hidden;
     &::before {
       margin-right: .2em;
       display: none;

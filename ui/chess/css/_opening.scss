@@ -1,7 +1,6 @@
 .opening_box {
-  @extend %roboto, %nowrap-hidden;
+  @extend %roboto, %nowrap-ellipsis;
   padding: 5px;
   border-bottom: $border;
-  text-overflow: ellipsis;
   background: $c-bg-zebra;
 }

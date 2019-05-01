@@ -28,12 +28,10 @@
       height: 100%;
     }
     td {
+      @extend %nowrap-ellipsis;
       padding: .5em .4em;
       border-top: $border;
-      white-space: nowrap;
       max-width: 21ch; /* prevent leaderboard overflow due to long usernames */
-      overflow: hidden;
-      text-overflow: ellipsis;
       &:first-child {
         padding-left: .7em;
       }
@@ -45,8 +43,7 @@
   &__leaderboard,
   &__winners {
     td:first-child {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @extend %ellipsis;
     }
     td:last-child {
       text-align: right;

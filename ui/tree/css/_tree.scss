@@ -138,14 +138,13 @@
     font-size: 0.9em;
   }
   comment .by {
-    @extend %nowrap-hidden, %roboto;
+    @extend %nowrap-ellipsis, %roboto;
     display: inline-block;
     vertical-align: -0.3em;
     font-size: 0.9em;
     opacity: 0.8;
     margin-right: 0.4em;
     max-width: 9em;
-    text-overflow: ellipsis;
   }
   &-column comment.white {
     border-left: 3px solid;

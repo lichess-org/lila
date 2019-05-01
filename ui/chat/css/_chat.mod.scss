@@ -67,10 +67,9 @@
       margin-right: 5px;
     }
     .timeout a {
-      @extend %nowrap-hidden;
+      @extend %nowrap-ellipsis;
       color: $c-accent;
       display: block;
-      text-overflow: ellipsis;
       line-height: 1.5em;
       @include transition();
       margin-left: -10px;

@@ -16,9 +16,7 @@
     padding: 4.3px 0;
   }
   .checkable {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @extend %nowrap-ellipsis;
     label, input {
       vertical-align: middle;
       cursor: pointer;

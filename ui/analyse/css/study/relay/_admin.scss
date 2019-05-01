@@ -28,8 +28,7 @@
       color: $c-primary-over;
     }
     > div {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @extend %ellipsis;
     }
     .fat {
       font-size: 1.5em;

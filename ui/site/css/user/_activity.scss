@@ -58,9 +58,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     overflow: hidden;
   }
   .line {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %nowrap-ellipsis;
     .more {
       flex: 0 1 auto;
     }

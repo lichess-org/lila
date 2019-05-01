@@ -75,10 +75,8 @@
     display: flex;
     flex-flow: row wrap;
     > a {
+      @extend %nowrap-ellipsis;
       flex: 0 0 50%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
   .bio {

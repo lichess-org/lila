@@ -3,13 +3,11 @@
     padding-left: 0px;
     padding-right: 0px;
     .name {
+    @extend %nowrap-ellipsis;
       display:inline-block;
       vertical-align: middle;
-      white-space: nowrap;
       padding-right: 5px;
       max-width: 140px;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
   .user-link.long {

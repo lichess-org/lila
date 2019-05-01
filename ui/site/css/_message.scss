@@ -18,9 +18,8 @@
   @include breakpoint($mq-not-small) {
     .date { display: none }
     .author {
+      @include ellipsis;
       max-width: 22ch;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
   @include breakpoint($mq-not-xx-small) {

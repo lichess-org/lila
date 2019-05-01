@@ -6,9 +6,8 @@ footer {
   height: 2.5rem;
   padding: 0 2vw;
   .left {
-    @extend %nowrap-hidden;
+    @extend %nowrap-ellipsis;
     flex: 1 1 100%;
-    text-overflow: ellipsis;
   }
   h1 {
     @extend %base-font;
