@@ -212,14 +212,14 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.draughtsground.selectSquare(null);
-    if (ply != this.ply && this.jump(ply)) speech.userJump(this, ply);
+    if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
     else this.redraw();
   };
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
-  jump = (ply: Ply): boolean => {    
-    if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
+  jump = (ply: Ply): boolean => {
+    ply = Math.max(round.firstPly(this.data), Math.min(round.lastPly(this.data), ply));
     const plyDiff = Math.abs(ply - this.ply);
     this.ply = ply;
     this.justDropped = undefined;
