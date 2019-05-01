@@ -117,7 +117,7 @@ function readClocks(clockCtrl: any | undefined) {
     const date = new Date(time);
     const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') + ' ' +
       simplePlural(date.getUTCMinutes(), 'minute') +  ' ' +
-      simplePlural(date.getUTCSeconds(), 'seconds');
+      simplePlural(date.getUTCSeconds(), 'second');
     return `${color}: ${msg}`;
   });
     window.lidraughts.sound.say(msgs.join('. '));
