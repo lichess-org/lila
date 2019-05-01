@@ -19,16 +19,16 @@
 
   @include breakpoint($mq-col2) {
     grid-template-areas:
-    'board gauge . tools'
-    'under .     . controls'
-    'side  .     . .';
+    'board gauge tools'
+    'under .     controls'
+    'side  .     .';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-rows: fit-content(0);
     grid-template-areas:
-    'side    . board gauge . tools'
-    '.       . under .     . controls';
+    'side    . board gauge tools'
+    '.       . under .     controls';
     .practice__side {
       margin-top: 0;
     }
