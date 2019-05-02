@@ -1,8 +1,8 @@
-.hover-text > .base,
-.hover-text:hover > .hover {
-  display: inline-block;
-}
-.hover-text > .hover,
-.hover-text:hover > .base {
-  display: none;
+.hover-text {
+  &::after {
+    content: attr(title);
+  }
+  &:hover::after {
+    content: attr(data-hover-text);
+  }
 }
