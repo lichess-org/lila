@@ -36,5 +36,8 @@
         background: mix($c-accent, $c-bg-box, 12%);
       }
     }
+    @include breakpoint($mq-not-xx-small) {
+      .rating { display: none }
+    }
   }
 }

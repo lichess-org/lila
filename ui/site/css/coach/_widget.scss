@@ -1,14 +1,17 @@
 .coach-widget {
-  height: 300px;
   position: relative;
   display: flex;
+  padding-bottom: 1rem;
   @include transition();
+  @include breakpoint($mq-picture) {
+    height: 300px;
+  }
   .overlay {
     @extend %link-overlay;
   }
   .picture {
     display: none;
-    @include breakpoint($mq-small) {
+    @include breakpoint($mq-picture) {
       display: block;
       margin-right: 1em;
     }
