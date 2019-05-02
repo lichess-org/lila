@@ -374,7 +374,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         gridHack.start(el.parentNode as HTMLElement);
       })
     }),
-    h('div.chat__members.none', {
+    ctrl.embed ? null : h('div.chat__members.none', {
       hook: onInsert(el => $(el).watchers())
     }, [h('span.list')])
   ]);
