@@ -15,7 +15,7 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
   }
 
   def process = {
-    case "uptime" :: Nil => fuccess(lila.common.PlayApp.uptimeSeconds.toString)
+    case "uptime" :: Nil => fuccess(s"${lila.common.PlayApp.uptimeSeconds} seconds")
     case "deploy" :: "pre" :: Nil => remindDeploy(lila.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
@@ -30,6 +30,10 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
           bus.publish(lila.user.User.GDPRErase(user), 'gdprErase)
           s"Erasing all data about ${user.username} now"
       }
+    case "announce" :: msgWords =>
+      val msg = msgWords mkString " "
+      bus.publish(lila.hub.actorApi.Announce(msg), 'announce)
+      fuccess(s"Announcing: $msg")
   }
 
   private def remindDeploy(event: Deploy): Fu[String] = {

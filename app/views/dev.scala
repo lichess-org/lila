@@ -60,6 +60,7 @@ object dev {
             ),
             h2("Command examples:"),
             pre("""uptime
+announce Lichess will undergo maintenance in 15 minutes!
 change asset version
 puzzle disable 70000
 team disable foobar

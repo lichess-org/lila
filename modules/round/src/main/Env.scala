@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.DeployPost
+import lila.hub.actorApi.{ DeployPost, Announce }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.socket.HasUserId
