@@ -37,7 +37,7 @@ final class Env(
   )
 
   private lazy val webPush = new WebPush(
-    webSubscriptionApi.getSubscriptions _,
+    webSubscriptionApi.getSubscriptions(5) _,
     url = WebUrl,
     vapidPublicKey = WebVapidPublicKey
   )
