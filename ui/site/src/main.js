@@ -572,7 +572,8 @@
       check: 'Check',
       newChallenge: 'NewChallenge',
       newPM: 'NewPM',
-      confirmation: 'Confirmation'
+      confirmation: 'Confirmation',
+      error: 'Error'
     };
     for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
