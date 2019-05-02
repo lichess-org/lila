@@ -43,8 +43,7 @@ function clockContent(centis: number | undefined, showTenths: boolean): Array<st
   sep = ':',
   baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (!showTenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
-  if (centis >= 6000) return [baseStr];
-  return [
+  return centis >= 6000 ? [baseStr] : [
     baseStr,
     h('tenths', '.' + Math.floor(millis / 100).toString())
   ];
