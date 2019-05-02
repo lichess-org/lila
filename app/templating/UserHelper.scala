@@ -208,8 +208,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   }
 
   private def renderRating(perf: Perf): Frag = frag(
-    nbsp,
-    "(",
+    " (",
     perf.intRating,
     perf.provisional option "?",
     ")"
