@@ -96,7 +96,7 @@
         var url = '/tournament/' + data.id;
         $('body').append(
           '<div id="tour-reminder">' +
-          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>in progress!' +
+          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
           '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
