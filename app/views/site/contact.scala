@@ -205,7 +205,7 @@ object contact {
         Leaf("appeal-cheat", "Engine or cheat mark", frag(
           p(s"If you have been marked as an engine, you may send an appeal to $contactEmail."),
           p(
-            "False positives do happen sometimes, and we're sorry about that.",
+            "False positives do happen sometimes, and we're sorry about that.", br,
             "If your appeal is legit, we will lift the ban ASAP."
           ),
           p(
@@ -219,7 +219,7 @@ object contact {
         Leaf("appeal-other", "None of the above", frag(
           p(s"You may send an appeal to $contactEmail."),
           p(
-            "False positives do happen sometimes, and we're sorry about that.",
+            "False positives do happen sometimes, and we're sorry about that.", br,
             "If your appeal is legit, we will lift the ban or restriction ASAP."
           )
         ))
