@@ -1,6 +1,6 @@
 .form3 .captcha {
   @extend %flex-wrap;
-  margin-top: 2em;
+  margin: 1em 0 0 -1em;
   @include breakpoint($mq-xx-small) {
     flex-wrap: nowrap;
   }
@@ -11,11 +11,12 @@
   }
   .challenge {
     flex: 0 0 250px;
-    margin-right: 1rem;
+    margin: 0 0 1em 1em;
   }
   .captcha-explanation {
     flex: 1 1 auto;
     overflow: hidden;
+    margin: 0 0 1em 1em;
   }
   &.is-invalid .captcha-explanation {
     padding: 1em;
