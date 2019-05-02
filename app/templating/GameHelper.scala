@@ -157,7 +157,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         )(
           withOnline option frag(lineIcon(user), nbsp),
           playerUsername(player, withRating),
-          (player.ratingDiff ifTrue withDiff) map showRatingDiff,
+          (player.ratingDiff ifTrue withDiff) map { d => frag(" ", showRatingDiff(d)) },
           engine option span(cls := "engine_mark", title := trans.thisPlayerUsesChessComputerAssistance.txt())
         ),
         statusIcon
