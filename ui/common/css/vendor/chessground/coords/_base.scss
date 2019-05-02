@@ -1,3 +1,5 @@
+@import 'inner-mixin';
+
 coords {
   @extend %page-text;
   position: absolute;
@@ -33,7 +35,8 @@ coords {
   coord {
     flex: 1 1 auto;
   }
-  @include breakpoint($mq-col1-uniboard) {
-    display: none;
-  }
+}
+
+@include breakpoint($mq-col1-uniboard) {
+  @include inner-base;
 }
