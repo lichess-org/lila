@@ -22,7 +22,7 @@ window.lidraughts.keyboardMove = function(opts: any) {
         clear();
       } else
         opts.input.classList.remove('wrong');
-    } else if (v.startsWith('clock')) {
+    } else if (v.toLowerCase().startsWith('clock')) {
       readClocks(opts.ctrl.clock());
       clear();
     } else
