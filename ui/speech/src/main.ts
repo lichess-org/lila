@@ -28,7 +28,6 @@ function hackFix(msg: string): string {
 
 export function say(text: string, cut: boolean) {
   const msg = new SpeechSynthesisUtterance(hackFix(text));
-  msg.rate = 1.2;
   if (cut) speechSynthesis.cancel();
   window.lichess.sound.say(msg);
 }
