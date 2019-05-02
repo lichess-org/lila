@@ -3,10 +3,6 @@ import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from './ctrl';
 import { isFinished } from './study/studyChapters';
 
-interface ClockOpts {
-  tenths: boolean;
-}
-
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
@@ -26,33 +22,31 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }
 
-  const opts = {
-    tenths: !ctrl.study || !ctrl.study.relay
-  };
+  const showTenths = !ctrl.study || !ctrl.study.relay;
 
   return [
-    renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', opts),
-    renderClock(centis[1], !isWhiteTurn,  whitePov ? 'top' : 'bottom', opts)
+    renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', showTenths),
+    renderClock(centis[1], !isWhiteTurn,  whitePov ? 'top' : 'bottom', showTenths)
   ];
 }
 
-function renderClock(centis: number | undefined, active: boolean, cls: string, opts: ClockOpts): VNode {
+function renderClock(centis: number | undefined, active: boolean, cls: string, showTenths: boolean): VNode {
   return h('div.analyse__clock.' + cls, {
     class: { active },
-  }, clockContent(centis, opts));
+  }, clockContent(centis, showTenths));
 }
 
-function clockContent(centis: number | undefined, opts: ClockOpts): Array<string | VNode> {
+function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {
   if (!centis && centis !== 0) return ['-'];
   const date = new Date(centis * 10),
   millis = date.getUTCMilliseconds(),
   sep = ':',
   baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
-  if (!opts.tenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
-  const tenthsStr = Math.floor(millis / 100).toString();
+  if (!showTenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
+  if (centis >= 6000) return [baseStr];
   return [
     baseStr,
-    h('tenths', '.' + tenthsStr)
+    h('tenths', '.' + Math.floor(millis / 100).toString())
   ];
 }
 
