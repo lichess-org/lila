@@ -1,5 +1,5 @@
 #tour-reminder {
-  @extend %flex-center-nowrap, %popup-shadow;
+  @extend %flex-between, %popup-shadow;
   font-size: 1.4em;
   position: fixed;
   background: $c-primary;
@@ -7,21 +7,23 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 2.5em;
-  padding: 0 1rem;
-  border-top-right-radius: 3px;
+  padding: .7rem 1rem;
   z-index: z('tour-reminder');
+
+  width: 100%;
+  @include breakpoint($mq-xx-small) {
+    width: auto;
+    border-top-right-radius: 3px;
+  }
 
   a {
     color: $c-primary-over;
-    margin: 0 .5em;
   }
 
   .actions {
-    margin-left: 1em;
     a {
       font-weight: bold;
-      margin-left: 1em;
+      margin-left: 1rem;
     }
   }
 }
