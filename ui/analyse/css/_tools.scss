@@ -20,7 +20,7 @@
   }
 
   &__moves {
-    flex: 2 1 0px;
+    flex: 2 1 0; // 0 size forces vertical scrollbar
     overflow-y: auto;
     border-top: $border;
     position: relative; /* required so line::before scrolls along the moves! */
