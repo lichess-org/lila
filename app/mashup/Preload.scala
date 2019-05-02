@@ -29,7 +29,7 @@ final class Preload(
     lightUserApi: LightUserApi
 ) {
 
-  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Relay], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lidraughts.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lidraughts.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
+  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Relay], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lidraughts.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lidraughts.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int, List[Pov])
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -52,15 +52,16 @@ final class Preload(
       tourneyWinners zip
       (ctx.noBot ?? dailyPuzzle()) zip
       liveStreams().dmap(_.autoFeatured withTitles lightUserApi) zip
-      (ctx.userId ?? getPlayban) flatMap {
-        case (data, povs) ~ posts ~ tours ~ events ~ relays ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
+      (ctx.userId ?? getPlayban) zip
+      (ctx.blind ?? ctx.me ?? GameRepo.urgentGames) flatMap {
+        case (data, povs) ~ posts ~ tours ~ events ~ relays ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
           val currentGame = ctx.me ?? Preload.currentGameMyTurn(povs, lightUserApi.sync) _
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
               entries.flatMap(_.userIds).toList
           } inject
-            (data, entries, posts, tours, events, relays, simulsUnique ::: simulsCreated, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
+            (data, entries, posts, tours, events, relays, simulsUnique ::: simulsCreated, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), blindGames)
       }
 }
 

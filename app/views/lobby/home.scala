@@ -29,7 +29,8 @@ object home {
     lastPost: List[lidraughts.blog.MiniPost],
     playban: Option[lidraughts.playban.TempBan],
     currentGame: Option[lidraughts.app.mashup.Preload.CurrentGame],
-    nbRounds: Int
+    nbRounds: Int,
+    blindGames: List[Pov] // only in blind mode
   )(implicit ctx: Context) = views.html.base.layout(
     title = "",
     fullTitle = Some {
@@ -91,8 +92,10 @@ object home {
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
-          playban.map(bits.playbanInfo) getOrElse
-          bits.lobbyApp,
+          playban.map(bits.playbanInfo) getOrElse {
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
