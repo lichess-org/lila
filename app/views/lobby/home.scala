@@ -68,6 +68,7 @@ object home {
       ))(
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
+            ctx.blind option h2("Play"),
             a(href := routes.Setup.hookForm, cls := List(
               "button button-metal config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
@@ -82,6 +83,7 @@ object home {
             ), trans.playWithTheMachine())
           ),
           div(cls := "lobby__counters")(
+            ctx.blind option h2("Counters"),
             a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers(nbPlayersPlaceholder)),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
               trans.nbGamesInPlay.plural(nbRounds, strong(nbRounds))
@@ -92,6 +94,7 @@ object home {
           playban.map(bits.playbanInfo) getOrElse
           bits.lobbyApp,
         div(cls := "lobby__side")(
+          ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
@@ -103,11 +106,13 @@ object home {
           ),
           ctx.me map { u =>
             div(cls := "timeline", dataHref := routes.Timeline.home)(
+              ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               // userTimeline.size >= 8 option
               a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
             )
           } getOrElse div(cls := "about-side")(
+            ctx.blind option h2("About"),
             trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
             " ",
             a(href := "/about")(trans.aboutX("Lidraughts"), "...")
@@ -132,7 +137,7 @@ object home {
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box", dataUrl := routes.ForumPost.recent)(
           div(cls := "lobby__box__top")(
-            span(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
+            h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
             a(cls := "more", href := routes.ForumCateg.index)(trans.more(), " »")
           ),
           div(cls := "lobby__box__content")(
@@ -157,6 +162,7 @@ object home {
           )*/
         ),
         div(cls := "lobby__about")(
+          ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lidraughts")),
           a(href := "/contact")(trans.contact()),
           a(href := "/mobile")(trans.mobileApp()),

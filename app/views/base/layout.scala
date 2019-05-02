@@ -124,6 +124,7 @@ object layout {
         cssTag("site"),
         ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
         ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
+        ctx.blind option cssTagNoTheme("blind"),
         moreCss,
         pieceSprite,
         ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,
@@ -238,6 +239,7 @@ object layout {
               span(if (isProd) ".org" else " dev")
             )
           ),
+          ctx.blind option h2("Navigation"),
           topnav()
         ),
         div(cls := "site-buttons")(

@@ -9,6 +9,8 @@
         color: $c-font-dim;
       }
       .title {
+        @extend %base-font;
+        font-size: 1em;
         font-weight: bold;
         color: $c-font-dim;
         padding: .3em;
