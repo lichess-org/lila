@@ -33,7 +33,7 @@ The structure of a CSS module is as follows:
 
 | Name            | Version | Notes |
 | --------------- | ------- | ----- |
-| Firefox         | last 10 | Full support |
+| Firefox         | 61+     | Full support |
 | Chromium/Chrome | last 10 | Full support |
 | Safari          | 10.1+   | Reasonable support |
 | Opera           | last 5  | Reasonable support |
