@@ -1,7 +1,7 @@
 #powerTip,
 #miniGame {
   @extend %box-radius-force, %popup-shadow;
-  width: 19em;
+  width: 20rem;
   min-height: 3em;
   background: $c-bg-popup;
   display: none;
@@ -19,6 +19,7 @@
     height: 83px;
     padding: 4px 5px 4px 2px;
     border-bottom: $border;
+    overflow: hidden;
     &__top {
       @extend %flex-between;
       .left {
