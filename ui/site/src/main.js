@@ -969,8 +969,6 @@
   // service worker //
   ////////////////////
 
-  var subscribing = false;
-
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
     var workerUrl = lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
     navigator.serviceWorker.register(workerUrl, {scope: '/'});
@@ -982,10 +980,10 @@
         var vapid = document.body.getAttribute('data-vapid');
         var allowed = (ask || Notification.permission === 'granted') && Notification.permission !== 'denied';
         if (vapid && allowed) return reg.pushManager.getSubscription().then(sub => {
-          var padding = '='.repeat((4 - vapid.length % 4) % 4);
-          var applicationServerKey = Uint8Array.from(atob(vapid + padding), c => c.charCodeAt(0));
-          if (!sub && !subscribing) {
-            subscribing = true;
+          var storage = lichess.storage.make('push-subscribed');
+          var resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+          var applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+          if (!sub || resub) {
             return reg.pushManager.subscribe({
               userVisibleOnly: true,
               applicationServerKey: applicationServerKey
@@ -995,9 +993,10 @@
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify(sub)
-            }).then(res => {
-              if (!res.ok) throw Error(response.statusText);
-            }).catch(() => sub.unsubscribe()));
+            })).then(res => {
+              if (res.ok) storage.set('' + Date.now());
+              else throw Error(response.statusText);
+            });
           }
         });
       });
