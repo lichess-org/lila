@@ -1,12 +1,12 @@
 $clock-height: 20px;
 
 .analyse.has-clocks {
-  .cg-board {
-    border-radius: 0 3px 3px 0;
-  }
   @include breakpoint($mq-col1) {
+    & {
+      margin-top: #{$clock-height / 2};
+    }
     .analyse__controls {
-      margin-top: #{$clock-height * 1/2};
+      margin-top: #{$clock-height};
     }
   }
 }
