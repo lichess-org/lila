@@ -5,10 +5,10 @@ import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { onInsert } from './util'
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, captLen?: number) => void;
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, captLen?: number, yourMove?: boolean) => void;
 
 export interface KeyboardMove {
-  update(step: Step): void;
+  update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;
   setFocus(v: boolean): void;
@@ -32,8 +32,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   };
   let usedSan = false;
   return {
-    update(step) {
-      if (handler) handler(step.fen, dgState.movable.dests, dgState.movable.captLen);
+    update(step, yourMove?: boolean) {
+      if (handler) handler(step.fen, dgState.movable.dests, dgState.movable.captLen, yourMove);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
