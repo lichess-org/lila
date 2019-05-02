@@ -106,10 +106,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
               (Title(t) == Title.BOT) option dataBotAttr,
               st.title := Title titleName Title(t)
             )(t),
-            nbsp
+            " "
           )
         }
-        if (withRating) frag(title, user.name, nbsp, "(", lila.game.Namer ratingString player, ")")
+        if (withRating) frag(title, user.name, " ", "(", lila.game.Namer ratingString player, ")")
         else frag(title, user.name)
       }
     ) { level => raw(s"A.I. level $level") }
@@ -155,7 +155,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           cls := userClass(user.id, cssClass, withOnline),
           href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
         )(
-          withOnline option frag(lineIcon(user), nbsp),
+          withOnline option frag(lineIcon(user), " "),
           playerUsername(player, withRating),
           (player.ratingDiff ifTrue withDiff) map { d => frag(" ", showRatingDiff(d)) },
           engine option span(cls := "engine_mark", title := trans.thisPlayerUsesChessComputerAssistance.txt())
