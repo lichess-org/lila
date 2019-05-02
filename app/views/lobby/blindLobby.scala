@@ -11,7 +11,8 @@ object blindLobby {
 
   def apply(games: List[Pov])(implicit ctx: Context) = div(
     h2(games.size, " ongoing games"),
-    games.nonEmpty option ongoingGames(games)
+    games.nonEmpty option ongoingGames(games),
+    div(cls := "lobby__app none")
   )
 
   private def ongoingGames(games: List[Pov])(implicit ctx: Context) = games.partition(_.isMyTurn) match {

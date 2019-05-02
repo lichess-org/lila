@@ -23,6 +23,12 @@ h1 {
     }
   }
 }
+
 h2 {
   @include fluid-size('font-size', 23px, 40px);
+}
+
+.ninja-title {
+  @extend %base-font;
+  font-size: 1em;
 }
