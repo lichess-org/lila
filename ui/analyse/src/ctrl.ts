@@ -170,7 +170,7 @@ export default class AnalyseCtrl {
       this.redraw()
     });
 
-    speech.setup();
+    li.sound && speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
