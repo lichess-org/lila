@@ -38,7 +38,7 @@ window.lichess.keyboardMove = function(opts: any) {
       if (v.length === 3) v = 'P' + v;
       opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
       clear();
-    } else if (v.startsWith('clock')) {
+    } else if (v.toLowerCase().startsWith('clock')) {
       readClocks(opts.ctrl.clock());
       clear();
     } else
