@@ -35,7 +35,7 @@ object mine {
                 )
               } getOrElse div(cls := "invite")(
                 div(
-                  p(trans.toInviteSomeoneToPlayGiveThisUrl(), ": "),
+                  h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl(), ": "), br,
                   p(cls := "challenge-id-form")(
                     input(
                       id := "challenge-id",
@@ -49,7 +49,7 @@ object mine {
                   p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                 ),
                 ctx.isAuth option div(
-                  p("Or invite a lichess user:"),
+                  h2(cls := "ninja-title", "Or invite a lichess user:"), br,
                   form(cls := "user-invite", action := routes.Challenge.toFriend(c.id), method := "POST")(
                     input(name := "username", cls := "friend-autocomplete", placeholder := trans.search.txt()),
                     error.map { badTag(_) }
