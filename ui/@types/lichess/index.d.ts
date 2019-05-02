@@ -98,14 +98,14 @@ interface Pubsub {
 interface LichessStorageHelper {
   make(k: string): LichessStorage;
   makeBoolean(k: string): LichessBooleanStorage;
-  get(k: string): string;
-  set(k: string, v: string): string;
+  get(k: string): string | null;
+  set(k: string, v: string): void;
   remove(k: string): void;
 }
 
 interface LichessStorage {
-  get(): string;
-  set(v: string): string;
+  get(): string | null;
+  set(v: string): void;
   remove(): void;
   listen(f: (e: StorageEvent) => void): void;
 }
