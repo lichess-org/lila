@@ -49,7 +49,7 @@ object TreeBuilder {
     iteratedCapts: Boolean = false,
     mergeCapts: Boolean = false
   ): Root = {
-    val withClocks = withFlags.clocks ?? clocks
+    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
     draughts.Replay.gameMoveWhileValid(pdnmoves, initialFen.value, variant, iteratedCapts) match {
       case (init, games, error) =>
         error foreach logDraughtsError(id)
@@ -66,7 +66,7 @@ object TreeBuilder {
           fen = fen,
           captureLength = init.situation.allMovesCaptureLength,
           opening = openingOf(fen),
-          clock = withFlags.clocks ?? init.clock.map(_.limit),
+          clock = withClocks.flatMap(_.headOption),
           eval = infos lift 0 map makeEval
         )
 
@@ -81,7 +81,7 @@ object TreeBuilder {
             fen = fen,
             captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength,
             opening = openingOf(fen),
-            clock = withClocks ?? (_ lift (index - 1)),
+            clock = withClocks flatMap (_ lift (index - 1)),
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
