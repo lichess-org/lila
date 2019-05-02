@@ -11,7 +11,6 @@ function renderSan(san: San) {
 
 export function say(text: string, cut: boolean) {
   const msg = new SpeechSynthesisUtterance(text);
-  msg.rate = 1.2;
   if (cut) speechSynthesis.cancel();
   window.lidraughts.sound.say(msg);
 }
