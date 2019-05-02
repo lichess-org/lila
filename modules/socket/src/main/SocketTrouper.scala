@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import actorApi._
 import draughts.Centis
 import lidraughts.common.LightUser
-import lidraughts.hub.actorApi.Deploy
+import lidraughts.hub.actorApi.{ Deploy, Announce }
 import lidraughts.hub.actorApi.socket.HasUserId
 import lidraughts.hub.Trouper
 import lidraughts.memo.ExpireSetMemo
@@ -56,6 +56,8 @@ abstract class SocketTrouper[M <: SocketMember](
     case Resync(uid) => resync(uid)
 
     case d: Deploy => onDeploy(d)
+
+    case Announce(msg) => notifyAll(makeMessage("announce", Json.obj("msg" -> msg)).pp)
   }
 
   protected def hasUserId(userId: String) = members.values.exists(_.userId contains userId)
@@ -181,5 +183,5 @@ trait LoneSocket { self: SocketTrouper[_] =>
     this ! lidraughts.socket.actorApi.Broom
     lidraughts.mon.socket.queueSize(monitoringName)(queueSize)
   }
-  system.lidraughtsBus.subscribe(this, 'deploy, 'shutdown)
+  system.lidraughtsBus.subscribe(this, 'deploy, 'shutdown, 'announce)
 }

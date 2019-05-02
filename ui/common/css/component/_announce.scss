@@ -1,4 +1,4 @@
-#tour-reminder {
+#announce {
   @extend %flex-between, %popup-shadow;
   font-size: 1.4em;
   position: fixed;
@@ -25,5 +25,10 @@
       font-weight: bold;
       margin-left: 1rem;
     }
+  }
+
+  &.announce {
+    flex-flow: row nowrap;
+    background: $c-accent;
   }
 }

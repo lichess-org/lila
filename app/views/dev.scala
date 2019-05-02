@@ -60,6 +60,7 @@ object dev {
             ),
             h2("Command examples:"),
             pre("""uptime
+announce Lidraughts will undergo maintenance in 15 minutes!
 change asset version
 puzzle disable [standard|frisian] 150
 team disable foobar
