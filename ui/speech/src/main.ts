@@ -23,7 +23,7 @@ function renderSan(san: San) {
 function hackFix(msg: string): string {
 
   return msg
-    .replace("A takes", "A, takes"); // "a takes" is mispronounced
+    .replace(/^A /, "A, "); // "A takes" & "A 3" are mispronounced
 }
 
 export function say(text: string, cut: boolean) {
