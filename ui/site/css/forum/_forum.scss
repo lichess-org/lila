@@ -8,10 +8,7 @@
 
 .forum {
 
-  h1 {
-    @extend %break-word;
-  }
-
+  h1,
   .slist .subject {
     @extend %break-word-hard;
   }
