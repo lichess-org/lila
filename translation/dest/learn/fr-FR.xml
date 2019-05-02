@@ -33,7 +33,7 @@ Vous avez besoin des deux !</string>
   <string name="kingIntro">Vous êtes le Roi. Si vous perdez cette pièce dans la bataille, la partie est perdue.</string>
   <string name="theKingIsSlow">Le Roi se déplace lentement.</string>
   <string name="lastOne">Le dernier !</string>
-  <string name="kingComplete">Vous pouvez maintenant commander le commandant !</string>
+  <string name="kingComplete">Félicitations ! Vous possédez la maîtrise du Roi !</string>
   <string name="theKnight">Le Cavalier</string>
   <string name="itMovesInAnLShape">Il se déplace en forme de L</string>
   <string name="knightIntro">Voici un défi pour vous. Le Cavalier est une pièce... surprenante.</string>
@@ -41,12 +41,12 @@ Vous avez besoin des deux !</string>
   <string name="knightsCanJumpOverObstacles">Les Cavaliers peuvent sauter par dessus les obstacles pour collecter les étoiles !</string>
   <string name="knightComplete">Félicitations ! Vous possédez la maîtrise du Cavalier.</string>
   <string name="thePawn">Le Pion</string>
-  <string name="itMovesForwardOnly">Se déplace uniquement vers l\'avant</string>
+  <string name="itMovesForwardOnly">Il se déplace uniquement vers l\'avant</string>
   <string name="pawnIntro">Les Pions sont faibles, mais ils ont beaucoup de potentiel.</string>
   <string name="pawnsMoveOneSquareOnly">Les pions avancent d\'une case vers l\'avant uniquement.
 Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante : c\'est une promotion !</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">La plupart du temps, la promotion s\'effectue en Dame.
-Mais parfois, une promotion en Cavalier est plus avantageuse!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">La plupart du temps, la promotion en Dame est la plus avantageuse.
+Mais, parfois, une promotion en Cavalier peut s\'avérer utile !</string>
   <string name="pawnsMoveForward">Les pions se déplacent vers l\'avant,
 mais capturent en diagonale !</string>
   <string name="captureThenPromote">Capturez, puis effectuez une promotion !</string>
@@ -57,7 +57,7 @@ Inutile d\'effectuer des promotions.</string>
   <string name="pawnComplete">Félicitations ! Les pions n\'ont plus de secret pour vous.</string>
   <string name="pawnPromotion">La promotion du pion</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Votre pion a atteint le bord opposé !</string>
-  <string name="itNowPromotesToAStrongerPiece">Il est promu en une pièce lourde.</string>
+  <string name="itNowPromotesToAStrongerPiece">Il est promu en une pièce plus puissante.</string>
   <string name="selectThePieceYouWant">Sélectionnez la pièce de promotion !</string>
   <string name="fundamentals">Les fondamentaux</string>
   <string name="capture">La capture</string>
@@ -76,7 +76,7 @@ Inutile d\'effectuer des promotions.</string>
   <string name="combat">Combat</string>
   <string name="captureAndDefendPieces">Capturez et défendez les pièces</string>
   <string name="combatIntro">Un bon guerrier sait à la fois attaquer et défendre !</string>
-  <string name="combatComplete">Félicitations! Vous connaissez maintenant le déplacement des pièces!</string>
+  <string name="combatComplete">Félicitations ! Vous savez maintenant comment vous battre avec les pièces d\'échecs !</string>
   <string name="checkInOne">Échec en un coup</string>
   <string name="attackTheOpponentsKing">Attaquer le Roi de l\'adversaire</string>
   <string name="checkInOneIntro">Pour mettre en échec votre adversaire, attaquez son Roi. Il doit le défendre !</string>
