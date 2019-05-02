@@ -47,6 +47,8 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
 
 export function view(ctrl: BoardCtrl): VNode {
 
+  const domZoom = ctrl.readZoom();
+
   return h('div.sub.board', [
     header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
     h('div.selector.large', [
@@ -61,17 +63,20 @@ export function view(ctrl: BoardCtrl): VNode {
         hook: bind('click', () => ctrl.setIs3d(true))
       }, '3D')
     ]),
-    h('div.zoom', [
-      h('p', [
-        ctrl.trans.noarg('boardSize'),
-        ': ',
-        (ctrl.readZoom() - 100),
-        '%'
-      ]),
-      h('div.slider', {
-        hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
-      })
-    ])
+    h('div.zoom',
+      isNaN(domZoom) ? [
+        h('p', 'No board to zoom here!')
+      ] : [
+        h('p', [
+          ctrl.trans.noarg('boardSize'),
+          ': ',
+          (domZoom - 100),
+          '%'
+        ]),
+        h('div.slider', {
+          hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+        })
+      ])
   ]);
 }
 
