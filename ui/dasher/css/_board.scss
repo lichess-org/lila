@@ -20,13 +20,13 @@
     @include transition(transform);
   }
   .list a:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.05);
   }
   .list a:hover span {
     transform: scale(1.05);
   }
   .list a.active {
-    background-color: $c-font;
+    background-color: $c-shade;
   }
   &.d2 {
     .blue {
