@@ -46,19 +46,25 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
 }
 
 export function view(ctrl: BoardCtrl): VNode {
+
+  const domZoom = ctrl.readZoom();
+
   return h('div.sub.board', [
     header(ctrl.trans.noarg('boardSize'), ctrl.close),
-    h('div.zoom', [
-      h('p', [
-        ctrl.trans.noarg('boardSize'),
-        ': ',
-        (ctrl.readZoom() - 100),
-        '%'
-      ]),
-      h('div.slider', {
-        hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
-      })
-    ])
+    h('div.zoom',
+      isNaN(domZoom) ? [
+        h('p', 'No board to zoom here!')
+      ] : [
+        h('p', [
+          ctrl.trans.noarg('boardSize'),
+          ': ',
+          (domZoom - 100),
+          '%'
+        ]),
+        h('div.slider', {
+          hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+        })
+      ])
   ]);
 }
 
