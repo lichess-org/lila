@@ -614,6 +614,7 @@
       if (!speechStorage.get()) return false;
       var msg = text.text ? text : new SpeechSynthesisUtterance(text);
       msg.volume = api.getVolume();
+      msg.lang = 'en-US';
       if (cut) speechSynthesis.cancel();
       speechSynthesis.speak(msg);
       console.log(`%c${msg.text}`, 'color: blue');
