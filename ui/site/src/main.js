@@ -95,19 +95,17 @@
         if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;
         $('body').append(
-          $(
-            '<div id="announce">' +
-            '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
-            '<div class="actions">' +
-            '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
-            '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
-            '</div></div>'
-          ).find('.withdraw').click(function() {
-            $.post($(this).attr("href"));
-            $('#annouce').remove();
-            return false;
-          })
-        );
+          '<div id="announce">' +
+          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
+          '<div class="actions">' +
+          '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
+          '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
+          '</div></div>'
+        ).find('#announce .withdraw').click(function() {
+          $.post($(this).attr("href"));
+          $('#announce').remove();
+          return false;
+        });
       },
       announce: function(d) {
         if (!$('#announce').length) $('body').append(
