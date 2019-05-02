@@ -11,6 +11,10 @@ $mq-picture: $mq-large;
       justify-content: center;
       width: 300px;
       height: 300px;
+      display: none;
+      @include breakpoint($mq-picture) {
+        display: flex;
+      }
     }
     .upload_picture .button {
       text-align: center;
