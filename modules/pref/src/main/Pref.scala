@@ -365,7 +365,7 @@ object Pref {
     follow = true,
     highlight = true,
     destination = true,
-    coords = Coords.OUTSIDE,
+    coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,
