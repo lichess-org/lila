@@ -59,7 +59,8 @@ object dev {
               form3.input(form("command"))(autofocus)
             ),
             h2("Command examples:"),
-            pre("""change asset version
+            pre("""uptime
+change asset version
 puzzle disable 70000
 team disable foobar
 team enable foobar
