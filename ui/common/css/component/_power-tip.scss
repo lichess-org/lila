@@ -58,9 +58,9 @@
     font-size: 1rem;
     line-height: 1.5rem;
     text-align: center;
-    border-top: $border;
   }
   &__actions.btn-rack {
+    @extend %box-shadow;
     width: 100%;
     justify-content: stretch;
     border: 0;
@@ -74,7 +74,6 @@
   }
   &__mod {
     @extend %flex-between;
-    border-top: $border;
     white-space: nowrap;
     &__marks {
       padding: 3px 5px;
