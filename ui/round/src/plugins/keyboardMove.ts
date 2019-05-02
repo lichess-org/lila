@@ -71,10 +71,6 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
       clear();
     }
     else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
-    else if (e.which == 37) opts.ctrl.jump(-1);
-    else if (e.which == 38) opts.ctrl.jump(-999);
-    else if (e.which == 39) opts.ctrl.jump(1);
-    else if (e.which == 40) opts.ctrl.jump(999);
     else submit(v, e.which === 13);
   });
   opts.input.addEventListener('focus', function() {
@@ -85,7 +81,13 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
   });
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
-    if (e.which > 36 && e.which < 41) e.preventDefault();
+    if (e.which > 36 && e.which < 41) {
+      if (e.which == 37) opts.ctrl.jump(-1);
+      else if (e.which == 38) opts.ctrl.jump(-999);
+      else if (e.which == 39) opts.ctrl.jump(1);
+      else  opts.ctrl.jump(999);
+      e.preventDefault();
+    }
   });
 }
 
@@ -129,7 +131,7 @@ function readClocks(clockCtrl: any | undefined) {
       simplePlural(date.getUTCSeconds(), 'second');
     return `${color}: ${msg}`;
   });
-    window.lichess.sound.say(msgs.join('. '));
+  window.lichess.sound.say(msgs.join('. '));
 }
 
 function simplePlural(nb: number, word: string) {
