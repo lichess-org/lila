@@ -8,7 +8,7 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import { sendPromotion } from './promotion'
 import { onInsert } from './util'
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
 interface SanMap {
   [key: string]: cg.Role;
@@ -17,7 +17,7 @@ interface SanMap {
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
-  update(step: Step): void;
+  update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
@@ -61,8 +61,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.chessground.cancelMove();
       sendPromotion(root, orig, dest, role, {premove: false});
     },
-    update(step) {
-      if (handler) handler(step.fen, cgState.movable.dests);
+    update(step, yourMove: boolean = false) {
+      if (handler) handler(step.fen, cgState.movable.dests, yourMove);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {

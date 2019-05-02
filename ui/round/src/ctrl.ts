@@ -420,11 +420,11 @@ export default class RoundController {
       else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
-    if (playing && playedColor === d.player.color) {
+    if (playing && playedColor == d.player.color) {
       this.moveOn.next();
       cevalSub.publish(d, o);
     }
-    if (!this.replaying() && playedColor !== d.player.color) {
+    if (!this.replaying() && playedColor != d.player.color) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
@@ -438,7 +438,7 @@ export default class RoundController {
     }
     this.autoScroll();
     this.onChange();
-    if (this.keyboardMove) this.keyboardMove.update(step);
+    if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
     speech.step(step);
   };
