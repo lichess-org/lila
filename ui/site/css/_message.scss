@@ -12,8 +12,8 @@
   time {
     white-space: nowrap;
   }
-  td {
-    @extend %break-word;
+  .slist {
+    @extend %break-word-hard;
   }
   @include breakpoint($mq-not-small) {
     .date { display: none }
