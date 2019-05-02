@@ -181,15 +181,15 @@ Cavalier = 3
 Pion = 1</string>
   <string name="checkInTwo">Échec en deux coups</string>
   <string name="twoMovesToGiveCheck">Donnez un échec en deux coups</string>
-  <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le Roi de l\'adversaire en échec!</string>
+  <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le Roi de l\'adversaire en échec !</string>
   <string name="checkInTwoGoal">Menacez le Roi adverse
-en deux coups!</string>
-  <string name="checkInTwoComplete">Félicitations! Vous avec mis votre adversaire en échec, l\'obligeant à défendre son Roi!</string>
-  <string name="whatNext">Que faire ensuite?</string>
+en deux coups !</string>
+  <string name="checkInTwoComplete">Félicitations ! Vous avec mis votre adversaire en échec, l\'obligeant à défendre son Roi !</string>
+  <string name="whatNext">Que faire ensuite ?</string>
   <string name="youKnowHowToPlayChess">Vous savez comment jouer aux échecs, félicitations ! Voulez-vous devenir un joueur plus fort ?</string>
   <string name="register">S\'inscrire</string>
   <string name="getAFreeLichessAccount">Créer un compte Lichess gratuit</string>
-  <string name="practice">Pratique</string>
+  <string name="practice">S\'entraîner</string>
   <string name="learnCommonChessPositions">Apprendre des positions courantes aux échecs</string>
   <string name="puzzles">Exercices</string>
   <string name="exerciseYourTacticalSkills">Exercer vos compétences tactiques</string>
