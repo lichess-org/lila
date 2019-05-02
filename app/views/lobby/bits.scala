@@ -21,7 +21,7 @@ object bits {
   )(implicit ctx: Context) = frag(
     div(cls := "lobby__leaderboard lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "C")(trans.leaderboard()),
+        h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
         a(cls := "more", href := routes.User.list)(trans.more(), " »")
       ),
       div(cls := "lobby__box__content")(
@@ -40,7 +40,7 @@ object bits {
     ),
     div(cls := "lobby__winners lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
+        h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
         a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
       ),
       div(cls := "lobby__box__content")(
@@ -56,7 +56,7 @@ object bits {
     ),
     div(cls := "lobby__tournaments lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "g")(trans.openTournaments()),
+        h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
         a(cls := "more", href := routes.Tournament.home())(trans.more(), " »")
       ),
       div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
@@ -65,7 +65,7 @@ object bits {
     ),
     div(cls := "lobby__simuls lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
+        h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
         a(cls := "more", href := routes.Simul.home())(trans.more(), " »")
       ),
       div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
@@ -77,7 +77,7 @@ object bits {
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = posts.nonEmpty option
     div(cls := "lobby__blog lobby__box")(
       div(cls := "lobby__box__top")(
-        span(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
+        h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
         a(cls := "more", href := routes.Blog.index())(trans.more(), " »")
       ),
       div(cls := "lobby__box__content")(
