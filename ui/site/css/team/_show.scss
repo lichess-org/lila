@@ -1,7 +1,12 @@
 .team-show {
-  h1 em {
-    color: $c-font-dim;
-    font-size: 72%;
+  @extend %break-word;
+  overflow: hidden;
+  h1 {
+    @extend %break-word-hard;
+    em {
+      color: $c-font-dim;
+      font-size: 72%;
+    }
   }
   &__content {
     margin: 0 var(--box-padding);
@@ -70,7 +75,6 @@
   &__forum {
     width: 100%;
     article {
-      @extend %break-word;
       padding: 2rem 2vw;
       overflow: hidden;
     }

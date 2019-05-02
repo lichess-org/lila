@@ -12,6 +12,10 @@
     @extend %break-word;
   }
 
+  .slist .subject {
+    @extend %break-word-hard;
+  }
+
   &.forum-categ {
     padding-bottom: 1rem;
     .sticky {

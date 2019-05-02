@@ -107,6 +107,9 @@
 
   %break-word {
     overflow-wrap: break-word;
+  }
+  %break-word-hard {
+    @extend %break-word;
     word-break: break-all; /* support: firefox */
     word-break: break-word;
   }
