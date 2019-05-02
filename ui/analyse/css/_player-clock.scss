@@ -1,16 +1,5 @@
 $clock-height: 20px;
 
-.analyse.has-clocks {
-  @include breakpoint($mq-col1) {
-    & {
-      margin-top: #{$clock-height / 2};
-    }
-    .analyse__controls {
-      margin-top: #{$clock-height};
-    }
-  }
-}
-
 .analyse__clock {
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
@@ -38,5 +27,10 @@ $clock-height: 20px;
   }
   tenths {
     font-size: 80%;
+  }
+
+  /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
+  @include breakpoint($mq-col1) {
+    display: none;
   }
 }
