@@ -8,6 +8,8 @@ import controllers.routes
 
 object actions {
 
+  private val dataHoverText = data("hover-text")
+
   def apply(
     userId: lila.user.User.ID,
     relation: Option[lila.relation.Relation],
@@ -47,16 +49,20 @@ object actions {
                 dataIcon := "k"
               )
             )
-            case Some(true) =>
-              a(cls := "btn-rack__btn relation-button hover-text", href := routes.Relation.unfollow(userId))(
-                iconTag("h")(cls := "base text")(trans.following()),
-                iconTag("h")(cls := "hover text")(trans.unfollow())
-              )
-            case Some(false) =>
-              a(cls := "btn-rack__btn relation-button hover-text", href := routes.Relation.unblock(userId))(
-                iconTag("k")(cls := "base text")(trans.blocked()),
-                iconTag("k")(cls := "hover text")(trans.unblock())
-              )
+            case Some(true) => a(
+              dataIcon := "h",
+              cls := "btn-rack__btn relation-button text hover-text",
+              href := routes.Relation.unfollow(userId),
+              st.title := trans.following.txt(),
+              dataHoverText := trans.unfollow.txt()
+            )
+            case Some(false) => a(
+              dataIcon := "k",
+              cls := "btn-rack__btn relation-button text hover-text",
+              href := routes.Relation.unblock(userId),
+              st.title := trans.blocked.txt(),
+              dataHoverText := trans.unblock.txt()
+            )
           }
         )
       } getOrElse {
