@@ -44,6 +44,7 @@
     font-size: 1.2em;
     margin: 20px 0 60px 0;
     cursor: initial;
+    line-height: 1.8;
     strong {
       font-weight: bold;
     }
@@ -66,14 +67,13 @@
       list-style: disc outside;
     }
     h2 {
-      font-size: 2em;
       border-bottom: 1px solid $c-border;
-      margin: 2rem 0;
+      margin: 1.6em 0 1em 0;
     }
     h3 {
-      font-size: 1.5em;
+      @include fluid-size('font-size', 18px, 30px);
       font-weight: bold;
-      margin: 1.7rem 0;
+      margin: 1.6em 0 1em 0;
     }
     h4 {
       font-size: 1.4em;
