@@ -25,11 +25,14 @@ coords {
     left: 0;
     flex-flow: row;
     width: 100%;
-    height: 16px;
+    height: 1.5em;
     text-transform: uppercase;
     text-align: center;
     &.black {
       flex-flow: row-reverse;
+    }
+    coord {
+      padding-left: 4px;
     }
   }
   coord {

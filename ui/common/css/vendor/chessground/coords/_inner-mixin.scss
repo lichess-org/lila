@@ -4,19 +4,19 @@
     display: flex !important;
     color: #fff;
     text-shadow: 0 1px 2px #000;
-    font-size: 12px;
     font-weight: bold;
-    &.files {
-      bottom: 0px;
-      left: 4px;
-      text-align: left;
-    }
     &.ranks {
       top: 1px;
-      right: -2px;
+      right: 0; // a negative value creates empty space on the right side in mobile browsers
+      width: .8em;
       & coord {
         transform: none;
       }
+    }
+    &.files {
+      bottom: 0px;
+      left: 0;
+      text-align: left;
     }
   }
 }
