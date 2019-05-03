@@ -13,15 +13,16 @@ lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
 lichess.isCol1 = (function() {
 
-  var isHorizMovesCache = 'init'; // 'init' | 'rec' | boolean
+  var isCol1Cache = 'init'; // 'init' | 'rec' | boolean
 
   return function() {
-    if (typeof isHorizMovesCache == 'string') {
-      if (isHorizMovesCache == 'init')
-        window.addEventListener('resize', function() { isHorizMovesCache = 'rec' });
-      isHorizMovesCache = !!getComputedStyle(document.body).getPropertyValue('--horiz');
+    var ctk = 'isCol1' + Math.random();
+    if (typeof isCol1Cache == 'string') {
+      if (isCol1Cache == 'init')
+        window.addEventListener('resize', function() { isCol1Cache = 'rec' });
+      isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
     }
-    return isHorizMovesCache;
+    return isCol1Cache;
   };
 })();
 
