@@ -65,16 +65,4 @@
       vertical-align: middle;
     }
   }
-
-  @include breakpoint($mq-col1) {
-    .ceval {
-      order: 1;
-    }
-    .pv_box {
-      order: 2;
-    }
-    &__moves {
-      order: 3;
-    }
-  }
 }
