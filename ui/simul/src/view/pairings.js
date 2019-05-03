@@ -10,7 +10,9 @@ function miniPairing(ctrl) {
     var game = pairing.game;
     var player = pairing.player;
     var result = pairing.game.status >= status.ids.aborted ? (
-      pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½-½')
+      pairing.winnerColor === 'white' ? (ctrl.pref.draughtsResult ? '2-0' : '1-0')
+      : (pairing.winnerColor === 'black' ? (ctrl.pref.draughtsResult ? '0-2' : '0-1')
+      : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
     ) : '*';
     return m('div', { class: ctrl.evals !== undefined ? 'gauge_displayed' : '' }, [
       m('a', {

@@ -44,6 +44,10 @@
           @base.form.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
         </li>
         <li>
+          <h2>@trans.notationGameResult()</h2>
+          @base.form.radios(form("display.gameResult"), translatedGameResultNotationChoices)
+        </li>
+        <li>
           <h2>@trans.zenMode()</h2>
           @base.form.radios(form("display.zen"), booleanChoices)
         </li>

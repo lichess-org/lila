@@ -33,13 +33,13 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
-      result = '1-0';
+      result = ctrl.data.pref.draughtsResult ? '2-0' : '1-0';
       break;
     case 'black':
-      result = '0-1';
+      result = ctrl.data.pref.draughtsResult ? '0-2' : '0-1';
       break;
     default:
-      result = '½-½';
+      result = ctrl.data.pref.draughtsResult ? '1-1' : '½-½';
   }
   const tags: VNode[] = [];
   if (result) {

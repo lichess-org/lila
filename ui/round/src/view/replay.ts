@@ -39,13 +39,13 @@ function renderResult(ctrl: RoundController) {
   let result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
-      result = '1-0';
+      result = ctrl.data.pref.draughtsResult ? '2-0' : '1-0';
       break;
     case 'black':
-      result = '0-1';
+      result = ctrl.data.pref.draughtsResult ? '0-2' : '0-1';
       break;
     default:
-      result = '½-½';
+      result = ctrl.data.pref.draughtsResult ? '1-1' : '½-½';
   }
   if (result || status.aborted(ctrl.data)) {
     const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);

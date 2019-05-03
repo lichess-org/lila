@@ -31,7 +31,7 @@ export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: c
     (key2pos(dest)[1] === -1 && d.player.color === 'white') ||
       (key2pos(dest)[1] === -1 && d.player.color === 'black'))) {
     if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
-    if (!meta.ctrlKey && !promoting && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
+    if (!meta.ctrlKey && !promoting) {// && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
       //if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       //else sendPromotion(ctrl, orig, dest, 'queen', meta);
       return true;

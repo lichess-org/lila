@@ -164,7 +164,6 @@ export interface StepCrazy extends Untyped {
 
 export interface Pref {
   animationDuration: number;
-  autoQueen: 1 | 2 | 3;
   blindfold: boolean;
   clockBar: boolean;
   clockSound: boolean;
@@ -178,7 +177,7 @@ export interface Pref {
   keyboardMove: boolean;
   moveEvent: 0 | 1 | 2;
   replay: 0 | 1 | 2;
-  rookCastle: boolean;
+  draughtsResult: boolean;
   showCaptured: boolean;
   submitMove: boolean;
 }

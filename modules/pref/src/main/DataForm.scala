@@ -13,6 +13,7 @@ object DataForm {
       "destination" -> number.verifying(Pref.BooleanPref.verify),
       "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
       "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
+      "gameResult" -> number.verifying(Pref.GameResult.choices.toMap contains _),
       "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
     )(DisplayData.apply)(DisplayData.unapply),
@@ -42,6 +43,7 @@ object DataForm {
       destination: Int,
       coords: Int,
       replay: Int,
+      gameResult: Int,
       zen: Option[Int],
       blindfold: Int
   )
@@ -80,6 +82,7 @@ object DataForm {
       destination = display.destination == 1,
       coords = display.coords,
       replay = display.replay,
+      gameResult = display.gameResult,
       blindfold = display.blindfold,
       challenge = challenge,
       message = message,
@@ -104,6 +107,7 @@ object DataForm {
         animation = pref.animation,
         coords = pref.coords,
         replay = pref.replay,
+        gameResult = pref.gameResult,
         captured = pref.captured.fold(1, 0),
         blindfold = pref.blindfold,
         zen = pref.zen.some

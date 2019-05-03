@@ -40,7 +40,6 @@ function makeConfig(ctrl: RoundController): Config {
             color: playing ? data.player.color : undefined,
             dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
             showDests: data.pref.destination,
-            rookCastle: data.pref.rookCastle,
             events: {
                 after: hooks.onUserMove,
                 afterNewPiece: hooks.onUserNewPiece

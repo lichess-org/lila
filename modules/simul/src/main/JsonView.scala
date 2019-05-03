@@ -6,6 +6,7 @@ import lidraughts.evalCache.JsonHandlers.gameEvalJson
 import lidraughts.game.{ Game, GameRepo, Rewind }
 import draughts.format.{ FEN, Forsyth }
 import Simul.ShowFmjdRating
+import lidraughts.pref.Pref
 
 final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
 
@@ -23,7 +24,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       } map { (game.id, _) }
     } sequenceFu
 
-  def apply(simul: Simul, ceval: Boolean): Fu[JsObject] = for {
+  def apply(simul: Simul, ceval: Boolean, pref: Option[Pref]): Fu[JsObject] = for {
     games <- fetchGames(simul)
     evals <- ceval ?? fetchEvals(games)
     lightHost <- getLightUser(simul.hostId)
@@ -67,6 +68,9 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     .add("allowed" -> allowed.nonEmpty ?? allowed.some)
     .add("targetPct" -> simul.targetPct)
     .add("evals" -> ceval ?? evals.flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }).some)
+    .add("pref" -> pref.map(p => Json.obj(
+      "draughtsResult" -> (p.gameResult == Pref.GameResult.DRAUGHTS)
+    )))
 
   def arbiterJson(simul: Simul): Fu[JsArray] = for {
     games <- fetchGames(simul)

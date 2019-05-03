@@ -37,7 +37,6 @@ export interface State {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played
       afterNewPiece?: (role: cg.Role, key: cg.Key, metadata: cg.MoveMetadata) => void; // called after a new piece is dropped on the board
     };
-    rookCastle: boolean // castle by moving the king to the rook
   };
   premovable: {
     enabled: boolean; // allow premoves for color that can not move
@@ -118,8 +117,7 @@ export function defaults(): Partial<State> {
       free: true,
       color: 'both',
       showDests: true,
-      events: {},
-      rookCastle: true
+      events: {}
     },
     premovable: {
       enabled: true,

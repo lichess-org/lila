@@ -24,8 +24,7 @@ function makeConfig(ctrl): CgConfig {
       free: false,
       color: opts.movable.color,
       dests: opts.movable.dests,
-      showDests: ctrl.pref.destination,
-      rookCastle: ctrl.pref.rookCastle
+      showDests: ctrl.pref.destination
     },
     draggable: {
       enabled: ctrl.pref.moveEvent > 0,

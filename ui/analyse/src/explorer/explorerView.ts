@@ -72,10 +72,10 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
   ]);
 }
 
-function showResult(winner?: Color): VNode {
-  if (winner === 'white') return h('result.white', '1-0');
-  if (winner === 'black') return h('result.black', '0-1');
-  return h('result.draws', '½-½');
+function showResult(winner?: Color, draughtsResult?: boolean): VNode {
+  if (winner === 'white') return h('result.white', draughtsResult ? '2-0' : '1-0');
+  if (winner === 'black') return h('result.black', draughtsResult ? '0-2' : '0-1');
+  return h('result.draws', draughtsResult ? '1-1' : '½-½');
 }
 
 function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): VNode | null {
@@ -104,7 +104,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
       }, [
         h('td', [game.white, game.black].map(p => h('span', '' + p.rating))),
         h('td', [game.white, game.black].map(p => h('span', p.name))),
-        h('td', showResult(game.winner)),
+        h('td', showResult(game.winner, ctrl.data.pref.draughtsResult)),
         h('td', [game.year])
       ]);
     }))
@@ -131,7 +131,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
     h('td.game_menu', {
       attrs: { colspan: 4 },
     }, [
-      h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
+      h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner, ctrl.data.pref.draughtsResult).text}, ${game.year}`),
       h('div.menu', [
         h('a.text', {
           attrs: dataIcon('v'),

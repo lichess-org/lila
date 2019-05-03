@@ -16,6 +16,7 @@ object FormCompatLayer {
       "destination",
       "coords",
       "replay",
+      "gameResult",
       "pieceNotation",
       "blindfold"
     )) {
@@ -23,7 +24,6 @@ object FormCompatLayer {
         "moveEvent",
         "premove",
         "takeback",
-        "autoQueen",
         "autoThreefold",
         "submitMove",
         "confirmResign",

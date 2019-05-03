@@ -105,6 +105,9 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Replay.ALWAYS, I18nKeys.always.txt())
   )
 
+  def translatedGameResultNotationChoices(implicit ctx: Context) =
+    Pref.GameResult.choices.toList
+
   def translatedClockTenthsChoices(implicit ctx: Context) = List(
     (Pref.ClockTenths.NEVER, I18nKeys.never.txt()),
     (Pref.ClockTenths.LOWTIME, I18nKeys.whenTimeRemainingLessThanTenSeconds.txt()),
