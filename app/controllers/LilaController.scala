@@ -419,7 +419,9 @@ private[controllers] trait LilaController
       }
     } dmap {
       case Some(d) if !lila.common.PlayApp.isProd =>
-        Some(d.copy(user = d.user.addRole(lila.security.Permission.Beta.name)))
+        d.copy(user = d.user
+          .addRole(lila.security.Permission.Beta.name)
+          .addRole(lila.security.Permission.Prismic.name)).some
       case d => d
     } flatMap {
       case None => fuccess(None -> None)
