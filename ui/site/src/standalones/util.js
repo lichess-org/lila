@@ -11,6 +11,20 @@ lidraughts.dispatchEvent = function(el, eventName) {
 lidraughts.hasTouchEvents = 'ontouchstart' in window;
 lidraughts.mousedownEvent = lidraughts.hasTouchEvents ? 'touchstart' : 'mousedown';
 
+lidraughts.isCol1 = (function() {
+
+  var isHorizMovesCache = 'init'; // 'init' | 'rec' | boolean
+
+  return function() {
+    if (typeof isHorizMovesCache == 'string') {
+      if (isHorizMovesCache == 'init')
+        window.addEventListener('resize', function() { isHorizMovesCache = 'rec' });
+      isHorizMovesCache = !!getComputedStyle(document.body).getPropertyValue('--horiz');
+    }
+    return isHorizMovesCache;
+  };
+})();
+
 lidraughts.storage = (function() {
   var storage = window.localStorage;
   var api = {
