@@ -419,7 +419,9 @@ private[controllers] trait LidraughtsController
       }
     } dmap {
       case Some(d) if !lidraughts.common.PlayApp.isProd =>
-        Some(d.copy(user = d.user.addRole(lidraughts.security.Permission.Beta.name)))
+        d.copy(user = d.user
+          .addRole(lidraughts.security.Permission.Beta.name)
+          .addRole(lidraughts.security.Permission.Prismic.name)).some
       case d => d
     } flatMap {
       case None => fuccess(None -> None)
