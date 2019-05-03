@@ -1,14 +1,13 @@
 $clock-height: 20px;
 
 .analyse__clock {
-  @extend %flex-between-nowrap, %metal, %box-shadow;
+  @extend %metal, %box-shadow;
 
   position: absolute;
   right: 0;
   padding: 0 .5em;
 
   height: $clock-height;
-  line-height: $clock-height;
 
   font-weight: bold;
   text-align: center;
