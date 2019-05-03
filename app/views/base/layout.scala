@@ -83,7 +83,8 @@ object layout {
       input(spellcheck := "false", placeholder := trans.search.txt())
     )
 
-  private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;")
+  private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style :=
+    "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top")
 
   private val spaceRegex = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
