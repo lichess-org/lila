@@ -98,7 +98,7 @@
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
   <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
-  <string name="replayMode">Odtwarzanie</string>
+  <string name="replayMode">Tryb odtwarzania</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
   <string name="openStudy">Stwórz studium</string>
@@ -128,7 +128,7 @@
     <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="currentGames">Rozgrywane partie</string>
+  <string name="currentGames">Partie w toku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
@@ -173,7 +173,7 @@
     <item quantity="many">%s godzin</item>
     <item quantity="other">%s godzin</item>
   </plurals>
-  <string name="time">Czas</string>
+  <string name="time">Tempo gry</string>
   <string name="rating">Ranking</string>
   <string name="ratingStats">Statystyki rankingowe</string>
   <string name="username">Nazwa użytkownika</string>
@@ -566,9 +566,9 @@
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
   <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
-  <string name="cheat">Oszustwo</string>
+  <string name="cheat">Oszust</string>
   <string name="insult">Znieważenie</string>
-  <string name="troll">Naprzykrzanie się</string>
+  <string name="troll">Natręt (troll)</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej odnośnik do gry (gier) i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
@@ -873,7 +873,7 @@
   <string name="computerThinking">Komputer szuka ruchu…</string>
   <string name="seeBestMove">Zobacz najlepszy ruch</string>
   <string name="hideBestMove">Ukryj najlepszy ruch</string>
-  <string name="getAHint">Uzyskaj podpowiedź</string>
+  <string name="getAHint">Pokaż podpowiedź</string>
   <string name="evaluatingYourMove">Ocenianie Twojego ruchu…</string>
   <string name="whiteWinsGame">Wygrana białych</string>
   <string name="blackWinsGame">Wygrana czarnych</string>
