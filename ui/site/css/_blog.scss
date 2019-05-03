@@ -3,20 +3,32 @@
     font-size: 2.6em;
     color: $c-accent;
   }
-  .meta {
+  .meta-headline {
+    @extend %box-shadow;
+    background: $c-bg-zebra;
+    padding: 1.4rem 0 .4rem 0;
     text-align: center;
-    margin: 20px 0;
   }
-  .meta span {
-    display:inline-block;
-    margin-right: 10px;
+  .meta {
+    span {
+      display:inline-block;
+      margin-right: 2em;
+    }
+    margin-bottom: 1.4rem;
+  }
+  .headline {
+    display: block;
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: normal;
   }
   .illustration,
   [data-oembed] {
     text-align: center;
   }
   .illustration img {
-    max-height: 300px;
+    max-height: 24em;
+    margin: 3em 0;
   }
   img,
   .block-img {
@@ -29,20 +41,18 @@
   twitter-widget {
     margin: 30px auto!important;
   }
-  .post.no-icon .illustration {
+  &.post.no-icon .illustration {
     display: none;
   }
-  .shortlede {
-    display: block;
-    text-align: center;
-    font-size: 1.4em;
-    font-weight: normal;
-    font-style: italic;
-    margin: 20px 0;
+  &.post h1 {
+    a {
+      font-size: .6em;
+      vertical-align: middle;
+    }
   }
   .body {
     font-size: 1.2em;
-    margin: 20px 0 60px 0;
+    margin: 0 var(--box-padding) 4em var(--box-padding);
     cursor: initial;
     line-height: 1.8;
     strong {
@@ -88,18 +98,19 @@
     }
   }
 
-  .list {
+  &.list {
     article {
-      margin: 1em 0 5em 0;
+      margin: 3em 0 7em 0;
     }
     h2 {
       text-align: center;
-      border-bottom: $border;
+      margin-bottom: 1rem;
     }
     .meta {
       text-align: center;
     }
     .more {
+      margin-top: 2em;
       text-align: center;
     }
   }
