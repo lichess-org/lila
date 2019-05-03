@@ -95,4 +95,7 @@
       text-align: right;
     }
   }
+  @include breakpoint($mq-col1) {
+    .abset-inline { display: none } // force inline on mobile
+  }
 }
