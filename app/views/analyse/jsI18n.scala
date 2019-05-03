@@ -48,7 +48,6 @@ private object jsI18n {
     trans.toggleLocalEvaluation,
     // action menu
     trans.menu,
-    trans.preferences,
     trans.inlineNotation,
     trans.computerAnalysis,
     trans.enable,
