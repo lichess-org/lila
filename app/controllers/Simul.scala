@@ -48,10 +48,11 @@ object Simul extends LilaController {
     } map NoCache
   }
 
-  private[controllers] def canHaveChat(implicit ctx: Context): Boolean = ctx.me ?? { u =>
-    if (ctx.kid) false
-    else Env.chat.panic allowed u
-  }
+  private[controllers] def canHaveChat(implicit ctx: Context): Boolean =
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(true) { // anon can see public chats
+        Env.chat.panic.allowed
+      }
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
