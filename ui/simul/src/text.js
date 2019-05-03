@@ -50,11 +50,10 @@ module.exports = {
     };
   },
   view: function(ctrl) {
-    return ctrl.data.text || simul.createdByMe(ctrl) ? m('div.simul-text', {
-      class: { editing: ctrl.text.editing() }
-    }, [
-      m('p', enrichText(ctrl.data.text)),
-      simul.createdByMe(ctrl) ? editor(ctrl) : null
-    ]) : null;
+    return ctrl.data.text || simul.createdByMe(ctrl) ?
+      m('div.simul-text' + (ctrl.text.editing() ? '.editing' : ''), [
+        m('p', enrichText(ctrl.data.text)),
+        simul.createdByMe(ctrl) ? editor(ctrl) : null
+      ]) : null;
   }
 }
