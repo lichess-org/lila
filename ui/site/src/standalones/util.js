@@ -11,6 +11,20 @@ lichess.dispatchEvent = function(el, eventName) {
 lichess.hasTouchEvents = 'ontouchstart' in window;
 lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
+lichess.isCol1 = (function() {
+
+  var isHorizMovesCache = 'init'; // 'init' | 'rec' | boolean
+
+  return function() {
+    if (typeof isHorizMovesCache == 'string') {
+      if (isHorizMovesCache == 'init')
+        window.addEventListener('resize', function() { isHorizMovesCache = 'rec' });
+      isHorizMovesCache = !!getComputedStyle(document.body).getPropertyValue('--horiz');
+    }
+    return isHorizMovesCache;
+  };
+})();
+
 lichess.storage = (function() {
   var storage = window.localStorage;
   var api = {

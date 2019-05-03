@@ -2,7 +2,6 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as round from '../round';
 import throttle from 'common/throttle';
-import isHorizMoves from './horizontalMoves';
 import * as game from 'game';
 import * as status from 'game/status';
 import { game as gameRoute } from 'game/router';
@@ -27,17 +26,13 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
   else {
     const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
-    if (plyEl) {
-      if (isHorizMoves(movesEl)) {
-        st = plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2;
-      } else {
-        st = plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
-      }
-    }
+    if (plyEl) st = window.lichess.isCol1() ?
+      plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
+      plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
   }
   if (typeof st == 'number') {
     if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-    else if (isHorizMoves(movesEl)) movesEl.scrollLeft = st;
+    else if (window.lichess.isCol1()) movesEl.scrollLeft = st;
     else movesEl.scrollTop = st;
   }
 });
