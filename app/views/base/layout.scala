@@ -244,9 +244,9 @@ object layout {
         div(cls := "site-title-nav")(
           topnavToggle,
           h1(cls := "site-title")(
+            if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
+            else ctx.isBot option botImage,
             a(href := "/")(
-              if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")("😊")
-              else ctx.isBot option botImage,
               "lichess",
               span(if (isProd && !isStage) ".org" else ".dev")
             )

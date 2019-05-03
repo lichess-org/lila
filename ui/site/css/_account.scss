@@ -131,4 +131,10 @@
   @include breakpoint($mq-not-xx-small) {
     td.icon { display: none }
   }
+
+  .kiddo {
+    color: $c-font-dim;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
 }
