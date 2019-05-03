@@ -3,4 +3,8 @@
 <resources>
   <string name="coordinates">Tọa độ</string>
   <string name="coordinateTraining">Huấn luyện tọa độ</string>
+  <string name="averageScoreAsWhiteX">Điểm trung bình quân trắng: %s</string>
+  <string name="averageScoreAsBlackX">Điểm trung bình quân đen: %s</string>
+  <string name="knowingTheChessBoard">Biết tọa độ bàn cờ là kỹ năng rất quan trọng khi chơi cờ:</string>
+  <string name="mostChessCourses">Hầu hết các khóa học và bài tập cờ vua dùng ký hiệu đại số rộng rãi.</string>
 </resources>
