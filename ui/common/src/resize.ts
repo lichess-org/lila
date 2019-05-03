@@ -39,10 +39,26 @@ export default function resizeHandle(el: HTMLElement) {
       document.body.classList.remove('resizing');
     }, { once: true });
   });
+
+  addNag(el);
 }
 
 function eventPosition(e: MouchEvent): [number, number] | undefined {
   if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
   if (e.touches && e.targetTouches[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
   return undefined;
+}
+
+function addNag(el: HTMLElement) {
+
+  const storage = window.lichess.storage.makeBoolean('resize-nag');
+  if (storage.get()) return;
+
+  window.lichess.loadCssPath('nag-circle');
+  el.title = 'Drag to resize';
+  el.innerHTML = '<div class="nag-circle"></div>';
+  el.addEventListener(window.lichess.mousedownEvent, () => {
+    storage.set(true);
+    el.innerHTML = '';
+  }, { once: true });
 }

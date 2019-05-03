@@ -31,10 +31,13 @@ body.resizing {
         translate(1px, 6px)
         rotate(-45deg);
     }
-    &:hover,
-    &:active {
+    &:hover {
       border-radius: 50%;
       background: fade-out($c-accent, 0.5);
+    }
+    .resizing & {
+      border-radius: 50%;
+      background: fade-out($c-secondary, 0.5);
     }
   }
 }
