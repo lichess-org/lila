@@ -263,6 +263,11 @@
   <string name="bookmarkThisGame">Voeg deze partij toe aan je favorieten</string>
   <string name="search">Zoek</string>
   <string name="advancedSearch">Geavanceerd zoeken</string>
+  <string name="searchPlayersHelp">Zoek een speler op naam, eventueel met naam van de tegenstander</string>
+  <string name="searchRatingsHelp">De gemiddelde rating van beide spelers</string>
+  <string name="searchOpponentHelp">Of de tegenstander van de speler een mens of een computer was</string>
+  <string name="searchNumberOfTurnsHelp">Het aantal gespeelde beurten (beide spelers gezet)</string>
+  <string name="searchAnalysisHelp">Alleen partijen met computeranalyse</string>
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooien</string>
   <string name="tournamentPoints">Toernooipunten</string>
@@ -369,6 +374,13 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="challengeToPlay">Uitdagen voor een partij</string>
   <string name="player">Speler</string>
   <string name="list">Lijst</string>
+  <string name="sort">Sorteren</string>
+  <string name="sortBy">Op</string>
+  <string name="from">Van</string>
+  <string name="to">Tot</string>
+  <string name="ascending">Oplopend</string>
+  <string name="descending">Aflopend</string>
+  <string name="source">Bron</string>
   <string name="graph">Grafiek</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Minder dan %s minuut</item>
@@ -377,8 +389,12 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="required">Vereist.</string>
   <string name="openTournaments">Open toernooien</string>
   <string name="duration">Tijdsduur</string>
+  <string name="date">Datum</string>
   <string name="numberOfTurns">Aantal beurten</string>
   <string name="winner">Winnaar</string>
+  <string name="loser">Verliezer</string>
+  <string name="result">Resultaat</string>
+  <string name="winnerColor">Kleur winnaar</string>
   <string name="standing">Ranglijst</string>
   <string name="createANewTournament">Start een nieuw toernooi</string>
   <string name="tournamentCalendar">Toernooi kalender</string>
@@ -531,6 +547,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="notationGameResult">Notatie resultaat partij (winst wit / remise / winst zwart)</string>
   <string name="pdnPieceNotation">Stuknotatie</string>
   <string name="draughtsClock">Damklok</string>
+  <string name="clockInitialTime">Klok begintijd</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="never">Nooit</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wanneer tijd over &lt; 10 seconden</string>
@@ -847,6 +864,14 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s seconde</item>
     <item quantity="other">%s seconden</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuut</item>
+    <item quantity="other">%s minuten</item>
+  </plurals>
+  <plurals name="nbTurns">
+    <item quantity="one">%s beurt</item>
+    <item quantity="other">%s beurten</item>
   </plurals>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>

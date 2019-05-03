@@ -2,6 +2,13 @@ form.search {
   padding: 10px 25px;
 }
 
+form.search table {
+  width: 60%
+}
+form.search th {
+  width: 30%
+}
+
 form.search td {
   padding: 5px 0;
 }

@@ -29,6 +29,11 @@ trait SetupHelper { self: I18nHelper =>
     (Mode.Rated.id.toString, I18nKeys.rated.txt(), none)
   )
 
+  def translatedModeChoicesById(implicit ctx: Context) = List(
+    (Mode.Casual.id, I18nKeys.casual.txt()),
+    (Mode.Rated.id, I18nKeys.rated.txt())
+  )
+
   def translatedModeChoicesTournament(implicit ctx: Context) = List(
     (Mode.Casual.id.toString, I18nKeys.casualTournament.txt(), none),
     (Mode.Rated.id.toString, I18nKeys.ratedTournament.txt(), none)
@@ -49,6 +54,57 @@ trait SetupHelper { self: I18nHelper =>
     "spectators" -> I18nKeys.spectatorsOnly.txt(),
     "participants" -> I18nKeys.participantsOnly.txt()
   )
+
+  def translatedHasAiChoices(implicit ctx: Context) = List(
+    0 -> I18nKeys.human.txt(),
+    1 -> I18nKeys.computer.txt()
+  )
+
+  def translatedWinnerColorChoices(implicit ctx: Context) = List(
+    1 -> I18nKeys.white.txt(),
+    2 -> I18nKeys.black.txt(),
+    3 -> I18nKeys.none.txt()
+  )
+
+  def translatedSortFieldChoices(implicit ctx: Context) = List(
+    lidraughts.gameSearch.Sorting.fields(0)._1 -> I18nKeys.date.txt(),
+    lidraughts.gameSearch.Sorting.fields(1)._1 -> I18nKeys.numberOfTurns.txt(),
+    lidraughts.gameSearch.Sorting.fields(2)._1 -> I18nKeys.averageElo.txt()
+  )
+
+  def translatedSortOrderChoices(implicit ctx: Context) = List(
+    "desc" -> I18nKeys.descending.txt(),
+    "asc" -> I18nKeys.ascending.txt()
+  )
+
+  def translatedAverageRatingChoices(implicit ctx: Context) =
+    lidraughts.gameSearch.Query.averageRatings.map { r => r._1 -> s"${r._1} ${I18nKeys.rating.txt()}" }
+
+  def translatedTurnsChoices(implicit ctx: Context) = ((1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25)) map { d =>
+    d -> I18nKeys.nbTurns.pluralSameTxt(d)
+  } toList
+
+  def translatedDurationChoices(implicit ctx: Context) = {
+    ((30, I18nKeys.nbSeconds.pluralSameTxt(30)) ::
+      (List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30) map { d =>
+        d -> I18nKeys.nbMinutes.pluralSameTxt(d / 60)
+      })) :+
+      (60 * 60 * 1, I18nKeys.nbHours.pluralSameTxt(1)) :+
+      (60 * 60 * 2, I18nKeys.nbHours.pluralSameTxt(2)) :+
+      (60 * 60 * 3, I18nKeys.nbHours.pluralSameTxt(3))
+  }
+
+  def translatedClockInitChoices(implicit ctx: Context) = List(
+    (0, I18nKeys.nbSeconds.pluralSameTxt(0)),
+    (30, I18nKeys.nbSeconds.pluralSameTxt(30)),
+    (45, I18nKeys.nbSeconds.pluralSameTxt(45))
+  ) ::: (List(60 * 1, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30, 60 * 45, 60 * 60, 60 * 90, 60 * 120, 60 * 150, 60 * 180) map { d =>
+      d -> I18nKeys.nbMinutes.pluralSameTxt(d / 60)
+    })
+
+  def translatedClockIncChoices(implicit ctx: Context) = List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180) map { d =>
+    d -> I18nKeys.nbSeconds.pluralSameTxt(d)
+  }
 
   private def variantTuple(variant: draughts.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =
     (variant.id.toString, variant.name, variant.title.some)

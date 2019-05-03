@@ -271,6 +271,11 @@
   <string name="bookmarkThisGame">Bookmark this game</string>
   <string name="search">Search</string>
   <string name="advancedSearch">Advanced search</string>
+  <string name="searchPlayersHelp">The name(s) of the player(s) you wish to search for</string>
+  <string name="searchRatingsHelp">The average rating of both players</string>
+  <string name="searchOpponentHelp">Whether the player's opponent was a human or a computer</string>
+  <string name="searchNumberOfTurnsHelp">The number of turns played (both players moved)</string>
+  <string name="searchAnalysisHelp">Include only games with computer analysis</string>
   <string name="tournament">Tournament</string>
   <string name="tournaments">Tournaments</string>
   <string name="tournamentPoints">Tournament points</string>
@@ -378,6 +383,13 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="challengeToPlay">Challenge to a game</string>
   <string name="player">Player</string>
   <string name="list">List</string>
+  <string name="sort">Sort</string>
+  <string name="sortBy">By</string>
+  <string name="from">From</string>
+  <string name="to">To</string>
+  <string name="ascending">Ascending</string>
+  <string name="descending">Descending</string>
+  <string name="source">Source</string>
   <string name="graph">Graph</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Less than %s minute</item>
@@ -386,8 +398,12 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
+  <string name="date">Date</string>
   <string name="numberOfTurns">Number of turns</string>
   <string name="winner">Winner</string>
+  <string name="loser">Loser</string>
+  <string name="result">Result</string>
+  <string name="winnerColor">Winner color</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
@@ -544,6 +560,7 @@ One URL per line</string>
   <string name="notationGameResult">Notation game result (white win / draw / black win)</string>
   <string name="pdnPieceNotation">Move notation</string>
   <string name="draughtsClock">Draughts clock</string>
+  <string name="clockInitialTime">Clock initial time</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
@@ -870,6 +887,14 @@ in %3$s</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>
     <item quantity="other">%s seconds</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
+  </plurals>
+  <plurals name="nbTurns">
+    <item quantity="one">%s turn</item>
+    <item quantity="other">%s turns</item>
   </plurals>
   <string name="opening">Opening</string>
   <string name="middlegame">Middlegame</string>

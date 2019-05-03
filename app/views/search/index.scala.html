@@ -29,7 +29,7 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
     <table>
       <tr>
         <th>
-          <label>@trans.players() <span class="help" title="The name(s) of the player(s) you wish to search">(?)</span></label>
+          <label>@trans.players() <span class="help" title="@trans.searchPlayersHelp()">(?)</span></label>
         </th>
         <td class="usernames">
           <div class="half">@base.form.input(form("players")("a"))</div>
@@ -62,7 +62,7 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
       </tr>
       <tr class="loser user_row none">
         <th>
-          <label for="@form("players")("loser").id">Loser</label>
+          <label for="@form("players")("loser").id">@trans.loser()</label>
         </th>
         <td class="single">
           <select id="@form("players")("loser").id" name="@form("players")("loser").name">
@@ -72,19 +72,19 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
       </tr>
       <tr>
         <th>
-          <label>@trans.rating() <span class="help" title="The average rating of both players">(?)</span></label>
+          <label>@trans.rating() <span class="help" title="@trans.searchRatingsHelp()">(?)</span></label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("ratingMin"), Query.averageRatings, "".some)</div>
-          <div class="half">To @base.form.select(form("ratingMax"), Query.averageRatings, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("ratingMin"), translatedAverageRatingChoices, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("ratingMax"), translatedAverageRatingChoices, "".some)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
+          <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="@trans.searchOpponentHelp()">(?)</span></label>
         </th>
         <td class="single opponent">
-          @base.form.select(form("hasAi"), Query.hasAis, "".some)
+          @base.form.select(form("hasAi"), translatedHasAiChoices, "".some)
         </td>
       </tr>
       <tr class="aiLevel none">
@@ -92,13 +92,13 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label for="@form("aiLevel").id">A.I. level</label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
-          <div class="half">To @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label for="@form("source").id">Source</label>
+          <label for="@form("source").id">@trans.source()</label>
         </th>
         <td class="single">
           @base.form.select(form("source"), Query.sources, "".some)
@@ -117,16 +117,16 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label for="@form("mode").id">@trans.mode()</label>
         </th>
         <td class="single">
-          @base.form.select(form("mode"), Query.modes, "".some)
+          @base.form.select(form("mode"), translatedModeChoicesById, "".some)
         </td>
       </tr>
       <tr>
         <th>
-          <label>@trans.numberOfTurns()</label>
+          <label>@trans.numberOfTurns() <span class="help" title="@trans.searchNumberOfTurnsHelp()">(?)</span></label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("turnsMin"), Query.turns, "".some)</div>
-          <div class="half">To @base.form.select(form("turnsMax"), Query.turns, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("turnsMin"), translatedTurnsChoices, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("turnsMax"), translatedTurnsChoices, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -134,31 +134,31 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <label>@trans.duration()</label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("durationMin"), Query.durations, "".some)</div>
-          <div class="half">To @base.form.select(form("durationMax"), Query.durations, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("durationMin"), translatedDurationChoices, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("durationMax"), translatedDurationChoices, "".some)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label>Clock initial time</label>
+          <label>@trans.clockInitialTime()</label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("clock")("initMin"), Query.clockInits, "".some)</div>
-          <div class="half">To @base.form.select(form("clock")("initMax"), Query.clockInits, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("clock")("initMin"), translatedClockInitChoices, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("clock")("initMax"), translatedClockInitChoices, "".some)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label>Clock increment</label>
+          <label>@trans.increment()</label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("clock")("incMin"), Query.clockIncs, "".some)</div>
-          <div class="half">To @base.form.select(form("clock")("incMax"), Query.clockIncs, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("clock")("incMin"), translatedClockIncChoices, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("clock")("incMax"), translatedClockIncChoices, "".some)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label for="@form("status").id">Result</label>
+          <label for="@form("status").id">@trans.result()</label>
         </th>
         <td class="single">
           @base.form.select(form("status"), Query.statuses, "".some)
@@ -166,33 +166,33 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
       </tr>
       <tr>
         <th>
-          <label for="@form("winnerColor").id">Winner color</label>
+          <label for="@form("winnerColor").id">@trans.winnerColor()</label>
         </th>
         <td class="single">
-          @base.form.select(form("winnerColor"), Query.winnerColors, "".some)
+          @base.form.select(form("winnerColor"), translatedWinnerColorChoices, "".some)
         </td>
       </tr>
       <tr>
         <th>
-          <label>Date</label>
+          <label>@trans.date()</label>
         </th>
         <td>
-          <div class="half">From @base.form.select(form("dateMin"), Query.dates, "".some)</div>
-          <div class="half">To @base.form.select(form("dateMax"), Query.dates, "".some)</div>
+          <div class="half">@trans.from() @base.form.select(form("dateMin"), Query.dates, "".some)</div>
+          <div class="half">@trans.to() @base.form.select(form("dateMax"), Query.dates, "".some)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label>Sort</label>
+          <label>@trans.sort()</label>
         </th>
         <td>
-          <div class="half">By @base.form.select(form("sort")("field"), Sorting.fields)</div>
-          <div class="half">@base.form.select(form("sort")("order"), Sorting.orders)</div>
+          <div class="half">@trans.sortBy() @base.form.select(form("sort")("field"), translatedSortFieldChoices)</div>
+          <div class="half">@base.form.select(form("sort")("order"), translatedSortOrderChoices)</div>
         </td>
       </tr>
       <tr>
         <th>
-          <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
+          <label for="analysed">@trans.computerAnalysis() <span class="help" title="@trans.searchAnalysisHelp()">(?)</span></label>
         </th>
         <td class="single">
           @base.form.checkbox(form("analysed"), "", 1)
