@@ -383,13 +383,13 @@
   <string name="filterGames">Filtruj partie</string>
   <string name="reset">Przywróć domyślne</string>
   <string name="apply">Zastosuj</string>
-  <string name="leaderboard">Tablica wyników</string>
+  <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="importGame">Importuj partię</string>
-  <string name="importGameExplanation">Wklejenie zapisu partii w formacie PGN daje możliwość odtwarzania jej przebiegu, analizy komputerowej, rozmowy o niej, czy udostępnienia jej za pomocą odnośnika.</string>
+  <string name="importGameExplanation">Wklejając zapis partii będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -447,7 +447,7 @@
   <string name="standing">Miejsce</string>
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turniejowy</string>
-  <string name="conditionOfEntry">Warunki wstępu:</string>
+  <string name="conditionOfEntry">Warunki przystąpienia:</string>
   <string name="advancedSettings">Ustawienia zaawansowane</string>
   <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
   <string name="inappropriateNameWarning">Nawet nieco nieodpowiednia nazwa może spowodować zamknięcie Twojego konta.</string>
@@ -504,7 +504,7 @@
   <string name="onlinePlayers">Gracze online</string>
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Uważaj, ta gra jest rankingowa, ale nie ma limitu czasu!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
   <string name="training">Zadania szachowe</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
