@@ -9,7 +9,7 @@ import controllers.routes
 object show {
 
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
-    bits.layout(
+    views.html.base.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
       moreJs = jsAt("compiled/embed-analyse.js"),
       openGraph = lila.app.ui.OpenGraph(
@@ -18,15 +18,16 @@ object show {
         title = ~doc.getText("blog.title"),
         url = s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug).url}",
         description = ~doc.getText("blog.shortlede")
-      ).some
+      ).some,
+      moreCss = cssTag("blog"),
+      csp = bits.csp
     )(
-        div(id := doc.id, cls := s"post ${doc.getText("blog.cssClasses")}")(
+        main(cls := s"blog page-small box post ${~doc.getText("blog.cssClasses")}")(
           h1(
             a(href := routes.Blog.index(), dataIcon := "I", cls := "text"),
             doc.getText("blog.title")
           ),
           bits.metas(doc),
-          strong(cls := "shortlede")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw)),
           doc.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))
           },

@@ -9,27 +9,21 @@ import controllers.routes
 
 object bits {
 
-  def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None, moreJs: Frag = emptyFrag)(body: Modifier*)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("blog"),
-      moreJs = frag(prismicJs, moreJs),
-      openGraph = openGraph,
-      csp = defaultCsp.withPrismic(isGranted(_.Prismic)).some
-    ) {
-        main(cls := "blog page-small box box-pad")(body)
-      }
-
-  def metas(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
-    div(cls := "meta")(
-      doc.getDate("blog.date").map { date =>
-        span(cls := "text", dataIcon := "p")(semanticDate(date.value.toDateTimeAtStartOfDay))
-      },
-      doc.getText("blog.author").map { author =>
-        span(cls := "text", dataIcon := "r")(richText(author))
-      },
-      doc.getText("blog.category").map { categ =>
-        span(cls := "text", dataIcon := "t")(categ)
-      }
+  private[blog] def metas(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+    div(cls := "meta-headline")(
+      div(cls := "meta")(
+        doc.getDate("blog.date").map { date =>
+          span(cls := "text", dataIcon := "p")(semanticDate(date.value.toDateTimeAtStartOfDay))
+        },
+        doc.getText("blog.author").map { author =>
+          span(cls := "text", dataIcon := "r")(richText(author))
+        },
+        doc.getText("blog.category").map { categ =>
+          span(cls := "text", dataIcon := "t")(categ)
+        }
+      ),
+      strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))
     )
+
+  private[blog] def csp(implicit ctx: Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some
 }
