@@ -66,14 +66,17 @@
       list-style: disc outside;
     }
     h2 {
-      font-size: 1.4em;
+      font-size: 2em;
       border-bottom: 1px solid $c-border;
-      margin: 35px 0;
+      margin: 2rem 0;
     }
     h3 {
-      font-size: 1.2em;
+      font-size: 1.5em;
       font-weight: bold;
-      margin: 25px 0;
+      margin: 1.7rem 0;
+    }
+    h4 {
+      font-size: 1.4em;
     }
     img {
       padding: 5px;
