@@ -176,6 +176,10 @@
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Placering uppdateras varje minut</item>
+    <item quantity="other">Placering uppdateras efter %s minuter</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s schackproblem</item>
     <item quantity="other">%s schackproblem</item>
