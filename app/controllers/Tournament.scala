@@ -74,11 +74,12 @@ object Tournament extends LilaController {
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
-  private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
-    if (ctx.kid) false
-    else if (tour.isPrivate) true
-    else Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
-  }
+  private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean =
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(true) { u => // anon can see public chats
+        tour.isPrivate || // private tournament pages can only be accessed by invited players (or can it?)
+          Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
+      }
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
