@@ -232,11 +232,11 @@ object layout {
         div(cls := "site-title-nav")(
           topnavToggle,
           h1(cls := "site-title")(
+            if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
+            else ctx.isBot option botImage,
             a(href := "/")(
-              if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")("😊")
-              else ctx.isBot option botImage,
               "lidraughts",
-              span(if (isProd) ".org" else " dev")
+              span(if (isProd && !isStage) ".org" else ".dev")
             )
           ),
           ctx.blind option h2("Navigation"),
