@@ -8,4 +8,7 @@
   <plurals name="practicedNbPositions">
     <item quantity="other">Đã luyện tập %1$s vị trí ở %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">Đã giải %s bài chiến thuật</item>
+  </plurals>
 </resources>
