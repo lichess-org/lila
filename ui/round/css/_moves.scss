@@ -99,17 +99,14 @@
     overflow: hidden;
     .moves {
       flex: 0 0 $col1-moves-height;
-      margin-bottom: $col1-moves-margin;
       display: flex;
       align-items: stretch;
       white-space: nowrap;
       overflow-x: scroll;
       color: $c-font-page;
       @if $theme-light {
-        background: hsl($c-site-hue, 15%, 82%);
         box-shadow: 0 4px 4px c-light($c-bg-page, 74%) inset;
       } @else {
-        background: hsla(0, 0%, 0%, 0.2);
         box-shadow: 0 4px 12px #000 inset;
       }
       &::-webkit-scrollbar {
@@ -135,6 +132,13 @@
       font-size: 1.1em;
       cursor: pointer;
       @include transition();
+      &:hover {
+        @if $theme-light {
+          background: hsl($c-site-hue, 20%, 70%);
+        } @else {
+          background: $c-bg-zebra;
+        }
+      }
       &.active {
         font-weight: bold;
         @if $theme-light {
