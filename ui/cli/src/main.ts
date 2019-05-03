@@ -20,7 +20,7 @@ export function app($wrap: JQuery, toggle: () => void) {
 
 function execute(q: string) {
   if (!q) return;
-  if (q[0] == '/') return command(q.slice(1));
+  if (q[0] == '/') return command(q.replace(/\//g, ''));
   else location.href = '/@/' + q;
 }
 
