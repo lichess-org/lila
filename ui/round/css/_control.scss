@@ -1,9 +1,6 @@
 .rcontrols {
   text-align: center;
   width: 100%;
-  @include breakpoint($mq-col2) {
-    border-top: $border;
-  }
   p {
     margin: 0;
   }

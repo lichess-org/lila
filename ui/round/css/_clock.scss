@@ -60,7 +60,6 @@
   .time {
     @extend %roboto, %box-shadow;
     background: $c-bg-box;
-    border: $border;
     min-width: 3em;
     font-size: 2.8em;
     line-height: $col1-player-clock-height;
@@ -75,7 +74,6 @@
       font-size: 2.3em;
     }
     @include breakpoint($mq-col1) {
-      border-right: 0;
       border-radius: 0;
       box-shadow: none;
     }
@@ -94,11 +92,9 @@
   }
   &-top .time {
     @extend %box-radius-top;
-    border-bottom: 0;
   }
   &-bottom .time {
     @extend %box-radius-bottom;
-    border-top: 0;
   }
   &-correspondence .time {
     font-size: 1.6em;

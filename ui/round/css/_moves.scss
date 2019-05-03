@@ -1,9 +1,10 @@
 .rmoves {
   @extend %flex-column;
   .buttons {
-    @extend %flex-between;
+    @extend %box-shadow;
     flex: 0 0 auto;
-    border: $border;
+    display: flex;
+    justify-content: stretch;
     background: $c-bg-zebra;
     font-size: .9em;
     order: 2;
@@ -12,10 +13,13 @@
     }
   }
   .fbt {
-    padding: 5px 10px;
+    padding: 5px 0;
+    flex: 1 1 auto;
+    text-align: center;
   }
-  .noop {
-    width: 30px;
+  .moves,
+  .message {
+    flex: 0 0 auto;
   }
   .moves,
   .message {
@@ -30,147 +34,7 @@
   move {
     @extend %san;
   }
-  @include breakpoint($mq-col2) {
-    background: $c-bg-box;
-    .moves {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-      position: relative; /* required by autoScroll */
-      overflow-y: auto;
-      align-content: flex-start;
-      border: $border;
-      border-width: 0 1px;
-      will-change: scroll-position;
-      user-select: none;
-      line-height: 1.7;
-      font-size: 1.1em;
-    }
-    index {
-      flex: 0 0 15%;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      background: $c-bg-zebra;
-    }
-    move {
-      flex: 0 0 42.5%;
-      padding-left: .7em;
-      @include transition();
-      &:not(.empty) {
-        cursor: pointer;
-        &:hover {
-          background: $c-primary;
-          color: #fff;
-        }
-      }
-      &.active {
-        font-weight: bold;
-        background: mix($c-primary, $c-bg-box, 20%);
-      }
-    }
-    .message {
-      display: flex;
-      align-items: center;
-      margin: 1em;
-      &::before {
-        color: $c-font-dim;
-        font-size: 3em;
-        margin-right: 12px;
-      }
-    }
-    .result-wrap {
-      width: 100%;
-      text-align: center;
-    }
-    .result {
-      border-top: $border;
-      font-weight: bold;
-      font-size: 1.2em;
-      padding: 5px 0 3px 0;
-      margin: 0;
-    }
-    .status {
-      font-style: italic;
-      margin-bottom: .5em;
-    }
-  }
-  @include breakpoint($mq-col1) {
-    overflow: hidden;
-    .moves {
-      flex: 0 0 $col1-moves-height;
-      display: flex;
-      align-items: stretch;
-      white-space: nowrap;
-      overflow-x: scroll;
-      color: $c-font-page;
-      @if $theme-light {
-        box-shadow: 0 4px 4px c-light($c-bg-page, 78%) inset;
-      } @else {
-        box-shadow: 0 4px 12px #000 inset;
-      }
-      &::-webkit-scrollbar {
-        height: 0px;
-      }
 
-      > :first-child {
-        margin-left: auto !important;
-      }
-    }
-    index,
-    move,
-    .result-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 .3rem;
-    }
-    index {
-      padding-right: .15em;
-    }
-    move {
-      font-size: 1.1em;
-      cursor: pointer;
-      @include transition();
-      &.active,
-      &:hover {
-        @if $theme-light {
-          background: hsl($c-site-hue, 20%, 85%);
-        } @else {
-          background: $c-bg-zebra;
-        }
-      }
-      &.active {
-        color: $c-font-clearer;
-      }
-      &.empty {
-        display: none;
-      }
-    }
-    .buttons {
-      display: none;
-    }
-    .result {
-      margin: 0;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-    .message {
-      flex: 0 0 $col1-moves-height;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.2;
-      br { display: none; }
-      strong { margin-left: .5em; }
-      &::before {
-        margin-right: .3em;
-      }
-    }
-    .status {
-      display: none;
-    }
-    .result-wrap {
-    }
-  }
+  @import 'moves-col1';
+  @import 'moves-col2';
 }

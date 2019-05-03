@@ -266,9 +266,9 @@ export function followUp(ctrl: RoundController): VNode {
   ]);
 }
 
-export function watcherFollowUp(ctrl: RoundController): VNode {
-  const d = ctrl.data;
-  return h('div.follow-up', [
+export function watcherFollowUp(ctrl: RoundController): VNode | null {
+  const d = ctrl.data,
+  content = [
     d.game.rematch ? h('a.fbt.text', {
       attrs: {
         'data-icon': 'v',
@@ -279,7 +279,8 @@ export function watcherFollowUp(ctrl: RoundController): VNode {
       attrs: {href: '/tournament/' + d.tournament.id}
     }, ctrl.trans.noarg('viewTournament')) : null,
     analysisButton(ctrl)
-  ]);
+  ];
+  return content.find(x => !!x) ? h('div.follow-up', content) : null;
 }
 
 export function timeOutButton(

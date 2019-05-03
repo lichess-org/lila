@@ -30,7 +30,7 @@ function loader() { return h('i.ddloader'); }
 function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [
     renderReplay(ctrl),
-    h('div.rcontrols', buttons)
+    buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
   ];
 }
 
