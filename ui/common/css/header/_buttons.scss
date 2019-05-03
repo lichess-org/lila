@@ -57,6 +57,12 @@
   }
   .signin {
     margin: 0 1rem;
+    @if $theme == 'transp' {
+      &.button-empty {
+        @extend %metal;
+        color: $c-font-clear;
+      }
+    }
   }
   .link-center {
     margin-top: 5px;
