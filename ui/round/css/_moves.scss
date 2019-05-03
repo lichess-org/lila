@@ -105,7 +105,7 @@
       overflow-x: scroll;
       color: $c-font-page;
       @if $theme-light {
-        box-shadow: 0 4px 4px c-light($c-bg-page, 74%) inset;
+        box-shadow: 0 4px 4px c-light($c-bg-page, 78%) inset;
       } @else {
         box-shadow: 0 4px 12px #000 inset;
       }
@@ -132,20 +132,16 @@
       font-size: 1.1em;
       cursor: pointer;
       @include transition();
+      &.active,
       &:hover {
         @if $theme-light {
-          background: hsl($c-site-hue, 20%, 70%);
+          background: hsl($c-site-hue, 20%, 85%);
         } @else {
           background: $c-bg-zebra;
         }
       }
       &.active {
-        font-weight: bold;
-        @if $theme-light {
-          background: hsl($c-site-hue, 20%, 70%);
-        } @else {
-          background: $c-bg-zebra;
-        }
+        color: $c-font-clearer;
       }
       &.empty {
         display: none;
