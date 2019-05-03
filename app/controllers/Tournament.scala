@@ -74,12 +74,14 @@ object Tournament extends LilaController {
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
-  private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean =
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
     !ctx.kid && // no public chats for kids
-      ctx.me.fold(true) { u => // anon can see public chats
-        tour.isPrivate || // private tournament pages can only be accessed by invited players (or can it?)
+      ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
+        (tour.isPrivate && json.fold(true)(jsonHasMe)) && // private tournament that I joined
           Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
       }
+
+  private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
@@ -89,8 +91,8 @@ object Tournament extends LilaController {
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
-            chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
+            chat <- canHaveChat(tour, json.some) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
