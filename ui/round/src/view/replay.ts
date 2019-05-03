@@ -142,7 +142,7 @@ function renderButtons(ctrl: RoundController) {
         'data-icon': 'B'
       }
     }),
-    h('nav', [
+    ...([
       ['W', firstPly],
       ['Y', ctrl.ply - 1],
       ['X', ctrl.ply + 1],
