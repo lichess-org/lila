@@ -224,7 +224,7 @@
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
-  <string name="loginToChat">Login to chat</string>
+  <string name="loginToChat">Sign in to chat</string>
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
   <string name="composeMessage">Compose message</string>
