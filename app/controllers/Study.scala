@@ -209,10 +209,12 @@ object Study extends LilaController {
     }
   }
 
-  private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) =
-    (ctx.noKid && ctx.me.exists { me =>
-      study.isMember(me.id) || Env.chat.panic.allowed(me)
-    }) ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
+  private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(true) { // anon can see public chats
+        Env.chat.panic.allowed
+      }
+  } ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
