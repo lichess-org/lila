@@ -33,6 +33,6 @@ $col1-uniboard-controls: $col2-uniboard-controls;
 
 body {
   @include breakpoint($mq-col1-uniboard) {
-    --horiz: 1;
+    --col1: 1;
   }
 }
