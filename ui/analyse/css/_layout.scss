@@ -40,7 +40,7 @@ body {
     --meta-height: max-content;
   }
 
-  grid-template-rows: auto auto 50vh;
+  grid-template-rows: auto auto minmax(20em, 30vh);
   grid-template-areas:
   'board'
   'controls'
