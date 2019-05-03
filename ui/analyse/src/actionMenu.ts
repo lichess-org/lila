@@ -246,7 +246,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ] : []) : [];
 
   const notationConfig = [
-    h('h2', noarg('preferences')),
     ctrlBoolSetting({
       name: noarg('inlineNotation'),
       title: 'Shift+I',
