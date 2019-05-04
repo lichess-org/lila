@@ -75,13 +75,13 @@
     <item quantity="other">Udział w %s symultanach</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Utworzono %s nowe studium</item>
-    <item quantity="few">Utworzono %s nowe studia</item>
-    <item quantity="many">Utworzono %s nowych studiów</item>
-    <item quantity="other">Utworzono %s nowych studiów</item>
+    <item quantity="one">Utworzenie nowego studium</item>
+    <item quantity="few">Utworzenie %s nowych studiów</item>
+    <item quantity="many">Utworzenie %s nowych studiów</item>
+    <item quantity="other">Utworzenie %s nowych studiów</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Uczestnictwo w %s turnieju</item>
+    <item quantity="one">Uczestnictwo w turnieju</item>
     <item quantity="few">Uczestnictwo w %s turniejach</item>
     <item quantity="many">Uczestnictwo w %s turniejach</item>
     <item quantity="other">Uczestnictwo w %s turniejach</item>
@@ -89,14 +89,14 @@
   <plurals name="rankedInTournament">
     <item quantity="one">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partią w %4$s</item>
     <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
-    <item quantity="many">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="many">%1$s. miejsce w klasyfikacji (%2$s%% najlepszych) z %3$s partiami w %4$s</item>
     <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
   </plurals>
   <string name="signedUp">Rejestracja na lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Dołączył do %s klubu</item>
-    <item quantity="few">Dołączył do %s klubów</item>
-    <item quantity="many">Dołączył do %s klubów</item>
-    <item quantity="other">Dołączył do %s klubów</item>
+    <item quantity="one">Dołączenie do klubu</item>
+    <item quantity="few">Dołączenie do %s klubów</item>
+    <item quantity="many">Dołączenie do %s klubów</item>
+    <item quantity="other">Dołączenie do %s klubów</item>
   </plurals>
 </resources>
