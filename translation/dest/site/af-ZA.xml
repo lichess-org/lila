@@ -97,7 +97,6 @@
   <string name="viewInFullSize">Sien vol-grootte</string>
   <string name="logOut">Teken uit</string>
   <string name="signIn">Teken in</string>
-  <string name="newToLichess">Nuut by Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Jy het \'n rekening nodig om dit te doen</string>
   <string name="signUp">Registreer</string>
   <string name="computersAreNotAllowedToPlay">Rekenaars en rekenaargesteunde spelers word nie toegelaat om te speel. Moet asseblief nie die hulp van skaak enjins, databasisse, of uit ander spelers te kry, terwyl die speel van. Let ook daarop dat die maak van verskeie rekeninge is ten sterkste ontmoedig en oormatige multi-rekeningkunde sal lei tot verban.</string>
@@ -128,7 +127,6 @@
   <string name="username">Gebruiker naam</string>
   <string name="usernameOrEmail">Gebruiker</string>
   <string name="password">Wagwoord</string>
-  <string name="haveAnAccount">Klaar geregistreer?</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
   <string name="email">E-pos</string>
