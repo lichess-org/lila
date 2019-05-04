@@ -1,25 +1,49 @@
-/* either by body.coords-in, or body.coords-out and $mq-col1-uniboard */
-/* context: body */
-@mixin coords-in {
-  coords {
-    /* bypass display: none on $mq-col1-uniboard mobile can only have inside coords */
-    display: flex !important;
-    color: #fff;
-    text-shadow: 0 1px 2px #000;
-    font-weight: bold;
-    &.ranks {
-      top: 1px;
-      right: 0; // a negative value creates empty space on the right side in mobile browsers
-      width: .8em;
-      & coord {
-        transform: none;
-      }
+@import 'coords-colors';
+
+coords {
+
+  /* handle hidden coords */
+  .coords-no & { display: none }
+
+  /* handle inner coords */
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  @include fluid-size('font-size', 8px, 12px);
+  user-select: none;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+  font-weight: bold;
+
+  &.ranks {
+    flex-flow: column-reverse;
+    top: 1px;
+    right: 0; // a negative value creates empty space on the right side in mobile browsers
+    height: 100%;
+    width: .8em;
+    &.black {
+      flex-flow: column;
     }
-    &.files {
-      bottom: 0px;
-      left: 0;
-      text-align: left;
+  }
+
+  &.files {
+    bottom: 0px;
+    left: 0;
+    text-align: left;
+    flex-flow: row;
+    width: 100%;
+    height: 1.5em;
+    text-transform: uppercase;
+    &.black {
+      flex-flow: row-reverse;
     }
+    coord {
+      padding-left: 4px;
+    }
+  }
+
+  coord {
+    flex: 1 1 auto;
   }
 
   /* negate inner coords colors */
@@ -33,104 +57,29 @@
       padding-left: 3px;
     }
   }
-
-  &.blue {
-    coord { text-shadow: none; }
-    .orientation-white .files coords:nth-child(2n+1),
-    .orientation-white .ranks coords:nth-child(2n),
-    .orientation-black .files coords:nth-child(2n),
-    .orientation-black .ranks coords:nth-child(2n+1) {
-      color: #DEE3E6;
-    }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
-      color: #788a94;
-    }
-  }
-  &.brown {
-    coord { text-shadow: none; }
-    .orientation-white .files coord:nth-child(2n+1),
-    .orientation-white .ranks coord:nth-child(2n),
-    .orientation-black .files coord:nth-child(2n),
-    .orientation-black .ranks coord:nth-child(2n+1) {
-      color: #F0D9B5;
-    }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
-      color: #946f51;
-    }
-  }
-  &.green {
-    coord { text-shadow: none; }
-    .orientation-white .files coords:nth-child(2n+1),
-    .orientation-white .ranks coords:nth-child(2n),
-    .orientation-black .files coords:nth-child(2n),
-    .orientation-black .ranks coords:nth-child(2n+1) {
-      color: #FFFFDD;
-    }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
-      color: #6d8753;
-    }
-  }
 }
 
-coords {
-  .coords-no & { display: none }
+@include coords-colors;
 
-  @extend %page-text;
-  position: absolute;
-  display: flex;
-  pointer-events: none;
-  @include fluid-size('font-size', 8px, 12px);
-  user-select: none;
-
-  &.ranks {
-    right: -15px;
-    top: 0;
-    flex-flow: column-reverse;
-    height: 100%;
-    width: 12px;
-    &.black {
-      flex-flow: column;
+/* handle outer coords */
+@include breakpoint($mq-col2-uniboard) {
+  .coords-out coords {
+    text-shadow: none;
+    &.ranks {
+      right: -15px;
+      top: 0;
+      width: 12px;
+      coord {
+        transform: translateY(42%);
+      }
+    }
+    &.files {
+      bottom: -15px;
+      left: 0;
+      text-align: center;
     }
     coord {
-      transform: translateY(42%);
+      color: $c-font-page !important;
     }
-  }
-
-  &.files {
-    bottom: -15px;
-    left: 0;
-    flex-flow: row;
-    width: 100%;
-    height: 1.5em;
-    text-transform: uppercase;
-    text-align: center;
-    &.black {
-      flex-flow: row-reverse;
-    }
-    coord {
-      padding-left: 4px;
-    }
-  }
-  coord {
-    flex: 1 1 auto;
-  }
-}
-
-.coords-in {
-  @include coords-in;
-}
-
-@include breakpoint($mq-col1-uniboard) {
-  .coords-out {
-    @include coords-in;
   }
 }
