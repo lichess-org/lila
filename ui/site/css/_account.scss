@@ -88,7 +88,9 @@
 }
 
 .account {
-  min-height: 100%;
+  @include breakpoint($mq-subnav-side) {
+    min-height: 100%;
+  }
   h1 {
     color: $c-accent;
   }
