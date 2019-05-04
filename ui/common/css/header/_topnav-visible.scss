@@ -1,6 +1,3 @@
-$menu-transition: .1s linear .1s;
-$menu-transition-immediate: .1s linear;
-
 @include breakpoint($mq-topnav-visible) {
 
   .hamburger,
@@ -34,21 +31,6 @@ $menu-transition-immediate: .1s linear;
         }
       }
       .home { display: none }
-      &:hover,
-      &:active {
-        > a {
-          transition: $menu-transition-immediate;
-          height: var(--nav-section-hover);
-          background: $c-bg-header-dropdown;
-          color: $c-header-dropdown;
-          border-color: $c-primary;
-        }
-        div {
-          transition: $menu-transition;
-          visibility: visible;
-          max-height: auto;
-        }
-      }
     }
     div {
       visibility: hidden;
@@ -79,6 +61,19 @@ $menu-transition-immediate: .1s linear;
     &.blind div {
       display: block;
       margin-left: -9000px;
+    }
+    &.hover section:hover,
+    section:active {
+      > a {
+        height: var(--nav-section-hover);
+        background: $c-bg-header-dropdown;
+        color: $c-header-dropdown;
+        border-color: $c-primary;
+      }
+      div {
+        visibility: visible;
+        max-height: auto;
+      }
     }
   }
 }
