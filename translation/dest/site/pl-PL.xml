@@ -305,7 +305,7 @@
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
   <string name="takebackPropositionDeclined">Odrzucono prośbę o cofnięcie ruchu</string>
   <string name="takebackPropositionAccepted">Ruch został wycofany</string>
-  <string name="takebackPropositionCanceled">Anulowano prośbę o cofnięcie ruchu</string>
+  <string name="takebackPropositionCanceled">Wycofano prośbę o cofnięcie ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
@@ -330,9 +330,9 @@
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">Przynajmniej %1$s partia rankingowa (%2$s)</item>
-    <item quantity="few">≥ %1$s rankingowe partie (%2$s)</item>
-    <item quantity="many">≥ %1$s rankingowych partii (%2$s)</item>
-    <item quantity="other">≥ %1$s rankingowych partii (%2$s)</item>
+    <item quantity="few">Przynajmniej %1$s partie rankingowe (%2$s)</item>
+    <item quantity="many">Przynajmniej %1$s partii rankingowych (%2$s)</item>
+    <item quantity="other">Przynajmniej %1$s partii rankingowych (%2$s)</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Musisz rozegrać jeszcze %1$s partię rankingową (%2$s)</item>
@@ -346,7 +346,7 @@
     <item quantity="many">Musisz rozegrać jeszcze %s partii rankingowych</item>
     <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
+  <string name="yourPerfRatingIsProvisional">Twój ranking (%s) ma charakter przejściowy</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
