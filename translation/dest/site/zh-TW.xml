@@ -70,7 +70,6 @@
   <string name="viewInFullSize">完整尺寸</string>
   <string name="logOut">登出</string>
   <string name="signIn">登录</string>
-  <string name="newToLichess">新访客？</string>
   <string name="youNeedAnAccountToDoThat">请注册以完成该操作</string>
   <string name="signUp">注册</string>
   <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对弈。对弈时，请勿从国际象棋引擎、数据库以及其他棋手那里获取帮助。另外，强烈建议不要创建多个账号；过分地使用多个账号将导致封号。</string>
@@ -99,7 +98,6 @@
   <string name="username">用户名</string>
   <string name="usernameOrEmail">用户名或电子邮箱</string>
   <string name="password">密码</string>
-  <string name="haveAnAccount">已有账户？</string>
   <string name="changePassword">修改密码</string>
   <string name="changeEmail">更换电子邮件</string>
   <string name="email">电邮</string>
