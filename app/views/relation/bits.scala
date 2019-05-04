@@ -53,7 +53,8 @@ object bits {
   def layout(title: String)(content: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("relation")
+      moreCss = cssTag("relation"),
+      moreJs = infiniteScrollTag
     ) {
         main(cls := "box page-small")(content)
       }
