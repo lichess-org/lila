@@ -218,7 +218,8 @@ object Account extends LilaController {
           fuccess(html.account.twoFactor.setup(me, err))
         } { data =>
           UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) >>
+            Env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
             Redirect(routes.Account.twoFactor)
         }
       }
@@ -288,9 +289,11 @@ object Account extends LilaController {
 
   def signout(sessionId: String) = Auth { implicit ctx => me =>
     if (sessionId == "all")
-      lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+      lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) >>
+        Env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
         Redirect(routes.Account.security)
     else
-      lila.security.Store.closeUserAndSessionId(me.id, sessionId)
+      lila.security.Store.closeUserAndSessionId(me.id, sessionId) >>
+        Env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
   }
 }

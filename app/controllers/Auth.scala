@@ -117,11 +117,13 @@ object Auth extends LilaController {
   }
 
   def logout = Open { implicit ctx =>
-    ctxReq.session get api.sessionIdKey foreach lila.security.Store.delete
-    negotiate(
-      html = Redirect(routes.Auth.login).fuccess,
-      api = _ => Ok(Json.obj("ok" -> true)).fuccess
-    ) map (_ withCookies LilaCookie.newSession)
+    val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
+    lila.security.Store.delete(currentSessionId) >>
+      Env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
+      negotiate(
+        html = Redirect(routes.Auth.login).fuccess,
+        api = _ => Ok(Json.obj("ok" -> true)).fuccess
+      ).dmap(_.withCookies(LilaCookie.newSession))
   }
 
   // mobile app BC logout with GET
@@ -403,6 +405,7 @@ object Auth extends LilaController {
               UserRepo.setEmailConfirmed(user.id) >>
               UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
+              Env.push.webSubscriptionApi.unsubscribeByUser(user) >>
               authenticateUser(user) >>-
               lila.mon.user.auth.passwordResetConfirm("success")()
           }

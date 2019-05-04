@@ -7,10 +7,9 @@ import reactivemongo.bson._
 import lila.db.dsl._
 import lila.user.User
 
-private final class WebSubscriptionApi(coll: Coll) {
+final class WebSubscriptionApi(coll: Coll) {
 
   def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
-    // TODO: This query needs an index.
     coll.find($doc(
       "userId" -> userId
     )).sort($doc("seenAt" -> -1)).list[Bdoc](max).map { docs =>
@@ -23,20 +22,29 @@ private final class WebSubscriptionApi(coll: Coll) {
       }
     }
 
-  def subscribe(user: User, subscription: WebSubscription): Funit = {
+  def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit = {
     coll.update($id(subscription.endpoint), $doc(
       "_id" -> subscription.endpoint,
       "userId" -> user.id,
+      "sessionId" -> sessionId,
       "auth" -> subscription.auth,
       "p256dh" -> subscription.p256dh,
       "seenAt" -> DateTime.now
     ), upsert = true).void
   }
 
-  def unsubscribe(user: User, subscription: WebSubscription): Funit = {
+  def unsubscribeBySession(sessionId: String): Funit = {
+    coll.remove($doc("sessionId" -> sessionId)).void
+  }
+
+  def unsubscribeByUser(user: User): Funit = {
+    coll.remove($doc("userId" -> user.id)).void
+  }
+
+  def unsubscribeByUserExceptSession(user: User, sessionId: String): Funit = {
     coll.remove($doc(
-      "_id" -> subscription.endpoint,
-      "userId" -> user.id
+      "userId" -> user.id,
+      "sessionId" -> $ne(sessionId)
     )).void
   }
 }

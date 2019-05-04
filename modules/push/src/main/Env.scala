@@ -22,12 +22,10 @@ final class Env(
   val WebVapidPublicKey = config getString "web.vapid_public_key"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
-  private lazy val webSubscriptionApi = new WebSubscriptionApi(db(CollectionSubscription))
+  lazy val webSubscriptionApi = new WebSubscriptionApi(db(CollectionSubscription))
 
   def registerDevice = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
-  def webSubscribe = webSubscriptionApi.subscribe _
-  def webUnsubscribe = webSubscriptionApi.unsubscribe _
 
   private lazy val oneSignalPush = new OneSignalPush(
     deviceApi.findLastManyByUserId("onesignal", 3) _,
