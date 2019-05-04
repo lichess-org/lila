@@ -805,13 +805,13 @@
   <string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
-  <string name="phoneAndTablet">Dostęp z telefonu i tabletu</string>
+  <string name="phoneAndTablet">Telefon i tablet</string>
   <string name="bulletBlitzClassical">Błyskawiczne, szybkie, klasyczne</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
-  <string name="followAndChallengeFriends">Obserwuj i rzucaj wyzwania znajomym</string>
+  <string name="followAndChallengeFriends">Obserwowanie i gra ze znajomymi</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostępna w %s języku!</item>
     <item quantity="few">Dostępna w %s językach!</item>
