@@ -114,7 +114,7 @@ final class RelationApi(
         case (_, Some(Block)) => funit
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
           countFollowersCache.update(u2, 1+)
-          countFollowingCache.update(u1, 1+)
+          countFollowingCache.update(u1, prev => (prev + 1) atMost maxFollow)
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
           bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), 'relation)
