@@ -120,7 +120,6 @@
   <string name="viewInFullSize">Skoða í fullri mynd</string>
   <string name="logOut">Skrá út</string>
   <string name="signIn">Skrá inn</string>
-  <string name="newToLichess">Nýr á Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
   <string name="signUp">Sækja um</string>
   <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast ekki fá hjá frá tölvuforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir</string>
@@ -151,7 +150,6 @@
   <string name="username">Notendanafn</string>
   <string name="usernameOrEmail">Notandanafn</string>
   <string name="password">Lykilorð</string>
-  <string name="haveAnAccount">Hafa reikning</string>
   <string name="changePassword">Skipta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
