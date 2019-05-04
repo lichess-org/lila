@@ -47,7 +47,7 @@ object Message extends LilaController {
       negotiate(
         html = OptionFuOk(api.thread(id, me)) { thread =>
           relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            val form = !thread.isTooBig option forms.post
+            val form = thread.isReplyable option forms.post
             html.message.thread(thread, form, blocked)
           }
         } map NoCache,
