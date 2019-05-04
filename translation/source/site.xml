@@ -470,6 +470,7 @@ One URL per line</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
   <string name="rulesAndVariants">Rules &amp; Variants</string>
   <string name="training">Puzzles</string>
+  <string name="study">Study</string>
   <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>

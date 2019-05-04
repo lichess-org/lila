@@ -117,7 +117,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     hiddenInput('fen', ctrl.tree.root.fen),
     h('button.fbt', { attrs: { type: 'submit' } }, [
       h('i.icon', { attrs: dataIcon('4') }),
-      'Study'
+      ctrl.trans.noarg('study')
     ])
   ]);
 }

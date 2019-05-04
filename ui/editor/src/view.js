@@ -29,7 +29,7 @@ function studyButton(ctrl, fen) {
       'data-icon': '4',
       disabled: !ctrl.positionLooksLegit()
     },
-    'Study')
+    ctrl.trans('study'))
   ]);
 }
 

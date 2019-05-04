@@ -89,7 +89,7 @@
   <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
   <string name="replayMode">Herhaal modus</string>
   <string name="byCPL">Door CPL</string>
-  <string name="openStudy">Open Study</string>
+  <string name="openStudy">Open studie</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="evaluationGauge">Evaluatie meter</string>
@@ -461,6 +461,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
   <string name="rulesAndVariants">Spelregels &amp; Varianten</string>
   <string name="training">Training</string>
+  <string name="study">Studie</string>
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
@@ -564,7 +565,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
+  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Studie</string>
   <string name="sound">Geluid</string>
   <string name="yourPreferencesHaveBeenSaved">Je voorkeuren zijn opgeslagen.</string>
   <string name="none">Geen</string>

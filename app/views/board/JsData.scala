@@ -38,6 +38,7 @@ object JsData extends lidraughts.Lidraughtsisms {
       I18nKeys.playWithTheMachine,
       I18nKeys.playWithAFriend,
       I18nKeys.analysis,
+      I18nKeys.study,
       I18nKeys.variant
     )
   )
