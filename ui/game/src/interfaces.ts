@@ -82,6 +82,7 @@ export interface Simul {
   name: string;
   hostId: string;
   nbPlaying: number;
+  timeOutUntil?: number;
 }
 
 export interface Clock {

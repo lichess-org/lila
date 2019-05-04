@@ -94,6 +94,8 @@ object Round extends LidraughtsController with TheftPrevention {
     }
   }
 
+  private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
+
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
       _ filter { pov =>
@@ -112,12 +114,12 @@ object Round extends LidraughtsController with TheftPrevention {
 
   private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
     povs find { pov =>
-      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock) && (!pov.game.isWithinTimeOut || orInf(pov.remainingSeconds) < 120)
     }
 
   private def getNextSeq(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) = currentGame.metadata.simulPairing.flatMap { index =>
     val validPovs = povs filter { pov =>
-      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock) && (!pov.game.isWithinTimeOut || orInf(pov.remainingSeconds) < 120)
     }
     validPovs.find(_.game.metadata.simulPairing.??(_ > index)).fold(
       validPovs.find(_.game.metadata.simulPairing.??(_ < index))

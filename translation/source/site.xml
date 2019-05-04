@@ -116,6 +116,7 @@
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
+  <string name="gamesInTimeout">Games in timeout</string>
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>
@@ -689,6 +690,9 @@ in %3$s</string>
   <string name="targetWinningPercentageX">Target winning percentage for host: %s</string>
   <string name="succeeded">succeeded!</string>
   <string name="failed">failed</string>
+  <string name="simulTimeOut">Simul timeout</string>
+  <string name="simulTimeOutDuration">Time out for:</string>
+  <string name="simulTimeOutExplanation">This game will not show up in the simul until the selected timeout has passed.</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="deleteThisSimul">Delete this simul?</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>

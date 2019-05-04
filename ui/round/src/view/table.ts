@@ -62,8 +62,10 @@ function renderTablePlay(ctrl: RoundController) {
   submit = button.submitMove(ctrl),
   icons = (loading || submit) ? [] : [
     game.abortable(d) ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort') :
-    button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
-    ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
+    (ctrl.canTimeOut() ? (ctrl.timeOutConfirm ? button.timeOutConfirmChoice(ctrl) : button.timeOutButton(ctrl)) :
+    button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes)),
+    (ctrl.timeOutConfirm ? button.timeOutConfirm(ctrl) :
+    ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true))),
     ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true))
   ],
   buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
@@ -77,7 +79,7 @@ function renderTablePlay(ctrl: RoundController) {
   return [
     renderReplay(ctrl),
     h('div.control.icons', {
-      class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
+      class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm || ctrl.timeOutConfirm) }
     }, icons),
     h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))

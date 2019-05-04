@@ -32,23 +32,41 @@
   }
 </h3>
 @if(simul.fold(true)(_.isHost(ctx.me))) {
-@defining(playing.partition(_.isMyTurn)) {
-case (myTurn, otherTurn) => {
-@defining(myTurn ++ otherTurn.take(6 - myTurn.size)) { povs =>
-@povs.take(9).map { pov =>
-<a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
-  @gameFen(pov, withLink = false, withTitle = false, withLive = false)
-  <span class="meta">
-    @playerText(pov.opponent, withRating = false)
-    <span class="indicator">
-      @if(pov.isMyTurn) {
-      @pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
-      } else {&nbsp;}
+@defining(playing.partition(_.game.isWithinTimeOut)) {
+case (inTimeOut, noTimeOut) => {
+  @defining(noTimeOut.partition(_.isMyTurn)) {
+  case (myTurn, otherTurn) => {
+  @defining(myTurn ++ otherTurn.take(6 - myTurn.size)) { povs =>
+  @povs.take(9).map { pov =>
+  <a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
+    @gameFen(pov, withLink = false, withTitle = false, withLive = false)
+    <span class="meta">
+      @playerText(pov.opponent, withRating = false)
+      <span class="indicator">
+        @if(pov.isMyTurn) {
+        @pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
+        } else {&nbsp;}
+      </span>
     </span>
-  </span>
-</a>
-}
-}
+  </a>
+  }
+  }
+  }
+  }
+  @if(inTimeOut.nonEmpty) {
+  <br><h3>@trans.gamesInTimeout()</h3>
+  @inTimeOut.map { pov =>
+  <a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
+    @gameFen(pov, withLink = false, withTitle = false, withLive = false)
+    <span class="meta">
+      @playerText(pov.opponent, withRating = false)
+      <span class="indicator">
+        Timeout @secondsFromNow(pov.game.timeOutRemaining, true)
+      </span>
+     </span>
+  </a>
+  }
+  }
 }
 }
 }

@@ -1063,6 +1063,13 @@ div.underboard a {
   display: inline-block;
 }
 
+div.timeout_choice {
+  margin: 0 8px 0 0;
+}
+div.timeout_choice select {
+  margin: 1px 0 0 0;
+}
+
 #now_playing.other_games {
   width: 512px;
 }

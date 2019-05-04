@@ -1705,6 +1705,10 @@ textarea.copyable {
 .hint--bottom-left:hover:before {
   transform: translateY(8px);
 }
+.hint--fixed:after {
+  white-space: normal;
+  width: 220px;
+}
 .hint--left:before {
   margin-right: -12px;
   margin-top: -6px;

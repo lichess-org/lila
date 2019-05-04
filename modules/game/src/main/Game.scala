@@ -6,6 +6,7 @@ import draughts.opening.{ FullOpening, FullOpeningDB }
 import draughts.variant.{ Variant, Standard }
 import draughts.{ KingMoves, Speed, PieceMap, MoveMetrics, DraughtsHistory, Board, Move, Pos, DraughtsGame, Clock, Status, Color, Mode, PositionHash, Centis, Situation }
 import org.joda.time.DateTime
+import org.joda.time.Seconds.secondsBetween
 import scala.annotation.tailrec
 
 import lidraughts.common.Sequence
@@ -626,6 +627,9 @@ case class Game(
 
   def isRecentTv = metadata.tvAt.??(DateTime.now.minusMinutes(30).isBefore)
 
+  def isWithinTimeOut = metadata.timeOutUntil ?? DateTime.now.isBefore
+  def timeOutRemaining = isWithinTimeOut ?? { metadata.timeOutUntil ?? { secondsBetween(DateTime.now, _).getSeconds } }
+
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
   def pov(c: Color) = Pov(this, c)
@@ -707,6 +711,7 @@ object Game {
         simulId = none,
         simulPairing = none,
         tvAt = none,
+        timeOutUntil = none,
         analysed = false
       ),
       createdAt = createdAt,
@@ -754,6 +759,7 @@ object Game {
     val winnerId = "wid"
     val initialFen = "if"
     val checkAt = "ck"
+    val timeOutUntil = "to"
   }
 }
 

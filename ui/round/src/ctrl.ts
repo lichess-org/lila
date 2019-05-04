@@ -62,6 +62,7 @@ export default class RoundController {
     goneBerserk: GoneBerserk = {};
     resignConfirm?: Timeout = undefined;
     drawConfirm?: Timeout = undefined;
+    timeOutConfirm?: boolean = false;
     // will be replaced by view layer
     autoScroll: () => void = $.noop;
     challengeRematched: boolean = false;
@@ -108,6 +109,12 @@ export default class RoundController {
 
         this.trans = li.trans(opts.i18n);
 
+        if (this.data.simul && this.data.simul.timeOutUntil) {
+          const curMillis = (new Date).getTime();
+          if (this.data.simul.timeOutUntil > curMillis)
+            setTimeout(this.redraw, this.data.simul.timeOutUntil - curMillis);
+        }
+
         setTimeout(this.delayedInit, 200);
 
         setTimeout(this.showExpiration, 350);
@@ -137,6 +144,9 @@ export default class RoundController {
         if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab(this, meta);
         //if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
         this.sendMove(orig, dest, undefined, meta);
+        // clear active timeout when host plays a move
+        if (this.data.simul && this.data.simul.timeOutUntil && this.canTimeOut() && (new Date).getTime() < this.data.simul.timeOutUntil)
+          this.moveOn.timeOutGame(0);
     };
 
     private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
@@ -671,6 +681,9 @@ export default class RoundController {
         this.lastDrawOfferAtPly = this.ply;
         this.socket.sendLoading('draw-yes', null)
     };
+
+    canTimeOut = () =>
+      this.isSimulHost() && this.isPlaying()
 
     setDraughtsground = (cg: CgApi) => {
         this.draughtsground = cg;

@@ -116,6 +116,20 @@ object Simul extends LidraughtsController {
     }
   }
 
+  def timeOutGame(simulId: String, gameId: String, seconds: Int) = Open { implicit ctx =>
+    AsHostOnly(simulId) { simul =>
+      simul.pairings.find(p => p.gameId == gameId && p.ongoing) map {
+        case pairing if seconds == 0 =>
+          GameRepo.unsetTimeOut(pairing.gameId)
+          Ok(Json.obj("ok" -> true)) as JSON
+        case pairing if seconds > 0 && seconds <= 600 =>
+          GameRepo.setTimeOut(pairing.gameId, seconds)
+          Ok(Json.obj("ok" -> true)) as JSON
+        case _ => BadRequest
+      } getOrElse BadRequest
+    }
+  }
+
   def form = Auth { implicit ctx => me =>
     NoEngine {
       Ok(html.simul.form(env.forms.create, env.forms)).fuccess
@@ -203,6 +217,13 @@ object Simul extends LidraughtsController {
     env.repo.find(simulId) flatMap {
       case None => notFound
       case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(simul.isArbiter) => fuccess(f(simul))
+      case _ => fuccess(Unauthorized)
+    }
+
+  private def AsHostOnly(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
+    env.repo.find(simulId) flatMap {
+      case None => notFound
+      case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
 

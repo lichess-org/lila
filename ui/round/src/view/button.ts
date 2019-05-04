@@ -285,3 +285,59 @@ export function watcherFollowUp(ctrl: RoundController): VNode {
     analysisButton(ctrl)
   ]);
 }
+
+export function timeOutButton(
+  ctrl: RoundController
+): VNode {
+  const enabled = function() {
+    return ctrl.data.simul &&
+      (!ctrl.data.simul.timeOutUntil || (new Date).getTime() >= ctrl.data.simul.timeOutUntil) &&
+      ctrl.clock && ctrl.clock.millisOf(ctrl.data.player.color) > 1.2e5;
+  };
+  return h('button.fbt.hint--bottom', {
+    attrs: {
+      disabled: !enabled(),
+      'data-hint': ctrl.trans.noarg('simulTimeOut')
+    },
+    hook: util.bind('click',  _ => {
+      if (enabled()) {
+        ctrl.timeOutConfirm = true;
+        ctrl.redraw();
+      }
+    })
+  }, [
+    h('span', util.justIcon('p'))
+  ]);
+}
+
+export function timeOutConfirm(ctrl: RoundController): VNode {
+  return h('div.act_confirm', [
+    h('button.fbt.yes.active.hint--top.hint--fixed', {
+      attrs: {'data-hint': ctrl.trans.noarg('simulTimeOutExplanation') },
+      hook: util.bind('click', () => { ctrl.moveOn.timeOutGame($('div.timeout_choice select').val()); })
+    }, [h('span', util.justIcon('p'))]),
+    h('button.fbt.no.hint--bottom', {
+      attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
+      hook: util.bind('click', () => {
+        ctrl.timeOutConfirm = false;
+        ctrl.redraw();
+      })
+    }, [h('span', util.justIcon('L'))])
+  ]);
+}
+
+export function timeOutConfirmChoice(ctrl: RoundController): VNode {
+  return h('div.timeout_choice', [
+    h('span', ctrl.trans.noarg('simulTimeOutDuration')),
+    h('select',
+      [1, 2, 3, 4, 5, 6, 8, 10].map(function(m) {
+        return h('option', {
+          attrs: {
+            value: m * 60,
+            selected: m === 5
+          }
+        }, ctrl.trans.plural('nbMinutes', m));
+      })
+    )
+  ]);
+}

@@ -18,6 +18,14 @@ export function whatsNext(ctrl: RoundController) {
   });
 }
 
+export function timeOutGame(ctrl: RoundController, simulId: string, seconds: number) {
+  return $.ajax({
+    method: 'POST',
+    url: '/timeout/' + simulId + '/' + ctrl.data.game.id + '/' + seconds,
+    headers
+  });
+}
+
 export function challengeRematch(gameId: string) {
   return $.ajax({
     method: 'POST',

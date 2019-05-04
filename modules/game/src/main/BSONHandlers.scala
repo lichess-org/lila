@@ -126,6 +126,7 @@ object BSONHandlers {
           simulId = r strO F.simulId,
           simulPairing = r intO F.simulPairing,
           tvAt = r dateO F.tvAt,
+          timeOutUntil = r dateO F.timeOutUntil,
           analysed = r boolD F.analysed
         )
       )
@@ -157,6 +158,7 @@ object BSONHandlers {
       F.simulId -> o.metadata.simulId,
       F.simulPairing -> o.metadata.simulPairing,
       F.tvAt -> o.metadata.tvAt.map(w.date),
+      F.timeOutUntil -> o.metadata.timeOutUntil.map(w.date),
       F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {
         o.pdnStorage match {

@@ -39,9 +39,9 @@ export default class MoveOn {
     window.location.href = href;
   };
 
-  next = (force?: boolean): void => {
+  next = (force?: boolean, timeout?: boolean): void => {
     const d = this.ctrl.data;
-    if (!this.value || d.player.spectator || !game.isSwitchable(d) || game.isPlayerTurn(d)) return;
+    if (!this.value || d.player.spectator || !game.isSwitchable(d) || (game.isPlayerTurn(d) && !timeout)) return;
     if (force) this.redirect('/round-next/' + d.game.id);
     else if (d.simul) {
       if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1) {
@@ -51,5 +51,12 @@ export default class MoveOn {
     } else xhr.whatsNext(this.ctrl).then(data => {
       if (data.next) this.redirect('/' + data.next);
     });
+  };
+
+  timeOutGame = (seconds: number): void => {
+    if (this.ctrl.data.simul)
+      xhr.timeOutGame(this.ctrl, this.ctrl.data.simul.id, seconds).then(res => {
+        if (res.ok && seconds > 0) this.next(false, true);
+      });
   };
 }

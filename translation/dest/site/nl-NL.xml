@@ -112,6 +112,7 @@
     <item quantity="other">%s spelers</item>
   </plurals>
   <string name="currentGames">Lopende partijen</string>
+  <string name="gamesInTimeout">Partijen met timeout</string>
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>
@@ -669,6 +670,9 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="targetWinningPercentageX">Doel winstpercentage simultaangever: %s</string>
   <string name="succeeded">geslaagd!</string>
   <string name="failed">mislukt</string>
+  <string name="simulTimeOut">Simultaan timeout</string>
+  <string name="simulTimeOutDuration">Timeout duur:</string>
+  <string name="simulTimeOutExplanation">Deze partij zal niet meer naar voren komen in de simultaan tot de gekozen timeout is verstreken.</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
   <string name="deleteThisSimul">Deze simultaan verwijderen?</string>
   <string name="noSimulExplanation">Deze simultaan bestaat niet.</string>
