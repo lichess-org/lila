@@ -1,19 +1,19 @@
 $(function() {
   $('#trainer').each(function() {
     var $trainer = $(this);
-    var $board = $trainer.find('.cg-board-wrap');
+    var $board = $('.coord-trainer__board .cg-board-wrap');
     var ground;
-    var $side = $trainer.find('.side');
-    var $right = $trainer.find('.board_and_ground > .right');
+    var $side = $('.coord-trainer__side');
+    var $right = $('.coord-trainer__table');
     var $bar = $trainer.find('.progress_bar');
     var $coords = [
-      $trainer.find('#next_coord0'),
-      $trainer.find('#next_coord1'),
-      $trainer.find('#next_coord2')
+      $('#next_coord0'),
+      $('#next_coord1'),
+      $('#next_coord2')
     ];
     var $start = $right.find('.start');
     var $explanation = $right.find('.explanation');
-    var $score = $trainer.find('.score_container strong');
+    var $score = $('.coord-trainer__score');
     var scoreUrl = $trainer.data('score-url');
     var duration = 30 * 1000;
     var tickDelay = 50;
@@ -64,7 +64,7 @@ $(function() {
       var dark = $('body').hasClass('dark');
       var theme = {
         type: 'line',
-        width: '213px',
+        width: '100%',
         height: '80px',
         lineColor: dark ? '#4444ff' : '#0000ff',
         fillColor: dark ? '#222255' : '#ccccff'
@@ -100,7 +100,7 @@ $(function() {
     };
 
     var advanceCoords = function() {
-      $coords[0].removeClass('nope');
+      $('#next_coord0').removeClass('nope');
       var lastElement = $coords.shift();
       $.each($coords, function(i, e) {
         e.attr('id', 'next_coord' + i);
@@ -141,10 +141,6 @@ $(function() {
       else stop();
     };
 
-    $score.click(function() {
-      $start.filter(':visible').click();
-    });
-
     $start.click(function() {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
@@ -166,9 +162,9 @@ $(function() {
                 $score.text(score);
                 advanceCoords();
               } else {
-                $coords[0].addClass('nope');
+                $('#next_coord0').addClass('nope');
                 setTimeout(function() {
-                  $coords[0].removeClass('nope');
+                  $('#next_coord0').removeClass('nope');
                 }, 500);
               }
               $trainer.toggleClass('wrong', !hit);
@@ -183,8 +179,4 @@ $(function() {
     });
   });
 
-  // reset_zoom subscriber is added in requestIdleCallback
-  lichess.requestIdleCallback(function() {
-    lichess.pubsub.emit('reset_zoom')();
-  });
 });

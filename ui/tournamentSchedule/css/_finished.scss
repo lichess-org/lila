@@ -1,0 +1,45 @@
+.tour-home__list {
+  max-width: 1200px;
+  .slist {
+    td {
+      padding: 1em inherit;
+    }
+    td.duration {
+      white-space: nowrap;
+    }
+    .header {
+      letter-spacing: 2px;
+      cursor: pointer;
+      @include transition();
+      padding: 0;
+      &:hover {
+        transform: translateX(3px);
+      }
+      a {
+        padding: 1em;
+        display: block;
+      }
+    }
+    a {
+      color: $c-font;
+      &:hover {
+        color: $c-link-hover;
+      }
+    }
+    .name {
+      font-size: 1.5em;
+      display: block;
+      @include breakpoint($mq-large) {
+        letter-spacing: 3px;
+      }
+    }
+  }
+  .icon i {
+    font-size: 4em;
+    opacity: 0.6;
+  }
+  .tour-scheduled .icon i {
+    color: #d59120;
+    opacity: 0.8;
+  }
+}

@@ -42,13 +42,12 @@ object Auth extends LilaController {
   }
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
-    implicit val req = ctx.req
     if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
     else api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
           val redirectTo = get("referrer").filter(goodReferrer) orElse
-            req.session.get(api.AccessUri) getOrElse
+            ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home.url
           result.fold(Redirect(redirectTo))(_(redirectTo))
         },
@@ -118,21 +117,19 @@ object Auth extends LilaController {
   }
 
   def logout = Open { implicit ctx =>
-    implicit val req = ctx.req
-    req.session get "sessionId" foreach lila.security.Store.delete
+    ctxReq.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
-      html = Redirect(routes.Main.mobile).fuccess,
+      html = Redirect(routes.Auth.login).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LilaCookie.newSession)
   }
 
   // mobile app BC logout with GET
   def logoutGet = Open { implicit ctx =>
-    implicit val req = ctx.req
     negotiate(
       html = notFound,
       api = _ => {
-        req.session get "sessionId" foreach lila.security.Store.delete
+        ctxReq.session get "sessionId" foreach lila.security.Store.delete
         Ok(Json.obj("ok" -> true)).withCookies(LilaCookie.newSession).fuccess
       }
     )
@@ -248,7 +245,7 @@ object Auth extends LilaController {
 
   private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) = {
     garbageCollect(user, email)
-    env.welcomeEmail(user, email)
+    env.automaticEmail.welcome(user, email)
   }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
@@ -317,7 +314,6 @@ object Auth extends LilaController {
   }
 
   private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
-    implicit val req = ctx.req
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
@@ -344,7 +340,7 @@ object Auth extends LilaController {
 
   def passwordReset = Open { implicit ctx =>
     forms.passwordResetWithCaptcha map {
-      case (form, captcha) => Ok(html.auth.passwordReset(form, captcha))
+      case (form, captcha) => Ok(html.auth.bits.passwordReset(form, captcha))
     }
   }
 
@@ -352,7 +348,7 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     forms.passwordReset.bindFromRequest.fold(
       err => forms.anyCaptcha map { captcha =>
-        BadRequest(html.auth.passwordReset(err, captcha, false.some))
+        BadRequest(html.auth.bits.passwordReset(err, captcha, false.some))
       },
       data => {
         UserRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
@@ -363,7 +359,7 @@ object Auth extends LilaController {
           case _ => {
             lila.mon.user.auth.passwordResetRequest("no_email")()
             forms.passwordResetWithCaptcha map {
-              case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+              case (form, captcha) => BadRequest(html.auth.bits.passwordReset(form, captcha, false.some))
             }
           }
         }
@@ -373,7 +369,7 @@ object Auth extends LilaController {
 
   def passwordResetSent(email: String) = Open { implicit ctx =>
     fuccess {
-      Ok(html.auth.passwordResetSent(email))
+      Ok(html.auth.bits.passwordResetSent(email))
     }
   }
 
@@ -386,7 +382,7 @@ object Auth extends LilaController {
       case Some(user) => {
         authLog(user.username, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("token_ok")()
-        fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
+        fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdReset, none))
       }
     }
   }
@@ -400,7 +396,7 @@ object Auth extends LilaController {
       case Some(user) =>
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
-          fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
+          fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>

@@ -17,18 +17,18 @@ private object bits {
     div(cls := "fen_position optional_config")(
       frag(
         div(cls := "fen_form", dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}""")(
-          a(cls := "button thin hint--bottom", dataHint := trans.boardEditor.txt(), href := url)(iconTag("m")),
-          form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt())
+          form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
+          a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
         ),
         a(cls := "board_editor", href := url)(
           span(cls := "preview")(
             validFen.map { vf =>
               div(
-                cls := "mini_board parse_fen is2d",
+                cls := "mini-board cg-board-wrap parse-fen is2d",
                 dataColor := vf.color.name,
                 dataFen := vf.fen.value,
                 dataResizable := "1"
-              )(miniBoardContent)
+              )(div(cls := "cg-board"))
             }
           )
         )
@@ -38,7 +38,7 @@ private object bits {
 
   def renderVariant(form: Form[_], variants: List[SelectChoice])(implicit ctx: Context) =
     div(cls := "variant label_select")(
-      renderLabel(form("variant"), trans.variant.frag()),
+      renderLabel(form("variant"), trans.variant()),
       renderSelect(form("variant"), variants.filter {
         case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
       })
@@ -53,7 +53,7 @@ private object bits {
       case (value, name, title) => option(
         st.value := value,
         st.title := title,
-        selected := field.value.exists(v => compare(v, value)).option(true)
+        field.value.exists(v => compare(v, value)) option selected
       )(name)
     }
   )
@@ -67,11 +67,11 @@ private object bits {
             id := s"$prefix${field.id}_${key}",
             st.name := field.name,
             value := key,
-            checked := field.value.has(key).option(true)
+            field.value.has(key) option checked
           ),
           label(
-            cls := List("required" -> true, "hint--top" -> hint.isDefined),
-            dataHint := hint,
+            cls := "required",
+            title := hint,
             `for` := s"$prefix${field.id}_$key"
           )(name)
         )

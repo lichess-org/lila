@@ -36,7 +36,6 @@
   "dependencies": {
     "chess": "1.0.0",
     "common": "1.0.0",
-    "defer-promise": "^1.0.1",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }

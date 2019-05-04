@@ -12,11 +12,11 @@ object UserTournament extends LilaController {
         path match {
           case "recent" =>
             Env.tournament.leaderboardApi.recentByUser(user, page).map { entries =>
-              Ok(html.userTournament.recent(user, entries))
+              Ok(html.userTournament.bits.recent(user, entries))
             }
           case "best" =>
             Env.tournament.leaderboardApi.bestByUser(user, page).map { entries =>
-              Ok(html.userTournament.best(user, entries))
+              Ok(html.userTournament.bits.best(user, entries))
             }
           case "chart" => Env.tournament.leaderboardApi.chart(user).map { data =>
             Ok(html.userTournament.chart(user, data))

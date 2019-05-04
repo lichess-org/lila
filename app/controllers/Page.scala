@@ -28,6 +28,13 @@ object Page extends LilaController {
     }
   }
 
+  def source = Open { implicit ctx =>
+    pageHit
+    OptionOk(Prismic getBookmark "source") {
+      case (doc, resolver) => views.html.site.help.source(doc, resolver)
+    }
+  }
+
   def swag = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark "swag") {

@@ -24,12 +24,12 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
-import { make as makeFork, ForkCtrl } from './fork';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
+import * as speech from './speech';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
@@ -62,7 +62,6 @@ export default class AnalyseCtrl {
   explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
   retro?: RetroCtrl;
-  fork: ForkCtrl;
   practice?: PracticeCtrl;
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
@@ -170,12 +169,14 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
+
+    li.sound && speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
-    this.synthetic = util.synthetic(data);
-    this.ongoing = !this.synthetic && game.playable(data as game.GameData);
+    this.synthetic = data.game.id === 'synthetic';
+    this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
@@ -188,7 +189,6 @@ export default class AnalyseCtrl {
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
     treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-    this.fork = makeFork(this);
   }
 
   private setPath = (path: Tree.Path): void => {
@@ -312,7 +312,7 @@ export default class AnalyseCtrl {
     li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
-  private updateHref: () => void = li.fp.debounce(() => {
+  private updateHref: () => void = li.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -321,7 +321,7 @@ export default class AnalyseCtrl {
   }
 
   playedLastMoveMyself = () =>
-    !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
+    !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
@@ -334,7 +334,7 @@ export default class AnalyseCtrl {
       if (isForwardStep) {
         if (!this.node.uci) this.sound.move(); // initial position
         else if (!playedMyself) {
-          if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
+          if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
         if (/\+|\#/.test(this.node.san!)) this.sound.check();
@@ -342,6 +342,7 @@ export default class AnalyseCtrl {
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
+      speech.node(this.node);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
@@ -357,6 +358,7 @@ export default class AnalyseCtrl {
   }
 
   userJump = (path: Tree.Path): void => {
+
     this.autoplay.stop();
     this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
@@ -719,8 +721,8 @@ export default class AnalyseCtrl {
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
-    if (this.opts.onToggleComputer) this.opts.onToggleComputer(value);
     this.onToggleComputer();
+    li.pubsub.emit('analysis.comp.toggle')(value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {

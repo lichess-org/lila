@@ -1,7 +1,6 @@
 package views.html.lobby
 
 import play.api.libs.json.{ Json, JsObject }
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -29,64 +28,31 @@ object home {
     lastPost: List[lila.blog.MiniPost],
     playban: Option[lila.playban.TempBan],
     currentGame: Option[lila.app.mashup.Preload.CurrentGame],
-    nbRounds: Int
+    nbRounds: Int,
+    blindGames: List[Pov] // only in blind mode
   )(implicit ctx: Context) = views.html.base.layout(
     title = "",
-    fullTitle = Some("lichess.org • " + trans.freeOnlineChess.txt()),
-    baseline = Some(frag(
-      a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
-      a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-        trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
-      ),
-      ctx.isMobileBrowser option {
-        if (HTTPRequest isAndroid ctx.req) views.html.mobile.bits.googlePlayButton
-        else if (HTTPRequest isIOS ctx.req) views.html.mobile.bits.appleStoreButton
-        else emptyFrag
-      }
-    )),
-    side = Some(frag(
-      ctx.noKid option div(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
-      events map { bits.spotlight(_) },
-      !ctx.isBot option frag(
-        lila.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
-        simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
-      ),
-      ctx.me map { u =>
-        div(id := "timeline", dataHref := routes.Timeline.home)(
-          views.html.timeline entries userTimeline,
-          div(cls := "links")(
-            userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
-          )
-        )
-      } getOrElse {
-        div(cls := "about-side")(
-          trans.xIsAFreeYLibreOpenSourceChessServer.frag("Lichess", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
-          " ",
-          a(cls := "blue", href := "/about")(trans.aboutX.frag("lichess.org"), "...")
-        )
-      }
-    )),
+    fullTitle = Some {
+      s"lichess.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+    },
     moreJs = frag(
-      jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", async = true),
-      embedJs {
-        val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
-        val gameJs = currentGame.fold("null")(cg => safeJsonValue(cg.json))
-        val transJs = safeJsonValue(i18nJsObject(translations))
-        s"""window.customWS = true; lichess_lobby = { data: ${safeJsonValue(data)}, playban: $playbanJs, currentGame: $gameJs, i18n: $transJs, }"""
-      }
-    ),
-    moreCss = cssTag("home.css"),
-    underchat = Some(frag(
-      div(id := "featured_game")(
-        featured map { g =>
-          frag(
-            gameFen(Pov first g, tv = true),
-            views.html.game.bits.vstext(Pov first g)(ctx.some)
-          )
-        }
+      jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", defer = true),
+      embedJsUnsafe(
+        s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "playban" -> playban.map { pb =>
+              Json.obj(
+                "minutes" -> pb.mins,
+                "remainingSeconds" -> (pb.remainingSeconds + 3)
+              )
+            },
+            "i18n" -> i18nJsObject(translations)
+          ))
+        }"""
       )
-    )),
+    ),
+    moreCss = cssTag("lobby"),
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       image = staticUrl("images/large_tile.png").some,
@@ -94,68 +60,118 @@ object home {
       url = netBaseUrl,
       description = trans.siteDescription.txt()
     ).some,
-    asyncJs = true
+    deferJs = true
   ) {
-      frag(
-        div(cls := List(
-          "lobby_and_ground" -> true,
-          "playban" -> playban.isDefined,
-          "current_game" -> currentGame.isDefined
-        ))(
-          currentGame map { bits.currentGameInfo(_) },
-          div(id := "hooks_wrap"),
-          playban.map(ban => playbanInfo(ban.remainingSeconds)),
-          div(id := "start_buttons", cls := "lichess_ground")(
+      main(cls := List(
+        "lobby" -> true,
+        "lobby-nope" -> (playban.isDefined || currentGame.isDefined)
+      ))(
+        div(cls := "lobby__table")(
+          div(cls := "lobby__start")(
+            ctx.blind option h2("Play"),
             a(href := routes.Setup.hookForm, cls := List(
-              "fat button config_hook" -> true,
+              "button button-metal config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
-            ), trans.createAGame.frag()),
+            ), trans.createAGame()),
             a(href := routes.Setup.friendForm(none), cls := List(
-              "fat button config_friend" -> true,
+              "button button-metal config_friend" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithAFriend.frag()),
+            ), trans.playWithAFriend()),
             a(href := routes.Setup.aiForm, cls := List(
-              "fat button config_ai" -> true,
+              "button button-metal config_ai" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithTheMachine.frag())
+            ), trans.playWithTheMachine())
+          ),
+          div(cls := "lobby__counters")(
+            ctx.blind option h2("Counters"),
+            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers(nbPlayersPlaceholder)),
+            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
+              trans.nbGamesInPlay.plural(nbRounds, strong(nbRounds))
+            )
           )
         ),
+        currentGame.map(bits.currentGameInfo) orElse
+          playban.map(bits.playbanInfo) getOrElse {
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
+        div(cls := "lobby__side")(
+          ctx.blind option h2("Highlights"),
+          ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
+          div(cls := "lobby__spotlights")(
+            events.map(bits.spotlight),
+            !ctx.isBot option frag(
+              lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map { views.html.tournament.homepageSpotlight(_) },
+              simuls.find(_.spotlightable).headOption map views.html.simul.bits.homepageSpotlight
+            )
+          ),
+          ctx.me map { u =>
+            div(cls := "timeline", dataHref := routes.Timeline.home)(
+              ctx.blind option h2("Timeline"),
+              views.html.timeline entries userTimeline,
+              // userTimeline.size >= 8 option
+              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+            )
+          } getOrElse div(cls := "about-side")(
+            ctx.blind option h2("About"),
+            trans.xIsAFreeYLibreOpenSourceChessServer("Lichess", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
+            " ",
+            a(href := "/about")(trans.aboutX("Lichess"), "...")
+          )
+        ),
+        featured map { g =>
+          div(cls := "lobby__tv")(
+            gameFen(Pov first g, tv = true),
+            views.html.game.bits.vstext(Pov first g)(ctx.some)
+          )
+        },
         puzzle map { p =>
-          div(id := "daily_puzzle", title := trans.clickToSolve.txt())(
+          div(cls := "lobby__puzzle", title := trans.clickToSolve.txt())(
             raw(p.html),
             div(cls := "vstext")(
-              trans.puzzleOfTheDay.frag(),
+              trans.puzzleOfTheDay(),
               br,
               p.color.fold(trans.whitePlays, trans.blackPlays)()
             )
           )
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option frag(
-          div(cls := "new_posts undertable")(
-            div(cls := "undertable_top")(
-              a(cls := "more", href := routes.ForumCateg.index)(trans.more.frag(), " »"),
-              span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
-            ),
-            div(cls := "undertable_inner scroll-shadow-hard")(
-              div(cls := "content")(views.html.forum.post recent forumRecent)
-            )
+        ctx.noKid option div(cls := "lobby__forum lobby__box")(
+          div(cls := "lobby__box__top")(
+            h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
+            a(cls := "more", href := routes.ForumCateg.index)(trans.more(), " »")
+          ),
+          div(cls := "lobby__box__content")(
+            views.html.forum.post recent forumRecent
           )
         ),
         bits.lastPosts(lastPost),
-        div(cls := "donation undertable")(
+        div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
-            strong("Lichess Patron"),
-            span(trans.directlySupportLichess.frag())
+            span(cls := "lobby__support__text")(
+              strong("Lichess Patron"),
+              span(trans.directlySupportLichess())
+            )
           ),
           a(href := routes.Page.swag)(
             iconTag(""),
-            strong("Swag Store"),
-            span(trans.playChessInStyle.frag())
+            span(cls := "lobby__support__text")(
+              strong("Swag Store"),
+              span(trans.playChessInStyle())
+            )
           )
         ),
-        div(cls := "about-footer")(a(href := "/about")(trans.aboutX.frag("lichess.org")))
+        div(cls := "lobby__about")(
+          ctx.blind option h2("About"),
+          a(href := "/about")(trans.aboutX("Lichess")),
+          a(href := "/faq")("FAQ"),
+          a(href := "/contact")(trans.contact()),
+          a(href := "/mobile")(trans.mobileApp()),
+          a(href := routes.Page.tos)(trans.termsOfService()),
+          a(href := routes.Page.privacy)(trans.privacy()),
+          a(href := routes.Page.source)(trans.sourceCode())
+        )
       )
     }
 

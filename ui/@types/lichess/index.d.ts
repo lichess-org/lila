@@ -4,28 +4,24 @@ interface Lichess {
   numberFormat(n: number): string
   once(key: string): boolean
   quietMode: boolean
-  desktopNotification(txt: string | (() => string)): void
   engineName: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper
   reload(): void;
   redirect(o: string | { url: string, cookie: Cookie }): void;
   loadScript(url: string, opts?: AssetUrlOpts): any
+  compiledScript(path: string): string
   keyboardMove: any
   slider(): any
-  reloadOtherTabs(): void
-  raf(f: () => void): void
-  requestIdleCallback(f: () => void): void
-  loadCss(path: string): void
-  unloadCss(path: string): void
-  loadedCss: [string];
-  escapeHtml(str: string): string
-  toYouTubeEmbedUrl(url: string): string
-  fp: {
-    debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
-    contains<T>(list: T[], needle: T): boolean;
-    contains(str: string, c: string): boolean;
+  raf(f: () => void): void;
+  requestIdleCallback(f: () => void): void;
+  loadCss(path: string): void;
+  loadCssPath(path: string): void;
+  loadedCss: {
+    [key: string]: boolean;
   }
+  escapeHtml(str: string): string
+  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   sound: any
   powertip: any
   userAutocomplete: any
@@ -40,27 +36,35 @@ interface Lichess {
   ab: any;
   challengeApp: any;
   hopscotch: any;
-  makeChat(id: string, data: any, callback?: (chat: any) => void): void;
-  topMenuIntent(): void;
+  makeChat(data: any, callback?: (chat: any) => void): void;
   timeago: {
     render(nodes: HTMLElement | HTMLElement[]): void;
     format(date: number | Date): string;
     absolute(date: number | Date): string;
   }
   advantageChart: {
-    update(data: any): void;
+    update(data: any, partial: boolean): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   }
-  dispatchEvent(el: HTMLElement, eventName: string): void;
-  isTrident: boolean;
-  isMS: boolean;
+  dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   RoundNVUI(redraw: () => void): {
     render(ctrl: any): any;
   }
   AnalyseNVUI(redraw: () => void): {
     render(ctrl: any): any;
   }
-  playMusic(): void;
+  playMusic(): any;
+  LichessSpeech?: LichessSpeech;
+  spinnerHtml: string;
+  movetimeChart: any;
+  hasTouchEvents: boolean;
+  mousedownEvent: 'mousedown' | 'touchstart';
+  isCol1(): boolean;
+}
+
+interface LichessSpeech {
+  say(t: string, cut: boolean): void;
+  step(s: { san?: San }, cut: boolean): void;
 }
 
 interface Cookie {
@@ -84,23 +88,33 @@ interface Trans {
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
 }
 
+type PubsubCallback = (...data: any[]) => void;
+
 interface Pubsub {
-  on(msg: string, f: (...data: any[]) => void): void
-  emit(msg: string): (...args: any[]) => void
+  on(msg: string, f: PubsubCallback): void;
+  off(msg: string, f: PubsubCallback): void;
+  emit(msg: string): (...args: any[]) => void;
 }
 
 interface LichessStorageHelper {
   make(k: string): LichessStorage;
-  get(k: string): string;
-  set(k: string, v: string): string;
+  makeBoolean(k: string): LichessBooleanStorage;
+  get(k: string): string | null;
+  set(k: string, v: string): void;
   remove(k: string): void;
 }
 
 interface LichessStorage {
-  get(): string;
-  set(v: string): string;
+  get(): string | null;
+  set(v: string): void;
   remove(): void;
   listen(f: (e: StorageEvent) => void): void;
+}
+
+interface LichessBooleanStorage {
+  get(): boolean;
+  set(v: boolean): boolean;
+  toggle(): void;
 }
 
 interface Window {
@@ -124,14 +138,6 @@ interface LightUser {
   name: string
   title?: string
   patron?: boolean
-}
-
-interface Array<T> {
-  find(f: (t: T) => boolean): T | undefined;
-}
-
-interface Math {
-  log2?: (x: number) => number;
 }
 
 interface WebAssemblyStatic {
@@ -168,7 +174,7 @@ interface Variant {
 interface Paginator<A> {
   currentPage: number
   maxPerPage: number
-  currentPageResults: [A]
+  currentPageResults: Array<A>
   nbResults: number
   previousPage?: number
   nextPage?: number
@@ -286,7 +292,7 @@ interface JQueryStatic {
 }
 
 interface LichessModal {
-  (html: string | JQuery): JQuery;
+  (html: string | JQuery, cls?: string): JQuery;
   close(): void;
 }
 
@@ -321,4 +327,8 @@ declare namespace PowerTip {
     openEvents?: string[];
     closeEvents?: string[];
   }
+}
+
+interface Array<T> {
+  includes(t: T): boolean;
 }

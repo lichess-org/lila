@@ -24,7 +24,7 @@ GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Tv.channels
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
-GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
+GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 
@@ -237,6 +237,7 @@ GET   /tournament/help                        controllers.Tournament.help(system
 GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
+GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ: String)
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
@@ -258,6 +259,7 @@ POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
+POST  /simul/$id<\w{8}>/set-text              controllers.Simul.setText(id: String)
 
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)
@@ -298,7 +300,6 @@ GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key:
 GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
-POST  /pref/zoom                       controllers.Pref.setZoom
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
 POST  /account/preferences             controllers.Pref.formApply
@@ -468,6 +469,7 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 # API
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
+GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
@@ -546,7 +548,6 @@ POST  /account/oauth/app/:id/edit      controllers.OAuthApp.update(id: String)
 POST  /account/oauth/app/:id/delete    controllers.OAuthApp.delete(id: String)
 
 # Events
-GET   /event                           controllers.Event.index
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
@@ -559,7 +560,6 @@ GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.webmasters
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
-GET   /fpmenu                          controllers.Main.fpmenu
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
 
@@ -581,6 +581,7 @@ GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
+GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.legacyQa
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /swag                            controllers.Page.swag
@@ -603,4 +604,3 @@ GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: 
 GET   /assets/*file                    controllers.Assets.at(path = "/public", file: String)
 
 GET   /robots.txt                      controllers.Main.robots
-GET   /free-js                         controllers.Main.freeJs

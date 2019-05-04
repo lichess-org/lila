@@ -1,6 +1,6 @@
 package lila.security
 
-import play.twirl.api.Html
+import scalatags.Text.all._
 
 import lila.common.{ Lang, EmailAddress }
 import lila.i18n.I18nKeys.{ emails => trans }
@@ -30,6 +30,8 @@ final class EmailConfirmMailgun(
     tokenerSecret: String
 ) extends EmailConfirm {
 
+  import Mailgun.html._
+
   def effective = true
 
   val maxTries = 3
@@ -51,20 +53,17 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 ${Mailgun.txt.serviceNote}
 ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 """,
-      htmlBody = Html(s"""
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${trans.emailConfirm_click.literalHtmlTo(lang)}</p>
-  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
-    <meta itemprop="name" content="Activate account">
-    ${Mailgun.html.url(url)}
-  </div>
-  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <small>
-      ${trans.common_note.literalHtmlTo(lang, List(Mailgun.html.noteLink))}
-      ${trans.emailConfirm_ignore.literalHtmlTo(lang)}
-    </small>
-  </div>
-</div>""").some
+      htmlBody = emailMessage(
+        pDesc(trans.emailConfirm_click.literalTo(lang)),
+        potentialAction(metaName("Activate account"), Mailgun.html.url(url)),
+        publisher(
+          small(
+            trans.common_note.literalTo(lang, List(Mailgun.html.noteLink)),
+            " ",
+            trans.emailConfirm_ignore.literalTo(lang)
+          )
+        )
+      ).some
     )
   }
 

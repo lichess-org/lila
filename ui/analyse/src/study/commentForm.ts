@@ -27,8 +27,8 @@ export interface CommentForm {
 export function ctrl(root: AnalyseCtrl): CommentForm {
 
   const current = prop<Current | null>(null),
-  focus = prop(false),
-  opening = prop(false);
+    focus = prop(false),
+    opening = prop(false);
 
   function submit(text: string): void {
     if (!current()) return;
@@ -84,9 +84,9 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
 }
 
 export function viewDisabled(root: AnalyseCtrl, why: string): VNode {
-  return h('div.study_comment_form', [
+  return h('div.study__comments', [
     currentComments(root, true),
-    h('div.message', h('span', why))
+    h('div.study__message', why)
   ]);
 }
 
@@ -97,29 +97,25 @@ export function view(root: AnalyseCtrl): VNode {
 
   function setupTextarea(vnode: VNode) {
     const el = vnode.elm as HTMLInputElement,
-    mine = (current!.node.comments || []).find(function(c: any) {
-      return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
-    });
+      mine = (current!.node.comments || []).find(function(c: any) {
+        return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
+      });
     el.value = mine ? mine.text : '';
     if (ctrl.opening() || ctrl.focus()) window.lichess.raf(() => el.focus());
     ctrl.opening(false);
   }
 
-  return h('div.study_comment_form.underboard_form', {
-    hook: {
-      insert: _ => window.lichess.loadCss('stylesheets/material.form.css')
-    }
-  }, [
+  return h('div.study__comments', [
     currentComments(root, !study.members.canContribute()),
-    ctrl.focus() && ctrl.root.path !== current.path ? h('p.title', [
-      'Commenting position after ',
-      h('button.button', {
-        hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw)
-      }, nodeFullName(current.node))
-    ]) : null,
-    h('form.material.form', [
+    h('form.form3', [
+      ctrl.focus() && ctrl.root.path !== current.path ? h('p', [
+        'Commenting position after ',
+        h('a', {
+          hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw)
+        }, nodeFullName(current.node))
+      ]) : null,
       h('div.form-group', [
-        h('textarea#comment-text', {
+        h('textarea#comment-text.form-control', {
           hook: {
             insert(vnode) {
               setupTextarea(vnode);
@@ -145,8 +141,7 @@ export function view(root: AnalyseCtrl): VNode {
               vnode.data!.path = newKey;
             }
           }
-        }),
-        h('i.bar')
+        })
       ])
     ])
   ]);

@@ -68,16 +68,16 @@ object Analyse extends LilaController {
       }
     }
 
-  def embed(gameId: String, color: String) = Open { implicit ctx =>
+  def embed(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.gameWithInitialFen(gameId) flatMap {
       case Some((game, initialFen)) =>
         val pov = Pov(game, chess.Color(color == "white"))
-        Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
+        Env.api.roundApi.embed(pov, lila.api.Mobile.Api.currentVersion,
           initialFenO = initialFen.some,
           withFlags = WithFlags(opening = true)) map { data =>
             Ok(html.analyse.embed(pov, data))
           }
-      case _ => fuccess(NotFound(html.analyse.embed.notFound()))
+      case _ => fuccess(NotFound(html.analyse.embed.notFound))
     }
   }
 

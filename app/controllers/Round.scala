@@ -73,7 +73,7 @@ object Round extends LilaController with TheftPrevention {
               simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
               Ok(html.round.player(pov, data,
                 tour = tour,
-                simul = simul.filter(_ isHost ctx.me),
+                simul = simul,
                 cross = crosstable,
                 playing = playing,
                 chatOption = chatOption,
@@ -192,7 +192,7 @@ object Round extends LilaController with TheftPrevention {
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.gameId)
             pgn <- Env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-          } yield Ok(html.round.watcherBot(pov, initialFen, pgn))
+          } yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
           data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)
@@ -210,7 +210,7 @@ object Round extends LilaController with TheftPrevention {
     tourId ?? { Env.tournament.api.miniView(_, withTop) }
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && ctx.me.exists(Env.chat.panic.allowed) && {
+    ctx.noKid && ctx.me.fold(true)(Env.chat.panic.allowed) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } ?? {
@@ -222,7 +222,7 @@ object Round extends LilaController with TheftPrevention {
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
     (game.tournamentId, game.simulId) match {
       case (Some(tid), _) => {
-        ctx.isAuth && tour.fold(true)(Tournament.canHaveChat)
+        ctx.isAuth && tour.fold(true)(Tournament.canHaveChat(_, none))
       } ??
         Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map { chat =>
           Chat.GameOrEvent(Right(chat truncate 50)).some
@@ -294,14 +294,10 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(GameRepo.pov(gameId, color)) { pov =>
-      html.game.bits.mini(pov)
-    }
+    OptionOk(GameRepo.pov(gameId, color))(html.game.bits.mini)
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
-    OptionOk(GameRepo pov fullId) { pov =>
-      html.game.bits.mini(pov)
-    }
+    OptionOk(GameRepo pov fullId)(html.game.bits.mini)
   }
 }

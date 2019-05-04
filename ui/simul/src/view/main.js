@@ -10,9 +10,16 @@ module.exports = function(ctrl) {
   else if (ctrl.data.isFinished) handler = finished;
   else handler = created;
 
-  return m('div', {
-      class: 'content_box no_padding simul_box simul_show'
-    },
-    handler(ctrl)
-  );
+  return [
+    m('aside.simul__side', {
+      config: function(el, done) {
+        if (!done) {
+          $(el).replaceWith(ctrl.env.$side);
+          ctrl.env.chat && window.lichess.makeChat(ctrl.env.chat);
+        }
+      }
+    }),
+    m('div.simul__main.box', handler(ctrl)),
+    m('div.chat__members.none', m('span.list'))
+  ];
 };

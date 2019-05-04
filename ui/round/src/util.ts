@@ -26,16 +26,22 @@ export function uci2move(uci: string): cg.Key[] | undefined {
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 }
 
-export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw): Hooks {
+export function onInsert(f: (el: HTMLElement) => void): Hooks {
   return {
     insert(vnode) {
-      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        const res = f(e);
-        if (redraw) redraw();
-        return res;
-      });
+      f(vnode.elm as HTMLElement);
     }
   };
+}
+
+export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw): Hooks {
+  return onInsert(el => {
+    el.addEventListener(eventName, e => {
+      const res = f(e);
+      if (redraw) redraw();
+      return res;
+    });
+  });
 }
 
 export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {

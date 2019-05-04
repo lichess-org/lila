@@ -1,15 +1,29 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 
+export const hasTouchEvents = 'ontouchstart' in window;
+
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
+  el.addEventListener(hasTouchEvents ? 'touchstart' : 'mousedown', e => {
+    f(e);
+    e.preventDefault();
+    if (redraw) redraw();
+  })
+}
+
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+  return onInsert(el =>
+    el.addEventListener(eventName, e => {
+      const res = f(e);
+      if (redraw) redraw();
+      return res;
+    })
+  );
+}
+
+export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
-    insert: vnode => {
-      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        const res = f(e);
-        if (redraw) redraw();
-        return res;
-      });
-    }
+    insert: vnode => f(vnode.elm as A)
   };
 }
 

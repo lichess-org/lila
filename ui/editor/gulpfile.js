@@ -1,3 +1,3 @@
-const lilaGulp = require('../gulp/jsProject.js');
+require('../gulp/jsProject.js')('LichessEditor', 'lichess.editor', __dirname);
 
-lilaGulp('LichessEditor', 'lichess.editor', __dirname);
+require('../gulp/cssProject.js')(__dirname);

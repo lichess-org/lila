@@ -30,6 +30,7 @@ private final class TournamentInviter(
   private def qualifies(user: User) =
     !user.seenRecently &&
       !user.kid &&
+      !user.hasTitle &&
       user.count.rated > 50 &&
       user.toints < 10 &&
       bestRating(user).??(1700 >=) &&

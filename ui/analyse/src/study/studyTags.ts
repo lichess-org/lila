@@ -1,7 +1,7 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import throttle from 'common/throttle';
-import { option } from '../util';
+import { option, onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapter } from './interfaces';
 
@@ -12,21 +12,18 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
       spellcheck: false,
       value
     },
-    hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLInputElement;
-        el.onblur = function() {
-          submit(el.value, el);
-        };
-        el.onkeypress = function(e) {
-          if ((e.keyCode || e.which) == 13) el.blur();
-        }
+    hook: onInsert<HTMLInputElement>(el => {
+      el.onblur = function() {
+        submit(el.value, el);
+      };
+      el.onkeypress = function(e) {
+        if ((e.keyCode || e.which) == 13) el.blur();
       }
-    }
+    })
   });
 }
 
-function fixed(text) {
+function fixed(text: string) {
   return h('span', text);
 }
 
@@ -37,7 +34,7 @@ type TagRow = (string | VNode)[];
 function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard')
-  rows.push(['Variant', fixed(chapter.setup.variant.name)]);
+    rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(chapter.tags.map(tag => [
     tag[0],
     submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])
@@ -62,7 +59,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
       }, [
         h('option', 'New tag'),
         ...types.map(t => {
-          if (!window.lichess.fp.contains(existingTypes, t)) return option(t, '', t);
+          if (!existingTypes.includes(t)) return option(t, '', t);
         })
       ]),
       editable('', (value, el) => {
@@ -74,7 +71,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
     ]);
   }
 
-  return h('table.tags.slist', h('tbody', rows.map(function(r) {
+  return h('table.study__tags.slist', h('tbody', rows.map(function(r) {
     return h('tr', {
       key: '' + r[0]
     }, [
@@ -103,7 +100,7 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
   }
 }
 function doRender(root: StudyCtrl): VNode {
-  return h('div.undertable_inner', renderPgnTags(
+  return h('div', renderPgnTags(
     root.tags.getChapter(),
     root.vm.mode.write && root.tags.submit,
     root.tags.types))
@@ -111,7 +108,7 @@ function doRender(root: StudyCtrl): VNode {
 
 export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
-  tagKey = chapter.tags.map(t => t[1]).join(','),
-  key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
-  return thunk('div.undertable_inner.' + chapter.id, doRender, [root, key]);
+    tagKey = chapter.tags.map(t => t[1]).join(','),
+    key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
+  return thunk('div.' + chapter.id, doRender, [root, key]);
 }

@@ -7,12 +7,11 @@ import reactivemongo.core.commands._
 import chess.Status
 import chess.variant.Variant
 import lila.db.BSON
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 private[simul] final class SimulRepo(simulColl: Coll) {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  import reactivemongo.bson.Macros
   private implicit val SimulStatusBSONHandler = new BSONHandler[BSONInteger, SimulStatus] {
     def read(bsonInt: BSONInteger): SimulStatus = SimulStatus(bsonInt.value) err s"No such simul status: ${bsonInt.value}"
     def write(x: SimulStatus) = BSONInteger(x.id)
@@ -106,6 +105,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def setHostSeenNow(simul: Simul) = simulColl.update(
     $id(simul.id),
     $set("hostSeenAt" -> DateTime.now)
+  ).void
+
+  def setText(simul: Simul, text: String) = simulColl.update(
+    $id(simul.id),
+    $set("text" -> text)
   ).void
 
   def cleanup = simulColl.remove(

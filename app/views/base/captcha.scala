@@ -29,27 +29,29 @@ object captcha {
         ),
         dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
       )(
-          div(
-            cls := "mini_board parse_fen is2d",
-            dataPlayable := "1",
-            dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
-            dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
-            dataZ := encodeFen(captcha.fen)
-          )(miniBoardContent),
+          div(cls := "challenge")(
+            div(
+              cls := "mini-board cg-board-wrap parse-fen is2d",
+              dataPlayable := "1",
+              dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
+              dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
+              dataZ := encodeFen(captcha.fen)
+            )(div(cls := "cg-board"))
+          ),
           div(cls := "captcha-explanation")(
-            label(cls := "form-label")(trans.colorPlaysCheckmateInOne.frag(
-              (if (captcha.white) trans.white else trans.black).frag()
+            label(cls := "form-label")(trans.colorPlaysCheckmateInOne(
+              (if (captcha.white) trans.white else trans.black)()
             )),
             br, br,
-            trans.thisIsAChessCaptcha.frag(),
+            trans.thisIsAChessCaptcha(),
             br,
-            trans.clickOnTheBoardToMakeYourMove.frag(),
+            trans.clickOnTheBoardToMakeYourMove(),
             br, br,
-            trans.help.frag(),
+            trans.help(),
             " ",
-            a(cls := "hint--bottom", dataHint := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
-            div(cls := "result success text", dataIcon := "E")(trans.checkmate.frag()),
-            div(cls := "result failure text", dataIcon := "k")(trans.notACheckmate.frag()),
+            a(title := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
+            div(cls := "result success text", dataIcon := "E")(trans.checkmate()),
+            div(cls := "result failure text", dataIcon := "k")(trans.notACheckmate()),
             form3.hidden(form("move"))
           )
         )

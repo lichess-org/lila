@@ -110,7 +110,7 @@ module.exports = {
   },
   showCapture: function(move) {
     raf(function() {
-      var $square = $('#learn_app piece[data-key=' + move.orig + ']');
+      var $square = $('#learn-app piece[data-key=' + move.orig + ']');
       $square.addClass('wriggle');
       setTimeout(function() {
         $square.removeClass('wriggle');

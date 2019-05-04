@@ -19,7 +19,7 @@ object Tournament extends LilaController {
   private def env = Env.tournament
   private def repo = TournamentRepo
 
-  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
+  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = Env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
     name = "tournament.home",
@@ -64,7 +64,7 @@ object Tournament extends LilaController {
       case "arena" => System.Arena.some
       case _ => none
     }
-    Ok(html.tournament.faqPage(system)).fuccess
+    Ok(html.tournament.faq.page(system)).fuccess
   }
 
   def leaderboard = Open { implicit ctx =>
@@ -74,11 +74,14 @@ object Tournament extends LilaController {
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
-  private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
-    if (ctx.kid) false
-    else if (tour.isPrivate) true
-    else Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
-  }
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
+        (!tour.isPrivate || json.fold(true)(jsonHasMe)) && // private tournament that I joined
+          Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
+      }
+
+  private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
@@ -88,8 +91,8 @@ object Tournament extends LilaController {
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
-            chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
+            chat <- canHaveChat(tour, json.some) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
@@ -284,9 +287,17 @@ object Tournament extends LilaController {
 
   def shields = Open { implicit ctx =>
     for {
-      history <- env.shieldApi.history
+      history <- env.shieldApi.history(5.some)
       _ <- Env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
+  }
+
+  def categShields(k: String) = Open { implicit ctx =>
+    OptionFuOk(env.shieldApi.byCategKey(k)) {
+      case (categ, awards) =>
+        Env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+          html.tournament.shields.byCateg(categ, awards)
+    }
   }
 
   def calendar = Open { implicit ctx =>

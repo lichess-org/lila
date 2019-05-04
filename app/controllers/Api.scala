@@ -43,7 +43,7 @@ object Api extends LilaController {
   }
 
   def index = Action {
-    Ok(views.html.site.api())
+    Ok(views.html.site.bits.api)
   }
 
   def user(name: String) = CookieBasedApiRequest { ctx =>

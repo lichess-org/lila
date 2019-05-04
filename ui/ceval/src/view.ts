@@ -107,7 +107,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     gaugeLast = ev;
   } else ev = gaugeLast;
   const height = 100 - (ev + 1) * 50;
-  return h('div.eval_gauge', {
+  return h('div.eval-gauge', {
     class: {
       empty: ev === null,
       reverse: ctrl.getOrientation() === 'black'
@@ -136,7 +136,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     pearl = '-';
     percent = 0;
   } else {
-    pearl = enabled ? h('span.ddloader') : h('span');
+    pearl = enabled ? h('i.ddloader') : h('i');
     percent = 0;
   }
   if (threatMode) {
@@ -183,7 +183,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
-    h('input#analyse-toggle-ceval.cmn-toggle', {
+    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
       attrs: {
         type: 'checkbox',
         checked: enabled
@@ -195,15 +195,15 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
   ])
 
-  return h('div.ceval_box' + (enabled ? '.enabled' : ''), {
+  return h('div.ceval' + (enabled ? '.enabled' : ''), {
     class: {
       computing: percent < 100 && instance.isComputing()
     }
   }, [
     progressBar,
     ...body,
-    switchButton,
-    threatButton(ctrl)
+    threatButton(ctrl),
+    switchButton
   ]);
 }
 

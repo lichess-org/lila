@@ -36,6 +36,8 @@ trait Lilaisms
   with scalaz.syntax.ToTraverseOps
   with scalaz.syntax.ToValidationOps {
 
+  type StringValue = lila.base.LilaTypes.StringValue
+
   @inline implicit def toPimpedFuture[A](f: Fu[A]) = new PimpedFuture(f)
   @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean]) = new PimpedFutureBoolean(f)
   @inline implicit def toPimpedFutureOption[A](f: Fu[Option[A]]) = new PimpedFutureOption(f)
@@ -68,7 +70,6 @@ trait Lilaisms
   @inline implicit def toPimpedFiniteDuration(d: FiniteDuration) = new PimpedFiniteDuration(d)
 
   @inline implicit def toPimpedActorSystem(a: akka.actor.ActorSystem) = new PimpedActorSystem(a)
-
 }
 
 final class PimpedActorSystem(private val a: akka.actor.ActorSystem) extends AnyVal {

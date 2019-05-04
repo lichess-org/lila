@@ -15,7 +15,7 @@ final class JsonView {
       "key" -> D.Opening.key,
       "name" -> D.Opening.name,
       "position" -> D.Opening.position,
-      "description" -> D.Opening.description.body,
+      "description" -> D.Opening.description.render,
       "values" -> Dimension.valuesOf(D.Opening).filter { o =>
         ecos contains o.eco
       }.map(Dimension.valueToJson(D.Opening))
@@ -93,7 +93,7 @@ final class JsonView {
       "key" -> d.key,
       "name" -> d.name,
       "position" -> d.position,
-      "description" -> d.description.body,
+      "description" -> d.description.render,
       "values" -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
     )
   }
@@ -102,7 +102,7 @@ final class JsonView {
     Json.obj(
       "key" -> m.key,
       "name" -> m.name,
-      "description" -> m.description.body,
+      "description" -> m.description.render,
       "position" -> m.position
     )
   }

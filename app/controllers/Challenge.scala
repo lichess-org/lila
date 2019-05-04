@@ -41,13 +41,16 @@ object Challenge extends LilaController {
         else none
       val json = env.jsonView.show(c, version, direction)
       negotiate(
-        html = fuccess {
-          if (mine) error match {
-            case Some(e) => BadRequest(html.challenge.mine.apply(c, json, e.some))
-            case None => Ok(html.challenge.mine.apply(c, json, none))
+        html =
+          if (mine) fuccess {
+            error match {
+              case Some(e) => BadRequest(html.challenge.mine(c, json, e.some))
+              case None => Ok(html.challenge.mine(c, json, none))
+            }
           }
-          else Ok(html.challenge.theirs.apply(c, json))
-        },
+          else (c.challengerUserId ?? UserRepo.named) map { user =>
+            Ok(html.challenge.theirs(c, json, user))
+          },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
     }
@@ -90,7 +93,6 @@ object Challenge extends LilaController {
     cond ?? {
       GameRepo.game(c.id).map {
         _ map { game =>
-          implicit val req = ctx.req
           LilaCookie.cookie(
             AnonCookie.name,
             game.player(if (owner) c.finalColor else !c.finalColor).id,

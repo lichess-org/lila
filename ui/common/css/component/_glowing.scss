@@ -1,0 +1,6 @@
+@keyframes glowing {
+  50% { background: mix($c-link, $c-bg-box, 60%); }
+}
+.glowing {
+  animation: glowing 1.5s ease-in-out infinite;
+}

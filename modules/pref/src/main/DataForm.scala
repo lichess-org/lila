@@ -5,36 +5,46 @@ import play.api.data.Forms._
 
 object DataForm {
 
+  private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
+    choice => choices.exists(_._1 == choice)
+
+  private def checkedNumber(choices: Seq[(Int, String)]) =
+    number.verifying(containedIn(choices))
+
+  private lazy val booleanNumber =
+    number.verifying(Pref.BooleanPref.verify)
+
   val pref = Form(mapping(
     "display" -> mapping(
       "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-      "captured" -> number.verifying(Pref.BooleanPref.verify),
-      "highlight" -> number.verifying(Pref.BooleanPref.verify),
-      "destination" -> number.verifying(Pref.BooleanPref.verify),
-      "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
-      "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
-      "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
+      "captured" -> booleanNumber,
+      "highlight" -> booleanNumber,
+      "destination" -> booleanNumber,
+      "coords" -> checkedNumber(Pref.Coords.choices),
+      "replay" -> checkedNumber(Pref.Replay.choices),
+      "pieceNotation" -> optional(booleanNumber),
+      "zen" -> optional(booleanNumber),
+      "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+      "blindfold" -> checkedNumber(Pref.Blindfold.choices)
     )(DisplayData.apply)(DisplayData.unapply),
     "behavior" -> mapping(
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
-      "premove" -> number.verifying(Pref.BooleanPref.verify),
-      "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
-      "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-      "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
-      "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
-      "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-      "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
+      "premove" -> booleanNumber,
+      "takeback" -> checkedNumber(Pref.Takeback.choices),
+      "autoQueen" -> checkedNumber(Pref.AutoQueen.choices),
+      "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
+      "submitMove" -> checkedNumber(Pref.SubmitMove.choices),
+      "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+      "keyboardMove" -> optional(booleanNumber),
+      "rookCastle" -> optional(booleanNumber)
     )(BehaviorData.apply)(BehaviorData.unapply),
-    "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
-    "clockBar" -> number.verifying(Pref.BooleanPref.verify),
-    "clockSound" -> number.verifying(Pref.BooleanPref.verify),
-    "follow" -> number.verifying(Pref.BooleanPref.verify),
-    "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
-    "message" -> number.verifying(Pref.Message.choices.toMap contains _),
-    "studyInvite" -> optional(number.verifying(Pref.StudyInvite.choices.toMap contains _)),
+    "clockTenths" -> checkedNumber(Pref.ClockTenths.choices),
+    "clockBar" -> booleanNumber,
+    "clockSound" -> booleanNumber,
+    "follow" -> booleanNumber,
+    "challenge" -> checkedNumber(Pref.Challenge.choices),
+    "message" -> checkedNumber(Pref.Message.choices),
+    "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -47,6 +57,7 @@ object DataForm {
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
+      resizeHandle: Option[Int],
       blindfold: Int
   )
 
@@ -99,6 +110,7 @@ object DataForm {
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       zen = display.zen | pref.zen,
+      resizeHandle = display.resizeHandle | pref.resizeHandle,
       rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent
@@ -116,6 +128,7 @@ object DataForm {
         captured = if (pref.captured) 1 else 0,
         blindfold = pref.blindfold,
         zen = pref.zen.some,
+        resizeHandle = pref.resizeHandle.some,
         pieceNotation = pref.pieceNotation.some
       ),
       behavior = BehaviorData(

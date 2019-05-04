@@ -1,11 +1,12 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
-import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
+import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
+import resizeHandle from 'common/resize';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
@@ -22,12 +23,14 @@ import practiceView from './practice/practiceView';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
 import * as studyView from './study/studyView';
-import { view as forkView } from './fork'
+import * as studyPracticeView from './study/practice/studyPracticeView';
 import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import renderPlayerBars from './study/playerBars';
+import serverSideUnderboard from './serverSideUnderboard';
+import * as gridHack from './gridHack';
 
 const li = window.lichess;
 
@@ -70,8 +73,8 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  return h('div.areplay', [
-    renderChapterName(ctrl),
+  return h('div.analyse__moves.areplay', [
+    (ctrl.embed && ctrl.study) ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
     renderOpeningBox(ctrl),
     renderTreeView(ctrl, concealOf),
   ].concat(renderResult(ctrl)));
@@ -91,29 +94,31 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
   return h('div.copyables', [
-    h('label.name', 'FEN'),
-    h('input.copyable.autoselect', {
-      attrs: {
-        spellCheck: false,
-        value: ctrl.node.fen
-      },
-      hook: bind('change', e => {
-        const value = (e.target as HTMLInputElement).value;
-        if (value !== ctrl.node.fen) ctrl.changeFen(value);
+    h('div.pair', [
+      h('label.name', 'FEN'),
+      h('input.copyable.autoselect.analyse__underboard__fen', {
+        attrs: {
+          spellCheck: false,
+          value: ctrl.node.fen
+        },
+        hook: bind('change', e => {
+          const value = (e.target as HTMLInputElement).value;
+          if (value !== ctrl.node.fen) ctrl.changeFen(value);
+        })
       })
-    }),
+    ]),
     h('div.pgn', [
-      h('label.name', 'PGN'),
-      h('textarea.copyable.autoselect', {
-        attrs: { spellCheck: false },
-        hook: {
-          postpatch: (_, vnode) => {
-            (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
+      h('div.pair', [
+        h('label.name', 'PGN'),
+        h('textarea.copyable.autoselect', {
+          attrs: { spellCheck: false },
+          hook: {
+            postpatch: (_, vnode) => {
+              (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
+            }
           }
-        }
-      }),
-      h('div.action', [
-        h('button.button.text', {
+        }),
+        h('button.button.button-thin.action.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
             const pgn = $('.copyables .pgn textarea').val();
@@ -125,24 +130,8 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-function visualBoard(ctrl: AnalyseCtrl, playerBars: VNode[] | undefined) {
-  return h('div.lichess_board_wrap' + (playerBars ? '.' + ctrl.bottomColor() : ''), [
-    ctrl.keyboardHelp ? keyboardView(ctrl) : null,
-    ctrl.study ? studyView.overboard(ctrl.study) : null,
-    playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
-    h('div.lichess_board.' + ctrl.data.game.variant.key, {
-      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
-    }, [
-      chessground.render(ctrl),
-      renderPromotion(ctrl)
-    ]),
-    playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
-    cevalView.renderGauge(ctrl)
-  ]);
-}
-
 function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
-  return h('button', {
+  return h('button.fbt', {
     class: { disabled: !enabled },
     attrs: { 'data-act': effect, 'data-icon': icon }
   });
@@ -151,11 +140,11 @@ function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
   return target.getAttribute('data-act') ||
-  (target.parentNode as HTMLElement).getAttribute('data-act');
+    (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
 
-function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
+function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   const repeat = function() {
     control[action](ctrl);
     ctrl.redraw();
@@ -165,70 +154,76 @@ function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  document.addEventListener('mouseup', function() {
-    clearTimeout(timeout);
-  }, {once: true} as any);
+  const eventName = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
+  document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
 }
 
-function buttons(ctrl: AnalyseCtrl) {
+function controls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
-  canJumpNext = !!ctrl.node.children[0],
-  menuIsOpen = ctrl.actionMenu.open;
-  return h('div.game_control', {
-    hook: bind('mousedown', e => {
-      const action = dataAct(e);
-      if (action === 'prev' || action === 'next') navClick(ctrl, action);
-      else if (action === 'first') control.first(ctrl);
-      else if (action === 'last') control.last(ctrl);
-      else if (action === 'explorer') ctrl.toggleExplorer();
-      else if (action === 'practice') ctrl.togglePractice();
-      else if (action === 'menu') ctrl.actionMenu.toggle();
-    }, ctrl.redraw)
+    canJumpNext = !!ctrl.node.children[0],
+    menuIsOpen = ctrl.actionMenu.open,
+    noarg = ctrl.trans.noarg;
+  return h('div.analyse__controls.analyse-controls', {
+    hook: onInsert(el => {
+      bindMobileMousedown(el, e => {
+        const action = dataAct(e);
+        if (action === 'prev' || action === 'next') repeater(ctrl, action);
+        else if (action === 'first') control.first(ctrl);
+        else if (action === 'last') control.last(ctrl);
+        else if (action === 'explorer') ctrl.toggleExplorer();
+        else if (action === 'practice') ctrl.togglePractice();
+        else if (action === 'menu') ctrl.actionMenu.toggle();
+      }, ctrl.redraw);
+    })
   }, [
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
-      h('a.hint--bottom', {
+      h('a.fbt', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('analysis'),
+          title: noarg('analysis'),
           target: '_blank',
-          href: ctrl.studyPractice.analysisUrl()
+          href: ctrl.studyPractice.analysisUrl(),
+          'data-icon': 'A'
         }
-      }, [iconTag('A')])
+      })
     ] : [
-      h('button.hint--bottom', {
+      h('button.fbt', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('openingExplorerAndTablebase'),
-          'data-act': 'explorer'
+          title: noarg('openingExplorerAndTablebase'),
+          'data-act': 'explorer',
+          'data-icon': ']'
         },
         class: {
           hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
           active: ctrl.explorer.enabled()
         }
-      }, [iconTag(']')]),
-      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
+      }),
+      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('practiceWithComputer'),
-          'data-act': 'practice'
+          title: noarg('practiceWithComputer'),
+          'data-act': 'practice',
+          'data-icon': ''
         },
         class: {
           hidden: menuIsOpen || !!ctrl.retro,
           active: !!ctrl.practice
         }
-      }, [iconTag('')]) : null
-  ]),
+      }) : null
+    ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
       jumpButton('X', 'next', canJumpNext),
       jumpButton('V', 'last', canJumpNext)
     ]),
-    ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
+    ctrl.studyPractice ? h('div.noop') : h('button.fbt', {
       class: { active: menuIsOpen },
       attrs: {
-        'data-hint': ctrl.trans.noarg('menu'),
-        'data-act': 'menu'
+        title: noarg('menu'),
+        'data-act': 'menu',
+        'data-icon': '['
       }
-    }, [iconTag('[')])
-    ]);
+    })
+  ]);
 }
 
 function renderOpeningBox(ctrl: AnalyseCtrl) {
@@ -242,17 +237,28 @@ function renderOpeningBox(ctrl: AnalyseCtrl) {
   ]);
 }
 
-function renderChapterName(ctrl: AnalyseCtrl) {
-  if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
+function innerCoordsCss() {
+  let board = 'other';
+  ['brown', 'green', 'blue'].forEach(b => {
+    if ($('body').hasClass(b)) board = b;
+  });
+  return `css/coords.inner.${board}.min.css`;
 }
-
-const innerCoordsCss = 'stylesheets/board.coords.inner.css';
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   const pref = ctrl.data.pref.coords;
   if (!pref) return;
-  if (v) li.loadCss(innerCoordsCss);
-  else if (pref === 2) li.unloadCss(innerCoordsCss);
+  if (v) li.loadCss(innerCoordsCss());
+  else if (pref === 2) unloadCss(innerCoordsCss());
+}
+
+function unloadCss(url) {
+  if (li.loadedCss[url]) {
+    delete li.loadedCss[url];
+    $('head link[rel=stylesheet]')
+      .filter(function(this: HTMLLinkElement) { return this.href.includes(url) })
+      .remove();
+  }
 }
 
 let firstRender = true;
@@ -260,80 +266,116 @@ let firstRender = true;
 export default function(ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
-  study = ctrl.study,
-  showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
-  menuIsOpen = ctrl.actionMenu.open,
-  chapter = study && study.data.chapter,
-  studyStateClass = chapter ? chapter.id + study!.vm.loading : 'nostudy',
-  gamebookPlay = ctrl.gamebookPlay(),
-  gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
-  gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
-  relayEdit = study && study.relay && relayManager(study.relay),
-  playerBars = renderPlayerBars(ctrl),
-  gaugeDisplayed = ctrl.showEvalGauge(),
-  needsInnerCoords = !!gaugeDisplayed || !!playerBars;
-  return h('div.analyse.cg-512', [
-    h('div.' + studyStateClass, {
-      hook: {
-        insert: _ => {
-          if (firstRender) {
-            firstRender = false;
-            if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
-          }
-          else li.pubsub.emit('reset_zoom')();
-          forceInnerCoords(ctrl, needsInnerCoords);
-        },
-        update(_, _2) {
-          forceInnerCoords(ctrl, needsInnerCoords);
+    study = ctrl.study,
+    showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
+    menuIsOpen = ctrl.actionMenu.open,
+    chapter = study && study.data.chapter,
+    gamebookPlay = ctrl.gamebookPlay(),
+    gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
+    gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
+    playerBars = renderPlayerBars(ctrl),
+    clocks = !playerBars && renderClocks(ctrl),
+    gaugeOn = ctrl.showEvalGauge(),
+    needsInnerCoords = !!gaugeOn || !!playerBars;
+  return h('main.analyse' + (chapter ? '.' + chapter.id : ''), {
+    hook: {
+      insert: _ => {
+        if (firstRender) {
+          firstRender = false;
+          if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss()] = true;
+        }
+        forceInnerCoords(ctrl, needsInnerCoords);
+        if (!!playerBars != $('body').hasClass('header-margin')) {
+          li.raf(() => {
+            $('body').toggleClass('header-margin', !!playerBars);
+            ctrl.redraw();
+          });
         }
       },
-      class: {
-        'gauge_displayed': gaugeDisplayed,
-        'no_computer': !ctrl.showComputer(),
-        'gb_edit': !!gamebookEditView,
-        'gb_play': !!gamebookPlayView,
-        'relay_edit': !!relayEdit,
-        'player_bars': !!playerBars,
-      }
-    }, [
-      h('div.lichess_game', {
-        hook: {
-          insert: _ => li.pubsub.emit('content_loaded')()
+      update(_, _2) {
+        forceInnerCoords(ctrl, needsInnerCoords);
+      },
+      postpatch(old, vnode) {
+        if (old.data!.gaugeOn !== gaugeOn) {
+          li.dispatchEvent(document.body, 'chessground.resize');
         }
-      }, [
-        visualBoard(ctrl, playerBars),
-        h('div.lichess_ground', gamebookPlayView || [
-          menuIsOpen || playerBars ? null : renderClocks(ctrl),
-          menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-          ...(menuIsOpen ? [actionMenu(ctrl)] : [
-            cevalView.renderCeval(ctrl),
-            showCevalPvs ? cevalView.renderPvs(ctrl) : null,
-            renderAnalyse(ctrl, concealOf),
-            gamebookEditView ? null : forkView(ctrl, concealOf),
-            retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
-          ]),
-          menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-          buttons(ctrl),
-          gamebookEditView || relayEdit
-        ])
+        vnode.data!.gaugeOn = gaugeOn;
+      }
+    },
+    class: {
+      'comp-off': !ctrl.showComputer(),
+      'gauge-on': gaugeOn,
+      'has-players': !!playerBars,
+      'has-clocks': !!clocks
+    }
+  }, [
+    ctrl.keyboardHelp ? keyboardView(ctrl) : null,
+    ctrl.study ? studyView.overboard(ctrl.study) : null,
+    h('div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
+      hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+    }, [
+      ...(clocks || []),
+      playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
+      chessground.render(ctrl),
+      playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
+      renderPromotion(ctrl),
+      h('div.board-resize', {
+        hook: onInsert(resizeHandle)
+      })
+    ]),
+    gaugeOn ? cevalView.renderGauge(ctrl) : null,
+    menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+    gamebookPlayView || h('div.analyse__tools', [
+      ...(menuIsOpen ? [actionMenu(ctrl)] : [
+        cevalView.renderCeval(ctrl),
+        showCevalPvs ? cevalView.renderPvs(ctrl) : null,
+        renderAnalyse(ctrl, concealOf),
+        gamebookEditView,
+        retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
       ])
     ]),
-    ctrl.embed ? null : h('div.underboard', {
-      class: { no_computer: !ctrl.showComputer() }
-    }, [
-      h('div.center', ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
-      h('div.right', [acplView(ctrl)])
-    ]),
-    ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
-      ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-      playable(ctrl.data) ? h('div.back_to_game',
-        h('a.button.text', {
-          attrs: {
-            href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
-            'data-icon': 'i'
-          }
-        }, ctrl.trans('backToGame'))
-      ) : null
-    ])
+    menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+    gamebookPlayView ? null : controls(ctrl),
+    ctrl.embed ? null : h('div.analyse__underboard', {
+      hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
+    }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
+    acplView(ctrl),
+    ctrl.embed ? null : (
+      ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) :
+      h('aside.analyse__side', {
+        hook: onInsert(elm => {
+          ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+          $(elm).append($('.streamers').clone().removeClass('none'));
+        })
+      },
+        ctrl.studyPractice ? [studyPracticeView.side(ctrl.study!)] : (
+          ctrl.study ? [studyView.side(ctrl.study)] : [
+            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
+              h('a.button.button-empty.text', {
+                attrs: {
+                  href: router.game(ctrl.data),
+                  'data-icon': 'i'
+                }
+              }, ctrl.trans.noarg('backToGame'))
+            ) : null
+          ]
+        )
+      )
+    ),
+    study && study.relay && relayManager(study.relay),
+    ctrl.opts.chat && h('section.mchat', {
+      hook: onInsert(el => {
+        if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
+        ctrl.opts.chat.parseMoves = true;
+        li.makeChat(ctrl.opts.chat, chat => {
+          ctrl.opts.chat.instance = chat;
+        });
+        gridHack.start(el.parentNode as HTMLElement);
+      })
+    }),
+    ctrl.embed ? null : h('div.chat__members.none', {
+      hook: onInsert(el => $(el).watchers())
+    }, [h('span.list')])
   ]);
 }

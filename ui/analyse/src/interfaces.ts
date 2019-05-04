@@ -16,6 +16,12 @@ export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;
 }
 
+export interface AnalyseApi {
+  socketReceive(type: string, data: any): boolean;
+  path(): Tree.Path;
+  setChapter(id: string): void;
+}
+
 // similar, but not identical, to game/GameData
 export interface AnalyseData {
   game: Game;
@@ -32,6 +38,12 @@ export interface AnalyseData {
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: any;
+  url: {
+    socket: string
+  }
+  userTv?: {
+    id: string
+  }
 }
 
 export interface ServerEvalData {
@@ -47,6 +59,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
+  startedAtTurn: number;
   source: Source;
   speed: Speed;
   variant: Variant;
@@ -87,7 +100,6 @@ export interface AnalysisSide {
 
 export interface AnalyseOpts {
   element: HTMLElement;
-  sideElement: HTMLElement;
   data: AnalyseData;
   initialPly?: number | string;
   userId: string | null;
@@ -98,8 +110,11 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: StudyPracticeData;
-  onToggleComputer?: (v: boolean) => void;
   relay?: RelayData;
+  $side?: JQuery;
+  $underboard?: JQuery;
+  i18n: any;
+  chat: any;
 }
 
 export interface CgDests {

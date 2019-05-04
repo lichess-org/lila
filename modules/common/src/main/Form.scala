@@ -91,11 +91,17 @@ object Form {
     val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
   }
-  object ISODate {
+  object ISODateTime {
     val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     val formatter = jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
-    val isoDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    val isoDateTime = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+  }
+  object ISODate {
+    val datePattern = "yyyy-MM-dd"
+    val formatter = jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
+    val isoDateTime = jodaDate(datePattern, DateTimeZone.UTC)
+    implicit val dateFormat = jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
     import lila.base.PimpedTry

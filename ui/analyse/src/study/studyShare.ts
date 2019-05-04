@@ -1,11 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind } from '../util';
+import { bind, baseUrl } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
-
-const baseUrl = 'https://lichess.org/study/';
 
 function fromPly(ctrl): VNode {
   var node = ctrl.currentNode();
@@ -41,19 +39,15 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
 
 export function view(ctrl): VNode {
   const studyId = ctrl.studyId, chapter = ctrl.chapter();
-  let fullUrl = baseUrl + studyId + '/' + chapter.id;
-  let embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
+  let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`;
+  let embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
     const p = ctrl.currentNode().ply;
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }
-  return h('div.study_share.underboard_form.box', {
-    hook: {
-      insert() { window.lichess.loadCss('stylesheets/material.form.css') }
-    }
-  }, [
+  return h('div.study__share', [
     h('div.downloads', [
       ctrl.cloneable ? h('a.button.text', {
         attrs: {
@@ -74,19 +68,19 @@ export function view(ctrl): VNode {
         }
       }, 'Chapter PGN')
     ]),
-    h('form.material.form', [
-      h('div.form-group.little-margin-bottom', [
-        h('input.has-value.autoselect', {
+    h('form.form3', [
+      h('div.form-group', [
+        h('label.form-label', 'Study URL'),
+        h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
-            value: baseUrl + studyId
+            value: `${baseUrl()}/study/${studyId}`
           }
-        }),
-        h('label.control-label', 'Study URL'),
-        h('i.bar')
+        })
       ]),
       h('div.form-group', [
-        h('input.has-value.autoselect', {
+        h('label.form-label', 'Current chapter URL'),
+        h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             value: fullUrl
@@ -96,11 +90,10 @@ export function view(ctrl): VNode {
         !isPrivate ? h('p.form-help.text', {
           attrs: { 'data-icon': '' }
         }, 'You can paste this in the forum to embed the chapter.') : null,
-        h('label.control-label', 'Current chapter URL'),
-        h('i.bar')
       ]),
       h('div.form-group', [
-        h('input.has-value.autoselect', {
+        h('label.form-label', 'Embed this chapter in your website or blog'),
+        h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             disabled: isPrivate,
@@ -116,16 +109,18 @@ export function view(ctrl): VNode {
               target: '_blank',
               'data-icon': ''
             }
-          }, 'Read more about embedding a study chapter'),
-          h('label.control-label', 'Embed current chapter in your website or blog')
-        ] : []).concat(h('i.bar'))
+          }, 'Read more about embedding a study chapter.')
+        ] : [])
       ),
-      h('div.fen', {
-        attrs: { title: 'FEN - click to select' },
-        hook: bind('click', e => {
-          window.getSelection().selectAllChildren((e.target as HTMLElement))
+      h('div.form-group', [
+        h('label.form-label', 'FEN'),
+        h('input.form-control.autoselect', {
+          attrs: {
+            readonly: true,
+            value: ctrl.currentNode().fen
+          },
         })
-      }, ctrl.currentNode().fen)
+      ])
     ])
   ]);
 }

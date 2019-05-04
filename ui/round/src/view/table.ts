@@ -1,9 +1,7 @@
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { Position, MaybeVNodes } from '../interfaces';
 import * as game from 'game';
 import * as status from 'game/status';
-import { Player }  from 'game/interfaces';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import renderReplay from './replay';
@@ -12,13 +10,14 @@ import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
 
-function renderPlayer(ctrl: RoundController, player: Player) {
+function renderPlayer(ctrl: RoundController, position: Position) {
+  const player = ctrl.playerAt(position);
   return ctrl.nvui ? undefined : (
-    player.ai ? h('div.username.user_link.online', [
+    player.ai ? h('div.user-link.online.ruser.ruser-' + position, [
       h('i.line'),
       h('name', renderUser.aiName(ctrl, player.ai))
     ]) :
-    renderUser.userHtml(ctrl, player)
+    renderUser.userHtml(ctrl, player, position)
   );
 }
 
@@ -26,29 +25,28 @@ function isLoading(ctrl: RoundController): boolean {
   return ctrl.loading || ctrl.redirecting;
 }
 
-function loader() { return h('span.ddloader'); }
+function loader() { return h('i.ddloader'); }
 
 function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [
     renderReplay(ctrl),
-    h('div.control.buttons', buttons),
-    renderPlayer(ctrl, ctrl.playerAt('bottom'))
+    buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
   ];
 }
 
-function renderTableEnd(ctrl: RoundController) {
+export function renderTableEnd(ctrl: RoundController) {
   return renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : (button.backToTournament(ctrl) || button.followUp(ctrl))
   ]);
 }
 
-function renderTableWatch(ctrl: RoundController) {
+export function renderTableWatch(ctrl: RoundController) {
   return renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : button.watcherFollowUp(ctrl)
   ]);
 }
 
-function renderTablePlay(ctrl: RoundController) {
+export function renderTablePlay(ctrl: RoundController) {
   const d = ctrl.data,
     loading = isLoading(ctrl),
     submit = button.submitMove(ctrl),
@@ -68,24 +66,25 @@ function renderTablePlay(ctrl: RoundController) {
     ]);
   return [
     renderReplay(ctrl),
-    h('div.control.icons', {
-      class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
-    }, icons),
-    h('div.control.buttons', buttons),
-    renderPlayer(ctrl, ctrl.playerAt('bottom'))
+    h('div.rcontrols', [
+      h('div.ricons', {
+        class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
+      }, icons),
+      ...buttons
+    ])
   ];
 }
 
-function whosTurn(ctrl: RoundController, color: Color) {
-  var d = ctrl.data;
+function whosTurn(ctrl: RoundController, color: Color, position: Position) {
+  const d = ctrl.data;
   if (status.finished(d) || status.aborted(d)) return;
-  return h('div.whos_turn',
-    d.game.player === color ? (
+  return h('div.rclock.rclock-turn.rclock-' + position, [
+    d.game.player === color ? h('div.rclock-turn__text',
       d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
         d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
       )
-    ) : ''
-  );
+    ) : null
+  ]);
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
@@ -95,30 +94,23 @@ function anyClock(ctrl: RoundController, position: Position) {
     return renderCorresClock(
       ctrl.corresClock!, ctrl.trans, player.color, position, ctrl.data.game.player
     );
-  else return whosTurn(ctrl, player.color);
+  else return whosTurn(ctrl, player.color, position);
 }
 
-export function renderInner(ctrl: RoundController): VNode {
-  return h('div.table_inner',
-    ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+export function renderTable(ctrl: RoundController): MaybeVNodes {
+  return [
+    h('div.round__app__table'),
+    renderExpiration(ctrl),
+    renderPlayer(ctrl, 'top'),
+    ...(ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
       game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-    )
-  );
-}
-
-export function renderTable(ctrl: RoundController): VNode {
-  const contents: MaybeVNodes = [
-    renderPlayer(ctrl, ctrl.playerAt('top')),
-    renderInner(ctrl)
-  ],
-    expiration = game.playable(ctrl.data) && renderExpiration(ctrl);
-  return h('div.table_wrap', {
-    class: { with_expiration: !!expiration }
-  }, [
+    )),
+    renderPlayer(ctrl, 'bottom'),
+    /* render clocks after players so they display on top of them in col1,
+     * since they occupy the same grid cell. This is required to avoid
+     * having two columns with min-content, which causes the horizontal moves
+     * to overflow: it couldn't be contained in the parent anymore */
     anyClock(ctrl, 'top'),
-    expiration && !expiration[1] ? expiration[0] : null,
-    h('div.table', contents),
-    expiration && expiration[1] ? expiration[0] : null,
-    anyClock(ctrl, 'bottom')
-  ]);
+    anyClock(ctrl, 'bottom'),
+  ];
 };

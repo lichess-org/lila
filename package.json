@@ -25,6 +25,7 @@
   },
   "private": true,
   "workspaces": [
+    "ui",
     "ui/analyse",
     "ui/ceval",
     "ui/challenge",
@@ -36,6 +37,7 @@
     "ui/editor",
     "ui/game",
     "ui/nvui",
+    "ui/speech",
     "ui/insight",
     "ui/learn",
     "ui/lobby",

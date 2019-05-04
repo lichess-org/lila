@@ -32,8 +32,8 @@ interface ToolButtonOpts {
 }
 
 function toolButton(opts: ToolButtonOpts): VNode {
-  return h('a.fbt.hint--top.' + opts.tab, {
-    attrs: { 'data-hint': opts.hint },
+  return h('span.' + opts.tab, {
+    attrs: { title: opts.hint },
     class: { active: opts.tab === opts.ctrl.vm.toolTab() },
     hook: bind('mousedown', () => {
       if (opts.onClick) opts.onClick();
@@ -47,24 +47,24 @@ function toolButton(opts: ToolButtonOpts): VNode {
 
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
-  canContribute = ctrl.members.canContribute(),
-  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
-  return h('div.study_buttons', [
-    h('div.member_buttons', [
+    canContribute = ctrl.members.canContribute(),
+    showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+  return h('div.study__buttons', [
+    h('div.left-buttons.tabs-horiz', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
-      showSticky ? h('a.mode.sync.hint--top', {
-        attrs: { 'data-hint': 'All sync members remain on the same position' },
+      showSticky ? h('a.mode.sync', {
+        attrs: { title: 'All sync members remain on the same position' },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
       }, [
         ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'),
-        'Sync'
+        'SYNC'
       ]) : null,
-      ctrl.members.canContribute() ? h('a.mode.write.hint--top', {
-        attrs: { 'data-hint': 'Write changes to the server' },
+      ctrl.members.canContribute() ? h('a.mode.write', {
+        attrs: { title: 'Write changes to the server' },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
-      }, [ h('i.is'), 'Record' ]) : null,
+      }, [ h('i.is'), 'REC' ]) : null,
       toolButton({
         ctrl,
         tab: 'tags',
@@ -106,23 +106,22 @@ function buttons(root: AnalyseCtrl): VNode {
         tab: 'share',
         hint: 'Share & export',
         icon: iconTag('$')
+      }),
+      h('span.help', {
+        attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
+        hook: bind('click', ctrl.startTour)
       })
     ]),
-    gbOverrideButton(ctrl) || helpButton(ctrl)
+    h('div.right', [
+      gbOverrideButton(ctrl)
+    ])
   ]);
-}
-
-function helpButton(ctrl: StudyCtrl) {
-  return h('span.fbt.help.hint--top', {
-    attrs: { 'data-hint': 'Need help? Get the tour!' },
-    hook: bind('click', ctrl.startTour)
-  }, [ iconTag('') ]);
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data;
-  return h('div.study_metadata.undertable', [
-    h('h2.undertable_top', [
+  return h('div.study__metadata', [
+    h('h2', [
       h('span.name', [
         d.name,
         ': ' + ctrl.currentChapter().name
@@ -140,45 +139,41 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-export function main(ctrl: StudyCtrl): VNode {
+export function side(ctrl: StudyCtrl): VNode {
 
   const activeTab = ctrl.vm.tab();
 
   const makeTab = function(key: Tab, name: string) {
-    return h('a.' + key, {
+    return h('span.' + key, {
       class: { active: activeTab === key },
       hook: bind('mousedown', () => ctrl.vm.tab(key), ctrl.redraw)
     }, name);
   };
 
-  const tabs = h('div.study_tabs', [
-    makeTab('members', plural('Member', ctrl.members.size())),
+  const tabs = h('div.tabs-horiz', [
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
-    ctrl.members.isOwner() ? h('a.more', {
+    makeTab('members', plural('Member', ctrl.members.size())),
+    ctrl.members.isOwner() ? h('span.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ iconTag('[') ]) : null
-    ]);
+  ]);
 
-  let panel;
-  if (activeTab === 'members') panel = memberView(ctrl);
-  else if (activeTab === 'chapters') panel = chapterView(ctrl);
-
-  return h('div.side_box.study_box', [
+  return h('div.study__side', [
     tabs,
-    panel
+    (activeTab === 'members' ? memberView : chapterView)(ctrl)
   ]);
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
   return ctrl.vm.mode.write ? [
-    h('a.action', {
+    h('a', {
       attrs: dataIcon('c'),
       hook: bind('click', () => {
         ctrl.vm.toolTab('comments');
-        ctrl.commentForm.set(ctrl.currentChapter()!.id, path, node);
+        ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
       })
     }, 'Comment this move'),
-    h('a.action.glyph-icon', {
+    h('a.glyph-icon', {
       hook: bind('click', () => {
         ctrl.vm.toolTab('glyphs');
         ctrl.userJump(path);
@@ -196,7 +191,7 @@ export function overboard(ctrl: StudyCtrl) {
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];
-  if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
+  if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!, toolTab = study.vm.toolTab();
   if (study.gamebookPlay()) return [
     gbPlayButtons(ctrl),
@@ -212,15 +207,15 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       panel = study.vm.mode.write ?
         commentForm.view(ctrl) : (
           commentForm.viewDisabled(ctrl, study.members.canContribute() ?
-            'Press RECORD to comment moves' :
+            'Press REC to comment moves' :
             'Only the study members can comment on moves')
         );
-        break;
+      break;
     case 'glyphs':
       panel = ctrl.path ? (
         study.vm.mode.write ?
         glyphForm.view(study.glyphForm) :
-        glyphForm.viewDisabled('Press RECORD to annotate moves')
+        glyphForm.viewDisabled('Press REC to annotate moves')
       ) : glyphForm.viewDisabled('Select a move to annotate');
       break;
     case 'serverEval':

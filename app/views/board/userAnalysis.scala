@@ -1,6 +1,8 @@
 package views.html.board
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
+
+import chess.variant.Crazyhouse
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -14,29 +16,27 @@ object userAnalysis {
 
   def apply(data: JsObject, pov: lila.game.Pov)(implicit ctx: Context) = views.html.base.layout(
     title = trans.analysis.txt(),
-    moreCss = cssTags(List(
-      "analyse.css" -> true,
-      "forecast.css" -> (!pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined)
-    )),
+    moreCss = frag(
+      cssTag("analyse.free"),
+      pov.game.variant == Crazyhouse option cssTag("analyse.zh"),
+      !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined option cssTag("analyse.forecast"),
+      ctx.blind option cssTag("round.nvui")
+    ),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lichess=lichess||{};lichess.user_analysis={data:${safeJsonValue(data)},i18n:${
-        userAnalysisI18n(
-          withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
-        )
-      },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
-    ),
-    side = pov.game.synthetic option div(cls := "mselect")(
-      div(cls := "button", dataIcon := iconByVariant(pov.game.variant))(
-        pov.game.variant.name,
-        iconTag("u")
-      ),
-      div(cls := "list")(
-        chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map { v =>
-          a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parse(v.key))(v.name)
-        }
-      )
+      embedJsUnsafe(s"""lichess=lichess||{};lichess.user_analysis=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> userAnalysisI18n(
+            withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
+          ),
+          "explorer" -> Json.obj(
+            "endpoint" -> explorerEndpoint,
+            "tablebaseEndpoint" -> tablebaseEndpoint
+          )
+        ))
+      }""")
     ),
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
@@ -46,6 +46,23 @@ object userAnalysis {
     ).some,
     zoomable = true
   ) {
-      div(cls := "analyse cg-512")(views.html.board.bits.domPreload(none))
+      main(cls := "analyse")(
+        pov.game.synthetic option st.aside(cls := "analyse__side")(
+          views.html.base.bits.mselect(
+            "analyse-variant",
+            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+            chess.variant.Variant.all.filter(chess.variant.FromPosition !=).map { v =>
+              a(
+                dataIcon := iconByVariant(v),
+                cls := (pov.game.variant == v).option("current"),
+                href := routes.UserAnalysis.parse(v.key)
+              )(v.name)
+            }
+          )
+        ),
+        div(cls := "analyse__board main-board")(chessgroundSvg),
+        div(cls := "analyse__tools"),
+        div(cls := "analyse__controls")
+      )
     }
 }

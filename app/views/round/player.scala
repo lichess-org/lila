@@ -1,6 +1,8 @@
 package views.html
 package round
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -29,33 +31,43 @@ object player {
     }
 
     bits.layout(
+      variant = pov.game.variant,
       title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
-      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
-      chat = chatOption.map(_ => chat.frag),
-      underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.customWS=true;window.onload=function(){
-LichessRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserId,chat:${jsOrNull(chatJson)}
-${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lila.tournament.JsonView.top(top, lightUser))}")}
-}, document.getElementById('lichess'))}""")
+        embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
+LichessRound.boot(${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(pov.game),
+            "userId" -> ctx.userId,
+            "chat" -> chatJson
+          ) ++ tour.flatMap(_.top).??(top => Json.obj(
+              "tour" -> lila.tournament.JsonView.top(top, lightUser)
+            )))
+        })}""")
       ),
-      moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
       playing = true
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            board.bits.domPreload(pov.some),
-            bits.underboard(pov.game, cross)
+    )(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            bits.side(pov, data, tour, simul, bookmarked = bookmarked),
+            chatOption.map(_ => chat.frag)
           ),
-          (playing.nonEmpty || simul.nonEmpty) option
-            div(id := "now_playing", cls := List("other_games" -> true, "blindfold" -> ctx.pref.isBlindfold))(
-              others(playing, simul)
-            )
+          bits.roundAppPreload(pov, true),
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game),
+            (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
+              div(cls := List(
+                "round__now-playing" -> true,
+                "blindfold" -> ctx.pref.isBlindfold
+              ))(bits.others(playing, simul))
+          ),
+          div(cls := "round__underchat")(bits underchat pov.game)
         )
-      }
+      )
   }
 }

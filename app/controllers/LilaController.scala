@@ -6,8 +6,7 @@ import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
-import play.twirl.api.Html
-import scalatags.Text.{ TypedTag, Frag }
+import scalatags.Text.Frag
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
@@ -28,22 +27,11 @@ private[controllers] trait LilaController
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
-  protected implicit val LilaHtmlMonoid = lila.app.templating.Environment.LilaHtmlMonoid
-
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
   }
 
-  protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
-
-  protected implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
-    ContentTypeOf[Frag](Some(ContentTypes.HTML))
-  protected implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
-    Writeable(frag => codec.encode(frag.render))
-
-  protected implicit def LilaScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
-
-  protected implicit def LilaFragToResult(content: Frag): Result = Ok(content)
+  protected implicit def LilaFragToResult(frag: Frag): Result = Ok(frag)
 
   protected implicit def makeApiVersion(v: Int) = ApiVersion(v)
 
@@ -56,7 +44,9 @@ private[controllers] trait LilaController
       api = _ => fuccess(jsonOkResult)
     )
 
-  implicit def lang(implicit ctx: Context) = ctx.lang
+  implicit def ctxLang(implicit ctx: Context) = ctx.lang
+  implicit def ctxReq(implicit ctx: Context) = ctx.req
+  implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
@@ -213,7 +203,7 @@ private[controllers] trait LilaController
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
-      Unauthorized(views.html.auth.tor()).fuccess
+      Unauthorized(views.html.auth.bits.tor()).fuccess
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
@@ -347,8 +337,7 @@ private[controllers] trait LilaController
   protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
-        implicit val req = ctx.req
-        Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
+        Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ => ensureSessionId(ctx.req) {
         Unauthorized(jsonError("Login required"))
@@ -361,7 +350,7 @@ private[controllers] trait LilaController
     html =
       if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
         lila.mon.http.response.code403()
-        Forbidden(views.html.base.authFailed())
+        Forbidden(views.html.site.message.authFailed)
       }
       else fuccess(Results.Forbidden("Authorization failed")),
     api = _ => fuccess(forbiddenJsonResult)
@@ -371,8 +360,8 @@ private[controllers] trait LilaController
     if (req.session.data.contains(LilaCookie.sessionId)) res
     else res withCookies LilaCookie.makeSessionId(req)
 
-  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    lila.api.Mobile.Api.requestVersion(ctx.req).fold(html) { v =>
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit req: RequestHeader): Fu[Result] =
+    lila.api.Mobile.Api.requestVersion(req).fold(html) { v =>
       api(v) dmap (_ as JSON)
     }.dmap(_.withHeaders("Vary" -> "Accept"))
 
@@ -430,7 +419,9 @@ private[controllers] trait LilaController
       }
     } dmap {
       case Some(d) if !lila.common.PlayApp.isProd =>
-        Some(d.copy(user = d.user.addRole(lila.security.Permission.Beta.name)))
+        d.copy(user = d.user
+          .addRole(lila.security.Permission.Beta.name)
+          .addRole(lila.security.Permission.Prismic.name)).some
       case d => d
     } flatMap {
       case None => fuccess(None -> None)

@@ -4,12 +4,12 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting() ?
-  h('div#challenge_app.dropdown', h('div.initiating', spinner())) :
-  h('div#challenge_app.links.dropdown.rendered', renderContent(ctrl));
+  h('div#challenge-app.dropdown', h('div.initiating', spinner())) :
+  h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 }
 
 export function loading(): VNode {
-  return h('div#challenge_app.links.dropdown.rendered', [
+  return h('div#challenge-app.links.dropdown.rendered', [
     h('div.empty.loading', '-'),
     create()
   ]);
@@ -126,7 +126,7 @@ function timeControl(c: TimeControl): string {
 function renderUser(u?: ChallengeUser): VNode {
   if (!u) return h('span', 'Open challenge');
   const rating = u.rating + (u.provisional ? '?' : '');
-  return h('a.ulpt.user_link', {
+  return h('a.ulpt.user-link', {
     attrs: { href: `/@/${u.name}`},
     class: { online: !!u.online }
   }, [

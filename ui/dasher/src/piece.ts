@@ -39,7 +39,7 @@ export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof Piece
       applyPiece(t, d.list, dimension() === 'd3');
       $.post('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
         set: t
-      }, window.lichess.reloadOtherTabs);
+      });
       redraw();
     },
     open
@@ -54,13 +54,7 @@ export function view(ctrl: PieceCtrl): VNode {
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
     h('div.list', {
       attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3'))),
-    h('div.subs', [
-      h('a', {
-        hook: bind('click', () => ctrl.open('theme')),
-        attrs: { 'data-icon': 'H' }
-      }, ctrl.trans.noarg('boardTheme'))
-    ])
+    }, d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3')))
   ]);
 }
 

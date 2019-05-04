@@ -16,15 +16,15 @@ function streamLoad(opts) {
   source.onerror = function() { source.close(); };
 }
 
-var $toggle = $('div.user_show .mod_zone_toggle');
-var $zone = $('div.user_show .mod_zone');
+var $toggle = $('.user-show .mod-zone-toggle');
+var $zone = $('.user-show .mod-zone');
 
 function loadZone() {
   $zone.html(lichess.spinnerHtml).removeClass('none');
   streamLoad({
     node: $zone[0],
     url: $toggle.attr('href'),
-    callback: lichess.fp.debounce(function() {
+    callback: lichess.debounce(function() {
       userMod($zone);
     }, 300)
   });
@@ -35,7 +35,7 @@ $toggle.click(function() {
   else $zone.addClass('none');
   return false;
 });
-if (location.search.indexOf('mod') === 1) $toggle.click();
+if (location.search.startsWith('?mod')) $toggle.click();
 
 function userMod($zone) {
 

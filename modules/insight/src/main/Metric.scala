@@ -1,6 +1,7 @@
 package lila.insight
 
-import play.twirl.api.Html
+import scalatags.Text.all._
+
 import reactivemongo.bson._
 
 sealed abstract class Metric(
@@ -10,7 +11,7 @@ sealed abstract class Metric(
     val position: Position,
     val per: Position,
     val dataType: Metric.DataType,
-    val description: Html
+    val description: Frag
 )
 
 object Metric {
@@ -30,7 +31,7 @@ object Metric {
   import Entry.{ BSONFields => F }
 
   case object MeanCpl extends Metric("acpl", "Average centipawn loss", F moves "c", Move, Move, Average,
-    Html("""Precision of your moves. Lower is better."""))
+    raw("""Precision of your moves. Lower is better."""))
 
   case object Movetime extends Metric("movetime", "Move time", F moves "t", Move, Move, Seconds,
     Dimension.MovetimeRange.description)
@@ -42,22 +43,22 @@ object Metric {
     Dimension.Termination.description)
 
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", F.ratingDiff, Game, Game, Average,
-    Html("The amount of rating points you win or lose when the game ends."))
+    raw("The amount of rating points you win or lose when the game ends."))
 
   case object OpponentRating extends Metric("opponentRating", "Opponent rating", F.opponentRating, Game, Game, Average,
-    Html("The average rating of your opponent for the relevant variant."))
+    raw("The average rating of your opponent for the relevant variant."))
 
   case object NbMoves extends Metric("nbMoves", "Moves per game", F moves "r", Move, Game, Average,
-    Html("Number of moves you play in the game. Doesn't count the opponent moves."))
+    raw("Number of moves you play in the game. Doesn't count the opponent moves."))
 
   case object PieceRole extends Metric("piece", "Piece moved", F moves "r", Move, Move, Percent,
     Dimension.PieceRole.description)
 
   case object Opportunism extends Metric("opportunism", "Opportunism", F moves "o", Move, Move, Percent,
-    Html("How often you take advantage of your opponent blunders. 100% means you punish them all, 0% means you counter-blunder them all."))
+    raw("How often you take advantage of your opponent blunders. 100% means you punish them all, 0% means you counter-blunder them all."))
 
   case object Luck extends Metric("luck", "Luck", F moves "l", Move, Move, Percent,
-    Html("How often your opponent fails to punish your blunders. 100% means they miss all your blunders, 0% means they spot them all."))
+    raw("How often your opponent fails to punish your blunders. 100% means they miss all your blunders, 0% means they spot them all."))
 
   case object Material extends Metric("material", "Material imbalance", F moves "i", Move, Move, Average,
     Dimension.MaterialRange.description)

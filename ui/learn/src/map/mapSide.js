@@ -4,7 +4,7 @@ var stages = require('../stage/list');
 var scoring = require('../score');
 
 function renderInStage(ctrl) {
-  return m('div.map', [
+  return m('div.learn__side-map', [
     m('div.stages', [
       m('a.back', {
         href: '/',
@@ -36,7 +36,7 @@ function renderInStage(ctrl) {
                 m('img', {
                   src: s.image
                 }),
-                m('h3', ctrl.trans.noarg(s.title))
+                m('span', ctrl.trans.noarg(s.title))
               ]);
             }))
         ]);
@@ -47,7 +47,7 @@ function renderInStage(ctrl) {
 
 function renderHome(ctrl) {
   var progress = ctrl.progress();
-  return m('div.home', [
+  return m('div.learn__side-home', [
     m('i.fat'),
     m('h1', ctrl.trans.noarg('learnChess')),
     m('h2', ctrl.trans.noarg('byPlaying')),

@@ -7,7 +7,7 @@ import { StudyCtrl } from './interfaces';
 function authorDom(author) {
   if (!author) return 'Unknown';
   if (!author.name) return author;
-  return h('span.user_link.ulpt', {
+  return h('span.user-link.ulpt', {
     attrs: { 'data-href': '/@/' + author.id }
   }, author.name);
 }
@@ -25,12 +25,12 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
   chapter = study.currentChapter(),
   comments = node.comments!;
   if (!comments.length) return;
-  return h('div.study_comments', comments.map((comment: Tree.Comment) => {
+  return h('div', comments.map((comment: Tree.Comment) => {
     const by: any = comment.by;
     const isMine = by.id && ctrl.opts.userId === by.id;
     if (!includingMine && isMine) return;
     const canDelete = isMine || study.members.isOwner();
-    return h('div.comment.' + comment.id, [
+    return h('div.study__comment.' + comment.id, [
       canDelete && study.vm.mode.write ? h('a.edit', {
         attrs: {
           'data-icon': 'q',
@@ -47,7 +47,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
           title: 'Edit'
         },
         hook: bind('click', _ => {
-          study.commentForm.open(chapter.id, ctrl.path, node);
+          study.commentForm.start(chapter.id, ctrl.path, node);
         }, ctrl.redraw)
       }) : null,
       authorDom(by),

@@ -7,6 +7,7 @@ import lila.common.{ IpAddress, EmailAddress, HTTPRequest }
 import lila.report.{ Suspect, Mod => AsMod, SuspectId }
 import lila.security.Permission
 import lila.user.{ UserRepo, User => UserModel, Title }
+import lila.mod.UserSearch
 import ornicar.scalalib.Zero
 import views._
 
@@ -236,11 +237,16 @@ object Mod extends LilaController {
 
   def search = SecureBody(_.UserSearch) { implicit ctx => me =>
     implicit def req = ctx.body
-    val f = lila.mod.UserSearch.form
+    val f = UserSearch.form
     f.bindFromRequest.fold(
       err => BadRequest(html.mod.search(err, Nil)).fuccess,
       query => Env.mod.search(query) map { html.mod.search(f.fill(query), _) }
     )
+  }
+
+  protected[controllers] def searchTerm(q: String)(implicit ctx: Context) = {
+    val query = UserSearch exact q
+    Env.mod.search(query) map { users => Ok(html.mod.search(UserSearch.form fill query, users)) }
   }
 
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>
@@ -267,7 +273,7 @@ object Mod extends LilaController {
       )).bindFromRequest.fold(
         err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
-          modApi.setPermissions(me.id, user.username, Permission(permissions)) >> {
+          modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
             (Permission(permissions) diff Permission(user.roles) contains Permission.Coach) ??
               Env.security.automaticEmail.onBecomeCoach(user)
           } >> {
@@ -285,7 +291,7 @@ object Mod extends LilaController {
         val email = query.headOption.map(EmailAddress.apply) flatMap Env.security.emailAddressValidator.validate
         val username = query lift 1
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          Env.mod.search(lila.mod.UserSearch.exact(q)) flatMap {
+          Env.mod.search(UserSearch.exact(q)) flatMap {
             case List(UserModel.WithEmails(user, _)) => (!user.everLoggedIn).?? {
               lila.mon.user.register.modConfirmEmail()
               modApi.setEmail(me.id, user.id, setEmail)

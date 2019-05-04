@@ -1,0 +1,16 @@
+.search {
+
+  &__results {
+    margin-top: 1em;
+    .post {
+      display: block;
+      font-size: 1.2em;
+    }
+    p {
+      margin: 0;
+    }
+    .info {
+      white-space: nowrap;
+    }
+  }
+}

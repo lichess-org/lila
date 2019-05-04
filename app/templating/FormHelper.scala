@@ -2,33 +2,29 @@ package lila.app
 package templating
 
 import play.api.data._
-import play.twirl.api.Html
 
 import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.I18nDb
 
 trait FormHelper { self: I18nHelper =>
 
-  def errMsg(form: Field)(implicit ctx: Context): Html = errMsg(form.errors)
+  def errMsg(form: Field)(implicit ctx: Context): Frag = errMsg(form.errors)
 
-  def errMsg(form: Form[_])(implicit ctx: Context): Html = errMsg(form.errors)
+  def errMsg(form: Form[_])(implicit ctx: Context): Frag = errMsg(form.errors)
 
-  def errMsg(error: FormError)(implicit ctx: Context): Html = Html {
-    s"""<p class="error">${transKey(error.message, I18nDb.Site, error.args)}</p>"""
-  }
+  def errMsg(error: FormError)(implicit ctx: Context): Frag =
+    p(cls := "error")(transKey(error.message, I18nDb.Site, error.args))
 
-  def errMsg(errors: Seq[FormError])(implicit ctx: Context): Html = Html {
+  def errMsg(errors: Seq[FormError])(implicit ctx: Context): Frag =
     errors map errMsg mkString
-  }
 
-  def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
+  def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
     form.globalError map errMsg
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
-  object form3 extends ui.ScalatagsPlay {
-
-    import ui.ScalatagsTemplate._
+  object form3 {
 
     private val idPrefix = "form3"
 
@@ -47,20 +43,14 @@ trait FormHelper { self: I18nHelper =>
          * such as `optional(nonEmptyText)`.
          * And we can't tell from the Field whether it's optional or not :(
          */
-      // case ("constraint.required", _) => required := true
+      // case ("constraint.required", _) => required
       case ("constraint.minLength", Seq(m: Int)) => minlength := m
       case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
       case ("constraint.min", Seq(m: Int)) => min := m
       case ("constraint.max", Seq(m: Int)) => max := m
     }
 
-    /* All public methods must return HTML
-     * because twirl just calls toString on scalatags frags
-     * and that escapes the content :( */
-
-    def split(html: Html): Html = div(cls := "form-split")(html)
-
-    def split(frags: Frag*): Html = div(cls := "form-split")(frags)
+    val split = div(cls := "form-split")
 
     def group(
       field: Field,
@@ -68,30 +58,26 @@ trait FormHelper { self: I18nHelper =>
       klass: String = "",
       half: Boolean = false,
       help: Option[Frag] = None
-    )(content: Field => Frag)(implicit ctx: Context): Html =
-      div(cls := List(
-        "form-group" -> true,
-        "is-invalid" -> field.hasErrors,
-        "form-half" -> half,
-        klass -> klass.nonEmpty
-      ))(
-        groupLabel(field)(labelContent),
-        content(field),
-        errors(field),
-        help map { helper(_) }
-      )
+    )(content: Field => Frag)(implicit ctx: Context): Frag = div(cls := List(
+      "form-group" -> true,
+      "is-invalid" -> field.hasErrors,
+      "form-half" -> half,
+      klass -> klass.nonEmpty
+    ))(
+      groupLabel(field)(labelContent),
+      content(field),
+      errors(field),
+      help map { helper(_) }
+    )
 
     def input(field: Field, typ: String = "", klass: String = ""): BaseTagType =
       st.input(
         st.id := id(field),
         name := field.name,
         value := field.value,
-        `type` := typ.nonEmpty.option(typ),
+        tpe := typ.nonEmpty.option(typ),
         cls := List("form-control" -> true, klass -> klass.nonEmpty)
       )(validationModifiers(field))
-
-    def inputHtml(field: Field, typ: String = "", klass: String = "")(modifiers: Modifier*): Html =
-      input(field, typ, klass)(modifiers)
 
     def checkbox(
       field: Field,
@@ -99,63 +85,57 @@ trait FormHelper { self: I18nHelper =>
       half: Boolean = false,
       help: Option[Frag] = None,
       disabled: Boolean = false
-    ): Html =
-      div(cls := List(
-        "form-check form-group" -> true,
-        "form-half" -> half
-      ))(
-        div(
-          span(cls := "form-check-input")(
-            st.input(
-              st.id := id(field),
-              name := field.name,
-              value := "true",
-              `type` := "checkbox",
-              cls := "form-control cmn-toggle",
-              checked := field.value.has("true").option(true),
-              st.disabled := disabled.option(true)
-            ),
-            label(`for` := id(field))
+    ): Frag = div(cls := List(
+      "form-check form-group" -> true,
+      "form-half" -> half
+    ))(
+      div(
+        span(cls := "form-check-input")(
+          st.input(
+            st.id := id(field),
+            name := field.name,
+            value := "true",
+            tpe := "checkbox",
+            cls := "form-control cmn-toggle",
+            field.value.has("true") option checked,
+            disabled option st.disabled
           ),
-          groupLabel(field)(labelContent)
+          label(`for` := id(field))
         ),
-        help map { helper(_) }
-      )
+        groupLabel(field)(labelContent)
+      ),
+      help map { helper(_) }
+    )
 
     def select(
       field: Field,
       options: Iterable[(Any, String)],
       default: Option[String] = None
-    ): Html =
-      st.select(
-        st.id := id(field),
-        name := field.name,
-        cls := "form-control"
-      )(validationModifiers(field))(
-          default map { option(value := "")(_) },
-          options.toSeq map {
-            case (value, name) => option(
-              st.value := value.toString,
-              selected := field.value.has(value.toString).option(true)
-            )(name)
-          }
-        )
+    ): Frag = st.select(
+      st.id := id(field),
+      name := field.name,
+      cls := "form-control"
+    )(validationModifiers(field))(
+        default map { option(value := "")(_) },
+        options.toSeq map {
+          case (value, name) => option(
+            st.value := value.toString,
+            field.value.has(value.toString) option selected
+          )(name)
+        }
+      )
 
     def textarea(
       field: Field,
       klass: String = ""
-    )(modifiers: Modifier*): Html =
-      st.textarea(
-        st.id := id(field),
-        name := field.name,
-        cls := List("form-control" -> true, klass -> klass.nonEmpty)
-      )(validationModifiers(field))(modifiers)(~field.value)
+    )(modifiers: Modifier*): Frag = st.textarea(
+      st.id := id(field),
+      name := field.name,
+      cls := List("form-control" -> true, klass -> klass.nonEmpty)
+    )(validationModifiers(field))(modifiers)(~field.value)
 
     val actions = div(cls := "form-actions")
-    def actionsHtml(html: Frag): Html = actions(html)
-
     val action = div(cls := "form-actions single")
-    def actionHtml(html: Frag): Html = div(cls := "form-actions single")(html)
 
     def submit(
       content: Frag,
@@ -163,8 +143,8 @@ trait FormHelper { self: I18nHelper =>
       nameValue: Option[(String, String)] = None,
       klass: String = "",
       confirm: Option[String] = None
-    ): Html = button(
-      `type` := "submit",
+    ): Frag = button(
+      tpe := "submit",
       dataIcon := icon,
       name := nameValue.map(_._1),
       value := nameValue.map(_._2),
@@ -177,34 +157,33 @@ trait FormHelper { self: I18nHelper =>
       title := confirm
     )(content)
 
-    def hidden(field: Field, value: Option[String] = None): Html =
-      st.input(
-        st.id := id(field),
-        name := field.name,
-        st.value := value.orElse(field.value),
-        `type` := "hidden"
-      )
+    def hidden(field: Field, value: Option[String] = None): Frag = st.input(
+      st.id := id(field),
+      name := field.name,
+      st.value := value.orElse(field.value),
+      tpe := "hidden"
+    )
 
-    def password(field: Field, content: Html)(implicit ctx: Context): Frag =
-      group(field, content)(input(_, typ = "password")(required := true))
+    def password(field: Field, content: Frag)(implicit ctx: Context): Frag =
+      group(field, content)(input(_, typ = "password")(required))
 
-    def passwordNoAutocomplete(field: Field, content: Html)(implicit ctx: Context): Frag =
-      group(field, content)(input(_, typ = "password")(autocomplete := "off")(required := true))
+    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
+      group(field, content)(input(_, typ = "password")(required)(modifiers))
 
-    def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
+    def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))
       }
 
-    def flatpickr(field: Field, withTime: Boolean = true): Html =
+    def flatpickr(field: Field, withTime: Boolean = true): Frag =
       input(field, klass = "flatpickr")(
         dataEnableTime := withTime,
         datatime24h := withTime
       )
 
     object file {
-      def image(name: String): Html = st.input(`type` := "file", st.name := name, accept := "image/*")
-      def pgn(name: String): Html = st.input(`type` := "file", st.name := name, accept := ".pgn")
+      def image(name: String): Frag = st.input(tpe := "file", st.name := name, accept := "image/*")
+      def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
     }
   }
 }

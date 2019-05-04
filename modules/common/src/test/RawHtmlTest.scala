@@ -1,7 +1,7 @@
 package lila.base
 
 import org.specs2.mutable.Specification
-import play.twirl.api.Html
+// import scalatags.Text.all._
 
 import RawHtml._
 

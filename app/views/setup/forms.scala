@@ -2,7 +2,6 @@ package views.html.setup
 
 import play.api.data.Form
 import play.api.mvc.Call
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -20,7 +19,7 @@ object forms {
   def hook(form: Form[_])(implicit ctx: Context) = layout(
     form,
     "hook",
-    trans.createAGame.frag(),
+    trans.createAGame(),
     routes.Setup.hook("uid-placeholder")
   ) {
       frag(
@@ -31,11 +30,11 @@ object forms {
             renderRadios(form("mode"), translatedModeChoices)
           ),
           ctx.noBlind option div(cls := "optional_config")(
-            div(cls := "rating_range_config slider")(
-              trans.ratingRange.frag(),
+            div(cls := "rating-range-config slider")(
+              trans.ratingRange(),
               ": ",
               span(cls := "range")("? - ?"),
-              div(cls := "rating_range")(
+              div(cls := "rating-range")(
                 renderInput(form("ratingRange"))(
                   dataMin := RatingRange.min,
                   dataMax := RatingRange.max
@@ -48,25 +47,26 @@ object forms {
     }
 
   def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context) =
-    layout(form, "ai", trans.playWithTheMachine.frag(), routes.Setup.ai) {
+    layout(form, "ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), true, validFen),
         renderTimeMode(form, lila.setup.AiConfig),
         if (ctx.blind) frag(
-          renderLabel(form("level"), trans.level.frag()),
+          renderLabel(form("level"), trans.level()),
           renderSelect(form("level"), lila.setup.AiConfig.levelChoices),
           blindSideChoice(form)
         )
         else frag(
-          trans.level.frag(),
+          br,
+          trans.level(),
           div(cls := "level buttons")(
             div(id := "config_level")(
               renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
             ),
             div(cls := "ai_info")(
               ratings.toList.map {
-                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel.frag("A.I.", level))
+                case (level, rating) => div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
               }
             )
           )
@@ -85,7 +85,7 @@ object forms {
       "friend",
       (if (user.isDefined) trans.challengeToPlay else trans.playWithAFriend)(),
       routes.Setup.friend(user map (_.id)),
-      error.map(e => Html(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
+      error.map(e => raw(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
     )(frag(
         user.map { u =>
           userLink(u, cssClass = "target".some)
@@ -101,59 +101,56 @@ object forms {
 
   private def blindSideChoice(form: Form[_])(implicit ctx: Context) =
     ctx.blind option frag(
-      renderLabel(form("color"), trans.side.frag()),
+      renderLabel(form("color"), trans.side()),
       renderSelect(form("color").copy(value = "random".some), translatedSideChoices)
     )
 
   private def layout(
     form: Form[_],
     typ: String,
-    title: Frag,
+    titleF: Frag,
     route: Call,
     error: Option[Frag] = None
   )(fields: Frag)(implicit ctx: Context) =
-    div(
-      cls := s"""lichess_overboard game_config${error.isDefined ?? " error"}""",
-      dataRandomColorVariants,
-      dataType := typ,
-      dataAnon := ctx.isAnon.option("1")
-    )(
-        a(href := routes.Lobby.home, cls := "close icon", st.title := trans.cancel.txt(), dataIcon := "L"),
-        h2(title),
-        error.map { e =>
-          frag(
-            p(cls := "error")(e),
-            br,
-            a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
-          )
-        }.getOrElse {
-          st.form(action := route, method := "post", novalidate := true)(
+    div(cls := error.isDefined option "error")(
+      h2(titleF),
+      error.map { e =>
+        frag(
+          p(cls := "error")(e),
+          br,
+          a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
+        )
+      }.getOrElse {
+        st.form(action := route, method := "post", novalidate,
+          dataRandomColorVariants,
+          dataType := typ,
+          dataAnon := ctx.isAnon.option("1"))(
             fields,
             if (ctx.blind) button(tpe := "submit")("Create the game")
-            else div(cls := "color_submits")(
+            else div(cls := "color-submits")(
               translatedSideChoices.map {
                 case (key, name, _) => button(
-                  disabled := typ == "hook" option true,
+                  (typ == "hook") option disabled,
                   tpe := "submit",
-                  dataHint := ctx.noBlind option name,
-                  cls := s"button hint--bottom $key",
+                  title := name,
+                  cls := s"color-submits__button button button-metal $key",
                   st.name := "color",
                   value := key
                 )(i)
               }
             )
           )
-        },
-        ctx.me.ifFalse(ctx.blind).map { me =>
-          div(cls := "ratings")(
-            lila.rating.PerfType.nonPuzzle.map { perfType =>
-              div(cls := perfType.key)(
-                trans.perfRatingX.frag(
-                  Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
-                )
+      },
+      ctx.me.ifFalse(ctx.blind).map { me =>
+        div(cls := "ratings")(
+          lila.rating.PerfType.nonPuzzle.map { perfType =>
+            div(cls := perfType.key)(
+              trans.perfRatingX(
+                raw(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
               )
-            }
-          )
-        }
-      )
+            )
+          }
+        )
+      }
+    )
 }

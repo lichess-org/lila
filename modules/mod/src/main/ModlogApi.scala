@@ -105,8 +105,8 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.chatTimeout, details = reason.some)
   }
 
-  def setPermissions(mod: String, user: String, permissions: List[Permission]) = add {
-    Modlog(mod, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
+  def setPermissions(mod: Mod, user: String, permissions: List[Permission]) = add {
+    Modlog(mod.id.value, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
   }
 
   def reportban(mod: Mod, sus: Suspect, v: Boolean) = add {

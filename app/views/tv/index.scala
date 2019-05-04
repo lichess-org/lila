@@ -1,4 +1,7 @@
-package views.html.tv
+package views.html
+package tv
+
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -19,18 +22,20 @@ object index {
     history: List[lila.game.Pov]
   )(implicit ctx: Context) =
     views.html.round.bits.layout(
+      variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
-      side = side(channel, champions, "/tv", pov.some),
-      underchat = Some(views.html.game.bits.watchers),
       moreJs = frag(
         roundTag,
-        embedJs {
-          val transJs = views.html.round.jsI18n(pov.game)
-          s"""window.customWS = true;
-window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i18n: $transJs }, document.getElementById('lichess')) }"""
-        }
+        embedJsUnsafe(
+          s"""lichess=window.lichess||{};customWS=true;onload=function(){LichessRound.boot(${
+            safeJsonValue(Json.obj(
+              "data" -> data,
+              "i18n" -> views.html.round.jsI18n(pov.game)
+            ))
+          })}"""
+        )
       ),
-      moreCss = cssTag("tv.css"),
+      moreCss = cssTag("tv.single"),
       chessground = false,
       openGraph = lila.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
@@ -38,26 +43,19 @@ window.onload = function() { LichessRound.boot({ data: ${safeJsonValue(data)}, i
         url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
       ).some,
       robots = true
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            views.html.board.bits.domPreload(pov.some),
-            div(cls := "underboard")(
-              div(cls := "center")(
-                cross map { c =>
-                  div(cls := "crosstable")(
-                    views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
-                  )
-                }
+    )(
+        main(cls := "round tv-single")(
+          st.aside(cls := "round__side")(side(channel, champions, "/tv")),
+          views.html.round.bits.roundAppPreload(pov, false),
+          div(cls := "round__underboard")(
+            views.html.round.bits.crosstable(cross, pov.game),
+            div(cls := "tv-history")(
+              h2(trans.previouslyOnLichessTV()),
+              div(cls := "now-playing")(
+                history map views.html.game.bits.mini
               )
             )
-          ),
-          div(cls := "game_list playing tv_history")(
-            h2(trans.previouslyOnLichessTV()),
-            history.map { p =>
-              div(views.html.game.bits.mini(p))
-            }
           )
         )
-      }
+      )
 }

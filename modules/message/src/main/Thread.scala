@@ -41,6 +41,10 @@ case class Thread(
 
   def isTooBig = nbPosts > 200
 
+  def isReplyable = !isTooBig && !isLichess
+
+  def isLichess = creatorId == User.lichessId
+
   def firstPost: Option[Post] = posts.headOption
 
   def firstPostUnreadBy(user: User): Option[Post] = posts find isPostUnreadBy(user)

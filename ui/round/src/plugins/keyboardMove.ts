@@ -4,55 +4,76 @@ import { DecodedDests } from '../interfaces';
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
 const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
-const ambiguousPromotionRegex = /^([a-h]x?)?[a-h](1|8)$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrq]$/;
+
+interface SubmitOpts {
+  force?: boolean;
+  server?: boolean;
+  yourMove?: boolean;
+}
+type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
 window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let sans: any = null;
-  const submit = function(v: string, force?: boolean) {
+
+  const submit: Submit = function(v: string, submitOpts: SubmitOpts) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
       // ambiguous castle
-      if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
+      if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !submitOpts.force) return;
       // ambiguous UCI
-      if (v.match(keyRegex) && opts.hasSelected()) opts.select(v);
+      if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
       // ambiguous promotion (also check sans[v] here because bc8 could mean Bc8)
-      if (v.match(ambiguousPromotionRegex) && sans[v] && !force) return;
-      else opts.san(foundUci.slice(0, 2), foundUci.slice(2));
+      if (v.match(ambiguousPromotionCaptureRegex) && sans[v] && !submitOpts.force) return;
+      else opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
-      opts.select(v);
+      opts.ctrl.select(v);
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
     } else if (sans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v.slice(0, -2), sans);
+      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), sans);
       if (!foundUci) return;
-      opts.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      opts.ctrl.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
       if (v.length === 3) v = 'P' + v;
-      opts.drop(v.slice(2), v[0].toUpperCase());
+      opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
       clear();
-    } else
-      opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
+    } else if (v.toLowerCase().startsWith('clock')) {
+      readClocks(opts.ctrl.clock());
+      clear();
+    } else if (submitOpts.yourMove && v.length > 1) {
+      setTimeout(window.lichess.sound.error, 500);
+      opts.input.value = '';
+    }
+    else {
+      const wrong = v.length && sans && !sanCandidates(v, sans).length;
+      if (wrong && !opts.input.classList.contains('wrong')) window.lichess.sound.error();
+      opts.input.classList.toggle('wrong', wrong);
+    }
   };
   const clear = function() {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: DecodedDests) {
+  return function(fen: string, dests: DecodedDests, yourMove: boolean) {
     sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
-    submit(opts.input.value);
+    submit(opts.input.value, {
+      server: true,
+      yourMove: yourMove
+    });
   };
 }
 
-function makeBindings(opts: any, submit: Function, clear: Function) {
+function makeBindings(opts: any, submit: Submit, clear: Function) {
   window.Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
@@ -63,18 +84,30 @@ function makeBindings(opts: any, submit: Function, clear: Function) {
    */
   opts.input.addEventListener('keyup', function(e: KeyboardEvent) {
     const v = (e.target as HTMLInputElement).value;
-    if (v.indexOf('/') > -1) {
+    if (v.includes('/')) {
       focusChat();
       clear();
     }
-    else if (v === '' && e.which === 13) opts.confirmMove();
-    else submit(v, e.which === 13);
+    else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
+    else submit(v, {
+      force: e.which === 13
+    });
   });
   opts.input.addEventListener('focus', function() {
-    opts.setFocus(true);
+    opts.ctrl.setFocus(true);
   });
   opts.input.addEventListener('blur', function() {
-    opts.setFocus(false);
+    opts.ctrl.setFocus(false);
+  });
+  // prevent default on arrow keys: they only replay moves
+  opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
+    if (e.which > 36 && e.which < 41) {
+      if (e.which == 37) opts.ctrl.jump(-1);
+      else if (e.which == 38) opts.ctrl.jump(-999);
+      else if (e.which == 39) opts.ctrl.jump(1);
+      else  opts.ctrl.jump(999);
+      e.preventDefault();
+    }
   });
 }
 
@@ -89,7 +122,7 @@ function sanToUci(san: string, sans: DecodedDests): Key[] | undefined {
 function sanCandidates(san: string, sans: DecodedDests) {
   const lowered = san.toLowerCase();
   return Object.keys(sans).filter(function(s) {
-    return s.toLowerCase().indexOf(lowered) === 0;
+    return s.toLowerCase().startsWith(lowered);
   });
 }
 
@@ -104,6 +137,23 @@ function destsToUcis(dests: DecodedDests) {
 }
 
 function focusChat() {
-  const chatInput = document.querySelector('.mchat input.lichess_say') as HTMLInputElement;
+  const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;
   if (chatInput) chatInput.focus();
+}
+
+function readClocks(clockCtrl: any | undefined) {
+  if (!clockCtrl) return;
+  const msgs = ['white', 'black'].map(color => {
+    const time = clockCtrl.millisOf(color);
+    const date = new Date(time);
+    const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') + ' ' +
+      simplePlural(date.getUTCMinutes(), 'minute') +  ' ' +
+      simplePlural(date.getUTCSeconds(), 'second');
+    return `${color}: ${msg}`;
+  });
+  window.lichess.sound.say(msgs.join('. '));
+}
+
+function simplePlural(nb: number, word: string) {
+  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }

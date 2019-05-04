@@ -1,112 +1,94 @@
-<div id="browser-upgrade">
+<div id="upgrade">
   <style>
-    #browser-upgrade {
-      position: relative;
-      font-size: 1.2em;
+    #upgrade {
+      font-size: 1.6em;
       width: 100%;
+      text-align: center;
       background: hsl(37, 74%, 48%);
       color: #fff;
+      padding-top: 4em;
     }
-    #browser-upgrade .close {
-      font-family: monospace;
-      font-size: 2em;
-      font-weight: bold;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      color: #fff;
-    }
-    #browser-upgrade article {
-      display: flex;
-      flex-flow: row nowrap;
-      align-items: center;
-      justify-content: center;
-      padding: 1em 0;
-    }
-    #browser-upgrade .diagnostic {
-      margin-right: 2rem;
-      text-align: right;
-    }
-    #browser-upgrade h1 {
+    #upgrade h1 {
       font-size: 2.5em;
       text-transform: uppercase;
     }
-    #browser-upgrade .browsers {
+    #upgrade .browsers {
+      max-width: 1000px;
+      margin: 3em auto 0 auto;
+      height: 300px;
       display: flex;
       flex-flow: row;
     }
-    #browser-upgrade .browser,
-    #browser-upgrade .browser:hover,
-    #browser-upgrade .browser:visited {
-      border-radius: 3px;
-      padding: 1rem;
+    #upgrade .browser,
+    #upgrade .browser:hover,
+    #upgrade .browser:visited {
       flex: 0 0 50%;
       display: flex;
       flex-flow: column;
       justify-content: center;
       align-items: center;
       color: #fff;
+      transition: all 0.15s;
     }
-    #browser-upgrade .browser:hover {
+    #upgrade .browser:hover {
       background: hsl(209, 79%, 53%);
     }
-    #browser-upgrade .browser span {
+    #upgrade .browser span {
       position: relative;
-      width: 80px;
-      height: 80px;
-      margin: 0 auto;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 35px;
       display: block;
       background: url(//lichess1.org/assets/images/browsers-bg.png) no-repeat;
-      background-size: auto 160px;
+      background-size: auto 200px;
     }
-    #browser-upgrade .chrome span {
+    #upgrade .chrome span {
       background-position: 0 0;
     }
-    #browser-upgrade .chrome:hover span {
-      background-position: 0 -80px;
+    #upgrade .chrome:hover span {
+      background-position: 0 -100px;
     }
-    #browser-upgrade .firefox span {
-      background-position: -80px 0;
+    #upgrade .firefox span {
+      background-position: -100px 0;
     }
-    #browser-upgrade .firefox:hover span {
-      background-position: -80px -80px;
+    #upgrade .firefox:hover span {
+      background-position: -100px -100px;
     }
-    #browser-upgrade .footer {
+    #upgrade .footer {
       background: hsl(37, 74%, 38%);
+      margin-top: 2em;
+      font-size: 1rem;
       padding: 1em;
       text-align: right;
     }
-    #browser-upgrade .footer *,
-    #browser-upgrade .footer *:hover,
-    #browser-upgrade .footer *:visited {
+    #upgrade .footer *,
+    #upgrade .footer *:hover,
+    #upgrade .footer *:visited {
       margin-left: 1em;
       color: #fff;
     }
-    #browser-upgrade .footer a {
+    #upgrade .footer a {
       text-decoration: underline;
     }
   </style>
-  <a class="close" title="Close">X</a>
-  <article>
-    <div class="diagnostic">
-      <h1>Outdated browser</h1>
-      <p>You will need a better browser to continue using Lichess.</p>
-      <p>We recommend installing Firefox or Chrome:</p>
-    </div>
-    <div class="browsers">
-      <a class="firefox browser" href="http://www.mozilla.org/firefox/new/">
-        <span></span>
-        FIREFOX
-      </a>
-      <a class="chrome browser" href="https://www.google.com/chrome/browser/desktop/">
-        <span></span>
-        CHROME
-      </a>
-    </div>
-  </article>
+  <h1>Outdated browser</h1>
+  <p>You must get a better browser to continue using Lichess.</p>
+  <div class="browsers">
+    <a class="firefox browser" href="http://www.mozilla.org/firefox/new/">
+      <span></span>
+      FIREFOX
+    </a>
+    <a class="chrome browser" href="https://www.google.com/chrome/browser/desktop/">
+      <span></span>
+      CHROME
+    </a>
+  </div>
   <div class="footer">
     <span>The latest versions of Opera, Safari and Edge also work.</span>
     <span>|</span>
     <a href="https://lichess.org/blog/XLBwfRAAACIAAJJE/lichess-v2-is-coming">Why this change?</a>
   </div>
 </div>
+<script>
+  if (getComputedStyle(document.body).getPropertyValue('--grid')) document.getElementById('upgrade').remove();
+</script>

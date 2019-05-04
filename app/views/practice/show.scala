@@ -1,6 +1,8 @@
 package views.html
 package practice
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -15,24 +17,26 @@ object show {
     data: lila.practice.JsonView.JsData
   )(implicit ctx: Context) = views.html.base.layout(
     title = us.practiceStudy.name,
-    side = div(cls := "side_box study_box").toHtml.some,
-    moreCss = cssTags("analyse.css", "study.css", "practice.css"),
+    moreCss = cssTag("analyse.practice"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lichess = lichess || {}; lichess.practice = {
-practice: ${safeJsonValue(data.practice)},
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-i18n: ${board.userAnalysisI18n()},
-explorer: {
-endpoint: "$explorerEndpoint",
-tablebaseEndpoint: "$tablebaseEndpoint"
-}};""")
+      embedJsUnsafe(s"""lichess=window.lichess||{};lichess.practice=${
+        safeJsonValue(Json.obj(
+          "practice" -> data.practice,
+          "study" -> data.study,
+          "data" -> data.analysis,
+          "i18n" -> board.userAnalysisI18n(),
+          "explorer" -> Json.obj(
+            "endpoint" -> explorerEndpoint,
+            "tablebaseEndpoint" -> tablebaseEndpoint
+          )
+        ))
+      }""")
     ),
     chessground = false,
     zoomable = true
   ) {
-      div(cls := "analyse cg-512")(miniBoardContent)
+      main(cls := "analyse")
     }
 }

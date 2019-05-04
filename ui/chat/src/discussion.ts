@@ -23,7 +23,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
   },
   m = ctrl.moderation();
   const vnodes = [
-    h('ol.messages.content.scroll-shadow-soft' + (m ? '.as-mod' : ''), {
+    h('ol.mchat__messages', {
       attrs: {
         role: 'log',
         'aria-live': 'polite',
@@ -52,7 +52,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
 function renderInput(ctrl: Ctrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-  return h('input.lichess_say', {
+  return h('input.mchat__say', {
     attrs: {
       placeholder: ctrl.trans('loginToChat'),
       disabled: true
@@ -62,7 +62,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
   else if (ctrl.opts.blind) placeholder = 'Chat';
   else placeholder = ctrl.trans.noarg(ctrl.vm.placeholderKey);
-  return h('input.lichess_say', {
+  return h('input.mchat__say', {
     attrs: {
       placeholder,
       autocomplete: 'off',

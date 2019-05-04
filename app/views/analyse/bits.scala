@@ -1,11 +1,9 @@
 package views.html.analyse
 
-import play.twirl.api.Html
-
+import lila.analyse.Advice.Judgement
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.analyse.Advice.Judgement
 
 object bits {
 
@@ -20,18 +18,12 @@ object bits {
 
   def layout(
     title: String,
-    side: Option[Frag] = None,
-    chat: Option[Frag] = None,
-    underchat: Option[Frag] = None,
-    moreCss: Html = emptyHtml,
-    moreJs: Html = emptyHtml,
+    moreCss: Frag = emptyFrag,
+    moreJs: Frag = emptyFrag,
     openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Html)(implicit ctx: Context): Frag =
+  )(body: Frag)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
-      side = side.map(_.toHtml),
-      chat = chat,
-      underchat = underchat,
       moreCss = moreCss,
       moreJs = moreJs,
       openGraph = openGraph,

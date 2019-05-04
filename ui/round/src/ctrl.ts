@@ -2,10 +2,12 @@ import * as round from './round';
 import * as game from 'game';
 import * as status from 'game/status';
 import * as ground from './ground';
+import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
+import * as speech from './speech';
 import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
@@ -100,7 +102,7 @@ export default class RoundController {
 
     this.setQuietMode();
 
-    this.moveOn = new MoveOn(this, 'lichess.move_on');
+    this.moveOn = new MoveOn(this, 'move-on');
 
     this.trans = li.trans(opts.i18n);
 
@@ -120,6 +122,16 @@ export default class RoundController {
         });
       if (this.music && set !== 'music') this.music = undefined;
     });
+
+    li.pubsub.on('zen', () => {
+      if (this.isPlaying()) {
+        const zen = !$('body').hasClass('zen');
+        $('body').toggleClass('zen', zen);
+        li.dispatchEvent(window, 'resize');
+        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+      }
+    });
+
     if (li.ab && this.isPlaying()) li.ab.init(this);
   }
 
@@ -181,18 +193,19 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.chessground.selectSquare(null);
-    if (!this.jump(ply)) this.redraw();
+    if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
+    else this.redraw();
   };
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
-    if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
+    ply = Math.max(round.firstPly(this.data), Math.min(round.lastPly(this.data), ply));
     const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = round.plyStep(this.data, ply),
+    const s = this.stepAt(ply),
       config: CgConfig = {
         fen: s.fen,
         lastMove: util.uci2move(s.uci),
@@ -206,7 +219,7 @@ export default class RoundController {
     }
     this.chessground.set(config);
     if (s.san && isForwardStep) {
-      if (s.san.indexOf('x') !== -1) sound.capture();
+      if (s.san.includes('x')) sound.capture();
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
     }
@@ -299,7 +312,7 @@ export default class RoundController {
 
   showYourMoveNotification = () => {
     const d = this.data;
-    if (game.isPlayerTurn(d)) li.desktopNotification(() => {
+    if (game.isPlayerTurn(d)) notify(() => {
       let txt = this.trans('yourTurn'),
         opponent = renderUser.userTxt(this, d.opponent);
       if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
@@ -311,7 +324,7 @@ export default class RoundController {
       }
       return txt;
     });
-    else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
+    else if (this.isPlaying() && this.ply < 1) notify(() => {
       return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
     });
   };
@@ -407,11 +420,11 @@ export default class RoundController {
       else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
-    if (playing && playedColor === d.player.color) {
+    if (playing && playedColor == d.player.color) {
       this.moveOn.next();
       cevalSub.publish(d, o);
     }
-    if (!this.replaying() && playedColor !== d.player.color) {
+    if (!this.replaying() && playedColor != d.player.color) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
@@ -425,8 +438,9 @@ export default class RoundController {
     }
     this.autoScroll();
     this.onChange();
-    if (this.keyboardMove) this.keyboardMove.update(step);
+    if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
+    speech.step(step);
   };
 
   private playPredrop = () => {
@@ -483,6 +497,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     if (d.tv) setTimeout(li.reload, 10000);
+    speech.status(this);
   };
 
   challengeRematch = (): void => {
@@ -499,7 +514,7 @@ export default class RoundController {
             steps: [{
               title: "Challenged to a rematch",
               content: 'Your opponent is offline, but they can accept this challenge later!',
-              target: "#challenge_app",
+              target: "#challenge-app",
               placement: "bottom"
             }]
           });
@@ -610,12 +625,6 @@ export default class RoundController {
     this.dropToSubmit = undefined;
   };
 
-  forecastInfo = (): boolean => {
-    const d = this.data;
-    return this.isPlaying() && d.correspondence && !d.opponent.ai &&
-      !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
-  }
-
   private onChange = () => {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
@@ -656,17 +665,13 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove)
-      this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
+      li.raf(this.redraw);
+    }
   };
 
-  toggleZen = () => {
-    if (this.isPlaying()) {
-      const zen = !$('body').hasClass('zen');
-      $('body').toggleClass('zen', zen);
-      $.post('/pref/zen', { zen: zen ? 1 : 0 });
-    }
-  }
+  stepAt = (ply: Ply) => round.plyStep(this.data, ply);
 
   private delayedInit = () => {
     const d = this.data;
@@ -687,7 +692,6 @@ export default class RoundController {
             !d.clock ||
             d.opponent.ai ||
             this.isSimulHost()) return;
-          document.body.classList.remove('fpmenu');
           this.socket.send('bye2');
           const msg = 'There is a game in progress!';
           (e || window.event).returnValue = msg;
@@ -706,8 +710,9 @@ export default class RoundController {
 
       if (!this.nvui) keyboard.init(this);
 
-      this.onChange();
+      speech.setup(this);
 
+      this.onChange();
     });
   };
 }

@@ -1,13 +1,13 @@
 $(function() {
 
-  $("div.user_show .note_zone_toggle").each(function() {
+  $(".user-show .note-zone-toggle").each(function() {
     $(this).click(function() {
-      $("div.user_show .note_zone").toggle();
+      $(".user-show .note-zone").toggle();
     });
-    if (location.search.indexOf('note') != -1) $(this).click();
+    if (location.search.includes('note')) $(this).click();
   });
 
-  $("div.user_show .claim_title_zone").each(function() {
+  $(".user-show .claim_title_zone").each(function() {
     var $zone = $(this);
     $zone.find('.actions a').click(function() {
       $.post($(this).attr('href'));
@@ -35,28 +35,26 @@ $(function() {
       });
     });
 
-    $('.content_box_inter.angles').each(function() {
+    $('.user-show .angles').each(function() {
       var $angles = $(this),
-      $content = $('.angle_content');
+      $content = $('.angle-content');
       function browseTo(path) {
-        $('.angle_content .infinitescroll').infinitescroll('destroy');
+        $('.angle-content .infinitescroll').infinitescroll('destroy');
         $.get(path).then(function(html) {
           $content.html(html);
           lichess.pubsub.emit('content_loaded')();
           history.replaceState({}, '', path);
-          lichess.loadInfiniteScroll('.angle_content .infinitescroll');
+          lichess.loadInfiniteScroll('.angle-content .infinitescroll');
         });
       }
       $angles.on('click', 'a', function() {
         $angles.find('.active').removeClass('active');
         $(this).addClass('active');
         browseTo($(this).attr('href'));
-        if ($(this).data('tab') === 'activity') lichess.loadCss('stylesheets/activity.css');
         return false;
       });
-      $('.user_show').on('click', '#games a', function() {
-        if ($('#games .to_search').hasClass('active') || $(this).hasClass('to_search')) return true;
-        $filters = $(this).parent();
+      $('.user-show').on('click', '#games a', function() {
+        if ($('#games .to-search').hasClass('active') || $(this).hasClass('to-search')) return true;
         $(this).addClass('active');
         browseTo($(this).attr('href'));
         return false;

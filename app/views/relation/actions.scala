@@ -8,6 +8,8 @@ import controllers.routes
 
 object actions {
 
+  private val dataHoverText = data("hover-text")
+
   def apply(
     userId: lila.user.User.ID,
     relation: Option[lila.relation.Relation],
@@ -15,40 +17,52 @@ object actions {
     blocked: Boolean,
     signup: Boolean = false
   )(implicit ctx: Context) =
-    div(cls := "relation_actions")(
+    div(cls := "relation-actions btn-rack")(
       ctx.userId map { myId =>
         (myId != userId) ?? frag(
           !blocked option frag(
-            a(dataHint := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=$userId#friend", cls := "icon button hint--bottom")(
-              iconTag("U")
+            a(
+              title := trans.challengeToPlay.txt(),
+              href := s"${routes.Lobby.home()}?user=$userId#friend",
+              cls := "btn-rack__btn",
+              dataIcon := "U"
             ),
-            a(dataHint := trans.composeMessage.txt(), href := s"${routes.Message.form()}?user=$userId", cls := "icon button hint--bottom")(
-              iconTag("c")
+            a(
+              title := trans.composeMessage.txt(),
+              href := s"${routes.Message.form()}?user=$userId",
+              cls := "btn-rack__btn",
+              dataIcon := "c"
             )
           ),
           relation match {
             case None => frag(
               followable && !blocked option a(
-                cls := "icon button relation hint--bottom",
+                cls := "btn-rack__btn relation-button",
                 href := routes.Relation.follow(userId),
-                dataHint := trans.follow.txt()
-              )(iconTag("h")),
+                title := trans.follow.txt(),
+                dataIcon := "h"
+              ),
               a(
-                cls := "icon button relation hint--bottom",
+                cls := "btn-rack__btn relation-button",
                 href := routes.Relation.block(userId),
-                dataHint := trans.block.txt()
-              )(iconTag("k"))
+                title := trans.block.txt(),
+                dataIcon := "k"
+              )
             )
-            case Some(true) =>
-              a(cls := "button relation hover_text", href := routes.Relation.unfollow(userId))(
-                iconTag("h")(cls := "base text")(trans.following()),
-                iconTag("h")(cls := "hover text")(trans.unfollow())
-              )
-            case Some(false) =>
-              a(cls := "button relation hover_text", href := routes.Relation.unblock(userId))(
-                iconTag("k")(cls := "base text")(trans.blocked()),
-                iconTag("k")(cls := "hover text")(trans.unblock())
-              )
+            case Some(true) => a(
+              dataIcon := "h",
+              cls := "btn-rack__btn relation-button text hover-text",
+              href := routes.Relation.unfollow(userId),
+              st.title := trans.following.txt(),
+              dataHoverText := trans.unfollow.txt()
+            )
+            case Some(false) => a(
+              dataIcon := "k",
+              cls := "btn-rack__btn relation-button text hover-text",
+              href := routes.Relation.unblock(userId),
+              st.title := trans.blocked.txt(),
+              dataHoverText := trans.unblock.txt()
+            )
           }
         )
       } getOrElse {

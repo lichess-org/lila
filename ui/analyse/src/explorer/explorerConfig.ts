@@ -7,6 +7,7 @@ import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
+const allRatings = [1600, 1800, 2000, 2200, 2500];
 
 export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigCtrl {
 
@@ -24,8 +25,8 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
       }
     },
     rating: {
-      available: [1600, 1800, 2000, 2200, 2500],
-      selected: storedJsonProp('explorer.rating', [1600, 1800, 2000, 2200, 2500])
+      available: allRatings,
+      selected: storedJsonProp('explorer.rating', allRatings)
     },
     speed: {
       available: allSpeeds,
@@ -34,7 +35,7 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
   };
 
   const toggleMany = function(c, value) {
-    if (c().indexOf(value) === -1) c(c().concat([value]));
+    if (!c().includes(value)) c(c().concat([value]));
     else if (c().length > 1) c(c().filter(v => v !== value));
   };
 
@@ -74,14 +75,14 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
     ]),
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
-      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2018'))
+      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2019'))
     ]) : h('div', [
       h('section.rating', [
         h('label', ctrl.trans.noarg('averageElo')),
         h('div.choices',
           d.rating.available.map(function(r) {
             return h('span', {
-              class: { selected: d.rating.selected().indexOf(r) > -1 },
+              class: { selected: d.rating.selected().includes(r) },
               hook: bind('click', _ => ctrl.toggleRating(r), ctrl.redraw)
             }, r.toString());
           })
@@ -92,7 +93,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
         h('div.choices',
           d.speed.available.map(function(s) {
             return h('span', {
-              class: { selected: d.speed.selected().indexOf(s) > -1 },
+              class: { selected: d.speed.selected().includes(s) },
               hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw)
             }, s);
           })
@@ -100,7 +101,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       ])
     ]),
     h('section.save',
-      h('button.button.text', {
+      h('button.button.button-green.text', {
         attrs: dataIcon('E'),
         hook: bind('click', ctrl.toggleOpen)
       }, ctrl.trans.noarg('allSet'))

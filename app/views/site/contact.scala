@@ -90,7 +90,7 @@ object contact {
         )),
         reopenLeaf("login"),
         Leaf("dns", "\"This site can’t be reached\"", frag(
-          p("If you can't reach lichess, and your browser says something like:"),
+          p("If you can't reach Lichess, and your browser says something like:"),
           ul(
             li("This site can't be reached."),
             li(strong("lichess.org"), "’s server IP address could not be found."),
@@ -105,9 +105,9 @@ object contact {
         ))
       )),
       Branch("account", "I need account support", List(
-        Leaf("title", "I want my title displayed on lichess", frag(
+        Leaf("title", "I want my title displayed on Lichess", frag(
           p(
-            "To show your title on your lichess profile, and participate to Titled Arenas, ",
+            "To show your title on your Lichess profile, and participate to Titled Arenas, ",
             a(href := routes.Page.master)(
               "visit the title confirmation page"
             ),
@@ -205,7 +205,7 @@ object contact {
         Leaf("appeal-cheat", "Engine or cheat mark", frag(
           p(s"If you have been marked as an engine, you may send an appeal to $contactEmail."),
           p(
-            "False positives do happen sometimes, and we're sorry about that.",
+            "False positives do happen sometimes, and we're sorry about that.", br,
             "If your appeal is legit, we will lift the ban ASAP."
           ),
           p(
@@ -219,27 +219,27 @@ object contact {
         Leaf("appeal-other", "None of the above", frag(
           p(s"You may send an appeal to $contactEmail."),
           p(
-            "False positives do happen sometimes, and we're sorry about that.",
+            "False positives do happen sometimes, and we're sorry about that.", br,
             "If your appeal is legit, we will lift the ban or restriction ASAP."
           )
         ))
       )),
       Branch("collab", "Collaboration, legal, commercial", List(
-        Leaf("monetize", "Monetizing lichess", frag(
-          p("We are not interested in any way of monetizing lichess."),
+        Leaf("monetize", "Monetizing Lichess", frag(
+          p("We are not interested in any way of monetizing Lichess."),
           p("We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."),
           p("Please do not email us about marketing, tracking, or advertising.")
         )),
-        Leaf("buy", "Buying lichess", frag(
+        Leaf("buy", "Buying Lichess", frag(
           p("We are not selling, to anyone, for any price. Ever.")
         )),
-        Leaf("authorize", "Authorization to use lichess", frag(
-          p("You are welcome to use lichess for your activity, even commercial."),
-          p("You can show it in your videos, and you can print screenshots of lichess in your books."),
+        Leaf("authorize", "Authorization to use Lichess", frag(
+          p("You are welcome to use Lichess for your activity, even commercial."),
+          p("You can show it in your videos, and you can print screenshots of Lichess in your books."),
           p("Credit is appreciated but not required.")
         )),
         Leaf("gdpr", "GDPR", frag(
-          p("If you are a European citizen, you may request the deletion of your lichess account."),
+          p("If you are a European citizen, you may request the deletion of your Lichess account."),
           p(
             "First, ",
             a(href := routes.Account.close)("close your account"),
@@ -251,8 +251,8 @@ object contact {
         Leaf("contact-other", "None of the above", frag(
           p(s"Please send us an email at $contactEmail."),
           p(
-            "Please explain your request clearly and thoroughly.",
-            "State your lichess username, and any information that could help us help you."
+            "Please explain your request clearly and thoroughly. ",
+            "State your Lichess username, and any information that could help us help you."
           )
         ))
       ))
@@ -289,14 +289,13 @@ object contact {
   def apply()(implicit ctx: Context) = help.layout(
     title = "Contact",
     active = "contact",
-    moreCss = cssTags("contact.css"),
-    moreJs = embedJs("""location=location.hash||"#help-root"""")
-  )(
-      div(cls := "content_box small_box")(
-        h1(cls := "lichess_title")("Contact lichess"),
-        div(cls := "contact")(
-          renderedMenu
-        )
+    moreCss = cssTag("contact"),
+    moreJs = embedJsUnsafe("""location=location.hash||"#help-root""""),
+    contentCls = "page box box-pad"
+  )(frag(
+      h1("Contact Lichess"),
+      div(cls := "contact")(
+        renderedMenu
       )
-    )
+    ))
 }

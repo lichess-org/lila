@@ -2,7 +2,7 @@ package views.html.board
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.common.String.html.safeJsonValue
+import lila.common.Lang
 import lila.i18n.{ I18nKeys => trans }
 
 object userAnalysisI18n {
@@ -11,7 +11,7 @@ object userAnalysisI18n {
     withCeval: Boolean = true,
     withExplorer: Boolean = true,
     withForecast: Boolean = false
-  )(implicit ctx: Context) = safeJsonValue(i18nJsObject(
+  )(implicit lang: Lang) = i18nJsObject(
     baseTranslations ++ {
       withCeval ?? cevalTranslations
     } ++ {
@@ -19,7 +19,7 @@ object userAnalysisI18n {
     } ++ {
       withForecast ?? forecastTranslations
     }
-  ))
+  )
 
   private val baseTranslations = Vector(
     trans.analysis,

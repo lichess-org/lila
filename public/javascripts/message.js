@@ -1,5 +1,5 @@
 $(function() {
-  $root = $('#lichess_message');
+  $root = $('.message-list');
   $root.find('select.select').change(function() {
     $root.find('input[name=threads]').prop('checked', false);
     switch ($(this).val()) {
@@ -19,6 +19,7 @@ $(function() {
   });
   $root.find('select.action').change(function() {
     var action = $(this).val();
+    if (!action) return;
     var ids = [];
     $root.find('input[name=threads]:checked').each(function() {
       return ids.push(this.value);
@@ -34,15 +35,16 @@ $(function() {
   var presets = window.lichess_mod_presets;
   if (presets) {
 
-    var toggle = $root.find('input[name=mod]');
-    var select = $root.find('select[name=preset]');
+    var toggle = $('#form3-mod');
+    var select = $('#form3-preset');
+    select.append('<option></option>');
     presets.forEach(function(p, i) {
       select.append('<option value=' + i + '>' + p[0] + '</option>');
     });
     select.on('change', function() {
       var p = presets[$(this).val()] || ['', ''];
-      $root.find('input[name=subject]').val(p[0]);
-      $root.find('textarea[name=text]').val(p[1]);
+      $('#form3-subject').val(p[0]);
+      $('#form3-text').val(p[1]);
     });
 
     var toggleSelect = function() {

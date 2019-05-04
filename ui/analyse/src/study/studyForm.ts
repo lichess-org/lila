@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import * as dialog from './dialog';
+import * as modal from '../modal';
 import { prop, Prop } from 'common';
-import { bind, bindSubmit } from '../util';
+import { bind, bindSubmit, emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
@@ -44,18 +44,17 @@ const userSelectionChoices: Choice[] = [
 
 function select(s: Select): MaybeVNodes {
   return [
-    h('select#study-' + s.key, s.choices.map(function(o) {
+    h('label.form-label', {
+      attrs: { for: 'study-' + s.key }
+    }, s.name),
+    h(`select#study-${s.key}.form-control`, s.choices.map(function(o) {
       return h('option', {
         attrs: {
           value: o[0],
           selected: s.selected === o[0]
         }
       }, o[1]);
-    })),
-    h('label.control-label', {
-      attrs: { for: 'study-' + s.key }
-    }, s.name),
-    h('i.bar')
+    }))
   ];
 };
 
@@ -97,7 +96,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       el.focus();
     }
   }
-  return dialog.form({
+  return modal.modal({
     class: 'study-edit',
     onClose: function() {
       ctrl.open(false);
@@ -105,7 +104,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
     },
     content: [
       h('h2', ctrl.relay ? 'Configure live broadcast' : (isNew ? 'Create' : 'Edit') + ' study'),
-      h('form.material.form.align-left', {
+      h('form.form3', {
         hook: bindSubmit(e => {
           const obj: FormData = {};
           'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(n => {
@@ -116,7 +115,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
         }, ctrl.redraw)
       }, [
         h('div.form-group' + (ctrl.relay ? '.none' : ''), [
-          h('input#study-name', {
+          h('label.form-label', { attrs: { 'for': 'study-name' } }, 'Name'),
+          h('input#study-name.form-control', {
             attrs: {
               minlength: 3,
               maxlength: 100
@@ -125,42 +125,44 @@ export function view(ctrl: StudyFormCtrl): VNode {
               insert: vnode => updateName(vnode, false),
               postpatch: (_, vnode) => updateName(vnode, true)
             }
-          }),
-          h('label.control-label', { attrs: { 'for': 'study-name' } }, 'Name'),
-          h('i.bar')
+          })
         ]),
-        h('div', [
-          h('div.form-group.half', select({
+        h('div.form-split', [
+          h('div.form-group.form-half', select({
             key: 'visibility',
             name: 'Visibility',
             choices: visibilityChoices,
             selected: data.visibility
           })),
-          h('div.form-group.half', select({
+          h('div.form-group.form-half', select({
             key: 'cloneable',
             name: 'Allow cloning',
             choices: userSelectionChoices,
             selected: data.settings.cloneable
-          })),
-          h('div.form-group.half', select({
+          }))
+        ]),
+        h('div.form-split', [
+          h('div.form-group.form-half', select({
             key: 'computer',
             name: 'Computer analysis',
             choices: userSelectionChoices,
             selected: data.settings.computer
           })),
-          h('div.form-group.half', select({
+          h('div.form-group.form-half', select({
             key: 'explorer',
             name: 'Opening explorer',
             choices: userSelectionChoices,
             selected: data.settings.explorer
-          })),
-          h('div.form-group.half', select({
+          }))
+        ]),
+        h('div.form-split', [
+          h('div.form-group.form-half', select({
             key: 'chat',
             name: 'Chat',
             choices: userSelectionChoices,
             selected: data.settings.chat
           })),
-          h('div.form-group.half', select({
+          h('div.form-group.form-half', select({
             key: 'sticky',
             name: 'Enable sync',
             choices: [
@@ -170,7 +172,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
             selected: '' + data.settings.sticky
           }))
         ]),
-        dialog.button(isNew ? 'Start' : 'Save')
+        modal.button(isNew ? 'Start' : 'Save')
       ]),
       h('div.destructive', [
         isNew ? null : h('form', {
@@ -182,7 +184,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
             return confirm('Delete the study chat history? There is no going back!');
           })
         }, [
-          h('button.button.frameless', 'Clear chat')
+          h(emptyRedButton, 'Clear chat')
         ]),
         h('form', {
           attrs: {
@@ -193,7 +195,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
             return isNew || confirm('Delete the entire study? There is no going back!');
           })
         }, [
-          h('button.button.frameless', isNew ? 'Cancel' : 'Delete study')
+          h(emptyRedButton, isNew ? 'Cancel' : 'Delete study')
         ])
       ])
     ]

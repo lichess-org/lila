@@ -42,8 +42,8 @@ themes.map { |theme|
       File.open(file, 'r') do|image_file|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
-        'body.base .is2d piece.' + role + '.' + color + ' { ' +
-          "background-image: url('data:image/" + types[ext] + base64 + "'); }"
+        '.is2d .' + role + '.' + color + ' {' +
+          "background-image:url('data:image/" + types[ext] + base64 + "')}"
       end
     }
   }.flatten

@@ -8,12 +8,12 @@ $(function() {
   $variant.on('change', showPosition);
   showPosition();
 
-  $('form.create .conditions a.show').on('click', function() {
+  $('.tour__form .conditions a.show').on('click', function() {
     $(this).remove();
-    $('form.create .conditions').addClass('visible');
+    $('.tour__form .conditions').addClass('visible');
   });
 
-  $("form.create .flatpickr").flatpickr({
+  $(".tour__form .flatpickr").flatpickr({
     minDate: 'today',
     maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
     dateFormat: 'Z',

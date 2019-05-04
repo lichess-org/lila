@@ -1,15 +1,34 @@
 package lila.security
 
-import play.twirl.api.Html
+import scalatags.Text.all._
 
 import lila.common.{ Lang, EmailAddress }
-import lila.common.String.html.nl2brUnsafe
+import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class AutomaticEmail(
     mailgun: Mailgun,
     baseUrl: String
 ) {
+
+  import Mailgun.html._
+
+  def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
+    val profileUrl = s"$baseUrl/@/${user.username}"
+    val editUrl = s"$baseUrl/account/profile"
+    mailgun send Mailgun.Message(
+      to = email,
+      subject = trans.welcome_subject.literalTxtTo(lang, List(user.username)),
+      text = s"""
+${trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))}
+
+${Mailgun.txt.serviceNote}
+""",
+      htmlBody = standardEmail(
+        trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))
+      ).some
+    )
+  }
 
   def onTitleSet(username: String)(implicit lang: Lang): Funit = for {
     user <- UserRepo named username flatten s"No such user $username"
@@ -38,11 +57,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = Html(s"""
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${nl2brUnsafe(body)}</p>
-  ${Mailgun.html.serviceNote}
-</div>""").some
+      htmlBody = standardEmail(body).some
     )
   }
 
@@ -67,11 +82,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-          htmlBody = Html(s"""
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${nl2brUnsafe(body)}</p>
-  ${Mailgun.html.serviceNote}
-</div>""").some
+          htmlBody = standardEmail(body).some
         )
       }
     }
@@ -107,11 +118,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = Html(s"""
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${nl2brUnsafe(body)}</p>
-  ${Mailgun.html.serviceNote}
-</div>""").some
+      htmlBody = standardEmail(body).some
     )
   }
 }

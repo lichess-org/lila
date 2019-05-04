@@ -83,6 +83,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
+              "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER else pref.autoQueen),
               "clockTenths" -> pref.clockTenths,

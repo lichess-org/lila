@@ -1,25 +1,26 @@
 import { h } from 'snabbdom'
 import { Player } from 'game';
+import { Position } from '../interfaces';
 import RoundController from '../ctrl';
 
 export function aiName(ctrl: RoundController, level: number) {
   return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 }
 
-export function userHtml(ctrl: RoundController, player: Player) {
+export function userHtml(ctrl: RoundController, player: Player, position: Position) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd === 0 ? h('span.rp.null', '±0') : (
-      rd && rd > 0 ? h('span.rp.up', '+' + rd) : (
-        rd && rd < 0 ? h('span.rp.down', '−' + (-rd)) : undefined
+    ratingDiff = rd === 0 ? h('span', '±0') : (
+      rd && rd > 0 ? h('good', '+' + rd) : (
+        rd && rd < 0 ? h('bad', '−' + (-rd)) : undefined
       ));
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
-    return h('div.username.user_link.' + player.color, {
+    return h(`div.ruser-${position}.ruser.user-link`, {
       class: {
         online: player.onGame,
         offline: !player.onGame,
@@ -56,7 +57,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
     ]);
   }
   const connecting = !player.onGame && ctrl.firstSeconds;
-  return h('div.username.user_link', {
+  return h(`div.ruser-${position}.ruser.user-link`, {
     class: {
       online: player.onGame,
       offline: !player.onGame,

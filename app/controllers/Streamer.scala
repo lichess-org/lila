@@ -47,7 +47,7 @@ object Streamer extends LilaController {
   def create = AuthBody { implicit ctx => me =>
     NoLame {
       NoShadowban {
-        api.find(me) flatMap {
+        api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
           case _ => Redirect(routes.Streamer.edit).fuccess
         }
@@ -120,7 +120,7 @@ object Streamer extends LilaController {
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
       api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
-        _.fold(Ok(html.streamer.create(me)).fuccess)(f)
+        _.fold(Ok(html.streamer.bits.create(me)).fuccess)(f)
       }
     }
 

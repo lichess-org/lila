@@ -45,7 +45,8 @@ final class SimulApi(
       ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
-      color = setup.color
+      color = setup.color,
+      text = setup.text
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(_.isNotBrandNew).map(_.id).foreach(abort)
@@ -125,6 +126,16 @@ final class SimulApi(
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
           (repo remove simul) >>- socketMap.tell(simul.id, actorApi.Aborted) >>- publish()
+        }
+      }
+    }
+  }
+
+  def setText(simulId: Simul.ID, text: String): Unit = {
+    Sequence(simulId) {
+      repo.find(simulId) flatMap {
+        _ ?? { simul =>
+          repo.setText(simul, text) >>- socketReload(simulId)
         }
       }
     }

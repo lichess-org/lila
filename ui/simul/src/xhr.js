@@ -32,5 +32,15 @@ module.exports = {
   },
   reject: function(user) {
     return partial(simulAction, 'reject/' + user)
+  },
+  setText: function(ctrl, text) {
+    return m.request({
+      method: 'POST',
+      url: '/simul/' + ctrl.data.id + '/set-text',
+      config: xhrConfig,
+      data: {
+        text: text
+      }
+    });
   }
 };

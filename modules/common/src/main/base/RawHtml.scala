@@ -4,7 +4,7 @@ import scala.annotation.{ tailrec, switch }
 import java.lang.{ StringBuilder => jStringBuilder, Math }
 import java.lang.Character.isLetterOrDigit
 
-import lila.common.base.StringUtils.escapeHtml
+import lila.common.base.StringUtils.escapeHtmlRaw
 
 final object RawHtml {
   @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
@@ -71,7 +71,7 @@ final object RawHtml {
     expandAtUser(text) map { expanded =>
       val m = urlPattern.matcher(expanded)
 
-      if (!m.find) escapeHtml(expanded) // preserve fast case!
+      if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
       else {
         val sb = new jStringBuilder(expanded.length + 200)
         val sArr = expanded.toCharArray
@@ -79,7 +79,7 @@ final object RawHtml {
 
         do {
           val start = m.start
-          escapeHtml(sb, sArr, lastAppendIdx, start)
+          escapeHtmlRaw(sb, sArr, lastAppendIdx, start)
 
           val domainS = Math.max(m.start(1), start)
           val pathS = m.start(2)
@@ -104,7 +104,7 @@ final object RawHtml {
             csb.append(sArr, pathS, end - pathS)
           }
 
-          val allButScheme = escapeHtml(csb.toString)
+          val allButScheme = escapeHtmlRaw(csb.toString)
 
           if (isTldInternal) {
             sb.append(s"""<a href="${
@@ -131,7 +131,7 @@ final object RawHtml {
           lastAppendIdx = end
         } while (m.find)
 
-        escapeHtml(sb, sArr, lastAppendIdx, sArr.length)
+        escapeHtmlRaw(sb, sArr, lastAppendIdx, sArr.length)
         sb
       }
     } concat
@@ -175,6 +175,6 @@ final object RawHtml {
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
   def markdownLinks(text: String): String = nl2br {
-    markdownLinkRegex.replaceAllIn(escapeHtml(text), """<a href="$2">$1</a>""")
+    markdownLinkRegex.replaceAllIn(escapeHtmlRaw(text), """<a href="$2">$1</a>""")
   }
 }

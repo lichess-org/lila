@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import * as ground from './ground';
-import { bind } from './util';
+import { bind, onInsert } from './util';
 import * as util from 'chessground/util';
 import { Role } from 'chessground/types';
 import AnalyseCtrl from './ctrl';
@@ -22,7 +22,7 @@ export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCapt
   var piece = s.pieces[dest];
   if (piece && piece.role == 'pawn' && (
     (dest[1] == '8' && s.turnColor == 'black') ||
-      (dest[1] == '1' && s.turnColor == 'white'))) {
+    (dest[1] == '1' && s.turnColor == 'white'))) {
     promoting = {
       orig,
       dest,
@@ -30,7 +30,7 @@ export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCapt
       callback
     };
     ctrl.redraw();
-  return true;
+    return true;
   }
   return false;
 }
@@ -59,14 +59,11 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces, color: Color, ori
 
   const vertical = color === orientation ? 'top' : 'bottom';
 
-  return h('div#promotion_choice.' + vertical, {
-    hook: {
-      insert: vnode => {
-        const el = (vnode.elm as HTMLElement);
-        el.addEventListener('click', _ => cancel(ctrl));
-        el.oncontextmenu = () => false;
-      }
-    }
+  return h('div#promotion-choice.' + vertical, {
+    hook: onInsert(el => {
+      el.addEventListener('click', _ => cancel(ctrl));
+      el.oncontextmenu = () => false;
+    })
   }, pieces.map(function(serverRole, i) {
     const top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {

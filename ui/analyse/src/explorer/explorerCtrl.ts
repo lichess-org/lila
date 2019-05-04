@@ -4,7 +4,6 @@ import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./explorerXhr');
 import { winnerOf, colorOf } from './explorerUtil';
-import { synthetic } from '../util';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
@@ -54,11 +53,11 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     setNode();
   }
   const data = root.data,
-  withGames = synthetic(data) || gameUtil.replayable(data) || !!data.opponent.ai,
+  withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
   effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
   config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = window.lichess.fp.debounce(function() {
+  const fetch = window.lichess.debounce(function() {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :

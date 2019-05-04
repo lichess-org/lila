@@ -32,17 +32,13 @@ object bits {
     "i18n" -> i18nJsObject(translations)(ctxLang(ctx))
   )
 
-  def domPreload(pov: Option[lila.game.Pov])(implicit ctx: Context) = {
+  def domPreload(pov: Option[lila.game.Pov])(implicit ctx: Context): Frag = {
     val theme = ctx.currentTheme
-    div(cls := "lichess_game")(
-      div(cls := "lichess_board_wrap")(
-        div(cls := "lichess_board")(
-          (!ctx.pref.is3d) option raw(s"""<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+    frag(
+      (!ctx.pref.is3d) option raw(s"""<svg class="main-board__preload" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
 <rect width="800" height="800" fill="#${theme.dark}"/><g fill="#${theme.light}" id="a"><g id="b"><g id="c"><g id="d">
 <rect width="100" height="100" id="e"/><use x="200" xlink:href="#e"/></g><use x="400" xlink:href="#d"/></g><use x="100" y="100" xlink:href="#c"/></g><use y="200" xlink:href="#b"/></g><use y="400" xlink:href="#a"/></svg>"""),
-          pov.fold(miniBoardContent)(chessground)
-        )
-      )
+      pov.fold(chessgroundSvg)(chessground)
     )
   }
 

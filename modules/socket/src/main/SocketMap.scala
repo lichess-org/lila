@@ -1,7 +1,7 @@
 package lila.socket
 
-import scala.concurrent.duration._
 import ornicar.scalalib.Random.approximatly
+import scala.concurrent.duration._
 
 import lila.hub.{ Trouper, TrouperMap }
 
@@ -26,7 +26,14 @@ object SocketMap {
     system.scheduler.schedule(approximatly(0.1f)(12.seconds.toMillis).millis, broomFrequency) {
       trouperMap tellAll actorApi.Broom
     }
-    system.lilaBus.subscribeFun('shutdown) { case _ => trouperMap.killAll }
+    system.lilaBus.subscribeFuns(
+      'shutdown -> {
+        case _ => trouperMap.killAll
+      },
+      'announce -> {
+        case m: lila.hub.actorApi.Announce => trouperMap tellAll m
+      }
+    )
 
     trouperMap
   }

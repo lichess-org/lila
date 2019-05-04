@@ -22,7 +22,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
   let content: MaybeVNodes;
 
   const commentHook: Hooks = bind('click', () => {
-    study.commentForm.set(study.vm.chapterId, ctrl.path, ctrl.node);
+    study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
     study.vm.toolTab('comments');
     window.lichess.requestIdleCallback(() => $('#comment-text').focus());
   }, ctrl.redraw);
@@ -91,11 +91,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
     ])
   ];
 
-  return h('div.gamebook_wrap', {
-    hook: { insert: _ => window.lichess.loadCss('stylesheets/gamebook.edit.css') }
-  }, [
-    h('div.gamebook', content)
-  ]);
+  return h('div.gamebook-edit', {
+    hook: { insert: _ => window.lichess.loadCssPath('analyse.gamebook.edit') }
+  }, content);
 }
 
 function renderDeviation(ctrl: AnalyseCtrl): VNode {

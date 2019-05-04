@@ -3,10 +3,12 @@ import { sanToRole } from 'chess'
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { sendPromotion } from './promotion'
+import { onInsert } from './util'
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
 interface SanMap {
   [key: string]: cg.Role;
@@ -15,7 +17,7 @@ interface SanMap {
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
-  update(step: Step): void;
+  update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
@@ -24,6 +26,8 @@ export interface KeyboardMove {
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
   usedSan: boolean;
+  jump(delta: number): void;
+  clock(): ClockController | undefined;
 }
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
@@ -57,8 +61,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.chessground.cancelMove();
       sendPromotion(root, orig, dest, role, {premove: false});
     },
-    update(step) {
-      if (handler) handler(step.fen, cgState.movable.dests);
+    update(step, yourMove: boolean = false) {
+      if (handler) handler(step.fen, cgState.movable.dests, yourMove);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
@@ -81,7 +85,12 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     confirmMove() {
       root.submitMove(true);
     },
-    usedSan
+    usedSan,
+    jump(delta: number) {
+      root.userJump(root.ply + delta);
+      redraw();
+    },
+    clock: () => root.clock
   };
 }
 
@@ -92,22 +101,14 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: {
-        insert: vnode => {
-          window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
-            ctrl.registerHandler(window.lichess.keyboardMove({
-              input: vnode.elm,
-              setFocus: ctrl.setFocus,
-              select: ctrl.select,
-              hasSelected: ctrl.hasSelected,
-              confirmMove: ctrl.confirmMove,
-              san: ctrl.san,
-              drop: ctrl.drop,
-              promote: ctrl.promote
-            }));
-          });
-        }
-      }
+      hook: onInsert(el => {
+        window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
+          ctrl.registerHandler(window.lichess.keyboardMove({
+            input: el,
+            ctrl
+          }));
+        });
+      })
     }),
     ctrl.hasFocus() ?
     h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :

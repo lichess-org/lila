@@ -1,6 +1,5 @@
 import { h, thunk } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
-import { MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
@@ -8,18 +7,18 @@ import { defined } from 'common';
 import { bind, dataIcon } from './util';
 
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
-  if (rd === 0) return h('span.rp.null', '±0');
-  if (rd && rd > 0) return h('span.rp.up', '+' + rd);
-  if (rd && rd < 0) return h('span.rp.down', '−' + (-rd));
+  if (rd === 0) return h('span', '±0');
+  if (rd && rd > 0) return h('good', '+' + rd);
+  if (rd && rd < 0) return h('bad', '−' + (-rd));
   return;
 }
 
 function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
   const p = game.getPlayer(ctrl.data, color);
-  if (p.user) return h('a.user_link.ulpt', {
+  if (p.user) return h('a.user-link.ulpt', {
     attrs: { href: '/@/' + p.user.username }
   }, [
-    h('span', p.user.username),
+    p.user.username, ' ',
     renderRatingDiff(p.ratingDiff)
   ]);
   return h('span',
@@ -70,7 +69,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
 }
 
 function doRender(ctrl: AnalyseCtrl): VNode {
-  return h('div.advice_summary', {
+  return h('div.advice-summary', {
     hook: {
       insert: vnode => {
         $(vnode.elm as HTMLElement).on('click', 'tr.symbol', function(this: Element) {
@@ -89,14 +88,17 @@ function doRender(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-export function render(ctrl: AnalyseCtrl): MaybeVNode {
+export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
-  if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')) return;
+  if (ctrl.studyPractice || ctrl.embed) return;
+
+  if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
+    return h('div.analyse__acpl');
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
   let cacheKey = '' + buster + !!ctrl.retro;
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
-  return thunk('div.advice_summary', doRender, [ctrl, cacheKey]);
+  return h('div.analyse__acpl', thunk('div.advice-summary', doRender, [ctrl, cacheKey]));
 }

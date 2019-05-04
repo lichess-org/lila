@@ -26,8 +26,9 @@
   },
   "devDependencies": {
     "@types/lichess": "1.0.0",
-    "game": "1.0.0",
     "typescript": "^3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
+  }
 }

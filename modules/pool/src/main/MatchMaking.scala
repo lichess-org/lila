@@ -44,7 +44,7 @@ object MatchMaking {
     }
 
     // score bonus based on how many waves the member missed
-    private def missBonus(p: PoolMember) = (p.misses * 20) atMost 500
+    private def missBonus(p: PoolMember) = (p.misses * 15) atMost 400
 
     // big malus if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =

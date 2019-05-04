@@ -1,16 +1,20 @@
 package views.html
 
 import play.api.libs.json.Json
-import play.twirl.api.Html
-import scalatags.Text.RawFrag
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.I18nKeys
 
 object chat {
 
-  val frag = RawFrag("""<div id="chat" class="side_box"></div>""")
+  val frag = st.section(cls := "mchat")(
+    div(cls := "mchat__tabs")(
+      div(cls := "mchat__tab")(nbsp)
+    ),
+    div(cls := "mchat__content")
+  )
 
   import lila.chat.JsonView.chatIdWrites
 

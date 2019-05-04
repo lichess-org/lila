@@ -15,6 +15,14 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
   };
 }
 
+export function onInsert(f: (element: HTMLElement) => void): Hooks {
+  return {
+    insert: vnode => {
+      f(vnode.elm as HTMLElement)
+    }
+  };
+}
+
 export function dataIcon(icon: string): Attrs {
   return {
     'data-icon': icon
@@ -22,7 +30,7 @@ export function dataIcon(icon: string): Attrs {
 }
 
 export function miniBoard(game) {
-  return h('a.mini_board.parse_fen.is2d.live_' + game.id, {
+  return h('a.mini-board.parse-fen.is2d.mini-board-' + game.id, {
     key: game.id,
     attrs: {
       href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
@@ -52,14 +60,14 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
 
   const fullName = playerName(p);
 
-  return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
+  return h('a.ulpt.user-link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
     h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
-    withRating ? h('span.rating', p.rating + (p.provisional ? '?' : '')) : null
+    withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }
 

@@ -90,6 +90,21 @@ private[api] final class RoundApi(
         }
     }.mon(_.round.api.watcher)
 
+  def embed(pov: Pov, apiVersion: ApiVersion,
+    analysis: Option[Analysis] = None,
+    initialFenO: Option[Option[FEN]] = None,
+    withFlags: WithFlags): Fu[JsObject] =
+    initialFenO.fold(GameRepo initialFen pov.game)(fuccess).flatMap { initialFen =>
+      jsonView.watcherJson(pov, Pref.default, apiVersion, none, none,
+        initialFen = initialFen,
+        withFlags = withFlags) map { json =>
+        (
+          withTree(pov, analysis, initialFen, withFlags)_ compose
+          withAnalysis(pov.game, analysis)_
+        )(json)
+      }
+    }.mon(_.round.api.embed)
+
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, owner: Boolean, me: Option[User]) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {

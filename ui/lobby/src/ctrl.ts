@@ -14,7 +14,6 @@ export default class LobbyController {
   opts: LobbyOpts;
   data: LobbyData;
   playban: any;
-  currentGame: any;
   isBot: boolean;
   socket: LobbySocket;
   stores: Stores;
@@ -40,7 +39,6 @@ export default class LobbyController {
     this.data.hooks = [];
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.currentGame = opts.currentGame;
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.redraw = redraw;
 
@@ -50,14 +48,13 @@ export default class LobbyController {
 
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
     this.tab = this.isBot ? 'now_playing' : this.stores.tab.get(),
-    this.mode = this.stores.mode.get(),
-    this.sort = this.stores.sort.get(),
-    this.trans = opts.trans;
+      this.mode = this.stores.mode.get(),
+      this.sort = this.stores.sort.get(),
+      this.trans = opts.trans;
 
     this.poolInStorage = li.storage.make('lobby.pool-in');
-    this.poolInStorage.listen(e => { // when another tab joins a pool
-      if (!e.newValue || e.newValue === li.StrongSocket.sri) return; // same tab, doh, IE 11
-        this.leavePool();
+    this.poolInStorage.listen(() => { // when another tab joins a pool
+      this.leavePool();
       redraw();
     });
     this.flushHooksSchedule();
@@ -205,7 +202,7 @@ export default class LobbyController {
   private startWatching() {
     const newIds = this.data.nowPlaying
       .map(p => p.gameId)
-      .filter(id => this.alreadyWatching.indexOf(id) === -1);
+      .filter(id => !this.alreadyWatching.includes(id));
     if (newIds.length) {
       setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
       newIds.forEach(id => this.alreadyWatching.push(id));
@@ -235,11 +232,11 @@ export default class LobbyController {
 
   // after click on round "new opponent" button
   private onNewOpponent() {
-    if (location.hash.indexOf('#pool/') === 0) {
+    if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
-      match = regex.exec(location.hash),
-      member: any = { id: match![1], blocking: match![2] },
-      range = poolRangeStorage.get(member.id);
+        match = regex.exec(location.hash),
+        member: any = { id: match![1], blocking: match![2] },
+        range = poolRangeStorage.get(member.id);
       if (range) member.range = range;
       if (match) {
         this.setTab('pools');

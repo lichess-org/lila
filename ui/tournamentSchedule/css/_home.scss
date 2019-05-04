@@ -1,0 +1,9 @@
+@import 'layout';
+@import 'side';
+@import 'schedule';
+@import 'finished';
+
+.box__top__actions a {
+  font-size: 3em;
+  padding: .1em .4em;
+}

@@ -3,7 +3,6 @@ package controllers
 import chess.format.Forsyth
 import chess.Situation
 import play.api.libs.json._
-import play.twirl.api.Html
 
 import lila.app._
 import lila.game.GameRepo

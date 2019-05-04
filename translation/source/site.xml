@@ -133,7 +133,6 @@
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
   <string name="signIn">Sign in</string>
-  <string name="newToLichess">New to Lichess?</string>
   <string name="youNeedAnAccountToDoThat">You need an account to do that</string>
   <string name="signUp">Register</string>
   <string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
@@ -167,7 +166,6 @@
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="password">Password</string>
-  <string name="haveAnAccount">Have an account?</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
@@ -226,7 +224,7 @@
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
-  <string name="loginToChat">Login to chat</string>
+  <string name="loginToChat">Sign in to chat</string>
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
   <string name="composeMessage">Compose message</string>
@@ -344,8 +342,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
-a computer analysis, a game chat and a shareable URL.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -587,8 +585,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
@@ -728,7 +725,7 @@ in %3$s</string>
   <string name="withEverybody">With everybody</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
-  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
+  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other Internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>

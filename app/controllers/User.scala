@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
@@ -68,7 +67,7 @@ object User extends LilaController {
         nbs ← Env.current.userNbGames(u, ctx)
         info ← Env.current.userInfo(u, nbs, ctx)
         social ← Env.current.socialInfo(u, ctx)
-      } yield status(html.user.show.activity(u, as, info, social))
+      } yield status(html.user.show.page.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
     else Env.activity.read.recent(u) map { as =>
       status(html.activity(u, as))
@@ -98,7 +97,7 @@ object User extends LilaController {
               _ <- Env.team.cached.nameCache preloadMany info.teamIds
               social ← Env.current.socialInfo(u, ctx)
               searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-            } yield html.user.show.games(u, info, pag, filters, searchForm, social)
+            } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
             else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
           } yield res,
           api = _ => apiGames(u, filter, page)
@@ -108,12 +107,14 @@ object User extends LilaController {
   }
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(UserRepo named username) { u =>
-      if (u.enabled || isGranted(_.UserSpy)) f(u)
-      else negotiate(
+    UserRepo named username flatMap {
+      case None if isGranted(_.UserSpy) => Mod.searchTerm(username.trim)
+      case None => notFound
+      case Some(u) if (u.enabled || isGranted(_.UserSpy)) => f(u)
+      case Some(u) => negotiate(
         html = UserRepo isErased u flatMap { erased =>
           if (erased.value) notFound
-          else NotFound(html.user.disabled(u)).fuccess
+          else NotFound(html.user.show.page.disabled(u)).fuccess
         },
         api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
       )
@@ -145,12 +146,12 @@ object User extends LilaController {
     }
   }
 
-  def online = Open { implicit req =>
+  def online = Action.async { implicit req =>
     val max = 50
     negotiate(
-      html = notFound,
+      html = notFoundJson(),
       api = _ => env.cached.getTop50Online map { list =>
-        Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
+        Ok(Json.toJson(list.take(getInt("nb", req).fold(10)(_ min max)).map(env.jsonView(_))))
       }
     )
   }
@@ -291,7 +292,7 @@ object User extends LilaController {
         }
         val irwin = Env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
-            html.irwin.irwinReport(reps).some
+            html.irwin.report(reps).some
           }
         }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
@@ -300,7 +301,7 @@ object User extends LilaController {
           }
         }
         import play.api.libs.EventSource
-        implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
+        implicit val extractor = EventSource.EventDataExtractor[scalatags.Text.Frag](_.render)
         Ok.chunked {
           (Enumerator(html.user.mod.menu(user)) interleave
             futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave

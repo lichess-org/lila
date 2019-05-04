@@ -33,7 +33,7 @@ case class Post(
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
 
-  def showUserIdOrAuthor = if (erased) lila.common.String.erased else userId | showAuthor
+  def showUserIdOrAuthor = if (erased) "<erased>" else userId | showAuthor
 
   def isTeam = categId startsWith teamSlug("")
 

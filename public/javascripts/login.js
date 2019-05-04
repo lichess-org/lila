@@ -1,5 +1,7 @@
+var selector = '.auth-login form';
+
 $(function() {
-  load($('form.login'));
+  load($(selector));
 });
 
 function load($f) {
@@ -21,11 +23,11 @@ function load($f) {
           $f.find('.submit').attr('disabled', false);
           if (res === 'InvalidTotpToken') $f.find('.two-factor .error').show();
         }
-        else location.href = res.indexOf('ok:') === 0 ? res.substr(3) : '/';
+        else location.href = res.startsWith('ok:') ? res.substr(3) : '/';
       },
       error: function(err) {
-        $f.replaceWith($(err.responseText).find('form.login'));
-        load($('form.login'));
+        $f.replaceWith($(err.responseText).find(selector));
+        load($(selector));
       }
     });
     return false;

@@ -30,30 +30,32 @@ object side {
           "active" -> active.has(perfType)
         ),
         href := isGame option routes.User.perfStat(u.username, perfType.key).url,
-        h3(name.getOrElse(perfType.name).toUpperCase),
-        span(cls := "rating")(
-          strong(
-            perf.glicko.intRating,
-            perf.provisional option "?"
+        span(
+          h3(name.getOrElse(perfType.name).toUpperCase),
+          st.rating(
+            strong(
+              perf.glicko.intRating,
+              perf.provisional option "?"
+            ),
+            " ",
+            ratingProgress(perf.progress),
+            " ",
+            span(
+              if (perfType.key == "puzzle") trans.nbPuzzles(perf.nb, perf.nb.localize)
+              else trans.nbGames(perf.nb, perf.nb.localize)
+            )
           ),
-          " ",
-          span(
-            if (perfType.key == "puzzle") trans.nbPuzzles(perf.nb, perf.nb.localize)
-            else trans.nbGames(perf.nb, perf.nb.localize)
-          ),
-          " ",
-          showProgress(perf.progress, withTitle = false)
-        ),
-        rankMap.fold(rankUnavailable) { ranks =>
-          ranks.get(perfType.key) map { rank =>
-            span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(trans.rankX(rank.localize))
+          rankMap.fold(rankUnavailable) { ranks =>
+            ranks.get(perfType.key) map { rank =>
+              span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(trans.rankX(rank.localize))
+            }
           }
-        },
+        ),
         isGame option iconTag("G")
       )
     }
 
-    div(cls := "side sub_ratings")(
+    div(cls := "side sub-ratings")(
       (!u.lame || ctx.is(u) || isGranted(_.UserSpy)) option frag(
         showNonEmptyPerf(u.perfs.ultraBullet, PerfType.UltraBullet),
         showPerf(u.perfs.bullet, PerfType.Bullet),

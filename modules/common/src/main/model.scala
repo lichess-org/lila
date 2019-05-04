@@ -63,6 +63,9 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
     case Array(_, domain) => Domain(domain.toLowerCase).some
     case _ => none
   }
+
+  // safer logs
+  override def toString = "EmailAddress(****)"
 }
 
 object EmailAddress {

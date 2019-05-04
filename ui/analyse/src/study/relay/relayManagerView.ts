@@ -1,25 +1,24 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import RelayCtrl from './relayCtrl';
-import { iconTag, dataIcon, bind } from '../../util';
+import { dataIcon, bind, onInsert } from '../../util';
 import { LogEvent } from './interfaces';
 
 export default function(ctrl: RelayCtrl): VNode | undefined {
-  const d = ctrl.data;
-  if (ctrl.members.canContribute()) return h('div.relay_wrap', [
+  if (ctrl.members.canContribute()) return h('div.relay-admin', {
+    hook: onInsert(_ => window.lichess.loadCssPath('analyse.relay-admin'))
+  }, [
     h('h2', [
       h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
       h('a', {
         attrs: {
-          href: `/broadcast/${d.slug}/${d.id}/edit`,
+          href: `/broadcast/${ctrl.data.slug}/${ctrl.data.id}/edit`,
           'data-icon': '%'
         }
       })
     ]),
-    h('div.relay', [
-      (d.sync.ongoing ? stateOn : stateOff)(ctrl),
-      renderLog(ctrl)
-    ])
+    (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl),
+    renderLog(ctrl)
   ]);
 }
 
@@ -40,9 +39,9 @@ function renderLog(ctrl: RelayCtrl) {
       }
     }, e.error);
     return h('div' + (err ? '.err' : ''), {
-      key: e.at
+      key: e.at,
+      attrs: dataIcon(err ? 'j' : 'E')
     }, [
-      iconTag(err ? 'j' : 'E'),
       h('div', [
         ...(err ? [err] : logSuccess(e)),
         h('time', dateFormatter(new Date(e.at)))
@@ -58,9 +57,9 @@ function renderLog(ctrl: RelayCtrl) {
 
 function stateOn(ctrl: RelayCtrl) {
   return h('div.state.on.clickable', {
-    hook: bind('click', _ => ctrl.setSync(false))
+    hook: bind('click', _ => ctrl.setSync(false)),
+    attrs: dataIcon('B')
   }, [
-    iconTag('B'),
     h('div', [
       'Connected to source',
       h('br'),
@@ -71,9 +70,9 @@ function stateOn(ctrl: RelayCtrl) {
 
 function stateOff(ctrl: RelayCtrl) {
   return h('div.state.off.clickable', {
-    hook: bind('click', _ => ctrl.setSync(true))
+    hook: bind('click', _ => ctrl.setSync(true)),
+    attrs: dataIcon('G')
   }, [
-    iconTag('G'),
     h('div.fat', 'Click to connect')
   ]);
 }
@@ -90,5 +89,5 @@ function getDateFormatter(): (date: Date) => string {
       second: 'numeric'
     }).format : function(d) { return d.toLocaleString(); }
 
-    return cachedDateFormatter;
+  return cachedDateFormatter;
 }

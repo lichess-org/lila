@@ -121,7 +121,7 @@ function makeMove(variant: VariantKey, board: Board, uci: string) {
   if (!board.turn) board.fmvn++;
   const turn = board.turn = !board.turn;
 
-  if (uci.indexOf('@') !== -1) {
+  if (uci.includes('@')) {
     board.pieces[square(uci.slice(2, 4))] = (turn ? uci[0].toLowerCase() : uci[0]) as Piece;
     return;
   }
@@ -178,7 +178,7 @@ function makeMove(variant: VariantKey, board: Board, uci: string) {
 }
 
 function san(board: Board, uci: string): string  {
-  if (uci.indexOf('@') !== -1) return fixCrazySan(uci);
+  if (uci.includes('@')) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
   var from = square(move[0]);

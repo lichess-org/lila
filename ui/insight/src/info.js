@@ -6,16 +6,20 @@ module.exports = function(ctrl) {
   var shareText = 'Shared with ' + shareStates[ctrl.user.shareId] + '.';
   return m('div.info.box', [
     m('div.top', [
-      m('a.help.hint--top', {
-        'data-hint': 'How does this work?',
+      m('a.help', {
+        title: 'How does this work?',
         onclick: lichess.startInsightTour
       }, '?'),
-      m('a.username.user_link.insight-ulpt', {
+      m('a.username.user-link.insight-ulpt', {
         href: '/@/' + ctrl.user.name
       }, ctrl.user.name)
     ]),
     m('div.content', [
-      m('p', 'Insights over ' + ctrl.user.nbGames + ' rated games.'),
+      m('p', [
+        'Insights over ',
+        m('strong', ctrl.user.nbGames),
+        ' rated games.'
+      ]),
       m('p.share', ctrl.own ? m('a', {
         href: '/account/preferences/privacy',
         target: '_blank'

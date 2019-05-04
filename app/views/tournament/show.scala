@@ -1,7 +1,7 @@
 package views.html
 package tournament
 
-import play.twirl.api.Html
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -20,27 +20,22 @@ object show {
     chatOption: Option[lila.chat.UserChat.Mine],
     streamers: Set[lila.user.User.ID],
     shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
-  )(implicit ctx: Context) = bits.layout(
+  )(implicit ctx: Context) = views.html.base.layout(
     title = s"${tour.fullName} #${tour.id}",
-    side = Some(tournament.side(tour, verdicts, streamers, shieldOwner)),
-    chat = chat.frag.some,
-    underchat = Some(div(
-      cls := "watchers hidden",
-      aria.live := "off",
-      aria.relevant := "additions removals text"
-    )(span(cls := "list inline_userlist"))),
     moreJs = frag(
       jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
-      embedJs(s"""lichess = lichess || {}; lichess.tournament = {
-data: ${safeJsonValue(data)},
-i18n: ${jsI18n()},
-userId: ${jsUserIdString},
-chat: ${
-        chatOption.fold("null")(c =>
-          safeJsonValue(chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)))
-      }};""")
+      embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> bits.jsI18n(),
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+          }
+        ))
+      }""")
     ),
-    moreCss = cssTags(List("chat.css" -> true, "quote.css" -> tour.isCreated)),
+    moreCss = cssTag("tournament.show"),
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
@@ -52,15 +47,16 @@ chat: ${
         }
     ).some
   )(frag(
-      div(id := "tournament", cls := tour.schedule.map { sched =>
-        s"scheduled ${sched.freq.name} ${sched.speed.name} ${sched.variant.key} id_${tour.id}"
-      })(
-        div(cls := "content_box no_padding tournament_box tournament_show")(
-          div(cls := "content_box_content")(spinner)
+      main(cls := s"tour${
+        tour.schedule.?? { sched =>
+          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+        }
+      }")(
+        st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)),
+        div(cls := "tour__main")(div(cls := "box")),
+        tour.isCreated option div(cls := "tour__faq")(
+          faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
         )
-      ),
-      tour.isCreated option div(id := "tournament_faq", cls := "none")(
-        faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
       )
     ))
 }

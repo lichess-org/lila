@@ -1,84 +1,74 @@
-var lichess = window.lichess = window.lichess || {};
+lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 10+';
 
-lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
+lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.dispatchEvent = function(el, eventName) {
-  // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))
-  var ev = document.createEvent('Event');
-  ev.initEvent(eventName, false, false);
-  el.dispatchEvent(ev);
+  el.dispatchEvent(new Event(eventName));
 };
 
-function buildStorage(storageKey) {
-  try {
-    // just accessing localStorage can throw an exception...
-    var storage = window[storageKey];
-  } catch (e) {}
-  var withStorage = storage ? function(f) {
-    // this can throw exceptions as well.
-    try { return f(storage); }
-    catch (e) {}
-  } : function() {};
-  var storageObj = {
-    get: function(k) {
-      return withStorage(function(s) {
-        return s.getItem(k);
-      });
-    },
-    set: function(k, v) {
-      withStorage(function(s) {
-        try {
-          s.setItem(k, v);
-        } catch (e) {
-          // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
-          s.removeItem(k);
-          s.setItem(k, v);
-        }
-      });
-    },
-    remove: function(k) {
-      withStorage(function(s) {
-        s.removeItem(k);
-      });
-    },
+lichess.hasTouchEvents = 'ontouchstart' in window;
+lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
+
+lichess.isCol1 = (function() {
+
+  var isCol1Cache = 'init'; // 'init' | 'rec' | boolean
+
+  return function() {
+    var ctk = 'isCol1' + Math.random();
+    if (typeof isCol1Cache == 'string') {
+      if (isCol1Cache == 'init')
+        window.addEventListener('resize', function() { isCol1Cache = 'rec' });
+      isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
+    }
+    return isCol1Cache;
+  };
+})();
+
+lichess.storage = (function() {
+  var storage = window.localStorage;
+  var api = {
+    get: function(k) { return storage.getItem(k) },
+    set: function(k, v) { storage.setItem(k, v) },
+    remove: function(k) { storage.removeItem(k) },
     make: function(k) {
       return {
         get: function() {
-          return storageObj.get(k);
+          return api.get(k);
         },
         set: function(v) {
-          return storageObj.set(k, v);
+          api.set(k, v);
         },
         remove: function() {
-          return storageObj.remove(k);
+          api.remove(k);
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
             if (e.key === k &&
-                e.storageArea === storage &&
-                e.newValue !== null) f(e);
+              e.storageArea === storage &&
+              e.newValue !== null) f(e);
           });
+        }
+      };
+    },
+    makeBoolean: function(k) {
+      return {
+        get: function() {
+          return api.get(k) == 1;
+        },
+        set: function(v) {
+          api.set(k, v ? 1 : 0);
+        },
+        toggle: function(v) {
+          api.set(k, api.get(k) == 1 ? 0 : 1);
         }
       };
     }
   };
-  return storageObj;
-};
-
-lichess.storage = buildStorage('localStorage');
-lichess.tempStorage = buildStorage('sessionStorage');
-
-lichess.reloadOtherTabs = (function() {
-  var storage = lichess.storage.make('reload-other-tabs');
-  storage.listen(function() {
-    lichess.reload();
-  });
-  return function() {
-    storage.set(1);
-  }
+  return api;
 })();
+
 lichess.once = function(key, mod) {
   if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
@@ -87,11 +77,7 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
-lichess.fp = {};
-lichess.fp.contains = function(list, needle) {
-  return list.indexOf(needle) !== -1;
-};
-lichess.fp.debounce = function(func, wait, immediate) {
+lichess.debounce = function(func, wait, immediate) {
   var timeout;
   var lastBounce = 0;
   return function() {
@@ -110,10 +96,12 @@ lichess.fp.debounce = function(func, wait, immediate) {
 };
 lichess.powertip = (function() {
 
-  var elementIdContains = function(id, contained) {
-    var el = document.getElementById(id);
-    return el && el.contains(contained);
-  };
+  function containedIn(el, container) {
+    return container && container.contains(el);
+  }
+  function inCrosstable(el) {
+    return containedIn(el, document.querySelector('.crosstable'));
+  }
 
   var onPowertipPreRender = function(id, preload) {
     return function() {
@@ -129,25 +117,27 @@ lichess.powertip = (function() {
     };
   };
 
+  var uptA = function(url, icon) {
+    return '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+  }
   var userPowertip = function(el, pos) {
-    if (!pos) {
-      if (elementIdContains('site_header', el)) pos = 'e';
-      else pos = el.getAttribute('data-pt-pos') || 'w';
-    }
+    pos = pos || el.getAttribute('data-pt-pos') || (
+      inCrosstable(el) ? 'n' : 's'
+    );
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
       placement: pos,
+      smartPlacement: true,
       mouseOnToPopup: true,
       closeDelay: 200
     }).data('powertip', ' ').on({
       powerTipRender: onPowertipPreRender('powerTip', function(url) {
         var u = url.substr(3);
-        var preload = '<div class="title"><span class="user_link offline">' + $(el).html() + '</span></div><div class="actions">' +
-          '<a class="button" href="/@/' + u + '/tv"><i data-icon="1"></i></a>' +
-          '<a class="button" href="/inbox/new?user=' + u + '"><i data-icon="c"></i></a>' +
-          '<a class="button" href="/?user=' + u + '#friend"><i data-icon="U"></i></a>' +
-          '<a class="button relation" disabled></a></div>';
-        $('#powerTip').html(preload);
+        $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + $(el).html() + '</span></div></div><div class="upt__actions btn-rack">' +
+          uptA('/@/' + u + '/tv', '1') +
+          uptA('/inbox/new?user=' + u, 'c') +
+          uptA('/?user=' + u + '#friend', 'U') +
+          '<a class="btn-rack__btn relation-button" disabled></a></div>');
       })
     });
   };
@@ -155,7 +145,7 @@ lichess.powertip = (function() {
   var gamePowertip = function(el) {
     $(el).removeClass('glpt').powerTip({
       intentPollInterval: 200,
-      placement: 'w',
+      placement: inCrosstable(el) ? 'n' : 'w',
       smartPlacement: true,
       mouseOnToPopup: true,
       closeDelay: 200,
@@ -166,8 +156,10 @@ lichess.powertip = (function() {
   };
 
   var powerTipWith = function(el, ev, f) {
-    f(el);
-    $.powerTip.show(el, ev);
+    if (lichess.isHoverable()) {
+      f(el);
+      $.powerTip.show(el, ev);
+    }
   };
 
   function onIdleForAll(par, sel, fun) {
@@ -211,14 +203,16 @@ lichess.widget = function(name, prototype) {
       returnValue = instance[method].apply(instance, args);
     });
     else this.each(function() {
-      if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
-      $.data(this, name, new constructor(method, this));
+      if (!$.data(this, name)) $.data(this, name, new constructor(method, this));
     });
     return returnValue;
   };
 };
-lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
-lichess.isMS = lichess.isTrident || navigator.userAgent.indexOf('Edge/') > -1;
+lichess.isHoverable = function () {
+  if (typeof lichess.hoverable === 'undefined')
+    lichess.hoverable = !!getComputedStyle(document.body).getPropertyValue('--hoverable');
+  return lichess.hoverable;
+};
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetUrl = function(path, opts) {
   opts = opts || {};
@@ -232,13 +226,11 @@ lichess.loadCss = function(url) {
   lichess.loadedCss[url] = true;
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 };
-lichess.unloadCss = function(url) {
-  if (lichess.loadedCss[url]) {
-    lichess.loadedCss[url]  = false;
-    $('head link[rel=stylesheet]')
-      .filter(function() { return this.href.indexOf(url) >= 0 })
-      .remove();
-  }
+lichess.loadCssPath = function(key) {
+  lichess.loadCss('css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css');
+}
+lichess.compiledScript = function(name) {
+  return 'compiled/lichess.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 }
 lichess.loadScript = function(url, opts) {
   return $.ajax({
@@ -252,62 +244,17 @@ lichess.hopscotch = function(f) {
   lichess.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lichess.slider = function() {
-  lichess.loadCss('stylesheets/jquery-ui.css');
-  return lichess.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
+  return lichess.loadScript(
+    'javascripts/vendor/jquery-ui.slider' + (lichess.hasTouchEvents ? '.touch' : '') + '.min.js',
+    {noVersion:true}
+  );
 };
-lichess.shepherd = function(f) {
-  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-  lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
-  lichess.loadCss('stylesheets/shepherd.css');
-  lichess.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
-    lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
-      f(theme);
-    });
+lichess.makeChat = function(data, callback) {
+  lichess.raf(function() {
+    data.loadCss = lichess.loadCssPath;
+    (callback || $.noop)(LichessChat.default(document.querySelector('.mchat'), data));
   });
 };
-lichess.makeChat = function(id, data, callback) {
-  lichess.requestIdleCallback(function() {
-    data.loadCss = lichess.loadCss;
-    (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
-  });
-};
-
-lichess.desktopNotification = (function() {
-  var notifications = [];
-  function closeAll() {
-    notifications.forEach(function(n) {
-      n.close();
-    });
-    notifications = [];
-  };
-  window.addEventListener('focus', closeAll);
-  var storage = lichess.storage.make('just-notified');
-  function notify(msg) {
-    var now = Date.now();
-    if (document.hasFocus() || now - storage.get() < 1000) return;
-    storage.set(now);
-    if ($.isFunction(msg)) msg = msg();
-    var notification = new Notification('lichess.org', {
-      icon: '//lichess1.org/assets/images/logo.256.png',
-      body: msg
-    });
-    notification.onclick = function() {
-      window.focus();
-    };
-    notifications.push(notification);
-  };
-  return function(msg) {
-    if (document.hasFocus() || !('Notification' in window)) return;
-    if (Notification.permission === 'granted') {
-      // increase chances that the first tab can put a local storage lock
-      setTimeout(notify, 10 + Math.random() * 500, msg);
-    } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission(function(p) {
-        if (p === 'granted') notify(msg);
-      });
-    };
-  };
-})();
 
 lichess.numberFormat = (function() {
   var formatter = false;
@@ -411,31 +358,13 @@ lichess.reload = function() {
 };
 lichess.escapeHtml = function(str) {
   return /[&<>\"\']/.test(str) ?
-  str
+    str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/'/g, '&#39;')
     .replace(/"/g, '&quot;') :
     str;
-};
-lichess.toYouTubeEmbedUrl = function(url) {
-  if (!url) return;
-  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
-  if (!m) return;
-  var start = 1;
-  m[2].split('&').forEach(function(p) {
-    var s = p.split('=');
-    if (s[0] === 't' || s[0] === 'start') {
-      if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
-      else {
-        var n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
-        start = (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0);
-      }
-    }
-  });
-  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
-  return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 };
 $.fn.scrollTo = function(target, offsetTop) {
   return this.each(function() {
@@ -447,27 +376,32 @@ $.fn.scrollTo = function(target, offsetTop) {
     }
   });
 };
-$.modal = function(html) {
+$.modal = function(html, cls, onClose) {
+  $.modal.close();
   if (!html.clone) html = $('<div>' + html + '</div>');
-  var $wrap = $('<div id="modal-wrap">').html(html.clone().removeClass('none').show()).prepend('<span class="close" data-icon="L"></span>');
-  var $overlay = $('<div id="modal-overlay">').html($wrap);
-  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
-  $wrap.click(function(e) {
+  var $wrap = $('<div id="modal-wrap">')
+    .html(html.clone().removeClass('none'))
+    .prepend('<span class="close" data-icon="L"></span>');
+  var $overlay = $('<div id="modal-overlay">')
+    .addClass(cls)
+    .data('onClose', onClose)
+    .html($wrap);
+  $wrap.find('.close').on('click', $.modal.close);
+  $overlay.on('click', function(e) {
+    // disgusting hack
+    // dragging slider out of a modal closes the modal
+    if (!$('.ui-slider-handle.ui-state-focus').length) $.modal.close();
+  });
+  $wrap.on('click', function(e) {
     e.stopPropagation();
   });
-  $('body').prepend($overlay);
+  $('body').addClass('overlayed').prepend($overlay);
   return $wrap;
 };
 $.modal.close = function() {
-  $('#modal-overlay').remove();
-};
-
-// polyfills
-
-if (!Array.prototype.find) {
-  Object.defineProperty(Array.prototype, 'find', {
-    value: function(predicate) {
-      for (var i in this) if (predicate(this[i])) return this[i];
-    }
+  $('body').removeClass('overlayed');
+  $('#modal-overlay').each(function() {
+    ($(this).data('onClose') || $.noop)();
+    $(this).remove();
   });
-}
+};

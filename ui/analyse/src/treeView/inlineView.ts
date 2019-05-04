@@ -112,7 +112,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl)
   };
-  return h('div.tview2.inline', {
+  return h('div.tview2.tview2-inline', {
     hook: mainHook(ctrl)
   }, [
     ...renderInlineCommentsOf(ctx, ctrl.tree.root),

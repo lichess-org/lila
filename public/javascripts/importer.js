@@ -1,5 +1,5 @@
 $(function() {
-  var $form = $("#import_game form");
+  var $form = $("main.importer form");
   $form.submit(function() {
     setTimeout(function() { $form.html(lichess.spinnerHtml); }, 50);
   });

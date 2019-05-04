@@ -9,14 +9,12 @@ import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { loadCss, Style } from 'nvui/chess';
+import { Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
 window.lichess.AnalyseNVUI = function(redraw: Redraw) {
-
-  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
@@ -33,81 +31,83 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
         drawable: { enabled: false },
         coordinates: false
       });
-      return h('div.nvui', [
-        h('h1', 'Textual representation'),
-        h('h2', 'Game info'),
-        ...(['white', 'black'].map((color: Color) => h('p', [
-          color + ' player: ',
-          renderPlayer(ctrl, playerByColor(d, color))
-        ]))),
-        h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
-        d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-        h('h2', 'Moves'),
-        h('p.moves', {
-          attrs: {
-            role : 'log',
-            'aria-live': 'off'
-          }
-        }, renderMainline(ctrl.mainline, ctrl.path, style)),
-        h('h2', 'Pieces'),
-        h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-        h('h2', 'Current position'),
-        h('p.position', {
-          attrs: {
-            'aria-live' : 'assertive',
-            'aria-atomic' : true
-          }
-        }, renderCurrentNode(ctrl.node, style)),
-        h('h2', 'Move form'),
-        h('form', {
-          hook: {
-            insert(vnode) {
-              const $form = $(vnode.elm as HTMLFormElement),
-                $input = $form.find('.move').val('').focus();
-              $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+      return h('main.analyse', [
+        h('div.nvui', [
+          h('h1', 'Textual representation'),
+          h('h2', 'Game info'),
+          ...(['white', 'black'].map((color: Color) => h('p', [
+            color + ' player: ',
+            renderPlayer(ctrl, playerByColor(d, color))
+          ]))),
+          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
+          d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
+          h('h2', 'Moves'),
+          h('p.moves', {
+            attrs: {
+              role : 'log',
+              'aria-live': 'off'
             }
-          }
-        }, [
-          h('label', [
-            'Command input',
-            h('input.move.mousetrap', {
-              attrs: {
-                name: 'move',
-                'type': 'text',
-                autocomplete: 'off',
-                autofocus: true
+          }, renderMainline(ctrl.mainline, ctrl.path, style)),
+          h('h2', 'Pieces'),
+          h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+          h('h2', 'Current position'),
+          h('p.position', {
+            attrs: {
+              'aria-live' : 'assertive',
+              'aria-atomic' : true
+            }
+          }, renderCurrentNode(ctrl.node, style)),
+          h('h2', 'Move form'),
+          h('form', {
+            hook: {
+              insert(vnode) {
+                const $form = $(vnode.elm as HTMLFormElement),
+                  $input = $form.find('.move').val('').focus();
+                $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
-            })
-          ])
-        ]),
-        notify.render(),
-        // h('h2', 'Actions'),
-        // h('div.actions', tableInner(ctrl)),
-        h('h2', 'Computer analysis'),
-        ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
-        h('h2', 'Board'),
-        h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
-        h('div.content', {
-          hook: {
-            insert: vnode => {
-              $(vnode.elm as HTMLElement).append($('.blind_content').removeClass('none'));
             }
-          }
-        }),
-        h('h2', 'Settings'),
-        h('label', [
-          'Move notation',
-          renderSetting(moveStyle, ctrl.redraw)
-        ]),
-        h('h2', 'Keyboard shortcuts'),
-        h('p', [
-          'Use arrow keys to navigate in the game.'
-        ]),
-        h('h2', 'Commands'),
-        h('p', [
-          'Type these commands in the command input.', h('br'),
-          commands.piece.help, h('br'),
-          commands.scan.help, h('br')
+          }, [
+            h('label', [
+              'Command input',
+              h('input.move.mousetrap', {
+                attrs: {
+                  name: 'move',
+                  'type': 'text',
+                  autocomplete: 'off',
+                  autofocus: true
+                }
+              })
+            ])
+          ]),
+          notify.render(),
+          // h('h2', 'Actions'),
+          // h('div.actions', tableInner(ctrl)),
+          h('h2', 'Computer analysis'),
+          ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          h('h2', 'Board'),
+          h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+          h('div.content', {
+            hook: {
+              insert: vnode => {
+                $(vnode.elm as HTMLElement).append($('.blind-content').removeClass('none'));
+              }
+            }
+          }),
+          h('h2', 'Settings'),
+          h('label', [
+            'Move notation',
+            renderSetting(moveStyle, ctrl.redraw)
+          ]),
+          h('h2', 'Keyboard shortcuts'),
+          h('p', [
+            'Use arrow keys to navigate in the game.'
+          ]),
+          h('h2', 'Commands'),
+          h('p', [
+            'Type these commands in the command input.', h('br'),
+            commands.piece.help, h('br'),
+            commands.scan.help, h('br')
+          ])
         ])
       ]);
     }
@@ -137,7 +137,7 @@ const analysisGlyphs = ['?!', '?', '??'];
 function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.indexOf(g.symbol) > -1));
+  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
     const acpl = anal[color].acpl;

@@ -1,0 +1,22 @@
+@import 'topnav-hidden';
+@import 'topnav-visible';
+@import 'title';
+@import 'buttons';
+
+#top {
+  height: $site-header-height;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: z('site-header');
+
+  --dropdown-top: 40px;
+  @include breakpoint($mq-site-header-tall) {
+    --dropdown-top: 60px;
+  }
+}
+
+.site-title-nav {
+  display: flex;
+  justify-content: flex-start;
+}

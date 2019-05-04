@@ -69,7 +69,7 @@ object Main extends LilaController {
   def mobile = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark "mobile-apk") {
-      case (doc, resolver) => html.mobile.home(doc, resolver)
+      case (doc, resolver) => html.mobile(doc, resolver)
     }
   }
 
@@ -135,10 +135,6 @@ Disallow: /games/export
     }
   }
 
-  val freeJs = Open { implicit ctx =>
-    Ok(html.site.freeJs(ctx)).fuccess
-  }
-
   def renderNotFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map renderNotFound
 
@@ -147,12 +143,8 @@ Disallow: /games/export
     NotFound(html.base.notFound()(ctx))
   }
 
-  def fpmenu = Open { implicit ctx =>
-    Ok(html.base.fpmenu()).fuccess
-  }
-
   def getFishnet = Open { implicit ctx =>
-    Ok(html.site.getFishnet()).fuccess
+    Ok(html.site.bits.getFishnet()).fuccess
   }
 
   def costs = Open { implicit ctx =>
@@ -181,6 +173,7 @@ Disallow: /games/export
         case 87 => routes.Stat.ratingDistribution("blitz").url
         case 110 => s"$faq#name"
         case 29 => s"$faq#titles"
+        case 4811 => s"$faq#lm"
         case 216 => routes.Main.mobile.url
         case 340 => s"$faq#trophies"
         case 6 => s"$faq#ratings"

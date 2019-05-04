@@ -1,3 +1,3 @@
-const lilaGulp = require('../gulp/tsProject.js');
+require('../gulp/tsProject.js')('LichessDasher', 'lichess.dasher', __dirname);
 
-lilaGulp('LichessDasher', 'lichess.dasher', __dirname);
+require('../gulp/cssProject.js')(__dirname);

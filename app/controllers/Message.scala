@@ -3,8 +3,8 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Result
-import play.twirl.api.Html
 import scala.concurrent.duration._
+import scalatags.Text.Frag
 
 import lila.api.Context
 import lila.app._
@@ -47,7 +47,7 @@ object Message extends LilaController {
       negotiate(
         html = OptionFuOk(api.thread(id, me)) { thread =>
           relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            val form = !thread.isTooBig option forms.post
+            val form = thread.isReplyable option forms.post
             html.message.thread(thread, form, blocked)
           }
         } map NoCache,
@@ -131,7 +131,7 @@ object Message extends LilaController {
     }
   }
 
-  private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Html] =
+  private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Frag] =
     get("user") ?? UserRepo.named flatMap { user =>
       user.fold(fuTrue)(u => security.canMessage(me.id, u.id)) map { canMessage =>
         html.message.form(

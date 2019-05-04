@@ -1,8 +1,0 @@
-@(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context)
-
-@team.list(
-name = trans.search.txt() + " \"" + text + "\"",
-teams = teams,
-next = teams.nextPage map { n => routes.Team.search(text, n) },
-tab = "all",
-search = text)

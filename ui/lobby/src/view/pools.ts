@@ -11,7 +11,7 @@ export function hooks(ctrl: LobbyController): Hooks {
   return bind('click', e => {
     const id = (e.target as HTMLElement).getAttribute('data-id') ||
       ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
-    if (id === 'custom') $('#start_buttons .config_hook').mousedown();
+    if (id === 'custom') $('.config_hook').trigger('mousedown');
     else if (id) ctrl.clickPool(id);
   }, ctrl.redraw);
 }
@@ -21,7 +21,7 @@ export function render(ctrl: LobbyController) {
   return ctrl.pools.map(pool => {
     const active = !!member && member.id === pool.id,
     transp = !!member && !active;
-    return h('div.pool', {
+    return h('div', {
       class: {
         active,
         transp: !active && transp
