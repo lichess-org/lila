@@ -25,13 +25,6 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lidraughts.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
-    def innerCoordsCss(implicit ctx: Context) = {
-      val color = ctx.currentTheme.cssClass match {
-        case "brown" | "blue" | "green" => ctx.currentTheme.cssClass
-        case _ => "other"
-      }
-      cssTagNoTheme(s"coords.inner.$color")
-    }
   }
   import bits._
 
@@ -128,7 +121,6 @@ object layout {
         ctx.blind option cssTagNoTheme("blind"),
         moreCss,
         pieceSprite,
-        ctx.pref.coords == Pref.Coords.INSIDE option innerCoordsCss,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
@@ -143,7 +135,7 @@ object layout {
       ),
       st.body(
         cls := List(
-          s"${ctx.currentBg} ${ctx.currentTheme.cssClass}" -> true,
+          s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass}" -> true,
           "zen" -> ctx.pref.isZen,
           "blind-mode" -> ctx.blind,
           "kid" -> ctx.kid,
