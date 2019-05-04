@@ -30,7 +30,10 @@ object picture {
             st.form(action := routes.Coach.pictureApply, enctype := "multipart/form-data", method := "post", cls := "upload")(
               p("Max size: ", lila.db.Photographer.uploadMaxMb, "MB."),
               form3.file.image("picture"),
-              button(tpe := "submit", cls := "button")("Upload profile picture")
+              form3.actions(
+                a(href := routes.Coach.edit())(trans.cancel()),
+                form3.submit("Upload profile picture")
+              )
             ),
             c.coach.hasPicture option
               st.form(action := routes.Coach.pictureDelete, cls := "delete")(

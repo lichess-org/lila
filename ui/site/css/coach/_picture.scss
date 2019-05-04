@@ -4,12 +4,9 @@
   }
 
   form {
-    padding: 30px;
+    padding: 2em var(--box-padding);
     border-top: $border;
     text-align: center;
-    input[type="file"] {
-      margin-right: 1em;
-    }
   }
   form.delete button {
     color: red;
