@@ -38,6 +38,12 @@ body {
   }
 
   margin-top: $site-header-margin;
+
+  @media (hover: none) { 
+    body.clinput & {
+      display: none;
+    }
+  }
 }
 
 @if $debug {
