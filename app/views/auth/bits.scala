@@ -89,7 +89,7 @@ object bits {
   def checkYourEmailBanner(userEmail: lila.security.EmailConfirm.UserEmail) = frag(
     styleTag("""
 body { margin-top: 45px; }
-#email_confirm {
+#email-confirm {
   height: 40px;
   background: #3893E8;
   color: #fff!important;
@@ -104,15 +104,15 @@ body { margin-top: 45px; }
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 107;
 }
-#email_confirm a {
+#email-confirm a {
   color: #fff!important;
   text-decoration: underline;
   margin-left: 1em;
 }
 """),
-    div(id := "email_confirm")(
+    div(id := "email-confirm")(
       s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
       a(href := routes.Auth.checkYourEmail)("Click here for help")
     )
