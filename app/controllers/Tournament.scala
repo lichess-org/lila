@@ -77,7 +77,7 @@ object Tournament extends LilaController {
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
     !ctx.kid && // no public chats for kids
       ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
-        (tour.isPrivate && json.fold(true)(jsonHasMe)) && // private tournament that I joined
+        (!tour.isPrivate || json.fold(true)(jsonHasMe)) && // private tournament that I joined
           Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
       }
 
