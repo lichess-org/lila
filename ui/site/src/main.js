@@ -975,7 +975,7 @@
   // service worker //
   ////////////////////
 
-  if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+  if (document.body.getAttribute('data-vapid') && 'serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
     var workerUrl = lidraughts.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
     navigator.serviceWorker.register(workerUrl, {scope: '/'});
   }
@@ -983,10 +983,10 @@
   lidraughts.pushSubscribe = function(ask) {
     if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
       navigator.serviceWorker.ready.then(reg => {
+        var storage = lidraughts.storage.make('push-subscribed');
         var vapid = document.body.getAttribute('data-vapid');
         var allowed = (ask || Notification.permission === 'granted') && Notification.permission !== 'denied';
         if (vapid && allowed) return reg.pushManager.getSubscription().then(sub => {
-          var storage = lidraughts.storage.make('push-subscribed');
           var resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
           var applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
           if (!sub || resub) {
@@ -1005,6 +1005,7 @@
             });
           }
         });
+        else storage.remove();
       });
     }
   };
