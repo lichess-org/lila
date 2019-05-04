@@ -107,7 +107,6 @@
   <string name="viewInFullSize">Մեծացնել չափը</string>
   <string name="logOut">Ելք</string>
   <string name="signIn">Մուտք</string>
-  <string name="newToLichess">Նոր ե՞ք Lichess-ում</string>
   <string name="youNeedAnAccountToDoThat">Դա անելու համար պետք է հաշիվ ունենալ</string>
   <string name="signUp">Գրանցվել</string>
   <string name="computersAreNotAllowedToPlay">Համակարգիչներն ու համակարգչից օգնություն վերցնող խաղացողներն իրավունք չունեն խաղալ։ Խնդրում ենք խաղալիս չօգտվել շախմատային ծրագրերից, տվյալների բազաներից և այլ մարդկանց օգնությունից:</string>
@@ -138,7 +137,6 @@
   <string name="username">Օգտատիրոջ անուն</string>
   <string name="usernameOrEmail">Օգտատիրոջ անուն կամ email</string>
   <string name="password">Գաղտնաբառ</string>
-  <string name="haveAnAccount">Արդեն գրանցվա՞ծ եք</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
   <string name="email">Էլ. փոստ</string>
