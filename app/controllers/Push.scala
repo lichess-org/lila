@@ -17,16 +17,10 @@ object Push extends LilaController {
   }
 
   def webSubscribe = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+    val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
     ctx.body.body.validate[WebSubscription].fold(
       err => BadRequest(err.toString).fuccess,
-      data => Env.push.webSubscribe(me, data) inject NoContent
-    )
-  }
-
-  def webUnsubscribe = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
-    ctx.body.body.validate[WebSubscription].fold(
-      err => BadRequest(err.toString).fuccess,
-      data => Env.push.webUnsubscribe(me, data) inject NoContent
+      data => Env.push.webSubscriptionApi.subscribe(me, data, currentSessionId) inject NoContent
     )
   }
 }

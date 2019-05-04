@@ -117,11 +117,13 @@ object Auth extends LidraughtsController {
   }
 
   def logout = Open { implicit ctx =>
-    ctxReq.session get api.sessionIdKey foreach lidraughts.security.Store.delete
-    negotiate(
-      html = Redirect(routes.Main.mobile).fuccess,
-      api = _ => Ok(Json.obj("ok" -> true)).fuccess
-    ) map (_ withCookies LidraughtsCookie.newSession)
+    val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
+    lidraughts.security.Store.delete(currentSessionId) >>
+      Env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
+      negotiate(
+        html = Redirect(routes.Auth.mobile).fuccess,
+        api = _ => Ok(Json.obj("ok" -> true)).fuccess
+      ).dmap(_.withCookies(LidraughtsCookie.newSession))
   }
 
   // mobile app BC logout with GET
@@ -403,6 +405,7 @@ object Auth extends LidraughtsController {
               UserRepo.setEmailConfirmed(user.id) >>
               UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
+              Env.push.webSubscriptionApi.unsubscribeByUser(user) >>
               authenticateUser(user) >>-
               lidraughts.mon.user.auth.passwordResetConfirm("success")()
           }
