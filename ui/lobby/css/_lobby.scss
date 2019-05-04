@@ -29,10 +29,6 @@ body {
   align-content: flex-start;
   flex-flow: row wrap;
   font-size: .85em;
-  margin-left: $block-gap;
-  @include breakpoint($mq-col3) {
-    margin: 0;
-  }
   a {
     @extend %page-text;
     font-weight: bold;
@@ -65,4 +61,9 @@ body {
 }
 .about-side {
   margin-top: $block-gap;
+}
+@include breakpoint($mq-not-col3) {
+  .about-side, .lobby__streams, .lobby__about {
+    margin-left: $block-gap;
+  }
 }
