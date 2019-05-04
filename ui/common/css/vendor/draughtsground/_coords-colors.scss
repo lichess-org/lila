@@ -1,0 +1,47 @@
+@mixin coords-colors {
+  .blue {
+    coord { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #DEE3E6;
+    }
+    .orientation-white .files coord:nth-child(2n),
+    .orientation-white .ranks coord:nth-child(2n+1),
+    .orientation-black .files coord:nth-child(2n+1),
+    .orientation-black .ranks coord:nth-child(2n) {
+      color: #788a94;
+    }
+  }
+  .brown {
+    coord { text-shadow: none; }
+    .orientation-white .files coord:nth-child(2n+1),
+    .orientation-white .ranks coord:nth-child(2n),
+    .orientation-black .files coord:nth-child(2n),
+    .orientation-black .ranks coord:nth-child(2n+1) {
+      color: #F0D9B5;
+    }
+    .orientation-white .files coord:nth-child(2n),
+    .orientation-white .ranks coord:nth-child(2n+1),
+    .orientation-black .files coord:nth-child(2n+1),
+    .orientation-black .ranks coord:nth-child(2n) {
+      color: #946f51;
+    }
+  }
+  .green {
+    coord { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #FFFFDD;
+    }
+    .orientation-white .files coord:nth-child(2n),
+    .orientation-white .ranks coord:nth-child(2n+1),
+    .orientation-black .files coord:nth-child(2n+1),
+    .orientation-black .ranks coord:nth-child(2n) {
+      color: #6d8753;
+    }
+  }
+}
