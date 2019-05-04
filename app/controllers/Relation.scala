@@ -36,7 +36,7 @@ object Relation extends LidraughtsController {
 
   def follow(userId: String) = Auth { implicit ctx => me =>
     env.api.reachedMaxFollowing(me.id) flatMap {
-      case true => Env.message.api.sendPresetFromLichess(
+      case true => Env.message.api.sendPresetFromLidraughts(
         me,
         lidraughts.message.ModPreset.maxFollow(me.username, Env.relation.MaxFollow)
       ).void
