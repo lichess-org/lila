@@ -82,7 +82,6 @@
   <string name="viewInFullSize">Amharc lánmhéide</string>
   <string name="logOut">Logáil amach</string>
   <string name="signIn">Logáil isteach</string>
-  <string name="newToLichess">Gan taithí ar Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Tá cuntas ag teastáil uait chun é sin a dhéanamh</string>
   <string name="signUp">Cláraigh</string>
   <string name="computersAreNotAllowedToPlay">Níl cead imeartha ag ríomhairí nó ag imreoirí le cabhair ó ríomhairí. Ná bí ag lorg cabhrach ó innill, bunachair sonraí nó imreoirí agus tú ag imirt. Moltar go láidir gan cuntais iolraí a chruthú agus is féidir cosc a chur ar úsáideoirí as an iomarca cuntais a chruthú.</string>
@@ -105,7 +104,6 @@
   <string name="username">Ainm úsáideora</string>
   <string name="usernameOrEmail">Ainm úsáideora</string>
   <string name="password">Focal faire</string>
-  <string name="haveAnAccount">Cuntas agat?</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh ríomhphost</string>
   <string name="email">Ríomhphost</string>
