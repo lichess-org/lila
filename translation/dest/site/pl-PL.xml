@@ -139,7 +139,7 @@
     <item quantity="one">%s ulubiona partia</item>
     <item quantity="few">%s ulubiona partie</item>
     <item quantity="many">%s ulubiona partii</item>
-    <item quantity="other">%s zakładek</item>
+    <item quantity="other">%s ulubionych partii</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
@@ -154,8 +154,8 @@
   <string name="latestForumPosts">Najnowsze posty</string>
   <string name="players">Gracze</string>
   <string name="minutesPerSide">Minuty na gracza</string>
-  <string name="variant">Wariant</string>
-  <string name="variants">Warianty</string>
+  <string name="variant">Odmiana</string>
+  <string name="variants">Odmiany</string>
   <string name="timeControl">Tempo gry</string>
   <string name="realTime">W czasie rzeczywistym</string>
   <string name="correspondence">Korespondencyjne</string>
@@ -212,9 +212,9 @@
   <string name="cancel">Anuluj</string>
   <string name="timeOut">Przekroczenie limitu czasu</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
-  <string name="drawOfferDeclined">Propozycja remisu została odrzucona</string>
-  <string name="drawOfferAccepted">Propozycja remisu została przyjęta</string>
-  <string name="drawOfferCanceled">Propozycja remisu została anulowana</string>
+  <string name="drawOfferDeclined">Odrzucono propozycję remisu</string>
+  <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
+  <string name="drawOfferCanceled">Wycofano propozycję remisu</string>
   <string name="whiteOffersDraw">Białe proponują remis</string>
   <string name="blackOffersDraw">Czarne proponują remis</string>
   <string name="whiteDeclinesDraw">Białe odrzucają propozycję remisu</string>
@@ -239,9 +239,9 @@
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
   <string name="rematchOfferSentWhite">Białe proponują rewanż</string>
   <string name="rematchOfferSentBlack">Czarne proponują rewanż</string>
-  <string name="rematchOfferAccepted">Propozycja rewanżu została przyjęta</string>
-  <string name="rematchOfferCanceled">Propozycja rewanżu została anulowana</string>
-  <string name="rematchOfferDeclined">Propozycja rewanżu została odrzucona</string>
+  <string name="rematchOfferAccepted">Przyjęto propozycję rewanżu</string>
+  <string name="rematchOfferCanceled">Wycofano propozycję rewanżu</string>
+  <string name="rematchOfferDeclined">Odrzucono propozycję rewanżu</string>
   <string name="cancelRematchOffer">Wycofaj propozycję rewanżu</string>
   <string name="viewRematch">Zobacz rewanż</string>
   <string name="play">Zagraj</string>
@@ -299,7 +299,7 @@
   <string name="giveMoreTime">Daj więcej czasu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
-  <string name="openingExplorerAndTablebase">Biblioteki otwarć i końcówek</string>
+  <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
@@ -482,7 +482,7 @@
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
   <string name="startPosition">Ustawienie początkowe</string>
-  <string name="clearBoard">Wyczyść szachownicę</string>
+  <string name="clearBoard">Opróżnij szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
   <string name="loadPosition">Wczytaj ustawienie</string>
   <string name="isPrivate">Prywatny</string>
@@ -513,7 +513,7 @@
   <string name="trainingSignupExplanation">Lichess będzie proponował zadania dostosowane do Twoich umiejętności, by sesje treningowe były jak najowocniejsze.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
-  <string name="clickToSolve">Kliknij, aby rozwiązać</string>
+  <string name="clickToSolve">Naciśnij, aby rozwiązać</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="butYouCanDoBetter">Ale możesz zrobić to lepiej.</string>
   <string name="bestMove">Najlepszy ruch!</string>
@@ -668,8 +668,8 @@
   <string name="clock">Zegar</string>
   <string name="unauthorizedError">Brak dostępu.</string>
   <string name="noInternetConnection">Brak połączenia. Możesz jednak wybrać z menu opcję gry offline.</string>
-  <string name="connectedToLichess">Zostałeś połączony z lichess.org</string>
-  <string name="signedOut">Wylogowałeś się</string>
+  <string name="connectedToLichess">Połączono z lichess.org</string>
+  <string name="signedOut">Wylogowano</string>
   <string name="loginSuccessful">Jesteś zalogowany</string>
   <string name="playOnTheBoardOffline">Graj offline</string>
   <string name="playOfflineComputer">Zagraj z komputerem</string>
@@ -677,7 +677,7 @@
   <string name="learnMenu">Nauka</string>
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
-  <string name="increment">Dodawany czas</string>
+  <string name="increment">Czas dodawany</string>
   <string name="sharePGN">Udostępnij PGN</string>
   <string name="playOnline">Graj online</string>
   <string name="playOffline">Graj offline</string>
@@ -742,7 +742,7 @@
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="tournamentOfficial">Oficjalny</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
-  <string name="averageCentipawnLoss">Średnia wartość utraconego materiału (w setnych częściach piona)</string>
+  <string name="averageCentipawnLoss">Wartość średnia straconych centypionów</string>
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
