@@ -138,7 +138,6 @@
   <string name="viewInFullSize">Pogledajte u punoj veličini</string>
   <string name="logOut">Odjava</string>
   <string name="signIn">Prijava</string>
-  <string name="newToLichess">Novi na Lichessu?</string>
   <string name="youNeedAnAccountToDoThat">Treba Vam račun da biste to uradili</string>
   <string name="signUp">Registrirajte se</string>
   <string name="computersAreNotAllowedToPlay">Računarima i igračima koji koriste pomoć računara nije dozvoljeno igrati. Molimo Vas da ne koristite pomoć šahovskih programa, baza podataka ili drugih igrača dok igrate.Također, korištenje više računa vodi blokadi računa.</string>
@@ -174,7 +173,6 @@
   <string name="changeUsernameNotSame">Može se promijeniti samo veličina slova. Na primjer, \"johndoe\" u \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo se može uraditi samo jednom i možeš samo promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="password">Lozinka</string>
-  <string name="haveAnAccount">Već imate račun?</string>
   <string name="changePassword">Promjena lozinke</string>
   <string name="changeEmail">Promjena e-maila</string>
   <string name="email">E-mail</string>
