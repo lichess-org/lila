@@ -144,7 +144,6 @@
   <string name="viewInFullSize">Глядзець у поўным памеры</string>
   <string name="logOut">Выйсці</string>
   <string name="signIn">Увайсці</string>
-  <string name="newToLichess">Упершыню на Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Вам патрэбны ўліковы запіс, каб зрабіць гэта</string>
   <string name="signUp">Зарэгістравацца</string>
   <string name="computersAreNotAllowedToPlay">Майце на ўвазе, што да гульні не дапускаюцца «камп’ютарныя гульцы» і гульцы, якія карыстаюцца дапамогай камп’ютару. Любыя дапаможныя сродкі – шахматныя вылічальныя праграмы, базы звестак ці парады іншых гульцоў – забаронены. Мы просім вас гуляць па правілах. Таксама не ўхваляецца стварэнне некалькіх уліковых запісаў: пры злоўжыванні гэта можа прывесці да перманентнай блакіроўкі.</string>
@@ -182,7 +181,6 @@
   <string name="changeUsernameNotSame">Можна мяняць толькі рэгістр літар, да прыкладу, \"janlucevich\" na \"JanLucevich\".</string>
   <string name="changeUsernameDescription">Вы можаце змяніць рэгістр літар у вашым імені карыстальніка. Зрабіць гэта можна толькі адзін раз.</string>
   <string name="password">Пароль</string>
-  <string name="haveAnAccount">Ужо маеце ўліковы запіс?</string>
   <string name="changePassword">Змяніць пароль</string>
   <string name="changeEmail">Змяніць адрас электроннай пошты</string>
   <string name="email">Адрас электроннай пошты</string>
@@ -190,6 +188,12 @@
   <string name="forgotPassword">Забыліся на пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рэйтынг: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Рэйтынг абнаўляецца кожную хвіліну</item>
+    <item quantity="few">Рэйтынг абнаўляецца кожныя %s хвіліны</item>
+    <item quantity="many">Рэйтынг абнаўляецца кожныя %s хвілін</item>
+    <item quantity="other">Рэйтынг абнаўляецца кожныя %s хвілін</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s галаваломка</item>
     <item quantity="few">%s галаваломкі</item>

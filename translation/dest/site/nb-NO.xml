@@ -177,8 +177,8 @@
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rangering blir oppdatert hvert minutt</item>
-    <item quantity="other">Rangering blir oppdatert hvert %s. minutt</item>
+    <item quantity="one">Rangeringen blir oppdatert hvert minutt</item>
+    <item quantity="other">Rangeringen blir oppdatert hvert %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s nøtt</item>
@@ -758,7 +758,7 @@ i %3$s</string>
   <string name="xHostsY">%1$s opprettet %2$s</string>
   <string name="xJoinsY">%1$s ble med på %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
-  <string name="xCreatesStudyY">%1$s oppretter studie %2$s</string>
+  <string name="xCreatesStudyY">%1$s oppretter studien %2$s</string>
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
@@ -770,7 +770,7 @@ i %3$s</string>
   <string name="transparent">Gjennomsiktig</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
   <string name="boardGeometry">Brettgeometri</string>
-  <string name="boardTheme">Brettema</string>
+  <string name="boardTheme">Brett-tema</string>
   <string name="boardSize">Brettstørrelse</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Bygg inn på nettstedet ditt</string>

@@ -129,7 +129,6 @@
   <string name="viewInFullSize">在整个网页里观看棋局</string>
   <string name="logOut">退出</string>
   <string name="signIn">登录</string>
-  <string name="newToLichess">新访客？</string>
   <string name="youNeedAnAccountToDoThat">请注册以完成该操作</string>
   <string name="signUp">注册</string>
   <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对弈。在下棋时，请不要从国际象棋引擎、数据库或其他棋手那里得到帮助。另外，强烈建议您不要创建多个账号。过度使用多个帐号会导致帐户被封禁。</string>
@@ -161,7 +160,6 @@
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，之后只能更改用户名字母的大小写。</string>
   <string name="password">密码</string>
-  <string name="haveAnAccount">有帐户吗？</string>
   <string name="changePassword">修改密码</string>
   <string name="changeEmail">更改电子邮件地址</string>
   <string name="email">电子邮箱</string>

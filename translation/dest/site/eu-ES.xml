@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Pantaila osoa</string>
   <string name="logOut">Irten</string>
   <string name="signIn">Sartu</string>
-  <string name="newToLichess">Berria Lichessen?</string>
   <string name="youNeedAnAccountToDoThat">Kontu bat behar duzu hori egiteko</string>
   <string name="signUp">Izen ematea</string>
   <string name="computersAreNotAllowedToPlay">Xake-programen erabilera debekatuta dago. Mesedez, ez erabili beste jokalari, xake-programa edo datu-baseren laguntzariik. Kontuan izan kontu asko sortzea ere oso gaizki ikusita dagoela; kontu gehieg sortzeak zu kanporatzea ekar dezake.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Hizkien izaera bakarrik aldatu daiteke (larriak vs. xeheak). Adibidez: jatorrizko \"urlia\" \"UrLiA\" bihurtu daiteke.</string>
   <string name="changeUsernameDescription">Zure erabiltzaile-izena aldatu. Hau behin bakarrik egin daiteke eta hizkien izaera bakarrik aldatu dezakezu (hizki larriak vs. xeheak).</string>
   <string name="password">Pasahitza</string>
-  <string name="haveAnAccount">Erabiltzaile-kontua duzu?</string>
   <string name="changePassword">Pasahitza aldatu</string>
   <string name="changeEmail">Posta elektronikoa aldatu</string>
   <string name="email">Posta elektronikoa</string>
@@ -176,6 +174,10 @@
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
   <string name="rank">Maila</string>
   <string name="rankX">Sailkapena: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Sailkapena minutuero eguneratzen da</item>
+    <item quantity="other">Sailkapena %s minuturo eguneratzen da</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">Puzzle %s</item>
     <item quantity="other">%s ariketa</item>

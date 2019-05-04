@@ -11,8 +11,8 @@
     <item quantity="other">A pratiqué %1$s positions de %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">A résolu %s puzzle tactique</item>
-    <item quantity="other">%s puzzles tactiques résolus</item>
+    <item quantity="one">A résolu %s problème tactique</item>
+    <item quantity="other">A résolu %s problèmes tactiques</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">A joué %1$s partie de %2$s</item>
@@ -35,12 +35,12 @@
     <item quantity="other">%s parties par correspondance terminées</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Commence à suivre %s joueur</item>
-    <item quantity="other">Commence à suivre %s joueurs</item>
+    <item quantity="one">A commencé à suivre %s joueur</item>
+    <item quantity="other">A commencé à suivre %s joueurs</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Obtenu %s nouveau follower</item>
-    <item quantity="other">Gagne %s nouveaux suiveurs</item>
+    <item quantity="one">A gagné %s nouveau follower</item>
+    <item quantity="other">A gagné %s nouveaux followers</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">A hébergé %s simultanée</item>
@@ -62,7 +62,7 @@
     <item quantity="one">Classé #%1$s (pourcentage: %2$s%%) avec %3$s partie en %4$s</item>
     <item quantity="other">Classé #%1$s (pourcentage: %2$s%%) avec %3$s parties en %4$s</item>
   </plurals>
-  <string name="signedUp">Inscription à lichess.org</string>
+  <string name="signedUp">S\'est inscrit à lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">A rejoint %s équipe</item>
     <item quantity="other">A rejoint %s équipes</item>

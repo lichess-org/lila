@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
   <string name="signIn">Entra</string>
-  <string name="newToLichess">Nuovo su Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Devi avere un account per farlo</string>
   <string name="signUp">Registrati</string>
   <string name="computersAreNotAllowedToPlay">Non è permesso giocare a computer e a giocatori che si fanno aiutare dai computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli e un uso eccessivo di account porterà alla cancellazione dal sito.</string>
@@ -165,10 +164,9 @@
   <string name="username">Nome utente</string>
   <string name="usernameOrEmail">Nome utente o email</string>
   <string name="changeUsername">Cambia nome utente</string>
-  <string name="changeUsernameNotSame">Può cambiare solamente il maiuscolo/minuscolo delle lettere. Per esempio da \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Puoi cambiare solamente il maiuscolo/minuscolo delle lettere (per esempio da \"mariorossi\" a \"MarioRossi\").</string>
   <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="password">Password</string>
-  <string name="haveAnAccount">Hai già un account?</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>
   <string name="email">Email</string>
@@ -177,8 +175,8 @@
   <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Il ranking viene aggiornato ogni minuto</item>
-    <item quantity="other">Il ranking viene aggiornato %s minuti</item>
+    <item quantity="one">La posizione è aggiornata ogni minuto</item>
+    <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
@@ -758,7 +756,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s ospita %2$s</string>
   <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
-  <string name="xCreatesStudyY">%1$s crea uno studio %2$s</string>
+  <string name="xCreatesStudyY">%1$s ha creato uno studio %2$s</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonimo</string>
@@ -843,7 +841,7 @@ in %3$s</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
   <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un punteggio %s provvisorio.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un punteggio provvisorio in %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
   <string name="conditionalPremoves">Premosse condizionali</string>
   <string name="addCurrentVariation">Aggiungi variazione corrente</string>

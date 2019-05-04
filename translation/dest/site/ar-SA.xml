@@ -154,7 +154,6 @@
   <string name="viewInFullSize">عرض بالحجم الكامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">دخول</string>
-  <string name="newToLichess">هل أنت جديد هنا؟</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
   <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب مما قد يؤدي إلى الحظر من الموقع</string>
@@ -193,7 +192,6 @@
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="password">كلمة السر</string>
-  <string name="haveAnAccount">هل لديك حساب؟</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>

@@ -165,6 +165,8 @@
   <string name="username">Gebruikersnaam</string>
   <string name="usernameOrEmail">Gebruikersnaam of email</string>
   <string name="changeUsername">Wijzig gebruikersnaam</string>
+  <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen, bijvoorbeeld van \"johndoe\" naar \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Uw gebruikersnaam wijzigen. Dit kan alleen worden gedaan eenmaal en u mag alleen het hoofdlettergebruik van de letters in uw gebruikersnaam wijzigen.</string>
   <string name="password">Wachtwoord</string>
   <string name="haveAnAccount">Heeft u al een account?</string>
   <string name="changePassword">Wijzig wachtwoord</string>
@@ -750,6 +752,7 @@
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
+  <string name="xCreatesStudyY">%1$s heeft de studie %2$s aangemaakt</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>

@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
   <string name="promoteVariation">Promouvoir la variante</string>
-  <string name="makeMainLine">En faire la ligne principale</string>
+  <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
   <string name="signIn">Connexion</string>
-  <string name="newToLichess">Nouveau sur Lichess  ?</string>
   <string name="youNeedAnAccountToDoThat">Compte d\'utilisateur requis</string>
   <string name="signUp">S\'inscrire</string>
   <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est fortement déconseillé de créer plusieurs comptes. Le multi-compte excessif mènera à l\'exclusion.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seules les majuscules/minuscules peuvent être modifiées.</string>
   <string name="password">Mot de passe</string>
-  <string name="haveAnAccount">Déjà inscrit ?</string>
   <string name="changePassword">Changer votre mot de passe</string>
   <string name="changeEmail">Changer votre courriel</string>
   <string name="email">Courriel</string>
@@ -181,7 +179,7 @@
     <item quantity="other">Le classement est mis à jour toutes les %s minutes</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s puzzle</item>
+    <item quantity="one">%s problème</item>
     <item quantity="other">%s puzzles</item>
   </plurals>
   <string name="gamesPlayed">Parties jouées</string>
@@ -203,7 +201,7 @@
   <string name="accept">Accepter</string>
   <string name="decline">Refuser</string>
   <string name="playingRightNow">Parties en cours</string>
-  <string name="eventInProgress">En train de jouer</string>
+  <string name="eventInProgress">En cours</string>
   <string name="finished">Terminé</string>
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
@@ -283,7 +281,7 @@
   <string name="tournamentPoints">Score de tournoi</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s point en tournoi</item>
-    <item quantity="other">%s points en tournoi</item>
+    <item quantity="other">%s points de tournoi</item>
   </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
@@ -293,12 +291,12 @@
     <item quantity="other">≥ %s parties classées</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s partie %2$s classée</item>
-    <item quantity="other">≥ %1$s parties %2$s classées</item>
+    <item quantity="one">≥ %1$s partie de %2$s classée</item>
+    <item quantity="other">≥ %1$s parties de %2$s classées</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Vous devez jouer encore %1$s partie classée en %2$s</item>
-    <item quantity="other">Vous devez encore jouer %1$s parties classées</item>
+    <item quantity="one">Vous devez encore jouer %1$s partie de %2$s classée</item>
+    <item quantity="other">Vous devez encore jouer %1$s parties de %2$s classées</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Vous devez encore jouer %s partie classée</item>
@@ -306,10 +304,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
   <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevée</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure classement en %1$s de la semaine (%2$s) est trop élevée</string>
-  <string name="yourPerfRatingIsTooLow">Votre classement en %1$s (%2$s) est trop faible</string>
-  <string name="ratedMoreThanInPerf">Classement ≥ %1$s en %2$s</string>
-  <string name="ratedLessThanInPerf">Classement ≤ %1$s en %2$s</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevé</string>
+  <string name="yourPerfRatingIsTooLow">Votre cote de %1$s (%2$s) est trop faible</string>
+  <string name="ratedMoreThanInPerf">Cote ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Cote ≤ %1$s en %2$s</string>
   <string name="mustBeInTeam">Vous devez faire partie de l\'équipe %s</string>
   <string name="youAreNotInTeam">Vous ne faites pas partie de l\'équipe %s</string>
   <string name="backToGame">Retour à la partie</string>
@@ -428,7 +426,7 @@
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="setTheBoard">Entrer une position</string>
-  <string name="popularOpenings">Ouvertures populaires</string>
+  <string name="popularOpenings">Ouvertures courantes</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -472,7 +470,7 @@
   <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
-  <string name="ratingX">Classement : %s</string>
+  <string name="ratingX">Cote : %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
@@ -514,7 +512,7 @@
   <string name="insult">Insulte</string>
   <string name="troll">Troll</string>
   <string name="other">Autre</string>
-  <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié.</string>
+  <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié. Ne dites pas juste \"il triche\", mais expliquez comment vous êtes arrivé à cette conclusion. Votre rapport sera traité plus vite s\'il est écrit en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
   <string name="by">par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
@@ -590,27 +588,27 @@
   <string name="xVsYinZ">%1$s contre %2$s
 en %3$s</string>
   <string name="timeline">Activité</string>
-  <string name="starting">Démarrage :</string>
+  <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
-  <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
+  <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs préférés, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractères.</item>
+    <item quantity="one">Maximum : %s caractère.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueurs bloqués</item>
+    <item quantity="one">%s joueur bloqué</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
   <string name="human">Humain</string>
   <string name="computer">Ordinateur</string>
-  <string name="side">Coté</string>
+  <string name="side">Côté</string>
   <string name="clock">Pendule</string>
   <string name="unauthorizedError">Accès non autorisé.</string>
   <string name="noInternetConnection">Pas de connexion à Internet. Vous pouvez cependant jouer hors ligne à partir du menu.</string>
   <string name="connectedToLichess">Vous êtes maintenant connecté à lichess.org</string>
-  <string name="signedOut">Vous vous êtes déconnecté</string>
+  <string name="signedOut">Vous avez été déconnecté</string>
   <string name="loginSuccessful">Vous êtes connecté</string>
   <string name="playOnTheBoardOffline">Jouer hors ligne, avec un ami</string>
   <string name="playOfflineComputer">Jouer hors ligne, avec l\'ordinateur</string>
@@ -652,7 +650,7 @@ en %3$s</string>
   <string name="webmasters">Webmestres</string>
   <string name="about">À propos</string>
   <string name="aboutX">À propos de %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est gratuit (%2$s), libre, sans pubs, serveur d\'échecs avec source ouverte.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est un serveur d\'échecs gratuit (%2$s), libre, sans pubs et open source.</string>
   <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
   <string name="contact">Nous contacter</string>
@@ -661,7 +659,7 @@ en %3$s</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
   <string name="hostColorX">Couleur de l’hôte : %s</string>
-  <string name="createdSimuls">Nouvelles parties simultanées</string>
+  <string name="createdSimuls">Nouvelles simultanées</string>
   <string name="hostANewSimul">Créer une nouvelle simultanée</string>
   <string name="noSimulFound">Simultanée introuvable</string>
   <string name="noSimulExplanation">Cette simultanée n\'existe pas.</string>
@@ -669,11 +667,11 @@ en %3$s</string>
   <string name="aboutSimul">Une simultanée est une rencontre entre un joueur et plusieurs adversaires chacun sur un échiquier séparé.</string>
   <string name="aboutSimulImage">Sur 50 adversaires, Fischer a gagné 47 parties, fait 2 nulles et perdu 1 partie.</string>
   <string name="aboutSimulRealLife">Le concept est inspiré de la vie réelle, où le joueur passe d\'un échiquier à l\'autre pour jouer chaque coup.</string>
-  <string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui joue avec les Blancs. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
+  <string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui a les Blancs. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
-  <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
+  <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur peut choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
   <string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
@@ -688,34 +686,34 @@ en %3$s</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
   <string name="newTournament">Nouveau tournoi</string>
-  <string name="tournamentHomeTitle">Tournois mettant en jeu diverses variantes et cadences</string>
+  <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
   <string name="tournamentNotFound">Tournoi inexistant</string>
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
   <string name="tournamentMayHaveBeenCanceled">Il a peut-être été annulé, si tous les joueurs l\'ont quitté avant le début.</string>
   <string name="returnToTournamentsHomepage">Retour à la page des tournois</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des classements en %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des cotes en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Un joueur de %2$s cette semaine.</item>
     <item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Votre classement en %1$s est de %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
   <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à notre %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
   <string name="networkLagBetweenYouAndLichess">Latence du réseau entre vous et lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Temps nécessaire au traitement d\'un coup sur un serveur lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Temps nécessaire au traitement d\'un coup sur le serveur lichess</string>
   <string name="downloadAnnotated">Télécharger le PGN annoté</string>
   <string name="downloadRaw">Télécharger le PGN brut</string>
   <string name="downloadImported">Télécharger le PGN importé</string>
   <string name="printFriendlyPDF">PDF pour l\'impression</string>
   <string name="crosstable">Historique des parties</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour voir la partie</string>
-  <string name="analysisShapesHowTo">Shift+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour faire défiler la partie.</string>
+  <string name="analysisShapesHowTo">Utilisez maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
   <string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
@@ -727,11 +725,11 @@ en %3$s</string>
   <string name="withFriends">Avec mes amis</string>
   <string name="withEverybody">Avec tout le monde</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Cet email est déjà associé à un compte existant : %s</string>
-  <string name="kidMode">Mode enfant</string>
-  <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les scolaires, afin de les protéger des autres utilisateurs.</string>
+  <string name="kidMode">Mode enfants</string>
+  <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les écoliers, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
-  <string name="enableKidMode">Activer le mode enfant</string>
-  <string name="disableKidMode">Désactiver le mode enfant</string>
+  <string name="enableKidMode">Activer le mode enfants</string>
+  <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
   <string name="alternativelyYouCanX">Vous pouvez également %s.</string>
@@ -753,7 +751,7 @@ en %3$s</string>
     <item quantity="one">Disponible en %s langue !</item>
     <item quantity="other">Disponible en %s langues !</item>
   </plurals>
-  <string name="gameAnalysis">Analyse d\'une partie</string>
+  <string name="gameAnalysis">Analyse de la partie</string>
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
@@ -773,11 +771,11 @@ en %3$s</string>
   <string name="boardSize">Taille de l\'échiquier</string>
   <string name="pieceSet">Jeu de pièces</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
-  <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
+  <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà, merci d\'en choisir un autre.</string>
   <string name="usernamePrefixInvalid">Le nom d\'utilisateur doit commencer par une lettre.</string>
   <string name="usernameSuffixInvalid">Le nom d’utilisateur doit se terminer par une lettre ou un chiffre.</string>
   <string name="usernameCharsInvalid">Le nom d\'utilisateur doit contenir uniquement des lettres, des chiffres, des tirets.</string>
-  <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
+  <string name="usernameUnacceptable">Nom d\'utilisateur refusé.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez aux échecs avec classe</string>
   <string name="chessBasics">Bases des échecs</string>
@@ -797,17 +795,17 @@ en %3$s</string>
     <item quantity="one">%s seconde pour jouer le premier coup</item>
     <item quantity="other">%s secondes pour jouer le premier coup</item>
   </plurals>
-  <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
+  <string name="practiceWithComputer">S\'entraîner avec un ordinateur</string>
   <string name="anotherWasX">Un autre était %s</string>
   <string name="bestWasX">Meilleur était %s</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
-  <string name="resumePractice">Reprendre l\'entrainement</string>
+  <string name="resumePractice">Reprendre l\'entraînement</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
   <string name="computerThinking">L’ordinateur réfléchit ...</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
-  <string name="evaluatingYourMove">Evaluation de votre coup...</string>
+  <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
@@ -822,7 +820,7 @@ en %3$s</string>
   <string name="tryAnotherMoveForWhite">Essayez un autre coup pour les Blancs</string>
   <string name="tryAnotherMoveForBlack">Essayez un autre coup pour les Noirs</string>
   <string name="solution">Solution</string>
-  <string name="waitingForAnalysis">En attente d\'analyse</string>
+  <string name="waitingForAnalysis">En cours d\'analyse</string>
   <string name="noMistakesFoundForWhite">Pas d\'erreur trouvée pour les Blancs</string>
   <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
   <string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs des Blancs</string>
@@ -843,14 +841,14 @@ en %3$s</string>
   <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
   <string name="yourXRatingIsTooFarFromY">Votre classement de %1$s est trop différent de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Défier est impossible à cause du classement %s provisoire.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis d’amis.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses amis.</string>
   <string name="conditionalPremoves">Précoups conditionnels</string>
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">et enregistrer %s variantes</item>
+    <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
 </resources>

@@ -165,6 +165,8 @@
   <string name="username">Nombre de usuario</string>
   <string name="usernameOrEmail">Nombre de usuario o correo</string>
   <string name="changeUsername">Cambiar nombre de usuario</string>
+  <string name="changeUsernameNotSame">Sólo es posible cambiar el formato. Por ejemplo, de \"juanperez\" a \"JuanPerez\".</string>
+  <string name="changeUsernameDescription">Cambiar tu nombre de usuario. Esto sólo puede hacerse una vez, y sólo se puede cambiar el formato.</string>
   <string name="password">Contraseña</string>
   <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
@@ -174,6 +176,10 @@
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
   <string name="rank">Posición</string>
   <string name="rankX">Clasificación: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">La clasificación se actualiza cada minuto</item>
+    <item quantity="other">La clasificación se actualiza cada %s minutos</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ejercicio</item>
     <item quantity="other">%s ejercicios</item>
@@ -750,7 +756,7 @@
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
-  <string name="xCreatesStudyY">%1$s Creó el estudio %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea un estudio %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>

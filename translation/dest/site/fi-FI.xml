@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Näytä täysikokoisena</string>
   <string name="logOut">Kirjaudu ulos</string>
   <string name="signIn">Kirjaudu sisään</string>
-  <string name="newToLichess">Ensimmäistä kertaa Lichessissä?</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
   <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien vinkkejä. Ota myös huomioon, että useamman tilin luomista ei katsota yhtään hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Vain se, onko kirjain iso vai pieni voi muuttua.</string>
   <string name="changeUsernameDescription">Vaihda käyttäjänimi. Tämän voi tehdä vain kerran ja sen jälkeen voit vain muuttaa käyttäjänimesi kirjoitusasua.</string>
   <string name="password">Salasana</string>
-  <string name="haveAnAccount">Onko sinulla jo tili?</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>
   <string name="email">Sähköpostiosoite</string>
@@ -652,8 +650,8 @@
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
   <string name="aboutX">Tietoa %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa, manokseton, avoimen lähdekoodin shakkipalvelin.</string>
-  <string name="really">todella</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
+  <string name="really">oikeasti</string>
   <string name="contribute">Osallistu</string>
   <string name="contact">Kontakti</string>
   <string name="termsOfService">Käyttöehdot</string>
@@ -757,6 +755,7 @@
   <string name="xHostsY">%1$s isännöi %2$s</string>
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
+  <string name="xCreatesStudyY">%1$s loi tutkielman %2$s</string>
   <string name="quickPairing">Nopea paritus</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>

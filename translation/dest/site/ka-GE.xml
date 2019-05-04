@@ -123,7 +123,6 @@
   <string name="viewInFullSize">სრული ზომით ნახვა</string>
   <string name="logOut">გამოსვლა</string>
   <string name="signIn">შესვლა</string>
-  <string name="newToLichess">ახალბედა ხართ Lichess-ზე?</string>
   <string name="youNeedAnAccountToDoThat">აღნიშნული ქმედებისთვის საჭიროა რეგისტრაცია</string>
   <string name="signUp">რეგისტრაცია</string>
   <string name="computersAreNotAllowedToPlay">თამაში ეკრძალებათ კომპიუტერებსა და მოთამაშეებს კომპიუტერის დახმარებით. გთხოვთ, თამაშისას თავი შეიკავოთ ჭადრაკის პროგრამების და მონაცემტა ბაზების გამოყენებისგან, ასევე, სხვა მოთამაშეთაგან დახმარების მიღებისგან. გთხოვთ, გაითვალისწინოთ, რომ რამდენიმე ანგარიშის დარეგისტრირება მიზანშეწონილი არ არის, ხოლო გადამეტებული რაოდენობის ანგარიშთა გამოყენებას მოჰყვება ვებ გვერდზე წვდომის შეზღუდვა.</string>
@@ -154,7 +153,6 @@
   <string name="username">მომხმარებლის სახელი</string>
   <string name="usernameOrEmail">მომხმარებლის სახელი</string>
   <string name="password">პაროლი</string>
-  <string name="haveAnAccount">უკვე გაქვთ ანგარიში?</string>
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>
   <string name="email">ელ. ფოსტა</string>

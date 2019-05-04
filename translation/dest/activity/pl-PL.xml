@@ -3,40 +3,40 @@
 <resources>
   <string name="activity">Aktywność</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Wspomógł Lichess przez miesiąc jako %2$s</item>
-    <item quantity="few">Wspomógł Lichess przez %1$s miesiące jako %2$s</item>
-    <item quantity="many">Wspomógł Lichess przez %1$s miesięcy jako %2$s</item>
-    <item quantity="other">Wspomógł Lichess przez %1$s miesięcy jako %2$s</item>
+    <item quantity="one">Wsparcie lichess.org przez miesiąc jako %2$s</item>
+    <item quantity="few">Wsparcie lichess.org przez %1$s miesiące jako %2$s</item>
+    <item quantity="many">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
+    <item quantity="other">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Przerobione %1$s ćwiczenie w %2$s</item>
+    <item quantity="one">Przerobione ćwiczenie w %2$s</item>
     <item quantity="few">Przerobione %1$s ćwiczenia w %2$s</item>
     <item quantity="many">Przerobione %1$s ćwiczeń w %2$s</item>
     <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Próbował rozwiązać %s zadanie szachowe</item>
-    <item quantity="few">Próbował rozwiązać %s zadania szachowe</item>
-    <item quantity="many">Próbował rozwiązać %s zadań szachowych</item>
-    <item quantity="other">Próbował rozwiązać %s zadań szachowych</item>
+    <item quantity="one">Rozwiązanie zadania szachowego</item>
+    <item quantity="few">Rozwiązanie %s zadań szachowych</item>
+    <item quantity="many">Rozwiązanie %s zadań szachowych</item>
+    <item quantity="other">Rozwiązanie %s zadań szachowych</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Rozegrana %1$s partia %2$s</item>
-    <item quantity="few">Rozegrane %1$s partie %2$s</item>
-    <item quantity="many">Rozegrane %1$s partii %2$s</item>
-    <item quantity="other">Rozegrane %1$s partii %2$s</item>
+    <item quantity="one">Rozegranie partii (%2$s)</item>
+    <item quantity="few">Rozegranie %1$s partii (%2$s)</item>
+    <item quantity="many">Rozegranie %1$s partii (%2$s)</item>
+    <item quantity="other">Rozegranie %1$s partii (%2$s)</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Opublikowana %1$s wiadomość w %2$s</item>
-    <item quantity="few">Opublikowane %1$s wiadomości w %2$s</item>
-    <item quantity="many">Opublikowane %1$s wiadomości w %2$s</item>
-    <item quantity="other">Opublikowane %1$s wiadomości w %2$s</item>
+    <item quantity="one">Opublikowanie wiadomości w %2$s</item>
+    <item quantity="few">Opublikowanie %1$s wiadomości w %2$s</item>
+    <item quantity="many">Opublikowanie %1$s wiadomości w %2$s</item>
+    <item quantity="other">Opublikowanie %1$s wiadomości w %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Wykonał jeden ruch</item>
-    <item quantity="few">Wykonał %1$s ruchy</item>
-    <item quantity="many">Wykonał %1$s ruchów</item>
-    <item quantity="other">Wykonał %1$s ruchów</item>
+    <item quantity="one">Wykonanie ruchu</item>
+    <item quantity="few">Wykonanie %1$s ruchów</item>
+    <item quantity="many">Wykonanie %1$s ruchów</item>
+    <item quantity="other">Wykonanie %1$s ruchów</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">w partii korespondencyjnej</item>
@@ -45,28 +45,28 @@
     <item quantity="other">w %1$s partiach korespondencyjnych</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Zakończona %s partia korespondencyjna</item>
-    <item quantity="few">Zakończone %s partie korespondencyjne</item>
-    <item quantity="many">Zakończone %s partii korespondencyjnych</item>
-    <item quantity="other">Zakończone %s partii korespondencyjnych</item>
+    <item quantity="one">Zakończenie partii korespondencyjnej</item>
+    <item quantity="few">Zakończenie %s partii korespondencyjnych</item>
+    <item quantity="many">Zakończenie %s partii korespondencyjnych</item>
+    <item quantity="other">Zakończenie %s partii korespondencyjnych</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">%s nowy obserwowany gracz</item>
-    <item quantity="few">%s nowych obserwowanych graczy</item>
-    <item quantity="many">%s nowych obserwowanych graczy</item>
-    <item quantity="other">%s nowych obserwowanych graczy</item>
+    <item quantity="one">Rozpoczęcie obserwowania gracza</item>
+    <item quantity="few">Rozpoczęcie obserwowania %s graczy</item>
+    <item quantity="many">Rozpoczęcie obserwowania %s graczy</item>
+    <item quantity="other">Rozpoczęcie obserwowania %s graczy</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s nowy obserwujący</item>
-    <item quantity="few">%s nowych obserwujących</item>
-    <item quantity="many">%s nowych obserwujących</item>
-    <item quantity="other">%s nowych obserwujących</item>
+    <item quantity="one">Zdobycie nowego obserwującego</item>
+    <item quantity="few">Zdobycie %s nowych obserwujących</item>
+    <item quantity="many">Zdobycie %s nowych obserwujących</item>
+    <item quantity="other">Zdobycie %s nowych obserwujących</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s rozegrana symultana</item>
-    <item quantity="few">%s rozegrane symultany</item>
-    <item quantity="many">%s rozegranych symultan</item>
-    <item quantity="other">%s rozegranych symultan</item>
+    <item quantity="one">Rozegranie symultany</item>
+    <item quantity="few">Rozegranie %s symultan</item>
+    <item quantity="many">Rozegranie %s symultan</item>
+    <item quantity="other">Rozegranie %s symultan</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Udział w %s symultanie</item>
@@ -75,28 +75,28 @@
     <item quantity="other">Udział w %s symultanach</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Utworzono %s nowe studium</item>
-    <item quantity="few">Utworzono %s nowe studia</item>
-    <item quantity="many">Utworzono %s nowych studiów</item>
-    <item quantity="other">Utworzono %s nowych studiów</item>
+    <item quantity="one">Utworzenie nowego studium</item>
+    <item quantity="few">Utworzenie %s nowych studiów</item>
+    <item quantity="many">Utworzenie %s nowych studiów</item>
+    <item quantity="other">Utworzenie %s nowych studiów</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Uczestnictwo w %s turnieju</item>
+    <item quantity="one">Uczestnictwo w turnieju</item>
     <item quantity="few">Uczestnictwo w %s turniejach</item>
     <item quantity="many">Uczestnictwo w %s turniejach</item>
     <item quantity="other">Uczestnictwo w %s turniejach</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partią w %4$s</item>
-    <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
-    <item quantity="many">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
-    <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="one">%1$s. miejsce w klasyfikacji (%2$s%% najlepszych) z %3$s partią w %4$s</item>
+    <item quantity="few">%1$s. miejsce w klasyfikacji (%2$s%% najlepszych) z %3$s partiami w %4$s</item>
+    <item quantity="many">%1$s. miejsce w klasyfikacji (%2$s%% najlepszych) z %3$s partiami w %4$s</item>
+    <item quantity="other">%1$s. miejsce w klasyfikacji (%2$s%% najlepszych) z %3$s partiami w %4$s</item>
   </plurals>
   <string name="signedUp">Rejestracja na lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Dołączył do %s klubu</item>
-    <item quantity="few">Dołączył do %s klubów</item>
-    <item quantity="many">Dołączył do %s klubów</item>
-    <item quantity="other">Dołączył do %s klubów</item>
+    <item quantity="one">Dołączenie do klubu</item>
+    <item quantity="few">Dołączenie do %s klubów</item>
+    <item quantity="many">Dołączenie do %s klubów</item>
+    <item quantity="other">Dołączenie do %s klubów</item>
   </plurals>
 </resources>

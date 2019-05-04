@@ -130,7 +130,6 @@
   <string name="viewInFullSize">Tam görünüşlə bax</string>
   <string name="logOut">Xətdən çıx</string>
   <string name="signIn">Xəttə bağlan</string>
-  <string name="newToLichess">Lichess-ə yeni gəlmisiniz?</string>
   <string name="youNeedAnAccountToDoThat">Bunun üçün siz qeydiyyatdan keçməlisiniz</string>
   <string name="signUp">Üzv ol</string>
   <string name="computersAreNotAllowedToPlay">Bilgisayarlar və bilgisayardan yararlan oyunçulara oynamaq qadağandır. Oyun zamanı şahmat programlarından, məlumat bazalarından və ya digər oyunçulardan yardım alınmaması xahiş olunur.</string>
@@ -161,7 +160,6 @@
   <string name="username">İstifadəçi adı</string>
   <string name="usernameOrEmail">İstifadəçi adı</string>
   <string name="password">Şifrə</string>
-  <string name="haveAnAccount">Üzvlüyünüz varmı?</string>
   <string name="changePassword">Parolu dəyiş</string>
   <string name="changeEmail">Emaili dəyiş</string>
   <string name="email">Email</string>

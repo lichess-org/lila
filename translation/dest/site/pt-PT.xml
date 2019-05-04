@@ -164,6 +164,9 @@
   <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
+  <string name="changeUsername">Alterar o nome de utilizador</string>
+  <string name="changeUsernameNotSame">Só lhe é permitido alterar a forma das letras. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Altere o seu nome de utilizador. Só o pode fazer uma vez e alterando unicamente a forma das letras.</string>
   <string name="password">Senha</string>
   <string name="haveAnAccount">Tem uma conta?</string>
   <string name="changePassword">Alterar senha</string>
@@ -173,6 +176,10 @@
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">O ranking é atualizado a cada %s minutos</item>
+    <item quantity="other">O ranking é atualizado a cada %s minutos</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s quebra-cabeças</item>

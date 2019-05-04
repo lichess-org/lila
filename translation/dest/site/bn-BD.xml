@@ -134,7 +134,6 @@
   <string name="viewInFullSize">পূর্ণ আকারে দেখুন</string>
   <string name="logOut">প্রস্থান</string>
   <string name="signIn">সাইন ইন</string>
-  <string name="newToLichess">আপনি কি লিচেসে নতুন?</string>
   <string name="youNeedAnAccountToDoThat">এটি করার জন্য আপনার একাউন্ট প্রয়োজন</string>
   <string name="signUp">নিবন্ধ</string>
   <string name="computersAreNotAllowedToPlay">কম্পিউটার অথবা কম্পিউটার ব্যবহার করে খেলা যাবে না | সবাইকে অনুরোধ করা হচ্ছে যেন কেউ খেলার সময় কোনো রকম কম্পিউটার এর সাহায্য না নেন | পুনশ্চ, অযথা অনেক গুলি একাউন্ট খুলবেন না তাহলে আপনাকে বহিষ্কার করা হতে পারে.</string>
@@ -165,7 +164,6 @@
   <string name="username">ব্যবহারকারীর নাম</string>
   <string name="usernameOrEmail">ব্যবহারকারী নাম অথবা ই-মেইল</string>
   <string name="password">পাসওয়ার্ড</string>
-  <string name="haveAnAccount">আপনার কি একাউন্ট আছে?</string>
   <string name="changePassword">পাসওয়ার্ড পরিবর্তন</string>
   <string name="changeEmail">ই-মেইল পরিবর্তন করুন</string>
   <string name="email">ইমেল</string>

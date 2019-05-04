@@ -129,7 +129,6 @@
   <string name="viewInFullSize">Lihat dalam ukuran penuh</string>
   <string name="logOut">Keluar</string>
   <string name="signIn">Masuk</string>
-  <string name="newToLichess">Baru di Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Anda perlu mendaftar untuk melakukannya</string>
   <string name="signUp">Daftar</string>
   <string name="computersAreNotAllowedToPlay">Komputer maupun pemain yang menggunakan bantuan komputer dilarang bermain. Mohon untuk tidak menggunakan bantuan dari program komputer, database, maupun pemain lain ketika bermain. Juga menggunakan beberapa akun bersamaan sangat dilarang dan akan mengakibatkan akun anda di-BANNED!</string>
@@ -161,7 +160,6 @@
   <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
   <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
   <string name="password">Kata sandi</string>
-  <string name="haveAnAccount">Punya akun?</string>
   <string name="changePassword">Ganti kata sandi</string>
   <string name="changeEmail">Ubah email</string>
   <string name="email">Email</string>
@@ -557,7 +555,7 @@
   <string name="xAskedY">%1$s bertanya %2$s</string>
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
-  <string name="victory">Menang!</string>
+  <string name="victory">Berhasil!</string>
   <string name="defeat">Kalah</string>
   <string name="xVsYinZ">%1$s melawan %2$s dalam permainan %3$s</string>
   <string name="timeline">Timeline</string>
@@ -635,7 +633,7 @@
   <string name="noSimulExplanation">Eksibisi simultan ini tidak ada</string>
   <string name="returnToSimulHomepage">Kembali ke halaman Simultan</string>
   <string name="aboutSimul">Simultan adalah seoran pemain lawan banyak lawan dalam satu saat.</string>
-  <string name="aboutSimulImage">Sampai 50 lawan, Fischer menang 47 partai, remis 2 dan kalah 1.</string>
+  <string name="aboutSimulImage">Sampai 50 lawan, Fischer menang 47 partai, 2 remis dan 1 kekalahan.</string>
   <string name="aboutSimulRealLife">Konsep ini seperti dalam dunia nyata. Dalam dunia nyata, ini dilakukan oleh pensimultan yang bergerak dari meja ke meja yang memainkan sebuah langkah.</string>
   <string name="aboutSimulRules">Saat Simultan dimulai, setiap pemain melawan penyedia, yang bermain sebagai buah putih. Simultan berakhir jika seluruh partai telah selesai dimainkan.</string>
   <string name="aboutSimulSettings">Simultan selalu sederhana, tanding ulang, langkah balik dan tambahan waktu tidak diijinkan.</string>
