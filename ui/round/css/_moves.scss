@@ -12,9 +12,9 @@
       order: 0;
     }
   }
-  .fbt {
+  .fbt, .noop {
     padding: 5px 0;
-    flex: 1 1 auto;
+    flex: 0 0 calc(100% / 6);
     text-align: center;
   }
   .moves,
