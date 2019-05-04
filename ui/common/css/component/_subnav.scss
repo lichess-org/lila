@@ -13,10 +13,12 @@
 
     a {
       @include box-neat;
+      font-family: roboto;
       display: flex;
       align-items: center;
       color: $c-font;
-      padding: 0.6rem 0.4rem 0.6rem 0.8rem;
+      padding: .6rem 0 .6rem .5rem;
+      letter-spacing: -0.06em;
       background: $c-bg-high;
       &:hover {
         color: $c-link;
@@ -24,7 +26,6 @@
       &.active {
         background: $c-primary;
         color: $c-primary-over;
-        font-weight: bold;
       }
     }
     .sep {
