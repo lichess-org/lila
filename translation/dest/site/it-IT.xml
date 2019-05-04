@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
   <string name="signIn">Entra</string>
-  <string name="newToLichess">Nuovo su Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Devi avere un account per farlo</string>
   <string name="signUp">Registrati</string>
   <string name="computersAreNotAllowedToPlay">Non è permesso giocare a computer e a giocatori che si fanno aiutare dai computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli e un uso eccessivo di account porterà alla cancellazione dal sito.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Puoi cambiare solamente il maiuscolo/minuscolo delle lettere (per esempio da \"mariorossi\" a \"MarioRossi\").</string>
   <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="password">Password</string>
-  <string name="haveAnAccount">Hai già un account?</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>
   <string name="email">Email</string>
