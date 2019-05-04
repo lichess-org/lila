@@ -5,21 +5,26 @@
 .coach-picture {
   .top {
     display: flex;
-  }
-  .top h1 {
-    @extend %roboto;
-    margin: 0;
-    padding: 0!important;
-    font-size: 2rem;
-    line-height: 2;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-  }
+    h1 {
+      @extend %roboto;
+      margin: 0;
+      padding: 0!important;
+      font-size: 2rem;
+      line-height: 2;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
 
-  .top .picture_wrap {
-    margin-right: 30px;
-    width: 250px;
-    height: 250px;
+    .picture_wrap img {
+      margin-right: 10px;
+      width: 100px !important;
+      height: 100px !important;
+      @include breakpoint($mq-picture) {
+        margin-right: 30px;
+        width: 250px !important;
+        height: 250px !important;
+      }
+    }
   }
 }
 
@@ -58,38 +63,31 @@
     list-style: disc inside;
   }
 
-  .material.form {
-    margin-top: 0;
-  }
-  .material.form .form-group textarea {
-    height: 12em;
-  }
-
   .tabs {
     display: flex;
     cursor: pointer;
     margin: 40px 0;
     text-transform: uppercase;
-  }
-  .tabs > div {
-    flex: 1 1 100%;
-    padding: 10px 0;
-    text-align: center;
-    position: relative;
-  }
-  .tabs > div.data-count::after {
-    padding: 2px 6px;
-    font-size: 1.2em;
-    height: auto;
-    line-height: 1.2em;
-    top: 6px;
-  }
-  .tabs > div:hover {
-    color: $c-primary;
-  }
-  .tabs > .active {
-    color: $c-primary;
-    border-bottom: 3px solid $c-primary;
+    > div {
+      flex: 1 1 100%;
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+    }
+    > div.data-count::after {
+      padding: 2px 6px;
+      font-size: 1.2em;
+      height: auto;
+      line-height: 1.2em;
+      top: 6px;
+    }
+    > div:hover {
+      color: $c-primary;
+    }
+    > .active {
+      color: $c-primary;
+      border-bottom: 3px solid $c-primary;
+    }
   }
   .panel {
     display: none;
