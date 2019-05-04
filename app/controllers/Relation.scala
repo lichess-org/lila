@@ -35,7 +35,13 @@ object Relation extends LilaController {
       }
 
   def follow(userId: String) = Auth { implicit ctx => me =>
-    env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+    env.api.reachedMaxFollowing(me.id) flatMap {
+      case true => Env.message.api.sendPresetFromLichess(
+        me,
+        lila.message.ModPreset.maxFollow(me.username, Env.relation.MaxFollow)
+      ).void
+      case _ => env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+    }
   }
 
   def unfollow(userId: String) = Auth { implicit ctx => me =>

@@ -1,7 +1,7 @@
 package lila.message
 
-import scala.concurrent.duration._
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
+import scala.concurrent.duration._
 
 import lila.common.paginator._
 import lila.db.dsl._
@@ -53,6 +53,9 @@ final class MessageApi(
       ),
       mod
     )
+
+  def sendPresetFromLichess(user: User, preset: ModPreset) =
+    UserRepo.lichess flatten "Missing lichess user" flatMap { sendPreset(_, user, preset) }
 
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)
