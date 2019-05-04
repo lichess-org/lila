@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tanca la sessió</string>
   <string name="signIn">Inicia la sessió</string>
-  <string name="newToLichess">Ets nou/va al lichess?</string>
   <string name="youNeedAnAccountToDoThat">Necessites un compte per a fer això</string>
   <string name="signUp">Registra\'t</string>
   <string name="computersAreNotAllowedToPlay">No els està permès jugar ni als ordinadors ni als jugadors assistits per ordinador. Per favor, no utilitzis l\'ajuda de programes informàtics d\'escacs, de bases de dades o d\'altres jugadors mentre juguis. També tingues en compte que la creació de múltiples comptes és severament descoratjada i que tal activitat pot comportar el que el teu compte sigui suspès.</string>
@@ -165,7 +164,6 @@
   <string name="username">Nom d\'usuari</string>
   <string name="usernameOrEmail">Nom d\'usuari o correu electrònic</string>
   <string name="password">Contrassenya</string>
-  <string name="haveAnAccount">Ja tens un compte?</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
   <string name="email">Correu electrònic</string>
