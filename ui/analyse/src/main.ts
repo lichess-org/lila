@@ -11,6 +11,9 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
+import { menuHover } from 'common/menuHover';
+
+menuHover();
 
 export const patch = init([klass, attributes]);
 
