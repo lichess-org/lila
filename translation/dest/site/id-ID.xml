@@ -129,7 +129,6 @@
   <string name="viewInFullSize">Lihat dalam ukuran penuh</string>
   <string name="logOut">Keluar</string>
   <string name="signIn">Masuk</string>
-  <string name="newToLichess">Baru di Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Anda perlu mendaftar untuk melakukannya</string>
   <string name="signUp">Daftar</string>
   <string name="computersAreNotAllowedToPlay">Komputer maupun pemain yang menggunakan bantuan komputer dilarang bermain. Mohon untuk tidak menggunakan bantuan dari program komputer, database, maupun pemain lain ketika bermain. Juga menggunakan beberapa akun bersamaan sangat dilarang dan akan mengakibatkan akun anda di-BANNED!</string>
@@ -161,7 +160,6 @@
   <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
   <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
   <string name="password">Kata sandi</string>
-  <string name="haveAnAccount">Punya akun?</string>
   <string name="changePassword">Ganti kata sandi</string>
   <string name="changeEmail">Ubah email</string>
   <string name="email">Email</string>
