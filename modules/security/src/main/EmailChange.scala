@@ -58,7 +58,7 @@ ${Mailgun.txt.serviceNote}
       case _ => none
     }
     def write(a: Option[TokenPayload]) = a ?? {
-      case TokenPayload(userId, email) => s"$userId$sep$email"
+      case TokenPayload(userId, EmailAddress(email)) => s"$userId$sep$email"
     }
   }
 
