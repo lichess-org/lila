@@ -309,7 +309,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'has-clocks': !!clocks
     }
   }, [
-    gaugeOn ? cevalView.renderGauge(ctrl) : null,
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     h('div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
@@ -324,6 +323,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         hook: onInsert(resizeHandle)
       })
     ]),
+    gaugeOn ? cevalView.renderGauge(ctrl) : null,
     menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || h('div.analyse__tools', [
       ...(menuIsOpen ? [actionMenu(ctrl)] : [
