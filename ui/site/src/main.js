@@ -402,8 +402,8 @@
           boot().done(function() {
             $wrap.find('input').val(txt || '');
           });
-          $('#top').toggleClass('clinput');
-          if ($('#top').hasClass('clinput')) $wrap.find('input').focus();
+          $('body').toggleClass('clinput');
+          if ($('body').hasClass('clinput')) $wrap.find('input').focus();
         };
         $wrap.find('a').on('mouseover click', function(e) {
           (e.type === 'mouseover' ? boot : toggle)();

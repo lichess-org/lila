@@ -8,12 +8,12 @@ export function app($wrap: JQuery, toggle: () => void) {
     onSelect(q: any) {
       $input.val('').blur();
       execute(q.name || q.trim());
-      $('#top').hasClass('clinput') && toggle()
+      $('body').hasClass('clinput') && toggle()
     }
   }).done(function() {
     $input.on('blur', () => {
       $input.val('');
-      $('#top').hasClass('clinput') && toggle()
+      $('body').hasClass('clinput') && toggle()
     });
   });
 }

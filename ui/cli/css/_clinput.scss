@@ -11,7 +11,7 @@
     @include breakpoint($mq-x-large) {
       @include transition(width);
     }
-    #top.clinput & {
+    body.clinput & {
       width: 20ch;
     }
   }
@@ -21,8 +21,14 @@
   ::placeholder {
     color: $c-font-dim;
   }
+  .tt-menu {
+    .empty, .spinner {
+      display: none;
+    }
+  }
 }
-#top.clinput {
+
+body.clinput #top {
   @include breakpoint($mq-not-x-large) {
     #topnav { display: none }
   }
