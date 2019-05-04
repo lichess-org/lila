@@ -54,6 +54,7 @@ case class Pref(
   def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
+  def coordsClass = Coords classOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
@@ -259,6 +260,12 @@ object Pref {
       INSIDE -> "Inside the board",
       OUTSIDE -> "Outside the board"
     )
+
+    def classOf(v: Int) = v match {
+      case INSIDE => "in"
+      case OUTSIDE => "out"
+      case _ => "no"
+    }
   }
 
   object Replay {
