@@ -254,14 +254,11 @@ function sparePieces(ctrl, color, orientation, position) {
 
 function onSelectSparePiece(ctrl, s, upEvent) {
   return function(e) {
+    e.preventDefault();
     if (['pointer', 'trash'].includes(s)) {
       ctrl.selected(s);
     } else {
       ctrl.selected('pointer');
-
-      if (e.type === 'touchstart') {
-        e.preventDefault();
-      }
 
       dragNewPiece(ctrl.chessground.state, {
         color: s[0],
@@ -291,8 +288,6 @@ function makeCursor(selected) {
 
   return 'url(' + url + '), default !important';
 }
-
-var eventNames = ['mousedown', 'touchstart'];
 
 module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
