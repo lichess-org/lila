@@ -33,10 +33,11 @@ $mq-col3: $mq-col3-uniboard;
     @include crosstable-large;
   }
 
+  .round__underboard {
+    overflow: hidden;
+  }
+
   .tv-history {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
     h2 {
       @extend %roboto, %page-text;
       font-size: 1.3em;
@@ -46,8 +47,7 @@ $mq-col3: $mq-col3-uniboard;
       text-align: center;
     }
     .now-playing {
-      width: 100%;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 50% 50%;
     }
   }
 }
