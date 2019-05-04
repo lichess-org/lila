@@ -22,11 +22,27 @@ self.addEventListener('notificationclick', event => {
       includeUncontrolled: true
     });
   }).then(windowClients => {
-    var data = event.notification.data.userData;
-    if (data.fullId) return clients.openWindow('/' + data.fullId);
-    if (data.threadId) return clients.openWindow('/inbox/' + data.threadId + '#bottom');
-    if (data.challengeId) return clients.openWindow('/' + data.challengeId);
-    if (windowClients.length) windowClients[0].focus();
-    else return clients.openWindow('/');
+    // determine url
+    var data = event.notification.data.userData, url = '/';
+    if (data.fullId) url = '/' + data.fullId;
+    else if (data.threadId) url = '/inbox/' + data.threadId + '#bottom';
+    else if (data.challengeId) url = '/' + data.challengeId;
+
+    // focus open window with same url
+    for (var i = 0; i < windowClients.length; i++) {
+      var client = windowClients[i];
+      var clientUrl = new URL(client.url, self.location.href);
+      if (clientUrl.pathname === url && 'focus' in client) return client.focus();
+    }
+
+    // navigate from open homepage to url
+    for (var i = 0; i < windowClients.length; i++) {
+      var client = windowClients[i];
+      var clientUrl = new URL(client.url, self.location.href);
+      if (clientUrl.pathname === '/') return client.navigate(url);
+    }
+
+    // open new window
+    clients.openWindow(url);
   }));
 });
