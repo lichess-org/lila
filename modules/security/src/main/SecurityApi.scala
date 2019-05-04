@@ -72,12 +72,12 @@ final class SecurityApi(
     UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
-        val sessionId = Random secureString 12
+        val sessionId = Random secureString 22
         Store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit req: RequestHeader): Funit = {
-    val sessionId = Random secureString 8
+    val sessionId = Random secureString 22
     Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
