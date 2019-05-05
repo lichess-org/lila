@@ -42,10 +42,7 @@ private final class DnsApi(
       .withQueryString("name" -> domain.value, "type" -> tpe)
       .withHeaders("Accept" -> "application/dns-json")
       .get withTimeout fetchTimeout map {
-        case res if res.status == 200 || res.status == 404 => (res.json \ "Answer").asOpt[List[JsObject]] match {
-          case Some(objs) => f(objs)
-          case _ => throw LilaException(res.body take 100)
-        }
+        case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
         case res => throw LilaException(s"Status ${res.status}")
       }
 
