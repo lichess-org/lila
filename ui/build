@@ -39,6 +39,7 @@ build() {
 if [ $mode != "upgrade" ]; then
   echo "build css"
   (cd ui && gulp "css-$target")
+  touch public/css/*.min.css # they have an off by 12h modification time!!
 fi
 
 if type -p parallel; then # parallel execution!
