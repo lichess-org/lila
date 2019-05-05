@@ -15,11 +15,11 @@ square {
   height: 12.5%;
   pointer-events: none;
   &.move-dest {
-    background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+    background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
     pointer-events: auto;
   }
   &.premove-dest {
-    background: radial-gradient(rgba(20, 30, 85, 0.5) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+    background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
     pointer-events: auto;
   }
   &.oc.move-dest {
