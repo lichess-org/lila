@@ -127,7 +127,7 @@ $(function() {
     return parsed.href;
   }
 
-  var as = $('div.embed_analyse a').toArray().map(function(el) {
+  var as = $('.embed_analyse a').toArray().map(function(el) {
     var parsed = parseLink(el);
     if (!parsed) return false;
     return {
