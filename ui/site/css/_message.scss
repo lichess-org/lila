@@ -56,8 +56,9 @@
         margin: 0 1em;
       }
     }
-    &__body iframe.analyse {
-      margin: 1.5em 0;
+    .embed:not(img) {
+      @extend %video;
+      margin: $block-gap auto;
     }
   }
 
