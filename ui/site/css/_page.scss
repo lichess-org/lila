@@ -21,6 +21,13 @@
     li {
       margin-left: 2em;
     }
+    h3 {
+      @extend %roboto;
+      font-size: 1.3em;
+    }
+    em {
+      font-style: italic;
+    }
     iframe {
       width: 100%;
     }
