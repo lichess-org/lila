@@ -36,7 +36,8 @@ export const menuHover = () => window.lichess.raf(function() {
   $('#topnav.hover').each(function(this: HTMLElement) {
 
     const $el = $(this).removeClass('hover'),
-      handler = () => $(this).toggleClass('hover');
+      handler = () => $el.toggleClass('hover');
+
 
     // compares current and previous mouse positions
     const compare = function() {
@@ -65,9 +66,10 @@ export const menuHover = () => window.lichess.raf(function() {
       var mousemove = state.event = 'mousemove.hoverIntent';
 
       // handle the event, based on its type
-      if (ev.type === 'mouseenter') {
+      if (ev.type == 'mouseenter') {
         // do nothing if already active or a button is pressed (dragging a piece)
-        if (state.isActive || ev.which) return;
+        // if (state.isActive || ev.which) return;
+        if (state.isActive) return; // fixme firefox has which = 1
         // set "previous" X and Y position based on initial entry point
         state.pX = ev.pageX; state.pY = ev.pageY;
         // update "current" X and Y position based on mousemove
@@ -86,6 +88,7 @@ export const menuHover = () => window.lichess.raf(function() {
     };
 
     // listen for mouseenter and mouseleave
-    $el.on({'mouseenter.hoverIntent':handleHover,'mouseleave.hoverIntent':handleHover});
+    // $el.on({'mouseenter.hoverIntent':handleHover,'mouseleave.hoverIntent':handleHover});
+    $el.on('mouseenter.hoverIntent', handleHover).on('mouseleave.hoverIntent', handleHover);
   });
 });
