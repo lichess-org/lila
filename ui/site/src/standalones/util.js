@@ -245,8 +245,7 @@ lidraughts.hopscotch = function(f) {
 }
 lidraughts.slider = function() {
   return lidraughts.loadScript(
-    'javascripts/vendor/jquery-ui.slider' + (lidraughts.hasTouchEvents ? '.touch' : '') + '.min.js',
-    {noVersion:true}
+    'javascripts/vendor/jquery-ui.slider' + (lidraughts.hasTouchEvents ? '.touch' : '') + '.min.js'
   );
 };
 lidraughts.makeChat = function(data, callback) {
