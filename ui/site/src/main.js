@@ -131,7 +131,7 @@
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
     lichess.loadCssPath('autocomplete');
-    return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
+    return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
       $input.typeahead({
         minLength: opts.minLength || 3,
       }, {
