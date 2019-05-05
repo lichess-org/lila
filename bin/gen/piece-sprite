@@ -6,14 +6,18 @@ include FileUtils
 
 main_dir = pwd()
 source_dir = main_dir + '/public/piece-src/'
-dest_dir = main_dir + '/public/stylesheets/piece/'
+dest_dir = main_dir + '/public/piece-css/'
 
 themes = [
-  ['wide_crown', 'svg'],
-  ['wide', 'svg'],
-  ['narrow_edge', 'svg'],
+  ['8-but', 'svg'],
+  ['basic', 'svg'],
+  ['fabirovsky', 'svg']
+  ['flat', 'svg'],
+  ['frisianovsky', 'svg'],
   ['narrow', 'svg'],
-  ['flat', 'svg']
+  ['narrow_edge', 'svg'],
+  ['wide', 'svg'],
+  ['wide_crown', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
