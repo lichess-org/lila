@@ -1,6 +1,7 @@
 var m = require('mithril');
 var simul = require('./simul');
 var xhr = require('./xhr');
+const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
 
 function enrichText(text) {
   return m.trust(autolink(lichess.escapeHtml(text), toLink).replace(newLineRegex, '<br>'));
