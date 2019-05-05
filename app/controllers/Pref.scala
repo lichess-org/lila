@@ -44,7 +44,7 @@ object Pref extends LidraughtsController {
 
   def set(name: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    if (name == "zoom2") {
+    if (name == "zoom") {
       Ok.withCookies(LidraughtsCookie.session("zoom2", (getInt("v") | 180).toString)).fuccess
     } else {
       implicit val req = ctx.body
