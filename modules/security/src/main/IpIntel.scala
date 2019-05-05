@@ -24,7 +24,7 @@ final class IpIntel(asyncCache: lila.memo.AsyncCache.Builder, contactEmail: Emai
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$contactEmail"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-          if (ratio < 0) fufail(s"IpIntel error $ratio on ${ip.value}")
+          if (ratio < 0) fufail(s"IpIntel error $ratio on $url")
           else fuccess((ratio * 100).toInt)
         }
       }.addEffects(
