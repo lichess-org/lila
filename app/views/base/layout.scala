@@ -162,7 +162,7 @@ object layout {
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
         dataTheme := ctx.currentBg,
-        style := zoomable option s"--zoom:${ctx.respZoom}"
+        style := zoomable option s"--zoom:${ctx.zoom}"
       )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
