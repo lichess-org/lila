@@ -91,7 +91,7 @@ object index {
                   )(
                       raw(s"""
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${ctx.userId}">
+  <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="amount" class="amount" value="">
   <input type="hidden" name="cmd" value="_xclick">
   <input type="hidden" name="business" value="EWNKNKK58PMS6">
@@ -106,7 +106,7 @@ object index {
   <input type="hidden" name="currency_code" value="EUR">
 </form>
 <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${ctx.userId}">
+  <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="a3" class="amount" value="">
   <input type="hidden" name="cmd" value="_xclick-subscriptions">
   <input type="hidden" name="business" value="EWNKNKK58PMS6">
@@ -123,7 +123,7 @@ object index {
   <input type="hidden" name="currency_code" value="EUR">
 </form>
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${ctx.userId}">
+  <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="amount" class="amount" value="">
   <input type="hidden" name="cmd" value="_xclick">
   <input type="hidden" name="business" value="EWNKNKK58PMS6">
