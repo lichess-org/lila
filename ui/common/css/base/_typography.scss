@@ -1,6 +1,6 @@
 html {
   @extend %base-font-fallback;
-  @include fluid-size('font-size', 13px, 15px);
+  @include fluid-size('font-size', 12px, 14px);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,7 +14,7 @@ h4 {
   font-size: 1em;
 }
 h1 {
-  @include fluid-size('font-size', 27px, 52px);
+  @include fluid-size('font-size', 20px, 40px);
   margin-bottom: 5vh;
   a {
     color: $c-link-dim;
@@ -25,7 +25,7 @@ h1 {
 }
 
 h2 {
-  @include fluid-size('font-size', 23px, 40px);
+  @include fluid-size('font-size', 16px, 30px);
 }
 
 .ninja-title {
