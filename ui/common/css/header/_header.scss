@@ -9,6 +9,8 @@
   justify-content: space-between;
   position: relative;
   z-index: z('site-header');
+  max-width: 1800px;
+  margin: 0 auto;
 
   --dropdown-top: 40px;
   @include breakpoint($mq-site-header-tall) {
