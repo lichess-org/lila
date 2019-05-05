@@ -131,7 +131,7 @@
   lidraughts.userAutocomplete = function($input, opts) {
     opts = opts || {};
     lidraughts.loadCssPath('autocomplete');
-    return lidraughts.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
+    return lidraughts.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
       $input.typeahead({
         minLength: opts.minLength || 3,
       }, {
