@@ -57,6 +57,7 @@ function controls(ctrl, fen) {
     };
   };
   var looksLegit = ctrl.positionLooksLegit();
+  var puzzleVariant = (ctrl.data.variant === 'standard' || ctrl.data.variant === 'frisian');
   return m('div.editor-side', [
     ctrl.embed ? null : m('div', [
       ctrl.data.positions ? m('select.positions', {
@@ -124,10 +125,12 @@ function controls(ctrl, fen) {
         }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
-        ctrl.data.puzzleEditor ? m('a.button.text[data-icon="-"]', {
+        ctrl.data.puzzleEditor ? ((looksLegit && puzzleVariant) ? m('a.button.text[data-icon="-"]', {
           href: editor.makeUrl('/analysis/puzzle/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
           rel: 'nofollow'
-        }, 'Puzzle editor') : null,
+        }, 'Puzzle editor')  : m('span.button.disabled.text[data-icon="-"]', {
+          rel: 'nofollow'
+        }, 'Puzzle editor')) : null,
         m('a.button', {
           class: (looksLegit && ctrl.data.variant === 'standard') ? '' : 'disabled',
           onclick: function() {
