@@ -6,7 +6,7 @@ include FileUtils
 
 lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
-dest_dir = lila_dir + '/public/stylesheets/piece/'
+dest_dir = lila_dir + '/public/piece-css/'
 
 themes = [
   ['alpha', 'svg'],
