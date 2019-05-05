@@ -5,8 +5,7 @@ import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
-import lila.common.ApiVersion
-import lila.common.EmailAddress
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
@@ -28,7 +27,7 @@ object UserRepo {
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().gather[List](nb)
+    coll.find(enabledSelect).sort($sort desc "count.game").list[User](nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
 
@@ -36,13 +35,24 @@ object UserRepo {
 
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
-  def byEmail(email: EmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
-  def byPrevEmail(email: EmailAddress): Fu[List[User]] = coll.find($doc(F.prevEmail -> email)).list[User]()
+  def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
+  def byPrevEmail(
+    email: NormalizedEmailAddress,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): Fu[List[User]] =
+    coll.list[User]($doc(F.prevEmail -> email), readPreference)
 
-  def idByEmail(email: EmailAddress): Fu[Option[String]] =
+  def idByEmail(email: NormalizedEmailAddress): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
 
-  def enabledByEmail(email: EmailAddress): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
+  def idCursor(
+    selector: Bdoc,
+    batchSize: Int = 0,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(implicit cp: CursorProducer[Bdoc]): cp.ProducedCursor = {
+    val query = coll.find(selector)
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Bdoc](readPreference)
+  }
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     coll.byIds[User](List(x, y).flatten) map { users =>
@@ -84,18 +94,18 @@ object UserRepo {
       .list[User](nb, ReadPreference.secondaryPreferred)
 
   // expensive, send to secondary
-  def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
+  def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
     coll.find(
-      $inIds(ids) ++ goodLadSelectBson,
+      $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
       $id(true)
     )
-      .sort($doc(s"perfs.standard.gl.r" -> -1))
+      .sort($sort desc "perfs.standard.gl.r")
       .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
         _.flatMap { _.getAs[User.ID]("_id") }
       }
 
   private[user] def allSortToints(nb: Int) =
-    coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
+    coll.find($empty).sort($sort desc F.toints).list[User](nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -170,6 +180,18 @@ object UserRepo {
       $id(id),
       $set(F.profile -> Profile.profileBSONHandler.write(profile))
     ).void
+
+  def setUsernameCased(id: ID, username: String): Funit = {
+    if (id == username.toLowerCase) {
+      coll.update(
+        $id(id) ++ (F.changedCase $exists false),
+        $set(F.username -> username, F.changedCase -> true)
+      ) flatMap { result =>
+          if (result.n == 0) fufail(s"You have already changed your username")
+          else funit
+        }
+    } else fufail(s"Proposed username $username does not match old username $id")
+  }
 
   def addTitle(id: ID, title: Title): Funit =
     coll.updateField($id(id), F.title, title).void
@@ -265,32 +287,37 @@ object UserRepo {
         $doc(F.id -> true)
       )
         .sort($doc("len" -> 1))
-        .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
+        .list[Bdoc](max, ReadPreference.secondaryPreferred)
         .map {
-          _ flatMap { _.getAs[String](F.id) }
+          _ flatMap { _.getAs[User.ID](F.id) }
         }
+    }
+
+  private def setWatchList(id: ID): Funit =
+    coll.fetchUpdate[User]($id(id)) { u =>
+      $setBoolOrUnset(F.watchList, u.watchList)
     }
 
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>
-      $set("engine" -> !u.engine)
-    }
+      $set(F.engine -> !u.engine)
+    } >> setWatchList(id)
 
-  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v).void
+  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v) >> setWatchList(id)
 
-  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v).void
+  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v) >> setWatchList(id)
 
-  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v).void
+  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v) >> setWatchList(id)
 
-  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v).void
+  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v) >> setWatchList(id)
 
-  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v).void
+  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v) >> setWatchList(id)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), "kid", v)
 
   def isKid(id: ID) = coll.exists($id(id) ++ $doc("kid" -> true))
 
-  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll)
+  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll) >> setWatchList(user.id)
 
   def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))
 
@@ -309,13 +336,13 @@ object UserRepo {
   def reopen(id: ID) = coll.updateField($id(id), F.enabled, true) >>
     coll.update(
       $id(id) ++ $doc(F.email $exists false),
-      $doc("$rename" -> $doc(F.prevEmail -> F.email))
+      $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++ $unset(F.verbatimEmail)
     ).recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
-    $set(F.enabled -> false) ++ $unset(F.roles) ++ {
-      if (keepEmail) $empty
+    $set(F.enabled -> false) ++ $unset(F.roles, F.verbatimEmail) ++ {
+      if (keepEmail) $unset(F.mustConfirmEmail)
       else $doc("$rename" -> $doc(F.email -> F.prevEmail))
     }
   )
@@ -326,10 +353,40 @@ object UserRepo {
       _.map { _.hashToken }
     }
 
-  def email(id: ID, email: EmailAddress): Funit =
-    coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
+  def setEmail(id: ID, email: EmailAddress): Funit = {
+    val normalizedEmail = email.normalize
+    coll.update(
+      $id(id),
+      $set(F.email -> normalizedEmail) ++ $unset(F.prevEmail) ++ {
+        if (email.value == normalizedEmail.value) $unset(F.verbatimEmail)
+        else $set(F.verbatimEmail -> email)
+      }
+    ).void
+  }
 
-  def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)
+  def email(id: ID): Fu[Option[EmailAddress]] = coll.find(
+    $id(id),
+    $doc(
+      F.email -> true,
+      F.verbatimEmail -> true
+    )
+  ).uno[Bdoc].map {
+      _ ?? { doc =>
+        doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
+      }
+    }
+
+  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
+    coll.find($doc(
+      F.email -> email,
+      F.enabled -> true
+    )).uno[Bdoc].map { maybeDoc =>
+      for {
+        doc <- maybeDoc
+        user = userBSONHandler read doc
+        storedEmail <- doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
+      } yield (user, storedEmail)
+    }
 
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
     coll.find($id(normalize(name))).uno[Bdoc].map {
@@ -337,12 +394,26 @@ object UserRepo {
         User.WithEmails(
           userBSONHandler read doc,
           User.Emails(
-            current = doc.getAs[EmailAddress](F.email),
-            previous = doc.getAs[EmailAddress](F.prevEmail)
+            current = doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email),
+            previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
           )
         ).some
       }
     }
+
+  def withEmails(names: List[String]): Fu[List[User.WithEmails]] =
+    coll.find($inIds(names map normalize))
+      .list[Bdoc](none, ReadPreference.secondaryPreferred).map {
+        _ map { doc =>
+          User.WithEmails(
+            userBSONHandler read doc,
+            User.Emails(
+              current = doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email),
+              previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
+            )
+          )
+        }
+      }
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
@@ -459,10 +530,11 @@ object UserRepo {
     implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
+    val normalizedEmail = email.normalize
     $doc(
       F.id -> normalize(username),
       F.username -> username,
-      F.email -> email,
+      F.email -> normalizedEmail,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
       F.bpass -> passwordHash,
       F.perfs -> $empty,
@@ -473,6 +545,8 @@ object UserRepo {
       F.seenAt -> DateTime.now,
       F.playTime -> User.PlayTime(0, 0)
     ) ++ {
+        if (email.value != normalizedEmail.value) $doc(F.verbatimEmail -> email) else $empty
+      } ++ {
         if (blind) $doc("blind" -> true) else $empty
       }
   }

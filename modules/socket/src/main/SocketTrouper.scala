@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import actorApi._
 import chess.Centis
 import lila.common.LightUser
-import lila.hub.actorApi.Deploy
+import lila.hub.actorApi.{ Deploy, Announce }
 import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Trouper
 import lila.memo.ExpireSetMemo
@@ -56,6 +56,8 @@ abstract class SocketTrouper[M <: SocketMember](
     case Resync(uid) => resync(uid)
 
     case d: Deploy => onDeploy(d)
+
+    case Announce(msg) => notifyAll(makeMessage("announce", Json.obj("msg" -> msg)).pp)
   }
 
   protected def hasUserId(userId: String) = members.values.exists(_.userId contains userId)
@@ -181,5 +183,5 @@ trait LoneSocket { self: SocketTrouper[_] =>
     this ! lila.socket.actorApi.Broom
     lila.mon.socket.queueSize(monitoringName)(queueSize)
   }
-  system.lilaBus.subscribe(this, 'deploy, 'shutdown)
+  system.lilaBus.subscribe(this, 'deploy, 'shutdown, 'announce)
 }

@@ -65,12 +65,6 @@ final class Env(
     text = "Enable CSP for everyone.".some
   )
 
-  val wasmxEnabledSetting = settingStore[Boolean](
-    "wasmxEnabled",
-    default = false,
-    text = "Enable WASMX for everyone.".some
-  )
-
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
@@ -90,6 +84,7 @@ final class Env(
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
+    lightUserApi = userEnv.lightUserApi,
     makeUrl = makeUrl,
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
@@ -98,8 +93,10 @@ final class Env(
     gameCache = gameCache,
     isStreaming = isStreaming,
     isPlaying = isPlaying,
+    isOnline = userEnv.onlineUserIdMemo.get,
+    recentTitledUserIds = () => userEnv.recentTitledUserIdMemo.keys,
     prefApi = prefApi
-  )
+  )(system)
 
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,

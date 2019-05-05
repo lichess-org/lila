@@ -1,4 +1,4 @@
-var status = require('game').status;
+var status = require('game/status');
 
 function applicantsContainMe(ctrl) {
   return ctrl.data.applicants.filter(function(a) {

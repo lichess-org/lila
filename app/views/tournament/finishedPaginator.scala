@@ -19,7 +19,7 @@ object finishedPaginator {
       finished.currentPageResults.map { t =>
         tr(cls := List(
           "paginated" -> true,
-          "scheduled" -> t.isScheduled
+          "tour-scheduled" -> t.isScheduled
         ))(
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
           td(cls := "header")(

@@ -1,6 +1,6 @@
 $(function() {
 
-  $table = $('div.plan table.all');
+  $table = $('.plan table.all');
   $change = $table.find('.change');
   $change.find('a').click(function() {
     var f = $(this).data('form');

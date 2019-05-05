@@ -52,16 +52,10 @@ object Main extends LilaController {
     }
   }
 
-  def embed = Action { req =>
-    Ok {
-      s"""document.write("<iframe src='${Env.api.Net.BaseUrl}?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: ${getInt("w", req) | 820}px; height: ${getInt("h", req) | 650}px;' title='Lichess free online chess'></iframe>");"""
-    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
-  }
-
-  def developers = Open { implicit ctx =>
+  def webmasters = Open { implicit ctx =>
     pageHit
     fuccess {
-      html.site.developers()
+      html.site.help.webmasters()
     }
   }
 
@@ -75,7 +69,7 @@ object Main extends LilaController {
   def mobile = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark "mobile-apk") {
-      case (doc, resolver) => html.mobile.home(doc, resolver)
+      case (doc, resolver) => html.mobile(doc, resolver)
     }
   }
 
@@ -141,10 +135,6 @@ Disallow: /games/export
     }
   }
 
-  val freeJs = Open { implicit ctx =>
-    Ok(html.site.freeJs(ctx)).fuccess
-  }
-
   def renderNotFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map renderNotFound
 
@@ -153,12 +143,8 @@ Disallow: /games/export
     NotFound(html.base.notFound()(ctx))
   }
 
-  def fpmenu = Open { implicit ctx =>
-    Ok(html.base.fpmenu()).fuccess
-  }
-
   def getFishnet = Open { implicit ctx =>
-    Ok(html.site.getFishnet()).fuccess
+    Ok(html.site.bits.getFishnet()).fuccess
   }
 
   def costs = Open { implicit ctx =>
@@ -167,6 +153,40 @@ Disallow: /games/export
 
   def contact = Open { implicit ctx =>
     Ok(html.site.contact()).fuccess
+  }
+
+  def faq = Open { implicit ctx =>
+    Ok(html.site.faq()).fuccess
+  }
+
+  def legacyQa = Open { implicit ctx =>
+    MovedPermanently(routes.Main.faq.url).fuccess
+  }
+
+  def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>
+    MovedPermanently {
+      val faq = routes.Main.faq.url
+      id match {
+        case 103 => s"$faq#acpl"
+        case 258 => s"$faq#marks"
+        case 13 => s"$faq#titles"
+        case 87 => routes.Stat.ratingDistribution("blitz").url
+        case 110 => s"$faq#name"
+        case 29 => s"$faq#titles"
+        case 4811 => s"$faq#lm"
+        case 216 => routes.Main.mobile.url
+        case 340 => s"$faq#trophies"
+        case 6 => s"$faq#ratings"
+        case 207 => s"$faq#hide-ratings"
+        case 547 => s"$faq#leaving"
+        case 259 => s"$faq#trophies"
+        case 342 => s"$faq#provisional"
+        case 50 => routes.Page.help.url
+        case 46 => s"$faq#name"
+        case 122 => s"$faq#marks"
+        case _ => faq
+      }
+    }.fuccess
   }
 
   def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)

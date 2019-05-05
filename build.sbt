@@ -3,7 +3,6 @@ import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
-import play.twirl.sbt.Import._
 import PlayKeys._
 
 import BuildSettings._
@@ -36,22 +35,13 @@ libraryDependencies ++= Seq(
   kamon.core, kamon.influxdb, scalatags,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
 )
-TwirlKeys.templateImports ++= Seq(
-  "lila.game.{ Game, Player, Pov }",
-  "lila.tournament.Tournament",
-  "lila.user.{ User, UserContext }",
-  "lila.security.Permission",
-  "lila.app.templating.Environment._",
-  "lila.api.Context",
-  "lila.i18n.{ I18nKeys => trans }",
-  "lila.common.paginator.Paginator",
-  "lila.common.String.html._"
-)
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
+
+routesGenerator := LilaRoutesGenerator 
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
@@ -59,7 +49,7 @@ lazy val modules = Seq(
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, site, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref, // simulation,
-  evaluation, chat, puzzle, tv, coordinate, blog, qa,
+  evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push,
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
@@ -82,9 +72,9 @@ lazy val api = module("api", moduleCPDeps)
   ) aggregate (moduleRefs: _*)
 
 lazy val puzzle = module("puzzle", Seq(
-  common, memo, hub, db, user, rating, pref, tree, game
+  common, memo, hub, history, db, user, rating, pref, tree, game
 )).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val quote = module("quote", Seq())
@@ -111,10 +101,6 @@ lazy val coordinate = module("coordinate", Seq(common, db)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val qa = module("qa", Seq(common, db, memo, user, security, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
 lazy val blog = module("blog", Seq(common, memo, timeline)).settings(
   libraryDependencies ++= provided(play.api, prismic,
     reactivemongo.driver, reactivemongo.iteratees)
@@ -135,7 +121,7 @@ lazy val common = module("common", Seq()).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags) ++ Seq(scaffeine)
 )
 
-lazy val rating = module("rating", Seq(common, db)).settings(
+lazy val rating = module("rating", Seq(common, db, memo)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
@@ -144,7 +130,7 @@ lazy val perfStat = module("perfStat", Seq(common, db, user, game, rating)).sett
 )
 
 lazy val history = module("history", Seq(common, db, memo, game, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val db = module("db", Seq(common)).settings(
@@ -242,7 +228,7 @@ lazy val insight = module(
   Seq(common, game, user, analyse, relation, pref, socket, round, security)
 ).settings(
     libraryDependencies ++= provided(
-      play.api, reactivemongo.driver, reactivemongo.iteratees
+      play.api, reactivemongo.driver, reactivemongo.iteratees, scalatags
     )
   )
 

@@ -9,16 +9,16 @@ import play.api.libs.json.{ JsObject, JsError }
 
 trait LilaTypes extends ValidTypes {
 
-  trait StringValue extends Any {
-    def value: String
-    override def toString = value
-  }
   trait IntValue extends Any {
     def value: Int
     override def toString = value.toString
   }
   trait BooleanValue extends Any {
     def value: Boolean
+    override def toString = value.toString
+  }
+  trait DoubleValue extends Any {
+    def value: Double
     override def toString = value.toString
   }
 
@@ -47,4 +47,10 @@ trait LilaTypes extends ValidTypes {
   implicit val dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
 }
 
-object LilaTypes extends LilaTypes
+object LilaTypes extends LilaTypes {
+
+  trait StringValue extends Any {
+    def value: String
+    override def toString = value
+  }
+}

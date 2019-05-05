@@ -11,9 +11,8 @@ object bookmark {
   def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: Context) = ctx.me map { m =>
     a(cls := List(
       "bookmark" -> true,
-      "bookmarked" -> bookmarked,
-      "hint--top" -> true
-    ), href := routes.Bookmark.toggle(g.id), dataHint := trans.bookmarkThisGame.txt())(
+      "bookmarked" -> bookmarked
+    ), href := routes.Bookmark.toggle(g.id), title := trans.bookmarkThisGame.txt())(
       iconTag("t")(cls := "on is3"),
       iconTag("s")(cls := "off is3"),
       span(g.showBookmarks)

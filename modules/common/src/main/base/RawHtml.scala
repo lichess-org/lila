@@ -4,7 +4,7 @@ import scala.annotation.{ tailrec, switch }
 import java.lang.{ StringBuilder => jStringBuilder, Math }
 import java.lang.Character.isLetterOrDigit
 
-import lila.common.base.StringUtils.escapeHtml
+import lila.common.base.StringUtils.escapeHtmlRaw
 
 final object RawHtml {
   @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
@@ -71,7 +71,7 @@ final object RawHtml {
     expandAtUser(text) map { expanded =>
       val m = urlPattern.matcher(expanded)
 
-      if (!m.find) escapeHtml(expanded) // preserve fast case!
+      if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
       else {
         val sb = new jStringBuilder(expanded.length + 200)
         val sArr = expanded.toCharArray
@@ -79,7 +79,7 @@ final object RawHtml {
 
         do {
           val start = m.start
-          escapeHtml(sb, sArr, lastAppendIdx, start)
+          escapeHtmlRaw(sb, sArr, lastAppendIdx, start)
 
           val domainS = Math.max(m.start(1), start)
           val pathS = m.start(2)
@@ -104,7 +104,7 @@ final object RawHtml {
             csb.append(sArr, pathS, end - pathS)
           }
 
-          val allButScheme = escapeHtml(csb.toString)
+          val allButScheme = escapeHtmlRaw(csb.toString)
 
           if (isTldInternal) {
             sb.append(s"""<a href="${
@@ -131,7 +131,7 @@ final object RawHtml {
           lastAppendIdx = end
         } while (m.find)
 
-        escapeHtml(sb, sArr, lastAppendIdx, sArr.length)
+        escapeHtmlRaw(sb, sArr, lastAppendIdx, sArr.length)
         sb
       }
     } concat
@@ -164,15 +164,17 @@ final object RawHtml {
   }
 
   private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w+)(?:\.jpe?g|\.png|\.gif)?""".r
+  private[this] val giphyRegex = """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*)(\w+)(?:/giphy\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[String] = (url match {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
+    case giphyRegex(id) => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
     case _ => None
   }) map { img => s"""<img class="embed" src="$img" alt="$url"/>""" }
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
   def markdownLinks(text: String): String = nl2br {
-    markdownLinkRegex.replaceAllIn(escapeHtml(text), """<a href="$2">$1</a>""")
+    markdownLinkRegex.replaceAllIn(escapeHtmlRaw(text), """<a href="$2">$1</a>""")
   }
 }

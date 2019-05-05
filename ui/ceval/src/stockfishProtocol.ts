@@ -1,4 +1,3 @@
-import defer = require('defer-promise');
 import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
@@ -43,8 +42,8 @@ export default class Protocol {
   }
 
   received(text: string) {
-    if (text.indexOf('id name ') === 0) this.engineName = text.substring('id name '.length);
-    else if (text.indexOf('bestmove ') === 0) {
+    if (text.startsWith('id name ')) this.engineName = text.substring('id name '.length);
+    else if (text.startsWith('bestmove ')) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
       if (this.work && this.curEval) this.work.emit(this.curEval);
@@ -56,13 +55,13 @@ export default class Protocol {
     if (!matches) return;
 
     let depth = parseInt(matches[1]),
-        multiPv = parseInt(matches[2]),
-        isMate = matches[3] === 'mate',
-        ev = parseInt(matches[4]),
-        evalType = matches[5],
-        nodes = parseInt(matches[6]),
-        elapsedMs: number = parseInt(matches[7]),
-        moves = matches[8].split(' ');
+      multiPv = parseInt(matches[2]),
+      isMate = matches[3] === 'mate',
+      ev = parseInt(matches[4]),
+      evalType = matches[5],
+      nodes = parseInt(matches[6]),
+      elapsedMs: number = parseInt(matches[7]),
+      moves = matches[8].split(' ');
 
     // Sometimes we get #0. Let's just skip it.
     if (isMate && !ev) return;
@@ -136,3 +135,12 @@ export default class Protocol {
     return !this.stopped;
   }
 };
+
+function defer<A>(): DeferPromise.Deferred<A> {
+  const deferred: Partial<DeferPromise.Deferred<A>> = {}
+  deferred.promise = new Promise<A>(function (resolve, reject) {
+    deferred.resolve = resolve
+    deferred.reject = reject
+  })
+  return deferred as DeferPromise.Deferred<A>;
+}

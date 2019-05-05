@@ -1,15 +1,20 @@
 package views.html
 
 import play.api.libs.json.Json
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.I18nKeys
 
 object chat {
 
-  val html = Html("""<div id="chat" class="side_box"></div>""")
+  val frag = st.section(cls := "mchat")(
+    div(cls := "mchat__tabs")(
+      div(cls := "mchat__tab")(nbsp)
+    ),
+    div(cls := "mchat__content")
+  )
 
   import lila.chat.JsonView.chatIdWrites
 
@@ -46,13 +51,14 @@ object chat {
     ),
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,
-    "noteId" -> withNote.option(chat.id.value take 8),
+    "noteId" -> (withNote && ctx.noBlind).option(chat.id.value take 8),
     "public" -> public,
     "permissions" -> Json.obj("local" -> localMod)
       .add("timeout" -> isGranted(_.ChatTimeout))
-      .add("shadowban" -> isGranted(_.MarkTroll)),
+      .add("shadowban" -> isGranted(_.Shadowban)),
     "timeout" -> timeout
   ).add("kobold" -> ctx.troll)
+    .add("blind" -> ctx.blind)
     .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(

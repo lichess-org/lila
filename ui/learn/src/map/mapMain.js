@@ -8,6 +8,7 @@ module.exports = function(opts, trans) {
       opts.stageId = null;
       opts.route = 'map';
       return {
+        opts: opts,
         data: opts.storage.data,
         trans: trans,
         isStageIdComplete: function(stageId) {

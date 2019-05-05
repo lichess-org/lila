@@ -22,12 +22,9 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     }, hook.u) : 'Anonymous'),
     (hook.rating ? hook.rating : '') + (hook.prov ? '?' : ''),
     hook.clock,
-    h('span', [
-      h('span.varicon', {
-        attrs: { 'data-icon': perfIcons[hook.perf] }
-      }),
-      noarg(hook.ra ? 'rated' : 'casual')
-    ])
+    h('span', {
+      attrs: { 'data-icon': perfIcons[hook.perf] }
+    }, noarg(hook.ra ? 'rated' : 'casual'))
   ]));
 }
 
@@ -46,23 +43,19 @@ function isNotMine(hook) {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('span.mode_toggle.hint--bottom', {
+  return h('i.toggle', {
     key: 'set-mode-chart',
-    attrs: { 'data-hint': ctrl.trans('graph') },
+    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': '9' },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw)
-  }, [
-    h('span.chart', {
-      attrs: { 'data-icon': '9' }
-    })
-  ]);
+  });
 }
 
 export function render(ctrl: LobbyController, allHooks: Hook[]) {
   const mine = allHooks.find(isMine),
-  max = mine ? 13 : 14,
-  hooks = allHooks.slice(0, max),
-  render = (hook: Hook) => renderHook(ctrl, hook),
-  standards = hooks.filter(isNotMine).filter(isStandard(true));
+    max = mine ? 13 : 14,
+    hooks = allHooks.slice(0, max),
+    render = (hook: Hook) => renderHook(ctrl, hook),
+    standards = hooks.filter(isNotMine).filter(isStandard(true));
   hookRepo.sort(ctrl, standards);
   const variants = hooks.filter(isNotMine).filter(isStandard(false))
     .slice(0, Math.max(0, max - standards.length - 1));
@@ -79,9 +72,7 @@ export function render(ctrl: LobbyController, allHooks: Hook[]) {
     ...variants.map(render)
   ];
   if (mine) renderedHooks.unshift(render(mine));
-  return h('table.table_wrap', {
-    key: 'list'
-  }, [
+  return h('table.hooks__list', [
     h('thead',
       h('tr', [
         h('th'),
@@ -107,11 +98,11 @@ export function render(ctrl: LobbyController, allHooks: Hook[]) {
       class: { stepping: ctrl.stepping },
       hook: bind('click', e => {
         let el = e.target as HTMLElement
-          do {
-            el = el.parentNode as HTMLElement;
-            if (el.nodeName === 'TR') return ctrl.clickHook(el.getAttribute('data-id')!);
-          }
-          while (el.nodeName !== 'TABLE');
+        do {
+          el = el.parentNode as HTMLElement;
+          if (el.nodeName === 'TR') return ctrl.clickHook(el.getAttribute('data-id')!);
+        }
+        while (el.nodeName !== 'TABLE');
       }, ctrl.redraw)
     }, renderedHooks)
   ]);

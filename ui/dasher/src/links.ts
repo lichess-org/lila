@@ -12,7 +12,7 @@ export default function(ctrl: DasherCtrl): VNode {
   function userLinks(): VNode | null {
     return d.user ? h('div.links', [
       h(
-        'a.user_link.online.text.is-green',
+        'a.user-link.online.text.is-green',
         linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
         noarg('profile')),
 
@@ -36,7 +36,7 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg('/streamer/edit', ''),
         'Streamer manager'),
 
-      h('form', {
+      h('form.logout', {
         attrs: { method: 'post', action: '/logout' }
       }, [
         h('button.text', {
@@ -80,12 +80,12 @@ export default function(ctrl: DasherCtrl): VNode {
     noarg('pieceSet'))
 
   const zenToggle = ctrl.opts.playing ? h('div.zen.selector', [
-    h('a', {
+    h('a.text', {
       attrs: {
         'data-icon': 'K',
         title: 'Keyboard: z'
       },
-      hook: bind('click', ctrl.enableZen)
+      hook: bind('click', window.lichess.pubsub.emit('zen'))
     }, noarg('zenMode'))
   ]) : null;
 

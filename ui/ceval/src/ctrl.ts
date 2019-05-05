@@ -2,17 +2,19 @@ import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
 
 import { Pool, makeWatchdog } from './pool';
 import { median } from './math';
-import { prop, storedProp, throttle } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
+import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 
 const li = window.lichess;
 
 function sanIrreversible(variant: VariantKey, san: string): boolean {
-  if (san.indexOf('O-O') === 0) return true;
+  if (san.startsWith('O-O')) return true;
   if (variant === 'crazyhouse') return false;
-  if (san.indexOf('x') > 0) return true; // capture
+  if (san.includes('x')) return true; // capture
   if (san.toLowerCase() === san) return true; // pawn move
-  return variant === 'threeCheck' && san.indexOf('+') > 0;
+  return variant === 'threeCheck' && san.includes('+');
 }
 
 function officialStockfish(variant: VariantKey): boolean {
@@ -21,7 +23,7 @@ function officialStockfish(variant: VariantKey): boolean {
 
 function is64Bit(): boolean {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
-  for (const substr of x64) if (navigator.userAgent.indexOf(substr) >= 0) return true;
+  for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
   return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
 }
 
@@ -62,7 +64,7 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   const pnaclSupported = makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes;
   const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
-  const wasmxSupported = wasmSupported && wasmThreadsSupported();
+  const wasmxSupported = wasmSupported && officialStockfish(opts.variant.key) && wasmThreadsSupported();
 
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
@@ -71,9 +73,9 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.make(storageKey('client-eval-enabled'));
+  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
+  const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -244,7 +246,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       stop();
       enabled(!enabled());
       if (document.visibilityState !== 'hidden')
-        enableStorage.set(enabled() ? '1' : '0');
+        enableStorage.set(enabled());
     },
     curDepth(): number {
       return curEval ? curEval.depth : 0;

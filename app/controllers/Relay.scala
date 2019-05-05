@@ -23,14 +23,14 @@ object Relay extends LilaController {
 
   def form = Auth { implicit ctx => me =>
     NoLame {
-      Ok(html.relay.create(env.forms.create)).fuccess
+      Ok(html.relay.form.create(env.forms.create)).fuccess
     }
   }
 
   def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     env.forms.create.bindFromRequest.fold(
-      err => BadRequest(html.relay.create(err)).fuccess,
+      err => BadRequest(html.relay.form.create(err)).fuccess,
       setup => env.api.create(setup, me) map { relay =>
         Redirect(showRoute(relay))
       }
@@ -39,7 +39,7 @@ object Relay extends LilaController {
 
   def edit(slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.api.byIdAndContributor(id, me)) { relay =>
-      Ok(html.relay.edit(relay, env.forms.edit(relay))).fuccess
+      Ok(html.relay.form.edit(relay, env.forms.edit(relay))).fuccess
     }
   }
 
@@ -47,7 +47,7 @@ object Relay extends LilaController {
     OptionFuResult(env.api.byIdAndContributor(id, me)) { relay =>
       implicit val req = ctx.body
       env.forms.edit(relay).bindFromRequest.fold(
-        err => BadRequest(html.relay.edit(relay, err)).fuccess,
+        err => BadRequest(html.relay.form.edit(relay, err)).fuccess,
         data => env.api.update(relay) { data.update(_, me) } map { r =>
           Redirect(showRoute(r))
         }

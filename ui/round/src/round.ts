@@ -21,7 +21,7 @@ export function massage(d: RoundData): void {
 
   if (d.correspondence) d.correspondence.showBar = d.pref.clockBar;
 
-  if (['horde', 'crazyhouse'].indexOf(d.game.variant.key) !== -1) d.pref.showCaptured = false;
+  if (['horde', 'crazyhouse'].includes(d.game.variant.key)) d.pref.showCaptured = false;
 
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
 };

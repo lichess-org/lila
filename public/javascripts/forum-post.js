@@ -1,6 +1,6 @@
 $(function() {
 
-  $('#lichess_forum').on('click', 'a.delete', function() {
+  $('.forum').on('click', 'a.delete', function() {
     $.post($(this).attr("href"));
     $(this).closest(".post").hide();
     return false;
@@ -13,7 +13,7 @@ $(function() {
   $('.edit.button').add('.edit-post-cancel').click(function(e) {
     e.preventDefault();
 
-    var post = $(this).closest('.post');
+    var post = $(this).closest('.forum-post');
     var message = post.find('.message').toggle();
     var form = post.find('form.edit-post-form').toggle();
 
@@ -29,7 +29,7 @@ $(function() {
 
       var searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
-          return user.toLowerCase().indexOf(term.toLowerCase()) === 0;
+          return user.toLowerCase().startsWith(term.toLowerCase());
         });
       };
 

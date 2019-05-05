@@ -3,6 +3,7 @@ import { GameData, Status } from 'game';
 import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import { TourPlayer } from './tourStanding';
+import RoundController from './ctrl';
 import { ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 
@@ -13,6 +14,10 @@ export type Redraw = () => void;
 
 export interface Untyped {
   [key: string]: any;
+}
+
+export interface NvuiPlugin {
+  render(ctrl: RoundController): VNode;
 }
 
 export interface SocketOpts {
@@ -50,8 +55,7 @@ export interface RoundData extends GameData {
   url: {
     socket: string;
     round: string;
-  },
-  blind?: boolean;
+  };
   tv?: Tv;
   userTv?: {
     id: string;
@@ -71,10 +75,7 @@ export interface Tv {
 }
 
 interface CrazyData {
-  pockets: {
-    white: CrazyPocket;
-    black: CrazyPocket;
-  };
+  pockets: [CrazyPocket, CrazyPocket];
 }
 
 interface CrazyPocket {
@@ -178,6 +179,7 @@ export interface Pref {
   rookCastle: boolean;
   showCaptured: boolean;
   submitMove: boolean;
+  resizeHandle: 0 | 1 | 2;
 }
 
 export interface MoveMetadata {
@@ -194,4 +196,8 @@ export interface MaterialDiffSide {
 export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
+}
+export interface CheckCount {
+  white: number;
+  black: number;
 }

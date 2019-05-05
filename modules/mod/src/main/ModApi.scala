@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.common.{ IpAddress, EmailAddress }
 import lila.report.{ Mod, ModId, Suspect, SuspectId, Room }
-import lila.security.Permission
+import lila.security.{ Permission, Granter }
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, Title, LightUserApi }
 
@@ -128,14 +128,22 @@ final class ModApi(
   }
 
   def setEmail(mod: String, username: String, email: EmailAddress): Funit = withUser(username) { user =>
-    UserRepo.email(user.id, email) >>
+    UserRepo.setEmail(user.id, email) >>
       UserRepo.setEmailConfirmed(user.id) >>
       logApi.setEmail(mod, user.id)
   }
 
-  def setPermissions(mod: String, username: String, permissions: List[Permission]): Funit = withUser(username) { user =>
-    UserRepo.setRoles(user.id, permissions.map(_.name)) >>
-      logApi.setPermissions(mod, user.id, permissions)
+  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit = withUser(username) { user =>
+    val finalPermissions = Permission(user.roles).filter { p =>
+      // only remove permissions the mod can actually grant
+      permissions.contains(p) || !Granter.canGrant(mod.user, p)
+    } ++
+      // only add permissions the mod can actually grant
+      permissions.filter(Granter.canGrant(mod.user, _))
+    UserRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
+      lilaBus.publish(lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList), 'setPermissions)
+      logApi.setPermissions(mod, user.id, permissions.toList)
+    }
   }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {

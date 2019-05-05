@@ -5,6 +5,7 @@ export interface ChatOpts {
   data: ChatData
   writeable: boolean
   kobold: boolean
+  blind: boolean
   timeout: boolean
   parseMoves: boolean
   public: boolean
@@ -60,12 +61,13 @@ export interface Ctrl {
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined
-  post(text: string): boolean
+  post(text: string): void
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
   plugin?: ChatPlugin
   redraw: Redraw
+  destroy(): void;
 }
 
 export interface ViewModel {

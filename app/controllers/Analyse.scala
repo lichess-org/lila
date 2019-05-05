@@ -36,7 +36,7 @@ object Analyse extends LilaController {
           Env.fishnet.api.gameIdExists(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
-          Env.game.crosstableApi.withMatchup(pov.game) zip
+          (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pgnDump(pov.game, initialFen, analysis = none, PgnDump.WithFlags(clocks = false)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
@@ -68,16 +68,16 @@ object Analyse extends LilaController {
       }
     }
 
-  def embed(gameId: String, color: String) = Open { implicit ctx =>
+  def embed(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.gameWithInitialFen(gameId) flatMap {
       case Some((game, initialFen)) =>
         val pov = Pov(game, chess.Color(color == "white"))
-        Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
+        Env.api.roundApi.embed(pov, lila.api.Mobile.Api.currentVersion,
           initialFenO = initialFen.some,
           withFlags = WithFlags(opening = true)) map { data =>
             Ok(html.analyse.embed(pov, data))
           }
-      case _ => fuccess(NotFound(html.analyse.embedNotFound()))
+      case _ => fuccess(NotFound(html.analyse.embed.notFound))
     }
   }
 

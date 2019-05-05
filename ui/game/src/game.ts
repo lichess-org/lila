@@ -1,6 +1,8 @@
 import { GameData, Player } from './interfaces';
 import * as status from './status';
 
+export * from './interfaces';
+
 export function playable(data: GameData): boolean {
   return data.game.status.id < status.ids.aborted && !imported(data);
 }
@@ -11,6 +13,18 @@ export function isPlayerPlaying(data: GameData): boolean {
 
 export function isPlayerTurn(data: GameData): boolean {
   return isPlayerPlaying(data) && data.game.player == data.player.color;
+}
+
+export function isFriendGame(data: GameData): boolean {
+  return data.game.source === 'friend';
+}
+
+export function isClassical(data: GameData): boolean {
+  return data.game.perf === 'classical';
+}
+
+export function isForceResignable(data: GameData): boolean {
+  return !(isFriendGame(data) && isClassical(data));
 }
 
 export function mandatory(data: GameData): boolean {

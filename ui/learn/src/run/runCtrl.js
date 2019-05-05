@@ -8,7 +8,7 @@ module.exports = function(opts, trans) {
 
   var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
-  opts.setStage(stage);
+  opts.side.ctrl.setStage(stage);
 
   var levelId = m.route.param('level') || (function() {
     var result = opts.storage.data.stages[stage.key];
@@ -63,6 +63,7 @@ module.exports = function(opts, trans) {
   m.redraw.strategy("diff");
 
   return {
+    opts: opts,
     stage: stage,
     level: level,
     vm: vm,

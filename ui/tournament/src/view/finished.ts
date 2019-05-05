@@ -3,9 +3,8 @@ import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
 import { TournamentData, MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
-import { standing, podium } from './arena';
+import { controls, standing, podium } from './arena';
 import header from './header';
-import tourSide from './side';
 import playerInfo from './playerInfo';
 import { numberRow } from './util';
 
@@ -18,8 +17,8 @@ function confetti(data: TournamentData): VNode | undefined {
   });
 }
 
-function stats(st, noarg) {
-  return h('div.stats.box', [
+function stats(st, noarg): VNode {
+  return h('div.tour__stats', [
     h('h2', noarg('tournamentComplete')),
     h('table', [
       numberRow(noarg('averageElo'), st.averageRating, 'raw'),
@@ -33,6 +32,8 @@ function stats(st, noarg) {
   ]);
 }
 
+export const name = 'finished';
+
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [
@@ -41,13 +42,13 @@ export function main(ctrl: TournamentController): MaybeVNodes {
       header(ctrl),
       podium(ctrl)
     ]),
+    controls(ctrl, pag),
     standing(ctrl, pag)
   ];
 }
 
-export function side(ctrl: TournamentController): MaybeVNodes {
-  return ctrl.playerInfo.id ? [playerInfo(ctrl)] : [
-    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : null,
-    ...tourSide(ctrl)
-  ];
+export function table(ctrl: TournamentController): VNode {
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : (
+    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : h('div')
+  );
 }

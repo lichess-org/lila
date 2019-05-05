@@ -1,7 +1,7 @@
 package lila.base
 
 import org.specs2.mutable.Specification
-import play.twirl.api.Html
+// import scalatags.Text.all._
 
 import RawHtml._
 
@@ -39,6 +39,24 @@ class RawHtmlTest extends Specification {
       val url = "http://zombo.com/pic.jpg"
       addLinks(s"""link to $url here""") must_==
         s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
+    }
+    "detect direct giphy gif URL" in {
+      val url = "https://media.giphy.com/media/s0mE1d/giphy.gif"
+      val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
+      addLinks(s"""img to $url here""") must_==
+        s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
+    }
+    "detect indirect without tags giphy gif URL" in {
+      val url = "https://giphy.com/gifs/s0mE1d"
+      val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
+      addLinks(s"""img to $url here""") must_==
+        s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
+    }
+    "detect indirect with tags giphy gif URL" in {
+      val url = "https://giphy.com/gifs/some-text-1-s0mE1d"
+      val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
+      addLinks(s"""img to $url here""") must_==
+        s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
     "detect imgur image URL" in {
       val url = "https://imgur.com/NXy19Im"

@@ -1,6 +1,6 @@
 $(function() {
 
-  var $editor = $('.coach_edit');
+  var $editor = $('.coach-edit');
 
   var todo = (function() {
 
@@ -42,7 +42,7 @@ $(function() {
       });
       $el.find('ul').html(points);
       var fail = !!points.length;
-      $overview.toggleClass('with_todo', fail);
+      $overview.toggleClass('with-todo', fail);
       if (fail) $checkbox.prop('checked', false);
       $checkbox.attr('disabled', fail);
     };
@@ -56,8 +56,8 @@ $(function() {
     $editor.find('.panel.' + $(this).data('tab')).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
-  var submit = lichess.fp.debounce(function() {
-    $editor.find('form.form3').ajaxSubmit({
+  var submit = lichess.debounce(function() {
+    $editor.find('form.async').ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');
         todo();

@@ -138,11 +138,6 @@ final class Env(
     secret = LoginTokenSecret
   )
 
-  lazy val welcomeEmail = new WelcomeEmail(
-    mailgun = mailgun,
-    baseUrl = NetBaseUrl
-  )
-
   lazy val automaticEmail = new AutomaticEmail(
     mailgun = mailgun,
     baseUrl = NetBaseUrl

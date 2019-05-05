@@ -21,7 +21,7 @@ export default function(vm, puzzle) {
     var nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(function(node) {
       return {
         uci: node.uci,
-        castle: node.san.indexOf('O-O') === 0
+        castle: node.san.startsWith('O-O')
       };
     });
 

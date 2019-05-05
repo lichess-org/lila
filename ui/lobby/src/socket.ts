@@ -13,7 +13,6 @@ export default class LobbySocket {
 
   send: SocketSend;
   handlers: Handlers;
-  music?: any;
 
   constructor(send: SocketSend, ctrl: LobbyController) {
 
@@ -52,15 +51,6 @@ export default class LobbySocket {
         send('idle', false);
         ctrl.awake();
       });
-
-    li.pubsub.on('sound_set', (set: string) => {
-      if (!this.music && set === 'music')
-        li.loadScript('javascripts/music/lobby.js').then(() => {
-          this.music = window['lichessLobbyMusic']();
-          ctrl.setMode('chart');
-        });
-        if (this.music && set !== 'music') this.music = undefined;
-    });
   }
 
   realTimeIn() {
@@ -84,7 +74,6 @@ export default class LobbySocket {
   };
 
   receive = (type: string, data: any): boolean => {
-    if (this.music) this.music.receive(type, data);
     if (this.handlers[type]) {
       this.handlers[type](data);
       return true;

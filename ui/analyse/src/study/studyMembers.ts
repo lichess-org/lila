@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { titleNameToId, bind, dataIcon } from '../util';
+import { titleNameToId, bind, dataIcon, iconTag, onInsert } from '../util';
 import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
@@ -157,7 +157,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function username(member: StudyMember) {
     var u = member.user;
-    return h('span.user_link.ulpt', {
+    return h('span.user-link.ulpt', {
       attrs: { 'data-href': '/@/' + u.name }
     }, (u.title ? u.title + ' ' : '') + u.name);
   };
@@ -172,21 +172,21 @@ export function view(ctrl: StudyCtrl): VNode {
       },
       attrs: { title: contrib ? 'Contributor' : 'Viewer' },
     }, [
-      h('i', { attrs: dataIcon(contrib ? 'r' : 'v') })
+      iconTag(contrib ? 'r' : 'v')
     ]);
   };
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && member.user.id !== ctrl.members.myId)
-    return h('i.action.config', {
-      key: 'cfg-' + member.user.id,
-      attrs: dataIcon('%'),
-      hook: bind('click', _ => {
-        ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
-      }, ctrl.redraw)
-    });
+      return h('act', {
+        key: 'cfg-' + member.user.id,
+        attrs: dataIcon('%'),
+        hook: bind('click', _ => {
+          ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
+        }, ctrl.redraw)
+      });
     if (!isOwner && member.user.id === ctrl.members.myId)
-      return h('span.action.leave', {
+      return h('act.leave', {
         key: 'leave',
         attrs: {
           'data-icon': 'F',
@@ -198,13 +198,9 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function memberConfig(member: StudyMember): VNode {
     const roleId = 'member-role';
-    return h('div.config', {
+    return h('m-config', {
       key: member.user.id + '-config',
-      hook: {
-        insert: vnode => {
-          $(vnode.elm as HTMLElement).parent('.members').scrollTo(vnode.elm as HTMLElement, 200);
-        }
-      }
+      hook: onInsert(el => $(el).parent('.members').scrollTo(el, 200))
     }, [
       h('div.role', [
         h('div.switch', [
@@ -222,24 +218,27 @@ export function view(ctrl: StudyCtrl): VNode {
         ]),
         h('label', { attrs: { 'for': roleId } }, 'Contributor')
       ]),
-      h('div.kick', h('a.button.text', {
+      h('div.kick', h('a.button.button-red.button-empty.text', {
         attrs: dataIcon('L'),
         hook: bind('click', _ => ctrl.members.kick(member.user.id), ctrl.redraw)
-      }, 'Kick from this study'))
+      }, 'Kick'))
     ]);
   };
 
   var ordered = ctrl.members.ordered();
 
-  return h('div.list.members', {
+  return h('div.study__members', {
     hook: {
-      insert: _ => window.lichess.pubsub.emit('content_loaded')()
+      insert: _ => {
+        window.lichess.pubsub.emit('content_loaded')();
+        window.lichess.pubsub.emit('analyse.grid-hack')();
+      }
     }
   }, [
     ...ordered.map(function(member) {
       const confing = ctrl.members.confing() === member.user.id;
       return [
-        h('div.elem.member', {
+        h('div', {
           key: member.user.id,
           class: { editing: !!confing }
         }, [
@@ -252,13 +251,13 @@ export function view(ctrl: StudyCtrl): VNode {
         confing ? memberConfig(member) : null
       ];
     }).reduce((a, b) => a.concat(b), []),
-    (isOwner && ordered.length < ctrl.members.max) ? h('div.elem.member.add', {
-      key: 'invite-someone',
+    (isOwner && ordered.length < ctrl.members.max) ? h('div.add', {
+      key: 'add',
       hook: bind('click', ctrl.members.inviteForm.toggle, ctrl.redraw)
     }, [
       h('div.left', [
-        h('span.status', h('i', { attrs: dataIcon('O') })),
-        h('span.add_text', 'Add members')
+        h('span.status', iconTag('O')),
+        h('div.user-link', 'Add members')
       ])
     ]) : null
   ]);

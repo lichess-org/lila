@@ -1,6 +1,7 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { bind as bindEvent, dataIcon, spinner } from './util';
+import { spinner } from './util';
+import { modal } from './modal';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -28,7 +29,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind(['right', 'j'], preventing(function() {
-    if (!ctrl.fork.proceed()) control.next(ctrl);
+    control.next(ctrl);
     ctrl.redraw();
   }));
   kbd.bind(['shift+right', 'shift+j'], preventing(function() {
@@ -36,11 +37,11 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind(['up', '0'], preventing(function() {
-    if (!ctrl.fork.prev()) control.first(ctrl);
+    control.first(ctrl);
     ctrl.redraw();
   }));
   kbd.bind(['down', '$'], preventing(function() {
-    if (!ctrl.fork.next()) control.last(ctrl);
+    control.last(ctrl);
     ctrl.redraw();
   }));
   kbd.bind('shift+c', preventing(function() {
@@ -92,25 +93,24 @@ export function bind(ctrl: AnalyseCtrl): void {
         });
       }));
     };
-    keyToMousedown('c', '.study_buttons a.comments');
-    keyToMousedown('g', '.study_buttons a.glyphs');
+    keyToMousedown('c', '.study__buttons a.comments');
+    keyToMousedown('g', '.study__buttons a.glyphs');
   }
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
-
-  return h('div.lichess_overboard.keyboard_help', {
-    hook: {
-      insert: vnode => {
-        window.lichess.loadCss('stylesheets/keyboard.css')
-        $(vnode.elm as HTMLElement).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
-      }
-    }
-  }, [
-    h('a.close.icon', {
-      attrs: dataIcon('L'),
-      hook: bindEvent('click', () => ctrl.keyboardHelp = false, ctrl.redraw)
-    }),
-    h('div.scrollable', spinner())
-  ]);
+  return modal({
+    class: 'keyboard-help',
+    onInsert(el: HTMLElement) {
+      window.lichess.loadCssPath('analyse.keyboard')
+      $(el).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
+    },
+    onClose() {
+      ctrl.keyboardHelp = false;
+      ctrl.redraw();
+    },
+    content: [
+      h('div.scrollable', spinner())
+    ]
+  });
 }

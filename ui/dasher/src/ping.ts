@@ -52,15 +52,15 @@ export function view(ctrl: PingCtrl): VNode {
 
   return h('a.status', { attrs: {href: '/lag'} }, [
     signalBars(d),
-    h('span.ping.hint--left', {
-      attrs: { 'data-hint': 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') }
+    h('span.ping', {
+      attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') }
     }, [
       h('em', 'PING'),
       h('strong', defined(d.ping) ? '' + d.ping : '?'),
       h('em', 'ms')
     ]),
-    h('span.server.hint--left', {
-      attrs: { 'data-hint': 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') }
+    h('span.server', {
+      attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') }
     }, [
       h('em', 'SERVER'),
       h('strong', defined(d.server) ? '' + d.server : '?'),

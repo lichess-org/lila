@@ -167,10 +167,20 @@ object mon {
       }
     }
   }
+  object rating {
+    object distribution {
+      def byPerfAndRating(perfKey: String, rating: Int): Rate = rate(s"rating.distribution.$perfKey.$rating")
+    }
+    object regulator {
+      def micropoints(perfKey: String) = rec(s"rating.regulator.$perfKey")
+    }
+  }
+
   object round {
     object api {
       val player = rec("round.api.player")
       val watcher = rec("round.api.watcher")
+      val embed = rec("round.api.embed")
     }
     object actor {
       val count = rec("round.actor.count")
@@ -364,11 +374,18 @@ object mon {
     }
   }
   object email {
-    val resetPassword = inc("email.reset_password")
-    val fix = inc("email.fix")
-    val change = inc("email.change")
-    val confirmation = inc("email.confirmation")
+    object types {
+      val resetPassword = inc("email.reset_password")
+      val fix = inc("email.fix")
+      val change = inc("email.change")
+      val confirmation = inc("email.confirmation")
+    }
     val disposableDomain = rec("email.disposable_domain")
+    object actions {
+      val send = inc("email.send")
+      val fail = inc("email.fail")
+      val retry = inc("email.retry")
+    }
   }
   object security {
     object tor {

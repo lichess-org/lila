@@ -1,0 +1,57 @@
+.mchat {
+  &__messages {
+    @extend %break-word;
+    flex: 1 1 auto;
+    max-height: 50vh;
+    @include breakpoint($mq-col3-uniboard) {
+      max-height: none;
+    }
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: initial;
+    font-size: .9em;
+    li {
+      padding: .5em 0 .5em 10px;
+      line-height: 1.2em;
+      overflow-y: hidden;
+      user-select: text;
+    }
+    .deleted {
+      opacity: 0.5;
+    }
+    .system {
+      display: block;
+      opacity: 0.8;
+      font-style: italic;
+      font-size: 0.9em;
+      margin-left: 0;
+      text-align: center;
+    }
+    .color,
+    .user-link {
+      font-weight: bold;
+      padding: 0;
+      color: $c-font-dim;
+      letter-spacing: -1px;
+      margin-right: .4em;
+    }
+    .title {
+      margin-right: 3px;
+    }
+    a:not(.user-link) {
+      @extend %roboto;
+    }
+  }
+  &__say {
+    flex: 0 0 auto;
+    border: 0;
+    border-top: $border;
+    border-radius: 0;
+    padding: 3px 20px 3px 4px;
+    &.whisper {
+      color: $c-good;
+      font-weight: bold;
+      font-style: italic;
+    }
+  }
+}

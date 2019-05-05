@@ -2,7 +2,7 @@ import AnalyseCtrl from './ctrl';
 
 import * as control from './control';
 
-export type AutoplayDelay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' | 'fast' | 'slow';
+export type AutoplayDelay = number | 'realtime' | 'cpl';
 
 export class Autoplay {
 
@@ -32,27 +32,25 @@ export class Autoplay {
   }
 
   private nextDelay(): number {
-    if (typeof this.delay === 'string') {
-      // in a variation
-      if (!this.ctrl.onMainline) return 1500;
-      if (this.delay === 'realtime') {
-        if (this.ctrl.node.ply < 2) return 1000;
-        const centis = this.ctrl.data.game.moveCentis;
-        if (!centis) return 1500;
-        const time = centis[this.ctrl.node.ply - this.ctrl.tree.root.ply];
-        // estimate 130ms of lag to improve playback.
-        return time * 10 + 130 || 2000;
-      } else {
-        const slowDown = this.delay === 'cpl_fast' ? 10 : 30;
-        if (this.ctrl.node.ply >= this.ctrl.mainline.length - 1) return 0;
-        const currPlyCp = this.evalToCp(this.ctrl.node);
-        const nextPlyCp = this.evalToCp(this.ctrl.node.children[0]);
-        return Math.max(500,
-          Math.min(10000,
-            Math.abs(currPlyCp - nextPlyCp) * slowDown));
-      }
+    if (typeof this.delay === 'string' && !this.ctrl.onMainline) return 1500;
+    else if (this.delay === 'realtime') {
+      if (this.ctrl.node.ply < 2) return 1000;
+      const centis = this.ctrl.data.game.moveCentis;
+      if (!centis) return 1500;
+      const time = centis[this.ctrl.node.ply - this.ctrl.tree.root.ply];
+      // estimate 130ms of lag to improve playback.
+      return time * 10 + 130 || 2000;
     }
-    return this.delay!;
+    else if (this.delay === 'cpl') {
+      const slowDown = 30;
+      if (this.ctrl.node.ply >= this.ctrl.mainline.length - 1) return 0;
+      const currPlyCp = this.evalToCp(this.ctrl.node);
+      const nextPlyCp = this.evalToCp(this.ctrl.node.children[0]);
+      return Math.max(500,
+        Math.min(10000,
+          Math.abs(currPlyCp - nextPlyCp) * slowDown));
+    }
+    else return this.delay!;
   }
 
   private schedule(): void {

@@ -50,7 +50,7 @@
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidores</string>
-  <string name="loadingEngine">Carregando motor de jogo ...</string>
+  <string name="loadingEngine">A carregar o motor de jogo ...</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Detalhar</string>
   <string name="showThreat">Mostrar ameaça</string>
@@ -164,6 +164,9 @@
   <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
+  <string name="changeUsername">Alterar o nome de utilizador</string>
+  <string name="changeUsernameNotSame">Só lhe é permitido alterar a forma das letras. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Altere o seu nome de utilizador. Só o pode fazer uma vez e alterando unicamente a forma das letras.</string>
   <string name="password">Senha</string>
   <string name="haveAnAccount">Tem uma conta?</string>
   <string name="changePassword">Alterar senha</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">O ranking é atualizado a cada %s minutos</item>
+    <item quantity="other">O ranking é atualizado a cada %s minutos</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s quebra-cabeças</item>
@@ -341,7 +347,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de conversação e link de partilha.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s partida importada</item>
+    <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>
@@ -350,7 +356,7 @@
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
-  <string name="reconnecting">Reconetando</string>
+  <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
@@ -631,9 +637,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Roque curto das Brancas</string>
-  <string name="whiteCastlingQueenside">Roque longo das Brancas</string>
   <string name="blackCastlingKingside">Roque curto das Pretas</string>
-  <string name="blackCastlingQueenside">Roque longo das Pretas</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s artigo no fórum</item>
     <item quantity="other">%s artigos no fórum</item>
@@ -642,7 +646,6 @@
   <string name="watchGames">Observar jogos</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Observar</string>
-  <string name="internationalEvents">Eventos Internacionais</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
@@ -753,6 +756,7 @@
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entra em %2$s</string>
   <string name="xLikesY">%1$s gosta de %2$s</string>
+  <string name="xCreatesStudyY">%1$s cria estudo %2$s</string>
   <string name="quickPairing">Emparelhamento rápido</string>
   <string name="lobby">Vestíbulo</string>
   <string name="anonymous">Anónimo</string>

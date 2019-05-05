@@ -2,7 +2,7 @@ package lila.game
 
 case class Crosstable(
     users: Crosstable.Users,
-    results: List[Crosstable.Result]
+    results: List[Crosstable.Result] // chronological order, oldest to most recent
 ) {
 
   def user1 = users.user1
@@ -18,7 +18,7 @@ case class Crosstable(
 
   lazy val size = results.size
 
-  def fill = (1 to Crosstable.maxGames - size)
+  def fillSize = Crosstable.maxGames - size
 }
 
 object Crosstable {
@@ -60,7 +60,7 @@ object Crosstable {
       else None
   }
 
-  case class Result(gameId: String, winnerId: Option[String])
+  case class Result(gameId: Game.ID, winnerId: Option[String])
 
   case class Matchup(users: Users) extends AnyVal { // score is x10
     def fromPov(userId: String) = copy(users = users fromPov userId)

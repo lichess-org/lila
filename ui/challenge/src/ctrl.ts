@@ -1,5 +1,6 @@
-import * as xhr from './xhr'
-import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces'
+import * as xhr from './xhr';
+import notify from 'common/notification';
+import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces';
 
 const li = window.lichess;
 
@@ -26,7 +27,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
           opts.show();
           li.sound.newChallenge();
         }
-        c.challenger && li.desktopNotification(showUser(c.challenger) + ' challenges you!');
+        c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
     });

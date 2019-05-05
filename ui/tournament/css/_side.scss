@@ -1,0 +1,69 @@
+.tour__side {
+  @extend %flex-column;
+
+  .mchat {
+    flex: 1 1 7em;
+    margin-top: $block-gap;
+    @include breakpoint($mq-col2) {
+      min-height: inherit;
+    }
+  }
+}
+.tour__meta {
+  @extend %box-neat-force;
+  background: $c-bg-box;
+  padding: #{$block-gap * 0.6} $block-gap;
+  section {
+    border-bottom: $border;
+    margin-bottom: #{$block-gap * 2 / 3};
+    padding-bottom: #{$block-gap * 2 / 3};
+    &[data-icon] {
+      @extend %flex-center-nowrap;
+    }
+    &::before {
+      font-size: 3rem;
+      margin-right: 4%;
+    }
+    p {
+      margin: 0;
+    }
+    .setup {
+      @extend %nowrap-hidden;
+    }
+    time {
+      opacity: 1;
+    }
+    .terminate {
+      display: inline-block;
+      margin-left: .3em;
+      .fbt{
+        padding: 0 .3em;
+        &:hover {
+          background: mix($c-bad, $c-bg-box, 75%);
+        }
+      }
+    }
+    .defender::before {
+      font-size: 1.6em;
+      vertical-align: -0.26em;
+      margin: 0 0.15em 0 -0.15em;
+    }
+    &.conditions {
+      &::before {
+        opacity: 0.7;
+      }
+      &.accepted {
+        color: $c-good;
+      }
+      &.refused {
+        color: $c-bad;
+      }
+    }
+  }
+}
+.chat__members {
+  overflow: visible; /* fixes invisible spectators on firefox, col2 */
+  @include breakpoint($mq-col1) {
+    margin: 0 $block-gap;
+  }
+}

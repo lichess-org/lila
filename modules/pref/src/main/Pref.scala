@@ -38,6 +38,7 @@ case class Pref(
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
+    resizeHandle: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -53,6 +54,7 @@ case class Pref(
   def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
+  def coordsClass = Coords classOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
@@ -87,11 +89,13 @@ case class Pref(
 
   def isZen = zen == Zen.YES
 
+  def is2d = !is3d
+
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
     theme == "brown" &&
       pieceSet == "cburnett" &&
-      !is3d &&
+      is2d &&
       animation == Animation.NONE &&
       highlight &&
       coords == Coords.OUTSIDE
@@ -256,6 +260,12 @@ object Pref {
       INSIDE -> "Inside the board",
       OUTSIDE -> "Outside the board"
     )
+
+    def classOf(v: Int) = v match {
+      case INSIDE => "in"
+      case OUTSIDE => "out"
+      case _ => "no"
+    }
   }
 
   object Replay {
@@ -322,6 +332,18 @@ object Pref {
     )
   }
 
+  object ResizeHandle {
+    val NEVER = 0
+    val INITIAL = 1
+    val ALWAYS = 2
+
+    val choices = Seq(
+      NEVER -> "Never",
+      INITIAL -> "On initial position",
+      ALWAYS -> "Always"
+    )
+  }
+
   object Zen extends BooleanPref {
   }
 
@@ -350,7 +372,7 @@ object Pref {
     follow = true,
     highlight = true,
     destination = true,
-    coords = Coords.OUTSIDE,
+    coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,
@@ -365,6 +387,7 @@ object Pref {
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
+    resizeHandle = ResizeHandle.INITIAL,
     tags = Map.empty
   )
 

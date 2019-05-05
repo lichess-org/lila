@@ -10,16 +10,18 @@ import MoveOn from './moveOn';
 import { main as view } from './view/main';
 import * as chat from 'chat';
 import boot from './boot';
+import { menuHover } from 'common/menuHover';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
-  toggleZen(): void;
 }
 
 export interface RoundMain {
   app: (opts: RoundOpts) => RoundApi;
 }
+
+menuHover();
 
 export function app(opts: RoundOpts): RoundApi {
 
@@ -39,8 +41,7 @@ export function app(opts: RoundOpts): RoundApi {
 
   return {
     socketReceive: ctrl.socket.receive,
-    moveOn: ctrl.moveOn,
-    toggleZen: ctrl.toggleZen
+    moveOn: ctrl.moveOn
   };
 };
 

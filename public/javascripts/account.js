@@ -1,6 +1,6 @@
 $(function() {
 
-  $('.security.content_box table form').submit(function() {
+  $('.security table form').submit(function() {
     $.post($(this).attr('action'));
     $(this).parent().parent().fadeOut(300, function() { $(this).remove(); });
     return false;
@@ -15,7 +15,7 @@ $(function() {
         data: $form.serialize(),
         success: function() {
           $form.find('.saved').fadeIn();
-          lichess.reloadOtherTabs();
+          lichess.storage.set('reload-round-tabs', Math.random());
         }
       });
     });

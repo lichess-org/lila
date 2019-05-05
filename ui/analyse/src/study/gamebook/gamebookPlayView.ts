@@ -16,7 +16,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   comment = state.comment || defaultComments[state.feedback];
 
   return h('div.gamebook', {
-    hook: { insert: _ => window.lichess.loadCss('stylesheets/gamebook.play.css') }
+    hook: { insert: _ => window.lichess.loadCssPath('analyse.gamebook.play') }
   }, [
     comment ? h('div.comment', {
       class: { hinted: state.showHint }

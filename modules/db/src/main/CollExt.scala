@@ -114,6 +114,21 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           _ flatMap { _.getAs[V](field) }
         }
 
+    def primitiveMap[I: BSONValueReader: BSONValueWriter, V](
+      ids: Iterable[I],
+      field: String,
+      fieldExtractor: Bdoc => Option[V]
+    ): Fu[Map[I, V]] =
+      coll.find($inIds(ids), $doc(field -> true))
+        .list[Bdoc]()
+        .dmap {
+          _ flatMap { obj =>
+            obj.getAs[I]("_id") flatMap { id =>
+              fieldExtractor(obj) map { id -> _ }
+            }
+          } toMap
+        }
+
     def updateField[V: BSONValueWriter](selector: Bdoc, field: String, value: V) =
       coll.update(selector, $set(field -> value))
 

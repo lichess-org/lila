@@ -19,13 +19,13 @@ object OAuthApp extends LilaController {
   }
 
   def create = Auth { implicit ctx => me =>
-    Ok(html.oAuth.app.create(env.forms.app.create)).fuccess
+    Ok(html.oAuth.app.form.create(env.forms.app.create)).fuccess
   }
 
   def createApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     env.forms.app.create.bindFromRequest.fold(
-      err => BadRequest(html.oAuth.app.create(err)).fuccess,
+      err => BadRequest(html.oAuth.app.form.create(err)).fuccess,
       setup => {
         val app = setup make me
         env.appApi.create(app) inject Redirect(routes.OAuthApp.edit(app.clientId.value))
@@ -35,7 +35,7 @@ object OAuthApp extends LilaController {
 
   def edit(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.appApi.findBy(App.Id(id), me)) { app =>
-      Ok(html.oAuth.app.edit(app, env.forms.app.edit(app))).fuccess
+      Ok(html.oAuth.app.form.edit(app, env.forms.app.edit(app))).fuccess
     }
   }
 
@@ -43,7 +43,7 @@ object OAuthApp extends LilaController {
     OptionFuResult(env.appApi.findBy(App.Id(id), me)) { app =>
       implicit val req = ctx.body
       env.forms.app.edit(app).bindFromRequest.fold(
-        err => BadRequest(html.oAuth.app.edit(app, err)).fuccess,
+        err => BadRequest(html.oAuth.app.form.edit(app, err)).fuccess,
         data => env.appApi.update(app) { data.update(_) } map { r => Redirect(routes.OAuthApp.edit(app.clientId.value)) }
       )
     }

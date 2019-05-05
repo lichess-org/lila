@@ -6,6 +6,7 @@ export function study(ctrl: AnalyseCtrl) {
     window.lichess['studyTour']({
       userId: ctrl.opts.userId,
       isContrib: ctrl.study!.members.canContribute(),
+      isOwner: ctrl.study!.members.isOwner(),
       setTab: (tab: Tab) => {
         ctrl.study!.vm.tab(tab);
         ctrl.redraw();

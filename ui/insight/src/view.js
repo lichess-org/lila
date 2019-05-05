@@ -45,23 +45,22 @@ module.exports = function(ctrl) {
     m('div.left-side', [
       info(ctrl),
       m('div.panel-tabs', [
-        m('a[data-panel=preset]', {
+        m('a[data-panel="preset"]', {
           class: 'tab preset' + (ctrl.vm.panel === 'preset' ? ' active' : ''),
           onclick: function() {
             ctrl.setPanel('preset');
           }
         }, 'Presets'),
-        m('a[data-panel=filter]', {
+        m('a[data-panel="filter"]', {
           class: 'tab filter' + (ctrl.vm.panel === 'filter' ? ' active' : ''),
           onclick: function() {
             ctrl.setPanel('filter');
           }
-        }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
-          'data-hint': 'Clear all filters',
-          onclick: ctrl.clearFilters
-        }, m('span', {
+        }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear', {
+          title: 'Clear all filters',
           'data-icon': 'L',
-        }, 'CLEAR')) : null,
+          onclick: ctrl.clearFilters
+        }, 'CLEAR') : null,
       ]),
       ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
       ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
@@ -74,6 +73,6 @@ module.exports = function(ctrl) {
         'data-icon': '7'
       }, 'Chess Insights')
     ]),
-    m('div.meat', renderMeat(ctrl))
+    m('div.meat.box', renderMeat(ctrl))
   ]);
 };

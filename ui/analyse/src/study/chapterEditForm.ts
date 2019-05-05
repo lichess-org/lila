@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop } from 'common';
-import { bind, bindSubmit, spinner, option } from '../util';
-import * as dialog from './dialog';
+import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';
+import * as modal from '../modal';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterMeta } from './interfaces';
 
@@ -63,7 +63,7 @@ export function view(ctrl): VNode | undefined {
   const isLoaded = !!data.orientation;
   const mode = data.practice ? 'practice' : (!isNaN(data.conceal) ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
 
-  return dialog.form({
+  return modal.modal({
     class: 'edit-' + data.id, // full redraw when changing chapter
     onClose() {
       ctrl.current(null);
@@ -71,7 +71,7 @@ export function view(ctrl): VNode | undefined {
     },
     content: [
       h('h2', 'Edit chapter'),
-      h('form.material.form', {
+      h('form.form3', {
         hook: bindSubmit(e => {
           const o: any = {};
           'name mode orientation description'.split(' ').forEach(field => {
@@ -81,63 +81,59 @@ export function view(ctrl): VNode | undefined {
         })
       }, [
         h('div.form-group', [
-          h('input#chapter-name', {
+          h('label.form-label', {
+            attrs: { for: 'chapter-name' }
+          }, 'Name'),
+          h('input#chapter-name.form-control', {
             attrs: {
               minlength: 2,
               maxlength: 80
             },
-            hook: {
-              insert: vnode => {
-                const el = vnode.elm as HTMLInputElement;
-                if (!el.value) {
-                  el.value = data.name;
-                  el.select();
-                  el.focus();
-                }
+            hook: onInsert<HTMLInputElement>(el => {
+              if (!el.value) {
+                el.value = data.name;
+                el.select();
+                el.focus();
               }
-            }
-          }),
-          h('label.control-label', {
-            attrs: { for: 'chapter-name' }
-          }, 'Name'),
-          h('i.bar')
+            })
+          })
         ])
       ].concat(
         isLoaded ? [
-          h('div.form-group.little-margin-bottom', [
-            h('select#chapter-orientation', ['White', 'Black'].map(function(color) {
-              const v = color.toLowerCase();
-              return option(v, data.orientation, color);
-            })),
-            h('label.control-label', {
-              attrs: { for: 'chapter-orientation' }
-            }, 'Orientation'),
-            h('i.bar')
-          ]),
-          h('div.form-group.little-margin-bottom', [
-            h('select#chapter-mode', chapterForm.modeChoices.map(c => {
-              return option(c[0], mode, c[1]);
-            })),
-            h('label.control-label', {
-              attrs: { for: 'chapter-mode' }
-            }, 'Analysis mode'),
-            h('i.bar')
+          h('div.form-split', [
+            h('div.form-group.form-half', [
+              h('label.form-label', {
+                attrs: { for: 'chapter-orientation' }
+              }, 'Orientation'),
+              h('select#chapter-orientation.form-control', ['White', 'Black'].map(function(color) {
+                const v = color.toLowerCase();
+                return option(v, data.orientation, color);
+              }))
+            ]),
+            h('div.form-group.form-half', [
+              h('label.form-label', {
+                attrs: { for: 'chapter-mode' }
+              }, 'Analysis mode'),
+              h('select#chapter-mode.form-control', chapterForm.modeChoices.map(c => {
+                return option(c[0], mode, c[1]);
+              }))
+            ])
           ]),
           chapterForm.descriptionGroup(data.description),
-          dialog.button('Save chapter')
+          modal.button('Save chapter')
         ] : [spinner()]
       )),
       h('div.destructive', [
-        h('button.button.frameless', {
+        h(emptyRedButton, {
           hook: bind('click', _ => {
             if (confirm('Clear all comments and shapes in this chapter?'))
-            ctrl.clearAnnotations(data.id);
+              ctrl.clearAnnotations(data.id);
           })
         }, 'Clear annotations'),
-        h('button.button.frameless', {
+        h(emptyRedButton, {
           hook: bind('click', _ => {
             if (confirm('Delete this chapter? There is no going back!'))
-            ctrl.delete(data.id);
+              ctrl.delete(data.id);
           })
         }, 'Delete chapter')
       ])

@@ -130,6 +130,10 @@ trait dsl extends LowPriorityDsl {
     $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => BSONElement(k, BSONString("")))))
   }
 
+  def $setBoolOrUnset(field: String, value: Boolean): BSONDocument = {
+    if (value) $set(field -> true) else $unset(field)
+  }
+
   def $min(item: Producer[BSONElement]): BSONDocument = {
     $doc("$min" -> $doc(item))
   }

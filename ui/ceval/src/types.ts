@@ -1,4 +1,5 @@
-import { Prop, StoredProp, StoredBooleanProp } from 'common';
+import { Prop } from 'common';
+import { StoredProp, StoredBooleanProp } from 'common/storage';
 
 export interface Eval {
   cp?: number;

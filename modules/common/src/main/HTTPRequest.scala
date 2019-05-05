@@ -28,7 +28,6 @@ object HTTPRequest {
   val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 
   private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)
-  def isTrident(req: RequestHeader) = uaContains(req, "Trident/")
   def isChrome(req: RequestHeader) = uaContains(req, "Chrome/")
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN

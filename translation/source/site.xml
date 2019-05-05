@@ -133,7 +133,6 @@
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
   <string name="signIn">Sign in</string>
-  <string name="newToLichess">New to Lichess?</string>
   <string name="youNeedAnAccountToDoThat">You need an account to do that</string>
   <string name="signUp">Register</string>
   <string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
@@ -163,8 +162,10 @@
   <string name="ratingStats">Rating stats</string>
   <string name="username">User name</string>
   <string name="usernameOrEmail">User name or email</string>
+  <string name="changeUsername">Change username</string>
+  <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
+  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="password">Password</string>
-  <string name="haveAnAccount">Have an account?</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
@@ -172,7 +173,10 @@
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Rank is updated every %s minutes</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rank is updated every minute</item>
+    <item quantity="other">Rank is updated every %s minutes</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzles</item>
@@ -220,7 +224,7 @@
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
-  <string name="loginToChat">Login to chat</string>
+  <string name="loginToChat">Sign in to chat</string>
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
   <string name="composeMessage">Compose message</string>
@@ -338,8 +342,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
-a computer analysis, a game chat and a shareable URL.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -523,7 +527,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="materialDifference">Material difference</string>
   <string name="closeAccount">Close account</string>
   <string name="changedMindDoNotCloseAccount">I changed my mind, don't close my account</string>
-  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
+  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will NEVER be able to log in EVER AGAIN.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
@@ -581,13 +585,12 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
-  <string name="biographyDescription">Tell about you, what you like in chess, your favourite openings, games, players…</string>
+  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favorite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
@@ -596,7 +599,7 @@ in %3$s</string>
     <item quantity="one">%s block</item>
     <item quantity="other">%s blocks</item>
   </plurals>
-  <string name="listBlockedPlayers">List players that you have blocked</string>
+  <string name="listBlockedPlayers">List players you have blocked</string>
   <string name="human">Human</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
@@ -632,9 +635,7 @@ in %3$s</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
   <string name="whiteCastlingKingside">White O-O</string>
-  <string name="whiteCastlingQueenside">White O-O-O</string>
   <string name="blackCastlingKingside">Black O-O</string>
-  <string name="blackCastlingQueenside">Black O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum post</item>
     <item quantity="other">%s forum posts</item>
@@ -643,7 +644,6 @@ in %3$s</string>
   <string name="watchGames">Watch games</string>
   <string name="tpTimeSpentOnTV">Time on TV: %s</string>
   <string name="watch">Watch</string>
-  <string name="internationalEvents">International events</string>
   <string name="videoLibrary">Video library</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
@@ -685,7 +685,7 @@ in %3$s</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="newTournament">New tournament</string>
-  <string name="tournamentHomeTitle">Chess tournament featuring various time controls and variants</string>
+  <string name="tournamentHomeTitle">Chess tournaments featuring various time controls and variants</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
@@ -725,7 +725,7 @@ in %3$s</string>
   <string name="withEverybody">With everybody</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
-  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
+  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other Internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
@@ -754,6 +754,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s hosts %2$s</string>
   <string name="xJoinsY">%1$s joins %2$s</string>
   <string name="xLikesY">%1$s likes %2$s</string>
+  <string name="xCreatesStudyY">%1$s creates study %2$s</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>

@@ -4,9 +4,9 @@ import LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el) {
   const $div = $(el),
-  $ratingRange = $div.find('.rating_range');
+    $ratingRange = $div.find('.rating-range');
 
-  const save = window.lichess.fp.debounce(function() {
+  const save = window.lichess.debounce(function() {
     const $form = $div.find('form');
     $.ajax({
       url: $form.attr('action'),
@@ -26,14 +26,15 @@ function initialize(ctrl: LobbyController, el) {
   $div.find('input').change(save);
   $div.find('button.reset').click(function() {
     $div.find('label input').prop('checked', true).trigger('change');
-    $div.find('.rating_range').each(function(this: HTMLElement) {
+    $div.find('.rating-range').each(function(this: HTMLElement) {
       const s = $(this),
-      values = [s.slider('option', 'min'), s.slider('option', 'max')];
+        values = [s.slider('option', 'min'), s.slider('option', 'max')];
       s.slider('values', values);
       changeRatingRange(values);
     });
+    return false;
   });
-  $div.find('button').click(function() {
+  $div.find('button.apply').click(function() {
     ctrl.toggleFilter();
     ctrl.redraw();
     return false;
@@ -62,17 +63,14 @@ function initialize(ctrl: LobbyController, el) {
 }
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {
-  return h('span.filter_toggle', {
+  return h('i.toggle.toggle-filter', {
     class: { active: ctrl.filterOpen },
-    hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw)
-  }, [
-    ctrl.filterOpen ? h('span', { attrs: { 'data-icon': 'L' }}) : h('span.hint--bottom-left', {
-      attrs: { 'data-hint': ctrl.trans('filterGames') }
-    }, [
-      h('span', { attrs: { 'data-icon': '%' }})
-    ]),
-    nbFiltered > 0 ? h('span.number', '' + nbFiltered) : null
-  ]);
+    hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw),
+    attrs: {
+      'data-icon': ctrl.filterOpen ? 'L' : '%',
+      title: ctrl.trans.noarg('filterGames')
+    }
+  }, nbFiltered > 0 ? '' + nbFiltered : '');
 }
 
 export interface FilterNode extends HTMLElement {
@@ -80,7 +78,7 @@ export interface FilterNode extends HTMLElement {
 }
 
 export function render(ctrl: LobbyController) {
-  return h('div.hook_filter', {
+  return h('div.hook__filters', {
     hook: {
       insert(vnode) {
         const el = vnode.elm as FilterNode;

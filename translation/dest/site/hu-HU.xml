@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
-  <string name="newToLichess">Új vagy a Lichessen?</string>
   <string name="youNeedAnAccountToDoThat">Ehhez szükséged van egy fiókra</string>
   <string name="signUp">Regisztráció</string>
   <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
@@ -165,7 +164,6 @@
   <string name="username">Felhasználónév</string>
   <string name="usernameOrEmail">Felhasználónév vagy email</string>
   <string name="password">Jelszó</string>
-  <string name="haveAnAccount">Van már fiókod?</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
   <string name="email">E-mail cím</string>
@@ -173,7 +171,6 @@
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s.</string>
-  <string name="rankIsUpdatedEveryXMinutes">A rang %s percenként frissül</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s feladvány</item>
     <item quantity="other">%s feladvány</item>
@@ -631,9 +628,7 @@
   <string name="menu">Menü</string>
   <string name="castling">Sáncolás</string>
   <string name="whiteCastlingKingside">Világos rövidre sáncolhat</string>
-  <string name="whiteCastlingQueenside">Világos hosszúra sáncolhat</string>
   <string name="blackCastlingKingside">Sötét rövidre sáncolhat</string>
-  <string name="blackCastlingQueenside">Sötét hosszúra sáncolhat</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s fórumbejegyzés</item>
     <item quantity="other">%s fórumbejegyzés</item>
@@ -642,7 +637,6 @@
   <string name="watchGames">Játszmák nézése</string>
   <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
   <string name="watch">Néznivaló</string>
-  <string name="internationalEvents">Nemzetközi események</string>
   <string name="videoLibrary">Videó könyvtár</string>
   <string name="mobileApp">Mobil alkalmazás</string>
   <string name="webmasters">Webmester</string>

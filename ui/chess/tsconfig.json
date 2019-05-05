@@ -12,6 +12,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "target": "es5"
+    "moduleResolution": "node",
+    "target": "ES5",
+    "lib": ["DOM", "ES5", "es2015.core", "es2015.Promise"]
   }
 }

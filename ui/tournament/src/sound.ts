@@ -1,4 +1,5 @@
 import { TournamentData } from './interfaces';
+import notify from 'common/notification';
 
 let countDownTimeout: number | undefined;
 const li = window.lichess;
@@ -22,7 +23,7 @@ function doCountDown(targetTime: number) {
 
     if (!started && bestTick <= 10) {
       started = true;
-      li.desktopNotification('The tournament is starting!');
+      notify('The tournament is starting!');
     }
   };
 }

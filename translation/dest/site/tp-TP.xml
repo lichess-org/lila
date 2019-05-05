@@ -48,6 +48,7 @@
   <string name="computerAnalysis">ilo nanpa li lukin e musi</string>
   <string name="computerAnalysisAvailable">ilo nanpa li lukin e musi la lon</string>
   <string name="analysis">sona musi</string>
+  <string name="deleteFromHere">o pakala tan lon ni</string>
   <string name="unknown">sona ala</string>
   <string name="openingExplorer">ilo open</string>
   <string name="blunders">pali pakala</string>
@@ -343,9 +344,7 @@
   <string name="playOnline">o musi kepeken linja</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="whiteCastlingKingside">walo O-O</string>
-  <string name="whiteCastlingQueenside">walo O-O-O</string>
   <string name="blackCastlingKingside">pimeja O-O</string>
-  <string name="blackCastlingQueenside">pimeja O-O-O</string>
   <string name="tpTimeSpentPlaying">tenpo musi: %s</string>
   <string name="watchGames">o lukin e musi pi jan ni</string>
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>

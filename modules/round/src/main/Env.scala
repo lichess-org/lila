@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.DeployPost
+import lila.hub.actorApi.{ DeployPost, Announce }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.socket.HasUserId
@@ -35,7 +35,8 @@ final class Env(
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     isBotSync: lila.common.LightUser.IsBotSync,
-    slackApi: lila.slack.SlackApi
+    slackApi: lila.slack.SlackApi,
+    ratingFactors: () => lila.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -152,7 +153,9 @@ final class Env(
     isRecentTv = recentTvGames get _
   )
 
-  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
+  private lazy val botFarming = new BotFarming(crosstableApi, isBotSync)
+
+  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi, botFarming, ratingFactors)
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
@@ -274,6 +277,7 @@ object Env {
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
-    slackApi = lila.slack.Env.current.api
+    slackApi = lila.slack.Env.current.api,
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
   )
 }

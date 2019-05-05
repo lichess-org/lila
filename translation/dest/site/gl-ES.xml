@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="newToLichess">Novo en Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
@@ -165,7 +164,6 @@
   <string name="username">Nome de usuario</string>
   <string name="usernameOrEmail">Nome de usuario ou correo</string>
   <string name="password">Contrasinal</string>
-  <string name="haveAnAccount">Tes unha conta?</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
@@ -173,7 +171,6 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A clasificación actualízase cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
@@ -510,6 +507,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Pega a ligazón á(s) partida(s) e explica o que é incorrecto no comportamento dese usuario. Non digas só \"fan trampas\", cóntanos como chegaches a esa conclusión. A túa denuncia será procesada máis rapidamente se está escrita en inglés.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos un enlace a un xogo con trampas.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está xa pechado.</string>
   <string name="theming">Aparencia</string>
@@ -632,9 +630,7 @@ en %3$s</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
   <string name="whiteCastlingKingside">Brancas O-O</string>
-  <string name="whiteCastlingQueenside">Brancas O-O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
-  <string name="blackCastlingQueenside">Negras O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Mensaxes no Foro</item>
     <item quantity="other">%s Mensaxes no Foro</item>
@@ -643,11 +639,13 @@ en %3$s</string>
   <string name="watchGames">Ver partidas</string>
   <string name="tpTimeSpentOnTV">Tempo en TV: %s</string>
   <string name="watch">Ver</string>
-  <string name="internationalEvents">Eventos internacionais</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicación Móbil</string>
   <string name="webmasters">Administradores web</string>
   <string name="about">Acerca de</string>
+  <string name="aboutX">Acerca de %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuito (%2$s), libre, e sen publicidade.</string>
+  <string name="really">realmente</string>
   <string name="contribute">Contribuír</string>
   <string name="contact">Contactar</string>
   <string name="termsOfService">Termos do Servizo</string>

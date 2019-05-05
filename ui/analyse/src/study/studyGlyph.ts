@@ -1,7 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as xhr from './studyXhr';
-import { prop, throttle, Prop } from 'common';
+import { prop, Prop } from 'common';
+import throttle from 'common/throttle';
 import { bind, spinner } from '../util';
 import AnalyseCtrl from '../ctrl';
 
@@ -26,13 +27,11 @@ function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
         ctrl.toggleGlyph(glyph.id);
         return false;
       }, ctrl.redraw),
+      attrs: { 'data-symbol': glyph.symbol },
       class: {
         active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id)
       }
     }, [
-      h('i', {
-        attrs: { 'data-symbol': glyph.symbol }
-      }),
       glyph.name
     ]);
   };
@@ -65,8 +64,8 @@ export function ctrl(root: AnalyseCtrl) {
 }
 
 export function viewDisabled(why: string): VNode {
-  return h('div.study_glyph_form', [
-    h('div.message', h('span', why))
+  return h('div.study__glyphs', [
+    h('div.study__message', why)
   ]);
 }
 
@@ -74,13 +73,13 @@ export function view(ctrl: GlyphCtrl): VNode {
 
   const all = ctrl.all(), node = ctrl.root.node;
 
-  return h('div.study_glyph_form.underboard_form', {
+  return h('div.study__glyphs' + (all ? '' : '.empty'), {
     hook: { insert: ctrl.loadGlyphs }
-  }, [
-    all ? h('div.glyph_form', [
+  },
+    all ? [
       h('div.move', all.move.map(renderGlyph(ctrl, node))),
       h('div.position', all.position.map(renderGlyph(ctrl, node))),
       h('div.observation', all.observation.map(renderGlyph(ctrl, node)))
-    ]) : h('div.message', spinner())
-  ]);
+    ] : [h('div.study__message', spinner())]
+  );
 }

@@ -1,6 +1,7 @@
 var chessground = require('./chessground');
 var dragNewPiece = require('chessground/drag').dragNewPiece;
 var eventPosition = require('chessground/util').eventPosition;
+var resizeHandle = require('common/resize').default;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -34,12 +35,13 @@ function studyButton(ctrl, fen) {
     m('input[type=hidden][name=fen]', {
       value: fen
     }),
-    m('button.button.text', {
+    m('button.button.button-empty.text', {
       type: 'submit',
       'data-icon': '4',
-      disabled: !ctrl.positionLooksLegit()
+      disabled: !ctrl.positionLooksLegit(),
+      class: ctrl.positionLooksLegit() ? '' : 'disabled'
     },
-    'Study')
+      'Study')
   ]);
 }
 
@@ -69,7 +71,7 @@ function controls(ctrl, fen) {
   };
   var selectedVariant = ctrl.data.variant;
   var looksLegit = ctrl.positionLooksLegit();
-  return m('div.editor-side', [
+  return m('div.board-editor__tools', [
     ctrl.embed ? null : m('div', [
       ctrl.data.positions ? m('select.positions', {
         onchange: function(e) {
@@ -88,7 +90,7 @@ function controls(ctrl, fen) {
         )
       ]) : null
     ]),
-    m('div.metadata.content_box', [
+    m('div.metadata', [
       m('div.color',
         m('select', {
           onchange: m.withAttr('value', ctrl.setColor)
@@ -111,62 +113,61 @@ function controls(ctrl, fen) {
         ])
       ])
     ]),
-    m('div', [
-      m('select#variants', {
-        onchange: function(e) {
-          ctrl.changeVariant(e.target.value);
-        }
-      }, [
-        ['standard', 'Standard'],
-        ['antichess', 'Antichess'],
-        ['atomic', 'Atomic'],
-        ['crazyhouse', 'Crazyhouse'],
-        ['horde', 'Horde'],
-        ['kingOfTheHill', 'King of the Hill'],
-        ['racingKings', 'Racing Kings'],
-        ['threeCheck', 'Three-check']
-      ].map(function(x) { return variant2option(x[0], x[1], ctrl) })
-      )
-    ]),
-    ctrl.embed ? m('div', [
-      m('a.button.frameless', {
+    ctrl.embed ? m('div.actions', [
+      m('a.button.button-empty', {
         onclick: ctrl.startPosition
       }, 'Initial position'),
-      m('a.button.frameless', {
+      m('a.button.button-empty', {
         onclick: ctrl.clearBoard
       }, 'Empty board')
     ]) : [
       m('div', [
-        m('a.button.text[data-icon=B]', {
+        m('select#variants', {
+          onchange: function(e) {
+            ctrl.changeVariant(e.target.value);
+          }
+        }, [
+          ['standard', 'Standard'],
+          ['antichess', 'Antichess'],
+          ['atomic', 'Atomic'],
+          ['crazyhouse', 'Crazyhouse'],
+          ['horde', 'Horde'],
+          ['kingOfTheHill', 'King of the Hill'],
+          ['racingKings', 'Racing Kings'],
+          ['threeCheck', 'Three-check']
+        ].map(function(x) { return variant2option(x[0], x[1], ctrl) })
+        )
+      ]),
+      m('div.actions', [
+        m('a.button.button-empty.text[data-icon=B]', {
           onclick: function() {
             ctrl.chessground.toggleOrientation();
           }
         }, ctrl.trans('flipBoard')),
-        looksLegit ? m('a.button.text[data-icon="A"]', {
+        looksLegit ? m('a.button.button-empty.text[data-icon="A"]', {
           href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
           rel: 'nofollow'
-        }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
+        }, ctrl.trans('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
-        m('a.button', {
+        m('a.button.button-empty', {
           class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
           onclick: function() {
-            if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue_with'));
+            if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue-with'));
           }
         },
-        m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
+          m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
-      m('div.continue_with', [
+      m('div.continue-with.none', [
         m('a.button', {
           href: '/?fen=' + fen + '#ai',
           rel: 'nofollow'
-        }, ctrl.trans('playWithTheMachine')),
-        m('br'),
+        }, ctrl.trans.noarg('playWithTheMachine')),
         m('a.button', {
           href: '/?fen=' + fen + '#friend',
           rel: 'nofollow'
-        }, ctrl.trans('playWithAFriend'))
+        }, ctrl.trans.noarg('playWithAFriend'))
       ])
     ]
   ]);
@@ -174,10 +175,9 @@ function controls(ctrl, fen) {
 
 function inputs(ctrl, fen) {
   if (ctrl.embed) return;
-  if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
   return m('div.copyables', [
     m('p', [
-      m('strong.name', 'FEN'),
+      m('strong', 'FEN'),
       m('input.copyable.autoselect[spellCheck=false]', {
         value: fen,
         onchange: function(e) {
@@ -203,14 +203,14 @@ var lastTouchMovePos;
 
 function sparePieces(ctrl, color, orientation, position) {
 
-  var selectedClass = selectedToClass(ctrl.vm.selected());
+  var selectedClass = selectedToClass(ctrl.selected());
 
   var pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return [color, role];
   });
 
   return m('div', {
-    class: ['spare', position, 'orientation-' + orientation, color].join(' ')
+    class: ['spare', 'spare-' + position, 'orientation-' + orientation, 'spare-' + color].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
@@ -223,44 +223,42 @@ function sparePieces(ctrl, color, orientation, position) {
       (
         (
           selectedClass === className &&
-            (
-              !ctrl.chessground ||
-              !ctrl.chessground.state.draggable.current ||
-              !ctrl.chessground.state.draggable.current.newPiece
-            )
+          (
+            !ctrl.chessground ||
+            !ctrl.chessground.state.draggable.current ||
+            !ctrl.chessground.state.draggable.current.newPiece
+          )
         ) ?
         ' selected-square' : ''
       );
 
-      if (s === 'trash') {
-        attrs['data-icon'] = 'q';
-        containerClass += ' trash';
-      } else if (s !== 'pointer') {
-        attrs['data-color'] = s[0];
-        attrs['data-role'] = s[1];
-      }
+    if (s === 'pointer') {
+      containerClass += ' pointer';
+    } else if (s === 'trash') {
+      containerClass += ' trash';
+    } else {
+      attrs['data-color'] = s[0];
+      attrs['data-role'] = s[1];
+    }
 
-      return m('div', {
-        class: containerClass,
-        onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
-        ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
-        ontouchmove: function(e) {
-          lastTouchMovePos = eventPosition(e)
-        }
-      }, m('piece', attrs));
+    return m('div', {
+      class: containerClass,
+      onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
+      ontouchmove: function(e) {
+        lastTouchMovePos = eventPosition(e)
+      }
+    }, m('div', m('piece', attrs)));
   }));
 }
 
 function onSelectSparePiece(ctrl, s, upEvent) {
   return function(e) {
-    if (['pointer', 'trash'].indexOf(s) !== -1) {
-      ctrl.vm.selected(s);
+    e.preventDefault();
+    if (['pointer', 'trash'].includes(s)) {
+      ctrl.selected(s);
     } else {
-      ctrl.vm.selected('pointer');
-
-      if (e.type === 'touchstart') {
-        e.preventDefault();
-      }
+      ctrl.selected('pointer');
 
       dragNewPiece(ctrl.chessground.state, {
         color: s[0],
@@ -271,9 +269,9 @@ function onSelectSparePiece(ctrl, s, upEvent) {
         var eventPos = eventPosition(e) || lastTouchMovePos;
 
         if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) {
-          ctrl.vm.selected('pointer');
+          ctrl.selected('pointer');
         } else {
-          ctrl.vm.selected(s);
+          ctrl.selected(s);
         }
         m.redraw();
       }, {once: true});
@@ -291,18 +289,23 @@ function makeCursor(selected) {
   return 'url(' + url + '), default !important';
 }
 
-var eventNames = ['mousedown', 'touchstart'];
-
 module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.bottomColor();
   var opposite = color === 'white' ? 'black' : 'white';
 
-  return m('div.editor', {
-    style: 'cursor: ' + makeCursor(ctrl.vm.selected())
+  return m('div.board-editor', {
+    style: 'cursor: ' + makeCursor(ctrl.selected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
-    chessground(ctrl),
+    m('div.main-board', [
+      chessground(ctrl),
+      m('div.board-resize', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) resizeHandle(el);
+        }
+      })
+    ]),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
     inputs(ctrl, fen)

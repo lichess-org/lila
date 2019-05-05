@@ -1,4 +1,5 @@
-import { throttle, defined, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
+import throttle from 'common/throttle';
 
 export interface EvalCache {
   onCeval(): void
@@ -62,7 +63,7 @@ function toCeval(e) {
 export function make(opts): EvalCache {
   const fenFetched: string[] = [];
   function hasFetched(node): boolean {
-    return fenFetched.indexOf(node.fen) !== -1;
+    return fenFetched.includes(node.fen);
   };
   let upgradable = prop(false);
   return {

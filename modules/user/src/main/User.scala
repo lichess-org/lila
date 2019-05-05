@@ -2,7 +2,7 @@ package lila.user
 
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, EmailAddress }
+import lila.common.{ LightUser, EmailAddress, NormalizedEmailAddress }
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -80,6 +80,8 @@ case class User(
 
   def lameOrTroll = lame || troll
 
+  def watchList = booster || engine || troll || reportban || rankban || ipBan
+
   def lightPerf(key: String) = perfs(key) map { perf =>
     User.LightPerf(light, key, perf.intRating, perf.progress)
   }
@@ -91,12 +93,9 @@ case class User(
       -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.roundSeconds))
     } take nb
 
-  private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
+  def best8Perfs: List[PerfType] = bestOf(User.firstRow, 4) ::: bestOf(User.secondRow, 4)
 
-  def best8Perfs: List[PerfType] = bestOf(firstRow, 4) ::: bestOf(secondRow, 4)
-
-  def best6Perfs: List[PerfType] = bestOf(firstRow ::: secondRow, 6)
+  def best6Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 6)
 
   def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
@@ -161,7 +160,9 @@ object User {
 
   case class Active(user: User)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]) {
+    def list = current.toList ::: previous.toList
+  }
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
@@ -220,6 +221,7 @@ object User {
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
     val email = "email"
+    val verbatimEmail = "verbatimEmail"
     val mustConfirmEmail = "mustConfirmEmail"
     val prevEmail = "prevEmail"
     val colorIt = "colorIt"
@@ -230,6 +232,8 @@ object User {
     val bpass = "bpass"
     val sha512 = "sha512"
     val totpSecret = "totp"
+    val watchList = "watchList"
+    val changedCase = "changedCase"
   }
 
   import lila.db.BSON
@@ -298,4 +302,7 @@ object User {
   }
 
   implicit val speakerHandler = reactivemongo.bson.Macros.handler[Speaker]
+
+  private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
+  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
 }

@@ -35,7 +35,13 @@ object Relation extends LilaController {
       }
 
   def follow(userId: String) = Auth { implicit ctx => me =>
-    env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+    env.api.reachedMaxFollowing(me.id) flatMap {
+      case true => Env.message.api.sendPresetFromLichess(
+        me,
+        lila.message.ModPreset.maxFollow(me.username, Env.relation.MaxFollow)
+      ).void
+      case _ => env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+    }
   }
 
   def unfollow(userId: String) = Auth { implicit ctx => me =>
@@ -56,7 +62,7 @@ object Relation extends LilaController {
         RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowers user.id map { nbFollowers =>
-              Ok(html.relation.following(user, pag, nbFollowers))
+              Ok(html.relation.bits.following(user, pag, nbFollowers))
             },
             api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
           )
@@ -71,7 +77,7 @@ object Relation extends LilaController {
         RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowing user.id map { nbFollowing =>
-              Ok(html.relation.followers(user, pag, nbFollowing))
+              Ok(html.relation.bits.followers(user, pag, nbFollowing))
             },
             api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
           )
@@ -112,7 +118,7 @@ object Relation extends LilaController {
   def blocks(page: Int) = Auth { implicit ctx => me =>
     Reasonable(page, 20) {
       RelatedPager(env.api.blockingPaginatorAdapter(me.id), page) map { pag =>
-        html.relation.blocks(me, pag)
+        html.relation.bits.blocks(me, pag)
       }
     }
   }

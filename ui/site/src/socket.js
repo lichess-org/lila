@@ -1,4 +1,35 @@
-var makeAckable = require('./ackable');
+function makeAckable(send) {
+
+  var currentId = 1; // increment with each ackable message sent
+
+  var messages = [];
+
+  function resend() {
+    var resendCutoff = Date.now() - 2500;
+    messages.forEach(function(m) {
+      if (m.at < resendCutoff) send(m.t, m.d);
+    });
+  }
+
+  setInterval(resend, 1000);
+
+  return {
+    resend: resend,
+    register: function(t, d) {
+      d.a = currentId++;
+      messages.push({
+        t: t,
+        d: d,
+        at: Date.now()
+      });
+    },
+    gotAck: function(id) {
+      messages = messages.filter(function(m) {
+        return m.d.a !== id;
+      });
+    }
+  };
+}
 
 // versioned events, acks, retries, resync
 lichess.StrongSocket = function(url, version, settings) {
@@ -24,7 +55,7 @@ lichess.StrongSocket = function(url, version, settings) {
     autoReconnect = true;
     var params = $.param(settings.params);
     if (version !== false) params += (params ? '&' : '') + 'v=' + version;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
+    var fullUrl = options.protocol + '//' + baseUrl() + url + '?' + params;
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -193,16 +224,10 @@ lichess.StrongSocket = function(url, version, settings) {
     options.debug = true;
     debug('error: ' + JSON.stringify(e));
     tryOtherUrl = true;
-    setTimeout(function() {
-      if (!$('#network_error').length) {
-        $('#top').append('<span class="link text" id="network_error" data-icon="j">Network error</span>');
-      }
-    }, 1000);
     clearTimeout(pingSchedule);
   };
 
   var onSuccess = function() {
-    $('#network_error').remove();
     nbConnects++;
     if (nbConnects == 1) {
       options.onFirstConnect();
@@ -260,7 +285,7 @@ lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {
-      $('.live_' + e.id).each(function() {
+      $('.mini-board-' + e.id).each(function() {
         lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
     },

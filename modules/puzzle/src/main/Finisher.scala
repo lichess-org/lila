@@ -10,6 +10,7 @@ import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
+    historyApi: lila.history.HistoryApi,
     puzzleColl: Coll,
     bus: lila.common.Bus
 ) {
@@ -32,6 +33,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
+          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
             puzzleColl.update(
               $id(puzzle.id),

@@ -1,7 +1,7 @@
 package lila.challenge
 
 import chess.format.FEN
-import chess.variant.{ Variant, FromPosition }
+import chess.variant.{ Variant, FromPosition, Horde, Chess960, RacingKings, KingOfTheHill }
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 
@@ -61,6 +61,11 @@ case class Challenge(
   )
 
   def speed = speedOf(timeControl)
+
+  def notableInitialFen: Option[FEN] = variant match {
+    case FromPosition | Horde | RacingKings => initialFen
+    case _ => none
+  }
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }

@@ -26,5 +26,5 @@ export function valid(chessground: ChessgroundApi, possibleDrops: string | undef
 
   if (drops === null) return true;
 
-  return drops.indexOf(pos) !== -1;
+  return drops.includes(pos);
 }

@@ -1,0 +1,69 @@
+.tour__duels {
+
+  margin: $block-gap 0 0 0;
+
+  @include breakpoint($mq-col2) {
+    margin: 0 0 0 $block-gap;
+  }
+
+  @include breakpoint($mq-col3) {
+    margin: $block-gap 0 0 0;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: .2em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  a {
+    @extend %flex-column;
+    color: $c-font;
+    padding: .5em .7em;
+    white-space: nowrap;
+    line-height: 1.9em;
+    border: 1px solid $c-border-page;
+    border-bottom: none;
+    @include transition();
+    &:first-child {
+      border-top: none;
+    }
+    &:nth-child(even) {
+      border-left: none;
+    }
+    &:nth-child(odd) {
+      border-right: none;
+    }
+    &:hover {
+      background: mix($c-link, $c-bg-page, 20%);
+    }
+  }
+  line {
+    @extend %flex-between;
+  }
+  strong {
+    @extend %ellipsis;
+    font-size: 1.2em;
+    color: $c-font-dim;
+    display: block;
+    max-width: 60%;
+  }
+  .title {
+    color: $c-brag;
+    font-weight: bold;
+  }
+  .rank {
+    @extend %box-radius;
+    padding: 0.1em 0.5em;
+    background: $c-brag;
+    color: #fff;
+  }
+  .b .title,
+  .b .rank {
+    margin-right: 0.3em;
+  }
+  .a .title,
+  .a .rank {
+    margin-left: 0.3em;
+  }
+}

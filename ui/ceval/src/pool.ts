@@ -1,4 +1,5 @@
-import { storedProp, sync, Sync } from 'common';
+import { storedProp } from 'common/storage';
+import { sync, Sync } from 'common/sync';
 import { Watchdog, PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
@@ -163,27 +164,38 @@ class PNaClWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  private module?: any;
+  static global: Promise<{instance: any}>;
+
+  private instance: any;
+  private listener?: any;
 
   boot(): Promise<Protocol> {
-    if (window['Module']) console.log('trying to reboot singleton wasmx worker');
-    return window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
-      this.module = window['Module'];
+    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
+      return {
+        instance: window['Stockfish']() // wrap to work around https://github.com/emscripten-core/emscripten/issues/5820
+      };
+    });
+    return ThreadedWasmWorker.global.then(global => {
+      this.instance = global.instance;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
-      this.module.addMessageListener(protocol.received.bind(protocol));
+      this.listener = protocol.received.bind(protocol);
+      this.instance.addMessageListener(this.listener);
       return protocol;
     });
   }
 
   destroy() {
-    if (!this.module) return;
-    console.log('trying to detroy singleton wasmx worker');
-    this.module.postMessage('quit');
-    this.module = undefined;
+    if (!this.instance) return;
+    console.log('stopping singleton wasmx worker (instead of destroying) ...');
+    this.stop().then(() => {
+      console.log('... successfully stopped');
+      this.instance.removeMessageListener(this.listener);
+      this.instance = undefined;
+    });
   }
 
   send(cmd: string) {
-    if (this.module) this.module.postMessage(cmd);
+    if (this.instance) this.instance.postMessage(cmd);
   }
 }
 

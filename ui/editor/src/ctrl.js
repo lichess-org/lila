@@ -12,10 +12,7 @@ module.exports = function(cfg) {
 
   this.trans = lichess.trans(this.data.i18n);
 
-  this.vm = {
-    selected: m.prop('pointer'),
-    redirecting: false
-  };
+  this.selected = m.prop('pointer');
 
   this.extraPositions = [{
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
@@ -88,7 +85,6 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.changeFen = function(fen) {
-    this.vm.redirecting = true;
     window.location = editor.makeUrl(this.data.baseUrl, fen);
   }.bind(this);
 

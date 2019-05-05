@@ -6,40 +6,39 @@ import { Redraw, Close, bind, header } from './util'
 export interface BoardCtrl {
   data: BoardData
   trans: Trans
-  setIs3d(v: boolean): void
-  setZoom(v: number): void
-  close(): void
+  setIs3d(v: boolean): void;
+  readZoom(): number;
+  setZoom(v: number): void;
+  close(): void;
 }
 
 export interface BoardData {
   is3d: boolean
-  zoom: number
 }
 
 export type PublishZoom = (v: number) => void;
 
-export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, redraw: Redraw, close: Close): BoardCtrl {
+export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
 
-  data.zoom = data.zoom || 100;
+  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
-  const saveZoom = window.lichess.fp.debounce(() => {
-    $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
-  }, 500);
+  const saveZoom = window.lichess.debounce(() => {
+    $.ajax({ method: 'post', url: '/pref/zoom?v=' + readZoom() });
+  }, 1000);
 
   return {
     data,
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, () => {
-        window.lichess.reloadOtherTabs();
-        window.lichess.reload();
-      });
+      $.post('/pref/is3d', { is3d: v }, window.lichess.reload);
       redraw();
     },
+    readZoom,
     setZoom(v: number) {
-      data.zoom = v;
-      publishZoom(v / 100);
+      document.body.setAttribute('style', '--zoom:' + (v - 100));
+      window.lichess.dispatchEvent(window, 'resize');
+      redraw();
       saveZoom();
     },
     close
@@ -48,9 +47,11 @@ export function ctrl(data: BoardData, trans: Trans, publishZoom: PublishZoom, re
 
 export function view(ctrl: BoardCtrl): VNode {
 
+  const domZoom = ctrl.readZoom();
+
   return h('div.sub.board', [
     header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
-    h('div.selector', [
+    h('div.selector.large', [
       h('a.text', {
         class: { active: !ctrl.data.is3d },
         attrs: { 'data-icon': 'E' },
@@ -62,12 +63,20 @@ export function view(ctrl: BoardCtrl): VNode {
         hook: bind('click', () => ctrl.setIs3d(true))
       }, '3D')
     ]),
-    h('div.zoom', [
-      h('h2', ctrl.trans.noarg('boardSize')),
-      h('div.slider', {
-        hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
-      })
-    ])
+    h('div.zoom',
+      isNaN(domZoom) ? [
+        h('p', 'No board to zoom here!')
+      ] : [
+        h('p', [
+          ctrl.trans.noarg('boardSize'),
+          ': ',
+          (domZoom - 100),
+          '%'
+        ]),
+        h('div.slider', {
+          hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+        })
+      ])
   ]);
 }
 
@@ -79,7 +88,7 @@ function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
       max: 200,
       range: 'min',
       step: 1,
-      value: ctrl.data.zoom,
+      value: ctrl.readZoom(),
       slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
     });
   });

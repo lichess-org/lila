@@ -13,9 +13,7 @@ export function nowPlaying() {
   return $.ajax({
     url: '/account/now-playing',
     headers: headers
-  }).then(function(o) {
-    return o.nowPlaying;
-  });
+  }).then(o => o.nowPlaying);
 }
 
 export function anonPoolSeek(pool) {

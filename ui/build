@@ -1,16 +1,19 @@
 #!/bin/bash -ea
+
 target=${1-dev}
 mode=${2-build} # use "upgrade" to upgrade all deps
-
 echo "building ui modules with target=$target and mode=$mode"
+
+echo "node: $(node --version)"
+echo "yarn: $(yarn --version)"
 
 cd "$(git rev-parse --show-toplevel)"
 
 mkdir -p public/compiled
 
 ts_apps1="common chess"
-ts_apps2="ceval game tree chat"
-apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher"
+ts_apps2="ceval game tree chat nvui"
+apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher speech"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -31,6 +34,12 @@ build() {
   cd ui/$1
   gulp $target
 }
+
+
+if [ $mode != "upgrade" ]; then
+  echo "build css"
+  (cd ui && gulp "css-$target")
+fi
 
 if type -p parallel; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then

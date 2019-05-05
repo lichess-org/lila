@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">เล่นกับเพื่อน</string>
   <string name="playWithTheMachine">เล่นกับคอมพิวเตอร์</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">โปรดให้ URL นี้ แก่ผู้ที่จะเชิญให้มาเล่น,</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ Link นี้เพื่อเชิญให้มาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
   <string name="waiting">กำลังรอ</string>
@@ -166,7 +166,6 @@
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="rank">อันดับ</string>
   <string name="rankX">อันดับ: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">อันดับถูกอัพเดตทุก %s นาที</string>
   <plurals name="nbPuzzles">
     <item quantity="other">%s ปริศนา</item>
   </plurals>
@@ -603,9 +602,7 @@
   <string name="menu">เมนู</string>
   <string name="castling">การเข้าป้อม</string>
   <string name="whiteCastlingKingside">ขาว O-O</string>
-  <string name="whiteCastlingQueenside">ขาว O-O-O</string>
   <string name="blackCastlingKingside">ดำ O-O</string>
-  <string name="blackCastlingQueenside">ดำ O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s โพสต์อภิปราย</item>
   </plurals>
@@ -613,7 +610,6 @@
   <string name="watchGames">รับชมเกม</string>
   <string name="tpTimeSpentOnTV">เวลาบน TV: %s</string>
   <string name="watch">รับชม</string>
-  <string name="internationalEvents">การแข่งขันนานาชาติ</string>
   <string name="videoLibrary">คลังวิดีโอ</string>
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>

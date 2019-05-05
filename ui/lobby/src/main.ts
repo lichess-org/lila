@@ -45,5 +45,5 @@ export function start(opts: LobbyOpts) {
 window.Chessground = Chessground;
 
 window.onload = function() {
-  if (window['lichess_lobby']) boot(window['lichess_lobby'], document.getElementById('hooks_wrap'));
+  boot(window['lichess_lobby'], document.querySelector('.lobby__app'));
 };

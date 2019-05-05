@@ -19,7 +19,7 @@ export function subscribe(ctrl: RoundController): void {
   li.storage.make('ceval.fen').listen(ev => {
     const v = ev.newValue;
     if (!v) return;
-    else if (v.indexOf('start:') === 0) return li.storage.set('round.ongoing', v);
+    else if (v.startsWith('start:')) return li.storage.set('round.ongoing', v);
     const d = ctrl.data;
     if (!found && ctrl.ply > 14 && ctrl.isPlaying() &&
       truncateFen(plyStep(d, ctrl.ply).fen) === truncateFen(v)) {

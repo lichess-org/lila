@@ -77,6 +77,7 @@ final class Env(
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
     _ = Env.user.onlineUserIdMemo.remove(user.id)
+    _ = Env.user.recentTitledUserIdMemo.remove(user.id)
     following <- Env.relation.api fetchFollowing user.id
     _ <- !goodUser ?? Env.activity.write.unfollowAll(user, following)
     _ <- Env.relation.api.unfollowAll(user.id)
@@ -198,7 +199,6 @@ object Env {
   def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
   def blog = lila.blog.Env.current
-  def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
@@ -225,4 +225,5 @@ object Env {
   def oAuth = lila.oauth.Env.current
   def bot = lila.bot.Env.current
   def evalCache = lila.evalCache.Env.current
+  def rating = lila.rating.Env.current
 }

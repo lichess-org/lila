@@ -40,7 +40,7 @@ export default function(ctrl: CorresClockController, trans: Trans, color: Color,
     el.innerHTML = formatClockTime(trans, millis);
   },
   isPlayer = ctrl.root.data.player.color === color;
-  return h('div.correspondence.clock.clock_' + color + '.clock_' + position, {
+  return h('div.rclock.rclock-correspondence.rclock-' + position, {
     class: {
       outoftime: millis <= 0,
       running: runningColor === color

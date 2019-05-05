@@ -1,4 +1,3 @@
-import { synthetic } from './util';
 import { initial as initialBoardFen } from 'chessground/fen';
 import AnalyseCtrl from './ctrl';
 
@@ -49,7 +48,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   clearCache();
 
   // forecast mode: reload when opponent moves
-  if (!synthetic(ctrl.data)) setTimeout(function() {
+  if (!ctrl.synthetic) setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 

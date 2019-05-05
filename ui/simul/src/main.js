@@ -3,11 +3,11 @@ var m = require('mithril');
 var ctrl = require('./ctrl');
 var view = require('./view/main');
 
-module.exports = function(element, opts) {
+module.exports = function(opts) {
 
   var controller = new ctrl(opts);
 
-  m.module(element, {
+  m.module(opts.element, {
     controller: function() {
       return controller;
     },

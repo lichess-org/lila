@@ -93,7 +93,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
     ] : [])) : undefined;
 
     const timeout = perms.timeout ? h('div.timeout.block', [
-      h('h2', 'Timeout 10 minutes for'),
+      h('strong', 'Timeout 10 minutes for'),
       ...ctrl.reasons.map(r => {
         return h('a.text', {
           attrs: { 'data-icon': 'p' },
@@ -103,12 +103,12 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       ...(
         (data.troll || !perms.shadowban) ? [] : [h('div.shadowban', [
           'Or ',
-          h('button.button', {
+          h('button.button.button-red.button-empty', {
             hook: bind('click', ctrl.shadowban)
           }, 'shadowban')
         ])])
     ]) : h('div.timeout.block', [
-      h('h2', 'Moderation'),
+      h('strong', 'Moderation'),
       h('a.text', {
         attrs: { 'data-icon': 'p' },
         hook: bind('click', () => ctrl.timeout(ctrl.reasons[0]))
@@ -116,7 +116,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
     ]);
 
     const history = data.history ? h('div.history.block', [
-      h('h2', 'Timeout history'),
+      h('strong', 'Timeout history'),
       h('table', h('tbody.slist', {
         hook: {
           insert: () => window.lichess.pubsub.emit('content_loaded')()
@@ -137,12 +137,12 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         h('span.text', {
           attrs: {'data-icon': '' },
         }, [userLink(data.username)]),
-        h('span.toggle_chat', {
+        h('a', {
           attrs: {'data-icon': 'L'},
           hook: bind('click', ctrl.close)
         })
       ]),
-      h('div.content.moderation', [
+      h('div.mchat__content.moderation', [
         infos,
         timeout,
         history

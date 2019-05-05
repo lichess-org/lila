@@ -10,7 +10,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, IpAddress, EmailAddress }
 import lila.memo.RateLimit
-import lila.security.FingerPrint
+import lila.security.{ EmailAddressValidator, FingerPrint }
 import lila.user.{ UserRepo, User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
 import views._
@@ -42,13 +42,12 @@ object Auth extends LilaController {
   }
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
-    implicit val req = ctx.req
     if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
     else api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
           val redirectTo = get("referrer").filter(goodReferrer) orElse
-            req.session.get(api.AccessUri) getOrElse
+            ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home.url
           result.fold(Redirect(redirectTo))(_(redirectTo))
         },
@@ -118,21 +117,19 @@ object Auth extends LilaController {
   }
 
   def logout = Open { implicit ctx =>
-    implicit val req = ctx.req
-    req.session get "sessionId" foreach lila.security.Store.delete
+    ctxReq.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
-      html = Redirect(routes.Main.mobile).fuccess,
+      html = Redirect(routes.Auth.login).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LilaCookie.newSession)
   }
 
   // mobile app BC logout with GET
   def logoutGet = Open { implicit ctx =>
-    implicit val req = ctx.req
     negotiate(
       html = notFound,
       api = _ => {
-        req.session get "sessionId" foreach lila.security.Store.delete
+        ctxReq.session get "sessionId" foreach lila.security.Store.delete
         Ok(Json.obj("ok" -> true)).withCookies(LilaCookie.newSession).fuccess
       }
     )
@@ -194,13 +191,13 @@ object Auth extends LilaController {
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  authLog(data.username, s"$email fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
+                  authLog(data.username, s"${email.acceptable} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-                  UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
+                  UserRepo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
-                      case (user, email) if mustConfirm.value =>
+                      case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective)
                             api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject {
@@ -209,7 +206,8 @@ object Auth extends LilaController {
                             }
                           else welcome(user, email) >> redirectNewUser(user)
                         }
-                      case (user, email) => welcome(user, email) >> redirectNewUser(user)
+                      case (user, EmailAddressValidator.Acceptable(email)) =>
+                        welcome(user, email) >> redirectNewUser(user)
                     }
                 }
               }
@@ -227,16 +225,16 @@ object Auth extends LilaController {
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
               authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
               val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-              UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
+              UserRepo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) if mustConfirm.value =>
+                  case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {
                       if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
                       else welcome(user, email) >> authenticateUser(user)
                     }
-                  case (user, _) => welcome(user, email) >> authenticateUser(user)
+                  case (user, _) => welcome(user, email.acceptable) >> authenticateUser(user)
                 }
             }
           )
@@ -247,7 +245,7 @@ object Auth extends LilaController {
 
   private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) = {
     garbageCollect(user, email)
-    env.welcomeEmail(user, email)
+    env.automaticEmail.welcome(user, email)
   }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
@@ -280,8 +278,8 @@ object Auth extends LilaController {
               case _ =>
                 val newUserEmail = userEmail.copy(email = EmailAddress(email))
                 EmailConfirmRateLimit(newUserEmail, ctx.req) {
-                  lila.mon.email.fix()
-                  UserRepo.email(user.id, newUserEmail.email) >>
+                  lila.mon.email.types.fix()
+                  UserRepo.setEmail(user.id, newUserEmail.email) >>
                     env.emailConfirm.send(user, newUserEmail.email) inject {
                       Redirect(routes.Auth.checkYourEmail) withCookies
                         lila.security.EmailConfirm.cookie.make(user, newUserEmail.email)(ctx.req)
@@ -316,7 +314,6 @@ object Auth extends LilaController {
   }
 
   private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
-    implicit val req = ctx.req
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
@@ -343,7 +340,7 @@ object Auth extends LilaController {
 
   def passwordReset = Open { implicit ctx =>
     forms.passwordResetWithCaptcha map {
-      case (form, captcha) => Ok(html.auth.passwordReset(form, captcha))
+      case (form, captcha) => Ok(html.auth.bits.passwordReset(form, captcha))
     }
   }
 
@@ -351,19 +348,18 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     forms.passwordReset.bindFromRequest.fold(
       err => forms.anyCaptcha map { captcha =>
-        BadRequest(html.auth.passwordReset(err, captcha, false.some))
+        BadRequest(html.auth.bits.passwordReset(err, captcha, false.some))
       },
       data => {
-        val email = env.emailAddressValidator.validate(data.realEmail) | data.realEmail
-        UserRepo enabledByEmail email flatMap {
-          case Some(user) => {
+        UserRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
+          case Some((user, storedEmail)) => {
             lila.mon.user.auth.passwordResetRequest("success")()
-            Env.security.passwordReset.send(user, email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+            Env.security.passwordReset.send(user, storedEmail) inject Redirect(routes.Auth.passwordResetSent(storedEmail.conceal))
           }
           case _ => {
             lila.mon.user.auth.passwordResetRequest("no_email")()
             forms.passwordResetWithCaptcha map {
-              case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+              case (form, captcha) => BadRequest(html.auth.bits.passwordReset(form, captcha, false.some))
             }
           }
         }
@@ -373,7 +369,7 @@ object Auth extends LilaController {
 
   def passwordResetSent(email: String) = Open { implicit ctx =>
     fuccess {
-      Ok(html.auth.passwordResetSent(email))
+      Ok(html.auth.bits.passwordResetSent(email))
     }
   }
 
@@ -386,7 +382,7 @@ object Auth extends LilaController {
       case Some(user) => {
         authLog(user.username, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("token_ok")()
-        fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
+        fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdReset, none))
       }
     }
   }
@@ -400,11 +396,12 @@ object Auth extends LilaController {
       case Some(user) =>
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
-          fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
+          fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
               UserRepo.setEmailConfirmed(user.id) >>
+              UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
               authenticateUser(user) >>-
               lila.mon.user.auth.passwordResetConfirm("success")()

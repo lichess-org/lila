@@ -154,7 +154,6 @@
   <string name="viewInFullSize">عرض بالحجم الكامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">دخول</string>
-  <string name="newToLichess">هل أنت جديد هنا؟</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
   <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب مما قد يؤدي إلى الحظر من الموقع</string>
@@ -193,7 +192,6 @@
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="password">كلمة السر</string>
-  <string name="haveAnAccount">هل لديك حساب؟</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>
@@ -201,7 +199,6 @@
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">يتم تحديث الترتيب كل %s دقيقة</string>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s لغز</item>
     <item quantity="one">%s لغز</item>
@@ -747,9 +744,7 @@
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
   <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
-  <string name="whiteCastlingQueenside">تبييت طويل للأبيض</string>
   <string name="blackCastlingKingside">تبييت قصير للأسود</string>
-  <string name="blackCastlingQueenside">تبييت طويل للأسود</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">منشورات المنتدى %s</item>
     <item quantity="one">منشورات المنتدى %s</item>
@@ -762,11 +757,13 @@
   <string name="watchGames">شاهد الألعاب</string>
   <string name="tpTimeSpentOnTV">الوقت في المشاهدة:  %s</string>
   <string name="watch">شاهد</string>
-  <string name="internationalEvents">أحداث عالمية</string>
   <string name="videoLibrary">مكتبة الفيديو</string>
   <string name="mobileApp">تطبيق الجوال</string>
   <string name="webmasters">مدراء المواقع</string>
   <string name="about">عن</string>
+  <string name="aboutX">عن %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s هو (%2$s) خادم شطرنج مجاني، حر، بدون إعلانات، مفتوح المصدر.</string>
+  <string name="really">حقاً</string>
   <string name="contribute">ساهم</string>
   <string name="contact">اتصل بنا</string>
   <string name="termsOfService">شروط الخدمة</string>
@@ -878,6 +875,7 @@
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
+  <string name="xCreatesStudyY">%1$s انشاء دراسة %2$s</string>
   <string name="quickPairing">تزويج سريع</string>
   <string name="lobby">لوبي</string>
   <string name="anonymous">مجهول</string>

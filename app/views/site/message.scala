@@ -1,8 +1,6 @@
 package views
 package html.site
 
-import play.twirl.api.Html
-
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -15,20 +13,15 @@ object message {
     title: String,
     back: Boolean = true,
     icon: Option[String] = None,
-    moreCss: Option[Html] = None
-  )(message: Frag)(implicit ctx: Context) =
+    moreCss: Option[Frag] = None
+  )(message: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss) {
-      div(cls := "content_box small_box")(
-        div(cls := "head")(
-          h1(cls := List("text" -> icon.isDefined), dataIcon := icon)(title)
-        ),
-        br, br,
+      main(cls := "box box-pad")(
+        h1(cls := List("text" -> icon.isDefined), dataIcon := icon)(title),
         p(message),
         br,
         back option embedJsUnsafe {
-          raw {
-            """if (document.referrer) document.write('<a class="button text" data-icon="I" href="' + document.referrer + '">Go Back</a>');"""
-          }
+          """if (document.referrer) document.write('<a class="button text" data-icon="I" href="' + document.referrer + '">Go Back</a>');"""
         }
       )
     }
@@ -67,10 +60,14 @@ object message {
   )(frag(
     "Before using chess insights,",
     userLink(u),
-    "has to play at least one rated game."
+    " has to play at least one rated game."
   ))
 
   def teamCreateLimit(implicit ctx: Context) = apply("Cannot create a team") {
     "You have already created a team this week."
+  }
+
+  def authFailed(implicit ctx: Context) = apply("403 - Access denied!") {
+    "You tried to visit a page you're not authorized to access."
   }
 }

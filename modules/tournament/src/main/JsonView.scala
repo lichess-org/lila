@@ -30,8 +30,7 @@ final class JsonView(
   private case class CachableData(
       duels: JsArray,
       featured: Option[JsObject],
-      podium: Option[JsArray],
-      next: Option[JsObject]
+      podium: Option[JsArray]
   )
 
   def apply(
@@ -81,7 +80,6 @@ final class JsonView(
     .add("playerInfo" -> playerInfoJson)
     .add("pairingsClosed" -> tour.pairingsClosed)
     .add("stats" -> stats)
-    .add("next" -> data.next)
     .add("socketVersion" -> socketVersion.map(_.value)) ++ full.?? {
       Json.obj(
         "id" -> tour.id,
@@ -229,23 +227,12 @@ final class JsonView(
       jsonDuels <- duels.map(duelJson).sequenceFu
       featured <- tour ?? fetchFeaturedGame
       podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
-      next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
     } yield CachableData(
       duels = JsArray(jsonDuels),
       featured = featured map featuredJson,
-      podium = podium,
-      next = next
+      podium = podium
     ),
     expireAfter = _.ExpireAfterWrite(1 second)
-  )
-
-  private def nextJson(tour: Tournament) = Json.obj(
-    "id" -> tour.id,
-    "name" -> tour.fullName,
-    "perf" -> tour.perfType,
-    "nbPlayers" -> tour.nbPlayers,
-    "finishesAt" -> tour.isStarted.option(tour.finishesAt).map(formatDate),
-    "startsAt" -> tour.isCreated.option(tour.startsAt).map(formatDate)
   )
 
   private def featuredJson(featured: FeaturedGame) = {

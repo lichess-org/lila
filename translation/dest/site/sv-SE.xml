@@ -90,7 +90,7 @@
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
-  <string name="allSet">OK</string>
+  <string name="allSet">Klart!</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
   <string name="deleteThisImportedGame">Ta bort detta importerade parti?</string>
@@ -105,7 +105,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
-  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen, och håller datorn varm</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
   <string name="blunder">Blunder</string>
   <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
@@ -164,6 +164,9 @@
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
   <string name="usernameOrEmail">Användarnamn eller email</string>
+  <string name="changeUsername">Byt användarnamn</string>
+  <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
+  <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
   <string name="haveAnAccount">Har du ett konto?</string>
   <string name="changePassword">Ändra lösenord</string>
@@ -173,7 +176,10 @@
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Placeringen uppdateras varje %s minuter</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Placering uppdateras varje minut</item>
+    <item quantity="other">Placering uppdateras efter %s minuter</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s schackproblem</item>
     <item quantity="other">%s schackproblem</item>
@@ -287,8 +293,8 @@
     <item quantity="other">≥ %s rankade partier</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s rankade %2$spartier</item>
-    <item quantity="other">≥ %1$s %2%s rankade partier</item>
+    <item quantity="one">≥ %1$s rankat %2$s parti</item>
+    <item quantity="other">≥ %1$s rankade %2$s partier</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du behöver spela ytterligare %1$s rankat %2$sparti</item>
@@ -631,9 +637,7 @@
   <string name="menu">Meny</string>
   <string name="castling">Rockad</string>
   <string name="whiteCastlingKingside">Vit O-O</string>
-  <string name="whiteCastlingQueenside">Vit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
-  <string name="blackCastlingQueenside">Svart O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminlägg</item>
     <item quantity="other">%s Foruminlägg</item>
@@ -642,7 +646,6 @@
   <string name="watchGames">Titta på spel</string>
   <string name="tpTimeSpentOnTV">Total TV-tid: %s</string>
   <string name="watch">Titta</string>
-  <string name="internationalEvents">Internationella evenemang</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
@@ -753,6 +756,7 @@
   <string name="xHostsY">%1$s är värd för %2$s</string>
   <string name="xJoinsY">%1$s deltar i %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>
+  <string name="xCreatesStudyY">%1$s skapar studiet %2$s</string>
   <string name="quickPairing">Snabb parning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>

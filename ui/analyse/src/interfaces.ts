@@ -1,14 +1,26 @@
-import { Player, Status, Source } from 'game';
+import { VNode } from 'snabbdom/vnode'
+import { Player, Status, Source, Clock } from 'game';
 import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
+import AnalyseController from './ctrl';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
+export type Seconds = number;
 
 export { Key, Piece } from 'chessground/types';
-import { VNode } from 'snabbdom/vnode'
+
+export interface NvuiPlugin {
+  render(ctrl: AnalyseController): VNode;
+}
+
+export interface AnalyseApi {
+  socketReceive(type: string, data: any): boolean;
+  path(): Tree.Path;
+  setChapter(id: string): void;
+}
 
 // similar, but not identical, to game/GameData
 export interface AnalyseData {
@@ -24,7 +36,14 @@ export interface AnalyseData {
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
+  clock?: Clock;
   pref: any;
+  url: {
+    socket: string
+  }
+  userTv?: {
+    id: string
+  }
 }
 
 export interface ServerEvalData {
@@ -40,6 +59,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
+  startedAtTurn: number;
   source: Source;
   speed: Speed;
   variant: Variant;
@@ -50,6 +70,7 @@ export interface Game {
   division?: Division;
   opening?: Opening;
   perf: string;
+  rated?: boolean;
 }
 
 export interface Opening {
@@ -79,7 +100,6 @@ export interface AnalysisSide {
 
 export interface AnalyseOpts {
   element: HTMLElement;
-  sideElement: HTMLElement;
   data: AnalyseData;
   initialPly?: number | string;
   userId: string | null;
@@ -90,8 +110,11 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: StudyPracticeData;
-  onToggleComputer?: (v: boolean) => void;
   relay?: RelayData;
+  $side?: JQuery;
+  $underboard?: JQuery;
+  i18n: any;
+  chat: any;
 }
 
 export interface CgDests {

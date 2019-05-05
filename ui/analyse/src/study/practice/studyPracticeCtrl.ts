@@ -1,5 +1,6 @@
 import * as xhr from '../studyXhr';
-import { prop, storedProp } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
 import { readOnlyProp } from '../../util';

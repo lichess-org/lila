@@ -1,4 +1,4 @@
-function lichessPlayMusic() {
+lichess.playMusic = function() {
 
   var orchestra;
 
@@ -14,16 +14,16 @@ function lichessPlayMusic() {
   };
 
   var hasCastle = function(san) {
-    return san.indexOf('O-O') === 0;
+    return san.startsWith('O-O');
   };
   var hasCheck = function(san) {
-    return san.indexOf('+') !== -1;
+    return san.includes('+');
   };
   var hasMate = function(san) {
-    return san.indexOf('#') !== -1;
+    return san.includes('#');
   };
   var hasCapture = function(san) {
-    return san.indexOf('x') !== -1;
+    return san.includes('x');
   };
 
   // a -> 0

@@ -16,23 +16,23 @@ object emailConfirmHelp {
 
   def apply(form: Form[_], status: Option[Status])(implicit ctx: Context) = views.html.base.layout(
     title = title,
-    moreCss = cssTags("form3.css", "emailConfirmHelp.css"),
+    moreCss = cssTag("email-confirm"),
     moreJs = jsTag("emailConfirmHelp.js")
   )(frag(
-      div(cls := "content_box small_box emailConfirmHelp")(
-        h1(cls := "lichess_title")(title),
+      main(cls := "page-small box box-pad email-confirm-help")(
+        h1(title),
         p("You signed up, but didn't receive your confirmation email?"),
         st.form(cls := "form3", action := routes.Account.emailConfirmHelp, method := "get")(
           form3.split(
             form3.group(
               form("username"),
-              trans.username.frag(),
+              trans.username(),
               help = raw("What username did you create?").some
             ) { f =>
                 form3.input(f)(pattern := lila.user.User.newUsernameRegex.regex)
               },
             div(cls := "form-group")(
-              form3.submit(trans.apply.frag())
+              form3.submit(trans.apply())
             )
           )
         ),

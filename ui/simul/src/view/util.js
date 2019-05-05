@@ -1,7 +1,7 @@
 var m = require('mithril');
 
 function playerHtml(p) {
-  var html = '<a class="text ulpt user_link online" href="/@/' + p.username + '">';
+  var html = '<a class="text ulpt user-link online" href="/@/' + p.username + '">';
   html += p.patron ? '<i class="line patron"></i>' : '<i class="line"></i>';
   html += (p.title ? p.title + ' ' : '') + p.username;
   if (p.rating) html += '<em>' + p.rating + (p.provisional ? '?' : '') + '</em>';
@@ -11,7 +11,7 @@ function playerHtml(p) {
 
 module.exports = {
   title: function(ctrl) {
-    return m('h1.text[data-icon=|]', [
+    return m('h1', [
       ctrl.data.fullName,
       m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host))))
     ]);
@@ -23,5 +23,8 @@ module.exports = {
     return ctrl.data.variants.find(function(v) {
       return v.key === p.variant;
     });
+  },
+  simulText: function(data) {
+    return data.text ? m('div.simul-text', enrichText(data.text)) : null;
   }
 };

@@ -6,7 +6,7 @@ function viewSolution(ctrl) {
   return h('div.view_solution', {
     class: { show: ctrl.vm.canViewSolution }
   }, [
-    h('a.button', {
+    h('a.button.button-empty', {
       hook: bind('click', ctrl.viewSolution)
     }, ctrl.trans.noarg('viewTheSolution'))
   ]);
@@ -14,7 +14,7 @@ function viewSolution(ctrl) {
 
 function initial(ctrl) {
   var puzzleColor = ctrl.getData().puzzle.color;
-  return h('div.feedback.play', [
+  return h('div.puzzle__feedback.play', [
     h('div.player', [
       h('div.no-square', h('piece.king.' + puzzleColor)),
       h('div.instruction', [
@@ -27,7 +27,7 @@ function initial(ctrl) {
 }
 
 function good(ctrl) {
-  return h('div.feedback.good', [
+  return h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
       h('div.instruction', [
@@ -40,7 +40,7 @@ function good(ctrl) {
 }
 
 function retry(ctrl) {
-  return h('div.feedback.retry', [
+  return h('div.puzzle__feedback.retry', [
     h('div.player', [
       h('div.icon', '!'),
       h('div.instruction', [
@@ -53,7 +53,7 @@ function retry(ctrl) {
 }
 
 function fail(ctrl) {
-  return h('div.feedback.fail', [
+  return h('div.puzzle__feedback.fail', [
     h('div.player', [
       h('div.icon', '✗'),
       h('div.instruction', [
@@ -66,7 +66,7 @@ function fail(ctrl) {
 }
 
 function loading() {
-  return h('div.feedback.loading', spinner());
+  return h('div.puzzle__feedback.loading', spinner());
 }
 
 export default function(ctrl) {

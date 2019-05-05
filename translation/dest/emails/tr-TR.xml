@@ -18,4 +18,5 @@ Profil sayfanız: %1$s. Ayrıca profilinizi şuradan kişiselleştirebilirsiniz:
 İyi eğlenceler, taşlarınız her zaman rakip şaha karşı yollarını bulabilsin!</string>
   <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştırmayı dene!)</string>
   <string name="common_note">Bu, %s kullanımınızla ilgili otomatik bir e-postadır.</string>
+  <string name="common_contact">İletişim için lütfen bu linki kullanın %s.</string>
 </resources>
