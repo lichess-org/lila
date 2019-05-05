@@ -13,9 +13,9 @@ function ratingLog(a) {
 }
 
 function ratingY(e) {
-  var rating = Math.max(1000, Math.min(2200, e || 1500));
-  var ratio;
-  var mid = 2/5;
+  const rating = Math.max(1000, Math.min(2200, e || 1500));
+  let ratio;
+  let mid = 2/5;
   if (rating == 1500) {
     ratio = mid;
   } else if (rating > 1500) {
@@ -23,7 +23,7 @@ function ratingY(e) {
   } else {
     ratio = mid - (ratingLog(1500 - rating) / ratingLog(500)) * mid;
   }
-  return Math.round(ratio * 100);
+  return Math.round(ratio * 94);
 }
 
 const clockMax = 2000;
@@ -102,7 +102,7 @@ function renderXAxis() {
   return tags;
 }
 
-const yMarks = [1000, 1200, 1400, 1500, 1600, 1800];
+const yMarks = [1000, 1200, 1400, 1500, 1600, 1800, 2000];
 
 function renderYAxis() {
   const tags: VNode[] = [];
