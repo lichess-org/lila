@@ -122,6 +122,30 @@ function studyButton(ctrl: AnalyseCtrl) {
   ]);
 }
 
+function puzzleIcon(ctrl: AnalyseCtrl) {
+  return ctrl.data.game.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-');
+}
+
+function puzzleEditorButton(ctrl: AnalyseCtrl) {
+  if (ctrl.ongoing) return;
+  return h('form', {
+    attrs: {
+      method: 'post',
+      action: '/analysis/puzzle/pdn'
+    },
+    hook: bind('submit', e => {
+      const pdnInput = (e.target as HTMLElement).querySelector('input[name=pdn]') as HTMLInputElement;
+      if (pdnInput) pdnInput.value = pdnExport.renderFullTxt(ctrl, true);
+    })
+  }, [
+    hiddenInput('pdn', ''),
+    h('button.fbt', { attrs: { type: 'submit' } }, [
+      h('i.icon', { attrs: puzzleIcon(ctrl) }),
+      'To puzzle editor'
+    ])
+  ]);
+}
+
 export class Ctrl {
   open: boolean = false;
   toggle = () => this.open = !this.open;
@@ -131,6 +155,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
   noarg = ctrl.trans.noarg,
   canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard' && !d.puzzleEditor,
+  canPuzzleEditor = !d.puzzleEditor && d.toPuzzleEditor && (d.game.variant.key === 'standard' || d.game.variant.key === 'frisian'),
   ceval = ctrl.getCeval(),
   mandatoryCeval = ctrl.mandatoryCeval();
 
@@ -160,7 +185,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }),
         noarg('continueFromHere')
       ]) : null,
-      !d.puzzleEditor ? studyButton(ctrl) : null
+      !d.puzzleEditor ? studyButton(ctrl) : null,
+      canPuzzleEditor ? puzzleEditorButton(ctrl) : null
     ])
   ];
 
@@ -192,7 +218,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           })
         })
       }, [
-          h('i.icon', { attrs: d.game.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-') }),
+          h('i.icon', { attrs: puzzleIcon(ctrl) }),
           "Submit puzzle"
         ])
     ])

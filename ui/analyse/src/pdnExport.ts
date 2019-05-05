@@ -2,6 +2,7 @@ import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom'
 import { initialFen } from 'draughts';
 import { MaybeVNodes } from './interfaces';
+import { ops as treeOps } from 'tree';
 
 interface PdnNode {
   ply: Ply;
@@ -23,13 +24,15 @@ function renderNodesTxt(nodes: PdnNode[]): string {
   return s.trim();
 }
 
-export function renderFullTxt(ctrl: AnalyseCtrl): string {
+export function renderFullTxt(ctrl: AnalyseCtrl, fromNode?: boolean): string {
   var g = ctrl.data.game;
-  var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
+  var txt = renderNodesTxt(fromNode ? treeOps.mainlineNodeList(ctrl.node) : ctrl.tree.getNodeList(ctrl.path));
   var tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard' && g.variant.key !== 'fromPosition')
     tags.push(g.variant.gameType ? ['GameType', g.variant.gameType] : ['Variant', g.variant.name]);
-  if (g.initialFen && g.initialFen !== initialFen)
+  if (fromNode) {
+    tags.push(['FEN', ctrl.tree.nodeAtPath(ctrl.path.slice(0, -2)).fen]);
+  } else if (g.initialFen && g.initialFen !== initialFen)
     tags.push(['FEN', g.initialFen]);
   if (tags.length)
     txt = tags.map(function (t) {

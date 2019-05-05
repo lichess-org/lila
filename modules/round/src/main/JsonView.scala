@@ -9,6 +9,7 @@ import lidraughts.common.ApiVersion
 import lidraughts.game.JsonView._
 import lidraughts.game.{ Pov, Game, Player => GamePlayer }
 import lidraughts.pref.Pref
+import lidraughts.security.Granter
 import lidraughts.user.{ User, UserRepo }
 
 import draughts.format.{ Forsyth, FEN }
@@ -180,6 +181,7 @@ final class JsonView(
               .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS)),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).add("evalPut" -> me.??(evalCache.shouldPut))
+            .add("toPuzzleEditor" -> me ?? Granter(_.CreatePuzzles))
             .add("tv" -> tv.collect {
               case OnLidraughtsTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
             }).add("userTv" -> tv.collect {
@@ -233,6 +235,7 @@ final class JsonView(
       "path" -> pov.game.turns,
       "userAnalysis" -> true
     ).add("evalPut" -> me.??(evalCache.shouldPut))
+      .add("toPuzzleEditor" -> me ?? Granter(_.CreatePuzzles))
   }
 
   def puzzleEditorJson(

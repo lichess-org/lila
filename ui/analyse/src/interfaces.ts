@@ -21,6 +21,7 @@ export interface AnalyseData {
   analysis?: Analysis;
   userAnalysis: boolean;
   puzzleEditor: boolean;
+  toPuzzleEditor?: boolean;
   forecast?: ForecastData;
   treeParts: Tree.Node[];
   evalPut?: boolean;

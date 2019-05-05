@@ -147,6 +147,26 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
     ).map(_ as JSON)
   }
 
+  def pdnToPuzzle = SecureBody(_.CreatePuzzles) { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.importer.forms.importForm.bindFromRequest.fold(
+      failure => BadRequest(errorsAsJson(failure)).fuccess,
+      data => Env.importer.importer.inMemory(data).fold(
+        err => BadRequest(jsonError(err.shows)).fuccess, {
+          case (game, fen) =>
+            val color = fen match {
+              case Some(f) => (f.value.head.toLower == 'w').fold(draughts.White, draughts.Black)
+              case _ => draughts.White
+            }
+            val pov = Pov(game, color)
+            Env.api.roundApi.puzzleEditorJson(pov, ctx.pref, initialFen = fen, pov.color, owner = false, me = me.some, iteratedCapts = true) map { data =>
+              Ok(html.board.puzzleEditor(data, pov))
+            }
+        }
+      )
+    )
+  }
+
   def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     import lidraughts.round.Forecast
     OptionFuResult(GameRepo pov fullId) { pov =>

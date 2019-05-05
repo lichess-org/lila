@@ -114,6 +114,7 @@ GET   /analysis/puzzle/*something      controllers.UserAnalysis.parsePuzzle(some
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pdn                    controllers.UserAnalysis.pdn
+POST  /analysis/puzzle/pdn             controllers.UserAnalysis.pdnToPuzzle
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)

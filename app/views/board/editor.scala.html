@@ -8,7 +8,7 @@
 @embedJs {
 var data = @safeJson(JsData(sit, fen, animationDuration));
 data.positions = @positionsJson;
-data.puzzleEditor = @isGranted(_.CreatePuzzles);
+@if(isGranted(_.CreatePuzzles)){data.puzzleEditor = true;}
 LidraughtsEditor(document.getElementById('board_editor'), data);
 }
 }
