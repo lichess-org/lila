@@ -61,7 +61,7 @@
   display: none;
   background: $c-bg-box;
   position: absolute;
-  z-index: z('popup');
+  z-index: z('powertip');
   .inner {
     @extend %flex-column;
     text-align: center;
