@@ -328,7 +328,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
-  return h('main.analyse' + (chapter ? '.' + chapter.id : ''), {
+  return h('main.analyse.variant-' + ctrl.data.game.variant.key + (chapter ? '.' + chapter.id : ''), {
     hook: {
       insert: _ => {
         if (firstRender) {
@@ -362,7 +362,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
-    intro || h('div.analyse__board.main-board.variant-' + ctrl.data.game.variant.key + '.' + ctrl.bottomColor(), {
+    intro || h('div.analyse__board.main-board.' + ctrl.bottomColor(), {
       hook: (window.lidraughts.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
