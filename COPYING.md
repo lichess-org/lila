@@ -35,8 +35,10 @@ Exceptions (free)
 
 Files | Author(s) | License
 --- | --- | ---
-public/font70 | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
-ChessSansPiratf in public/font | the [pgn4web](http://pgn4web.casaschi.net/home.html) authors | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
+public/font/lichess.{sfd,woff,woff2} | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
+public/font/lichess.chess.{sfd,woff,woff2} | the [pgn4web](http://pgn4web.casaschi.net/home.html) authors | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
+Noto Sans in public/font | [Google](https://fonts.google.com/specimen/Noto+Sans) | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+Roboto in public/font | [Christian Robertson](https://fonts.google.com/specimen/Roboto) | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 public/images/staunton | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
 public/images/staunton/piece/CubesAndPi | CubesAndPi | AGPLv3+
 public/images/trophy | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces/tree/master/Trophies) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
@@ -73,7 +75,6 @@ public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/style
 
 * The other sounds in public/sound.
 * The other artwork in public/images.
-* The icon font in public/font70.
 
 External services
 -----------------
@@ -89,7 +90,7 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
 * [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
 * [getipintel.net](https://getipintel.net/)
-* [Google Fonts](https://fonts.google.com/)
+* Fallback to [Google Fonts](https://fonts.google.com/)
 * [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
 * [reCAPTCHA](https://www.google.com/recaptcha/)
 * [crowdin](https://crowdin.com/project/lichess) for localization
