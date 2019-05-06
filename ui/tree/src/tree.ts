@@ -7,7 +7,7 @@ export type MaybeNode = Tree.Node | undefined;
 
 export interface TreeWrapper {
   root: Tree.Node;
-  lastPly(): number;
+  lastPly(displayPly?: boolean): number;
   nodeAtPath(path: Tree.Path): Tree.Node;
   getNodeList(path: Tree.Path): Tree.Node[];
   longestValidPath(path: string): Tree.Path;
@@ -309,8 +309,9 @@ export function build(root: Tree.Node): TreeWrapper {
 
   return {
     root,
-    lastPly(): number {
-      return lastNode().ply;
+    lastPly(displayPly?: boolean): number {
+      const n = lastNode();
+      return (displayPly && n.displayPly) ? n.displayPly : n.ply;
     },
     nodeAtPath,
     getNodeList,
