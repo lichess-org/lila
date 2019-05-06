@@ -82,8 +82,11 @@ $border: $border-width $border-style $c-border;
 $c-font-shadow: black;
 $text-shadow: none;
 
-@mixin metal {
+@mixin metal-bg {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
+}
+@mixin metal {
+  @include metal-bg;
 }
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
