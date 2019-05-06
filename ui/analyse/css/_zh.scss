@@ -11,7 +11,7 @@ $pocket-height: 60px;
   }
 }
 
-.analyse {
+.analyse.variant-crazyhouse {
   grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto 50vh;
   grid-template-areas:
   'pocket-top'
