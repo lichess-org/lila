@@ -17,15 +17,21 @@ case class Forecast(
     nextMove(g, lastMove) map { move =>
       copy(
         steps = steps.collect {
-          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && g.situation.captureLengthFrom(snd.uciMove.get.orig).getOrElse(0) > 1 && fst.is(lastMove.toShortUci) && snd.is(move) => snd :: rest
+          case (fst :: rest) if rest.nonEmpty && g.displayTurns == fst.displayPly && g.situation.ghosts != 0 => rest
           case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove.toShortUci) && snd.is(move) => rest
         },
         date = DateTime.now
       ) -> move
     }
 
+  private def nextMove(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
+    case (None, fst :: _) if g.displayTurns == fst.displayPly && g.situation.ghosts != 0 => fst.uciMove
+    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove
+    case (move, _) => move
+  }
+
   def moveOpponent(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
-    nextMove(g, lastMove) map { move =>
+    nextMoveOpponent(g, lastMove) map { move =>
       copy(
         steps = steps.collect {
           case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove.toShortUci) && snd.is(move) => snd :: rest
@@ -34,13 +40,13 @@ case class Forecast(
       ) -> lastMove.toShortUci
     }
 
-  // accept up to 30 lines of 30 moves each
-  def truncate = copy(steps = steps.take(30).map(_ take 30))
-
-  private def nextMove(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
+  private def nextMoveOpponent(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
     case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove
     case (move, _) => move
   }
+
+  // accept up to 30 lines of 30 moves each
+  def truncate = copy(steps = steps.take(30).map(_ take 30))
 }
 
 object Forecast {

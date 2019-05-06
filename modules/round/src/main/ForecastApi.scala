@@ -38,7 +38,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
 
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
     case None => coll.remove($id(pov.fullId)).void
-    case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
+    case Some(step) if pov.game.turns == step.displayPly - 1 => saveSteps(pov, steps)
     case _ => fufail(Forecast.OutOfSync)
   }
 
@@ -73,7 +73,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
       case None =>
         fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) {
+        if (firstStep(fc.steps).exists(_.displayPly != pov.game.displayTurns)) {
           clearPov(pov) inject none
         } else fuccess(fc.some)
     }

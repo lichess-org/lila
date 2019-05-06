@@ -10,7 +10,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   function setDisplayPlies(fc?: ForecastStep[][]) {
     if (fc)
       for (var f = 0; f < fc.length; f++) {
-        for (var i = 1; i < fc[f].length; i++) {
+        for (var i = 0; i < fc[f].length; i++) {
           if (countGhosts(fc[f][i].fen) > 0)
             fc[f][i].displayPly = fc[f][i].ply + 1;
         }

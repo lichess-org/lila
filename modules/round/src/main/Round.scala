@@ -226,12 +226,12 @@ private[round] final class Round(
     }
 
     case ForecastPlay(lastMove) => handle { game =>
-      forecastApi.nextMove(game, lastMove) map { mOpt =>
-        if (lastMove.captures && game.situation.captureLengthFrom(lastMove.dest).getOrElse(0) > 0) {
-          forecastApi.moveOpponent(game, lastMove) map { rmOpt =>
-            mOpt foreach { move => self ! HumanPlay(game.player.id, move, blur = false) }
-          }
-        } else mOpt foreach { move => self ! HumanPlay(game.player.id, move, blur = false) }
+      val nextMove = lastMove.situationBefore.captureLengthFrom(lastMove.orig) match {
+        case Some(captLen) if captLen > 1 => forecastApi.moveOpponent(game, lastMove) >> forecastApi.nextMove(game, lastMove)
+        case _ => forecastApi.nextMove(game, lastMove)
+      }
+      nextMove map { move =>
+        move foreach { m => self ! HumanPlay(game.player.id, m, blur = false) }
         Nil
       }
     }
