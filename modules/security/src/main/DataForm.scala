@@ -64,7 +64,7 @@ final class DataForm(
       .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
 
     val website = Form(mapping(
-      "username" -> username,
+      "username" -> trimField(username),
       "password" -> text(minLength = 4),
       "email" -> withAcceptableDns(acceptableUniqueEmail(none)),
       "fp" -> optional(nonEmptyText),
@@ -72,7 +72,7 @@ final class DataForm(
     )(SignupData.apply)(_ => None))
 
     val mobile = Form(mapping(
-      "username" -> username,
+      "username" -> trimField(username),
       "password" -> text(minLength = 4),
       "email" -> withAcceptableDns(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
