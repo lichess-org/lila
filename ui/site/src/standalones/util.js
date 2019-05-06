@@ -210,7 +210,7 @@ lidraughts.widget = function(name, prototype) {
 };
 lidraughts.isHoverable = function () {
   if (typeof lidraughts.hoverable === 'undefined')
-    lidraughts.hoverable = !!getComputedStyle(document.body).getPropertyValue('--hoverable');
+    lidraughts.hoverable =  !lichess.hasTouchEvents || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return lidraughts.hoverable;
 };
 lidraughts.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
