@@ -60,6 +60,8 @@ trait ScalatagsSnippets extends Cap {
     pager.nextPage.map { np =>
       tr(th(cls := "pager none")(a(rel := "next", href := url(np))("Next")))
     }
+
+  val utcLink = a(href := "https://time.is/UTC", target := "_blank", title := "Coordinated Universal Time")("UTC")
 }
 
 // basic imports from scalatags

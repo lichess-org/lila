@@ -43,7 +43,9 @@ object form {
       else form3.hidden(form("official")),
       form3.group(form("syncUrl"), raw("Source URL"))(form3.input(_, typ = "url")),
       form3.split(
-        form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_)),
+        form3.group(form("startsAt"), frag(
+          "Start date ", strong(utcLink)
+        ), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_)),
         isGranted(_.Relay) option
           form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
       ),

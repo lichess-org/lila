@@ -70,8 +70,8 @@ object event {
           thead(
             tr(
               th,
-              th("UTC start"),
-              th("UTC end"),
+              th(utcLink, " start"),
+              th(utcLink, " end"),
               th
             )
           ),
@@ -101,8 +101,8 @@ object event {
 
   private def inForm(form: Form[_])(implicit ctx: Context) = frag(
     form3.split(
-      form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_)),
-      form3.group(form("finishesAt"), raw("End date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+      form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+      form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
     ),
     form3.group(form("title"), raw("Short title"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_)),
     form3.group(form("headline"), raw("Short headline"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_)),
