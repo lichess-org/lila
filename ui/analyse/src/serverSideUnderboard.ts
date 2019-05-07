@@ -1,7 +1,7 @@
 import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
-import * as tree from 'tree'
 import { baseUrl } from './util';
+import { AnalyseData } from './interfaces';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
@@ -66,14 +66,10 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
     });
-    li.pubsub.on('socket.in.analysisProgress', d => {
-      const partial = partialTree(d.tree);
+    li.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!li.advantageChart) startAdvantageChart();
-      else if (li.advantageChart.update) li.advantageChart.update({ game: data.game, treeParts: tree.ops.mainlineNodeList(tree.build(d.tree).root) }, partial);
-      if (!partial) {
-        li.pubsub.emit('analysis.server.complete')();
-        $("#adv-chart-loader").remove();
-      }
+      else if (li.advantageChart.update) li.advantageChart.update(d);
+      if (d.analysis && !d.analysis.partial) $("#adv-chart-loader").remove();
     });
   }
 

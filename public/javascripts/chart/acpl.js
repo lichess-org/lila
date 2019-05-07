@@ -1,23 +1,36 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
+function isPartialList(n) {
+  var count = 0;
+  for (let i = 0; i < n.length - 2; i++) {
+    var skip = i > 0 && n[i].ply === n[i - 1].ply;
+    if (!skip) {
+      count++;
+      if (count > 200) return false; // no analysis beyond 200 ply
+      if (!n[i].eval || !Object.keys(n[i].eval).length)
+        return true;
+    }
+  }
+  return false;
+}
 lidraughts.advantageChart = function(data, trans, el) {
   lidraughts.loadScript('javascripts/chart/common.js').done(function() {
     lidraughts.loadScript('javascripts/chart/division.js').done(function() {
       lidraughts.chartCommon('highchart').done(function() {
 
-        lidraughts.advantageChart.update = function(d, partial) {
-          $(el).highcharts().series[0].setData(makeSerieData(d, partial));
+        lidraughts.advantageChart.update = function(d) {
+          $(el).highcharts().series[0].setData(makeSerieData(d));
         };
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
 
         var serieTree;
-        var makeSerieData = function(d, partial) {
+        var makeSerieData = function(d) {
+          var partial = isPartialList(d.treeParts),
+            points = [], lastPly = -1, mergedSan = '';
           serieTree = d.treeParts.slice(1);
-          var points = [];
-          var lastPly = -1, mergedSan = "";
           for (var i = 0; i < serieTree.length; i++) {
             var node = serieTree[i];
             if (node.ply !== lastPly || i + 1 === serieTree.length) {
