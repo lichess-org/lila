@@ -14,6 +14,7 @@ import lidraughts.user.User
 final class DataForm {
 
   import DataForm._
+  import UTCDate._
 
   def create(user: User) = form(user) fill TournamentSetup(
     name = canPickName(user) option user.titleUsername,
@@ -67,7 +68,7 @@ final class DataForm {
       else numberIn(minuteChoices)
     },
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-    "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
+    "startDate" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
     "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
