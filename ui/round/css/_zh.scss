@@ -19,10 +19,10 @@
 
 .round__app {
   @include breakpoint($mq-col2) {
-    @include breakpoint($mq-tall) {
+    @include breakpoint($mq-short) {
       .rmoves .moves { display: none; }
     }
-    @include breakpoint($mq-x-tall) {
+    @include breakpoint($mq-tall) {
       .rmoves .moves { display: flex; }
     }
   }
