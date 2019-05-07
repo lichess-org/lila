@@ -87,7 +87,11 @@ export default function(ctrl: Controller): VNode {
     hook: {
       postpatch(old, vnode) {
         gridHacks.start(vnode.elm as HTMLElement)
-        if (old.data!.gaugeOn !== gaugeOn) window.lichess.dispatchEvent(document.body, 'chessground.resize');
+        if (old.data!.gaugeOn !== gaugeOn) {
+          if (ctrl.pref.coords == 2)
+            $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
+          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+        }
         vnode.data!.gaugeOn = gaugeOn;
       }
     }
