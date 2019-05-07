@@ -173,6 +173,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
+              "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths
             ).add("is3d" -> pref.is3d)
