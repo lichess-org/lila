@@ -87,7 +87,11 @@ export default function(ctrl: Controller): VNode {
     hook: {
       postpatch(old, vnode) {
         gridHacks.start(vnode.elm as HTMLElement)
-        if (old.data!.gaugeOn !== gaugeOn) window.lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
+        if (old.data!.gaugeOn !== gaugeOn) {
+          if (ctrl.pref.coords == 2)
+            $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
+          window.lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
+        }
         vnode.data!.gaugeOn = gaugeOn;
       }
     }
