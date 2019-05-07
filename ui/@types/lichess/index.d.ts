@@ -43,7 +43,7 @@ interface Lichess {
     absolute(date: number | Date): string;
   }
   advantageChart: {
-    update(data: any, partial: boolean): void;
+    update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   }
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;

@@ -1,6 +1,7 @@
 import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
 import { baseUrl } from './util';
+import { AnalyseData } from './interfaces';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
@@ -64,14 +65,10 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
     });
-    li.pubsub.on('socket.in.analysisProgress', d => {
-      const partial = !d.tree.eval;
+    li.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!li.advantageChart) startAdvantageChart();
-      else if (li.advantageChart.update) li.advantageChart.update(data, partial);
-      if (!partial) {
-        li.pubsub.emit('analysis.server.complete')();
-        $("#adv-chart-loader").remove();
-      }
+      else if (li.advantageChart.update) li.advantageChart.update(d);
+      if (d.analysis && !d.analysis.partial) $("#adv-chart-loader").remove();
     });
   }
 

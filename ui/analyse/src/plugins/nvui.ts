@@ -20,7 +20,9 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
     moveStyle = styleSetting(),
     analysisInProgress = prop(false);
 
-  window.lichess.pubsub.on('analysis.server.complete', () => notify.set('Server-side analysis complete'));
+  window.lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+    if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete')
+  });
 
   return {
     render(ctrl: AnalyseController): VNode {

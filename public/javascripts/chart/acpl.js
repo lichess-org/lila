@@ -6,14 +6,15 @@ lichess.advantageChart = function(data, trans, el) {
     lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
 
-        lichess.advantageChart.update = function(d, partial) {
-          $(el).highcharts().series[0].setData(makeSerieData(d, partial));
+        lichess.advantageChart.update = function(d) {
+          $(el).highcharts().series[0].setData(makeSerieData(d));
         };
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
 
-        var makeSerieData = function(d, partial) {
+        var makeSerieData = function(d) {
+          var partial = !d.analysis || d.analysis.partial;
           return d.treeParts.slice(1).map(function(node, i) {
 
             var color = node.ply & 1, cp;

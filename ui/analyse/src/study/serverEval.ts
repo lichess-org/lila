@@ -55,7 +55,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     },
     chapterId,
     onMergeAnalysisData() {
-      if (li.advantageChart) li.advantageChart.update(root.data, false);
+      if (li.advantageChart) li.advantageChart.update(root.data);
     },
     request() {
       root.socket.send('requestAnalysis', chapterId());
