@@ -24,7 +24,7 @@ object layout {
       metaCsp(csp.getOrElse(defaultCsp))
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
-      link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
+      link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.png.css"), tpe := "text/css", rel := "stylesheet")
   }
   import bits._
 

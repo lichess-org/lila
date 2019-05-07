@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+for name in cburnett; do
+
+  echo $name;
+
+  mkdir -p public/piece-png/$name
+
+  for piece in wP wN wB wR wQ wK bP bN bB bR bQ bK; do
+
+    command="inkscape -z -e public/piece-png/$name/$piece.png -w 128 -h 128 public/piece/$name/$piece.svg"
+    echo $command
+    $command
+
+  done
+
+done

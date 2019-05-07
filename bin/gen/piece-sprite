@@ -9,21 +9,21 @@ source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
 themes = [
-  ['alpha', 'svg'],
+  # ['alpha', 'svg'],
   ['cburnett', 'svg'],
-  ['merida', 'svg'],
-  ['pirouetti', 'svg'],
-  ['spatial', 'svg'],
-  ['chess7', 'svg'],
-  ['reillycraig', 'svg'],
-  ['fantasy', 'svg'],
-  ['shapes', 'svg'],
-  ['chessnut', 'svg'],
-  ['companion', 'svg'],
-  ['letter', 'svg'],
-  ['riohacha', 'svg'],
-  ['leipzig', 'svg'],
-  ['kosal', 'svg']
+  # ['merida', 'svg'],
+  # ['pirouetti', 'svg'],
+  # ['spatial', 'svg'],
+  # ['chess7', 'svg'],
+  # ['reillycraig', 'svg'],
+  # ['fantasy', 'svg'],
+  # ['shapes', 'svg'],
+  # ['chessnut', 'svg'],
+  # ['companion', 'svg'],
+  # ['letter', 'svg'],
+  # ['riohacha', 'svg'],
+  # ['leipzig', 'svg'],
+  # ['kosal', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
@@ -48,4 +48,13 @@ themes.map { |theme|
     }
   }.flatten
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      '.is2d .' + role + '.' + color + ' {' +
+        "background-image:url('/assets/piece-png/" + name + "/" + piece + ".png')}"
+    }
+  }.flatten
+  File.open(dest_dir + name + '.png.css', 'w') { |f| f.puts classes.join("\n") }
 }
