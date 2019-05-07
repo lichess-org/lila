@@ -1,7 +1,8 @@
 import throttle from 'common/throttle';
 
-let timeout;
+let timeout: number | undefined;
 let booted = false;
+let lastSet: number | undefined;
 
 export function start(container: HTMLElement) {
 
@@ -10,7 +11,7 @@ export function start(container: HTMLElement) {
    */
   if (window.chrome) return;
 
-  const runHacks = throttle(200, () => {
+  const runHacks = throttle(100, () => {
     window.lichess.raf(() => {
       fixChat(container);
       fixBoardHeight(container);
@@ -43,8 +44,12 @@ function fixChat(container: HTMLElement) {
 }
 
 // Firefox 60- needs this to properly compute the grid layout.
-export function fixBoardHeight(container: HTMLElement) {
-  const el = container.querySelector('.main-board') as HTMLElement;
-  el.style.height = el.offsetWidth + 'px';
-  window.lichess.dispatchEvent(document.body, 'chessground.resize');
+function fixBoardHeight(container: HTMLElement) {
+  const el = container.querySelector('.main-board') as HTMLElement,
+  width = el.offsetWidth;
+  if (lastSet != width) {
+    lastSet = width;
+    el.style.height = width + 'px';
+    window.lichess.dispatchEvent(document.body, 'chessground.resize');
+  }
 }
