@@ -237,31 +237,10 @@ function renderOpeningBox(ctrl: AnalyseCtrl) {
   ]);
 }
 
-function innerCoordsCss() {
-  let board = 'other';
-  ['brown', 'green', 'blue'].forEach(b => {
-    if ($('body').hasClass(b)) board = b;
-  });
-  return `css/coords.inner.${board}.min.css`;
-}
-
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  const pref = ctrl.data.pref.coords;
-  if (!pref) return;
-  if (v) li.loadCss(innerCoordsCss());
-  else if (pref === 2) unloadCss(innerCoordsCss());
+  if (ctrl.data.pref.coords == 2)
+    $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
 }
-
-function unloadCss(url) {
-  if (li.loadedCss[url]) {
-    delete li.loadedCss[url];
-    $('head link[rel=stylesheet]')
-      .filter(function(this: HTMLLinkElement) { return this.href.includes(url) })
-      .remove();
-  }
-}
-
-let firstRender = true;
 
 export default function(ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
@@ -280,10 +259,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
   return h('main.analyse.variant-' + ctrl.data.game.variant.key + (chapter ? '.' + chapter.id : ''), {
     hook: {
       insert: vn => {
-        if (firstRender) {
-          firstRender = false;
-          if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss()] = true;
-        }
         forceInnerCoords(ctrl, needsInnerCoords);
         if (!!playerBars != $('body').hasClass('header-margin')) {
           li.raf(() => {
@@ -297,9 +272,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         forceInnerCoords(ctrl, needsInnerCoords);
       },
       postpatch(old, vnode) {
-        if (old.data!.gaugeOn !== gaugeOn) {
-          li.dispatchEvent(document.body, 'chessground.resize');
-        }
+        if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'chessground.resize');
         vnode.data!.gaugeOn = gaugeOn;
       }
     },
