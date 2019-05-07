@@ -7,7 +7,7 @@ export function runner(hacks: () => void, throttleMs: number = 100) {
   let timeout: number | undefined;
 
   const runHacks = throttle(throttleMs, () => {
-    window.lichess.raf(() => {
+    window.lidraughts.raf(() => {
       hacks();
       schedule();
     });
@@ -28,6 +28,6 @@ export function fixMainBoardHeight(container: HTMLElement) {
   if (lastMainBoardHeight != width) {
     lastMainBoardHeight = width;
     el.style.height = width + 'px';
-    window.lichess.dispatchEvent(document.body, 'chessground.resize');
+    window.lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
   }
 }

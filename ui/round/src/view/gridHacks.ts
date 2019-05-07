@@ -12,7 +12,7 @@ export function start(container: HTMLElement) {
   if (window.chrome) return;
 
   const runHacks = throttle(100, () => {
-    window.lichess.raf(() => {
+    window.lidraughts.raf(() => {
       fixBoardHeight(container);
       schedule();
     });
@@ -27,7 +27,7 @@ export function start(container: HTMLElement) {
 
   if (!booted) {
     booted = true;
-    document.body.addEventListener('chessground.resize', runHacks);
+    document.body.addEventListener('draughtsground.resize', runHacks);
   }
 }
 
@@ -38,6 +38,6 @@ function fixBoardHeight(container: HTMLElement) {
   if (lastSet != width) {
     lastSet = width;
     el.style.height = width + 'px';
-    window.lichess.dispatchEvent(document.body, 'chessground.resize');
+    window.lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
   }
 }
