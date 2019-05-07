@@ -8,6 +8,7 @@ import { read as fenRead } from 'chessground/fen';
 import resizeHandle from 'common/resize';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
+import * as gridHacks from './gridHacks';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
@@ -66,7 +67,8 @@ export function main(ctrl: RoundController): VNode {
     util.noChecks;
 
   return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
-    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) }
+    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
+    hook: util.onInsert(gridHacks.start)
   }, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: window.lichess.hasTouchEvents ? undefined : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
