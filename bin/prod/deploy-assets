@@ -6,7 +6,7 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="keres"
+  REMOTE="leess"
   REMOTE_DIR="/home/lichess-deploy"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
@@ -29,9 +29,9 @@ lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $REMOTE:$REMOTE_DIR
 
-SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR"
-echo $SSH_COMMAND
-ssh $REMOTE $SSH_COMMAND
+# SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR"
+# echo $SSH_COMMAND
+# ssh $REMOTE $SSH_COMMAND
 
 lilalog "Deploy complete"
 
