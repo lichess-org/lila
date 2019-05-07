@@ -14,6 +14,7 @@ import lila.user.User
 final class DataForm {
 
   import DataForm._
+  import UTCDate._
 
   def apply(user: User) = create fill TournamentSetup(
     name = canPickName(user) option user.titleUsername,
@@ -46,7 +47,7 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> numberIn(minuteChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-    "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
+    "startDate" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
     "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated

@@ -124,4 +124,12 @@ object Form {
     }
     val isoDateOrTimestamp = of[org.joda.time.DateTime](formatter)
   }
+  object ISODateTimeOrTimestamp {
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        ISODateTime.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
+      def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
+    }
+    val isoDateTimeOrTimestamp = of[org.joda.time.DateTime](formatter)
+  }
 }
