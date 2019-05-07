@@ -57,7 +57,9 @@ object form {
         form3.hidden(form("simulId"))
       ),
       form3.split(
-        form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_)),
+        form3.group(form("startsAt"), frag(
+          "Start date ", strong(utcLink)
+        ), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_)),
         if (isGranted(_.Admin))
           form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
         else form3.hidden(form("throttle"))
