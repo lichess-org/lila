@@ -116,7 +116,7 @@ $controls-height: auto;
     .keyboard-move {
       margin-top: $block-gap;
     }
-    @include breakpoint($mq-tall) {
+    @include breakpoint($mq-short) {
       & .rmoves .moves { display: flex; }
     }
   }
