@@ -8,6 +8,7 @@ import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
 import * as side from './side';
+import * as gridHacks from './gridHacks';
 import { onInsert, bind, bindMobileMousedown, hasTouchEvents } from '../util';
 import { Controller } from '../interfaces';
 
@@ -85,9 +86,8 @@ export default function(ctrl: Controller): VNode {
     class: {'gauge-on': gaugeOn},
     hook: {
       postpatch(old, vnode) {
-        if (old.data!.gaugeOn !== gaugeOn) {
-          window.lichess.dispatchEvent(document.body, 'chessground.resize');
-        }
+        gridHacks.start(vnode.elm as HTMLElement)
+        if (old.data!.gaugeOn !== gaugeOn) window.lichess.dispatchEvent(document.body, 'chessground.resize');
         vnode.data!.gaugeOn = gaugeOn;
       }
     }
