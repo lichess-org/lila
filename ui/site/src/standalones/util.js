@@ -365,16 +365,6 @@ lichess.escapeHtml = function(str) {
     .replace(/"/g, '&quot;') :
     str;
 };
-$.fn.scrollTo = function(target, offsetTop) {
-  return this.each(function() {
-    if (typeof target === "number") this.scrollTop  = target;
-    else {
-      var $t = $(target);
-      if (!$t.length) return;
-      this.scrollTop = $t.offset().top + this.scrollTop - (offsetTop || 0);
-    }
-  });
-};
 $.modal = function(html, cls, onClose) {
   $.modal.close();
   if (!html.clone) html = $('<div>' + html + '</div>');

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
-import { bind, dataIcon, iconTag } from '../util';
+import { bind, dataIcon, iconTag, scrollTo } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
@@ -82,12 +82,11 @@ export function view(ctrl: StudyCtrl): VNode {
     const el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
       if (current.id !== ctrl.chapters.firstChapterId()) {
-        $(el).scrollTo($(el).find('.active'), 200);
+        scrollTo(el, el.querySelector('.active'));
       }
     } else if (ctrl.vm.loading && vData.loadingId !== ctrl.vm.nextChapterId) {
       vData.loadingId = ctrl.vm.nextChapterId;
-      const ch = $(el).find('.loading');
-      if (ch.length) $(el).scrollTo(ch, 200);
+      scrollTo(el, el.querySelector('.loading'));
     }
     vData.count = newCount;
     if (!window.lichess.hasTouchEvents && ctrl.members.canContribute() && newCount > 1 && !vData.sortable) {

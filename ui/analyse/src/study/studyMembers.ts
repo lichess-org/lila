@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { titleNameToId, bind, dataIcon, iconTag, onInsert } from '../util';
+import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
 import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
@@ -200,7 +200,7 @@ export function view(ctrl: StudyCtrl): VNode {
     const roleId = 'member-role';
     return h('m-config', {
       key: member.user.id + '-config',
-      hook: onInsert(el => $(el).parent('.members').scrollTo(el, 200))
+      hook: onInsert(el => scrollTo($(el).parent('.members')[0] as HTMLElement, el))
     }, [
       h('div.role', [
         h('div.switch', [

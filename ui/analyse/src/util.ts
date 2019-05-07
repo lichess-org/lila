@@ -165,3 +165,11 @@ export function option(value: string, current: string | undefined, name: string)
     },
   }, name);
 }
+
+export function scrollTo(el: HTMLElement | undefined, target: HTMLElement |  null) {
+  if (el && target) {
+    const rect = el.getBoundingClientRect(),
+    targetRect = target.getBoundingClientRect();
+    el.scrollTop = targetRect.top - rect.top - (rect.height / 2) + (targetRect.height / 2);
+  }
+}
