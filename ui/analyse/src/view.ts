@@ -30,7 +30,7 @@ import relayManager from './study/relay/relayManagerView';
 import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
-import * as gridHack from './gridHack';
+import * as gridHacks from './gridHacks';
 
 const li = window.lidraughts;
 
@@ -330,7 +330,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     intro = relayIntro(ctrl);
   return h('main.analyse.variant-' + ctrl.data.game.variant.key + (chapter ? '.' + chapter.id : ''), {
     hook: {
-      insert: _ => {
+      insert: vn => {
         if (firstRender) {
           firstRender = false;
           if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss()] = true;
@@ -342,6 +342,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
             ctrl.redraw();
           });
         }
+        gridHacks.start(vn.elm as HTMLElement);
       },
       update(_, _2) {
         forceInnerCoords(ctrl, needsInnerCoords);
@@ -416,13 +417,12 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ),
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {
-      hook: onInsert(el => {
+      hook: onInsert(_ => {
         if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
         ctrl.opts.chat.parseMoves = true;
         li.makeChat(ctrl.opts.chat, chat => {
           ctrl.opts.chat.instance = chat;
         });
-        gridHack.start(el.parentNode as HTMLElement);
       })
     }),
     ctrl.embed ? null : h('div.chat__members.none', {
