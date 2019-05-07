@@ -13,9 +13,9 @@ case class Assessible(analysed: Analysed) {
 
   def suspiciousErrorRate(color: Color): Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
-      case Speed.Bullet => 25
-      case Speed.Blitz => 20
-      case _ => 15
+      case Speed.Bullet => 20
+      case Speed.Blitz => 15
+      case _ => 10
     })
 
   def alwaysHasAdvantage(color: Color): Boolean =
@@ -78,8 +78,8 @@ case class Assessible(analysed: Analysed) {
     else assessment
   }
 
-  def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  def scanAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  def scanSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
   def mtAvg(color: Color): Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
   def mtSd(color: Color): Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
   def blurs(color: Color): Int = game.playerBlurPercent(color)
@@ -95,8 +95,8 @@ case class Assessible(analysed: Analysed) {
       date = DateTime.now,
       // meta
       flags = mkFlags(color),
-      sfAvg = sfAvg(color),
-      sfSd = sfSd(color),
+      sfAvg = scanAvg(color),
+      sfSd = scanSd(color),
       mtAvg = mtAvg(color),
       mtSd = mtSd(color),
       blurs = blurs(color),
