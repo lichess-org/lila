@@ -308,7 +308,6 @@ interface LidraughtsModal {
 interface JQuery {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
   typeahead: any;
-  scrollTo(el: JQuery | HTMLElement, delay: number): JQuery;
   sparkline: any;
   clock: any;
   watchers(): JQuery;
