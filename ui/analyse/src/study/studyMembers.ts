@@ -231,7 +231,7 @@ export function view(ctrl: StudyCtrl): VNode {
     hook: {
       insert: _ => {
         window.lidraughts.pubsub.emit('content_loaded')();
-        window.lidraughts.pubsub.emit('analyse.grid-hack')();
+        window.lidraughts.pubsub.emit('chat.resize')();
       }
     }
   }, [

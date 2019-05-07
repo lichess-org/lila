@@ -126,7 +126,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
         vnode.data!.li = {};
         update(vnode);
-        window.lidraughts.pubsub.emit('analyse.grid-hack')();
+        window.lidraughts.pubsub.emit('chat.resize')();
       },
       postpatch(old, vnode) {
         vnode.data!.li = old.data!.li;
