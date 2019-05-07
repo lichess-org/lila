@@ -231,7 +231,7 @@ export function view(ctrl: StudyCtrl): VNode {
     hook: {
       insert: _ => {
         window.lichess.pubsub.emit('content_loaded')();
-        window.lichess.pubsub.emit('analyse.grid-hack')();
+        window.lichess.pubsub.emit('chat.resize')();
       }
     }
   }, [

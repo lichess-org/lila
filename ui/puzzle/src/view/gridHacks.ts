@@ -1,20 +1,12 @@
-import { runner, fixMainBoardHeight } from 'common/gridHacks';
-
-let booted = false;
+import * as gridHacks from 'common/gridHacks';
 
 export function start(container: HTMLElement) {
 
-  /* Detected browsers with a correct grid min-content implementation:
-   * Chrome, Chromium, Brave, Opera, Safari 12+
-   */
-  if (window.chrome) return;
+  if (!gridHacks.needsBoardHeightFix()) return;
 
-  const runHacks = () => fixMainBoardHeight(container);
+  const runHacks = () => gridHacks.fixMainBoardHeight(container);
 
-  runner(runHacks);
+  gridHacks.runner(runHacks);
 
-  if (!booted) {
-    booted = true;
-    document.body.addEventListener('chessground.resize', runHacks);
-  }
+  gridHacks.bindChessgroundResizeOnce(runHacks);
 }
