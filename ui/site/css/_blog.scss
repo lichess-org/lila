@@ -92,6 +92,10 @@
       padding: 5px;
       border: 1px solid $c-border;
     }
+    .embed {
+      @extend %video;
+      margin: $block-gap auto;
+    }
     .study {
       border: none;
       margin: 1em 0;
