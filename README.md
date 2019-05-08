@@ -58,13 +58,13 @@ Supported browsers
 
 - [Chrome](https://www.google.com/chrome) or [Chromium](https://www.chromium.org/getting-involved/download-chromium), 1 year old or newer (fastest local analysis!)
 - [Firefox](https://www.mozilla.org/firefox), 1 year old or newer (second fastest local analysis!)
-- Opera 34 and newer (meh)
-- Safari 9 and newer (boo)
-- Microsoft Edge (yuck)
-- Internet Explorer 11 (eew)
+- Opera 55 and newer (meh)
+- Safari 10.1 and newer (boo)
+- Microsoft Edge 17 and newer (yuck)
 
-Older browsers will not work. For your own sake, please upgrade.
-Security and performance, think about it!
+Older browsers (including any version of Internet Explorer) will not work.
+For your own sake, please upgrade. Security and performance, think about
+it!
 
 License
 -------
