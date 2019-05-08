@@ -4,7 +4,7 @@ import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
-import renderReplay from './replay';
+import * as replay from './replay';
 import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
@@ -29,7 +29,7 @@ function loader() { return h('i.ddloader'); }
 
 function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
   return [
-    renderReplay(ctrl),
+    replay.render(ctrl),
     buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
   ];
 }
@@ -54,7 +54,8 @@ export function renderTablePlay(ctrl: RoundController) {
       game.abortable(d) ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort') :
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
       ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
-      ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true))
+      ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
+      replay.analysisButton(ctrl)
     ],
     buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
       button.forceResign(ctrl),
@@ -65,7 +66,7 @@ export function renderTablePlay(ctrl: RoundController) {
       button.answerOpponentTakebackProposition(ctrl)
     ]);
   return [
-    renderReplay(ctrl),
+    replay.render(ctrl),
     h('div.rcontrols', [
       h('div.ricons', {
         class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
