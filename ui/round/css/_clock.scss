@@ -112,6 +112,9 @@
   }
   huns {
     font-size: 80%;
+    @include breakpoint($mq-col1) {
+      display: none; /* since clock is right-aligned, huns shift it left on every move */
+    }
   }
   sep {
     opacity: 0.5;
