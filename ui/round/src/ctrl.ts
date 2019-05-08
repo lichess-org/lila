@@ -696,7 +696,7 @@ export default class RoundController {
 
   setDraughtsground = (dg: DgApi) => {
     this.draughtsground = dg;
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove && !window.lidraughts.hasTouchEvents) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
       li.raf(this.redraw);
     }
