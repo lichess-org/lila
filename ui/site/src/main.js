@@ -733,13 +733,11 @@
       },
       repaint: function() {
         lichess.raf(function() {
-          var ids = Object.keys(this.users).sort();
+          var users = this.users, ids = Object.keys(users).sort();
           this.$nbOnline.text(ids.length);
           this.$nobody.toggleNone(!ids.length);
-          this.element.find('div.list').replaceWith(
-            $('<div class="content list"></div>').append(ids.map(function(id) {
-              return renderUser(this.users[id]);
-            }.bind(this)))
+          this.element.find('.list').html(
+            ids.map(function(id) { return renderUser(users[id]); }).join('')
           );
         }.bind(this));
       },
