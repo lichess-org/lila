@@ -1,8 +1,10 @@
 .round__now-playing {
   h3 {
-    display: flex;
-    justify-content: space-between;
+    @extend %flex-between;
     margin: 1em 0 .5em 0;
+    @include breakpoint($mq-col1) {
+      margin: 1em $block-gap .5em $block-gap
+    }
   }
   .simul {
     span {
