@@ -16,10 +16,13 @@ object RelayForm {
     "name" -> text(minLength = 3, maxLength = 80),
     "description" -> text(minLength = 3, maxLength = 4000),
     "official" -> optional(boolean),
-    "syncUrl" -> nonEmptyText,
+    "syncUrl" -> nonEmptyText.verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
     "startsAt" -> optional(utcDate),
     "throttle" -> optional(number(min = 2, max = 60))
   )(Data.apply)(Data.unapply))
+
+  private def isTournamentApi(url: String) =
+    """/api/tournament/\w{8}/games""".r.find(url)
 
   def create = form
 
