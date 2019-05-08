@@ -27,6 +27,7 @@ export interface KeyboardMove {
   confirmMove(): void;
   usedSan: boolean;
   jump(delta: number): void;
+  justSelected(): boolean;
   clock(): ClockController | undefined;
 }
 
@@ -34,11 +35,15 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
+  let lastSelect = Date.now();
   const cgState = root.chessground.state;
   const sanMap = sanToRole as SanMap;
   const select = function(key: cg.Key): void {
     if (cgState.selected === key) root.chessground.cancelMove();
-    else root.chessground.selectSquare(key, true);
+    else {
+      root.chessground.selectSquare(key, true);
+      lastSelect = Date.now();
+    }
   };
   let usedSan = false;
   return {
@@ -89,6 +94,9 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     jump(delta: number) {
       root.userJump(root.ply + delta);
       redraw();
+    },
+    justSelected() {
+      return Date.now() - lastSelect < 500;
     },
     clock: () => root.clock
   };
