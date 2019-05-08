@@ -32,6 +32,7 @@ types = {
 roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
 colors = ['white', 'black']
 
+# inline SVG
 themes.map { |theme|
   name = theme[0]
   ext = theme[1]
@@ -48,4 +49,18 @@ themes.map { |theme|
     }
   }.flatten
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+}
+
+# external SVG
+themes.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      '.is2d .' + role + '.' + color + ' {' +
+        "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
+    }
+  }.flatten
+  File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }

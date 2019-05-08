@@ -517,6 +517,14 @@
           $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend(html))
       }, 3000);
 
+      /* A disgusting hack for a disgusting browser
+       * Edge randomly fails to rasterize SVG on page load
+       * A different SVG must be loaded so a new image can be rasterized */
+      if (navigator.userAgent.indexOf('Edge/') > -1) setTimeout(function() {
+        const sprite = $('#piece-sprite');
+        sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
+      }, 1000);
+
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
         new Fingerprint2({
