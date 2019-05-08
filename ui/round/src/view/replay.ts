@@ -99,20 +99,19 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   return els;
 }
 
-function analyseButton(ctrl: RoundController) {
+export function analysisButton(ctrl: RoundController): VNode | undefined {
   const forecastCount = ctrl.data.forecastCount;
-  return [
-    h('a.fbt.analysis', {
-      class: {
-        'text': !!forecastCount
-      },
-      attrs: {
-        title: ctrl.trans.noarg('analysis'),
-        href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-        'data-icon': 'A'
-      }
-    }, forecastCount ? ['' + forecastCount] : [])
-  ];
+  return game.userAnalysable(ctrl.data) ? h('a.fbt.analysis', {
+    class: {
+      'text': !!forecastCount
+    },
+    attrs: {
+      title: ctrl.trans.noarg('analysis'),
+      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+      'data-icon': 'A'
+    }
+  }, forecastCount ? ['' + forecastCount] : []
+  ) : undefined
 }
 
 function renderButtons(ctrl: RoundController) {
@@ -158,7 +157,7 @@ function renderButtons(ctrl: RoundController) {
         }
       });
     })),
-    ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
+    analysisButton(ctrl) || h('div.noop')
   ]);
 }
 
@@ -172,7 +171,7 @@ function initMessage(d: RoundData) {
     ]) : null;
 }
 
-export default function(ctrl: RoundController): VNode | undefined {
+export function render(ctrl: RoundController): VNode | undefined {
   return ctrl.nvui ? undefined : h('div.rmoves', [
     renderButtons(ctrl),
     initMessage(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {

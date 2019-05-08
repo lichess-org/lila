@@ -110,6 +110,13 @@
       margin-top: $block-gap;
     }
   }
+  .analysis {
+    display: none;
+    @include breakpoint($mq-col1) {
+      display: block;
+      margin-left: 2em;
+    }
+  }
   .rematch {
     &.fbt {
       @extend %metal;
