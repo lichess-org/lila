@@ -107,8 +107,8 @@ object topic {
           else if (topic.closed) p(trans.thisTopicIsNowClosed())
           else categ.team.filterNot(myTeam).map { teamId =>
             p(
-              a(href := routes.Team.show(teamId)),
-              s"Join the ${teamIdToName(teamId)} team",
+              "Join the ",
+              a(href := routes.Team.show(teamId))(teamIdToName(teamId), " team"),
               " to post in this forum"
             )
           } getOrElse p("You can't post in the forums yet. Play some games!"),
