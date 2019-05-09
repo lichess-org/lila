@@ -39,12 +39,11 @@
 .message-thread {
 
   h1 {
-    @extend %break-word;
-    overflow: hidden;
+    @extend %break-word-hard;
   }
 
   &__message {
-    @extend %break-word;
+    @extend %break-word-hard;
     font-size: 1.1em;
     margin-bottom: 2em;
     border-bottom: $border;
