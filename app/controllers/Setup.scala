@@ -73,7 +73,7 @@ object Setup extends LilaController with TheftPrevention {
             case Some(denied) =>
               val message = lila.challenge.ChallengeDenied.translated(denied)
               negotiate(
-                html = BadRequest(message).fuccess,
+                html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
                 api = _ => BadRequest(jsonError(message)).fuccess
               )
             case None =>
