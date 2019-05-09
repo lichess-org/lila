@@ -77,7 +77,7 @@ object Setup extends LidraughtsController with TheftPrevention {
             case Some(denied) =>
               val message = lidraughts.challenge.ChallengeDenied.translated(denied)
               negotiate(
-                html = BadRequest(message).fuccess,
+                html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
                 api = _ => BadRequest(jsonError(message)).fuccess
               )
             case None =>
