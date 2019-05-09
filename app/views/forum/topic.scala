@@ -74,7 +74,7 @@ object topic {
       description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
     ).some
   ) {
-      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = false)
+      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
