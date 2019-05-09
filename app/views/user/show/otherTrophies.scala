@@ -68,7 +68,7 @@ object otherTrophies {
       info.allTrophies.filter(t => t.kind == Kind.AtomicWC16 || t.kind == Kind.AtomicWC17 || t.kind == Kind.AtomicWC18)
     }.map { t =>
       a(awardCls(t), href := t.kind.url, title := t.kind.name,
-        style := "width: 65px; height: 80px; margin: 0 3px!important;")(
+        style := "width: 65px; margin: 0 3px!important;")(
           img(src := staticUrl(s"images/trophy/${t.kind.key}.png"), width := 65, height := 80)
         )
     },
