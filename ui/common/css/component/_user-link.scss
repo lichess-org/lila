@@ -1,6 +1,16 @@
 .user-link {
   @extend %nowrap-hidden;
   color: $c-font;
+  &.online .line {
+    &::before {
+      content: '';
+    }
+    color: $c-good;
+    opacity: .9;
+    &.patron {
+      opacity: 1;
+    }
+  }
   .line {
     @extend %data-icon;
     color: $c-font;
@@ -20,16 +30,6 @@
     }
     &.moderator::before {
       content: '';
-    }
-  }
-  &.online .line {
-    &::before {
-      content: '';
-    }
-    color: $c-good;
-    opacity: .9;
-    &.patron {
-      opacity: 1;
     }
   }
   .title {
