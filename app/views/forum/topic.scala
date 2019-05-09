@@ -100,8 +100,7 @@ object topic {
         ),
 
         div(cls := "forum-topic__actions")(
-          if (posts.hasNextPage) pager
-          else if (topic.isOld)
+          if (topic.isOld)
             p("This topic has been archived and can no longer be replied to.")
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())
@@ -154,7 +153,9 @@ object topic {
                 form3.submit(trans.reply())
               )
             )
-        }
+        },
+
+        pager
       )
     }
 }
