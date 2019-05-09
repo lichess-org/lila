@@ -120,10 +120,15 @@ $(function() {
     });
   };
 
+  var themes = ['blue', 'blue2', 'blue3', 'canvas', 'wood', 'wood2', 'wood3', 'maple', 'green', 'marble', 'brown', 'leather', 'grey', 'metal', 'olive', 'purple'];
+
   var configureSrc = function(url) {
     if (url.includes('://')) return url; // youtube, img, etc
     var parsed = new URL(url, window.location.href);
-    parsed.searchParams.append('bg', $('body').data('theme'));
+    parsed.searchParams.append('theme', themes.find(function (theme) {
+      return document.body.classList.contains(theme);
+    }));
+    parsed.searchParams.append('bg', document.body.getAttribute('data-theme'));
     return parsed.href;
   }
 
