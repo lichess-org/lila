@@ -4,7 +4,8 @@ let booted = false;
 
 export function start(container: HTMLElement) {
 
-  if (!needsChatHeightFix()) return;
+  // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
+  if (window.chrome) return;
 
   const runHacks = () => {
     if (gridHacks.needsBoardHeightFix()) gridHacks.fixMainBoardHeight(container);
@@ -19,11 +20,6 @@ export function start(container: HTMLElement) {
     window.lichess.pubsub.on('chat.resize', runHacks);
     booted = true;
   }
-}
-
-function needsChatHeightFix() {
-  // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
-  return !window.chrome;
 }
 
 function fixChatHeight(container: HTMLElement) {
