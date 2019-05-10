@@ -20,7 +20,7 @@
     }
   }
   .downloads {
-    @extend %flex-between;
+    @extend %flex-around;
     margin-bottom: 2em;
   }
 }
