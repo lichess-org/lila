@@ -30,9 +30,3 @@ $col2-uniboard-squeeze-table: minmax(200px, 240px);
 $col2-uniboard-squeeze-width: minmax(calc(55vmin), calc(100vh - #{$site-header-outer-height} - #{$block-gap}));
 
 $col1-uniboard-controls: $col2-uniboard-controls;
-
-body {
-  @include breakpoint($mq-col1-uniboard) {
-    --col1: 1;
-  }
-}

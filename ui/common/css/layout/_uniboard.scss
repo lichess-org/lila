@@ -7,6 +7,9 @@ body {
 }
 
 @include breakpoint($mq-col1-uniboard) {
+  body {
+    --col1: 1;
+  }
   .main-board .cg-board {
     border-radius: 0;
   }
