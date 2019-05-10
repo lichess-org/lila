@@ -1,5 +1,5 @@
 $c-lead: $c-brag;
-$user-list-width: 25ch;
+$user-list-width: 30ch;
 
 .community {
   display: grid;
@@ -22,7 +22,6 @@ $user-list-width: 25ch;
       width: 100%;
       display: flex;
       justify-content: space-between;
-      line-height: 1.6em;
       white-space: nowrap;
     }
     .user-link {
@@ -32,7 +31,7 @@ $user-list-width: 25ch;
   &__online {
     grid-area: online;
     li {
-      padding: .5rem 0;
+      padding: .6rem 0;
     }
     .user-link {
       margin-right: 1em;
@@ -63,7 +62,7 @@ $user-list-width: 25ch;
         }
       }
       li {
-        padding: .5rem 1.2rem .5rem .5rem;
+        padding: .7rem 1.2rem .7rem .5rem;
       }
       li:nth-child(even) {
         background: $c-bg-zebra;
