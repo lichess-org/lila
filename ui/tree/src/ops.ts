@@ -1,12 +1,8 @@
 import { countGhosts } from 'draughtsground/fen'
 import { fenCompare } from 'draughts'
 
-function mainlineChild(node: Tree.Node): Tree.Node | undefined {
-  return node.children[0];
-}
-
 export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T): T | undefined {
-  const next = mainlineChild(node);
+  const next = node.children[0];
   return next ? f(next) : undefined;
 }
 
