@@ -35,7 +35,8 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
 }
 
 export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
-  const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
+  const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts(),
+    couldDraw = !window.lichess.hasTouchEvents;
   const config = {
     turnColor: opts.turnColor,
     fen: opts.fen,
@@ -64,8 +65,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       }
     },
     drawable: {
-      enabled: !ctrl.embed,
-      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
+      enabled: !ctrl.embed && couldDraw,
+      eraseOnClick: (!ctrl.opts.study || !!ctrl.opts.practice) && couldDraw
     },
     highlight: {
       lastMove: pref.highlight,
