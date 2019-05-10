@@ -8,11 +8,8 @@
 @import 'games';
 
 .page-menu {
-  /*
-   * for the trophies
-   * this gorgeous hack bypasses the .user-show overflow: hidden
-   * */
-position: relative;
+  /* for the trophies. This glorious hack bypasses the .user-show overflow: hidden */
+  position: relative;
 }
 
 .user-show {
