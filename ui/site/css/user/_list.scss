@@ -46,7 +46,7 @@ $user-list-width: 25ch;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
       border: 1px solid $c-lead;
       .user-top {
-        border-left: 2px solid fade-out($c-lead, 0.5);
+        border-right: 2px solid fade-out($c-lead, 0.5);
       }
       h2 {
         @extend %flex-center-nowrap, %nowrap-hidden;

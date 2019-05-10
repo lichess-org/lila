@@ -9,6 +9,7 @@ $user-list-width: 35ch;
 
   &__item {
     background: $c-bg-box;
+    border-right: $border;
   }
   h2 {
     @extend %metal, %box-shadow;
