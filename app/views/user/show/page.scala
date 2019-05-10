@@ -55,8 +55,7 @@ object page {
     moreJs = moreJs(info, filters.current.name == "search"),
     moreCss = frag(
       cssTag("user.show"),
-      if (filters.current.name == "search") cssTag("user.show.search")
-      else info.nbs.crosstable.isDefined option cssTag("crosstable"),
+      filters.current.name == "search" option cssTag("user.show.search"),
       isGranted(_.UserSpy) option cssTag("mod.user")
     )
   ) {
