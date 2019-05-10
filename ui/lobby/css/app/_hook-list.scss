@@ -13,9 +13,8 @@
       background: fade-out($c-secondary, .6);
     }
     &.join:hover td {
-      background: fade-out($c-accent, .2);
+      background: fade-out($c-accent, .5);
       color: #fff;
-      transition: none;
     }
 
     &:not(.disabled):hover ::before {
@@ -53,7 +52,6 @@
     padding: .5em .7em;
     border-bottom: $border;
     cursor: pointer;
-    @include transition();
     background: fade-out($c-bg-box, .5);
     &:first-child {
       width: 16px;
