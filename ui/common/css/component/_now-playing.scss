@@ -1,6 +1,10 @@
 .now-playing {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  --np-min-width: 200px;
+  @include breakpoint($mq-not-xx-small) {
+    --np-min-width: 50%;
+  }
+  grid-template-columns: repeat(auto-fill, minmax(var(--np-min-width), 1fr));
   a {
     @extend %box-radius;
     color: $c-font;
