@@ -290,6 +290,13 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
 }
 
+function resizeHandleFor(ctrl: AnalyseCtrl) {
+  const pref = ctrl.data.pref.resizeHandle;
+  return (pref == 2 || pref == 1 && ctrl.node.ply < 2) ? h('div.board-resize', {
+    hook: onInsert(resizeHandle)
+  }) : undefined;
+}
+
 export default function(ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
@@ -343,9 +350,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
       draughtsground.render(ctrl),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
-      h('div.board-resize', {
-        hook: onInsert(resizeHandle)
-      })
+      resizeHandleFor(ctrl)
     ]),
     (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
     (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
