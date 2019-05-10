@@ -163,10 +163,25 @@ function initMessage(d: RoundData) {
     ]) : null;
 }
 
+function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
+  return disabled ? null : h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir
+    },
+    hook: util.bind('mousedown', e => {
+      e.preventDefault();
+      ctrl.userJump(ctrl.ply + dir);
+      ctrl.redraw();
+    })
+  });
+}
+
 export function render(ctrl: RoundController): VNode | undefined {
-  return ctrl.nvui ? undefined : h('div.rmoves', [
-    renderButtons(ctrl),
-    initMessage(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
+  const d = ctrl.data,
+    col1 = window.lichess.isCol1(),
+    moves = ctrl.replayEnabledByPref() && h('div.moves', {
       hook: util.onInsert(el => {
         el.addEventListener('mousedown', e => {
           let node = e.target as HTMLElement, offset = -2;
@@ -184,6 +199,15 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
       })
-    }, renderMoves(ctrl)) : renderResult(ctrl))
+    }, renderMoves(ctrl));
+  return ctrl.nvui ? undefined : h('div.rmoves', [
+    renderButtons(ctrl),
+    initMessage(d) || (moves ? (
+      col1 ? h('div.col1-moves', [
+        col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
+        moves,
+        col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d))
+      ]) : moves
+    ) : renderResult(ctrl))
   ]);
 }
