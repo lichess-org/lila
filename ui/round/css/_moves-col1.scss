@@ -9,6 +9,9 @@
       padding: 0 1em;
       opacity: .7;
     }
+    body.playing.zen & {
+      display: none;
+    }
   }
   .moves {
     flex: 1 1 100%;
