@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
+import { ops as treeOps } from 'tree';
 import { TagArray } from './interfaces';
 import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
@@ -18,7 +19,7 @@ export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
     white: findTag(tags, 'white')!,
     black: findTag(tags, 'black')!
   };
-  if (!playerNames.white || !playerNames.black) return;
+  if (!playerNames.white && !playerNames.black && !treeOps.findInMainline(ctrl.tree.root, n => !!n.clock)) return;
   const clocks = renderClocks(ctrl),
   ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
   return (['white', 'black'] as Color[]).map(color =>
