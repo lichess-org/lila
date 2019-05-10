@@ -26,16 +26,15 @@
   move {
     flex: 0 0 calc(100% * 5 / 12);
     padding-left: .7em;
-    &:not(.empty) {
-      cursor: pointer;
-      &:hover {
-        background: $c-primary;
-        color: #fff;
-      }
+    cursor: pointer;
+    &:hover {
+      background: $c-primary;
+      color: #fff;
     }
     &.active {
       font-weight: bold;
       background: mix($c-primary, $c-bg-box, 20%);
+      color: $c-font-clear;
     }
   }
   .message {

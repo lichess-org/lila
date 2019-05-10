@@ -10,13 +10,6 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-function emptyMove() {
-  return h('move.empty', '...');
-}
-function nullMove() {
-  return h('move.empty', '');
-}
-
 const scrollMax = 99999;
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
@@ -37,11 +30,10 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   }
 });
 
-function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
-  if (!step) return orEmpty ? emptyMove() : nullMove();
-  return h('move', {
+function renderMove(step: Step, curPly: number) {
+  return step ? h('move', {
     class: { active: step.ply === curPly }
-  }, step.san[0] === 'P' ? step.san.slice(1) : step.san);
+  }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : null;
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -91,8 +83,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const els: MaybeVNodes = [], curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
     els.push(h('index', i + 1 + ''));
-    els.push(renderMove(pairs[i][0], curPly, true));
-    els.push(renderMove(pairs[i][1], curPly, false));
+    els.push(renderMove(pairs[i][0], curPly));
+    els.push(renderMove(pairs[i][1], curPly));
   }
   els.push(renderResult(ctrl));
 
