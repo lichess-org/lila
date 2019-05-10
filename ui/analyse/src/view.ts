@@ -285,7 +285,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
-    h('div.analyse__board.main-board.' + ctrl.bottomColor(), {
+    h('div.analyse__board.main-board', {
       hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
