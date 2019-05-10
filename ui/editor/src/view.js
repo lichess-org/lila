@@ -192,7 +192,7 @@ function sparePieces(ctrl, color, orientation, position) {
   var pieces = [[color, 'king'], [color, 'man'], ['', ''], ['', ''], [opposite, 'man'], [opposite, 'king']];
 
   return m('div', {
-    class: ['spare', 'spare-' + position, 'orientation-' + orientation, 'spare-' + color].join(' ')
+    class: ['spare', 'spare-' + position, 'spare-' + color].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
