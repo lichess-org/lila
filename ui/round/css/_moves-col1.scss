@@ -69,6 +69,9 @@
     &::before {
       margin-right: .3em;
     }
+    body.playing.zen & {
+      display: none;
+    }
   }
   .status {
     display: none;
