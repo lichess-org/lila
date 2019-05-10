@@ -46,6 +46,9 @@ $c-study: $c-primary;
         display: block;
         margin: 0;
       }
+      div {
+        overflow: hidden;
+      }
       span {
         font-size: .9rem;
         display: block;
