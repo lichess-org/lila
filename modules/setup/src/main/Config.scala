@@ -59,6 +59,10 @@ trait Positional { self: Config =>
     fen ?? { f => ~(Forsyth <<< f).map(_.situation playable strictFen) }
   }
 
+  lazy val validKingCount = variant != FromPosition || {
+    fen ?? { Forsyth.countKings(_) <= 30 }
+  }
+
   def fenGame(builder: DraughtsGame => Game): Game = {
     val baseState = fen ifTrue (variant.fromPosition) flatMap {
       Forsyth.<<<@(FromPosition, _)

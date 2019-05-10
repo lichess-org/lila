@@ -111,6 +111,19 @@ object Forsyth {
     }
   }
 
+  def countKings(rawSource: String): Int = read(rawSource) { fen =>
+    fen.split(':').filter(_.nonEmpty).foldLeft(0) {
+      (kings, line) =>
+        Color.apply(line.charAt(0)).fold(kings) {
+          _ =>
+            line.drop(1).split(',').foldLeft(kings) {
+              (lineKings, field) =>
+                (field.nonEmpty && field.charAt(0) == 'K').fold(lineKings + 1, lineKings)
+            }
+        }
+    }
+  }
+
   def >>(situation: Situation): String = >>(SituationPlus(situation, 1))
 
   def >>(parsed: SituationPlus): String = parsed match {

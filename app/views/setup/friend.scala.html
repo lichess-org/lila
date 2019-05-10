@@ -7,7 +7,7 @@
 @userLink(u, cssClass="target".some)
 }
 @setup.variant(form, translatedVariantChoicesWithVariantsAndFen)
-@fenInput(form("fen"), false, validFen)
+@fenInput(form("fen"), false, false, validFen)
 @setup.timeMode(form, lidraughts.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">

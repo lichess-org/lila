@@ -2,7 +2,7 @@
 
 @fields = {
 @setup.variant(form, translatedAiVariantChoices)
-@fenInput(form("fen"), true, validFen)
+@fenInput(form("fen"), true, true, validFen)
 @setup.timeMode(form, lidraughts.setup.AiConfig)
 @trans.level()
 <div class="level buttons">

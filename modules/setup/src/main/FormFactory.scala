@@ -42,6 +42,7 @@ private[setup] final class FormFactory {
       "fen" -> fen
     )(AiConfig.<<)(_.>>)
       .verifying("invalidFen", _.validFen)
+      .verifying("tooManyKings", _.validKingCount)
   )
 
   def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig map (_.ai)

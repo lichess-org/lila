@@ -823,6 +823,7 @@ in %3$s</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPdn">Invalid PDN</string>
   <string name="invalidFen">Invalid FEN</string>
+  <string name="tooManyKings">You can't play against Scan with more than 30 kings on the board.</string>
   <string name="error.minLength">Minimum length is %s</string>
   <string name="error.maxLength">Maximum length is %s</string>
   <string name="error.min">Must be greater or equal to %s</string>

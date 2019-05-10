@@ -801,6 +801,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="draughtsBasics">Basis dammen</string>
   <string name="invalidPdn">Ongeldige PDN</string>
   <string name="invalidFen">Ongeldige FEN</string>
+  <string name="tooManyKings">Je kan niet tegen Scan spelen met meer dan 30 dammen op het bord.</string>
   <string name="error.minLength">Minimumlengte is %s tekens</string>
   <string name="error.maxLength">Maximumlengte is %s tekens</string>
   <string name="error.min">Moet groter dan of gelijk aan %s zijn</string>
