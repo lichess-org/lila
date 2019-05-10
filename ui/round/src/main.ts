@@ -39,6 +39,8 @@ export function app(opts: RoundOpts): RoundApi {
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
+  window.addEventListener('resize', redraw); // col1 / col2+ transition
+
   return {
     socketReceive: ctrl.socket.receive,
     moveOn: ctrl.moveOn
