@@ -42,52 +42,51 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
 }
 
 export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
+  const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts(),
+    couldDraw = !window.lidraughts.hasTouchEvents;
+  const config = {
+    turnColor: opts.turnColor,
+    fen: opts.fen,
+    lastMove: opts.lastMove,
+    captureLength: opts.captureLength,
+    orientation: ctrl.bottomColor(),
+    coordinates: ctrl.embed ? 0 : pref.coords,
+    addPieceZIndex: pref.is3d,
+    viewOnly: !!ctrl.embed && !ctrl.gamebookPlay(),
+    movable: {
+      free: false,
+      color: opts.movable!.color,
+      dests: opts.movable!.dests,
+      showDests: pref.destination
+    },
+    events: {
+      move: ctrl.userMove,
+      dropNewPiece: ctrl.userNewPiece
+    },
+    premovable: {
+      enabled: opts.premovable!.enabled,
+      showDests: pref.destination,
+      variant: d.game.variant.key,
+      events: {
+        set: ctrl.onPremoveSet
+      }
+    },
+    drawable: {
+      enabled: !ctrl.embed && couldDraw,
+      eraseOnClick: (!ctrl.opts.study || !!ctrl.opts.practice) && couldDraw
+    },
+    highlight: {
+      lastMove: pref.highlight,
+      check: pref.highlight,
+      kingMoves: pref.showKingMoves && (d.game.variant.key === 'frisian' || d.game.variant.key === 'frysk')
+    },
+    animation: {
+      duration: pref.animationDuration
+    },
+    disableContextMenu: true
+  };
+  ctrl.study && ctrl.study.mutateCgConfig(config);
 
-    const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
-
-    const config = {
-        turnColor: opts.turnColor,
-        fen: opts.fen,
-        lastMove: opts.lastMove,
-        captureLength: opts.captureLength,
-        orientation: ctrl.bottomColor(),
-        coordinates: ctrl.embed ? 0 : pref.coords,
-        addPieceZIndex: pref.is3d,
-        viewOnly: !!ctrl.embed && !ctrl.gamebookPlay(),
-        movable: {
-            free: false,
-            color: opts.movable!.color,
-            dests: opts.movable!.dests,
-            showDests: pref.destination
-        },
-        events: {
-            move: ctrl.userMove,
-            dropNewPiece: ctrl.userNewPiece
-        },
-        premovable: {
-            enabled: opts.premovable!.enabled,
-            showDests: pref.destination,
-            variant: d.game.variant.key,
-            events: {
-              set: ctrl.onPremoveSet
-            }
-        },
-        drawable: {
-            enabled: !ctrl.embed,
-            eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
-        },
-        highlight: {
-            lastMove: pref.highlight,
-            check: pref.highlight,
-            kingMoves: pref.showKingMoves && (d.game.variant.key === 'frisian' || d.game.variant.key === 'frysk')
-        },
-        animation: {
-            duration: pref.animationDuration
-        },
-        disableContextMenu: true
-    };
-    ctrl.study && ctrl.study.mutateCgConfig(config);
-
-    return config;
+  return config;
 
 }
