@@ -488,7 +488,7 @@ export default class AnalyseCtrl {
       uci: string = (ghosts == 0 || !this.node.uci) ? (orig + dest) : (this.node.uci + dest),
       boardFen = this.draughtsground.getFen(),
       continueCapture = capture && this.moreCaptures(boardFen),
-      nextColor = continueCapture ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W') ,
+      nextColor = continueCapture ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W'),
       nextFen = nextColor + ":" +  boardFen;
 
     let treeNode = continueCapture ? (ghosts === 0 ? gamebook.peekChild() : this.node) : gamebook.tryJump(uci, nextFen);
@@ -517,6 +517,7 @@ export default class AnalyseCtrl {
         } else {
           treeNode.ply = this.node.ply;
           treeNode.displayPly = treeNode.ply + 1;
+          treeNode.shapes = undefined;
         }
         const sideToMove = treeNode.captLen ? this.node.fen[0] : (this.node.fen[0] == 'W' ? 'B' : 'W');
         const fenParts = treeNode.fen.split(':');
