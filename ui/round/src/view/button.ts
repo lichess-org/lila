@@ -249,8 +249,7 @@ export function followUp(ctrl: RoundController): VNode {
       d.game.source === 'pool'),
     rematchZone = ctrl.challengeRematched ? [
       h('div.suggestion.text', {
-        hook: onSuggestionHook,
-        attrs: { 'data-icon': 'j' }
+        hook: onSuggestionHook
       }, noarg('rematchOfferSent'))
     ] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : []);
   return h('div.follow-up', [
