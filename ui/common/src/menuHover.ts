@@ -68,8 +68,7 @@ export const menuHover = () => window.lichess.raf(function() {
       // handle the event, based on its type
       if (ev.type == 'mouseenter') {
         // do nothing if already active or a button is pressed (dragging a piece)
-        // if (state.isActive || ev.which) return;
-        if (state.isActive) return; // fixme firefox has which = 1
+        if (state.isActive || (ev.originalEvent as MouseEvent).buttons) return;
         // set "previous" X and Y position based on initial entry point
         state.pX = ev.pageX; state.pY = ev.pageY;
         // update "current" X and Y position based on mousemove
