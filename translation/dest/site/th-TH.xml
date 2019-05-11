@@ -722,6 +722,7 @@
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
+  <string name="xCreatesStudyY">%1$s สร้างกรณีศึกษา %2$s</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
