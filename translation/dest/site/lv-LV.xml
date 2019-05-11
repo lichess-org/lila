@@ -489,7 +489,7 @@
   <string name="butYouCanKeepTrying">Taču varat turpināt censties.</string>
   <string name="success">Uzdevums atrisināts</string>
   <string name="wasThisPuzzleAnyGood">Vai šis bija labs uzdevums?</string>
-  <string name="pleaseVotePuzzle">Palīdzi uzlabot lichess, balsojot ar bultiņām uz augšu vai uz leju:</string>
+  <string name="pleaseVotePuzzle">Palīdziet uzlabot Lichess, balsojot ar augšup vai lejup vērsto bultiņu:</string>
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
   <plurals name="playedXTimes">
@@ -507,12 +507,12 @@
     <item quantity="one">Pašlaik norisinās %s spēle</item>
     <item quantity="other">Pašlaik norisinās %s spēles</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Pēc gājiena izdarīšanas automātiski pāriet pie nākamās spēles</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Pēc gājiena automātiski pāriet uz nākamo spēli</string>
   <string name="autoSwitch">Pašpārslēgšanās</string>
   <string name="puzzles">Uzdevumi</string>
   <string name="latestUpdates">Jaunākās ziņas</string>
   <string name="tournamentWinners">Turnīra uzvarētāji</string>
-  <string name="name">Vārds</string>
+  <string name="name">Nosaukums</string>
   <string name="description">Apraksts</string>
   <string name="no">Nē</string>
   <string name="yes">Jā</string>
@@ -555,17 +555,17 @@
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
   <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>
-  <string name="emailMeALink">Atsūtīt saiti uz epastu</string>
+  <string name="emailMeALink">Atsūtīt saiti epastā</string>
   <string name="currentPassword">Esošā parole</string>
   <string name="newPassword">Jaunā parole</string>
   <string name="newPasswordAgain">Jaunā parole (atkārtoti)</string>
   <string name="boardHighlights">Lauciņu izcelšana (pēdējais gājiens vai piesakot šahu)</string>
-  <string name="pieceDestinations">Figūru galamērķi (legāli gājieni vai priekšgājieni)</string>
+  <string name="pieceDestinations">Figūru galamērķi (atļauti gājieni vai priekšgājieni)</string>
   <string name="boardCoordinates">Galdiņa koordinātas (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
-  <string name="pgnLetter">Burti (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
   <string name="chessClock">Šaha pulkstenis</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
   <string name="never">Nekad</string>
