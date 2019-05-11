@@ -18,6 +18,14 @@
     <item quantity="one">Forumda %1$s mesaj paylaştı: %2$s</item>
     <item quantity="other">%2$s forumunda %1$s mesaj paylaştı</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s hamle yaptı</item>
+    <item quantity="other">%1$s hamle yaptı</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">(%1$s yazışmalı oyunda)</item>
+    <item quantity="other">(%1$s yazışmalı oyunda)</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">%s adet yazışmalı oyun tamamladı</item>
     <item quantity="other">%s adet yazışmalı oyun tamamladı</item>
