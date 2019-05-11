@@ -92,7 +92,7 @@ object faq {
           "What titles are there on Lichess?",
           p(
             "Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as ",
-            a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("many national master titles"), ".",
+            a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("many national master titles"), ". ",
             "Here is a list of FIDE titles:"
           ),
           ul(
