@@ -85,7 +85,7 @@
   @include breakpoint($mq-subnav-top) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
-    br { display: none; }
+    br, .rank { display: none; }
     a {
       display: flex;
       justify-content: center;
