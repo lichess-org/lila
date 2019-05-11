@@ -54,7 +54,7 @@
   }
 
   &__message {
-    @extend %break-word-hard;
+    @extend %break-word;
     .embed:not(img) {
       @extend %video;
       margin: $block-gap auto;
