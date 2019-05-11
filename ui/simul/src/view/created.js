@@ -91,7 +91,7 @@ module.exports = function(ctrl) {
   ])
   var mEditCandidatesOption = (ctrl.data.unique && (simul.createdByMe(ctrl) || simul.amArbiter(ctrl))) ? m('span.option', {
     'data-icon': '%',
-    'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : 'Back to simul',
+    'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : ctrl.trans('backToSimul'),
     onclick: function(e) {
       ctrl.toggleCandidates = !ctrl.toggleCandidates;
     }

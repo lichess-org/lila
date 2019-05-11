@@ -664,6 +664,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="acceptSomePlayers">Je kunt nu spelers accepteren, en dan de simultaan starten</string>
   <string name="acceptRandomCandidate">Accepteer willekeurige kandidaat</string>
   <string name="youHaveBeenSelected">Je bent geaccepteerd als speler! Wacht af tot de simultaan begint.</string>
+  <string name="xComplete">%s voltooid!</string>
   <string name="ongoing">%s lopende</string>
   <string name="winningPercentage">Winstpercentage</string>
   <string name="targetPercentage">Doel percentage</string>

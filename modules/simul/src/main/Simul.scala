@@ -32,7 +32,7 @@ case class Simul(
 
   def id = _id
 
-  def fullName = s"$name simul"
+  def fullName = isUnique.fold(name, s"$name simul")
 
   def isCreated = !isStarted
 

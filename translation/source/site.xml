@@ -684,6 +684,7 @@ in %3$s</string>
   <string name="acceptSomePlayers">Now you get to accept some players, then start the simul</string>
   <string name="acceptRandomCandidate">Accept random candidate</string>
   <string name="youHaveBeenSelected">You have been selected! Hold still, the simul is about to begin.</string>
+  <string name="xComplete">%s complete!</string>
   <string name="ongoing">%s ongoing</string>
   <string name="winningPercentage">Winning percentage</string>
   <string name="targetPercentage">Target percentage</string>

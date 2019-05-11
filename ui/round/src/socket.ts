@@ -132,8 +132,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         },
         simulEnd(simul: Simul) {
             $.modal($(
-                '<p>Simul complete!</p><br /><br />' +
-                '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
+                '<p>' + ctrl.trans('xComplete', simul.name) + '</p><br /><br />' +
+                '<a class="button" href="/simul/' + simul.id + '">' + ctrl.trans('backToSimul') + '</a>'
             ));
         }
     };

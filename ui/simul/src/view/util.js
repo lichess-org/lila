@@ -47,7 +47,7 @@ module.exports = {
   arbiterOption: function(ctrl) {
     return simul.amArbiter(ctrl) ? m('div.top_right.option', {
       'data-icon': '%',
-      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : 'Close arbiter panel',
+      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : ctrl.trans('backToSimul'),
       onclick: function(e) {
         if (ctrl.toggleArbiter) {
           clearInterval(ctrl.arbiterInterval);
