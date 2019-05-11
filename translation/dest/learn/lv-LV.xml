@@ -196,7 +196,7 @@ Bandinieks = 1</string>
   <string name="stageXComplete">Posms %s pabeigts</string>
   <string name="yourScore">Tavs rezultāts</string>
   <string name="next">Nākamais</string>
-  <string name="backToMenu">Atpakaļ uz izvēlni</string>
+  <string name="backToMenu">Atgriezties izvēlnē</string>
   <string name="puzzleFailed">Uzdevums nav atrisināts!</string>
   <string name="retry">Mēģināt vēlreiz</string>
 </resources>
