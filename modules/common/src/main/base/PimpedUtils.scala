@@ -6,7 +6,7 @@ import scala.concurrent.Future
 import scala.util.Try
 
 import com.typesafe.config.Config
-import org.joda.time.{ DateTime, Duration, Instant }
+import org.joda.time.{ DateTime, Duration }
 import ornicar.scalalib.Zero
 import scalaz._
 import Scalaz._
@@ -65,12 +65,6 @@ final class PimpedDateTime(private val date: DateTime) extends AnyVal {
   def getSeconds: Long = date.getMillis / 1000
   def getCentis: Long = date.getMillis / 10
   def toNow = new Duration(date, DateTime.now)
-}
-
-final class PimpedInstant(private val instant: Instant) extends AnyVal {
-  def getSeconds: Long = instant.getMillis / 1000
-  def getCentis: Long = instant.getMillis / 10
-  def toNow = new Duration(instant, Instant.now)
 }
 
 final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {

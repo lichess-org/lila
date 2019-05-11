@@ -4,7 +4,7 @@ import scala.util.Try
 import scala.concurrent.duration._
 
 import ornicar.scalalib
-import org.joda.time.{ DateTime, Instant }
+import org.joda.time.DateTime
 import com.typesafe.config.Config
 import play.api.libs.json.{ JsObject, JsValue }
 import lila.base._
@@ -64,7 +64,6 @@ trait Lilaisms
   @inline implicit def toPimpedString(s: String) = new PimpedString(s)
   @inline implicit def toPimpedConfig(c: Config) = new PimpedConfig(c)
   @inline implicit def toPimpedDateTime(d: DateTime) = new PimpedDateTime(d)
-  @inline implicit def toPimpedInstant(i: Instant) = new PimpedInstant(i)
   @inline implicit def toPimpedValid[A](v: Valid[A]) = new PimpedValid(v)
   @inline implicit def toPimpedTry[A](t: Try[A]) = new PimpedTry(t)
   @inline implicit def toPimpedEither[A, B](e: Either[A, B]) = new PimpedEither(e)
