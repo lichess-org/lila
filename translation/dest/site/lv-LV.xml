@@ -451,7 +451,7 @@
   <string name="startPosition">Sākuma pozīcija</string>
   <string name="clearBoard">Notīrīt lauciņu</string>
   <string name="savePosition">Saglabāt pozīciju</string>
-  <string name="loadPosition">Ielādēt izkārtojumu</string>
+  <string name="loadPosition">Ielādēt pozīciju</string>
   <string name="isPrivate">Privāts</string>
   <string name="reportXToModerators">Ziņot par %s moderatoriem</string>
   <string name="profileCompletion">Profils aizpildīts: %s</string>
@@ -527,9 +527,9 @@
   <string name="reply">Atbilde</string>
   <string name="message">Ziņojums</string>
   <string name="createTheTopic">Izveidot jaunu tematu</string>
-  <string name="reportAUser">Ziņot lietotājam</string>
+  <string name="reportAUser">Ziņot par lietotāju</string>
   <string name="user">Lietotājs</string>
-  <string name="reason">Cēlonis</string>
+  <string name="reason">Iemesls</string>
   <string name="whatIsIheMatter">Kas par lietu?</string>
   <string name="cheat">Krāpšanās</string>
   <string name="insult">Apvainošana</string>
