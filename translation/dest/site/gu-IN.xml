@@ -68,7 +68,17 @@
   <string name="close">બંધ કરો</string>
   <string name="winning">જીતનાર ચાલ</string>
   <string name="losing">હારનાર ચાલ</string>
+  <string name="drawn">Draw તરફ જસે ચાલ</string>
+  <string name="unknown">અજ્ઞાત</string>
+  <string name="database">ડેટા બેઝ</string>
   <string name="whiteDrawBlack">સફેદ/બરોબરી/કાળો</string>
+  <string name="averageRatingX">સરેરાશ રેટિંગ %s</string>
+  <string name="recentGames">તાજેતરની ગેમ</string>
+  <string name="topGames">ટોપ ગેમ</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">મેટ %s ચાલ માં</item>
+    <item quantity="other">મેટ %s ચાલ માં</item>
+  </plurals>
   <string name="opening">શરૂઆત</string>
   <string name="youCannotChallengeX">તમે %sને પડકાર કરી શકતા નથી.</string>
   <string name="xDoesNotAcceptChallenges">%s પડકારોને સ્વીકારતા નથી.</string>
