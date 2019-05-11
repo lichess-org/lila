@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
   <string name="signIn">Ensaluti</string>
-  <string name="newToLichess">Ne jam konas vi Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Vi bezonas konton por fari tion</string>
   <string name="signUp">Registriĝi</string>
   <string name="computersAreNotAllowedToPlay">Estas nepermesate ludi per komputiloj aŭ komputilasisto. Bonvolu ne akiri asiston de iu ŝakaŭtomato, datumbazo aŭ aliaj ludantoj dum ludado. Krome, notu ke la kreado de multaj kontoj estas forte malrekomendata, kaj troa uzo de multaj kontoj rezultigos vian forbaron.</string>
@@ -164,8 +163,9 @@
   <string name="ratingStats">Rangaj statistikoj</string>
   <string name="username">Uzantnomo</string>
   <string name="usernameOrEmail">Uzantnomo aŭ retpoŝtadreso</string>
+  <string name="changeUsername">Ŝanĝi uzantnomon</string>
+  <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝi. Por ekzemple \"johndoe\" al \"JohnDoe\".</string>
   <string name="password">Pasvorto</string>
-  <string name="haveAnAccount">Ĉu vi havas konton?</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
   <string name="email">Retadreso</string>
@@ -173,6 +173,10 @@
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
   <string name="rankX">Rango: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rango aktualigas en ĉiu minuto</item>
+    <item quantity="other">Rango aktualigas en ĉiu %s minutoj</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
     <item quantity="other">%s puzloj</item>
@@ -303,6 +307,8 @@
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
   <string name="ratedMoreThanInPerf">Rango de ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Rango de ≤ %1$s en %2$s</string>
+  <string name="mustBeInTeam">Vi devas esti en teamo %s</string>
+  <string name="youAreNotInTeam">Vi ne estas en la teamo %s</string>
   <string name="backToGame">Reiri al la ludo</string>
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="teams">Teamoj</string>
@@ -385,6 +391,12 @@
   <string name="winner">Venkinto</string>
   <string name="standing">Pozicio</string>
   <string name="createANewTournament">Krei novan turniron</string>
+  <string name="tournamentCalendar">Turnira kalendaro</string>
+  <string name="conditionOfEntry">Kondiĉo de eniro:</string>
+  <string name="advancedSettings">Spertulaj agordoj</string>
+  <string name="safeTournamentName">Elekti tre sekuran nomon por la turniro.</string>
+  <string name="recommendNotTouching">Ni rekomendi ke vi ne tuŝas ĉi tiujn.</string>
+  <string name="showAdvancedSettings">Montri spertulajn agordojn</string>
   <string name="join">Aliĝi</string>
   <string name="withdraw">Eliri</string>
   <string name="points">Poentoj</string>
@@ -514,6 +526,7 @@
   <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
   <string name="incorrectPassword">Malkorekta pasvorto</string>
+  <string name="invalidAuthenticationCode">Nevalida aŭtentigada kodo</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -631,6 +644,7 @@
   <string name="webmasters">Retejestroj</string>
   <string name="about">Pri</string>
   <string name="aboutX">Pri %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s estas senpaga (vere), libera, ne-reklamoj, malferma-kodo ŝaka servilo.</string>
   <string name="really">vere</string>
   <string name="contribute">Kontribui</string>
   <string name="contact">Kontakto</string>
@@ -735,6 +749,7 @@
   <string name="xHostsY">%1$s gastigas %2$s</string>
   <string name="xJoinsY">%1$s kuplas %2$s</string>
   <string name="xLikesY">%1$s ŝatas %2$s</string>
+  <string name="xCreatesStudyY">%1$s kreas studion %2$s</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
   <string name="anonymous">Sennoma</string>
@@ -753,6 +768,7 @@
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
   <string name="usernamePrefixInvalid">La uzantnomo devas komenci kun litero.</string>
   <string name="usernameSuffixInvalid">La salutnomo devas finanta kun letero aux numero.</string>
+  <string name="usernameCharsInvalid">La uzantnomo devas enhavi nur literojn, nombrojn, substrekojn, kaj streketojn.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>
   <string name="playChessInStyle">Ludu ŝakon elegante</string>
@@ -801,13 +817,32 @@
   <string name="waitingForAnalysis">Atendante analizon</string>
   <string name="noMistakesFoundForWhite">Neniu eraroj trovita por blanko</string>
   <string name="noMistakesFoundForBlack">Neniu eraroj trovita por nigro</string>
+  <string name="doneReviewingWhiteMistakes">Revui blankajn erarojn estas finita</string>
+  <string name="doneReviewingBlackMistakes">Revui nigrajn erarojn estas finita</string>
   <string name="doItAgain">Fari ĝin denove</string>
+  <string name="reviewWhiteMistakes">Revui blankajn erarojn</string>
+  <string name="reviewBlackMistakes">Revui nigrajn erarojn</string>
   <string name="advantage">Avantaĝo</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekundo</item>
     <item quantity="other">%s sekundoj</item>
   </plurals>
   <string name="opening">Malfermadoj</string>
+  <string name="middlegame">Mezaĵo</string>
   <string name="endgame">Finaĵo</string>
+  <string name="registerToSendChallenges">Bonvolu registri por sendi defiojn.</string>
+  <string name="youCannotChallengeX">Vi ne povas defii %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne akceptas defiojn.</string>
+  <string name="yourXRatingIsTooFarFromY">Via %1$s rango estas tro for de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ne povas defii pro duma %s rango.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s nur akceptas defiojn de amikoj.</string>
+  <string name="conditionalPremoves">Kondiĉaj antaŭmovoj</string>
+  <string name="addCurrentVariation">Aldoni aktualan variaĵon</string>
+  <string name="playVariationToCreateConditionalPremoves">Ludi variaĵo por krei kondiĉajn antaŭmovojn</string>
+  <string name="noConditionalPremoves">Ne kondiĉaj antaŭmovoj</string>
   <string name="playX">Ludu %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">kaj savi %s antaŭmovan vicon</item>
+    <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
+  </plurals>
 </resources>
