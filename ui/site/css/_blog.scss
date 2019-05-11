@@ -124,10 +124,9 @@
     font-size: 1.3em;
     margin-bottom: 40px;
     .button {
-      @extend %ellipsis;
-      margin: auto;
+      margin: 0 var(--box-padding);
       text-transform: none;
-      max-width: 90vw;
+      white-space: normal;
       display: block;
       &::before {
         vertical-align: bottom;
