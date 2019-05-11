@@ -234,7 +234,8 @@ final class JsonView(
       "orientation" -> orientation.name,
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
-        "coords" -> pref.coords
+        "coords" -> pref.coords,
+        "resizeHandle" -> pref.resizeHandle
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))
