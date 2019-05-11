@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Bekijk op volledige grootte</string>
   <string name="logOut">Afmelden</string>
   <string name="signIn">Aanmelden</string>
-  <string name="newToLichess">Nieuw op Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van schaakengines mogen hier niet spelen. Maak a.u.b. geen gebruik van schaakengines, databases of de hulp van andere spelers terwijl je je partijen speelt.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen, bijvoorbeeld van \"johndoe\" naar \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Uw gebruikersnaam wijzigen. Dit kan alleen worden gedaan eenmaal en u mag alleen het hoofdlettergebruik van de letters in uw gebruikersnaam wijzigen.</string>
   <string name="password">Wachtwoord</string>
-  <string name="haveAnAccount">Heeft u al een account?</string>
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
   <string name="email">Email</string>
@@ -176,6 +174,10 @@
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
   <string name="rankX">Positie: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Positie wordt elke minuut bijgewerkt</item>
+    <item quantity="other">Positie wordt elke \'%s\' minuten bijgewerkt</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzel</item>
     <item quantity="other">%s puzzels</item>
@@ -398,7 +400,7 @@
   <string name="emptyTournamentName">Laat het veld leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
   <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
   <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
-  <string name="showAdvancedSettings">Toon uitgebreide instellingen >></string>
+  <string name="showAdvancedSettings">Toon uitgebreide instellingen &gt;&gt;</string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
   <string name="points">Punten</string>
