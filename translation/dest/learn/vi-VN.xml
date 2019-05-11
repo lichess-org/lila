@@ -24,13 +24,13 @@
   <string name="bishopComplete">Chúc mừng! Bạn có thể chỉ huy một quân tượng.</string>
   <string name="theQueen">Quân hậu</string>
   <string name="queenCombinesRookAndBishop">Hậu = xe + tượng</string>
-  <string name="queenIntro">Quân cờ vua mạnh nhất tiến vào. Hoàng Hậu!</string>
-  <string name="queenComplete">Chúc mừng! Quân hậu không có bí mật gì đối với bạn.</string>
+  <string name="queenIntro">Quân cờ mạnh nhất là đây. Hoàng hậu vĩ đại!</string>
+  <string name="queenComplete">Chúc mừng! Bạn đã nắm mọi bí mật của quân hậu.</string>
   <string name="theKing">Quân vua</string>
   <string name="theMostImportantPiece">Quân cờ quan trọng nhất</string>
-  <string name="kingIntro">Bạn là vị vua. Nếu bạn rơi vào chiến đấu, bạn thua cờ.</string>
-  <string name="theKingIsSlow">Nhà vua rất chậm.</string>
-  <string name="lastOne">Cuối cùng!</string>
+  <string name="kingIntro">Bạn là quân vua. Nếu bạn bị ăn thì sẽ thua ván cờ.</string>
+  <string name="theKingIsSlow">Quân vua đi chậm.</string>
+  <string name="lastOne">Bài cuối!</string>
   <string name="kingComplete">Bây giờ bạn có thể chỉ huy người chỉ huy!</string>
   <string name="theKnight">Quân mã</string>
   <string name="itMovesInAnLShape">Nó đi theo hình chữ L</string>
