@@ -32,7 +32,7 @@ object mod {
         st.form(method := "POST", action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
           button(cls := "btn-rack__btn inquiry", tpe := "submit")(i)
         ),
-        st.form(method := "POST", action := routes.Mod.refreshUserAssess(u.username), title := "Collect data and analyze if the user is suspicious.")(
+        st.form(method := "POST", action := routes.Mod.refreshUserAssess(u.username), title := "Collect data and ask irwin", cls := "xhr")(
           button(cls := "btn-rack__btn", tpe := "submit")("Evaluate")
         ),
         isGranted(_.Shadowban) option {
