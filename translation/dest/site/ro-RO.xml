@@ -181,6 +181,11 @@
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
   <string name="rankX">Loc în clasament: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Locul în clasament este actualizat în fiecare minut</item>
+    <item quantity="few">Locul în clasament este actualizat în fiecare %s minute</item>
+    <item quantity="other">Locul în clasament este actualizat în fiecare %s minute</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">O poziție</item>
     <item quantity="few">%s poziții</item>
