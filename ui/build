@@ -1,7 +1,7 @@
 #!/bin/bash -ea
 
 target=${1-dev}
-mode=${2-build} # use "upgrade" to upgrade all deps
+mode=${2-build} # build | upgrade | css | js
 echo "building ui modules with target=$target and mode=$mode"
 
 echo "node: $(node --version)"
@@ -36,23 +36,25 @@ build() {
 }
 
 
-if [ $mode != "upgrade" ]; then
+if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
   echo "build css"
   (cd ui && gulp "css-$target")
   touch public/css/*.min.css # they have an off by 12h modification time!!
 fi
 
-if type -p parallel; then # parallel execution!
-  if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-    P_OPTS="-j+4 --halt 2"
-    [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
+if [ $mode != "css" ]; then
+  if type -p parallel; then # parallel execution!
+    if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
+      P_OPTS="-j+4 --halt 2"
+      [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
+    fi
+    set -x
+    parallel --gnu $P_OPTS build_ts ::: $ts_apps1
+    parallel --gnu $P_OPTS build_ts ::: $ts_apps2
+    parallel --gnu $P_OPTS build ::: $apps
+  else # sequential execution
+    echo "For faster builds, install GNU parallel."
+    for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
+    for app in $apps; do (build $app); done
   fi
-  set -x
-  parallel --gnu $P_OPTS build_ts ::: $ts_apps1
-  parallel --gnu $P_OPTS build_ts ::: $ts_apps2
-  parallel --gnu $P_OPTS build ::: $apps
-else # sequential execution
-  echo "For faster builds, install GNU parallel."
-  for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
-  for app in $apps; do (build $app); done
 fi
