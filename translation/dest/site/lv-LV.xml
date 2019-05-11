@@ -360,14 +360,14 @@
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
   <string name="importGame">Importēt spēli</string>
-  <string name="importGameExplanation">Iekopējot spēles PGN, iegūsi atkārtojumu, datora analīzi, spēles tērzētavu un URL ar ko dalīties.</string>
+  <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datora analīzi, spēles sarunu un URL ar ko dalīties.</string>
   <plurals name="nbImportedGames">
-    <item quantity="zero">%s importētās spēles</item>
-    <item quantity="one">%s importētā spēle</item>
-    <item quantity="other">%s importētās spēles</item>
+    <item quantity="zero">%s importētas spēles</item>
+    <item quantity="one">%s importēta spēles</item>
+    <item quantity="other">%s importētas spēles</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Šis ir šaha CAPTHCA</string>
-  <string name="clickOnTheBoardToMakeYourMove">Noklikšķini uz laukuma lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
   <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
   <string name="colorPlaysCheckmateInOne">%s iet; mats vienā gājienā</string>
