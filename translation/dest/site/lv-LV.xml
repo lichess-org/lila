@@ -101,7 +101,7 @@
   <string name="byCPL">Pēc CPL</string>
   <string name="openStudy">Atvērt izpēti</string>
   <string name="enable">Iespējot</string>
-  <string name="bestMoveArrow">Labāko gājienu bulta</string>
+  <string name="bestMoveArrow">Labākā gājiena bulta</string>
   <string name="evaluationGauge">Novērtējuma rādītājs</string>
   <string name="multipleLines">Vairāki varianti</string>
   <string name="cpus">Procesori</string>
@@ -166,8 +166,8 @@
     <item quantity="other">%s stundas</item>
   </plurals>
   <string name="time">Laiks</string>
-  <string name="rating">Vērtējums</string>
-  <string name="ratingStats">Vērtējumu statistika</string>
+  <string name="rating">Reitings</string>
+  <string name="ratingStats">Reitinga statistika</string>
   <string name="username">Lietotājvārds</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
   <string name="changeUsername">Mainīt lietotājvārdu</string>
