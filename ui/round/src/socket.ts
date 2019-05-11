@@ -4,6 +4,7 @@ import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
 import { Untyped, ApiEnd } from './interfaces';
+import { incSimulToMove } from './simulStanding';
 import { Simul } from 'game';
 
 const li = window.lidraughts;
@@ -112,17 +113,21 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
             ctrl.redraw();
         },
         simulPlayerMove(gameId: string) {
-            if (
-                ctrl.opts.userId &&
-                ctrl.data.simul &&
-                ctrl.opts.userId == ctrl.data.simul.hostId &&
-                gameId !== ctrl.data.game.id &&
-                ctrl.moveOn.get() &&
-                ctrl.draughtsground.state.turnColor !== ctrl.draughtsground.state.movable.color) {
-                ctrl.setRedirecting();
-                sound.move();
-                li.hasToReload = true;
-                location.href = '/' + gameId;
+            if (ctrl.opts.userId &&
+              ctrl.data.simul &&
+              ctrl.opts.userId == ctrl.data.simul.hostId) {
+                incSimulToMove(ctrl.trans);
+                if (gameId !== ctrl.data.game.id &&
+                  ctrl.moveOn.get() &&
+                  ctrl.draughtsground.state.turnColor !== ctrl.draughtsground.state.movable.color) {
+                    ctrl.setRedirecting();
+                    sound.move();
+                    li.hasToReload = true;
+                    location.href = '/' + gameId;
+                } else {
+                  $('#others_' + gameId).toggleClass('my_turn');
+                  $('#others_' + gameId + ':not(.game_timeout) .indicator').text(ctrl.trans('yourTurn'));
+                }
             }
         },
         simulEnd(simul: Simul) {

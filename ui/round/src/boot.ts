@@ -52,8 +52,19 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
                     }
                 },
                 simulStanding(s: SimulStanding) {
-                    if (s && data.simul) {
-                        updateSimulStanding(data.simul.id, s, round.trans);
+                    if (data.simul && s.fg) {
+                      $('#others_' + s.fg).remove();
+                      if (!$('#now_playing.other_games > a:not(.game_timeout)').length)
+                          $('.simul_tomove').hide();
+                      if (!$('#now_playing.other_games > a.game_timeout').length)
+                          $('.simul_timeouts').hide();
+                    }
+                    if (data.simul && data.simul.id == s.id) {
+                        updateSimulStanding(s, round.trans);
+                        if (data.simul.nbPlaying != s.g) {
+                          data.simul.nbPlaying = s.g;
+                          if (s.g <= 1) round.redraw();
+                        }
                     }
                 }
             }

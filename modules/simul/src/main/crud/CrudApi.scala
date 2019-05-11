@@ -40,7 +40,7 @@ final class CrudApi(simulRepo: SimulRepo) {
   def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {
     val upd = updateSimul(old, data, host, arbiter)
     simulRepo.update(upd) >>- {
-      Env.current.api.socketStanding(upd)
+      Env.current.api.socketStanding(upd, none)
     }
   }
 

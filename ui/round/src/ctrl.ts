@@ -22,7 +22,7 @@ import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
-
+import { decSimulToMove } from './simulStanding';
 import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
 
 interface GoneBerserk {
@@ -438,6 +438,8 @@ export default class RoundController {
         if (playing && playedColor === d.player.color) {
             this.moveOn.next();
             cevalSub.publish(d, o);
+            if (this.data.simul && !this.redirecting)
+              decSimulToMove(this.trans);
         }
         if (!this.replaying() && playedColor !== d.player.color) {
             // atrocious hack to prevent race condition

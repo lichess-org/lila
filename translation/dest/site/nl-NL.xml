@@ -113,6 +113,7 @@
   </plurals>
   <string name="currentGames">Lopende partijen</string>
   <string name="gamesInTimeout">Partijen met timeout</string>
+  <string name="yourTurnInX">Je bent aan zet in %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>

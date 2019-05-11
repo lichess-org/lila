@@ -164,7 +164,7 @@ final class SimulApi(
               _.finish(game.status, game.winnerUserId, game.turns)
             )
             update(simul2) >>- {
-              socketStanding(simul2)
+              socketStanding(simul2, game.id.some)
             } >>- {
               if (simul2.isFinished) onComplete(simul2)
             }
@@ -292,7 +292,7 @@ final class SimulApi(
     sendTo(simulId, actorApi.ReloadEval(gameId, json))
   }
 
-  def socketStanding(simul: Simul): Unit = {
+  def socketStanding(simul: Simul, finishedGame: Option[String]): Unit = {
     def reqWins =
       if (simul.targetReached)
         10000.some
@@ -302,13 +302,15 @@ final class SimulApi(
         simul.requiredWins
     bus.publish(
       lidraughts.hub.actorApi.round.SimulStanding(Json.obj(
+        "id" -> simul.id,
         "w" -> simul.wins,
         "d" -> simul.draws,
         "l" -> simul.losses,
         "g" -> simul.ongoing
       ).add("pct" -> simul.targetPct.fold(none[String])(_ => simul.currentPctStr.some))
         .add("rw" -> reqWins)
-        .add("rd" -> simul.requiredDraws)),
+        .add("rd" -> simul.requiredDraws)
+        .add("fg" -> finishedGame)),
       Symbol(s"simul-standing-${simul.id}")
     )
   }

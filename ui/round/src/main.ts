@@ -4,7 +4,7 @@ import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
-import { RoundOpts } from './interfaces';
+import { RoundOpts, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import MoveOn from './moveOn';
 import { main as view } from './view/main';
@@ -16,6 +16,7 @@ export interface RoundApi {
   moveOn: MoveOn;
   toggleZen(): void;
   trans: Trans;
+  redraw: Redraw;
 }
 
 export interface RoundMain {
@@ -42,7 +43,8 @@ export function app(opts: RoundOpts): RoundApi {
         socketReceive: ctrl.socket.receive,
         moveOn: ctrl.moveOn,
         toggleZen: ctrl.toggleZen,
-        trans: ctrl.trans
+        trans: ctrl.trans,
+        redraw: ctrl.redraw
     };
 };
 

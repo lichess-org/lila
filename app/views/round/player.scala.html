@@ -62,7 +62,7 @@ atom = atom.some) {
 </div>
 @if(playing.nonEmpty || simul.nonEmpty) {
 <div id="now_playing" class="other_games @if(ctx.pref.isBlindfold){blindfold}">
-  @others(playing, simul)
+  @others(pov, playing, simul)
 </div>
 }
 }

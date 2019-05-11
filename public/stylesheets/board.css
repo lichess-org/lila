@@ -1097,6 +1097,15 @@ div.timeout_choice select {
   display: flex;
   justify-content: space-between;
 }
+#now_playing h3.simul_tomove {
+  display: block;
+}
+#now_playing .simul_tomove span {
+  font-weight: bold;
+}
+#now_playing .simul_tomove .tomove_count {
+  display: none;
+}
 #now_playing .simul span {
   font-weight: bold;
   margin: 0 .5em;

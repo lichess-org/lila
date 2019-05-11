@@ -165,8 +165,6 @@ case class Simul(
   def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
   def isHost(user: User): Boolean = user.id == hostId
 
-  def playingPairings = pairings filterNot (_.finished)
-
   def hostColor = (color flatMap draughts.Color.apply) | draughts.Color(scala.util.Random.nextBoolean)
 
   def setPairingHostColor(gameId: String, hostColor: draughts.Color) =

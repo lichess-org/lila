@@ -184,7 +184,7 @@ private[api] final class RoundApi(
         "id" -> simul.id,
         "hostId" -> simul.hostId,
         "name" -> simul.name,
-        "nbPlaying" -> simul.playingPairings.size
+        "nbPlaying" -> simul.ongoing
       ).add("timeOutUntil" -> pov.game.isWithinTimeOut ?? pov.game.metadata.timeOutUntil)
     })
 

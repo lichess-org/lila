@@ -290,7 +290,7 @@ export function timeOutButton(
   ctrl: RoundController
 ): VNode {
   const enabled = function() {
-    return ctrl.data.simul &&
+    return ctrl.data.simul && ctrl.data.simul.nbPlaying > 1 &&
       (!ctrl.data.simul.timeOutUntil || (new Date).getTime() >= ctrl.data.simul.timeOutUntil) &&
       ctrl.clock && ctrl.clock.millisOf(ctrl.data.player.color) > 1.2e5;
   };
