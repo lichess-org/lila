@@ -144,7 +144,7 @@
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
   <string name="games">Spēles</string>
   <string name="forum">Forums</string>
-  <string name="xPostedInForumY">%1$s ziņas publicētas forumā %2$s</string>
+  <string name="xPostedInForumY">%1$s publicēja ziņu forumā \"%2$s\"</string>
   <string name="latestForumPosts">Jaunākie foruma paziņojumi</string>
   <string name="players">Spēlētāji</string>
   <string name="minutesPerSide">Minūtes katram spēlētājam</string>
@@ -355,8 +355,8 @@
   <string name="reset">Atiestatīt</string>
   <string name="apply">Apstiprināt</string>
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
-  <string name="pasteTheFenStringHere">Ielīmēt FEN simbolu virkni šeit</string>
-  <string name="pasteThePgnStringHere">Ielīmēt PGN simbolu virkni šeit</string>
+  <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
+  <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
   <string name="importGame">Importēt spēli</string>
