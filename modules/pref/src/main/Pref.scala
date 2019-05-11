@@ -225,8 +225,8 @@ object Pref {
     val DRAUGHTS = 1
 
     val choices = Seq(
-      STANDARD -> "1-0 / ½-½ / 0-1",
-      DRAUGHTS -> "2-0 / 1-1 / 0-2"
+      STANDARD -> "1-0 • ½-½ • 0-1",
+      DRAUGHTS -> "2-0 • 1-1 • 0-2"
     )
   }
 

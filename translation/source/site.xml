@@ -559,7 +559,7 @@ One URL per line</string>
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
   <string name="boardCoordinates">Board coordinates (1-50)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
-  <string name="notationGameResult">Notation game result (white win / draw / black win)</string>
+  <string name="notationGameResult">Notation game result (white win • draw • black win)</string>
   <string name="pdnPieceNotation">Move notation</string>
   <string name="draughtsClock">Draughts clock</string>
   <string name="clockInitialTime">Clock initial time</string>

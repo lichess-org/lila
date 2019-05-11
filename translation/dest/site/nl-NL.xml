@@ -546,7 +546,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="pieceDestinations">Toon geldige zetten en sta vooraf-zetten toe</string>
   <string name="boardCoordinates">Bordcoördinaten (1-50)</string>
   <string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
-  <string name="notationGameResult">Notatie resultaat partij (winst wit / remise / winst zwart)</string>
+  <string name="notationGameResult">Notatie resultaat partij (winst wit • remise • winst zwart)</string>
   <string name="pdnPieceNotation">Stuknotatie</string>
   <string name="draughtsClock">Damklok</string>
   <string name="clockInitialTime">Klok begintijd</string>
