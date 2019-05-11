@@ -90,7 +90,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
-  <string name="winPreventedBy50MoveRule">50 gājienu noteikums novirzīja no uzvaras</string>
+  <string name="winPreventedBy50MoveRule">50 gājienu noteikums novērsa uzvaru</string>
   <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
   <string name="allSet">Gatavs!</string>
   <string name="importPgn">Importēt PGN</string>
