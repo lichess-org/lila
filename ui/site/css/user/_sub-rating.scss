@@ -1,8 +1,5 @@
 .sub-ratings {
-  @include breakpoint($mq-not-medium) {
-    display: none;
-  }
-  > a {
+  a {
     @extend %box-radius-left, %flex-center-nowrap, %page-text;
     padding: .7em $block-gap .7em .4em;
     white-space: nowrap;
@@ -72,5 +69,37 @@
     color: $c-font-dim;
     font-weight: bold;
     font-size: 1.2em;
+  }
+
+  @include breakpoint($mq-not-medium) {
+    a {
+      padding: .3em;
+    }
+    a > i,
+    h3,
+    rating .rp,
+    rating span {
+      display: none;
+    }
+  }
+  @include breakpoint($mq-subnav-top) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
+    br { display: none; }
+    a {
+      display: flex;
+      justify-content: center;
+      &::before {
+        opacity: .8;
+        font-size: 1.5em;
+      }
+      > span {
+        flex: 0 0 auto;
+        margin-right: 0;
+      }
+      strong {
+        font-weight: normal;
+      }
+    }
   }
 }
