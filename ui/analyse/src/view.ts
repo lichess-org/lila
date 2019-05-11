@@ -244,7 +244,7 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 
 function resizeHandleFor(ctrl: AnalyseCtrl) {
   const pref = ctrl.data.pref.resizeHandle;
-  return (pref == 2 || pref == 1 && ctrl.node.ply < 2) ? h('div.board-resize', {
+  return !ctrl.embed && (pref == 2 || pref == 1 && ctrl.node.ply < 2) ? h('div.board-resize', {
     hook: onInsert(resizeHandle)
   }) : undefined;
 }
