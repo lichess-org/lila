@@ -59,7 +59,7 @@ object thread {
             )
             else {
               if (!thread.isVisibleByOther(me) && !me.troll) p(cls := "end")(
-                userIdLink(thread.visibleOtherUserId(me).some), " has closed this thread.",
+                userIdLink(thread.visibleOtherUserId(me).some), " has closed this thread. ",
                 !thread.asMod option
                   a(
                     href := s"${routes.Message.form}?user=${thread.otherUserId(me)}",
