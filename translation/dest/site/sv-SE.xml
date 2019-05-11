@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
   <string name="signIn">Logga in</string>
-  <string name="newToLichess">Ny användare?</string>
   <string name="youNeedAnAccountToDoThat">Du behöver ett konto för att göra detta</string>
   <string name="signUp">Registrera dig</string>
   <string name="computersAreNotAllowedToPlay">Datorer och datorhjälp är inte tillåtet att spela med. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och överdrivet skapande leder till avstängning.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
-  <string name="haveAnAccount">Har du ett konto?</string>
   <string name="changePassword">Ändra lösenord</string>
   <string name="changeEmail">Ändra E-post</string>
   <string name="email">E-post</string>
