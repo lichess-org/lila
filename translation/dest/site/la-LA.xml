@@ -123,7 +123,6 @@
   <string name="viewInFullSize">Integro modo vide</string>
   <string name="logOut">Personam relinque</string>
   <string name="signIn">Personam adsume</string>
-  <string name="newToLichess">Lichessne novus tibi est?</string>
   <string name="youNeedAnAccountToDoThat">Tibi persona tenenda est ut illum agere possis</string>
   <string name="signUp">Personam crea</string>
   <string name="computersAreNotAllowedToPlay">Non licet computatris vel lusoribus ab computatro auxiliatis ludere. Obsecramus vos adiutos non esse ab machina scacchica, vel tabulis datis, vel lusoribus alteris. Nota bene etiam multos creare codices minime hortatur atque si nimis multis codices habeatis, exsulatos estis.</string>
@@ -155,7 +154,6 @@
   <string name="usernameOrEmail">Nomen interretiarii vel email</string>
   <string name="changeUsername">Mutare nomen usoris</string>
   <string name="password">Verba quae licet uno inire</string>
-  <string name="haveAnAccount">Nonne inscriptus es?</string>
   <string name="changePassword">Tesseram mutare</string>
   <string name="changeEmail">Email mutare</string>
   <string name="email">Email</string>
@@ -238,6 +236,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s pacis casus</item>
     <item quantity="other">%s pacis casus</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ludens</item>
+    <item quantity="other">%s ludentes</item>
   </plurals>
   <string name="exportGames">Lusiones extrahere</string>
   <string name="ratingRange">Ordo</string>
@@ -597,6 +599,8 @@
   <string name="videoLibrary">Libraria pellicularum</string>
   <string name="mobileApp">Programma portabile</string>
   <string name="webmasters">Dominus telae</string>
+  <string name="about">De</string>
+  <string name="aboutX">De %s</string>
   <string name="really">vero</string>
   <string name="contribute">Adiuvare</string>
   <string name="contact">Directorius</string>

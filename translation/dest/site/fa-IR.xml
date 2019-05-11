@@ -130,7 +130,6 @@
   <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
-  <string name="newToLichess">آیا در لیچس حساب کاربری ندارید؟</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند،مجاز به بازی نیستند.لطفا از انجین شطرنج يا دیتابیس شطرنج و يا بازيكنان ديگر كمک نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب منجر به مسدود شدن حساب شما خواهد شد.</string>
@@ -161,7 +160,6 @@
   <string name="username">نام کاربری</string>
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
   <string name="password">رمز عبور</string>
-  <string name="haveAnAccount">آیا حساب کاربری دارید؟</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
   <string name="email">ایمیل</string>

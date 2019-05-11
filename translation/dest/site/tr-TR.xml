@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Tam ekran göster</string>
   <string name="logOut">Çıkış</string>
   <string name="signIn">Giriş</string>
-  <string name="newToLichess">Lichess\'te yeni misiniz?</string>
   <string name="youNeedAnAccountToDoThat">Bunu yapmanız için bir hesaba ihtiyacınız var</string>
   <string name="signUp">Kayıt Ol</string>
   <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncular oynayamazlar. Lütfen oynarken satranç motorlarından, veritabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmak caydırılmaktadır. Bol miktarda hesap açmak yasaklanmaya sebep olacaktır.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Yalnızca büyük / küçük harf değiştirebilirsiniz. Örneğin \"johndoe\" \"JohnDoe\" için.</string>
   <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu yalnızca bir kez yapılabilir ve yalnızca kullanıcı adınızı olgusu değiştirmek için izin verilir.</string>
   <string name="password">Şifre</string>
-  <string name="haveAnAccount">Üye misiniz?</string>
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
   <string name="email">E-posta</string>
