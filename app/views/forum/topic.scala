@@ -99,7 +99,8 @@ object topic {
         ),
 
         div(cls := "forum-topic__actions")(
-          if (topic.isOld)
+          if (posts.hasNextPage) emptyFrag
+          else if (topic.isOld)
             p("This topic has been archived and can no longer be replied to.")
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())
