@@ -43,12 +43,13 @@
     margin-top: 4em;
   }
   .split {
-    display: flex;
+    @extend %flex-center;
     > div {
-      flex: 0 0 49%;
+      flex: 1 0 49%;
       &:first-child {
         margin-right: 2%;
       }
+      margin-bottom: 1em;
     }
   }
   table {
@@ -105,6 +106,7 @@
     left: -10px;
     display: block;
     width: 100%;
+    max-width: 100vw;
     height: 340px;
     .spinner {
       width: 90px;
