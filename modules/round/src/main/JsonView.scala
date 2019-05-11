@@ -230,7 +230,8 @@ final class JsonView(
       "orientation" -> orientation.name,
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
-        "coords" -> pref.coords
+        "coords" -> pref.coords,
+        "resizeHandle" -> pref.resizeHandle
       ).add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
         .add("is3d" -> pref.is3d)
         .add("highlight" -> (pref.highlight || pref.isBlindfold))
