@@ -109,6 +109,7 @@
 
 %break-word {
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 %break-word-hard {
   @extend %break-word;
