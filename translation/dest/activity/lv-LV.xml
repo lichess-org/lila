@@ -17,5 +17,25 @@
     <item quantity="one">Izspēlēja %1$s %2$s spēli</item>
     <item quantity="other">Izspēlēja %1$s %2$s spēles</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="zero">Izspēlēja %1$s gājienus</item>
+    <item quantity="one">Izspēlēja %1$s gājienus</item>
+    <item quantity="other">Izspēlēja %1$s gājienus</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="zero">%1$s korespondencšaha spēlēs</item>
+    <item quantity="one">%1$s korespondencšaha spēlē</item>
+    <item quantity="other">%1$s korespondencšaha spēlēs</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="zero">Pabeidza %s korespondencšaha spēles</item>
+    <item quantity="one">Pabeidza %s korespondencšaha spēli</item>
+    <item quantity="other">Pabeidza %s korespondencšaha spēles</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="zero">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēles %4$s</item>
+    <item quantity="one">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēli %4$s</item>
+    <item quantity="other">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēles %4$s</item>
+  </plurals>
   <string name="signedUp">Reģistrējās lichess.org</string>
 </resources>
