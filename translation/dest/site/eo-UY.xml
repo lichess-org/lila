@@ -71,9 +71,9 @@
   <string name="drawn">Kaŭzas egalvenkon</string>
   <string name="unknown">Nekonata</string>
   <string name="database">Datumbazo</string>
-  <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
+  <string name="whiteDrawBlack">Blanko / Egalvenko / Nigro</string>
   <string name="averageRatingX">Meznombra rango: %s</string>
-  <string name="recentGames">Freŝdataj ludoj</string>
+  <string name="recentGames">Lastaj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
   <plurals name="mateInXHalfMoves">
@@ -91,9 +91,9 @@
   <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
   <string name="allSet">Preta!</string>
-  <string name="importPgn">Importu PGN</string>
+  <string name="importPgn">Importi PGN</string>
   <string name="delete">Forigi</string>
-  <string name="deleteThisImportedGame">Elimini ĉi tiun enmetitan ludon?</string>
+  <string name="deleteThisImportedGame">Ĉu forigi ĉi tiun importitan ludon?</string>
   <string name="replayMode">Rapido de reludo</string>
   <string name="realtimeReplay">Reala tempo</string>
   <string name="byCPL">Per eraroj</string>
@@ -382,7 +382,7 @@
   <string name="list">Listo</string>
   <string name="graph">Grafo</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Malpli ol %s minutoj</item>
+    <item quantity="one">Malpli ol %s minuto</item>
     <item quantity="other">Malpli ol %s minutoj</item>
   </plurals>
   <string name="required">Necesa.</string>
@@ -415,7 +415,7 @@
   <string name="movesPlayed">Moviĝoj luditaj</string>
   <string name="whiteWins">Blanko venkas</string>
   <string name="blackWins">Nigro venkas</string>
-  <string name="draws">Paŭzoj</string>
+  <string name="draws">Egalvenkoj</string>
   <string name="nextXTournament">Proksima %s turniro:</string>
   <string name="viewMoreTournaments">Spektu pli da turniroj</string>
   <string name="averageOpponent">Mezuma kontraŭulo</string>
@@ -708,7 +708,7 @@
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
-  <string name="confirmResignationAndDrawOffers">Konfirmi proponoj de resignoj kaj paŭzoj</string>
+  <string name="confirmResignationAndDrawOffers">Konfirmi proponoj de resignoj kaj egalvenkoj</string>
   <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>
