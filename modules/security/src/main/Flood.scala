@@ -1,7 +1,7 @@
 package lila.security
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
-import org.joda.time.DateTime
+import org.joda.time.Instant
 import scala.concurrent.duration.Duration
 
 import lila.common.base.StringUtils.levenshtein
@@ -20,7 +20,7 @@ final class Flood(duration: Duration) {
     if (allowMessage(uid, text)) op
 
   def allowMessage(uid: String, text: String): Boolean = {
-    val msg = Message(text, DateTime.now)
+    val msg = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
       _ ?? cache.put(uid, msg :: msgs)
@@ -28,12 +28,12 @@ final class Flood(duration: Duration) {
   }
 
   private def quickPost(msg: Message, msgs: Messages): Boolean =
-    msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minusSeconds(10))
+    msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minus(10000L))
 }
 
 private[security] object Flood {
 
-  case class Message(text: String, date: DateTime)
+  case class Message(text: String, date: Instant)
 
   type Messages = List[Message]
 
