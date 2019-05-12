@@ -5,7 +5,7 @@
   user-select: none;
   @include breakpoint($mq-col1) {
     /* that weird shit is required so the clock goes above the player since they share the same grid cell */
-    pointer-events: none;
+    justify-self: flex-end;
     z-index: 1;
   }
   /* overflow: hidden; is not possible because of clock bars and shadows */
