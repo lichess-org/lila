@@ -10,7 +10,7 @@
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
-  <string name="toggleTheChat">Ŝanĝi videblecon de la babilejo</string>
+  <string name="toggleTheChat">Baskuligi la babilejon</string>
   <string name="toggleSound">Baskuligi sonon</string>
   <string name="chat">Babilejo</string>
   <string name="resign">Rezigni</string>
@@ -52,22 +52,22 @@
   <string name="usingServerAnalysis">Analizanta per servilo</string>
   <string name="loadingEngine">Komencas la maŝinon...</string>
   <string name="cloudAnalysis">Analizo per la nubo</string>
-  <string name="goDeeper">Iru pli profunde</string>
-  <string name="showThreat">Montru la minaco</string>
-  <string name="inLocalBrowser">en loka foliumilo</string>
-  <string name="toggleLocalEvaluation">Mal/aktivigi lokan takson</string>
+  <string name="goDeeper">Iri pli profunde</string>
+  <string name="showThreat">Montri la minacon</string>
+  <string name="inLocalBrowser">en loka retumilo</string>
+  <string name="toggleLocalEvaluation">Baskuligi lokan gaŭĝon</string>
   <string name="promoteVariation">Plivalorigi variaĵon</string>
   <string name="makeMainLine">Precipigi vicon</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
-  <string name="move">Moviĝi</string>
+  <string name="move">Movo</string>
   <string name="variantLoss">Variaĵa malvenko</string>
   <string name="variantWin">Variaĵa venko</string>
   <string name="insufficientMaterial">Nesufiĉa materialo</string>
   <string name="pawnMove">Peonmovo</string>
   <string name="capture">Kapto</string>
-  <string name="close">Fermu</string>
-  <string name="winning">Venkant</string>
-  <string name="losing">Malvenkant</string>
+  <string name="close">Fermi</string>
+  <string name="winning">Venkanta</string>
+  <string name="losing">Malvenkanta</string>
   <string name="drawn">Kaŭzas egalvenkon</string>
   <string name="unknown">Nekonata</string>
   <string name="database">Datumbazo</string>
@@ -174,8 +174,8 @@
   <string name="rank">Rango</string>
   <string name="rankX">Rango: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rango aktualigas en ĉiu minuto</item>
-    <item quantity="other">Rango aktualigas en ĉiu %s minutoj</item>
+    <item quantity="one">Rango aktualiĝas en ĉiu minuto</item>
+    <item quantity="other">Rango aktualiĝas en ĉiu %s minutoj</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
@@ -183,7 +183,7 @@
   </plurals>
   <string name="gamesPlayed">Luditaj ludoj</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s ludoj kun vi</item>
+    <item quantity="one">%s ludo kun vi</item>
     <item quantity="other">%s ludoj kun vi</item>
   </plurals>
   <string name="cancel">Nuligi</string>
