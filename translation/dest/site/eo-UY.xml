@@ -87,7 +87,7 @@
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivas pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
-  <string name="xOpeningExplorer">%s esploristo de komencoj</string>
+  <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
   <string name="allSet">Preta!</string>
