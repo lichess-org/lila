@@ -434,7 +434,7 @@
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
   <string name="youArePlaying">Tu jau spēlē!</string>
   <string name="winRate">Uzvaru attiecība</string>
-  <string name="berserkRate">Dullo spēļu attiecība</string>
+  <string name="berserkRate">Dullo spēļu biežums</string>
   <string name="performance">Sniegums</string>
   <string name="tournamentComplete">Turnīrs beidzies</string>
   <string name="movesPlayed">Izpēlēti gājieni</string>
@@ -526,7 +526,7 @@
   <string name="replyToThisTopic">Atbildēt par šo tematu</string>
   <string name="reply">Atbilde</string>
   <string name="message">Ziņojums</string>
-  <string name="createTheTopic">Izveidot jaunu tematu</string>
+  <string name="createTheTopic">Izveidot tematu</string>
   <string name="reportAUser">Ziņot par lietotāju</string>
   <string name="user">Lietotājs</string>
   <string name="reason">Iemesls</string>
