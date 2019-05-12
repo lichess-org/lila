@@ -29,6 +29,7 @@ square {
     background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
   }
   &.last-move {
+    will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
   }
   &.check {
@@ -58,6 +59,7 @@ piece {
   height: 12.5%;
   background-size: cover;
   z-index: z('cg__piece');
+  will-change: transform;
   pointer-events: none;
   &.dragging {
     cursor: move;
