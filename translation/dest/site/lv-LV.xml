@@ -705,7 +705,7 @@
   <string name="tournamentOfficial">Oficiāls</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
   <string name="averageCentipawnLoss">Vidējā centipawn kļūda</string>
-  <string name="keyboardShortcuts">Klaviatūras saīsnes</string>
+  <string name="keyboardShortcuts">Tastatūras saīsnes</string>
   <string name="keyMoveBackwardOrForward">pārvietoties uz priekšu/atpakaļ</string>
   <string name="keyGoToStartOrEnd">iet uz sākumu/beigām</string>
   <string name="keyShowOrHideComments">slēpt/rādīt komentārus</string>
@@ -723,16 +723,16 @@
     <item quantity="one">%1$s %2$s spēlētājs šonedēļ.</item>
     <item quantity="other">%1$s %2$s spēlētāji šonedēļ.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Tavs %1$s reitings ir %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu esi labāks kā %1$s starp %2$s spēlētājiem.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tev vēl nav stabils %s reitings.</string>
-  <string name="checkYourEmail">Ieskaties savā E-pastā</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Mēs tev aizsūtījām e-pastu. Uzklikšķini uz saņemtās saites lai aktivizētu savu kontu.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevari atrast e-pastu, pārbaudi citās vietās, kur tas varētu būt, piemēram, mēstules, draza, spam, junk, sociālie tīkli vai citās mapēs.</string>
-  <string name="weHaveSentYouAnEmailTo">Mēs aizsūtījām e-pastu uz %s. Noklikšķini uz saites e-pastā lai atjaunotu savu paroli.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, tev jāpiekrīt saistībām atbilstoši mūsu %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp tevi un lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks lichess serverī</string>
+  <string name="yourPerfTypeRatingIsRating">Jūsu %1$s reitings ir %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Esat labāks par %1$s no %2$s spēlētājiem.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jums vēl nav stabila %s reitinga.</string>
+  <string name="checkYourEmail">Pārbaudiet e-pastu</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Esam jums aizsūtījuši e-pastu. Klikšķiniet uz saņemtās saites, lai aktivizētu savu kontu.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevarat atrast e-pastu, pārbaudiet citas vietas, kur tas varētu būt, piemēram, mēstulēs, atkritnē, sociālo tīklu sadaļā vai citās mapēs.</string>
+  <string name="weHaveSentYouAnEmailTo">Esam aizsūtījuši e-pastu uz %s. Klikšķiniet uz saites e-pastā, lai atjaunotu savu paroli.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, jums jāpiekrīt saistībām atbilstoši mūsu %s.</string>
+  <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp jums un Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks Lichess serverī</string>
   <string name="downloadAnnotated">Lejupielādēt anotētu</string>
   <string name="downloadRaw">Lejupielādēt neapstrādātu</string>
   <string name="downloadImported">Lejupielādēt importēto</string>
