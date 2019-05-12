@@ -711,11 +711,11 @@
   <string name="keyShowOrHideComments">slēpt/rādīt komentārus</string>
   <string name="keyEnterOrExitVariation">ieiet/iziet variācijā</string>
   <string name="newTournament">Jauns turnīrs</string>
-  <string name="tournamentHomeTitle">Šaha turnīrs ar dažādām laika kontrolēm un variantiem</string>
-  <string name="tournamentHomeDescription">Piedalies ātra tempa šaha turnīros! Pievienojies oficālā grafika turnīrā, vai izveido pats savu. Pieejamas Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck un vēl citas iespējas nebeidzamiem šaha priekiem.</string>
+  <string name="tournamentHomeTitle">Šaha turnīri ar dažādām laika kontrolēm un variantiem</string>
+  <string name="tournamentHomeDescription">Piedalieties ātra tempa šaha turnīros! Pievienojieties oficiāli organizētā turnīrā, vai izveidojiet savu turnīru. Pieejamas Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck un citas iespējas nebeidzamiem šaha priekiem.</string>
   <string name="tournamentNotFound">Turnīrs nav atrasts</string>
   <string name="tournamentDoesNotExist">Šāds turnīrs neeksistē.</string>
-  <string name="tournamentMayHaveBeenCanceled">Var gadīties, ka tas tika atcelts, ja visi spēlētāji pameta turnīru pirms tā sākuma.</string>
+  <string name="tournamentMayHaveBeenCanceled">Iespējams, tas tika atcelts, ja visi spēlētāji pameta turnīru pirms tā sākuma.</string>
   <string name="returnToTournamentsHomepage">Atgriezties turnīru lapā</string>
   <string name="weeklyPerfTypeRatingDistribution">Mēneša %s reitingu sadalījums</string>
   <plurals name="nbPerfTypePlayersThisWeek">
