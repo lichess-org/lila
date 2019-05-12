@@ -10,7 +10,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999;
+const scrollMax = 99999, moveTag = 'm1';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
   if (ctrl.data.steps.length < 7) return;
@@ -31,7 +31,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 });
 
 function renderMove(step: Step, curPly: number) {
-  return step ? h('move', {
+  return step ? h(moveTag, {
     class: { active: step.ply === curPly }
   }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : null;
 }
