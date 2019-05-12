@@ -23,7 +23,7 @@
     align-items: flex-end;
     background: $c-bg-zebra;
   }
-  move {
+  #{$move-tag} {
     flex: 0 0 calc(100% * 5 / 12);
     padding-left: .7em;
     cursor: pointer;

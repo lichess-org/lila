@@ -34,7 +34,7 @@
     }
   }
   index,
-  move,
+  #{$move-tag},
   .result-wrap {
     display: flex;
     align-items: center;
@@ -44,7 +44,7 @@
   index {
     padding-right: .15em;
   }
-  move {
+  #{$move-tag} {
     font-size: 1.1em;
     cursor: pointer;
     &.active,
