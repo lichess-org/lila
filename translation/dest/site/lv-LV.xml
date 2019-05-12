@@ -211,7 +211,7 @@
   <string name="abortGame">Atcelt spēli</string>
   <string name="gameAborted">Spēle atcelta</string>
   <string name="standard">Standarta</string>
-  <string name="unlimited">Bezgalīgs</string>
+  <string name="unlimited">Neierobežots</string>
   <string name="mode">Veids</string>
   <string name="casual">Draudzīga</string>
   <string name="rated">Vērtēta</string>
@@ -360,7 +360,7 @@
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
   <string name="importGame">Importēt spēli</string>
-  <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datora analīzi, spēles sarunu un URL ar ko dalīties.</string>
+  <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datoranalīzi, spēles sarunu un URL ar ko dalīties.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">%s importētas spēles</item>
     <item quantity="one">%s importēta spēles</item>
@@ -474,15 +474,15 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Uzmanību! Spēle ir vērtēta bet bez laika limita!</string>
   <string name="training">Puzles</string>
   <string name="yourPuzzleRatingX">Tavs uzdevumu reitings: %s</string>
-  <string name="findTheBestMoveForWhite">Atrodi labāko gājienu baltajiem.</string>
-  <string name="findTheBestMoveForBlack">Atrodi labāko gājienu melnajiem.</string>
+  <string name="findTheBestMoveForWhite">Atrodiet labāko gājienu baltajiem.</string>
+  <string name="findTheBestMoveForBlack">Atrodiet labāko gājienu melnajiem.</string>
   <string name="toTrackYourProgress">Lai sekotu savām sekmēm:</string>
   <string name="trainingSignupExplanation">Lai piedāvātu labāku treniņu, Lichess piemeklēs uzdevumus, kas atbilst jūsu spējām.</string>
   <string name="puzzleId">Uzdevums %s</string>
   <string name="puzzleOfTheDay">Dienas uzdevums</string>
-  <string name="clickToSolve">Uzklikšķini lai atrisinātu</string>
+  <string name="clickToSolve">Klikšķiniet lai atrisinātu</string>
   <string name="goodMove">Labs gājiens</string>
-  <string name="butYouCanDoBetter">Tu taču vari labāk.</string>
+  <string name="butYouCanDoBetter">Bet varat atrast labāku gājienu.</string>
   <string name="bestMove">Vislabākais gājiens!</string>
   <string name="keepGoing">Turpiniet…</string>
   <string name="puzzleFailed">Uzdevums nav atrisināts</string>
@@ -516,7 +516,7 @@
   <string name="description">Apraksts</string>
   <string name="no">Nē</string>
   <string name="yes">Jā</string>
-  <string name="help">Palīdzība</string>
+  <string name="help">Palīdzība:</string>
   <string name="createANewTopic">Izveidot jaunu tematu</string>
   <string name="topics">Temati</string>
   <string name="posts">Ieraksti</string>
