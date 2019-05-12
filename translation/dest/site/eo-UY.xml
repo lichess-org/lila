@@ -264,7 +264,7 @@
   <string name="giveMoreTime">Doni pli da tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tiu ĉi ludanto uzas komputilan asiston por ludi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian rangon</string>
-  <string name="openingExplorerAndTablebase">Esploristo de komencoj &amp; tablobazo</string>
+  <string name="openingExplorerAndTablebase">Esploristo de malfermoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
   <string name="takebackPropositionSent">Reprena propono estis sendita</string>
@@ -422,7 +422,7 @@
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="setTheBoard">Antaŭfaru la tabulo</string>
-  <string name="popularOpenings">Popularaj komencoj</string>
+  <string name="popularOpenings">Popularaj malfermoj</string>
   <string name="startPosition">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
   <string name="savePosition">Savi aranĝon</string>
@@ -585,7 +585,7 @@
   <string name="starting">Komenciĝos je:</string>
   <string name="allInformationIsPublicAndOptional">Ĉiuj informaĵoj estas publikaj kaj nedevigaj.</string>
   <string name="yourCityRegionOrDepartment">Via urbo, regiono aŭ provinco.</string>
-  <string name="biographyDescription">Rakontu pri vi, kion vi ŝatas pri ŝako, viaj plej ŝatataj debutoj, ludoj, ludantoj…</string>
+  <string name="biographyDescription">Rakontu pri vi, kion vi ŝatas pri ŝako, viaj plej ŝatataj malfermoj, ludoj, ludantoj...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimumo: %s signoj.</item>
     <item quantity="other">Maksimumo: %s signoj.</item>
@@ -827,7 +827,7 @@
     <item quantity="one">%s sekundo</item>
     <item quantity="other">%s sekundoj</item>
   </plurals>
-  <string name="opening">Malfermadoj</string>
+  <string name="opening">Malfermo</string>
   <string name="middlegame">Mezaĵo</string>
   <string name="endgame">Finaĵo</string>
   <string name="registerToSendChallenges">Bonvolu registri por sendi defiojn.</string>
