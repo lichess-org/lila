@@ -544,14 +544,14 @@
   <string name="blog">Blogs</string>
   <string name="questionsAndAnswers">Jautājumi un Atbildes</string>
   <string name="notes">Piezīmes</string>
-  <string name="typePrivateNotesHere">Šeit vari rakstīt savas slepenās piezīmes</string>
+  <string name="typePrivateNotesHere">Personīgās piezīmes rakstiet šeit</string>
   <string name="gameDisplay">Spēļu ekrāns</string>
   <string name="pieceAnimation">Figūru animācija</string>
   <string name="materialDifference">Materiāla starpība</string>
   <string name="closeAccount">Slēgt kontu</string>
   <string name="changedMindDoNotCloseAccount">Es pārdomāju, neslēdziet manu kontu</string>
-  <string name="closeAccountExplanation">Vai esi pārliecināts, ka vēlies slēgt kontu? Konta slēgšanu nevar atsaukt. Tu vairs nevarēsi pieslēgties, un tavam profilam vairs nevarēs piekļūt.</string>
-  <string name="thisAccountIsClosed">Konts slēgts.</string>
+  <string name="closeAccountExplanation">Vai esat pārliecināts, ka vēlaties slēgt kontu? Konta slēgšanu nevar atsaukt. Jūs vairs nekad nevarēsiet ierakstīties.</string>
+  <string name="thisAccountIsClosed">Šis konts ir slēgts.</string>
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
   <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>
