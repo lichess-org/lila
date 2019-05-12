@@ -76,6 +76,19 @@ piece {
 }
 
 .cg-board-wrap {
+  > div {
+    position: absolute;
+    width: 12.5%;
+    height: 12.5%;
+    display: table; /* hack: round to full pixel size in chrome */
+    > div {
+      position: absolute;
+      width: 800%;
+      height: 800%;
+      display: block;
+    }
+  }
+
   // overflow: hidden; /* prevents width issues with rank coords | but prevents dragging pieces in! */
   svg {
     overflow: hidden;
