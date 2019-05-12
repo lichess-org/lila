@@ -19,8 +19,8 @@ function percentile(d) {
 }
 
 function progress(p) {
-  if (p > 0) return m('span.positive[data-icon=N]', p);
-  else if (p < 0) return m('span.negative[data-icon=M]', -p);
+  if (p > 0) return m('green[data-icon=N]', p);
+  else if (p < 0) return m('red[data-icon=M]', -p);
 }
 
 module.exports = function(d) {
