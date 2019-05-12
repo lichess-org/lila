@@ -345,7 +345,7 @@
   <string name="joiningPolicy">Pievienošanās noteikumi</string>
   <string name="teamLeader">Komandas kapteinis</string>
   <string name="teamBestPlayers">Labākie spēlētāji</string>
-  <string name="teamRecentMembers">Komandas bijušie dalībnieki</string>
+  <string name="teamRecentMembers">Jaunākie dalībnieki</string>
   <string name="xJoinedTeamY">%1$s pievienojās komandai \"%2$s\"</string>
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
   <string name="averageElo">Vidējais reitings</string>
