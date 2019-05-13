@@ -75,7 +75,7 @@ LichessRound.boot(${
               div(cls := "pgn")(pgn.render)
             )
           ),
-          div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+          div(cls := "round__board main-board")(chessground(pov))
         )
       ))
 }
