@@ -51,7 +51,7 @@ $controls-height: auto;
     .rclock-top { grid-area: 3 / 1 / 3 / 2 }
     .rclock-bottom { grid-area: 6 / 1 / 6 / 2 }
 
-    .cg-board { box-shadow: none; }
+    cg-board { box-shadow: none; }
     .expiration-top { display: none; }
     &__table { display: none; }
 

@@ -40,7 +40,7 @@
     "ceval": "1.0.0",
     "chat": "2.0.0",
     "chess": "1.0.0",
-    "chessground": "^7.5",
+    "chessground": "^7.6",
     "common": "1.0.0",
     "game": "1.0.0",
     "nvui": "1.0.0",

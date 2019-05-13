@@ -1090,10 +1090,10 @@ chalk@^2.0.0, chalk@^2.3.0, chalk@^2.4.2:
   version "0.10.2"
   resolved "https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249"
 
-chessground@^7.5:
-  version "7.5.1"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.5.1.tgz#e245a7a2bbdc1ae3a740dc95f8c2bd30043db969"
-  integrity sha512-ROKn2CA7c17cqxYvcZ99wrfmPfPJPfMyaGzYIYdExl6LKvSEePFzwdY9GDvfDtaca5aKyhLoExZkvJ00pPLALw==
+chessground@^7.6:
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.0.tgz#885ab6291642caecd24a55b8c73d70ab8fcd6025"
+  integrity sha512-Q8k9AttZ4gejCKB2or4Lrjq6y+IGMcUSs5Fk0KZJ9b646YxISVLWwiPVh5FUfoha4X3i/eaqUShE7/Egk5mnlw==
 
 "chessground@github:ornicar/chessground#v4.4.0":
   version "4.4.0"

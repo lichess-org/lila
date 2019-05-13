@@ -8,7 +8,7 @@ import { DrawShape } from 'chessground/draw';
 import AnalyseCtrl from './ctrl';
 
 export function render(ctrl: AnalyseCtrl): VNode {
-  return h('div.cg-board-wrap.cgv' + ctrl.cgVersion.js, {
+  return h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));

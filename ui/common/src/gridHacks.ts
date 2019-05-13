@@ -28,7 +28,7 @@ export function fixMainBoardHeight(container: HTMLElement) {
   if (lastMainBoardHeight != width) {
     lastMainBoardHeight = width;
     mainBoard.style.height = width + 'px';
-    (mainBoard.querySelector('.cg-board-wrap') as HTMLElement).style.height = width + 'px';
+    (mainBoard.querySelector('.cg-wrap') as HTMLElement).style.height = width + 'px';
     window.lichess.dispatchEvent(document.body, 'chessground.resize');
   }
 }
