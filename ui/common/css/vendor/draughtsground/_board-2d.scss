@@ -20,7 +20,7 @@ $board-files: (
 );
 
 @each $color, $file in $board-files {
-  .#{$color} .is2d .cg-board {
+  .#{$color} .is2d cg-board {
     background-image: url(../images/board/#{$file});
   }
 }

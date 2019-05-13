@@ -3,7 +3,7 @@ var Draughtsground = require('draughtsground').Draughtsground;
 var util = require('draughtsground/util');
 
 module.exports = function(ctrl) {
-  return m('div.cg-board-wrap', {
+  return m('div.cg-wrap', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
       ctrl.draughtsground = Draughtsground(el, makeConfig(ctrl));

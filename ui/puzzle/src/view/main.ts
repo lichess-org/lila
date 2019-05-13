@@ -31,7 +31,7 @@ function renderAnalyse(ctrl: Controller) {
 
 function wheel(ctrl: Controller, e: WheelEvent) {
   const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && !target.classList.contains('cg-board')) return;
+  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
   e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);

@@ -216,8 +216,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameLink(pov: Pov)(implicit ctx: UserContext): String = gameLink(pov.game, pov.color)
 
-  private val cgBoard = div(cls := "cg-board")
-
   def gameFen(
     pov: Pov,
     ownerLink: Boolean = false,
@@ -231,11 +229,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val cssClass = isLive ?? ("live mini-board-" + game.id)
     val variant = game.variant.key
     val tag = if (withLink) a else span
-    val classes = s"mini-board mini-board-${game.id} cg-board-wrap parse-fen is2d $cssClass $variant"
+    val classes = s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant"
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
-      cls := s"mini-board mini-board-${game.id} cg-board-wrap parse-fen is2d $cssClass $variant",
+      cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant",
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(game.board),
@@ -250,7 +248,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-board-wrap parse-fen is2d $variant" -> true,
+        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen is2d $variant" -> true,
         s"live mini-board-${pov.gameId}" -> isLive
       ),
       dataLive := isLive.option(pov.gameId),

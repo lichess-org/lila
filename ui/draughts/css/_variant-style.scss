@@ -1,6 +1,6 @@
-.variant-racingKings .cg-board-wrap {
+.variant-racingKings .cg-wrap {
 
-  &.cg-board-wrap > div > div::before {
+  &.cg-wrap > div > div::before {
     @extend %popup-shadow;
     background: hsla(0, 0%, 90%, .2);
     width: 100%;
@@ -21,7 +21,7 @@
   }
 }
 
-.variant-kingOfTheHill .cg-board-wrap > div > div::before {
+.variant-kingOfTheHill .cg-wrap > div > div::before {
   width: 25%;
   height: 25%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);

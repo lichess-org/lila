@@ -1,6 +1,6 @@
 {
   "name": "draughtsground",
-  "version": "7.2.10",
+  "version": "7.6.0",
   "description": "lidraughts.org Draughts UI",
   "main": "draughtsground.js",
   "typings": "draughtsground.d.ts",

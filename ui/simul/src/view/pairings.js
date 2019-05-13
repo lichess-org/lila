@@ -3,8 +3,6 @@ var util = require('./util');
 var ceval = require('./ceval');
 var status = require('game/status');
 
-var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
-
 function miniPairing(ctrl) {
   return function(pairing) {
     var game = pairing.game;
@@ -26,7 +24,7 @@ function miniPairing(ctrl) {
         config: function(el, isUpdate) {
           if (!isUpdate) lidraughts.parseFen($(el));
         }
-      }, boardContent),
+      }, m('div.cg-wrap', m('cg-board'))),
       m('span.vstext', [
         m('span.vstext__pl', [
           util.playerVariant(ctrl, player).name,

@@ -27,11 +27,11 @@ private object bits {
                 p(cls := "errortext")(trans.tooManyKings())
               case Some(vf) =>
                 div(
-                  cls := "mini-board cg-board-wrap parse-fen is2d",
+                  cls := "mini-board cg-wrap parse-fen is2d",
                   dataColor := vf.color.name,
                   dataFen := vf.fen.value,
                   dataResizable := "1"
-                )(div(cls := "cg-board"))
+                )(cgBoard)
               case _ =>
                 p(cls := "errortext")("Invalid position")
             }

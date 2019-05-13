@@ -2,7 +2,7 @@
 
 mkdir public\compiled
 
-set ts_apps=common draughts ceval game chat draughtsground tree nvui
+set ts_apps=draughtsground common draughts ceval game chat tree nvui
 
 call yarn install
 

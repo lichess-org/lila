@@ -162,7 +162,7 @@ function uciToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeCg(preview: ChapterPreview): VNode {
-  return h('div.mini-board.cg-board-wrap', {
+  return h('div.mini-board.cg-wrap', {
     hook: {
       insert(vnode) {
         const cg = Draughtsground(vnode.elm as HTMLElement, {
@@ -187,7 +187,7 @@ function makeCg(preview: ChapterPreview): VNode {
         vnode.data!.cp = old.data!.cp;
       }
     }
-  }, [h('div.cg-board')])
+  }, [h('cg-board')])
 }
 
 export class MultiBoardMenuCtrl {
