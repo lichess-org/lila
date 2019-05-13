@@ -589,7 +589,7 @@
   <string name="yourPreferencesHaveBeenSaved">Jūsu uzstādījumi ir saglabāti.</string>
   <string name="none">Nekāda</string>
   <string name="fast">Ātra</string>
-  <string name="normal">Normāla</string>
+  <string name="normal">Normāls</string>
   <string name="slow">Lēna</string>
   <string name="insideTheBoard">Galdiņa iekšpusē</string>
   <string name="outsideTheBoard">Galdiņa ārpusē</string>
@@ -608,7 +608,7 @@
   <string name="xCommentedY">%1$s sniedza komentāru %2$s</string>
   <string name="victory">Uzvara</string>
   <string name="defeat">Zaudējums</string>
-  <string name="xVsYinZ">%1$s pret %2$s %3$s</string>
+  <string name="xVsYinZ">%1$s pret %2$s %3$s spēlē</string>
   <string name="timeline">Laika grafiks</string>
   <string name="starting">Sāksies:</string>
   <string name="allInformationIsPublicAndOptional">Visa informācija ir publiska un nav obligāta.</string>
@@ -654,7 +654,7 @@
   <string name="blindfoldChess">Aklais šahs (ar neredzamām figūrām)</string>
   <string name="zenMode">Zen režīms</string>
   <string name="moveConfirmation">Gājiena apstiprināšana</string>
-  <string name="inCorrespondenceGames">Korespondences spēlēs</string>
+  <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
   <string name="onlyFriends">Tikai draugi</string>
   <string name="menu">Izvēlne</string>
@@ -666,10 +666,10 @@
     <item quantity="one">%s foruma ieraksts</item>
     <item quantity="other">%s foruma ieraksti</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Pavadītais laiks spēlējot: %s</string>
+  <string name="tpTimeSpentPlaying">Spēlējot pavadītais laiks: %s</string>
   <string name="watchGames">Skatīties spēles</string>
   <string name="tpTimeSpentOnTV">TV laiks: %s</string>
-  <string name="watch">Skaties</string>
+  <string name="watch">Skatīties</string>
   <string name="videoLibrary">Video bibliotēka</string>
   <string name="mobileApp">Mobilā aplikācija</string>
   <string name="webmasters">Tīmekļa pārziņi</string>
