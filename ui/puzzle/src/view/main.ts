@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode'
 import draughtsground from './draughtsground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import resizeHandle from 'common/resize';
 import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
@@ -103,10 +102,7 @@ export default function(ctrl: Controller): VNode {
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
-      draughtsground(ctrl),
-      h('div.board-resize', {
-        hook: onInsert(resizeHandle)
-      })
+      draughtsground(ctrl)
     ]),
     cevalView.renderGauge(ctrl),
     h('div.puzzle__tools', [

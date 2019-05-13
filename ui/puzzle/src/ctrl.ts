@@ -415,6 +415,7 @@ export default function (opts, redraw: () => void): Controller {
     }
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
+    window.lidraughts.pubsub.emit('ply')(vm.node.ply);
   };
 
   function userJump(path, forceSound = false) {
