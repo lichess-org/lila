@@ -238,7 +238,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(game.board),
       dataLastmove := ~game.lastMoveKeys
-    )(cgBoard)
+    )(cgWrapContent)
   }
 
   def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
@@ -256,7 +256,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataFen := Forsyth.exportBoard(pov.game.board),
       dataLastmove := ~pov.game.lastMoveKeys,
       target := blank.option("_blank")
-    )(cgBoard)
+    )(cgWrapContent)
   }
 
   def challengeTitle(c: lidraughts.challenge.Challenge)(implicit ctx: UserContext) = {

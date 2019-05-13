@@ -187,7 +187,7 @@ function makeCg(preview: ChapterPreview): VNode {
         vnode.data!.cp = old.data!.cp;
       }
     }
-  }, [h('cg-board')])
+  })
 }
 
 export class MultiBoardMenuCtrl {

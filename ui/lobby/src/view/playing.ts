@@ -35,7 +35,7 @@ export default function(ctrl: LobbyController) {
               });
             }
           }
-        }, [h('cg-board')]),
+        }),
         h('span.meta', [
           pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Scan', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',

@@ -12,6 +12,7 @@ trait DraughtsgroundHelper {
   private val cgHelper = tag("cg-helper")
   private val cgContainer = tag("cg-container")
   val cgBoard = tag("cg-board")
+  val cgWrapContent = cgHelper(cgContainer(cgBoard))
 
   def draughtsground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag = wrap {
     cgBoard {
