@@ -1,7 +1,7 @@
 @import 'board-2d';
 
 cg-board {
-  @extend %box-shadow, %abs-100;
+  @extend %box-neat, %abs-100;
   user-select: none;
   line-height: 0;
   background-size: cover;
