@@ -10,18 +10,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
-  }
-  :first-child,
-  :last-child,
-  .current {
-    display: flex;
-  }
-  @include breakpoint($mq-x-small) {
-    a,
-    span {
-      display: flex;
-    }
   }
   span {
     color: $c-font-dimmer;
