@@ -185,7 +185,7 @@ export function render(ctrl: RoundController): VNode | undefined {
       hook: util.onInsert(el => {
         el.addEventListener('mousedown', e => {
           let node = e.target as HTMLElement, offset = -2;
-          if (node.tagName !== 'MOVE') return;
+          if (node.tagName !== moveTag.toUpperCase()) return;
           while(node = node.previousSibling as HTMLElement) {
             offset++;
             if (node.tagName === 'INDEX') {
