@@ -1,7 +1,7 @@
 $(function() {
   $('#trainer').each(function() {
     var $trainer = $(this);
-    var $board = $('.coord-trainer__board .cg-wrap');
+    var $board = $('.coord-trainer__board .cg-board-wrap');
     var ground;
     var $side = $('.coord-trainer__side');
     var $right = $('.coord-trainer__table');
