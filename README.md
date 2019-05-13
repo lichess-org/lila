@@ -60,7 +60,7 @@ Supported browsers
 - [Firefox](https://www.mozilla.org/firefox), 1 year old or newer (second fastest local analysis!)
 - Opera 55 and newer (meh)
 - Safari 10.1 and newer (boo)
-- Microsoft Edge 17 and newer (yuck)
+- Microsoft Edge 17 and newer (eww)
 
 Older browsers (including any version of Internet Explorer) will not work.
 For your own sake, please upgrade. Security and performance, think about
