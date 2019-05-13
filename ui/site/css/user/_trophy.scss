@@ -45,7 +45,9 @@
   font-size: 65px;
 }
 .fire-trophy {
-  color: $c-font-dim;
+  &, &:hover {
+    color: if($theme-light, $c-font-dim, $c-font-clear);
+  }
   opacity: 0.9;
   transition: opacity 0.8s;
   height: 80px;
@@ -83,7 +85,6 @@
   }
   &.bongcloudWarrior {
     filter: hue-rotate(70deg);
-    color: adjust-color($c-link, $hue: -70deg, $saturation: -70%);
   }
 }
 .packed .trophy {
