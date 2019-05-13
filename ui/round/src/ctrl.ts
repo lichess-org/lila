@@ -225,6 +225,7 @@ export default class RoundController {
     }
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
+    li.pubsub.emit('ply')(ply);
     return true;
   };
 

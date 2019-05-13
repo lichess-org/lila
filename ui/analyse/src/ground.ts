@@ -5,6 +5,7 @@ import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
+import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 
 export function render(ctrl: AnalyseCtrl): VNode {
@@ -55,7 +56,10 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     events: {
       move: ctrl.userMove,
-      dropNewPiece: ctrl.userNewPiece
+      dropNewPiece: ctrl.userNewPiece,
+      insert(elements) {
+        if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
+      }
     },
     premovable: {
       enabled: opts.premovable!.enabled,

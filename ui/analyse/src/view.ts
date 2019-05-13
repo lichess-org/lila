@@ -6,7 +6,6 @@ import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
-import resizeHandle from 'common/resize';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
@@ -242,13 +241,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
 }
 
-function resizeHandleFor(ctrl: AnalyseCtrl) {
-  const pref = ctrl.data.pref.resizeHandle;
-  return !ctrl.embed && (pref == 2 || pref == 1 && ctrl.node.ply < 2) ? h('div.board-resize', {
-    hook: onInsert(resizeHandle)
-  }) : undefined;
-}
-
 export default function(ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
@@ -299,8 +291,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
       chessground.render(ctrl),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
-      renderPromotion(ctrl),
-      resizeHandleFor(ctrl)
+      renderPromotion(ctrl)
     ]),
     gaugeOn ? cevalView.renderGauge(ctrl) : null,
     menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),

@@ -25,8 +25,6 @@ menuHover();
 
 export function app(opts: RoundOpts): RoundApi {
 
-  // if (1) return {} as RoundApi;
-
   const patch = init([klass, attributes]);
 
   let vnode: VNode, ctrl: RoundController;

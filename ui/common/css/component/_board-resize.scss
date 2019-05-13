@@ -2,7 +2,7 @@ body.resizing {
   user-select: none;
 }
 
-.board-resize {
+cg-resize {
   $resize-width: 22px;
   display: none;
   @include breakpoint($mq-board-resizable) {

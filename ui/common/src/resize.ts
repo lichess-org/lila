@@ -1,6 +1,13 @@
+import * as cg from 'chessground/types';
+
 export type MouchEvent = MouseEvent & TouchEvent;
 
-export default function resizeHandle(el: HTMLElement) {
+export default function resizeHandle(els: cg.Elements, pref: number, ply: number) {
+
+  if (!pref) return;
+
+  const el = document.createElement('cg-resize');
+  els.container.appendChild(el);
 
   const mousemoveEvent = window.lichess.hasTouchEvents ? 'touchmove' : 'mousemove';
   const mouseupEvent = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
@@ -15,7 +22,7 @@ export default function resizeHandle(el: HTMLElement) {
 
     const saveZoom = window.lichess.debounce(() => {
       $.ajax({ method: 'post', url: '/pref/zoom?v=' + (100 + zoom) });
-    }, 1000);
+    }, 700);
 
     const resize = (move: MouchEvent) => {
 
@@ -39,6 +46,12 @@ export default function resizeHandle(el: HTMLElement) {
       document.body.classList.remove('resizing');
     }, { once: true });
   });
+
+  if (pref == 1) {
+    const toggle = (ply: number) => el.classList.toggle('none', ply >= 2);
+    toggle(ply);
+    window.lichess.pubsub.on('ply', toggle);
+  }
 
   addNag(el);
 }

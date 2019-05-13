@@ -355,6 +355,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
+    li.pubsub.emit('ply')(this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
