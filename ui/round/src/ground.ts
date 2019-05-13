@@ -4,6 +4,7 @@ import * as cg from 'draughtsground/types';
 import { Api as CgApi } from 'draughtsground/api';
 import { countGhosts } from 'draughtsground/fen';
 import { Config } from 'draughtsground/config'
+import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
@@ -30,7 +31,10 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     events: {
       move: hooks.onMove,
-      dropNewPiece: hooks.onNewPiece
+      dropNewPiece: hooks.onNewPiece,
+      insert(elements) {
+        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
+      }
     },
     movable: {
       free: false,

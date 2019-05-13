@@ -180,7 +180,7 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
 
 export function render(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data,
-    col1 = window.lichess.isCol1(),
+    col1 = window.lidraughts.isCol1(),
     moves = ctrl.replayEnabledByPref() && h('div.moves', {
       hook: util.onInsert(el => {
         el.addEventListener('mousedown', e => {

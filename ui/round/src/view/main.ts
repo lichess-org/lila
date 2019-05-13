@@ -4,7 +4,6 @@ import { plyStep } from '../round';
 import { renderTable } from './table';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'draughtsground/fen';
-import resizeHandle from 'common/resize';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import * as gridHacks from './gridHacks';
@@ -37,13 +36,6 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   return false;
 }
 
-function resizeHandleFor(ctrl: RoundController) {
-  const pref = ctrl.data.pref.resizeHandle;
-  return (pref == 2 || pref == 1 && ctrl.ply < 2) ? h('div.board-resize', {
-    hook: util.onInsert(resizeHandle)
-  }) : undefined;
-}
-
 const emptyMaterialDiff: cg.MaterialDiff = {
   white: {},
   black: {}
@@ -69,8 +61,7 @@ export function main(ctrl: RoundController): VNode {
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: window.lidraughts.hasTouchEvents ? undefined : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
-      renderGround(ctrl),
-      resizeHandleFor(ctrl)
+      renderGround(ctrl)
     ]),
     crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top'),
     ...renderTable(ctrl),
