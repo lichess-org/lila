@@ -45,7 +45,10 @@ object index {
       robots = true
     )(
         main(cls := "round tv-single")(
-          st.aside(cls := "round__side")(side(channel, champions, "/tv")),
+          st.aside(cls := "round__side")(
+            side.meta(pov),
+            side.channels(channel, champions, "/tv")
+          ),
           views.html.round.bits.roundAppPreload(pov, false),
           div(cls := "round__underboard")(
             views.html.round.bits.crosstable(cross, pov.game),

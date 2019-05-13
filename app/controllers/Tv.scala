@@ -42,10 +42,8 @@ object Tv extends LilaController {
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
               Env.game.crosstableApi.withMatchup(game) zip
               Env.tv.tv.getChampions map {
-                case ((data, cross), champions) => NoCache {
-                  NoIframe { // can be heavy as TV reloads for each game
-                    Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
-                  }
+                case data ~ cross ~ champions => NoCache {
+                  Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
                 }
               }
           },
