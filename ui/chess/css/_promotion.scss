@@ -1,6 +1,5 @@
 #promotion-choice {
   @extend %abs-100;
-  position: absolute;
   background: fade-out($c-bg-page, .3);
   z-index: z('cg__promotion');
   square {
