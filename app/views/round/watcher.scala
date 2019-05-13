@@ -80,7 +80,7 @@ LidraughtsRound.boot(${
               div(cls := "pdn")(pdn.render)
             )
           ),
-          div(cls := "round__board main-board")(board.bits.domPreload(pov.some))
+          div(cls := "round__board main-board")(draughtsground(pov))
         )
       ))
 }
