@@ -803,7 +803,7 @@
   <string name="usernameSuffixInvalid">Lietotājvārdam jābeidzas ar burtu vai ciparu.</string>
   <string name="usernameCharsInvalid">Lietotājvārds drīkst saturēt tikai burtus, ciparus, pasvītras un defises.</string>
   <string name="usernameUnacceptable">Šāds lietotājvārds nav pieņemams.</string>
-  <string name="directlySupportLichess">Tiešais Lichess atbalsts</string>
+  <string name="directlySupportLichess">Tieši atbalstīt Lichess</string>
   <string name="playChessInStyle">Spēlē šahu stilīgi</string>
   <string name="chessBasics">Šaha pamati</string>
   <string name="coaches">Treneri</string>
@@ -811,7 +811,7 @@
   <string name="invalidFen">Nepareizs FEN</string>
   <string name="error.minLength">Minimālais garums ir %s</string>
   <string name="error.maxLength">Maksimālais garums ir %s</string>
-  <string name="error.min">Jābūt lielākam vai vienādam ar %s</string>
+  <string name="error.min">Jābūt vismaz %s</string>
   <string name="error.max">Jābūt mazākam vai vienādam ar %s</string>
   <string name="error.unknown">Kļūda</string>
   <string name="custom">Pielāgota</string>
