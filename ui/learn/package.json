@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground": "github:ornicar/chessground#v4.4.0",
+    "chessground": "github:ornicar/chessground#v4.4.1",
     "common": "1.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1"
   }
