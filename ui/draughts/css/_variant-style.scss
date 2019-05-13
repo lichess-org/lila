@@ -1,6 +1,6 @@
 .variant-racingKings .cg-wrap {
 
-  &.cg-wrap > div > div::before {
+  &.cg-wrap cg-container::before {
     @extend %popup-shadow;
     background: hsla(0, 0%, 90%, .2);
     width: 100%;
@@ -12,16 +12,16 @@
     pointer-events: none;
   }
 
-  &.orientation-white > div > div::before {
+  &.orientation-white cg-container::before {
     top: 0;
   }
 
-  &.orientation-black > div > div::before {
+  &.orientation-black cg-container::before {
     bottom: 0;
   }
 }
 
-.variant-kingOfTheHill .cg-wrap > div > div::before {
+.variant-kingOfTheHill cg-container::before {
   width: 25%;
   height: 25%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
