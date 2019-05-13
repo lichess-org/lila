@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
+import resizeHandle from 'common/resize';
 
 export default function(ctrl) {
   return h('div.cg-wrap', {
@@ -36,7 +37,10 @@ function makeConfig(ctrl): CgConfig {
       enabled: ctrl.pref.moveEvent !== 1
     },
     events: {
-      move: ctrl.userMove
+      move: ctrl.userMove,
+      insert(elements) {
+        resizeHandle(elements, ctrl.pref.resizeHandle, ctrl.vm.node.ply);
+      }
     },
     premovable: {
       enabled: opts.premovable.enabled

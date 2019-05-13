@@ -365,6 +365,7 @@ export default function(opts, redraw: () => void): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
+    window.lichess.pubsub.emit('ply')(vm.node.ply);
   };
 
   function userJump(path) {
