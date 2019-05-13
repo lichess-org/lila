@@ -12,7 +12,7 @@ trait ChessgroundHelper {
   private val cgWrap = div(cls := "cg-wrap")
   private val cgHelper = tag("cg-helper")
   private val cgContainer = tag("cg-container")
-  val cgBoard = tag("cg-board")
+  private val cgBoard = tag("cg-board")
   val cgWrapContent = cgHelper(cgContainer(cgBoard))
 
   def chessground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag = wrap {

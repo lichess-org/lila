@@ -36,7 +36,7 @@ object captcha {
               dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
               dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
               dataZ := encodeFen(captcha.fen)
-            )(cgBoard)
+            )(cgWrapContent)
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(trans.colorPlaysCheckmateInOne(
