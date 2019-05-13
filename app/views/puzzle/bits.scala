@@ -17,7 +17,7 @@ object bits {
     dataColor := p.color.name,
     dataFen := fen,
     dataLastmove := lastMove
-  )(cgBoard)
+  )(cgWrapContent)
 
   def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
 

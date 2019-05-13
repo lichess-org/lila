@@ -31,7 +31,7 @@ private object bits {
                   dataColor := vf.color.name,
                   dataFen := vf.fen.value,
                   dataResizable := "1"
-                )(cgBoard)
+                )(cgWrapContent)
               case _ =>
                 p(cls := "errortext")("Invalid position")
             }

@@ -25,7 +25,7 @@ object bits {
     cls := "mini-board parse-fen cg-wrap is2d",
     dataColor := color.name,
     dataFen := fen.value
-  )(cgBoard)
+  )(cgWrapContent)
 
   def gameIcon(game: Game): Char = game.perfType match {
     case _ if game.fromPosition => '*'
