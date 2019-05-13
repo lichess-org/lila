@@ -9,7 +9,7 @@ export default function(ctrl) {
       insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
       destroy: _ => ctrl.ground().destroy()
     }
-  }, [ h('cg-board') ]);
+  });
 }
 
 function makeConfig(ctrl): CgConfig {

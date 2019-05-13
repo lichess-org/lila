@@ -13,7 +13,7 @@ function miniGame(game) {
       config: function(el, isUpdate) {
         if (!isUpdate) lichess.parseFen($(el));
       }
-    }, m('cg-board')),
+    }),
     m('span.vstext', [
       m('span.vstext__pl', [
         game.user1.name,

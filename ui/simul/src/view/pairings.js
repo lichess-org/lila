@@ -21,7 +21,7 @@ function miniPairing(ctrl) {
         config: function(el, isUpdate) {
           if (!isUpdate) lichess.parseFen($(el));
         }
-      }, m('div.cg-wrap', m('cg-board'))),
+      }, m('div.cg-wrap')),
       m('span.vstext', [
         m('span.vstext__pl', [
           util.playerVariant(ctrl, player).name,
