@@ -35,7 +35,7 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "chessground": "^7.5",
+    "chessground": "^7.6",
     "common": "1.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }

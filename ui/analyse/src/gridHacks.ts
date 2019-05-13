@@ -24,7 +24,7 @@ export function start(container: HTMLElement) {
 
 function fixChatHeight(container: HTMLElement) {
   const chat = container.querySelector('.mchat') as HTMLElement,
-    board = container.querySelector('.analyse__board .cg-board-wrap') as HTMLElement,
+    board = container.querySelector('.analyse__board .cg-wrap') as HTMLElement,
     side = container.querySelector('.analyse__side') as HTMLElement;
   if (chat && board && side) {
     const height = board.offsetHeight - side.offsetHeight;

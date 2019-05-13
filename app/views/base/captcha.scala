@@ -31,12 +31,12 @@ object captcha {
       )(
           div(cls := "challenge")(
             div(
-              cls := "mini-board cg-board-wrap parse-fen is2d",
+              cls := "mini-board cg-wrap parse-fen is2d",
               dataPlayable := "1",
               dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
               dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
               dataZ := encodeFen(captcha.fen)
-            )(div(cls := "cg-board"))
+            )(cgBoard)
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(trans.colorPlaysCheckmateInOne(

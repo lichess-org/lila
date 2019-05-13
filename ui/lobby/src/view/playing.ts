@@ -20,7 +20,7 @@ export default function(ctrl: LobbyController) {
         key: pov.gameId,
         attrs: { href: '/' + pov.fullId }
       }, [
-        h('div.mini-board.cg-board-wrap.is2d', {
+        h('div.mini-board.cg-wrap.is2d', {
           hook: {
             insert(vnode) {
               const lm = pov.lastMove;
@@ -35,7 +35,7 @@ export default function(ctrl: LobbyController) {
               });
             }
           }
-        }, [h('div.cg-board')]),
+        }, [h('cg-board')]),
         h('span.meta', [
           pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',

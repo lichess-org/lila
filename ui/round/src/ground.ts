@@ -97,9 +97,9 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
 }
 
 export function render(ctrl: RoundController) {
-  return h('div.cg-board-wrap', {
+  return h('div.cg-wrap', {
     hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl))))
   }, [
-    h('div.cg-board')
+    h('cg-board')
   ]);
 };

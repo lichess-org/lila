@@ -6,14 +6,14 @@ function miniGame(game) {
     href: '/' + game.id + (game.color === 'white' ? '' : '/black')
   }, [
     m('span', {
-      class: 'mini-board cg-board-wrap mini-board-' + game.id + ' parse-fen is2d',
+      class: 'mini-board cg-wrap mini-board-' + game.id + ' parse-fen is2d',
       'data-color': game.color,
       'data-fen': game.fen,
       'data-lastmove': game.lastMove,
       config: function(el, isUpdate) {
         if (!isUpdate) lichess.parseFen($(el));
       }
-    }, m('div-cg-board')),
+    }, m('cg-board')),
     m('span.vstext', [
       m('span.vstext__pl', [
         game.user1.name,
