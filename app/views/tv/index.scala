@@ -47,7 +47,10 @@ object index {
       robots = true
     )(
         main(cls := "round tv-single")(
-          st.aside(cls := "round__side")(side(channel, champions, "/tv")),
+          st.aside(cls := "round__side")(
+            pov ?? side.meta,
+            side.channels(channel, champions, "/tv")
+          ),
           pov ?? { pv =>
             frag(
               views.html.round.bits.roundAppPreload(pv, false),

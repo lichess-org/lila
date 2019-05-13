@@ -27,6 +27,7 @@
     color: $c-accent;
   }
 }
+
 .tv-channels.subnav {
   @include breakpoint($mq-subnav-top) {
     grid-template-columns: repeat(auto-fit, minmax(18ch, 1fr));
@@ -34,4 +35,8 @@
       letter-spacing: -1px;
     }
   }
+}
+
+.game__meta {
+  margin-bottom: $block-gap;
 }
