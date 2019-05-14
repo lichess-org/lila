@@ -139,7 +139,6 @@
   <string name="viewInFullSize">Vezi la dimensiune completă</string>
   <string name="logOut">Deconectare</string>
   <string name="signIn">Autentificare</string>
-  <string name="newToLichess">Nou pe Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Aveți nevoie de cont pentru această acțiune</string>
   <string name="signUp">Înregistrare</string>
   <string name="computersAreNotAllowedToPlay">Computerele și jucătorii asistați de computer nu au voie să joace. Vă rugăm ca în timpul partidei să nu primiți asistență de la motoare de șah, baze de date, sau de la alți jucători. Rețineți totodată că acțiunea de creare a mai multor conturi este descurajată și că un număr mare de conturi vor conduce la blocarea accesului pe site (ban).</string>
@@ -171,8 +170,10 @@
   <string name="ratingStats">Statistică pentru clasament</string>
   <string name="username">Nume utilizator</string>
   <string name="usernameOrEmail">Utilizator/Email</string>
+  <string name="changeUsername">Schimbă numele de utilizator</string>
+  <string name="changeUsernameNotSame">Se poate interschimba din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
+  <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
   <string name="password">Parolă</string>
-  <string name="haveAnAccount">Aveți un cont?</string>
   <string name="changePassword">Schimbați parola</string>
   <string name="changeEmail">Schimbă e-mailul</string>
   <string name="email">E-mail</string>
@@ -180,6 +181,11 @@
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
   <string name="rankX">Loc în clasament: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Locul în clasament este actualizat în fiecare minut</item>
+    <item quantity="few">Locul în clasament este actualizat în fiecare %s minute</item>
+    <item quantity="other">Locul în clasament este actualizat în fiecare %s minute</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">O poziție</item>
     <item quantity="few">%s poziții</item>

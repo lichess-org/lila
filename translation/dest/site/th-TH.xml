@@ -129,7 +129,6 @@
   <string name="viewInFullSize">ดูแบบเต็มขนาด</string>
   <string name="logOut">ลงชื่อออก</string>
   <string name="signIn">ลงชื่อเข้า</string>
-  <string name="newToLichess">มา Lichess ครั้งแรก?</string>
   <string name="youNeedAnAccountToDoThat">คุณต้องมีบัญชีผู้ใช้เพื่อทำสิ่งนั้น</string>
   <string name="signUp">ลงทะเบียน</string>
   <string name="computersAreNotAllowedToPlay">ผู้เล่นที่เป็นคอมพิวเตอร์หรือใช้คอมพิวเตอร์ช่วย จะไม่ได้รับอนุญาตให้เล่น  โปรดอย่าใช้การช่วยเหลือจากตัวช่วยเล่นหมากรุก, ฐานข้อมูล หรือบุคคลอื่น ในขณะเล่น</string>
@@ -157,8 +156,10 @@
   <string name="ratingStats">สถิติระดับคะแนน</string>
   <string name="username">ชื่อผู้ใช้</string>
   <string name="usernameOrEmail">ชื่อผู้ใช้</string>
+  <string name="changeUsername">เปลี่ยนชื่อผู้ใช้</string>
+  <string name="changeUsernameNotSame">เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็กที่เปลี่ยนได้ เช่น \"johndoe\" เป็น \"JohnDoe\"</string>
+  <string name="changeUsernameDescription">เปลี่ยนชื่อผู้ใช้ของคุณ สามารถทำได้เพียงครั้งเดียวเท่านั้น และอนุญาตให้เปลี่ยนได้เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก</string>
   <string name="password">รหัสผ่าน</string>
-  <string name="haveAnAccount">มีบัญชีแล้วหรือยัง?</string>
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
   <string name="email">อีเมล</string>
@@ -166,6 +167,9 @@
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="rank">อันดับ</string>
   <string name="rankX">อันดับ: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">อันดับถูกอัพเดตทุก %s นาที</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s ปริศนา</item>
   </plurals>
@@ -718,6 +722,7 @@
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
+  <string name="xCreatesStudyY">%1$s สร้างกรณีศึกษา %2$s</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
