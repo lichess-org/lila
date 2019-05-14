@@ -8,7 +8,7 @@
   <string name="waitingForOpponent">Gaidām pretinieku</string>
   <string name="waiting">Gaidām</string>
   <string name="yourTurn">Jūsu gājiens</string>
-  <string name="aiNameLevelAiLevel">%1$s līmenis %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
   <string name="level">Līmenis</string>
   <string name="toggleTheChat">Ieslēgt/izslēgt sarunu</string>
   <string name="toggleSound">Ieslēgt/Izslēgt skaņu</string>
@@ -523,7 +523,7 @@
   <string name="lastPost">Pēdējais ieraksts</string>
   <string name="views">Skatījumi</string>
   <string name="replies">Atbildes</string>
-  <string name="replyToThisTopic">Atbildēt par šo tematu</string>
+  <string name="replyToThisTopic">Atbildēt šajā forumā</string>
   <string name="reply">Atbilde</string>
   <string name="message">Ziņojums</string>
   <string name="createTheTopic">Izveidot tematu</string>
@@ -812,7 +812,7 @@
   <string name="error.minLength">Minimālais garums ir %s</string>
   <string name="error.maxLength">Maksimālais garums ir %s</string>
   <string name="error.min">Jābūt vismaz %s</string>
-  <string name="error.max">Jābūt mazākam vai vienādam ar %s</string>
+  <string name="error.max">Jābūt ne vairāk kā %s</string>
   <string name="error.unknown">Kļūda</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
