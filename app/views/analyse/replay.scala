@@ -83,7 +83,7 @@ object replay {
               div(cls := "analyse__underboard__panels")(
                 div(cls := "active"),
                 game.analysable option div(cls := "computer-analysis")(
-                  if (analysis.isDefined || analysisStarted) div(id := "adv-chart")
+                  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
                   else form(
                     cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
                     action := routes.Analyse.requestAnalysis(gameId),
