@@ -24,7 +24,8 @@
     background: $c-bg-zebra;
   }
   #{$move-tag} {
-    flex: 0 0 calc(100% * 5 / 12);
+    /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
+    flex: 0 0 41.666%;
     padding-left: .7em;
     cursor: pointer;
     &:hover {
