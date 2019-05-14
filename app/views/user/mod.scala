@@ -397,7 +397,7 @@ object mod {
     )
 
   def userMarks(o: User, playbans: Option[Int])(implicit ctx: Context) = div(cls := "user_marks")(
-    playbans.map { nb => iconTag("p", nb.toString)(title := "Playban") },
+    playbans.map { nb => iconTag("p", nb)(title := "Playban") },
     o.troll option iconTag("c")(title := "Shadowban"),
     o.booster option iconTag("9")(title := "Boosting"),
     o.engine option iconTag("n")(title := "Engine"),

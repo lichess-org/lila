@@ -151,13 +151,15 @@
 #mz_others .slist td:first-child {
   padding-left: 10px;
 }
-#mz_others  .i {
-  padding: 0 2px;
+#mz_others .i {
+  i {
+    margin: 0 2px;
+    &::before {
+      margin-right: 0;
+    }
+  }
 }
-#mz_others  .i i {
-  font-size: 1.5em;
-}
-#mz_others  thead th {
+#mz_others thead th {
   cursor: pointer;
 }
 .mz_reports form {
