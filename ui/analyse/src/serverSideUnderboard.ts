@@ -9,6 +9,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   $(element).replaceWith(ctrl.opts.$underboard!);
 
+  $('#adv-chart').attr('id', 'acpl-chart');
+
   const data = ctrl.data,
     maxNodes = 200, // no analysis beyond ply 200
     $panels = $('.analyse__underboard__panels > div'),
