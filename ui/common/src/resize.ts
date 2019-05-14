@@ -74,4 +74,6 @@ function addNag(el: HTMLElement) {
     storage.set(true);
     el.innerHTML = '';
   }, { once: true });
+
+  setTimeout(() => storage.set(true), 15000);
 }
