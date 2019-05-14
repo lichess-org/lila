@@ -99,9 +99,10 @@ object irwin {
                   a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
                     playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false),
                     br,
-                    pov.game.isTournament ?? frag(iconTag("g")),
+                    pov.game.isTournament ?? frag(iconTag("g"), " "),
                     pov.game.perfType.map { pt => iconTag(pt.iconChar) },
                     shortClockName(pov.game.clock.map(_.config)),
+                    " ",
                     momentFromNowOnce(pov.game.createdAt)
                   )
                 ),
