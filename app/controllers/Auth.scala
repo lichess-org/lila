@@ -191,7 +191,7 @@ object Auth extends LilaController {
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  authLog(data.username, s"${email.acceptable} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
+                  authLog(data.username, s"${email.acceptable.value} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
@@ -306,7 +306,7 @@ object Auth extends LilaController {
         lila.mon.user.register.confirmEmailResult(true)()
         UserRepo.email(user.id).flatMap {
           _.?? { email =>
-            authLog(user.username, s"Confirmed email $email")
+            authLog(user.username, s"Confirmed email ${email.value}")
             welcome(user, email)
           }
         } >> redirectNewUser(user)
