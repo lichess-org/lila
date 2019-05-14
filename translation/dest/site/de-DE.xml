@@ -134,7 +134,6 @@
   <string name="viewInFullSize">In voller Größe anzeigen</string>
   <string name="logOut">Abmelden</string>
   <string name="signIn">Einloggen</string>
-  <string name="newToLichess">Neu bei Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Dazu brauchst du ein Benutzerkonto</string>
   <string name="signUp">Registrieren</string>
   <string name="computersAreNotAllowedToPlay">Unterstützung von Schachprogrammen, Datenbanken oder anderen Spielern ist während einer Partie nicht erlaubt. Bitte beachte auch, dass die Erstellung mehrerer Benutzerkonten ungern gesehen ist und die Missachtung dieser Regel, bis auf Kulanz von Seiten des Teams, zum Ausschluss aller betroffenen Konten führt.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Anpassung deines Benutzernamens. Dies ist nur einmalig möglich, wobei lediglich Anpassungen der Groß-/Kleinschreibung möglich sind.</string>
   <string name="password">Passwort</string>
-  <string name="haveAnAccount">Hast du schon ein Benutzerkonto?</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
@@ -176,6 +174,10 @@
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Platzierung wird minütlich aktualisiert</item>
+    <item quantity="other">Platzierung wird alle %s Minuten aktualisiert</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s Aufgabe</item>
     <item quantity="other">%s Aufgaben</item>
