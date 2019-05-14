@@ -9,6 +9,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   $(element).replaceWith(ctrl.opts.$underboard!);
 
+  $('#adv-chart').attr('id', 'acpl-chart');
+
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
