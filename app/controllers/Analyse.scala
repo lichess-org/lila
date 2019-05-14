@@ -105,7 +105,6 @@ object Analyse extends LilaController {
     pov,
     initialFen,
     Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status).toString,
-    analysis,
     simul,
     crosstable
   ))

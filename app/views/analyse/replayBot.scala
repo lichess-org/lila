@@ -12,7 +12,6 @@ object replayBot {
     pov: Pov,
     initialFen: Option[chess.format.FEN],
     pgn: String,
-    analysis: Option[lila.analyse.Analysis],
     simul: Option[lila.simul.Simul],
     cross: Option[lila.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) = {
