@@ -45,7 +45,7 @@ object puzzleEditor {
             }
           )
         ),
-        div(cls := "analyse__board main-board")(draughtsgroundSvg),
+        div(cls := "analyse__board main-board")(draughtsgroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )

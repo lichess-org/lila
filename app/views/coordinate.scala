@@ -67,7 +67,7 @@ object coordinate {
               div(cls := "next_coord", id := "next_coord0"),
               div(cls := "next_coord", id := "next_coord1"),
               div(cls := "next_coord", id := "next_coord2"),
-              draughtsgroundSvg
+              draughtsgroundBoard
             ),
             div(cls := "coord-trainer__table")(
               div(cls := "explanation")(
