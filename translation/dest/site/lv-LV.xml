@@ -181,6 +181,11 @@
   <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="rank">Vieta</string>
   <string name="rankX">Vieta: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="zero">Rangs tiek atjaunots ik pēc %s minūtēm</item>
+    <item quantity="one">Rangs tiek atjaunots katru minūti</item>
+    <item quantity="other">Rangs tiek atjaunots ik pēc %s minūtēm</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s puzles</item>
     <item quantity="one">%s puzle</item>
@@ -812,7 +817,7 @@
   <string name="error.minLength">Minimālais garums ir %s</string>
   <string name="error.maxLength">Maksimālais garums ir %s</string>
   <string name="error.min">Jābūt vismaz %s</string>
-  <string name="error.max">Jābūt ne vairāk kā %s</string>
+  <string name="error.max">Nedrīkst būt lielāks par %s</string>
   <string name="error.unknown">Kļūda</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
