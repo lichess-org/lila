@@ -244,7 +244,7 @@
   <string name="recipient">Adresāts</string>
   <string name="send">Sūtīt</string>
   <string name="incrementInSeconds">Pieaugums sekundēs</string>
-  <string name="freeOnlineChess">Bezmaksas Šahs Tiešsaistē</string>
+  <string name="freeOnlineChess">Bezmaksas šahs tiešsaistē</string>
   <string name="spectators">Skatītāji:</string>
   <plurals name="nbRated">
     <item quantity="zero">%s vērtētas</item>
@@ -323,7 +323,7 @@
     <item quantity="one">Jums jāizspēlē vēl %s vērtēta spēle</item>
     <item quantity="other">Jums jāizspēlē vēl %s vērtētas spēles</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tavs pagaidu reitings ir %s</string>
+  <string name="yourPerfRatingIsProvisional">Jūsu pagaidu reitings ir %s</string>
   <string name="yourPerfRatingIsTooHigh">Tavs %1$s reitings (%2$s) ir pārāk augsts</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsu nedēļas augstāgais %1$s reitings (%2$s) ir pārāk augsts</string>
   <string name="yourPerfRatingIsTooLow">Tavs %1$s reitings (%2$s) ir pārāk zems</string>
