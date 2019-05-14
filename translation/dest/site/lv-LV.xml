@@ -595,7 +595,7 @@
   <string name="outsideTheBoard">Galdiņa ārpusē</string>
   <string name="onSlowGames">Lēnajās spēlēs</string>
   <string name="always">Vienmēr</string>
-  <string name="inCasualGamesOnly">Tikai parastajās spēlēs</string>
+  <string name="inCasualGamesOnly">Tikai nevērtētajās spēlēs</string>
   <string name="whenPremoving">Ja priekšgājiens</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
   <string name="difficultyEasy">Viegls</string>
