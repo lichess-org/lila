@@ -59,7 +59,7 @@ object Auth extends LilaController {
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
     result.withCookies(
       LilaCookie.withSession {
-        _ + ("sessionId" -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
+        _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
       }
     )
 
@@ -117,7 +117,7 @@ object Auth extends LilaController {
   }
 
   def logout = Open { implicit ctx =>
-    ctxReq.session get "sessionId" foreach lila.security.Store.delete
+    ctxReq.session get api.sessionIdKey foreach lila.security.Store.delete
     negotiate(
       html = Redirect(routes.Auth.login).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
@@ -129,7 +129,7 @@ object Auth extends LilaController {
     negotiate(
       html = notFound,
       api = _ => {
-        ctxReq.session get "sessionId" foreach lila.security.Store.delete
+        ctxReq.session get api.sessionIdKey foreach lila.security.Store.delete
         Ok(Json.obj("ok" -> true)).withCookies(LilaCookie.newSession).fuccess
       }
     )
