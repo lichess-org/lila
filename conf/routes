@@ -300,10 +300,10 @@ GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key:
 GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
-POST  /pref/:name                      controllers.Pref.set(name: String)
-GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
-POST  /account/preferences             controllers.Pref.formApply
-POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
+POST  /pref/:name                             controllers.Pref.set(name: String)
+GET   /account/preferences/:categ             controllers.Pref.form(categ: String)
+POST  /account/preferences                    controllers.Pref.formApply
+POST  /account/preferences/verify-title       controllers.Pref.verifyTitle
 
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm

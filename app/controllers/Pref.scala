@@ -56,8 +56,15 @@ object Pref extends LilaController {
     }
   }
 
-  def saveTag(name: String, value: String) = Auth { implicit ctx => me =>
-    api.saveTag(me, name, value)
+  def verifyTitle = AuthBody { implicit ctx => me =>
+    import play.api.data._, Forms._
+    implicit val req = ctx.body
+    Form(single("v" -> boolean)).bindFromRequest.fold(
+      _ => fuccess(Redirect(routes.User.show(me.username))),
+      v => api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
+        if (v) routes.Page.master else routes.User.show(me.username)
+      }
+    )
   }
 
   private lazy val setters = Map(

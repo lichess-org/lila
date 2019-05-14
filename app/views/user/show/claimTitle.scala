@@ -24,9 +24,9 @@ object claimTitle {
       p(
         "If you need help or have any question, feel free to contact us by email at ", contactEmailLink, "."
       ),
-      p(cls := "actions")(
-        a(cls := "gotit button text", href := routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "1"), dataIcon := "E")("Got it, thanks!"),
-        a(cls := "button", href := routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "0"))("I don't have an official title")
+      form(action := routes.Pref.verifyTitle, method := "post")(
+        button(cls := "button text", dataIcon := "E", name := "v", value := true)("Got it, thanks!"),
+        button(cls := "button", name := "v", value := false)("I don't have an official title")
       )
     )
 }

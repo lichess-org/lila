@@ -112,10 +112,10 @@ final class PrefApi(
     )
   }
 
-  def saveTag(user: User, name: String, value: String) =
+  def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
     coll.update(
       $id(user.id),
-      $set(s"tags.$name" -> value),
+      $set(s"tags.${tag(Pref.Tag)}" -> value),
       upsert = true
     ).void >>- { cache refresh user.id }
 
