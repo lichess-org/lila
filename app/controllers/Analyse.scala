@@ -107,7 +107,6 @@ object Analyse extends LidraughtsController {
     pov,
     initialFen,
     Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status).toString,
-    analysis,
     simul,
     crosstable
   ))

@@ -12,7 +12,6 @@ object replayBot {
     pov: Pov,
     initialFen: Option[draughts.format.FEN],
     pdn: String,
-    analysis: Option[lidraughts.analyse.Analysis],
     simul: Option[lidraughts.simul.Simul],
     cross: Option[lidraughts.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) = {
