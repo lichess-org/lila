@@ -37,7 +37,7 @@ final class EmailConfirmMailgun(
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit = tokener make user.id flatMap { token =>
     lidraughts.mon.email.types.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
-    lidraughts.log("auth").info(s"Confirm URL ${user.username} $email $url")
+    lidraughts.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
     mailgun send Mailgun.Message(
       to = email,
       subject = trans.emailConfirm_subject.literalTxtTo(lang, List(user.username)),
