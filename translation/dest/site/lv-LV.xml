@@ -804,7 +804,7 @@
   <string name="usernameCharsInvalid">Lietotājvārds drīkst saturēt tikai burtus, ciparus, pasvītras un defises.</string>
   <string name="usernameUnacceptable">Šāds lietotājvārds nav pieņemams.</string>
   <string name="directlySupportLichess">Tieši atbalstīt Lichess</string>
-  <string name="playChessInStyle">Spēlē šahu stilīgi</string>
+  <string name="playChessInStyle">Spēlējiet šahu ar eleganci</string>
   <string name="chessBasics">Šaha pamati</string>
   <string name="coaches">Treneri</string>
   <string name="invalidPgn">Nepareizs PGN</string>
