@@ -36,7 +36,7 @@ object mini {
         ping map bits.signalBars
       ),
       if (u.engine && !ctx.me.has(u) && !isGranted(_.UserSpy))
-        div(cls := "upt__info__warning", dataIcon := "j")(trans.thisPlayerUsesDraughtsComputerAssistance())
+        div(cls := "upt__info__warning")(trans.thisPlayerUsesDraughtsComputerAssistance())
       else
         div(cls := "upt__info__ratings")(u.best8Perfs map { showPerfRating(u, _) })
     ),
