@@ -21,8 +21,6 @@ export interface RoundMain {
   app: (opts: RoundOpts) => RoundApi;
 }
 
-menuHover();
-
 export function app(opts: RoundOpts): RoundApi {
 
   const patch = init([klass, attributes]);
@@ -40,6 +38,8 @@ export function app(opts: RoundOpts): RoundApi {
   vnode = patch(opts.element, blueprint);
 
   window.addEventListener('resize', redraw); // col1 / col2+ transition
+
+  ctrl.isPlaying() && menuHover();
 
   return {
     socketReceive: ctrl.socket.receive,
