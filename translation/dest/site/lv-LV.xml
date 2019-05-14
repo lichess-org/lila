@@ -738,7 +738,7 @@
   <string name="downloadImported">Lejupielādēt importēto</string>
   <string name="printFriendlyPDF">Drukājams PDF</string>
   <string name="crosstable">Šķērstabula</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vari arī skrollēt gājienus uz spēles laukuma.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Varat arī ritināt virs galdiņa, lai pārvietotos spēlē.</string>
   <string name="analysisShapesHowTo">Nospied uz galdiņa shift+kreiso taustiņu vai labo taustiņu lai zīmētu riņķus un bultas.</string>
   <string name="confirmResignationAndDrawOffers">Apstiprināt padošanos un neizšķirta piedāvājumus</string>
   <string name="inputMovesWithTheKeyboard">Ievadīt gājienus ar klaviatūru</string>
