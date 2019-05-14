@@ -120,7 +120,7 @@ final class SecurityApi(
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
     reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
-  private val sessionIdKey = "sessionId"
+  val sessionIdKey = "sessionId"
 
   private def isMobileAppWS(req: RequestHeader) =
     HTTPRequest.isSocket(req) && HTTPRequest.origin(req).fold(true)("file://" ==)

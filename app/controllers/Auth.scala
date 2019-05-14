@@ -59,7 +59,7 @@ object Auth extends LidraughtsController {
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
     result.withCookies(
       LidraughtsCookie.withSession {
-        _ + ("sessionId" -> sessionId) - api.AccessUri - lidraughts.security.EmailConfirm.cookie.name
+        _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lidraughts.security.EmailConfirm.cookie.name
       }
     )
 
@@ -117,7 +117,7 @@ object Auth extends LidraughtsController {
   }
 
   def logout = Open { implicit ctx =>
-    ctxReq.session get "sessionId" foreach lidraughts.security.Store.delete
+    ctxReq.session get api.sessionIdKey foreach lidraughts.security.Store.delete
     negotiate(
       html = Redirect(routes.Main.mobile).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
@@ -129,7 +129,7 @@ object Auth extends LidraughtsController {
     negotiate(
       html = notFound,
       api = _ => {
-        ctxReq.session get "sessionId" foreach lidraughts.security.Store.delete
+        ctxReq.session get api.sessionIdKey foreach lidraughts.security.Store.delete
         Ok(Json.obj("ok" -> true)).withCookies(LidraughtsCookie.newSession).fuccess
       }
     )
