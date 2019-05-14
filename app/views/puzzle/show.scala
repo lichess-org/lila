@@ -44,7 +44,7 @@ lidraughts.puzzle = ${
           st.aside(cls := "puzzle__side")(
             div(cls := "puzzle__side__metas")(spinner)
           ),
-          div(cls := "puzzle__board main-board")(draughtsgroundSvg),
+          div(cls := "puzzle__board main-board")(draughtsgroundBoard),
           div(cls := "puzzle__tools"),
           div(cls := "puzzle__controls"),
           div(cls := "puzzle__history")
