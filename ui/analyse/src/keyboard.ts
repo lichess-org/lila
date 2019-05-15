@@ -29,7 +29,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind(['right', 'j'], preventing(function() {
-    control.next(ctrl);
+    if (!ctrl.fork.proceed()) control.next(ctrl);
     ctrl.redraw();
   }));
   kbd.bind(['shift+right', 'shift+j'], preventing(function() {
@@ -37,11 +37,11 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind(['up', '0'], preventing(function() {
-    control.first(ctrl);
+    if (!ctrl.fork.prev()) control.first(ctrl);
     ctrl.redraw();
   }));
   kbd.bind(['down', '$'], preventing(function() {
-    control.last(ctrl);
+    if (!ctrl.fork.next()) control.last(ctrl);
     ctrl.redraw();
   }));
   kbd.bind('shift+c', preventing(function() {

@@ -23,6 +23,7 @@ import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
 import * as studyView from './study/studyView';
 import * as studyPracticeView from './study/practice/studyPracticeView';
+import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
@@ -300,7 +301,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         cevalView.renderCeval(ctrl),
         showCevalPvs ? cevalView.renderPvs(ctrl) : null,
         renderAnalyse(ctrl, concealOf),
-        gamebookEditView,
+        gamebookEditView || forkView(ctrl, concealOf),
         retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
       ])
     ]),
