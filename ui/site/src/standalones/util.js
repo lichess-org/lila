@@ -18,8 +18,11 @@ lichess.isCol1 = (function() {
   return function() {
     var ctk = 'isCol1' + Math.random();
     if (typeof isCol1Cache == 'string') {
-      if (isCol1Cache == 'init')
-        window.addEventListener('resize', function() { isCol1Cache = 'rec' });
+      if (isCol1Cache == 'init') { // only once
+        window.addEventListener('resize', function() { isCol1Cache = 'rec' }); // recompute on resize
+        if (navigator.userAgent.indexOf('Edge/') > -1) // edge gets false positive on page load, fix later
+          window.lichess.raf(function() { isCol1Cache = 'rec' });
+      }
       isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
     }
     return isCol1Cache;
