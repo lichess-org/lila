@@ -2,27 +2,21 @@ $c-fork: $c-primary;
 
 .analyse__fork {
   @extend %flex-center;
-  display: none;
-  @include breakpoint($mq-col2) {
-    flex: 0 0 auto;
-    display: block;
+  flex: 0 0 auto;
+  @include breakpoint($mq-col1) {
+    display: none;
   }
   move {
-    @extend %san;
-    background: mix($c-fork, $c-bg-box, 20%);
+    @extend %san, %flex-center;
+    background: mix($c-fork, $c-bg-box, 25%);
+    color: $c-font-clear;
     flex: 0 0 50%;
-    line-height: 28px;
-    display: block;
     cursor: pointer;
-    padding: 0 15px;
-    display: flex;
-    border-bottom: $border;
+    padding: .2em 1em;
+    border-bottom: 1px solid $c-bg-box;
     &:nth-child(odd) {
-      border-right: $border;
+      border-right: 1px solid $c-bg-box;
     }
-  }
-  move:last-child {
-    border-bottom: none;
   }
   move:hover,
   &:not(:hover) move.selected {
@@ -30,14 +24,13 @@ $c-fork: $c-primary;
     color: #fff;
   }
   glyph {
-    font-family: 'Noto Sans';
+    @extend %base-font;
     margin-left: 2px;
   }
   eval {
+    @extend %roboto;
     flex: 3 0 auto;
     text-align: right;
-    font-size: 0.8em;
-    font-family: 'Roboto';
-    opacity: 0.8;
+    font-size: .9em;
   }
 }
