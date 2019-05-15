@@ -54,6 +54,8 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
 
+  if (ctrl.embed) return;
+
   kbd.bind('space', preventing(function() {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
@@ -79,12 +81,6 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.toggleExplorer();
     ctrl.redraw();
   }));
-  kbd.bind('space', preventing(function() {
-    const gb = ctrl.gamebookPlay();
-    if (gb) gb.onSpace();
-    else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-    else ctrl.toggleCeval();
-  }));
   if (ctrl.study) {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(key, preventing(function() {
@@ -93,8 +89,8 @@ export function bind(ctrl: AnalyseCtrl): void {
         });
       }));
     };
-    keyToMousedown('c', '.study__buttons a.comments');
-    keyToMousedown('g', '.study__buttons a.glyphs');
+    keyToMousedown('c', '.study__buttons .comments');
+    keyToMousedown('g', '.study__buttons .glyphs');
   }
 }
 
