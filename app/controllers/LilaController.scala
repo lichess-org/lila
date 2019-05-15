@@ -51,9 +51,6 @@ private[controllers] trait LilaController
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
   )
-  protected def NoIframe(res: Result): Result = res.withHeaders(
-    "X-Frame-Options" -> "SAMEORIGIN"
-  )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(parse.empty)(f)
