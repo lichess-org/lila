@@ -36,6 +36,12 @@
   <string name="showThreat">Tehdîdan nîşan bide</string>
   <string name="inLocalBrowser">li geroka xwecihî</string>
   <string name="toggleLocalEvaluation">Nirxandina xwecihî biguherîne</string>
+  <string name="blunders">Şelipan</string>
+  <string name="mistake">Çewtî</string>
+  <string name="mistakes">Çewtî</string>
+  <string name="inaccuracy">Nerastî</string>
+  <string name="inaccuracies">Nerastî</string>
+  <string name="moveTimes">Dema hemleyan</string>
   <string name="send">Bişeyne</string>
   <string name="latestUpdates">Rojaneyên herî dawî</string>
   <string name="tournamentWinners">Serkeftiyên Pêşbirkê</string>
