@@ -3,6 +3,7 @@
 <resources>
   <string name="playWithAFriend">Bi hevalek re bileyze</string>
   <string name="playWithTheMachine">Bi kompîtûr re bileyze</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Vê girêdankê parve bike da ku hevalên te bi te ra bileyzin</string>
   <string name="gameOver">Lîstik bi dawî bû</string>
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
   <string name="waiting">Li bendê ye</string>
@@ -30,6 +31,11 @@
   <string name="viewTheComputerAnalysis">Analîza kompîtûrê bibîne</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
   <string name="computerAnalysis">Analîza kompîtûr</string>
+  <string name="cloudAnalysis">Analîza onlîne</string>
+  <string name="goDeeper">Kûrtir analîz bike</string>
+  <string name="showThreat">Tehdîdan nîşan bide</string>
+  <string name="inLocalBrowser">li geroka xwecihî</string>
+  <string name="toggleLocalEvaluation">Nirxandina xwecihî biguherîne</string>
   <string name="send">Bişeyne</string>
   <string name="latestUpdates">Rojaneyên herî dawî</string>
   <string name="tournamentWinners">Serkeftiyên Pêşbirkê</string>
