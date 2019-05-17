@@ -114,7 +114,6 @@
   <string name="viewInFullSize">Žiūrėti visu dydžiu</string>
   <string name="logOut">Atsijungti</string>
   <string name="signIn">Prisijungti</string>
-  <string name="newToLichess">Pirmas kartas su „lichess“?</string>
   <string name="youNeedAnAccountToDoThat">Norėdami tai atlikti, turite turėti paskyrą</string>
   <string name="signUp">Registruotis</string>
   <string name="computersAreNotAllowedToPlay">Kompiuteriams ir kompiuterių padedamiems žaidėjams žaisti draudžiama. Prašome nesinaudoti šachmatų programomis, duomenų bazėmis ar kitų žaidėjų pagalba partijos metu. Kartu norime pažymėti, kad keleto paskyrų turėjimas yra nepatartinas, o dėl perdėto jų naudojimo būsite užblokuoti.</string>
@@ -140,7 +139,6 @@
   <string name="changeUsernameNotSame">Galima keisti tik raidžių dydį. Pvz., „vardaspav“ į „VardasPav“.</string>
   <string name="changeUsernameDescription">Pasikeiskite naudotojo vardą. Tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
   <string name="password">Slaptažodis</string>
-  <string name="haveAnAccount">Turite paskyrą?</string>
   <string name="changePassword">Pasikeisti slaptažodį</string>
   <string name="changeEmail">Pasikeisti el. pašto adresą</string>
   <string name="email">El. paštas</string>
@@ -257,8 +255,8 @@
   <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="importGame">Importuoti partiją</string>
-  <string name="importGameExplanation">Įkeldami partijos PGN gausite naršomą peržiūrą,
-kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
+  <string name="importGameExplanation">"Įkeldami partijos PGN gausite naršomą peržiūrą,
+kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi."</string>
   <string name="thisIsAChessCaptcha">Tai yra šachmatinė „CAPTCHA“.</string>
   <string name="clickOnTheBoardToMakeYourMove">Spustelėkite ant lentos norėdami atlikti ėjimą ir įrodyti, kad esate žmogus.</string>
   <string name="captcha.fail">Prašome išspręsti šachmatų galvosūkį.</string>
@@ -476,8 +474,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xCommentedY">%1$s pakomentavo apie „%2$s“</string>
   <string name="victory">Pergalė</string>
   <string name="defeat">Pralaimėjimas</string>
-  <string name="xVsYinZ">%1$s prieš %2$s
-(%3$s)</string>
+  <string name="xVsYinZ">"%1$s prieš %2$s
+(%3$s)"</string>
   <string name="timeline">Veikla</string>
   <string name="starting">Prasideda:</string>
   <string name="allInformationIsPublicAndOptional">Visa informacija yra vieša ir neprivaloma.</string>
