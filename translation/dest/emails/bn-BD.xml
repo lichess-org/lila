@@ -11,12 +11,12 @@
   <string name="emailChange_intro">আপনি অনুরোধ করেছেন আপনার ই-মেইল ঠিকানাটি পরিবর্তন করার জন্য.</string>
   <string name="emailChange_click">এই ই-মেইলে প্রবেশ নিশ্চিত করার জন্য, দয়া করে নিচের লিংকে ক্লিক করুন:</string>
   <string name="welcome_subject">স্বাগতম lichess.org%s</string>
-  <string name="welcome_text">আপনি সফলভাবে https://lichess.org উপর আপনার একাউন্ট তৈরি করেছেন.
+  <string name="welcome_text">"আপনি সফলভাবে https://lichess.org উপর আপনার একাউন্ট তৈরি করেছেন.
 
 এখানে আপনার প্রোফাইল পাতা:%1$s.
 এটার উপর আপনি ব্যক্তিগতকৃত করতে পারবেন %2$s.
 মজা করুন, এবং হয়তো আপনার টুকরাগুলো সবসময়
-তাদের পথ খুজে আপনার প্রতিপক্ষের রাজার জন্য!</string>
+তাদের পথ খুজে আপনার প্রতিপক্ষের রাজার জন্য!"</string>
   <string name="common_orPaste">(ক্লিক কাজ করছেনা? আপনার ব্রাউজার দিয়ে এটা চেষ্টা করুন!)</string>
   <string name="common_note">এটা হয় একটি সার্ভিস ই-মেইল সম্পর্কিত আপনার ব্যবহারের জন্য %s.</string>
 </resources>
