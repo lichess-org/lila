@@ -11,9 +11,9 @@
   <string name="emailChange_intro">Heu demanat canviar el correu electrònic.</string>
   <string name="emailChange_click">Per confirmar que teniu accés a aquest correu electrònic, feu clic a l\'enllaç següent:</string>
   <string name="welcome_subject">Benvinguts a lichess.org, %s</string>
-  <string name="welcome_text">Heu creat correctament el vostre compte en https://lichess.org.
+  <string name="welcome_text">"Heu creat correctament el vostre compte en https://lichess.org.
 
 Aquí teniu la pàgina del perfil: %1$s. Podeu personalitzar-la a %2$s.
 
-Divertiu-vos, i porteu les peces sempre a trobar el seu camí cap al rei del teu oponent!</string>
+Divertiu-vos, i porteu les peces sempre a trobar el seu camí cap al rei del teu oponent!"</string>
 </resources>
