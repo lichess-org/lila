@@ -112,51 +112,51 @@
   <string name="castleQueenSideMovePiecesFirst">Rochiere lang! Du musst zuerst Figuren wegbewegen.</string>
   <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn der König oder der Turm bereits bewegt wurden.</string>
   <string name="youCannotCastleIfAttacked">Du kannst nicht rochieren, wenn der König auf seinem Weg bedroht wird. Blocke das Schach und rochiere dann!</string>
-  <string name="findAWayToCastleKingSide">Finde eine Möglichkeit,
-kurz zu rochieren!</string>
-  <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit,
-lang zu rochieren!</string>
+  <string name="findAWayToCastleKingSide">"Finde eine Möglichkeit,
+kurz zu rochieren!"</string>
+  <string name="findAWayToCastleQueenSide">"Finde eine Möglichkeit,
+lang zu rochieren!"</string>
   <string name="castlingComplete">Herzlichen Glückwunsch! Die Rochade ist in fast jedem Spiel empfehlenswert.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Der besondere Bauernzug</string>
   <string name="enPassantIntro">Wenn der gegnerische Bauer zwei Felder gezogen ist, kannst du ihn schlagen als wenn er nur ein Feld gezogen wäre.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hat seinen Bauern um zwei Felder bewegt!
-Schlage ihn en passant.</string>
-  <string name="enPassantOnlyWorksImmediately">En passant funktioniert nur 
+  <string name="blackJustMovedThePawnByTwoSquares">"Schwarz hat seinen Bauern um zwei Felder bewegt!
+Schlage ihn en passant."</string>
+  <string name="enPassantOnlyWorksImmediately">"En passant funktioniert nur 
 unmittelbar nachdem der Gegner 
-den Bauern bewegt hat.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">En passant funktioniert nur, 
-wenn sich dein Bauer auf der 5. Reihe befindet.</string>
+den Bauern bewegt hat."</string>
+  <string name="enPassantOnlyWorksOnFifthRank">"En passant funktioniert nur, 
+wenn sich dein Bauer auf der 5. Reihe befindet."</string>
   <string name="takeAllThePawnsEnPassant">Schlage alle Bauern en passant!</string>
   <string name="enPassantComplete">Herzlichen Glückwunsch! Du kannst jetzt en passant schlagen.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Das Spiel ist Remis</string>
   <string name="stalemateIntro">Wenn ein Spieler nicht im Schach steht und über keinen zulässigen Zug verfügt, ist es ein Patt. Das Spiel endet Remis: Niemand gewinnt, niemand verliert.</string>
-  <string name="stalemateGoal">Um Schwarz Patt zu setzen:
+  <string name="stalemateGoal">"Um Schwarz Patt zu setzen:
 - Schwarz kann sich nicht bewegen
-- Es wird kein Schach geboten.</string>
+- Es wird kein Schach geboten."</string>
   <string name="stalemateComplete">Herzlichen Glückwunsch! Lieber Patt als Matt!</string>
   <string name="advanced">Fortgeschritten</string>
   <string name="pieceValue">Figurenwerte</string>
   <string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
-  <string name="pieceValueIntro">Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
+  <string name="pieceValueIntro">"Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
 Dame = 9
 Turm = 5
 Läufer = 3
 Springer = 3
 Bauer = 1
-Der König ist unbezahlbar! Ihn zu verlieren bedeutet das Spiel zu verlieren.</string>
-  <string name="queenOverBishop">Schlage die Figur
+Der König ist unbezahlbar! Ihn zu verlieren bedeutet das Spiel zu verlieren."</string>
+  <string name="queenOverBishop">"Schlage die Figur
 mit dem höchsten Wert!
-Dame &gt; Läufer</string>
-  <string name="takeThePieceWithTheHighestValue">Schlage die Figur 
-mit dem höchsten Wert!</string>
-  <string name="pieceValueComplete">Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!
+Dame &gt; Läufer"</string>
+  <string name="takeThePieceWithTheHighestValue">"Schlage die Figur 
+mit dem höchsten Wert!"</string>
+  <string name="pieceValueComplete">"Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!
 Dame = 9
 Turm = 5
 Läufer = 3
 Springer = 3
-Bauer = 1</string>
+Bauer = 1"</string>
   <string name="checkInTwo">Schach in zwei Zügen</string>
   <string name="twoMovesToGiveCheck">Zwei Züge um Schach zu bieten</string>
   <string name="checkInTwoIntro">Finde die richtige Kombination von zwei Zügen, die den gegnerischen König Schach setzt!</string>
