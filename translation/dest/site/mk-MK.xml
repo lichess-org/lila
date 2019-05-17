@@ -123,7 +123,6 @@
   <string name="viewInFullSize">Гледај во полна големина</string>
   <string name="logOut">Одјави се</string>
   <string name="signIn">Најави се</string>
-  <string name="newToLichess">Нов на Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Ви треба свој профил за да го направите тоа</string>
   <string name="signUp">Регистрирај се</string>
   <string name="computersAreNotAllowedToPlay">Не е дозволено да играат компјутери и компјутерски потпомогнати играчи. Додедка играте, Ве молиме да не користите помош од шаховски машини, бази на податоци или од други играчи. Примете на знаење дека сериозно се настојува да не се отвораат повеќе профили. Прекумерното повеќекратно профилирање води кон отстранување.</string>
@@ -154,7 +153,6 @@
   <string name="username">Имя пользователя</string>
   <string name="usernameOrEmail">Корисник</string>
   <string name="password">Лозинка</string>
-  <string name="haveAnAccount">Имате ли профил?</string>
   <string name="changePassword">Променете ја шифрата</string>
   <string name="changeEmail">Променете ја е-поштата</string>
   <string name="email">е-пошта</string>
