@@ -20,9 +20,9 @@
   <string name="theBishop">Biskupinn</string>
   <string name="itMovesDiagonally">Hann ferðast á ská</string>
   <string name="bishopIntro">Næst lærum við að hreyfa biskupinn!</string>
-  <string name="youNeedBothBishops">Einn biskup fyrir hvíta reiti,
+  <string name="youNeedBothBishops">"Einn biskup fyrir hvíta reiti,
 einn biskup fyrir svarta reiti.
-Þú þarft báða!</string>
+Þú þarft báða!"</string>
   <string name="bishopComplete">Til lukku! Þú getur stjórnað biskupnum.</string>
   <string name="theQueen">Drottningin</string>
   <string name="queenCombinesRookAndBishop">Drottning = hrókur + biskup</string>
