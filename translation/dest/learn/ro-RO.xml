@@ -14,16 +14,16 @@
   <string name="rookIntro">Turnul e o piesă puternică. Ești pregătit s-o mânuiești?</string>
   <string name="rookGoal">Apasă click pe turn ca să-l aduci pe stea!</string>
   <string name="grabAllTheStars">Prinde toate stelele!</string>
-  <string name="theFewerMoves">Cu cât mai puține mutări făcute,
-cu atât mai multe puncte câștigate!</string>
+  <string name="theFewerMoves">"Cu cât mai puține mutări făcute,
+cu atât mai multe puncte câștigate!"</string>
   <string name="useTwoRooks">Folosește două turnuri ca să grăbești lucrurile!</string>
   <string name="rookComplete">Felicitări! Ai reușit să stăpânești turnul.</string>
   <string name="theBishop">Nebunul</string>
   <string name="itMovesDiagonally">Se mișcă în diagonală</string>
   <string name="bishopIntro">Următorul lucru pe care-l vom învăța este manevrarea nebunului!</string>
-  <string name="youNeedBothBishops">Un nebun alb,
+  <string name="youNeedBothBishops">"Un nebun alb,
 un nebun negru,
-ai nevoie de ambii!</string>
+ai nevoie de ambii!"</string>
   <string name="bishopComplete">Felicitări! Poți mânui un nebun.</string>
   <string name="theQueen">Regina</string>
   <string name="queenCombinesRookAndBishop">Regina = Tură + Nebun</string>
@@ -39,24 +39,24 @@ ai nevoie de ambii!</string>
   <string name="itMovesInAnLShape">Se mișcă în formă de L</string>
   <string name="knightIntro">Aici e o provocare pentru tine. Calul este... o piesă șireată.</string>
   <string name="knightsHaveAFancyWay">Caii au un mod șiret în a sări împrejur!</string>
-  <string name="knightsCanJumpOverObstacles">Caii pot sări peste obstacole!
-Evadează și cucerește stelele!</string>
+  <string name="knightsCanJumpOverObstacles">"Caii pot sări peste obstacole!
+Evadează și cucerește stelele!"</string>
   <string name="knightComplete">Felicitări! Ai învățat să folosești calul.</string>
   <string name="thePawn">Pionul</string>
   <string name="itMovesForwardOnly">Se mișcă doar înainte</string>
   <string name="pawnIntro">Pionii sunt slabi, dar au un mare potențial.</string>
-  <string name="pawnsMoveOneSquareOnly">Pionii se mișcă doar o pătrățică.
-Dar atunci când ajung la celălalt capăt al tablei, ei devin piese mai puternice!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">De cele mai multe ori, promovând pionul într-o regină e cea mai bună alegere.
-Dar uneori, un cal poate fi util!</string>
-  <string name="pawnsMoveForward">Pionii se mișcă înainte,
-dar mănâncă în diagonală!</string>
+  <string name="pawnsMoveOneSquareOnly">"Pionii se mișcă doar o pătrățică.
+Dar atunci când ajung la celălalt capăt al tablei, ei devin piese mai puternice!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">"De cele mai multe ori, promovând pionul într-o regină e cea mai bună alegere.
+Dar uneori, un cal poate fi util!"</string>
+  <string name="pawnsMoveForward">"Pionii se mișcă înainte,
+dar mănâncă în diagonală!"</string>
   <string name="captureThenPromote">Mănâncă, apoi promovează!</string>
-  <string name="useAllThePawns">Folosește toți pionii!
-Nu trebuie să-i promovezi.</string>
+  <string name="useAllThePawns">"Folosește toți pionii!
+Nu trebuie să-i promovezi."</string>
   <string name="aPawnOnTheSecondRank">Un pion de pe a doua linie se poate mișca două pătrățele deodată!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Capturează toate stelele!
-Nu trebuie să promovezi.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">"Capturează toate stelele!
+Nu trebuie să promovezi."</string>
   <string name="pawnComplete">Felicitări! Ai învățat să controlezi pionul.</string>
   <string name="pawnPromotion">Promovarea pionului</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Pionul tău a atins capătul tablei!</string>
@@ -74,8 +74,8 @@ Nu trebuie să promovezi.</string>
   <string name="protectionIntro">Identifică piesele pe care oponentul tău le atacă și protejează-le!</string>
   <string name="protectionComplete">Felicitări! O piesă care nu o pierde este o piesă câștigată!</string>
   <string name="escape">Ești atacat! Scăpa de amenințare!</string>
-  <string name="noEscape">Nu este nicio scăpare,
-dar poți proteja!</string>
+  <string name="noEscape">"Nu este nicio scăpare,
+dar poți proteja!"</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nu-i lăsa să ia vreo piesă neprotejată!</string>
   <string name="combat">Luptă</string>
   <string name="captureAndDefendPieces">Capturează şi protejează piese</string>
@@ -93,103 +93,103 @@ dar poți proteja!</string>
   <string name="theKingCannotEscapeButBlock">Regele nu poate scăpa, dar poți bloca atacul!</string>
   <string name="youCanGetOutOfCheckByTaking">Poți ieși din șah capturând piesa care-ți atacă regele.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă şah prin apărările tale!</string>
-  <string name="escapeOrBlock">Evadează cu regele
-sau blochează atacul!</string>
+  <string name="escapeOrBlock">"Evadează cu regele
+sau blochează atacul!"</string>
   <string name="outOfCheckComplete">Felicitări! Regele tău nu poate fi capturat, asigură-te că-l poți apăra de șah!</string>
   <string name="mateInOne">Mat într-o mutare</string>
   <string name="defeatTheOpponentsKing">Înfrânge regele oponentului</string>
   <string name="mateInOneIntro">Câștigi când oponentul tău nu se poate apăra de șah.</string>
-  <string name="attackYourOpponentsKing">Atacă regele oponentului
-într-un mod prin care nu poate fi apărat!</string>
+  <string name="attackYourOpponentsKing">"Atacă regele oponentului
+într-un mod prin care nu poate fi apărat!"</string>
   <string name="mateInOneComplete">Felicitări! Așa câștigi jocurile de șah!</string>
   <string name="intermediate">Intermediar</string>
   <string name="boardSetup">Pregătirea tablei</string>
   <string name="howTheGameStarts">Cum incepe jocul</string>
   <string name="boardSetupIntro">Cele două armate sunt față în față, gata pentru bătălie.</string>
-  <string name="thisIsTheInitialPosition">Aceasta este poziția inițială
+  <string name="thisIsTheInitialPosition">"Aceasta este poziția inițială
 a fiecărui joc de șah!
-Mută orice piesă pentru a continua.</string>
-  <string name="firstPlaceTheRooks">Prima dată, așază turnurile!
-Ele vor fi în colțuri.</string>
-  <string name="thenPlaceTheKnights">Apoi caii!
-Vor fi lângă turnuri.</string>
-  <string name="placeTheBishops">Urmează nebunii!
-Vor fi lângă cai.</string>
-  <string name="placeTheQueen">Așază regina!
-Va fi pusă pe culoarea ei.</string>
-  <string name="placeTheKing">Și regele!
-Fix lângă regina sa.</string>
-  <string name="pawnsFormTheFrontLine">Pionii formează prima linie.
-Mută oricare piesă pentru a continua.</string>
+Mută orice piesă pentru a continua."</string>
+  <string name="firstPlaceTheRooks">"Prima dată, așază turnurile!
+Ele vor fi în colțuri."</string>
+  <string name="thenPlaceTheKnights">"Apoi caii!
+Vor fi lângă turnuri."</string>
+  <string name="placeTheBishops">"Urmează nebunii!
+Vor fi lângă cai."</string>
+  <string name="placeTheQueen">"Așază regina!
+Va fi pusă pe culoarea ei."</string>
+  <string name="placeTheKing">"Și regele!
+Fix lângă regina sa."</string>
+  <string name="pawnsFormTheFrontLine">"Pionii formează prima linie.
+Mută oricare piesă pentru a continua."</string>
   <string name="boardSetupComplete">Felicitări! Știi cum să pregătești tabla de șah.</string>
   <string name="castling">Rocada</string>
   <string name="theSpecialKingMove">Mutarea specială a regelui</string>
   <string name="castlingIntro">Protejează-ți regele și lansează-ți turnul pentru atac!</string>
-  <string name="castleKingSide">Mută-ți regele două pătrățele
-pentru a face rocada mică!</string>
-  <string name="castleQueenSide">Mută-ți regele două pătrățele
-pentru a face rocada mare!</string>
-  <string name="theKnightIsInTheWay">Calul stă în cale!
-Mută-l, apoi fă rocada mică.</string>
-  <string name="castleKingSideMovePiecesFirst">Fă rocada mică!
-Trebuie să muți piesele din cale mai întâi.</string>
-  <string name="castleQueenSideMovePiecesFirst">Fă rocada mare!
-Trebuie să muți piesele din cale mai întâi.</string>
-  <string name="youCannotCastleIfMoved">Nu poți face rocada dacă
+  <string name="castleKingSide">"Mută-ți regele două pătrățele
+pentru a face rocada mică!"</string>
+  <string name="castleQueenSide">"Mută-ți regele două pătrățele
+pentru a face rocada mare!"</string>
+  <string name="theKnightIsInTheWay">"Calul stă în cale!
+Mută-l, apoi fă rocada mică."</string>
+  <string name="castleKingSideMovePiecesFirst">"Fă rocada mică!
+Trebuie să muți piesele din cale mai întâi."</string>
+  <string name="castleQueenSideMovePiecesFirst">"Fă rocada mare!
+Trebuie să muți piesele din cale mai întâi."</string>
+  <string name="youCannotCastleIfMoved">"Nu poți face rocada dacă
 regele sau turnul a fost
-deja mutat.</string>
-  <string name="youCannotCastleIfAttacked">Nu poți face rocada dacă
+deja mutat."</string>
+  <string name="youCannotCastleIfAttacked">"Nu poți face rocada dacă
 regele este atacat.
-Blochează atacul, iar apoi fă rocada!</string>
-  <string name="findAWayToCastleKingSide">Găsește o cale
-prin care să faci rocada mică!</string>
-  <string name="findAWayToCastleQueenSide">Găsește o cale prin care
-să faci rocada mare!</string>
+Blochează atacul, iar apoi fă rocada!"</string>
+  <string name="findAWayToCastleKingSide">"Găsește o cale
+prin care să faci rocada mică!"</string>
+  <string name="findAWayToCastleQueenSide">"Găsește o cale prin care
+să faci rocada mare!"</string>
   <string name="castlingComplete">Felicitări! Ar trebui să faci rocada mai mereu.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Mutarea de pion specială</string>
   <string name="enPassantIntro">Când pionul oponentului a fost mutat două pătrățele, îl poți captura ca și cum ar fi mutat doar o pătrățică.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Jucătorul cu piesele negre tocmai a mutat pionul două pătrățele!
-Ia-l prin mișcarea en passant.</string>
-  <string name="enPassantOnlyWorksImmediately">Mișcarea en passant funcționează doar
-o mutare după ce oponentul a mutat pionul.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Mișcarea en passant merge doar
-dacă pionul tău este pe al 5-lea rând.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">"Jucătorul cu piesele negre tocmai a mutat pionul două pătrățele!
+Ia-l prin mișcarea en passant."</string>
+  <string name="enPassantOnlyWorksImmediately">"Mișcarea en passant funcționează doar
+o mutare după ce oponentul a mutat pionul."</string>
+  <string name="enPassantOnlyWorksOnFifthRank">"Mișcarea en passant merge doar
+dacă pionul tău este pe al 5-lea rând."</string>
   <string name="takeAllThePawnsEnPassant">Ia toți pionii prin mișcarea en passant!</string>
   <string name="enPassantComplete">Felicitări! Ai învățat să capturezi prin mișcarea en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Acest meci este o remiză</string>
   <string name="stalemateIntro">Când un jucător nu este în șah și nu are nicio mutare validă, este pat. Meciul e o remiză: nimeni nu câștigă, nimeni nu pierde.</string>
-  <string name="stalemateGoal">Ca să dai pat jucătorului cu piesele negre, va trebui ca el:
+  <string name="stalemateGoal">"Ca să dai pat jucătorului cu piesele negre, va trebui ca el:
 - Să nu poată muta vreo piesă.
-- Să nu fie în șah.</string>
+- Să nu fie în șah."</string>
   <string name="stalemateComplete">Felicitări! Mai bine să fie pat decât să pierzi!</string>
   <string name="advanced">Avansat</string>
   <string name="pieceValue">Valoarea piesei</string>
   <string name="evaluatePieceStrength">Evaluează puterea piesei</string>
-  <string name="pieceValueIntro">Piesele cu mobilitate mare au o valoare mai mare!
+  <string name="pieceValueIntro">"Piesele cu mobilitate mare au o valoare mai mare!
 Regina = 9
 Turnul = 5
 Nebunul = 3
 Calul = 3
 Pionul = 1
-Regele este de neprețuit! Pierzându-l, pierzi jocul.</string>
-  <string name="queenOverBishop">Capturează piesa
+Regele este de neprețuit! Pierzându-l, pierzi jocul."</string>
+  <string name="queenOverBishop">"Capturează piesa
 cu cea mai mare valoare!
-Regina &gt; Nebunul</string>
-  <string name="takeThePieceWithTheHighestValue">Capturează piesa
-cu cea mai mare valoare!</string>
-  <string name="pieceValueComplete">Felicitări! Acum știi valoarea pieselor!
+Regina &gt; Nebunul"</string>
+  <string name="takeThePieceWithTheHighestValue">"Capturează piesa
+cu cea mai mare valoare!"</string>
+  <string name="pieceValueComplete">"Felicitări! Acum știi valoarea pieselor!
 Regina = 9
 Turnul = 5
 Nebunul = 3
 Calul = 3
-Pionul = 1</string>
+Pionul = 1"</string>
   <string name="checkInTwo">Șah mat în două mutări</string>
   <string name="twoMovesToGiveCheck">Două mutări pentru a da șah</string>
   <string name="checkInTwoIntro">Găsește combinația corectă de două mutări care dă șah regelui oponentului!</string>
-  <string name="checkInTwoGoal">Amenință regele oponentului
-în două mutări!</string>
+  <string name="checkInTwoGoal">"Amenință regele oponentului
+în două mutări!"</string>
   <string name="checkInTwoComplete">Felicitări! Ai dat șah oponentului tău, forțându-i să-și apere regele!</string>
   <string name="whatNext">Ce urmează?</string>
   <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai putenic?</string>
