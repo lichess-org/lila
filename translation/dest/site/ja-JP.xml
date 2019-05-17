@@ -129,7 +129,6 @@
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
   <string name="signIn">ログイン</string>
-  <string name="newToLichess">lichessは初めてですか？</string>
   <string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
   <string name="signUp">登録</string>
   <string name="computersAreNotAllowedToPlay">コンピューターの力を借りてのプレイは禁止されています。プレイ中にチェスエンジン、データベース、他のプレイヤーの助言を利用しないでください。また複数アカウントの使用もしないでください。ひどい場合は追放されます。</string>
@@ -161,7 +160,6 @@
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="password">パスワード</string>
-  <string name="haveAnAccount">アカウントをお持ちですか？</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
@@ -323,8 +321,8 @@
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
   <string name="importGame">棋譜をインポート</string>
-  <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
-コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
+  <string name="importGameExplanation">"ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
+コンピュータ解析、ゲームチャット、共有可能 URL が得られます。"</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
   </plurals>
@@ -560,8 +558,8 @@
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
   <string name="victory">勝利！</string>
   <string name="defeat">失敗</string>
-  <string name="xVsYinZ">%1$s 対 %2$s
-（%3$s）</string>
+  <string name="xVsYinZ">"%1$s 対 %2$s
+（%3$s）"</string>
   <string name="timeline">タイムライン</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
