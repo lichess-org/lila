@@ -343,8 +343,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
-a computer analysis, a game chat and a shareable URL.</string>
+  <string name="importGameExplanation">"When pasting a game PGN you get a browsable replay,
+a computer analysis, a game chat and a shareable URL."</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -586,8 +586,8 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory!</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">"%1$s vs %2$s
+in %3$s"</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
