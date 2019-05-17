@@ -109,53 +109,53 @@
   <string name="castleQueenSide">Táhněte králem o 2 pole na delší stranu šachovnice. Takto uděláte dlouhou rošádu!</string>
   <string name="theKnightIsInTheWay">V cestě stojí jezdec! Pohněte s ním a poté udělejte krátkou rošádu.</string>
   <string name="castleKingSideMovePiecesFirst">Udělte krátkou rošádu! Nejdříve musíte \"odklidit\" figury.</string>
-  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rošádu! 
-Nejprve musíte uvolnit místo mezi králem a věží.</string>
+  <string name="castleQueenSideMovePiecesFirst">"Udělejte dlouhou rošádu! 
+Nejprve musíte uvolnit místo mezi králem a věží."</string>
   <string name="youCannotCastleIfMoved">Nemůžete dělat rošádu, pokud se král nebo věž pohli.</string>
-  <string name="youCannotCastleIfAttacked">Nemůžete udělat rošádu, pokud je král v šachu. 
-Zabraňte šachu, a pak udělejte rošádu!</string>
+  <string name="youCannotCastleIfAttacked">"Nemůžete udělat rošádu, pokud je král v šachu. 
+Zabraňte šachu, a pak udělejte rošádu!"</string>
   <string name="findAWayToCastleKingSide">Najděte cestu k malé rošádě!</string>
   <string name="findAWayToCastleQueenSide">Najděte cestu k velké rošádě!</string>
   <string name="castlingComplete">Blahopřejeme! V reálné hře byste téměř vždy měli dělat rošádu.</string>
   <string name="enPassant">Braní mimochodem</string>
   <string name="theSpecialPawnMove">Speciální tah pěšcem</string>
   <string name="enPassantIntro">Když soupeř táhne pěšcem o dvě pole, můžete ho sebrat tak, jakoby táhl jen o jedno.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Černý právě pohl pěšcem
+  <string name="blackJustMovedThePawnByTwoSquares">"Černý právě pohl pěšcem
 o dvě pole! 
-Vemte ho mimochodem!</string>
+Vemte ho mimochodem!"</string>
   <string name="enPassantOnlyWorksImmediately">Braní mimochodem funguje jen neprodleně poté, co soupeř hrál sousedním pěšcem o dvě pole.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Braní mimochodem funguje jen, 
-když je váš pěšec na páté řadě.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">"Braní mimochodem funguje jen, 
+když je váš pěšec na páté řadě."</string>
   <string name="takeAllThePawnsEnPassant">Vemte všechny pěšce mimochodem!</string>
   <string name="enPassantComplete">Gratulace! Nyní již ovládáte pravidlo braní mimochodem.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Hra končí remízou</string>
-  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
-nikdo neprohrál.</string>
-  <string name="stalemateGoal">Pro zapatování černého:
+  <string name="stalemateIntro">"Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
+nikdo neprohrál."</string>
+  <string name="stalemateGoal">"Pro zapatování černého:
 - Černý se nikam nemůže pohnout
-- Černý král není v šachu.</string>
+- Černý král není v šachu."</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat než dostat mat!</string>
   <string name="advanced">Pokročilé</string>
   <string name="pieceValue">Hodnota figur</string>
   <string name="evaluatePieceStrength">Vyhodnocení síly figur</string>
-  <string name="pieceValueIntro">Figury s vyšší pohyblivostí mají větší hodnotu!
+  <string name="pieceValueIntro">"Figury s vyšší pohyblivostí mají větší hodnotu!
 Dáma = 9
 Věž = 5
 Střelec = 3
 Jezdec = 3
 Pěšec = 1
-Král má nevyčíslitelnou hodnotu! Ztráta krále znamená prohru partie.</string>
-  <string name="queenOverBishop">Vyberte figuru
+Král má nevyčíslitelnou hodnotu! Ztráta krále znamená prohru partie."</string>
+  <string name="queenOverBishop">"Vyberte figuru
 s nejvyšší hodnotou!
-Dáma &gt; Střelec</string>
+Dáma &gt; Střelec"</string>
   <string name="takeThePieceWithTheHighestValue">Vyberte figuru s nejvyšší hodnotou!</string>
-  <string name="pieceValueComplete">Blahopřejeme! Nyní znáte hodnotu materiálu!
+  <string name="pieceValueComplete">"Blahopřejeme! Nyní znáte hodnotu materiálu!
 Dáma = 9
 Věž = 5
 Střelec = 3
 Jezdec = 3
-Pěšec = 1</string>
+Pěšec = 1"</string>
   <string name="checkInTwo">Šach 2. tahem</string>
   <string name="twoMovesToGiveCheck">Dejte šach druhým tahem</string>
   <string name="checkInTwoIntro">Najděte správnou kombinaci dvou tahů, abyste dali soupeřovu králi šach!</string>
