@@ -7,16 +7,16 @@
   <string name="isNotRated">Turneringen är *inte* rankad och kommer *inte* att påverka din rating.</string>
   <string name="someRated">Vissa turneringar är rankade och kommer att påverka din rating.</string>
   <string name="howAreScoresCalculated">Hur räknas poängen?</string>
-  <string name="howAreScoresCalculatedAnswer">En vinst har baspoäng 2, remi 1 och förlust 0 poäng. Om du vinner två partier i rad så startar en dubbelpoängserie representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. En vinst är då värd 4 poäng, remi 2 och förlust 0 poäng.
+  <string name="howAreScoresCalculatedAnswer">"En vinst har baspoäng 2, remi 1 och förlust 0 poäng. Om du vinner två partier i rad så startar en dubbelpoängserie representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. En vinst är då värd 4 poäng, remi 2 och förlust 0 poäng.
 
-Ett exempel, två vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 x 1)</string>
+Ett exempel, två vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 x 1)"</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
+  <string name="berserkAnswer">"När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
 (1+2 är ett undantag, vilket blir 1+0)
 
 Berserk är ej möjligt för partier med 0 i initialtid (0+1, 0+2).
 
-Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
+Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet."</string>
   <string name="howIsTheWinnerDecided">Hur avgörs vem som vunnit turneringen?</string>
   <string name="howIsTheWinnerDecidedAnswer">Den/de spelare som har flest poäng när turneringstiden går ut utropas till turneringsvinnare.</string>
   <string name="howDoesPairingWork">Hur fungerar lottningen?</string>
