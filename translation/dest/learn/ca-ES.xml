@@ -41,15 +41,15 @@
   <string name="thePawn">El peó</string>
   <string name="itMovesForwardOnly">Es mou cap endavant només</string>
   <string name="pawnIntro">Els peons són febles, però amaguen un munt de potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Els peons es mouen una casella només.
-Però quan arriben a l\'altre costat del tauler, es converteixen en una peça més forta!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">La majoria de les vegades la promoció a dama és el millor.
-Però a vegades un cavall pot resultar útil!</string>
-  <string name="pawnsMoveForward">Els peons avancen endavant,
-però capturen en diagonal!</string>
+  <string name="pawnsMoveOneSquareOnly">"Els peons es mouen una casella només.
+Però quan arriben a l'altre costat del tauler, es converteixen en una peça més forta!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">"La majoria de les vegades la promoció a dama és el millor.
+Però a vegades un cavall pot resultar útil!"</string>
+  <string name="pawnsMoveForward">"Els peons avancen endavant,
+però capturen en diagonal!"</string>
   <string name="captureThenPromote">Captura, y després promou el peó!</string>
-  <string name="useAllThePawns">Usa tots els peons!
-No et cal promoure\'ls.</string>
+  <string name="useAllThePawns">"Usa tots els peons!
+No et cal promoure'ls."</string>
   <string name="aPawnOnTheSecondRank">Un peó a la segona fila pot moure 2 caselles de cop!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Captura totes les estrelles! No cal promoure els peons.</string>
   <string name="pawnComplete">Felicitats! Els peons no tenen secrets per tu.</string>
@@ -62,18 +62,18 @@ No et cal promoure\'ls.</string>
   <string name="takeTheEnemyPieces">Prendre les peces enemigues</string>
   <string name="captureIntro">¡Identifica les peces no defensades de l\'oponent i captura-les!</string>
   <string name="takeTheBlackPieces">Captura les peces negres!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Captura les peces negres!
-I no perdis les teves.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">"Captura les peces negres!
+I no perdis les teves."</string>
   <string name="captureComplete">Felicitats! Saps com lluitar amb les peces d\'escacs!</string>
   <string name="protection">Protecció</string>
   <string name="keepYourPiecesSafe">Manté les teves peces segures</string>
   <string name="protectionIntro">Identifica les peces que atacades pel teu oponent, i defen-les!</string>
   <string name="protectionComplete">Felicitats! Una peça que no perds és una peça que guanyes!</string>
-  <string name="escape">Estàs atacat!
-Escapa de l\'amenaça!</string>
+  <string name="escape">"Estàs atacat!
+Escapa de l'amenaça!"</string>
   <string name="noEscape">No hi ha fugida, però et pots defendre!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">No permetis que et capturin
-cap peça no defesa!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">"No permetis que et capturin
+cap peça no defesa!"</string>
   <string name="combat">Combat</string>
   <string name="captureAndDefendPieces">Captura i defensa peces</string>
   <string name="combatIntro">Un bon guerrer sap tant en atac com en defensa!</string>
@@ -81,117 +81,117 @@ cap peça no defesa!</string>
   <string name="checkInOne">Escac en un</string>
   <string name="attackTheOpponentsKing">Atacar el rei de l\'oponent</string>
   <string name="checkInOneIntro">Per posar en escac a l\'oponent, ataca el seu rei. L\'ha de defendre!</string>
-  <string name="checkInOneGoal">Amenaça el rei de l\'oponent 
-en un moviment!</string>
+  <string name="checkInOneGoal">"Amenaça el rei de l'oponent 
+en un moviment!"</string>
   <string name="checkInOneComplete">Felicitats! Has posat en escac a l\'oponent, obligant-lo a defensar el seu rei!</string>
   <string name="outOfCheck">Sortir de l\'escac</string>
   <string name="defendYourKing">Defensa el teu rei</string>
   <string name="outOfCheckIntro">Ets en escac! Has de fugir o bloquejar l\'atac.</string>
   <string name="escapeWithTheKing">Escapa amb el rei!</string>
-  <string name="theKingCannotEscapeButBlock">El rei no pot fugir, 
-però pot bloquejar l\'atac!</string>
-  <string name="youCanGetOutOfCheckByTaking">Pots sortir de l\'escac 
-prenent la peça atacant.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">El cavall et dóna escac 
-a través de les teves defenses!</string>
-  <string name="escapeOrBlock">Escapa amb el rei 
-o bloqueja l\'atac!</string>
+  <string name="theKingCannotEscapeButBlock">"El rei no pot fugir, 
+però pot bloquejar l'atac!"</string>
+  <string name="youCanGetOutOfCheckByTaking">"Pots sortir de l'escac 
+prenent la peça atacant."</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">"El cavall et dóna escac 
+a través de les teves defenses!"</string>
+  <string name="escapeOrBlock">"Escapa amb el rei 
+o bloqueja l'atac!"</string>
   <string name="outOfCheckComplete">Felicitats! El teu rei no por ser mai capturat, assegura\'t que pots defendre\'l contra un escac!</string>
   <string name="mateInOne">Escac i mat en un</string>
   <string name="defeatTheOpponentsKing">Derrota el rei de l\'oponent</string>
   <string name="mateInOneIntro">Guanyes quan el teu oponent no es pot defendre contra un escac.</string>
-  <string name="attackYourOpponentsKing">Ataca el rei del teu oponent 
-de forma que no es pugui defendre!</string>
+  <string name="attackYourOpponentsKing">"Ataca el rei del teu oponent 
+de forma que no es pugui defendre!"</string>
   <string name="mateInOneComplete">Felicitats! Així és com es guanya als escacs!</string>
   <string name="intermediate">Intermedi</string>
   <string name="boardSetup">Configuració del tauler</string>
   <string name="howTheGameStarts">Com s\'inicia el joc</string>
   <string name="boardSetupIntro">Els dos exèrcits s\'enfronten mútuament, preparat per a la batalla.</string>
-  <string name="thisIsTheInitialPosition">Aquesta és la posició inicial
-de cada joc d\'escacs!
-Fes un moviment per continuar.</string>
-  <string name="firstPlaceTheRooks">Primer posa les torres!
-Van a les cantonades.</string>
-  <string name="thenPlaceTheKnights">Llavors posa els cavalls!
-Van al costat de les torres.</string>
-  <string name="placeTheBishops">Col·loca el àlfils!
-van al costat dels cavalls.</string>
-  <string name="placeTheQueen">Posa la dama!
-va al seu propi color.</string>
-  <string name="placeTheKing">Posa el rei!
-Va al costat de la seva reina.</string>
-  <string name="pawnsFormTheFrontLine">Els peons formen la primera línia.
-fer un moviment per continuar.</string>
+  <string name="thisIsTheInitialPosition">"Aquesta és la posició inicial
+de cada joc d'escacs!
+Fes un moviment per continuar."</string>
+  <string name="firstPlaceTheRooks">"Primer posa les torres!
+Van a les cantonades."</string>
+  <string name="thenPlaceTheKnights">"Llavors posa els cavalls!
+Van al costat de les torres."</string>
+  <string name="placeTheBishops">"Col·loca el àlfils!
+van al costat dels cavalls."</string>
+  <string name="placeTheQueen">"Posa la dama!
+va al seu propi color."</string>
+  <string name="placeTheKing">"Posa el rei!
+Va al costat de la seva reina."</string>
+  <string name="pawnsFormTheFrontLine">"Els peons formen la primera línia.
+fer un moviment per continuar."</string>
   <string name="boardSetupComplete">Felicitats! Saps com configurar el tauler d\'escacs.</string>
   <string name="castling">Enroc</string>
   <string name="theSpecialKingMove">El moviment especial del rei</string>
   <string name="castlingIntro">Assegura el rei, i desplega la teva torre per l\'atac!</string>
-  <string name="castleKingSide">Mou el rei dues caselles 
-per enrocar al costat de rei!</string>
-  <string name="castleQueenSide">Mou el rei dues caselles 
-per enrocar al costat de dama!</string>
-  <string name="theKnightIsInTheWay">El cavall està en el camí!
-mou-lo, llavors enroca en curt.</string>
-  <string name="castleKingSideMovePiecesFirst">Enroca en curt! 
-Necessites moure les peces primer.</string>
-  <string name="castleQueenSideMovePiecesFirst">Enroca en llarg!
-Cal moure les peces primer.</string>
-  <string name="youCannotCastleIfMoved">No pots enrocar si 
+  <string name="castleKingSide">"Mou el rei dues caselles 
+per enrocar al costat de rei!"</string>
+  <string name="castleQueenSide">"Mou el rei dues caselles 
+per enrocar al costat de dama!"</string>
+  <string name="theKnightIsInTheWay">"El cavall està en el camí!
+mou-lo, llavors enroca en curt."</string>
+  <string name="castleKingSideMovePiecesFirst">"Enroca en curt! 
+Necessites moure les peces primer."</string>
+  <string name="castleQueenSideMovePiecesFirst">"Enroca en llarg!
+Cal moure les peces primer."</string>
+  <string name="youCannotCastleIfMoved">"No pots enrocar si 
 el rei o la torre 
-s\'han mogut ja.</string>
-  <string name="youCannotCastleIfAttacked">No pots enrocar si 
+s'han mogut ja."</string>
+  <string name="youCannotCastleIfAttacked">"No pots enrocar si 
 el rei és atacat en el camí.
-Bloqueja l\'escac i aleshores enroca!</string>
-  <string name="findAWayToCastleKingSide">Troba la forma 
-d\'enrocar en curt!</string>
-  <string name="findAWayToCastleQueenSide">Troba la forma 
-d\'enrocar en llarg!</string>
+Bloqueja l'escac i aleshores enroca!"</string>
+  <string name="findAWayToCastleKingSide">"Troba la forma 
+d'enrocar en curt!"</string>
+  <string name="findAWayToCastleQueenSide">"Troba la forma 
+d'enrocar en llarg!"</string>
   <string name="castlingComplete">Felicitats! Convé enrocar en gairebé totes les partides.</string>
   <string name="enPassant">«En passant»</string>
   <string name="theSpecialPawnMove">El moviment especial del peó</string>
   <string name="enPassantIntro">Quan el peó oponent ha mogut dues caselles, vostè pot capturar com si fos mogut per una casella.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">El negre ha mogut el peó
+  <string name="blackJustMovedThePawnByTwoSquares">"El negre ha mogut el peó
 per dues places!
-Captura\'l «en passant».</string>
-  <string name="enPassantOnlyWorksImmediately">«En passant» només funciona
+Captura'l «en passant»."</string>
+  <string name="enPassantOnlyWorksImmediately">"«En passant» només funciona
 immediatament després de que
-l\'oponent mogui el peó.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">«En passant» només funciona
-si el seu peó és a la fila 5.</string>
+l'oponent mogui el peó."</string>
+  <string name="enPassantOnlyWorksOnFifthRank">"«En passant» només funciona
+si el seu peó és a la fila 5."</string>
   <string name="takeAllThePawnsEnPassant">Captura tots els peons «en passant»!</string>
   <string name="enPassantComplete">Felicitats! Ara pots capturar «en passant».</string>
   <string name="stalemate">Taules</string>
   <string name="theGameIsADraw">El joc és un empat</string>
   <string name="stalemateIntro">Quan un jugador no està en escac i no té un moviment legal, està ofegat. La partida és taules: ningú guanya ni perd.</string>
-  <string name="stalemateGoal">Per ofegar al negre:
+  <string name="stalemateGoal">"Per ofegar al negre:
 - El negre no es pot desplaçar enlloc
-- No està en escac.</string>
+- No està en escac."</string>
   <string name="stalemateComplete">Felicitats! Millor ofegat que escac i mat!</string>
   <string name="advanced">Avançat</string>
   <string name="pieceValue">Valor de la peça</string>
   <string name="evaluatePieceStrength">Avaluar la força de la peça</string>
-  <string name="pieceValueIntro">Les peces amb alta mobilitat tenen un valor més alt! 
+  <string name="pieceValueIntro">"Les peces amb alta mobilitat tenen un valor més alt! 
 Dama = 9 
 Torre = 5 
 Àlfil = 3 
 Cavall = 3 
 Peó = 1 
-El rei no té preu! Perdre\'l vol dir perdre el joc.</string>
-  <string name="queenOverBishop">Captura la peça 
+El rei no té preu! Perdre'l vol dir perdre el joc."</string>
+  <string name="queenOverBishop">"Captura la peça 
 amb el valor més alt!
-Dama &gt; Àlfil</string>
+Dama &gt; Àlfil"</string>
   <string name="takeThePieceWithTheHighestValue">Captura la peça amb el valor més alt!</string>
-  <string name="pieceValueComplete">Felicitats! Saps el valor del material! 
+  <string name="pieceValueComplete">"Felicitats! Saps el valor del material! 
 Dama = 9 
 Torre = 5 
 Àlfil = 3 
 Cavall = 3 
-Peó = 1</string>
+Peó = 1"</string>
   <string name="checkInTwo">Escac en dos</string>
   <string name="twoMovesToGiveCheck">Dos moviments per fer un escac</string>
   <string name="checkInTwoIntro">Trobar la combinació correcta de dos moviments que posa en escac el rei del contrincant!</string>
-  <string name="checkInTwoGoal">Amenaça el rei de l\'oponent 
-en dos moviments!</string>
+  <string name="checkInTwoGoal">"Amenaça el rei de l'oponent 
+en dos moviments!"</string>
   <string name="checkInTwoComplete">Felicitats! Has posat en escac a l\'oponent, obligant-lo a defensar el seu rei!</string>
   <string name="whatNext">I ara què ve?</string>
   <string name="youKnowHowToPlayChess">Ja saps com jugar als escacs, enhorabona! Vols convertir-te en un jugador més fort?</string>
