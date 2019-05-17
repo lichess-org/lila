@@ -11,11 +11,11 @@
   <string name="emailChange_intro">Email adresiniňizi üýtgetmek islediňiz.</string>
   <string name="emailChange_click">Bu emaile ulaşymyňyz bardygyny tassyklamak üçin aşakdaky çelgä tyklaň:</string>
   <string name="welcome_subject">%s, lichess.org-a hoş geldiňiz</string>
-  <string name="welcome_text">https://lichess.org-da hasap açdyňyz.
+  <string name="welcome_text">"https://lichess.org-da hasap açdyňyz.
 
 Siziň profiliňiziň sahypasy: %1$s. Muny %2$s sahypasynda şahsylaşdyryp bilersiňiz.
 
-Hoş wagt dileýäris, çöpleriňiziň garşy şa barýan ýoly ak bolsun!</string>
+Hoş wagt dileýäris, çöpleriňiziň garşy şa barýan ýoly ak bolsun!"</string>
   <string name="common_orPaste">(Tyklamak peýda etmedimi? Brauzeriňiziň adres paneline ýelmemegi barlap görüň!)</string>
   <string name="common_note">Bu, %s saýtyndan peýdalanmagyňyz bilen bagly hyzmat emailidir.</string>
   <string name="common_contact">Biz bilen %s arkaly habarlaşyp bilersiňiz.</string>
