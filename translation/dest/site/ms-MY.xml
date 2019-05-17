@@ -15,7 +15,8 @@
   <string name="chat">Sembang</string>
   <string name="resign">Menyerah kalah</string>
   <string name="checkmate"> Checkmate</string>
-  <string name="stalemate">Stalemate</string>
+  <string name="stalemate">"Stalemate
+"</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
   <string name="randomColor">Pilihan rawak</string>
