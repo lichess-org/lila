@@ -12,21 +12,21 @@
   <string name="theRook">Bokštas</string>
   <string name="itMovesInStraightLines">Juda tiesiomis linijomis</string>
   <string name="rookIntro">Bokštas yra galinga figūra. Ar esate pasirengę ją valdyti?</string>
-  <string name="rookGoal">Spustelėkite ant boškto, 
-kad perkeltumėte jį ant žvaigždės!</string>
+  <string name="rookGoal">"Spustelėkite ant boškto, 
+kad perkeltumėte jį ant žvaigždės!"</string>
   <string name="grabAllTheStars">Surinkite visas žvaigždes!</string>
-  <string name="theFewerMoves">Kuo mažiau ėjimų atliksite,
-tuo daugiau taškų gausite!</string>
-  <string name="useTwoRooks">Naudokite abu bokštus, 
-kad surinktumėte greičiau!</string>
+  <string name="theFewerMoves">"Kuo mažiau ėjimų atliksite,
+tuo daugiau taškų gausite!"</string>
+  <string name="useTwoRooks">"Naudokite abu bokštus, 
+kad surinktumėte greičiau!"</string>
   <string name="rookComplete">Sveikinimai! Sėkmingai įvaldėte bokštą.</string>
   <string name="theBishop">Rikis</string>
   <string name="itMovesDiagonally">Juda įstrižai</string>
-  <string name="bishopIntro">Toliau mes išmoksime, 
-kaip reikia judėti rikiu!</string>
-  <string name="youNeedBothBishops">Vienas rikis baltuose laukeliuose,
+  <string name="bishopIntro">"Toliau mes išmoksime, 
+kaip reikia judėti rikiu!"</string>
+  <string name="youNeedBothBishops">"Vienas rikis baltuose laukeliuose,
 kitas rikis juoduose laukeliuose.
-Jums reikės abiejų!</string>
+Jums reikės abiejų!"</string>
   <string name="bishopComplete">Sveikinimai! Sėkmingai įvaldėte rikį.</string>
   <string name="theQueen">Valdovė</string>
   <string name="queenCombinesRookAndBishop">Valdovė = bokštas + rikis</string>
@@ -41,25 +41,25 @@ Jums reikės abiejų!</string>
   <string name="theKnight">Žirgas</string>
   <string name="itMovesInAnLShape">Juda L raidės forma</string>
   <string name="knightIntro">Štai jums iššūkis. Žirgas yra... sudėtinga figūra.</string>
-  <string name="knightsHaveAFancyWay">Žirgai geba šokinėti 
-po lentą įdomiu būdu!</string>
-  <string name="knightsCanJumpOverObstacles">Žirgai geba šokinėti per kliūtis!
-Ištrūkite ir nugalėkite žvaigždes!</string>
+  <string name="knightsHaveAFancyWay">"Žirgai geba šokinėti 
+po lentą įdomiu būdu!"</string>
+  <string name="knightsCanJumpOverObstacles">"Žirgai geba šokinėti per kliūtis!
+Ištrūkite ir nugalėkite žvaigždes!"</string>
   <string name="knightComplete">Sveikinimai! Įvaldėte žirgą.</string>
   <string name="thePawn">Pėstininkas</string>
   <string name="itMovesForwardOnly">Eina tik į priekį</string>
   <string name="pawnIntro">Pėstininkai yra silpni, tačiau turi daug potencialo.</string>
-  <string name="pawnsMoveOneSquareOnly">Pėstininkai juda tik vienu laukeliu į priekį.
-Tačiau pasiekę kitą lentos pusę, jie tampa stipresnėmis figūromis!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Dažniausiai geriausia paversti pėstininką valdove.
-Tačiau kartais gali praversti ir žirgas!</string>
-  <string name="pawnsMoveForward">Pėstininkai eina į priekį,
-tačiau kerta įstrižai!</string>
+  <string name="pawnsMoveOneSquareOnly">"Pėstininkai juda tik vienu laukeliu į priekį.
+Tačiau pasiekę kitą lentos pusę, jie tampa stipresnėmis figūromis!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">"Dažniausiai geriausia paversti pėstininką valdove.
+Tačiau kartais gali praversti ir žirgas!"</string>
+  <string name="pawnsMoveForward">"Pėstininkai eina į priekį,
+tačiau kerta įstrižai!"</string>
   <string name="captureThenPromote">Nukirsk ir perkelk į aukštesnį lygį!</string>
   <string name="useAllThePawns">Naudok visus pėstininkus! Paversti juos nebūtina.</string>
   <string name="aPawnOnTheSecondRank">Nuo antros gulstinės pėstininkai gali judėti per du laukelius iš karto!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Griebk visas žvaigždes!
-Paversti nebūtina.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">"Griebk visas žvaigždes!
+Paversti nebūtina."</string>
   <string name="pawnComplete">Sveikiname! Pėstininkai nebeturi tau jokių paslapčių.</string>
   <string name="pawnPromotion">Pėstininkų pavertimas</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tavo pėstininkas pasiekė lentos galą!</string>
@@ -70,8 +70,8 @@ Paversti nebūtina.</string>
   <string name="takeTheEnemyPieces">Kirsti priešo figūras</string>
   <string name="captureIntro">Indentifikuoti neapgintas priešo figūras ir jas nukirsti!</string>
   <string name="takeTheBlackPieces">Nukirskite juodąsias figūras!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Nukirskite juodąsias figūras.
-Ir nepraraskite savųjų.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">"Nukirskite juodąsias figūras.
+Ir nepraraskite savųjų."</string>
   <string name="captureComplete">Sveikiname. Jūs žinote kaip kautis su šachmatų figūromis!</string>
   <string name="protection">Apsauga</string>
   <string name="keepYourPiecesSafe">Saugokite savo figūras</string>
@@ -118,73 +118,73 @@ Ir nepraraskite savųjų.</string>
   <string name="castling">Rokiruotė</string>
   <string name="theSpecialKingMove">Specialus karaliaus ėjimas</string>
   <string name="castlingIntro">Paslėpk savo karalių saugioje vietoje bei išvesk bokštą į puolimą!</string>
-  <string name="castleKingSide">Pajudink savo karalių per du laukelius,
-kad atliktum trumpą rokiruotę!</string>
-  <string name="castleQueenSide">Pajudink savo karalių per du laukelius,
-kad atliktum ilgą rokiruotę!</string>
-  <string name="theKnightIsInTheWay">Žirgas painiojasi tavo kelyje!
-Išvesk jį, tada atlik trumpą rokiruotę.</string>
-  <string name="castleKingSideMovePiecesFirst">Rokiruok karaliaus flange!
-Pirma tu turi išvesti savo figūras.</string>
-  <string name="castleQueenSideMovePiecesFirst">Rokiruok valdovės flange!
-Pirma tu turi išvesti savo figūras.</string>
-  <string name="youCannotCastleIfMoved">Negali atlikti rokiruotės
+  <string name="castleKingSide">"Pajudink savo karalių per du laukelius,
+kad atliktum trumpą rokiruotę!"</string>
+  <string name="castleQueenSide">"Pajudink savo karalių per du laukelius,
+kad atliktum ilgą rokiruotę!"</string>
+  <string name="theKnightIsInTheWay">"Žirgas painiojasi tavo kelyje!
+Išvesk jį, tada atlik trumpą rokiruotę."</string>
+  <string name="castleKingSideMovePiecesFirst">"Rokiruok karaliaus flange!
+Pirma tu turi išvesti savo figūras."</string>
+  <string name="castleQueenSideMovePiecesFirst">"Rokiruok valdovės flange!
+Pirma tu turi išvesti savo figūras."</string>
+  <string name="youCannotCastleIfMoved">"Negali atlikti rokiruotės
 jeigu karalius jau pajudėjęs
-arba bokštas jau pajudėjęs.</string>
-  <string name="youCannotCastleIfAttacked">Negali atlikti rokiruotės
+arba bokštas jau pajudėjęs."</string>
+  <string name="youCannotCastleIfAttacked">"Negali atlikti rokiruotės
 jeigu karalius bus užpultas judėjimo metu.
-Apsigink nuo šacho ir tik tada atlik rokiruotę!</string>
-  <string name="findAWayToCastleKingSide">Rask būdą
-atlikti trumpąją rokiruotę!</string>
-  <string name="findAWayToCastleQueenSide">Rask būdą
-atlikti ilgąją rokiruotę!</string>
+Apsigink nuo šacho ir tik tada atlik rokiruotę!"</string>
+  <string name="findAWayToCastleKingSide">"Rask būdą
+atlikti trumpąją rokiruotę!"</string>
+  <string name="findAWayToCastleQueenSide">"Rask būdą
+atlikti ilgąją rokiruotę!"</string>
   <string name="castlingComplete">Sveikiname! Turėtum beveik visada partijos metu atlikti rokiruotę.</string>
   <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="theSpecialPawnMove">Specialusis ėjimas pėstininku</string>
   <string name="enPassantIntro">Kai varžovo pėstininkas pajudėjo per du laukelius, gali kirsti jį lyg būtų paėjęs vieną.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Juodieji ką tik paėjo pėstininku
+  <string name="blackJustMovedThePawnByTwoSquares">"Juodieji ką tik paėjo pėstininku
 per du laukelius!
-Nukirsk jį prasilenkiamuoju būdu.</string>
-  <string name="enPassantOnlyWorksImmediately">Kirtimas prasilenkiant veikia tik
+Nukirsk jį prasilenkiamuoju būdu."</string>
+  <string name="enPassantOnlyWorksImmediately">"Kirtimas prasilenkiant veikia tik
 varžovui iš karto pajudinus
-pėstininką.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Kertimas prasilenkiant veikia tik tada
-kai tavo pėstininkas stovi 5-oje gulstinėje.</string>
+pėstininką."</string>
+  <string name="enPassantOnlyWorksOnFifthRank">"Kertimas prasilenkiant veikia tik tada
+kai tavo pėstininkas stovi 5-oje gulstinėje."</string>
   <string name="takeAllThePawnsEnPassant">Iškirsk visus pėstininkus praeinančiuoju metodu!</string>
   <string name="enPassantComplete">Sveikiname! Jau gali kirsti pėstininkus praeinančiuoju būdu.</string>
   <string name="stalemate">Patas</string>
   <string name="theGameIsADraw">Partija baigėsi lygiosiomis</string>
   <string name="stalemateIntro">Kai žaidėjas nėra po šachu ir negali atlikti legalaus ėjimo, tai vadinama patu. Partija baigiasi lygiosiomis - niekas nelaimi ir nepralaimi.</string>
-  <string name="stalemateGoal">Kad duoti patą juodiems:
+  <string name="stalemateGoal">"Kad duoti patą juodiems:
 - Juodieji negali niekur paeiti
-- Nėra šacho.</string>
+- Nėra šacho."</string>
   <string name="stalemateComplete">Sveikiname! Geriau gauti patą nei matą!</string>
   <string name="advanced">Aukštesnis lygis</string>
   <string name="pieceValue">Figūrų vertė</string>
   <string name="evaluatePieceStrength">Įvertink figūrų galią</string>
-  <string name="pieceValueIntro">Paslankesnės figūros turi didesnę vertę!
+  <string name="pieceValueIntro">"Paslankesnės figūros turi didesnę vertę!
 Valdovė = 9
 Bokštas = 5
 Rikis = 3
 Žirgas = 3
 Pėstininkas = 1
-Karalius neįkainojamas! Prarasti jį reiškia pralaimėti.</string>
-  <string name="queenOverBishop">Nukirsk didžiausios
+Karalius neįkainojamas! Prarasti jį reiškia pralaimėti."</string>
+  <string name="queenOverBishop">"Nukirsk didžiausios
 vertės figūrą!
-Valdovė &gt; Rikis</string>
-  <string name="takeThePieceWithTheHighestValue">Nukirsk didžiausios
-vertės figūrą!</string>
-  <string name="pieceValueComplete">Sveikiname! Žinai figūrų vertę ir pajėgumą!
+Valdovė &gt; Rikis"</string>
+  <string name="takeThePieceWithTheHighestValue">"Nukirsk didžiausios
+vertės figūrą!"</string>
+  <string name="pieceValueComplete">"Sveikiname! Žinai figūrų vertę ir pajėgumą!
 Valdovė = 9
 Bokštas = 5
 Rikis = 3
 Žirgas = 3
-Pėstininkas = 1</string>
+Pėstininkas = 1"</string>
   <string name="checkInTwo">Šachas dviem ėjimais</string>
   <string name="twoMovesToGiveCheck">Du ėjimai duoti šachą</string>
   <string name="checkInTwoIntro">Surask teisingą dviejų ėjimų seką kuri duoda šachą varžovo karaliui!</string>
-  <string name="checkInTwoGoal">Pagrasink varžovo karaliui
-dviem ėjimais!</string>
+  <string name="checkInTwoGoal">"Pagrasink varžovo karaliui
+dviem ėjimais!"</string>
   <string name="checkInTwoComplete">Sveikiname! Davei šachą savo varžovui ir privertei jį ginti savo karalių!</string>
   <string name="whatNext">Kas toliau?</string>
   <string name="youKnowHowToPlayChess">Jau žinai, kaip žaisti šachmatus, sveikiname! Ar norėtum tapti stipresniu žaidėju?</string>
