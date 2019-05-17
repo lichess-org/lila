@@ -126,7 +126,6 @@
   <string name="viewInFullSize">צפה בגודל מלא</string>
   <string name="logOut">התנתק</string>
   <string name="signIn">התחבר</string>
-  <string name="newToLichess">חדש בליצ\'ס?</string>
   <string name="youNeedAnAccountToDoThat">אתה צריך חשבון על מנת לעשות זאת</string>
   <string name="signUp">הירשם</string>
   <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקם אינם מורשים לשחק. אנא המנע מהעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך  המשחק. בנוסף, מומלך להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
@@ -149,7 +148,6 @@
   <string name="username">שם משתמש</string>
   <string name="usernameOrEmail">שם משתמש או כתובת דואר אלקטרוני</string>
   <string name="password">סיסמה</string>
-  <string name="haveAnAccount">יש לך חשבון?</string>
   <string name="changePassword">שנה סיסמה</string>
   <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
   <string name="email">הדואר האלקטרוני</string>
@@ -526,8 +524,8 @@
   <string name="xCommentedY">%1$s כתב %2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
-  <string name="xVsYinZ">%1$s נגד %2$s
-ב%3$s</string>
+  <string name="xVsYinZ">"%1$s נגד %2$s
+ב%3$s"</string>
   <string name="timeline">ציר הזמן</string>
   <string name="starting">מתחיל:</string>
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>
