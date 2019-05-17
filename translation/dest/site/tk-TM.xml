@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Doly ölçegde aç</string>
   <string name="logOut">Çykyş</string>
   <string name="signIn">Içeri gir</string>
-  <string name="newToLichess">Liçese täze geldiňizmi?</string>
   <string name="youNeedAnAccountToDoThat">Beýtmek üçin hasap gerekli</string>
   <string name="signUp">Registrasiýa</string>
   <string name="computersAreNotAllowedToPlay">Küşt Kompýuterleri we kompýuter kömekli oýunçylar oýuna kabul edilenok. Oýun dowamynda Küşt komplaryndan, databazalaryndan ýa-da beýleki oýunçylardan ýardam almaň. Birden köp hasap açmak hem güýçli derejede ýazgarylýandyr we has köp hasap eýesi bolmak banlanmagyňyza eltip biler.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Harplaryň diňe ululygy-kiçiligi özgerdilip biliner. Mysal üçin \"johndoe - JohnDoe.\"</string>
   <string name="changeUsernameDescription">Ulanyjy adyňyzy üýtgediň. Bu diňe bir gezek amala aşyrlyp biliner we siz diňe ulanyjy adyňyzdaky harplaryň baş harp - kiçi harp hökmünde üýtgedip bilersiňiz.</string>
   <string name="password">Açarsöz</string>
-  <string name="haveAnAccount">Hasabyňyz barmy?</string>
   <string name="changePassword">Açarsözi üýtget</string>
   <string name="changeEmail">Email üýtget</string>
   <string name="email">Email</string>
@@ -341,8 +339,8 @@
   <string name="fromPosition">Aýratyn pozisiýadan</string>
   <string name="continueFromHere">Şu ýerden dowam et</string>
   <string name="importGame">Oýun import et</string>
-  <string name="importGameExplanation">Oýun PGN-si ýükläniňizde göz aýlap boljak replay,
-kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
+  <string name="importGameExplanation">"Oýun PGN-si ýükläniňizde göz aýlap boljak replay,
+kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz."</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s import edilen oýun</item>
     <item quantity="other">%s import edilen oýun</item>
