@@ -38,10 +38,10 @@
   <string name="whiteLeftTheGame">putih kabur seko dulanan</string>
   <string name="blackLeftTheGame">ireng kabur seko dulanan</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">sebarke alamat URL iki kanggo wong sing pengen ndelok dulanan</string>
-  <string name="viewTheComputerAnalysis">Ndelok analisa tekan komputer
-Nek awakmu ngeklik tombol iki, engkok komputer bakal analisis. Kalimat iku bakal muncul nek pemaine njaluk hal kui nang bagian \"analisis tekan komputer</string>
-  <string name="computerAnalysis">AnalisaKomputer
-Iku analisa otomatis tekan permainan sing dilakukan karo lichess. Kui nyediakne analisis pihak ndi sinh diuntungno karo variasi sing tepak gae permainan kui. Hal iku muncul nang bagian ndisore papan catur sing nang bagian replay ambek analysis views. Contohe: https://lichess. org/vyvcbk8s</string>
+  <string name="viewTheComputerAnalysis">"Ndelok analisa tekan komputer
+Nek awakmu ngeklik tombol iki, engkok komputer bakal analisis. Kalimat iku bakal muncul nek pemaine njaluk hal kui nang bagian \"analisis tekan komputer"</string>
+  <string name="computerAnalysis">"AnalisaKomputer
+Iku analisa otomatis tekan permainan sing dilakukan karo lichess. Kui nyediakne analisis pihak ndi sinh diuntungno karo variasi sing tepak gae permainan kui. Hal iku muncul nang bagian ndisore papan catur sing nang bagian replay ambek analysis views. Contohe: https://lichess. org/vyvcbk8s"</string>
   <string name="fromPosition">seka posisi</string>
   <string name="continueFromHere">lanjut seka kene</string>
 </resources>
