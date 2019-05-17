@@ -336,8 +336,8 @@
   <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Ao pegar o PGN dunha partida, obténse unha repetición navegable,
-unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
+  <string name="importGameExplanation">"Ao pegar o PGN dunha partida, obténse unha repetición navegable,
+unha análise por ordenador, un chat de xogo e unha URL para compartir."</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Partidas importadas</item>
     <item quantity="other">%s Partidas importadas</item>
@@ -579,8 +579,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitoria!</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-en %3$s</string>
+  <string name="xVsYinZ">"%1$s contra %2$s
+en %3$s"</string>
   <string name="timeline">Historial</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
