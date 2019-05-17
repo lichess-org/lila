@@ -96,7 +96,6 @@
   <string name="viewInFullSize">viska fau lo nu nilbra fa lo cnano</string>
   <string name="logOut">co\'u pilno lo jaspu</string>
   <string name="signIn">co\'a pilno lo jaspu</string>
-  <string name="newToLichess">xu la .litces. do cnino</string>
   <string name="youNeedAnAccountToDoThat">sarcu fa lo nu do pilno su\'o jaspu</string>
   <string name="signUp">co\'a se jaspu</string>
   <string name="computersAreNotAllowedToPlay">.e\'a nai lo proga ja lo voi lo proga ke\'a sidju cu jivna .i .e\'o do ca lo nu do jivna na se sidju su\'o caxmati jivna bo zmiku ja datnysro ja su\'o drata caxmati jivna .i ji\'a ko sanji lo nu tu\'e lo nu se jaspu za\'u da na se nelci .i je lo nu pilno du\'e jaspu cu se jalge lo nu to\'e .e\'ande fi lo ka pagzu\'e tu\'u</string>
@@ -125,7 +124,6 @@
   <string name="username">lo japycme</string>
   <string name="usernameOrEmail">lo japcme jo nai lo samymrijudri</string>
   <string name="password">lo kikyvla</string>
-  <string name="haveAnAccount">xu do se jaspu .i</string>
   <string name="changePassword">cenba lo ka ma kau kikyvla</string>
   <string name="changeEmail">cenba lo ka pilno mo\'oi kau samymrijudri</string>
   <string name="email">samymri judri</string>
