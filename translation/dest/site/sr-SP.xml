@@ -139,7 +139,6 @@
   <string name="viewInFullSize">Погледај у пуној величини</string>
   <string name="logOut">Одјави се</string>
   <string name="signIn">Пријави се</string>
-  <string name="newToLichess">Нови на Личесу?</string>
   <string name="youNeedAnAccountToDoThat">Треба вам налог да бисте то урадили</string>
   <string name="signUp">Региструјте се</string>
   <string name="computersAreNotAllowedToPlay">Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча. Отварање вишеструких налога такође није пожељно док ће прекомерно отварање налога резултирати бановањем.</string>
@@ -175,7 +174,6 @@
   <string name="changeUsernameNotSame">Само се величина слова може променити. На пример \"johndoe\" у \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промените ваше корисничко име. Можете променити ваше корисничко име само једном и то само величину слова.</string>
   <string name="password">Лозинка</string>
-  <string name="haveAnAccount">Имате налог?</string>
   <string name="changePassword">Промените лозинку</string>
   <string name="changeEmail">Промени е-пошту</string>
   <string name="email">Е-пошта</string>
@@ -367,8 +365,8 @@
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="importGame">Увези игру</string>
-  <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
-рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
+  <string name="importGameExplanation">"Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
+рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити."</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена игра</item>
     <item quantity="few">%s увезене игре</item>
@@ -616,8 +614,8 @@
   <string name="xCommentedY">%1$s је коментарисао/ла %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>
-  <string name="xVsYinZ">%1$s против %2$s
-у %3$s</string>
+  <string name="xVsYinZ">"%1$s против %2$s
+у %3$s"</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
