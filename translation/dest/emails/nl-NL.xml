@@ -11,11 +11,11 @@
   <string name="emailChange_intro">U heeft een aanvraag gedaan om uw e-mailadres te wijzigen.</string>
   <string name="emailChange_click">Om te bevestigen dat u toegang heeft tot deze e-mail, klikt u op onderstaande link:</string>
   <string name="welcome_subject">Welkom op lichess.org, %s</string>
-  <string name="welcome_text">Je hebt succesvol een account aangemaakt op https://lichess.org.
+  <string name="welcome_text">"Je hebt succesvol een account aangemaakt op https://lichess.org.
 
 Hier is je profielpagina: %1$s. Je kunt het personaliseren op %2$s.
 
-Veel plezier, en mogen je stukken altijd hun weg vinden naar de koning van je tegenstander!</string>
+Veel plezier, en mogen je stukken altijd hun weg vinden naar de koning van je tegenstander!"</string>
   <string name="common_orPaste">(Werkt klikken niet? Probeer de link in uw browser te plakken!)</string>
   <string name="common_note">Dit is een service e-mail gekoppeld aan uw gebruik van %s.</string>
   <string name="common_contact">Om contact met ons op te nemen, gebruik alstublieft %s.</string>
