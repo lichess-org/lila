@@ -144,7 +144,6 @@
   <string name="viewInFullSize">Zobraziť v plnej veľkosti</string>
   <string name="logOut">Odhlásiť sa</string>
   <string name="signIn">Prihlásiť sa</string>
-  <string name="newToLichess">Ste na stránke Lichess po prvý krát?</string>
   <string name="youNeedAnAccountToDoThat">Pre túto požiadavku musíte byť prihlásený</string>
   <string name="signUp">Zaregistrovať sa</string>
   <string name="computersAreNotAllowedToPlay">Hráči využívajúci pomoc počítačov nie sú vítaní. Počas partie nepoužívajte šachové programy, databázy ani rady iných hráčov. Vytváranie viacerých účtov sa silne neodporúča a nadmerné vytváranie účtov bude viesť k Vášmu zablokovaniu.</string>
@@ -182,7 +181,6 @@
   <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
   <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
   <string name="password">Heslo</string>
-  <string name="haveAnAccount">Máte účet?</string>
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
   <string name="email">Email</string>
