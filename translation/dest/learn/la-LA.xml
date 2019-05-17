@@ -12,18 +12,18 @@
   <string name="theRook">Turris</string>
   <string name="itMovesInStraightLines">Dirēctē movētur</string>
   <string name="rookIntro">Turris potēns est signum. Esne parātus ad eī imperandum?</string>
-  <string name="rookGoal">Turrim ēlige ut eam
-ad stēllam afferās!</string>
+  <string name="rookGoal">"Turrim ēlige ut eam
+ad stēllam afferās!"</string>
   <string name="grabAllTheStars">Omnēs stēllās corripe!</string>
-  <string name="useTwoRooks">Duābus turribus ūtere
-ut rēs accelerēs!</string>
+  <string name="useTwoRooks">"Duābus turribus ūtere
+ut rēs accelerēs!"</string>
   <string name="rookComplete">Tibi grātulor! Turrim prosperē comprehendistī.</string>
   <string name="theBishop">Epīscopus</string>
   <string name="itMovesDiagonally">Oblīquē movētur</string>
   <string name="bishopIntro">Deinde epīscopum movēre discēmus!</string>
-  <string name="youNeedBothBishops">Alter epīscopus pallidī quadrī,
+  <string name="youNeedBothBishops">"Alter epīscopus pallidī quadrī,
 alter epīscopus fuscī quadrī.
-Ambōbus tibi opus est!</string>
+Ambōbus tibi opus est!"</string>
   <string name="bishopComplete">Tibi grātulor! Epīscopō imperāre potes.</string>
   <string name="theQueen">Regina</string>
   <string name="theKing">Rex</string>
