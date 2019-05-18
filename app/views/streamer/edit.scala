@@ -46,35 +46,34 @@ object edit {
             div(cls := "box__pad") {
               val granted = s.streamer.approval.granted
               frag(
-                s.streamer.listed.value option
-                  div(
-                    cls := s"status is${granted ?? "-green"}",
-                    dataIcon := (if (granted) "E" else "")
-                  )(
-                      if (granted) frag(
-                        "Your stream is approved and listed on ",
+                (ctx.is(s.user) && s.streamer.listed.value) option div(
+                  cls := s"status is${granted ?? "-green"}",
+                  dataIcon := (if (granted) "E" else "")
+                )(
+                    if (granted) frag(
+                      "Your stream is approved and listed on ",
+                      a(href := routes.Streamer.index())("lichess streamers list"), "."
+                    )
+                    else frag(
+                      if (s.streamer.approval.requested) frag(
+                        "Your stream is being reviewed by moderators, and will soon be listed on ",
                         a(href := routes.Streamer.index())("lichess streamers list"), "."
                       )
                       else frag(
-                        if (s.streamer.approval.requested) frag(
-                          "Your stream is being reviewed by moderators, and will soon be listed on ",
-                          a(href := routes.Streamer.index())("lichess streamers list"), "."
-                        )
-                        else frag(
-                          if (s.streamer.completeEnough) frag(
-                            "When you are ready to be listed on ",
-                            a(href := routes.Streamer.index())("lichess streamers list"), ", ",
-                            st.form(method := "post", action := routes.Streamer.approvalRequest)(
-                              button(tpe := "submmit", cls := "button", (!ctx.is(s.user)) option disabled)(
-                                "request a moderator review"
-                              )
+                        if (s.streamer.completeEnough) frag(
+                          "When you are ready to be listed on ",
+                          a(href := routes.Streamer.index())("lichess streamers list"), ", ",
+                          st.form(method := "post", action := routes.Streamer.approvalRequest)(
+                            button(tpe := "submmit", cls := "button", (!ctx.is(s.user)) option disabled)(
+                              "request a moderator review"
                             )
                           )
-                          else "Please fill in your streamer information, and upload a picture."
                         )
+                        else "Please fill in your streamer information, and upload a picture."
                       )
-                    ),
-                div(cls := "status")(
+                    )
+                  ),
+                ctx.is(s.user) option div(cls := "status")(
                   strong("If your stream is in another language than English"),
                   ", include the correct language tag (",
                   a(href := "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes")("2-letter ISO 639-1 code"),
