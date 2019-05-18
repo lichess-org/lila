@@ -378,7 +378,8 @@ case class Game(
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !(opponent(color).isAi) &&
-      !(playerHasOfferedDraw(color))
+      !(playerHasOfferedDraw(color)) &&
+      metadata.drawLimit.fold(true)(mvs => mvs > 0 && turns >= mvs * 2)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
@@ -692,7 +693,8 @@ object Game {
     mode: Mode,
     source: Source,
     pdnImport: Option[PdnImport],
-    daysPerTurn: Option[Int] = None
+    daysPerTurn: Option[Int] = None,
+    drawLimit: Option[Int] = None
   ): Game = {
     val createdAt = DateTime.now
     Game(
@@ -712,6 +714,7 @@ object Game {
         simulPairing = none,
         tvAt = none,
         timeOutUntil = none,
+        drawLimit = drawLimit,
         analysed = false
       ),
       createdAt = createdAt,
@@ -760,6 +763,7 @@ object Game {
     val initialFen = "if"
     val checkAt = "ck"
     val timeOutUntil = "to"
+    val drawLimit = "dl"
   }
 }
 

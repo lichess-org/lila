@@ -106,6 +106,8 @@
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="claimADraw">Remise opeisen</string>
   <string name="offerDraw">Remise aanbieden</string>
+  <string name="drawOffersAfterX">Remise aanbieden is pas toegestaan na zet %s</string>
+  <string name="drawOffersNotAllowed">Het is niet toegestaan remise aan te bieden</string>
   <string name="draw">Remise</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s speler</item>

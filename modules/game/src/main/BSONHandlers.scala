@@ -127,6 +127,7 @@ object BSONHandlers {
           simulPairing = r intO F.simulPairing,
           tvAt = r dateO F.tvAt,
           timeOutUntil = r dateO F.timeOutUntil,
+          drawLimit = r intO F.drawLimit,
           analysed = r boolD F.analysed
         )
       )
@@ -159,6 +160,7 @@ object BSONHandlers {
       F.simulPairing -> o.metadata.simulPairing,
       F.tvAt -> o.metadata.tvAt.map(w.date),
       F.timeOutUntil -> o.metadata.timeOutUntil.map(w.date),
+      F.drawLimit -> o.metadata.drawLimit,
       F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {
         o.pdnStorage match {

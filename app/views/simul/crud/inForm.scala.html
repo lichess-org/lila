@@ -60,6 +60,11 @@
   @base.form.input(field, typ = "number")
   }
 </div>
+<div>
+  @base.form.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)")) { field =>
+  @base.form.input(field, typ = "number")
+  }
+</div>
 @base.form.group(form("chat"), Html("Chat is available for")) { field =>
 @base.form.select(field, chatChoices)
 }

@@ -109,6 +109,7 @@ final class JsonView(
           ).add("clock" -> game.clock.map(clockJson))
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
+            .add("drawLimit" -> game.metadata.drawLimit)
             .add("possibleMoves" -> possibleMoves(pov))
             .add("possibleDrops" -> possibleDrops(pov))
             .add("captureLength" -> captureLength(pov))

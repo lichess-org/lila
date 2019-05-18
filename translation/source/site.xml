@@ -110,6 +110,8 @@
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
   <string name="offerDraw">Offer draw</string>
+  <string name="drawOffersAfterX">Draw offers are only allowed after move %s</string>
+  <string name="drawOffersNotAllowed">Draw offers are not allowed</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s player</item>

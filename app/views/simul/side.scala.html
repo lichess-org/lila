@@ -18,6 +18,14 @@
       case Some("black") => trans.black()
       case _ => trans.randomColor()
     })
+    @sim.spotlight.flatMap(_.drawLimit).map { lim =>
+      <br />
+      @if(lim > 0) {
+        @trans.drawOffersAfterX(lim)
+      } else {
+        @trans.drawOffersNotAllowed()
+      }
+    }
     @sim.targetPct.map { target =>
       <br />
       @trans.targetWinningPercentageX(s"$target%")

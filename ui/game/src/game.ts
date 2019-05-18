@@ -43,7 +43,10 @@ export function drawable(data: GameData): boolean {
   return playable(data) &&
     data.game.turns >= 2 &&
     !data.player.offeringDraw &&
-    !hasAi(data);
+    !hasAi(data) && (
+      data.drawLimit === undefined ||
+      (data.drawLimit > 0 && data.game.turns >= data.drawLimit * 2)
+    );
 }
 
 export function resignable(data: GameData): boolean {

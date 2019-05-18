@@ -35,8 +35,10 @@ object CrudForm {
     "chat" -> stringIn(chatChoices),
     "ceval" -> stringIn(cevalChoices),
     "percentage" -> text(minLength = 0, maxLength = 3)
-      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100)),
-    "fmjd" -> stringIn(fmjdChoices)
+      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).??(p => p >= 50 && p <= 100)),
+    "fmjd" -> stringIn(fmjdChoices),
+    "drawLimit" -> text(minLength = 0, maxLength = 2)
+      .verifying("Enter a value between 0 and 99, or leave empty", mvs => mvs.length == 0 || parseIntOption(mvs).??(m => m >= 0 && m <= 99))
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
 
   case class Data(
@@ -56,7 +58,8 @@ object CrudForm {
       chat: String,
       ceval: String,
       percentage: String,
-      fmjd: String
+      fmjd: String,
+      drawLimit: String
   )
 
   val imageChoices = List(
@@ -99,6 +102,7 @@ object CrudForm {
     chat = chatDefault,
     ceval = cevalDefault,
     percentage = "",
-    fmjd = fmjdDefault
+    fmjd = fmjdDefault,
+    drawLimit = ""
   )
 }

@@ -74,7 +74,8 @@ export function standard(
   icon: string,
   hint: string,
   socketMsg: string,
-  onclick?: () => void
+  onclick?: () => void,
+  hintArg?: string
 ): VNode {
   // disabled if condition callback is provided and is falsy
   const enabled = function() {
@@ -83,7 +84,7 @@ export function standard(
   return h('button.fbt.hint--bottom.' + socketMsg, {
     attrs: {
       disabled: !enabled(),
-      'data-hint': ctrl.trans.noarg(hint)
+      'data-hint': (hintArg ? ctrl.trans(hint, hintArg) : ctrl.trans.noarg(hint))
     },
     hook: util.bind('click', _ => {
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);

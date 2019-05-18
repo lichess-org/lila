@@ -55,7 +55,10 @@ trans.nbDays,
 trans.nbHours
 ), i18nJsObject(
 trans.nbSecondsToPlayTheFirstMove
-)) ++ g.variant.exotic.fold(i18nJsObject(
+)) ++ g.metadata.drawLimit.isDefined.fold(i18nJsObject(
+trans.drawOffersAfterX,
+trans.drawOffersNotAllowed
+), Json.obj()) ++ g.variant.exotic.fold(i18nJsObject(
 trans.kingInTheCenter,
 trans.threeChecks,
 trans.variantEnding

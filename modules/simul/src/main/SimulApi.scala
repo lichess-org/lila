@@ -237,7 +237,8 @@ final class SimulApi(
       blackPlayer = lidraughts.game.Player.make(draughts.Black, blackUser.some, perfPicker),
       mode = draughts.Mode.Casual,
       source = lidraughts.game.Source.Simul,
-      pdnImport = None
+      pdnImport = None,
+      drawLimit = simul.spotlight.flatMap(_.drawLimit)
     )
     game2 = game1
       .withSimul(simul.id, index)

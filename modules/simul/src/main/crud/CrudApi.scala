@@ -34,7 +34,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     chat = simul.chatmode.fold(DataForm.chatDefault)(_.key),
     ceval = simul.spotlight.flatMap(_.ceval).fold(CrudForm.cevalDefault)(_.key),
     percentage = ~simul.targetPct.map(_.toString),
-    fmjd = simul.spotlight.flatMap(_.fmjdRating).fold(CrudForm.fmjdDefault)(_.key)
+    fmjd = simul.spotlight.flatMap(_.fmjdRating).fold(CrudForm.fmjdDefault)(_.key),
+    drawLimit = ~simul.spotlight.flatMap(_.drawLimit).map(_.toString)
   )
 
   def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {
@@ -97,7 +98,8 @@ final class CrudApi(simulRepo: SimulRepo) {
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconImg = image.some.filter(_.nonEmpty),
         ceval = Simul.EvalSetting.byKey.get(ceval),
-        fmjdRating = Simul.ShowFmjdRating.byKey.get(fmjd)
+        fmjdRating = Simul.ShowFmjdRating.byKey.get(fmjd),
+        drawLimit = parseIntOption(drawLimit)
       ).some
     )
   }
