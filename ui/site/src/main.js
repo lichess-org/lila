@@ -997,7 +997,7 @@
             })).then(res => {
               if (res.ok) storage.set('' + Date.now());
               else throw Error(response.statusText);
-            });
+            }).catch(err => console.log('push subscribe failed', err.message));
           }
         });
         else storage.remove();
