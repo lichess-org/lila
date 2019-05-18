@@ -22,6 +22,7 @@ object mine {
       moreJs = bits.js(c, json, true),
       moreCss = cssTag("challenge.page")
     ) {
+        val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
         main(cls := "page-small challenge-page box box-pad")(
           c.status match {
             case Status.Created | Status.Offline => div(id := "ping-challenge")(
@@ -42,7 +43,8 @@ object mine {
                       cls := "copyable autoselect",
                       spellcheck := "false",
                       readonly,
-                      value := s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
+                      value := challengeLink,
+                      size := challengeLink.size
                     ),
                     button(title := "Copy URL", cls := "copy button", dataRel := "challenge-id", dataIcon := "\"")
                   ),
