@@ -969,7 +969,8 @@
   // service worker //
   ////////////////////
 
-  if (document.body.getAttribute('data-vapid') && 'serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+  var pushBeta = !!document.body.getAttribute('data-vapid');
+  if (pushBeta && 'serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
     var workerUrl = lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
     navigator.serviceWorker.register(workerUrl, {scope: '/'});
   }
