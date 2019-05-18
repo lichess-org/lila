@@ -1,13 +1,10 @@
 import { plyStep } from './round';
 import RoundController from './ctrl';
 import { ApiMove, RoundData } from './interfaces';
+import { fenCompare } from 'draughts'
 
 const li = window.lidraughts;
 let found = false;
-
-function truncateFen(fen: Fen): string {
-  return fen.split(' ')[0];
-}
 
 export function subscribe(ctrl: RoundController): void {
   // allow everyone to cheat against the AI
@@ -20,7 +17,7 @@ export function subscribe(ctrl: RoundController): void {
     else if (v.indexOf('start:') === 0) return li.storage.set('round.ongoing', v);
     const d = ctrl.data;
     if (!found && ctrl.ply > 14 && ctrl.isPlaying() &&
-      truncateFen(plyStep(d, ctrl.ply).fen) === truncateFen(v)) {
+      fenCompare(plyStep(d, ctrl.ply).fen, v)) {
       $.post('/jslog/' + d.game.id + d.player.id + '?n=ceval');
       found = true;
     }

@@ -132,6 +132,7 @@ export default class RoundController {
             if (this.music && set !== 'music') this.music = undefined;
         });
 
+        if (li.ab && this.isPlaying()) li.ab.init(this);
     }
 
     private showExpiration = () => {
@@ -141,7 +142,7 @@ export default class RoundController {
     }
 
     private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-        if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab(this, meta);
+        if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
         //if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
         this.sendMove(orig, dest, undefined, meta);
         // clear active timeout when host plays a move
@@ -276,7 +277,7 @@ export default class RoundController {
                     socketOpts.millis = moveMillis;
                     if (socketOpts.millis < 3) {
                         // instant move, no premove? might be fishy
-                        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+                        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + Math.round(socketOpts.millis));
                     }
                 }
             }
