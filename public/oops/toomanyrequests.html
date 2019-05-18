@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lichess - too many requests</title>
     <style type="text/css">
       html, body, a {
@@ -11,6 +12,33 @@
         text-align: center;
         line-height: 1.6em;
       }
+
+      html, body {
+        width: 100%;
+        margin: 0; 
+        padding: 0;
+      }
+
+
+      @media (max-width: 767px) {
+        .game {
+          display: none;
+        }
+
+        .hide-for-mobile {
+          display: none;
+        }
+
+        body {
+          padding: 0 10px;
+          box-sizing: border-box;
+        }
+      }
+
+      
+
+
+
     </style>
     <meta content="noindex, nofollow" name="robots">
   </head>
@@ -18,7 +46,7 @@
     <h1>lichess.org - too many requests</h1>
     <p>
       Your network has sent too many requests! Try again later.<br />
-      In the meantime, try out that fun little game:
+      <div class="hide-for-mobile">In the meantime, try out that fun little game:</div>
     </p>
     <div class="game">
       <iframe
