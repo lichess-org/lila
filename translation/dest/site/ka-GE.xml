@@ -56,9 +56,12 @@
   <string name="showThreat">საფრთხეების ჩვენება</string>
   <string name="inLocalBrowser">ლოკალურ ბრაუზერში</string>
   <string name="toggleLocalEvaluation">ლოკალური შეფასების ბერკეტი</string>
+  <string name="promoteVariation">დააწინაურეთ მიმდევრობა</string>
   <string name="makeMainLine">გახადე მთავარი ხაზი</string>
   <string name="deleteFromHere">წაშალე აქედან</string>
   <string name="move">სვლა</string>
+  <string name="variantLoss">წამგებიანი ვარიანტი</string>
+  <string name="variantWin">მომგებიანი ვარიანტი</string>
   <string name="insufficientMaterial">არასაკმარისი ფიგურები</string>
   <string name="pawnMove">პაიკის სვლა</string>
   <string name="capture">აყვანა</string>
@@ -152,6 +155,7 @@
   <string name="ratingStats">რაიტინგული შედეგები</string>
   <string name="username">მომხმარებლის სახელი</string>
   <string name="usernameOrEmail">მომხმარებლის სახელი</string>
+  <string name="changeUsername">მომხმარებლის სახელის შეცვლა</string>
   <string name="password">პაროლი</string>
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>
@@ -372,6 +376,7 @@
   <string name="createANewTournament">შექმენით ახალი ტურნირი</string>
   <string name="tournamentCalendar">ტურნირის კალენდარი</string>
   <string name="conditionOfEntry">შესვლის პირობები:</string>
+  <string name="advancedSettings">ღრმა პარამეტრები</string>
   <string name="safeTournamentName">ტურნირისთვის შეარჩიეთ უსაფრთხო სახელი.</string>
   <string name="inappropriateNameWarning">ნებისმიერი, თუნდაც მცირედი, უტაქტობა გამოიწვევს თქვენი ანგარიშის დახურვას.</string>
   <string name="emptyTournamentName">დატოვეთ ცარიელი, თუ გნებავთ რომ ტურნირს დაერქვას შემთხვევითად შერჩეული ჭადრაკის დიდოსტატის სახელი.</string>
@@ -411,6 +416,7 @@
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
   <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">რეიტინგი</string>
+  <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>
