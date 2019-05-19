@@ -368,17 +368,16 @@ object UserRepo {
     ).void
   }
 
+  private def anyEmail(doc: Bdoc): Option[EmailAddress] =
+    doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
+
   def email(id: ID): Fu[Option[EmailAddress]] = coll.find(
     $id(id),
     $doc(
       F.email -> true,
       F.verbatimEmail -> true
     )
-  ).uno[Bdoc].map {
-      _ ?? { doc =>
-        doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
-      }
-    }
+  ).uno[Bdoc].map { _ ?? anyEmail }
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll.find($doc(
@@ -387,9 +386,8 @@ object UserRepo {
     )).uno[Bdoc].map { maybeDoc =>
       for {
         doc <- maybeDoc
-        user = userBSONHandler read doc
-        storedEmail <- doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
-      } yield (user, storedEmail)
+        storedEmail <- anyEmail(doc)
+      } yield (userBSONHandler read doc, storedEmail)
     }
 
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
@@ -398,7 +396,7 @@ object UserRepo {
         User.WithEmails(
           userBSONHandler read doc,
           User.Emails(
-            current = doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email),
+            current = anyEmail(doc),
             previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
           )
         ).some
@@ -412,7 +410,7 @@ object UserRepo {
           User.WithEmails(
             userBSONHandler read doc,
             User.Emails(
-              current = doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email),
+              current = anyEmail(doc),
               previous = doc.getAs[NormalizedEmailAddress](F.prevEmail)
             )
           )
