@@ -568,6 +568,7 @@
   <string name="starting">დასაწყისი:</string>
   <string name="allInformationIsPublicAndOptional">ინფორმაცია საჯარო და ნებაყოფლობითია.</string>
   <string name="yourCityRegionOrDepartment">თქვენი ქალაქი ან სხვა ადმინისტრაციული ერთეული.</string>
+  <string name="biographyDescription">ისაუბრე: შენ შესახებ, შენს ინტერესებზე, თუ რა მოგწონს ჭადრაკში, შენი საყვარელი გახსნითი სვლები, საყვარელი მოთამაშეები...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">მაქსიმუმ %s სიმბოლო.</item>
     <item quantity="other">მაქსიმუმ %s სიმბოლო.</item>
@@ -602,6 +603,7 @@
   <string name="error.email">აღნიშნული ელ. ფოსტის მისამართი მცდარია</string>
   <string name="error.email_acceptable">აღნიშნული ელ. ფოსტის მისამართი მიუღებელია</string>
   <string name="error.email_unique">აღნიშნული ელ. ფოსტის მისამართი უკვე გამოყენებულია</string>
+  <string name="error.email_different">ეს თქვენი მოქმედი ელ. ფოსტის მისამართია</string>
   <string name="blindfoldChess">ბრმად თამაში (უხილავი ფიგურები)</string>
   <string name="moveConfirmation">სვლის დადასტურება</string>
   <string name="inCorrespondenceGames">საკორესპონდენტო თამაშები</string>
@@ -623,6 +625,7 @@
   <string name="mobileApp">მობილური აპლიკაცია</string>
   <string name="webmasters">ვებმასტერები</string>
   <string name="about">შესახებ</string>
+  <string name="aboutX">%s-(ი)ს შესახებ</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="contact">კონტაქტი</string>
   <string name="termsOfService">მომსახურების პირობები</string>
@@ -663,6 +666,7 @@
   <string name="returnToTournamentsHomepage">ტურნირების მთავარ გვერდზე დაბრუნება</string>
   <string name="yourPerfTypeRatingIsRating">შენი %1$s რეიტინგი არის %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">შენ უკეთესი ხარ ვიდრე %1$s , %2$s მოთამაშიდან</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">შენ არ გაქვს დამკვიდრებული %s რეიტინგი.</string>
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
   <string name="weHaveSentYouAnEmailTo">ჩვენ გავაგზავნეთ შეტყობინება %s მეილზე. შეტყობინებაში დააჭირეთ ლინკს, რომ პაროლი შეცვალოთ.</string>
