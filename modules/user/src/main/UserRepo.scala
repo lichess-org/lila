@@ -336,12 +336,12 @@ object UserRepo {
   def reopen(id: ID) = coll.updateField($id(id), F.enabled, true) >>
     coll.update(
       $id(id) ++ $doc(F.email $exists false),
-      $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++ $unset(F.verbatimEmail)
+      $doc("$rename" -> $doc(F.prevEmail -> F.email))
     ).recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
-    $set(F.enabled -> false) ++ $unset(F.roles, F.verbatimEmail) ++ {
+    $set(F.enabled -> false) ++ $unset(F.roles) ++ {
       if (keepEmail) $unset(F.mustConfirmEmail)
       else $doc("$rename" -> $doc(F.email -> F.prevEmail))
     }
@@ -543,7 +543,7 @@ object UserRepo {
       F.seenAt -> DateTime.now,
       F.playTime -> User.PlayTime(0, 0)
     ) ++ {
-        if (email.value != normalizedEmail.value) $doc(F.verbatimEmail -> email) else $empty
+        (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
       } ++ {
         if (blind) $doc("blind" -> true) else $empty
       }
