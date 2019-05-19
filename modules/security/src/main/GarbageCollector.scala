@@ -21,7 +21,7 @@ final class GarbageCollector(
   private val done = new lila.memo.ExpireSetMemo(10 minutes)
 
   private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader) {
-    override def toString = s"${user.username} $ip $email $req"
+    override def toString = s"${user.username} $ip ${email.value} $req"
   }
 
   // User just signed up and doesn't have security data yet, so wait a bit
@@ -86,7 +86,7 @@ final class GarbageCollector(
     val armed = isArmed()
     val wait = (30 + scala.util.Random.nextInt(300)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
-    val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
+    val message = s"Will dispose of @${user.username} in $wait. Email: ${email.value}. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
     logger.info(message)
     slack.garbageCollector(message) >>- {
       if (armed) {
