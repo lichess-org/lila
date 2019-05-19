@@ -417,6 +417,7 @@
   <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">რეიტინგი</string>
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
+  <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>
@@ -492,6 +493,7 @@
   <string name="troll">პროვოკაცია</string>
   <string name="other">სხვა</string>
   <string name="reportDescriptionHelp">ჩასვით თამაშ(ებ)ის ბმული და მიუთითეთ თუ რა არის საეჭვო მომხმარებლის ქცევაში.</string>
+  <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
   <string name="by">%s-ით</string>
   <string name="thisTopicIsNowClosed">თემა დახურულია.</string>
   <string name="theming">თემები</string>
@@ -508,6 +510,7 @@
   <string name="closeAccountExplanation">დარწმუნებული ხართ, რომ გსურთ ანგარიშის დახურვა? ანგარიშის დახურვით დაკარგავთ მასზე წვდომას და თქვენი პროფილის გვერდი აღარ იქნება ხელიმსაწვდომი.</string>
   <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
   <string name="invalidUsernameOrPassword">არასწორი მომხმარებლის სახელი ან პაროლი</string>
+  <string name="incorrectPassword">პაროლი არასწორია</string>
   <string name="invalidAuthenticationCode">არასწორი ავტორიზაციის კოდი</string>
   <string name="emailMeALink">ელ. ფოსტით გამომიგზავნეთ ბმული</string>
   <string name="currentPassword">არსებული პაროლი</string>
@@ -517,6 +520,7 @@
   <string name="pieceDestinations">ფიგურათა დასაშვები სვლები</string>
   <string name="boardCoordinates">დაფის კოორდინატები</string>
   <string name="moveListWhilePlaying">სვლათა სია</string>
+  <string name="chessPieceSymbol">ფიგურის სიმბოლო</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
   <string name="never">არასდროს</string>
@@ -524,7 +528,10 @@
   <string name="horizontalGreenProgressBars">პროგრესის ჰორიზონტალური მწვანე ინდიკატორი</string>
   <string name="soundWhenTimeGetsCritical">ცაიტნოტის ხმოვანი ინდიკატორი</string>
   <string name="gameBehavior">თამაშის პარამეტრები</string>
+  <string name="howDoYouMovePieces">როგორ გსურს ამოძრაო ფიგურები?</string>
   <string name="clickTwoSquares">დააჭირეთ ორ უჯრას</string>
+  <string name="dragPiece">გადააადგილე ფიგურა</string>
+  <string name="bothClicksAndDrag">ორივე</string>
   <string name="premovesPlayingDuringOpponentTurn">წინასწარი სვლები (თამაში მოწინაამდეგის სვლისას)</string>
   <string name="takebacksWithOpponentApproval">სვლის დაბრუნება (მოწინააღმდეგის თანხმობით)</string>
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
@@ -532,6 +539,7 @@
   <string name="privacy">კონფიდენციალურობა</string>
   <string name="letOtherPlayersFollowYou">ნება დართეთ სხვა მოთამაშეებს თვალი მოგადევნოთ</string>
   <string name="letOtherPlayersChallengeYou">ნება დართეთ სხვა მოთამაშეებს თამაშში გამოგიწვიონ</string>
+  <string name="letOtherPlayersInviteYouToStudy">ნება დართე სხვა მოთამაშეებს რომ მიგიწვიონ კვლევაში</string>
   <string name="sound">ხმა</string>
   <string name="yourPreferencesHaveBeenSaved">თქვენი პარამეტრები დამახსოვრებულია.</string>
   <string name="none">გამორთული</string>
@@ -555,6 +563,7 @@
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
   <string name="victory">გამარჯვება!</string>
   <string name="defeat">მარცხი</string>
+  <string name="xVsYinZ">%1$s %2$s-(ი)ს წინააღმდეგ %3$s-ში</string>
   <string name="timeline">ისტორია</string>
   <string name="starting">დასაწყისი:</string>
   <string name="allInformationIsPublicAndOptional">ინფორმაცია საჯარო და ნებაყოფლობითია.</string>
