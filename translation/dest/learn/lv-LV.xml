@@ -20,7 +20,7 @@ lai to pārvietotu līdz zvaigznei!"</string>
   <string name="rookComplete">Apsveicam! Tagad esat torņa lietpratējs.</string>
   <string name="theBishop">Laidnis</string>
   <string name="itMovesDiagonally">Pārvietojas pa diagonālēm</string>
-  <string name="bishopIntro">Tagad iemācīsimies kā lietot laidni!</string>
+  <string name="bishopIntro">Tagad mācīsimies veikt gājienus ar laidni!</string>
   <string name="youNeedBothBishops">Viens gaišo lauciņu laidnis, viens tumšo lauciņu laidnis. Vajadzēs abus!</string>
   <string name="bishopComplete">Apsveicam! Varat būt laidņa pavēlnieks.</string>
   <string name="theQueen">Dāma</string>
@@ -37,7 +37,7 @@ lai to pārvietotu līdz zvaigznei!"</string>
   <string name="itMovesInAnLShape">Pārvietojas burta L veidā</string>
   <string name="knightIntro">Lūk, izaicinājums jums. Zirdziņš ir... viltīga figūra.</string>
   <string name="knightsHaveAFancyWay">Zirdziņi var jocīgi lēkāt apkārt!</string>
-  <string name="knightsCanJumpOverObstacles">Zirdziņi var pārlēkt šķēršļiem! Izbēdz un iegūsti zvaigznes!</string>
+  <string name="knightsCanJumpOverObstacles">Zirdziņi var pārlēkt šķēršļiem! Izbēdziet un pieveiciet zvaigznes!</string>
   <string name="knightComplete">Apsveicam! Tagad esat zirdziņa lietpratējs.</string>
   <string name="thePawn">Bandinieks</string>
   <string name="itMovesForwardOnly">Pārvietojas tikai uz priekšu</string>
@@ -47,18 +47,18 @@ lai to pārvietotu līdz zvaigznei!"</string>
   <string name="pawnsMoveForward">Bandinieki pārvietojas uz priekšu, bet sit pa diagonāli!</string>
   <string name="captureThenPromote">Nositiet, un paaugstiniet!</string>
   <string name="useAllThePawns">Izmantojiet visus bandiniekus! Nav nepieciešams tos paaugstināt.</string>
-  <string name="aPawnOnTheSecondRank">Bandinieki uz otrās horizontāles var iet 2 lauciņus reizē!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Iegūstiet visas zvaigznes! Nav nepieciešams paugstināties.</string>
+  <string name="aPawnOnTheSecondRank">Bandinieki otrajā horizontālē var iet 2 lauciņus reizē!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Iegūstiet visas zvaigznes! Nav nepieciešams paaugstināt.</string>
   <string name="pawnComplete">Apsveicam! Bandinieki jums vairs nav noslēpums.</string>
   <string name="pawnPromotion">Bandinieka paaugstināšana</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Jūsu bandinieks ir sasniedzis galdiņa malu!</string>
   <string name="itNowPromotesToAStrongerPiece">Tagad tas paaugstinās par spēcīgāku figūru.</string>
-  <string name="selectThePieceYouWant">Ņemiet kādu figūru vien vēlaties!</string>
+  <string name="selectThePieceYouWant">Atlasiet figūru, kuru vēlaties!</string>
   <string name="fundamentals">Pamati</string>
   <string name="capture">Sitiens</string>
   <string name="takeTheEnemyPieces">Nositiet pretinieka figūras</string>
   <string name="captureIntro">Saskatiet pretinieka neaizsargātās figūras un nositiet tās!</string>
-  <string name="takeTheBlackPieces">Paņemiet melno figūras!</string>
+  <string name="takeTheBlackPieces">Nositiet melno figūras!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">"Paņemiet melno figūras!
 Un nezaudējiet savas."</string>
   <string name="captureComplete">Apsveicam! Tagad protat cīnīties ar šaha figūrām!</string>
