@@ -32,7 +32,7 @@ object Dependencies {
   val compression = "org.lichess" %% "compression" % "1.4"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.13-THIB211"
-  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
+  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
   val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
