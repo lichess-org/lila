@@ -22,6 +22,8 @@ trait Trouper extends lidraughts.common.Tellable {
 
   protected var isAlive = true
 
+  def getIsAlive = isAlive
+
   def stop(): Unit = {
     isAlive = false
   }
