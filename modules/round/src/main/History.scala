@@ -18,6 +18,7 @@ private final class History(
     persist: VersionedEvents => Unit,
     withPersistence: Boolean
 ) {
+  import History.Types._
 
   private var events: VersionedEvents = _
 
@@ -26,20 +27,19 @@ private final class History(
     events.headOption.fold(SocketVersion(0))(_.version)
   }
 
-  // none if version asked is > history version
-  // none if an event is missing (asked too old version)
-  def getEventsSince(v: SocketVersion, mon: Option[lila.mon.round.history.PlatformHistory]): Option[List[VersionedEvent]] = {
+  def getEventsSince(v: SocketVersion, mon: Option[lila.mon.round.history.PlatformHistory]): EventResult = {
     val version = getVersion
-    if (v > version) None
-    else if (v == version) Some(Nil)
+    if (v > version) VersionTooHigh
+    else if (v == version) UpToDate
     else {
-      val delta = version.value - v.value
-      mon.foreach(_ getEventsDelta delta)
-      val result = events.takeWhile(_.version > v).reverse.some filter {
-        _.headOption.fold(true)(_.version == v.inc)
+      mon.foreach(_ getEventsDelta (version.value - v.value))
+      val filteredEvents = events.takeWhile(_.version > v).reverse
+      filteredEvents match {
+        case e :: _ if e.version == v.inc => Events(filteredEvents)
+        case _ =>
+          mon.foreach(_.getEventsTooFar())
+          InsufficientHistory
       }
-      mon.ifTrue(result.isEmpty).foreach(_.getEventsTooFar())
-      result
     }
   }
 
@@ -54,9 +54,11 @@ private final class History(
    * versionCheck ping while the server sends an event,
    * we can get a false positive.
    * */
-  def versionCheck(v: SocketVersion): Option[List[VersionedEvent]] =
-    getEventsSince(v, none) map { evs =>
-      if (evs.headOption.exists(_ hasSeconds 10)) evs else Nil
+  def versionCheck(v: SocketVersion): Option[VersionedEvents] =
+    getEventsSince(v, none) match {
+      case Events(evs) if evs.headOption.exists(_ hasSeconds 10) => Some(evs)
+      case Events(_) | UpToDate => Some(Nil)
+      case _ => None
     }
 
   def getRecentEvents(maxEvents: Int): List[VersionedEvent] = {
@@ -101,6 +103,13 @@ private final class History(
 }
 
 private object History {
+  object Types {
+    sealed trait EventResult
+    object VersionTooHigh extends EventResult
+    object UpToDate extends EventResult
+    object InsufficientHistory extends EventResult
+    final case class Events(value: VersionedEvents) extends EventResult
+  }
 
   private val maxSize = 25
   private val expireAfterSeconds = 20
