@@ -49,11 +49,15 @@ object Handler {
     onPing: OnPing = defaultOnPing
   ): JsIteratee = {
     val fullCtrl = controller orElse baseController(hub, socket, member, uid, apiVersion, onPing)
-    Iteratee.foreach[JsValue] {
-      // process null ping immediately
-      case JsNull => onPing(socket, member, uid, apiVersion)
-      case jsv => for {
-        obj <- jsv.asOpt[JsObject]
+    Iteratee.foreach[JsValue] { v =>
+      if (!socket.getIsAlive) {
+        // this socket is dead, ignore message and tell client to reconnect to the new socket
+        lila.mon.socket.deadMsg()
+        member push SocketTrouper.resyncMessage
+      } // process null ping immediately
+      else if (v == JsNull) onPing(socket, member, uid, apiVersion)
+      else for {
+        obj <- v.asOpt[JsObject]
         t <- (obj \ "t").asOpt[String]
       } fullCtrl(t -> obj)
     }

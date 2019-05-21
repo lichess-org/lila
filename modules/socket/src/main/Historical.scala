@@ -35,7 +35,7 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketTrouper[M] =>
     lila.common.Iteratee.prepend(
       since
         .fold(history.getRecent(5).some)(history.since)
-        .fold(List(resyncMessage))(_ map filteredMessage(member)),
+        .fold(List(SocketTrouper.resyncMessage))(_ map filteredMessage(member)),
       enum
     )
 }

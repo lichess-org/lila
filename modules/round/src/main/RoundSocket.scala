@@ -177,7 +177,7 @@ private[round] final class RoundSocket(
       if (playerId.isDefined) playerDo(color, _.ping)
       val reloadTvEvent = onTv ?? {
         case UserTv(_, reload) => reload map {
-          case true => resyncMessage.some
+          case true => SocketTrouper.resyncMessage.some
           case false =>
             buscriptions.tv // reload buscriptions
             none
@@ -187,7 +187,7 @@ private[round] final class RoundSocket(
         history.getEventsSince(v, lila.mon.round.history(mobile).some)
       }
 
-      val initialMsgs = events.fold(resyncMessage.some) {
+      val initialMsgs = events.fold(SocketTrouper.resyncMessage.some) {
         batchMsgs(member, _)
       } map { m => Enumerator(m: JsValue) }
 
@@ -206,7 +206,7 @@ private[round] final class RoundSocket(
         case None =>
           lila.mon.round.history(mobile).versionCheck.getEventsTooFar()
           logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
-          member push resyncMessage
+          member push SocketTrouper.resyncMessage
         case Some(Nil) => // all good, nothing to do
         case Some(evs) =>
           lila.mon.round.history(mobile).getEventsDelta(evs.size)
