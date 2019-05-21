@@ -195,7 +195,10 @@ private[round] final class RoundSocket(
         }
       }
       val events = version.fold(history.getRecentEvents(5).some) { v =>
-        history.getEventsSince(v, lidraughts.mon.round.history(mobile).some)
+        history.getEventsSince(v, lidraughts.mon.round.history(mobile).some) match {
+          case History.Types.Events(e) => e.some
+          case _ => None
+        }
       }
 
       val initialMsgs = events.fold(SocketTrouper.resyncMessage.some) {
