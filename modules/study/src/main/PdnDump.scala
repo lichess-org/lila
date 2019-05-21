@@ -50,7 +50,7 @@ final class PdnDump(
     )
   }
 
-  private def studyUrl(id: Study.Id) = s"$netBaseUrl/study/$id"
+  private def chapterUrl(studyId: Study.Id, chapterId: Chapter.Id) = s"$netBaseUrl/study/$studyId/$chapterId"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
@@ -61,7 +61,7 @@ final class PdnDump(
     val opening = chapter.opening
     val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
-      Tag(_.Site, studyUrl(study.id)),
+      Tag(_.Site, chapterUrl(study.id, chapter.id)),
       Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
       Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
       Tag(_.GameType, chapter.setup.variant.gameType),
