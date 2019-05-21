@@ -20,10 +20,17 @@ abstract class SocketTrouper[M <: SocketMember](
 
   import SocketTrouper._
 
-  override def stop() = {
-    super.stop()
-    members foreachKey ejectUidString
-  }
+  /* Do not eject members on stop!
+   * It does not always instruct the client to disconnect (!)
+   * But it does prevent from sending it more messages.
+   * If the client isn't disconnected, we can't tell it to resync
+   * when we receive more messages from it!
+   * In theory a socket should only stop when all clients are gone anyway.
+   */
+  // override def stop() = {
+  //   super.stop()
+  //   members foreachKey ejectUidString
+  // }
 
   protected val receiveTrouper: PartialFunction[Any, Unit] = {
 
@@ -85,7 +92,7 @@ abstract class SocketTrouper[M <: SocketMember](
   }
 
   protected def broom: Unit =
-    members.keys foreach { uid =>
+    members foreachKey { uid =>
       if (!aliveUids.get(uid)) ejectUidString(uid)
     }
 
@@ -112,8 +119,6 @@ abstract class SocketTrouper[M <: SocketMember](
   protected def onDeploy(d: Deploy): Unit =
     notifyAll(makeMessage(d.key))
 
-  protected val resyncMessage = makeMessage("resync")
-
   protected def resync(member: M): Unit = {
     import scala.concurrent.duration._
     system.scheduler.scheduleOnce((scala.util.Random nextInt 2000).milliseconds) {
@@ -124,7 +129,7 @@ abstract class SocketTrouper[M <: SocketMember](
   protected def resync(uid: Socket.Uid): Unit =
     withMember(uid)(resync)
 
-  protected def resyncNow(member: M): Unit =
+  def resyncNow(member: M): Unit =
     member push resyncMessage
 
   protected def addMember(uid: Socket.Uid, member: M): Unit = {
@@ -169,8 +174,10 @@ abstract class SocketTrouper[M <: SocketMember](
   protected def withMember(uid: Socket.Uid)(f: M => Unit): Unit = members get uid.value foreach f
 }
 
-object SocketTrouper {
+object SocketTrouper extends Socket {
   case class GetNbMembers(promise: Promise[Int])
+
+  val resyncMessage = makeMessage("resync")
 }
 
 // Not managed by a TrouperMap
