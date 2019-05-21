@@ -40,12 +40,12 @@ final class Env(
 ) {
 
   private val settings = new {
-    val UidTimeout = config duration "uid.timeout"
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDuration = config duration "animation.duration"
     val MoretimeDuration = config duration "moretime"
     val SocketTimeout = config duration "socket.timeout"
+    val SocketUidTimeout = config duration "socket.uid.timeout"
     val NetDomain = config getString "net.domain"
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"
@@ -124,7 +124,7 @@ final class Env(
     dependencies = RoundSocket.Dependencies(
       system = system,
       lightUser = lightUser,
-      uidTtl = UidTimeout,
+      uidTtl = SocketUidTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout
     )
