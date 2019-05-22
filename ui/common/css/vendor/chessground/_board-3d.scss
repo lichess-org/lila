@@ -3,6 +3,13 @@ $td-outer-height-percent: $td-outer-height-ratio * 100%;
 $td-inner-height-ratio: 464.5 / 512;
 $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 100%;
 
+@include breakpoint($mq-col1-uniboard) {
+  .is3d {
+    /* horiz scroll caused by 3d pieces overflowing the board */
+    overflow: hidden;
+  }
+}
+
 .main-board {
   padding-bottom: $td-outer-height-percent;
   .cg-wrap {
