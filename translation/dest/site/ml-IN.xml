@@ -163,6 +163,7 @@
   <string name="ratingStats">നിലവാര സ്ഥിതിവിവരം</string>
   <string name="username">യൂസര്‍ നെയിം</string>
   <string name="usernameOrEmail">യൂസര്‍ നെയിം അല്ലെങ്കില്‍ ഇമെയില്‍</string>
+  <string name="changeUsername">യുസര്‍നെയിം മാറ്റുക</string>
   <string name="password">പാസ്‌വേഡ്</string>
   <string name="changePassword">പാസ്‌വേഡ് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
