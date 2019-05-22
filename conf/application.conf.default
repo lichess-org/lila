@@ -2,3 +2,9 @@ include "base"
 
 # copy to conf/application.conf, then
 # override values from base.conf here
+
+net {
+  domain = localhost
+  socket.domain = socket.localhost
+  asset.domain = assets.localhost
+}
