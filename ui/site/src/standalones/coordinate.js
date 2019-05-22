@@ -31,7 +31,7 @@ $(function() {
           color: null
         },
         orientation: color,
-        addPieceZIndex: $('#top').hasClass('is3d')
+        addPieceZIndex: $('#main-wrap').hasClass('is3d')
       });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('white black').addClass(color);
