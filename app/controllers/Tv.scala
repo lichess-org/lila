@@ -51,9 +51,7 @@ object Tv extends LidraughtsController {
         )
       case _ => negotiate(
         html = Env.tv.tv.getChampions map { champions =>
-          NoIframe {
-            Ok(html.tv.index(channel, champions, none, play.api.libs.json.Json.obj(), none, false, Nil))
-          }
+          Ok(html.tv.index(channel, champions, none, play.api.libs.json.Json.obj(), none, false, Nil))
         },
         api = _ => notFoundJson("No game found")
       )
