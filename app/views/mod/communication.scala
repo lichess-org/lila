@@ -96,6 +96,7 @@ object communication {
                         "author" -> (line.author.toLowerCase == u.id)
                       ))(
                         userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                        nbsp,
                         richText(line.text)
                       )
                     }
