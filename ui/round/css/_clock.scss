@@ -129,7 +129,10 @@
   }
   &.emerg .time,
   &.outoftime .time {
-    background-color: mix($c-bad, $c-bg-box, 40%);
+    background-color: mix($c-bad, $c-bg-box, 25%);
+  }
+  &.emerg.running .time {
+    background-color: mix($c-bad, $c-bg-box, 50%);
     color: $c-font-clearer;
   }
   .go-berserk {
