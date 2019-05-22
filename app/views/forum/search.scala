@@ -23,7 +23,7 @@ object search {
               a(href := routes.ForumCateg.index, dataIcon := "I", cls := "text"),
               title
             ),
-            bits.searchForm()
+            bits.searchForm(text)
           ),
           strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
           table(cls := "slist slist-pad search__results")(
