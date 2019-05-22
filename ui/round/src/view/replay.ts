@@ -30,10 +30,10 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   }
 });
 
-function renderMove(step: Step, curPly: number) {
+function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
     class: { active: step.ply === curPly }
-  }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : h(moveTag, '…');
+  }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -83,8 +83,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const els: MaybeVNodes = [], curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
     els.push(h('index', i + 1 + ''));
-    els.push(renderMove(pairs[i][0], curPly));
-    els.push(renderMove(pairs[i][1], curPly));
+    els.push(renderMove(pairs[i][0], curPly, true));
+    els.push(renderMove(pairs[i][1], curPly, false));
   }
   els.push(renderResult(ctrl));
 
