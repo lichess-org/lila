@@ -5,6 +5,6 @@ include "base"
 
 net {
   domain = localhost
-  socket.domain = socket.localhost
+  socket.domain = localhost
   asset.domain = assets.localhost
 }
