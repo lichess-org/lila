@@ -39,7 +39,6 @@ build() {
 if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
   echo "build css"
   (cd ui && gulp "css-$target")
-  touch public/css/*.min.css # they have an off by 12h modification time!!
 fi
 
 if [ $mode != "css" ]; then
