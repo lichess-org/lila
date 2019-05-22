@@ -391,7 +391,7 @@ lazy val tree = module("tree", Seq(common)).settings(
 )
 
 lazy val socket = module("socket", Seq(common, hub, memo, tree)).settings(
-  libraryDependencies ++= provided(play.api)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val hub = module("hub", Seq(common)).settings(
