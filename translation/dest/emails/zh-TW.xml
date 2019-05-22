@@ -11,11 +11,11 @@
   <string name="emailChange_intro">您已要求更改您的電子郵件地址。</string>
   <string name="emailChange_click">要確認您是否可以訪問此電子郵件, 請點擊以下連結:</string>
   <string name="welcome_subject">歡迎來到 lichess. org, %s</string>
-  <string name="welcome_text">您已成功創建了 HTTPs://lichess.org 的帳戶。
+  <string name="welcome_text">"您已成功創建了 HTTPs://lichess.org 的帳戶。
 
 這是您的個人資料頁面: %1$s。您可以在 %2$s上對其進行個人化設置。
 
-玩得開心, 願你的作品總是找到他們的方式, 你的對手的國王!</string>
+玩得開心, 願你的作品總是找到他們的方式, 你的對手的國王!"</string>
   <string name="common_orPaste">(點擊不工作？嘗試將其粘貼到您的瀏覽器!)</string>
   <string name="common_note">這是一封與您使用 %s 相關的服務電子郵件。</string>
   <string name="common_contact">如需聯繫我們, 請使用 %s。</string>

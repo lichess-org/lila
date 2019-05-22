@@ -11,9 +11,9 @@
   <string name="emailChange_intro">あなたはメールアドレスの変更を申請しました。</string>
   <string name="emailChange_click">このメールアドレスが利用できると確認するため、下のリンクをクリックしてください。</string>
   <string name="welcome_subject">%s さん Lichess.org へようこそ</string>
-  <string name="welcome_text">https://lichess.org にアカウントを作成しました。
+  <string name="welcome_text">"https://lichess.org にアカウントを作成しました。
 プロフィールページは %1$s です。%2$s でさまざまな設定ができます。
-お楽しみください、そしてあなたの駒が相手のキングに迫れますように！</string>
+お楽しみください、そしてあなたの駒が相手のキングに迫れますように！"</string>
   <string name="common_orPaste">（クリックでうまくいかない場合、URLをブラウザにペーストしてください）</string>
   <string name="common_note">これは %s のご利用に関するメールです。</string>
   <string name="common_contact">当方へのご連絡には %s をお使いください。</string>

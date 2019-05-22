@@ -11,9 +11,9 @@
   <string name="emailChange_intro">Դուք ցանկացել եք փոխել Ձեր էլեկտրոնային հասցեն:</string>
   <string name="emailChange_click">Որպեսզի հաստատեք այս էլ. փոստը, անցեք ստորև բերված հղումով:</string>
   <string name="welcome_subject">Բարի գալուստ lichess.org,</string>
-  <string name="welcome_text">Դուք հաջողությամբ ստեղծել եք Ձեր էջը lichess.org կայքում:
+  <string name="welcome_text">"Դուք հաջողությամբ ստեղծել եք Ձեր էջը lichess.org կայքում:
 Ահա Ձեր պրոֆիլի էջը: Դուք կարող եք կարգավորել այն:
-Ստացեք հաճույք և թող քո բոլոր մասնիկները գտնեն դեպի մրցակցի արքա տանող ուղիները:</string>
+Ստացեք հաճույք և թող քո բոլոր մասնիկները գտնեն դեպի մրցակցի արքա տանող ուղիները:"</string>
   <string name="common_orPaste">Քլիքը չի աշխատում? Փորձում ենք նորից դնել այն քո բրաուզերում:</string>
   <string name="common_note">Սա  օգտագործման հետ կապված նամակ է:</string>
 </resources>

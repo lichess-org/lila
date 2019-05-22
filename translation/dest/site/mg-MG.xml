@@ -67,7 +67,6 @@
   <string name="viewInFullSize">Alehibiazo</string>
   <string name="logOut">Mivoaha</string>
   <string name="signIn">Midira</string>
-  <string name="newToLichess">Vaovao ho anao Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Mila kaonty ianao mba hanaovana an\'izay</string>
   <string name="signUp">Mamorona kaonty</string>
   <string name="games">Lalao</string>
@@ -89,7 +88,6 @@
   <string name="time">Fotoana</string>
   <string name="usernameOrEmail">Solon\'anarana</string>
   <string name="password">Teny miafina</string>
-  <string name="haveAnAccount">Efa manana kaonty?</string>
   <string name="changePassword">Ovay ny teny miafina</string>
   <string name="rank">Laharana</string>
   <string name="gamesPlayed">Lalao nolalaovina</string>

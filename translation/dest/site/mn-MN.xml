@@ -123,7 +123,6 @@
   <string name="viewInFullSize">Бүрэн хэмжээсээр харах</string>
   <string name="logOut">Гарах</string>
   <string name="signIn">Нэвтрэх</string>
-  <string name="newToLichess">Та Личесст шинээр элсэх гэж байна уу?</string>
   <string name="youNeedAnAccountToDoThat">Личессийн гишүүн болсноор та энэхүү үйлдлийг хийх боломжтой болно</string>
   <string name="signUp">Бүртгүүлэх</string>
   <string name="computersAreNotAllowedToPlay">Компьютер болон компьютерийн тусламж авч тоглох хориотой болно. Та өөр хүн, шатрын автомат сан хөмрөг, компьютерийн тусламж битгий аваарай. Мөн нэг хүн олон тооны гишүүнчлэл үүсгэхийг бид дэмжихгүй бөгөөд энэхүү үйлдэл нь таны манай цахим хуудасанд хандах эрхийг хасахад хүргэнэ.</string>
@@ -154,7 +153,6 @@
   <string name="username">Хэрэглэгчийн нэр</string>
   <string name="usernameOrEmail">Хэрэглэгчийн нэр эсвэл электрон шуудангийн хаяг</string>
   <string name="password">Нууц үг</string>
-  <string name="haveAnAccount">Таньд хэрэглэгчийн бүртгэл байгаа юу?</string>
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
   <string name="changeEmail">Электрон шуудангийн хаягаа өөрчлөх</string>
   <string name="email">Электрон шуудангийн хаяг</string>

@@ -7,31 +7,31 @@
   <string name="isNotRated">Šis turnyras *nėra* vertinamas ir *neturės* įtakos jūsų reitingui.</string>
   <string name="someRated">Kai kurie turnyrai yra vertinami ir turės įtakos jūsų reitingui.</string>
   <string name="howAreScoresCalculated">Kaip apskaičiuojami taškai?</string>
-  <string name="howAreScoresCalculatedAnswer">Pergalė vertinama 2 taškais, lygiosios: 1 tašku, o pralaimėjimas taškų nevertas.
+  <string name="howAreScoresCalculatedAnswer">"Pergalė vertinama 2 taškais, lygiosios: 1 tašku, o pralaimėjimas taškų nevertas.
 Jeigu laimite dvi partijas iš eilės, pradėsite dvigubų taškų seriją, žymimą liepsnos piktograma.
 Tolimesnės partijos bus vertos dvigubai daugiau taškų tol, kol nebelaimėsite.
 T. y., pergalė bus verta 4 taškų, lygiosios: 2 taškų, o pralaimėjimas taškų nepelnys.
 
-Pavyzdžiui, dvi pergalės ir tada įvykusios lygiosios bus įvertinta 6 taškais: 2 + 2 + (2 x 1)</string>
+Pavyzdžiui, dvi pergalės ir tada įvykusios lygiosios bus įvertinta 6 taškais: 2 + 2 + (2 x 1)"</string>
   <string name="berserk">Įsiutimas arenoje</string>
-  <string name="berserkAnswer">Žaidėjui partijos pradžioje paspaudus mygtuką „Įsiūtis“, jie praras pusę suteikiamo laiko ėjimams, tačiau pergalė bus verta vieno papildomo turnyrinio taško.
+  <string name="berserkAnswer">"Žaidėjui partijos pradžioje paspaudus mygtuką „Įsiūtis“, jie praras pusę suteikiamo laiko ėjimams, tačiau pergalė bus verta vieno papildomo turnyrinio taško.
 
 „Įsiūtis“ laiko kontrolėse su prieaugiu kartu dar panaikins ir jį (1+2 yra išimtis, bus duodama 1+0).
 
 „Įsiūtis“ nėra galimas partijose su nuliniu pradiniu laiku (0+1, 0+2).
 
-„Įsiūtis“ suteiks papildomą tašką tik sužaidus bent 7 ėjimus partijoje.</string>
+„Įsiūtis“ suteiks papildomą tašką tik sužaidus bent 7 ėjimus partijoje."</string>
   <string name="howIsTheWinnerDecided">Kaip nustatomas laimėtojas?</string>
   <string name="howIsTheWinnerDecidedAnswer">Žaidėjas (-ai), surinkęs (-ę) daugiausiai taškų pasibaigus nustatytam turnyro laiko limitui, bus paskelbtas (-i) laimėtoju (-ais).</string>
   <string name="howDoesPairingWork">Kaip veikia suporavimas?</string>
-  <string name="howDoesPairingWorkAnswer">Turnyro pradžioje žaidėjai suporuojami atsižvelgiant į jų reitingus.
+  <string name="howDoesPairingWorkAnswer">"Turnyro pradžioje žaidėjai suporuojami atsižvelgiant į jų reitingus.
 Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite suporuoti su žaidėju, artimus jūsų reitingui. Tai užtikrina mažiausią laukimo laiką, visgi jūs galite nesusidurti su visais kitais turnyro žaidėjais.
-Žaisdami greitai ir grįždami į laukiamąjį sužaisite daugiau partijų ir galėsite pelnyti daugiau taškų.</string>
+Žaisdami greitai ir grįždami į laukiamąjį sužaisite daugiau partijų ir galėsite pelnyti daugiau taškų."</string>
   <string name="howDoesItEnd">Kaip jis baigiasi?</string>
   <string name="howDoesItEndAnswer">Turnyras turi atgalinio skaičiavimo laikmatį. Jam pasiekus nulį, turnyro statistika užšaldoma bei paskelbiamas laimėtojas. Dar vykstančios partijos privalo būti užbaigtos, tačiau jos nebesiskaičiuoja turnyrui.</string>
   <string name="otherRules">Kitos svarbios taisyklės</string>
-  <string name="otherRulesAnswer">Jūs privalote atlikti savo pirmąjį ėjimą per 20 sekundžių jam prasidėjus. Neatlikę ėjimo per šį laiką suteiksite pergalę jūsų varžovui.
-Lygiosios per pirmuosius 10 partijos ėjimų nepelnys taškų nė vienam žaidėjui.</string>
+  <string name="otherRulesAnswer">"Jūs privalote atlikti savo pirmąjį ėjimą per 20 sekundžių jam prasidėjus. Neatlikę ėjimo per šį laiką suteiksite pergalę jūsų varžovui.
+Lygiosios per pirmuosius 10 partijos ėjimų nepelnys taškų nė vienam žaidėjui."</string>
   <string name="thisIsPrivate">Tai yra privatus turnyras</string>
   <string name="shareUrl">Pasidalinkite šiuo adresu su žaidėjais: %s</string>
 </resources>

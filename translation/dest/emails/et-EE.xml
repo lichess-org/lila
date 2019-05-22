@@ -9,11 +9,12 @@
   <string name="passwordReset_clickOrIgnore">Kui teie tegite selle päringu, siis vajutage all olevat linki. Kui teie seda päringut ei teinud, siis ignoreeriga seda meili.</string>
   <string name="emailChange_subject">Kinnitage enda uus e-posti aadress, %s</string>
   <string name="emailChange_intro">Te olete teinud päringu oma e-posti aadressi muutmiseks.</string>
-  <string name="emailChange_click">Et kinnitada et teil on sellele emaili aadressile ligipääs, palun vajutage allolevale lingile</string>
+  <string name="emailChange_click">"Et kinnitada et teil on sellele emaili aadressile ligipääs, palun vajutage allolevale lingile
+"</string>
   <string name="welcome_subject">Tere tulemast lichess.org-i, %s</string>
-  <string name="welcome_text">Olete edukalt loonud kasutaja keskkonda https://lichess.org.
+  <string name="welcome_text">"Olete edukalt loonud kasutaja keskkonda https://lichess.org.
 Siin on sinu profiil: %1$s. Saad seda kohandada siin %2$s.
-Veeda mõnusalt aega, ning et sinu vigurid leiaksid tee vastase kuningani!</string>
+Veeda mõnusalt aega, ning et sinu vigurid leiaksid tee vastase kuningani!"</string>
   <string name="common_orPaste">(Klikkimine ei tööta? Proovi kleepida see oma brauserisse!)</string>
   <string name="common_note">See on meil, mis on seotud sinu tegevusega lehel %s.</string>
   <string name="common_contact">Et meiega ühendust võtta, palun kasutage %s.</string>

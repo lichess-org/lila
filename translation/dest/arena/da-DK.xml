@@ -7,25 +7,25 @@
   <string name="isNotRated">Denne turnering er *ikke* ratet og vil *ikke* påvirke din rating.</string>
   <string name="someRated">Nogle turneringer er ratede og vil påvirke din rating.</string>
   <string name="howAreScoresCalculated">Hvordan beregnes scorerne?</string>
-  <string name="howAreScoresCalculatedAnswer">En sejr giver 2 point, en remis 1 point, mens et tab ingen point giver.
+  <string name="howAreScoresCalculatedAnswer">"En sejr giver 2 point, en remis 1 point, mens et tab ingen point giver.
 Hvis du vinder to partier i træk, vil du starte en dobbeltpoint-stime, repræsenteret ved et flamme-ikon.
 De følgende partier vil give dobbelte point, indtil du ikke formår at vinde et parti.
 Det vil sige, at en sejr er 4 point værd, en remis 2 point, mens et tab fortsat ingen point giver.
 
-For eksempel giver to sejre efterfulgt af en remis 6 point: 2 + 2 + (2 x 1)</string>
+For eksempel giver to sejre efterfulgt af en remis 6 point: 2 + 2 + (2 x 1)"</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Når en spiller klikker på Berserk-knappen ved starten af et parti, mistes halvdelen af tiden på uret, men en sejr vil være et ekstra turneringspoint værd.
+  <string name="berserkAnswer">"Når en spiller klikker på Berserk-knappen ved starten af et parti, mistes halvdelen af tiden på uret, men en sejr vil være et ekstra turneringspoint værd.
 
 Går man Berserk ved tidskontroller med tillægstid annulleres tillægstiden også. (1+2 er en undtagelse, den bliver til 1+0)
 
 Berserk er ikke tilgængelig for partier ved nultider (0+1, 0+2).
 
-Berserk giver kun ekstra point, hvis du laver mindst 7 træk i partiet.</string>
+Berserk giver kun ekstra point, hvis du laver mindst 7 træk i partiet."</string>
   <string name="howIsTheWinnerDecided">Hvordan findes vinderen?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spilleren (eller spillerne) med flest point, når turneringens fastsatte tidsgrænse nås, erklæres for vinder(e).</string>
   <string name="howDoesPairingWork">Hvordan foretages pardannelse?</string>
-  <string name="howDoesPairingWorkAnswer">Ved starten på turneringen parres spillere på baggrund af deres rating. Vend tilbage til turneringslobbyen, når du afslutter et parti: så vil du igen blive parret med en spiller tæt på din ranking. Det sikrer minimal ventetid, men du møder måske ikke alle andre deltagere i turneringen.
-Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde flere point.</string>
+  <string name="howDoesPairingWorkAnswer">"Ved starten på turneringen parres spillere på baggrund af deres rating. Vend tilbage til turneringslobbyen, når du afslutter et parti: så vil du igen blive parret med en spiller tæt på din ranking. Det sikrer minimal ventetid, men du møder måske ikke alle andre deltagere i turneringen.
+Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde flere point."</string>
   <string name="howDoesItEnd">Hvordan afsluttes det?</string>
   <string name="howDoesItEndAnswer">Turneringen har et nedtællingsur. Når det rammer nul fastfryses turneringsplaceringer, og en vinder kåres. Igangværende partier skal spilles færdig, men de tæller ikke med i turneringen.</string>
   <string name="otherRules">Andre vigtige regler</string>

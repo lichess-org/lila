@@ -144,7 +144,6 @@
   <string name="viewInFullSize">Pogled v polni velikosti</string>
   <string name="logOut">Odjava</string>
   <string name="signIn">Prijava</string>
-  <string name="newToLichess">Nov na Lichess-u?</string>
   <string name="youNeedAnAccountToDoThat">Za to dejanje potrebuješ račun</string>
   <string name="signUp">Registracija</string>
   <string name="computersAreNotAllowedToPlay">Računalniška pomoč ni dovoljena. Prosimo da med igro ne uporabljate računalniških programov, baz ali pridobivate pomoč ostalih igralcev. Uporabnik, ki ustvarja več zaporednih uporabniških računov bo onemogočen.</string>
@@ -182,7 +181,6 @@
   <string name="changeUsernameNotSame">Črkam je mogoče le zamenjati velikost v male ali velike tiskane. Naprimer \"janeznovak\" v \"JanezNovak\".</string>
   <string name="changeUsernameDescription">Spremenite svoje uporabniško ime. To je mogoče opraviti le enkrat in spremiti samo velikost tiskanih črk v male ali velike.</string>
   <string name="password">Geslo</string>
-  <string name="haveAnAccount">Že imate račun?</string>
   <string name="changePassword">Zamenjaj geslo</string>
   <string name="changeEmail">Zamenjaj E-poštnega naslova</string>
   <string name="email">E-poštni naslov</string>
@@ -643,8 +641,8 @@
   <string name="xCommentedY">%1$s je komentiral v %2$s</string>
   <string name="victory">Zmaga!</string>
   <string name="defeat">Poraz</string>
-  <string name="xVsYinZ">%1$s proti %2$s 
-v %3$s</string>
+  <string name="xVsYinZ">"%1$s proti %2$s 
+v %3$s"</string>
   <string name="timeline">Časovni trak</string>
   <string name="starting">Začetek:</string>
   <string name="allInformationIsPublicAndOptional">Vsi podatki so vidni in niso obvezni.</string>

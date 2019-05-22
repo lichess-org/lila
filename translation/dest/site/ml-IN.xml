@@ -134,7 +134,6 @@
   <string name="viewInFullSize">പൂര്‍ണ രൂപത്തില്‍ കാണുക</string>
   <string name="logOut">സൈന്‍ ഔട്ട്‌</string>
   <string name="signIn">സൈന്‍ ഇന്‍</string>
-  <string name="newToLichess">Lichessൽ ആദ്യമാണോ?</string>
   <string name="youNeedAnAccountToDoThat">ഇത് ചെയ്യണമെങ്കില്‍ നിങ്ങള്‍ക്ക് ഒരു അക്കൗണ്ട്‌ വേണം</string>
   <string name="signUp">രജിസ്റ്റര്‍</string>
   <string name="computersAreNotAllowedToPlay">കമ്പ്യൂട്ടറുകള്‍ക്കും കമ്പ്യൂട്ടര്‍ സഹായമുള്ള കളിക്കാര്‍ക്കും കളിക്കാന്‍ അനുവാദമില്ല. ദയവായി കളിക്കിടെ ചെസ്സ്‌ എഞ്ചിനുകളുടെയോ ഡാറ്റാബേസുകളുടെയോ മറ്റു കളിക്കാരുടെയോ സഹായം തേടരുത്. നിരവധി അക്കൗണ്ടുകളുണ്ടാക്കുന്നത് ശക്തമായി നിരുത്സാഹപ്പെടുത്തുകയും അങ്ങനെ ചെയ്താല്‍ വിലക്കേര്‍പ്പെടുത്തും എന്നും പ്രത്യേകം ശ്രദ്ധിക്കുക.</string>
@@ -165,7 +164,6 @@
   <string name="username">യൂസര്‍ നെയിം</string>
   <string name="usernameOrEmail">യൂസര്‍ നെയിം അല്ലെങ്കില്‍ ഇമെയില്‍</string>
   <string name="password">പാസ്‌വേഡ്</string>
-  <string name="haveAnAccount">അക്കൗണ്ട്‌ ഉണ്ടോ?</string>
   <string name="changePassword">പാസ്‌വേഡ് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
   <string name="email">ഇമെയില്‍</string>
@@ -577,8 +575,8 @@
   <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
   <string name="victory">വിജയം!</string>
   <string name="defeat">തോൽവി</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">"%1$s vs %2$s
+in %3$s"</string>
   <string name="timeline">ജീവിതകാലം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>

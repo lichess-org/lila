@@ -73,7 +73,6 @@
   <string name="viewInFullSize">پوری سکرین پر دیکھیں</string>
   <string name="logOut">خارج ہوں</string>
   <string name="signIn">داخل ہوں</string>
-  <string name="newToLichess">Lichess میں نئے وارد؟</string>
   <string name="youNeedAnAccountToDoThat">اس کارروائی کے لیے اکاؤنٹ ہونا لازم ہے</string>
   <string name="signUp">اکاؤنٹ بنا‏ئیں</string>
   <string name="computersAreNotAllowedToPlay">کمپوٹر اور کمپیوٹر کی مدد لینے والے کھلاڑیوں کا یہاں کھیلنا منع ہے- برا‏ئے مہربانی دوران کھیل کمپیوٹر یا دوسروں کی مدد مت لیں</string>
@@ -104,7 +103,6 @@
   <string name="username">نام</string>
   <string name="usernameOrEmail">آپ کا نام</string>
   <string name="password">خفیہ کلمہ</string>
-  <string name="haveAnAccount">اکاؤنٹ موجود ہے؟</string>
   <string name="changePassword">خفیہ کلمہ تبدیل کریں</string>
   <string name="changeEmail">ای میل تبدیل کریں</string>
   <string name="email">ای میل</string>

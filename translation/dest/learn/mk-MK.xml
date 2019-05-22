@@ -107,8 +107,8 @@
   <string name="castleQueenSide">Поместете го кралот две полиња да направите голема рокада на дамината страна!</string>
   <string name="theKnightIsInTheWay">Коњот е на патот! Поместете го, па направете мала рокада.</string>
   <string name="castleKingSideMovePiecesFirst">Направете мала рокада! Мора прво да ги преместите фигурите.</string>
-  <string name="castleQueenSideMovePiecesFirst">Направете голема рокада!
-Мора прво да ги преместите фигурите.</string>
+  <string name="castleQueenSideMovePiecesFirst">"Направете голема рокада!
+Мора прво да ги преместите фигурите."</string>
   <string name="youCannotCastleIfMoved">Не можете да направите рокада ако сте до поместиле кралот или топот.</string>
   <string name="youCannotCastleIfAttacked">Не можите да направите рокада ако некое од полињата по кое кралот се движи е нападнатп. Блокирајте го нападот па направете рокада!</string>
   <string name="findAWayToCastleKingSide">Најдете начин да направите мала рокада!</string>
@@ -125,28 +125,28 @@
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Партијата е реми</string>
   <string name="stalemateIntro">Кога играчот не е под шах и нема легален потег, тогаш е пат. Партијата е реми: никој не победува, никој не губи.</string>
-  <string name="stalemateGoal">Да направите пат со црниот:
+  <string name="stalemateGoal">"Да направите пат со црниот:
 - Црниот не може да се движи
-- Не е под шах.</string>
+- Не е под шах."</string>
   <string name="stalemateComplete">Честитки! Подобро да сте во пат, отколку да сте матирани!</string>
   <string name="advanced">Напредно</string>
   <string name="pieceValue">Вредност на фигурата</string>
   <string name="evaluatePieceStrength">Процени ја силата на фигурата</string>
-  <string name="pieceValueIntro">Фигурите со поголема подвижност имаат поголема вредност!
+  <string name="pieceValueIntro">"Фигурите со поголема подвижност имаат поголема вредност!
 Кралица = 9
 Топ = 5
 Ловец = 3
 Коњ = 3
 Пешак = 1
-Кралот е бесценет! Неговото губење значи изгубена партија.</string>
+Кралот е бесценет! Неговото губење значи изгубена партија."</string>
   <string name="queenOverBishop">Земи ја фигурата со најголема вредност! Кралица &gt; Ловец</string>
   <string name="takeThePieceWithTheHighestValue">Земи ја фигурата со најголема вредност!</string>
-  <string name="pieceValueComplete">Честитки! Ја знаете вредноста на фигурите!
+  <string name="pieceValueComplete">"Честитки! Ја знаете вредноста на фигурите!
 Кралица = 9
 Топ = 5
 Ловец = 3
 Коњ = 3
-Пешак = 1</string>
+Пешак = 1"</string>
   <string name="checkInTwo">Шах во два потези</string>
   <string name="twoMovesToGiveCheck">Два потези до шах</string>
   <string name="checkInTwoIntro">Најди ја вистинската комбинација од два потези која го става под шах противничкиот крал!</string>

@@ -114,7 +114,6 @@
   <string name="viewInFullSize">Edrych yn maint llawn</string>
   <string name="logOut">Allgofnodi</string>
   <string name="signIn">Mewngofnodi</string>
-  <string name="newToLichess">Heb gofrestru ar Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Rhaid ichi gofrestru i wneud hynny</string>
   <string name="signUp">Cofrestru</string>
   <string name="computersAreNotAllowedToPlay">Ni chanateir chwarae gyda help cyfrifiaduron. Peidiwch â chael help gan injan wyddbwyll, cronfeydd data neu chwaraewyr eraill wrth chwarae. Cofiwch fod cofrestru mwy nag unwaith yn erbyn y rheolau a gall chwaraewr wedi\'i gofrestru llawergwaith gael ei ysgymuno.</string>
@@ -137,7 +136,6 @@
   <string name="username">Enw defnyddiwr</string>
   <string name="usernameOrEmail">Enw defnyddiwr neu gyfeiriad e-bost</string>
   <string name="password">Cyfrinair</string>
-  <string name="haveAnAccount">Ydych chi wedi cofrestru?</string>
   <string name="changePassword">Newid cyfrinair</string>
   <string name="changeEmail">Newid cyfeiriad e-bost</string>
   <string name="email">Cyfeiriad e-bost</string>

@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Vider in plen dimension</string>
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
-  <string name="newToLichess">Es tu nove in Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Tu necessita un conto pro facer isto</string>
   <string name="signUp">Crear conto</string>
   <string name="computersAreNotAllowedToPlay">Le uso de computatores e programmas non es permittite. Per favor, non prende assistentia de motores de chacos, bases de datos o de altere jocatores durante que joca. De plus, nota que crear multiple contos es fortemente discoragiate e iste practica excessive conduce a interdiction de uso.</string>
@@ -165,7 +164,6 @@
   <string name="username">Nomine de usator</string>
   <string name="usernameOrEmail">Nomine de usator o adresse de e-posta</string>
   <string name="password">Contrasigno</string>
-  <string name="haveAnAccount">Tu ha un conto?</string>
   <string name="changePassword">Cambiar contrasigno</string>
   <string name="changeEmail">Cambiar adresse de e-posta</string>
   <string name="email">E-posta</string>
@@ -448,10 +446,10 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
   <string name="training">Exercitio</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
-  <string name="findTheBestMoveForWhite">Trova le melior movimento 
-pro le blanco.</string>
-  <string name="findTheBestMoveForBlack">Trova le melior movimento 
-pro le nigro.</string>
+  <string name="findTheBestMoveForWhite">"Trova le melior movimento 
+pro le blanco."</string>
+  <string name="findTheBestMoveForBlack">"Trova le melior movimento 
+pro le nigro."</string>
   <string name="toTrackYourProgress">Pro traciar tu progresso:</string>
   <string name="trainingSignupExplanation">Lichess fornira enigmas que corresponde a tu habilitates, pro facer melior sessiones de exercitio.</string>
   <string name="puzzleId">Enigma %s</string>
@@ -582,8 +580,8 @@ pro le nigro.</string>
   <string name="xCommentedY">%1$s ha commentate %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Defaite</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-in %3$s</string>
+  <string name="xVsYinZ">"%1$s contra %2$s
+in %3$s"</string>
   <string name="timeline">Chronologia</string>
   <string name="starting">Initio:</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>

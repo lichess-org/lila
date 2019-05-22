@@ -144,7 +144,6 @@
   <string name="viewInFullSize">Дивитися в повний розмір</string>
   <string name="logOut">Вийти</string>
   <string name="signIn">Увійти</string>
-  <string name="newToLichess">Уперше на Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Для цього вам потрібен обліковий запис</string>
   <string name="signUp">Зареєструватися</string>
   <string name="computersAreNotAllowedToPlay">Заборонено грати, користуючись підказками шахових програм та безпосередньо програмами. Будь ласка, не послуговуйтеся під час гри допомогою програм (\"рушіїв\"), баз даних або інших гравців. Також зверніть увагу, що створення декількох облікових записів не заохочується і використання надмірної кількості облікових записів призведе до блокування.</string>
@@ -182,7 +181,6 @@
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="password">Пароль</string>
-  <string name="haveAnAccount">Уже зареєстровані?</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Email</string>
@@ -329,8 +327,8 @@
   <string name="fromPosition">Із позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="importGame">Імпортувати гру</string>
-  <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
-комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <string name="importGameExplanation">"При вставці PGN-гри ви отримуєте повтор в браузері,
+комп'ютерний аналіз, ігровий чат та посилання, яким можна поділитися."</string>
   <string name="thisIsAChessCaptcha">Це – шаховий код.</string>
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
@@ -548,8 +546,8 @@
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
   <string name="victory">Перемога!</string>
   <string name="defeat">Поразка</string>
-  <string name="xVsYinZ">%1$s проти %2$s
-в %3$s</string>
+  <string name="xVsYinZ">"%1$s проти %2$s
+в %3$s"</string>
   <string name="timeline">Смуга подій</string>
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>

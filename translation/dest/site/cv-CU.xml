@@ -80,7 +80,6 @@
   <string name="viewInFullSize">Тулли калӑпӑшла пӑх</string>
   <string name="logOut">Тух</string>
   <string name="signIn">Кӗр</string>
-  <string name="newToLichess">Lichess пӗрремӗш хут?</string>
   <string name="youNeedAnAccountToDoThat">Куна унӑ тумашкӑн аккаунт кирлӗ</string>
   <string name="signUp">Регистратсилес</string>
   <string name="games">Вӑйӑсем</string>
@@ -108,7 +107,6 @@
   <string name="username">Усӑҫ йачӗ</string>
   <string name="usernameOrEmail">Усӑҫ йачӗ йе ел. пушти</string>
   <string name="password">Кӗме сӑмах</string>
-  <string name="haveAnAccount">Аккаунт пур-и?</string>
   <string name="changePassword">Кӗме сӑмах улӑштарни</string>
   <string name="changeEmail">Ел. пуштӑ улӑштарни</string>
   <string name="email">Ел. пуштӑ</string>

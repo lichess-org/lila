@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
   <string name="signIn">Είσοδος</string>
-  <string name="newToLichess">Νέοι στο Lichess;</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
   <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
@@ -166,7 +165,6 @@
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
   <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
   <string name="password">Κωδικός</string>
-  <string name="haveAnAccount">Έχετε λογαριασμό;</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
   <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
@@ -339,8 +337,8 @@
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
-  <string name="importGameExplanation">Κατά την επικόλληση παιχνιδιού PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
-ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL.</string>
+  <string name="importGameExplanation">"Κατά την επικόλληση παιχνιδιού PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
+ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL."</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -582,8 +580,8 @@
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
   <string name="victory">Επιτυχία!</string>
   <string name="defeat">Ήττα</string>
-  <string name="xVsYinZ">%1$s εναντίον %2$s
-στο %3$s</string>
+  <string name="xVsYinZ">"%1$s εναντίον %2$s
+στο %3$s"</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>

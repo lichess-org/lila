@@ -56,9 +56,12 @@
   <string name="showThreat">საფრთხეების ჩვენება</string>
   <string name="inLocalBrowser">ლოკალურ ბრაუზერში</string>
   <string name="toggleLocalEvaluation">ლოკალური შეფასების ბერკეტი</string>
+  <string name="promoteVariation">დააწინაურეთ მიმდევრობა</string>
   <string name="makeMainLine">გახადე მთავარი ხაზი</string>
   <string name="deleteFromHere">წაშალე აქედან</string>
   <string name="move">სვლა</string>
+  <string name="variantLoss">წამგებიანი ვარიანტი</string>
+  <string name="variantWin">მომგებიანი ვარიანტი</string>
   <string name="insufficientMaterial">არასაკმარისი ფიგურები</string>
   <string name="pawnMove">პაიკის სვლა</string>
   <string name="capture">აყვანა</string>
@@ -152,6 +155,7 @@
   <string name="ratingStats">რაიტინგული შედეგები</string>
   <string name="username">მომხმარებლის სახელი</string>
   <string name="usernameOrEmail">მომხმარებლის სახელი</string>
+  <string name="changeUsername">მომხმარებლის სახელის შეცვლა</string>
   <string name="password">პაროლი</string>
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>
@@ -372,6 +376,7 @@
   <string name="createANewTournament">შექმენით ახალი ტურნირი</string>
   <string name="tournamentCalendar">ტურნირის კალენდარი</string>
   <string name="conditionOfEntry">შესვლის პირობები:</string>
+  <string name="advancedSettings">ღრმა პარამეტრები</string>
   <string name="safeTournamentName">ტურნირისთვის შეარჩიეთ უსაფრთხო სახელი.</string>
   <string name="inappropriateNameWarning">ნებისმიერი, თუნდაც მცირედი, უტაქტობა გამოიწვევს თქვენი ანგარიშის დახურვას.</string>
   <string name="emptyTournamentName">დატოვეთ ცარიელი, თუ გნებავთ რომ ტურნირს დაერქვას შემთხვევითად შერჩეული ჭადრაკის დიდოსტატის სახელი.</string>
@@ -411,6 +416,8 @@
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
   <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">რეიტინგი</string>
+  <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
+  <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>
@@ -486,6 +493,7 @@
   <string name="troll">პროვოკაცია</string>
   <string name="other">სხვა</string>
   <string name="reportDescriptionHelp">ჩასვით თამაშ(ებ)ის ბმული და მიუთითეთ თუ რა არის საეჭვო მომხმარებლის ქცევაში.</string>
+  <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
   <string name="by">%s-ით</string>
   <string name="thisTopicIsNowClosed">თემა დახურულია.</string>
   <string name="theming">თემები</string>
@@ -502,6 +510,7 @@
   <string name="closeAccountExplanation">დარწმუნებული ხართ, რომ გსურთ ანგარიშის დახურვა? ანგარიშის დახურვით დაკარგავთ მასზე წვდომას და თქვენი პროფილის გვერდი აღარ იქნება ხელიმსაწვდომი.</string>
   <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
   <string name="invalidUsernameOrPassword">არასწორი მომხმარებლის სახელი ან პაროლი</string>
+  <string name="incorrectPassword">პაროლი არასწორია</string>
   <string name="invalidAuthenticationCode">არასწორი ავტორიზაციის კოდი</string>
   <string name="emailMeALink">ელ. ფოსტით გამომიგზავნეთ ბმული</string>
   <string name="currentPassword">არსებული პაროლი</string>
@@ -511,6 +520,7 @@
   <string name="pieceDestinations">ფიგურათა დასაშვები სვლები</string>
   <string name="boardCoordinates">დაფის კოორდინატები</string>
   <string name="moveListWhilePlaying">სვლათა სია</string>
+  <string name="chessPieceSymbol">ფიგურის სიმბოლო</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
   <string name="never">არასდროს</string>
@@ -518,7 +528,10 @@
   <string name="horizontalGreenProgressBars">პროგრესის ჰორიზონტალური მწვანე ინდიკატორი</string>
   <string name="soundWhenTimeGetsCritical">ცაიტნოტის ხმოვანი ინდიკატორი</string>
   <string name="gameBehavior">თამაშის პარამეტრები</string>
+  <string name="howDoYouMovePieces">როგორ გსურს ამოძრაო ფიგურები?</string>
   <string name="clickTwoSquares">დააჭირეთ ორ უჯრას</string>
+  <string name="dragPiece">გადააადგილე ფიგურა</string>
+  <string name="bothClicksAndDrag">ორივე</string>
   <string name="premovesPlayingDuringOpponentTurn">წინასწარი სვლები (თამაში მოწინაამდეგის სვლისას)</string>
   <string name="takebacksWithOpponentApproval">სვლის დაბრუნება (მოწინააღმდეგის თანხმობით)</string>
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
@@ -526,6 +539,7 @@
   <string name="privacy">კონფიდენციალურობა</string>
   <string name="letOtherPlayersFollowYou">ნება დართეთ სხვა მოთამაშეებს თვალი მოგადევნოთ</string>
   <string name="letOtherPlayersChallengeYou">ნება დართეთ სხვა მოთამაშეებს თამაშში გამოგიწვიონ</string>
+  <string name="letOtherPlayersInviteYouToStudy">ნება დართე სხვა მოთამაშეებს რომ მიგიწვიონ კვლევაში</string>
   <string name="sound">ხმა</string>
   <string name="yourPreferencesHaveBeenSaved">თქვენი პარამეტრები დამახსოვრებულია.</string>
   <string name="none">გამორთული</string>
@@ -549,10 +563,12 @@
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
   <string name="victory">გამარჯვება!</string>
   <string name="defeat">მარცხი</string>
+  <string name="xVsYinZ">%1$s %2$s-(ი)ს წინააღმდეგ %3$s-ში</string>
   <string name="timeline">ისტორია</string>
   <string name="starting">დასაწყისი:</string>
   <string name="allInformationIsPublicAndOptional">ინფორმაცია საჯარო და ნებაყოფლობითია.</string>
   <string name="yourCityRegionOrDepartment">თქვენი ქალაქი ან სხვა ადმინისტრაციული ერთეული.</string>
+  <string name="biographyDescription">ისაუბრე: შენ შესახებ, შენს ინტერესებზე, თუ რა მოგწონს ჭადრაკში, შენი საყვარელი გახსნითი სვლები, საყვარელი მოთამაშეები...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">მაქსიმუმ %s სიმბოლო.</item>
     <item quantity="other">მაქსიმუმ %s სიმბოლო.</item>
@@ -587,6 +603,7 @@
   <string name="error.email">აღნიშნული ელ. ფოსტის მისამართი მცდარია</string>
   <string name="error.email_acceptable">აღნიშნული ელ. ფოსტის მისამართი მიუღებელია</string>
   <string name="error.email_unique">აღნიშნული ელ. ფოსტის მისამართი უკვე გამოყენებულია</string>
+  <string name="error.email_different">ეს თქვენი მოქმედი ელ. ფოსტის მისამართია</string>
   <string name="blindfoldChess">ბრმად თამაში (უხილავი ფიგურები)</string>
   <string name="moveConfirmation">სვლის დადასტურება</string>
   <string name="inCorrespondenceGames">საკორესპონდენტო თამაშები</string>
@@ -608,6 +625,7 @@
   <string name="mobileApp">მობილური აპლიკაცია</string>
   <string name="webmasters">ვებმასტერები</string>
   <string name="about">შესახებ</string>
+  <string name="aboutX">%s-(ი)ს შესახებ</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="contact">კონტაქტი</string>
   <string name="termsOfService">მომსახურების პირობები</string>
@@ -648,6 +666,7 @@
   <string name="returnToTournamentsHomepage">ტურნირების მთავარ გვერდზე დაბრუნება</string>
   <string name="yourPerfTypeRatingIsRating">შენი %1$s რეიტინგი არის %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">შენ უკეთესი ხარ ვიდრე %1$s , %2$s მოთამაშიდან</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">შენ არ გაქვს დამკვიდრებული %s რეიტინგი.</string>
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
   <string name="weHaveSentYouAnEmailTo">ჩვენ გავაგზავნეთ შეტყობინება %s მეილზე. შეტყობინებაში დააჭირეთ ლინკს, რომ პაროლი შეცვალოთ.</string>

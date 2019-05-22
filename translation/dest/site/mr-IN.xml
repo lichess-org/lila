@@ -105,7 +105,6 @@
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
   <string name="logOut">बाहेर पडा</string>
   <string name="signIn">प्रवेश करा</string>
-  <string name="newToLichess">लिचेस वर नवीन आहात ?</string>
   <string name="youNeedAnAccountToDoThat">त्यासाठी तुम्हाला खातं लागेल</string>
   <string name="signUp">सदस्य खाते तयार करा</string>
   <string name="games">खेळ</string>
@@ -133,7 +132,6 @@
   <string name="username">वापरकर्त्याचे नाव</string>
   <string name="usernameOrEmail">वापरकर्त्याचे नाव किंवा पत्ता</string>
   <string name="password">परवलीचा शब्द</string>
-  <string name="haveAnAccount">खाते आहे का?</string>
   <string name="changePassword">परवलीचा शब्द बदला</string>
   <string name="changeEmail">ई-मेल बदला</string>
   <string name="email">ई-मेल</string>

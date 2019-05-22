@@ -129,7 +129,6 @@
   <string name="viewInFullSize">크게 보기</string>
   <string name="logOut">로그아웃</string>
   <string name="signIn">로그인</string>
-  <string name="newToLichess">Lichess에 처음 오셨나요?</string>
   <string name="youNeedAnAccountToDoThat">회원만이 접근할 수 있습니다.</string>
   <string name="signUp">회원 가입</string>
   <string name="computersAreNotAllowedToPlay">컴퓨터나 컴퓨터의 도움을 받는 플레이어는 대국이 금지되어 있습니다. 대국할 때 체스 엔진이나 관련 자료, 또는 주변 플레이어로부터 도움을 받지 마십시오. 또한, 다중 계정 사용은 권장하지 않으며 지나치게 많은 다중 계정을 사용할 시 계정이 차단될 수 있습니다.</string>
@@ -158,7 +157,6 @@
   <string name="username">아이디</string>
   <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
   <string name="password">비밀번호</string>
-  <string name="haveAnAccount">계정이 있습니까?</string>
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">메일 주소 변경</string>
   <string name="email">메일</string>
@@ -553,8 +551,8 @@
   <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
   <string name="victory">승리!</string>
   <string name="defeat">패배</string>
-  <string name="xVsYinZ">%3$s에서
-%1$s 대 %2$s</string>
+  <string name="xVsYinZ">"%3$s에서
+%1$s 대 %2$s"</string>
   <string name="timeline">타임라인</string>
   <string name="starting">시작합니다:</string>
   <string name="allInformationIsPublicAndOptional">모든 정보는 공개되며 선택 사항입니다.</string>

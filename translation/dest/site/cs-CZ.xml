@@ -144,7 +144,6 @@
   <string name="viewInFullSize">Zobrazit v plné velikosti</string>
   <string name="logOut">Odhlásit se</string>
   <string name="signIn">Přihlásit se</string>
-  <string name="newToLichess">Jste na Lichess nový?</string>
   <string name="youNeedAnAccountToDoThat">Pro následující akci je vyžadován účet</string>
   <string name="signUp">Registrace</string>
   <string name="computersAreNotAllowedToPlay">Počítačová asistence není během hraní povolena. Nepoužívejte během hraní šachové motory, databáze nebo nápovědu jiných hráčů.</string>
@@ -182,7 +181,6 @@
   <string name="changeUsernameNotSame">Můžete změnit pouze velikost písmen. Např. z \"petrnovak\" na \"PetrNovak\".</string>
   <string name="changeUsernameDescription">Změňte své uživatelské jméno. To lze provést pouze jednou, a můžete změnit pouze velikost písmen.</string>
   <string name="password">Heslo</string>
-  <string name="haveAnAccount">Máte již účet?</string>
   <string name="changePassword">Změnit heslo</string>
   <string name="changeEmail">Změnit email</string>
   <string name="email">Email</string>
@@ -637,8 +635,8 @@
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
   <string name="victory">Vítězství!</string>
   <string name="defeat">Porážka</string>
-  <string name="xVsYinZ">%1$s proti %2$s
-v %3$s</string>
+  <string name="xVsYinZ">"%1$s proti %2$s
+v %3$s"</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Začíná:</string>
   <string name="allInformationIsPublicAndOptional">Všechny informace jsou veřejné a nepovinné.</string>

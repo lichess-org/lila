@@ -163,6 +163,9 @@
   <string name="ratingStats">Estadístiques de classificació</string>
   <string name="username">Nom d\'usuari</string>
   <string name="usernameOrEmail">Nom d\'usuari o correu electrònic</string>
+  <string name="changeUsername">Canviar nom d\'usuari</string>
+  <string name="changeUsernameNotSame">Només les lletres majúscules poden canviar. Per exemple \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
   <string name="password">Contrassenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
@@ -171,6 +174,10 @@
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
   <string name="rankX">Puntuació: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">La classificació s\'actualitza cada minut</item>
+    <item quantity="other">La classificació s\'actualitza cada %s minuts</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemes</item>
@@ -578,8 +585,8 @@
   <string name="xCommentedY">%1$s ha comentat %2$s</string>
   <string name="victory">Victòria!</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-en %3$s</string>
+  <string name="xVsYinZ">"%1$s contra %2$s
+en %3$s"</string>
   <string name="timeline">Cronologia</string>
   <string name="starting">Començant:</string>
   <string name="allInformationIsPublicAndOptional">Tota la informació és pública i opcional.</string>
@@ -748,6 +755,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s és amfitrió de %2$s</string>
   <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
   <string name="xLikesY">A %1$s li agrada %2$s</string>
+  <string name="xCreatesStudyY">%1$s ha creat l\'estudi %2$s</string>
   <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>

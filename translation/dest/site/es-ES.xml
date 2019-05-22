@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Ver en tamaño completo</string>
   <string name="logOut">Cerrar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="newToLichess">¿Nuevo en Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Necesitas crear una cuenta para hacer eso</string>
   <string name="signUp">Registrarse</string>
   <string name="computersAreNotAllowedToPlay">No está permitido jugar a ordenadores ni a jugadores ayudados por un ordenador o por otras personas. Por favor, no te ayudes de motores de ajedrez, bases de datos o de otros jugadores durante la partida. Además, ten en cuenta que no se aconseja la utilización de varias cuentas de usuario y que el uso de un excesivo número de cuentas resultará en la cancelación de las mismas.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Sólo es posible cambiar el formato. Por ejemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar tu nombre de usuario. Esto sólo puede hacerse una vez, y sólo se puede cambiar el formato.</string>
   <string name="password">Contraseña</string>
-  <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo</string>

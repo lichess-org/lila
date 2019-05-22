@@ -12,20 +12,20 @@
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Kreće se po ravnim linijama</string>
   <string name="rookIntro">Top je jaka figura. Jesi li spreman/spremna vladati njime?</string>
-  <string name="rookGoal">Klikni na topa
-da ga dovedeš do zvjezdice!</string>
+  <string name="rookGoal">"Klikni na topa
+da ga dovedeš do zvjezdice!"</string>
   <string name="grabAllTheStars">Pokupi sve zvjezdice!</string>
-  <string name="theFewerMoves">Čim manje poteza napraviš,
-tim više poteza osvajaš!</string>
-  <string name="useTwoRooks">Koristi dva topa
-da ubrzaš stvari!</string>
+  <string name="theFewerMoves">"Čim manje poteza napraviš,
+tim više poteza osvajaš!"</string>
+  <string name="useTwoRooks">"Koristi dva topa
+da ubrzaš stvari!"</string>
   <string name="rookComplete">Čestitke! Uspješno si ovladao/la topom.</string>
   <string name="theBishop">Lovac</string>
   <string name="itMovesDiagonally">Kreće se dijagonalno</string>
   <string name="bishopIntro">Sada ćemo naučiti kako manevrirati lovcem!</string>
-  <string name="youNeedBothBishops">Jedan svijetlopoljni lovac,
+  <string name="youNeedBothBishops">"Jedan svijetlopoljni lovac,
 jedan tamnopoljni lovac.
-Trebaš oboje!</string>
+Trebaš oboje!"</string>
   <string name="bishopComplete">Čestitke! Možeš vladati lovcem.</string>
   <string name="theQueen">Dama</string>
   <string name="queenCombinesRookAndBishop">Dama = top + lovac</string>
@@ -40,26 +40,26 @@ Trebaš oboje!</string>
   <string name="theKnight">Skakač</string>
   <string name="itMovesInAnLShape">Kreće se u obliku slova L</string>
   <string name="knightIntro">Evo izazova za tebe. Skakač je... škakljiva figura.</string>
-  <string name="knightsHaveAFancyWay">Skakači imaju elegantan način
-skakanja okolo!</string>
-  <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
-Pobjegni i savladaj zvijezde!</string>
+  <string name="knightsHaveAFancyWay">"Skakači imaju elegantan način
+skakanja okolo!"</string>
+  <string name="knightsCanJumpOverObstacles">"Skakači mogu preskakati zapreke!
+Pobjegni i savladaj zvijezde!"</string>
   <string name="knightComplete">Čestitke! Uspješno si ovladao/la skakačem.</string>
   <string name="thePawn">Pješak</string>
   <string name="itMovesForwardOnly">Kreće se samo naprijed</string>
   <string name="pawnIntro">Pješaci su slabi, ali imaju puno potencijala.</string>
-  <string name="pawnsMoveOneSquareOnly">Pješaci se pomiču za samo jedno polje. 
-Ali kada dosegnu drugu stranu ploče, postaju jedna od snažnijih figura!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Većinu vremena najbolja opcija je promovirati u damu.
-Ali ponekad i skakač može poslužiti!</string>
-  <string name="pawnsMoveForward">Pješaci se kreću naprijed,
-ali jedu dijagonalno!</string>
+  <string name="pawnsMoveOneSquareOnly">"Pješaci se pomiču za samo jedno polje. 
+Ali kada dosegnu drugu stranu ploče, postaju jedna od snažnijih figura!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">"Većinu vremena najbolja opcija je promovirati u damu.
+Ali ponekad i skakač može poslužiti!"</string>
+  <string name="pawnsMoveForward">"Pješaci se kreću naprijed,
+ali jedu dijagonalno!"</string>
   <string name="captureThenPromote">Jedi, pa onda promoviraj!</string>
-  <string name="useAllThePawns">Koristi sve pješake!
-Nema potrebe za promoviranjem.</string>
+  <string name="useAllThePawns">"Koristi sve pješake!
+Nema potrebe za promoviranjem."</string>
   <string name="aPawnOnTheSecondRank">Pješak na drugom redu se može pomaknuti za 2 polja odjednom!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Pokupi sve zvjezdice!
-Nema potrebe za promoviranjem.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">"Pokupi sve zvjezdice!
+Nema potrebe za promoviranjem."</string>
   <string name="pawnComplete">Čestitke! Pješaci ti nisu nepoznanica.</string>
   <string name="pawnPromotion">Promocija pješaka</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tvoj pješak je došao do kraja ploče!</string>
@@ -70,19 +70,19 @@ Nema potrebe za promoviranjem.</string>
   <string name="takeTheEnemyPieces">Pojedi protivničke figure</string>
   <string name="captureIntro">Identificiraj neobranjene protivničke figure, i pojedi ih!</string>
   <string name="takeTheBlackPieces">Uzmi crne figure!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Uzmi crne figure!
-I nemoj izgubiti svoje.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">"Uzmi crne figure!
+I nemoj izgubiti svoje."</string>
   <string name="captureComplete">Čestitke! Sada se znaš boriti šahovskim figurama!</string>
   <string name="protection">Zaštita</string>
   <string name="keepYourPiecesSafe">Čuvaj svoje figure</string>
   <string name="protectionIntro">Identificiraj figure koje tvoj protivnik napada, i obrani ih!</string>
   <string name="protectionComplete">Čestitke! Figura koju ne izgubiš je figura koju dobiš!</string>
-  <string name="escape">Pod napadom si!
-Pobjegni prijetnji!</string>
-  <string name="noEscape">Nema bijega, 
-ali možeš braniti!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Nemoj mu dopustiti da uzme
-bilo koju nebranjenu figuru!</string>
+  <string name="escape">"Pod napadom si!
+Pobjegni prijetnji!"</string>
+  <string name="noEscape">"Nema bijega, 
+ali možeš braniti!"</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">"Nemoj mu dopustiti da uzme
+bilo koju nebranjenu figuru!"</string>
   <string name="combat">Borba</string>
   <string name="captureAndDefendPieces">Uzmi i obrani figure</string>
   <string name="combatIntro">Dobar ratnik zna i napadati i braniti!</string>
@@ -96,110 +96,110 @@ bilo koju nebranjenu figuru!</string>
   <string name="defendYourKing">Obrani svog kralja</string>
   <string name="outOfCheckIntro">Pod šahom si! Moraš pobjeći ili blokirati napad.</string>
   <string name="escapeWithTheKing">Pobjegni kraljem!</string>
-  <string name="theKingCannotEscapeButBlock">Kralj ne može pobjeći, 
-ali možeš blokirati napad!</string>
-  <string name="youCanGetOutOfCheckByTaking">Možeš se maknuti iz šaha
-uzimanjem protivničke figure.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Ovaj skakač te šahira
-kroz tvoju obranu!</string>
-  <string name="escapeOrBlock">Pobjegni kraljem
-ili blokiraj napad!</string>
+  <string name="theKingCannotEscapeButBlock">"Kralj ne može pobjeći, 
+ali možeš blokirati napad!"</string>
+  <string name="youCanGetOutOfCheckByTaking">"Možeš se maknuti iz šaha
+uzimanjem protivničke figure."</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">"Ovaj skakač te šahira
+kroz tvoju obranu!"</string>
+  <string name="escapeOrBlock">"Pobjegni kraljem
+ili blokiraj napad!"</string>
   <string name="outOfCheckComplete">Čestitke! Tvoj kralj ne može nikad biti uzet, pobrini se da se možeš obraniti od šaha!</string>
   <string name="mateInOne">Mat u jednom</string>
   <string name="defeatTheOpponentsKing">Porazi protivnikovog kralja</string>
   <string name="mateInOneIntro">Pobjeda je tvoja onda kada tvoj protivnik ne može obraniti šah.</string>
-  <string name="attackYourOpponentsKing">Napadni protivnikovog kralja
-na način na koji ga neće moći obraniti!</string>
+  <string name="attackYourOpponentsKing">"Napadni protivnikovog kralja
+na način na koji ga neće moći obraniti!"</string>
   <string name="mateInOneComplete">Čestitke! Tako se pobjeđuju šahovske partije!</string>
   <string name="intermediate">Srednje napredno</string>
   <string name="boardSetup">Postavljanje ploče</string>
   <string name="howTheGameStarts">Kako igra započinje</string>
   <string name="boardSetupIntro">Dvije se vojske suočavaju, spremne za borbu.</string>
-  <string name="thisIsTheInitialPosition">Ovo je početna pozicija
+  <string name="thisIsTheInitialPosition">"Ovo je početna pozicija
 svake šahovske partije!
-Napravi bilo koji potez za nastavak.</string>
-  <string name="firstPlaceTheRooks">Prvo postavi topove!
-Njima je mjesto na rubovima ploče.</string>
-  <string name="thenPlaceTheKnights">Onda postavi skakače!
-Oni idu pored topova.</string>
-  <string name="placeTheBishops">Postavi lovce!
-Oni idu pored skakača.</string>
-  <string name="placeTheQueen">Postavi damu!
-Ona ide na polje njezine boje.</string>
-  <string name="placeTheKing">Postavi kralja!
-Odmah pored svoje kraljice.</string>
-  <string name="pawnsFormTheFrontLine">Pješaci formiraju liniju fronte.
-Napravi bilo koji potez za nastavak.</string>
+Napravi bilo koji potez za nastavak."</string>
+  <string name="firstPlaceTheRooks">"Prvo postavi topove!
+Njima je mjesto na rubovima ploče."</string>
+  <string name="thenPlaceTheKnights">"Onda postavi skakače!
+Oni idu pored topova."</string>
+  <string name="placeTheBishops">"Postavi lovce!
+Oni idu pored skakača."</string>
+  <string name="placeTheQueen">"Postavi damu!
+Ona ide na polje njezine boje."</string>
+  <string name="placeTheKing">"Postavi kralja!
+Odmah pored svoje kraljice."</string>
+  <string name="pawnsFormTheFrontLine">"Pješaci formiraju liniju fronte.
+Napravi bilo koji potez za nastavak."</string>
   <string name="boardSetupComplete">Čestitke! Znaš postaviti šahovsku ploču.</string>
   <string name="castling">Rokada</string>
   <string name="theSpecialKingMove">Poseban potez kralja</string>
   <string name="castlingIntro">Dovedi svog kralja na sigurno, i razvi svog topa za napad!</string>
-  <string name="castleKingSide">Pomakni svog kralja za dva polja
-da napraviš malu rokadu!</string>
-  <string name="castleQueenSide">Pomakni svog kralja za dva polja
-da napraviš veliku rokadu!</string>
-  <string name="theKnightIsInTheWay">Skakač ti smeta!
-Pomakni ga, i onda napravi malu rokadu.</string>
-  <string name="castleKingSideMovePiecesFirst">Napravi malu rokadu!
-Ali prvo moraš pomaknuti figure.</string>
-  <string name="castleQueenSideMovePiecesFirst">Napravi veliku rokadu!
-Ali prvo moraš pomaknuti figure.</string>
-  <string name="youCannotCastleIfMoved">Ne možeš napraviti rokadu ako
+  <string name="castleKingSide">"Pomakni svog kralja za dva polja
+da napraviš malu rokadu!"</string>
+  <string name="castleQueenSide">"Pomakni svog kralja za dva polja
+da napraviš veliku rokadu!"</string>
+  <string name="theKnightIsInTheWay">"Skakač ti smeta!
+Pomakni ga, i onda napravi malu rokadu."</string>
+  <string name="castleKingSideMovePiecesFirst">"Napravi malu rokadu!
+Ali prvo moraš pomaknuti figure."</string>
+  <string name="castleQueenSideMovePiecesFirst">"Napravi veliku rokadu!
+Ali prvo moraš pomaknuti figure."</string>
+  <string name="youCannotCastleIfMoved">"Ne možeš napraviti rokadu ako
 se kralj već pomaknuo 
-ili se top već pomaknuo.</string>
-  <string name="youCannotCastleIfAttacked">Ne možeš rokirati ako bi
+ili se top već pomaknuo."</string>
+  <string name="youCannotCastleIfAttacked">"Ne možeš rokirati ako bi
 kralj u međuvremenu prošao kroz šah.
-Blokiraj šah i tek onda rokiraj!</string>
-  <string name="findAWayToCastleKingSide">Pronađi način 
-za malu rokadu!</string>
-  <string name="findAWayToCastleQueenSide">Pronađi način 
-za veliku rokadu!</string>
+Blokiraj šah i tek onda rokiraj!"</string>
+  <string name="findAWayToCastleKingSide">"Pronađi način 
+za malu rokadu!"</string>
+  <string name="findAWayToCastleQueenSide">"Pronađi način 
+za veliku rokadu!"</string>
   <string name="castlingComplete">Čestitke! Skoro uvijek bi trebao rokirati u partiji.</string>
   <string name="theSpecialPawnMove">Poseban potez pješaka</string>
   <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možeš ga uzeti kao da se pomaknuo za jedno polje.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Crni se upravo pomaknuo pješakom
+  <string name="blackJustMovedThePawnByTwoSquares">"Crni se upravo pomaknuo pješakom
 za dva polja!
-Uzmi ga en passant.</string>
-  <string name="enPassantOnlyWorksImmediately">En passant je moguće napraviti
+Uzmi ga en passant."</string>
+  <string name="enPassantOnlyWorksImmediately">"En passant je moguće napraviti
 samo neposredno nakon što je protivnik
-pomaknuo pješaka.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">En passant je moguće napraviti
-samo ako je tvoj pješak na petom redu.</string>
+pomaknuo pješaka."</string>
+  <string name="enPassantOnlyWorksOnFifthRank">"En passant je moguće napraviti
+samo ako je tvoj pješak na petom redu."</string>
   <string name="takeAllThePawnsEnPassant">Uzmi sve pješake en passant!</string>
   <string name="enPassantComplete">Čestitke! Sada znaš uzimati en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partija završava remijem</string>
   <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: nitko ne pobjeđuje, nitko ne gubi.</string>
-  <string name="stalemateGoal">Da patiraš crnog:
+  <string name="stalemateGoal">"Da patiraš crnog:
 - crni se ne može nikamo pomaknuti
-- nema šaha.</string>
+- nema šaha."</string>
   <string name="stalemateComplete">Čestitke! Bolje biti patiran nego matiran!</string>
   <string name="advanced">Napredno</string>
   <string name="pieceValue">Vrijednost figura</string>
   <string name="evaluatePieceStrength">Procijeni vrijednost figura</string>
-  <string name="pieceValueIntro">Figure s velikom pokretnošću imaju veću vrijednost!
+  <string name="pieceValueIntro">"Figure s velikom pokretnošću imaju veću vrijednost!
 Dama = 9
 Top = 5
 Lovac = 3
 Skakač = 3
 Pješak = 1
-Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju.</string>
-  <string name="queenOverBishop">Uzmi figure
+Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju."</string>
+  <string name="queenOverBishop">"Uzmi figure
 s najvećom vrijednošću!
-Dama &gt; Lovac</string>
-  <string name="takeThePieceWithTheHighestValue">Uzmi figuru 
-s najvećom vrijednošću!</string>
-  <string name="pieceValueComplete">Čestitke! Znaš vrijednost materijala!
+Dama &gt; Lovac"</string>
+  <string name="takeThePieceWithTheHighestValue">"Uzmi figuru 
+s najvećom vrijednošću!"</string>
+  <string name="pieceValueComplete">"Čestitke! Znaš vrijednost materijala!
 Dama = 9
 Top = 5
 Lovac = 3
 Skakač = 3
-Pješak = 1</string>
+Pješak = 1"</string>
   <string name="checkInTwo">Šah u dva poteza</string>
   <string name="twoMovesToGiveCheck">Dva poteza da se da šah</string>
   <string name="checkInTwoIntro">Pronađi najbolju kombinaciju dvaju poteza koji šahiraju protivnikovog kralja!</string>
-  <string name="checkInTwoGoal">Zaprijeti protivničkom kraju 
-u dva poteza!</string>
+  <string name="checkInTwoGoal">"Zaprijeti protivničkom kraju 
+u dva poteza!"</string>
   <string name="checkInTwoComplete">Čestitke! Šahirao si protivnika, prisiljavajući ga da obrani svoga protivnika!</string>
   <string name="whatNext">Što dalje?</string>
   <string name="youKnowHowToPlayChess">Sada znaš igrati šah, čestitke! Želiš li postati jači igrač?</string>

@@ -11,11 +11,11 @@
   <string name="emailChange_intro">Pyysit sähköpostiosoitteen vaihtoa.</string>
   <string name="emailChange_click">Vahvista että hallitset tätä sähköpostia klikkaamalla linkkiä:</string>
   <string name="welcome_subject">Tervetuloa lichess.orgiin %s</string>
-  <string name="welcome_text">Loit itsellesi tilin sivustolle https://lichess.org.
+  <string name="welcome_text">"Loit itsellesi tilin sivustolle https://lichess.org.
 
 Tässä profiilisivusi: %1$s. Voit muokata sitä täällä: %2$s.
 
-Pidä hauskaa. Löytäköön nappulasi tien vastustajan kuninkaan luo!</string>
+Pidä hauskaa. Löytäköön nappulasi tien vastustajan kuninkaan luo!"</string>
   <string name="common_orPaste">(Klikkaus ei tomi? Kokeile liittää osoite selaimeesi!)</string>
   <string name="common_note">Tämä sähköposti liittyy %s käyttämiseen.</string>
 </resources>

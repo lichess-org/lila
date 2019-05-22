@@ -8,7 +8,7 @@
   <string name="waitingForOpponent">Gaidām pretinieku</string>
   <string name="waiting">Gaidām</string>
   <string name="yourTurn">Jūsu gājiens</string>
-  <string name="aiNameLevelAiLevel">%1$s līmenis %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
   <string name="level">Līmenis</string>
   <string name="toggleTheChat">Ieslēgt/izslēgt sarunu</string>
   <string name="toggleSound">Ieslēgt/Izslēgt skaņu</string>
@@ -181,6 +181,11 @@
   <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="rank">Vieta</string>
   <string name="rankX">Vieta: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="zero">Rangs tiek atjaunots ik pēc %s minūtēm</item>
+    <item quantity="one">Rangs tiek atjaunots katru minūti</item>
+    <item quantity="other">Rangs tiek atjaunots ik pēc %s minūtēm</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s puzles</item>
     <item quantity="one">%s puzle</item>
@@ -239,7 +244,7 @@
   <string name="recipient">Adresāts</string>
   <string name="send">Sūtīt</string>
   <string name="incrementInSeconds">Pieaugums sekundēs</string>
-  <string name="freeOnlineChess">Bezmaksas Šahs Tiešsaistē</string>
+  <string name="freeOnlineChess">Bezmaksas šahs tiešsaistē</string>
   <string name="spectators">Skatītāji:</string>
   <plurals name="nbRated">
     <item quantity="zero">%s vērtētas</item>
@@ -318,7 +323,7 @@
     <item quantity="one">Jums jāizspēlē vēl %s vērtēta spēle</item>
     <item quantity="other">Jums jāizspēlē vēl %s vērtētas spēles</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tavs pagaidu reitings ir %s</string>
+  <string name="yourPerfRatingIsProvisional">Jūsu pagaidu reitings ir %s</string>
   <string name="yourPerfRatingIsTooHigh">Tavs %1$s reitings (%2$s) ir pārāk augsts</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsu nedēļas augstāgais %1$s reitings (%2$s) ir pārāk augsts</string>
   <string name="yourPerfRatingIsTooLow">Tavs %1$s reitings (%2$s) ir pārāk zems</string>
@@ -432,7 +437,7 @@
   <string name="tournamentIsStarting">Turnīrs sākas</string>
   <string name="tournamentPairingsAreNowClosed">Turnīra pārošana ir beigusies.</string>
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
-  <string name="youArePlaying">Tu jau spēlē!</string>
+  <string name="youArePlaying">Jūs spēlējat!</string>
   <string name="winRate">Uzvaru attiecība</string>
   <string name="berserkRate">Dullo spēļu biežums</string>
   <string name="performance">Sniegums</string>
@@ -523,7 +528,7 @@
   <string name="lastPost">Pēdējais ieraksts</string>
   <string name="views">Skatījumi</string>
   <string name="replies">Atbildes</string>
-  <string name="replyToThisTopic">Atbildēt par šo tematu</string>
+  <string name="replyToThisTopic">Atbildēt šajā forumā</string>
   <string name="reply">Atbilde</string>
   <string name="message">Ziņojums</string>
   <string name="createTheTopic">Izveidot tematu</string>
@@ -595,7 +600,7 @@
   <string name="outsideTheBoard">Galdiņa ārpusē</string>
   <string name="onSlowGames">Lēnajās spēlēs</string>
   <string name="always">Vienmēr</string>
-  <string name="inCasualGamesOnly">Tikai parastajās spēlēs</string>
+  <string name="inCasualGamesOnly">Tikai nevērtētajās spēlēs</string>
   <string name="whenPremoving">Ja priekšgājiens</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
   <string name="difficultyEasy">Viegls</string>
@@ -738,10 +743,10 @@
   <string name="downloadImported">Lejupielādēt importēto</string>
   <string name="printFriendlyPDF">Drukājams PDF</string>
   <string name="crosstable">Šķērstabula</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vari arī skrollēt gājienus uz spēles laukuma.</string>
-  <string name="analysisShapesHowTo">Nospied uz galdiņa shift+kreiso taustiņu vai labo taustiņu lai zīmētu riņķus un bultas.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Varat arī ritināt virs galdiņa, lai pārvietotos spēlē.</string>
+  <string name="analysisShapesHowTo">Klikšķiniet, turot pārslēgšanas taustiņu, vai klikšķiniet ar labo taustiņu uz galdiņa, lai zīmētu riņķus un bultas.</string>
   <string name="confirmResignationAndDrawOffers">Apstiprināt padošanos un neizšķirta piedāvājumus</string>
-  <string name="inputMovesWithTheKeyboard">Ievadīt gājienus ar klaviatūru</string>
+  <string name="inputMovesWithTheKeyboard">Ievadīt gājienus ar tastatūru</string>
   <string name="letOtherPlayersMessageYou">Ļaut citiem spēlētājiem jums sūtīt ziņas</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokādes metode</string>
   <string name="castleByMovingTwoSquares">Pārvietot karali par diviem lauciņiem</string>
@@ -760,7 +765,7 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Šis ir saraksts ar visām ierīcēm, kuras pieslēgušās jūsu kontam. Dzēsiet jebkuru sesiju, kuru neatpazīstat.</string>
   <string name="alternativelyYouCanX">Varat arī %s.</string>
   <string name="revokeAllSessions">dzēst visas sesijas</string>
-  <string name="playChessEverywhere">Spēlē šahu itvisur</string>
+  <string name="playChessEverywhere">Spēlējiet šahu jebkur</string>
   <string name="asFreeAsLichess">Bezmaksas kā Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Radīts šaha mīlestības - ne naudas dēļ</string>
   <string name="everybodyGetsAllFeaturesForFree">Visas iespējas ir pieejamas jebkuram bez maksas</string>
@@ -772,7 +777,7 @@
   <string name="onlineAndOfflinePlay">Spēles tiešsaistē un bezsaistē</string>
   <string name="correspondenceAndUnlimited">Korespondencšahs un neierobežots</string>
   <string name="viewTheSolution">Skatīt atrisinājumu</string>
-  <string name="followAndChallengeFriends">Sekot un izaicināt draugus</string>
+  <string name="followAndChallengeFriends">Sekojiet draugiem un izaiciniet tos</string>
   <plurals name="availableInNbLanguages">
     <item quantity="zero">Pieejama %s valodās!</item>
     <item quantity="one">Pieejama %s valodā!</item>
@@ -804,7 +809,7 @@
   <string name="usernameCharsInvalid">Lietotājvārds drīkst saturēt tikai burtus, ciparus, pasvītras un defises.</string>
   <string name="usernameUnacceptable">Šāds lietotājvārds nav pieņemams.</string>
   <string name="directlySupportLichess">Tieši atbalstīt Lichess</string>
-  <string name="playChessInStyle">Spēlē šahu stilīgi</string>
+  <string name="playChessInStyle">Spēlējiet šahu ar eleganci</string>
   <string name="chessBasics">Šaha pamati</string>
   <string name="coaches">Treneri</string>
   <string name="invalidPgn">Nepareizs PGN</string>
@@ -812,21 +817,21 @@
   <string name="error.minLength">Minimālais garums ir %s</string>
   <string name="error.maxLength">Maksimālais garums ir %s</string>
   <string name="error.min">Jābūt vismaz %s</string>
-  <string name="error.max">Jābūt mazākam vai vienādam ar %s</string>
+  <string name="error.max">Nedrīkst būt lielāks par %s</string>
   <string name="error.unknown">Kļūda</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
   <string name="challenges">Izaicinājumi</string>
   <string name="perfRatingX">Reitings: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="zero">%s sekundes lai izdarītu pirmo gājienu</item>
-    <item quantity="one">%s sekunde lai izdarītu pirmo gājienu</item>
-    <item quantity="other">%s sekundes lai izdarītu pirmo gājienu</item>
+    <item quantity="zero">%s sekundes, lai izdarītu pirmo gājienu</item>
+    <item quantity="one">%s sekunde, lai izdarītu pirmo gājienu</item>
+    <item quantity="other">%s sekundes, lai izdarītu pirmo gājienu</item>
   </plurals>
   <string name="practiceWithComputer">Treniņš ar datoru</string>
   <string name="anotherWasX">Varēja arī %s</string>
   <string name="bestWasX">Labākais bija %s</string>
-  <string name="youBrowsedAway">Tu aizlūkojies prom</string>
+  <string name="youBrowsedAway">Aizvirzījāties prom</string>
   <string name="resumePractice">Atsākt treniņu</string>
   <string name="theGameIsADraw">Spēle ir neizšķirta.</string>
   <string name="computerThinking">Dators domā ...</string>

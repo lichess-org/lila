@@ -36,14 +36,14 @@
   <string name="itMovesInAnLShape">Nó đi theo hình chữ L</string>
   <string name="knightIntro">Đây là một thử thách cho bạn. Quân mã là... một quân khó khăn.</string>
   <string name="knightsHaveAFancyWay">Quân mã nhảy vòng quanh một cách sành điệu!</string>
-  <string name="knightsCanJumpOverObstacles">Quân mã có thể nhảy qua các chướng ngại vật!
-Trốn thoát và chiếm những ngôi sao!</string>
+  <string name="knightsCanJumpOverObstacles">"Quân mã có thể nhảy qua các chướng ngại vật!
+Trốn thoát và chiếm những ngôi sao!"</string>
   <string name="knightComplete">Chúc mừng! Bạn đã làm chủ được quân mã.</string>
   <string name="thePawn">Quân tốt</string>
   <string name="itMovesForwardOnly">Nó chỉ đi về phía trước</string>
   <string name="pawnIntro">Tốt rất yếu, nhưng chúng có rất nhiều tiềm năng.</string>
-  <string name="pawnsMoveOneSquareOnly">Tốt chỉ đi về phía trước một bước.
-Nhưng khi chúng đi đến bên kia của bàn cờ, chúng trở thành một quân mạnh hơn!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Phần lớn trường hợp phong cấp thành một quân hậu là tốt nhất.
-Nhưng đôi khi một quân mã có thể có ích!</string>
+  <string name="pawnsMoveOneSquareOnly">"Tốt chỉ đi về phía trước một bước.
+Nhưng khi chúng đi đến bên kia của bàn cờ, chúng trở thành một quân mạnh hơn!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">"Phần lớn trường hợp phong cấp thành một quân hậu là tốt nhất.
+Nhưng đôi khi một quân mã có thể có ích!"</string>
 </resources>

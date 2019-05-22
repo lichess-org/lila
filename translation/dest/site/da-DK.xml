@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Se i fuldskærm</string>
   <string name="logOut">Log ud</string>
   <string name="signIn">Log ind</string>
-  <string name="newToLichess">Nyt medlem hos Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
   <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke deltage. Lad venligst være med at modtage assistance fra skakcomputere, databaser eller andre spillere mens du spiller</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"holgerdanske\" til \"HolgerDanske\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
   <string name="password">Adgangskode</string>
-  <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Ændr email</string>
   <string name="email">Email</string>

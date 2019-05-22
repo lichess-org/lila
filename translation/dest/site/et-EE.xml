@@ -343,8 +343,8 @@
   <string name="fromPosition">Positsioonilt</string>
   <string name="continueFromHere">Jätka siit</string>
   <string name="importGame">Impordi mäng</string>
-  <string name="importGameExplanation">Mängu PGN-i kleepimisel saate vaadeldava korduse,
-arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
+  <string name="importGameExplanation">"Mängu PGN-i kleepimisel saate vaadeldava korduse,
+arvutianalüüsi, mängu jututoa ning jagatava URL-i."</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Imporditud mäng</item>
     <item quantity="other">%s Imporditud mängu</item>

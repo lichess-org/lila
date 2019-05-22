@@ -122,7 +122,6 @@
   <string name="viewInFullSize">Толық көлемде көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
-  <string name="newToLichess">Lichess сайтына бірінші рет келгеніңізбе?</string>
   <string name="youNeedAnAccountToDoThat">Бұл әрекетті орындау  үшін Сіз аккаунт тіркеуіңіз керек</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Бүл сайтта қомпьютер көмегін пайдаалануы тыйыс салыналы</string>
@@ -145,7 +144,6 @@
   <string name="username">пайдаланушы аты</string>
   <string name="usernameOrEmail">Есіміңіз</string>
   <string name="password">Пароль</string>
-  <string name="haveAnAccount">Тіркелдің бе?</string>
   <string name="changePassword">жұмбақ сөзді өзгерту</string>
   <string name="changeEmail">Емаилды ауыстыру</string>
   <string name="email">Емаил</string>

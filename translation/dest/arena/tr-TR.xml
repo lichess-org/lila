@@ -7,30 +7,30 @@
   <string name="isNotRated">Hayır, bu turnuva puanlı *değildir* ve oyun puanınızı *etkilemeyecektir*.</string>
   <string name="someRated">Bazı turnuvalar puanlıdır ve oyun puanınızı etkiler.</string>
   <string name="howAreScoresCalculated">Maçlardan alınan puanlar nasıl hesaplanıyor?</string>
-  <string name="howAreScoresCalculatedAnswer">Kazanılan bir oyun temelde 2 puan, beraberlik 1 puan değerindedir. Kaybedilen bir oyun ise hiçbir puan getirmez. Üst üste iki oyun kazandığınız takdirde alev ikonu ile simgelenen çifte puan serisine girersiniz.
+  <string name="howAreScoresCalculatedAnswer">"Kazanılan bir oyun temelde 2 puan, beraberlik 1 puan değerindedir. Kaybedilen bir oyun ise hiçbir puan getirmez. Üst üste iki oyun kazandığınız takdirde alev ikonu ile simgelenen çifte puan serisine girersiniz.
 
 Mağlup olana veya berabere kalana kadar yapılan maçlardan iki katı puan kazanırsınız. Yani seride iken bir galibiyet 4 puan, beraberlik 2 puan getirirken kaybedilen oyundan hiçbir puan alınmaz.
 
-Örneğin; üst üste kazanılan iki oyun ve ardından alınan bir beraberlik 6 puan değerindedir: 2 + 2 + (2 x 1)</string>
+Örneğin; üst üste kazanılan iki oyun ve ardından alınan bir beraberlik 6 puan değerindedir: 2 + 2 + (2 x 1)"</string>
   <string name="berserk">Divane Modu</string>
-  <string name="berserkAnswer">Oyunun başında Berserk tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
+  <string name="berserkAnswer">"Oyunun başında Berserk tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
 
 Süre eklemeli oyunlarda Divane modu açan oyuncuya hamle sonrası süre ilave edilmez. (1+2 bir istisnadır, bu tempoda süre 1+0 olur)
 
 Sıfır dakika ile başlayan oyunlarda Divane modu mevcut değildir. (0+1, 0+2).
 
-Divane modu açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir.</string>
+Divane modu açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir."</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnuva sona erdiğinde en fazla puana sahip oyuncu(lar) galip ilan edilir.</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
-  <string name="howDoesPairingWorkAnswer">Turnuvanın başında eşleştirmeler oyuncuların puanlarına göre yapılır. Oyunu bitirip lobiye döndüğünüz anda ise kendi sıralamanıza yakın bir rakip ile eşleştirilirsiniz. Böylece bekleme süresi en aza indirgenmiş olur fakat turnuvadaki tüm oyuncularla karşılaşamayabilirsiniz.
+  <string name="howDoesPairingWorkAnswer">"Turnuvanın başında eşleştirmeler oyuncuların puanlarına göre yapılır. Oyunu bitirip lobiye döndüğünüz anda ise kendi sıralamanıza yakın bir rakip ile eşleştirilirsiniz. Böylece bekleme süresi en aza indirgenmiş olur fakat turnuvadaki tüm oyuncularla karşılaşamayabilirsiniz.
 
-Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lobiye dönün.</string>
+Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lobiye dönün."</string>
   <string name="howDoesItEnd">Turnuva nasıl sona erer?</string>
   <string name="howDoesItEndAnswer">Turnuvanın belirli bir süresi vardır. Bu süre bittiğinde sıralamalar kilitlenir ve kazanlar ilan edilir. Devam etmekte olan oyunların bitirilmesi gerekir ancak bu oyunlar turnuvaya dahil edilmez.</string>
   <string name="otherRules">Diğer önemli kurallar</string>
-  <string name="otherRulesAnswer">İlk hamleni 20 saniye içinde yapman gerekiyor. Eğer bu süre içinde bir hamle yapmazsan rakibin galip sayılır.
-10 hamleyi geçmeden berabere kalmak iki tarafa da puan kazandırmaz.</string>
+  <string name="otherRulesAnswer">"İlk hamleni 20 saniye içinde yapman gerekiyor. Eğer bu süre içinde bir hamle yapmazsan rakibin galip sayılır.
+10 hamleyi geçmeden berabere kalmak iki tarafa da puan kazandırmaz."</string>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
 </resources>

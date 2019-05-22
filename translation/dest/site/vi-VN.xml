@@ -129,7 +129,6 @@
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
-  <string name="newToLichess">Mới tham gia Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để làm điều đó</string>
   <string name="signUp">Đăng kí</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và chơi với sự trợ giúp của máy tính không được chấp nhận. Đừng nhờ sự trợ giúp của máy chơi cờ, các dữ liệu, hoặc từ những người chơi khác khi chơi.</string>
@@ -158,7 +157,6 @@
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="password">Mật khẩu</string>
-  <string name="haveAnAccount">Bạn có tài khoản chưa?</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
   <string name="changeEmail">Đổi thư điện tử</string>
   <string name="email">Thư điện tử</string>
@@ -552,8 +550,8 @@
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
   <string name="victory">Chiến thắng!</string>
   <string name="defeat">Thua</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-trong %3$s</string>
+  <string name="xVsYinZ">"%1$s vs %2$s
+trong %3$s"</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="starting">Bắt dầu đấu:</string>
   <string name="allInformationIsPublicAndOptional">Tất cả thông tin thì công khai và không bắt buộc.</string>

@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Tingnan sa buong sukat</string>
   <string name="logOut">Lumabas</string>
   <string name="signIn">Mag-sign in</string>
-  <string name="newToLichess">Bago ka ba sa Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
   <string name="computersAreNotAllowedToPlay">Mga kompyuter at tinulungan ng kompyuter na mga manlalaro ay hindi pwedeng maglaro. Huwag ng humingi ng tulong sa mga makina ng chess, mga database, at galing sa ibang manlalaro habang naglalaro. Pakitandaan din na ang paggawa ng maraming akawnt ay hindi pinapayagan na maaring magresulta sa pagbabawal na pumasok muli.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Ang laki o liit lang ng mga letra ang pwedeng baguhin. Halimbawa, pwedeng gawing \"JohnDoe\" ang \"johndoe\".</string>
   <string name="changeUsernameDescription">Palitan ang iyong pangalan. Maaari mo lang itong gawin ng isang beses at maaari mo lang baguhin ang laki o liit ng mga letra sa pangalan mo.</string>
   <string name="password">Password</string>
-  <string name="haveAnAccount">May account ka ba?</string>
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
   <string name="email">Email</string>
