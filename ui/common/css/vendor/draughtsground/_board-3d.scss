@@ -32,10 +32,6 @@ piece {
   top: -9.1%;
 }
 
-piece.dragging, #promotion-choice {
-  z-index: z('cg__piece.dragging.3d') !important;
-}
-
 .is2d piece {
   /* copy of board.css to override miniboards */
   left: 0;
