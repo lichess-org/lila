@@ -25,9 +25,9 @@
   <string name="kingInTheCenter">രാജാവ്‌ മധ്യത്തില്‍</string>
   <string name="threeChecks">മൂനു ചെക്ക്</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
-  <string name="variantEnding">വ്യത്യാസപ്പെട്ട സമാപ്തി</string>
+  <string name="variantEnding">വ്യത്യാസപ്പെട്ട അവസാനം</string>
   <string name="newOpponent">പുതിയ എതിരാളി</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">നിങ്ങളുടെ എതിരാളിക്ക് നിങ്ങളുമായി ഒരു പുതിയ മത്സരം കളിക്കണം</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">നിങ്ങളുടെ എതിരാളി നിങ്ങളുമായി ഒരു പുതിയ മത്സരം കളിക്കാന്‍ ആഗ്രഹിക്കുന്നു</string>
   <string name="joinTheGame">കളിയിൽ ചേരുക</string>
   <string name="whitePlays">വെള്ള കളിക്കുക</string>
   <string name="blackPlays">കറുപ്പു കളിക്കുക</string>
@@ -35,11 +35,11 @@
   <string name="makeYourOpponentResign">എതിരാളിയെ രാജി വെപ്പിക്കുക</string>
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>
   <string name="forceDraw">സമനില പ്രഖ്യാപിക്കുക</string>
-  <string name="talkInChat">ദയാലു ആയി സല്ലാപിക്കുക</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ ലിങ്കിൽ വരുന്ന ആദ്യത്തെ വ്യക്തി നിങ്ങളുമായി കളിക്കും</string>
+  <string name="talkInChat">ദയവായി ചാറ്റില്‍ സൗമ്യമായി പെരുമാറുക!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ ലിങ്കിൽ വരുന്ന ആദ്യത്തെ വ്യക്തിക്ക് നിങ്ങളുമായി കളിക്കാം.</string>
   <string name="whiteResigned">വെള്ള രാജി വെച്ചു</string>
   <string name="blackResigned">കറുപ്പു രാജി വെച്ചു</string>
-  <string name="whiteLeftTheGame">വെള്ള ഉപേക്ഷിച്ചു</string>
+  <string name="whiteLeftTheGame">വെള്ള കളി ഉപേക്ഷിച്ചു</string>
   <string name="blackLeftTheGame">കറുപ്പു ഉപേക്ഷിച്ചു</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">കാണികളുമായി  ഈ ലിങ്ക് പങ്കിടുക</string>
   <string name="theComputerAnalysisHasFailed">കമ്പ്യൂട്ടർ പരിശോധന പരാജയപ്പെട്ടു</string>
