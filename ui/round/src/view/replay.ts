@@ -10,7 +10,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999, moveTag = 'm1';
+const scrollMax = 99999, moveTag = 'm2';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
   if (ctrl.data.steps.length < 7) return;
