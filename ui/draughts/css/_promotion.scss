@@ -11,6 +11,7 @@
   }
   piece {
     pointer-events: auto;
+    opacity: 1; /* cancels blindfold */
   }
   .is2d & piece {
     width: 100%;
