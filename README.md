@@ -21,13 +21,14 @@ and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [80 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
-and relies on [Play 2.4](https://www.playframework.com/) for the routing, templating, and JSON.
+and relies on the [Play 2.4](https://www.playframework.com/) framework.
+[scalatags](http://www.lihaoyi.com/scalatags/) is used for templating.
 Pure chess logic is contained in [scalachess](https://github.com/ornicar/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
-It uses [MongoDB](https://mongodb.org) to store more than 800 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+It uses [MongoDB](https://mongodb.org) to store more than 1 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx](http://nginx.org).
-The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom).
+The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
