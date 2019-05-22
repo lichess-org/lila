@@ -42,7 +42,7 @@ export function renderTableEnd(ctrl: RoundController) {
 
 export function renderTableWatch(ctrl: RoundController) {
   return renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : button.watcherFollowUp(ctrl)
+    isLoading(ctrl) ? loader() : (game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl))
   ]);
 }
 
