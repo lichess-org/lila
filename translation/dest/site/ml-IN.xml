@@ -302,6 +302,7 @@
   <string name="yourPerfRatingIsTooLow">നിങ്ങളുടെ %1$s-ലെ റേറ്റിംഗ് (%2$s) വളരെ കുറവാണ്</string>
   <string name="ratedMoreThanInPerf">%2$s -ൽ റേറ്റിംഗ് ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s -ൽ റേറ്റിംഗ് ≤ %1$s</string>
+  <string name="youAreNotInTeam">താങ്കള്‍ %s ടീമിലെ അംഗമല്ല</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
