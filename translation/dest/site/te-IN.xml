@@ -8,6 +8,10 @@
   <string name="waitingForOpponent">ఎదిరి కోసం ఎదురుచూస్తున్నాం</string>
   <string name="waiting">ఎదురుచాస్తున్నాం</string>
   <string name="yourTurn">మీ వంతు</string>
+  <string name="aiNameLevelAiLevel">%1$s స్థాయి %2$s</string>
+  <string name="level">స్థాయి</string>
+  <string name="toggleTheChat">బాతాఖానీ చెయ్యండి లేదా ఆపండి</string>
+  <string name="toggleSound">శ్రవణం (వినడం) ఆరంభించండి లేదా ఆపండి</string>
   <string name="resign">రాజీనామా</string>
   <string name="checkmate">ఆటకట్టు</string>
   <string name="white">తెలుపు రంగు</string>
