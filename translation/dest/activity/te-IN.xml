@@ -22,4 +22,20 @@
     <item quantity="one">ఉత్తరప్రత్యుత్తరాల ద్వారా %1$s లో</item>
     <item quantity="other">ఉత్తరప్రత్యుత్తరాల ద్వారా %1$s లో</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">ఉత్తరప్రత్యుత్తర పద్ధతిలో %s ఆటను పూర్తి చేశారు</item>
+    <item quantity="other">ఉత్తరప్రత్యుత్తర పద్ధతిలో %s ఆటలు పూర్తి చేశారు</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s ఆడేవారిని అనుసరించడం మొదలుపెట్టారు</item>
+    <item quantity="other">%s ఆడేవారిని అనుసరించడం మొదలుపెట్టారు</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s మంది కొత్త అనుయాయులను కూడగట్టుకున్నారు</item>
+    <item quantity="other">%s మంది కొత్త అనుయాయులను కూడగట్టుకున్నారు</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">ఏకకాలంలో %s ప్రదర్శనను నిర్వహించారు</item>
+    <item quantity="other">ఏకకాలంలో %s ప్రదర్శలను నిర్వహించారు</item>
+  </plurals>
 </resources>
