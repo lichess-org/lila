@@ -6,4 +6,20 @@
     <item quantity="one">%2$s విభాగములో %1$s వ వ్యూహాము సాధన చేశారు</item>
     <item quantity="other">%2$s విభాగములో %1$s వ్యూహాలు సాధన చేశారు</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s వ సమస్యను పరిష్కరించారు</item>
+    <item quantity="other">%s సమస్యలను పరిష్కరించారు</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%2$s లో %1$s సందేశం రాశారు</item>
+    <item quantity="other">%2$s లో %1$s సందేశాలను రాశారు</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s ఎత్తు వేశారు</item>
+    <item quantity="other">%1$s ఎత్తులు వేశారు</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">ఉత్తరప్రత్యుత్తరాల ద్వారా %1$s లో</item>
+    <item quantity="other">ఉత్తరప్రత్యుత్తరాల ద్వారా %1$s లో</item>
+  </plurals>
 </resources>
