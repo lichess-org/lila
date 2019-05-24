@@ -90,8 +90,16 @@
   <string name="importPgn">Hlaða inn PGN</string>
   <string name="delete">Eyða</string>
   <string name="deleteThisImportedGame">Eyða þessum innhlaðna leik?</string>
+  <string name="replayMode">Endursýning</string>
   <string name="realtimeReplay">Rauntími</string>
+  <string name="byCPL">Skv. stigum</string>
+  <string name="enable">Á</string>
+  <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
+  <string name="evaluationGauge">Stöðumat</string>
+  <string name="multipleLines">Mismunandi línur</string>
   <string name="memory">Minni</string>
+  <string name="infiniteAnalysis">Djúp greining</string>
+  <string name="removesTheDepthLimit">Fjarlægir dýptartakmörk og heldur tölvunni heitri</string>
   <string name="blunder">Afleikur</string>
   <string name="blunders">Afleikir</string>
   <string name="mistake">Mistök</string>
@@ -149,6 +157,7 @@
   <string name="ratingStats">Tölfræði</string>
   <string name="username">Notendanafn</string>
   <string name="usernameOrEmail">Notandanafn</string>
+  <string name="changeUsername">Skiptu um notendanafn</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Skipta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
