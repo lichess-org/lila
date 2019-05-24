@@ -210,13 +210,13 @@ private[round] final class RoundSocket(
         case None =>
           lila.mon.round.history(mobile).versionCheck.getEventsTooFar()
           logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
-          member push SocketTrouper.resyncMessage
+          member push SocketTrouper.resyncMsgWithDebug(s"sv(${history.versionDebugString}),cv($version)")
         case Some(Nil) => // all good, nothing to do
         case Some(evs) =>
           lila.mon.round.history(mobile).getEventsDelta(evs.size)
           lila.mon.round.history(mobile).versionCheck.lateClient()
           logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
-          batchMsgs(member, evs) foreach member.push
+          batchMsgsDebug(member, evs, s"sv(${history.versionDebugString}),cv($version)") foreach member.push
       }
 
     case eventList: EventList => notify(eventList.events)
@@ -295,6 +295,11 @@ private[round] final class RoundSocket(
     case Nil => None
     case List(one) => one.jsFor(member).some
     case many => makeMessage("b", many map (_ jsFor member)).some
+  }
+
+  def batchMsgsDebug(member: Member, vevents: List[VersionedEvent], debug: => String) = {
+    if (Env.current.socketDebug()) makeMessageDebug("b", vevents map (_ jsFor member), debug).some
+    else batchMsgs(member, vevents)
   }
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) =
