@@ -176,7 +176,7 @@
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">O ranking é atualizado a cada %s minutos</item>
-    <item quantity="other">A classificação é atualizada a cada %s minutos</item>
+    <item quantity="other">O ranking é atualizado a cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
@@ -350,8 +350,8 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
-  <string name="captcha.fail">"Falha no captchar
-Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o problema de xadrez proposto. O aviso informa ao usuário que ele deve resolver o problema proponto antes de prosseguir."</string>
+  <string name="captcha.fail">Falha no captchar
+Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o problema de xadrez proposto. O aviso informa ao usuário que ele deve resolver o problema proponto antes de prosseguir.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
@@ -586,8 +586,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitória!</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">"%1$s contra %2$s
-em %3$s"</string>
+  <string name="xVsYinZ">%1$s contra %2$s
+em %3$s</string>
   <string name="timeline">Linha do tempo</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
