@@ -165,7 +165,7 @@ object Countries {
     C("MF", "Saint Martin"),
     C("MG", "Madagascar"),
     C("MH", "Marshall Islands"),
-    C("MK", "Macedonia"),
+    C("MK", "North Macedonia"),
     C("ML", "Mali"),
     C("MM", "Myanmar"),
     C("MN", "Mongolia"),
