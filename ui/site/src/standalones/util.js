@@ -16,7 +16,6 @@ lichess.isCol1 = (function() {
   var isCol1Cache = 'init'; // 'init' | 'rec' | boolean
 
   return function() {
-    var ctk = 'isCol1' + Math.random();
     if (typeof isCol1Cache == 'string') {
       if (isCol1Cache == 'init') { // only once
         window.addEventListener('resize', function() { isCol1Cache = 'rec' }); // recompute on resize
