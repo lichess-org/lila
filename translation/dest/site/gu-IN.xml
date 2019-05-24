@@ -75,6 +75,7 @@
   <string name="averageRatingX">સરેરાશ રેટિંગ %s</string>
   <string name="recentGames">તાજેતરની ગેમ</string>
   <string name="topGames">ટોપ ગેમ</string>
+  <string name="masterDbExplanation">વીસ લાખ ગેમ્સ છે %1$s ની+ફિડે રેટિંગ વાળા પ્લેયર %2$s થી %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">મેટ %s ચાલ માં</item>
     <item quantity="other">મેટ %s ચાલ માં</item>
