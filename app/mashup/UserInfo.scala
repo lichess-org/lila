@@ -140,7 +140,7 @@ object UserInfo {
     completionRate: User.ID => Fu[Option[Double]]
   )(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
     getRanks(user.id) zip
-      getRatingChart(user) zip
+      (ctx.noBlind ?? getRatingChart(user)) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
