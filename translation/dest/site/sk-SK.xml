@@ -343,7 +343,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="ratedMoreThanInPerf">S ratingom ≥ %1$s v %2$s</string>
-  <string name="ratedLessThanInPerf">S ratingom ≥ %1$s v %2$s</string>
+  <string name="ratedLessThanInPerf">S ratingom ≤ %1$s v %2$s</string>
   <string name="mustBeInTeam">Musíte byť členom tímu %s</string>
   <string name="youAreNotInTeam">Nie ste členom tímu %s</string>
   <string name="backToGame">Návrat do hry</string>
