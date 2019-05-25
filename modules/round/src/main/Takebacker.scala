@@ -30,7 +30,7 @@ private[round] final class Takebacker(
   }
 
   def no(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = pov match {
-    case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
+    case Pov(game, color) if pov.player.isProposingTakeback && pov.isMyTurn => proxy.save {
       messenger.system(game, _.takebackPropositionCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
     } inject {
