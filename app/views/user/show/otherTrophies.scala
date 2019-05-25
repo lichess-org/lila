@@ -19,7 +19,7 @@ object otherTrophies {
             a(
               awardCls(trophy),
               href := trophy.kind.url,
-              title := s"${trophy.kind.name}"
+              ariaTitle(s"${trophy.kind.name}")
             )(raw(iconChar))
           }
         }
@@ -28,19 +28,19 @@ object otherTrophies {
     /*info.shields.map { shield =>
       a(
         cls := "shield-trophy combo-trophy",
-        title := s"${shield.categ.name} Shield",
+        ariaTitle(s"${shield.categ.name} Shield"),
         href := routes.Tournament.shields
       )(shield.categ.iconChar.toString)
     },*/
     info.revolutions.map { revol =>
       a(
         cls := "revol_trophy combo-trophy",
-        title := s"${revol.variant.name} Revolution",
+        ariaTitle(s"${revol.variant.name} Revolution"),
         href := routes.Tournament.show(revol.tourId)
       )(revol.iconChar.toString)
     },
     info.allTrophies.filter(t => t.kind == Kind.ZHWC17 || t.kind == Kind.ZHWC18).map { t =>
-      a(awardCls(t), href := t.kind.url, title := t.kind.name,
+      a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name),
         style := "width: 65px; margin: 0 3px!important;")(
           img(src := staticUrl(s"images/trophy/${t.kind.key}.png"), width := 65, height := 80)
         )
@@ -50,14 +50,15 @@ object otherTrophies {
         a(
           awardCls(trophy),
           href := trophy.kind.url,
-          title := trophy.kind.name
+          ariaTitle(trophy.kind.name)
         )(raw(iconChar))
       }
     },
     /*info.isCoach option
       a(
         href := routes.Coach.show(u.username),
-        cls := "trophy award icon3d coach", title := "Lidraughts Coach"
+        cls := "trophy award icon3d coach",
+        ariaTitle("Lidraughts Coach")
       )(":"),*/
     info.isStreamer option
       a(
@@ -66,7 +67,7 @@ object otherTrophies {
           "trophy award icon3d streamer" -> true,
           "streaming" -> isStreaming(u.id)
         ),
-        title := (if (isStreaming(u.id)) "Live now!" else "Lidraughts Streamer")
+        ariaTitle(if (isStreaming(u.id)) "Live now!" else "Lidraughts Streamer")
       )("")
   )
 

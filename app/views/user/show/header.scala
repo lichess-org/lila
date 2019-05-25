@@ -37,7 +37,7 @@ object header {
         views.html.user.bits.perfTrophies(u, info.ranks),
         otherTrophies(u, info),
         u.plan.active option
-          a(href := routes.Plan.index, cls := "trophy award patron icon3d", title := s"Patron since ${showDate(u.plan.sinceDate)}")(patronIconChar)
+          a(href := routes.Plan.index, cls := "trophy award patron icon3d", ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}"))(patronIconChar)
       ),
       u.disabled option span(cls := "closed")("CLOSED")
     ),
@@ -70,22 +70,22 @@ object header {
       ),
       div(cls := "user-actions btn-rack")(
         (ctx is u) option frag(
-          a(cls := "btn-rack__btn", href := routes.Account.profile, title := trans.editProfile.txt(), dataIcon := "%"),
-          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), title := trans.listBlockedPlayers.txt(), dataIcon := "k")
+          a(cls := "btn-rack__btn", href := routes.Account.profile, ariaTitle(trans.editProfile.txt()), dataIcon := "%"),
+          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), ariaTitle(trans.listBlockedPlayers.txt()), dataIcon := "k")
         ),
         isGranted(_.UserSpy) option
-          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), title := "Mod zone", dataIcon := ""),
-        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), title := trans.watchGames.txt(), dataIcon := "1"),
+          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), ariaTitle("Mod zone"), dataIcon := ""),
+        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), ariaTitle(trans.watchGames.txt()), dataIcon := "1"),
         (ctx.isAuth && !ctx.is(u)) option
           views.html.relation.actions(u.id, relation = social.relation, followable = social.followable, blocked = social.blocked),
         if (ctx is u) a(
           cls := "btn-rack__btn",
           href := routes.Game.exportByUser(u.username),
-          title := trans.exportGames.txt(),
+          ariaTitle(trans.exportGames.txt()),
           dataIcon := "x"
         )
         else (ctx.isAuth && ctx.noKid) option a(
-          title := trans.reportXToModerators.txt(u.username),
+          ariaTitle(trans.reportXToModerators.txt(u.username)),
           cls := "btn-rack__btn",
           href := s"${routes.Report.form}?username=${u.username}",
           dataIcon := "!"

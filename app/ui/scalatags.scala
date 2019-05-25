@@ -3,9 +3,9 @@ package ui
 
 import ornicar.scalalib.Zero
 
+import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
-import scalatags.Text.all._
 
 // collection of attrs
 trait ScalatagsAttrs {
@@ -142,5 +142,15 @@ trait ScalatagsExtensions {
   val emptyModifier: Modifier = new Modifier {
     def applyTo(t: Builder) = {}
   }
+
+  /* both title and aria-label */
+  def ariaTitle(v: String) = new Modifier {
+    def applyTo(t: Builder) = {
+      val value = Builder.GenericAttrValueSource(v)
+      t.setAttr("title", value)
+      t.setAttr("aria-label", value)
+    }
+  }
+
   // implicit val LidraughtsModifierZero: Zero[Modifier] = Zero.instance(emptyModifier)
 }
