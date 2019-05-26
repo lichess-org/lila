@@ -17,7 +17,7 @@ trait FormHelper { self: I18nHelper =>
     p(cls := "error")(transKey(error.message, I18nDb.Site, error.args))
 
   def errMsg(errors: Seq[FormError])(implicit ctx: Context): Frag =
-    errors map errMsg mkString
+    errors map errMsg
 
   def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
     form.globalError map errMsg
