@@ -135,7 +135,7 @@ trait ScalatagsExtensions {
     }
   }
 
-  val emptyFrag: Frag = new StringFrag("")
+  val emptyFrag: Frag = new RawFrag("")
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
 
   val emptyModifier: Modifier = new Modifier {
