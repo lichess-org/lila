@@ -104,8 +104,8 @@ export default function(opts: CevalOpts): CevalCtrl {
     return function(ev: Tree.ClientEval) {
       if (!applies(ev)) return;
       values.push(ev.knps);
-      if (values.length >= 5) {
-        var depth = 18,
+      if (values.length > 9) {
+        let depth = 18,
           knps = median(values) || 0;
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;
@@ -117,14 +117,14 @@ export default function(opts: CevalOpts): CevalCtrl {
         if (knps > 5000) depth = 26;
         if (knps > 7000) depth = 27;
         maxDepth(depth);
-        if (values.length > 20) values.shift();
+        if (values.length > 40) values.shift();
       }
     };
   })();
 
   let lastEmitFen: string | null = null;
 
-  const onEmit = throttle(500, (ev: Tree.ClientEval, work: Work) => {
+  const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
     sortPvsInPlace(ev.pvs, (work.ply % 2 === (work.threatMode ? 1 : 0)) ? 'white' : 'black');
     npsRecorder(ev);
     curEval = ev;
