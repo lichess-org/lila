@@ -1,7 +1,6 @@
 package lila.round
 
 import java.util.ArrayDeque
-import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConverters._
 
 import org.joda.time.DateTime
@@ -88,7 +87,7 @@ private final class History(
 
     removeTail(History.maxSize - xs.size)
     pruneEvents(date - History.expireAfterSeconds)
-    val veBuff = ListBuffer[VersionedEvent]()
+    val veBuff = List.newBuilder[VersionedEvent]
     xs.foldLeft(getVersion.inc) {
       case (vnext, e) =>
         val ve = VersionedEvent(e, vnext, date)
