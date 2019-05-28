@@ -37,6 +37,10 @@ object bits {
       div(
         tag(cls := "study-name")(s.study.name.value),
         span(
+          !s.study.isPublic option frag(
+            iconTag("a")(cls := "private", ariaTitle("Private")),
+            " "
+          ),
           iconTag(if (s.liked) "" else ""),
           " ",
           s.study.likes.value,

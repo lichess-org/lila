@@ -63,6 +63,9 @@ $c-study: $c-primary;
           display: none;
         }
       }
+      .private {
+        color: $c-brag;
+      }
     }
     &:hover {
       background: mix($c-study, $c-bg-box, 10%);
