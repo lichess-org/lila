@@ -144,8 +144,8 @@ private object History {
     final case class Events(value: List[VersionedEvent]) extends EventResult
   }
 
-  private val maxSize = 25
-  private val expireAfterSeconds = 20
+  private final val maxSize = 25
+  private final val expireAfterSeconds = 20
 
   def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
     load = serverStarting ?? load(coll, gameId, withPersistence),
@@ -156,8 +156,8 @@ private object History {
   private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)
 
   private def load(coll: Coll, gameId: String, withPersistence: Boolean): Fu[List[VersionedEvent]] =
-    coll.byId[Bdoc](gameId).map {
-      _.flatMap(_.getAs[List[VersionedEvent]]("e")) ?? identity
+    coll.byId[Bdoc](gameId).map { doc =>
+      ~doc.flatMap(_.getAs[List[VersionedEvent]]("e"))
     } addEffect {
       case events if events.nonEmpty && !withPersistence => coll.remove($id(gameId)).void
       case _ =>
