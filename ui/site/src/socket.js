@@ -199,6 +199,7 @@ lichess.StrongSocket = function(url, version, settings) {
           st: sdebug
         }));
         return lichess.reload();
+      }
       version = m.v;
     }
     switch (m.t || false) {
