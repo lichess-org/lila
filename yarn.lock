@@ -1096,9 +1096,9 @@ chessground@^7.6:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.2.tgz#060a3263f38d48655f0b1d09a94deaa1ae69ada0"
   integrity sha512-eS4dfCvYj3vYwtznFKdsLF8DIyeC6+sLERsEhomX0QwZW9xFrJy38DPVzGKJI68U+1mtsCVFPjCJg4XyRNPhNg==
 
-"chessground@github:ornicar/chessground#v4.4.1":
+"chessground@github:niklasf/chessground#4.4.x":
   version "4.4.0"
-  resolved "https://codeload.github.com/ornicar/chessground/tar.gz/d5c19e8acfd40744f8cd15af427da933b2c8fabf"
+  resolved "https://codeload.github.com/niklasf/chessground/tar.gz/1f40e7b174211131d3b0835461838a31aee5a8bd"
   dependencies:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
