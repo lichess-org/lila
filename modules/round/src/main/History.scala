@@ -28,7 +28,7 @@ private final class History(
 
   def getVersion: SocketVersion = {
     waitForLoadedEvents
-    Option(events.peekFirst).fold(SocketVersion(0))(_.version)
+    Option(events.peekLast).fold(SocketVersion(0))(_.version)
   }
 
   def versionDebugString: String = {
