@@ -215,7 +215,6 @@ private[round] final class RoundSocket(
           member push SocketTrouper.resyncMsgWithDebug(s"sv(${history.versionDebugString}),cv($version)")
         case Some(Nil) => // all good, nothing to do
         case Some(evs) =>
-          lila.mon.round.history(mobile).getEventsDelta(evs.size)
           lila.mon.round.history(mobile).versionCheck.lateClient()
           logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
           batchMsgsDebug(member, evs, s"sv(${history.versionDebugString}),cv($version)") foreach member.push
@@ -287,7 +286,8 @@ private[round] final class RoundSocket(
   }
 
   def notify(events: Events): Unit = {
-    lila.mon.round.history.newEvents(events.size)
+    lila.mon.round.history.newEventsHist(events.size)
+    lila.mon.round.history.newEventsCount()
     val vevents = history addEvents events
     members.foreachValue { m =>
       batchMsgs(m, vevents) foreach m.push
