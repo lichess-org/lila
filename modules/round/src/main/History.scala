@@ -28,6 +28,7 @@ private final class History(
   }
 
   def versionDebugString: String = {
+    waitForLoadedEvents
     s"${events.lastOption.fold(-1)(_.version.value)}:${
       events.headOption.fold(-1)(_.version.value)
     }"
