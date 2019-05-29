@@ -235,6 +235,8 @@ object mon {
           val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
         }
       }
+      val newEvents = rec("round.history.newEvents")
+
       object mobile extends PlatformHistory("mobile")
       object site extends PlatformHistory("site")
       def apply(isMobile: lila.common.IsMobile): PlatformHistory =
