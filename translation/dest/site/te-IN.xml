@@ -8,8 +8,14 @@
   <string name="waitingForOpponent">ఎదిరి కోసం ఎదురుచూస్తున్నాం</string>
   <string name="waiting">ఎదురుచాస్తున్నాం</string>
   <string name="yourTurn">మీ వంతు</string>
+  <string name="aiNameLevelAiLevel">%1$s స్థాయి %2$s</string>
+  <string name="level">స్థాయి</string>
+  <string name="toggleTheChat">బాతాఖానీ చెయ్యండి లేదా ఆపండి</string>
+  <string name="toggleSound">శ్రవణం (వినడం) ఆరంభించండి లేదా ఆపండి</string>
+  <string name="chat">మాట్లాడండి</string>
   <string name="resign">రాజీనామా</string>
   <string name="checkmate">ఆటకట్టు</string>
+  <string name="stalemate">దిగ్బంధం (ఎటు పోవడానికి దారి లేదు)</string>
   <string name="white">తెలుపు రంగు</string>
   <string name="black">నలుపు రంగు</string>
   <string name="randomColor">ఏ రంగైనా సరౌ</string>
@@ -17,4 +23,14 @@
   <string name="whiteIsVictorious">తెలుపుకు గెలువు</string>
   <string name="blackIsVictorious">నలుపుకు గెలుపు</string>
   <string name="kingInTheCenter">రాజు రంగమధ్యం చేరారు</string>
+  <string name="threeChecks">మూడువైపుల నుంచి కత్తులు దూస్తున్నాయి</string>
+  <string name="raceFinished">పరుగు ముగిసింది</string>
+  <string name="variantEnding">మరొక ముగింపు</string>
+  <string name="newOpponent">కొత్త ప్రత్యర్థి</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">మీ ప్రత్యర్థి మరొక ఆట ఆడాలనుకుంటున్నారు</string>
+  <string name="joinTheGame">ఆటలో పాల్గొనండి</string>
+  <string name="whitePlays">ఇప్పుడు తెల్లసైన్యం వంతు</string>
+  <string name="blackPlays">ఇప్పుడు నల్లసైన్యం వంతు</string>
+  <string name="opponentLeftChoices">మీ ప్రత్యర్థి బహుశా ఆట విడిచి వెళ్లిపోయారేమో. మీరు కాసేపు ఆగి చూడవచ్చు, లేదా గెలుపోటములు సమానంగా పంచుకోవచ్చు, లేదా విజయం ప్రకటించుకోవచ్చు.</string>
+  <string name="makeYourOpponentResign">మీ ప్రత్యర్థిని ఓడించండి</string>
 </resources>

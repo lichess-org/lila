@@ -90,8 +90,16 @@
   <string name="importPgn">Hlaða inn PGN</string>
   <string name="delete">Eyða</string>
   <string name="deleteThisImportedGame">Eyða þessum innhlaðna leik?</string>
+  <string name="replayMode">Endursýning</string>
   <string name="realtimeReplay">Rauntími</string>
+  <string name="byCPL">Skv. stigum</string>
+  <string name="enable">Á</string>
+  <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
+  <string name="evaluationGauge">Stöðumat</string>
+  <string name="multipleLines">Mismunandi línur</string>
   <string name="memory">Minni</string>
+  <string name="infiniteAnalysis">Djúp greining</string>
+  <string name="removesTheDepthLimit">Fjarlægir dýptartakmörk og heldur tölvunni heitri</string>
   <string name="blunder">Afleikur</string>
   <string name="blunders">Afleikir</string>
   <string name="mistake">Mistök</string>
@@ -149,6 +157,9 @@
   <string name="ratingStats">Tölfræði</string>
   <string name="username">Notendanafn</string>
   <string name="usernameOrEmail">Notandanafn</string>
+  <string name="changeUsername">Skiptu um notendanafn</string>
+  <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
+  <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Skipta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
@@ -156,6 +167,7 @@
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="rank">Staða</string>
+  <string name="rankX">Sæti: %s</string>
   <string name="gamesPlayed">Leikir spilaðir</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s skákir með þér</item>
@@ -184,6 +196,7 @@
   <string name="mode">Tegund</string>
   <string name="casual">Venjuleg</string>
   <string name="rated">Stigaleikur</string>
+  <string name="casualTournament">Æfingamót</string>
   <string name="thisGameIsRated">Þetta er stigaleikur</string>
   <string name="rematch">Endurleikur</string>
   <string name="rematchOfferSent">Boð um endurtekinn leik sent</string>
@@ -197,6 +210,7 @@
   <string name="play">Spila</string>
   <string name="inbox">Innhólf</string>
   <string name="chatRoom">Spjallherbergi</string>
+  <string name="loginToChat">Skráðu þig inn til að spjalla</string>
   <string name="spectatorRoom">Svæði áhorfenda</string>
   <string name="composeMessage">Semja skilaboð</string>
   <string name="noNewMessages">Engin ný skilaboð</string>
@@ -217,6 +231,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s jafntefli</item>
     <item quantity="other">%s jafntefli</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s í gangi</item>
+    <item quantity="other">%s í gangi</item>
   </plurals>
   <string name="exportGames">Flytja út leiki</string>
   <string name="ratingRange">Elo stig</string>
