@@ -11,7 +11,7 @@ private object MoveMonitor {
 
     Kamon.metrics.subscribe("trace", "round.move.trace", system.actorOf(Props(new Actor {
       var current: Int = 0
-      context.system.scheduler.schedule(5 second, 2 second) {
+      context.system.scheduler.schedule(5 second, 10 second) {
         channel ! lila.socket.Channel.Publish(lila.socket.Socket.makeMessage("mlat", current))
       }
       def receive = {
