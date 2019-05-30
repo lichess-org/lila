@@ -37,6 +37,7 @@ case class AllWinners(
     superblitz: FreqWinners,
     blitz: FreqWinners,
     rapid: FreqWinners,
+    classical: FreqWinners,
     elite: List[Winner],
     marathon: List[Winner],
     variants: Map[String, FreqWinners]
@@ -105,6 +106,7 @@ final class WinnersApi(
       superblitz = standardFreqWinners(Speed.SuperBlitz),
       blitz = standardFreqWinners(Speed.Blitz),
       rapid = standardFreqWinners(Speed.Rapid),
+      classical = standardFreqWinners(Speed.Classical),
       elite = elites flatMap (_.winner) take 4,
       marathon = marathons flatMap (_.winner) take 4,
       variants = WinnersApi.variants.map { v =>
