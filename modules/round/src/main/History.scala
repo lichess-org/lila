@@ -39,7 +39,10 @@ private final class History(
     if (v > version) VersionTooHigh
     else if (v == version) UpToDate
     else {
-      mon.foreach(_ getEventsDelta (version.value - v.value))
+      mon.foreach { m =>
+        m.getEventsDelta(version.value - v.value)
+        m.getEventsCount()
+      }
       val filteredEvents = events.takeWhile(_.version > v).reverse
       filteredEvents match {
         case e :: _ if e.version == v.inc => Events(filteredEvents)

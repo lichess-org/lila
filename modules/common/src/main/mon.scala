@@ -228,6 +228,7 @@ object mon {
     object history {
       sealed abstract class PlatformHistory(platform: String) {
         val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
+        val getEventsCount = inc(s"round.history.$platform.getEventsCount")
         val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
         object versionCheck {
           val getEventsDelta = rec(s"round.history.versionCheck.$platform.getEventsDelta")
@@ -235,6 +236,9 @@ object mon {
           val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
         }
       }
+      val newEventsHist = rec("round.history.newEventsHist")
+      val newEventsCount = inc("round.history.newEventsCount")
+
       object mobile extends PlatformHistory("mobile")
       object site extends PlatformHistory("site")
       def apply(isMobile: lila.common.IsMobile): PlatformHistory =
