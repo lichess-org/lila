@@ -4,6 +4,14 @@ var tree = require("tree")
 module.exports = function(element, cfg) {
   var data = cfg.data;
   var $watchers = $('#site_header div.watchers').watchers();
+  var partialTree = function(n) { return n.children.length && (!n.eval || partialTree(n.children[0])); }
+  var partialList = function(n) {
+    for (let i = 0; i < n.length - 2; i++) {
+      if (!n[i].eval || !Object.keys(n[i].eval).length)
+        return true;
+    }
+    return false;
+  }
   var analyse, $panels;
   lidraughts.socket = lidraughts.StrongSocket(
     data.url.socket,
@@ -19,7 +27,7 @@ module.exports = function(element, cfg) {
       },
       events: {
         analysisProgress: function(d) {
-          var partial = !d.tree.eval;
+          var partial = partialTree(d.tree);
           if (!lidraughts.advantageChart) startAdvantageChart();
           else if (lidraughts.advantageChart.update) lidraughts.advantageChart.update({ game: data.game, treeParts: tree.ops.mainlineNodeList(tree.build(d.tree).root) }, partial);
           if (!partial) $("#adv_chart_loader").remove();
@@ -105,7 +113,7 @@ module.exports = function(element, cfg) {
   };
   var startAdvantageChart = function() {
     if (lidraughts.advantageChart) return;
-    var loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
+    var loading = partialList(data.treeParts);
     var $panel = $panels.filter('.computer_analysis');
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());

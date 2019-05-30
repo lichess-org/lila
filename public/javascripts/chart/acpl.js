@@ -33,7 +33,7 @@ lidraughts.advantageChart = function(data, trans, el) {
                 mergedSan = "";
               }
 
-              var cp;
+              var cp = undefined;
               if (node.eval && node.eval.win) {
                 cp = node.eval.win > 0 ? Infinity : -Infinity;
               } else if (node.san.indexOf('#') > 0) {
