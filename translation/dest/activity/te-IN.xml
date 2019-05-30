@@ -8,11 +8,15 @@
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s విభాగములో %1$s వ వ్యూహాము సాధన చేశారు</item>
-    <item quantity="other">%2$s విభాగములో %1$s వ్యూహాలు సాధన చేశారు</item>
+    <item quantity="other">%2$s విభాగములోని %1$s వ్యూహాలను సాధన చేశారు</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s వ సమస్యను పరిష్కరించారు</item>
     <item quantity="other">%s సమస్యలను పరిష్కరించారు</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">మీరు %2$s వంటిది %1$s ఆట ఆడారు</item>
+    <item quantity="other">మీరు %2$s వంటి ఆటలు %1$s ఆడారు</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">%2$s లో %1$s సందేశం రాశారు</item>
