@@ -46,4 +46,10 @@
   <string name="requestAComputerAnalysis">కంప్యూటర్ విశ్లేషణను అభ్యర్థించండి</string>
   <string name="computerAnalysis">కంప్యూటర్ విశ్లేషణ</string>
   <string name="computerAnalysisAvailable">కంప్యూటర్ విశ్లేషణ ఉంది</string>
+  <string name="analysis">విశ్లేషణా పటము</string>
+  <string name="depthX">లోతు %s</string>
+  <string name="usingServerAnalysis">సర్వర్ విశ్లేషణ వాడుతున్నాం</string>
+  <string name="loadingEngine">చదరంగయంత్రం సిద్ధమవుతోంది...</string>
+  <string name="goDeeper">ఇంకా లోతుగా వెళ్ళండి</string>
+  <string name="showThreat">పొంచి ఉన్న ప్రమాదం చూపించండి</string>
 </resources>
