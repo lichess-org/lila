@@ -71,4 +71,12 @@
   <string name="database">క్రీడా భాన్డాగారము</string>
   <string name="whiteDrawBlack">తెలుపు / సమము / నలుపు</string>
   <string name="averageRatingX">సగటు స్థానము: %s</string>
+  <string name="recentGames">ఇటీవలి ఆటలు</string>
+  <string name="topGames">అగ్రశ్రేణి ఆటలు</string>
+  <string name="masterDbExplanation">%2$s నుంచి %3$s దాకా %1$s+ FIDE అర్హత కలిగిన ఆటగాళ్ల 20 లక్షల ఆటలు</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s సగం-ఎత్తుతో ఆట కట్టు</item>
+    <item quantity="other">%s సగం-ఎత్తులలో ఆట కట్టు</item>
+  </plurals>
+  <string name="noGameFound">ఆట దొరకలేదు</string>
 </resources>
