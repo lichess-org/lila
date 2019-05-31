@@ -117,4 +117,8 @@
     <item quantity="other">%s ఆటగాళ్ళు</item>
   </plurals>
   <string name="currentGames">ఇప్పటి ఆటలు</string>
+  <string name="viewInFullSize">పూర్తి పరిమాణంలో చూడండి</string>
+  <string name="logOut">నిష్క్రమించండి</string>
+  <string name="signIn">ప్రవేశించండి</string>
+  <string name="youNeedAnAccountToDoThat">అది చెయ్యడానికి ఒక ఖాతా అవసరం</string>
 </resources>
