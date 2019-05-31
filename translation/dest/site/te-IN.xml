@@ -68,4 +68,7 @@
   <string name="losing">ఓడిపోయే ఎత్తు</string>
   <string name="drawn">గెలుపోటములు సమానము</string>
   <string name="unknown">తెలియదు</string>
+  <string name="database">క్రీడా భాన్డాగారము</string>
+  <string name="whiteDrawBlack">తెలుపు / సమము / నలుపు</string>
+  <string name="averageRatingX">సగటు స్థానము: %s</string>
 </resources>
