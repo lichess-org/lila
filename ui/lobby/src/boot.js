@@ -258,6 +258,7 @@ module.exports = function(cfg, element) {
           break;
         case '6':
           key = 'antidraughts'
+          break;
         case '9':
           key = 'breakthrough'
           break;
