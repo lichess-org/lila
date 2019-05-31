@@ -102,4 +102,19 @@
   <string name="removesTheDepthLimit">లోతు నియతిని తీసివేసి, కంప్యూటర్ ను వెచ్చగా ఉంచుతుంది</string>
   <string name="blunder">మహా తప్పు</string>
   <string name="blunders">మహా తప్పులు</string>
+  <string name="mistake">తప్పు</string>
+  <string name="mistakes">తప్పులు</string>
+  <string name="inaccuracy">సరికాదు</string>
+  <string name="inaccuracies">సరికావు</string>
+  <string name="moveTimes">ఎత్తుగడకు పట్టిన సమయం</string>
+  <string name="flipBoard">పటమును బోర్లించు</string>
+  <string name="threefoldRepetition">మూడు రెట్లు పునరావృతం</string>
+  <string name="claimADraw">అనిశ్చిత ఫలితం అని ప్రకటించుకోండి</string>
+  <string name="offerDraw">అనిశ్చిత ఫలితం అని ప్రతిపాదించండి</string>
+  <string name="draw">అనిశ్చిత ఫలితం</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s ఆటగాడు</item>
+    <item quantity="other">%s ఆటగాళ్ళు</item>
+  </plurals>
+  <string name="currentGames">ఇప్పటి ఆటలు</string>
 </resources>
