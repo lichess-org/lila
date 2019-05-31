@@ -79,4 +79,13 @@
     <item quantity="other">%s సగం-ఎత్తులలో ఆట కట్టు</item>
   </plurals>
   <string name="noGameFound">ఆట దొరకలేదు</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ఇష్టాయిష్టాల పట్టిక నుంచి మరిన్ని ఆటలను కలుపుకోవచ్చునేమో?</string>
+  <string name="openingExplorer">మొదటి ఎత్తుగడల పరిశీలన</string>
+  <string name="xOpeningExplorer">%s రకపు మొదటి ఎత్తుగడల పరిశీలన</string>
+  <string name="winPreventedBy50MoveRule">50 ఎత్తుగడల నియమం చేత గెలుపు భంగం</string>
+  <string name="lossSavedBy50MoveRule">50 ఎత్తుగడల నియమం చేత ఓటమి నుంచి రక్షణ</string>
+  <string name="allSet">అంతా సిద్ధం!</string>
+  <string name="importPgn">PGN ఆట దిగుమతి</string>
+  <string name="delete">తీసివెయ్యండి</string>
+  <string name="deleteThisImportedGame">ఈ దిగుమతి చేసుకున్న ఆటను తీసివెయ్యాలా?</string>
 </resources>
