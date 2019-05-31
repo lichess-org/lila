@@ -52,4 +52,20 @@
   <string name="loadingEngine">చదరంగయంత్రం సిద్ధమవుతోంది...</string>
   <string name="goDeeper">ఇంకా లోతుగా వెళ్ళండి</string>
   <string name="showThreat">పొంచి ఉన్న ప్రమాదం చూపించండి</string>
+  <string name="inLocalBrowser">స్థానిక బ్రౌజర్లో</string>
+  <string name="toggleLocalEvaluation">స్థానిక అంచనాపధ్ధతికి మార్చండి</string>
+  <string name="promoteVariation">మీ శాఖను ప్రచారం చెయ్యండి</string>
+  <string name="makeMainLine">దీనినే ప్రధాన శాఖగా మార్చండి</string>
+  <string name="deleteFromHere">ఇక్కడినుంచి తీసివెయ్యండి</string>
+  <string name="move">జరుపు లేదా ఎత్తు వెయ్యండి</string>
+  <string name="variantLoss">శాఖ ఓటమి</string>
+  <string name="variantWin">శాఖ గెలుపు</string>
+  <string name="insufficientMaterial">సైన్యం సరిపోదు</string>
+  <string name="pawnMove">పావు కదలాలి</string>
+  <string name="capture">బంధించండి</string>
+  <string name="close">మూసెయ్యండి</string>
+  <string name="winning">గెలిచే ఎత్తు</string>
+  <string name="losing">ఓడిపోయే ఎత్తు</string>
+  <string name="drawn">గెలుపోటములు సమానము</string>
+  <string name="unknown">తెలియదు</string>
 </resources>
