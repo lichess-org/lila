@@ -192,9 +192,9 @@ private[round] final class RoundSocket(
       }
 
       val initialMsgs = events.fold(
-        SocketTrouper.resyncMsgWithDebug(s"join,sv(${history.versionDebugString}),cv($version)").some
+        SocketTrouper.resyncMsgWithDebug(s"join,$debugString,cv($version)").some
       ) {
-          batchMsgsDebug(member, _, "join")
+          batchMsgsDebug(member, _, s"join,$debugString,cv($version)")
         } map { m => Enumerator(m: JsValue) }
 
       val fullEnumerator = lila.common.Iteratee.prependFu(
@@ -212,12 +212,12 @@ private[round] final class RoundSocket(
         case None =>
           lila.mon.round.history(mobile).versionCheck.getEventsTooFar()
           logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
-          member push SocketTrouper.resyncMsgWithDebug(s"sv(${history.versionDebugString}),cv($version)")
+          member push SocketTrouper.resyncMsgWithDebug(s"vc,$debugString,cv($version)")
         case Some(Nil) => // all good, nothing to do
         case Some(evs) =>
           lila.mon.round.history(mobile).versionCheck.lateClient()
           logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
-          batchMsgsDebug(member, evs, s"sv(${history.versionDebugString}),cv($version)") foreach member.push
+          batchMsgsDebug(member, evs, s"vc,$debugString,cv($version)") foreach member.push
       }
 
     case eventList: EventList => notify(eventList.events)
@@ -277,6 +277,8 @@ private[round] final class RoundSocket(
   }
 
   override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
+
+  def debugString = s"sid:$uniqueId,sv(${history.versionDebugString})"
 
   def notifyCrowd: Unit = if (isAlive) {
     if (!delayedCrowdNotification) {

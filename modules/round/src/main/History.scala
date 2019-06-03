@@ -29,9 +29,9 @@ private final class History(
 
   def versionDebugString: String = {
     waitForLoadedEvents
-    s"${events.lastOption.fold(-1)(_.version.value)}:${
-      events.headOption.fold(-1)(_.version.value)
-    }"
+    events.headOption.fold("-:-") { h =>
+      s"${events.last.version}:${h.version}@${h.date - nowSeconds}s"
+    }
   }
 
   def getEventsSince(v: SocketVersion, mon: Option[lila.mon.round.history.PlatformHistory]): EventResult = {
