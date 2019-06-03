@@ -81,7 +81,7 @@ object PerfType {
     key = "frisian",
     name = draughts.variant.Frisian.name,
     title = "Frisian variant",
-    iconChar = '''
+    iconChar = '\''
   )
 
   case object Frysk extends PerfType(

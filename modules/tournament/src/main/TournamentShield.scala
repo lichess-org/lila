@@ -132,7 +132,7 @@ object TournamentShield {
 
     case object Frisian extends Category(
       of = Right(draughts.variant.Frisian),
-      iconChar = '''
+      iconChar = '\''
     )
 
     case object Frysk extends Category(
