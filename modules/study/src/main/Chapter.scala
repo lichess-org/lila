@@ -151,7 +151,7 @@ object Chapter {
   case class IdName(id: Id, name: Name)
 
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
-    def compare(that: Ply) = value - that.value
+    def compare(that: Ply) = Integer.compare(value, that.value)
   }
 
   def defaultName(order: Int) = Name(s"Chapter $order")

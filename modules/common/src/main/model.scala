@@ -5,7 +5,7 @@ case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiV
   def v2 = value == 2
   def v3 = value == 3
   def v4 = value == 4
-  def compare(other: ApiVersion) = value compare other.value
+  def compare(other: ApiVersion) = Integer.compare(value, other.value)
   def gt(other: Int) = value > other
   def gte(other: Int) = value >= other
 }
