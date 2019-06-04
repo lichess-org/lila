@@ -12,8 +12,8 @@ case class Trophy(
   def timestamp = date.getMillis
 
   def compare(other: Trophy) =
-    if (kind.order == other.kind.order) timestamp compare other.timestamp
-    else kind.order compare other.kind.order
+    if (kind.order == other.kind.order) date compareTo other.date
+    else Integer.compare(kind.order, other.kind.order)
 }
 
 object Trophy {
