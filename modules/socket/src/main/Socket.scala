@@ -14,7 +14,7 @@ object Socket extends Socket {
   case class Uids(uids: Set[Uid])
 
   case class SocketVersion(value: Int) extends AnyVal with IntValue with Ordered[SocketVersion] {
-    def compare(other: SocketVersion) = value compare other.value
+    def compare(other: SocketVersion) = Integer.compare(value, other.value)
     def inc = SocketVersion(value + 1)
   }
 
