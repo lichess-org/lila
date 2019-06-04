@@ -16,10 +16,6 @@ const sassOptions = {
   errLogToConsole: true,
   outputStyle: 'expanded'
 };
-const autoprefixerOptions = {
-  // https://browserl.ist/?q=last+5+versions%2C+Firefox+ESR%2C+not+IE+<+12%2C+not+<+0.1%25%2C+not+IE_Mob+<+12%2C+not+android+<+4.4
-  browsers: 'last 5 versions, Firefox ESR, not IE < 12, not < 0.1%, not IE_Mob < 12, not android < 4.4'.split(', ')
-};
 const destination = () => gulp.dest('../public/css/');
 
 const sourcesGlob = './*/css/**/*.scss';
@@ -57,7 +53,7 @@ gulp.task('css-prod', () => gulp
     ...sassOptions,
     ...{ outputStyle: 'compressed' }
   }).on('error', sass.logError))
-  .pipe(autoprefixer(autoprefixerOptions))
+  .pipe(autoprefixer())
   .pipe(renameAs('min'))
   .pipe(destination())
 );
