@@ -89,7 +89,14 @@ private final class History(
 
   def getRecentEvents(maxEvents: Int): List[VersionedEvent] = {
     waitForLoadedEvents
-    events.asScala.takeRight(maxEvents).toList
+    val it = events.descendingIterator
+    var evs: List[VersionedEvent] = Nil
+    var count = maxEvents
+    while (count > 0 && it.hasNext) {
+      evs = it.next() :: evs
+      count -= 1
+    }
+    evs
   }
 
   def addEvents(xs: List[Event]): List[VersionedEvent] = {
