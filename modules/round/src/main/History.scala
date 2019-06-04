@@ -32,9 +32,9 @@ private final class History(
   }
 
   def versionDebugString: String = {
-      waitForLoadedEvents
-    Option(events.peekLast).fold("-:-") { h =>
-      s"${Option(events.peekFirst).version}:${h.version}@${h.date - nowSeconds}s"
+    waitForLoadedEvents
+    Option(events.peekFirst).fold("-:-") { h =>
+      s"${events.peekLast}:${h.version}@${h.date - nowSeconds}s"
     }
   }
 
@@ -47,8 +47,19 @@ private final class History(
         m.getEventsDelta(version.value - v.value)
         m.getEventsCount()
       }
-      // TODO Ensure that version always goes up by 1, and simplify seeks
-      val filteredEvents = events.asScala.dropWhile(_.version <= v).toList
+
+      // TODO: If version always increases by 1, it should be safe to slice
+      // by count instead of checking each event's version.
+      //
+      // Ugly while loop for perf, see lila-jmh-benchmarks.
+      val it = events.descendingIterator
+      var filteredEvents: List[VersionedEvent] = Nil
+      var e = null.asInstanceOf[VersionedEvent]
+      while (it.hasNext && {
+        e = it.next()
+        e.version > v
+      }) filteredEvents = e :: filteredEvents
+
       filteredEvents match {
         case e :: _ if e.version == v.inc => Events(filteredEvents)
         case _ =>
