@@ -33,8 +33,8 @@ private final class History(
 
   def versionDebugString: String = {
     waitForLoadedEvents
-    Option(events.peekFirst).fold("-:-") { h =>
-      s"${events.peekLast}:${h.version}@${h.date - nowSeconds}s"
+    Option(events.peekLast).fold("-:-") { l =>
+      s"${events.peekFirst}:${l.version}@${l.date - nowSeconds}s"
     }
   }
 
