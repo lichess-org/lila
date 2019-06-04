@@ -33,10 +33,10 @@
     <item quantity="other">Objavil %1$s sporočil v %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Odigral %1$s potezo</item>
-    <item quantity="two">Odigral %1$s potezi</item>
-    <item quantity="few">Odigral %1$s poteze</item>
-    <item quantity="other">Odigral %1$s poteze</item>
+    <item quantity="one">Potegnil %1$s potezo</item>
+    <item quantity="two">Potegnil %1$s potezi</item>
+    <item quantity="few">Potegnil %1$s poteze</item>
+    <item quantity="other">Potegnil %1$s potez</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">v %1$s dopisni partiji</item>
