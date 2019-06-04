@@ -44,7 +44,7 @@ function wasmThreadsSupported() {
   if (typeof Atomics !== 'object') return false;
 
   // Shared memory
-  if (!(new WebAssembly!.Memory({shared: true, initial: 8, maximum: 8}).buffer instanceof SharedArrayBuffer)) return false;
+  if (!(new WebAssembly.Memory({shared: true, initial: 8, maximum: 8} as WebAssembly.MemoryDescriptor).buffer instanceof SharedArrayBuffer)) return false;
 
   // Structured cloning
   try {
