@@ -113,7 +113,7 @@ object Store {
   private implicit val InfoReader = Macros.reader[Info]
 
   case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date.getMillis compare date.getMillis
+    def compare(other: Dated[V]) = other.date compareTo date
   }
 
   def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =

@@ -79,7 +79,7 @@ object Schedule {
 
     val name = toString.toLowerCase
 
-    def compare(other: Freq) = importance compare other.importance
+    def compare(other: Freq) = Integer.compare(importance, other.importance)
 
     def isDaily = this == Schedule.Freq.Daily
     def isDailyOrBetter = this >= Schedule.Freq.Daily

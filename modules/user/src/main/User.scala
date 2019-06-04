@@ -46,7 +46,7 @@ case class User(
 
   def langs = ("en" :: lang.toList).distinct.sorted
 
-  def compare(other: User) = id compare other.id
+  def compare(other: User) = id compareTo other.id
 
   def noTroll = !troll
 
