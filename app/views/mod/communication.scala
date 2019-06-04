@@ -117,6 +117,7 @@ object communication {
                   thread.posts.map { post =>
                     div(cls := List("post" -> true, "author" -> thread.isWrittenBy(post, u)))(
                       userIdLink(thread.senderOf(post).some),
+                      nbsp,
                       richText(post.text)
                     )
                   }
