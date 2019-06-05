@@ -31,7 +31,7 @@ object side {
                 tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initial) ?? s"• ${trans.thematic.txt()}",
+            (!tour.position.initial) ?? s"$separator ${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
@@ -82,7 +82,9 @@ object side {
       !tour.position.initial option p(
         a(target := "_blank", href := tour.position.url)(
           strong(tour.position.eco), " ", tour.position.name
-        )
+        ),
+        separator,
+        a(href := routes.UserAnalysis.parse(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
     streamers.toList map views.html.streamer.bits.contextual,
