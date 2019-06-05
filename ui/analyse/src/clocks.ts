@@ -4,6 +4,8 @@ import AnalyseCtrl from './ctrl';
 import { isFinished } from './study/studyChapters';
 
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
+  if (ctrl.embed) return;
+
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
 
