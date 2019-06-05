@@ -191,7 +191,8 @@ final class SimulApi(
         Sequence(oldSimul.id) {
           repo.findCreated(oldSimul.id) flatMap {
             _ ?? { simul =>
-              (simul ejectCheater userId) ?? { simul2 =>
+              if (simul.isUnique) funit
+              else (simul ejectCheater userId) ?? { simul2 =>
                 update(simul2).void
               }
             }
