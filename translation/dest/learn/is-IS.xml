@@ -86,4 +86,7 @@ en þú getur varið!</string>
   <string name="combatComplete">Til hamingju! Nú veistu hvernig maður berst með taflmönnum!</string>
   <string name="checkInOne">Skák í einum</string>
   <string name="attackTheOpponentsKing">Ráðstu á kóng andstæðingsins</string>
+  <string name="checkInOneIntro">Til að skáka skaltu ráðast á kónginn. Andstæðingurinn verður að verja hann!</string>
+  <string name="checkInOneGoal">Miðaðu á kóng andstæðingsins
+í einum leik!</string>
 </resources>
