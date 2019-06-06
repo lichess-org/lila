@@ -134,12 +134,8 @@ object TournamentRepo {
 
   def featuredGameId(tourId: String) = coll.primitiveOne[String]($id(tourId), "featured")
 
-  private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++ $doc(
-    "$or" -> $arr(
-      $doc("schedule" $exists false),
-      $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
-    )
-  )
+  private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++
+    $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
 
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
     allCreatedSelect(aheadMinutes) ++ $doc("private" $exists false)
