@@ -104,4 +104,21 @@ með því að taka árásarmanninn.</string>
 eða verstu árásinni!</string>
   <string name="outOfCheckComplete">Til hamingju! Þú mátt ekki láta taka kónginn svo þú skalt verja hann frá því að standa í skák!</string>
   <string name="mateInOne">Mát í einum</string>
+  <string name="defeatTheOpponentsKing">Sigraðu kóng andstæðingsins</string>
+  <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið gegn skák.</string>
+  <string name="attackYourOpponentsKing">Ráðstu á kóng andstæðingsins
+þannig að hann getur ekki varist!</string>
+  <string name="mateInOneComplete">Til hamingju! Svona vinnurðu í skák!</string>
+  <string name="intermediate">Miðlungur</string>
+  <string name="boardSetup">Taflborðið</string>
+  <string name="howTheGameStarts">Upphaf leiks</string>
+  <string name="boardSetupIntro">Herirnir beinast hvor að öðrum, tilbúnir í slaginn.</string>
+  <string name="thisIsTheInitialPosition">Svona lítur borðið
+alltaf út í upphafi leiks!
+Veldu hvaða leik sem er.</string>
+  <string name="learnCommonChessPositions">Lærðu algengar stöður í skák</string>
+  <string name="puzzles">Þrautir</string>
+  <string name="exerciseYourTacticalSkills">Æfðu taktíska hæfileika þína</string>
+  <string name="videos">Myndgögn</string>
+  <string name="watchInstructiveChessVideos">Horfðu á lærdómsríkar skákmyndir</string>
 </resources>
