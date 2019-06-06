@@ -10,7 +10,8 @@ object userAnalysisI18n {
   def apply(
     withCeval: Boolean = true,
     withExplorer: Boolean = true,
-    withForecast: Boolean = false
+    withForecast: Boolean = false,
+    withAdvantageChart: Boolean = false
   )(implicit lang: Lang) = i18nJsObject(
     baseTranslations ++ {
       withCeval ?? cevalTranslations
@@ -18,6 +19,8 @@ object userAnalysisI18n {
       withExplorer ?? explorerTranslations
     } ++ {
       withForecast ?? forecastTranslations
+    } ++ {
+      withAdvantageChart ?? advantageChartTranslations
     }
   )
 
@@ -159,5 +162,12 @@ object userAnalysisI18n {
     trans.noConditionalPremoves,
     trans.playX,
     trans.andSaveNbPremoveLines
+  )
+
+  private val advantageChartTranslations = Vector(
+    trans.advantage,
+    trans.opening,
+    trans.middlegame,
+    trans.endgame
   )
 }

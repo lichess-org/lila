@@ -31,7 +31,7 @@ object show {
           "relay" -> data.relay,
           "study" -> data.study,
           "data" -> data.analysis,
-          "i18n" -> board.userAnalysisI18n(),
+          "i18n" -> board.userAnalysisI18n(withAdvantageChart = true),
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map(c => chat.json(

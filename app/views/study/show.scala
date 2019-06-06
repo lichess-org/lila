@@ -27,7 +27,7 @@ object show {
         safeJsonValue(Json.obj(
           "study" -> data.study,
           "data" -> data.analysis,
-          "i18n" -> views.html.board.userAnalysisI18n(),
+          "i18n" -> views.html.board.userAnalysisI18n(withAdvantageChart = true),
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
