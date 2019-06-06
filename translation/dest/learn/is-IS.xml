@@ -47,4 +47,9 @@ Flýðu og drottnaðu yfir stjörnunum!</string>
   <string name="pawnIntro">Peðin virðast máttlaus en það getur snúist við.</string>
   <string name="pawnsMoveOneSquareOnly">Peðin færa sig um einn reit í einu.
 En þegar þau komast að hinum enda borðsins verða þau sterkari!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Oftast er best að breyta peðinu í drottningu.
+En stundum er heppilegt að breyta í riddara!</string>
+  <string name="pawnsMoveForward">Peð færast áfram,
+en drepa á ská!</string>
+  <string name="captureThenPromote">Dreptu og breyttu svo!</string>
 </resources>
