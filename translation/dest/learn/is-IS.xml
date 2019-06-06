@@ -71,4 +71,19 @@ en drepa á ská!</string>
 Ekki tapa þínum.</string>
   <string name="captureComplete">Til hamingju! Nú veistu hvernig maður berst með taflmönnum!</string>
   <string name="protection">Vörn</string>
+  <string name="keepYourPiecesSafe">Haltu taflmönnunum öruggum</string>
+  <string name="protectionIntro">Finndu taflmennina sem andstæðingur þinn ræðst á og verðu þá!</string>
+  <string name="protectionComplete">Til hamingju! Taflmaður sem þú verð er taflmaður sem þú vinnur!</string>
+  <string name="escape">Nú er ráðist á þig!
+Verstu ógninni!</string>
+  <string name="noEscape">Þú getur ekki flúið
+en þú getur varið!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ekki láta þá taka
+óvarinn taflmann!</string>
+  <string name="combat">Bardagi</string>
+  <string name="captureAndDefendPieces">Að drepa og verja taflmenn</string>
+  <string name="combatIntro">Góður stríðsmaður getur bæði barist og varist!</string>
+  <string name="combatComplete">Til hamingju! Nú veistu hvernig maður berst með taflmönnum!</string>
+  <string name="checkInOne">Skák í einum</string>
+  <string name="attackTheOpponentsKing">Ráðstu á kóng andstæðingsins</string>
 </resources>
