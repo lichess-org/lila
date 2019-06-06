@@ -97,6 +97,7 @@
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="evaluationGauge">Stöðumat</string>
   <string name="multipleLines">Mismunandi línur</string>
+  <string name="cpus">Örgjörvar</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Djúp greining</string>
   <string name="removesTheDepthLimit">Fjarlægir dýptartakmörk og heldur tölvunni heitri</string>
@@ -197,6 +198,7 @@
   <string name="casual">Venjuleg</string>
   <string name="rated">Stigaleikur</string>
   <string name="casualTournament">Æfingamót</string>
+  <string name="ratedTournament">Með stigagjöf</string>
   <string name="thisGameIsRated">Þetta er stigaleikur</string>
   <string name="rematch">Endurleikur</string>
   <string name="rematchOfferSent">Boð um endurtekinn leik sent</string>
@@ -211,6 +213,7 @@
   <string name="inbox">Innhólf</string>
   <string name="chatRoom">Spjallherbergi</string>
   <string name="loginToChat">Skráðu þig inn til að spjalla</string>
+  <string name="youHaveBeenTimedOut">Þú getur tímabundið ekki spjallað.</string>
   <string name="spectatorRoom">Svæði áhorfenda</string>
   <string name="composeMessage">Semja skilaboð</string>
   <string name="noNewMessages">Engin ný skilaboð</string>
@@ -220,6 +223,10 @@
   <string name="incrementInSeconds">Tímaaukning í sekúndum</string>
   <string name="freeOnlineChess">Ókeypis vefskák</string>
   <string name="spectators">Áhorfendur</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s með stigagjöf</item>
+    <item quantity="other">%s með stigagjöf</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vinningar</item>
     <item quantity="other">%s vinningar</item>
