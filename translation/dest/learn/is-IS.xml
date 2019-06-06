@@ -121,4 +121,26 @@ Veldu hvaða leik sem er.</string>
   <string name="exerciseYourTacticalSkills">Æfðu taktíska hæfileika þína</string>
   <string name="videos">Myndgögn</string>
   <string name="watchInstructiveChessVideos">Horfðu á lærdómsríkar skákmyndir</string>
+  <string name="playPeople">Leikur gegn fólki</string>
+  <string name="opponentsFromAroundTheWorld">Andstæðingar frá öllum heimsins hornum</string>
+  <string name="playMachine">Leikur gegn tölvu</string>
+  <string name="testYourSkillsWithTheComputer">Reyndu hæfileika þína gegn tölvunni</string>
+  <string name="letsGo">Drífum okkur!</string>
+  <string name="stageX">Stig %s</string>
+  <string name="awesome">Frábært!</string>
+  <string name="excellent">Glæsilegt!</string>
+  <string name="greatJob">Vel gert!</string>
+  <string name="perfect">Fullkomið!</string>
+  <string name="outstanding">Óviðjafnanlegt!</string>
+  <string name="wayToGo">Almennilegt!</string>
+  <string name="yesYesYes">Já, já, já!</string>
+  <string name="youreGoodAtThis">Þú ert með þetta!</string>
+  <string name="nailedIt">Negldir það.</string>
+  <string name="rightOn">Einmitt!</string>
+  <string name="stageXComplete">Stigi %s er lokið</string>
+  <string name="yourScore">Stig</string>
+  <string name="next">Næst</string>
+  <string name="backToMenu">Aftur í valmynd</string>
+  <string name="puzzleFailed">Þrautin mistókst!</string>
+  <string name="retry">Aftur</string>
 </resources>
