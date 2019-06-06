@@ -55,4 +55,20 @@ en drepa á ská!</string>
   <string name="useAllThePawns">Notaðu öll peðin!
 Það er óþarfi að breyta þeim.</string>
   <string name="aPawnOnTheSecondRank">Peð á upphafsreit má færa um tvo reiti í einu!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Náðu öllum stjörnunum!
+Það er óþarfi að breyta.</string>
+  <string name="pawnComplete">Til hamingju! Peðin leyna engu fyrir þér.</string>
+  <string name="pawnPromotion">Að breyta peði</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Peðið þitt náði hinum enda borðsins!</string>
+  <string name="itNowPromotesToAStrongerPiece">Það hefur nú hækkað í tign.</string>
+  <string name="selectThePieceYouWant">Veldu taflmanninn sem þú vilt fá!</string>
+  <string name="fundamentals">Grunnatriði</string>
+  <string name="capture">Að drepa</string>
+  <string name="takeTheEnemyPieces">Náðu óvinunum</string>
+  <string name="captureIntro">Finndu óvarða leikmenn og dreptu þá!</string>
+  <string name="takeTheBlackPieces">Taktu svörtu taflmennina!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Taktu svörtu taflmennina!
+Ekki tapa þínum.</string>
+  <string name="captureComplete">Til hamingju! Nú veistu hvernig maður berst með taflmönnum!</string>
+  <string name="protection">Vörn</string>
 </resources>
