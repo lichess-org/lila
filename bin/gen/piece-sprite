@@ -23,7 +23,8 @@ themes = [
   ['letter', 'svg'],
   ['riohacha', 'svg'],
   ['leipzig', 'svg'],
-  ['kosal', 'svg']
+  ['kosal', 'svg'],
+  ['pixel', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
