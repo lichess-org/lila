@@ -37,4 +37,14 @@ einn biskup fyrir svarta reiti.
   <string name="theKnight">Riddarinn</string>
   <string name="itMovesInAnLShape">Hreyfingar hans líkjast L</string>
   <string name="knightIntro">Hér er þraut fyrir þig. Riddarinn er lúmskur.</string>
+  <string name="knightsHaveAFancyWay">Riddarar hoppa um á
+óvenjulegan hátt!</string>
+  <string name="knightsCanJumpOverObstacles">Riddarar geta stokkið yfir hindranir!
+Flýðu og drottnaðu yfir stjörnunum!</string>
+  <string name="knightComplete">Til hamingju! Þú hefur náð tökum á riddaranum.</string>
+  <string name="thePawn">Peðið</string>
+  <string name="itMovesForwardOnly">Það getur einungis færst áfram</string>
+  <string name="pawnIntro">Peðin virðast máttlaus en það getur snúist við.</string>
+  <string name="pawnsMoveOneSquareOnly">Peðin færa sig um einn reit í einu.
+En þegar þau komast að hinum enda borðsins verða þau sterkari!</string>
 </resources>
