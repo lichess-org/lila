@@ -89,4 +89,19 @@ en þú getur varið!</string>
   <string name="checkInOneIntro">Til að skáka skaltu ráðast á kónginn. Andstæðingurinn verður að verja hann!</string>
   <string name="checkInOneGoal">Miðaðu á kóng andstæðingsins
 í einum leik!</string>
+  <string name="checkInOneComplete">Til hamingju! Þú skákaðir andstæðingnum svo nauðsynlegt var að verja kónginn!</string>
+  <string name="outOfCheck">Úr skák</string>
+  <string name="defendYourKing">Verðu kónginn</string>
+  <string name="outOfCheckIntro">Þú stendur í skák! Nú verðurðu að flýja eða stöðva árásina.</string>
+  <string name="escapeWithTheKing">Flýðu með kónginum!</string>
+  <string name="theKingCannotEscapeButBlock">Kóngurinn getur ekki flúið
+en þú getur stöðvað árásina!</string>
+  <string name="youCanGetOutOfCheckByTaking">Þú getur komist úr skák
+með því að taka árásarmanninn.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Þessi riddari skákar
+í gegnum varnir þínar!</string>
+  <string name="escapeOrBlock">Flýðu með kónginum
+eða verstu árásinni!</string>
+  <string name="outOfCheckComplete">Til hamingju! Þú mátt ekki láta taka kónginn svo þú skalt verja hann frá því að standa í skák!</string>
+  <string name="mateInOne">Mát í einum</string>
 </resources>
