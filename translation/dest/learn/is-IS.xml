@@ -20,16 +20,21 @@
   <string name="theBishop">Biskupinn</string>
   <string name="itMovesDiagonally">Hann ferðast á ská</string>
   <string name="bishopIntro">Næst lærum við að hreyfa biskupinn!</string>
-  <string name="youNeedBothBishops">"Einn biskup fyrir hvíta reiti,
+  <string name="youNeedBothBishops">Einn biskup fyrir hvíta reiti,
 einn biskup fyrir svarta reiti.
-Þú þarft báða!"</string>
+Þú þarft báða!</string>
   <string name="bishopComplete">Til lukku! Þú getur stjórnað biskupnum.</string>
   <string name="theQueen">Drottningin</string>
   <string name="queenCombinesRookAndBishop">Drottning = hrókur + biskup</string>
   <string name="queenIntro">Öflugasti maðurinn kemur til leiks. Hennar hátign drottningin!</string>
+  <string name="queenComplete">Til hamingju! Drottningar geta engu leynt fyrir þér.</string>
   <string name="theKing">Kóngurinn</string>
   <string name="theMostImportantPiece">Mikilvægasti maðurinn</string>
   <string name="kingIntro">Þú ert kóngurinn. Ef þú deyrð á vígvellinum er leikurinn búinn.</string>
   <string name="theKingIsSlow">Kóngurinn er hægfara.</string>
+  <string name="lastOne">Síðasti!</string>
+  <string name="kingComplete">Nú drottnar þú yfir drottnaranum!</string>
   <string name="theKnight">Riddarinn</string>
+  <string name="itMovesInAnLShape">Hreyfingar hans líkjast L</string>
+  <string name="knightIntro">Hér er þraut fyrir þig. Riddarinn er lúmskur.</string>
 </resources>
