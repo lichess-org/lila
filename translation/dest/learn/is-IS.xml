@@ -52,4 +52,7 @@ En stundum er heppilegt að breyta í riddara!</string>
   <string name="pawnsMoveForward">Peð færast áfram,
 en drepa á ská!</string>
   <string name="captureThenPromote">Dreptu og breyttu svo!</string>
+  <string name="useAllThePawns">Notaðu öll peðin!
+Það er óþarfi að breyta þeim.</string>
+  <string name="aPawnOnTheSecondRank">Peð á upphafsreit má færa um tvo reiti í einu!</string>
 </resources>
