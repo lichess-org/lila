@@ -257,7 +257,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }, [
       h('div.left', [
         h('span.status', iconTag('O')),
-        h('div.user-link', 'Add members')
+        h('div.user-link', ctrl.trans.noarg('addMembers'))
       ])
     ]) : null
   ]);
