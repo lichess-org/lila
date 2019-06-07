@@ -145,6 +145,9 @@ Færðu hann, hrókeraðu svo á kóngsvængi.</string>
 Fyrst þarftu að koma mönnum út.</string>
   <string name="castleQueenSideMovePiecesFirst">Hrókeradu á drottningarvængi!
 Fyrst þarftu að koma mönnum út.</string>
+  <string name="youCannotCastleIfMoved">Þú getur ekki hrókerað
+ef kóngurinn hefur fært sig
+eða hrókurinn hefur fært sig.</string>
   <string name="youCannotCastleIfAttacked">Þú getur ekki hrókerað
 ef ráðist er á kónginn á leiðinni.
 Komdu í veg fyrir skák og hrókeraðu svo!</string>
@@ -175,6 +178,36 @@ ef peðið þitt er í fimmtu röð.</string>
   <string name="stalemateComplete">Til hamingju! Betra er að vera patt en mátaður!</string>
   <string name="advanced">Lengra komnir</string>
   <string name="pieceValue">Virði taflmanna</string>
+  <string name="evaluatePieceStrength">Mettu virði taflmannsins</string>
+  <string name="pieceValueIntro">Taflmenn sem geta ferðast víða hafa hærra virði!
+Drottning = 9
+Hrókur = 5
+Biskup = 3
+Riddari = 3
+Peð = 1
+Kóngurinn er ómetanlegur! Ef þú tapar honum taparðu leiknum.</string>
+  <string name="queenOverBishop">Taktu taflmanninn
+sem er mest virði!
+Drottning &gt; biskup</string>
+  <string name="takeThePieceWithTheHighestValue">Dreptu taflmanninn
+sem er mest virði!</string>
+  <string name="pieceValueComplete">Til hamingju! Nú veistu hvers virði mennirnir eru!
+Drottning = 9
+Hrókur = 5
+Biskup = 3
+Riddari = 3
+Peð = 1</string>
+  <string name="checkInTwo">Skák í tveimur</string>
+  <string name="twoMovesToGiveCheck">Tveir leikir til að gefa skák</string>
+  <string name="checkInTwoIntro">Finndu rétta samsetningu tveggja leikja sem skáka kónginum!</string>
+  <string name="checkInTwoGoal">Hótaðu kóngi andstæðingsins
+í tveimur leikjum!</string>
+  <string name="checkInTwoComplete">Til hamingju! Þú skákaðir andstæðingnum svo nauðsynlegt var að verja kónginn!</string>
+  <string name="whatNext">Hvað er næst?</string>
+  <string name="youKnowHowToPlayChess">Nú kanntu skák, til hamingju! Viltu verða sterkari leikmaður?</string>
+  <string name="register">Skráning</string>
+  <string name="getAFreeLichessAccount">Fáðu ókeypis Lichess reikning</string>
+  <string name="practice">Æfing</string>
   <string name="learnCommonChessPositions">Lærðu algengar stöður í skák</string>
   <string name="puzzles">Þrautir</string>
   <string name="exerciseYourTacticalSkills">Æfðu taktíska hæfileika þína</string>
