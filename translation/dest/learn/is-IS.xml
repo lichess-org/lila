@@ -153,6 +153,15 @@ hrókera á kóngsvængi!</string>
   <string name="findAWayToCastleQueenSide">Finndu leið til að hrókera
 á drottningarvængi!</string>
   <string name="castlingComplete">Til hamingju! Þú ættir næstum alltaf að hrókera í leik.</string>
+  <string name="enPassant">Framhjáhlaup</string>
+  <string name="theSpecialPawnMove">Óvenjuleg hreyfing peðsins</string>
+  <string name="enPassantIntro">Þegar peð andstæðingsins hefur færst um tvo reiti máttu drepa það líkt og það hefði verið fært um einn reit.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Svartur færði peðið
+um tvo reiti!
+Dreptu það í framhjáhlaupi.</string>
+  <string name="enPassantOnlyWorksImmediately">Framhjáhlaup virkar bara
+strax eftir að andstæðingurinn
+færði peðið.</string>
   <string name="learnCommonChessPositions">Lærðu algengar stöður í skák</string>
   <string name="puzzles">Þrautir</string>
   <string name="exerciseYourTacticalSkills">Æfðu taktíska hæfileika þína</string>
