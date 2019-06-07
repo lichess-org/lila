@@ -119,6 +119,22 @@ eða verstu árásinni!</string>
   <string name="thisIsTheInitialPosition">Svona lítur borðið
 alltaf út í upphafi leiks!
 Veldu hvaða leik sem er.</string>
+  <string name="firstPlaceTheRooks">Stilltu fyrst upp hrókunum!
+Þeir fara í hornin.</string>
+  <string name="thenPlaceTheKnights">Stilltu svo upp riddurunum!
+Þeir eru við hlið hrókanna.</string>
+  <string name="placeTheBishops">Stilltu upp biskupunum!
+Þeir eru við hlið riddaranna.</string>
+  <string name="placeTheQueen">Stilltu upp drottningunni!
+Hún fer á reit af sama lit og hún er.</string>
+  <string name="placeTheKing">Stilltu upp kónginum!
+Við hlið drottningarinnar.</string>
+  <string name="pawnsFormTheFrontLine">Peð mynda fremstu víglínu.
+Veldu hvaða leik sem er.</string>
+  <string name="boardSetupComplete">Til hamingju! Nú veistu hvernig taflmönnunum er raðað upp.</string>
+  <string name="castling">Hrókering</string>
+  <string name="theSpecialKingMove">Óvenjulega hreyfing kóngsins</string>
+  <string name="castlingIntro">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás!</string>
   <string name="learnCommonChessPositions">Lærðu algengar stöður í skák</string>
   <string name="puzzles">Þrautir</string>
   <string name="exerciseYourTacticalSkills">Æfðu taktíska hæfileika þína</string>
