@@ -135,6 +135,24 @@ Veldu hvaða leik sem er.</string>
   <string name="castling">Hrókering</string>
   <string name="theSpecialKingMove">Óvenjulega hreyfing kóngsins</string>
   <string name="castlingIntro">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás!</string>
+  <string name="castleKingSide">Færðu kónginn um tvo reiti
+til að hrókera á kóngsvængi!</string>
+  <string name="castleQueenSide">Færðu kónginn um tvo reiti
+til að hrókera á drottningarvængi!</string>
+  <string name="theKnightIsInTheWay">Riddarinn er fyrir!
+Færðu hann, hrókeraðu svo á kóngsvængi.</string>
+  <string name="castleKingSideMovePiecesFirst">Hrókeraðu á kóngsvængi!
+Fyrst þarftu að koma mönnum út.</string>
+  <string name="castleQueenSideMovePiecesFirst">Hrókeradu á drottningarvængi!
+Fyrst þarftu að koma mönnum út.</string>
+  <string name="youCannotCastleIfAttacked">Þú getur ekki hrókerað
+ef ráðist er á kónginn á leiðinni.
+Komdu í veg fyrir skák og hrókeraðu svo!</string>
+  <string name="findAWayToCastleKingSide">Finndu leið til að
+hrókera á kóngsvængi!</string>
+  <string name="findAWayToCastleQueenSide">Finndu leið til að hrókera
+á drottningarvængi!</string>
+  <string name="castlingComplete">Til hamingju! Þú ættir næstum alltaf að hrókera í leik.</string>
   <string name="learnCommonChessPositions">Lærðu algengar stöður í skák</string>
   <string name="puzzles">Þrautir</string>
   <string name="exerciseYourTacticalSkills">Æfðu taktíska hæfileika þína</string>
