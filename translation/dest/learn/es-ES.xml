@@ -58,8 +58,8 @@
   <string name="takeTheEnemyPieces">Elimina las piezas enemigas</string>
   <string name="captureIntro">¡Identifica las piezas indefensas del oponente y captúralas!</string>
   <string name="takeTheBlackPieces">¡Captura las piezas negras!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">"¡Captura las piezas negras!
-Y no pierdas las tuyas."</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">¡Captura las piezas negras!
+Y no pierdas las tuyas.</string>
   <string name="captureComplete">¡Felicidades! ¡Ahora sabes luchar con tus piezas!</string>
   <string name="protection">Protección</string>
   <string name="keepYourPiecesSafe">Mantén tus piezas a salvo</string>
@@ -127,29 +127,29 @@ Y no pierdas las tuyas."</string>
   <string name="stalemate">Ahogado</string>
   <string name="theGameIsADraw">La partida es tablas</string>
   <string name="stalemateIntro">Cuando un jugador no está en jaque y no tiene ningún movimiento legal, está ahogado. La partida es tablas. Nadie gana ni pierde.</string>
-  <string name="stalemateGoal">"El negro está ahogado sí
+  <string name="stalemateGoal">El negro está ahogado sí
 - No puede hacer ningún movimiento legal, y
-- No está en jaque."</string>
+- No está en jaque.</string>
   <string name="stalemateComplete">¡Felicidades! ¡Mejor ahogado que recibir un jaque mate!</string>
   <string name="advanced">Avanzado</string>
   <string name="pieceValue">Valor de las piezas</string>
   <string name="evaluatePieceStrength">Sopesa la fuerza de tus piezas</string>
-  <string name="pieceValueIntro">"¡Las piezas con más movilidad valen más!
+  <string name="pieceValueIntro">¡Las piezas con más movilidad valen más!
 Dama = 9
 Torre = 5
 Alfil = 3
 Caballo = 3
 Peón = 1
-¡El rey es precioso! Perderlo significa perder la partida."</string>
-  <string name="queenOverBishop">"¡Captura la pieza más valiosa!
-Dama &gt; Alfil"</string>
+¡El rey es precioso! Perderlo significa perder la partida.</string>
+  <string name="queenOverBishop">¡Captura la pieza más valiosa!
+Dama &gt; Alfil</string>
   <string name="takeThePieceWithTheHighestValue">¡Captura la pieza más valiosa!</string>
-  <string name="pieceValueComplete">"¡Felicidades! ¡Conoces el valor de las piezas!
+  <string name="pieceValueComplete">¡Felicidades! ¡Conoces el valor de las piezas!
 Dama = 9
 Torre = 5
 Alfil = 3
 Caballo = 3
-Peón = 1"</string>
+Peón = 1</string>
   <string name="checkInTwo">Jaque en dos</string>
   <string name="twoMovesToGiveCheck">Dar jaque en dos jugadas</string>
   <string name="checkInTwoIntro">¡Encuentra la combinación de dos movimientos que da jaque al rey enemigo!</string>
