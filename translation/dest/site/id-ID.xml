@@ -602,6 +602,8 @@
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
   <string name="onlyFriends">Hanya teman</string>
+  <string name="displayBoardResizeHandle">Tampilkan pengubah ukuran papan catur</string>
+  <string name="onlyOnInitialPosition">Hanya di posisi awal</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Putih 0-0</string>
