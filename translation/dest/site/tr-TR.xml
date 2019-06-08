@@ -103,7 +103,7 @@
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
-  <string name="memory">Ayrılan hafıza</string>
+  <string name="memory">Bellek</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunder">Vahim hata</string>
