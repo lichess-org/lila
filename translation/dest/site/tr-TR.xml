@@ -632,6 +632,8 @@
   <string name="inCorrespondenceGames">Yazışmalı oyunlarda</string>
   <string name="ifRatingIsPlusMinusX">Eğer derece +- %s</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
+  <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
+  <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>
   <string name="whiteCastlingKingside">Beyaz O-O</string>
