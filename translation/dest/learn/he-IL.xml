@@ -13,9 +13,9 @@
   <string name="grabAllTheStars">אסוף את כל הכוכבים!</string>
   <string name="theBishop">הרץ</string>
   <string name="itMovesDiagonally">הוא זז באלכסון</string>
-  <string name="youNeedBothBishops">"רץ אחד על המשבצות הבהירות,
+  <string name="youNeedBothBishops">רץ אחד על המשבצות הבהירות,
 רץ אחד על המשבצות הכהות,
-אתה צריך את שניהם!"</string>
+אתה צריך את שניהם!</string>
   <string name="theQueen">המלכה</string>
   <string name="queenCombinesRookAndBishop">צריח + רץ = מלכה</string>
   <string name="queenIntro">כלי השחמט החזק ביותר נכנס. הוד מלכותה, המלכה!</string>
@@ -29,12 +29,12 @@
   <string name="thePawn">הרגלי</string>
   <string name="itMovesForwardOnly">הוא נע קדימה בלבד</string>
   <string name="pawnIntro">רגלים הם חלשים, אך בעלי פוטנציאל רב.</string>
-  <string name="pawnsMoveOneSquareOnly">"רגלים נעים רק משבצת אחת במהלך.
-אך אשר הם מגיעים לצד השני של הלוח, הם מוחלפים בכלי יותר חזק!"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"רוב הפעמים, עדיף להכתיר את הרגלי למלכה.
-אך לפעמים פרש יכול להיות שימושי!"</string>
-  <string name="pawnsMoveForward">"רגלים נעים קדימה,
-אך מכים באלכסון!"</string>
+  <string name="pawnsMoveOneSquareOnly">רגלים נעים רק משבצת אחת במהלך.
+אך אשר הם מגיעים לצד השני של הלוח, הם מוחלפים בכלי יותר חזק!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">רוב הפעמים, עדיף להכתיר את הרגלי למלכה.
+אך לפעמים פרש יכול להיות שימושי!</string>
+  <string name="pawnsMoveForward">רגלים נעים קדימה,
+אך מכים באלכסון!</string>
   <string name="aPawnOnTheSecondRank">רגלי על השורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
   <string name="pawnPromotion">הכתרת רגלי</string>
   <string name="yourPawnReachedTheEndOfTheBoard">הרגלי שלך הגיע לשורה האחרונה על הלוח!</string>
@@ -50,12 +50,12 @@
   <string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
   <string name="stalemateIntro">כאשר שחקן לא מצוי תחת איום שח ואין לו אף מהלך חוקי, מצב כזה נקרא פט והמשחק מסתיים בתיקו.</string>
   <string name="pieceValue">הערך של כל כלי</string>
-  <string name="pieceValueIntro">"לכלים בעלי ניידות גבוהה יש ערך גבוה יותר!
+  <string name="pieceValueIntro">לכלים בעלי ניידות גבוהה יש ערך גבוה יותר!
 מלכה = 9
 צריח = 5
 רץ = 3
 פרש = 3
 רגלי = 1
-המלך לא יסולא בפז! הפסדת המלך משמעותה הפסדת המשחק."</string>
+המלך לא יסולא בפז! הפסדת המלך משמעותה הפסדת המשחק.</string>
   <string name="checkInTwo">שח בשני מהלכים</string>
 </resources>
