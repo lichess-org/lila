@@ -20,9 +20,9 @@
   <string name="theBishop">Goniec</string>
   <string name="itMovesDiagonally">Porusza się po skosach</string>
   <string name="bishopIntro">Teraz dowiesz się jak manewrować gońcem!</string>
-  <string name="youNeedBothBishops">"Jeden białopolowy goniec,
+  <string name="youNeedBothBishops">Jeden białopolowy goniec,
 jeden czarnopolowy goniec.
-Potrzebujesz ich obu!"</string>
+Potrzebujesz ich obu!</string>
   <string name="bishopComplete">Gratulacje! Potrafisz poruszać się gońcem.</string>
   <string name="theQueen">Hetman</string>
   <string name="queenCombinesRookAndBishop">Hetman = wieża + goniec</string>
@@ -38,16 +38,16 @@ Potrzebujesz ich obu!"</string>
   <string name="itMovesInAnLShape">Porusza się \"po literze L\"</string>
   <string name="knightIntro">Oto wyzwanie dla Ciebie. Skoczek jest... szczwaną figurą.</string>
   <string name="knightsHaveAFancyWay">Skoczki mają nietypowy sposób poruszania się!</string>
-  <string name="knightsCanJumpOverObstacles">"Skoczki mogą przeskakiwać przez przeszkody!
-Skacz i zbieraj gwiazdki!"</string>
+  <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
+Skacz i zbieraj gwiazdki!</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
-  <string name="pawnsMoveOneSquareOnly">"Piony poruszają się tylko o jedno pole. 
-Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"W większości przypadków najlepiej promować piona na hetmana. 
-Jednak czasem bardziej przydatny może być skoczek!"</string>
+  <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
+Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
+Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbijaj, a później promuj!</string>
   <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
@@ -131,29 +131,29 @@ Jednak czasem bardziej przydatny może być skoczek!"</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia zakończona remisem</string>
   <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
-  <string name="stalemateGoal">"Czarne dostaną pata gdy:
+  <string name="stalemateGoal">Czarne dostaną pata gdy:
 - nie będą mogły się ruszyć
-- nie będą szachowane"</string>
+- nie będą szachowane</string>
   <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
   <string name="pieceValue">Wartości figur</string>
   <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
-  <string name="pieceValueIntro">"Figury mające większe możliwości poruszania się warte są więcej!
+  <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
 Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
 Pion = 1
-Król jest bezcenny! Tracąc króla przegrywasz partię."</string>
-  <string name="queenOverBishop">"Zbij figurę o największej wartości!
-hetman &gt; goniec"</string>
+Król jest bezcenny! Tracąc króla przegrywasz partię.</string>
+  <string name="queenOverBishop">Zbij figurę o największej wartości!
+hetman &gt; goniec</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
-  <string name="pieceValueComplete">"Gratulacje! Znasz wartość materiału!
+  <string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
 Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
-Pionek = 1"</string>
+Pionek = 1</string>
   <string name="checkInTwo">Szach w 2 ruchach</string>
   <string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
   <string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
