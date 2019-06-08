@@ -365,8 +365,8 @@
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="importGame">Увези игру</string>
-  <string name="importGameExplanation">"Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
-рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити."</string>
+  <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
+рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена игра</item>
     <item quantity="few">%s увезене игре</item>
@@ -614,8 +614,8 @@
   <string name="xCommentedY">%1$s је коментарисао/ла %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>
-  <string name="xVsYinZ">"%1$s против %2$s
-у %3$s"</string>
+  <string name="xVsYinZ">%1$s против %2$s
+у %3$s</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
