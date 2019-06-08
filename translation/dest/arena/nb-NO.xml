@@ -7,16 +7,16 @@
   <string name="isNotRated">Turneringen er *ikke* ratet og vil *ikke* påvirke ratingen din.</string>
   <string name="someRated">Noen turneringer er ratet og vil påvirke ratingen din.</string>
   <string name="howAreScoresCalculated">Hvordan beregnes poengene?</string>
-  <string name="howAreScoresCalculatedAnswer">"En seier gir to basispoeng, en remis ett poeng og et tap null poeng. Vinner du to partier på rad startes en dobbelpoeng-serie som illustreres ved hjelp av et flammelignende ikon. Etterfølgende partier er da verd doble poeng inntil du mislykkes i å vinne et parti. Dette innebærer at en seier er verdt fire poeng, en remis to poeng og et tap null poeng.
+  <string name="howAreScoresCalculatedAnswer">En seier gir to basispoeng, en remis ett poeng og et tap null poeng. Vinner du to partier på rad startes en dobbelpoeng-serie som illustreres ved hjelp av et flammelignende ikon. Etterfølgende partier er da verd doble poeng inntil du mislykkes i å vinne et parti. Dette innebærer at en seier er verdt fire poeng, en remis to poeng og et tap null poeng.
 
-Eksempelvis gir to seire etterfulgt av en remis seks poeng: 2 + 2 + (2 *1)"</string>
+Eksempelvis gir to seire etterfulgt av en remis seks poeng: 2 + 2 + (2 *1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">"Dersom en spiller klikker Berserk-knappen ved spillestart, halveres spillerens betenkningstid, men til gjengjeld vil en eventuell seier gi ett ekstra turneringspoeng. For tidskontroller med tidstillegg vil det å gå Berserk dessuten medføre at tidstillegget mistes. 
+  <string name="berserkAnswer">Dersom en spiller klikker Berserk-knappen ved spillestart, halveres spillerens betenkningstid, men til gjengjeld vil en eventuell seier gi ett ekstra turneringspoeng. For tidskontroller med tidstillegg vil det å gå Berserk dessuten medføre at tidstillegget mistes. 
 (Unntaket er 1+2, det gir 1+0)
 
 Berserk er ikke mulig for partier med null i starttid (0+1, 0+2).
 
-Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet."</string>
+Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="howIsTheWinnerDecided">Hvordan kåres vinneren?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spilleren eller spillerene med flest poeng ved slutten av turneringens frist vil bli annonsert som vinner(e).</string>
   <string name="howDoesPairingWork">Hvordan fungerer paringen?</string>
