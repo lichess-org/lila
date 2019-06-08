@@ -12,20 +12,20 @@
   <string name="theRook">De toren</string>
   <string name="itMovesInStraightLines">Hij beweegt in rechte lijnen</string>
   <string name="rookIntro">De toren is een krachtig stuk. Ben je klaar om hem aan te voeren?</string>
-  <string name="rookGoal">"Klik op de toren
-om hem naar de ster te brengen!"</string>
+  <string name="rookGoal">Klik op de toren
+om hem naar de ster te brengen!</string>
   <string name="grabAllTheStars">Grijp al de sterren!</string>
-  <string name="theFewerMoves">"Hoe minder zetten je doet,
-hoe meer punten je wint!"</string>
-  <string name="useTwoRooks">"Gebruik twee torens
-om sneller klaar te zijn!"</string>
+  <string name="theFewerMoves">Hoe minder zetten je doet,
+hoe meer punten je wint!</string>
+  <string name="useTwoRooks">Gebruik twee torens
+om sneller klaar te zijn!</string>
   <string name="rookComplete">Gefeliciteerd! Je hebt de toren onder de knie gekregen.</string>
   <string name="theBishop">De loper</string>
   <string name="itMovesDiagonally">Hij beweegt diagonaal</string>
   <string name="bishopIntro">Nu zullen we leren hoe je een loper manoeuvreert!</string>
-  <string name="youNeedBothBishops">"Een loper op lichte vakjes,
+  <string name="youNeedBothBishops">Een loper op lichte vakjes,
 een loper op donkere vakjes.
-Je hebt beiden nodig!"</string>
+Je hebt beiden nodig!</string>
   <string name="bishopComplete">Gefeliciteerd! Je kunt een loper aanvoeren.</string>
   <string name="theQueen">De dame</string>
   <string name="queenCombinesRookAndBishop">Dame = toren + loper</string>
@@ -40,26 +40,26 @@ Je hebt beiden nodig!"</string>
   <string name="theKnight">Het paard</string>
   <string name="itMovesInAnLShape">Het beweegt in een L-vorm</string>
   <string name="knightIntro">Hier is een uitdaging voor jou. Het paard is... een lastig stuk.</string>
-  <string name="knightsHaveAFancyWay">"Paarden hebben een mooie manier
-om rond de springen!"</string>
-  <string name="knightsCanJumpOverObstacles">"Paarden kunnen over obstakels springen!
-Ontsnap en overwin de sterren!"</string>
+  <string name="knightsHaveAFancyWay">Paarden hebben een mooie manier
+om rond de springen!</string>
+  <string name="knightsCanJumpOverObstacles">Paarden kunnen over obstakels springen!
+Ontsnap en overwin de sterren!</string>
   <string name="knightComplete">Gefeliciteerd! Je hebt het paard onder de knie.</string>
   <string name="thePawn">De pion</string>
   <string name="itMovesForwardOnly">Hij gaat alleen vooruit</string>
   <string name="pawnIntro">Pionnen zijn zwak, maar ze hebben veel potentieel.</string>
-  <string name="pawnsMoveOneSquareOnly">"Pionnen bewegen maar één vakje vooruit.
-Maar wanneer ze de andere kant van het bord bereiken, worden ze een sterker stuk!"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"Meestal is promoveren naar een dame het beste.
-Maar soms kan ook een paard handig zijn!"</string>
-  <string name="pawnsMoveForward">"Pionnen bewegen voorwaarts,
-maar slaan schuin!"</string>
+  <string name="pawnsMoveOneSquareOnly">Pionnen bewegen maar één vakje vooruit.
+Maar wanneer ze de andere kant van het bord bereiken, worden ze een sterker stuk!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meestal is promoveren naar een dame het beste.
+Maar soms kan ook een paard handig zijn!</string>
+  <string name="pawnsMoveForward">Pionnen bewegen voorwaarts,
+maar slaan schuin!</string>
   <string name="captureThenPromote">Sla, promoveer dan!</string>
-  <string name="useAllThePawns">"Gebruik al de pionnen!
-Promoveren is niet nodig."</string>
+  <string name="useAllThePawns">Gebruik al de pionnen!
+Promoveren is niet nodig.</string>
   <string name="aPawnOnTheSecondRank">Een pion op de tweede rij kan 2 vakjes in een keer bewegen!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">"Grijp al de sterren!
-Promoveren is niet nodig."</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Grijp al de sterren!
+Promoveren is niet nodig.</string>
   <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen voor jou.</string>
   <string name="pawnPromotion">Pionpromotie</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Je pion heeft het einde van het bord bereikt!</string>
@@ -70,19 +70,19 @@ Promoveren is niet nodig."</string>
   <string name="takeTheEnemyPieces">Sla de stukken van de tegenstander</string>
   <string name="captureIntro">Identificeer de ongedekte stukken van de tegenstander en sla ze!</string>
   <string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">"Sla de zwarte stukken!
-En verlies uw eigen niet."</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
+En verlies uw eigen niet.</string>
   <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met schaakstukken!</string>
   <string name="protection">Dekken</string>
   <string name="keepYourPiecesSafe">Houd je stukken veilig</string>
   <string name="protectionIntro">Stel vast welke stukken door je tegenstander worden aangevallen, en verdedig ze!</string>
   <string name="protectionComplete">Van harte! Een stuk dat je niet verliest is een stuk dat je wint!</string>
-  <string name="escape">"Je wordt aangevallen!
-Ontsnap aan de dreiging!"</string>
-  <string name="noEscape">"Er is geen ontsnapping mogelijk,
-maar je kunt verdedigen!"</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">"Laat hen geen enkel
-onbeschermd stuk slaan!"</string>
+  <string name="escape">Je wordt aangevallen!
+Ontsnap aan de dreiging!</string>
+  <string name="noEscape">Er is geen ontsnapping mogelijk,
+maar je kunt verdedigen!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Laat hen geen enkel
+onbeschermd stuk slaan!</string>
   <string name="combat">Strijd</string>
   <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
   <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
@@ -90,26 +90,26 @@ onbeschermd stuk slaan!"</string>
   <string name="checkInOne">Schaak in 1 zet</string>
   <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
   <string name="checkInOneIntro">Om je tegenstanders schaak te zetten, moet je hun koning aanvallen. Zij moeten hem verdedigen!</string>
-  <string name="checkInOneGoal">"Right op de koning van de tegenstander
-in één zet!"</string>
+  <string name="checkInOneGoal">Right op de koning van de tegenstander
+in één zet!</string>
   <string name="checkInOneComplete">Gefeliciteerd! Je hebt je tegenstander schaak gezet, dus hem gedwongen zijn koning te verdedigen!</string>
   <string name="outOfCheck">Geen schaak meer mogelijk</string>
   <string name="defendYourKing">Verdedig je koning</string>
   <string name="outOfCheckIntro">Je staat schaak! Je moet ontsnappen of de aanval blokkeren.</string>
   <string name="escapeWithTheKing">Ontsnappen met de koning!</string>
-  <string name="theKingCannotEscapeButBlock">"De koning kan niet ontsnappen,
-maar je kunt de aanval blokkeren!"</string>
-  <string name="youCanGetOutOfCheckByTaking">"Je kunt ontsnappen uit de aanval
-door het aanvallende stuk te slaan."</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">"Het paard zet je schaak
-doorheen je verdediging!"</string>
+  <string name="theKingCannotEscapeButBlock">De koning kan niet ontsnappen,
+maar je kunt de aanval blokkeren!</string>
+  <string name="youCanGetOutOfCheckByTaking">Je kunt ontsnappen uit de aanval
+door het aanvallende stuk te slaan.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Het paard zet je schaak
+doorheen je verdediging!</string>
   <string name="escapeOrBlock">Ontsnap met de koning of blokkeer de aanval!</string>
   <string name="outOfCheckComplete">Gefeliciteerd! Je koning kan nooit geslagen worden, zorg ervoor dat je je kunt verdedigen als je schaak staat!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
   <string name="mateInOneIntro">Je wint wanneer je tegenstander zich niet tegen schaak kan verdedigen.</string>
-  <string name="attackYourOpponentsKing">"Val de koning van de tegenstander aan
-op een manier die niet kan worden verdedigd!"</string>
+  <string name="attackYourOpponentsKing">Val de koning van de tegenstander aan
+op een manier die niet kan worden verdedigd!</string>
   <string name="mateInOneComplete">Gefeliciteerd! Dit is hoe je schaakpartijen wint!</string>
   <string name="intermediate">Halfgevorderd</string>
   <string name="boardSetup">Beginstelling</string>
@@ -126,68 +126,68 @@ op een manier die niet kan worden verdedigd!"</string>
   <string name="castling">Rokade</string>
   <string name="theSpecialKingMove">De speciale koningszet</string>
   <string name="castlingIntro">Breng je koning naar een veilige plaats, en zet je toren in voor een aanval!</string>
-  <string name="castleKingSide">"Beweeg je koning twee vakjes
-om naar koningszijde te rokeren!"</string>
-  <string name="castleQueenSide">"Beweeg je koning twee vakjes
-om naar de dameszijde te rokeren!"</string>
-  <string name="theKnightIsInTheWay">"Het paard staat in de weg!
-Verplaats het, rokeer dan naar de koningszijde."</string>
-  <string name="castleKingSideMovePiecesFirst">"Rokeer naar de koningszijde!
-Je moet eerst nog stukken wegplaatsen."</string>
-  <string name="castleQueenSideMovePiecesFirst">"Rokeer naar de dameszijde!
-Je moet eerst nog stukken wegplaatsen."</string>
-  <string name="youCannotCastleIfMoved">"Je kunt niet rokeren als
+  <string name="castleKingSide">Beweeg je koning twee vakjes
+om naar koningszijde te rokeren!</string>
+  <string name="castleQueenSide">Beweeg je koning twee vakjes
+om naar de dameszijde te rokeren!</string>
+  <string name="theKnightIsInTheWay">Het paard staat in de weg!
+Verplaats het, rokeer dan naar de koningszijde.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokeer naar de koningszijde!
+Je moet eerst nog stukken wegplaatsen.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rokeer naar de dameszijde!
+Je moet eerst nog stukken wegplaatsen.</string>
+  <string name="youCannotCastleIfMoved">Je kunt niet rokeren als
 de koning al heeft bewogen
-of de toren al heeft bewogen."</string>
-  <string name="youCannotCastleIfAttacked">"Je kunt niet rokeren als
+of de toren al heeft bewogen.</string>
+  <string name="youCannotCastleIfAttacked">Je kunt niet rokeren als
 de koning onderweg wordt aangevallen.
-Zorg dat je niet schaak gezet kunt worden en rokeer dan!"</string>
-  <string name="findAWayToCastleKingSide">"Vind een weg om
-naar de koningszijde te rokeren!"</string>
-  <string name="findAWayToCastleQueenSide">"Vind een weg om
-naar de dameszijde te rokeren!"</string>
+Zorg dat je niet schaak gezet kunt worden en rokeer dan!</string>
+  <string name="findAWayToCastleKingSide">Vind een weg om
+naar de koningszijde te rokeren!</string>
+  <string name="findAWayToCastleQueenSide">Vind een weg om
+naar de dameszijde te rokeren!</string>
   <string name="castlingComplete">Gefeliciteerd! Je moet bijna altijd rokeren in een spel.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speciale pionzet</string>
   <string name="enPassantIntro">Als de pion van de tegenstander twee velden tegelijk beweegt, kunt u het slaan alsof het maar één zet heeft bewogen.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">"Zwart heeft zojuist de pion
+  <string name="blackJustMovedThePawnByTwoSquares">Zwart heeft zojuist de pion
 met twee zetten bewogen!
-Sla het en passant."</string>
-  <string name="enPassantOnlyWorksImmediately">"En passant werkt alleen
+Sla het en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant werkt alleen
 meteen nadat de tegenstander
-de pion heeft gezet."</string>
-  <string name="enPassantOnlyWorksOnFifthRank">"En passant werkt alleen
-als uw pion op de vijfde rij staat."</string>
+de pion heeft gezet.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant werkt alleen
+als uw pion op de vijfde rij staat.</string>
   <string name="takeAllThePawnsEnPassant">Sla alle pionnen en passant!</string>
   <string name="enPassantComplete">Gefeliciteerd! U kunt nu en passant slaan.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">De partij eindigt in remise</string>
   <string name="stalemateIntro">Als een speler niet schaak staat en geen legale zetten heeft, is het pat. De partij eindigt in remise: niemad wint en niemand verliest.</string>
-  <string name="stalemateGoal">"Om zwart pat te zetten:
+  <string name="stalemateGoal">Om zwart pat te zetten:
 - Zwart kan niet zetten
-- Zwart staat niet schaak."</string>
+- Zwart staat niet schaak.</string>
   <string name="stalemateComplete">Gefeliciteerd! Je kunt beter pat staan dan mat!</string>
   <string name="advanced">Geavanceerd</string>
   <string name="pieceValue">Stukwaarde</string>
   <string name="evaluatePieceStrength">Evalueer stukwaarde</string>
-  <string name="pieceValueIntro">"Stukken die meer kunnen hebben een hogere waarde!
+  <string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!
 Dame = 9
 Toren = 5
 Loper = 3
 Paard = 3
 Pion = 1
-De koning is onbetaalbaar! Als je hem verliest, verlies je de partij."</string>
-  <string name="queenOverBishop">"Sla het stuk met
+De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
+  <string name="queenOverBishop">Sla het stuk met
 de hoogste waarde!
-Dame &gt; loper"</string>
-  <string name="takeThePieceWithTheHighestValue">"Sla het stuk met
-de hoogste waarde!"</string>
-  <string name="pieceValueComplete">"Gefeliciteerd! Je kent de waarde van materiaal! 
+Dame &gt; loper</string>
+  <string name="takeThePieceWithTheHighestValue">Sla het stuk met
+de hoogste waarde!</string>
+  <string name="pieceValueComplete">Gefeliciteerd! Je kent de waarde van materiaal! 
 Koningin = 9 
 Toren = 5 
 Loper = 3 
 Paard = 3 
-Pion = 1"</string>
+Pion = 1</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
