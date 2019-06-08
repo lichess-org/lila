@@ -213,7 +213,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedBoardResizeHandleChoices(implicit ctx: Context) = List(
     (Pref.ResizeHandle.NEVER, trans.never.txt()),
-    (Pref.ResizeHandle.INITIAL, "Only on initial position"),
+    (Pref.ResizeHandle.INITIAL, trans.onlyOnInitialPosition.txt()),
     (Pref.ResizeHandle.ALWAYS, trans.always.txt())
   )
 

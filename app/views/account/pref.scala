@@ -76,7 +76,7 @@ object pref {
             radios(form("display.zen"), booleanChoices)
           ),
           setting(
-            "Display board resize handle",
+            trans.displayBoardResizeHandle(),
             radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
           ),
           setting(

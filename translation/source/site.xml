@@ -632,6 +632,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
+  <string name="displayBoardResizeHandle">Display board resize handle</string>
+  <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
   <string name="whiteCastlingKingside">White O-O</string>
