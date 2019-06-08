@@ -327,8 +327,8 @@
   <string name="fromPosition">Із позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="importGame">Імпортувати гру</string>
-  <string name="importGameExplanation">"При вставці PGN-гри ви отримуєте повтор в браузері,
-комп'ютерний аналіз, ігровий чат та посилання, яким можна поділитися."</string>
+  <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
+комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <string name="thisIsAChessCaptcha">Це – шаховий код.</string>
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
@@ -546,8 +546,8 @@
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
   <string name="victory">Перемога!</string>
   <string name="defeat">Поразка</string>
-  <string name="xVsYinZ">"%1$s проти %2$s
-в %3$s"</string>
+  <string name="xVsYinZ">%1$s проти %2$s
+в %3$s</string>
   <string name="timeline">Смуга подій</string>
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
