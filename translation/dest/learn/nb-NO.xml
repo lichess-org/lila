@@ -20,9 +20,9 @@
   <string name="theBishop">Løperen</string>
   <string name="itMovesDiagonally">Flyttes diagonalt</string>
   <string name="bishopIntro">Nå skal vi lære hvordan man manøvrerer en løper!</string>
-  <string name="youNeedBothBishops">"Én hvitfeltsløper,
+  <string name="youNeedBothBishops">Én hvitfeltsløper,
 én sortfeltsløper.
-Du trenger begge!"</string>
+Du trenger begge!</string>
   <string name="bishopComplete">Gratulerer! Du kan ta kommando over løperen.</string>
   <string name="theQueen">Dronningen</string>
   <string name="queenCombinesRookAndBishop">Dronning = tårn + løper</string>
@@ -38,24 +38,24 @@ Du trenger begge!"</string>
   <string name="itMovesInAnLShape">Den flyttes i en L-form</string>
   <string name="knightIntro">Dette blir en utfordring. Springeren er en... vanskelig brikke.</string>
   <string name="knightsHaveAFancyWay">Springere har en fancy måte å hoppe rundt på!</string>
-  <string name="knightsCanJumpOverObstacles">"Springere kan hoppe over hindringer! 
-Flykt og beseire stjernene!"</string>
+  <string name="knightsCanJumpOverObstacles">Springere kan hoppe over hindringer! 
+Flykt og beseire stjernene!</string>
   <string name="knightComplete">Gratulerer! Du har mestret springeren.</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den går bare fremover</string>
   <string name="pawnIntro">Bonder er svake, men de innehar en masse potensial.</string>
-  <string name="pawnsMoveOneSquareOnly">"Bønder beveger seg kun én rute av gangen,
+  <string name="pawnsMoveOneSquareOnly">Bønder beveger seg kun én rute av gangen,
 men når de når den andre siden av brettet,
-blir de en sterkere brikke!"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"Vanligvis er det best å gjøre den om til en dronning,
-men noen ganger kan en springer være fin å ha!"</string>
+blir de en sterkere brikke!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Vanligvis er det best å gjøre den om til en dronning,
+men noen ganger kan en springer være fin å ha!</string>
   <string name="pawnsMoveForward">Bønder går fremover, men fanger andre brikker diagonalt!</string>
   <string name="captureThenPromote">Slå ut, så forvandle!</string>
-  <string name="useAllThePawns">"Bruk alle bøndene!
-Ingen grunn til å forvandle."</string>
+  <string name="useAllThePawns">Bruk alle bøndene!
+Ingen grunn til å forvandle.</string>
   <string name="aPawnOnTheSecondRank">En bonde på andreraden kan flytte 2 ruter samtidig!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">"Ta alle stjernene!
-Ingen grunn til å forvandle."</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Ta alle stjernene!
+Ingen grunn til å forvandle.</string>
   <string name="pawnComplete">Gratulerer! Bøndene holder ingen hemmeligheter for deg.</string>
   <string name="pawnPromotion">Bondeforvandling</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din bonde nådde enden av brettet!</string>
@@ -73,8 +73,8 @@ Ingen grunn til å forvandle."</string>
   <string name="protectionIntro">Identifiser brikkene motstanderen din angriper, og forsvar dem!</string>
   <string name="protectionComplete">Gratulerer! En brikke du ikke mister er en brikke du vinner!</string>
   <string name="escape">Du er under angrep! Unnslipp trusselen!</string>
-  <string name="noEscape">"Det er ingen flukt,
-men du kan forsvare!"</string>
+  <string name="noEscape">Det er ingen flukt,
+men du kan forsvare!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">La ikke motstanderen ta en udekket brikke!</string>
   <string name="combat">Kamp</string>
   <string name="captureAndDefendPieces">Slå ut og forsvar brikker</string>
@@ -135,31 +135,31 @@ men du kan forsvare!"</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet er remis</string>
   <string name="stalemateIntro">Når en spiller ikke står i sjakk og ikke har noe lovlig trekk, er det patt. Partiet er remis: ingen vinner, ingen taper.</string>
-  <string name="stalemateGoal">"Svart blir patt om:
+  <string name="stalemateGoal">Svart blir patt om:
 - svart ikke kan flytte noen av brikkene
-- svart ikke står i sjakk."</string>
+- svart ikke står i sjakk.</string>
   <string name="stalemateComplete">Gratulerer! Det er bedre å bli satt patt enn sjakk matt!</string>
   <string name="advanced">For viderekomne</string>
   <string name="pieceValue">Brikkeverdi</string>
   <string name="evaluatePieceStrength">Vurdering av brikkestyrken</string>
-  <string name="pieceValueIntro">"Brikker med flest trekkmuligheter har høyest verdi!
+  <string name="pieceValueIntro">Brikker med flest trekkmuligheter har høyest verdi!
 Dronning = 9
 Tårn = 5
 Løper = 3
 Springer = 3
 Bonde = 1
-Kongen er uvurderlig! Mister du den er spillet tapt."</string>
-  <string name="queenOverBishop">"Slå ut brikken 
+Kongen er uvurderlig! Mister du den er spillet tapt.</string>
+  <string name="queenOverBishop">Slå ut brikken 
 med høyest verdi!
-Dronning &gt; løper"</string>
-  <string name="takeThePieceWithTheHighestValue">"Slå ut brikken
-med høyest verdi!"</string>
-  <string name="pieceValueComplete">"Gratulerer! Du kjenner brikkenes verdi! 
+Dronning &gt; løper</string>
+  <string name="takeThePieceWithTheHighestValue">Slå ut brikken
+med høyest verdi!</string>
+  <string name="pieceValueComplete">Gratulerer! Du kjenner brikkenes verdi! 
 Dronning = 9 
 Tårn = 5 
 Løper = 3 
 Springer = 3 
-Bonde = 1"</string>
+Bonde = 1</string>
   <string name="checkInTwo">Sjakk i to trekk</string>
   <string name="twoMovesToGiveCheck">To trekk for å sette sjakk</string>
   <string name="checkInTwoIntro">Finn den rette to-trekks-kombinasjonen som sjakker motspillerens konge!</string>
