@@ -186,13 +186,13 @@
   <string name="email">Email</string>
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
-  <string name="rank">Priečka</string>
-  <string name="rankX">Rank: %s</string>
+  <string name="rank">Poradie</string>
+  <string name="rankX">Poradie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rebríček sa aktualizuje každú minútu</item>
-    <item quantity="few">Rebríček sa aktualizuje každé %s minúty</item>
-    <item quantity="many">Rebríček sa aktualizuje každých %s minút</item>
-    <item quantity="other">Rebríček sa aktualizuje každých %s minút</item>
+    <item quantity="one">Poradie sa aktualizuje každú minútu</item>
+    <item quantity="few">Poradie sa aktualizuje každé %s minúty</item>
+    <item quantity="many">Poradie sa aktualizuje každých %s minút</item>
+    <item quantity="other">Poradie sa aktualizuje každých %s minút</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s úloha</item>
