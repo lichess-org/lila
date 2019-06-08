@@ -7,31 +7,31 @@
   <string name="isNotRated">Txapelketa *ez bada* sailkatutakoa, *ez du* zure sailkapenean eraginik izango.</string>
   <string name="someRated">Txapelketa batzuk sailkapenerako balio dutenez zure sailkapenaren puntuazioa aldatuko dute.</string>
   <string name="howAreScoresCalculated">Nola kalkulatzen dira puntuazioak?</string>
-  <string name="howAreScoresCalculatedAnswer">"Irabaziak 2 puntu ematen ditu, berdinketak puntu 1 eta galerak bat ere ez.
+  <string name="howAreScoresCalculatedAnswer">Irabaziak 2 puntu ematen ditu, berdinketak puntu 1 eta galerak bat ere ez.
 Bi partida jarraian irabazten badituzu, suaren ikonoa agertuko da.
 Hurrengo partidek ere puntu-bikoitzen balioa izango dute, bat irabazten ez duzun arte.
 Hau da, irabazteak 4 puntu emango dizkizu, berdinketak 2 eta galerak bat ere ez.
 
-Adibidez, bi partida irabazi eta jarraian bat berdintzeak 6 puntu balioko ditu: 2 + 2 + (2 x 1)"</string>
+Adibidez, bi partida irabazi eta jarraian bat berdintzeak 6 puntu balioko ditu: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">"Jokalari batek partidaren hasieran Berserk botoia sakatzen badu, bere erlojuko denbora erdia galduko du, baina partida irabazten badu puntu gehigarri bat lortuko du.
+  <string name="berserkAnswer">Jokalari batek partidaren hasieran Berserk botoia sakatzen badu, bere erlojuko denbora erdia galduko du, baina partida irabazten badu puntu gehigarri bat lortuko du.
 
 Berserk erabiltzen baduzu denbora gehigarria ematen duten denbora kontroletan, honek denbora gehigarria ere bertan behera utziko du (1+2 da salbuespen bakarra, 1+0 ematen du).
 
 Berserk ezin da erabili hasierako denbora zero den denbora kontroletan (0+1, 0+2).
 
-Berserk-ek puntu gehigarria emango dizu paridan gutxienez 7 jokaldi egiten badituzu."</string>
+Berserk-ek puntu gehigarria emango dizu paridan gutxienez 7 jokaldi egiten badituzu.</string>
   <string name="howIsTheWinnerDecided">Nola erabakitzen da garailea?</string>
   <string name="howIsTheWinnerDecidedAnswer">Txapelketari ezarritako denbora-muga heltzean puntu gehien duten jokalariak, garaile izendatuko dira.</string>
   <string name="howDoesPairingWork">Nola funtzionatzen dute parekatzeek?</string>
-  <string name="howDoesPairingWorkAnswer">"Txapelketaren hasieran jokalariak beren sailkapenaren arabera parekatuko dira.
+  <string name="howDoesPairingWorkAnswer">Txapelketaren hasieran jokalariak beren sailkapenaren arabera parekatuko dira.
 Partida bat bukatu bezain laster, itzuli txapelketaren egongelara: jarraian zure sailkapenaren antzekoa duen beste jokalari baten aurka jokatuko duzu. Horrela ahalik eta denbora gutxien itxarotea lortzen da nahiz eta ez jokatu txapelketako beste jokalari guztiekin.
-Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazteko."</string>
+Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazteko.</string>
   <string name="howDoesItEnd">Nola bukatzen da?</string>
   <string name="howDoesItEndAnswer">Txapelketak atzerako kontagailua du. Zerora iristean, txapelketaren sailkapena bere horretan gordeko da eta irabazlea nor den jakinaraziko da. Jokoan daduden partidak bukatu egin beharko dira nahiz eta ez duten txapelketarako kontatuko.</string>
   <string name="otherRules">Beste arau garrantzitsu batzuk</string>
-  <string name="otherRulesAnswer">"Zure lehenengo jokaldia zure txandaren lehenengo 20 segunduetan egin behar duzu. Hori ez baduzu egiten partida galdutzat emango zaizu.
-Partidaren lehenengo 10 jokaldietan berdintzen baduzue, jokalari batek ere ez du punturik irabaziko."</string>
+  <string name="otherRulesAnswer">Zure lehenengo jokaldia zure txandaren lehenengo 20 segunduetan egin behar duzu. Hori ez baduzu egiten partida galdutzat emango zaizu.
+Partidaren lehenengo 10 jokaldietan berdintzen baduzue, jokalari batek ere ez du punturik irabaziko.</string>
   <string name="thisIsPrivate">Hau txapelketa pribatu bat da</string>
   <string name="shareUrl">Partekatu helbide hau jendeak parte har dezan: %s</string>
 </resources>
