@@ -12,20 +12,20 @@
   <string name="theRook">Ο πύργος</string>
   <string name="itMovesInStraightLines">Κινείται σε ευθείες γραμμές</string>
   <string name="rookIntro">Ο πύργος είναι ένα ισχυρό κομμάτι. Είστε έτοιμοι να το χρησιμοποιήσετε;</string>
-  <string name="rookGoal">"Κάντε κλικ στον πύργο
-για να τον μετακινήσετε στο αστέρι!"</string>
+  <string name="rookGoal">Κάντε κλικ στον πύργο
+για να τον μετακινήσετε στο αστέρι!</string>
   <string name="grabAllTheStars">Πιάστε όλα τα αστέρια!</string>
-  <string name="theFewerMoves">"Όσες λιγότερες κινήσεις κάνετε,
-τόσο περισσότερους πόντους κερδίζετε!"</string>
-  <string name="useTwoRooks">"Χρησιμοποιήστε δύο πύργους
-για να επιταχύνετε τα πράγματα!"</string>
+  <string name="theFewerMoves">Όσες λιγότερες κινήσεις κάνετε,
+τόσο περισσότερους πόντους κερδίζετε!</string>
+  <string name="useTwoRooks">Χρησιμοποιήστε δύο πύργους
+για να επιταχύνετε τα πράγματα!</string>
   <string name="rookComplete">Συγχαρητήρια! Χειριστήκατε επιτυχώς τον πύργο.</string>
   <string name="theBishop">Ο αξιωματικός</string>
   <string name="itMovesDiagonally">Κινείται διαγώνια</string>
   <string name="bishopIntro">Στη συνέχεια θα μάθουμε πως να χειριζόμαστε τον αξιωματικό!</string>
-  <string name="youNeedBothBishops">"Ένας λευκοτετράγωνος αξιωματικός,
+  <string name="youNeedBothBishops">Ένας λευκοτετράγωνος αξιωματικός,
 ένας μαυροτετράγωνος αξιωματικός.
-Χρειάζεστε και τους δύο!"</string>
+Χρειάζεστε και τους δύο!</string>
   <string name="bishopComplete">Συγχαρητήρια! Μπορείτε να χειριστείτε τον αξιωματικό.</string>
   <string name="theQueen">Η βασίλισσα</string>
   <string name="queenCombinesRookAndBishop">Βασίλισσα = πύργος + αξιωματικός</string>
@@ -40,26 +40,26 @@
   <string name="theKnight">Ο ίππος</string>
   <string name="itMovesInAnLShape">Κινείται σε σχήμα Γ</string>
   <string name="knightIntro">Εδώ είναι μια δοκιμασία για εσάς. Ο ίππος είναι… ένα περίεργο κομμάτι.</string>
-  <string name="knightsHaveAFancyWay">"Οι ίπποι έχουν ένα παράξενο τρόπο
-να πηδούν τριγύρω!"</string>
-  <string name="knightsCanJumpOverObstacles">"Οι ίπποι μπορούν να υπερπηδούν εμπόδια!
-Ξεφύγετε και πιάστε τα αστέρια!"</string>
+  <string name="knightsHaveAFancyWay">Οι ίπποι έχουν ένα παράξενο τρόπο
+να πηδούν τριγύρω!</string>
+  <string name="knightsCanJumpOverObstacles">Οι ίπποι μπορούν να υπερπηδούν εμπόδια!
+Ξεφύγετε και πιάστε τα αστέρια!</string>
   <string name="knightComplete">Συγχαρητήρια! Έχετε μάθει να χειρίζεστε τον ίππο.</string>
   <string name="thePawn">Το πιόνι</string>
   <string name="itMovesForwardOnly">Κινείται προς τα εμπρός μόνο</string>
   <string name="pawnIntro">Τα πιόνια είναι αδύναμα, αλλά έχουν αρκετές δυνατότητες.</string>
-  <string name="pawnsMoveOneSquareOnly">"Τα πιόνια κινούνται σε ένα τετράγωνο μόνο.
-Αλλά όταν φθάσουν στην άλλη πλευρά της σκακιέρας, μπορούν να αντικατασταθούν με ένα ισχυρότερο κομμάτι!"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"Τις περισσότερες φορές η προώθηση σε βασίλισσα είναι το καλύτερο.
-Αλλά μερικές φορές ένας ίππος μπορεί να είναι χρήσιμος!"</string>
-  <string name="pawnsMoveForward">"Τα πιόνια κινούνται προς τα εμπρός,
-αλλά αιχμαλωτίζουν διαγώνια!"</string>
+  <string name="pawnsMoveOneSquareOnly">Τα πιόνια κινούνται σε ένα τετράγωνο μόνο.
+Αλλά όταν φθάσουν στην άλλη πλευρά της σκακιέρας, μπορούν να αντικατασταθούν με ένα ισχυρότερο κομμάτι!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Τις περισσότερες φορές η προώθηση σε βασίλισσα είναι το καλύτερο.
+Αλλά μερικές φορές ένας ίππος μπορεί να είναι χρήσιμος!</string>
+  <string name="pawnsMoveForward">Τα πιόνια κινούνται προς τα εμπρός,
+αλλά αιχμαλωτίζουν διαγώνια!</string>
   <string name="captureThenPromote">Αιχμαλωτίστε, έπειτα προωθήστε!</string>
-  <string name="useAllThePawns">"Χρησιμοποιήστε όλα τα πιόνια!
-Δεν χρειάζεται προαγωγή."</string>
+  <string name="useAllThePawns">Χρησιμοποιήστε όλα τα πιόνια!
+Δεν χρειάζεται προαγωγή.</string>
   <string name="aPawnOnTheSecondRank">Ένα πιόνι στην δεύτερη γραμμή μπορεί να κινηθεί 2 τετράγωνα αμέσως!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">"Πιάστε όλα τα αστέρια!
-Δεν χρειάζεται προαγωγή."</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Πιάστε όλα τα αστέρια!
+Δεν χρειάζεται προαγωγή.</string>
   <string name="pawnComplete">Συγχαρητήρια! Τα πιόνια δεν έχουν άλλα μυστικά για εσάς.</string>
   <string name="pawnPromotion">Προαγωγή πιονιού</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Το πιόνι σας έφτασε στην άκρη της σκακιέρας!</string>
@@ -70,19 +70,19 @@
   <string name="takeTheEnemyPieces">Πάρτε τα πιόνια του αντιπάλου</string>
   <string name="captureIntro">Βρείτε τα ανυπεράσπιστα πιόνια του αντιπάλου, και πάρτε τα!</string>
   <string name="takeTheBlackPieces">Πάρτε τα μαύρα πιόνια!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">"Πάρτε τα μαύρα πιόνια!
-Και προστατεύστε τα δικά σας."</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Πάρτε τα μαύρα πιόνια!
+Και προστατεύστε τα δικά σας.</string>
   <string name="captureComplete">Συγχαρητήρια! Ξέρετε πως να παίζετε με τα πιόνια του σκακιού!</string>
   <string name="protection">Προστασία</string>
   <string name="keepYourPiecesSafe">Κρατήστε τα πιόνια σας ασφαλή</string>
   <string name="protectionIntro">Βρείτε τα πιόνια που επιτίθεται ο αντίπαλος και προστατεύστε τα!</string>
   <string name="protectionComplete">Συγχαρητήρια! Ένα πιόνι που δεν χάνεται είναι ένα πιόνι που κερδίζεται!</string>
-  <string name="escape">"Δέχεστε επίθεση!
-Ξεφύγετε από την απειλή!"</string>
-  <string name="noEscape">"Δεν υπάρχει διαφυγή,
-αλλά υπάρχει άμυνα!"</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">"Αποτρέψτε το χάσιμο
-ανυπερασπίστων κομματιών!"</string>
+  <string name="escape">Δέχεστε επίθεση!
+Ξεφύγετε από την απειλή!</string>
+  <string name="noEscape">Δεν υπάρχει διαφυγή,
+αλλά υπάρχει άμυνα!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το χάσιμο
+ανυπερασπίστων κομματιών!</string>
   <string name="combat">Μάχη</string>
   <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε πιόνια</string>
   <string name="combatIntro">Ο καλός παίκτης γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
@@ -110,51 +110,51 @@
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="howTheGameStarts">Πώς αρχίζει το παιχνίδι</string>
   <string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
-  <string name="thisIsTheInitialPosition">"Αυτή είναι η αρχική θέση
+  <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
 κάθε παρτίδας στο σκάκι!
-Κάντε οποιαδήποτε κίνηση για συνέχεια."</string>
-  <string name="firstPlaceTheRooks">"Πρώτα τοποθετήστε τους πύργους!
-Μπαίνουν στις γωνίες."</string>
-  <string name="thenPlaceTheKnights">"Μετά τοποθετήστε τους ίππους!
-Μπαίνουν δίπλα στους πύργους."</string>
-  <string name="placeTheBishops">"Τοποθετήστε τους αξιωματικούς!
-Μπαίνουν δίπλα στους ίππους."</string>
-  <string name="placeTheQueen">"Τοποθετήστε την βασίλισσα!
-Μπαίνει στο χρώμα της."</string>
-  <string name="placeTheKing">"Τοποθετήστε τον βασιλιά!
-Ακριβώς δίπλα στη βασίλισσά του."</string>
-  <string name="pawnsFormTheFrontLine">"Τα πιόνια αποτελούν την πρώτη γραμμή.
-Κάντε οποιαδήποτε κίνηση για συνέχεια."</string>
+Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
+  <string name="firstPlaceTheRooks">Πρώτα τοποθετήστε τους πύργους!
+Μπαίνουν στις γωνίες.</string>
+  <string name="thenPlaceTheKnights">Μετά τοποθετήστε τους ίππους!
+Μπαίνουν δίπλα στους πύργους.</string>
+  <string name="placeTheBishops">Τοποθετήστε τους αξιωματικούς!
+Μπαίνουν δίπλα στους ίππους.</string>
+  <string name="placeTheQueen">Τοποθετήστε την βασίλισσα!
+Μπαίνει στο χρώμα της.</string>
+  <string name="placeTheKing">Τοποθετήστε τον βασιλιά!
+Ακριβώς δίπλα στη βασίλισσά του.</string>
+  <string name="pawnsFormTheFrontLine">Τα πιόνια αποτελούν την πρώτη γραμμή.
+Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
   <string name="boardSetupComplete">Συγχαρητήρια! Ξέρετε πως να στήνετε την σκακιέρα.</string>
   <string name="castling">Pοκέ</string>
   <string name="theSpecialKingMove">Ειδική κίνηση βασιλιά</string>
   <string name="castlingIntro">Φέρτε τον Βασιλιά σε ασφάλεια, και αναπτύξτε τον πύργο για επίθεση!</string>
-  <string name="castleKingSide">"Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ
-στη πλευρά του βασιλιά!"</string>
-  <string name="castleQueenSide">"Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ
-στη πλευρά της βασίλισσας!"</string>
-  <string name="theKnightIsInTheWay">"Ο ίππος εμποδίζει!
-Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά του βασιλιά."</string>
-  <string name="castleKingSideMovePiecesFirst">"Ροκέ στη πλευρά του βασιλιά!
-Πρέπει πρώτα να βγάλετε τα κομμάτια."</string>
-  <string name="castleQueenSideMovePiecesFirst">"Ροκέ στη πλευρά-βασίλισσας!
-Πρέπει πρώτα να βγάλετε τα κομμάτια."</string>
-  <string name="youCannotCastleIfMoved">"Δεν επιτρέπεται ροκέ αν
+  <string name="castleKingSide">Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ
+στη πλευρά του βασιλιά!</string>
+  <string name="castleQueenSide">Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ
+στη πλευρά της βασίλισσας!</string>
+  <string name="theKnightIsInTheWay">Ο ίππος εμποδίζει!
+Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά του βασιλιά.</string>
+  <string name="castleKingSideMovePiecesFirst">Ροκέ στη πλευρά του βασιλιά!
+Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
+  <string name="castleQueenSideMovePiecesFirst">Ροκέ στη πλευρά-βασίλισσας!
+Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
+  <string name="youCannotCastleIfMoved">Δεν επιτρέπεται ροκέ αν
 ο βασιλιάς έχει μετακινηθεί
-ή ο πύργος έχει μετακινηθεί."</string>
-  <string name="youCannotCastleIfAttacked">"Δεν επιτρέπεται ροκέ αν
+ή ο πύργος έχει μετακινηθεί.</string>
+  <string name="youCannotCastleIfAttacked">Δεν επιτρέπεται ροκέ αν
 ο βασιλιάς δέχεται επίθεση.
-Αποκλείστε το σαχ και μετά κάντε ροκέ!"</string>
-  <string name="findAWayToCastleKingSide">"Βρείτε τρόπο για να κάνετε
-ροκέ στη πλευρά του βασιλιά!"</string>
-  <string name="findAWayToCastleQueenSide">"Βρείτε τρόπο για να κάνετε
-ροκέ στη πλευρά της βασίλισσας!"</string>
+Αποκλείστε το σαχ και μετά κάντε ροκέ!</string>
+  <string name="findAWayToCastleKingSide">Βρείτε τρόπο για να κάνετε
+ροκέ στη πλευρά του βασιλιά!</string>
+  <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
+ροκέ στη πλευρά της βασίλισσας!</string>
   <string name="castlingComplete">Συγχαρητήρια! Προτείνεται να κάνετε ροκέ σε κάθε παρτίδα.</string>
   <string name="enPassant">Εν διελεύσει</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινηθεί δύο τετράγωνα, μπορείτε να το πάρετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">"Τα μαύρα μόλις μετακίνησαν το πιόνι ανά δύο τετράγωνα!
-Πάρτε το εν διελεύσει."</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Τα μαύρα μόλις μετακίνησαν το πιόνι ανά δύο τετράγωνα!
+Πάρτε το εν διελεύσει.</string>
   <string name="enPassantOnlyWorksImmediately">Το εν διελεύσει λειτουργεί μόνο αμέσω ςμετά την μετακίνηση του αντίπαλου πιονιού.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Το εν διελεύσει λειτουργεί μόνο αν το πιόνι σας βρίσκεται στην 5η βαθμίδα.</string>
   <string name="takeAllThePawnsEnPassant">Πάρτε όλα τα πιόνια εν διελεύσει!</string>
@@ -162,36 +162,36 @@
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
   <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν μπορεί να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δε χάνει.</string>
-  <string name="stalemateGoal">"Πατ στα μαύρα:
+  <string name="stalemateGoal">Πατ στα μαύρα:
 - Ο μαύρος δεν μπορεί να κινηθεί πουθενά
-- Δεν υπάρχει σαχ."</string>
+- Δεν υπάρχει σαχ.</string>
   <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
   <string name="advanced">Προχωρημένο στάδιο</string>
   <string name="pieceValue">Αξία πιονιού</string>
   <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε πιονιού</string>
-  <string name="pieceValueIntro">"Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
+  <string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
 Βασίλισσα = 9
 Πύργος = 5
 Αξιωματικός = 3
 Ίππος = 3
 Πιόνι = 1
-Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι."</string>
-  <string name="queenOverBishop">"Πάρτε το κομμάτι
+Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
+  <string name="queenOverBishop">Πάρτε το κομμάτι
 με την υψηλότερη αξία!
-Βασίλισσα &gt; Αξιωματικός"</string>
-  <string name="takeThePieceWithTheHighestValue">"Πάρτε το κομμάτι
-με την υψηλότερη αξία!"</string>
-  <string name="pieceValueComplete">"Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
+Βασίλισσα &gt; Αξιωματικός</string>
+  <string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι
+με την υψηλότερη αξία!</string>
+  <string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
 Βασίλισσα = 9 
 Πύργος = 5 
 Αξιωματικός = 3 
 Ίππος = 3
-Πιόνι = 1"</string>
+Πιόνι = 1</string>
   <string name="checkInTwo">Σαχ σε δύο</string>
   <string name="twoMovesToGiveCheck">Δύο κινήσεις για να κάνετε σαχ</string>
   <string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που κάνει σαχ στον βασιλιά του αντιπάλου!</string>
-  <string name="checkInTwoGoal">"Απειλήστε τον αντίπαλο βασιλιά
-σε δύο κινήσεις!"</string>
+  <string name="checkInTwoGoal">Απειλήστε τον αντίπαλο βασιλιά
+σε δύο κινήσεις!</string>
   <string name="checkInTwoComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
   <string name="whatNext">Τι υπάρχει στη συνέχεια;</string>
   <string name="youKnowHowToPlayChess">Γνωρίζετε πως να παίζετε σκάκι, συγχαρητήρια! Θέλετε να γίνετε ισχυρότερος παίχτης;</string>
