@@ -7,21 +7,21 @@
   <string name="isNotRated">本锦标赛是*无*积分的。所以它*不*会影响您的积分。</string>
   <string name="someRated">有些锦标赛有积分，会影响您的积分。</string>
   <string name="howAreScoresCalculated">分数是怎么计算的？</string>
-  <string name="howAreScoresCalculatedAnswer">"赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你不能赢得一局棋。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
+  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你不能赢得一局棋。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
 
-例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。"</string>
+例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。</string>
   <string name="berserk">锦标赛加快棋速</string>
-  <string name="berserkAnswer">"如果棋手在棋局开始时点击“加快棋速”按钮他／她将损失一半的时间，但是每局赢棋将多得1分。如果时间控制存在着步时／加秒那么加快棋速会导致步时／加秒被取消。唯一的例外是1+2。在这个情况下加快棋速会把时间控制变为1+0。
+  <string name="berserkAnswer">如果棋手在棋局开始时点击“加快棋速”按钮他／她将损失一半的时间，但是每局赢棋将多得1分。如果时间控制存在着步时／加秒那么加快棋速会导致步时／加秒被取消。唯一的例外是1+2。在这个情况下加快棋速会把时间控制变为1+0。
 
 在没有局时的棋局， 如0+1、0+2等不得使用加快棋速功能。
 
-只有当您在棋局中起码下7步棋的情况下加快棋速才有加分。"</string>
+只有当您在棋局中起码下7步棋的情况下加快棋速才有加分。</string>
   <string name="howIsTheWinnerDecided">锦标赛赢家是怎么确定的？</string>
   <string name="howIsTheWinnerDecidedAnswer">锦标赛结束时分数最高的棋手是赢家。</string>
   <string name="howDoesPairingWork">棋手是怎么配对的？</string>
-  <string name="howDoesPairingWorkAnswer">"在锦标赛开始时系统会根据棋手积分进行配对。当一局结束时请回到锦标赛主页。您会被与您锦标赛名次接近的棋手配对。这尽可能降低棋手在主页的等待时间。然而您不一定会和锦标赛所有其他棋手下棋。
+  <string name="howDoesPairingWorkAnswer">在锦标赛开始时系统会根据棋手积分进行配对。当一局结束时请回到锦标赛主页。您会被与您锦标赛名次接近的棋手配对。这尽可能降低棋手在主页的等待时间。然而您不一定会和锦标赛所有其他棋手下棋。
 
-为了下更多的棋局以得到更多的锦标赛积分请尽量快地下完每一盘棋并回到主页。"</string>
+为了下更多的棋局以得到更多的锦标赛积分请尽量快地下完每一盘棋并回到主页。</string>
   <string name="howDoesItEnd">锦标赛如何结束？</string>
   <string name="howDoesItEndAnswer">锦标赛有倒计时。当它到零的时候锦标赛名次不再变动，赢家就确定了。此时未下完的棋局必须下完但这些棋局不计入锦标赛分数。</string>
   <string name="otherRules">其他重要的规则</string>
