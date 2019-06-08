@@ -692,6 +692,8 @@
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
   <string name="onlyFriends">Tylko znajomi</string>
+  <string name="displayBoardResizeHandle">Pokaż kursor zmiany wielkości szachownicy</string>
+  <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
