@@ -46,9 +46,10 @@ window.lichess.keyboardMove = function(opts: any) {
       if (v.length === 3) v = 'P' + v;
       opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
       clear();
-    } else if (v.toLowerCase().startsWith('clock')) {
-      readClocks(opts.ctrl.clock());
-      clear();
+    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
+      if ('clock' === v.toLowerCase()) {
+        readClocks(opts.ctrl.clock());
+      }
     } else if (submitOpts.yourMove && v.length > 1) {
       setTimeout(window.lichess.sound.error, 500);
       opts.input.value = '';
