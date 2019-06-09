@@ -133,9 +133,9 @@ export class ClockController {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
     this.tickCallback = setTimeout(
       this.tick,
-      // changing the value of active node makes chromevox screen reader bug out
+      // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 3000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
+      this.opts.nvui ? 1000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
   }
 
   // Should only be invoked by scheduleTick.
