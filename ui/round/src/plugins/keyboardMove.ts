@@ -27,11 +27,12 @@ window.lidraughts.keyboardMove = function(opts: any) {
       if (submitOpts.force) {
         opts.ctrl.select(v.length === 1 ? ('0' + v) : v);
         clear();
-      } else
-        opts.input.classList.remove('wrong');
-    } else if (v.toLowerCase().startsWith('clock')) {
-      readClocks(opts.ctrl.clock());
-      clear();
+      } else opts.input.classList.remove('wrong');
+    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
+      if ('clock' === v.toLowerCase()) {
+        readClocks(opts.ctrl.clock());
+        clear();
+      }
     } else if (submitOpts.yourMove && v.length > 1) {
       setTimeout(window.lidraughts.sound.error, 500);
       opts.input.value = '';
