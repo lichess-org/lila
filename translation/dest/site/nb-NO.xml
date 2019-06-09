@@ -634,6 +634,8 @@ i %3$s</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
   <string name="onlyFriends">Bare venner</string>
+  <string name="displayBoardResizeHandle">Vis håndtak for brettstørrelse</string>
+  <string name="onlyOnInitialPosition">Kun for utgangsstillingen</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvit 0-0</string>

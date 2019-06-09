@@ -692,6 +692,8 @@
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>
+  <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
+  <string name="onlyOnInitialPosition">Только в начальном положении</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
   <string name="whiteCastlingKingside">Белые О-О</string>
