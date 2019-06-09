@@ -93,6 +93,7 @@
   <string name="replayMode">Endursýning</string>
   <string name="realtimeReplay">Rauntími</string>
   <string name="byCPL">Skv. stigum</string>
+  <string name="openStudy">Opna rannsókn</string>
   <string name="enable">Á</string>
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="evaluationGauge">Stöðumat</string>
@@ -284,6 +285,10 @@
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Þú þarft að spila %1$s fleiri %2$s leik með stigagjöf</item>
     <item quantity="other">Þú þarft að spila %1$s fleiri %2$s leiki með stigagjöf</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Þú verður að spila %s leik með stigagjöf í viðbót</item>
+    <item quantity="other">Þú verður að spila %s leiki með stigagjöf í viðbót</item>
   </plurals>
   <string name="backToGame">Aftur í leik</string>
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
