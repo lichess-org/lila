@@ -843,7 +843,7 @@
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
       $('.chat__members').watchers();
-      if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind-mode'))
+      if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
         $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lidraughts.reload);
     });
   });
