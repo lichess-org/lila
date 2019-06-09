@@ -49,6 +49,7 @@ window.lichess.keyboardMove = function(opts: any) {
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
         readClocks(opts.ctrl.clock());
+        clear();
       }
     } else if (submitOpts.yourMove && v.length > 1) {
       setTimeout(window.lichess.sound.error, 500);
