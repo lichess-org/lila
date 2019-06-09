@@ -129,6 +129,12 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           '/resign: Resign game.', h('br'),
           '/draw: Offer or accept draw.', h('br'),
           '/takeback: Offer or accept take back.', h('br')
+        ]),
+        h('h2', 'Promotion'),
+        h('p', [
+          'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
+          h('br'),
+          'Omission results in promotion to queen'
         ])
       ]);
     }
