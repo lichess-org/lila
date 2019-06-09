@@ -26,8 +26,12 @@ function load($f) {
         else location.href = res.startsWith('ok:') ? res.substr(3) : '/';
       },
       error: function(err) {
-        $f.replaceWith($(err.responseText).find(selector));
-        load($(selector));
+        try {
+          $f.replaceWith($(err.responseText).find(selector));
+          load($(selector));
+        } catch(e) {
+          alert(err.responseText || 'Error; try again later.');
+        }
       }
     });
     return false;

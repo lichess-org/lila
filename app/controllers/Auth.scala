@@ -429,7 +429,7 @@ object Auth extends LilaController {
     }
   }
 
-  private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
+  private implicit val limitedDefault = Zero.instance[Result](TooManyRequest("Too many requests, try again later."))
 
   private[controllers] def HasherRateLimit =
     PasswordHasher.rateLimit[Result](enforce = Env.api.Net.RateLimit) _
