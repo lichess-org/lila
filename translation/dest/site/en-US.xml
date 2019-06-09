@@ -634,6 +634,7 @@ in %3$s</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
+  <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
   <string name="whiteCastlingKingside">White O-O</string>
