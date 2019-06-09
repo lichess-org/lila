@@ -24,8 +24,12 @@ function load($f) {
         else location.href = res.indexOf('ok:') === 0 ? res.substr(3) : '/';
       },
       error: function(err) {
-        $f.replaceWith($(err.responseText).find('form.login'));
-        load($('form.login'));
+        try {
+          $f.replaceWith($(err.responseText).find('form.login'));
+          load($('form.login'));
+        } catch(e) {
+          alert(err.responseText || 'Error; try again later.');
+        }
       }
     });
     return false;
