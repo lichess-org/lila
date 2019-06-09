@@ -633,7 +633,7 @@ en %3$s</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
   <string name="onlyFriends">Seulement les amis</string>
-  <string name="displayBoardResizeHandle">Afficher le bouton de redimensionnement de l\'échiquier</string>
+  <string name="displayBoardResizeHandle">Afficher la flèche de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
