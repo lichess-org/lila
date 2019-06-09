@@ -693,6 +693,8 @@ v %3$s</string>
   <string name="inCorrespondenceGames">V korespondenčnih partijah</string>
   <string name="ifRatingIsPlusMinusX">Če je rating ± %s</string>
   <string name="onlyFriends">Samo prijatelji</string>
+  <string name="displayBoardResizeHandle">Prikazuj ročico za spremebo velikosti šahovnice</string>
+  <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
   <string name="menu">Meni</string>
   <string name="castling">Rokada</string>
   <string name="whiteCastlingKingside">Beli O-O</string>
