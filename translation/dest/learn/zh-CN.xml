@@ -131,22 +131,22 @@
   <string name="advanced">高级</string>
   <string name="pieceValue">子力价值</string>
   <string name="evaluatePieceStrength">对子力进行估值</string>
-  <string name="pieceValueIntro">"活动范围大的棋子价值较高。
+  <string name="pieceValueIntro">活动范围大的棋子价值较高。
 后=9
 车=5
 象=3
 马=3
 兵=1
-王是无价的。如果您的王被将死了您就输了这盘棋。"</string>
-  <string name="queenOverBishop">"请吃掉价值大的棋子！
-后&gt;象"</string>
+王是无价的。如果您的王被将死了您就输了这盘棋。</string>
+  <string name="queenOverBishop">请吃掉价值大的棋子！
+后&gt;象</string>
   <string name="takeThePieceWithTheHighestValue">请吃掉价值大的棋子！</string>
-  <string name="pieceValueComplete">"恭喜！您已经懂得子力价值！
+  <string name="pieceValueComplete">恭喜！您已经懂得子力价值！
 后=9
 车=5
 象=3
 马=3
-兵=1"</string>
+兵=1</string>
   <string name="checkInTwo">二步将</string>
   <string name="twoMovesToGiveCheck">走两步棋并将军对方</string>
   <string name="checkInTwoIntro">请找到正确的两步棋对敌王将军。</string>

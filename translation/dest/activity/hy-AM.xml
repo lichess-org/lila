@@ -3,9 +3,9 @@
 <resources>
   <string name="activity">Գործունեություն</string>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">"Լուծել է տակտիկական խնդիր
+    <item quantity="one">Լուծել է տակտիկական խնդիր
 
-Լուծել է տակտիկական խնդիրներ"</item>
+Լուծել է տակտիկական խնդիրներ</item>
     <item quantity="other">Լուծել է տակտիկական խնդիրներ</item>
   </plurals>
   <plurals name="playedNbGames">

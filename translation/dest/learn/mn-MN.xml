@@ -126,29 +126,29 @@
   <string name="stalemate">Мухардалт буюу хайнаа</string>
   <string name="theGameIsADraw">Өрөг тэнцлээ</string>
   <string name="stalemateIntro">Хэрвээ тоглогч шалаанд ороогүй мөн хориогүй нүүдэл хийх боломжгүй болсныг мухардалт гэнэ. Мухардсан өргийг тэнцээгээр тооцно.</string>
-  <string name="stalemateGoal">"Харыг мухардуулахын тулд:
+  <string name="stalemateGoal">Харыг мухардуулахын тулд:
 - Хар ноён хаашаа ч нүүх нүүдэлгүй байх
-- Хар ноён шаглагдаагүй байх."</string>
+- Хар ноён шаглагдаагүй байх.</string>
   <string name="stalemateComplete">Баяр хүргэе! Мадлуулснаас мухардалт орсон нь дээр!</string>
   <string name="advanced">Ахисан шат</string>
   <string name="pieceValue">Хөлгийн үнэ цэнэ</string>
   <string name="evaluatePieceStrength">Хөлгийн хүчийг үнэл</string>
-  <string name="pieceValueIntro">"Хөлгийн байдал өндөр хөлөг хамгийн хүчтэй!
+  <string name="pieceValueIntro">Хөлгийн байдал өндөр хөлөг хамгийн хүчтэй!
 Бэрс = 9
 Тэрэг = 5
 Тэмээ = 3
 Морь = 3
 Хүү = 1
-Ноёнг үнэлж барашгүй юм. Түүнийг алдах нь өрөгт хожигдсоныг илтгэнэ."</string>
-  <string name="queenOverBishop">"Хамгийн өндөр үнэлгээтэй хөлгийг ид! 
-Бэрс &gt; Тэмээ"</string>
+Ноёнг үнэлж барашгүй юм. Түүнийг алдах нь өрөгт хожигдсоныг илтгэнэ.</string>
+  <string name="queenOverBishop">Хамгийн өндөр үнэлгээтэй хөлгийг ид! 
+Бэрс &gt; Тэмээ</string>
   <string name="takeThePieceWithTheHighestValue">Хамгийн өндөр үнэлгээтэй хөлгийг ид!</string>
-  <string name="pieceValueComplete">"Баяр хүргэе! Та хөлгүүдийн үнэ цэнийг мэдлээ! 
+  <string name="pieceValueComplete">Баяр хүргэе! Та хөлгүүдийн үнэ цэнийг мэдлээ! 
 Бэрс=9
 Тэрэг=5
 Тэмээ=3
 Морь=3
-Хүү=1"</string>
+Хүү=1</string>
   <string name="checkInTwo">Хоёр нүүдлийн шалаа</string>
   <string name="twoMovesToGiveCheck">Хоёр нүүгээд шал</string>
   <string name="checkInTwoIntro">Эсрэг талын ноёныг шалах зөв 2 нүүдлийн хослолыг олоорой!</string>

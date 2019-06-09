@@ -336,8 +336,8 @@
   <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
   <string name="importGame">খেলা আমদানী</string>
-  <string name="importGameExplanation">"যখন একটি খেলার PGN যোগ করবেন আপনি পাবেন একটি ব্রাউজাবেল উত্তর,
-একটি কম্পিউটার বিশ্লেষণ, একটি খেলা আলাপ এবং একটি ভাগাভাগি করার URL."</string>
+  <string name="importGameExplanation">যখন একটি খেলার PGN যোগ করবেন আপনি পাবেন একটি ব্রাউজাবেল উত্তর,
+একটি কম্পিউটার বিশ্লেষণ, একটি খেলা আলাপ এবং একটি ভাগাভাগি করার URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s টি আমদানীকৃত খেলা</item>
     <item quantity="other">%s টি আমদানীকৃত খেলা</item>
@@ -579,8 +579,8 @@
   <string name="xCommentedY">%1$s মন্তব্য করা হয়েছে %2$s</string>
   <string name="victory">বিজয়</string>
   <string name="defeat">হার</string>
-  <string name="xVsYinZ">"%1$s বানাম %2$s
-এর %3$s"</string>
+  <string name="xVsYinZ">%1$s বানাম %2$s
+এর %3$s</string>
   <string name="timeline">সময়রেখা</string>
   <string name="starting">শুরু হইতেছে:</string>
   <string name="allInformationIsPublicAndOptional">সব তথ্য হয় সরকারী এবং ঐচ্ছিক.</string>
@@ -718,8 +718,8 @@
   <string name="youHaveAlreadyRegisteredTheEmail">আপনি ইতিমধ্যে এই ই-মেইলে নিবন্ধন করেছেন: %s</string>
   <string name="kidMode">বাচ্চা ধরন</string>
   <string name="kidModeExplanation">এটা হয় নিরাপত্তা সম্পর্কে. বাচ্চা ধরনের মধ্যে সব সাইটের যোগাযোগ নিষ্ক্রিয় করা হয়েছে. আপনার বাচ্চা এবং বিদ্যালয়ের ছাত্রদের, অন্য ইন্টারনেট ব্যবহারকারীদের থেকে রক্ষা করতে এটা সক্রিয় করুন.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">"বাচ্চা ধরনের মধ্যে, লিচেস লোগো পায় একটি %s প্রতীক,
-তাই আপনি জানতে পারবেন আপনার বাচ্চা নিরাপদ."</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">বাচ্চা ধরনের মধ্যে, লিচেস লোগো পায় একটি %s প্রতীক,
+তাই আপনি জানতে পারবেন আপনার বাচ্চা নিরাপদ.</string>
   <string name="enableKidMode">বাচ্চা ধরন সক্রিয় করুন</string>
   <string name="disableKidMode">বাচ্চা ধরন নিষ্ক্রিয় করুন</string>
   <string name="security">নিরাপত্তা</string>

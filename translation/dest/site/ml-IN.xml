@@ -577,8 +577,8 @@
   <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
   <string name="victory">വിജയം!</string>
   <string name="defeat">തോൽവി</string>
-  <string name="xVsYinZ">"%1$s vs %2$s
-in %3$s"</string>
+  <string name="xVsYinZ">%1$s vs %2$s
+in %3$s</string>
   <string name="timeline">ജീവിതകാലം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>

@@ -662,6 +662,8 @@
   <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
   <string name="onlyFriends">Tikai draugi</string>
+  <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas turi</string>
+  <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="menu">Izvēlne</string>
   <string name="castling">Rokāde</string>
   <string name="whiteCastlingKingside">Baltajiem O-O</string>

@@ -20,9 +20,9 @@
   <string name="theBishop">Löparen</string>
   <string name="itMovesDiagonally">Den rör sig diagonalt</string>
   <string name="bishopIntro">Härnäst kommer vi lära dig att manövrera en löpare!</string>
-  <string name="youNeedBothBishops">"En ljus löpare,
+  <string name="youNeedBothBishops">En ljus löpare,
 en mörk löpare.
-Du behöver bägge!"</string>
+Du behöver bägge!</string>
   <string name="bishopComplete">Grattis! Du behärskar löparen.</string>
   <string name="theQueen">Drottningen</string>
   <string name="queenCombinesRookAndBishop">Drottning = torn + löpare</string>
@@ -128,28 +128,28 @@ Du behöver bägge!"</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet är remi</string>
   <string name="stalemateIntro">Om en spelare inte är i schack och inte heller har något drag att göra så är det patt. Partiet är remi: ingen vinner, ingen förlorar.</string>
-  <string name="stalemateGoal">"Svart blir patt om:
+  <string name="stalemateGoal">Svart blir patt om:
 - svart inte kan flytta någon pjäs alls och
-- svart inte är i schack."</string>
+- svart inte är i schack.</string>
   <string name="stalemateComplete">Grattis! Bättre att vara patt än schackmatt!</string>
   <string name="advanced">Avancerat</string>
   <string name="pieceValue">Pjäsernas värdering</string>
   <string name="evaluatePieceStrength">Värdera pjäser</string>
-  <string name="pieceValueIntro">"Ju högre rörlighet - desto högre värde har en pjäs!
+  <string name="pieceValueIntro">Ju högre rörlighet - desto högre värde har en pjäs!
 Dam = 9
 Torn = 5
 Löpare = 3
 Springare = 3
 Bonde = 1
-Kungen är ovärderlig, om du förlorar den har du förlorat partiet."</string>
+Kungen är ovärderlig, om du förlorar den har du förlorat partiet.</string>
   <string name="queenOverBishop">Slå den mest värdefulla pjäsen! Dam &gt; löpare</string>
   <string name="takeThePieceWithTheHighestValue">Slå pjäsen med högst värde!</string>
-  <string name="pieceValueComplete">"Grattis! Nu vet du hur schackpjäserna värderas!
+  <string name="pieceValueComplete">Grattis! Nu vet du hur schackpjäserna värderas!
 Dam = 0
 Torn = 5
 Löpare = 3
 Springare = 3
-Bonde = 1"</string>
+Bonde = 1</string>
   <string name="checkInTwo">Schacka i två drag</string>
   <string name="twoMovesToGiveCheck">Schacka efter två drag</string>
   <string name="checkInTwoIntro">Hitta rätt dragföljd som schackar motståndarens kung i två drag!</string>

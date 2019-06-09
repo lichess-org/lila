@@ -20,9 +20,9 @@
   <string name="theBishop">Løparen</string>
   <string name="itMovesDiagonally">Blir flytta diagonalt</string>
   <string name="bishopIntro">No skal vi lære korleis manøvrere ein løpar!</string>
-  <string name="youNeedBothBishops">"Ein kvitfeltsløpar,
+  <string name="youNeedBothBishops">Ein kvitfeltsløpar,
 ein svartfeltsløpar.
-Du treng dei begge!"</string>
+Du treng dei begge!</string>
   <string name="bishopComplete">Gratulerar! Du veit å ta kommando over løparen.</string>
   <string name="theQueen">Dronninga</string>
   <string name="queenCombinesRookAndBishop">Dronning = tårn + løpar</string>
@@ -43,18 +43,18 @@ Du treng dei begge!"</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Kan berre gå framover</string>
   <string name="pawnIntro">Bønder er spelemessig veike, men sit på eit stort potensial.</string>
-  <string name="pawnsMoveOneSquareOnly">"Bønder blir flytta eit felt av gongen,
+  <string name="pawnsMoveOneSquareOnly">Bønder blir flytta eit felt av gongen,
 men om dei rekk fram til den andre sida av brettet,
-vert dei ei sterkare brikke!"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"Til vanleg er det best å omvandla til ei dronning,
-men nokre gonger kan ein springar vera fin å ha!"</string>
+vert dei ei sterkare brikke!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Til vanleg er det best å omvandla til ei dronning,
+men nokre gonger kan ein springar vera fin å ha!</string>
   <string name="pawnsMoveForward">Bønder går framover, men slår diagonalt!</string>
   <string name="captureThenPromote">Slå ut, så omvandling!</string>
-  <string name="useAllThePawns">"Bruk alle bøndene!
-Ingen grunn til å omvandla."</string>
+  <string name="useAllThePawns">Bruk alle bøndene!
+Ingen grunn til å omvandla.</string>
   <string name="aPawnOnTheSecondRank">Ein bonde på andreraden kan hoppa fram to felt!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">"Ta alle stjernene!
-Det er inga grunn til omvandling."</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Ta alle stjernene!
+Det er inga grunn til omvandling.</string>
   <string name="pawnComplete">Gratulerar! Bøndene har ingen løyndomar for deg.</string>
   <string name="pawnPromotion">Bondeomvandling</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Bonden din kom fram til bortre ende av brettet!</string>
@@ -133,31 +133,31 @@ Det er inga grunn til omvandling."</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje står i sjakk og ikkje har eit einaste lovleg trekk å gjera, er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
-  <string name="stalemateGoal">"Svart blir sett patt om:
+  <string name="stalemateGoal">Svart blir sett patt om:
 - svart ikkje har eit einaste lovleg trekk å gjera
-- svart ikkje står i sjakk."</string>
+- svart ikkje står i sjakk.</string>
   <string name="stalemateComplete">Gratulerar! Det er bedre å verta sett patt enn sjakk matt!</string>
   <string name="advanced">Vidarekomande</string>
   <string name="pieceValue">Brikkeverde</string>
   <string name="evaluatePieceStrength">Vurdering av styrken til brikkene</string>
-  <string name="pieceValueIntro">"Brikker med flest trekkmoglegheiter har høgast verde!
+  <string name="pieceValueIntro">Brikker med flest trekkmoglegheiter har høgast verde!
 Dronning = 9
 Tårn = 5
 Løpar = 3
 Springar = 3
 Bonde = 1
-Kongen er uvurderleg! Misser du han har du tapt spelet."</string>
-  <string name="queenOverBishop">"Slå ut brikken 
+Kongen er uvurderleg! Misser du han har du tapt spelet.</string>
+  <string name="queenOverBishop">Slå ut brikken 
 med det høgste verdet!
-Dronning &gt; løpar"</string>
-  <string name="takeThePieceWithTheHighestValue">"Slå ut brikka
-med høgast verde!"</string>
-  <string name="pieceValueComplete">"Gratulerar! Du kjenner verdet til brikkene! 
+Dronning &gt; løpar</string>
+  <string name="takeThePieceWithTheHighestValue">Slå ut brikka
+med høgast verde!</string>
+  <string name="pieceValueComplete">Gratulerar! Du kjenner verdet til brikkene! 
 Dronning = 9 
 Tårn = 5 
 Løpar = 3 
 Springar = 3 
-Bonde = 1"</string>
+Bonde = 1</string>
   <string name="checkInTwo">Sjakk i to trekk</string>
   <string name="twoMovesToGiveCheck">Sjakk om to trekk</string>
   <string name="checkInTwoIntro">Finn den rette kombinasjonen av to trekk som sjakkar kongen til motspelaren!</string>

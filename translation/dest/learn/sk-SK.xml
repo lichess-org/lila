@@ -20,9 +20,9 @@
   <string name="theBishop">Strelec</string>
   <string name="itMovesDiagonally">Pohybuje sa diagonálne</string>
   <string name="bishopIntro">Ďalej sa naučíte ako manévrovať so strelcom!</string>
-  <string name="youNeedBothBishops">"Jeden bielopoľný strelec,
+  <string name="youNeedBothBishops">Jeden bielopoľný strelec,
 jeden čiernopoľný strelec.
-Potrebujete ich oboch!"</string>
+Potrebujete ich oboch!</string>
   <string name="bishopComplete">Gratulujeme! Dokážete ovládať strelca.</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
@@ -38,23 +38,23 @@ Potrebujete ich oboch!"</string>
   <string name="itMovesInAnLShape">Pohybuje sa do \"L\"</string>
   <string name="knightIntro">Máme pre Vás výzvu. Jazdec je... prešibaná figúrka.</string>
   <string name="knightsHaveAFancyWay">Jazdci skáču naozaj nevyspytateľne!</string>
-  <string name="knightsCanJumpOverObstacles">"Jazdci dokážu skákať cez prekážky!
-Uniknite z obkľúčenia a premôžte hviezdy!"</string>
+  <string name="knightsCanJumpOverObstacles">Jazdci dokážu skákať cez prekážky!
+Uniknite z obkľúčenia a premôžte hviezdy!</string>
   <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
   <string name="thePawn">Pešiak</string>
   <string name="itMovesForwardOnly">Pohybuje sa výlučne vpred</string>
   <string name="pawnIntro">Pešiaci sú slabí, ale majú v sebe veľký potenciál.</string>
   <string name="pawnsMoveOneSquareOnly">Pešiaci sa pohybujú iba o jedno políčko vpred. Keď však dôjdu na koniec šachovnice, stane sa z nich silnejšia figúrka!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"Väčšinou je najlepšie premeniť pešiaka na dámu.
-Niekedy sa však môže hodiť aj jazdec!"</string>
-  <string name="pawnsMoveForward">"Pešiaci sa pohybujú vpred,
-ale berú diagonálne!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Väčšinou je najlepšie premeniť pešiaka na dámu.
+Niekedy sa však môže hodiť aj jazdec!</string>
+  <string name="pawnsMoveForward">Pešiaci sa pohybujú vpred,
+ale berú diagonálne!</string>
   <string name="captureThenPromote">Zbierajte, premente a opäť zbierajte!</string>
-  <string name="useAllThePawns">"Použite všetkých pešiakov!
-Premieňať nepotrebujete."</string>
+  <string name="useAllThePawns">Použite všetkých pešiakov!
+Premieňať nepotrebujete.</string>
   <string name="aPawnOnTheSecondRank">Keď je pešiak v základnej pozícii, môže sa pohnúť o 2 políčka naraz!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">"Zhrabnite všetky hviezdy!
-Premieňať nepotrebujete."</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Zhrabnite všetky hviezdy!
+Premieňať nepotrebujete.</string>
   <string name="pawnComplete">Gratulujeme! Pešiakov zvládate ľavou zadnou.</string>
   <string name="pawnPromotion">Premena pešiaka</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Váš pešiak došiel na koniec šachovnice!</string>
@@ -65,17 +65,17 @@ Premieňať nepotrebujete."</string>
   <string name="takeTheEnemyPieces">Branie súperových figúrok</string>
   <string name="captureIntro">Rozpoznajte súperove nechránené figúrky a vezmite ich!</string>
   <string name="takeTheBlackPieces">Vyhoďte čierne figúrky!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">"Vezmite súperove figúrky!
-A nepríďte o vlastné!"</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Vezmite súperove figúrky!
+A nepríďte o vlastné!</string>
   <string name="captureComplete">Gratulujeme! Teraz viete ako so šachovými figúrkami bojovať!</string>
   <string name="protection">Chránenie</string>
   <string name="keepYourPiecesSafe">Držte svoje figúrky v bezpečí</string>
   <string name="protectionIntro">Rozpoznajte figúrky, ktoré Vám súper napadá a ochráňte ich!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
-  <string name="escape">"Ste napadnutí!
-Uniknite ohrozeniu!"</string>
-  <string name="noEscape">"Nedá sa utiecť,
-ale môžete sa brániť!"</string>
+  <string name="escape">Ste napadnutí!
+Uniknite ohrozeniu!</string>
+  <string name="noEscape">Nedá sa utiecť,
+ale môžete sa brániť!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nenechajte si vziať žiadne nechránené figúrky!</string>
   <string name="combat">Súboj</string>
   <string name="captureAndDefendPieces">Branie a chránenie figúrok</string>
@@ -136,29 +136,29 @@ ale môžete sa brániť!"</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia končí remízou</string>
   <string name="stalemateIntro">Keď hráč, ktorý je na ťahu nemôže potiahnuť žiadnou figúrkou a jeho kráľ nie je v šachu, je to pat. Partia končí remízou: nikto nevyhrá ani neprehrá.</string>
-  <string name="stalemateGoal">"Dostaňte čierneho do patu:
+  <string name="stalemateGoal">Dostaňte čierneho do patu:
 - Nemôže vykonať žiadny ťah
-- Jeho kráľ nie je v šachu."</string>
+- Jeho kráľ nie je v šachu.</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
   <string name="advanced">Nadstavba</string>
   <string name="pieceValue">Hodnota figúr</string>
   <string name="evaluatePieceStrength">Ohodnotenie sily figúrok</string>
-  <string name="pieceValueIntro">"Figúrky s vyššou pohyblivosťou majú vyššiu hodnotu!
+  <string name="pieceValueIntro">Figúrky s vyššou pohyblivosťou majú vyššiu hodnotu!
 Dáma = 9
 Veža = 5
 Strelec = 3
 Jazdec = 3
 Pešiak = 1
-Kráľ má nevyčísliteľnú hodnotu! Jeho strata znamená prehru partie."</string>
-  <string name="queenOverBishop">"Vezmite figúrku s najvyššou hodnotou!
-Dáma &gt; Strelec"</string>
+Kráľ má nevyčísliteľnú hodnotu! Jeho strata znamená prehru partie.</string>
+  <string name="queenOverBishop">Vezmite figúrku s najvyššou hodnotou!
+Dáma &gt; Strelec</string>
   <string name="takeThePieceWithTheHighestValue">Vezmite figúrku s najvyššou hodnotou!</string>
-  <string name="pieceValueComplete">"Gratulujeme! Poznáte hodnotu šachového materiálu!
+  <string name="pieceValueComplete">Gratulujeme! Poznáte hodnotu šachového materiálu!
 Dáma = 9
 Veža = 5
 Strelec = 3
 Jazdec = 3
-Pešiak = 1"</string>
+Pešiak = 1</string>
   <string name="checkInTwo">Šach 2. ťahom</string>
   <string name="twoMovesToGiveCheck">Šach na dva ťahy</string>
   <string name="checkInTwoIntro">Nájdite správnu kombináciu dvoch ťahov aby ste dali súperovmu kráľovi šach!</string>

@@ -36,22 +36,22 @@
   <string name="itMovesInAnLShape">أنه يتحرك بشكل L</string>
   <string name="knightIntro">هنا تحدي لك. الحصان.. قطعة صعبة.</string>
   <string name="knightsHaveAFancyWay">للأحصنة طريقتها المميزة للقفز بالأرجاء!</string>
-  <string name="knightsCanJumpOverObstacles">"الأحصنة يمكنها القفز فوق العوائق!
-الهروب وإخضاع النجوم!"</string>
+  <string name="knightsCanJumpOverObstacles">الأحصنة يمكنها القفز فوق العوائق!
+الهروب وإخضاع النجوم!</string>
   <string name="knightComplete">تهانينا! لقد أتقنت الحصان.</string>
   <string name="thePawn">البيدق</string>
   <string name="itMovesForwardOnly">يتحرك إلى الأمام فقط</string>
   <string name="pawnIntro">البيادق ضعيفة، إلا أنها مليئة بالكثير من الإمكانبات.</string>
   <string name="pawnsMoveOneSquareOnly">البيادق تتحرك مربع واحد فقط. ولكن عندما تصل إلى الجانب الآخر من الرقعة، فإنها تصبح قطعة أقوى!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"معظم الوقت الترقية إلى الملكة تكون الأفضل.
-ولكن في بعض الأحيان الحصان يمكن أن يأتي بالمساعدة!"</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">معظم الوقت الترقية إلى الملكة تكون الأفضل.
+ولكن في بعض الأحيان الحصان يمكن أن يأتي بالمساعدة!</string>
   <string name="pawnsMoveForward">البيادق تتحرك إلى الأمام، ولكن تأسر وتريًا!</string>
   <string name="captureThenPromote">التقط، ثم رقي!</string>
-  <string name="useAllThePawns">"استخدم جميع البيادق!
-لا حاجة للترقية."</string>
+  <string name="useAllThePawns">استخدم جميع البيادق!
+لا حاجة للترقية.</string>
   <string name="aPawnOnTheSecondRank">البيدق على الصف الثاني يمكن أن يتحرك مربعان مرة واحدة!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">"إجمع كل النجوم!
-لا حاجة للترقية."</string>
+  <string name="grabAllTheStarsNoNeedToPromote">إجمع كل النجوم!
+لا حاجة للترقية.</string>
   <string name="pawnComplete">تهانينا! البيادق لا تخفي أسرار عنك.</string>
   <string name="pawnPromotion">ترقية البيدق</string>
   <string name="yourPawnReachedTheEndOfTheBoard">بلغ بيدقك نهاية الرقعة!</string>
@@ -130,28 +130,28 @@
   <string name="stalemate">الملك مخنوق</string>
   <string name="theGameIsADraw">المباراة تعادل</string>
   <string name="stalemateIntro">عندما يكون اللاعب ليس في كش وليس لديه نقلة قانونية، يكون مات مخنوق. المباراة تعادل: لا فائز، ولا خاسر.</string>
-  <string name="stalemateGoal">"لتميت الأسود خنقًا:
+  <string name="stalemateGoal">لتميت الأسود خنقًا:
 -الأسود لا يمكنه التتحرك لأي مكان
--لا يوجد كش."</string>
+-لا يوجد كش.</string>
   <string name="stalemateComplete">تهانينا! الموت خنقًا أفضل من الكش مات!</string>
   <string name="advanced">متقدم</string>
   <string name="pieceValue">قيمة القطعة</string>
   <string name="evaluatePieceStrength">تقييم قوة قطعة</string>
-  <string name="pieceValueIntro">"القطع ذات القدرة العالية على الحركة لها قيمة أعلى!
+  <string name="pieceValueIntro">القطع ذات القدرة العالية على الحركة لها قيمة أعلى!
  الملكة = 9
  الرخ= 5
  الفيل = 3
  الحصان= 3
 البيدق = 1
-الملك لا يقدر بثمن! فقدانه يعني خسارة المباراة."</string>
+الملك لا يقدر بثمن! فقدانه يعني خسارة المباراة.</string>
   <string name="queenOverBishop">خذ القطعة ذات أعلى قيمة! الملكة &gt; الفيل</string>
   <string name="takeThePieceWithTheHighestValue">خذ القطعة ذات أعلى قيمة!</string>
-  <string name="pieceValueComplete">"تهانينا! أنت تعرف القيم المادية!
+  <string name="pieceValueComplete">تهانينا! أنت تعرف القيم المادية!
 الملكة =9
  الرخ = 5 
 الفيل= 3
 الحصان = 3
-البيدق = 1"</string>
+البيدق = 1</string>
   <string name="checkInTwo">كش في اثنين</string>
   <string name="twoMovesToGiveCheck">نقلتين لإعطاء كش</string>
   <string name="checkInTwoIntro">جد التكوينة الصحيحة من نقلتين لإعطاء كش لملك المنافس!</string>
@@ -167,7 +167,7 @@
   <string name="exerciseYourTacticalSkills">درب مهاراتك التكتيكية</string>
   <string name="videos">مقاطع فيديو</string>
   <string name="watchInstructiveChessVideos">مشاهدة مقاطع فيديو الشطرنج التعليمية</string>
-  <string name="playPeople">اللعب مع أشخاص</string>
+  <string name="playPeople">منافسة أخرين</string>
   <string name="opponentsFromAroundTheWorld">منافسين من مختلف أنحاء العالم</string>
   <string name="playMachine">منافسة الحاسوب</string>
   <string name="testYourSkillsWithTheComputer">اختبار مهارتك مع الكمبيوتر</string>

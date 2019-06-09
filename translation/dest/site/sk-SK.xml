@@ -186,8 +186,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
-  <string name="rank">Priečka</string>
-  <string name="rankX">Rank: %s</string>
+  <string name="rank">Poradie</string>
+  <string name="rankX">Poradie: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Poradie sa aktualizuje každú minútu</item>
+    <item quantity="few">Poradie sa aktualizuje každé %s minúty</item>
+    <item quantity="many">Poradie sa aktualizuje každých %s minút</item>
+    <item quantity="other">Poradie sa aktualizuje každých %s minút</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s úloha</item>
     <item quantity="few">%s úlohy</item>
@@ -686,6 +692,8 @@
   <string name="inCorrespondenceGames">Korešpondenčná hra</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
   <string name="onlyFriends">Iba priatelia</string>
+  <string name="displayBoardResizeHandle">Zobraziť menič veľkosti šachovnice</string>
+  <string name="onlyOnInitialPosition">Iba v základnom postavení</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Biely O-O</string>

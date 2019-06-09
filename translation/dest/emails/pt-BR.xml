@@ -11,11 +11,11 @@
   <string name="emailChange_intro">Você solicitou mudar seu endereço de e-mail.</string>
   <string name="emailChange_click">Para confirmar que você tem acesso a este e-mail, por favor clique no link abaixo:</string>
   <string name="welcome_subject">Bem-vindo ao lichess.org, %s</string>
-  <string name="welcome_text">"Você criou com sucesso sua conta em https://lichess.org.
+  <string name="welcome_text">Você criou com sucesso sua conta em https://lichess.org.
 
 Aqui está sua página de perfil: %1$s. Você pode personalizá-la em %2$s.
 
-Divirta-se, e que suas peças sempre encontrem o caminho até o rei inimigo!"</string>
+Divirta-se, e que suas peças sempre encontrem o caminho até o rei inimigo!</string>
   <string name="common_orPaste">(Clicar no link não funciona? Tente colar em seu navegador!)</string>
   <string name="common_note">Este é um e-mail de serviço relativo ao seu uso de %s.</string>
   <string name="common_contact">Para nos contactar, por favor, acesse este link %s.</string>

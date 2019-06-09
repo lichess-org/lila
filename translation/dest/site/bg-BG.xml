@@ -336,8 +336,8 @@
   <string name="fromPosition">От позиция</string>
   <string name="continueFromHere">Продължи от тук</string>
   <string name="importGame">Добави игра</string>
-  <string name="importGameExplanation">"При поставяне на PGN може да разгледате играта с чата,
-да получите компютърен анализ и линк за споделяне."</string>
+  <string name="importGameExplanation">При поставяне на PGN може да разгледате играта с чата,
+да получите компютърен анализ и линк за споделяне.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Добавени игри</item>
     <item quantity="other">%s Добавени игри</item>
@@ -579,8 +579,8 @@
   <string name="xCommentedY">%1$s говори %2$s</string>
   <string name="victory">Успех!</string>
   <string name="defeat">Загуба</string>
-  <string name="xVsYinZ">"%1$s срещу %2$s
-на %3$s"</string>
+  <string name="xVsYinZ">%1$s срещу %2$s
+на %3$s</string>
   <string name="timeline">Уведомления</string>
   <string name="starting">Начало:</string>
   <string name="allInformationIsPublicAndOptional">Всички данни са публични и са по избор.</string>

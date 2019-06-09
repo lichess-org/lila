@@ -632,6 +632,8 @@
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
   <string name="onlyFriends">Kun venner</string>
+  <string name="displayBoardResizeHandle">Vis indstilling af brætstørrelse</string>
+  <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvid O-O</string>

@@ -3,10 +3,10 @@
 <resources>
   <string name="playWithAFriend">Tefla við vin</string>
   <string name="playWithTheMachine">Tefla við tölvuna</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Til að bjóða einhverjum að tefla, gefðu vefslóðina</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Leik lokið</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
-  <string name="waiting">Biður</string>
+  <string name="waiting">Bið</string>
   <string name="yourTurn">Þú átt leik</string>
   <string name="aiNameLevelAiLevel">%1$s erfiðleiki %2$s</string>
   <string name="level">Stig</string>
@@ -16,9 +16,9 @@
   <string name="resign">Gefast upp</string>
   <string name="checkmate">Skák og mát</string>
   <string name="stalemate">Patt</string>
-  <string name="white">Hvítt</string>
-  <string name="black">Svart</string>
-  <string name="randomColor">litur af handahófi</string>
+  <string name="white">Hvítur</string>
+  <string name="black">Svartur</string>
+  <string name="randomColor">Litur af handahófi</string>
   <string name="createAGame">Hefja leik</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
@@ -31,11 +31,11 @@
   <string name="joinTheGame">Hefja leik</string>
   <string name="whitePlays">Hvítur á leik</string>
   <string name="blackPlays">Svartur á leik</string>
-  <string name="opponentLeftChoices">Andstæðingurinn hefur yfirgefið leikinn. Þú getur krafist uppgjafar, eða biðið.</string>
+  <string name="opponentLeftChoices">Andstæðingurinn hefur yfirgefið leikinn. Þú getur krafist uppgjafar eða beðið.</string>
   <string name="makeYourOpponentResign">Láttu andstæðingin gefast upp</string>
   <string name="forceResignation">Krefjast sigurs</string>
   <string name="forceDraw">Þvinga jafntefli</string>
-  <string name="talkInChat">Spjalla</string>
+  <string name="talkInChat">Vinsamlegast verið vinaleg í spjalli!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Fyrsti einstaklingur sem kemur á þessa vefslóð vill spila við þig</string>
   <string name="whiteResigned">Hvítur gefst upp</string>
   <string name="blackResigned">Svartur gefst upp</string>
@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">Tölvugreining í boði</string>
   <string name="analysis">Greining</string>
   <string name="depthX">Dýpt %s</string>
-  <string name="usingServerAnalysis">Greining frá þjóni</string>
+  <string name="usingServerAnalysis">Greining frá vefþjóni</string>
   <string name="loadingEngine">Hleð inn vél...</string>
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
@@ -80,7 +80,7 @@
     <item quantity="one">Mát eftir %s hálfleik</item>
     <item quantity="other">Mát eftir %s hálfleikum</item>
   </plurals>
-  <string name="noGameFound">Enginn leikur fundinn</string>
+  <string name="noGameFound">Enginn leikur fannst</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
   <string name="openingExplorer">Skoða opnanir</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
@@ -97,6 +97,7 @@
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="evaluationGauge">Stöðumat</string>
   <string name="multipleLines">Mismunandi línur</string>
+  <string name="cpus">Örgjörvar</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Djúp greining</string>
   <string name="removesTheDepthLimit">Fjarlægir dýptartakmörk og heldur tölvunni heitri</string>
@@ -197,6 +198,7 @@
   <string name="casual">Venjuleg</string>
   <string name="rated">Stigaleikur</string>
   <string name="casualTournament">Æfingamót</string>
+  <string name="ratedTournament">Með stigagjöf</string>
   <string name="thisGameIsRated">Þetta er stigaleikur</string>
   <string name="rematch">Endurleikur</string>
   <string name="rematchOfferSent">Boð um endurtekinn leik sent</string>
@@ -211,6 +213,7 @@
   <string name="inbox">Innhólf</string>
   <string name="chatRoom">Spjallherbergi</string>
   <string name="loginToChat">Skráðu þig inn til að spjalla</string>
+  <string name="youHaveBeenTimedOut">Þú getur tímabundið ekki spjallað.</string>
   <string name="spectatorRoom">Svæði áhorfenda</string>
   <string name="composeMessage">Semja skilaboð</string>
   <string name="noNewMessages">Engin ný skilaboð</string>
@@ -220,6 +223,10 @@
   <string name="incrementInSeconds">Tímaaukning í sekúndum</string>
   <string name="freeOnlineChess">Ókeypis vefskák</string>
   <string name="spectators">Áhorfendur</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s með stigagjöf</item>
+    <item quantity="other">%s með stigagjöf</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vinningar</item>
     <item quantity="other">%s vinningar</item>
@@ -242,8 +249,10 @@
     <item quantity="one">Gefa %s sekúndur</item>
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
+  <string name="giveMoreTime">Gefa meiri tíma</string>
   <string name="thisPlayerUsesChessComputerAssistance">Þessi spilari notar skáktölvu til hjálpar</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
+  <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
   <string name="proposeATakeback">Byðja um afturköllun</string>
   <string name="takebackPropositionSent">Boð um afturköllun sent</string>
@@ -257,8 +266,25 @@
   <string name="tournament">Mót</string>
   <string name="tournaments">Mót</string>
   <string name="tournamentPoints">Stig móts</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s stig úr móti</item>
+    <item quantity="other">%s stig úr móti</item>
+  </plurals>
   <string name="viewTournament">Sýna mót</string>
   <string name="backToTournament">Aftur í mót</string>
+  <string name="thematic">Með þema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s leikur með stigagjöf</item>
+    <item quantity="other">≥ %s leikir með stigagjöf</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s leikur með stigagjöf</item>
+    <item quantity="other">≥ %1$s %2$s leikir með stigagjöf</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Þú þarft að spila %1$s fleiri %2$s leik með stigagjöf</item>
+    <item quantity="other">Þú þarft að spila %1$s fleiri %2$s leiki með stigagjöf</item>
+  </plurals>
   <string name="backToGame">Aftur í leik</string>
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
   <string name="teams">Lið</string>

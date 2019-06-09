@@ -635,8 +635,8 @@
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
   <string name="victory">Vítězství!</string>
   <string name="defeat">Porážka</string>
-  <string name="xVsYinZ">"%1$s proti %2$s
-v %3$s"</string>
+  <string name="xVsYinZ">%1$s proti %2$s
+v %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Začíná:</string>
   <string name="allInformationIsPublicAndOptional">Všechny informace jsou veřejné a nepovinné.</string>

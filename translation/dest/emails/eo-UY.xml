@@ -11,11 +11,11 @@
   <string name="emailChange_intro">Vi petas ŝanĝi vian retpoŝtadreso.</string>
   <string name="emailChange_click">Bonvolu alklaku la suban ligilon por konfirmi, ke vi atingas tiun retpoŝtadreson:</string>
   <string name="welcome_subject">Bonvenon al lichess.org, %s</string>
-  <string name="welcome_text">"Vi sukcese kreis vian konton ĉe https://lichess.org.
+  <string name="welcome_text">Vi sukcese kreis vian konton ĉe https://lichess.org.
 
 Jen via profilo: %1$s. Vi povas personecigi ĝin %2$s.
 
-Amuzi, kaj eble viaj pecoj ĉiam trovos sian vojon al la reĝo de via kontraŭulo!"</string>
+Amuzi, kaj eble viaj pecoj ĉiam trovos sian vojon al la reĝo de via kontraŭulo!</string>
   <string name="common_orPaste">(Alklakanta ne funkcii? Provu pasi ĝin en vian retumilon!)</string>
   <string name="common_note">Ĉi tiu estas retpoŝta servo rilate al via uzo %s.</string>
   <string name="common_contact">Por kontakti nin, bonvolu uzi %s.</string>

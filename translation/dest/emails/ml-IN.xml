@@ -11,11 +11,11 @@
   <string name="emailChange_intro">നിങ്ങളുടെ email address മാറ്റാനുള്ള അപേക്ഷ ലഭിച്ചിരിക്കുന്നു.</string>
   <string name="emailChange_click">ഈ email നിങ്ങളുടേതാണെന്ന് ഉറപ്പു വരുത്തുന്നതിനു വേണ്ടി, താഴെ കാണുന്ന ലിങ്ക് അമർത്തുക:</string>
   <string name="welcome_subject">Lichess.org -ലേക്ക് നിങ്ങൾക്കു സ്വാഗതം, %s</string>
-  <string name="welcome_text">"നിങ്ങൾ വിജയകരമായി https://www.lichess.org -ൽ അക്കൗണ്ട് ഉണ്ടാക്കിയിരിക്കുന്നു.
+  <string name="welcome_text">നിങ്ങൾ വിജയകരമായി https://www.lichess.org -ൽ അക്കൗണ്ട് ഉണ്ടാക്കിയിരിക്കുന്നു.
 
 ഇത് നിങ്ങളുടെ profile page: %1$s. അതിൽ മാറ്റങ്ങൾ വരുത്താൻ %2$s അമർത്തുക.
 
-ആസ്വദിക്കൂ, നിങ്ങളുടെ കരുക്കൾ എപ്പൊഴും എതിർരാജാവിന്റെ ദിശയിലേക്കുള്ള വഴി കണ്ടെത്തട്ടേ!"</string>
+ആസ്വദിക്കൂ, നിങ്ങളുടെ കരുക്കൾ എപ്പൊഴും എതിർരാജാവിന്റെ ദിശയിലേക്കുള്ള വഴി കണ്ടെത്തട്ടേ!</string>
   <string name="common_orPaste">(മൗസ് അമർത്തിയിട്ട് ഒന്നും സംഭവിക്കുന്നില്ല? നിങ്ങളുടെ ബ്രൗസറിൽ paste ചെയ്യാൻ ശ്രമിച്ചു നോക്കൂ!)</string>
   <string name="common_note">നിങ്ങളുടെ %s -ന്റെ ഉപയോഗവുമായി ബന്ധപ്പെട്ട സർവീസ് email ആണിത്.</string>
 </resources>

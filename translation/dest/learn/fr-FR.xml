@@ -20,9 +20,9 @@
   <string name="theBishop">Le Fou</string>
   <string name="itMovesDiagonally">Il se déplace en diagonale</string>
   <string name="bishopIntro">Maintenant, nous allons apprendre à déplacer le Fou !</string>
-  <string name="youNeedBothBishops">"Un fou de cases blanches,
+  <string name="youNeedBothBishops">Un fou de cases blanches,
 Un fou de cases noires.
-Vous avez besoin des deux !"</string>
+Vous avez besoin des deux !</string>
   <string name="bishopComplete">Félicitations ! Vous maîtrisez les déplacements du Fou.</string>
   <string name="theQueen">La Dame</string>
   <string name="queenCombinesRookAndBishop">Une dame = une tour + un fou</string>
@@ -43,15 +43,15 @@ Vous avez besoin des deux !"</string>
   <string name="thePawn">Le Pion</string>
   <string name="itMovesForwardOnly">Il se déplace uniquement vers l\'avant</string>
   <string name="pawnIntro">Les Pions sont faibles, mais ils ont beaucoup de potentiel.</string>
-  <string name="pawnsMoveOneSquareOnly">"Les pions avancent d'une case vers l'avant uniquement.
-Mais, lorsqu'ils atteignent le bord opposé de l'échiquier, ils deviennent une pièce plus puissante : c'est une promotion !"</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">"La plupart du temps, la promotion en Dame est la plus avantageuse.
-Mais, parfois, une promotion en Cavalier peut s'avérer utile !"</string>
-  <string name="pawnsMoveForward">"Les pions se déplacent vers l'avant,
-mais capturent en diagonale !"</string>
+  <string name="pawnsMoveOneSquareOnly">Les pions avancent d\'une case vers l\'avant uniquement.
+Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante : c\'est une promotion !</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">La plupart du temps, la promotion en Dame est la plus avantageuse.
+Mais, parfois, une promotion en Cavalier peut s\'avérer utile !</string>
+  <string name="pawnsMoveForward">Les pions se déplacent vers l\'avant,
+mais capturent en diagonale !</string>
   <string name="captureThenPromote">Capturez, puis effectuez une promotion !</string>
-  <string name="useAllThePawns">"Utilisez tous vos pions !
-Inutile d'effectuer des promotions."</string>
+  <string name="useAllThePawns">Utilisez tous vos pions !
+Inutile d\'effectuer des promotions.</string>
   <string name="aPawnOnTheSecondRank">Un Pion sur sa case de départ peut se déplacer de 2 cases d\'un coup !</string>
   <string name="grabAllTheStarsNoNeedToPromote">Collecter toutes les étoiles ! Inutile d\'effectuer des promotions.</string>
   <string name="pawnComplete">Félicitations ! Les pions n\'ont plus de secret pour vous.</string>
@@ -89,8 +89,8 @@ Inutile d'effectuer des promotions."</string>
   <string name="theKingCannotEscapeButBlock">Le Roi ne peut pas s\'échapper, mais vous pouvez parer l\'attaque !</string>
   <string name="youCanGetOutOfCheckByTaking">Vous pouvez parer l\'échec en prenant la pièce attaquante.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ce Cavalier donne un échec à travers vos défenses !</string>
-  <string name="escapeOrBlock">"Fuyez avec le Roi
-ou bloquez l'attaque !"</string>
+  <string name="escapeOrBlock">Fuyez avec le Roi
+ou bloquez l\'attaque !</string>
   <string name="outOfCheckComplete">Félicitations ! Votre Roi est sain et sauf. Assurez-vous de toujours pouvoir vous défendre contre un échec !</string>
   <string name="mateInOne">Mat en un coup</string>
   <string name="defeatTheOpponentsKing">Matez le Roi adverse</string>
@@ -101,89 +101,89 @@ ou bloquez l'attaque !"</string>
   <string name="boardSetup">Position de départ</string>
   <string name="howTheGameStarts">Comment une partie débute</string>
   <string name="boardSetupIntro">Les deux armées se font face, prêtes pour la bataille.</string>
-  <string name="thisIsTheInitialPosition">"Cela est la position initiale
-de toute partie d'échecs !
-Faites un coup pour continuer."</string>
-  <string name="firstPlaceTheRooks">"Placez tout d'abord les Tours !
-Elles se placent dans les coins."</string>
-  <string name="thenPlaceTheKnights">"Placez ensuite les Cavaliers !
-Ils se placent à côté des Tours."</string>
-  <string name="placeTheBishops">"Placez les Fous !
-Ils se placent à côté des Cavaliers."</string>
-  <string name="placeTheQueen">"Placez la Dame !
-Elle se place sur sa propre couleur."</string>
-  <string name="placeTheKing">"Placez le Roi !
-Il se place à côté de sa Dame."</string>
+  <string name="thisIsTheInitialPosition">Cela est la position initiale
+de toute partie d\'échecs !
+Faites un coup pour continuer.</string>
+  <string name="firstPlaceTheRooks">Placez tout d\'abord les Tours !
+Elles se placent dans les coins.</string>
+  <string name="thenPlaceTheKnights">Placez ensuite les Cavaliers !
+Ils se placent à côté des Tours.</string>
+  <string name="placeTheBishops">Placez les Fous !
+Ils se placent à côté des Cavaliers.</string>
+  <string name="placeTheQueen">Placez la Dame !
+Elle se place sur sa propre couleur.</string>
+  <string name="placeTheKing">Placez le Roi !
+Il se place à côté de sa Dame.</string>
   <string name="pawnsFormTheFrontLine">Les pions forment la ligne de front. Jouez un coup pour continuer.</string>
   <string name="boardSetupComplete">Félicitations ! Vous maîtrisez le positionnement des pièces.</string>
   <string name="castling">Le Roque</string>
   <string name="theSpecialKingMove">Le coup spécial du Roi</string>
   <string name="castlingIntro">Mettez votre Roi en sécurité et développez votre Tour pour attaquer !</string>
-  <string name="castleKingSide">"Bougez votre Roi de deux cases
-pour faire le petit roque !"</string>
-  <string name="castleQueenSide">"Bougez votre Roi de deux cases
-pour faire le grand roque !"</string>
-  <string name="theKnightIsInTheWay">"Le Cavalier empêche le roque !
-Bougez-le puis faites le petit roque."</string>
-  <string name="castleKingSideMovePiecesFirst">"Faites le petit roque !
-Vous devez d'abord sortir les pièces."</string>
-  <string name="castleQueenSideMovePiecesFirst">"Faites le grand roque !
-Vous devez d'abord sortir les pièces."</string>
-  <string name="youCannotCastleIfMoved">"Vous ne pouvez pas roquer si
+  <string name="castleKingSide">Bougez votre Roi de deux cases
+pour faire le petit roque !</string>
+  <string name="castleQueenSide">Bougez votre Roi de deux cases
+pour faire le grand roque !</string>
+  <string name="theKnightIsInTheWay">Le Cavalier empêche le roque !
+Bougez-le puis faites le petit roque.</string>
+  <string name="castleKingSideMovePiecesFirst">Faites le petit roque !
+Vous devez d\'abord sortir les pièces.</string>
+  <string name="castleQueenSideMovePiecesFirst">Faites le grand roque !
+Vous devez d\'abord sortir les pièces.</string>
+  <string name="youCannotCastleIfMoved">Vous ne pouvez pas roquer si
 le Roi a déjà bougé
-ou si la Tour a déjà bougé."</string>
-  <string name="youCannotCastleIfAttacked">"Vous ne pouvez pas roquer si
+ou si la Tour a déjà bougé.</string>
+  <string name="youCannotCastleIfAttacked">Vous ne pouvez pas roquer si
 le Roi est en échec.
-Parez l'échec puis roquez !"</string>
+Parez l\'échec puis roquez !</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque !</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque !</string>
   <string name="castlingComplete">Félicitations ! Vous devriez presque toujours roquer durant une partie.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le coup spécial du pion</string>
   <string name="enPassantIntro">Lorsque le pion adverse avance de deux cases, on peut le prendre comme si il n\'avait avancé que d\'une case.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">"Les Noirs viennent juste de bouger
+  <string name="blackJustMovedThePawnByTwoSquares">Les Noirs viennent juste de bouger
 un pion de deux cases !
-Prenez-le en passant."</string>
-  <string name="enPassantOnlyWorksImmediately">"La prise en passant ne peut être effectuée
-qu'immédiatement après que l'adversaire
-ait bougé le pion."</string>
-  <string name="enPassantOnlyWorksOnFifthRank">"La prise en passant ne peut être effectuée
-que si votre pion se trouve sur la 5e rangée."</string>
+Prenez-le en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">La prise en passant ne peut être effectuée
+qu\'immédiatement après que l\'adversaire
+ait bougé le pion.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">La prise en passant ne peut être effectuée
+que si votre pion se trouve sur la 5e rangée.</string>
   <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant !</string>
   <string name="enPassantComplete">Félicitations ! Vous savez faire maintenant la prise en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">La partie est nulle</string>
   <string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
-  <string name="stalemateGoal">"Le pat noir :
+  <string name="stalemateGoal">Le pat noir :
 - Les Noirs ne peuvent jouer aucun coup
-- Les Noirs ne sont pas en échec."</string>
+- Les Noirs ne sont pas en échec.</string>
   <string name="stalemateComplete">Félicitations ! Mieux vaut être pat qu\'échec et mat !</string>
   <string name="advanced">Avancé</string>
   <string name="pieceValue">Valeur des pièces</string>
   <string name="evaluatePieceStrength">Évaluer la valeur des pièces</string>
-  <string name="pieceValueIntro">"Les pièces ayant une grande mobilité ont une valeur plus importante :
+  <string name="pieceValueIntro">Les pièces ayant une grande mobilité ont une valeur plus importante :
 Dame = 9
 Tour = 5
 Fou = 3
 Cavalier = 3
 Pion = 1
-Le Roi est irremplaçable ! Le perdre signifie perdre la partie."</string>
-  <string name="queenOverBishop">"Prenez la pièce avec
+Le Roi est irremplaçable ! Le perdre signifie perdre la partie.</string>
+  <string name="queenOverBishop">Prenez la pièce avec
 la valeur la plus élevée !
-Dame &gt; Fou"</string>
-  <string name="takeThePieceWithTheHighestValue">"Prenez la pièce avec
-la valeur la plus élevée !"</string>
-  <string name="pieceValueComplete">"Félicitations ! Vous connaissez la valeur des pièces !
+Dame &gt; Fou</string>
+  <string name="takeThePieceWithTheHighestValue">Prenez la pièce avec
+la valeur la plus élevée !</string>
+  <string name="pieceValueComplete">Félicitations ! Vous connaissez la valeur des pièces !
 Dame = 9
 Tour = 5
 Fou = 3
 Cavalier = 3
-Pion = 1"</string>
+Pion = 1</string>
   <string name="checkInTwo">Échec en deux coups</string>
   <string name="twoMovesToGiveCheck">Donnez un échec en deux coups</string>
   <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le Roi de l\'adversaire en échec !</string>
-  <string name="checkInTwoGoal">"Menacez le Roi adverse
-en deux coups !"</string>
+  <string name="checkInTwoGoal">Menacez le Roi adverse
+en deux coups !</string>
   <string name="checkInTwoComplete">Félicitations ! Vous avec mis votre adversaire en échec, l\'obligeant à défendre son Roi !</string>
   <string name="whatNext">Que faire ensuite ?</string>
   <string name="youKnowHowToPlayChess">Vous savez comment jouer aux échecs, félicitations ! Voulez-vous devenir un joueur plus fort ?</string>

@@ -573,8 +573,8 @@
   <string name="xCommentedY">%1$s ने %2$s पर टिप्पणी की</string>
   <string name="victory">जीत!</string>
   <string name="defeat">हार</string>
-  <string name="xVsYinZ">"%1$s बनाम %2$s
-%3$s में"</string>
+  <string name="xVsYinZ">%1$s बनाम %2$s
+%3$s में</string>
   <string name="timeline">समयरेखा</string>
   <string name="starting">शुरू हो रहा है:</string>
   <string name="allInformationIsPublicAndOptional">सभी जानकारी सार्वजनिक और वैकल्पिक है।</string>

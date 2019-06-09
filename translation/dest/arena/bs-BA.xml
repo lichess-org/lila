@@ -7,29 +7,29 @@
   <string name="isNotRated">Ovaj turnir *nije* za bodove i *ne* utječe na tvoj rejting.</string>
   <string name="someRated">Neki turniri se igraju za bodove i utjecat će na tvoj rejting.</string>
   <string name="howAreScoresCalculated">Kako se rezultati računaju?</string>
-  <string name="howAreScoresCalculatedAnswer">"Pobjeda daje glavni rezultat od 2 boda, remi: 1 bod, a poraz ne daje nijedan bod.
+  <string name="howAreScoresCalculatedAnswer">Pobjeda daje glavni rezultat od 2 boda, remi: 1 bod, a poraz ne daje nijedan bod.
 Ako pobjediš dvije partije za redom, započet ćeš niz od dvostrukih bodova, označen malom ikonicom plamena.
 Sljedeće partije će također vrijediti dvostruko bodova tako dugo dok ne doživiš poraz, tj. pobjeda će vrijediti 4 boda, remi: 2 boda, a poraz i dalje neće nositi nikakve bodove.
 
-Npr. dvije pobjede i jedan remi vrijedit će 6 bodova: 2 + 2 + (2 x 1)"</string>
-  <string name="berserkAnswer">"Kada igrač klikne gumb \"Berserk\" na početku partije, izgubit će polovinu vremena, ali pobjeda vrijedi jedan dodatan turnirski bod.
+Npr. dvije pobjede i jedan remi vrijedit će 6 bodova: 2 + 2 + (2 x 1)</string>
+  <string name="berserkAnswer">Kada igrač klikne gumb \"Berserk\" na početku partije, izgubit će polovinu vremena, ali pobjeda vrijedi jedan dodatan turnirski bod.
 
 Berserk u vremenskim kontrolama s dodatkom također uklanja vremenski dodatak. (1+2 je iznimka, ono daje 1+0)
 
 Berserk nije dostupan s partijama s početnim vremenom 0 (0+1, 0+2).
 
-Berserk daje dodatan bod samo ako odigraš barem 7 poteza u partiji."</string>
+Berserk daje dodatan bod samo ako odigraš barem 7 poteza u partiji.</string>
   <string name="howIsTheWinnerDecided">Kako je odlučen pobjednik?</string>
   <string name="howIsTheWinnerDecidedAnswer">Igrač(i) s najviše bodova na kraju zadanog turnirskog vremenskog ograničenja će biti proglašen(i) pobjednikom/pobjednicima.</string>
   <string name="howDoesPairingWork">Kako funkcionira uparivanje?</string>
-  <string name="howDoesPairingWorkAnswer">"Na početku turnira, igrači su upareni na temelju njihovog rejtinga.
+  <string name="howDoesPairingWorkAnswer">Na početku turnira, igrači su upareni na temelju njihovog rejtinga.
 Čim završiš partiju, vrati se u turnirski lobi: tada ćeš biti uparen s igračem blizu tvog mjesta na ljestvici. To osigurava minimalno čekanje, međutim moguće je da nećeš igrati sa svim igračima u turniru.
-Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova."</string>
+Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</string>
   <string name="howDoesItEnd">Kako turnir završava?</string>
   <string name="howDoesItEndAnswer">Turnir ima odbrojavanje vremena. Kada brojač dođe do nule, turnirska ljestvica se zamrzava i proglašava se pobjednik. Partije u tijeku se trebaju završiti, međutim one se ne računaju za turnir.</string>
   <string name="otherRules">Ostala važna pravila</string>
-  <string name="otherRulesAnswer">"Moraš napraviti svoj prvi potez tijekom prvih 20 sekundi kada si na potezu. Ako to ne napraviš, partija će se voditi kao pobjeda u korist tvog protivnika.
-Remiziranje tijekom prvih 10 poteza igre neće nijednom igraču dati nijedan bod."</string>
+  <string name="otherRulesAnswer">Moraš napraviti svoj prvi potez tijekom prvih 20 sekundi kada si na potezu. Ako to ne napraviš, partija će se voditi kao pobjeda u korist tvog protivnika.
+Remiziranje tijekom prvih 10 poteza igre neće nijednom igraču dati nijedan bod.</string>
   <string name="thisIsPrivate">Ovo je privatan turnir</string>
   <string name="shareUrl">Podijeli ovaj URL da se ljudi pridruže: %s</string>
 </resources>

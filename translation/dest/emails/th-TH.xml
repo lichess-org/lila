@@ -11,11 +11,11 @@
   <string name="emailChange_intro">คุณได้ร้องขอเปลี่ยนแปลงที่อยู่อีเมลของคุณ</string>
   <string name="emailChange_click">เพื่อยืนยันว่าคุณได้เข้าถึงอีเมลนี้ กรุณาคลิกที่ลิงก์ด้านล่าง:</string>
   <string name="welcome_subject">ยินดีต้อนรับสู่ lichess.org, %s</string>
-  <string name="welcome_text">"คุณได้สร้างบัญชีของคุณที่ https://lichess.org สำเร็จแล้ว
+  <string name="welcome_text">คุณได้สร้างบัญชีของคุณที่ https://lichess.org สำเร็จแล้ว
 
 นี่คือหน้าประวัติประจำตัวของคุณ: %1$s ซึ่งคุณสามารถปรับเปลี่ยนมันได้เองที่ %2$s
 
-ขอให้สนุก และหวังว่าหมากของคุณจะพบหนทางไปสู่คิงของคู่แข่งของคุณเสมอ!"</string>
+ขอให้สนุก และหวังว่าหมากของคุณจะพบหนทางไปสู่คิงของคู่แข่งของคุณเสมอ!</string>
   <string name="common_orPaste">(การคลิกไม่ทำงาน? ลองวางมันลงในเบราว์เซอร์ของคุณดูสิ!)</string>
   <string name="common_note">นี่คืออีเมลบริการที่เกี่ยวข้องกับการใช้ %s ของคุณ</string>
 </resources>

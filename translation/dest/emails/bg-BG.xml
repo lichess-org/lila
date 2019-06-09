@@ -11,9 +11,9 @@
   <string name="emailChange_intro">Поискахте да промените вашия имейл адрес.</string>
   <string name="emailChange_click">За да потвърдите че сте собственик на този имейл, моля кликнете на:</string>
   <string name="welcome_subject">Добре дошли в lichess.org</string>
-  <string name="welcome_text">"Успешно създадохте профила си в https://lichess.org.
+  <string name="welcome_text">Успешно създадохте профила си в https://lichess.org.
 Вашият профил е: %1$s. Може да го персонализирате по ваш вкус на %2$s.
-Забавлявайте се, и нека фигурите ви винаги да достигат до противниковия цар!"</string>
+Забавлявайте се, и нека фигурите ви винаги да достигат до противниковия цар!</string>
   <string name="common_orPaste">(Кликването не работи? Опитайте поставянето на линка в браузъра!)</string>
   <string name="common_note">Това е служебен имейл, свързан с използването Ви на %s.</string>
 </resources>

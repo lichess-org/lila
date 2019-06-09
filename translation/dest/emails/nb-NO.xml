@@ -11,11 +11,11 @@
   <string name="emailChange_intro">Du har bedt om å endre e-postadressen din.</string>
   <string name="emailChange_click">For å bekrefte at du har tilgang til denne e-posten, kan du klikke koblingen nedenfor:</string>
   <string name="welcome_subject">Velkommen til lichess.org, %s</string>
-  <string name="welcome_text">"Du har opprettet en konto hos https://lichess.org.
+  <string name="welcome_text">Du har opprettet en konto hos https://lichess.org.
 
 Her finner du profilsiden din: %1$s. Du kan tilpasse den på %2$s.
 
-Kos deg, og måtte dine brikke alltid finne frem til motstanderens konge!"</string>
+Kos deg, og måtte dine brikke alltid finne frem til motstanderens konge!</string>
   <string name="common_orPaste">(Fungerer det ikke å klikke? Prøv å lime den inn i nettleseren!)</string>
   <string name="common_note">Dette er en e-post relatert til din bruk av %s.</string>
   <string name="common_contact">Bruk %s om du vil ta kontakt med oss.</string>

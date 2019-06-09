@@ -632,6 +632,8 @@
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
   <string name="onlyFriends">Nur Freunde</string>
+  <string name="displayBoardResizeHandle">Boardgrößenregler anzeigen</string>
+  <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
   <string name="whiteCastlingKingside">Weiß O-O</string>

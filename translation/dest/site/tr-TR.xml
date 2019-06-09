@@ -97,13 +97,13 @@
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">SPK ile</string>
-  <string name="openStudy">Çalışmayı aç</string>
+  <string name="openStudy">Etüdü aç</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
-  <string name="memory">Ayrılan hafıza</string>
+  <string name="memory">Bellek</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunder">Vahim hata</string>
@@ -561,7 +561,7 @@
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip edebilsin</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
-  <string name="letOtherPlayersInviteYouToStudy">Başka oyunculara sizi eğitime davet etmesi için izin verin</string>
+  <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular seni etüde davet edebilsin</string>
   <string name="sound">Ses</string>
   <string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
   <string name="none">Hiç biri</string>
@@ -632,6 +632,8 @@
   <string name="inCorrespondenceGames">Yazışmalı oyunlarda</string>
   <string name="ifRatingIsPlusMinusX">Eğer derece +- %s</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
+  <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
+  <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>
   <string name="whiteCastlingKingside">Beyaz O-O</string>
@@ -754,7 +756,7 @@
   <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>
-  <string name="xCreatesStudyY">%1$s bir çalışma oluşturdu: %2$s</string>
+  <string name="xCreatesStudyY">%1$s bir etüt oluşturdu: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>

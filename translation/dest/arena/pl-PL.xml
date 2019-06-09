@@ -7,31 +7,31 @@
   <string name="isNotRated">Ten turniej *nie* jest rankingowy i *nie* wpłynie na Twój ranking.</string>
   <string name="someRated">Turnieje typu Arena mogą być rankingowe i wtedy rozgrywki mają wpływ na Twój ranking.</string>
   <string name="howAreScoresCalculated">Jak punktowane są poszczególne partie?</string>
-  <string name="howAreScoresCalculatedAnswer">"Zwycięstwo to 2 punkty, remis to 1 punkt, przegrana bez punktów. 
+  <string name="howAreScoresCalculatedAnswer">Zwycięstwo to 2 punkty, remis to 1 punkt, przegrana bez punktów. 
 Jeśli wygrasz dwie partie pod rząd rozpocznie się seria podwójnego punktowania, reprezentowana graficznie przez ikonę płomienia. 
 Dopóki będziesz wygrywał, za każdą następną partię będziesz otrzymywał podwójne punkty. 
 Oznacza to, że wygrana będzie warta 4 punkty, a remis 2 punkty, przegrana pozostaje bez punktów. 
 
-Przykład: dwie wygrane partie, a po nich remis będą warte 6 punktów: 2 + 2 + (2 x 1)"</string>
+Przykład: dwie wygrane partie, a po nich remis będą warte 6 punktów: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Co to jest berserk?</string>
-  <string name="berserkAnswer">"Gdy na początku partii wciśniesz przycisk Berserk to stracisz połowę swojego czasu przeznaczonego na rozegranie partii ale za to wygrana warta jest 1 dodatkowy punkt turniejowy. 
+  <string name="berserkAnswer">Gdy na początku partii wciśniesz przycisk Berserk to stracisz połowę swojego czasu przeznaczonego na rozegranie partii ale za to wygrana warta jest 1 dodatkowy punkt turniejowy. 
 
 Berserk w partii z przyrostem czasu anuluje również przyrost (wyjątkiem jest czas 1 + 2 - berserk daje wtedy czas 1 + 0).
 
 Berserk nie jest dostępny w partiach z zerowym czasem początkowym (0 + 1, 0 + 2). 
 
-Berserk przynosi dodatkowe punkty tylko wtedy gdy zrobisz co najmniej 7 posunięć w partii."</string>
+Berserk przynosi dodatkowe punkty tylko wtedy gdy zrobisz co najmniej 7 posunięć w partii.</string>
   <string name="howIsTheWinnerDecided">Jak wyłaniany jest zwycięzca?</string>
   <string name="howIsTheWinnerDecidedAnswer">Zwycięzcą turnieju zostaje gracz (lub gracze) który w momencie upłynięcia czasu przeznaczonego na turniej posiada największą liczbę punktów turniejowych.</string>
   <string name="howDoesPairingWork">W jaki sposób dobierani są przeciwnicy?</string>
-  <string name="howDoesPairingWorkAnswer">"Na początku turnieju gracze dobierani są do wspólnej gry na podstawie swoich rankingów. 
+  <string name="howDoesPairingWorkAnswer">Na początku turnieju gracze dobierani są do wspólnej gry na podstawie swoich rankingów. 
 Zaraz po zakończeniu gry i powrocie do poczekalni zostanie Ci ponownie dobrany gracz o rankingu zbliżonym do Twojego. Dzięki temu czas oczekiwania jest minimalny, możesz jednak nie mieć okazji zagrać z wszystkimi graczami uczestniczącymi w turnieju.
-Graj szybko i wracaj do poczekalni aby rozegrać jak najwięcej partii i zdobyć jak najwięcej punktów."</string>
+Graj szybko i wracaj do poczekalni aby rozegrać jak najwięcej partii i zdobyć jak najwięcej punktów.</string>
   <string name="howDoesItEnd">Kiedy kończy się turniej?</string>
   <string name="howDoesItEndAnswer">Turniej ma zegar który odlicza czas wstecz. Gdy osiągnie zero, punkty zdobyte w turnieju są zamrażane i ogłasza się zwycięzcę. Gry w toku muszą zostać zakończone, jednak nie są już wliczane do turnieju.</string>
   <string name="otherRules">Inne ważne zasady</string>
-  <string name="otherRulesAnswer">"Jesteś zobowiązany do wykonania pierwszego ruchu w ciągu 20 sekund. Niewykonanie ruchu w tym czasie spowoduje przegranie partii. 
-Jeżeli w ciągu pierwszych 10 ruchów uzgodnicie remis, to żaden z graczy nie zdobędzie punktów."</string>
+  <string name="otherRulesAnswer">Jesteś zobowiązany do wykonania pierwszego ruchu w ciągu 20 sekund. Niewykonanie ruchu w tym czasie spowoduje przegranie partii. 
+Jeżeli w ciągu pierwszych 10 ruchów uzgodnicie remis, to żaden z graczy nie zdobędzie punktów.</string>
   <string name="thisIsPrivate">Ten turniej jest prywatny</string>
   <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>
 </resources>

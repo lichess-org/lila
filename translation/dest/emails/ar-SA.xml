@@ -11,9 +11,9 @@
   <string name="emailChange_intro">لقد طلبت تغيير عنوان بريدك الإلكتروني.</string>
   <string name="emailChange_click">للتأكد من أن لديك حق الوصول إلى هذا البريد الإلكتروني، الرجاء انقر فوق الارتباط الموجود أدناه:</string>
   <string name="welcome_subject">مرحبًا بكم في lichess.org، %s</string>
-  <string name="welcome_text">"قمت بنجاح بإنشاء الحساب الخاص بك على https://lichess.org.
+  <string name="welcome_text">قمت بنجاح بإنشاء الحساب الخاص بك على https://lichess.org.
  وإليك الصفحة الشخصية الخاصة بك: %1$s. حيث يمكنك تخصيصها في %2$s.
- فلتستمتع، ولتجد قطعك دائماً طريقها إلى ملك خصمك!"</string>
+ فلتستمتع، ولتجد قطعك دائماً طريقها إلى ملك خصمك!</string>
   <string name="common_orPaste">(هل النقر لا يعمل؟ جرب لصق الرابط في متصفحك!)</string>
   <string name="common_note">هذا هو خدمة البريد الإلكتروني الخاص باستخدام %s.</string>
   <string name="common_contact">للتواصل معنا, الرجاء استعمال هذاs%s.</string>

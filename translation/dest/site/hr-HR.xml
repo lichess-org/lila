@@ -365,8 +365,8 @@
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="importGame">Uvezi partiju</string>
-  <string name="importGameExplanation">"Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
-računalnu analizu, chat partije i URL za dijeljenje."</string>
+  <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
+računalnu analizu, chat partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
@@ -614,8 +614,8 @@ računalnu analizu, chat partije i URL za dijeljenje."</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="victory">Pobjeda!</string>
   <string name="defeat">Poraz</string>
-  <string name="xVsYinZ">"%1$s protiv %2$s
-u %3$s"</string>
+  <string name="xVsYinZ">%1$s protiv %2$s
+u %3$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
