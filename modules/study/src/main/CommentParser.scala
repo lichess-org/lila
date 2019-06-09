@@ -2,6 +2,7 @@ package lila.study
 
 import chess.Centis
 import chess.Pos
+import lila.common.Maths
 import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
@@ -33,15 +34,20 @@ private[study] object CommentParser {
   private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] = for {
     h <- parseIntOption(hours)
     m <- parseIntOption(minutes)
-    s <- parseIntOption(seconds)
-  } yield Centis(h * 360000 + m * 6000 + s * 100)
+    cs <- parseDoubleOption(seconds) match {
+      case Some(s) => Some(Maths.roundAt(s * 100, 0).toInt)
+      case _ => none
+    }
+  } yield Centis(h * 360000 + m * 6000 + cs)
 
   private val clockHourMinuteRegex = """^(\d++):(\d+)$""".r
   private val clockHourMinuteSecondRegex = """^(\d++):(\d++)[:\.](\d+)$""".r
+  private val clockHourMinuteFractionalSecondRegex = """^(\d++):(\d++):(\d++\.\d+)$""".r
 
   def readCentis(str: String): Option[Centis] = str match {
     case clockHourMinuteRegex(hours, minutes) => readCentis(hours, minutes, "0")
     case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+    case clockHourMinuteFractionalSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
     case _ => none
   }
 
