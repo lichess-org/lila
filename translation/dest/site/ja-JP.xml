@@ -604,6 +604,8 @@
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyFriends">友達のみ</string>
+  <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
+  <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
   <string name="whiteCastlingKingside">白　o-o</string>
