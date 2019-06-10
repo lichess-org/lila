@@ -632,6 +632,8 @@
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
   <string name="onlyFriends">Lagunak soilik</string>
+  <string name="displayBoardResizeHandle">Taularen tamaina aldatzeko aukera erakutsi</string>
+  <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>
   <string name="whiteCastlingKingside">Zuriak O-O</string>
