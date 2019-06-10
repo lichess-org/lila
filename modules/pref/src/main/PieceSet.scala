@@ -28,7 +28,7 @@ object PieceSet extends PieceSetObject {
     default.name, "merida", "alpha", "pirouetti",
     "chessnut", "chess7", "reillycraig", "companion",
     "riohacha", "kosal", "leipzig", "fantasy", "spatial",
-    "pixel", "shapes", "letter"
+    "pixel", "california", "shapes", "letter"
   ) map { name => new PieceSet(name) }
 }
 
