@@ -127,6 +127,7 @@ case class Simul(
   def spotlightable =
     isCreated &&
       (hostRating >= 2400 || hostTitle.isDefined) &&
+      !Simul.abusiveHosts(hostId) &&
       applicants.size < 80
 
   def wins = pairings.count(p => p.finished && p.wins.has(false))
@@ -178,4 +179,6 @@ object Simul {
     color = color.some,
     text = text
   )
+
+  private val abusiveHosts = Set("Lance5500")
 }
