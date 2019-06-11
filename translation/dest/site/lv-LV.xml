@@ -371,7 +371,7 @@
     <item quantity="one">%s importēta spēles</item>
     <item quantity="other">%s importētas spēles</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Šis ir šaha CAPTHCA</string>
+  <string name="thisIsAChessCaptcha">Šis ir šaha CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
   <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
