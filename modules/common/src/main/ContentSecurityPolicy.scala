@@ -50,7 +50,7 @@ case class ContentSecurityPolicy(
 
   def withTwitter = copy(
     scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
-    frameSrc = "https://platform.twitter.com" :: frameSrc,
+    frameSrc = "https://twitter.com" :: "https://platform.twitter.com" :: frameSrc,
     styleSrc = "https://platform.twitter.com" :: styleSrc
   )
 
