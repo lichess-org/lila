@@ -59,6 +59,7 @@
   <string name="promoteVariation">Izvēlēties variantu</string>
   <string name="makeMainLine">Pārvērst par pamatvariantu</string>
   <string name="deleteFromHere">Dzēst šo un turpmākos gājienus</string>
+  <string name="forceVariation">Padarīt par variantu</string>
   <string name="move">Gājiens</string>
   <string name="variantLoss">Variācijas zaudējums</string>
   <string name="variantWin">Variācijas uzvara</string>
