@@ -14,4 +14,6 @@
     <item quantity="one">%s Member</item>
     <item quantity="other">%s Members</item>
   </plurals>
+  <string name="open">Open</string>
+  <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
 </resources>
