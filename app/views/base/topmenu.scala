@@ -23,7 +23,7 @@ object topmenu {
           if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame.frag())
           else a(href := "/?any#friend")(trans.playWithAFriend.frag()),
           ctx.noBot option frag(
-            a(href := routes.Tournament.home())(trans.tournament.frag()),
+            a(href := routes.Tournament.home())(trans.tournaments.frag()),
             a(href := routes.Simul.home)(trans.simultaneousExhibitions.frag())
           )
         )
