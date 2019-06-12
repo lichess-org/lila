@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, plural, dataIcon, iconTag } from '../util';
+import { bind, dataIcon, iconTag } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -151,8 +151,8 @@ export function side(ctrl: StudyCtrl): VNode {
   };
 
   const tabs = h('div.tabs-horiz', [
-    makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
-    makeTab('members', plural('Member', ctrl.members.size())),
+    makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
+    makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size())),
     ctrl.members.isOwner() ? h('span.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ iconTag('[') ]) : null
