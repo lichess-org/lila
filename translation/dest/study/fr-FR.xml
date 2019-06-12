@@ -15,4 +15,5 @@
     <item quantity="one">%s Membre</item>
     <item quantity="other">%s Membres</item>
   </plurals>
+  <string name="studyNotFound">Étude introuvable</string>
 </resources>
