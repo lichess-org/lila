@@ -201,7 +201,7 @@
   <string name="accept">Kabul et</string>
   <string name="decline">Reddet</string>
   <string name="playingRightNow">Şu an oynanıyor</string>
-  <string name="eventInProgress">Şu an oynanıyor</string>
+  <string name="eventInProgress">Şu anda oynanıyor</string>
   <string name="finished">Bitti</string>
   <string name="abortGame">Oyunu iptal et</string>
   <string name="gameAborted">Oyun iptal edildi</string>
@@ -212,13 +212,13 @@
   <string name="rated">Puanlı</string>
   <string name="casualTournament">Puansız</string>
   <string name="ratedTournament">Puanlı</string>
-  <string name="thisGameIsRated">Oyun puanlıdır</string>
+  <string name="thisGameIsRated">Bu oyun puanlıdır</string>
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
-  <string name="rematchOfferSentWhite">Beyaz yeni bir oyun teklif ediyor</string>
-  <string name="rematchOfferSentBlack">Siyah yeni bir oyun teklif ediyor</string>
+  <string name="rematchOfferSentWhite">Beyazlar yeni bir oyun teklif ediyor</string>
+  <string name="rematchOfferSentBlack">Siyahlar yeni bir oyun teklif ediyor</string>
   <string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
-  <string name="rematchOfferCanceled">Yeniden oynama teklifi iptal edildi</string>
+  <string name="rematchOfferCanceled">Yeniden oynama teklifi reddedildi</string>
   <string name="rematchOfferDeclined">Yeniden oynama teklifi reddedildi</string>
   <string name="cancelRematchOffer">Yeniden oynama teklifini iptal et</string>
   <string name="viewRematch">Rövanş oyununu göster</string>
@@ -228,12 +228,12 @@
   <string name="loginToChat">Sohbete katılmak için oturum aç</string>
   <string name="youHaveBeenTimedOut">Sohbet bağlantısı kesildi.</string>
   <string name="spectatorRoom">Seyirci odası</string>
-  <string name="composeMessage">Mesaj oluştur</string>
-  <string name="noNewMessages">Yeni mesaj yok</string>
+  <string name="composeMessage">Bir mesaj yaz</string>
+  <string name="noNewMessages">Yeni mesajınız yok</string>
   <string name="subject">Konu</string>
-  <string name="recipient">Alıcı</string>
+  <string name="recipient">Alıcının kullanıcı adı</string>
   <string name="send">Gönder</string>
-  <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
+  <string name="incrementInSeconds">Taraflara hamle başına ek süre</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <string name="spectators">İzleyiciler:</string>
   <plurals name="nbRated">
@@ -253,8 +253,8 @@
     <item quantity="other">%s kez berabere kaldı</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s oynuyor</item>
-    <item quantity="other">%s oynuyor</item>
+    <item quantity="one">%s şimdi oynanıyor</item>
+    <item quantity="other">%s şimdi oynanıyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
@@ -262,17 +262,17 @@
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
   </plurals>
-  <string name="giveMoreTime">Süre ver</string>
+  <string name="giveMoreTime">Fazladan süre ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
-  <string name="takeback">Hamleni geri al.</string>
-  <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
+  <string name="takeback">Hamleni geri al</string>
+  <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>
   <string name="takebackPropositionDeclined">Hamleyi geri alma teklifi reddedildi.</string>
   <string name="takebackPropositionAccepted">Hamleyi geri alma teklifi kabul edildi.</string>
   <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi.</string>
-  <string name="yourOpponentProposesATakeback">Rakibiniz hamlesini geri almayı teklif ediyor.</string>
+  <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri alma teklifi gönderdi</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
   <string name="search">Ara</string>
   <string name="advancedSearch">Detaylı Arama</string>
@@ -281,18 +281,18 @@
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnuva Puanı</item>
-    <item quantity="other">%s Turnuva Puanı</item>
+    <item quantity="other">%s Turnuva Puanları</item>
   </plurals>
-  <string name="viewTournament">Turnuvayı izle</string>
-  <string name="backToTournament">Turnuvaya dön</string>
+  <string name="viewTournament">Turnuvaya göz at</string>
+  <string name="backToTournament">Turnuvaya geri dön</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s puanlı oyun</item>
-    <item quantity="other">≥ %s puanlı oyun</item>
+    <item quantity="one">≥ %s dereceli maç</item>
+    <item quantity="other">≥ %s dereceli maçlar</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s puanlı oyun</item>
-    <item quantity="other">≥ %1$s %2%s puanlı oyun</item>
+    <item quantity="one">≥ %1$s %2%s dereceli maç</item>
+    <item quantity="other">≥ %1$s %2%s dereceli maçlar</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">%1$s tane daha puanlı %2$s oynamanız gerekiyor</item>
@@ -302,14 +302,14 @@
     <item quantity="one">%s tane daha puanlı oyun oynamanız gerekiyor</item>
     <item quantity="other">%s tane daha puanlı oyun oynamanız gerekiyor</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
-  <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s puanınız (%2$s) gerekenden fazla</string>
+  <string name="yourPerfRatingIsProvisional">%s dereceniz geçicidir.</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s dereceniz (%2$s) çok fazla</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s dereceniz (%2$s) gerekenden fazla</string>
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
   <string name="mustBeInTeam">Takımda olmalısın %s</string>
-  <string name="youAreNotInTeam">Takımda değilsin %s</string>
+  <string name="youAreNotInTeam">%s takımın üyesi değilsin.</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava çevrimiçi Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayda gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarınla veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
