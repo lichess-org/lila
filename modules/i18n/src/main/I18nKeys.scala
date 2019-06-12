@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena, Emails, Learn, Activity, Coordinates }
+import I18nDb.{ Site, Arena, Emails, Learn, Activity, Coordinates, Study }
 
 // format: OFF
 object I18nKeys {
@@ -997,6 +997,10 @@ val `talkToYourChessFriends` = new Translated("talkToYourChessFriends", Coordina
 val `youCanAnalyseAGameMoreEffectively` = new Translated("youCanAnalyseAGameMoreEffectively", Coordinates)
 val `aSquareNameAppears` = new Translated("aSquareNameAppears", Coordinates)
 val `startTraining` = new Translated("startTraining", Coordinates)
+}
+
+object study {
+
 }
 
 }
