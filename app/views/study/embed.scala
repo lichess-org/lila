@@ -76,7 +76,7 @@ object embed {
         layout.viewport,
         layout.metaCsp(basicCsp),
         st.headTitle("404 - Study not found"),
-        cssTagWithTheme("analyse.round.embed", "dark")
+        cssTagWithTheme("analyse.embed", "dark")
       ),
       body(cls := "dark")(
         div(cls := "not-found")(
