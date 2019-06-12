@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lidraughts.i18n
 
-import I18nDb.{ Site, Arena, Emails, Learn, Activity, Coordinates }
+import I18nDb.{ Site, Arena, Emails, Learn, Activity, Coordinates, Study }
 
 // format: OFF
 object I18nKeys {
@@ -1061,6 +1061,10 @@ val `talkToYourDraughtsFriends` = new Translated("talkToYourDraughtsFriends", Co
 val `youCanAnalyseAGameMoreEffectively` = new Translated("youCanAnalyseAGameMoreEffectively", Coordinates)
 val `aSquareNameAppears` = new Translated("aSquareNameAppears", Coordinates)
 val `startTraining` = new Translated("startTraining", Coordinates)
+}
+
+object study {
+
 }
 
 }
