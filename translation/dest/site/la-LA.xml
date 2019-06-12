@@ -725,8 +725,8 @@
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
-  <string name="whiteWinsGame">Est victor Albus</string>
-  <string name="blackWinsGame">Est victor Niger</string>
+  <string name="whiteWinsGame">Albus vincit</string>
+  <string name="blackWinsGame">Niger vincit</string>
   <string name="next">Posterus</string>
   <string name="youCanDoBetter">Melius agere potes</string>
   <string name="opening">Principium</string>
