@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promuj ten wariant</string>
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
+  <string name="forceVariation">Forsuj wariant</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
