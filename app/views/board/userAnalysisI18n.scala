@@ -74,6 +74,7 @@ object userAnalysisI18n {
     trans.promoteVariation,
     trans.makeMainLine,
     trans.deleteFromHere,
+    trans.forceVariation,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
     trans.goodMove,
