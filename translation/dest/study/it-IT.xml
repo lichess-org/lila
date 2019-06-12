@@ -16,4 +16,6 @@
     <item quantity="other">%s Membri</item>
   </plurals>
   <string name="open">Apri</string>
+  <string name="xBroughtToYouByY">%1$s fornito da %2$s</string>
+  <string name="studyNotFound">Studio non trovato</string>
 </resources>
