@@ -16,4 +16,5 @@
   </plurals>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
+  <string name="studyNotFound">Study not found</string>
 </resources>
