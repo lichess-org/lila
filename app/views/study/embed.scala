@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
+import lila.i18n.{ I18nKeys => trans }
 import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
@@ -40,11 +41,12 @@ object embed {
             val url = routes.Study.chapter(s.id.value, chapter.id.value)
             frag(
               div(cls := "left")(
-                a(target := "_blank", href := url)(h1(s.name.value)),
-                " ",
-                em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+                trans.study.xBroughtToYouByY(
+                  a(target := "_blank", href := url)(h1(s.name.value)),
+                  a(target := "_blank", href := netBaseUrl)(netDomain)
+                )
               ),
-              a(target := "_blank", cls := "open", href := url)("Open")
+              a(target := "_blank", cls := "open", href := url)(trans.study.open())
             )
           },
           jQueryTag,

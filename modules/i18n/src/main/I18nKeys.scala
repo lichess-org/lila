@@ -1002,6 +1002,8 @@ val `startTraining` = new Translated("startTraining", Coordinates)
 object study {
 val `addNewChapter` = new Translated("addNewChapter", Study)
 val `addMembers` = new Translated("addMembers", Study)
+val `open` = new Translated("open", Study)
+val `xBroughtToYouByY` = new Translated("xBroughtToYouByY", Study)
 val `nbChapters` = new Translated("nbChapters", Study)
 val `nbGames` = new Translated("nbGames", Study)
 val `nbMembers` = new Translated("nbMembers", Study)
