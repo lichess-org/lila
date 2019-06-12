@@ -7,10 +7,10 @@
     <item quantity="other">%s Bölüm</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s oyun</item>
-    <item quantity="other">%s oyun</item>
+    <item quantity="one">%s Oyun</item>
+    <item quantity="other">%s Oyun</item>
   </plurals>
-  <string name="addMembers">Yeni üye ekle</string>
+  <string name="addMembers">Üye ekle</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Üye</item>
     <item quantity="other">%s Üye</item>
