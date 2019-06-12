@@ -6,9 +6,16 @@
     <item quantity="one">%s Bölüm</item>
     <item quantity="other">%s Bölüm</item>
   </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s oyun</item>
+    <item quantity="other">%s oyun</item>
+  </plurals>
   <string name="addMembers">Yeni üye ekle</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Üye</item>
     <item quantity="other">%s Üye</item>
   </plurals>
+  <string name="open">Aç</string>
+  <string name="xBroughtToYouByY">%2$s sana %1$s getirdi</string>
+  <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
 </resources>
