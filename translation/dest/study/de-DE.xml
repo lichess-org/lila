@@ -15,4 +15,7 @@
     <item quantity="one">%s Mitglied</item>
     <item quantity="other">%s Mitglieder</item>
   </plurals>
+  <string name="open">Öffentlich</string>
+  <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
+  <string name="studyNotFound">Studie nicht gefunden</string>
 </resources>
