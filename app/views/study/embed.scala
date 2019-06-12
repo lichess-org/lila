@@ -75,12 +75,12 @@ object embed {
         layout.charset,
         layout.viewport,
         layout.metaCsp(basicCsp),
-        st.headTitle("404 - Study not found"),
+        st.headTitle(s"404 - ${trans.study.studyNotFound.txt()}"),
         cssTagWithTheme("analyse.embed", "dark")
       ),
       body(cls := "dark")(
         div(cls := "not-found")(
-          h1("Study not found")
+          h1(trans.study.studyNotFound())
         )
       )
     )
