@@ -21,4 +21,7 @@
     <item quantity="many">%s Členov</item>
     <item quantity="other">%s Členov</item>
   </plurals>
+  <string name="open">Otvoriť</string>
+  <string name="xBroughtToYouByY">%1$s Vám priniesol %2$s</string>
+  <string name="studyNotFound">Štúdia sa nenašla</string>
 </resources>
