@@ -22,6 +22,6 @@
     <item quantity="other">%s участников</item>
   </plurals>
   <string name="open">Открыть</string>
-  <string name="xBroughtToYouByY">%1$s предоставлена вам %2$s</string>
+  <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
   <string name="studyNotFound">Студия не найдена</string>
 </resources>
