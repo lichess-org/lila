@@ -31,10 +31,10 @@
   <string name="joinTheGame">Принять вызов</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью, или ещё подождать.</string>
+  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, ничью, или ещё подождать.</string>
   <string name="makeYourOpponentResign">Сопернику будет засчитано поражение</string>
   <string name="forceResignation">Запросить победу</string>
-  <string name="forceDraw">Объявить ничью</string>
+  <string name="forceDraw">Запросить ничью</string>
   <string name="talkInChat">Будьте вежливы в чате!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
   <string name="whiteResigned">Белые сдались</string>
