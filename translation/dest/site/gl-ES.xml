@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
+  <string name="forceVariation">Forzar variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -163,6 +164,8 @@
   <string name="ratingStats">Estatísticas de puntuación</string>
   <string name="username">Nome de usuario</string>
   <string name="usernameOrEmail">Nome de usuario ou correo</string>
+  <string name="changeUsername">Cambiar nome de usuario</string>
+  <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
