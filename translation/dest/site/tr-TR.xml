@@ -59,6 +59,7 @@
   <string name="promoteVariation">Bu varyanttan devam et</string>
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
+  <string name="forceVariation">Bu varyasyona zorla</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
