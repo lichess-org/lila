@@ -120,7 +120,7 @@
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
-  <string name="claimADraw">Объявить ничью</string>
+  <string name="claimADraw">Потребовать ничью</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
@@ -614,7 +614,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Предварительный ход (пока ходит противник)</string>
   <string name="takebacksWithOpponentApproval">Возвраты (с согласия противника)</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при троекратном повторении позиции</string>
   <string name="privacy">Приватность</string>
   <string name="letOtherPlayersFollowYou">Разрешить другим игрокам подписываться на вас</string>
   <string name="letOtherPlayersChallengeYou">Разрешить другим игрокам вызывать вас на игру</string>
