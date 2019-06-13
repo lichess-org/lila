@@ -16,5 +16,6 @@
     <item quantity="other">%s kide</item>
   </plurals>
   <string name="open">Ireki</string>
-  <string name="studyNotFound">Aldibereko partida ezin aurkitu</string>
+  <string name="xBroughtToYouByY">%1$s azterlana %2$s erabiltzaileak prestatu du</string>
+  <string name="studyNotFound">Azterlana ez da aurkitu</string>
 </resources>
