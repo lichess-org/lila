@@ -39,6 +39,7 @@ export interface ClockElements {
   time?: HTMLElement;
   clock?: HTMLElement;
   bar?: HTMLElement;
+  barAnim?: Animation;
 }
 
 interface EmergSound {
@@ -69,6 +70,7 @@ export class ClockController {
   showBar: boolean;
   times: Times;
 
+  barTime: number
   timeRatioDivisor: number
   emergMs: Millis;
 
@@ -89,7 +91,8 @@ export class ClockController {
     }
 
     this.showBar = cdata.showBar && !this.opts.nvui;
-    this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
 

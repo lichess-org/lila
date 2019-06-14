@@ -37,7 +37,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       hook: timeHook
     })
   ] : [
-    clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]) : undefined,
+    clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
     h('div.time', {
       attrs: { title: `${player.color} clock` },
       class: {
@@ -80,13 +80,34 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
   }
 }
 
-function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, berserk: boolean) {
+function showBar(ctrl: RoundController, color: Color) {
+  const clock = ctrl.clock!;
   const update = (el: HTMLElement) => {
-    els.bar = el;
-    el.style.transform = "scale(" + ctrl.timeRatio(millis) + ",1)";
+    if (el.animate !== undefined) {
+      let anim = clock.elements[color].barAnim;
+      if (anim === undefined || !anim.effect ||
+          (anim.effect as KeyframeEffect).target !== el) {
+        anim = el.animate(
+          [
+            { transform: 'scale(1)' },
+            { transform: 'scale(0, 1)' }
+          ], {
+            duration: clock.barTime,
+            fill: "both"
+          }
+        );
+        clock.elements[color].barAnim = anim;
+      }
+      anim.currentTime = clock.barTime - clock.millisOf(color);
+      if (color === clock.times.activeColor) anim.play();
+      else anim.pause();
+    } else {
+      clock.elements[color].bar = el;
+      el.style.transform = "scale(" + clock.timeRatio(clock.millisOf(color)) + ",1)";
+    }
   };
   return h('div.bar', {
-    class: { berserk },
+    class: { berserk: !!ctrl.goneBerserk[color] },
     hook: {
       insert: vnode => update(vnode.elm as HTMLElement),
       postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
