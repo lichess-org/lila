@@ -73,6 +73,7 @@ object CrudForm {
   val cevalChoices = List(
     "disabled" -> "Disabled",
     "arbiter" -> "Arbiter only",
+    "accounts" -> "Spectators with account only",
     "spectators" -> "Spectators only",
     "everyone" -> "Everyone"
   )

@@ -71,6 +71,7 @@ case class Simul(
   def canHaveCeval(userId: Option[String]): Boolean = spotlight.flatMap(_.ceval) match {
     case Some(Simul.EvalSetting.Everyone) => true
     case Some(Simul.EvalSetting.Arbiter) => userId ?? { u => isArbiter(u) }
+    case Some(Simul.EvalSetting.Accounts) => userId ?? { u => isArbiter(u) || !isPlaying(u) }
     case Some(Simul.EvalSetting.Spectators) => userId.fold(true)(u => isArbiter(u) || !isPlaying(u))
     case _ => false
   }
@@ -250,9 +251,10 @@ object Simul {
   object EvalSetting {
     case object Disabled extends EvalSetting
     case object Arbiter extends EvalSetting
+    case object Accounts extends EvalSetting
     case object Spectators extends EvalSetting
     case object Everyone extends EvalSetting
-    val byKey = List(Disabled, Arbiter, Spectators, Everyone).map { v => v.key -> v }.toMap
+    val byKey = List(Disabled, Arbiter, Spectators, Accounts, Everyone).map { v => v.key -> v }.toMap
   }
 
   sealed trait ShowFmjdRating {
