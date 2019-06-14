@@ -711,7 +711,7 @@ export default class RoundController {
         }
         li.requestIdleCallback(() => {
             if (this.isPlaying()) {
-                if (!this.data.simul) blur.init(this.data.steps.length > 2);
+                if (!this.data.simul || this.data.simul.isUnique) blur.init(this.data.steps.length > 2);
 
                 title.init();
                 this.setTitle();

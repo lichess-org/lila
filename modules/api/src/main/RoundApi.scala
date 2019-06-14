@@ -186,6 +186,7 @@ private[api] final class RoundApi(
         "name" -> simul.name,
         "nbPlaying" -> simul.ongoing
       ).add("timeOutUntil" -> pov.game.isWithinTimeOut ?? pov.game.metadata.timeOutUntil)
+        .add("isUnique" -> simul.isUnique ?? true.some)
     })
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =
