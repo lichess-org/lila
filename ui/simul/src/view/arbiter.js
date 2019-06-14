@@ -40,9 +40,9 @@ module.exports = function(ctrl) {
         m('th', m('span.hint--top-left', { 'data-hint': 'Simul host clock time remaining.' }, 'Host clock')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Simul participant clock time remaining.' }, 'Player clock')),
         m('th', m('span.hint--top-left', { 'data-hint': 'The FMJD rating set on the user\'s profile.' }, 'FMJD')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Scan 3.0 evaluation of the current position.' }, 'Eval')),
+        m('th', m('span.hint--top-left', { 'data-hint': 'Scan 3.0 evaluation (+ is better for host, - is better for participant).' }, 'Eval')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Average centi-piece loss, the average deviation from Scan 3.0 expressed as 1/100th of a piece.' }, 'Acpl')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'The percentage of moves in which the user left the game page (when > 5 moves played).' }, 'Blurs')),
+        m('th', m('span.hint--top-left', { 'data-hint': 'The percentage of moves where the user left the game page (when > 5 moves played).' }, 'Blurs')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game, or * when ongoing.' }, 'Result')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Stop the game by settling it as a win, draw or loss.' }, 'Settle'))
       ])),
@@ -82,7 +82,7 @@ module.exports = function(ctrl) {
           m.trust(formatClockTime(data.clock))
         ) : '-'),
         m('td', data.officialRating ? data.officialRating : '-'),
-        m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval, pairing))),
+        m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval, pairing, ctrl.pref.draughtsResult))),
         m('td', (data && data.acpl !== undefined) ? data.acpl : '-'),
         m('td', (data && data.blurs !== undefined) ? (data.blurs + '%') : '-'),
         m('td', m('span', result)),

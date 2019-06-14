@@ -50,13 +50,14 @@ module.exports = {
       m('div.black', { style: 'height: ' + height + '%' })
     ].concat(gaugeTicks));
   },
-  renderEval: function(eval, pairing) {
+  renderEval: function(eval, pairing, draughtsResult) {
     if (!eval && pairing && pairing.game.status === status.ids.mate && pairing.winnerColor)
-      return pairing.winnerColor === 'white' ? '1-0' : '0-1';
+      // there is no eval in positions where no move is possible, show result
+      return pairing.winnerColor === 'white' ? (draughtsResult ? '2-0' : '1-0') : (draughtsResult ? '0-2' : '0-1');
     else if (eval && eval.cp !== undefined)
-      return renderEval(eval.cp);
+      return renderEval(pairing.hostColor !== 'white' ? -eval.cp : eval.cp);
     else if (eval && eval.win !== undefined)
-      return '#' + eval.win;
+      return '#' + (pairing.hostColor !== 'white' ? -eval.win : eval.win);
     return '-';
   }
 }
