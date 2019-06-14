@@ -175,6 +175,10 @@
   <string name="forgotPassword">Забравена парола?</string>
   <string name="rank">Звание</string>
   <string name="rankX">Класация: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Класирането се обновява всяка минута</item>
+    <item quantity="other">Класирането се обновява на всеки %s минути</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пъзел</item>
     <item quantity="other">%s пъзели</item>
@@ -631,6 +635,8 @@
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
   <string name="onlyFriends">Само приятели</string>
+  <string name="displayBoardResizeHandle">Възможност за промяна на размера на дъската</string>
+  <string name="onlyOnInitialPosition">Само в началната позиция</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели O-O</string>
@@ -753,6 +759,7 @@
   <string name="xHostsY">%1$s води %2$s</string>
   <string name="xJoinsY">%1$s се присъедини към %2$s</string>
   <string name="xLikesY">%1$s хареса %2$s</string>
+  <string name="xCreatesStudyY">%1$s създаде проучване %2$s</string>
   <string name="quickPairing">Бързо свързване</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анонимен</string>
