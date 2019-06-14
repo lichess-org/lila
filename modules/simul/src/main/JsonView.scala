@@ -90,6 +90,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     Json.obj(
       "id" -> pairing.player.user
     ).add("blurs" -> game.flatMap(g => (g.playedTurns > 5) ?? g.playerBlurPercent(!pairing.hostColor).some))
+      .add("lastMove" -> game.flatMap(_.lastMovePdn))
       .add("clock" -> clock.map(_.remainingTime(!pairing.hostColor).roundSeconds))
       .add("hostClock" -> clock.map(_.remainingTime(pairing.hostColor).roundSeconds))
       .add("turnColor" -> game.map(_.turnColor.name))

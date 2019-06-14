@@ -304,6 +304,13 @@ case class Game(
     }
   }
 
+  def lastMovePdn: Option[String] =
+    pdnMovesConcat.lastOption.map { san =>
+      (1 + (displayTurns - 1) / 2).toString +
+        ((turnColor.white && situation.ghosts == 0) || (turnColor.black && situation.ghosts != 0)).fold("...", ". ") +
+        san
+    }
+
   def updatePlayer(color: Color, f: Player => Player) = color.fold(
     copy(whitePlayer = f(whitePlayer)),
     copy(blackPlayer = f(blackPlayer))

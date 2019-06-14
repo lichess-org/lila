@@ -43,7 +43,7 @@ module.exports = function(ctrl) {
         m('th', m('span.hint--top-left', { 'data-hint': 'Scan 3.0 evaluation (+ is better for host, - is better for participant).' }, 'Eval')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Average centi-piece loss, the average deviation from Scan 3.0 expressed as 1/100th of a piece.' }, 'Acpl')),
         m('th', m('span.hint--top-left', { 'data-hint': 'The percentage of moves where the user left the game page (when > 5 moves played).' }, 'Blurs')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game, or * when ongoing.' }, 'Result')),
+        m('th', m('span.hint--top-left', { 'data-hint': 'Game result when finished or last move when ongoing.' }, 'Result')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Stop the game by settling it as a win, draw or loss.' }, 'Settle'))
       ])),
       m('tbody', ctrl.data.pairings.map(function(pairing) {
@@ -69,7 +69,7 @@ module.exports = function(ctrl) {
         pairing.winnerColor === 'white' ? (ctrl.pref.draughtsResult ? '2-0' : '1-0')
         : (pairing.winnerColor === 'black' ? (ctrl.pref.draughtsResult ? '0-2' : '0-1')
         : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
-      ) : '*';
+      ) : ((data && data.lastMove !== undefined) ? ('* ' + data.lastMove) : '*');
       return m('tr', [
         m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '')),
         m('td.variant', ctrl.data.variants.length === 1 ? null : { 'data-icon': variant.icon }),
