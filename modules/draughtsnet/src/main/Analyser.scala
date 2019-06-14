@@ -3,14 +3,14 @@ package lidraughts.draughtsnet
 import org.joda.time.DateTime
 
 import draughts.format.FEN
-import draughts.format.Uci
 
-import lidraughts.analyse.AnalysisRepo
+import lidraughts.analyse.{ Analysis, AnalysisRepo }
 import lidraughts.game.{ Game, GameRepo, UciMemo }
 
 final class Analyser(
     repo: DraughtsnetRepo,
     uciMemo: UciMemo,
+    analysisBuilder: AnalysisBuilder,
     sequencer: lidraughts.hub.FutureSequencer,
     evalCache: DraughtsnetEvalCache,
     limiter: Limiter
@@ -86,6 +86,25 @@ final class Analyser(
           } inject accepted
         }
       }
+    }
+
+  def fromCache(game: Game): Fu[Analysis] =
+    AnalysisRepo.byId(game.id) flatMap {
+      case Some(analysis) => fuccess(analysis)
+      case _ =>
+        val sender = Work.Sender(none, none, false, system = true)
+        makeWork(game, sender) flatMap { work =>
+          analysisBuilder.fromCache(
+            work = work,
+            evals = work.game.uciList.map(_ => none)
+          )
+        }
+    }
+
+  def fromCache(gameId: String): Fu[Analysis] =
+    GameRepo game gameId flatMap {
+      case Some(game) => fromCache(game)
+      case _ => fufail(s"game $gameId not found")
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] = {

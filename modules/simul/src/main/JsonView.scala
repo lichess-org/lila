@@ -24,6 +24,14 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       } map { (game.id, _) }
     } sequenceFu
 
+  private def fetchAcpl(games: List[Game]) =
+    games map { game =>
+      if (game.turns > 2 && (game.variant.standard || game.variant.fromPosition || game.variant.breakthrough))
+        Env.current.api.getAcpl(game.id) map { (game.id, _) }
+      else
+        fuccess(game.id -> none)
+    } sequenceFu
+
   def apply(simul: Simul, ceval: Boolean, pref: Option[Pref]): Fu[JsObject] = for {
     games <- fetchGames(simul)
     evals <- ceval ?? fetchEvals(games)
@@ -75,16 +83,18 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
   def arbiterJson(simul: Simul): Fu[JsArray] = for {
     games <- fetchGames(simul)
     evals <- simul.hasCeval ?? fetchEvals(games)
+    acpl <- simul.hasCeval ?? fetchAcpl(games)
   } yield JsArray(simul.pairings.map(pairing => {
     val game = games.find(_.id == pairing.gameId)
     val clock = game.flatMap(_.clock)
     Json.obj(
       "id" -> pairing.player.user
-    ).add("blurs" -> game.map(_.playerBlurPercent(!pairing.hostColor)))
+    ).add("blurs" -> game.flatMap(g => (g.playedTurns > 5) ?? g.playerBlurPercent(!pairing.hostColor).some))
       .add("clock" -> clock.map(_.remainingTime(!pairing.hostColor).roundSeconds))
       .add("hostClock" -> clock.map(_.remainingTime(pairing.hostColor).roundSeconds))
       .add("turnColor" -> game.map(_.turnColor.name))
       .add("ceval" -> evals.find(_._1 == pairing.gameId).flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }))
+      .add("acpl" -> acpl.find(_._1 == pairing.gameId).flatMap(acpl => acpl._2 ?? { ac => (!pairing.hostColor).fold(ac._1, ac._2).some }))
       .add("officialRating" -> pairing.player.officialRating)
   }))
 

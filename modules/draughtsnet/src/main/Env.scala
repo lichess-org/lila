@@ -93,6 +93,7 @@ final class Env(
   val analyser = new Analyser(
     repo = repo,
     uciMemo = uciMemo,
+    analysisBuilder = analysisBuilder,
     sequencer = sequencer,
     evalCache = evalCache,
     limiter = limiter

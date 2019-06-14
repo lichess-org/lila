@@ -6,6 +6,7 @@ import play.api.libs.json.{ Json, JsObject }
 import scala.concurrent.duration._
 
 import draughts.variant.Variant
+import lidraughts.analyse.Accuracy
 import lidraughts.common.Debouncer
 import lidraughts.game.{ Game, GameRepo, PerfPicker }
 import lidraughts.game.actorApi.SimulNextGame
@@ -43,6 +44,25 @@ final class SimulApi(
     f = repo.allStarted dmap (_.map(_.hostId)(scala.collection.breakOut)),
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
+
+  private val acplCache = asyncCache.multi[Game.ID, Option[(Int, Int)]](
+    name = "simul.acpl",
+    f = fetchAnalysisAcpl,
+    expireAfter = _.ExpireAfterAccess(10 minutes)
+  )
+
+  private def fetchAnalysisAcpl(id: Game.ID): Fu[Option[(Int, Int)]] =
+    lidraughts.draughtsnet.Env.current.analyser.fromCache(id) map { analysis =>
+      val acplWhite = ~Accuracy.mean(Accuracy.PovLike(draughts.White, draughts.White, 0), analysis)
+      val acplBlack = ~Accuracy.mean(Accuracy.PovLike(draughts.Black, draughts.White, 0), analysis)
+      (acplWhite, acplBlack).some
+    } recoverWith {
+      case e =>
+        logger.info(s"fetchAnalysisAcpl $id - ${e.getMessage}")
+        fuccess(none)
+    }
+
+  def getAcpl(id: Game.ID): Fu[Option[(Int, Int)]] = acplCache get id
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
@@ -290,8 +310,9 @@ final class SimulApi(
     sendTo(simulId, actorApi.Reload)
   }
 
-  def socketCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
+  def processCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
     sendTo(simulId, actorApi.ReloadEval(gameId, json))
+    acplCache.refresh(gameId)
   }
 
   def socketStanding(simul: Simul, finishedGame: Option[String]): Unit = {

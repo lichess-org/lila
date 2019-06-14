@@ -49,6 +49,35 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
       )
     }
 
+  def fromCache(
+    work: Work.Analysis,
+    evals: List[Option[Evaluation.OrSkipped]]
+  ): Fu[Analysis] =
+    evalCache.evals(work) flatMap { cachedFull =>
+      def debug = s"${work.game.variant.key} analysis from cache for ${work.game.id}"
+      val uciList = work.game.uciList
+      draughts.Replay(uciList, work.game.initialFen.map(_.value), work.game.variant, true).fold(
+        fufail(_),
+        replay => UciToPdn(replay, Analysis(
+          id = work.game.id,
+          studyId = work.game.studyId,
+          infos = makeInfos(mergeEvalsAndCached(work, evals, cachedFull), uciList, work.startPly),
+          startPly = work.startPly,
+          uid = work.sender.userId,
+          by = none,
+          date = DateTime.now
+        )) match {
+          case (analysis, errors) =>
+            errors foreach { e => logger.debug(s"[UciToPdn] $debug $e") }
+            if (analysis.valid) {
+              if (analysis.nbEmptyInfos > 1)
+                fufail(s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
+              else fuccess(analysis)
+            } else fufail(s"${work.game.variant.key} analysis $debug is empty")
+        }
+      )
+    }
+
   private def mergeEvalsAndCached(work: Work.Analysis, evals: List[Option[Evaluation.OrSkipped]], cached: Map[Int, Evaluation]): List[Option[Evaluation]] =
     evals.zipWithIndex.map {
       case (None, i) => cached get i

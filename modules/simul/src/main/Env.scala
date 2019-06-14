@@ -103,7 +103,7 @@ final class Env(
             draughtsnetCommentator(move.gameId)
         }
       case lidraughts.hub.actorApi.draughtsnet.CommentaryEvent(gameId, simulId, json) if simulId.isDefined =>
-        api.socketCommentary(simulId.get, gameId, json)
+        api.processCommentary(simulId.get, gameId, json)
     }
   }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul, 'draughtsnetComment)
 
