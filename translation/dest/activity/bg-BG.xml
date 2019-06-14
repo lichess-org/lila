@@ -22,6 +22,14 @@
     <item quantity="one">Публикувал %1$s съобщение в %2$s</item>
     <item quantity="other">Публикувал %1$s съобщения в %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Изигра %1$s ход</item>
+    <item quantity="other">Изигра %1$s хода</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">в %1$s кореспондентска игра</item>
+    <item quantity="other">в %1$s кореспондентски игри</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Завършил %s кореспондентна игра</item>
     <item quantity="other">Завършил %s кореспондентни игри</item>
