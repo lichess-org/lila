@@ -97,7 +97,7 @@ export class ClockController {
   }
 
   timeRatio = (millis: number): number =>
-    Math.max(0, Math.min(1, millis * this.timeRatioDivisor));
+    Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
     const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
@@ -163,7 +163,7 @@ export class ClockController {
       }
     }
 
-    this.scheduleTick(millis, 0);
+    if (millis > 0) this.scheduleTick(millis, 0);
   };
 
   elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);

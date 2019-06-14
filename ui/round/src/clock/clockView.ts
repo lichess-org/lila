@@ -14,7 +14,9 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     isPlayer = ctrl.data.player.color === player.color,
     isRunning = player.color === clock.times.activeColor;
   const update = (el: HTMLElement) => {
-    const els = clock.elements[player.color];
+    const els = clock.elements[player.color],
+       millis = clock.millisOf(player.color),
+       isRunning = player.color === clock.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
     el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
