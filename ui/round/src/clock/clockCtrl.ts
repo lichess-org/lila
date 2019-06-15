@@ -149,7 +149,10 @@ export class ClockController {
     const millis = this.times[color] - this.elapsed(now);
 
     if (millis <= 0) this.opts.onFlag();
-    else updateElements(this, this.elements[color], millis);
+    else {
+      this.scheduleTick(millis, 0);
+      updateElements(this, this.elements[color], millis);
+    }
 
     if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
@@ -162,8 +165,6 @@ export class ClockController {
         this.emergSound.playable[color] = true;
       }
     }
-
-    if (millis > 0) this.scheduleTick(millis, 0);
   };
 
   elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);
