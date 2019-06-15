@@ -59,6 +59,7 @@
   <string name="promoteVariation">Paaukštinti variaciją</string>
   <string name="makeMainLine">Padaryti pagrindine linija</string>
   <string name="deleteFromHere">Ištrinti nuo čia</string>
+  <string name="forceVariation">Rodyti kaip variaciją</string>
   <string name="move">Ėjimas</string>
   <string name="variantLoss">Variantinis pralaimėjimas</string>
   <string name="variantWin">Variantinė pergalė</string>
