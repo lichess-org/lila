@@ -59,6 +59,7 @@
   <string name="promoteVariation">Variasi promosi</string>
   <string name="makeMainLine">Buat jalur utama</string>
   <string name="deleteFromHere">Hapus dari sini</string>
+  <string name="forceVariation">Paksakan variasi</string>
   <string name="move">Langkah</string>
   <string name="variantLoss">Variasi kerugian</string>
   <string name="variantWin">Variasi menang</string>
