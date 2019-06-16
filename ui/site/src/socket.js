@@ -55,6 +55,7 @@ lichess.StrongSocket = function(url, version, settings) {
 
   var debugVcDupe = 0;
   var debugVcUseful = 0;
+  var untaggedSinceConnect = 0;
 
 
   var connect = function() {
@@ -62,6 +63,7 @@ lichess.StrongSocket = function(url, version, settings) {
     autoReconnect = true;
     debugJoinTime = undefined;
     debugConnectTime = now();
+    untaggedSinceConnect = 0;
     var params = $.param(settings.params);
     if (version !== false) params += (params ? '&' : '') + 'v=' + version;
     var fullUrl = options.protocol + '//' + baseUrl() + url + '?' + params;
@@ -189,13 +191,16 @@ lichess.StrongSocket = function(url, version, settings) {
 
   var handle = function(m, sdebug = "", isLast = true) {
     if (m.v) {
+      if (!sdebug) untaggedSinceConnect++;
       if (m.v <= version) {
-        $.post('/nlog/v2/dupe?p=' + JSON.stringify({
+        $.post('/nlog/v3/dupe?p=' + JSON.stringify({
+          jd: debugJoinTime === undefined ? false : now() - debugJoinTime,
           mv: m.v,
           v: version,
           st: sdebug,
           ce: now() - debugConnectTime,
-          nc: nbConnects
+          nc: nbConnects,
+          sm: untaggedSinceConnect
         }));
         debug("already has event " + m.v);
         if (sdebug.startsWith("vc")) debugVcDupe++;
@@ -203,20 +208,21 @@ lichess.StrongSocket = function(url, version, settings) {
       }
       // it's impossible but according to previous login, it happens nonetheless
       if (m.v > version + 1) {
-        if (isLast) $.post('/nlog/v2/skip?p=' + JSON.stringify({
+        if (isLast) $.post('/nlog/v3/skip?p=' + JSON.stringify({
           jd: debugJoinTime === undefined ? false : now() - debugJoinTime,
           mv: m.v,
           v: version,
           st: sdebug,
           ce: now() - debugConnectTime,
-          nc: nbConnects
+          nc: nbConnects,
+          sm: untaggedSinceConnect
         }));
         return lichess.reload();
       }
       version = m.v;
       if (sdebug.startsWith("vc")) {
         debugVcUseful++;
-        if (isLast) $.post('/nlog/v2/vc?p=' + JSON.stringify({
+        if (isLast) $.post('/nlog/v3/vc?p=' + JSON.stringify({
           jd: debugJoinTime === undefined ? false : now() - debugJoinTime,
           mv: m.v,
           v: version,
@@ -224,7 +230,8 @@ lichess.StrongSocket = function(url, version, settings) {
           ce: now() - debugConnectTime,
           nc: nbConnects,
           vd: debugVcDupe,
-          vu: debugVcUseful
+          vu: debugVcUseful,
+          sm: untaggedSinceConnect
         }));
       }
     }
@@ -232,7 +239,7 @@ lichess.StrongSocket = function(url, version, settings) {
       case false:
         break;
       case 'resync':
-        $.post('/nlog/v2/resync?p=' + JSON.stringify({
+        $.post('/nlog/v3/resync?p=' + JSON.stringify({
           v: version,
           st: sdebug,
           ce: now() - debugConnectTime,
