@@ -21,7 +21,7 @@
     <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="open">Otwarty</string>
+  <string name="open">Otwórz</string>
   <string name="xBroughtToYouByY">%1$s dostarczył %2$s</string>
   <string name="studyNotFound">Omówienia nie znaleziono</string>
 </resources>
