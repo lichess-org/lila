@@ -440,7 +440,7 @@
     <item quantity="other">Poniżej %s minut</item>
   </plurals>
   <string name="required">Wymagane.</string>
-  <string name="openTournaments">Turnieje</string>
+  <string name="openTournaments">Dostępne turnieje</string>
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
   <string name="standing">Miejsce</string>
