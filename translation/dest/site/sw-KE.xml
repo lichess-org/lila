@@ -61,5 +61,7 @@ Bonyeza ndio usikie ama usisikie Sauti. Hiki kitufe kiko katika upande wa kulia 
   <string name="makeMainLine">Fanya mstari kuu</string>
   <string name="deleteFromHere">Futa kutoka hapa</string>
   <string name="move">Songa</string>
+  <string name="delete">Futa</string>
+  <string name="realtimeReplay">Moja kwa moja</string>
   <string name="rematch">cheza tena</string>
 </resources>
