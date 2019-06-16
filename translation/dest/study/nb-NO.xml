@@ -16,4 +16,6 @@
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="open">Åpne</string>
+  <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
+  <string name="studyNotFound">Fant ikke studien</string>
 </resources>
