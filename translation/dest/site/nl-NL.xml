@@ -452,7 +452,7 @@
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
-  <string name="training">Training</string>
+  <string name="training">Puzzels</string>
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
