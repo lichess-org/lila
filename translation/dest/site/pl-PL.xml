@@ -59,7 +59,7 @@
   <string name="promoteVariation">Promuj ten wariant</string>
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
-  <string name="forceVariation">Forsuj wariant</string>
+  <string name="forceVariation">Przedstaw jako wariant</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
@@ -179,7 +179,7 @@
   <string name="username">Nazwa użytkownika</string>
   <string name="usernameOrEmail">Nazwa użytkownika lub e-mail</string>
   <string name="changeUsername">Zmień nazwę użytkownika</string>
-  <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. \"JanNowak\" zamiast \"jannowak\".</string>
+  <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
@@ -247,7 +247,7 @@
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
   <string name="loginToChat">Zaloguj się, aby rozmawiać</string>
-  <string name="youHaveBeenTimedOut">Zostałeś wylogowany.</string>
+  <string name="youHaveBeenTimedOut">Zostałeś czasowo wyciszony.</string>
   <string name="spectatorRoom">Widzowie</string>
   <string name="composeMessage">Napisz wiadomość</string>
   <string name="noNewMessages">Brak nowych wiadomości</string>
