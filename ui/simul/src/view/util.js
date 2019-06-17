@@ -2,9 +2,13 @@ var m = require('mithril');
 var simul = require('../simul');
 var xhr = require('../xhr');
 
-function playerHtml(p, rating, provisional, fmjd) {
+function playerHtml(p, rating, provisional, fmjd, href) {
   var onlineStatus = p.online === undefined ? 'online' : (p.online ? 'online' : 'offline');
-  var html = '<a class="text ulpt user_link ' + onlineStatus + '" href="/@/' + p.username + '">';
+  var html = '<a class="text ulpt user_link ' + onlineStatus;
+  if (href)
+    html += '" href="' + href + '" target="_blank">';
+  else
+    html += '" href="/@/' + p.username + '">';
   html += p.patron ? '<i class="line patron"></i>' : '<i class="line"></i>';
   html += (p.title ? ('<span class="title">' + p.title + '</span>') + ' ' : '') + p.username;
   if (fmjd) {
@@ -29,8 +33,8 @@ module.exports = {
       (ctrl.data.description && !ctrl.toggleArbiter) ? m('span.description', m.trust(ctrl.data.description)) : null
     ]);
   },
-  player: function(p, r, pr, fmjd) {
-    return m.trust(playerHtml(p, r, pr, (p && fmjd === undefined) ? p.officialRating : fmjd));
+  player: function(p, r, pr, fmjd, href) {
+    return m.trust(playerHtml(p, r, pr, (p && fmjd === undefined) ? p.officialRating : fmjd, href));
   },
   playerVariant: function(ctrl, p) {
     return ctrl.data.variants.find(function(v) {

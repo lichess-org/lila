@@ -103,7 +103,7 @@ module.exports = function(ctrl) {
         : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
       ) : '* ';
       return m('tr', [
-        m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '')),
+        m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '', '/' + pairing.game.id)),
         m('td.variant', ctrl.data.variants.length === 1 ? null : { 'data-icon': variant.icon }),
         m('td', (data && data.hostClock !== undefined) ? m(
           (playing && pairing.hostColor === data.turnColor) ? 'div.time.running' : 'div.time',
