@@ -6,7 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lai uzaicinātu kādu spēlēt, iedod šo saiti</string>
   <string name="gameOver">Spēle galā</string>
   <string name="waitingForOpponent">Gaidām pretinieku</string>
-  <string name="waiting">Gaidām</string>
+  <string name="waiting">Gaida</string>
   <string name="yourTurn">Jūsu gājiens</string>
   <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
   <string name="level">Līmenis</string>
