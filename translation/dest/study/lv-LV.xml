@@ -19,6 +19,6 @@
     <item quantity="other">%s Dalībnieki</item>
   </plurals>
   <string name="open">Atvērt</string>
-  <string name="xBroughtToYouByY">%2$s piedāvā \"%1$s\"</string>
+  <string name="xBroughtToYouByY">%2$s, kuru piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>
 </resources>
