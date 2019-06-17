@@ -38,7 +38,7 @@ object Analyse extends LidraughtsController {
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false)) flatMap {
+          Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false), ctx.pref.draughtsResult) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn =>
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) },
@@ -100,7 +100,7 @@ object Analyse extends LidraughtsController {
     analysis <- env.analyser get pov.game.id
     simul <- pov.game.simulId ?? Env.simul.repo.find
     crosstable <- Env.game.crosstableApi.withMatchup(pov.game)
-    pdn <- Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false))
+    pdn <- Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false), ctx.pref.draughtsResult)
   } yield Ok(html.analyse.replayBot(
     pov,
     initialFen,

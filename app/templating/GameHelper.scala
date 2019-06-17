@@ -178,14 +178,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$u1 vs $u2$clock$variant"
   }
 
-  // whiteUsername 1-0 blackUsername
-  def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) draughts.Color.showResult(result map Color.apply) else "*"
-    s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
-  }
-
   def gameResult(game: Game) =
-    if (game.finished) draughts.Color.showResult(game.winnerColor)
+    if (game.finished) draughts.Color.showResult(game.winnerColor, lidraughts.pref.Pref.default.draughtsResult)
     else "*"
 
   def gameLink(

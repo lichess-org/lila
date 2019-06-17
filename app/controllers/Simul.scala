@@ -185,7 +185,7 @@ object Simul extends LidraughtsController {
         BadRequest(html.simul.export(err, captcha, id))
       },
       _ => env.repo.find(id) flatMap {
-        case Some(simul) if simul.isFinished => fuccess(streamGamesPdn(me, simul.gameIds, id))
+        case Some(simul) if simul.isFinished => fuccess(streamGamesPdn(me, simul.gameIds, id, ctx.pref.draughtsResult))
         case _ => fuccess(BadRequest)
       }
     )
@@ -204,10 +204,10 @@ object Simul extends LidraughtsController {
     key = "simul_export.user"
   )
 
-  private def streamGamesPdn(user: lidraughts.user.User, gameIds: List[String], simulId: String) =
+  private def streamGamesPdn(user: lidraughts.user.User, gameIds: List[String], simulId: String, draughtsResult: Boolean) =
     ExportRateLimitPerUser(user.id, cost = 1) {
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pdnDump.exportGamesFromIds(gameIds)).withHeaders(
+      Ok.chunked(Env.api.pdnDump.exportGamesFromIds(gameIds, draughtsResult)).withHeaders(
         CONTENT_TYPE -> pdnContentType,
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_simul_$simulId.pdn")
       )

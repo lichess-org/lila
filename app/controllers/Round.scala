@@ -222,7 +222,7 @@ object Round extends LidraughtsController with TheftPrevention {
                 }
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.game.id)
-            pdn <- Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false))
+            pdn <- Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false), ctx.pref.draughtsResult)
           } yield Ok(html.round.watcherBot(pov, initialFen, pdn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
@@ -351,7 +351,7 @@ object Round extends LidraughtsController with TheftPrevention {
   def atom(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.pov(gameId, color) flatMap {
       case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
-        val pdn = Env.game.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false))
+        val pdn = Env.game.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false), lidraughts.pref.Pref.default.draughtsResult)
         Ok(views.xml.round.atom(pov, pdn)) as XML
       }
       case _ => NotFound("no such game").fuccess

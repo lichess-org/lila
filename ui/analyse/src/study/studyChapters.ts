@@ -52,12 +52,20 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
   return t && t[1];
 }
 
-export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
+export function resultOf(tags: TagArray[], isWhite: boolean, draughtsResult: boolean): string | undefined {
   switch(findTag(tags, 'result')) {
-    case '1-0': return isWhite ? '1' : '0';
-    case '0-1': return isWhite ? '0' : '1';
-    case '1/2-1/2': return '1/2';
-    default: return;
+    case '1-0':
+    case '2-0':
+      return isWhite ? (draughtsResult ? '2' : '1') : '0';
+    case '0-1':
+    case '0-2':
+      return isWhite ? '0' : (draughtsResult ? '2' : '1');
+    case '1-1':
+    case '1/2-1/2':
+    case '½-½':
+      return (draughtsResult ? '1' : '1/2');
+    default:
+      return;
   }
 }
 

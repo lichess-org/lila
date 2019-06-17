@@ -15,33 +15,33 @@ final class PdnDump(
     getTournamentName: String => Option[String]
 ) {
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Fu[Pdn] =
+  def apply(game: Game, initialFen: Option[String], flags: WithFlags, draughtsResult: Boolean): Fu[Pdn] =
     (game.simulId ?? getSimulName) map { simulName =>
-      val pdn = dumper(game, initialFen, flags)
+      val pdn = dumper(game, initialFen, flags, draughtsResult)
       simulName.orElse(game.tournamentId flatMap getTournamentName).fold(pdn)(pdn.withEvent)
     }
 
   def filename(game: Game) = dumper filename game
 
-  private val toPdn =
+  private def toPdn(draughtsResult: Boolean) =
     Enumeratee.mapM[Game].apply[String] { game =>
       GameRepo initialFen game flatMap { initialFen =>
-        apply(game, initialFen, WithFlags()).map(pdn => s"$pdn\n\n\n")
+        apply(game, initialFen, WithFlags(), draughtsResult).map(pdn => s"$pdn\n\n\n")
       }
     }
 
-  def exportUserGames(userId: String, since: Option[DateTime]): Enumerator[String] = {
+  def exportUserGames(userId: String, since: Option[DateTime], draughtsResult: Boolean): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lidraughts.db.dsl._
     GameRepo.sortedCursor(
       Query.user(userId) ++ since.??(Query.createdSince),
       Query.sortCreated
-    ).enumerator() &> toPdn
+    ).enumerator() &> toPdn(draughtsResult)
   }
 
-  def exportGamesFromIds(ids: List[String]): Enumerator[String] =
+  def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
     Enumerator.enumerate(ids grouped 50) &>
       Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
       Enumeratee.mapConcat(identity) &>
-      toPdn
+      toPdn(draughtsResult)
 }

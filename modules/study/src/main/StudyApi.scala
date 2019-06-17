@@ -9,8 +9,8 @@ import draughts.format.pdn.{ Tags, Glyph }
 import lidraughts.chat.Chat
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
+import lidraughts.pref.Pref
 import lidraughts.socket.Socket.Uid
-import lidraughts.tree.Eval
 import lidraughts.tree.Node.{ Shapes, Comment, Gamebook }
 import lidraughts.user.User
 
@@ -51,7 +51,7 @@ final class StudyApi(
 
   private def fetchAndFixChapter(id: Chapter.Id): Fu[Option[Chapter]] =
     chapterRepo.byId(id) flatMap {
-      _ ?? { c => tagsFixer(c) map some }
+      _ ?? { c => tagsFixer(c, Pref.default.draughtsResult) map some }
     }
 
   def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
@@ -91,7 +91,7 @@ final class StudyApi(
 
   def create(data: StudyMaker.Data, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
     case DataForm.AsNewStudy =>
-      studyMaker(data, user) flatMap { res =>
+      studyMaker(data, user, Pref.default.draughtsResult) flatMap { res =>
         studyRepo.insert(res.study) >>
           chapterRepo.insert(res.chapter) >>-
           indexStudy(res.study) >>-
@@ -476,7 +476,7 @@ final class StudyApi(
 
   def explorerGame(userId: User.ID, studyId: Study.Id, data: actorApi.ExplorerGame, uid: Uid) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      if (data.insert) explorerGameHandler.insert(userId, study, Position(chapter, data.position.path), data.gameId) flatMap {
+      if (data.insert) explorerGameHandler.insert(userId, study, Position(chapter, data.position.path), data.gameId, Pref.default.draughtsResult) flatMap {
         case None =>
           fufail(s"Invalid explorerGame insert $studyId $data") >>-
             reloadUidBecauseOf(study, uid, chapter.id)
@@ -502,7 +502,7 @@ final class StudyApi(
       chapterRepo.countByStudyId(study.id) flatMap { count =>
         if (count >= Study.maxChapters) funit
         else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-          chapterMaker(study, data, order, byUserId) flatMap {
+          chapterMaker(study, data, order, byUserId, Pref.default.draughtsResult) flatMap {
             _ ?? { chapter =>
               data.initial ?? {
                 chapterRepo.firstByStudy(study.id) flatMap {
@@ -608,7 +608,7 @@ final class StudyApi(
           chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
             if (chaps.size < 2) {
-              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId) flatMap {
+              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId, Pref.default.draughtsResult) flatMap {
                 _ ?? { c =>
                   doAddChapter(study, c, sticky = true, uid) >> doSetChapter(study, c.id, uid)
                 }

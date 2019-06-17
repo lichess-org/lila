@@ -18,7 +18,8 @@ object Export extends LidraughtsController {
       gameToPdn(
         game,
         asImported = get("as") contains "imported",
-        asRaw = get("as").contains("raw")
+        asRaw = get("as").contains("raw"),
+        draughtsResult = ctx.pref.draughtsResult
       ) map { content =>
           Ok(content).withHeaders(
             CONTENT_TYPE -> pdnContentType,
@@ -30,13 +31,13 @@ object Export extends LidraughtsController {
     }
   }
 
-  private def gameToPdn(from: GameModel, asImported: Boolean, asRaw: Boolean): Fu[String] = from match {
+  private def gameToPdn(from: GameModel, asImported: Boolean, asRaw: Boolean, draughtsResult: Boolean): Fu[String] = from match {
     case game if game.playable => fufail("Can't export PDN of game in progress")
     case game => (game.pdnImport.ifTrue(asImported) match {
       case Some(i) => fuccess(i.pdn)
       case None => for {
         initialFen <- GameRepo initialFen game
-        pdn <- Env.api.pdnDump(game, initialFen, PdnDump.WithFlags(clocks = !asRaw))
+        pdn <- Env.api.pdnDump(game, initialFen, PdnDump.WithFlags(clocks = !asRaw), draughtsResult)
         analysis ← !asRaw ?? (Env.analyse.analyser get game.id)
       } yield Env.analyse.annotator(pdn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
     })

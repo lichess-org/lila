@@ -14,11 +14,11 @@ final class PdnDump(
 
   import PdnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Pdn = {
+  def apply(game: Game, initialFen: Option[String], flags: WithFlags, draughtsResult: Boolean): Pdn = {
     val imported = game.pdnImport.flatMap { pdni =>
       Parser.full(pdni.pdn).toOption
     }
-    val ts = tags(game, initialFen, imported)
+    val ts = tags(game, initialFen, imported, draughtsResult)
     val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
     val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
     val turns = makeTurns(
@@ -72,7 +72,8 @@ final class PdnDump(
   def tags(
     game: Game,
     initialFen: Option[String],
-    imported: Option[ParsedPdn]
+    imported: Option[ParsedPdn],
+    draughtsResult: Boolean
   ): Tags = gameLightUsers(game) match {
     case (wu, bu) => Tags {
       val importedDate = imported.flatMap(_.tags(_.Date))
@@ -83,7 +84,7 @@ final class PdnDump(
         Tag(_.Round, imported.flatMap(_.tags(_.Round)) | "-").some,
         Tag(_.White, player(game.whitePlayer, wu)).some,
         Tag(_.Black, player(game.blackPlayer, bu)).some,
-        Tag(_.Result, result(game)).some,
+        Tag(_.Result, result(game, draughtsResult)).some,
         importedDate.isEmpty option Tag(_.UTCDate, imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)),
         importedDate.isEmpty option Tag(_.UTCTime, imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)),
         Tag(_.WhiteElo, rating(game.whitePlayer)).some,
@@ -142,7 +143,7 @@ object PdnDump {
       clocks: Boolean = true
   )
 
-  def result(game: Game) =
-    if (game.finished) Color.showResult(game.winnerColor)
+  def result(game: Game, draughtsResult: Boolean) =
+    if (game.finished) Color.showResult(game.winnerColor, draughtsResult)
     else "*"
 }

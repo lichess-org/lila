@@ -18,27 +18,27 @@ private final class ChapterMaker(
 
   import ChapterMaker._
 
-  def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] =
+  def apply(study: Study, data: Data, order: Int, userId: User.ID, draughtsResult: Boolean): Fu[Option[Chapter]] =
     data.game.??(parsePov) flatMap {
       case None =>
         data.game.??(pdnFetch.fromUrl) flatMap {
-          case Some(pdn) => fromFenOrPdnOrBlank(study, data.copy(pdn = pdn.some), order, userId) map some
-          case _ => fromFenOrPdnOrBlank(study, data, order, userId) map some
+          case Some(pdn) => fromFenOrPdnOrBlank(study, data.copy(pdn = pdn.some), order, userId, draughtsResult) map some
+          case _ => fromFenOrPdnOrBlank(study, data, order, userId, draughtsResult) map some
         }
-      case Some(pov) => fromPov(study, pov, data, order, userId)
+      case Some(pov) => fromPov(study, pov, data, order, userId, none, draughtsResult)
     } map2 { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrPdnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  def fromFenOrPdnOrBlank(study: Study, data: Data, order: Int, userId: User.ID, draughtsResult: Boolean): Fu[Chapter] =
     data.pdn.filter(_.trim.nonEmpty) match {
-      case Some(pdn) => fromPdn(study, pdn, data, order, userId)
+      case Some(pdn) => fromPdn(study, pdn, data, order, userId, draughtsResult)
       case None => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromPdn(study: Study, pdn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  private def fromPdn(study: Study, pdn: String, data: Data, order: Int, userId: User.ID, draughtsResult: Boolean): Fu[Chapter] =
     lightUser.asyncMany(study.members.contributorIds.toList) map { contributors =>
-      PdnImport(pdn, contributors.flatten).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
+      PdnImport(pdn, contributors.flatten, draughtsResult).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
         Chapter.make(
           studyId = study.id,
           name = (for {
@@ -100,8 +100,8 @@ private final class ChapterMaker(
     }
   }
 
-  private def fromPov(study: Study, pov: Pov, data: Data, order: Int, userId: User.ID, initialFen: Option[FEN] = None): Fu[Option[Chapter]] =
-    game2root(pov.game, initialFen) map { root =>
+  private def fromPov(study: Study, pov: Pov, data: Data, order: Int, userId: User.ID, initialFen: Option[FEN], draughtsResult: Boolean): Fu[Option[Chapter]] =
+    game2root(pov.game, initialFen, draughtsResult) map { root =>
       Chapter.make(
         studyId = study.id,
         name =
@@ -135,10 +135,10 @@ private final class ChapterMaker(
       )
     }
 
-  def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
+  def game2root(game: Game, initialFen: Option[FEN], draughtsResult: Boolean): Fu[Node.Root] =
     initialFen.fold(GameRepo initialFen game map2 FEN.apply) { fen =>
       fuccess(fen.some)
-    } map { GameToRoot(game, _, withClocks = true, mergeCapts = true) }
+    } map { GameToRoot(game, _, withClocks = true, draughtsResult = draughtsResult, mergeCapts = true) }
 
   private val UrlRegex = {
     val escapedDomain = domain.replace(".", "\\.")

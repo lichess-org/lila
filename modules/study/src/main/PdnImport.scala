@@ -25,7 +25,7 @@ object PdnImport {
       statusText: String
   )
 
-  def apply(pdn: String, contributors: List[LightUser]): Valid[Result] =
+  def apply(pdn: String, contributors: List[LightUser], draughtsResult: Boolean): Valid[Result] =
     ImportData(pdn, analyse = none).preprocess(user = none).map {
       case prep @ Preprocessed(game, replay, result, initialFen, parsedPdn) =>
         val annotator = findAnnotator(parsedPdn, contributors)
@@ -64,7 +64,7 @@ object PdnImport {
                   End(
                     status = status,
                     winner = winner,
-                    resultText = draughts.Color.showResult(winner),
+                    resultText = draughts.Color.showResult(winner, draughtsResult),
                     statusText = lidraughts.game.StatusText(status, winner, game.variant)
                   )
                 }

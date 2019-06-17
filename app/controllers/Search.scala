@@ -91,7 +91,7 @@ object Search extends LidraughtsController {
             import org.joda.time.DateTime
             import org.joda.time.format.DateTimeFormat
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print DateTime.now
-            Ok.chunked(Env.api.pdnDump exportGamesFromIds ids).withHeaders(
+            Ok.chunked(Env.api.pdnDump.exportGamesFromIds(ids, ctx.pref.draughtsResult)).withHeaders(
               CONTENT_TYPE -> pdnContentType,
               CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_search_$date.pdn")
             )

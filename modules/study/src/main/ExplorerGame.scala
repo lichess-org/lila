@@ -20,14 +20,14 @@ private final class ExplorerGame(
       }
     }
 
-  def insert(userId: User.ID, study: Study, position: Position, gameId: Game.ID): Fu[Option[(Chapter, Path)]] =
+  def insert(userId: User.ID, study: Study, position: Position, gameId: Game.ID, draughtsResult: Boolean): Fu[Option[(Chapter, Path)]] =
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     } else importer(gameId) map {
       _ ?? { game =>
         position.node ?? { fromNode =>
-          GameToRoot(game, none, false).|> { root =>
+          GameToRoot(game, none, false, draughtsResult, false).|> { root =>
             root.setCommentAt(
               comment = gameComment(game),
               path = Path(root.mainline.map(_.id))
@@ -70,7 +70,7 @@ private final class ExplorerGame(
     val pdn = g.pdnImport.flatMap(pdnImport => Parser.full(pdnImport.pdn).toOption)
     val white = pdn.flatMap(_.tags(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
     val black = pdn.flatMap(_.tags(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
-    val result = draughts.Color.showResult(g.winnerColor)
+    val result = draughts.Color.showResult(g.winnerColor, lidraughts.pref.Pref.default.draughtsResult)
     val event: Option[String] =
       (pdn.flatMap(_.tags(_.Event)), pdn.flatMap(_.tags.year).map(_.toString)) match {
         case (Some(event), Some(year)) if event.contains(year) => event.some

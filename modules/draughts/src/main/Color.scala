@@ -98,10 +98,10 @@ object Color {
 
   def exists(name: String) = all exists (_.name == name)
 
-  def showResult(color: Option[Color]) = color match {
-    case Some(White) => "1-0"
-    case Some(Black) => "0-1"
-    case None => "1/2-1/2"
+  def showResult(color: Option[Color], draughtsResult: Boolean) = color match {
+    case Some(White) => draughtsResult.fold("2-0", "1-0")
+    case Some(Black) => draughtsResult.fold("0-2", "0-1")
+    case None => draughtsResult.fold("1-1", "1/2-1/2")
   }
 
   def fromResult(result: String): Option[Color] = result match {

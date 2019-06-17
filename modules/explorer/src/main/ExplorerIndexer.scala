@@ -161,7 +161,7 @@ private final class ExplorerIndexer(
         s"[Black ${username(draughts.Black)}]",
         s"[WhiteElo $whiteRating]",
         s"[BlackElo $blackRating]",
-        s"[Result ${PdnDump.result(game)}]",
+        s"[Result ${PdnDump.result(game, lidraughts.pref.Pref.default.draughtsResult)}]",
         s"[Date ${pdnDateFormat.print(game.createdAt)}]"
       )
       val allTags = fenTags ::: otherTags

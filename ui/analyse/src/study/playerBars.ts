@@ -11,7 +11,7 @@ interface PlayerNames {
 }
 
 export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
-  const study = ctrl.study;
+  const study = ctrl.study, draughtsResult = ctrl.data.pref.draughtsResult;
   if (!study || ctrl.embed) return;
   const tags = study.data.chapter.tags,
    playerNames = {
@@ -21,13 +21,13 @@ export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
   if (!playerNames.white || !playerNames.black) return;
   const clocks = renderClocks(ctrl),
   ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
-  return (['white', 'black'] as Color[]).map(color => renderPlayer(tags, clocks, playerNames, color, ticking === color));
+  return (['white', 'black'] as Color[]).map(color => renderPlayer(tags, clocks, playerNames, color, ticking === color, draughtsResult));
 }
 
-function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, playerNames: PlayerNames, color: Color, ticking: boolean): VNode {
+function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, playerNames: PlayerNames, color: Color, ticking: boolean, draughtsResult: boolean): VNode {
   const title = findTag(tags, `${color}title`),
   elo = findTag(tags, `${color}elo`),
-  result = resultOf(tags, color === 'white');
+  result = resultOf(tags, color === 'white', draughtsResult);
   return h(`div.player_bar.${color}`, {
     class: { ticking }
   }, [

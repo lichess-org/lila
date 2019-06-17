@@ -195,7 +195,7 @@ private object RelayFetch {
       .build(compute)
 
     private def compute(pdn: String): Try[Int => RelayGame] =
-      lidraughts.study.PdnImport(pdn, Nil).fold(
+      lidraughts.study.PdnImport(pdn, Nil, lidraughts.pref.Pref.default.draughtsResult).fold(
         err => Failure(LidraughtsException(err)),
         res => Success(index => RelayGame(
           index = index,

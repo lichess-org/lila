@@ -72,6 +72,8 @@ case class Pref(
     case _ => 1.0f
   }
 
+  def draughtsResult = gameResult == Pref.GameResult.DRAUGHTS
+
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
@@ -310,7 +312,7 @@ object Pref {
     destination = true,
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
-    gameResult = GameResult.STANDARD,
+    gameResult = GameResult.DRAUGHTS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
