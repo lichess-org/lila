@@ -32,25 +32,57 @@ function evalDesc(eval) {
   return eval ? ('Depth ' + eval.depth + ':\n' + eval.moves) : '';
 }
 
+function oldEval(ctrl, pairing) {
+  return (ctrl.evals && ctrl.evals.length) ? ctrl.evals.find(e => e.id === pairing.game.id) : undefined;
+}
+
 module.exports = function(ctrl) {
+  var sortedPairings = !ctrl.arbiterSort ? ctrl.data.pairings : ctrl.data.pairings.slice().sort(function(a, b) {
+    var da = ctrl.arbiterData.find(d => d.id == a.player.id), db = ctrl.arbiterData.find(d => d.id == b.player.id);
+    if (ctrl.arbiterSort === 'eval') {
+      da = ceval.compareEval(da.ceval ? da.ceval : oldEval(ctrl, a), a);
+      db = ceval.compareEval(db.ceval ? db.ceval : oldEval(ctrl, b), b);
+    } else {
+      da = da[ctrl.arbiterSort];
+      db = db[ctrl.arbiterSort];
+    }
+    if (da === undefined && db === undefined) 
+      return 0;
+    else if (da === undefined || da < db) 
+      return ctrl.arbiterSortDirection ? -1 : 1;
+    else if (db === undefined || da > db) 
+      return ctrl.arbiterSortDirection ? 1 : -1;
+    else 
+      return 0;
+  });
+  var sortableHeader = function(hint, title, sort) {
+    return m('th.sortable', [
+      m('span.hint--top-left', { 
+        'data-hint': hint, 
+        onclick: function(e) { ctrl.toggleArbiterSort(e.target.nextSibling, sort) } 
+      }, title),
+      m('span')
+    ]);
+  }
   return (ctrl.toggleArbiter && ctrl.arbiterData && simul.amArbiter(ctrl)) ? [ m('div.arbiter-panel', [
     m('table.slist.user_list',
       m('thead', m('tr', [
         m('th', { colspan: 2 }, 'Arbiter control panel'),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Simul host clock time remaining.' }, 'Host clock')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Simul participant clock time remaining.' }, 'Player clock')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'The FMJD rating set on the user\'s profile.' }, 'FMJD')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Scan 3.0 evaluation (+ is better for host, - is better for participant).' }, 'Eval')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Average centi-piece loss, the average deviation from Scan 3.0 expressed as 1/100th of a piece.' }, 'Acpl')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'The percentage of moves where the user left the game page (when > 5 moves played).' }, 'Blurs')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Game result when finished or last move when ongoing.' }, 'Result')),
+        sortableHeader('Simul host clock time remaining.', 'Host clock', 'hostClock'),
+        sortableHeader('Simul participant clock time remaining.', 'Player clock', 'clock'),
+        sortableHeader('The FMJD rating set on the user\'s profile.', 'FMJD', 'officialRating'),
+        sortableHeader('Scan 3.0 evaluation (+ is better for host, - is better for participant).', 'Eval', 'eval'),
+        sortableHeader('Average centi-piece loss, or the average deviation from Scan 3.0 expressed as 1/100th of a piece.', 'Acpl', 'acpl'),
+        sortableHeader('The percentage of moves where the user left the game page (available after move 5).', 'Blurs', 'blurs'),
+        sortableHeader('Last move played.', 'Move', 'lastMove'),
+        m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game, or * when ongoing.' }, 'Result')),
         m('th', m('span.hint--top-left', { 'data-hint': 'Stop the game by settling it as a win, draw or loss.' }, 'Settle'))
       ])),
-      m('tbody', ctrl.data.pairings.map(function(pairing) {
+      m('tbody', sortedPairings.map(function(pairing) {
       var variant = util.playerVariant(ctrl, pairing.player),
         playing = pairing.game.status < status.ids.aborted,
         data = ctrl.arbiterData.find(d => d.id == pairing.player.id)
-        oldeval = (ctrl.evals && ctrl.evals.length) ? ctrl.evals.find(e => e.id === pairing.game.id) : undefined,
+        oldeval = oldEval(ctrl, pairing),
         eval = data.ceval;
       if (data.ceval) {
         if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(e => e.id === pairing.game.id)) {
@@ -69,7 +101,7 @@ module.exports = function(ctrl) {
         pairing.winnerColor === 'white' ? (ctrl.pref.draughtsResult ? '2-0' : '1-0')
         : (pairing.winnerColor === 'black' ? (ctrl.pref.draughtsResult ? '0-2' : '0-1')
         : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
-      ) : ((data && data.lastMove !== undefined) ? ('* ' + data.lastMove) : '*');
+      ) : '* ';
       return m('tr', [
         m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '')),
         m('td.variant', ctrl.data.variants.length === 1 ? null : { 'data-icon': variant.icon }),
@@ -85,6 +117,7 @@ module.exports = function(ctrl) {
         m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval, pairing, ctrl.pref.draughtsResult))),
         m('td', (data && data.acpl !== undefined) ? data.acpl : '-'),
         m('td', (data && data.blurs !== undefined) ? (data.blurs + '%') : '-'),
+        m('td', m('span', data.lastMove)),
         m('td', m('span', result)),
         m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
           'data-icon': '2',

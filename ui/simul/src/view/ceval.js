@@ -59,5 +59,12 @@ module.exports = {
     else if (eval && eval.win !== undefined)
       return '#' + (pairing.hostColor !== 'white' ? -eval.win : eval.win);
     return '-';
+  },
+  compareEval: function(eval, pairing) {
+    if (eval && eval.cp !== undefined)
+      return pairing.hostColor !== 'white' ? -eval.cp : eval.cp;
+    else if (eval && eval.win !== undefined)
+      return 1e4 * (pairing.hostColor !== 'white' ? -eval.win : eval.win);
+    return -1e6;
   }
 }

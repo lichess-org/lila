@@ -12,6 +12,29 @@ module.exports = function(env) {
   this.toggleArbiter = false;
   this.userId = env.userId;
 
+  this.arbiterSort = '';
+  this.arbiterSortDirection = true;
+  this.arbiterSortTarget = undefined;
+  this.toggleArbiterSort = function(target, prop) {
+    if (this.arbiterSort === prop) {
+      if (this.arbiterSortDirection) {
+        this.arbiterSortDirection = false;
+        target.setAttribute('data-icon', 'S');
+      } else {
+        this.arbiterSort = '';
+        this.arbiterSortDirection = true;
+        target.setAttribute('data-icon', '');
+      }
+    } else {
+      this.arbiterSort = prop;
+      this.arbiterSortDirection = true;
+      if (this.arbiterSortTarget)
+        this.arbiterSortTarget.setAttribute('data-icon', '');
+      target.setAttribute('data-icon', 'R');
+      this.arbiterSortTarget = target;
+    }
+  }
+
   this.socket = new socket(env.socketSend, this);
 
   this.reload = function(data) {

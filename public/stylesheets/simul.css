@@ -205,6 +205,10 @@
 #simul .arbiter-panel table.slist th:last-child {
   border-right: 1px solid #d4d4d4;
 }
+#simul .arbiter-panel table.slist th.sortable span:first-child {
+  margin-right: 2px;
+  cursor: pointer;
+}
 #simul .arbiter-panel table.slist td:first-child,
 #simul .arbiter-panel table.slist th:first-child {
   border-left: 1px solid #d4d4d4;
