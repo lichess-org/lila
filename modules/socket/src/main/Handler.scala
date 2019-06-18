@@ -64,6 +64,10 @@ object Handler {
       // Unfortunately this map function is only called
       // if the JS closes the socket with lichess.socket.disconnect()
       // but not if the tab is closed or browsed away!
+      // Also if the client loses Internet connection,
+      // this will only be called after Internet is restored,
+      // and it can be called after a reconnection (using same uid) was performed,
+      // effectively quitting the reconnected client.
       .map(_ => socket ! Quit(uid))
   }
 
