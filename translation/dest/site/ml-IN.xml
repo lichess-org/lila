@@ -302,6 +302,7 @@
   <string name="yourPerfRatingIsTooLow">നിങ്ങളുടെ %1$s-ലെ റേറ്റിംഗ് (%2$s) വളരെ കുറവാണ്</string>
   <string name="ratedMoreThanInPerf">%2$s -ൽ റേറ്റിംഗ് ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s -ൽ റേറ്റിംഗ് ≤ %1$s</string>
+  <string name="mustBeInTeam">ഇതിന് %s ടീമിലെ അംഗമാകണം</string>
   <string name="youAreNotInTeam">താങ്കള്‍ %s ടീമിലെ അംഗമല്ല</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
@@ -506,6 +507,7 @@
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
   <string name="reportDescriptionHelp">ഗെയിമിന്റെ ലിങ്ക് ഇവിടെ പേസ്റ്റ് ചെയ്യുക. ശേഷം യുസറിന്റെ പെരുമാറ്റത്തിലെ അപാകത ഞങ്ങളോട് വിശദമായി പറയുക. \"they cheat\" എന്ന് പറയരുത്. പക്ഷെ എന്തുകൊണ്ട് നിങ്ങൾ ആ അഭിപ്രായത്തിലേക്ക് എത്തി എന്നാണ് പറയേണ്ടത്. ഇംഗ്ലീഷിൽ എഴുതിയാൽ നിങ്ങളുടെ റിപ്പോർട്ട് വേഗത്തിൽ വിശകലനം ചെയ്യപ്പെടും.</string>
+  <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>
   <string name="theming">തീമിങ്ങ്</string>

@@ -59,6 +59,7 @@
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">ここから削除</string>
+  <string name="forceVariation">変化として表示</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -604,6 +605,8 @@
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyFriends">友達のみ</string>
+  <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
+  <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
   <string name="whiteCastlingKingside">白　o-o</string>

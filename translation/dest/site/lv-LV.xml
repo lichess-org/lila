@@ -6,7 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lai uzaicinātu kādu spēlēt, iedod šo saiti</string>
   <string name="gameOver">Spēle galā</string>
   <string name="waitingForOpponent">Gaidām pretinieku</string>
-  <string name="waiting">Gaidām</string>
+  <string name="waiting">Gaida</string>
   <string name="yourTurn">Jūsu gājiens</string>
   <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
   <string name="level">Līmenis</string>
@@ -50,7 +50,7 @@
   <string name="analysis">Analīze</string>
   <string name="depthX">Dziļums %s</string>
   <string name="usingServerAnalysis">Izmanto servera analīzi</string>
-  <string name="loadingEngine">Ielādējam dzinēju...</string>
+  <string name="loadingEngine">Ielādē dzinēju...</string>
   <string name="cloudAnalysis">Mākoņanalīze</string>
   <string name="goDeeper">Dziļāka analīze</string>
   <string name="showThreat">Parādīt draudus</string>
@@ -59,6 +59,7 @@
   <string name="promoteVariation">Izvēlēties variantu</string>
   <string name="makeMainLine">Pārvērst par pamatvariantu</string>
   <string name="deleteFromHere">Dzēst šo un turpmākos gājienus</string>
+  <string name="forceVariation">Rādīt kā variantu</string>
   <string name="move">Gājiens</string>
   <string name="variantLoss">Variācijas zaudējums</string>
   <string name="variantWin">Variācijas uzvara</string>
@@ -371,7 +372,7 @@
     <item quantity="one">%s importēta spēles</item>
     <item quantity="other">%s importētas spēles</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Šis ir šaha CAPTHCA</string>
+  <string name="thisIsAChessCaptcha">Šis ir šaha CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
   <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
@@ -570,7 +571,7 @@
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
-  <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Burts (K, D, T, L, Z)</string>
   <string name="chessClock">Šaha pulkstenis</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
   <string name="never">Nekad</string>

@@ -31,10 +31,10 @@
   <string name="joinTheGame">Принять вызов</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью, или ещё подождать.</string>
+  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, ничью, или ещё подождать.</string>
   <string name="makeYourOpponentResign">Сопернику будет засчитано поражение</string>
   <string name="forceResignation">Запросить победу</string>
-  <string name="forceDraw">Объявить ничью</string>
+  <string name="forceDraw">Запросить ничью</string>
   <string name="talkInChat">Будьте вежливы в чате!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
   <string name="whiteResigned">Белые сдались</string>
@@ -59,6 +59,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
+  <string name="forceVariation">Применить вариант</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -119,7 +120,7 @@
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
-  <string name="claimADraw">Объявить ничью</string>
+  <string name="claimADraw">Потребовать ничью</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
@@ -613,7 +614,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Предварительный ход (пока ходит противник)</string>
   <string name="takebacksWithOpponentApproval">Возвраты (с согласия противника)</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при троекратном повторении позиции</string>
   <string name="privacy">Приватность</string>
   <string name="letOtherPlayersFollowYou">Разрешить другим игрокам подписываться на вас</string>
   <string name="letOtherPlayersChallengeYou">Разрешить другим игрокам вызывать вас на игру</string>

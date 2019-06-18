@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promuj ten wariant</string>
   <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń od tego miejsca</string>
+  <string name="forceVariation">Przedstaw jako wariant</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
@@ -178,7 +179,7 @@
   <string name="username">Nazwa użytkownika</string>
   <string name="usernameOrEmail">Nazwa użytkownika lub e-mail</string>
   <string name="changeUsername">Zmień nazwę użytkownika</string>
-  <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. \"JanNowak\" zamiast \"jannowak\".</string>
+  <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
@@ -246,7 +247,7 @@
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
   <string name="loginToChat">Zaloguj się, aby rozmawiać</string>
-  <string name="youHaveBeenTimedOut">Zostałeś wylogowany.</string>
+  <string name="youHaveBeenTimedOut">Zostałeś czasowo wyciszony.</string>
   <string name="spectatorRoom">Widzowie</string>
   <string name="composeMessage">Napisz wiadomość</string>
   <string name="noNewMessages">Brak nowych wiadomości</string>
@@ -439,7 +440,7 @@
     <item quantity="other">Poniżej %s minut</item>
   </plurals>
   <string name="required">Wymagane.</string>
-  <string name="openTournaments">Turnieje</string>
+  <string name="openTournaments">Dostępne turnieje</string>
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
   <string name="standing">Miejsce</string>
@@ -592,7 +593,7 @@
   <string name="currentPassword">Bieżące hasło</string>
   <string name="newPassword">Nowe hasło</string>
   <string name="newPasswordAgain">Powtórz nowe hasło</string>
-  <string name="boardHighlights">Podświetlenie pól szachownicy (ostatni ruch i szach)</string>
+  <string name="boardHighlights">Wyróżnienie pól szachownicy (ostatni ruch i szach)</string>
   <string name="pieceDestinations">Pola docelowe (ruchy poprawne i planowane)</string>
   <string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
@@ -692,7 +693,7 @@
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
   <string name="onlyFriends">Tylko znajomi</string>
-  <string name="displayBoardResizeHandle">Pokaż kursor zmiany wielkości szachownicy</string>
+  <string name="displayBoardResizeHandle">Pokaż wskaźnik zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>

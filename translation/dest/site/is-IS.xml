@@ -93,6 +93,7 @@
   <string name="replayMode">Endursýning</string>
   <string name="realtimeReplay">Rauntími</string>
   <string name="byCPL">Skv. stigum</string>
+  <string name="openStudy">Opna rannsókn</string>
   <string name="enable">Á</string>
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="evaluationGauge">Stöðumat</string>
@@ -285,6 +286,18 @@
     <item quantity="one">Þú þarft að spila %1$s fleiri %2$s leik með stigagjöf</item>
     <item quantity="other">Þú þarft að spila %1$s fleiri %2$s leiki með stigagjöf</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Þú verður að spila %s leik með stigagjöf í viðbót</item>
+    <item quantity="other">Þú verður að spila %s leiki með stigagjöf í viðbót</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Stig þín í %s eru tímabundin</string>
+  <string name="yourPerfRatingIsTooHigh">Stig þín í %1$s (%2$s) eru of há</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hæstu vikulegu stig þín í %1$s (%2$s) eru of há</string>
+  <string name="yourPerfRatingIsTooLow">Stig þín í %1$s (%2$s) eru of lág</string>
+  <string name="ratedMoreThanInPerf">Stig ≥ %1$s í %2$s</string>
+  <string name="ratedLessThanInPerf">Stig ≤ %1$s í %2$s</string>
+  <string name="mustBeInTeam">Þú verður að vera í liðinu %s</string>
+  <string name="youAreNotInTeam">Þú ert ekki í liðinu %s</string>
   <string name="backToGame">Aftur í leik</string>
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
   <string name="teams">Lið</string>
@@ -318,12 +331,15 @@
   <string name="fromPosition">Frá staðsetningu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="importGame">Hlaða inn leik</string>
+  <string name="importGameExplanation">Límdu PGN leiks til að fá endursýningu sem hægt er að skoða
+í vafra, tölvugreiningu, spjall og deilanlega vefslóð.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s innhlaðnir leikir</item>
     <item quantity="other">%s innhlaðnir leikir</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Þetta er skák kódi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikkaðu á borðið til að leika, og sannaðu að þú ert mannvera.</string>
+  <string name="captcha.fail">Vinsamlegast leystu skákþrautina til að halda áfram.</string>
   <string name="notACheckmate">Ekki mát</string>
   <string name="colorPlaysCheckmateInOne">%s leikur; mát í einum</string>
   <string name="retry">Reyna aftur</string>
@@ -365,6 +381,8 @@
   <string name="winner">Sigurvegari</string>
   <string name="standing">Staða</string>
   <string name="createANewTournament">Búa til nýtt mót</string>
+  <string name="tournamentCalendar">Mótadagatal</string>
+  <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
   <string name="join">ganga í</string>
   <string name="withdraw">afturkalla</string>
   <string name="points">Punktar</string>

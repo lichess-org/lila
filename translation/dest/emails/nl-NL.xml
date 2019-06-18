@@ -18,5 +18,5 @@ Hier is je profielpagina: %1$s. Je kunt het personaliseren op %2$s.
 Veel plezier, en mogen je stukken altijd hun weg vinden naar de koning van je tegenstander!</string>
   <string name="common_orPaste">(Werkt klikken niet? Probeer de link in uw browser te plakken!)</string>
   <string name="common_note">Dit is een service e-mail gekoppeld aan uw gebruik van %s.</string>
-  <string name="common_contact">Om contact met ons op te nemen, gebruik alstublieft %s.</string>
+  <string name="common_contact">Contact opnemen kan via: %s.</string>
 </resources>

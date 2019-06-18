@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Transformar em linha principal</string>
   <string name="deleteFromHere">Excluir a partir daqui</string>
+  <string name="forceVariation">Variante forçada</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota por variante</string>
   <string name="variantWin">Vitória por variante</string>
@@ -634,6 +635,8 @@ em %3$s</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="ifRatingIsPlusMinusX">Se a classificação for ± %s</string>
   <string name="onlyFriends">Apenas amigos</string>
+  <string name="displayBoardResizeHandle">Exibir ajustador de tabuleiro</string>
+  <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Roque curto das Brancas</string>

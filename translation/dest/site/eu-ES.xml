@@ -56,9 +56,10 @@
   <string name="showThreat">Mehatxua erakutsi</string>
   <string name="inLocalBrowser">nabigatzailean</string>
   <string name="toggleLocalEvaluation">Analisia erakutsi</string>
-  <string name="promoteVariation">Bariantea nagusi egin</string>
+  <string name="promoteVariation">Aldaera nagusi bihurtu</string>
   <string name="makeMainLine">Linea nagusi bihurtu</string>
   <string name="deleteFromHere">Ezabatu hemendik aurrera</string>
+  <string name="forceVariation">Aldaera derrigortu</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -632,6 +633,8 @@
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
   <string name="onlyFriends">Lagunak soilik</string>
+  <string name="displayBoardResizeHandle">Taularen tamaina aldatzeko aukera erakutsi</string>
+  <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>
   <string name="whiteCastlingKingside">Zuriak O-O</string>
@@ -660,7 +663,7 @@
   <string name="hostColorX">Emango duenaren kolorea: %s</string>
   <string name="createdSimuls">Aldibereko partida sortuberriak</string>
   <string name="hostANewSimul">Aldibereko partida sortu</string>
-  <string name="noSimulFound">Aldibereko partida ezin aurkitu</string>
+  <string name="noSimulFound">Aldibereko partida ez da aurkitu</string>
   <string name="noSimulExplanation">Aldibereko partida ez da existitzen</string>
   <string name="returnToSimulHomepage">Aldibereko partiden orrialdera itzuli</string>
   <string name="aboutSimul">Aldibereko partidetan jokalari batek beste batzuei egiten die aurre aldi berean.</string>
@@ -842,8 +845,8 @@
   <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
   <string name="conditionalPremoves">Baldintzadun aurrejokaldiak</string>
-  <string name="addCurrentVariation">Uneko bariantea gehitu</string>
-  <string name="playVariationToCreateConditionalPremoves">Bariante bat jokatu baldintzadun aurrejokaldiak sortzeko</string>
+  <string name="addCurrentVariation">Uneko aldaera gehitu</string>
+  <string name="playVariationToCreateConditionalPremoves">Aldaera bat jokatu baldintzadun aurre-jokaldiak sortzeko</string>
   <string name="noConditionalPremoves">Ez dago baldintzadun aurrejokaldirik</string>
   <string name="playX">%s jokatu</string>
   <plurals name="andSaveNbPremoveLines">

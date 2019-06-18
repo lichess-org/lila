@@ -59,6 +59,7 @@
   <string name="promoteVariation">Forfremjingsvariant</string>
   <string name="makeMainLine">Gjer til hovudline</string>
   <string name="deleteFromHere">Slett herifrå</string>
+  <string name="forceVariation">Tving fram varianten</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant siger</string>
@@ -634,6 +635,8 @@ i %3$s</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
   <string name="onlyFriends">Berre vener</string>
+  <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
+  <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Kvit O-O</string>

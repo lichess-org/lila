@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
+  <string name="forceVariation">Dwingende variatie</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -451,7 +452,7 @@
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
-  <string name="training">Training</string>
+  <string name="training">Puzzels</string>
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
@@ -632,6 +633,8 @@
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyFriends">Alleen vrienden</string>
+  <string name="displayBoardResizeHandle">Toon bordgrootte wijzigen handvat</string>
+  <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokeren</string>
   <string name="whiteCastlingKingside">Wit O-O</string>
@@ -798,7 +801,7 @@
   <string name="anotherWasX">Een andere mogelijkheid was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
   <string name="youBrowsedAway">U was op een ander tabblad bezig</string>
-  <string name="resumePractice">Hervat training</string>
+  <string name="resumePractice">Hervat oefenen</string>
   <string name="theGameIsADraw">De partij eindigt in remise.</string>
   <string name="computerThinking">De computer denkt na ...</string>
   <string name="seeBestMove">Toon de beste zet</string>

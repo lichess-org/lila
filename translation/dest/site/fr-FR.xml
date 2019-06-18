@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promouvoir la variante</string>
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
+  <string name="forceVariation">Forcer la variante</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>

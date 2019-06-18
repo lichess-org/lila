@@ -146,7 +146,7 @@
   <string name="signIn">Přihlásit se</string>
   <string name="youNeedAnAccountToDoThat">Pro následující akci je vyžadován účet</string>
   <string name="signUp">Registrace</string>
-  <string name="computersAreNotAllowedToPlay">Počítačová asistence není během hraní povolena. Nepoužívejte během hraní šachové motory, databáze nebo nápovědu jiných hráčů.</string>
+  <string name="computersAreNotAllowedToPlay">Počítačová asistence není během hraní povolena. Nepoužívejte během hraní šachové programy, databáze nebo nápovědu jiných hráčů.</string>
   <string name="games">Partie</string>
   <string name="forum">Fórum</string>
   <string name="xPostedInForumY">%1$s napsal do fóra %2$s</string>

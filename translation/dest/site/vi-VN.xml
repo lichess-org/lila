@@ -156,6 +156,7 @@
   <string name="ratingStats">Thống kê elo</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
+  <string name="changeUsername">Thay đổi tên đăng nhập</string>
   <string name="password">Mật khẩu</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
   <string name="changeEmail">Đổi thư điện tử</string>

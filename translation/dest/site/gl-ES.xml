@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
+  <string name="forceVariation">Forzar variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -163,6 +164,9 @@
   <string name="ratingStats">Estatísticas de puntuación</string>
   <string name="username">Nome de usuario</string>
   <string name="usernameOrEmail">Nome de usuario ou correo</string>
+  <string name="changeUsername">Cambiar nome de usuario</string>
+  <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
+  <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
@@ -171,6 +175,10 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">A clasificación actualízase cada minuto</item>
+    <item quantity="other">A clasificación actualízase cada %s minutos</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
@@ -627,6 +635,8 @@ en %3$s</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
   <string name="onlyFriends">Só amigos</string>
+  <string name="displayBoardResizeHandle">Amosar o control de redimensionamento do taboleiro</string>
+  <string name="onlyOnInitialPosition">Só na posición inicial</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
   <string name="whiteCastlingKingside">Brancas O-O</string>
@@ -749,6 +759,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
   <string name="xLikesY">a %1$s gústalle %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea o estudo %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>

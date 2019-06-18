@@ -59,6 +59,7 @@
   <string name="promoteVariation">Variante aufwerten</string>
   <string name="makeMainLine">Zur Hauptvariante machen</string>
   <string name="deleteFromHere">Ab hier löschen</string>
+  <string name="forceVariation">Variante erzwingen</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variante verloren</string>
   <string name="variantWin">Variante gewonnen</string>
