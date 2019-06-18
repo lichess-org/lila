@@ -31,7 +31,7 @@ module.exports = function(d) {
       m('tr.full', [
         m('th', 'Berserked games'),
         m('td', c.berserk),
-        m('td', per(c.berserk, c.tour)),
+        m('td', per(c.berserk)),
       ]),
       c.seconds ? m('tr.full', [
         m('th', 'Time spent playing'),
