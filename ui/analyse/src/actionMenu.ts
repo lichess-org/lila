@@ -211,7 +211,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         let max = navigator.hardwareConcurrency;
         if (!max) return;
         if (max > 2) max--; // don't overload your computer, you dummy
-        if (max > 8 && ceval.wasmxSupported) max = 8; // hard limit for now
+        if (max > 4 && ceval.wasmxSupported) max = 4; // hard limit for now
         return h('div.setting', [
           h('label', { attrs: { 'for': id } }, noarg('cpus')),
           h('input#' + id, {
