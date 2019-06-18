@@ -69,6 +69,8 @@ object Handler {
       // and it can be called after a reconnection (using same uid) was performed,
       // effectively quitting the reconnected client.
       .map(_ => {
+        // TODO: This is a data race, because
+        // member.ended is set on a different thread.
         if (!member.ended) socket ! Quit(uid)
       })
   }
