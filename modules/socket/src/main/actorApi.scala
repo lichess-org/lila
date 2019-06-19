@@ -7,7 +7,7 @@ case class Connected(enumerator: JsEnumerator, member: SocketMember)
 case class BotConnected(color: chess.Color, v: Boolean)
 
 private[socket] case object Broom
-private[socket] case class Quit(uid: Socket.Uid)
+private[socket] case class Quit(uid: Socket.Uid, member: SocketMember)
 
 case class SocketEnter(uid: Socket.Uid, member: SocketMember)
 case class SocketLeave(uid: Socket.Uid, member: SocketMember)
