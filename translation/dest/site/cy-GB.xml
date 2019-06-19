@@ -135,6 +135,7 @@
   <string name="ratingStats">Ystadegau graddfa</string>
   <string name="username">Enw defnyddiwr</string>
   <string name="usernameOrEmail">Enw defnyddiwr neu gyfeiriad e-bost</string>
+  <string name="changeUsername">Newid enw defnyddiwr</string>
   <string name="password">Cyfrinair</string>
   <string name="changePassword">Newid cyfrinair</string>
   <string name="changeEmail">Newid cyfeiriad e-bost</string>
@@ -302,6 +303,7 @@
   <string name="winStreak">Gêmau wedi\'u hennill heb golli</string>
   <string name="createdBy">greuwyd gan</string>
   <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
+  <string name="tournamentPairingsAreNowClosed">Ni fydd gemau newydd yn y talwrn.</string>
   <string name="standByX">Ar eich marciau %s, wrthi\'n dewis gwrthwynebwyr!</string>
   <string name="youArePlaying">Rwyt ti\'n chwarae!</string>
   <string name="winRate">Cyfradd enill</string>
@@ -444,6 +446,7 @@
   <string name="privacy">Preifatrwydd</string>
   <string name="letOtherPlayersFollowYou">Caniatáu i chwaraewyr eraill dy ddilyn</string>
   <string name="letOtherPlayersChallengeYou">Caniatáu i chwaraewyr eraill dy herio</string>
+  <string name="letOtherPlayersInviteYouToStudy">Gadewch i chwaraewyr eraill eich gwahodd i astudio</string>
   <string name="sound">Sain</string>
   <string name="yourPreferencesHaveBeenSaved">Cadwyd eich dewisiadau.</string>
   <string name="none">Dim</string>
@@ -505,6 +508,8 @@
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
   <string name="onlyFriends">Dim ond ffrindiau</string>
+  <string name="displayBoardResizeHandle">Handlen newid maint y bwrdd</string>
+  <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
   <string name="menu">Dewislen</string>
   <string name="castling">Castellu</string>
   <string name="whiteCastlingKingside">0-0 gwyn</string>
