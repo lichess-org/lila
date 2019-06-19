@@ -58,7 +58,9 @@ abstract class SocketTrouper[M <: SocketMember](
     case Broom => broom
 
     // when a member quits
-    case Quit(uid) => withMember(uid) { quit(uid, _) }
+    case Quit(uid, member) => withMember(uid) { m =>
+      if (m == member) quit(uid, m)
+    }
 
     case Resync(uid) => resync(uid)
 

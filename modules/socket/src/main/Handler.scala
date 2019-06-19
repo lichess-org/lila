@@ -68,11 +68,7 @@ object Handler {
       // this will only be called after Internet is restored,
       // and it can be called after a reconnection (using same uid) was performed,
       // effectively quitting the reconnected client.
-      .map(_ => {
-        // TODO: This is a data race, because
-        // member.ended is set on a different thread.
-        if (!member.ended) socket ! Quit(uid)
-      })
+      .map(_ => socket ! Quit(uid, member))
   }
 
   def recordUserLagFromPing(member: SocketMember, ping: JsObject) = for {
