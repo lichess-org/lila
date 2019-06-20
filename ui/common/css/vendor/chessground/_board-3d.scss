@@ -60,12 +60,18 @@ cg-board::before {
   content: '';
   background-size: cover;
 }
-.is2d cg-board {
+.is2d {
   /* override miniboards */
-  top: 0;
-  height: 100%;
-  &::before {
-    content: none;
+  cg-helper {
+    padding-bottom: 12.5%;
+    display: table;
+  }
+  cg-board {
+    top: 0;
+    height: 100%;
+    &::before {
+      content: none;
+    }
   }
 }
 
