@@ -103,6 +103,9 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ FromPosition.id
   val aiVariants = variants :+
+    draughts.variant.Frisian.id :+
+    draughts.variant.Frysk.id :+
+    draughts.variant.Antidraughts.id :+
     draughts.variant.Breakthrough.id :+
     draughts.variant.FromPosition.id
   val variantsWithVariants =

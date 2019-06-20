@@ -26,7 +26,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
 
   private def fetchAcpl(games: List[Game]) =
     games map { game =>
-      if (game.turns > 2 && (game.variant.standard || game.variant.fromPosition || game.variant.breakthrough))
+      if (game.turns > 2)
         Env.current.api.getAcpl(game.id) map { (game.id, _) }
       else
         fuccess(game.id -> none)
