@@ -607,9 +607,9 @@
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
   <string name="gameBehavior">Interfejs</string>
-  <string name="howDoYouMovePieces">W jaki sposób przesuwasz bierki?</string>
-  <string name="clickTwoSquares">Wskazuję dwa pola</string>
-  <string name="dragPiece">Przeciągam bierkę</string>
+  <string name="howDoYouMovePieces">Sposób przesuwania bierek</string>
+  <string name="clickTwoSquares">Wskazanie dwóch pól</string>
+  <string name="dragPiece">Przeciąganie bierki</string>
   <string name="bothClicksAndDrag">Na oba sposoby</string>
   <string name="premovesPlayingDuringOpponentTurn">Ruch planowany (podczas ruchu przeciwnika)</string>
   <string name="takebacksWithOpponentApproval">Cofanie ruchów (za zgodą przeciwnika)</string>
