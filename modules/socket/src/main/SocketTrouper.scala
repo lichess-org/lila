@@ -59,7 +59,7 @@ abstract class SocketTrouper[M <: SocketMember](
 
     // when a member quits
     case Quit(uid, member) => withMember(uid) { m =>
-      if (m == member) quit(uid, m)
+      if (m eq member) quit(uid, m)
     }
 
     case Resync(uid) => resync(uid)
