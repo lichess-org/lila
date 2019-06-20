@@ -6,9 +6,9 @@
   <string name="averageScoreAsWhiteX">Średni wynik białymi: %s</string>
   <string name="averageScoreAsBlackX">Średni wynik czarnymi: %s</string>
   <string name="knowingTheChessBoard">Znajomość współrzędnych pól na szachownicy jest bardzo ważną umiejętnością:</string>
-  <string name="mostChessCourses">Większość szachowych kursów i ćwiczeń używa notacji algebraicznej.</string>
-  <string name="talkToYourChessFriends">Łatwiej jest rozmawiać ze znajomymi o szachach jeśli wszyscy rozumiecie \"język szachów\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Możesz analizować partię skuteczniej jeśli nie musisz szukać współrzędnych pól.</string>
+  <string name="mostChessCourses">Większość kursów i ćwiczeń szachowych wykorzystuje intensywnie notację algebraiczną.</string>
+  <string name="talkToYourChessFriends">Rozmowa ze znajomymi szachistami będzie łatwiejsza, gdy będziecie się porozumiewać w „języku szachów”.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Analiza partii przebiega sprawniej, jeśli nie musisz szukać pól mając ich współrzędne.</string>
   <string name="aSquareNameAppears">Gdy pojawią się współrzędne musisz jak najszybciej kliknąć we właściwe pole. Masz 30 sekund aby wskazać tak wiele pól jak to możliwe!</string>
   <string name="startTraining">Rozpocznij trening</string>
 </resources>
