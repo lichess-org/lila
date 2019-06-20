@@ -368,6 +368,7 @@ export default class RoundController {
       });
       if (o.check) sound.check();
       blur.onMove();
+      li.pubsub.emit('ply')(this.ply);
     }
     d.game.threefold = !!o.threefold;
 
