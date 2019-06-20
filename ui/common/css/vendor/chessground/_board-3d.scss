@@ -23,6 +23,12 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
   }
 }
 
+cg-helper {
+  display: block; /* display: table hack not possible here, because impact on
+                     height varies across Chrome versions */
+  padding-bottom: $td-inner-height-ratio * 12.5%;
+}
+
 piece {
   /* original size: width: 140.625%; height: 179.6875%; */
   /* size on 3D board, with height/width = 90.78571% */
