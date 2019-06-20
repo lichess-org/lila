@@ -16,4 +16,6 @@
     <item quantity="other">%s સદસ્યો</item>
   </plurals>
   <string name="open">ખોલો</string>
+  <string name="xBroughtToYouByY">%2$s ના દ્વારા%1$s લાવવામાં આવ્યું</string>
+  <string name="studyNotFound">સ્ટડી ના મળી</string>
 </resources>
