@@ -559,20 +559,19 @@ export default class RoundController {
   };
 
   resign = (v: boolean): void => {
-    if (this.resignConfirm) {
-      if (v) this.socket.sendLoading('resign');
-      else {
-        clearTimeout(this.resignConfirm);
-        this.resignConfirm = undefined;
+    if (v) {
+      if (this.resignConfirm || !this.data.pref.confirmResign) {
+        this.socket.sendLoading('resign');
+      } else {
+        this.resignConfirm = setTimeout(() => this.resign(false), 3000);
       }
-    } else if (v) {
-      if (this.data.pref.confirmResign) this.resignConfirm = setTimeout(() => {
-        this.resign(false);
-      }, 3000);
-      else this.socket.sendLoading('resign');
+      this.redraw();
+    } else if (this.resignConfirm) {
+      clearTimeout(this.resignConfirm);
+      this.resignConfirm = undefined;
+      this.redraw();
     }
-    this.redraw();
-  };
+  }
 
   goBerserk = () => {
     this.socket.berserk();
