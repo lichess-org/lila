@@ -24,9 +24,14 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
 }
 
 cg-helper {
-  display: block; /* display: table hack not possible here, because impact on
-                     height varies across Chrome versions */
+  // Default (from 2D boards) would be 12.5% of width.
   padding-bottom: $td-inner-height-ratio * 12.5%;
+  // The "display: table" hack is not useful here, because the board is not
+  // square. So heights corresponding to rounded widths are not always
+  // integers, much less have the desired effect.
+  // Additionally behavior with non-integer heights varies across Chrome
+  // versions.
+  display: block;
 }
 
 piece {
