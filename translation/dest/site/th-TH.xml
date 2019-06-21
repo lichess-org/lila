@@ -92,10 +92,10 @@
   <string name="allSet">พร้อมลุย!</string>
   <string name="importPgn">ป้อน PGN</string>
   <string name="delete">ลบ</string>
-  <string name="deleteThisImportedGame">ลบเกมนี้นำเข้านี้ใช่ไหม?</string>
-  <string name="replayMode">โหมดเล่นซ้ำ</string>
-  <string name="realtimeReplay">เวลาตามจริง</string>
-  <string name="byCPL">ตาม CPL</string>
+  <string name="deleteThisImportedGame">ลบเกมที่ป้อนไว้?</string>
+  <string name="replayMode">เล่นซ้ำ</string>
+  <string name="realtimeReplay">ตามเล่นจริง</string>
+  <string name="byCPL">ตามแต้มเสีย</string>
   <string name="openStudy">เปิดการศึกษา</string>
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรการเดินที่ดีที่สุด</string>
