@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="analysis">กระดานวิเคราะห์</string>
   <string name="depthX">ความลึกระดับ %s</string>
-  <string name="usingServerAnalysis">กำลังใช้การวิเคราะห์เซิร์ฟเวอร์</string>
+  <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
   <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
   <string name="goDeeper">ลึกลงอีก</string>
@@ -70,9 +70,9 @@
   <string name="winning">การชนะ</string>
   <string name="losing">การแพ้</string>
   <string name="drawn">การเสมอ</string>
-  <string name="unknown">ไม่ทราบ</string>
+  <string name="unknown">ไม่แน่ชัด</string>
   <string name="database">ฐานข้อมูล</string>
-  <string name="whiteDrawBlack">ขาว / เสมอ / ดำ</string>
+  <string name="whiteDrawBlack">ขาวนำ / เสมอ / ดำนำ</string>
   <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
   <string name="recentGames">เกมเมื่อเร็วๆนี้</string>
   <string name="topGames">เกมเด่น</string>
