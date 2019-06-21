@@ -31,11 +31,11 @@
   <string name="joinTheGame">เข้าร่วมเกม</string>
   <string name="whitePlays">ตาขาวเล่น</string>
   <string name="blackPlays">ตาดำเล่น</string>
-  <string name="opponentLeftChoices">ผู้เล่นอีกฝ่ายอาจทิ้งเกมไปแล้ว คุณสามารถใช้สิทธิ์ชนะ, ให้เสมอกัน หรือรอต่อไป</string>
-  <string name="makeYourOpponentResign">ทำให้คู่แข่งยอมแพ้</string>
-  <string name="forceResignation">ใช้สิทธิ์ชนะ</string>
-  <string name="forceDraw">ให้เสมอกัน</string>
-  <string name="talkInChat">คุยในแชท</string>
+  <string name="opponentLeftChoices">คู่แข่งอาจทิ้งเกมไปแล้ว คุณสามารถถือสิทธิ์ให้ตัวเองชนะ ถือสิทธิ์ให้เกมเสมอ หรือรอคู่แข่ง</string>
+  <string name="makeYourOpponentResign">บังคับให้คู่แข่งยอมแพ้</string>
+  <string name="forceResignation">ถือสิทธิ์ชนะ</string>
+  <string name="forceDraw">ถือสิทธิ์เสมอ</string>
+  <string name="talkInChat">กรุณาสนทนาอย่างสุภาพ</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">คนแรกที่เข้ามาใน URL นี้ จะได้เล่นกับคุณ</string>
   <string name="whiteResigned">ขาวยอมแพ้</string>
   <string name="blackResigned">ดำยอมแพ้</string>
