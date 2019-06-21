@@ -31,7 +31,7 @@ export function init(ctrl: RoundController) {
     ctrl.redraw();
   }));
   k.bind(['up', 'k'], preventing(function() {
-    ctrl.userJump(1);
+    ctrl.userJump(0);
     ctrl.redraw();
   }));
   k.bind(['down', 'j'], preventing(function() {
