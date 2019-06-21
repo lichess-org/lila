@@ -113,8 +113,8 @@
   <string name="inaccuracies">ไม่แม่นยำ</string>
   <string name="moveTimes">เวลาที่ใช้ในการเดิน</string>
   <string name="flipBoard">หมุนกระดาน</string>
-  <string name="threefoldRepetition">รุกล้อ</string>
-  <string name="claimADraw">ใช้สิทธิ์เสมอ</string>
+  <string name="threefoldRepetition">เดินซ้ำสามรอบ</string>
+  <string name="claimADraw">ถือสิทธิ์เสมอ</string>
   <string name="offerDraw">เสนอว่าเสมอ</string>
   <string name="draw">เสมอ</string>
   <plurals name="nbPlayers">
@@ -604,6 +604,8 @@
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="ifRatingIsPlusMinusX">ถ้าระดับคะแนน ± %s</string>
   <string name="onlyFriends">เฉพาะเพื่อน</string>
+  <string name="displayBoardResizeHandle">เปิดอุปกรณ์กำหนดขนาดกระดาน</string>
+  <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="menu">เมนู</string>
   <string name="castling">การเข้าป้อม</string>
   <string name="whiteCastlingKingside">ขาว O-O</string>
