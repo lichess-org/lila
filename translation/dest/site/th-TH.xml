@@ -52,7 +52,7 @@
   <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
   <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
-  <string name="goDeeper">ลึกลงอีก</string>
+  <string name="goDeeper">ลึกอีก</string>
   <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
@@ -60,7 +60,7 @@
   <string name="makeMainLine">สร้างเส้นทางหลัก</string>
   <string name="deleteFromHere">ลบจากที่นี่</string>
   <string name="forceVariation">ทำให้เป็นการผันแปร</string>
-  <string name="move">เดิน</string>
+  <string name="move">ตาเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
   <string name="insufficientMaterial">วัสดุไม่เพียงพอ</string>
@@ -141,7 +141,7 @@
   <string name="minutesPerSide">นาทีต่อฝ่าย</string>
   <string name="variant">ตัวแปรกติกา</string>
   <string name="variants">ตัวแปรกติกา</string>
-  <string name="timeControl">การควบคุมเวลา</string>
+  <string name="timeControl">กำหนดเวลา</string>
   <string name="realTime">เวลาตามจริง</string>
   <string name="correspondence">ยาวนาน</string>
   <string name="daysPerTurn">วันต่อตาเดิน</string>
@@ -156,7 +156,7 @@
   <string name="rating">ระดับคะแนน</string>
   <string name="ratingStats">สถิติระดับคะแนน</string>
   <string name="username">ชื่อผู้ใช้</string>
-  <string name="usernameOrEmail">ชื่อผู้ใช้</string>
+  <string name="usernameOrEmail">ชื่อผู้ใช้ หรืออีเมล</string>
   <string name="changeUsername">เปลี่ยนชื่อผู้ใช้</string>
   <string name="changeUsernameNotSame">เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็กที่เปลี่ยนได้ เช่น \"johndoe\" เป็น \"JohnDoe\"</string>
   <string name="changeUsernameDescription">เปลี่ยนชื่อผู้ใช้ของคุณ สามารถทำได้เพียงครั้งเดียวเท่านั้น และอนุญาตให้เปลี่ยนได้เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก</string>
