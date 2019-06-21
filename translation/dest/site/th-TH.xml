@@ -84,9 +84,9 @@
     <item quantity="other">ใน %s ตาจะมีเบี้ยเดิน หรือการกินหมากเกิดขึ้น (เริ่มนับเสมอ 50 รอบใหม่อีกครั้ง)</item>
   </plurals>
   <string name="noGameFound">ไม่พบเกม</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
-  <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
-  <string name="xOpeningExplorer">ตัวสำรวจการเปิดเกม %s</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ไม่เพิ่มเกมที่เมนูตั้งค่าหน่อยหรือ?</string>
+  <string name="openingExplorer">ชมการเปิดเกม</string>
+  <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
   <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="allSet">ยืนยัน!</string>
