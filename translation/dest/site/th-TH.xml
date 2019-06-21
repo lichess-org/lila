@@ -198,12 +198,12 @@
   <string name="gameAborted">เกมถูกยกเลิก</string>
   <string name="standard">มาตรฐาน</string>
   <string name="unlimited">ไม่จำกัด</string>
-  <string name="mode">แบบการเล่น</string>
+  <string name="mode">รูปแบบ</string>
   <string name="casual">เกมสบาย ๆ</string>
-  <string name="rated">คิดคะแนน</string>
+  <string name="rated">เกมคิดแต้ม</string>
   <string name="casualTournament">เกมสบาย ๆ</string>
-  <string name="ratedTournament">คิดคะแนน</string>
-  <string name="thisGameIsRated">เกมนี้ถูกคิดคะแนน</string>
+  <string name="ratedTournament">เกมคิดแต้ม</string>
+  <string name="thisGameIsRated">เกมนี้คิดแต้ม</string>
   <string name="rematch">แข่งอีกครั้ง</string>
   <string name="rematchOfferSent">ข้อเสนอเพื่อแข่งอีกครั้ง ถูกส่ง</string>
   <string name="rematchOfferSentWhite">ขาวขอแข่งอีกครั้ง</string>
