@@ -87,10 +87,10 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ไม่เพิ่มเกมที่เมนูตั้งค่าหน่อยหรือ?</string>
   <string name="openingExplorer">ชมการเปิดเกม</string>
   <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
-  <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
-  <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
-  <string name="allSet">ยืนยัน!</string>
-  <string name="importPgn">นำเข้า PGN</string>
+  <string name="winPreventedBy50MoveRule">พลาดชัยชนะเนื่องจากกฎการเดิน 50 รอบ</string>
+  <string name="lossSavedBy50MoveRule">รอดจากการแพ้ด้วยกฎการเดิน 50 รอบ</string>
+  <string name="allSet">พร้อมลุย!</string>
+  <string name="importPgn">ป้อน PGN</string>
   <string name="delete">ลบ</string>
   <string name="deleteThisImportedGame">ลบเกมนี้นำเข้านี้ใช่ไหม?</string>
   <string name="replayMode">โหมดเล่นซ้ำ</string>
