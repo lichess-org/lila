@@ -117,7 +117,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     finishedSelect
   ).sort(createdSort).list[Simul](max)
 
-  def allNotFinished =
+  def allNotFinished: Fu[List[Simul]] =
     simulColl.find(notFinishedSelect).list[Simul]()
 
   def uniques(max: Int): Fu[List[Simul]] =

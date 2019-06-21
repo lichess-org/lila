@@ -190,7 +190,7 @@
   margin-top: 4px;
 }
 #simul .arbiter-panel {
-  padding: 20px 25px;
+  padding: 20px 15px;
 }
 #simul .arbiter-panel a.button {
  padding: 3px 5px;
@@ -205,6 +205,13 @@
 #simul .arbiter-panel table.slist th:last-child {
   border-right: 1px solid #d4d4d4;
 }
+#simul .arbiter-panel table.slist thead th {
+  padding: 0.4em 0.4em;
+}
+#simul .arbiter-panel table.slist td {
+  padding: 0.6em 0.4em;
+  font-size: 1em;
+}
 #simul .arbiter-panel table.slist th.sortable span:first-child {
   margin-right: 2px;
   cursor: pointer;
@@ -212,6 +219,29 @@
 #simul .arbiter-panel table.slist td:first-child,
 #simul .arbiter-panel table.slist th:first-child {
   border-left: 1px solid #d4d4d4;
+}
+#simul .arbiter-panel .sig_1 {
+  color: #2077C0;
+  /* dark blue */
+}
+#simul .arbiter-panel .sig_2 {
+  color: #23A1AB;
+  /* light blue */
+}
+#simul .arbiter-panel .sig_3 {
+  color: #DDCF3F;
+  /* yellow */
+}
+#simul .arbiter-panel .sig_4 {
+  color: #E79B64;
+  /* orange */
+}
+#simul .arbiter-panel .sig_5 {
+  color: #E73B38;
+  /* red */
+}
+#simul .arbiter-panel span.sig {
+  margin-right: 1px;
 }
 .variant_icons {
   white-space: nowrap;

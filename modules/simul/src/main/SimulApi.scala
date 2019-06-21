@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import draughts.variant.Variant
 import lidraughts.analyse.Accuracy
 import lidraughts.common.Debouncer
+import lidraughts.evaluation.{ Analysed, Assessible, PlayerAssessments }
 import lidraughts.game.{ Game, GameRepo, PerfPicker }
 import lidraughts.game.actorApi.SimulNextGame
 import lidraughts.hub.actorApi.lobby.ReloadSimuls
@@ -45,24 +46,29 @@ final class SimulApi(
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  private val acplCache = asyncCache.multi[Game.ID, Option[(Int, Int)]](
-    name = "simul.acpl",
-    f = fetchAnalysisAcpl,
+  private val assessmentsCache = asyncCache.multi[Game.ID, Option[PlayerAssessments]](
+    name = "simul.assessments",
+    f = fetchPlayerAssessments,
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  private def fetchAnalysisAcpl(id: Game.ID): Fu[Option[(Int, Int)]] =
-    lidraughts.draughtsnet.Env.current.analyser.fromCache(id) map { analysis =>
-      val acplWhite = ~Accuracy.mean(Accuracy.PovLike(draughts.White, draughts.White, 0), analysis)
-      val acplBlack = ~Accuracy.mean(Accuracy.PovLike(draughts.Black, draughts.White, 0), analysis)
-      (acplWhite, acplBlack).some
+  private def fetchPlayerAssessments(gameId: String): Fu[Option[PlayerAssessments]] =
+    GameRepo game gameId flatMap {
+      case Some(game) =>
+        lidraughts.draughtsnet.Env.current.analyser.fromCache(game) map { analysis =>
+          val assessible = Assessible(Analysed(game, analysis))
+          val assessWhite = assessible.playerAssessment(draughts.Color.White).some
+          val assessBlack = assessible.playerAssessment(draughts.Color.Black).some
+          PlayerAssessments(assessWhite, assessBlack).some
+        }
+      case _ => fufail(s"game $gameId not found")
     } recoverWith {
       case e =>
-        logger.info(s"fetchAnalysisAcpl $id - ${e.getMessage}")
+        logger.warn(s"fetchAnalysisAcpl $gameId - ${e.getMessage}")
         fuccess(none)
     }
 
-  def getAcpl(id: Game.ID): Fu[Option[(Int, Int)]] = acplCache get id
+  def getAssessments(id: Game.ID): Fu[Option[PlayerAssessments]] = assessmentsCache get id
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
@@ -312,7 +318,7 @@ final class SimulApi(
 
   def processCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
     sendTo(simulId, actorApi.ReloadEval(gameId, json))
-    acplCache.refresh(gameId)
+    assessmentsCache.refresh(gameId)
   }
 
   def socketStanding(simul: Simul, finishedGame: Option[String]): Unit = {

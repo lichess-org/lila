@@ -12,25 +12,25 @@ module.exports = function(env) {
   this.toggleArbiter = false;
   this.userId = env.userId;
 
-  this.arbiterSort = '';
-  this.arbiterSortDirection = true;
+  this.arbiterSort = 'assessment';
+  this.arbiterSortDescending = true;
   this.arbiterSortTarget = undefined;
   this.toggleArbiterSort = function(target, prop) {
     if (this.arbiterSort === prop) {
-      if (this.arbiterSortDirection) {
-        this.arbiterSortDirection = false;
-        target.setAttribute('data-icon', 'S');
+      if (this.arbiterSortDescending) {
+        this.arbiterSortDescending = false;
+        target.setAttribute('data-icon', 'R');
       } else {
-        this.arbiterSort = '';
-        this.arbiterSortDirection = true;
+        this.arbiterSort = 'assessment';
+        this.arbiterSortDescending = true;
         target.setAttribute('data-icon', '');
       }
     } else {
       this.arbiterSort = prop;
-      this.arbiterSortDirection = true;
+      this.arbiterSortDescending = true;
       if (this.arbiterSortTarget)
         this.arbiterSortTarget.setAttribute('data-icon', '');
-      target.setAttribute('data-icon', 'R');
+      target.setAttribute('data-icon', 'S');
       this.arbiterSortTarget = target;
     }
   }

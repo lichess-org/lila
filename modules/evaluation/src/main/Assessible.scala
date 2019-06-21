@@ -26,10 +26,10 @@ case class Assessible(analysed: Analysed) {
     }
 
   def highBlurRate(color: Color): Boolean =
-    !game.isSimul && game.playerBlurPercent(color) > 90
+    game.playerBlurPercent(color) > 90
 
   def moderateBlurRate(color: Color): Boolean =
-    !game.isSimul && game.playerBlurPercent(color) > 70
+    game.playerBlurPercent(color) > 70
 
   def suspiciousHoldAlert(color: Color): Boolean =
     game.player(color).hasSuspiciousHoldAlert
