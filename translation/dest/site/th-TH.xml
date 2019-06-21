@@ -50,10 +50,10 @@
   <string name="analysis">กระดานวิเคราะห์</string>
   <string name="depthX">ความลึกระดับ %s</string>
   <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
-  <string name="loadingEngine">กำลังโหลดจักรกล...</string>
-  <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
+  <string name="loadingEngine">กำลังโหลด...</string>
+  <string name="cloudAnalysis">กำลังวิเคราะห์ด้วยระบบคลาวด์</string>
   <string name="goDeeper">ลึกอีก</string>
-  <string name="showThreat">แสดงภัยคุกคาม</string>
+  <string name="showThreat">แสดงตาเดินของคู่ต่อสู้ที่อันตราย</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
   <string name="promoteVariation">เลื่อนขั้นตัวแปร</string>
@@ -63,9 +63,9 @@
   <string name="move">ตาเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
-  <string name="insufficientMaterial">วัสดุไม่เพียงพอ</string>
+  <string name="insufficientMaterial">หมากไม่พอให้รุกจน</string>
   <string name="pawnMove">เดินเบี้ย</string>
-  <string name="capture">จับกิน</string>
+  <string name="capture">การจับกิน</string>
   <string name="close">ปิด</string>
   <string name="winning">การชนะ</string>
   <string name="losing">การแพ้</string>
@@ -129,7 +129,7 @@
   </plurals>
   <string name="viewInFullSize">ดูแบบเต็มขนาด</string>
   <string name="logOut">ลงชื่อออก</string>
-  <string name="signIn">ลงชื่อเข้า</string>
+  <string name="signIn">ลงชื่อเข้าใช้</string>
   <string name="youNeedAnAccountToDoThat">คุณต้องมีบัญชีผู้ใช้เพื่อทำสิ่งนั้น</string>
   <string name="signUp">ลงทะเบียน</string>
   <string name="computersAreNotAllowedToPlay">ผู้เล่นที่เป็นคอมพิวเตอร์หรือใช้คอมพิวเตอร์ช่วย จะไม่ได้รับอนุญาตให้เล่น  โปรดอย่าใช้การช่วยเหลือจากตัวช่วยเล่นหมากรุก, ฐานข้อมูล หรือบุคคลอื่น ในขณะเล่น</string>
@@ -180,19 +180,19 @@
   </plurals>
   <string name="cancel">ยกเลิก</string>
   <string name="timeOut">หมดเวลา</string>
-  <string name="drawOfferSent">ข้อเสนอเพื่อการเสมอ ถูกส่ง</string>
-  <string name="drawOfferDeclined">ข้อเสนอเพื่อการเสมอ ถูกปฏิเสธ</string>
-  <string name="drawOfferAccepted">ข้อเสนอเพื่อการเสมอ ถูกยอมรับ</string>
+  <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
+  <string name="drawOfferDeclined">การขอเสมอถูกปฏิเสธ</string>
+  <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
   <string name="drawOfferCanceled">ข้อเสนอเพื่อการเสมอ ถูกยกเลิก</string>
   <string name="whiteOffersDraw">ขาวเสนอว่าเสมอ</string>
   <string name="blackOffersDraw">ดำเสนอว่าเสมอ</string>
   <string name="whiteDeclinesDraw">ขาวปฏิเสธการเสมอ</string>
   <string name="blackDeclinesDraw">ดำปฏิเสธการเสมอ</string>
-  <string name="yourOpponentOffersADraw">คู่แข่งของคุณได้เสนอว่าเสมอกัน</string>
+  <string name="yourOpponentOffersADraw">คู่แข่งขอเสมอ</string>
   <string name="accept">ยอมรับ</string>
   <string name="decline">ปฏิเสธ</string>
-  <string name="playingRightNow">กำลังเล่นในขณะนี้</string>
-  <string name="eventInProgress">กำลังเล่นในขณะนี้</string>
+  <string name="playingRightNow">กำลังเล่น</string>
+  <string name="eventInProgress">กำลังเล่น</string>
   <string name="finished">จบแล้ว</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
