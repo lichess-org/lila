@@ -73,17 +73,17 @@
   <string name="unknown">ไม่แน่ชัด</string>
   <string name="database">ฐานข้อมูล</string>
   <string name="whiteDrawBlack">ขาวนำ / เสมอ / ดำนำ</string>
-  <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
-  <string name="recentGames">เกมเมื่อเร็วๆนี้</string>
+  <string name="averageRatingX">แต้มเฉลี่ยอยู่ที่ %s แต้ม</string>
+  <string name="recentGames">เกมเมื่อเร็ว ๆ นี้</string>
   <string name="topGames">เกมเด่น</string>
-  <string name="masterDbExplanation">เกม OTB สองล้านเกมของผู้เล่นระดับคะแนน FIDE %1$s+ จาก %2$s ถึง %3$s</string>
+  <string name="masterDbExplanation">เกม OTB สองล้านเกมโดยผู้เล่นที่มีแต้ม FIDE %1$s ขึ้นไปตั้งแต่ปี %2$s ถึงปี %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">จนใน %s ครึ่งรอบเดิน</item>
+    <item quantity="other">จนใน %s ตา</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">การจับกินถัดไปหรือการเดินเบี้ยใน %s ครึ่งรอบเดิน (ระยะห่างจากศูนย์ของตัวนับ 50 รอบเดิน)</item>
+    <item quantity="other">ใน %s ตาจะมีเบี้ยเดิน หรือการกินหมากเกิดขึ้น (เริ่มนับเสมอ 50 รอบใหม่อีกครั้ง)</item>
   </plurals>
-  <string name="noGameFound">ไม่พบเกมใดๆ</string>
+  <string name="noGameFound">ไม่พบเกม</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
   <string name="xOpeningExplorer">ตัวสำรวจการเปิดเกม %s</string>
