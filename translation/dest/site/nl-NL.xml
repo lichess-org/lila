@@ -673,6 +673,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="withTarget">met als doel</string>
   <string name="toReachTarget">Te behalen doel:</string>
   <string name="targetWinningPercentageX">Doel winstpercentage simultaangever: %s</string>
+  <string name="currentWinningPercentageX">Huidig winstpercentage: %s</string>
   <string name="succeeded">geslaagd!</string>
   <string name="failed">mislukt</string>
   <string name="simulTimeOut">Simultaan timeout</string>

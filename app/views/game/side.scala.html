@@ -92,6 +92,11 @@
     <p class="top text" data-icon="|"><a href="@routes.Simul.show(sim.id)">@sim.fullName</a></p>
     @if(sim.hasFmjd) {
       <div class="padded">
+      @sim.targetPct.map { target =>
+      @trans.targetWinningPercentageX(s"$target%")
+      <br />
+      }
+      @trans.currentWinningPercentageX(sim.currentPctStr)
       @game.playerByUserId(sim.hostId).map { p =>
       @sim.hostOfficialRating.map { r =>
         @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
