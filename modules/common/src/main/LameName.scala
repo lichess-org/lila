@@ -73,6 +73,7 @@ object LameName {
       "wanker",
       "feces",
       "fart",
+      "cancer",
       "cuck",
       "butthole",
       "cyka",
