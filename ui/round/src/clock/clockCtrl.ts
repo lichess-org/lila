@@ -149,13 +149,11 @@ export class ClockController {
     if (color === undefined) return;
 
     const now = nowFun();
-    const millis = this.times[color] - this.elapsed(now);
+    const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
-    if (millis <= 0) this.opts.onFlag();
-    else {
-      this.scheduleTick(millis, 0);
-      updateElements(this, this.elements[color], millis);
-    }
+    this.scheduleTick(millis, 0);
+    if (millis === 0) this.opts.onFlag();
+    else updateElements(this, this.elements[color], millis);
 
     if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
