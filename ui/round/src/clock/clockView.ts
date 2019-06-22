@@ -98,9 +98,12 @@ function showBar(ctrl: RoundController, color: Color) {
         );
         clock.elements[color].barAnim = anim;
       }
-      anim.currentTime = clock.barTime - clock.millisOf(color);
-      if (color === clock.times.activeColor) anim.play();
-      else anim.pause();
+      const remaining = clock.millisOf(color)
+      anim.currentTime = clock.barTime - remaining;
+      if (color === clock.times.activeColor) {
+        // Calling play after animations finishes restarts anim
+        if (remaining > 0) anim.play();
+      } else anim.pause();
     } else {
       clock.elements[color].bar = el;
       el.style.transform = "scale(" + clock.timeRatio(clock.millisOf(color)) + ",1)";
