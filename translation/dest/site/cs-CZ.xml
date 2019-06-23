@@ -392,7 +392,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
   <string name="captcha.fail">Prosím vyřešte šachovou captcha.</string>
   <string name="notACheckmate">Toto není mat.</string>
-  <string name="colorPlaysCheckmateInOne">%s dává prvním tahem mat</string>
   <string name="retry">Zkusit znovu</string>
   <string name="reconnecting">Připojování</string>
   <string name="onlineFriends">Přátelé online</string>
