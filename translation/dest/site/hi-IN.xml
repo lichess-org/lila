@@ -341,7 +341,6 @@
   <string name="clickOnTheBoardToMakeYourMove">अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप इंसान हैं।</string>
   <string name="captcha.fail">कृपया शतरंज कैप्चा हल करें।</string>
   <string name="notACheckmate">शह और मात नहीं</string>
-  <string name="colorPlaysCheckmateInOne">%s की चाल, एक चाल में शह और मात</string>
   <string name="retry">फिर से कोशिश करें</string>
   <string name="reconnecting">फिर से जुड़ने की कोशिश (रीकनेक्ट)</string>
   <string name="onlineFriends">ऑनलाइन मित्र</string>
