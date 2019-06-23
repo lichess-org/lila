@@ -256,7 +256,6 @@
   <string name="thisIsAChessCaptcha">←ti caxmati ciprkaptca</string>
   <string name="clickOnTheBoardToMakeYourMove">.i ko te zu\'e gi jarco lo ka remna gi ta\'i gi .iklki lo foldi gi zukte tu\'a lo kelka\'u</string>
   <string name="notACheckmate">na caxmata</string>
-  <string name="colorPlaysCheckmateInOne">%s pu\'o zukte</string>
   <string name="retry">troci xoi krefu</string>
   <string name="reconnecting">troci lo ka di\'a jorne</string>
   <string name="onlineFriends">lo pendo poi ca kibzva</string>
