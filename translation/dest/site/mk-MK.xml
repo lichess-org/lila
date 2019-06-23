@@ -307,7 +307,6 @@
   <string name="thisIsAChessCaptcha">Ова е шаховско CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблата за да го повлечеш својот потег и така докажи дека си човек.</string>
   <string name="notACheckmate">Не е шахмат.</string>
-  <string name="colorPlaysCheckmateInOne">%s е на потег; шахмат во еден потег</string>
   <string name="retry">Обиди се повторно</string>
   <string name="reconnecting">Повторно конектирање</string>
   <string name="onlineFriends">Пријатели кои се онлајн</string>
