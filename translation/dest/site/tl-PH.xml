@@ -348,7 +348,6 @@
   <string name="clickOnTheBoardToMakeYourMove">I-click sa board para makagawa ng iyong galaw, at patunayan na ikaw ay tao.</string>
   <string name="captcha.fail">Pakilutas ang captcha ng chess.</string>
   <string name="notACheckmate">Hindi ito checkmate</string>
-  <string name="colorPlaysCheckmateInOne">%s gumaganap; na checkmate sa isang galaw</string>
   <string name="retry">Subukan muli</string>
   <string name="reconnecting">Muling Kumukonekta</string>
   <string name="onlineFriends">Online na mga kaibigan</string>
