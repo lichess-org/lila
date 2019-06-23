@@ -231,7 +231,6 @@
   <string name="thisIsAChessCaptcha">یہ پہیلی انسانوں اور سافٹ وئیر میں تمیز کے لیے ہے</string>
   <string name="clickOnTheBoardToMakeYourMove">ساتھ دی گئی بساط پر پہیلی حل کرکے ثابت کریں کہ آپ انسان ہیں (روبوٹ نہیں(</string>
   <string name="notACheckmate">غلط!</string>
-  <string name="colorPlaysCheckmateInOne">%s کی باری ہے - ایک چال میں شہ مات</string>
   <string name="retry">پھر کوشش کریں</string>
   <string name="reconnecting">رابطہ کی بحالی جاری ہے</string>
   <string name="onlineFriends">موجود دوست</string>
