@@ -353,6 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Mach einen Zug, um zu beweisen, dass du ein Mensch bist.</string>
   <string name="captcha.fail">Bitte löse die Schachaufgabe.</string>
   <string name="notACheckmate">Kein Matt</string>
+  <string name="whiteCheckmatesInOneMove">Weiß setzt in einem Zug Matt</string>
+  <string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
   <string name="retry">Erneut versuchen</string>
   <string name="reconnecting">Wiederverbinden</string>
   <string name="onlineFriends">Freunde online</string>
