@@ -392,7 +392,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Зрабіце ход, каб даказаць, што вы – чалавек.</string>
   <string name="captcha.fail">Калі ласка, вырашыце шахматную CAPTCHA.</string>
   <string name="notACheckmate">Гэта не мат</string>
-  <string name="colorPlaysCheckmateInOne">%s пачынаюць; мат у адзін ход</string>
   <string name="retry">Яшчэ раз</string>
   <string name="reconnecting">Перападлучэнне</string>
   <string name="onlineFriends">Сябры на сайце</string>
