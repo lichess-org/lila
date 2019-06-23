@@ -341,7 +341,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Klikkaðu á borðið til að leika, og sannaðu að þú ert mannvera.</string>
   <string name="captcha.fail">Vinsamlegast leystu skákþrautina til að halda áfram.</string>
   <string name="notACheckmate">Ekki mát</string>
-  <string name="colorPlaysCheckmateInOne">%s leikur; mát í einum</string>
   <string name="retry">Reyna aftur</string>
   <string name="reconnecting">Tengja aftur</string>
   <string name="onlineFriends">Tengdir vinir</string>
