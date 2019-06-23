@@ -345,7 +345,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Kattints a táblára és lépj - innen tudjuk, hogy ember vagy.</string>
   <string name="captcha.fail">Kérünk, oldd meg a sakk captchát.</string>
   <string name="notACheckmate">Ez nem matt</string>
-  <string name="colorPlaysCheckmateInOne">%s lép; matt egy lépésben</string>
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <string name="onlineFriends">Barátok online</string>
