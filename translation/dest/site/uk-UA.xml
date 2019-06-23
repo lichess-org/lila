@@ -333,7 +333,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
   <string name="notACheckmate">Не мат</string>
-  <string name="colorPlaysCheckmateInOne">%s ставлять мат в один хід</string>
   <string name="retry">Спробуйте ще</string>
   <string name="reconnecting">Повторне підключення</string>
   <string name="onlineFriends">Друзів онлайн</string>
