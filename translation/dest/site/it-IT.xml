@@ -354,6 +354,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
   <string name="captcha.fail">Per favore risolvi il puzzle.</string>
   <string name="notACheckmate">Non è scacco matto</string>
+  <string name="whiteCheckmatesInOneMove">Bianco da scacco matto in una mossa</string>
+  <string name="blackCheckmatesInOneMove">Nero da scacco matto in una mossa</string>
   <string name="retry">Riprova</string>
   <string name="reconnecting">Riconnessione</string>
   <string name="onlineFriends">Amici online</string>
