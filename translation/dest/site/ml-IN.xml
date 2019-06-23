@@ -346,7 +346,6 @@
   <string name="clickOnTheBoardToMakeYourMove">നിങ്ങളുടെ നീക്കം ചതുരംഗ പലകയിൽ ക്ലിക്ക് ചെയ്ത് മനുഷ്യൻ ആണെന്നു തെളിയിക്കൂ.</string>
   <string name="captcha.fail">ദയവായി ചെസ്സ് captcha പരിഹരിക്കുക.</string>
   <string name="notACheckmate">അതൊരു അടിയറവ് അല്ല</string>
-  <string name="colorPlaysCheckmateInOne">%s കളിക്കാർ; അടിയറവ് ഒരു നീക്കം കൊണ്ട്</string>
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
   <string name="onlineFriends">ഓണ്‍ലൈന്‍ സുഹൃത്തുക്കള്‍</string>
