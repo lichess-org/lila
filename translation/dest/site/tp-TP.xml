@@ -189,7 +189,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="thisIsAChessCaptcha">ilo li wile sona e ni: sina jan anu ilo.</string>
   <string name="clickOnTheBoardToMakeYourMove">o tawa lon lipu ni. sina pali e ni la sina jan</string>
   <string name="notACheckmate">mije lawa li moli ala</string>
-  <string name="colorPlaysCheckmateInOne">%s li tawa; mije lawa li moli tan tawa wan</string>
   <string name="retry">o pali sin</string>
   <string name="reconnecting">tawa linja pi tenpo sin</string>
   <string name="onlineFriends">jan pona lon lipu</string>
