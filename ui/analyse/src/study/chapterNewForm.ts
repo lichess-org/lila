@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { storedProp, StoredProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPgn } from './studyXhr';
@@ -115,7 +115,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     }, name);
   };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
-  const currentChapterSetup = ctrl.root.study!.data.chapter.setup;
+  const currentChapter = ctrl.root.study!.data.chapter;
+  const mode = currentChapter.practice ? 'practice' : (defined(currentChapter.conceal) ? 'conceal' : (currentChapter.gamebook ? 'gamebook' : 'normal'));
 
   return modal.modal({
     class: 'chapter-new',
@@ -237,7 +238,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             }, gameOrPgn ? [
               h('option', 'Automatic')
             ] :
-            ctrl.vm.variants.map(v => option(v.key, currentChapterSetup.variant.key, v.name)))
+            ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)))
           ]),
           h('div.form-group.form-half', [
             h('label.form-label', {
@@ -249,7 +250,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               })
             }, ['White', 'Black'].map(function(color) {
               const c = color.toLowerCase();
-              return option(c, currentChapterSetup.orientation, color);
+              return option(c, currentChapter.setup.orientation, color);
             }))
           ])
         ]),
@@ -257,7 +258,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           h('label.form-label', {
             attrs: { 'for': 'chapter-mode' }
           }, 'Analysis mode'),
-          h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], '', c[1])))
+          h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], mode, c[1])))
         ]),
         modal.button('Create chapter')
       ])
