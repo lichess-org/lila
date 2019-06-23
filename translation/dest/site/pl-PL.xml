@@ -399,6 +399,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Wykonaj ruch i udowodnij, że jesteś człowiekiem.</string>
   <string name="captcha.fail">Rozwiąż zadanie szachowe.</string>
   <string name="notACheckmate">To nie jest mat</string>
+  <string name="whiteCheckmatesInOneMove">Białe dają mata w jednym ruchu</string>
+  <string name="blackCheckmatesInOneMove">Czarne dają mata w jednym ruchu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne łączenie</string>
   <string name="onlineFriends">znajomych online</string>
