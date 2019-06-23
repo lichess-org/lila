@@ -352,7 +352,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
   <string name="captcha.fail">Por favor resolva o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
-  <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
