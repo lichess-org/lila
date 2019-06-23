@@ -257,7 +257,6 @@
   <string name="thisIsAChessCaptcha">Dit is \'n skaak CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliek op die bord om jou skuif te maak, en te bewys jy is \'n mens</string>
   <string name="notACheckmate">Nie skaakmat nie</string>
-  <string name="colorPlaysCheckmateInOne">%s se skuif; mat in een</string>
   <string name="retry">Probeer weer</string>
   <string name="reconnecting">Konnekteer weer</string>
   <string name="onlineFriends">Aanlyn vriende</string>
