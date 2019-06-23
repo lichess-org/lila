@@ -2,13 +2,13 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
 import { bind, dataIcon, iconTag, scrollTo } from '../util';
-import { ctrl as chapterNewForm } from './chapterNewForm';
+import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray } from './interfaces';
 
 export interface StudyChaptersCtrl {
-  newForm: any;
+  newForm: StudyChapterNewFormCtrl;
   editForm: any;
   list: Prop<StudyChapterMeta[]>;
   get(id: string): StudyChapterMeta | undefined;
