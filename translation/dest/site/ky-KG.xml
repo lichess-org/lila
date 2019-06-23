@@ -59,6 +59,7 @@
   <string name="promoteVariation">Варианттын артыкчылыгын жогорулатуу</string>
   <string name="makeMainLine">Бул вариантты негизги кылуу</string>
   <string name="deleteFromHere">Бул жактан өчүрүү</string>
+  <string name="forceVariation">Вариант катары көрсөт</string>
   <string name="move">Жүрүш</string>
   <string name="variantLoss">Утулуу варианты</string>
   <string name="variantWin">Утуу варианты</string>
