@@ -376,7 +376,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
   <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
   <string name="notACheckmate">Није шахмат</string>
-  <string name="colorPlaysCheckmateInOne">%s игра; мат у једном потезу</string>
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поновно повезивање</string>
   <string name="onlineFriends">Пријатељи на мрежи</string>
