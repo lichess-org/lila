@@ -173,7 +173,7 @@
     <item quantity="many">%s godzin</item>
     <item quantity="other">%s godzin</item>
   </plurals>
-  <string name="time">Tempo gry</string>
+  <string name="time">Tempo</string>
   <string name="rating">Ranking</string>
   <string name="ratingStats">Statystyki rankingowe</string>
   <string name="username">Nazwa użytkownika</string>
