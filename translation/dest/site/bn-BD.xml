@@ -346,7 +346,6 @@
   <string name="clickOnTheBoardToMakeYourMove">বোর্ডে ক্লিক করে চাল দিয়ে প্রমাণ করুন যে আপনি সত্যিই মানুষ, রোবট নন।</string>
   <string name="captcha.fail">দয়া করে দাবার ক্যাপচা সমাধান করুন.</string>
   <string name="notACheckmate">এটি কিস্তিমাত নয়</string>
-  <string name="colorPlaysCheckmateInOne">%s চাল; এক চালে কিস্তিমাত</string>
   <string name="retry">আবার চেষ্টা করুন</string>
   <string name="reconnecting">পুনঃসংযোগের চেষ্টা চলছে</string>
   <string name="onlineFriends">অনলাইন বন্ধুরা</string>
