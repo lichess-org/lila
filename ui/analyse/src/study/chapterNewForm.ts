@@ -1,12 +1,13 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
-import { storedProp } from 'common/storage';
+import { storedProp, StoredProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPdn } from './studyXhr';
 import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
+import { Redraw } from '../interfaces';
 import { descTitle } from './description';
 import AnalyseCtrl from '../ctrl';
 
@@ -22,7 +23,28 @@ export function fieldValue(e: Event, id: string) {
   return el ? (el as HTMLInputElement).value : null;
 };
 
-export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseCtrl) {
+export interface StudyChapterNewFormCtrl {
+  root: AnalyseCtrl;
+  vm: {
+    variants: Variant[];
+    open: boolean;
+    initial: Prop<boolean>;
+    tab: StoredProp<string>;
+    editor: any;
+    editorFen: Prop<Fen | null>;
+  };
+  open(): void;
+  openInitial(): void;
+  close(): void;
+  toggle(): void;
+  submit(d: any): void;
+  chapters: Prop<StudyChapterMeta[]>;
+  startTour(): void;
+  multiPdnMax: number;
+  redraw: Redraw;
+}
+
+export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseCtrl): StudyChapterNewFormCtrl {
 
   const multiPdnMax = 20;
 
@@ -83,7 +105,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
   }
 }
 
-export function view(ctrl): VNode {
+export function view(ctrl: StudyChapterNewFormCtrl): VNode {
 
   const activeTab = ctrl.vm.tab();
   const makeTab = function(key: string, name: string, title: string) {
@@ -94,7 +116,7 @@ export function view(ctrl): VNode {
     }, name);
   };
   const gameOrPdn = activeTab === 'game' || activeTab === 'pdn';
-  const currentChapterSetup = ctrl.root.study.data.chapter.setup;
+  const currentChapterSetup = ctrl.root.study!.data.chapter.setup;
 
   return modal.modal({
     class: 'chapter-new',
