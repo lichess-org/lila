@@ -353,7 +353,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee käik ja tõesta, et oled inimene.</string>
   <string name="captcha.fail">Palun lahendage male robotilõks.</string>
   <string name="notACheckmate">Pole matt</string>
-  <string name="colorPlaysCheckmateInOne">%s mängib; matt ühe käiguga</string>
   <string name="retry">Uuesti</string>
   <string name="reconnecting">Taasühendumine</string>
   <string name="onlineFriends">Seesolevad sõbrad</string>
