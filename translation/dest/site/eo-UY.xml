@@ -351,7 +351,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Alklaku la ŝaktabulon por fari movon kaj pruvi, ke vi estas homa.</string>
   <string name="captcha.fail">Bonvolu solvi la ŝakan captcha-on.</string>
   <string name="notACheckmate">Ne ŝakmato</string>
-  <string name="colorPlaysCheckmateInOne">Vico de %s; ŝakmato post unu movo</string>
   <string name="retry">Reprovi</string>
   <string name="reconnecting">Rekonektante</string>
   <string name="onlineFriends">Konektitaj amikoj</string>
