@@ -324,7 +324,6 @@
   <string name="clickOnTheBoardToMakeYourMove">보드를 클릭해서 체스 퍼즐을 풀고 당신이 사람임을 알려주세요.</string>
   <string name="captcha.fail">문제를 풀어 인간임을 증명해주세요.</string>
   <string name="notACheckmate">체크메이트가 아닙니다.</string>
-  <string name="colorPlaysCheckmateInOne">%s의 차례입니다. 한 수 만에 체크메이트하세요.</string>
   <string name="retry">재시도</string>
   <string name="reconnecting">연결 재시도 중</string>
   <string name="onlineFriends">접속 중인 친구</string>
