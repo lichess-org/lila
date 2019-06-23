@@ -352,7 +352,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
   <string name="captcha.fail">Ratkaise shakki-captcha.</string>
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
-  <string name="colorPlaysCheckmateInOne">%s pelaa; shakkimatti yhdellä siirrolla</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="reconnecting">Yhdistetään uudelleen</string>
   <string name="onlineFriends">Kaverit</string>
