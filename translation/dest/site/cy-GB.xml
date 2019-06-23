@@ -258,7 +258,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliciwch ar y bwrdd i symud a dangos eich bod yn ddynol.</string>
   <string name="captcha.fail">Datryswch y captcha os gwelwch yn dda.</string>
   <string name="notACheckmate">Dim siachmat</string>
-  <string name="colorPlaysCheckmateInOne">Tro %s; siachmat mewn un symudiad</string>
   <string name="retry">Triwch eto</string>
   <string name="reconnecting">Yn ailgysylltu</string>
   <string name="onlineFriends">o ffrindiau ar-lein</string>
