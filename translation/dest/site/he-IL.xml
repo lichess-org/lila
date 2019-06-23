@@ -311,7 +311,6 @@
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
   <string name="notACheckmate">לא מט.</string>
-  <string name="colorPlaysCheckmateInOne">%s משחק; מט במהלך אחד</string>
   <string name="retry">נסה שוב</string>
   <string name="reconnecting">מתחבר מחדש</string>
   <string name="onlineFriends">החברים המחוברים עכשיו</string>
