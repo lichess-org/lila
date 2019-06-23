@@ -210,7 +210,6 @@
   <string name="thisIsAChessCaptcha">CAPTCHAn\'ny échec ito.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliquer-o eo amin\'ny faritry ny lalao hanaovanao ny hetsikao voalohany, ary porofoy fa olombelona ianao.</string>
   <string name="notACheckmate">Tsy échec et mat</string>
-  <string name="colorPlaysCheckmateInOne">milalao %s; échec et mat afaka fihetsehina iray</string>
   <string name="retry">Avereno andramana</string>
   <string name="reconnecting">Reconnecting</string>
   <string name="onlineFriends">Namana connectés</string>
