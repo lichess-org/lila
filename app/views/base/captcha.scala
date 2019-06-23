@@ -39,9 +39,10 @@ object captcha {
             )(cgWrapContent)
           ),
           div(cls := "captcha-explanation")(
-            label(cls := "form-label")(trans.colorPlaysCheckmateInOne(
-              (if (captcha.white) trans.white else trans.black)()
-            )),
+            label(cls := "form-label")(
+              if (captcha.white) trans.whiteCheckmatesInOneMove()
+              else trans.blackCheckmatesInOneMove()
+            ),
             br, br,
             trans.thisIsAChessCaptcha(),
             br,
