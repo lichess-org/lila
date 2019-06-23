@@ -109,7 +109,7 @@
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
-  <string name="infiniteAnalysis">Nieskończona analiza</string>
+  <string name="infiniteAnalysis">Nieograniczona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
   <string name="blunders">Błędy</string>
@@ -117,7 +117,7 @@
   <string name="mistakes">Pomyłki</string>
   <string name="inaccuracy">Niedokładność</string>
   <string name="inaccuracies">Niedokładności</string>
-  <string name="moveTimes">Czas przeznaczony na ruch</string>
+  <string name="moveTimes">Czas na ruch</string>
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Ogłoś remis</string>
@@ -363,7 +363,7 @@
     <item quantity="other">%s graczy</item>
   </plurals>
   <string name="allTeams">Wszystkie kluby</string>
-  <string name="newTeam">Nowy klub</string>
+  <string name="newTeam">Załóż klub</string>
   <string name="myTeams">Moje kluby</string>
   <string name="noTeamFound">Nie należysz do żadnego klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
@@ -550,7 +550,7 @@
   <string name="no">Nie</string>
   <string name="yes">Tak</string>
   <string name="help">Porada:</string>
-  <string name="createANewTopic">Utwórz nowy temat</string>
+  <string name="createANewTopic">Załóż nowy temat</string>
   <string name="topics">Tematy</string>
   <string name="posts">Posty</string>
   <string name="lastPost">Ostatni post</string>
@@ -559,7 +559,7 @@
   <string name="replyToThisTopic">Odpowiedz w tym temacie</string>
   <string name="reply">Odpowiedz</string>
   <string name="message">Wiadomość</string>
-  <string name="createTheTopic">Utwórz temat</string>
+  <string name="createTheTopic">Załóż temat</string>
   <string name="reportAUser">Zgłoś użytkownika</string>
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
@@ -750,7 +750,7 @@
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
   <string name="newTournament">Nowy turniej</string>
   <string name="tournamentHomeTitle">Turnieje szachowe z możliwością rozgrywki w różnym tempie i odmianach szachów</string>
-  <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
+  <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Błyskawiczne, szybkie, klasyczne, Fishera, król w centrum, trzy szachy i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
   <string name="tournamentNotFound">Nie znaleziono turnieju</string>
   <string name="tournamentDoesNotExist">Taki turniej nie istnieje.</string>
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
