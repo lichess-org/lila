@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Zagraj ze znajomym</string>
   <string name="playWithTheMachine">Zagraj z komputerem</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Podaj ten adres, by zaprosić kogoś do wspólnej gry</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Podaj ten odnośnik, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
   <string name="waiting">Oczekiwanie</string>
@@ -36,7 +36,7 @@
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która użyje tego linku, dołączy do Twojej partii.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba przejdzie pod ten adres, dołączy do Twojej partii.</string>
   <string name="whiteResigned">Białe poddały się</string>
   <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe porzuciły partię</string>
