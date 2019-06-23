@@ -88,7 +88,7 @@ object inquiry {
           a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")("View", br, "Games")
         }.getOrElse {
           in.report.bestAtomByHuman.map { atom =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=$atom.by.valueuserId}")("View", br, "Games")
+            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${atom.by.value}")("View", br, "Games")
           }
         },
         isGranted(_.Shadowban) option
