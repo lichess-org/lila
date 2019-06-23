@@ -349,7 +349,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="clickOnTheBoardToMakeYourMove">Göçmek we ynsandygyňyzy subut etmek üçin tagta tyklaň.</string>
   <string name="captcha.fail">Küşt captcha-syny çözüň.</string>
   <string name="notACheckmate">Mat däl</string>
-  <string name="colorPlaysCheckmateInOne">%s göçýär; 1 göçümde mat</string>
   <string name="retry">Gaýta</string>
   <string name="reconnecting">Gaýtadan baglanylýar</string>
   <string name="onlineFriends">Onlaýn dostlar</string>
