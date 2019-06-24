@@ -16,5 +16,6 @@
     <item quantity="other">%s Miembros</item>
   </plurals>
   <string name="open">Abierto</string>
+  <string name="xBroughtToYouByY">%1$sauspiciado por%2$s</string>
   <string name="studyNotFound">Estudio no encontrado</string>
 </resources>
