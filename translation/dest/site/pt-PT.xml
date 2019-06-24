@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
+  <string name="forceVariation">Forçar variante</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -352,6 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
   <string name="captcha.fail">Por favor resolva o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
+  <string name="whiteCheckmatesInOneMove">As brancas dão mate em um movimento</string>
+  <string name="blackCheckmatesInOneMove">As pretas dão mate em um movimento</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
