@@ -376,6 +376,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
   <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
+  <string name="whiteCheckmatesInOneMove">Baltie piesaka matu vienā gājienā</string>
+  <string name="blackCheckmatesInOneMove">Melnie piesaka matu vienā gājienā</string>
   <string name="retry">Mēģināt vēlreiz</string>
   <string name="reconnecting">Atjauno savienojumu</string>
   <string name="onlineFriends">Draugi tiešsaistē</string>
