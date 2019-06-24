@@ -99,7 +99,7 @@ Terfiye gerek yok.</string>
   <string name="firstPlaceTheRooks">İlk önce kaleleri yerleştir! Kaleler oyuna köşelerde başlar.</string>
   <string name="thenPlaceTheKnights">Şimdi sıra atlarda! Onlar da hemen kalelerin yanında durur.</string>
   <string name="placeTheBishops">Şimdi de filleri yerleştir! Oyuna atların yanında başlarlar.</string>
-  <string name="placeTheQueen">Sıra vezirde! Kendi renginin olduğu kaleye yerleştir.</string>
+  <string name="placeTheQueen">Sıra vezirde! Vezir, kendisiyle aynı renkte olan kareye yerleştirilir.</string>
   <string name="placeTheKing">Sırada şah var! Hemen vezirin yanına yerleştir.</string>
   <string name="pawnsFormTheFrontLine">Piyonlar ön hattı oluşturur. Devam etmek için bir hamle yap.</string>
   <string name="boardSetupComplete">Bravo! Artık satranç taşlarının nasıl dizildiğini biliyorsun.</string>
@@ -151,7 +151,7 @@ At = 3
 Piyon = 1</string>
   <string name="checkInTwo">Şah çekme II</string>
   <string name="twoMovesToGiveCheck">İki hamlede şah çek</string>
-  <string name="checkInTwoIntro">Rakibe şah çekmeni sağlayacak iki hamleyi bul!</string>
+  <string name="checkInTwoIntro">Rakibe iki hamlede şah çekmenin bir yolunu bul!</string>
   <string name="checkInTwoGoal">Rakibe iki hamlede şah çek!</string>
   <string name="checkInTwoComplete">İşte bu kadar! Rakibe şah çekerek savunma yapmaya zorladın!</string>
   <string name="whatNext">Sırada ne var?</string>
