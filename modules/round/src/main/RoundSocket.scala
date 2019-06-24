@@ -307,8 +307,6 @@ private[round] final class RoundSocket(
   }
 
   def notify(events: Events): Unit = {
-    lidraughts.mon.round.history.newEventsHist(events.size)
-    lidraughts.mon.round.history.newEventsCount()
     val vevents = history addEvents events
     members.foreachValue { m =>
       batchMsgs(m, vevents) foreach m.push
