@@ -12,7 +12,7 @@
   <string name="level">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
   <string name="toggleSound">Ativar/Desativar som</string>
-  <string name="chat">Chat</string>
+  <string name="chat">Conversação</string>
   <string name="resign">Desistir</string>
   <string name="checkmate">Xeque-mate</string>
   <string name="stalemate">Rei afogado</string>
@@ -52,7 +52,7 @@
   <string name="usingServerAnalysis">Usando análise de servidores</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
-  <string name="goDeeper">Detalhar</string>
+  <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Alternar avaliação local</string>
