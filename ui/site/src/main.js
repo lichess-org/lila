@@ -530,7 +530,7 @@
         new Fingerprint2({
           excludeJsFonts: true
         }).get(function(res) {
-          $i = $('#signup-fp-input');
+          var $i = $('#signup-fp-input');
           if ($i.length) $i.val(res);
           else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
         });
@@ -748,6 +748,7 @@
       },
       set: function(online, playing, studying, patrons) {
         this.users = {};
+        var i;
         for (i in online) this.insert(online[i]);
         for (i in playing) this.insert(playing[i]).playing = true;
         for (i in studying) this.insert(studying[i]).studying = true;
