@@ -5,7 +5,7 @@ const colors = require('ansi-colors');
 const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const size = require('gulp-size');
 const tsify = require('tsify');
 
@@ -21,7 +21,7 @@ module.exports = (plugins) => {
       .bundle()
       .pipe(source(opts.target))
       .pipe(buffer())
-      .pipe(uglify())
+      .pipe(terser())
       .pipe(size())
       .pipe(destination());
   });

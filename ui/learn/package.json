@@ -21,10 +21,9 @@
   "devDependencies": {
     "browserify": "^16",
     "gulp": "^4",
-    "gulp-uglify": "^3",
+    "gulp-terser": "^1",
     "gulp-size": "^3",
     "fancy-log": "^1",
-    "uglify-js": "^3",
     "vinyl-source-stream": "^2",
     "vinyl-buffer": "^1",
     "watchify": "^3"

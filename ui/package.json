@@ -29,6 +29,6 @@
     "gulp-if": "^2.0.2",
     "gulp-sass-inheritance": "^1.1",
     "gulp-size": "^3",
-    "gulp-uglify": "^3"
+    "gulp-terser": "^1"
   }
 }

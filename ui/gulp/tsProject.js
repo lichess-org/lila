@@ -5,7 +5,7 @@ const colors = require('ansi-colors');
 const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const size = require('gulp-size');
 const tsify = require('tsify');
 
@@ -23,7 +23,7 @@ module.exports = (standalone, fileBaseName, dir) => {
     .bundle()
     .pipe(source(`${fileBaseName}.min.js`))
     .pipe(buffer())
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(size())
     .pipe(destination());
 

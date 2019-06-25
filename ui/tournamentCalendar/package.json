@@ -26,10 +26,9 @@
     "fancy-log": "^1",
     "gulp": "^4",
     "gulp-size": "^3",
-    "gulp-uglify": "^3",
+    "gulp-terser": "^1",
     "tsify": "^4",
     "typescript": "^3",
-    "uglify-js": "^3",
     "vinyl-source-stream": "^2",
     "vinyl-buffer": "^1",
     "watchify": "^3"
