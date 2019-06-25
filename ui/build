@@ -31,17 +31,23 @@ build_ts() {
 build() {
   echo "build" "$@"
   set -ev
-  cd ui/$1
-  gulp $target
+  if [[ $1 == "css" ]]; then
+    cd ui
+    gulp "css-$target"
+  else
+    cd ui/$1
+    gulp $target
+  fi
 }
 
 
 if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
-  echo "build css"
-  (cd ui && gulp "css-$target")
+  apps="css $apps"
 fi
 
-if [ $mode != "css" ]; then
+if [ $mode == "css" ]; then
+  (build css)
+else
   if type -p parallel; then # parallel execution!
     if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
       P_OPTS="-j+4 --halt 2"
