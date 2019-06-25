@@ -62,7 +62,7 @@ lichess.StrongSocket = function(url, version, settings) {
       ws.onerror = function(e) {
         onError(e);
       };
-      ws.onclose = function(e) {
+      ws.onclose = function() {
         if (autoReconnect) {
           debug('Will autoreconnect in ' + options.autoReconnectDelay);
           scheduleConnect(options.autoReconnectDelay);

@@ -163,7 +163,7 @@ module.exports = function(cfg, element) {
     }
   }
 
-  function hookToPoolMember(color, data, $ratings) {
+  function hookToPoolMember(color, data) {
     var hash = {};
     for (var i in data) hash[data[i].name] = data[i].value;
     var valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1;
@@ -263,7 +263,7 @@ module.exports = function(cfg, element) {
           .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
-        var poolMember = hookToPoolMember(color, $form.serializeArray(), $ratings);
+        var poolMember = hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
         var call = {
           url: $form.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),

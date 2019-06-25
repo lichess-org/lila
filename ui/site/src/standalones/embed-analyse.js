@@ -1,6 +1,6 @@
 function toYouTubeEmbedUrl(url) {
   if (!url) return;
-  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
+  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i);
   if (!m) return;
   var start = 1;
   m[2].split('&').forEach(function(p) {
