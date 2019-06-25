@@ -6,11 +6,11 @@ var NumberLastRegex = /^(.+)\s(\d+)$/;
 
 function splitNumber(s) {
   var found;
-  if (found = s.match(NumberFirstRegex)) return [
+  if ((found = s.match(NumberFirstRegex))) return [
     m('div.number', found[1]),
     m('div.text', found[2])
   ];
-  if (found = s.match(NumberLastRegex)) return [
+  if ((found = s.match(NumberLastRegex))) return [
     m('div.number', found[2]),
     m('div.text', found[1])
   ];

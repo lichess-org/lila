@@ -7,7 +7,7 @@
       });
     });
     return els;
-  };
+  }
   $.fn.toggleNone = function(show) {
     update(this, function(el) {
       if (show !== undefined) show = !show;

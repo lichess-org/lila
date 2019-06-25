@@ -68,7 +68,7 @@ module.exports = function(ctrl) {
       m('td.action', m('a.button', {
         'data-icon': 'E',
         'title': 'Add to list of allowed candidate players',
-        onclick: function(e) {
+        onclick: function() {
           var candidate = $('#add-candidate').val();
           if (candidate && candidate.length > 2) {
             xhr.allow(candidate.toLowerCase())(ctrl);
@@ -83,7 +83,7 @@ module.exports = function(ctrl) {
         m('td.action', m('a.button', {
           'data-icon': 'L',
           title: 'Remove from list of allowed candidate players',
-          onclick: function(e) {
+          onclick: function() {
             xhr.disallow(allowed.id)(ctrl);
           }
         }))
@@ -93,7 +93,7 @@ module.exports = function(ctrl) {
   var mEditCandidatesOption = (ctrl.data.unique && (simul.createdByMe(ctrl) || simul.amArbiter(ctrl))) ? m('span.option', {
     'data-icon': '%',
     'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : ctrl.trans('backToSimul'),
-    onclick: function(e) {
+    onclick: function() {
       ctrl.toggleCandidates = !ctrl.toggleCandidates;
     }
   }) : null
@@ -120,7 +120,7 @@ module.exports = function(ctrl) {
           m('td.action', isHost ? m('a.button', {
             'data-icon': 'E',
             title: ctrl.trans('accept'),
-            onclick: function(e) {
+            onclick: function() {
               xhr.accept(applicant.player.id)(ctrl);
             }
           }) : null)
@@ -150,7 +150,7 @@ module.exports = function(ctrl) {
           m('td.action', (isHost && candidate) ? m('a.button', {
             'data-icon': 'E',
             title: ctrl.trans('accept'),
-            onclick: function(e) {
+            onclick: function() {
               xhr.accept(allowed.id)(ctrl);
             }
           }) : null)
@@ -224,7 +224,7 @@ module.exports = function(ctrl) {
               }),
               m('td.action', isHost ? m('a.button.button-red', {
                 'data-icon': 'L',
-                onclick: function(e) {
+                onclick: function() {
                   xhr.reject(applicant.player.id)(ctrl);
                 }
               }) : null)

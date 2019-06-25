@@ -7,7 +7,7 @@ var xhrConfig = function(xhr) {
 
 function partial() {
   return arguments[0].bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
-};
+}
 
 function simulAction(action, ctrl) {
   return m.request({
