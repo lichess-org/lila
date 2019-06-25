@@ -1,20 +1,8 @@
 {
+  "extends": "../tsconfig.base.json",
   "include": ["src/*.ts"],
-  "exclude": [],
   "compilerOptions": {
     "outDir": "./",
-    "declaration": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noEmitOnError": true,
-    "alwaysStrict": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedParameters": true,
-    "moduleResolution": "node",
-    "moduleResolution": "node",
-    "target": "ES5",
-    "lib": ["DOM", "ES5", "es2015.core", "es2015.Promise", "es2015.Iterable"]
+    "declaration": true
   }
 }
