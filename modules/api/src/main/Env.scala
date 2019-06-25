@@ -113,7 +113,8 @@ final class Env(
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
-    lightUser = userEnv.lightUserSync
+    lightUser = userEnv.lightUserSync,
+    getTournamentName = getTournamentName
   )
 
   val roundApi = new RoundApi(
