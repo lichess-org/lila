@@ -170,6 +170,7 @@ $(function() {
         });
         ground.redrawAll();
         $coords[0].text(newCoord('1'));
+        var i;
         for (i = 1; i < $coords.length; i++)
           $coords[i].text(newCoord($coords[i - 1].text()));
         tick();
