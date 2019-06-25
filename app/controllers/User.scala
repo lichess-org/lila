@@ -179,14 +179,18 @@ object User extends LilaController {
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGames.cost(page)
-      GameFilterMenu.paginatorOf(
-        userGameSearch = userGameSearch,
-        user = u,
-        nbs = none,
-        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-        me = ctx.me,
-        page = page
-      )(ctx.body)
+      for {
+        pag <- GameFilterMenu.paginatorOf(
+          userGameSearch = userGameSearch,
+          user = u,
+          nbs = none,
+          filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+          me = ctx.me,
+          page = page
+        )(ctx.body)
+        _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+        _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+      } yield pag
     }
   }
 
