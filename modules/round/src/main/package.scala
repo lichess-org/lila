@@ -9,8 +9,6 @@ package object round extends PackageObject with WithSocket {
 
   private[round] type Events = List[Event]
 
-  private[round] type VersionedEvents = List[VersionedEvent]
-
   private[round] def logger = lila.log("round")
 }
 
