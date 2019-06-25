@@ -29,13 +29,13 @@ const abFile = process.env.LILA_AB_FILE;
 
 const jqueryFill = () => gulp.src('src/jquery.fill.js')
   .pipe(buffer())
-  .pipe(terser())
+  .pipe(terser({safari10: true}))
   .pipe(gulp.dest('./dist'));
 
 const ab = () => {
   if (abFile) return gulp.src(abFile)
     .pipe(buffer())
-    .pipe(terser())
+    .pipe(terser({safari10: true}))
     .pipe(gulp.dest('./dist'));
   else {
     logger.info(colors.yellow('Building without AB file'));
@@ -48,7 +48,7 @@ const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
   .bundle()
   .pipe(source(`${fileBaseName}.source.min.js`))
   .pipe(buffer())
-  .pipe(terser())
+  .pipe(terser({safari10: true}))
   .pipe(gulp.dest('./dist'));
 
 const devSource = () => browserify(browserifyOpts('src/index.ts', true))
@@ -98,14 +98,14 @@ const standalonesJs = () => gulp.src([
   'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
-  .pipe(terser())
+  .pipe(terser({safari10: true}))
   .pipe(destination());
 
 const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
   .bundle()
   .pipe(source('user-mod.js'))
   .pipe(buffer())
-  .pipe(terser())
+  .pipe(terser({safari10: true}))
   .pipe(destination());
 
 const deps = makeDependencies('lidraughts.deps.js');

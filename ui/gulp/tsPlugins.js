@@ -21,7 +21,7 @@ module.exports = (plugins) => {
       .bundle()
       .pipe(source(opts.target))
       .pipe(buffer())
-      .pipe(terser())
+      .pipe(terser({safari10: true}))
       .pipe(size())
       .pipe(destination());
   });
