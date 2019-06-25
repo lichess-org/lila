@@ -12,6 +12,7 @@
     "noUnusedParameters": true,
     "moduleResolution": "node",
     "target": "ES6",
+    "module": "commonjs",
     "lib": ["DOM", "ES6"]
   }
 }
