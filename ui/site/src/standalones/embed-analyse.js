@@ -101,7 +101,7 @@ $(function() {
       }
     });
     return groups;
-  };
+  }
 
   var expandGames = function(as) {
     groupByParent(as).forEach(function(group) {

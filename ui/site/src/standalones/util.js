@@ -62,7 +62,7 @@ lichess.storage = (function() {
         set: function(v) {
           api.set(k, v ? 1 : 0);
         },
-        toggle: function(v) {
+        toggle: function() {
           api.set(k, api.get(k) == 1 ? 0 : 1);
         }
       };
@@ -337,7 +337,7 @@ lichess.redirect = function(obj) {
   else {
     url = obj.url;
     if (obj.cookie) {
-      var domain = document.domain.replace(/^.+(\.[^\.]+\.[^\.]+)$/, '$1');
+      var domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
       var cookie = [
         encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
         '; max-age=' + obj.cookie.maxAge,
@@ -358,7 +358,7 @@ lichess.reload = function() {
   else location.href = location.href;
 };
 lichess.escapeHtml = function(str) {
-  return /[&<>\"\']/.test(str) ?
+  return /[&<>"']/.test(str) ?
     str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -378,7 +378,7 @@ $.modal = function(html, cls, onClose) {
     .data('onClose', onClose)
     .html($wrap);
   $wrap.find('.close').on('click', $.modal.close);
-  $overlay.on('click', function(e) {
+  $overlay.on('click', function() {
     // disgusting hack
     // dragging slider out of a modal closes the modal
     if (!$('.ui-slider-handle.ui-state-focus').length) $.modal.close();
