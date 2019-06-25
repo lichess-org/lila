@@ -30,8 +30,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-size": "^3",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3",
-    "uglify-js": "^3",
+    "gulp-terser": "^1",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^2",
     "watchify": "^3"

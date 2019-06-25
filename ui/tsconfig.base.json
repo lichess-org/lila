@@ -11,7 +11,8 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "target": "ES5",
-    "lib": ["DOM", "ES5", "es2015.core", "es2015.Promise", "es2015.Iterable"]
+    "target": "ES6",
+    "module": "commonjs",
+    "lib": ["DOM", "ES6"]
   }
 }
