@@ -1,16 +1,9 @@
 {
+  "extends": "../tsconfig.base.json",
   "include": ["src/*.ts", "src/*.js"],
-  "exclude": [],
   "compilerOptions": {
     "allowJs": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noEmitOnError": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noUnusedParameters": true,
-    "moduleResolution": "node",
-    "target": "ES5",
-    "lib": ["DOM", "ES5", "es2015.core", "es2015.Promise", "es2015.Iterable"]
+    "noImplicitAny": false,
+    "noImplicitReturns": false
   }
 }
