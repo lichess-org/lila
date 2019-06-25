@@ -75,7 +75,7 @@
           lichess.redirect(o);
         }, 200);
       },
-      deployPost: function(html) {
+      deployPost: function() {
         $('#notifications').append(
           '<div id="deploy_post" class="notification">' +
           '<div class="inner"><p data-icon="j" class="is3 text">Site update in progress...</p></div>' +
@@ -504,7 +504,7 @@
         var $oc = $('#modal-wrap .close');
         if ($oc.length) $oc.trigger('click');
         else {
-          $input = $(':focus');
+          var $input = $(':focus');
           if ($input.length) $input.trigger('blur');
         }
         return false;
@@ -863,7 +863,7 @@
     cfg.$side = $('.tour__side').clone();
     cfg.$faq = $('.tour__faq').clone();
     tournament = LichessTournament.start(cfg);
-  };
+  }
 
   function startSimul(cfg) {
     cfg.element = document.querySelector('main.simul');
