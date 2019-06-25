@@ -23,7 +23,7 @@ module.exports = (standalone, fileBaseName, dir) => {
     .bundle()
     .pipe(source(`${fileBaseName}.min.js`))
     .pipe(buffer())
-    .pipe(terser())
+    .pipe(terser({safari10: true}))
     .pipe(size())
     .pipe(destination());
 
