@@ -40,9 +40,6 @@ module.exports = {
       return v.key === p.variant;
     });
   },
-  simulText: function(data) {
-    return data.text ? m('div.simul-text', enrichText(data.text)) : null;
-  },
   exportGames: function(ctrl) {
     return m('a', {
       'data-icon': 'x',
