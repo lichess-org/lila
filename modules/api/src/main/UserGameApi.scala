@@ -50,17 +50,16 @@ final class UserGameApi(
     }),
     "fen" -> Forsyth.exportBoard(g.board),
     "winner" -> g.winnerColor.map(_.name),
-    "bookmarks" -> g.bookmarks,
-    "bookmarked" -> bookmarked,
-    "analysed" -> g.metadata.analysed,
-    "opening" -> g.opening,
-    "lastMove" -> g.lastMoveKeys,
-    "clock" -> g.clock,
-    "correspondence" -> g.daysPerTurn.map { d =>
+    "bookmarks" -> g.bookmarks
+  ).add("bookmarked" -> bookmarked)
+    .add("analysed" -> g.metadata.analysed)
+    .add("opening" -> g.opening)
+    .add("lastMove" -> g.lastMoveKeys)
+    .add("clock" -> g.clock)
+    .add("correspondence" -> g.daysPerTurn.map { d =>
       Json.obj("daysPerTurn" -> d)
-    },
-    "tournament" -> g.tournamentId.map { tid =>
+    })
+    .add("tournament" -> g.tournamentId.map { tid =>
       Json.obj("id" -> tid, "name" -> getTournamentName(tid))
-    }
-  )
+    })
 }
