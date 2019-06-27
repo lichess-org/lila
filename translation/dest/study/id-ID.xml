@@ -12,6 +12,7 @@
   <plurals name="nbMembers">
     <item quantity="other">%s Anggota</item>
   </plurals>
+  <string name="playing">Memainkan</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Pembelajaran tidak ditemukan</string>
