@@ -15,6 +15,14 @@
     <item quantity="one">%s Membre</item>
     <item quantity="other">%s Membres</item>
   </plurals>
+  <string name="inviteToTheStudy">Inviter à l\'étude</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Veuillez n\'inviter que des personnes que vous connaissez et qui souhaitent activement participer à cette étude.</string>
+  <string name="searchByUsername">Rechercher par nom d\'utilisateur</string>
+  <string name="spectator">Spectateur</string>
+  <string name="contributor">Contributeur</string>
+  <string name="leaveTheStudy">Quitter l\'étude</string>
+  <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
+  <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
   <string name="open">Ouvert</string>
   <string name="xBroughtToYouByY">%1$s vous est amené par %2$s</string>
   <string name="studyNotFound">Étude introuvable</string>
