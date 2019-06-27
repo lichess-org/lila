@@ -15,6 +15,18 @@
     <item quantity="one">Kide %s</item>
     <item quantity="other">%s kide</item>
   </plurals>
+  <string name="inviteToTheStudy">Azterlanera gonbidatu</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Ezagutzen duzun eta benetan azterlanean interesa duen jendea gonbidatu bakarrik.</string>
+  <string name="searchByUsername">Erabiltzaile izenaren arabera bilatu</string>
+  <string name="spectator">Ikuslea</string>
+  <string name="contributor">Laguntzailea</string>
+  <string name="kick">Kanporatu</string>
+  <string name="leaveTheStudy">Azterlana utzi</string>
+  <string name="youAreNowAContributor">Laguntzailea zara orain</string>
+  <string name="youAreNowASpectator">Ikuslea zara orain</string>
+  <string name="pgnTags">PGN etiketak</string>
+  <string name="like">Datsegit</string>
+  <string name="newTag">Etiketa berria</string>
   <string name="open">Ireki</string>
   <string name="xBroughtToYouByY">%1$s azterlana %2$s erabiltzaileak prestatu du</string>
   <string name="studyNotFound">Azterlana ez da aurkitu</string>
