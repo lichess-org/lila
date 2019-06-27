@@ -229,7 +229,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.node;
   };
 
-  const share = shareCtrl(data, currentChapter, currentNode, redraw);
+  const share = shareCtrl(data, currentChapter, currentNode, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 

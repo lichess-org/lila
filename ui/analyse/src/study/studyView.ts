@@ -104,7 +104,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'share',
-        hint: 'Share & export',
+        hint: ctrl.trans.noarg('shareAndExport'),
         icon: iconTag('$')
       }),
       h('span.help', {

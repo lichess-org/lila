@@ -14,15 +14,14 @@ function fromPly(ctrl): VNode {
         ctrl.withPly((e.target as HTMLInputElement).checked);
       }, ctrl.redraw)
     }),
-    'Start at ',
-    h('strong', renderIndexAndMove({
+    ...ctrl.trans.vdom('startAtX', h('strong', renderIndexAndMove({
       withDots: true,
       showEval: false
-    }, node))
+    }, node)))
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans) {
   const withPly = prop(false);
   return {
     studyId: data.id,
@@ -33,7 +32,8 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
     currentNode,
     withPly,
     cloneable: data.features.cloneable,
-    redraw
+    redraw,
+    trans
   }
 }
 
@@ -54,23 +54,23 @@ export function view(ctrl): VNode {
           'data-icon': '4',
           href: '/study/' + studyId + '/clone'
         }
-      }, 'Clone') : null,
+      }, ctrl.trans.noarg('cloneStudy')) : null,
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
           href: '/study/' + studyId + '.pgn'
         }
-      }, 'Study PGN'),
+      }, ctrl.trans.noarg('studyPgn')),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
           href: '/study/' + studyId + '/' + chapter.id + '.pgn'
         }
-      }, 'Chapter PGN')
+      }, ctrl.trans.noarg('chapterPgn'))
     ]),
     h('form.form3', [
       h('div.form-group', [
-        h('label.form-label', 'Study URL'),
+        h('label.form-label', ctrl.trans.noarg('studyUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -79,7 +79,7 @@ export function view(ctrl): VNode {
         })
       ]),
       h('div.form-group', [
-        h('label.form-label', 'Current chapter URL'),
+        h('label.form-label', ctrl.trans.noarg('currentChapterUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -89,15 +89,15 @@ export function view(ctrl): VNode {
         fromPly(ctrl),
         !isPrivate ? h('p.form-help.text', {
           attrs: { 'data-icon': '' }
-        }, 'You can paste this in the forum to embed the chapter.') : null,
+        }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbedTheChapter')) : null,
       ]),
       h('div.form-group', [
-        h('label.form-label', 'Embed this chapter in your website or blog'),
+        h('label.form-label', ctrl.trans.noarg('embedThisChapter')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             disabled: isPrivate,
-            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
+            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded')
           }
         })
       ].concat(
@@ -109,11 +109,11 @@ export function view(ctrl): VNode {
               target: '_blank',
               'data-icon': ''
             }
-          }, 'Read more about embedding a study chapter.')
+          }, ctrl.trans.noarg('readMoreAboutEmbeddingAStudyChapter'))
         ] : [])
       ),
       h('div.form-group', [
-        h('label.form-label', 'FEN'),
+        h('label.form-label', ctrl.trans.noarg('fen')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
