@@ -68,7 +68,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'tags',
-        hint: 'PDN tags',
+        hint: ctrl.trans.noarg('pdnTags'),
         icon: iconTag('o'),
       }),
       toolButton({
@@ -132,7 +132,7 @@ function metadata(ctrl: StudyCtrl): VNode {
         class: { liked: d.liked },
         attrs: {
           'data-icon': d.liked ? '' : '',
-          title: 'Like'
+          title: ctrl.trans.noarg('like')
         },
         hook: bind('click', ctrl.toggleLike)
       }, '' + d.likes)
