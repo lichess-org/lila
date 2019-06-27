@@ -19,6 +19,11 @@
   <string name="contributor">Kontributor</string>
   <string name="kick">Diusir</string>
   <string name="leaveTheStudy">Tinggalkan pembelajaran</string>
+  <string name="youAreNowAContributor">Sekarang Anda menjadi kontributor</string>
+  <string name="youAreNowASpectator">Sekarang Anda adalah penonton</string>
+  <string name="pgnTags">Tagar PGN</string>
+  <string name="like">Suka</string>
+  <string name="newTag">Tagar baru</string>
   <string name="commentThisPosition">Komentar di posisi ini</string>
   <string name="commentThisMove">Komentari langkah ini</string>
   <string name="annotateWithGlyphs">Anotasikan dengan glif</string>
