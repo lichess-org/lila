@@ -20,6 +20,7 @@
   <string name="searchByUsername">Rechercher par nom d\'utilisateur</string>
   <string name="spectator">Spectateur</string>
   <string name="contributor">Contributeur</string>
+  <string name="kick">Bannir</string>
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
