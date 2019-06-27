@@ -23,6 +23,9 @@
   <string name="leaveTheStudy">Leave the study</string>
   <string name="youAreNowAContributor">You are now a contributor</string>
   <string name="youAreNowASpectator">You are now a spectator</string>
+  <string name="pgnTags">PGN tags</string>
+  <string name="like">Like</string>
+  <string name="newTag">New tag</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
   <string name="studyNotFound">Study not found</string>
