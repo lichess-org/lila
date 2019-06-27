@@ -15,6 +15,19 @@
     <item quantity="one">%s Medlem</item>
     <item quantity="other">%s Medlemmer</item>
   </plurals>
+  <string name="inviteToTheStudy">Inviter til studiet</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Inviter venligst kun personer du kender, og som ønsker at være en del af dette studie.</string>
+  <string name="searchByUsername">Søg på brugernavn</string>
+  <string name="spectator">Tilskuer</string>
+  <string name="contributor">Bidragsyder</string>
+  <string name="kick">Smid ud</string>
+  <string name="leaveTheStudy">Forlad dette studie</string>
+  <string name="youAreNowAContributor">Du er nu bidragsyder</string>
+  <string name="youAreNowASpectator">Du er nu tilskuer</string>
+  <string name="pgnTags">PGN tags</string>
+  <string name="like">Synes godt om</string>
+  <string name="newTag">Nyt tag</string>
+  <string name="commentThisPosition">Kommenter på denne position</string>
   <string name="open">Åbn</string>
   <string name="xBroughtToYouByY">%1$s bragt til dig af %2$s</string>
   <string name="studyNotFound">Studie ikke fundet</string>
