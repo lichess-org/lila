@@ -26,6 +26,9 @@
   <string name="pgnTags">PGN tags</string>
   <string name="like">Like</string>
   <string name="newTag">New tag</string>
+  <string name="commentThisPosition">Comment this position</string>
+  <string name="commentThisMove">Comment this move</string>
+  <string name="annotateWithGlyphs">Annotate with glyphs</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
   <string name="studyNotFound">Study not found</string>

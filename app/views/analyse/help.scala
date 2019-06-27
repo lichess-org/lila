@@ -42,8 +42,8 @@ object help {
         row(frag(k("?")), "Show this help dialog"),
         isStudy option frag(
           header("Study actions"),
-          row(frag(k("c")), "Comment this position"),
-          row(frag(k("g")), "Annotate with glyphs")
+          row(frag(k("c")), trans.study.commentThisPosition.txt()),
+          row(frag(k("g")), trans.study.annotateWithGlyphs.txt())
         ),
         header("Mouse tricks"),
         tr(

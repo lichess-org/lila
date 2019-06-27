@@ -74,7 +74,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'comments',
-        hint: 'Comment this position',
+        hint: ctrl.trans.noarg('commentThisPosition'),
         icon: iconTag('c'),
         onClick() {
           ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
@@ -84,7 +84,7 @@ function buttons(root: AnalyseCtrl): VNode {
       canContribute ?  toolButton({
         ctrl,
         tab: 'glyphs',
-        hint: 'Annotate with glyphs',
+        hint: ctrl.trans.noarg('annotateWithGlyphs'),
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
@@ -172,13 +172,13 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
         ctrl.vm.toolTab('comments');
         ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
       })
-    }, 'Comment this move'),
+    }, ctrl.trans.noarg('commentThisMove')),
     h('a.glyph-icon', {
       hook: bind('click', () => {
         ctrl.vm.toolTab('glyphs');
         ctrl.userJump(path);
       })
-    }, 'Annotate with glyphs')
+    }, ctrl.trans.noarg('annotateWithGlyphs'))
   ] : [];
 }
 
