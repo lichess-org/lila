@@ -27,6 +27,16 @@
   <string name="pgnTags">PGN etiketak</string>
   <string name="like">Datsegit</string>
   <string name="newTag">Etiketa berria</string>
+  <string name="commentThisPosition">Posizio hau komentatu</string>
+  <string name="commentThisMove">Jokaldi hau komentatu</string>
+  <string name="annotateWithGlyphs">Ikonoekin komentatu</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Komentatzeko laburregia da kapitulua.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Azterlanaren laguntzaileek bakarrik eskatu dezakete ordenagailu bidezko analisia.</string>
+  <string name="getAFullComputerAnalysis">Linea nagusiaren ordenagailu bidezko analisia lortu.</string>
+  <string name="makeSureTheChapterIsComplete">Ziurtatu kapitulua guztiz osatu duzula. Analisia behin bakarrik eskatu dezakezu.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
+  <string name="shareChanges">Aldaketak ikusleekin partekatu eta zerbitzarian gorde</string>
+  <string name="playing">Jokatzen</string>
   <string name="open">Ireki</string>
   <string name="xBroughtToYouByY">%1$s azterlana %2$s erabiltzaileak prestatu du</string>
   <string name="studyNotFound">Azterlana ez da aurkitu</string>
