@@ -53,7 +53,7 @@ function buttons(root: AnalyseCtrl): VNode {
     h('div.left-buttons.tabs-horiz', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky ? h('a.mode.sync', {
-        attrs: { title: 'All sync members remain on the same position' },
+        attrs: { title: root.trans.noarg('allSyncMembersRemainOnTheSamePosition') },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
       }, [
@@ -61,7 +61,7 @@ function buttons(root: AnalyseCtrl): VNode {
         'SYNC'
       ]) : null,
       ctrl.members.canContribute() ? h('a.mode.write', {
-        attrs: { title: 'Write changes to the server' },
+        attrs: { title: ctrl.trans.noarg('shareChanges') },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'REC' ]) : null,

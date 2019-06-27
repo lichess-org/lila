@@ -33,6 +33,8 @@
   <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
   <string name="getAFullComputerAnalysis">Get a full server-side computer analysis of the main line.</string>
   <string name="makeSureTheChapterIsComplete">Make sure the chapter is complete. You can only request analysis once.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC members remain on the same position</string>
+  <string name="shareChanges">Share changes with spectators and save them on the server</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
   <string name="studyNotFound">Study not found</string>
