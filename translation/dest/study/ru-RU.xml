@@ -22,6 +22,15 @@
     <item quantity="other">%s участников</item>
   </plurals>
   <string name="inviteToTheStudy">Пригласить в студию</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Приглашайте только тех участников, которых вы знаете, и кто активно желает участвовать в это студии.</string>
+  <string name="searchByUsername">Поиск по имени участника</string>
+  <string name="spectator">Зритель</string>
+  <string name="contributor">Редактор</string>
+  <string name="kick">Выгнать</string>
+  <string name="leaveTheStudy">Покинуть студию</string>
+  <string name="youAreNowAContributor">Теперь вы редактор</string>
+  <string name="youAreNowASpectator">Теперь вы зритель</string>
+  <string name="pgnTags">Теги PGN</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
   <string name="studyNotFound">Студия не найдена</string>
