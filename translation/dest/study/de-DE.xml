@@ -15,6 +15,18 @@
     <item quantity="one">%s Mitglied</item>
     <item quantity="other">%s Mitglieder</item>
   </plurals>
+  <string name="inviteToTheStudy">Zur Studie einladen</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lade nur Leute ein, die du kennst und die aktiv an dieser Studie teilnehmen möchten.</string>
+  <string name="searchByUsername">Suche nach Benutzernamen</string>
+  <string name="spectator">Zuschauer</string>
+  <string name="contributor">Mitwirkender</string>
+  <string name="kick">Rauswerfen</string>
+  <string name="leaveTheStudy">Studie verlassen</string>
+  <string name="youAreNowAContributor">Du bist jetzt Mitwirkender</string>
+  <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
+  <string name="pgnTags">PGN Markierungen</string>
+  <string name="like">Gefällt</string>
+  <string name="newTag">Neue Markierung</string>
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
