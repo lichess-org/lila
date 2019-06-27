@@ -3,19 +3,21 @@
 <resources>
   <string name="addNewChapter">Aggiungi un nuovo capitolo</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s Capitolo</item>
-    <item quantity="other">%s Capitoli</item>
+    <item quantity="one">%s capitolo</item>
+    <item quantity="other">%s capitoli</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Partita</item>
-    <item quantity="other">%s Partite</item>
+    <item quantity="one">%s partita</item>
+    <item quantity="other">%s partite</item>
   </plurals>
   <string name="addMembers">Aggiungi membri</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Membro</item>
-    <item quantity="other">%s Membri</item>
+    <item quantity="one">%s membro</item>
+    <item quantity="other">%s membri</item>
   </plurals>
   <string name="inviteToTheStudy">Invita allo studio</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Invita solo persone che conosci e che desiderano partecipare attivamente a questo studio.</string>
+  <string name="spectator">Spettatore</string>
   <string name="commentThisPosition">Commenta questa posizione</string>
   <string name="commentThisMove">Commenta questa mossa</string>
   <string name="annotateWithGlyphs">Commenta con segni convenzionali</string>
