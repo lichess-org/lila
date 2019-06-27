@@ -22,6 +22,11 @@
   <string name="contributor">Bijdrager</string>
   <string name="kick">Verwijder</string>
   <string name="leaveTheStudy">Verlaat de studie</string>
+  <string name="youAreNowAContributor">Je bent nu een bijdrager</string>
+  <string name="youAreNowASpectator">Je bent nu een toeschouwer</string>
+  <string name="pgnTags">PGN labels</string>
+  <string name="like">Vind ik leuk</string>
+  <string name="newTag">Nieuw label</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s aangeboden door %2$s</string>
   <string name="studyNotFound">Studie niet gevonden</string>
