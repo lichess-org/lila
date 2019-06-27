@@ -17,7 +17,11 @@
   </plurals>
   <string name="inviteToTheStudy">Uitnodigen voor de studie</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Nodig alleen deelnemers uit die je kent en actief mee willen doen aan deze studie.</string>
-  <string name="searchByUsername">Zoek op gebruikersnaam</string>
+  <string name="searchByUsername">Zoeken op gebruikersnaam</string>
+  <string name="spectator">Toeschouwer</string>
+  <string name="contributor">Bijdrager</string>
+  <string name="kick">Verwijder</string>
+  <string name="leaveTheStudy">Verlaat de studie</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s aangeboden door %2$s</string>
   <string name="studyNotFound">Studie niet gevonden</string>
