@@ -89,7 +89,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
-  const multiBoard = new MultiBoardCtrl(data.id, redraw);
+  const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
