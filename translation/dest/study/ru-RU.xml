@@ -57,6 +57,8 @@
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Вставьте этот код в форум чтобы встроить главу</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее а встраивании глав студии</string>
+  <string name="fen">FEN</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
   <string name="studyNotFound">Студия не найдена</string>
