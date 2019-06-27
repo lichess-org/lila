@@ -663,6 +663,7 @@
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="displayBoardResizeHandle">Posibilitatea de redimensionare a tablei de joc</string>
+  <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rocada</string>
   <string name="whiteCastlingKingside">Alb O-O</string>
