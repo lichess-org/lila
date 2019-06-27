@@ -17,6 +17,7 @@
   </plurals>
   <string name="inviteToTheStudy">Invita allo studio</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Invita solo persone che conosci e che desiderano partecipare attivamente a questo studio.</string>
+  <string name="searchByUsername">Cerca per nome utente</string>
   <string name="spectator">Spettatore</string>
   <string name="commentThisPosition">Commenta questa posizione</string>
   <string name="commentThisMove">Commenta questa mossa</string>
