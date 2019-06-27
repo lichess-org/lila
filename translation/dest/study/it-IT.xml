@@ -15,6 +15,22 @@
     <item quantity="one">%s Membro</item>
     <item quantity="other">%s Membri</item>
   </plurals>
+  <string name="inviteToTheStudy">Invita allo studio</string>
+  <string name="commentThisPosition">Commenta questa posizione</string>
+  <string name="commentThisMove">Commenta questa mossa</string>
+  <string name="annotateWithGlyphs">Commenta con segni convenzionali</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Il capitolo è troppo breve per essere analizzato.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Solo i partecipanti allo studio possono richiedere un\'analisi del computer.</string>
+  <string name="getAFullComputerAnalysis">Richiedi un\'analisi completa del computer della variante principale.</string>
+  <string name="makeSureTheChapterIsComplete">Assicurati che il capitolo sia completo. Puoi richiedere l\'analisi solo una volta.</string>
+  <string name="shareChanges">Condividi le modifiche con gli spettatori e salvale sul server</string>
+  <string name="playing">In corso</string>
+  <string name="onlyOngoingGames">Solo partite in corso</string>
+  <string name="cloneStudy">Duplica</string>
+  <string name="studyPgn">PGN dello studio</string>
+  <string name="chapterPgn">PGN del capitolo</string>
+  <string name="studyUrl">URL dello studio</string>
+  <string name="fen">FEN</string>
   <string name="open">Apri</string>
   <string name="xBroughtToYouByY">%1$s fornito da %2$s</string>
   <string name="studyNotFound">Studio non trovato</string>
