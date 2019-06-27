@@ -21,6 +21,7 @@
     <item quantity="many">%s участников</item>
     <item quantity="other">%s участников</item>
   </plurals>
+  <string name="inviteToTheStudy">Пригласить в студию</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
   <string name="studyNotFound">Студия не найдена</string>
