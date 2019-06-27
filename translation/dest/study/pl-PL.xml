@@ -39,6 +39,8 @@
   <string name="previous">Poprzedni</string>
   <string name="next">Następny</string>
   <string name="last">Ostatni</string>
+  <string name="shareAndExport">Udostępnij &amp; eksportuj</string>
+  <string name="cloneStudy">Klonuj</string>
   <string name="open">Otwórz</string>
   <string name="xBroughtToYouByY">%1$s przygotowane przez %2$s</string>
   <string name="studyNotFound">Omówienia nie znaleziono</string>
