@@ -15,6 +15,9 @@
     <item quantity="one">%s deelnemer</item>
     <item quantity="other">%s deelnemers</item>
   </plurals>
+  <string name="inviteToTheStudy">Uitnodigen voor de studie</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Nodig alleen deelnemers uit die je kent en actief mee willen doen aan deze studie.</string>
+  <string name="searchByUsername">Zoek op gebruikersnaam</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s aangeboden door %2$s</string>
   <string name="studyNotFound">Studie niet gevonden</string>
