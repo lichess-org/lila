@@ -27,6 +27,10 @@
   <string name="pgnTags">PGN Markierungen</string>
   <string name="like">Gefällt</string>
   <string name="newTag">Neue Markierung</string>
+  <string name="commentThisPosition">Kommentiere diese Stellung</string>
+  <string name="commentThisMove">Kommentiere diesen Zug</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum analysieren.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende an der Studie können eine Computeranalyse anfordern.</string>
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
