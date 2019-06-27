@@ -13,6 +13,17 @@
     <item quantity="other">%s Anggota</item>
   </plurals>
   <string name="playing">Memainkan</string>
+  <string name="onlyOngoingGames">Hanya permainan yang sedang berlangsung</string>
+  <string name="first">Pertama</string>
+  <string name="previous">Sebelumnya</string>
+  <string name="next">Berikutnya</string>
+  <string name="last">Terakhir</string>
+  <string name="shareAndExport">Bagikan &amp; ekspor</string>
+  <string name="cloneStudy">Gandakan</string>
+  <string name="studyPgn">Belajar PGN</string>
+  <string name="chapterPgn">Bab PGN</string>
+  <string name="studyUrl">Belajar URL</string>
+  <string name="currentChapterUrl">URL Bab saat ini</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Pembelajaran tidak ditemukan</string>
