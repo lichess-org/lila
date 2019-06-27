@@ -12,6 +12,22 @@
   <plurals name="nbMembers">
     <item quantity="other">%s Anggota</item>
   </plurals>
+  <string name="inviteToTheStudy">Ajak untuk belajar</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Harap hanya mengundang orang yang Anda kenal, dan yang secara aktif ingin bergabung dengan pembelajaran ini.</string>
+  <string name="searchByUsername">Cari berdasarkan nama pengguna</string>
+  <string name="spectator">Penonton</string>
+  <string name="contributor">Kontributor</string>
+  <string name="kick">Diusir</string>
+  <string name="leaveTheStudy">Tinggalkan pembelajaran</string>
+  <string name="commentThisPosition">Komentar di posisi ini</string>
+  <string name="commentThisMove">Komentari langkah ini</string>
+  <string name="annotateWithGlyphs">Anotasikan dengan glif</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Bab ini terlalu pendek untuk di analisa.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Hanya kontributor yang dapat meminta analisa komputer.</string>
+  <string name="getAFullComputerAnalysis">Dapatkan analisis komputer penuh di pihak server dari jalur utama.</string>
+  <string name="makeSureTheChapterIsComplete">Pastikan bab ini selesai. Anda hanya dapat meminta analisis satu kali.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Semua anggota yang ter-sinkron tetap pada posisi yang sama</string>
+  <string name="shareChanges">Bagikan perubahan dengan penonton dan simpan di server</string>
   <string name="playing">Memainkan</string>
   <string name="onlyOngoingGames">Hanya permainan yang sedang berlangsung</string>
   <string name="first">Pertama</string>
