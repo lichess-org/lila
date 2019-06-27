@@ -15,7 +15,8 @@ interface Opts {
   startTour(): void;
   notif: NotifCtrl;
   onBecomingContributor(): void;
-  redraw(): void
+  redraw(): void;
+  trans: Trans;
 }
 
 function memberActivity(onIdle) {
@@ -54,7 +55,7 @@ export function ctrl(opts: Opts) {
     return m && m.role === 'w';
   };
 
-  const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw);
+  const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw, opts.trans);
 
   function setActive(id) {
     if (opts.tab() !== 'members') return;
@@ -91,11 +92,11 @@ export function ctrl(opts: Opts) {
         if (window.lichess.once('study-tour')) opts.startTour();
         opts.onBecomingContributor();
         opts.notif.set({
-          text: 'You are now a contributor',
+          text: opts.trans.noarg('youAreNowAContributor'),
           duration: 3000
         });
       } else if (wasContrib && !canContribute()) opts.notif.set({
-        text: 'You are now a spectator',
+        text: opts.trans.noarg('youAreNowASpectator'),
         duration: 3000
       });
       updateOnline();
@@ -170,7 +171,7 @@ export function view(ctrl: StudyCtrl): VNode {
         active: ctrl.members.isActive(member.user.id),
         online: ctrl.members.isOnline(member.user.id)
       },
-      attrs: { title: contrib ? 'Contributor' : 'Viewer' },
+      attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
     }, [
       iconTag(contrib ? 'r' : 'v')
     ]);
@@ -190,7 +191,7 @@ export function view(ctrl: StudyCtrl): VNode {
         key: 'leave',
         attrs: {
           'data-icon': 'F',
-          title: 'Leave the study'
+          title: ctrl.trans.noarg('leaveTheStudy')
         },
         hook: bind('click', ctrl.members.leave, ctrl.redraw)
       });
@@ -216,12 +217,12 @@ export function view(ctrl: StudyCtrl): VNode {
           }),
           h('label', { attrs: { 'for': roleId } })
         ]),
-        h('label', { attrs: { 'for': roleId } }, 'Contributor')
+        h('label', { attrs: { 'for': roleId } }, ctrl.trans.noarg('contributor'))
       ]),
       h('div.kick', h('a.button.button-red.button-empty.text', {
         attrs: dataIcon('L'),
         hook: bind('click', _ => ctrl.members.kick(member.user.id), ctrl.redraw)
-      }, 'Kick'))
+      }, ctrl.trans.noarg('kick')))
     ]);
   };
 
