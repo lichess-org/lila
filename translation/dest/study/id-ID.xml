@@ -24,9 +24,11 @@
   <string name="chapterPgn">Bab PGN</string>
   <string name="studyUrl">Belajar URL</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Anda dapat menempel ini di forum untuk menanamkan bab</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Anda dapat menempel ini di forum untuk sematkan bab</string>
   <string name="startAtX">Mulai dari %s</string>
   <string name="embedThisChapter">Sematkan bab ini di situs web atau blog Anda</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Baca lebih mengenai menyematkan bab pembelajaran</string>
+  <string name="fen">FEN</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Pembelajaran tidak ditemukan</string>
