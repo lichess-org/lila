@@ -29,8 +29,13 @@
   <string name="newTag">Neue Markierung</string>
   <string name="commentThisPosition">Kommentiere diese Stellung</string>
   <string name="commentThisMove">Kommentiere diesen Zug</string>
+  <string name="annotateWithGlyphs">Mit Glyphen kommentieren</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum analysieren.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende an der Studie können eine Computeranalyse anfordern.</string>
+  <string name="getAFullComputerAnalysis">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
+  <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisieren Mitglieder sehen die gleiche Stellung</string>
+  <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
