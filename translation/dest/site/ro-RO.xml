@@ -662,6 +662,7 @@
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
   <string name="onlyFriends">Doar prieteni</string>
+  <string name="displayBoardResizeHandle">Posibilitatea de redimensionare a tablei de joc</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rocada</string>
   <string name="whiteCastlingKingside">Alb O-O</string>
