@@ -12,6 +12,20 @@
   <plurals name="nbMembers">
     <item quantity="other">%s メンバー</item>
   </plurals>
+  <string name="inviteToTheStudy">この研究に招待する</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">招待する相手は、あなたが知っていて参加したい人だけにしてください。</string>
+  <string name="searchByUsername">ユーザー名で検索</string>
+  <string name="spectator">観戦者</string>
+  <string name="contributor">投稿参加者</string>
+  <string name="kick">追放</string>
+  <string name="leaveTheStudy">この研究から出る</string>
+  <string name="youAreNowAContributor">投稿参加者になりました</string>
+  <string name="youAreNowASpectator">観戦者になりました</string>
+  <string name="pgnTags">PGN タグ</string>
+  <string name="like">いいね</string>
+  <string name="newTag">新しいタグ</string>
+  <string name="commentThisPosition">この局面にコメントする</string>
+  <string name="commentThisMove">この手にコメントする</string>
   <string name="open">開く</string>
   <string name="xBroughtToYouByY">%1$s を %2$s がお届けします</string>
   <string name="studyNotFound">研究が見つかりません</string>
