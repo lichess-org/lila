@@ -91,22 +91,22 @@ function requested(): VNode {
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
-
+  const root = ctrl.root;
   return h('div.study__message',
-    ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : (
-      !ctrl.root.study!.members.canContribute() ? ['Only the study contributors can request a computer analysis'] : [
+    root.mainline.length < 5 ? h('p', root.trans.noarg('theChapterIsTooShortToBeAnalysed')) : (
+      !root.study!.members.canContribute() ? [root.trans.noarg('onlyContributorsCanRequestAnalysis')] : [
         h('p', [
-          'Get a full server-side computer analysis of the main line.',
+          root.trans.noarg('getAFullComputerAnalysis'),
           h('br'),
-          'Make sure the chapter is complete, for you can only request analysis once.'
+          root.trans.noarg('makeSureTheChapterIsComplete')
         ]),
         h('a.button.text', {
           attrs: {
             'data-icon': '',
-            disabled: ctrl.root.mainline.length < 5
+            disabled: root.mainline.length < 5
           },
-          hook: bind('click', ctrl.request, ctrl.root.redraw)
-        }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
+          hook: bind('click', ctrl.request, root.redraw)
+        }, root.trans.noarg('requestAComputerAnalysis'))
       ])
   );
 }

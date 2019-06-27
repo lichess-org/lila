@@ -29,6 +29,10 @@
   <string name="commentThisPosition">Comment this position</string>
   <string name="commentThisMove">Comment this move</string>
   <string name="annotateWithGlyphs">Annotate with glyphs</string>
+  <string name="theChapterIsTooShortToBeAnalysed">The chapter is too short to be analysed.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
+  <string name="getAFullComputerAnalysis">Get a full server-side computer analysis of the main line.</string>
+  <string name="makeSureTheChapterIsComplete">Make sure the chapter is complete. You can only request analysis once.</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
   <string name="studyNotFound">Study not found</string>
