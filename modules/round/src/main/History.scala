@@ -69,24 +69,6 @@ private final class History(
     }
   }
 
-  /* if v+1 refers to an old event,
-   * then the client probably has skipped events somehow.
-   * Log and send new events.
-   * None => client is too late, or has greater version than server. Resync.
-   * Some(List.empty) => all is good, do nothing
-   * Some(List.nonEmpty) => late client, send new events
-   *
-   * We check the event age because if the client sends a
-   * versionCheck ping while the server sends an event,
-   * we can get a false positive.
-   * */
-  def versionCheck(v: SocketVersion): Option[List[VersionedEvent]] =
-    getEventsSince(v, none) match {
-      case Events(evs) if evs.headOption.exists(_ hasSeconds 10) => Some(evs)
-      case Events(_) | UpToDate => Some(Nil)
-      case _ => None
-    }
-
   def getRecentEvents(maxEvents: Int): List[VersionedEvent] = {
     waitForLoadedEvents
     val it = events.descendingIterator
