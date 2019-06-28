@@ -384,7 +384,7 @@
   <string name="createANewTournament">Búa til nýtt mót</string>
   <string name="tournamentCalendar">Mótadagatal</string>
   <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
-  <string name="join">ganga í</string>
+  <string name="join">Taka þátt</string>
   <string name="withdraw">afturkalla</string>
   <string name="points">Punktar</string>
   <string name="wins">Vinnur</string>
@@ -592,6 +592,7 @@
   <string name="error.email_acceptable">Netfang ófullnægjandi</string>
   <string name="error.email_unique">Netfang frátekið</string>
   <string name="blindfoldChess">Blindskák (ósýnilegir taflmenn)</string>
+  <string name="zenMode">Lágmarka truflanir í leik</string>
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="inCorrespondenceGames">Bréfaskákleikir</string>
   <string name="ifRatingIsPlusMinusX">Ef skor er ± %s</string>
@@ -611,6 +612,9 @@
   <string name="videoLibrary">Myndbandasafn</string>
   <string name="mobileApp">App</string>
   <string name="webmasters">Vefstjórar</string>
+  <string name="about">Um</string>
+  <string name="aboutX">Um %s</string>
+  <string name="really">í alvörunni</string>
   <string name="contribute">Veita hjálparhönd</string>
   <string name="contact">Hafa samband</string>
   <string name="termsOfService">Skilmálar</string>
