@@ -82,7 +82,6 @@ object layout {
   private val spaceRegex = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
-  private val dataDev = attr("data-dev")
   private val dataVapid = attr("data-vapid")
   private val dataUser = attr("data-user")
   private val dataSoundSet = attr("data-sound-set")
