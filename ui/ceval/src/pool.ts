@@ -153,7 +153,7 @@ export default class Pool {
     if (this.poolOpts.pnacl)
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts));
     else
-      for (var i = 1; i <= 2; i++)
+      for (var i = 1; i <= 1; i++)
         this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
   }
 

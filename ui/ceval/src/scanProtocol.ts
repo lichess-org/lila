@@ -43,6 +43,10 @@ export function parseVariant(variant: string): string {
     return "normal";
   else if (result === "breakthrough")
     return "bt";
+  else if (result === "antidraughts")
+    return "losing";
+  else if (result === "frysk")
+    return "frisian";
   return result;
 }
 
@@ -54,12 +58,16 @@ export default class Protocol {
   private stopped: DeferPromise.Deferred<void> | null;
   private opts: WorkerOpts;
   private curHashSize: number;
+  private frisianVariant: boolean;
 
   public engineName: string | undefined;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;
     this.opts = opts;
+
+    const scanVariant = parseVariant(opts.variant);
+    this.frisianVariant = scanVariant === 'frisian';
 
     this.stopped = defer<void>();
     this.stopped.resolve();
@@ -74,13 +82,25 @@ export default class Protocol {
 
     send('set-param name=variant value=' + parseVariant(opts.variant));
 
+    // bitbases are disabled by default, not supported for all variants
+    switch (scanVariant) {
+      case "normal":
+        send('set-param name=bb-size value=3');
+        break;
+      case "bt":
+        send('set-param name=bb-size value=4');
+        break;
+    }
+
     // prepare for analysis
     send('init');
+
   }
 
   received(text: string) {
+    text = String(text);
     if (text.indexOf('id name=') === 0) {
-      const nameText = text.substring('id name='.length).replace('version=', '');
+      const nameText = text.substring(8).replace('version=', '');
       this.engineName = nameText.substring(0, nameText.indexOf('author=')).trim();
     } else if (text.indexOf('done') === 0) {
       if (!this.stopped) this.stopped = defer<void>();
@@ -108,23 +128,36 @@ export default class Protocol {
       const dstY = fieldY(dstF), dstX = fieldX(dstF);
       const up = dstY > srcY;
       const right = dstX > srcX || (dstX == srcX && srcY % 2 == 0)
+      const vertical = this.frisianVariant && dstY !== srcY && dstX === srcX && Math.abs(dstY - srcY) % 2 === 0;
+      const horizontal = this.frisianVariant && dstX !== srcX && dstY === srcY;
       let walker = eyesF ? dstF : srcF, steps = 0;
       while ((king || steps < 1) && (eyesF !== undefined || walker !== dstF)) {
 
         const walkerY = fieldY(walker);
         if (up) {
           walker += 5;
-          if (right) walker += walkerY % 2 == 1 ? 1 : 0;
+          if (vertical) walker += 5;
+          else if (right) walker += walkerY % 2 == 1 ? 1 : 0;
           else walker += walkerY % 2 == 0 ? -1 : 0;
+        } else if (horizontal) {
+          const walkerX = fieldX(walker);
+          if (right) {
+            if (walkerX < 5) walker += 1
+            else return undefined;
+          } else {
+            if (walkerX > 0) walker -= 1
+            else return undefined;
+          }
         } else {
           walker -= 5;
-          if (right) walker += walkerY % 2 == 1 ? 1 : 0;
+          if (vertical) walker += 5;
+          else if (right) walker += walkerY % 2 == 1 ? 1 : 0;
           else walker += walkerY % 2 == 0 ? -1 : 0;
         }
         steps++;
 
         if (walker < 0 || walker > 49) return undefined;
-        if (Math.abs(fieldY(walker) - walkerY) !== 1) return undefined;
+        if (!(horizontal || vertical) && Math.abs(fieldY(walker) - walkerY) !== 1) return undefined;
         if (pieces[walker]) {
           if (walker !== dstF)
             return undefined;
