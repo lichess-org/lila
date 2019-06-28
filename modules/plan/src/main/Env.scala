@@ -1,6 +1,7 @@
 package lila.plan
 
 import com.typesafe.config.Config
+import lila.memo.SettingStore.{ StringReader, Formable }
 import scala.concurrent.duration._
 
 final class Env(
@@ -11,6 +12,7 @@ final class Env(
     bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
+    settingStore: lila.memo.SettingStore.Builder,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -18,7 +20,6 @@ final class Env(
 
   private val CollectionPatron = config getString "collection.patron"
   private val CollectionCharge = config getString "collection.charge"
-  private val MonthlyGoalCents = Usd(config getInt "monthly_goal").cents
 
   private lazy val patronColl = db(CollectionPatron)
   private lazy val chargeColl = db(CollectionCharge)
@@ -36,8 +37,14 @@ final class Env(
   )
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
-    goal = MonthlyGoalCents,
+    getGoal = () => Usd(donationGoalSetting.get()),
     chargeColl = chargeColl
+  )
+
+  val donationGoalSetting = settingStore[Int](
+    "donationGoal",
+    default = 10 * 1000,
+    text = "Monthly donation goal in USD from https://lichess.org/costs".some
   )
 
   lazy val api = new PlanApi(
@@ -85,6 +92,7 @@ object Env {
     lightUserApi = lila.user.Env.current.lightUserApi,
     bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
+    settingStore = lila.memo.Env.current.settingStore,
     scheduler = lila.common.PlayApp.scheduler
   )
 }

@@ -6,10 +6,10 @@ import reactivemongo.bson.BSONNull
 
 import lila.db.dsl._
 
-private final class MonthlyGoalApi(goal: Cents, chargeColl: Coll) {
+private final class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll) {
 
   def get: Fu[MonthlyGoal] = monthAmount map { amount =>
-    MonthlyGoal(current = amount, goal = goal)
+    MonthlyGoal(current = amount, goal = getGoal().cents)
   }
 
   def monthAmount: Fu[Cents] =
