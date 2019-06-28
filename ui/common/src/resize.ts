@@ -2,7 +2,9 @@ import * as cg from 'chessground/types';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 
-export default function resizeHandle(els: cg.Elements, pref: number, ply: number) {
+type Visible = (ply: Ply) => boolean;
+
+export default function resizeHandle(els: cg.Elements, pref: number, ply: number, visible?: Visible) {
 
   if (!pref) return;
 
@@ -48,7 +50,7 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
   });
 
   if (pref == 1) {
-    const toggle = (ply: number) => el.classList.toggle('none', ply >= 2);
+    const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
     toggle(ply);
     window.lichess.pubsub.on('ply', toggle);
   }
