@@ -1,6 +1,7 @@
 package lidraughts.plan
 
 import com.typesafe.config.Config
+import lidraughts.memo.SettingStore.{ StringReader, Formable }
 import scala.concurrent.duration._
 
 final class Env(
@@ -11,6 +12,7 @@ final class Env(
     bus: lidraughts.common.Bus,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     lightUserApi: lidraughts.user.LightUserApi,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     scheduler: lidraughts.common.Scheduler
 ) {
 
@@ -18,7 +20,6 @@ final class Env(
 
   private val CollectionPatron = config getString "collection.patron"
   private val CollectionCharge = config getString "collection.charge"
-  private val MonthlyGoalCents = Usd(config getInt "monthly_goal").cents
 
   private lazy val patronColl = db(CollectionPatron)
   private lazy val chargeColl = db(CollectionCharge)
@@ -36,8 +37,14 @@ final class Env(
   )
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
-    goal = MonthlyGoalCents,
+    getGoal = () => Usd(donationGoalSetting.get()),
     chargeColl = chargeColl
+  )
+
+  val donationGoalSetting = settingStore[Int](
+    "donationGoal",
+    default = 100,
+    text = "Monthly donation goal in USD".some
   )
 
   lazy val api = new PlanApi(
@@ -85,6 +92,7 @@ object Env {
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
     bus = lidraughts.common.PlayApp.system.lidraughtsBus,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
+    settingStore = lidraughts.memo.Env.current.settingStore,
     scheduler = lidraughts.common.PlayApp.scheduler
   )
 }
