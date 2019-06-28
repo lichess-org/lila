@@ -97,7 +97,7 @@ module.exports = function(ctrl) {
               m('td.action', isHost ? m('a.button', {
                 'data-icon': 'E',
                 title: 'Accept',
-                onclick: function(e) {
+                onclick: function() {
                   xhr.accept(applicant.player.id)(ctrl);
                 }
               }) : null)
@@ -128,7 +128,7 @@ module.exports = function(ctrl) {
               }),
               m('td.action', isHost ? m('a.button.button-red', {
                 'data-icon': 'L',
-                onclick: function(e) {
+                onclick: function() {
                   xhr.reject(applicant.player.id)(ctrl);
                 }
               }) : null)

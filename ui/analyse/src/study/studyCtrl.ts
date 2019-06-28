@@ -71,7 +71,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     onBecomingContributor() {
       vm.mode.write = true;
     },
-    redraw
+    redraw,
+    trans: ctrl.trans
   });
 
   const chapters = chapterCtrl(
@@ -88,7 +89,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
-  const multiBoard = new MultiBoardCtrl(data.id, redraw);
+  const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
@@ -228,7 +229,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.node;
   };
 
-  const share = shareCtrl(data, currentChapter, currentNode, redraw);
+  const share = shareCtrl(data, currentChapter, currentNode, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 

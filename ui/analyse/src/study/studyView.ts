@@ -53,7 +53,7 @@ function buttons(root: AnalyseCtrl): VNode {
     h('div.left-buttons.tabs-horiz', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky ? h('a.mode.sync', {
-        attrs: { title: 'All sync members remain on the same position' },
+        attrs: { title: root.trans.noarg('allSyncMembersRemainOnTheSamePosition') },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
       }, [
@@ -61,20 +61,20 @@ function buttons(root: AnalyseCtrl): VNode {
         'SYNC'
       ]) : null,
       ctrl.members.canContribute() ? h('a.mode.write', {
-        attrs: { title: 'Write changes to the server' },
+        attrs: { title: ctrl.trans.noarg('shareChanges') },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'REC' ]) : null,
       toolButton({
         ctrl,
         tab: 'tags',
-        hint: 'PGN tags',
+        hint: ctrl.trans.noarg('pgnTags'),
         icon: iconTag('o'),
       }),
       toolButton({
         ctrl,
         tab: 'comments',
-        hint: 'Comment this position',
+        hint: ctrl.trans.noarg('commentThisPosition'),
         icon: iconTag('c'),
         onClick() {
           ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
@@ -84,7 +84,7 @@ function buttons(root: AnalyseCtrl): VNode {
       canContribute ?  toolButton({
         ctrl,
         tab: 'glyphs',
-        hint: 'Annotate with glyphs',
+        hint: ctrl.trans.noarg('annotateWithGlyphs'),
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
@@ -104,7 +104,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'share',
-        hint: 'Share & export',
+        hint: ctrl.trans.noarg('shareAndExport'),
         icon: iconTag('$')
       }),
       h('span.help', {
@@ -130,7 +130,7 @@ function metadata(ctrl: StudyCtrl): VNode {
         class: { liked: d.liked },
         attrs: {
           'data-icon': d.liked ? '' : '',
-          title: 'Like'
+          title: ctrl.trans.noarg('like')
         },
         hook: bind('click', ctrl.toggleLike)
       }, '' + d.likes)
@@ -172,13 +172,13 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
         ctrl.vm.toolTab('comments');
         ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
       })
-    }, 'Comment this move'),
+    }, ctrl.trans.noarg('commentThisMove')),
     h('a.glyph-icon', {
       hook: bind('click', () => {
         ctrl.vm.toolTab('glyphs');
         ctrl.userJump(path);
       })
-    }, 'Annotate with glyphs')
+    }, ctrl.trans.noarg('annotateWithGlyphs'))
   ] : [];
 }
 

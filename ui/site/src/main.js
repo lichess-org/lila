@@ -75,7 +75,7 @@
           lichess.redirect(o);
         }, 200);
       },
-      deployPost: function(html) {
+      deployPost: function() {
         $('#notifications').append(
           '<div id="deploy_post" class="notification">' +
           '<div class="inner"><p data-icon="j" class="is3 text">Site update in progress...</p></div>' +
@@ -355,6 +355,7 @@
           load();
         }).click(function() {
           setTimeout(function() {
+            lichess.pushSubscribe(true);
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
@@ -504,7 +505,7 @@
         var $oc = $('#modal-wrap .close');
         if ($oc.length) $oc.trigger('click');
         else {
-          $input = $(':focus');
+          var $input = $(':focus');
           if ($input.length) $input.trigger('blur');
         }
         return false;
@@ -863,7 +864,7 @@
     cfg.$side = $('.tour__side').clone();
     cfg.$faq = $('.tour__faq').clone();
     tournament = LichessTournament.start(cfg);
-  };
+  }
 
   function startSimul(cfg) {
     cfg.element = document.querySelector('main.simul');
@@ -963,4 +964,46 @@
     cfg.socketSend = lichess.socket.send;
     puzzle = LichessPuzzle.default(cfg);
   }
+
+  ////////////////////
+  // service worker //
+  ////////////////////
+
+  var pushBeta = !!document.body.getAttribute('data-vapid');
+  if (pushBeta && 'serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+    var workerUrl = lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
+    navigator.serviceWorker.register(workerUrl, {scope: '/'});
+  }
+
+  lichess.pushSubscribe = function(ask) {
+    if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+      navigator.serviceWorker.ready.then(reg => {
+        var storage = lichess.storage.make('push-subscribed');
+        var vapid = document.body.getAttribute('data-vapid');
+        var allowed = (ask || Notification.permission === 'granted') && Notification.permission !== 'denied';
+        if (vapid && allowed) return reg.pushManager.getSubscription().then(sub => {
+          var resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+          var applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+          if (!sub || resub) {
+            return reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: applicationServerKey
+            }).then(sub => fetch('/push/subscribe', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(sub)
+            })).then(res => {
+              if (res.ok) storage.set('' + Date.now());
+              else throw Error(response.statusText);
+            }).catch(err => console.log('push subscribe failed', err.message));
+          }
+        });
+        else storage.remove();
+      });
+    }
+  };
+
+  lichess.pushSubscribe(false); // opportunistic push subscription
 })();

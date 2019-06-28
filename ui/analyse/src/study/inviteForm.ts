@@ -5,7 +5,7 @@ import { prop, Prop } from 'common';
 import { modal } from '../modal';
 import { StudyMemberMap } from './interfaces';
 
-export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void) {
+export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
   const open = prop(false);
   let followings = [];
   let spectators = [];
@@ -49,7 +49,8 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       send("invite", titleNameToId(titleName));
       setTab();
     },
-    redraw
+    redraw,
+    trans
   };
 };
 
@@ -62,12 +63,8 @@ export function view(ctrl): VNode {
       ctrl.redraw();
     },
     content: [
-      h('h2', 'Invite to the study'),
-      h('p.info', { attrs: { 'data-icon': '' } }, [
-        'Please only invite people you know,',
-        h('br'),
-        'and who actively want to join this study.'
-      ]),
+      h('h2', ctrl.trans.noarg('inviteToTheStudy')),
+      h('p.info', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')),
       candidates.length ? h('div.users', candidates.map(function(username) {
         return h('span.button.button-metal', {
           key: username,
@@ -76,7 +73,7 @@ export function view(ctrl): VNode {
       })) : undefined,
       h('div.input-wrapper', [ // because typeahead messes up with snabbdom
         h('input', {
-          attrs: { placeholder: 'Search by username' },
+          attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
           hook: onInsert<HTMLInputElement>(el => {
             window.lichess.userAutocomplete($(el), {
               tag: 'span',

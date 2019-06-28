@@ -12,11 +12,17 @@ final class Env(
 ) {
 
   private val CollectionDevice = config getString "collection.device"
+  private val CollectionSubscription = config getString "collection.subscription"
+
   private val OneSignalUrl = config getString "onesignal.url"
   private val OneSignalAppId = config getString "onesignal.app_id"
   private val OneSignalKey = config getString "onesignal.key"
 
+  private val WebUrl = config getString "web.url"
+  val WebVapidPublicKey = config getString "web.vapid_public_key"
+
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
+  lazy val webSubscriptionApi = new WebSubscriptionApi(db(CollectionSubscription))
 
   def registerDevice = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
@@ -28,8 +34,15 @@ final class Env(
     key = OneSignalKey
   )
 
+  private lazy val webPush = new WebPush(
+    webSubscriptionApi.getSubscriptions(5) _,
+    url = WebUrl,
+    vapidPublicKey = WebVapidPublicKey
+  )
+
   private lazy val pushApi = new PushApi(
     oneSignalPush,
+    webPush,
     getLightUser,
     bus = system.lilaBus,
     scheduler = scheduler
