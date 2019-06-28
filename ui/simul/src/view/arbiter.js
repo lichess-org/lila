@@ -37,11 +37,21 @@ function oldEval(ctrl, pairing) {
 }
 
 module.exports = function(ctrl) {
-  var sortedPairings = !ctrl.arbiterSort ? ctrl.data.pairings : ctrl.data.pairings.slice().sort(function(a, b) {
+  var sortedPairings = (!ctrl.arbiterData || !ctrl.arbiterSort) ? ctrl.data.pairings : ctrl.data.pairings.slice().sort(function(a, b) {
     var da = ctrl.arbiterData.find(d => d.id == a.player.id), db = ctrl.arbiterData.find(d => d.id == b.player.id);
+    if (!da) da = {};
+    if (!db) db = {};
     if (ctrl.arbiterSort === 'eval') {
       da = ceval.compareEval(da.ceval ? da.ceval : oldEval(ctrl, a), a);
       db = ceval.compareEval(db.ceval ? db.ceval : oldEval(ctrl, b), b);
+    } else if (ctrl.arbiterSort === 'assessment') {
+      var eva = Math.min(999, Math.max(-999, -ceval.compareEval(da.ceval ? da.ceval : oldEval(ctrl, a), a))) / 1000,
+        evb = Math.min(999, Math.max(-999, -ceval.compareEval(db.ceval ? db.ceval : oldEval(ctrl, b), b))) / 1000;
+      da = (da && da.assessment)? (da.assessment.totalSig + eva) : undefined;
+      db = (db && db.assessment)? (db.assessment.totalSig + evb) : undefined;
+    } else if (ctrl.arbiterSort.startsWith('assessment.')) {
+      da = (da && da.assessment)? da.assessment[ctrl.arbiterSort.slice(11)] : undefined;
+      db = (db && db.assessment)? db.assessment[ctrl.arbiterSort.slice(11)] : undefined;
     } else {
       da = da[ctrl.arbiterSort];
       db = db[ctrl.arbiterSort];
@@ -49,9 +59,9 @@ module.exports = function(ctrl) {
     if (da === undefined && db === undefined) 
       return 0;
     else if (da === undefined || da < db) 
-      return ctrl.arbiterSortDirection ? -1 : 1;
+      return ctrl.arbiterSortDescending ? 1 : -1;
     else if (db === undefined || da > db) 
-      return ctrl.arbiterSortDirection ? 1 : -1;
+      return ctrl.arbiterSortDescending ? -1 : 1;
     else 
       return 0;
   });
@@ -67,32 +77,34 @@ module.exports = function(ctrl) {
   return (ctrl.toggleArbiter && ctrl.arbiterData && simul.amArbiter(ctrl)) ? [ m('div.arbiter-panel', [
     m('table.slist.user_list',
       m('thead', m('tr', [
-        m('th', { colspan: 2 }, 'Arbiter control panel'),
+        m('th', { colspan: ctrl.data.variants.length === 1 ? 1 : 2 }, 'Player username'),
         sortableHeader('Simul host clock time remaining.', 'Host clock', 'hostClock'),
         sortableHeader('Simul participant clock time remaining.', 'Player clock', 'clock'),
+        sortableHeader('Last move played.', 'Last move', 'lastMove'),
         sortableHeader('The FMJD rating set on the user\'s profile.', 'FMJD', 'officialRating'),
         sortableHeader('Scan 3.0 evaluation (+ is better for host, - is better for participant).', 'Eval', 'eval'),
-        sortableHeader('Average centi-piece loss, or the average deviation from Scan 3.0 expressed as 1/100th of a piece.', 'Acpl', 'acpl'),
-        sortableHeader('The percentage of moves where the user left the game page (available after move 5).', 'Blurs', 'blurs'),
-        sortableHeader('Last move played.', 'Move', 'lastMove'),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game, or * when ongoing.' }, 'Result')),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Stop the game by settling it as a win, draw or loss.' }, 'Settle'))
+        sortableHeader('Average centi-piece loss (deviation from the best move as 1/100th of a piece) ± standard deviation.', 'Acpl ± SD', 'assessment.scanSort'),
+        sortableHeader('Average move time in seconds ± standard deviation.', 'Move time ± SD', 'assessment.mtSort'),
+        sortableHeader('The percentage of moves the player left the game page (on their own turn).', 'Blurs', 'assessment.blurSort'),
+        sortableHeader('Aggregate player assessment.', m.trust('&Sigma;'), 'assessment'),
+        m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game. Ongoing games can be settled as a win/draw/loss.' }, 'Result'))
       ])),
       m('tbody', sortedPairings.map(function(pairing) {
       var variant = util.playerVariant(ctrl, pairing.player),
         playing = pairing.game.status < status.ids.aborted,
-        data = ctrl.arbiterData.find(d => d.id == pairing.player.id)
+        data = ctrl.arbiterData.find(d => d.id == pairing.player.id),
+        assessment = data ? data.assessment : undefined,
         oldeval = oldEval(ctrl, pairing),
-        eval = data.ceval;
-      if (data.ceval) {
+        eval = data ? data.ceval : undefined;
+      if (eval) {
         if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(e => e.id === pairing.game.id)) {
           ctrl.evals = ctrl.evals.map(function(e) {
-            return e.id === pairing.game.id ? data.ceval : e;
+            return e.id === pairing.game.id ? eval : e;
           });
         } else if (ctrl.evals && ctrl.evals.length) {
-          ctrl.evals.push(data.ceval);
+          ctrl.evals.push(eval);
         } else {
-          ctrl.evals = [data.ceval];
+          ctrl.evals = [eval];
         }
       } else if (oldeval) {
         eval = oldeval;
@@ -101,10 +113,11 @@ module.exports = function(ctrl) {
         pairing.winnerColor === 'white' ? (ctrl.pref.draughtsResult ? '2-0' : '1-0')
         : (pairing.winnerColor === 'black' ? (ctrl.pref.draughtsResult ? '0-2' : '0-1')
         : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
-      ) : '* ';
+      ) : '*';
+      var evalText = ceval.renderEval(eval, pairing, ctrl.pref.draughtsResult);
       return m('tr', [
         m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '', '/' + pairing.game.id)),
-        m('td.variant', ctrl.data.variants.length === 1 ? null : { 'data-icon': variant.icon }),
+        ctrl.data.variants.length === 1 ? null : m('td.variant', { 'data-icon': variant.icon }),
         m('td', (data && data.hostClock !== undefined) ? m(
           (playing && pairing.hostColor === data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.hostClock))
@@ -113,12 +126,26 @@ module.exports = function(ctrl) {
           (playing && pairing.hostColor !== data.turnColor) ? 'div.time.running' : 'div.time',
           m.trust(formatClockTime(data.clock))
         ) : '-'),
-        m('td', data.officialRating ? data.officialRating : '-'),
-        m('td', m('span', { title: evalDesc(eval) }, ceval.renderEval(eval, pairing, ctrl.pref.draughtsResult))),
-        m('td', (data && data.acpl !== undefined) ? data.acpl : '-'),
-        m('td', (data && data.blurs !== undefined) ? (data.blurs + '%') : '-'),
         m('td', m('span', data.lastMove)),
-        m('td', m('span', result)),
+        m('td', data.officialRating ? data.officialRating : '-'),
+        m('td', m('span', { title: evalDesc(eval) }, evalText)),
+        m('td', assessment ? [
+          m('span.sig.sig_' + assessment.scanSig, {'data-icon': 'J'}),
+          assessment.scanAvg + ' ± ' + assessment.scanSd
+        ] : '-'),
+        m('td', assessment ? [
+          m('span.sig.sig_' + assessment.mtSig, {'data-icon': 'J'}),
+          Math.round(assessment.mtAvg / 10) + ' ± ' + Math.round(assessment.mtSd / 10)
+        ] : '-'),
+        m('td', assessment ? [
+          m('span.sig.sig_' + assessment.blurSig, {'data-icon': 'J'}),
+          assessment.blurPct + '%'
+        ] : '-'),
+        m('td', assessment ? m('span.sig.sig_' + assessment.totalSig, {
+          'data-icon': 'J',
+          'title': assessment.totalTxt + ' (eval ' + evalText + ')'
+        }) : '-'),
+        result !== '*'? m('td', m('span', result)) :
         m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
           'data-icon': '2',
           'title': 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',

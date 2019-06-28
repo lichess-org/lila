@@ -3,6 +3,7 @@ package lidraughts.simul
 import play.api.libs.json._
 import lidraughts.common.LightUser
 import lidraughts.evalCache.JsonHandlers.gameEvalJson
+import lidraughts.evaluation.{ Display, PlayerAssessment }
 import lidraughts.game.{ Game, GameRepo, Rewind }
 import draughts.format.{ FEN, Forsyth }
 import Simul.ShowFmjdRating
@@ -24,10 +25,10 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       } map { (game.id, _) }
     } sequenceFu
 
-  private def fetchAcpl(games: List[Game]) =
+  private def fetchAssessments(games: List[Game]) =
     games map { game =>
-      if (game.turns > 2)
-        Env.current.api.getAcpl(game.id) map { (game.id, _) }
+      if (game.turns > 5)
+        Env.current.api.getAssessments(game.id) map { (game.id, _) }
       else
         fuccess(game.id -> none)
     } sequenceFu
@@ -83,26 +84,49 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
   def arbiterJson(simul: Simul): Fu[JsArray] = for {
     games <- fetchGames(simul)
     evals <- simul.hasCeval ?? fetchEvals(games)
-    acpl <- simul.hasCeval ?? fetchAcpl(games)
+    assessments <- simul.hasCeval ?? fetchAssessments(games)
   } yield JsArray(simul.pairings.map(pairing => {
+    def assessment = assessments.find(_._1 == pairing.gameId)
+    def eval = evals.find(_._1 == pairing.gameId)
     val game = games.find(_.id == pairing.gameId)
     val clock = game.flatMap(_.clock)
+    val playerColor = !pairing.hostColor
     Json.obj(
       "id" -> pairing.player.user
-    ).add("blurs" -> game.flatMap(g => (g.playedTurns > 5) ?? g.playerBlurPercent(!pairing.hostColor).some))
-      .add("lastMove" -> game.flatMap(_.lastMovePdn))
-      .add("clock" -> clock.map(_.remainingTime(!pairing.hostColor).roundSeconds))
-      .add("hostClock" -> clock.map(_.remainingTime(pairing.hostColor).roundSeconds))
+    ).add("officialRating" -> pairing.player.officialRating)
       .add("turnColor" -> game.map(_.turnColor.name))
-      .add("ceval" -> evals.find(_._1 == pairing.gameId).flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }))
-      .add("acpl" -> acpl.find(_._1 == pairing.gameId).flatMap(acpl => acpl._2 ?? { ac => (!pairing.hostColor).fold(ac._1, ac._2).some }))
-      .add("officialRating" -> pairing.player.officialRating)
+      .add("lastMove" -> game.flatMap(_.lastMovePdn))
+      .add("clock" -> clock.map(_.remainingTime(playerColor).roundSeconds))
+      .add("hostClock" -> clock.map(_.remainingTime(!playerColor).roundSeconds))
+      .add("ceval" -> eval.flatMap(_._2 ?? { gameEvalJson(pairing.gameId, _).some }))
+      .add("assessment" -> game.??(_.playedTurns > 5) ?? assessment.flatMap(_._2 ?? { _.color(playerColor).map(assessmentJson) }))
   }))
 
   def evalWithGame(simul: Simul, gameId: Game.ID, eval: JsObject) =
     GameRepo.game(gameId) map { game =>
       eval.add("game" -> game ?? { g => gameJson(simul.hostId)(g).some })
     }
+
+  private def assessmentJson(assessment: PlayerAssessment) = {
+    val scanSig = Display.scanSig(assessment)
+    val mtSig = Display.moveTimeSig(assessment)
+    val blurSig = Display.blurSig(assessment)
+    Json.obj(
+      "scanAvg" -> assessment.sfAvg,
+      "scanSd" -> assessment.sfSd,
+      "scanSig" -> scanSig,
+      "scanSort" -> (scanSig + 0.999 - Math.min(998, assessment.sfAvg) / 1000.0),
+      "mtAvg" -> assessment.mtAvg,
+      "mtSd" -> assessment.mtSd,
+      "mtSig" -> mtSig,
+      "mtSort" -> (mtSig + 0.999 - Math.min(998, assessment.mtAvg) / 1000.0),
+      "blurPct" -> assessment.blurs,
+      "blurSig" -> blurSig,
+      "blurSort" -> (blurSig + assessment.blurs / 1000.0),
+      "totalSig" -> assessment.assessment.id,
+      "totalTxt" -> assessment.assessment.description
+    )
+  }
 
   private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,

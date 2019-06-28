@@ -693,6 +693,7 @@ in %3$s</string>
   <string name="withTarget">with target</string>
   <string name="toReachTarget">To reach target:</string>
   <string name="targetWinningPercentageX">Target winning percentage for host: %s</string>
+  <string name="currentWinningPercentageX">Current winning percentage: %s</string>
   <string name="succeeded">succeeded!</string>
   <string name="failed">failed</string>
   <string name="simulTimeOut">Simul timeout</string>

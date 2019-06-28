@@ -186,7 +186,7 @@ final class AssessApi(
       // the winner shows a great rating progress
       else if (game.players exists winnerGreatProgress) WinnerRatingProgress.some
       // analyse some tourney games
-      // else if (game.isTournament) randomPercent(20) option "Tourney random"
+      else if (game.isTournament && randomPercent(20)) TourneyRandom.some
       /// analyse new player games
       else if (winnerNbGames.??(30 >) && randomPercent(75)) NewPlayerWin.some
       else none
