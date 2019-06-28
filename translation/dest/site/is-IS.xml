@@ -411,6 +411,8 @@
   <string name="loadPosition">Hlaða stöðu</string>
   <string name="isPrivate">Prívat</string>
   <string name="reportXToModerators">tilkynna %s til stjórnenda</string>
+  <string name="xRating">%s stig</string>
+  <string name="ifNoneLeaveEmpty">Autt ef á ekki við</string>
   <string name="profile">Prófíll</string>
   <string name="editProfile">Stillingar</string>
   <string name="firstName">Fornafn</string>
@@ -502,6 +504,8 @@
   <string name="closeAccountExplanation">Ert þú viss um að þú viljir loka aðgangnum þínum? Þessari ákvörðun verður ekki breytt. Þú munt ekki geta skráð þig inn aftur og notandasíða þín verður ekki lengur aðgengileg.</string>
   <string name="thisAccountIsClosed">Þessi aðgangur er lokaður</string>
   <string name="invalidUsernameOrPassword">Rangt notandanafn eða lykilorð</string>
+  <string name="incorrectPassword">Vitlaust lykilorð</string>
+  <string name="invalidAuthenticationCode">Rangur innskráningslykill</string>
   <string name="emailMeALink">Sendu mér hlekk í tölvupósti</string>
   <string name="currentPassword">Núverandi lykilorð</string>
   <string name="newPassword">Nýtt lykilorð</string>
