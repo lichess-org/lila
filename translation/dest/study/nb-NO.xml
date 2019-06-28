@@ -25,7 +25,13 @@
   <string name="youAreNowAContributor">Du er nå bidragsyter</string>
   <string name="youAreNowASpectator">Du er nå tilskuer</string>
   <string name="pgnTags">PGN-merkelapper</string>
+  <string name="like">Lik</string>
   <string name="newTag">Ny merkelapp</string>
+  <string name="commentThisPosition">Kommenter denne stillingen</string>
+  <string name="commentThisMove">Kommenter dette trekket</string>
+  <string name="annotateWithGlyphs">Kommenter med symboler</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Kapittelet er for kort for analyse.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Bare bidragsyterne til studien kan be om maskinanalyse.</string>
   <string name="open">Åpne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fant ikke studien</string>
