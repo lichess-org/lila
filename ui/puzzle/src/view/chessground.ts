@@ -39,7 +39,12 @@ function makeConfig(ctrl): CgConfig {
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(elements, ctrl.pref.resizeHandle, ctrl.vm.node.ply);
+        resizeHandle(
+          elements,
+          ctrl.pref.resizeHandle,
+          ctrl.vm.node.ply,
+          (_) => true
+        )
       }
     },
     premovable: {
