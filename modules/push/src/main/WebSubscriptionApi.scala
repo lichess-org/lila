@@ -24,7 +24,6 @@ final class WebSubscriptionApi(coll: Coll) {
 
   def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit = {
     coll.update($id(subscription.endpoint), $doc(
-      "_id" -> subscription.endpoint,
       "userId" -> user.id,
       "sessionId" -> sessionId,
       "auth" -> subscription.auth,
