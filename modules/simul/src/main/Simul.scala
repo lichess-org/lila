@@ -180,5 +180,5 @@ object Simul {
     text = text
   )
 
-  private val abusiveHosts = Set("Lance5500")
+  private val abusiveHosts = Set("lance5500")
 }
