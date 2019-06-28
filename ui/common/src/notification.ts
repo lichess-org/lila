@@ -32,7 +32,10 @@ export default function(msg: string | (() => string)) {
     setTimeout(notify, 10 + Math.random() * 500, msg);
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission(function(p) {
-      if (p === 'granted') notify(msg);
+      if (p === 'granted') {
+        notify(msg);
+        window.lichess.pushSubscribe(false);
+      }
     });
   };
 }

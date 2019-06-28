@@ -88,6 +88,7 @@ final class Env(
     _ <- Env.plan.api.cancel(user).nevermind
     _ <- Env.lobby.seekApi.removeByUser(user)
     _ <- Env.security.store.disconnect(user.id)
+    _ <- Env.push.webSubscriptionApi.unsubscribeByUser(user)
     _ <- Env.streamer.api.demote(user.id)
     _ <- Env.coach.api.remove(user.id)
     reports <- Env.report.api.processAndGetBySuspect(lila.report.Suspect(user))

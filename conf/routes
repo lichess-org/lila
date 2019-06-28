@@ -570,9 +570,10 @@ POST  /cli                             controllers.Dev.command
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
 
-# Mobile Push
-POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
-POST  /mobile/unregister               controllers.Main.mobileUnregister
+# Push
+POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform: String, deviceId: String)
+POST  /mobile/unregister               controllers.Push.mobileUnregister
+POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
