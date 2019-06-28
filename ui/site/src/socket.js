@@ -142,8 +142,7 @@ lichess.StrongSocket = function(url, version, settings) {
     clearTimeout(connectSchedule);
     var pingData = (options.isAuth && pongCount % 8 == 2) ? JSON.stringify({
       t: 'p',
-      l: Math.round(0.1 * averageLag),
-      v: version
+      l: Math.round(0.1 * averageLag)
     }) : null;
     try {
       ws.send(pingData);
