@@ -20,7 +20,8 @@ object Dev extends LilaController {
     Env.api.cspEnabledSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
-    Env.socket.socketDebugSetting
+    Env.socket.socketDebugSetting,
+    Env.plan.donationGoalSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
