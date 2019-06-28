@@ -205,21 +205,6 @@ private[round] final class RoundSocket(
       promise success Connected(fullEnumerator, member)
     }
 
-    // see History.versionCheck
-    case VersionCheck(version, member, mobile) =>
-      // logger.info(s"Check mobile:$mobile $version / ${history.getVersion} $gameId $member")
-      history versionCheck version match {
-        case None =>
-          lila.mon.round.history(mobile).versionCheck.getEventsTooFar()
-          logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
-          member push SocketTrouper.resyncMsgWithDebug(s"vc,$debugString,cv($version)")
-        case Some(Nil) => // all good, nothing to do
-        case Some(evs) =>
-          lila.mon.round.history(mobile).versionCheck.lateClient()
-          logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
-          batchMsgsDebug(member, evs, s"vc,$debugString,cv($version)") foreach member.push
-      }
-
     case eventList: EventList => notify(eventList.events)
 
     case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
