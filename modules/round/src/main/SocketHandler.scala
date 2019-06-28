@@ -53,9 +53,6 @@ private[round] final class SocketHandler(
     def handlePing(o: JsObject) = {
       onPing()
       Handler.recordUserLagFromPing(member, o)
-      (o \ "v").asOpt[Int] foreach { v =>
-        socket ! VersionCheck(Socket.SocketVersion(v), member, mobile)
-      }
     }
 
     member.playerIdOption.fold[Handler.Controller](({
