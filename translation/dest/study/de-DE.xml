@@ -36,7 +36,12 @@
   <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisieren Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
+  <string name="playing">Spielt gerade</string>
   <string name="onlyOngoingGames">Nur laufende Partien</string>
+  <string name="first">Erster</string>
+  <string name="previous">Vorheriger</string>
+  <string name="next">Nächstes</string>
+  <string name="last">Letztes</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">Studien PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
