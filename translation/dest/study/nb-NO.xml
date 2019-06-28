@@ -15,6 +15,17 @@
     <item quantity="one">%s medlem</item>
     <item quantity="other">%s medlemmer</item>
   </plurals>
+  <string name="inviteToTheStudy">Inviter til studien</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Inviter bare folk du kjenner som ønsker å delta i studien.</string>
+  <string name="searchByUsername">Søk på brukernavn</string>
+  <string name="spectator">Tilskuer</string>
+  <string name="contributor">Bidragsyter</string>
+  <string name="kick">Utvis</string>
+  <string name="leaveTheStudy">Forlat studien</string>
+  <string name="youAreNowAContributor">Du er nå bidragsyter</string>
+  <string name="youAreNowASpectator">Du er nå tilskuer</string>
+  <string name="pgnTags">PGN-merkelapper</string>
+  <string name="newTag">Ny merkelapp</string>
   <string name="open">Åpne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fant ikke studien</string>
