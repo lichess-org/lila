@@ -3,4 +3,6 @@
 <resources>
   <string name="addNewChapter">Додати новий розділ</string>
   <string name="addMembers">Додати учасників</string>
+  <string name="inviteToTheStudy">Запросити в студію</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте тількі людей якіх ви знаете, і хто активно хоче приєднатися до студії.</string>
 </resources>
