@@ -376,7 +376,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikni na ploču da povučeš potez i dokažeš da si čovjek.</string>
   <string name="captcha.fail">Molimo riješi šahovski Captcha.</string>
   <string name="notACheckmate">Nije mat</string>
-  <string name="colorPlaysCheckmateInOne">%s igra; mat u jednom potezu</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
   <string name="onlineFriends">Prijatelji</string>

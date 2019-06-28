@@ -352,7 +352,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
   <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
-  <string name="colorPlaysCheckmateInOne">%s tur; Schackmatt i ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
   <string name="onlineFriends">Vänner online</string>

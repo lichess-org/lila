@@ -354,7 +354,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек</string>
   <string name="captcha.fail">Моля решете шахматната captcha</string>
   <string name="notACheckmate">Не е шах-и-мат</string>
-  <string name="colorPlaysCheckmateInOne">%s играят; мат в един ход</string>
+  <string name="whiteCheckmatesInOneMove">Белите на ход, мат в един ход</string>
+  <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
   <string name="onlineFriends">Приятели</string>

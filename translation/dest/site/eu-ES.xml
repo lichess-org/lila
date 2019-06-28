@@ -353,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Egizu jokaldia taulan, gizakia zarela frogatzeko.</string>
   <string name="captcha.fail">Ebatzi xake captcha mesedez.</string>
   <string name="notACheckmate">Hori ez da xake-matea!</string>
-  <string name="colorPlaysCheckmateInOne">%sren txanda da; xake-mate jokaldi baten</string>
+  <string name="whiteCheckmatesInOneMove">Zuriek xake-mate jokaldi bakarrean</string>
+  <string name="blackCheckmatesInOneMove">Beltzek xake-mate jokaldi bakarrean</string>
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
   <string name="onlineFriends">Konektatutako lagunak</string>

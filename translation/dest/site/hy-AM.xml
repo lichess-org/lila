@@ -266,7 +266,6 @@
   <string name="thisIsAChessCaptcha">Սա շախմատային CAPTCHA է</string>
   <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ անեք ձեր քայլը և ապացուցեք, որ մարդ եք:</string>
   <string name="notACheckmate">Մատ չէ</string>
-  <string name="colorPlaysCheckmateInOne">Խաղում է %s-ը. մատ մեկ քայլից</string>
   <string name="retry">Կրկին փորձել</string>
   <string name="reconnecting">Կապի միացում</string>
   <string name="onlineFriends">Օնլայն ընկերներ</string>

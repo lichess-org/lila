@@ -334,7 +334,6 @@
   <string name="thisIsAChessCaptcha">ეს არის ჭადრაკის CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">დააჭირეთ მაგიდაზე რომ გააკეთოთ სვლა, და დაამტკიცოთ რომ ადამიანი ხართ</string>
   <string name="notACheckmate">არ არის მატი</string>
-  <string name="colorPlaysCheckmateInOne">%s სვავს ერთ სვლაში მატს</string>
   <string name="retry">ხელახლა ცდა</string>
   <string name="reconnecting">რეკონექცია</string>
   <string name="onlineFriends">მეგობრები ხაზზე</string>

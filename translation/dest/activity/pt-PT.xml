@@ -22,6 +22,10 @@
     <item quantity="one">Enviou %1$s mensagem em %2$s</item>
     <item quantity="other">Enviou %1$s mensagens em %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Fez %1$s jogada</item>
+    <item quantity="other">Fez %1$s jogadas</item>
+  </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">em %1$s jogos de correspondência</item>
     <item quantity="other">em %1$s jogos por correspondência</item>

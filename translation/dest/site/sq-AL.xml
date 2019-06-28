@@ -343,7 +343,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Klikoni mbi fushë për të bërë lëvizjen tuaj dhe të vërtetoni që jeni qenie njerëzore</string>
   <string name="captcha.fail">Ju lutem zgjidheni ushtrimin.</string>
   <string name="notACheckmate">Nuk është shahmat</string>
-  <string name="colorPlaysCheckmateInOne">Lëviz %s; shahmat në një lëvizje</string>
   <string name="retry">Provo përsëri</string>
   <string name="reconnecting">Duke u rilidhur</string>
   <string name="onlineFriends">Miq në linjë</string>

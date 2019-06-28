@@ -375,7 +375,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
   <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
   <string name="notACheckmate">Nu este mat</string>
-  <string name="colorPlaysCheckmateInOne">%s joacă; mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
   <string name="reconnecting">Se reconectează</string>
   <string name="onlineFriends">Prieteni online</string>
@@ -663,6 +662,8 @@
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
   <string name="onlyFriends">Doar prieteni</string>
+  <string name="displayBoardResizeHandle">Posibilitatea de redimensionare a tablei de joc</string>
+  <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rocada</string>
   <string name="whiteCastlingKingside">Alb O-O</string>

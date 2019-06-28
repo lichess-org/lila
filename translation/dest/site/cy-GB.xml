@@ -59,6 +59,7 @@
   <string name="promoteVariation">Blaenoriaethu\'r edefyn</string>
   <string name="makeMainLine">Gwneud yn brif linell</string>
   <string name="deleteFromHere">Dileu o fama ymlaen</string>
+  <string name="forceVariation">Gorfodi amrywiad</string>
   <string name="move">Symudiad</string>
   <string name="variantLoss">Yn colli</string>
   <string name="variantWin">Yn enill</string>
@@ -135,6 +136,8 @@
   <string name="ratingStats">Ystadegau graddfa</string>
   <string name="username">Enw defnyddiwr</string>
   <string name="usernameOrEmail">Enw defnyddiwr neu gyfeiriad e-bost</string>
+  <string name="changeUsername">Newid enw defnyddiwr</string>
+  <string name="changeUsernameDescription">Newid eich enw defnyddiwr. Gallwch wneud hyn unwaith yn unig a does dim modd cyfnewid llythrennau mawr a bach yn eich enw defnyddiwr.</string>
   <string name="password">Cyfrinair</string>
   <string name="changePassword">Newid cyfrinair</string>
   <string name="changeEmail">Newid cyfeiriad e-bost</string>
@@ -257,7 +260,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliciwch ar y bwrdd i symud a dangos eich bod yn ddynol.</string>
   <string name="captcha.fail">Datryswch y captcha os gwelwch yn dda.</string>
   <string name="notACheckmate">Dim siachmat</string>
-  <string name="colorPlaysCheckmateInOne">Tro %s; siachmat mewn un symudiad</string>
+  <string name="whiteCheckmatesInOneMove">Siachmat gan Gwyn mewn un symudiad</string>
+  <string name="blackCheckmatesInOneMove">Siachmat gan Du mewn un symudiad</string>
   <string name="retry">Triwch eto</string>
   <string name="reconnecting">Yn ailgysylltu</string>
   <string name="onlineFriends">o ffrindiau ar-lein</string>
@@ -302,6 +306,7 @@
   <string name="winStreak">Gêmau wedi\'u hennill heb golli</string>
   <string name="createdBy">greuwyd gan</string>
   <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
+  <string name="tournamentPairingsAreNowClosed">Ni fydd gemau newydd yn y talwrn.</string>
   <string name="standByX">Ar eich marciau %s, wrthi\'n dewis gwrthwynebwyr!</string>
   <string name="youArePlaying">Rwyt ti\'n chwarae!</string>
   <string name="winRate">Cyfradd enill</string>
@@ -444,6 +449,7 @@
   <string name="privacy">Preifatrwydd</string>
   <string name="letOtherPlayersFollowYou">Caniatáu i chwaraewyr eraill dy ddilyn</string>
   <string name="letOtherPlayersChallengeYou">Caniatáu i chwaraewyr eraill dy herio</string>
+  <string name="letOtherPlayersInviteYouToStudy">Gadewch i chwaraewyr eraill eich gwahodd i astudio</string>
   <string name="sound">Sain</string>
   <string name="yourPreferencesHaveBeenSaved">Cadwyd eich dewisiadau.</string>
   <string name="none">Dim</string>
@@ -467,6 +473,7 @@
   <string name="xCommentedY">Gadawodd %1$s sylw ar gyfer</string>
   <string name="victory">Buddugoliaeth!</string>
   <string name="defeat">Colled</string>
+  <string name="xVsYinZ">%1$s vs %2$s mewn %3$s</string>
   <string name="timeline">Llinell amser</string>
   <string name="starting">Cychwyn:</string>
   <string name="allInformationIsPublicAndOptional">Mae pob gwybodaeth yn gyhoeddus ac yn ddewisol.</string>
@@ -505,6 +512,8 @@
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
   <string name="onlyFriends">Dim ond ffrindiau</string>
+  <string name="displayBoardResizeHandle">Handlen newid maint y bwrdd</string>
+  <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
   <string name="menu">Dewislen</string>
   <string name="castling">Castellu</string>
   <string name="whiteCastlingKingside">0-0 gwyn</string>

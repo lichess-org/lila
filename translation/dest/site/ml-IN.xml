@@ -172,6 +172,10 @@
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="rank">റാങ്ക്</string>
   <string name="rankX">റാങ്ക്: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">റാങ്ക് ഓരോ %s മിനിട്ടിലും അപ്ഡേറ്റ്‌ ചെയ്യപ്പെടും</item>
+    <item quantity="other">റാങ്ക് ഓരോ %s മിനിട്ടിലും അപ്ഡേറ്റ്‌ ചെയ്യപ്പെടും</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzles</item>
@@ -346,7 +350,8 @@
   <string name="clickOnTheBoardToMakeYourMove">നിങ്ങളുടെ നീക്കം ചതുരംഗ പലകയിൽ ക്ലിക്ക് ചെയ്ത് മനുഷ്യൻ ആണെന്നു തെളിയിക്കൂ.</string>
   <string name="captcha.fail">ദയവായി ചെസ്സ് captcha പരിഹരിക്കുക.</string>
   <string name="notACheckmate">അതൊരു അടിയറവ് അല്ല</string>
-  <string name="colorPlaysCheckmateInOne">%s കളിക്കാർ; അടിയറവ് ഒരു നീക്കം കൊണ്ട്</string>
+  <string name="whiteCheckmatesInOneMove">വെളുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
+  <string name="blackCheckmatesInOneMove">കറുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
   <string name="onlineFriends">ഓണ്‍ലൈന്‍ സുഹൃത്തുക്കള്‍</string>
@@ -627,6 +632,8 @@ in %3$s</string>
   <string name="inCorrespondenceGames">തത്തുല്യമായ കളികൾ</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
+  <string name="displayBoardResizeHandle">ബോര്‍ഡിന്‍റെ വലുപ്പം മാറ്റാനുള്ള ഹാന്‍ഡില്‍ കാണിക്കുക</string>
+  <string name="onlyOnInitialPosition">തുടക്കത്തില്‍ മാത്രം</string>
   <string name="menu">പട്ടിക</string>
   <string name="castling">കേസ്‌ലിങ്</string>
   <string name="whiteCastlingKingside">വെള്ള O-O</string>
@@ -644,6 +651,7 @@ in %3$s</string>
   <string name="webmasters">വെബ് മാസ്റ്റേഴ്സ്</string>
   <string name="about">ഇതിനെ കുറിച്ച്</string>
   <string name="aboutX">%sനെക്കുറിച്ച്</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s സൗജന്യമായതും(%2$s) പരസ്യമില്ലാത്തതും ഓപ്പണ്‍‌സോഴ്സുമായ ഒരു ചെസ്സ്‌ സെര്‍വര്‍ ആണ്.</string>
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
   <string name="contact">സമ്പര്‍ക്കം</string>

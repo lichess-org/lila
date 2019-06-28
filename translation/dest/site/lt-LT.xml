@@ -400,7 +400,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Spustelėkite ant lentos norėdami atlikti ėjimą ir įrodyti, kad esate žmogus.</string>
   <string name="captcha.fail">Prašome išspręsti šachmatų galvosūkį.</string>
   <string name="notACheckmate">Tai ne šachas ir matas</string>
-  <string name="colorPlaysCheckmateInOne">%s eina: šachas ir matas vienu ėjimu</string>
+  <string name="whiteCheckmatesInOneMove">Baltųjų šachas ir matas vienu ėjimu</string>
+  <string name="blackCheckmatesInOneMove">Juodųjų šachas ir matas vienu ėjimu</string>
   <string name="retry">Kartoti</string>
   <string name="reconnecting">Jungiamasi</string>
   <string name="onlineFriends">Prisijungę draugai</string>

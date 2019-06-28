@@ -334,7 +334,6 @@
   <string name="thisIsAChessCaptcha">Ovo je šahovski CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Odigrajte potez da dokažete da ste ljudsko biće</string>
   <string name="notACheckmate">Nije mat</string>
-  <string name="colorPlaysCheckmateInOne">%s igra; mat u jednom potezu</string>
   <string name="retry">Pokušajte ponovo</string>
   <string name="reconnecting">Ponovno povezivanje</string>
   <string name="onlineFriends">Prisutni prijatelji</string>

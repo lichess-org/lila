@@ -341,7 +341,6 @@
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">عدم کیش و مات</string>
-  <string name="colorPlaysCheckmateInOne">نوبت%s ؛ در یک حرکت کیش و مات کنید</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
   <string name="onlineFriends">دوستان آنلاین</string>

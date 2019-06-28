@@ -399,7 +399,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек, а не компьютер. (Всем известно, что компьютеры не умеют играть в шахматы!).</string>
   <string name="captcha.fail">Пожалуйста, решите шахматную капчу.</string>
   <string name="notACheckmate">Это не мат</string>
-  <string name="colorPlaysCheckmateInOne">%s начинают и ставят мат в один ход</string>
+  <string name="whiteCheckmatesInOneMove">Белые ставят мат в один ход</string>
+  <string name="blackCheckmatesInOneMove">Чёрные ставят мат в один ход</string>
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <string name="onlineFriends">Друзья онлайн</string>

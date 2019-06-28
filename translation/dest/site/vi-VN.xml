@@ -324,7 +324,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
   <string name="captcha.fail">Hãy giải đố captcha.</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
-  <string name="colorPlaysCheckmateInOne">%s chơi; chiếu vua trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Kết nối lại</string>
   <string name="onlineFriends">Bạn bè đang online</string>

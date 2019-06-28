@@ -18,6 +18,18 @@
     <item quantity="one">%s Dalībnieks</item>
     <item quantity="other">%s Dalībnieki</item>
   </plurals>
+  <string name="inviteToTheStudy">Ielūgt uz izpēti</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Lūdzu, ielūdziet tikai cilvēkus, kurus pazīstat un kuri vēlas pievienoties izpētei.</string>
+  <string name="searchByUsername">Meklēt pēc lietotājvārda</string>
+  <string name="spectator">Skatītājs</string>
+  <string name="contributor">Ieguldītājs</string>
+  <string name="kick">Izmest</string>
+  <string name="leaveTheStudy">Pamest izpēti</string>
+  <string name="youAreNowAContributor">Tagad esat ieguldītājs</string>
+  <string name="youAreNowASpectator">Tagad esat skatītājs</string>
+  <string name="pgnTags">PGN etiķetes</string>
+  <string name="like">Patīk</string>
+  <string name="newTag">Jauna etiķete</string>
   <string name="open">Atvērt</string>
   <string name="xBroughtToYouByY">%2$s, kuru piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>

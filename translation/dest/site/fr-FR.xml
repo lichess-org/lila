@@ -353,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-  <string name="colorPlaysCheckmateInOne">%s jouent, mat en un coup</string>
+  <string name="whiteCheckmatesInOneMove">Les Blancs font mat en un coup</string>
+  <string name="blackCheckmatesInOneMove">Les Noirs font mat en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <string name="onlineFriends">Amis en ligne</string>

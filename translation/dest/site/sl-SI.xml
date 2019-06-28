@@ -398,7 +398,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Odigraj potezo in dokaži, da nisi robot</string>
   <string name="captcha.fail">Prosimo, rešite ta test.</string>
   <string name="notACheckmate">To ni mat</string>
-  <string name="colorPlaysCheckmateInOne">%s na potezi; mat v eni potezi</string>
+  <string name="whiteCheckmatesInOneMove">Beli matira v eni potezi</string>
+  <string name="blackCheckmatesInOneMove">Črni matira v eni potezi</string>
   <string name="retry">Poskusi ponovno</string>
   <string name="reconnecting">Ponovno vzpostavljanje povezave</string>
   <string name="onlineFriends">Prijavljenji prijatelji</string>

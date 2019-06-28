@@ -59,7 +59,7 @@
   <string name="promoteVariation">Promuovi la variante</string>
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
-  <string name="forceVariation">Forza variante</string>
+  <string name="forceVariation">Mostra come variante</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Variante perdente</string>
   <string name="variantWin">Variante vincente</string>
@@ -354,7 +354,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
   <string name="captcha.fail">Per favore risolvi il puzzle.</string>
   <string name="notACheckmate">Non è scacco matto</string>
-  <string name="colorPlaysCheckmateInOne">Il %s dà scacco matto in una mossa</string>
+  <string name="whiteCheckmatesInOneMove">Il Bianco dà matto in una mossa</string>
+  <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
   <string name="retry">Riprova</string>
   <string name="reconnecting">Riconnessione</string>
   <string name="onlineFriends">Amici online</string>
@@ -635,7 +636,7 @@ in %3$s</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
   <string name="onlyFriends">Solo amici</string>
-  <string name="displayBoardResizeHandle">Visualizza il ridimensionamento</string>
+  <string name="displayBoardResizeHandle">Visualizza l\'icona di ridimensionamento</string>
   <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
   <string name="menu">Menù</string>
   <string name="castling">Arrocco</string>

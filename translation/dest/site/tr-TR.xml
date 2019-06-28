@@ -353,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
   <string name="captcha.fail">Lütfen satranç doğrulamasını yapın.</string>
   <string name="notACheckmate">Mat değil</string>
-  <string name="colorPlaysCheckmateInOne">%s oynar; bir hamlede mat</string>
+  <string name="whiteCheckmatesInOneMove">Beyaz bir hamlede mat eder</string>
+  <string name="blackCheckmatesInOneMove">Siyah bir hamlede mat eder</string>
   <string name="retry">Tekrar dene</string>
   <string name="reconnecting">Yeniden bağlanılıyor</string>
   <string name="onlineFriends">Çevrimiçi arkadaşlar</string>

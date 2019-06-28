@@ -220,7 +220,6 @@
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明你是人類。</string>
   <string name="notACheckmate">沒有將死</string>
-  <string name="colorPlaysCheckmateInOne">%s走棋；一步將死</string>
   <string name="retry">重試</string>
   <string name="reconnecting">重新連接中</string>
   <string name="onlineFriends">在線好友</string>

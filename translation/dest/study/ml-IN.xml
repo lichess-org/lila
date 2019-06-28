@@ -15,5 +15,11 @@
     <item quantity="one">%s അംഗം</item>
     <item quantity="other">%s അംഗങ്ങള്‍</item>
   </plurals>
+  <string name="inviteToTheStudy">പഠനത്തിന് ക്ഷണിക്കുക</string>
+  <string name="searchByUsername">യൂസര്‍നെയിം വച്ച് തിരയുക</string>
+  <string name="spectator">കാഴ്ചക്കാര്‍</string>
+  <string name="kick">പുറത്താക്കുക</string>
+  <string name="leaveTheStudy">പഠനം വിടുക</string>
+  <string name="youAreNowASpectator">നിങ്ങള്‍ ഇപ്പോള്‍ ഒരു കാണിയാണ്</string>
   <string name="open">തുറക്കുക</string>
 </resources>

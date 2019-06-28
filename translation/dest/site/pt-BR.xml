@@ -354,7 +354,8 @@
   <string name="captcha.fail">Falha no captchar
 Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o problema de xadrez proposto. O aviso informa ao usuário que ele deve resolver o problema proponto antes de prosseguir.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
-  <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
+  <string name="whiteCheckmatesInOneMove">Xeque-mate em um lance para as brancas</string>
+  <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>

@@ -330,7 +330,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Klik pada papan untuk melangkah  dan buktikan bahwa anda asli manusia.</string>
   <string name="captcha.fail">Harap selesaikan captcha catur.</string>
   <string name="notACheckmate">Bukan skakmat</string>
-  <string name="colorPlaysCheckmateInOne">%s bermain; skakmat dalam satu langkah</string>
+  <string name="whiteCheckmatesInOneMove">Putih skakmat dalam satu langkah</string>
+  <string name="blackCheckmatesInOneMove">Hitam skakmat dalam satu langkah</string>
   <string name="retry">Mengulang</string>
   <string name="reconnecting">Menyambung ulang</string>
   <string name="onlineFriends">Teman Online</string>

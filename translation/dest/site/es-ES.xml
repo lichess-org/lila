@@ -353,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Haz clic en el tablero para hacer tu jugada y demostrar que eres humano.</string>
   <string name="captcha.fail">Por favor, resuelva el captcha de ajedrez.</string>
   <string name="notACheckmate">No es jaque mate</string>
-  <string name="colorPlaysCheckmateInOne">%s juegan; mate en una</string>
+  <string name="whiteCheckmatesInOneMove">Juegan blancas y dan jaque mate en un movimiento</string>
+  <string name="blackCheckmatesInOneMove">Juegan negras y dan jaque mate en un movimiento</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos conectados</string>

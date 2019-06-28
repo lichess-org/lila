@@ -333,7 +333,7 @@
   <string name="mustBeInTeam">Jābūt komandas \"%s\" dalībniekam</string>
   <string name="youAreNotInTeam">Tu neesi komandas \"%s\" dalībnieks</string>
   <string name="backToGame">Atgriezties spēlē</string>
-  <string name="siteDescription">Bezmaksas Šahs tiešsaistē. Spēlē Šahu tīrā saskarnē. Bez reģistrācijas, bez reklāmām, bez papildus programmatūras. Spēlē Šahu pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
+  <string name="siteDescription">Bezmaksas šahs tiešsaistē. Spēlē šahu lakoniskā saskarnē tagad: bez reģistrācijas, reklāmām, vai papildus programmatūras! Spēlē pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="teams">Komandas</string>
   <plurals name="nbMembers">
     <item quantity="zero">%s biedri</item>
@@ -376,7 +376,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
   <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
-  <string name="colorPlaysCheckmateInOne">%s iet; mats vienā gājienā</string>
+  <string name="whiteCheckmatesInOneMove">Baltie piesaka matu vienā gājienā</string>
+  <string name="blackCheckmatesInOneMove">Melnie piesaka matu vienā gājienā</string>
   <string name="retry">Mēģināt vēlreiz</string>
   <string name="reconnecting">Atjauno savienojumu</string>
   <string name="onlineFriends">Draugi tiešsaistē</string>

@@ -353,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.</string>
   <string name="captcha.fail">Gelieve de schaak-captcha op te lossen.</string>
   <string name="notACheckmate">Dit is geen schaakmat</string>
-  <string name="colorPlaysCheckmateInOne">%s aan zet, mat in één</string>
+  <string name="whiteCheckmatesInOneMove">Wit zet schaakmat in één zet</string>
+  <string name="blackCheckmatesInOneMove">Zwart zet schaakmat in één zet</string>
   <string name="retry">Probeer het opnieuw</string>
   <string name="reconnecting">Opnieuw aan het verbinden</string>
   <string name="onlineFriends">Online vrienden</string>

@@ -59,6 +59,7 @@
   <string name="promoteVariation">પ્રોમોટ વેરીએશન</string>
   <string name="makeMainLine">મેઈન લાઈન બનાવો</string>
   <string name="deleteFromHere">અહીંથી ડિલીટ કરો</string>
+  <string name="forceVariation">ફોર્સ વેરિએશન</string>
   <string name="move">ચાલ</string>
   <string name="variantLoss">Variant હાર</string>
   <string name="variantWin">Variant જીત</string>

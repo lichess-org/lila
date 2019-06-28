@@ -352,7 +352,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Clica al tauler per fer el teu moviment i demostrar que ets una persona.</string>
   <string name="captcha.fail">Si us plau resol el captcha d\'escacs.</string>
   <string name="notACheckmate">No és escac i mat</string>
-  <string name="colorPlaysCheckmateInOne">%s juga; escac i mat en un moviment</string>
+  <string name="whiteCheckmatesInOneMove">Les blanques fan escac i mat en un moviment</string>
+  <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en un moviment</string>
   <string name="retry">Intenta-ho de nou</string>
   <string name="reconnecting">S\'està reconnectant</string>
   <string name="onlineFriends">Amics connectats</string>

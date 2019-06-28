@@ -59,6 +59,7 @@
   <string name="promoteVariation">Зробити варіант головним</string>
   <string name="makeMainLine">Зробити цей варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
+  <string name="forceVariation">Форсований вариант</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Шанс виграшу</string>
@@ -333,7 +334,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
   <string name="notACheckmate">Не мат</string>
-  <string name="colorPlaysCheckmateInOne">%s ставлять мат в один хід</string>
+  <string name="whiteCheckmatesInOneMove">Білі починають і матують в один хід</string>
+  <string name="blackCheckmatesInOneMove">Чорні починають і матують в один хід</string>
   <string name="retry">Спробуйте ще</string>
   <string name="reconnecting">Повторне підключення</string>
   <string name="onlineFriends">Друзів онлайн</string>
@@ -586,6 +588,8 @@
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyFriends">Тільки друзі</string>
+  <string name="displayBoardResizeHandle">Ручка зміни розміру дошки</string>
+  <string name="onlyOnInitialPosition">Тількі на початковій позиції</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокіровка</string>
   <string name="whiteCastlingKingside">Білі O-O</string>

@@ -433,7 +433,6 @@
   <string name="clickOnTheBoardToMakeYourMove">اضغط على الرقعة لاختيارالنقلة وتأكيد إنسانيتك</string>
   <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
   <string name="notACheckmate">ليست كش مات</string>
-  <string name="colorPlaysCheckmateInOne">كش مات بنقلة واحدة - دور %s</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
   <string name="onlineFriends">الأصدقاء المتصلون</string>

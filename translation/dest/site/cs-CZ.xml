@@ -59,6 +59,7 @@
   <string name="promoteVariation">Povýšit variantu</string>
   <string name="makeMainLine">Povýšit na hlavní variantu</string>
   <string name="deleteFromHere">Smazat odsud</string>
+  <string name="forceVariation">Zobrazit jako variantu</string>
   <string name="move">Tah</string>
   <string name="variantLoss">Prohra</string>
   <string name="variantWin">Výhra</string>
@@ -392,7 +393,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
   <string name="captcha.fail">Prosím vyřešte šachovou captcha.</string>
   <string name="notACheckmate">Toto není mat.</string>
-  <string name="colorPlaysCheckmateInOne">%s dává prvním tahem mat</string>
+  <string name="whiteCheckmatesInOneMove">Bílý dá prvním tahem mat</string>
+  <string name="blackCheckmatesInOneMove">Černý dá prvním tahem mat</string>
   <string name="retry">Zkusit znovu</string>
   <string name="reconnecting">Připojování</string>
   <string name="onlineFriends">Přátelé online</string>
@@ -687,6 +689,8 @@ v %3$s</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
   <string name="onlyFriends">Jenom přátelé</string>
+  <string name="displayBoardResizeHandle">Zobrazit tlačítko pro změnu velikosti šachovnice</string>
+  <string name="onlyOnInitialPosition">Jen v základním postavení</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Bílá O-O</string>

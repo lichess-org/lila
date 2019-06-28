@@ -345,7 +345,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
   <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
   <string name="notACheckmate">Non es chaco mat</string>
-  <string name="colorPlaysCheckmateInOne">Le %s debe jocar; chaco mat in un movimento</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Reconnectente</string>
   <string name="onlineFriends">Amicos in linea</string>

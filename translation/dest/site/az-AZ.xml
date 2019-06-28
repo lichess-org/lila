@@ -308,7 +308,6 @@
   <string name="thisIsAChessCaptcha">Bu, şahmaq KAPÇA-sıdır</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxtada gediş edin və robot olmadığınızı təsdiq edin</string>
   <string name="notACheckmate">Mat deyil</string>
-  <string name="colorPlaysCheckmateInOne">%s başlayır və bir gedişə mat edir</string>
   <string name="retry">Yenidən cəhd edin</string>
   <string name="reconnecting">Yenidən birləşməyə cəhd edilir</string>
   <string name="onlineFriends">Onlayn dostlar</string>

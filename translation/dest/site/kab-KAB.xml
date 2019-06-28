@@ -226,7 +226,6 @@
   <string name="thisIsAChessCaptcha">Ayagi d CAPTCHA n caq</string>
   <string name="clickOnTheBoardToMakeYourMove">Senned g talwaḥt akken a t-urared tiyita, d a t-sekneḍ imanik d amedan</string>
   <string name="notACheckmate">Macci d caqmat</string>
-  <string name="colorPlaysCheckmateInOne">%s yurar, mat d iwet tiyita</string>
   <string name="retry">Ɛawed tikkelt niḍen</string>
   <string name="reconnecting">Alstuqqna anazzal</string>
   <string name="onlineFriends">Imdukal askar uqqin</string>

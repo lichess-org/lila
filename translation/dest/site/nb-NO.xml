@@ -354,7 +354,8 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
   <string name="captcha.fail">Vennligst løs sjakk-captchaen.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
-  <string name="colorPlaysCheckmateInOne">%s setter sjakk matt i ett trekk</string>
+  <string name="whiteCheckmatesInOneMove">Hvit setter matt i ett trekk</string>
+  <string name="blackCheckmatesInOneMove">Svart setter matt i ett trekk</string>
   <string name="retry">Prøv igjen</string>
   <string name="reconnecting">Gjenoppretter forbindelsen</string>
   <string name="onlineFriends">Påloggede venner</string>

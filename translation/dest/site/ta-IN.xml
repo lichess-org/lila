@@ -270,7 +270,6 @@
   <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
   <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
   <string name="notACheckmate">முழுத்தடையன்று</string>
-  <string name="colorPlaysCheckmateInOne">%s ஆடுகின்றது; ஒரே நகர்வில் முழுத்தடை</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
   <string name="onlineFriends">இணையத் தோழர்கள்</string>

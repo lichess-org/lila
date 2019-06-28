@@ -12,7 +12,7 @@
   <string name="level">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
   <string name="toggleSound">Ativar/Desativar som</string>
-  <string name="chat">Chat</string>
+  <string name="chat">Conversação</string>
   <string name="resign">Desistir</string>
   <string name="checkmate">Xeque-mate</string>
   <string name="stalemate">Rei afogado</string>
@@ -52,13 +52,14 @@
   <string name="usingServerAnalysis">Usando análise de servidores</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
-  <string name="goDeeper">Detalhar</string>
+  <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Alternar avaliação local</string>
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
+  <string name="forceVariation">Forçar variante</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -352,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
   <string name="captcha.fail">Por favor resolva o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
-  <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
+  <string name="whiteCheckmatesInOneMove">As brancas dão mate em um movimento</string>
+  <string name="blackCheckmatesInOneMove">As pretas dão mate em um movimento</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>

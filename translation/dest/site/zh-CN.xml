@@ -329,7 +329,6 @@
   <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋来证明你是人类。</string>
   <string name="captcha.fail">请解决国际象棋验证码。</string>
   <string name="notACheckmate">沒有将死</string>
-  <string name="colorPlaysCheckmateInOne">%s走棋；一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
   <string name="onlineFriends">在线好友</string>

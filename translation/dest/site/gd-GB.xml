@@ -186,7 +186,6 @@
   <string name="thisIsAChessCaptcha">Seo CAPTCHA tàileisg.</string>
   <string name="clickOnTheBoardToMakeYourMove">Briog air a’ bhòrd airson gluasad ’s dearbhaich gur e duine a th’ annad.</string>
   <string name="notACheckmate">Chan e tul-chasg a th’ ann</string>
-  <string name="colorPlaysCheckmateInOne">Tha %s a’ cluich; tul-chasg an ceann gluasaid</string>
   <string name="retry">Feuch ris a-rithist</string>
   <string name="reconnecting">Ag ath-cheangal</string>
   <string name="onlineFriends">Caraidean air loidhne</string>

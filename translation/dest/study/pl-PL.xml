@@ -21,6 +21,26 @@
     <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
+  <string name="inviteToTheStudy">Zaproś do omówienia</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Zapraszaj do omówienia tylko znajomych, którzy chcą w nim aktywnie uczestniczyć.</string>
+  <string name="searchByUsername">Szukaj wg nazwy użytkownika</string>
+  <string name="spectator">Obserwator</string>
+  <string name="contributor">Współautor</string>
+  <string name="kick">Wyrzuć</string>
+  <string name="leaveTheStudy">Opuść omówienie</string>
+  <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
+  <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
+  <string name="pgnTags">Znaczniki PGN</string>
+  <string name="like">Lubię to</string>
+  <string name="newTag">Nowy znacznik</string>
+  <string name="commentThisPosition">Skomentuj tę pozycję</string>
+  <string name="commentThisMove">Skomentuj ten ruch</string>
+  <string name="first">Pierwszy</string>
+  <string name="previous">Poprzedni</string>
+  <string name="next">Następny</string>
+  <string name="last">Ostatni</string>
+  <string name="shareAndExport">Udostępnij &amp; eksportuj</string>
+  <string name="cloneStudy">Klonuj</string>
   <string name="open">Otwórz</string>
   <string name="xBroughtToYouByY">%1$s przygotowane przez %2$s</string>
   <string name="studyNotFound">Omówienia nie znaleziono</string>

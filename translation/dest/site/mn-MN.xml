@@ -311,7 +311,6 @@
   <string name="clickOnTheBoardToMakeYourMove">Та эсрэг талаа мадалж өөрийгөө жинхэнэ хүн гэдгээ батална уу.</string>
   <string name="captcha.fail">Шатрын бодлогийг бодно уу.</string>
   <string name="notACheckmate">Мадалж чадсангүй</string>
-  <string name="colorPlaysCheckmateInOne">%s нүүнэ; нэг нүүгээд мадал</string>
   <string name="retry">Дахин оролдох</string>
   <string name="reconnecting">Эргэн холбогдох оролдлого хийж байна</string>
   <string name="onlineFriends">найз сүлжээнд байна</string>

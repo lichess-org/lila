@@ -399,7 +399,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Kliknite na šachovnicu a spravte ťah, aby ste dokázali, že ste človek.</string>
   <string name="captcha.fail">Prosím vyriešte šachovú captcha.</string>
   <string name="notACheckmate">Nie je to mat</string>
-  <string name="colorPlaysCheckmateInOne">%s na ťahu; mat prvým ťahom</string>
+  <string name="whiteCheckmatesInOneMove">Biely dá mat 1. ťahom</string>
+  <string name="blackCheckmatesInOneMove">Čierny dá mat 1. ťahom</string>
   <string name="retry">Znova</string>
   <string name="reconnecting">Pripájanie</string>
   <string name="onlineFriends">Online priatelia</string>

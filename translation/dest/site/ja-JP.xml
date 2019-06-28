@@ -331,7 +331,8 @@
   <string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
   <string name="captcha.fail">問題を解いて人間だと証明してください。</string>
   <string name="notACheckmate">チェックメイトではありません</string>
-  <string name="colorPlaysCheckmateInOne">%s 番; １手でチェックメイト</string>
+  <string name="whiteCheckmatesInOneMove">白 1 手でチェックメイト</string>
+  <string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
   <string name="retry">もう一度</string>
   <string name="reconnecting">再接続</string>
   <string name="onlineFriends">接続中の友達</string>

@@ -3,4 +3,18 @@
 <resources>
   <string name="addNewChapter">Додати новий розділ</string>
   <string name="addMembers">Додати учасників</string>
+  <string name="inviteToTheStudy">Запросити в студію</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте тількі людей якіх ви знаете, і хто активно хоче приєднатися до студії.</string>
+  <string name="searchByUsername">Шукати за ім\'ям</string>
+  <string name="spectator">Спостерігач</string>
+  <string name="kick">Вигнати</string>
+  <string name="leaveTheStudy">Покинути студію</string>
+  <string name="youAreNowASpectator">Зараз ти спостерігач</string>
+  <string name="pgnTags">Поширення PGN</string>
+  <string name="like">Подобається</string>
+  <string name="newTag">Нова позначка</string>
+  <string name="commentThisPosition">Коментувати цю позицію</string>
+  <string name="fen">FEN</string>
+  <string name="open">Відкрити</string>
+  <string name="studyNotFound">Студію не знайдено</string>
 </resources>

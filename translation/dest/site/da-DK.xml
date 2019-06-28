@@ -353,7 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Klik på brættet for at foretage dit træk, og bevis at du ikke er en robot.</string>
   <string name="captcha.fail">Løs venligst denne skak-captcha.</string>
   <string name="notACheckmate">Ikke en mat</string>
-  <string name="colorPlaysCheckmateInOne">%s trækker; mat i ét træk</string>
+  <string name="whiteCheckmatesInOneMove">Hvid sætter mat i ét træk</string>
+  <string name="blackCheckmatesInOneMove">Sort sætter mat i ét træk</string>
   <string name="retry">Prøv igen</string>
   <string name="reconnecting">Genopretter forbindelsen</string>
   <string name="onlineFriends">Venner som er online</string>

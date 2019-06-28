@@ -234,7 +234,6 @@
   <string name="thisIsAChessCaptcha">Ку вӑл CAPTCHA шахматла.</string>
   <string name="clickOnTheBoardToMakeYourMove">Етем пулнине ҫирӗплетес тесе, тата куҫас тесе хӑма ҫине пус.</string>
   <string name="notACheckmate">Мат туни мар</string>
-  <string name="colorPlaysCheckmateInOne">%s ҫӳреҫҫӗ; пӗрре ҫӳресе мат ту</string>
   <string name="retry">Тепӗр хут</string>
   <string name="reconnecting">Ҫӗнӗрен ҫыхӑнасси</string>
   <string name="onlineFriends">Тетелти тус</string>
