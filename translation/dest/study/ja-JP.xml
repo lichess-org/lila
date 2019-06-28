@@ -43,7 +43,7 @@
   <string name="chapterPgn">章の PGN</string>
   <string name="studyUrl">研究の URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">これを掲示板にペーストすればこの章を埋め込めます</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">これをフォーラムにペーストすればこの章を埋め込めます</string>
   <string name="startAtX">%s に開始</string>
   <string name="embedThisChapter">この章をウェブサイトやブログに埋め込む</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">研究の章の埋め込みについて詳しく見る</string>
