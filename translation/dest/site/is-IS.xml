@@ -426,7 +426,7 @@
   <string name="activeToday">Virkir í dag</string>
   <string name="activePlayers">Virkir notendur</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Varúð, leikurinn gildir til stiga, en er án klukku!</string>
-  <string name="training">Æfingar</string>
+  <string name="training">Þrautir</string>
   <string name="yourPuzzleRatingX">Skákdæmastig: %s</string>
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan</string>
@@ -695,5 +695,6 @@
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
   <string name="language">Tungumál</string>
+  <string name="coaches">Þjálfarar</string>
   <string name="error.unknown">Villa</string>
 </resources>
