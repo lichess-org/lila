@@ -2,6 +2,7 @@ package lidraughts.round
 
 import draughts.{ Speed, Color }
 import org.goochjs.glicko2._
+import org.joda.time.DateTime
 
 import lidraughts.game.{ GameRepo, Game, PerfPicker, RatingDiffs }
 import lidraughts.history.HistoryApi
@@ -15,10 +16,6 @@ final class PerfsUpdater(
     ratingFactors: () => RatingFactors
 ) {
 
-  private val VOLATILITY = Glicko.default.volatility
-  private val TAU = 0.75d
-  private val system = new RatingCalculator(VOLATILITY, TAU)
-
   // returns rating diffs
   def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] = botFarming(game) flatMap {
     case true => fuccess(none)
@@ -29,26 +26,26 @@ final class PerfsUpdater(
         val result = resultOf(game)
         game.ratingVariant match {
           case draughts.variant.Frisian =>
-            updateRatings(ratingsW.frisian, ratingsB.frisian, result, system)
+            updateRatings(ratingsW.frisian, ratingsB.frisian, result)
           case draughts.variant.Frysk =>
-            updateRatings(ratingsW.frysk, ratingsB.frysk, result, system)
+            updateRatings(ratingsW.frysk, ratingsB.frysk, result)
           case draughts.variant.Antidraughts =>
-            updateRatings(ratingsW.antidraughts, ratingsB.antidraughts, result, system)
+            updateRatings(ratingsW.antidraughts, ratingsB.antidraughts, result)
           case draughts.variant.Breakthrough =>
-            updateRatings(ratingsW.breakthrough, ratingsB.breakthrough, result, system)
+            updateRatings(ratingsW.breakthrough, ratingsB.breakthrough, result)
           case draughts.variant.Standard => game.speed match {
             case Speed.Bullet =>
-              updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
+              updateRatings(ratingsW.bullet, ratingsB.bullet, result)
             case Speed.Blitz =>
-              updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
+              updateRatings(ratingsW.blitz, ratingsB.blitz, result)
             case Speed.Rapid =>
-              updateRatings(ratingsW.rapid, ratingsB.rapid, result, system)
+              updateRatings(ratingsW.rapid, ratingsB.rapid, result)
             case Speed.Classical =>
-              updateRatings(ratingsW.classical, ratingsB.classical, result, system)
+              updateRatings(ratingsW.classical, ratingsB.classical, result)
             case Speed.Correspondence =>
-              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
+              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result)
             case Speed.UltraBullet =>
-              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result, system)
+              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result)
           }
           case _ =>
         }
@@ -103,7 +100,7 @@ final class PerfsUpdater(
       case None => Glicko.Result.Draw
     }
 
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator): Unit = {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
@@ -111,7 +108,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      system.updateRatings(results)
+      Glicko.system.updateRatings(results, true)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }
