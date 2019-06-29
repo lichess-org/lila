@@ -20,7 +20,7 @@
   },
   "scripts": {
     "pretest": "npm run compile",
-    "compile": "tsc",
+    "compile": "node ../../node_modules/typescript/lib/tsc.js",
     "prepublish": "npm run compile"
   },
   "keywords": [
