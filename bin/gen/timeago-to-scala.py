@@ -60,7 +60,7 @@ def main(args):
         print("    // {} -> {}".format(arg, locale), file=sys.stderr)
 
         with open(arg) as f:
-            js = postprocess(terser(f.read()))
+            js = postprocess(terser(preprocess(f.read())))
             print('''    "{}" -> """{}"""'''.format(locale, js), end="")
 
     print()
@@ -78,8 +78,12 @@ def terser(js):
     return stdout.decode("utf-8")
 
 
+def preprocess(js):
+    return js.replace("export default function", "lichess.timeagoLocale=function");
+
 def postprocess(js):
-    return "(function(){" + js.replace("export default function", "lichess.timeagoLocale=function").strip() + "})()"
+    return "(function(){" + js.strip() + "})()"
+
 
 
 if __name__ == '__main__':
