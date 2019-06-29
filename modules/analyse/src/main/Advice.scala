@@ -85,7 +85,7 @@ private[analyse] object WinSequence {
       case (None, Some(n)) if n.negative => WinCreated$
       case (Some(p), None) if p.positive => WinLost$
       case (Some(p), Some(n)) if p.positive && n.negative => WinLost$
-      case (Some(p), Some(n)) if p.positive && n >= p && p <= Win(5) => WinDelayed$
+      case (Some(p), Some(n)) if p.positive && n >= p => WinDelayed$
     }
 }
 private[analyse] case class WinAdvice(
@@ -105,12 +105,11 @@ private[analyse] object WinAdvice {
       import Advice.Judgement._
       val judgment = sequence match {
         case WinCreated$ if prevCp < -999 => Inaccuracy
-        case WinCreated$ if prevCp < -700 => Mistake
+        case WinCreated$ if prevCp < -600 => Mistake
         case WinCreated$ => Blunder
         case WinLost$ if nextCp > 999 => Inaccuracy
-        case WinLost$ if nextCp > 700 => Mistake
+        case WinLost$ if nextCp > 600 => Mistake
         case WinLost$ => Blunder
-        case WinDelayed$ => Inaccuracy
       }
       WinAdvice(sequence, judgment, info, prev)
     }
