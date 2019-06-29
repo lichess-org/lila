@@ -85,7 +85,7 @@ private[analyse] object MateSequence {
       case (None, Some(n)) if n.negative => MateCreated
       case (Some(p), None) if p.positive => MateLost
       case (Some(p), Some(n)) if p.positive && n.negative => MateLost
-      case (Some(p), Some(n)) if p.positive && n >= p && p <= Mate(5) => MateDelayed
+      case (Some(p), Some(n)) if p.positive && n >= p => MateDelayed
     }
 }
 private[analyse] case class MateAdvice(
@@ -110,7 +110,6 @@ private[analyse] object MateAdvice {
         case MateLost if nextCp > 999 => Inaccuracy
         case MateLost if nextCp > 700 => Mistake
         case MateLost => Blunder
-        case MateDelayed => Inaccuracy
       }
       MateAdvice(sequence, judgment, info, prev)
     }
