@@ -176,17 +176,19 @@ final class TournamentApi(
     else if (tour.isCreated) wipe(tour)
   }
 
-  private def awardTrophies(tour: Tournament): Funit =
+  private def awardTrophies(tour: Tournament): Funit = {
+    import lila.user.TrophyKind._
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
       PlayerRepo.bestByTourWithRank(tour.id, 100).flatMap {
         _.map {
-          case rp if rp.rank == 1 => trophyApi.award(rp.player.userId, _.MarathonWinner)
-          case rp if rp.rank <= 10 => trophyApi.award(rp.player.userId, _.MarathonTopTen)
-          case rp if rp.rank <= 50 => trophyApi.award(rp.player.userId, _.MarathonTopFifty)
-          case rp => trophyApi.award(rp.player.userId, _.MarathonTopHundred)
+          case rp if rp.rank == 1 => trophyApi.award(rp.player.userId, marathonWinner)
+          case rp if rp.rank <= 10 => trophyApi.award(rp.player.userId, marathonTopTen)
+          case rp if rp.rank <= 50 => trophyApi.award(rp.player.userId, marathonTopFifty)
+          case rp => trophyApi.award(rp.player.userId, marathonTopHundred)
         }.sequenceFu.void
       }
     }
+  }
 
   def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[TeamIdList]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
