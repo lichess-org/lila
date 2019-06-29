@@ -26,9 +26,11 @@ private final class History(
   // TODO: After scala 2.13, use scala's ArrayDeque
   private[this] var events: ArrayDeque[VersionedEvent] = _
 
+  private[this] var versionHolder: SocketVersion = _
+
   def getVersion: SocketVersion = {
     waitForLoadedEvents
-    Option(events.peekLast).fold(SocketVersion(0))(_.version)
+    versionHolder
   }
 
   def versionDebugString: String = {
@@ -110,6 +112,7 @@ private final class History(
       case (vnext, e) =>
         val ve = VersionedEvent(e, vnext, date)
         events.addLast(ve)
+        versionHolder = vnext
         veBuff += ve
         vnext.inc
     }
@@ -140,6 +143,7 @@ private final class History(
       val evs = load awaitSeconds 3
       events = new ArrayDeque[VersionedEvent]
       evs.foreach(events.add)
+      versionHolder = Option(events.peekLast).fold(SocketVersion(0))(_.version)
     }
   }
 
