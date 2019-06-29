@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "scripts": {
-    "compile": "tsc"
+    "compile": "../../node_modules/typescript/bin/tsc"
   },
   "devDependencies": {
     "@types/lichess": "1.0.0",
