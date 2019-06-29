@@ -79,7 +79,6 @@ case class Join(
     mobile: IsMobile,
     promise: Promise[Connected]
 )
-case class VersionCheck(version: SocketVersion, member: Member, mobile: IsMobile)
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
