@@ -26,7 +26,7 @@ public class RatingCalculator {
   private final static double MULTIPLIER =  173.7178;
   private final static double CONVERGENCE_TOLERANCE =  0.000001;
   private final static int ITERATION_MAX =  3000;
-  private final static int MILLIS_PER_DAY =  1000 * 60 * 60 * 24;
+  private final static double DAYS_PER_MILLI =  1 / (1000 * 60 * 60 * 24);
 
   private double tau; // constrains volatility over time
   private double defaultVolatility;
@@ -56,10 +56,10 @@ public class RatingCalculator {
    * @param initVolatility  Initial volatility for new ratings
    * @param tau             How volatility changes over time
    */
-  public RatingCalculator(double initVolatility, double tau, double ratingPeriodDays) {
+  public RatingCalculator(double initVolatility, double tau, double dayRatingPeriod) {
     this.defaultVolatility = initVolatility;
     this.tau = tau;
-    this.ratingPeriodsPerMilli = 1 / (ratingPeriodDays * MILLIS_PER_DAY);
+    this.ratingPeriodsPerMilli = dayRatingPeriod * DAYS_PER_MILLI;
   }
 
 
@@ -263,7 +263,7 @@ public class RatingCalculator {
             ));
     }
 
-    return Math.pow(v, -1);
+    return 1/v;
   }
 
 
