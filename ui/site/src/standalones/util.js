@@ -28,48 +28,52 @@ lichess.isCol1 = (function() {
   };
 })();
 
-lichess.storage = (function() {
-  var storage = window.localStorage;
-  var api = {
-    get: function(k) { return storage.getItem(k) },
-    set: function(k, v) { storage.setItem(k, v) },
-    remove: function(k) { storage.removeItem(k) },
-    make: function(k) {
-      return {
-        get: function() {
-          return api.get(k);
-        },
-        set: function(v) {
-          api.set(k, v);
-        },
-        remove: function() {
-          api.remove(k);
-        },
-        listen: function(f) {
-          window.addEventListener('storage', function(e) {
-            if (e.key === k &&
-              e.storageArea === storage &&
-              e.newValue !== null) f(e);
-          });
-        }
-      };
-    },
-    makeBoolean: function(k) {
-      return {
-        get: function() {
-          return api.get(k) == 1;
-        },
-        set: function(v) {
-          api.set(k, v ? 1 : 0);
-        },
-        toggle: function() {
-          api.set(k, api.get(k) == 1 ? 0 : 1);
-        }
-      };
-    }
+{
+  const buildStorage = (storage) => {
+    var api = {
+      get: function(k) { return storage.getItem(k) },
+      set: function(k, v) { storage.setItem(k, v) },
+      remove: function(k) { storage.removeItem(k) },
+      make: function(k) {
+        return {
+          get: function() {
+            return api.get(k);
+          },
+          set: function(v) {
+            api.set(k, v);
+          },
+          remove: function() {
+            api.remove(k);
+          },
+          listen: function(f) {
+            window.addEventListener('storage', function(e) {
+              if (e.key === k &&
+                e.storageArea === storage &&
+                e.newValue !== null) f(e);
+            });
+          }
+        };
+      },
+      makeBoolean: function(k) {
+        return {
+          get: function() {
+            return api.get(k) == 1;
+          },
+          set: function(v) {
+            api.set(k, v ? 1 : 0);
+          },
+          toggle: function() {
+            api.set(k, api.get(k) == 1 ? 0 : 1);
+          }
+        };
+      }
+    };
+    return api;
   };
-  return api;
-})();
+
+  lichess.storage = buildStorage(window.localStorage);
+  lichess.tempStorage = buildStorage(window.sessionStorage);
+}
 
 lichess.once = function(key, mod) {
   if (mod === 'always') return true;
