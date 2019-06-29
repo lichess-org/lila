@@ -289,7 +289,26 @@ lidraughts.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lidraughts.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
+
+{
+  let sri = lidraughts.tempStorage.get('socket.sri');
+  if (!sri) {
+    try {
+      if (window.crypto !== undefined) {
+        const data = window.crypto.getRandomValues(new Uint8Array(9));
+        sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
+      }
+    } catch(e) {
+      $.post('/nlog/sriCrypto?e=' + encodeURIComponent(JSON.stringify(e)));
+    }
+    if (!sri) {
+      $.post('/nlog/sriCrypto');
+      sri = Math.random().toString(36).slice(2, 12);
+    }
+    lidraughts.tempStorage.set('socket.sri', sri);
+  }
+  lidraughts.StrongSocket.sri = sri;
+}
 
 lidraughts.StrongSocket.defaults = {
   events: {
