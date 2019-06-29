@@ -49,14 +49,14 @@ final class Env(
   )
 
   system.lilaBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
-    case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
-    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
-    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
-    case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
-    case lila.challenge.Event.Create(c) => pushApi challengeCreate c
-    case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
-    case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
+    case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game logFailure logger
+    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move logFailure logger
+    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId logFailure logger
+    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId logFailure logger
+    case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p) logFailure logger
+    case lila.challenge.Event.Create(c) => pushApi challengeCreate c logFailure logger
+    case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId) logFailure logger
+    case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov logFailure logger
   }
 }
 
