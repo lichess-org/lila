@@ -30,6 +30,11 @@
   <string name="pgnTags">PGN etiķetes</string>
   <string name="like">Patīk</string>
   <string name="newTag">Jauna etiķete</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Šī nodaļa ir par īsu lai to analizētu.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Tikai izpētes ieguldītāji var pieprasīt datoranalīzi.</string>
+  <string name="getAFullComputerAnalysis">Iegūstiet pilnu servera puses pamatvarianta datoranalīzi.</string>
+  <string name="makeSureTheChapterIsComplete">Pārliecinieties, ka nodaļa ir pabeigta. Datoranalīzi var pieprasīt tikai vienreiz.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC dalībnieki paliek vienā pozīcijā</string>
   <string name="open">Atvērt</string>
   <string name="xBroughtToYouByY">%2$s, kuru piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>
