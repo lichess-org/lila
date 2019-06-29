@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">вэб хөтөч дээр</string>
   <string name="toggleLocalEvaluation">Шинжилгээг нээх/хаах</string>
   <string name="promoteVariation">Өргийн дүн шинжилгээ хийж, өөрчлөлтийг дэмжихийг хүсч байвал. (Энэ нь нэг түвшинг дээшлүүлдэг бөгөөд \"Үндсэн мөрийг үүсгэх\" -тэй адил, энэ нь түүнийг бүх чиглэлд шилжүүлдэг.)</string>
+  <string name="deleteFromHere">Энд дарж устага</string>
   <string name="move">Нүүдэл</string>
   <string name="variantLoss">Хожигдох хувилбар</string>
   <string name="variantWin">Хожих хувилбар</string>
