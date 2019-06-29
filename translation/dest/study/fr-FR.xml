@@ -24,6 +24,9 @@
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
+  <string name="pgnTags">Étiquettes PGN</string>
+  <string name="newTag">Nouvelle étiquette</string>
+  <string name="commentThisPosition">Commenter la position</string>
   <string name="commentThisMove">Commenter ce coup</string>
   <string name="theChapterIsTooShortToBeAnalysed">Le chapitre est trop court pour être analysé.</string>
   <string name="onlyContributorsCanRequestAnalysis">Seuls les contributeurs de l\'étude peuvent demander une analyse informatique.</string>
