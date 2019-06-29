@@ -41,7 +41,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     opts.pulse();
     if (!li.quietMode) li.sound.newPM();
     const text = asText(notif);
-    const pushSubsribed = parseInt(li.storage.get('push-subscribed') || '0', 10) + 86400000 < Date.now(); // 24h
+    const pushSubsribed = parseInt(li.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubsribed && text) notify(text);
   }
 

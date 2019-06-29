@@ -27,7 +27,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
           opts.show();
           li.sound.newChallenge();
         }
-        const pushSubsribed = parseInt(li.storage.get('push-subscribed') || '0', 10) + 86400000 < Date.now(); // 24h
+        const pushSubsribed = parseInt(li.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
         !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
