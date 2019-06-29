@@ -3,8 +3,7 @@ package views.html.user.show
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.user.Trophy
-import Trophy.Kind
+import lidraughts.user.{ Trophy, TrophyKind }
 import lidraughts.user.User
 
 import controllers.routes
@@ -12,7 +11,7 @@ import controllers.routes
 object otherTrophies {
 
   def apply(u: User, info: lidraughts.app.mashup.UserInfo)(implicit ctx: Context) = frag(
-    info.allTrophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
+    info.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
       div(cls := "stacked")(
         trophies.sorted.map { trophy =>
           trophy.kind.icon.map { iconChar =>
@@ -39,13 +38,13 @@ object otherTrophies {
         href := routes.Tournament.show(revol.tourId)
       )(revol.iconChar.toString)
     },
-    info.allTrophies.filter(t => t.kind == Kind.ZHWC17 || t.kind == Kind.ZHWC18).map { t =>
+    info.trophies.filter(_.kind.withCustomImage).map { t =>
       a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name),
         style := "width: 65px; margin: 0 3px!important;")(
-          img(src := staticUrl(s"images/trophy/${t.kind.key}.png"), width := 65, height := 80)
+          img(src := staticUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
         )
     },
-    info.allTrophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
+    info.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
       trophy.kind.icon.map { iconChar =>
         a(
           awardCls(trophy),
@@ -71,5 +70,5 @@ object otherTrophies {
       )("")
   )
 
-  private def awardCls(t: Trophy) = cls := s"trophy award ${t.kind.key} ${~t.kind.klass}"
+  private def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
 }
