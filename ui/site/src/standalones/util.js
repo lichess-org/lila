@@ -29,26 +29,30 @@ lichess.isCol1 = (function() {
 })();
 
 {
-  const buildStorage = (storage) => ({
-    get: (k) => storage.getItem(k),
-    set: (k, v) => storage.setItem(k, v),
-    remove: (k) => storage.removeItem(k),
-    make: (k) => ({
-      get: () => api.get(k),
-      set: (v) => api.set(k, v),
-      remove: () => api.remove(k),
-      listen: (f) => window.addEventListener('storage', e => {
-        if (e.key === k &&
-          e.storageArea === storage &&
-          e.newValue !== null) f(e);
+  const buildStorage = (storage) => {
+    const api = {
+      get: (k) => storage.getItem(k),
+      set: (k, v) => storage.setItem(k, v),
+      remove: (k) => storage.removeItem(k),
+      make: (k) => ({
+        get: () => api.get(k),
+        set: (v) => api.set(k, v),
+        remove: () => api.remove(k),
+        listen: (f) => window.addEventListener('storage', e => {
+          if (e.key === k &&
+            e.storageArea === storage &&
+            e.newValue !== null) f(e);
+        })
+      }),
+      makeBoolean: (k) => ({
+        get: () => api.get(k) == 1,
+        set: (v) => api.set(k, v ? 1 : 0),
+        toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1)
       })
-    }),
-    makeBoolean: (k) => ({
-      get: () => api.get(k) == 1,
-      set: (v) => api.set(k, v ? 1 : 0),
-      toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1)
-    })
-  });
+    };
+    return api;
+  };
+
 
   lichess.storage = buildStorage(window.localStorage);
   lichess.tempStorage = buildStorage(window.sessionStorage);
