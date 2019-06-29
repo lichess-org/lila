@@ -9,7 +9,7 @@ import lidraughts.forum.PostApi
 import lidraughts.game.Crosstable
 import lidraughts.relation.RelationApi
 import lidraughts.security.Granter
-import lidraughts.user.{ User, SimplifiedTrophy, Trophy, Trophies, TrophyApi }
+import lidraughts.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
@@ -124,41 +124,41 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
-      trophyApi.roleBasedTrophies(
+      fuccess(trophyApi.roleBasedTrophies(
         user,
         Granter(_.PublicMod)(user),
         Granter(_.Developer)(user),
         Granter(_.Verified)(user)
-      ) zip
-        shieldApi.active(user) zip
-        revolutionApi.active(user) zip
-        fetchTeamIds(user.id) zip
-        fetchIsStreamer(user) zip
-        (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-        getPlayTime(user) zip
-        completionRate(user.id) flatMap {
-          case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
-            (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
-              new UserInfo(
-                user = user,
-                ranks = ranks,
-                nbs = nbs,
-                hasSimul = hasSimul,
-                ratingChart = ratingChart,
-                nbFollowers = nbFollowers,
-                nbBlockers = nbBlockers,
-                nbPosts = nbPosts,
-                nbStudies = nbStudies,
-                playTime = playTime,
-                trophies = trophies ::: roleTrophies,
-                shields = shields,
-                revolutions = revols,
-                teamIds = teamIds,
-                isStreamer = isStreamer,
-                isCoach = false,
-                insightVisible = insightVisible,
-                completionRate = completionRate
-              )
-            }
-        }
+      )) zip
+      shieldApi.active(user) zip
+      revolutionApi.active(user) zip
+      fetchTeamIds(user.id) zip
+      fetchIsStreamer(user) zip
+      (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
+      getPlayTime(user) zip
+      completionRate(user.id) flatMap {
+        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+          (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
+            new UserInfo(
+              user = user,
+              ranks = ranks,
+              nbs = nbs,
+              hasSimul = hasSimul,
+              ratingChart = ratingChart,
+              nbFollowers = nbFollowers,
+              nbBlockers = nbBlockers,
+              nbPosts = nbPosts,
+              nbStudies = nbStudies,
+              playTime = playTime,
+              trophies = trophies ::: roleTrophies,
+              shields = shields,
+              revolutions = revols,
+              teamIds = teamIds,
+              isStreamer = isStreamer,
+              isCoach = false,
+              insightVisible = insightVisible,
+              completionRate = completionRate
+            )
+          }
+      }
 }

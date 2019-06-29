@@ -2,22 +2,6 @@ package lidraughts.user
 
 import org.joda.time.DateTime
 
-case class SimplifiedTrophy(
-    _id: String,
-    user: String,
-    kind: String,
-    date: DateTime
-)
-
-object SimplifiedTrophy {
-  def make(userId: String, kindKey: String): SimplifiedTrophy = SimplifiedTrophy(
-    _id = ornicar.scalalib.Random nextString 8,
-    user = userId,
-    kind = kindKey,
-    date = DateTime.now
-  )
-}
-
 case class Trophy(
     _id: String, // random
     user: String,
@@ -50,5 +34,15 @@ object TrophyKind {
   val moderator = "moderator"
   val developer = "developer"
   val verified = "verified"
+
+  object Unknown extends TrophyKind(
+    _id = "unknown",
+    name = "Unknown",
+    order = 0,
+    url = none,
+    icon = none,
+    klass = none,
+    withCustomImage = false
+  )
 }
 
