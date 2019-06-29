@@ -42,7 +42,7 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
 
-  lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))
+  lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
 
   lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
 

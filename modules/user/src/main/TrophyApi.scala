@@ -2,53 +2,63 @@ package lila.user
 
 import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.memo._
 import reactivemongo.bson._
+import org.joda.time.DateTime
+import scala.concurrent.duration._
 
-final class TrophyApi(coll: Coll, kindColl: Coll) {
-  private implicit val trophyBSONHandler = Macros.handler[SimplifiedTrophy]
-  private implicit val trophyKindBSONHandler = Macros.handler[TrophyKind]
+final class TrophyApi(
+    coll: Coll, kindColl: Coll
+)(implicit system: akka.actor.ActorSystem) {
+
+  private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
+
+  val kindCache = new Syncache[String, TrophyKind](
+    name = "trophy.kind",
+    compute = id => kindColl.byId(id)(trophyKindObjectBSONHandler) map { k => k.getOrElse(TrophyKind.Unknown) },
+    default = _ => TrophyKind.Unknown,
+    strategy = Syncache.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfterAccess(24 hours),
+    logger = logger
+  )
+
+  private implicit val trophyKindStringBSONHandler = new BSONHandler[BSONString, TrophyKind] {
+    def read(bsonString: BSONString): TrophyKind =
+      kindCache sync bsonString.value
+    def write(x: TrophyKind) = BSONString(x._id)
+  }
+
+  private implicit val trophyBSONHandler = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
-    coll.find($doc("user" -> user.id)).list[SimplifiedTrophy](max) flatMap { l =>
-      unsimplifyList(l)
-    }
+    coll.find($doc("user" -> user.id)).list[Trophy](max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): Fu[List[Trophy]] = List(
-    isPublicMod option unsimplify(SimplifiedTrophy(
+  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): List[Trophy] = List(
+    isPublicMod option Trophy(
       _id = "",
       user = user.id,
-      kind = TrophyKind.moderator,
+      kind = kindCache sync TrophyKind.moderator,
       date = org.joda.time.DateTime.now
-    )),
-    isDev option unsimplify(SimplifiedTrophy(
+    ),
+    isDev option Trophy(
       _id = "",
       user = user.id,
-      kind = TrophyKind.developer,
+      kind = kindCache sync TrophyKind.developer,
       date = org.joda.time.DateTime.now
-    )),
-    isVerified option unsimplify(SimplifiedTrophy(
+    ),
+    isVerified option Trophy(
       _id = "",
       user = user.id,
-      kind = TrophyKind.verified,
+      kind = kindCache sync TrophyKind.verified,
       date = org.joda.time.DateTime.now
-    ))
-  ).flatten.sequenceFu.map(_.flatten)
-
-  def unsimplifyList(simplified: List[SimplifiedTrophy]): Fu[List[Trophy]] =
-    simplified.map({ t =>
-      unsimplify(t)
-    }).sequenceFu.map(_.flatten)
-
-  def unsimplify(simplified: SimplifiedTrophy): Fu[Option[Trophy]] =
-    kindColl.byId[TrophyKind](simplified.kind) map2 { (kind: TrophyKind) =>
-      Trophy(
-        _id = simplified._id,
-        user = simplified.user,
-        kind = kind,
-        date = simplified.date
-      )
-    }
+    )
+  ).flatten
 
   def award(userId: String, kindKey: String): Funit =
-    coll insert SimplifiedTrophy.make(userId, kindKey) void
+    coll.insert(BSONDocument(
+      "_id" -> ornicar.scalalib.Random.nextString(8),
+      "user" -> userId,
+      "kind" -> kindKey,
+      "date" -> DateTime.now
+    )) void
 }
