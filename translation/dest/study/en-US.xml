@@ -15,6 +15,17 @@
     <item quantity="one">%s Member</item>
     <item quantity="other">%s Members</item>
   </plurals>
+  <string name="inviteToTheStudy">Invite to the study</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Please only invite people you know, and who actively want to join this study.</string>
+  <string name="searchByUsername">Search by username</string>
+  <string name="spectator">Spectator</string>
+  <string name="contributor">Contributor</string>
+  <string name="leaveTheStudy">Leave the study</string>
+  <string name="youAreNowAContributor">You are now a contributor</string>
+  <string name="youAreNowASpectator">You are now a spectator</string>
+  <string name="pgnTags">PGN tags</string>
+  <string name="like">Like</string>
+  <string name="newTag">New tag</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
   <string name="studyNotFound">Study not found</string>
