@@ -56,6 +56,7 @@
   <string name="showThreat">Аюулыг үзүүл</string>
   <string name="inLocalBrowser">вэб хөтөч дээр</string>
   <string name="toggleLocalEvaluation">Шинжилгээг нээх/хаах</string>
+  <string name="promoteVariation">Өргийн дүн шинжилгээ хийж, өөрчлөлтийг дэмжихийг хүсч байвал. (Энэ нь нэг түвшинг дээшлүүлдэг бөгөөд \"Үндсэн мөрийг үүсгэх\" -тэй адил, энэ нь түүнийг бүх чиглэлд шилжүүлдэг.)</string>
   <string name="move">Нүүдэл</string>
   <string name="variantLoss">Хожигдох хувилбар</string>
   <string name="variantWin">Хожих хувилбар</string>
@@ -183,6 +184,7 @@
   <string name="accept">Саналыг хүлээн авах</string>
   <string name="decline">Саналаас татгалзах</string>
   <string name="playingRightNow">Яг одоо тоглож байна</string>
+  <string name="eventInProgress">Энэ мөчид тэмцээн, нэгэн зэрэг үзэсгэлэн буюу үйл явдал үргэлжилж байгааг харуулж байна.</string>
   <string name="finished">Өндөрлөсөн тэмцээнүүд</string>
   <string name="abortGame">Өргийг цуцлах</string>
   <string name="gameAborted">Өрөг цуцлагдлаа</string>
@@ -191,9 +193,13 @@
   <string name="mode">Горим</string>
   <string name="casual">Чансаа өөрчлөгдөхгүй өрөг</string>
   <string name="rated">Чансаа өөрчлөгдөх өрөг</string>
+  <string name="casualTournament">Чансаа өөрчлөгдөхгүй өрөг</string>
+  <string name="ratedTournament">Чансаатай өрөг</string>
   <string name="thisGameIsRated">Энэ бол чансаа өөрчлөгдөх өрөг</string>
   <string name="rematch">Дахин тоглох</string>
   <string name="rematchOfferSent">Дахин тоглох хүсэлт илгээлээ</string>
+  <string name="rematchOfferSentWhite">Цагаан тэнцэхийг санал болгож байна</string>
+  <string name="rematchOfferSentBlack">Хар тэнцэхийг санал болгож байна</string>
   <string name="rematchOfferAccepted">Дахин тоглох хүсэлтийг хүлээн авлаа</string>
   <string name="rematchOfferCanceled">Дахин тоглох хүсэлтийг цуцаллаа</string>
   <string name="rematchOfferDeclined">Дахин тоглох хүсэлтээс татгалзлаа</string>
@@ -269,6 +275,7 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
+  <string name="mustBeInTeam">Баг дотор байх ёстой</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="teams">Баг</string>
