@@ -18,7 +18,7 @@
     "url": "https://github.com/ornicar/lila/issues"
   },
   "scripts": {
-    "compile": "tsc"
+    "compile": "../../node_modules/typescript/bin/tsc"
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
