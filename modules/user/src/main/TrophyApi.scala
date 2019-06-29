@@ -4,23 +4,51 @@ import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import reactivemongo.bson._
 
-final class TrophyApi(coll: Coll) {
-
-  private implicit val trophyKindBSONHandler = new BSONHandler[BSONString, Trophy.Kind] {
-    def read(bsonString: BSONString): Trophy.Kind =
-      Trophy.Kind.byKey get bsonString.value err s"No such trophy kind: ${bsonString.value}"
-    def write(x: Trophy.Kind) = BSONString(x.key)
-  }
-  private implicit val trophyBSONHandler = Macros.handler[Trophy]
-
-  def award(userId: String, kind: Trophy.Kind): Funit =
-    coll insert Trophy.make(userId, kind) void
-
-  def award(userId: String, kind: Trophy.Kind.type => Trophy.Kind): Funit =
-    award(userId, kind(Trophy.Kind))
-
-  def awardMarathonWinner(userId: String): Funit = award(userId, Trophy.Kind.MarathonWinner)
+final class TrophyApi(coll: Coll, kindColl: Coll) {
+  private implicit val trophyBSONHandler = Macros.handler[SimplifiedTrophy]
+  private implicit val trophyKindBSONHandler = Macros.handler[TrophyKind]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
-    coll.find($doc("user" -> user.id)).list[Trophy](max)
+    coll.find($doc("user" -> user.id)).list[SimplifiedTrophy](max) flatMap { l =>
+      unsimplifyList(l)
+    }
+
+  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): Fu[List[Trophy]] = List(
+    isPublicMod option unsimplify(SimplifiedTrophy(
+      _id = "",
+      user = user.id,
+      kind = TrophyKind.moderator,
+      date = org.joda.time.DateTime.now
+    )),
+    isDev option unsimplify(SimplifiedTrophy(
+      _id = "",
+      user = user.id,
+      kind = TrophyKind.developer,
+      date = org.joda.time.DateTime.now
+    )),
+    isVerified option unsimplify(SimplifiedTrophy(
+      _id = "",
+      user = user.id,
+      kind = TrophyKind.verified,
+      date = org.joda.time.DateTime.now
+    ))
+  ).flatten.sequenceFu.map(_.flatten)
+
+  def unsimplifyList(simplified: List[SimplifiedTrophy]): Fu[List[Trophy]] =
+    simplified.map({ t =>
+      unsimplify(t)
+    }).sequenceFu.map(_.flatten)
+
+  def unsimplify(simplified: SimplifiedTrophy): Fu[Option[Trophy]] =
+    kindColl.byId[TrophyKind](simplified.kind) map2 { (kind: TrophyKind) =>
+      Trophy(
+        _id = simplified._id,
+        user = simplified.user,
+        kind = kind,
+        date = simplified.date
+      )
+    }
+
+  def award(userId: String, kindKey: String): Funit =
+    coll insert SimplifiedTrophy.make(userId, kindKey) void
 }

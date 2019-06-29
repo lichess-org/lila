@@ -9,7 +9,7 @@ import lila.forum.PostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.{ User, Trophy, Trophies, TrophyApi }
+import lila.user.{ User, SimplifiedTrophy, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
@@ -36,28 +36,7 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
-  lazy val allTrophies = List(
-    Granter(_.PublicMod)(user) option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Moderator,
-      date = org.joda.time.DateTime.now
-    ),
-    Granter(_.Developer)(user) option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Developer,
-      date = org.joda.time.DateTime.now
-    ),
-    Granter(_.Verified)(user) option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Verified,
-      date = org.joda.time.DateTime.now
-    )
-  ).flatten ::: trophies
-
-  def countTrophiesAndPerfCups = allTrophies.size + ranks.??(_.count(_._2 <= 100))
+  def countTrophiesAndPerfCups = trophies.size + ranks.??(_.count(_._2 <= 100))
 }
 
 object UserInfo {
@@ -146,36 +125,42 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
-      shieldApi.active(user) zip
-      revolutionApi.active(user) zip
-      fetchTeamIds(user.id) zip
-      fetchIsCoach(user) zip
-      fetchIsStreamer(user) zip
-      (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-      getPlayTime(user) zip
-      completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
-          (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
-            new UserInfo(
-              user = user,
-              ranks = ranks,
-              nbs = nbs,
-              hasSimul = hasSimul,
-              ratingChart = ratingChart,
-              nbFollowers = nbFollowers,
-              nbBlockers = nbBlockers,
-              nbPosts = nbPosts,
-              nbStudies = nbStudies,
-              playTime = playTime,
-              trophies = trophies,
-              shields = shields,
-              revolutions = revols,
-              teamIds = teamIds,
-              isStreamer = isStreamer,
-              isCoach = isCoach,
-              insightVisible = insightVisible,
-              completionRate = completionRate
-            )
-          }
-      }
+      trophyApi.roleBasedTrophies(
+        user,
+        Granter(_.PublicMod)(user),
+        Granter(_.Developer)(user),
+        Granter(_.Verified)(user)
+      ) zip
+        shieldApi.active(user) zip
+        revolutionApi.active(user) zip
+        fetchTeamIds(user.id) zip
+        fetchIsCoach(user) zip
+        fetchIsStreamer(user) zip
+        (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
+        getPlayTime(user) zip
+        completionRate(user.id) flatMap {
+          case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+            (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
+              new UserInfo(
+                user = user,
+                ranks = ranks,
+                nbs = nbs,
+                hasSimul = hasSimul,
+                ratingChart = ratingChart,
+                nbFollowers = nbFollowers,
+                nbBlockers = nbBlockers,
+                nbPosts = nbPosts,
+                nbStudies = nbStudies,
+                playTime = playTime,
+                trophies = trophies ::: roleTrophies,
+                shields = shields,
+                revolutions = revols,
+                teamIds = teamIds,
+                isStreamer = isStreamer,
+                isCoach = isCoach,
+                insightVisible = insightVisible,
+                completionRate = completionRate
+              )
+            }
+        }
 }
