@@ -49,14 +49,14 @@ final class Env(
   )
 
   system.lidraughtsBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
-    case lidraughts.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-    case lidraughts.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
-    case lidraughts.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
-    case lidraughts.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
-    case lidraughts.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
-    case lidraughts.challenge.Event.Create(c) => pushApi challengeCreate c
-    case lidraughts.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
-    case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
+    case lidraughts.game.actorApi.FinishGame(game, _, _) => pushApi finish game logFailure logger
+    case lidraughts.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move logFailure logger
+    case lidraughts.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId logFailure logger
+    case lidraughts.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId logFailure logger
+    case lidraughts.message.Event.NewMessage(t, p) => pushApi newMessage (t, p) logFailure logger
+    case lidraughts.challenge.Event.Create(c) => pushApi challengeCreate c logFailure logger
+    case lidraughts.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId) logFailure logger
+    case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov logFailure logger
   }
 }
 
