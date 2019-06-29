@@ -230,6 +230,11 @@ object mon {
         val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
         val getEventsCount = inc(s"round.history.$platform.getEventsCount")
         val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
+        object versionCheck {
+          val getEventsDelta = rec(s"round.history.versionCheck.$platform.getEventsDelta")
+          val getEventsTooFar = inc(s"round.history.$platform.versionCheck.getEventsTooFar")
+          val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
+        }
       }
       object mobile extends PlatformHistory("mobile")
       object site extends PlatformHistory("site")
