@@ -72,6 +72,9 @@ private[analyse] sealed abstract class WinSequence(val desc: String)
 private[analyse] case object WinCreated extends WinSequence(
   desc = "Win is now unavoidable"
 )
+private[analyse] case object WinDelayed extends WinSequence(
+  desc = "Not the best winning sequence"
+)
 private[analyse] case object WinLost extends WinSequence(
   desc = "Lost forced winning sequence"
 )
@@ -97,17 +100,21 @@ private[analyse] object WinAdvice {
     def invertWin(win: Win) = win invertIf info.color.black
     def prevCp = prev.cp.map(invertCp).??(_.centipieces)
     def nextCp = info.cp.map(invertCp).??(_.centipieces)
-    WinSequence(prev.win map invertWin, info.win map invertWin) map { sequence =>
+    WinSequence(prev.win map invertWin, info.win map invertWin) flatMap { sequence =>
       import Advice.Judgement._
-      val judgment: Advice.Judgement = sequence match {
-        case WinCreated$ if prevCp < -999 => Inaccuracy
-        case WinCreated$ if prevCp < -600 => Mistake
-        case WinCreated$ => Blunder
-        case WinLost$ if nextCp > 999 => Inaccuracy
-        case WinLost$ if nextCp > 600 => Mistake
-        case WinLost$ => Blunder
+      val judgment: Option[Advice.Judgement] = sequence match {
+        case WinCreated if prevCp < -999 => Inaccuracy.some
+        case WinCreated if prevCp < -600 => Mistake.some
+        case WinCreated => Blunder.some
+        case WinLost if nextCp > 999 => Inaccuracy.some
+        case WinLost if nextCp > 600 => Mistake.some
+        case WinLost => Blunder.some
+        case WinDelayed => None
       }
-      WinAdvice(sequence, judgment, info, prev)
+      judgment match {
+        case Some(j) => Option(WinAdvice(sequence, j, info, prev))
+        case None => None
+      }
     }
   }
 }
