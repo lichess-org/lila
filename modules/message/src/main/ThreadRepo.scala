@@ -16,6 +16,9 @@ object ThreadRepo {
   def byUser(user: ID): Fu[List[Thread]] =
     coll.find(userQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
+  def nbCreatedOrInvited(user: ID, nb: Int): Fu[List[Thread]] =
+    coll.find(participantQuery(user)).sort(recentSort).list[Thread](nb)
+
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
     coll.find(visibleByUserQuery(user)).sort(recentSort).list[Thread](nb)
 
@@ -83,6 +86,8 @@ object ThreadRepo {
   def userQuery(user: String) = $doc("userIds" -> user)
 
   def visibleByUserQuery(user: String) = $doc("visibleByUserIds" -> user)
+
+  def participantQuery(user: String) = $or($doc("creatorId" -> user), $doc("invitedId" -> user))
 
   val recentSort = $sort desc "updatedAt"
 }
