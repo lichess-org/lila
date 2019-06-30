@@ -173,7 +173,7 @@ object Mod extends LidraughtsController {
           Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply)
         } zip
           priv.?? {
-            lidraughts.message.ThreadRepo.nbCreatedOrInvited(user.id, 60).map {
+            lidraughts.message.ThreadRepo.visibleOrDeletedByUser(user.id, 60).map {
               _ filter (_ hasPostsWrittenBy user.id) take 30
             }
           } zip
