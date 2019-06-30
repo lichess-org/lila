@@ -63,4 +63,8 @@
     <item quantity="other">Тоглогчидоос # % 1 $ -ийн (дээд % 2 $ -ийн% нь%) % 3 $ -ийн дахь тоглолтонд % 4 $ -ийн</item>
   </plurals>
   <string name="signedUp">Lichess.org-т гарын үсэг зурлаа</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Нэгдсэн % S баг</item>
+    <item quantity="other">Нэгдсэн % S багууд</item>
+  </plurals>
 </resources>
