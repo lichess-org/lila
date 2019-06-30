@@ -87,7 +87,7 @@ object ThreadRepo {
 
   def visibleByUserQuery(user: String) = $doc("visibleByUserIds" -> user)
 
-  def participantQuery(user: String) = $or($doc("creatorId" -> user), $doc("invitedId" -> user))
+  def participantQuery(user: String) = $doc("participants" -> user)
 
   val recentSort = $sort desc "updatedAt"
 }
