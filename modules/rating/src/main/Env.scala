@@ -9,6 +9,12 @@ final class Env(settingStore: lidraughts.memo.SettingStore.Builder) {
     default = Map.empty,
     text = "Rating gain factor per perf type".some
   )
+
+  val deviationIncreaseOverTimeSetting = settingStore[Boolean](
+    "deviationIncreaseOverTime",
+    default = true,
+    text = "Increase rating deviation over time instead of after every game".some
+  )
 }
 
 object Env {
