@@ -20,7 +20,7 @@ object ThreadRepo {
     for {
       visible <- visibleByUser(user, nb)
       deleted <- coll.find(deletedByUserQuery(user)).sort(recentSort).list[Thread](nb)
-    } yield (visible ::: deleted).sortBy(_.updatedAt).take(nb)
+    } yield (visible ::: deleted).sortBy(_.updatedAt)(Ordering[DateTime].reverse).take(nb)
 
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
     coll.find(visibleByUserQuery(user)).sort(recentSort).list[Thread](nb)
