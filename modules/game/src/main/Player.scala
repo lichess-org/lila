@@ -4,6 +4,8 @@ import chess.Color
 
 import lila.user.User
 
+import org.joda.time.DateTime
+
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
 case class Player(
@@ -22,7 +24,8 @@ case class Player(
     blurs: Blurs = Blurs.blursZero.zero,
     holdAlert: Option[Player.HoldAlert] = None,
     berserk: Boolean = false,
-    name: Option[String] = None
+    name: Option[String] = None,
+    accountCreationDate: Option[DateTime] = None
 ) {
 
   def playerUser = userId flatMap { uid =>
@@ -146,6 +149,7 @@ object Player {
     val holdAlert = "h"
     val berserk = "be"
     val name = "na"
+    val accountCreationDate = "cd"
   }
 
   import reactivemongo.bson._
@@ -170,6 +174,7 @@ object Player {
 
     import BSONFields._
     import Blurs._
+    import lila.db.dsl.BSONJodaDateTimeHandler
 
     def reads(r: BSON.Reader) = color => id => userId => win => Player(
       id = id,
@@ -187,7 +192,8 @@ object Player {
       blurs = r.getO[Blurs.Bits](blursBits) orElse r.getO[Blurs.Nb](blursNb) getOrElse blursZero.zero,
       holdAlert = r.getO[HoldAlert](holdAlert),
       berserk = r boolD berserk,
-      name = r strO name
+      name = r strO name,
+      accountCreationDate = r dateO accountCreationDate
     )
 
     def writes(w: BSON.Writer, o: Builder) =
@@ -203,7 +209,8 @@ object Player {
           provisional -> w.boolO(p.provisional),
           blursBits -> (!p.blurs.isEmpty).option(BlursBSONWriter write p.blurs),
           holdAlert -> p.holdAlert,
-          name -> p.name
+          name -> p.name,
+          accountCreationDate -> p.accountCreationDate
         )
       }
   }

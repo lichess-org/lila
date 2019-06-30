@@ -9,6 +9,8 @@ import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.user.{ User, UserRepo }
 
+import org.joda.time.DateTime
+
 final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
@@ -42,20 +44,20 @@ final class PlaybanApi(
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
     pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
-      save(Outcome.Abort, userId) >>- feedback.abort(pov)
+      save(Outcome.Abort, userId, pov.player.accountCreationDate) >>- feedback.abort(pov)
     }
   }
 
   def noStart(pov: Pov): Funit = IfBlameable(pov.game) {
     pov.player.userId ?? { userId =>
-      save(Outcome.NoPlay, userId) >>- feedback.noStart(pov)
+      save(Outcome.NoPlay, userId, pov.player.accountCreationDate) >>- feedback.noStart(pov)
     }
   }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     sandbag(game, quitterColor) >> IfBlameable(game) {
       game.player(quitterColor).userId ?? { userId =>
-        save(Outcome.RageQuit, userId) >>- feedback.rageQuit(Pov(game, quitterColor))
+        save(Outcome.RageQuit, userId, game.player(quitterColor).accountCreationDate) >>- feedback.rageQuit(Pov(game, quitterColor))
       }
     }
 
@@ -68,21 +70,23 @@ final class PlaybanApi(
     // flagged after waiting a long time
     def sitting = for {
       userId <- game.player(flaggerColor).userId
+      accountCreationDate <- game.player(flaggerColor).accountCreationDate
       seconds = nowSeconds - game.movedAt.getSeconds
       limit <- unreasonableTime
       if seconds >= limit
-    } yield save(Outcome.Sitting, userId) >>- feedback.sitting(Pov(game, flaggerColor))
+    } yield save(Outcome.Sitting, userId, Some(accountCreationDate)) >>- feedback.sitting(Pov(game, flaggerColor))
 
     // flagged after waiting a short time;
     // but the previous move used a long time.
     // assumes game was already checked for sitting
     def sitMoving = for {
       userId <- game.player(flaggerColor).userId
+      accountCreationDate <- game.player(flaggerColor).accountCreationDate
       movetimes <- game moveTimes flaggerColor
       lastMovetime <- movetimes.lastOption
       limit <- unreasonableTime
       if lastMovetime.toSeconds >= limit
-    } yield save(Outcome.SitMoving, userId) >>- feedback.sitting(Pov(game, flaggerColor))
+    } yield save(Outcome.SitMoving, userId, Some(accountCreationDate)) >>- feedback.sitting(Pov(game, flaggerColor))
 
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {
@@ -99,8 +103,9 @@ final class PlaybanApi(
         ~(for {
           w <- winner
           loserId <- game.player(!w).userId
+          accountCreationDate <- game.player(!w).accountCreationDate
         } yield {
-          if (Status.NoStart is status) save(Outcome.NoPlay, loserId) >>- feedback.noStart(Pov(game, !w))
+          if (Status.NoStart is status) save(Outcome.NoPlay, loserId, Some(accountCreationDate)) >>- feedback.noStart(Pov(game, !w))
           else goodOrSandbag(game, !w, isSandbag)
         })
       }
@@ -109,7 +114,7 @@ final class PlaybanApi(
   private def goodOrSandbag(game: Game, color: Color, isSandbag: Boolean): Funit =
     game.player(color).userId ?? { userId =>
       if (isSandbag) feedback.sandbag(Pov(game, color))
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId)
+      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, game.player(color).accountCreationDate)
     }
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
@@ -146,7 +151,7 @@ final class PlaybanApi(
       }(scala.collection.breakOut)
     }
 
-  private def save(outcome: Outcome, userId: User.ID): Funit = {
+  private def save(outcome: Outcome, userId: User.ID, accountCreationDate: Option[DateTime]): Funit = {
     lila.mon.playban.outcome(outcome.key)()
     coll.findAndUpdate(
       selector = $id(userId),
@@ -155,7 +160,7 @@ final class PlaybanApi(
           "$each" -> List(outcome),
           "$slice" -> -30
         )
-      )),
+      ), "$set" -> $doc("c" -> accountCreationDate.getOrElse(DateTime.now))),
       fetchNewObject = true,
       upsert = true
     ).map(_.value)
