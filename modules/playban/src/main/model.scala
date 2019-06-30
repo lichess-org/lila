@@ -36,7 +36,7 @@ case class UserRecord(
     case _ => 4
   }
 
-  def bannable: Option[TempBan] = {
+  def bannable(accountCreationDate: DateTime): Option[TempBan] = {
     outcomes.lastOption.exists(_ != Outcome.Good) && {
       // too many bad overall
       badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
@@ -45,7 +45,7 @@ case class UserRecord(
           outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
       }
     }
-  } option TempBan.make(bans)
+  } option TempBan.make(bans, accountCreationDate)
 }
 
 case class TempBan(
@@ -80,14 +80,15 @@ object TempBan {
    * - 0 days: 3x
    * - 0 - 3 days: linear scale from 3x to 1x
    * - >3 days quick drop off
+   * Account less than 3 days old --> 2x the usual time
    */
-  def make(bans: List[TempBan]): TempBan = make {
-    bans.lastOption ?? { prev =>
+  def make(bans: List[TempBan], accountCreationDate: DateTime): TempBan = make {
+    (bans.lastOption ?? { prev =>
       prev.endsAt.toNow.getStandardHours.truncInt match {
         case h if h < 72 => prev.mins * (132 - h) / 60
         case h => prev.mins - Math.pow(h / 12, 1.5).toInt
       }
-    } atLeast baseMinutes
+    } atLeast baseMinutes) * (if (accountCreationDate.plusDays(3).isAfter(DateTime.now)) 2 else 1)
   }
 }
 

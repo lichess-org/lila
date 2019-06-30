@@ -9,6 +9,8 @@ import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.user.{ User, UserRepo }
 
+import org.joda.time.DateTime
+
 final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
@@ -158,14 +160,17 @@ final class PlaybanApi(
       )),
       fetchNewObject = true,
       upsert = true
-    ).map(_.value)
-  } map2 UserRecordBSONHandler.read flatMap {
-    case None => fufail(s"can't find record for user $userId")
-    case _ if outcome == Outcome.Good => funit
-    case Some(record) => legiferate(record)
-  } logFailure lila.log("playban")
+    ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
+        case None => fufail(s"can't find record for user $userId")
+        case _ if outcome == Outcome.Good => funit
+        case Some(record) => UserRepo.createdAtById(userId) flatMap {
+          o => o map { d => legiferate(record, d) } getOrElse funit
+        }
+      }
 
-  private def legiferate(record: UserRecord): Funit = record.bannable ?? { ban =>
+  }.void logFailure lila.log("playban")
+
+  private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit = record.bannable(accCreatedAt) ?? { ban =>
     (!record.banInEffect) ?? {
       lila.mon.playban.ban.count()
       lila.mon.playban.ban.mins(ban.mins)
