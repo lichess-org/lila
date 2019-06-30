@@ -6,14 +6,12 @@ import play.api.libs.json._
 case class UserRecord(
     _id: String,
     o: Option[List[Outcome]],
-    b: Option[List[TempBan]],
-    c: DateTime
+    b: Option[List[TempBan]]
 ) {
 
   def userId = _id
   def outcomes: List[Outcome] = ~o
   def bans: List[TempBan] = ~b
-  def accountCreationDate = c
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
 
@@ -38,7 +36,7 @@ case class UserRecord(
     case _ => 4
   }
 
-  def bannable: Option[TempBan] = {
+  def bannable(accountCreationDate: DateTime): Option[TempBan] = {
     outcomes.lastOption.exists(_ != Outcome.Good) && {
       // too many bad overall
       badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {

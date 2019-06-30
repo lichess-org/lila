@@ -158,18 +158,18 @@ final class PlaybanApi(
             "$each" -> List(outcome),
             "$slice" -> -30
           )
-        ), "$set" -> $doc("c" -> accCreatedAt)),
+        )),
         fetchNewObject = true,
         upsert = true
       ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
           case None => fufail(s"can't find record for user $userId")
           case _ if outcome == Outcome.Good => funit
-          case Some(record) => legiferate(record)
+          case Some(record) => legiferate(record, accCreatedAt)
         }
     }
   }.void logFailure lila.log("playban")
 
-  private def legiferate(record: UserRecord): Funit = record.bannable ?? { ban =>
+  private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit = record.bannable(accCreatedAt) ?? { ban =>
     (!record.banInEffect) ?? {
       lila.mon.playban.ban.count()
       lila.mon.playban.ban.mins(ban.mins)
