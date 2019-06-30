@@ -4,8 +4,6 @@ import chess.Color
 
 import lila.user.User
 
-import org.joda.time.DateTime
-
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
 case class Player(
@@ -172,7 +170,6 @@ object Player {
 
     import BSONFields._
     import Blurs._
-    import lila.db.dsl.BSONJodaDateTimeHandler
 
     def reads(r: BSON.Reader) = color => id => userId => win => Player(
       id = id,
