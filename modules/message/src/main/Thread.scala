@@ -14,8 +14,8 @@ case class Thread(
     creatorId: User.ID,
     invitedId: User.ID,
     visibleByUserIds: List[User.ID],
-    mod: Option[Boolean],
-    participants: Option[List[User.ID]]
+    deletedByUserIds: Option[List[User.ID]],
+    mod: Option[Boolean]
 ) {
 
   def +(post: Post) = copy(
@@ -86,7 +86,8 @@ case class Thread(
   def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
 
   def deleteFor(user: User) = copy(
-    visibleByUserIds = visibleByUserIds filter (user.id !=)
+    visibleByUserIds = visibleByUserIds filter (user.id !=),
+    deletedByUserIds = Some(deletedByUserIds.getOrElse(List()) ::: List(user.id))
   )
 
   def isVisibleBy(userId: User.ID) = visibleByUserIds contains userId
@@ -128,8 +129,8 @@ object Thread {
     creatorId = creatorId,
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId),
-    mod = asMod option true,
-    participants = Some(List(creatorId, invitedId))
+    deletedByUserIds = None,
+    mod = asMod option true
   )
 
   import lila.db.dsl.BSONJodaDateTimeHandler

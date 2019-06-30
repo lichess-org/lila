@@ -16,8 +16,8 @@ object ThreadRepo {
   def byUser(user: ID): Fu[List[Thread]] =
     coll.find(userQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
-  def nbCreatedOrInvited(user: ID, nb: Int): Fu[List[Thread]] =
-    coll.find(participantQuery(user)).sort(recentSort).list[Thread](nb)
+  def visibleOrDeletedByUser(user: ID, nb: Int): Fu[List[Thread]] =
+    coll.find(visibleOrDeletedByUserQuery(user)).sort(recentSort).list[Thread](nb)
 
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
     coll.find(visibleByUserQuery(user)).sort(recentSort).list[Thread](nb)
@@ -81,13 +81,13 @@ object ThreadRepo {
   }
 
   def deleteFor(user: ID)(thread: ID) =
-    coll.update($id(thread), $pull("visibleByUserIds", user)).void
+    coll.update($id(thread), $doc($pull("visibleByUserIds", user), $push("deletedByUserIds", user))).void
 
   def userQuery(user: String) = $doc("userIds" -> user)
 
   def visibleByUserQuery(user: String) = $doc("visibleByUserIds" -> user)
 
-  def participantQuery(user: String) = $doc("participants" -> user)
+  def visibleOrDeletedByUserQuery(user: String) = $or(visibleByUserQuery(user), $doc("deletedByUserIds" -> user))
 
   val recentSort = $sort desc "updatedAt"
 }
