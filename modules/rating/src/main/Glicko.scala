@@ -68,10 +68,10 @@ case object Glicko {
   val maxVolatility = 0.1d
 
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val dayRatingPeriod = 0.21436d
+  val ratingPeriodsPerDay = 0.21436d
 
   val tau = 0.75d
-  val system = new RatingCalculator(default.volatility, tau, dayRatingPeriod)
+  val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
 
   def range(rating: Double, deviation: Double) = (
     rating - (deviation * 2),
@@ -79,7 +79,9 @@ case object Glicko {
   )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, new DateTime, reverse)
+    if (Env.current.deviationIncreaseOverTimeSetting.get)
+      system.previewDeviation(p.toRating, new DateTime, reverse)
+    else p.glicko.deviation
   } atLeast minDeviation atMost maxDeviation
 
   implicit val glickoBSONHandler = new BSON[Glicko] {
