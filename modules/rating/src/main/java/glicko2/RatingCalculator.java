@@ -56,10 +56,10 @@ public class RatingCalculator {
    * @param initVolatility  Initial volatility for new ratings
    * @param tau             How volatility changes over time
    */
-  public RatingCalculator(double initVolatility, double tau, double dayRatingPeriod) {
+  public RatingCalculator(double initVolatility, double tau, double ratingPeriodsPerDay) {
     this.defaultVolatility = initVolatility;
     this.tau = tau;
-    this.ratingPeriodsPerMilli = dayRatingPeriod * DAYS_PER_MILLI;
+    this.ratingPeriodsPerMilli = ratingPeriodsPerDay * DAYS_PER_MILLI;
   }
 
 
