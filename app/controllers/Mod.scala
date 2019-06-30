@@ -173,7 +173,7 @@ object Mod extends LilaController {
           Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply)
         } zip
           priv.?? {
-            lila.message.ThreadRepo.visibleByUser(user.id, 60).map {
+            lila.message.ThreadRepo.visibleOrDeletedByUser(user.id, 60).map {
               _ filter (_ hasPostsWrittenBy user.id) take 30
             }
           } zip
