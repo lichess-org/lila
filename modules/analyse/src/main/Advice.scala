@@ -101,9 +101,9 @@ private[analyse] object WinAdvice {
     def invertWin(win: Win) = win invertIf info.color.black
     def prevCp = prev.cp.map(invertCp).??(_.centipieces)
     def nextCp = info.cp.map(invertCp).??(_.centipieces)
-    WinSequence(prev.win map invertWin, info.win map invertWin) map { sequence =>
+    WinSequence(prev.win map invertWin, info.win map invertWin).filter(_ != WinDelayed) map { sequence =>
       import Advice.Judgement._
-      val judgment = sequence match {
+      val judgment: Advice.Judgement = sequence match {
         case WinCreated$ if prevCp < -999 => Inaccuracy
         case WinCreated$ if prevCp < -600 => Mistake
         case WinCreated$ => Blunder
