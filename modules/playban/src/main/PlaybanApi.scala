@@ -150,7 +150,6 @@ final class PlaybanApi(
 
   private def save(outcome: Outcome, userId: User.ID): Funit = {
     lila.mon.playban.outcome(outcome.key)()
-
     coll.findAndUpdate(
       selector = $id(userId),
       update = $doc("$push" -> $doc(
