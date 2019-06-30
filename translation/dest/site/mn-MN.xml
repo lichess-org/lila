@@ -47,11 +47,11 @@
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
   <string name="computerAnalysis">Компьютерийн шинжилгээ</string>
   <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
-  <string name="analysis">Өрөг шинжлэгч</string>
+  <string name="analysis">Өрөг шинжлэх</string>
   <string name="depthX">Гүн %s</string>
   <string name="usingServerAnalysis">Серверийн шинжилгээг ашиглаж байна</string>
   <string name="loadingEngine">Шинжилгээ ачааллагдаж байна...</string>
-  <string name="cloudAnalysis">Үүлэн шинжилгээ</string>
+  <string name="cloudAnalysis">Өндөр хэмжээний шинжилгээ</string>
   <string name="goDeeper">Цаашлах</string>
   <string name="showThreat">Аюулыг үзүүл</string>
   <string name="inLocalBrowser">вэб хөтөч дээр</string>
