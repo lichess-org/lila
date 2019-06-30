@@ -150,23 +150,25 @@ final class PlaybanApi(
 
   private def save(outcome: Outcome, userId: User.ID): Funit = {
     lila.mon.playban.outcome(outcome.key)()
-    UserRepo.createdAtById(userId) map2 { (accCreatedAt: DateTime) =>
-      coll.findAndUpdate(
-        selector = $id(userId),
-        update = $doc("$push" -> $doc(
-          "o" -> $doc(
-            "$each" -> List(outcome),
-            "$slice" -> -30
-          )
-        )),
-        fetchNewObject = true,
-        upsert = true
-      ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
-          case None => fufail(s"can't find record for user $userId")
-          case _ if outcome == Outcome.Good => funit
-          case Some(record) => legiferate(record, accCreatedAt)
+
+    coll.findAndUpdate(
+      selector = $id(userId),
+      update = $doc("$push" -> $doc(
+        "o" -> $doc(
+          "$each" -> List(outcome),
+          "$slice" -> -30
+        )
+      )),
+      fetchNewObject = true,
+      upsert = true
+    ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
+        case None => fufail(s"can't find record for user $userId")
+        case _ if outcome == Outcome.Good => funit
+        case Some(record) => UserRepo.createdAtById(userId) flatMap {
+          o => o map { d => legiferate(record, d) } getOrElse funit
         }
-    }
+      }
+
   }.void logFailure lila.log("playban")
 
   private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit = record.bannable(accCreatedAt) ?? { ban =>
