@@ -21,7 +21,8 @@ object Dev extends LilaController {
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
     Env.socket.socketDebugSetting,
-    Env.plan.donationGoalSetting
+    Env.plan.donationGoalSetting,
+    Env.rating.deviationIncreaseOverTimeSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
