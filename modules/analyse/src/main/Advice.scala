@@ -101,9 +101,9 @@ private[analyse] object MateAdvice {
     def invertMate(mate: Mate) = mate invertIf info.color.black
     def prevCp = prev.cp.map(invertCp).??(_.centipawns)
     def nextCp = info.cp.map(invertCp).??(_.centipawns)
-    MateSequence(prev.mate map invertMate, info.mate map invertMate) map { sequence =>
+    MateSequence(prev.mate map invertMate, info.mate map invertMate).filter(_ != MateDelayed) map { sequence =>
       import Advice.Judgement._
-      val judgment = sequence match {
+      val judgment: Advice.Judgement = sequence match {
         case MateCreated if prevCp < -999 => Inaccuracy
         case MateCreated if prevCp < -700 => Mistake
         case MateCreated => Blunder
