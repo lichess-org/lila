@@ -39,6 +39,7 @@
   <string name="next">次</string>
   <string name="last">最後</string>
   <string name="shareAndExport">共有とエクスポート</string>
+  <string name="cloneStudy">研究をコピー</string>
   <string name="studyPgn">研究の PGN</string>
   <string name="chapterPgn">章の PGN</string>
   <string name="studyUrl">研究の URL</string>

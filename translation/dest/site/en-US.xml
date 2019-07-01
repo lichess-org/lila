@@ -354,8 +354,8 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
   <string name="captcha.fail">Please solve the chess captcha.</string>
   <string name="notACheckmate">Not a checkmate</string>
-  <string name="whiteCheckmatesInOneMove">White checkmates in one move</string>
-  <string name="blackCheckmatesInOneMove">Black checkmates in one move</string>
+  <string name="whiteCheckmatesInOneMove">White to checkmate in one move</string>
+  <string name="blackCheckmatesInOneMove">Black to checkmate in one move</string>
   <string name="retry">Retry</string>
   <string name="reconnecting">Reconnecting</string>
   <string name="onlineFriends">Online friends</string>

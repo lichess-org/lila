@@ -25,12 +25,15 @@
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
   <string name="pgnTags">Étiquettes PGN</string>
+  <string name="like">Aimer</string>
   <string name="newTag">Nouvelle étiquette</string>
   <string name="commentThisPosition">Commenter la position</string>
   <string name="commentThisMove">Commenter ce coup</string>
+  <string name="annotateWithGlyphs">Annoter avec des symboles</string>
   <string name="theChapterIsTooShortToBeAnalysed">Le chapitre est trop court pour être analysé.</string>
   <string name="onlyContributorsCanRequestAnalysis">Seuls les contributeurs de l\'étude peuvent demander une analyse informatique.</string>
   <string name="makeSureTheChapterIsComplete">Assurez-vous que le chapitre est terminé. Vous ne pouvez demander l\'analyse qu\'une seule fois.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
   <string name="onlyOngoingGames">Seulement les parties en cours</string>
   <string name="previous">Précédent</string>
