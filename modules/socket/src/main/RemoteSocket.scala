@@ -5,7 +5,7 @@ import redis.clients.jedis._
 import scala.concurrent.Future
 
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId }
-import lila.hub.actorApi.socket.{ SendTo, SendTos }
+import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 
 private final class RemoteSocket(
     makeRedis: () => Jedis,
@@ -75,6 +75,7 @@ private final class RemoteSocket(
           "payload" -> payload
         )
       ))
+    case WithUserIds(f) => f(connectedUserIds)
   }
 
   private def onReceive(path: String, data: JsObject) = path match {
