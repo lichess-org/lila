@@ -44,7 +44,7 @@ private final class ReportScore(
     // https://github.com/ornicar/lila/issues/4587
     def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoComm) baseScore
-      else if (c.isPrint || c.isCoachReview) baseScoreAboveThreshold
+      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScoreAboveThreshold
       else score
   }
 

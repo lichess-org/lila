@@ -12,6 +12,8 @@ final class ReportApi(
     autoAnalysis: AutoAnalysis,
     noteApi: NoteApi,
     securityApi: lidraughts.security.SecurityApi,
+    userSpyApi: lidraughts.security.UserSpyApi,
+    playbanApi: lidraughts.playban.PlaybanApi,
     isOnline: User.ID => Boolean,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     bus: lidraughts.common.Bus,
@@ -103,6 +105,25 @@ final class ReportApi(
         text = s"""$name bot detected on ${referer | "?"}"""
       ))
       case _ => funit
+    }
+
+  def maybeAutoPlaybanReport(userId: String): Funit =
+    userSpyApi.getUserIdsWithSameIpAndPrint(userId) map { ids =>
+      playbanApi.bans(ids.toList ::: List(userId)) map { bans =>
+        (bans.values.sum >= 80) ?? {
+          UserRepo.byId(userId) zip
+            getLichessReporter zip
+            findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
+              case Some(abuser) ~ reporter ~ past if past.size < 1 => create(Report.Candidate(
+                reporter = reporter,
+                suspect = Suspect(abuser),
+                reason = Reason.Playbans,
+                text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
+              ))
+              case _ => funit
+            }
+        }
+      }
     }
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] = for {
