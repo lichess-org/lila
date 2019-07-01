@@ -1,22 +1,35 @@
 package lila.socket
 
-import scredis._
+import redis.clients.jedis._
+import scala.concurrent.Future
 
 private final class RemoteSocket(
-    redis: Redis,
+    makeRedis: () => Jedis,
     chanIn: String,
     chanOut: String,
+    lifecycle: play.api.inject.ApplicationLifecycle,
     bus: lila.common.Bus
 ) {
 
-  redis.subscriber.subscribe(chanIn) {
-    case message @ PubSubMessage.Message(channel, messageBytes) =>
-      val msg = message.readAs[String]()
-      send(s"Received $msg")
-    case PubSubMessage.Subscribe(channel, subscribedChannelsCount) => logger.info(
-      s"Subscribed to redis channel $channel"
-    )
+  private val clientIn = makeRedis()
+  private val clientOut = makeRedis()
+
+  Future {
+    clientIn.subscribe(new JedisPubSub() {
+      override def onMessage(channel: String, message: String): Unit = {
+        println(s"Received $message")
+        send(s"Received $message")
+      }
+    }, chanIn)
   }
 
-  def send(data: String) = redis.publish(chanOut, data)
+  lifecycle.addStopHook { () =>
+    logger.info("Stopping the Redis clients...")
+    Future {
+      clientIn.quit()
+      clientOut.quit()
+    }
+  }
+
+  def send(data: String) = clientOut.publish(chanOut, data)
 }
