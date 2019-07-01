@@ -20,7 +20,7 @@ case class RatingRange(min: Int, max: Int) {
 
 object RatingRange {
 
-  val min = 800
+  val min = Glicko.minRating
   val max = 2900
 
   val broad = RatingRange(min, max)
