@@ -18,7 +18,7 @@ final class TrophyApi(
     compute = id => kindColl.byId(id)(trophyKindObjectBSONHandler) map { k => k.getOrElse(TrophyKind.Unknown) },
     default = _ => TrophyKind.Unknown,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(24 hours),
+    expireAfter = Syncache.ExpireAfterAccess(1 hour),
     logger = logger
   )
 
