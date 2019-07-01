@@ -111,10 +111,7 @@ private[analyse] object MateAdvice {
         case MateLost => Option(Blunder)
         case MateDelayed => None
       }
-      judgment match {
-        case Some(j) => Option(MateAdvice(sequence, j, info, prev))
-        case None => None
-      }
+      judgment map { MateAdvice(sequence, _, info, prev) }
     }
   }
 }
