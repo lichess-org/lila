@@ -43,6 +43,7 @@ object Dependencies {
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
   val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
+  val scredis = "com.github.scredis" %% "scredis" % "2.2.4"
 
   object reactivemongo {
     val version = "0.12.4"
