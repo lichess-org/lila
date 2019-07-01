@@ -11,6 +11,7 @@ final class Env(
     system: ActorSystem,
     config: Config,
     lifecycle: play.api.inject.ApplicationLifecycle,
+    hub: lila.hub.Env,
     settingStore: lila.memo.SettingStore.Builder
 ) {
 
@@ -31,6 +32,7 @@ final class Env(
     chanIn = "site-in",
     chanOut = "site-out",
     lifecycle = lifecycle,
+    notificationActor = hub.notification,
     bus = system.lilaBus
   )
 
@@ -49,6 +51,7 @@ object Env {
     system = lila.common.PlayApp.system,
     config = lila.common.PlayApp loadConfig "socket",
     lifecycle = lila.common.PlayApp.lifecycle,
+    hub = lila.hub.Env.current,
     settingStore = lila.memo.Env.current.settingStore
   )
 }

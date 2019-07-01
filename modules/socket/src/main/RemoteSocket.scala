@@ -12,6 +12,7 @@ private final class RemoteSocket(
     chanIn: String,
     chanOut: String,
     lifecycle: play.api.inject.ApplicationLifecycle,
+    notificationActor: akka.actor.ActorSelection,
     bus: lila.common.Bus
 ) {
 
@@ -77,16 +78,18 @@ private final class RemoteSocket(
   }
 
   private def onReceive(path: String, data: JsObject) = path match {
-    case "/connect" => data str "user" foreach { user =>
-      println(s"connect $user")
-      connectedUserIds += user
+    case "/connect" => data str "user" foreach { userId =>
+      connectedUserIds += userId
+      bus.publish(lila.hub.actorApi.relation.ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     }
-    case "/disconnect" => data str "user" foreach { user =>
-      println(s"disconnect $user")
-      connectedUserIds -= user
+    case "/disconnect" => data str "user" foreach { userId =>
+      connectedUserIds -= userId
     }
     case "/watch" => data str "game" foreach { gameId =>
       watchedGameIds += gameId
+    }
+    case "/notified" => data str "user" foreach { userId =>
+      notificationActor ! lila.hub.actorApi.notify.Notified(userId)
     }
     case path => logger.warn(s"Invalid path $path")
   }
