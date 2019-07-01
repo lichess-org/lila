@@ -35,6 +35,9 @@
   <string name="newTag">Nowy znacznik</string>
   <string name="commentThisPosition">Skomentuj tę pozycję</string>
   <string name="commentThisMove">Skomentuj ten ruch</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki aby go analizować.</string>
+  <string name="playing">W toku</string>
+  <string name="onlyOngoingGames">Tylko partie w toku</string>
   <string name="first">Pierwszy</string>
   <string name="previous">Poprzedni</string>
   <string name="next">Następny</string>
