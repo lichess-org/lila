@@ -111,10 +111,7 @@ private[analyse] object WinAdvice {
         case WinLost => Blunder.some
         case WinDelayed => None
       }
-      judgment match {
-        case Some(j) => Option(WinAdvice(sequence, j, info, prev))
-        case None => None
-      }
+      judgment map { WinAdvice(sequence, _, info, prev) }
     }
   }
 }
