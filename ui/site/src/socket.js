@@ -292,7 +292,6 @@ lichess.StrongSocket = function(url, version, settings) {
       $.post('/nlog/sriCrypto?e=' + encodeURIComponent(JSON.stringify(e)));
     }
     if (!sri) {
-      $.post('/nlog/sriCrypto');
       sri = Math.random().toString(36).slice(2, 12);
     }
     lichess.tempStorage.set('socket.sri', sri);
