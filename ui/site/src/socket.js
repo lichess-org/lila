@@ -302,7 +302,6 @@ lidraughts.StrongSocket = function(url, version, settings) {
       $.post('/nlog/sriCrypto?e=' + encodeURIComponent(JSON.stringify(e)));
     }
     if (!sri) {
-      $.post('/nlog/sriCrypto');
       sri = Math.random().toString(36).slice(2, 12);
     }
     lidraughts.tempStorage.set('socket.sri', sri);
