@@ -17,6 +17,7 @@ object Reason {
   case object Troll extends Reason
   case object Boost extends Reason
   case object Other extends Reason
+  case object Playbans extends Reason
 
   val communication: Set[Reason] = Set(Insult, Troll, Other)
 
@@ -37,5 +38,6 @@ object Reason {
     def isInsult = reason == Insult
     def isPrint = reason == CheatPrint
     def isTrollOrInsult = reason == Troll || reason == Insult
+    def isPlaybans = reason == Playbans
   }
 }

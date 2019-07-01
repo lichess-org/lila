@@ -10,6 +10,8 @@ final class Env(
     isOnline: lila.user.User.ID => Boolean,
     noteApi: lila.user.NoteApi,
     securityApi: lila.security.SecurityApi,
+    userSpyApi: lila.security.UserSpyApi,
+    playbanApi: lila.playban.PlaybanApi,
     system: ActorSystem,
     hub: lila.hub.Env,
     settingStore: lila.memo.SettingStore.Builder,
@@ -18,6 +20,7 @@ final class Env(
 
   private val CollectionReport = config getString "collection.report"
   private val ActorName = config getString "actor.name"
+  private val ApiActorName = config getString "apiActor.name"
   private val ScoreThreshold = config getInt "score.threshold"
   private val NetDomain = config getString "net.domain"
 
@@ -39,6 +42,8 @@ final class Env(
     autoAnalysis,
     noteApi,
     securityApi,
+    userSpyApi,
+    playbanApi,
     isOnline,
     asyncCache,
     scoreThreshold = scoreThresholdSetting.get
@@ -58,6 +63,11 @@ final class Env(
     }
   }), name = ActorName)
 
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new ApiActor(api)), name = ApiActorName),
+    'playban
+  )
+
   system.scheduler.schedule(1 minute, 1 minute) { api.inquiries.expire }
 
   lazy val reportColl = db(CollectionReport)
@@ -71,6 +81,8 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     noteApi = lila.user.Env.current.noteApi,
     securityApi = lila.security.Env.current.api,
+    userSpyApi = lila.security.Env.current.userSpyApi,
+    playbanApi = lila.playban.Env.current.api,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     settingStore = lila.memo.Env.current.settingStore,
