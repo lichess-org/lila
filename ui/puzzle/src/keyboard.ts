@@ -1,15 +1,8 @@
 import * as control from './control';
 
-function preventing(f: () => void): (e: MouseEvent) => void {
-  return function(e) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    } else {
-      // internet explorer
-      e.returnValue = false;
-    }
-    f();
-  };
+const preventing = (f: () => void) => (e: MouseEvent) => {
+  e.preventDefault();
+  f();
 }
 
 export default function(ctrl) {

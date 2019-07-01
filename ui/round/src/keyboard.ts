@@ -1,15 +1,8 @@
 import RoundController from './ctrl';
 
-function preventing(f: () => void): (e: Event) => void {
-  return function(e: Event) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    } else {
-      // internet explorer
-      e.returnValue = false;
-    }
-    f();
-  };
+const preventing = (f: () => void) => (e: MouseEvent) => {
+  e.preventDefault();
+  f();
 }
 
 export function prev(ctrl: RoundController) {

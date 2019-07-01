@@ -5,16 +5,9 @@ import { modal } from './modal';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-function preventing(f: () => void): (e: MouseEvent) => void {
-  return function(e) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    } else {
-      // internet explorer
-      e.returnValue = false;
-    }
-    f();
-  };
+const preventing = (f: () => void) => (e: MouseEvent) => {
+  e.preventDefault();
+  f();
 }
 
 export function bind(ctrl: AnalyseCtrl): void {
