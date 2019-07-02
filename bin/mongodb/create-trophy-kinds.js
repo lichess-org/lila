@@ -126,3 +126,10 @@ db.trophyKind.insert({
   order: NumberInt(1),
   withCustomImage: true
 });
+db.trophyKind.insert({
+  _id: "acwc18",
+  name: "Antichess World Champion 2018",
+  url: "//lichess.org/forum/team-antichess-wc/congratulations-to-our-new-antichess-world-champion",
+  order: NumberInt(1),
+  withCustomImage: true
+});
