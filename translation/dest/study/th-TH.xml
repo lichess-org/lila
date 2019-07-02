@@ -13,4 +13,17 @@
     <item quantity="other">สมาชิก %s ราย</item>
   </plurals>
   <string name="inviteToTheStudy">เชิญเข้าร่วมการศึกษา</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">โปรดเชิญเฉพาะคนที่คุณรู้จักและคนที่ต้องการเข้าร่วมการศึกษานี้จริงๆ</string>
+  <string name="searchByUsername">ค้นหาจากชื่อผู้ใช้</string>
+  <string name="spectator">ผู้ชม</string>
+  <string name="contributor">ผู้ช่วยเอื้อเฟื้อ</string>
+  <string name="kick">เตะ</string>
+  <string name="leaveTheStudy">ออกจากการศึกษา</string>
+  <string name="youAreNowAContributor">ตอนนี้คุณเป็นผู้ช่วยเอื้อเฟื้อ</string>
+  <string name="youAreNowASpectator">ตอนนี้คุณคือผู้ชม</string>
+  <string name="pgnTags">แท็ก PGN</string>
+  <string name="like">ชอบ</string>
+  <string name="newTag">แท็กใหม่</string>
+  <string name="commentThisPosition">วิจารณ์ตำแหน่งนี้</string>
+  <string name="commentThisMove">วิจารณ์การเดินนี้</string>
 </resources>
