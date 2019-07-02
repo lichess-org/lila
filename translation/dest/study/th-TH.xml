@@ -26,4 +26,8 @@
   <string name="newTag">แท็กใหม่</string>
   <string name="commentThisPosition">วิจารณ์ตำแหน่งนี้</string>
   <string name="commentThisMove">วิจารณ์การเดินนี้</string>
+  <string name="annotateWithGlyphs">คำอธิบายพร้อมรูปสัญลักษณ์</string>
+  <string name="theChapterIsTooShortToBeAnalysed">บทสั้นเกินกว่าจะวิเคราะห์ได้</string>
+  <string name="onlyContributorsCanRequestAnalysis">เฉพาะผู้ช่วยเอื้อเฟื้อการศึกษาที่สามารถร้องขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
+  <string name="makeSureTheChapterIsComplete">โปรดแน่ใจว่าบทนั้นสมบูรณ์แล้ว คุณสามารถร้องขอการวิเคราะห์ได้ครั้งเดียวเท่านั้น</string>
 </resources>
