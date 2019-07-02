@@ -47,6 +47,9 @@
   <string name="chapterPgn">PGN du chapitre</string>
   <string name="studyUrl">URL de l\'étude</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Vous pouvez collez ce lien sur le forum afin d’insérer le chapitre</string>
+  <string name="startAtX">Débuter à %s</string>
+  <string name="embedThisChapter">Insérer ce chapitre dans votre site web ou votre blog</string>
   <string name="open">Ouvert</string>
   <string name="xBroughtToYouByY">%1$s vous est amené par %2$s</string>
   <string name="studyNotFound">Étude introuvable</string>
