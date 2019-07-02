@@ -76,32 +76,35 @@ final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
       }
 
   private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
-    nextUsersIds(field)(values, user.id) flatMap { userIds =>
-      userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
-    }
-
-  private def exploreSimilarIds(field: String)(userId: User.ID): Fu[Set[User.ID]] =
-    nextValues(field)(userId) flatMap { nValues =>
-      nextUsersIds(field)(nValues, userId)
-    }
-
-  private def nextUsersIds(field: String)(values: Set[Value], userId: User.ID): Fu[Set[User.ID]] =
     values.nonEmpty ?? {
       coll.distinctWithReadPreference[String, Set](
         "user",
         $doc(
           field $in values,
+          "user" $ne user.id
+        ).some,
+        ReadPreference.secondaryPreferred
+      ) flatMap { userIds =>
+          userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
+        }
+    }
+
+  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = {
+    for {
+      ips <- nextValues("ip")(userId)
+      fps <- nextValues("fp")(userId)
+    } yield (ips.nonEmpty && fps.nonEmpty) ?? {
+      coll.distinctWithReadPreference[String, Set](
+        "user",
+        $doc(
+          "ip" $in ips,
+          "fp" $in fps,
           "user" $ne userId
         ).some,
         ReadPreference.secondaryPreferred
       )
     }
-
-  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
-    for {
-      ips <- exploreSimilarIds("ip")(userId)
-      fps <- exploreSimilarIds("fp")(userId)
-    } yield ips intersect fps
+  } flatMap identity
 }
 
 object UserSpy {
