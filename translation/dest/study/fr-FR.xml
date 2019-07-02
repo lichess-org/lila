@@ -50,6 +50,7 @@
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Vous pouvez collez ce lien sur le forum afin d’insérer le chapitre</string>
   <string name="startAtX">Débuter à %s</string>
   <string name="embedThisChapter">Insérer ce chapitre dans votre site web ou votre blog</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">En savoir plus sur l\'intégration d\'un chapitre d\'une étude</string>
   <string name="open">Ouvert</string>
   <string name="xBroughtToYouByY">%1$s vous est amené par %2$s</string>
   <string name="studyNotFound">Étude introuvable</string>
