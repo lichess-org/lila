@@ -695,6 +695,9 @@
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
   <string name="language">Tungumál</string>
+  <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
   <string name="error.unknown">Villa</string>
+  <string name="practiceWithComputer">Æfa með tölvu</string>
+  <string name="resumePractice">Halda áfram æfingu</string>
 </resources>
