@@ -20,7 +20,6 @@ final class Env(
 
   private val CollectionReport = config getString "collection.report"
   private val ActorName = config getString "actor.name"
-  private val ApiActorName = config getString "apiActor.name"
   private val ScoreThreshold = config getInt "score.threshold"
   private val NetDomain = config getString "net.domain"
 
@@ -70,10 +69,9 @@ final class Env(
     }
   }), name = ActorName)
 
-  system.lidraughtsBus.subscribe(
-    system.actorOf(Props(new ApiActor(api)), name = ApiActorName),
-    'playban
-  )
+  system.lidraughtsBus.subscribeFun('playban) {
+    case lidraughts.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId)
+  }
 
   system.scheduler.schedule(1 minute, 1 minute) { api.inquiries.expire }
 
