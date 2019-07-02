@@ -30,4 +30,22 @@
   <string name="theChapterIsTooShortToBeAnalysed">บทสั้นเกินกว่าจะวิเคราะห์ได้</string>
   <string name="onlyContributorsCanRequestAnalysis">เฉพาะผู้ช่วยเอื้อเฟื้อการศึกษาที่สามารถร้องขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="makeSureTheChapterIsComplete">โปรดแน่ใจว่าบทนั้นสมบูรณ์แล้ว คุณสามารถร้องขอการวิเคราะห์ได้ครั้งเดียวเท่านั้น</string>
+  <string name="playing">กำลังเล่น</string>
+  <string name="onlyOngoingGames">เกมที่ดำเนินอยู่เท่านั้น</string>
+  <string name="first">แรก</string>
+  <string name="previous">ก่อนหน้า</string>
+  <string name="next">ถัดไป</string>
+  <string name="last">สุดท้าย</string>
+  <string name="shareAndExport">แชร์ &amp; ส่งออก</string>
+  <string name="cloneStudy">ทำสำเนา</string>
+  <string name="studyPgn">PGN การศึกษา</string>
+  <string name="chapterPgn">PGN บท</string>
+  <string name="studyUrl">URL การศึกษา</string>
+  <string name="currentChapterUrl">URL บทปัจจุบัน</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">คุณสามารถวางสิ่งนี้ในห้องอภิปรายเพื่อฝังบท</string>
+  <string name="startAtX">เริ่มที่ %s</string>
+  <string name="embedThisChapter">ฝังบทนี้ในเว็บไซต์หรือบล็อกของคุณ</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">อ่านเพิ่มเติมเกี่ยวกับการฝังบทการศึกษา</string>
+  <string name="fen">FEN</string>
+  <string name="open">เปิด</string>
 </resources>
