@@ -167,15 +167,14 @@ lichess.powertip = (() => {
   };
 })();
 lichess.widget = (name, prototype) => {
-  var constructor = $[name] = (options, element) => {
-    var self = this;
-    self.element = $(element);
-    $.data(element, name, self);
-    self.options = options;
-    self._create();
+  var constructor = $[name] = function(options, element) {
+    this.element = $(element);
+    $.data(element, name, this);
+    this.options = options;
+    this._create();
   };
   constructor.prototype = prototype;
-  $.fn[name] = (method) => {
+  $.fn[name] = function(method) {
     var returnValue = this;
     var args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string') this.each(function() {
