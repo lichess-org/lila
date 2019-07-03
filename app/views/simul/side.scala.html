@@ -28,7 +28,7 @@
     }
     @sim.targetPct.map { target =>
       <br />
-      @trans.targetWinningPercentageX(s"$target%")
+      @trans.targetWinningPercentage(s"$target%")
     }
     @if(sim.chatmode.isDefined && !sim.chatmode.contains(lidraughts.simul.Simul.ChatMode.Everyone)) {
       <br />

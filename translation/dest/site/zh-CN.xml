@@ -661,7 +661,6 @@
   <string name="winningPercentage">当前胜率</string>
   <string name="withTarget">目标胜率</string>
   <string name="toReachTarget">距离目标：</string>
-  <string name="targetWinningPercentageX">擂主目标胜率：%s</string>
   <string name="succeeded">成功！</string>
   <string name="failed">失败</string>
   <string name="noSimulFound">找不到该车轮战</string>

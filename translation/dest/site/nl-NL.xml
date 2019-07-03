@@ -113,12 +113,20 @@
     <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
+  <plurals name="nbOpponents">
+    <item quantity="one">%s tegenstander</item>
+    <item quantity="other">%s tegenstanders</item>
+  </plurals>
   <string name="currentGames">Lopende partijen</string>
   <string name="gamesInTimeout">Partijen met timeout</string>
   <string name="yourTurnInX">Je bent aan zet in %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>
+  </plurals>
+  <plurals name="nbGamesOngoing">
+    <item quantity="one">%s lopende partij</item>
+    <item quantity="other">%s lopende partijen</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favoriet</item>
@@ -671,12 +679,14 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="winningPercentage">Winstpercentage</string>
   <string name="targetPercentage">Doel percentage</string>
   <string name="withTarget">met als doel</string>
-  <string name="toReachTarget">Te behalen doel:</string>
-  <string name="targetWinningPercentageX">Doel winstpercentage simultaangever: %s</string>
-  <string name="currentWinningPercentageX">Huidig winstpercentage: %s</string>
+  <string name="toReachTarget">Benodigd voor doel:</string>
+  <string name="relativeScoreRequired">Benodigde relatieve score: %s</string>
+  <string name="targetWinningPercentage">Te behalen winstpercentage: %s</string>
+  <string name="currentWinningPercentage">Huidig winstpercentage: %s</string>
   <string name="succeeded">geslaagd!</string>
   <string name="failed">mislukt</string>
   <string name="simulTimeOut">Simultaan timeout</string>
+  <string name="simulFinished">Simultaan is afgelopen</string>
   <string name="simulTimeOutDuration">Timeout duur:</string>
   <string name="simulTimeOutExplanation">Deze partij zal niet meer naar voren komen in de simultaan tot de gekozen timeout is verstreken.</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>

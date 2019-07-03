@@ -1113,6 +1113,9 @@ div.timeout_choice select {
 #now_playing .simul span.req {
   margin: 0 .1em 0 .4em;
 }
+#now_playing .simul span.req2 {
+  margin: 0 0 0 .2em;
+}
 #now_playing .simul .win {
   color: #759900;
 }

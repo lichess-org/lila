@@ -193,24 +193,41 @@ case class Simul(
   def ongoing = pairings.count(_.ongoing)
   def finished = pairings.count(_.finished)
 
-  def currentPct =
-    if (finished == 0) 0.0
-    else 100 * (wins + draws * 0.5) / finished
-  def currentPctStr = {
-    val pct = currentPct
-    val pctDec = pct - Math.floor(pct)
-    if (pctDec < 0.05 || pctDec > 0.95)
-      "%.0f".format(pct) + '%'
-    else
-      "%.1f".format(pct) + '%'
+  private def shortDecimalStr(dec: Double) = {
+    val decimal = dec - Math.floor(dec)
+    (decimal < 0.05 || decimal > 0.95).fold("%.0f", "%.1f").format(dec)
   }
 
-  private def requiredPoints(target: Double) = pairings.length * (target / 100d) - (wins + draws * 0.5)
-  def targetReached = targetPct.fold(false)(requiredPoints(_) <= 0)
-  def targetFailed = targetPct.fold(false)(requiredPoints(_) > ongoing)
+  def winningPercentage = (finished != 0) ?? { 100 * (wins + draws * 0.5) / finished }
+  def winningPercentageStr = shortDecimalStr(winningPercentage) + "%"
+
+  private def currentPoints: Double = wins + draws * 0.5
+  private def requiredPoints(target: Double): Double = pairings.length * (target / 100d)
+  private def remainingPoints(target: Double): Double = requiredPoints(target) - currentPoints
+  private def toHalfPoints(points: Double) = {
+    val decimal = points - Math.floor(points)
+    if (decimal > 0.5)
+      Math.ceil(points)
+    else if (decimal > 0)
+      Math.floor(points) + 0.5
+    else
+      points
+  }
+
+  def relativeScore = targetPct ?? { pct =>
+    val remaining = toHalfPoints(requiredPoints(pct)) - currentPoints
+    remaining - ongoing * 0.5
+  }
+  def relativeScoreStr(draughtsResult: Boolean) = {
+    val score = draughtsResult.fold(relativeScore * 2, relativeScore)
+    (score < 0).fold(shortDecimalStr(score), "+" + shortDecimalStr(score))
+  }
+
+  def targetReached = targetPct ?? { remainingPoints(_) <= 0 }
+  def targetFailed = targetPct ?? { remainingPoints(_) > ongoing }
 
   def requiredWins = targetPct flatMap { target =>
-    val remaining = requiredPoints(target)
+    val remaining = remainingPoints(target)
     if (remaining > 0.5) {
       val remainingDecimal = remaining - Math.floor(remaining)
       if (remainingDecimal > 0.5)
@@ -220,7 +237,7 @@ case class Simul(
     } else none
   }
   def requiredDraws = targetPct flatMap { target =>
-    val remaining = requiredPoints(target)
+    val remaining = remainingPoints(target)
     if (remaining > 0) {
       val remainingDecimal = remaining - Math.floor(remaining)
       (remainingDecimal == 0 || remainingDecimal > 0.5).fold(none, 1.some)

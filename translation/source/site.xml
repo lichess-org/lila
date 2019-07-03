@@ -117,12 +117,20 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
+  <plurals name="nbOpponents">
+    <item quantity="one">%s opponent</item>
+    <item quantity="other">%s opponents</item>
+  </plurals>
   <string name="currentGames">Current games</string>
   <string name="gamesInTimeout">Games in timeout</string>
   <string name="yourTurnInX">Your turn in %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>
+  </plurals>
+  <plurals name="nbGamesOngoing">
+    <item quantity="one">%s game ongoing</item>
+    <item quantity="other">%s games ongoing</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bookmark</item>
@@ -692,10 +700,12 @@ in %3$s</string>
   <string name="targetPercentage">Target percentage</string>
   <string name="withTarget">with target</string>
   <string name="toReachTarget">To reach target:</string>
-  <string name="targetWinningPercentageX">Target winning percentage for host: %s</string>
-  <string name="currentWinningPercentageX">Current winning percentage: %s</string>
+  <string name="relativeScoreRequired">Relative score required: %s</string>
+  <string name="targetWinningPercentage">Target winning percentage: %s</string>
+  <string name="currentWinningPercentage">Current winning percentage: %s</string>
   <string name="succeeded">succeeded!</string>
   <string name="failed">failed</string>
+  <string name="simulFinished">Simul is finished</string>
   <string name="simulTimeOut">Simul timeout</string>
   <string name="simulTimeOutDuration">Time out for:</string>
   <string name="simulTimeOutExplanation">This game will not show up in the simul until the selected timeout has passed.</string>

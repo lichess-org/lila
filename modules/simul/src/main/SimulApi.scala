@@ -336,7 +336,7 @@ final class SimulApi(
         "d" -> simul.draws,
         "l" -> simul.losses,
         "g" -> simul.ongoing
-      ).add("pct" -> simul.targetPct.fold(none[String])(_ => simul.currentPctStr.some))
+      ).add("pct" -> simul.targetPct ?? { _ => simul.winningPercentageStr.some })
         .add("rw" -> reqWins)
         .add("rd" -> simul.requiredDraws)
         .add("fg" -> finishedGame)),

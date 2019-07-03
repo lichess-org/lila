@@ -752,6 +752,11 @@ div.side_box .game_infos {
   padding-bottom: 8px;
   margin-bottom: 6px;
 }
+div.side_box .simul_infos {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
 div.side_box .players .player {
   overflow: hidden;
   white-space: nowrap;

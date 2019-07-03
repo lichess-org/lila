@@ -90,25 +90,40 @@
   @simul.map { sim =>
   <div class="game_simul side_box no_padding">
     <p class="top text" data-icon="|"><a href="@routes.Simul.show(sim.id)">@sim.fullName</a></p>
-    @if(sim.hasFmjd) {
-      <div class="padded">
-      @sim.targetPct.map { target =>
-      @trans.targetWinningPercentageX(s"$target%")
-      <br />
-      }
-      @trans.currentWinningPercentageX(sim.currentPctStr)
+    <div class="padded">
+      <div class="simul_infos">
       @game.playerByUserId(sim.hostId).map { p =>
-      @sim.hostOfficialRating.map { r =>
-        @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
+        @playerLink(p, withOnline = false, withRating = false, withDiff = false) vs. @trans.nbOpponents(sim.pairings.length)
       }
-      }
-      @game.opponentByUserId(sim.hostId).map { p =>
-      @p.userId.flatMap(id => sim.pairings.find(_ is id)).flatMap(_.player.officialRating).map { r =>
-        @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
-      }
+      <br/>
+      @if(sim.isFinished) {
+        @trans.simulFinished()
+      } else {
+        @trans.nbGamesOngoing(sim.ongoing)
       }
       </div>
-    }
+      @if(!sim.isFinished) {
+        @sim.targetPct.map { target =>
+          @trans.targetWinningPercentage(s"$target%")
+          <br/>
+          @trans.currentWinningPercentage((sim.finished == 0).fold("-", sim.winningPercentageStr))
+          <br/>
+          @trans.relativeScoreRequired(sim.relativeScoreStr(ctx.pref.draughtsResult))
+        }
+      }
+      @if(sim.isFinished && sim.hasFmjd) {
+        @game.playerByUserId(sim.hostId).map { p =>
+        @sim.hostOfficialRating.map { r =>
+          @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
+        }
+        }
+        @game.opponentByUserId(sim.hostId).map { p =>
+        @p.userId.flatMap(id => sim.pairings.find(_ is id)).flatMap(_.player.officialRating).map { r =>
+          @playerLink(p, withOnline = false, withRating = false, withDiff = false) @r FMJD
+        }
+        }
+      }
+    </div>
   </div>
   }
 </div>

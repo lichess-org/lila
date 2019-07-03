@@ -7,17 +7,21 @@
   @trans.ongoing(Html("<wrap id=\"simul_g_" + s.id + "\">" + s.ongoing + "</wrap>"))
   @s.targetPct.map { pct =>
     <br/>
-    @trans.winningPercentage()<span class="pct" id="simul_pct_@s.id">@s.currentPctStr</span>@trans.withTarget()<span class="pct">@pct%</span>
-    <br/>@trans.toReachTarget()
+    <span class="simul-targets">
+    @trans.winningPercentage()<span class="pct" id="simul_pct_@s.id">@s.winningPercentageStr</span>@trans.withTarget()<span class="pct">@pct%</span><br/>
+    </span>
+    <span class="simul-targets">
+    @trans.toReachTarget()
     <wrap id="simul_req_@s.id">
     @if(s.targetReached) {
       <span class="win">@trans.succeeded()</span>
     } else { @if(s.targetFailed) {
       <span class="loss">@trans.failed()</span>
     } else {
-      @s.requiredWins.map { w =><span class="win req">@trans.nbVictories.pluralSame(w)</span>}
-      @s.requiredDraws.map { d =><span class="draw req">@trans.nbDraws.pluralSame(d)</span>}
+      @s.requiredWins.map { w =><span class="win req2">@trans.nbVictories.pluralSame(w)</span>}
+      @s.requiredDraws.map { d =><span class="draw req2">@trans.nbDraws.pluralSame(d)</span>}
     }}
     </wrap>
+    </span>
   }
 </span>
