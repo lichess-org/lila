@@ -42,22 +42,30 @@ final class PlaybanApi(
       blameable(game) flatMap { _ ?? f }
     }
 
+  private def roughWinEstimate(game: Game, color: Color) = {
+    game.chess.board.materialImbalance match {
+      case a if a >= 5 => 1
+      case a if a <= -5 => -1
+      case _ => 0
+    }
+  } * (if (color == Color.White) 1 else -1)
+
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
     pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
-      save(Outcome.Abort, userId) >>- feedback.abort(pov)
+      save(Outcome.Abort, userId, 0) >>- feedback.abort(pov)
     }
   }
 
   def noStart(pov: Pov): Funit = IfBlameable(pov.game) {
     pov.player.userId ?? { userId =>
-      save(Outcome.NoPlay, userId) >>- feedback.noStart(pov)
+      save(Outcome.NoPlay, userId, 0) >>- feedback.noStart(pov)
     }
   }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     sandbag(game, quitterColor) >> IfBlameable(game) {
       game.player(quitterColor).userId ?? { userId =>
-        save(Outcome.RageQuit, userId) >>- feedback.rageQuit(Pov(game, quitterColor))
+        save(Outcome.RageQuit, userId, roughWinEstimate(game, quitterColor)) >>- feedback.rageQuit(Pov(game, quitterColor))
       }
     }
 
@@ -73,7 +81,7 @@ final class PlaybanApi(
       seconds = nowSeconds - game.movedAt.getSeconds
       limit <- unreasonableTime
       if seconds >= limit
-    } yield save(Outcome.Sitting, userId) >>- feedback.sitting(Pov(game, flaggerColor))
+    } yield save(Outcome.Sitting, userId, roughWinEstimate(game, flaggerColor)) >>- feedback.sitting(Pov(game, flaggerColor))
 
     // flagged after waiting a short time;
     // but the previous move used a long time.
@@ -84,7 +92,7 @@ final class PlaybanApi(
       lastMovetime <- movetimes.lastOption
       limit <- unreasonableTime
       if lastMovetime.toSeconds >= limit
-    } yield save(Outcome.SitMoving, userId) >>- feedback.sitting(Pov(game, flaggerColor))
+    } yield save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor)) >>- feedback.sitting(Pov(game, flaggerColor))
 
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {
@@ -102,7 +110,7 @@ final class PlaybanApi(
           w <- winner
           loserId <- game.player(!w).userId
         } yield {
-          if (Status.NoStart is status) save(Outcome.NoPlay, loserId) >>- feedback.noStart(Pov(game, !w))
+          if (Status.NoStart is status) save(Outcome.NoPlay, loserId, 0) >>- feedback.noStart(Pov(game, !w))
           else goodOrSandbag(game, !w, isSandbag)
         })
       }
@@ -111,7 +119,7 @@ final class PlaybanApi(
   private def goodOrSandbag(game: Game, color: Color, isSandbag: Boolean): Funit =
     game.player(color).userId ?? { userId =>
       if (isSandbag) feedback.sandbag(Pov(game, color))
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId)
+      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, 0)
     }
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
@@ -148,7 +156,10 @@ final class PlaybanApi(
       }(scala.collection.breakOut)
     }
 
-  private def save(outcome: Outcome, userId: User.ID): Funit = {
+  def getSitAndDcCounter(user: User): Fu[Int] =
+    coll.primitiveOne[Int]($doc("_id" -> user.id, "c" $exists true), "c").map(~_)
+
+  private def save(outcome: Outcome, userId: User.ID, sitAndDcCounterChange: Int): Funit = {
     lila.mon.playban.outcome(outcome.key)()
     coll.findAndUpdate(
       selector = $id(userId),
@@ -157,7 +168,7 @@ final class PlaybanApi(
           "$each" -> List(outcome),
           "$slice" -> -30
         )
-      )),
+      ), "$inc" -> $doc("c" -> sitAndDcCounterChange)),
       fetchNewObject = true,
       upsert = true
     ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
