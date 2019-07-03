@@ -176,8 +176,8 @@
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rank is updated every %s minute(s)</item>
-    <item quantity="other">Rank is updated every %s minute(s)</item>
+    <item quantity="one">Rank is updated every minute</item>
+    <item quantity="other">Rank is updated every %s minutes</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
@@ -603,7 +603,7 @@ in %3$s</string>
     <item quantity="one">%s blocks</item>
     <item quantity="other">%s blocks</item>
   </plurals>
-  <string name="listBlockedPlayers">List players that you have blocked</string>
+  <string name="listBlockedPlayers">List players you have blocked</string>
   <string name="human">Human</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
