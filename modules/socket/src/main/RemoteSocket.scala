@@ -36,7 +36,7 @@ private final class RemoteSocket(
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'shutdown, 'announce) {
+  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce) {
     case MoveEvent(gameId, fen, move) if watchedGameIds(gameId) => send(Out.Move, Json.obj(
       "gameId" -> gameId,
       "fen" -> fen,
