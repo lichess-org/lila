@@ -105,7 +105,20 @@
   <string name="cheat">Hîle</string>
   <string name="insult">Heqaret</string>
   <string name="other">Wekî din</string>
+  <string name="currentPassword">Şîfreya nûjen</string>
+  <string name="newPassword">Şîfreya nû</string>
   <string name="newPasswordAgain">(Şîfreya nû (dîsa</string>
   <string name="sound">Deng</string>
   <string name="victory">Serkeftin</string>
+  <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
+  <string name="doItAgain">Ji nû da bike</string>
+  <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
+  <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
+  <string name="advantage">Pêşwendî</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">çirke %s</item>
+    <item quantity="other">çirke %s</item>
+  </plurals>
+  <string name="opening">Destpêk</string>
+  <string name="middlegame">Lîstika navîn</string>
 </resources>
