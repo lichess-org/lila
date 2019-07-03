@@ -6,12 +6,14 @@ import play.api.libs.json._
 case class UserRecord(
     _id: String,
     o: Option[List[Outcome]],
-    b: Option[List[TempBan]]
+    b: Option[List[TempBan]],
+    c: Option[Int]
 ) {
 
   def userId = _id
   def outcomes: List[Outcome] = ~o
   def bans: List[TempBan] = ~b
+  def sitAndDcCounter: Int = ~c
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
 
