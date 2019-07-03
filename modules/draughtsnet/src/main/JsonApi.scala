@@ -181,7 +181,8 @@ object JsonApi {
 
   case class Commentary(
       id: String,
-      game: Game
+      game: Game,
+      nodes: Int
   ) extends Work
 
   case class Analysis(
@@ -193,7 +194,11 @@ object JsonApi {
 
   def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)
 
-  def commentaryFromWork(m: Work.Commentary) = Commentary(m.id.value, fromGame(m.game))
+  def commentaryFromWork(nodes: Int)(m: Work.Commentary) = Commentary(
+    id = m.id.value,
+    game = fromGame(m.game),
+    nodes = nodes
+  )
 
   def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(
     id = m.id.value,

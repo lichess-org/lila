@@ -21,6 +21,7 @@ final class Env(
   private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
   private val AnalysisNodes = config getInt "analysis.nodes"
+  private val CommentaryNodes = config getInt "commentary.nodes"
   private val MovePlies = config getInt "move.plies"
   private val ClientMinVersion = config getString "client_min_version"
 
@@ -76,7 +77,8 @@ final class Env(
     },
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
-    analysisNodes = AnalysisNodes
+    analysisNodes = AnalysisNodes,
+    commentaryNodes = CommentaryNodes
   )(system)
 
   val player = new Player(

@@ -21,7 +21,8 @@ final class DraughtsnetApi(
     socketExists: String => Fu[Boolean],
     clientVersion: ClientVersion,
     offlineMode: Boolean,
-    analysisNodes: Int
+    analysisNodes: Int,
+    commentaryNodes: Int
 )(implicit system: akka.actor.ActorSystem) {
 
   import DraughtsnetApi._
@@ -64,7 +65,7 @@ final class DraughtsnetApi(
     moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
 
   private def acquireCommentary(client: Client): Fu[Option[JsonApi.Work]] =
-    commentDb.acquire(client) map { _ map JsonApi.commentaryFromWork }
+    commentDb.acquire(client) map { _ map JsonApi.commentaryFromWork(commentaryNodes) }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(
