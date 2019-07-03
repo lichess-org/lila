@@ -89,22 +89,19 @@ final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
         }
     }
 
-  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = {
-    for {
-      ips <- nextValues("ip")(userId)
-      fps <- nextValues("fp")(userId)
-    } yield (ips.nonEmpty && fps.nonEmpty) ?? {
-      coll.distinctWithReadPreference[String, Set](
-        "user",
-        $doc(
-          "ip" $in ips,
-          "fp" $in fps,
-          "user" $ne userId
-        ).some,
-        ReadPreference.secondaryPreferred
-      )
-    }
-  } flatMap identity
+  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = for {
+    ips <- nextValues("ip")(userId)
+    fps <- nextValues("fp")(userId)
+    users <- (ips.nonEmpty && fps.nonEmpty) ?? coll.distinctWithReadPreference[User.ID, Set](
+      "user",
+      $doc(
+        "ip" $in ips,
+        "fp" $in fps,
+        "user" $ne userId
+      ).some,
+      ReadPreference.secondaryPreferred
+    )
+  } yield users
 }
 
 object UserSpy {
