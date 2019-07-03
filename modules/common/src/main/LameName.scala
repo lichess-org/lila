@@ -78,7 +78,7 @@ object LameName {
       "xyulo",
       "xyula",
       "poxyu",
-      "1448"
+      "1488"
     ).map {
         _.map(subs).map(_ + "+").mkString
       }.mkString("|").r
