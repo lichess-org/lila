@@ -59,6 +59,7 @@
   <string name="promoteVariation">Upp með afbrigði</string>
   <string name="makeMainLine">Gera að höfuðafbrigði</string>
   <string name="deleteFromHere">Eyða héðan</string>
+  <string name="forceVariation">Þvinga í tilbrigði</string>
   <string name="move">Færa</string>
   <string name="variantLoss">Tapar afbrigði</string>
   <string name="variantWin">Vinnur afbrigði</string>
@@ -384,6 +385,13 @@
   <string name="createANewTournament">Búa til nýtt mót</string>
   <string name="tournamentCalendar">Mótadagatal</string>
   <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
+  <string name="advancedSettings">Ítarlegar stillingar</string>
+  <string name="safeTournamentName">Veldu mjög öruggt nafn fyrir mótið.</string>
+  <string name="inappropriateNameWarning">Eitthvað sem er hið minnsta óviðeigandi getur leitt til þess að reikningi verði lokað.</string>
+  <string name="emptyTournamentName">Skildu eftir autt til að nefna mótið eftir handahófskennt völdum stórmeistara.</string>
+  <string name="recommendNotTouching">Við mælum með því að breyta þessu ekki.</string>
+  <string name="fewerPlayers">Ef þú setur skilyrði við þátttöku mun mótið hafa færri leikmenn.</string>
+  <string name="showAdvancedSettings">Sýna ítarlegar stillingar</string>
   <string name="join">Taka þátt</string>
   <string name="withdraw">afturkalla</string>
   <string name="points">Punktar</string>
@@ -392,6 +400,7 @@
   <string name="winStreak">Vinnings rák</string>
   <string name="createdBy">Búið til af</string>
   <string name="tournamentIsStarting">Mótin eru að byrja</string>
+  <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
   <string name="performance">Mótsstig</string>
   <string name="tournamentComplete">Móti lokið</string>
   <string name="movesPlayed">Fjöldi hreyfinga</string>
