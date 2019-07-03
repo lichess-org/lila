@@ -71,13 +71,13 @@ div.underboard .notif.error {
   background-color: #d59120;
 }
 .study_comment_form form.material.form,
-.chapter_desc_form form.material.form {
+.study_desc_form form.material.form {
   display: flex;
   align-items: center;
   margin: 0;
 }
 .study_comment_form form .form-group,
-.chapter_desc_form form .form-group {
+.study_desc_form form .form-group {
   width: 100%;
   margin-bottom: 15px!important;
 }
@@ -107,7 +107,7 @@ div.underboard .notif.error {
   display: inline-block;
 }
 .study_comments .text a,
-.chapter_desc .text a {
+.study_desc .text a {
   color: #3893E8!important;
 }
 .study_comments .edit {
@@ -146,13 +146,13 @@ div.intro .lidraughts_overboard {
   transform: translateX(-50%);
 }
 
-.chapter_desc {
+.study_desc {
   margin-bottom: 10px;
   text-align: left;
   font-size: 1.2em;
   position: relative;
 }
-.chapter_desc .contrib {
+.study_desc .contrib {
   position: absolute;
   top: 0;
   right: 0;
@@ -160,16 +160,16 @@ div.intro .lidraughts_overboard {
   padding: 5px 10px;
   display: none;
 }
-.chapter_desc:hover .contrib {
+.study_desc:hover .contrib {
   display: block;
 }
-.chapter_desc .contrib a {
+.study_desc .contrib a {
   margin-left: 8px;
 }
-.chapter_desc_form {
+.study_desc_form {
   margin-bottom: 10px;
 }
-.chapter_desc_form textarea {
+.study_desc_form textarea {
   height: 15em!important;
 }
 
@@ -669,7 +669,7 @@ body.dark .glyph_form i::before {
   background: #262626;
 }
 body.dark .study_share .fen,
-body.dark .chapter_desc .contrib,
+body.dark .study_desc .contrib,
 body.dark .study_box .add,
 body.dark .glyph_form a.active,
 body.dark .glyph_form a:hover,

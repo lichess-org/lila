@@ -6,7 +6,7 @@ import { variants as xhrVariants, importPdn } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
-import { title as descTitle } from './chapterDescription';
+import { descTitle } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [
@@ -246,7 +246,7 @@ export function descriptionGroup(desc?: string) {
     ].map(v => option(v[0], desc ? '1' : '', v[1]))),
     h('label.control-label', {
       attrs: { for: 'chapter-description' }
-    }, descTitle),
+    }, descTitle(true)),
     h('i.bar')
   ]);
 }

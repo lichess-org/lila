@@ -52,6 +52,7 @@ moreJs = moreJs,
 robots = s.isPublic,
 draughtsground = false,
 zoomable = true,
+csp = defaultCsp.withTwitch.some,
 openGraph = lidraughts.app.ui.OpenGraph(
 title = s.name.value,
 url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",

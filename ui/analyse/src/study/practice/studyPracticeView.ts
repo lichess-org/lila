@@ -60,7 +60,7 @@ export function underboard(ctrl: StudyCtrl): VNode | undefined {
       }) : null
     ])
   ]) : undefined;
-  else if (!ctrl.data.chapter.practice) return descView(ctrl);
+  else if (!ctrl.data.chapter.practice) return descView(ctrl, true);
   switch (p.success()) {
     case true:
       const next = ctrl.nextChapter();

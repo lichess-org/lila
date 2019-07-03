@@ -3,7 +3,7 @@ import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 import { StudyChaptersCtrl } from './studyChapters';
-import { ChapterDescriptionCtrl } from './chapterDescription';
+import { DescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
@@ -27,7 +27,7 @@ export interface StudyCtrl {
   serverEval: ServerEvalCtrl;
   share: any;
   tags: any;
-  desc: ChapterDescriptionCtrl;
+  desc: DescriptionCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
@@ -103,6 +103,7 @@ export interface StudySettings {
   cloneable: UserSelection;
   chat: UserSelection;
   sticky: Boolean;
+  description: Boolean;
 }
 
 export interface ReloadData {

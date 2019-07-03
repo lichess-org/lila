@@ -53,6 +53,7 @@ moreCss = moreCss,
 moreJs = moreJs,
 draughtsground = false,
 zoomable = true,
+csp = defaultCsp.withTwitch.some,
 openGraph = lidraughts.app.ui.OpenGraph(
 title = r.name,
 url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",

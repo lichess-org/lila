@@ -5,7 +5,7 @@ import { bind, enrichText, innerHTML } from '../util';
 
 export type Save = (string) => void;
 
-export class ChapterDescriptionCtrl {
+export class DescriptionCtrl {
 
   edit: boolean = false;
   text?: string;
@@ -25,17 +25,19 @@ export class ChapterDescriptionCtrl {
   }
 }
 
-export const title = 'Chapter pinned comment';
+export function descTitle(chapter: boolean) {
+  return `${chapter ? 'Chapter' : 'Study'} pinned comment`;
+}
 
-export function view(study: StudyCtrl): VNode | undefined {
+export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = study.desc,
-  contrib = study.members.canContribute() && !study.gamebookPlay();
-  if (desc.edit) return edit(desc, study.data.chapter.id);
+    contrib = study.members.canContribute() && !study.gamebookPlay();
+  if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h('div.chapter_desc', [
+  return h('div.study_desc', [
     contrib && !isEmpty ? h('div.contrib', [
-      h('span', title),
+      h('span', descTitle(chapter)),
       isEmpty ? null : h('a', {
         attrs: {
           'data-icon': 'm',
@@ -55,14 +57,14 @@ export function view(study: StudyCtrl): VNode | undefined {
     ]) : null,
     isEmpty ? h('a.text.empty.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
-    }, title) : h('div.text', {
+    }, descTitle(chapter)) : h('div.text', {
       hook: innerHTML(desc.text, text => enrichText(text, true))
     })
   ]);
 }
 
-function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
-  return h('div.chapter_desc_form.underboard_form', {
+function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
+  return h('div.study_desc_form.underboard_form', {
     hook: {
       insert: _ => window.lidraughts.loadCss('stylesheets/material.form.css')
     }
@@ -75,11 +77,11 @@ function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
         },
         hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
       }),
-      title,
+      descTitle(true),
     ]),
     h('form.material.form', [
       h('div.form-group', [
-        h('textarea#desc-text.' + chapterId, {
+        h('textarea#desc-text.' + id, {
           hook: {
             insert(vnode: VNode) {
               const el = vnode.elm as HTMLInputElement;

@@ -108,7 +108,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       h('form.material.form.align-left', {
         hook: bindSubmit(e => {
           const obj: FormData = {};
-          'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(n => {
+          'name visibility computer explorer cloneable chat sticky description'.split(' ').forEach(n => {
             if (n === "explorer") obj[n] = "nobody";
             else {
               const el = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement);
@@ -171,6 +171,15 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 ['false', 'No: let people browse freely']
               ],
               selected: '' + data.settings.sticky
+            })),
+            h('div.form-group.half', select({
+              key: 'description',
+              name: 'Study pinned comment',
+              choices: [
+                ['false', 'None'],
+                ['true', 'Right under the board']
+              ],
+              selected: '' + data.settings.description
             }))
           ]),
           dialog.button(isNew ? 'Start' : 'Save')

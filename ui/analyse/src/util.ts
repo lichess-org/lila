@@ -102,7 +102,19 @@ export function toYouTubeEmbed(url: string, height: number = 300): string | unde
   if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
 }
 
+export function toTwitchEmbed(url: string): string | undefined {
+  const embedUrl = toTwitchEmbedUrl(url);
+  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
+}
+
+function toTwitchEmbedUrl(url) {
+  if (!url) return;
+  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
+if (m) return 'https://player.twitch.tv/?channel=' + m[1];
+}
+
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
+const commentTwitchRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)(?:\?|&|)(\S*)/i;
 const imgUrlRegex = /\.(jpg|jpeg|png|gif)$/;
 const newLineRegex = /\n/g;
 
@@ -112,6 +124,7 @@ function imageTag(url: string): string | undefined {
 
 function toLink(url: string) {
   if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
+  if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
   const show = imageTag(url) || url.replace(/https?:\/\//, '');
   return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
 }
