@@ -51,17 +51,19 @@ $(function() {
   var expandYoutube = function(a) {
     var $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
     $(a.element).replaceWith($iframe);
+    console.log($iframe);
     return $iframe;
   };
 
   var expandYoutubes = function(as, wait) {
     var a = as.shift(),
       wait = Math.min(1500, wait || 100);
-    if (a) expandYoutube(a).on('load', function() {
+    if (a) {
+      expandYoutube(a);
       setTimeout(function() {
         expandYoutubes(as, wait + 200);
       }, wait);
-    });
+    }
   };
 
   var expand = function(a) {
