@@ -8,7 +8,7 @@ import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
 import { Redraw } from '../interfaces';
-import { title as descTitle } from './chapterDescription';
+import { descTitle } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [
@@ -270,7 +270,7 @@ export function descriptionGroup(desc?: string) {
   return h('div.form-group', [
     h('label.form-label', {
       attrs: { for: 'chapter-description' }
-    }, descTitle),
+    }, descTitle(true)),
     h('select#chapter-description.form-control', [
       ['', 'None'],
       ['1', 'Right under the board']

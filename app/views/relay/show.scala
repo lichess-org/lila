@@ -53,6 +53,7 @@ object show {
     ),
     chessground = false,
     zoomable = true,
+    csp = defaultCsp.withTwitch.some,
     openGraph = lila.app.ui.OpenGraph(
       title = r.name,
       url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",

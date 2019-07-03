@@ -1,4 +1,4 @@
-.chapter-desc {
+.study-desc {
   @extend %box-neat;
   background: $c-bg-box;
   padding: .7em 1em;
@@ -30,7 +30,7 @@
     @extend %video;
   }
 }
-.chapter-desc-form {
+.study-desc-form {
   .title {
     @extend %flex-between;
     width: 100%;

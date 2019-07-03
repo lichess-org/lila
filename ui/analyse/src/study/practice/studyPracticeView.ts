@@ -59,7 +59,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
       hook: innerHTML(pinned, text => enrichText(text!, true))
     })
   ])] : [];
-  else if (!ctrl.data.chapter.practice) return [descView(ctrl)];
+  else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
       const next = ctrl.nextChapter();

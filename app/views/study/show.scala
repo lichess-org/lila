@@ -52,6 +52,7 @@ object show {
     robots = s.isPublic,
     chessground = false,
     zoomable = true,
+    csp = defaultCsp.withTwitch.some,
     openGraph = lila.app.ui.OpenGraph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",

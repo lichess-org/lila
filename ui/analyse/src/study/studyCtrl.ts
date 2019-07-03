@@ -17,7 +17,7 @@ import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import { StudyCtrl, StudyVm, Tab, ToolTab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
-import { ChapterDescriptionCtrl } from './chapterDescription';
+import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
@@ -114,7 +114,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   const commentForm: CommentForm = commentFormCtrl(ctrl);
   const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
-  const desc = new ChapterDescriptionCtrl(data.chapter.description, t => {
+  const desc = new DescriptionCtrl(data.chapter.description, t => {
     data.chapter.description = t;
     send("descChapter", {
       id: vm.chapterId,
