@@ -80,6 +80,7 @@ final class JsonView(
               "socket" -> s"/$fullId/socket/v$apiVersion",
               "round" -> s"/$fullId"
             ),
+            "captureLength" -> ~captureLength(pov),
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
@@ -112,7 +113,6 @@ final class JsonView(
             .add("drawLimit" -> game.metadata.drawLimit)
             .add("possibleMoves" -> possibleMoves(pov))
             .add("possibleDrops" -> possibleDrops(pov))
-            .add("captureLength" -> captureLength(pov))
             .add("expiration" -> game.expirable.option {
               Json.obj(
                 "idleMillis" -> (nowMillis - game.movedAt.getMillis),
