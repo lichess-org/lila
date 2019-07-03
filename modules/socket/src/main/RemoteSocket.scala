@@ -24,10 +24,7 @@ private final class RemoteSocket(
       override def onMessage(channel: String, message: String): Unit = {
         try {
           Json.parse(message) match {
-            case o: JsObject => for {
-              path <- o str "path"
-              data <- o obj "data"
-            } onReceive(path, data)
+            case o: JsObject => o str "path" foreach { onReceive(_, o) }
             case _ => logger warn s"Invalid message $message"
           }
         } catch {
@@ -51,29 +48,23 @@ private final class RemoteSocket(
   bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers) {
     case MoveEvent(gameId, fen, move) if watchedGameIds(gameId) => send(Json.obj(
       "path" -> "/move",
-      "data" -> Json.obj(
-        "gameId" -> gameId,
-        "fen" -> fen,
-        "move" -> move
-      )
+      "gameId" -> gameId,
+      "fen" -> fen,
+      "move" -> move
     ))
     case FinishGameId(gameId) if watchedGameIds(gameId) => watchedGameIds -= gameId
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect connectedUserIds
       if (connectedUsers.nonEmpty) send(Json.obj(
         "path" -> "/tell/users",
-        "data" -> Json.obj(
-          "users" -> connectedUsers,
-          "payload" -> payload
-        )
+        "users" -> connectedUsers,
+        "payload" -> payload
       ))
     case SendTo(userId, payload) if connectedUserIds(userId) =>
       send(Json.obj(
         "path" -> "/tell/user",
-        "data" -> Json.obj(
-          "user" -> userId,
-          "payload" -> payload
-        )
+        "user" -> userId,
+        "payload" -> payload
       ))
     case WithUserIds(f) => f(connectedUserIds)
   }
