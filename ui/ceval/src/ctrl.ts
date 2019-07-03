@@ -64,8 +64,8 @@ export default function(opts: CevalOpts): CevalCtrl {
         if (knps > 500) depth = 19;
         if (knps > 1000) depth = 20;
         if (knps > 2000) depth = 21;
-        if (knps > 3500) depth = 22;
-        if (knps > 5500) depth = 23;
+        if (knps > 3000) depth = 22;
+        if (knps > 5000) depth = 23;
         if (knps > 8000) depth = 24;
         if (knps > 11000) depth = 25;
         maxDepth(depth);

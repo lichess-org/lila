@@ -1,4 +1,3 @@
-import defer = require('defer-promise');
 import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
@@ -89,6 +88,9 @@ export default class Protocol {
         break;
       case "bt":
         send('set-param name=bb-size value=4');
+        break;
+	  case "frisian":
+        send('set-param name=bb-size value=3');
         break;
     }
 
@@ -311,3 +313,12 @@ export default class Protocol {
     return !this.stopped;
   }
 };
+
+function defer<A>(): DeferPromise.Deferred<A> {
+  const deferred: Partial<DeferPromise.Deferred<A>> = {}
+  deferred.promise = new Promise<A>(function (resolve, reject) {
+    deferred.resolve = resolve
+    deferred.reject = reject
+  })
+  return deferred as DeferPromise.Deferred<A>;
+}

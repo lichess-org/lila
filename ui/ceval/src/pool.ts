@@ -22,9 +22,9 @@ export abstract class AbstractWorker {
   start(work: Work) {
     // wait for boot
     this.protocol.promise.then(protocol => {
-      const timeout = new Promise((_, reject) => setTimeout(reject, 3000));
+      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
       Promise.race([protocol.stop(), timeout]).catch(() => {
-        // reboot if not stopped after 3s
+        // reboot if not stopped after timeout
         this.destroy();
         this.protocol = sync(this.boot());
       }).then(() => {
@@ -138,10 +138,15 @@ export default class Pool {
     let worker = new Promise<AbstractWorker>((resolve, reject) => {
       const currentWorker = this.workers[this.token];
       currentWorker.stop().then(() => resolve(currentWorker));
-      setTimeout(() => reject(), 50);
+      setTimeout(() => reject(), 300);
     });
 
     return worker.catch(() => {
+      if (!this.poolOpts.pnacl) {
+        // reboot immediately, next cycle may take a long time to complete
+        this.workers[this.token].destroy();
+        this.workers[this.token] = new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts)
+      }
       this.token = (this.token + 1) % this.workers.length;
       return Promise.resolve(this.workers[this.token]);
     });
@@ -153,7 +158,7 @@ export default class Pool {
     if (this.poolOpts.pnacl)
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts));
     else
-      for (var i = 1; i <= 1; i++)
+      for (var i = 1; i <= 2; i++)
         this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
   }
 
