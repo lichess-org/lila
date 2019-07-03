@@ -275,10 +275,11 @@ object User extends LilaController {
           Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 2 seconds) zip
             Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 2 seconds) zip
             Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 2 seconds) zip
-            Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) flatMap {
-              case history ~ charges ~ reports ~ pref =>
+            Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) zip
+            Env.playban.api.getSitAndDcCounter(user) flatMap {
+              case history ~ charges ~ reports ~ pref ~ sitAndDcCounter =>
                 Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
-                  html.user.mod.parts(user, history, charges, reports, pref).some
+                  html.user.mod.parts(user, history, charges, reports, pref, sitAndDcCounter).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased).some

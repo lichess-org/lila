@@ -57,7 +57,7 @@ $(function() {
   var expandYoutubes = function(as, wait) {
     var a = as.shift(),
       wait = Math.min(1500, wait || 100);
-    if (a) expandYoutube(a).on('load', function() {
+    if (a) expandYoutube(a).find('iframe').on('load', function() {
       setTimeout(function() {
         expandYoutubes(as, wait + 200);
       }, wait);
