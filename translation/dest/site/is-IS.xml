@@ -401,6 +401,10 @@
   <string name="createdBy">Búið til af</string>
   <string name="tournamentIsStarting">Mótin eru að byrja</string>
   <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
+  <string name="standByX">Bíddu vid %s, pörun keppanda stendur yfir. Vertu tilbúin(n)!</string>
+  <string name="youArePlaying">Þú ert að spila!</string>
+  <string name="winRate">Sigurhlutfall</string>
+  <string name="berserkRate">Berserkjahlutfall</string>
   <string name="performance">Mótsstig</string>
   <string name="tournamentComplete">Móti lokið</string>
   <string name="movesPlayed">Fjöldi hreyfinga</string>
@@ -420,8 +424,10 @@
   <string name="loadPosition">Hlaða stöðu</string>
   <string name="isPrivate">Prívat</string>
   <string name="reportXToModerators">tilkynna %s til stjórnenda</string>
+  <string name="profileCompletion">Ágrip tilbúið: %s</string>
   <string name="xRating">%s stig</string>
   <string name="ifNoneLeaveEmpty">Autt ef á ekki við</string>
+  <string name="gameCompletionRate">Leikir fullkláraðir: %s</string>
   <string name="profile">Prófíll</string>
   <string name="editProfile">Stillingar</string>
   <string name="firstName">Fornafn</string>
