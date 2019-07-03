@@ -4,7 +4,7 @@ import play.api.libs.json._
 import redis.clients.jedis._
 import scala.concurrent.Future
 
-import lila.hub.actorApi.round.{ MoveEvent, FinishGameId }
+import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.{ Deploy, Announce }
 
@@ -28,6 +28,7 @@ private final class RemoteSocket(
     val TellUser = "tell/user"
     val TellUsers = "tell/users"
     val TellAll = "tell/all"
+    val Mlat = "mlat"
   }
 
   private val clientIn = makeRedis()
@@ -36,7 +37,7 @@ private final class RemoteSocket(
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce) {
+  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat) {
     case MoveEvent(gameId, fen, move) if watchedGameIds(gameId) => send(Out.Move, Json.obj(
       "gameId" -> gameId,
       "fen" -> fen,
@@ -62,6 +63,7 @@ private final class RemoteSocket(
         "d" -> Json.obj("msg" -> msg)
       )
     ))
+    case Mlat(ms) => send(Out.Mlat, Json.obj("value" -> ms))
     case WithUserIds(f) => f(connectedUserIds)
   }
 
