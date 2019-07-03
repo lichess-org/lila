@@ -42,8 +42,16 @@
   <string name="inaccuracy">Nerastî</string>
   <string name="inaccuracies">Nerastî</string>
   <string name="moveTimes">Dema hemleyan</string>
+  <string name="forgotPassword">Te şîfre ji bîr kir?</string>
+  <string name="rank">Ast</string>
+  <string name="rankX">Ast: %s</string>
+  <string name="subject">Mijar</string>
   <string name="recipient">Stîner</string>
   <string name="send">Bişeyne</string>
+  <plurals name="nbMembers">
+    <item quantity="one">endam%s</item>
+    <item quantity="other">endam %s</item>
+  </plurals>
   <string name="allTeams">Hemû tîm</string>
   <string name="newTeam">Tîmeke nû</string>
   <string name="myTeams">Tîmên min</string>
@@ -52,7 +60,21 @@
   <string name="quitTeam">Ji tîmê derkeve</string>
   <string name="anyoneCanJoin">Ji bo herkesî belaş e</string>
   <string name="aConfirmationIsRequiredToJoin">Ji bo têketinê piştrastkirina hesabê hewce ye</string>
+  <plurals name="nbFollowing">
+    <item quantity="one">dişopîne %s</item>
+    <item quantity="other">dişopîne %s</item>
+  </plurals>
+  <string name="more">Zêdetir</string>
   <string name="memberSince">Ji vê demê ve endam e</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Ji %s deqeyê kêmtir</item>
+    <item quantity="other">Ji %s deqeyê kêmtir</item>
+  </plurals>
+  <string name="required">Pêwist.</string>
+  <string name="openTournaments">Pêşbirka vekirî</string>
+  <string name="duration">Mawe</string>
+  <string name="winner">Serfiraz</string>
+  <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
   <string name="isPrivate">Taybet</string>
