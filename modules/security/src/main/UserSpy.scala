@@ -37,7 +37,7 @@ case class UserSpy(
   def otherUserIds = otherUsers.map(_.user.id)
 }
 
-private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
+final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
 
   import UserSpy._
 
@@ -45,8 +45,8 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
     infos ← Store.chronoInfoByUser(user.id)
     ips = distinctRecent(infos.map(_.datedIp))
     prints = distinctRecent(infos.flatMap(_.datedFp))
-    sharingIp ← exploreSimilar("ip")(user)(coll)
-    sharingFingerprint ← exploreSimilar("fp")(user)(coll)
+    sharingIp ← exploreSimilar("ip")(user)
+    sharingFingerprint ← exploreSimilar("fp")(user)
   } yield UserSpy(
     ips = ips map { ip =>
       IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value)
@@ -62,20 +62,20 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
     readPreference = ReadPreference.secondaryPreferred
   )
 
-  private def exploreSimilar(field: String)(user: User)(implicit coll: Coll): Fu[Set[User]] =
-    nextValues(field)(user) flatMap { nValues =>
+  private def exploreSimilar(field: String)(user: User): Fu[Set[User]] =
+    nextValues(field)(user.id) flatMap { nValues =>
       nextUsers(field)(nValues, user)
     }
 
-  private def nextValues(field: String)(user: User)(implicit coll: Coll): Fu[Set[Value]] =
+  private def nextValues(field: String)(userId: User.ID): Fu[Set[Value]] =
     coll.find(
-      $doc("user" -> user.id),
+      $doc("user" -> userId),
       $doc(field -> true)
     ).cursor[Bdoc]().gather[List]() map {
         _.flatMap(_.getAs[Value](field))(breakOut)
       }
 
-  private def nextUsers(field: String)(values: Set[Value], user: User)(implicit coll: Coll): Fu[Set[User]] =
+  private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
       coll.distinctWithReadPreference[String, Set](
         "user",
@@ -88,6 +88,23 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
           userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
         }
     }
+
+  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = {
+    for {
+      ips <- nextValues("ip")(userId)
+      fps <- nextValues("fp")(userId)
+    } yield (ips.nonEmpty && fps.nonEmpty) ?? {
+      coll.distinctWithReadPreference[String, Set](
+        "user",
+        $doc(
+          "ip" $in ips,
+          "fp" $in fps,
+          "user" $ne userId
+        ).some,
+        ReadPreference.secondaryPreferred
+      )
+    }
+  } flatMap identity
 }
 
 object UserSpy {

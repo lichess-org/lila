@@ -367,7 +367,7 @@ lazy val bookmark = module("bookmark", Seq(common, memo, db, hub, user, game)).s
   )
 )
 
-lazy val report = module("report", Seq(common, db, user, game, security)).settings(
+lazy val report = module("report", Seq(common, db, user, game, security, playban)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
