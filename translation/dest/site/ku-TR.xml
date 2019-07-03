@@ -74,10 +74,19 @@
   <string name="openTournaments">Pêşbirka vekirî</string>
   <string name="duration">Mawe</string>
   <string name="winner">Serfiraz</string>
+  <string name="standing">Rêz</string>
+  <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
+  <string name="tournamentCalendar">Salnameya Pêşbirkan</string>
+  <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
   <string name="isPrivate">Taybet</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s lîstik tên lîstin</item>
+    <item quantity="other">%s lîstik tên lîstin</item>
+  </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Piştî ajotinê jixweber derbasî lîstika din bibe</string>
   <string name="latestUpdates">Rojaneyên herî dawî</string>
   <string name="tournamentWinners">Serkeftiyên Pêşbirkê</string>
   <string name="name">Nav</string>
