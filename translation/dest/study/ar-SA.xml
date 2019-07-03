@@ -18,7 +18,7 @@
   <string name="commentThisMove">التعليق على هذه النقلة</string>
   <string name="theChapterIsTooShortToBeAnalysed">الفصل جداً قصير لكي يتم تحليله</string>
   <string name="onlyContributorsCanRequestAnalysis">فقط المساهمون في هذا الدراسة يمكنهم طلب تحليل الحاسوب</string>
-  <string name="getAFullComputerAnalysis">احصل على تحليل كامل حاسوب كامل للتفريع الرئيسي</string>
+  <string name="getAFullComputerAnalysis">احصل على تحليل حاسوب كامل للتفريع الرئيسي من قبل الخادم</string>
   <string name="makeSureTheChapterIsComplete">كن متأكداً ان الفصل مكتمل، يمكنك طلب تحليل الحاسوب مره واحده فحسب</string>
   <string name="onlyOngoingGames">فقط الألعاب الجارية</string>
   <string name="first">الأولى</string>
