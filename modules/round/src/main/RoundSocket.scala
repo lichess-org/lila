@@ -83,7 +83,7 @@ private[round] final class RoundSocket(
 
     def weigh(orig: Long, startAt: Int) =
       nbPlaybans map { n =>
-        if (n < startAt) orig else orig * (1d - 0.75 * sqrt(log10(n + 1 + startAt)))
+        if (n < startAt) orig else orig * (1d - 0.75 * sqrt(log10(n + 1 - startAt)))
       }
     def weightedRagequitTimeout = weigh(ragequitTimeout.toMillis, 4)
     def weightedDisconnectTimeout = weigh(disconnectTimeout.toMillis, 4)
