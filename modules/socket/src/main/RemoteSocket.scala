@@ -14,6 +14,7 @@ private final class RemoteSocket(
     chanOut: String,
     lifecycle: play.api.inject.ApplicationLifecycle,
     notificationActor: akka.actor.ActorSelection,
+    setNb: Int => Unit,
     bus: lila.common.Bus
 ) {
 
@@ -22,6 +23,7 @@ private final class RemoteSocket(
     val Disconnect = "disconnect"
     val Watch = "watch"
     val Notified = "notified"
+    val Count = "count"
   }
   private object Out {
     val Move = "move"
@@ -81,6 +83,7 @@ private final class RemoteSocket(
     case In.Notified => data str "user" foreach { userId =>
       notificationActor ! lila.hub.actorApi.notify.Notified(userId)
     }
+    case In.Count => data int "value" foreach setNb
     case path => logger.warn(s"Invalid path $path")
   }
 

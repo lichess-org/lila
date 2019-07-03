@@ -33,6 +33,7 @@ final class Env(
     chanOut = "site-out",
     lifecycle = lifecycle,
     notificationActor = hub.notification,
+    setNb = nb => population ! actorApi.RemoteNbMembers(nb),
     bus = system.lilaBus
   )
 
