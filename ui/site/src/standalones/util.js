@@ -4,23 +4,19 @@ lichess.engineName = 'Stockfish 10+';
 
 lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
-lichess.dispatchEvent = function(el, eventName) {
-  el.dispatchEvent(new Event(eventName));
-};
+lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));
 
 lichess.hasTouchEvents = 'ontouchstart' in window;
 lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
-lichess.isCol1 = (function() {
-
-  var isCol1Cache = 'init'; // 'init' | 'rec' | boolean
-
-  return function() {
+lichess.isCol1 = (() => {
+  let isCol1Cache = 'init'; // 'init' | 'rec' | boolean
+  return () => {
     if (typeof isCol1Cache == 'string') {
       if (isCol1Cache == 'init') { // only once
-        window.addEventListener('resize', function() { isCol1Cache = 'rec' }); // recompute on resize
+        window.addEventListener('resize', () => { isCol1Cache = 'rec' }); // recompute on resize
         if (navigator.userAgent.indexOf('Edge/') > -1) // edge gets false positive on page load, fix later
-          window.lichess.raf(function() { isCol1Cache = 'rec' });
+          window.lichess.raf(() => { isCol1Cache = 'rec' });
       }
       isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
     }
@@ -58,7 +54,7 @@ lichess.isCol1 = (function() {
   lichess.tempStorage = buildStorage(window.sessionStorage);
 }
 
-lichess.once = function(key, mod) {
+lichess.once = (key, mod) => {
   if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
     lichess.storage.set(key, 1);
@@ -66,15 +62,14 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
-lichess.debounce = function(func, wait, immediate) {
-  var timeout;
-  var lastBounce = 0;
-  return function() {
-    var context = this,
+lichess.debounce = (func, wait, immediate) => {
+  let timeout, lastBounce = 0;
+  return () => {
+    let context = this,
       args = arguments,
       elapsed = Date.now() - lastBounce;
     lastBounce = Date.now();
-    var later = function() {
+    let later = () => {
       timeout = null;
       func.apply(context, args);
     };
@@ -83,7 +78,7 @@ lichess.debounce = function(func, wait, immediate) {
     else timeout = setTimeout(later, wait);
   };
 };
-lichess.powertip = (function() {
+lichess.powertip = (() => {
 
   function containedIn(el, container) {
     return container && container.contains(el);
@@ -92,9 +87,9 @@ lichess.powertip = (function() {
     return containedIn(el, document.querySelector('.crosstable'));
   }
 
-  var onPowertipPreRender = function(id, preload) {
-    return function() {
-      var url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+  function onPowertipPreRender(id, preload) {
+    return () => {
+      let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
       if (preload) preload(url);
       $.ajax({
         url: url + '/mini',
@@ -106,10 +101,9 @@ lichess.powertip = (function() {
     };
   };
 
-  var uptA = function(url, icon) {
-    return '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
-  }
-  var userPowertip = function(el, pos) {
+  let uptA = (url, icon) => '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+
+  let userPowertip = (el, pos) => {
     pos = pos || el.getAttribute('data-pt-pos') || (
       inCrosstable(el) ? 'n' : 's'
     );
@@ -120,8 +114,8 @@ lichess.powertip = (function() {
       mouseOnToPopup: true,
       closeDelay: 200
     }).data('powertip', ' ').on({
-      powerTipRender: onPowertipPreRender('powerTip', function(url) {
-        var u = url.substr(3);
+      powerTipRender: onPowertipPreRender('powerTip', (url) => {
+        const u = url.substr(3);
         $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + $(el).html() + '</span></div></div><div class="upt__actions btn-rack">' +
           uptA('/@/' + u + '/tv', '1') +
           uptA('/inbox/new?user=' + u, 'c') +
@@ -131,7 +125,7 @@ lichess.powertip = (function() {
     });
   };
 
-  var gamePowertip = function(el) {
+  function gamePowertip(el) {
     $(el).removeClass('glpt').powerTip({
       intentPollInterval: 200,
       placement: inCrosstable(el) ? 'n' : 'w',
@@ -144,7 +138,7 @@ lichess.powertip = (function() {
     }).data('powertip', lichess.spinnerHtml);
   };
 
-  var powerTipWith = function(el, ev, f) {
+  function powerTipWith(el, ev, f) {
     if (lichess.isHoverable()) {
       f(el);
       $.powerTip.show(el, ev);
@@ -158,27 +152,26 @@ lichess.powertip = (function() {
   }
 
   return {
-    mouseover: function(e) {
+    mouseover(e) {
       var t = e.target,
         cl = t.classList;
       if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
-    manualGameIn: function(parent) {
+    manualGameIn(parent) {
       onIdleForAll(parent, '.glpt', gamePowertip);
     },
-    manualUserIn: function(parent) {
-      onIdleForAll(parent, '.ulpt', function(el) { userPowertip(el) });
+    manualUserIn(parent) {
+      onIdleForAll(parent, '.ulpt', (el) => userPowertip(el));
     }
   };
 })();
-lichess.widget = function(name, prototype) {
+lichess.widget = (name, prototype) => {
   var constructor = $[name] = function(options, element) {
-    var self = this;
-    self.element = $(element);
-    $.data(element, name, self);
-    self.options = options;
-    self._create();
+    this.element = $(element);
+    $.data(element, name, this);
+    this.options = options;
+    this._create();
   };
   constructor.prototype = prototype;
   $.fn[name] = function(method) {
@@ -197,16 +190,16 @@ lichess.widget = function(name, prototype) {
     return returnValue;
   };
 };
-lichess.isHoverable = function () {
+lichess.isHoverable = () => {
   if (typeof lichess.hoverable === 'undefined')
     lichess.hoverable = !lichess.hasTouchEvents || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return lichess.hoverable;
 };
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetUrl = function(path, opts) {
+lichess.assetUrl = (path, opts) => {
   opts = opts || {};
-  var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
-  var version = document.body.getAttribute('data-asset-version');
+  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
+    version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 lichess.loadedCss = {};
@@ -294,11 +287,11 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
 lichess.pubsub = (function() {
   var subs = [];
   return {
-    on: function(name, cb) {
+    on(name, cb) {
       subs[name] = subs[name] || [];
       subs[name].push(cb);
     },
-    off: function(name, cb) {
+    off(name, cb) {
       if (!subs[name]) return;
       for (var i in subs[name]) {
         if (subs[name][i] === cb) {
@@ -307,11 +300,11 @@ lichess.pubsub = (function() {
         }
       }
     },
-    emit: function(name) {
-      return function() {
+    emit(name) {
+      return () => {
         if (!subs[name]) return;
-        var args = Array.prototype.slice.call(arguments, 0);
-        for (var i in subs[name]) subs[name][i].apply(null, args);
+        const args = Array.prototype.slice.call(arguments, 0);
+        for (let i in subs[name]) subs[name][i].apply(null, args);
       }
     }
   };
