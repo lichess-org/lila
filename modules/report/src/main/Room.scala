@@ -28,7 +28,7 @@ object Room {
     case Reason.Cheat => Cheat
     case Reason.CheatPrint => Print
     case Reason.Troll | Reason.Insult => Coms
-    case Reason.Boost | Reason.Other => Other
+    case Reason.Boost | Reason.Playbans | Reason.Other => Other
   }
 
   def toReasons(room: Room): Set[Reason] = room match {
