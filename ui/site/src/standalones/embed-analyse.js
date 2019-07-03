@@ -51,7 +51,6 @@ $(function() {
   var expandYoutube = function(a) {
     var $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
     $(a.element).replaceWith($iframe);
-    console.log($iframe);
     return $iframe;
   };
 
