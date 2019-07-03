@@ -120,5 +120,7 @@
     <item quantity="other">çirke %s</item>
   </plurals>
   <string name="opening">Destpêk</string>
-  <string name="middlegame">Lîstika navîn</string>
+  <string name="middlegame">Nîvlîstik</string>
+  <string name="conditionalPremoves">Pêşajotinên mercdar</string>
+  <string name="playX">Bileyze %s</string>
 </resources>
