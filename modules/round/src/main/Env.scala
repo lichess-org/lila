@@ -37,6 +37,7 @@ final class Env(
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
     ratingFactors: () => lila.rating.RatingFactors,
+    playbanApi: lila.playban.PlaybanApi,
     val socketDebug: () => Boolean
 ) {
 
@@ -127,7 +128,8 @@ final class Env(
       lightUser = lightUser,
       uidTtl = SocketUidTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
-      ragequitTimeout = PlayerRagequitTimeout
+      ragequitTimeout = PlayerRagequitTimeout,
+      playbanApi = playbanApi
     )
   )
 
@@ -280,6 +282,7 @@ object Env {
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
     ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
+    playbanApi = lila.playban.Env.current.api,
     socketDebug = lila.socket.Env.current.socketDebugSetting.get
   )
 }
