@@ -35,7 +35,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h(`div.study-desc${chapter ? '.chapter-desc' : ''}`, [
+  return h(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
     contrib && !isEmpty ? h('div.contrib', [
       h('span', descTitle(chapter)),
       isEmpty ? null : h('a', {

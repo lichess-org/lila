@@ -19,6 +19,7 @@ import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
+import { StudyCtrl } from './study/interfaces';
 import * as studyView from './study/studyView';
 import * as studyPracticeView from './study/practice/studyPracticeView';
 import { view as forkView } from './fork'
@@ -289,13 +290,16 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
 }
 
+function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
+  return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
+}
+
 export default function(ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
     menuIsOpen = ctrl.actionMenu.open,
-    chapter = study && study.data.chapter,
     multiBoardMenu = ctrl.study && ctrl.study.multiBoardMenu,
     multiBoardMenuIsOpen = multiBoardMenu && multiBoardMenu.open && ctrl.study && ctrl.study.members.canContribute(),
     gamebookPlay = ctrl.gamebookPlay(),
@@ -306,7 +310,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
-  return h('main.analyse.variant-' + ctrl.data.game.variant.key + (chapter ? '.' + chapter.id : ''), {
+  return h('main.analyse.variant-' + ctrl.data.game.variant.key, {
     hook: {
       insert: vn => {
         forceInnerCoords(ctrl, needsInnerCoords);
@@ -335,8 +339,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     }
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
-    ctrl.study ? studyView.overboard(ctrl.study) : null,
-    intro || h('div.analyse__board.main-board', {
+    study ? studyView.overboard(study) : null,
+    intro || h(addChapterId(study, 'div.analyse__board.main-board'), {
       hook: (window.lidraughts.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
@@ -358,18 +362,18 @@ export default function(ctrl: AnalyseCtrl): VNode {
     (gamebookPlayView || intro) ? null : controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
-    }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
+    }, study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
     intro ? null : acplView(ctrl),
     ctrl.embed ? null : (
-      ctrl.studyPractice ? studyPracticeView.side(ctrl.study!) :
+      ctrl.studyPractice ? studyPracticeView.side(study!) :
       h('aside.analyse__side', {
         hook: onInsert(elm => {
           ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
           $(elm).append($('.streamers').clone().removeClass('none'));
         })
       },
-        ctrl.studyPractice ? [studyPracticeView.side(ctrl.study!)] : (
-          ctrl.study ? [studyView.side(ctrl.study)] : [
+        ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
+          study ? [studyView.side(study)] : [
             ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
             (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
               h('a.button.button-empty.text', {
