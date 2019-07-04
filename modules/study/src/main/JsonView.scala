@@ -37,21 +37,19 @@ final class JsonView(
           "description" -> study.settings.description
         ),
         "chapters" -> chapters.map(chapterMetadataWrites.writes),
-        "chapter" -> {
-          Json.obj(
-            "id" -> currentChapter.id,
-            "ownerId" -> currentChapter.ownerId,
-            "setup" -> currentChapter.setup,
-            "tags" -> currentChapter.tags,
-            "features" -> Json.obj(
-              "computer" -> allowed(study.settings.computer),
-              "explorer" -> allowed(study.settings.explorer)
-            )
-          ).add("description", currentChapter.description)
-            .add("serverEval", currentChapter.serverEval)
-            .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
-        }
-      )
+        "chapter" -> Json.obj(
+          "id" -> currentChapter.id,
+          "ownerId" -> currentChapter.ownerId,
+          "setup" -> currentChapter.setup,
+          "tags" -> currentChapter.tags,
+          "features" -> Json.obj(
+            "computer" -> allowed(study.settings.computer),
+            "explorer" -> allowed(study.settings.explorer)
+          )
+        ).add("description", currentChapter.description)
+          .add("serverEval", currentChapter.serverEval)
+          .add("relay", currentChapter.relay)(relayWrites).|>(addChapterMode(currentChapter))
+      ).add("description", study.description)
     }
   }
 

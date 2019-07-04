@@ -8,7 +8,7 @@ import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
 import { Redraw } from '../interfaces';
-import { descTitle } from './chapterDescription';
+import { descTitle } from './description';
 import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [

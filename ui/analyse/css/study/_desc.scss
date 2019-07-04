@@ -2,6 +2,7 @@
   @extend %box-neat;
   background: $c-bg-box;
   padding: .7em 1em;
+  margin-top: .5em;
   position: relative;
   &.empty {
     text-align: center;
