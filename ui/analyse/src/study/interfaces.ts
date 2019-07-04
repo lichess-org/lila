@@ -3,7 +3,7 @@ import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 import { StudyChaptersCtrl } from './studyChapters';
-import { DescriptionCtrl } from './chapterDescription';
+import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
@@ -27,7 +27,8 @@ export interface StudyCtrl {
   serverEval: ServerEvalCtrl;
   share: any;
   tags: any;
-  desc: DescriptionCtrl;
+  studyDesc: DescriptionCtrl;
+  chapterDesc: DescriptionCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
@@ -93,6 +94,7 @@ export interface StudyData {
   chapters: StudyChapterMeta[]
   chapter: StudyChapter;
   secondsSinceUpdate: number;
+  description?: string;
 }
 
 type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';

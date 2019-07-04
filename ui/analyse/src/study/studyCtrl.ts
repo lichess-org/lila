@@ -112,12 +112,13 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
   const commentForm: CommentForm = commentFormCtrl(ctrl);
   const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
-  const desc = new DescriptionCtrl(data.chapter.description, t => {
+  const studyDesc = new DescriptionCtrl(data.description, t => {
+    data.description = t;
+    send("descStudy", t);
+  }, redraw);
+  const chapterDesc = new DescriptionCtrl(data.chapter.description, t => {
     data.chapter.description = t;
-    send("descChapter", {
-      id: vm.chapterId,
-      description: t
-    });
+    send("descChapter", { id: vm.chapterId, desc: t });
   }, redraw);
 
   const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
@@ -162,10 +163,11 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
-    'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
+    'position name visibility features settings chapter likes liked description'.split(' ').forEach(key => {
       data[key] = s[key];
     });
-    desc.set(data.chapter.description);
+    chapterDesc.set(data.chapter.description);
+    studyDesc.set(data.description);
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
@@ -359,9 +361,16 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
       setMemberActive(d.w);
       if (d.w && d.w.s === sri) return;
       if (data.chapter.id === d.chapterId) {
-        data.chapter.description = d.description;
-        desc.set(d.description);
+        data.chapter.description = d.desc;
+        chapterDesc.set(d.desc);
       }
+      redraw();
+    },
+    descStudy(d) {
+      setMemberActive(d.w);
+      if (d.w && d.w.s === sri) return;
+      data.description = d.desc;
+      studyDesc.set(d.desc);
       redraw();
     },
     addChapter(d) {
@@ -467,7 +476,8 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     serverEval,
     share,
     tags,
-    desc,
+    studyDesc,
+    chapterDesc,
     vm,
     relay,
     multiBoard,

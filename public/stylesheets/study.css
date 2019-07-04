@@ -151,6 +151,7 @@ div.intro .lidraughts_overboard {
   text-align: left;
   font-size: 1.2em;
   position: relative;
+  margin-top: .5em;
 }
 .study_desc .contrib {
   position: absolute;
@@ -159,12 +160,25 @@ div.intro .lidraughts_overboard {
   background: #fff;
   padding: 5px 10px;
   display: none;
+  z-index: 1;
 }
 .study_desc:hover .contrib {
   display: block;
 }
 .study_desc .contrib a {
   margin-left: 8px;
+}
+.study_desc .embed {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 56.25%;
+  width: 100%;
+}
+.study_desc .embed>* {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .study_desc_form {
   margin-bottom: 10px;

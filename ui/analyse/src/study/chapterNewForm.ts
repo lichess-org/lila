@@ -6,7 +6,7 @@ import { variants as xhrVariants, importPdn } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
-import { descTitle } from './chapterDescription';
+import { descTitle } from './description';
 import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [

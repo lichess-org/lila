@@ -197,5 +197,5 @@ private[study] object ChapterMaker {
     def hasDescription = description.nonEmpty
   }
 
-  case class DescData(id: Chapter.Id, description: String)
+  case class DescData(id: Chapter.Id, desc: String)
 }

@@ -30,12 +30,12 @@ export function descTitle(chapter: boolean) {
 }
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
-  const desc = study.desc,
+  const desc = chapter ? study.chapterDesc : study.studyDesc,
     contrib = study.members.canContribute() && !study.gamebookPlay();
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h('div.study_desc', [
+  return h(`div.study_desc${chapter ? '.chapter_desc' : ''}`, [
     contrib && !isEmpty ? h('div.contrib', [
       h('span', descTitle(chapter)),
       isEmpty ? null : h('a', {
@@ -51,7 +51,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
           title: 'Delete'
         },
         hook: bind('click', () => {
-          if (confirm('Delete permanent description?')) desc.save('');
+          if (confirm('Delete permanent description?')) desc.save('-');
         })
       })
     ]) : null,
@@ -77,7 +77,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
         },
         hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
       }),
-      descTitle(true),
+      descTitle(chapter),
     ]),
     h('form.material.form', [
       h('div.form-group', [

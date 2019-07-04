@@ -61,14 +61,14 @@ final class StudyRepo(private[study] val coll: Coll) {
     )
   }.void
 
-  def updateSomeFields(s: Study): Funit =
-    coll.update($id(s.id), $set(
-      "position" -> s.position,
-      "name" -> s.name,
-      "settings" -> s.settings,
-      "visibility" -> s.visibility,
-      "updatedAt" -> DateTime.now
-    )).void
+  def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
+    "position" -> s.position,
+    "name" -> s.name,
+    "settings" -> s.settings,
+    "visibility" -> s.visibility,
+    "description" -> ~s.description,
+    "updatedAt" -> DateTime.now
+  )).void
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
 

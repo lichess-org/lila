@@ -19,6 +19,7 @@ import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
+import { StudyCtrl } from './study/interfaces';
 import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
@@ -256,13 +257,15 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 
 let firstRender = true;
 
+function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
+  return cssClass + ((study && study.data.chapter) ? '.' + study.data.chapter.id + study.vm.loading : '.nostudy');
+}
+
 export default function (ctrl: AnalyseCtrl): VNode {
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
     menuIsOpen = ctrl.actionMenu.open,
-    chapter = study && study.data.chapter,
-    studyStateClass = chapter ? chapter.id + study!.vm.loading : 'nostudy',
     gamebookPlay = ctrl.gamebookPlay(),
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
@@ -272,7 +275,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     needsInnerCoords = !!gaugeDisplayed || !!playerBars,
     intro = relayIntro(ctrl);
   return h('div.analyse.cg-512', [
-    h('div.' + studyStateClass, {
+    h(addChapterId(study, 'div'), {
       hook: {
         insert: _ => {
           if (firstRender) {
@@ -320,7 +323,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     (ctrl.embed || intro) ? null : h('div.underboard', {
       class: { no_computer: !ctrl.showComputer() }
     }, [
-        h('div.center', ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
+        h('div.center', study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
         h('div.right', [intro ? null : acplView(ctrl)])
       ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [

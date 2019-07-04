@@ -4,7 +4,7 @@ import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
-import { view as descView } from '../chapterDescription';
+import { view as descView } from '../description';
 
 function selector(data: StudyPracticeData) {
   return h('select.selector', {
