@@ -66,6 +66,7 @@ final class StudyRepo(private[study] val coll: Coll) {
     "name" -> s.name,
     "settings" -> s.settings,
     "visibility" -> s.visibility,
+    "description" -> ~s.description,
     "updatedAt" -> DateTime.now
   )).void
 

@@ -16,7 +16,7 @@ import { view as tagsView } from './studyTags';
 import { view as serverEvalView } from './serverEval';
 import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { view as descView } from './chapterDescription';
+import { view as descView } from './description';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -195,7 +195,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   const study = ctrl.study!, toolTab = study.vm.toolTab();
   if (study.gamebookPlay()) return [
     gbPlayButtons(ctrl),
-    descView(study),
+    descView(study, true),
+    descView(study, false),
     metadata(study)
   ];
   let panel;
@@ -230,7 +231,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   }
   return [
     notifView(study.notif),
-    descView(study),
+    descView(study, true),
+    descView(study, false),
     buttons(ctrl),
     panel
   ];

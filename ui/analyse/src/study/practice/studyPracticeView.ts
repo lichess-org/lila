@@ -5,7 +5,7 @@ import { StudyCtrl } from '../interfaces';
 import { MaybeVNodes } from '../../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
-import { view as descView } from '../chapterDescription';
+import { view as descView } from '../description';
 
 function selector(data: StudyPracticeData) {
   return h('select.selector', {
@@ -59,7 +59,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
       hook: innerHTML(pinned, text => enrichText(text!, true))
     })
   ])] : [];
-  else if (!ctrl.data.chapter.practice) return [descView(ctrl)];
+  else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
       const next = ctrl.nextChapter();
