@@ -49,3 +49,11 @@
     }
   }
 }
+
+@each $color, $c in ('white': w, 'black': b) {
+  @each $role, $r in (pawn: P, knight: N, bishop: B, rook: R, queen: Q) {
+    body.cursor-#{$color}-#{$role} * {
+      cursor: url(../piece/cburnett/#{$c}#{$r}.svg) 22 22, auto !important
+    }
+  }
+}

@@ -1,13 +1,12 @@
 import { h } from 'snabbdom'
 import * as round from '../round';
-import { drag } from './crazyCtrl';
+import { drag, crazyKeys, pieceRoles } from './crazyCtrl';
 import * as cg from 'chessground/types';
 import RoundController from '../ctrl';
 import { onInsert } from '../util';
 import { Position } from '../interfaces';
 
 const eventNames = ['mousedown', 'touchstart'];
-const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: Position) {
   const step = round.plyStep(ctrl.data, ctrl.ply);
@@ -24,7 +23,8 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
     class: { usable },
     hook: onInsert(el => eventNames.forEach(
       name => el.addEventListener(name, (e: cg.MouchEvent) => {
-        if (position === (ctrl.flip ? 'top' : 'bottom')) drag(ctrl, e);
+        if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length == 0)
+          drag(ctrl, e);
       })
     ))
   }, pieceRoles.map(role => {

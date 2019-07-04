@@ -18,7 +18,7 @@ import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
 import xhr = require('./xhr');
-import { valid as crazyValid } from './crazy/crazyCtrl';
+import { valid as crazyValid, init as crazyInit } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
@@ -687,6 +687,8 @@ export default class RoundController {
 
         title.init();
         this.setTitle();
+
+        crazyInit(this);
 
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||
