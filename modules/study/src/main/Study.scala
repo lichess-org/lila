@@ -14,6 +14,7 @@ case class Study(
     settings: Settings,
     from: Study.From,
     likes: Study.Likes,
+    description: Option[String] = None,
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
@@ -129,7 +130,8 @@ object Study {
       explorer: String,
       cloneable: String,
       chat: String,
-      sticky: String
+      sticky: String,
+      description: String
   ) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
@@ -139,7 +141,8 @@ object Study {
       clon <- UserSelection.byKey get cloneable
       chat <- UserSelection.byKey get chat
       stic = sticky == "true"
-    } yield Settings(comp, expl, clon, chat, stic)
+      desc = description == "true"
+    } yield Settings(comp, expl, clon, chat, stic, desc)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

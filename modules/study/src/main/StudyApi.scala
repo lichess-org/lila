@@ -590,7 +590,7 @@ final class StudyApi(
       chapterRepo.byIdAndStudy(data.id, studyId) flatMap {
         _ ?? { chapter =>
           val newChapter = chapter.copy(
-            description = data.description.nonEmpty option data.description
+            description = data.desc.nonEmpty option data.desc
           )
           (chapter != newChapter) ?? {
             chapterRepo.update(newChapter) >>- {
@@ -633,12 +633,26 @@ final class StudyApi(
     }
   }
 
+  def descStudy(byUserId: User.ID, studyId: Study.Id, desc: String, uid: Uid) = sequenceStudy(studyId) { study =>
+    Contribute(byUserId, study) {
+      val newStudy = study.copy(description = desc.nonEmpty option desc)
+      (study != newStudy) ?? {
+        studyRepo.updateSomeFields(newStudy) >>-
+          sendTo(study, StudySocket.DescStudy(uid, newStudy.description)) >>-
+          indexStudy(study)
+      }
+    }
+  }
+
   def editStudy(byUserId: User.ID, studyId: Study.Id, data: Study.Data) = sequenceStudy(studyId) { study =>
     data.settings.ifTrue(study isOwner byUserId) ?? { settings =>
       val newStudy = study.copy(
         name = Study toName data.name,
         settings = settings,
-        visibility = data.vis
+        visibility = data.vis,
+        description = settings.description option {
+          study.description.filter(_.nonEmpty) | "-"
+        }
       )
       if (!study.isPublic && newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), 'study)

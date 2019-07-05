@@ -22,7 +22,7 @@ export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
 
   const hub = window.lichess.pubsub;
 
-  hub.emit('socket.send')('moveLat', true);
+  hub.emit('socket.send', 'moveLat', true);
   hub.on('socket.lag', lag => {
     data.ping = Math.round(lag);
     redraw();

@@ -96,7 +96,6 @@ export interface NoteCtrl {
 export interface ModerationOpts {
   reasons: ModerationReason[]
   permissions: Permissions
-  send(typ: string, data: any): void
   redraw: Redraw
 }
 

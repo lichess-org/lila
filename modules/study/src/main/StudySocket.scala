@@ -119,7 +119,12 @@ final class StudySocket(
 
     case DescChapter(uid, chapterId, description) => notifyVersion("descChapter", Json.obj(
       "chapterId" -> chapterId,
-      "description" -> description,
+      "desc" -> description,
+      "w" -> who(uid)
+    ), noMessadata)
+
+    case DescStudy(uid, description) => notifyVersion("descStudy", Json.obj(
+      "desc" -> description,
       "w" -> who(uid)
     ), noMessadata)
 
@@ -307,7 +312,8 @@ object StudySocket {
   case object ReloadAll
   case class ChangeChapter(uid: Uid, position: Position.Ref)
   case class UpdateChapter(uid: Uid, chapterId: Chapter.Id)
-  case class DescChapter(uid: Uid, chapterId: Chapter.Id, description: Option[String])
+  case class DescChapter(uid: Uid, chapterId: Chapter.Id, desc: Option[String])
+  case class DescStudy(uid: Uid, desc: Option[String])
   case class AddChapter(uid: Uid, position: Position.Ref, sticky: Boolean)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)

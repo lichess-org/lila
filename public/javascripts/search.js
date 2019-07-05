@@ -77,7 +77,7 @@ $(function() {
       }
     }, function() {
       $("#infscr-loading").remove();
-      lichess.pubsub.emit('content_loaded')();
+      lichess.pubsub.emit('content_loaded');
     });
   });
 

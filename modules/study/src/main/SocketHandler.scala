@@ -162,6 +162,11 @@ final class SocketHandler(
         }
       }
 
+    case ("descStudy", o) => for {
+      desc <- o str "d"
+      userId <- member.userId
+    } api.descStudy(userId, studyId, desc, uid)
+
     case ("descChapter", o) =>
       reading[ChapterMaker.DescData](o) { data =>
         member.userId foreach {

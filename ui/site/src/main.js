@@ -168,7 +168,7 @@
           }
         }
       }).on('typeahead:render', function() {
-        lichess.pubsub.emit('content_loaded')();
+        lichess.pubsub.emit('content_loaded');
       });
       if (opts.focus) $input.focus();
       if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
@@ -449,7 +449,7 @@
             }
           }, function() {
             $("#infscr-loading").remove();
-            lichess.pubsub.emit('content_loaded')();
+            lichess.pubsub.emit('content_loaded');
             var ids = [];
             $(el).find('.paginated[data-dedup]').each(function() {
               var id = $(this).data('dedup');
@@ -470,7 +470,7 @@
         var $p = $(this).parent();
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
-        lichess.pubsub.emit('top.toggle.' + $(this).attr('id'))();
+        lichess.pubsub.emit('top.toggle.' + $(this).attr('id'));
         setTimeout(function() {
           var handler = function(e) {
             if ($.contains($p[0], e.target)) return;
@@ -641,7 +641,7 @@
     };
 
     var publish = function() {
-      lichess.pubsub.emit('sound_set')(soundSet);
+      lichess.pubsub.emit('sound_set', soundSet);
     };
     setTimeout(publish, 500);
 

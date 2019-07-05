@@ -39,7 +39,7 @@ if (location.search.startsWith('?mod')) $toggle.click();
 
 function userMod($zone) {
 
-  lichess.pubsub.emit('content_loaded')();
+  lichess.pubsub.emit('content_loaded');
 
   $('#mz_menu .mz_plan').toggleClass('disabled', !$('#mz_plan').length);
 

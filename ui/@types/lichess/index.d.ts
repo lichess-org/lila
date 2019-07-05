@@ -94,7 +94,7 @@ type PubsubCallback = (...data: any[]) => void;
 interface Pubsub {
   on(msg: string, f: PubsubCallback): void;
   off(msg: string, f: PubsubCallback): void;
-  emit(msg: string): (...args: any[]) => void;
+  emit(msg: string, ...args: any[]): void;
 }
 
 interface LichessStorageHelper {

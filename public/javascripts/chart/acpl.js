@@ -90,7 +90,7 @@ lichess.advantageChart = function(data, trans, el) {
                 click: function(event) {
                   if (event.point) {
                     event.point.select();
-                    lichess.pubsub.emit('analysis.chart.click')(event.point.x);
+                    lichess.pubsub.emit('analysis.chart.click', event.point.x);
                   }
                 }
               },
@@ -146,7 +146,7 @@ lichess.advantageChart = function(data, trans, el) {
             }]
           }
         });
-        lichess.pubsub.emit('analysis.change.trigger')();
+        lichess.pubsub.emit('analysis.change.trigger');
       });
     });
   });

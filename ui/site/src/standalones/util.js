@@ -27,22 +27,22 @@ lichess.isCol1 = (() => {
 {
   const buildStorage = (storage) => {
     const api = {
-      get: (k) => storage.getItem(k),
+      get: k => storage.getItem(k),
       set: (k, v) => storage.setItem(k, v),
-      remove: (k) => storage.removeItem(k),
-      make: (k) => ({
+      remove: k => storage.removeItem(k),
+      make: k => ({
         get: () => api.get(k),
-        set: (v) => api.set(k, v),
+        set: v => api.set(k, v),
         remove: () => api.remove(k),
-        listen: (f) => window.addEventListener('storage', e => {
+        listen: f => window.addEventListener('storage', e => {
           if (e.key === k &&
             e.storageArea === storage &&
             e.newValue !== null) f(e);
         })
       }),
-      makeBoolean: (k) => ({
+      makeBoolean: k => ({
         get: () => api.get(k) == 1,
-        set: (v) => api.set(k, v ? 1 : 0),
+        set: v => api.set(k, v ? 1 : 0),
         toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1)
       })
     };
@@ -95,7 +95,7 @@ lichess.powertip = (() => {
         url: url + '/mini',
         success: function(html) {
           $('#' + id).html(html);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         }
       });
     };
@@ -300,12 +300,11 @@ lichess.pubsub = (function() {
         }
       }
     },
-    emit(name) {
-      return () => {
-        if (!subs[name]) return;
-        const args = Array.prototype.slice.call(arguments, 0);
-        for (let i in subs[name]) subs[name][i].apply(null, args);
-      }
+    emit(name /*, args... */) {
+      if (!subs[name]) return;
+      const args = Array.prototype.slice.call(arguments, 1);
+      console.log(args, name);
+      for (let i in subs[name]) subs[name][i].apply(null, args);
     }
   };
 })();
