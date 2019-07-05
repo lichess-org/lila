@@ -1110,11 +1110,16 @@ div.timeout_choice select {
   font-weight: bold;
   margin: 0 .5em;
 }
+#now_playing .simul span.simul-targets {
+  font-size: 0.9em;
+  font-weight: normal;
+  margin: 0;
+}
 #now_playing .simul span.req {
   margin: 0 .1em 0 .4em;
 }
 #now_playing .simul span.req2 {
-  margin: 0 0 0 .2em;
+  margin: 0 0 0 .1em;
 }
 #now_playing .simul .win {
   color: #759900;
