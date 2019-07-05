@@ -291,7 +291,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
 };
 
 {
-  let sri = lidraughts.tempStorage.get('socket.sri');
+  let sri = null; // lidraughts.tempStorage.get('socket.sri');
   if (!sri) {
     try {
       if (window.crypto !== undefined) {
@@ -304,7 +304,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
     if (!sri) {
       sri = Math.random().toString(36).slice(2, 12);
     }
-    lidraughts.tempStorage.set('socket.sri', sri);
+    // lidraughts.tempStorage.set('socket.sri', sri);
   }
   lidraughts.StrongSocket.sri = sri;
 }
