@@ -32,5 +32,5 @@ export function init(ctrl: RoundController) {
     ctrl.redraw();
   }));
   k.bind('f', preventing(ctrl.flipNow));
-  k.bind('z', preventing(window.lidraughts.pubsub.emit('zen')));
+  k.bind('z', preventing(() => window.lidraughts.pubsub.emit('zen')));
 }

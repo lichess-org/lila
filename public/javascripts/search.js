@@ -77,7 +77,7 @@ $(function() {
       }
     }, function() {
       $("#infscr-loading").remove();
-      lidraughts.pubsub.emit('content_loaded')();
+      lidraughts.pubsub.emit('content_loaded');
     });
   });
 

@@ -419,7 +419,7 @@ export default function (opts, redraw: () => void): Controller {
     }
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
-    window.lidraughts.pubsub.emit('ply')(vm.node.ply);
+    window.lidraughts.pubsub.emit('ply', vm.node.ply);
     return playedMyself;
   };
 

@@ -127,7 +127,7 @@ lidraughts.advantageChart = function(data, trans, el) {
                 click: function(event) {
                   if (event.point) {
                     event.point.select();
-                    lidraughts.pubsub.emit('analysis.chart.click')(event.point.x);
+                    lidraughts.pubsub.emit('analysis.chart.click', event.point.x);
                   }
                 }
               },
@@ -183,7 +183,7 @@ lidraughts.advantageChart = function(data, trans, el) {
             }]
           }
         });
-        lidraughts.pubsub.emit('analysis.change.trigger')();
+        lidraughts.pubsub.emit('analysis.change.trigger');
       });
     });
   });

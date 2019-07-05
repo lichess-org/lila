@@ -19,7 +19,7 @@ object home {
     moreJs = embedJsUnsafe(s"""$$(function() {
   lidraughts.StrongSocket.defaults.params.flag = 'simul';
   lidraughts.pubsub.on('socket.in.reload', () => {
-    $$('.simul-list__content').load('${routes.Simul.homeReload()}', lidraughts.pubsub.emit('content_loaded'));
+    $$('.simul-list__content').load('${routes.Simul.homeReload()}', () => lidraughts.pubsub.emit('content_loaded'));
   });
 });"""),
     title = trans.simultaneousExhibitions.txt(),

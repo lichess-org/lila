@@ -55,7 +55,7 @@ module.exports = function(cfg, element) {
             url: $("#timeline").data('href'),
             success: function(html) {
               $('#timeline').html(html);
-              lidraughts.pubsub.emit('content_loaded')();
+              lidraughts.pubsub.emit('content_loaded');
             }
           });
         },
@@ -65,7 +65,7 @@ module.exports = function(cfg, element) {
         },
         featured: function(o) {
           $('.lobby__tv').html(o.html);
-          lidraughts.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded');
         },
         redirect: function(e) {
           lobby.leavePool();
@@ -74,11 +74,11 @@ module.exports = function(cfg, element) {
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
-          lidraughts.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded');
         },
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          lidraughts.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded');
         },
         reload_forum: function() {
           var $newposts = $("div.lobby__forum");
@@ -87,7 +87,7 @@ module.exports = function(cfg, element) {
               url: $newposts.data('url'),
               success: function(data) {
                 $newposts.find('ol').html(data).end().scrollTop(0);
-                lidraughts.pubsub.emit('content_loaded')();
+                lidraughts.pubsub.emit('content_loaded');
               }
             });
           }, Math.round(Math.random() * 5000));
@@ -375,7 +375,7 @@ module.exports = function(cfg, element) {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
             $submits.removeClass('nope');
-            lidraughts.pubsub.emit('content_loaded')();
+            lidraughts.pubsub.emit('content_loaded');
           },
           error: function() {
             $fenInput.addClass("failure");
@@ -425,7 +425,7 @@ module.exports = function(cfg, element) {
         prepareForm($.modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
-        lidraughts.pubsub.emit('content_loaded')();
+        lidraughts.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);

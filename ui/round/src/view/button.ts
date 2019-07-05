@@ -338,5 +338,5 @@ export function timeOutConfirmChoice(ctrl: RoundController): VNode {
 }
 
 const onSuggestionHook: Hooks = util.onInsert(
-  el => window.lidraughts.pubsub.emit('round.suggestion')(el.textContent)
+  el => window.lidraughts.pubsub.emit('round.suggestion', el.textContent)
 );

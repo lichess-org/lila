@@ -42,7 +42,7 @@ $(function() {
         $('.angle-content .infinitescroll').infinitescroll('destroy');
         $.get(path).then(function(html) {
           $content.html(html);
-          lidraughts.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded');
           history.replaceState({}, '', path);
           lidraughts.loadInfiniteScroll('.angle-content .infinitescroll');
         });

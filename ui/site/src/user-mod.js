@@ -39,7 +39,7 @@ if (location.search.startsWith('?mod')) $toggle.click();
 
 function userMod($zone) {
 
-  lidraughts.pubsub.emit('content_loaded')();
+  lidraughts.pubsub.emit('content_loaded');
 
   $('#mz_menu .mz_plan').toggleClass('disabled', !$('#mz_plan').length);
 

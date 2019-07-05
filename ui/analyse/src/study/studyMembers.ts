@@ -231,8 +231,8 @@ export function view(ctrl: StudyCtrl): VNode {
   return h('div.study__members', {
     hook: {
       insert: _ => {
-        window.lidraughts.pubsub.emit('content_loaded')();
-        window.lidraughts.pubsub.emit('chat.resize')();
+        window.lidraughts.pubsub.emit('content_loaded');
+        window.lidraughts.pubsub.emit('chat.resize');
       }
     }
   }, [
