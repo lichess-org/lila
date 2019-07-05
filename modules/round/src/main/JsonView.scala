@@ -164,8 +164,8 @@ final class JsonView(
                 "version" -> socket.version.value,
                 "spectator" -> true
               )
-            },
-            "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags),
+            }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+            "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
             "captureLength" -> captureLength(pov),
             "orientation" -> pov.color.name,
             "url" -> Json.obj(
