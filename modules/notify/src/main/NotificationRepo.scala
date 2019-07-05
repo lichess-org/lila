@@ -22,14 +22,14 @@ private final class NotificationRepo(val coll: Coll) {
     coll.count(unreadOnlyQuery(userId).some)
   }
 
-  private val hasOld = $doc(
+  private def hasOld = $doc(
     "read" -> false,
     "createdAt" $gt DateTime.now.minusDays(3)
   )
-  private val hasUnread = $doc( // recent, read
+  private def hasUnread = $doc( // recent, read
     "createdAt" $gt DateTime.now.minusMinutes(10)
   )
-  private val hasOldOrUnread =
+  private def hasOldOrUnread =
     $doc("$or" -> List(hasOld, hasUnread))
 
   def hasRecentStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId): Fu[Boolean] =
