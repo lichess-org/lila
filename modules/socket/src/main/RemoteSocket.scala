@@ -31,6 +31,7 @@ private final class RemoteSocket(
     val TellUsers = "tell/users"
     val TellAll = "tell/all"
     val Mlat = "mlat"
+    val Flag = "flag"
   }
 
   private val clientIn = makeRedis()
@@ -39,7 +40,7 @@ private final class RemoteSocket(
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat) {
+  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
     case MoveEvent(gameId, fen, move) if watchedGameIds(gameId) => send(Out.Move, Json.obj(
       "gameId" -> gameId,
       "fen" -> fen,
@@ -67,6 +68,10 @@ private final class RemoteSocket(
     ))
     case Mlat(ms) => send(Out.Mlat, Json.obj("value" -> ms))
     case WithUserIds(f) => f(connectedUserIds)
+    case actorApi.SendToFlag(flag, payload) => send(Out.Flag, Json.obj(
+      "flag" -> flag,
+      "payload" -> payload
+    ))
   }
 
   private def onReceive(path: String, data: JsObject) = path match {
