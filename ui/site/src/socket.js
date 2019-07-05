@@ -281,7 +281,7 @@ lichess.StrongSocket = function(url, version, settings) {
 };
 
 {
-  let sri = lichess.tempStorage.get('socket.sri');
+  let sri = null; // lichess.tempStorage.get('socket.sri');
   if (!sri) {
     try {
       if (window.crypto !== undefined) {
@@ -294,7 +294,7 @@ lichess.StrongSocket = function(url, version, settings) {
     if (!sri) {
       sri = Math.random().toString(36).slice(2, 12);
     }
-    lichess.tempStorage.set('socket.sri', sri);
+    // lichess.tempStorage.set('socket.sri', sri);
   }
   lichess.StrongSocket.sri = sri;
 }
