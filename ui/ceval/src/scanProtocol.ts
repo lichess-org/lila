@@ -152,7 +152,7 @@ export default class Protocol {
           }
         } else {
           walker -= 5;
-          if (vertical) walker += 5;
+          if (vertical) walker -= 5;
           else if (right) walker += walkerY % 2 == 1 ? 1 : 0;
           else walker += walkerY % 2 == 0 ? -1 : 0;
         }
