@@ -115,7 +115,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
         vnode.data!.li = {};
         update(vnode);
-        window.lichess.pubsub.emit('chat.resize')();
+        window.lichess.pubsub.emit('chat.resize');
       },
       postpatch(old, vnode) {
         vnode.data!.li = old.data!.li;

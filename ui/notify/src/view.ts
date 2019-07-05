@@ -52,7 +52,7 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = window.lichess.pubsub.emit('content_loaded');
+const contentLoaded = () => window.lichess.pubsub.emit('content_loaded');
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return h('div', {

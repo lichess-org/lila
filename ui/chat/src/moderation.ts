@@ -40,7 +40,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     open,
     close,
     timeout(reason: ModerationReason) {
-      data && opts.send('timeout', {
+      data && window.lichess.pubsub.emit('socket.send', 'timeout', {
         userId: data.id,
         reason: reason.key
       });
@@ -119,7 +119,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       h('strong', 'Timeout history'),
       h('table', h('tbody.slist', {
         hook: {
-          insert: () => window.lichess.pubsub.emit('content_loaded')()
+          insert: () => window.lichess.pubsub.emit('content_loaded')
         }
       }, data.history.map(function(e) {
         return h('tr', [

@@ -55,7 +55,7 @@ module.exports = function(cfg, element) {
             url: $("#timeline").data('href'),
             success: function(html) {
               $('#timeline').html(html);
-              lichess.pubsub.emit('content_loaded')();
+              lichess.pubsub.emit('content_loaded');
             }
           });
         },
@@ -65,7 +65,7 @@ module.exports = function(cfg, element) {
         },
         featured: function(o) {
           $('.lobby__tv').html(o.html);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         redirect: function(e) {
           lobby.leavePool();
@@ -74,11 +74,11 @@ module.exports = function(cfg, element) {
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);
@@ -376,7 +376,7 @@ module.exports = function(cfg, element) {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
             $submits.removeClass('nope');
-            lichess.pubsub.emit('content_loaded')();
+            lichess.pubsub.emit('content_loaded');
           },
           error: function() {
             $fenInput.addClass("failure");
@@ -426,7 +426,7 @@ module.exports = function(cfg, element) {
         prepareForm($.modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
-        lichess.pubsub.emit('content_loaded')();
+        lichess.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);

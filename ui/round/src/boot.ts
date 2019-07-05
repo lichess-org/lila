@@ -32,7 +32,7 @@ export default function(opts: RoundOpts): void {
               const $html = $(html), $meta = $html.find('.game__meta');
               $meta.length && $('.game__meta').replaceWith($meta);
               $('.crosstable').replaceWith($html.find('.crosstable'));
-              li.pubsub.emit('content_loaded')();
+              li.pubsub.emit('content_loaded');
             }
           });
         },
@@ -87,6 +87,6 @@ export default function(opts: RoundOpts): void {
   });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
   history.replaceState(null, '', '/' + data.game.id);
-  $('#zentog').click(li.pubsub.emit('zen'));
+  $('#zentog').click(() => li.pubsub.emit('zen'));
   li.storage.make('reload-round-tabs').listen(li.reload);
 }

@@ -143,8 +143,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const canContribute = members.canContribute();
     // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;
-    li.pubsub.emit('chat.writeable')(data.features.chat);
-    li.pubsub.emit('chat.permissions')({local: canContribute});
+    li.pubsub.emit('chat.writeable', data.features.chat);
+    li.pubsub.emit('chat.permissions', {local: canContribute});
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);

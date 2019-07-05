@@ -73,7 +73,7 @@ lichess.StrongSocket = function(url, version, settings) {
         onSuccess();
         $('body').removeClass('offline').addClass('online').addClass(nbConnects > 1 ? 'reconnected' : '');
         pingNow();
-        lichess.pubsub.emit('socket.open')();
+        lichess.pubsub.emit('socket.open');
         ackable.resend();
       };
       ws.onmessage = function(e) {
@@ -167,7 +167,7 @@ lichess.StrongSocket = function(url, version, settings) {
     var mix = pongCount > 4 ? 0.1 : 1 / pongCount;
     averageLag += mix * (currentLag - averageLag);
 
-    lichess.pubsub.emit('socket.lag')(averageLag);
+    lichess.pubsub.emit('socket.lag', averageLag);
   };
 
   var handle = function(m) {
@@ -190,7 +190,7 @@ lichess.StrongSocket = function(url, version, settings) {
         ackable.gotAck(m.d);
         break;
       default:
-        lichess.pubsub.emit('socket.in.' + m.t)(m.d);
+        lichess.pubsub.emit('socket.in.' + m.t, m.d);
         var processed = settings.receive && settings.receive(m.t, m.d);
         if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }

@@ -19,7 +19,7 @@ object home {
     moreJs = embedJsUnsafe(s"""$$(function() {
   lichess.StrongSocket.defaults.params.flag = 'simul';
   lichess.pubsub.on('socket.in.reload', () => {
-    $$('.simul-list__content').load('${routes.Simul.homeReload()}', lichess.pubsub.emit('content_loaded'));
+    $$('.simul-list__content').load('${routes.Simul.homeReload()}', () => lichess.pubsub.emit('content_loaded'));
   });
 });"""),
     title = trans.simultaneousExhibitions.txt(),

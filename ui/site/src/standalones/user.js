@@ -42,7 +42,7 @@ $(function() {
         $('.angle-content .infinitescroll').infinitescroll('destroy');
         $.get(path).then(function(html) {
           $content.html(html);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
           history.replaceState({}, '', path);
           lichess.loadInfiniteScroll('.angle-content .infinitescroll');
         });
