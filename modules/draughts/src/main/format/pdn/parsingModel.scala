@@ -50,18 +50,19 @@ case class Std(
 
   def withMetas(m: Metas) = copy(metas = m)
 
-  def move(situation: Situation, iteratedCapts: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None): Valid[draughts.Move] = situation.board.pieces.foldLeft(none[draughts.Move]) {
-    case (None, (pos, piece)) if piece.color == situation.color && pos == src =>
-      val a = Actor(piece, pos, situation.board)
-      val m = a.validMoves.find { m => m.dest == dest && (!iteratedCapts || m.situationAfter.ghosts == 0) }
-      if (m.isEmpty && capture && iteratedCapts)
-        a.capturesFinal.find { m => m.dest == dest && captures.fold(true)(m.capture.contains) && !forbiddenUci.fold(false)(_.contains(m.toUci.uci)) }
-      else m
-    case (m, _) => m
-  } match {
-    case None => s"No move found ($iteratedCapts): $this - in situation $situation".failureNel
-    case Some(move) => Some(move) toValid s"Invalide move: $move"
-  }
+  def move(situation: Situation, iteratedCapts: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None): Valid[draughts.Move] =
+    situation.board.pieces.foldLeft(none[draughts.Move]) {
+      case (None, (pos, piece)) if piece.color == situation.color && pos == src =>
+        val a = Actor(piece, pos, situation.board)
+        val m = a.validMoves.find { m => m.dest == dest && (!iteratedCapts || m.situationAfter.ghosts == 0) }
+        if (m.isEmpty && capture && iteratedCapts)
+          a.capturesFinal.find { m => m.dest == dest && captures.fold(true)(m.capture.contains) && !forbiddenUci.fold(false)(_.contains(m.toUci.uci)) }
+        else m
+      case (m, _) => m
+    } match {
+      case None => s"No move found ($iteratedCapts): $this - in situation $situation".failureNel
+      case Some(move) => Some(move) toValid s"Invalide move: $move"
+    }
 
   private def compare[A](a: Option[A], b: A) = a.fold(true)(b ==)
 

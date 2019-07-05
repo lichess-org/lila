@@ -10,6 +10,7 @@ case class DraughtsGame(
     turns: Int = 0,
     startedAtTurn: Int = 0
 ) {
+
   def apply(
     orig: Pos,
     dest: Pos,
@@ -21,9 +22,11 @@ case class DraughtsGame(
       apply(move) -> move
     }
 
-  def apply(move: Move): DraughtsGame = {
+  def apply(move: Move): DraughtsGame = apply(move, false)
 
-    val newSituation = move.situationAfter
+  def apply(move: Move, finalSquare: Boolean): DraughtsGame = {
+
+    val newSituation = move.situationAfter(finalSquare)
 
     if (newSituation.ghosts != 0) {
       copy(

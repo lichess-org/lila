@@ -16,8 +16,9 @@ case class Move(
 
   def before = situationBefore.board
 
-  def situationAfter = {
-    val newBoard = finalizeAfter
+  def situationAfter: Situation = situationAfter(false)
+  def situationAfter(finalSquare: Boolean): Situation = {
+    val newBoard = finalizeAfter(finalSquare)
     if (newBoard.ghosts != 0)
       Situation(newBoard, piece.color)
     else
@@ -26,12 +27,13 @@ case class Move(
 
   def withHistory(h: DraughtsHistory) = copy(after = after withHistory h)
 
-  def finalizeAfter: Board = {
+  def finalizeAfter(finalSquare: Boolean = false): Board = {
     val board = after updateHistory { h1 =>
       h1.copy(lastMove = Some(toUci))
     }
 
-    board.variant.finalizeBoard(board, toUci, taken flatMap before.apply, situationBefore.captureLengthFrom(orig).getOrElse(0) - 1) updateHistory { h =>
+    def remainingCaptures = situationBefore.captureLengthFrom(orig).getOrElse(0) - 1
+    board.variant.finalizeBoard(board, toUci, taken flatMap before.apply, finalSquare.fold(0, remainingCaptures)) updateHistory { h =>
       // Update position hashes last, only after updating the board,
       h.copy(positionHashes = board.variant.updatePositionHashes(board, this, h.positionHashes))
     }

@@ -108,14 +108,17 @@ object Replay {
       var newAmb = none[(String, String)]
       val res = moves match {
         case uci :: rest => Uci.Move(uci) match {
-          case Some(uciMove) => Std(uciMove.orig, uciMove.dest, uciMove.capture.getOrElse(Nil).nonEmpty).move(
+          case Some(uciMove) => Std(uciMove.orig, uciMove.dest, uciMove.capture.fold(false)(_.nonEmpty)).move(
             g.situation, true,
             if (ambs.isEmpty) None else ambs.collect({ case (ambFrom, ambUci) if ambFrom == uci => ambUci }).some,
             uciMove.capture
           ).fold(
-              err => (Nil, err.head.some),
+              err => {
+                logger.warn(s"exportScanMoves $uci -> ${uciMove.orig}${if (uciMove.capture.fold(false)(_.nonEmpty)) "x" else "-"}${uciMove.dest} - error ${err.head}")
+                (Nil, err.head.some)
+              },
               move => {
-                val newGame = g(move)
+                val newGame = g(move, true)
                 val scanMove = move.toScanMove
                 if (move.capture.fold(false)(_.lengthCompare(1) > 0) && move.situationBefore.ambiguitiesMove(move) > 0)
                   newAmb = (uci -> move.toUci.uci).some
@@ -257,7 +260,7 @@ object Replay {
         sans match {
           case Nil => failureNel(s"Can't find $atFenTruncated, reached ply $ply")
           case san :: rest => san(sit) flatMap { move =>
-            val after = move.finalizeAfter
+            val after = move.finalizeAfter()
             val fen = Forsyth >> DraughtsGame(Situation(after, Color.fromPly(ply)), turns = ply)
             if (compareFen(fen)) scalaz.Success(ply)
             else recursivePlyAtFen(Situation(after, !sit.color), rest, ply + 1)
