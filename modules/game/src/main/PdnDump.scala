@@ -95,7 +95,6 @@ final class PdnDump(
         bu.flatMap(_.title).map { t => Tag(_.BlackTitle, t) },
         Tag(_.GameType, game.variant.gameType).some,
         Tag.timeControl(game.clock.map(_.config)).some,
-        Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
         Tag(_.Opening, game.opening.fold("?")(_.opening.name)).some,
         Tag(_.Termination, {
           import draughts.Status._
@@ -124,13 +123,15 @@ final class PdnDump(
           white = moves.headOption filter (".." !=) map { san =>
             draughtsPdn.Move(
               san = san,
-              secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+              turn = Color.White,
+              secondsLeft = (clocks lift (index * 2 - clockOffset) map (_.roundSeconds), clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds))
             )
           },
           black = moves lift 1 map { san =>
             draughtsPdn.Move(
               san = san,
-              secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+              turn = Color.Black,
+              secondsLeft = (clocks lift (index * 2 - clockOffset) map (_.roundSeconds), clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds))
             )
           }
         )

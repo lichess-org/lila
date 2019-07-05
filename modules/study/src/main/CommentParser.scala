@@ -10,8 +10,10 @@ private[study] object CommentParser {
   private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
   private val arrowsRegex = """(?s).*\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\].*""".r
   private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
-  private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:\.]+)\].*""".r
-  private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
+  private val clockRegex = """(?s).*\[\%clock[\s\r\n]+([wW])([\d:\.]+)[\s\r\n]+([bB])([\d:\.]+)\].*""".r
+  private val clockRemoveRegex = """\[\%clock[\s\r\n]+[wW][\d:\.]+[\s\r\n]+[bB][\d:\.]+\]""".r
+  private val pgnClockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:\.]+)\].*""".r
+  private val pgnClockRemoveRegex = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
   private val tcecClockRegex = """(?s).*tl=([\d:\.]+).*""".r
   private val tcecClockRemoveRegex = """tl=[\d:\.]+""".r
 
@@ -46,7 +48,9 @@ private[study] object CommentParser {
   }
 
   private def parseClock(comment: String): ClockAndComment = comment match {
-    case clockRegex(str) => readCentis(str) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case clockRegex("w", strW, "B", _) => readCentis(strW) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case clockRegex("W", _, "b", strB) => readCentis(strB) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case pgnClockRegex(str) => readCentis(str) -> pgnClockRemoveRegex.replaceAllIn(comment, "").trim
     case tcecClockRegex(str) => readCentis(str) -> tcecClockRemoveRegex.replaceAllIn(comment, "").trim
     case _ => None -> comment
   }

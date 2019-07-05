@@ -45,7 +45,7 @@ private[analyse] final class Annotator(netDomain: String) {
 
   private def makeVariation(turn: Turn, advice: Advice): List[Turn] =
     Turn.fromMoves(
-      advice.info.variation take 20 map { san => Move(san) },
+      advice.info.variation take 20 map { san => Move(san, advice.color) },
       turn plyOf advice.color
     )
 }

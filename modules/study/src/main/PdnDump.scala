@@ -3,6 +3,7 @@ package lidraughts.study
 import draughts.format.Forsyth
 import draughts.format.pdn.{ Pdn, Tag, Tags, Initial }
 import draughts.format.{ pdn => draughtsPdn }
+import draughts.{ Centis, Color }
 import org.joda.time.format.DateTimeFormat
 
 import lidraughts.common.LightUser
@@ -62,7 +63,6 @@ final class PdnDump(
       Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
       Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
       Tag(_.GameType, chapter.setup.variant.gameType),
-      Tag(_.ECO, opening.fold("?")(_.eco)),
       Tag(_.Opening, opening.fold("?")(_.name)),
       Tag(_.Result, "*") // required for SCID to import
     ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(List(
@@ -82,8 +82,9 @@ private[study] object PdnDump {
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  def node2move(node: Node, variations: Variations) = draughtsPdn.Move(
+  def node2move(node: Node, variations: Variations, turn: Color, whiteClock: Option[Centis], blackClock: Option[Centis]) = draughtsPdn.Move(
     san = node.move.san,
+    turn = turn,
     glyphs = node.glyphs,
     comments = node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList,
     opening = none,
@@ -91,7 +92,7 @@ private[study] object PdnDump {
     variations = variations.map { child =>
       toTurns(child.mainline, noVariations)
     }(scala.collection.breakOut),
-    secondsLeft = node.clock.map(_.roundSeconds)
+    secondsLeft = (whiteClock.map(_.roundSeconds), blackClock.map(_.roundSeconds))
   )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
@@ -115,8 +116,8 @@ private[study] object PdnDump {
 
   def toTurn(first: Node, second: Option[Node], variations: Variations) = draughtsPdn.Turn(
     number = first.fullMoveNumber,
-    white = node2move(first, variations).some,
-    black = second map { node2move(_, first.children.variations) }
+    white = node2move(first, variations, Color.White, first.clock, second.flatMap(_.clock)).some,
+    black = second map { s => node2move(s, first.children.variations, Color.Black, first.clock, s.clock) }
   )
 
   def toTurns(root: Node.Root): List[draughtsPdn.Turn] = toTurns(root.mainline, root.children.variations)
@@ -126,7 +127,7 @@ private[study] object PdnDump {
     case first :: rest if first.ply % 2 == 0 => draughtsPdn.Turn(
       number = 1 + (first.ply - 1) / 2,
       white = none,
-      black = node2move(first, variations).some
+      black = node2move(first, variations, Color.Black, rest.headOption.flatMap(_.clock), first.clock).some
     ) :: toTurnsFromWhite(rest, first.children.variations)
     case l => toTurnsFromWhite(l, variations)
   }) filterNot (_.isEmpty)

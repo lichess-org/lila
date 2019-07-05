@@ -41,7 +41,7 @@ case class Pdn(
     val turnStr = turns mkString " "
     val endStr = tags(_.Result) | ""
     s"$tagStr\n\n$initStr$turnStr $endStr"
-  }.trim
+  }.trim + "\n"
 
   override def toString = render
 }
@@ -102,19 +102,23 @@ object Turn {
 
 case class Move(
     san: String,
+    // the color who played the move
+    turn: Color,
     comments: List[String] = Nil,
     glyphs: Glyphs = Glyphs.empty,
     opening: Option[String] = None,
     result: Option[String] = None,
     variations: List[List[Turn]] = Nil,
-    // time left for the user who made the move, after he made it
-    secondsLeft: Option[Int] = None
+    // time left for the white, black player, after the move is made
+    secondsLeft: (Option[Int], Option[Int]) = (None, None)
 ) {
 
   def isLong = comments.nonEmpty || variations.nonEmpty
 
   private def clockString: Option[String] =
-    secondsLeft.map(seconds => "[%clk " + Move.formatPdnSeconds(seconds) + "]")
+    if (secondsLeft._1.isDefined && secondsLeft._2.isDefined)
+      s"[%clock ${turn.fold("w", "W")}${Move.formatPdnSeconds(secondsLeft._1.get)} ${turn.fold("B", "b")}${Move.formatPdnSeconds(secondsLeft._2.get)}]".some
+    else none
 
   override def toString = {
     val glyphStr = glyphs.toList.map({
@@ -122,9 +126,9 @@ case class Move(
       case glyph => s" $$${glyph.id}"
     }).mkString
     val commentsOrTime =
-      if (comments.nonEmpty || secondsLeft.isDefined || opening.isDefined || result.isDefined)
+      if (comments.nonEmpty || (secondsLeft._1.isDefined && secondsLeft._2.isDefined) || opening.isDefined || result.isDefined)
         List(clockString, opening, result).flatten.:::(comments map Move.noDoubleLineBreak).map { text =>
-          s" { $text }"
+          s" {$text}"
         }.mkString
       else ""
     val variationString =
