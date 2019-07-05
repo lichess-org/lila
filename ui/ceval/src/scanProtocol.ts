@@ -36,6 +36,10 @@ function scanFen(fen: string): string {
   return result;
 }
 
+function scanHash(hashSize: number) {
+  return Math.floor(Math.log(hashSize * 1024 * 1024 / 16) / Math.log(2));
+}
+
 export function parseVariant(variant: string): string {
   let result = variant.toLowerCase();
   if (result === "standard" || result === "fromposition")
@@ -74,23 +78,22 @@ export default class Protocol {
     // get engine name/version
     send('hub');
 
-    // tt is initialized by a call to init, so should be initialized first (default to 128 mb)
-    const newHashSize = this.opts.hashSize ? (this.opts.hashSize() as number) : 128;
-    send('set-param name=tt-size value=' + Math.floor(Math.log(newHashSize * 1024 * 1024 / 16) / Math.log(2)));
+    // tt is initialized by a call to init, so should be initialized first (default to 64 mb)
+    const newHashSize = this.opts.hashSize ? (this.opts.hashSize() as number) : 64;
+    send('set-param name=tt-size value=' + scanHash(newHashSize));
     this.curHashSize = newHashSize;
 
-    send('set-param name=variant value=' + parseVariant(opts.variant));
+    send('set-param name=variant value=' + scanVariant);
 
     // bitbases are disabled by default, not supported for all variants
     switch (scanVariant) {
       case "normal":
+      case "frisian":
+      case "losing":
         send('set-param name=bb-size value=3');
         break;
       case "bt":
         send('set-param name=bb-size value=4');
-        break;
-	  case "frisian":
-        send('set-param name=bb-size value=3');
         break;
     }
 
@@ -277,7 +280,7 @@ export default class Protocol {
     if (this.opts.hashSize) {
       const newHashSize = (this.opts.hashSize() as number);
       if (newHashSize != this.curHashSize) {
-        this.send('set-param name=tt-size value=' + Math.floor(Math.log(newHashSize * 1024 * 1024 / 16) / Math.log(2)));
+        this.send('set-param name=tt-size value=' + scanHash(newHashSize));
         this.send('init');
         this.curHashSize = newHashSize;
       }
