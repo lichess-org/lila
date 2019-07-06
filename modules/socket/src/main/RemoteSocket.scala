@@ -65,7 +65,6 @@ private final class RemoteSocket(
     case In.Connect =>
       val userId = args
       connectedUserIds += userId
-      bus.publish(lila.hub.actorApi.relation.ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     case In.Disconnect =>
       val userId = args
       connectedUserIds -= args
@@ -76,23 +75,38 @@ private final class RemoteSocket(
       val userId = args
       notificationActor ! lila.hub.actorApi.notify.Notified(userId)
     case In.Connections =>
-      parseIntOption(args) foreach setNb
+      parseIntOption(args) foreach { nb =>
+        setNb(nb)
+        mon.connections(nb)
+      }
     case path =>
       logger.warn(s"Invalid path $path")
   }
 
-  private def send(path: String, args: String*) = WithResource(redisPool.getResource) { redis =>
-    redis.publish(chanOut, s"$path ${args mkString " "}")
-    redisMon.out()
+  /* Can fail if redis is offline, but must not propagate the exception,
+   * because subscribeFun is synchronous, and this runs on the same thread
+   * as the code that triggered the event */
+  private def send(path: String, args: String*): Unit = try {
+    WithResource(redisPool.getResource) { redis =>
+      redis.publish(chanOut, s"$path ${args mkString " "}")
+      redisMon.out()
+    }
+  } catch {
+    case e: Exception =>
+      logger.warn(s"RemoteSocket.out $path", e)
+      redisMon.outError()
   }
 
   private def tick(): Unit = {
     redisMon.pool.active(redisPool.getNumActive)
     redisMon.pool.idle(redisPool.getNumIdle)
     redisMon.pool.waiters(redisPool.getNumWaiters)
+    mon.sets.users(connectedUserIds.size)
+    mon.sets.games(watchedGameIds.size)
   }
 
-  private val redisMon = lila.mon.socket.redis
+  private val mon = lila.mon.socket.remote
+  private val redisMon = mon.redis
 
   Future {
     redisPool.getResource.subscribe(new JedisPubSub() {

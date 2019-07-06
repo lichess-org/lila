@@ -322,13 +322,21 @@ object mon {
     }
     val deadMsg = inc("socket.dead.msg")
     def queueSize(name: String) = rec(s"socket.queue_size.$name")
-    object redis {
-      val in = inc("socket.redis.in")
-      val out = inc("socket.redis.out")
-      object pool {
-        val active = rec("socket.redis.pool.active")
-        val idle = rec("socket.redis.pool.idle")
-        val waiters = rec("socket.redis.pool.waiters")
+    object remote {
+      object sets {
+        val users = rec("socket.remote.sets.users")
+        val games = rec("socket.remote.sets.games")
+      }
+      val connections = rec("socket.remote.connections")
+      object redis {
+        val in = inc("socket.remote.redis.in")
+        val out = inc("socket.remote.redis.out")
+        val outError = inc("socket.remote.redis.out_error")
+        object pool {
+          val active = rec("socket.remote.redis.pool.active")
+          val idle = rec("socket.remote.redis.pool.idle")
+          val waiters = rec("socket.remote.redis.pool.waiters")
+        }
       }
     }
   }
