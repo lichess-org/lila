@@ -88,7 +88,7 @@ lidraughts.powertip = (() => {
   }
 
   function onPowertipPreRender(id, preload) {
-    return () => {
+    return function() {
       let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
       if (preload) preload(url);
       $.ajax({
