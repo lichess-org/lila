@@ -278,7 +278,7 @@ export default function (opts, redraw: () => void): Controller {
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,
       variant: data.puzzle.variant,
-      possible: data.puzzle.variant.key === 'standard',
+      possible: true,
       emit: function (ev, work) {
         tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
