@@ -128,15 +128,15 @@ export default class Protocol {
     const fieldX = (f: number) => f % 5 + 1;
     const fieldY = (f: number) => (f + (5 - f % 5)) / 5;
 
-    const walkLine = (pieces: string[], king: boolean, srcF: number, dstF: number, eyesF?: number, eyesStraight?: boolean): number | undefined => {
+    const walkLine = (pieces: string[], king: boolean, srcF: number, dstF: number, forbiddenDsts: number[], eyesF?: number, eyesStraight?: boolean): number | undefined => {
       const srcY = fieldY(srcF), srcX = fieldX(srcF);
       const dstY = fieldY(dstF), dstX = fieldX(dstF);
       const up = dstY > srcY;
       const right = dstX > srcX || (dstX == srcX && srcY % 2 == 0)
       const vertical = this.frisianVariant && dstY !== srcY && dstX === srcX && Math.abs(dstY - srcY) % 2 === 0;
       const horizontal = this.frisianVariant && dstX !== srcX && dstY === srcY;
-      let walker = eyesF ? dstF : srcF, steps = 0;
-      while ((king || steps < 1) && (eyesF !== undefined || walker !== dstF)) {
+      let walker = eyesF ? dstF : srcF, steps = 0, touchedDst = false;
+      while ((king || steps < 1) && (eyesF !== undefined || (walker !== dstF && !touchedDst) || steps === 0)) {
 
         const walkerY = fieldY(walker);
         if (up) {
@@ -150,7 +150,7 @@ export default class Protocol {
             if (walkerX < 5) walker += 1
             else return undefined;
           } else {
-            if (walkerX > 0) walker -= 1
+            if (walkerX > 1) walker -= 1
             else return undefined;
           }
         } else {
@@ -166,38 +166,47 @@ export default class Protocol {
         if (pieces[walker]) {
           if (walker !== dstF)
             return undefined;
-          else
-            steps = 0;
+          if (eyesF === undefined)
+            touchedDst = true;
+          steps = 0;
         }
 
-        if (eyesF !== undefined && eyesStraight) {
-          if (eyesF === walker) return walker; // eyesStraight: destination square only in current capture direction
-        } else if (eyesF !== undefined && walkLine(pieces, king, walker, eyesF) !== undefined)
-          return walker; // !eyesStraight: current capture direction or perpendicular
-
+        if (eyesF !== undefined) {
+          if (eyesStraight) {
+            if (eyesF === walker) return walker; // eyesStraight: destination square only in current capture direction
+          } else if (forbiddenDsts.indexOf(walker) === -1 && walkLine(pieces, king, walker, eyesF, []) !== undefined) {
+            return walker; // !eyesStraight: current capture direction or perpendicular
+          }
+        }
       }
-      return walker === dstF ? srcF : undefined;
+      return (walker === dstF || touchedDst) ? srcF : undefined;
     }
 
     const tryCaptures = (pieces: string[], capts: number[], cur: number, dest: number): number[] => {
       for (let i = 0; i < capts.length; i++) {
         const capt = capts[i]; 
         const king = (pieces[cur] === 'W' || pieces[cur] === 'B');
-        if (walkLine(pieces, king, cur, capt) !== undefined) {
+        if (walkLine(pieces, king, cur, capt, []) !== undefined) {
           for (let k = 0; k < capts.length; k++) {
             const captNext = i !== k ? capts[k] : (capts.length === 1 ? dest : -1);
             if (captNext !== -1) {
-              const pivot = walkLine(pieces, king, cur, capt, captNext, i === k && capts.length === 1);
-              if (pivot !== undefined) {
-                const newCapts = capts.slice();
-                newCapts.splice(i, 1);
-                const newPieces = pieces.slice();
-                newPieces[capt] = 'x';
-                newPieces[pivot] = pieces[cur];
-                newPieces[cur] = "";
-                const sequence = [pivot].concat(tryCaptures(newPieces, newCapts, pivot, dest));
-                if (sequence.length == capts.length) return sequence;
-              }
+              const pivots: number[] = [];
+              let pivot: number | undefined;
+              do
+              {
+                pivot = walkLine(pieces, king, cur, capt, pivots, captNext, i === k && capts.length === 1);
+                if (pivot !== undefined) {
+                  const newCapts = capts.slice();
+                  newCapts.splice(i, 1);
+                  const newPieces = pieces.slice();
+                  newPieces[capt] = 'x';
+                  newPieces[pivot] = pieces[cur];
+                  newPieces[cur] = "";
+                  const sequence = [pivot].concat(tryCaptures(newPieces, newCapts, pivot, dest));
+                  if (sequence.length == capts.length) return sequence;
+                  pivots.push(pivot);
+                }
+              } while (pivot !== undefined);
             }
           }
         }
