@@ -36,11 +36,11 @@
   <string name="commentThisPosition">Комментировать эту позицию</string>
   <string name="commentThisMove">Комментировать этот ход</string>
   <string name="annotateWithGlyphs">Добавить символьную аннотацию</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Глава слишком маленькая для анализа.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Глава слишком короткая для анализа.</string>
   <string name="onlyContributorsCanRequestAnalysis">Только редакторы студии могут запросить компьютерный анализ.</string>
   <string name="getAFullComputerAnalysis">Получить полный серверный компьютерный анализ главной линии.</string>
   <string name="makeSureTheChapterIsComplete">Убедитесь, что глава завершена. Вы можете запросить анализ только один раз.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на тех же позициях</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
   <string name="onlyOngoingGames">Только активные партии</string>
