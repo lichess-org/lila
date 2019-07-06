@@ -322,6 +322,15 @@ object mon {
     }
     val deadMsg = inc("socket.dead.msg")
     def queueSize(name: String) = rec(s"socket.queue_size.$name")
+    object redis {
+      val in = inc("socket.redis.in")
+      val out = inc("socket.redis.out")
+      object pool {
+        val active = rec("socket.redis.pool.active")
+        val idle = rec("socket.redis.pool.idle")
+        val waiters = rec("socket.redis.pool.waiters")
+      }
+    }
   }
   object trouper {
     def queueSize(name: String) = rec(s"trouper.queue_size.$name")
