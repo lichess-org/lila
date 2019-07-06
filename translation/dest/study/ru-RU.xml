@@ -54,7 +54,7 @@
   <string name="chapterPgn">PGN главы</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте этот код в форум, чтобы встроить главу</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте эту ссылку в форум, чтобы встроить главу</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее а встраивании глав студии</string>
