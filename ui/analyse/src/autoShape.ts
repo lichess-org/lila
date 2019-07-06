@@ -4,7 +4,7 @@ import { opposite } from 'draughtsground/util';
 import { DrawShape } from 'draughtsground/draw';
 import AnalyseCtrl from './ctrl';
 
-export function makeShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
+export function makeShapesFromUci(uci: Uci, brush: string, modifiers?: any, brushFirst?: any): DrawShape[] {
   const moves = decomposeUci(scan2uci(uci));
   if (moves.length == 1) return [{
     orig: moves[0],
@@ -16,7 +16,7 @@ export function makeShapesFromUci(uci: Uci, brush: string, modifiers?: any): Dra
     shapes.push({
       orig: moves[i],
       dest: moves[i + 1],
-      brush,
+      brush: (brushFirst && i === 0) ? brushFirst : brush,
       modifiers
     });
   return shapes;
@@ -69,7 +69,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         } else if (nCeval)
           nextBest = nCeval.pvs[0].moves[0];
       }
-      if (nextBest) shapes = shapes.concat(makeShapesFromUci(nextBest, 'paleBlue'));
+      if (nextBest) {
+        const capts = nextBest.split('x').length;
+        shapes = shapes.concat(makeShapesFromUci(nextBest, capts > 4 ? 'paleBlue3' : 'paleBlue', undefined, capts > 4 ? 'paleBlue2' : ''));
+      }
       if (!ghostNode && instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
         nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;

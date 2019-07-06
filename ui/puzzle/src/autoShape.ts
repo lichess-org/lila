@@ -14,7 +14,7 @@ interface Opts {
   threatMode: boolean;
 }
 
-function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
+function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any, brushFirst?: any): DrawShape[] {
   const moves = decomposeUci(scan2uci(uci));
   if (moves.length == 1) return [{
     orig: moves[0],
@@ -26,7 +26,7 @@ function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawSh
     shapes.push({
       orig: moves[i],
       dest: moves[i + 1],
-      brush,
+      brush: (brushFirst && i === 0) ? brushFirst : brush,
       modifiers
     });
   return shapes;
@@ -54,7 +54,10 @@ export default function(opts: Opts): DrawShape[] {
         } else if (n.ceval)
           nextBest = n.ceval.pvs[0].moves[0];
       }
-      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, 'paleBlue'));
+      if (nextBest) {
+        const capts = nextBest.split('x').length;
+        shapes = shapes.concat(makeAutoShapesFromUci(nextBest, capts > 4 ? 'paleBlue3' : 'paleBlue', undefined, capts > 4 ? 'paleBlue2' : ''));
+      }
       if (!ghostNode && opts.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(opts.threatMode && n.threat && n.threat.pvs[2])) {
         n.ceval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
