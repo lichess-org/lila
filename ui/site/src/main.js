@@ -617,7 +617,7 @@
           Howler.volume(api.getVolume());
           var sound = collection(name);
           if (Howler.ctx.state == "suspended") {
-            Howler.ctx.resume().then(function() { sound.play() });
+            Howler.ctx.resume().then(() => sound.play());
           } else {
             sound.play();
           }
