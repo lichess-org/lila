@@ -7,9 +7,10 @@ import scala.concurrent.Future
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.{ Deploy, Announce }
+import lila.common.WithResource
 
 private final class RemoteSocket(
-    makeRedis: () => Jedis,
+    redisPool: JedisPool,
     chanIn: String,
     chanOut: String,
     lifecycle: play.api.inject.ApplicationLifecycle,
@@ -34,15 +35,13 @@ private final class RemoteSocket(
     val Mlat = "mlat"
   }
 
-  private val clientIn = makeRedis()
-  private val clientOut = makeRedis()
-
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
   bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
-    case MoveEvent(gameId, fen, move) if watchedGameIds(gameId) =>
-      send(Out.Move, gameId, move, fen)
+    // case MoveEvent(gameId, fen, move) if watchedGameIds(gameId) =>
+    case MoveEvent(gameId, fen, move) =>
+      if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
     case FinishGameId(gameId) if watchedGameIds(gameId) =>
       watchedGameIds -= gameId
     case SendTos(userIds, payload) =>
@@ -55,6 +54,9 @@ private final class RemoteSocket(
     case Announce(msg) =>
       send(Out.TellAll, Json stringify Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg)))
     case Mlat(ms) =>
+      // println(redisPool.getNumActive, "redisPool.getNumActive")
+      // println(redisPool.getNumIdle, "redisPool.getNumIdle")
+      // println(redisPool.getNumWaiters, "redisPool.getNumWaiters")
       send(Out.Mlat, ms.toString)
     case actorApi.SendToFlag(flag, payload) =>
       send(Out.TellFlag, flag, Json stringify payload)
@@ -82,11 +84,12 @@ private final class RemoteSocket(
       logger.warn(s"Invalid path $path")
   }
 
-  private def send(path: String, args: String*) =
-    clientOut.publish(chanOut, s"$path ${args mkString " "}")
+  private def send(path: String, args: String*) = WithResource(redisPool.getResource) {
+    _.publish(chanOut, s"$path ${args mkString " "}")
+  }
 
   Future {
-    clientIn.subscribe(new JedisPubSub() {
+    redisPool.getResource.subscribe(new JedisPubSub() {
       override def onMessage(channel: String, message: String): Unit = {
         val parts = message.split(" ", 2)
         onReceive(parts(0), ~parts.lift(1))
@@ -95,10 +98,9 @@ private final class RemoteSocket(
   }
 
   lifecycle.addStopHook { () =>
-    logger.info("Stopping the Redis clients...")
+    logger.info("Stopping the Redis pool...")
     Future {
-      clientIn.quit()
-      clientOut.quit()
+      redisPool.close()
     }
   }
 }
