@@ -229,10 +229,10 @@ export class Pool {
   warmup() {
     if (this.workers.length) return;
 
-    if (this.poolOpts.wasmx)
-      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts));
-    else if (this.poolOpts.pnacl)
+    if (this.poolOpts.pnacl)
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts));
+    else if (this.poolOpts.wasmx)
+      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts));
     else {
       for (var i = 1; i <= 2; i++)
         this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
