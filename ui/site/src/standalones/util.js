@@ -303,7 +303,6 @@ lichess.pubsub = (function() {
     emit(name /*, args... */) {
       if (!subs[name]) return;
       const args = Array.prototype.slice.call(arguments, 1);
-      console.log(args, name);
       for (let i in subs[name]) subs[name][i].apply(null, args);
     }
   };
