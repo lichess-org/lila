@@ -46,7 +46,7 @@ final class Env(
   )
 
   val socketRemoteUsersSetting = settingStore[String](
-    "socketRemoteusers",
+    "socketRemoteUsers",
     default = "",
     text = "Regex selecting user IDs using remote socket".some
   )
