@@ -621,7 +621,12 @@
         if (!enabled()) return;
         if (!text || !api.say(text)) {
           Howler.volume(api.getVolume());
-          collection(name).play();
+          var sound = collection(name);
+          if (Howler.ctx.state == "suspended") {
+            Howler.ctx.resume().then(() => sound.play());
+          } else {
+            sound.play();
+          }
         }
       }
     });
