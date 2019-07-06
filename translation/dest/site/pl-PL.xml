@@ -151,7 +151,7 @@
   <string name="games">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
-  <string name="latestForumPosts">Najnowsze posty</string>
+  <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Odmiana</string>
@@ -523,7 +523,7 @@
   <string name="success">Sukces</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
-  <string name="thankYou">Dziękujemy!</string>
+  <string name="thankYou">Podziękowania</string>
   <string name="ratingX">Ranking: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Rozwiązywane %s raz</item>
@@ -554,8 +554,8 @@
   <string name="help">Porada:</string>
   <string name="createANewTopic">Załóż nowy temat</string>
   <string name="topics">Tematy</string>
-  <string name="posts">Posty</string>
-  <string name="lastPost">Ostatni post</string>
+  <string name="posts">Wpisy</string>
+  <string name="lastPost">Ostatni wpis</string>
   <string name="views">Wyświetleń</string>
   <string name="replies">Odpowiedzi</string>
   <string name="replyToThisTopic">Odpowiedz w tym temacie</string>
