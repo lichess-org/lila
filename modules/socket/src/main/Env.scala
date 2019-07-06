@@ -44,6 +44,12 @@ final class Env(
     default = false,
     text = "Send extra debugging to websockets.".some
   )
+
+  val socketRemoteUsersSetting = settingStore[String](
+    "socketRemoteusers",
+    default = ".",
+    text = "Regex selecting user IDs using remote socket".some
+  )
 }
 
 object Env {

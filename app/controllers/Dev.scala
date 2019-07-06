@@ -21,6 +21,7 @@ object Dev extends LilaController {
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
     Env.socket.socketDebugSetting,
+    Env.socket.socketRemoteUsersSetting,
     Env.plan.donationGoalSetting,
     Env.rating.deviationIncreaseOverTimeSetting
   )

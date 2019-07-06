@@ -276,7 +276,13 @@
       lichess.pubsub.on('content_loaded', renderTimeago);
 
       if (!window.customWS) setTimeout(function() {
-        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket/v4", false);
+        if (lichess.socket === null) {
+          lichess.socket = lichess.StrongSocket("/socket/v4", false, {
+            options: {
+              remoteSocketDomain: document.body.getAttribute('data-remote-socket-domain')
+            }
+          });
+        }
       }, 300);
 
       var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
