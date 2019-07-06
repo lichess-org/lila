@@ -28,6 +28,10 @@
           @base.form.radios(form("display.captured"), booleanChoices)
         </li>
         <li>
+          <h2>@trans.showKingMoves()</h2>
+          @base.form.radios(form("display.kingMoves"), booleanChoices)
+        </li>
+        <li>
           <h2>@trans.boardHighlights()</h2>
           @base.form.radios(form("display.highlight"), booleanChoices)
         </li>

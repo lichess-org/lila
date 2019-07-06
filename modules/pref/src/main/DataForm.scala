@@ -9,6 +9,7 @@ object DataForm {
     "display" -> mapping(
       "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
       "captured" -> number.verifying(Pref.BooleanPref.verify),
+      "kingMoves" -> number.verifying(Pref.BooleanPref.verify),
       "highlight" -> number.verifying(Pref.BooleanPref.verify),
       "destination" -> number.verifying(Pref.BooleanPref.verify),
       "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
@@ -39,6 +40,7 @@ object DataForm {
   case class DisplayData(
       animation: Int,
       captured: Int,
+      kingMoves: Int,
       highlight: Int,
       destination: Int,
       coords: Int,
@@ -93,6 +95,7 @@ object DataForm {
       insightShare = insightShare,
       confirmResign = behavior.confirmResign,
       captured = display.captured == 1,
+      kingMoves = display.kingMoves == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       zen = display.zen | pref.zen,
       moveEvent = behavior.moveEvent | pref.moveEvent
@@ -109,6 +112,7 @@ object DataForm {
         replay = pref.replay,
         gameResult = pref.gameResult,
         captured = pref.captured.fold(1, 0),
+        kingMoves = pref.kingMoves.fold(1, 0),
         blindfold = pref.blindfold,
         zen = pref.zen.some
       ),

@@ -26,10 +26,10 @@ function makeConfig(ctrl: RoundController): Config {
         captureLength: data.captureLength,
         coordinates: data.pref.coords,
         addPieceZIndex: ctrl.data.pref.is3d,
-        autoCastle: data.game.variant.key === 'standard',
         highlight: {
             lastMove: data.pref.highlight,
-            check: data.pref.highlight
+            check: data.pref.highlight,
+            kingMoves: data.pref.showKingMoves && (data.game.variant.key === 'frisian' || data.game.variant.key === 'frysk')
         },
         events: {
             move: hooks.onMove,

@@ -179,6 +179,7 @@ export interface Pref {
   replay: 0 | 1 | 2;
   draughtsResult: boolean;
   showCaptured: boolean;
+  showKingMoves: boolean;
   submitMove: boolean;
 }
 

@@ -78,11 +78,11 @@ function closer(piece: AnimPiece, pieces: AnimPiece[]): AnimPiece {
 
 function ghostPiece(piece: cg.Piece): cg.Piece {
   if (piece.role === 'man')
-    return { role: 'ghostman', color: piece.color, promoted: piece.promoted };
+    return { role: 'ghostman', color: piece.color, promoted: piece.promoted, kingMoves: piece.kingMoves };
   else if (piece.role === 'king')
-    return { role: 'ghostking', color: piece.color, promoted: piece.promoted };
+    return { role: 'ghostking', color: piece.color, promoted: piece.promoted, kingMoves: piece.kingMoves };
   else
-    return { role: piece.role, color: piece.color, promoted: piece.promoted };
+    return { role: piece.role, color: piece.color, promoted: piece.promoted, kingMoves: piece.kingMoves };
 }
 
 function isPromotable(p: AnimPiece): boolean {

@@ -108,9 +108,13 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
             }
         },
         kingMoves(e) {
-            ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
-            ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
-            ctrl.redraw();
+            if (ctrl.data.pref.showKingMoves) {
+                ctrl.draughtsground.setKingMoves({ 
+                    white: { count: e.white, key: e.whiteKing },
+                    black: { count: e.black, key: e.blackKing }
+                });
+                ctrl.redraw();
+            }
         },
         simulPlayerMove(gameId: string) {
             if (ctrl.opts.userId &&

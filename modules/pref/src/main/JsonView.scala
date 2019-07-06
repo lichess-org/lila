@@ -21,6 +21,7 @@ object JsonView {
       "premove" -> p.premove,
       "animation" -> p.animation,
       "captured" -> p.captured,
+      "kingMoves" -> p.kingMoves,
       "follow" -> p.follow,
       "highlight" -> p.highlight,
       "destination" -> p.destination,

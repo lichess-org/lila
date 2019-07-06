@@ -105,3 +105,34 @@ export function countGhosts(fen: cg.FEN): number {
 
   return ghosts;
 }
+
+export function readKingMoves(fen: cg.FEN): cg.KingMoves | undefined {
+
+  if (fen === 'start') fen = initial;
+
+  const fenParts: string[] = fen.split(':'),
+    kingMoves = fenParts.length ? fenParts[fenParts.length - 1] : '';
+
+  if (kingMoves.indexOf('+') !== 0)
+    return undefined;
+
+  const playerMoves: string[] = kingMoves.split('+').filter(function (e) { return e.length != 0; });
+  if (playerMoves.length !== 2)
+    return undefined;
+
+  const whiteMoves = parseInt(playerMoves[1].slice(0, 1)),
+    blackMoves = parseInt(playerMoves[0].slice(0, 1));
+
+  const result: cg.KingMoves = { 
+    white: { count: whiteMoves },
+    black: { count: blackMoves }
+  };
+
+  if (whiteMoves > 0) {
+    result.white.key = playerMoves[1].slice(1) as cg.Key;
+  }
+  if (blackMoves > 0)
+    result.black.key = playerMoves[0].slice(1) as cg.Key;
+
+  return result;
+}

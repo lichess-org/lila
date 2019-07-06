@@ -21,6 +21,7 @@ export interface State {
   highlight: {
     lastMove: boolean; // add last-move class to squares
     check: boolean; // add check class to squares
+    kingMoves?: boolean; // show amount of king moves for frisian variants
   };
   animation: {
     enabled: boolean;

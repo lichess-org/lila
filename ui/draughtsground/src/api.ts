@@ -1,7 +1,7 @@
 import { State } from './state'
 import * as board from './board'
 import { write as fenWrite } from './fen'
-import { Config, configure } from './config'
+import { Config, configure, setKingMoves } from './config'
 import { anim, render } from './anim'
 import { cancel as dragCancel, dragNewPiece } from './drag'
 import { DrawShape } from './draw'
@@ -29,6 +29,9 @@ export interface Api {
 
   // add and/or remove arbitrary pieces on the board
   setPieces(pieces: cg.PiecesDiff): void;
+
+  // update kingmoves counters
+  setKingMoves(kingMoves: cg.KingMoves): void;
 
   // click a square programmatically
   selectSquare(key: cg.Key | null, force?: boolean): void;
@@ -120,6 +123,10 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
 
     newPiece(piece, key) {
       anim(state => board.baseNewPiece(state, piece, key), state);
+    },
+
+    setKingMoves(kingMoves: cg.KingMoves) {
+      setKingMoves(state, kingMoves);
     },
 
     playPremove() {

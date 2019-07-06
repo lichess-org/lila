@@ -12,6 +12,7 @@ object FormCompatLayer {
     moveTo("display", List(
       "animation",
       "captured",
+      "kingMoves",
       "highlight",
       "destination",
       "coords",

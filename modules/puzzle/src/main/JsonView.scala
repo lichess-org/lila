@@ -64,7 +64,8 @@ final class JsonView(
     ),
     "destination" -> p.destination,
     "moveEvent" -> p.moveEvent,
-    "highlight" -> p.highlight
+    "highlight" -> p.highlight,
+    "showKingMoves" -> p.kingMoves
   )
 
   def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] = for {

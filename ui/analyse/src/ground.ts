@@ -71,7 +71,8 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
         },
         highlight: {
             lastMove: pref.highlight,
-            check: pref.highlight
+            check: pref.highlight,
+            kingMoves: pref.showKingMoves && (d.game.variant.key === 'frisian' || d.game.variant.key === 'frysk')
         },
         animation: {
             duration: pref.animationDuration

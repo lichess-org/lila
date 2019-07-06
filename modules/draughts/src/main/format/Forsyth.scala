@@ -147,7 +147,7 @@ object Forsyth {
     exportBoard(board)
   ) mkString ":"
 
-  private def exportKingMoves(board: Board) = board.history.kingMoves match {
+  def exportKingMoves(board: Board) = board.history.kingMoves match {
     case KingMoves(white, black, whiteKing, blackKing) => s"+$black${blackKing.fold("")(_.toString)}+$white${whiteKing.fold("")(_.toString)}"
   }
 

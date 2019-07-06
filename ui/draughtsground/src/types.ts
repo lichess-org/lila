@@ -7,6 +7,7 @@ export interface Piece {
   role: Role;
   color: Color;
   promoted?: boolean;
+  kingMoves?: number;
 }
 export interface Drop {
   role: Role;
@@ -54,6 +55,15 @@ export interface Dom {
 export interface Exploding {
   stage: number;
   keys: Key[];
+}
+
+export interface PlayerKingMoves {
+  count: number;
+  key?: Key;
+}
+export interface KingMoves {
+  white: PlayerKingMoves;
+  black: PlayerKingMoves;
 }
 
 export interface MoveMetadata {

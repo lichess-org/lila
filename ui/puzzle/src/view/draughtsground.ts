@@ -13,6 +13,7 @@ export default function(ctrl) {
 
 function makeConfig(ctrl): CgConfig {
   const opts = ctrl.makeCgOpts();
+  const variant = opts.premovable.variant;
   return {
     fen: opts.fen,
     orientation: opts.orientation,
@@ -38,14 +39,15 @@ function makeConfig(ctrl): CgConfig {
     },
     premovable: {
       enabled: opts.premovable.enabled,
-      variant: opts.premovable.variant
+      variant: variant
     },
     drawable: {
       enabled: true
     },
     highlight: {
       lastMove: ctrl.pref.highlight,
-      check: ctrl.pref.highlight
+      check: ctrl.pref.highlight,
+      kingMoves: ctrl.pref.showKingMoves && (variant === 'frisian' || variant === 'frysk')
     },
     animation: {
       enabled: true,

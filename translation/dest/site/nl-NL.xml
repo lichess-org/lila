@@ -543,6 +543,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="gameDisplay">Speluiterlijk</string>
   <string name="pieceAnimation">Stukanimatie</string>
   <string name="materialDifference">Materiaalverschil</string>
+  <string name="showKingMoves">Toon het aantal keer dat een dam is gezet (Fries dammen)</string>
   <string name="closeAccount">Sluit account</string>
   <string name="changedMindDoNotCloseAccount">Ik ben van gedachten veranderd; sluit mijn account niet</string>
   <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van je account is een permanente keuze. Je kunt dan niet langer inloggen en je profielpagina zal dan niet langer toegankelijk zijn.</string>

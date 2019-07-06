@@ -556,6 +556,7 @@ One URL per line</string>
   <string name="gameDisplay">Game display</string>
   <string name="pieceAnimation">Piece animation</string>
   <string name="materialDifference">Material difference</string>
+  <string name="showKingMoves">Show the amount of times a king has moved (Frisian draughts)</string>
   <string name="closeAccount">Close account</string>
   <string name="changedMindDoNotCloseAccount">I changed my mind, don't close my account</string>
   <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>

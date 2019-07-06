@@ -2,8 +2,8 @@ package lidraughts.game
 
 import play.api.libs.json._
 
-import draughts.Pos
 import draughts.{ Centis, PromotableRole, Pos, Color, Situation, Move => DraughtsMove, Clock => DraughtsClock, Status }
+import draughts.format.Forsyth.{ exportBoard, exportKingMoves }
 import JsonView._
 import lidraughts.chat.{ UserLine, PlayerLine }
 
@@ -75,7 +75,7 @@ object Event {
       orig = move.orig,
       dest = move.dest,
       san = draughts.format.pdn.Dumper(move),
-      fen = draughts.format.Forsyth.exportBoard(situation.board),
+      fen = situation.board.variant.frisianVariant.fold(exportBoard(situation.board) + ":" + exportKingMoves(situation.board), exportBoard(situation.board)),
       threefold = situation.threefoldRepetition,
       promotion = move.promotion.map { Promotion(_, move.dest) },
       state = state,

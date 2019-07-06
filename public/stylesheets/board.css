@@ -89,6 +89,48 @@ piece {
   z-index: 2; /* no less than 2 */
   pointer-events: none;
 }
+piece.black.king1 {
+  text-align: center;
+  color: white;
+}
+piece.white.king1 {
+  text-align: center;
+  color: black;
+}
+piece.black.king2 {
+  text-align: center;
+  color: white;
+}
+piece.white.king2 {
+  text-align: center;
+  color: black;
+}
+piece.black.king3 {
+  text-align: center;
+  color: white;
+}
+piece.white.king3 {
+  text-align: center;
+  color: black;
+}
+piece.king1:not(.ghost):before {
+  content: '\25CF';
+  margin-top: 90%;
+  display: inline-block;
+  font-size: 80%;
+}
+piece.king2:not(.ghost):before {
+  content: '\25CF \25CF';
+  margin-top: 90%;
+  display: inline-block;
+  font-size: 80%;
+}
+piece.king3:not(.ghost):before {
+  content: '\25CF \25CF \25CF';
+  margin-top: 90%;
+  display: inline-block;
+  font-size: 80%;
+}
 .cg-512 piece {
   will-change: transform, opacity;
   transform: opacity .1s;

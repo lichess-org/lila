@@ -1,6 +1,6 @@
 import { State } from './state'
 import { setSelected } from './board'
-import { read as fenRead } from './fen'
+import { readKingMoves, read as fenRead } from './fen'
 import { DrawShape, DrawBrush } from './draw'
 import * as cg from './types'
 
@@ -12,7 +12,6 @@ export interface Config {
   lastMove?: cg.Key[]; // squares part of the last move ["c3", "c4"]
   selected?: cg.Key; // square currently selected "a1"
   coordinates?: number; // include coords attributes
-  autoCastle?: boolean; // immediately complete the castle by moving the rook after king move
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu?: boolean; // because who needs a context menu on a draughtsboard
   resizable?: boolean; // listens to draughtsground.resize on document.body to clear bounds cache
@@ -21,6 +20,7 @@ export interface Config {
   highlight?: {
     lastMove?: boolean; // add last-move class to squares
     check?: boolean; // add check class to squares
+    kingMoves?: boolean; // amount of moves a king made for frisian variants
   };
   animation?: {
     enabled?: boolean;
@@ -97,10 +97,17 @@ export function configure(state: State, config: Config) {
 
   merge(state, config);  
 
-  // if a fen was provided, replace the pieces
   if (config.fen) {
+
+    // if a fen was provided, replace the pieces
     state.pieces = fenRead(config.fen);
     state.drawable.shapes = [];
+    
+    // show kingmoves for frisian variants
+    if (state.highlight && state.highlight.kingMoves) {
+      const kingMoves = readKingMoves(config.fen);
+      if (kingMoves) doSetKingMoves(state, kingMoves);
+    }
   }
 
   // apply config values that could be undefined yet meaningful
@@ -121,6 +128,30 @@ export function configure(state: State, config: Config) {
   if (!state.animation.duration || state.animation.duration < 100) state.animation.enabled = false;
 
 };
+
+export function setKingMoves(state: State, kingMoves: cg.KingMoves) {
+  for (let f = 1; f <= 50; f++) {
+    const key = (f < 10 ? "0" + f.toString() : f.toString()) as cg.Key,
+      piece = state.pieces[key];
+    if (piece && piece.kingMoves)
+      piece.kingMoves = undefined;
+  }
+  doSetKingMoves(state, kingMoves);
+}
+
+function doSetKingMoves(state: State, kingMoves: cg.KingMoves) {
+  if (kingMoves.white.count > 0 && kingMoves.white.key) {
+    const piece = state.pieces[kingMoves.white.key];
+    if (piece && piece.role === 'king' && piece.color === 'white')
+      piece.kingMoves = kingMoves.white.count;
+  }
+
+  if (kingMoves.black.count > 0 && kingMoves.black.key) {
+    const piece = state.pieces[kingMoves.black.key];
+    if (piece && piece.role === 'king' && piece.color === 'black')
+      piece.kingMoves = kingMoves.black.count;
+  }
+}
 
 function merge(base: any, extend: any) {
   for (var key in extend) {

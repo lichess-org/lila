@@ -265,10 +265,15 @@ function posZIndex(pos: cg.Pos, asWhite: boolean): string {
 }
 
 export function pieceNameOf(piece: cg.Piece): string {
-  if (piece.role === 'ghostman')
+  if (piece.role === 'ghostman') 
     return `${piece.color} man ghost`;
-  else if (piece.role === 'ghostking')
-    return `${piece.color} king ghost`;
+  else if (piece.role === 'ghostking') {
+    if (piece.kingMoves && piece.kingMoves > 0)
+      return `${piece.color} king ghost king${piece.kingMoves}`;
+    else
+      return `${piece.color} king ghost`;
+  } else if (piece.role === 'king' && piece.kingMoves && piece.kingMoves > 0)
+    return `${piece.color} king king${piece.kingMoves}`;
   else
     return `${piece.color} ${piece.role}`;
 }
