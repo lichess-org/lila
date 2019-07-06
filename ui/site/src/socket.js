@@ -251,7 +251,6 @@ lichess.StrongSocket = function(url, version, settings) {
   )(options.remoteSocketDomain || document.body.getAttribute('data-socket-domain'));
 
   const baseUrl = function() {
-    console.log(baseUrls, options.remoteSocketDomain);
     if (options.remoteSocketDomain) return baseUrls[Math.floor(Math.random() * baseUrls.length)];
     let url = storage.get();
     if (!url) {
