@@ -60,8 +60,8 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]().gather[List](nb / 2)
     }.sequenceFu.map(_.flatten)
 
-    def disable(id: PuzzleId): Funit =
-      puzzleColl(Standard).update(
+    def disable(variant: Variant, id: PuzzleId): Funit =
+      puzzleColl(variant).update(
         $id(id),
         $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
       ).void

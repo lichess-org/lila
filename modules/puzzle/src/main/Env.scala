@@ -80,9 +80,12 @@ final class Env(
 
   def cli = new lidraughts.common.Cli {
     def process = {
-      case "puzzle" :: "disable" :: id :: Nil => parseIntOption(id) ?? { id =>
-        api.puzzle disable id inject "Done"
-      }
+      case "puzzle" :: "disable" :: key :: id :: Nil if key == "standard" || key == "frisian" =>
+        Variant.byKey.get(key) ?? { v =>
+          parseIntOption(id) ?? { id =>
+            api.puzzle.disable(v, id) inject "Done"
+          }
+        }
     }
   }
 
