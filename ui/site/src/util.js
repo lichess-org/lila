@@ -1,6 +1,6 @@
 var lidraughts = window.lidraughts = window.lidraughts || {};
 
-lidraughts.engineName = 'Scan 3.0';
+lidraughts.engineName = 'Scan 3.1';
 
 lidraughts.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lidraughts.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);

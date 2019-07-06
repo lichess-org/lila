@@ -82,7 +82,7 @@ module.exports = function(ctrl) {
         sortableHeader('Simul participant clock time remaining.', 'Player clock', 'clock'),
         sortableHeader('Last move played.', 'Last move', 'lastMove'),
         sortableHeader('The FMJD rating set on the user\'s profile.', 'FMJD', 'officialRating'),
-        sortableHeader('Scan 3.0 evaluation (+ is better for host, - is better for participant).', 'Eval', 'eval'),
+        sortableHeader('Scan 3.1 evaluation (+ is better for host, - is better for participant).', 'Eval', 'eval'),
         sortableHeader('Average centi-piece loss (deviation from the best move as 1/100th of a piece) ± standard deviation.', 'Acpl ± SD', 'assessment.scanSort'),
         sortableHeader('Average move time in seconds ± standard deviation.', 'Move time ± SD', 'assessment.mtSort'),
         sortableHeader('The percentage of moves the player left the game page (on their own turn).', 'Blurs', 'assessment.blurSort'),
