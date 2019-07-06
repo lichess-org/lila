@@ -701,10 +701,10 @@
   <string name="whiteCastlingKingside">Białe O-O</string>
   <string name="blackCastlingKingside">Czarne O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s post na forum</item>
-    <item quantity="few">%s posty na forum</item>
-    <item quantity="many">%s postów na forum</item>
-    <item quantity="other">%s postów na forum</item>
+    <item quantity="one">%s wpis na forum</item>
+    <item quantity="few">%s wpisy na forum</item>
+    <item quantity="many">%s wpisów na forum</item>
+    <item quantity="other">%s wpisów na forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
   <string name="watchGames">Oglądaj partie</string>
