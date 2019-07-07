@@ -20,11 +20,9 @@ case class Glicko(
   def intervalMax = (rating + deviation * 2).toInt
   def interval = intervalMin -> intervalMax
 
-  // Established ratings are used for top player ranking
-  // Provisional ratings display with a question mark
-  def established = deviation <= Glicko.establishedDeviation
+  def rankable = deviation <= Glicko.rankableDeviation
   def provisional = deviation >= Glicko.provisionalDeviation
-
+  def established = !provisional
   def establishedIntRating = established option intRating
 
   def refund(points: Int) = copy(rating = rating + points)
@@ -63,7 +61,7 @@ case object Glicko {
   val defaultIntRating = default.rating.toInt
 
   val minDeviation = 60
-  val establishedDeviation = 80
+  val rankableDeviation = 80
   val provisionalDeviation = 110
   val maxDeviation = 350
 
