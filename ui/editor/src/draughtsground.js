@@ -61,10 +61,10 @@ function onMouseEvent(ctrl) {
         deleteOrHidePiece(ctrl, key, e);
       } else {
         var existingPiece = ctrl.draughtsground.state.pieces[key];
-        var piece = {};
-        piece.color = sel[0];
-        piece.role = sel[1];
-
+        var piece = {
+          color: sel[0],
+          role: sel[1]
+        };
         if (
           (e.type === 'mousedown' || e.type === 'touchstart') &&
             existingPiece &&
@@ -84,9 +84,9 @@ function onMouseEvent(ctrl) {
           !placeDelete &&
             (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
         ) {
-          var pieces = {};
-          pieces[key] = piece;
-          ctrl.draughtsground.setPieces(pieces);
+          ctrl.draughtsground.setPieces({
+            [key]: piece
+          });
           ctrl.onChange();
           ctrl.draughtsground.cancelMove();
         }
@@ -126,9 +126,9 @@ function deleteOrHidePiece(ctrl, key, e) {
 }
 
 function deletePiece(ctrl, key) {
-  var pieces = {};
-  pieces[key] = false;
-  ctrl.draughtsground.setPieces(pieces);
+  ctrl.draughtsground.setPieces({
+    [key]: false
+  });
   ctrl.onChange();
 }
 
