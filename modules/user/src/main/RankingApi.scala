@@ -7,7 +7,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.rating.{ Perf, PerfType }
+import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
     coll: Coll,
@@ -112,7 +112,7 @@ final class RankingApi(
       keyToString = _.toString
     )
 
-    // from 800 to 2800 by Stat.group
+    // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregateList(
@@ -138,7 +138,7 @@ final class RankingApi(
                 nb <- obj.getAs[NbUsers]("nb")
               } yield rating -> nb
             }(scala.collection.breakOut)
-            (800 to 2800 by Stat.group).map { r =>
+            (Glicko.minRating to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
           } addEffect monitorRatingDistribution(perfId) _
