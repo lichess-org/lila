@@ -54,7 +54,6 @@ private final class RemoteSocket(
       send(Out.TellAll, Json stringify Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg)))
     case Mlat(ms) =>
       send(Out.Mlat, ms.toString)
-      tick()
     case actorApi.SendToFlag(flag, payload) =>
       send(Out.TellFlag, flag, Json stringify payload)
     case WithUserIds(f) =>
@@ -77,7 +76,7 @@ private final class RemoteSocket(
     case In.Connections =>
       parseIntOption(args) foreach { nb =>
         setNb(nb)
-        mon.connections(nb)
+        tick(nb)
       }
     case path =>
       logger.warn(s"Invalid path $path")
@@ -97,12 +96,13 @@ private final class RemoteSocket(
       redisMon.outError()
   }
 
-  private def tick(): Unit = {
+  private def tick(nbConn: Int): Unit = {
+    mon.connections(nbConn)
+    mon.sets.users(connectedUserIds.size)
+    mon.sets.games(watchedGameIds.size)
     redisMon.pool.active(redisPool.getNumActive)
     redisMon.pool.idle(redisPool.getNumIdle)
     redisMon.pool.waiters(redisPool.getNumWaiters)
-    mon.sets.users(connectedUserIds.size)
-    mon.sets.games(watchedGameIds.size)
   }
 
   private val mon = lila.mon.socket.remote
