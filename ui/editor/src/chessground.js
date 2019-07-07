@@ -57,9 +57,10 @@ function onMouseEvent(ctrl) {
         deleteOrHidePiece(ctrl, key, e);
       } else {
         var existingPiece = ctrl.chessground.state.pieces[key];
-        var piece = {};
-        piece.color = sel[0];
-        piece.role = sel[1];
+        var piece = {
+          color: sel[0],
+          role: sel[1]
+        };
 
         if (
           (e.type === 'mousedown' || e.type === 'touchstart') &&
@@ -80,9 +81,9 @@ function onMouseEvent(ctrl) {
           !placeDelete &&
             (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
         ) {
-          var pieces = {};
-          pieces[key] = piece;
-          ctrl.chessground.setPieces(pieces);
+          ctrl.chessground.setPieces({
+            key: piece
+          });
           ctrl.onChange();
           ctrl.chessground.cancelMove();
         }
@@ -122,9 +123,9 @@ function deleteOrHidePiece(ctrl, key, e) {
 }
 
 function deletePiece(ctrl, key) {
-  var pieces = {};
-  pieces[key] = false;
-  ctrl.chessground.setPieces(pieces);
+  ctrl.chessground.setPieces({
+    key: false
+  });
   ctrl.onChange();
 }
 
