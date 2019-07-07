@@ -49,7 +49,7 @@ private final class CommentDB(
       case Add(comment) if !coll.exists(_._2 similar comment) => coll += (comment.id -> comment)
 
       case Clean =>
-        val since = DateTime.now minusSeconds 20
+        val since = DateTime.now minusSeconds 30
         val timedOut = coll.values.filter(_ acquiredBefore since)
         if (timedOut.nonEmpty) logger.debug(s"cleaning ${timedOut.size} of ${coll.size} comments")
         timedOut.foreach { m => updateOrGiveUp(m.timeout) }
