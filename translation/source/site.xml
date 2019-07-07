@@ -688,6 +688,7 @@ in %3$s</string>
   <string name="arbiter">Arbiter</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
+  <string name="followSimulHostTv">Follow simul host perspective</string>
   <string name="shareSimulUrl">Share this page URL to let people enter the simul!</string>
   <string name="candidatePlayers"> candidate players</string>
   <string name="allowedPlayers">Participation is limited to the following </string>

@@ -48,6 +48,13 @@ module.exports = {
       'title': ctrl.trans('exportSimulGames')
     });
   },
+  hostTv: function(ctrl) {
+    return m('a.top_right.option', {
+      'data-icon': '1',
+      'href': '/@/' + ctrl.data.host.id + '/tv',
+      'title': ctrl.trans('followSimulHostTv')
+    });
+  },
   arbiterOption: function(ctrl) {
     return simul.amArbiter(ctrl) ? m('div.top_right.option', {
       'data-icon': '%',

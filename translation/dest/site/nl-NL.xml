@@ -668,6 +668,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="arbiter">Arbiter</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
+  <string name="followSimulHostTv">Volgen vanuit simultaangever perspectief</string>
   <string name="shareSimulUrl">Deel de URL van deze pagina om mensen voor de simultaan uit te nodigen!</string>
   <string name="candidatePlayers"> kandidaat spelers</string>
   <string name="allowedPlayers">Deelname is beperkt tot de volgende </string>
