@@ -206,11 +206,14 @@
   border-right: 1px solid #d4d4d4;
 }
 #simul .arbiter-panel table.slist thead th {
-  padding: 0.4em 0.4em;
+  padding: 0.4em 0.25em;
 }
 #simul .arbiter-panel table.slist td {
-  padding: 0.6em 0.4em;
+  padding: 0.6em 0.25em;
   font-size: 1em;
+}
+#simul .arbiter-panel table.slist td.assess {
+  white-space: nowrap;
 }
 #simul .arbiter-panel table.slist th.sortable span:first-child {
   margin-right: 2px;

@@ -129,19 +129,19 @@ module.exports = function(ctrl) {
         m('td', m('span', data.lastMove)),
         m('td', data.officialRating ? data.officialRating : '-'),
         m('td', m('span', { title: evalDesc(eval) }, evalText)),
-        m('td', assessment ? [
+        m('td.assess', assessment ? [
           m('span.sig.sig_' + assessment.scanSig, {'data-icon': 'J'}),
           assessment.scanAvg + ' ± ' + assessment.scanSd
         ] : '-'),
-        m('td', assessment ? [
+        m('td.assess', assessment ? [
           m('span.sig.sig_' + assessment.mtSig, {'data-icon': 'J'}),
           Math.round(assessment.mtAvg / 10) + ' ± ' + Math.round(assessment.mtSd / 10)
         ] : '-'),
-        m('td', assessment ? [
+        m('td.assess', assessment ? [
           m('span.sig.sig_' + assessment.blurSig, {'data-icon': 'J'}),
           assessment.blurPct + '%'
         ] : '-'),
-        m('td', assessment ? m('span.sig.sig_' + assessment.totalSig, {
+        m('td.assess', assessment ? m('span.sig.sig_' + assessment.totalSig, {
           'data-icon': 'J',
           'title': assessment.totalTxt + ' (eval ' + evalText + ')'
         }) : '-'),
