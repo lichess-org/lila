@@ -3,7 +3,7 @@ package lila.socket
 import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
-import redis.clients.jedis._
+import io.lettuce.core._
 
 import actorApi._
 
@@ -28,7 +28,7 @@ final class Env(
   private val userRegister = new UserRegister(system)
 
   private val remoteSocket = new RemoteSocket(
-    redisPool = new JedisPool(new JedisPoolConfig, RedisHost, RedisPort),
+    redisClient = RedisClient create RedisURI.create(RedisHost, RedisPort),
     chanIn = "site-in",
     chanOut = "site-out",
     lifecycle = lifecycle,

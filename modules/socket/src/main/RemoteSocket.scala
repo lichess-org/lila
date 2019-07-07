@@ -1,7 +1,7 @@
 package lila.socket
 
+import io.lettuce.core._
 import play.api.libs.json._
-import redis.clients.jedis._
 import scala.concurrent.Future
 
 import lila.common.WithResource
@@ -10,7 +10,7 @@ import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.{ Deploy, Announce }
 
 private final class RemoteSocket(
-    redisPool: JedisPool,
+    redisClient: RedisClient,
     chanIn: String,
     chanOut: String,
     lifecycle: play.api.inject.ApplicationLifecycle,
@@ -82,46 +82,65 @@ private final class RemoteSocket(
       logger.warn(s"Invalid path $path")
   }
 
-  /* Can fail if redis is offline, but must not propagate the exception,
-   * because subscribeFun is synchronous, and this runs on the same thread
-   * as the code that triggered the event */
-  private def send(path: String, args: String*): Unit = try {
-    WithResource(redisPool.getResource) { redis =>
-      redis.publish(chanOut, s"$path ${args mkString " "}")
-      redisMon.out()
-    }
-  } catch {
-    case e: Exception =>
-      logger.warn(s"RemoteSocket.out $path", e)
-      redisMon.outError()
+  private def send(path: String, args: String*): Unit = {
+    connOut.async.publish(chanOut, s"$path ${args mkString " "}")
+    redisMon.out()
+    // logger.warn(s"RemoteSocket.out $path", e)
+    // redisMon.outError()
   }
 
   private def tick(nbConn: Int): Unit = {
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
-    redisMon.pool.active(redisPool.getNumActive)
-    redisMon.pool.idle(redisPool.getNumIdle)
-    redisMon.pool.waiters(redisPool.getNumWaiters)
   }
 
+  private val connIn = redisClient.connectPubSub()
+  private val connOut = redisClient.connectPubSub()
   private val mon = lila.mon.socket.remote
   private val redisMon = mon.redis
 
-  Future {
-    redisPool.getResource.subscribe(new JedisPubSub() {
-      override def onMessage(channel: String, message: String): Unit = {
+  connIn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
+    override def message(channel: String, message: String): Unit = {
+      if (channel == "bench") {
+        // (200000,3392)
+        // (300000,3410)
+        // (400000,3434)
+        // (500000,3366)
+        // (600000,3374)
+        // (700000,3415)
+        // (800000,3439)
+        // (900000,3421)
+        // (1000000,3430)
+        // (1100000,3398)
+        // (1200000,3407)
+        // (1300000,3441)
+        // (1400000,3458)
+        it = it + 1
+        if (it % 100000 == 0) {
+          println(it, (nowMillis - last).toString)
+          last = nowMillis
+        }
+        connOut.async.publish("bench", "bench tagada")
+      } else {
         val parts = message.split(" ", 2)
         onReceive(parts(0), ~parts.lift(1))
         redisMon.in()
       }
-    }, chanIn)
-  }
+    }
+  })
+  connIn.async.subscribe(chanIn)
+  connIn.async.subscribe("bench")
 
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")
     Future {
-      redisPool.close()
+      connIn.close();
+      connOut.close();
+      redisClient.shutdown();
     }
   }
+
+  private var it = 0
+  private var last = nowMillis
 }

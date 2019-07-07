@@ -33,7 +33,7 @@ libraryDependencies ++= Seq(
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb, scalatags,
-  java8compat, semver, scrimage, scalaConfigs, scaffeine, jedis
+  java8compat, semver, scrimage, scalaConfigs, scaffeine, lettuce
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
@@ -41,7 +41,7 @@ unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS"
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
 
-routesGenerator := LilaRoutesGenerator 
+routesGenerator := LilaRoutesGenerator
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
@@ -391,7 +391,7 @@ lazy val tree = module("tree", Seq(common)).settings(
 )
 
 lazy val socket = module("socket", Seq(common, hub, memo, tree)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, jedis)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
 )
 
 lazy val hub = module("hub", Seq(common)).settings(
