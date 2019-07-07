@@ -36,14 +36,14 @@
   <string name="commentThisPosition">Комментировать эту позицию</string>
   <string name="commentThisMove">Комментировать этот ход</string>
   <string name="annotateWithGlyphs">Добавить символьную аннотацию</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Глава слишком маленькая для анализа.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Глава слишком короткая для анализа.</string>
   <string name="onlyContributorsCanRequestAnalysis">Только редакторы студии могут запросить компьютерный анализ.</string>
   <string name="getAFullComputerAnalysis">Получить полный серверный компьютерный анализ главной линии.</string>
   <string name="makeSureTheChapterIsComplete">Убедитесь, что глава завершена. Вы можете запросить анализ только один раз.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на тех же позициях</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
-  <string name="playing">Играется</string>
-  <string name="onlyOngoingGames">Только играющиеся партии</string>
+  <string name="playing">Активные</string>
+  <string name="onlyOngoingGames">Только активные партии</string>
   <string name="first">Первый</string>
   <string name="previous">Предыдущий</string>
   <string name="next">Следующий</string>
@@ -54,7 +54,7 @@
   <string name="chapterPgn">PGN главы</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Вставьте этот код в форум чтобы встроить главу</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте эту ссылку в форум, чтобы встроить главу</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее а встраивании глав студии</string>

@@ -27,10 +27,10 @@
     <item quantity="other">Rozegranie %1$s partii (%2$s)</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Opublikowanie wiadomości w %2$s</item>
-    <item quantity="few">Opublikowanie %1$s wiadomości w %2$s</item>
-    <item quantity="many">Opublikowanie %1$s wiadomości w %2$s</item>
-    <item quantity="other">Opublikowanie %1$s wiadomości w %2$s</item>
+    <item quantity="one">Opublikowanie wpisu w %2$s</item>
+    <item quantity="few">Opublikowanie %1$s wpisów w %2$s</item>
+    <item quantity="many">Opublikowanie %1$s wpisów w %2$s</item>
+    <item quantity="other">Opublikowanie %1$s wpisów w %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Wykonanie ruchu</item>

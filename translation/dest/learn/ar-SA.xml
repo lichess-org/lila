@@ -5,8 +5,8 @@
   <string name="byPlaying">بالممارسة!</string>
   <string name="menu">القائمة</string>
   <string name="progressX">التقدم: %s</string>
-  <string name="resetMyProgress">صفر التقييم الخاص بي</string>
-  <string name="youWillLoseAllYourProgress">سيتم محو كل سجلات تقييمك!</string>
+  <string name="resetMyProgress">إعادة ضبط تقدمي</string>
+  <string name="youWillLoseAllYourProgress">سوف تفقد كل تقدمك!</string>
   <string name="play">إلعب!</string>
   <string name="chessPieces">قطع الشطرنج</string>
   <string name="theRook">الرخ</string>

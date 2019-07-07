@@ -176,8 +176,8 @@
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rank is updated every %s minute(s)</item>
-    <item quantity="other">Rank is updated every %s minute(s)</item>
+    <item quantity="one">Rank is updated every minute</item>
+    <item quantity="other">Rank is updated every %s minutes</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
@@ -603,7 +603,7 @@ in %3$s</string>
     <item quantity="one">%s blocks</item>
     <item quantity="other">%s blocks</item>
   </plurals>
-  <string name="listBlockedPlayers">List players that you have blocked</string>
+  <string name="listBlockedPlayers">List players you have blocked</string>
   <string name="human">Human</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
@@ -691,7 +691,7 @@ in %3$s</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="newTournament">New tournament</string>
-  <string name="tournamentHomeTitle">Chess tournament featuring various time controls and variants</string>
+  <string name="tournamentHomeTitle">Chess tournaments featuring various time controls and variants</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
@@ -753,7 +753,7 @@ in %3$s</string>
   <string name="viewTheSolution">View the solution</string>
   <string name="followAndChallengeFriends">Follow and challenge friends</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Available in %s languages!</item>
+    <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>
   </plurals>
   <string name="gameAnalysis">Game analysis</string>

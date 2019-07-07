@@ -59,6 +59,7 @@
   <string name="promoteVariation">Upp með afbrigði</string>
   <string name="makeMainLine">Gera að höfuðafbrigði</string>
   <string name="deleteFromHere">Eyða héðan</string>
+  <string name="forceVariation">Þvinga í tilbrigði</string>
   <string name="move">Færa</string>
   <string name="variantLoss">Tapar afbrigði</string>
   <string name="variantWin">Vinnur afbrigði</string>
@@ -384,6 +385,13 @@
   <string name="createANewTournament">Búa til nýtt mót</string>
   <string name="tournamentCalendar">Mótadagatal</string>
   <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
+  <string name="advancedSettings">Ítarlegar stillingar</string>
+  <string name="safeTournamentName">Veldu mjög öruggt nafn fyrir mótið.</string>
+  <string name="inappropriateNameWarning">Eitthvað sem er hið minnsta óviðeigandi getur leitt til þess að reikningi verði lokað.</string>
+  <string name="emptyTournamentName">Skildu eftir autt til að nefna mótið eftir handahófskennt völdum stórmeistara.</string>
+  <string name="recommendNotTouching">Við mælum með því að breyta þessu ekki.</string>
+  <string name="fewerPlayers">Ef þú setur skilyrði við þátttöku mun mótið hafa færri leikmenn.</string>
+  <string name="showAdvancedSettings">Sýna ítarlegar stillingar</string>
   <string name="join">Taka þátt</string>
   <string name="withdraw">afturkalla</string>
   <string name="points">Punktar</string>
@@ -392,6 +400,11 @@
   <string name="winStreak">Vinnings rák</string>
   <string name="createdBy">Búið til af</string>
   <string name="tournamentIsStarting">Mótin eru að byrja</string>
+  <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
+  <string name="standByX">Bíddu vid %s, pörun keppanda stendur yfir. Vertu tilbúin(n)!</string>
+  <string name="youArePlaying">Þú ert að spila!</string>
+  <string name="winRate">Sigurhlutfall</string>
+  <string name="berserkRate">Berserkjahlutfall</string>
   <string name="performance">Mótsstig</string>
   <string name="tournamentComplete">Móti lokið</string>
   <string name="movesPlayed">Fjöldi hreyfinga</string>
@@ -411,8 +424,10 @@
   <string name="loadPosition">Hlaða stöðu</string>
   <string name="isPrivate">Prívat</string>
   <string name="reportXToModerators">tilkynna %s til stjórnenda</string>
+  <string name="profileCompletion">Ágrip tilbúið: %s</string>
   <string name="xRating">%s stig</string>
   <string name="ifNoneLeaveEmpty">Autt ef á ekki við</string>
+  <string name="gameCompletionRate">Leikir fullkláraðir: %s</string>
   <string name="profile">Prófíll</string>
   <string name="editProfile">Stillingar</string>
   <string name="firstName">Fornafn</string>
@@ -488,6 +503,7 @@
   <string name="troll">Tröll</string>
   <string name="other">Annað</string>
   <string name="reportDescriptionHelp">Límdu hér hlekk(i) að leik eða leikjum og útskýrðu hvað er að hegðun notandans. Ekki segja bara ,,hann svindlar\'\', en segðu okkur hvernig þú komst að þeirri niðurstöðu. Unnið verður örar úr kvörtuninni ef hún er skrifuð á ensku.</string>
+  <string name="error.provideOneCheatedGameLink">Vinsamlegast gefðu upp hlekk á að minnsta kosti einn leik þar sem svindlað var.</string>
   <string name="by">eftir %s</string>
   <string name="thisTopicIsNowClosed">Þessarri umræðu hefur verið lokað.</string>
   <string name="theming">Útlit</string>
@@ -524,9 +540,14 @@
   <string name="horizontalGreenProgressBars">Lárétt framvindustika</string>
   <string name="soundWhenTimeGetsCritical">Hljóð þegar lítill tími er eftir</string>
   <string name="gameBehavior">Framkoma við skákborðið</string>
+  <string name="howDoYouMovePieces">Hvernig hreyfirðu menn?</string>
+  <string name="clickTwoSquares">Veldu tvo reiti</string>
+  <string name="dragPiece">Dragðu taflmann</string>
+  <string name="bothClicksAndDrag">Annað hvort</string>
   <string name="premovesPlayingDuringOpponentTurn">Fyrirframleikir (leiknir meðan anstæðingur á leik)</string>
   <string name="takebacksWithOpponentApproval">Leikir teknir upp (með leyfi mótherja)</string>
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krefjast sjálfkrafa jafnteflis þegar þrír leikir hafa verið endurteknir</string>
   <string name="privacy">Einkamál</string>
   <string name="letOtherPlayersFollowYou">Leyfa öðrum að fylgjast með þér</string>
   <string name="letOtherPlayersChallengeYou">Leyfa öðrum að skora á þig</string>
@@ -674,8 +695,19 @@
   <string name="analysisShapesHowTo">Þú getur teiknað hringi og örvar á leikborðið með því að ýta á shift+vinstrismella eða hægrismella með músinni.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum leikmönnum að senda þér skilaboð</string>
   <string name="shareYourInsightsData">Deila greiningum</string>
+  <string name="withNobody">Með engum</string>
+  <string name="withFriends">Með vinum</string>
+  <string name="withEverybody">Með öllum</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Þú hefur þegar skráð netfangið: %s</string>
   <string name="kidMode">Krakkahamur</string>
+  <string name="kidModeExplanation">Þetta fjallar um öryggi. Í krakkaham er slökkt á öllum samskiptum á síðunni. Kveiktu á þessu fyrir börnin þín eða nemendur til að verja þau gegn öðrum netnotendum.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham fær lichess merkið %s merki svo þú veist að börnin þín eru örugg.</string>
+  <string name="enableKidMode">Kveikja á krakkaham</string>
+  <string name="disableKidMode">Slökkva á krakkaham</string>
+  <string name="security">Öryggi</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Þetta er listi af tækjum sem hafa skráð sig inn á reikninginn þinn. Lokaðu á allar tengingar sem þú þekkir ekki.</string>
+  <string name="alternativelyYouCanX">Þú getur líka %s.</string>
+  <string name="revokeAllSessions">lokað á allar tengingar</string>
   <string name="playChessEverywhere">Tefldu hvar sem er</string>
   <string name="asFreeAsLichess">Eins frítt og lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Byggt af ást á skák, ekki skildingi</string>
@@ -695,6 +727,13 @@
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
   <string name="language">Tungumál</string>
+  <string name="light">Ljós</string>
+  <string name="dark">Dökkur</string>
+  <string name="transparent">Gegnsær</string>
+  <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
+  <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
   <string name="error.unknown">Villa</string>
+  <string name="practiceWithComputer">Æfa með tölvu</string>
+  <string name="resumePractice">Halda áfram æfingu</string>
 </resources>

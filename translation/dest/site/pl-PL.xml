@@ -151,7 +151,7 @@
   <string name="games">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
-  <string name="latestForumPosts">Najnowsze posty</string>
+  <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Odmiana</string>
@@ -504,7 +504,7 @@
   <string name="onlinePlayers">Gracze online</string>
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Miej na uwadze, że partia jest rankingowa, ale nie ma limitu czasu!</string>
   <string name="training">Zadania szachowe</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
@@ -523,7 +523,7 @@
   <string name="success">Sukces</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
-  <string name="thankYou">Dziękujemy!</string>
+  <string name="thankYou">Podziękowania</string>
   <string name="ratingX">Ranking: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Rozwiązywane %s raz</item>
@@ -554,8 +554,8 @@
   <string name="help">Porada:</string>
   <string name="createANewTopic">Załóż nowy temat</string>
   <string name="topics">Tematy</string>
-  <string name="posts">Posty</string>
-  <string name="lastPost">Ostatni post</string>
+  <string name="posts">Wpisy</string>
+  <string name="lastPost">Ostatni wpis</string>
   <string name="views">Wyświetleń</string>
   <string name="replies">Odpowiedzi</string>
   <string name="replyToThisTopic">Odpowiedz w tym temacie</string>
@@ -701,10 +701,10 @@
   <string name="whiteCastlingKingside">Białe O-O</string>
   <string name="blackCastlingKingside">Czarne O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s post na forum</item>
-    <item quantity="few">%s posty na forum</item>
-    <item quantity="many">%s postów na forum</item>
-    <item quantity="other">%s postów na forum</item>
+    <item quantity="one">%s wpis na forum</item>
+    <item quantity="few">%s wpisy na forum</item>
+    <item quantity="many">%s wpisów na forum</item>
+    <item quantity="other">%s wpisów na forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
   <string name="watchGames">Oglądaj partie</string>
@@ -845,7 +845,7 @@
   <string name="usernameSuffixInvalid">Nazwa użytkownika musi kończyć się literą lub cyfrą.</string>
   <string name="usernameCharsInvalid">Nazwa użytkownika może zawierać tylko litery, cyfry, znaki podkreślenia i myślniki.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
-  <string name="directlySupportLichess">Bezpośrednie wsparcie Lichess</string>
+  <string name="directlySupportLichess">Wspomóż nas !</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
   <string name="chessBasics">Podstawy gry</string>
   <string name="coaches">Trenerzy</string>
