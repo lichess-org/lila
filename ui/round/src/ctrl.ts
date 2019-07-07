@@ -162,12 +162,6 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onNewPiece = (piece: cg.Piece, key: cg.Key) => {
-    if (crazyValid(this.data, piece.role, key)) {
-      sound.move();
-    }
-  };
-
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
     promotion.start(this, orig, dest, meta);
   };
@@ -189,7 +183,7 @@ export default class RoundController {
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
-    onNewPiece: this.onNewPiece,
+    onNewPiece: sound.move,
     onPremove: this.onPremove,
     onCancelPremove: this.onCancelPremove,
     onPredrop: this.onPredrop
