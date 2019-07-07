@@ -51,7 +51,8 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
 
   def fromCache(
     work: Work.Analysis,
-    evals: List[Option[Evaluation.OrSkipped]]
+    evals: List[Option[Evaluation.OrSkipped]],
+    allowIncomplete: Boolean = false
   ): Fu[Analysis] =
     evalCache.evals(work) flatMap { cachedFull =>
       def debug = s"${work.game.variant.key} analysis from cache for ${work.game.id}"
@@ -70,7 +71,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
           case (analysis, errors) =>
             errors foreach { e => logger.debug(s"[UciToPdn] $debug $e") }
             if (analysis.valid) {
-              if (analysis.nbEmptyInfos > 1)
+              if (!allowIncomplete && analysis.nbEmptyInfos > 1)
                 fufail(s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
               else fuccess(analysis)
             } else fufail(s"${work.game.variant.key} analysis $debug is empty")

@@ -55,7 +55,7 @@ final class SimulApi(
   private def fetchPlayerAssessments(gameId: String): Fu[Option[PlayerAssessments]] =
     GameRepo game gameId flatMap {
       case Some(game) =>
-        lidraughts.draughtsnet.Env.current.analyser.fromCache(game) map { analysis =>
+        lidraughts.draughtsnet.Env.current.analyser.fromCache(game, true) map { analysis =>
           val assessible = Assessible(Analysed(game, analysis))
           val assessWhite = assessible.playerAssessment(draughts.Color.White).some
           val assessBlack = assessible.playerAssessment(draughts.Color.Black).some

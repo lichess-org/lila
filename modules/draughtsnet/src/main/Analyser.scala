@@ -88,7 +88,7 @@ final class Analyser(
       }
     }
 
-  def fromCache(game: Game): Fu[Analysis] =
+  def fromCache(game: Game, allowIncomplete: Boolean = false): Fu[Analysis] =
     AnalysisRepo.byId(game.id) flatMap {
       case Some(analysis) => fuccess(analysis)
       case _ =>
@@ -96,7 +96,8 @@ final class Analyser(
         makeWork(game, sender) flatMap { work =>
           analysisBuilder.fromCache(
             work = work,
-            evals = work.game.uciList.map(_ => none)
+            evals = work.game.uciList.map(_ => none),
+            allowIncomplete = allowIncomplete
           )
         }
     }
