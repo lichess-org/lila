@@ -2,7 +2,7 @@ package lila.socket
 
 import play.api.libs.json._
 import redis.clients.jedis._
-import scala.concurrent.Future
+import scala.concurrent.{ Future, blocking }
 
 import lila.common.WithResource
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
@@ -41,6 +41,7 @@ private final class RemoteSocket(
   bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
+      send(Out.Move, gameId, move, fen)
     case FinishGameId(gameId) if watchedGameIds(gameId) =>
       watchedGameIds -= gameId
     case SendTos(userIds, payload) =>
@@ -85,42 +86,110 @@ private final class RemoteSocket(
   /* Can fail if redis is offline, but must not propagate the exception,
    * because subscribeFun is synchronous, and this runs on the same thread
    * as the code that triggered the event */
-  private def send(path: String, args: String*): Unit = try {
-    WithResource(redisPool.getResource) { redis =>
-      redis.publish(chanOut, s"$path ${args mkString " "}")
-      redisMon.out()
+  private def send(path: String, args: String*): Unit = {
+    redisMon.out()
+    executeBlockingIO {
+      WithResource(redisPool.getResource) { redis =>
+        redis.publish(chanOut, s"$path ${args mkString " "}")
+      }
     }
-  } catch {
-    case e: Exception =>
-      logger.warn(s"RemoteSocket.out $path", e)
-      redisMon.outError()
   }
 
   private def tick(nbConn: Int): Unit = {
+    println(nbIn, "nbIn")
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
-    redisMon.pool.active(redisPool.getNumActive)
-    redisMon.pool.idle(redisPool.getNumIdle)
-    redisMon.pool.waiters(redisPool.getNumWaiters)
+    // mon.executor.threads(ioThreadCounter.get.pp("threads"))
+    redisMon.pool.active(redisPool.getNumActive.pp("active"))
+    redisMon.pool.idle(redisPool.getNumIdle.pp("idle"))
+    redisMon.pool.waiters(redisPool.getNumWaiters.pp("waiters"))
   }
 
   private val mon = lila.mon.socket.remote
   private val redisMon = mon.redis
 
-  Future {
+  private var nbIn = 0
+
+  private def subscribe: Funit = Future {
     redisPool.getResource.subscribe(new JedisPubSub() {
       override def onMessage(channel: String, message: String): Unit = {
-        val parts = message.split(" ", 2)
-        onReceive(parts(0), ~parts.lift(1))
-        redisMon.in()
+        nbIn += 1
+        if (channel == "bench") {
+          // lettuce:
+          // (1200000,3407)
+          // (1300000,3441)
+          // (1400000,3458)
+          // jedis:
+          // (1200000,1988)
+          // (1300000,2023)
+          // (1400000,2112)
+          // blocking { jedis }
+          // (1200000,2277)
+          // (1300000,2256)
+          // (1400000,2237)
+          // io executor { jedis }
+          // (1200000,2640)
+          // (1300000,2631)
+          // (1400000,2641)
+          it = it + 1
+          if (it % 100000 == 0) {
+            println(it, (nowMillis - last).toString)
+            last = nowMillis
+          }
+          redisMon.out()
+          executeBlockingIO {
+            WithResource(redisPool.getResource) { redis =>
+              redis.publish("bench", "tagada")
+            }
+          }
+        } else {
+          val parts = message.split(" ", 2)
+          println(parts(0), ~parts.lift(1))
+          onReceive(parts(0), ~parts.lift(1))
+          redisMon.in()
+        }
       }
-    }, chanIn)
+    }, chanIn, "bench")
+  }.void logFailure logger addEffectAnyway subscribe
+
+  subscribe
+
+  var it = 0
+  var last = nowMillis
+
+  // import java.util.concurrent.{ Executors, ThreadFactory }
+  // import java.util.concurrent.atomic.AtomicLong
+  // private val ioThreadCounter = new AtomicLong(0L)
+  // private val ioThreadPool = Executors.newCachedThreadPool(
+  //   new ThreadFactory {
+  //     def newThread(r: Runnable) = {
+  //       val th = new Thread(r)
+  //       th.setName(s"remote-socket-redis-${ioThreadCounter.getAndIncrement}")
+  //       th.setDaemon(true)
+  //       th
+  //     }
+  //   }
+  // )
+  private def executeBlockingIO[T](cb: => T): Unit = {
+    blocking(cb)
   }
+  // private def executeBlockingIO[T](cb: => T): Unit = {
+  //   ioThreadPool.execute(new Runnable {
+  //     def run() = try {
+  //       blocking(cb)
+  //     } catch {
+  //       case scala.util.control.NonFatal(e) =>
+  //         logger.warn(s"RemoteSocket.out", e)
+  //         redisMon.outError()
+  //     }
+  //   })
+  // }
 
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")
     Future {
+      // ioThreadPool.shutdown()
       redisPool.close()
     }
   }

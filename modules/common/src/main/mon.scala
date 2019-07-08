@@ -328,6 +328,9 @@ object mon {
         val games = rec("socket.remote.sets.games")
       }
       val connections = rec("socket.remote.connections")
+      object executor {
+        val threads = rec("soocket.remote.executor.threads")
+      }
       object redis {
         val in = inc("socket.remote.redis.in")
         val out = inc("socket.remote.redis.out")
