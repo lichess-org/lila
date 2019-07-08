@@ -673,14 +673,14 @@ export default class RoundController {
           return msg;
         });
 
-        if (!this.nvui) {
+        if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {
             this.submitMove(false);
             this.draughtsground.cancelMove();
           });
           window.Mousetrap.bind('return', () => this.submitMove(true));
-          cevalSub.subscribe(this);
         }
+        cevalSub.subscribe(this);
       }
 
       if (!this.nvui) keyboard.init(this);

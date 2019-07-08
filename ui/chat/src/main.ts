@@ -35,5 +35,9 @@ export default function LidraughtsChat(element: Element, opts: ChatOpts): {
     return false;
   });
 
+  window.Mousetrap(container).bind('esc', () => {
+    (container.querySelector('.mchat__say') as HTMLElement).blur();
+  });
+
   return ctrl;
 };
