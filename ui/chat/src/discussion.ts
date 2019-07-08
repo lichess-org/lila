@@ -32,7 +32,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
       hook: {
         insert(vnode) {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-            window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
+            window.lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
           });
           if (m) $el.on('click', '.mod', (e: Event) => {
             m.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);

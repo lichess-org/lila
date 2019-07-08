@@ -36,7 +36,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     api,
     set(k: Key) {
       api.speech(k == 'speech');
-      window.lichess.pubsub.emit('speech.enabled')(api.speech());
+      window.lichess.pubsub.emit('speech.enabled', api.speech());
       if (api.speech()) api.say('Speech synthesis ready');
       else {
         api.changeSet(k);

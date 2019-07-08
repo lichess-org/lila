@@ -1,11 +1,12 @@
 package lila.socket
 
 import lila.hub.Trouper
-import actorApi.{ SocketEnter, SocketLeave, PopulationTell, NbMembers }
+import actorApi.{ SocketEnter, SocketLeave, PopulationTell, NbMembers, RemoteNbMembers }
 
 private[socket] final class Population(system: akka.actor.ActorSystem) extends Trouper {
 
   private var nb = 0
+  private var remoteNb = 0
 
   system.lilaBus.subscribe(this, 'socketEnter, 'socketLeave)
 
@@ -19,6 +20,8 @@ private[socket] final class Population(system: akka.actor.ActorSystem) extends T
       nb = nb - 1
       lila.mon.socket.close()
 
-    case PopulationTell => system.lilaBus.publish(NbMembers(nb), 'nbMembers)
+    case RemoteNbMembers(r) => remoteNb = r
+
+    case PopulationTell => system.lilaBus.publish(NbMembers(nb + remoteNb), 'nbMembers)
   }
 }

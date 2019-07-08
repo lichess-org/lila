@@ -49,6 +49,7 @@ object form {
         isGranted(_.Relay) option
           form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
       ),
+      isGranted(_.Relay) option form3.group(form("credit"), raw("Credit the source"))(form3.input(_)),
       form3.actions(
         a(href := routes.Relay.index(1))(trans.cancel()),
         form3.submit(trans.apply())

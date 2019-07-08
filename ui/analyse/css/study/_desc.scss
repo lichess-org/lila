@@ -1,7 +1,8 @@
-.chapter-desc {
+.study-desc {
   @extend %box-neat;
   background: $c-bg-box;
   padding: .7em 1em;
+  margin-top: .5em;
   position: relative;
   &.empty {
     text-align: center;
@@ -30,7 +31,7 @@
     @extend %video;
   }
 }
-.chapter-desc-form {
+.study-desc-form {
   .title {
     @extend %flex-between;
     width: 100%;

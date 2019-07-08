@@ -56,7 +56,7 @@ private[simul] final class Socket(
     case Reload =>
       getSimul(simulId) foreach {
         _ foreach { simul =>
-          jsonView(simul) foreach { obj =>
+          jsonView(simul, none) foreach { obj =>
             notifyVersion("reload", obj, Messadata())
           }
         }

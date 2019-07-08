@@ -18,5 +18,6 @@ case class SendToFlag(flag: String, message: JsObject)
 
 case object PopulationTell
 case class NbMembers(nb: Int)
+case class RemoteNbMembers(nb: Int)
 
 case class StartWatching(uid: Socket.Uid, member: SocketMember, gameIds: Set[String])

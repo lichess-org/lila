@@ -53,7 +53,7 @@ object bits {
     ),
     div(cls := "body")(
       ol(cls := "chapters")(
-        s.chapters.take(4).map { name =>
+        s.chapters.map { name =>
           li(cls := "text", dataIcon := "K")(name.value)
         }
       ),

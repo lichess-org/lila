@@ -708,7 +708,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Проведённое за игрой время: %s</string>
   <string name="watchGames">Смотреть игры</string>
-  <string name="tpTimeSpentOnTV">Времени за просмотром TV: %s</string>
+  <string name="tpTimeSpentOnTV">Времени на TV: %s</string>
   <string name="watch">Просмотр</string>
   <string name="videoLibrary">Видеотека</string>
   <string name="mobileApp">Мобильное приложение</string>

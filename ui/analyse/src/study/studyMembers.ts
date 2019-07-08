@@ -231,8 +231,8 @@ export function view(ctrl: StudyCtrl): VNode {
   return h('div.study__members', {
     hook: {
       insert: _ => {
-        window.lichess.pubsub.emit('content_loaded')();
-        window.lichess.pubsub.emit('chat.resize')();
+        window.lichess.pubsub.emit('content_loaded');
+        window.lichess.pubsub.emit('chat.resize');
       }
     }
   }, [

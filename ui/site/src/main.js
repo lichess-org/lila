@@ -168,7 +168,7 @@
           }
         }
       }).on('typeahead:render', function() {
-        lichess.pubsub.emit('content_loaded')();
+        lichess.pubsub.emit('content_loaded');
       });
       if (opts.focus) $input.focus();
       if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
@@ -276,7 +276,13 @@
       lichess.pubsub.on('content_loaded', renderTimeago);
 
       if (!window.customWS) setTimeout(function() {
-        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket/v4", false);
+        if (lichess.socket === null) {
+          lichess.socket = lichess.StrongSocket("/socket/v4", false, {
+            options: {
+              remoteSocketDomain: document.body.getAttribute('data-remote-socket-domain')
+            }
+          });
+        }
       }, 300);
 
       var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
@@ -449,7 +455,7 @@
             }
           }, function() {
             $("#infscr-loading").remove();
-            lichess.pubsub.emit('content_loaded')();
+            lichess.pubsub.emit('content_loaded');
             var ids = [];
             $(el).find('.paginated[data-dedup]').each(function() {
               var id = $(this).data('dedup');
@@ -470,7 +476,7 @@
         var $p = $(this).parent();
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
-        lichess.pubsub.emit('top.toggle.' + $(this).attr('id'))();
+        lichess.pubsub.emit('top.toggle.' + $(this).attr('id'));
         setTimeout(function() {
           var handler = function(e) {
             if ($.contains($p[0], e.target)) return;
@@ -615,7 +621,12 @@
         if (!enabled()) return;
         if (!text || !api.say(text)) {
           Howler.volume(api.getVolume());
-          collection(name).play();
+          var sound = collection(name);
+          if (Howler.ctx.state == "suspended") {
+            Howler.ctx.resume().then(() => sound.play());
+          } else {
+            sound.play();
+          }
         }
       }
     });
@@ -641,7 +652,7 @@
     };
 
     var publish = function() {
-      lichess.pubsub.emit('sound_set')(soundSet);
+      lichess.pubsub.emit('sound_set', soundSet);
     };
     setTimeout(publish, 500);
 

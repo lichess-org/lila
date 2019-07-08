@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promakni varijaciju</string>
   <string name="makeMainLine">Napravi glavnu liniju</string>
   <string name="deleteFromHere">Obriši s popisa</string>
+  <string name="forceVariation">Promakni varijaciju</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
@@ -376,6 +377,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikni na ploču da povučeš potez i dokažeš da si čovjek.</string>
   <string name="captcha.fail">Molimo riješi šahovski Captcha.</string>
   <string name="notACheckmate">Nije mat</string>
+  <string name="whiteCheckmatesInOneMove">Bijeli matira u jednom potezu</string>
+  <string name="blackCheckmatesInOneMove">Crnu matira u jednom potezu</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
   <string name="onlineFriends">Prijatelji</string>
@@ -663,6 +666,8 @@ u %3$s</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
   <string name="onlyFriends">Samo prijatelji</string>
+  <string name="displayBoardResizeHandle">Prikaži ručicu za promjenu veličine ploče</string>
+  <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="menu">Izbornik</string>
   <string name="castling">Rokada</string>
   <string name="whiteCastlingKingside">Bijeli O-O</string>

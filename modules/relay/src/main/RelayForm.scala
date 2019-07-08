@@ -17,6 +17,7 @@ object RelayForm {
     "description" -> text(minLength = 3, maxLength = 4000),
     "official" -> optional(boolean),
     "syncUrl" -> nonEmptyText.verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
+    "credit" -> optional(nonEmptyText),
     "startsAt" -> optional(utcDate),
     "throttle" -> optional(number(min = 2, max = 60))
   )(Data.apply)(Data.unapply))
@@ -33,6 +34,7 @@ object RelayForm {
       description: String,
       official: Option[Boolean],
       syncUrl: String,
+      credit: Option[String],
       startsAt: Option[DateTime],
       throttle: Option[Int]
   ) {
@@ -48,6 +50,7 @@ object RelayForm {
       description = description,
       official = ~official && Granter(_.Relay)(user),
       sync = makeSync,
+      credit = credit,
       startsAt = startsAt,
       finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
     )
@@ -66,6 +69,7 @@ object RelayForm {
       description = description,
       ownerId = user.id,
       sync = makeSync,
+      credit = credit,
       likes = lila.study.Study.Likes(1),
       createdAt = DateTime.now,
       finished = false,
@@ -82,6 +86,7 @@ object RelayForm {
       description = relay.description,
       official = relay.official option true,
       syncUrl = relay.sync.upstream.url,
+      credit = relay.credit,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay
     )

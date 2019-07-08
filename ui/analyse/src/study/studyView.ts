@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, dataIcon, iconTag } from '../util';
+import { bind, dataIcon, iconTag, richHTML } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -16,7 +16,7 @@ import { view as tagsView } from './studyTags';
 import { view as serverEvalView } from './serverEval';
 import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { view as descView } from './chapterDescription';
+import { view as descView } from './description';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -119,12 +119,14 @@ function buttons(root: AnalyseCtrl): VNode {
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
-  const d = ctrl.data;
+  const d = ctrl.data,
+    credit = ctrl.relay && ctrl.relay.data.credit;
   return h('div.study__metadata', [
     h('h2', [
       h('span.name', [
         d.name,
-        ': ' + ctrl.currentChapter().name
+        ': ' + ctrl.currentChapter().name,
+        credit ?  h('span.credit', { hook: richHTML(credit, false) }) : undefined
       ]),
       h('span.liking.text', {
         class: { liked: d.liked },
@@ -195,7 +197,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   const study = ctrl.study!, toolTab = study.vm.toolTab();
   if (study.gamebookPlay()) return [
     gbPlayButtons(ctrl),
-    descView(study),
+    descView(study, true),
+    descView(study, false),
     metadata(study)
   ];
   let panel;
@@ -230,7 +233,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   }
   return [
     notifView(study.notif),
-    descView(study),
+    descView(study, true),
+    descView(study, false),
     buttons(ctrl),
     panel
   ];

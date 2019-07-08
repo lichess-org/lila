@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lila.common.{ Lang, LightUser }
 import lila.game.{ GameRepo, LightPov, Game }
-import lila.hub.tournamentTeam._
+import lila.hub.lightTeam._
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion

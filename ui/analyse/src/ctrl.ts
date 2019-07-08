@@ -312,7 +312,7 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
   private updateHref: () => void = li.debounce(() => {
@@ -358,7 +358,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    li.pubsub.emit('ply')(this.node.ply);
+    li.pubsub.emit('ply', this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -726,7 +726,7 @@ export default class AnalyseCtrl {
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
-    li.pubsub.emit('analysis.comp.toggle')(value);
+    li.pubsub.emit('analysis.comp.toggle', value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
@@ -738,7 +738,7 @@ export default class AnalyseCtrl {
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
-    li.pubsub.emit('analysis.server.progress')(this.data);
+    li.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 

@@ -69,6 +69,7 @@ object bits {
     trans.nbDraws,
     trans.nbLosses,
     trans.by,
-    trans.signIn
+    trans.signIn,
+    trans.mustBeInTeam
   )
 }

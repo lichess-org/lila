@@ -19,7 +19,7 @@ private[relation] final class RelationActor(
   private var previousOnlineIds = Set.empty[ID]
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study)
+    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study, 'reloadOnlineFriends)
   }
 
   override def postStop(): Unit = {

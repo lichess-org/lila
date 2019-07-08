@@ -38,7 +38,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return;
     }
-    li.pubsub.emit('socket.send')('talk', text);
+    li.pubsub.emit('socket.send', 'talk', text);
   };
 
   const onTimeout = function(username: string) {
@@ -84,7 +84,6 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     moderation = canMod() ? moderationCtrl({
       reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
       permissions: opts.permissions,
-      send: li.pubsub.emit('socket.send'),
       redraw
     }) : undefined;
     if (canMod()) opts.loadCss('chat.mod');
@@ -116,7 +115,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     subs.forEach(([eventName, callback]) => li.pubsub.off(eventName, callback));
   };
 
-  const emitEnabled = () => li.pubsub.emit('chat.enabled')(vm.enabled);
+  const emitEnabled = () => li.pubsub.emit('chat.enabled', vm.enabled);
   emitEnabled();
 
   return {

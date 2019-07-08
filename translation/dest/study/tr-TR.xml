@@ -15,6 +15,8 @@
     <item quantity="one">%s Üye</item>
     <item quantity="other">%s Üye</item>
   </plurals>
+  <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
+  <string name="commentThisMove">Bu hamle için bir yorum yap</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sana %1$s getirdi</string>
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>

@@ -12,7 +12,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
     if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
     else GameRepo gamesFromPrimary simul.gameIds
 
-  def apply(simul: Simul): Fu[JsObject] = for {
+  def apply(simul: Simul, team: Option[SimulTeam]): Fu[JsObject] = for {
     games <- fetchGames(simul)
     lightHost <- getLightUser(simul.hostId)
     applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
@@ -43,7 +43,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
     "isFinished" -> simul.isFinished,
     "quote" -> lila.quote.Quote.one(simul.id),
     "text" -> simul.text
-  )
+  ).add("team", team)
 
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(
     "key" -> v.key,
@@ -95,4 +95,6 @@ final class JsonView(getLightUser: LightUser.Getter) {
   private implicit val colorWriter: Writes[chess.Color] = Writes { c =>
     JsString(c.name)
   }
+
+  private implicit val simulTeamWriter = Json.writes[SimulTeam]
 }

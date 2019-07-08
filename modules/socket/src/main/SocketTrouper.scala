@@ -196,5 +196,5 @@ trait LoneSocket { self: SocketTrouper[_] =>
     this ! lila.socket.actorApi.Broom
     lila.mon.socket.queueSize(monitoringName)(queueSize)
   }
-  system.lilaBus.subscribe(this, 'deploy, 'shutdown, 'announce)
+  system.lilaBus.subscribe(this, 'deploy, 'announce)
 }

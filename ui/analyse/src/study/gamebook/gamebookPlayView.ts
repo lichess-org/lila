@@ -1,8 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Hooks } from 'snabbdom/hooks'
 import GamebookPlayCtrl from './gamebookPlayCtrl';
-import { bind, dataIcon, iconTag, enrichText, innerHTML } from '../../util';
+import { bind, dataIcon, iconTag, richHTML } from '../../util';
 import { State } from './gamebookPlayCtrl';
 
 const defaultComments = {
@@ -92,8 +91,4 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw)
     }, 'Analyse')
   ]);
-}
-
-function richHTML(text: string): Hooks {
-  return innerHTML(text, text => enrichText(text, true));
 }

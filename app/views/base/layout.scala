@@ -86,6 +86,7 @@ object layout {
   private val dataUser = attr("data-user")
   private val dataSoundSet = attr("data-sound-set")
   private val dataSocketDomain = attr("data-socket-domain")
+  private val dataRemoteSocketDomain = attr("data-remote-socket-domain")
   private val dataZoom = attr("data-zoom")
   private val dataPreload = attr("data-preload")
   private val dataPlaying = attr("data-playing")
@@ -156,6 +157,7 @@ object layout {
         dataUser := ctx.userId,
         dataSoundSet := ctx.currentSoundSet.toString,
         dataSocketDomain := socketDomain,
+        dataRemoteSocketDomain := maybeRemoteSocketDomain,
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),

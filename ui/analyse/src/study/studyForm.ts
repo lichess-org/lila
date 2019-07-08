@@ -107,7 +107,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       h('form.form3', {
         hook: bindSubmit(e => {
           const obj: FormData = {};
-          'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(n => {
+          'name visibility computer explorer cloneable chat sticky description'.split(' ').forEach(n => {
             const el = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement);
             if (el) obj[n] = el.value;
           });
@@ -172,6 +172,15 @@ export function view(ctrl: StudyFormCtrl): VNode {
             selected: '' + data.settings.sticky
           }))
         ]),
+        h('div.form-group.form-half', select({
+          key: 'description',
+          name: 'Study pinned comment',
+          choices: [
+            ['false', 'None'],
+            ['true', 'Right under the board']
+          ],
+          selected: '' + data.settings.description
+        })),
         modal.button(isNew ? 'Start' : 'Save')
       ]),
       h('div.destructive', [
