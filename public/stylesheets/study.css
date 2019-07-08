@@ -800,7 +800,7 @@ form .editor a.button {
 }
 .study_metadata h2 {
   font-size: 1.3em;
-  padding: 7px 12px 7px 12px;
+  padding: 0 12px;
   font-weight: normal;
   white-space: nowrap;
   display: flex;
@@ -814,9 +814,15 @@ form .editor a.button {
 .study_metadata h2 .name {
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 6px 0;
+}
+.study_metadata h2 .credit {
+  display: block;
+  font-size: .8rem;
+  margin: 2px 0 -4px 0;
 }
 .study_metadata h2 .liking {
-  padding-left: 12px;
+  padding: 3px 0 0 12px;
   margin-left: 12px;
   border-left: 1px solid #ccc;
   font-weight: bold;

@@ -1,6 +1,6 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util';
+import { plural, bind, spinner, richHTML, option } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
@@ -55,9 +55,7 @@ export function underboard(ctrl: StudyCtrl): VNode | undefined {
   pinned = ctrl.data.chapter.description;
   if (gb) return pinned ? h('div', [
     h('div.feedback.ongoing', [
-      pinned ? h('div.comment', {
-        hook: innerHTML(pinned, text => enrichText(text!, true))
-      }) : null
+      pinned ? h('div.comment', { hook: richHTML(pinned) }) : null
     ])
   ]) : undefined;
   else if (!ctrl.data.chapter.practice) return descView(ctrl, true);
@@ -83,9 +81,7 @@ export function underboard(ctrl: StudyCtrl): VNode | undefined {
    return h('div', [
      h('div.feedback.ongoing', [
        h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
-       pinned ? h('div.comment', {
-         hook: innerHTML(pinned, text => enrichText(text!, true))
-       }) : null
+       pinned ? h('div.comment', { hook: richHTML(pinned) }) : null
      ]),
      boolSetting({
        name: 'Load next exercise immediately',

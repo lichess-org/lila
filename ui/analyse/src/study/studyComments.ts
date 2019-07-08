@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../ctrl';
-import { nodeFullName, bind, innerHTML, enrichText } from '../util';
+import { nodeFullName, bind, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';
 
 function authorDom(author) {
@@ -56,9 +56,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
         h('span.node', nodeFullName(node))
       ] : []),
       ': ',
-      h('div.text', {
-        hook: innerHTML(comment.text, text => enrichText(text, true))
-      })
+      h('div.text', { hook: richHTML(comment.text) })
     ]);
   }));
 }

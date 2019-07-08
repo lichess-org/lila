@@ -9,6 +9,7 @@ case class Relay(
     _id: Relay.Id,
     name: String,
     description: String,
+    credit: Option[String] = None,
     sync: Relay.Sync,
     ownerId: User.ID,
     likes: Study.Likes,

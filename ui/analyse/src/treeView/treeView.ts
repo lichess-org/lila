@@ -102,7 +102,7 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
     const by = (node.comments![1] || (ctx.ctrl.study && comment.by != "lidraughts" && commentAuthor.toLowerCase() != ctx.ctrl.study.data.ownerId.toLowerCase())) ? `<span class="by">${commentAuthor}</span>` : '',
       truncated = truncateComment(comment.text, 300, ctx);
     return h('comment', {
-      hook: innerHTML(truncated, text => by + enrichText(text, true))
+      hook: innerHTML(truncated, text => by + enrichText(text))
     });
   }).filter(nonEmpty);
 }

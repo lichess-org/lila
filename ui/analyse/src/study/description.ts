@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { StudyCtrl } from './interfaces';
-import { bind, enrichText, innerHTML } from '../util';
+import { bind, richHTML } from '../util';
 
 export type Save = (string) => void;
 
@@ -57,9 +57,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
     ]) : null,
     isEmpty ? h('a.text.empty.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
-    }, descTitle(chapter)) : h('div.text', {
-      hook: innerHTML(desc.text, text => enrichText(text, true))
-    })
+    }, descTitle(chapter)) : h('div.text', { hook: richHTML(desc.text) })
   ]);
 }
 

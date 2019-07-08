@@ -27,6 +27,11 @@ help = Html("Feature on /broadcast - for admins only").some) { field =>
 @base.form.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true) { field =>
 @base.form.input(field, typ = "number")
 }
+@if(isGranted(_.Relay)) {
+@base.form.group(form("credit"), Html("Credit the source")) { field =>
+@base.form.input(field)
+}
+}
 }
 </div>
 

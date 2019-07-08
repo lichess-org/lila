@@ -16,7 +16,7 @@
   white-space: nowrap;
   margin-right: 10px;
 }
-.relays .top .new_relay .button i::before {
+.relays .top .new_relay i::before {
   color: #759900;
   font-size: 40px;
 }

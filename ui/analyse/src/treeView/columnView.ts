@@ -180,7 +180,7 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     const by = (node.comments![1] || (ctx.ctrl.study && comment.by != "lidraughts" && commentAuthor.toLowerCase() != ctx.ctrl.study.data.ownerId.toLowerCase())) ? `<span class="by">${commentAuthor}</span>` : '',
       truncated = truncateComment(comment.text, 650, ctx);
     return h(sel, {
-      hook: innerHTML(truncated, text => by + enrichText(text, true))
+      hook: innerHTML(truncated, text => by + enrichText(text))
     });
   });
 }

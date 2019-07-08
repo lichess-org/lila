@@ -26,7 +26,7 @@ object JsonView {
       "description" -> r.description,
       "ownerId" -> r.ownerId,
       "sync" -> r.sync
-    )
+    ).add("credit", r.credit)
   }
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
