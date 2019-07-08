@@ -41,7 +41,9 @@ final class Env(
         def query = Query(text, me.map(_.id))
         def nbResults = api count query
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
-      } mapFutureList studyEnv.pager.withChapters mapFutureList studyEnv.pager.withLiking(me),
+      } mapFutureList {
+        studyEnv.pager.withChapters(_, Study.maxChapters)
+      } mapFutureList studyEnv.pager.withLiking(me),
       currentPage = page,
       maxPerPage = lidraughts.common.MaxPerPage(MaxPerPage)
     )

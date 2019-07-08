@@ -11,6 +11,8 @@ final class StudyPager(
     maxPerPage: lidraughts.common.MaxPerPage
 ) {
 
+  private val defaultNbChaptersPerStudy = 4
+
   import BSONHandlers._
   import studyRepo.{ selectPublic, selectPrivateOrUnlisted, selectMemberId, selectOwnerId, selectLiker }
 
@@ -65,7 +67,7 @@ final class StudyPager(
         case Order.Oldest => $sort asc "createdAt"
         case Order.Updated => $sort desc "updatedAt"
       }
-    ) mapFutureList withChaptersAndLiking(me)
+    ) mapFutureList withChaptersAndLiking(me, defaultNbChaptersPerStudy)
     Paginator(
       adapter = nbResults.fold(adapter) { nb =>
         new CachedAdapter(adapter, nb)
@@ -75,8 +77,8 @@ final class StudyPager(
     )
   }
 
-  def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
-    chapterRepo idNamesByStudyIds studies.map(_.id) map { chapters =>
+  def withChapters(studies: Seq[Study], nbChaptersPerStudy: Int): Fu[Seq[Study.WithChapters]] =
+    chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
       studies.map { study =>
         Study.WithChapters(study, ~(chapters get study.id map {
           _ map (_.name)
@@ -92,8 +94,8 @@ final class StudyPager(
       }
     }
 
-  def withChaptersAndLiking(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    withChapters(studies) flatMap withLiking(me)
+  def withChaptersAndLiking(me: Option[User], nbChaptersPerStudy: Int)(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 }
 
 sealed abstract class Order(val key: String, val name: String)

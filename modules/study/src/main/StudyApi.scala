@@ -702,7 +702,7 @@ final class StudyApi(
   def resetAllRanks = studyRepo.resetAllRanks
 
   def chapterIdNames(studyIds: List[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
-    chapterRepo.idNamesByStudyIds(studyIds)
+    chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
 
   def chapterMetadatas = chapterRepo.orderedMetadataByStudy _
 
