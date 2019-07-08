@@ -1,6 +1,7 @@
 export interface RelayData {
   id: string;
   slug: string;
+  credit?: string;
   sync: RelaySync;
 }
 

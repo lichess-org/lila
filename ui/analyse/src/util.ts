@@ -102,6 +102,10 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
   };
 }
 
+export function richHTML(text: string, newLines: boolean = true): Hooks {
+  return innerHTML(text, t => enrichText(t, newLines));
+}
+
 export function baseUrl() {
   return `${window.location.protocol}//${window.location.host}`;
 }
@@ -157,7 +161,7 @@ function toLink(url: string) {
   return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
 }
 
-export function enrichText(text: string, allowNewlines: boolean): string {
+export function enrichText(text: string, allowNewlines: boolean = true): string {
   let html = autolink(window.lichess.escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
