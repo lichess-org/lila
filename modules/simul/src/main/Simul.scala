@@ -22,9 +22,9 @@ case class Simul(
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
     color: Option[String],
-    text: String
+    text: String,
+    team: Option[String]
 ) {
-
   def id = _id
 
   def fullName = s"$name simul"
@@ -151,7 +151,8 @@ object Simul {
     clock: SimulClock,
     variants: List[Variant],
     color: String,
-    text: String
+    text: String,
+    team: Option[String]
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -177,7 +178,8 @@ object Simul {
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
     color = color.some,
-    text = text
+    text = text,
+    team = team
   )
 
   private val abusiveHosts = Set("lance5500")

@@ -46,9 +46,10 @@ module.exports = function(ctrl) {
           ] : (
             simul.containsMe(ctrl) ? m('a.button', {
               onclick: function() { xhr.withdraw(ctrl) }
-            }, ctrl.trans('withdraw')) : m('a.button.text', {
+            }, ctrl.trans('withdraw')) : m('a.button.text' + (ctrl.teamBlock ? '.disabled' : ''), {
+              disabled: ctrl.teamBlock,
               'data-icon': 'G',
-              onclick: function() {
+              onclick: ctrl.teamBlock ? undefined : () => {
                 if (ctrl.data.variants.length === 1)
                   xhr.join(ctrl.data.variants[0].key)(ctrl);
                 else {
@@ -60,7 +61,7 @@ module.exports = function(ctrl) {
                 }
               }
             },
-              ctrl.trans('join'))
+              ctrl.teamBlock ? ctrl.trans('mustBeInTeam', ctrl.data.team.name) : ctrl.trans('join'))
           )) : m('a.button.text', {
             'data-icon': 'G',
             href: '/login?referrer=' + window.location.pathname

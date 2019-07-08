@@ -1,6 +1,6 @@
 package lila.hub
 
-package object tournamentTeam {
+package object lightTeam {
   type TeamId = String
   type TeamName = String
   type TeamIdList = List[TeamId]

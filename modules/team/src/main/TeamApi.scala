@@ -24,9 +24,9 @@ final class TeamApi(
 
   val creationPeriod = Period weeks 1
 
-  def team(id: String) = coll.team.byId[Team](id)
+  def team(id: Team.ID) = coll.team.byId[Team](id)
 
-  def request(id: String) = coll.request.byId[Request](id)
+  def request(id: Team.ID) = coll.request.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Option[Fu[Team]] = me.canTeam option {
     val s = setup.trim
@@ -85,7 +85,7 @@ final class TeamApi(
     case (request, user) => RequestWithUser(request, user)
   }
 
-  def join(teamId: String)(implicit ctx: UserContext): Fu[Option[Requesting]] = for {
+  def join(teamId: Team.ID)(implicit ctx: UserContext): Fu[Option[Requesting]] = for {
     teamOption ← coll.team.byId[Team](teamId)
     result ← ~(teamOption |@| ctx.me.filter(_.canTeam))({
       case (team, user) if team.open =>
@@ -95,7 +95,7 @@ final class TeamApi(
     })
   } yield result
 
-  def requestable(teamId: String, user: User): Fu[Option[Team]] = for {
+  def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] = for {
     teamOption ← coll.team.byId[Team](teamId)
     able ← teamOption.??(requestable(_, user))
   } yield teamOption filter (_ => able)
@@ -129,7 +129,7 @@ final class TeamApi(
       }.sequenceFu
     }
 
-  def doJoin(team: Team, userId: String): Funit = !belongsTo(team.id, userId) flatMap {
+  def doJoin(team: Team, userId: User.ID): Funit = !belongsTo(team.id, userId) flatMap {
     _ ?? {
       MemberRepo.add(team.id, userId) >>
         TeamRepo.incMembers(team.id, +1) >>- {
@@ -140,14 +140,14 @@ final class TeamApi(
     } recover lila.db.recoverDuplicateKey(_ => ())
   }
 
-  def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
+  def quit(teamId: Team.ID)(implicit ctx: UserContext): Fu[Option[Team]] = for {
     teamOption ← coll.team.byId[Team](teamId)
     result ← ~(teamOption |@| ctx.me)({
       case (team, user) => doQuit(team, user.id) inject team.some
     })
   } yield result
 
-  def doQuit(team: Team, userId: String): Funit = belongsTo(team.id, userId) flatMap {
+  def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
     _ ?? {
       MemberRepo.remove(team.id, userId) >>
         TeamRepo.incMembers(team.id, -1) >>-
@@ -155,15 +155,15 @@ final class TeamApi(
     }
   }
 
-  def quitAll(userId: String): Funit = MemberRepo.removeByUser(userId)
+  def quitAll(userId: User.ID): Funit = MemberRepo.removeByUser(userId)
 
-  def kick(team: Team, userId: String, me: User): Funit =
+  def kick(team: Team, userId: User.ID, me: User): Funit =
     doQuit(team, userId) >>
       !team.isCreator(me.id) ?? {
         modLog.teamKick(me.id, userId, team.name)
       }
 
-  def changeOwner(team: Team, userId: String, me: User): Funit =
+  def changeOwner(team: Team, userId: User.ID, me: User): Funit =
     MemberRepo.exists(team.id, userId) flatMap { e =>
       e ?? {
         TeamRepo.changeOwner(team.id, userId) >>
@@ -184,18 +184,18 @@ final class TeamApi(
       MemberRepo.removeByteam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
-  def syncBelongsTo(teamId: String, userId: String): Boolean =
+  def syncBelongsTo(teamId: Team.ID, userId: User.ID): Boolean =
     cached.syncTeamIds(userId) contains teamId
 
-  def belongsTo(teamId: String, userId: String): Fu[Boolean] =
+  def belongsTo(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     cached.teamIds(userId) map (_ contains teamId)
 
-  def owns(teamId: String, userId: String): Fu[Boolean] =
+  def owns(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     TeamRepo ownerOf teamId map (Some(userId) ==)
 
-  def teamName(teamId: String): Option[String] = cached.name(teamId)
+  def teamName(teamId: Team.ID): Option[String] = cached.name(teamId)
 
-  def nbRequests(teamId: String) = cached.nbRequests get teamId
+  def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 
   def recomputeNbMembers =
     coll.team.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>

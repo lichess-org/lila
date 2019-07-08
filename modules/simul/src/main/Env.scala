@@ -45,8 +45,6 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  lazy val forms = new DataForm
-
   lazy val jsonView = new JsonView(lightUser)
 
   private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
