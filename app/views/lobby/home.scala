@@ -102,7 +102,7 @@ object home {
             events.map(bits.spotlight),
             !ctx.isBot option frag(
               lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map { views.html.tournament.homepageSpotlight(_) },
-              simuls.find(_.spotlightable).headOption map views.html.simul.bits.homepageSpotlight
+              simuls.find(_.spotlightable).filter(lila.simul.Env.current.featurable).headOption map views.html.simul.bits.homepageSpotlight
             )
           ),
           ctx.me map { u =>
