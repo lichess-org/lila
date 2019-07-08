@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lidraughts.common.{ Lang, LightUser }
 import lidraughts.game.{ GameRepo, LightPov, Game }
-import lidraughts.hub.tournamentTeam._
+import lidraughts.hub.lightTeam._
 import lidraughts.pref.Pref
 import lidraughts.quote.Quote.quoteWriter
 import lidraughts.rating.PerfType

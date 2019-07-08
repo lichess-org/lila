@@ -54,8 +54,6 @@ final class Env(
 
   lazy val crudApi = new crud.CrudApi(repo)
 
-  lazy val forms = new DataForm
-
   lazy val jsonView = new JsonView(lightUser, isOnline)
 
   private val socketMap: SocketMap = lidraughts.socket.SocketMap[Socket](

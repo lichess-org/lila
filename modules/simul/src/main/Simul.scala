@@ -26,9 +26,9 @@ case class Simul(
     arbiterId: Option[String] = None,
     spotlight: Option[Spotlight] = None,
     targetPct: Option[Int] = None,
-    text: Option[String] = None
+    text: Option[String] = None,
+    team: Option[String]
 ) {
-
   def id = _id
 
   def fullName = if (isUnique) name else s"$name simul"
@@ -291,7 +291,8 @@ object Simul {
     variants: List[Variant],
     color: String,
     targetPct: Option[Int],
-    text: String
+    text: String,
+    team: Option[String]
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -318,6 +319,7 @@ object Simul {
     hostSeenAt = DateTime.now.some,
     color = color.some,
     targetPct = targetPct,
-    text = if (text.nonEmpty) text.some else none
+    text = if (text.nonEmpty) text.some else none,
+    team = team
   )
 }

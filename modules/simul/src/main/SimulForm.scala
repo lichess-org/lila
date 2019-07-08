@@ -4,10 +4,9 @@ import play.api.data._
 import play.api.data.Forms._
 
 import lidraughts.common.Form._
+import lidraughts.hub.lightTeam._
 
-final class DataForm {
-
-  import DataForm._
+object SimulForm {
 
   def create = Form(mapping(
     "clockTime" -> numberIn(clockTimeChoices),
@@ -19,8 +18,9 @@ final class DataForm {
     "color" -> stringIn(colorChoices),
     "targetPct" -> text(minLength = 0, maxLength = 3)
       .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100)),
-    "text" -> text
-  )(SimulSetup.apply)(SimulSetup.unapply)) fill empty
+    "text" -> text,
+    "team" -> optional(nonEmptyText)
+  )(Setup.apply)(Setup.unapply)) fill empty
 
   lazy val applyVariants = Form(mapping(
     "variants" -> list {
@@ -29,9 +29,6 @@ final class DataForm {
   )(VariantsData.apply)(VariantsData.unapply)) fill VariantsData(
     variants = List(draughts.variant.Standard.id)
   )
-}
-
-object DataForm {
 
   case class VariantsData(
       variants: List[Int]
@@ -63,25 +60,27 @@ object DataForm {
   )
   val chatDefault = "everyone"
 
-  val empty = SimulSetup(
+  val empty = Setup(
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     clockExtra = clockExtraDefault,
     variants = List(draughts.variant.Standard.id),
     color = colorDefault,
     targetPct = zero[String],
-    text = ""
+    text = "",
+    team = none
   )
 
   def setText = Form(single("text" -> text))
-}
 
-case class SimulSetup(
-    clockTime: Int,
-    clockIncrement: Int,
-    clockExtra: Int,
-    variants: List[Int],
-    color: String,
-    targetPct: String,
-    text: String
-)
+  case class Setup(
+      clockTime: Int,
+      clockIncrement: Int,
+      clockExtra: Int,
+      variants: List[Int],
+      color: String,
+      targetPct: String,
+      text: String,
+      team: Option[String]
+  )
+}

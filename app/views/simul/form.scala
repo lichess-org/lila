@@ -11,10 +11,9 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[lidraughts.simul.SimulSetup], config: lidraughts.simul.DataForm)(implicit ctx: Context) = {
+  def apply(form: Form[lidraughts.simul.SimulForm.Setup], teams: lidraughts.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = {
 
-    import config._
-    import lidraughts.simul.DataForm._
+    import lidraughts.simul.SimulForm._
 
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
@@ -43,6 +42,9 @@ object form {
             form3.group(form("targetPct"), trans.winningPercentage(), help = trans.simulTargetPercentageHint().some)(
               form3.input(_, typ = "number")(st.placeholder := trans.targetPercentage.txt(), st.min := 50, st.max := 100)
             ),
+            (teams.size > 0) ?? {
+              form3.group(form("team"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
+            },
             form3.group(form("text"), raw("Simul description"), help = frag("Anything you want to tell the participants?").some)(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Simul.home())(trans.cancel()),

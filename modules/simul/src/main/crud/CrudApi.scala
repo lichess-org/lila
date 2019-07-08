@@ -36,8 +36,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     clockIncrement = simul.clock.config.incrementSeconds,
     clockExtra = simul.clock.hostExtraTime / 60,
     variants = simul.variants.map(_.id),
-    color = simul.color.getOrElse(DataForm.colorDefault),
-    chat = simul.spotlight.flatMap(_.chatmode).fold(DataForm.chatDefault)(_.key),
+    color = simul.color.getOrElse(SimulForm.colorDefault),
+    chat = simul.spotlight.flatMap(_.chatmode).fold(SimulForm.chatDefault)(_.key),
     ceval = simul.spotlight.flatMap(_.ceval).fold(CrudForm.cevalDefault)(_.key),
     percentage = ~simul.targetPct.map(_.toString),
     fmjd = simul.spotlight.flatMap(_.fmjdRating).fold(CrudForm.fmjdDefault)(_.key),
@@ -73,9 +73,10 @@ final class CrudApi(simulRepo: SimulRepo) {
       hostExtraTime = 0
     ),
     variants = Nil,
-    color = DataForm.colorDefault,
+    color = SimulForm.colorDefault,
     targetPct = None,
-    ""
+    "",
+    none
   )
 
   private def updateSimul(simul: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {

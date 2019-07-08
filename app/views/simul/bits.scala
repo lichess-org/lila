@@ -110,6 +110,7 @@ object bits {
     trans.backToSimul,
     trans.save,
     trans.edit,
-    trans.start
+    trans.start,
+    trans.mustBeInTeam
   )
 }

@@ -10,15 +10,17 @@ import lidraughts.api.{ Context, GameApiV2 }
 import lidraughts.app._
 import lidraughts.chat.Chat
 import lidraughts.common.HTTPRequest
+import lidraughts.hub.lightTeam._
 import lidraughts.game.GameRepo
 import lidraughts.game.PdnDump.WithFlags
 import lidraughts.simul.{ Simul => Sim }
-import lidraughts.simul.DataForm.{ empty => emptyForm }
+import lidraughts.simul.SimulForm.{ empty => emptyForm }
 import views._
 
 object Simul extends LidraughtsController {
 
   private def env = Env.simul
+  private def forms = lidraughts.simul.SimulForm
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
@@ -45,12 +47,17 @@ object Simul extends LidraughtsController {
     env.repo find id flatMap {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
+          team <- sim.team ?? Env.team.api.team
           version <- env.version(sim.id)
-          json <- env.jsonView(sim, sim.canHaveCevalUser(ctx.me), ctx.pref.some)
+          json <- env.jsonView(sim, sim.canHaveCevalUser(ctx.me), ctx.pref.some, team.map { t =>
+            lidraughts.simul.SimulTeam(t.id, t.name, ctx.userId exists {
+              Env.team.api.syncBelongsTo(t.id, _)
+            })
+          })
           chat <- canHaveChat(sim) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
           stream <- Env.streamer.liveStreamApi one sim.hostId
-        } yield html.simul.show(sim, version, json, chat, stream)
+        } yield html.simul.show(sim, version, json, chat, stream, team)
       }
     } map NoCache
   }
@@ -92,7 +99,7 @@ object Simul extends LidraughtsController {
   def setText(simulId: String) = OpenBody { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       implicit val req = ctx.body
-      lidraughts.simul.DataForm.setText.bindFromRequest.fold(
+      forms.setText.bindFromRequest.fold(
         err => BadRequest,
         text => {
           env.api.setText(simul.id, text)
@@ -153,21 +160,25 @@ object Simul extends LidraughtsController {
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
-      Ok(html.simul.form(env.forms.create, env.forms)).fuccess
+      teamsIBelongTo(me) map { teams =>
+        Ok(html.simul.form(forms.create, teams))
+      }
     }
   }
 
   def create = AuthBody { implicit ctx => implicit me =>
     NoLameOrBot {
       implicit val req = ctx.body
-      env.forms.create.bindFromRequest.fold(
-        err => BadRequest(html.simul.form(
-          env.forms.applyVariants.bindFromRequest.fold(
-            err2 => err,
-            data => err.copy(value = emptyForm.copy(variants = data.variants).some)
-          ),
-          env.forms
-        )).fuccess,
+      forms.create.bindFromRequest.fold(
+        err => teamsIBelongTo(me) map { teams =>
+          BadRequest(html.simul.form(
+            forms.applyVariants.bindFromRequest.fold(
+              err2 => err,
+              data => err.copy(value = emptyForm.copy(variants = data.variants).some)
+            ),
+            teams
+          ))
+        },
         setup => env.api.create(setup, me) map { simul =>
           Redirect(routes.Simul.show(simul.id))
         }
@@ -252,4 +263,7 @@ object Simul extends LidraughtsController {
     case GameApiV2.Format.PDN => pdnContentType
     case GameApiV2.Format.JSON => ndJsonContentType
   }
+
+  private def teamsIBelongTo(me: lidraughts.user.User): Fu[TeamIdsWithNames] =
+    Env.team.api.mine(me) map { _.map(t => t._id -> t.name) }
 }

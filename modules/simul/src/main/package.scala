@@ -15,4 +15,6 @@ package object simul extends PackageObject with WithSocket {
   }
 
   private[simul] def logger = lidraughts.log("simul")
+
+  case class SimulTeam(id: String, name: String, isIn: Boolean)
 }

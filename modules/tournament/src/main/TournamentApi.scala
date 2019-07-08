@@ -15,7 +15,7 @@ import lidraughts.game.{ Game, GameRepo, LightGame, LightPov, Pov }
 import lidraughts.hub.actorApi.lobby.ReloadTournaments
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
-import lidraughts.hub.tournamentTeam._
+import lidraughts.hub.lightTeam._
 import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.round.actorApi.round.{ AbortForce, GoBerserk }
 import lidraughts.socket.actorApi.SendToFlag

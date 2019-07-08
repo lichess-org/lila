@@ -7,7 +7,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.paginator.Paginator
-import lidraughts.simul.{ DataForm, Simul }
+import lidraughts.simul.{ SimulForm, Simul }
 import lidraughts.simul.crud.CrudForm
 import lidraughts.rating.PerfType
 
@@ -87,7 +87,7 @@ object crud {
   )
 
   private def inForm(form: Form[lidraughts.simul.crud.CrudForm.Data], limitedEdit: Boolean)(implicit ctx: Context) = {
-    import DataForm._
+    import SimulForm._
     frag(
       form3.split(
         form3.group(form("date"), raw("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_)),

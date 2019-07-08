@@ -16,7 +16,8 @@ object show {
     socketVersion: lidraughts.socket.Socket.SocketVersion,
     data: play.api.libs.json.JsObject,
     chatOption: Option[lidraughts.chat.UserChat.Mine],
-    stream: Option[lidraughts.streamer.Stream]
+    stream: Option[lidraughts.streamer.Stream],
+    team: Option[lidraughts.team.Team]
   )(implicit ctx: Context) = views.html.base.layout(
     moreCss = cssTag("simul.show"),
     title = sim.fullName,
@@ -90,7 +91,13 @@ object show {
             ),
             trans.by(userIdLink(sim.hostId.some)),
             " ",
-            sim.startedAt.fold(sim.spotlight.map(s => absClientDateTime(s.startsAt)))(momentFromNow(_).some)
+            sim.startedAt.fold(sim.spotlight.map(s => absClientDateTime(s.startsAt)))(momentFromNow(_).some),
+            team map { t =>
+              frag(
+                br,
+                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
+              )
+            }
           ),
           stream.map { s =>
             views.html.streamer.bits.contextual(s.streamer.userId)

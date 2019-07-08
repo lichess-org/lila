@@ -68,7 +68,7 @@ final class SimulApi(
 
   def getAssessments(id: Game.ID): Fu[Option[PlayerAssessments]] = assessmentsCache get id
 
-  def create(setup: SimulSetup, me: User): Fu[Simul] = {
+  def create(setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       clock = SimulClock(
         config = draughts.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
@@ -78,7 +78,8 @@ final class SimulApi(
       host = me,
       color = setup.color,
       targetPct = parseIntOption(setup.targetPct),
-      text = setup.text
+      text = setup.text,
+      team = setup.team
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(sim => sim.isNotBrandNew && sim.spotlight.isEmpty).map(_.id).foreach(abort)

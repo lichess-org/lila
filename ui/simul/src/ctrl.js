@@ -46,6 +46,7 @@ module.exports = function(env) {
   this.text = text.ctrl();
 
   this.reload = function(data) {
+    data.team = this.data.simul; // reload data does not contain the simul anymore
     this.data = data;
     startWatching();
   }.bind(this);
@@ -70,4 +71,6 @@ module.exports = function(env) {
     lidraughts.storage.set('lidraughts.move_on', '1'); // hideous hack :D
 
   this.trans = lidraughts.trans(env.i18n);
+
+  this.teamBlock = this.data.team && !this.data.team.isIn;
 };

@@ -1,7 +1,7 @@
 package lidraughts.tournament
 
 import lidraughts.common.Lang
-import lidraughts.hub.tournamentTeam._
+import lidraughts.hub.lightTeam._
 import lidraughts.i18n.I18nKeys
 import lidraughts.rating.BSONHandlers.perfTypeKeyHandler
 import lidraughts.rating.PerfType

@@ -10,6 +10,7 @@ import views._
 object SimulCrud extends LidraughtsController {
 
   private def env = Env.simul
+  private def forms = lidraughts.simul.SimulForm
   private def crud = env.crudApi
 
   def index(page: Int) = Secure(_.ManageSimul) { implicit ctx => me =>
@@ -32,7 +33,7 @@ object SimulCrud extends LidraughtsController {
           crud.editForm(simul, host, arbiter).bindFromRequest.fold(
             err => BadRequest(html.simul.crud.edit(
               simul,
-              env.forms.applyVariants.bindFromRequest.fold(
+              forms.applyVariants.bindFromRequest.fold(
                 err2 => err,
                 data => err.copy(value = emptyForm.copy(variants = data.variants).some)
               )
@@ -58,7 +59,7 @@ object SimulCrud extends LidraughtsController {
     implicit val req = ctx.body
     crud.createForm.bindFromRequest.fold(
       err => BadRequest(html.simul.crud.create(
-        env.forms.applyVariants.bindFromRequest.fold(
+        forms.applyVariants.bindFromRequest.fold(
           err2 => err,
           data => err.copy(value = emptyForm.copy(variants = data.variants).some)
         )

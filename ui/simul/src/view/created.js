@@ -167,9 +167,9 @@ module.exports = function(ctrl) {
           ] : (
             simul.containsMe(ctrl) ? m('a.button', {
               onclick: function() { xhr.withdraw(ctrl) }
-            }, ctrl.trans.noarg('withdraw')) : m('a.button.text', {
+            }, ctrl.trans.noarg('withdraw')) : m('a.button.text' + (ctrl.teamBlock ? '.disabled' : ''), {
                 'data-icon': 'G',
-                onclick: function() {
+                onclick: ctrl.teamBlock ? undefined : () => {
                   if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
                     alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
                   else if (ctrl.data.variants.length === 1)
@@ -183,7 +183,7 @@ module.exports = function(ctrl) {
                   }
                 }
               },
-              ctrl.trans.noarg('join'))
+              ctrl.teamBlock ? ctrl.trans('mustBeInTeam', ctrl.data.team.name) : ctrl.trans.noarg('join'))
           )) : m('a.button.text', {
             'data-icon': 'G',
             href: '/login?referrer=' + window.location.pathname

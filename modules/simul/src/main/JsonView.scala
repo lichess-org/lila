@@ -36,7 +36,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         fuccess(game.id -> none)
     } sequenceFu
 
-  def apply(simul: Simul, ceval: Boolean, pref: Option[Pref]): Fu[JsObject] = for {
+  def apply(simul: Simul, ceval: Boolean, pref: Option[Pref], team: Option[SimulTeam]): Fu[JsObject] = for {
     games <- fetchGames(simul)
     evals <- ceval ?? fetchEvals(games)
     lightHost <- getLightUser(simul.hostId)
@@ -71,7 +71,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "isFinished" -> simul.isFinished,
     "quote" -> lidraughts.quote.Quote.one(simul.id),
     "text" -> ~simul.text
-  ).add("arbiter" -> lightArbiter.map { arbiter =>
+  ).add("team", team)
+    .add("arbiter" -> lightArbiter.map { arbiter =>
       Json.obj(
         "id" -> arbiter.id,
         "username" -> arbiter.name,
@@ -216,4 +217,6 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
   private implicit val colorWriter: Writes[draughts.Color] = Writes { c =>
     JsString(c.name)
   }
+
+  private implicit val simulTeamWriter = Json.writes[SimulTeam]
 }

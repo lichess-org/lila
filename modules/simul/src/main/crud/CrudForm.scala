@@ -11,7 +11,7 @@ import lidraughts.common.Form._
 
 object CrudForm {
 
-  import DataForm._
+  import SimulForm._
   import lidraughts.common.Form.UTCDate._
 
   val maxHomepageHours = 336
