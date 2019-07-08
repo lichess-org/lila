@@ -31,8 +31,10 @@ object Auth extends LilaController {
       }
     }
 
-  private val refRegex = """[\w@/-]++""".r
+  private val refRegex = """[\w@/-=?]++""".r
 
+  // do not allow redirects to external sites,
+  // nor redirect back to /mobile (which is shown after logout)
   private def goodReferrer(referrer: String): Boolean = {
     referrer.nonEmpty &&
       referrer.stripPrefix("/") != "mobile" && {
