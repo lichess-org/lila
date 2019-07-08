@@ -23,16 +23,14 @@ final class Env(
     asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
-  private val settings = new {
-    val CollectionSimul = config getString "collection.simul"
-    val SequencerTimeout = config duration "sequencer.timeout"
-    val CreatedCacheTtl = config duration "created.cache.ttl"
-    val UniqueCacheTtl = config duration "unique.cache.ttl"
-    val HistoryMessageTtl = config duration "history.message.ttl"
-    val UidTimeout = config duration "uid.timeout"
-    val SocketTimeout = config duration "socket.timeout"
-  }
-  import settings._
+  private val CollectionSimul = config getString "collection.simul"
+  private val SequencerTimeout = config duration "sequencer.timeout"
+  private val CreatedCacheTtl = config duration "created.cache.ttl"
+  private val UniqueCacheTtl = config duration "unique.cache.ttl"
+  private val HistoryMessageTtl = config duration "history.message.ttl"
+  private val UidTimeout = config duration "uid.timeout"
+  private val SocketTimeout = config duration "socket.timeout"
+  private val FeatureViews = config getInt "feature.views"
 
   lazy val repo = new SimulRepo(
     simulColl = simulColl
@@ -145,6 +143,16 @@ final class Env(
     name = "simul.allUniqueWithPublicCommentary",
     repo.allUniqueWithPublicCommentaryIds,
     expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
+  )
+
+  def featurable(simul: Simul): Boolean = featureLimiter(simul.hostId)(true)
+
+  private val featureLimiter = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
+    credits = FeatureViews,
+    duration = 24 hours,
+    name = "simul homepage views",
+    key = "simul.feature",
+    log = false
   )
 
   def version(simulId: String): Fu[SocketVersion] =
