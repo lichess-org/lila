@@ -38,13 +38,13 @@ export function ctrl(root: RoundController, data: CorresClockData, onFlag: () =>
     times = {
       white: white * 1000,
       black: black * 1000,
-      lastUpdate: Date.now()
+      lastUpdate: performance.now()
     };
   };
   update(data.white, data.black);
 
   function tick(color: Color): void {
-    const now = Date.now();
+    const now = performance.now();
     times[color] -= now - times.lastUpdate;
     times.lastUpdate = now;
     if (times[color] <= 0) onFlag();
