@@ -57,8 +57,6 @@ object Environment
 
   val spinner: Frag = raw("""<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>""")
 
-  def maybeRemoteSocketDomain(implicit ctx: Context): Option[String] = {
-    val regex = Env.socket.socketRemoteUsersSetting.get()
-    regex == "." || ctx.userId.exists(regex.r.matches)
-  } option remoteSocketDomain
+  def maybeRemoteSocketDomain(implicit ctx: Context): Option[String] =
+    ctx.userId exists Env.socket.socketRemoteUsersSetting.get().matches option remoteSocketDomain
 }
