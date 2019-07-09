@@ -584,7 +584,7 @@
   <string name="xAskedY">%1$s ha demanat %2$s</string>
   <string name="xAnsweredY">%1$s ha demanat %2$s</string>
   <string name="xCommentedY">%1$s ha comentat %2$s</string>
-  <string name="victory">Victòria!</string>
+  <string name="victory">Victòria</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s
 en %3$s</string>
