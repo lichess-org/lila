@@ -41,7 +41,6 @@ private final class RemoteSocket(
   bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
-      send(Out.Move, gameId, move, fen)
     case FinishGameId(gameId) if watchedGameIds(gameId) =>
       watchedGameIds -= gameId
     case SendTos(userIds, payload) =>
