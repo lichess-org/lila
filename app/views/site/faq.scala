@@ -37,6 +37,11 @@ object faq {
           p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
           p("You can find out more about ", a(href := routes.Plan.index())("being a patron"), " (including a ", a(href := routes.Main.costs())("breakdown of our costs"), "). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ".")
         ),
+        question(
+          "variants",
+          "What variants can I play on Lichess?",
+          p("A full list of the variants supported by Lichess can be found ", a(href := "https://lichess.org/variants")("here"), ".")
+        ),
         h2("Fair Play"),
         question(
           "marks",
