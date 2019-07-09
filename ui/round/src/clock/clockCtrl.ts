@@ -52,9 +52,6 @@ interface EmergSound {
   };
 }
 
-const nowFun = window.performance && performance.now() > 0 ?
-  performance.now.bind(performance) : Date.now;
-
 export class ClockController {
 
   emergSound: EmergSound = {
@@ -110,7 +107,7 @@ export class ClockController {
       white: white * 1000,
       black: black * 1000,
       activeColor: isClockRunning ? d.game.player : undefined,
-      lastUpdate: nowFun() + delayMs
+      lastUpdate: performance.now() + delayMs
     };
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
@@ -148,7 +145,7 @@ export class ClockController {
     const color = this.times.activeColor;
     if (color === undefined) return;
 
-    const now = nowFun();
+    const now = performance.now();
     const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
     this.scheduleTick(millis, 0);
@@ -168,7 +165,7 @@ export class ClockController {
     }
   };
 
-  elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);
+  elapsed = (now = performance.now()) => Math.max(0, now - this.times.lastUpdate);
 
   millisOf = (color: Color): Millis => (this.times.activeColor === color ?
      Math.max(0, this.times[color] - this.elapsed()) :

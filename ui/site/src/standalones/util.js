@@ -67,8 +67,8 @@ lidraughts.debounce = (func, wait, immediate) => {
   return function() {
     let context = this,
       args = arguments,
-      elapsed = Date.now() - lastBounce;
-    lastBounce = Date.now();
+      elapsed = performance.now() - lastBounce;
+    lastBounce = performance.now();
     let later = () => {
       timeout = null;
       func.apply(context, args);
@@ -249,14 +249,14 @@ lidraughts.idleTimer = function(delay, onIdle, onWakeUp) {
   var events = ['mousemove', 'touchstart'];
   var listening = false;
   var active = true;
-  var lastSeenActive = Date.now();
+  var lastSeenActive = performance.now();
   var onActivity = function() {
     if (!active) {
       // console.log('Wake up');
       onWakeUp();
     }
     active = true;
-    lastSeenActive = Date.now();
+    lastSeenActive = performance.now();
     stopListening();
   };
   var startListening = function() {
@@ -276,7 +276,7 @@ lidraughts.idleTimer = function(delay, onIdle, onWakeUp) {
     }
   };
   setInterval(function() {
-    if (active && Date.now() - lastSeenActive > delay) {
+    if (active && performance.now() - lastSeenActive > delay) {
       // console.log('Idle mode');
       onIdle();
       active = false;

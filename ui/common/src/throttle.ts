@@ -6,11 +6,11 @@ export default function throttle(delay: number, callback: (...args: any[]) => vo
 
   return function(this: any, ...args: any[]): void {
     const self: any = this;
-    const elapsed = Date.now() - lastExec;
+    const elapsed = performance.now() - lastExec;
 
     function exec() {
       timer = undefined;
-      lastExec = Date.now();
+      lastExec = performance.now();
       callback.apply(self, args);
     }
 

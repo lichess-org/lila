@@ -5,7 +5,7 @@ function makeAckable(send) {
   var messages = [];
 
   function resend() {
-    var resendCutoff = Date.now() - 2500;
+    var resendCutoff = performance.now() - 2500;
     messages.forEach(function(m) {
       if (m.at < resendCutoff) send(m.t, m.d);
     });
@@ -20,7 +20,7 @@ function makeAckable(send) {
       messages.push({
         t: t,
         d: d,
-        at: Date.now()
+        at: performance.now()
       });
     },
     gotAck: function(id) {
@@ -34,15 +34,13 @@ function makeAckable(send) {
 // versioned events, acks, retries, resync
 lidraughts.StrongSocket = function(url, version, settings) {
 
-  var now = Date.now;
-
   var settings = $.extend(true, {}, lidraughts.StrongSocket.defaults, settings);
   var options = settings.options;
   var ws;
   var pingSchedule;
   var connectSchedule;
   var ackable = makeAckable(function(t, d) { send(t, d) });
-  var lastPingTime = now();
+  var lastPingTime = performance.now();
   var pongCount = 0;
   var averageLag = 0;
   var tryOtherUrl = false;
@@ -146,7 +144,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
     }) : null;
     try {
       ws.send(pingData);
-      lastPingTime = now();
+      lastPingTime = performance.now();
     } catch (e) {
       debug(e, true);
     }
@@ -160,7 +158,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
   var pong = function() {
     clearTimeout(connectSchedule);
     schedulePing(computePingDelay());
-    var currentLag = Math.min(now() - lastPingTime, 10000);
+    var currentLag = Math.min(performance.now() - lastPingTime, 10000);
     pongCount++;
 
     // Average first 4 pings, then switch to decaying average.
