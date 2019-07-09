@@ -9,6 +9,7 @@
 @import 'forum';
 @import 'blog';
 @import 'support';
+@import 'about';
 
 body {
   /* improves preload */
@@ -22,19 +23,6 @@ body {
 .lobby__side {
   @extend %flex-column;
   overflow: hidden;
-}
-
-.lobby__about {
-  display: flex;
-  align-content: flex-start;
-  flex-flow: row wrap;
-  font-size: .85em;
-  a {
-    @extend %page-text;
-    font-weight: bold;
-    margin-right: 1.2em;
-    white-space: nowrap;
-  }
 }
 
 .lobby__nope {
@@ -56,6 +44,7 @@ body {
     font-size: 1.1em;
   }
 }
+
 .game-setup {
   display: none;
 }
