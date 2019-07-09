@@ -586,7 +586,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="xAskedY">%1$s asked %2$s</string>
   <string name="xAnsweredY">%1$s answered %2$s</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
-  <string name="victory">Victory!</string>
+  <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
   <string name="xVsYinZ">%1$s vs %2$s
 in %3$s</string>
