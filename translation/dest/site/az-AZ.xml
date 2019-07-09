@@ -500,7 +500,7 @@
   <string name="xAskedY">%1$s soruşdu %2$s</string>
   <string name="xAnsweredY">%1$s cavablandırdı %2$s</string>
   <string name="xCommentedY">%1$s şərh %2$s</string>
-  <string name="victory">Qələbə!</string>
+  <string name="victory">Qələbə</string>
   <string name="timeline">Zaman cədvəli</string>
   <string name="starting">Başlanğıc</string>
   <string name="allInformationIsPublicAndOptional">Bütün məlumatlar hər kəsə açıq və seçkiyə bağlıdır.</string>
