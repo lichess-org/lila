@@ -9,7 +9,8 @@ self.addEventListener('push', event => {
       icon: 'https://lichess1.org/assets/images/logo.256.png',
       body: data.body,
       tag: data.stack,
-      data: data.payload
+      data: data.payload,
+      requireInteraction: true
     });
   }));
 });
