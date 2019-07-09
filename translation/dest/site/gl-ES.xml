@@ -584,7 +584,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="xAskedY">%1$s preguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
-  <string name="victory">Vitoria!</string>
+  <string name="victory">Vitoria</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s
 en %3$s</string>
