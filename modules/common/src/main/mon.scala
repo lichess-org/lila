@@ -335,6 +335,7 @@ object mon {
         val in = inc("socket.remote.redis.in")
         val out = inc("socket.remote.redis.out")
         val outError = inc("socket.remote.redis.out_error")
+        val publishTime = rec("socket.remote.redis.publish_time")
         object pool {
           val active = rec("socket.remote.redis.pool.active")
           val idle = rec("socket.remote.redis.pool.idle")

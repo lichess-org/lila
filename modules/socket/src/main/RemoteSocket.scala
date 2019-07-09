@@ -88,75 +88,86 @@ private final class RemoteSocket(
    * as the code that triggered the event */
   private def send(path: String, args: String*): Unit = {
     redisMon.out()
-    executeBlockingIO {
-      WithResource(redisPool.getResource) { redis =>
-        redis.publish(chanOut, s"$path ${args mkString " "}")
+    lila.common.Chronometer.syncMon(_.socket.remote.redis.publishTime) {
+      executeBlockingIO {
+        WithResource(redisPool.getResource) { redis =>
+          redis.publish(chanOut, s"$path ${args mkString " "}")
+        }
       }
     }
   }
 
   private def tick(nbConn: Int): Unit = {
-    println(nbIn, "nbIn")
+    // println(nbIn, "nbIn")
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
     // mon.executor.threads(ioThreadCounter.get.pp("threads"))
-    redisMon.pool.active(redisPool.getNumActive.pp("active"))
-    redisMon.pool.idle(redisPool.getNumIdle.pp("idle"))
-    redisMon.pool.waiters(redisPool.getNumWaiters.pp("waiters"))
+    redisMon.pool.active(redisPool.getNumActive)
+    redisMon.pool.idle(redisPool.getNumIdle)
+    redisMon.pool.waiters(redisPool.getNumWaiters)
   }
 
   private val mon = lila.mon.socket.remote
   private val redisMon = mon.redis
 
-  private var nbIn = 0
+  // private var nbIn = 0
 
   private def subscribe: Funit = Future {
     redisPool.getResource.subscribe(new JedisPubSub() {
       override def onMessage(channel: String, message: String): Unit = {
-        nbIn += 1
-        if (channel == "bench") {
-          // lettuce:
-          // (1200000,3407)
-          // (1300000,3441)
-          // (1400000,3458)
-          // jedis:
-          // (1200000,1988)
-          // (1300000,2023)
-          // (1400000,2112)
-          // blocking { jedis }
-          // (1200000,2277)
-          // (1300000,2256)
-          // (1400000,2237)
-          // io executor { jedis }
-          // (1200000,2640)
-          // (1300000,2631)
-          // (1400000,2641)
-          it = it + 1
-          if (it % 100000 == 0) {
-            println(it, (nowMillis - last).toString)
-            last = nowMillis
-          }
-          redisMon.out()
-          executeBlockingIO {
-            WithResource(redisPool.getResource) { redis =>
-              redis.publish("bench", "tagada")
-            }
-          }
-        } else {
-          val parts = message.split(" ", 2)
-          println(parts(0), ~parts.lift(1))
-          onReceive(parts(0), ~parts.lift(1))
-          redisMon.in()
-        }
+        // nbIn += 1
+        // if (channel == "bench") {
+        // lettuce:
+        // (1200000,3407)
+        // (1300000,3441)
+        // (1400000,3458)
+        // jedis:
+        // (1200000,1988)
+        // (1300000,2023)
+        // (1400000,2112)
+        // blocking { jedis }
+        // (1200000,2277)
+        // (1300000,2256)
+        // (1400000,2237)
+        // io executor { jedis }
+        // (1200000,2640)
+        // (1300000,2631)
+        // (1400000,2641)
+        // it = it + 1
+        // if (it % 100000 == 0) {
+        //   println(it, (nowMillis - last).toString)
+        //   last = nowMillis
+        // }
+        // redisMon.out()
+        // executeBlockingIO {
+        //   WithResource(redisPool.getResource) { redis =>
+        //     redis.publish("bench", "tagada")
+        //   }
+        // }
+        // } else {
+        val parts = message.split(" ", 2)
+        // println(parts(0), ~parts.lift(1))
+        onReceive(parts(0), ~parts.lift(1))
+        redisMon.in()
+        // }
       }
-    }, chanIn, "bench")
+      // }, chanIn, "bench")
+    }, chanIn)
   }.void logFailure logger addEffectAnyway subscribe
 
   subscribe
 
-  var it = 0
-  var last = nowMillis
+  // var it = 0
+  // var last = nowMillis
+
+  private def executeBlockingIO[T](cb: => T): Unit = try {
+    blocking(cb)
+  } catch {
+    case scala.util.control.NonFatal(e) =>
+      logger.warn(s"RemoteSocket.out", e)
+      redisMon.outError()
+  }
 
   // import java.util.concurrent.{ Executors, ThreadFactory }
   // import java.util.concurrent.atomic.AtomicLong
@@ -171,9 +182,7 @@ private final class RemoteSocket(
   //     }
   //   }
   // )
-  private def executeBlockingIO[T](cb: => T): Unit = {
-    blocking(cb)
-  }
+
   // private def executeBlockingIO[T](cb: => T): Unit = {
   //   ioThreadPool.execute(new Runnable {
   //     def run() = try {
