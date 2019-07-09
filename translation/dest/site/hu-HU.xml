@@ -575,7 +575,7 @@
   <string name="xAskedY">%1$s kérdést tett fel %2$s címmel</string>
   <string name="xAnsweredY">%1$s megválaszolta a %2$s című témát</string>
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
-  <string name="victory">Helyes megoldás!</string>
+  <string name="victory">Helyes megoldás</string>
   <string name="defeat">Vereség</string>
   <string name="xVsYinZ">%1$s %2$s ellen %3$s-ban</string>
   <string name="timeline">Idővonal</string>

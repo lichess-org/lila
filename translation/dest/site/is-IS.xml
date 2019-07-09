@@ -572,7 +572,7 @@
   <string name="xAskedY">%1$s spurði %2$s</string>
   <string name="xAnsweredY">%1$s svaraði %2$s</string>
   <string name="xCommentedY">%1$s skrifaði %2$s</string>
-  <string name="victory">Sigur!</string>
+  <string name="victory">Sigur</string>
   <string name="defeat">Ósigur</string>
   <string name="timeline">Tímalína</string>
   <string name="starting">Hefst:</string>

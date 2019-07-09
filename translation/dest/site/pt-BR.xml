@@ -586,7 +586,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xAskedY">%1$s perguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
-  <string name="victory">Vitória!</string>
+  <string name="victory">Vitória</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s
 em %3$s</string>

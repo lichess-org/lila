@@ -585,7 +585,7 @@
   <string name="xAskedY">%1$s preguntó %2$s</string>
   <string name="xAnsweredY">%1$s contestó %2$s</string>
   <string name="xCommentedY">%1$s comentó %2$s</string>
-  <string name="victory">¡Victoria!</string>
+  <string name="victory">Victoria</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Cronología</string>

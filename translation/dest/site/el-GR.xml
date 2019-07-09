@@ -577,7 +577,7 @@
   <string name="xAskedY">Ο χρήστης %1$s ρώτησε %2$s</string>
   <string name="xAnsweredY">Ο χρήστης %1$s απάντησε την ερώτηση %2$s</string>
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
-  <string name="victory">Επιτυχία!</string>
+  <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
   <string name="xVsYinZ">%1$s εναντίον %2$s
 στο %3$s</string>
@@ -725,7 +725,7 @@
   <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
   <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
   <string name="security">Ασφάλεια</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών που έχουν συνδεθεί στο λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
   <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>

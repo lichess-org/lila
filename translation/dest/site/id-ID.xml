@@ -557,7 +557,7 @@
   <string name="xAskedY">%1$s bertanya %2$s</string>
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
-  <string name="victory">Berhasil!</string>
+  <string name="victory">Berhasil</string>
   <string name="defeat">Kalah</string>
   <string name="xVsYinZ">%1$s melawan %2$s dalam permainan %3$s</string>
   <string name="timeline">Timeline</string>
