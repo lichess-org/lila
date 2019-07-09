@@ -82,7 +82,7 @@ function onMouseEvent(ctrl) {
             (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
         ) {
           ctrl.chessground.setPieces({
-            key: piece
+            [key]: piece
           });
           ctrl.onChange();
           ctrl.chessground.cancelMove();
@@ -124,7 +124,7 @@ function deleteOrHidePiece(ctrl, key, e) {
 
 function deletePiece(ctrl, key) {
   ctrl.chessground.setPieces({
-    key: false
+    [key]: false
   });
   ctrl.onChange();
 }
