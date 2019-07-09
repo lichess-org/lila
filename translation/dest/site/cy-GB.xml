@@ -471,7 +471,7 @@
   <string name="xAskedY">Gofynnodd %1$s am %2$s</string>
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>
   <string name="xCommentedY">Gadawodd %1$s sylw ar gyfer</string>
-  <string name="victory">Buddugoliaeth!</string>
+  <string name="victory">Buddugoliaeth</string>
   <string name="defeat">Colled</string>
   <string name="xVsYinZ">%1$s vs %2$s mewn %3$s</string>
   <string name="timeline">Llinell amser</string>
