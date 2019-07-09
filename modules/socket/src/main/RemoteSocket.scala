@@ -4,6 +4,7 @@ import play.api.libs.json._
 import redis.clients.jedis._
 import scala.concurrent.{ Future, blocking }
 
+import chess.Centis
 import lila.common.WithResource
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
@@ -25,6 +26,7 @@ private final class RemoteSocket(
     val Watch = "watch"
     val Notified = "notified"
     val Connections = "connections"
+    val Lag = "lag"
   }
   private object Out {
     val Move = "move"
@@ -78,6 +80,11 @@ private final class RemoteSocket(
         setNb(nb)
         tick(nb)
       }
+    case In.Lag => args split ' ' match {
+      case Array(user, l) => parseIntOption(l) foreach { lag =>
+        UserLagCache.put(user, Centis(lag))
+      }
+    }
     case path =>
       logger.warn(s"Invalid path $path")
   }
