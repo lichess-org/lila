@@ -40,7 +40,7 @@ object faq {
         question(
           "variants",
           "What variants can I play on Lichess?",
-          p("A full list of the variants supported by Lichess can be found ", a(href := "https://lichess.org/variants")("here"), ".")
+          p("A full list of the variants supported by Lichess can be found ", a(href := "https://lichess.org/variant")("here"), ".")
         ),
         h2("Fair Play"),
         question(
