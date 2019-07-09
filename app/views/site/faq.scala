@@ -37,11 +37,6 @@ object faq {
           p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
           p("You can find out more about ", a(href := routes.Plan.index())("being a patron"), " (including a ", a(href := routes.Main.costs())("breakdown of our costs"), "). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ".")
         ),
-        question(
-          "variants",
-          "What variants can I play on Lichess?",
-          p("A full list of the variants supported by Lichess can be found ", a(href := routes.Page.variantHome())("here"), ".")
-        ),
         h2("Fair Play"),
         question(
           "marks",
@@ -69,6 +64,11 @@ object faq {
           p("On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not.")
         ),
         h2("Gameplay"),
+        question(
+          "variants",
+          "What variants can I play on Lichess?",
+          p("Lichess supports standard chess and ", a(href := routes.Page.variantHome())("8 chess variants"), ".")
+        ),
         question(
           "acpl",
           """What is "average centipawn loss"?""",
