@@ -43,6 +43,6 @@ self.addEventListener('notificationclick', event => {
     }
 
     // open new window
-    clients.openWindow(url);
+    return clients.openWindow(url);
   }));
 });
