@@ -24,15 +24,15 @@ case class UserSpy(
     ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
 
   lazy val otherUsers: Set[OtherUser] = {
-    usersSharingIp.map { u =>
+    usersSharingIp.pp("IP: ").map { u =>
       OtherUser(u, true, usersSharingFingerprint contains u)
-    } ++ usersSharingFingerprint.filterNot(usersSharingIp.contains).map {
+    } ++ usersSharingFingerprint.pp("Print: ").filterNot(usersSharingIp.contains).pp("Filtered: ").map {
       OtherUser(_, false, true)
     }
   }
 
   def withMeSorted(me: User): List[OtherUser] =
-    (OtherUser(me, true, true) :: otherUsers.toList).sortBy(-_.user.createdAt.getMillis)
+    (OtherUser(me, true, true) :: otherUsers.toList.pp("OU: ")).sortBy(-_.user.createdAt.getMillis)
 
   def otherUserIds = otherUsers.map(_.user.id)
 }
