@@ -22,6 +22,7 @@ object Dev extends LilaController {
     Env.rating.ratingFactorsSetting,
     Env.socket.socketDebugSetting,
     Env.socket.socketRemoteUsersSetting,
+    Env.api.serviceWorkerSetting,
     Env.plan.donationGoalSetting,
     Env.rating.deviationIncreaseOverTimeSetting
   )

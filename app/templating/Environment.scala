@@ -59,4 +59,7 @@ object Environment
 
   def maybeRemoteSocketDomain(implicit ctx: Context): Option[String] =
     ctx.userId exists Env.socket.socketRemoteUsersSetting.get().matches option remoteSocketDomain
+
+  def usesServiceWorker(implicit ctx: Context): Boolean =
+    ctx.userId exists Env.api.serviceWorkerSetting.get().matches
 }
