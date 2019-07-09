@@ -22,9 +22,9 @@ case class Simul(
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
     color: Option[String],
-    text: String
+    text: String,
+    team: Option[String]
 ) {
-
   def id = _id
 
   def fullName = s"$name simul"
@@ -125,9 +125,8 @@ case class Simul(
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
   def spotlightable =
-    isCreated &&
-      (hostRating >= 2400 || hostTitle.isDefined) &&
-      !Simul.abusiveHosts(hostId) &&
+    (hostRating >= 2400 || hostTitle.isDefined) &&
+      isCreated &&
       applicants.size < 80
 
   def wins = pairings.count(p => p.finished && p.wins.has(false))
@@ -151,7 +150,8 @@ object Simul {
     clock: SimulClock,
     variants: List[Variant],
     color: String,
-    text: String
+    text: String,
+    team: Option[String]
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -177,8 +177,7 @@ object Simul {
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
     color = color.some,
-    text = text
+    text = text,
+    team = team
   )
-
-  private val abusiveHosts = Set("lance5500")
 }

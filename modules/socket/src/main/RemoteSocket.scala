@@ -4,6 +4,7 @@ import io.lettuce.core._
 import play.api.libs.json._
 import scala.concurrent.Future
 
+import chess.Centis
 import lila.common.WithResource
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
@@ -22,9 +23,11 @@ private final class RemoteSocket(
   private object In {
     val Connect = "connect"
     val Disconnect = "disconnect"
+    val DisconnectAll = "disconnect/all"
     val Watch = "watch"
     val Notified = "notified"
     val Connections = "connections"
+    val Lag = "lag"
   }
   private object Out {
     val Move = "move"
@@ -67,6 +70,10 @@ private final class RemoteSocket(
     case In.Disconnect =>
       val userId = args
       connectedUserIds -= args
+    case In.DisconnectAll =>
+      logger.info("Remote socket disconnect all")
+      connectedUserIds.clear
+      watchedGameIds.clear
     case In.Watch =>
       val gameId = args
       watchedGameIds += gameId
@@ -78,6 +85,12 @@ private final class RemoteSocket(
         setNb(nb)
         tick(nb)
       }
+    case In.Lag => args split ' ' match {
+      case Array(user, l) => parseIntOption(l) foreach { lag =>
+        UserLagCache.put(user, Centis(lag))
+      }
+      case _ =>
+    }
     case path =>
       logger.warn(s"Invalid path $path")
   }
@@ -90,6 +103,7 @@ private final class RemoteSocket(
   }
 
   private def tick(nbConn: Int): Unit = {
+    // println(nbIn, "nbIn")
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
@@ -124,13 +138,41 @@ private final class RemoteSocket(
         connOut.async.publish("bench", "bench tagada")
       } else {
         val parts = message.split(" ", 2)
+        // println(parts(0), ~parts.lift(1))
         onReceive(parts(0), ~parts.lift(1))
         redisMon.in()
+        // }
       }
-    }
+  }
   })
   connIn.async.subscribe(chanIn)
   connIn.async.subscribe("bench")
+
+  // import java.util.concurrent.{ Executors, ThreadFactory }
+  // import java.util.concurrent.atomic.AtomicLong
+  // private val ioThreadCounter = new AtomicLong(0L)
+  // private val ioThreadPool = Executors.newCachedThreadPool(
+  //   new ThreadFactory {
+  //     def newThread(r: Runnable) = {
+  //       val th = new Thread(r)
+  //       th.setName(s"remote-socket-redis-${ioThreadCounter.getAndIncrement}")
+  //       th.setDaemon(true)
+  //       th
+  //     }
+  //   }
+  // )
+
+  // private def executeBlockingIO[T](cb: => T): Unit = {
+  //   ioThreadPool.execute(new Runnable {
+  //     def run() = try {
+  //       blocking(cb)
+  //     } catch {
+  //       case scala.util.control.NonFatal(e) =>
+  //         logger.warn(s"RemoteSocket.out", e)
+  //         redisMon.outError()
+  //     }
+  //   })
+  // }
 
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")

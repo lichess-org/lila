@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, dataIcon, iconTag } from '../util';
+import { bind, dataIcon, iconTag, richHTML } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -119,12 +119,14 @@ function buttons(root: AnalyseCtrl): VNode {
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
-  const d = ctrl.data;
+  const d = ctrl.data,
+    credit = ctrl.relay && ctrl.relay.data.credit;
   return h('div.study__metadata', [
     h('h2', [
       h('span.name', [
         d.name,
-        ': ' + ctrl.currentChapter().name
+        ': ' + ctrl.currentChapter().name,
+        credit ?  h('span.credit', { hook: richHTML(credit, false) }) : undefined
       ]),
       h('span.liking.text', {
         class: { liked: d.liked },

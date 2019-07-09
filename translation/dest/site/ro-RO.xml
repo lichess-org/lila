@@ -610,7 +610,7 @@
   <string name="xAskedY">%1$s a întrebat %2$s</string>
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>
-  <string name="victory">Victorie!</string>
+  <string name="victory">Victorie</string>
   <string name="defeat">Înfrângere</string>
   <string name="xVsYinZ">%1$s vs %2$s
 în %3$s</string>

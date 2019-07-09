@@ -89,6 +89,7 @@ object list {
     views.html.base.layout(
       title = text,
       moreCss = cssTag("study.index"),
+      wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag
     ) {
         main(cls := "page-menu")(

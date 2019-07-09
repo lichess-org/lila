@@ -95,7 +95,7 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
     truncated = truncateComment(comment.text, 300, ctx);
     return h('comment', {
-      hook: innerHTML(truncated, text => by + enrichText(text, true))
+      hook: innerHTML(truncated, text => by + enrichText(text))
     });
   }).filter(nonEmpty);
 }

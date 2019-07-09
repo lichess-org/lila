@@ -7,12 +7,14 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
+import lila.hub.lightTeam._
 import lila.simul.{ Simul => Sim }
 import views._
 
 object Simul extends LilaController {
 
   private def env = Env.simul
+  private def forms = lila.simul.SimulForm
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
@@ -38,12 +40,17 @@ object Simul extends LilaController {
     env.repo find id flatMap {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
+          team <- sim.team ?? Env.team.api.team
           version <- env.version(sim.id)
-          json <- env.jsonView(sim)
+          json <- env.jsonView(sim, team.map { t =>
+            lila.simul.SimulTeam(t.id, t.name, ctx.userId exists {
+              Env.team.api.syncBelongsTo(t.id, _)
+            })
+          })
           chat <- canHaveChat ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
           stream <- Env.streamer.liveStreamApi one sim.hostId
-        } yield html.simul.show(sim, version, json, chat, stream)
+        } yield html.simul.show(sim, version, json, chat, stream, team)
       }
     } map NoCache
   }
@@ -85,7 +92,7 @@ object Simul extends LilaController {
   def setText(simulId: String) = OpenBody { implicit ctx =>
     AsHost(simulId) { simul =>
       implicit val req = ctx.body
-      env.forms.setText.bindFromRequest.fold(
+      forms.setText.bindFromRequest.fold(
         err => BadRequest,
         text => {
           env.api.setText(simul.id, text)
@@ -97,15 +104,19 @@ object Simul extends LilaController {
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
-      Ok(html.simul.form(env.forms.create, env.forms)).fuccess
+      teamsIBelongTo(me) map { teams =>
+        Ok(html.simul.form(forms.create, teams))
+      }
     }
   }
 
   def create = AuthBody { implicit ctx => implicit me =>
     NoLameOrBot {
       implicit val req = ctx.body
-      env.forms.create.bindFromRequest.fold(
-        err => BadRequest(html.simul.form(err, env.forms)).fuccess,
+      forms.create.bindFromRequest.fold(
+        err => teamsIBelongTo(me) map { teams =>
+          BadRequest(html.simul.form(err, teams))
+        },
         setup => env.api.create(setup, me) map { simul =>
           Redirect(routes.Simul.show(simul.id))
         }
@@ -143,4 +154,7 @@ object Simul extends LilaController {
       case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
+
+  private def teamsIBelongTo(me: lila.user.User): Fu[TeamIdsWithNames] =
+    Env.team.api.mine(me) map { _.map(t => t._id -> t.name) }
 }

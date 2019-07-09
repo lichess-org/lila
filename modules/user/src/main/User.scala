@@ -37,6 +37,8 @@ case class User(
     case _ => false
   }
 
+  override def hashCode: Int = id.hashCode
+
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 

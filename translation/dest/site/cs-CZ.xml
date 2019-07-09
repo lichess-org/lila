@@ -635,7 +635,7 @@
   <string name="xAskedY">%1$s se zeptal na %2$s</string>
   <string name="xAnsweredY">%1$s odpověděl v %2$s</string>
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
-  <string name="victory">Vítězství!</string>
+  <string name="victory">Vítězství</string>
   <string name="defeat">Porážka</string>
   <string name="xVsYinZ">%1$s proti %2$s
 v %3$s</string>

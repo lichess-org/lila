@@ -5,11 +5,17 @@
   h2 {
     @extend %metal, %flex-between-nowrap;
     font-size: 1.3em;
-    padding: .8rem 1rem;
+    padding: 0 1rem;
     white-space: nowrap;
     border-bottom: $border;
     .name {
       @extend %ellipsis;
+      padding: .7rem 0;
+    }
+    .credit {
+      display: block;
+      font-size: .8rem;
+      margin: .2rem 0 -.3rem 0;
     }
     .liking {
       margin-left: 1rem;

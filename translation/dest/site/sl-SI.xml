@@ -640,7 +640,7 @@
   <string name="xAskedY">%1$s je vprašal %2$s</string>
   <string name="xAnsweredY">%1$s je odgovoril na %2$s</string>
   <string name="xCommentedY">%1$s je komentiral v %2$s</string>
-  <string name="victory">Zmaga!</string>
+  <string name="victory">Zmaga</string>
   <string name="defeat">Poraz</string>
   <string name="xVsYinZ">%1$s proti %2$s 
 v %3$s</string>

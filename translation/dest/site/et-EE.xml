@@ -583,7 +583,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xAskedY">%1$s küsis %2$s</string>
   <string name="xAnsweredY">%1$s vastas %2$s</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
-  <string name="victory">Võit!</string>
+  <string name="victory">Võit</string>
   <string name="defeat">Kaotus</string>
   <string name="xVsYinZ">%1$s : %2$s - %3$s</string>
   <string name="timeline">Ajatelg</string>

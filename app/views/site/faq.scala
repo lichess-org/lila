@@ -65,6 +65,11 @@ object faq {
         ),
         h2("Gameplay"),
         question(
+          "variants",
+          "What variants can I play on Lichess?",
+          p("Lichess supports standard chess and ", a(href := routes.Page.variantHome())("8 chess variants"), ".")
+        ),
+        question(
           "acpl",
           """What is "average centipawn loss"?""",
           p("The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions."),

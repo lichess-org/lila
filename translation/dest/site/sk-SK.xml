@@ -641,7 +641,7 @@
   <string name="xAskedY">%1$s opýtaných %2$s</string>
   <string name="xAnsweredY">%1$s odpovedí %2$s</string>
   <string name="xCommentedY">%1$s komentárov %2$s</string>
-  <string name="victory">Výhra!</string>
+  <string name="victory">Výhra</string>
   <string name="defeat">Porážka</string>
   <string name="xVsYinZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Rozvrh</string>

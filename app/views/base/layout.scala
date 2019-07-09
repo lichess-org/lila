@@ -55,7 +55,7 @@ object layout {
 </div>
 <div>
   <a id="notify-toggle" class="toggle link">
-    <span title="${trans.notifications().render}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""</span>
+    <span title="${trans.notifications().render}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
   </a>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
