@@ -23,6 +23,7 @@ private final class RemoteSocket(
   private object In {
     val Connect = "connect"
     val Disconnect = "disconnect"
+    val DisconnectAll = "disconnect/all"
     val Watch = "watch"
     val Notified = "notified"
     val Connections = "connections"
@@ -69,6 +70,10 @@ private final class RemoteSocket(
     case In.Disconnect =>
       val userId = args
       connectedUserIds -= args
+    case In.DisconnectAll =>
+      logger.info("Remote socket disconnect all")
+      connectedUserIds.clear
+      watchedGameIds.clear
     case In.Watch =>
       val gameId = args
       watchedGameIds += gameId
