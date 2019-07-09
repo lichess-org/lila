@@ -84,6 +84,7 @@ private final class RemoteSocket(
       case Array(user, l) => parseIntOption(l) foreach { lag =>
         UserLagCache.put(user, Centis(lag))
       }
+      case _ =>
     }
     case path =>
       logger.warn(s"Invalid path $path")
