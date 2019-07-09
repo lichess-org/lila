@@ -33,7 +33,7 @@ libraryDependencies ++= Seq(
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb, scalatags,
-  java8compat, semver, scrimage, scalaConfigs, scaffeine, lettuce
+  java8compat, semver, scrimage, scalaConfigs, scaffeine, lettuce, epoll
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)

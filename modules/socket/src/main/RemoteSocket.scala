@@ -96,14 +96,15 @@ private final class RemoteSocket(
   }
 
   private def send(path: String, args: String*): Unit = {
-    connOut.async.publish(chanOut, s"$path ${args mkString " "}")
+    lila.common.Chronometer.syncMon(_.socket.remote.redis.publishTime) {
+      connOut.async.publish(chanOut, s"$path ${args mkString " "}")
+      // .mon(_.socket.remote.redis.publishTime)
+      // .logFailure(logger)
+    }
     redisMon.out()
-    // logger.warn(s"RemoteSocket.out $path", e)
-    // redisMon.outError()
   }
 
   private def tick(nbConn: Int): Unit = {
-    // println(nbIn, "nbIn")
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
@@ -116,63 +117,12 @@ private final class RemoteSocket(
 
   connIn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
     override def message(channel: String, message: String): Unit = {
-      if (channel == "bench") {
-        // (200000,3392)
-        // (300000,3410)
-        // (400000,3434)
-        // (500000,3366)
-        // (600000,3374)
-        // (700000,3415)
-        // (800000,3439)
-        // (900000,3421)
-        // (1000000,3430)
-        // (1100000,3398)
-        // (1200000,3407)
-        // (1300000,3441)
-        // (1400000,3458)
-        it = it + 1
-        if (it % 100000 == 0) {
-          println(it, (nowMillis - last).toString)
-          last = nowMillis
-        }
-        connOut.async.publish("bench", "bench tagada")
-      } else {
-        val parts = message.split(" ", 2)
-        // println(parts(0), ~parts.lift(1))
-        onReceive(parts(0), ~parts.lift(1))
-        redisMon.in()
-        // }
-      }
-  }
+      val parts = message.split(" ", 2)
+      onReceive(parts(0), ~parts.lift(1))
+      redisMon.in()
+    }
   })
   connIn.async.subscribe(chanIn)
-  connIn.async.subscribe("bench")
-
-  // import java.util.concurrent.{ Executors, ThreadFactory }
-  // import java.util.concurrent.atomic.AtomicLong
-  // private val ioThreadCounter = new AtomicLong(0L)
-  // private val ioThreadPool = Executors.newCachedThreadPool(
-  //   new ThreadFactory {
-  //     def newThread(r: Runnable) = {
-  //       val th = new Thread(r)
-  //       th.setName(s"remote-socket-redis-${ioThreadCounter.getAndIncrement}")
-  //       th.setDaemon(true)
-  //       th
-  //     }
-  //   }
-  // )
-
-  // private def executeBlockingIO[T](cb: => T): Unit = {
-  //   ioThreadPool.execute(new Runnable {
-  //     def run() = try {
-  //       blocking(cb)
-  //     } catch {
-  //       case scala.util.control.NonFatal(e) =>
-  //         logger.warn(s"RemoteSocket.out", e)
-  //         redisMon.outError()
-  //     }
-  //   })
-  // }
 
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")

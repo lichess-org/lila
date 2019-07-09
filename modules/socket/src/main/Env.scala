@@ -2,8 +2,8 @@ package lila.socket
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 import io.lettuce.core._
+import scala.concurrent.duration._
 
 import actorApi._
 
@@ -15,11 +15,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder
 ) {
 
-  private val settings = new {
-    val RedisHost = config getString "redis.host"
-    val RedisPort = config getInt "redis.port"
-  }
-  import settings._
+  private val RedisUri = config getString "redis.uri"
 
   private val population = new Population(system)
 
@@ -28,7 +24,7 @@ final class Env(
   private val userRegister = new UserRegister(system)
 
   private val remoteSocket = new RemoteSocket(
-    redisClient = RedisClient create RedisURI.create(RedisHost, RedisPort),
+    redisClient = RedisClient create RedisURI.create(RedisUri),
     chanIn = "site-in",
     chanOut = "site-out",
     lifecycle = lifecycle,
