@@ -329,10 +329,10 @@ object mon {
       }
       val connections = rec("socket.remote.connections")
       object redis {
-        val in = inc("socket.remote.redis.in")
-        val out = inc("socket.remote.redis.out")
         val publishTime = rec("socket.remote.redis.publish_time")
         val publishTimeSync = rec("socket.remote.redis.publish_time.sync")
+        def in(path: String) = inc(s"socket.remote.redis.in.$path")
+        def out(path: String) = inc(s"socket.remote.redis.out.$path")
       }
     }
   }
