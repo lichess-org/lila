@@ -642,9 +642,8 @@
       api.volumeStorage.set(v);
       Howler.volume(v);
     };
-    api.getVolume = function() {
-      return api.volumeStorage.get() || api.defaultVolume;
-    };
+    // garbage has been stored stored by accident (e972d5612d)
+    api.getVolume = () => parseFloat(api.volumeStorage.get()) || api.defaultVolume;
 
     var publish = function() {
       lidraughts.pubsub.emit('sound_set', soundSet);

@@ -86,7 +86,7 @@ function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
       max: 1,
       range: 'min',
       step: 0.01,
-      value: ctrl.api.volumeStorage.get() || ctrl.api.defaultVolume,
+      value: ctrl.api.getVolume(),
       slide: (_: any, ui: any) => setVolume(ui.value)
     });
   });
