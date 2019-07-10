@@ -8,6 +8,7 @@ import chess.Centis
 import lila.common.{ Chronometer, WithResource }
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
+import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.{ Deploy, Announce }
 
 private final class RemoteSocket(
@@ -28,6 +29,7 @@ private final class RemoteSocket(
     val Notified = "notified"
     val Connections = "connections"
     val Lag = "lag"
+    val Friends = "friends"
   }
   private object Out {
     val Move = "move"
@@ -85,6 +87,9 @@ private final class RemoteSocket(
         setNb(nb)
         tick(nb)
       }
+    case In.Friends =>
+      val userId = args
+      bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     case In.Lag => args split ' ' match {
       case Array(user, l) => parseIntOption(l) foreach { lag =>
         UserLagCache.put(user, Centis(lag))
