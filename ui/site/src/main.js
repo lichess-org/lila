@@ -650,7 +650,7 @@
     api.getVolume = () => {
       // garbage has been stored stored by accident (e972d5612d)
       const v = api.volumeStorage.get();
-      return (v >= 0) ? parseFloat(v) || api.defaultVolume;
+      return (v >= 0) ? parseFloat(v) : api.defaultVolume;
     }
 
     var publish = function() {
