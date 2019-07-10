@@ -3,12 +3,13 @@ package lila.socket
 import io.lettuce.core._
 import play.api.libs.json._
 import scala.concurrent.Future
+import scala.concurrent.duration._
 
 import chess.Centis
 import lila.common.{ Chronometer, WithResource }
+import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
-import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.{ Deploy, Announce }
 
 private final class RemoteSocket(
@@ -41,13 +42,13 @@ private final class RemoteSocket(
   }
 
   private val connectedUserIds = collection.mutable.Set.empty[String]
-  private val watchedGameIds = collection.mutable.Set.empty[String]
+  private val watchedGameIds = new lila.memo.ExpireSetMemo(2 hours)
 
   bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
     case MoveEvent(gameId, fen, move) =>
-      if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
-    case FinishGameId(gameId) if watchedGameIds(gameId) =>
-      watchedGameIds -= gameId
+      if (watchedGameIds get gameId) send(Out.Move, gameId, move, fen)
+    case FinishGameId(gameId) =>
+      if (watchedGameIds get gameId) watchedGameIds remove gameId
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect connectedUserIds
       if (connectedUsers.nonEmpty) send(Out.TellUsers, connectedUsers mkString ",", Json stringify payload)
@@ -75,10 +76,10 @@ private final class RemoteSocket(
     case In.DisconnectAll =>
       logger.info("Remote socket disconnect all")
       connectedUserIds.clear
-      watchedGameIds.clear
+      watchedGameIds.removeAll()
     case In.Watch =>
       val gameId = args
-      watchedGameIds += gameId
+      watchedGameIds put gameId
     case In.Notified =>
       val userId = args
       notificationActor ! lila.hub.actorApi.notify.Notified(userId)
@@ -115,7 +116,7 @@ private final class RemoteSocket(
   private def tick(nbConn: Int): Unit = {
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
-    mon.sets.games(watchedGameIds.size)
+    mon.sets.games(watchedGameIds.count)
   }
 
   private val connIn = redisClient.connectPubSub()

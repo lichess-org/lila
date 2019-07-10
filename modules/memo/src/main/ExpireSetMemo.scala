@@ -26,6 +26,8 @@ final class ExpireSetMemo(ttl: Duration) {
 
   def removeAll(keys: Iterable[String]) = cache invalidateAll keys
 
+  def removeAll() = cache.invalidateAll()
+
   def keys: Iterable[String] = cache.asMap.keys
 
   def keySet: Set[String] = keys.toSet
