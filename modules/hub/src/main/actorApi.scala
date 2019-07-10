@@ -245,7 +245,6 @@ package round {
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
-  case class FinishGameId(gameId: String)
   case class Mlat(ms: Int)
 }
 

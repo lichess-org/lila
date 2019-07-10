@@ -7,7 +7,7 @@ import scala.concurrent.Future
 import chess.Centis
 import lila.common.{ Chronometer, WithResource }
 import lila.hub.actorApi.relation.ReloadOnlineFriends
-import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
+import lila.hub.actorApi.round.{ MoveEvent, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.{ Deploy, Announce }
 
@@ -44,11 +44,9 @@ private final class RemoteSocket(
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
+  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
-    case FinishGameId(gameId) =>
-      if (watchedGameIds(gameId)) watchedGameIds -= gameId
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect connectedUserIds
       if (connectedUsers.nonEmpty) send(Out.TellUsers, connectedUsers mkString ",", Json stringify payload)
