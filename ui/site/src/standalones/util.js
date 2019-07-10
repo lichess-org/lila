@@ -64,7 +64,7 @@ lidraughts.once = (key, mod) => {
 };
 lidraughts.debounce = (func, wait, immediate) => {
   let timeout, lastBounce = 0;
-  return () => {
+  return function() {
     let context = this,
       args = arguments,
       elapsed = Date.now() - lastBounce;
