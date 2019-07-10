@@ -17,6 +17,7 @@ case class Schedule(
 
   def name = freq match {
     case m @ Schedule.Freq.ExperimentalMarathon => m.name
+    case _ if variant == chess.variant.Crazyhouse && conditions.minRating.isDefined => "Elite Crazyhouse"
     case _ if variant.standard && position.initial =>
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) => s"${freq.toString} ${speed.toString}"
@@ -212,6 +213,17 @@ object Schedule {
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
   private def zhInc(s: Schedule) = s.at.getHourOfDay % 2 == 0
 
+  private def zhEliteTc(s: Schedule) = {
+    val TC = chess.Clock.Config
+    s.at.getDayOfMonth / 7 match {
+      case 0 => TC(3 * 60, 0)
+      case 1 => TC(1 * 60, 1)
+      case 2 => TC(3 * 60, 2)
+      case 3 => TC(1 * 60, 0)
+      case _ => TC(2 * 60, 0) // for the sporadic 5th Saturday
+    }
+  }
+
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
     import chess.variant._
@@ -220,6 +232,7 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
+      case (Weekend, Crazyhouse, Blitz) => zhEliteTc(s)
       case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
       case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
@@ -266,8 +279,9 @@ object Schedule {
         case _ => 0
       }
 
-      val minRating = s.freq match {
-        case Weekend => 2200
+      val minRating = (s.freq, s.variant) match {
+        case (Weekend, chess.variant.Crazyhouse) => 2100
+        case (Weekend, _) => 2200
         case _ => 0
       }
 
