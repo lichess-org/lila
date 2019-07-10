@@ -64,7 +64,7 @@ lichess.once = (key, mod) => {
 };
 lichess.debounce = (func, wait, immediate) => {
   let timeout, lastBounce = 0;
-  return () => {
+  return function() {
     let context = this,
       args = arguments,
       elapsed = performance.now() - lastBounce;
