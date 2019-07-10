@@ -8,9 +8,9 @@
     font-weight: bold;
     margin-right: 1.2em;
     white-space: nowrap;
-    transition: color 0.15s;
+    @include transition(color);
     &:hover{
-      color: $c-primary;
+      color: $c-link;
     }
   }
 }
