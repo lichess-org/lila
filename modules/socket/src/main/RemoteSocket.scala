@@ -113,7 +113,7 @@ private final class RemoteSocket(
       // .mon(_.socket.remote.redis.publishTime)
       // .logFailure(logger)
     }
-    redisMon.out(path)
+    mon.redis.out(path)()
   }
 
   private def tick(nbConn: Int): Unit = {
@@ -125,14 +125,13 @@ private final class RemoteSocket(
   private val connIn = redisClient.connectPubSub()
   private val connOut = redisClient.connectPubSub()
   private val mon = lila.mon.socket.remote
-  private val redisMon = mon.redis
 
   connIn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
     override def message(channel: String, message: String): Unit = {
       val parts = message.split(" ", 2)
       val path = parts(0)
       onReceive(path, ~parts.lift(1))
-      redisMon.in(path)
+      mon.redis.in(path)()
     }
   })
   connIn.async.subscribe(chanIn)
