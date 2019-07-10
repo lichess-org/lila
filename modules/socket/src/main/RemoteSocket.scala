@@ -6,9 +6,9 @@ import scala.concurrent.Future
 
 import chess.Centis
 import lila.common.{ Chronometer, WithResource }
+import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
-import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.{ Deploy, Announce }
 
 private final class RemoteSocket(
@@ -26,6 +26,7 @@ private final class RemoteSocket(
     val Disconnect = "disconnect"
     val DisconnectAll = "disconnect/all"
     val Watch = "watch"
+    val Unwatch = "unwatch"
     val Notified = "notified"
     val Connections = "connections"
     val Lag = "lag"
@@ -46,8 +47,8 @@ private final class RemoteSocket(
   bus.subscribeFun('moveEvent, 'finishGameId, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
-    case FinishGameId(gameId) if watchedGameIds(gameId) =>
-      watchedGameIds -= gameId
+    case FinishGameId(gameId) =>
+      if (watchedGameIds(gameId)) watchedGameIds -= gameId
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect connectedUserIds
       if (connectedUsers.nonEmpty) send(Out.TellUsers, connectedUsers mkString ",", Json stringify payload)
@@ -79,6 +80,9 @@ private final class RemoteSocket(
     case In.Watch =>
       val gameId = args
       watchedGameIds += gameId
+    case In.Unwatch =>
+      val gameId = args
+      watchedGameIds -= gameId
     case In.Notified =>
       val userId = args
       notificationActor ! lila.hub.actorApi.notify.Notified(userId)
