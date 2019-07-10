@@ -15,7 +15,7 @@ final class WebSubscriptionApi(coll: Coll) {
     )).sort($doc("seenAt" -> -1)).list[Bdoc](max).map { docs =>
       docs.flatMap { doc =>
         for {
-          endpoint <- doc.getAs[String]("_id")
+          endpoint <- doc.getAs[String]("endpoint")
           auth <- doc.getAs[String]("auth")
           p256dh <- doc.getAs[String]("p256dh")
         } yield WebSubscription(endpoint, auth, p256dh)
@@ -23,9 +23,9 @@ final class WebSubscriptionApi(coll: Coll) {
     }
 
   def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit = {
-    coll.update($id(subscription.endpoint), $doc(
+    coll.update($id(sessionId), $doc(
       "userId" -> user.id,
-      "sessionId" -> sessionId,
+      "endpoint" -> subscription.endpoint,
       "auth" -> subscription.auth,
       "p256dh" -> subscription.p256dh,
       "seenAt" -> DateTime.now
@@ -33,7 +33,7 @@ final class WebSubscriptionApi(coll: Coll) {
   }
 
   def unsubscribeBySession(sessionId: String): Funit = {
-    coll.remove($doc("sessionId" -> sessionId)).void
+    coll.remove($id(sessionId)).void
   }
 
   def unsubscribeByUser(user: User): Funit = {
@@ -43,7 +43,7 @@ final class WebSubscriptionApi(coll: Coll) {
   def unsubscribeByUserExceptSession(user: User, sessionId: String): Funit = {
     coll.remove($doc(
       "userId" -> user.id,
-      "sessionId" -> $ne(sessionId)
+      "_id" -> $ne(sessionId)
     )).void
   }
 }
