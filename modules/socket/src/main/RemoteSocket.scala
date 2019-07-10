@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.Future
 
 import chess.Centis
-import lila.common.WithResource
+import lila.common.{ Chronometer, WithResource }
 import lila.hub.actorApi.round.{ MoveEvent, FinishGameId, Mlat }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.{ Deploy, Announce }
@@ -96,8 +96,11 @@ private final class RemoteSocket(
   }
 
   private def send(path: String, args: String*): Unit = {
-    lila.common.Chronometer.syncMon(_.socket.remote.redis.publishTime) {
-      connOut.async.publish(chanOut, s"$path ${args mkString " "}")
+    val chrono = Chronometer.start
+    Chronometer.syncMon(_.socket.remote.redis.publishTimeSync) {
+      connOut.async.publish(chanOut, s"$path ${args mkString " "}").thenRun {
+        new Runnable { def run = chrono.mon(_.socket.remote.redis.publishTime) }
+      }
       // .mon(_.socket.remote.redis.publishTime)
       // .logFailure(logger)
     }
@@ -132,7 +135,4 @@ private final class RemoteSocket(
       redisClient.shutdown();
     }
   }
-
-  private var it = 0
-  private var last = nowMillis
 }

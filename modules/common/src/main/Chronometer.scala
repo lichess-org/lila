@@ -74,4 +74,9 @@ object Chronometer {
     lila.mon.recPath(path)(nowNanos - start)
     res
   }
+
+  def start = new {
+    private val s = nowNanos
+    def mon(path: lila.mon.RecPath): Unit = lila.mon.recPath(path)(nowNanos - s)
+  }
 }
