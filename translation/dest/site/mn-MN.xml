@@ -563,6 +563,8 @@
   <string name="videoLibrary">Бичлэгийн сан</string>
   <string name="mobileApp">Гар утасны програм</string>
   <string name="webmasters">Цахим хуудсыг хөгжүүлэгчид</string>
+  <string name="about">Тухай</string>
+  <string name="aboutX">Тухай %s</string>
   <string name="contribute">Хувь нэмэрээ оруулах</string>
   <string name="contact">Холбоо тогтоох</string>
   <string name="termsOfService">Үйлчилгээний нөхцөл</string>
