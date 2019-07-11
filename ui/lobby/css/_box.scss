@@ -7,6 +7,10 @@
       padding: .3em .5em;
       .more {
         color: $c-font-dim;
+        @include transition(color);
+        &:hover{
+          color: $c-font;
+        }
       }
       .title {
         @extend %base-font;
