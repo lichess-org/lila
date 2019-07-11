@@ -25,5 +25,8 @@
     margin: .5em;
     display: block;
     text-align: right;
+    .more {
+      color: $c-font-dim;
+    }
   }
 }
