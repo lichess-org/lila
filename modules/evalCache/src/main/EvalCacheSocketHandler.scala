@@ -29,17 +29,14 @@ final class EvalCacheSocketHandler(
     }
 
     case ("evalGet", o) => o obj "d" foreach { d =>
-      evalGet(uid, d,
-        reply = res => member push Socket.makeMessage("evalHit", res),
-        subscribe = (variant, fen, multiPv, path) => upgrade.register(uid, variant, fen, multiPv, path)(member.push))
+      evalGet(uid, d, res => member push Socket.makeMessage("evalHit", res))
     }
   }
 
   private[evalCache] def evalGet(
     uid: Socket.Uid,
     d: JsObject,
-    reply: JsObject => Unit,
-    subscribe: (Variant, FEN, Int, String) => Unit
+    push: JsObject => Unit
   ): Unit = for {
     fen <- d str "fen" map FEN.apply
     variant = Variant orDefault ~d.str("variant")
@@ -48,9 +45,9 @@ final class EvalCacheSocketHandler(
   } {
     api.getEvalJson(variant, fen, multiPv) foreach {
       _ foreach { json =>
-        reply(json + ("path" -> JsString(path)))
+        push(json + ("path" -> JsString(path)))
       }
     }
-    if (d.value contains "up") subscribe(variant, fen, multiPv, path)
+    if (d.value contains "up") upgrade.register(uid, variant, fen, multiPv, path)(push)
   }
 }

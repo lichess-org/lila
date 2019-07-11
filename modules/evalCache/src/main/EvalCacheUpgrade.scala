@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import play.api.libs.json.{ JsString, JsValue }
+import play.api.libs.json.{ JsString, JsObject }
 import scala.collection.mutable.AnyRefMap
 
 import chess.format.FEN
@@ -61,7 +61,7 @@ private object EvalCacheUpgrade {
 
   private type UidString = String
   private type SetupId = String
-  private type Push = JsValue => Unit
+  private type Push = JsObject => Unit
 
   private def makeSetupId(variant: Variant, fen: FEN, multiPv: Int): SetupId =
     s"${variant.id}${EvalCacheEntry.SmallFen.make(variant, fen).value}^$multiPv"

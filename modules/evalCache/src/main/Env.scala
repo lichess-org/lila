@@ -38,11 +38,7 @@ final class Env(
   }
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
     case RemoteSocketTellSriIn(sri, d) =>
-      val uid = Uid(sri)
-      def push(res: JsValue) = system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut)
-      socketHandler.evalGet(uid, d,
-        reply = push,
-        subscribe = (variant, fen, multiPv, path) => upgrade.register(uid, variant, fen, multiPv, path)(push))
+      socketHandler.evalGet(Uid(sri), d, res => system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut))
   }
 
   def cli = new lila.common.Cli {
