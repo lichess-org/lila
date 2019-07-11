@@ -1,6 +1,10 @@
 package lila.evalCache
 
 import com.typesafe.config.Config
+import play.api.libs.json.JsValue
+
+import lila.hub.actorApi.socket.{ RemoteSocketTellSriIn, RemoteSocketTellSriOut }
+import lila.socket.Socket.Uid
 
 final class Env(
     config: Config,
@@ -31,6 +35,14 @@ final class Env(
 
   system.lilaBus.subscribeFun('socketLeave) {
     case lila.socket.actorApi.SocketLeave(uid, _) => upgrade unregister uid
+  }
+  system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
+    case RemoteSocketTellSriIn(sri, d) =>
+      val uid = Uid(sri)
+      def push(res: JsValue) = system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut)
+      socketHandler.evalGet(uid, d,
+        reply = push,
+        subscribe = (variant, fen, multiPv, path) => upgrade.register(uid, variant, fen, multiPv, path)(push))
   }
 
   def cli = new lila.common.Cli {

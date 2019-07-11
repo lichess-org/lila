@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import play.api.libs.json.JsString
+import play.api.libs.json.{ JsString, JsValue }
 import scala.collection.mutable.AnyRefMap
 
 import chess.format.FEN
@@ -17,12 +17,12 @@ private final class EvalCacheUpgrade(asyncCache: lila.memo.AsyncCache.Builder) {
   private val members = AnyRefMap.empty[UidString, WatchingMember]
   private val evals = AnyRefMap.empty[SetupId, Set[UidString]]
 
-  def register(uid: Socket.Uid, member: SocketMember, variant: Variant, fen: FEN, multiPv: Int, path: String): Unit = {
+  def register(uid: Socket.Uid, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit = {
     members get uid.value foreach { wm =>
       unregisterEval(wm.setupId, uid)
     }
     val setupId = makeSetupId(variant, fen, multiPv)
-    members += (uid.value -> WatchingMember(member, setupId, path))
+    members += (uid.value -> WatchingMember(push, setupId, path))
     evals += (setupId -> (~evals.get(setupId) + uid.value))
   }
 
@@ -34,7 +34,7 @@ private final class EvalCacheUpgrade(asyncCache: lila.memo.AsyncCache.Builder) {
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>
-          wm.member push Socket.makeMessage("evalHit", json + ("path" -> JsString(wm.path)))
+          wm push Socket.makeMessage("evalHit", json + ("path" -> JsString(wm.path)))
         }
         lila.mon.evalCache.upgrade.hit(wms.size)
         lila.mon.evalCache.upgrade.members(members.size)
@@ -61,9 +61,10 @@ private object EvalCacheUpgrade {
 
   private type UidString = String
   private type SetupId = String
+  private type Push = JsValue => Unit
 
   private def makeSetupId(variant: Variant, fen: FEN, multiPv: Int): SetupId =
     s"${variant.id}${EvalCacheEntry.SmallFen.make(variant, fen).value}^$multiPv"
 
-  private case class WatchingMember(member: SocketMember, setupId: SetupId, path: String)
+  private case class WatchingMember(push: Push, setupId: SetupId, path: String)
 }

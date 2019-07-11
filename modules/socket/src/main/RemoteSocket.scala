@@ -8,7 +8,7 @@ import chess.Centis
 import lila.common.{ Chronometer, WithResource }
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.{ MoveEvent, Mlat }
-import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
+import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds, RemoteSocketTellSriIn, RemoteSocketTellSriOut }
 import lila.hub.actorApi.{ Deploy, Announce }
 
 private final class RemoteSocket(
@@ -31,6 +31,7 @@ private final class RemoteSocket(
     val Connections = "connections"
     val Lag = "lag"
     val Friends = "friends"
+    val TellSri = "tell/sri"
   }
   private object Out {
     val Move = "move"
@@ -38,13 +39,14 @@ private final class RemoteSocket(
     val TellUsers = "tell/users"
     val TellAll = "tell/all"
     val TellFlag = "tell/flag"
+    val TellSri = "tell/sri"
     val Mlat = "mlat"
   }
 
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag) {
+  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
     case SendTos(userIds, payload) =>
@@ -60,6 +62,8 @@ private final class RemoteSocket(
       send(Out.Mlat, ms.toString)
     case actorApi.SendToFlag(flag, payload) =>
       send(Out.TellFlag, flag, Json stringify payload)
+    case RemoteSocketTellSriOut(sri, payload) =>
+      send(Out.TellSri, sri, Json stringify payload)
     case WithUserIds(f) =>
       f(connectedUserIds)
   }
@@ -98,6 +102,14 @@ private final class RemoteSocket(
       }
       case _ =>
     }
+    case In.TellSri => args.split(" ", 2) match {
+      case Array(sri, payload) => for {
+        obj <- Json.parse(payload).asOpt[JsObject]
+        typ <- obj str "t"
+        dat <- obj obj "d"
+      } bus.publish(RemoteSocketTellSriIn(sri, dat), Symbol(s"remoteSocketIn:$typ"))
+      case a => logger.warn(s"Invalid tell/sri $args")
+    }
     case path =>
       logger.warn(s"Invalid path $path")
   }
@@ -108,8 +120,6 @@ private final class RemoteSocket(
       connOut.async.publish(chanOut, s"$path ${args mkString " "}").thenRun {
         new Runnable { def run = chrono.mon(_.socket.remote.redis.publishTime) }
       }
-      // .mon(_.socket.remote.redis.publishTime)
-      // .logFailure(logger)
     }
     mon.redis.out(path)()
   }

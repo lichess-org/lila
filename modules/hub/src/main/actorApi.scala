@@ -39,6 +39,8 @@ package socket {
     def apply[A: Writes](userIds: Set[String], typ: String, data: A): SendTos =
       SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
   }
+  case class RemoteSocketTellSriIn(sri: String, data: JsObject)
+  case class RemoteSocketTellSriOut(sri: String, payload: JsValue)
 }
 
 package report {
