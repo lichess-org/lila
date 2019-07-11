@@ -43,9 +43,10 @@ final class PlaybanApi(
     }
 
   private def roughWinEstimate(game: Game, color: Color) = {
-    game.draughts.board.materialImbalance match {
-      case a if a >= 5 => 1
-      case a if a <= -5 => -1
+    (game.draughts.board.materialImbalance, game.variant) match {
+      case (_, draughts.variant.Antidraughts) => 0
+      case (a, _) if a >= 5 => 1
+      case (a, _) if a <= -5 => -1
       case _ => 0
     }
   } * (if (color == Color.White) 1 else -1)
