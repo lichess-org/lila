@@ -3,6 +3,7 @@ package lila.playban
 import reactivemongo.bson._
 
 import chess.{ Status, Color }
+import chess.variant._
 import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.BSON._
 import lila.db.dsl._
@@ -44,7 +45,7 @@ final class PlaybanApi(
 
   private def roughWinEstimate(game: Game, color: Color) = {
     (game.chess.board.materialImbalance, game.variant) match {
-      case (_, chess.variant.Antichess) | (_, chess.variant.Horde) | (_, chess.variant.Crazyhouse) => 0
+      case (_, Antichess | Crazyhouse | Horde) => 0
       case (a, _) if a >= 5 => 1
       case (a, _) if a <= -5 => -1
       case _ => 0
