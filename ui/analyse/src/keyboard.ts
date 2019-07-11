@@ -60,21 +60,22 @@ export function bind(ctrl: AnalyseCtrl): void {
         ctrl.keyboardHelp = !ctrl.keyboardHelp;
         ctrl.redraw();
     }));
-    /*kbd.bind('l', preventing(ctrl.toggleCeval));
+    kbd.bind('l', preventing(ctrl.toggleCeval));
     kbd.bind('a', preventing(function () {
         ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
         ctrl.redraw();
     }));
-    kbd.bind('x', preventing(ctrl.toggleThreatMode));*/
-    kbd.bind('e', preventing(function () {
+    kbd.bind('x', preventing(ctrl.toggleThreatMode));
+    /*kbd.bind('e', preventing(function () {
         ctrl.toggleExplorer();
         ctrl.redraw();
-    }));
+    }));*/
     kbd.bind('space', preventing(function () {
         const gb = ctrl.gamebookPlay();
         if (gb) gb.onSpace();
-        //else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-        //else ctrl.toggleCeval();
+        else if (ctrl.studyPractice) return;
+        else if (ctrl.ceval.enabled()) ctrl.playBestMove();
+        else ctrl.toggleCeval();
     }));
     if (ctrl.study) {
         const keyToMousedown = (key: string, selector: string) => {
