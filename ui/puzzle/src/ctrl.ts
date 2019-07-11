@@ -13,7 +13,6 @@ import { prop, throttle, storedProp } from 'common';
 import * as xhr from './xhr';
 import { sound } from './sound';
 import { Api as CgApi } from 'draughtsground/api';
-import * as cg from 'draughtsground/types';
 import { Vm, Controller } from './interfaces';
 
 export default function (opts, redraw: () => void): Controller {
@@ -146,7 +145,7 @@ export default function (opts, redraw: () => void): Controller {
     sendMove(orig, dest);
   };
 
-  function sendMove(orig: Key, dest: Key, prom?: cg.Role) {
+  function sendMove(orig: Key, dest: Key, uci?: string) {
     const move: any = {
       orig: orig,
       dest: dest,
@@ -154,7 +153,7 @@ export default function (opts, redraw: () => void): Controller {
       fen: vm.node.fen,
       path: vm.path
     };
-    if (prom) move.promotion = prom;
+    if (uci) move.uci = uci;
     socket.sendAnaMove(move);
   };
 
@@ -338,9 +337,8 @@ export default function (opts, redraw: () => void): Controller {
   };
 
   function playUci(uci) {
-    var move = decomposeUci(uci);
-    if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], undefined);
+    const move = decomposeUci(uci);
+    sendMove(move[0], move[move.length - 1], move.length > 2 ? uci : undefined);
   };
 
   function getCeval() {

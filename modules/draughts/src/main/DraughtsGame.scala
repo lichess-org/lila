@@ -16,9 +16,10 @@ case class DraughtsGame(
     dest: Pos,
     promotion: Option[PromotableRole] = None,
     metrics: MoveMetrics = MoveMetrics(),
-    finalSquare: Boolean = false
+    finalSquare: Boolean = false,
+    captures: Option[List[Pos]] = None
   ): Valid[(DraughtsGame, Move)] =
-    situation.move(orig, dest, promotion, finalSquare).map { move =>
+    situation.move(orig, dest, promotion, finalSquare, none, captures).map { move =>
       apply(move) -> move
     }
 

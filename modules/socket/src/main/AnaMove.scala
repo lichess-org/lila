@@ -22,12 +22,14 @@ case class AnaMove(
     path: String,
     chapterId: Option[String],
     promotion: Option[draughts.PromotableRole],
-    puzzle: Option[Boolean]
+    puzzle: Option[Boolean],
+    uci: Option[String]
 ) extends AnaAny {
 
   def branch: Valid[Branch] = {
     val oldGame = draughts.DraughtsGame(variant.some, fen.some)
-    oldGame(orig, dest, promotion) flatMap {
+    val captures = uci.flatMap(Uci.Move.apply).flatMap(_.capture)
+    oldGame(orig, dest, promotion, draughts.MoveMetrics(), captures.isDefined, captures) flatMap {
       case (game, move) => {
         game.pdnMoves.lastOption toValid "Moved but no last move!" map { san =>
           val uci = Uci(move)
@@ -85,6 +87,7 @@ object AnaMove {
     path = path,
     chapterId = d str "ch",
     promotion = d str "promotion" flatMap draughts.Role.promotable,
-    puzzle = d boolean "puzzle"
+    puzzle = d boolean "puzzle",
+    uci = d str "uci"
   )
 }

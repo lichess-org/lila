@@ -544,7 +544,7 @@ export default class AnalyseCtrl {
     }
   }
 
-  sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
+  sendMove = (orig: Key, dest: Key, capture?: JustCaptured, uci?: string): void => {
     const move: any = {
       orig,
       dest,
@@ -553,7 +553,7 @@ export default class AnalyseCtrl {
       path: this.path
     };
     if (capture) this.justCaptured = capture;
-    if (prom) move.promotion = prom;
+    if (uci) move.uci = uci;
     if (this.practice) this.practice.onUserMove();
     const gamebook = this.gamebookPlay();
     if (this.embed && gamebook) {
@@ -928,9 +928,7 @@ export default class AnalyseCtrl {
 
   playUci(uci: Uci): void {
     const move = draughtsUtil.decomposeUci(uci);
-    const capture = this.draughtsground.state.pieces[move[1]];
-    //const promotion = move[2] && draughtsUtil.sanToRole[move[2].toUpperCase()];
-    this.sendMove(move[0], move[1], capture, undefined);
+    this.sendMove(move[0], move[move.length - 1], undefined, move.length > 2 ? uci : undefined);
   }
 
   explorerMove(uci: Uci) {
