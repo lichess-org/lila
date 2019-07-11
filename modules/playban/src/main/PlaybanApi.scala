@@ -44,7 +44,7 @@ final class PlaybanApi(
 
   private def roughWinEstimate(game: Game, color: Color) = {
     (game.chess.board.materialImbalance, game.variant) match {
-      case (_, chess.variant.Antichess) | (_, chess.variant.Horde) => 0
+      case (_, chess.variant.Antichess) | (_, chess.variant.Horde) | (_, chess.variant.Crazyhouse) => 0
       case (a, _) if a >= 5 => 1
       case (a, _) if a <= -5 => -1
       case _ => 0
