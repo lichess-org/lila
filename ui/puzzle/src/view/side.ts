@@ -9,7 +9,7 @@ function strong(txt) {
 }
 
 function hidden() {
-  return '<span class="hidden">[hidden]</span>';
+  return '<span class="hidden">???</span>';
 }
 
 export function puzzleBox(ctrl: Controller) {
