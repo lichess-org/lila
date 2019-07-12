@@ -97,7 +97,8 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
         el.removeAttribute('placeholder');
         if (!pub) el.classList.toggle('whisper', !!txt.match(whisperRegex));
       }
-    }))
+    })
+  );
 
   window.Mousetrap.bind('c', () => {
     chatEl.focus();
