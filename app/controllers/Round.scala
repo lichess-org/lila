@@ -21,7 +21,7 @@ object Round extends LidraughtsController with TheftPrevention {
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
-          val userTv = get("userTv") map { userId =>
+          val userTv = get("userTv") map UserModel.normalize map { userId =>
             val userTvGameId = ~get("gameId")
             lidraughts.round.actorApi.UserTv(
               userId,
