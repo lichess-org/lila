@@ -28,9 +28,7 @@ final class EvalCacheSocketHandler(
       JsonHandlers.readPut(tu, o) foreach { api.put(tu, _, uid) }
     }
 
-    case ("evalGet", o) => o obj "d" foreach { d =>
-      evalGet(uid, d, res => member push Socket.makeMessage("evalHit", res))
-    }
+    case ("evalGet", o) => o obj "d" foreach { evalGet(uid, _, member.push) }
   }
 
   private[evalCache] def evalGet(
@@ -43,12 +41,13 @@ final class EvalCacheSocketHandler(
     multiPv = (d int "mpv") | 1
     path <- d str "path"
   } {
+    def pushData(data: JsObject) = push(Socket.makeMessage("evalHit", data))
     api.getEvalJson(variant, fen, multiPv) foreach {
       _ foreach { json =>
-        push(json + ("path" -> JsString(path)))
+        pushData(json + ("path" -> JsString(path)))
       }
     }
-    if (d.value contains "up") upgrade.register(uid, variant, fen, multiPv, path)(push)
+    if (d.value contains "up") upgrade.register(uid, variant, fen, multiPv, path)(pushData)
   }
 
   private[evalCache] def untrustedEvalPut(uid: Socket.Uid, userId: User.ID, data: JsObject): Unit =
