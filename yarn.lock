@@ -954,9 +954,9 @@ chessground@^4.4:
     mithril "github:ornicar/mithril.js#v1.0.1"
 
 chessground@^7.6:
-  version "7.6.4"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.4.tgz#bfce828eb90a90887193ce413947e7a29a75f836"
-  integrity sha512-ktG74VM4eOlOjljAzhq7MVTRiUUdxca+kXnbG5kSHEGkqvWA35a6KZxndVHw+397XgJNTr5pDljDUpeqQ7Lx0w==
+  version "7.6.5"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.5.tgz#17892411f18e04ad15667c14eff934411d17a9ad"
+  integrity sha512-WXs6OKANrs7Bka99wpxy+vj1S4J5p+XyhMysKeMPDEIm21DoTFFmdBro6XLJ7MTVQmLkK+HWKRLyZaEHJjzgSg==
 
 chokidar@^2.0.0, chokidar@^2.0.4, chokidar@^2.1.1:
   version "2.1.6"
@@ -5123,9 +5123,9 @@ stockfish.pexe@^10.1.0:
   integrity sha512-dn0X7NrpFxg8Uz+bMy0gsi5hGejHb8cBsSjFKblqO1FXbpMxdRWt1IdXKDrJ0h6r4mBHkZkn6HGv5rnrxLbJ5A==
 
 stockfish.wasm@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.5.6.tgz#33d11461e031aa6d173eca0c4eecc95416353f7a"
-  integrity sha512-az9RqOXWubww3biulSyWruk0EmGMujF0GwdU6oD4HDjdNUf8RK3a7Ok4NpyOBGBvADLYbYZ4OiufCj48h5W+1A==
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.5.7.tgz#d50f620dc8e26ae173ed0d417f0ecca6066f4492"
+  integrity sha512-wDkhaA+wy0GzOlb8RDCZXQa6yK2+eDGlXd2n9piEE6hYyL562pK6NbsbBKdbI6T9vOsS+finDH6AKOjoKszzLg==
 
 stream-browserify@^2.0.0:
   version "2.0.2"
