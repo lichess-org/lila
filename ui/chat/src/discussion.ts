@@ -5,7 +5,7 @@ import * as spam from './spam'
 import enhance from './enhance';
 import { presetView } from './preset';
 import { lineAction } from './moderation';
-import { userLink, bind } from './util';
+import { userLink } from './util';
 
 const whisperRegex = /^\/w(?:hisper)?\s/;
 
@@ -69,7 +69,17 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
       maxlength: 140,
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable
     },
-    hook: bind('keypress', (e: KeyboardEvent) => setTimeout(() => {
+    hook: {
+      insert(vnode) {
+        setupHooks(ctrl, vnode.elm as HTMLElement);
+      }
+    }
+  });
+}
+
+const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
+  chatEl.addEventListener('keypress',
+    (e: KeyboardEvent) => setTimeout(() => {
       const el = e.target as HTMLInputElement,
       txt = el.value,
       pub = ctrl.opts.public;
@@ -88,8 +98,14 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
         if (!pub) el.classList.toggle('whisper', !!txt.match(whisperRegex));
       }
     }))
+
+  window.Mousetrap.bind('c', () => {
+    chatEl.focus();
+    return false;
   });
-}
+
+  window.Mousetrap(chatEl).bind('esc', () => chatEl.blur());
+};
 
 function sameLines(l1: Line, l2: Line) {
   return l1.d && l2.d && l1.u === l2.u;
