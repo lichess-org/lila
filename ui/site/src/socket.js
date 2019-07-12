@@ -291,7 +291,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
 try {
   const data = window.crypto.getRandomValues(new Uint8Array(9));
   lidraughts.StrongSocket.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
-} catch() {
+} catch(_) {
   lidraughts.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 }
 
