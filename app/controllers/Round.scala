@@ -21,7 +21,7 @@ object Round extends LilaController with TheftPrevention {
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
-          val userTv = get("userTv") map { userId =>
+          val userTv = get("userTv") map UserModel.normalize map { userId =>
             lila.round.actorApi.UserTv(
               userId,
               pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
