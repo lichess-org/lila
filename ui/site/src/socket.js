@@ -283,23 +283,11 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 };
 
-{
-  let sri = null; // lichess.tempStorage.get('socket.sri');
-  if (!sri) {
-    try {
-      if (window.crypto !== undefined) {
-        const data = window.crypto.getRandomValues(new Uint8Array(9));
-        sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
-      }
-    } catch(e) {
-      $.post('/nlog/sriCrypto?e=' + encodeURIComponent(JSON.stringify(e)));
-    }
-    if (!sri) {
-      sri = Math.random().toString(36).slice(2, 12);
-    }
-    // lichess.tempStorage.set('socket.sri', sri);
-  }
-  lichess.StrongSocket.sri = sri;
+try {
+  const data = window.crypto.getRandomValues(new Uint8Array(9));
+  lichess.StrongSocket.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
+} catch() {
+  lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 }
 
 lichess.StrongSocket.defaults = {
