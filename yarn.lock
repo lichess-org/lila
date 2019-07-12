@@ -5122,7 +5122,7 @@ stockfish.pexe@^10.1.0:
   resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-10.1.0.tgz#5c585f2b974fdc13bf9928bf2878ba09ce7d9691"
   integrity sha512-dn0X7NrpFxg8Uz+bMy0gsi5hGejHb8cBsSjFKblqO1FXbpMxdRWt1IdXKDrJ0h6r4mBHkZkn6HGv5rnrxLbJ5A==
 
-stockfish.wasm@^0.5.6:
+stockfish.wasm@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.5.7.tgz#d50f620dc8e26ae173ed0d417f0ecca6066f4492"
   integrity sha512-wDkhaA+wy0GzOlb8RDCZXQa6yK2+eDGlXd2n9piEE6hYyL562pK6NbsbBKdbI6T9vOsS+finDH6AKOjoKszzLg==
