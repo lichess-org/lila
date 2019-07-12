@@ -97,6 +97,7 @@ object EvalCacheEntry {
 
   case class Trust(value: Double) extends AnyVal {
     def isTooLow = value <= 0
+    def isEnough = !isTooLow
   }
 
   case class TrustedUser(trust: Trust, user: User)

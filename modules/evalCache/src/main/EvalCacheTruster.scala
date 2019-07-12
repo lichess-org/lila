@@ -1,13 +1,14 @@
 package lila.evalCache
 
+import scala.concurrent.duration._
 import org.joda.time.{ DateTime, Days }
 
 import lila.security.Granter
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
-private final class EvalCacheTruster {
+private final class EvalCacheTruster(asyncCache: lila.memo.AsyncCache.Builder) {
 
-  import EvalCacheEntry.Trust
+  import EvalCacheEntry.{ Trust, TrustedUser }
 
   private val LOWER = Trust(-9999)
   private val HIGHER = Trust(9999)
@@ -22,9 +23,18 @@ private final class EvalCacheTruster {
         nbGamesBonus(user)
     }
 
-  def makeTrusted(user: User) = EvalCacheEntry.TrustedUser(apply(user), user)
+  private val userIdCache = asyncCache.multi[User.ID, Option[TrustedUser]](
+    name = "evalCache.userIdTrustCache  ",
+    f = userId => UserRepo named userId map2 makeTrusted,
+    expireAfter = _.ExpireAfterWrite(10 minutes),
+    resultTimeout = 10 seconds
+  )
 
-  def shouldPut(user: User) = !apply(user).isTooLow
+  def cachedTrusted(userId: User.ID): Fu[Option[TrustedUser]] = userIdCache get userId
+
+  def makeTrusted(user: User) = TrustedUser(apply(user), user)
+
+  def shouldPut(user: User) = apply(user).isEnough
 
   // 0 days = -1
   // 1 month = 0

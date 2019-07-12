@@ -102,12 +102,13 @@ private final class RemoteSocket(
       }
       case _ =>
     }
-    case In.TellSri => args.split(" ", 2) match {
-      case Array(sri, payload) => for {
+    case In.TellSri => args.split(" ", 3) match {
+      case Array(sri, userOrAnon, payload) => for {
         obj <- Json.parse(payload).asOpt[JsObject]
         typ <- obj str "t"
         dat <- obj obj "d"
-      } bus.publish(RemoteSocketTellSriIn(sri, dat), Symbol(s"remoteSocketIn:$typ"))
+        userId = userOrAnon.some.filter("-" !=)
+      } bus.publish(RemoteSocketTellSriIn(sri, userId, dat), Symbol(s"remoteSocketIn:$typ"))
       case a => logger.warn(s"Invalid tell/sri $args")
     }
     case path =>

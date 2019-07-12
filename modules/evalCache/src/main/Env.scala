@@ -16,9 +16,9 @@ final class Env(
 
   private val CollectionEvalCache = config getString "collection.eval_cache"
 
-  private lazy val truster = new EvalCacheTruster
+  private lazy val truster = new EvalCacheTruster(asyncCache)
 
-  private lazy val upgrade = new EvalCacheUpgrade(asyncCache)
+  private lazy val upgrade = new EvalCacheUpgrade
 
   lazy val api = new EvalCacheApi(
     coll = db(CollectionEvalCache),
@@ -36,10 +36,17 @@ final class Env(
   system.lilaBus.subscribeFun('socketLeave) {
     case lila.socket.actorApi.SocketLeave(uid, _) => upgrade unregister uid
   }
+
+  // remote socket support
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
-    case RemoteSocketTellSriIn(sri, d) =>
+    case RemoteSocketTellSriIn(sri, _, d) =>
       socketHandler.evalGet(Uid(sri), d, res => system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut))
   }
+  system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
+    case RemoteSocketTellSriIn(sri, Some(userId), d) =>
+      socketHandler.untrustedEvalPut(Uid(sri), userId, d)
+  }
+  // END remote socket support
 
   def cli = new lila.common.Cli {
     def process = {
