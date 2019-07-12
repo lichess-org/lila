@@ -76,7 +76,7 @@
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">Two million OTB games, by 2200+ FIDE rated players, from 1952 to 2016</string>
+  <string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
@@ -120,7 +120,7 @@
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s players</item>
+    <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
@@ -166,7 +166,7 @@
   <string name="usernameOrEmail">User name or email</string>
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of your username.</string>
+  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
@@ -260,7 +260,7 @@
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Give %s seconds</item>
+    <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
   <string name="giveMoreTime">Give more time</string>
