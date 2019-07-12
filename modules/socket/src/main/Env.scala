@@ -40,14 +40,6 @@ final class Env(
     default = false,
     text = "Send extra debugging to websockets.".some
   )
-
-  import lila.memo.SettingStore.Regex._
-  import lila.memo.SettingStore.Formable.regexFormable
-  val socketRemoteUsersSetting = settingStore[scala.util.matching.Regex](
-    "socketRemoteUsers",
-    default = "".r,
-    text = "Regex selecting user IDs using remote socket".some
-  )
 }
 
 object Env {
