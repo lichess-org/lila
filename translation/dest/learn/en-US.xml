@@ -105,7 +105,7 @@ by taking the attacking piece.</string>
 through your defenses!</string>
   <string name="escapeOrBlock">Escape with the king
 or block the attack!</string>
-  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
   <string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
@@ -199,7 +199,7 @@ Knight = 3
 Pawn = 1</string>
   <string name="checkInTwo">Check in two</string>
   <string name="twoMovesToGiveCheck">Two moves to give a check</string>
-  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent king!</string>
+  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
   <string name="checkInTwoGoal">Threaten the opponent\'s king
 in two moves!</string>
   <string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
