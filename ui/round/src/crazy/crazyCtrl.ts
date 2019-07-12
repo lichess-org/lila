@@ -92,4 +92,19 @@ export function init(ctrl: RoundController) {
       }
     }, 'keyup');
   }
+
+  const resetKeys = () => {
+    if (crazyKeys.length > 0) {
+      crazyKeys.length = 0;
+      setDrop();
+    }
+  };
+
+  window.addEventListener('blur', resetKeys);
+
+  // Handle focus on input bars – these will hide keyup events
+  window.addEventListener('focus', (e) => {
+    if (e.target && (e.target as HTMLElement).localName === 'input')
+      resetKeys();
+  }, { capture: true });
 }
