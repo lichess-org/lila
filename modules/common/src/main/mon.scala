@@ -113,6 +113,7 @@ object mon {
       val hit = incX("eval_Cache.upgrade.hit")
       val members = rec("eval_Cache.upgrade.members")
       val evals = rec("eval_Cache.upgrade.evals")
+      val expirable = rec("eval_Cache.upgrade.expirable")
     }
   }
   object lobby {

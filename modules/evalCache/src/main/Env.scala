@@ -2,6 +2,7 @@ package lila.evalCache
 
 import com.typesafe.config.Config
 import play.api.libs.json.JsValue
+import scala.concurrent.duration._
 
 import lila.hub.actorApi.socket.{ RemoteSocketTellSriIn, RemoteSocketTellSriOut }
 import lila.socket.Socket.Uid
