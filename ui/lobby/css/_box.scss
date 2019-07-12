@@ -37,6 +37,13 @@
       &:first-child {
         padding-left: .7em;
       }
+      &.name .text {
+        font-weight: bold;
+        color: $c-font;
+        &:hover {
+          color: $c-link;
+        }
+      }
     }
     tr:nth-child(even) {
       background: $c-bg-zebra;
