@@ -588,19 +588,18 @@ computer analysis, game chat and shareable URL.</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
-  <string name="biographyDescription">Tell about you, what you like in chess, your favourite openings, games, players…</string>
+  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favorite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum: %s characters.</item>
+    <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blocks</item>
+    <item quantity="one">%s block</item>
     <item quantity="other">%s blocks</item>
   </plurals>
   <string name="listBlockedPlayers">List players you have blocked</string>
@@ -699,7 +698,7 @@ in %3$s</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">One %2$s player this week.</item>
+    <item quantity="one">%1$s %2$s player this week.</item>
     <item quantity="other">%1$s %2$s players this week.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
