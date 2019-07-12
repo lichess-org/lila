@@ -104,7 +104,6 @@ abstract class SocketTrouper[M <: SocketMember](
   // this function is called when a member joins,
   // to prevent duplicate UID
   private final def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
-    member.end
     quit(uid, member)
   }
 

@@ -21,7 +21,7 @@ private[simul] final class Socket(
     lightUser: lila.common.LightUser.Getter,
     uidTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[SimulMember](system, uidTtl) with Historical[SimulSocketMember, Messadata] {
 
   lilaBus.subscribe(this, chatClassifier)
 

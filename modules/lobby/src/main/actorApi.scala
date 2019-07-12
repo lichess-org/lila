@@ -4,7 +4,7 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.SocketMember
+import lila.socket.DirectSocketMember
 import lila.socket.Socket.{ Uid, Uids }
 import lila.user.User
 
@@ -13,7 +13,7 @@ private[lobby] case class Member(
     user: Option[LobbyUser],
     uid: Uid,
     mobile: Boolean
-) extends SocketMember {
+) extends DirectSocketMember {
 
   val userId = user.map(_.id)
 }

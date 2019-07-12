@@ -2,25 +2,18 @@ package lila.simul
 package actorApi
 
 import scala.concurrent.Promise
+import play.api.libs.json.JsObject
 
 import lila.game.Game
 import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.socket.SocketMember
 import lila.user.User
 
-private[simul] case class Member(
-    channel: JsChannel,
+private[simul] case class SimulMember(
+    push: JsObject => Unit,
     userId: Option[String],
     troll: Boolean
-) extends SocketMember
-
-private[simul] object Member {
-  def apply(channel: JsChannel, user: Option[User]): Member = Member(
-    channel = channel,
-    userId = user map (_.id),
-    troll = user.??(_.troll)
-  )
-}
+)
 
 private[simul] case class Messadata(trollish: Boolean = false)
 
@@ -36,7 +29,7 @@ private[simul] case class StartSimul(firstGame: Game, hostId: String)
 private[simul] case class HostIsOn(gameId: String)
 private[simul] case object Reload
 private[simul] case object Aborted
-private[simul] case class Connected(enumerator: JsEnumerator, member: Member)
+private[simul] case class Connected(member: SimulMember)
 
 private[simul] case object NotifyCrowd
 
