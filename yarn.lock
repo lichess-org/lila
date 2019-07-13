@@ -954,9 +954,9 @@ chessground@^4.4:
     mithril "github:ornicar/mithril.js#v1.0.1"
 
 chessground@^7.6:
-  version "7.6.7"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.7.tgz#521f04c8eb54f6b2c07ac8aace378e1567f17326"
-  integrity sha512-o9UQ+A4fFJAk19t0vKFI6ti7ZR8sY6FpiQf5zIQ+fZ+woTNR+fkuUKVzzhuIowsBML8KKFAdNzg2ujFQwYDODw==
+  version "7.6.8"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.8.tgz#e971cf77375530d17a764e54aa3c393c647ca9d9"
+  integrity sha512-8Yj9e7qnmunRguPWLeTyPLJJb6mcAyb1JihacqT3aMDTQbKMyBr2w93VAakvlJGDRB1pJsliR7bBl2FfUl08mw==
 
 chokidar@^2.0.0, chokidar@^2.0.4, chokidar@^2.1.1:
   version "2.1.6"
