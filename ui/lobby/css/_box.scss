@@ -42,7 +42,7 @@
       }
       &.name a {
         font-weight: bold;
-        color: $c-font;
+        color: $c-font-dim;
         @include transition(color);
         &:hover {
           color: $c-link;
